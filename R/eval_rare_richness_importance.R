@@ -20,16 +20,16 @@ NULL
 #'   terms. Let \eqn{I} denote the set of planning units (indexed by
 #'   \eqn{i}), let \eqn{J} denote the set of conservation features (indexed by
 #'   \eqn{j}), let \eqn{r_{ij}} denote the amount of feature \eqn{j}
-#'   associated with planning unit \eqn{i}, and let \eqn{M_j} denote the
+#'   associated with planning unit \eqn{i}, and let \eqn{m_j} denote the
 #'   maximum value of feature \eqn{j} in \eqn{r_{ij}} in all planning units
 #'   \eqn{i \in I}. To calculate the rarity weighted richness (*RWR*) for
 #'   planning unit \eqn{k}:
 #'
 #'   \deqn{
-#'   \mathit{RWR}_{k} = \sum_{j}^{J} \frac{ \frac{r_{kj}}{M_j} }{
-#'                                           \sum_{i}^{I} r_{ij}}
+#'   \mathit{RWR}_{k} = \sum_{j}^{J} \frac{ \frac{r_{ik}}{m_j} }{
+#'                                           \sum_{i}^{I}r_{ij}}
 #'   }{
-#'   RWRk = sum_j^J ( (rkj / Mj) / sum_i^I rij)
+#'   RWRk = sum_j^J ( (rik / mj) / sum_i^I rij)
 #'   }
 #'
 #' @inheritSection eval_cost_summary Solution format
@@ -37,19 +37,20 @@ NULL
 #' @inherit eval_replacement_importance return
 #'
 #' @examples
+#' \dontrun{
 #' # seed seed for reproducibility
 #' set.seed(600)
 #'
 #' # load data
-#' data(sim_pu_raster, sim_features)
+#' data(sim_pu_raster, sim_pu_sf, sim_features)
 #'
-#' # create minimal problem with binary decisions
+#' # create minimal problem with raster planning units
 #' p1 <- problem(sim_pu_raster, sim_features) %>%
 #'       add_min_set_objective() %>%
 #'       add_relative_targets(0.1) %>%
 #'       add_binary_decisions() %>%
 #'       add_default_solver(gap = 0, verbose = FALSE)
-#' \dontrun{
+#'
 #' # solve problem
 #' s1 <- solve(p1)
 #'
@@ -67,6 +68,28 @@ NULL
 #'
 #' # plot importance scores
 #' plot(rwr1, main = "rarity weighted richness", axes = FALSE, box = FALSE)
+#'
+#' # create minimal problem with polygon (sf) planning units
+#' p2 <- problem(sim_pu_sf, sim_features, cost_column = "cost") %>%
+#'       add_min_set_objective() %>%
+#'       add_relative_targets(0.05) %>%
+#'       add_binary_decisions() %>%
+#'       add_default_solver(gap = 0, verbose = FALSE)
+#'
+#' # solve problem
+#' s2 <- solve(p2)
+#'
+#' # print solution
+#' print(s2)
+#'
+#' # plot solution
+#' plot(s2[, "solution_1"], main = "solution")
+#'
+#' # calculate importance scores
+#' rwr2 <- eval_rare_richness_importance(p2, s2[, "solution_1"])
+#'
+#' # plot importance scores
+#' plot(rwr2, main = "rarity weighted richness")
 #' }
 #'
 #' @references
@@ -97,26 +120,19 @@ methods::setMethod("eval_rare_richness_importance",
   function(x, solution, rescale = TRUE, ...) {
     # assert valid arguments
     assertthat::assert_that(
-      is.numeric(solution), sum(solution, na.rm = TRUE) > 1e-10,
-      is.numeric(x$data$cost), is.matrix(x$data$cost),
-      number_of_total_units(x) == length(solution),
-      number_of_zones(x) == 1,
-      min(solution, na.rm = TRUE) >= 0,
-      max(solution, na.rm = TRUE) <= 1,
+      is.numeric(solution),
       no_extra_arguments(...))
-    # subset planning units with finite cost values
-    pos <- x$planning_unit_indices()
-    pos2 <- which(!is.na(solution))
-    if (!setequal(pos, pos2))
-      stop("planning units with NA cost data must have NA allocations in the",
-           " solution")
-    # calculate replacement costs
-    indices <- which(solution[pos] > 1e-10)
-    rc <- internal_eval_rare_richness_importance(x, indices, rescale)
-    # return replacement costs
+    # extract planning unit solution status
+    status <- planning_unit_solution_status(x, solution)
+    # extract indices
+    idx <- x$planning_unit_indices()
+    pos <- which(status > 1e-10)
+    # calculate scores
+    v <- internal_eval_rare_richness_importance(x, pos, rescale)
+    # return scores
     out <- rep(NA_real_, x$number_of_total_units())
-    out[pos] <- 0
-    out[pos[indices]] <- c(rc)
+    out[idx] <- 0
+    out[idx[pos]] <- c(v)
     out
 })
 
@@ -129,36 +145,20 @@ methods::setMethod("eval_rare_richness_importance",
     # assert valid arguments
     assertthat::assert_that(
       is.matrix(solution), is.numeric(solution),
-      is.matrix(x$data$cost), is.numeric(x$data$cost),
-      sum(solution, na.rm = TRUE) > 1e-10,
-      number_of_total_units(x) == nrow(solution),
       number_of_zones(x) == 1,
-      min(solution, na.rm = TRUE) >= 0,
-      max(solution, na.rm = TRUE) <= 1,
       no_extra_arguments(...))
-    # subset planning units with finite cost values
-    pos <- x$planning_unit_indices()
-    pos2 <- which(rowSums(is.na(solution)) != ncol(solution))
-    if (!setequal(pos, pos2))
-      stop("planning units with NA cost data must have NA allocations in the",
-           " solution")
-    solution_pu <- solution[pos, , drop = FALSE]
-    if (!all(is.na(c(x$planning_unit_costs())) == is.na(c(solution_pu))))
-     stop("planning units with NA cost data must have NA allocations in the",
-          " solution")
-    # calculate replacement costs
-    indices <- which(solution_pu > 1e-10)
-    rc <- internal_eval_rare_richness_importance(x, indices, rescale)
-    # return replacement costs
-    out <- matrix(0, nrow = x$number_of_total_units(),
-                  ncol = x$number_of_zones())
-    if (x$number_of_zones() > 1) {
-      colnames(out) <- paste0("rwr_", x$zone_names())
-    } else {
-      colnames(out) <- "rwr"
-    }
-    out[which(is.na(as.matrix(x$data$cost)))] <- NA_real_
-    out[which(solution > 1e-10)] <- rc
+    # extract planning unit solution status
+    status <- planning_unit_solution_status(x, solution)
+    # extract indices
+    idx <- x$planning_unit_indices()
+    pos <- which(status > 1e-10)
+    # calculate scores
+    v <- internal_eval_rare_richness_importance(x, pos, rescale)
+    # return scores
+    out <- matrix(NA_real_, nrow = x$number_of_total_units(),
+                  ncol = 1, dimnames = list(NULL, "rwr"))
+    out[idx, ] <- 0
+    out[idx[pos], ] <- c(v)
     out
 })
 
@@ -171,40 +171,20 @@ methods::setMethod("eval_rare_richness_importance",
     # assert valid arguments
     assertthat::assert_that(
       is.data.frame(solution),
-      is.data.frame(x$data$cost),
-      sum(as.matrix(solution), na.rm = TRUE) >= 1e-10,
       number_of_zones(x) == 1,
-      number_of_total_units(x) == nrow(solution),
-      is.numeric(unlist(solution)),
-      min(unlist(solution), na.rm = TRUE) >= 0,
-      max(unlist(solution), na.rm = TRUE) <= 1,
       no_extra_arguments(...))
-    # subset planning units with finite cost values
-    solution_matrix <- as.matrix(solution)
-    pos <- x$planning_unit_indices()
-    pos2 <- which(rowSums(is.na(solution_matrix)) != ncol(solution_matrix))
-    if (!setequal(pos, pos2))
-      stop("planning units with NA cost data must have NA allocations in the",
-           " solution")
-    solution_pu <- solution_matrix[pos, , drop = FALSE]
-    if (!all(is.na(c(x$planning_unit_costs())) == is.na(c(solution_pu))))
-     stop("planning units with NA cost data must have NA allocations in the",
-          " solution")
-    # calculate replacement costs
-    indices <- which(solution_pu > 1e-10)
-    rc <- internal_eval_rare_richness_importance(x, indices, rescale)
-    # return replacement costs
-    out <- matrix(0, nrow = x$number_of_total_units(),
-                  ncol = x$number_of_zones())
-    if (x$number_of_zones() > 1) {
-      colnames(out) <- paste0("rwr_", x$zone_names())
-    } else {
-      colnames(out) <- "rwr"
-    }
-    pos <- which(is.na(as.matrix(as.data.frame(x$data$cost)[,
-      x$data$cost_column, drop = FALSE])))
-    out[pos] <- NA_real_
-    out[which(solution > 1e-10)] <- rc
+    # extract planning unit solution status
+    status <- planning_unit_solution_status(x, solution)
+    # extract indices
+    idx <- x$planning_unit_indices()
+    pos <- which(status > 1e-10)
+    # calculate scores
+    v <- internal_eval_rare_richness_importance(x, pos, rescale)
+    # return scores
+    out <- matrix(NA_real_, nrow = x$number_of_total_units(),
+                  ncol = 1, dimnames = list(NULL, "rwr"))
+    out[idx, ] <- 0
+    out[idx[pos], ] <- c(v)
     tibble::as_tibble(out)
 })
 
@@ -218,39 +198,20 @@ methods::setMethod("eval_rare_richness_importance",
     assertthat::assert_that(
       inherits(solution, c("SpatialPointsDataFrame", "SpatialLinesDataFrame",
                            "SpatialPolygonsDataFrame")),
-      class(x$data$cost)[1] == class(solution)[1],
       number_of_zones(x) == 1,
-      number_of_total_units(x) == nrow(solution@data),
-      is.numeric(unlist(solution@data)),
-      min(unlist(solution@data), na.rm = TRUE) >= 0,
-      max(unlist(solution@data), na.rm = TRUE) <= 1,
       no_extra_arguments(...))
-    # subset planning units with finite cost values
-    solution_matrix <- as.matrix(solution@data)
-    pos <- x$planning_unit_indices()
-    pos2 <- which(rowSums(is.na(solution_matrix)) != ncol(solution_matrix))
-    if (!setequal(pos, pos2))
-      stop("planning units with NA cost data must have NA allocations in the",
-           " solution")
-    solution_pu <- solution_matrix[pos, , drop = FALSE]
-    if (!all(is.na(c(x$planning_unit_costs())) == is.na(c(solution_pu))))
-     stop("planning units with NA cost data must have NA allocations in the",
-          " solution")
-    # calculate replacement costs
-    indices <- which(solution_pu > 1e-10)
-    rc <- internal_eval_rare_richness_importance(x, indices, rescale)
-    # return replacement costs
-    out <- matrix(0, nrow = x$number_of_total_units(),
-                  ncol = x$number_of_zones())
-    if (x$number_of_zones() > 1) {
-      colnames(out) <- paste0("rwr_", x$zone_names())
-    } else {
-      colnames(out) <- "rwr"
-    }
-    pos <- which(is.na(as.matrix(as.data.frame(x$data$cost@data)[,
-      x$data$cost_column, drop = FALSE])))
-    out[pos] <- NA_real_
-    out[which(solution_matrix > 1e-10)] <- rc
+    # extract planning unit solution status
+    status <- planning_unit_solution_status(x, solution)
+    # extract indices
+    idx <- x$planning_unit_indices()
+    pos <- which(status > 1e-10)
+    # calculate scores
+    v <- internal_eval_rare_richness_importance(x, pos, rescale)
+    # return scores
+    out <- matrix(NA_real_, nrow = x$number_of_total_units(),
+                  ncol = 1, dimnames = list(NULL, "rwr"))
+    out[idx, ] <- 0
+    out[idx[pos], ] <- c(v)
     out <- as.data.frame(out)
     rownames(out) <- rownames(solution@data)
     solution@data <- out
@@ -266,43 +227,24 @@ methods::setMethod("eval_rare_richness_importance",
     # assert valid arguments
     assertthat::assert_that(
       inherits(solution, "sf"),
-      inherits(x$data$cost, "sf"))
-    solution2 <- sf::st_drop_geometry(solution)
-    assertthat::assert_that(
       number_of_zones(x) == 1,
-      number_of_total_units(x) == nrow(solution2),
-      is.numeric(unlist(solution2)),
-      min(unlist(solution2), na.rm = TRUE) >= 0,
-      max(unlist(solution2), na.rm = TRUE) <= 1,
       no_extra_arguments(...))
-    # subset planning units with finite cost values
-    solution_matrix <- as.matrix(solution2)
-    pos <- x$planning_unit_indices()
-    pos2 <- which(rowSums(is.na(solution_matrix)) != ncol(solution_matrix))
-    if (!setequal(pos, pos2))
-      stop("planning units with NA cost data must have NA allocations in the",
-           " solution")
-    solution_pu <- solution_matrix[pos, , drop = FALSE]
-    if (!all(is.na(c(x$planning_unit_costs())) == is.na(c(solution_pu))))
-     stop("planning units with NA cost data must have NA allocations in the",
-          " solution")
-    # calculate replacement costs
-    indices <- which(solution_pu > 1e-10)
-    rc <- internal_eval_rare_richness_importance(x, indices, rescale)
-    # return replacement costs
-    out <- matrix(0, nrow = x$number_of_total_units(),
-                  ncol = x$number_of_zones())
-    if (x$number_of_zones() > 1) {
-      colnames(out) <- paste0("rwr_", x$zone_names())
-    } else {
-      colnames(out) <- "rwr"
-    }
-    pos <- which(is.na(as.matrix(as.data.frame(x$data$cost)[,
-      x$data$cost_column, drop = FALSE])))
-    out[pos] <- NA_real_
-    out[which(solution_matrix > 1e-10)] <- rc
-    out <- as.data.frame(out)
-    sf::st_as_sf(sf::st_geometry(x$data$cost), out)
+    # extract planning unit solution status
+    status <- planning_unit_solution_status(x, solution)
+    # extract indices
+    idx <- x$planning_unit_indices()
+    pos <- which(status > 1e-10)
+    # calculate scores
+    v <- internal_eval_rare_richness_importance(x, pos, rescale)
+    # return scores
+    out <- matrix(NA_real_, nrow = x$number_of_total_units(),
+                  ncol = 1, dimnames = list(NULL, "rwr"))
+    out[idx, ] <- 0
+    out[idx[pos], ] <- c(v)
+    out <- tibble::as_tibble(as.data.frame(out))
+    sf::st_as_sf(
+      out, geometry = sf::st_geometry(x$data$cost),
+      crs = sf::st_crs(x$data$cost))
 })
 
 #' @name eval_rare_richness_importance
@@ -313,58 +255,29 @@ methods::setMethod("eval_rare_richness_importance",
   function(x, solution, rescale = TRUE, ...) {
     assertthat::assert_that(
       inherits(solution, "Raster"),
-      inherits(x$data$cost, "Raster"),
       number_of_zones(x) == 1,
-      sf::st_crs(x$data$cost@crs) == sf::st_crs(solution@crs),
-      is_comparable_raster(x$data$cost, solution[[1]]),
-      min(raster::cellStats(solution, "min")) >= 0,
-      max(raster::cellStats(solution, "max")) <= 1,
       no_extra_arguments(...))
-    # subset planning units with finite cost values
-    pos <- x$planning_unit_indices()
-    if (raster::nlayers(solution) > 1) {
-      pos2 <- raster::Which(max(!is.na(solution)) == 1, cells = TRUE)
-    } else {
-      pos2 <- raster::Which(!is.na(solution), cells = TRUE)
-    }
-    if (!setequal(pos, pos2))
-      stop("planning units with NA cost data must have NA allocations in the",
-           " solution")
-    solution_matrix <- solution[pos2]
-    if (!is.matrix(solution_matrix))
-      solution_matrix <- matrix(solution_matrix, ncol = 1)
-    if (!all(is.na(c(x$planning_unit_costs())) == is.na(c(solution_matrix))))
-     stop("planning units with NA cost data must have NA allocations in the",
-          " solution")
-    # calculate replacement costs
-    indices <- which(solution_matrix > 1e-10)
-    rc <- internal_eval_rare_richness_importance(x, indices, rescale)
-    # prepare output
-    rc <- split(rc, which(solution_matrix > 1e-10, arr.ind = TRUE)[, 2])
-    # return result
-    out <- as.list(solution)
-    if (x$number_of_zones() > 1) {
-      names(out) <- paste0("rwr_", x$zone_names())
-    } else {
-      names(out) <- "rwr"
-    }
-    for (i in seq_along(out)) {
-      out[[i]][!is.na(out[[i]])] <- 0
-      out[[i]][solution[[i]] > 1e-10] <- rc[[i]]
-    }
-    if (length(out) > 1) {
-      out <- raster::stack(out)
-    } else {
-      out <- out[[1]]
-    }
+    # extract planning unit solution status
+    status <- planning_unit_solution_status(x, solution)
+    # extract indices
+    idx <- x$planning_unit_indices()
+    pos <- which(status > 1e-10)
+    # calculate scores
+    v <- internal_eval_rare_richness_importance(x, pos, rescale)
+    # return scores
+    out <- x$data$cost[[1]]
+    out[idx] <- 0
+    out[idx[pos]] <- c(v)
+    names(out) <- "rwr"
     out
 })
 
 internal_eval_rare_richness_importance <- function(x, indices, rescale) {
-  assertthat::assert_that(inherits(x, "ConservationProblem"),
-                          x$number_of_zones() == 1,
-                          is.integer(indices), length(indices) > 0,
-                          assertthat::is.flag(rescale))
+  assertthat::assert_that(
+    inherits(x, "ConservationProblem"),
+    number_of_zones(x) == 1,
+    is.integer(indices), length(indices) > 0,
+    assertthat::is.flag(rescale))
   # calculate rarity weighted richness for each selected planning unit
   rs <- x$feature_abundances_in_total_units()
   m <- matrix(apply(x$data$rij_matrix[[1]], 1, max, na.rm = TRUE),

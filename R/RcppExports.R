@@ -149,6 +149,10 @@ rcpp_apply_max_utility_objective <- function(x, abundances, costs, budget) {
     .Call(`_prioritizr_rcpp_apply_max_utility_objective`, x, abundances, costs, budget)
 }
 
+rcpp_apply_min_largest_shortfall_objective <- function(x, targets_list, costs, budget) {
+    .Call(`_prioritizr_rcpp_apply_min_largest_shortfall_objective`, x, targets_list, costs, budget)
+}
+
 rcpp_apply_min_set_objective <- function(x, targets_list, costs) {
     .Call(`_prioritizr_rcpp_apply_min_set_objective`, x, targets_list, costs)
 }

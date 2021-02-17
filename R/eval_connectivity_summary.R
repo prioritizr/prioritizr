@@ -261,7 +261,8 @@ methods::setMethod("eval_connectivity_summary",
       x, planning_unit_solution_status(x, solution), m, NULL)
 })
 
-internal_eval_connectivity_summary <- function(x, solution, zone_scaled_data, data) {
+internal_eval_connectivity_summary <- function(
+  x, solution, zone_scaled_data, data) {
   # assert valid arguments
   assertthat::assert_that(
     inherits(x, "ConservationProblem"),

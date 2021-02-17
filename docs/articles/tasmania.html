@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">6.0.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">6.0.0.1</span>
       </span>
     </div>
 
@@ -273,7 +273,8 @@
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># solve problem</span>
 <span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></code></pre></div>
-<pre><code>## Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
+<pre><code>## Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (linux64)
+## Thread count: 2 physical cores, 4 logical processors, using up to 1 threads
 ## Optimize a model with 6358 rows, 4278 columns and 14496 nonzeros
 ## Model fingerprint: 0x2dc24aac
 ## Variable types: 0 continuous, 4278 integer (4278 binary)
@@ -285,21 +286,21 @@
 ## Found heuristic solution: objective 30263.129158
 ## Found heuristic solution: objective 12512.071934
 ## Presolve removed 1793 rows and 1168 columns
-## Presolve time: 0.06s
+## Presolve time: 0.03s
 ## Presolved: 4565 rows, 3110 columns, 10169 nonzeros
 ## Found heuristic solution: objective 11803.383927
 ## Variable types: 0 continuous, 3110 integer (3110 binary)
 ## Presolved: 4565 rows, 3110 columns, 10169 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.076817e+04, 782 iterations, 0.11 seconds
+## Root relaxation: objective 1.076817e+04, 822 iterations, 0.04 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
 ##      0     0 10768.1736    0  137 11803.3839 10768.1736  8.77%     -    0s
 ## 
-## Explored 0 nodes (782 simplex iterations) in 0.20 seconds
+## Explored 0 nodes (822 simplex iterations) in 0.09 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 3: 11803.4 12512.1 30263.1 
@@ -379,7 +380,8 @@
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># solve problem</span>
 <span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></code></pre></div>
-<pre><code>## Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
+<pre><code>## Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (linux64)
+## Thread count: 2 physical cores, 4 logical processors, using up to 1 threads
 ## Optimize a model with 6358 rows, 4278 columns and 14496 nonzeros
 ## Model fingerprint: 0x2dc24aac
 ## Variable types: 0 continuous, 4278 integer (4278 binary)
@@ -391,21 +393,21 @@
 ## Found heuristic solution: objective 30263.129158
 ## Found heuristic solution: objective 12512.071934
 ## Presolve removed 1793 rows and 1168 columns
-## Presolve time: 0.04s
+## Presolve time: 0.03s
 ## Presolved: 4565 rows, 3110 columns, 10169 nonzeros
 ## Found heuristic solution: objective 11803.383927
 ## Variable types: 0 continuous, 3110 integer (3110 binary)
 ## Presolved: 4565 rows, 3110 columns, 10169 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.076817e+04, 782 iterations, 0.05 seconds
+## Root relaxation: objective 1.076817e+04, 822 iterations, 0.04 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
 ##      0     0 10768.1736    0  137 11803.3839 10768.1736  8.77%     -    0s
 ## 
-## Explored 0 nodes (782 simplex iterations) in 0.11 seconds
+## Explored 0 nodes (822 simplex iterations) in 0.09 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 3: 11803.4 12512.1 30263.1 

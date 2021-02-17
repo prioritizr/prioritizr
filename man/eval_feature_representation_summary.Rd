@@ -80,45 +80,81 @@ and each and every zone, within a conservation planning problem.
 }
 \section{Solution format}{
 
-The argument to \code{solution} must be in the same format as
-the planning unit data in the argument to \code{x}
-(e.g. in terms of data representation, dimensionality, and spatial
-attributes).
-For example, if the planning unit data in \code{x} is a \code{numeric}
-vector, then the argument to \code{solution} must be a \code{numeric} vector
-with the same number of elements.
-Similarly, if the planning units in \code{x} are a \code{data.frame}, then the
-argument to \code{solution} must also be a \code{data.frame} with each
-column corresponding to a different zone, each row corresponding to a
-different planning unit, and cell values corresponding to the solution value.
-Additionally, if the planning unit data in \code{x} is
-a \code{\linkS4class{Raster}} object, then the argument to
-\code{solution} must also be a \code{\linkS4class{Raster}} object with
-the same dimensionality (rows and columns), resolution, extent, and
-coordinate reference system.
-Furthermore, if the planning unit data in \code{x} is a
-\code{\linkS4class{Spatial}} or \code{\link[sf:sf]{sf::sf()}} object then the
-argument to \code{solution} must also be a \code{\linkS4class{Spatial}}
-or \code{\link[sf:sf]{sf::sf()}} object (respectively) with the same spatial information
-(e.g. polygons and coordinate reference system), and contain columns
-corresponding to different zones, and cell values corresponding to the
-solution values.
+Broadly speaking, the argument to \code{solution} must be in the same format as
+the planning unit data in the argument to \code{x}.
+Further details on the correct format are listed separately
+for each of the different planning unit data formats:
 
-The argument to \code{solution} must also have missing (\code{NA}) values for planning
-units that have missing (\code{NA}) cost values.
-In other words, the solution must have missing (\code{NA}) values in the
-same elements, cells, or pixels (depending on the cost data format) as the
-planning unit cost data.
-For example, if the planning unit data are a \code{\linkS4class{Raster}} object,
-then the argument to \code{solution} must have missing (\code{NA}) values in
-the same pixels as the planning unit cost data.
-Similarly, if the planning unit data are a
-\code{\linkS4class{Spatial}}, \code{\link[sf:sf]{sf::sf()}}, or \code{data.frame} object, then
-the solution must have missing (\code{NA}) values in the same cells
-as the planning unit cost data columns.
-If an argument is supplied to \code{solution} where
-the missing (\code{NA}) values in the argument to solution do not match
-those in the planning unit cost data, then an error will be thrown.
+\describe{
+
+\item{\code{x} has \code{numeric} planning units}{The argument to \code{solution} must be a
+\code{numeric} vector with each element corresponding to a different planning
+unit. It should have the same number of planning units as those
+in the argument to \code{x}. Additionally, any planning units missing
+cost (\code{NA}) values should also have missing (\code{NA}) values in the
+argument to \code{solution}.
+}
+
+\item{\code{x} has \code{matrix} planning units}{The argument to \code{solution} must be a
+\code{matrix} vector with each row corresponding to a different planning
+unit, and each column correspond to a different management zone.
+It should have the same number of planning units and zones
+as those in the argument to \code{x}. Additionally, any planning units
+missing cost (\code{NA}) values for a particular zone should also have a
+missing (\code{NA}) values in the argument to \code{solution}.
+}
+
+\item{\code{x} has \code{\linkS4class{Raster}} planning units}{The argument to \code{solution}
+be a \code{\linkS4class{Raster}} object where different grid cells (pixels) correspond
+to different planning units and layers correspond to
+a different management zones. It should have the same dimensionality
+(rows, columns, layers), resolution, extent, and coordinate reference
+system as the planning units in the argument to \code{x}. Additionally,
+any planning units missing cost (\code{NA}) values for a particular zone
+should also have missing (\code{NA})  values in the argument to \code{solution}.
+}
+
+\item{\code{x} has \code{data.frame} planning units}{The argument to \code{solution} must
+be a \code{data.frame} with each column corresponding to a different zone,
+each row corresponding to a different planning unit, and cell values
+corresponding to the solution value. This means that if a \code{data.frame}
+object containing the solution also contains additional columns, then
+these columns will need to be subsetted prior to using this function
+(see below for example with \code{\link[sf:sf]{sf::sf()}} data).
+Additionally, any planning units missing cost
+(\code{NA}) values for a particular zone should also have missing (\code{NA})
+values in the argument to \code{solution}.
+}
+
+\item{\code{x} has \code{\linkS4class{Spatial}} planning units}{The argument to \code{solution}
+must be a \code{\linkS4class{Spatial}} object with each column corresponding to a
+different zone, each row corresponding to a different planning unit, and
+cell values corresponding to the solution value. This means that if the
+\code{\linkS4class{Spatial}} object containing the solution also contains additional
+columns, then these columns will need to be subsetted prior to using this
+function (see below for example with \code{\link[sf:sf]{sf::sf()}} data).
+Additionally, the argument to \code{solution} must also have the same
+coordinate reference system as the planning unit data.
+Furthermore, any planning units missing cost
+(\code{NA}) values for a particular zone should also have missing (\code{NA})
+values in the argument to \code{solution}.
+}
+
+\item{\code{x} has \code{\link[sf:sf]{sf::sf()}} planning units}{The argument to \code{solution} must be
+a \code{\link[sf:sf]{sf::sf()}} object with each column corresponding to a different
+zone, each row corresponding to a different planning unit, and cell values
+corresponding to the solution value. This means that if the
+\code{\link[sf:sf]{sf::sf()}} object containing the solution also contains additional
+columns, then these columns will need to be subsetted prior to using this
+function (see below for example).
+Additionally, the argument to \code{solution} must also have the same
+coordinate reference system as the planning unit data.
+Furthermore, any planning units missing cost
+(\code{NA}) values for a particular zone should also have missing (\code{NA})
+values in the argument to \code{solution}.
+}
+
+}
 }
 
 \examples{

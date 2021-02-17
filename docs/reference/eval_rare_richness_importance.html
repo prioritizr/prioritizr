@@ -105,7 +105,7 @@ limitations." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">6.0.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">6.0.0.1</span>
       </span>
     </div>
 
@@ -256,56 +256,88 @@ same format as the planning unit data in the argument to <code>x</code>.</p>
 terms. Let \(I\) denote the set of planning units (indexed by
 \(i\)), let \(J\) denote the set of conservation features (indexed by
 \(j\)), let \(r_{ij}\) denote the amount of feature \(j\)
-associated with planning unit \(i\), and let \(M_j\) denote the
+associated with planning unit \(i\), and let \(m_j\) denote the
 maximum value of feature \(j\) in \(r_{ij}\) in all planning units
 \(i \in I\). To calculate the rarity weighted richness (<em>RWR</em>) for
 planning unit \(k\):</p>
 <p>$$
-  \mathit{RWR}_{k} = \sum_{j}^{J} \frac{ \frac{r_{kj}}{M_j} }{
-                                          \sum_{i}^{I} r_{ij}}
+  \mathit{RWR}_{k} = \sum_{j}^{J} \frac{ \frac{r_{ik}}{m_j} }{
+                                          \sum_{i}^{I}r_{ij}}
   $$</p>
     <h2 class="hasAnchor" id="solution-format"><a class="anchor" href="#solution-format"></a>Solution format</h2>
 
     
 
-<p>The argument to <code>solution</code> must be in the same format as
-the planning unit data in the argument to <code>x</code>
-(e.g. in terms of data representation, dimensionality, and spatial
-attributes).
-For example, if the planning unit data in <code>x</code> is a <code>numeric</code>
-vector, then the argument to <code>solution</code> must be a <code>numeric</code> vector
-with the same number of elements.
-Similarly, if the planning units in <code>x</code> are a <code>data.frame</code>, then the
-argument to <code>solution</code> must also be a <code>data.frame</code> with each
-column corresponding to a different zone, each row corresponding to a
-different planning unit, and cell values corresponding to the solution value.
-Additionally, if the planning unit data in <code>x</code> is
-a <code>Raster</code> object, then the argument to
-<code>solution</code> must also be a <code>Raster</code> object with
-the same dimensionality (rows and columns), resolution, extent, and
-coordinate reference system.
-Furthermore, if the planning unit data in <code>x</code> is a
-<code>Spatial</code> or <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code> object then the
-argument to <code>solution</code> must also be a <code>Spatial</code>
-or <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code> object (respectively) with the same spatial information
-(e.g. polygons and coordinate reference system), and contain columns
-corresponding to different zones, and cell values corresponding to the
-solution values.</p>
-<p>The argument to <code>solution</code> must also have missing (<code>NA</code>) values for planning
-units that have missing (<code>NA</code>) cost values.
-In other words, the solution must have missing (<code>NA</code>) values in the
-same elements, cells, or pixels (depending on the cost data format) as the
-planning unit cost data.
-For example, if the planning unit data are a <code>Raster</code> object,
-then the argument to <code>solution</code> must have missing (<code>NA</code>) values in
-the same pixels as the planning unit cost data.
-Similarly, if the planning unit data are a
-<code>Spatial</code>, <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code>, or <code>data.frame</code> object, then
-the solution must have missing (<code>NA</code>) values in the same cells
-as the planning unit cost data columns.
-If an argument is supplied to <code>solution</code> where
-the missing (<code>NA</code>) values in the argument to solution do not match
-those in the planning unit cost data, then an error will be thrown.</p>
+<p>Broadly speaking, the argument to <code>solution</code> must be in the same format as
+the planning unit data in the argument to <code>x</code>.
+Further details on the correct format are listed separately
+for each of the different planning unit data formats:</p>
+<dl>
+
+<dt><code>x</code> has <code>numeric</code> planning units</dt><dd><p>The argument to <code>solution</code> must be a
+<code>numeric</code> vector with each element corresponding to a different planning
+unit. It should have the same number of planning units as those
+in the argument to <code>x</code>. Additionally, any planning units missing
+cost (<code>NA</code>) values should also have missing (<code>NA</code>) values in the
+argument to <code>solution</code>.</p></dd>
+
+<dt><code>x</code> has <code>matrix</code> planning units</dt><dd><p>The argument to <code>solution</code> must be a
+<code>matrix</code> vector with each row corresponding to a different planning
+unit, and each column correspond to a different management zone.
+It should have the same number of planning units and zones
+as those in the argument to <code>x</code>. Additionally, any planning units
+missing cost (<code>NA</code>) values for a particular zone should also have a
+missing (<code>NA</code>) values in the argument to <code>solution</code>.</p></dd>
+
+<dt><code>x</code> has <code>Raster</code> planning units</dt><dd><p>The argument to <code>solution</code>
+be a <code>Raster</code> object where different grid cells (pixels) correspond
+to different planning units and layers correspond to
+a different management zones. It should have the same dimensionality
+(rows, columns, layers), resolution, extent, and coordinate reference
+system as the planning units in the argument to <code>x</code>. Additionally,
+any planning units missing cost (<code>NA</code>) values for a particular zone
+should also have missing (<code>NA</code>)  values in the argument to <code>solution</code>.</p></dd>
+
+<dt><code>x</code> has <code>data.frame</code> planning units</dt><dd><p>The argument to <code>solution</code> must
+be a <code>data.frame</code> with each column corresponding to a different zone,
+each row corresponding to a different planning unit, and cell values
+corresponding to the solution value. This means that if a <code>data.frame</code>
+object containing the solution also contains additional columns, then
+these columns will need to be subsetted prior to using this function
+(see below for example with <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code> data).
+Additionally, any planning units missing cost
+(<code>NA</code>) values for a particular zone should also have missing (<code>NA</code>)
+values in the argument to <code>solution</code>.</p></dd>
+
+<dt><code>x</code> has <code>Spatial</code> planning units</dt><dd><p>The argument to <code>solution</code>
+must be a <code>Spatial</code> object with each column corresponding to a
+different zone, each row corresponding to a different planning unit, and
+cell values corresponding to the solution value. This means that if the
+<code>Spatial</code> object containing the solution also contains additional
+columns, then these columns will need to be subsetted prior to using this
+function (see below for example with <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code> data).
+Additionally, the argument to <code>solution</code> must also have the same
+coordinate reference system as the planning unit data.
+Furthermore, any planning units missing cost
+(<code>NA</code>) values for a particular zone should also have missing (<code>NA</code>)
+values in the argument to <code>solution</code>.</p></dd>
+
+<dt><code>x</code> has <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code> planning units</dt><dd><p>The argument to <code>solution</code> must be
+a <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code> object with each column corresponding to a different
+zone, each row corresponding to a different planning unit, and cell values
+corresponding to the solution value. This means that if the
+<code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code> object containing the solution also contains additional
+columns, then these columns will need to be subsetted prior to using this
+function (see below for example).
+Additionally, the argument to <code>solution</code> must also have the same
+coordinate reference system as the planning unit data.
+Furthermore, any planning units missing cost
+(<code>NA</code>) values for a particular zone should also have missing (<code>NA</code>)
+values in the argument to <code>solution</code>.</p></dd>
+
+
+</dl>
+
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Williams P, Gibbons D, Margules C, Rebelo A, Humphries C, and Pressey RL
@@ -317,19 +349,20 @@ areas for conserving diversity using British birds.
     <div class='dont-index'><p><a href='importance.html'>importance</a>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># seed seed for reproducibility</span>
+    <pre class="examples"><div class='input'><span class='co'># \dontrun{</span>
+<span class='co'># seed seed for reproducibility</span>
 <span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>600</span><span class='op'>)</span>
 
 <span class='co'># load data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_pu_sf</span>, <span class='va'>sim_features</span><span class='op'>)</span>
 
-<span class='co'># create minimal problem with binary decisions</span>
+<span class='co'># create minimal problem with raster planning units</span>
 <span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>gap <span class='op'>=</span> <span class='fl'>0</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-<span class='co'># \dontrun{</span>
+
 <span class='co'># solve problem</span>
 <span class='va'>s1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>
 
@@ -358,12 +391,50 @@ areas for conserving diversity using British birds.
 #&gt; extent     : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)
 #&gt; crs        : NA 
 #&gt; source     : memory
-#&gt; names      : layer 
+#&gt; names      : rwr 
 #&gt; values     : 0, 1  (min, max)
 #&gt; </div><div class='input'>
 <span class='co'># plot importance scores</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>rwr1</span>, main <span class='op'>=</span> <span class='st'>"rarity weighted richness"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='eval_rare_richness_importance-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+</div><div class='img'><img src='eval_rare_richness_importance-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># create minimal problem with polygon (sf) planning units</span>
+<span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_sf</span>, <span class='va'>sim_features</span>, cost_column <span class='op'>=</span> <span class='st'>"cost"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.05</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>gap <span class='op'>=</span> <span class='fl'>0</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+
+<span class='co'># solve problem</span>
+<span class='va'>s2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span>
+
+<span class='co'># print solution</span>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>s2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Simple feature collection with 90 features and 4 fields
+#&gt; geometry type:  POLYGON
+#&gt; dimension:      XY
+#&gt; bbox:           xmin: 0 ymin: 0 xmax: 1 ymax: 1
+#&gt; CRS:            NA
+#&gt; First 10 features:
+#&gt;        cost locked_in locked_out solution_1                       geometry
+#&gt; 1  215.8638     FALSE      FALSE          0 POLYGON ((0 1, 0.1 1, 0.1 0...
+#&gt; 2  212.7823     FALSE      FALSE          0 POLYGON ((0.1 1, 0.2 1, 0.2...
+#&gt; 3  207.4962     FALSE      FALSE          0 POLYGON ((0.2 1, 0.3 1, 0.3...
+#&gt; 4  208.9322     FALSE       TRUE          0 POLYGON ((0.3 1, 0.4 1, 0.4...
+#&gt; 5  214.0419     FALSE      FALSE          0 POLYGON ((0.4 1, 0.5 1, 0.5...
+#&gt; 6  213.7636     FALSE      FALSE          0 POLYGON ((0.5 1, 0.6 1, 0.6...
+#&gt; 7  210.4612     FALSE      FALSE          0 POLYGON ((0.6 1, 0.7 1, 0.7...
+#&gt; 8  211.0424     FALSE       TRUE          0 POLYGON ((0.7 1, 0.8 1, 0.8...
+#&gt; 9  210.3878     FALSE      FALSE          0 POLYGON ((0.8 1, 0.9 1, 0.9...
+#&gt; 10 204.3971     FALSE      FALSE          0 POLYGON ((0.9 1, 1 1, 1 0.9...</div><div class='input'>
+<span class='co'># plot solution</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s2</span><span class='op'>[</span>, <span class='st'>"solution_1"</span><span class='op'>]</span>, main <span class='op'>=</span> <span class='st'>"solution"</span><span class='op'>)</span>
+</div><div class='img'><img src='eval_rare_richness_importance-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># calculate importance scores</span>
+<span class='va'>rwr2</span> <span class='op'>&lt;-</span> <span class='fu'>eval_rare_richness_importance</span><span class='op'>(</span><span class='va'>p2</span>, <span class='va'>s2</span><span class='op'>[</span>, <span class='st'>"solution_1"</span><span class='op'>]</span><span class='op'>)</span>
+
+<span class='co'># plot importance scores</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>rwr2</span>, main <span class='op'>=</span> <span class='st'>"rarity weighted richness"</span><span class='op'>)</span>
+</div><div class='img'><img src='eval_rare_richness_importance-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 
 </div></pre>
   </div>

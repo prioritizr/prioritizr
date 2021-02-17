@@ -96,55 +96,92 @@ or complex conservation planning problems. As such, we using this
 method for small or moderate-sized conservation planning problems
 (e.g. < 30,000 planning units). To reduce run time, we
 recommend calculating these scores without additional penalties (e.g.
-add_boundary_penalties()]) or spatial constraints (e.g.
-\code{link{add_contiguity_constraints}}). To further reduce run time,
+\code{\link[=add_boundary_penalties]{add_boundary_penalties()}}) or spatial constraints (e.g.
+\code{\link[=add_contiguity_constraints]{add_contiguity_constraints()}}). To further reduce run time,
 we recommend using proportion-type decisions when calculating the scores
 (see below for an example).
 }
 \section{Solution format}{
 
-The argument to \code{solution} must be in the same format as
-the planning unit data in the argument to \code{x}
-(e.g. in terms of data representation, dimensionality, and spatial
-attributes).
-For example, if the planning unit data in \code{x} is a \code{numeric}
-vector, then the argument to \code{solution} must be a \code{numeric} vector
-with the same number of elements.
-Similarly, if the planning units in \code{x} are a \code{data.frame}, then the
-argument to \code{solution} must also be a \code{data.frame} with each
-column corresponding to a different zone, each row corresponding to a
-different planning unit, and cell values corresponding to the solution value.
-Additionally, if the planning unit data in \code{x} is
-a \code{\linkS4class{Raster}} object, then the argument to
-\code{solution} must also be a \code{\linkS4class{Raster}} object with
-the same dimensionality (rows and columns), resolution, extent, and
-coordinate reference system.
-Furthermore, if the planning unit data in \code{x} is a
-\code{\linkS4class{Spatial}} or \code{\link[sf:sf]{sf::sf()}} object then the
-argument to \code{solution} must also be a \code{\linkS4class{Spatial}}
-or \code{\link[sf:sf]{sf::sf()}} object (respectively) with the same spatial information
-(e.g. polygons and coordinate reference system), and contain columns
-corresponding to different zones, and cell values corresponding to the
-solution values.
+Broadly speaking, the argument to \code{solution} must be in the same format as
+the planning unit data in the argument to \code{x}.
+Further details on the correct format are listed separately
+for each of the different planning unit data formats:
 
-The argument to \code{solution} must also have missing (\code{NA}) values for planning
-units that have missing (\code{NA}) cost values.
-In other words, the solution must have missing (\code{NA}) values in the
-same elements, cells, or pixels (depending on the cost data format) as the
-planning unit cost data.
-For example, if the planning unit data are a \code{\linkS4class{Raster}} object,
-then the argument to \code{solution} must have missing (\code{NA}) values in
-the same pixels as the planning unit cost data.
-Similarly, if the planning unit data are a
-\code{\linkS4class{Spatial}}, \code{\link[sf:sf]{sf::sf()}}, or \code{data.frame} object, then
-the solution must have missing (\code{NA}) values in the same cells
-as the planning unit cost data columns.
-If an argument is supplied to \code{solution} where
-the missing (\code{NA}) values in the argument to solution do not match
-those in the planning unit cost data, then an error will be thrown.
+\describe{
+
+\item{\code{x} has \code{numeric} planning units}{The argument to \code{solution} must be a
+\code{numeric} vector with each element corresponding to a different planning
+unit. It should have the same number of planning units as those
+in the argument to \code{x}. Additionally, any planning units missing
+cost (\code{NA}) values should also have missing (\code{NA}) values in the
+argument to \code{solution}.
+}
+
+\item{\code{x} has \code{matrix} planning units}{The argument to \code{solution} must be a
+\code{matrix} vector with each row corresponding to a different planning
+unit, and each column correspond to a different management zone.
+It should have the same number of planning units and zones
+as those in the argument to \code{x}. Additionally, any planning units
+missing cost (\code{NA}) values for a particular zone should also have a
+missing (\code{NA}) values in the argument to \code{solution}.
+}
+
+\item{\code{x} has \code{\linkS4class{Raster}} planning units}{The argument to \code{solution}
+be a \code{\linkS4class{Raster}} object where different grid cells (pixels) correspond
+to different planning units and layers correspond to
+a different management zones. It should have the same dimensionality
+(rows, columns, layers), resolution, extent, and coordinate reference
+system as the planning units in the argument to \code{x}. Additionally,
+any planning units missing cost (\code{NA}) values for a particular zone
+should also have missing (\code{NA})  values in the argument to \code{solution}.
+}
+
+\item{\code{x} has \code{data.frame} planning units}{The argument to \code{solution} must
+be a \code{data.frame} with each column corresponding to a different zone,
+each row corresponding to a different planning unit, and cell values
+corresponding to the solution value. This means that if a \code{data.frame}
+object containing the solution also contains additional columns, then
+these columns will need to be subsetted prior to using this function
+(see below for example with \code{\link[sf:sf]{sf::sf()}} data).
+Additionally, any planning units missing cost
+(\code{NA}) values for a particular zone should also have missing (\code{NA})
+values in the argument to \code{solution}.
+}
+
+\item{\code{x} has \code{\linkS4class{Spatial}} planning units}{The argument to \code{solution}
+must be a \code{\linkS4class{Spatial}} object with each column corresponding to a
+different zone, each row corresponding to a different planning unit, and
+cell values corresponding to the solution value. This means that if the
+\code{\linkS4class{Spatial}} object containing the solution also contains additional
+columns, then these columns will need to be subsetted prior to using this
+function (see below for example with \code{\link[sf:sf]{sf::sf()}} data).
+Additionally, the argument to \code{solution} must also have the same
+coordinate reference system as the planning unit data.
+Furthermore, any planning units missing cost
+(\code{NA}) values for a particular zone should also have missing (\code{NA})
+values in the argument to \code{solution}.
+}
+
+\item{\code{x} has \code{\link[sf:sf]{sf::sf()}} planning units}{The argument to \code{solution} must be
+a \code{\link[sf:sf]{sf::sf()}} object with each column corresponding to a different
+zone, each row corresponding to a different planning unit, and cell values
+corresponding to the solution value. This means that if the
+\code{\link[sf:sf]{sf::sf()}} object containing the solution also contains additional
+columns, then these columns will need to be subsetted prior to using this
+function (see below for example).
+Additionally, the argument to \code{solution} must also have the same
+coordinate reference system as the planning unit data.
+Furthermore, any planning units missing cost
+(\code{NA}) values for a particular zone should also have missing (\code{NA})
+values in the argument to \code{solution}.
+}
+
+}
 }
 
 \examples{
+\dontrun{
 # seed seed for reproducibility
 set.seed(600)
 
@@ -157,7 +194,6 @@ p1 <- problem(sim_pu_raster, sim_features) \%>\%
       add_relative_targets(0.1) \%>\%
       add_binary_decisions() \%>\%
       add_default_solver(gap = 0, verbose = FALSE)
-\dontrun{
 # solve problem
 s1 <- solve(p1)
 
@@ -175,7 +211,6 @@ print(rc1)
 
 # plot importance scores
 plot(rc1, main = "replacement cost", axes = FALSE, box = FALSE)
-}
 
 # since replacement cost scores can take a long time to calculate with
 # binary decisions, we can calculate them using proportion-type
@@ -189,7 +224,6 @@ p2 <- problem(sim_pu_raster, sim_features) \%>\%
       add_default_solver(gap = 0, verbose = FALSE)
 
 # calculate importance scores using proportion type decisions
-\dontrun{
 rc2 <- eval_replacement_importance(p2, s1)
 
 # print importance scores based on proportion type decisions
@@ -200,35 +234,56 @@ print(rc2)
 # and this confirms that the proportion type decisions are a good
 # approximation
 plot(rc2, main = "replacement cost", axes = FALSE, box = FALSE)
-}
 
-# build multi-zone conservation problem with binary decisions
-p3 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
+# create minimal problem with polygon (sf) planning units
+p3 <- problem(sim_pu_sf, sim_features, cost_column = "cost") \%>\%
       add_min_set_objective() \%>\%
-      add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
-                                  ncol = 3)) \%>\%
+      add_relative_targets(0.05) \%>\%
       add_binary_decisions() \%>\%
       add_default_solver(gap = 0, verbose = FALSE)
-\dontrun{
-# solve the problem
+
+# solve problem
 s3 <- solve(p3)
 
 # print solution
 print(s3)
 
 # plot solution
+plot(s3[, "solution_1"], main = "solution")
+
+# calculate importance scores
+rc3 <- eval_rare_richness_importance(p3, s3[, "solution_1"])
+
+# plot importance scores
+plot(rc3, main = "replacement cost")
+
+# build multi-zone conservation problem with raster data
+p4 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
+      add_min_set_objective() \%>\%
+      add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
+                                  ncol = 3)) \%>\%
+      add_binary_decisions() \%>\%
+      add_default_solver(gap = 0, verbose = FALSE)
+
+# solve the problem
+s4 <- solve(p4)
+
+# print solution
+print(s4)
+
+# plot solution
 # each panel corresponds to a different zone, and data show the
 # status of each planning unit in a given zone
-plot(s3, main = paste0("zone ", seq_len(nlayers(s3))), axes = FALSE,
+plot(s4, main = paste0("zone ", seq_len(nlayers(s4))), axes = FALSE,
      box = FALSE)
 
 # calculate importance scores
-rc3 <- eval_replacement_importance(p3, s3)
+rc4 <- eval_replacement_importance(p4, s4)
 
 # plot importance
 # each panel corresponds to a different zone, and data show the
 # importance of each planning unit in a given zone
-plot(rc3, main = paste0("zone ", seq_len(nlayers(s3))), axes = FALSE,
+plot(rc4, main = paste0("zone ", seq_len(nlayers(s4))), axes = FALSE,
      box = FALSE)
 }
 

@@ -21,8 +21,8 @@ added to it.
 }
 \description{
 Set the objective of a conservation planning \code{\link[=problem]{problem()}} to
-minimize the shortfall for as many targets as possible while ensuring that
-the cost of the solution does not exceed a budget.
+minimize the overall shortfall for as many targets as possible while
+ensuring that the cost of the solution does not exceed a budget.
 }
 \details{
 A problem objective is used to specify the overall goal of the
@@ -31,8 +31,9 @@ planning problems formulated in the \pkg{prioritizr} package require the
 addition of objectives---failing to do so will return an error
 message when attempting to solve problem.
 
-The minimum shortfall representation objective aims to
-find the set of planning units that minimize the shortfall for the
+The minimum shortfall objective aims to
+find the set of planning units that minimize the overall
+(weighted sum) shortfall for the
 representation targets---that is, the fraction of each target that
 remains unmet---for as many features as possible while staying within a
 fixed budget (inspired by Table 1, equation IV, Arponen \emph{et al.}
@@ -106,7 +107,7 @@ p3 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
       add_min_shortfall_objective(c(3000, 3000, 3000)) \%>\%
       add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) \%>\%
       add_binary_decisions() \%>\%
-     add_default_solver(verbose = FALSE)
+      add_default_solver(verbose = FALSE)
 \dontrun{
 # solve problem
 s3 <- solve(p3)

@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">6.0.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">6.0.0.1</span>
       </span>
     </div>
 
@@ -178,7 +178,8 @@
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># solve problem</span>
 <span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></code></pre></div>
-<pre><code>## Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
+<pre><code>## Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (linux64)
+## Thread count: 2 physical cores, 4 logical processors, using up to 1 threads
 ## Optimize a model with 5 rows, 90 columns and 450 nonzeros
 ## Model fingerprint: 0x6442bf6e
 ## Variable types: 0 continuous, 90 integer (90 binary)
@@ -300,7 +301,8 @@
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># solve problem</span>
 <span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></code></pre></div>
-<pre><code>## Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
+<pre><code>## Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (linux64)
+## Thread count: 2 physical cores, 4 logical processors, using up to 1 threads
 ## Optimize a model with 100 rows, 180 columns and 1080 nonzeros
 ## Model fingerprint: 0xbdab1647
 ## Variable types: 0 continuous, 180 integer (180 binary)
@@ -316,21 +318,21 @@
 ## Presolved: 100 rows, 180 columns, 1080 nonzeros
 ## 
 ## 
-## Root relaxation: objective 2.911333e+03, 73 iterations, 0.00 seconds
+## Root relaxation: objective 2.911333e+03, 80 iterations, 0.00 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
-##      0     0 2911.33335    0    9 3568.49314 2911.33335  18.4%     -    0s
-## H    0     0                    3174.6681958 2911.33335  8.29%     -    0s
+##      0     0 2911.33335    0   10 3568.49314 2911.33335  18.4%     -    0s
+## H    0     0                    3003.8743974 2911.33335  3.08%     -    0s
 ## 
-## Explored 1 nodes (73 simplex iterations) in 0.00 seconds
+## Explored 1 nodes (83 simplex iterations) in 0.00 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
-## Solution count 2: 3174.67 3568.49 
+## Solution count 2: 3003.87 3568.49 
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
-## Best objective 3.174668195776e+03, best bound 2.911333350606e+03, gap 8.2949%</code></pre>
+## Best objective 3.003874397435e+03, best bound 2.911333350606e+03, gap 3.0807%</code></pre>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># calculate feature representation</span>
 <span class="va">r2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p2</span>, <span class="va">s2</span><span class="op">)</span>
@@ -338,21 +340,21 @@
 <pre><code>## # A tibble: 15 x 5
 ##    summary feature total_amount absolute_held relative_held
 ##    &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
-##  1 overall 1              167.          14.1         0.0845
-##  2 overall 2               62.4          4.97        0.0797
-##  3 overall 3              144.          11.5         0.0801
-##  4 overall 4               85.3          6.78        0.0795
-##  5 overall 5              113.           9.64        0.0850
-##  6 zone 1  1               83.3          8.93        0.107 
-##  7 zone 1  2               31.2          3.13        0.100 
-##  8 zone 1  3               72.0          7.44        0.103 
+##  1 overall 1              167.          13.3         0.0799
+##  2 overall 2               62.4          4.75        0.0761
+##  3 overall 3              144.          10.9         0.0760
+##  4 overall 4               85.3          6.44        0.0755
+##  5 overall 5              113.           9.03        0.0796
+##  6 zone 1  1               83.3          8.87        0.106 
+##  7 zone 1  2               31.2          3.18        0.102 
+##  8 zone 1  3               72.0          7.22        0.100 
 ##  9 zone 1  4               42.7          4.27        0.100 
-## 10 zone 1  5               56.7          5.97        0.105 
-## 11 zone 2  1               83.3          5.15        0.0618
-## 12 zone 2  2               31.2          1.84        0.0590
-## 13 zone 2  3               72.0          4.08        0.0567
-## 14 zone 2  4               42.7          2.52        0.0590
-## 15 zone 2  5               56.7          3.67        0.0648</code></pre>
+## 10 zone 1  5               56.7          6.07        0.107 
+## 11 zone 2  1               83.3          4.44        0.0533
+## 12 zone 2  2               31.2          1.57        0.0504
+## 13 zone 2  3               72.0          3.72        0.0517
+## 14 zone 2  4               42.7          2.17        0.0508
+## 15 zone 2  5               56.7          2.96        0.0521</code></pre>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># plot solution</span>
 <span class="co"># here we use the category layer function to generate raster showing the zone</span>
@@ -400,7 +402,8 @@
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># solve problem</span>
 <span class="va">s3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span></code></pre></div>
-<pre><code>## Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
+<pre><code>## Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (linux64)
+## Thread count: 2 physical cores, 4 logical processors, using up to 1 threads
 ## Optimize a model with 100 rows, 180 columns and 1080 nonzeros
 ## Model fingerprint: 0x07455a48
 ## Variable types: 0 continuous, 180 integer (180 binary)
@@ -424,7 +427,7 @@
 ##      0     0 2884.87200    0    8 3667.77087 2884.87200  21.3%     -    0s
 ## H    0     0                    2958.1201508 2884.87200  2.48%     -    0s
 ## 
-## Explored 1 nodes (38 simplex iterations) in 0.01 seconds
+## Explored 1 nodes (38 simplex iterations) in 0.00 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 2958.12 3667.77 
@@ -516,7 +519,8 @@
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># solve problem</span>
 <span class="va">s4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p4</span><span class="op">)</span></code></pre></div>
-<pre><code>## Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
+<pre><code>## Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (linux64)
+## Thread count: 2 physical cores, 4 logical processors, using up to 1 threads
 ## Optimize a model with 105 rows, 300 columns and 1800 nonzeros
 ## Model fingerprint: 0xd67e7fdc
 ## Variable types: 0 continuous, 300 integer (300 binary)
@@ -628,7 +632,8 @@
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># solve problem</span>
 <span class="va">s5</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p5</span><span class="op">)</span></code></pre></div>
-<pre><code>## Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
+<pre><code>## Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (linux64)
+## Thread count: 2 physical cores, 4 logical processors, using up to 1 threads
 ## Optimize a model with 105 rows, 300 columns and 1800 nonzeros
 ## Model fingerprint: 0x4ad99e4b
 ## Variable types: 0 continuous, 300 integer (300 binary)
@@ -742,7 +747,8 @@
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># solve problem</span>
 <span class="va">s6</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p6</span><span class="op">)</span></code></pre></div>
-<pre><code>## Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
+<pre><code>## Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (linux64)
+## Thread count: 2 physical cores, 4 logical processors, using up to 1 threads
 ## Optimize a model with 1905 rows, 1200 columns and 5400 nonzeros
 ## Model fingerprint: 0xb44cc86f
 ## Variable types: 0 continuous, 1200 integer (1200 binary)
@@ -752,30 +758,29 @@
 ##   Bounds range     [1e+00, 1e+00]
 ##   RHS range        [1e+00, 8e+00]
 ## Found heuristic solution: objective 20096.000000
-## Presolve removed 308 rows and 232 columns
+## Presolve removed 1028 rows and 232 columns
 ## Presolve time: 0.02s
-## Presolved: 1597 rows, 968 columns, 4872 nonzeros
+## Presolved: 877 rows, 968 columns, 2712 nonzeros
 ## Variable types: 0 continuous, 968 integer (968 binary)
-## Presolve removed 720 rows and 0 columns
 ## Presolved: 877 rows, 968 columns, 2712 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.005410e+04, 546 iterations, 0.01 seconds
+## Root relaxation: objective 1.005410e+04, 529 iterations, 0.01 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
 ##      0     0 10054.0986    0   57 20096.0000 10054.0986  50.0%     -    0s
 ## H    0     0                    11300.000000 10054.0986  11.0%     -    0s
-## H    0     0                    10264.000000 10054.0986  2.05%     -    0s
+## H    0     0                    10588.000000 10054.0986  5.04%     -    0s
 ## 
-## Explored 1 nodes (825 simplex iterations) in 0.06 seconds
+## Explored 1 nodes (785 simplex iterations) in 0.03 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
-## Solution count 3: 10264 11300 20096 
+## Solution count 3: 10588 11300 20096 
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
-## Best objective 1.026400000000e+04, best bound 1.005600000000e+04, gap 2.0265%</code></pre>
+## Best objective 1.058800000000e+04, best bound 1.005600000000e+04, gap 5.0246%</code></pre>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># calculate feature representation</span>
 <span class="va">r6</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p6</span>, <span class="va">s6</span><span class="op">)</span>
@@ -783,21 +788,21 @@
 <pre><code>## # A tibble: 20 x 5
 ##    summary    feature total_amount absolute_held relative_held
 ##    &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
-##  1 overall    layer.1       117.           22.0          0.188
-##  2 overall    layer.2        43.7           8.00         0.183
-##  3 overall    layer.3       101.           17.5          0.173
-##  4 overall    layer.4        59.7          11.0          0.185
-##  5 overall    layer.5        79.4          15.4          0.194
+##  1 overall    layer.1       117.           22.5          0.193
+##  2 overall    layer.2        43.7           8.06         0.184
+##  3 overall    layer.3       101.           18.0          0.179
+##  4 overall    layer.4        59.7          11.6          0.193
+##  5 overall    layer.5        79.4          15.6          0.197
 ##  6 few.traps  layer.1         8.33          0            0    
 ##  7 few.traps  layer.2         3.12          0            0    
 ##  8 few.traps  layer.3         7.20          0            0    
 ##  9 few.traps  layer.4         4.27          0            0    
 ## 10 few.traps  layer.5         5.67          0            0    
-## 11 many.traps layer.1        41.6           7.51         0.180
-## 12 many.traps layer.2        15.6           3.38         0.217
-## 13 many.traps layer.3        36.0           5.75         0.160
-## 14 many.traps layer.4        21.3           4.99         0.234
-## 15 many.traps layer.5        28.4           5.46         0.192
+## 11 many.traps layer.1        41.6           8.01         0.192
+## 12 many.traps layer.2        15.6           3.44         0.221
+## 13 many.traps layer.3        36.0           6.31         0.175
+## 14 many.traps layer.4        21.3           5.50         0.258
+## 15 many.traps layer.5        28.4           5.62         0.198
 ## 16 baiting    layer.1        66.6          14.4          0.217
 ## 17 baiting    layer.2        25.0           4.62         0.185
 ## 18 baiting    layer.3        57.6          11.7          0.203
@@ -837,15 +842,16 @@
 ##   objective:      Minimum set objective 
 ##   targets:        Absolute targets [targets (min: 8, max: 8)]
 ##   decisions:      Binary decision 
-##   constraints:    &lt;Mandatory allocation constraints [apply constraints? (1)]
-##                    Manually locked planning units [80 locked units]&gt;
+##   constraints:    &lt;Manually locked planning units [80 locked units]
+##                    Mandatory allocation constraints [apply constraints? (1)]&gt;
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 0.5, max: 0.5), penalty (640), zones]&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># solve problem</span>
 <span class="va">s7</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p7</span><span class="op">)</span></code></pre></div>
-<pre><code>## Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
+<pre><code>## Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (linux64)
+## Thread count: 2 physical cores, 4 logical processors, using up to 1 threads
 ## Optimize a model with 1905 rows, 1200 columns and 5400 nonzeros
 ## Model fingerprint: 0x89a9dafb
 ## Variable types: 0 continuous, 1200 integer (1200 binary)
@@ -855,23 +861,22 @@
 ##   Bounds range     [1e+00, 1e+00]
 ##   RHS range        [1e+00, 8e+00]
 ## Found heuristic solution: objective 19600.000000
-## Presolve removed 392 rows and 316 columns
+## Presolve removed 1120 rows and 324 columns
 ## Presolve time: 0.02s
-## Presolved: 1513 rows, 884 columns, 4608 nonzeros
-## Variable types: 0 continuous, 884 integer (884 binary)
-## Presolve removed 728 rows and 8 columns
+## Presolved: 785 rows, 876 columns, 2448 nonzeros
+## Variable types: 0 continuous, 876 integer (876 binary)
 ## Presolved: 785 rows, 876 columns, 2448 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.323093e+04, 262 iterations, 0.01 seconds
+## Root relaxation: objective 1.323093e+04, 277 iterations, 0.00 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
-##      0     0 13230.9255    0  102 19600.0000 13230.9255  32.5%     -    0s
+##      0     0 13230.9255    0   95 19600.0000 13230.9255  32.5%     -    0s
 ## H    0     0                    13260.000000 13230.9255  0.22%     -    0s
 ## 
-## Explored 1 nodes (403 simplex iterations) in 0.03 seconds
+## Explored 1 nodes (417 simplex iterations) in 0.03 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 13260 19600 

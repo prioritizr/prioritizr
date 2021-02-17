@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">6.0.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">6.0.0.1</span>
       </span>
     </div>
 
@@ -146,7 +146,7 @@
 </blockquote>
 <p>Alternatively, to cite the latest development version, please use:</p>
 <blockquote>
-<p>Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2021). prioritizr: Systematic Conservation Prioritization in R. R package version 6.0.0.0. Available at <a href="https://github.com/prioritizr/prioritizr" class="uri">https://github.com/prioritizr/prioritizr</a>.</p>
+<p>Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2021). prioritizr: Systematic Conservation Prioritization in R. R package version 6.0.0.1. Available at <a href="https://github.com/prioritizr/prioritizr" class="uri">https://github.com/prioritizr/prioritizr</a>.</p>
 </blockquote>
 <p>Additionally, we keep a <a href="https://prioritizr.net/articles/publication_record.html">record of publications</a> that use the <em>prioritizr R</em> package. If you use this package in any reports or publications, please <a href="https://github.com/prioritizr/prioritizr/issues/new">file an issue on GitHub</a> so we can add it to the record.</p>
 </div>
@@ -205,7 +205,8 @@
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># solve the problem</span>
 <span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode R"><code class="sourceCode r">## Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
+<div class="sourceCode"><pre class="sourceCode R"><code class="sourceCode r">## Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (linux64)
+## Thread count: 2 physical cores, 4 logical processors, using up to 1 threads
 ## Optimize a model with 5 rows, 90 columns and 450 nonzeros
 ## Model fingerprint: 0x8f50132f
 ## Variable types: 0 continuous, 90 integer (90 binary)
@@ -228,11 +229,11 @@
 ## 
 ##      0     0 2611.17006    0    4 3139.88803 2611.17006  16.8%     -    0s
 ## H    0     0                    2780.0314635 2611.17006  6.07%     -    0s
-##      0     0 2611.74321    0    5 2780.03146 2611.74321  6.05%     -    0s
-## H    0     0                    2750.8323723 2611.74321  5.06%     -    0s
-##      0     0 2611.83195    0    6 2750.83237 2611.83195  5.05%     -    0s
-##      0     0 2611.88195    0    7 2750.83237 2611.88195  5.05%     -    0s
-## H    0     0                    2747.3774616 2611.88195  4.93%     -    0s
+## H    0     0                    2761.3302091 2611.17006  5.44%     -    0s
+## H    0     0                    2747.3774616 2611.17006  4.96%     -    0s
+##      0     0 2611.74321    0    5 2747.37746 2611.74321  4.94%     -    0s
+##      0     0 2611.83195    0    6 2747.37746 2611.83195  4.93%     -    0s
+##      0     0 2611.88195    0    7 2747.37746 2611.88195  4.93%     -    0s
 ##      0     0 2611.94509    0    7 2747.37746 2611.94509  4.93%     -    0s
 ##      0     0 2611.95916    0    8 2747.37746 2611.95916  4.93%     -    0s
 ##      0     0 2611.98750    0    8 2747.37746 2611.98750  4.93%     -    0s
@@ -256,55 +257,23 @@
 ##      0     0 2612.72195    0    9 2747.37746 2612.72195  4.90%     -    0s
 ##      0     0 2612.78753    0   10 2747.37746 2612.78753  4.90%     -    0s
 ##      0     0 2612.78891    0   11 2747.37746 2612.78891  4.90%     -    0s
-##      0     0 2613.13568    0    7 2747.37746 2613.13568  4.89%     -    0s
-##      0     0 2613.22338    0    8 2747.37746 2613.22338  4.88%     -    0s
-##      0     0 2613.34297    0    9 2747.37746 2613.34297  4.88%     -    0s
-##      0     0 2613.51894    0   10 2747.37746 2613.51894  4.87%     -    0s
-##      0     0 2613.52981    0   10 2747.37746 2613.52981  4.87%     -    0s
-##      0     0 2613.62584    0   11 2747.37746 2613.62584  4.87%     -    0s
-##      0     0 2613.62990    0   10 2747.37746 2613.62990  4.87%     -    0s
-##      0     0 2613.64411    0   11 2747.37746 2613.64411  4.87%     -    0s
-##      0     0 2613.70527    0   10 2747.37746 2613.70527  4.87%     -    0s
-##      0     0 2613.74931    0   10 2747.37746 2613.74931  4.86%     -    0s
-##      0     0 2613.75935    0   11 2747.37746 2613.75935  4.86%     -    0s
-##      0     0 2613.78321    0   10 2747.37746 2613.78321  4.86%     -    0s
-##      0     0 2613.85241    0   10 2747.37746 2613.85241  4.86%     -    0s
-##      0     0 2613.85382    0   11 2747.37746 2613.85382  4.86%     -    0s
-##      0     0 2613.85510    0   11 2747.37746 2613.85510  4.86%     -    0s
-##      0     0 2613.85824    0   12 2747.37746 2613.85824  4.86%     -    0s
-##      0     0 2613.86743    0   12 2747.37746 2613.86743  4.86%     -    0s
-##      0     0 2613.89542    0   12 2747.37746 2613.89542  4.86%     -    0s
-##      0     0 2613.90080    0   13 2747.37746 2613.90080  4.86%     -    0s
-##      0     0 2613.90780    0   14 2747.37746 2613.90780  4.86%     -    0s
-##      0     0 2613.91321    0   14 2747.37746 2613.91321  4.86%     -    0s
-##      0     0 2613.93526    0   12 2747.37746 2613.93526  4.86%     -    0s
-##      0     0 2613.93676    0   13 2747.37746 2613.93676  4.86%     -    0s
-##      0     0 2614.07265    0   12 2747.37746 2614.07265  4.85%     -    0s
-##      0     0 2614.12054    0   12 2747.37746 2614.12054  4.85%     -    0s
-##      0     0 2614.15681    0   12 2747.37746 2614.15681  4.85%     -    0s
-##      0     0 2614.15970    0   13 2747.37746 2614.15970  4.85%     -    0s
-##      0     0 2614.26936    0   12 2747.37746 2614.26936  4.84%     -    0s
-##      0     0 2614.28046    0   12 2747.37746 2614.28046  4.84%     -    0s
-##      0     0 2614.30152    0   11 2747.37746 2614.30152  4.84%     -    0s
-##      0     0 2614.30559    0   12 2747.37746 2614.30559  4.84%     -    0s
-##      0     0 2614.31022    0   13 2747.37746 2614.31022  4.84%     -    0s
-##      0     0 2614.32003    0   12 2747.37746 2614.32003  4.84%     -    0s
-##      0     0 2614.32230    0   13 2747.37746 2614.32230  4.84%     -    0s
-##      0     0 2614.32331    0   13 2747.37746 2614.32331  4.84%     -    0s
-##      0     2 2614.33358    0   13 2747.37746 2614.33358  4.84%     -    0s
-## H 7050   989                    2627.6389306 2618.95150  0.33%   1.8    0s
+##      0     0 2612.78990    0   11 2747.37746 2612.78990  4.90%     -    0s
+##      0     0 2612.80122    0   12 2747.37746 2612.80122  4.90%     -    0s
+##      0     0 2612.80272    0   11 2747.37746 2612.80272  4.90%     -    0s
+##      0     2 2612.91183    0   11 2747.37746 2612.91183  4.89%     -    0s
+##  72733 41223 2698.55307   54    2 2747.37746 2621.67445  4.58%   1.7    5s
+## H76889  5280                    2627.6389306 2621.79315  0.22%   1.7    5s
 ## 
 ## Cutting planes:
-##   Gomory: 5
-##   Cover: 5
-##   MIR: 46
-##   StrongCG: 25
-##   Flow cover: 2
+##   Gomory: 7
+##   MIR: 66
+##   StrongCG: 39
+##   Flow cover: 10
 ## 
-## Explored 31196 nodes (83170 simplex iterations) in 2.64 seconds
+## Explored 99210 nodes (201659 simplex iterations) in 7.42 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
-## Solution count 5: 2627.64 2747.38 2750.83 ... 3139.89
+## Solution count 5: 2627.64 2747.38 2761.33 ... 3139.89
 ## 
 ## Optimal solution found (tolerance 0.00e+00)
 ## Best objective 2.627638930618e+03, best bound 2.627638930618e+03, gap 0.0000%</code></pre></div>
@@ -317,7 +286,7 @@
 <code class="sourceCode R"><span class="co"># extract time spent solving the problem</span>
 <span class="fu"><a href="reference/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode R"><code class="sourceCode r">## solution_1 
-##   2.639334</code></pre></div>
+##   7.420244</code></pre></div>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># extract state message from the solver</span>
 <span class="fu"><a href="reference/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"status"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
@@ -363,7 +332,8 @@
 
 <span class="co"># solve the problem</span>
 <span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode R"><code class="sourceCode r">## Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
+<div class="sourceCode"><pre class="sourceCode R"><code class="sourceCode r">## Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (linux64)
+## Thread count: 2 physical cores, 4 logical processors, using up to 1 threads
 ## Optimize a model with 5 rows, 90 columns and 450 nonzeros
 ## Model fingerprint: 0xb2af8965
 ## Variable types: 0 continuous, 90 integer (90 binary)
@@ -400,36 +370,22 @@
 ##      0     0 2836.87897    0    7 2839.12090 2836.87897  0.08%     -    0s
 ##      0     0 2836.88941    0    7 2839.12090 2836.88941  0.08%     -    0s
 ##      0     0 2836.89042    0    8 2839.12090 2836.89042  0.08%     -    0s
-##      0     0 2836.99962    0    7 2839.12090 2836.99962  0.07%     -    0s
-##      0     0 2837.08985    0    7 2839.12090 2837.08985  0.07%     -    0s
-##      0     0 2837.24552    0    6 2839.12090 2837.24552  0.07%     -    0s
-##      0     0 2837.31750    0    9 2839.12090 2837.31750  0.06%     -    0s
-##      0     0 2837.36426    0   10 2839.12090 2837.36426  0.06%     -    0s
-##      0     0 2837.39901    0   11 2839.12090 2837.39901  0.06%     -    0s
-##      0     0 2837.50764    0   10 2839.12090 2837.50764  0.06%     -    0s
-##      0     0 2837.51431    0   10 2839.12090 2837.51431  0.06%     -    0s
-##      0     0 2837.53639    0    9 2839.12090 2837.53639  0.06%     -    0s
-##      0     0 2837.53849    0   10 2839.12090 2837.53849  0.06%     -    0s
-##      0     0 2837.72116    0    8 2839.12090 2837.72116  0.05%     -    0s
-##      0     0 2837.76058    0    8 2839.12090 2837.76058  0.05%     -    0s
-##      0     0 2837.76433    0    9 2839.12090 2837.76433  0.05%     -    0s
-##      0     0 2837.77226    0    9 2839.12090 2837.77226  0.05%     -    0s
-##      0     0 2837.78842    0   10 2839.12090 2837.78842  0.05%     -    0s
-##      0     0 2837.82220    0    9 2839.12090 2837.82220  0.05%     -    0s
-##      0     0 2837.82524    0   10 2839.12090 2837.82524  0.05%     -    0s
-##      0     0 2837.87512    0    9 2839.12090 2837.87512  0.04%     -    0s
-##      0     0 2837.88038    0   10 2839.12090 2837.88038  0.04%     -    0s
-##      0     0 2837.95407    0    9 2839.12090 2837.95407  0.04%     -    0s
-##      0     0 2837.96355    0    9 2839.12090 2837.96355  0.04%     -    0s
-##      0     0 2838.04745    0    7 2839.12090 2838.04745  0.04%     -    0s
-## H    0     0                    2838.2640999 2838.04745  0.01%     -    0s
-##      0     0 2838.12770    0    5 2838.26410 2838.12770  0.00%     -    0s
+## H    0     0                    2838.2640999 2836.89042  0.05%     -    0s
+##      0     0 2836.99962    0    7 2838.26410 2836.99962  0.04%     -    0s
+##      0     0 2837.08985    0    7 2838.26410 2837.08985  0.04%     -    0s
+##      0     0 2837.24683    0    5 2838.26410 2837.24683  0.04%     -    0s
+##      0     0 2837.57052    0    7 2838.26410 2837.57052  0.02%     -    0s
+##      0     0 2837.63877    0    8 2838.26410 2837.63877  0.02%     -    0s
+##      0     0 2838.10881    0    2 2838.26410 2838.10881  0.01%     -    0s
+##      0     0     cutoff    0      2838.26410 2838.26410  0.00%     -    0s
 ## 
 ## Cutting planes:
-##   MIR: 7
-##   StrongCG: 3
+##   Gomory: 1
+##   MIR: 5
+##   StrongCG: 2
+##   RLT: 1
 ## 
-## Explored 1 nodes (95 simplex iterations) in 0.02 seconds
+## Explored 1 nodes (58 simplex iterations) in 0.01 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 3: 2838.26 2839.12 3027.7 
@@ -450,7 +406,8 @@
 
 <span class="co"># solve the problem</span>
 <span class="va">s3</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode R"><code class="sourceCode r">## Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
+<div class="sourceCode"><pre class="sourceCode R"><code class="sourceCode r">## Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (linux64)
+## Thread count: 2 physical cores, 4 logical processors, using up to 1 threads
 ## Optimize a model with 293 rows, 234 columns and 1026 nonzeros
 ## Model fingerprint: 0x517c913c
 ## Variable types: 0 continuous, 234 integer (234 binary)
@@ -487,9 +444,10 @@
 ##      0     0 3934.87486    0    4 3939.60154 3934.87486  0.12%     -    0s
 ## 
 ## Cutting planes:
-##   GUB cover: 2
+##   Cover: 1
+##   GUB cover: 1
 ## 
-## Explored 1 nodes (217 simplex iterations) in 0.03 seconds
+## Explored 1 nodes (217 simplex iterations) in 0.04 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 6: 3939.6 3951.75 4058.75 ... 19567.2
@@ -510,7 +468,8 @@
 
 <span class="co"># solve the problem</span>
 <span class="va">s4</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p4</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode R"><code class="sourceCode r">## Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
+<div class="sourceCode"><pre class="sourceCode R"><code class="sourceCode r">## Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (linux64)
+## Thread count: 2 physical cores, 4 logical processors, using up to 1 threads
 ## Optimize a model with 654 rows, 506 columns and 2292 nonzeros
 ## Model fingerprint: 0x1ced3129
 ## Variable types: 0 continuous, 506 integer (506 binary)
@@ -535,18 +494,18 @@
 ## 
 ##      0     0 5489.15943    0   59 6070.20745 5489.15943  9.57%     -    0s
 ## H    0     0                    5859.8468810 5489.15943  6.33%     -    0s
-## H    0     0                    5858.4184908 5489.15943  6.30%     -    0s
-##      0     0 5738.84421    0   49 5858.41849 5738.84421  2.04%     -    0s
-##      0     0 5738.84421    0   29 5858.41849 5738.84421  2.04%     -    0s
-##      0     0 5814.59442    0   22 5858.41849 5814.59442  0.75%     -    0s
+##      0     0 5738.84421    0   49 5859.84688 5738.84421  2.06%     -    0s
+##      0     0 5738.84421    0   29 5859.84688 5738.84421  2.06%     -    0s
+## H    0     0                    5858.4184908 5738.84421  2.04%     -    0s
+##      0     0 5814.59442    0   24 5858.41849 5814.59442  0.75%     -    0s
 ##      0     0     cutoff    0      5858.41849 5858.41849  0.00%     -    0s
 ## 
 ## Cutting planes:
-##   Gomory: 6
-##   Zero half: 8
+##   Gomory: 5
+##   Zero half: 5
 ##   RLT: 6
 ## 
-## Explored 1 nodes (241 simplex iterations) in 0.03 seconds
+## Explored 1 nodes (236 simplex iterations) in 0.03 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 4: 5858.42 5859.85 6070.21 7270.12 

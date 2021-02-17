@@ -1,6 +1,6 @@
 Package: prioritizr
 Type: Package
-Version: 6.0.0.0
+Version: 6.0.0.1
 Title: Systematic Conservation Prioritization in R
 Description: Conservation prioritization using integer
     programming techniques. To solve large-scale problems, users
@@ -147,6 +147,7 @@ Collate:
     'add_max_phylo_div_objective.R'
     'add_max_phylo_end_objective.R'
     'add_max_utility_objective.R'
+    'add_min_largest_shortfall_objective.R'
     'add_min_set_objective.R'
     'add_min_shortfall_objective.R'
     'add_neighbor_contraints.R'
