@@ -67,7 +67,7 @@ methods::setMethod(
     assertthat::assert_that(
       min(solution, na.rm = TRUE) >= 0,
       max(solution, na.rm = TRUE) <= 1,
-      msg = paste("argument to solution should only contain columns",
+      msg = paste("argument to solution should only contain",
                   "values between zero and one"))
     # return status
     internal_planning_unit_solution_status(x, solution)
