@@ -53,14 +53,12 @@
 
 
 <meta property="og:title" content="Add a SYMPHONY solver with lpsymphony — add_lsymphony_solver" />
-<meta property="og:description" content="Specify that the SYMPHONY software should be used to solve a
-conservation planning problem using the lpsymphony package. This
-function can also be used to customize the behavior of the solver.
-It requires the lpsymphony package.
-For information on the performance of different solvers,
-please see Schuster et al. (2020) for benchmarks comparing the
-run time and solution quality of different solvers when applied to
-different sized datasets." />
+<meta property="og:description" content="Specify that the SYMPHONY
+software (Ralphs &amp;amp; Güzelsoy 2005) -- using the lpsymphony package --
+should be used to solve a conservation planning problem().
+This function can also be used to customize the behavior of the solver.
+It requires the lpsymphony package to be installed
+(see below for installation instructions)." />
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 
 
@@ -103,7 +101,7 @@ different sized datasets." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">6.0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">6.0.0.2</span>
       </span>
     </div>
 
@@ -175,27 +173,25 @@ different sized datasets." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Add a SYMPHONY solver with <em>lpsymphony</em></h1>
+    <h1>Add a <em>SYMPHONY</em> solver with <em>lpsymphony</em></h1>
     <small class="dont-index">Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/add_lpsymphony_solver.R'><code>R/add_lpsymphony_solver.R</code></a></small>
     <div class="hidden name"><code>add_lsymphony_solver.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Specify that the <em>SYMPHONY</em> software should be used to solve a
-conservation planning problem using the <span class="pkg">lpsymphony</span> package. This
-function can also be used to customize the behavior of the solver.
-It requires the <span class="pkg">lpsymphony</span> package.
-For information on the performance of different solvers,
-please see Schuster <em>et al.</em> (2020) for benchmarks comparing the
-run time and solution quality of different solvers when applied to
-different sized datasets.</p>
+    <p>Specify that the <a href='https://projects.coin-or.org/SYMPHONY'><em>SYMPHONY</em></a>
+software (Ralphs &amp; Güzelsoy 2005) -- using the <span class="pkg">lpsymphony</span> package --
+should be used to solve a conservation planning <code><a href='problem.html'>problem()</a></code>.
+This function can also be used to customize the behavior of the solver.
+It requires the <span class="pkg">lpsymphony</span> package to be installed
+(see below for installation instructions).</p>
     </div>
 
     <pre class="usage"><span class='fu'>add_lpsymphony_solver</span><span class='op'>(</span>
   <span class='va'>x</span>,
   gap <span class='op'>=</span> <span class='fl'>0.1</span>,
-  time_limit <span class='op'>=</span> <span class='op'>-</span><span class='fl'>1</span>,
-  first_feasible <span class='op'>=</span> <span class='fl'>0</span>,
+  time_limit <span class='op'>=</span> <span class='va'>.Machine</span><span class='op'>$</span><span class='va'>integer.max</span>,
+  first_feasible <span class='op'>=</span> <span class='cn'>FALSE</span>,
   verbose <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span></pre>
 
@@ -210,15 +206,18 @@ different sized datasets.</p>
       <th>gap</th>
       <td><p><code>numeric</code> gap to optimality. This gap is absolute and
 expresses the acceptable deviance from the optimal objective. For example,
-solving a minimum set objective problem with a gap of 5 will cause the
-solver to terminate when the cost of the solution is within 5 cost units
-from the optimal solution.</p></td>
+solving a <code><a href='problem.html'>problem()</a></code> with the minimum set objective problem and
+using a gap of 5 will result in the solver stopping when the cost of the
+solution is within 5 cost units of an optimal solution.
+The default value is 0.1.</p></td>
     </tr>
     <tr>
       <th>time_limit</th>
-      <td><p><code>numeric</code> time limit in seconds to run the optimizer.
+      <td><p><code>numeric</code> time limit (seconds) for generating solutions.
 The solver will return the current best solution when this time limit is
-exceeded.</p></td>
+exceeded. The default value is the largest integer value
+(i.e. <code>.Machine$integer.max</code>), effectively meaning that solver
+will keep running until a solution within the optimality gap is found.</p></td>
     </tr>
     <tr>
       <th>first_feasible</th>
@@ -227,7 +226,8 @@ be returned? If <code>first_feasible</code> is set to <code>TRUE</code>, the sol
 will return the first solution it encounters that meets all the
 constraints, regardless of solution quality. Note that the first feasible
 solution is not an arbitrary solution, rather it is derived from the
-relaxed solution, and is therefore often reasonably close to optimality.</p></td>
+relaxed solution, and is therefore often reasonably close to optimality.
+Defaults to <code>FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -243,18 +243,39 @@ added to it.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><a href='https://projects.coin-or.org/SYMPHONY'><em>SYMPHONY</em></a> is an
-open-source integer programming solver that is part of the Computational
-Infrastructure for Operations Research (COIN-OR) project, an initiative
-to promote development of open-source tools for operations research (a
-field that includes linear programming). The <span class="pkg">lpsymphony</span> package is
+open-source mixed integer programming solver that is part of the
+Computational Infrastructure for Operations Research (COIN-OR) project, an
+initiative to promote development of open-source tools for operations
+research (a field that includes linear programming).
+This solver is provided because it may be easier to install
+on some systems than the <span class="pkg">Rsymphony</span> package. Additionally --
+although the <span class="pkg">lpsymphony</span> package doesn't provide the functionality
+to specify the number of threads for solving a problem -- the
+<span class="pkg">lpsymphony</span> package will solve problems using all available threads on
+a system (unlike the <span class="pkg">Rsymphony</span> package). As a consequence, this
+solver will likely generate solutions much faster than the
+<code><a href='add_rsymphony_solver.html'>add_rsymphony_solver()</a></code>.
+Although formal benchmarks examining the performance of this solver
+have yet to be completed,
+please see Schuster <em>et al.</em> (2020) for benchmarks comparing the
+run time and solution quality of the <span class="pkg">Rsymphony</span> solver.</p>
+    <h2 class="hasAnchor" id="installation"><a class="anchor" href="#installation"></a>Installation</h2>
+
+    
+
+<p>The <span class="pkg">lpsymphony</span> package is
 distributed through
 <a href='https://doi.org/doi:10.18129/B9.bioc.lpsymphony'>Bioconductor</a>.
-This functionality is provided because the <span class="pkg">lpsymphony</span> package may
-be easier to install to install on Windows and Mac OSX systems than the
-<span class="pkg">Rsymphony</span> package.</p>
+To install the <span class="pkg">lpsymphony</span> package, please use the following code:</p><pre><span class='kw'>if</span> <span class='op'>(</span><span class='op'>!</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'><a href='https://remotes.r-lib.org'>remotes</a></span><span class='op'>)</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span><span class='st'>"remotes"</span><span class='op'>)</span>
+<span class='fu'>remotes</span><span class='fu'>::</span><span class='fu'><a href='https://remotes.r-lib.org/reference/install_bioc.html'>install_bioc</a></span><span class='op'>(</span><span class='st'>"lpsymphony"</span><span class='op'>)</span>
+</pre>
+
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Schuster R, Hanson JO, Strimas-Mackey M, and Bennett JR (2020). Exact
+    <p>Ralphs TK and Güzelsoy M (2005) The SYMPHONY callable library for mixed
+integer programming. In The Next Wave in Computing, Optimization, and
+Decision Technologies (pp. 61--76). Springer, Boston, MA.</p>
+<p>Schuster R, Hanson JO, Strimas-Mackey M, and Bennett JR (2020). Exact
 integer linear programming solvers outperform simulated annealing for
 solving conservation planning problems. <em>PeerJ</em>, 8: e9258.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>

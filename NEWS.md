@@ -1,3 +1,15 @@
+# prioritizr 6.0.0.2
+
+- New `add_cbc_solver` function to generate solutions using the open source
+  CBC solver via the rcbc R package (https://github.com/dirkschumacher/rcbc).
+- Update `add_rsymphony_solver` and `add_lpsymphony_solver` functions to have
+  a default `time_limit` argument set as the maximum machine integer for
+  consistency.
+- Update `add_rsymphony_solver`, `add_lpsymphony_solver`, and
+  `add_gurobi_solver` functions to require `logical` (`TRUE`/`FALSE`) arguments
+  for the `first_feasible` parameter.
+- Update documentation for solvers to provide more detailed information.
+
 # prioritizr 6.0.0.1
 
 - Update Solution format section documentation for evaluation functions

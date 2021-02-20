@@ -3,26 +3,28 @@ NULL
 
 #' Add a *Gurobi* solver
 #'
-#' Specify that the *Gurobi* software should be used to solve a
-#' conservation planning problem. This function can also be used to
-#' customize the behavior of the solver. It requires the \pkg{gurobi} package.
-#' For information on the performance of different solvers,
-#' please see Schuster _et al._ (2020) for benchmarks comparing the
-#' run time and solution quality of different solvers when applied to
-#' different sized datasets.
+#' Specify that the [*Gurobi*](https://www.gurobi.com/) software
+#' (Gurobi Optimization LLC 2021) should be used to solve a
+#' conservation planning [problem()]. This function can also be used to
+#' customize the behavior of the solver.
+#' It requires the \pkg{gurobi} package to be installed
+#' (see below for installation instructions).
 #'
 #' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
-#' @param gap `numeric` gap to optimality. This gap is relative when
-#'   solving problems using *Gurobi* or *CPLEX*, and will cause the optimizer to
-#'   terminate when the difference between the upper and lower objective
-#'   function bounds is less than the gap times the upper bound. For example, a
-#'   value of 0.01 will result in the optimizer stopping when the difference
-#'   between the bounds is 1 percent of the upper bound.
+#' @param gap `numeric` gap to optimality. This gap is relative
+#'   and expresses the acceptable deviance from the optimal objective.
+#'   For example, a value of 0.01 will result in the solver stopping when
+#'   it has found a solution within 1% of optimality.
+#'   Additionally, a value of 0 will result in the solver stopping
+#'   when it has found an optimal solution.
+#'   The default value is 0.1 (i.e. 10% from optimality).
 #'
-#' @param time_limit `numeric` time limit in seconds to run the optimizer.
+#' @param time_limit `numeric` time limit (seconds) for generating solutions.
 #'   The solver will return the current best solution when this time limit is
-#'   exceeded.
+#'   exceeded. The default value is the largest integer value
+#'   (i.e. `.Machine$integer.max`), effectively meaning that solver
+#'   will keep running until a solution within the optimality gap is found.
 #'
 #' @param presolve `integer` number indicating how intensively the
 #'   solver should try to simplify the problem before solving it. Available
@@ -32,8 +34,7 @@ NULL
 #'   The default value is 2.
 #'
 #' @param threads `integer` number of threads to use for the
-#'   optimization algorithm. The default value of 1 will result in only
-#'   one thread being used.
+#'   optimization algorithm. The default value is 1.
 #'
 #' @param first_feasible `logical` should the first feasible solution be
 #'   be returned? If `first_feasible` is set to `TRUE`, the solver
@@ -51,15 +52,29 @@ NULL
 #'   to 3). Defaults to `FALSE`.
 #'
 #' @param verbose `logical` should information be printed while solving
-#'  optimization problems?
+#'  optimization problems? Defaults to `TRUE`.
 #'
-#' @details [*Gurobi*](https://www.gurobi.com/) is a
-#'   state-of-the-art commercial optimization software with an R package
-#'   interface. It is by far the fastest of the solvers available for
-#'   generating prioritizations, however, it is not freely
-#'   available. That said, licenses are available to academics at no cost. The
-#'   \pkg{gurobi} package is distributed with the *Gurobi* software suite.
-#'   This solver uses the \pkg{gurobi} package to solve problems.
+#' @details
+#' [*Gurobi*](https://www.gurobi.com/) is a
+#' state-of-the-art commercial optimization software with an R package
+#' interface. It is by far the fastest of the solvers available for
+#' generating prioritizations, however, it is not freely
+#' available. That said, licenses are available to academics at no cost. The
+#' \pkg{gurobi} package is distributed with the *Gurobi* software suite.
+#' This solver uses the \pkg{gurobi} package to solve problems.
+#' For information on the performance of different solvers,
+#' please see Schuster _et al._ (2020) for benchmarks comparing the
+#' run time and solution quality of different solvers when applied to
+#' different sized datasets.
+#'
+#' @section Installation:
+#' Please see the *Gurobi Installation Guide* vignette for details on
+#' installing the *Gurobi* software and the \pkg{gurobi} package.
+#' You can access this vignette [online](https://prioritizr.net/articles/gurobi_installation.html)
+#' or using the following code:
+#' ```
+#' vignette("gurobi_installation", package = "prioritizr")
+#' ```
 #'
 #' @return Object (i.e. [`ConservationProblem-class`]) with the solver
 #'  added to it.
@@ -67,6 +82,9 @@ NULL
 #' @seealso [solvers].
 #'
 #' @references
+#' Gurobi Optimization LLC (2021) Gurobi Optimizer Reference Manual.
+#' <http://www.gurobi.com>.
+#'
 #' Schuster R, Hanson JO, Strimas-Mackey M, and Bennett JR (2020). Exact
 #' integer linear programming solvers outperform simulated annealing for
 #' solving conservation planning problems. *PeerJ*, 8: e9258.
@@ -95,7 +113,7 @@ NULL
 #' @rdname add_gurobi_solver
 #' @export
 add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
-                              presolve = 2, threads = 1, first_feasible = 0,
+                              presolve = 2, threads = 1, first_feasible = FALSE,
                               numeric_focus = FALSE, verbose = TRUE) {
   # assert that arguments are valid
   assertthat::assert_that(inherits(x, "ConservationProblem"),
@@ -104,12 +122,13 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
                           isTRUE(gap >= 0), isTRUE(all(is.finite(time_limit))),
                           assertthat::is.count(time_limit),
                           isTRUE(all(is.finite(presolve))),
-                          assertthat::is.scalar(presolve), isTRUE(presolve >= -1 & presolve <= 2),
+                          assertthat::is.scalar(presolve),
+                          isTRUE(presolve >= -1 & presolve <= 2),
                           isTRUE(all(is.finite(threads))),
                           assertthat::is.count(threads),
                           isTRUE(threads <= parallel::detectCores(TRUE)),
-                          assertthat::is.scalar(first_feasible),
-                          isTRUE(first_feasible == 1 | first_feasible == 0),
+                          assertthat::is.flag(first_feasible),
+                          assertthat::noNA(first_feasible),
                           assertthat::is.flag(numeric_focus),
                           assertthat::noNA(numeric_focus),
                           assertthat::is.flag(verbose),

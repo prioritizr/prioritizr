@@ -32,7 +32,7 @@ Please cite the *prioritizr R* package when using it in publications. To cite th
 
 Alternatively, to cite the latest development version, please use:
 
-> Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2021). prioritizr: Systematic Conservation Prioritization in R. R package version 6.0.0.1. Available at <https://github.com/prioritizr/prioritizr>.
+> Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2021). prioritizr: Systematic Conservation Prioritization in R. R package version 6.0.0.2. Available at <https://github.com/prioritizr/prioritizr>.
 
 Additionally, we keep a [record of publications](https://prioritizr.net/articles/publication_record.html) that use the *prioritizr R* package. If you use this package in any reports or publications, please [file an issue on GitHub](https://github.com/prioritizr/prioritizr/issues/new) so we can add it to the record.
 
@@ -171,7 +171,7 @@ s1 <- solve(p1)
     ##      0     0 2612.80122    0   12 2747.37746 2612.80122  4.90%     -    0s
     ##      0     0 2612.80272    0   11 2747.37746 2612.80272  4.90%     -    0s
     ##      0     2 2612.91183    0   11 2747.37746 2612.91183  4.89%     -    0s
-    ##  72733 41223 2698.55307   54    2 2747.37746 2621.67445  4.58%   1.7    5s
+    ##  75422 42803 2640.96545   72    1 2747.37746 2621.75887  4.57%   1.7    5s
     ## H76889  5280                    2627.6389306 2621.79315  0.22%   1.7    5s
     ## 
     ## Cutting planes:
@@ -180,7 +180,7 @@ s1 <- solve(p1)
     ##   StrongCG: 39
     ##   Flow cover: 10
     ## 
-    ## Explored 99210 nodes (201659 simplex iterations) in 7.42 seconds
+    ## Explored 99210 nodes (201659 simplex iterations) in 7.17 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 5: 2627.64 2747.38 2761.33 ... 3139.89
@@ -202,7 +202,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##   7.420244
+    ##   7.167197
 
 ``` r
 # extract state message from the solver
@@ -387,7 +387,7 @@ s3 <- solve(p3)
     ##   Cover: 1
     ##   GUB cover: 1
     ## 
-    ## Explored 1 nodes (217 simplex iterations) in 0.04 seconds
+    ## Explored 1 nodes (217 simplex iterations) in 0.03 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 6: 3939.6 3951.75 4058.75 ... 19567.2

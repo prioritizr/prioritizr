@@ -13,7 +13,7 @@
       "You have loaded both oppr and prioritizr - ",
       "this is likely to cause serious issues.\n",
       "You should only have one of these packages loaded at a time,\n",
-      "please unload one oppr or prioritizr using one of the commands below:\n",
+      "please unload the oppr or prioritizr using one of the commands below:\n",
       "  detach(\"package:oppr\", unload = TRUE) # unload oppr package\n",
       "  detach(\"package:prioritizr\", unload = TRUE) # unload prioritizr",
       "package\n",

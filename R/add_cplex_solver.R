@@ -3,39 +3,51 @@ NULL
 
 #' Add a *CPLEX* solver
 #'
-#' Specify that the *IBM CPLEX* software should be used to solve a
-#' conservation planning problem. This function can also be used to
-#' customize the behavior of the solver. It requires the \pkg{cplexAPI} package.
-#' Although formal benchmarks examining the performance of this solver have
-#' have yet to be completed, preliminary analyses suggest that this
-#' solver performs slightly worse than the *Gurobi* software. This solver
-#' is recommended when the *Gurobi* solver is not available.
+#' Specify that the
+#' [*IBM CPLEX*](https://www.ibm.com/analytics/cplex-optimizer) software
+#' (IBM 2017) should be used to solve a conservation planning [problem()].
+#' This function can also be used to customize the behavior of the solver.
+#' It requires the \pkg{cplexAPI} package to be installed
+#' (see below for installation instructions).
 #'
 #' @inheritParams add_gurobi_solver
 #'
 #' @inherit add_gurobi_solver return seealso
 #'
 #' @param presolve `logical` attempt to simplify the
-#'   problem before solving it? The default value is \code{TRUE}.
+#'   problem before solving it? Defaults to `TRUE`.
 #'
-#' @details [*IBM CPLEX*](https://www.ibm.com/analytics/cplex-optimizer) is a
-#'   commercial optimization software. Although this software is faster than
-#'   the available open source solvers (i.e [add_lpsymphony_solver()] and
-#'   [add_rsymphony_solver()], it is slower than the *Gurobi* solver
-#'   ([add_gurobi_solver()]).
-#'   Licenses are available for the *IBM CPLEX* software to academics at no cost
-#'   (see <https://www.ibm.com/products/ilog-cplex-optimization-studio>).
+#' @details
+#' [*IBM CPLEX*](https://www.ibm.com/analytics/cplex-optimizer) is a
+#' commercial optimization software. It is faster than
+#' the available open source solvers (e.g. [add_lpsymphony_solver()] and
+#' [add_rsymphony_solver()].
+#' Although formal benchmarks examining the performance of this solver for
+#' conservation planning problems have yet to be completed, preliminary
+#' analyses suggest that it performs slightly slower than the *Gurobi*
+#' solver (i.e. [add_gurobi_solver()]).
+#' We recommend using this solver if the *Gurobi* solver is not available.
+#' Licenses are available for the *IBM CPLEX* software to academics at no cost
+#' (see <https://www.ibm.com/products/ilog-cplex-optimization-studio>).
 #'
-#'   The pkg{cplexAPI} package is used to interface with *IBM CPLEX*. To install
-#'   this package, the `CPLEX_BIN` variable must be set (similar to
-#'   the `GUROBI_HOME` variable for the *Gurobi* software) to specify
-#'   the file path for the *CPLEX* software. For example, on a Linux system,
-#'   this variable can be specified by adding
-#'   `export CPLEX_BIN="/opt/ibm/ILOG/CPLEX_Studio128/cplex/bin/x86-64_linux/cplex"`
-#'   to the `~/.bashrc` file. Note that you may need to change the version
-#'   number in the file path (i.e. `"CPLEX_Studio128"`). For more information
-#'   on installing the pkg{cplexAPI} package, please see the
-#'   [official installation instructions for the package](https://CRAN.R-project.org/package=cplexAPI/INSTALL).
+#' @section Installation:
+#' The pkg{cplexAPI} package is used to interface with *IBM CPLEX*. To install
+#' this package, the `CPLEX_BIN` variable must be set (similar to
+#' the `GUROBI_HOME` variable for the *Gurobi* software) to specify
+#' the file path for the *CPLEX* software. For example, on a Linux system,
+#' this variable can be specified by adding the following text to the
+#' `~/.bashrc` file:
+#' ```
+#'   export CPLEX_BIN="/opt/ibm/ILOG/CPLEX_Studio128/cplex/bin/x86-64_linux/cplex"
+#' ```
+#' Note that you may need to change the version
+#' number in the file path (i.e. `"CPLEX_Studio128"`). For more information
+#' on installing the pkg{cplexAPI} package, please see the
+#' [official installation instructions for the package](https://CRAN.R-project.org/package=cplexAPI/INSTALL).
+#'
+#' @references
+#' IBM (2017) IBM ILOG CPLEX Optimization Studio CPLEX User's Manual.
+#' Version 12 Release 8. IBM ILOG CPLEX Division, Incline Village, NV.
 #'
 #' @examples
 #' \dontrun{

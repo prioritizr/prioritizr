@@ -13,9 +13,9 @@
     **The package makes extensive use of C++ code to reduce run time.**
 
 * checking package dependencies ... NOTE
-  Packages suggested but not available for checking: 'gurobi'
+  Packages suggested but not available for checking: 'gurobi', 'rcbc'
 
-    **The package uses the gurobi R package that is distributed with Gurobi software suite (and not available on CRAN).**
+    **The package provides the (optional) functionality to solve optimization problems using the gurobi and rcbc R packages. The gurobi R package is distributed with Gurobi software suite (and not available on CRAN), and the rcbc R package is only available on GitHub (https://github.com/dirkschumacher/rcbc). The package documentation provides instructions for installing these R packages.**
 
 ## Test environments
 

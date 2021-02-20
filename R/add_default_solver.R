@@ -1,14 +1,14 @@
 #' @include Solver-proto.R
 NULL
 
-#' Default solver
+#' Add a default solver
 #'
 #' Identify the best solver currently installed on the system and specify that
 #' it should be used to solve a conservation planning [problem()].
 #' For information on the performance of different solvers,
 #' please see Schuster _et al._ (2020) for benchmarks comparing the
-#' run time and solution quality of different solvers when applied to
-#' different sized datasets.
+#' run time and solution quality of some of the available solvers when applied
+#' to different sized datasets.
 #'
 #' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
@@ -17,9 +17,14 @@ NULL
 #' @details
 #' Ranked from best to worst, the available solvers that can be used are:
 #' [add_gurobi_solver()], [add_cplex_solver()], [add_rsymphony_solver()],
-#' and finally [add_lpsymphony_solver()].
+#' [add_lpsymphony_solver()], and finally [add_cbc_solver()].
 #'
-#' @inherit add_gurobi_solver return seealso references
+#' @inherit add_gurobi_solver return seealso
+#'
+#' @references
+#' Schuster R, Hanson JO, Strimas-Mackey M, and Bennett JR (2020). Exact
+#' integer linear programming solvers outperform simulated annealing for
+#' solving conservation planning problems. *PeerJ*, 8: e9258.
 #'
 #' @export
 add_default_solver <- function(x, ...) {
@@ -32,6 +37,8 @@ add_default_solver <- function(x, ...) {
     return(add_rsymphony_solver(x, ...))
   } else if (identical(ds, "lpsymphony")) {
     return(add_lpsymphony_solver(x, ...))
+  } else if (identical(ds, "rcbc")) {
+    return(add_cbc_solver(x, ...))
   } else {
     assertthat::assert_that(inherits(x, "ConservationProblem"))
     return(x$add_solver(pproto(
@@ -64,6 +71,8 @@ default_solver_name <- function() {
     return("Rsymphony")
   } else if (requireNamespace("lpsymphony", quietly = TRUE)) {
     return("lpsymphony")
+  } else if (requireNamespace("rcbc", quietly = TRUE)) {
+    return("rcbc")
   } else {
     return(NULL)
   }
