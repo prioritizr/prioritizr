@@ -15,15 +15,13 @@ NULL
 #' @details
 #' [*SYMPHONY*](https://projects.coin-or.org/SYMPHONY) is an
 #' open-source mixed integer programming solver that is part of the
-#' Computational Infrastructure for Operations Research (COIN-OR) project, an
-#' initiative to promote development of open-source tools for operations
-#' research (a field that includes linear programming).
+#' Computational Infrastructure for Operations Research (COIN-OR) project.
 #' This solver is provided because it may be easier to install
 #' on some systems than the \pkg{Rsymphony} package. Additionally --
 #' although the \pkg{lpsymphony} package doesn't provide the functionality
 #' to specify the number of threads for solving a problem -- the
-#' \pkg{lpsymphony} package will solve problems using all available threads on
-#' a system (unlike the \pkg{Rsymphony} package). As a consequence, this
+#' \pkg{lpsymphony} package will solve problems using parallel processing
+#' (unlike the \pkg{Rsymphony} package). As a consequence, this
 #' solver will likely generate solutions much faster than the
 #' [add_rsymphony_solver()].
 #' Although formal benchmarks examining the performance of this solver

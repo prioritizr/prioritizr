@@ -65,12 +65,13 @@ see below for installation instructions).
 \details{
 \href{https://projects.coin-or.org/Cbc}{\emph{CBC}} is an
 open-source mixed integer programming solver that is part of the
-Computational Infrastructure for Operations Research (COIN-OR) project, an
-initiative to promote development of open-source tools for operations
-research (a field that includes linear programming).
-Although the SYMHPONY software is also part of the COIN-OR project, it is
-distinct from the CBC software. Thus CBC and SYMPHONY have different
-performance and functionality.
+Computational Infrastructure for Operations Research (COIN-OR) project.
+Although formal benchmarks examining the performance of this solver for
+conservation planning problems have yet to be completed, preliminary
+analyses suggest that it performs much faster than the other open-source
+solvers (i.e. \code{\link[=add_rsymphony_solver]{add_rsymphony_solver()}}, \code{\link[=add_rsymphony_solver]{add_rsymphony_solver()}}), and
+so we recommend using this solver if the \emph{Gurobi} and \emph{IBM CPLEX} solvers
+are unavailable.
 }
 \section{Installation}{
 

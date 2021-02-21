@@ -23,7 +23,8 @@ currently installed on the system.}
 
 \item{\code{\link[=add_gurobi_solver]{add_gurobi_solver()}}}{\href{https://www.gurobi.com/}{\emph{Gurobi}}
 is a state-of-the-art commercial optimization software with an R package
-interface. It is by far the fastest of the solvers available for
+interface. We recommend using this solver if at all possible.
+It is by far the fastest of the solvers available for
 generating prioritizations, however, it is not freely available. That
 said, licenses are available to academics at no cost. The
 \pkg{gurobi} package is distributed with the \emph{Gurobi} software
@@ -38,30 +39,38 @@ software, licenses are available to academics at no cost.
 This solver uses the \pkg{cplexAPI} package to solve problems using
 \emph{IBM CPLEX}.}
 
-\item{\code{\link[=add_rsymphony_solver]{add_rsymphony_solver()}}}{
-\href{https://projects.coin-or.org/SYMPHONY}{\emph{SYMPHONY}} is an
-open-source mixed integer programming solver that is part of the
-Computational
-Infrastructure for Operations Research (COIN-OR) project, an initiative
-to promote development of open-source tools for operations research (a
-field that includes linear programming). The \pkg{Rsymphony} package
-provides an interface to COIN-OR and is available on CRAN. This solver
-uses the \pkg{Rsymphony} package to solve problems.}
-
-\item{\code{\link[=add_lpsymphony_solver]{add_lpsymphony_solver()}}}{The \pkg{lpsymphony} package
-provides a different interface to the COIN-OR software suite. Unlike the
-\pkg{Rsymhpony} package, the \pkg{lpsymphony} package is distributed
-through
-\href{https://doi.org/doi:10.18129/B9.bioc.lpsymphony}{Bioconductor}.
-The \pkg{lpsymphony} package may be easier to install on Windows or
-Max OSX systems than the \pkg{Rsymphony} package.}
-
 \item{\code{\link[=add_cbc_solver]{add_cbc_solver()}}}{\href{https://projects.coin-or.org/Cbc}{\emph{CBC}} is an
-open-source mixed integer programming solver that is also part of the
-COIN-OR project. It requires the \pkg{rcbc} package,
-which is currently only available on
+open-source mixed integer programming solver that is part of the
+Computational Infrastructure for Operations Research (COIN-OR) project.
+Preliminary benchmarks indicate that it is the fastest open source
+solver currently supported.
+We recommend using this solver if \emph{Gurobi} and \emph{IBM CPLEX} are
+unavailable.
+It requires the \pkg{rcbc} package, which is currently only available on
 \href{https://github.com/dirkschumacher/rcbc}{GitHub}.
 }
+
+\item{\code{\link[=add_lpsymphony_solver]{add_lpsymphony_solver()}}}{
+\href{https://projects.coin-or.org/SYMPHONY}{\emph{SYMPHONY}} is an
+open-source mixed integer programming solver that is also part of the
+COIN-OR project. Although both \emph{SYMPHONY} and \emph{CBC} are part of
+the COIN-OR project, they are different software.
+The \pkg{lpsymphony} package provides an interface to the \emph{SYMPHONY}
+software, and is distributed through
+\href{https://doi.org/doi:10.18129/B9.bioc.lpsymphony}{Bioconductor}.
+We recommend using this solver if the CBC solver cannot be installed.
+This solver can use parallel processing to solve problems, so it is
+faster than \pkg{Rsymphony} package interface (see below).
+}
+
+\item{\code{\link[=add_rsymphony_solver]{add_rsymphony_solver()}}}{
+This solver provides an alternative interface to the
+\href{https://projects.coin-or.org/SYMPHONY}{\emph{SYMPHONY}} solver using
+the \pkg{Rsymphony} package.
+Unlike other solvers, the \pkg{Rsymphony} package can be installed
+directly from the Comprehensive R Archive Network (CRAN).
+It is also the slowest of the available solvers.}
+
 }
 }
 \examples{
@@ -81,13 +90,6 @@ titles <- c()
 # create empty stack to store solutions
 s <- stack()
 
-# create problem with added rsymphony solver
-if (require("Rsymphony")) {
-  titles <- c(titles, "Rsymphony")
-  p2 <- p \%>\% add_rsymphony_solver(verbose = FALSE)
-  s <- addLayer(s, solve(p2))
-}
-
 # if gurobi is installed: create problem with added gurobi solver
 if (require("gurobi")) {
   titles <- c(titles, "gurobi")
@@ -102,18 +104,25 @@ if (require("cplexAPI")) {
   s <- addLayer(s, solve(p4))
 }
 
-# if lpsymphony is installed: create problem with added lpsymphony solver
-if (require("lpsymphony")) {
-  titles <- c(titles, "lpsymphony")
-  p5 <- p \%>\% add_lpsymphony_solver(verbose = FALSE)
-  s <- addLayer(s, solve(p5))
-}
-
 # if rcbc is installed: create problem with added cbc solver
 if (require("rcbc")) {
   titles <- c(titles, "CBC")
   p6 <- p \%>\% add_cbc_solver(verbose = FALSE)
   s <- addLayer(s, solve(p6))
+}
+
+# create problem with added rsymphony solver
+if (require("Rsymphony")) {
+  titles <- c(titles, "Rsymphony")
+  p2 <- p \%>\% add_rsymphony_solver(verbose = FALSE)
+  s <- addLayer(s, solve(p2))
+}
+
+# if lpsymphony is installed: create problem with added lpsymphony solver
+if (require("lpsymphony")) {
+  titles <- c(titles, "lpsymphony")
+  p5 <- p \%>\% add_lpsymphony_solver(verbose = FALSE)
+  s <- addLayer(s, solve(p5))
 }
 
 # plot solutions

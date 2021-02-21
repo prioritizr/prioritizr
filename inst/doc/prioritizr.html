@@ -727,8 +727,8 @@ p20 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster,
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
 ##   decisions:      default
-##   constraints:    &lt;Locked in planning units [10 locked units]
-##                    Locked out planning units [10 locked units]&gt;
+##   constraints:    &lt;Locked out planning units [10 locked units]
+##                    Locked in planning units [10 locked units]&gt;
 ##   penalties:      &lt;none&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
@@ -992,15 +992,15 @@ p30 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster,
 ##   portfolio:      default
 ##   solver:         CPLEX [gap (0), presolve (1), threads (1), time_limit (2147483647), verbose (1)]</code></pre>
 <ul>
-<li><strong><em>Rsymphony</em> solver</strong>: <a href="https://projects.coin-or.org/SYMPHONY"><em>SYMPHONY</em></a> is an open-source integer programming solver that is part of the Computational Infrastructure for Operations Research (COIN-OR) project, an initiative to promote development of open-source tools for operations research. The <em>Rsymphony R</em> package provides an interface to COIN-OR and is available on The Comprehensive R Archive Network (CRAN).</li>
+<li><strong><em>CBC</em> solver</strong>: <a href="https://projects.coin-or.org/Cbc"><em>CBC</em></a> is an open-source mixed integer programming solver that is part of the Computational Infrastructure for Operations Research (COIN-OR) project. Although formal benchmarks have yet to be completed, preliminary analyses suggest that it is the fastest open-source solver available for generating prioritizations. It requires the <em>rcbc R</em> package, which is currently only available on <a href="https://github.com/dirkschumacher/rcbc">GitHub</a>.</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create a problem and specify that Rsymphony should be used to solve the</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create a problem and specify that CBC should be used to solve the</span>
 <span class="co"># problem and specify an optimality gap of zero to obtain the optimal solution</span>
 p31 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster, sim_features) <span class="op">%&gt;%</span>
 <span class="st">       </span><span class="kw">add_min_set_objective</span>() <span class="op">%&gt;%</span>
 <span class="st">       </span><span class="kw">add_relative_targets</span>(<span class="fl">0.1</span>) <span class="op">%&gt;%</span>
 <span class="st">       </span><span class="kw">add_binary_decisions</span>() <span class="op">%&gt;%</span>
-<span class="st">       </span><span class="kw">add_rsymphony_solver</span>(<span class="dt">gap =</span> <span class="dv">0</span>)
+<span class="st">       </span><span class="kw">add_cbc_solver</span>(<span class="dt">gap =</span> <span class="dv">0</span>)
 
 <span class="co"># print problem</span>
 <span class="kw">print</span>(p31)</code></pre></div>
@@ -1014,9 +1014,9 @@ p31 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster,
 ##   constraints:    &lt;none&gt;
 ##   penalties:      &lt;none&gt;
 ##   portfolio:      default
-##   solver:         Rsymphony [first_feasible (0), gap (0), time_limit (2147483647), verbose (1)]</code></pre>
+##   solver:         CBC [first_feasible (0), gap (0), presolve (1), threads (1), time_limit (2147483647), verbose (1)]</code></pre>
 <ul>
-<li><strong><em>lpsymphony</em> solver</strong>: The <em>lpsymphony R</em> package provides a different interface to the COIN-OR software suite. This package may be easier to install on Windows and Mac OSX operating systems than the <em>Rsymphony R</em> package. Unlike the <em>Rsymphony R</em> package, the <em>lpsymphony R</em> package is distributed through <a href="http://bioconductor.org/packages/release/bioc/html/lpsymphony.html">Bioconductor</a>.</li>
+<li><strong><em>lpsymphony</em> solver</strong>: <a href="https://projects.coin-or.org/SYMPHONY"><em>SYMPHONY</em></a> is an open-source integer programming solver that is also part of the COIN-OR project. This solver uses the <em>lpsymphony R</em> package (available on <a href="http://bioconductor.org/packages/release/bioc/html/lpsymphony.html">Bioconductor</a>) to interface with the <em>SYMPHONY</em> software.</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create a problem and specify that lpsymphony should be used to solve the</span>
 <span class="co"># problem and specify an optimality gap of zero to obtain the optimal solution</span>
@@ -1040,15 +1040,15 @@ p32 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster,
 ##   portfolio:      default
 ##   solver:         Lpsymphony [first_feasible (0), gap (0), time_limit (2147483647), verbose (1)]</code></pre>
 <ul>
-<li><strong><em>CBC</em> solver</strong>: <a href="https://projects.coin-or.org/Cbc"><em>CBC</em></a> is an open-source mixed integer programming solver that is also part of the COIN-OR project. It requires the <em>rcbc R</em> package, which is currently only available on <a href="https://github.com/dirkschumacher/rcbc">GitHub</a>.</li>
+<li><strong><em>Rsymphony</em> solver</strong>: This solver provides a different interface to the <a href="https://projects.coin-or.org/SYMPHONY"><em>SYMPHONY</em></a> software. It uses the <em>Rsymphony R</em> package which is available on The Comprehensive R Archive Network (CRAN). This solver is generally slower than the other solvers, because it cannot use parallel processing.</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create a problem and specify that CBC should be used to solve the</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create a problem and specify that Rsymphony should be used to solve the</span>
 <span class="co"># problem and specify an optimality gap of zero to obtain the optimal solution</span>
 p33 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster, sim_features) <span class="op">%&gt;%</span>
 <span class="st">       </span><span class="kw">add_min_set_objective</span>() <span class="op">%&gt;%</span>
 <span class="st">       </span><span class="kw">add_relative_targets</span>(<span class="fl">0.1</span>) <span class="op">%&gt;%</span>
 <span class="st">       </span><span class="kw">add_binary_decisions</span>() <span class="op">%&gt;%</span>
-<span class="st">       </span><span class="kw">add_cbc_solver</span>(<span class="dt">gap =</span> <span class="dv">0</span>)
+<span class="st">       </span><span class="kw">add_rsymphony_solver</span>(<span class="dt">gap =</span> <span class="dv">0</span>)
 
 <span class="co"># print problem</span>
 <span class="kw">print</span>(p33)</code></pre></div>
@@ -1062,7 +1062,7 @@ p33 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster,
 ##   constraints:    &lt;none&gt;
 ##   penalties:      &lt;none&gt;
 ##   portfolio:      default
-##   solver:         CBC [first_feasible (0), gap (0), presolve (1), threads (1), time_limit (2147483647), verbose (1)]</code></pre>
+##   solver:         Rsymphony [first_feasible (0), gap (0), time_limit (2147483647), verbose (1)]</code></pre>
 </div>
 <div id="add-a-portfolio" class="section level3">
 <h3>Add a portfolio</h3>
@@ -1219,7 +1219,7 @@ s39 &lt;-<span class="st"> </span><span class="kw">solve</span>(p39)</code></pre
 ## Presolved: 293 rows, 234 columns, 1026 nonzeros
 ## 
 ## 
-## Root relaxation: objective 2.265862e+03, 220 iterations, 0.01 seconds
+## Root relaxation: objective 2.265862e+03, 220 iterations, 0.00 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -1237,7 +1237,7 @@ s39 &lt;-<span class="st"> </span><span class="kw">solve</span>(p39)</code></pre
 ## Cutting planes:
 ##   Gomory: 3
 ## 
-## Explored 1 nodes (347 simplex iterations) in 0.37 seconds
+## Explored 1 nodes (347 simplex iterations) in 0.19 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 6: 2604.74 2790.87 2907.58 ... 20287.2
@@ -1437,7 +1437,7 @@ s40 &lt;-<span class="st"> </span><span class="kw">solve</span>(p40)</code></pre
 ##      0     0 1931.58191    0    4 2337.96175 1931.58191  17.4%     -    0s
 ## H    0     0                    1987.3985265 1931.58191  2.81%     -    0s
 ## 
-## Explored 1 nodes (12 simplex iterations) in 0.01 seconds
+## Explored 1 nodes (12 simplex iterations) in 0.00 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 1987.4 2337.96 

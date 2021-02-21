@@ -601,20 +601,22 @@ p30 <- problem(sim_pu_raster, sim_features) %>%
 # print problem
 print(p30)
 ```
-* __*Rsymphony* solver__: [_SYMPHONY_](https://projects.coin-or.org/SYMPHONY) is an open-source integer programming solver that is part of the Computational Infrastructure for Operations Research (COIN-OR) project, an initiative to promote development of open-source tools for operations research. The _Rsymphony R_ package provides an interface to COIN-OR and is available on The Comprehensive R Archive Network (CRAN).
+* __*CBC* solver__: [*CBC*](https://projects.coin-or.org/Cbc) is an
+open-source mixed integer programming solver that is part of the Computational Infrastructure for Operations Research (COIN-OR) project. Although formal benchmarks have yet to be completed, preliminary analyses suggest that it is
+the fastest open-source solver available for generating prioritizations. It requires the _rcbc R_ package, which is currently only available on [GitHub](https://github.com/dirkschumacher/rcbc).
 ```{r}
-# create a problem and specify that Rsymphony should be used to solve the
+# create a problem and specify that CBC should be used to solve the
 # problem and specify an optimality gap of zero to obtain the optimal solution
 p31 <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_binary_decisions() %>%
-       add_rsymphony_solver(gap = 0)
+       add_cbc_solver(gap = 0)
 
 # print problem
 print(p31)
 ```
-* __*lpsymphony* solver__: The _lpsymphony R_ package provides a different interface to the COIN-OR software suite. This package may be easier to install on Windows and Mac OSX operating systems than the _Rsymphony R_ package. Unlike the _Rsymphony R_ package, the _lpsymphony R_ package is distributed through [Bioconductor](http://bioconductor.org/packages/release/bioc/html/lpsymphony.html).
+* __*lpsymphony* solver__: [_SYMPHONY_](https://projects.coin-or.org/SYMPHONY) is an open-source integer programming solver that is also part of the COIN-OR project. This solver uses the _lpsymphony R_ package (available on [Bioconductor](http://bioconductor.org/packages/release/bioc/html/lpsymphony.html)) to interface with the _SYMPHONY_ software.
 ```{r}
 # create a problem and specify that lpsymphony should be used to solve the
 # problem and specify an optimality gap of zero to obtain the optimal solution
@@ -627,16 +629,15 @@ p32 <- problem(sim_pu_raster, sim_features) %>%
 # print problem
 print(p32)
 ```
-* __*CBC* solver__: [*CBC*](https://projects.coin-or.org/Cbc) is an
-open-source mixed integer programming solver that is also part of the COIN-OR project. It requires the _rcbc R_ package, which is currently only available on [GitHub](https://github.com/dirkschumacher/rcbc).
+* __*Rsymphony* solver__: This solver provides a different interface to the [_SYMPHONY_](https://projects.coin-or.org/SYMPHONY) software. It uses the _Rsymphony R_ package which is available on The Comprehensive R Archive Network (CRAN). This solver is generally slower than the other solvers, because it cannot use parallel processing.
 ```{r}
-# create a problem and specify that CBC should be used to solve the
+# create a problem and specify that Rsymphony should be used to solve the
 # problem and specify an optimality gap of zero to obtain the optimal solution
 p33 <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_binary_decisions() %>%
-       add_cbc_solver(gap = 0)
+       add_rsymphony_solver(gap = 0)
 
 # print problem
 print(p33)

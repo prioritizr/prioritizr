@@ -112,7 +112,7 @@ test_that("mix of binary and continuous variables", {
                                     tolerance = 1e-5, stopiffalse = FALSE))
 })
 
-test_that("correct solution", {
+test_that("correct solution (simple)", {
   skip_on_cran()
   skip_on_ci()
   skip_if_not_installed("gurobi")
@@ -134,5 +134,33 @@ test_that("correct solution", {
   s2 <- solve(p)
   # test for correct solution
   expect_equal(raster::values(s1), c(0, 1, 1, NA))
+  expect_equal(raster::values(s1), raster::values(s2))
+})
+
+test_that("correct solution (complex)", {
+  skip_on_cran()
+  skip_on_ci()
+  skip_if_not_installed("gurobi")
+  # create data
+  cost <- raster::raster(matrix(c(1000, 100, 200, 300, NA), nrow = 1))
+  features <- raster::stack(
+    raster::raster(matrix(c(5,  5,   0,  0,  NA), nrow = 1)),
+    raster::raster(matrix(c(2,  0,   8,  10, NA), nrow = 1)),
+    raster::raster(matrix(c(10, 100, 10, 10, NA), nrow = 1)))
+  # create problem
+  p <- problem(cost, features) %>%
+       add_min_set_objective() %>%
+       add_manual_targets(
+         tibble::tibble(
+           feature = names(features),
+           type = "absolute",
+           sense = c("=", ">=", "<="),
+           target = c(5, 10, 20))) %>%
+       add_gurobi_solver(gap = 0, verbose = FALSE)
+  # solve problem
+  s1 <- solve(p)
+  s2 <- solve(p)
+  # test for correct solution
+  expect_equal(raster::values(s1), c(1, 0, 1, 0, NA))
   expect_equal(raster::values(s1), raster::values(s2))
 })

@@ -9,6 +9,10 @@
   `add_gurobi_solver` functions to require `logical` (`TRUE`/`FALSE`) arguments
   for the `first_feasible` parameter.
 - Update documentation for solvers to provide more detailed information.
+- Update publication record.
+- Update `add_default_solver` function so that it prefers
+  `add_lpsymphony_solver` over `add_rsymphony_solver`, and `add_cbc_solver`
+  over all open source solvers.
 
 # prioritizr 6.0.0.1
 

@@ -16,8 +16,8 @@ NULL
 #'
 #' @details
 #' Ranked from best to worst, the available solvers that can be used are:
-#' [add_gurobi_solver()], [add_cplex_solver()], [add_rsymphony_solver()],
-#' [add_lpsymphony_solver()], and finally [add_cbc_solver()].
+#' [add_gurobi_solver()], [add_cplex_solver()], [add_cbc_solver()],
+#' [add_lpsymphony_solver()], and finally [add_rsymphony_solver()].
 #'
 #' @inherit add_gurobi_solver return seealso
 #'
@@ -33,12 +33,12 @@ add_default_solver <- function(x, ...) {
     return(add_gurobi_solver(x, ...))
   } else if (identical(ds, "cplexAPI")) {
     return(add_cplex_solver(x, ...))
-  } else if (identical(ds, "Rsymphony")) {
-    return(add_rsymphony_solver(x, ...))
-  } else if (identical(ds, "lpsymphony")) {
-    return(add_lpsymphony_solver(x, ...))
   } else if (identical(ds, "rcbc")) {
     return(add_cbc_solver(x, ...))
+  } else if (identical(ds, "lpsymphony")) {
+    return(add_lpsymphony_solver(x, ...))
+  } else if (identical(ds, "Rsymphony")) {
+    return(add_rsymphony_solver(x, ...))
   } else {
     assertthat::assert_that(inherits(x, "ConservationProblem"))
     return(x$add_solver(pproto(

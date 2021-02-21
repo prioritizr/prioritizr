@@ -54,9 +54,8 @@ It requires the \pkg{Rsymphony} package to be installed.
 \href{https://projects.coin-or.org/SYMPHONY}{\emph{SYMPHONY}} is an
 open-source mixed integer programming solver that is part of the
 Computational
-Infrastructure for Operations Research (COIN-OR) project, an initiative
-to promote development of open-source tools for operations research (a
-field that includes linear programming). The \pkg{Rsymphony} package
+Infrastructure for Operations Research (COIN-OR) project.
+The \pkg{Rsymphony} package
 provides an interface to COIN-OR and -- unlike dependencies for other
 solvers -- is available on \emph{CRAN}.
 For information on the performance of different solvers,

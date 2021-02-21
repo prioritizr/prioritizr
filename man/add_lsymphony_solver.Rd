@@ -55,15 +55,13 @@ It requires the \pkg{lpsymphony} package to be installed
 \details{
 \href{https://projects.coin-or.org/SYMPHONY}{\emph{SYMPHONY}} is an
 open-source mixed integer programming solver that is part of the
-Computational Infrastructure for Operations Research (COIN-OR) project, an
-initiative to promote development of open-source tools for operations
-research (a field that includes linear programming).
+Computational Infrastructure for Operations Research (COIN-OR) project.
 This solver is provided because it may be easier to install
 on some systems than the \pkg{Rsymphony} package. Additionally --
 although the \pkg{lpsymphony} package doesn't provide the functionality
 to specify the number of threads for solving a problem -- the
-\pkg{lpsymphony} package will solve problems using all available threads on
-a system (unlike the \pkg{Rsymphony} package). As a consequence, this
+\pkg{lpsymphony} package will solve problems using parallel processing
+(unlike the \pkg{Rsymphony} package). As a consequence, this
 solver will likely generate solutions much faster than the
 \code{\link[=add_rsymphony_solver]{add_rsymphony_solver()}}.
 Although formal benchmarks examining the performance of this solver
