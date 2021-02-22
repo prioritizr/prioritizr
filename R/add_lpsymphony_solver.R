@@ -10,7 +10,7 @@ NULL
 #' It requires the \pkg{lpsymphony} package to be installed
 #' (see below for installation instructions).
 #'
-#' @inheritParams add_rsymphony_solver
+#' @inheritParams add_gurobi_solver
 #'
 #' @details
 #' [*SYMPHONY*](https://projects.coin-or.org/SYMPHONY) is an
@@ -38,6 +38,7 @@ NULL
 #' if (!require(remotes)) install.packages("remotes")
 #' remotes::install_bioc("lpsymphony")
 #' ```
+#'
 #' @inherit add_rsymphony_solver seealso return references
 #'
 #' @seealso [solvers].
@@ -117,6 +118,7 @@ add_lpsymphony_solver <- function(x, gap = 0.1,
       model$dir <- replace(model$dir, model$dir == "=", "==")
       model$types <- replace(model$types, model$types == "S", "C")
       p$first_feasible <- as.logical(p$first_feasible)
+      p$gap_limit <- p$gap_limit * 100
       # store input data and parameters
       self$set_data("model", model)
       self$set_data("parameters", p)

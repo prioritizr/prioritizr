@@ -13,6 +13,16 @@
 - Update `add_default_solver` function so that it prefers
   `add_lpsymphony_solver` over `add_rsymphony_solver`, and `add_cbc_solver`
   over all open source solvers.
+- Bug fix: previous versions of the package reported that the `gap` parameter
+  for the `add_rsymphony_solver` and `add_lpsymphony_solver` corresponded to the
+  maximum absolute difference from the optimal objective value.
+  This was an error due to misunderstanding the *SYMPHONY* documentation.
+  Under previous versions of the package, the `gap` parameter actually
+  corresponded to a relative optimality gap expressed
+  as a percentage (such that`gap = 10` indicates that solutions must be at
+  least 10% from optimality). We have now fixed this error and the documentation
+  described for the `gap` parameter is correct. We apologize for any
+  inconvenience this may have caused.
 
 # prioritizr 6.0.0.1
 

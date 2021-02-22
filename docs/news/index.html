@@ -182,6 +182,7 @@
 <li>Update documentation for solvers to provide more detailed information.</li>
 <li>Update publication record.</li>
 <li>Update <code>add_default_solver</code> function so that it prefers <code>add_lpsymphony_solver</code> over <code>add_rsymphony_solver</code>, and <code>add_cbc_solver</code> over all open source solvers.</li>
+<li>Bug fix: previous versions of the package reported that the <code>gap</code> parameter for the <code>add_rsymphony_solver</code> and <code>add_lpsymphony_solver</code> corresponded to the maximum absolute difference from the optimal objective value. This was an error due to misunderstanding the <em>SYMPHONY</em> documentation. Under previous versions of the package, the <code>gap</code> parameter actually corresponded to a relative optimality gap expressed as a percentage (such that<code>gap = 10</code> indicates that solutions must be at least 10% from optimality). We have now fixed this error and the documentation described for the <code>gap</code> parameter is correct. We apologize for any inconvenience this may have caused.</li>
 </ul>
 </div>
     <div id="prioritizr-6-0-0-1" class="section level1">

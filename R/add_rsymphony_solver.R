@@ -9,15 +9,7 @@ NULL
 #' This function can also be used to customize the behavior of the solver.
 #' It requires the \pkg{Rsymphony} package to be installed.
 #'
-#' @inheritParams add_cplex_solver
 #' @inheritParams add_gurobi_solver
-#'
-#' @param gap `numeric` gap to optimality. This gap is absolute and
-#'   expresses the acceptable deviance from the optimal objective. For example,
-#'   solving a [problem()] with the minimum set objective problem and
-#'   using a gap of 5 will result in the solver stopping when the cost of the
-#'   solution is within 5 cost units of an optimal solution.
-#'   The default value is 0.1.
 #'
 #' @details
 #' [*SYMPHONY*](https://projects.coin-or.org/SYMPHONY) is an
@@ -73,7 +65,8 @@ add_rsymphony_solver <- function(x, gap = 0.1,
   assertthat::assert_that(inherits(x, "ConservationProblem"),
                           isTRUE(all(is.finite(gap))),
                           assertthat::is.scalar(gap),
-                          isTRUE(gap >= 0), isTRUE(all(is.finite(time_limit))),
+                          isTRUE(gap >= 0),
+                          isTRUE(all(is.finite(time_limit))),
                           assertthat::is.scalar(time_limit),
                           assertthat::noNA(time_limit),
                           assertthat::is.flag(verbose),
@@ -112,6 +105,7 @@ add_rsymphony_solver <- function(x, gap = 0.1,
       model$types <- replace(model$types, model$types == "S", "C")
       names(p)[which(names(p) == "gap")] <- "gap_limit"
       p$first_feasible <- as.logical(p$first_feasible)
+      p$gap_limit <- p$gap_limit * 100
       # store input data and parameters
       self$set_data("model", model)
       self$set_data("parameters", p)

@@ -16,12 +16,13 @@ add_lpsymphony_solver(
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
 
-\item{gap}{\code{numeric} gap to optimality. This gap is absolute and
-expresses the acceptable deviance from the optimal objective. For example,
-solving a \code{\link[=problem]{problem()}} with the minimum set objective problem and
-using a gap of 5 will result in the solver stopping when the cost of the
-solution is within 5 cost units of an optimal solution.
-The default value is 0.1.}
+\item{gap}{\code{numeric} gap to optimality. This gap is relative
+and expresses the acceptable deviance from the optimal objective.
+For example, a value of 0.01 will result in the solver stopping when
+it has found a solution within 1\% of optimality.
+Additionally, a value of 0 will result in the solver stopping
+when it has found an optimal solution.
+The default value is 0.1 (i.e. 10\% from optimality).}
 
 \item{time_limit}{\code{numeric} time limit (seconds) for generating solutions.
 The solver will return the current best solution when this time limit is
