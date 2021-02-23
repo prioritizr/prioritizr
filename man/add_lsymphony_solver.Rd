@@ -3,35 +3,40 @@
 \name{add_lsymphony_solver}
 \alias{add_lsymphony_solver}
 \alias{add_lpsymphony_solver}
-\title{Add a SYMPHONY solver with \emph{lpsymphony}}
+\title{Add a \emph{SYMPHONY} solver with \emph{lpsymphony}}
 \usage{
 add_lpsymphony_solver(
   x,
   gap = 0.1,
-  time_limit = -1,
-  first_feasible = 0,
+  time_limit = .Machine$integer.max,
+  first_feasible = FALSE,
   verbose = TRUE
 )
 }
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
 
-\item{gap}{\code{numeric} gap to optimality. This gap is absolute and
-expresses the acceptable deviance from the optimal objective. For example,
-solving a minimum set objective problem with a gap of 5 will cause the
-solver to terminate when the cost of the solution is within 5 cost units
-from the optimal solution.}
+\item{gap}{\code{numeric} gap to optimality. This gap is relative
+and expresses the acceptable deviance from the optimal objective.
+For example, a value of 0.01 will result in the solver stopping when
+it has found a solution within 1\% of optimality.
+Additionally, a value of 0 will result in the solver stopping
+when it has found an optimal solution.
+The default value is 0.1 (i.e. 10\% from optimality).}
 
-\item{time_limit}{\code{numeric} time limit in seconds to run the optimizer.
+\item{time_limit}{\code{numeric} time limit (seconds) for generating solutions.
 The solver will return the current best solution when this time limit is
-exceeded.}
+exceeded. The default value is the largest integer value
+(i.e. \code{.Machine$integer.max}), effectively meaning that solver
+will keep running until a solution within the optimality gap is found.}
 
 \item{first_feasible}{\code{logical} should the first feasible solution be
 be returned? If \code{first_feasible} is set to \code{TRUE}, the solver
 will return the first solution it encounters that meets all the
 constraints, regardless of solution quality. Note that the first feasible
 solution is not an arbitrary solution, rather it is derived from the
-relaxed solution, and is therefore often reasonably close to optimality.}
+relaxed solution, and is therefore often reasonably close to optimality.
+Defaults to \code{FALSE}.}
 
 \item{verbose}{\code{logical} should information be printed while solving
 optimization problems? Defaults to \code{TRUE}.}
@@ -41,27 +46,40 @@ Object (i.e. \code{\linkS4class{ConservationProblem}}) with the solver
 added to it.
 }
 \description{
-Specify that the \emph{SYMPHONY} software should be used to solve a
-conservation planning problem using the \pkg{lpsymphony} package. This
-function can also be used to customize the behavior of the solver.
-It requires the \pkg{lpsymphony} package.
-For information on the performance of different solvers,
-please see Schuster \emph{et al.} (2020) for benchmarks comparing the
-run time and solution quality of different solvers when applied to
-different sized datasets.
+Specify that the \href{https://projects.coin-or.org/SYMPHONY}{\emph{SYMPHONY}}
+software (Ralphs & Güzelsoy 2005) -- using the \pkg{lpsymphony} package --
+should be used to solve a conservation planning \code{\link[=problem]{problem()}}.
+This function can also be used to customize the behavior of the solver.
+It requires the \pkg{lpsymphony} package to be installed
+(see below for installation instructions).
 }
 \details{
 \href{https://projects.coin-or.org/SYMPHONY}{\emph{SYMPHONY}} is an
-open-source integer programming solver that is part of the Computational
-Infrastructure for Operations Research (COIN-OR) project, an initiative
-to promote development of open-source tools for operations research (a
-field that includes linear programming). The \pkg{lpsymphony} package is
+open-source mixed integer programming solver that is part of the
+Computational Infrastructure for Operations Research (COIN-OR) project.
+This solver is provided because it may be easier to install
+on some systems than the \pkg{Rsymphony} package. Additionally --
+although the \pkg{lpsymphony} package doesn't provide the functionality
+to specify the number of threads for solving a problem -- the
+\pkg{lpsymphony} package will solve problems using parallel processing
+(unlike the \pkg{Rsymphony} package). As a consequence, this
+solver will likely generate solutions much faster than the
+\code{\link[=add_rsymphony_solver]{add_rsymphony_solver()}}.
+Although formal benchmarks examining the performance of this solver
+have yet to be completed,
+please see Schuster \emph{et al.} (2020) for benchmarks comparing the
+run time and solution quality of the \pkg{Rsymphony} solver.
+}
+\section{Installation}{
+
+The \pkg{lpsymphony} package is
 distributed through
 \href{https://doi.org/doi:10.18129/B9.bioc.lpsymphony}{Bioconductor}.
-This functionality is provided because the \pkg{lpsymphony} package may
-be easier to install to install on Windows and Mac OSX systems than the
-\pkg{Rsymphony} package.
+To install the \pkg{lpsymphony} package, please use the following code:\preformatted{if (!require(remotes)) install.packages("remotes")
+remotes::install_bioc("lpsymphony")
 }
+}
+
 \examples{
 \dontrun{
 # load data
@@ -82,6 +100,10 @@ plot(s, main = "solution", axes = FALSE, box = FALSE)
 }
 }
 \references{
+Ralphs TK and Güzelsoy M (2005) The SYMPHONY callable library for mixed
+integer programming. In The Next Wave in Computing, Optimization, and
+Decision Technologies (pp. 61--76). Springer, Boston, MA.
+
 Schuster R, Hanson JO, Strimas-Mackey M, and Bennett JR (2020). Exact
 integer linear programming solvers outperform simulated annealing for
 solving conservation planning problems. \emph{PeerJ}, 8: e9258.

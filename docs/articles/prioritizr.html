@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">6.0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">6.0.0.2</span>
       </span>
     </div>
 
@@ -1111,16 +1111,16 @@
 ##   solver:         CPLEX [gap (0), presolve (1), threads (1), time_limit (2147483647), verbose (1)]</code></pre>
 <ul>
 <li>
-<strong><em>Rsymphony</em> solver</strong>: <a href="https://projects.coin-or.org/SYMPHONY"><em>SYMPHONY</em></a> is an open-source integer programming solver that is part of the Computational Infrastructure for Operations Research (COIN-OR) project, an initiative to promote development of open-source tools for operations research. The <em>Rsymphony R</em> package provides an interface to COIN-OR and is available on The Comprehensive R Archive Network (CRAN).</li>
+<strong><em>CBC</em> solver</strong>: <a href="https://projects.coin-or.org/Cbc"><em>CBC</em></a> is an open-source mixed integer programming solver that is part of the Computational Infrastructure for Operations Research (COIN-OR) project. Although formal benchmarks have yet to be completed, preliminary analyses suggest that it is the fastest open-source solver available for generating prioritizations. It requires the <em>rcbc R</em> package, which is currently only available on <a href="https://github.com/dirkschumacher/rcbc">GitHub</a>.</li>
 </ul>
 <div class="sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># create a problem and specify that Rsymphony should be used to solve the</span>
+<code class="sourceCode R"><span class="co"># create a problem and specify that CBC should be used to solve the</span>
 <span class="co"># problem and specify an optimality gap of zero to obtain the optimal solution</span>
 <span class="va">p31</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op">%&gt;%</span>
        <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
        <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span> <span class="op">%&gt;%</span>
        <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
-       <span class="fu"><a href="../reference/add_rsymphony_solver.html">add_rsymphony_solver</a></span><span class="op">(</span>gap <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>
+       <span class="fu"><a href="../reference/add_cbc_solver.html">add_cbc_solver</a></span><span class="op">(</span>gap <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>
 
 <span class="co"># print problem</span>
 <span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p31</span><span class="op">)</span></code></pre></div>
@@ -1134,10 +1134,10 @@
 ##   constraints:    &lt;none&gt;
 ##   penalties:      &lt;none&gt;
 ##   portfolio:      default
-##   solver:         Rsymphony [first_feasible (0), gap (0), time_limit (-1), verbose (1)]</code></pre>
+##   solver:         CBC [first_feasible (0), gap (0), presolve (1), threads (1), time_limit (2147483647), verbose (1)]</code></pre>
 <ul>
 <li>
-<strong><em>lpsymphony</em> solver</strong>: The <em>lpsymphony R</em> package provides a different interface to the COIN-OR software suite. This package may be easier to install on Windows and Mac OSX operating systems than the <em>Rsymphony R</em> package. Unlike the <em>Rsymphony R</em> package, the <em>lpsymphony R</em> package is distributed through <a href="http://bioconductor.org/packages/release/bioc/html/lpsymphony.html">Bioconductor</a>.</li>
+<strong><em>lpsymphony</em> solver</strong>: <a href="https://projects.coin-or.org/SYMPHONY"><em>SYMPHONY</em></a> is an open-source integer programming solver that is also part of the COIN-OR project. This solver uses the <em>lpsymphony R</em> package (available on <a href="http://bioconductor.org/packages/release/bioc/html/lpsymphony.html">Bioconductor</a>) to interface with the <em>SYMPHONY</em> software.</li>
 </ul>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create a problem and specify that lpsymphony should be used to solve the</span>
@@ -1160,7 +1160,33 @@
 ##   constraints:    &lt;none&gt;
 ##   penalties:      &lt;none&gt;
 ##   portfolio:      default
-##   solver:         Lpsymphony [first_feasible (0), gap (0), time_limit (-1), verbose (1)]</code></pre>
+##   solver:         Lpsymphony [first_feasible (0), gap (0), time_limit (2147483647), verbose (1)]</code></pre>
+<ul>
+<li>
+<strong><em>Rsymphony</em> solver</strong>: This solver provides a different interface to the <a href="https://projects.coin-or.org/SYMPHONY"><em>SYMPHONY</em></a> software. It uses the <em>Rsymphony R</em> package which is available on The Comprehensive R Archive Network (CRAN). This solver is generally slower than the other solvers, because it cannot use parallel processing.</li>
+</ul>
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># create a problem and specify that Rsymphony should be used to solve the</span>
+<span class="co"># problem and specify an optimality gap of zero to obtain the optimal solution</span>
+<span class="va">p33</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op">%&gt;%</span>
+       <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+       <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span> <span class="op">%&gt;%</span>
+       <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+       <span class="fu"><a href="../reference/add_rsymphony_solver.html">add_rsymphony_solver</a></span><span class="op">(</span>gap <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>
+
+<span class="co"># print problem</span>
+<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p33</span><span class="op">)</span></code></pre></div>
+<pre><code>## Conservation Problem
+##   planning units: RasterLayer (90 units)
+##   cost:           min: 190.13276, max: 215.86384
+##   features:       layer.1, layer.2, layer.3, ... (5 features)
+##   objective:      Minimum set objective 
+##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
+##   decisions:      Binary decision 
+##   constraints:    &lt;none&gt;
+##   penalties:      &lt;none&gt;
+##   portfolio:      default
+##   solver:         Rsymphony [first_feasible (0), gap (0), time_limit (2147483647), verbose (1)]</code></pre>
 </div>
 <div id="add-a-portfolio" class="section level3">
 <h3 class="hasAnchor">
@@ -1174,14 +1200,14 @@
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create a problem and specify that a portfolio should be created using</span>
 <span class="co"># extra solutions found while solving the problem</span>
-<span class="va">p33</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="va">p34</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op">%&gt;%</span>
        <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
        <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span> <span class="op">%&gt;%</span>
        <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
        <span class="fu"><a href="../reference/add_extra_portfolio.html">add_extra_portfolio</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="co"># print problem</span>
-<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p33</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p34</span><span class="op">)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
 ##   cost:           min: 190.13276, max: 215.86384
@@ -1200,14 +1226,14 @@
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create a problem and specify that a portfolio should be created using</span>
 <span class="co"># the top five solutions</span>
-<span class="va">p34</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="va">p35</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op">%&gt;%</span>
        <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
        <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span> <span class="op">%&gt;%</span>
        <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
        <span class="fu"><a href="../reference/add_top_portfolio.html">add_top_portfolio</a></span><span class="op">(</span>number_solutions <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
 
 <span class="co"># print problem</span>
-<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p34</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p35</span><span class="op">)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
 ##   cost:           min: 190.13276, max: 215.86384
@@ -1226,14 +1252,14 @@
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create a problem and specify that a portfolio should be created by</span>
 <span class="co"># finding five solutions within 10% of optimality</span>
-<span class="va">p35</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="va">p36</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op">%&gt;%</span>
        <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
        <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span> <span class="op">%&gt;%</span>
        <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
        <span class="fu"><a href="../reference/add_gap_portfolio.html">add_gap_portfolio</a></span><span class="op">(</span>number_solutions <span class="op">=</span> <span class="fl">5</span>, pool_gap <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span>
 
 <span class="co"># print problem</span>
-<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p35</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p36</span><span class="op">)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
 ##   cost:           min: 190.13276, max: 215.86384
@@ -1252,14 +1278,14 @@
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create a problem and specify that a portfolio containing 10 solutions</span>
 <span class="co"># should be created using using Bender's cuts</span>
-<span class="va">p36</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="va">p37</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op">%&gt;%</span>
        <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
        <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span> <span class="op">%&gt;%</span>
        <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
        <span class="fu"><a href="../reference/add_cuts_portfolio.html">add_cuts_portfolio</a></span><span class="op">(</span>number_solutions <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>
 
 <span class="co"># print problem</span>
-<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p36</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p37</span><span class="op">)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
 ##   cost:           min: 190.13276, max: 215.86384
@@ -1278,14 +1304,14 @@
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create a problem and specify a portfolio should be created that contains</span>
 <span class="co"># 10 solutions and that any duplicate solutions should not be removed</span>
-<span class="va">p37</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="va">p38</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op">%&gt;%</span>
        <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
        <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span> <span class="op">%&gt;%</span>
        <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
        <span class="fu"><a href="../reference/add_shuffle_portfolio.html">add_shuffle_portfolio</a></span><span class="op">(</span>number_solutions <span class="op">=</span> <span class="fl">10</span>, remove_duplicates <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 
 <span class="co"># print problem</span>
-<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p37</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p38</span><span class="op">)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
 ##   cost:           min: 190.13276, max: 215.86384
@@ -1304,14 +1330,14 @@
 <p>Finally, after formulating our conservation planning problem and specifying how the problem should be solved, we can use the <code>solve</code> function to obtain a solution. Note that the solver will typically print out some information describing the size of the problem and report its progress when searching for a suitable solution.</p>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># formulate the problem</span>
-<span class="va">p38</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="va">p39</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op">%&gt;%</span>
        <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
        <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span> <span class="op">%&gt;%</span>
        <span class="fu"><a href="../reference/add_boundary_penalties.html">add_boundary_penalties</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">500</span>, edge_factor <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">%&gt;%</span>
        <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="co"># solve the problem (using the default solver)</span>
-<span class="va">s38</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p38</span><span class="op">)</span></code></pre></div>
+<span class="va">s39</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p39</span><span class="op">)</span></code></pre></div>
 <pre><code>## Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (linux64)
 ## Thread count: 2 physical cores, 4 logical processors, using up to 1 threads
 ## Optimize a model with 293 rows, 234 columns and 1026 nonzeros
@@ -1330,7 +1356,7 @@
 ## Presolved: 293 rows, 234 columns, 1026 nonzeros
 ## 
 ## 
-## Root relaxation: objective 2.265862e+03, 220 iterations, 0.00 seconds
+## Root relaxation: objective 2.265862e+03, 220 iterations, 0.01 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -1348,7 +1374,7 @@
 ## Cutting planes:
 ##   Gomory: 3
 ## 
-## Explored 1 nodes (347 simplex iterations) in 0.20 seconds
+## Explored 1 nodes (347 simplex iterations) in 0.25 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 6: 2604.74 2790.87 2907.58 ... 20287.2
@@ -1357,24 +1383,107 @@
 ## Best objective 2.604742604847e+03, best bound 2.371272882044e+03, gap 8.9633%</code></pre>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># plot solution</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">s38</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"grey90"</span>, <span class="st">"darkgreen"</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Solution"</span>,
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">s39</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"grey90"</span>, <span class="st">"darkgreen"</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Solution"</span>,
      xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p><img src="prioritizr_files/figure-html/unnamed-chunk-43-1.png" width="336" style="display: block; margin: auto;"></p>
+<p><img src="prioritizr_files/figure-html/unnamed-chunk-44-1.png" width="336" style="display: block; margin: auto;"></p>
 <p>We can plot this solution because the planning unit input data are spatially referenced in a raster format. The output format will always match the planning unit data used to initialize the problem. For example, the solution to a problem with planning units in a spatial vector (shapefile) format would also be in a spatial vector format. Similarly, if the planning units were in a tabular format (i.e. <code>data.frame</code>), the solution would also be returned in a tabular format.</p>
 <p>We can also extract attributes from the solution that describe the quality of the solution and the optimization process.</p>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># extract the objective (numerical value being minimized or maximized)</span>
-<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">p38</span>, <span class="st">"objective"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">p39</span>, <span class="st">"objective"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## NULL</code></pre>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># extract time spent solving solution</span>
-<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">p38</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">p39</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## NULL</code></pre>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># extract state message from the solver that describes why this specific</span>
 <span class="co"># solution was returned</span>
-<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">p38</span>, <span class="st">"status"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">p39</span>, <span class="st">"status"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## NULL</code></pre>
+</div>
+<div id="evaluate-the-performance-of-a-solution" class="section level3">
+<h3 class="hasAnchor">
+<a href="#evaluate-the-performance-of-a-solution" class="anchor"></a>Evaluate the performance of a solution</h3>
+<p>After obtaining a solution to a conservation planning problem, it can be useful to calculate various summary statistics to understand its performance. The following functions are available to summarize a solution:</p>
+<ul>
+<li>Calculate the number of planning units selected within a solution.</li>
+</ul>
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># calculate statistic</span>
+<span class="fu"><a href="../reference/eval_n_summary.html">eval_n_summary</a></span><span class="op">(</span><span class="va">p39</span>, <span class="va">s39</span><span class="op">)</span></code></pre></div>
+<pre><code>## # A tibble: 1 x 2
+##   summary  cost
+##   &lt;chr&gt;   &lt;dbl&gt;
+## 1 overall    10</code></pre>
+<ul>
+<li>Calculate the total cost of a solution.</li>
+</ul>
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># calculate statistic</span>
+<span class="fu"><a href="../reference/eval_cost_summary.html">eval_cost_summary</a></span><span class="op">(</span><span class="va">p39</span>, <span class="va">s39</span><span class="op">)</span></code></pre></div>
+<pre><code>## # A tibble: 1 x 2
+##   summary  cost
+##   &lt;chr&gt;   &lt;dbl&gt;
+## 1 overall 2005.</code></pre>
+<ul>
+<li>Calculate how well features are represented by a solution. This function can be used for problems that are built using targets and those that are not built using targets.</li>
+</ul>
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># calculate statistics</span>
+<span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p39</span>, <span class="va">s39</span><span class="op">)</span></code></pre></div>
+<pre><code>## # A tibble: 5 x 5
+##   summary feature total_amount absolute_held relative_held
+##   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
+## 1 overall layer.1         83.3          8.95         0.107
+## 2 overall layer.2         31.2          3.22         0.103
+## 3 overall layer.3         72.0          7.59         0.106
+## 4 overall layer.4         42.7          4.34         0.102
+## 5 overall layer.5         56.7          5.89         0.104</code></pre>
+<ul>
+<li>Calculate how well feature representation targets are met by a solution. This function can only be used with problems contain targets.</li>
+</ul>
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># calculate statistics</span>
+<span class="fu"><a href="../reference/eval_target_coverage_summary.html">eval_target_coverage_summary</a></span><span class="op">(</span><span class="va">p39</span>, <span class="va">s39</span><span class="op">)</span></code></pre></div>
+<pre><code>## # A tibble: 5 x 9
+##   feature met   total_amount absolute_target absolute_held absolute_shortfall
+##   &lt;chr&gt;   &lt;lgl&gt;        &lt;dbl&gt;           &lt;dbl&gt;         &lt;dbl&gt;              &lt;dbl&gt;
+## 1 layer.1 TRUE          83.3            8.33          8.95                  0
+## 2 layer.2 TRUE          31.2            3.12          3.22                  0
+## 3 layer.3 TRUE          72.0            7.20          7.59                  0
+## 4 layer.4 TRUE          42.7            4.27          4.34                  0
+## 5 layer.5 TRUE          56.7            5.67          5.89                  0
+##   relative_target relative_held relative_shortfall
+##             &lt;dbl&gt;         &lt;dbl&gt;              &lt;dbl&gt;
+## 1             0.1         0.107                  0
+## 2             0.1         0.103                  0
+## 3             0.1         0.106                  0
+## 4             0.1         0.102                  0
+## 5             0.1         0.104                  0</code></pre>
+<ul>
+<li>Calculate the exposed boundary length (perimeter) associated with a solution.</li>
+</ul>
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># calculate statistic</span>
+<span class="fu"><a href="../reference/eval_boundary_summary.html">eval_boundary_summary</a></span><span class="op">(</span><span class="va">p39</span>, <span class="va">s39</span><span class="op">)</span></code></pre></div>
+<pre><code>## # A tibble: 1 x 2
+##   summary boundary
+##   &lt;chr&gt;      &lt;dbl&gt;
+## 1 overall     1.20</code></pre>
+<ul>
+<li>Calculate the connectivity held within a solution.</li>
+</ul>
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># calculate statistic</span>
+<span class="co"># here we use the raster data for the first feature as an example</span>
+<span class="co"># to parametrize pair-wise connectivity between different planning units</span>
+<span class="fu"><a href="../reference/eval_connectivity_summary.html">eval_connectivity_summary</a></span><span class="op">(</span>
+  <span class="va">p39</span>, <span class="va">s39</span>, data <span class="op">=</span> <span class="fu"><a href="../reference/connectivity_matrix.html">connectivity_matrix</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>## # A tibble: 1 x 2
+##   summary connectivity
+##   &lt;chr&gt;          &lt;dbl&gt;
+## 1 overall         1.97</code></pre>
 </div>
 <div id="marxan-problems" class="section level3">
 <h3 class="hasAnchor">
@@ -1397,8 +1506,8 @@
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.3, max: 0.3)]
 ##   decisions:      default
-##   constraints:    &lt;Locked out planning units [1 locked units]
-##                    Locked in planning units [317 locked units]&gt;
+##   constraints:    &lt;Locked in planning units [317 locked units]
+##                    Locked out planning units [1 locked units]&gt;
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (1), zones]&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
@@ -1441,89 +1550,6 @@
 ##   portfolio:      default
 ##   solver:         default</code></pre>
 </div>
-<div id="evaluate-the-performance-of-a-solution" class="section level3">
-<h3 class="hasAnchor">
-<a href="#evaluate-the-performance-of-a-solution" class="anchor"></a>Evaluate the performance of a solution</h3>
-<p>After obtaining a solution to a conservation planning problem, it can be useful to calculate various summary statistics to understand its performance. The following functions are available to summarize a solution:</p>
-<ul>
-<li>Calculate the number of planning units selected within a solution.</li>
-</ul>
-<div class="sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># calculate statistic</span>
-<span class="fu"><a href="../reference/eval_n_summary.html">eval_n_summary</a></span><span class="op">(</span><span class="va">p38</span>, <span class="va">s38</span><span class="op">)</span></code></pre></div>
-<pre><code>## # A tibble: 1 x 2
-##   summary  cost
-##   &lt;chr&gt;   &lt;dbl&gt;
-## 1 overall    10</code></pre>
-<ul>
-<li>Calculate the total cost of a solution.</li>
-</ul>
-<div class="sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># calculate statistic</span>
-<span class="fu"><a href="../reference/eval_cost_summary.html">eval_cost_summary</a></span><span class="op">(</span><span class="va">p38</span>, <span class="va">s38</span><span class="op">)</span></code></pre></div>
-<pre><code>## # A tibble: 1 x 2
-##   summary  cost
-##   &lt;chr&gt;   &lt;dbl&gt;
-## 1 overall 2005.</code></pre>
-<ul>
-<li>Calculate how well features are represented by a solution. This function can be used for problems that are built using targets and those that are not built using targets.</li>
-</ul>
-<div class="sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># calculate statistics</span>
-<span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p38</span>, <span class="va">s38</span><span class="op">)</span></code></pre></div>
-<pre><code>## # A tibble: 5 x 5
-##   summary feature total_amount absolute_held relative_held
-##   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
-## 1 overall layer.1         83.3          8.95         0.107
-## 2 overall layer.2         31.2          3.22         0.103
-## 3 overall layer.3         72.0          7.59         0.106
-## 4 overall layer.4         42.7          4.34         0.102
-## 5 overall layer.5         56.7          5.89         0.104</code></pre>
-<ul>
-<li>Calculate how well feature representation targets are met by a solution. This function can only be used with problems contain targets.</li>
-</ul>
-<div class="sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># calculate statistics</span>
-<span class="fu"><a href="../reference/eval_target_coverage_summary.html">eval_target_coverage_summary</a></span><span class="op">(</span><span class="va">p38</span>, <span class="va">s38</span><span class="op">)</span></code></pre></div>
-<pre><code>## # A tibble: 5 x 9
-##   feature met   total_amount absolute_target absolute_held absolute_shortfall
-##   &lt;chr&gt;   &lt;lgl&gt;        &lt;dbl&gt;           &lt;dbl&gt;         &lt;dbl&gt;              &lt;dbl&gt;
-## 1 layer.1 TRUE          83.3            8.33          8.95                  0
-## 2 layer.2 TRUE          31.2            3.12          3.22                  0
-## 3 layer.3 TRUE          72.0            7.20          7.59                  0
-## 4 layer.4 TRUE          42.7            4.27          4.34                  0
-## 5 layer.5 TRUE          56.7            5.67          5.89                  0
-##   relative_target relative_held relative_shortfall
-##             &lt;dbl&gt;         &lt;dbl&gt;              &lt;dbl&gt;
-## 1             0.1         0.107                  0
-## 2             0.1         0.103                  0
-## 3             0.1         0.106                  0
-## 4             0.1         0.102                  0
-## 5             0.1         0.104                  0</code></pre>
-<ul>
-<li>Calculate the exposed boundary length (perimeter) associated with a solution.</li>
-</ul>
-<div class="sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># calculate statistic</span>
-<span class="fu"><a href="../reference/eval_boundary_summary.html">eval_boundary_summary</a></span><span class="op">(</span><span class="va">p38</span>, <span class="va">s38</span><span class="op">)</span></code></pre></div>
-<pre><code>## # A tibble: 1 x 2
-##   summary boundary
-##   &lt;chr&gt;      &lt;dbl&gt;
-## 1 overall     1.20</code></pre>
-<ul>
-<li>Calculate the connectivity held within a solution.</li>
-</ul>
-<div class="sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># calculate statistic</span>
-<span class="co"># here we use the raster data for the first feature as an example</span>
-<span class="co"># to parametrize pair-wise connectivity between different planning units</span>
-<span class="fu"><a href="../reference/eval_connectivity_summary.html">eval_connectivity_summary</a></span><span class="op">(</span>
-  <span class="va">p38</span>, <span class="va">s38</span>, data <span class="op">=</span> <span class="fu"><a href="../reference/connectivity_matrix.html">connectivity_matrix</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## # A tibble: 1 x 2
-##   summary connectivity
-##   &lt;chr&gt;          &lt;dbl&gt;
-## 1 overall         1.97</code></pre>
-</div>
 <div id="importance-irreplaceability" class="section level3">
 <h3 class="hasAnchor">
 <a href="#importance-irreplaceability" class="anchor"></a>Importance (irreplaceability)</h3>
@@ -1533,13 +1559,13 @@
 <p>Below we will generate a solution, and then calculate importance scores for the planning units selected in the solution using the three different methods.</p>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># formulate the problem</span>
-<span class="va">p39</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="va">p40</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op">%&gt;%</span>
        <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
        <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span> <span class="op">%&gt;%</span>
        <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="co"># solve the problem</span>
-<span class="va">s39</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p39</span><span class="op">)</span></code></pre></div>
+<span class="va">s40</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p40</span><span class="op">)</span></code></pre></div>
 <pre><code>## Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (linux64)
 ## Thread count: 2 physical cores, 4 logical processors, using up to 1 threads
 ## Optimize a model with 5 rows, 90 columns and 450 nonzeros
@@ -1574,32 +1600,32 @@
 ## Best objective 1.987398526526e+03, best bound 1.931581908865e+03, gap 2.8085%</code></pre>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># plot solution</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">s39</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"grey90"</span>, <span class="st">"darkgreen"</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Solution"</span>,
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">s40</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"grey90"</span>, <span class="st">"darkgreen"</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Solution"</span>,
      xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p><img src="prioritizr_files/figure-html/unnamed-chunk-53-1.png" width="336" style="display: block; margin: auto;"></p>
+<p><img src="prioritizr_files/figure-html/unnamed-chunk-54-1.png" width="336" style="display: block; margin: auto;"></p>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># calculate replacement cost scores and make the solver quiet</span>
-<span class="va">rc39</span> <span class="op">&lt;-</span> <span class="va">p39</span> <span class="op">%&gt;%</span>
+<span class="va">rc40</span> <span class="op">&lt;-</span> <span class="va">p40</span> <span class="op">%&gt;%</span>
         <span class="fu"><a href="../reference/add_default_solver.html">add_default_solver</a></span><span class="op">(</span>gap <span class="op">=</span> <span class="fl">0</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">%&gt;%</span>
         <span class="fu"><a href="../reference/eval_replacement_importance.html">eval_replacement_importance</a></span><span class="op">(</span><span class="va">s39</span><span class="op">)</span>
 
 <span class="co"># plot replacement cost scores</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">rc39</span>, main <span class="op">=</span> <span class="st">"replacement cost"</span><span class="op">)</span></code></pre></div>
-<p><img src="prioritizr_files/figure-html/unnamed-chunk-53-2.png" width="336" style="display: block; margin: auto;"></p>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">rc40</span>, main <span class="op">=</span> <span class="st">"replacement cost"</span><span class="op">)</span></code></pre></div>
+<p><img src="prioritizr_files/figure-html/unnamed-chunk-54-2.png" width="336" style="display: block; margin: auto;"></p>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># calculate Ferrier scores and extract total score</span>
-<span class="va">fs39</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_ferrier_importance.html">eval_ferrier_importance</a></span><span class="op">(</span><span class="va">p38</span>, <span class="va">s38</span><span class="op">)</span><span class="op">[[</span><span class="st">"total"</span><span class="op">]</span><span class="op">]</span>
+<span class="va">fs40</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_ferrier_importance.html">eval_ferrier_importance</a></span><span class="op">(</span><span class="va">p40</span>, <span class="va">s40</span><span class="op">)</span><span class="op">[[</span><span class="st">"total"</span><span class="op">]</span><span class="op">]</span>
 
 <span class="co"># plot Ferrier scores</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">fs39</span>, main <span class="op">=</span> <span class="st">"Ferrier scores"</span><span class="op">)</span></code></pre></div>
-<p><img src="prioritizr_files/figure-html/unnamed-chunk-54-1.png" width="336" style="display: block; margin: auto;"></p>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">fs40</span>, main <span class="op">=</span> <span class="st">"Ferrier scores"</span><span class="op">)</span></code></pre></div>
+<p><img src="prioritizr_files/figure-html/unnamed-chunk-55-1.png" width="336" style="display: block; margin: auto;"></p>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># calculate rarity weighted richness scores</span>
-<span class="va">rwr39</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_rare_richness_importance.html">eval_rare_richness_importance</a></span><span class="op">(</span><span class="va">p38</span>, <span class="va">s39</span><span class="op">)</span>
+<span class="va">rwr40</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_rare_richness_importance.html">eval_rare_richness_importance</a></span><span class="op">(</span><span class="va">p40</span>, <span class="va">s40</span><span class="op">)</span>
 
 <span class="co"># plot replacement cost scores</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">rwr39</span>, main <span class="op">=</span> <span class="st">"rarity weighted richness"</span><span class="op">)</span></code></pre></div>
-<p><img src="prioritizr_files/figure-html/unnamed-chunk-55-1.png" width="336" style="display: block; margin: auto;"></p>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">rwr40</span>, main <span class="op">=</span> <span class="st">"rarity weighted richness"</span><span class="op">)</span></code></pre></div>
+<p><img src="prioritizr_files/figure-html/unnamed-chunk-56-1.png" width="336" style="display: block; margin: auto;"></p>
 <p>Although rarity weighted richness scores can approximate scores derived from the other two methods in certain conservation planning exercises, we can see that the rarity weighted richness scores provide completely different results in this case.</p>
 </div>
 </div>

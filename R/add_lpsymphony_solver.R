@@ -1,29 +1,43 @@
 #' @include Solver-proto.R
 NULL
 
-#' Add a SYMPHONY solver with *lpsymphony*
+#' Add a *SYMPHONY* solver with *lpsymphony*
 #'
-#' Specify that the *SYMPHONY* software should be used to solve a
-#' conservation planning problem using the \pkg{lpsymphony} package. This
-#' function can also be used to customize the behavior of the solver.
-#' It requires the \pkg{lpsymphony} package.
-#' For information on the performance of different solvers,
+#' Specify that the [*SYMPHONY*](https://projects.coin-or.org/SYMPHONY)
+#' software (Ralphs & Güzelsoy 2005) -- using the \pkg{lpsymphony} package --
+#' should be used to solve a conservation planning [problem()].
+#' This function can also be used to customize the behavior of the solver.
+#' It requires the \pkg{lpsymphony} package to be installed
+#' (see below for installation instructions).
+#'
+#' @inheritParams add_gurobi_solver
+#'
+#' @details
+#' [*SYMPHONY*](https://projects.coin-or.org/SYMPHONY) is an
+#' open-source mixed integer programming solver that is part of the
+#' Computational Infrastructure for Operations Research (COIN-OR) project.
+#' This solver is provided because it may be easier to install
+#' on some systems than the \pkg{Rsymphony} package. Additionally --
+#' although the \pkg{lpsymphony} package doesn't provide the functionality
+#' to specify the number of threads for solving a problem -- the
+#' \pkg{lpsymphony} package will solve problems using parallel processing
+#' (unlike the \pkg{Rsymphony} package). As a consequence, this
+#' solver will likely generate solutions much faster than the
+#' [add_rsymphony_solver()].
+#' Although formal benchmarks examining the performance of this solver
+#' have yet to be completed,
 #' please see Schuster _et al._ (2020) for benchmarks comparing the
-#' run time and solution quality of different solvers when applied to
-#' different sized datasets.
+#' run time and solution quality of the \pkg{Rsymphony} solver.
 #'
-#' @inheritParams add_rsymphony_solver
-#'
-#' @details [*SYMPHONY*](https://projects.coin-or.org/SYMPHONY) is an
-#'   open-source integer programming solver that is part of the Computational
-#'   Infrastructure for Operations Research (COIN-OR) project, an initiative
-#'   to promote development of open-source tools for operations research (a
-#'   field that includes linear programming). The \pkg{lpsymphony} package is
-#'   distributed through
-#'   [Bioconductor](https://doi.org/doi:10.18129/B9.bioc.lpsymphony).
-#'   This functionality is provided because the \pkg{lpsymphony} package may
-#'   be easier to install to install on Windows and Mac OSX systems than the
-#'   \pkg{Rsymphony} package.
+#' @section Installation:
+#' The \pkg{lpsymphony} package is
+#' distributed through
+#' [Bioconductor](https://doi.org/doi:10.18129/B9.bioc.lpsymphony).
+#' To install the \pkg{lpsymphony} package, please use the following code:
+#' ```
+#' if (!require(remotes)) install.packages("remotes")
+#' remotes::install_bioc("lpsymphony")
+#' ```
 #'
 #' @inherit add_rsymphony_solver seealso return references
 #'
@@ -52,8 +66,9 @@ NULL
 
 #' @rdname add_lsymphony_solver
 #' @export
-add_lpsymphony_solver <- function(x, gap = 0.1, time_limit = -1,
-                                  first_feasible = 0, verbose = TRUE) {
+add_lpsymphony_solver <- function(x, gap = 0.1,
+                                  time_limit = .Machine$integer.max,
+                                  first_feasible = FALSE, verbose = TRUE) {
   # assert that arguments are valid
   assertthat::assert_that(inherits(x, "ConservationProblem"),
                           isTRUE(all(is.finite(gap))),
@@ -63,9 +78,8 @@ add_lpsymphony_solver <- function(x, gap = 0.1, time_limit = -1,
                           assertthat::is.count(time_limit) || isTRUE(time_limit
                             == -1),
                           assertthat::is.flag(verbose),
-                          assertthat::is.scalar(first_feasible),
-                          isTRUE(first_feasible == 1 || isTRUE(first_feasible
-                            == 0)),
+                          assertthat::is.flag(first_feasible),
+                          assertthat::noNA(first_feasible),
                           requireNamespace("lpsymphony", quietly = TRUE))
   # throw warning about bug in lpsymphony
   if (utils::packageVersion("lpsymphony") <= as.package_version("1.4.1"))
@@ -104,6 +118,7 @@ add_lpsymphony_solver <- function(x, gap = 0.1, time_limit = -1,
       model$dir <- replace(model$dir, model$dir == "=", "==")
       model$types <- replace(model$types, model$types == "S", "C")
       p$first_feasible <- as.logical(p$first_feasible)
+      p$gap_limit <- p$gap_limit * 100
       # store input data and parameters
       self$set_data("model", model)
       self$set_data("parameters", p)

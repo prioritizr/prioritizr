@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Default solver — add_default_solver • prioritizr</title>
+<title>Add a default solver — add_default_solver • prioritizr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,13 +52,13 @@
 
 
 
-<meta property="og:title" content="Default solver — add_default_solver" />
+<meta property="og:title" content="Add a default solver — add_default_solver" />
 <meta property="og:description" content="Identify the best solver currently installed on the system and specify that
 it should be used to solve a conservation planning problem().
 For information on the performance of different solvers,
 please see Schuster et al. (2020) for benchmarks comparing the
-run time and solution quality of different solvers when applied to
-different sized datasets." />
+run time and solution quality of some of the available solvers when applied
+to different sized datasets." />
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 
 
@@ -101,7 +101,7 @@ different sized datasets." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">6.0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">6.0.0.2</span>
       </span>
     </div>
 
@@ -173,7 +173,7 @@ different sized datasets." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Default solver</h1>
+    <h1>Add a default solver</h1>
     <small class="dont-index">Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/add_default_solver.R'><code>R/add_default_solver.R</code></a></small>
     <div class="hidden name"><code>add_default_solver.Rd</code></div>
     </div>
@@ -183,8 +183,8 @@ different sized datasets." />
 it should be used to solve a conservation planning <code><a href='problem.html'>problem()</a></code>.
 For information on the performance of different solvers,
 please see Schuster <em>et al.</em> (2020) for benchmarks comparing the
-run time and solution quality of different solvers when applied to
-different sized datasets.</p>
+run time and solution quality of some of the available solvers when applied
+to different sized datasets.</p>
     </div>
 
     <pre class="usage"><span class='fu'>add_default_solver</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
@@ -209,8 +209,8 @@ added to it.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Ranked from best to worst, the available solvers that can be used are:
-<code><a href='add_gurobi_solver.html'>add_gurobi_solver()</a></code>, <code><a href='add_cplex_solver.html'>add_cplex_solver()</a></code>, <code><a href='add_rsymphony_solver.html'>add_rsymphony_solver()</a></code>,
-and finally <code><a href='add_lsymphony_solver.html'>add_lpsymphony_solver()</a></code>.</p>
+<code><a href='add_gurobi_solver.html'>add_gurobi_solver()</a></code>, <code><a href='add_cplex_solver.html'>add_cplex_solver()</a></code>, <code><a href='add_cbc_solver.html'>add_cbc_solver()</a></code>,
+<code><a href='add_lsymphony_solver.html'>add_lpsymphony_solver()</a></code>, and finally <code><a href='add_rsymphony_solver.html'>add_rsymphony_solver()</a></code>.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Schuster R, Hanson JO, Strimas-Mackey M, and Bennett JR (2020). Exact

@@ -95,7 +95,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">6.0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">6.0.0.2</span>
       </span>
     </div>
 
@@ -171,6 +171,20 @@
       <small>Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="prioritizr-6-0-0-2" class="section level1">
+<h1 class="page-header" data-toc-text="6.0.0.2">
+<a href="#prioritizr-6-0-0-2" class="anchor"></a>prioritizr 6.0.0.2<small> Unreleased </small>
+</h1>
+<ul>
+<li>New <code>add_cbc_solver</code> function to generate solutions using the open source CBC solver via the rcbc R package (<a href="https://github.com/dirkschumacher/rcbc" class="uri">https://github.com/dirkschumacher/rcbc</a>).</li>
+<li>Update <code>add_rsymphony_solver</code> and <code>add_lpsymphony_solver</code> functions to have a default <code>time_limit</code> argument set as the maximum machine integer for consistency.</li>
+<li>Update <code>add_rsymphony_solver</code>, <code>add_lpsymphony_solver</code>, and <code>add_gurobi_solver</code> functions to require <code>logical</code> (<code>TRUE</code>/<code>FALSE</code>) arguments for the <code>first_feasible</code> parameter.</li>
+<li>Update documentation for solvers to provide more detailed information.</li>
+<li>Update publication record.</li>
+<li>Update <code>add_default_solver</code> function so that it prefers <code>add_lpsymphony_solver</code> over <code>add_rsymphony_solver</code>, and <code>add_cbc_solver</code> over all open source solvers.</li>
+<li>Bug fix: previous versions of the package reported that the <code>gap</code> parameter for the <code>add_rsymphony_solver</code> and <code>add_lpsymphony_solver</code> corresponded to the maximum absolute difference from the optimal objective value. This was an error due to misunderstanding the <em>SYMPHONY</em> documentation. Under previous versions of the package, the <code>gap</code> parameter actually corresponded to a relative optimality gap expressed as a percentage (such that<code>gap = 10</code> indicates that solutions must be at least 10% from optimality). We have now fixed this error and the documentation described for the <code>gap</code> parameter is correct. We apologize for any inconvenience this may have caused.</li>
+</ul>
+</div>
     <div id="prioritizr-6-0-0-1" class="section level1">
 <h1 class="page-header" data-toc-text="6.0.0.1">
 <a href="#prioritizr-6-0-0-1" class="anchor"></a>prioritizr 6.0.0.1<small> Unreleased </small>
@@ -182,7 +196,7 @@
 <li>Add functionality to calculate importance scores using the Ferrier method with <code>sf</code> planning unit data.</li>
 <li>Fix broken link in <code>add_manual_targets</code> documentation.</li>
 <li>Fix typo in equation for rarity weighted richness documentation.</li>
-<li>New <code>add_min_max_shortfall</code> objective function.</li>
+<li>New <code>add_min_largest_shortfall</code> objective function.</li>
 </ul>
 </div>
     <div id="prioritizr-6-0-0-0" class="section level1">

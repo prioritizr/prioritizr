@@ -1,6 +1,6 @@
 Package: prioritizr
 Type: Package
-Version: 6.0.0.1
+Version: 6.0.0.2
 Title: Systematic Conservation Prioritization in R
 Description: Conservation prioritization using integer
     programming techniques. To solve large-scale problems, users
@@ -59,11 +59,12 @@ Suggests:
     maptools,
     PBSmapping,
     gurobi,
+    rcbc (>= 0.1.0.9001),
     cplexAPI (>= 1.4.0),
     lpsymphony,
     Rsymphony,
     rmarkdown,
-    prioritizrdata
+    prioritizrdata (>= 0.2.4)
 Depends:
     R (>= 3.5.0),
     raster,
@@ -116,6 +117,7 @@ Collate:
     'add_binary_decisions.R'
     'marxan_boundary_data_to_matrix.R'
     'add_boundary_penalties.R'
+    'add_cbc_solver.R'
     'add_connectivity_penalties.R'
     'add_contiguity_constraints.R'
     'add_cplex_solver.R'
@@ -210,3 +212,5 @@ Collate:
     'zone_names.R'
     'zzz.R'
 Roxygen: list(markdown = TRUE)
+remotes:
+  dirkschumacher/rcbc

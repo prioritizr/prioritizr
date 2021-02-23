@@ -1,48 +1,39 @@
 #' @include Solver-proto.R
 NULL
 
-#' Add a SYMPHONY solver with *Rsymphony*
+#' Add a *SYMPHONY* solver with *Rsymphony*
 #'
-#' Specify that the *SYMPHONY* software should be used to solve a
-#' conservation planning problem using the \pkg{Rsymphony} package. This
-#' function can also be used to customize the behavior of the solver.
-#' It requires the \pkg{Rsymphony} package.
+#' Specify that the [*SYMPHONY*](https://projects.coin-or.org/SYMPHONY)
+#' software (Ralphs & Güzelsoy 2005) -- using the \pkg{Rsymphony} package --
+#' should be used to solve a conservation planning [problem()].
+#' This function can also be used to customize the behavior of the solver.
+#' It requires the \pkg{Rsymphony} package to be installed.
+#'
+#' @inheritParams add_gurobi_solver
+#'
+#' @details
+#' [*SYMPHONY*](https://projects.coin-or.org/SYMPHONY) is an
+#' open-source mixed integer programming solver that is part of the
+#' Computational
+#' Infrastructure for Operations Research (COIN-OR) project.
+#' The \pkg{Rsymphony} package
+#' provides an interface to COIN-OR and -- unlike dependencies for other
+#' solvers -- is available on *CRAN*.
 #' For information on the performance of different solvers,
 #' please see Schuster _et al._ (2020) for benchmarks comparing the
 #' run time and solution quality of different solvers when applied to
 #' different sized datasets.
 #'
-#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
-#'
-#' @param gap `numeric` gap to optimality. This gap is absolute and
-#'   expresses the acceptable deviance from the optimal objective. For example,
-#'   solving a minimum set objective problem with a gap of 5 will cause the
-#'   solver to terminate when the cost of the solution is within 5 cost units
-#'   from the optimal solution.
-#'
-#' @param time_limit `numeric` time limit in seconds to run the optimizer.
-#'   The solver will return the current best solution when this time limit is
-#'   exceeded.
-#'
-#' @param first_feasible `logical` should the first feasible solution be
-#'   be returned? If `first_feasible` is set to `TRUE`, the solver
-#'   will return the first solution it encounters that meets all the
-#'   constraints, regardless of solution quality. Note that the first feasible
-#'   solution is not an arbitrary solution, rather it is derived from the
-#'   relaxed solution, and is therefore often reasonably close to optimality.
-#'
-#' @param verbose `logical` should information be printed while solving
-#'  optimization problems? Defaults to `TRUE`.
-#'
-#' @details [*SYMPHONY*](https://projects.coin-or.org/SYMPHONY) is an
-#'   open-source integer programming solver that is part of the Computational
-#'   Infrastructure for Operations Research (COIN-OR) project, an initiative
-#'   to promote development of open-source tools for operations research (a
-#'   field that includes linear programming). The \pkg{Rsymphony} package
-#'   provides an interface to COIN-OR and is available on *CRAN*.
-#'   This solver uses the \pkg{Rsymphony} package to solve problems.
-#'
 #' @inherit add_gurobi_solver seealso return references
+#'
+#' @references
+#' Ralphs TK and Güzelsoy M (2005) The SYMPHONY callable library for mixed
+#' integer programming. In The Next Wave in Computing, Optimization, and
+#' Decision Technologies (pp. 61--76). Springer, Boston, MA.
+#'
+#' Schuster R, Hanson JO, Strimas-Mackey M, and Bennett JR (2020). Exact
+#' integer linear programming solvers outperform simulated annealing for
+#' solving conservation planning problems. *PeerJ*, 8: e9258.
 #'
 #' @examples
 #' \dontrun{
@@ -67,20 +58,20 @@ NULL
 
 #' @rdname add_rsymphony_solver
 #' @export
-add_rsymphony_solver <- function(x, gap = 0.1, time_limit = -1,
-                                 first_feasible = 0, verbose = TRUE) {
+add_rsymphony_solver <- function(x, gap = 0.1,
+                                 time_limit = .Machine$integer.max,
+                                 first_feasible = FALSE, verbose = TRUE) {
   # assert that arguments are valid
   assertthat::assert_that(inherits(x, "ConservationProblem"),
                           isTRUE(all(is.finite(gap))),
                           assertthat::is.scalar(gap),
-                          isTRUE(gap >= 0), isTRUE(all(is.finite(time_limit))),
+                          isTRUE(gap >= 0),
+                          isTRUE(all(is.finite(time_limit))),
                           assertthat::is.scalar(time_limit),
-                          assertthat::is.count(time_limit) || isTRUE(time_limit
-                            == -1),
+                          assertthat::noNA(time_limit),
                           assertthat::is.flag(verbose),
-                          assertthat::is.scalar(first_feasible),
-                          isTRUE(first_feasible == 1 || isTRUE(first_feasible
-                            == 0)),
+                          assertthat::is.flag(first_feasible),
+                          assertthat::noNA(first_feasible),
                           requireNamespace("Rsymphony", quietly = TRUE))
   # add solver
   x$add_solver(pproto(
@@ -114,6 +105,7 @@ add_rsymphony_solver <- function(x, gap = 0.1, time_limit = -1,
       model$types <- replace(model$types, model$types == "S", "C")
       names(p)[which(names(p) == "gap")] <- "gap_limit"
       p$first_feasible <- as.logical(p$first_feasible)
+      p$gap_limit <- p$gap_limit * 100
       # store input data and parameters
       self$set_data("model", model)
       self$set_data("parameters", p)

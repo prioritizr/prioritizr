@@ -16,6 +16,11 @@ This vignette contains a list of publications that have cited or used the _prior
 
 ## Research articles
 
+### 2021
+
+* [Zheng C, Wen Z, Liu Y, Guo Q, Jiang Y, Ren H, Fan Y, and Yang Y (2021) Integrating habitat suitability and the near-nature restoration priorities into revegetation plans Based on potential vegetation distribution. _Forests_, **12**: 218.](https://doi.org/10.3390/f12020218)
+* [Southee FM, Edwards BA, Chetkiewicz CLB, and O'Connor CM (2021) Freshwater conservation planning in the far north of Ontario, Canada: identifying priority watersheds for the conservation of fish biodiversity in an intact boreal landscape. _FACETS_, **6**: 90--117.](https://doi.org/10.1139/facets-2020-0015)
+
 ### 2020
 * [Pinsky ML, Rogers LA, Morley JW, and Fr&#246;licher TL (2020) Ocean planning for species on the move provides substantial benefits and requires few trade-offs. _Science Advances_, **6**: eabb8428.](https://doi.org/10.1126/sciadv.abb8428).
 * [Bryant BP, Kelsey TR, Vogl AL, Wolny SA, MacEwan DJ, Selmants PC, Biswas T, and Butterfield HS (2020) Shaping land use change and ecosystem restoration in a water-stressed agricultural landscape to achieve multiple benefits. _Frontiers in Sustainable Food Systems_, **4**: 138.](https://doi.org/10.3389/fsufs.2020.00138)
