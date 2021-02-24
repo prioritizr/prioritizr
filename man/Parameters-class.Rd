@@ -6,7 +6,7 @@
 \title{Parameters class}
 \description{
 This class represents a collection of \code{\linkS4class{Parameter}} objects.
-It provides methods for accessing and the parameters
+It provides methods for accessing and updating the parameters
 stored inside it.
 }
 \section{Fields}{

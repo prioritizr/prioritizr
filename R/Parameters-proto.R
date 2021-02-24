@@ -8,7 +8,7 @@ NULL
 #' Parameters class
 #'
 #' This class represents a collection of [`Parameter-class`] objects.
-#' It provides methods for accessing and the parameters
+#' It provides methods for accessing and updating the parameters
 #' stored inside it.
 #'
 #' @section Fields:
