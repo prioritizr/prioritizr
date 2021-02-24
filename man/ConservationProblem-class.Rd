@@ -102,41 +102,21 @@ the method for generating a portfolio of solutions.}
 
 \code{x$set_constraint_parameter(id, value)}
 
-\code{x$render_constraint_parameter(id)}
-
-\code{x$render_all_constraint_parameters()}
-
 \code{x$get_objective_parameter(id)}
 
 \code{x$set_objective_parameter(id, value)}
-
-\code{x$render_objective_parameter(id)}
-
-\code{x$render_all_objective_parameters()}
 
 \code{x$get_solver_parameter(id)}
 
 \code{x$set_solver_parameter(id, value)}
 
-\code{x$render_solver_parameter(id)}
-
-\code{x$render_all_solver_parameters()}
-
 \code{x$get_portfolio_parameter(id)}
 
 \code{x$set_portfolio_parameter(id, value)}
 
-\code{x$render_portfolio_parameter(id)}
-
-\code{x$render_all_portfolio_parameters()}
-
 \code{x$get_penalty_parameter(id)}
 
 \code{x$set_penalty_parameter(id, value)}
-
-\code{x$render_penalty_parameter(id)}
-
-\code{x$render_all_penalty_parameters()}
 }
 
 \section{Arguments}{
@@ -250,23 +230,11 @@ argument \code{id}) used in one of the constraints in the object.}
 argument \code{id}) used in one of the constraints in the object to
 \code{value}.}
 
-\item{render_constraint_parameter}{generate a \emph{shiny} widget to modify
-the value of a parameter (specified by argument \code{id}).}
-
-\item{render_all_constraint_parameters}{generate a \emph{shiny} \code{div}
-containing all the parameters' widgets.}
-
 \item{get_objective_parameter}{get the value of a parameter (specified by
 argument \code{id}) used in the object's objective.}
 
 \item{set_objective_parameter}{set the value of a parameter (specified by
 argument \code{id}) used in the object's objective to \code{value}.}
-
-\item{render_objective_parameter}{generate a \emph{shiny} widget to modify
-the value of a parameter (specified by argument \code{id}).}
-
-\item{render_all_objective_parameters}{generate a \emph{shiny} \code{div}
-containing all the parameters' widgets.}
 
 \item{get_solver_parameter}{get the value of a parameter (specified by
 argument \code{id}) used in the object's solver.}
@@ -274,23 +242,11 @@ argument \code{id}) used in the object's solver.}
 \item{set_solver_parameter}{set the value of a parameter (specified by
 argument \code{id}) used in the object's solver to \code{value}.}
 
-\item{render_solver_parameter}{generate a \emph{shiny} widget to modify
-the value of a parameter (specified by argument \code{id}).}
-
-\item{render_all_solver_parameters}{generate a \emph{shiny} \code{div}
-containing all the parameters' widgets.}
-
 \item{get_portfolio_parameter}{get the value of a parameter (specified by
 argument \code{id}) used in the object's portfolio.}
 
 \item{set_portfolio_parameter}{set the value of a parameter (specified by
 argument \code{id}) used in objects' solver to \code{value}.}
-
-\item{render_portfolio_parameter}{generate a \emph{shiny} widget to modify
-the value of a parameter (specified by argument \code{id}).}
-
-\item{render_all_portfolio_parameters}{generate a \emph{shiny} \code{div}
-containing all the parameters' widgets.}
 
 }
 }

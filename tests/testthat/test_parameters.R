@@ -22,7 +22,6 @@ test_that("proportion_parameter", {
   expect_equal(x$get(), 0.6)
   x$reset()
   expect_equal(x$get(), 0.1)
-  expect_true(inherits(x$render(), "shiny.tag"))
   # errors
   expect_error(proportion_parameter("test", NA_real_))
   expect_error(proportion_parameter("test", Inf))
@@ -57,7 +56,6 @@ test_that("integer_parameter", {
   expect_equal(x$get(), 4L)
   x$reset()
   expect_equal(x$get(), 1L)
-  expect_true(inherits(x$render(), "shiny.tag"))
   # errors
   expect_error(integer_parameter("test", NA_real_))
   expect_error(integer_parameter("test", Inf))
@@ -91,7 +89,6 @@ test_that("numeric_parameter", {
   expect_equal(x$get(), 4)
   x$reset()
   expect_equal(x$get(), 1)
-  expect_true(inherits(x$render(), "shiny.tag"))
   # errors
   expect_error(numeric_parameter("test", NA_real_))
   expect_error(numeric_parameter("test", Inf))
@@ -122,7 +119,6 @@ test_that("binary_parameter", {
   expect_equal(x$get(), 0L)
   x$reset()
   expect_equal(x$get(), 1L)
-  expect_true(inherits(x$render(), "shiny.tag"))
   # errors
   expect_error(binary_parameter("test", NA_real_))
   expect_error(binary_parameter("test", Inf))
@@ -185,9 +181,6 @@ test_that("proportion_parameter_array", {
                                 row.names = letters[1:3])))
   expect_error(x$set(data.frame(value = c(0.1, 0.1, 0.2),
                                 row.names = c("a", "b", "d"))))
-  # render
-  skip_if_not_installed("rhandsontable")
-  expect_is(x$render(), "shiny.tag.list")
 })
 
 test_that("binary_parameter_array", {
@@ -238,9 +231,6 @@ test_that("binary_parameter_array", {
     row.names = letters[1:3])))
   expect_error(x$set(data.frame(value = c(-4L, 0L, 1L),
     row.names = c("a", "b", "d"))))
-  # render
-  skip_if_not_installed("rhandsontable")
-  expect_is(x$render(), "shiny.tag.list")
 })
 
 test_that("numeric_parameter_array", {
@@ -304,9 +294,6 @@ test_that("numeric_parameter_array", {
                                 row.names = letters[1:3])))
   expect_error(x$set(data.frame(value = c(0.1, 5, 0.2),
                                 row.names = c("a", "b", "d"))))
-  # render
-  skip_if_not_installed("rhandsontable")
-  expect_is(x$render(), "shiny.tag.list")
 })
 
 test_that("misc_parameter", {
@@ -315,8 +302,7 @@ test_that("misc_parameter", {
   # create parameter
   x <- misc_parameter("tbl", iris,
                       function(x) all(names(x) %in% names(iris)) &&
-                                  all(x[[1]] < 200),
-                      function(id, x) structure(id, class = "shiny.tag"))
+                                  all(x[[1]] < 200))
   # run tests
   x$show()
   x$print()
@@ -330,7 +316,6 @@ test_that("misc_parameter", {
   iris2[1, 1] <- 50
   x$set(iris2)
   expect_equal(x$get(), iris2)
-  expect_is(x$render(), "shiny.tag")
   x$reset()
   expect_equal(x$get(), iris)
   # errors
@@ -360,9 +345,6 @@ test_that("numeric_matrix_parameter", {
   # errors
   expect_error(x$set(as.data.frame(m)))
   expect_error(x$set(m2))
-  # render
-  skip_if_not_installed("rhandsontable")
-  expect_is(x$render(), "shiny.tag.list")
 })
 
 test_that("binary_matrix_parameter", {
@@ -386,9 +368,6 @@ test_that("binary_matrix_parameter", {
   # errors
   expect_error(x$set(as.data.frame(m)))
   expect_error(x$set(m2))
-  # render
-  skip_if_not_installed("rhandsontable")
-  expect_is(x$render(), "shiny.tag.list")
 })
 
 test_that("parameters", {
@@ -402,8 +381,6 @@ test_that("parameters", {
   expect_equal(unname(sort(x$names())), c(p1$name, p2$name))
   expect_equal(x$get(p1$id), p1$get())
   expect_equal(x$get(p1$name), p1$get())
-  expect_equal(x$render(p1$id), p1$render())
-  expect_equal(x$render(p1$name), p1$render())
   x$set(p1$id, 0.9)
   x$set(p2$name, data.frame(value = c(0.1, 5, 0.2),
                             row.names = c("a", "b", "c")))
@@ -426,7 +403,4 @@ test_that("parameters", {
   expect_error(parameters(1, p1))
   expect_error(x$set(data.frame(value = c(0.1, 5, 0.2),
                                 row.names = c("a", "b", "d"))))
-  # render
-  skip_if_not_installed("rhandsontable")
-  expect_is(x$render_all(), "shiny.tag")
 })

@@ -35,10 +35,6 @@ NULL
 #'
 #' `x$set_parameter(id, value)`
 #'
-#' `x$render_parameter(id)`
-#'
-#' `x$render_all_parameters()`
-#'
 #' @section Arguments:
 #' \describe{
 #'
@@ -77,12 +73,6 @@ NULL
 #'
 #' \item{set_parameter}{change the value of a parameter in the object
 #'   to a new object.}
-#'
-#' \item{render_parameter}{generate a *shiny* widget to modify the
-#'   the value of a parameter (specified by argument `id`).}
-#'
-#' \item{render_all_parameters}{generate a [shiny::div()]
-#'   containing all the parameters" widgets.}
 #'
 #' }
 #'
@@ -153,15 +143,4 @@ Collection <- pproto(
   set_parameter = function(self, id, value) {
     assertthat::assert_that(inherits(id, "Id"))
     self[[self$find_parameter(id)]]$set_parameter(id, value)
-  },
-  render_parameter = function(self, id, value) {
-    assertthat::assert_that(inherits(id, "Id"))
-    self[[self$find_parameter(id)]]$render_parameter(id)
-  },
-  render_all_parameters = function(self) {
-    do.call(shiny::div,
-        append(list(class = "Collection"),
-                lapply(self$ids(), function(x) {
-                  self[[x]]$render_all_parameters()
-                })))
   })

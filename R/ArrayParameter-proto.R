@@ -35,8 +35,6 @@ NULL
 #' \item{$upper_limit}{`numeric` `vector` specifying the maximum
 #'   permitted values.}
 #'
-#' \item{$widget}{`function` used to construct a
-#'   [shiny::shiny()] interface for modifying values.}
 #' }
 #'
 #' @section Usage:
@@ -55,14 +53,11 @@ NULL
 #'
 #' `x$reset()`
 #'
-#' `x$render(...)`
-#'
 #' @section Arguments:
 #' \describe{
 #' \item{tbl}{[data.frame()] containing new parameter values with
 #'            row names indicating the labels and a column called "values"
 #'            containing the new parameter values.}
-#' \item{...}{arguments passed to function in `widget` field.}
 #' }
 #'
 #' @section Details:
@@ -83,9 +78,6 @@ NULL
 #'   [base::data.frame()].}
 #'
 #' \item{reset}{update the parameter values to be the default values.}
-#'
-#' \item{render}{create a [shiny::shiny()] widget to modify
-#'   parameter values.}
 #'
 #' }
 #'
@@ -130,15 +122,4 @@ ArrayParameter <- pproto(
               .Names = "value",
               row.names = self$label,
               class = "data.frame")
-  },
-  render = function(self, ...) {
-    # check that widget dependency installed
-    pkg <- strsplit(self$widget, "::")[[1]][[1]]
-    if (!requireNamespace(pkg, quietly = TRUE))
-      stop(paste0("the \"", pkg, "\" R package must be installed to render",
-                  " this parameter"))
-    # extract function
-    f <- do.call(utils::getFromNamespace,
-      as.list(rev(strsplit(self$widget, "::")[[1]])))
-    do.call(f, list(outputId = self$id))
   })

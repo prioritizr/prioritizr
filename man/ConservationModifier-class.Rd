@@ -55,10 +55,6 @@ to \code{TRUE}.}
 \code{x$get_all_parameters()}
 
 \code{x$set_parameter(id, value)}
-
-\code{x$render_parameter(id)}
-
-\code{x$render_all_parameter()}
 }
 
 \section{Arguments}{
@@ -116,12 +112,6 @@ This is used by \code{\linkS4class{Constraint}},
 parameters.}
 
 \item{set_parameter}{change the value of a parameter to new value.}
-
-\item{render_parameter}{generate a \emph{shiny} widget to modify the
-the value of a parameter (specified by argument \code{id}).}
-
-\item{render_all_parameters}{generate a \code{\link[shiny:reexports]{shiny::div()}}
-containing all the parameters" widgets.}
 
 }
 }

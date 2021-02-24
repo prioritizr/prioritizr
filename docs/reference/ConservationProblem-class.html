@@ -109,7 +109,7 @@ class directly." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">6.0.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.0.0</span>
       </span>
     </div>
 
@@ -266,24 +266,14 @@ the method for generating a portfolio of solutions.</p></dd>
 <p><code>x$add_targets(targ)</code></p>
 <p><code>x$get_constraint_parameter(id)</code></p>
 <p><code>x$set_constraint_parameter(id, value)</code></p>
-<p><code>x$render_constraint_parameter(id)</code></p>
-<p><code>x$render_all_constraint_parameters()</code></p>
 <p><code>x$get_objective_parameter(id)</code></p>
 <p><code>x$set_objective_parameter(id, value)</code></p>
-<p><code>x$render_objective_parameter(id)</code></p>
-<p><code>x$render_all_objective_parameters()</code></p>
 <p><code>x$get_solver_parameter(id)</code></p>
 <p><code>x$set_solver_parameter(id, value)</code></p>
-<p><code>x$render_solver_parameter(id)</code></p>
-<p><code>x$render_all_solver_parameters()</code></p>
 <p><code>x$get_portfolio_parameter(id)</code></p>
 <p><code>x$set_portfolio_parameter(id, value)</code></p>
-<p><code>x$render_portfolio_parameter(id)</code></p>
-<p><code>x$render_all_portfolio_parameters()</code></p>
 <p><code>x$get_penalty_parameter(id)</code></p>
 <p><code>x$set_penalty_parameter(id, value)</code></p>
-<p><code>x$render_penalty_parameter(id)</code></p>
-<p><code>x$render_all_penalty_parameters()</code></p>
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
 
     
@@ -399,23 +389,11 @@ argument <code>id</code>) used in one of the constraints in the object.</p></dd>
 argument <code>id</code>) used in one of the constraints in the object to
 <code>value</code>.</p></dd>
 
-<dt>render_constraint_parameter</dt><dd><p>generate a <em>shiny</em> widget to modify
-the value of a parameter (specified by argument <code>id</code>).</p></dd>
-
-<dt>render_all_constraint_parameters</dt><dd><p>generate a <em>shiny</em> <code>div</code>
-containing all the parameters' widgets.</p></dd>
-
 <dt>get_objective_parameter</dt><dd><p>get the value of a parameter (specified by
 argument <code>id</code>) used in the object's objective.</p></dd>
 
 <dt>set_objective_parameter</dt><dd><p>set the value of a parameter (specified by
 argument <code>id</code>) used in the object's objective to <code>value</code>.</p></dd>
-
-<dt>render_objective_parameter</dt><dd><p>generate a <em>shiny</em> widget to modify
-the value of a parameter (specified by argument <code>id</code>).</p></dd>
-
-<dt>render_all_objective_parameters</dt><dd><p>generate a <em>shiny</em> <code>div</code>
-containing all the parameters' widgets.</p></dd>
 
 <dt>get_solver_parameter</dt><dd><p>get the value of a parameter (specified by
 argument <code>id</code>) used in the object's solver.</p></dd>
@@ -423,23 +401,11 @@ argument <code>id</code>) used in the object's solver.</p></dd>
 <dt>set_solver_parameter</dt><dd><p>set the value of a parameter (specified by
 argument <code>id</code>) used in the object's solver to <code>value</code>.</p></dd>
 
-<dt>render_solver_parameter</dt><dd><p>generate a <em>shiny</em> widget to modify
-the value of a parameter (specified by argument <code>id</code>).</p></dd>
-
-<dt>render_all_solver_parameters</dt><dd><p>generate a <em>shiny</em> <code>div</code>
-containing all the parameters' widgets.</p></dd>
-
 <dt>get_portfolio_parameter</dt><dd><p>get the value of a parameter (specified by
 argument <code>id</code>) used in the object's portfolio.</p></dd>
 
 <dt>set_portfolio_parameter</dt><dd><p>set the value of a parameter (specified by
 argument <code>id</code>) used in objects' solver to <code>value</code>.</p></dd>
-
-<dt>render_portfolio_parameter</dt><dd><p>generate a <em>shiny</em> widget to modify
-the value of a parameter (specified by argument <code>id</code>).</p></dd>
-
-<dt>render_all_portfolio_parameters</dt><dd><p>generate a <em>shiny</em> <code>div</code>
-containing all the parameters' widgets.</p></dd>
 
 
 </dl>

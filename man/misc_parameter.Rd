@@ -4,7 +4,7 @@
 \alias{misc_parameter}
 \title{Miscellaneous parameter}
 \usage{
-misc_parameter(name, value, validator, widget)
+misc_parameter(name, value, validator)
 }
 \arguments{
 \item{name}{\code{character} name of parameter.}
@@ -15,10 +15,6 @@ misc_parameter(name, value, validator, widget)
 function must have a single argument and return either \code{TRUE} or
 \code{FALSE} depending on if the argument is valid candidate for the
 parameter.}
-
-\item{widget}{\code{function} to render a \code{shiny} widget. This function
-should must have a single argument that accepts a valid object and return
-a \code{shiny.tag} or \code{shiny.tag.list} object.}
 }
 \value{
 \code{\linkS4class{MiscParameter}} object.
@@ -31,9 +27,7 @@ Create a parameter that consists of a miscellaneous object.
 data(iris, mtcars)
 
 # create table parameter can that can be updated to any other object
-p1 <- misc_parameter("tbl", iris,
-                     function(x) TRUE,
-                     function(id, x) structure(id, .Class = "shiny.tag"))
+p1 <- misc_parameter("tbl", iris, function(x) TRUE)
 print(p1) # print it
 p1$get() # get value
 p1$id # get id
@@ -46,8 +40,7 @@ p1$print() # print it again
 # parameter have the same column names as the iris dataset
 p2 <- misc_parameter("tbl2", iris,
                      function(x) all(names(x) \%in\% names(iris)) &&
-                                 all(x[[1]] < 200),
-                     function(id, x) structure(id, .Class = "shiny.tag"))
+                                 all(x[[1]] < 200))
 print(p2) # print it
 p2$get() # get value
 p2$id # get id

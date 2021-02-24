@@ -1,3 +1,7 @@
+# prioritizr 7.0.0.0
+
+- Remove unused _shiny R_ package integration and dependencies (#141).
+
 # prioritizr 6.0.0.2
 
 - New `add_cbc_solver` function to generate solutions using the open source

@@ -29,8 +29,6 @@ that \verb{$value} is permitted to be.}
 \item{$upper_limit}{\code{numeric} scalar value that is the maximum value
 that \verb{$value} is permitted to be.}
 
-\item{$widget}{\code{function} used to construct a
-\code{\link[shiny:shiny-package]{shiny::shiny()}} interface for modifying values.}
 }
 }
 
@@ -48,8 +46,6 @@ that \verb{$value} is permitted to be.}
 \code{x$set(x)}
 
 \code{x$reset()}
-
-\code{x$render(...)}
 }
 
 \section{Arguments}{
@@ -58,8 +54,6 @@ that \verb{$value} is permitted to be.}
 \describe{
 
 \item{x}{object used to set a new parameter value.}
-
-\item{...}{arguments passed to \verb{$widget}.}
 
 }
 }
@@ -79,9 +73,6 @@ that \verb{$value} is permitted to be.}
 \item{set}{update the parameter value.}
 
 \item{reset}{update the parameter value to be the default value.}
-
-\item{render}{create a \code{\link[shiny:shiny-package]{shiny::shiny()}} widget to modify
-parameter values.}
 
 }
 }

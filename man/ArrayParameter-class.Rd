@@ -34,8 +34,6 @@ permitted values.}
 \item{$upper_limit}{\code{numeric} \code{vector} specifying the maximum
 permitted values.}
 
-\item{$widget}{\code{function} used to construct a
-\code{\link[shiny:shiny-package]{shiny::shiny()}} interface for modifying values.}
 }
 }
 
@@ -55,8 +53,6 @@ permitted values.}
 \code{x$set(tbl)}
 
 \code{x$reset()}
-
-\code{x$render(...)}
 }
 
 \section{Arguments}{
@@ -65,7 +61,6 @@ permitted values.}
 \item{tbl}{\code{\link[=data.frame]{data.frame()}} containing new parameter values with
 row names indicating the labels and a column called "values"
 containing the new parameter values.}
-\item{...}{arguments passed to function in \code{widget} field.}
 }
 }
 
@@ -88,9 +83,6 @@ parameter values.}
 \code{\link[base:data.frame]{base::data.frame()}}.}
 
 \item{reset}{update the parameter values to be the default values.}
-
-\item{render}{create a \code{\link[shiny:shiny-package]{shiny::shiny()}} widget to modify
-parameter values.}
 
 }
 }

@@ -8,7 +8,7 @@ NULL
 #' Parameters class
 #'
 #' This class represents a collection of [`Parameter-class`] objects.
-#' It provides methods for accessing, updating, and rendering the parameters
+#' It provides methods for accessing and updating the parameters
 #' stored inside it.
 #'
 #' @section Fields:
@@ -38,10 +38,6 @@ NULL
 #' `x$set(id, value)`
 #'
 #' `x$add(p)`
-#'
-#' `x$render(id)`
-#'
-#' `x$render_all()`
 #'
 #' @section Arguments:
 #' \describe{
@@ -74,12 +70,6 @@ NULL
 #'
 #' \item{set}{change the value of a parameter in the object
 #'    to a new object.}
-#'
-#' \item{render}{generate a *shiny* widget to modify the
-#'   the value of a parameter (specified by argument `Id`).}
-#'
-#' \item{render_all}{generate a [shiny::div()]
-#'   containing all the parameters" widgets.}
 #'
 #' }
 #'
@@ -147,16 +137,6 @@ Parameters <- pproto(
     assertthat::assert_that(assertthat::is.string(x) || is.id(x))
     self[[self$find(x)]]$reset()
     invisible()
-  },
-  render = function(self, x) {
-    assertthat::assert_that(assertthat::is.string(x) || is.id(x))
-    self[[self$find(x)]]$render()
-  },
-  render_all = function(self) {
-    do.call(shiny::div,
-        append(list(class = "Parameters"),
-                lapply(self$ids(),
-                       function(x) self[[x]]$render())))
   },
   reset_all = function(self) {
     for (i in self$ids())
