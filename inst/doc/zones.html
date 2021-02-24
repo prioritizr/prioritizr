@@ -565,7 +565,7 @@ s5 &lt;-<span class="st"> </span><span class="kw">solve</span>(p5)</code></pre><
 ##   RHS range        [1e+00, 8e+00]
 ## Found heuristic solution: objective 13600.000000
 ## Presolve removed 14 rows and 120 columns
-## Presolve time: 0.01s
+## Presolve time: 0.00s
 ## Presolved: 91 rows, 180 columns, 360 nonzeros
 ## Found heuristic solution: objective 9600.0000000
 ## Variable types: 0 continuous, 180 integer (180 binary)
@@ -753,8 +753,8 @@ p7 &lt;-<span class="st"> </span><span class="kw">problem</span>(pu4, <span clas
 ##   objective:      Minimum set objective 
 ##   targets:        Absolute targets [targets (min: 8, max: 8)]
 ##   decisions:      Binary decision 
-##   constraints:    &lt;Mandatory allocation constraints [apply constraints? (1)]
-##                    Manually locked planning units [80 locked units]&gt;
+##   constraints:    &lt;Manually locked planning units [80 locked units]
+##                    Mandatory allocation constraints [apply constraints? (1)]&gt;
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 0.5, max: 0.5), penalty (640), zones]&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
@@ -772,7 +772,7 @@ s7 &lt;-<span class="st"> </span><span class="kw">solve</span>(p7)</code></pre><
 ##   RHS range        [1e+00, 8e+00]
 ## Found heuristic solution: objective 19600.000000
 ## Presolve removed 1120 rows and 324 columns
-## Presolve time: 0.03s
+## Presolve time: 0.04s
 ## Presolved: 785 rows, 876 columns, 2448 nonzeros
 ## Variable types: 0 continuous, 876 integer (876 binary)
 ## Presolved: 785 rows, 876 columns, 2448 nonzeros
@@ -786,7 +786,7 @@ s7 &lt;-<span class="st"> </span><span class="kw">solve</span>(p7)</code></pre><
 ##      0     0 13230.9255    0   95 19600.0000 13230.9255  32.5%     -    0s
 ## H    0     0                    13260.000000 13230.9255  0.22%     -    0s
 ## 
-## Explored 1 nodes (417 simplex iterations) in 0.03 seconds
+## Explored 1 nodes (417 simplex iterations) in 0.05 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 13260 19600 
