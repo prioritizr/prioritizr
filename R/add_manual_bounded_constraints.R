@@ -189,9 +189,6 @@ methods::setMethod("add_manual_bounded_constraints",
     # define function to validate changes to data
     vfun <- function(x) !inherits(try(validate_data(x), silent = TRUE),
                                   "try-error")
-    # define function to render data
-    rfun <- function(x)
-      utils::getFromNamespace("rHandsontableOutput", "rhandsontable")(x)
      # add constraints
      x$add_constraint(pproto(
       "BoundsManualConstraint",
@@ -201,8 +198,7 @@ methods::setMethod("add_manual_bounded_constraints",
         paste0(self$name, " [", nrow(self$parameters$get("Bound data")),
                " bound units]")
       },
-      parameters = parameters(misc_parameter("Bound data", data,
-                                             vfun, rfun)),
+      parameters = parameters(misc_parameter("Bound data", data, vfun)),
       calculate = function(self, x) {
         assertthat::assert_that(inherits(x, "ConservationProblem"))
         # get bound data

@@ -139,10 +139,4 @@ Solver <- pproto(
   set_data = function(self, x, value) {
     self$data[[x]] <- value
     invisible()
-  },
-  render_parameter = function(self, x) {
-    self$parameters$render(x)
-  },
-  render_all_parameters = function(self) {
-    shiny::div(class = "Solver", self$parameters$render_all())
   })

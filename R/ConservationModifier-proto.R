@@ -55,10 +55,6 @@ NULL
 #'
 #' `x$set_parameter(id, value)`
 #'
-#' `x$render_parameter(id)`
-#'
-#' `x$render_all_parameter()`
-#'
 #' @section Arguments:
 #' \describe{
 #'
@@ -112,12 +108,6 @@ NULL
 #'
 #' \item{set_parameter}{change the value of a parameter to new value.}
 #'
-#' \item{render_parameter}{generate a *shiny* widget to modify the
-#'   the value of a parameter (specified by argument `id`).}
-#'
-#' \item{render_all_parameters}{generate a [shiny::div()]
-#'   containing all the parameters" widgets.}
-#'
 #' }
 #'
 #' @name ConservationModifier-class
@@ -167,15 +157,9 @@ ConservationModifier <- pproto(
   set_parameter = function(self, x, value) {
     self$parameters$set(x, value)
   },
-  render_parameter = function(self, x) {
-    self$parameters$render(x)
-  },
   get_all_parameters = function(self) {
     structure(lapply(self$parameters, function(x) x$value),
       .Names = vapply(self$parameters, function(x) x$name, character(1)),
       id = vapply(self$parameters, function(x) as.character(x$id),
                   character(1)))
-  },
-  render_all_parameters = function(self) {
-    shiny::div(class = class(self)[1], self$parameters$render_all())
   })

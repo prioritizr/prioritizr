@@ -35,10 +35,6 @@ in the collection.}
 \code{x$get_parameter(id)}
 
 \code{x$set_parameter(id, value)}
-
-\code{x$render_parameter(id)}
-
-\code{x$render_all_parameters()}
 }
 
 \section{Arguments}{
@@ -82,12 +78,6 @@ using an \code{id} object.}
 
 \item{set_parameter}{change the value of a parameter in the object
 to a new object.}
-
-\item{render_parameter}{generate a \emph{shiny} widget to modify the
-the value of a parameter (specified by argument \code{id}).}
-
-\item{render_all_parameters}{generate a \code{\link[shiny:reexports]{shiny::div()}}
-containing all the parameters" widgets.}
 
 }
 }

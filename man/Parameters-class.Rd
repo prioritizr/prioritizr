@@ -6,7 +6,7 @@
 \title{Parameters class}
 \description{
 This class represents a collection of \code{\linkS4class{Parameter}} objects.
-It provides methods for accessing, updating, and rendering the parameters
+It provides methods for accessing and the parameters
 stored inside it.
 }
 \section{Fields}{
@@ -39,10 +39,6 @@ stored inside it.
 \code{x$set(id, value)}
 
 \code{x$add(p)}
-
-\code{x$render(id)}
-
-\code{x$render_all()}
 }
 
 \section{Arguments}{
@@ -78,12 +74,6 @@ using an \code{Id} object.}
 
 \item{set}{change the value of a parameter in the object
 to a new object.}
-
-\item{render}{generate a \emph{shiny} widget to modify the
-the value of a parameter (specified by argument \code{Id}).}
-
-\item{render_all}{generate a \code{\link[shiny:reexports]{shiny::div()}}
-containing all the parameters" widgets.}
 
 }
 }

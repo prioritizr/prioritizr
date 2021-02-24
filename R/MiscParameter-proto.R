@@ -22,8 +22,6 @@ NULL
 #' \item{$validator}{`list` object containing a `function` that
 #'   is used to validate changes to the parameter.}
 #'
-#' \item{$widget}{`list` object containing a `function` used to
-#'   construct a *shiny* interface for modifying values.}
 #' }
 #'
 #' @section Usage:
@@ -40,15 +38,11 @@ NULL
 #'
 #' `x$reset()`
 #'
-#' `x$render(...)`
-#'
 #' @section Arguments:
 #'
 #' \describe{
 #'
 #' \item{x}{object used to set a new parameter value.}
-#'
-#' \item{...}{arguments passed to `$widget`.}
 #'
 #'  }
 #'
@@ -66,9 +60,6 @@ NULL
 #' \item{set}{update the parameter value.}
 #'
 #' \item{reset}{update the parameter value to be the default value.}
-#'
-#' \item{render}{create a [shiny::shiny()] widget to modify
-#'               parameter values.}
 #'
 #' }
 #'
@@ -98,7 +89,4 @@ MiscParameter <- pproto(
   set = function(self, x) {
     check_that(self$validate(x))
     self$value <- x
-  },
-  render = function(self, ...) {
-    self$widget[[1]](self$id, self$value)
   })

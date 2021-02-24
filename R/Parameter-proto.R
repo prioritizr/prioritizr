@@ -30,8 +30,6 @@ NULL
 #' \item{$upper_limit}{`numeric` `vector` specifying the maximum
 #'   permitted value for each element in `$value`.}
 #'
-#' \item{$widget}{`function` used to construct a
-#'                [shiny::shiny()] interface for modifying values.}
 #' }
 #'
 #' @section Usage:
@@ -64,7 +62,6 @@ Parameter <- pproto(
   value = numeric(0),
   default = numeric(0),
   class = character(0),
-  widget = function(...) stop("no widget defined"),
   print = function(self) {
     message(self$repr())
   },

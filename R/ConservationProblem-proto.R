@@ -101,41 +101,21 @@ NULL
 #'
 #' `x$set_constraint_parameter(id, value)`
 #'
-#' `x$render_constraint_parameter(id)`
-#'
-#' `x$render_all_constraint_parameters()`
-#'
 #' `x$get_objective_parameter(id)`
 #'
 #' `x$set_objective_parameter(id, value)`
-#'
-#' `x$render_objective_parameter(id)`
-#'
-#' `x$render_all_objective_parameters()`
 #'
 #' `x$get_solver_parameter(id)`
 #'
 #' `x$set_solver_parameter(id, value)`
 #'
-#' `x$render_solver_parameter(id)`
-#'
-#' `x$render_all_solver_parameters()`
-#'
 #' `x$get_portfolio_parameter(id)`
 #'
 #' `x$set_portfolio_parameter(id, value)`
 #'
-#' `x$render_portfolio_parameter(id)`
-#'
-#' `x$render_all_portfolio_parameters()`
-#'
 #' `x$get_penalty_parameter(id)`
 #'
 #' `x$set_penalty_parameter(id, value)`
-#'
-#' `x$render_penalty_parameter(id)`
-#'
-#' `x$render_all_penalty_parameters()`
 #'
 #' @section Arguments:
 #'
@@ -245,23 +225,11 @@ NULL
 #'   argument `id`) used in one of the constraints in the object to
 #'   `value`.}
 #'
-#' \item{render_constraint_parameter}{generate a *shiny* widget to modify
-#'  the value of a parameter (specified by argument `id`).}
-#'
-#' \item{render_all_constraint_parameters}{generate a *shiny* `div`
-#'   containing all the parameters' widgets.}
-#'
 #' \item{get_objective_parameter}{get the value of a parameter (specified by
 #'   argument `id`) used in the object's objective.}
 #'
 #' \item{set_objective_parameter}{set the value of a parameter (specified by
 #'   argument `id`) used in the object's objective to `value`.}
-#'
-#' \item{render_objective_parameter}{generate a *shiny* widget to modify
-#'   the value of a parameter (specified by argument `id`).}
-#'
-#' \item{render_all_objective_parameters}{generate a *shiny* `div`
-#'   containing all the parameters' widgets.}
 #'
 #' \item{get_solver_parameter}{get the value of a parameter (specified by
 #'   argument `id`) used in the object's solver.}
@@ -269,23 +237,11 @@ NULL
 #' \item{set_solver_parameter}{set the value of a parameter (specified by
 #'   argument `id`) used in the object's solver to `value`.}
 #'
-#' \item{render_solver_parameter}{generate a *shiny* widget to modify
-#'   the value of a parameter (specified by argument `id`).}
-#'
-#' \item{render_all_solver_parameters}{generate a *shiny* `div`
-#'   containing all the parameters' widgets.}
-#'
 #' \item{get_portfolio_parameter}{get the value of a parameter (specified by
 #'   argument `id`) used in the object's portfolio.}
 #'
 #' \item{set_portfolio_parameter}{set the value of a parameter (specified by
 #'   argument `id`) used in objects' solver to `value`.}
-#'
-#' \item{render_portfolio_parameter}{generate a *shiny* widget to modify
-#'   the value of a parameter (specified by argument `id`).}
-#'
-#' \item{render_all_portfolio_parameters}{generate a *shiny* `div`
-#'   containing all the parameters' widgets.}
 #'
 #' }
 #'
@@ -559,23 +515,11 @@ ConservationProblem <- pproto(
   set_constraint_parameter = function(self, id, value) {
     self$constraints$set_parameter(id, value)
   },
-  render_constraint_parameter = function(self, id) {
-    self$constraints$render_parameter(id)
-  },
-  render_all_constraint_parameters = function(self) {
-    self$constraints$render_all_parameters()
-  },
   get_objective_parameter = function(self, id) {
     self$objective$get_parameter(id)
   },
   set_objective_parameter = function(self, id, value) {
     self$objective$set_parameter(id, value)
-  },
-  render_objective_parameter = function(self, id) {
-    self$objective$render_parameter(id)
-  },
-  render_all_objective_parameters = function(self) {
-    self$objective$render_all_parameters()
   },
   get_solver_parameter = function(self, id) {
     self$solver$get_parameter(id)
@@ -583,33 +527,15 @@ ConservationProblem <- pproto(
   set_solver_parameter = function(self, id, value) {
     self$solver$set_parameter(id, value)
   },
-  render_solver_parameter = function(self, id) {
-    self$solver$render_parameter(id)
-  },
-  render_all_solver_parameters = function(self) {
-    self$solver$render_all_parameters()
-  },
   get_portfolio_parameter = function(self, id) {
     self$portfolio$get_parameter(id)
   },
   set_portfolio_parameter = function(self, id, value) {
     self$portfolio$set_parameter(id, value)
   },
-  render_portfolio_parameter = function(self, id) {
-    self$portfolio$render_parameter(id)
-  },
-  render_all_portfolio_parameters = function(self) {
-    self$portfolio$render_all_parameters()
-  },
   get_penalty_parameter = function(self, id) {
     self$penalties$get_parameter(id)
   },
   set_penalty_parameter = function(self, id, value) {
     self$penalties$set_parameter(id, value)
-  },
-  render_penalty_parameter = function(self, id) {
-    self$penalties$render_parameter(id)
-  },
-  render_all_penalty_parameters = function(self) {
-    self$penalties$render_all_parameters()
   })

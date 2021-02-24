@@ -262,15 +262,13 @@ methods::setMethod("add_feature_weights",
       weights <- as.data.frame(weights)
       colnames(weights) <- x$zone_names()
       rownames(weights) <- x$feature_names()
-      rfun <- function(x)
-        utils::getFromNamespace("rHandsontableOutput", "rhandsontable")(x)
       nc <- ncol(weights)
       nr <- nrow(weights)
       vfun <- function(x)
         assertthat::see_if(ncol(x) == nc, nrow(x) == nr,
                            all(is.finite(as.matrix(x))),
                            all(as.matrix(x) >= 0))
-      p <- misc_parameter("weights", weights, vfun, rfun)
+      p <- misc_parameter("weights", weights, vfun)
     }
     # add weights to problem
     x$add_penalty(pproto(

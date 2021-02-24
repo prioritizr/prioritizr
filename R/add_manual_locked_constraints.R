@@ -200,9 +200,6 @@ methods::setMethod("add_manual_locked_constraints",
     # define function to validate changes to data
     vfun <- function(x) !inherits(try(validate_data(x), silent = TRUE),
                                   "try-error")
-    # define function to render data
-    rfun <- function(x)
-      utils::getFromNamespace("rHandsontableOutput", "rhandsontable")(x)
      # add constraints
      x$add_constraint(pproto(
       class_name,
@@ -212,8 +209,7 @@ methods::setMethod("add_manual_locked_constraints",
         paste0(self$name, " [", nrow(self$parameters$get("Locked data")),
                " locked units]")
       },
-      parameters = parameters(misc_parameter("Locked data", data,
-                                             vfun, rfun)),
+      parameters = parameters(misc_parameter("Locked data", data, vfun)),
       calculate = function(self, x) {
         assertthat::assert_that(inherits(x, "ConservationProblem"))
         # get locked data

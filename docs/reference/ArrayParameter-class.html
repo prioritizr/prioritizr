@@ -210,8 +210,6 @@ permitted values.</p></dd>
 <dt>$upper_limit</dt><dd><p><code>numeric</code> <code>vector</code> specifying the maximum
 permitted values.</p></dd>
 
-<dt>$widget</dt><dd><p><code>function</code> used to construct a
-<code><a href='https://shiny.rstudio.com/reference/shiny/latest/shiny-package.html'>shiny::shiny()</a></code> interface for modifying values.</p></dd>
 
 </dl>
 
@@ -227,7 +225,6 @@ permitted values.</p></dd>
 <p><code>x$get()</code></p>
 <p><code>x$set(tbl)</code></p>
 <p><code>x$reset()</code></p>
-<p><code>x$render(...)</code></p>
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
 
     
@@ -236,7 +233,6 @@ permitted values.</p></dd>
 <dt>tbl</dt><dd><p><code><a href='https://rdrr.io/r/base/data.frame.html'>data.frame()</a></code> containing new parameter values with
 row names indicating the labels and a column called "values"
 containing the new parameter values.</p></dd>
-<dt>...</dt><dd><p>arguments passed to function in <code>widget</code> field.</p></dd>
 
 </dl>
 
@@ -261,9 +257,6 @@ parameter values.</p></dd>
 <code><a href='https://rdrr.io/r/base/data.frame.html'>base::data.frame()</a></code>.</p></dd>
 
 <dt>reset</dt><dd><p>update the parameter values to be the default values.</p></dd>
-
-<dt>render</dt><dd><p>create a <code><a href='https://shiny.rstudio.com/reference/shiny/latest/shiny-package.html'>shiny::shiny()</a></code> widget to modify
-parameter values.</p></dd>
 
 
 </dl>

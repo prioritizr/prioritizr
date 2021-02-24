@@ -84,11 +84,4 @@ Portfolio <- pproto(
   },
   set_parameter = function(self, x, value) {
     self$parameters$set(x, value)
-  },
-  render_parameter = function(self, x) {
-    self$parameters$render(x)
-  },
-  render_all_parameters = function(self) {
-    shiny::div(class = "Portfolio",
-                self$parameters$render_all())
   })

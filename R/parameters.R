@@ -5,9 +5,8 @@ NULL
 #'
 #' These functions are used to create parameters that consist of a single
 #' number. Parameters have a name, a value, a defined range of acceptable
-#' values, a default value, a class, and a [shiny::shiny()] widget for
-#' modifying them. If values are supplied to a parameter that are unacceptable
-#' then an error is thrown.
+#' values, a default value, and a class. If values are supplied to a parameter
+#' that are unacceptable then an error is thrown.
 #'
 #' @param name `character` name of parameter.
 #'
@@ -102,8 +101,7 @@ proportion_parameter <- function(name, value) {
     assertthat::is.scalar(value), isTRUE(value >= 0), isTRUE(value <= 1))
   pproto("ProportionParameter", ScalarParameter, id = new_id(), name = name,
          value = as.double(value), default = as.double(value),
-         class = "numeric", lower_limit = 0.0, upper_limit = 1.0,
-         widget = "shiny::sliderInput")
+         class = "numeric", lower_limit = 0.0, upper_limit = 1.0)
 }
 
 #' @rdname scalar_parameters
@@ -114,7 +112,7 @@ binary_parameter <- function(name, value) {
     is.finite(value))
   pproto("BinaryParameter", ScalarParameter, id = new_id(), name = name,
     value = as.integer(value), default = as.integer(value), class = "integer",
-    lower_limit = 0L, upper_limit = 1L, widget = "shiny::checkboxInput")
+    lower_limit = 0L, upper_limit = 1L)
 }
 
 #' @rdname scalar_parameters
@@ -127,7 +125,7 @@ integer_parameter <- function(name, value,
   pproto("IntegerParameter", ScalarParameter, id = new_id(), name = name,
     value = as.integer(value), default = as.integer(value), class = "integer",
     lower_limit = as.integer(lower_limit),
-    upper_limit = as.integer(upper_limit), widget = "shiny::numericInput")
+    upper_limit = as.integer(upper_limit))
 }
 
 #' @rdname scalar_parameters
@@ -139,8 +137,7 @@ numeric_parameter <- function(name, value,
     assertthat::is.scalar(value), is.finite(value))
   pproto("NumericParameter", ScalarParameter, id = new_id(), name = name,
     value = as.double(value), default = as.double(value), class = "numeric",
-    lower_limit = as.double(lower_limit), upper_limit = as.double(upper_limit),
-    widget = "shiny::numericInput")
+    lower_limit = as.double(lower_limit), upper_limit = as.double(upper_limit))
 }
 
 #' Array parameters
@@ -257,11 +254,14 @@ proportion_parameter_array <- function(name, value, label) {
     all(is.finite(value)), inherits(label, "character"),
     assertthat::noNA(label), length(value) == length(label))
   pproto("ProportionParameterArray", ArrayParameter, id = new_id(),
-    name = name, value = as.double(value),
-    label = label, class = "numeric", default = as.double(value),
+    name = name,
+    value = as.double(value),
+    label = label,
+    class = "numeric",
+    default = as.double(value),
     lower_limit = rep(0.0, length(value)),
-    upper_limit = rep(1.0, length(value)), length = length(value),
-    widget = "rhandsontable::rHandsontableOutput")
+    upper_limit = rep(1.0, length(value)),
+    length = length(value))
 }
 
 #' @rdname array_parameters
@@ -274,11 +274,14 @@ binary_parameter_array <- function(name, value, label) {
     inherits(label, "character"), assertthat::noNA(label),
     length(value) == length(label))
   pproto("BinaryParameterArray", ArrayParameter, id = new_id(),
-    name = name, value = as.integer(value),
-    label = label, class = "integer", lower_limit = rep(0L, length(value)),
+    name = name,
+    value = as.integer(value),
+    label = label,
+    class = "integer",
+    lower_limit = rep(0L, length(value)),
     upper_limit = rep(1L, length(value)),
-    default = as.integer(value), length = length(value),
-    widget = "rhandsontable::rHandsontableOutput")
+    default = as.integer(value),
+    length = length(value))
 }
 
 #' @rdname array_parameters
@@ -294,10 +297,14 @@ integer_parameter_array <- function(name, value, label,
     inherits(label, "character"), assertthat::noNA(label),
     length(value) == length(label))
   pproto("IntegerParameterArray", ArrayParameter, id = new_id(),
-    name = name, value = as.integer(value),
-    label = label, class = "integer", lower_limit = as.integer(lower_limit),
-    upper_limit = as.integer(upper_limit), default = as.integer(value),
-    length = length(value), widget = "rhandsontable::rHandsontableOutput")
+    name = name,
+    value = as.integer(value),
+    label = label,
+    class = "integer",
+    lower_limit = as.integer(lower_limit),
+    upper_limit = as.integer(upper_limit),
+    default = as.integer(value),
+    length = length(value))
 }
 
 #' @rdname array_parameters
@@ -313,10 +320,14 @@ numeric_parameter_array <- function(name, value, label,
     inherits(label, "character"), assertthat::noNA(label),
     length(value) == length(label))
   pproto("NumericParameterArray", ArrayParameter, id = new_id(),
-    name = name, value = as.double(value),
-    label = label, class = "numeric", lower_limit = as.double(lower_limit),
-    upper_limit = as.double(upper_limit), default = as.double(value),
-    length = length(value), widget = "rhandsontable::rHandsontableOutput")
+    name = name,
+    value = as.double(value),
+    label = label,
+    class = "numeric",
+    lower_limit = as.double(lower_limit),
+    upper_limit = as.double(upper_limit),
+    default = as.double(value),
+    length = length(value))
 }
 
 #' Miscellaneous parameter
@@ -332,10 +343,6 @@ numeric_parameter_array <- function(name, value, label,
 #'   `FALSE` depending on if the argument is valid candidate for the
 #'   parameter.
 #'
-#' @param widget `function` to render a `shiny` widget. This function
-#'   should must have a single argument that accepts a valid object and return
-#'   a `shiny.tag` or `shiny.tag.list` object.
-#'
 #' @return [`MiscParameter-class`] object.
 #'
 #' @examples
@@ -343,9 +350,7 @@ numeric_parameter_array <- function(name, value, label,
 #' data(iris, mtcars)
 #'
 #' # create table parameter can that can be updated to any other object
-#' p1 <- misc_parameter("tbl", iris,
-#'                      function(x) TRUE,
-#'                      function(id, x) structure(id, .Class = "shiny.tag"))
+#' p1 <- misc_parameter("tbl", iris, function(x) TRUE)
 #' print(p1) # print it
 #' p1$get() # get value
 #' p1$id # get id
@@ -358,8 +363,7 @@ numeric_parameter_array <- function(name, value, label,
 #' # parameter have the same column names as the iris dataset
 #' p2 <- misc_parameter("tbl2", iris,
 #'                      function(x) all(names(x) %in% names(iris)) &&
-#'                                  all(x[[1]] < 200),
-#'                      function(id, x) structure(id, .Class = "shiny.tag"))
+#'                                  all(x[[1]] < 200))
 #' print(p2) # print it
 #' p2$get() # get value
 #' p2$id # get id
@@ -371,13 +375,13 @@ numeric_parameter_array <- function(name, value, label,
 #' p2$print() # print it again
 #'
 #' @export
-misc_parameter <- function(name, value, validator, widget) {
+misc_parameter <- function(name, value, validator) {
   assertthat::assert_that(assertthat::is.string(name),
-    inherits(validator, "function"), inherits(widget, "function"),
+    inherits(validator, "function"),
     isTRUE(validator(value)))
   pproto("MiscParameter", MiscParameter, id = new_id(),
     name = name, value = value, validator = list(validator), default = value,
-    class = class(value), widget = list(widget))
+    class = class(value))
 }
 
 #' Matrix parameters
@@ -442,13 +446,11 @@ numeric_matrix_parameter <- function(name, value,
     assertthat::is.scalar(lower_limit), assertthat::is.scalar(upper_limit),
     assertthat::is.flag(symmetric), all(is.finite(value)),
     all(value >= lower_limit), all(value <= upper_limit))
-  rfun <- function(id, m) utils::getFromNamespace("rHandsontableOutput",
-    "rhandsontable")(id)
   vfun <- function(m) assertthat::see_if(is.matrix(m), all(is.finite(m)),
     ncol(m) == ncol(value), nrow(m) == nrow(value),
     all(value <= upper_limit), all(value >= lower_limit),
     ifelse(symmetric, isSymmetric(m), TRUE))
-  misc_parameter(name, value, vfun, rfun)
+  misc_parameter(name, value, vfun)
 }
 
 #' @rdname matrix_parameters
@@ -457,12 +459,10 @@ binary_matrix_parameter <- function(name, value, symmetric = FALSE) {
   assertthat::assert_that(assertthat::is.string(name), is.matrix(value),
     assertthat::is.flag(symmetric), all(is.finite(value)),
     all(value %in% c(0, 1)))
-  rfun <- function(id, m) utils::getFromNamespace("rHandsontableOutput",
-    "rhandsontable")(id)
   vfun <- function(m) assertthat::see_if(is.matrix(m), all(is.finite(m)),
      ncol(m) == ncol(value), nrow(m) == nrow(value), all(value %in% c(0, 1)),
      ifelse(symmetric, isSymmetric(m), TRUE))
-  misc_parameter(name, value, vfun, rfun)
+  misc_parameter(name, value, vfun)
 }
 
 #' Parameters

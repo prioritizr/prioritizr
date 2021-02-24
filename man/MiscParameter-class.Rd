@@ -21,8 +21,6 @@ This prototype is used to represent a parameter that can be any object.
 \item{$validator}{\code{list} object containing a \code{function} that
 is used to validate changes to the parameter.}
 
-\item{$widget}{\code{list} object containing a \code{function} used to
-construct a \emph{shiny} interface for modifying values.}
 }
 }
 
@@ -40,8 +38,6 @@ construct a \emph{shiny} interface for modifying values.}
 \code{x$set(x)}
 
 \code{x$reset()}
-
-\code{x$render(...)}
 }
 
 \section{Arguments}{
@@ -50,8 +46,6 @@ construct a \emph{shiny} interface for modifying values.}
 \describe{
 
 \item{x}{object used to set a new parameter value.}
-
-\item{...}{arguments passed to \verb{$widget}.}
 
 }
 }
@@ -71,9 +65,6 @@ construct a \emph{shiny} interface for modifying values.}
 \item{set}{update the parameter value.}
 
 \item{reset}{update the parameter value to be the default value.}
-
-\item{render}{create a \code{\link[shiny:shiny-package]{shiny::shiny()}} widget to modify
-parameter values.}
 
 }
 }

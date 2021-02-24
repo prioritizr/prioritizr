@@ -46,9 +46,8 @@ the largest possible number on the system.}
 \description{
 These functions are used to create parameters that consist of a single
 number. Parameters have a name, a value, a defined range of acceptable
-values, a default value, a class, and a \code{\link[shiny:shiny-package]{shiny::shiny()}} widget for
-modifying them. If values are supplied to a parameter that are unacceptable
-then an error is thrown.
+values, a default value, and a class. If values are supplied to a parameter
+that are unacceptable then an error is thrown.
 }
 \details{
 Below is a list of parameter generating functions and a brief

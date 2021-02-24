@@ -30,8 +30,6 @@ NULL
 #' \item{$upper_limit}{`numeric` scalar value that is the maximum value
 #'   that `$value` is permitted to be.}
 #'
-#' \item{$widget}{`function` used to construct a
-#'                [shiny::shiny()] interface for modifying values.}
 #' }
 #'
 #' @section Usage:
@@ -48,15 +46,11 @@ NULL
 #'
 #' `x$reset()`
 #'
-#' `x$render(...)`
-#'
 #' @section Arguments:
 #'
 #' \describe{
 #'
 #' \item{x}{object used to set a new parameter value.}
-#'
-#' \item{...}{arguments passed to `$widget`.}
 #'
 #'  }
 #'
@@ -74,9 +68,6 @@ NULL
 #' \item{set}{update the parameter value.}
 #'
 #' \item{reset}{update the parameter value to be the default value.}
-#'
-#' \item{render}{create a [shiny::shiny()] widget to modify
-#'               parameter values.}
 #'
 #' }
 #'
@@ -110,20 +101,4 @@ ScalarParameter <- pproto(
   set = function(self, x) {
     check_that(self$validate(x))
     self$value <- x
-  },
-  render = function(self, ...) {
-    # get all possible arguments
-    args <- list(inputId = self$id, label = self$name, value = self$value,
-      min = self$lower_limit, max = self$upper_limit)
-    # check that widget dependency installed
-    pkg <- strsplit(self$widget, "::")[[1]][[1]]
-    if (!requireNamespace(pkg, quietly = TRUE))
-      stop(paste0("the \"", pkg, "\" R package must be installed to render",
-                  " this parameter"))
-    # extract function
-    f <- do.call(getFromNamespace,
-      as.list(rev(strsplit(self$widget, "::")[[1]])))
-    # subset to include only valid arguments
-    args <- args[intersect(names(args), names(as.list(args(f))))]
-    do.call(f, append(args, list(...)))
   })

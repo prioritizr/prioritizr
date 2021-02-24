@@ -260,16 +260,13 @@ methods::setMethod(
     # define function to validate changes to the targets object
     vfun <- function(x) !inherits(try(validate_targets(x), silent = TRUE),
                                   "try-error")
-    # define function to render targets object
-    rfun <- function(x)
-      utils::getFromNamespace("rHandsontableOutput", "rhandsontable")(x)
     # add targets to problem
     x$add_targets(pproto(
     "ManualTargets",
     Target,
     name = "Targets",
     data = list(abundances = x$feature_abundances_in_total_units()),
-    parameters = parameters(misc_parameter("Targets", targets, vfun, rfun)),
+    parameters = parameters(misc_parameter("Targets", targets, vfun)),
     repr = function(self) {
       targets <- self$parameters$get("Targets")
       if (all(as.character(targets$type) == "relative")) {
