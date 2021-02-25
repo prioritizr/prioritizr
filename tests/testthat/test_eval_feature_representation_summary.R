@@ -172,7 +172,7 @@ test_that("Spatial (single zone)", {
   # load data
   data(sim_pu_polygons)
   pu <- sim_pu_polygons
-  pu@proj4string <- sp::CRS("+init=epsg:32756")
+  pu@proj4string <- as(sf::st_crs(32756), "CRS")
   pu$cost[1:5] <- NA
   pu$solution <- rep(c(0, 1), 5)
   pu$solution[is.na(pu$cost)] <- NA_real_
@@ -203,7 +203,7 @@ test_that("Spatial (multiple zone)", {
   # load data
   data(sim_pu_zones_polygons)
   pu <- sim_pu_zones_polygons
-  pu@proj4string <- sp::CRS("+init=epsg:32756")
+  pu@proj4string <- as(sf::st_crs(32756), "CRS")
   pu$spp1_1 <- c(NA, runif(nrow(pu) - 1))
   pu$spp2_1 <- c(rpois(nrow(pu) - 1, 1),
                                     NA)
@@ -326,8 +326,8 @@ test_that("sf (multiple zones)", {
 test_that("Raster (single zone)", {
   # load data
   data(sim_pu_raster, sim_features)
-  sim_pu_raster@crs <- sp::CRS("+init=epsg:32756")
-  sim_features@crs <- sp::CRS("+init=epsg:32756")
+  sim_pu_raster@crs <- as(sf::st_crs(32756), "CRS")
+  sim_features@crs <- as(sf::st_crs(32756), "CRS")
   # create problem
   p <- problem(sim_pu_raster, sim_features)
   # create a solution
@@ -354,10 +354,10 @@ test_that("Raster (single zone)", {
 test_that("Raster (multiple zone)", {
   # load data
   data(sim_pu_zones_stack, sim_features_zones)
-  sim_pu_zones_stack@crs <- sp::CRS("+init=epsg:32756")
-  sim_features_zones[[1]]@crs <- sp::CRS("+init=epsg:32756")
-  sim_features_zones[[2]]@crs <- sp::CRS("+init=epsg:32756")
-  sim_features_zones[[3]]@crs <- sp::CRS("+init=epsg:32756")
+  sim_pu_zones_stack@crs <- as(sf::st_crs(32756), "CRS")
+  sim_features_zones[[1]]@crs <- as(sf::st_crs(32756), "CRS")
+  sim_features_zones[[2]]@crs <- as(sf::st_crs(32756), "CRS")
+  sim_features_zones[[3]]@crs <- as(sf::st_crs(32756), "CRS")
   # create problem
   p <- problem(sim_pu_zones_stack, sim_features_zones)
   # create a solution
@@ -371,7 +371,7 @@ test_that("Raster (multiple zone)", {
   s[[1]][is.na(sim_pu_zones_stack[[1]])] <- NA_real_
   s[[2]][is.na(sim_pu_zones_stack[[2]])] <- NA_real_
   s[[3]][is.na(sim_pu_zones_stack[[3]])] <- NA_real_
-  raster::crs(s) <- sp::CRS("+init=epsg:32756")
+  raster::crs(s) <- as(sf::st_crs(32756), "CRS")
   # calculate representation
   r1 <- eval_feature_representation_summary(p, s)
   # create correct result
