@@ -61,7 +61,7 @@ jobs:
       - name: Install system dependencies
         run: |
           brew tap coin-or-tools/coinor
-          brew install symphony
+          brew install coin-or-tools/coinor/symphony
           brew install coin-or-tools/coinor/cbc
 
       - name: Install dependencies
@@ -69,6 +69,7 @@ jobs:
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("rcmdcheck")
           remotes::install_cran("covr")
+          remotes::install_bioc("lpsymphony")
         shell: Rscript {0}
 
       - name: Session information
