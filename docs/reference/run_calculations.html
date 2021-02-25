@@ -100,7 +100,7 @@ means that the same calculations will not be run multiple times." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.0.1</span>
       </span>
     </div>
 
@@ -254,9 +254,9 @@ anything. To use this function with <code><a href='%>%.html'>pipe()</a></code> o
 <span class='co'># now lets compare the times</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>s1</span><span class='op'>)</span> <span class='co'># time spent without running preliminary calculations</span>
 </div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.774   3.067   3.823 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>s2</span><span class='op'>)</span> <span class='co'># time spent after running preliminary calculations</span>
+#&gt;   1.203   5.276   6.609 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>s2</span><span class='op'>)</span> <span class='co'># time spent after running preliminary calculations</span>
 </div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.715   2.748   3.442 </div><div class='input'>
+#&gt;   0.671   3.366   4.025 </div><div class='input'>
 <span class='co'># As we can see, we can save time by running the preliminary</span>
 <span class='co'># calculations before making copies of the problem with slightly</span>
 <span class='co'># different constraints. Although the time saved in this example</span>

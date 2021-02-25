@@ -169,8 +169,7 @@ test_that("minimum set objective (character/data.frame, compile, single zone)",
 
 test_that("minimum set objective (solve, single zone)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # create data
   cost <- raster::raster(matrix(c(3, 2, 2, NA), ncol = 4))
   locked_in <- 2
@@ -371,8 +370,7 @@ test_that(paste("minimum set objective (character/data.frame, compile,",
 
 test_that("minimum set objective (solve, multiple zones)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # create data
   costs <- raster::stack(
     raster::raster(matrix(c(1,  2,  NA, 3, 100, 100, NA), ncol = 7)),

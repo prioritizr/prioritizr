@@ -2,7 +2,6 @@ context("add_lpsymphony_solver")
 
 test_that("binary decisions", {
   skip_on_cran()
-  skip_on_ci()
   skip_if_not_installed("lpsymphony")
   skip_on_os("linux") # crashes unpredictably on Ubuntu 16.04
   # make data
@@ -23,7 +22,6 @@ test_that("binary decisions", {
 
 test_that("proportion decisions", {
   skip_on_cran()
-  skip_on_ci()
   skip_if_not_installed("lpsymphony")
   # make data
   data(sim_pu_raster, sim_features)
@@ -46,7 +44,6 @@ test_that("proportion decisions", {
 
 test_that("proportion decisions (floating point)", {
   skip_on_cran()
-  skip_on_ci()
   skip_if_not_installed("lpsymphony")
   skip_if_not_installed("prioritizrdata")
   skip_on_os("linux") # crashes unpredictably on Ubuntu 16.04
@@ -89,7 +86,6 @@ test_that("variable bounds methods", {
 
 test_that("mix of binary and continuous variables", {
   skip_on_cran()
-  skip_on_ci()
   skip_if_not_installed("lpsymphony")
   skip_on_os("linux") # lpsymphony package crashes unpredictably on Ubuntu 16.04
   # make data
@@ -108,9 +104,27 @@ test_that("mix of binary and continuous variables", {
                                     tolerance = 1e-5, stopiffalse = FALSE))
 })
 
+test_that("first_feasible", {
+  skip_on_cran()
+  skip_if_not_installed("lpsymphony")
+  # make data
+  data(sim_pu_raster, sim_features)
+  p1 <- problem(sim_pu_raster, sim_features) %>%
+        add_min_set_objective() %>%
+        add_relative_targets(0.1) %>%
+        add_binary_decisions() %>%
+        add_lpsymphony_solver(first_feasible = TRUE, verbose = FALSE)
+  s1 <- solve(p1)
+  # check that solution has correct properties
+  expect_is(s1, "Raster")
+  expect_equal(raster::nlayers(s1), 1)
+  expect_equal(sort(unique(raster::getValues(s1))), c(0, 1))
+  expect_true(raster::compareRaster(sim_pu_raster, s1, res = TRUE, crs = TRUE,
+                                    tolerance = 1e-5, stopiffalse = FALSE))
+})
+
 test_that("correct solution (simple)", {
   skip_on_cran()
-  skip_on_ci()
   skip_if_not_installed("lpsymphony")
   skip_on_os("linux") # lpsymphony package crashes unpredictably on Ubuntu 16.04
   # create data
@@ -136,7 +150,6 @@ test_that("correct solution (simple)", {
 
 test_that("correct solution (complex)", {
   skip_on_cran()
-  skip_on_ci()
   skip_if_not_installed("lpsymphony")
   # create data
   cost <- raster::raster(matrix(c(1000, 100, 200, 300, NA), nrow = 1))

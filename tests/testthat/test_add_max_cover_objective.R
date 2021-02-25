@@ -31,8 +31,7 @@ test_that("compile (compressed formulation, single zone)", {
 
 test_that("solve (compressed formulation, single zone)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # create data
   budget <- 3
   cost <- raster::raster(matrix(c(1, 2, 4, NA), nrow = 1))
@@ -99,8 +98,7 @@ test_that("compile (expanded formulation, single zone)", {
 
 test_that("solve (expanded formulation, single zone)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # create data
   budget <- 3
   cost <- raster::raster(matrix(c(1, 2, 4, NA), nrow = 1))
@@ -193,8 +191,7 @@ test_that("compile (compressed formulation, multiple zones, scalar budget)", {
 
 test_that("solve (compressed formulation, multiple zones, scalar budget)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # make and solve problem
   budget <- 3
   locked_out <- matrix(FALSE, ncol = 2, nrow = 5)
@@ -289,8 +286,7 @@ test_that("compile (expanded formulation, multiple zones, scalar budget)", {
 
 test_that("solve (expanded formulation, multiple zones, scalar budget)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # make and solve problem
   budget <- 3
   locked_out <- matrix(FALSE, ncol = 2, nrow = 5)
@@ -367,8 +363,7 @@ test_that("compile (compressed formulation, multiple zones, vector budget)", {
 
 test_that("solve (compressed formulation, multiple zones, vector budget)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # make and solve problem
   budget <- c(10, 3)
   locked_out <- matrix(FALSE, ncol = 2, nrow = 5)
@@ -467,8 +462,7 @@ test_that("compile (expanded formulation, multiple zones, vector budget)", {
 
 test_that("solve (expanded formulation, multiple zones, vector budget)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # make and solve problm
   budget <- c(10, 3)
   locked_out <- matrix(FALSE, ncol = 2, nrow = 5)

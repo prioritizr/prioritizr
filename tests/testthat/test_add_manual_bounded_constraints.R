@@ -22,8 +22,7 @@ test_that("data.frame (compile, single zone)", {
 
 test_that("data.frame (solve, single zone)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # create and solve problem
   data(sim_pu_polygons, sim_features)
   p <- problem(sim_pu_polygons, sim_features, cost_column = "cost") %>%
@@ -75,8 +74,7 @@ test_that("data.frame (compile, multiple zones)", {
 
 test_that("data.frame (solve, multiple zones)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # create and solve problem
   data(sim_pu_zones_polygons, sim_features_zones)
   targets <- matrix(FALSE, nrow = number_of_features(sim_features_zones),

@@ -1,3 +1,8 @@
+# prioritizr 7.0.0.1
+
+- Update unit tests to solve a greater proportion of them using continuous
+  integration services (#181).
+
 # prioritizr 7.0.0.0
 
 - Remove unused _shiny R_ package integration and dependencies (#141).

@@ -62,8 +62,7 @@ test_that("minimum set objective (compile, single zone)", {
 
 test_that("minimum set objective (solve, single zone)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # load data
   data(sim_pu_raster, sim_features)
   # create and solve problem
@@ -228,8 +227,7 @@ test_that("minimum set objective (compile, array data, multiple zones)", {
 
 test_that("minimum set objective (solve, multiple zones)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # load data
   data(sim_pu_zones_stack, sim_features_zones)
   # make zones matrices

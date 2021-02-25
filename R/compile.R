@@ -66,9 +66,9 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
   # replace waivers with defaults
   if (is.Waiver(x$objective))
     x <- add_default_objective(x)
-  if (is.Waiver(x$targets) & !inherits(x$objective,
-                                       c("MaximumUtilityObjective",
-                                         "MaximumCoverageObjective")))
+  if (is.Waiver(x$targets) &
+      !inherits(x$objective,
+           c("MaximumUtilityObjective", "MaximumCoverageObjective")))
     x <- add_default_targets(x)
   if (is.Waiver(x$decisions))
     x <- add_default_decisions(x)

@@ -121,8 +121,7 @@ test_that("compile (expanded formulation, multiple zones)", {
 
 test_that("solve (compressed formulation, multiple zones)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # create data
   costs <- raster::stack(
     raster::raster(matrix(c(1,  2,  NA, 3, 100, 100, NA), ncol = 7)),
@@ -149,8 +148,7 @@ test_that("solve (compressed formulation, multiple zones)", {
 
 test_that("solve (expanded formulation, multiple zones)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # create data
   costs <- raster::stack(
     raster::raster(matrix(c(1,  2,  NA, 3, 100, 100, NA), ncol = 7)),

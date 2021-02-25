@@ -23,4 +23,5 @@ inst/WORDLIST
 ^CONTRIBUTING\.md$
 ^CONTRIBUTING\.Rmd$
 pkgdown
+.covrignore
 ^\.github$

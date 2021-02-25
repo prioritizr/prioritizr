@@ -52,8 +52,7 @@ test_that("compile (compressed formulation, single zone)", {
 
 test_that("solution (compressed formulation, single zone)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # create data
   budget <- 4.23
   cost <- raster::raster(matrix(c(1, 2, NA, 4), nrow = 1))
@@ -154,8 +153,7 @@ test_that("compile (expanded formulation)", {
 
 test_that("solution (expanded formulation, single zone)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # create data
   cost <- raster::raster(matrix(c(1, 2, NA, 4), nrow = 1))
   budget <- 4.23
@@ -187,6 +185,7 @@ test_that("solution (expanded formulation, single zone)", {
 })
 
 test_that("invalid inputs (single zone)", {
+  data(sim_pu_raster, sim_features, sim_phylogeny)
   # check that invalid arguments result in errors
   expect_error({
     problem(sim_pu_raster, sim_features) %>%
@@ -206,9 +205,15 @@ test_that("invalid inputs (single zone)", {
   })
   expect_error({
     problem(sim_pu_raster, sim_features) %>%
-    add_max_phylo_div_objective(budget = 5000,
-                                ape::drop.tip(sim_phylogeny, "layer.1"))
-    })
+    add_max_phylo_div_objective(
+      budget = 5000, ape::drop.tip(sim_phylogeny, "layer.1"))
+  })
+  # check that no targets results in error
+  expect_error({
+    problem(sim_pu_raster, sim_features) %>%
+    add_max_phylo_div_objective(budget = 5, sim_phylogeny) %>%
+    compile()
+  })
 })
 
 test_that("compile (compressed formulation, multiple zones, scalar budget)", {
@@ -282,8 +287,7 @@ test_that("compile (compressed formulation, multiple zones, scalar budget)", {
 
 test_that("solve (compressed formulation, multiple zones, scalar budget)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # create data
   budget <- 20
   cost <- raster::stack(
@@ -400,8 +404,7 @@ test_that("compile (compressed formulation, multiple zones, vector budget)", {
 
 test_that("solve (compressed formulation, multiple zones, vector budget)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # create data
   budget <- c(5, 15)
   cost <- raster::stack(
@@ -539,8 +542,7 @@ test_that("compile (expanded formulation, multiple zones, scalar budget)", {
 
 test_that("solve (expanded formulation, multiple zones, scalar budget)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # create data
   budget <- 20
   cost <- raster::stack(
@@ -683,8 +685,7 @@ test_that("compile (expanded formulation, multiple zones, vector budget)", {
 
 test_that("solve (expanded formulation, multiple zones, vector budget)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # create data
   budget <- c(5, 15)
   cost <- raster::stack(
@@ -730,7 +731,8 @@ test_that("solve (expanded formulation, multiple zones, vector budget)", {
 
 test_that("invalid inputs (multiple zones)", {
   data(sim_pu_zones_stack, sim_features_zones, sim_phylogeny)
-  sim_phylogeny$tip.labels <- feature_names(sim_features_zones)
+  sim_phylogeny$tip.label <- feature_names(sim_features_zones)
+  # check that invalid arguments result in errors
   expect_error({
     problem(sim_pu_zones_stack, sim_features_zones) %>%
     add_max_phylo_div_objective(budget = c(1, -5, 1), sim_phylogeny)
@@ -753,7 +755,13 @@ test_that("invalid inputs (multiple zones)", {
   })
   expect_error({
     problem(sim_pu_zones_stack, sim_features_zones) %>%
-    add_max_phylo_div_objective(budget = 5000,
-                                ape::drop.tip(sim_phylogeny, "feature_1"))
+    add_max_phylo_div_objective(
+      budget = 5000, ape::drop.tip(sim_phylogeny, "feature_1"))
+  })
+  # check that no targets results in error
+  expect_error({
+    problem(sim_pu_zones_stack, sim_features_zones) %>%
+    add_max_phylo_div_objective(budget = c(5, 5, 5), sim_phylogeny) %>%
+    compile()
   })
 })

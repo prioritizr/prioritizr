@@ -32,8 +32,7 @@ test_that("compile (compressed formulation, single zone)", {
 
 test_that("solve (compressed formulation, single zone)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # create data
   budget <- 4.23
   cost <- raster::raster(matrix(c(1, 2, NA, 4), nrow = 1))
@@ -103,8 +102,7 @@ test_that("compile (expanded formulation, single zone)", {
 
 test_that("solve (expanded formulation, single zone)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # create data
   budget <- 4.23
   cost <- raster::raster(matrix(c(1, 2, NA, 4), nrow = 1))
@@ -193,8 +191,7 @@ test_that("compile (compressed formulation, multiple zones)", {
 
 test_that("solve (compressed formulation, multiple zones)", {
   skip_on_cran()
-  skip_if_not(default_solver_name() != "lpsymphony")
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # create data
   budget <- 20
   cost <- raster::stack(
@@ -299,8 +296,7 @@ test_that("compile (expanded formulation, multiple zones)", {
 
 test_that("solve (expanded formulation, multiple zones)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # create data
   budget <- 20
   cost <- raster::stack(

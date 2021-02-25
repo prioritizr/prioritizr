@@ -34,8 +34,7 @@ test_that("compile (compressed formulation, single zone)", {
 
 test_that("solution (compressed formulation, single zone)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # create data
   budget <- 4.23
   cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
@@ -108,8 +107,7 @@ test_that("compile (expanded formulation, single zone)", {
 
 test_that("solution (expanded formulation, single zone)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # create data
   budget <- 4.23
   cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
@@ -131,6 +129,7 @@ test_that("solution (expanded formulation, single zone)", {
 })
 
 test_that("invalid inputs (single zone)", {
+  data(sim_pu_raster, sim_features)
   # check that invalid arguments result in errors
   expect_error({
     problem(sim_pu_raster, sim_features) %>%
@@ -151,6 +150,12 @@ test_that("invalid inputs (single zone)", {
     problem(sim_pu_raster, sim_features) %>%
       add_max_features_objective(budget = Inf) %>%
       add_absolute_targets(targ)
+  })
+  # check that no targets results in error
+  expect_error({
+    problem(sim_pu_raster, sim_pu_raster) %>%
+    add_max_features_objective(budget = 5) %>%
+    compile()
   })
 })
 
@@ -211,8 +216,7 @@ test_that("compile (compressed formulation, multiple zones, scalar budget)", {
 
 test_that("solve (compressed formulation, multiple zones, scalar budget)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # make and solve problem
   budget <- 7
   locked_out <- matrix(FALSE, ncol = 2, nrow = 5)
@@ -325,8 +329,7 @@ test_that("compile (expanded formulation, multiple zones, scalar budget)", {
 
 test_that("solve (expanded formulation, multiple zones, scalar budget)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # make and solve problem
   budget <- 7
   locked_out <- matrix(FALSE, ncol = 2, nrow = 5)
@@ -421,8 +424,7 @@ test_that("compile (compressed formulation, multiple zones, vector budget)", {
 
 test_that("solve (compressed formulation, multiple zones, vector budget)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # make and solve problem
   budget <- c(6, 1)
   locked_out <- matrix(FALSE, ncol = 2, nrow = 5)
@@ -539,8 +541,7 @@ test_that("compile (expanded formulation, multiple zones, vector budget)", {
 
 test_that("solve (expanded formulation, multiple zones, vector budget)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # make and solve problem
   budget <- c(6, 1)
   locked_out <- matrix(FALSE, ncol = 2, nrow = 5)
@@ -574,8 +575,9 @@ test_that("solve (expanded formulation, multiple zones, vector budget)", {
   expect_equal(raster::values(s[[2]]), c(0, 0, 0, 1, NA))
 })
 
-test_that("invalid inptus (multiple zones)", {
+test_that("invalid inputs (multiple zones)", {
   data(sim_pu_zones_stack, sim_features_zones)
+  # check that invalid arguments result in errors
   expect_error({
     problem(sim_pu_zones_stack, sim_features_zones) %>%
     add_max_features_objective(budget = c(1, -5, 1))
@@ -595,5 +597,11 @@ test_that("invalid inptus (multiple zones)", {
   expect_error({
     problem(sim_pu_zones_stack, sim_features_zones) %>%
     add_max_features_objective(budget = c(1, Inf, 9))
+  })
+  # check that no targets results in error
+  expect_error({
+    problem(sim_pu_zones_stack, sim_features_zones) %>%
+    add_max_features_objective(budget = c(5, 5, 5)) %>%
+    compile()
   })
 })

@@ -2,7 +2,6 @@ context("add_cplex_solver")
 
 test_that("binary decisions", {
   skip_on_cran()
-  skip_on_ci()
   skip_if_not_installed("cplexAPI")
   # make data
   data(sim_pu_raster, sim_features)
@@ -29,7 +28,6 @@ test_that("binary decisions", {
 
 test_that("proportion decisions", {
   skip_on_cran()
-  skip_on_ci()
   skip_if_not_installed("cplexAPI")
   # make data
   data(sim_pu_raster, sim_features)
@@ -52,7 +50,6 @@ test_that("proportion decisions", {
 
 test_that("proportion decisions (floating point)", {
   skip_on_cran()
-  skip_on_ci()
   skip_if_not_installed("cplexAPI")
   skip_if_not_installed("prioritizrdata")
   # make data
@@ -94,7 +91,6 @@ test_that("variable bounds methods", {
 
 test_that("mix of binary and continuous variables", {
   skip_on_cran()
-  skip_on_ci()
   skip_if_not_installed("cplexAPI")
   # make data
   b <- raster::cellStats(sim_pu_raster, "sum") * 0.2
@@ -114,7 +110,6 @@ test_that("mix of binary and continuous variables", {
 
 test_that("correct solution (simple)", {
   skip_on_cran()
-  skip_on_ci()
   skip_if_not_installed("cplexAPI")
   # create data
   cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
@@ -139,7 +134,6 @@ test_that("correct solution (simple)", {
 
 test_that("correct solution (complex)", {
   skip_on_cran()
-  skip_on_ci()
   skip_if_not_installed("cplexAPI")
   # create data
   cost <- raster::raster(matrix(c(1000, 100, 200, 300, NA), nrow = 1))

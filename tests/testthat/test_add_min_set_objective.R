@@ -24,8 +24,7 @@ test_that("compile (compressed formulation, single zone)", {
 
 test_that("solve (compressed formulation, single zone)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # create data
   cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
   locked_in <- 2
@@ -49,8 +48,7 @@ test_that("solve (compressed formulation, single zone)", {
 
 test_that("solve (compressed formulation, single zone, negative values)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # create data
   cost <- raster::raster(matrix(c(1, 2, 2, 0, 0, NA), nrow = 1))
   locked_in <- 2
@@ -115,8 +113,7 @@ test_that("compile (expanded formulation, single zone)", {
 
 test_that("solve (expanded formulation, single zone)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # create data
   cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
   locked_in <- 2
@@ -134,6 +131,16 @@ test_that("solve (expanded formulation, single zone)", {
   s <- solve(p, compressed_formulation = FALSE)
   # test for correct solution
   expect_equal(raster::values(s), c(0, 1, 1, NA))
+})
+
+test_that("invalid inputs (single zone)", {
+  data(sim_pu_zones_stack, sim_features_zones)
+  # check that no targets results in error
+  expect_error({
+    problem(sim_pu_zones_stack, sim_features_zones) %>%
+    add_min_set_objective() %>%
+    compile()
+  })
 })
 
 test_that("compile (compressed formulation, multiple zones)", {
@@ -179,8 +186,7 @@ test_that("compile (compressed formulation, multiple zones)", {
 
 test_that("solve (compressed formulation, multiple zones)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # create data
   costs <- raster::stack(
     raster::raster(matrix(c(1,  2,  NA, 3, 100, 100, NA), ncol = 7)),
@@ -282,8 +288,7 @@ test_that("compile (expanded formulation, multiple zones)", {
 
 test_that("solve (expanded formulation, multiple zones)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # create data
   costs <- raster::stack(
     raster::raster(matrix(c(1,  2,  NA, 3, 100, 100, NA), ncol = 7)),
@@ -305,4 +310,14 @@ test_that("solve (expanded formulation, multiple zones)", {
   expect_is(s, "RasterStack")
   expect_equal(raster::values(s[[1]]), c(1, 0, NA, 1, 0, 0, NA))
   expect_equal(raster::values(s[[2]]), c(0, 0, 0,  0, 1, 0, NA))
+})
+
+test_that("invalid inputs (multiple zones)", {
+  data(sim_pu_zones_stack, sim_features_zones)
+  # check that no targets results in error
+  expect_error({
+    problem(sim_pu_zones_stack, sim_features_zones) %>%
+    add_min_set_objective() %>%
+    compile()
+  })
 })
