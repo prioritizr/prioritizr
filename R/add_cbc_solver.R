@@ -49,7 +49,7 @@ NULL
 #' @references
 #' Forrest J and Lougee-Heimer R (2005) CBC User Guide. In Emerging theory,
 #' Methods, and Applications (pp. 257--277). INFORMS, Catonsville, MD.
-#' <https://doi.org/10.1287/educ.1053.0020>
+#' \doi{10.1287/educ.1053.0020}.
 #'
 #' @seealso [solvers].
 #'
