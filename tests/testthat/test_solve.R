@@ -341,24 +341,6 @@ test_that("x=matrix, y=data.frame (multiple zones)", {
   expect_equal(s[, "z2"], c(0, 0, 0,  0, 1, 0, NA))
 })
 
-test_that("silent output when verbose=FALSE", {
-  skip_on_cran()
-  skip_if_no_fast_solvers_installed()
-  skip_if_not_installed("Rsymphony")
-  # simulate data
-  costs <- raster::raster(matrix(c(1, 2, NA, 3), ncol = 4))
-  spp <- raster::stack(raster::raster(matrix(c(1, 2, 0, 0), ncol = 4)),
-                       raster::raster(matrix(c(NA, 0, 1, 1), ncol = 4)))
-  # make problem
-  p <- problem(costs, spp) %>%
-       add_min_set_objective() %>%
-       add_absolute_targets(c(1, 1)) %>%
-       add_binary_decisions() %>%
-       add_rsymphony_solver(gap = 0, verbose = FALSE)
-  # solve problem silently
-  expect_silent(solve(p))
-})
-
 test_that("numerical instability (error when force = FALSE)", {
   data(sim_pu_polygons, sim_features)
   sim_pu_polygons$cost[1] <- 1e+35
@@ -366,7 +348,7 @@ test_that("numerical instability (error when force = FALSE)", {
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%
     add_binary_decisions() %>%
-    add_default_solver(time_limit = 5, verbose = FALSE)
+    add_default_solver(first_feasible = TRUE, verbose = FALSE)
   expect_warning(expect_error(solve(p)))
 })
 
@@ -375,11 +357,11 @@ test_that("numerical instability (solution when force = TRUE)", {
   skip_if_no_fast_solvers_installed()
   # make data
   data(sim_pu_polygons, sim_features)
-  sim_pu_polygons$cost[1] <- 1e+35
+  sim_pu_polygons$cost[1] <- 1e+20
   p <- problem(sim_pu_polygons, sim_features, "cost") %>%
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%
     add_binary_decisions() %>%
-    add_default_solver(time_limit = 5, verbose = FALSE)
+    add_default_solver(first_feasible = TRUE, verbose = FALSE)
   expect_warning(expect_is(solve(p, force = TRUE), "SpatialPolygonsDataFrame"))
 })

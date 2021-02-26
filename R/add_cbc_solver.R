@@ -125,8 +125,8 @@ add_cbc_solver <- function(x, gap = 0.1,
       row_ub <- numeric(length(rhs))
       ## set equality constraints
       idx <- which(sense == "=")
-      row_lb[idx] <- rhs[idx] - 1e-5
-      row_ub[idx] <- rhs[idx] + 1e-5
+      row_lb[idx] <- rhs[idx]
+      row_ub[idx] <- rhs[idx]
       ## set lte constraints
       idx <- which(sense == "<=")
       row_lb[idx] <- -Inf

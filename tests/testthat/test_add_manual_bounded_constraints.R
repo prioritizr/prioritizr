@@ -1,6 +1,6 @@
 context("add_manual_bounded_constraints")
 
-test_that("data.frame (compile, single zone)", {
+test_that("compile (single zone)", {
   # create problem
   data(sim_pu_polygons, sim_features)
   p <- problem(sim_pu_polygons, sim_features, cost_column = "cost") %>%
@@ -20,7 +20,7 @@ test_that("data.frame (compile, single zone)", {
   expect_true(isTRUE(all(o$ub()[other_pos] == 1)))
 })
 
-test_that("data.frame (solve, single zone)", {
+test_that("solve (single zone)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # create and solve problem
@@ -29,10 +29,12 @@ test_that("data.frame (solve, single zone)", {
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_proportion_decisions() %>%
-       add_manual_bounded_constraints(data.frame(pu = seq_len(5),
-                                                 lower = rep(0.3, 10),
-                                                 upper = rep(0.35, 10))) %>%
-       add_default_solver(verbose = FALSE)
+       add_manual_bounded_constraints(
+         data.frame(
+           pu = seq_len(5),
+           lower = rep(0.3, 10),
+           upper = rep(0.35, 10))) %>%
+       add_default_solver(verbose = TRUE)
   s1 <- solve(p)
   s2 <- solve(p)
   # check that the solution obeys constraints as expected
@@ -41,7 +43,7 @@ test_that("data.frame (solve, single zone)", {
   expect_equal(s1$solution_1, s2$solution_1)
 })
 
-test_that("data.frame (compile, multiple zones)", {
+test_that("compile (multiple zones)", {
   # create problem
   data(sim_pu_zones_polygons, sim_features_zones)
   targets <- matrix(FALSE, nrow = number_of_features(sim_features_zones),
@@ -72,7 +74,7 @@ test_that("data.frame (compile, multiple zones)", {
   expect_true(isTRUE(all(o$ub()[other_pos] == 1)))
 })
 
-test_that("data.frame (solve, multiple zones)", {
+test_that("solve (multiple zones)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # create and solve problem

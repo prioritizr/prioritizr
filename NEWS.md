@@ -2,6 +2,9 @@
 
 - Update unit tests to solve a greater proportion of them using continuous
   integration services (#181).
+- Bug fix: `add_cbc_solver` is now preferred over all other open source solvers.
+- Bug fix: `add_cbc_solver` would sometimes return incorrect solutions to
+  problems with equality constraints.
 
 # prioritizr 7.0.0.0
 

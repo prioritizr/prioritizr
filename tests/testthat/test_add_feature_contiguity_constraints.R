@@ -375,18 +375,31 @@ test_that("solve (multiple zones)", {
     1, 0, 0,
     0, 0, 0,
     0, 0, 0), byrow = TRUE, ncol = 3))
-  cost <- raster::setValues(spp1_z1, 1)[[c(1, 1)]]
+  cost <-
+    raster::stack(
+      raster::raster(matrix(c(
+        1, 1, 1,
+        1, 1, 1,
+        1, 1, 1,
+        1, 1, 1,
+        1, 1, 1), byrow = TRUE, ncol = 3)),
+      raster::raster(matrix(c(
+        2, 2, 2,
+        2, 2, 2,
+        2, 2, 2,
+        2, 2, 2,
+        2, 2, 2), byrow = TRUE, ncol = 3)))
   features <- zones(raster::stack(spp1_z1, spp2_z1),
                     raster::stack(spp1_z2, spp2_z2))
   targets <- matrix(c(6, 30, 2, 1), ncol = 2, nrow = 2)
   zm <- list(diag(2), matrix(1, ncol = 2, nrow = 2))
   # create and solve problem
-  s <- problem(cost, features) %>%
+  p <- problem(cost, features) %>%
        add_min_set_objective() %>%
        add_absolute_targets(targets) %>%
        add_feature_contiguity_constraints(zm) %>%
-       add_default_solver(verbose = FALSE) %>%
-       solve()
+       add_default_solver(verbose = FALSE)
+  s <- solve(p)
   # run tests
   expect_is(s, "RasterStack")
   expect_equal(raster::values(s[[1]]),
