@@ -1,3 +1,4 @@
+R/add_default_solver.R
 R/add_gurobi_solver.R
 R/add_cplex_solver.R
 R/add_top_portfolio.R
