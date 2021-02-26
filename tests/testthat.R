@@ -14,5 +14,5 @@ Sys.unsetenv("R_TESTS")
 ## except on CRAN's Windows systems to reduce test timings
 if ((!identical(.Platform$OS.type, "windows")) &&
   identical(Sys.getenv("NOT_CRAN"), "true")) {
-  test_check("prioritizr")
+  test_check("prioritizr", reporter = "location")
 }

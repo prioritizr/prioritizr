@@ -58,7 +58,7 @@ site:
 	cp /tmp/logo.png docs/reference/figures
 
 test:
-	R --slave -e "devtools::test()" > test.log 2>&1
+	R --slave -e "devtools::test(reporter = \"location\")" > test.log 2>&1
 	rm -f tests/testthat/Rplots.pdf
 
 quickcheck:
