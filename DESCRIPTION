@@ -210,5 +210,5 @@ Collate:
     'zone_names.R'
     'zzz.R'
 Roxygen: list(markdown = TRUE)
-remotes:
+Remotes:
   dirkschumacher/rcbc
