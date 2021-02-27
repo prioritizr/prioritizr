@@ -2,8 +2,7 @@ context("eval_replacement_importance")
 
 test_that("numeric", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # create data
   pu <- data.frame(id = seq_len(4),
                    cost = c(10, 2, NA, 3),
@@ -29,8 +28,7 @@ test_that("numeric", {
 
 test_that("matrix (single zone)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # create data
   pu <- data.frame(id = seq_len(4),
                    cost = c(10, 2, NA, 3),
@@ -58,8 +56,7 @@ test_that("matrix (single zone)", {
 
 test_that("matrix (single zone, rescale = TRUE)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # create data
   pu <- data.frame(id = seq_len(4),
                    cost = c(10, 2, NA, 3),
@@ -87,8 +84,7 @@ test_that("matrix (single zone, rescale = TRUE)", {
 
 test_that("matrix (multiple zones)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # create data
   pu <- data.frame(id = seq_len(8),
                    cost_1 = c(1,  2,  NA, 3, 100, 100, NA, 100),
@@ -120,8 +116,7 @@ test_that("matrix (multiple zones)", {
 
 test_that("matrix (multiple zones, rescale = TRUE)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # create data
   pu <- data.frame(id = seq_len(8),
                    cost_1 = c(1,  2,  NA, 3, 100, 100, NA, 100),
@@ -154,8 +149,7 @@ test_that("matrix (multiple zones, rescale = TRUE)", {
 
 test_that("data.frame (single zone)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # create data
   pu <- data.frame(id = seq_len(4),
                    cost = c(10, 2, NA, 3),
@@ -180,8 +174,7 @@ test_that("data.frame (single zone)", {
 
 test_that("data.frame (multiple zone)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # create data
   pu <- data.frame(id = seq_len(8),
                    cost_1 = c(1,  2,  NA, 3, 100, 100, NA, 100),
@@ -213,8 +206,7 @@ test_that("data.frame (multiple zone)", {
 
 test_that("Spatial (single zone)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # create data
   data(sim_pu_polygons)
   pu <- sim_pu_polygons[1:4, ]
@@ -241,8 +233,7 @@ test_that("Spatial (single zone)", {
 
 test_that("Spatial (multiple zone)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # create data
   data(sim_pu_polygons)
   pu <- sim_pu_polygons[1:8, ]
@@ -277,8 +268,7 @@ test_that("Spatial (multiple zone)", {
 
 test_that("sf (single zone)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # create data
   data(sim_pu_polygons)
   pu <- sim_pu_polygons[1:4, ]
@@ -306,8 +296,7 @@ test_that("sf (single zone)", {
 
 test_that("sf (multiple zone)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # create data
   data(sim_pu_polygons)
   pu <- sim_pu_polygons[1:8, ]
@@ -343,8 +332,7 @@ test_that("sf (multiple zone)", {
 
 test_that("Raster (single zone)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # create data
   pu <- raster::raster(matrix(c(10, 2, NA, 3), nrow = 1))
   features <- raster::stack(raster::raster(matrix(c(0, 0, 0, 1), nrow = 1)),
@@ -369,8 +357,7 @@ test_that("Raster (single zone)", {
 
 test_that("Raster (multiple zone)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # create data
   pu <- raster::stack(
     raster::raster(matrix(c(1,  2,  NA, 3, 100, 100, NA, 100), nrow = 1)),
@@ -405,8 +392,7 @@ test_that("Raster (multiple zone)", {
 
 test_that("Raster (multiple threads)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # load data
   data(sim_pu_raster, sim_features)
   # build problem

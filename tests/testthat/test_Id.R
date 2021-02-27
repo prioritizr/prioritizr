@@ -8,6 +8,8 @@ test_that("Id", {
   print(i)
   as.character(i)
   expect_true(inherits(i, "Id"))
+  expect_true(is.Id(i))
+  expect_false(is.Id("a"))
   expect_true(i == i)
   expect_false(i == new_id())
 })

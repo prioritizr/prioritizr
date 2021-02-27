@@ -121,8 +121,7 @@ test_that("compile (expanded formulation, multiple zones)", {
 
 test_that("solve (compressed formulation, multiple zones)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # create data
   costs <- raster::stack(
     raster::raster(matrix(c(1,  2,  NA, 3, 100, 100, NA), ncol = 7)),
@@ -138,7 +137,7 @@ test_that("solve (compressed formulation, multiple zones)", {
        add_mandatory_allocation_constraints() %>%
        add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
        add_binary_decisions() %>%
-       add_default_solver(gap = 0, verbose = FALSE)
+       add_default_solver(gap = 0, verbose = TRUE)
   # solve problem
   s <- p %>% solve()
   # tests
@@ -149,8 +148,7 @@ test_that("solve (compressed formulation, multiple zones)", {
 
 test_that("solve (expanded formulation, multiple zones)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # create data
   costs <- raster::stack(
     raster::raster(matrix(c(1,  2,  NA, 3, 100, 100, NA), ncol = 7)),

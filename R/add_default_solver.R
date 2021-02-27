@@ -67,12 +67,12 @@ default_solver_name <- function() {
     return("gurobi")
   } else if (requireNamespace("cplexAPI", quietly = TRUE)) {
     return("cplexAPI")
+  } else if (requireNamespace("rcbc", quietly = TRUE)) {
+    return("rcbc")
   } else if (requireNamespace("Rsymphony", quietly = TRUE)) {
     return("Rsymphony")
   } else if (requireNamespace("lpsymphony", quietly = TRUE)) {
     return("lpsymphony")
-  } else if (requireNamespace("rcbc", quietly = TRUE)) {
-    return("rcbc")
   } else {
     return(NULL)
   }

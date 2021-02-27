@@ -17,15 +17,14 @@ test_that("add_binary_decisions (compile, single zone)", {
 
 test_that("add_binary_decisions (solve, single zone)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # generate solution
   data(sim_pu_raster, sim_features)
   p <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
-       add_relative_targets(0.1) %>%
+       add_relative_targets(0.05) %>%
        add_binary_decisions() %>%
-       add_default_solver(time_limit = 5, verbose = FALSE)
+       add_default_solver(gap = 0.01, verbose = FALSE)
   s1 <- solve(p)
   s2 <- solve(p)
   # check that solutions have correct decisions
@@ -53,8 +52,7 @@ test_that("add_binary_decisions (compile, multiple zones)", {
 
 test_that("add_binary_decisions (solve, multiple zones)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # generate solution
   data(sim_pu_raster, sim_features)
   s <- problem(sim_pu_zones_stack, sim_features_zones) %>%
@@ -86,8 +84,7 @@ test_that("add_proportion_decisions (compile, single zone)", {
 
 test_that("add_proportion_decisions (solve, single zone)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # generate solution
   data(sim_pu_raster, sim_features)
   p <- problem(sim_pu_raster, sim_features) %>%
@@ -123,8 +120,7 @@ test_that("add_proportion_decisions (compile, multiple zones)", {
 
 test_that("add_proportion_decisions (solve, multiple zones)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # generate solution
   data(sim_pu_raster, sim_features)
   s <- problem(sim_pu_zones_stack, sim_features_zones) %>%
@@ -162,8 +158,7 @@ test_that("add_semicontinuous_decisions (compile, single zone)", {
 
 test_that("add_semicontinuous_decisions (solve, single zone)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # generate solution
   data(sim_pu_raster, sim_features)
   p <- problem(sim_pu_raster, sim_features) %>%
@@ -199,8 +194,7 @@ test_that("add_semicontinuous_decisions (compile, multiple zones)", {
 
 test_that("add_semicontinuous_decisions (solve, multiple zones)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # generate solution
   data(sim_pu_raster, sim_features)
   s <- problem(sim_pu_zones_stack, sim_features_zones) %>%

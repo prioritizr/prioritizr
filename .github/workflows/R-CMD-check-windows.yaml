@@ -72,6 +72,7 @@ jobs:
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("rcmdcheck")
           remotes::install_cran("covr")
+          remotes::install_bioc("lpsymphony")
         shell: Rscript {0}
 
       - name: Session information

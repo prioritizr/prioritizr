@@ -104,7 +104,7 @@ test_that("x=RasterStack, features=ZonesRaster", {
                matrix(feature_names(sim_features_zones),
                       ncol = number_of_zones(sim_features_zones),
                       nrow = number_of_features(sim_features_zones)))
-  # test that calling targets before they have been inititalized throws error
+  # test that calling targets before they have been initialized throws error
   expect_error(x$feature_targets())
 })
 
@@ -219,7 +219,7 @@ test_that("x=SpatialPolygonsDataFrame, features=ZonesRaster", {
                matrix(feature_names(sim_features_zones),
                       ncol = number_of_zones(sim_features_zones),
                       nrow = number_of_features(sim_features_zones)))
-  # test that calling targets before they have been inititalized throws error
+  # test that calling targets before they have been initialized throws error
   expect_error(x$feature_targets())
 })
 
@@ -361,7 +361,7 @@ test_that("x=SpatialPolygonsDataFrame, features=ZonesCharacter", {
   expect_equal(names(x$data$rij_matrix), c("z1", "z2"))
   expect_true(all(x$data$rij_matrix[[1]] == rij[[1]]))
   expect_true(all(x$data$rij_matrix[[2]] == rij[[2]]))
-  # test that calling targets before they have been inititalized throws error
+  # test that calling targets before they have been initialized throws error
   expect_error(x$feature_targets())
 })
 
@@ -409,7 +409,7 @@ test_that("x=data.frame, features=character", {
                                        dims = c(2, 9))))
   expect_equal(names(x$data$rij_matrix), "cost")
   expect_equal(rownames(x$data$rij_matrix[[1]]), c("spp1", "spp2"))
-  # test that calling targets before they have been inititalized throws error
+  # test that calling targets before they have been initialized throws error
   expect_error(x$feature_targets())
 })
 
@@ -473,7 +473,7 @@ test_that("x=data.frame, features=ZonesCharacter", {
   expect_equal(names(x$data$rij_matrix), c("1", "2"))
   expect_equal(rownames(x$data$rij_matrix[[1]]), c("1", "2"))
   expect_equal(rownames(x$data$rij_matrix[[2]]), c("1", "2"))
-  # test that calling targets before they have been inititalized throws error
+  # test that calling targets before they have been initialized throws error
   expect_error(x$feature_targets())
 })
 
@@ -523,7 +523,7 @@ test_that("x=data.frame, features=data.frame (single zone)", {
                                          dims = c(5, 9)))
   expect_equal(names(x$data$rij_matrix), "cost")
   expect_equal(rownames(x$data$rij_matrix[[1]]), letters[1:5])
-  # test that calling targets before they have been inititalized throws error
+  # test that calling targets before they have been initialized throws error
   expect_error(x$feature_targets())
 })
 
@@ -584,7 +584,7 @@ test_that("x=data.frame, features=data.frame (multiple zones)", {
                                          dims = c(5, 9)))
   expect_equal(rownames(x$data$rij_matrix[[1]]), letters[1:5])
   expect_equal(rownames(x$data$rij_matrix[[2]]), letters[1:5])
-  # test that calling targets before they have been inititalized throws error
+  # test that calling targets before they have been initialized throws error
   expect_error(x$feature_targets())
 })
 
@@ -629,7 +629,7 @@ test_that("x=numeric, features=data.frame", {
   expect_equivalent(x$data$rij_matrix[[1]],
                     as(t(pu[-2, 3:4]), "sparseMatrix"))
   expect_equal(rownames(x$data$rij_matrix[[1]]), c("spp1", "spp2"))
-  # test that calling targets before they have been inititalized throws error
+  # test that calling targets before they have been initialized throws error
   expect_error(x$feature_targets())
 })
 
@@ -685,6 +685,6 @@ test_that("x=matrix, features=data.frame", {
                     as(t(pu[-2, 6:7]), "sparseMatrix"))
   expect_equal(rownames(x$data$rij_matrix[[1]]), c("spp1", "spp2"))
   expect_equal(rownames(x$data$rij_matrix[[2]]), c("spp1", "spp2"))
-  # test that calling targets before they have been inititalized throws error
+  # test that calling targets before they have been initialized throws error
   expect_error(x$feature_targets())
 })

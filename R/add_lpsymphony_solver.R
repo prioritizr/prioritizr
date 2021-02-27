@@ -152,6 +152,12 @@ add_lpsymphony_solver <- function(x, gap = 0.1,
           stop("infeasible solution returned, try relaxing solver parameters")
         }
       }
+      # fix floating point issues with continuous variables
+      cv <- which(model$types == "C")
+      x$solution[cv] <-
+        pmax(x$solution[cv], self$data$model$bounds$lower$val[cv])
+      x$solution[cv] <-
+        pmin(x$solution[cv], self$data$model$bounds$upper$val[cv])
       # return output
       return(list(x = x$solution, objective = x$objval,
                   status = as.character(x$status),

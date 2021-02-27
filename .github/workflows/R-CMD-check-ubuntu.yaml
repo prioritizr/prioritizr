@@ -60,9 +60,8 @@ jobs:
           restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
 
       - name: Install system dependencies
-        if: runner.os == 'Linux'
         run: |
-          sudo apt-get -y install libcurl4-openssl-dev coinor-libsymphony-dev
+          sudo apt-get -y install libcurl4-openssl-dev coinor-libsymphony-dev coinor-libcbc-dev coinor-libclp-dev
           while read -r cmd
           do
             eval sudo $cmd
@@ -73,6 +72,7 @@ jobs:
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("rcmdcheck")
           remotes::install_cran("covr")
+          remotes::install_bioc("lpsymphony")
         shell: Rscript {0}
 
       - name: Session information

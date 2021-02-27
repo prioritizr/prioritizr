@@ -62,34 +62,34 @@ test_that("minimum set objective (compile, single zone)", {
 
 test_that("minimum set objective (solve, single zone)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # load data
   data(sim_pu_raster, sim_features)
   # create and solve problem
   p1 <- problem(sim_pu_raster, sim_features) %>%
         add_min_set_objective() %>%
-        add_relative_targets(0.2) %>%
-        add_connectivity_penalties(1000,
-                                   data = boundary_matrix(sim_pu_raster)) %>%
+        add_relative_targets(0.45) %>%
+        add_connectivity_penalties(
+          1000, data = adjacency_matrix(sim_pu_raster)) %>%
         add_binary_decisions() %>%
-        add_default_solver(time_limit = 5, verbose = FALSE)
+        add_default_solver(gap = 0.01, verbose = FALSE)
   s1_1 <- solve(p1)
   s1_2 <- solve(p1)
   p2 <- problem(sim_pu_raster, sim_features) %>%
         add_min_set_objective() %>%
-        add_relative_targets(0.2) %>%
-        add_connectivity_penalties(-1000,
-                                   data = boundary_matrix(sim_pu_raster)) %>%
+        add_relative_targets(0.45) %>%
+        add_connectivity_penalties(
+          -1000, data = adjacency_matrix(sim_pu_raster)) %>%
         add_binary_decisions() %>%
-        add_default_solver(time_limit = 5, verbose = FALSE)
+        add_default_solver(gap = 0.01, verbose = FALSE)
   s2_1 <- solve(p2)
   s2_2 <- solve(p2)
   # tests
   expect_is(s1_1, "RasterLayer")
   expect_is(s1_2, "RasterLayer")
   expect_true(all(na.omit(unique(raster::values(s1_1))) %in% c(0, 1)))
-  expect_equal(sum(raster::rasterToPolygons(s1_1, dissolve = TRUE)$layer == 1), 1)
+  expect_equal(sum(
+    raster::rasterToPolygons(s1_1, dissolve = TRUE)$layer == 1), 1)
   expect_equal(raster::values(s1_1), raster::values(s1_2))
   expect_is(s2_1, "RasterLayer")
   expect_is(s2_2, "RasterLayer")
@@ -126,7 +126,7 @@ test_that("minimum set objective (compile, multiple zones)", {
                c("cost_1", "cost_2", "cost_3")) %>%
        add_min_set_objective() %>%
        add_relative_targets(matrix(0.1, nrow = 5, ncol = 3)) %>%
-       add_connectivity_penalties(500, zm, cm) %>%
+       add_connectivity_penalties(100, zm, cm) %>%
        add_binary_decisions()
   o <- compile(p)
   ## prepare data for tests
@@ -134,7 +134,7 @@ test_that("minimum set objective (compile, multiple zones)", {
   n_f <- p$number_of_features()
   n_z <- p$number_of_zones()
   # prepare matrix
-  c_data <- cm * -500
+  c_data <- cm * -100
   c_weights <- rep(Matrix::diag(c_data), n_z) * rep(diag(zm), each = n_pu)
   Matrix::diag(c_data) <- 0
   c_data <- Matrix::drop0(c_data)
@@ -206,13 +206,13 @@ test_that("minimum set objective (compile, array data, multiple zones)", {
                c("cost_1", "cost_2", "cost_3")) %>%
        add_min_set_objective() %>%
        add_relative_targets(matrix(0.1, nrow = 5, ncol = 3)) %>%
-       add_connectivity_penalties(500, zm, cm) %>%
+       add_connectivity_penalties(100, zm, cm) %>%
        add_binary_decisions()
   p2 <- problem(sim_pu_zones_polygons, sim_features_zones,
                c("cost_1", "cost_2", "cost_3")) %>%
        add_min_set_objective() %>%
        add_relative_targets(matrix(0.1, nrow = 5, ncol = 3)) %>%
-       add_connectivity_penalties(500, NULL, ca) %>%
+       add_connectivity_penalties(100, NULL, ca) %>%
        add_binary_decisions()
   o1 <- compile(p1)
   o2 <- compile(p2)
@@ -228,8 +228,7 @@ test_that("minimum set objective (compile, array data, multiple zones)", {
 
 test_that("minimum set objective (solve, multiple zones)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # load data
   data(sim_pu_zones_stack, sim_features_zones)
   # make zones matrices
@@ -241,7 +240,7 @@ test_that("minimum set objective (solve, multiple zones)", {
   s <- problem(sim_pu_zones_stack, sim_features_zones) %>%
        add_min_set_objective() %>%
        add_relative_targets(matrix(0.1, nrow = 5, ncol = 3)) %>%
-       add_connectivity_penalties(5000, zm, cm) %>%
+       add_connectivity_penalties(100, zm, cm) %>%
        add_binary_decisions() %>%
        add_default_solver(gap = 0.15, verbose = FALSE) %>%
        solve()
@@ -275,13 +274,13 @@ test_that("minimum set objective (compile, Spatial and sf are identical)", {
                 c("cost_1", "cost_2", "cost_3")) %>%
         add_min_set_objective() %>%
         add_relative_targets(matrix(0.1, nrow = 5, ncol = 3)) %>%
-        add_connectivity_penalties(500, zm, cm) %>%
+        add_connectivity_penalties(100, zm, cm) %>%
         add_binary_decisions()
   p2 <- problem(sim_sf, sim_features_zones,
                 c("cost_1", "cost_2", "cost_3")) %>%
         add_min_set_objective() %>%
         add_relative_targets(matrix(0.1, nrow = 5, ncol = 3)) %>%
-        add_connectivity_penalties(500, zm, cm) %>%
+        add_connectivity_penalties(100, zm, cm) %>%
         add_binary_decisions()
   # compile problems
   o1 <- as.list(compile(p1))

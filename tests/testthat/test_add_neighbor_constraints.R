@@ -61,8 +61,7 @@ test_that("compile (manually data specified, single zone)", {
 
 test_that("solve (Spatial, single zone)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # create problem
   data(sim_pu_polygons, sim_features)
   p <- problem(sim_pu_polygons, sim_features, "cost") %>%
@@ -187,8 +186,7 @@ test_that("compile (manually specified data, multiple zones)", {
 
 test_that("solve (Spatial, multiple zones)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # load data
   data(sim_pu_zones_polygons, sim_features_zones)
   # create data

@@ -58,15 +58,14 @@ test_that("compile (single zone)", {
 
 test_that("solve (single zone)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # create problem
   data(sim_pu_polygons, sim_features)
   p <- problem(sim_pu_polygons, sim_features, "cost") %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_contiguity_constraints() %>%
-       add_default_solver(time_limit = 5, verbose = FALSE)
+       add_default_solver(verbose = FALSE)
   # solve problem
   s1 <- solve(p)
   s2 <- solve(p)
@@ -178,8 +177,7 @@ test_that("compile (multiple zones)", {
 
 test_that("solve (multiple zones)", {
   skip_on_cran()
-  skip_on_ci()
-  skip_if_not(any_solvers_installed())
+  skip_if_no_fast_solvers_installed()
   # create and solve problem
   z <- diag(3)
   z[1, 2] <- 1
@@ -190,7 +188,7 @@ test_that("solve (multiple zones)", {
        add_min_set_objective() %>%
        add_relative_targets(matrix(0.2, nrow = 5, ncol = 3)) %>%
        add_contiguity_constraints(z) %>%
-       add_default_solver(time_limit = 5, verbose = FALSE) %>%
+       add_default_solver(verbose = FALSE) %>%
        solve()
   # check that all selected planning units form a contiguous unit
   agg_c1 <- aggregate(s[s$solution_1_zone_1 == 1 | s$solution_1_zone_2 == 1, ])

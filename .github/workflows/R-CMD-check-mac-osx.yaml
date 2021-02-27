@@ -59,18 +59,17 @@ jobs:
           restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
 
       - name: Install system dependencies
-        if: runner.os == 'Linux'
         run: |
-          while read -r cmd
-          do
-            eval sudo $cmd
-          done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "20.04"))')
+          brew tap coin-or-tools/coinor
+          brew install coin-or-tools/coinor/symphony
+          brew install coin-or-tools/coinor/cbc
 
       - name: Install dependencies
         run: |
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("rcmdcheck")
           remotes::install_cran("covr")
+          remotes::install_bioc("lpsymphony")
         shell: Rscript {0}
 
       - name: Session information

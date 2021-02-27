@@ -49,7 +49,7 @@ NULL
 #' @references
 #' Forrest J and Lougee-Heimer R (2005) CBC User Guide. In Emerging theory,
 #' Methods, and Applications (pp. 257--277). INFORMS, Catonsville, MD.
-#' <doi:10.1287/educ.1053.0020>
+#' \doi{10.1287/educ.1053.0020}.
 #'
 #' @seealso [solvers].
 #'
@@ -125,8 +125,8 @@ add_cbc_solver <- function(x, gap = 0.1,
       row_ub <- numeric(length(rhs))
       ## set equality constraints
       idx <- which(sense == "=")
-      row_lb[idx] <- rhs[idx] - 1e-5
-      row_ub[idx] <- rhs[idx] + 1e-5
+      row_lb[idx] <- rhs[idx]
+      row_ub[idx] <- rhs[idx]
       ## set lte constraints
       idx <- which(sense == "<=")
       row_lb[idx] <- -Inf
