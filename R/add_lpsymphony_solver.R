@@ -102,21 +102,27 @@ add_lpsymphony_solver <- function(x, gap = 0.1,
       # create model
       model <- list(
         obj = x$obj(),
-        mat = as.matrix(x$A()),
+        mat = methods::as(x$A(), "dgTMatrix"),
         dir = x$sense(),
         rhs = x$rhs(),
         types = x$vtype(),
         bounds = list(lower = list(ind = seq_along(x$lb()), val = x$lb()),
                       upper = list(ind = seq_along(x$ub()), val = x$ub())),
         max = isTRUE(x$modelsense() == "max"))
+      # convert constraint matrix to sparse format
+      model$mat <- slam::simple_triplet_matrix(
+        i = model$mat@i + 1, j = model$mat@j + 1, v = model$mat@x,
+        nrow = nrow(model$mat), ncol = ncol(model$mat))
+      # prepare sense and variables types for SYMPHONY
+      model$dir <- replace(model$dir, model$dir == "=", "==")
+      model$types <- replace(model$types, model$types == "S", "C")
+      # set parameters
       p <- as.list(self$parameters)
       p$verbosity <- -1
       if (!p$verbose)
         p$verbosity <- -2
       p <- p[names(p) != "verbose"]
       names(p)[which(names(p) == "gap")] <- "gap_limit"
-      model$dir <- replace(model$dir, model$dir == "=", "==")
-      model$types <- replace(model$types, model$types == "S", "C")
       p$first_feasible <- as.logical(p$first_feasible)
       p$gap_limit <- p$gap_limit * 100
       # store input data and parameters

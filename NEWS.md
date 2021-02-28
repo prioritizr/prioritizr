@@ -1,3 +1,9 @@
+# prioritizr 7.0.0.2
+
+- Update `add_lpsymphony_solver` to be more memory efficient (#183).
+- Added _slam R_ package to dependencies to enable more memory efficient
+  usage of the _lpsymphony R_ package (#183).
+
 # prioritizr 7.0.0.1
 
 - Update unit tests to solve a greater proportion of them using continuous
