@@ -96,13 +96,15 @@ add_rsymphony_solver <- function(x, gap = 0.1,
         bounds = list(lower = list(ind = seq_along(x$lb()), val = x$lb()),
                       upper = list(ind = seq_along(x$ub()), val = x$ub())),
         max = isTRUE(x$modelsense() == "max"))
+      # convert constraint matrix to sparse format
+      model$dir <- replace(model$dir, model$dir == "=", "==")
+      model$types <- replace(model$types, model$types == "S", "C")
+      # prepare parameters
       p <- as.list(self$parameters)
       p$verbosity <- -1
       if (!p$verbose)
         p$verbosity <- -2
       p <- p[names(p) != "verbose"]
-      model$dir <- replace(model$dir, model$dir == "=", "==")
-      model$types <- replace(model$types, model$types == "S", "C")
       names(p)[which(names(p) == "gap")] <- "gap_limit"
       p$first_feasible <- as.logical(p$first_feasible)
       p$gap_limit <- p$gap_limit * 100

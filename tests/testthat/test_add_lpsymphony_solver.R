@@ -3,7 +3,6 @@ context("add_lpsymphony_solver")
 test_that("binary decisions", {
   skip_on_cran()
   skip_if_not_installed("lpsymphony")
-  skip_on_os("linux") # crashes unpredictably on Ubuntu 16.04
   # make data
   data(sim_pu_raster, sim_features)
   p <- problem(sim_pu_raster, sim_features) %>%
@@ -46,7 +45,7 @@ test_that("proportion decisions (floating point)", {
   skip_on_cran()
   skip_if_not_installed("lpsymphony")
   skip_if_not_installed("prioritizrdata")
-  skip_on_os("linux") # crashes unpredictably on Ubuntu 16.04
+  # skip_on_os("linux") # crashes unpredictably on Ubuntu 16.04
   # make data
   data(tas_pu, tas_features, package = "prioritizrdata")
   tas_pu <- tas_pu[1:10, ]
@@ -87,7 +86,6 @@ test_that("variable bounds methods", {
 test_that("mix of binary and continuous variables", {
   skip_on_cran()
   skip_if_not_installed("lpsymphony")
-  skip_on_os("linux") # lpsymphony package crashes unpredictably on Ubuntu 16.04
   # make data
   b <- raster::cellStats(sim_pu_raster, "sum") * 0.2
   data(sim_pu_raster, sim_features)
@@ -126,7 +124,6 @@ test_that("first_feasible", {
 test_that("correct solution (simple)", {
   skip_on_cran()
   skip_if_not_installed("lpsymphony")
-  skip_on_os("linux") # lpsymphony package crashes unpredictably on Ubuntu 16.04
   # create data
   cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
   locked_in <- 2
