@@ -1,0 +1,69 @@
+---
+title: "Solver Benchmarks"
+output:
+  rmarkdown::html_vignette:
+    toc: true
+    fig_caption: true
+    self_contained: yes
+fontsize: 11pt
+documentclass: article
+bibliography: references.bib
+csl: reference-style.csl
+vignette: >
+  %\VignetteIndexEntry{Solver benchmarks}
+  %\VignetteEngine{knitr::rmarkdown_notangle}
+---
+
+# Introduction
+
+TODO.
+
+# Methods
+
+TODO.
+
+To start off, we will load some packages to help download the benchmark results and visualize them.
+
+```{r "load packages", message = FALSE}
+# load packages
+library(prioritizr)
+library(piggyback)
+library(ggplot2)
+```
+
+Next, download the benchmark results and load them into our session.
+
+```{r "import results"}
+# download data to temporary folder
+pb_download(
+  file = c("solutions.zip", "results.rda"),
+  repo = "prioritizr/benchmark", dest = tempdir(), tag = "latest")
+
+# load benchmark results
+load(file.path(tempdir(), "results.rda"))
+
+# load benchmark solutions
+unzip(file.path(tempdir(), "solutions.zip"), exdir = tempdir())
+solution_paths <-
+  file.path(tempdir(), "solutions", paste0(benchmark_results$id, ".tif"))
+solution_raster_data <- lapply(solution_paths, raster)
+```
+
+We can now inspect the benchmark results. The `benchmark_results` table contains information for each benchmark run (e.g. run time), and the `solution_raster_data` contains the solutions generated for each benchmark run.
+
+```{r "preview results"}
+# preview results
+print(benchmark_results)
+```
+
+# Results
+
+```{r "plot average run times"}
+# make plot
+p <-
+  ggplot(benchmark_results, aes(x = solver, y = run_time)) +
+  geom_boxplot()
+
+# render plot
+print(p)
+```
