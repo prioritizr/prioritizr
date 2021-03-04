@@ -96,7 +96,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.0.3</span>
       </span>
     </div>
 
@@ -210,7 +210,7 @@ parameter.</p></td>
 <span class='co'># create table parameter can that can be updated to any other object</span>
 <span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'>misc_parameter</span><span class='op'>(</span><span class='st'>"tbl"</span>, <span class='va'>iris</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span> <span class='co'># print it</span>
-</div><div class='output co'>#&gt; &lt;environment: 0x14843320&gt;
+</div><div class='output co'>#&gt; &lt;environment: 0x3fffe660&gt;
 #&gt; attr(,"class")
 #&gt; [1] "MiscParameter" "MiscParameter" "Parameter"     "pproto"       
 #&gt; [5] "proto"         "environment"  </div><div class='input'><span class='va'>p1</span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='op'>)</span> <span class='co'># get value</span>
@@ -365,7 +365,7 @@ parameter.</p></td>
 #&gt; 148          6.5         3.0          5.2         2.0  virginica
 #&gt; 149          6.2         3.4          5.4         2.3  virginica
 #&gt; 150          5.9         3.0          5.1         1.8  virginica</div><div class='input'><span class='va'>p1</span><span class='op'>$</span><span class='va'>id</span> <span class='co'># get id</span>
-</div><div class='output co'>#&gt; <span class='message'>id: bf05fb0b-ec7d-4a5a-8501-16d76bc24071</span></div><div class='input'><span class='va'>p1</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span> <span class='co'># check if parameter can be updated</span>
+</div><div class='output co'>#&gt; <span class='message'>id: 72768d03-415f-40a3-99ab-c687874d26e6</span></div><div class='input'><span class='va'>p1</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span> <span class='co'># check if parameter can be updated</span>
 </div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='va'>p1</span><span class='op'>$</span><span class='fu'>set</span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span> <span class='co'># set parameter to mtcars</span>
 <span class='va'>p1</span><span class='op'>$</span><span class='fu'>print</span><span class='op'>(</span><span class='op'>)</span> <span class='co'># print it again</span>
 </div><div class='output co'>#&gt; [1] "tbl"</div><div class='input'>
@@ -376,7 +376,7 @@ parameter.</p></td>
                      <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/all.html'>all</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>&amp;&amp;</span>
                                  <span class='fu'><a href='https://rdrr.io/r/base/all.html'>all</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;</span> <span class='fl'>200</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span> <span class='co'># print it</span>
-</div><div class='output co'>#&gt; &lt;environment: 0xcdef308&gt;
+</div><div class='output co'>#&gt; &lt;environment: 0x1560b490&gt;
 #&gt; attr(,"class")
 #&gt; [1] "MiscParameter" "MiscParameter" "Parameter"     "pproto"       
 #&gt; [5] "proto"         "environment"  </div><div class='input'><span class='va'>p2</span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='op'>)</span> <span class='co'># get value</span>
@@ -531,7 +531,7 @@ parameter.</p></td>
 #&gt; 148          6.5         3.0          5.2         2.0  virginica
 #&gt; 149          6.2         3.4          5.4         2.3  virginica
 #&gt; 150          5.9         3.0          5.1         1.8  virginica</div><div class='input'><span class='va'>p2</span><span class='op'>$</span><span class='va'>id</span> <span class='co'># get id</span>
-</div><div class='output co'>#&gt; <span class='message'>id: f8163e92-2db0-42c8-a156-588ea2b2b128</span></div><div class='input'><span class='va'>p2</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span> <span class='co'># check if parameter can be updated</span>
+</div><div class='output co'>#&gt; <span class='message'>id: 7033dd7d-d05b-440e-b330-1c0336bccfe9</span></div><div class='input'><span class='va'>p2</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span> <span class='co'># check if parameter can be updated</span>
 </div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='va'>iris2</span> <span class='op'>&lt;-</span> <span class='va'>iris</span>; <span class='va'>iris2</span><span class='op'>[</span><span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>300</span> <span class='co'># create updated iris dataset</span>
 <span class='va'>p2</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='va'>iris2</span><span class='op'>)</span> <span class='co'># check if parameter can be updated</span>
 </div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='va'>iris3</span> <span class='op'>&lt;-</span> <span class='va'>iris</span>; <span class='va'>iris2</span><span class='op'>[</span><span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>100</span> <span class='co'># create updated iris dataset</span>

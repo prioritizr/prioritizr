@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.0.3</span>
       </span>
     </div>
 
@@ -146,7 +146,7 @@
 </blockquote>
 <p>Alternatively, to cite the latest development version, please use:</p>
 <blockquote>
-<p>Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2021). prioritizr: Systematic Conservation Prioritization in R. R package version 7.0.0.2. Available at <a href="https://github.com/prioritizr/prioritizr" class="uri">https://github.com/prioritizr/prioritizr</a>.</p>
+<p>Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2021). prioritizr: Systematic Conservation Prioritization in R. R package version 7.0.0.3. Available at <a href="https://github.com/prioritizr/prioritizr" class="uri">https://github.com/prioritizr/prioritizr</a>.</p>
 </blockquote>
 <p>Additionally, we keep a <a href="https://prioritizr.net/articles/publication_record.html">record of publications</a> that use the <em>prioritizr R</em> package. If you use this package in any reports or publications, please <a href="https://github.com/prioritizr/prioritizr/issues/new">file an issue on GitHub</a> so we can add it to the record.</p>
 </div>
@@ -261,10 +261,8 @@
 ##      0     0 2612.80122    0   12 2747.37746 2612.80122  4.90%     -    0s
 ##      0     0 2612.80272    0   11 2747.37746 2612.80272  4.90%     -    0s
 ##      0     2 2612.91183    0   11 2747.37746 2612.91183  4.89%     -    0s
-##  33200 15129 2648.71074   75    1 2747.37746 2620.22660  4.63%   1.8    5s
-##  59811 32920 2622.94531   40    4 2747.37746 2621.30349  4.59%   1.7   10s
-## H76889  5280                    2627.6389306 2621.79315  0.22%   1.7   12s
-##  83981  5852     cutoff   52      2627.63893 2622.63702  0.19%   1.8   15s
+##  56189 30524 2628.13271   46    3 2747.37746 2621.20447  4.59%   1.7    5s
+## H76889  5280                    2627.6389306 2621.79315  0.22%   1.7    6s
 ## 
 ## Cutting planes:
 ##   Gomory: 7
@@ -272,7 +270,7 @@
 ##   StrongCG: 39
 ##   Flow cover: 10
 ## 
-## Explored 99210 nodes (201659 simplex iterations) in 18.04 seconds
+## Explored 99210 nodes (201659 simplex iterations) in 9.95 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 5: 2627.64 2747.38 2761.33 ... 3139.89
@@ -288,7 +286,7 @@
 <code class="sourceCode R"><span class="co"># extract time spent solving the problem</span>
 <span class="fu"><a href="reference/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode R"><code class="sourceCode r">## solution_1 
-##   18.04756</code></pre></div>
+##   9.968529</code></pre></div>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># extract state message from the solver</span>
 <span class="fu"><a href="reference/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"status"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
@@ -449,7 +447,7 @@
 ##   Cover: 1
 ##   GUB cover: 1
 ## 
-## Explored 1 nodes (217 simplex iterations) in 0.11 seconds
+## Explored 1 nodes (217 simplex iterations) in 0.16 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 6: 3939.6 3951.75 4058.75 ... 19567.2
@@ -481,7 +479,7 @@
 ##   Bounds range     [1e+00, 1e+00]
 ##   RHS range        [1e+00, 1e+01]
 ## Presolve removed 340 rows and 252 columns
-## Presolve time: 0.01s
+## Presolve time: 0.10s
 ## Presolved: 314 rows, 254 columns, 702 nonzeros
 ## Variable types: 0 continuous, 254 integer (254 binary)
 ## Found heuristic solution: objective 7270.1195351
@@ -489,7 +487,7 @@
 ## Presolved: 314 rows, 254 columns, 702 nonzeros
 ## 
 ## 
-## Root relaxation: objective 5.489159e+03, 69 iterations, 0.00 seconds
+## Root relaxation: objective 5.489159e+03, 69 iterations, 0.02 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -507,7 +505,7 @@
 ##   Zero half: 5
 ##   RLT: 6
 ## 
-## Explored 1 nodes (236 simplex iterations) in 0.04 seconds
+## Explored 1 nodes (236 simplex iterations) in 0.19 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 4: 5858.42 5859.85 6070.21 7270.12 

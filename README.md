@@ -32,7 +32,7 @@ Please cite the *prioritizr R* package when using it in publications. To cite th
 
 Alternatively, to cite the latest development version, please use:
 
-> Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2021). prioritizr: Systematic Conservation Prioritization in R. R package version 7.0.0.2. Available at <https://github.com/prioritizr/prioritizr>.
+> Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2021). prioritizr: Systematic Conservation Prioritization in R. R package version 7.0.0.3. Available at <https://github.com/prioritizr/prioritizr>.
 
 Additionally, we keep a [record of publications](https://prioritizr.net/articles/publication_record.html) that use the *prioritizr R* package. If you use this package in any reports or publications, please [file an issue on GitHub](https://github.com/prioritizr/prioritizr/issues/new) so we can add it to the record.
 
@@ -171,10 +171,8 @@ s1 <- solve(p1)
     ##      0     0 2612.80122    0   12 2747.37746 2612.80122  4.90%     -    0s
     ##      0     0 2612.80272    0   11 2747.37746 2612.80272  4.90%     -    0s
     ##      0     2 2612.91183    0   11 2747.37746 2612.91183  4.89%     -    0s
-    ##  33200 15129 2648.71074   75    1 2747.37746 2620.22660  4.63%   1.8    5s
-    ##  59811 32920 2622.94531   40    4 2747.37746 2621.30349  4.59%   1.7   10s
-    ## H76889  5280                    2627.6389306 2621.79315  0.22%   1.7   12s
-    ##  83981  5852     cutoff   52      2627.63893 2622.63702  0.19%   1.8   15s
+    ##  56189 30524 2628.13271   46    3 2747.37746 2621.20447  4.59%   1.7    5s
+    ## H76889  5280                    2627.6389306 2621.79315  0.22%   1.7    6s
     ## 
     ## Cutting planes:
     ##   Gomory: 7
@@ -182,7 +180,7 @@ s1 <- solve(p1)
     ##   StrongCG: 39
     ##   Flow cover: 10
     ## 
-    ## Explored 99210 nodes (201659 simplex iterations) in 18.04 seconds
+    ## Explored 99210 nodes (201659 simplex iterations) in 9.95 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 5: 2627.64 2747.38 2761.33 ... 3139.89
@@ -204,7 +202,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##   18.04756
+    ##   9.968529
 
 ``` r
 # extract state message from the solver
@@ -389,7 +387,7 @@ s3 <- solve(p3)
     ##   Cover: 1
     ##   GUB cover: 1
     ## 
-    ## Explored 1 nodes (217 simplex iterations) in 0.11 seconds
+    ## Explored 1 nodes (217 simplex iterations) in 0.16 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 6: 3939.6 3951.75 4058.75 ... 19567.2
@@ -428,7 +426,7 @@ s4 <- solve(p4)
     ##   Bounds range     [1e+00, 1e+00]
     ##   RHS range        [1e+00, 1e+01]
     ## Presolve removed 340 rows and 252 columns
-    ## Presolve time: 0.01s
+    ## Presolve time: 0.10s
     ## Presolved: 314 rows, 254 columns, 702 nonzeros
     ## Variable types: 0 continuous, 254 integer (254 binary)
     ## Found heuristic solution: objective 7270.1195351
@@ -436,7 +434,7 @@ s4 <- solve(p4)
     ## Presolved: 314 rows, 254 columns, 702 nonzeros
     ## 
     ## 
-    ## Root relaxation: objective 5.489159e+03, 69 iterations, 0.00 seconds
+    ## Root relaxation: objective 5.489159e+03, 69 iterations, 0.02 seconds
     ## 
     ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
     ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -454,7 +452,7 @@ s4 <- solve(p4)
     ##   Zero half: 5
     ##   RLT: 6
     ## 
-    ## Explored 1 nodes (236 simplex iterations) in 0.04 seconds
+    ## Explored 1 nodes (236 simplex iterations) in 0.19 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 4: 5858.42 5859.85 6070.21 7270.12 
