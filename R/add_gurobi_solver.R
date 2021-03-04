@@ -195,8 +195,10 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
       model <- self$get_data("model")
       p <- self$get_data("parameters")
       # solve problem
+      start_time <- Sys.time()
       x <- withr::with_locale(c(LC_CTYPE = "C"),
                               gurobi::gurobi(model = model, params = p))
+      end_time <- Sys.time()
       # fix potential floating point arithmetic issues
       b <- model$vtype == "B"
       if (is.numeric(x$x)) {
@@ -212,7 +214,8 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
       }
       # extract solutions
       out <- list(x = x$x, objective = x$objval, status = x$status,
-                 runtime = x$runtime)
+                  runtime = as.double(end_time - start_time,
+                                      format = "seconds"))
       # add pool if required
       if (!is.null(p$PoolSearchMode) && is.numeric(x$x) &&
           isTRUE(length(x$pool) > 1)) {
