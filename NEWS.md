@@ -1,3 +1,8 @@
+# prioritizr 7.0.0.3
+
+- Update `add_gurobi_solver` to report timings following the same methods
+  as the other solvers.
+
 # prioritizr 7.0.0.2
 
 - Update `add_lpsymphony_solver` to be more memory efficient (#183).
