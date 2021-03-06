@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.0.4</span>
       </span>
     </div>
 
@@ -823,8 +823,8 @@
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
 ##   decisions:      default
-##   constraints:    &lt;Locked in planning units [10 locked units]
-##                    Locked out planning units [10 locked units]&gt;
+##   constraints:    &lt;Locked out planning units [10 locked units]
+##                    Locked in planning units [10 locked units]&gt;
 ##   penalties:      &lt;none&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
@@ -1056,7 +1056,7 @@
 <h3 class="hasAnchor">
 <a href="#add-a-solver" class="anchor"></a>Add a solver</h3>
 <p>Next, after specifying the mathematical formulation that underpins your conservation planning problem, you can specify how the problem should be solved. If you do not specify this information, the <em>prioritizr R</em> package will automatically use the best solver currently installed on your system with some reasonable defaults. <strong>We strongly recommend installing the <a href="https://www.gurobi.com/">Gurobi software suite and the <em>gurobi</em> <em>R</em> package</a> to solve problems, and for more information on this topic please refer to the <a href="gurobi_installation.html">Gurobi Installation Guide</a></strong>.</p>
-<p>Currently, the <em>prioritizr R</em> package only supports three different solvers.</p>
+<p>Currently, the <em>prioritizr R</em> package supports five different solvers.</p>
 <ul>
 <li>
 <strong><em>Gurobi</em> solver</strong>: <a href="https://www.gurobi.com/"><em>Gurobi</em></a> is a state of the art commercial optimization software. It is by far the fastest of the solvers that can be used to solve conservation problems. However, it is not freely available. That said, special licenses are available to academics at no cost.</li>
@@ -1356,7 +1356,7 @@
 ## Presolved: 293 rows, 234 columns, 1026 nonzeros
 ## 
 ## 
-## Root relaxation: objective 2.265862e+03, 220 iterations, 0.01 seconds
+## Root relaxation: objective 2.265862e+03, 220 iterations, 0.02 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -1374,7 +1374,7 @@
 ## Cutting planes:
 ##   Gomory: 3
 ## 
-## Explored 1 nodes (347 simplex iterations) in 0.22 seconds
+## Explored 1 nodes (347 simplex iterations) in 0.47 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 6: 2604.74 2790.87 2907.58 ... 20287.2
@@ -1591,7 +1591,7 @@
 ##      0     0 1931.58191    0    4 2337.96175 1931.58191  17.4%     -    0s
 ## H    0     0                    1987.3985265 1931.58191  2.81%     -    0s
 ## 
-## Explored 1 nodes (12 simplex iterations) in 0.00 seconds
+## Explored 1 nodes (12 simplex iterations) in 0.01 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 1987.4 2337.96 

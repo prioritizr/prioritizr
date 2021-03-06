@@ -1,3 +1,9 @@
+# prioritizr 7.0.0.4
+
+- Update publication record.
+- Bug fix: `time_limit` and `verbose` parameters for `add_cbc_solver` now work
+  as expected.
+
 # prioritizr 7.0.0.3
 
 - Update `add_gurobi_solver` to report timings following the same methods

@@ -147,15 +147,16 @@ add_cbc_solver <- function(x, gap = 0.1,
         row_ub = row_ub)
       # create parameters
       p <- list(
-        LOG = as.character(as.numeric(self$parameters$get("verbose"))),
-        PRESOLVE = ifelse(self$parameters$get("presolve") > 0.5, "On", "Off"),
-        RATIO = as.character(self$parameters$get("gap")),
-        SEC = as.character(self$parameters$get("time_limit")),
-        TIMEM = "ELAPSED",
-        THREADS = as.character(self$parameters$get("threads")))
+        log = as.character(as.numeric(self$parameters$get("verbose"))),
+        verbosity = "1",
+        presolve = ifelse(self$parameters$get("presolve") > 0.5, "on", "off"),
+        ratio = as.character(self$parameters$get("gap")),
+        sec = as.character(self$parameters$get("time_limit")),
+        threads = as.character(self$parameters$get("threads")))
       if (self$parameters$get("first_feasible") > 0.5) {
-        p$MAXSO <- "1"
+        p$maxso <- "1"
       }
+      p$timeMode <- "elapsed"
       # store input data and parameters
       self$set_data("model", model)
       self$set_data("parameters", p)

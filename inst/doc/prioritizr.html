@@ -942,7 +942,7 @@ p28 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster,
 <div id="add-a-solver" class="section level3">
 <h3>Add a solver</h3>
 <p>Next, after specifying the mathematical formulation that underpins your conservation planning problem, you can specify how the problem should be solved. If you do not specify this information, the <em>prioritizr R</em> package will automatically use the best solver currently installed on your system with some reasonable defaults. <strong>We strongly recommend installing the <a href="https://www.gurobi.com/">Gurobi software suite and the <em>gurobi</em> <em>R</em> package</a> to solve problems, and for more information on this topic please refer to the <a href="gurobi_installation.html">Gurobi Installation Guide</a></strong>.</p>
-<p>Currently, the <em>prioritizr R</em> package only supports three different solvers.</p>
+<p>Currently, the <em>prioritizr R</em> package supports five different solvers.</p>
 <ul>
 <li><strong><em>Gurobi</em> solver</strong>: <a href="https://www.gurobi.com/"><em>Gurobi</em></a> is a state of the art commercial optimization software. It is by far the fastest of the solvers that can be used to solve conservation problems. However, it is not freely available. That said, special licenses are available to academics at no cost.</li>
 </ul>
@@ -1219,7 +1219,7 @@ s39 &lt;-<span class="st"> </span><span class="kw">solve</span>(p39)</code></pre
 ## Presolved: 293 rows, 234 columns, 1026 nonzeros
 ## 
 ## 
-## Root relaxation: objective 2.265862e+03, 220 iterations, 0.01 seconds
+## Root relaxation: objective 2.265862e+03, 220 iterations, 0.00 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -1237,7 +1237,7 @@ s39 &lt;-<span class="st"> </span><span class="kw">solve</span>(p39)</code></pre
 ## Cutting planes:
 ##   Gomory: 3
 ## 
-## Explored 1 nodes (347 simplex iterations) in 0.23 seconds
+## Explored 1 nodes (347 simplex iterations) in 0.18 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 6: 2604.74 2790.87 2907.58 ... 20287.2
@@ -1356,8 +1356,8 @@ mp &lt;-<span class="st"> </span><span class="kw">marxan_problem</span>(minput)
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.3, max: 0.3)]
 ##   decisions:      default
-##   constraints:    &lt;Locked in planning units [317 locked units]
-##                    Locked out planning units [1 locked units]&gt;
+##   constraints:    &lt;Locked out planning units [1 locked units]
+##                    Locked in planning units [317 locked units]&gt;
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (1), zones]&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
@@ -1392,8 +1392,8 @@ mp2 &lt;-<span class="st"> </span><span class="kw">marxan_problem</span>(<span c
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.3, max: 0.3)]
 ##   decisions:      default
-##   constraints:    &lt;Locked in planning units [317 locked units]
-##                    Locked out planning units [1 locked units]&gt;
+##   constraints:    &lt;Locked out planning units [1 locked units]
+##                    Locked in planning units [317 locked units]&gt;
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (0), zones]&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>

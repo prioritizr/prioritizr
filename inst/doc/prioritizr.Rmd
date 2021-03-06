@@ -573,7 +573,7 @@ print(p28)
 
 Next, after specifying the mathematical formulation that underpins your conservation planning problem, you can specify how the problem should be solved. If you do not specify this information, the _prioritizr R_ package will automatically use the best solver currently installed on your system with some reasonable defaults. __We strongly recommend installing the [Gurobi software suite and the _gurobi_ _R_ package](https://www.gurobi.com/) to solve problems, and for more information on this topic please refer to the [Gurobi Installation Guide](gurobi_installation.html)__.
 
-Currently, the _prioritizr R_ package only supports three different solvers.
+Currently, the _prioritizr R_ package supports five different solvers.
 
 * __*Gurobi* solver__: [_Gurobi_](https://www.gurobi.com/) is a state of the art commercial optimization software. It is by far the fastest of the solvers that can be used to solve conservation problems. However, it is not freely available. That said, special licenses are available to academics at no cost.
 ```{r}

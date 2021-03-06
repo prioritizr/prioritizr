@@ -42,7 +42,7 @@ NULL
 #'     Computational Infrastructure for Operations Research (COIN-OR) project.
 #'     Preliminary benchmarks indicate that it is the fastest open source
 #'     solver currently supported.
-#'     We recommend using this solver if *Gurobi* and *IBM CPLEX* are
+#'     We recommend using this solver if both *Gurobi* and *IBM CPLEX* are
 #'     unavailable.
 #'     It requires the \pkg{rcbc} package, which is currently only available on
 #'     [GitHub](https://github.com/dirkschumacher/rcbc).
