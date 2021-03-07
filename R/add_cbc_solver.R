@@ -148,7 +148,7 @@ add_cbc_solver <- function(x, gap = 0.1,
       # create parameters
       p <- list(
         log = as.character(as.numeric(self$parameters$get("verbose"))),
-        verbosity = "1",
+        verbose = "1",
         presolve = ifelse(self$parameters$get("presolve") > 0.5, "on", "off"),
         ratio = as.character(self$parameters$get("gap")),
         sec = as.character(self$parameters$get("time_limit")),
@@ -176,9 +176,9 @@ add_cbc_solver <- function(x, gap = 0.1,
       model <- self$get_data("model")
       p <- self$get_data("parameters")
       # solve problem
-      start_time <- Sys.time()
-      x <- do.call(rcbc::cbc_solve, append(model, list(cbc_args = p)))
-      end_time <- Sys.time()
+      rt <- system.time({
+        x <- do.call(rcbc::cbc_solve, append(model, list(cbc_args = p)))
+      })
       # return NULL if infeasible
       if (x$is_proven_dual_infeasible ||
           x$is_proven_infeasible ||
@@ -195,9 +195,10 @@ add_cbc_solver <- function(x, gap = 0.1,
         x$column_solution <- pmin(x$column_solution, model$col_ub)
       }
       # return output
-      return(list(x = x$column_solution, objective = x$objective_value,
-                  status = as.character(rcbc::solution_status(x)),
-                  runtime = as.double(end_time - start_time,
-                                      format = "seconds")))
+      list(
+        x = x$column_solution,
+        objective = x$objective_value,
+        status = as.character(rcbc::solution_status(x)),
+        runtime = rt[[3]])
     }))
 }

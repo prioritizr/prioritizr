@@ -135,9 +135,9 @@ add_cplex_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
       model <- self$get_data("model")
       p <- self$get_data("parameters")
       # solve problem
-      start_time <- Sys.time()
-      x <- cplex(model, p)
-      end_time <- Sys.time()
+      rt <- system.time({
+        x <- cplex(model, p)
+      })
       # fix potential floating point arithmetic issues
       b <- model$vtype == "B"
       if (is.numeric(x$x)) {
@@ -151,12 +151,12 @@ add_cplex_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
       # set values to NULL if any values have NA in result
       sol <- x$x
       if (any(is.na(sol))) sol <- NULL
-      # extract solutions
-      out <- list(x = sol, objective = x$objval, status = x$status,
-                  runtime = as.double(end_time - start_time,
-                                      format = "seconds"))
       # return solution
-      out
+      list(
+        x = sol,
+        objective = x$objval,
+        status = x$status,
+        runtime = rt[[3]])
     },
     set_variable_ub = function(self, index, value) {
       self$data$model$ub[index] <- value

@@ -1,3 +1,7 @@
+# prioritizr 7.0.0.5
+
+- Update methods for calculating solver runtime.
+
 # prioritizr 7.0.0.4
 
 - Update publication record.

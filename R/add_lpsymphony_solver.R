@@ -136,9 +136,9 @@ add_lpsymphony_solver <- function(x, gap = 0.1,
       model <- self$get_data("model")
       p <- self$get_data("parameters")
       # solve problem
-      start_time <- Sys.time()
-      x <- do.call(lpsymphony::lpsymphony_solve_LP, append(model, p))
-      end_time <- Sys.time()
+      rt <- system.time({
+        x <- do.call(lpsymphony::lpsymphony_solve_LP, append(model, p))
+      })
       if (is.null(x$solution) ||
           names(x$status) %in% c("TM_NO_SOLUTION", "PREP_NO_SOLUTION"))
         return(NULL)
@@ -165,10 +165,9 @@ add_lpsymphony_solver <- function(x, gap = 0.1,
       x$solution[cv] <-
         pmin(x$solution[cv], self$data$model$bounds$upper$val[cv])
       # return output
-      return(list(x = x$solution, objective = x$objval,
-                  status = as.character(x$status),
-                  runtime = as.double(end_time - start_time,
-                                      format = "seconds")))
+      list(
+        x = x$solution, objective = x$objval, status = as.character(x$status),
+        runtime = rt[[3]])
     },
     set_variable_ub = function(self, index, value) {
       self$data$model$bounds$upper$val[index] <- value
