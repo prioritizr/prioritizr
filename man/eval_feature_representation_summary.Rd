@@ -153,7 +153,6 @@ Furthermore, any planning units missing cost
 (\code{NA}) values for a particular zone should also have missing (\code{NA})
 values in the argument to \code{solution}.
 }
-
 }
 }
 

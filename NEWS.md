@@ -1,3 +1,13 @@
+# prioritizr 7.0.0.6
+
+- Update `add_gurobi_solver` to allow specification of a starting solution
+  (#187). This functionality is useful for conducting a boundary penalty
+  parameter calibration exercise. Specifically, users can specify the
+  starting solution for a given penalty value based on the solution
+  obtained using a smaller penalty value.
+- Bug fix: `solve` now assigns layer names based on zone names for solutions in
+  format.
+
 # prioritizr 7.0.0.5
 
 - Update methods for calculating solver runtime.
