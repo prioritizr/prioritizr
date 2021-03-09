@@ -51,6 +51,14 @@ NULL
 #'   (sets the *Gurobi* `NumericFocus` parameter
 #'   to 3). Defaults to `FALSE`.
 #'
+#' @param start_solution `NULL` or object containing the starting solution
+#'   for the solver. Defaults to `NULL` such that no starting solution is used.
+#'   To specify a starting solution, the argument to `start_solution` should
+#'   be in the same format as the planning units (i.e. a `NULL`, `numeric`,
+#'   `matrix`, `data.frame`, [`Raster-class`], [`Spatial-class`],
+#'   or [sf::sf()] object).
+#'   See the Start solution format section for more information.
+#'
 #' @param verbose `logical` should information be printed while solving
 #'  optimization problems? Defaults to `TRUE`.
 #'
@@ -76,6 +84,13 @@ NULL
 #' vignette("gurobi_installation", package = "prioritizr")
 #' ```
 #'
+#' @section Start solution format:
+#' Broadly speaking, the argument to `start_solution` must be in the same
+#' format as the planning unit data in the argument to `x`.
+#' Further details on the correct format are listed separately
+#' for each of the different planning unit data formats:
+#' `r solution_format_documentation("start_solution")`
+#'
 #' @return Object (i.e. [`ConservationProblem-class`]) with the solver
 #'  added to it.
 #'
@@ -96,16 +111,32 @@ NULL
 #'
 #' # create problem
 #' p <- problem(sim_pu_raster, sim_features) %>%
-#'   add_min_set_objective() %>%
-#'   add_relative_targets(0.1) %>%
-#'   add_binary_decisions() %>%
-#'   add_gurobi_solver(gap = 0.1, verbose = FALSE)
+#'      add_min_set_objective() %>%
+#'      add_relative_targets(0.1) %>%
+#'      add_binary_decisions() %>%
+#'      add_gurobi_solver(gap = 0, verbose = FALSE)
 #'
 #' # generate solution %>%
 #' s <- solve(p)
 #'
 #' # plot solution
 #' plot(s, main = "solution", axes = FALSE, box = FALSE)
+#'
+#' # create a similar problem with boundary length penalties and
+#' # specify the solution from the previous run as a starting solution
+#' p2 <- problem(sim_pu_raster, sim_features) %>%
+#'      add_min_set_objective() %>%
+#'      add_relative_targets(0.1) %>%
+#'      add_boundary_penalties(10) %>%
+#'      add_binary_decisions() %>%
+#'      add_gurobi_solver(gap = 0, start_solution = s, verbose = FALSE)
+#'
+#' # generate solution
+#' s2 <- solve(p2)
+#'
+#' # plot solution
+#' plot(s2, main = "solution with boundary penalties", axes = FALSE,
+#'      box = FALSE)
 #' }
 #' @name add_gurobi_solver
 NULL
@@ -114,8 +145,9 @@ NULL
 #' @export
 add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
                               presolve = 2, threads = 1, first_feasible = FALSE,
-                              numeric_focus = FALSE, verbose = TRUE) {
-  # assert that arguments are valid
+                              numeric_focus = FALSE, start_solution = NULL,
+                              verbose = TRUE) {
+  # assert that arguments are valid (except start_solution)
   assertthat::assert_that(inherits(x, "ConservationProblem"),
                           isTRUE(all(is.finite(gap))),
                           assertthat::is.scalar(gap),
@@ -133,12 +165,16 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
                           assertthat::noNA(numeric_focus),
                           assertthat::is.flag(verbose),
                           requireNamespace("gurobi", quietly = TRUE))
+  # extract start solution
+  if (!is.null(start_solution)) {
+    start_solution <- planning_unit_solution_status(x, start_solution)
+  }
   # add solver
   x$add_solver(pproto(
     "GurobiSolver",
     Solver,
     name = "Gurobi",
-    data = list(),
+    data = list(start = start_solution),
     parameters = parameters(
       numeric_parameter("gap", gap, lower_limit = 0),
       integer_parameter("time_limit", time_limit, lower_limit = -1L,
@@ -172,6 +208,12 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
                 SolutionLimit = self$parameters$get("first_feasible"))
       if (p$SolutionLimit == 0)
         p$SolutionLimit <- NULL
+      # add starting solution if specified
+      start <- self$get_data("start")
+      if (!is.null(start) && !is.Waiver(start)) {
+        n_extra <- length(model$obj) - length(start)
+        model$start <- c(c(start), rep(NA_real_, n_extra))
+      }
       # add extra parameters from portfolio if needed
       p2 <- list(...)
       for (i in seq_along(p2))

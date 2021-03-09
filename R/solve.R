@@ -316,6 +316,7 @@ methods::setMethod(
         } else {
           ret <- ret[[1]]
         }
+        names(ret) <- a$zone_names()
         return(ret)
       })
       names(ret) <- paste0("solution_", seq_along(sol))
@@ -376,13 +377,15 @@ methods::setMethod(
     if (length(ret) == 1 && default_portfolio)
       ret <- ret[[1]]
     # add attributes
-    attr(ret, "objective") <- stats::setNames(vapply(sol, `[[`, numeric(1), 2),
-                                              paste0("solution_",
-                                                     seq_along(sol)))
-    attr(ret, "status") <- stats::setNames(vapply(sol, `[[`, character(1), 3),
-                                           paste0("solution_", seq_along(sol)))
-    attr(ret, "runtime") <- stats::setNames(vapply(sol, `[[`, numeric(1), 4),
-                                            paste0("solution_", seq_along(sol)))
+    attr(ret, "objective") <-
+      stats::setNames(
+        vapply(sol, `[[`, numeric(1), 2), paste0("solution_", seq_along(sol)))
+    attr(ret, "status") <-
+      stats::setNames(
+        vapply(sol, `[[`, character(1), 3), paste0("solution_", seq_along(sol)))
+    attr(ret, "runtime") <-
+      stats::setNames(
+        vapply(sol, `[[`, numeric(1), 4), paste0("solution_", seq_along(sol)))
     # return object
     return(ret)
   }

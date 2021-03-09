@@ -32,7 +32,7 @@ Please cite the *prioritizr R* package when using it in publications. To cite th
 
 Alternatively, to cite the latest development version, please use:
 
-> Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2021). prioritizr: Systematic Conservation Prioritization in R. R package version 7.0.0.5. Available at <https://github.com/prioritizr/prioritizr>.
+> Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2021). prioritizr: Systematic Conservation Prioritization in R. R package version 7.0.0.6. Available at <https://github.com/prioritizr/prioritizr>.
 
 Additionally, we keep a [record of publications](https://prioritizr.net/articles/publication_record.html) that use the *prioritizr R* package. If you use this package in any reports or publications, please [file an issue on GitHub](https://github.com/prioritizr/prioritizr/issues/new) so we can add it to the record.
 
@@ -171,9 +171,8 @@ s1 <- solve(p1)
     ##      0     0 2612.80122    0   12 2747.37746 2612.80122  4.90%     -    0s
     ##      0     0 2612.80272    0   11 2747.37746 2612.80272  4.90%     -    0s
     ##      0     2 2612.91183    0   11 2747.37746 2612.91183  4.89%     -    0s
-    ##  28693 12441 2680.71860   62    1 2747.37746 2619.94545  4.64%   1.8    5s
-    ##  70202 39576 2646.30129   47    1 2747.37746 2621.60765  4.58%   1.7   10s
-    ## H76889  5280                    2627.6389306 2621.79315  0.22%   1.7   10s
+    ##  74359 42219 2628.29358   44    1 2747.37746 2621.73732  4.57%   1.7    5s
+    ## H76889  5280                    2627.6389306 2621.79315  0.22%   1.7    5s
     ## 
     ## Cutting planes:
     ##   Gomory: 7
@@ -181,7 +180,7 @@ s1 <- solve(p1)
     ##   StrongCG: 39
     ##   Flow cover: 10
     ## 
-    ## Explored 99210 nodes (201659 simplex iterations) in 13.77 seconds
+    ## Explored 99210 nodes (201659 simplex iterations) in 7.24 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 5: 2627.64 2747.38 2761.33 ... 3139.89
@@ -203,7 +202,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##     13.771
+    ##      7.249
 
 ``` r
 # extract state message from the solver
@@ -319,7 +318,7 @@ s2 <- solve(p2)
     ##   StrongCG: 2
     ##   RLT: 1
     ## 
-    ## Explored 1 nodes (58 simplex iterations) in 0.03 seconds
+    ## Explored 1 nodes (58 simplex iterations) in 0.01 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 3: 2838.26 2839.12 3027.7 
@@ -388,7 +387,7 @@ s3 <- solve(p3)
     ##   Cover: 1
     ##   GUB cover: 1
     ## 
-    ## Explored 1 nodes (217 simplex iterations) in 0.04 seconds
+    ## Explored 1 nodes (217 simplex iterations) in 0.03 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 6: 3939.6 3951.75 4058.75 ... 19567.2
@@ -453,7 +452,7 @@ s4 <- solve(p4)
     ##   Zero half: 5
     ##   RLT: 6
     ## 
-    ## Explored 1 nodes (236 simplex iterations) in 0.04 seconds
+    ## Explored 1 nodes (236 simplex iterations) in 0.03 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 4: 5858.42 5859.85 6070.21 7270.12 

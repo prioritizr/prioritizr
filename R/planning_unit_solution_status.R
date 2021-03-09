@@ -28,7 +28,10 @@ methods::setMethod(
     assertthat::assert_that(
       is.numeric(solution),
       is.numeric(x$data$cost),
-      is.matrix(x$data$cost))
+      is.matrix(x$data$cost),
+      msg = paste(
+        "argument to x and solution object have",
+        "planning unit data in different formats"))
     ## dimensionality
     assertthat::assert_that(
       number_of_total_units(x) == length(solution),
@@ -37,7 +40,7 @@ methods::setMethod(
     assertthat::assert_that(
       min(solution, na.rm = TRUE) >= 0,
       max(solution, na.rm = TRUE) <= 1,
-      msg = paste("argument to solution should only contain",
+      msg = paste("solution object should only contain",
                   "values between zero and one"))
     # extract status
     internal_planning_unit_solution_status(x, matrix(solution, ncol = 1))
@@ -50,14 +53,19 @@ methods::setMethod(
     # assert valid arguments
     ## data types
     assertthat::assert_that(
-      is.matrix(solution), is.numeric(solution),
-      is.matrix(x$data$cost), is.numeric(x$data$cost))
+      is.matrix(solution),
+      is.numeric(solution),
+      is.matrix(x$data$cost),
+      is.numeric(x$data$cost),
+      msg = paste(
+        "argument to x and solution object have",
+        "planning unit data in different formats"))
     ## number of columns
     msg <- ifelse(
       number_of_zones(x) == 1,
-      paste("argument to solution should contain a single column",
+      paste("solution object should contain a single column",
             "with solution values"),
-      paste("argument to solution should contain a column for each",
+      paste("solution object should contain a column for each",
             "management zone with solution values"))
     assertthat::assert_that(number_of_zones(x) == ncol(solution), msg = msg)
     ## number of units
@@ -67,7 +75,7 @@ methods::setMethod(
     assertthat::assert_that(
       min(solution, na.rm = TRUE) >= 0,
       max(solution, na.rm = TRUE) <= 1,
-      msg = paste("argument to solution should only contain",
+      msg = paste("solution object should only contain",
                   "values between zero and one"))
     # return status
     internal_planning_unit_solution_status(x, solution)
@@ -81,13 +89,16 @@ methods::setMethod(
     ## data types
     assertthat::assert_that(
       is.data.frame(solution),
-      is.data.frame(x$data$cost))
+      is.data.frame(x$data$cost),
+      msg = paste(
+        "argument to x and solution object have",
+        "planning unit data in different formats"))
     ## number of columns
     msg <- ifelse(
       number_of_zones(x) == 1,
-      paste("argument to solution should contain a single column",
+      paste("solution object should contain a single column",
             "with solution values"),
-      paste("argument to solution should contain a column for each",
+      paste("solution object should contain a column for each",
             "management zone with solution values"))
     assertthat::assert_that(number_of_zones(x) == ncol(solution), msg = msg)
     ## number of units
@@ -96,12 +107,12 @@ methods::setMethod(
     ## solution values
     assertthat::assert_that(
       is.numeric(unlist(solution)),
-      msg = paste("argument to solution should only contain columns",
+      msg = paste("solution object should only contain columns",
                   "with numeric values"))
     assertthat::assert_that(
       min(unlist(solution), na.rm = TRUE) >= 0,
       max(unlist(solution), na.rm = TRUE) <= 1,
-      msg = paste("argument to solution should only contain columns",
+      msg = paste("solution object should only contain columns",
                   "with values between zero and one"))
     # return status
     internal_planning_unit_solution_status(x, as.matrix(solution))
@@ -116,13 +127,17 @@ methods::setMethod(
     assertthat::assert_that(
       inherits(solution, c("SpatialPointsDataFrame", "SpatialLinesDataFrame",
                            "SpatialPolygonsDataFrame")),
-      class(x$data$cost)[1] == class(solution)[1])
+      class(x$data$cost)[1] == class(solution)[1],
+      msg = paste(
+        "argument to x and solution object have",
+        "planning unit data in different formats"))
+
     ## number of columns
     msg <- ifelse(
       number_of_zones(x) == 1,
-      paste("argument to solution should contain a single column",
+      paste("solution object should contain a single column",
             "with solution values"),
-      paste("argument to solution should contain a column for each",
+      paste("solution object should contain a column for each",
             "management zone with solution values"))
     assertthat::assert_that(number_of_zones(x) == ncol(solution), msg = msg)
     ## number of units
@@ -134,12 +149,12 @@ methods::setMethod(
     ## solution values
     assertthat::assert_that(
       is.numeric(unlist(solution@data)),
-      msg = paste("argument to solution should only contain columns",
+      msg = paste("solution object should only contain columns",
                   "with numeric values"))
     assertthat::assert_that(
       min(unlist(solution@data), na.rm = TRUE) >= 0,
       max(unlist(solution@data), na.rm = TRUE) <= 1,
-      msg = paste("argument to solution should only contain columns",
+      msg = paste("solution object should only contain columns",
                   "with values between zero and one"))
     # return status
     internal_planning_unit_solution_status(x, as.matrix(solution@data))
@@ -153,13 +168,16 @@ methods::setMethod(
     ## data types
     assertthat::assert_that(
       inherits(solution, "sf"),
-      inherits(x$data$cost, "sf"))
+      inherits(x$data$cost, "sf"),
+      msg = paste(
+        "argument to x and solution object have",
+        "planning unit data in different formats"))
     ## number of columns
     msg <- ifelse(
       number_of_zones(x) == 1,
-      paste("argument to solution should contain a single column",
+      paste("solution object should contain a single column",
             "with solution values"),
-      paste("argument to solution should contain a column for each",
+      paste("solution object should contain a column for each",
             "management zone with solution values"))
     assertthat::assert_that(
       number_of_zones(x) == ncol(sf::st_drop_geometry(solution)),
@@ -173,12 +191,12 @@ methods::setMethod(
     ## solution values
     assertthat::assert_that(
       is.numeric(unlist(sf::st_drop_geometry(solution))),
-      msg = paste("argument to solution should only contain columns",
+      msg = paste("solution object should only contain columns",
                   "with numeric values"))
     assertthat::assert_that(
       min(unlist(sf::st_drop_geometry(solution)), na.rm = TRUE) >= 0,
       max(unlist(sf::st_drop_geometry(solution)), na.rm = TRUE) <= 1,
-      msg = paste("argument to solution should only contain columns",
+      msg = paste("solution object should only contain columns",
                   "values between zero and one"))
     # perform calculations
     solution <- sf::st_drop_geometry(solution)
@@ -193,7 +211,10 @@ methods::setMethod(
     ## data types
     assertthat::assert_that(
       inherits(solution, "Raster"),
-      inherits(x$data$cost, "Raster"))
+      inherits(x$data$cost, "Raster"),
+      msg = paste(
+        "argument to x and solution object have",
+        "planning unit data in different formats"))
     ## dimensionality
     assertthat::assert_that(
       number_of_zones(x) == raster::nlayers(solution),
@@ -205,7 +226,7 @@ methods::setMethod(
     assertthat::assert_that(
       min(raster::cellStats(solution, "min")) >= 0,
       max(raster::cellStats(solution, "max")) <= 1,
-      msg = paste("argument to solution should only contain",
+      msg = paste("solution object should only contain",
                   "values between zero and one"))
     # subset planning units with finite cost values
     pos <- x$planning_unit_indices()
@@ -241,7 +262,10 @@ internal_planning_unit_solution_status <- function(x, solution) {
   # assert valid arguments
   assertthat::assert_that(
     inherits(x, "ConservationProblem"),
-    is.matrix(solution))
+    is.matrix(solution),
+      msg = paste(
+        "argument to x and solution object have",
+        "planning unit data in different formats"))
   # subset planning units from total units
   pos <- x$planning_unit_indices()
   pos2 <- which(rowSums(is.na(solution)) != ncol(solution))
@@ -256,4 +280,84 @@ internal_planning_unit_solution_status <- function(x, solution) {
   rownames(out) <- NULL
   # return result
   out
+}
+
+#' Solution format documentation
+#'
+#' @param x `character` name of argument.
+#'
+#' @noRd
+solution_format_documentation <- function(x) {
+  assertthat::assert_that(assertthat::is.string(x))
+  paste0("
+\\describe{
+
+\\item{`x` has `numeric` planning units}{The argument to `", x , "` must be a
+  `numeric` vector with each element corresponding to a different planning
+  unit. It should have the same number of planning units as those
+  in the argument to `x`. Additionally, any planning units missing
+  cost (`NA`) values should also have missing (`NA`) values in the
+  argument to `", x , "`.
+}
+
+\\item{`x` has `matrix` planning units}{The argument to `", x , "` must be a
+  `matrix` vector with each row corresponding to a different planning
+  unit, and each column correspond to a different management zone.
+  It should have the same number of planning units and zones
+  as those in the argument to `x`. Additionally, any planning units
+  missing cost (`NA`) values for a particular zone should also have a
+  missing (`NA`) values in the argument to `", x , "`.
+}
+
+\\item{`x` has [`Raster-class`] planning units}{The argument to `", x , "`
+  be a [`Raster-class`] object where different grid cells (pixels) correspond
+  to different planning units and layers correspond to
+  a different management zones. It should have the same dimensionality
+  (rows, columns, layers), resolution, extent, and coordinate reference
+  system as the planning units in the argument to `x`. Additionally,
+  any planning units missing cost (`NA`) values for a particular zone
+  should also have missing (`NA`)  values in the argument to `", x , "`.
+}
+
+\\item{`x` has `data.frame` planning units}{The argument to `", x , "` must
+  be a `data.frame` with each column corresponding to a different zone,
+  each row corresponding to a different planning unit, and cell values
+  corresponding to the solution value. This means that if a `data.frame`
+  object containing the solution also contains additional columns, then
+  these columns will need to be subsetted prior to using this function
+  (see below for example with [sf::sf()] data).
+  Additionally, any planning units missing cost
+  (`NA`) values for a particular zone should also have missing (`NA`)
+  values in the argument to `", x , "`.
+}
+
+\\item{`x` has [`Spatial-class`] planning units}{The argument to `", x , "`
+  must be a [`Spatial-class`] object with each column corresponding to a
+  different zone, each row corresponding to a different planning unit, and
+  cell values corresponding to the solution value. This means that if the
+  [`Spatial-class`] object containing the solution also contains additional
+  columns, then these columns will need to be subsetted prior to using this
+  function (see below for example with [sf::sf()] data).
+  Additionally, the argument to `", x , "` must also have the same
+  coordinate reference system as the planning unit data.
+  Furthermore, any planning units missing cost
+  (`NA`) values for a particular zone should also have missing (`NA`)
+  values in the argument to `", x , "`.
+}
+
+\\item{`x` has [sf::sf()] planning units}{The argument to `", x , "` must be
+  a [sf::sf()] object with each column corresponding to a different
+  zone, each row corresponding to a different planning unit, and cell values
+  corresponding to the solution value. This means that if the
+  [sf::sf()] object containing the solution also contains additional
+  columns, then these columns will need to be subsetted prior to using this
+  function (see below for example).
+  Additionally, the argument to `", x , "` must also have the same
+  coordinate reference system as the planning unit data.
+  Furthermore, any planning units missing cost
+  (`NA`) values for a particular zone should also have missing (`NA`)
+  values in the argument to `", x , "`.
+}
+}
+")
 }
