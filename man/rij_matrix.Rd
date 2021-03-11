@@ -33,11 +33,11 @@ Defaults to \code{"sum"}.}
 \value{
 \code{\linkS4class{dgCMatrix}} sparse matrix object.
 The sparse matrix represents the spatial intersection between the
-planning units and the features. Rows correspond to planning units,
-and columns correspond to features. Values correspond to the amount
-of the feature in the planning unit. For example, the amount of the
-third species in the second planning unit would be stored in the
-third column and second row.
+planning units and the features. Rows correspond to features,
+and columns correspond to planning units. Values correspond to the amount
+(or presence/absence) of the feature in the planning unit. For example,
+the amount of the third species in the second planning unit would be
+stored in the third column and second row.
 }
 \description{
 Generate a matrix showing the amount of each feature in each planning

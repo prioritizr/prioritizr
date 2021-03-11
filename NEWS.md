@@ -1,3 +1,8 @@
+# prioritizr 7.0.0.7
+
+- Fix typo in `rij_matrix` function documentation (#189).
+- Update publication vignette.
+
 # prioritizr 7.0.0.6
 
 - Update `add_gurobi_solver` to allow specification of a starting solution
