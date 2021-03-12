@@ -101,7 +101,7 @@ add_rsymphony_solver <- function(x, gap = 0.1,
       model$types <- replace(model$types, model$types == "S", "C")
       # prepare parameters
       p <- as.list(self$parameters)
-      p$verbosity <- -1
+      p$verbosity <- 1
       if (!p$verbose)
         p$verbosity <- -2
       p <- p[names(p) != "verbose"]
