@@ -126,6 +126,11 @@ add_rsymphony_solver <- function(x, gap = 0.1,
       # access input data and parameters
       model <- self$get_data("model")
       p <- self$get_data("parameters")
+      # print parameters
+      base::print("########## RSYMPHONY PARAMETERS ##############")
+      base::print(p)
+      base::print("##############################################")
+
       # solve problem
       rt <- system.time({
         x <- do.call(Rsymphony::Rsymphony_solve_LP, append(model, p))
