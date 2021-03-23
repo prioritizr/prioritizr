@@ -1,3 +1,9 @@
+# prioritizr 7.0.0.8
+
+- New `write_problem` function to save the mixed integer programming
+  representation of a conservation planning problem to a file. This
+  function is useful for manually executing optimization solvers. 
+
 # prioritizr 7.0.0.7
 
 - Fix typo in `rij_matrix` function documentation (#189).
