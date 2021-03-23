@@ -1,6 +1,6 @@
 Package: prioritizr
 Type: Package
-Version: 7.0.0.7
+Version: 7.0.0.8
 Title: Systematic Conservation Prioritization in R
 Description: Conservation prioritization using integer
     programming techniques. To solve large-scale problems, users
@@ -208,6 +208,7 @@ Collate:
     'solvers.R'
     'summaries.R'
     'targets.R'
+    'write_problem.R'
     'zone_names.R'
     'zzz.R'
 Roxygen: list(markdown = TRUE)

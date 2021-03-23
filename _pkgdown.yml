@@ -160,6 +160,7 @@ reference:
       - loglinear_interpolation
       - run_calculations
       - distribute_load
+      - write_problem
 
   - title: Class definitions and methods
     desc: >
