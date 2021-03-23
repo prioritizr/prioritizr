@@ -15,11 +15,12 @@ vignette: >
 ---
 
 ```{r, include = FALSE}
-h <- 3.5
-w <- 3.5
+w <- 7
+h <- 4
 is_check <- ("CheckExEnv" %in% search()) || any(c("_R_CHECK_TIMINGS_",
              "_R_CHECK_LICENSE_") %in% names(Sys.getenv()))
-knitr::opts_chunk$set(fig.align = "center", eval = !is_check)
+knitr::opts_chunk$set(fig.align = "center", eval = !is_check,
+                      fig.width = w, fig.height = h)
 ```
 
 ```{r, include = FALSE}
@@ -41,11 +42,12 @@ To start off, we will load some packages to help download the benchmark results 
 library(prioritizr)
 library(piggyback)
 library(ggplot2)
+library(tidyverse)
 ```
 
 Next, download the benchmark results and load them into our session.
 
-```{r "import results"}
+```{r "import results", message = FALSE}
 # download data to temporary folder
 pb_download(
   file = c("solutions.zip", "results.rda"),
@@ -75,6 +77,115 @@ print(benchmark_results)
 p <-
   ggplot(benchmark_results, aes(x = solver, y = run_time)) +
   geom_boxplot()
+
+# render plot
+print(p)
+```
+
+
+```{r "time for pu's 1"}
+# make plot
+p <-
+  ggplot(benchmark_results %>%
+           filter(number_of_planning_units == 1478, boundary_penalty == 0), 
+         aes(x = relative_target, y = run_time, color = solver)) +
+  geom_line(aes(color=solver))+
+  geom_point(aes(color=solver))
+
+# render plot
+print(p)
+```
+
+
+```{r "time for pu's 2"}
+# make plot
+p <-
+  ggplot(benchmark_results %>%
+           filter(number_of_planning_units == 12902, boundary_penalty == 0), 
+         aes(x = relative_target, y = run_time, color = solver)) +
+  geom_line(aes(color=solver))+
+  geom_point(aes(color=solver))
+
+# render plot
+print(p)
+```
+```{r "time for pu's 3"}
+# make plot
+p <-
+  ggplot(benchmark_results %>%
+           filter(number_of_planning_units == 102242, boundary_penalty == 0), 
+         aes(x = relative_target, y = run_time, color = solver)) +
+  geom_line(aes(color=solver))+
+  geom_point(aes(color=solver))
+
+# render plot
+print(p)
+```
+```{r "time for pu's 4"}
+# make plot
+p <-
+  ggplot(benchmark_results %>%
+           filter(number_of_planning_units == 606180, boundary_penalty == 0), 
+         aes(x = relative_target, y = run_time, color = solver)) +
+  geom_line(aes(color=solver))+
+  geom_point(aes(color=solver))
+
+# render plot
+print(p)
+```
+
+
+
+```{r "time for pu's 1 and boundary penalty"}
+# make plot
+p <-
+  ggplot(benchmark_results %>%
+           filter(number_of_planning_units == 1478, boundary_penalty == 0.001), 
+         aes(x = relative_target, y = run_time, color = solver)) +
+  geom_line(aes(color=solver))+
+  geom_point(aes(color=solver))
+
+# render plot
+print(p)
+```
+
+
+```{r "time for pu's 2 and boundary penalty"}
+# make plot
+p <-
+  ggplot(benchmark_results %>%
+           filter(number_of_planning_units == 12902, boundary_penalty == 0.001), 
+         aes(x = relative_target, y = run_time, color = solver)) +
+  geom_line(aes(color=solver))+
+  geom_point(aes(color=solver))
+
+# render plot
+print(p)
+```
+
+
+```{r "time for pu's 3 and boundary penalty"}
+# make plot
+p <-
+  ggplot(benchmark_results %>%
+           filter(number_of_planning_units == 102242, boundary_penalty == 0.001), 
+         aes(x = relative_target, y = run_time, color = solver)) +
+  geom_line(aes(color=solver))+
+  geom_point(aes(color=solver))
+
+# render plot
+print(p)
+```
+
+
+```{r "time for pu's 4 and boundary penalty"}
+# make plot
+p <-
+  ggplot(benchmark_results %>%
+           filter(number_of_planning_units == 606180, boundary_penalty == 0.001), 
+         aes(x = relative_target, y = run_time, color = solver)) +
+  geom_line(aes(color=solver))+
+  geom_point(aes(color=solver))
 
 # render plot
 print(p)
