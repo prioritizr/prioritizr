@@ -5,17 +5,13 @@
 ## Notes
 
 * checking installed package size ... NOTE
-   installed size is  6.6Mb
-   sub-directories of 1Mb or more:
-     doc    1.2Mb
-     libs   3.2Mb
+    installed size is 35.7Mb
+    sub-directories of 1Mb or more:
+      doc    1.9Mb
+      libs  31.5Mb
 
     **The package makes extensive use of C++ code to reduce run time.**
 
-* checking package dependencies ... NOTE
-  Packages suggested but not available for checking: 'gurobi', 'rcbc'
-
-    **The package provides the (optional) functionality to solve optimization problems using the gurobi and rcbc R packages. The gurobi R package is distributed with Gurobi software suite (and not available on CRAN), and the rcbc R package is only available on GitHub (https://github.com/dirkschumacher/rcbc). The package documentation provides instructions for installing these R packages.**
 
 ## Test environments
 
