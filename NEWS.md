@@ -1,8 +1,12 @@
+# prioritizr 7.0.1
+
+- Release candidate for CRAN.
+
 # prioritizr 7.0.0.8
 
 - New `write_problem` function to save the mixed integer programming
   representation of a conservation planning problem to a file. This
-  function is useful for manually executing optimization solvers. 
+  function is useful for manually executing optimization solvers.
 
 # prioritizr 7.0.0.7
 
@@ -132,7 +136,7 @@
   from being locked out of multiple zones (when data are specified in raster
   format).
 
-# prioritizr 5.0.3 (released)
+# prioritizr 5.0.3
 
 - Release candidate for CRAN.
 
@@ -183,7 +187,7 @@
   that this functionality is experimental until the formulation can be double
   checked.
 
-# prioritizr 5.0.2 (released)
+# prioritizr 5.0.2
 
 - Release candidate for CRAN.
 
@@ -233,7 +237,7 @@
 - Update `add_gurobi_solver` function to provide more options for controlling
   the pre-solve step when solving a problem.
 
-# prioritizr 5.0.1 (released)
+# prioritizr 5.0.1
 
 - Release candidate for CRAN.
 
@@ -279,7 +283,7 @@
 
 - Add Lin _et al._ (in press) to publication record.
 
-# prioritizr 4.1.5 (released)
+# prioritizr 4.1.5
 
 - Release candidate for CRAN.
 
@@ -301,7 +305,7 @@
 
 - Add Scriven _et al._ (in press) to publication record.
 
-# prioritizr 4.1.4 (released)
+# prioritizr 4.1.4
 
 - Release candidate for CRAN.
 
@@ -320,7 +324,7 @@
 
 - Fix typo in README.
 
-# prioritizr 4.1.3 (released)
+# prioritizr 4.1.3
 
 - Release candidate for CRAN.
 
@@ -419,7 +423,7 @@
 
 - Fix broken link in main vignette.
 
-# prioritizr 4.1.1 (released)
+# prioritizr 4.1.1
 
 - Release candidate for CRAN.
 
@@ -460,7 +464,7 @@
 - Update references in the publication record vignette.
 - Specify English (US) in the DESCRIPTION file.
 
-# prioritizr 4.0.4 (released)
+# prioritizr 4.0.4
 
 - Release candidate for CRAN.
 
@@ -468,7 +472,7 @@
 
 - Retain debugging symbols to conform with CRAN policies.
 
-# prioritizr 4.0.3 (released)
+# prioritizr 4.0.3
 
 - Release candidate for CRAN.
 
@@ -571,7 +575,7 @@
   `add_max_cover_objective` functions to make it clearer that they
   do not use targets (#94).
 
-# prioritizr 4.0.2 (released)
+# prioritizr 4.0.2
 
 - Release candidate for CRAN.
 
@@ -632,7 +636,7 @@
   parameter for specifying the total amount of each feature to use when
   calculating the targets (#89).
 
-# prioritizr 4.0.1 (released)
+# prioritizr 4.0.1
 
 - Release candidate for CRAN.
 
@@ -778,7 +782,7 @@
 
 - Depends on R version 3.4.0 (avoids 'patchlevel 0' NOTE/WARNING in checks)
 
-# prioritizr 3.0.3 (released)
+# prioritizr 3.0.3
 
 - Release candidate for CRAN.
 
@@ -808,7 +812,7 @@
 - Gap arguments in `add_*_solvers` are now unbounded and can accept values
   larger than 1 (#44).
 
-# prioritizr 3.0.1 (released)
+# prioritizr 3.0.1
 
 - Release candidate for CRAN.
 
