@@ -32,8 +32,7 @@ boundary_matrix(x, str_tree)
 \code{\linkS4class{Raster}} object then it must have only one
 layer.}
 
-\item{str_tree}{\code{logical} should a
-\href{https://geos.osgeo.org/doxygen/classgeos_1_1index_1_1strtree_1_1STRtree.html}{GEOS STRtree} be used to
+\item{str_tree}{\code{logical} should a GEOS STRtree structure be used to
 to pre-process data? If \code{TRUE}, then the experimental
 \code{\link[rgeos:experimental-functions]{rgeos::gUnarySTRtreeQuery()}} function
 will be used to pre-compute which planning units are adjacent to

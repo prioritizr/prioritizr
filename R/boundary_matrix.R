@@ -14,8 +14,7 @@ NULL
 #'   [`Raster-class`] object then it must have only one
 #'   layer.
 #'
-#' @param str_tree `logical` should a
-#'   [GEOS STRtree](https://geos.osgeo.org/doxygen/classgeos_1_1index_1_1strtree_1_1STRtree.html) be used to
+#' @param str_tree `logical` should a GEOS STRtree structure be used to
 #'   to pre-process data? If `TRUE`, then the experimental
 #'   [rgeos::gUnarySTRtreeQuery()] function
 #'   will be used to pre-compute which planning units are adjacent to

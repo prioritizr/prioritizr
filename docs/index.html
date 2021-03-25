@@ -261,8 +261,8 @@
 ##      0     0 2612.80122    0   12 2747.37746 2612.80122  4.90%     -    0s
 ##      0     0 2612.80272    0   11 2747.37746 2612.80272  4.90%     -    0s
 ##      0     2 2612.91183    0   11 2747.37746 2612.91183  4.89%     -    0s
-##  63807 35466 2650.77757  101    1 2747.37746 2621.41902  4.58%   1.7    5s
-## H76889  5280                    2627.6389306 2621.79315  0.22%   1.7    6s
+##  71406 40301 2653.14744   41    2 2747.37746 2621.64229  4.58%   1.7    5s
+## H76889  5280                    2627.6389306 2621.79315  0.22%   1.7    5s
 ## 
 ## Cutting planes:
 ##   Gomory: 7
@@ -270,7 +270,7 @@
 ##   StrongCG: 39
 ##   Flow cover: 10
 ## 
-## Explored 99210 nodes (201659 simplex iterations) in 9.67 seconds
+## Explored 99210 nodes (201659 simplex iterations) in 7.60 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 5: 2627.64 2747.38 2761.33 ... 3139.89
@@ -286,7 +286,7 @@
 <code class="sourceCode R"><span class="co"># extract time spent solving the problem</span>
 <span class="fu"><a href="reference/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode R"><code class="sourceCode r">## solution_1 
-##      9.679</code></pre></div>
+##      7.609</code></pre></div>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># extract state message from the solver</span>
 <span class="fu"><a href="reference/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"status"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
@@ -385,7 +385,7 @@
 ##   StrongCG: 2
 ##   RLT: 1
 ## 
-## Explored 1 nodes (58 simplex iterations) in 0.02 seconds
+## Explored 1 nodes (58 simplex iterations) in 0.01 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 3: 2838.26 2839.12 3027.7 
@@ -479,7 +479,7 @@
 ##   Bounds range     [1e+00, 1e+00]
 ##   RHS range        [1e+00, 1e+01]
 ## Presolve removed 340 rows and 252 columns
-## Presolve time: 0.02s
+## Presolve time: 0.01s
 ## Presolved: 314 rows, 254 columns, 702 nonzeros
 ## Variable types: 0 continuous, 254 integer (254 binary)
 ## Found heuristic solution: objective 7270.1195351
@@ -505,7 +505,7 @@
 ##   Zero half: 5
 ##   RLT: 6
 ## 
-## Explored 1 nodes (236 simplex iterations) in 0.05 seconds
+## Explored 1 nodes (236 simplex iterations) in 0.03 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 4: 5858.42 5859.85 6070.21 7270.12 
@@ -596,7 +596,7 @@
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://www.tidyverse.org/lifecycle/#stable"><img src="https://img.shields.io/badge/Lifecycle-stable-brightgreen.svg" alt="lifecycle"></a></li>
+<li><a href="https://lifecycle.r-lib.org/articles/stages.html"><img src="https://img.shields.io/badge/Lifecycle-stable-brightgreen.svg" alt="lifecycle"></a></li>
 <li><a href="https://github.com/prioritizr/prioritizr/actions"><img src="https://img.shields.io/github/workflow/status/prioritizr/prioritizr/Ubuntu/master.svg?label=Ubuntu" alt="R-CMD-check-Ubuntu"></a></li>
 <li><a href="https://github.com/prioritizr/prioritizr/actions"><img src="https://img.shields.io/github/workflow/status/prioritizr/prioritizr/Windows/master.svg?label=Windows" alt="R-CMD-check-Windows"></a></li>
 <li><a href="https://github.com/prioritizr/prioritizr/actions"><img src="https://img.shields.io/github/workflow/status/prioritizr/prioritizr/Mac%20OSX/master.svg?label=Mac%20OSX" alt="R-CMD-check-Mac-OSX"></a></li>

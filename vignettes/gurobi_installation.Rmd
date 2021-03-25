@@ -44,7 +44,7 @@ Now, copy and save the `grbgetkey XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX` command 
 
 ## Downloading the _Gurobi_ software suite
 
-After obtaining a license, you will need to download a copy of the _Gurobi_ installer to your computer. To achieve this, visit the [_Gurobi_ downloads web page](https://www.gurobi.com/downloads/gurobi-optimizer) and download the correct version of the installer for your operating system.
+After obtaining a license, you will need to download a copy of the _Gurobi_ installer to your computer. To achieve this, visit the [_Gurobi_ downloads web page](https://www.gurobi.com/products/gurobi-optimizer/) and download the correct version of the installer for your operating system.
 
 ## Software installation
 

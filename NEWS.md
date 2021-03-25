@@ -996,8 +996,7 @@
 - Remove "\text" latex sequences from objective function definition files
   because CRAN doesn't support _amsmath_ extensions in equations.
 - Update examples in objective function files to only show relevant objectives
-- Added _rmarkdown_ package to Suggests following [recommended
-  practices](https://www.rforge.net/doc/packages/knitr/vignette_engines.html)
+- Added _rmarkdown_ package to Suggests following recommended practices.
 
 # prioritizr 1.0.1.5
 

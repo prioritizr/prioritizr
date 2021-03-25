@@ -98,7 +98,7 @@ NULL
 #'
 #' @references
 #' Gurobi Optimization LLC (2021) Gurobi Optimizer Reference Manual.
-#' <http://www.gurobi.com>.
+#' <https://www.gurobi.com>.
 #'
 #' Schuster R, Hanson JO, Strimas-Mackey M, and Bennett JR (2020). Exact
 #' integer linear programming solvers outperform simulated annealing for

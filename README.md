@@ -3,7 +3,7 @@
 Systematic Conservation Prioritization in R <img src="man/figures/logo.png" align="right" width=10% />
 ======================================================================================================
 
-[![lifecycle](https://img.shields.io/badge/Lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable) [![R-CMD-check-Ubuntu](https://img.shields.io/github/workflow/status/prioritizr/prioritizr/Ubuntu/master.svg?label=Ubuntu)](https://github.com/prioritizr/prioritizr/actions) [![R-CMD-check-Windows](https://img.shields.io/github/workflow/status/prioritizr/prioritizr/Windows/master.svg?label=Windows)](https://github.com/prioritizr/prioritizr/actions) [![R-CMD-check-Mac-OSX](https://img.shields.io/github/workflow/status/prioritizr/prioritizr/Mac%20OSX/master.svg?label=Mac%20OSX)](https://github.com/prioritizr/prioritizr/actions) [![Coverage Status](https://codecov.io/github/prioritizr/prioritizr/coverage.svg?branch=master)](https://codecov.io/github/prioritizr/prioritizr?branch=master) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/prioritizr)](https://CRAN.R-project.org/package=prioritizr)
+[![lifecycle](https://img.shields.io/badge/Lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html) [![R-CMD-check-Ubuntu](https://img.shields.io/github/workflow/status/prioritizr/prioritizr/Ubuntu/master.svg?label=Ubuntu)](https://github.com/prioritizr/prioritizr/actions) [![R-CMD-check-Windows](https://img.shields.io/github/workflow/status/prioritizr/prioritizr/Windows/master.svg?label=Windows)](https://github.com/prioritizr/prioritizr/actions) [![R-CMD-check-Mac-OSX](https://img.shields.io/github/workflow/status/prioritizr/prioritizr/Mac%20OSX/master.svg?label=Mac%20OSX)](https://github.com/prioritizr/prioritizr/actions) [![Coverage Status](https://codecov.io/github/prioritizr/prioritizr/coverage.svg?branch=master)](https://codecov.io/github/prioritizr/prioritizr?branch=master) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/prioritizr)](https://CRAN.R-project.org/package=prioritizr)
 
 The *prioritizr R* package uses integer linear programming (ILP) techniques to provide a flexible interface for building and solving conservation planning problems. It supports a broad range of objectives, constraints, and penalties that can be used to custom-tailor conservation planning problems to the specific needs of a conservation planning exercise. Once built, conservation planning problems can be solved using a variety of commercial and open-source exact algorithm solvers. In contrast to the algorithms conventionally used to solve conservation problems, such as heuristics or simulated annealing, the exact algorithms used here are guaranteed to find optimal solutions. Furthermore, conservation problems can be constructed to optimize the spatial allocation of different management actions or zones, meaning that conservation practitioners can identify solutions that benefit multiple stakeholders. Finally, this package has the functionality to read input data formatted for the *Marxan* conservation planning program, and find much cheaper solutions in a much shorter period of time than *Marxan*.
 
@@ -171,8 +171,8 @@ s1 <- solve(p1)
     ##      0     0 2612.80122    0   12 2747.37746 2612.80122  4.90%     -    0s
     ##      0     0 2612.80272    0   11 2747.37746 2612.80272  4.90%     -    0s
     ##      0     2 2612.91183    0   11 2747.37746 2612.91183  4.89%     -    0s
-    ##  63807 35466 2650.77757  101    1 2747.37746 2621.41902  4.58%   1.7    5s
-    ## H76889  5280                    2627.6389306 2621.79315  0.22%   1.7    6s
+    ##  71406 40301 2653.14744   41    2 2747.37746 2621.64229  4.58%   1.7    5s
+    ## H76889  5280                    2627.6389306 2621.79315  0.22%   1.7    5s
     ## 
     ## Cutting planes:
     ##   Gomory: 7
@@ -180,7 +180,7 @@ s1 <- solve(p1)
     ##   StrongCG: 39
     ##   Flow cover: 10
     ## 
-    ## Explored 99210 nodes (201659 simplex iterations) in 9.67 seconds
+    ## Explored 99210 nodes (201659 simplex iterations) in 7.60 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 5: 2627.64 2747.38 2761.33 ... 3139.89
@@ -202,7 +202,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##      9.679
+    ##      7.609
 
 ``` r
 # extract state message from the solver
@@ -318,7 +318,7 @@ s2 <- solve(p2)
     ##   StrongCG: 2
     ##   RLT: 1
     ## 
-    ## Explored 1 nodes (58 simplex iterations) in 0.02 seconds
+    ## Explored 1 nodes (58 simplex iterations) in 0.01 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 3: 2838.26 2839.12 3027.7 
@@ -426,7 +426,7 @@ s4 <- solve(p4)
     ##   Bounds range     [1e+00, 1e+00]
     ##   RHS range        [1e+00, 1e+01]
     ## Presolve removed 340 rows and 252 columns
-    ## Presolve time: 0.02s
+    ## Presolve time: 0.01s
     ## Presolved: 314 rows, 254 columns, 702 nonzeros
     ## Variable types: 0 continuous, 254 integer (254 binary)
     ## Found heuristic solution: objective 7270.1195351
@@ -452,7 +452,7 @@ s4 <- solve(p4)
     ##   Zero half: 5
     ##   RLT: 6
     ## 
-    ## Explored 1 nodes (236 simplex iterations) in 0.05 seconds
+    ## Explored 1 nodes (236 simplex iterations) in 0.03 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 4: 5858.42 5859.85 6070.21 7270.12 

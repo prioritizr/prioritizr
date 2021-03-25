@@ -218,7 +218,7 @@ plot(s2, main = "solution with boundary penalties", axes = FALSE,
 }
 \references{
 Gurobi Optimization LLC (2021) Gurobi Optimizer Reference Manual.
-\url{http://www.gurobi.com}.
+\url{https://www.gurobi.com}.
 
 Schuster R, Hanson JO, Strimas-Mackey M, and Bennett JR (2020). Exact
 integer linear programming solvers outperform simulated annealing for
