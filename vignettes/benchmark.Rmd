@@ -63,6 +63,30 @@ solution_paths <-
   file.path(tempdir(), "solutions", paste0(benchmark_results$id, ".tif"))
 solution_raster_data <- lapply(solution_paths, raster)
 ```
+```{r "setup figures", message = FALSE}
+planning_units <- unique(benchmark_results$number_of_planning_units)
+boundary_penalty <- unique(benchmark_results$boundary_penalty)
+
+benchmark_plot <- function(pus = NULL, bp = NULL){
+    ggplot(benchmark_results %>%
+           filter(number_of_planning_units == pus, 
+                  boundary_penalty == bp), 
+         aes(x = relative_target * 100, y = run_time, color = solver)) +
+  geom_line(aes(color=solver))+
+  geom_point(aes(color=solver)) +
+  labs(title = paste("Minimum set problem,", 
+                     "72 features,",
+                     pus, "planning units,",
+                     bp, "boundary penalty.",
+                     sep = " "),
+       x = "Target",
+       y = "Run time [seconds]")
+}
+
+```
+
+# Results
+
 
 We can now inspect the benchmark results. The `benchmark_results` table contains information for each benchmark run (e.g. run time), and the `solution_raster_data` contains the solutions generated for each benchmark run.
 
@@ -71,84 +95,79 @@ We can now inspect the benchmark results. The `benchmark_results` table contains
 print(benchmark_results)
 ```
 
-# Results
+
+  
+Lets now generate a plot that shows average run times per solver. You can see
+that average run times for CBC, CPLEX and Gurobi are consistently low and 
+don't differ much from each other. lpsymphony and Rsymphony, which both use 
+the SYMPHONY solver, take longer on average and with more complex problems,
+the time difference between them and the other solvers is substantial.
 
 ```{r "plot average run times"}
 # make plot
-p <-
+p0 <-
   ggplot(benchmark_results, aes(x = solver, y = run_time)) +
   geom_boxplot()
 
 # render plot
-print(p)
+print(p0)
 ```
   
 ## Minimum set benchmark results
 
+Now, lets investigate the solver behavior in more detail.
 Let's start with the smallest problem size we've benchmarked.  
 All benchmark scenarios have 72 features.  
-This problem has only 1478 planning units. 
+This problem has only `r planning_units[1]` planning units. 
+You can see that all solvers solve the problem in a comparable amount of time
+across all targets investigated. Only the CBC solver takes a little bit longer
+then the other ones for the 10% target scenario, but the difference in seconds
+is really only ~0.6. 
 
 ```{r "time for pu's 1"}
 # make plot
-p <-
-  ggplot(benchmark_results %>%
-           filter(number_of_planning_units == 1478, boundary_penalty == 0), 
-         aes(x = relative_target, y = run_time, color = solver)) +
-  geom_line(aes(color=solver))+
-  geom_point(aes(color=solver))
+p1 <- benchmark_plot(pus = planning_units[1],
+                     bp = boundary_penalty[1])
 
 # render plot
-print(p)
+print(p1)
 ```
   
 Next, lets look at the results for a more realistic problem with 
-12902 planning units and see how the timing of the different solvers used
+`r planning_units[2]` planning units and see how the timing of the different solvers used
 compares.
 
 ```{r "time for pu's 2"}
 # make plot
-p <-
-  ggplot(benchmark_results %>%
-           filter(number_of_planning_units == 12902, boundary_penalty == 0), 
-         aes(x = relative_target, y = run_time, color = solver)) +
-  geom_line(aes(color=solver))+
-  geom_point(aes(color=solver))
+p2 <- benchmark_plot(pus = planning_units[2],
+                     bp = boundary_penalty[1])
 
 # render plot
-print(p)
+print(p2)
 ```
   
-Next, we will look at a medium sized problem with 102242 planning units. Now
+Next, we will look at a medium sized problem with `r planning_units[3]` planning units. Now
 we really start to see the difference between SYMPHONY and the other solvers. 
 
 ```{r "time for pu's 3"}
 # make plot
-p <-
-  ggplot(benchmark_results %>%
-           filter(number_of_planning_units == 102242, boundary_penalty == 0), 
-         aes(x = relative_target, y = run_time, color = solver)) +
-  geom_line(aes(color=solver))+
-  geom_point(aes(color=solver))
+p3 <- benchmark_plot(pus = planning_units[3],
+                     bp = boundary_penalty[1])
 
 # render plot
-print(p)
+print(p3)
 ```
   
-Finally, lets look at timing comparisons for a large problem with 606,180 
+Finally, lets look at timing comparisons for a large problem with `r planning_units[4]` 
 planning units. The SYMPHONY solver is really struggling to find solutions now.
 
 ```{r "time for pu's 4"}
 # make plot
-p <-
-  ggplot(benchmark_results %>%
-           filter(number_of_planning_units == 606180, boundary_penalty == 0), 
-         aes(x = relative_target, y = run_time, color = solver)) +
-  geom_line(aes(color=solver))+
-  geom_point(aes(color=solver))
+p4 <- benchmark_plot(pus = planning_units[4],
+                     bp = boundary_penalty[1])
 
 # render plot
-print(p)
+print(p4)
 ```
   
 To get a better sense of how the faster solvers (CBC, CPLEX, Gurobi) compare for
@@ -156,17 +175,25 @@ this problem size, lets just look at those 3 solvers in the next plot.
 
 ```{r "time for pu's 4 fast only"}
 # make plot
-p <-
+p5 <-
   ggplot(benchmark_results %>%
-           filter(number_of_planning_units == 606180, boundary_penalty == 0,
+           filter(number_of_planning_units == planning_units[4], 
+                  boundary_penalty == boundary_penalty[1],
                   solver == "add_cbc_solver" | solver == "add_cplex_solver" |
                     solver == "add_gurobi_solver"), 
          aes(x = relative_target, y = run_time, color = solver)) +
   geom_line(aes(color=solver))+
-  geom_point(aes(color=solver))
+  geom_point(aes(color=solver))+
+  labs(title = paste("Minimum set problem,", 
+                     "72 features,",
+                     planning_units[4], "planning units,",
+                     boundary_penalty[1], "boundary penalty.",
+                     sep = " "),
+       x = "Target",
+       y = "Run time [seconds]")
 
 # render plot
-print(p)
+print(p5)
 ```
 
 
@@ -176,69 +203,53 @@ Now lets at the same problem types, but this time with a `boundary_penalty`
 parameter added to the problem formulation.
   
 Let's start again with the smallest problem size we've benchmarked.  
-This problem has only 1478 planning units. 
+This problem has only `r planning_units[1]` planning units. 
 
 ```{r "time for pu's 1 and boundary penalty"}
 # make plot
-p <-
-  ggplot(benchmark_results %>%
-           filter(number_of_planning_units == 1478, boundary_penalty == 0.001), 
-         aes(x = relative_target, y = run_time, color = solver)) +
-  geom_line(aes(color=solver))+
-  geom_point(aes(color=solver))
+p6 <- benchmark_plot(pus = planning_units[1],
+                     bp = boundary_penalty[2])
 
 # render plot
-print(p)
+print(p6)
 ```
   
 Next, lets look at the results for a more realistic problem with 
-12902 planning units and see how the timing of the different solvers used
+`r planning_units[2]` planning units and see how the timing of the different solvers used
 compares.
 
 ```{r "time for pu's 2 and boundary penalty"}
 # make plot
-p <-
-  ggplot(benchmark_results %>%
-           filter(number_of_planning_units == 12902, boundary_penalty == 0.001), 
-         aes(x = relative_target, y = run_time, color = solver)) +
-  geom_line(aes(color=solver))+
-  geom_point(aes(color=solver))
+p7 <- benchmark_plot(pus = planning_units[2],
+                     bp = boundary_penalty[2])
 
 # render plot
-print(p)
+print(p7)
 ```
   
-Next, we will look at a medium sized problem with 102242 planning units. Now
+Next, we will look at a medium sized problem with `r planning_units[3]` planning units. Now
 we really start to see the difference between SYMPHONY and the other solvers.
 
 ```{r "time for pu's 3 and boundary penalty"}
 # make plot
-p <-
-  ggplot(benchmark_results %>%
-           filter(number_of_planning_units == 102242, boundary_penalty == 0.001), 
-         aes(x = relative_target, y = run_time, color = solver)) +
-  geom_line(aes(color=solver))+
-  geom_point(aes(color=solver))
+p8 <- benchmark_plot(pus = planning_units[3],
+                     bp = boundary_penalty[2])
 
 # render plot
-print(p)
+print(p8)
 ```
   
-Finally, lets look at timing comparisons for a large problem with 606,180 
+Finally, lets look at timing comparisons for a large problem with `r planning_units[4]` 
 planning units. You can see that the benchmark times vary greatly for the 
 SYMPHONY solver.
 
 ```{r "time for pu's 4 and boundary penalty"}
 # make plot
-p <-
-  ggplot(benchmark_results %>%
-           filter(number_of_planning_units == 606180, boundary_penalty == 0.001), 
-         aes(x = relative_target, y = run_time, color = solver)) +
-  geom_line(aes(color=solver))+
-  geom_point(aes(color=solver))
+p9 <- benchmark_plot(pus = planning_units[4],
+                     bp = boundary_penalty[2])
 
 # render plot
-print(p)
+print(p9)
 ```
    
 To get a better sense of how the more consistent solvers (CBC, CPLEX, Gurobi) 
@@ -247,15 +258,23 @@ plot.
 
 ```{r "time for pu's 4 and boundary penalty fast"}
 # make plot
-p <-
+p10 <-
   ggplot(benchmark_results %>%
-           filter(number_of_planning_units == 606180, boundary_penalty == 0.001,
+           filter(number_of_planning_units == planning_units[4], 
+                  boundary_penalty == 0.001,
                   solver == "add_cbc_solver" | solver == "add_cplex_solver" |
                     solver == "add_gurobi_solver"), 
          aes(x = relative_target, y = run_time, color = solver)) +
   geom_line(aes(color=solver))+
-  geom_point(aes(color=solver))
+  geom_point(aes(color=solver))+
+  labs(title = paste("Minimum set problem,", 
+                     "72 features,",
+                     planning_units[4], "planning units,",
+                     boundary_penalty[2], "boundary penalty.",
+                     sep = " "),
+       x = "Target",
+       y = "Run time [seconds]")
 
 # render plot
-print(p)
+print(p10)
 ```
