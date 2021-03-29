@@ -1,6 +1,8 @@
 # prioritizr 7.0.1
 
 - Release candidate for CRAN.
+- Update DESCRIPTION with more information on the package usage.
+- Update DESCRIPTION with details on rcbc R package installation.
 
 # prioritizr 7.0.0.8
 

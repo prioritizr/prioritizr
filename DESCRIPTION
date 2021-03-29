@@ -2,10 +2,23 @@ Package: prioritizr
 Type: Package
 Version: 7.0.1
 Title: Systematic Conservation Prioritization in R
-Description: Conservation prioritization using integer
-    programming techniques. To solve large-scale problems, users
-    should install the 'gurobi' optimizer
-    (available from <https://www.gurobi.com/>).
+Description:
+    Systematic conservation prioritization using mixed integer linear
+    programming (MILP). It provides a flexible interface for building and
+    solving conservation planning problems. Once built, conservation planning
+    problems can be solved using a variety of commercial and open-source exact
+    algorithm solvers. By using exact algorithm solvers, solutions can be
+    generated that are guaranteed to be optimal (or within a pre-specified
+    optimality gap). Furthermore, conservation problems can be constructed to
+    optimize the spatial allocation of different management actions or zones,
+    meaning that conservation practitioners can identify solutions that benefit
+    multiple stakeholders. To solve large-scale or complex conservation
+    planning problems, users should install the Gurobi optimization software
+    (available from <https://www.gurobi.com/>) and the 'gurobi' R package (see
+    Gurobi Installation Guide vignette for details). Additionally, the 'rcbc' R
+    package (available at <https://github.com/dirkschumacher/rcbc>) can be used
+    to generate solutions using the CBC optimization software
+    (<https://projects.coin-or.org/Cbc>).
 Authors@R:
     c(person(c('Jeffrey', 'O'), 'Hanson',
         email='jeffrey.hanson@uqconnect.edu.au', role = c('aut'),
