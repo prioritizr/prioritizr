@@ -121,7 +121,7 @@
       <h1 data-toc-skip>Gurobi Installation Guide</h1>
                         <h4 class="author">Richard Schuster</h4>
             
-            <h4 class="date">2021-03-26</h4>
+            <h4 class="date">2021-03-30</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/prioritizr/prioritizr/blob/master/vignettes/gurobi_installation.Rmd"><code>vignettes/gurobi_installation.Rmd</code></a></small>
       <div class="hidden name"><code>gurobi_installation.Rmd</code></div>
@@ -158,7 +158,7 @@
 <div id="software-installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#software-installation" class="anchor"></a>Software installation</h2>
-<p>The installation process for the <em>Gurobi</em> software suite depends on the type of operating system you have installed on your computer. Fortunately, <em>Gurobi</em> provide platform-specific <a href="https://www.gurobi.com/documentation/">“Quick Start Guides”</a> for <a href="https://www.gurobi.com/documentation/8.1/quickstart_windows/software_installation_guid.html#section:Installation">Windows</a>, <a href="https://www.gurobi.com/documentation/8.1/quickstart_mac/software_installation_guid.html">Mac OSX</a>, and <a href="https://www.gurobi.com/documentation/8.1/quickstart_linux/software_installation_guid.html">Linux</a> systems that should help with this. Briefly, on Windows systems, you just need to double-click on the <em>Gurobi</em> installer, follow the prompts, and the installer will take care of rest. Whereas, on Linux systems, you will need to manually extract the downloaded file’s contents to a folder, move the extracted contents to a suitable location (typically <em>/opt/gurobi</em>), and update your system’s variables so that it knows where to find <em>Gurobi</em>. Additionally, if you are using <a href="https://rstudio.com/products/rstudio/"><em>RStudio</em></a> on a Linux system, you might need to add the following line to the file located at <em>/etc/rstudio/rserver.conf</em>:</p>
+<p>The installation process for the <em>Gurobi</em> software suite depends on the type of operating system you have installed on your computer. Fortunately, <em>Gurobi</em> provide platform-specific <a href="https://www.gurobi.com/documentation/">“Quick Start Guides”</a> for <a href="https://www.gurobi.com/documentation/8.1/quickstart_windows/software_installation_guid.html#section:Installation">Windows</a>, <a href="https://www.gurobi.com/documentation/8.1/quickstart_mac/software_installation_guid.html">Mac OSX</a>, and <a href="https://www.gurobi.com/documentation/8.1/quickstart_linux/software_installation_guid.html">Linux</a> systems that should help with this. Briefly, on Windows systems, you just need to double-click on the <em>Gurobi</em> installer, follow the prompts, and the installer will take care of rest. Whereas, on Linux systems, you will need to manually extract the downloaded file’s contents to a folder, move the extracted contents to a suitable location (typically <em>/opt/gurobi</em>), and update your system’s variables so that it knows where to find <em>Gurobi</em>. Additionally, if you are using <a href="https://www.rstudio.com/products/rstudio/"><em>RStudio</em></a> on a Linux system, you might need to add the following line to the file located at <em>/etc/rstudio/rserver.conf</em>:</p>
 <pre><code>rsession-ld-library-path=/opt/gurobi650/linux64/lib</code></pre>
 <p>After installing the <em>Gurobi</em> software suite on your computer, you will need to activate your license.</p>
 </div>

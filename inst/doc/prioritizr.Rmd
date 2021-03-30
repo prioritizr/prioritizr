@@ -10,7 +10,7 @@ documentclass: article
 bibliography: references.bib
 csl: reference-style.csl
 vignette: >
-  %\VignetteIndexEntry{prioritizr}
+  %\VignetteIndexEntry{prioritizr: Systematic Conservation Prioritization in R}
   %\VignetteEngine{knitr::rmarkdown_notangle}
 ---
 

@@ -126,7 +126,7 @@ s1 <- solve(p1)
     ##   Bounds range     [1e+00, 1e+00]
     ##   RHS range        [4e+00, 1e+01]
     ## Found heuristic solution: objective 3139.8880309
-    ## Presolve time: 0.00s
+    ## Presolve time: 0.01s
     ## Presolved: 5 rows, 90 columns, 450 nonzeros
     ## Variable types: 0 continuous, 90 integer (90 binary)
     ## Presolved: 5 rows, 90 columns, 450 nonzeros
@@ -171,8 +171,8 @@ s1 <- solve(p1)
     ##      0     0 2612.80122    0   12 2747.37746 2612.80122  4.90%     -    0s
     ##      0     0 2612.80272    0   11 2747.37746 2612.80272  4.90%     -    0s
     ##      0     2 2612.91183    0   11 2747.37746 2612.91183  4.89%     -    0s
-    ##  71406 40301 2653.14744   41    2 2747.37746 2621.64229  4.58%   1.7    5s
-    ## H76889  5280                    2627.6389306 2621.79315  0.22%   1.7    5s
+    ##  62490 34581 2682.01640  101    1 2747.37746 2621.37977  4.59%   1.7    5s
+    ## H76889  5280                    2627.6389306 2621.79315  0.22%   1.7    6s
     ## 
     ## Cutting planes:
     ##   Gomory: 7
@@ -180,7 +180,7 @@ s1 <- solve(p1)
     ##   StrongCG: 39
     ##   Flow cover: 10
     ## 
-    ## Explored 99210 nodes (201659 simplex iterations) in 7.60 seconds
+    ## Explored 99210 nodes (201659 simplex iterations) in 8.28 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 5: 2627.64 2747.38 2761.33 ... 3139.89
@@ -202,7 +202,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##      7.609
+    ##      8.293
 
 ``` r
 # extract state message from the solver
@@ -318,7 +318,7 @@ s2 <- solve(p2)
     ##   StrongCG: 2
     ##   RLT: 1
     ## 
-    ## Explored 1 nodes (58 simplex iterations) in 0.01 seconds
+    ## Explored 1 nodes (58 simplex iterations) in 0.03 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 3: 2838.26 2839.12 3027.7 
@@ -387,7 +387,7 @@ s3 <- solve(p3)
     ##   Cover: 1
     ##   GUB cover: 1
     ## 
-    ## Explored 1 nodes (217 simplex iterations) in 0.04 seconds
+    ## Explored 1 nodes (217 simplex iterations) in 0.03 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 6: 3939.6 3951.75 4058.75 ... 19567.2
