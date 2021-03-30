@@ -4,19 +4,19 @@
 
 ## CRAN check notes
 
-* checking installed package size ... NOTE
-    installed size is 35.7Mb
-    sub-directories of 1Mb or more:
-      doc    1.9Mb
-      libs  31.5Mb
+* checking CRAN incoming feasibility ... NOTE
 
-    **The package makes extensive use of C++ code to reduce run time.**
-
-* Suggests or Enhances not in mainstream repositories: NOTE
+  Suggests or Enhances not in mainstream repositories:
     gurobi, rcbc
 
   **The _gurobi_ and _rcbc_ R packages provide interfaces to optimization software. Although they are not available on CRAN, we provide instructions for installing these R packages in the package documentation (see `?add_gurobi_solver`, `?add_cbc_solver`). Comprehensive instructions for installing the _gurobi_ R package are also provided in the Gurobi Installation Guide vignette (see `vignette('gurobi_installation', package = "prioritizr")`). The DESCRIPTION file also provides information on installing these R packages.**
 
+
+* checking package dependencies ... NOTE
+  Packages suggested but not available for checking: 'gurobi', 'rcbc'
+  
+  **The _gurobi_ and _rcbc_ R packages provide interfaces to optimization software. Although they are not available on CRAN, we provide instructions for installing these R packages in the package documentation (see `?add_gurobi_solver`, `?add_cbc_solver`). Comprehensive instructions for installing the _gurobi_ R package are also provided in the Gurobi Installation Guide vignette (see `vignette('gurobi_installation', package = "prioritizr")`). The DESCRIPTION file also provides information on installing these R packages.**
+  
 ## Notes from CRAN maintainers
 
 * Thanks, please omit the redundant "in R".
