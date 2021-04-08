@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.1</span>
       </span>
     </div>
 
@@ -216,7 +216,7 @@
 ##   constraints:    &lt;none&gt;
 ##   penalties:      &lt;none&gt;
 ##   portfolio:      default
-##   solver:         Gurobi [first_feasible (0), gap (0.1), numeric_focus (0), presolve (2), threads (1), time_limit (2147483647), verbose (1)]</code></pre>
+##   solver:         Gurobi [first_feasible (0), gap (0.1), node_file_start (-1), numeric_focus (0), presolve (2), threads (1), time_limit (2147483647), verbose (1)]</code></pre>
 <p>Note that the <code><a href="../reference/%&gt;%.html">%&gt;%</a></code> notation is used to attach the objectives, targets, and decisions to the problem. Since binary-type decisions are the default decision-type, we don’t have to explicitly specify the decision-type, but we specify it here for clarity.</p>
 </div>
 <div id="solving-the-problem" class="section level2">
@@ -229,7 +229,7 @@
 <span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="va">cplexAPI</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="va"><a href="http://R-Forge.R-project.org/projects/rsymphony">Rsymphony</a></span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="va"><a href="http://R-Forge.R-project.org/projects/rsymphony">lpsymphony</a></span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="va">rcbc</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="va"><a href="https://dirkschumacher.github.io/rcbc">rcbc</a></span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>Now we will try solving the problem using the different solvers (see <a href="https://prioritizr.net/reference/solve.html"><code>?solve</code></a> for more information). We will also experiment with limiting the maximum amount of time that can be spent looking for each solution when solving the problem (using the <code>time_limit</code> parameter), and see how this alters the solutions.</p>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">titles</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># create vector to store plot titles</span>
@@ -271,7 +271,7 @@
 <span class="op">}</span></code></pre></div>
 <pre><code>## Warning in res(x, ...): overwriting previously defined solver</code></pre>
 <div class="sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="st">"rcbc"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="st"><a href="https://dirkschumacher.github.io/rcbc">"rcbc"</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">titles</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">titles</span>, <span class="st">"CBC (10s)"</span><span class="op">)</span>
   <span class="va">p7</span> <span class="op">&lt;-</span> <span class="va">p1</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/add_cbc_solver.html">add_cbc_solver</a></span><span class="op">(</span>time_limit <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>
   <span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu">addLayer</span><span class="op">(</span><span class="va">s1</span>, <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p7</span><span class="op">)</span><span class="op">)</span>
@@ -307,7 +307,7 @@
 ##   constraints:    &lt;none&gt;
 ##   penalties:      &lt;none&gt;
 ##   portfolio:      default
-##   solver:         Gurobi [first_feasible (0), gap (0.1), numeric_focus (0), presolve (2), threads (1), time_limit (2147483647), verbose (1)]</code></pre>
+##   solver:         Gurobi [first_feasible (0), gap (0.1), node_file_start (-1), numeric_focus (0), presolve (2), threads (1), time_limit (2147483647), verbose (1)]</code></pre>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">titles2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># create vector to store plot titles</span>
 <span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/stack.html">stack</a></span><span class="op">(</span><span class="op">)</span>  <span class="co"># create empty stack to store solutions</span>
@@ -341,7 +341,7 @@
 <a href="#references" class="anchor"></a>References</h2>
 <div id="refs" class="references">
 <div id="ref-r28">
-<p>BC Assessment. (2015). <em>Property Information Services</em>. URL <a href="https://www.bcassessment.ca/" class="uri">https://www.bcassessment.ca/</a> [accessed 13 June 2016].</p>
+<p>BC Assessment. (2015). <em>Property Information Services</em>. URL <a href="https://info.bcassessment.ca/" class="uri">https://info.bcassessment.ca/</a> [accessed 13 June 2016].</p>
 </div>
 <div id="ref-r29">
 <p>Morrell, N., Schuster, R., Crombie, M. &amp; Arcese, P. (2017). <em>A Prioritization Tool for the Conservation of Coastal Douglas-fir Forest and Savannah Habitats of the Georgia Basin</em>. The Nature Trust of British Colombia, Coastal Douglas Fir Conservation Partnership, and the Department of Forest and Conservation Sciences, University of British Colombia, URL <a href="http://peter-arcese-lab.sites.olt.ubc.ca/files/2016/09/CDFCP_tutorial_2017_05.pdf" class="uri">http://peter-arcese-lab.sites.olt.ubc.ca/files/2016/09/CDFCP_tutorial_2017_05.pdf</a> [accessed 9 October 2017].</p>

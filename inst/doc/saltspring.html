@@ -159,7 +159,7 @@ p1 &lt;-<span class="st"> </span><span class="kw">problem</span>(salt_pu, salt_f
 ##   constraints:    &lt;none&gt;
 ##   penalties:      &lt;none&gt;
 ##   portfolio:      default
-##   solver:         Gurobi [first_feasible (0), gap (0.1), numeric_focus (0), presolve (2), threads (1), time_limit (2147483647), verbose (1)]</code></pre>
+##   solver:         Gurobi [first_feasible (0), gap (0.1), node_file_start (-1), numeric_focus (0), presolve (2), threads (1), time_limit (2147483647), verbose (1)]</code></pre>
 <p>Note that the <code>%&gt;%</code> notation is used to attach the objectives, targets, and decisions to the problem. Since binary-type decisions are the default decision-type, we don’t have to explicitly specify the decision-type, but we specify it here for clarity.</p>
 </div>
 <div id="solving-the-problem" class="section level2">
@@ -239,7 +239,7 @@ p6 &lt;-<span class="st"> </span><span class="kw">problem</span>(salt_pu, salt_f
 ##   constraints:    &lt;none&gt;
 ##   penalties:      &lt;none&gt;
 ##   portfolio:      default
-##   solver:         Gurobi [first_feasible (0), gap (0.1), numeric_focus (0), presolve (2), threads (1), time_limit (2147483647), verbose (1)]</code></pre>
+##   solver:         Gurobi [first_feasible (0), gap (0.1), node_file_start (-1), numeric_focus (0), presolve (2), threads (1), time_limit (2147483647), verbose (1)]</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">titles2 &lt;-<span class="st"> </span><span class="kw">c</span>() <span class="co"># create vector to store plot titles</span>
 s2 &lt;-<span class="st"> </span><span class="kw">stack</span>()  <span class="co"># create empty stack to store solutions</span>
 

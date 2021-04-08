@@ -51,6 +51,21 @@ NULL
 #'   (sets the *Gurobi* `NumericFocus` parameter
 #'   to 3). Defaults to `FALSE`.
 #'
+#' @param node_file_start `numeric` threshold amount of memory (in GB).
+#'   Once the amount of memory (RAM) used to store information for solving
+#'   the optimization problem exceeds this parameter value, the solver
+#'   will begin storing this information on disk
+#'   (using the *Gurobi( `NodeFileStart` parameter).
+#'   This functionality is useful if the system has insufficient memory to
+#'   solve a given problem (e.g. solving the problem with default settings
+#'   yields the `OUT OF MEMORY` error message) and a system with more memory is
+#'   not readily available.
+#'   For example, a value of 4 indicates that the solver will start using
+#'   the disk after it uses more than 4 GB of memory to store information
+#'   on solving the problem.
+#'   Defaults to `Inf` such that the solver will not attempt
+#'   to store information on disk when solving a given problem.
+#'
 #' @param start_solution `NULL` or object containing the starting solution
 #'   for the solver. Defaults to `NULL` such that no starting solution is used.
 #'   To specify a starting solution, the argument to `start_solution` should
@@ -145,8 +160,8 @@ NULL
 #' @export
 add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
                               presolve = 2, threads = 1, first_feasible = FALSE,
-                              numeric_focus = FALSE, start_solution = NULL,
-                              verbose = TRUE) {
+                              numeric_focus = FALSE, node_file_start = Inf,
+                              start_solution = NULL, verbose = TRUE) {
   # assert that arguments are valid (except start_solution)
   assertthat::assert_that(inherits(x, "ConservationProblem"),
                           isTRUE(all(is.finite(gap))),
@@ -163,11 +178,18 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
                           assertthat::noNA(first_feasible),
                           assertthat::is.flag(numeric_focus),
                           assertthat::noNA(numeric_focus),
+                          assertthat::is.number(node_file_start),
+                          assertthat::noNA(node_file_start),
+                          isTRUE(node_file_start >= 0),
                           assertthat::is.flag(verbose),
                           requireNamespace("gurobi", quietly = TRUE))
   # extract start solution
   if (!is.null(start_solution)) {
     start_solution <- planning_unit_solution_status(x, start_solution)
+  }
+  # adjust node file start
+  if (identical(node_file_start, Inf)) {
+    node_file_start <- -1 # this is used later to indicate Inf
   }
   # add solver
   x$add_solver(pproto(
@@ -185,6 +207,7 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
                         upper_limit = parallel::detectCores(TRUE)),
       binary_parameter("first_feasible", first_feasible),
       binary_parameter("numeric_focus", numeric_focus),
+      numeric_parameter("node_file_start", node_file_start, lower_limit = -1),
       binary_parameter("verbose", verbose)),
     calculate = function(self, x, ...) {
       # create problem
@@ -205,9 +228,14 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
                 TimeLimit = self$parameters$get("time_limit"),
                 Threads = self$parameters$get("threads"),
                 NumericFocus = self$parameters$get("numeric_focus"),
+                NodeFileStart = self$parameters$get("node_file_start"),
                 SolutionLimit = self$parameters$get("first_feasible"))
       if (p$SolutionLimit == 0)
         p$SolutionLimit <- NULL
+      if (p$NodeFileStart < 0) {
+        p$NodeFileStart <- NULL
+      }
+      print(p)
       # add starting solution if specified
       start <- self$get_data("start")
       if (!is.null(start) && !is.Waiver(start)) {

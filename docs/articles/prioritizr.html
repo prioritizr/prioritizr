@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.1</span>
       </span>
     </div>
 
@@ -1082,7 +1082,7 @@
 ##   constraints:    &lt;none&gt;
 ##   penalties:      &lt;none&gt;
 ##   portfolio:      default
-##   solver:         Gurobi [first_feasible (0), gap (0), numeric_focus (0), presolve (2), threads (1), time_limit (2147483647), verbose (1)]</code></pre>
+##   solver:         Gurobi [first_feasible (0), gap (0), node_file_start (-1), numeric_focus (0), presolve (2), threads (1), time_limit (2147483647), verbose (1)]</code></pre>
 <ul>
 <li>
 <strong><em>IBM CPLEX</em> solver</strong>: <a href="https://www.ibm.com/analytics/cplex-optimizer"><em>IBM CPLEX</em></a> is a commercial optimization software. It is faster than the open source solvers available for generating prioritizations (see below), however, it is not freely available. Similar to the <em>Gurobi</em> software, special licenses are available to academics at no cost.</li>
@@ -1338,7 +1338,28 @@
 
 <span class="co"># solve the problem (using the default solver)</span>
 <span class="va">s39</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p39</span><span class="op">)</span></code></pre></div>
-<pre><code>## Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (linux64)
+<pre><code>## $LogToConsole
+## [1] 1
+## 
+## $LogFile
+## [1] ""
+## 
+## $Presolve
+## [1] 2
+## 
+## $MIPGap
+## [1] 0.1
+## 
+## $TimeLimit
+## [1] 2147483647
+## 
+## $Threads
+## [1] 1
+## 
+## $NumericFocus
+## [1] 0
+## 
+## Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (linux64)
 ## Thread count: 2 physical cores, 4 logical processors, using up to 1 threads
 ## Optimize a model with 293 rows, 234 columns and 1026 nonzeros
 ## Model fingerprint: 0xbd38144b
@@ -1356,7 +1377,7 @@
 ## Presolved: 293 rows, 234 columns, 1026 nonzeros
 ## 
 ## 
-## Root relaxation: objective 2.265862e+03, 220 iterations, 0.01 seconds
+## Root relaxation: objective 2.265862e+03, 220 iterations, 0.00 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -1374,7 +1395,7 @@
 ## Cutting planes:
 ##   Gomory: 3
 ## 
-## Explored 1 nodes (347 simplex iterations) in 0.25 seconds
+## Explored 1 nodes (347 simplex iterations) in 0.17 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 6: 2604.74 2790.87 2907.58 ... 20287.2
@@ -1506,8 +1527,8 @@
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.3, max: 0.3)]
 ##   decisions:      default
-##   constraints:    &lt;Locked in planning units [317 locked units]
-##                    Locked out planning units [1 locked units]&gt;
+##   constraints:    &lt;Locked out planning units [1 locked units]
+##                    Locked in planning units [317 locked units]&gt;
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (1), zones]&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
@@ -1566,7 +1587,28 @@
 
 <span class="co"># solve the problem</span>
 <span class="va">s40</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p40</span><span class="op">)</span></code></pre></div>
-<pre><code>## Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (linux64)
+<pre><code>## $LogToConsole
+## [1] 1
+## 
+## $LogFile
+## [1] ""
+## 
+## $Presolve
+## [1] 2
+## 
+## $MIPGap
+## [1] 0.1
+## 
+## $TimeLimit
+## [1] 2147483647
+## 
+## $Threads
+## [1] 1
+## 
+## $NumericFocus
+## [1] 0
+## 
+## Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (linux64)
 ## Thread count: 2 physical cores, 4 logical processors, using up to 1 threads
 ## Optimize a model with 5 rows, 90 columns and 450 nonzeros
 ## Model fingerprint: 0x6442bf6e
@@ -1607,9 +1649,29 @@
 <code class="sourceCode R"><span class="co"># calculate replacement cost scores and make the solver quiet</span>
 <span class="va">rc40</span> <span class="op">&lt;-</span> <span class="va">p40</span> <span class="op">%&gt;%</span>
         <span class="fu"><a href="../reference/add_default_solver.html">add_default_solver</a></span><span class="op">(</span>gap <span class="op">=</span> <span class="fl">0</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">%&gt;%</span>
-        <span class="fu"><a href="../reference/eval_replacement_importance.html">eval_replacement_importance</a></span><span class="op">(</span><span class="va">s39</span><span class="op">)</span>
-
-<span class="co"># plot replacement cost scores</span>
+        <span class="fu"><a href="../reference/eval_replacement_importance.html">eval_replacement_importance</a></span><span class="op">(</span><span class="va">s39</span><span class="op">)</span></code></pre></div>
+<pre><code>## $LogToConsole
+## [1] 0
+## 
+## $LogFile
+## [1] ""
+## 
+## $Presolve
+## [1] 2
+## 
+## $MIPGap
+## [1] 0
+## 
+## $TimeLimit
+## [1] 2147483647
+## 
+## $Threads
+## [1] 1
+## 
+## $NumericFocus
+## [1] 0</code></pre>
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># plot replacement cost scores</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">rc40</span>, main <span class="op">=</span> <span class="st">"replacement cost"</span><span class="op">)</span></code></pre></div>
 <p><img src="prioritizr_files/figure-html/unnamed-chunk-54-2.png" width="336" style="display: block; margin: auto;"></p>
 <div class="sourceCode"><pre class="downlit sourceCode r">
