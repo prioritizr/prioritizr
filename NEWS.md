@@ -1,3 +1,8 @@
+# prioritizr 7.0.1.1
+
+- Update `add_gurobi_solver` to support the `node_file_start` parameter for
+  the Gurobi software. This functionality is useful solving large problems on systems with limited memory (#139).
+
 # prioritizr 7.0.1
 
 - Release candidate for CRAN.

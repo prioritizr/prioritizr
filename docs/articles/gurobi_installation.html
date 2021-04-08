@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.1</span>
       </span>
     </div>
 
@@ -121,7 +121,7 @@
       <h1 data-toc-skip>Gurobi Installation Guide</h1>
                         <h4 class="author">Richard Schuster</h4>
             
-            <h4 class="date">2021-03-31</h4>
+            <h4 class="date">2021-04-08</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/prioritizr/prioritizr/blob/master/vignettes/gurobi_installation.Rmd"><code>vignettes/gurobi_installation.Rmd</code></a></small>
       <div class="hidden name"><code>gurobi_installation.Rmd</code></div>
@@ -249,10 +249,10 @@
 ##   RHS range        [1e+00, 4e+00]
 ## Found heuristic solution: objective 2.0000000
 ## Presolve removed 2 rows and 3 columns
-## Presolve time: 0.01s
+## Presolve time: 0.00s
 ## Presolve: All rows and columns removed
 ## 
-## Explored 0 nodes (0 simplex iterations) in 0.02 seconds
+## Explored 0 nodes (0 simplex iterations) in 0.00 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 3 
@@ -285,7 +285,28 @@
 
 <span class="co"># solve the problem</span>
 <span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></code></pre></div>
-<pre><code>## Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (linux64)
+<pre><code>## $LogToConsole
+## [1] 1
+## 
+## $LogFile
+## [1] ""
+## 
+## $Presolve
+## [1] 2
+## 
+## $MIPGap
+## [1] 0.1
+## 
+## $TimeLimit
+## [1] 2147483647
+## 
+## $Threads
+## [1] 1
+## 
+## $NumericFocus
+## [1] 0
+## 
+## Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (linux64)
 ## Thread count: 2 physical cores, 4 logical processors, using up to 1 threads
 ## Optimize a model with 5 rows, 90 columns and 450 nonzeros
 ## Model fingerprint: 0x6442bf6e
@@ -310,7 +331,7 @@
 ##      0     0 1931.58191    0    4 2337.96175 1931.58191  17.4%     -    0s
 ## H    0     0                    1987.3985265 1931.58191  2.81%     -    0s
 ## 
-## Explored 1 nodes (12 simplex iterations) in 0.01 seconds
+## Explored 1 nodes (12 simplex iterations) in 0.00 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 1987.4 2337.96 

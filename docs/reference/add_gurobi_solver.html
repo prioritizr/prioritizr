@@ -101,7 +101,7 @@ It requires the gurobi package to be installed
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.1</span>
       </span>
     </div>
 
@@ -195,6 +195,7 @@ It requires the <span class="pkg">gurobi</span> package to be installed
   threads <span class='op'>=</span> <span class='fl'>1</span>,
   first_feasible <span class='op'>=</span> <span class='cn'>FALSE</span>,
   numeric_focus <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  node_file_start <span class='op'>=</span> <span class='cn'>Inf</span>,
   start_solution <span class='op'>=</span> <span class='cn'>NULL</span>,
   verbose <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span></pre>
@@ -256,6 +257,23 @@ useful when dealing problems that may suffer from numerical instability
 issues. Beware that it will likely substantially increase run time
 (sets the <em>Gurobi</em> <code>NumericFocus</code> parameter
 to 3). Defaults to <code>FALSE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>node_file_start</th>
+      <td><p><code>numeric</code> threshold amount of memory (in GB).
+Once the amount of memory (RAM) used to store information for solving
+the optimization problem exceeds this parameter value, the solver
+will begin storing this information on disk
+(using the *Gurobi( <code>NodeFileStart</code> parameter).
+This functionality is useful if the system has insufficient memory to
+solve a given problem (e.g. solving the problem with default settings
+yields the <code>OUT OF MEMORY</code> error message) and a system with more memory is
+not readily available.
+For example, a value of 4 indicates that the solver will start using
+the disk after it uses more than 4 GB of memory to store information
+on solving the problem.
+Defaults to <code>Inf</code> such that the solver will not attempt
+to store information on disk when solving a given problem.</p></td>
     </tr>
     <tr>
       <th>start_solution</th>
@@ -399,7 +417,27 @@ solving conservation planning problems. <em>PeerJ</em>, 8: e9258.</p>
 
 <span class='co'># generate solution %&gt;%</span>
 <span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span>
-
+</div><div class='output co'>#&gt; $LogToConsole
+#&gt; [1] 0
+#&gt; 
+#&gt; $LogFile
+#&gt; [1] ""
+#&gt; 
+#&gt; $Presolve
+#&gt; [1] 2
+#&gt; 
+#&gt; $MIPGap
+#&gt; [1] 0
+#&gt; 
+#&gt; $TimeLimit
+#&gt; [1] 2147483647
+#&gt; 
+#&gt; $Threads
+#&gt; [1] 1
+#&gt; 
+#&gt; $NumericFocus
+#&gt; [1] 0
+#&gt; </div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='img'><img src='add_gurobi_solver-1.png' alt='' width='700' height='433' /></div><div class='input'>
@@ -414,7 +452,27 @@ solving conservation planning problems. <em>PeerJ</em>, 8: e9258.</p>
 
 <span class='co'># generate solution</span>
 <span class='va'>s2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span>
-
+</div><div class='output co'>#&gt; $LogToConsole
+#&gt; [1] 0
+#&gt; 
+#&gt; $LogFile
+#&gt; [1] ""
+#&gt; 
+#&gt; $Presolve
+#&gt; [1] 2
+#&gt; 
+#&gt; $MIPGap
+#&gt; [1] 0
+#&gt; 
+#&gt; $TimeLimit
+#&gt; [1] 2147483647
+#&gt; 
+#&gt; $Threads
+#&gt; [1] 1
+#&gt; 
+#&gt; $NumericFocus
+#&gt; [1] 0
+#&gt; </div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s2</span>, main <span class='op'>=</span> <span class='st'>"solution with boundary penalties"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>,
      box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>

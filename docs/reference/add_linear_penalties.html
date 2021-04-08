@@ -101,7 +101,7 @@ solution cost for minimum set problems; add_min_set_objective()." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.1</span>
       </span>
     </div>
 
@@ -344,7 +344,7 @@ when it is allocated to a given zone.</p></dd>
 #&gt; <span class='message'>  constraints:    &lt;none&gt;</span>
 #&gt; <span class='message'>  penalties:      &lt;none&gt;</span>
 #&gt; <span class='message'>  portfolio:      default</span>
-#&gt; <span class='message'>  solver:         Gurobi [first_feasible (0), gap (0.1), numeric_focus (0), presolve (2), threads (1), time_limit (2147483647), verbose (0)]</span></div><div class='input'>
+#&gt; <span class='message'>  solver:         Gurobi [first_feasible (0), gap (0.1), node_file_start (-1), numeric_focus (0), presolve (2), threads (1), time_limit (2147483647), verbose (0)]</span></div><div class='input'>
 <span class='co'># create an updated version of the previous problem,</span>
 <span class='co'># with the penalties added to it</span>
 <span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='va'>p1</span> <span class='op'>%&gt;%</span> <span class='fu'>add_linear_penalties</span><span class='op'>(</span><span class='fl'>100</span>, data <span class='op'>=</span> <span class='st'>"penalty_data"</span><span class='op'>)</span>
@@ -361,12 +361,52 @@ when it is allocated to a given zone.</p></dd>
 #&gt; <span class='message'>  constraints:    &lt;none&gt;</span>
 #&gt; <span class='message'>  penalties:      &lt;Linear penalties [penalty (100)]&gt;</span>
 #&gt; <span class='message'>  portfolio:      default</span>
-#&gt; <span class='message'>  solver:         Gurobi [first_feasible (0), gap (0.1), numeric_focus (0), presolve (2), threads (1), time_limit (2147483647), verbose (0)]</span></div><div class='input'>
+#&gt; <span class='message'>  solver:         Gurobi [first_feasible (0), gap (0.1), node_file_start (-1), numeric_focus (0), presolve (2), threads (1), time_limit (2147483647), verbose (0)]</span></div><div class='input'>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve the two problems</span>
 <span class='va'>s1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>
-<span class='va'>s2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span>
-
+</div><div class='output co'>#&gt; $LogToConsole
+#&gt; [1] 0
+#&gt; 
+#&gt; $LogFile
+#&gt; [1] ""
+#&gt; 
+#&gt; $Presolve
+#&gt; [1] 2
+#&gt; 
+#&gt; $MIPGap
+#&gt; [1] 0.1
+#&gt; 
+#&gt; $TimeLimit
+#&gt; [1] 2147483647
+#&gt; 
+#&gt; $Threads
+#&gt; [1] 1
+#&gt; 
+#&gt; $NumericFocus
+#&gt; [1] 0
+#&gt; </div><div class='input'><span class='va'>s2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $LogToConsole
+#&gt; [1] 0
+#&gt; 
+#&gt; $LogFile
+#&gt; [1] ""
+#&gt; 
+#&gt; $Presolve
+#&gt; [1] 2
+#&gt; 
+#&gt; $MIPGap
+#&gt; [1] 0.1
+#&gt; 
+#&gt; $TimeLimit
+#&gt; [1] 2147483647
+#&gt; 
+#&gt; $Threads
+#&gt; [1] 1
+#&gt; 
+#&gt; $NumericFocus
+#&gt; [1] 0
+#&gt; </div><div class='input'>
 <span class='co'># plot the solutions and compare them,</span>
 <span class='co'># since we supplied a very high penalty value (i.e. 100), relative</span>
 <span class='co'># to the range of values in the penalty data and the objective function,</span>
@@ -421,11 +461,31 @@ when it is allocated to a given zone.</p></dd>
 #&gt; <span class='message'>  constraints:    &lt;none&gt;</span>
 #&gt; <span class='message'>  penalties:      &lt;Linear penalties [penalty (min: 1, max: 1)]&gt;</span>
 #&gt; <span class='message'>  portfolio:      default</span>
-#&gt; <span class='message'>  solver:         Gurobi [first_feasible (0), gap (0.1), numeric_focus (0), presolve (2), threads (1), time_limit (2147483647), verbose (0)]</span></div><div class='input'>
+#&gt; <span class='message'>  solver:         Gurobi [first_feasible (0), gap (0.1), node_file_start (-1), numeric_focus (0), presolve (2), threads (1), time_limit (2147483647), verbose (0)]</span></div><div class='input'>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
 <span class='va'>s3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span>
-
+</div><div class='output co'>#&gt; $LogToConsole
+#&gt; [1] 0
+#&gt; 
+#&gt; $LogFile
+#&gt; [1] ""
+#&gt; 
+#&gt; $Presolve
+#&gt; [1] 2
+#&gt; 
+#&gt; $MIPGap
+#&gt; [1] 0.1
+#&gt; 
+#&gt; $TimeLimit
+#&gt; [1] 2147483647
+#&gt; 
+#&gt; $Threads
+#&gt; [1] 1
+#&gt; 
+#&gt; $NumericFocus
+#&gt; [1] 0
+#&gt; </div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='category_layer.html'>category_layer</a></span><span class='op'>(</span><span class='va'>s3</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='st'>"multi-zone solution"</span>,
      axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>

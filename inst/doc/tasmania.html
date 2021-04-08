@@ -211,7 +211,28 @@ p1 &lt;-<span class="st"> </span><span class="kw">marxan_problem</span>(pu_data,
 <p>Next, we can solve the problem (see <a href="https://prioritizr.net/reference/solve.html"><code>?solve</code></a> for more information). The <em>prioritizr</em> R package supports three different exact algorithm software packages: <em>gurobi</em>, <em>Rsymphony</em>, and <em>lpsymphony</em>. There are costs and benefits associated with each of these different solvers, but each software should return similar results. Note that you will need at least one of these package installed on your system to solve problems. We recommend using the <em>gurobi</em> solver if possible, and have used this solver when building this tutorial. After solving the problem, we will calculate some statistics to describe the solution. Note that the planning unit selections are stored in the “solution_1” column of the solution object.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># solve problem</span>
 s1 &lt;-<span class="st"> </span><span class="kw">solve</span>(p1)</code></pre></div>
-<pre><code>## Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (linux64)
+<pre><code>## $LogToConsole
+## [1] 1
+## 
+## $LogFile
+## [1] &quot;&quot;
+## 
+## $Presolve
+## [1] 2
+## 
+## $MIPGap
+## [1] 0.1
+## 
+## $TimeLimit
+## [1] 2147483647
+## 
+## $Threads
+## [1] 1
+## 
+## $NumericFocus
+## [1] 0
+## 
+## Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (linux64)
 ## Thread count: 2 physical cores, 4 logical processors, using up to 1 threads
 ## Optimize a model with 6358 rows, 4278 columns and 14496 nonzeros
 ## Model fingerprint: 0x2dc24aac
@@ -224,21 +245,21 @@ s1 &lt;-<span class="st"> </span><span class="kw">solve</span>(p1)</code></pre><
 ## Found heuristic solution: objective 30263.129158
 ## Found heuristic solution: objective 12512.071934
 ## Presolve removed 1793 rows and 1168 columns
-## Presolve time: 0.04s
+## Presolve time: 0.03s
 ## Presolved: 4565 rows, 3110 columns, 10169 nonzeros
 ## Found heuristic solution: objective 11803.383927
 ## Variable types: 0 continuous, 3110 integer (3110 binary)
 ## Presolved: 4565 rows, 3110 columns, 10169 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.076817e+04, 822 iterations, 0.06 seconds
+## Root relaxation: objective 1.076817e+04, 822 iterations, 0.04 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
 ##      0     0 10768.1736    0  137 11803.3839 10768.1736  8.77%     -    0s
 ## 
-## Explored 0 nodes (822 simplex iterations) in 0.12 seconds
+## Explored 0 nodes (822 simplex iterations) in 0.09 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 3: 11803.4 12512.1 30263.1 
@@ -310,7 +331,28 @@ p2 &lt;-<span class="st"> </span><span class="kw">problem</span>(tas_pu, tas_fea
 ##   solver:         default</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># solve problem</span>
 s2 &lt;-<span class="st"> </span><span class="kw">solve</span>(p2)</code></pre></div>
-<pre><code>## Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (linux64)
+<pre><code>## $LogToConsole
+## [1] 1
+## 
+## $LogFile
+## [1] &quot;&quot;
+## 
+## $Presolve
+## [1] 2
+## 
+## $MIPGap
+## [1] 0.1
+## 
+## $TimeLimit
+## [1] 2147483647
+## 
+## $Threads
+## [1] 1
+## 
+## $NumericFocus
+## [1] 0
+## 
+## Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (linux64)
 ## Thread count: 2 physical cores, 4 logical processors, using up to 1 threads
 ## Optimize a model with 6358 rows, 4278 columns and 14496 nonzeros
 ## Model fingerprint: 0x2dc24aac
@@ -323,21 +365,21 @@ s2 &lt;-<span class="st"> </span><span class="kw">solve</span>(p2)</code></pre><
 ## Found heuristic solution: objective 30263.129158
 ## Found heuristic solution: objective 12512.071934
 ## Presolve removed 1793 rows and 1168 columns
-## Presolve time: 0.04s
+## Presolve time: 0.03s
 ## Presolved: 4565 rows, 3110 columns, 10169 nonzeros
 ## Found heuristic solution: objective 11803.383927
 ## Variable types: 0 continuous, 3110 integer (3110 binary)
 ## Presolved: 4565 rows, 3110 columns, 10169 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.076817e+04, 822 iterations, 0.05 seconds
+## Root relaxation: objective 1.076817e+04, 822 iterations, 0.04 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
 ##      0     0 10768.1736    0  137 11803.3839 10768.1736  8.77%     -    0s
 ## 
-## Explored 0 nodes (822 simplex iterations) in 0.11 seconds
+## Explored 0 nodes (822 simplex iterations) in 0.09 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 3: 11803.4 12512.1 30263.1 

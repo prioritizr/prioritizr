@@ -153,7 +153,6 @@ test_that("correct solution (simple)", {
 
 test_that("correct solution (complex)", {
   skip_on_cran()
-  skip_if_no_fast_solvers_installed()
   skip_if_not_installed("gurobi")
   # create data
   cost <- raster::raster(matrix(c(1000, 100, 200, 300, NA), nrow = 1))
@@ -218,4 +217,31 @@ test_that("start_solution", {
   expect_equal(raster::values(s1), c(1, 0, 1, 0, NA))
   expect_equal(raster::values(s1), raster::values(s2))
   expect_equal(raster::values(s1), raster::values(s3))
+})
+
+test_that("node_file_start", {
+  skip_on_cran()
+  skip_if_not_installed("gurobi")
+  # create data
+  cost <- raster::raster(matrix(c(1000, 100, 200, 300, NA), nrow = 1))
+  features <- raster::stack(
+    raster::raster(matrix(c(5,  5,   0,  0,  NA), nrow = 1)),
+    raster::raster(matrix(c(2,  0,   8,  10, NA), nrow = 1)),
+    raster::raster(matrix(c(10, 100, 10, 10, NA), nrow = 1)))
+  # create problem
+  p <- problem(cost, features) %>%
+       add_min_set_objective() %>%
+       add_manual_targets(
+         tibble::tibble(
+           feature = names(features),
+           type = "absolute",
+           sense = c("=", ">=", "<="),
+           target = c(5, 10, 20))) %>%
+       add_gurobi_solver(gap = 0, verbose = FALSE, node_file_start = 0)
+  # solve problem
+  s1 <- solve(p)
+  s2 <- solve(p)
+  # test for correct solution
+  expect_equal(raster::values(s1), c(1, 0, 1, 0, NA))
+  expect_equal(raster::values(s1), raster::values(s2))
 })

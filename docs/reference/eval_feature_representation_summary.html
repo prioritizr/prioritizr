@@ -99,7 +99,7 @@ and each and every zone, within a conservation planning problem." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.1</span>
       </span>
     </div>
 
@@ -407,7 +407,27 @@ values in the argument to <code>solution</code>.</p></dd>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve the problem using an exact algorithm solver</span>
 <span class='va'>s1_2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>
-<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>s1_2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $LogToConsole
+#&gt; [1] 0
+#&gt; 
+#&gt; $LogFile
+#&gt; [1] ""
+#&gt; 
+#&gt; $Presolve
+#&gt; [1] 2
+#&gt; 
+#&gt; $MIPGap
+#&gt; [1] 0.1
+#&gt; 
+#&gt; $TimeLimit
+#&gt; [1] 2147483647
+#&gt; 
+#&gt; $Threads
+#&gt; [1] 1
+#&gt; 
+#&gt; $NumericFocus
+#&gt; [1] 0
+#&gt; </div><div class='input'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>s1_2</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;    id      cost      spp1 spp2 solution_1
 #&gt; 1   1 0.2000000 0.8288314    4          1
 #&gt; 2   2        NA 0.7115770    3         NA
@@ -437,7 +457,27 @@ values in the argument to <code>solution</code>.</p></dd>
 
 <span class='co'># solve the problem</span>
 <span class='va'>s2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span>
-
+</div><div class='output co'>#&gt; $LogToConsole
+#&gt; [1] 0
+#&gt; 
+#&gt; $LogFile
+#&gt; [1] ""
+#&gt; 
+#&gt; $Presolve
+#&gt; [1] 2
+#&gt; 
+#&gt; $MIPGap
+#&gt; [1] 0.1
+#&gt; 
+#&gt; $TimeLimit
+#&gt; [1] 2147483647
+#&gt; 
+#&gt; $Threads
+#&gt; [1] 1
+#&gt; 
+#&gt; $NumericFocus
+#&gt; [1] 0
+#&gt; </div><div class='input'>
 <span class='co'># print solution</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>s2</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; class      : RasterLayer 
@@ -472,7 +512,27 @@ values in the argument to <code>solution</code>.</p></dd>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve the problem</span>
 <span class='va'>s3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span>
-
+</div><div class='output co'>#&gt; $LogToConsole
+#&gt; [1] 0
+#&gt; 
+#&gt; $LogFile
+#&gt; [1] ""
+#&gt; 
+#&gt; $Presolve
+#&gt; [1] 2
+#&gt; 
+#&gt; $MIPGap
+#&gt; [1] 0.1
+#&gt; 
+#&gt; $TimeLimit
+#&gt; [1] 2147483647
+#&gt; 
+#&gt; $Threads
+#&gt; [1] 1
+#&gt; 
+#&gt; $NumericFocus
+#&gt; [1] 0
+#&gt; </div><div class='input'>
 <span class='co'># print first six rows of the attribute table</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>s3</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;       cost locked_in locked_out solution_1
@@ -506,7 +566,27 @@ values in the argument to <code>solution</code>.</p></dd>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve the problem</span>
 <span class='va'>s4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p4</span><span class='op'>)</span>
-
+</div><div class='output co'>#&gt; $LogToConsole
+#&gt; [1] 0
+#&gt; 
+#&gt; $LogFile
+#&gt; [1] ""
+#&gt; 
+#&gt; $Presolve
+#&gt; [1] 2
+#&gt; 
+#&gt; $MIPGap
+#&gt; [1] 0.1
+#&gt; 
+#&gt; $TimeLimit
+#&gt; [1] 2147483647
+#&gt; 
+#&gt; $Threads
+#&gt; [1] 1
+#&gt; 
+#&gt; $NumericFocus
+#&gt; [1] 0
+#&gt; </div><div class='input'>
 <span class='co'># print solution</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>s4</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; class      : RasterStack 
@@ -559,7 +639,27 @@ values in the argument to <code>solution</code>.</p></dd>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve the problem</span>
 <span class='va'>s5</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p5</span><span class='op'>)</span>
-
+</div><div class='output co'>#&gt; $LogToConsole
+#&gt; [1] 0
+#&gt; 
+#&gt; $LogFile
+#&gt; [1] ""
+#&gt; 
+#&gt; $Presolve
+#&gt; [1] 2
+#&gt; 
+#&gt; $MIPGap
+#&gt; [1] 0.1
+#&gt; 
+#&gt; $TimeLimit
+#&gt; [1] 2147483647
+#&gt; 
+#&gt; $Threads
+#&gt; [1] 1
+#&gt; 
+#&gt; $NumericFocus
+#&gt; [1] 0
+#&gt; </div><div class='input'>
 <span class='co'># print first six rows of the attribute table</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>s5</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Simple feature collection with 6 features and 9 fields

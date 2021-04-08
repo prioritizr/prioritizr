@@ -100,7 +100,7 @@ means that the same calculations will not be run multiple times." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.1</span>
       </span>
     </div>
 
@@ -226,7 +226,69 @@ anything. To use this function with <code><a href='%>%.html'>pipe()</a></code> o
 <span class='co'># now solve each of the different problems and record the time spent</span>
 <span class='co'># solving them</span>
 <span class='va'>s1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.time.html'>system.time</a></span><span class='op'>(</span><span class='op'>{</span><span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>; <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span>; <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span><span class='op'>}</span><span class='op'>)</span>
-
+</div><div class='output co'>#&gt; $LogToConsole
+#&gt; [1] 0
+#&gt; 
+#&gt; $LogFile
+#&gt; [1] ""
+#&gt; 
+#&gt; $Presolve
+#&gt; [1] 2
+#&gt; 
+#&gt; $MIPGap
+#&gt; [1] 0.1
+#&gt; 
+#&gt; $TimeLimit
+#&gt; [1] 2147483647
+#&gt; 
+#&gt; $Threads
+#&gt; [1] 1
+#&gt; 
+#&gt; $NumericFocus
+#&gt; [1] 0
+#&gt; 
+#&gt; $LogToConsole
+#&gt; [1] 0
+#&gt; 
+#&gt; $LogFile
+#&gt; [1] ""
+#&gt; 
+#&gt; $Presolve
+#&gt; [1] 2
+#&gt; 
+#&gt; $MIPGap
+#&gt; [1] 0.1
+#&gt; 
+#&gt; $TimeLimit
+#&gt; [1] 2147483647
+#&gt; 
+#&gt; $Threads
+#&gt; [1] 1
+#&gt; 
+#&gt; $NumericFocus
+#&gt; [1] 0
+#&gt; 
+#&gt; $LogToConsole
+#&gt; [1] 0
+#&gt; 
+#&gt; $LogFile
+#&gt; [1] ""
+#&gt; 
+#&gt; $Presolve
+#&gt; [1] 2
+#&gt; 
+#&gt; $MIPGap
+#&gt; [1] 0.1
+#&gt; 
+#&gt; $TimeLimit
+#&gt; [1] 2147483647
+#&gt; 
+#&gt; $Threads
+#&gt; [1] 1
+#&gt; 
+#&gt; $NumericFocus
+#&gt; [1] 0
+#&gt; </div><div class='input'>
 <span class='co'># This approach is inefficient. Since these problems all share the same</span>
 <span class='co'># planning units it is actually performing the same calculations three times.</span>
 <span class='co'># To avoid this, we can use the "run_calculations" function before creating</span>
@@ -250,13 +312,75 @@ anything. To use this function with <code><a href='%>%.html'>pipe()</a></code> o
 <span class='co'># solve each of the different problems and record the time spent</span>
 <span class='co'># solving them</span>
 <span class='va'>s2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.time.html'>system.time</a></span><span class='op'>(</span><span class='op'>{</span><span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>; <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span>; <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span><span class='op'>}</span><span class='op'>)</span>
-
+</div><div class='output co'>#&gt; $LogToConsole
+#&gt; [1] 0
+#&gt; 
+#&gt; $LogFile
+#&gt; [1] ""
+#&gt; 
+#&gt; $Presolve
+#&gt; [1] 2
+#&gt; 
+#&gt; $MIPGap
+#&gt; [1] 0.1
+#&gt; 
+#&gt; $TimeLimit
+#&gt; [1] 2147483647
+#&gt; 
+#&gt; $Threads
+#&gt; [1] 1
+#&gt; 
+#&gt; $NumericFocus
+#&gt; [1] 0
+#&gt; 
+#&gt; $LogToConsole
+#&gt; [1] 0
+#&gt; 
+#&gt; $LogFile
+#&gt; [1] ""
+#&gt; 
+#&gt; $Presolve
+#&gt; [1] 2
+#&gt; 
+#&gt; $MIPGap
+#&gt; [1] 0.1
+#&gt; 
+#&gt; $TimeLimit
+#&gt; [1] 2147483647
+#&gt; 
+#&gt; $Threads
+#&gt; [1] 1
+#&gt; 
+#&gt; $NumericFocus
+#&gt; [1] 0
+#&gt; 
+#&gt; $LogToConsole
+#&gt; [1] 0
+#&gt; 
+#&gt; $LogFile
+#&gt; [1] ""
+#&gt; 
+#&gt; $Presolve
+#&gt; [1] 2
+#&gt; 
+#&gt; $MIPGap
+#&gt; [1] 0.1
+#&gt; 
+#&gt; $TimeLimit
+#&gt; [1] 2147483647
+#&gt; 
+#&gt; $Threads
+#&gt; [1] 1
+#&gt; 
+#&gt; $NumericFocus
+#&gt; [1] 0
+#&gt; </div><div class='input'>
 <span class='co'># now lets compare the times</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>s1</span><span class='op'>)</span> <span class='co'># time spent without running preliminary calculations</span>
 </div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   1.717   2.371   4.055 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>s2</span><span class='op'>)</span> <span class='co'># time spent after running preliminary calculations</span>
+#&gt;   1.524   2.752   4.247 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>s2</span><span class='op'>)</span> <span class='co'># time spent after running preliminary calculations</span>
 </div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   1.491   2.009   3.476 </div><div class='input'>
+#&gt;   1.428   2.351   3.761 </div><div class='input'>
 <span class='co'># As we can see, we can save time by running the preliminary</span>
 <span class='co'># calculations before making copies of the problem with slightly</span>
 <span class='co'># different constraints. Although the time saved in this example</span>

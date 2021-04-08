@@ -12,7 +12,7 @@
 
 <meta name="author" content="Richard Schuster" />
 
-<meta name="date" content="2021-03-31" />
+<meta name="date" content="2021-04-08" />
 
 <title>Gurobi Installation Guide</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Gurobi Installation Guide</h1>
 <h4 class="author"><em>Richard Schuster</em></h4>
-<h4 class="date"><em>2021-03-31</em></h4>
+<h4 class="date"><em>2021-04-08</em></h4>
 
 
 <div id="TOC">
@@ -229,7 +229,28 @@ p &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster, s
 
 <span class="co"># solve the problem</span>
 s &lt;-<span class="st"> </span><span class="kw">solve</span>(p)</code></pre></div>
-<pre><code>## Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (linux64)
+<pre><code>## $LogToConsole
+## [1] 1
+## 
+## $LogFile
+## [1] &quot;&quot;
+## 
+## $Presolve
+## [1] 2
+## 
+## $MIPGap
+## [1] 0.1
+## 
+## $TimeLimit
+## [1] 2147483647
+## 
+## $Threads
+## [1] 1
+## 
+## $NumericFocus
+## [1] 0
+## 
+## Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (linux64)
 ## Thread count: 2 physical cores, 4 logical processors, using up to 1 threads
 ## Optimize a model with 5 rows, 90 columns and 450 nonzeros
 ## Model fingerprint: 0x6442bf6e
