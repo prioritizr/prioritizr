@@ -32,7 +32,7 @@ Please cite the *prioritizr R* package when using it in publications. To cite th
 
 Alternatively, to cite the latest development version, please use:
 
-> Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2021). prioritizr: Systematic Conservation Prioritization in R. R package version 7.0.1.1. Available at <https://github.com/prioritizr/prioritizr>.
+> Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2021). prioritizr: Systematic Conservation Prioritization in R. R package version 7.0.1.2. Available at <https://github.com/prioritizr/prioritizr>.
 
 Additionally, we keep a [record of publications](https://prioritizr.net/articles/publication_record.html) that use the *prioritizr R* package. If you use this package in any reports or publications, please [file an issue on GitHub](https://github.com/prioritizr/prioritizr/issues/new) so we can add it to the record.
 
@@ -115,27 +115,6 @@ After we have built a [`problem`](https://prioritizr.net/reference/problem.html)
 s1 <- solve(p1)
 ```
 
-    ## $LogToConsole
-    ## [1] 1
-    ## 
-    ## $LogFile
-    ## [1] ""
-    ## 
-    ## $Presolve
-    ## [1] 2
-    ## 
-    ## $MIPGap
-    ## [1] 0
-    ## 
-    ## $TimeLimit
-    ## [1] 2147483647
-    ## 
-    ## $Threads
-    ## [1] 1
-    ## 
-    ## $NumericFocus
-    ## [1] 0
-    ## 
     ## Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (linux64)
     ## Thread count: 2 physical cores, 4 logical processors, using up to 1 threads
     ## Optimize a model with 5 rows, 90 columns and 450 nonzeros
@@ -192,8 +171,9 @@ s1 <- solve(p1)
     ##      0     0 2612.80122    0   12 2747.37746 2612.80122  4.90%     -    0s
     ##      0     0 2612.80272    0   11 2747.37746 2612.80272  4.90%     -    0s
     ##      0     2 2612.91183    0   11 2747.37746 2612.91183  4.89%     -    0s
-    ##  67023 37579 2633.87210   97    1 2747.37746 2621.51714  4.58%   1.7    5s
-    ## H76889  5280                    2627.6389306 2621.79315  0.22%   1.7    5s
+    ##  27279 11991 2640.13462   55    3 2747.37746 2619.85111  4.64%   1.8    5s
+    ## H76889  5280                    2627.6389306 2621.79315  0.22%   1.7    9s
+    ##  81659  5650 2626.44647   44   14 2627.63893 2622.63702  0.19%   1.8   10s
     ## 
     ## Cutting planes:
     ##   Gomory: 7
@@ -201,7 +181,7 @@ s1 <- solve(p1)
     ##   StrongCG: 39
     ##   Flow cover: 10
     ## 
-    ## Explored 99210 nodes (201659 simplex iterations) in 9.10 seconds
+    ## Explored 99210 nodes (201659 simplex iterations) in 11.75 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 5: 2627.64 2747.38 2761.33 ... 3139.89
@@ -223,7 +203,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##      9.107
+    ##     11.773
 
 ``` r
 # extract state message from the solver
@@ -286,27 +266,6 @@ p2 <- p1 %>%
 s2 <- solve(p2)
 ```
 
-    ## $LogToConsole
-    ## [1] 1
-    ## 
-    ## $LogFile
-    ## [1] ""
-    ## 
-    ## $Presolve
-    ## [1] 2
-    ## 
-    ## $MIPGap
-    ## [1] 0
-    ## 
-    ## $TimeLimit
-    ## [1] 2147483647
-    ## 
-    ## $Threads
-    ## [1] 1
-    ## 
-    ## $NumericFocus
-    ## [1] 0
-    ## 
     ## Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (linux64)
     ## Thread count: 2 physical cores, 4 logical processors, using up to 1 threads
     ## Optimize a model with 5 rows, 90 columns and 450 nonzeros
@@ -388,27 +347,6 @@ p3 <- p2 %>%
 s3 <- solve(p3)
 ```
 
-    ## $LogToConsole
-    ## [1] 1
-    ## 
-    ## $LogFile
-    ## [1] ""
-    ## 
-    ## $Presolve
-    ## [1] 2
-    ## 
-    ## $MIPGap
-    ## [1] 0
-    ## 
-    ## $TimeLimit
-    ## [1] 2147483647
-    ## 
-    ## $Threads
-    ## [1] 1
-    ## 
-    ## $NumericFocus
-    ## [1] 0
-    ## 
     ## Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (linux64)
     ## Thread count: 2 physical cores, 4 logical processors, using up to 1 threads
     ## Optimize a model with 293 rows, 234 columns and 1026 nonzeros
@@ -450,7 +388,7 @@ s3 <- solve(p3)
     ##   Cover: 1
     ##   GUB cover: 1
     ## 
-    ## Explored 1 nodes (217 simplex iterations) in 0.03 seconds
+    ## Explored 1 nodes (217 simplex iterations) in 0.06 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 6: 3939.6 3951.75 4058.75 ... 19567.2
@@ -478,27 +416,6 @@ p4 <- p3 %>%
 s4 <- solve(p4)
 ```
 
-    ## $LogToConsole
-    ## [1] 1
-    ## 
-    ## $LogFile
-    ## [1] ""
-    ## 
-    ## $Presolve
-    ## [1] 2
-    ## 
-    ## $MIPGap
-    ## [1] 0
-    ## 
-    ## $TimeLimit
-    ## [1] 2147483647
-    ## 
-    ## $Threads
-    ## [1] 1
-    ## 
-    ## $NumericFocus
-    ## [1] 0
-    ## 
     ## Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (linux64)
     ## Thread count: 2 physical cores, 4 logical processors, using up to 1 threads
     ## Optimize a model with 654 rows, 506 columns and 2292 nonzeros
@@ -563,27 +480,6 @@ rc <- p4 %>%
 ```
 
     ## Warning in res(x, ...): overwriting previously defined solver
-
-    ## $LogToConsole
-    ## [1] 0
-    ## 
-    ## $LogFile
-    ## [1] ""
-    ## 
-    ## $Presolve
-    ## [1] 2
-    ## 
-    ## $MIPGap
-    ## [1] 0
-    ## 
-    ## $TimeLimit
-    ## [1] 2147483647
-    ## 
-    ## $Threads
-    ## [1] 1
-    ## 
-    ## $NumericFocus
-    ## [1] 0
 
 ``` r
 # set infinite values as 1.09 so we can plot them

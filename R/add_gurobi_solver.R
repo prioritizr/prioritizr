@@ -235,7 +235,6 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
       if (p$NodeFileStart < 0) {
         p$NodeFileStart <- NULL
       }
-      print(p)
       # add starting solution if specified
       start <- self$get_data("start")
       if (!is.null(start) && !is.Waiver(start)) {

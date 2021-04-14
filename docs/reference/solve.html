@@ -96,7 +96,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.2</span>
       </span>
     </div>
 
@@ -317,27 +317,7 @@ it may be useful to use the <code><a href='category_layer.html'>category_layer()
 <span class='co'># \dontrun{</span>
 <span class='co'># solve the problem</span>
 <span class='va'>s1</span> <span class='op'>&lt;-</span> <span class='fu'>solve</span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $LogToConsole
-#&gt; [1] 0
-#&gt; 
-#&gt; $LogFile
-#&gt; [1] ""
-#&gt; 
-#&gt; $Presolve
-#&gt; [1] 2
-#&gt; 
-#&gt; $MIPGap
-#&gt; [1] 0.1
-#&gt; 
-#&gt; $TimeLimit
-#&gt; [1] 2147483647
-#&gt; 
-#&gt; $Threads
-#&gt; [1] 1
-#&gt; 
-#&gt; $NumericFocus
-#&gt; [1] 0
-#&gt; </div><div class='input'>
+
 <span class='co'># print solution</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>s1</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; class      : RasterLayer 
@@ -380,27 +360,7 @@ it may be useful to use the <code><a href='category_layer.html'>category_layer()
 <span class='co'># \dontrun{</span>
 <span class='co'># solve the problem</span>
 <span class='va'>s2</span> <span class='op'>&lt;-</span> <span class='fu'>solve</span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $LogToConsole
-#&gt; [1] 0
-#&gt; 
-#&gt; $LogFile
-#&gt; [1] ""
-#&gt; 
-#&gt; $Presolve
-#&gt; [1] 2
-#&gt; 
-#&gt; $MIPGap
-#&gt; [1] 0.1
-#&gt; 
-#&gt; $TimeLimit
-#&gt; [1] 2147483647
-#&gt; 
-#&gt; $Threads
-#&gt; [1] 1
-#&gt; 
-#&gt; $NumericFocus
-#&gt; [1] 0
-#&gt; </div><div class='input'>
+
 <span class='co'># print first six rows of the attribute table</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>s2</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;       cost locked_in locked_out solution_1
@@ -434,27 +394,7 @@ it may be useful to use the <code><a href='category_layer.html'>category_layer()
 <span class='co'># \dontrun{</span>
 <span class='co'># solve the problem</span>
 <span class='va'>s3</span> <span class='op'>&lt;-</span> <span class='fu'>solve</span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $LogToConsole
-#&gt; [1] 0
-#&gt; 
-#&gt; $LogFile
-#&gt; [1] ""
-#&gt; 
-#&gt; $Presolve
-#&gt; [1] 2
-#&gt; 
-#&gt; $MIPGap
-#&gt; [1] 0.1
-#&gt; 
-#&gt; $TimeLimit
-#&gt; [1] 2147483647
-#&gt; 
-#&gt; $Threads
-#&gt; [1] 1
-#&gt; 
-#&gt; $NumericFocus
-#&gt; [1] 0
-#&gt; </div><div class='input'>
+
 <span class='co'># print first six rows of the attribute table</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>s3</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Simple feature collection with 6 features and 4 fields
@@ -494,27 +434,7 @@ it may be useful to use the <code><a href='category_layer.html'>category_layer()
 <span class='co'># \dontrun{</span>
 <span class='co'># solve the problem</span>
 <span class='va'>s4</span> <span class='op'>&lt;-</span> <span class='fu'>solve</span><span class='op'>(</span><span class='va'>p4</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $LogToConsole
-#&gt; [1] 0
-#&gt; 
-#&gt; $LogFile
-#&gt; [1] ""
-#&gt; 
-#&gt; $Presolve
-#&gt; [1] 2
-#&gt; 
-#&gt; $MIPGap
-#&gt; [1] 0.1
-#&gt; 
-#&gt; $TimeLimit
-#&gt; [1] 2147483647
-#&gt; 
-#&gt; $Threads
-#&gt; [1] 1
-#&gt; 
-#&gt; $NumericFocus
-#&gt; [1] 0
-#&gt; </div><div class='input'>
+
 <span class='co'># print solution</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>s4</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; class      : RasterStack 
@@ -566,27 +486,7 @@ it may be useful to use the <code><a href='category_layer.html'>category_layer()
 <span class='co'># \dontrun{</span>
 <span class='co'># solve the problem</span>
 <span class='va'>s5</span> <span class='op'>&lt;-</span> <span class='fu'>solve</span><span class='op'>(</span><span class='va'>p5</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $LogToConsole
-#&gt; [1] 0
-#&gt; 
-#&gt; $LogFile
-#&gt; [1] ""
-#&gt; 
-#&gt; $Presolve
-#&gt; [1] 2
-#&gt; 
-#&gt; $MIPGap
-#&gt; [1] 0.1
-#&gt; 
-#&gt; $TimeLimit
-#&gt; [1] 2147483647
-#&gt; 
-#&gt; $Threads
-#&gt; [1] 1
-#&gt; 
-#&gt; $NumericFocus
-#&gt; [1] 0
-#&gt; </div><div class='input'>
+
 <span class='co'># print first six rows of the attribute table</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>s5</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Simple feature collection with 6 features and 9 fields

@@ -97,7 +97,7 @@ of a conservation planning problem." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.2</span>
       </span>
     </div>
 
@@ -319,28 +319,7 @@ each feature---then the <code>na.rm</code> argument should be set to
 <span class='co'># with finite cost data</span>
 <span class='co'># \dontrun{</span>
 <span class='va'>s4</span> <span class='op'>&lt;-</span> <span class='kw'><a href='https://rdrr.io/r/base/try.html'>try</a></span><span class='op'>(</span><span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p4</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $LogToConsole
-#&gt; [1] 0
-#&gt; 
-#&gt; $LogFile
-#&gt; [1] ""
-#&gt; 
-#&gt; $Presolve
-#&gt; [1] 2
-#&gt; 
-#&gt; $MIPGap
-#&gt; [1] 0.1
-#&gt; 
-#&gt; $TimeLimit
-#&gt; [1] 2147483647
-#&gt; 
-#&gt; $Threads
-#&gt; [1] 1
-#&gt; 
-#&gt; $NumericFocus
-#&gt; [1] 0
-#&gt; 
-#&gt; Error in .local(a, b = b, ...) : 
+</div><div class='output co'>#&gt; Error in .local(a, b = b, ...) : 
 #&gt;   no solution found (e.g. due to problem infeasibility or time limits)</div><div class='input'><span class='co'># }</span>
 <span class='co'># calculate feature abundances; excluding planning units with NA costs</span>
 <span class='va'>a5</span> <span class='op'>&lt;-</span> <span class='fu'>feature_abundances</span><span class='op'>(</span><span class='va'>p3</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
@@ -363,27 +342,7 @@ each feature---then the <code>na.rm</code> argument should be set to
 <span class='co'># \dontrun{</span>
 <span class='co'># solve the problem</span>
 <span class='va'>s5</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p5</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $LogToConsole
-#&gt; [1] 0
-#&gt; 
-#&gt; $LogFile
-#&gt; [1] ""
-#&gt; 
-#&gt; $Presolve
-#&gt; [1] 2
-#&gt; 
-#&gt; $MIPGap
-#&gt; [1] 0.1
-#&gt; 
-#&gt; $TimeLimit
-#&gt; [1] 2147483647
-#&gt; 
-#&gt; $Threads
-#&gt; [1] 1
-#&gt; 
-#&gt; $NumericFocus
-#&gt; [1] 0
-#&gt; </div><div class='input'>
+
 <span class='co'># plot the solution</span>
 <span class='co'># this solution contains all the planning units with finite cost data (i.e.</span>
 <span class='co'># cost data that do not have NA values)</span>

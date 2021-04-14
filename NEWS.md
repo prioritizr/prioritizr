@@ -1,3 +1,8 @@
+# prioritizr 7.0.1.2
+
+- Update `add_gurobi_solver` so that it doesn't print excess debugging
+  information (accidentally introduced in previous version 7.0.1.1).
+
 # prioritizr 7.0.1.1
 
 - Update `add_gurobi_solver` to support the `node_file_start` parameter for

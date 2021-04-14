@@ -12,7 +12,7 @@
 
 <meta name="author" content="Richard Schuster" />
 
-<meta name="date" content="2021-04-08" />
+<meta name="date" content="2021-04-14" />
 
 <title>Gurobi Installation Guide</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Gurobi Installation Guide</h1>
 <h4 class="author"><em>Richard Schuster</em></h4>
-<h4 class="date"><em>2021-04-08</em></h4>
+<h4 class="date"><em>2021-04-14</em></h4>
 
 
 <div id="TOC">
@@ -198,10 +198,10 @@ result &lt;-<span class="st"> </span><span class="kw">gurobi</span>(model, <span
 ##   RHS range        [1e+00, 4e+00]
 ## Found heuristic solution: objective 2.0000000
 ## Presolve removed 2 rows and 3 columns
-## Presolve time: 0.00s
+## Presolve time: 0.01s
 ## Presolve: All rows and columns removed
 ## 
-## Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+## Explored 0 nodes (0 simplex iterations) in 0.01 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 3 
@@ -229,28 +229,7 @@ p &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster, s
 
 <span class="co"># solve the problem</span>
 s &lt;-<span class="st"> </span><span class="kw">solve</span>(p)</code></pre></div>
-<pre><code>## $LogToConsole
-## [1] 1
-## 
-## $LogFile
-## [1] &quot;&quot;
-## 
-## $Presolve
-## [1] 2
-## 
-## $MIPGap
-## [1] 0.1
-## 
-## $TimeLimit
-## [1] 2147483647
-## 
-## $Threads
-## [1] 1
-## 
-## $NumericFocus
-## [1] 0
-## 
-## Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (linux64)
+<pre><code>## Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (linux64)
 ## Thread count: 2 physical cores, 4 logical processors, using up to 1 threads
 ## Optimize a model with 5 rows, 90 columns and 450 nonzeros
 ## Model fingerprint: 0x6442bf6e
@@ -275,7 +254,7 @@ s &lt;-<span class="st"> </span><span class="kw">solve</span>(p)</code></pre></d
 ##      0     0 1931.58191    0    4 2337.96175 1931.58191  17.4%     -    0s
 ## H    0     0                    1987.3985265 1931.58191  2.81%     -    0s
 ## 
-## Explored 1 nodes (12 simplex iterations) in 0.00 seconds
+## Explored 1 nodes (12 simplex iterations) in 0.01 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 1987.4 2337.96 
