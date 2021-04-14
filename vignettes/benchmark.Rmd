@@ -42,6 +42,7 @@ To start off, we will load some packages to help download the benchmark results 
 library(prioritizr)
 library(piggyback)
 library(ggplot2)
+library(units)
 library(tidyverse)
 ```
 
@@ -63,36 +64,106 @@ solution_paths <-
   file.path(tempdir(), "solutions", paste0(benchmark_results$id, ".tif"))
 solution_raster_data <- lapply(solution_paths, raster)
 ```
-```{r "setup figures", message = FALSE}
-planning_units <- unique(benchmark_results$number_of_planning_units)
-boundary_penalty <- unique(benchmark_results$boundary_penalty)
-all_solvers <- unique(benchmark_results$solver)
 
-benchmark_plot <- function(pus = NULL, bp = NULL, obj = NULL,
-                           sol = NULL, txt = NULL){
-  
-  benchmark_results_red <- benchmark_results %>%
-    filter(objective == obj,
-           solver %in% sol)
-    ggplot(benchmark_results_red %>%
-           filter(number_of_planning_units == pus, 
-                  boundary_penalty == bp), 
-         aes(x = relative_target * 100, y = run_time, color = solver)) +
-  geom_line(aes(color=solver))+
-  geom_point(aes(color=solver)) +
-  labs(title = paste(txt, 
-                     "72 features,",
-                     pus, "planning units,",
-                     bp, "boundary penalty.",
-                     sep = " "),
-       x = "Target",
-       y = "Run time [seconds]")
+Now we will define some helper variables to store information on the different benchmark runs. We will also define a helper function to quickly plot the results from the benchmark analysis.
+
+```{r "preliminary calculations", message = FALSE}
+# extract different numbers of planning units examined the benchmark analysis
+n_planning_units <- unique(benchmark_results$number_of_planning_units)
+
+# extract boundary penalties examined under different objectives
+boundary_penalty_values <-
+  benchmark_results %>%
+  plyr::dlply("objective", function(x) unique(x$boundary_penalty))
+
+# define helper function to create plots
+plot_benchmark <- function(
+  objective, n_pu, boundary_penalty, solver = NULL){
+  # assert arguments are valid
+  ## verify parameters with no default arguments
+  assertthat::assert_that(
+    assertthat::is.count(n_pu), assertthat::noNA(n_pu),
+    n_pu %in% unique(benchmark_results$number_of_planning_units),
+    assertthat::is.number(boundary_penalty), assertthat::noNA(boundary_penalty),
+    assertthat::is.string(objective), assertthat::noNA(objective),
+    objective %in% unique(benchmark_results$objective))
+  ## set default argument for solver if needed
+  if (is.null(solver)) {
+    solver <- unique(benchmark_results$solver)
+  }
+  ## verify solver argument
+  assertthat::assert_that(
+    is.character(solver), all(solver %in% benchmark_results$solver))
+  ## verify that only a single set of features was used
+  assertthat::assert_that(
+    dplyr::n_distinct(benchmark_results$number_features) == 1)
+
+  # prepare data for plotting
+  ## rename variables to avoid scoping issues
+  sol <- solver
+  obj <- objective
+  bp <- boundary_penalty
+  ## subset data relevant for plotting
+  plot_data <-
+    benchmark_results %>%
+    filter(.$objective == obj, .$solver %in% sol,
+           .$number_of_planning_units == n_pu,
+           .$boundary_penalty == bp)
+  ## scale run time to helpful units for plotting
+  plot_units <-
+    dplyr::case_when(
+      # show hours if max(run_time) > 3 h
+      max(plot_data$run_time) > 60 * 60 * 3 ~ "hours",
+      # show minutes if max(run_time) > 3 M
+      max(plot_data$run_time) > 60 * 3 ~ "minutes",
+      # else show seconds
+      TRUE ~ "seconds")
+   plot_data$run_time_scaled <-
+    plot_data$run_time %>%
+    units::set_units(s) %>%
+    units::set_units(plot_units, mode = "standard") %>%
+    as.numeric()
+  ## plot labels
+  n_f <- unique(benchmark_results$number_features)[1]
+  plot_title =
+    paste0(
+      dplyr::case_when(
+        objective == "add_min_set_objective" ~ "Min. set",
+        objective == "add_min_shortfall_objective" ~ "Min. shortfall",
+        TRUE ~ objective),
+      ": ",
+      formatC(
+        n_f, big.mark = ",", digits = 2, format = "f",
+        drop0trailing = TRUE),
+      " features, ",
+      formatC(
+        n_pu, big.mark = ",", digits = 2, format = "f",
+        drop0trailing = TRUE),
+      " planning units")
+  if (bp > 1e-15) {
+    plot_title <- paste0(plot_title, ", ", bp, " boundary penalty")
+  }
+  ## determine colors for solvers (so that solvers always have same color
+  solver_names <- unique(benchmark_results$solver)
+  solver_colors <- scales::hue_pal()(length(solver_names))
+  names(solver_colors) <- solver_names
+
+  # return plot for selected benchmark runs
+  ggplot(
+    data = plot_data,
+    mapping = aes(x = relative_target, y = run_time_scaled, color = solver)) +
+  scale_y_continuous(limits = c(0, NA_real_)) +
+  geom_line() +
+  geom_point() +
+  scale_color_manual(values = solver_colors) +
+  labs(
+    title = plot_title,
+    x = "Representation target (%)",
+    y = paste0("Run time (", plot_units, ")"))
 }
-
 ```
 
 # Results
-
 
 We can now inspect the benchmark results. The `benchmark_results` table contains information for each benchmark run (e.g. run time), and the `solution_raster_data` contains the solutions generated for each benchmark run.
 
@@ -101,534 +172,317 @@ We can now inspect the benchmark results. The `benchmark_results` table contains
 print(benchmark_results)
 ```
 
-
-  
 Lets now generate a plot that shows average run times per solver. You can see
-that average run times for CBC, CPLEX and Gurobi are consistently low and 
-don't differ much from each other. lpsymphony and Rsymphony, which both use 
+that average run times for CBC, CPLEX and Gurobi are consistently low and
+don't differ much from each other. lpsymphony and Rsymphony, which both use
 the SYMPHONY solver, take longer on average and with more complex problems,
 the time difference between them and the other solvers is substantial.
 
 ```{r "plot average run times"}
-# make plot
-p0 <-
-  ggplot(benchmark_results, aes(x = solver, y = run_time)) +
-  geom_boxplot()
-
-# render plot
-print(p0)
+# plot overall summary of solver performance
+ggplot(
+  data =
+    benchmark_results %>%
+    mutate(
+      run_time_scaled = as.numeric(set_units(set_units(
+        run_time, "seconds"), "hours"))),
+  aes(x = solver, y = run_time_scaled)) +
+geom_boxplot() +
+theme(axis.text.x = element_text(size = 7)) +
+labs(x = "Solver", y = "Run time (hours)")
 ```
-  
-## Minimum set benchmark results
 
-Now, lets investigate the solver behavior in more detail.
-Let's start with the smallest problem size we've benchmarked.  
-All benchmark scenarios have 72 features.  
-This problem has only `r planning_units[1]` planning units. 
-You can see that all solvers solve the problem in a comparable amount of time
-across all targets investigated. Only the CBC solver takes a little bit longer
-then the other ones for the 10% target scenario, but the difference in seconds
-is really only ~0.6. 
+## Minimum set results (no boundary penalty)
+
+Now, lets investigate the solver behavior in more detail. Let's start with the smallest problem size we've benchmarked. **Maybe insert sentence about not looking at boundary penalties somewhere here?.** All benchmark scenarios have 72 features. This problem has only `r n_planning_units[1]` planning units. You can see that all solvers solve the problem in a comparable amount of time across all targets investigated. Only the CBC solver takes a little bit longer then the other ones for the 10% target scenario, but the difference in seconds is really only ~0.6.
 
 ```{r "time for pu's 1"}
-# make plot
-p1 <- benchmark_plot(pus = planning_units[1],
-                     bp = boundary_penalty[1],
-                     obj = "add_min_set_objective",
-                     sol = all_solvers,
-                     txt = "Minimum set problem,")
-
-# render plot
-print(p1)
+plot_benchmark(
+  objective = "add_min_set_objective",
+  n_pu = n_planning_units[1],
+  boundary_penalty = 0)
 ```
-  
-Next, lets look at the results for a more realistic problem with 
-`r planning_units[2]` planning units and see how the timing of the different solvers used
-compares.
+
+Next, lets look at the results for a more realistic problem with `r n_planning_units[2]` planning units and see how the timing of the different solvers used compares.
 
 ```{r "time for pu's 2"}
-# make plot
-p2 <- benchmark_plot(pus = planning_units[2],
-                     bp = boundary_penalty[1],
-                     obj = "add_min_set_objective",
-                     sol = all_solvers,
-                     txt = "Minimum set problem,")
-                     
-
-# render plot
-print(p2)
+plot_benchmark(
+  objective = "add_min_set_objective",
+  n_pu = n_planning_units[2],
+  boundary_penalty = 0)
 ```
-  
-Next, we will look at a medium sized problem with `r planning_units[3]` planning units. Now
-we really start to see the difference between SYMPHONY and the other solvers. 
+
+Next, we will look at a medium sized problem with `r n_planning_units[3]` planning units. Now we really start to see the difference between SYMPHONY and the other solvers.
 
 ```{r "time for pu's 3"}
-# make plot
-p3 <- benchmark_plot(pus = planning_units[3],
-                     bp = boundary_penalty[1],
-                     obj = "add_min_set_objective",
-                     sol = all_solvers,
-                     txt = "Minimum set problem,")                     
-
-# render plot
-print(p3)
+plot_benchmark(
+  objective = "add_min_set_objective",
+  n_pu = n_planning_units[3],
+  boundary_penalty = 0)
 ```
-  
-Finally, lets look at timing comparisons for a large problem with `r planning_units[4]` 
-planning units. The SYMPHONY solver is really struggling to find solutions now.
+
+Finally, lets look at timing comparisons for a large problem with `r n_planning_units[4]` planning units. The SYMPHONY solver is really struggling to find solutions now.
 
 ```{r "time for pu's 4"}
-# make plot
-p4 <- benchmark_plot(pus = planning_units[4],
-                     bp = boundary_penalty[1],
-                     obj = "add_min_set_objective",
-                     sol = all_solvers,
-                     txt = "Minimum set problem,")                     
-
-# render plot
-print(p4)
+plot_benchmark(
+  objective = "add_min_set_objective",
+  n_pu = n_planning_units[4],
+  boundary_penalty = 0)
 ```
-  
-To get a better sense of how the faster solvers (CBC, CPLEX, Gurobi) compare for
-this problem size, lets just look at those 3 solvers in the next plot.
+
+To get a better sense of how the faster solvers (i.e. CBC, CPLEX, Gurobi) compare for this problem size, lets just look at those 3 solvers in the next plot.
 
 ```{r "time for pu's 4 fast only"}
-# make plot
-p5 <- benchmark_plot(pus = planning_units[4],
-                     bp = boundary_penalty[1],
-                     obj = "add_min_set_objective",
-                     sol = c("add_cbc_solver", "add_cplex_solver", 
-                             "add_gurobi_solver"),
-                     txt = "Minimum set problem,") 
-
-# render plot
-print(p5)
+plot_benchmark(
+  objective = "add_min_set_objective",
+  n_pu = n_planning_units[4],
+  boundary_penalty = 0,
+  solver = c("add_cbc_solver", "add_cplex_solver", "add_gurobi_solver"))
 ```
 
 
-## Minimum set benchmark results including low boundary penalty
+## Minimum set results with low boundary penalty
 
-Now lets at the same problem types, but this time with a `boundary_penalty` 
-parameter added to the problem formulation.
-  
-Let's start again with the smallest problem size we've benchmarked.  
-This problem has only `r planning_units[1]` planning units. 
+Now lets at the same problem types, but this time with a `boundary_penalty` parameter added to the problem formulation. Let's start again with the smallest problem size we've benchmarked. This problem has only `r n_planning_units[1]` planning units.
 
-```{r "time for pu's 1 and boundary penalty"}
-# make plot
-p6 <- benchmark_plot(pus = planning_units[1],
-                     bp = boundary_penalty[2],
-                     obj = "add_min_set_objective",
-                     sol = all_solvers,
-                     txt = "Minimum set problem,") 
-
-# render plot
-print(p6)
+```{r "time for pu's 1 with low boundary penalty"}
+plot_benchmark(
+  objective = "add_min_set_objective",
+  n_pu = n_planning_units[1],
+  boundary_penalty = boundary_penalty_values$add_min_set_objective[2])
 ```
-  
-Next, lets look at the results for a more realistic problem with 
-`r planning_units[2]` planning units and see how the timing of the different solvers used
-compares.
 
-```{r "time for pu's 2 and boundary penalty"}
-# make plot
-p7 <- benchmark_plot(pus = planning_units[2],
-                     bp = boundary_penalty[2],
-                     obj = "add_min_set_objective",
-                     sol = all_solvers,
-                     txt = "Minimum set problem,") 
+Next, lets look at the results for a more realistic problem with `r n_planning_units[2]` planning units and see how the timing of the different solvers used compares.
 
-# render plot
-print(p7)
+```{r "time for pu's 2 with low boundary penalty"}
+plot_benchmark(
+  objective = "add_min_set_objective",
+  n_pu = n_planning_units[2],
+  boundary_penalty = boundary_penalty_values$add_min_set_objective[2])
 ```
-  
-Next, we will look at a medium sized problem with `r planning_units[3]` planning units. Now
-we really start to see the difference between SYMPHONY and the other solvers.
 
-```{r "time for pu's 3 and boundary penalty"}
-# make plot
-p8 <- benchmark_plot(pus = planning_units[3],
-                     bp = boundary_penalty[2],
-                     obj = "add_min_set_objective",
-                     sol = all_solvers,
-                     txt = "Minimum set problem,") 
+Next, we will look at a medium sized problem with `r n_planning_units[3]` planning units. Now we really start to see the difference between SYMPHONY and the other solvers.
 
-# render plot
-print(p8)
+```{r "time for pu's 3 with low boundary penalty"}
+plot_benchmark(
+  objective = "add_min_set_objective",
+  n_pu = n_planning_units[3],
+  boundary_penalty = boundary_penalty_values$add_min_set_objective[3])
 ```
-  
-Finally, lets look at timing comparisons for a large problem with `r planning_units[4]` 
-planning units. You can see that the benchmark times vary greatly for the 
-SYMPHONY solver.
 
-```{r "time for pu's 4 and boundary penalty"}
-# make plot
-p9 <- benchmark_plot(pus = planning_units[4],
-                     bp = boundary_penalty[2],
-                     obj = "add_min_set_objective",
-                     sol = all_solvers,
-                     txt = "Minimum set problem,") 
+Finally, lets look at timing comparisons for a large problem with `r n_planning_units[4]` planning units. You can see that the benchmark times vary greatly for the SYMPHONY solver.
 
-# render plot
-print(p9)
+```{r "time for pu's 4 with low boundary penalty"}
+plot_benchmark(
+  objective = "add_min_set_objective",
+  n_pu = n_planning_units[4],
+  boundary_penalty = boundary_penalty_values$add_min_set_objective[2])
 ```
-   
-To get a better sense of how the more consistent solvers (CBC, CPLEX, Gurobi) 
-compare for this problem size, lets just look at those 3 solvers in the next 
+
+To get a better sense of how the more consistent solvers (i.e. CBC, CPLEX, Gurobi) compare for this problem size, lets just look at those 3 solvers in the next plot.
+
+```{r "time for pu's 4 with low boundary penalty, fast solvers"}
+plot_benchmark(
+  objective = "add_min_set_objective",
+  n_pu = n_planning_units[4],
+  boundary_penalty = boundary_penalty_values$add_min_set_objective[2],
+  solver = c("add_cbc_solver", "add_cplex_solver", "add_gurobi_solver"))
+```
+
+## Minimum set results with high boundary penalty
+
+Now lets look at the same problem types, but this time with a higher boundary_penalty parameter added to the problem formulation. Let's start again with the smallest problem size we've benchmarked. This problem has only `r n_planning_units[1]` planning units.
+
+```{r "time for pu's 1 with high boundary penalty"}
+plot_benchmark(
+  objective = "add_min_set_objective",
+  n_pu = n_planning_units[1],
+  boundary_penalty = boundary_penalty_values$add_min_set_objective[3])
+```
+
+Next, lets look at the results for a more realistic problem with `r n_planning_units[2]` planning units and see how the timing of the different solvers used compares.
+
+```{r "time for pu's 2 with high boundary penalty"}
+plot_benchmark(
+  objective = "add_min_set_objective",
+  n_pu = n_planning_units[2],
+  boundary_penalty = boundary_penalty_values$add_min_set_objective[3])
+```
+
+Next, we will look at a medium sized problem with `r n_planning_units[3]` planning units. Now we really start to see the difference between SYMPHONY and the other solvers.
+
+```{r "time for pu's 3 with high boundary penalty"}
+plot_benchmark(
+  objective = "add_min_set_objective",
+  n_pu = n_planning_units[3],
+  boundary_penalty = boundary_penalty_values$add_min_set_objective[3])
+```
+
+Finally, lets look at timing comparisons for a large problem with `r n_planning_units[4]` planning units. You can see that the benchmark times vary greatly for the SYMPHONY solver.
+
+```{r "time for pu's 4 with high boundary penalty"}
+plot_benchmark(
+  objective = "add_min_set_objective",
+  n_pu = n_planning_units[4],
+  boundary_penalty = boundary_penalty_values$add_min_set_objective[3])
+```
+
+To get a better sense of how the more consistent solvers (CBC, CPLEX, Gurobi)
+compare for this problem size, lets just look at those 3 solvers in the next
 plot.
 
-```{r "time for pu's 4 and boundary penalty fast"}
-# make plot
-p10 <- benchmark_plot(pus = planning_units[4],
-                     bp = boundary_penalty[2],
-                     obj = "add_min_set_objective",
-                     sol = c("add_cbc_solver", "add_cplex_solver", 
-                             "add_gurobi_solver"),
-                     txt = "Minimum set problem,") 
-
-# render plot
-print(p10)
+```{r "time for pu's 4 with high boundary penalty, fast solvers"}
+plot_benchmark(
+  objective = "add_min_set_objective",
+  n_pu = n_planning_units[4],
+  boundary_penalty = boundary_penalty_values$add_min_set_objective[3],
+  solver = c("add_cbc_solver", "add_cplex_solver", "add_gurobi_solver"))
 ```
 
-## Minimum set benchmark results including high boundary penalty
+## Minimize shortfall results (no boundary penalty)
 
-Now lets look at the same problem types, but this time with a higher
-`boundary_penalty` parameter added to the problem formulation.
-  
-Let's start again with the smallest problem size we've benchmarked.  
-This problem has only `r planning_units[1]` planning units. 
-
-```{r "time for pu's 1 and boundary penalty high"}
-# make plot
-p11 <- benchmark_plot(pus = planning_units[1],
-                     bp = boundary_penalty[3],
-                     obj = "add_min_set_objective",
-                     sol = all_solvers,
-                     txt = "Minimum set problem,") 
-
-# render plot
-print(p11)
-```
-  
-Next, lets look at the results for a more realistic problem with 
-`r planning_units[2]` planning units and see how the timing of the different solvers used
-compares.
-
-```{r "time for pu's 2 and boundary penalty high"}
-# make plot
-p12 <- benchmark_plot(pus = planning_units[2],
-                     bp = boundary_penalty[3],
-                     obj = "add_min_set_objective",
-                     sol = all_solvers,
-                     txt = "Minimum set problem,") 
-
-# render plot
-print(p12)
-```
-  
-Next, we will look at a medium sized problem with `r planning_units[3]` planning units. Now
-we really start to see the difference between SYMPHONY and the other solvers.
-
-```{r "time for pu's 3 and boundary penalty high"}
-# make plot
-p13 <- benchmark_plot(pus = planning_units[3],
-                     bp = boundary_penalty[3],
-                     obj = "add_min_set_objective",
-                     sol = all_solvers,
-                     txt = "Minimum set problem,") 
-
-# render plot
-print(p13)
-```
-  
-Finally, lets look at timing comparisons for a large problem with `r planning_units[4]` 
-planning units. You can see that the benchmark times vary greatly for the 
-SYMPHONY solver.
-
-```{r "time for pu's 4 and boundary penalty high"}
-# make plot
-p14 <- benchmark_plot(pus = planning_units[4],
-                     bp = boundary_penalty[3],
-                     obj = "add_min_set_objective",
-                     sol = all_solvers,
-                     txt = "Minimum set problem,") 
-
-# render plot
-print(p14)
-```
-   
-To get a better sense of how the more consistent solvers (CBC, CPLEX, Gurobi) 
-compare for this problem size, lets just look at those 3 solvers in the next 
-plot.
-
-```{r "time for pu's 4 and boundary penalty high fast"}
-# make plot
-p15 <- benchmark_plot(pus = planning_units[4],
-                     bp = boundary_penalty[3],
-                     obj = "add_min_set_objective",
-                     sol = c("add_cbc_solver", "add_cplex_solver", 
-                             "add_gurobi_solver"),
-                     txt = "Minimum set problem,") 
-
-# render plot
-print(p15)
-```
-
-
-
-  
-## Minimize shortfall benchmark results
-
-Now, lets investigate the solver behavior in more detail.
-Let's start with the smallest problem size we've benchmarked.  
-All benchmark scenarios have 72 features.  
-This problem has only `r planning_units[1]` planning units. 
-You can see that all solvers solve the problem in a comparable amount of time
-across all targets investigated. Only the CBC solver takes a little bit longer
-then the other ones for the 10% target scenario, but the difference in seconds
-is really only ~0.6. 
+Now, lets investigate the solver behavior in more detail. Let's start with the smallest problem size we've benchmarked. All benchmark scenarios have 72 features. This problem has only `r n_planning_units[1]` planning units. You can see that all solvers solve the problem in a comparable amount of time across all targets investigated. Only the CBC solver takes a little bit longer then the other ones for the 10% target scenario, but the difference in seconds is really only approximately 0.6.
 
 ```{r "min_short time for pu's 1"}
-# make plot
-p16 <- benchmark_plot(pus = planning_units[1],
-                     bp = boundary_penalty[1],
-                     obj = "add_min_shortfall_objective",
-                     sol = all_solvers,
-                     txt = "Minimize shortfall objective,")
-
-# render plot
-print(p16)
+plot_benchmark(
+  objective = "add_min_shortfall_objective",
+  n_pu = n_planning_units[1],
+  boundary_penalty = 0)
 ```
-  
-Next, lets look at the results for a more realistic problem with 
-`r planning_units[2]` planning units and see how the timing of the different solvers used
-compares.
+
+Next, lets look at the results for a more realistic problem with `r n_planning_units[2]` planning units and see how the timing of the different solvers used compares.
 
 ```{r "min_short time for pu's 2"}
-# make plot
-p17 <- benchmark_plot(pus = planning_units[2],
-                     bp = boundary_penalty[1],
-                     obj = "add_min_shortfall_objective",
-                     sol = all_solvers,
-                     txt = "Minimize shortfall objective,")
-                     
-
-# render plot
-print(p17)
+plot_benchmark(
+  objective = "add_min_shortfall_objective",
+  n_pu = n_planning_units[2],
+  boundary_penalty = 0)
 ```
-  
-Next, we will look at a medium sized problem with `r planning_units[3]` planning units. Now
-we really start to see the difference between SYMPHONY and the other solvers. 
+
+Next, we will look at a medium sized problem with `r n_planning_units[3]` planning units. Now we really start to see the difference between SYMPHONY and the other solvers.
 
 ```{r "min_short time for pu's 3"}
-# make plot
-p18 <- benchmark_plot(pus = planning_units[3],
-                     bp = boundary_penalty[1],
-                     obj = "add_min_shortfall_objective",
-                     sol = all_solvers,
-                     txt = "Minimize shortfall objective,")                     
-
-# render plot
-print(p18)
+plot_benchmark(
+  objective = "add_min_shortfall_objective",
+  n_pu = n_planning_units[3],
+  boundary_penalty = 0)
 ```
-  
-Finally, lets look at timing comparisons for a large problem with `r planning_units[4]` 
-planning units. The SYMPHONY solver is really struggling to find solutions now.
+
+Finally, lets look at timing comparisons for a large problem with `r n_planning_units[4]` planning units. The SYMPHONY solver is really struggling to find solutions now.
 
 ```{r "min_short time for pu's 4"}
-# make plot
-p19 <- benchmark_plot(pus = planning_units[4],
-                     bp = boundary_penalty[1],
-                     obj = "add_min_shortfall_objective",
-                     sol = all_solvers,
-                     txt = "Minimize shortfall objective,")                     
-
-# render plot
-print(p19)
+plot_benchmark(
+  objective = "add_min_shortfall_objective",
+  n_pu = n_planning_units[4],
+  boundary_penalty = 0)
 ```
-  
+
 To get a better sense of how the faster solvers (CBC, CPLEX, Gurobi) compare for
 this problem size, lets just look at those 3 solvers in the next plot.
 
 ```{r "min_short time for pu's 4 fast only"}
-# make plot
-p20 <- benchmark_plot(pus = planning_units[4],
-                     bp = boundary_penalty[1],
-                     obj = "add_min_shortfall_objective",
-                     sol = c("add_cbc_solver", "add_cplex_solver", 
-                             "add_gurobi_solver"),
-                     txt = "Minimize shortfall objective,") 
-
-# render plot
-print(p20)
+plot_benchmark(
+  objective = "add_min_shortfall_objective",
+  n_pu = n_planning_units[4],
+  boundary_penalty = 0,
+  solver = c("add_cbc_solver", "add_cplex_solver", "add_gurobi_solver"))
 ```
 
+## Minimize shortfall results with low boundary penalty
 
-## Minimize shortfall benchmark results including low boundary penalty
+Now lets at the same problem types, but this time with a `boundary_penalty`
+parameter added to the problem formulation. Let's start again with the smallest problem size we've benchmarked. This problem has only `r n_planning_units[1]` planning units.
 
-Now lets at the same problem types, but this time with a `boundary_penalty` 
-parameter added to the problem formulation.
-  
-Let's start again with the smallest problem size we've benchmarked.  
-This problem has only `r planning_units[1]` planning units. 
-
-```{r "min_short time for pu's 1 and boundary penalty"}
-# make plot
-p21 <- benchmark_plot(pus = planning_units[1],
-                     bp = boundary_penalty[4],
-                     obj = "add_min_shortfall_objective",
-                     sol = all_solvers,
-                     txt = "Minimize shortfall objective,") 
-
-# render plot
-print(p21)
+```{r "min_short time for pu's 1 with low boundary penalty"}
+plot_benchmark(
+  objective = "add_min_shortfall_objective",
+  n_pu = n_planning_units[1],
+  boundary_penalty = boundary_penalty_values$add_min_shortfall_objective[2])
 ```
-  
-Next, lets look at the results for a more realistic problem with 
-`r planning_units[2]` planning units and see how the timing of the different solvers used
-compares.
 
-```{r "min_short time for pu's 2 and boundary penalty"}
-# make plot
-p22 <- benchmark_plot(pus = planning_units[2],
-                     bp = boundary_penalty[4],
-                     obj = "add_min_shortfall_objective",
-                     sol = all_solvers,
-                     txt = "Minimize shortfall objective,") 
+Next, lets look at the results for a more realistic problem with `r n_planning_units[2]` planning units and see how the timing of the different solvers used compares.
 
-# render plot
-print(p22)
+```{r "min_short time for pu's 2 with low boundary penalty"}
+plot_benchmark(
+  objective = "add_min_shortfall_objective",
+  n_pu = n_planning_units[2],
+  boundary_penalty = boundary_penalty_values$add_min_shortfall_objective[2])
 ```
-  
-Next, we will look at a medium sized problem with `r planning_units[3]` planning units. Now
-we really start to see the difference between SYMPHONY and the other solvers.
 
-```{r "min_short time for pu's 3 and boundary penalty"}
-# make plot
-p23 <- benchmark_plot(pus = planning_units[3],
-                     bp = boundary_penalty[4],
-                     obj = "add_min_shortfall_objective",
-                     sol = all_solvers,
-                     txt = "Minimize shortfall objective,") 
+Next, we will look at a medium sized problem with `r n_planning_units[3]` planning units. Now we really start to see the difference between SYMPHONY and the other solvers.
 
-# render plot
-print(p23)
+```{r "min_short time for pu's 3 with low boundary penalty"}
+plot_benchmark(
+  objective = "add_min_shortfall_objective",
+  n_pu = n_planning_units[3],
+  boundary_penalty = boundary_penalty_values$add_min_shortfall_objective[2])
 ```
-  
-Finally, lets look at timing comparisons for a large problem with `r planning_units[4]` 
-planning units. You can see that the benchmark times vary greatly for the 
-SYMPHONY solver.
 
-```{r "min_short time for pu's 4 and boundary penalty"}
-# make plot
-p24 <- benchmark_plot(pus = planning_units[4],
-                     bp = boundary_penalty[4],
-                     obj = "add_min_shortfall_objective",
-                     sol = all_solvers,
-                     txt = "Minimize shortfall objective,") 
+Finally, lets look at timing comparisons for a large problem with `r n_planning_units[4]` planning units. You can see that the benchmark times vary greatly for the SYMPHONY solver.
 
-# render plot
-print(p24)
+```{r "min_short time for pu's 4 and low boundary penalty"}
+plot_benchmark(
+  objective = "add_min_shortfall_objective",
+  n_pu = n_planning_units[4],
+  boundary_penalty = boundary_penalty_values$add_min_shortfall_objective[2])
 ```
-   
-To get a better sense of how the more consistent solvers (CBC, CPLEX, Gurobi) 
-compare for this problem size, lets just look at those 3 solvers in the next 
-plot.
+
+To get a better sense of how the more consistent solvers (i.e. CBC, CPLEX, Gurobi) compare for this problem size, lets just look at those 3 solvers in the next plot.
 
 ```{r "min_short time for pu's 4 and boundary penalty fast"}
-# make plot
-p25 <- benchmark_plot(pus = planning_units[4],
-                     bp = boundary_penalty[4],
-                     obj = "add_min_shortfall_objective",
-                     sol = c("add_cbc_solver", "add_cplex_solver", 
-                             "add_gurobi_solver"),
-                     txt = "Minimize shortfall objective,") 
-
-# render plot
-print(p25)
+plot_benchmark(
+  objective = "add_min_shortfall_objective",
+  n_pu = n_planning_units[4],
+  boundary_penalty = boundary_penalty_values$add_min_shortfall_objective[2],
+  solver = c("add_cbc_solver", "add_cplex_solver", "add_gurobi_solver"))
 ```
 
-## Minimize shortfall benchmark results including high boundary penalty
+## Minimize shortfall results with high boundary penalty
 
-Now lets look at the same problem types, but this time with a higher
-`boundary_penalty` parameter added to the problem formulation.
-  
-Let's start again with the smallest problem size we've benchmarked.  
-This problem has only `r planning_units[1]` planning units. 
+Now lets look at the same problem types, but this time with a higher `boundary_penalty` parameter added to the problem formulation.
 
-```{r "min_short time for pu's 1 and boundary penalty high"}
-# make plot
-p26 <- benchmark_plot(pus = planning_units[1],
-                     bp = boundary_penalty[5],
-                     obj = "add_min_shortfall_objective",
-                     sol = all_solvers,
-                     txt = "Minimize shortfall objective,") 
+Let's start again with the smallest problem size we've benchmarked. This problem has only `r n_planning_units[1]` planning units.
 
-# render plot
-print(p26)
-```
-  
-Next, lets look at the results for a more realistic problem with 
-`r planning_units[2]` planning units and see how the timing of the different solvers used
-compares.
-
-```{r "min_short time for pu's 2 and boundary penalty high"}
-# make plot
-p27 <- benchmark_plot(pus = planning_units[2],
-                     bp = boundary_penalty[5],
-                     obj = "add_min_shortfall_objective",
-                     sol = all_solvers,
-                     txt = "Minimize shortfall objective,") 
-
-# render plot
-print(p27)
-```
-  
-Next, we will look at a medium sized problem with `r planning_units[3]` planning units. Now
-we really start to see the difference between SYMPHONY and the other solvers.
-
-```{r "min_short time for pu's 3 and boundary penalty high"}
-# make plot
-p28 <- benchmark_plot(pus = planning_units[3],
-                     bp = boundary_penalty[5],
-                     obj = "add_min_shortfall_objective",
-                     sol = all_solvers,
-                     txt = "Minimize shortfall objective,") 
-
-# render plot
-print(p28)
-```
-  
-Finally, lets look at timing comparisons for a large problem with `r planning_units[4]` 
-planning units. You can see that the benchmark times vary greatly for the 
-SYMPHONY solver.
-
-```{r "min_short time for pu's 4 and boundary penalty high"}
-# make plot
-p29 <- benchmark_plot(pus = planning_units[4],
-                     bp = boundary_penalty[5],
-                     obj = "add_min_shortfall_objective",
-                     sol = all_solvers,
-                     txt = "Minimize shortfall objective,") 
-
-# render plot
-print(p29)
-```
-   
-To get a better sense of how the more consistent solvers (CBC, CPLEX, Gurobi) 
-compare for this problem size, lets just look at those 3 solvers in the next 
-plot.
-
-```{r "min_short time for pu's 4 and boundary penalty high fast"}
-# make plot
-p30 <- benchmark_plot(pus = planning_units[4],
-                     bp = boundary_penalty[5],
-                     obj = "add_min_shortfall_objective",
-                     sol = c("add_cbc_solver", "add_cplex_solver", 
-                             "add_gurobi_solver"),
-                     txt = "Minimize shortfall objective,") 
-
-# render plot
-print(p30)
+```{r "min_short time for pu's 1 with high boundary penalty"}
+plot_benchmark(
+  objective = "add_min_shortfall_objective",
+  n_pu = n_planning_units[1],
+  boundary_penalty = boundary_penalty_values$add_min_shortfall_objective[3])
 ```
 
+Next, lets look at the results for a more realistic problem with `r n_planning_units[2]` planning units and see how the timing of the different solvers used compares.
+
+```{r "min_short time for pu's 2 with boundary penalty"}
+plot_benchmark(
+  objective = "add_min_shortfall_objective",
+  n_pu = n_planning_units[2],
+  boundary_penalty = boundary_penalty_values$add_min_shortfall_objective[3])
+```
+
+Next, we will look at a medium sized problem with `r n_planning_units[3]` planning units. Now we really start to see the difference between SYMPHONY and the other solvers.
+
+```{r "min_short time for pu's 3 with high boundary penalty"}
+plot_benchmark(
+  objective = "add_min_shortfall_objective",
+  n_pu = n_planning_units[3],
+  boundary_penalty = boundary_penalty_values$add_min_shortfall_objective[3])
+```
+
+Finally, lets look at timing comparisons for a large problem with `r n_planning_units[4]` planning units. You can see that the benchmark times vary greatly for the SYMPHONY solver.
+
+```{r "min_short time for pu's 4 with high boundary penalty"}
+plot_benchmark(
+  objective = "add_min_shortfall_objective",
+  n_pu = n_planning_units[4],
+  boundary_penalty = boundary_penalty_values$add_min_shortfall_objective[3])
+```
+
+To get a better sense of how the more consistent solvers (i.e. CBC, CPLEX, Gurobi) compare for this problem size, lets just look at those 3 solvers in the next plot.
+
+```{r "min_short time for pu's 4 with high boundary penalty, fast solvers"}
+plot_benchmark(
+  objective = "add_min_shortfall_objective",
+  n_pu = n_planning_units[4],
+  boundary_penalty = boundary_penalty_values$add_min_shortfall_objective[3],
+  solver = c("add_cbc_solver", "add_cplex_solver", "add_gurobi_solver"))
+```
