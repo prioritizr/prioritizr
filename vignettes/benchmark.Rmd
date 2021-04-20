@@ -29,7 +29,11 @@ devtools::load_all()
 
 # Introduction
 
-TODO.
+The purpose of this vignette is to compare the different solvers we currently support in the _prioritizr_ R package, in terms of how long it takes them to solve problems of varying level of complexity. First, we test the most widely used objective function in systematic conservation planning to date, the [add_min_set](https://prioritizr.net/reference/add_min_set_objective.html) objective. Second, we test an objective function that adds a budget component to the problem, specifically the [add_min_shortfall](https://prioritizr.net/reference/add_min_shortfall_objective.html) objective.
+
+This vignette is meant to help users decide which solver to use, which can be an important consideration of using _prioritizr_, because two of the fast solvers than can be used are commercial (CPLEX, Gurobi). They are free to use for academic research and teaching, but users outside of academia might have to pay license fees to use them and have to way the pros and cons of doing so. The open source solvers _prioritizr_ currently supports are CBC and SYMPHONY.
+
+As you will see when going through this vignette, the open source CBC solver performs well for problems using the [add_min_set](https://prioritizr.net/reference/add_min_set_objective.html) objective function, especially when no penalties are included. Testing a more complex objective function ([add_min_shortfall](https://prioritizr.net/reference/add_min_shortfall_objective.html)) showed that the commercial solvers outperform the open source solvers, at times considerably.
 
 # Methods
 
@@ -161,6 +165,26 @@ plot_benchmark <- function(
     x = "Representation target (%)",
     y = paste0("Run time (", plot_units, ")"))
 }
+```
+
+## Benchmark parameters used
+
+Lets have a look at the parameters that were used in the benchmark scenarios. If you want to have a look at the benchmarking code and analysis, you can find the GitHub repository here: [benchmark repo](https://github.com/prioritizr/benchmark).
+
+```{r "benchmark parameters"}
+# number of features
+unique(benchmark_results$number_features)
+
+# targets tested
+unique(benchmark_results$relative_target)
+
+# number of planning units
+unique(benchmark_results$number_of_planning_units)
+
+# objective functions tested
+unique(benchmark_results$objective)
+
+
 ```
 
 # Results
