@@ -29,15 +29,9 @@ devtools::load_all()
 
 # Introduction
 
-The purpose of this vignette is to compare the different solvers we currently support in the _prioritizr_ R package, in terms of how long it takes them to solve problems of varying level of complexity. First, we test the most widely used objective function in systematic conservation planning to date, the [add_min_set](https://prioritizr.net/reference/add_min_set_objective.html) objective. Second, we test an objective function that adds a budget component to the problem, specifically the [add_min_shortfall](https://prioritizr.net/reference/add_min_shortfall_objective.html) objective.
+The purpose of this vignette is to characterize the performance of different solvers that are currently supported by the _prioritizr_ R package. It is intended to help users understand the size (e.g. number of planning units) and complexity (e.g. adding boundary length penalties to reduce spatial fragmentation) of conservation planning problems that different solvers can tackle. Additionally, since the two fastest solvers are based on commercial software (i.e. _IBM CPLEX_ and _Gurobi_), it is also intended to help users decide if the potential benefits of purchasing a license for one of these solvers are worthwhile. **Note that special academic licenses are available for these _IBM CPLEX_ and _Gurobi_ at no cost.** Although the solvers based on open source software (i.e. _SYMPHONY_ and _CBC_) may not be as fast as the solvers based on commercial software (i.e. _IBM CPLEX_ and _Gurobi_), they may still be useful depending on the size and complexity of the conservation planning problem. Indeed -- as you will see when reading through this vignette -- the _CBC_ software performs relatively well for certain types of conservation planning problems.
 
-This vignette is meant to help users decide which solver to use, which can be an important consideration of using _prioritizr_, because two of the fast solvers than can be used are commercial (CPLEX, Gurobi). They are free to use for academic research and teaching, but users outside of academia might have to pay license fees to use them and have to way the pros and cons of doing so. The open source solvers _prioritizr_ currently supports are CBC and SYMPHONY.
-
-As you will see when going through this vignette, the open source CBC solver performs well for problems using the [add_min_set](https://prioritizr.net/reference/add_min_set_objective.html) objective function, especially when no penalties are included. Testing a more complex objective function ([add_min_shortfall](https://prioritizr.net/reference/add_min_shortfall_objective.html)) showed that the commercial solvers outperform the open source solvers, at times considerably.
-
-# Methods
-
-To start off, we will load some packages to help download the benchmark results and visualize them.
+To start off, we will the load packages used in this vignette.
 
 ```{r "load packages", message = FALSE}
 # load packages
@@ -48,7 +42,13 @@ library(units)
 library(tidyverse)
 ```
 
-Next, download the benchmark results and load them into our session.
+# Methods
+
+This vignette will report the results of a benchmark analysis. To reduce computational burden, we previously completed the benchmark analysis ([code available online](https://github.com/prioritizr/benchmark)) and [uploaded the results to an online repository](https://github.com/prioritizr/benchmark/releases). This analysis involved generating prioritizations using different solvers and recording how long it took for the solvers to finish. To help understand the factors that influence how long it takes for solvers to generate a prioritization, we examined a suite of conservation planning problems with varying size (i.e. number of planning units), complexity (i.e. varying penalties to reduce spatial fragmentation), and with different objective functions (i.e. [metric used to evaluate competing solutions](https://prioritizr.net/reference/objectives.html)). In this section, we will download the results the previously completed benchmark analysis and examine the parameters used to conduct it.
+
+## Download benchmark results
+
+Let's download the results of the benchmark analysis. This code will save the results to a temporary folder on your computer. Please note that downloading the results might take several minutes to complete depending on your Internet connection. If you are unable to download the results onto your computer, you can simply view the graphs shown in the Results section.
 
 ```{r "import results", message = FALSE}
 # download data to temporary folder
@@ -67,7 +67,44 @@ solution_paths <-
 solution_raster_data <- lapply(solution_paths, raster)
 ```
 
-Now we will define some helper variables to store information on the different benchmark runs. We will also define a helper function to quickly plot the results from the benchmark analysis.
+## Benchmark parameters
+
+After downloading the benchmark results, let's have a look at the parameters that were used to conduct it. Note that all benchmark scenarios have 72 features.
+
+```{r "benchmark parameters"}
+# number of features (e.g. number of different species examined)
+unique(benchmark_results$number_features)
+
+# representation targets,
+# units are proportion of the total amount of each feature (e.g. 0.1 = 10%)
+unique(benchmark_results$relative_target)
+
+# number of planning units
+unique(benchmark_results$number_of_planning_units)
+
+# objective functions
+unique(benchmark_results$objective)
+
+# boundary penalty values,
+# note that different values were examined for different objective functions
+
+## boundary penalty values for min set objective function
+boundary_penalty_values$add_min_set_objective
+
+## boundary penalty values for min shortfall objective function
+boundary_penalty_values$add_min_shortfall_objective
+
+# budgets examined for budget-limited objectives (e.g. 0.1 = 10% of total cost)
+## note that the min set objective function does not use a budget,
+## and thus it has a NA value
+tibble(objective = unique(benchmark_results$objective),
+       budget = unique(benchmark_results$budget))
+
+```
+
+## Helper functions
+
+Now we will define some helper variables to store information on the different benchmark runs. We will also define a helper function to plot the results from the benchmark analysis. This will be helpful for interpreting the results of the benchmark analysis in the following section.
 
 ```{r "preliminary calculations", message = FALSE}
 # extract different numbers of planning units examined the benchmark analysis
@@ -165,46 +202,16 @@ plot_benchmark <- function(
 }
 ```
 
-## Benchmark parameters used
-
-Lets have a look at the parameters that were used in the benchmark scenarios. If you want to explore the full benchmarking code and analysis, you can find the GitHub repository here: [benchmark repo](https://github.com/prioritizr/benchmark).
-
-```{r "benchmark parameters"}
-# number of features
-unique(benchmark_results$number_features)
-
-# targets tested
-unique(benchmark_results$relative_target)
-
-# number of planning units
-unique(benchmark_results$number_of_planning_units)
-
-# objective functions tested
-unique(benchmark_results$objective)
-
-# boundary penalty values for min set
-boundary_penalty_values$add_min_set_objective
-
-# boundary penalty values for min shortfall
-boundary_penalty_values$add_min_shortfall_objective
-
-# budget for budget-limited objectives (0.1 = 10% of total cost)
-tibble(objective = unique(benchmark_results$objective),
-       budget = unique(benchmark_results$budget))
-
-```
-
 # Results
 
-We can now inspect the benchmark results. The `benchmark_results` table contains information for each benchmark run (e.g. run time), and the `solution_raster_data` contains the solutions generated for each benchmark run.
+We will now inspect the results of the benchmark analysis. The `benchmark_results` object is a table (i.e. `tibble()`) containing information for each benchmark run (e.g. run time), and the `solution_raster_data` object (i.e. `RasterStack`) contains the prioritizations generated for each benchmark run.
 
 ```{r "preview results"}
 # preview results
 print(benchmark_results)
 ```
 
-Lets now generate a plot that shows average run times per solver. You can see that average run times for CPLEX and Gurobi are consistently low and don't differ much from each other. CBC run times are generally low, but there are some cases where run time is significantly longer than for CPLEX and Gurobi. lpsymphony and Rsymphony, which both use
-the SYMPHONY solver, take longer on average and with more complex problems, the time difference between them and the other solvers is substantial.
+let's examine the average run time for each solver across all benchmark runs. To achieve this, we will create a box plot. Since we ideally want solvers that generate prioritizations quickly, solvers that have shorter (lower) run times are considered better. When looking at this box plot, we can see that average run times for the _CPLEX_ and _Gurobi_ solvers are consistently low and don't differ much from each other. Additionally, the run times for the open source _CBC_ solver are generally low too. However, there are some cases where the run times for the _CBC_ solver are much higher than that for the _CPLEX_ and _Gurobi_ solvers. We can also see that the _lpsymphony_ and _Rsymphony_ solvers -- which both use the open source _SYMPHONY_ software -- generally take much longer to generate prioritizations than the other solvers.
 
 ```{r "plot average run times"}
 # plot overall summary of solver performance
@@ -220,9 +227,11 @@ theme(axis.text.x = element_text(size = 7)) +
 labs(x = "Solver", y = "Run time (hours)")
 ```
 
+Now, let's investigate the solver behavior in more detail. Specifically, we examine the benchmark results generated for the minimum set objective function. This is because the minimum set objective function is the most commonly used objective function in systematic conservation planning.
+
 ## Minimum set results (no boundary penalty)
 
-Now, lets investigate the solver behavior in more detail. Let's start with the smallest problem size we've benchmarked. This first set of comparisons is done without including penalties or constraints (e.g. boundary penalties). All benchmark scenarios have 72 features. This problem has only `r n_planning_units[1]` planning units. You can see that all solvers solve the problem in a comparable amount of time across all targets investigated. 
+Let's start with the results for the smallest and simplest conservation planning problems examined in the benchmark analysis. Here, all prioritizations were generated using problems that involved `r n_planning_units[1]` planning units and did not contain any boundary length penalties. Since all benchmark scenarios have 72 features -- as mentioned earlier -- all of these prioritizations were generated with 72 features. When looking at the results, we can see that all solvers solve the problem in a comparable amount of time across all targets investigated.
 
 ```{r "time for pu's 1"}
 plot_benchmark(
@@ -231,7 +240,7 @@ plot_benchmark(
   boundary_penalty = 0)
 ```
 
-Next, lets look at the results for a more realistic problem with `r n_planning_units[2]` planning units and see how the timing of the different solvers used compares.
+Next, let's look at the results for a more realistic problem involving `r n_planning_units[2]` planning units and see how the timing of the different solvers used compares. Note that all other factors (e.g. absence of boundary length penalties) are the same as for the previous graph.
 
 ```{r "time for pu's 2"}
 plot_benchmark(
@@ -240,7 +249,7 @@ plot_benchmark(
   boundary_penalty = 0)
 ```
 
-Next, we will look at a medium sized problem with `r n_planning_units[3]` planning units. Now we really start to see the difference between SYMPHONY and the other solvers.
+Next, we will look at a medium sized problem with `r n_planning_units[3]` planning units. Now we really start to see the difference between the _Rsymphony_ and _lpsymphony_ solvers -- which use the _SYMPHONY_ software -- and the other solvers.
 
 ```{r "time for pu's 3"}
 plot_benchmark(
@@ -249,7 +258,7 @@ plot_benchmark(
   boundary_penalty = 0)
 ```
 
-Finally, lets look at timing comparisons for a large problem with `r n_planning_units[4]` planning units. The SYMPHONY solver is really struggling to find solutions now.
+Finally, let's look at timing comparisons for a large problem with `r n_planning_units[4]` planning units. We can see that both the _Rsymphony_ and _lpsymphony_ solvers are really taking a much longer time to generate prioritizations now.
 
 ```{r "time for pu's 4"}
 plot_benchmark(
@@ -258,7 +267,7 @@ plot_benchmark(
   boundary_penalty = 0)
 ```
 
-To get a better sense of how the faster solvers (i.e. CBC, CPLEX, Gurobi) compare for this problem size, lets just look at those 3 solvers in the next plot. The open source CBC solver is considerably faster than the commercial CPLEX and Gurobi solvers for this scenario.
+To get a better sense of how the faster solvers (i.e. based on _CBC_, _IBM CPLEX_, _Gurobi_) compare for such a large problem, let's take look a closer look at these three solvers. Interestingly, we can see that the solver based on the open source _CBC_ software is slightly faster -- by a few seconds -- than the other solvers.
 
 ```{r "time for pu's 4 fast only"}
 plot_benchmark(
@@ -271,7 +280,7 @@ plot_benchmark(
 
 ## Minimum set results with low boundary penalty
 
-Now lets at the same problem types, but this time with a `boundary_penalty` parameter added to the problem formulation. To start with, we will look at scenarios with a low `boundary_penalty` value of `r boundary_penalty_values$add_min_set_objective[2]`. Let's start again with the smallest problem size we've benchmarked. This problem has only `r n_planning_units[1]` planning units.
+Now let's at the same problem types, but this time with a low boundary length penalty value added to the problem formulation. To start with, we will look at scenarios with a low `boundary_penalty` value of `r boundary_penalty_values$add_min_set_objective[2]`. Let's start again with the smallest problem size we've benchmarked. This problem has only `r n_planning_units[1]` planning units.
 
 ```{r "time for pu's 1 with low boundary penalty"}
 plot_benchmark(
@@ -280,7 +289,7 @@ plot_benchmark(
   boundary_penalty = boundary_penalty_values$add_min_set_objective[2])
 ```
 
-Next, lets look at the results for a more realistic problem with `r n_planning_units[2]` planning units and see how the timing of the different solvers used compares.
+Next, let's look at the results for a more realistic problem with `r n_planning_units[2]` planning units and see how the timing of the different solvers used compares.
 
 ```{r "time for pu's 2 with low boundary penalty"}
 plot_benchmark(
@@ -289,7 +298,7 @@ plot_benchmark(
   boundary_penalty = boundary_penalty_values$add_min_set_objective[2])
 ```
 
-Next, we will look at a medium sized problem with `r n_planning_units[3]` planning units. Now we really start to see the difference between SYMPHONY and the other solvers.
+Next, we will look at a medium sized problem with `r n_planning_units[3]` planning units. Now we really start to see the difference between _lpsymphony_ and _Rsymphony_ solvers and the other solvers.
 
 ```{r "time for pu's 3 with low boundary penalty"}
 plot_benchmark(
@@ -298,7 +307,7 @@ plot_benchmark(
   boundary_penalty = boundary_penalty_values$add_min_set_objective[3])
 ```
 
-Finally, lets look at timing comparisons for a large problem with `r n_planning_units[4]` planning units. As with the scenario without boundary penalties, SYMPHONY takes a lot longer to find solutions than the other three solvers.
+Finally, let's look at timing comparisons for a large problem with `r n_planning_units[4]` planning units. As with the scenario without boundary penalties, _lpsymphony_ and _Rsymphony_ solvers take a lot longer to generate prioritizations than the other three solvers.
 
 ```{r "time for pu's 4 with low boundary penalty"}
 plot_benchmark(
@@ -307,7 +316,7 @@ plot_benchmark(
   boundary_penalty = boundary_penalty_values$add_min_set_objective[2])
 ```
 
-To get a better sense of how the more consistent solvers (i.e. CBC, CPLEX, Gurobi) compare for this problem size, lets just look at those 3 solvers in the next plot. Gurobi comes out on top, but overall CBC and CPLEX find solutions in a reasonable amount of time as well. This result does indicate though that with more complex problem formulations the commercial solvers, especially Gurobi, seem to gain the upper hand compared to open source solvers.
+Similar to earlier, let's take a look at just the _CBC_, _IBM CPLEX_, and _Gurobi_ solvers. We can see that the _Gurobi_ solver has the best performance, generating generating prioritizations in under half an hour in all cases. This result shows that the commercial solvers can massively outperform the open source solvers for large-scale problems with boundary length penalties.
 
 ```{r "time for pu's 4 with low boundary penalty, fast solvers"}
 plot_benchmark(
@@ -319,7 +328,7 @@ plot_benchmark(
 
 ## Minimum set results with high boundary penalty
 
-Now lets look at the same problem types, but this time with a higher boundary_penalty parameter added to the problem formulation (`r boundary_penalty_values$add_min_set_objective[3]`). Let's start again with the smallest problem size we've benchmarked. This problem has only `r n_planning_units[1]` planning units.
+Now let's look at the same problem types, but this time with a high boundary length penalty parameter added to the problem formulation (i.e. `r boundary_penalty_values$add_min_set_objective[3]`). Let's start again with the smallest problem size we've benchmarked. This problem has only `r n_planning_units[1]` planning units.
 
 ```{r "time for pu's 1 with high boundary penalty"}
 plot_benchmark(
@@ -328,7 +337,7 @@ plot_benchmark(
   boundary_penalty = boundary_penalty_values$add_min_set_objective[3])
 ```
 
-Next, lets look at the results for a more realistic problem with `r n_planning_units[2]` planning units and see how the timing of the different solvers used compares.
+Next, let's look at the results for a more realistic problem with `r n_planning_units[2]` planning units and see how the timing of the different solvers used compares.
 
 ```{r "time for pu's 2 with high boundary penalty"}
 plot_benchmark(
@@ -337,7 +346,7 @@ plot_benchmark(
   boundary_penalty = boundary_penalty_values$add_min_set_objective[3])
 ```
 
-Next, we will look at a medium sized problem with `r n_planning_units[3]` planning units. We again see the difference between SYMPHONY and the other solvers.
+Next, we will look at a medium sized problem with `r n_planning_units[3]` planning units. We again see the difference between _Rsymphony_ and _lpsymphony_ solvers and the other solvers.
 
 ```{r "time for pu's 3 with high boundary penalty"}
 plot_benchmark(
@@ -346,7 +355,7 @@ plot_benchmark(
   boundary_penalty = boundary_penalty_values$add_min_set_objective[3])
 ```
 
-Finally, lets look at timing comparisons for a large problem with `r n_planning_units[4]` planning units. As with the scenarios before, SYMPHONY takes a lot longer to find solutions than the other three solvers.
+Finally, let's look at timing comparisons for a large problem with `r n_planning_units[4]` planning units. As with the previous scenarios, _Rsymphony_ and _lpsymphony_ solvers take a lot longer to generate prioritizations than the other solvers.
 
 ```{r "time for pu's 4 with high boundary penalty"}
 plot_benchmark(
@@ -355,7 +364,7 @@ plot_benchmark(
   boundary_penalty = boundary_penalty_values$add_min_set_objective[3])
 ```
 
-To get a better sense of how the more consistent solvers (CBC, CPLEX, Gurobi) compare for this problem size, lets just look at those 3 solvers in the next plot.Gurobi comes out on top, similar to the scenarios with low boundary penalty, but again CBC and CPLEX find solutions in a reasonable amount of time as well. 
+Similar to before, let's take a look at just the _CBC_, _IBM CPLEX_, and _Gurobi_ solvers. We can see that _Gurobi_ has the best performance. This result further emphasizes the potential speed gains of commercial solvers for large-scale conservation planning problems with boundary penalties.
 
 ```{r "time for pu's 4 with high boundary penalty, fast solvers"}
 plot_benchmark(
@@ -367,7 +376,7 @@ plot_benchmark(
 
 ## Minimize shortfall results (no boundary penalty)
 
-Now, lets investigate the solver behavior in more detail for the min shortfall objective function. Let's start with the smallest problem size we've benchmarked. All benchmark scenarios have 72 features. This problem has only `r n_planning_units[1]` planning units. You can see that all solvers solve the problem in a comparable amount of time across all targets investigated. Only the CBC solver takes longer then the other ones.
+Now, let's investigate the solver behavior for the min shortfall objective function. Let's start with the smallest problem size we've benchmarked. All benchmark scenarios have 72 features. This problem has only `r n_planning_units[1]` planning units. You can see that all solvers solve the problem in a comparable amount of time across all targets investigated. Only the _CBC_ solver takes longer then the other ones.
 
 ```{r "min_short time for pu's 1"}
 plot_benchmark(
@@ -376,7 +385,7 @@ plot_benchmark(
   boundary_penalty = 0)
 ```
 
-Next, lets look at the results for a more realistic problem with `r n_planning_units[2]` planning units and see how the timing of the different solvers used compares. CBC takes longer than the other solvers again.
+Next, let's look at the results for a more realistic problem with `r n_planning_units[2]` planning units and see how the timing of the different solvers used compares. The _CBC_ solver takes longer than the other solvers again.
 
 ```{r "min_short time for pu's 2"}
 plot_benchmark(
@@ -385,7 +394,7 @@ plot_benchmark(
   boundary_penalty = 0)
 ```
 
-Next, we will look at a medium sized problem with `r n_planning_units[3]` planning units. Now we really start to see the difference between CBC and the other solvers.
+Next, we will look at a medium sized problem with `r n_planning_units[3]` planning units. Now we really start to see the difference between the _CBC_ solver and the other solvers, with the _CBC_ solver taking many more minutes to complete.
 
 ```{r "min_short time for pu's 3"}
 plot_benchmark(
@@ -394,7 +403,7 @@ plot_benchmark(
   boundary_penalty = 0)
 ```
 
-Finally, lets look at timing comparisons for a large problem with `r n_planning_units[4]` planning units. The open source solvers (CBC, SYMPHONY) take a lot longer than the commercial solvers to find solutions now.
+Finally, let's look at timing comparisons for a large problem with `r n_planning_units[4]` planning units. We can see that the open source _CBC_, _Rsymphony_ and _lpsymphony_ solvers now take a lot longer than the commercial _IBM CPLEX_ and _Guorbi_ solvers.
 
 ```{r "min_short time for pu's 4"}
 plot_benchmark(
@@ -403,19 +412,9 @@ plot_benchmark(
   boundary_penalty = 0)
 ```
 
-To get a better sense of how the faster solvers (CBC, CPLEX, Gurobi) compare for this problem size, lets just look at those 3 solvers in the next plot. CBC really isn't the solver of choice for this objective function and large problem sizes. If available, CPLEX and Gurobi are the recommended choices.
-
-```{r "min_short time for pu's 4 fast only"}
-plot_benchmark(
-  objective = "add_min_shortfall_objective",
-  n_pu = n_planning_units[4],
-  boundary_penalty = 0,
-  solver = c("add_cbc_solver", "add_cplex_solver", "add_gurobi_solver"))
-```
-
 ## Minimize shortfall results with low boundary penalty
 
-Now lets look at the same problem type, but this time with a `boundary_penalty` parameter added to the problem formulation, first with a low boundart penalty value of `r boundary_penalty_values$add_min_shortfall_objective[2]`. Let's start again with the smallest problem size we've benchmarked. This problem has only `r n_planning_units[1]` planning units.
+Now let's look at the same problem type, but this time with a low `boundary_penalty` parameter added to the problem formulation (i.e. `r boundary_penalty_values$add_min_shortfall_objective[2]`). Let's start again with the smallest problem size we've benchmarked. This problem has only `r n_planning_units[1]` planning units.
 
 ```{r "min_short time for pu's 1 with low boundary penalty"}
 plot_benchmark(
@@ -424,7 +423,7 @@ plot_benchmark(
   boundary_penalty = boundary_penalty_values$add_min_shortfall_objective[2])
 ```
 
-Next, lets look at the results for a more realistic problem with `r n_planning_units[2]` planning units and see how the timing of the different solvers used compares.CBC takes longer than the other solvers again.
+Next, let's look at the results for a more realistic problem with `r n_planning_units[2]` planning units and see how the timing of the different solvers used compares. We can see the _CBC_ solver takes longer than the other solvers again.
 
 ```{r "min_short time for pu's 2 with low boundary penalty"}
 plot_benchmark(
@@ -433,7 +432,7 @@ plot_benchmark(
   boundary_penalty = boundary_penalty_values$add_min_shortfall_objective[2])
 ```
 
-Next, we will look at a medium sized problem with `r n_planning_units[3]` planning units. Now we really start to see the difference between CBC and the other solvers. The SYMPHONY sover based packages also take considerably longer than the commercial solvers now.
+Next, we will look at a medium sized problem with `r n_planning_units[3]` planning units. Now we really start to see the difference between the _CBC_ solver and the other solvers. Additionally, the _Rsymphony_ and _lpsymphony_ solvers also also take considerably longer than the commercial solvers too.
 
 ```{r "min_short time for pu's 3 with low boundary penalty"}
 plot_benchmark(
@@ -442,7 +441,7 @@ plot_benchmark(
   boundary_penalty = boundary_penalty_values$add_min_shortfall_objective[2])
 ```
 
-Finally, lets look at timing comparisons for a large problem with `r n_planning_units[4]` planning units. CBC now performs better than the SYMPHONY solver based packages, which take around 1 day to actually solve this large problem.
+Finally, let's look at timing comparisons for a large problem with `r n_planning_units[4]` planning units. The _CBC_ solver now performs better than the _Rsymphony_ and _lpsymphony_ solvers, which take approximately one day to solve this problem.
 
 ```{r "min_short time for pu's 4 and low boundary penalty"}
 plot_benchmark(
@@ -451,7 +450,7 @@ plot_benchmark(
   boundary_penalty = boundary_penalty_values$add_min_shortfall_objective[2])
 ```
 
-To get a better sense of how the more consistent solvers (i.e. CBC, CPLEX, Gurobi) compare for this problem size, lets just look at those 3 solvers in the next plot. CBC really isn't the solver of choice for this objective function and large problem sizes. If available, CPLEX and Gurobi are the recommended choices. As far as open source solvers go, CBC is a lot faster than the SYMPHONY based packages though.
+To get a better sense of how the faster solvers compare (i.e. _CBC_, _IBM CPLEX_, and _Gurobi_), let's take a closer look at these three solvers. We can see that the _CBC_ solver takes a lot longer to generate prioritizations than the _IBM CPLEX_ and _Gurobi_ solvers. This result suggests that it _IBM CPLEX_ and _Gurobi_ could be really beneficial for large-scale conservation planning problems with boundary length penalties and the minimum shortfall objective function.
 
 ```{r "min_short time for pu's 4 and boundary penalty fast"}
 plot_benchmark(
@@ -463,9 +462,7 @@ plot_benchmark(
 
 ## Minimize shortfall results with high boundary penalty
 
-Now lets look at the same problem types, but this time with a higher `boundary_penalty` parameter added to the problem formulation (`r boundary_penalty_values$add_min_shortfall_objective[3]`).
-
-Let's start again with the smallest problem size we've benchmarked. This problem has only `r n_planning_units[1]` planning units.
+Now let's look at the same problem types, but this time with a higher `boundary_penalty` parameter added to the problem formulation (`r boundary_penalty_values$add_min_shortfall_objective[3]`). Let's start again with the smallest problem size we've benchmarked. This problem has only `r n_planning_units[1]` planning units.
 
 ```{r "min_short time for pu's 1 with high boundary penalty"}
 plot_benchmark(
@@ -474,7 +471,7 @@ plot_benchmark(
   boundary_penalty = boundary_penalty_values$add_min_shortfall_objective[3])
 ```
 
-Next, lets look at the results for a more realistic problem with `r n_planning_units[2]` planning units and see how the timing of the different solvers used compares. All solvers are preforming similarily, interestingly Gurobi is the slowest for this round of benchmarking.
+Next, let's look at the results for a greater number of planning units (i.e. with `r n_planning_units[2]` planning units) and see how the timings for the different solvers compare. All the solvers have a similar run time. Interestingly, the _Gurobi_ solver is the slowest -- but only by a couple of minutes -- for these benchmark parameters.
 
 ```{r "min_short time for pu's 2 with boundary penalty"}
 plot_benchmark(
@@ -483,7 +480,7 @@ plot_benchmark(
   boundary_penalty = boundary_penalty_values$add_min_shortfall_objective[3])
 ```
 
-Next, we will look at a medium sized problem with `r n_planning_units[3]` planning units. As with the previous boundary penalty values, CBC is the slowest and the commercial solvers are fasteed, with SYMPHONY in between.
+Next, we will look at a medium sized problem with `r n_planning_units[3]` planning units. Similar to some of the results observed in the previous section, the _CBC_ solver is the slowest and the _IBM CPLEX_ and _Gurobi_ commercial solvers are fastest for the minimum shortfall objective.
 
 ```{r "min_short time for pu's 3 with high boundary penalty"}
 plot_benchmark(
@@ -492,7 +489,7 @@ plot_benchmark(
   boundary_penalty = boundary_penalty_values$add_min_shortfall_objective[3])
 ```
 
-Finally, lets look at timing comparisons for a large problem with `r n_planning_units[4]` planning units. You can see that the benchmark times vary greatly for the SYMPHONY solver. CBC now performs better than the SYMPHONY solver based packages, which take up to 2 days to actually solve this large problem. CBC takes a maximum of 6 hours.
+Finally, let's look at timing comparisons for a large problem with `r n_planning_units[4]` planning units. We can see that the benchmark times vary greatly for the _Rsymphony_ and _lpsymphony_ solvers, with run times ranging from one to two whole days. Additionally, although the _CBC_ solver can still require several hours to generate a prioritization, it now outperforms better than the the _Rsymphony_ and _lpsymphony_ solvers. Finally, the _IBM CPLEX_ and _Gurobi_ solvers perform much, much better than all the other solves.
 
 ```{r "min_short time for pu's 4 with high boundary penalty"}
 plot_benchmark(
@@ -501,12 +498,6 @@ plot_benchmark(
   boundary_penalty = boundary_penalty_values$add_min_shortfall_objective[3])
 ```
 
-To get a better sense of how the more consistent solvers (i.e. CBC, CPLEX, Gurobi) compare for this problem size, lets just look at those 3 solvers in the next plot. CBC really isn't the solver of choice for this objective function and large problem sizes. If available, CPLEX and Gurobi are the recommended choices. As far as open source solvers go, CBC is a lot faster than the SYMPHONY based packages though.
+# Conclusion
 
-```{r "min_short time for pu's 4 with high boundary penalty, fast solvers"}
-plot_benchmark(
-  objective = "add_min_shortfall_objective",
-  n_pu = n_planning_units[4],
-  boundary_penalty = boundary_penalty_values$add_min_shortfall_objective[3],
-  solver = c("add_cbc_solver", "add_cplex_solver", "add_gurobi_solver"))
-```
+Richard, could you please write a short conclusion paragraph with some recommendations? E.g. do we recommend using the CBC solver first, and if that doesn't work, try using lpsymphony solver?
