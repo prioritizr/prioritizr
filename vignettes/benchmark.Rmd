@@ -263,7 +263,7 @@ plot_benchmark(
   boundary_penalty = 0)
 ```
 
-To get a better sense of how the faster solvers (i.e. based on _CBC_, _IBM CPLEX_, _Gurobi_) compare for such a large problem, let's take look a closer look at these three solvers. Interestingly, we can see that the solver based on the open source _CBC_ software is slightly faster -- by a few minutes -- than the other solvers.
+To get a better sense of how the faster solvers (i.e. based on _CBC_, _IBM CPLEX_, _Gurobi_) compare for such a large problem, let's take a closer look at these three solvers. Interestingly, we can see that the solver based on the open source _CBC_ software is slightly faster -- by a few minutes -- than the other solvers.
 
 ```{r "time for pu's 4 fast only"}
 plot_benchmark(
