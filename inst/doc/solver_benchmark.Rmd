@@ -23,6 +23,14 @@ knitr::opts_chunk$set(fig.align = "center", eval = !is_check,
                       fig.width = w, fig.height = h)
 ```
 
+```{r}
+# define variables for CRAN
+n_planning_units <- rep(0, 100)
+boundary_penalty_values <- list(
+  add_min_set_objective = rep(0, 100),
+  add_min_shortfall_objective = rep(0, 100))
+```
+
 # Introduction
 
 The _prioritizr R_ package supports a variety of optimization solvers for generating prioritizations. Specifically, the following functions can be used: [`add_gurobi_solver()`](https://prioritizr.net/reference/add_gurobi_solver.html) (interfaces with the [_Gurobi_ software](https://www.gurobi.com/)), [`add_cplex_solver()`](https://prioritizr.net/reference/add_cplex_solver.html) (interfaces with the [_IBM CPLEX_ software](https://www.ibm.com/analytics/cplex-optimizer)), [`add_cbc_solver()`](https://prioritizr.net/reference/add_cbc_solver.html) (interfaces with the [_CBC_ software](https://projects.coin-or.org/Cbc) using the [_rcbc R_ package](https://dirkschumacher.github.io/rcbc/)), [`add_rsymphony_solver()`](https://prioritizr.net/reference/add_rsymphony_solver.html) (interfaces with the [_SYMPHONY_ software](https://projects.coin-or.org/SYMPHONY) using the [_Rsymphony R_ package](https://CRAN.R-project.org/package=Rsymphony)), and the [`add_lpsymphony_solver()`](https://prioritizr.net/reference/add_lsymphony_solver.html) function (interfaces with the [_SYMPHONY_ software](https://projects.coin-or.org/SYMPHONY) using the [_lpsymphony R_ package](https://www.bioconductor.org/packages/release/bioc/html/lpsymphony.html)). Broadly speaking, _IBM CPLEX_ and _Gurobi_ tend to be the fastest among the supported solvers. Although they are both commercial software, special academic licenses are available at no cost.
