@@ -1,14 +1,15 @@
-pandoc: 1.19.2.1
-pkgdown: 1.6.1
-pkgdown_sha: ~
+pandoc: '2.13'
+pkgdown: 1.6.1.9001
+pkgdown_sha: c9e7dde4c5ca066f4a797ff201ead380f702473f
 articles:
   gurobi_installation: gurobi_installation.html
   prioritizr: prioritizr.html
   publication_record: publication_record.html
   saltspring: saltspring.html
+  solver_benchmark: solver_benchmark.html
   tasmania: tasmania.html
   zones: zones.html
-last_built: 2021-04-14T01:18Z
+last_built: 2021-05-10T21:51Z
 urls:
   reference: https://prioritizr.net/reference
   article: https://prioritizr.net/articles

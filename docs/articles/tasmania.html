@@ -34,6 +34,8 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -46,18 +48,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.3</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../articles/prioritizr.html">Get started</a>
 </li>
@@ -81,6 +77,9 @@
       <a href="../articles/saltspring.html">Salt Spring Island Tutorial</a>
     </li>
     <li>
+      <a href="../articles/solver_benchmark.html">Solver Benchmarks</a>
+    </li>
+    <li>
       <a href="../articles/tasmania.html">Tasmania Tutorial</a>
     </li>
     <li>
@@ -94,8 +93,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/prioritizr/prioritizr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/prioritizr/prioritizr/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -115,13 +114,13 @@
 
       
 
-      </header><div class="row">
+      </header><script src="tasmania_files/header-attrs-2.8/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Tasmania Tutorial</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/prioritizr/prioritizr/blob/master/vignettes/tasmania.Rmd"><code>vignettes/tasmania.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/prioritizr/prioritizr/blob/master/vignettes/tasmania.Rmd" class="external-link"><code>vignettes/tasmania.Rmd</code></a></small>
       <div class="hidden name"><code>tasmania.Rmd</code></div>
 
     </div>
@@ -130,28 +129,28 @@
     
 <div id="introduction" class="section level2">
 <h2 class="hasAnchor">
-<a href="#introduction" class="anchor"></a>Introduction</h2>
+<a href="#introduction" class="anchor" aria-hidden="true"></a>Introduction</h2>
 <p>The aim of this tutorial is to provide a worked example of how vector-based data can be used to develop conservation prioritizations using the <em>prioritizr R</em> package. It is also written for conservation planners that have used the <em>Marxan</em> decision support tool <span class="citation">(Ball <em>et al.</em> 2009)</span> and are interested in applying the <em>prioritizr R</em> package to their own work. The dataset used in this tutorial was obtained from the <em>Introduction to Marxan</em> course. This data was originally a subset of a larger spatial prioritization project performed under contract to Australia’s Department of Environment and Water Resources <span class="citation">(Klein <em>et al.</em> 2007)</span>.</p>
 <p>Please note that this tutorial uses data from the <em>prioritizrdata R</em>, so ensure that it is installed before trying out the code yourself.</p>
 </div>
 <div id="exploring-the-data" class="section level2">
 <h2 class="hasAnchor">
-<a href="#exploring-the-data" class="anchor"></a>Exploring the data</h2>
+<a href="#exploring-the-data" class="anchor" aria-hidden="true"></a>Exploring the data</h2>
 <p>This dataset contains two items. First, a spatial planning unit layer that has an attribute table which contains three columns: integer unique identifiers (“id”), unimproved land values (“cost”), and their existing level of protection (“status”). Units with 50 % or more of their area contained in protected areas are associated with a status of 2, otherwise they are associated with a value of 0. If you are familiar with the <em>Marxan</em> decision support tool, then you will notice that these columns are formatted in a similar manner to the input data for <em>Marxan</em>. For <em>Marxan</em> input data, planning units must be described in a table containing one row for each planning unit with a unique identifier and the corresponding cost.</p>
 <p>The second item in this dataset is the raster-based feature data. Specifically, the feature data is expressed as a stack of rasters (termed a <code>RasterStack</code> object). Here each layer in the stack represents the distribution of a different vegetation class in Tasmania, Australia. There are 62 vegetation classes in total. For a given layer, pixel values indicate the presence (value of 1) or absence (value of 0) of the vegetation class in an area.</p>
 <p>First, load the required packages and the data.</p>
-<div class="sourceCode"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># load packages</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://prioritizr.github.io/prioritizrdata">prioritizrdata</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://prioritizr.net">prioritizr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://prioritizr.github.io/prioritizrdata/" class="external-link">prioritizrdata</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://prioritizr.net">prioritizr</a></span><span class="op">)</span>
 
 <span class="co"># load planning unit data</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">tas_pu</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">tas_pu</span><span class="op">)</span>
 
 <span class="co"># load conservation feature data</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">tas_features</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">tas_features</span><span class="op">)</span></code></pre></div>
 <p>Now, let’s have a look at the planning unit data.</p>
-<div class="sourceCode"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># print planning unit data</span>
 <span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">tas_pu</span><span class="op">)</span></code></pre></div>
 <pre><code>## class       : SpatialPolygonsDataFrame 
@@ -162,12 +161,12 @@
 ## names       :   id,              cost, status, locked_in, locked_out 
 ## min values  :    1, 0.192488262910798,      0,         0,          0 
 ## max values  : 1130,  61.9272727272727,      2,         1,          0</code></pre>
-<div class="sourceCode"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># plot map of planning unit costs</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu">st_as_sf</span><span class="op">(</span><span class="va">tas_pu</span><span class="op">[</span>, <span class="st">"cost"</span><span class="op">]</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Planning unit costs"</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">st_as_sf</a></span><span class="op">(</span><span class="va">tas_pu</span><span class="op">[</span>, <span class="st">"cost"</span><span class="op">]</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Planning unit costs"</span><span class="op">)</span></code></pre></div>
 <p><img src="tasmania_files/figure-html/unnamed-chunk-3-1.png" width="336" style="display: block; margin: auto;"></p>
 <p>Next, let examine the feature data. Here we will only plot the first four features as an example. The pixel values denote the presence or absence of each feature within the extent of the study area.</p>
-<div class="sourceCode"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># print planning unit data</span>
 <span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">tas_features</span><span class="op">)</span></code></pre></div>
 <pre><code>## class      : RasterStack 
@@ -178,25 +177,25 @@
 ## names      : tas_features.1, tas_features.2, tas_features.3, tas_features.4, tas_features.5, tas_features.6, tas_features.7, tas_features.8, tas_features.9, tas_features.10, tas_features.11, tas_features.12, tas_features.13, tas_features.14, tas_features.15, ... 
 ## min values :              0,              0,              0,              0,              0,              0,              0,              0,              0,               0,               0,               0,               0,               0,               0, ... 
 ## max values :              1,              1,              1,              1,              1,              1,              1,              1,              1,               1,               1,               1,               1,               1,               1, ...</code></pre>
-<div class="sourceCode"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># plot map of the first four vegetation classes</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">tas_features</span><span class="op">[[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">]</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Feature"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tas_features</span><span class="op">[[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">]</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Feature"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="tasmania_files/figure-html/unnamed-chunk-4-1.png" width="432" style="display: block; margin: auto;"></p>
-<p>The planning units in this example are a spatial polygon layer—not a raster—and so there can be considerable flexibility in the shape of the planning units. That said, there is a trade-off with the efficiency of data pre-processing in vector-based planning unit data compared to raster-based planning unit data. Vector-based planning unit data generally require more time to complete pre-processing computations (e.g. overlaying the planning unit data with the feature data, or generating boundary data). As a consequence, we generally recommend using raster-based planning unit data where possible to reduce processing time—but note that this is not possible when not all planning units are equal-sized squares. Another strategy is to complete the pre-processing in other software environments (e.g. <em>ArcGIS</em>) and use the pre-processed data directly with the <em>prioritizr</em> package.</p>
+<p>The planning units in this example are a spatial polygon layer—not a raster—and so there can be considerable flexibility in the shape of the planning units. That said, there is a trade-off with the efficiency of data pre-processing in vector-based planning unit data compared to raster-based planning unit data. Vector-based planning unit data generally require more time to complete pre-processing computations (e.g. overlaying the planning unit data with the feature data, or generating boundary data). As a consequence, we generally recommend using raster-based planning unit data where possible to reduce processing time—but note that this is not possible when not all planning units are equal-sized squares. Another strategy is to complete the pre-processing in other software environments (e.g. <em>ArcGIS</em>) and use the pre-processed data directly with the <em>prioritizr</em> package.</p>
 </div>
 <div id="marxan-problem-formulation" class="section level2">
 <h2 class="hasAnchor">
-<a href="#marxan-problem-formulation" class="anchor"></a><em>Marxan</em> problem formulation</h2>
+<a href="#marxan-problem-formulation" class="anchor" aria-hidden="true"></a><em>Marxan</em> problem formulation</h2>
 <p>Here, we will provide an example of using the <code>marxan_problem</code> function to build and solve a typical <em>Marxan</em> conservation planning problem. Then we will show how this same problem can be built and solved using the fully customizable <code>problem</code> function as a comparison.</p>
 <p>The dataset used in this example follows many of the conventions used by the <em>Marxan</em> decision support tool. As a consequence, it is not too difficult to format the data for use with the <code>marxan_problem</code> function. The <code>marxan_problem</code> function is essentially a wrapper to the <code>problem</code> function. This means that when we solve problems created using the <code>marxan_problem</code> function, we will solve them using exact algorithms and not the simulated annealing algorithm used by <em>Marxan</em>.</p>
-<p>All problem objects formulated with <code>marxan_problem</code> use the minimum set objective. Targets can be either relative or absolute, and planning units can be specified for masking in or out using the <code>locked_in</code> and <code>locked_out</code> arguments. To favor clumped solutions, use the <code>penalty</code> argument to impose a penalty on solutions with high boundary lengths (equivalent to the Boundary Length Modifier (BLM) used in <em>Marxan</em>), and the <code>edge_factor</code> argument to scale the penalty for edges that do not have neighboring planning units, such as the coastline. For simplicity we set all of the targets at the same level, 17 %, to reflect the <a href="https://www.cbd.int/sp/targets/">Aichi</a> biodiversity target to “safeguard” at least 17% of terrestrial ecosystems by 2020. For example, to prioritize planning units in Tasmania that meet the 17 % representation target at the least cost.</p>
+<p>All problem objects formulated with <code>marxan_problem</code> use the minimum set objective. Targets can be either relative or absolute, and planning units can be specified for masking in or out using the <code>locked_in</code> and <code>locked_out</code> arguments. To favor clumped solutions, use the <code>penalty</code> argument to impose a penalty on solutions with high boundary lengths (equivalent to the Boundary Length Modifier (BLM) used in <em>Marxan</em>), and the <code>edge_factor</code> argument to scale the penalty for edges that do not have neighboring planning units, such as the coastline. For simplicity we set all of the targets at the same level, 17 %, to reflect the <a href="https://www.cbd.int/sp/targets/" class="external-link">Aichi</a> biodiversity target to “safeguard” at least 17% of terrestrial ecosystems by 2020. For example, to prioritize planning units in Tasmania that meet the 17 % representation target at the least cost.</p>
 <p>First, we will convert the vector-based planning unit data and raster-based feature data into the tabular formats required by the <code>marxan_problem</code> function. These formats are very similar to the formats used by <em>Marxan</em>.</p>
-<div class="sourceCode"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create table with planning unit data</span>
 <span class="va">pu_data</span> <span class="op">&lt;-</span> <span class="va">tas_pu</span><span class="op">@</span><span class="va">data</span>
 
 <span class="co"># print first six rows</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">pu_data</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/pkg/raster/man/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">pu_data</span><span class="op">)</span></code></pre></div>
 <pre><code>##   id     cost status locked_in locked_out
 ## 0  1 60.24638      0     FALSE      FALSE
 ## 1  2 19.86301      0     FALSE      FALSE
@@ -204,14 +203,14 @@
 ## 3  4 32.41614      0     FALSE      FALSE
 ## 4  5 26.17706      0     FALSE      FALSE
 ## 5  6 51.26218      0     FALSE      FALSE</code></pre>
-<div class="sourceCode"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create table with the feature identifiers, names, and targets</span>
-<span class="va">spec_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu">nlayers</span><span class="op">(</span><span class="va">tas_features</span><span class="op">)</span><span class="op">)</span>,
-                        name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"veg"</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu">nlayers</span><span class="op">(</span><span class="va">tas_features</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,
+<span class="va">spec_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/nlayers.html" class="external-link">nlayers</a></span><span class="op">(</span><span class="va">tas_features</span><span class="op">)</span><span class="op">)</span>,
+                        name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"veg"</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/nlayers.html" class="external-link">nlayers</a></span><span class="op">(</span><span class="va">tas_features</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,
                         prop <span class="op">=</span> <span class="fl">0.17</span><span class="op">)</span>
 
 <span class="co"># print first six rows</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">spec_data</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/pkg/raster/man/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">spec_data</span><span class="op">)</span></code></pre></div>
 <pre><code>##   id name prop
 ## 1  1 veg1 0.17
 ## 2  2 veg2 0.17
@@ -219,15 +218,15 @@
 ## 4  4 veg4 0.17
 ## 5  5 veg5 0.17
 ## 6  6 veg6 0.17</code></pre>
-<div class="sourceCode"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create table with the planning unit vs. feature data</span>
 <span class="va">puvspr_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rij_matrix.html">rij_matrix</a></span><span class="op">(</span><span class="va">tas_pu</span>, <span class="va">tas_features</span><span class="op">)</span>
-<span class="va">puvspr_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as.Id.html">as</a></span><span class="op">(</span><span class="va">puvspr_data</span>, <span class="st">"dgTMatrix"</span><span class="op">)</span>
-<span class="va">puvspr_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>pu <span class="op">=</span> <span class="va">puvspr_data</span><span class="op">@</span><span class="va">j</span> <span class="op">+</span> <span class="fl">1</span>, species <span class="op">=</span> <span class="va">puvspr_data</span><span class="op">@</span><span class="va">i</span> <span class="op">+</span> <span class="fl">1</span>,
+<span class="va">puvspr_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as.html">as</a></span><span class="op">(</span><span class="va">puvspr_data</span>, <span class="st">"dgTMatrix"</span><span class="op">)</span>
+<span class="va">puvspr_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>pu <span class="op">=</span> <span class="va">puvspr_data</span><span class="op">@</span><span class="va">j</span> <span class="op">+</span> <span class="fl">1</span>, species <span class="op">=</span> <span class="va">puvspr_data</span><span class="op">@</span><span class="va">i</span> <span class="op">+</span> <span class="fl">1</span>,
                           amount <span class="op">=</span> <span class="va">puvspr_data</span><span class="op">@</span><span class="va">x</span><span class="op">)</span>
 
 <span class="co"># print first six rows</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">puvspr_data</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/pkg/raster/man/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">puvspr_data</span><span class="op">)</span></code></pre></div>
 <pre><code>##   pu species       amount
 ## 1  3      54 1.000000e+00
 ## 2  3      59 1.165971e+01
@@ -235,14 +234,14 @@
 ## 4  6      27 1.000000e+00
 ## 5  6      35 1.000000e+00
 ## 6  6      59 3.635182e-05</code></pre>
-<div class="sourceCode"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create table with the boundary data</span>
 <span class="va">bound_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/boundary_matrix.html">boundary_matrix</a></span><span class="op">(</span><span class="va">tas_pu</span><span class="op">)</span>
-<span class="va">bound_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as.Id.html">as</a></span><span class="op">(</span><span class="va">bound_data</span>, <span class="st">"dgTMatrix"</span><span class="op">)</span>
-<span class="va">bound_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>id1 <span class="op">=</span> <span class="va">bound_data</span><span class="op">@</span><span class="va">i</span> <span class="op">+</span> <span class="fl">1</span>, id2 <span class="op">=</span> <span class="va">bound_data</span><span class="op">@</span><span class="va">j</span> <span class="op">+</span> <span class="fl">1</span>,
+<span class="va">bound_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as.html">as</a></span><span class="op">(</span><span class="va">bound_data</span>, <span class="st">"dgTMatrix"</span><span class="op">)</span>
+<span class="va">bound_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>id1 <span class="op">=</span> <span class="va">bound_data</span><span class="op">@</span><span class="va">i</span> <span class="op">+</span> <span class="fl">1</span>, id2 <span class="op">=</span> <span class="va">bound_data</span><span class="op">@</span><span class="va">j</span> <span class="op">+</span> <span class="fl">1</span>,
                          boundary <span class="op">=</span> <span class="va">bound_data</span><span class="op">@</span><span class="va">x</span><span class="op">)</span>
 <span class="co"># print first six rows</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">bound_data</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/pkg/raster/man/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">bound_data</span><span class="op">)</span></code></pre></div>
 <pre><code>##   id1 id2   boundary
 ## 1   1   1  6314.6621
 ## 2   3   1  3922.9264
@@ -251,7 +250,7 @@
 ## 5   4   2  3233.3056
 ## 6   7   2  4639.9220</code></pre>
 <p>Now that we have converted the data to tabular format, we can use the <code>marxan_problem</code> function to create a conservation planning problem.</p>
-<div class="sourceCode"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create problem</span>
 <span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/marxan_problem.html">marxan_problem</a></span><span class="op">(</span><span class="va">pu_data</span>, <span class="va">spec_data</span>, <span class="va">puvspr_data</span>, <span class="va">bound_data</span>,
                      blm <span class="op">=</span> <span class="fl">0.0005</span><span class="op">)</span>
@@ -270,13 +269,13 @@
 ##   portfolio:      default
 ##   solver:         default</code></pre>
 <p>Next, we can solve the problem (see <a href="https://prioritizr.net/reference/solve.html"><code>?solve</code></a> for more information). The <em>prioritizr</em> R package supports three different exact algorithm software packages: <em>gurobi</em>, <em>Rsymphony</em>, and <em>lpsymphony</em>. There are costs and benefits associated with each of these different solvers, but each software should return similar results. Note that you will need at least one of these package installed on your system to solve problems. We recommend using the <em>gurobi</em> solver if possible, and have used this solver when building this tutorial. After solving the problem, we will calculate some statistics to describe the solution. Note that the planning unit selections are stored in the “solution_1” column of the solution object.</p>
-<div class="sourceCode"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># solve problem</span>
 <span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></code></pre></div>
-<pre><code>## Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (linux64)
-## Thread count: 2 physical cores, 4 logical processors, using up to 1 threads
+<pre><code>## Gurobi Optimizer version 9.1.2 build v9.1.2rc0 (linux64)
+## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
 ## Optimize a model with 6358 rows, 4278 columns and 14496 nonzeros
-## Model fingerprint: 0x2dc24aac
+## Model fingerprint: 0x96b70d15
 ## Variable types: 0 continuous, 4278 integer (4278 binary)
 ## Coefficient statistics:
 ##   Matrix range     [2e-06, 4e+01]
@@ -286,30 +285,30 @@
 ## Found heuristic solution: objective 30263.129158
 ## Found heuristic solution: objective 12512.071934
 ## Presolve removed 1793 rows and 1168 columns
-## Presolve time: 0.03s
+## Presolve time: 0.06s
 ## Presolved: 4565 rows, 3110 columns, 10169 nonzeros
 ## Found heuristic solution: objective 11803.383927
 ## Variable types: 0 continuous, 3110 integer (3110 binary)
 ## Presolved: 4565 rows, 3110 columns, 10169 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.076817e+04, 822 iterations, 0.04 seconds
+## Root relaxation: objective 1.076817e+04, 822 iterations, 0.08 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
 ##      0     0 10768.1736    0  137 11803.3839 10768.1736  8.77%     -    0s
 ## 
-## Explored 0 nodes (822 simplex iterations) in 0.09 seconds
-## Thread count was 1 (of 4 available processors)
+## Explored 0 nodes (822 simplex iterations) in 0.18 seconds
+## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 3: 11803.4 12512.1 30263.1 
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
 ## Best objective 1.180338392702e+04, best bound 1.076817364956e+04, gap 8.7705%</code></pre>
-<div class="sourceCode"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># print first six rows of solution object</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">s1</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/pkg/raster/man/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">s1</span><span class="op">)</span></code></pre></div>
 <pre><code>##   id     cost status locked_in locked_out solution_1
 ## 0  1 60.24638      0     FALSE      FALSE          0
 ## 1  2 19.86301      0     FALSE      FALSE          0
@@ -317,15 +316,15 @@
 ## 3  4 32.41614      0     FALSE      FALSE          0
 ## 4  5 26.17706      0     FALSE      FALSE          0
 ## 5  6 51.26218      0     FALSE      FALSE          0</code></pre>
-<div class="sourceCode"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># count number of planning units in solution</span>
-<span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">s1</span><span class="op">$</span><span class="va">solution_1</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">s1</span><span class="op">$</span><span class="va">solution_1</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 326</code></pre>
-<div class="sourceCode"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># proportion of planning units in solution</span>
-<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">s1</span><span class="op">$</span><span class="va">solution_1</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">s1</span><span class="op">$</span><span class="va">solution_1</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 0.2884956</code></pre>
-<div class="sourceCode"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># calculate feature representation</span>
 <span class="va">r1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p1</span>, <span class="va">s1</span><span class="op">[</span>, <span class="st">"solution_1"</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span><span class="op">)</span>
 <span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">r1</span><span class="op">)</span></code></pre></div>
@@ -343,25 +342,25 @@
 ##  9 overall veg9           388.          95.3          0.245
 ## 10 overall veg10           14.5          5.91         0.407
 ## # … with 52 more rows</code></pre>
-<div class="sourceCode"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># visualize the solution by converting the solution to a spatial object</span>
-<span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu">SpatialPolygonsDataFrame</span><span class="op">(</span><span class="fu"><a href="../reference/as.Id.html">as</a></span><span class="op">(</span><span class="va">tas_pu</span>, <span class="st">"SpatialPolygons"</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">s1</span><span class="op">)</span>
-<span class="va">s1</span><span class="op">$</span><span class="va">solution_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">s1</span><span class="op">$</span><span class="va">solution_1</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu">st_as_sf</span><span class="op">(</span><span class="va">s1</span><span class="op">[</span>, <span class="st">"solution_1"</span><span class="op">]</span><span class="op">)</span>, pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"grey90"</span>, <span class="st">"darkgreen"</span><span class="op">)</span>,
+<span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/sp/man/SpatialPolygons.html" class="external-link">SpatialPolygonsDataFrame</a></span><span class="op">(</span><span class="fu"><a href="../reference/as.html">as</a></span><span class="op">(</span><span class="va">tas_pu</span>, <span class="st">"SpatialPolygons"</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">s1</span><span class="op">)</span>
+<span class="va">s1</span><span class="op">$</span><span class="va">solution_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">s1</span><span class="op">$</span><span class="va">solution_1</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">st_as_sf</a></span><span class="op">(</span><span class="va">s1</span><span class="op">[</span>, <span class="st">"solution_1"</span><span class="op">]</span><span class="op">)</span>, pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey90"</span>, <span class="st">"darkgreen"</span><span class="op">)</span>,
     main <span class="op">=</span> <span class="st">"marxan_problem solution"</span><span class="op">)</span></code></pre></div>
 <p><img src="tasmania_files/figure-html/unnamed-chunk-7-1.png" width="336" style="display: block; margin: auto;"></p>
 </div>
 <div id="general-problem-formulation" class="section level2">
 <h2 class="hasAnchor">
-<a href="#general-problem-formulation" class="anchor"></a>General problem formulation</h2>
+<a href="#general-problem-formulation" class="anchor" aria-hidden="true"></a>General problem formulation</h2>
 <p>Now we will formulate the exact same problem using the <code>problem</code> function and the spatially referenced data. We recommend using this approach instead of the <code>marxan_problem</code> because it is more verbose and you can specify exactly how the conservation planning problem should be formulated.</p>
-<div class="sourceCode"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># build problem</span>
-<span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">tas_pu</span>, <span class="va">tas_features</span>, cost_column <span class="op">=</span> <span class="st">"cost"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-      <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
-      <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.17</span><span class="op">)</span> <span class="op">%&gt;%</span>
-      <span class="fu"><a href="../reference/add_locked_in_constraints.html">add_locked_in_constraints</a></span><span class="op">(</span><span class="st">"locked_in"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-      <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">tas_pu</span>, <span class="va">tas_features</span>, cost_column <span class="op">=</span> <span class="st">"cost"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+      <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+      <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.17</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+      <span class="fu"><a href="../reference/add_locked_in_constraints.html">add_locked_in_constraints</a></span><span class="op">(</span><span class="st">"locked_in"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+      <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
       <span class="fu"><a href="../reference/add_boundary_penalties.html">add_boundary_penalties</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">0.0005</span>, edge_factor <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
 
 <span class="co"># print the problem</span>
@@ -377,13 +376,13 @@
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (5e-04), zones]&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
-<div class="sourceCode"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># solve problem</span>
 <span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></code></pre></div>
-<pre><code>## Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (linux64)
-## Thread count: 2 physical cores, 4 logical processors, using up to 1 threads
+<pre><code>## Gurobi Optimizer version 9.1.2 build v9.1.2rc0 (linux64)
+## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
 ## Optimize a model with 6358 rows, 4278 columns and 14496 nonzeros
-## Model fingerprint: 0x2dc24aac
+## Model fingerprint: 0x96b70d15
 ## Variable types: 0 continuous, 4278 integer (4278 binary)
 ## Coefficient statistics:
 ##   Matrix range     [2e-06, 4e+01]
@@ -393,28 +392,28 @@
 ## Found heuristic solution: objective 30263.129158
 ## Found heuristic solution: objective 12512.071934
 ## Presolve removed 1793 rows and 1168 columns
-## Presolve time: 0.06s
+## Presolve time: 0.04s
 ## Presolved: 4565 rows, 3110 columns, 10169 nonzeros
 ## Found heuristic solution: objective 11803.383927
 ## Variable types: 0 continuous, 3110 integer (3110 binary)
 ## Presolved: 4565 rows, 3110 columns, 10169 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.076817e+04, 822 iterations, 0.04 seconds
+## Root relaxation: objective 1.076817e+04, 822 iterations, 0.05 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
 ##      0     0 10768.1736    0  137 11803.3839 10768.1736  8.77%     -    0s
 ## 
-## Explored 0 nodes (822 simplex iterations) in 0.12 seconds
-## Thread count was 1 (of 4 available processors)
+## Explored 0 nodes (822 simplex iterations) in 0.11 seconds
+## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 3: 11803.4 12512.1 30263.1 
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
 ## Best objective 1.180338392702e+04, best bound 1.076817364956e+04, gap 8.7705%</code></pre>
-<div class="sourceCode"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># calculate feature representation</span>
 <span class="va">r2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p2</span>, <span class="va">s2</span><span class="op">[</span>, <span class="st">"solution_1"</span><span class="op">]</span><span class="op">)</span>
 <span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">r2</span><span class="op">)</span></code></pre></div>
@@ -432,20 +431,20 @@
 ##  9 overall tas_features.9         388.          95.3          0.245
 ## 10 overall tas_features.10         14.5          5.91         0.407
 ## # … with 52 more rows</code></pre>
-<div class="sourceCode"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># visualize solution</span>
-<span class="va">s2</span><span class="op">$</span><span class="va">solution_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">s2</span><span class="op">$</span><span class="va">solution_1</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu">st_as_sf</span><span class="op">(</span><span class="va">s2</span><span class="op">[</span>, <span class="st">"solution_1"</span><span class="op">]</span><span class="op">)</span>, pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"grey90"</span>, <span class="st">"darkgreen"</span><span class="op">)</span>,
+<span class="va">s2</span><span class="op">$</span><span class="va">solution_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">s2</span><span class="op">$</span><span class="va">solution_1</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">st_as_sf</a></span><span class="op">(</span><span class="va">s2</span><span class="op">[</span>, <span class="st">"solution_1"</span><span class="op">]</span><span class="op">)</span>, pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey90"</span>, <span class="st">"darkgreen"</span><span class="op">)</span>,
     main <span class="op">=</span> <span class="st">"problem solution"</span><span class="op">)</span></code></pre></div>
 <p><img src="tasmania_files/figure-html/unnamed-chunk-8-1.png" width="336" style="display: block; margin: auto;"></p>
 </div>
 <div id="selection-frequencies" class="section level2">
 <h2 class="hasAnchor">
-<a href="#selection-frequencies" class="anchor"></a>Selection frequencies</h2>
+<a href="#selection-frequencies" class="anchor" aria-hidden="true"></a>Selection frequencies</h2>
 <p>Similar to the <em>Marxan</em> decision support tool, we can generate a portfolio of solutions and compute the planning unit selection frequencies to understand their relative importance. This can be useful when trying to understand which planning units in the solution are the most irreplaceable. To do this, we will create a portfolio containing 1000 solutions within 20% of optimality, and calculate the number of times that each planning unit was selected. Note that this requires the <em>Gurobi</em> software to be installed.</p>
-<div class="sourceCode"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create new problem with a portfolio added to it</span>
-<span class="va">p3</span> <span class="op">&lt;-</span> <span class="va">p2</span> <span class="op">%&gt;%</span>
+<span class="va">p3</span> <span class="op">&lt;-</span> <span class="va">p2</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
       <span class="fu"><a href="../reference/add_gap_portfolio.html">add_gap_portfolio</a></span><span class="op">(</span>number_solutions <span class="op">=</span> <span class="fl">1000</span>, pool_gap <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span>
 
 <span class="co"># print problem</span>
@@ -461,43 +460,43 @@
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (5e-04), zones]&gt;
 ##   portfolio:      Gap portfolio [number_solutions (1000), pool_gap (0.2)]
 ##   solver:         default</code></pre>
-<div class="sourceCode"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># generate solutions</span>
 <span class="va">s3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span>
 
 <span class="co"># find column numbers with the solutions</span>
-<span class="va">solution_columns</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span><span class="op">(</span><span class="st">"solution"</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">s3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="va">solution_columns</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"solution"</span>, <span class="fu"><a href="https://rdrr.io/pkg/raster/man/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">s3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># calculate selection frequencies</span>
-<span class="va">s3</span><span class="op">$</span><span class="va">selection_frequencies</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Matrix/man/colSums.html">rowSums</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">s3</span><span class="op">@</span><span class="va">data</span><span class="op">[</span>, <span class="va">solution_columns</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode"><pre class="downlit sourceCode r">
+<span class="va">s3</span><span class="op">$</span><span class="va">selection_frequencies</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/rowSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/as.matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">s3</span><span class="op">@</span><span class="va">data</span><span class="op">[</span>, <span class="va">solution_columns</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># plot first four solutions in the portfolio</span>
-<span class="va">s3</span><span class="op">$</span><span class="va">solution_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">s3</span><span class="op">$</span><span class="va">solution_1</span><span class="op">)</span>
-<span class="va">s3</span><span class="op">$</span><span class="va">solution_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">s3</span><span class="op">$</span><span class="va">solution_2</span><span class="op">)</span>
-<span class="va">s3</span><span class="op">$</span><span class="va">solution_3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">s3</span><span class="op">$</span><span class="va">solution_3</span><span class="op">)</span>
-<span class="va">s3</span><span class="op">$</span><span class="va">solution_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">s3</span><span class="op">$</span><span class="va">solution_4</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu">st_as_sf</span><span class="op">(</span><span class="va">s3</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"solution_1"</span>, <span class="st">"solution_2"</span>, <span class="st">"solution_3"</span>, <span class="st">"solution_4"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>,
-  pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"grey90"</span>, <span class="st">"darkgreen"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<span class="va">s3</span><span class="op">$</span><span class="va">solution_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">s3</span><span class="op">$</span><span class="va">solution_1</span><span class="op">)</span>
+<span class="va">s3</span><span class="op">$</span><span class="va">solution_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">s3</span><span class="op">$</span><span class="va">solution_2</span><span class="op">)</span>
+<span class="va">s3</span><span class="op">$</span><span class="va">solution_3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">s3</span><span class="op">$</span><span class="va">solution_3</span><span class="op">)</span>
+<span class="va">s3</span><span class="op">$</span><span class="va">solution_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">s3</span><span class="op">$</span><span class="va">solution_4</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">st_as_sf</a></span><span class="op">(</span><span class="va">s3</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"solution_1"</span>, <span class="st">"solution_2"</span>, <span class="st">"solution_3"</span>, <span class="st">"solution_4"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>,
+  pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey90"</span>, <span class="st">"darkgreen"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="tasmania_files/figure-html/unnamed-chunk-11-1.png" width="432" style="display: block; margin: auto;"></p>
-<div class="sourceCode"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># plot histogram of selection frequencies</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">s3</span><span class="op">$</span><span class="va">selection_frequencies</span>, main <span class="op">=</span> <span class="st">"Selection frequencies"</span>,
+<span class="fu"><a href="https://rdrr.io/pkg/raster/man/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="va">s3</span><span class="op">$</span><span class="va">selection_frequencies</span>, main <span class="op">=</span> <span class="st">"Selection frequencies"</span>,
      xlab <span class="op">=</span> <span class="st">"Number of times units were selected"</span><span class="op">)</span></code></pre></div>
 <p><img src="tasmania_files/figure-html/unnamed-chunk-12-1.png" width="336" style="display: block; margin: auto;"></p>
-<div class="sourceCode"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># plot spatial distribution of the selection frequencies</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu">st_as_sf</span><span class="op">(</span><span class="va">s3</span><span class="op">[</span>, <span class="st">"selection_frequencies"</span><span class="op">]</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Selection frequencies"</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">st_as_sf</a></span><span class="op">(</span><span class="va">s3</span><span class="op">[</span>, <span class="st">"selection_frequencies"</span><span class="op">]</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Selection frequencies"</span><span class="op">)</span></code></pre></div>
 <p><img src="tasmania_files/figure-html/unnamed-chunk-12-2.png" width="336" style="display: block; margin: auto;"></p>
 </div>
 <div id="references" class="section level2 unnumbered">
 <h2 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h2>
-<div id="refs" class="references">
-<div id="ref-r3">
-<p>Ball, I., Possingham, H. &amp; Watts, M.E. (2009). Marxan and relatives: Software for spatial conservation prioritisation. <em>Spatial Conservation Prioritisation: Quantitative Methods &amp; Computational Tools</em> (eds A. Moilanen, K.A. Wilson &amp; H. Possingham), pp. 185–189. Oxford University Press, Oxford, UK.</p>
+<a href="#references" class="anchor" aria-hidden="true"></a>References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-r3" class="csl-entry">
+Ball, I.R., Possingham, H. &amp; Watts, M.E. (2009). <span class="nocase">Marxan and relatives: Software for spatial conservation prioritisation</span>. <em><span>Spatial Conservation Prioritisation: Quantitative Methods &amp; Computational Tools</span></em> (eds A. Moilanen, K.A. Wilson &amp; H. Possingham), pp. 185–189. Oxford University Press, Oxford, UK.
 </div>
-<div id="ref-r30">
-<p>Klein, C., Carwardine, J., Wilson, K., Watts, M. &amp; Possingham, H. (2007). <em>Spatial Prioritization Approaches for the Conservation of Biodiversity in Australia: Considering Conservation Costs, Ecological &amp; Evolutionary Processes, and Large-Intact Areas</em>. Report to the Department of Environment; Water Resources.</p>
+<div id="ref-r30" class="csl-entry">
+Klein, C., Carwardine, J., Wilson, K., Watts, M. &amp; Possingham, H. (2007). <em><span class="nocase">Spatial Prioritization Approaches for the Conservation of Biodiversity in Australia: Considering Conservation Costs, Ecological &amp; Evolutionary Processes, and Large-Intact Areas</span></em>. Report to the Department of Environment; Water Resources.
 </div>
 </div>
 </div>
@@ -514,11 +513,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://jeffrey-hanson.com">Jeffrey O Hanson</a>, <a href="http://www.richard-schuster.com">Richard Schuster</a>, Nina Morrell, <a href="http://strimas.com">Matthew Strimas-Mackey</a>, Matthew E Watts, <a href="https://arcese.forestry.ubc.ca">Peter Arcese</a>, <a href="https://josephrbennett.wordpress.com">Joseph Bennett</a>, <a href="http://www.possinghamlab.org">Hugh P Possingham</a>.</p>
+  <p></p>
+<p>Developed by <a href="https://jeffrey-hanson.com" class="external-link external-link">Jeffrey O Hanson</a>, <a href="http://www.richard-schuster.com" class="external-link external-link">Richard Schuster</a>, Nina Morrell, <a href="http://strimas.com" class="external-link external-link">Matthew Strimas-Mackey</a>, Matthew E Watts, <a href="https://arcese.forestry.ubc.ca" class="external-link external-link">Peter Arcese</a>, <a href="https://josephrbennett.wordpress.com" class="external-link external-link">Joseph Bennett</a>, <a href="http://www.possinghamlab.org" class="external-link external-link">Hugh P Possingham</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link external-link">pkgdown</a> 1.6.1.9001.</p>
 </div>
 
       </footer>

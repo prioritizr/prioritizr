@@ -1,65 +1,136 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
-<meta charset="utf-8">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <meta name="author" content="Richard Schuster" />
 
-<meta name="date" content="2021-04-14" />
+<meta name="date" content="2021-05-11" />
 
 <title>Gurobi Installation Guide</title>
 
+<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
 
-
-<style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
 </style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
 
 
 
-<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
+
+
+
 
 </head>
 
@@ -69,8 +140,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 <h1 class="title toc-ignore">Gurobi Installation Guide</h1>
-<h4 class="author"><em>Richard Schuster</em></h4>
-<h4 class="date"><em>2021-04-14</em></h4>
+<h4 class="author">Richard Schuster</h4>
+<h4 class="date">2021-05-11</h4>
 
 
 <div id="TOC">
@@ -79,7 +150,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#obtaining-a-license">Obtaining a license</a></li>
 <li><a href="#downloading-the-gurobi-software-suite">Downloading the <em>Gurobi</em> software suite</a></li>
 <li><a href="#software-installation">Software installation</a></li>
-<li><a href="#license-activation">License activation</a><ul>
+<li><a href="#license-activation">License activation</a>
+<ul>
 <li><a href="#local-license-activation">Local license activation</a></li>
 <li><a href="#cloud-license-activation-over-ssh">Cloud license activation over SSH</a></li>
 <li><a href="#verification">Verification</a></li>
@@ -135,22 +207,22 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h3>Cloud license activation over SSH</h3>
 <p>If you are activating a special Academic license on a networked system that is not connected to your university’s network (e.g. a cloud-based server on <a href="https://aws.amazon.com/ec2/">Amazon EC2</a> or <a href="https://nectar.org.au/">NeCTAR</a>), then you will need to use the following instructions. Here, you will need a local computer that is connected to your university’s network. For brevity, we will refer to your local computer as <em>COMPUTER1</em> and your networked system where upon you wish to activate the <em>Gurobi</em> license as <em>COMPUTER2</em>. We will also assume that your are running Ubuntu (14.04+) on both systems. The following instructions were adapted from a discussion thread on the <a href="https://groups.google.com/forum/#!topic/gurobi/MaEP4cun8o8">official <em>Gurobi</em> emailing list</a>.</p>
 <p>First, we will connect to <em>COMPUTER2</em> using <em>COMPUTER1</em>. Here, we will use <em>USER.COMPUTER2</em> to refer to the user name of your account on <em>COMPUTER2</em>, and <em>IP.COMPUTER2</em> to refer to the IP address of <em>COMPUTER2</em>. If you do not know the IP address of <em>COMPUTER2</em>, you should be able to find it on the website where you launched the system. To connect to <em>COMPUTER2</em> from <em>COMPUTER1</em>, type the following command into a new terminal session. Note that you may be prompted to enter a password.</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">ssh</span> USER.COMPUTER2@IP.COMPUTER2</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> USER.COMPUTER2@IP.COMPUTER2</span></code></pre></div>
 <p>Next, we will install <code>sshserver</code> on <em>COMPUTER2</em>. To do this, enter the following command into the same terminal session.</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">sudo</span> apt-get install openssh-server</code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get install openssh-server</span></code></pre></div>
 <p>Next, we will execute the following on command on <em>COMPUTER2</em> to tell it to connect to <em>COMPUTER1</em> when attempting to activate the <em>Gurobi</em> license. Similar to before, we will use <em>USER.COMPUTER1</em> to refer to the user name of your account <em>COMPUTER1</em>, and <em>IP.COMPUTER1</em> to refer to the IP address of <em>COMPUTER1</em>. If you do not know the IP address of <em>COMPUTER1</em>, try visiting this website (<a href="https://whatismyipaddress.com" class="uri">https://whatismyipaddress.com</a>) to find out what it is. Also note that your university might automatically block incoming SSH connections, so if you are unable to connect to <em>COMPUTER1</em> from <em>COMPUTER2</em> you may need to enlist the help of a member of your university’s IT support team.</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">ssh</span> -L 8080:apps.gurobi.com:80 USER.COMPUTER1@IP.COMPUTER1</code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="at">-L</span> 8080:apps.gurobi.com:80 USER.COMPUTER1@IP.COMPUTER1</span></code></pre></div>
 <p>Now, we will <strong>open up another session</strong> on <em>COMPUTER1</em>, connect to <em>COMPUTER2</em> from <em>COMPUTER1</em> using the same SSH command as before, and then tell <em>COMPUTER2</em> to activate the license. Please replace <code>XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX</code> with the correct license activation code that you saved earlier (note that the <code>--http</code> flag may not be required for <em>Gurobi</em> versions earlier than 8.0.0).</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">ssh</span> USER.COMPUTER2@IP.COMPUTER2
-<span class="ex">grbgetkey</span> --http --server=127.0.0.1 --port=8080 --verbose XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX</code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> USER.COMPUTER2@IP.COMPUTER2</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">grbgetkey</span> <span class="at">--http</span> <span class="at">--server</span><span class="op">=</span>127.0.0.1 <span class="at">--port</span><span class="op">=</span>8080 <span class="at">--verbose</span> XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX</span></code></pre></div>
 <p>Finally, after having activated the license, we can terminate our SSH connections and close the bash sessions.</p>
 </div>
 <div id="verification" class="section level3">
 <h3>Verification</h3>
 <p>We can double check that the license has been successfully activated by running <em>Gurobi</em> from the command line. Assuming you have installed <em>Gurobi</em> version 8.0.0, Windows users can type in the following the following commands:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">gurobi_cl</span> c:\gurobi800\win64\examples\data\coins.lp</code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gurobi_cl</span> c:<span class="dt">\g</span>urobi800<span class="dt">\w</span>in64<span class="dt">\e</span>xamples<span class="dt">\d</span>ata<span class="dt">\c</span>oins.lp</span></code></pre></div>
 <p>Additionally, Linux users can test their license activation using the following commands</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">gurobi_cl</span> /opt/gurobi800/linux64/examples/data/coins.lp</code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gurobi_cl</span> /opt/gurobi800/linux64/examples/data/coins.lp</span></code></pre></div>
 <p>If the license was successfully activated, you should see output that looks something like that in the screen shot below.</p>
 <br>
 <center>
@@ -163,33 +235,33 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="r-package-installation" class="section level2">
 <h2><em>R</em> package installation</h2>
 <p>Now we will install the <em>gurobi R</em> package distributed with the <em>Gurobi</em> software suite. The <em>gurobi</em> <em>R</em> package installation file should be located within the folder where you installed the <em>Gurobi</em> software suite. Assuming you installed <em>Gurobi</em> in the default location and assuming you installed version 8.0.0, Windows users can install <em>gurobi</em> <em>R</em> package by running the following code from within <em>R</em>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;c:/gurobi800/win64/R/gurobi_8.0-0.zip&quot;</span>, <span class="dt">repos =</span> <span class="ot">NULL</span>)</code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;c:/gurobi800/win64/R/gurobi_8.0-0.zip&quot;</span>, <span class="at">repos =</span> <span class="cn">NULL</span>)</span></code></pre></div>
 <p>Additionally, Linux users can install the <em>gurobi</em> <em>R</em> package by running the following code from within R:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="kw">file.path</span>(<span class="kw">Sys.getenv</span>(<span class="st">&quot;GUROBI_HOME&quot;</span>),
-                           <span class="st">&quot;R/gurobi_8.0-0_R_x86_64-pc-linux-gnu.tar.gz&quot;</span>),
-                 <span class="dt">repos =</span> <span class="ot">NULL</span>)</code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">file.path</span>(<span class="fu">Sys.getenv</span>(<span class="st">&quot;GUROBI_HOME&quot;</span>),</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                           <span class="st">&quot;R/gurobi_8.0-0_R_x86_64-pc-linux-gnu.tar.gz&quot;</span>),</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">repos =</span> <span class="cn">NULL</span>)</span></code></pre></div>
 <p>Next, you will need to install the <em>slam R</em> package because the <em>gurobi</em> <em>R</em> package needs this package to work. Both Windows and Linux users can do this by running the code below in <em>R</em>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;slam&quot;</span>, <span class="dt">repos =</span> <span class="st">&quot;https://cloud.r-project.org&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;slam&quot;</span>, <span class="at">repos =</span> <span class="st">&quot;https://cloud.r-project.org&quot;</span>)</span></code></pre></div>
 <p>Let’s check that the <em>gurobi</em> <em>R</em> package has been successfully installed. To do this, we can try using the <em>gurobi R</em> package to solve an optimization problem. Copy and paste the <em>R</em> code below into <em>R</em>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># load gurobi package</span>
-<span class="kw">library</span>(gurobi)</code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load gurobi package</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gurobi)</span></code></pre></div>
 <pre><code>## Loading required package: slam</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create optimization problem</span>
-model &lt;-<span class="st"> </span><span class="kw">list</span>()
-model<span class="op">$</span>obj        &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>)
-model<span class="op">$</span>modelsense &lt;-<span class="st"> &quot;max&quot;</span>
-model<span class="op">$</span>rhs        &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">1</span>)
-model<span class="op">$</span>sense      &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;&lt;&quot;</span>, <span class="st">&quot;&gt;&quot;</span>)
-model<span class="op">$</span>vtype      &lt;-<span class="st"> &quot;B&quot;</span>
-model<span class="op">$</span>A          &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>), <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> <span class="dv">3</span>,
-                           <span class="dt">byrow =</span> <span class="ot">TRUE</span>)
-
-<span class="co"># solve the optimization problem using Gurobi</span>
-result &lt;-<span class="st"> </span><span class="kw">gurobi</span>(model, <span class="kw">list</span>())</code></pre></div>
-<pre><code>## Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (linux64)
-## Thread count: 2 physical cores, 4 logical processors, using up to 4 threads
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create optimization problem</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>model<span class="sc">$</span>obj        <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>model<span class="sc">$</span>modelsense <span class="ot">&lt;-</span> <span class="st">&quot;max&quot;</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>model<span class="sc">$</span>rhs        <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">1</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>model<span class="sc">$</span>sense      <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;&lt;&quot;</span>, <span class="st">&quot;&gt;&quot;</span>)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>model<span class="sc">$</span>vtype      <span class="ot">&lt;-</span> <span class="st">&quot;B&quot;</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>model<span class="sc">$</span>A          <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>), <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">3</span>,</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>                           <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co"># solve the optimization problem using Gurobi</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">gurobi</span>(model, <span class="fu">list</span>())</span></code></pre></div>
+<pre><code>## Gurobi Optimizer version 9.1.2 build v9.1.2rc0 (linux64)
+## Thread count: 4 physical cores, 8 logical processors, using up to 8 threads
 ## Optimize a model with 2 rows, 3 columns and 5 nonzeros
-## Model fingerprint: 0x15e5f516
+## Model fingerprint: 0xba2d0add
 ## Variable types: 0 continuous, 3 integer (3 binary)
 ## Coefficient statistics:
 ##   Matrix range     [1e+00, 3e+00]
@@ -198,20 +270,20 @@ result &lt;-<span class="st"> </span><span class="kw">gurobi</span>(model, <span
 ##   RHS range        [1e+00, 4e+00]
 ## Found heuristic solution: objective 2.0000000
 ## Presolve removed 2 rows and 3 columns
-## Presolve time: 0.01s
+## Presolve time: 0.00s
 ## Presolve: All rows and columns removed
 ## 
-## Explored 0 nodes (0 simplex iterations) in 0.01 seconds
-## Thread count was 1 (of 4 available processors)
+## Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+## Thread count was 1 (of 8 available processors)
 ## 
-## Solution count 2: 3 
+## Solution count 2: 3 2 
 ## 
 ## Optimal solution found (tolerance 1.00e-04)
 ## Best objective 3.000000000000e+00, best bound 3.000000000000e+00, gap 0.0000%</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># print the solution</span>
-<span class="kw">print</span>(result<span class="op">$</span>objval) <span class="co"># objective</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># print the solution</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(result<span class="sc">$</span>objval) <span class="co"># objective</span></span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(result<span class="op">$</span>x)      <span class="co"># decision variables</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(result<span class="sc">$</span>x)      <span class="co"># decision variables</span></span></code></pre></div>
 <pre><code>## [1] 1 0 1</code></pre>
 <p>If you see the outputs for <code>result$objval</code> and <code>result$x</code> and you don’t see any error messages, then you have (1) successfully installed the <em>Gurobi</em> software suite, (2) activated a valid license, and (3) successfully installed the <em>gurobi R</em> package. Now you can finally use <em>Gurobi</em> to solve conservation planning problems with <em>prioritizr</em>. If do see an error message, then you might have missed a step while installing the package or activating the license, so try going back through this vignette to see if you missed something.</p>
 </div>
@@ -219,18 +291,18 @@ result &lt;-<span class="st"> </span><span class="kw">gurobi</span>(model, <span
 <h2>Solving a <em>prioritzr</em> problem with <em>Gurobi</em></h2>
 <p>If you successfully installed the <em>Gurobi</em> software suite and the <em>gurobi</em> <em>R</em> package, you can now try solving conservation planning problems using the <em>prioritzr</em> <em>R</em> package. Although the <em>prioritizr</em> <em>R</em> package should automatically detect that <em>Gurobi</em> has been installed, you can use the function <code>add_gurobi_solver</code> to manually specify that <em>Gurobi</em> should be used to solve problems. This function is also useful because you can use it to customize the optimization process (e.g. specify the desired optimality gap or set a limit on how much time should be spent searching for a solution).</p>
 <p>Finally, to check that everything has been installed correctly, we will use the <em>Gurobi</em> software suite to solve a reserve selection problem created using the <em>prioritzr</em> <em>R</em> package.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(prioritizr)
-
-<span class="co"># formulate the problem</span>
-p &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster, sim_features) <span class="op">%&gt;%</span>
-<span class="st">     </span><span class="kw">add_min_set_objective</span>() <span class="op">%&gt;%</span>
-<span class="st">     </span><span class="kw">add_relative_targets</span>(<span class="fl">0.1</span>) <span class="op">%&gt;%</span>
-<span class="st">     </span><span class="kw">add_gurobi_solver</span>()
-
-<span class="co"># solve the problem</span>
-s &lt;-<span class="st"> </span><span class="kw">solve</span>(p)</code></pre></div>
-<pre><code>## Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (linux64)
-## Thread count: 2 physical cores, 4 logical processors, using up to 1 threads
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(prioritizr)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># formulate the problem</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">problem</span>(sim_pu_raster, sim_features) <span class="sc">%&gt;%</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>     <span class="fu">add_min_set_objective</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>     <span class="fu">add_relative_targets</span>(<span class="fl">0.1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>     <span class="fu">add_gurobi_solver</span>()</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co"># solve the problem</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">solve</span>(p)</span></code></pre></div>
+<pre><code>## Gurobi Optimizer version 9.1.2 build v9.1.2rc0 (linux64)
+## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
 ## Optimize a model with 5 rows, 90 columns and 450 nonzeros
 ## Model fingerprint: 0x6442bf6e
 ## Variable types: 0 continuous, 90 integer (90 binary)
@@ -254,20 +326,23 @@ s &lt;-<span class="st"> </span><span class="kw">solve</span>(p)</code></pre></d
 ##      0     0 1931.58191    0    4 2337.96175 1931.58191  17.4%     -    0s
 ## H    0     0                    1987.3985265 1931.58191  2.81%     -    0s
 ## 
-## Explored 1 nodes (12 simplex iterations) in 0.01 seconds
-## Thread count was 1 (of 4 available processors)
+## Explored 1 nodes (12 simplex iterations) in 0.00 seconds
+## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 2: 1987.4 2337.96 
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
 ## Best objective 1.987398526526e+03, best bound 1.931581908865e+03, gap 2.8085%</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># plot solution</span>
-<span class="kw">plot</span>(s, <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;grey90&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>), <span class="dt">main =</span> <span class="st">&quot;Solution&quot;</span>,
-     <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>))</code></pre></div>
-<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot solution</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;grey90&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>), <span class="at">main =</span> <span class="st">&quot;Solution&quot;</span>,</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>))</span></code></pre></div>
+<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
 <p>After running this code, hopefully, you should some information printed on-screen about the optimization process and <em>R</em> should produce a map displaying a solution. If this code does not produce any errors, then you have successfully installed everything and can begin using <em>Gurobi</em> and the <em>prioritizr R</em> package to solve your very own conservation planning problems.</p>
 </div>
 
+
+
+<!-- code folding -->
 
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
@@ -275,7 +350,7 @@ s &lt;-<span class="st"> </span><span class="kw">solve</span>(p)</code></pre></d
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

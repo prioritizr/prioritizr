@@ -59,6 +59,8 @@
 
 
 
+
+
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
@@ -80,9 +82,18 @@
 </script>
 
 
+<!-- dependencies from examples -->
+
+
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -96,19 +107,13 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.3</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../articles/prioritizr.html">Get started</a>
 </li>
 <li>
@@ -131,6 +136,9 @@
       <a href="../articles/saltspring.html">Salt Spring Island Tutorial</a>
     </li>
     <li>
+      <a href="../articles/solver_benchmark.html">Solver Benchmarks</a>
+    </li>
+    <li>
       <a href="../articles/tasmania.html">Tasmania Tutorial</a>
     </li>
     <li>
@@ -145,7 +153,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/prioritizr/prioritizr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -230,20 +238,20 @@ Defaults to <code>FALSE</code>.</p></td>
 <span class='co'># create a numeric matrix parameter</span>
 <span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'>numeric_matrix_parameter</span><span class='op'>(</span><span class='st'>"m"</span>, <span class='va'>m</span><span class='op'>)</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span> <span class='co'># print it</span>
-</div><div class='output co'>#&gt; &lt;environment: 0x14c783f0&gt;
+</div><div class='co'>#&gt; &lt;environment: 0x55d1265c3398&gt;
 #&gt; attr(,"class")
 #&gt; [1] "MiscParameter" "MiscParameter" "Parameter"     "pproto"       
 #&gt; [5] "proto"         "environment"  </div><div class='input'><span class='va'>p1</span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='op'>)</span> <span class='co'># get value</span>
-</div><div class='output co'>#&gt;           a         b         c
+</div><div class='co'>#&gt;           a         b         c
 #&gt; a 0.8334376 0.5892456 0.2387031
 #&gt; b 0.4846932 0.5758689 0.2372128
 #&gt; c 0.8543447 0.4674843 0.2312509</div><div class='input'><span class='va'>p1</span><span class='op'>$</span><span class='va'>id</span> <span class='co'># get id</span>
-</div><div class='output co'>#&gt; <span class='message'>id: a2c75f72-042f-43f8-a460-3c921e057691</span></div><div class='input'><span class='va'>p1</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='va'>m</span><span class='op'>[</span>, <span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span> <span class='co'># check if parameter can be updated</span>
-</div><div class='output co'>#&gt; [1] FALSE
+</div><div class='co'>#&gt; id: 593d1b66-3b21-41ed-9313-238130396a21</div><div class='input'><span class='va'>p1</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='va'>m</span><span class='op'>[</span>, <span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span> <span class='co'># check if parameter can be updated</span>
+</div><div class='co'>#&gt; [1] FALSE
 #&gt; attr(,"msg")
 #&gt; [1] "ncol(m) not equal to ncol(value)"</div><div class='input'><span class='va'>p1</span><span class='op'>$</span><span class='fu'>set</span><span class='op'>(</span><span class='va'>m</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>)</span> <span class='co'># set parameter to new values</span>
 <span class='va'>p1</span><span class='op'>$</span><span class='fu'>print</span><span class='op'>(</span><span class='op'>)</span> <span class='co'># print it again</span>
-</div><div class='output co'>#&gt; [1] "m"</div><div class='input'>
+</div><div class='co'>#&gt; [1] "m"</div><div class='input'>
 <span class='co'># create a binary matrix parameter</span>
 <span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>9</span><span class='op'>)</span><span class='op'>)</span>, ncol <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>m</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span>
@@ -252,20 +260,20 @@ Defaults to <code>FALSE</code>.</p></td>
 <span class='co'># create a binary matrix parameter</span>
 <span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='fu'>binary_matrix_parameter</span><span class='op'>(</span><span class='st'>"m"</span>, <span class='va'>m</span><span class='op'>)</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span> <span class='co'># print it</span>
-</div><div class='output co'>#&gt; &lt;environment: 0x1181a360&gt;
+</div><div class='co'>#&gt; &lt;environment: 0x55d1280da680&gt;
 #&gt; attr(,"class")
 #&gt; [1] "MiscParameter" "MiscParameter" "Parameter"     "pproto"       
 #&gt; [5] "proto"         "environment"  </div><div class='input'><span class='va'>p2</span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='op'>)</span> <span class='co'># get value</span>
-</div><div class='output co'>#&gt;   a b c
+</div><div class='co'>#&gt;   a b c
 #&gt; a 1 0 1
 #&gt; b 0 1 1
 #&gt; c 0 0 1</div><div class='input'><span class='va'>p2</span><span class='op'>$</span><span class='va'>id</span> <span class='co'># get id</span>
-</div><div class='output co'>#&gt; <span class='message'>id: c4a0cd2c-3732-4b9b-a29f-e93bf867c4a9</span></div><div class='input'><span class='va'>p2</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='va'>m</span><span class='op'>[</span>, <span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span> <span class='co'># check if parameter can be updated</span>
-</div><div class='output co'>#&gt; [1] FALSE
+</div><div class='co'>#&gt; id: 2620bac1-215c-4aed-8f90-d2364850c91f</div><div class='input'><span class='va'>p2</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='va'>m</span><span class='op'>[</span>, <span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span> <span class='co'># check if parameter can be updated</span>
+</div><div class='co'>#&gt; [1] FALSE
 #&gt; attr(,"msg")
 #&gt; [1] "ncol(m) not equal to ncol(value)"</div><div class='input'><span class='va'>p2</span><span class='op'>$</span><span class='fu'>set</span><span class='op'>(</span><span class='va'>m</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>)</span> <span class='co'># set parameter to new values</span>
 <span class='va'>p2</span><span class='op'>$</span><span class='fu'>print</span><span class='op'>(</span><span class='op'>)</span> <span class='co'># print it again</span>
-</div><div class='output co'>#&gt; [1] "m"</div></pre>
+</div><div class='co'>#&gt; [1] "m"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -277,11 +285,11 @@ Defaults to <code>FALSE</code>.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com'>Joseph Bennett</a>, <a href='http://www.possinghamlab.org'>Hugh P Possingham</a>.</p>
+  <p><p>Developed by <a href="https://jeffrey-hanson.com" class="external-link">Jeffrey O Hanson</a>, <a href="http://www.richard-schuster.com" class="external-link">Richard Schuster</a>, Nina Morrell, <a href="http://strimas.com" class="external-link">Matthew Strimas-Mackey</a>, Matthew E Watts, <a href="https://arcese.forestry.ubc.ca" class="external-link">Peter Arcese</a>, <a href="https://josephrbennett.wordpress.com" class="external-link">Joseph Bennett</a>, <a href="http://www.possinghamlab.org" class="external-link">Hugh P Possingham</a>.</p></p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p></p>
 </div>
 
       </footer>
@@ -306,6 +314,8 @@ Defaults to <code>FALSE</code>.</p></td>
 </script>
 
 
+
+  
 
   </body>
 </html>

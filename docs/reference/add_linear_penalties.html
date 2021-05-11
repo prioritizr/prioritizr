@@ -64,6 +64,8 @@ solution cost for minimum set problems; add_min_set_objective()." />
 
 
 
+
+
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
@@ -85,9 +87,18 @@ solution cost for minimum set problems; add_min_set_objective()." />
 </script>
 
 
+<!-- dependencies from examples -->
+
+
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -101,19 +112,13 @@ solution cost for minimum set problems; add_min_set_objective()." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.3</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../articles/prioritizr.html">Get started</a>
 </li>
 <li>
@@ -136,6 +141,9 @@ solution cost for minimum set problems; add_min_set_objective()." />
       <a href="../articles/saltspring.html">Salt Spring Island Tutorial</a>
     </li>
     <li>
+      <a href="../articles/solver_benchmark.html">Solver Benchmarks</a>
+    </li>
+    <li>
       <a href="../articles/tasmania.html">Tasmania Tutorial</a>
     </li>
     <li>
@@ -150,7 +158,7 @@ solution cost for minimum set problems; add_min_set_objective()." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/prioritizr/prioritizr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -229,7 +237,7 @@ must have a value for each zone.</p></td>
     <tr>
       <th>data</th>
       <td><p><code>character</code>, <code>numeric</code>,
-<code>Raster</code>, <code>matrix</code>, or <code>Matrix</code> object
+<code><a href='https://rdrr.io/pkg/raster/man/Raster-classes.html'>Raster</a></code>, <code>matrix</code>, or <code>Matrix</code> object
 containing the data used to penalize solutions. Planning units that are
 associated with higher data values are penalized more strongly
 in the solution. See the Data format section for more information.</p></td>
@@ -270,7 +278,7 @@ replaced with \(-P_z\).</p>
 <dt><code>character</code></dt><dd><p>field (column) name(s) that contain the data for
 penalizing planning units. This type of argument is only
 compatible if the planning units in the argument to <code>x</code> are a
-<code>Spatial</code>, <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code>, or
+<code><a href='https://rdrr.io/pkg/sp/man/Spatial-class.html'>Spatial</a></code>, <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code>, or
 <code>data.frame</code> object. The fields (columns) must have <code>numeric</code>
 values, and must not contain any missing (<code>NA</code>) values.
 For problems involving multiple zones, the argument to <code>data</code> must
@@ -281,18 +289,18 @@ each planning unit. These values must not contain any missing
 (<code>NA</code>) values. Note that this type of argument is only available
 for planning units that contain a single zone.</p></dd>
 
-<dt><code>Raster</code></dt><dd><p>containing the data for
+<dt><code><a href='https://rdrr.io/pkg/raster/man/Raster-classes.html'>Raster</a></code></dt><dd><p>containing the data for
 penalizing planning units. This type of argument is only
 compatible if the planning units in the argument to <code>x</code> are
-<code>Spatial</code>, <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code>, or
-or <code>Raster</code> (i.e. they are in a spatially
+<code><a href='https://rdrr.io/pkg/sp/man/Spatial-class.html'>Spatial</a></code>, <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code>, or
+or <code><a href='https://rdrr.io/pkg/raster/man/Raster-classes.html'>Raster</a></code> (i.e. they are in a spatially
 referenced format).
-If the planning unit data are a <code>Spatial</code> or
+If the planning unit data are a <code><a href='https://rdrr.io/pkg/sp/man/Spatial-class.html'>Spatial</a></code> or
 <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code> object, then the
 penalty <code>data</code> are calculated by overlaying the planning units with
 the argument to <code>data</code> and calculating the sum of the values.
 If the planning unit data are in the
-<code>Raster</code> then the penalty <code>data</code> are
+<code><a href='https://rdrr.io/pkg/raster/man/Raster-classes.html'>Raster</a></code> then the penalty <code>data</code> are
 calculated by extracting the cell values (note that the
 planning unit data and the argument to codedata must have exactly
 the same dimensionality, extent, and missingness).
@@ -321,47 +329,47 @@ when it is allocated to a given zone.</p></dd>
 <span class='va'>sim_pu_polygons</span><span class='op'>$</span><span class='va'>penalty_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fu'><a href='OptimizationProblem-methods.html'>nrow</a></span><span class='op'>(</span><span class='va'>sim_pu_polygons</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># plot the penalty data to visualise its spatial distribution</span>
-<span class='fu'>spplot</span><span class='op'>(</span><span class='va'>sim_pu_polygons</span>, zcol <span class='op'>=</span> <span class='st'>"penalty_data"</span>, main <span class='op'>=</span> <span class='st'>"penalty data"</span>,
+<span class='fu'><a href='https://rdrr.io/pkg/raster/man/spplot.html'>spplot</a></span><span class='op'>(</span><span class='va'>sim_pu_polygons</span>, zcol <span class='op'>=</span> <span class='st'>"penalty_data"</span>, main <span class='op'>=</span> <span class='st'>"penalty data"</span>,
        axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='img'><img src='add_linear_penalties-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># create minimal problem with minimum set objective,</span>
 <span class='co'># this does not use the penalty data</span>
-<span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_polygons</span>, <span class='va'>sim_features</span>, cost_column <span class='op'>=</span> <span class='st'>"cost"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+<span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_polygons</span>, <span class='va'>sim_features</span>, cost_column <span class='op'>=</span> <span class='st'>"cost"</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
+      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
+      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
       <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='co'># print problem</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Conservation Problem</span>
-#&gt; <span class='message'>  planning units: SpatialPolygonsDataFrame (90 units)</span>
-#&gt; <span class='message'>  cost:           min: 190.13276, max: 215.86384</span>
-#&gt; <span class='message'>  features:       layer.1, layer.2, layer.3, ... (5 features)</span>
-#&gt; <span class='message'>  objective:      Minimum set objective </span>
-#&gt; <span class='message'>  targets:        Relative targets [targets (min: 0.1, max: 0.1)]</span>
-#&gt; <span class='message'>  decisions:      Binary decision </span>
-#&gt; <span class='message'>  constraints:    &lt;none&gt;</span>
-#&gt; <span class='message'>  penalties:      &lt;none&gt;</span>
-#&gt; <span class='message'>  portfolio:      default</span>
-#&gt; <span class='message'>  solver:         Gurobi [first_feasible (0), gap (0.1), node_file_start (-1), numeric_focus (0), presolve (2), threads (1), time_limit (2147483647), verbose (0)]</span></div><div class='input'>
+</div><div class='co'>#&gt; Conservation Problem
+#&gt;   planning units: SpatialPolygonsDataFrame (90 units)
+#&gt;   cost:           min: 190.13276, max: 215.86384
+#&gt;   features:       layer.1, layer.2, layer.3, ... (5 features)
+#&gt;   objective:      Minimum set objective 
+#&gt;   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
+#&gt;   decisions:      Binary decision 
+#&gt;   constraints:    &lt;none&gt;
+#&gt;   penalties:      &lt;none&gt;
+#&gt;   portfolio:      default
+#&gt;   solver:         Gurobi [first_feasible (0), gap (0.1), node_file_start (-1), numeric_focus (0), presolve (2), threads (1), time_limit (2147483647), verbose (0)]</div><div class='input'>
 <span class='co'># create an updated version of the previous problem,</span>
 <span class='co'># with the penalties added to it</span>
-<span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='va'>p1</span> <span class='op'>%&gt;%</span> <span class='fu'>add_linear_penalties</span><span class='op'>(</span><span class='fl'>100</span>, data <span class='op'>=</span> <span class='st'>"penalty_data"</span><span class='op'>)</span>
+<span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='va'>p1</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'>add_linear_penalties</span><span class='op'>(</span><span class='fl'>100</span>, data <span class='op'>=</span> <span class='st'>"penalty_data"</span><span class='op'>)</span>
 
 <span class='co'># print problem</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Conservation Problem</span>
-#&gt; <span class='message'>  planning units: SpatialPolygonsDataFrame (90 units)</span>
-#&gt; <span class='message'>  cost:           min: 190.13276, max: 215.86384</span>
-#&gt; <span class='message'>  features:       layer.1, layer.2, layer.3, ... (5 features)</span>
-#&gt; <span class='message'>  objective:      Minimum set objective </span>
-#&gt; <span class='message'>  targets:        Relative targets [targets (min: 0.1, max: 0.1)]</span>
-#&gt; <span class='message'>  decisions:      Binary decision </span>
-#&gt; <span class='message'>  constraints:    &lt;none&gt;</span>
-#&gt; <span class='message'>  penalties:      &lt;Linear penalties [penalty (100)]&gt;</span>
-#&gt; <span class='message'>  portfolio:      default</span>
-#&gt; <span class='message'>  solver:         Gurobi [first_feasible (0), gap (0.1), node_file_start (-1), numeric_focus (0), presolve (2), threads (1), time_limit (2147483647), verbose (0)]</span></div><div class='input'>
+</div><div class='co'>#&gt; Conservation Problem
+#&gt;   planning units: SpatialPolygonsDataFrame (90 units)
+#&gt;   cost:           min: 190.13276, max: 215.86384
+#&gt;   features:       layer.1, layer.2, layer.3, ... (5 features)
+#&gt;   objective:      Minimum set objective 
+#&gt;   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
+#&gt;   decisions:      Binary decision 
+#&gt;   constraints:    &lt;none&gt;
+#&gt;   penalties:      &lt;Linear penalties [penalty (100)]&gt;
+#&gt;   portfolio:      default
+#&gt;   solver:         Gurobi [first_feasible (0), gap (0.1), node_file_start (-1), numeric_focus (0), presolve (2), threads (1), time_limit (2147483647), verbose (0)]</div><div class='input'>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve the two problems</span>
 <span class='va'>s1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>
@@ -371,9 +379,9 @@ when it is allocated to a given zone.</p></dd>
 <span class='co'># since we supplied a very high penalty value (i.e. 100), relative</span>
 <span class='co'># to the range of values in the penalty data and the objective function,</span>
 <span class='co'># the solution in s2 is very sensitive to values in the penalty data</span>
-<span class='fu'>spplot</span><span class='op'>(</span><span class='va'>s1</span>, zcol <span class='op'>=</span> <span class='st'>"solution_1"</span>, main <span class='op'>=</span> <span class='st'>"solution without penalties"</span>,
+<span class='fu'><a href='https://rdrr.io/pkg/raster/man/spplot.html'>spplot</a></span><span class='op'>(</span><span class='va'>s1</span>, zcol <span class='op'>=</span> <span class='st'>"solution_1"</span>, main <span class='op'>=</span> <span class='st'>"solution without penalties"</span>,
        axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='add_linear_penalties-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>spplot</span><span class='op'>(</span><span class='va'>s2</span>, zcol <span class='op'>=</span> <span class='st'>"solution_1"</span>, main <span class='op'>=</span> <span class='st'>"solution with penalties"</span>,
+</div><div class='img'><img src='add_linear_penalties-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/raster/man/spplot.html'>spplot</a></span><span class='op'>(</span><span class='va'>s2</span>, zcol <span class='op'>=</span> <span class='st'>"solution_1"</span>, main <span class='op'>=</span> <span class='st'>"solution with penalties"</span>,
        axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='img'><img src='add_linear_penalties-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># for real conservation planning exercises,</span>
@@ -394,40 +402,40 @@ when it is allocated to a given zone.</p></dd>
 <span class='co'># these data will be generated by simulating values</span>
 <span class='va'>penalty_stack</span> <span class='op'>&lt;-</span> <span class='fu'><a href='simulate_cost.html'>simulate_cost</a></span><span class='op'>(</span><span class='va'>sim_pu_zones_stack</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>,
                                n <span class='op'>=</span> <span class='fu'><a href='number_of_zones.html'>number_of_zones</a></span><span class='op'>(</span><span class='va'>sim_features_zones</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; ...</div><div class='input'>
+</div><div class='co'>#&gt; ...</div><div class='input'>
 <span class='co'># plot the penalty data, each layer corresponds to a different zone</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>penalty_stack</span>, main <span class='op'>=</span> <span class='st'>"penalty data"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>penalty_stack</span>, main <span class='op'>=</span> <span class='st'>"penalty data"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='img'><img src='add_linear_penalties-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># create a multi-zone problem with the minimum set objective</span>
 <span class='co'># and penalties for allocating planning units to each zone,</span>
 <span class='co'># with a penalty scaling factor of 1 for each zone</span>
-<span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_zones_stack</span>, <span class='va'>sim_features_zones</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='va'>targ</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'>add_linear_penalties</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span>, <span class='va'>penalty_stack</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+<span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_zones_stack</span>, <span class='va'>sim_features_zones</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
+      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
+      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='va'>targ</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
+      <span class='fu'>add_linear_penalties</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span>, <span class='va'>penalty_stack</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
       <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='co'># print problem</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Conservation Problem</span>
-#&gt; <span class='message'>  zones:          zone_1, zone_2, zone_3 (3 zones)</span>
-#&gt; <span class='message'>  planning units: RasterStack (90 units)</span>
-#&gt; <span class='message'>  cost:           min: 182.60173, max: 224.84924</span>
-#&gt; <span class='message'>  features:       feature_1, feature_2, feature_3, ... (5 features)</span>
-#&gt; <span class='message'>  objective:      Minimum set objective </span>
-#&gt; <span class='message'>  targets:        Relative targets [targets (min: 0.1, max: 0.1)]</span>
-#&gt; <span class='message'>  decisions:      Binary decision </span>
-#&gt; <span class='message'>  constraints:    &lt;none&gt;</span>
-#&gt; <span class='message'>  penalties:      &lt;Linear penalties [penalty (min: 1, max: 1)]&gt;</span>
-#&gt; <span class='message'>  portfolio:      default</span>
-#&gt; <span class='message'>  solver:         Gurobi [first_feasible (0), gap (0.1), node_file_start (-1), numeric_focus (0), presolve (2), threads (1), time_limit (2147483647), verbose (0)]</span></div><div class='input'>
+</div><div class='co'>#&gt; Conservation Problem
+#&gt;   zones:          zone_1, zone_2, zone_3 (3 zones)
+#&gt;   planning units: RasterStack (90 units)
+#&gt;   cost:           min: 182.60173, max: 224.84924
+#&gt;   features:       feature_1, feature_2, feature_3, ... (5 features)
+#&gt;   objective:      Minimum set objective 
+#&gt;   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
+#&gt;   decisions:      Binary decision 
+#&gt;   constraints:    &lt;none&gt;
+#&gt;   penalties:      &lt;Linear penalties [penalty (min: 1, max: 1)]&gt;
+#&gt;   portfolio:      default
+#&gt;   solver:         Gurobi [first_feasible (0), gap (0.1), node_file_start (-1), numeric_focus (0), presolve (2), threads (1), time_limit (2147483647), verbose (0)]</div><div class='input'>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
 <span class='va'>s3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span>
 
 <span class='co'># plot solution</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='category_layer.html'>category_layer</a></span><span class='op'>(</span><span class='va'>s3</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='st'>"multi-zone solution"</span>,
+<span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='category_layer.html'>category_layer</a></span><span class='op'>(</span><span class='va'>s3</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='st'>"multi-zone solution"</span>,
      axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='img'><img src='add_linear_penalties-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 </div></pre>
@@ -442,11 +450,11 @@ when it is allocated to a given zone.</p></dd>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com'>Joseph Bennett</a>, <a href='http://www.possinghamlab.org'>Hugh P Possingham</a>.</p>
+  <p><p>Developed by <a href="https://jeffrey-hanson.com" class="external-link">Jeffrey O Hanson</a>, <a href="http://www.richard-schuster.com" class="external-link">Richard Schuster</a>, Nina Morrell, <a href="http://strimas.com" class="external-link">Matthew Strimas-Mackey</a>, Matthew E Watts, <a href="https://arcese.forestry.ubc.ca" class="external-link">Peter Arcese</a>, <a href="https://josephrbennett.wordpress.com" class="external-link">Joseph Bennett</a>, <a href="http://www.possinghamlab.org" class="external-link">Hugh P Possingham</a>.</p></p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p></p>
 </div>
 
       </footer>
@@ -471,6 +479,8 @@ when it is allocated to a given zone.</p></dd>
 </script>
 
 
+
+  
 
   </body>
 </html>

@@ -1,3 +1,7 @@
+# prioritizr 7.0.1.3
+
+- New solver benchmark vignette.
+
 # prioritizr 7.0.1.2
 
 - Update `add_gurobi_solver` so that it doesn't print excess debugging

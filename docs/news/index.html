@@ -58,6 +58,8 @@
 
 
 
+
+
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
@@ -79,9 +81,16 @@
 </script>
 
 
+
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -95,19 +104,13 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.3</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../articles/prioritizr.html">Get started</a>
 </li>
 <li>
@@ -130,6 +133,9 @@
       <a href="../articles/saltspring.html">Salt Spring Island Tutorial</a>
     </li>
     <li>
+      <a href="../articles/solver_benchmark.html">Solver Benchmarks</a>
+    </li>
+    <li>
       <a href="../articles/tasmania.html">Tasmania Tutorial</a>
     </li>
     <li>
@@ -144,7 +150,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/prioritizr/prioritizr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -171,25 +177,33 @@
       <small>Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="prioritizr-7-0-1-2" class="section level1">
+    <div id="prioritizr-7013" class="section level1">
+<h1 class="page-header" data-toc-text="7.0.1.3">
+<a href="#prioritizr-7013" class="anchor" aria-hidden="true"></a>prioritizr 7.0.1.3<small> Unreleased </small>
+</h1>
+<ul>
+<li>New solver benchmark vignette.</li>
+</ul>
+</div>
+    <div id="prioritizr-7012" class="section level1">
 <h1 class="page-header" data-toc-text="7.0.1.2">
-<a href="#prioritizr-7-0-1-2" class="anchor"></a>prioritizr 7.0.1.2<small> Unreleased </small>
+<a href="#prioritizr-7012" class="anchor" aria-hidden="true"></a>prioritizr 7.0.1.2<small> Unreleased </small>
 </h1>
 <ul>
 <li>Update <code>add_gurobi_solver</code> so that it doesn’t print excess debugging information (accidentally introduced in previous version 7.0.1.1).</li>
 </ul>
 </div>
-    <div id="prioritizr-7-0-1-1" class="section level1">
+    <div id="prioritizr-7011" class="section level1">
 <h1 class="page-header" data-toc-text="7.0.1.1">
-<a href="#prioritizr-7-0-1-1" class="anchor"></a>prioritizr 7.0.1.1<small> Unreleased </small>
+<a href="#prioritizr-7011" class="anchor" aria-hidden="true"></a>prioritizr 7.0.1.1<small> Unreleased </small>
 </h1>
 <ul>
 <li>Update <code>add_gurobi_solver</code> to support the <code>node_file_start</code> parameter for the Gurobi software. This functionality is useful solving large problems on systems with limited memory (<a href='https://github.com/prioritizr/prioritizr/issues/139'>#139</a>).</li>
 </ul>
 </div>
-    <div id="prioritizr-7-0-1" class="section level1">
+    <div id="prioritizr-701" class="section level1">
 <h1 class="page-header" data-toc-text="7.0.1">
-<a href="#prioritizr-7-0-1" class="anchor"></a>prioritizr 7.0.1<small> 2021-03-31 </small>
+<a href="#prioritizr-701" class="anchor" aria-hidden="true"></a>prioritizr 7.0.1<small> 2021-03-31 </small>
 </h1>
 <ul>
 <li>Release candidate for CRAN.</li>
@@ -197,69 +211,69 @@
 <li>Update DESCRIPTION with details on rcbc R package installation.</li>
 </ul>
 </div>
-    <div id="prioritizr-7-0-0-8" class="section level1">
+    <div id="prioritizr-7008" class="section level1">
 <h1 class="page-header" data-toc-text="7.0.0.8">
-<a href="#prioritizr-7-0-0-8" class="anchor"></a>prioritizr 7.0.0.8<small> Unreleased </small>
+<a href="#prioritizr-7008" class="anchor" aria-hidden="true"></a>prioritizr 7.0.0.8<small> Unreleased </small>
 </h1>
 <ul>
 <li>New <code>write_problem</code> function to save the mixed integer programming representation of a conservation planning problem to a file. This function is useful for manually executing optimization solvers.</li>
 </ul>
 </div>
-    <div id="prioritizr-7-0-0-7" class="section level1">
+    <div id="prioritizr-7007" class="section level1">
 <h1 class="page-header" data-toc-text="7.0.0.7">
-<a href="#prioritizr-7-0-0-7" class="anchor"></a>prioritizr 7.0.0.7<small> Unreleased </small>
+<a href="#prioritizr-7007" class="anchor" aria-hidden="true"></a>prioritizr 7.0.0.7<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fix typo in <code>rij_matrix</code> function documentation (<a href='https://github.com/prioritizr/prioritizr/issues/189'>#189</a>).</li>
 <li>Update publication vignette.</li>
 </ul>
 </div>
-    <div id="prioritizr-7-0-0-6" class="section level1">
+    <div id="prioritizr-7006" class="section level1">
 <h1 class="page-header" data-toc-text="7.0.0.6">
-<a href="#prioritizr-7-0-0-6" class="anchor"></a>prioritizr 7.0.0.6<small> Unreleased </small>
+<a href="#prioritizr-7006" class="anchor" aria-hidden="true"></a>prioritizr 7.0.0.6<small> Unreleased </small>
 </h1>
 <ul>
 <li>Update <code>add_gurobi_solver</code> to allow specification of a starting solution (<a href='https://github.com/prioritizr/prioritizr/issues/187'>#187</a>). This functionality is useful for conducting a boundary penalty parameter calibration exercise. Specifically, users can specify the starting solution for a given penalty value based on the solution obtained using a smaller penalty value.</li>
 <li>Bug fix: <code>solve</code> now assigns layer names based on zone names for solutions in format.</li>
 </ul>
 </div>
-    <div id="prioritizr-7-0-0-5" class="section level1">
+    <div id="prioritizr-7005" class="section level1">
 <h1 class="page-header" data-toc-text="7.0.0.5">
-<a href="#prioritizr-7-0-0-5" class="anchor"></a>prioritizr 7.0.0.5<small> Unreleased </small>
+<a href="#prioritizr-7005" class="anchor" aria-hidden="true"></a>prioritizr 7.0.0.5<small> Unreleased </small>
 </h1>
 <ul>
 <li>Update methods for calculating solver runtime.</li>
 </ul>
 </div>
-    <div id="prioritizr-7-0-0-4" class="section level1">
+    <div id="prioritizr-7004" class="section level1">
 <h1 class="page-header" data-toc-text="7.0.0.4">
-<a href="#prioritizr-7-0-0-4" class="anchor"></a>prioritizr 7.0.0.4<small> Unreleased </small>
+<a href="#prioritizr-7004" class="anchor" aria-hidden="true"></a>prioritizr 7.0.0.4<small> Unreleased </small>
 </h1>
 <ul>
 <li>Update publication record.</li>
 <li>Bug fix: <code>time_limit</code> and <code>verbose</code> parameters for <code>add_cbc_solver</code> now work as expected.</li>
 </ul>
 </div>
-    <div id="prioritizr-7-0-0-3" class="section level1">
+    <div id="prioritizr-7003" class="section level1">
 <h1 class="page-header" data-toc-text="7.0.0.3">
-<a href="#prioritizr-7-0-0-3" class="anchor"></a>prioritizr 7.0.0.3<small> Unreleased </small>
+<a href="#prioritizr-7003" class="anchor" aria-hidden="true"></a>prioritizr 7.0.0.3<small> Unreleased </small>
 </h1>
 <ul>
 <li>Update <code>add_gurobi_solver</code> to report timings following the same methods as the other solvers.</li>
 </ul>
 </div>
-    <div id="prioritizr-7-0-0-2" class="section level1">
+    <div id="prioritizr-7002" class="section level1">
 <h1 class="page-header" data-toc-text="7.0.0.2">
-<a href="#prioritizr-7-0-0-2" class="anchor"></a>prioritizr 7.0.0.2<small> Unreleased </small>
+<a href="#prioritizr-7002" class="anchor" aria-hidden="true"></a>prioritizr 7.0.0.2<small> Unreleased </small>
 </h1>
 <ul>
 <li>Update <code>add_lpsymphony_solver</code> to be more memory efficient (<a href='https://github.com/prioritizr/prioritizr/issues/183'>#183</a>).</li>
 <li>Added <em>slam R</em> package to dependencies to enable more memory efficient usage of the <em>lpsymphony R</em> package (<a href='https://github.com/prioritizr/prioritizr/issues/183'>#183</a>).</li>
 </ul>
 </div>
-    <div id="prioritizr-7-0-0-1" class="section level1">
+    <div id="prioritizr-7001" class="section level1">
 <h1 class="page-header" data-toc-text="7.0.0.1">
-<a href="#prioritizr-7-0-0-1" class="anchor"></a>prioritizr 7.0.0.1<small> Unreleased </small>
+<a href="#prioritizr-7001" class="anchor" aria-hidden="true"></a>prioritizr 7.0.0.1<small> Unreleased </small>
 </h1>
 <ul>
 <li>Update unit tests to solve a greater proportion of them using continuous integration services (<a href='https://github.com/prioritizr/prioritizr/issues/181'>#181</a>).</li>
@@ -267,20 +281,20 @@
 <li>Bug fix: <code>add_cbc_solver</code> would sometimes return incorrect solutions to problems with equality constraints.</li>
 </ul>
 </div>
-    <div id="prioritizr-7-0-0-0" class="section level1">
+    <div id="prioritizr-7000" class="section level1">
 <h1 class="page-header" data-toc-text="7.0.0.0">
-<a href="#prioritizr-7-0-0-0" class="anchor"></a>prioritizr 7.0.0.0<small> Unreleased </small>
+<a href="#prioritizr-7000" class="anchor" aria-hidden="true"></a>prioritizr 7.0.0.0<small> Unreleased </small>
 </h1>
 <ul>
 <li>Remove unused <em>shiny R</em> package integration and dependencies (<a href='https://github.com/prioritizr/prioritizr/issues/141'>#141</a>).</li>
 </ul>
 </div>
-    <div id="prioritizr-6-0-0-2" class="section level1">
+    <div id="prioritizr-6002" class="section level1">
 <h1 class="page-header" data-toc-text="6.0.0.2">
-<a href="#prioritizr-6-0-0-2" class="anchor"></a>prioritizr 6.0.0.2<small> Unreleased </small>
+<a href="#prioritizr-6002" class="anchor" aria-hidden="true"></a>prioritizr 6.0.0.2<small> Unreleased </small>
 </h1>
 <ul>
-<li>New <code>add_cbc_solver</code> function to generate solutions using the open source CBC solver via the rcbc R package (<a href="https://github.com/dirkschumacher/rcbc" class="uri">https://github.com/dirkschumacher/rcbc</a>).</li>
+<li>New <code>add_cbc_solver</code> function to generate solutions using the open source CBC solver via the rcbc R package (https://github.com/dirkschumacher/rcbc).</li>
 <li>Update <code>add_rsymphony_solver</code> and <code>add_lpsymphony_solver</code> functions to have a default <code>time_limit</code> argument set as the maximum machine integer for consistency.</li>
 <li>Update <code>add_rsymphony_solver</code>, <code>add_lpsymphony_solver</code>, and <code>add_gurobi_solver</code> functions to require <code>logical</code> (<code>TRUE</code>/<code>FALSE</code>) arguments for the <code>first_feasible</code> parameter.</li>
 <li>Update documentation for solvers to provide more detailed information.</li>
@@ -289,9 +303,9 @@
 <li>Bug fix: previous versions of the package reported that the <code>gap</code> parameter for the <code>add_rsymphony_solver</code> and <code>add_lpsymphony_solver</code> corresponded to the maximum absolute difference from the optimal objective value. This was an error due to misunderstanding the <em>SYMPHONY</em> documentation. Under previous versions of the package, the <code>gap</code> parameter actually corresponded to a relative optimality gap expressed as a percentage (such that<code>gap = 10</code> indicates that solutions must be at least 10% from optimality). We have now fixed this error and the documentation described for the <code>gap</code> parameter is correct. We apologize for any inconvenience this may have caused.</li>
 </ul>
 </div>
-    <div id="prioritizr-6-0-0-1" class="section level1">
+    <div id="prioritizr-6001" class="section level1">
 <h1 class="page-header" data-toc-text="6.0.0.1">
-<a href="#prioritizr-6-0-0-1" class="anchor"></a>prioritizr 6.0.0.1<small> Unreleased </small>
+<a href="#prioritizr-6001" class="anchor" aria-hidden="true"></a>prioritizr 6.0.0.1<small> Unreleased </small>
 </h1>
 <ul>
 <li>Update Solution format section documentation for evaluation functions (i.e. all functions starting with <code>eval_</code>) to mention that the argument to <code>solution</code> should only contain columns that correspond to the solution (<a href='https://github.com/prioritizr/prioritizr/issues/176'>#176</a>).</li>
@@ -303,16 +317,16 @@
 <li>New <code>add_min_largest_shortfall</code> objective function.</li>
 </ul>
 </div>
-    <div id="prioritizr-6-0-0-0" class="section level1">
+    <div id="prioritizr-6000" class="section level1">
 <h1 class="page-header" data-toc-text="6.0.0.0">
-<a href="#prioritizr-6-0-0-0" class="anchor"></a>prioritizr 6.0.0.0<small> Unreleased </small>
+<a href="#prioritizr-6000" class="anchor" aria-hidden="true"></a>prioritizr 6.0.0.0<small> Unreleased </small>
 </h1>
 <ul>
 <li>New <code>eval_cost</code> function to calculate the cost of a solution.</li>
 <li>New <code>eval_boundary</code> function to calculate the exposed boundary length associated with a solution.</li>
 <li>New <code>eval_connectivity</code> function to calculate the connectivity associated with a solution.</li>
 <li>Deprecated <code>feature_representation</code> function. It is now superseded by the <code>eval_feature_representation</code> function.</li>
-<li>New <code>eval_feature_representation</code> function to assess how well each feature is represented by a solution. This function is similar to the deprecated <code>eval_feature_representation</code> function, except that it follows conventions for other evaluation functions (e.g. <code>eval_cost</code>).</li>
+<li>New <code>eval_feature_representation</code> function to assess how well each feature is represented by a solution. This function is similar to the deprecated <code>eval_feature_representation</code> function, except that it follows conventions for other evaluation functions (e.g. <code>eval_cost</code>).</li>
 <li>New <code>eval_target_representation</code> function to assess how well each target is met by a solution. This function is similar to the <code>eval_feature_representation</code>, except that it corresponds to the targets in a conservation planning problem.</li>
 <li>Rename <code>ferrier_score</code> function as <code>eval_ferrier_importance</code> function for consistency.</li>
 <li>Rename <code>replacement_cost</code> function as <code>eval_replacement_importance</code> function for consistency.</li>
@@ -322,42 +336,42 @@
 <li>Update publication vignette.</li>
 </ul>
 </div>
-    <div id="prioritizr-5-0-3-2" class="section level1">
+    <div id="prioritizr-5032" class="section level1">
 <h1 class="page-header" data-toc-text="5.0.3.2">
-<a href="#prioritizr-5-0-3-2" class="anchor"></a>prioritizr 5.0.3.2<small> Unreleased </small>
+<a href="#prioritizr-5032" class="anchor" aria-hidden="true"></a>prioritizr 5.0.3.2<small> Unreleased </small>
 </h1>
 <ul>
-<li>Add Schuster et al. 2020 to documentation to provide information on solver benchmarks (<a href='https://github.com/prioritizr/prioritizr/issues/170'>#170</a>).</li>
+<li>Add Schuster et al. 2020 to documentation to provide information on solver benchmarks (<a href='https://github.com/prioritizr/prioritizr/issues/170'>#170</a>).</li>
 </ul>
 </div>
-    <div id="prioritizr-5-0-3-1" class="section level1">
+    <div id="prioritizr-5031" class="section level1">
 <h1 class="page-header" data-toc-text="5.0.3.1">
-<a href="#prioritizr-5-0-3-1" class="anchor"></a>prioritizr 5.0.3.1<small> Unreleased </small>
+<a href="#prioritizr-5031" class="anchor" aria-hidden="true"></a>prioritizr 5.0.3.1<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fix <code>add_locked_out_constraints</code> function to enable a single planning unit from being locked out of multiple zones (when data are specified in raster format).</li>
 </ul>
 </div>
-    <div id="prioritizr-5-0-3" class="section level1">
+    <div id="prioritizr-503" class="section level1">
 <h1 class="page-header" data-toc-text="5.0.3">
-<a href="#prioritizr-5-0-3" class="anchor"></a>prioritizr 5.0.3<small> 2020-11-24 </small>
+<a href="#prioritizr-503" class="anchor" aria-hidden="true"></a>prioritizr 5.0.3<small> 2020-11-24 </small>
 </h1>
 <ul>
 <li>Release candidate for CRAN.</li>
 </ul>
 </div>
-    <div id="prioritizr-5-0-2-7" class="section level1">
+    <div id="prioritizr-5027" class="section level1">
 <h1 class="page-header" data-toc-text="5.0.2.7">
-<a href="#prioritizr-5-0-2-7" class="anchor"></a>prioritizr 5.0.2.7<small> Unreleased </small>
+<a href="#prioritizr-5027" class="anchor" aria-hidden="true"></a>prioritizr 5.0.2.7<small> Unreleased </small>
 </h1>
 <ul>
 <li>Update publication record vignette.</li>
 <li>Fix URLs for CRAN checks.</li>
 </ul>
 </div>
-    <div id="prioritizr-5-0-2-6" class="section level1">
+    <div id="prioritizr-5026" class="section level1">
 <h1 class="page-header" data-toc-text="5.0.2.6">
-<a href="#prioritizr-5-0-2-6" class="anchor"></a>prioritizr 5.0.2.6<small> Unreleased </small>
+<a href="#prioritizr-5026" class="anchor" aria-hidden="true"></a>prioritizr 5.0.2.6<small> Unreleased </small>
 </h1>
 <ul>
 <li>Implement GitHub Actions continuous integration (i.e. update tests and README).</li>
@@ -367,88 +381,88 @@
 <li>Fix compatibility issues between the testthat R package and the gurobi R package in package tests.</li>
 </ul>
 </div>
-    <div id="prioritizr-5-0-2-5" class="section level1">
+    <div id="prioritizr-5025" class="section level1">
 <h1 class="page-header" data-toc-text="5.0.2.5">
-<a href="#prioritizr-5-0-2-5" class="anchor"></a>prioritizr 5.0.2.5<small> Unreleased </small>
+<a href="#prioritizr-5025" class="anchor" aria-hidden="true"></a>prioritizr 5.0.2.5<small> Unreleased </small>
 </h1>
 <ul>
-<li>New <code>add_cplex_solver</code> function to generate solutions using <a href="https://www.ibm.com/products/ilog-cplex-optimization-studio">IBM CPLEX</a> (via the cplexAPI package).</li>
+<li>New <code>add_cplex_solver</code> function to generate solutions using <a href="https://www.ibm.com/products/ilog-cplex-optimization-studio" class="external-link">IBM CPLEX</a> (via the cplexAPI package).</li>
 </ul>
 </div>
-    <div id="prioritizr-5-0-2-4" class="section level1">
+    <div id="prioritizr-5024" class="section level1">
 <h1 class="page-header" data-toc-text="5.0.2.4">
-<a href="#prioritizr-5-0-2-4" class="anchor"></a>prioritizr 5.0.2.4<small> Unreleased </small>
+<a href="#prioritizr-5024" class="anchor" aria-hidden="true"></a>prioritizr 5.0.2.4<small> Unreleased </small>
 </h1>
 <ul>
 <li>Update publication record vignette.</li>
 <li>Update <code>add_gap_portfolio</code> documentation to note that it only works for problems with binary decisions (<a href='https://github.com/prioritizr/prioritizr/issues/159'>#159</a>).</li>
-<li>Fix target calculations in <code>add_loglinear_targets</code> and <code>loglinear_interpolation</code> functions. Previously they used a natural logarithm for log-linear interpolation. To follow target setting approaches outlined by Rodrigues et al. (2004), they now use the decadic logarithm (i.e. <code>log10</code>).</li>
+<li>Fix target calculations in <code>add_loglinear_targets</code> and <code>loglinear_interpolation</code> functions. Previously they used a natural logarithm for log-linear interpolation. To follow target setting approaches outlined by Rodrigues et al. (2004), they now use the decadic logarithm (i.e. <code>log10</code>).</li>
 </ul>
 </div>
-    <div id="prioritizr-5-0-2-3" class="section level1">
+    <div id="prioritizr-5023" class="section level1">
 <h1 class="page-header" data-toc-text="5.0.2.3">
-<a href="#prioritizr-5-0-2-3" class="anchor"></a>prioritizr 5.0.2.3<small> Unreleased </small>
+<a href="#prioritizr-5023" class="anchor" aria-hidden="true"></a>prioritizr 5.0.2.3<small> Unreleased </small>
 </h1>
 <ul>
 <li>Update publication record vignette.</li>
 </ul>
 </div>
-    <div id="prioritizr-5-0-2-2" class="section level1">
+    <div id="prioritizr-5022" class="section level1">
 <h1 class="page-header" data-toc-text="5.0.2.2">
-<a href="#prioritizr-5-0-2-2" class="anchor"></a>prioritizr 5.0.2.2<small> Unreleased </small>
+<a href="#prioritizr-5022" class="anchor" aria-hidden="true"></a>prioritizr 5.0.2.2<small> Unreleased </small>
 </h1>
 <ul>
 <li>Update publication record vignette.</li>
 </ul>
 </div>
-    <div id="prioritizr-5-0-2-1" class="section level1">
+    <div id="prioritizr-5021" class="section level1">
 <h1 class="page-header" data-toc-text="5.0.2.1">
-<a href="#prioritizr-5-0-2-1" class="anchor"></a>prioritizr 5.0.2.1<small> Unreleased </small>
+<a href="#prioritizr-5021" class="anchor" aria-hidden="true"></a>prioritizr 5.0.2.1<small> Unreleased </small>
 </h1>
 <ul>
 <li>Update documentation for <code>ferrier_score</code> function. It no longer incorrectly states that these scores can be calculated using CLUZ and now states that this functionality is experimental until the formulation can be double checked.</li>
 </ul>
 </div>
-    <div id="prioritizr-5-0-2" class="section level1">
+    <div id="prioritizr-502" class="section level1">
 <h1 class="page-header" data-toc-text="5.0.2">
-<a href="#prioritizr-5-0-2" class="anchor"></a>prioritizr 5.0.2<small> 2020-07-30 </small>
+<a href="#prioritizr-502" class="anchor" aria-hidden="true"></a>prioritizr 5.0.2<small> 2020-07-30 </small>
 </h1>
 <ul>
 <li>Release candidate for CRAN.</li>
 </ul>
 </div>
-    <div id="prioritizr-5-0-1-7" class="section level1">
+    <div id="prioritizr-5017" class="section level1">
 <h1 class="page-header" data-toc-text="5.0.1.7">
-<a href="#prioritizr-5-0-1-7" class="anchor"></a>prioritizr 5.0.1.7<small> Unreleased </small>
+<a href="#prioritizr-5017" class="anchor" aria-hidden="true"></a>prioritizr 5.0.1.7<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fix tests for updated datasets in the prioritizrdata R package.</li>
 <li>Fix small typos in documentation.</li>
-<li>Update citation for Scriven et al. (2020) in the Publication Record vignette.</li>
+<li>Update citation for Scriven et al. (2020) in the Publication Record vignette.</li>
 <li>Update Salt Spring Island vignette with Ferrier method for calculating irreplaceability scores and adjust for changes in cost data.</li>
-<li>Update examples to run with CRAN checks (i.e. <code>--run-donttest</code>).</li>
+<li>Update examples to run with CRAN checks (i.e. <code>--run-donttest</code>).</li>
 </ul>
 </div>
-    <div id="prioritizr-5-0-1-6" class="section level1">
+    <div id="prioritizr-5016" class="section level1">
 <h1 class="page-header" data-toc-text="5.0.1.6">
-<a href="#prioritizr-5-0-1-6" class="anchor"></a>prioritizr 5.0.1.6<small> Unreleased </small>
+<a href="#prioritizr-5016" class="anchor" aria-hidden="true"></a>prioritizr 5.0.1.6<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fix <code>feature_representation</code> bug incorrectly throwing error with vector planning unit data (e.g. sf-class data).</li>
 </ul>
 </div>
-    <div id="prioritizr-5-0-1-5" class="section level1">
+    <div id="prioritizr-5015" class="section level1">
 <h1 class="page-header" data-toc-text="5.0.1.5">
-<a href="#prioritizr-5-0-1-5" class="anchor"></a>prioritizr 5.0.1.5<small> Unreleased </small>
+<a href="#prioritizr-5015" class="anchor" aria-hidden="true"></a>prioritizr 5.0.1.5<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fix typo causing <code>rij_matrix</code> to throw an error for large raster data (<a href='https://github.com/prioritizr/prioritizr/issues/151'>#151</a>).</li>
 <li>Fix “Non-file package-anchored link(s) in documentation object” warnings in R-devel checks.</li>
 </ul>
 </div>
-    <div id="prioritizr-5-0-1-4" class="section level1">
+    <div id="prioritizr-5014" class="section level1">
 <h1 class="page-header" data-toc-text="5.0.1.4">
-<a href="#prioritizr-5-0-1-4" class="anchor"></a>prioritizr 5.0.1.4<small> Unreleased </small>
+<a href="#prioritizr-5014" class="anchor" aria-hidden="true"></a>prioritizr 5.0.1.4<small> Unreleased </small>
 </h1>
 <ul>
 <li>New <code>add_linear_penalties</code> to add penalties that penalize planning units according to a linear metric.</li>
@@ -457,17 +471,17 @@
 <li>Add links to the documentation for the <code>solve</code> function to the Salt Spring Island and Tasmania vignettes.</li>
 </ul>
 </div>
-    <div id="prioritizr-5-0-1-3" class="section level1">
+    <div id="prioritizr-5013" class="section level1">
 <h1 class="page-header" data-toc-text="5.0.1.3">
-<a href="#prioritizr-5-0-1-3" class="anchor"></a>prioritizr 5.0.1.3<small> Unreleased </small>
+<a href="#prioritizr-5013" class="anchor" aria-hidden="true"></a>prioritizr 5.0.1.3<small> Unreleased </small>
 </h1>
 <ul>
 <li>Update <code>compile</code> to throw warning when compiling problems that include feature weights and an objective function that does not use feature weights.</li>
 </ul>
 </div>
-    <div id="prioritizr-5-0-1-2" class="section level1">
+    <div id="prioritizr-5012" class="section level1">
 <h1 class="page-header" data-toc-text="5.0.1.2">
-<a href="#prioritizr-5-0-1-2" class="anchor"></a>prioritizr 5.0.1.2<small> Unreleased </small>
+<a href="#prioritizr-5012" class="anchor" aria-hidden="true"></a>prioritizr 5.0.1.2<small> Unreleased </small>
 </h1>
 <ul>
 <li>Add Schuster <em>et al.</em> (2020) to publication record.</li>
@@ -475,33 +489,33 @@
 <li>Update Flower <em>et al.</em> (2020) in publication record.</li>
 </ul>
 </div>
-    <div id="prioritizr-5-0-1-1" class="section level1">
+    <div id="prioritizr-5011" class="section level1">
 <h1 class="page-header" data-toc-text="5.0.1.1">
-<a href="#prioritizr-5-0-1-1" class="anchor"></a>prioritizr 5.0.1.1<small> Unreleased </small>
+<a href="#prioritizr-5011" class="anchor" aria-hidden="true"></a>prioritizr 5.0.1.1<small> Unreleased </small>
 </h1>
 <ul>
 <li>Update <code>add_gurobi_solver</code> function to provide more options for controlling the pre-solve step when solving a problem.</li>
 </ul>
 </div>
-    <div id="prioritizr-5-0-1" class="section level1">
+    <div id="prioritizr-501" class="section level1">
 <h1 class="page-header" data-toc-text="5.0.1">
-<a href="#prioritizr-5-0-1" class="anchor"></a>prioritizr 5.0.1<small> 2020-05-15 </small>
+<a href="#prioritizr-501" class="anchor" aria-hidden="true"></a>prioritizr 5.0.1<small> 2020-05-15 </small>
 </h1>
 <ul>
 <li>Release candidate for CRAN.</li>
 </ul>
 </div>
-    <div id="prioritizr-5-0-0-1" class="section level1">
+    <div id="prioritizr-5001" class="section level1">
 <h1 class="page-header" data-toc-text="5.0.0.1">
-<a href="#prioritizr-5-0-0-1" class="anchor"></a>prioritizr 5.0.0.1<small> Unreleased </small>
+<a href="#prioritizr-5001" class="anchor" aria-hidden="true"></a>prioritizr 5.0.0.1<small> Unreleased </small>
 </h1>
 <ul>
 <li>New <code>ferrier_score</code> function to compute irreplaceability scores following Ferrier <em>et al</em> (2000).</li>
 </ul>
 </div>
-    <div id="prioritizr-5-0-0-0" class="section level1">
+    <div id="prioritizr-5000" class="section level1">
 <h1 class="page-header" data-toc-text="5.0.0.0">
-<a href="#prioritizr-5-0-0-0" class="anchor"></a>prioritizr 5.0.0.0<small> Unreleased </small>
+<a href="#prioritizr-5000" class="anchor" aria-hidden="true"></a>prioritizr 5.0.0.0<small> Unreleased </small>
 </h1>
 <ul>
 <li>Add full support for <em>sf</em> R package (<a href='https://github.com/prioritizr/prioritizr/issues/6'>#6</a>).</li>
@@ -518,49 +532,49 @@
 <li>Built-in datasets are now saved with latest workspace version (i.e. version 3).</li>
 </ul>
 </div>
-    <div id="prioritizr-4-1-5-2" class="section level1">
+    <div id="prioritizr-4152" class="section level1">
 <h1 class="page-header" data-toc-text="4.1.5.2">
-<a href="#prioritizr-4-1-5-2" class="anchor"></a>prioritizr 4.1.5.2<small> Unreleased </small>
+<a href="#prioritizr-4152" class="anchor" aria-hidden="true"></a>prioritizr 4.1.5.2<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fix bug in <code>add_rsymphony_solver</code> and <code>add_lpsymphony_solver</code> throwing an an infeasible error message for feasible problems containing continuous or semi-continuous variables.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-1-5-1" class="section level1">
+    <div id="prioritizr-4151" class="section level1">
 <h1 class="page-header" data-toc-text="4.1.5.1">
-<a href="#prioritizr-4-1-5-1" class="anchor"></a>prioritizr 4.1.5.1<small> Unreleased </small>
+<a href="#prioritizr-4151" class="anchor" aria-hidden="true"></a>prioritizr 4.1.5.1<small> Unreleased </small>
 </h1>
 <ul>
 <li>Add Lin <em>et al.</em> (in press) to publication record.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-1-5" class="section level1">
+    <div id="prioritizr-415" class="section level1">
 <h1 class="page-header" data-toc-text="4.1.5">
-<a href="#prioritizr-4-1-5" class="anchor"></a>prioritizr 4.1.5<small> 2020-02-06 </small>
+<a href="#prioritizr-415" class="anchor" aria-hidden="true"></a>prioritizr 4.1.5<small> 2020-02-06 </small>
 </h1>
 <ul>
 <li>Release candidate for CRAN.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-1-4-4" class="section level1">
+    <div id="prioritizr-4144" class="section level1">
 <h1 class="page-header" data-toc-text="4.1.4.4">
-<a href="#prioritizr-4-1-4-4" class="anchor"></a>prioritizr 4.1.4.4<small> Unreleased </small>
+<a href="#prioritizr-4144" class="anchor" aria-hidden="true"></a>prioritizr 4.1.4.4<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fix warnings in R-devel CRAN checks related to documentation.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-1-4-3" class="section level1">
+    <div id="prioritizr-4143" class="section level1">
 <h1 class="page-header" data-toc-text="4.1.4.3">
-<a href="#prioritizr-4-1-4-3" class="anchor"></a>prioritizr 4.1.4.3<small> Unreleased </small>
+<a href="#prioritizr-4143" class="anchor" aria-hidden="true"></a>prioritizr 4.1.4.3<small> Unreleased </small>
 </h1>
 <ul>
 <li>Add Williams <em>et al.</em> (in press) to publication record.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-1-4-2" class="section level1">
+    <div id="prioritizr-4142" class="section level1">
 <h1 class="page-header" data-toc-text="4.1.4.2">
-<a href="#prioritizr-4-1-4-2" class="anchor"></a>prioritizr 4.1.4.2<small> Unreleased </small>
+<a href="#prioritizr-4142" class="anchor" aria-hidden="true"></a>prioritizr 4.1.4.2<small> Unreleased </small>
 </h1>
 <ul>
 <li>Add Rodewald <em>et al.</em> (2019) to publication record.</li>
@@ -568,59 +582,59 @@
 <li>Make error message for <code>presolve_check</code> function more informative (<a href='https://github.com/prioritizr/prioritizr/issues/124'>#124</a>).</li>
 </ul>
 </div>
-    <div id="prioritizr-4-1-4-1" class="section level1">
+    <div id="prioritizr-4141" class="section level1">
 <h1 class="page-header" data-toc-text="4.1.4.1">
-<a href="#prioritizr-4-1-4-1" class="anchor"></a>prioritizr 4.1.4.1<small> Unreleased </small>
+<a href="#prioritizr-4141" class="anchor" aria-hidden="true"></a>prioritizr 4.1.4.1<small> Unreleased </small>
 </h1>
 <ul>
 <li>Add Scriven <em>et al.</em> (in press) to publication record.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-1-4" class="section level1">
+    <div id="prioritizr-414" class="section level1">
 <h1 class="page-header" data-toc-text="4.1.4">
-<a href="#prioritizr-4-1-4" class="anchor"></a>prioritizr 4.1.4<small> 2019-10-03 </small>
+<a href="#prioritizr-414" class="anchor" aria-hidden="true"></a>prioritizr 4.1.4<small> 2019-10-03 </small>
 </h1>
 <ul>
 <li>Release candidate for CRAN.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-1-3-3" class="section level1">
+    <div id="prioritizr-4133" class="section level1">
 <h1 class="page-header" data-toc-text="4.1.3.3">
-<a href="#prioritizr-4-1-3-3" class="anchor"></a>prioritizr 4.1.3.3<small> Unreleased </small>
+<a href="#prioritizr-4133" class="anchor" aria-hidden="true"></a>prioritizr 4.1.3.3<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fix <code>rij_matrix</code> so that amounts are calculated correctly for vector-based planning unit data.</li>
 <li>Fix documentation for <code>fast_extract</code>.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-1-3-2" class="section level1">
+    <div id="prioritizr-4132" class="section level1">
 <h1 class="page-header" data-toc-text="4.1.3.2">
-<a href="#prioritizr-4-1-3-2" class="anchor"></a>prioritizr 4.1.3.2<small> Unreleased </small>
+<a href="#prioritizr-4132" class="anchor" aria-hidden="true"></a>prioritizr 4.1.3.2<small> Unreleased </small>
 </h1>
 <ul>
 <li>Add Rodewald <em>et al.</em> (in press) to publication record.</li>
 <li>Update reference for Bombi <em>et al.</em> (2019) in publication record.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-1-3-1" class="section level1">
+    <div id="prioritizr-4131" class="section level1">
 <h1 class="page-header" data-toc-text="4.1.3.1">
-<a href="#prioritizr-4-1-3-1" class="anchor"></a>prioritizr 4.1.3.1<small> Unreleased </small>
+<a href="#prioritizr-4131" class="anchor" aria-hidden="true"></a>prioritizr 4.1.3.1<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fix typo in README.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-1-3" class="section level1">
+    <div id="prioritizr-413" class="section level1">
 <h1 class="page-header" data-toc-text="4.1.3">
-<a href="#prioritizr-4-1-3" class="anchor"></a>prioritizr 4.1.3<small> 2019-09-06 </small>
+<a href="#prioritizr-413" class="anchor" aria-hidden="true"></a>prioritizr 4.1.3<small> 2019-09-06 </small>
 </h1>
 <ul>
 <li>Release candidate for CRAN.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-1-2-8" class="section level1">
+    <div id="prioritizr-4128" class="section level1">
 <h1 class="page-header" data-toc-text="4.1.2.8">
-<a href="#prioritizr-4-1-2-8" class="anchor"></a>prioritizr 4.1.2.8<small> Unreleased </small>
+<a href="#prioritizr-4128" class="anchor" aria-hidden="true"></a>prioritizr 4.1.2.8<small> Unreleased </small>
 </h1>
 <ul>
 <li>Update <code>add_locked_in_constraints</code> and <code>add_locked_out_constraints</code> functions so that they no longer throw an unnecessary warning when when they are added to multi-zone problems using raster data with <code>NA</code> values.</li>
@@ -628,45 +642,45 @@
 <li>Update documentation for constraints missing “See also” and “Value” sections.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-1-2-7" class="section level1">
+    <div id="prioritizr-4127" class="section level1">
 <h1 class="page-header" data-toc-text="4.1.2.7">
-<a href="#prioritizr-4-1-2-7" class="anchor"></a>prioritizr 4.1.2.7<small> Unreleased </small>
+<a href="#prioritizr-4127" class="anchor" aria-hidden="true"></a>prioritizr 4.1.2.7<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fix issue with <code>rarity_weighted_richness</code> returning incorrect scores when the feature data contains one feature that has zeros amounts in all planning units (e.g. the <code>tas_features</code> object in the <em>prioritizrdata</em> R package; <a href='https://github.com/prioritizr/prioritizr/issues/120'>#120</a>).</li>
 <li>Fix issue with <code>add_gurobi_solver</code> returning solution statuses that are slightly larger than one (e.g. 1+1.0e-10) when solving problems with proportion-type decisions (<a href='https://github.com/prioritizr/prioritizr/issues/118'>#118</a>).</li>
 </ul>
 </div>
-    <div id="prioritizr-4-1-2-6" class="section level1">
+    <div id="prioritizr-4126" class="section level1">
 <h1 class="page-header" data-toc-text="4.1.2.6">
-<a href="#prioritizr-4-1-2-6" class="anchor"></a>prioritizr 4.1.2.6<small> Unreleased </small>
+<a href="#prioritizr-4126" class="anchor" aria-hidden="true"></a>prioritizr 4.1.2.6<small> Unreleased </small>
 </h1>
 <ul>
 <li>Update <code>replacement_cost</code> function to use parallel processing to speed up calculations (<a href='https://github.com/prioritizr/prioritizr/issues/119'>#119</a>).</li>
 <li>New <code>add_manual_bounded_constraints</code> function to apply lower and upper bounds on planning units statuses in a solution (<a href='https://github.com/prioritizr/prioritizr/issues/118'>#118</a>).</li>
 </ul>
 </div>
-    <div id="prioritizr-4-1-2-5" class="section level1">
+    <div id="prioritizr-4125" class="section level1">
 <h1 class="page-header" data-toc-text="4.1.2.5">
-<a href="#prioritizr-4-1-2-5" class="anchor"></a>prioritizr 4.1.2.5<small> Unreleased </small>
+<a href="#prioritizr-4125" class="anchor" aria-hidden="true"></a>prioritizr 4.1.2.5<small> Unreleased </small>
 </h1>
 <ul>
 <li>Update <code>add_gurobi_solver</code>, <code>add_lpsymphony_solver</code>, and <code>add_rsymphony_solver</code> functions so that they will not return solutions with values less than zero or greater than one when solving problems with proportion-type decisions. This issue is the result of inconsistent precision when performing floating point arithmetic (<a href='https://github.com/prioritizr/prioritizr/issues/117'>#117</a>).</li>
 <li>Update <code>add_locked_in_constraints</code> and <code>add_locked_out_constraints</code> functions to provide a more helpful error message the <code>locked_in</code>/<code>locked_out</code> argument refers to a column with data that are not logical (i.e. <code>TRUE</code>/<code>FALSE</code>; <a href='https://github.com/prioritizr/prioritizr/issues/118'>#118</a>).</li>
 </ul>
 </div>
-    <div id="prioritizr-4-1-2-4" class="section level1">
+    <div id="prioritizr-4124" class="section level1">
 <h1 class="page-header" data-toc-text="4.1.2.4">
-<a href="#prioritizr-4-1-2-4" class="anchor"></a>prioritizr 4.1.2.4<small> Unreleased </small>
+<a href="#prioritizr-4124" class="anchor" aria-hidden="true"></a>prioritizr 4.1.2.4<small> Unreleased </small>
 </h1>
 <ul>
 <li>Update <code>solve</code> function to throw a more accurate and helpful error message when no solutions are found (e.g. due to problem infeasibility or solver time limits).</li>
 <li>Standardize error messages so that none of them end in a full stop.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-1-2-3" class="section level1">
+    <div id="prioritizr-4123" class="section level1">
 <h1 class="page-header" data-toc-text="4.1.2.3">
-<a href="#prioritizr-4-1-2-3" class="anchor"></a>prioritizr 4.1.2.3<small> Unreleased </small>
+<a href="#prioritizr-4123" class="anchor" aria-hidden="true"></a>prioritizr 4.1.2.3<small> Unreleased </small>
 </h1>
 <ul>
 <li>Rename <code>add_max_phylo_objective</code> function to <code>add_max_phylo_div_objective</code>.</li>
@@ -677,9 +691,9 @@
 <li>Prettify equations in the documentation for objective functions.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-1-2-2" class="section level1">
+    <div id="prioritizr-4122" class="section level1">
 <h1 class="page-header" data-toc-text="4.1.2.2">
-<a href="#prioritizr-4-1-2-2" class="anchor"></a>prioritizr 4.1.2.2<small> Unreleased </small>
+<a href="#prioritizr-4122" class="anchor" aria-hidden="true"></a>prioritizr 4.1.2.2<small> Unreleased </small>
 </h1>
 <ul>
 <li>New <code>irreplaceability</code> manual entry to document functions for calculating irreproducibility scores.</li>
@@ -688,9 +702,9 @@
 <li>Updated Salt Spring Island vignette with a section on calculating and interpreting irreplaceability scores.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-1-2-1" class="section level1">
+    <div id="prioritizr-4121" class="section level1">
 <h1 class="page-header" data-toc-text="4.1.2.1">
-<a href="#prioritizr-4-1-2-1" class="anchor"></a>prioritizr 4.1.2.1<small> Unreleased </small>
+<a href="#prioritizr-4121" class="anchor" aria-hidden="true"></a>prioritizr 4.1.2.1<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fix typo.</li>
@@ -701,49 +715,49 @@
 <li>Throw warning message if both the <em>prioritizr</em> and <em>oppr</em> R packages are loaded at the same time.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-1-2" class="section level1">
+    <div id="prioritizr-412" class="section level1">
 <h1 class="page-header" data-toc-text="4.1.2">
-<a href="#prioritizr-4-1-2" class="anchor"></a>prioritizr 4.1.2<small> Unreleased </small>
+<a href="#prioritizr-412" class="anchor" aria-hidden="true"></a>prioritizr 4.1.2<small> Unreleased </small>
 </h1>
 <ul>
 <li>Release candidate for CRAN (rejected).</li>
 </ul>
 </div>
-    <div id="prioritizr-4-1-1-2" class="section level1">
+    <div id="prioritizr-4112" class="section level1">
 <h1 class="page-header" data-toc-text="4.1.1.2">
-<a href="#prioritizr-4-1-1-2" class="anchor"></a>prioritizr 4.1.1.2<small> Unreleased </small>
+<a href="#prioritizr-4112" class="anchor" aria-hidden="true"></a>prioritizr 4.1.1.2<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fix example throwing an error during CRAN checks.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-1-1-1" class="section level1">
+    <div id="prioritizr-4111" class="section level1">
 <h1 class="page-header" data-toc-text="4.1.1.1">
-<a href="#prioritizr-4-1-1-1" class="anchor"></a>prioritizr 4.1.1.1<small> Unreleased </small>
+<a href="#prioritizr-4111" class="anchor" aria-hidden="true"></a>prioritizr 4.1.1.1<small> Unreleased </small>
 </h1>
 <ul>
 <li>Add Bombi <em>et al.</em> (in press) to publication record.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-1-1-0" class="section level1">
+    <div id="prioritizr-4110" class="section level1">
 <h1 class="page-header" data-toc-text="4.1.1.0">
-<a href="#prioritizr-4-1-1-0" class="anchor"></a>prioritizr 4.1.1.0<small> Unreleased </small>
+<a href="#prioritizr-4110" class="anchor" aria-hidden="true"></a>prioritizr 4.1.1.0<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fix broken link in main vignette.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-1-1" class="section level1">
+    <div id="prioritizr-411" class="section level1">
 <h1 class="page-header" data-toc-text="4.1.1">
-<a href="#prioritizr-4-1-1" class="anchor"></a>prioritizr 4.1.1<small> 2019-06-06 </small>
+<a href="#prioritizr-411" class="anchor" aria-hidden="true"></a>prioritizr 4.1.1<small> 2019-06-06 </small>
 </h1>
 <ul>
 <li>Release candidate for CRAN.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-1-0-1" class="section level1">
+    <div id="prioritizr-4101" class="section level1">
 <h1 class="page-header" data-toc-text="4.1.0.1">
-<a href="#prioritizr-4-1-0-1" class="anchor"></a>prioritizr 4.1.0.1<small> Unreleased </small>
+<a href="#prioritizr-4101" class="anchor" aria-hidden="true"></a>prioritizr 4.1.0.1<small> Unreleased </small>
 </h1>
 <ul>
 <li>New <code>add_min_shortfall_objective</code> function to find solutions that minimize target shortfalls.</li>
@@ -751,23 +765,23 @@
 <li>Fix <code>problem</code> tests so that they work when no solvers are installed.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-1-0-0" class="section level1">
+    <div id="prioritizr-4100" class="section level1">
 <h1 class="page-header" data-toc-text="4.1.0.0">
-<a href="#prioritizr-4-1-0-0" class="anchor"></a>prioritizr 4.1.0.0<small> Unreleased </small>
+<a href="#prioritizr-4100" class="anchor" aria-hidden="true"></a>prioritizr 4.1.0.0<small> Unreleased </small>
 </h1>
 <ul>
 <li>The <code>feature_representation</code> function now requires missing (<code>NA</code>) values for planning unit statuses in a solution for planning units that have missing (<code>NA</code>) cost data.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-0-4-1" class="section level1">
+    <div id="prioritizr-4041" class="section level1">
 <h1 class="page-header" data-toc-text="4.0.4.1">
-<a href="#prioritizr-4-0-4-1" class="anchor"></a>prioritizr 4.0.4.1<small> Unreleased </small>
+<a href="#prioritizr-4041" class="anchor" aria-hidden="true"></a>prioritizr 4.0.4.1<small> Unreleased </small>
 </h1>
 <ul>
 <li>New <code>presolve_check</code> function to investigate potential sources of numerical instability before trying to solve a problem. The manual entry for this function discusses common sources of numerical instability and approaches for fixing them.</li>
-<li>The <code>solve</code> function will now use the <code>presolve_check</code> function to verify that problems do not have obvious sources of numerical instability before trying to solve them. If a problem is likely to have numerical instability issues then this function will now throw an error (unless the <code><a href="../reference/solve.html">solve(x, force = TRUE)</a></code>).</li>
+<li>The <code>solve</code> function will now use the <code>presolve_check</code> function to verify that problems do not have obvious sources of numerical instability before trying to solve them. If a problem is likely to have numerical instability issues then this function will now throw an error (unless the <code>solve(x, force = TRUE)</code>).</li>
 <li>The <code>add_rsymphony_solver</code> function now uses sparse matrix formats so that attempts can be made to solve large problems with SYMPHONY—though it is unlikely that <em>SYMPHONY</em> will be able to solve such problems in a feasible period of time.</li>
-<li>Fix warnings thrown by the <em>tibble R</em> package when calling <code><a href="https://tibble.tidyverse.org/reference/deprecated.html">tibble::as.tibble</a></code> instead of <code><a href="https://tibble.tidyverse.org/reference/as_tibble.html">tibble::as_tibble</a></code>.</li>
+<li>Fix warnings thrown by the <em>tibble R</em> package when calling <code><a href="https://tibble.tidyverse.org/reference/deprecated.html" class="external-link">tibble::as.tibble</a></code> instead of <code><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">tibble::as_tibble</a></code>.</li>
 <li>Add example for calculating feature representation a solution in tabular format output by <code>solve</code> (<a href='https://github.com/prioritizr/prioritizr/issues/110'>#110</a>).</li>
 <li>Fix several typos in documentation.</li>
 <li>Thrown warnings are now immediately visible.</li>
@@ -775,106 +789,106 @@
 <li>Specify English (US) in the DESCRIPTION file.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-0-4" class="section level1">
+    <div id="prioritizr-404" class="section level1">
 <h1 class="page-header" data-toc-text="4.0.4">
-<a href="#prioritizr-4-0-4" class="anchor"></a>prioritizr 4.0.4<small> 2019-04-12 </small>
+<a href="#prioritizr-404" class="anchor" aria-hidden="true"></a>prioritizr 4.0.4<small> 2019-04-12 </small>
 </h1>
 <ul>
 <li>Release candidate for CRAN.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-0-3-1" class="section level1">
+    <div id="prioritizr-4031" class="section level1">
 <h1 class="page-header" data-toc-text="4.0.3.1">
-<a href="#prioritizr-4-0-3-1" class="anchor"></a>prioritizr 4.0.3.1<small> Unreleased </small>
+<a href="#prioritizr-4031" class="anchor" aria-hidden="true"></a>prioritizr 4.0.3.1<small> Unreleased </small>
 </h1>
 <ul>
 <li>Retain debugging symbols to conform with CRAN policies.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-0-3" class="section level1">
+    <div id="prioritizr-403" class="section level1">
 <h1 class="page-header" data-toc-text="4.0.3">
-<a href="#prioritizr-4-0-3" class="anchor"></a>prioritizr 4.0.3<small> 2019-04-08 </small>
+<a href="#prioritizr-403" class="anchor" aria-hidden="true"></a>prioritizr 4.0.3<small> 2019-04-08 </small>
 </h1>
 <ul>
 <li>Release candidate for CRAN.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-0-2-16" class="section level1">
+    <div id="prioritizr-40216" class="section level1">
 <h1 class="page-header" data-toc-text="4.0.2.16">
-<a href="#prioritizr-4-0-2-16" class="anchor"></a>prioritizr 4.0.2.16<small> Unreleased </small>
+<a href="#prioritizr-40216" class="anchor" aria-hidden="true"></a>prioritizr 4.0.2.16<small> Unreleased </small>
 </h1>
 <ul>
 <li>Add new citations.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-0-2-15" class="section level1">
+    <div id="prioritizr-40215" class="section level1">
 <h1 class="page-header" data-toc-text="4.0.2.15">
-<a href="#prioritizr-4-0-2-15" class="anchor"></a>prioritizr 4.0.2.15<small> Unreleased </small>
+<a href="#prioritizr-40215" class="anchor" aria-hidden="true"></a>prioritizr 4.0.2.15<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fix typos in documentation for <code>add_boundary_penalties</code> and <code>add_connectivity_penalties</code> function (<a href='https://github.com/prioritizr/prioritizr/issues/106'>#106</a>).</li>
 </ul>
 </div>
-    <div id="prioritizr-4-0-2-14" class="section level1">
+    <div id="prioritizr-40214" class="section level1">
 <h1 class="page-header" data-toc-text="4.0.2.14">
-<a href="#prioritizr-4-0-2-14" class="anchor"></a>prioritizr 4.0.2.14<small> Unreleased </small>
+<a href="#prioritizr-40214" class="anchor" aria-hidden="true"></a>prioritizr 4.0.2.14<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fix issue where <em>Rsymphony</em> (and potentially <em>lpsymphony</em>) return infeasible solutions when subjected to a time limit (<a href='https://github.com/prioritizr/prioritizr/issues/105'>#105</a>).</li>
 </ul>
 </div>
-    <div id="prioritizr-4-0-2-13" class="section level1">
+    <div id="prioritizr-40213" class="section level1">
 <h1 class="page-header" data-toc-text="4.0.2.13">
-<a href="#prioritizr-4-0-2-13" class="anchor"></a>prioritizr 4.0.2.13<small> Unreleased </small>
+<a href="#prioritizr-40213" class="anchor" aria-hidden="true"></a>prioritizr 4.0.2.13<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fix assorted bugs in the render, setter, and getter parameter functions for <code>ConservationProblem-class</code> objects. These methods were implemented to be used in future interactive applications and are not currently used in the package. As a consequence, these bugs do not affect the correctness of any results.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-0-2-12" class="section level1">
+    <div id="prioritizr-40212" class="section level1">
 <h1 class="page-header" data-toc-text="4.0.2.12">
-<a href="#prioritizr-4-0-2-12" class="anchor"></a>prioritizr 4.0.2.12<small> Unreleased </small>
+<a href="#prioritizr-40212" class="anchor" aria-hidden="true"></a>prioritizr 4.0.2.12<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fix <code>bad error message</code> error being thrown when input rasters are not comparable (i.e. same coordinate reference system, extent, resolutions, and dimensionality) (<a href='https://github.com/prioritizr/prioritizr/issues/104'>#104</a>).</li>
 <li>Add Domisch <em>et al.</em> (2019) to publication record vignette.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-0-2-11" class="section level1">
+    <div id="prioritizr-40211" class="section level1">
 <h1 class="page-header" data-toc-text="4.0.2.11">
-<a href="#prioritizr-4-0-2-11" class="anchor"></a>prioritizr 4.0.2.11<small> Unreleased </small>
+<a href="#prioritizr-40211" class="anchor" aria-hidden="true"></a>prioritizr 4.0.2.11<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fix issue <code>solve</code> printing annoying text about <code>tbl_df</code> (<a href='https://github.com/prioritizr/prioritizr/issues/75'>#75</a>).</li>
 </ul>
 </div>
-    <div id="prioritizr-4-0-2-10" class="section level1">
+    <div id="prioritizr-40210" class="section level1">
 <h1 class="page-header" data-toc-text="4.0.2.10">
-<a href="#prioritizr-4-0-2-10" class="anchor"></a>prioritizr 4.0.2.10<small> Unreleased </small>
+<a href="#prioritizr-40210" class="anchor" aria-hidden="true"></a>prioritizr 4.0.2.10<small> Unreleased </small>
 </h1>
 <ul>
 <li>Tweak <code>add_max_features_objective</code> example code.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-0-2-9" class="section level1">
+    <div id="prioritizr-4029" class="section level1">
 <h1 class="page-header" data-toc-text="4.0.2.9">
-<a href="#prioritizr-4-0-2-9" class="anchor"></a>prioritizr 4.0.2.9<small> Unreleased </small>
+<a href="#prioritizr-4029" class="anchor" aria-hidden="true"></a>prioritizr 4.0.2.9<small> Unreleased </small>
 </h1>
 <ul>
 <li>Update publication record vignette.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-0-2-8" class="section level1">
+    <div id="prioritizr-4028" class="section level1">
 <h1 class="page-header" data-toc-text="4.0.2.8">
-<a href="#prioritizr-4-0-2-8" class="anchor"></a>prioritizr 4.0.2.8<small> Unreleased </small>
+<a href="#prioritizr-4028" class="anchor" aria-hidden="true"></a>prioritizr 4.0.2.8<small> Unreleased </small>
 </h1>
 <ul>
-<li>Fix bug where the <code>add_neighbor_constraints</code> and <code>add_contiguity_constraints</code> functions used more memory than they actually needed (<a href='https://github.com/prioritizr/prioritizr/issues/102'>#102</a>). This is because the argument validation code converted sparse matrix objects (i.e. <code>dgCMatrix</code>) to base objects (i.e. <code>matrix</code>) class temporarily. This bug only meant inefficient utilization of computer resources—it did not affect the correctness of any results.</li>
+<li>Fix bug where the <code>add_neighbor_constraints</code> and <code>add_contiguity_constraints</code> functions used more memory than they actually needed (<a href='https://github.com/prioritizr/prioritizr/issues/102'>#102</a>). This is because the argument validation code converted sparse matrix objects (i.e. <code>dgCMatrix</code>) to base objects (i.e. <code>matrix</code>) class temporarily. This bug only meant inefficient utilization of computer resources—it did not affect the correctness of any results.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-0-2-7" class="section level1">
+    <div id="prioritizr-4027" class="section level1">
 <h1 class="page-header" data-toc-text="4.0.2.7">
-<a href="#prioritizr-4-0-2-7" class="anchor"></a>prioritizr 4.0.2.7<small> Unreleased </small>
+<a href="#prioritizr-4027" class="anchor" aria-hidden="true"></a>prioritizr 4.0.2.7<small> Unreleased </small>
 </h1>
 <ul>
 <li>New <code>add_mandatory_allocation_constraints</code> function. This function can be used to ensure that every planning unit is allocated to a management zone in the solution. It is useful when developing land-use plans where every single parcel of land must be assigned to a specific land-use zone.</li>
@@ -882,76 +896,76 @@
 <li>Fix bug in the <code>$find(x)</code> method for <code>Collection</code> prototypes that caused it to throw an error incorrectly. This method was not used in earlier versions of this package.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-0-2-6" class="section level1">
+    <div id="prioritizr-4026" class="section level1">
 <h1 class="page-header" data-toc-text="4.0.2.6">
-<a href="#prioritizr-4-0-2-6" class="anchor"></a>prioritizr 4.0.2.6<small> Unreleased </small>
+<a href="#prioritizr-4026" class="anchor" aria-hidden="true"></a>prioritizr 4.0.2.6<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fix bug the <code>feature_representation</code> function that caused the “amount_held” column to have NA values instead of the correct values. This bug only affected problems with multiple zones.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-0-2-5" class="section level1">
+    <div id="prioritizr-4025" class="section level1">
 <h1 class="page-header" data-toc-text="4.0.2.5">
-<a href="#prioritizr-4-0-2-5" class="anchor"></a>prioritizr 4.0.2.5<small> Unreleased </small>
+<a href="#prioritizr-4025" class="anchor" aria-hidden="true"></a>prioritizr 4.0.2.5<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fix bug in argument validation code for the <code>category_layer</code> function that it this function to incorrectly throw an error claiming that the input argument to <code>x</code> was invalid when it was in fact valid. This bug is encountered when different layers the argument to <code>x</code> have non-NA values in different cells.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-0-2-4" class="section level1">
+    <div id="prioritizr-4024" class="section level1">
 <h1 class="page-header" data-toc-text="4.0.2.4">
-<a href="#prioritizr-4-0-2-4" class="anchor"></a>prioritizr 4.0.2.4<small> Unreleased </small>
+<a href="#prioritizr-4024" class="anchor" aria-hidden="true"></a>prioritizr 4.0.2.4<small> Unreleased </small>
 </h1>
 <ul>
 <li>Update instructions for activating Gurobi licenses on remote machines (<a href='https://github.com/prioritizr/prioritizr/issues/98'>#98</a>).</li>
 </ul>
 </div>
-    <div id="prioritizr-4-0-2-3" class="section level1">
+    <div id="prioritizr-4023" class="section level1">
 <h1 class="page-header" data-toc-text="4.0.2.3">
-<a href="#prioritizr-4-0-2-3" class="anchor"></a>prioritizr 4.0.2.3<small> Unreleased </small>
+<a href="#prioritizr-4023" class="anchor" aria-hidden="true"></a>prioritizr 4.0.2.3<small> Unreleased </small>
 </h1>
 <ul>
 <li>The <code>add_contiguity_constraints</code> function now uses sparse matrix formats internally for single-zone problems. This means that the constraints can be applied to single-zoned problem with many more planning units.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-0-2-2" class="section level1">
+    <div id="prioritizr-4022" class="section level1">
 <h1 class="page-header" data-toc-text="4.0.2.2">
-<a href="#prioritizr-4-0-2-2" class="anchor"></a>prioritizr 4.0.2.2<small> Unreleased </small>
+<a href="#prioritizr-4022" class="anchor" aria-hidden="true"></a>prioritizr 4.0.2.2<small> Unreleased </small>
 </h1>
 <ul>
 <li>The <code>add_connectivity_penalties</code> function now uses sparse matrix formats internally for single-zone problems. This means that connectivity penalties can be applied to single-zoned problem with many more planning units.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-0-2-1" class="section level1">
+    <div id="prioritizr-4021" class="section level1">
 <h1 class="page-header" data-toc-text="4.0.2.1">
-<a href="#prioritizr-4-0-2-1" class="anchor"></a>prioritizr 4.0.2.1<small> Unreleased </small>
+<a href="#prioritizr-4021" class="anchor" aria-hidden="true"></a>prioritizr 4.0.2.1<small> Unreleased </small>
 </h1>
 <ul>
 <li>Update warning text when compiling problems that contain (i) objective functions that do not use targets and (ii) targets (<a href='https://github.com/prioritizr/prioritizr/issues/93'>#93</a>).</li>
 <li>Update documentation for the <code>add_max_utility_objective</code> and <code>add_max_cover_objective</code> functions to make it clearer that they do not use targets (<a href='https://github.com/prioritizr/prioritizr/issues/94'>#94</a>).</li>
 </ul>
 </div>
-    <div id="prioritizr-4-0-2" class="section level1">
+    <div id="prioritizr-402" class="section level1">
 <h1 class="page-header" data-toc-text="4.0.2">
-<a href="#prioritizr-4-0-2" class="anchor"></a>prioritizr 4.0.2<small> 2018-06-28 </small>
+<a href="#prioritizr-402" class="anchor" aria-hidden="true"></a>prioritizr 4.0.2<small> 2018-06-28 </small>
 </h1>
 <ul>
 <li>Release candidate for CRAN.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-0-1-6" class="section level1">
+    <div id="prioritizr-4016" class="section level1">
 <h1 class="page-header" data-toc-text="4.0.1.6">
-<a href="#prioritizr-4-0-1-6" class="anchor"></a>prioritizr 4.0.1.6<small> Unreleased </small>
+<a href="#prioritizr-4016" class="anchor" aria-hidden="true"></a>prioritizr 4.0.1.6<small> Unreleased </small>
 </h1>
 <ul>
-<li>Fix bug in <code>add_locked_in_constraints</code> and <code>add_locked_out_constraints</code> that incorrectly threw an error when using <code>logical</code> locked data (i.e. <code>TRUE</code>/<code>FALSE</code>) because it incorrectly thought that valid inputs were invalid.</li>
+<li>Fix bug in <code>add_locked_in_constraints</code> and <code>add_locked_out_constraints</code> that incorrectly threw an error when using <code>logical</code> locked data (i.e. <code>TRUE</code>/<code>FALSE</code>) because it incorrectly thought that valid inputs were invalid.</li>
 <li>Fix bug in <code>add_locked_in_constraints</code>, <code>add_locked_out_constraints</code>, and <code>add_manual_locked_constraints</code> where solving the same problem object twice resulted in incorrect planning units being locked in or out of the solution (<a href='https://github.com/prioritizr/prioritizr/issues/92'>#92</a>).</li>
 <li>Added unit tests for objectives, constraints, decisions, targets, and penalties to ensure that solving problems twice does not result in different solutions.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-0-1-5" class="section level1">
+    <div id="prioritizr-4015" class="section level1">
 <h1 class="page-header" data-toc-text="4.0.1.5">
-<a href="#prioritizr-4-0-1-5" class="anchor"></a>prioritizr 4.0.1.5<small> Unreleased </small>
+<a href="#prioritizr-4015" class="anchor" aria-hidden="true"></a>prioritizr 4.0.1.5<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fix bug in <code>feature_abundances</code> that caused the solve function to throw an error when attempting to solve problems with a single feature.</li>
@@ -959,9 +973,9 @@
 <li>Add the ability to specify the search pool method and number of solutions to the <code>add_pool_portfolio</code> function.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-0-1-4" class="section level1">
+    <div id="prioritizr-4014" class="section level1">
 <h1 class="page-header" data-toc-text="4.0.1.4">
-<a href="#prioritizr-4-0-1-4" class="anchor"></a>prioritizr 4.0.1.4<small> Unreleased </small>
+<a href="#prioritizr-4014" class="anchor" aria-hidden="true"></a>prioritizr 4.0.1.4<small> Unreleased </small>
 </h1>
 <ul>
 <li>The <code>feature_representation</code> function now allows <code>numeric</code> solutions with attributes (e.g. when output by the <code>solve</code> function) when calculating representation statistics for problems with <code>numeric</code> planning unit data (<a href='https://github.com/prioritizr/prioritizr/issues/91'>#91</a>).</li>
@@ -969,9 +983,9 @@
 <li>The <code>problem</code> function sometimes incorrectly threw a warning that feature data had negative values when the data actually did not contain negative values. This has now been addressed.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-0-1-3" class="section level1">
+    <div id="prioritizr-4013" class="section level1">
 <h1 class="page-header" data-toc-text="4.0.1.3">
-<a href="#prioritizr-4-0-1-3" class="anchor"></a>prioritizr 4.0.1.3<small> Unreleased </small>
+<a href="#prioritizr-4013" class="anchor" aria-hidden="true"></a>prioritizr 4.0.1.3<small> Unreleased </small>
 </h1>
 <ul>
 <li>The <code>problem</code> function now allows negative values in the cost and feature data (and throws a warning if such data are detected).</li>
@@ -980,132 +994,132 @@
 <li>The <code>add_absolute_targets</code> function now throws an warning—instead of an error—if the specified targets are greater than the feature abundances in planning units to accommodate negative values in feature data.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-0-1-2" class="section level1">
+    <div id="prioritizr-4012" class="section level1">
 <h1 class="page-header" data-toc-text="4.0.1.2">
-<a href="#prioritizr-4-0-1-2" class="anchor"></a>prioritizr 4.0.1.2<small> Unreleased </small>
+<a href="#prioritizr-4012" class="anchor" aria-hidden="true"></a>prioritizr 4.0.1.2<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fix <code>add_max_cover_objective</code> in <em>prioritizr</em> vignette (<a href='https://github.com/prioritizr/prioritizr/issues/90'>#90</a>).</li>
 </ul>
 </div>
-    <div id="prioritizr-4-0-1-1" class="section level1">
+    <div id="prioritizr-4011" class="section level1">
 <h1 class="page-header" data-toc-text="4.0.1.1">
-<a href="#prioritizr-4-0-1-1" class="anchor"></a>prioritizr 4.0.1.1<small> Unreleased </small>
+<a href="#prioritizr-4011" class="anchor" aria-hidden="true"></a>prioritizr 4.0.1.1<small> Unreleased </small>
 </h1>
 <ul>
 <li>The <code>add_relative_targets</code> documentation now makes it clear that locked out planning units are included in the calculations for setting targets (<a href='https://github.com/prioritizr/prioritizr/issues/89'>#89</a>).</li>
 <li>The <code>add_loglinear_targets</code> function now includes a <code>feature_abundances</code> parameter for specifying the total amount of each feature to use when calculating the targets (<a href='https://github.com/prioritizr/prioritizr/issues/89'>#89</a>).</li>
 </ul>
 </div>
-    <div id="prioritizr-4-0-1" class="section level1">
+    <div id="prioritizr-401" class="section level1">
 <h1 class="page-header" data-toc-text="4.0.1">
-<a href="#prioritizr-4-0-1" class="anchor"></a>prioritizr 4.0.1<small> 2018-05-26 </small>
+<a href="#prioritizr-401" class="anchor" aria-hidden="true"></a>prioritizr 4.0.1<small> 2018-05-26 </small>
 </h1>
 <ul>
 <li>Release candidate for CRAN.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-0-0-12" class="section level1">
+    <div id="prioritizr-40012" class="section level1">
 <h1 class="page-header" data-toc-text="4.0.0.12">
-<a href="#prioritizr-4-0-0-12" class="anchor"></a>prioritizr 4.0.0.12<small> Unreleased </small>
+<a href="#prioritizr-40012" class="anchor" aria-hidden="true"></a>prioritizr 4.0.0.12<small> Unreleased </small>
 </h1>
 <ul>
 <li>New <code>feature_abundances</code> function to calculate the total amount of each feature in the planning units (<a href='https://github.com/prioritizr/prioritizr/issues/86'>#86</a>).</li>
 </ul>
 </div>
-    <div id="prioritizr-4-0-0-11" class="section level1">
+    <div id="prioritizr-40011" class="section level1">
 <h1 class="page-header" data-toc-text="4.0.0.11">
-<a href="#prioritizr-4-0-0-11" class="anchor"></a>prioritizr 4.0.0.11<small> Unreleased </small>
+<a href="#prioritizr-40011" class="anchor" aria-hidden="true"></a>prioritizr 4.0.0.11<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fix some equations in the documentation (<a href='https://github.com/prioritizr/prioritizr/issues/83'>#83</a>).</li>
 </ul>
 </div>
-    <div id="prioritizr-4-0-0-10" class="section level1">
+    <div id="prioritizr-40010" class="section level1">
 <h1 class="page-header" data-toc-text="4.0.0.10">
-<a href="#prioritizr-4-0-0-10" class="anchor"></a>prioritizr 4.0.0.10<small> Unreleased </small>
+<a href="#prioritizr-40010" class="anchor" aria-hidden="true"></a>prioritizr 4.0.0.10<small> Unreleased </small>
 </h1>
 <ul>
 <li>Add version requirements for <em>assertthat</em> and <em>tibble</em> (<a href='https://github.com/prioritizr/prioritizr/issues/82'>#82</a>).</li>
 </ul>
 </div>
-    <div id="prioritizr-4-0-0-9" class="section level1">
+    <div id="prioritizr-4009" class="section level1">
 <h1 class="page-header" data-toc-text="4.0.0.9">
-<a href="#prioritizr-4-0-0-9" class="anchor"></a>prioritizr 4.0.0.9<small> Unreleased </small>
+<a href="#prioritizr-4009" class="anchor" aria-hidden="true"></a>prioritizr 4.0.0.9<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fix minor typos in the <em>Gurobi</em> Installation Guide and update the Management Zones tutorial.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-0-0-8" class="section level1">
+    <div id="prioritizr-4008" class="section level1">
 <h1 class="page-header" data-toc-text="4.0.0.8">
-<a href="#prioritizr-4-0-0-8" class="anchor"></a>prioritizr 4.0.0.8<small> Unreleased </small>
+<a href="#prioritizr-4008" class="anchor" aria-hidden="true"></a>prioritizr 4.0.0.8<small> Unreleased </small>
 </h1>
 <ul>
 <li>Add instructions for setting up the <em>Gurobi</em> Academic license on a computer that it is not connected to a university computer network using a computer that is on an academic network (<a href='https://github.com/prioritizr/prioritizr/issues/81'>#81</a>). For example, these instructions could be used to set up <em>Gurobi</em> on a cloud-based system using a laptop computer that is connected a university’s wireless network.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-0-0-7" class="section level1">
+    <div id="prioritizr-4007" class="section level1">
 <h1 class="page-header" data-toc-text="4.0.0.7">
-<a href="#prioritizr-4-0-0-7" class="anchor"></a>prioritizr 4.0.0.7<small> Unreleased </small>
+<a href="#prioritizr-4007" class="anchor" aria-hidden="true"></a>prioritizr 4.0.0.7<small> Unreleased </small>
 </h1>
 <ul>
 <li>The <code>add_cuts_portfolio</code> function uses the <em>Gurobi</em> solution pool to generate unique solutions within a specified gap of optimality when tasked with solving problems with <em>Gurobi</em> (version 8.0.0+; <a href='https://github.com/prioritizr/prioritizr/issues/80'>#80</a>).</li>
 </ul>
 </div>
-    <div id="prioritizr-4-0-0-6" class="section level1">
+    <div id="prioritizr-4006" class="section level1">
 <h1 class="page-header" data-toc-text="4.0.0.6">
-<a href="#prioritizr-4-0-0-6" class="anchor"></a>prioritizr 4.0.0.6<small> Unreleased </small>
+<a href="#prioritizr-4006" class="anchor" aria-hidden="true"></a>prioritizr 4.0.0.6<small> Unreleased </small>
 </h1>
 <ul>
 <li>New <code>add_pool_portfolio</code> function to generate a portfolio of solutions using the <em>Gurobi</em> solution pool (<a href='https://github.com/prioritizr/prioritizr/issues/77'>#77</a>).</li>
 </ul>
 </div>
-    <div id="prioritizr-4-0-0-5" class="section level1">
+    <div id="prioritizr-4005" class="section level1">
 <h1 class="page-header" data-toc-text="4.0.0.5">
-<a href="#prioritizr-4-0-0-5" class="anchor"></a>prioritizr 4.0.0.5<small> Unreleased </small>
+<a href="#prioritizr-4005" class="anchor" aria-hidden="true"></a>prioritizr 4.0.0.5<small> Unreleased </small>
 </h1>
 <ul>
 <li>The <code>boundary_matrix</code> function now has the experimental functionality to use GEOS STR trees to speed up processing (<a href='https://github.com/prioritizr/prioritizr/issues/74'>#74</a>).</li>
 <li>Solutions obtained from <em>Gurobi</em> that contain binary-type decisions are explicitly rounded to the nearest integer. This is because <em>Gurobi</em> can output solutions to binary problems that contain values which not exactly zero or one (e.g. 0.9999997 using default settings; <a href='https://github.com/prioritizr/prioritizr/issues/78'>#78</a>).</li>
 </ul>
 </div>
-    <div id="prioritizr-4-0-0-4" class="section level1">
+    <div id="prioritizr-4004" class="section level1">
 <h1 class="page-header" data-toc-text="4.0.0.4">
-<a href="#prioritizr-4-0-0-4" class="anchor"></a>prioritizr 4.0.0.4<small> Unreleased </small>
+<a href="#prioritizr-4004" class="anchor" aria-hidden="true"></a>prioritizr 4.0.0.4<small> Unreleased </small>
 </h1>
 <ul>
 <li>New <code>feature_representation</code> function to how well features are represented in solutions (<a href='https://github.com/prioritizr/prioritizr/issues/73'>#73</a>).</li>
 </ul>
 </div>
-    <div id="prioritizr-4-0-0-3" class="section level1">
+    <div id="prioritizr-4003" class="section level1">
 <h1 class="page-header" data-toc-text="4.0.0.3">
-<a href="#prioritizr-4-0-0-3" class="anchor"></a>prioritizr 4.0.0.3<small> Unreleased </small>
+<a href="#prioritizr-4003" class="anchor" aria-hidden="true"></a>prioritizr 4.0.0.3<small> Unreleased </small>
 </h1>
 <ul>
 <li>The <em>prioritizrdata</em> package has been listed under Suggests.</li>
 <li>The vignettes in the <em>prioritizrdata</em> package have been moved to this package to make them easier to find.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-0-0-2" class="section level1">
+    <div id="prioritizr-4002" class="section level1">
 <h1 class="page-header" data-toc-text="4.0.0.2">
-<a href="#prioritizr-4-0-0-2" class="anchor"></a>prioritizr 4.0.0.2<small> Unreleased </small>
+<a href="#prioritizr-4002" class="anchor" aria-hidden="true"></a>prioritizr 4.0.0.2<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fix issue with the <code>solve</code> function printing superfluous text (<a href='https://github.com/prioritizr/prioritizr/issues/75'>#75</a>).</li>
 </ul>
 </div>
-    <div id="prioritizr-4-0-0-1" class="section level1">
+    <div id="prioritizr-4001" class="section level1">
 <h1 class="page-header" data-toc-text="4.0.0.1">
-<a href="#prioritizr-4-0-0-1" class="anchor"></a>prioritizr 4.0.0.1<small> Unreleased </small>
+<a href="#prioritizr-4001" class="anchor" aria-hidden="true"></a>prioritizr 4.0.0.1<small> Unreleased </small>
 </h1>
 <ul>
 <li>Minor improvements to the documentation for the <code>problem</code> function.</li>
 </ul>
 </div>
-    <div id="prioritizr-4-0-0-0" class="section level1">
+    <div id="prioritizr-4000" class="section level1">
 <h1 class="page-header" data-toc-text="4.0.0.0">
-<a href="#prioritizr-4-0-0-0" class="anchor"></a>prioritizr 4.0.0.0<small> Unreleased </small>
+<a href="#prioritizr-4000" class="anchor" aria-hidden="true"></a>prioritizr 4.0.0.0<small> Unreleased </small>
 </h1>
 <ul>
 <li>Added functionality to build and solve problems with multiple management zones (<a href='https://github.com/prioritizr/prioritizr/issues/14'>#14</a>).</li>
@@ -1126,100 +1140,100 @@
 <li>The <code>marxan_problem</code> has been updated with more comprehensive documentation and to provide more helpful error messages. For clarity, it will now only work with tabular data in the standard <em>Marxan</em> format.</li>
 </ul>
 </div>
-    <div id="prioritizr-3-0-3-6" class="section level1">
+    <div id="prioritizr-3036" class="section level1">
 <h1 class="page-header" data-toc-text="3.0.3.6">
-<a href="#prioritizr-3-0-3-6" class="anchor"></a>prioritizr 3.0.3.6<small> Unreleased </small>
+<a href="#prioritizr-3036" class="anchor" aria-hidden="true"></a>prioritizr 3.0.3.6<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fix typo in README and update documentation for <code>add_boundary_penalties</code> (<a href='https://github.com/prioritizr/prioritizr/issues/62'>#62</a>).</li>
 </ul>
 </div>
-    <div id="prioritizr-3-0-3-5" class="section level1">
+    <div id="prioritizr-3035" class="section level1">
 <h1 class="page-header" data-toc-text="3.0.3.5">
-<a href="#prioritizr-3-0-3-5" class="anchor"></a>prioritizr 3.0.3.5<small> Unreleased </small>
+<a href="#prioritizr-3035" class="anchor" aria-hidden="true"></a>prioritizr 3.0.3.5<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fix bug where <code>add_locked_in_constraints</code> and <code>add_locked_out_constraints</code> throw an exception when used with semi-continuous-type decisions (<a href='https://github.com/prioritizr/prioritizr/issues/59'>#59</a>).</li>
 <li>Exception in <code>compile</code> thrown when the same planning unit is locked in and locked out now prints the planning unit indices in a readable format.</li>
 </ul>
 </div>
-    <div id="prioritizr-3-0-3-4" class="section level1">
+    <div id="prioritizr-3034" class="section level1">
 <h1 class="page-header" data-toc-text="3.0.3.4">
-<a href="#prioritizr-3-0-3-4" class="anchor"></a>prioritizr 3.0.3.4<small> Unreleased </small>
+<a href="#prioritizr-3034" class="anchor" aria-hidden="true"></a>prioritizr 3.0.3.4<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fix bug where <code>add_locked_in_constraints</code> and <code>add_locked_out_constraints</code> are ignored when using proportion-type decisions (<a href='https://github.com/prioritizr/prioritizr/issues/58'>#58</a>).</li>
 </ul>
 </div>
-    <div id="prioritizr-3-0-3-3" class="section level1">
+    <div id="prioritizr-3033" class="section level1">
 <h1 class="page-header" data-toc-text="3.0.3.3">
-<a href="#prioritizr-3-0-3-3" class="anchor"></a>prioritizr 3.0.3.3<small> Unreleased </small>
+<a href="#prioritizr-3033" class="anchor" aria-hidden="true"></a>prioritizr 3.0.3.3<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fix bug in <code>predefined_optimization_problem</code> which incorrectly recognized some inputs as invalid when they were in fact valid.</li>
 <li>Addressed NOTE in <code>R CMD check</code> related to proto in Depends.</li>
 </ul>
 </div>
-    <div id="prioritizr-3-0-3-2" class="section level1">
+    <div id="prioritizr-3032" class="section level1">
 <h1 class="page-header" data-toc-text="3.0.3.2">
-<a href="#prioritizr-3-0-3-2" class="anchor"></a>prioritizr 3.0.3.2<small> Unreleased </small>
+<a href="#prioritizr-3032" class="anchor" aria-hidden="true"></a>prioritizr 3.0.3.2<small> Unreleased </small>
 </h1>
 <ul>
 <li>Moved proto package from Imports to Depends in DESCRIPTION</li>
 </ul>
 </div>
-    <div id="prioritizr-3-0-3-1" class="section level1">
+    <div id="prioritizr-3031" class="section level1">
 <h1 class="page-header" data-toc-text="3.0.3.1">
-<a href="#prioritizr-3-0-3-1" class="anchor"></a>prioritizr 3.0.3.1<small> Unreleased </small>
+<a href="#prioritizr-3031" class="anchor" aria-hidden="true"></a>prioritizr 3.0.3.1<small> Unreleased </small>
 </h1>
 <ul>
 <li>Depends on R version 3.4.0 (avoids ‘patchlevel 0’ NOTE/WARNING in checks)</li>
 </ul>
 </div>
-    <div id="prioritizr-3-0-3" class="section level1">
+    <div id="prioritizr-303" class="section level1">
 <h1 class="page-header" data-toc-text="3.0.3">
-<a href="#prioritizr-3-0-3" class="anchor"></a>prioritizr 3.0.3<small> 2017-11-22 </small>
+<a href="#prioritizr-303" class="anchor" aria-hidden="true"></a>prioritizr 3.0.3<small> 2017-11-22 </small>
 </h1>
 <ul>
 <li>Release candidate for CRAN.</li>
 </ul>
 </div>
-    <div id="prioritizr-3-0-2-3" class="section level1">
+    <div id="prioritizr-3023" class="section level1">
 <h1 class="page-header" data-toc-text="3.0.2.3">
-<a href="#prioritizr-3-0-2-3" class="anchor"></a>prioritizr 3.0.2.3<small> Unreleased </small>
+<a href="#prioritizr-3023" class="anchor" aria-hidden="true"></a>prioritizr 3.0.2.3<small> Unreleased </small>
 </h1>
 <ul>
 <li>Unit tests that fail when using <em>lpsymphony</em> due to a bug in <em>lpsymphony</em> are now skipped (partially addressing <a href='https://github.com/prioritizr/prioritizr/issues/40'>#40</a>).</li>
 </ul>
 </div>
-    <div id="prioritizr-3-0-2-2" class="section level1">
+    <div id="prioritizr-3022" class="section level1">
 <h1 class="page-header" data-toc-text="3.0.2.2">
-<a href="#prioritizr-3-0-2-2" class="anchor"></a>prioritizr 3.0.2.2<small> Unreleased </small>
+<a href="#prioritizr-3022" class="anchor" aria-hidden="true"></a>prioritizr 3.0.2.2<small> Unreleased </small>
 </h1>
 <ul>
 <li>
 <code>add_lpsymphony_solver</code> now throws warnings to alert users to potentially incorrect solutions (partially addressing <a href='https://github.com/prioritizr/prioritizr/issues/40'>#40</a>).</li>
 </ul>
 </div>
-    <div id="prioritizr-3-0-2-1" class="section level1">
+    <div id="prioritizr-3021" class="section level1">
 <h1 class="page-header" data-toc-text="3.0.2.1">
-<a href="#prioritizr-3-0-2-1" class="anchor"></a>prioritizr 3.0.2.1<small> Unreleased </small>
+<a href="#prioritizr-3021" class="anchor" aria-hidden="true"></a>prioritizr 3.0.2.1<small> Unreleased </small>
 </h1>
 <ul>
 <li>Vignette sizes have been reduced.</li>
 </ul>
 </div>
-    <div id="prioritizr-3-0-2" class="section level1">
+    <div id="prioritizr-302" class="section level1">
 <h1 class="page-header" data-toc-text="3.0.2">
-<a href="#prioritizr-3-0-2" class="anchor"></a>prioritizr 3.0.2<small> Unreleased </small>
+<a href="#prioritizr-302" class="anchor" aria-hidden="true"></a>prioritizr 3.0.2<small> Unreleased </small>
 </h1>
 <ul>
 <li>Release candidate for CRAN. Release postponed due issues on Travis CI.</li>
 </ul>
 </div>
-    <div id="prioritizr-3-0-1-1" class="section level1">
+    <div id="prioritizr-3011" class="section level1">
 <h1 class="page-header" data-toc-text="3.0.1.1">
-<a href="#prioritizr-3-0-1-1" class="anchor"></a>prioritizr 3.0.1.1<small> Unreleased </small>
+<a href="#prioritizr-3011" class="anchor" aria-hidden="true"></a>prioritizr 3.0.1.1<small> Unreleased </small>
 </h1>
 <ul>
 <li>Unit tests for <code>add_*_objectives</code> now pass when executed with slow solvers (partially addressing <a href='https://github.com/prioritizr/prioritizr/issues/40'>#40</a>).</li>
@@ -1228,17 +1242,17 @@
 <li>Gap arguments in <code>add_*_solvers</code> are now unbounded and can accept values larger than 1 (<a href='https://github.com/prioritizr/prioritizr/issues/44'>#44</a>).</li>
 </ul>
 </div>
-    <div id="prioritizr-3-0-1" class="section level1">
+    <div id="prioritizr-301" class="section level1">
 <h1 class="page-header" data-toc-text="3.0.1">
-<a href="#prioritizr-3-0-1" class="anchor"></a>prioritizr 3.0.1<small> 2017-11-08 </small>
+<a href="#prioritizr-301" class="anchor" aria-hidden="true"></a>prioritizr 3.0.1<small> 2017-11-08 </small>
 </h1>
 <ul>
 <li>Release candidate for CRAN.</li>
 </ul>
 </div>
-    <div id="prioritizr-3-0-0-0" class="section level1">
+    <div id="prioritizr-3000" class="section level1">
 <h1 class="page-header" data-toc-text="3.0.0.0">
-<a href="#prioritizr-3-0-0-0" class="anchor"></a>prioritizr 3.0.0.0<small> Unreleased </small>
+<a href="#prioritizr-3000" class="anchor" aria-hidden="true"></a>prioritizr 3.0.0.0<small> Unreleased </small>
 </h1>
 <ul>
 <li>The <code>add_max_cover_objective</code> function has been renamed to the <code>add_max_utility_objective</code>, because the formulation does not follow the historical formulation of the maximum coverage reserve selection problem (<a href='https://github.com/prioritizr/prioritizr/issues/38'>#38</a>).</li>
@@ -1247,25 +1261,25 @@
 <li>Add tests to unit tests that were being skipped in new version of <em>testthat</em>.</li>
 </ul>
 </div>
-    <div id="prioritizr-2-0-4-1" class="section level1">
+    <div id="prioritizr-2041" class="section level1">
 <h1 class="page-header" data-toc-text="2.0.4.1">
-<a href="#prioritizr-2-0-4-1" class="anchor"></a>prioritizr 2.0.4.1<small> Unreleased </small>
+<a href="#prioritizr-2041" class="anchor" aria-hidden="true"></a>prioritizr 2.0.4.1<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fix bug with <code>add_lpsymphony_solver</code> causing error when attempting to solve problems.</li>
 </ul>
 </div>
-    <div id="prioritizr-2-0-4" class="section level1">
+    <div id="prioritizr-204" class="section level1">
 <h1 class="page-header" data-toc-text="2.0.4">
-<a href="#prioritizr-2-0-4" class="anchor"></a>prioritizr 2.0.4<small> Unreleased </small>
+<a href="#prioritizr-204" class="anchor" aria-hidden="true"></a>prioritizr 2.0.4<small> Unreleased </small>
 </h1>
 <ul>
 <li>Release candidate for CRAN. Release postponed due to bug report.</li>
 </ul>
 </div>
-    <div id="prioritizr-2-0-3-1" class="section level1">
+    <div id="prioritizr-2031" class="section level1">
 <h1 class="page-header" data-toc-text="2.0.3.1">
-<a href="#prioritizr-2-0-3-1" class="anchor"></a>prioritizr 2.0.3.1<small> Unreleased </small>
+<a href="#prioritizr-2031" class="anchor" aria-hidden="true"></a>prioritizr 2.0.3.1<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fix bug when solving problems with <code>numeric</code> vector data that caused an error.</li>
@@ -1274,73 +1288,73 @@
 <li>Updated package sizes reported in cran-comments.</li>
 </ul>
 </div>
-    <div id="prioritizr-2-0-3" class="section level1">
+    <div id="prioritizr-203" class="section level1">
 <h1 class="page-header" data-toc-text="2.0.3">
-<a href="#prioritizr-2-0-3" class="anchor"></a>prioritizr 2.0.3<small> Unreleased </small>
+<a href="#prioritizr-203" class="anchor" aria-hidden="true"></a>prioritizr 2.0.3<small> Unreleased </small>
 </h1>
 <ul>
 <li>Initial release candidate for CRAN. Release postponed due to bug report.</li>
 </ul>
 </div>
-    <div id="prioritizr-2-0-2-9" class="section level1">
+    <div id="prioritizr-2029" class="section level1">
 <h1 class="page-header" data-toc-text="2.0.2.9">
-<a href="#prioritizr-2-0-2-9" class="anchor"></a>prioritizr 2.0.2.9<small> Unreleased </small>
+<a href="#prioritizr-2029" class="anchor" aria-hidden="true"></a>prioritizr 2.0.2.9<small> Unreleased </small>
 </h1>
 <ul>
 <li>Added vignette to record publications that use <em>prioritizr</em> (<a href='https://github.com/prioritizr/prioritizr/issues/35'>#35</a>).</li>
 </ul>
 </div>
-    <div id="prioritizr-2-0-2-8" class="section level1">
+    <div id="prioritizr-2028" class="section level1">
 <h1 class="page-header" data-toc-text="2.0.2.8">
-<a href="#prioritizr-2-0-2-8" class="anchor"></a>prioritizr 2.0.2.8<small> Unreleased </small>
+<a href="#prioritizr-2028" class="anchor" aria-hidden="true"></a>prioritizr 2.0.2.8<small> Unreleased </small>
 </h1>
 <ul>
 <li>Unit tests now compatible with development version of <em>testthat</em> (<a href='https://github.com/prioritizr/prioritizr/issues/34'>#34</a>).</li>
 </ul>
 </div>
-    <div id="prioritizr-2-0-2-7" class="section level1">
+    <div id="prioritizr-2027" class="section level1">
 <h1 class="page-header" data-toc-text="2.0.2.7">
-<a href="#prioritizr-2-0-2-7" class="anchor"></a>prioritizr 2.0.2.7<small> Unreleased </small>
+<a href="#prioritizr-2027" class="anchor" aria-hidden="true"></a>prioritizr 2.0.2.7<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fix bug in <code>apply_boundary_penalties</code> and <code>add_connectivity_penalties</code> causing the function to throw an error when the number of boundaries/edges is less than the number of planning units.</li>
 </ul>
 </div>
-    <div id="prioritizr-2-0-2-6" class="section level1">
+    <div id="prioritizr-2026" class="section level1">
 <h1 class="page-header" data-toc-text="2.0.2.6">
-<a href="#prioritizr-2-0-2-6" class="anchor"></a>prioritizr 2.0.2.6<small> Unreleased </small>
+<a href="#prioritizr-2026" class="anchor" aria-hidden="true"></a>prioritizr 2.0.2.6<small> Unreleased </small>
 </h1>
 <ul>
 <li>Makevars now compatible with Mac OSX Sierra (<a href='https://github.com/prioritizr/prioritizr/issues/33'>#33</a>).</li>
 </ul>
 </div>
-    <div id="prioritizr-2-0-2-5" class="section level1">
+    <div id="prioritizr-2025" class="section level1">
 <h1 class="page-header" data-toc-text="2.0.2.5">
-<a href="#prioritizr-2-0-2-5" class="anchor"></a>prioritizr 2.0.2.5<small> Unreleased </small>
+<a href="#prioritizr-2025" class="anchor" aria-hidden="true"></a>prioritizr 2.0.2.5<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fix bug in <code>boundary_matrix</code> calculations (<a href='https://github.com/prioritizr/prioritizr/issues/30'>#30</a>).</li>
 </ul>
 </div>
-    <div id="prioritizr-2-0-2-4" class="section level1">
+    <div id="prioritizr-2024" class="section level1">
 <h1 class="page-header" data-toc-text="2.0.2.4">
-<a href="#prioritizr-2-0-2-4" class="anchor"></a>prioritizr 2.0.2.4<small> Unreleased </small>
+<a href="#prioritizr-2024" class="anchor" aria-hidden="true"></a>prioritizr 2.0.2.4<small> Unreleased </small>
 </h1>
 <ul>
 <li>Minor tweaks to vignettes.</li>
 </ul>
 </div>
-    <div id="prioritizr-2-0-2-3" class="section level1">
+    <div id="prioritizr-2023" class="section level1">
 <h1 class="page-header" data-toc-text="2.0.2.3">
-<a href="#prioritizr-2-0-2-3" class="anchor"></a>prioritizr 2.0.2.3<small> Unreleased </small>
+<a href="#prioritizr-2023" class="anchor" aria-hidden="true"></a>prioritizr 2.0.2.3<small> Unreleased </small>
 </h1>
 <ul>
 <li>Add logo to README files and package website (<a href='https://github.com/prioritizr/prioritizr/issues/31'>#31</a>).</li>
 </ul>
 </div>
-    <div id="prioritizr-2-0-2-2" class="section level1">
+    <div id="prioritizr-2022" class="section level1">
 <h1 class="page-header" data-toc-text="2.0.2.2">
-<a href="#prioritizr-2-0-2-2" class="anchor"></a>prioritizr 2.0.2.2<small> Unreleased </small>
+<a href="#prioritizr-2022" class="anchor" aria-hidden="true"></a>prioritizr 2.0.2.2<small> Unreleased </small>
 </h1>
 <ul>
 <li>Broad-scale improvements to documentation.</li>
@@ -1355,54 +1369,54 @@
 <li>Remove R-devel from AppVeyor testing because it fails for unknown reasons.</li>
 </ul>
 </div>
-    <div id="prioritizr-2-0-2-1" class="section level1">
+    <div id="prioritizr-2021" class="section level1">
 <h1 class="page-header" data-toc-text="2.0.2.1">
-<a href="#prioritizr-2-0-2-1" class="anchor"></a>prioritizr 2.0.2.1<small> Unreleased </small>
+<a href="#prioritizr-2021" class="anchor" aria-hidden="true"></a>prioritizr 2.0.2.1<small> Unreleased </small>
 </h1>
 <ul>
 <li>Removed shiny functions for now to prep for CRAN release.</li>
 <li>Rebuilt website and documentation.</li>
 </ul>
 </div>
-    <div id="prioritizr-2-0-2-0" class="section level1">
+    <div id="prioritizr-2020" class="section level1">
 <h1 class="page-header" data-toc-text="2.0.2.0">
-<a href="#prioritizr-2-0-2-0" class="anchor"></a>prioritizr 2.0.2.0<small> Unreleased </small>
+<a href="#prioritizr-2020" class="anchor" aria-hidden="true"></a>prioritizr 2.0.2.0<small> Unreleased </small>
 </h1>
 <ul>
 <li>Included vignette on Gurobi solver installation and testing.</li>
 </ul>
 </div>
-    <div id="prioritizr-2-0-1-0" class="section level1">
+    <div id="prioritizr-2010" class="section level1">
 <h1 class="page-header" data-toc-text="2.0.1.0">
-<a href="#prioritizr-2-0-1-0" class="anchor"></a>prioritizr 2.0.1.0<small> Unreleased </small>
+<a href="#prioritizr-2010" class="anchor" aria-hidden="true"></a>prioritizr 2.0.1.0<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fixed bug where <code>Spatial*DataFrame</code> input to <code>marxan_problem</code> would always use the first column in the attribute table for the cost data. <strong>This bug is serious</strong> so analysis that used <code>Spatial*DataFrame</code> inputs in <code>marxan_problem</code> should be rerun.</li>
 <li>Added functionality to use feature abundance/occurrence data stored as columns in the planning unit data when constructing <code>problem</code> objects.</li>
 </ul>
 </div>
-    <div id="prioritizr-2-0-0-2" class="section level1">
+    <div id="prioritizr-2002" class="section level1">
 <h1 class="page-header" data-toc-text="2.0.0.2">
-<a href="#prioritizr-2-0-0-2" class="anchor"></a>prioritizr 2.0.0.2<small> Unreleased </small>
+<a href="#prioritizr-2002" class="anchor" aria-hidden="true"></a>prioritizr 2.0.0.2<small> Unreleased </small>
 </h1>
 <ul>
 <li>Skip <code>add_cuts_portfolio</code> on Travis.</li>
 </ul>
 </div>
-    <div id="prioritizr-2-0-0-1" class="section level1">
+    <div id="prioritizr-2001" class="section level1">
 <h1 class="page-header" data-toc-text="2.0.0.1">
-<a href="#prioritizr-2-0-0-1" class="anchor"></a>prioritizr 2.0.0.1<small> Unreleased </small>
+<a href="#prioritizr-2001" class="anchor" aria-hidden="true"></a>prioritizr 2.0.0.1<small> Unreleased </small>
 </h1>
 <ul>
 <li>Skip <code>add_cuts_portfolio</code> and <code>add_shuffle_portfolio</code> tests on CRAN.</li>
 </ul>
 </div>
-    <div id="prioritizr-2-0-0-0" class="section level1">
+    <div id="prioritizr-2000" class="section level1">
 <h1 class="page-header" data-toc-text="2.0.0.0">
-<a href="#prioritizr-2-0-0-0" class="anchor"></a>prioritizr 2.0.0.0<small> Unreleased </small>
+<a href="#prioritizr-2000" class="anchor" aria-hidden="true"></a>prioritizr 2.0.0.0<small> Unreleased </small>
 </h1>
 <ul>
-<li>This version breaks compatibility with previous releases because solutions in <code>data.frame</code> and <code>Spatial*DataFrame</code> objects are now stored in columns named “solution_*" (e.g. “solution_1”) to store multiple solutions.</li>
+<li>This version breaks compatibility with previous releases because solutions in <code>data.frame</code> and <code>Spatial*DataFrame</code> objects are now stored in columns named "solution_*" (e.g. “solution_1”) to store multiple solutions.</li>
 <li>Added support for multiple solutions (<a href='https://github.com/prioritizr/prioritizr/issues/23'>#23</a>).</li>
 <li>Solutions now contain additional information in stored in the object’s attributes (<a href='https://github.com/prioritizr/prioritizr/issues/24'>#24</a>). See README.Rmd for examples on accessing this information.</li>
 <li>Tidy examples in <em>add_gurobi_solver.R</em>, <em>add_lpsymphony_solver.R</em>, <em>add_rsymphony_solver.R</em>, and <em>solvers.R</em>.</li>
@@ -1411,9 +1425,9 @@
 <li>Assorted spelling mistakes have been fixed.</li>
 </ul>
 </div>
-    <div id="prioritizr-1-0-2-3" class="section level1">
+    <div id="prioritizr-1023" class="section level1">
 <h1 class="page-header" data-toc-text="1.0.2.3">
-<a href="#prioritizr-1-0-2-3" class="anchor"></a>prioritizr 1.0.2.3<small> Unreleased </small>
+<a href="#prioritizr-1023" class="anchor" aria-hidden="true"></a>prioritizr 1.0.2.3<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -1422,38 +1436,38 @@
 <li>Fix bug where <em>lpsymphony</em> and <em>Rsymphony</em> solvers would return solutions containing NA values if they did not find a feasible solution within the argument to <code>time_limit</code>.</li>
 </ul>
 </div>
-    <div id="prioritizr-1-0-2-2" class="section level1">
+    <div id="prioritizr-1022" class="section level1">
 <h1 class="page-header" data-toc-text="1.0.2.2">
-<a href="#prioritizr-1-0-2-2" class="anchor"></a>prioritizr 1.0.2.2<small> Unreleased </small>
+<a href="#prioritizr-1022" class="anchor" aria-hidden="true"></a>prioritizr 1.0.2.2<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fix <a href='https://github.com/prioritizr/prioritizr/issues/19'>#19</a>.</li>
 </ul>
 </div>
-    <div id="prioritizr-1-0-2-1" class="section level1">
+    <div id="prioritizr-1021" class="section level1">
 <h1 class="page-header" data-toc-text="1.0.2.1">
-<a href="#prioritizr-1-0-2-1" class="anchor"></a>prioritizr 1.0.2.1<small> Unreleased </small>
+<a href="#prioritizr-1021" class="anchor" aria-hidden="true"></a>prioritizr 1.0.2.1<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fix <a href='https://github.com/prioritizr/prioritizr/issues/20'>#20</a>.</li>
 </ul>
 </div>
-    <div id="prioritizr-1-0-2-0" class="section level1">
+    <div id="prioritizr-1020" class="section level1">
 <h1 class="page-header" data-toc-text="1.0.2.0">
-<a href="#prioritizr-1-0-2-0" class="anchor"></a>prioritizr 1.0.2.0<small> Unreleased </small>
+<a href="#prioritizr-1020" class="anchor" aria-hidden="true"></a>prioritizr 1.0.2.0<small> Unreleased </small>
 </h1>
 <ul>
 <li>Passes CRAN checks on Winbuilder.</li>
 <li>Added roxygen2 to Suggests for Travis CI.</li>
 </ul>
 </div>
-    <div id="prioritizr-1-0-1-6" class="section level1">
+    <div id="prioritizr-1016" class="section level1">
 <h1 class="page-header" data-toc-text="1.0.1.6">
-<a href="#prioritizr-1-0-1-6" class="anchor"></a>prioritizr 1.0.1.6<small> Unreleased </small>
+<a href="#prioritizr-1016" class="anchor" aria-hidden="true"></a>prioritizr 1.0.1.6<small> Unreleased </small>
 </h1>
 <ul>
-<li>Simplify vignette workflow. Vignettes can now be compiled by using <code><a href="https://devtools.r-lib.org//reference/build_vignettes.html">devtools::build_vignettes()</a></code>. Earlier versions needed the vignettes to be compiled using the <em>Makefile</em> to copy files around to avoid tangled R code causing failures during R CMD CHECK. Although no longer needed, the vignettes can still be compiled using the shell command <code>make vigns</code> if desired.</li>
-<li>The <em>README.Rmd</em> now lives in the top-level directory following standard practices. It should now be complied using <code><a href="https://rdrr.io/pkg/rmarkdown/man/render.html">rmarkdown::render("README.Rmd")</a></code> or using the shell command <code>make readme</code>. Note that the figures for <code>README.md</code> can be found in the directory <code>man/figures</code>.</li>
+<li>Simplify vignette workflow. Vignettes can now be compiled by using <code><a href="https://devtools.r-lib.org//reference/build_vignettes.html" class="external-link">devtools::build_vignettes()</a></code>. Earlier versions needed the vignettes to be compiled using the <em>Makefile</em> to copy files around to avoid tangled R code causing failures during R CMD CHECK. Although no longer needed, the vignettes can still be compiled using the shell command <code>make vigns</code> if desired.</li>
+<li>The <em>README.Rmd</em> now lives in the top-level directory following standard practices. It should now be complied using <code>rmarkdown::render("README.Rmd")</code> or using the shell command <code>make readme</code>. Note that the figures for <code>README.md</code> can be found in the directory <code>man/figures</code>.</li>
 <li>The example for <code>prshiny</code> will now only be run if executed during an interactive R session. Prior to this R CMD CHECK would hang.</li>
 <li>UTF-8 math characters in vignettes have been replaced with with MathJax compatible latex expressions.</li>
 <li>R code in the vignettes has been linted to follow the package’s style guide.</li>
@@ -1465,86 +1479,85 @@
 <li>
 <em>README.Rmd</em> tweaks to make it look prettier on website</li>
 <li>Lint objective function definition files</li>
-<li>Remove “\text” latex sequences from objective function definition files because CRAN doesn’t support <em>amsmath</em> extensions in equations.</li>
+<li>Remove “” latex sequences from objective function definition files because CRAN doesn’t support <em>amsmath</em> extensions in equations.</li>
 <li>Update examples in objective function files to only show relevant objectives</li>
 <li>Added <em>rmarkdown</em> package to Suggests following recommended practices.</li>
 </ul>
 </div>
-    <div id="prioritizr-1-0-1-5" class="section level1">
+    <div id="prioritizr-1015" class="section level1">
 <h1 class="page-header" data-toc-text="1.0.1.5">
-<a href="#prioritizr-1-0-1-5" class="anchor"></a>prioritizr 1.0.1.5<small> Unreleased </small>
+<a href="#prioritizr-1015" class="anchor" aria-hidden="true"></a>prioritizr 1.0.1.5<small> Unreleased </small>
 </h1>
 <ul>
 <li>Enable 64 bit Armadillo flag. This increases the maximum size of problems that can be solved.</li>
 <li>Disable bound-checks in Armadillo matrix operations. This should reduce processing time when running the <code>priortizr::compile</code> function.</li>
 </ul>
 </div>
-    <div id="prioritizr-1-0-1-4" class="section level1">
+    <div id="prioritizr-1014" class="section level1">
 <h1 class="page-header" data-toc-text="1.0.1.4">
-<a href="#prioritizr-1-0-1-4" class="anchor"></a>prioritizr 1.0.1.4<small> Unreleased </small>
+<a href="#prioritizr-1014" class="anchor" aria-hidden="true"></a>prioritizr 1.0.1.4<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fix bug in <code>problem.data.frame</code> that meant that it did not check for missing values in <code>rij$pu</code>.</li>
 </ul>
 </div>
-    <div id="prioritizr-1-0-1-3" class="section level1">
+    <div id="prioritizr-1013" class="section level1">
 <h1 class="page-header" data-toc-text="1.0.1.3">
-<a href="#prioritizr-1-0-1-3" class="anchor"></a>prioritizr 1.0.1.3<small> Unreleased </small>
+<a href="#prioritizr-1013" class="anchor" aria-hidden="true"></a>prioritizr 1.0.1.3<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fix bugs <code>add_absolute_targets</code> and add_relative_targets` related to their standardGeneric being incorrectly defined</li>
-<li>Reduce installation size using Dirk Eddelbuettel’s awesome advice: <a href="http://dirk.eddelbuettel.com/blog/2017/08/14<a href='https://github.com/prioritizr/prioritizr/issues/009'>#009</a>_compact_shared_libraries" class="uri">http://dirk.eddelbuettel.com/blog/2017/08/14<a href='https://github.com/prioritizr/prioritizr/issues/009'>#009</a>_compact_shared_libraries</a>
-</li>
+<li>Reduce installation size using Dirk Eddelbuettel’s awesome advice: http://dirk.eddelbuettel.com/blog/2017/08/14#009_compact_shared_libraries</li>
 <li>Fix bug in <code>add_corridor_targets</code> when argument <code>connectivities</code> is a <code>list</code>. The elements in the list are assumed to be <code>dsCMatrix</code> objects (aka symmetric sparse matrices in a compressed format) and are coerced to <code>dgCMatrix</code> objects to reduce computational burden. There was a typo, however, and so the objects were coerced to <code>dgCmatrix</code> and not <code>dgCMatrix</code>. This evidently was ok in earlier versions of the RcppArmadillo and/or Matrix packages but not in the most recent versions.</li>
 </ul>
 </div>
-    <div id="prioritizr-1-0-1-2" class="section level1">
+    <div id="prioritizr-1012" class="section level1">
 <h1 class="page-header" data-toc-text="1.0.1.2">
-<a href="#prioritizr-1-0-1-2" class="anchor"></a>prioritizr 1.0.1.2<small> Unreleased </small>
+<a href="#prioritizr-1012" class="anchor" aria-hidden="true"></a>prioritizr 1.0.1.2<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fix <a href='https://github.com/prioritizr/prioritizr/issues/21'>#21</a>.</li>
 </ul>
 </div>
-    <div id="prioritizr-1-0-1-1" class="section level1">
+    <div id="prioritizr-1011" class="section level1">
 <h1 class="page-header" data-toc-text="1.0.1.1">
-<a href="#prioritizr-1-0-1-1" class="anchor"></a>prioritizr 1.0.1.1<small> Unreleased </small>
+<a href="#prioritizr-1011" class="anchor" aria-hidden="true"></a>prioritizr 1.0.1.1<small> Unreleased </small>
 </h1>
 <ul>
 <li>Add roxygen2 to package SUGGESTS for building vignettes.</li>
 </ul>
 </div>
-    <div id="prioritizr-1-0-1-0" class="section level1">
+    <div id="prioritizr-1010" class="section level1">
 <h1 class="page-header" data-toc-text="1.0.1.0">
-<a href="#prioritizr-1-0-1-0" class="anchor"></a>prioritizr 1.0.1.0<small> Unreleased </small>
+<a href="#prioritizr-1010" class="anchor" aria-hidden="true"></a>prioritizr 1.0.1.0<small> Unreleased </small>
 </h1>
 <ul>
-<li>Fix issue where <code><a href="https://rdrr.io/r/parallel/detectCores.html">parallel::detectCores()</a></code> returns <code>NA</code> on some systems preventing users from using the Gurobi solver–even when one thread is specified.</li>
+<li>Fix issue where <code><a href="https://rdrr.io/r/parallel/detectCores.html" class="external-link">parallel::detectCores()</a></code> returns <code>NA</code> on some systems preventing users from using the Gurobi solver–even when one thread is specified.</li>
 </ul>
 </div>
-    <div id="prioritizr-1-0-0-5" class="section level1">
+    <div id="prioritizr-1005" class="section level1">
 <h1 class="page-header" data-toc-text="1.0.0.5">
-<a href="#prioritizr-1-0-0-5" class="anchor"></a>prioritizr 1.0.0.5<small> Unreleased </small>
+<a href="#prioritizr-1005" class="anchor" aria-hidden="true"></a>prioritizr 1.0.0.5<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fix building issue due to incorrect file order in DESCRIPTION.</li>
 </ul>
 </div>
-    <div id="prioritizr-1-0-0-4" class="section level1">
+    <div id="prioritizr-1004" class="section level1">
 <h1 class="page-header" data-toc-text="1.0.0.4">
-<a href="#prioritizr-1-0-0-4" class="anchor"></a>prioritizr 1.0.0.4<small> Unreleased </small>
+<a href="#prioritizr-1004" class="anchor" aria-hidden="true"></a>prioritizr 1.0.0.4<small> Unreleased </small>
 </h1>
 <ul>
 <li>Compatibility with R 3.4.0.</li>
-<li>Replace <code><a href="https://rdrr.io/r/base/structure.html">structure(NULL, ...)</a></code> with <code><a href="https://rdrr.io/r/base/structure.html">structure(list(), ...)</a></code>.</li>
+<li>Replace <code>structure(NULL, ...)</code> with <code>structure(list(), ...)</code>.</li>
 <li>Register compiled library files.</li>
 <li>Remove duplicate definition of <code>new_waiver</code> from internal.R.</li>
 <li>Tests check if prioritizrdata package not installed and skip if it isn’t.</li>
 </ul>
 </div>
-    <div id="prioritizr-1-0-0-3" class="section level1">
+    <div id="prioritizr-1003" class="section level1">
 <h1 class="page-header" data-toc-text="1.0.0.3">
-<a href="#prioritizr-1-0-0-3" class="anchor"></a>prioritizr 1.0.0.3<small> Unreleased </small>
+<a href="#prioritizr-1003" class="anchor" aria-hidden="true"></a>prioritizr 1.0.0.3<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fix missing links in documentation</li>
@@ -1553,17 +1566,17 @@
 <li>Make <code>add_default_objectives</code> and <code>add_default_targets</code> private functions</li>
 </ul>
 </div>
-    <div id="prioritizr-1-0-0-2" class="section level1">
+    <div id="prioritizr-1002" class="section level1">
 <h1 class="page-header" data-toc-text="1.0.0.2">
-<a href="#prioritizr-1-0-0-2" class="anchor"></a>prioritizr 1.0.0.2<small> Unreleased </small>
+<a href="#prioritizr-1002" class="anchor" aria-hidden="true"></a>prioritizr 1.0.0.2<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fix <a href='https://github.com/prioritizr/prioritizr/issues/13'>#13</a></li>
 </ul>
 </div>
-    <div id="prioritizr-1-0-0-1" class="section level1">
+    <div id="prioritizr-1001" class="section level1">
 <h1 class="page-header" data-toc-text="1.0.0.1">
-<a href="#prioritizr-1-0-0-1" class="anchor"></a>prioritizr 1.0.0.1<small> Unreleased </small>
+<a href="#prioritizr-1001" class="anchor" aria-hidden="true"></a>prioritizr 1.0.0.1<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fix <a href='https://github.com/prioritizr/prioritizr/issues/8'>#8</a>.</li>
@@ -1572,25 +1585,25 @@
 <li>Fix link to Joe’s website in the package’s website.</li>
 </ul>
 </div>
-    <div id="prioritizr-1-0-0-0" class="section level1">
+    <div id="prioritizr-1000" class="section level1">
 <h1 class="page-header" data-toc-text="1.0.0.0">
-<a href="#prioritizr-1-0-0-0" class="anchor"></a>prioritizr 1.0.0.0<small> Unreleased </small>
+<a href="#prioritizr-1000" class="anchor" aria-hidden="true"></a>prioritizr 1.0.0.0<small> Unreleased </small>
 </h1>
 <ul>
 <li>R interface fully functional.</li>
 </ul>
 </div>
-    <div id="prioritizr-0-1-2-9" class="section level1">
+    <div id="prioritizr-0129" class="section level1">
 <h1 class="page-header" data-toc-text="0.1.2.9">
-<a href="#prioritizr-0-1-2-9" class="anchor"></a>prioritizr 0.1.2.9<small> Unreleased </small>
+<a href="#prioritizr-0129" class="anchor" aria-hidden="true"></a>prioritizr 0.1.2.9<small> Unreleased </small>
 </h1>
 <ul>
 <li>Package re-implementation.</li>
 </ul>
 </div>
-    <div id="prioritizr-0-1-2" class="section level1">
+    <div id="prioritizr-012" class="section level1">
 <h1 class="page-header" data-toc-text="0.1.2">
-<a href="#prioritizr-0-1-2" class="anchor"></a>prioritizr 0.1.2<small> 2016-12-01 </small>
+<a href="#prioritizr-012" class="anchor" aria-hidden="true"></a>prioritizr 0.1.2<small> 2016-12-01 </small>
 </h1>
 <ul>
 <li>Prepare for CRAN submission.</li>
@@ -1600,9 +1613,9 @@
 <li>Add full vignette in addition to quickstart guide.</li>
 </ul>
 </div>
-    <div id="prioritizr-0-1-1" class="section level1">
+    <div id="prioritizr-011" class="section level1">
 <h1 class="page-header" data-toc-text="0.1.1">
-<a href="#prioritizr-0-1-1" class="anchor"></a>prioritizr 0.1.1<small> Unreleased </small>
+<a href="#prioritizr-011" class="anchor" aria-hidden="true"></a>prioritizr 0.1.1<small> Unreleased </small>
 </h1>
 <ul>
 <li>Initial package version.</li>
@@ -1621,11 +1634,11 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com'>Joseph Bennett</a>, <a href='http://www.possinghamlab.org'>Hugh P Possingham</a>.</p>
+  <p><p>Developed by <a href="https://jeffrey-hanson.com" class="external-link">Jeffrey O Hanson</a>, <a href="http://www.richard-schuster.com" class="external-link">Richard Schuster</a>, Nina Morrell, <a href="http://strimas.com" class="external-link">Matthew Strimas-Mackey</a>, Matthew E Watts, <a href="https://arcese.forestry.ubc.ca" class="external-link">Peter Arcese</a>, <a href="https://josephrbennett.wordpress.com" class="external-link">Joseph Bennett</a>, <a href="http://www.possinghamlab.org" class="external-link">Hugh P Possingham</a>.</p></p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p></p>
 </div>
 
       </footer>
@@ -1650,6 +1663,8 @@
 </script>
 
 
+
+  
 
   </body>
 </html>
