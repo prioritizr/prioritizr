@@ -1,7 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://prioritizr.net/404.html</loc>
+  </url>
+  <url>
+    <loc>https://prioritizr.net/CONTRIBUTING.html</loc>
+  </url>
+  <url>
+    <loc>https://prioritizr.net/articles/gurobi_installation.html</loc>
+  </url>
+  <url>
+    <loc>https://prioritizr.net/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://prioritizr.net/articles/prioritizr.html</loc>
+  </url>
+  <url>
+    <loc>https://prioritizr.net/articles/publication_record.html</loc>
+  </url>
+  <url>
+    <loc>https://prioritizr.net/articles/saltspring.html</loc>
+  </url>
+  <url>
+    <loc>https://prioritizr.net/articles/solver_benchmark.html</loc>
+  </url>
+  <url>
+    <loc>https://prioritizr.net/articles/tasmania.html</loc>
+  </url>
+  <url>
+    <loc>https://prioritizr.net/articles/zones.html</loc>
+  </url>
+  <url>
+    <loc>https://prioritizr.net/authors.html</loc>
+  </url>
+  <url>
     <loc>https://prioritizr.net/index.html</loc>
+  </url>
+  <url>
+    <loc>https://prioritizr.net/news/index.html</loc>
   </url>
   <url>
     <loc>https://prioritizr.net/reference/ArrayParameter-class.html</loc>
@@ -253,6 +289,9 @@
     <loc>https://prioritizr.net/reference/importance.html</loc>
   </url>
   <url>
+    <loc>https://prioritizr.net/reference/index.html</loc>
+  </url>
+  <url>
     <loc>https://prioritizr.net/reference/intersecting_units.html</loc>
   </url>
   <url>
@@ -383,23 +422,5 @@
   </url>
   <url>
     <loc>https://prioritizr.net/reference/zones.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/articles/gurobi_installation.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/articles/prioritizr.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/articles/publication_record.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/articles/saltspring.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/articles/tasmania.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/articles/zones.html</loc>
   </url>
 </urlset>

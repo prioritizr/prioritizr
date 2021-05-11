@@ -60,6 +60,8 @@ solutions that select planning units with high connectivity between them." />
 
 
 
+
+
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
@@ -81,9 +83,18 @@ solutions that select planning units with high connectivity between them." />
 </script>
 
 
+<!-- dependencies from examples -->
+
+
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -97,19 +108,13 @@ solutions that select planning units with high connectivity between them." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.3</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../articles/prioritizr.html">Get started</a>
 </li>
 <li>
@@ -132,6 +137,9 @@ solutions that select planning units with high connectivity between them." />
       <a href="../articles/saltspring.html">Salt Spring Island Tutorial</a>
     </li>
     <li>
+      <a href="../articles/solver_benchmark.html">Solver Benchmarks</a>
+    </li>
+    <li>
       <a href="../articles/tasmania.html">Tasmania Tutorial</a>
     </li>
     <li>
@@ -146,7 +154,7 @@ solutions that select planning units with high connectivity between them." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/prioritizr/prioritizr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -341,7 +349,7 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 
 <span class='co'># load Matrix package for visualizing matrices</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'><a href='http://Matrix.R-forge.R-project.org/'>Matrix</a></span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Loading required package: Matrix</span></div><div class='input'>
+</div><div class='co'>#&gt; Loading required package: Matrix</div><div class='input'>
 <span class='co'># load data</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>sim_pu_polygons</span>, <span class='va'>sim_pu_zones_stack</span>, <span class='va'>sim_features</span>, <span class='va'>sim_features_zones</span><span class='op'>)</span>
 
@@ -352,9 +360,9 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 <span class='op'>}</span>
 
 <span class='co'># create basic problem</span>
-<span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_polygons</span>, <span class='va'>sim_features</span>, <span class='st'>"cost"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.2</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+<span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_polygons</span>, <span class='va'>sim_features</span>, <span class='st'>"cost"</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
+      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
+      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.2</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
       <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='co'># create a symmetric connectivity matrix where the connectivity between</span>
@@ -366,13 +374,13 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 
 <span class='co'># visualize connectivity matrix</span>
 <span class='co'># \dontrun{</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/image.html'>image</a></span><span class='op'>(</span><span class='va'>b_matrix</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/raster/man/image.html'>image</a></span><span class='op'>(</span><span class='va'>b_matrix</span><span class='op'>)</span>
 </div><div class='img'><img src='add_connectivity_penalties-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 <span class='co'># create a symmetric connectivity matrix where the connectivity between</span>
 <span class='co'># two planning units corresponds to their spatial proximity</span>
 <span class='co'># i.e. planning units that are further apart share less connectivity</span>
 <span class='va'>centroids</span> <span class='op'>&lt;-</span> <span class='fu'>rgeos</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rgeos/man/topo-unary-gCentroid.html'>gCentroid</a></span><span class='op'>(</span><span class='va'>sim_pu_polygons</span>, byid <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-<span class='va'>d_matrix</span> <span class='op'>&lt;-</span> <span class='op'>(</span><span class='fl'>1</span> <span class='op'>/</span> <span class='op'>(</span><span class='fu'><a href='as.Id.html'>as</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/dist.html'>dist</a></span><span class='op'>(</span><span class='va'>centroids</span><span class='op'>@</span><span class='va'>coords</span><span class='op'>)</span>, <span class='st'>"Matrix"</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>d_matrix</span> <span class='op'>&lt;-</span> <span class='op'>(</span><span class='fl'>1</span> <span class='op'>/</span> <span class='op'>(</span><span class='fu'><a href='as.html'>as</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/dist.html'>dist</a></span><span class='op'>(</span><span class='va'>centroids</span><span class='op'>@</span><span class='va'>coords</span><span class='op'>)</span>, <span class='st'>"Matrix"</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># standardize matrix values to lay between zero and one</span>
 <span class='va'>d_matrix</span><span class='op'>[</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'>rescale</span><span class='op'>(</span><span class='va'>d_matrix</span><span class='op'>[</span><span class='op'>]</span><span class='op'>)</span>
@@ -383,7 +391,7 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 
 <span class='co'># visualize connectivity matrix</span>
 <span class='co'># \dontrun{</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/image.html'>image</a></span><span class='op'>(</span><span class='va'>d_matrix</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/raster/man/image.html'>image</a></span><span class='op'>(</span><span class='va'>d_matrix</span><span class='op'>)</span>
 </div><div class='img'><img src='add_connectivity_penalties-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 <span class='co'># create a symmetric connectivity matrix where the connectivity</span>
 <span class='co'># between adjacent two planning units corresponds to their combined</span>
@@ -399,14 +407,14 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 
 <span class='co'># visualize connectivity matrix</span>
 <span class='co'># \dontrun{</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/image.html'>image</a></span><span class='op'>(</span><span class='va'>c_matrix</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/raster/man/image.html'>image</a></span><span class='op'>(</span><span class='va'>c_matrix</span><span class='op'>)</span>
 </div><div class='img'><img src='add_connectivity_penalties-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 <span class='co'># create an asymmetric connectivity matrix. Here, connectivity occurs between</span>
 <span class='co'># adjacent planning units and, due to rivers flowing southwards</span>
 <span class='co'># through the study area, connectivity from northern planning units to</span>
 <span class='co'># southern planning units is ten times stronger than the reverse.</span>
 <span class='va'>ac_matrix</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>sim_pu_polygons</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>sim_pu_polygons</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>ac_matrix</span> <span class='op'>&lt;-</span> <span class='fu'><a href='as.Id.html'>as</a></span><span class='op'>(</span><span class='va'>ac_matrix</span>, <span class='st'>"Matrix"</span><span class='op'>)</span>
+<span class='va'>ac_matrix</span> <span class='op'>&lt;-</span> <span class='fu'><a href='as.html'>as</a></span><span class='op'>(</span><span class='va'>ac_matrix</span>, <span class='st'>"Matrix"</span><span class='op'>)</span>
 <span class='va'>adjacent_units</span> <span class='op'>&lt;-</span> <span class='fu'>rgeos</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rgeos/man/pred-binary-gIntersects.html'>gIntersects</a></span><span class='op'>(</span><span class='va'>sim_pu_polygons</span>, byid <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 <span class='kw'>for</span> <span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>sim_pu_polygons</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
   <span class='kw'>for</span> <span class='op'>(</span><span class='va'>j</span> <span class='kw'>in</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>sim_pu_polygons</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
@@ -432,24 +440,24 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 
 <span class='co'># visualize asymmetric connectivity matrix</span>
 <span class='co'># \dontrun{</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/image.html'>image</a></span><span class='op'>(</span><span class='va'>ac_matrix</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/raster/man/image.html'>image</a></span><span class='op'>(</span><span class='va'>ac_matrix</span><span class='op'>)</span>
 </div><div class='img'><img src='add_connectivity_penalties-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 <span class='co'># create penalties</span>
 <span class='va'>penalties</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>25</span><span class='op'>)</span>
 
 <span class='co'># create problems using the different connectivity matrices and penalties</span>
 <span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>p1</span>,
-           <span class='va'>p1</span> <span class='op'>%&gt;%</span> <span class='fu'>add_connectivity_penalties</span><span class='op'>(</span><span class='va'>penalties</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>, data <span class='op'>=</span> <span class='va'>b_matrix</span><span class='op'>)</span>,
-           <span class='va'>p1</span> <span class='op'>%&gt;%</span> <span class='fu'>add_connectivity_penalties</span><span class='op'>(</span><span class='va'>penalties</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span>, data <span class='op'>=</span> <span class='va'>b_matrix</span><span class='op'>)</span>,
-           <span class='va'>p1</span> <span class='op'>%&gt;%</span> <span class='fu'>add_connectivity_penalties</span><span class='op'>(</span><span class='va'>penalties</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>, data <span class='op'>=</span> <span class='va'>d_matrix</span><span class='op'>)</span>,
-           <span class='va'>p1</span> <span class='op'>%&gt;%</span> <span class='fu'>add_connectivity_penalties</span><span class='op'>(</span><span class='va'>penalties</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span>, data <span class='op'>=</span> <span class='va'>d_matrix</span><span class='op'>)</span>,
-           <span class='va'>p1</span> <span class='op'>%&gt;%</span> <span class='fu'>add_connectivity_penalties</span><span class='op'>(</span><span class='va'>penalties</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>, data <span class='op'>=</span> <span class='va'>c_matrix</span><span class='op'>)</span>,
-           <span class='va'>p1</span> <span class='op'>%&gt;%</span> <span class='fu'>add_connectivity_penalties</span><span class='op'>(</span><span class='va'>penalties</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span>, data <span class='op'>=</span> <span class='va'>c_matrix</span><span class='op'>)</span>,
-           <span class='va'>p1</span> <span class='op'>%&gt;%</span> <span class='fu'>add_connectivity_penalties</span><span class='op'>(</span><span class='va'>penalties</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>, data <span class='op'>=</span> <span class='va'>ac_matrix</span><span class='op'>)</span>,
-           <span class='va'>p1</span> <span class='op'>%&gt;%</span> <span class='fu'>add_connectivity_penalties</span><span class='op'>(</span><span class='va'>penalties</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span>, data <span class='op'>=</span> <span class='va'>ac_matrix</span><span class='op'>)</span><span class='op'>)</span>
+           <span class='va'>p1</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'>add_connectivity_penalties</span><span class='op'>(</span><span class='va'>penalties</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>, data <span class='op'>=</span> <span class='va'>b_matrix</span><span class='op'>)</span>,
+           <span class='va'>p1</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'>add_connectivity_penalties</span><span class='op'>(</span><span class='va'>penalties</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span>, data <span class='op'>=</span> <span class='va'>b_matrix</span><span class='op'>)</span>,
+           <span class='va'>p1</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'>add_connectivity_penalties</span><span class='op'>(</span><span class='va'>penalties</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>, data <span class='op'>=</span> <span class='va'>d_matrix</span><span class='op'>)</span>,
+           <span class='va'>p1</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'>add_connectivity_penalties</span><span class='op'>(</span><span class='va'>penalties</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span>, data <span class='op'>=</span> <span class='va'>d_matrix</span><span class='op'>)</span>,
+           <span class='va'>p1</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'>add_connectivity_penalties</span><span class='op'>(</span><span class='va'>penalties</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>, data <span class='op'>=</span> <span class='va'>c_matrix</span><span class='op'>)</span>,
+           <span class='va'>p1</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'>add_connectivity_penalties</span><span class='op'>(</span><span class='va'>penalties</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span>, data <span class='op'>=</span> <span class='va'>c_matrix</span><span class='op'>)</span>,
+           <span class='va'>p1</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'>add_connectivity_penalties</span><span class='op'>(</span><span class='va'>penalties</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>, data <span class='op'>=</span> <span class='va'>ac_matrix</span><span class='op'>)</span>,
+           <span class='va'>p1</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'>add_connectivity_penalties</span><span class='op'>(</span><span class='va'>penalties</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span>, data <span class='op'>=</span> <span class='va'>ac_matrix</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># assign names to the problems</span>
-<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"basic problem"</span>,
+<span class='fu'><a href='https://rdrr.io/pkg/raster/man/names.html'>names</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"basic problem"</span>,
                <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='st'>"b_matrix ("</span>, <span class='va'>penalties</span>,<span class='st'>")"</span><span class='op'>)</span>,
                <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='st'>"d_matrix ("</span>, <span class='va'>penalties</span>,<span class='st'>")"</span><span class='op'>)</span>,
                <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='st'>"c_matrix ("</span>, <span class='va'>penalties</span>,<span class='st'>")"</span><span class='op'>)</span>,
@@ -461,17 +469,17 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 <span class='co'># plot solutions</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
 <span class='kw'>for</span> <span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_along</a></span><span class='op'>(</span><span class='va'>s2</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s2</span><span class='op'>[[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>]</span>, main <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span>, cex <span class='op'>=</span> <span class='fl'>1.5</span>, col <span class='op'>=</span> <span class='st'>"white"</span><span class='op'>)</span>
-  <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s2</span><span class='op'>[[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>]</span><span class='op'>[</span><span class='va'>s2</span><span class='op'>[[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>]</span><span class='op'>$</span><span class='va'>solution_1</span> <span class='op'>==</span> <span class='fl'>1</span>, <span class='op'>]</span>, col <span class='op'>=</span> <span class='st'>"darkgreen"</span>, add <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>s2</span><span class='op'>[[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>]</span>, main <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/raster/man/names.html'>names</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span>, cex <span class='op'>=</span> <span class='fl'>1.5</span>, col <span class='op'>=</span> <span class='st'>"white"</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>s2</span><span class='op'>[[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>]</span><span class='op'>[</span><span class='va'>s2</span><span class='op'>[[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>]</span><span class='op'>$</span><span class='va'>solution_1</span> <span class='op'>==</span> <span class='fl'>1</span>, <span class='op'>]</span>, col <span class='op'>=</span> <span class='st'>"darkgreen"</span>, add <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div><div class='img'><img src='add_connectivity_penalties-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 
 <span class='co'># create minimal multi-zone problem and limit solver to one minute</span>
 <span class='co'># to obtain solutions in a short period of time</span>
-<span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_zones_stack</span>, <span class='va'>sim_features_zones</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fl'>0.15</span>, nrow <span class='op'>=</span> <span class='fl'>5</span>, ncol <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+<span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_zones_stack</span>, <span class='va'>sim_features_zones</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
+      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
+      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fl'>0.15</span>, nrow <span class='op'>=</span> <span class='fl'>5</span>, ncol <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
       <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>time_limit <span class='op'>=</span> <span class='fl'>60</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='co'># create matrix showing which planning units are adjacent to other units</span>
@@ -479,15 +487,15 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 
 <span class='co'># visualize matrix</span>
 <span class='co'># \dontrun{</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/image.html'>image</a></span><span class='op'>(</span><span class='va'>a_matrix</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/raster/man/image.html'>image</a></span><span class='op'>(</span><span class='va'>a_matrix</span><span class='op'>)</span>
 </div><div class='img'><img src='add_connectivity_penalties-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 <span class='co'># create a zone matrix where connectivities are only present between</span>
 <span class='co'># planning units that are allocated to the same zone</span>
-<span class='va'>zm1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='as.Id.html'>as</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span><span class='op'>(</span><span class='fl'>3</span><span class='op'>)</span>, <span class='st'>"Matrix"</span><span class='op'>)</span>
+<span class='va'>zm1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='as.html'>as</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span><span class='op'>(</span><span class='fl'>3</span><span class='op'>)</span>, <span class='st'>"Matrix"</span><span class='op'>)</span>
 
 <span class='co'># print zone matrix</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>zm1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;      [,1] [,2] [,3]
+</div><div class='co'>#&gt;      [,1] [,2] [,3]
 #&gt; [1,]    1    .    .
 #&gt; [2,]    .    1    .
 #&gt; [3,]    .    .    1</div><div class='input'>
@@ -495,11 +503,11 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 <span class='co'># planning units allocated to different zones</span>
 <span class='va'>zm2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fl'>1</span>, ncol <span class='op'>=</span> <span class='fl'>3</span>, nrow <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span><span class='op'>(</span><span class='va'>zm2</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fl'>0</span>
-<span class='va'>zm2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='as.Id.html'>as</a></span><span class='op'>(</span><span class='va'>zm2</span>, <span class='st'>"Matrix"</span><span class='op'>)</span>
+<span class='va'>zm2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='as.html'>as</a></span><span class='op'>(</span><span class='va'>zm2</span>, <span class='st'>"Matrix"</span><span class='op'>)</span>
 
 <span class='co'># print zone matrix</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>zm2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 3 x 3 Matrix of class "dsyMatrix"
+</div><div class='co'>#&gt; 3 x 3 Matrix of class "dsyMatrix"
 #&gt;      [,1] [,2] [,3]
 #&gt; [1,]    0    1    1
 #&gt; [2,]    1    0    1
@@ -509,11 +517,11 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 <span class='co'># assigned to different zones</span>
 <span class='va'>zm3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fl'>0.1</span>, ncol <span class='op'>=</span> <span class='fl'>3</span>, nrow <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span><span class='op'>(</span><span class='va'>zm3</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fl'>1</span>
-<span class='va'>zm3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='as.Id.html'>as</a></span><span class='op'>(</span><span class='va'>zm3</span>, <span class='st'>"Matrix"</span><span class='op'>)</span>
+<span class='va'>zm3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='as.html'>as</a></span><span class='op'>(</span><span class='va'>zm3</span>, <span class='st'>"Matrix"</span><span class='op'>)</span>
 
 <span class='co'># print zone matrix</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>zm3</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 3 x 3 Matrix of class "dsyMatrix"
+</div><div class='co'>#&gt; 3 x 3 Matrix of class "dsyMatrix"
 #&gt;      [,1] [,2] [,3]
 #&gt; [1,]  1.0  0.1  0.1
 #&gt; [2,]  0.1  1.0  0.1
@@ -526,11 +534,11 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 <span class='va'>zm4</span><span class='op'>[</span><span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>1</span>
 <span class='va'>zm4</span><span class='op'>[</span><span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>0.5</span>
 <span class='va'>zm4</span><span class='op'>[</span><span class='fl'>2</span>, <span class='fl'>1</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>0.5</span>
-<span class='va'>zm4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='as.Id.html'>as</a></span><span class='op'>(</span><span class='va'>zm4</span>, <span class='st'>"Matrix"</span><span class='op'>)</span>
+<span class='va'>zm4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='as.html'>as</a></span><span class='op'>(</span><span class='va'>zm4</span>, <span class='st'>"Matrix"</span><span class='op'>)</span>
 
 <span class='co'># print zone matrix</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>zm4</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 3 x 3 Matrix of class "dsyMatrix"
+</div><div class='co'>#&gt; 3 x 3 Matrix of class "dsyMatrix"
 #&gt;      [,1] [,2] [,3]
 #&gt; [1,]  1.0  0.5  0.1
 #&gt; [2,]  0.5  0.1  0.1
@@ -543,11 +551,11 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 <span class='va'>zm5</span><span class='op'>[</span><span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>0.5</span>
 <span class='va'>zm5</span><span class='op'>[</span><span class='fl'>2</span>, <span class='fl'>1</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>0.5</span>
 <span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span><span class='op'>(</span><span class='va'>zm5</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fl'>1</span>
-<span class='va'>zm5</span> <span class='op'>&lt;-</span> <span class='fu'><a href='as.Id.html'>as</a></span><span class='op'>(</span><span class='va'>zm5</span>, <span class='st'>"Matrix"</span><span class='op'>)</span>
+<span class='va'>zm5</span> <span class='op'>&lt;-</span> <span class='fu'><a href='as.html'>as</a></span><span class='op'>(</span><span class='va'>zm5</span>, <span class='st'>"Matrix"</span><span class='op'>)</span>
 
 <span class='co'># print zone matrix</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>zm5</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 3 x 3 Matrix of class "dsyMatrix"
+</div><div class='co'>#&gt; 3 x 3 Matrix of class "dsyMatrix"
 #&gt;      [,1] [,2] [,3]
 #&gt; [1,]  1.0  0.5   -1
 #&gt; [2,]  0.5  1.0   -1
@@ -559,29 +567,29 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 <span class='co'># different zone matrices</span>
 <span class='va'>p4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
   <span class='va'>p3</span>,
-  <span class='va'>p3</span> <span class='op'>%&gt;%</span> <span class='fu'>add_connectivity_penalties</span><span class='op'>(</span><span class='va'>penalties2</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>, <span class='va'>zm1</span>, <span class='va'>a_matrix</span><span class='op'>)</span>,
-  <span class='va'>p3</span> <span class='op'>%&gt;%</span> <span class='fu'>add_connectivity_penalties</span><span class='op'>(</span><span class='va'>penalties2</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span>, <span class='va'>zm1</span>, <span class='va'>a_matrix</span><span class='op'>)</span>,
-  <span class='va'>p3</span> <span class='op'>%&gt;%</span> <span class='fu'>add_connectivity_penalties</span><span class='op'>(</span><span class='va'>penalties2</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>, <span class='va'>zm2</span>, <span class='va'>a_matrix</span><span class='op'>)</span>,
-  <span class='va'>p3</span> <span class='op'>%&gt;%</span> <span class='fu'>add_connectivity_penalties</span><span class='op'>(</span><span class='va'>penalties2</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span>, <span class='va'>zm2</span>, <span class='va'>a_matrix</span><span class='op'>)</span>,
-  <span class='va'>p3</span> <span class='op'>%&gt;%</span> <span class='fu'>add_connectivity_penalties</span><span class='op'>(</span><span class='va'>penalties2</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>, <span class='va'>zm3</span>, <span class='va'>a_matrix</span><span class='op'>)</span>,
-  <span class='va'>p3</span> <span class='op'>%&gt;%</span> <span class='fu'>add_connectivity_penalties</span><span class='op'>(</span><span class='va'>penalties2</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span>, <span class='va'>zm3</span>, <span class='va'>a_matrix</span><span class='op'>)</span>,
-  <span class='va'>p3</span> <span class='op'>%&gt;%</span> <span class='fu'>add_connectivity_penalties</span><span class='op'>(</span><span class='va'>penalties2</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>, <span class='va'>zm4</span>, <span class='va'>a_matrix</span><span class='op'>)</span>,
-  <span class='va'>p3</span> <span class='op'>%&gt;%</span> <span class='fu'>add_connectivity_penalties</span><span class='op'>(</span><span class='va'>penalties2</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span>, <span class='va'>zm4</span>, <span class='va'>a_matrix</span><span class='op'>)</span>,
-  <span class='va'>p3</span> <span class='op'>%&gt;%</span> <span class='fu'>add_connectivity_penalties</span><span class='op'>(</span><span class='va'>penalties2</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>, <span class='va'>zm5</span>, <span class='va'>a_matrix</span><span class='op'>)</span>,
-  <span class='va'>p3</span> <span class='op'>%&gt;%</span> <span class='fu'>add_connectivity_penalties</span><span class='op'>(</span><span class='va'>penalties2</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span>, <span class='va'>zm5</span>, <span class='va'>a_matrix</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='va'>p3</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'>add_connectivity_penalties</span><span class='op'>(</span><span class='va'>penalties2</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>, <span class='va'>zm1</span>, <span class='va'>a_matrix</span><span class='op'>)</span>,
+  <span class='va'>p3</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'>add_connectivity_penalties</span><span class='op'>(</span><span class='va'>penalties2</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span>, <span class='va'>zm1</span>, <span class='va'>a_matrix</span><span class='op'>)</span>,
+  <span class='va'>p3</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'>add_connectivity_penalties</span><span class='op'>(</span><span class='va'>penalties2</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>, <span class='va'>zm2</span>, <span class='va'>a_matrix</span><span class='op'>)</span>,
+  <span class='va'>p3</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'>add_connectivity_penalties</span><span class='op'>(</span><span class='va'>penalties2</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span>, <span class='va'>zm2</span>, <span class='va'>a_matrix</span><span class='op'>)</span>,
+  <span class='va'>p3</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'>add_connectivity_penalties</span><span class='op'>(</span><span class='va'>penalties2</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>, <span class='va'>zm3</span>, <span class='va'>a_matrix</span><span class='op'>)</span>,
+  <span class='va'>p3</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'>add_connectivity_penalties</span><span class='op'>(</span><span class='va'>penalties2</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span>, <span class='va'>zm3</span>, <span class='va'>a_matrix</span><span class='op'>)</span>,
+  <span class='va'>p3</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'>add_connectivity_penalties</span><span class='op'>(</span><span class='va'>penalties2</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>, <span class='va'>zm4</span>, <span class='va'>a_matrix</span><span class='op'>)</span>,
+  <span class='va'>p3</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'>add_connectivity_penalties</span><span class='op'>(</span><span class='va'>penalties2</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span>, <span class='va'>zm4</span>, <span class='va'>a_matrix</span><span class='op'>)</span>,
+  <span class='va'>p3</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'>add_connectivity_penalties</span><span class='op'>(</span><span class='va'>penalties2</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>, <span class='va'>zm5</span>, <span class='va'>a_matrix</span><span class='op'>)</span>,
+  <span class='va'>p3</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'>add_connectivity_penalties</span><span class='op'>(</span><span class='va'>penalties2</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span>, <span class='va'>zm5</span>, <span class='va'>a_matrix</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># assign names to the problems</span>
-<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>p4</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"basic problem"</span>,
+<span class='fu'><a href='https://rdrr.io/pkg/raster/man/names.html'>names</a></span><span class='op'>(</span><span class='va'>p4</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"basic problem"</span>,
                <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='st'>"zm"</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>, each <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>, <span class='st'>" ("</span>,
                       <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='va'>penalties2</span>, <span class='fl'>2</span><span class='op'>)</span>, <span class='st'>")"</span><span class='op'>)</span><span class='op'>)</span>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problems</span>
 <span class='va'>s4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>p4</span>, <span class='va'>solve</span><span class='op'>)</span>
 <span class='va'>s4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>s4</span>, <span class='va'>category_layer</span><span class='op'>)</span>
-<span class='va'>s4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span><span class='op'>(</span><span class='va'>s4</span><span class='op'>)</span>
+<span class='va'>s4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/raster/man/stack.html'>stack</a></span><span class='op'>(</span><span class='va'>s4</span><span class='op'>)</span>
 
 <span class='co'># plot solutions</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s4</span>, main <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>p4</span><span class='op'>)</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>s4</span>, main <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/raster/man/names.html'>names</a></span><span class='op'>(</span><span class='va'>p4</span><span class='op'>)</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='img'><img src='add_connectivity_penalties-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 
 <span class='co'># create an array to manually specify the connectivities between</span>
@@ -599,19 +607,19 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 <span class='co'># note that the zones argument is set to NULL because the connectivity</span>
 <span class='co'># data is an array</span>
 <span class='va'>p5</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>p3</span>,
-           <span class='va'>p3</span> <span class='op'>%&gt;%</span> <span class='fu'>add_connectivity_penalties</span><span class='op'>(</span><span class='fl'>15</span>, zones <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>c_array</span><span class='op'>)</span><span class='op'>)</span>
+           <span class='va'>p3</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'>add_connectivity_penalties</span><span class='op'>(</span><span class='fl'>15</span>, zones <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>c_array</span><span class='op'>)</span><span class='op'>)</span>
 
 
 <span class='co'># assign names to the problems</span>
-<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>p5</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"basic problem"</span>, <span class='st'>"connectivity array"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/raster/man/names.html'>names</a></span><span class='op'>(</span><span class='va'>p5</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"basic problem"</span>, <span class='st'>"connectivity array"</span><span class='op'>)</span>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problems</span>
 <span class='va'>s5</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>p5</span>, <span class='va'>solve</span><span class='op'>)</span>
 <span class='va'>s5</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>s5</span>, <span class='va'>category_layer</span><span class='op'>)</span>
-<span class='va'>s5</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span><span class='op'>(</span><span class='va'>s5</span><span class='op'>)</span>
+<span class='va'>s5</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/raster/man/stack.html'>stack</a></span><span class='op'>(</span><span class='va'>s5</span><span class='op'>)</span>
 
 <span class='co'># plot solutions</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s5</span>, main <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>p5</span><span class='op'>)</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>s5</span>, main <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/raster/man/names.html'>names</a></span><span class='op'>(</span><span class='va'>p5</span><span class='op'>)</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='img'><img src='add_connectivity_penalties-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 </div></pre>
   </div>
@@ -625,11 +633,11 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com'>Joseph Bennett</a>, <a href='http://www.possinghamlab.org'>Hugh P Possingham</a>.</p>
+  <p><p>Developed by <a href="https://jeffrey-hanson.com" class="external-link">Jeffrey O Hanson</a>, <a href="http://www.richard-schuster.com" class="external-link">Richard Schuster</a>, Nina Morrell, <a href="http://strimas.com" class="external-link">Matthew Strimas-Mackey</a>, Matthew E Watts, <a href="https://arcese.forestry.ubc.ca" class="external-link">Peter Arcese</a>, <a href="https://josephrbennett.wordpress.com" class="external-link">Joseph Bennett</a>, <a href="http://www.possinghamlab.org" class="external-link">Hugh P Possingham</a>.</p></p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p></p>
 </div>
 
       </footer>
@@ -654,6 +662,8 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 </script>
 
 
+
+  
 
   </body>
 </html>

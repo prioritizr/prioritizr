@@ -60,6 +60,8 @@ for parallel processing." />
 
 
 
+
+
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
@@ -81,9 +83,18 @@ for parallel processing." />
 </script>
 
 
+<!-- dependencies from examples -->
+
+
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -97,19 +108,13 @@ for parallel processing." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.3</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../articles/prioritizr.html">Get started</a>
 </li>
 <li>
@@ -132,6 +137,9 @@ for parallel processing." />
       <a href="../articles/saltspring.html">Salt Spring Island Tutorial</a>
     </li>
     <li>
+      <a href="../articles/solver_benchmark.html">Solver Benchmarks</a>
+    </li>
+    <li>
       <a href="../articles/tasmania.html">Tasmania Tutorial</a>
     </li>
     <li>
@@ -146,7 +154,7 @@ for parallel processing." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/prioritizr/prioritizr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -213,12 +221,12 @@ specifying the indices that the worker should process.</p>
 <span class='co'># we could complete this processing using the following vectorized code</span>
 <span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fl'>1</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>result</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1]  2  3  4  5  6  7  8  9 10 11</div><div class='input'>
+</div><div class='co'>#&gt;  [1]  2  3  4  5  6  7  8  9 10 11</div><div class='input'>
 <span class='co'># however, if our jobs were complex then we would be better off using</span>
 <span class='co'># functionals</span>
 <span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='va'>x</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>)</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>result</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [[1]]
+</div><div class='co'>#&gt; [[1]]
 #&gt; [1] 2
 #&gt; 
 #&gt; [[2]]
@@ -252,7 +260,7 @@ specifying the indices that the worker should process.</p>
 <span class='co'># processing</span>
 <span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fu'>plyr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/plyr/man/llply.html'>llply</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='va'>x</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>)</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>result</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [[1]]
+</div><div class='co'>#&gt; [[1]]
 #&gt; [1] 2
 #&gt; 
 #&gt; [[2]]
@@ -288,9 +296,9 @@ specifying the indices that the worker should process.</p>
 <span class='va'>cl</span> <span class='op'>&lt;-</span> <span class='fu'>parallel</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/r/parallel/makeCluster.html'>makeCluster</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='st'>"PSOCK"</span><span class='op'>)</span>
 <span class='fu'>doParallel</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/doParallel/man/registerDoParallel.html'>registerDoParallel</a></span><span class='op'>(</span><span class='va'>cl</span><span class='op'>)</span>
 <span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fu'>plyr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/plyr/man/llply.html'>llply</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='va'>x</span> <span class='op'>+</span> <span class='fl'>1</span>, .parallel <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: &lt;anonymous&gt;: ... may be used in an incorrect context: ‘.fun(piece, ...)’</span></div><div class='output co'>#&gt; <span class='warning'>Warning: &lt;anonymous&gt;: ... may be used in an incorrect context: ‘.fun(piece, ...)’</span></div><div class='input'><span class='va'>cl</span> <span class='op'>&lt;-</span> <span class='fu'>parallel</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/r/parallel/makeCluster.html'>stopCluster</a></span><span class='op'>(</span><span class='va'>cl</span><span class='op'>)</span>
+</div><div class='co'>#&gt; <span class='warning'>Warning: </span>&lt;anonymous&gt;: ... may be used in an incorrect context: ‘.fun(piece, ...)’</div><div class='co'>#&gt; <span class='warning'>Warning: </span>&lt;anonymous&gt;: ... may be used in an incorrect context: ‘.fun(piece, ...)’</div><div class='input'><span class='va'>cl</span> <span class='op'>&lt;-</span> <span class='fu'>parallel</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/r/parallel/makeCluster.html'>stopCluster</a></span><span class='op'>(</span><span class='va'>cl</span><span class='op'>)</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>result</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [[1]]
+</div><div class='co'>#&gt; [[1]]
 #&gt; [1] 2
 #&gt; 
 #&gt; [[2]]
@@ -329,9 +337,9 @@ specifying the indices that the worker should process.</p>
 <span class='fu'>doParallel</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/doParallel/man/registerDoParallel.html'>registerDoParallel</a></span><span class='op'>(</span><span class='va'>cl</span><span class='op'>)</span>
 <span class='va'>l</span> <span class='op'>&lt;-</span> <span class='fu'>distribute_load</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, n <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
 <span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fu'>plyr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/plyr/man/llply.html'>llply</a></span><span class='op'>(</span><span class='va'>l</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span> <span class='va'>x</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span> <span class='op'>+</span> <span class='fl'>1</span>, .parallel <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: &lt;anonymous&gt;: ... may be used in an incorrect context: ‘.fun(piece, ...)’</span></div><div class='output co'>#&gt; <span class='warning'>Warning: &lt;anonymous&gt;: ... may be used in an incorrect context: ‘.fun(piece, ...)’</span></div><div class='input'><span class='va'>cl</span> <span class='op'>&lt;-</span> <span class='fu'>parallel</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/r/parallel/makeCluster.html'>stopCluster</a></span><span class='op'>(</span><span class='va'>cl</span><span class='op'>)</span>
+</div><div class='co'>#&gt; <span class='warning'>Warning: </span>&lt;anonymous&gt;: ... may be used in an incorrect context: ‘.fun(piece, ...)’</div><div class='co'>#&gt; <span class='warning'>Warning: </span>&lt;anonymous&gt;: ... may be used in an incorrect context: ‘.fun(piece, ...)’</div><div class='input'><span class='va'>cl</span> <span class='op'>&lt;-</span> <span class='fu'>parallel</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/r/parallel/makeCluster.html'>stopCluster</a></span><span class='op'>(</span><span class='va'>cl</span><span class='op'>)</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>result</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [[1]]
+</div><div class='co'>#&gt; [[1]]
 #&gt; [1] 2 3 4 5 6
 #&gt; 
 #&gt; [[2]]
@@ -350,11 +358,11 @@ specifying the indices that the worker should process.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com'>Joseph Bennett</a>, <a href='http://www.possinghamlab.org'>Hugh P Possingham</a>.</p>
+  <p><p>Developed by <a href="https://jeffrey-hanson.com" class="external-link">Jeffrey O Hanson</a>, <a href="http://www.richard-schuster.com" class="external-link">Richard Schuster</a>, Nina Morrell, <a href="http://strimas.com" class="external-link">Matthew Strimas-Mackey</a>, Matthew E Watts, <a href="https://arcese.forestry.ubc.ca" class="external-link">Peter Arcese</a>, <a href="https://josephrbennett.wordpress.com" class="external-link">Joseph Bennett</a>, <a href="http://www.possinghamlab.org" class="external-link">Hugh P Possingham</a>.</p></p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p></p>
 </div>
 
       </footer>
@@ -379,6 +387,8 @@ specifying the indices that the worker should process.</p>
 </script>
 
 
+
+  
 
   </body>
 </html>

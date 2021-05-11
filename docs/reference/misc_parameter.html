@@ -59,6 +59,8 @@
 
 
 
+
+
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
@@ -80,9 +82,18 @@
 </script>
 
 
+<!-- dependencies from examples -->
+
+
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -96,19 +107,13 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.3</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../articles/prioritizr.html">Get started</a>
 </li>
 <li>
@@ -131,6 +136,9 @@
       <a href="../articles/saltspring.html">Salt Spring Island Tutorial</a>
     </li>
     <li>
+      <a href="../articles/solver_benchmark.html">Solver Benchmarks</a>
+    </li>
+    <li>
       <a href="../articles/tasmania.html">Tasmania Tutorial</a>
     </li>
     <li>
@@ -145,7 +153,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/prioritizr/prioritizr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -210,11 +218,11 @@ parameter.</p></td>
 <span class='co'># create table parameter can that can be updated to any other object</span>
 <span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'>misc_parameter</span><span class='op'>(</span><span class='st'>"tbl"</span>, <span class='va'>iris</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span> <span class='co'># print it</span>
-</div><div class='output co'>#&gt; &lt;environment: 0x1720c9c0&gt;
+</div><div class='co'>#&gt; &lt;environment: 0x55d12b22dc30&gt;
 #&gt; attr(,"class")
 #&gt; [1] "MiscParameter" "MiscParameter" "Parameter"     "pproto"       
 #&gt; [5] "proto"         "environment"  </div><div class='input'><span class='va'>p1</span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='op'>)</span> <span class='co'># get value</span>
-</div><div class='output co'>#&gt;     Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
+</div><div class='co'>#&gt;     Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
 #&gt; 1            5.1         3.5          1.4         0.2     setosa
 #&gt; 2            4.9         3.0          1.4         0.2     setosa
 #&gt; 3            4.7         3.2          1.3         0.2     setosa
@@ -365,22 +373,22 @@ parameter.</p></td>
 #&gt; 148          6.5         3.0          5.2         2.0  virginica
 #&gt; 149          6.2         3.4          5.4         2.3  virginica
 #&gt; 150          5.9         3.0          5.1         1.8  virginica</div><div class='input'><span class='va'>p1</span><span class='op'>$</span><span class='va'>id</span> <span class='co'># get id</span>
-</div><div class='output co'>#&gt; <span class='message'>id: ef625754-2ee8-484f-b098-02f14d1eddc6</span></div><div class='input'><span class='va'>p1</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span> <span class='co'># check if parameter can be updated</span>
-</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='va'>p1</span><span class='op'>$</span><span class='fu'>set</span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span> <span class='co'># set parameter to mtcars</span>
+</div><div class='co'>#&gt; id: 8ad9e509-baee-47f8-a3fa-c6a69cd1e5c9</div><div class='input'><span class='va'>p1</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span> <span class='co'># check if parameter can be updated</span>
+</div><div class='co'>#&gt; [1] TRUE</div><div class='input'><span class='va'>p1</span><span class='op'>$</span><span class='fu'>set</span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span> <span class='co'># set parameter to mtcars</span>
 <span class='va'>p1</span><span class='op'>$</span><span class='fu'>print</span><span class='op'>(</span><span class='op'>)</span> <span class='co'># print it again</span>
-</div><div class='output co'>#&gt; [1] "tbl"</div><div class='input'>
+</div><div class='co'>#&gt; [1] "tbl"</div><div class='input'>
 <span class='co'># create table parameter with validation function that requires</span>
 <span class='co'># all values in the first column to be less then 200 and that the</span>
 <span class='co'># parameter have the same column names as the iris dataset</span>
 <span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='fu'>misc_parameter</span><span class='op'>(</span><span class='st'>"tbl2"</span>, <span class='va'>iris</span>,
-                     <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/all.html'>all</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>&amp;&amp;</span>
+                     <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/all.html'>all</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/names.html'>names</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/raster/man/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/pkg/raster/man/names.html'>names</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>&amp;&amp;</span>
                                  <span class='fu'><a href='https://rdrr.io/r/base/all.html'>all</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;</span> <span class='fl'>200</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span> <span class='co'># print it</span>
-</div><div class='output co'>#&gt; &lt;environment: 0x10dfaa10&gt;
+</div><div class='co'>#&gt; &lt;environment: 0x55d12fab07a0&gt;
 #&gt; attr(,"class")
 #&gt; [1] "MiscParameter" "MiscParameter" "Parameter"     "pproto"       
 #&gt; [5] "proto"         "environment"  </div><div class='input'><span class='va'>p2</span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='op'>)</span> <span class='co'># get value</span>
-</div><div class='output co'>#&gt;     Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
+</div><div class='co'>#&gt;     Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
 #&gt; 1            5.1         3.5          1.4         0.2     setosa
 #&gt; 2            4.9         3.0          1.4         0.2     setosa
 #&gt; 3            4.7         3.2          1.3         0.2     setosa
@@ -531,13 +539,13 @@ parameter.</p></td>
 #&gt; 148          6.5         3.0          5.2         2.0  virginica
 #&gt; 149          6.2         3.4          5.4         2.3  virginica
 #&gt; 150          5.9         3.0          5.1         1.8  virginica</div><div class='input'><span class='va'>p2</span><span class='op'>$</span><span class='va'>id</span> <span class='co'># get id</span>
-</div><div class='output co'>#&gt; <span class='message'>id: 3af408a6-3147-43c3-86ef-0523965230b7</span></div><div class='input'><span class='va'>p2</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span> <span class='co'># check if parameter can be updated</span>
-</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='va'>iris2</span> <span class='op'>&lt;-</span> <span class='va'>iris</span>; <span class='va'>iris2</span><span class='op'>[</span><span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>300</span> <span class='co'># create updated iris dataset</span>
+</div><div class='co'>#&gt; id: 90808642-19b5-43c5-8872-5b1fb54bf147</div><div class='input'><span class='va'>p2</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span> <span class='co'># check if parameter can be updated</span>
+</div><div class='co'>#&gt; [1] FALSE</div><div class='input'><span class='va'>iris2</span> <span class='op'>&lt;-</span> <span class='va'>iris</span>; <span class='va'>iris2</span><span class='op'>[</span><span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>300</span> <span class='co'># create updated iris dataset</span>
 <span class='va'>p2</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='va'>iris2</span><span class='op'>)</span> <span class='co'># check if parameter can be updated</span>
-</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='va'>iris3</span> <span class='op'>&lt;-</span> <span class='va'>iris</span>; <span class='va'>iris2</span><span class='op'>[</span><span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>100</span> <span class='co'># create updated iris dataset</span>
+</div><div class='co'>#&gt; [1] FALSE</div><div class='input'><span class='va'>iris3</span> <span class='op'>&lt;-</span> <span class='va'>iris</span>; <span class='va'>iris2</span><span class='op'>[</span><span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>100</span> <span class='co'># create updated iris dataset</span>
 <span class='va'>p2</span><span class='op'>$</span><span class='fu'>set</span><span class='op'>(</span><span class='va'>iris3</span><span class='op'>)</span> <span class='co'># set parameter to iris3</span>
 <span class='va'>p2</span><span class='op'>$</span><span class='fu'>print</span><span class='op'>(</span><span class='op'>)</span> <span class='co'># print it again</span>
-</div><div class='output co'>#&gt; [1] "tbl2"</div><div class='input'>
+</div><div class='co'>#&gt; [1] "tbl2"</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -550,11 +558,11 @@ parameter.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com'>Joseph Bennett</a>, <a href='http://www.possinghamlab.org'>Hugh P Possingham</a>.</p>
+  <p><p>Developed by <a href="https://jeffrey-hanson.com" class="external-link">Jeffrey O Hanson</a>, <a href="http://www.richard-schuster.com" class="external-link">Richard Schuster</a>, Nina Morrell, <a href="http://strimas.com" class="external-link">Matthew Strimas-Mackey</a>, Matthew E Watts, <a href="https://arcese.forestry.ubc.ca" class="external-link">Peter Arcese</a>, <a href="https://josephrbennett.wordpress.com" class="external-link">Joseph Bennett</a>, <a href="http://www.possinghamlab.org" class="external-link">Hugh P Possingham</a>.</p></p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p></p>
 </div>
 
       </footer>
@@ -579,6 +587,8 @@ parameter.</p></td>
 </script>
 
 
+
+  
 
   </body>
 </html>

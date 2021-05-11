@@ -61,6 +61,8 @@ with each other too." />
 
 
 
+
+
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
@@ -82,9 +84,18 @@ with each other too." />
 </script>
 
 
+<!-- dependencies from examples -->
+
+
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -98,19 +109,13 @@ with each other too." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.3</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../articles/prioritizr.html">Get started</a>
 </li>
 <li>
@@ -133,6 +138,9 @@ with each other too." />
       <a href="../articles/saltspring.html">Salt Spring Island Tutorial</a>
     </li>
     <li>
+      <a href="../articles/solver_benchmark.html">Solver Benchmarks</a>
+    </li>
+    <li>
       <a href="../articles/tasmania.html">Tasmania Tutorial</a>
     </li>
     <li>
@@ -147,7 +155,7 @@ with each other too." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/prioritizr/prioritizr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -206,9 +214,9 @@ with each other too.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code>Raster</code>,
-<code>SpatialPolygons</code>,
-<code>SpatialLines</code>,
+      <td><p><code><a href='https://rdrr.io/pkg/raster/man/Raster-classes.html'>Raster</a></code>,
+<code><a href='https://rdrr.io/pkg/sp/man/SpatialPolygons-class.html'>SpatialPolygons</a></code>,
+<code><a href='https://rdrr.io/pkg/sp/man/SpatialLines-class.html'>SpatialLines</a></code>,
 or <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code> object
 representing planning units.</p></td>
     </tr>
@@ -219,7 +227,7 @@ representing planning units.</p></td>
     <tr>
       <th>directions</th>
       <td><p><code>integer</code> If <code>x</code> is a
-<code>Raster</code> object, the number of directions
+<code><a href='https://rdrr.io/pkg/raster/man/Raster-classes.html'>Raster</a></code> object, the number of directions
 in which cells should be considered adjacent: 4 (rook's case), 8 (queen's
 case), 16 (knight and one-cell queen moves), or "bishop" to for cells
 with one-cell diagonal moves.</p></td>
@@ -234,14 +242,14 @@ Cells values indicate if different planning units are
 adjacent to each other or not (using ones and zeros).
 To reduce computational burden, cells among the matrix diagonal are
 set to zero. Furthermore, if the argument to <code>x</code> is a
-<code>Raster</code> object, then cells with <code>NA</code>
+<code><a href='https://rdrr.io/pkg/raster/man/Raster-classes.html'>Raster</a></code> object, then cells with <code>NA</code>
 values are set to zero too.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Spatial processing is completed using
-<code><a href='https://r-spatial.github.io/sf/reference/geos_binary_pred.html'>sf::st_intersects()</a></code> for <code>Spatial</code> and
+<code><a href='https://r-spatial.github.io/sf/reference/geos_binary_pred.html'>sf::st_intersects()</a></code> for <code><a href='https://rdrr.io/pkg/sp/man/Spatial-class.html'>Spatial</a></code> and
 <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code> objects,
-and <code><a href='https://rdrr.io/pkg/raster/man/adjacent.html'>raster::adjacent()</a></code> for <code>Raster</code>
+and <code><a href='https://rdrr.io/pkg/raster/man/adjacent.html'>raster::adjacent()</a></code> for <code><a href='https://rdrr.io/pkg/raster/man/Raster-classes.html'>Raster</a></code>
 objects.</p>
     <h2 class="hasAnchor" id="notes"><a class="anchor" href="#notes"></a>Notes</h2>
 
@@ -257,7 +265,7 @@ with other spatial association matrix functions.</p>
 
 <span class='co'># create adjacency matrix using raster data</span>
 <span class='co'>## crop raster to 9 cells</span>
-<span class='va'>r</span> <span class='op'>&lt;-</span> <span class='fu'>crop</span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0.3</span>, <span class='fl'>0</span>, <span class='fl'>0.3</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>r</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/raster/man/crop.html'>crop</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0.3</span>, <span class='fl'>0</span>, <span class='fl'>0.3</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>## make adjacency matrix</span>
 <span class='va'>am_raster</span> <span class='op'>&lt;-</span> <span class='fu'>adjacency_matrix</span><span class='op'>(</span><span class='va'>r</span><span class='op'>)</span>
@@ -281,18 +289,18 @@ with other spatial association matrix functions.</p>
 <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>4</span>,<span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>## plot raster and adjacency matrix</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>r</span>, main <span class='op'>=</span> <span class='st'>"raster"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'>raster</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>am_raster</span><span class='op'>)</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='st'>"adjacency matrix"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>,
+<span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>r</span>, main <span class='op'>=</span> <span class='st'>"raster"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/raster.html'>raster</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/as.matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>am_raster</span><span class='op'>)</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='st'>"adjacency matrix"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>,
      box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='co'>## plot polygons (sf) and adjacency matrix</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>r</span>, main <span class='op'>=</span> <span class='st'>"polygons (sf)"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'>raster</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>am_ply</span><span class='op'>)</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='st'>"adjacency matrix"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>,
+<span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>r</span>, main <span class='op'>=</span> <span class='st'>"polygons (sf)"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/raster.html'>raster</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/as.matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>am_ply</span><span class='op'>)</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='st'>"adjacency matrix"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>,
     box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='co'>## plot lines (Spatial) and adjacency matrix</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>r</span>, main <span class='op'>=</span> <span class='st'>"lines (Spatial)"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'>raster</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>am_lns</span><span class='op'>)</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='st'>"adjacency matrix"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>,
+<span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>r</span>, main <span class='op'>=</span> <span class='st'>"lines (Spatial)"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/raster.html'>raster</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/as.matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>am_lns</span><span class='op'>)</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='st'>"adjacency matrix"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>,
      box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='co'># }</span>
 </div><div class='img'><img src='adjacency_matrix-1.png' alt='' width='700' height='433' /></div></pre>
@@ -307,11 +315,11 @@ with other spatial association matrix functions.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com'>Joseph Bennett</a>, <a href='http://www.possinghamlab.org'>Hugh P Possingham</a>.</p>
+  <p><p>Developed by <a href="https://jeffrey-hanson.com" class="external-link">Jeffrey O Hanson</a>, <a href="http://www.richard-schuster.com" class="external-link">Richard Schuster</a>, Nina Morrell, <a href="http://strimas.com" class="external-link">Matthew Strimas-Mackey</a>, Matthew E Watts, <a href="https://arcese.forestry.ubc.ca" class="external-link">Peter Arcese</a>, <a href="https://josephrbennett.wordpress.com" class="external-link">Joseph Bennett</a>, <a href="http://www.possinghamlab.org" class="external-link">Hugh P Possingham</a>.</p></p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p></p>
 </div>
 
       </footer>
@@ -336,6 +344,8 @@ with other spatial association matrix functions.</p>
 </script>
 
 
+
+  
 
   </body>
 </html>

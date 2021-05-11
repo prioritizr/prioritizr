@@ -28,3 +28,5 @@ examples.log
 # devtools files
 doc/*
 Meta/*
+/doc/
+/Meta/

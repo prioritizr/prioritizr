@@ -65,6 +65,8 @@ ensuring that the cost of the reserve network does not exceed the budget." />
 
 
 
+
+
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
@@ -86,9 +88,18 @@ ensuring that the cost of the reserve network does not exceed the budget." />
 </script>
 
 
+<!-- dependencies from examples -->
+
+
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -102,19 +113,13 @@ ensuring that the cost of the reserve network does not exceed the budget." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.3</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../articles/prioritizr.html">Get started</a>
 </li>
 <li>
@@ -137,6 +142,9 @@ ensuring that the cost of the reserve network does not exceed the budget." />
       <a href="../articles/saltspring.html">Salt Spring Island Tutorial</a>
     </li>
     <li>
+      <a href="../articles/solver_benchmark.html">Solver Benchmarks</a>
+    </li>
+    <li>
       <a href="../articles/tasmania.html">Tasmania Tutorial</a>
     </li>
     <li>
@@ -151,7 +159,7 @@ ensuring that the cost of the reserve network does not exceed the budget." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/prioritizr/prioritizr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -243,44 +251,44 @@ features as possible without exceeding a budget.</p></dd>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span>, <span class='va'>sim_phylogeny</span><span class='op'>)</span>
 
 <span class='co'># create base problem</span>
-<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-     <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-     <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
+     <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
+     <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
  <span class='co'># create problem with added minimum set objective</span>
-<span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='co'># create problem with added maximum coverage objective</span>
 <span class='co'># note that this objective does not use targets</span>
-<span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_max_cover_objective.html'>add_max_cover_objective</a></span><span class='op'>(</span><span class='fl'>500</span><span class='op'>)</span>
+<span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'><a href='add_max_cover_objective.html'>add_max_cover_objective</a></span><span class='op'>(</span><span class='fl'>500</span><span class='op'>)</span>
 
 <span class='co'># create problem with added maximum feature representation objective</span>
-<span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_max_features_objective.html'>add_max_features_objective</a></span><span class='op'>(</span><span class='fl'>1900</span><span class='op'>)</span>
+<span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'><a href='add_max_features_objective.html'>add_max_features_objective</a></span><span class='op'>(</span><span class='fl'>1900</span><span class='op'>)</span>
 
 <span class='co'># create problem with added minimum shortfall objective</span>
-<span class='va'>p4</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_min_shortfall_objective.html'>add_min_shortfall_objective</a></span><span class='op'>(</span><span class='fl'>1900</span><span class='op'>)</span>
+<span class='va'>p4</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'><a href='add_min_shortfall_objective.html'>add_min_shortfall_objective</a></span><span class='op'>(</span><span class='fl'>1900</span><span class='op'>)</span>
 
 <span class='co'># create problem with added minimum largest shortfall objective</span>
-<span class='va'>p5</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_min_largest_shortfall_objective.html'>add_min_largest_shortfall_objective</a></span><span class='op'>(</span><span class='fl'>1900</span><span class='op'>)</span>
+<span class='va'>p5</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'><a href='add_min_largest_shortfall_objective.html'>add_min_largest_shortfall_objective</a></span><span class='op'>(</span><span class='fl'>1900</span><span class='op'>)</span>
 
 <span class='co'># create problem with added maximum phylogenetic diversity objective</span>
-<span class='va'>p6</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_max_phylo_div_objective.html'>add_max_phylo_div_objective</a></span><span class='op'>(</span><span class='fl'>1900</span>, <span class='va'>sim_phylogeny</span><span class='op'>)</span>
+<span class='va'>p6</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'><a href='add_max_phylo_div_objective.html'>add_max_phylo_div_objective</a></span><span class='op'>(</span><span class='fl'>1900</span>, <span class='va'>sim_phylogeny</span><span class='op'>)</span>
 
 <span class='co'># create problem with added maximum phylogenetic diversity objective</span>
-<span class='va'>p7</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_max_phylo_end_objective.html'>add_max_phylo_end_objective</a></span><span class='op'>(</span><span class='fl'>1900</span>, <span class='va'>sim_phylogeny</span><span class='op'>)</span>
+<span class='va'>p7</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'><a href='add_max_phylo_end_objective.html'>add_max_phylo_end_objective</a></span><span class='op'>(</span><span class='fl'>1900</span>, <span class='va'>sim_phylogeny</span><span class='op'>)</span>
 
 <span class='co'># create problem with added maximum utility objective</span>
 <span class='co'># note that this objective does not use targets</span>
-<span class='va'>p8</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_max_utility_objective.html'>add_max_utility_objective</a></span><span class='op'>(</span><span class='fl'>1900</span><span class='op'>)</span>
+<span class='va'>p8</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'><a href='add_max_utility_objective.html'>add_max_utility_objective</a></span><span class='op'>(</span><span class='fl'>1900</span><span class='op'>)</span>
 
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problems</span>
-<span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span><span class='op'>(</span><span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p4</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p5</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p6</span><span class='op'>)</span>,
+<span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/raster/man/stack.html'>stack</a></span><span class='op'>(</span><span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p4</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p5</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p6</span><span class='op'>)</span>,
            <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p7</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p8</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: ignoring targets since the specified objective function doesn't use targets</span></div><div class='output co'>#&gt; <span class='warning'>Warning: ignoring targets since the specified objective function doesn't use targets</span></div><div class='output co'>#&gt; <span class='warning'>Warning: ignoring targets since the specified objective function doesn't use targets</span></div><div class='output co'>#&gt; <span class='warning'>Warning: ignoring targets since the specified objective function doesn't use targets</span></div><div class='input'>
+</div><div class='co'>#&gt; <span class='warning'>Warning: </span>ignoring targets since the specified objective function doesn't use targets</div><div class='co'>#&gt; <span class='warning'>Warning: </span>ignoring targets since the specified objective function doesn't use targets</div><div class='co'>#&gt; <span class='warning'>Warning: </span>ignoring targets since the specified objective function doesn't use targets</div><div class='co'>#&gt; <span class='warning'>Warning: </span>ignoring targets since the specified objective function doesn't use targets</div><div class='input'>
 <span class='co'># plot solutions</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span>,
+<span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>s</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span>,
      main <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"min set"</span>, <span class='st'>"max coverage"</span>, <span class='st'>"max features"</span>,
               <span class='st'>"min shortfall"</span>, <span class='st'>"min largest shortfall"</span>,
               <span class='st'>"max phylogenetic diversity"</span>,
@@ -298,11 +306,11 @@ features as possible without exceeding a budget.</p></dd>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com'>Joseph Bennett</a>, <a href='http://www.possinghamlab.org'>Hugh P Possingham</a>.</p>
+  <p><p>Developed by <a href="https://jeffrey-hanson.com" class="external-link">Jeffrey O Hanson</a>, <a href="http://www.richard-schuster.com" class="external-link">Richard Schuster</a>, Nina Morrell, <a href="http://strimas.com" class="external-link">Matthew Strimas-Mackey</a>, Matthew E Watts, <a href="https://arcese.forestry.ubc.ca" class="external-link">Peter Arcese</a>, <a href="https://josephrbennett.wordpress.com" class="external-link">Joseph Bennett</a>, <a href="http://www.possinghamlab.org" class="external-link">Hugh P Possingham</a>.</p></p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p></p>
 </div>
 
       </footer>
@@ -327,6 +335,8 @@ features as possible without exceeding a budget.</p></dd>
 </script>
 
 
+
+  
 
   </body>
 </html>

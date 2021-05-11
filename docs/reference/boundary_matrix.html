@@ -61,6 +61,8 @@ planning unit exhibits." />
 
 
 
+
+
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
@@ -82,9 +84,18 @@ planning unit exhibits." />
 </script>
 
 
+<!-- dependencies from examples -->
+
+
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -98,19 +109,13 @@ planning unit exhibits." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.3</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../articles/prioritizr.html">Get started</a>
 </li>
 <li>
@@ -133,6 +138,9 @@ planning unit exhibits." />
       <a href="../articles/saltspring.html">Salt Spring Island Tutorial</a>
     </li>
     <li>
+      <a href="../articles/solver_benchmark.html">Solver Benchmarks</a>
+    </li>
+    <li>
       <a href="../articles/tasmania.html">Tasmania Tutorial</a>
     </li>
     <li>
@@ -147,7 +155,7 @@ planning unit exhibits." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/prioritizr/prioritizr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -206,11 +214,11 @@ planning unit exhibits.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code>Raster</code>,
-<code>SpatialLines</code>,
-<code>SpatialPolygons</code>,
+      <td><p><code><a href='https://rdrr.io/pkg/raster/man/Raster-classes.html'>Raster</a></code>,
+<code><a href='https://rdrr.io/pkg/sp/man/SpatialLines-class.html'>SpatialLines</a></code>,
+<code><a href='https://rdrr.io/pkg/sp/man/SpatialPolygons-class.html'>SpatialPolygons</a></code>,
 <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code> object representing planning units. If <code>x</code> is a
-<code>Raster</code> object then it must have only one
+<code><a href='https://rdrr.io/pkg/raster/man/Raster-classes.html'>Raster</a></code> object then it must have only one
 layer.</p></td>
     </tr>
     <tr>
@@ -247,7 +255,7 @@ between two points on the earth</strong>. Thus spatial data in a longitude/latit
 coordinate system (i.e.
 <a href='https://spatialreference.org/ref/epsg/wgs-84/'>WGS84</a>)
 should be reprojected to another coordinate system before using this
-function. Note that for <code>Raster</code> objects
+function. Note that for <code><a href='https://rdrr.io/pkg/raster/man/Raster-classes.html'>Raster</a></code> objects
 boundaries are missing for cells that have <code>NA</code> values in all cells.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -255,9 +263,9 @@ boundaries are missing for cells that have <code>NA</code> values in all cells.<
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_pu_polygons</span><span class='op'>)</span>
 
 <span class='co'># subset data to reduce processing time</span>
-<span class='va'>r</span> <span class='op'>&lt;-</span> <span class='fu'>crop</span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0.3</span>, <span class='fl'>0</span>, <span class='fl'>0.3</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>r</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/raster/man/crop.html'>crop</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0.3</span>, <span class='fl'>0</span>, <span class='fl'>0.3</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>ply</span> <span class='op'>&lt;-</span> <span class='va'>sim_pu_polygons</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>, <span class='fl'>10</span><span class='op'>:</span><span class='fl'>12</span>, <span class='fl'>20</span><span class='op'>:</span><span class='fl'>22</span><span class='op'>)</span>, <span class='op'>]</span>
-<span class='va'>ply2</span> <span class='op'>&lt;-</span> <span class='fu'>st_as_sf</span><span class='op'>(</span><span class='va'>ply</span><span class='op'>)</span>
+<span class='va'>ply2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_as_sf.html'>st_as_sf</a></span><span class='op'>(</span><span class='va'>ply</span><span class='op'>)</span>
 
 <span class='co'># create boundary matrix using raster data</span>
 <span class='va'>bm_raster</span> <span class='op'>&lt;-</span> <span class='fu'>boundary_matrix</span><span class='op'>(</span><span class='va'>r</span><span class='op'>)</span>
@@ -275,20 +283,20 @@ boundaries are missing for cells that have <code>NA</code> values in all cells.<
 <span class='co'># plot raster and boundary matrix</span>
 <span class='co'># \dontrun{</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>r</span>, main <span class='op'>=</span> <span class='st'>"raster"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'>raster</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>bm_raster</span><span class='op'>)</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='st'>"boundary matrix"</span>,
+<span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>r</span>, main <span class='op'>=</span> <span class='st'>"raster"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/raster.html'>raster</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/as.matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>bm_raster</span><span class='op'>)</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='st'>"boundary matrix"</span>,
      axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='img'><img src='boundary_matrix-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 <span class='co'># plot polygons and boundary matrices</span>
 <span class='co'># \dontrun{</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>r</span>, main <span class='op'>=</span> <span class='st'>"polygons (Spatial)"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'>raster</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>bm_ply1</span><span class='op'>)</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='st'>"boundary matrix"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>,
+<span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>r</span>, main <span class='op'>=</span> <span class='st'>"polygons (Spatial)"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/raster.html'>raster</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/as.matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>bm_ply1</span><span class='op'>)</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='st'>"boundary matrix"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>,
      box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>r</span>, main <span class='op'>=</span> <span class='st'>"polygons (sf)"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='boundary_matrix-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'>raster</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>bm_ply2</span><span class='op'>)</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='st'>"boundary matrix"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>,
+<span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>r</span>, main <span class='op'>=</span> <span class='st'>"polygons (sf)"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='img'><img src='boundary_matrix-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/raster.html'>raster</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/as.matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>bm_ply2</span><span class='op'>)</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='st'>"boundary matrix"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>,
      box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'>raster</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>bm_ply3</span><span class='op'>)</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='st'>"boundary matrix (Spatial, STR)"</span>,
+<span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/raster.html'>raster</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/as.matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>bm_ply3</span><span class='op'>)</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='st'>"boundary matrix (Spatial, STR)"</span>,
             axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='co'># }</span>
 </div><div class='img'><img src='boundary_matrix-3.png' alt='' width='700' height='433' /></div></pre>
@@ -303,11 +311,11 @@ boundaries are missing for cells that have <code>NA</code> values in all cells.<
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com'>Joseph Bennett</a>, <a href='http://www.possinghamlab.org'>Hugh P Possingham</a>.</p>
+  <p><p>Developed by <a href="https://jeffrey-hanson.com" class="external-link">Jeffrey O Hanson</a>, <a href="http://www.richard-schuster.com" class="external-link">Richard Schuster</a>, Nina Morrell, <a href="http://strimas.com" class="external-link">Matthew Strimas-Mackey</a>, Matthew E Watts, <a href="https://arcese.forestry.ubc.ca" class="external-link">Peter Arcese</a>, <a href="https://josephrbennett.wordpress.com" class="external-link">Joseph Bennett</a>, <a href="http://www.possinghamlab.org" class="external-link">Hugh P Possingham</a>.</p></p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p></p>
 </div>
 
       </footer>
@@ -332,6 +340,8 @@ boundaries are missing for cells that have <code>NA</code> values in all cells.<
 </script>
 
 
+
+  
 
   </body>
 </html>

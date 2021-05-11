@@ -66,6 +66,8 @@ verify if  a problem has a feasible solution or not." />
 
 
 
+
+
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
@@ -87,9 +89,18 @@ verify if  a problem has a feasible solution or not." />
 </script>
 
 
+<!-- dependencies from examples -->
+
+
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -103,19 +114,13 @@ verify if  a problem has a feasible solution or not." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.3</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../articles/prioritizr.html">Get started</a>
 </li>
 <li>
@@ -138,6 +143,9 @@ verify if  a problem has a feasible solution or not." />
       <a href="../articles/saltspring.html">Salt Spring Island Tutorial</a>
     </li>
     <li>
+      <a href="../articles/solver_benchmark.html">Solver Benchmarks</a>
+    </li>
+    <li>
       <a href="../articles/tasmania.html">Tasmania Tutorial</a>
     </li>
     <li>
@@ -152,7 +160,7 @@ verify if  a problem has a feasible solution or not." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/prioritizr/prioritizr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -309,24 +317,24 @@ at all.</p>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span>
 
 <span class='co'># create minimal problem with no issues</span>
-<span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+<span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
+      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
+      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='co'># run presolve checks</span>
 <span class='co'># note that no warning is thrown which suggests that we should not</span>
 <span class='co'># encounter any numerical stability issues when trying to solve the problem</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='fu'>presolve_check</span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+</div><div class='co'>#&gt; [1] TRUE</div><div class='input'>
 <span class='co'># create a minimal problem, containing cost values that are really</span>
 <span class='co'># high so that they could cause numerical instability issues when trying</span>
 <span class='co'># to solve it</span>
 <span class='va'>sim_pu_raster2</span> <span class='op'>&lt;-</span> <span class='va'>sim_pu_raster</span>
 <span class='va'>sim_pu_raster2</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>1e+15</span>
-<span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster2</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+<span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster2</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
+      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
+      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='co'># run presolve checks</span>
@@ -334,29 +342,29 @@ at all.</p>
 <span class='co'># some issues, such as long solve time or suboptimal solutions, when</span>
 <span class='co'># trying to solve the problem</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='fu'>presolve_check</span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: planning units with very high (&gt; 1e+6) or very low (&lt; 1e-6) non-zero cost values note this may be a false positive</span></div><div class='output co'>#&gt; [1] FALSE</div><div class='input'>
+</div><div class='co'>#&gt; <span class='warning'>Warning: </span>planning units with very high (&gt; 1e+6) or very low (&lt; 1e-6) non-zero cost values note this may be a false positive</div><div class='co'>#&gt; [1] FALSE</div><div class='input'>
 <span class='co'># create a minimal problem with connectivity penalties values that have</span>
 <span class='co'># a really high penalty value that is likely to cause numerical instability</span>
 <span class='co'># issues when trying to solve the it</span>
 <span class='va'>cm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='adjacency_matrix.html'>adjacency_matrix</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span><span class='op'>)</span>
-<span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_connectivity_penalties.html'>add_connectivity_penalties</a></span><span class='op'>(</span><span class='fl'>1e+15</span>, data <span class='op'>=</span> <span class='va'>cm</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+<span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
+      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
+      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
+      <span class='fu'><a href='add_connectivity_penalties.html'>add_connectivity_penalties</a></span><span class='op'>(</span><span class='fl'>1e+15</span>, data <span class='op'>=</span> <span class='va'>cm</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='co'># run presolve checks</span>
 <span class='co'># note that a warning is thrown which suggests that we might encounter</span>
 <span class='co'># some numerical instability issues when trying to solve the problem</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='fu'>presolve_check</span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: penalty multiplied connectivity values are very high</span></div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='co'># \dontrun{</span>
+</div><div class='co'>#&gt; <span class='warning'>Warning: </span>penalty multiplied connectivity values are very high</div><div class='co'>#&gt; [1] FALSE</div><div class='input'><span class='co'># \dontrun{</span>
 <span class='co'># let's forcibly solve the problem using Gurobi and tell it to</span>
 <span class='co'># be extra careful about numerical instability problems</span>
-<span class='va'>s3</span> <span class='op'>&lt;-</span> <span class='va'>p3</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_gurobi_solver.html'>add_gurobi_solver</a></span><span class='op'>(</span>numeric_focus <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+<span class='va'>s3</span> <span class='op'>&lt;-</span> <span class='va'>p3</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
+      <span class='fu'><a href='add_gurobi_solver.html'>add_gurobi_solver</a></span><span class='op'>(</span>numeric_focus <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
       <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span>force <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: penalty multiplied connectivity values are very high</span></div><div class='output co'>#&gt; Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (linux64)
-#&gt; Thread count: 2 physical cores, 4 logical processors, using up to 1 threads
+</div><div class='co'>#&gt; <span class='warning'>Warning: </span>penalty multiplied connectivity values are very high</div><div class='co'>#&gt; Gurobi Optimizer version 9.1.2 build v9.1.2rc0 (linux64)
+#&gt; Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
 #&gt; Optimize a model with 581 rows, 378 columns and 1602 nonzeros
 #&gt; Model fingerprint: 0xaaf590f0
 #&gt; Variable types: 0 continuous, 378 integer (378 binary)
@@ -369,7 +377,7 @@ at all.</p>
 #&gt; Found heuristic solution: objective -2.88000e+17
 #&gt; 
 #&gt; Explored 0 nodes (0 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
+#&gt; Thread count was 1 (of 8 available processors)
 #&gt; 
 #&gt; Solution count 1: -2.88e+17 
 #&gt; No other solutions better than -2.88e+17
@@ -380,7 +388,7 @@ at all.</p>
 <span class='co'># we can see that all planning units were selected because the connectivity</span>
 <span class='co'># penalty is so high that cost becomes irrelevant, so we should try using</span>
 <span class='co'># a much lower penalty value</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s3</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>s3</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='img'><img src='presolve_check-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 </div></pre>
   </div>
@@ -394,11 +402,11 @@ at all.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com'>Joseph Bennett</a>, <a href='http://www.possinghamlab.org'>Hugh P Possingham</a>.</p>
+  <p><p>Developed by <a href="https://jeffrey-hanson.com" class="external-link">Jeffrey O Hanson</a>, <a href="http://www.richard-schuster.com" class="external-link">Richard Schuster</a>, Nina Morrell, <a href="http://strimas.com" class="external-link">Matthew Strimas-Mackey</a>, Matthew E Watts, <a href="https://arcese.forestry.ubc.ca" class="external-link">Peter Arcese</a>, <a href="https://josephrbennett.wordpress.com" class="external-link">Joseph Bennett</a>, <a href="http://www.possinghamlab.org" class="external-link">Hugh P Possingham</a>.</p></p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p></p>
 </div>
 
       </footer>
@@ -423,6 +431,8 @@ at all.</p>
 </script>
 
 
+
+  
 
   </body>
 </html>
