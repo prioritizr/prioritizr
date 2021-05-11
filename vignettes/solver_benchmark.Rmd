@@ -23,7 +23,7 @@ knitr::opts_chunk$set(fig.align = "center", eval = !is_check,
                       fig.width = w, fig.height = h)
 ```
 
-```{r}
+```{r, eval = TRUE}
 # define variables for CRAN
 n_planning_units <- rep(0, 100)
 boundary_penalty_values <- list(
