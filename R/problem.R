@@ -48,7 +48,6 @@ NULL
 #'     different features in each planning unit. Note that this argument
 #'     type can only be used to create problems involving a single zone.
 #'   * [`x = Spatial-class`][sp::Spatial-class], or
-#'     [`x = sf::st_sf()`][sf::st_sf()], or
 #'     `x = data.frame`, or
 #'     `x = numeric` vector, or
 #'     `x = matrix`:
@@ -269,12 +268,28 @@ NULL
 #'       add_binary_decisions() %>%
 #'       add_default_solver(verbose = FALSE)
 #'
+#' # the above example can also be run in the same way using a polygon (sf) 
+#' # object which contains planning unit data and features.
+#' # First, add columns to polygon planning unit data representing the abundance
+#' # of species inside them and conver to an (sf) object
+#' sim_pu_polygons$spp_1 <- rpois(length(sim_pu_polygons), 5)
+#' sim_pu_polygons$spp_2 <- rpois(length(sim_pu_polygons), 8)
+#' sim_pu_polygons$spp_3 <- rpois(length(sim_pu_polygons), 2)
+#' sim_pu_sf_features <- sim_pu_polygons %>% st_as_sf()
+#' # Create the problem using (sf)
+#' p7 <- problem(sim_pu_sf_features, features = c("spp_1", "spp_2", "spp_3"),
+#'               "cost") %>%
+#'       add_min_set_objective() %>%
+#'       add_relative_targets(0.2) %>%
+#'       add_binary_decisions() %>%
+#'       add_default_solver(verbose = FALSE)
+#'
 #' # alternatively one can supply pre-processed aspatial data
 #' costs <- sim_pu_polygons$cost
 #' features <- data.frame(id = seq_len(nlayers(sim_features)),
 #'                        name = names(sim_features))
 #' rij_mat <- rij_matrix(sim_pu_polygons, sim_features)
-#' p7 <- problem(costs, features, rij_matrix = rij_mat) %>%
+#' p8 <- problem(costs, features, rij_matrix = rij_mat) %>%
 #'       add_min_set_objective() %>%
 #'       add_relative_targets(0.2) %>%
 #'       add_binary_decisions() %>%
@@ -288,6 +303,7 @@ NULL
 #' s5 <- solve(p5)
 #' s6 <- solve(p6)
 #' s7 <- solve(p7)
+#' s8 <- solve(p8)
 #'
 #' # plot solutions for problems associated with spatial data
 #' par(mfrow = c(3, 2), mar = c(0, 0, 4.1, 0))
@@ -309,7 +325,7 @@ NULL
 #' plot(s6[s6$solution_1 == 1, ], col = "darkgreen", add = TRUE)
 #'
 #' # show solutions for problems associated with aspatial data
-#' str(s7)
+#' str(s8)
 #' }
 #' # create some problems with multiple zones
 #'
