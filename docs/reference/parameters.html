@@ -51,6 +51,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
+  <link href="../extra.css" rel="stylesheet">
+  
 
 <meta property="og:title" content="Parameters — parameters" />
 <meta property="og:description" content="Create a new collection of Parameter objects." />
@@ -82,9 +84,6 @@
 </script>
 
 
-<!-- dependencies from examples -->
-
-
   
 
   
@@ -107,7 +106,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.4</span>
       </span>
     </div>
 
@@ -185,7 +184,7 @@
     <p>Create a new collection of <code>Parameter</code> objects.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>parameters</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span></pre>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>parameters</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -204,20 +203,23 @@
     <div class='dont-index'><p><code><a href='array_parameters.html'>array_parameters()</a></code>, <code><a href='scalar_parameters.html'>scalar_parameters()</a></code>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># create two Parameter objects</span>
-<span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='scalar_parameters.html'>binary_parameter</a></span><span class='op'>(</span><span class='st'>"parameter one"</span>, <span class='fl'>1</span><span class='op'>)</span>
-<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>
-</div><div class='co'>#&gt; parameter one (1)</div><div class='input'>
-<span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='scalar_parameters.html'>numeric_parameter</a></span><span class='op'>(</span><span class='st'>"parameter two"</span>, <span class='fl'>5</span><span class='op'>)</span>
-<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span>
-</div><div class='co'>#&gt; parameter two (5)</div><div class='input'>
-<span class='co'># store Parameter objects in a Parameters object</span>
-<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'>parameters</span><span class='op'>(</span><span class='va'>p1</span>, <span class='va'>p2</span><span class='op'>)</span>
-<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span>
-</div><div class='co'>#&gt; &lt;environment: 0x55d13ff958b0&gt;
-#&gt; attr(,"class")
-#&gt; [1] "Parameters"  "pproto"      "proto"       "environment"</div><div class='input'>
-</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='co'># create two Parameter objects</span></span>
+<span class='r-in'><span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='scalar_parameters.html'>binary_parameter</a></span><span class='op'>(</span><span class='st'>"parameter one"</span>, <span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> parameter one (1)</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='scalar_parameters.html'>numeric_parameter</a></span><span class='op'>(</span><span class='st'>"parameter two"</span>, <span class='fl'>5</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> parameter two (5)</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># store Parameter objects in a Parameters object</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'>parameters</span><span class='op'>(</span><span class='va'>p1</span>, <span class='va'>p2</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;environment: 0x55962069e658&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"class")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "Parameters"  "pproto"      "proto"       "environment"</span>
+<span class='r-in'></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

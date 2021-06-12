@@ -51,6 +51,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
+  <link href="../extra.css" rel="stylesheet">
+  
 
 <meta property="og:title" content="Distribute load — distribute_load" />
 <meta property="og:description" content="Utility function for distributing computations among a pool of workers
@@ -83,9 +85,6 @@ for parallel processing." />
 </script>
 
 
-<!-- dependencies from examples -->
-
-
   
 
   
@@ -108,7 +107,7 @@ for parallel processing." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.4</span>
       </span>
     </div>
 
@@ -187,7 +186,7 @@ for parallel processing." />
 for parallel processing.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>distribute_load</span><span class='op'>(</span><span class='va'>x</span>, n <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></pre>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>distribute_load</span><span class='op'>(</span><span class='va'>x</span>, n <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -212,141 +211,150 @@ each worker. Each element contains a <code>integer</code> <code>vector</code>
 specifying the indices that the worker should process.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># \dontrun{</span>
-
-<span class='co'># imagine that we have 10 jobs that need processing. For simplicity,</span>
-<span class='co'># our jobs will involve adding 1 to each element in 1:10.</span>
-<span class='va'>values</span> <span class='op'>&lt;-</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>
-
-<span class='co'># we could complete this processing using the following vectorized code</span>
-<span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fl'>1</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>
-<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>result</span><span class='op'>)</span>
-</div><div class='co'>#&gt;  [1]  2  3  4  5  6  7  8  9 10 11</div><div class='input'>
-<span class='co'># however, if our jobs were complex then we would be better off using</span>
-<span class='co'># functionals</span>
-<span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='va'>x</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>)</span>
-<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>result</span><span class='op'>)</span>
-</div><div class='co'>#&gt; [[1]]
-#&gt; [1] 2
-#&gt; 
-#&gt; [[2]]
-#&gt; [1] 3
-#&gt; 
-#&gt; [[3]]
-#&gt; [1] 4
-#&gt; 
-#&gt; [[4]]
-#&gt; [1] 5
-#&gt; 
-#&gt; [[5]]
-#&gt; [1] 6
-#&gt; 
-#&gt; [[6]]
-#&gt; [1] 7
-#&gt; 
-#&gt; [[7]]
-#&gt; [1] 8
-#&gt; 
-#&gt; [[8]]
-#&gt; [1] 9
-#&gt; 
-#&gt; [[9]]
-#&gt; [1] 10
-#&gt; 
-#&gt; [[10]]
-#&gt; [1] 11
-#&gt; </div><div class='input'>
-<span class='co'># we could do one better, and use the "plyr" package to handle the</span>
-<span class='co'># processing</span>
-<span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fu'>plyr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/plyr/man/llply.html'>llply</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='va'>x</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>)</span>
-<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>result</span><span class='op'>)</span>
-</div><div class='co'>#&gt; [[1]]
-#&gt; [1] 2
-#&gt; 
-#&gt; [[2]]
-#&gt; [1] 3
-#&gt; 
-#&gt; [[3]]
-#&gt; [1] 4
-#&gt; 
-#&gt; [[4]]
-#&gt; [1] 5
-#&gt; 
-#&gt; [[5]]
-#&gt; [1] 6
-#&gt; 
-#&gt; [[6]]
-#&gt; [1] 7
-#&gt; 
-#&gt; [[7]]
-#&gt; [1] 8
-#&gt; 
-#&gt; [[8]]
-#&gt; [1] 9
-#&gt; 
-#&gt; [[9]]
-#&gt; [1] 10
-#&gt; 
-#&gt; [[10]]
-#&gt; [1] 11
-#&gt; </div><div class='input'>
-<span class='co'># we could also use the parallel processing options available through "plyr"</span>
-<span class='co'># to use more computation resources to complete the jobs (note that since</span>
-<span class='co'># these jobs are very quick to process this is actually slower).</span>
-<span class='va'>cl</span> <span class='op'>&lt;-</span> <span class='fu'>parallel</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/r/parallel/makeCluster.html'>makeCluster</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='st'>"PSOCK"</span><span class='op'>)</span>
-<span class='fu'>doParallel</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/doParallel/man/registerDoParallel.html'>registerDoParallel</a></span><span class='op'>(</span><span class='va'>cl</span><span class='op'>)</span>
-<span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fu'>plyr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/plyr/man/llply.html'>llply</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='va'>x</span> <span class='op'>+</span> <span class='fl'>1</span>, .parallel <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='co'>#&gt; <span class='warning'>Warning: </span>&lt;anonymous&gt;: ... may be used in an incorrect context: ‘.fun(piece, ...)’</div><div class='co'>#&gt; <span class='warning'>Warning: </span>&lt;anonymous&gt;: ... may be used in an incorrect context: ‘.fun(piece, ...)’</div><div class='input'><span class='va'>cl</span> <span class='op'>&lt;-</span> <span class='fu'>parallel</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/r/parallel/makeCluster.html'>stopCluster</a></span><span class='op'>(</span><span class='va'>cl</span><span class='op'>)</span>
-<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>result</span><span class='op'>)</span>
-</div><div class='co'>#&gt; [[1]]
-#&gt; [1] 2
-#&gt; 
-#&gt; [[2]]
-#&gt; [1] 3
-#&gt; 
-#&gt; [[3]]
-#&gt; [1] 4
-#&gt; 
-#&gt; [[4]]
-#&gt; [1] 5
-#&gt; 
-#&gt; [[5]]
-#&gt; [1] 6
-#&gt; 
-#&gt; [[6]]
-#&gt; [1] 7
-#&gt; 
-#&gt; [[7]]
-#&gt; [1] 8
-#&gt; 
-#&gt; [[8]]
-#&gt; [1] 9
-#&gt; 
-#&gt; [[9]]
-#&gt; [1] 10
-#&gt; 
-#&gt; [[10]]
-#&gt; [1] 11
-#&gt; </div><div class='input'>
-<span class='co'># however this approach iterates over each element individually, we could</span>
-<span class='co'># use the distribute_load function to split the N jobs up into K super</span>
-<span class='co'># jobs, and evaluate each super job using vectorized code.</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>
-<span class='va'>cl</span> <span class='op'>&lt;-</span> <span class='fu'>parallel</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/r/parallel/makeCluster.html'>makeCluster</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='st'>"PSOCK"</span><span class='op'>)</span>
-<span class='fu'>parallel</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/r/parallel/clusterApply.html'>clusterExport</a></span><span class='op'>(</span><span class='va'>cl</span>, <span class='st'>'x'</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'>doParallel</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/doParallel/man/registerDoParallel.html'>registerDoParallel</a></span><span class='op'>(</span><span class='va'>cl</span><span class='op'>)</span>
-<span class='va'>l</span> <span class='op'>&lt;-</span> <span class='fu'>distribute_load</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, n <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
-<span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fu'>plyr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/plyr/man/llply.html'>llply</a></span><span class='op'>(</span><span class='va'>l</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span> <span class='va'>x</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span> <span class='op'>+</span> <span class='fl'>1</span>, .parallel <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='co'>#&gt; <span class='warning'>Warning: </span>&lt;anonymous&gt;: ... may be used in an incorrect context: ‘.fun(piece, ...)’</div><div class='co'>#&gt; <span class='warning'>Warning: </span>&lt;anonymous&gt;: ... may be used in an incorrect context: ‘.fun(piece, ...)’</div><div class='input'><span class='va'>cl</span> <span class='op'>&lt;-</span> <span class='fu'>parallel</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/r/parallel/makeCluster.html'>stopCluster</a></span><span class='op'>(</span><span class='va'>cl</span><span class='op'>)</span>
-<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>result</span><span class='op'>)</span>
-</div><div class='co'>#&gt; [[1]]
-#&gt; [1] 2 3 4 5 6
-#&gt; 
-#&gt; [[2]]
-#&gt; [1]  7  8  9 10 11
-#&gt; </div><div class='input'><span class='co'># }</span>
-
-</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='co'># \dontrun{</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># imagine that we have 10 jobs that need processing. For simplicity,</span></span>
+<span class='r-in'><span class='co'># our jobs will involve adding 1 to each element in 1:10.</span></span>
+<span class='r-in'><span class='va'>values</span> <span class='op'>&lt;-</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># we could complete this processing using the following vectorized code</span></span>
+<span class='r-in'><span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fl'>1</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span></span>
+<span class='r-in'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>result</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1]  2  3  4  5  6  7  8  9 10 11</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># however, if our jobs were complex then we would be better off using</span></span>
+<span class='r-in'><span class='co'># functionals</span></span>
+<span class='r-in'><span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='va'>x</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>result</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[1]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[2]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[3]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[4]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[5]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[6]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[7]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[8]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 9</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[9]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 10</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[10]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 11</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># we could do one better, and use the "plyr" package to handle the</span></span>
+<span class='r-in'><span class='co'># processing</span></span>
+<span class='r-in'><span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fu'>plyr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/plyr/man/llply.html'>llply</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='va'>x</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>result</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[1]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[2]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[3]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[4]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[5]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[6]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[7]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[8]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 9</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[9]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 10</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[10]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 11</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># we could also use the parallel processing options available through "plyr"</span></span>
+<span class='r-in'><span class='co'># to use more computation resources to complete the jobs (note that since</span></span>
+<span class='r-in'><span class='co'># these jobs are very quick to process this is actually slower).</span></span>
+<span class='r-in'><span class='va'>cl</span> <span class='op'>&lt;-</span> <span class='fu'>parallel</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/r/parallel/makeCluster.html'>makeCluster</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='st'>"PSOCK"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>doParallel</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/doParallel/man/registerDoParallel.html'>registerDoParallel</a></span><span class='op'>(</span><span class='va'>cl</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fu'>plyr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/plyr/man/llply.html'>llply</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='va'>x</span> <span class='op'>+</span> <span class='fl'>1</span>, .parallel <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>&lt;anonymous&gt;: ... may be used in an incorrect context: ‘.fun(piece, ...)’</span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>&lt;anonymous&gt;: ... may be used in an incorrect context: ‘.fun(piece, ...)’</span>
+<span class='r-in'><span class='va'>cl</span> <span class='op'>&lt;-</span> <span class='fu'>parallel</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/r/parallel/makeCluster.html'>stopCluster</a></span><span class='op'>(</span><span class='va'>cl</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>result</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[1]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[2]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[3]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[4]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[5]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[6]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[7]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[8]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 9</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[9]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 10</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[10]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 11</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># however this approach iterates over each element individually, we could</span></span>
+<span class='r-in'><span class='co'># use the distribute_load function to split the N jobs up into K super</span></span>
+<span class='r-in'><span class='co'># jobs, and evaluate each super job using vectorized code.</span></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span></span>
+<span class='r-in'><span class='va'>cl</span> <span class='op'>&lt;-</span> <span class='fu'>parallel</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/r/parallel/makeCluster.html'>makeCluster</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='st'>"PSOCK"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>parallel</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/r/parallel/clusterApply.html'>clusterExport</a></span><span class='op'>(</span><span class='va'>cl</span>, <span class='st'>'x'</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>doParallel</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/doParallel/man/registerDoParallel.html'>registerDoParallel</a></span><span class='op'>(</span><span class='va'>cl</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>l</span> <span class='op'>&lt;-</span> <span class='fu'>distribute_load</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, n <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fu'>plyr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/plyr/man/llply.html'>llply</a></span><span class='op'>(</span><span class='va'>l</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span> <span class='va'>x</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span> <span class='op'>+</span> <span class='fl'>1</span>, .parallel <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>&lt;anonymous&gt;: ... may be used in an incorrect context: ‘.fun(piece, ...)’</span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>&lt;anonymous&gt;: ... may be used in an incorrect context: ‘.fun(piece, ...)’</span>
+<span class='r-in'><span class='va'>cl</span> <span class='op'>&lt;-</span> <span class='fu'>parallel</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/r/parallel/makeCluster.html'>stopCluster</a></span><span class='op'>(</span><span class='va'>cl</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>result</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[1]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 2 3 4 5 6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[2]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1]  7  8  9 10 11</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='co'># }</span></span>
+<span class='r-in'></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

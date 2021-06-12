@@ -51,6 +51,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
+  <link href="../extra.css" rel="stylesheet">
+  
 
 <meta property="og:title" content="Write problem — write_problem" />
 <meta property="og:description" content="Save the mathematical formulation for a conservation planning problem()
@@ -84,9 +86,6 @@ requires the Rsymphony package to be installed." />
 </script>
 
 
-<!-- dependencies from examples -->
-
-
   
 
   
@@ -109,7 +108,7 @@ requires the Rsymphony package to be installed." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.4</span>
       </span>
     </div>
 
@@ -189,7 +188,7 @@ to a file for mixed integer programming solvers. Note that this function
 requires the <span class="pkg">Rsymphony</span> package to be installed.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>write_problem</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>path</span><span class='op'>)</span></pre>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>write_problem</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>path</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -214,24 +213,25 @@ format (respectively).</p></td>
     <p>Invisible <code>TRUE</code> indicating success.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># \dontrun{</span>
-<span class='co'># set seed for reproducibility</span>
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>500</span><span class='op'>)</span>
-
-<span class='co'># load data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span>, <span class='va'>sim_pu_zones_stack</span>, <span class='va'>sim_features_zones</span><span class='op'>)</span>
-
-<span class='co'># create minimal problem</span>
-<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
-
-<span class='co'># save problem to file (using the Rsymphony R package)</span>
-<span class='fu'>write_problem</span><span class='op'>(</span><span class='va'>p</span>, <span class='st'>"model.lp"</span><span class='op'>)</span>
-</div><div class='co'>#&gt; <span class='warning'>Warning: </span>cannot rename file '/tmp/RtmpsIlBJI/filef6ca34ea447b/_prep.LPT' to 'model.lp', reason 'Invalid cross-device link'</div><div class='input'><span class='co'># }</span>
-
-</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='co'># \dontrun{</span></span>
+<span class='r-in'><span class='co'># set seed for reproducibility</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>500</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># load data</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span>, <span class='va'>sim_pu_zones_stack</span>, <span class='va'>sim_features_zones</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># create minimal problem</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># save problem to file (using the Rsymphony R package)</span></span>
+<span class='r-in'><span class='fu'>write_problem</span><span class='op'>(</span><span class='va'>p</span>, <span class='st'>"model.lp"</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>cannot rename file '/tmp/Rtmp1ApGDB/fileac4b2333bb32/_prep.LPT' to 'model.lp', reason 'Invalid cross-device link'</span>
+<span class='r-in'><span class='co'># }</span></span>
+<span class='r-in'></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -51,6 +51,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
+  <link href="../extra.css" rel="stylesheet">
+  
 
 <meta property="og:title" content="Category vector — category_vector" />
 <meta property="og:description" content="Convert an object containing binary (integer) fields (columns) into a
@@ -84,9 +86,6 @@ integer vector indicating the column index where each row is
 </script>
 
 
-<!-- dependencies from examples -->
-
-
   
 
   
@@ -109,7 +108,7 @@ integer vector indicating the column index where each row is
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.4</span>
       </span>
     </div>
 
@@ -189,7 +188,7 @@ integer vector indicating the column index where each row is
 <code>1</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>category_vector</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>category_vector</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
 <span class='co'># S3 method for data.frame</span>
 <span class='fu'>category_vector</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
@@ -201,7 +200,7 @@ integer vector indicating the column index where each row is
 <span class='fu'>category_vector</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
 <span class='co'># S3 method for matrix</span>
-<span class='fu'>category_vector</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
+<span class='fu'>category_vector</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -227,22 +226,24 @@ contain only a single value equal to <code>1</code>.</p>
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/base/maxCol.html'>base::max.col()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># create matrix with logical fields</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='cn'>NA</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>0</span>, <span class='cn'>NA</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='cn'>NA</span><span class='op'>)</span>, ncol <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
-
-<span class='co'># print matrix</span>
-<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-</div><div class='co'>#&gt;      [,1] [,2] [,3]
-#&gt; [1,]    1    0    0
-#&gt; [2,]    0    1    0
-#&gt; [3,]    0    0    0
-#&gt; [4,]   NA   NA   NA</div><div class='input'>
-<span class='co'># convert to category vector</span>
-<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'>category_vector</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-
-<span class='co'># print category vector</span>
-<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span>
-</div><div class='co'>#&gt; [1]  1  2  0 NA</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='co'># create matrix with logical fields</span></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='cn'>NA</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>0</span>, <span class='cn'>NA</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='cn'>NA</span><span class='op'>)</span>, ncol <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># print matrix</span></span>
+<span class='r-in'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      [,1] [,2] [,3]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1,]    1    0    0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [2,]    0    1    0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [3,]    0    0    0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [4,]   NA   NA   NA</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># convert to category vector</span></span>
+<span class='r-in'><span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'>category_vector</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># print category vector</span></span>
+<span class='r-in'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1]  1  2  0 NA</span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

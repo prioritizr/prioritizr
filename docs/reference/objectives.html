@@ -51,6 +51,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
+  <link href="../extra.css" rel="stylesheet">
+  
 
 <meta property="og:title" content="Add an objective — objectives" />
 <meta property="og:description" content="An objective is used to specify the overall goal of a conservation planning
@@ -88,9 +90,6 @@ ensuring that the cost of the reserve network does not exceed the budget." />
 </script>
 
 
-<!-- dependencies from examples -->
-
-
   
 
   
@@ -113,7 +112,7 @@ ensuring that the cost of the reserve network does not exceed the budget." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.4</span>
       </span>
     </div>
 
@@ -247,54 +246,59 @@ features as possible without exceeding a budget.</p></dd>
 <a href='solvers.html'>solvers</a>, <a href='targets.html'>targets</a>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># load data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span>, <span class='va'>sim_phylogeny</span><span class='op'>)</span>
-
-<span class='co'># create base problem</span>
-<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-     <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-     <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-     <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
- <span class='co'># create problem with added minimum set objective</span>
-<span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span>
-
-<span class='co'># create problem with added maximum coverage objective</span>
-<span class='co'># note that this objective does not use targets</span>
-<span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'><a href='add_max_cover_objective.html'>add_max_cover_objective</a></span><span class='op'>(</span><span class='fl'>500</span><span class='op'>)</span>
-
-<span class='co'># create problem with added maximum feature representation objective</span>
-<span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'><a href='add_max_features_objective.html'>add_max_features_objective</a></span><span class='op'>(</span><span class='fl'>1900</span><span class='op'>)</span>
-
-<span class='co'># create problem with added minimum shortfall objective</span>
-<span class='va'>p4</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'><a href='add_min_shortfall_objective.html'>add_min_shortfall_objective</a></span><span class='op'>(</span><span class='fl'>1900</span><span class='op'>)</span>
-
-<span class='co'># create problem with added minimum largest shortfall objective</span>
-<span class='va'>p5</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'><a href='add_min_largest_shortfall_objective.html'>add_min_largest_shortfall_objective</a></span><span class='op'>(</span><span class='fl'>1900</span><span class='op'>)</span>
-
-<span class='co'># create problem with added maximum phylogenetic diversity objective</span>
-<span class='va'>p6</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'><a href='add_max_phylo_div_objective.html'>add_max_phylo_div_objective</a></span><span class='op'>(</span><span class='fl'>1900</span>, <span class='va'>sim_phylogeny</span><span class='op'>)</span>
-
-<span class='co'># create problem with added maximum phylogenetic diversity objective</span>
-<span class='va'>p7</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'><a href='add_max_phylo_end_objective.html'>add_max_phylo_end_objective</a></span><span class='op'>(</span><span class='fl'>1900</span>, <span class='va'>sim_phylogeny</span><span class='op'>)</span>
-
-<span class='co'># create problem with added maximum utility objective</span>
-<span class='co'># note that this objective does not use targets</span>
-<span class='va'>p8</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'><a href='add_max_utility_objective.html'>add_max_utility_objective</a></span><span class='op'>(</span><span class='fl'>1900</span><span class='op'>)</span>
-
-<span class='co'># \dontrun{</span>
-<span class='co'># solve problems</span>
-<span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/raster/man/stack.html'>stack</a></span><span class='op'>(</span><span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p4</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p5</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p6</span><span class='op'>)</span>,
-           <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p7</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p8</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='co'>#&gt; <span class='warning'>Warning: </span>ignoring targets since the specified objective function doesn't use targets</div><div class='co'>#&gt; <span class='warning'>Warning: </span>ignoring targets since the specified objective function doesn't use targets</div><div class='co'>#&gt; <span class='warning'>Warning: </span>ignoring targets since the specified objective function doesn't use targets</div><div class='co'>#&gt; <span class='warning'>Warning: </span>ignoring targets since the specified objective function doesn't use targets</div><div class='input'>
-<span class='co'># plot solutions</span>
-<span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>s</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span>,
-     main <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"min set"</span>, <span class='st'>"max coverage"</span>, <span class='st'>"max features"</span>,
-              <span class='st'>"min shortfall"</span>, <span class='st'>"min largest shortfall"</span>,
-              <span class='st'>"max phylogenetic diversity"</span>,
-              <span class='st'>"max phylogenetic endemism"</span>, <span class='st'>"max utility"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='objectives-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
-</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='co'># load data</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span>, <span class='va'>sim_phylogeny</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># create base problem</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>     <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>     <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>     <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'> <span class='co'># create problem with added minimum set objective</span></span>
+<span class='r-in'><span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># create problem with added maximum coverage objective</span></span>
+<span class='r-in'><span class='co'># note that this objective does not use targets</span></span>
+<span class='r-in'><span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'><a href='add_max_cover_objective.html'>add_max_cover_objective</a></span><span class='op'>(</span><span class='fl'>500</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># create problem with added maximum feature representation objective</span></span>
+<span class='r-in'><span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'><a href='add_max_features_objective.html'>add_max_features_objective</a></span><span class='op'>(</span><span class='fl'>1900</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># create problem with added minimum shortfall objective</span></span>
+<span class='r-in'><span class='va'>p4</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'><a href='add_min_shortfall_objective.html'>add_min_shortfall_objective</a></span><span class='op'>(</span><span class='fl'>1900</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># create problem with added minimum largest shortfall objective</span></span>
+<span class='r-in'><span class='va'>p5</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'><a href='add_min_largest_shortfall_objective.html'>add_min_largest_shortfall_objective</a></span><span class='op'>(</span><span class='fl'>1900</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># create problem with added maximum phylogenetic diversity objective</span></span>
+<span class='r-in'><span class='va'>p6</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'><a href='add_max_phylo_div_objective.html'>add_max_phylo_div_objective</a></span><span class='op'>(</span><span class='fl'>1900</span>, <span class='va'>sim_phylogeny</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># create problem with added maximum phylogenetic diversity objective</span></span>
+<span class='r-in'><span class='va'>p7</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'><a href='add_max_phylo_end_objective.html'>add_max_phylo_end_objective</a></span><span class='op'>(</span><span class='fl'>1900</span>, <span class='va'>sim_phylogeny</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># create problem with added maximum utility objective</span></span>
+<span class='r-in'><span class='co'># note that this objective does not use targets</span></span>
+<span class='r-in'><span class='va'>p8</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'><a href='add_max_utility_objective.html'>add_max_utility_objective</a></span><span class='op'>(</span><span class='fl'>1900</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># \dontrun{</span></span>
+<span class='r-in'><span class='co'># solve problems</span></span>
+<span class='r-in'><span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/raster/man/stack.html'>stack</a></span><span class='op'>(</span><span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p4</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p5</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p6</span><span class='op'>)</span>,</span>
+<span class='r-in'>           <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p7</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p8</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>ignoring targets since the specified objective function doesn't use targets</span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>ignoring targets since the specified objective function doesn't use targets</span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>ignoring targets since the specified objective function doesn't use targets</span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>ignoring targets since the specified objective function doesn't use targets</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># plot solutions</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>s</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span>,</span>
+<span class='r-in'>     main <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"min set"</span>, <span class='st'>"max coverage"</span>, <span class='st'>"max features"</span>,</span>
+<span class='r-in'>              <span class='st'>"min shortfall"</span>, <span class='st'>"min largest shortfall"</span>,</span>
+<span class='r-in'>              <span class='st'>"max phylogenetic diversity"</span>,</span>
+<span class='r-in'>              <span class='st'>"max phylogenetic endemism"</span>, <span class='st'>"max utility"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='objectives-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='co'># }</span></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

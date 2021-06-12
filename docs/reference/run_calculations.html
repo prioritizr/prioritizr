@@ -51,6 +51,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
+  <link href="../extra.css" rel="stylesheet">
+  
 
 <meta property="og:title" content="Run calculations — run_calculations" />
 <meta property="og:description" content="Execute preliminary calculations in a conservation problem and store the
@@ -86,9 +88,6 @@ means that the same calculations will not be run multiple times." />
 </script>
 
 
-<!-- dependencies from examples -->
-
-
   
 
   
@@ -111,7 +110,7 @@ means that the same calculations will not be run multiple times." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.4</span>
       </span>
     </div>
 
@@ -193,7 +192,7 @@ the same pre-processing steps (e.g. calculating boundary data), because
 means that the same calculations will not be run multiple times.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>run_calculations</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>run_calculations</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -215,63 +214,65 @@ anything. To use this function with <code><a href='pipe.html'>pipe()</a></code> 
 <code>%T&gt;%</code> operator and not the <code>%&gt;%</code> operator.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># \dontrun{</span>
-<span class='co'># Let us imagine a scenario where we wanted to understand the effect of</span>
-<span class='co'># setting different targets on our solution.</span>
-
-<span class='co'># create a conservation problem with no targets</span>
-<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-     <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-     <span class='fu'><a href='add_boundary_penalties.html'>add_boundary_penalties</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>0.5</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-     <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-     <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
-<span class='co'># create a copies of p and add targets</span>
-<span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span>
-<span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.2</span><span class='op'>)</span>
-<span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.3</span><span class='op'>)</span>
-
-<span class='co'># now solve each of the different problems and record the time spent</span>
-<span class='co'># solving them</span>
-<span class='va'>s1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.time.html'>system.time</a></span><span class='op'>(</span><span class='op'>{</span><span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>; <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span>; <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span><span class='op'>}</span><span class='op'>)</span>
-
-<span class='co'># This approach is inefficient. Since these problems all share the same</span>
-<span class='co'># planning units it is actually performing the same calculations three times.</span>
-<span class='co'># To avoid this, we can use the "run_calculations" function before creating</span>
-<span class='co'># the copies. Normally, R runs the calculations just before solving the</span>
-<span class='co'># problem</span>
-
-<span class='co'># recreate a conservation problem with no targets and tell R run the</span>
-<span class='co'># preliminary calculations. Note how we use the %T&gt;% operator here.</span>
-<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-     <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-     <span class='fu'><a href='add_boundary_penalties.html'>add_boundary_penalties</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>0.5</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-     <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-     <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'><a href='tee.html'>%T&gt;%</a></span>
-     <span class='fu'>run_calculations</span><span class='op'>(</span><span class='op'>)</span>
-
-<span class='co'># create a copies of p and add targets just like before</span>
-<span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span>
-<span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.2</span><span class='op'>)</span>
-<span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.3</span><span class='op'>)</span>
-
-<span class='co'># solve each of the different problems and record the time spent</span>
-<span class='co'># solving them</span>
-<span class='va'>s2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.time.html'>system.time</a></span><span class='op'>(</span><span class='op'>{</span><span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>; <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span>; <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span><span class='op'>}</span><span class='op'>)</span>
-
-<span class='co'># now lets compare the times</span>
-<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>s1</span><span class='op'>)</span> <span class='co'># time spent without running preliminary calculations</span>
-</div><div class='co'>#&gt;    user  system elapsed 
-#&gt;   2.108   0.040   2.149 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>s2</span><span class='op'>)</span> <span class='co'># time spent after running preliminary calculations</span>
-</div><div class='co'>#&gt;    user  system elapsed 
-#&gt;   1.997   0.051   2.057 </div><div class='input'>
-<span class='co'># As we can see, we can save time by running the preliminary</span>
-<span class='co'># calculations before making copies of the problem with slightly</span>
-<span class='co'># different constraints. Although the time saved in this example</span>
-<span class='co'># is rather small, this is because the example data are very small.</span>
-<span class='co'># We would expect larger time savings for larger datasets.</span>
-<span class='co'># }</span>
-</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='co'># \dontrun{</span></span>
+<span class='r-in'><span class='co'># Let us imagine a scenario where we wanted to understand the effect of</span></span>
+<span class='r-in'><span class='co'># setting different targets on our solution.</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># create a conservation problem with no targets</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>     <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>     <span class='fu'><a href='add_boundary_penalties.html'>add_boundary_penalties</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>0.5</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>     <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>     <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># create a copies of p and add targets</span></span>
+<span class='r-in'><span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.2</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.3</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># now solve each of the different problems and record the time spent</span></span>
+<span class='r-in'><span class='co'># solving them</span></span>
+<span class='r-in'><span class='va'>s1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.time.html'>system.time</a></span><span class='op'>(</span><span class='op'>{</span><span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>; <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span>; <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span><span class='op'>}</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># This approach is inefficient. Since these problems all share the same</span></span>
+<span class='r-in'><span class='co'># planning units it is actually performing the same calculations three times.</span></span>
+<span class='r-in'><span class='co'># To avoid this, we can use the "run_calculations" function before creating</span></span>
+<span class='r-in'><span class='co'># the copies. Normally, R runs the calculations just before solving the</span></span>
+<span class='r-in'><span class='co'># problem</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># recreate a conservation problem with no targets and tell R run the</span></span>
+<span class='r-in'><span class='co'># preliminary calculations. Note how we use the %T&gt;% operator here.</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>     <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>     <span class='fu'><a href='add_boundary_penalties.html'>add_boundary_penalties</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>0.5</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>     <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>     <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'><a href='tee.html'>%T&gt;%</a></span></span>
+<span class='r-in'>     <span class='fu'>run_calculations</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># create a copies of p and add targets just like before</span></span>
+<span class='r-in'><span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.2</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.3</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># solve each of the different problems and record the time spent</span></span>
+<span class='r-in'><span class='co'># solving them</span></span>
+<span class='r-in'><span class='va'>s2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.time.html'>system.time</a></span><span class='op'>(</span><span class='op'>{</span><span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>; <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span>; <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span><span class='op'>}</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># now lets compare the times</span></span>
+<span class='r-in'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>s1</span><span class='op'>)</span> <span class='co'># time spent without running preliminary calculations</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    user  system elapsed </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1.102   0.023   1.203 </span>
+<span class='r-in'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>s2</span><span class='op'>)</span> <span class='co'># time spent after running preliminary calculations</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    user  system elapsed </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1.051   0.030   1.142 </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># As we can see, we can save time by running the preliminary</span></span>
+<span class='r-in'><span class='co'># calculations before making copies of the problem with slightly</span></span>
+<span class='r-in'><span class='co'># different constraints. Although the time saved in this example</span></span>
+<span class='r-in'><span class='co'># is rather small, this is because the example data are very small.</span></span>
+<span class='r-in'><span class='co'># We would expect larger time savings for larger datasets.</span></span>
+<span class='r-in'><span class='co'># }</span></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
