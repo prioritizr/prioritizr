@@ -51,6 +51,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
+  <link href="../extra.css" rel="stylesheet">
+  
 
 <meta property="og:title" content="Feature abundances — feature_abundances" />
 <meta property="og:description" content="Calculate the total abundance of each feature found in the planning units
@@ -83,9 +85,6 @@ of a conservation planning problem." />
 </script>
 
 
-<!-- dependencies from examples -->
-
-
   
 
   
@@ -108,7 +107,7 @@ of a conservation planning problem." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.4</span>
       </span>
     </div>
 
@@ -187,10 +186,10 @@ of a conservation planning problem." />
 of a conservation planning problem.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>feature_abundances</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>na.rm</span><span class='op'>)</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>feature_abundances</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>na.rm</span><span class='op'>)</span>
 
 <span class='co'># S3 method for ConservationProblem</span>
-<span class='fu'>feature_abundances</span><span class='op'>(</span><span class='va'>x</span>, na.rm <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+<span class='fu'>feature_abundances</span><span class='op'>(</span><span class='va'>x</span>, na.rm <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -256,107 +255,117 @@ each feature---then the <code>na.rm</code> argument should be set to
     <div class='dont-index'><p><code><a href='problem.html'>problem()</a></code>, <code><a href='eval_feature_representation_summary.html'>eval_feature_representation_summary()</a></code>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># load data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span>
-
-<span class='co'># create a simple conservation planning dataset so we can see exactly</span>
-<span class='co'># how the feature abundances are calculated</span>
-<span class='va'>pu</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>, cost <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.2</span>, <span class='cn'>NA</span>, <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>8</span><span class='op'>)</span><span class='op'>)</span>,
-                 spp1 <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>, spp2 <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span><span class='op'>(</span><span class='fl'>9</span>, <span class='fl'>4</span><span class='op'>)</span>, <span class='cn'>NA</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'># create problem</span>
-<span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>pu</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"spp1"</span>, <span class='st'>"spp2"</span><span class='op'>)</span>, cost_column <span class='op'>=</span> <span class='st'>"cost"</span><span class='op'>)</span>
-
-<span class='co'># calculate feature abundances; including planning units with NA costs</span>
-<span class='va'>a1</span> <span class='op'>&lt;-</span> <span class='fu'>feature_abundances</span><span class='op'>(</span><span class='va'>p1</span>, na.rm <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='co'># (default)</span>
-<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>a1</span><span class='op'>)</span>
-</div><div class='co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 3</span>
-#&gt;   feature absolute_abundance relative_abundance
-#&gt;   <span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>              </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'>1</span><span> spp1                  4.10                  1</span>
-#&gt; <span style='color: #BCBCBC;'>2</span><span> spp2                 31                     1</span></div><div class='input'>
-<span class='co'># calculate feature abundances; excluding planning units with NA costs</span>
-<span class='va'>a2</span> <span class='op'>&lt;-</span> <span class='fu'>feature_abundances</span><span class='op'>(</span><span class='va'>p1</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>a2</span><span class='op'>)</span>
-</div><div class='co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 3</span>
-#&gt;   feature absolute_abundance relative_abundance
-#&gt;   <span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>              </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'>1</span><span> spp1                  3.84              0.935</span>
-#&gt; <span style='color: #BCBCBC;'>2</span><span> spp2                 28                 0.903</span></div><div class='input'>
-<span class='co'># verify correctness of feature abundance calculations</span>
-<span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span><span class='op'>(</span><span class='va'>a1</span><span class='op'>$</span><span class='va'>absolute_abundance</span>,
-          <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>pu</span><span class='op'>$</span><span class='va'>spp1</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>pu</span><span class='op'>$</span><span class='va'>spp2</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='co'>#&gt; [1] TRUE</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span><span class='op'>(</span><span class='va'>a1</span><span class='op'>$</span><span class='va'>relative_abundance</span>,
-          <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>pu</span><span class='op'>$</span><span class='va'>spp1</span><span class='op'>)</span> <span class='op'>/</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>pu</span><span class='op'>$</span><span class='va'>spp1</span><span class='op'>)</span>,
-            <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>pu</span><span class='op'>$</span><span class='va'>spp2</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>/</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>pu</span><span class='op'>$</span><span class='va'>spp2</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='co'>#&gt; [1] TRUE</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span><span class='op'>(</span><span class='va'>a2</span><span class='op'>$</span><span class='va'>absolute_abundance</span>,
-          <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>pu</span><span class='op'>$</span><span class='va'>spp1</span><span class='op'>[</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>pu</span><span class='op'>$</span><span class='va'>cost</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>,
-            <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>pu</span><span class='op'>$</span><span class='va'>spp2</span><span class='op'>[</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>pu</span><span class='op'>$</span><span class='va'>cost</span><span class='op'>)</span><span class='op'>]</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='co'>#&gt; [1] TRUE</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span><span class='op'>(</span><span class='va'>a2</span><span class='op'>$</span><span class='va'>relative_abundance</span>,
-          <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>pu</span><span class='op'>$</span><span class='va'>spp1</span><span class='op'>[</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>pu</span><span class='op'>$</span><span class='va'>cost</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span> <span class='op'>/</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>pu</span><span class='op'>$</span><span class='va'>spp1</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,
-            <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>pu</span><span class='op'>$</span><span class='va'>spp2</span><span class='op'>[</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>pu</span><span class='op'>$</span><span class='va'>cost</span><span class='op'>)</span><span class='op'>]</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>/</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>pu</span><span class='op'>$</span><span class='va'>spp2</span>,
-                                                              na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='co'>#&gt; [1] TRUE</div><div class='input'>
-<span class='co'># initialize conservation problem with raster data</span>
-<span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span>
-
-<span class='co'># calculate feature abundances; including planning units with NA costs</span>
-<span class='va'>a3</span> <span class='op'>&lt;-</span> <span class='fu'>feature_abundances</span><span class='op'>(</span><span class='va'>p3</span>, na.rm <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='co'># (default)</span>
-<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>a3</span><span class='op'>)</span>
-</div><div class='co'>#&gt; <span style='color: #949494;'># A tibble: 5 x 3</span>
-#&gt;   feature absolute_abundance relative_abundance
-#&gt;   <span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>              </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'>1</span><span> layer.1               83.3                  1</span>
-#&gt; <span style='color: #BCBCBC;'>2</span><span> layer.2               31.2                  1</span>
-#&gt; <span style='color: #BCBCBC;'>3</span><span> layer.3               72.0                  1</span>
-#&gt; <span style='color: #BCBCBC;'>4</span><span> layer.4               42.7                  1</span>
-#&gt; <span style='color: #BCBCBC;'>5</span><span> layer.5               56.7                  1</span></div><div class='input'>
-<span class='co'># create problem using total amounts of features in all the planning units</span>
-<span class='co'># (including units with NA cost data)</span>
-<span class='va'>p4</span> <span class='op'>&lt;-</span> <span class='va'>p3</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='va'>a3</span><span class='op'>$</span><span class='va'>relative_abundance</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
-<span class='co'># attempt to solve the problem, but we will see that this problem is</span>
-<span class='co'># infeasible because the targets cannot be met using only the planning units</span>
-<span class='co'># with finite cost data</span>
-<span class='co'># \dontrun{</span>
-<span class='va'>s4</span> <span class='op'>&lt;-</span> <span class='kw'><a href='https://rdrr.io/r/base/try.html'>try</a></span><span class='op'>(</span><span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p4</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='co'>#&gt; Error in .local(a, b = b, ...) : 
-#&gt;   no solution found (e.g. due to problem infeasibility or time limits)</div><div class='input'><span class='co'># }</span>
-<span class='co'># calculate feature abundances; excluding planning units with NA costs</span>
-<span class='va'>a5</span> <span class='op'>&lt;-</span> <span class='fu'>feature_abundances</span><span class='op'>(</span><span class='va'>p3</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>a5</span><span class='op'>)</span>
-</div><div class='co'>#&gt; <span style='color: #949494;'># A tibble: 5 x 3</span>
-#&gt;   feature absolute_abundance relative_abundance
-#&gt;   <span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>              </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'>1</span><span> layer.1               74.5              0.895</span>
-#&gt; <span style='color: #BCBCBC;'>2</span><span> layer.2               28.1              0.900</span>
-#&gt; <span style='color: #BCBCBC;'>3</span><span> layer.3               64.9              0.902</span>
-#&gt; <span style='color: #BCBCBC;'>4</span><span> layer.4               38.2              0.895</span>
-#&gt; <span style='color: #BCBCBC;'>5</span><span> layer.5               50.7              0.893</span></div><div class='input'>
-<span class='co'># create problem using total amounts of features in the planning units with</span>
-<span class='co'># finite cost data</span>
-<span class='va'>p5</span> <span class='op'>&lt;-</span> <span class='va'>p3</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='va'>a5</span><span class='op'>$</span><span class='va'>relative_abundance</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-<span class='co'># \dontrun{</span>
-<span class='co'># solve the problem</span>
-<span class='va'>s5</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p5</span><span class='op'>)</span>
-
-<span class='co'># plot the solution</span>
-<span class='co'># this solution contains all the planning units with finite cost data (i.e.</span>
-<span class='co'># cost data that do not have NA values)</span>
-<span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>s5</span><span class='op'>)</span>
-</div><div class='img'><img src='feature_abundances-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
-</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='co'># load data</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># create a simple conservation planning dataset so we can see exactly</span></span>
+<span class='r-in'><span class='co'># how the feature abundances are calculated</span></span>
+<span class='r-in'><span class='va'>pu</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>, cost <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.2</span>, <span class='cn'>NA</span>, <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>8</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span class='r-in'>                 spp1 <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>, spp2 <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span><span class='op'>(</span><span class='fl'>9</span>, <span class='fl'>4</span><span class='op'>)</span>, <span class='cn'>NA</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># create problem</span></span>
+<span class='r-in'><span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>pu</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"spp1"</span>, <span class='st'>"spp2"</span><span class='op'>)</span>, cost_column <span class='op'>=</span> <span class='st'>"cost"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># calculate feature abundances; including planning units with NA costs</span></span>
+<span class='r-in'><span class='va'>a1</span> <span class='op'>&lt;-</span> <span class='fu'>feature_abundances</span><span class='op'>(</span><span class='va'>p1</span>, na.rm <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='co'># (default)</span></span>
+<span class='r-in'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>a1</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 2 x 3</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   feature absolute_abundance relative_abundance</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>              <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> spp1                  4.10                  1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span> spp2                 31                     1</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># calculate feature abundances; excluding planning units with NA costs</span></span>
+<span class='r-in'><span class='va'>a2</span> <span class='op'>&lt;-</span> <span class='fu'>feature_abundances</span><span class='op'>(</span><span class='va'>p1</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>a2</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 2 x 3</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   feature absolute_abundance relative_abundance</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>              <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> spp1                  3.84              0.935</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span> spp2                 28                 0.903</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># verify correctness of feature abundance calculations</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span><span class='op'>(</span><span class='va'>a1</span><span class='op'>$</span><span class='va'>absolute_abundance</span>,</span>
+<span class='r-in'>          <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>pu</span><span class='op'>$</span><span class='va'>spp1</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>pu</span><span class='op'>$</span><span class='va'>spp2</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] TRUE</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span><span class='op'>(</span><span class='va'>a1</span><span class='op'>$</span><span class='va'>relative_abundance</span>,</span>
+<span class='r-in'>          <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>pu</span><span class='op'>$</span><span class='va'>spp1</span><span class='op'>)</span> <span class='op'>/</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>pu</span><span class='op'>$</span><span class='va'>spp1</span><span class='op'>)</span>,</span>
+<span class='r-in'>            <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>pu</span><span class='op'>$</span><span class='va'>spp2</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>/</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>pu</span><span class='op'>$</span><span class='va'>spp2</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] TRUE</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span><span class='op'>(</span><span class='va'>a2</span><span class='op'>$</span><span class='va'>absolute_abundance</span>,</span>
+<span class='r-in'>          <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>pu</span><span class='op'>$</span><span class='va'>spp1</span><span class='op'>[</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>pu</span><span class='op'>$</span><span class='va'>cost</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>,</span>
+<span class='r-in'>            <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>pu</span><span class='op'>$</span><span class='va'>spp2</span><span class='op'>[</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>pu</span><span class='op'>$</span><span class='va'>cost</span><span class='op'>)</span><span class='op'>]</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] TRUE</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span><span class='op'>(</span><span class='va'>a2</span><span class='op'>$</span><span class='va'>relative_abundance</span>,</span>
+<span class='r-in'>          <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>pu</span><span class='op'>$</span><span class='va'>spp1</span><span class='op'>[</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>pu</span><span class='op'>$</span><span class='va'>cost</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span> <span class='op'>/</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>pu</span><span class='op'>$</span><span class='va'>spp1</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,</span>
+<span class='r-in'>            <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>pu</span><span class='op'>$</span><span class='va'>spp2</span><span class='op'>[</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>pu</span><span class='op'>$</span><span class='va'>cost</span><span class='op'>)</span><span class='op'>]</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>/</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>pu</span><span class='op'>$</span><span class='va'>spp2</span>,</span>
+<span class='r-in'>                                                              na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] TRUE</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># initialize conservation problem with raster data</span></span>
+<span class='r-in'><span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># calculate feature abundances; including planning units with NA costs</span></span>
+<span class='r-in'><span class='va'>a3</span> <span class='op'>&lt;-</span> <span class='fu'>feature_abundances</span><span class='op'>(</span><span class='va'>p3</span>, na.rm <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='co'># (default)</span></span>
+<span class='r-in'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>a3</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 5 x 3</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   feature absolute_abundance relative_abundance</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>              <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> layer.1               83.3                  1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span> layer.2               31.2                  1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span> layer.3               72.0                  1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>4</span> layer.4               42.7                  1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>5</span> layer.5               56.7                  1</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># create problem using total amounts of features in all the planning units</span></span>
+<span class='r-in'><span class='co'># (including units with NA cost data)</span></span>
+<span class='r-in'><span class='va'>p4</span> <span class='op'>&lt;-</span> <span class='va'>p3</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='va'>a3</span><span class='op'>$</span><span class='va'>relative_abundance</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># attempt to solve the problem, but we will see that this problem is</span></span>
+<span class='r-in'><span class='co'># infeasible because the targets cannot be met using only the planning units</span></span>
+<span class='r-in'><span class='co'># with finite cost data</span></span>
+<span class='r-in'><span class='co'># \dontrun{</span></span>
+<span class='r-in'><span class='va'>s4</span> <span class='op'>&lt;-</span> <span class='kw'><a href='https://rdrr.io/r/base/try.html'>try</a></span><span class='op'>(</span><span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p4</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Error in .local(a, b = b, ...) : </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   no solution found (e.g. due to problem infeasibility or time limits)</span>
+<span class='r-in'><span class='co'># }</span></span>
+<span class='r-in'><span class='co'># calculate feature abundances; excluding planning units with NA costs</span></span>
+<span class='r-in'><span class='va'>a5</span> <span class='op'>&lt;-</span> <span class='fu'>feature_abundances</span><span class='op'>(</span><span class='va'>p3</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>a5</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 5 x 3</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   feature absolute_abundance relative_abundance</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>              <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> layer.1               74.5              0.895</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span> layer.2               28.1              0.900</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span> layer.3               64.9              0.902</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>4</span> layer.4               38.2              0.895</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>5</span> layer.5               50.7              0.893</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># create problem using total amounts of features in the planning units with</span></span>
+<span class='r-in'><span class='co'># finite cost data</span></span>
+<span class='r-in'><span class='va'>p5</span> <span class='op'>&lt;-</span> <span class='va'>p3</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='va'>a5</span><span class='op'>$</span><span class='va'>relative_abundance</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># \dontrun{</span></span>
+<span class='r-in'><span class='co'># solve the problem</span></span>
+<span class='r-in'><span class='va'>s5</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p5</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># plot the solution</span></span>
+<span class='r-in'><span class='co'># this solution contains all the planning units with finite cost data (i.e.</span></span>
+<span class='r-in'><span class='co'># cost data that do not have NA values)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>s5</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='feature_abundances-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='co'># }</span></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

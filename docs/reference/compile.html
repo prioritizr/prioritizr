@@ -51,6 +51,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
+  <link href="../extra.css" rel="stylesheet">
+  
 
 <meta property="og:title" content="Compile a problem — compile" />
 <meta property="og:description" content="Compile a conservation planning problem() into an
@@ -83,9 +85,6 @@
 </script>
 
 
-<!-- dependencies from examples -->
-
-
   
 
   
@@ -108,7 +107,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.4</span>
       </span>
     </div>
 
@@ -187,10 +186,10 @@
 (potentially mixed) integer linear programming problem.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>compile</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>compile</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for ConservationProblem</span>
-<span class='fu'>compile</span><span class='op'>(</span><span class='va'>x</span>, compressed_formulation <span class='op'>=</span> <span class='cn'>NA</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'>compile</span><span class='op'>(</span><span class='va'>x</span>, compressed_formulation <span class='op'>=</span> <span class='cn'>NA</span>, <span class='va'>...</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -233,21 +232,22 @@ an error, a misspecified problem, or unnecessarily long
 solve times.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># build minimal conservation problem</span>
-<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-  <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-  <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span>
-
-<span class='co'># compile the conservation problem into an optimization problem</span>
-<span class='va'>o</span> <span class='op'>&lt;-</span> <span class='fu'>compile</span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span>
-
-<span class='co'># print the optimization problem</span>
-<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>o</span><span class='op'>)</span>
-</div><div class='co'>#&gt; optimization problem
-#&gt;   model sense: min
-#&gt;   dimensions:  5, 90, 450 (nrow, ncol, ncell)
-#&gt;   variables:   90 (B)</div><div class='input'>
-</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='co'># build minimal conservation problem</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>  <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>  <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># compile the conservation problem into an optimization problem</span></span>
+<span class='r-in'><span class='va'>o</span> <span class='op'>&lt;-</span> <span class='fu'>compile</span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># print the optimization problem</span></span>
+<span class='r-in'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>o</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> optimization problem</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span>   model sense: min</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span>   dimensions:  5, 90, 450 (nrow, ncol, ncell)</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span>   variables:   90 (B)</span>
+<span class='r-in'></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

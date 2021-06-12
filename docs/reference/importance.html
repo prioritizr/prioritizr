@@ -51,6 +51,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
+  <link href="../extra.css" rel="stylesheet">
+  
 
 <meta property="og:title" content="Evaluate solution importance — importance" />
 <meta property="og:description" content="Importance scores (also known as irreplaceability scores) can be used to
@@ -84,9 +86,6 @@ conservation planning problem()." />
 </script>
 
 
-<!-- dependencies from examples -->
-
-
   
 
   
@@ -109,7 +108,7 @@ conservation planning problem()." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.4</span>
       </span>
     </div>
 
@@ -259,39 +258,41 @@ areas for conserving diversity using British birds.
     <div class='dont-index'><p><code><a href='problem.html'>problem()</a></code>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># \dontrun{</span>
-<span class='co'># load data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_pu_polygons</span>, <span class='va'>sim_features</span><span class='op'>)</span>
-
-<span class='co'># build minimal conservation problem with raster data</span>
-<span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>gap <span class='op'>=</span> <span class='fl'>0</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
-<span class='co'># solve the problem</span>
-<span class='va'>s1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>
-
-<span class='co'># plot solution</span>
-<span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>s1</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='importance-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># calculate importance scores using replacement cost scores</span>
-<span class='va'>ir1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='eval_replacement_importance.html'>eval_replacement_importance</a></span><span class='op'>(</span><span class='va'>p1</span>, <span class='va'>s1</span><span class='op'>)</span>
-
-<span class='co'># calculate importance scores using Ferrier et al 2000 method,</span>
-<span class='co'># and extract the total importance scores</span>
-<span class='va'>ir2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='eval_ferrier_importance.html'>eval_ferrier_importance</a></span><span class='op'>(</span><span class='va'>p1</span>, <span class='va'>s1</span><span class='op'>)</span><span class='op'>[[</span><span class='st'>"total"</span><span class='op'>]</span><span class='op'>]</span>
-
-<span class='co'># calculate importance scores using rarity weighted richness scores</span>
-<span class='va'>ir3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='eval_rare_richness_importance.html'>eval_rare_richness_importance</a></span><span class='op'>(</span><span class='va'>p1</span>, <span class='va'>s1</span><span class='op'>)</span>
-
-<span class='co'># plot importance scores</span>
-<span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/stack.html'>stack</a></span><span class='op'>(</span><span class='va'>ir1</span>, <span class='va'>ir2</span>, <span class='va'>ir3</span><span class='op'>)</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span>,
-     main <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"replacement cost"</span>, <span class='st'>"Ferrier score"</span>,
-              <span class='st'>"rarity weighted richness"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='importance-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
-</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='co'># \dontrun{</span></span>
+<span class='r-in'><span class='co'># load data</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_pu_polygons</span>, <span class='va'>sim_features</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># build minimal conservation problem with raster data</span></span>
+<span class='r-in'><span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>gap <span class='op'>=</span> <span class='fl'>0</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># solve the problem</span></span>
+<span class='r-in'><span class='va'>s1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># plot solution</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>s1</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='importance-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># calculate importance scores using replacement cost scores</span></span>
+<span class='r-in'><span class='va'>ir1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='eval_replacement_importance.html'>eval_replacement_importance</a></span><span class='op'>(</span><span class='va'>p1</span>, <span class='va'>s1</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># calculate importance scores using Ferrier et al 2000 method,</span></span>
+<span class='r-in'><span class='co'># and extract the total importance scores</span></span>
+<span class='r-in'><span class='va'>ir2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='eval_ferrier_importance.html'>eval_ferrier_importance</a></span><span class='op'>(</span><span class='va'>p1</span>, <span class='va'>s1</span><span class='op'>)</span><span class='op'>[[</span><span class='st'>"total"</span><span class='op'>]</span><span class='op'>]</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># calculate importance scores using rarity weighted richness scores</span></span>
+<span class='r-in'><span class='va'>ir3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='eval_rare_richness_importance.html'>eval_rare_richness_importance</a></span><span class='op'>(</span><span class='va'>p1</span>, <span class='va'>s1</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># plot importance scores</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/stack.html'>stack</a></span><span class='op'>(</span><span class='va'>ir1</span>, <span class='va'>ir2</span>, <span class='va'>ir3</span><span class='op'>)</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span>,</span>
+<span class='r-in'>     main <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"replacement cost"</span>, <span class='st'>"Ferrier score"</span>,</span>
+<span class='r-in'>              <span class='st'>"rarity weighted richness"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='importance-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='co'># }</span></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

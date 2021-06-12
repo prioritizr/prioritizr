@@ -47,8 +47,7 @@ NULL
 #'     with column names that correspond to the abundance or occurrence of
 #'     different features in each planning unit. Note that this argument
 #'     type can only be used to create problems involving a single zone.
-#'   * [`x = Spatial-class`][sp::Spatial-class], or
-#'     `x = data.frame`, or
+#'   * `x = data.frame`, or
 #'     `x = numeric` vector, or
 #'     `x = matrix`:
 #'     `y = data.frame` object
@@ -253,38 +252,47 @@ NULL
 #'       add_binary_decisions() %>%
 #'       add_default_solver(verbose = FALSE)
 #'
-#' # add columns to polygon planning unit data representing the abundance
-#' # of species inside them
-#' sim_pu_polygons$spp_1 <- rpois(length(sim_pu_polygons), 5)
-#' sim_pu_polygons$spp_2 <- rpois(length(sim_pu_polygons), 8)
-#' sim_pu_polygons$spp_3 <- rpois(length(sim_pu_polygons), 2)
+#' # since geo-processing can be slow for large spatial vector datasets
+#' # (e.g. polygons, lines, points), it can be worthwhile to pre-process the
+#' # planning unit data so that it contains columns indicating the amount of
+#' # each feature inside each planning unit
+#' # (i.e. each column corresponds to a different feature)
 #'
-#' # create problem using pre-processed data when feature abundances are
-#' # stored in the columns of an attribute table for a spatial vector dataset
-#' p6 <- problem(sim_pu_polygons, features = c("spp_1", "spp_2", "spp_3"),
-#'               "cost") %>%
+#' # calculate the amount of each species within each planning unit
+#' # (i.e. SpatialPolygonsDataFrame object)
+#' pre_proc_data <- rij_matrix(sim_pu_polygons, sim_features)
+#'
+#' # add extra columns to the polygon (Spatial) planning unit data
+#' # to indicate the amount of each species within each planning unit
+#' pre_proc_data <- as.data.frame(t(as.matrix(pre_proc_data)))
+#' names(pre_proc_data) <- names(sim_features)
+#' sim_pu_polygons@data <- cbind(sim_pu_polygons@data, pre_proc_data)
+#'
+#' # create problem using the polygon (Spatial) planning unit data
+#' # with the pre-processed columns
+#' p6 <- problem(sim_pu_polygons, features = names(pre_proc_data), "cost") %>%
 #'       add_min_set_objective() %>%
 #'       add_relative_targets(0.2) %>%
 #'       add_binary_decisions() %>%
 #'       add_default_solver(verbose = FALSE)
 #'
-#' # the above example can also be run in the same way using a polygon (sf) 
-#' # object which contains planning unit data and features.
-#' # First, add columns to polygon planning unit data representing the abundance
-#' # of species inside them and conver to an (sf) object
-#' sim_pu_polygons$spp_1 <- rpois(length(sim_pu_polygons), 5)
-#' sim_pu_polygons$spp_2 <- rpois(length(sim_pu_polygons), 8)
-#' sim_pu_polygons$spp_3 <- rpois(length(sim_pu_polygons), 2)
-#' sim_pu_sf_features <- sim_pu_polygons %>% st_as_sf()
-#' # Create the problem using (sf)
-#' p7 <- problem(sim_pu_sf_features, features = c("spp_1", "spp_2", "spp_3"),
-#'               "cost") %>%
+#' # this strategy of pre-processing columns can be used for sf objects too
+#' pre_proc_data2 <- rij_matrix(sim_pu_sf, sim_features)
+#' pre_proc_data2 <- as.data.frame(t(as.matrix(pre_proc_data2)))
+#' names(pre_proc_data2) <- names(sim_features)
+#' sim_pu_sf <- cbind(sim_pu_sf, pre_proc_data2)
+#'
+#' # create problem using the polygon (sf) planning unit data
+#' # with pre-processed columns
+#' p7 <- problem(sim_pu_sf, features = names(pre_proc_data2), "cost") %>%
 #'       add_min_set_objective() %>%
 #'       add_relative_targets(0.2) %>%
 #'       add_binary_decisions() %>%
 #'       add_default_solver(verbose = FALSE)
 #'
-#' # alternatively one can supply pre-processed aspatial data
+#' # in addition to spatially explicit data, pre-processed aspatial data
+#' # can also be used to create a problem
+#' # (e.g. data created using external spreadsheet software)
 #' costs <- sim_pu_polygons$cost
 #' features <- data.frame(id = seq_len(nlayers(sim_features)),
 #'                        name = names(sim_features))
@@ -307,22 +315,23 @@ NULL
 #'
 #' # plot solutions for problems associated with spatial data
 #' par(mfrow = c(3, 2), mar = c(0, 0, 4.1, 0))
-#' plot(s1, main = "raster data", axes = FALSE, box = FALSE)
+#' plot(s1, main = "raster data", axes = FALSE, box = FALSE, legend = FALSE)
 #'
 #' plot(s2, main = "polygon data")
-#' plot(s2[s2$solution_1 == 1, ], col = "darkgreen", add = TRUE)
+#' plot(s2[s2$solution_1 > 0.5, ], col = "darkgreen", add = TRUE)
 #'
 #' plot(s3, main = "line data")
-#' lines(s3[s3$solution_1 == 1, ], col = "darkgreen", lwd = 2)
+#' lines(s3[s3$solution_1 > 0.5, ], col = "darkgreen", lwd = 2)
 #'
 #' plot(s4, main = "point data", pch = 19)
-#' points(s4[s4$solution_1 == 1, ], col = "darkgreen", cex = 2, pch = 19)
+#' points(s4[s4$solution_1 > 0.5, ], col = "darkgreen", cex = 2, pch = 19)
 #'
-#' plot(s5, main = "sf (polygon) data", pch = 19)
-#' points(s5[s5$solution_1 == 1, ], col = "darkgreen", cex = 2, pch = 19)
+#' # note that as_Spatial() is for convenience to plot all solutions together
+#' plot(as_Spatial(s5), main = "sf (polygon) data", pch = 19)
+#' plot(as_Spatial(s5[s5$solution_1 > 0.5, ]), col = "darkgreen", add = TRUE)
 #'
-#' plot(s6, main = "preprocessed data", pch = 19)
-#' plot(s6[s6$solution_1 == 1, ], col = "darkgreen", add = TRUE)
+#' plot(s6, main = "preprocessed data (polygon data)", pch = 19)
+#' plot(s6[s6$solution_1 > 0.5, ], col = "darkgreen", add = TRUE)
 #'
 #' # show solutions for problems associated with aspatial data
 #' str(s8)

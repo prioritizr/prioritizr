@@ -51,6 +51,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
+  <link href="../extra.css" rel="stylesheet">
+  
 
 <meta property="og:title" content="Conservation planning problem — problem" />
 <meta property="og:description" content="Create a systematic conservation planning problem. This function is used to
@@ -90,9 +92,6 @@ solve() function can be used to identify solutions." />
 </script>
 
 
-<!-- dependencies from examples -->
-
-
   
 
   
@@ -115,7 +114,7 @@ solve() function can be used to identify solutions." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.4</span>
       </span>
     </div>
 
@@ -201,7 +200,7 @@ customized to meet specific goals using <a href='objectives.html'>objectives</a>
 <code><a href='solve.html'>solve()</a></code> function can be used to identify solutions.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>problem</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>features</span>, <span class='va'>...</span><span class='op'>)</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>problem</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>features</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for Raster,Raster</span>
 <span class='fu'>problem</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>features</span>, <span class='va'>run_checks</span>, <span class='va'>...</span><span class='op'>)</span>
@@ -246,7 +245,7 @@ customized to meet specific goals using <a href='objectives.html'>objectives</a>
 <span class='fu'>problem</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>features</span>, <span class='va'>cost_column</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for sf,ZonesCharacter</span>
-<span class='fu'>problem</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>features</span>, <span class='va'>cost_column</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'>problem</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>features</span>, <span class='va'>cost_column</span>, <span class='va'>...</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -289,9 +288,7 @@ only be used to specify data for problems involving a single zone.</p></li>
 with column names that correspond to the abundance or occurrence of
 different features in each planning unit. Note that this argument
 type can only be used to create problems involving a single zone.</p></li>
-<li><p><code><a href='https://rdrr.io/pkg/sp/man/Spatial-class.html'>x = Spatial-class</a></code>, or
-<code><a href='https://r-spatial.github.io/sf/reference/sf.html'>x = sf::st_sf()</a></code>, or
-<code>x = data.frame</code>, or
+<li><p><code>x = data.frame</code>, or
 <code>x = numeric</code> vector, or
 <code>x = matrix</code>:
 <code>y = data.frame</code> object
@@ -463,211 +460,245 @@ millions of planning units.</p>
 <a href='summaries.html'>summaries</a>, <a href='importance.html'>importance</a>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># load data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_pu_polygons</span>, <span class='va'>sim_pu_lines</span>, <span class='va'>sim_pu_points</span>,
-     <span class='va'>sim_pu_sf</span>, <span class='va'>sim_features</span><span class='op'>)</span>
-
-<span class='co'># create problem using raster planning unit data</span>
-<span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'>problem</span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.2</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
-<span class='co'># \dontrun{</span>
-<span class='co'># create problem using polygon (Spatial) planning unit data</span>
-<span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='fu'>problem</span><span class='op'>(</span><span class='va'>sim_pu_polygons</span>, <span class='va'>sim_features</span>, <span class='st'>"cost"</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.2</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
-<span class='co'># create problem using line (Spatial) planning unit data</span>
-<span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='fu'>problem</span><span class='op'>(</span><span class='va'>sim_pu_lines</span>, <span class='va'>sim_features</span>, <span class='st'>"cost"</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.2</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
-<span class='co'># create problem using point (Spatial) planning unit data</span>
-<span class='va'>p4</span> <span class='op'>&lt;-</span> <span class='fu'>problem</span><span class='op'>(</span><span class='va'>sim_pu_points</span>, <span class='va'>sim_features</span>, <span class='st'>"cost"</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.2</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
-<span class='co'># create problem using polygon (sf) planning unit data</span>
-<span class='va'>p5</span> <span class='op'>&lt;-</span> <span class='fu'>problem</span><span class='op'>(</span><span class='va'>sim_pu_sf</span>, <span class='va'>sim_features</span>, <span class='st'>"cost"</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.2</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
-<span class='co'># add columns to polygon planning unit data representing the abundance</span>
-<span class='co'># of species inside them</span>
-<span class='va'>sim_pu_polygons</span><span class='op'>$</span><span class='va'>spp_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>sim_pu_polygons</span><span class='op'>)</span>, <span class='fl'>5</span><span class='op'>)</span>
-<span class='va'>sim_pu_polygons</span><span class='op'>$</span><span class='va'>spp_2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>sim_pu_polygons</span><span class='op'>)</span>, <span class='fl'>8</span><span class='op'>)</span>
-<span class='va'>sim_pu_polygons</span><span class='op'>$</span><span class='va'>spp_3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>sim_pu_polygons</span><span class='op'>)</span>, <span class='fl'>2</span><span class='op'>)</span>
-
-<span class='co'># create problem using pre-processed data when feature abundances are</span>
-<span class='co'># stored in the columns of an attribute table for a spatial vector dataset</span>
-<span class='va'>p6</span> <span class='op'>&lt;-</span> <span class='fu'>problem</span><span class='op'>(</span><span class='va'>sim_pu_polygons</span>, features <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"spp_1"</span>, <span class='st'>"spp_2"</span>, <span class='st'>"spp_3"</span><span class='op'>)</span>,
-              <span class='st'>"cost"</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.2</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
-<span class='co'># alternatively one can supply pre-processed aspatial data</span>
-<span class='va'>costs</span> <span class='op'>&lt;-</span> <span class='va'>sim_pu_polygons</span><span class='op'>$</span><span class='va'>cost</span>
-<span class='va'>features</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/nlayers.html'>nlayers</a></span><span class='op'>(</span><span class='va'>sim_features</span><span class='op'>)</span><span class='op'>)</span>,
-                       name <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/raster/man/names.html'>names</a></span><span class='op'>(</span><span class='va'>sim_features</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>rij_mat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='rij_matrix.html'>rij_matrix</a></span><span class='op'>(</span><span class='va'>sim_pu_polygons</span>, <span class='va'>sim_features</span><span class='op'>)</span>
-<span class='va'>p7</span> <span class='op'>&lt;-</span> <span class='fu'>problem</span><span class='op'>(</span><span class='va'>costs</span>, <span class='va'>features</span>, rij_matrix <span class='op'>=</span> <span class='va'>rij_mat</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.2</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
-<span class='co'># solve problems</span>
-<span class='va'>s1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>
-<span class='va'>s2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span>
-<span class='va'>s3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span>
-<span class='va'>s4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p4</span><span class='op'>)</span>
-<span class='va'>s5</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p5</span><span class='op'>)</span>
-<span class='va'>s6</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p6</span><span class='op'>)</span>
-<span class='va'>s7</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p7</span><span class='op'>)</span>
-
-<span class='co'># plot solutions for problems associated with spatial data</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>2</span><span class='op'>)</span>, mar <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>4.1</span>, <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>s1</span>, main <span class='op'>=</span> <span class='st'>"raster data"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
-<span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>s2</span>, main <span class='op'>=</span> <span class='st'>"polygon data"</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>s2</span><span class='op'>[</span><span class='va'>s2</span><span class='op'>$</span><span class='va'>solution_1</span> <span class='op'>==</span> <span class='fl'>1</span>, <span class='op'>]</span>, col <span class='op'>=</span> <span class='st'>"darkgreen"</span>, add <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-
-<span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>s3</span>, main <span class='op'>=</span> <span class='st'>"line data"</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span><span class='op'>(</span><span class='va'>s3</span><span class='op'>[</span><span class='va'>s3</span><span class='op'>$</span><span class='va'>solution_1</span> <span class='op'>==</span> <span class='fl'>1</span>, <span class='op'>]</span>, col <span class='op'>=</span> <span class='st'>"darkgreen"</span>, lwd <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
-
-<span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>s4</span>, main <span class='op'>=</span> <span class='st'>"point data"</span>, pch <span class='op'>=</span> <span class='fl'>19</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/points.html'>points</a></span><span class='op'>(</span><span class='va'>s4</span><span class='op'>[</span><span class='va'>s4</span><span class='op'>$</span><span class='va'>solution_1</span> <span class='op'>==</span> <span class='fl'>1</span>, <span class='op'>]</span>, col <span class='op'>=</span> <span class='st'>"darkgreen"</span>, cex <span class='op'>=</span> <span class='fl'>2</span>, pch <span class='op'>=</span> <span class='fl'>19</span><span class='op'>)</span>
-
-<span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>s5</span>, main <span class='op'>=</span> <span class='st'>"sf (polygon) data"</span>, pch <span class='op'>=</span> <span class='fl'>19</span><span class='op'>)</span>
-</div><div class='img'><img src='problem-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/points.html'>points</a></span><span class='op'>(</span><span class='va'>s5</span><span class='op'>[</span><span class='va'>s5</span><span class='op'>$</span><span class='va'>solution_1</span> <span class='op'>==</span> <span class='fl'>1</span>, <span class='op'>]</span>, col <span class='op'>=</span> <span class='st'>"darkgreen"</span>, cex <span class='op'>=</span> <span class='fl'>2</span>, pch <span class='op'>=</span> <span class='fl'>19</span><span class='op'>)</span>
-</div><div class='img'><img src='problem-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>s6</span>, main <span class='op'>=</span> <span class='st'>"preprocessed data"</span>, pch <span class='op'>=</span> <span class='fl'>19</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>s6</span><span class='op'>[</span><span class='va'>s6</span><span class='op'>$</span><span class='va'>solution_1</span> <span class='op'>==</span> <span class='fl'>1</span>, <span class='op'>]</span>, col <span class='op'>=</span> <span class='st'>"darkgreen"</span>, add <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-
-<span class='co'># show solutions for problems associated with aspatial data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>s7</span><span class='op'>)</span>
-</div><div class='co'>#&gt;  num [1:90] 0 0 0 0 0 0 0 0 0 1 ...
-#&gt;  - attr(*, "objective")= Named num 3586
-#&gt;   ..- attr(*, "names")= chr "solution_1"
-#&gt;  - attr(*, "status")= Named chr "OPTIMAL"
-#&gt;   ..- attr(*, "names")= chr "solution_1"
-#&gt;  - attr(*, "runtime")= Named num 0.008
-#&gt;   ..- attr(*, "names")= chr "solution_1"</div><div class='input'><span class='co'># }</span>
-<span class='co'># create some problems with multiple zones</span>
-
-<span class='co'># first, create a matrix containing the targets for multi-zone problems</span>
-<span class='co'># here each row corresponds to a different feature, each</span>
-<span class='co'># column corresponds to a different zone, and values correspond</span>
-<span class='co'># to the total (absolute) amount of a given feature that needs to be secured</span>
-<span class='co'># in a given zone</span>
-<span class='va'>targets</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span><span class='op'>(</span><span class='fl'>15</span>, <span class='fl'>1</span><span class='op'>)</span>,
-                  nrow <span class='op'>=</span> <span class='fu'><a href='number_of_features.html'>number_of_features</a></span><span class='op'>(</span><span class='va'>sim_features_zones</span><span class='op'>)</span>,
-                  ncol <span class='op'>=</span> <span class='fu'><a href='number_of_zones.html'>number_of_zones</a></span><span class='op'>(</span><span class='va'>sim_features_zones</span><span class='op'>)</span>,
-                  dimnames <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fu'><a href='feature_names.html'>feature_names</a></span><span class='op'>(</span><span class='va'>sim_features_zones</span><span class='op'>)</span>,
-                                  <span class='fu'><a href='zone_names.html'>zone_names</a></span><span class='op'>(</span><span class='va'>sim_features_zones</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'># print targets</span>
-<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>targets</span><span class='op'>)</span>
-</div><div class='co'>#&gt;           zone_1 zone_2 zone_3
-#&gt; feature_1      2      0      2
-#&gt; feature_2      1      2      0
-#&gt; feature_3      0      1      0
-#&gt; feature_4      0      0      2
-#&gt; feature_5      1      4      3</div><div class='input'>
-<span class='co'># create a multi-zone problem with raster data</span>
-<span class='va'>p8</span> <span class='op'>&lt;-</span> <span class='fu'>problem</span><span class='op'>(</span><span class='va'>sim_pu_zones_stack</span>, <span class='va'>sim_features_zones</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_absolute_targets.html'>add_absolute_targets</a></span><span class='op'>(</span><span class='va'>targets</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-<span class='co'># \dontrun{</span>
-<span class='co'># solve problem</span>
-<span class='va'>s8</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p8</span><span class='op'>)</span>
-
-<span class='co'># plot solution</span>
-<span class='co'># here, each layer/panel corresponds to a different zone and pixel values</span>
-<span class='co'># indicate if a given planning unit has been allocated to a given zone</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='problem-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>s8</span>, main <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"zone 1"</span>, <span class='st'>"zone 2"</span>, <span class='st'>"zone 3"</span><span class='op'>)</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='problem-4.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># alternatively, the category_layer function can be used to create</span>
-<span class='co'># a new raster object containing the zone ids for each planning unit</span>
-<span class='co'># in the solution (note this only works for problems with binary decisions)</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='category_layer.html'>category_layer</a></span><span class='op'>(</span><span class='va'>s8</span><span class='op'>)</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='problem-5.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># create a multi-zone problem with polygon data</span>
-<span class='va'>p9</span> <span class='op'>&lt;-</span> <span class='fu'>problem</span><span class='op'>(</span><span class='va'>sim_pu_zones_polygons</span>, <span class='va'>sim_features_zones</span>,
-              cost_column <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"cost_1"</span>, <span class='st'>"cost_2"</span>, <span class='st'>"cost_3"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_absolute_targets.html'>add_absolute_targets</a></span><span class='op'>(</span><span class='va'>targets</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
-<span class='co'># solve problem</span>
-<span class='va'>s9</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p9</span><span class='op'>)</span>
-
-<span class='co'># create column containing the zone id for which each planning unit was</span>
-<span class='co'># allocated to in the solution</span>
-<span class='va'>s9</span><span class='op'>$</span><span class='va'>solution</span> <span class='op'>&lt;-</span> <span class='fu'><a href='category_vector.html'>category_vector</a></span><span class='op'>(</span><span class='va'>s9</span><span class='op'>@</span><span class='va'>data</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"solution_1_zone_1"</span>,
-                                           <span class='st'>"solution_1_zone_2"</span>,
-                                           <span class='st'>"solution_1_zone_3"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
-<span class='va'>s9</span><span class='op'>$</span><span class='va'>solution</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>s9</span><span class='op'>$</span><span class='va'>solution</span><span class='op'>)</span>
-
-<span class='co'># plot solution</span>
-<span class='fu'><a href='https://rdrr.io/pkg/raster/man/spplot.html'>spplot</a></span><span class='op'>(</span><span class='va'>s9</span>, zcol <span class='op'>=</span> <span class='st'>"solution"</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='problem-6.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># create a multi-zone problem with polygon planning unit data</span>
-<span class='co'># and where fields (columns) in the attribute table correspond</span>
-<span class='co'># to feature abundances</span>
-
-<span class='co'># first fields need to be added to the planning unit data</span>
-<span class='co'># which indicate the amount of each feature in each zone</span>
-<span class='co'># to do this, the fields will be populated with random counts</span>
-<span class='va'>sim_pu_zones_polygons</span><span class='op'>$</span><span class='va'>spp1_z1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span><span class='op'>(</span><span class='fu'><a href='OptimizationProblem-methods.html'>nrow</a></span><span class='op'>(</span><span class='va'>sim_pu_zones_polygons</span><span class='op'>)</span>, <span class='fl'>1</span><span class='op'>)</span>
-<span class='va'>sim_pu_zones_polygons</span><span class='op'>$</span><span class='va'>spp2_z1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span><span class='op'>(</span><span class='fu'><a href='OptimizationProblem-methods.html'>nrow</a></span><span class='op'>(</span><span class='va'>sim_pu_zones_polygons</span><span class='op'>)</span>, <span class='fl'>1</span><span class='op'>)</span>
-<span class='va'>sim_pu_zones_polygons</span><span class='op'>$</span><span class='va'>spp3_z1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span><span class='op'>(</span><span class='fu'><a href='OptimizationProblem-methods.html'>nrow</a></span><span class='op'>(</span><span class='va'>sim_pu_zones_polygons</span><span class='op'>)</span>, <span class='fl'>1</span><span class='op'>)</span>
-<span class='va'>sim_pu_zones_polygons</span><span class='op'>$</span><span class='va'>spp1_z2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span><span class='op'>(</span><span class='fu'><a href='OptimizationProblem-methods.html'>nrow</a></span><span class='op'>(</span><span class='va'>sim_pu_zones_polygons</span><span class='op'>)</span>, <span class='fl'>1</span><span class='op'>)</span>
-<span class='va'>sim_pu_zones_polygons</span><span class='op'>$</span><span class='va'>spp2_z2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span><span class='op'>(</span><span class='fu'><a href='OptimizationProblem-methods.html'>nrow</a></span><span class='op'>(</span><span class='va'>sim_pu_zones_polygons</span><span class='op'>)</span>, <span class='fl'>1</span><span class='op'>)</span>
-<span class='va'>sim_pu_zones_polygons</span><span class='op'>$</span><span class='va'>spp3_z2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span><span class='op'>(</span><span class='fu'><a href='OptimizationProblem-methods.html'>nrow</a></span><span class='op'>(</span><span class='va'>sim_pu_zones_polygons</span><span class='op'>)</span>, <span class='fl'>1</span><span class='op'>)</span>
-
-<span class='co'># create problem with polygon planning unit data and use field names</span>
-<span class='co'># to indicate feature data</span>
-<span class='co'># additionally, to make this example slightly more interesting,</span>
-<span class='co'># the problem will have prfoportion-type decisions such that</span>
-<span class='co'># a proportion of each planning unit can be allocated to each of the</span>
-<span class='co'># two management zones</span>
-<span class='va'>p10</span> <span class='op'>&lt;-</span> <span class='fu'>problem</span><span class='op'>(</span><span class='va'>sim_pu_zones_polygons</span>,
-               <span class='fu'><a href='zones.html'>zones</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"spp1_z1"</span>, <span class='st'>"spp2_z1"</span>, <span class='st'>"spp3_z1"</span><span class='op'>)</span>,
-                     <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"spp1_z2"</span>, <span class='st'>"spp2_z2"</span>, <span class='st'>"spp3_z2"</span><span class='op'>)</span>,
-                     zone_names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"z1"</span>, <span class='st'>"z2"</span><span class='op'>)</span><span class='op'>)</span>,
-               cost_column <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"cost_1"</span>, <span class='st'>"cost_2"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-       <span class='fu'><a href='add_absolute_targets.html'>add_absolute_targets</a></span><span class='op'>(</span><span class='va'>targets</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-       <span class='fu'><a href='add_proportion_decisions.html'>add_proportion_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
-<span class='co'># solve problem</span>
-<span class='va'>s10</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p10</span><span class='op'>)</span>
-
-<span class='co'># plot solution</span>
-<span class='fu'><a href='https://rdrr.io/pkg/raster/man/spplot.html'>spplot</a></span><span class='op'>(</span><span class='va'>s10</span>, zcol <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"solution_1_z1"</span>, <span class='st'>"solution_1_z2"</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>,
-       axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='problem-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
-</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='co'># load data</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_pu_polygons</span>, <span class='va'>sim_pu_lines</span>, <span class='va'>sim_pu_points</span>,</span>
+<span class='r-in'>     <span class='va'>sim_pu_sf</span>, <span class='va'>sim_features</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># create problem using raster planning unit data</span></span>
+<span class='r-in'><span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'>problem</span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.2</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># \dontrun{</span></span>
+<span class='r-in'><span class='co'># create problem using polygon (Spatial) planning unit data</span></span>
+<span class='r-in'><span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='fu'>problem</span><span class='op'>(</span><span class='va'>sim_pu_polygons</span>, <span class='va'>sim_features</span>, <span class='st'>"cost"</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.2</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># create problem using line (Spatial) planning unit data</span></span>
+<span class='r-in'><span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='fu'>problem</span><span class='op'>(</span><span class='va'>sim_pu_lines</span>, <span class='va'>sim_features</span>, <span class='st'>"cost"</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.2</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># create problem using point (Spatial) planning unit data</span></span>
+<span class='r-in'><span class='va'>p4</span> <span class='op'>&lt;-</span> <span class='fu'>problem</span><span class='op'>(</span><span class='va'>sim_pu_points</span>, <span class='va'>sim_features</span>, <span class='st'>"cost"</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.2</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># create problem using polygon (sf) planning unit data</span></span>
+<span class='r-in'><span class='va'>p5</span> <span class='op'>&lt;-</span> <span class='fu'>problem</span><span class='op'>(</span><span class='va'>sim_pu_sf</span>, <span class='va'>sim_features</span>, <span class='st'>"cost"</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.2</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># since geo-processing can be slow for large spatial vector datasets</span></span>
+<span class='r-in'><span class='co'># (e.g. polygons, lines, points), it can be worthwhile to pre-process the</span></span>
+<span class='r-in'><span class='co'># planning unit data so that it contains columns indicating the amount of</span></span>
+<span class='r-in'><span class='co'># each feature inside each planning unit</span></span>
+<span class='r-in'><span class='co'># (i.e. each column corresponds to a different feature)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># calculate the amount of each species within each planning unit</span></span>
+<span class='r-in'><span class='co'># (i.e. SpatialPolygonsDataFrame object)</span></span>
+<span class='r-in'><span class='va'>pre_proc_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='rij_matrix.html'>rij_matrix</a></span><span class='op'>(</span><span class='va'>sim_pu_polygons</span>, <span class='va'>sim_features</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># add extra columns to the polygon (Spatial) planning unit data</span></span>
+<span class='r-in'><span class='co'># to indicate the amount of each species within each planning unit</span></span>
+<span class='r-in'><span class='va'>pre_proc_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/raster/man/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/transpose.html'>t</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/as.matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>pre_proc_data</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/pkg/raster/man/names.html'>names</a></span><span class='op'>(</span><span class='va'>pre_proc_data</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/raster/man/names.html'>names</a></span><span class='op'>(</span><span class='va'>sim_features</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>sim_pu_polygons</span><span class='op'>@</span><span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='va'>sim_pu_polygons</span><span class='op'>@</span><span class='va'>data</span>, <span class='va'>pre_proc_data</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># create problem using the polygon (Spatial) planning unit data</span></span>
+<span class='r-in'><span class='co'># with the pre-processed columns</span></span>
+<span class='r-in'><span class='va'>p6</span> <span class='op'>&lt;-</span> <span class='fu'>problem</span><span class='op'>(</span><span class='va'>sim_pu_polygons</span>, features <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/raster/man/names.html'>names</a></span><span class='op'>(</span><span class='va'>pre_proc_data</span><span class='op'>)</span>, <span class='st'>"cost"</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.2</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># this strategy of pre-processing columns can be used for sf objects too</span></span>
+<span class='r-in'><span class='va'>pre_proc_data2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='rij_matrix.html'>rij_matrix</a></span><span class='op'>(</span><span class='va'>sim_pu_sf</span>, <span class='va'>sim_features</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>pre_proc_data2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/raster/man/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/transpose.html'>t</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/as.matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>pre_proc_data2</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/pkg/raster/man/names.html'>names</a></span><span class='op'>(</span><span class='va'>pre_proc_data2</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/raster/man/names.html'>names</a></span><span class='op'>(</span><span class='va'>sim_features</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>sim_pu_sf</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='va'>sim_pu_sf</span>, <span class='va'>pre_proc_data2</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># create problem using the polygon (sf) planning unit data</span></span>
+<span class='r-in'><span class='co'># with pre-processed columns</span></span>
+<span class='r-in'><span class='va'>p7</span> <span class='op'>&lt;-</span> <span class='fu'>problem</span><span class='op'>(</span><span class='va'>sim_pu_sf</span>, features <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/raster/man/names.html'>names</a></span><span class='op'>(</span><span class='va'>pre_proc_data2</span><span class='op'>)</span>, <span class='st'>"cost"</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.2</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># in addition to spatially explicit data, pre-processed aspatial data</span></span>
+<span class='r-in'><span class='co'># can also be used to create a problem</span></span>
+<span class='r-in'><span class='co'># (e.g. data created using external spreadsheet software)</span></span>
+<span class='r-in'><span class='va'>costs</span> <span class='op'>&lt;-</span> <span class='va'>sim_pu_polygons</span><span class='op'>$</span><span class='va'>cost</span></span>
+<span class='r-in'><span class='va'>features</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/nlayers.html'>nlayers</a></span><span class='op'>(</span><span class='va'>sim_features</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span class='r-in'>                       name <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/raster/man/names.html'>names</a></span><span class='op'>(</span><span class='va'>sim_features</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>rij_mat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='rij_matrix.html'>rij_matrix</a></span><span class='op'>(</span><span class='va'>sim_pu_polygons</span>, <span class='va'>sim_features</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>p8</span> <span class='op'>&lt;-</span> <span class='fu'>problem</span><span class='op'>(</span><span class='va'>costs</span>, <span class='va'>features</span>, rij_matrix <span class='op'>=</span> <span class='va'>rij_mat</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.2</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># solve problems</span></span>
+<span class='r-in'><span class='va'>s1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>s2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>s3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>s4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p4</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>s5</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p5</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>s6</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p6</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>s7</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p7</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>s8</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p8</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># plot solutions for problems associated with spatial data</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>2</span><span class='op'>)</span>, mar <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>4.1</span>, <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>s1</span>, main <span class='op'>=</span> <span class='st'>"raster data"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span>, legend <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>s2</span>, main <span class='op'>=</span> <span class='st'>"polygon data"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>s2</span><span class='op'>[</span><span class='va'>s2</span><span class='op'>$</span><span class='va'>solution_1</span> <span class='op'>&gt;</span> <span class='fl'>0.5</span>, <span class='op'>]</span>, col <span class='op'>=</span> <span class='st'>"darkgreen"</span>, add <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>s3</span>, main <span class='op'>=</span> <span class='st'>"line data"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span><span class='op'>(</span><span class='va'>s3</span><span class='op'>[</span><span class='va'>s3</span><span class='op'>$</span><span class='va'>solution_1</span> <span class='op'>&gt;</span> <span class='fl'>0.5</span>, <span class='op'>]</span>, col <span class='op'>=</span> <span class='st'>"darkgreen"</span>, lwd <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>s4</span>, main <span class='op'>=</span> <span class='st'>"point data"</span>, pch <span class='op'>=</span> <span class='fl'>19</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/points.html'>points</a></span><span class='op'>(</span><span class='va'>s4</span><span class='op'>[</span><span class='va'>s4</span><span class='op'>$</span><span class='va'>solution_1</span> <span class='op'>&gt;</span> <span class='fl'>0.5</span>, <span class='op'>]</span>, col <span class='op'>=</span> <span class='st'>"darkgreen"</span>, cex <span class='op'>=</span> <span class='fl'>2</span>, pch <span class='op'>=</span> <span class='fl'>19</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># note that as_Spatial() is for convenience to plot all solutions together</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/coerce-methods.html'>as_Spatial</a></span><span class='op'>(</span><span class='va'>s5</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='st'>"sf (polygon) data"</span>, pch <span class='op'>=</span> <span class='fl'>19</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/coerce-methods.html'>as_Spatial</a></span><span class='op'>(</span><span class='va'>s5</span><span class='op'>[</span><span class='va'>s5</span><span class='op'>$</span><span class='va'>solution_1</span> <span class='op'>&gt;</span> <span class='fl'>0.5</span>, <span class='op'>]</span><span class='op'>)</span>, col <span class='op'>=</span> <span class='st'>"darkgreen"</span>, add <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>s6</span>, main <span class='op'>=</span> <span class='st'>"preprocessed data (polygon data)"</span>, pch <span class='op'>=</span> <span class='fl'>19</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>s6</span><span class='op'>[</span><span class='va'>s6</span><span class='op'>$</span><span class='va'>solution_1</span> <span class='op'>&gt;</span> <span class='fl'>0.5</span>, <span class='op'>]</span>, col <span class='op'>=</span> <span class='st'>"darkgreen"</span>, add <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='problem-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># show solutions for problems associated with aspatial data</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>s8</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  num [1:90] 0 0 0 0 0 0 0 0 0 1 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  - attr(*, "objective")= Named num 3586</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..- attr(*, "names")= chr "solution_1"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  - attr(*, "status")= Named chr "OPTIMAL"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..- attr(*, "names")= chr "solution_1"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  - attr(*, "runtime")= Named num 0.004</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..- attr(*, "names")= chr "solution_1"</span>
+<span class='r-in'><span class='co'># }</span></span>
+<span class='r-in'><span class='co'># create some problems with multiple zones</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># first, create a matrix containing the targets for multi-zone problems</span></span>
+<span class='r-in'><span class='co'># here each row corresponds to a different feature, each</span></span>
+<span class='r-in'><span class='co'># column corresponds to a different zone, and values correspond</span></span>
+<span class='r-in'><span class='co'># to the total (absolute) amount of a given feature that needs to be secured</span></span>
+<span class='r-in'><span class='co'># in a given zone</span></span>
+<span class='r-in'><span class='va'>targets</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span><span class='op'>(</span><span class='fl'>15</span>, <span class='fl'>1</span><span class='op'>)</span>,</span>
+<span class='r-in'>                  nrow <span class='op'>=</span> <span class='fu'><a href='number_of_features.html'>number_of_features</a></span><span class='op'>(</span><span class='va'>sim_features_zones</span><span class='op'>)</span>,</span>
+<span class='r-in'>                  ncol <span class='op'>=</span> <span class='fu'><a href='number_of_zones.html'>number_of_zones</a></span><span class='op'>(</span><span class='va'>sim_features_zones</span><span class='op'>)</span>,</span>
+<span class='r-in'>                  dimnames <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fu'><a href='feature_names.html'>feature_names</a></span><span class='op'>(</span><span class='va'>sim_features_zones</span><span class='op'>)</span>,</span>
+<span class='r-in'>                                  <span class='fu'><a href='zone_names.html'>zone_names</a></span><span class='op'>(</span><span class='va'>sim_features_zones</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># print targets</span></span>
+<span class='r-in'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>targets</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           zone_1 zone_2 zone_3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> feature_1      2      0      0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> feature_2      1      1      2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> feature_3      3      3      2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> feature_4      1      2      0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> feature_5      2      1      1</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># create a multi-zone problem with raster data</span></span>
+<span class='r-in'><span class='va'>p8</span> <span class='op'>&lt;-</span> <span class='fu'>problem</span><span class='op'>(</span><span class='va'>sim_pu_zones_stack</span>, <span class='va'>sim_features_zones</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_absolute_targets.html'>add_absolute_targets</a></span><span class='op'>(</span><span class='va'>targets</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># \dontrun{</span></span>
+<span class='r-in'><span class='co'># solve problem</span></span>
+<span class='r-in'><span class='va'>s8</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p8</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># plot solution</span></span>
+<span class='r-in'><span class='co'># here, each layer/panel corresponds to a different zone and pixel values</span></span>
+<span class='r-in'><span class='co'># indicate if a given planning unit has been allocated to a given zone</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>s8</span>, main <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"zone 1"</span>, <span class='st'>"zone 2"</span>, <span class='st'>"zone 3"</span><span class='op'>)</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='problem-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># alternatively, the category_layer function can be used to create</span></span>
+<span class='r-in'><span class='co'># a new raster object containing the zone ids for each planning unit</span></span>
+<span class='r-in'><span class='co'># in the solution (note this only works for problems with binary decisions)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='category_layer.html'>category_layer</a></span><span class='op'>(</span><span class='va'>s8</span><span class='op'>)</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='problem-3.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># create a multi-zone problem with polygon data</span></span>
+<span class='r-in'><span class='va'>p9</span> <span class='op'>&lt;-</span> <span class='fu'>problem</span><span class='op'>(</span><span class='va'>sim_pu_zones_polygons</span>, <span class='va'>sim_features_zones</span>,</span>
+<span class='r-in'>              cost_column <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"cost_1"</span>, <span class='st'>"cost_2"</span>, <span class='st'>"cost_3"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_absolute_targets.html'>add_absolute_targets</a></span><span class='op'>(</span><span class='va'>targets</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># solve problem</span></span>
+<span class='r-in'><span class='va'>s9</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p9</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># create column containing the zone id for which each planning unit was</span></span>
+<span class='r-in'><span class='co'># allocated to in the solution</span></span>
+<span class='r-in'><span class='va'>s9</span><span class='op'>$</span><span class='va'>solution</span> <span class='op'>&lt;-</span> <span class='fu'><a href='category_vector.html'>category_vector</a></span><span class='op'>(</span><span class='va'>s9</span><span class='op'>@</span><span class='va'>data</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"solution_1_zone_1"</span>,</span>
+<span class='r-in'>                                           <span class='st'>"solution_1_zone_2"</span>,</span>
+<span class='r-in'>                                           <span class='st'>"solution_1_zone_3"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>s9</span><span class='op'>$</span><span class='va'>solution</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>s9</span><span class='op'>$</span><span class='va'>solution</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># plot solution</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/pkg/raster/man/spplot.html'>spplot</a></span><span class='op'>(</span><span class='va'>s9</span>, zcol <span class='op'>=</span> <span class='st'>"solution"</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='problem-4.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># create a multi-zone problem with polygon planning unit data</span></span>
+<span class='r-in'><span class='co'># and where fields (columns) in the attribute table correspond</span></span>
+<span class='r-in'><span class='co'># to feature abundances</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># first fields need to be added to the planning unit data</span></span>
+<span class='r-in'><span class='co'># which indicate the amount of each feature in each zone</span></span>
+<span class='r-in'><span class='co'># to do this, the fields will be populated with random counts</span></span>
+<span class='r-in'><span class='va'>sim_pu_zones_polygons</span><span class='op'>$</span><span class='va'>spp1_z1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span><span class='op'>(</span><span class='fu'><a href='OptimizationProblem-methods.html'>nrow</a></span><span class='op'>(</span><span class='va'>sim_pu_zones_polygons</span><span class='op'>)</span>, <span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>sim_pu_zones_polygons</span><span class='op'>$</span><span class='va'>spp2_z1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span><span class='op'>(</span><span class='fu'><a href='OptimizationProblem-methods.html'>nrow</a></span><span class='op'>(</span><span class='va'>sim_pu_zones_polygons</span><span class='op'>)</span>, <span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>sim_pu_zones_polygons</span><span class='op'>$</span><span class='va'>spp3_z1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span><span class='op'>(</span><span class='fu'><a href='OptimizationProblem-methods.html'>nrow</a></span><span class='op'>(</span><span class='va'>sim_pu_zones_polygons</span><span class='op'>)</span>, <span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>sim_pu_zones_polygons</span><span class='op'>$</span><span class='va'>spp1_z2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span><span class='op'>(</span><span class='fu'><a href='OptimizationProblem-methods.html'>nrow</a></span><span class='op'>(</span><span class='va'>sim_pu_zones_polygons</span><span class='op'>)</span>, <span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>sim_pu_zones_polygons</span><span class='op'>$</span><span class='va'>spp2_z2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span><span class='op'>(</span><span class='fu'><a href='OptimizationProblem-methods.html'>nrow</a></span><span class='op'>(</span><span class='va'>sim_pu_zones_polygons</span><span class='op'>)</span>, <span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>sim_pu_zones_polygons</span><span class='op'>$</span><span class='va'>spp3_z2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span><span class='op'>(</span><span class='fu'><a href='OptimizationProblem-methods.html'>nrow</a></span><span class='op'>(</span><span class='va'>sim_pu_zones_polygons</span><span class='op'>)</span>, <span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># create problem with polygon planning unit data and use field names</span></span>
+<span class='r-in'><span class='co'># to indicate feature data</span></span>
+<span class='r-in'><span class='co'># additionally, to make this example slightly more interesting,</span></span>
+<span class='r-in'><span class='co'># the problem will have prfoportion-type decisions such that</span></span>
+<span class='r-in'><span class='co'># a proportion of each planning unit can be allocated to each of the</span></span>
+<span class='r-in'><span class='co'># two management zones</span></span>
+<span class='r-in'><span class='va'>p10</span> <span class='op'>&lt;-</span> <span class='fu'>problem</span><span class='op'>(</span><span class='va'>sim_pu_zones_polygons</span>,</span>
+<span class='r-in'>               <span class='fu'><a href='zones.html'>zones</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"spp1_z1"</span>, <span class='st'>"spp2_z1"</span>, <span class='st'>"spp3_z1"</span><span class='op'>)</span>,</span>
+<span class='r-in'>                     <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"spp1_z2"</span>, <span class='st'>"spp2_z2"</span>, <span class='st'>"spp3_z2"</span><span class='op'>)</span>,</span>
+<span class='r-in'>                     zone_names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"z1"</span>, <span class='st'>"z2"</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span class='r-in'>               cost_column <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"cost_1"</span>, <span class='st'>"cost_2"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>       <span class='fu'><a href='add_absolute_targets.html'>add_absolute_targets</a></span><span class='op'>(</span><span class='va'>targets</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>       <span class='fu'><a href='add_proportion_decisions.html'>add_proportion_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># solve problem</span></span>
+<span class='r-in'><span class='va'>s10</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p10</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># plot solution</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/pkg/raster/man/spplot.html'>spplot</a></span><span class='op'>(</span><span class='va'>s10</span>, zcol <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"solution_1_z1"</span>, <span class='st'>"solution_1_z2"</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>,</span>
+<span class='r-in'>       axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='problem-5.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='co'># }</span></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
