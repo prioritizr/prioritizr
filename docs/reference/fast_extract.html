@@ -51,6 +51,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
+  <link href="../extra.css" rel="stylesheet">
+  
 
 <meta property="og:title" content="Fast extract — fast_extract" />
 <meta property="og:description" content="Extract data from a Raster object." />
@@ -82,9 +84,6 @@
 </script>
 
 
-<!-- dependencies from examples -->
-
-
   
 
   
@@ -107,7 +106,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.4</span>
       </span>
     </div>
 
@@ -185,7 +184,7 @@
     <p>Extract data from a <code><a href='https://rdrr.io/pkg/raster/man/Raster-classes.html'>Raster</a></code> object.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>fast_extract</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>...</span><span class='op'>)</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>fast_extract</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for Raster,SpatialPolygons</span>
 <span class='fu'>fast_extract</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, fun <span class='op'>=</span> <span class='st'>"mean"</span>, <span class='va'>...</span><span class='op'>)</span>
@@ -200,7 +199,7 @@
 <span class='fu'>fast_extract</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, fun <span class='op'>=</span> <span class='st'>"mean"</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for Raster,sf</span>
-<span class='fu'>fast_extract</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, fun <span class='op'>=</span> <span class='st'>"mean"</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'>fast_extract</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, fun <span class='op'>=</span> <span class='st'>"mean"</span>, <span class='va'>...</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -248,22 +247,23 @@ polygonal <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::s
 <code><a href='https://isciences.gitlab.io/exactextractr/reference/exact_extract.html'>exactextractr::exact_extract()</a></code>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># load data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>sim_pu_sf</span>, <span class='va'>sim_features</span><span class='op'>)</span>
-
-<span class='co'># extract data</span>
-<span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fu'>fast_extract</span><span class='op'>(</span><span class='va'>sim_features</span>, <span class='va'>sim_pu_sf</span><span class='op'>)</span>
-
-<span class='co'># show result</span>
-<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/headtail.html'>head</a></span><span class='op'>(</span><span class='va'>result</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='co'>#&gt;           [,1]      [,2]      [,3]      [,4]      [,5]
-#&gt; [1,] 0.7150548 0.2900901 0.8178213 0.2199663 0.4533809
-#&gt; [2,] 0.6990429 0.3052216 0.8064534 0.2713800 0.4413639
-#&gt; [3,] 0.6859317 0.3266036 0.7852441 0.3296247 0.4343547
-#&gt; [4,] 0.6783193 0.3510977 0.7541320 0.3900085 0.4355628
-#&gt; [5,] 0.6782107 0.3750470 0.7131559 0.4468281 0.4474871
-#&gt; [6,] 0.6863252 0.3950113 0.6628435 0.4946333 0.4714105</div><div class='input'>
-</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='co'># load data</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>sim_pu_sf</span>, <span class='va'>sim_features</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># extract data</span></span>
+<span class='r-in'><span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fu'>fast_extract</span><span class='op'>(</span><span class='va'>sim_features</span>, <span class='va'>sim_pu_sf</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># show result</span></span>
+<span class='r-in'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/headtail.html'>head</a></span><span class='op'>(</span><span class='va'>result</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           [,1]      [,2]      [,3]      [,4]      [,5]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1,] 0.7150548 0.2900901 0.8178213 0.2199663 0.4533809</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [2,] 0.6990429 0.3052216 0.8064534 0.2713800 0.4413639</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [3,] 0.6859317 0.3266036 0.7852441 0.3296247 0.4343547</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [4,] 0.6783193 0.3510977 0.7541320 0.3900085 0.4355628</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [5,] 0.6782107 0.3750470 0.7131559 0.4468281 0.4474871</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [6,] 0.6863252 0.3950113 0.6628435 0.4946333 0.4714105</span>
+<span class='r-in'></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

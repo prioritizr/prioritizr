@@ -51,6 +51,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
+  <link href="../extra.css" rel="stylesheet">
+  
 
 <meta property="og:title" content="Evaluate solution importance using rarity weighted richness scores — eval_rare_richness_importance" />
 <meta property="og:description" content="Calculate importance scores for planning units selected in a solution
@@ -91,9 +93,6 @@ limitations." />
 </script>
 
 
-<!-- dependencies from examples -->
-
-
   
 
   
@@ -116,7 +115,7 @@ limitations." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.4</span>
       </span>
     </div>
 
@@ -203,7 +202,7 @@ unlike the replacement cost metric which does not suffer any of these
 limitations.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>eval_rare_richness_importance</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span>, <span class='va'>...</span><span class='op'>)</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>eval_rare_richness_importance</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for ConservationProblem,numeric</span>
 <span class='fu'>eval_rare_richness_importance</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span>, <span class='va'>rescale</span>, <span class='va'>...</span><span class='op'>)</span>
@@ -221,7 +220,7 @@ limitations.</p>
 <span class='fu'>eval_rare_richness_importance</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span>, <span class='va'>rescale</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for ConservationProblem,Raster</span>
-<span class='fu'>eval_rare_richness_importance</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span>, <span class='va'>rescale</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'>eval_rare_richness_importance</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span>, <span class='va'>rescale</span>, <span class='va'>...</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -356,94 +355,101 @@ areas for conserving diversity using British birds.
     <div class='dont-index'><p><a href='importance.html'>importance</a>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># \dontrun{</span>
-<span class='co'># seed seed for reproducibility</span>
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>600</span><span class='op'>)</span>
-
-<span class='co'># load data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_pu_sf</span>, <span class='va'>sim_features</span><span class='op'>)</span>
-
-<span class='co'># create minimal problem with raster planning units</span>
-<span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>gap <span class='op'>=</span> <span class='fl'>0</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
-<span class='co'># solve problem</span>
-<span class='va'>s1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>
-
-<span class='co'># print solution</span>
-<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>s1</span><span class='op'>)</span>
-</div><div class='co'>#&gt; class      : RasterLayer 
-#&gt; dimensions : 10, 10, 100  (nrow, ncol, ncell)
-#&gt; resolution : 0.1, 0.1  (x, y)
-#&gt; extent     : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)
-#&gt; crs        : NA 
-#&gt; source     : memory
-#&gt; names      : layer 
-#&gt; values     : 0, 1  (min, max)
-#&gt; </div><div class='input'>
-<span class='co'># plot solution</span>
-<span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>s1</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='eval_rare_richness_importance-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># calculate importance scores</span>
-<span class='va'>rwr1</span> <span class='op'>&lt;-</span> <span class='fu'>eval_rare_richness_importance</span><span class='op'>(</span><span class='va'>p1</span>, <span class='va'>s1</span><span class='op'>)</span>
-
-<span class='co'># print importance scores</span>
-<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>rwr1</span><span class='op'>)</span>
-</div><div class='co'>#&gt; class      : RasterLayer 
-#&gt; dimensions : 10, 10, 100  (nrow, ncol, ncell)
-#&gt; resolution : 0.1, 0.1  (x, y)
-#&gt; extent     : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)
-#&gt; crs        : NA 
-#&gt; source     : memory
-#&gt; names      : rwr 
-#&gt; values     : 0, 1  (min, max)
-#&gt; </div><div class='input'>
-<span class='co'># plot importance scores</span>
-<span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>rwr1</span>, main <span class='op'>=</span> <span class='st'>"rarity weighted richness"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='eval_rare_richness_importance-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># create minimal problem with polygon (sf) planning units</span>
-<span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_sf</span>, <span class='va'>sim_features</span>, cost_column <span class='op'>=</span> <span class='st'>"cost"</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.05</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span>
-      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>gap <span class='op'>=</span> <span class='fl'>0</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
-<span class='co'># solve problem</span>
-<span class='va'>s2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span>
-
-<span class='co'># print solution</span>
-<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>s2</span><span class='op'>)</span>
-</div><div class='co'>#&gt; Simple feature collection with 90 features and 4 fields
-#&gt; Geometry type: POLYGON
-#&gt; Dimension:     XY
-#&gt; Bounding box:  xmin: 0 ymin: 0 xmax: 1 ymax: 1
-#&gt; CRS:           NA
-#&gt; First 10 features:
-#&gt;        cost locked_in locked_out solution_1                       geometry
-#&gt; 1  215.8638     FALSE      FALSE          0 POLYGON ((0 1, 0.1 1, 0.1 0...
-#&gt; 2  212.7823     FALSE      FALSE          0 POLYGON ((0.1 1, 0.2 1, 0.2...
-#&gt; 3  207.4962     FALSE      FALSE          0 POLYGON ((0.2 1, 0.3 1, 0.3...
-#&gt; 4  208.9322     FALSE       TRUE          0 POLYGON ((0.3 1, 0.4 1, 0.4...
-#&gt; 5  214.0419     FALSE      FALSE          0 POLYGON ((0.4 1, 0.5 1, 0.5...
-#&gt; 6  213.7636     FALSE      FALSE          0 POLYGON ((0.5 1, 0.6 1, 0.6...
-#&gt; 7  210.4612     FALSE      FALSE          0 POLYGON ((0.6 1, 0.7 1, 0.7...
-#&gt; 8  211.0424     FALSE       TRUE          0 POLYGON ((0.7 1, 0.8 1, 0.8...
-#&gt; 9  210.3878     FALSE      FALSE          0 POLYGON ((0.8 1, 0.9 1, 0.9...
-#&gt; 10 204.3971     FALSE      FALSE          0 POLYGON ((0.9 1, 1 1, 1 0.9...</div><div class='input'>
-<span class='co'># plot solution</span>
-<span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>s2</span><span class='op'>[</span>, <span class='st'>"solution_1"</span><span class='op'>]</span>, main <span class='op'>=</span> <span class='st'>"solution"</span><span class='op'>)</span>
-</div><div class='img'><img src='eval_rare_richness_importance-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># calculate importance scores</span>
-<span class='va'>rwr2</span> <span class='op'>&lt;-</span> <span class='fu'>eval_rare_richness_importance</span><span class='op'>(</span><span class='va'>p2</span>, <span class='va'>s2</span><span class='op'>[</span>, <span class='st'>"solution_1"</span><span class='op'>]</span><span class='op'>)</span>
-
-<span class='co'># plot importance scores</span>
-<span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>rwr2</span>, main <span class='op'>=</span> <span class='st'>"rarity weighted richness"</span><span class='op'>)</span>
-</div><div class='img'><img src='eval_rare_richness_importance-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
-
-</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='co'># \dontrun{</span></span>
+<span class='r-in'><span class='co'># seed seed for reproducibility</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>600</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># load data</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_pu_sf</span>, <span class='va'>sim_features</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># create minimal problem with raster planning units</span></span>
+<span class='r-in'><span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>gap <span class='op'>=</span> <span class='fl'>0</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># solve problem</span></span>
+<span class='r-in'><span class='va'>s1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># print solution</span></span>
+<span class='r-in'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>s1</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> class      : RasterLayer </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> dimensions : 10, 10, 100  (nrow, ncol, ncell)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> resolution : 0.1, 0.1  (x, y)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> extent     : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> crs        : NA </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> source     : memory</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> names      : layer </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> values     : 0, 1  (min, max)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># plot solution</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>s1</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='eval_rare_richness_importance-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># calculate importance scores</span></span>
+<span class='r-in'><span class='va'>rwr1</span> <span class='op'>&lt;-</span> <span class='fu'>eval_rare_richness_importance</span><span class='op'>(</span><span class='va'>p1</span>, <span class='va'>s1</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># print importance scores</span></span>
+<span class='r-in'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>rwr1</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> class      : RasterLayer </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> dimensions : 10, 10, 100  (nrow, ncol, ncell)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> resolution : 0.1, 0.1  (x, y)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> extent     : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> crs        : NA </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> source     : memory</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> names      : rwr </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> values     : 0, 1  (min, max)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># plot importance scores</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>rwr1</span>, main <span class='op'>=</span> <span class='st'>"rarity weighted richness"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='eval_rare_richness_importance-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># create minimal problem with polygon (sf) planning units</span></span>
+<span class='r-in'><span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_sf</span>, <span class='va'>sim_features</span>, cost_column <span class='op'>=</span> <span class='st'>"cost"</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.05</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>gap <span class='op'>=</span> <span class='fl'>0</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># solve problem</span></span>
+<span class='r-in'><span class='va'>s2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># print solution</span></span>
+<span class='r-in'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>s2</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Simple feature collection with 90 features and 4 fields</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Geometry type: POLYGON</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Dimension:     XY</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Bounding box:  xmin: 0 ymin: 0 xmax: 1 ymax: 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> CRS:           NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> First 10 features:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        cost locked_in locked_out solution_1                       geometry</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  215.8638     FALSE      FALSE          0 POLYGON ((0 1, 0.1 1, 0.1 0...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2  212.7823     FALSE      FALSE          0 POLYGON ((0.1 1, 0.2 1, 0.2...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3  207.4962     FALSE      FALSE          0 POLYGON ((0.2 1, 0.3 1, 0.3...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4  208.9322     FALSE       TRUE          0 POLYGON ((0.3 1, 0.4 1, 0.4...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5  214.0419     FALSE      FALSE          0 POLYGON ((0.4 1, 0.5 1, 0.5...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6  213.7636     FALSE      FALSE          0 POLYGON ((0.5 1, 0.6 1, 0.6...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7  210.4612     FALSE      FALSE          0 POLYGON ((0.6 1, 0.7 1, 0.7...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 8  211.0424     FALSE       TRUE          0 POLYGON ((0.7 1, 0.8 1, 0.8...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 9  210.3878     FALSE      FALSE          0 POLYGON ((0.8 1, 0.9 1, 0.9...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10 204.3971     FALSE      FALSE          0 POLYGON ((0.9 1, 1 1, 1 0.9...</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># plot solution</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>s2</span><span class='op'>[</span>, <span class='st'>"solution_1"</span><span class='op'>]</span>, main <span class='op'>=</span> <span class='st'>"solution"</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='eval_rare_richness_importance-3.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># calculate importance scores</span></span>
+<span class='r-in'><span class='va'>rwr2</span> <span class='op'>&lt;-</span> <span class='fu'>eval_rare_richness_importance</span><span class='op'>(</span><span class='va'>p2</span>, <span class='va'>s2</span><span class='op'>[</span>, <span class='st'>"solution_1"</span><span class='op'>]</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># plot importance scores</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>rwr2</span>, main <span class='op'>=</span> <span class='st'>"rarity weighted richness"</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='eval_rare_richness_importance-4.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='co'># }</span></span>
+<span class='r-in'></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

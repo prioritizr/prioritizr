@@ -18,9 +18,11 @@ This vignette contains a list of publications that have cited or used the _prior
 
 ### 2021
 
-* [Magris RA, Costa MD, Ferreira CE, Vilar CC, Joyeux JC, Creed JC, Copertino MS, Horta PA, Sumida PYG, Francini-Filho RB, and Floeter SR (2021). A blueprint for securing Brazil's marine biodiversity and supporting the achievement of global conservation goals. _Diversity and Distributions_. **27**: 198-215.](https://doi.org/10.1111/ddi.13183)
+* [Delso Á, Fajardo J, and Muñoz J (2021) Protected area networks do not represent unseen biodiversity. _Scientific Reports_, **11**: 12275.](https://doi.org/10.1038/s41598-021-91651-z)
+* [Magris RA, Costa MD, Ferreira CE, Vilar CC, Joyeux JC, Creed JC, Copertino MS, Horta PA, Sumida PYG, Francini-Filho RB, and Floeter SR (2021). A blueprint for securing Brazil's marine biodiversity and supporting the achievement of global conservation goals. _Diversity and Distributions_, **27**: 198-215.](https://doi.org/10.1111/ddi.13183)
 * [Southee FM, Edwards BA, Chetkiewicz CLB, and O'Connor CM (2021) Freshwater conservation planning in the far north of Ontario, Canada: identifying priority watersheds for the conservation of fish biodiversity in an intact boreal landscape. _FACETS_, **6**: 90--117.](https://doi.org/10.1139/facets-2020-0015)
-* [von Takach B, Penton CE, Murphy BP, Radford IJ, Davies HF, Hill BM, and Banks SC (2021) Population genomics and conservation management of a declining tropical rodent. _Heredity_, **In press**: https://doi.org/10.1038/s41437-021-00418-9.](https://doi.org/10.1038/s41437-021-00418-9)
+* [von Takach B, Penton CE, Murphy BP, Radford IJ, Davies HF, Hill BM, and Banks SC (2021) Population genomics and conservation management of a declining tropical rodent. _Heredity_, **126**: 763--775.](https://doi.org/10.1038/s41437-021-00418-9)
+* [Xuereb A, D'Aloia CC, Andrello M, Bernatchez L, and Fortin M-J (2021), Incorporating putatively neutral and adaptive genomic data into marine conservation planning. _Conservation Biology_, **35**: 909--920.](https://doi.org/10.1111/cobi.13609)
 * [Zheng C, Wen Z, Liu Y, Guo Q, Jiang Y, Ren H, Fan Y, and Yang Y (2021) Integrating habitat suitability and the near-nature restoration priorities into revegetation plans Based on potential vegetation distribution. _Forests_, **12**: 218.](https://doi.org/10.3390/f12020218)
 
 ### 2020
@@ -35,7 +37,6 @@ This vignette contains a list of publications that have cited or used the _prior
 * [Scriven SA, Williams SH, Ghani MA, Agama AL, Benedick S, Brodie JF, Hamer KC, McClean CJ, Reynolds G, and Hill JK (2020) Assessing the effectiveness of protected areas for conserving range-restricted rain forest butterflies in Sabah, Borneo. _Biotropica_, **52**: 380--391.](https://doi.org/10.1111/btp.12708)
 * [Visalli ME, Best BD, Cabral RB, Cheung WWL, Clark NA, Garilao C, Kaschner K, Kesner-Reyes K, Lam VWY, Maxwell SM, Mayorga J, Moeller HV, Morgan L, Crespo GO, Pinsky ML, White TD, and McCauley DJ (2020) Data-driven approach for highlighting priority areas for protection in marine areas beyond national jurisdiction. _Marine Policy_, **122**: 103927.](https://doi.org/10.1016/j.marpol.2020.103927)
 * [Williams SH, Scriven SA, Burslem DF, Hill JK, Reynolds G, Agama AL, Kugan F, Maycock CR, Khoo E, Hastie AY, Sugau JB (2020) Incorporating connectivity into conservation planning for optimal representation of multiple species and ecosystem services. _Conservation Biology_, **34**: 934--942.](https://doi.org/10.1111/cobi.13450)
-* [Xuereb A, D'Aloia CC, Andrello M, Bernatchez L, and Fortin M-J (2020), Incorporating putatively neutral and adaptive genomic data into marine conservation planning. _Conservation Biology_, **In press**: https://doi.org/10.1111/cobi.13609.](https://doi.org/10.1111/cobi.13609)
 
 ### 2019
 * [Bombi P, Gnetti V, D'Andrea E, De Cinti B, Taglianti AV, Bologna MA, and Matteucci G (2019) Identifying priority sites for insect conservation in forest ecosystems at high resolution: the potential of LiDAR data. _Journal of Insect Conservation_, **23**: 689--698.](https://doi.org/10.1007/s10841-019-00162-w)

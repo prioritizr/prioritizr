@@ -1,16 +1,22 @@
+# prioritizr 7.0.1.4
+
+- Update documentation and examples for `problem` function.
+- Update publication vignette.
+
 # prioritizr 7.0.1.3
 
 - New solver benchmark vignette.
 
 # prioritizr 7.0.1.2
 
-- Update `add_gurobi_solver` so that it doesn't print excess debugging
+- Update `add_gurobi_solver` function so that it doesn't print excess debugging
   information (accidentally introduced in previous version 7.0.1.1).
 
 # prioritizr 7.0.1.1
 
-- Update `add_gurobi_solver` to support the `node_file_start` parameter for
-  the Gurobi software. This functionality is useful solving large problems on systems with limited memory (#139).
+- Update `add_gurobi_solver` function to support the `node_file_start`
+  parameter for the Gurobi software. This functionality is useful solving large
+  problems on systems with limited memory (#139).
 
 # prioritizr 7.0.1
 
