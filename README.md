@@ -254,7 +254,6 @@ s1 <- solve(p1)
     ##      0     0 2612.80272    0   11 2747.37746 2612.80272  4.90%     -    0s
     ##      0     2 2612.91183    0   11 2747.37746 2612.91183  4.89%     -    0s
     ## H76889  5280                    2627.6389306 2621.79315  0.22%   1.7    3s
-    ##  96634  1978     cutoff   47      2627.63893 2624.40712  0.12%   2.0    5s
     ## 
     ## Cutting planes:
     ##   Gomory: 7
@@ -262,7 +261,7 @@ s1 <- solve(p1)
     ##   StrongCG: 39
     ##   Flow cover: 10
     ## 
-    ## Explored 99210 nodes (201659 simplex iterations) in 5.14 seconds
+    ## Explored 99210 nodes (201659 simplex iterations) in 4.69 seconds
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 5: 2627.64 2747.38 2761.33 ... 3139.89
@@ -284,7 +283,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##      5.148
+    ##      4.717
 
 ``` r
 # extract state message from the solver
