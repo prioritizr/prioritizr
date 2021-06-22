@@ -1,3 +1,7 @@
+# prioritizr 7.0.1.5
+
+- Update publication vignette.
+
 # prioritizr 7.0.1.4
 
 - Update documentation and examples for `problem` function.
