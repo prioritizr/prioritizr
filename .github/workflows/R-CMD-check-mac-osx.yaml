@@ -64,6 +64,8 @@ jobs:
           brew install coin-or-tools/coinor/symphony
           brew install coin-or-tools/coinor/cbc
           brew install pkg-config
+          brew install proj
+          brew install geos
           brew install gdal
 
       - name: Install dependencies
