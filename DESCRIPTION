@@ -45,6 +45,7 @@ Authors@R:
 Imports:
     utils,
     methods,
+    sp,
     assertthat (>= 0.2.0),
     data.table,
     uuid,
@@ -58,7 +59,6 @@ Imports:
     doParallel,
     magrittr,
     exactextractr (>= 0.2.0),
-    fasterize (>= 1.0.2),
     tibble (>= 2.0.0),
     withr (>= 2.3.0)
 Suggests:
@@ -80,7 +80,7 @@ Suggests:
 Depends:
     R (>= 3.5.0),
     raster,
-    sp,
+    fasterize (>= 1.0.2),
     sf (>= 0.8-0),
     proto
 LinkingTo:
