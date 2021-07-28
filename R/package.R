@@ -8,6 +8,9 @@ NULL
 #' @useDynLib prioritizr, .registration = TRUE
 NULL
 
+#' @importClassesFrom raster Raster
+NULL
+
 #' prioritizr: Systematic Conservation Prioritization in R
 #'
 #' The \pkg{prioritizr R} package uses mixed integer linear programming (MILP)
