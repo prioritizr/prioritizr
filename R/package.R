@@ -2,10 +2,14 @@
 NULL
 
 #' @import raster
-#' @import fasterize
+#' @import sp
 #' @import proto
 #' @import sf
 #' @useDynLib prioritizr, .registration = TRUE
+NULL
+
+#' @importMethodsFrom fasterize raster
+#' @export
 NULL
 
 #' prioritizr: Systematic Conservation Prioritization in R
