@@ -20,8 +20,6 @@ NULL
 #'   useful when problems take a long time to solve and benefit from
 #'   having multiple threads allocated for solving an individual problem.
 #
-#' @seealso [portfolios].
-#'
 #' @section Notes:
 #' In early versions (< 4.0.1), this function was only compatible with
 #' *Gurobi* (i.e. [add_gurobi_solver()]). To provide functionality with
@@ -30,6 +28,11 @@ NULL
 #'
 #' @return Object (i.e. [`ConservationProblem-class`]) with the portfolio
 #'  added to it.
+#'
+#' @seealso
+#' See [portfolios] for an overview of all functions for adding a portfolio.
+#'
+#' @family portfolios
 #'
 #' @references
 #' Rodrigues AS, Cerdeira OJ, and Gaston KJ (2000) Flexibility,

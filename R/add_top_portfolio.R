@@ -19,7 +19,12 @@ NULL
 #'   `number_solutions`, if the total number of feasible solutions
 #'   is less than the number of solutions requested.
 #'
-#' @inherit add_cuts_portfolio seealso return
+#' @inherit add_cuts_portfolio return
+#'
+#' @seealso
+#' See [portfolios] for an overview of all functions for adding a portfolio.
+#'
+#' @family portfolios
 #'
 #' @examples
 #' \dontrun{

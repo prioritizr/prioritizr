@@ -6,14 +6,17 @@ output:
 
 <!--- README.md is generated from README.Rmd. Please edit that file -->
 
-# Systematic Conservation Prioritization in R <img src="man/figures/logo.png" align="right" width=10% />
+# prioritizr: <img src="man/figures/logo.png" align="right" height="90px" />
+# Systematic Conservation Prioritization in R
 
+<!-- badges: start -->
 [![lifecycle](https://img.shields.io/badge/Lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![R-CMD-check-Ubuntu](https://img.shields.io/github/workflow/status/prioritizr/prioritizr/Ubuntu/master.svg?label=Ubuntu)](https://github.com/prioritizr/prioritizr/actions)
 [![R-CMD-check-Windows](https://img.shields.io/github/workflow/status/prioritizr/prioritizr/Windows/master.svg?label=Windows)](https://github.com/prioritizr/prioritizr/actions)
 [![R-CMD-check-Mac-OSX](https://img.shields.io/github/workflow/status/prioritizr/prioritizr/Mac%20OSX/master.svg?label=Mac%20OSX)](https://github.com/prioritizr/prioritizr/actions)
 [![Coverage Status](https://codecov.io/github/prioritizr/prioritizr/coverage.svg?branch=master)](https://codecov.io/github/prioritizr/prioritizr?branch=master)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/prioritizr)](https://CRAN.R-project.org/package=prioritizr)
+<!-- badges: end -->
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(fig.path = "man/figures/README-", fig.align = "center")

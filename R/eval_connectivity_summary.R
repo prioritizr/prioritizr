@@ -11,7 +11,7 @@ NULL
 #' @inheritParams add_connectivity_penalties
 #' @inheritParams eval_cost_summary
 #'
-#' @details`
+#' @details
 #' This summary statistic is comparable to the `Connectivity_In` metric
 #' reported by the
 #' [*Marxan* software](https://marxansolutions.org) (Ball *et al.* 2009).
@@ -53,7 +53,12 @@ NULL
 #' prioritisation: Quantitative methods and computational tools. Eds Moilanen
 #' A, Wilson KA, and Possingham HP. Oxford University Press, Oxford, UK.
 #'
-#' @seealso [problem()], [summaries], [add_connectivity_penalties()].
+#' @seealso
+#' See [summaries] for an overview of all functions for summarizing solutions.
+#' Also, see [add_connectivity_penalties()] to penalize solutions with low
+#' connectivity.
+#'
+#' @family summaries
 #'
 #' @examples
 #' \dontrun{

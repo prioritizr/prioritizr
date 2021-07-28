@@ -71,7 +71,7 @@ implementation of superior data extraction.}
 implementation of superior data extraction.}
 
 \item{\code{is.parallel()}}{no longer needed used with the
-implementation of superior data extraction}
+implementation of superior data extraction.}
 
 \item{\code{add_pool_portfolio()}}{replaced by the
 \code{\link[=add_extra_portfolio]{add_extra_portfolio()}} and \code{\link[=add_top_portfolio]{add_top_portfolio()}}.}

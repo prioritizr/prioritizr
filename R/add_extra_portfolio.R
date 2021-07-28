@@ -17,7 +17,12 @@ NULL
 #'   [add_gurobi_solver()]. Specifically, version 8.0.0 (or greater)
 #'   of the \pkg{gurobi} package must be installed.
 #'
-#' @inherit add_cuts_portfolio seealso return
+#' @inherit add_cuts_portfolio return
+#'
+#' @seealso
+#' See [portfolios] for an overview of all functions for adding a portfolio.
+#'
+#' @family portfolios
 #'
 #' @examples
 #' \dontrun{

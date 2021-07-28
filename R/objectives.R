@@ -11,8 +11,10 @@ NULL
 #' require a solution that maximizes the number of conserved species while
 #' ensuring that the cost of the reserve network does not exceed the budget.
 #'
-#' **Please note that failing to specify an objective before attempting
-#' to solve a problem will return an error.**
+#' **Please note that all conservation
+#' planning problems formulated using the \pkg{prioritizr} package require an
+#' objective function---failing to do so will return an error
+#' message when attempting to solve problem.**
 #'
 #' @details The following objectives can be added to a conservation planning
 #'   [problem()]:
@@ -51,9 +53,7 @@ NULL
 #'
 #'   }
 #'
-#' @seealso [constraints], [decisions],
-#'   [penalties], [portfolios], [problem()],
-#'   [solvers], [targets].
+#' @family overviews
 #'
 #' @examples
 #' # load data

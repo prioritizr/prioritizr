@@ -103,7 +103,14 @@ plot(stack(s[[5]]), axes = FALSE, box = FALSE)
 }
 }
 \seealso{
-\link{constraints},  \link{decisions},
-\link{objectives} \link{penalties}, \code{\link[=problem]{problem()}},
-\link{solvers}, \link{targets}.
+Other overviews: 
+\code{\link{constraints}},
+\code{\link{decisions}},
+\code{\link{importance}},
+\code{\link{objectives}},
+\code{\link{penalties}},
+\code{\link{solvers}},
+\code{\link{summaries}},
+\code{\link{targets}}
 }
+\concept{overviews}

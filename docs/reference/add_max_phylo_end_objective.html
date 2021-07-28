@@ -113,7 +113,7 @@ Rodrigues et al. (2002), and Rosauer et al. (2009)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.1.0.0</span>
       </span>
     </div>
 
@@ -228,12 +228,7 @@ for the conservation features.</p></td>
 added to it.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>A problem objective is used to specify the overall goal of the
-conservation planning problem. Please note that all conservation
-planning problems formulated in the <span class="pkg">prioritizr</span> package require the
-addition of objectives---failing to do so will return an error
-message when attempting to solve problem.</p>
-<p>The maximum phylogenetic endemism objective finds the set of
+    <p>The maximum phylogenetic endemism objective finds the set of
 planning units that meets representation targets for a phylogenetic tree
 while staying within a fixed budget. If multiple solutions can meet all
 targets while staying within budget, the cheapest solution is chosen.
@@ -258,16 +253,19 @@ planning unit when the planning units are assigned to a (i) not restored,
 Here each target corresponds to a single feature and can be met through
 the total amount of habitat in planning units present to the three
 zones.</p>
-<p>The maximum phylogenetic endemism objective for the reserve design
-problem can be expressed mathematically for a set of planning units
+    <h2 class="hasAnchor" id="mathematical-formulation"><a class="anchor" href="#mathematical-formulation"></a>Mathematical formulation</h2>
+
+    
+
+<p>This objective can be expressed mathematically for a set of planning units
 (\(I\) indexed by \(i\)) and a set of features (\(J\)
 indexed by \(j\)) as:</p>
 <p>$$\mathit{Maximize} \space \sum_{i = 1}^{I} -s \space c_i \space x_i +
-  \sum_{j = 1}^{J} m_b l_b \frac{1}{a_b} \\
-  \mathit{subject \space to} \\
-  \sum_{i = 1}^{I} x_i r_{ij} \geq y_j t_j \forall j \in J \\
-  m_b \leq y_j \forall j \in T(b) \\
-  \sum_{i = 1}^{I} x_i c_i \leq B$$</p>
+\sum_{j = 1}^{J} m_b l_b \frac{1}{a_b} \\
+\mathit{subject \space to} \\
+\sum_{i = 1}^{I} x_i r_{ij} \geq y_j t_j \forall j \in J \\
+m_b \leq y_j \forall j \in T(b) \\
+\sum_{i = 1}^{I} x_i c_i \leq B$$</p>
 <p>Here, \(x_i\) is the <a href='decisions.html'>decisions</a> variable (e.g.
 specifying whether planning unit \(i\) has been selected (1) or not
 (0)), \(r_{ij}\) is the amount of feature \(j\) in planning
@@ -302,7 +300,17 @@ concentrations of evolutionary history. <em>Molecular Ecology</em>, 18:
 4061--4072.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='objectives.html'>objectives</a>, <code><a href='branch_matrix.html'>branch_matrix()</a></code>.</p></div>
+    <div class='dont-index'><p>See <a href='objectives.html'>objectives</a> for an overview of all functions for adding objectives.
+Also, see <a href='targets.html'>targets</a> for an overview of all functions for adding targets, and
+<code><a href='add_feature_weights.html'>add_feature_weights()</a></code> to specify weights for different features.</p>
+<p>Other objectives: 
+<code><a href='add_max_cover_objective.html'>add_max_cover_objective</a>()</code>,
+<code><a href='add_max_features_objective.html'>add_max_features_objective</a>()</code>,
+<code><a href='add_max_phylo_div_objective.html'>add_max_phylo_div_objective</a>()</code>,
+<code><a href='add_max_utility_objective.html'>add_max_utility_objective</a>()</code>,
+<code><a href='add_min_largest_shortfall_objective.html'>add_min_largest_shortfall_objective</a>()</code>,
+<code><a href='add_min_set_objective.html'>add_min_set_objective</a>()</code>,
+<code><a href='add_min_shortfall_objective.html'>add_min_shortfall_objective</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='co'># load ape package</span></span>
@@ -337,7 +345,7 @@ concentrations of evolutionary history. <em>Molecular Ecology</em>, 18:
 <span class='r-in'><span class='co'># find out which features have their targets met</span></span>
 <span class='r-in'><span class='va'>r1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='eval_target_coverage_summary.html'>eval_target_coverage_summary</a></span><span class='op'>(</span><span class='va'>p1</span>, <span class='va'>s1</span><span class='op'>)</span></span>
 <span class='r-in'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>r1</span>, width <span class='op'>=</span> <span class='cn'>Inf</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 5 x 9</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 5 × 9</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   feature met   total_amount absolute_target absolute_held absolute_shortfall</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;lgl&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>           <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>              <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> layer.1 FALSE         83.3            8.33          7.71              0.618</span>
@@ -393,7 +401,7 @@ concentrations of evolutionary history. <em>Molecular Ecology</em>, 18:
 <span class='r-in'><span class='co'># find out which features have their targets met</span></span>
 <span class='r-in'><span class='va'>r2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='eval_target_coverage_summary.html'>eval_target_coverage_summary</a></span><span class='op'>(</span><span class='va'>p2</span>, <span class='va'>s2</span><span class='op'>)</span></span>
 <span class='r-in'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>r2</span>, width <span class='op'>=</span> <span class='cn'>Inf</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 5 x 11</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 5 × 11</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   feature   zone      sense met   total_amount absolute_target absolute_held</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;lgl&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>           <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> feature_1 <span style='color: #949494;'>&lt;chr [3]&gt;</span> &gt;=    TRUE         250.               10         18.6 </span>
@@ -433,7 +441,7 @@ concentrations of evolutionary history. <em>Molecular Ecology</em>, 18:
 <span class='r-in'><span class='co'># find out which features have their targets met</span></span>
 <span class='r-in'><span class='va'>r3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='eval_target_coverage_summary.html'>eval_target_coverage_summary</a></span><span class='op'>(</span><span class='va'>p3</span>, <span class='va'>s3</span><span class='op'>)</span></span>
 <span class='r-in'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>r3</span>, width <span class='op'>=</span> <span class='cn'>Inf</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 5 x 11</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 5 × 11</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   feature   zone      sense met   total_amount absolute_target absolute_held</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;lgl&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>           <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> feature_1 <span style='color: #949494;'>&lt;chr [3]&gt;</span> &gt;=    TRUE         250.               10         15.7 </span>

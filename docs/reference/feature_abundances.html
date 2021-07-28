@@ -107,7 +107,7 @@ of a conservation planning problem." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.1.0.0</span>
       </span>
     </div>
 
@@ -269,7 +269,7 @@ each feature---then the <code>na.rm</code> argument should be set to
 <span class='r-in'><span class='co'># calculate feature abundances; including planning units with NA costs</span></span>
 <span class='r-in'><span class='va'>a1</span> <span class='op'>&lt;-</span> <span class='fu'>feature_abundances</span><span class='op'>(</span><span class='va'>p1</span>, na.rm <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='co'># (default)</span></span>
 <span class='r-in'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>a1</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 2 x 3</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 2 × 3</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   feature absolute_abundance relative_abundance</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>              <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> spp1                  4.10                  1</span>
@@ -278,7 +278,7 @@ each feature---then the <code>na.rm</code> argument should be set to
 <span class='r-in'><span class='co'># calculate feature abundances; excluding planning units with NA costs</span></span>
 <span class='r-in'><span class='va'>a2</span> <span class='op'>&lt;-</span> <span class='fu'>feature_abundances</span><span class='op'>(</span><span class='va'>p1</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
 <span class='r-in'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>a2</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 2 x 3</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 2 × 3</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   feature absolute_abundance relative_abundance</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>              <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> spp1                  3.84              0.935</span>
@@ -311,7 +311,7 @@ each feature---then the <code>na.rm</code> argument should be set to
 <span class='r-in'><span class='co'># calculate feature abundances; including planning units with NA costs</span></span>
 <span class='r-in'><span class='va'>a3</span> <span class='op'>&lt;-</span> <span class='fu'>feature_abundances</span><span class='op'>(</span><span class='va'>p3</span>, na.rm <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='co'># (default)</span></span>
 <span class='r-in'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>a3</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 5 x 3</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 5 × 3</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   feature absolute_abundance relative_abundance</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>              <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> layer.1               83.3                  1</span>
@@ -339,7 +339,7 @@ each feature---then the <code>na.rm</code> argument should be set to
 <span class='r-in'><span class='co'># calculate feature abundances; excluding planning units with NA costs</span></span>
 <span class='r-in'><span class='va'>a5</span> <span class='op'>&lt;-</span> <span class='fu'>feature_abundances</span><span class='op'>(</span><span class='va'>p3</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
 <span class='r-in'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>a5</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 5 x 3</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 5 × 3</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   feature absolute_abundance relative_abundance</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>              <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> layer.1               74.5              0.895</span>

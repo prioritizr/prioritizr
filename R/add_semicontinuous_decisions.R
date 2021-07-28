@@ -20,7 +20,12 @@ NULL
 #' @param upper_limit `numeric` value specifying the maximum proportion
 #'   of a planning unit that can be reserved (e.g. set to 0.8 for 80%).
 #'
-#' @inherit add_binary_decisions details return seealso
+#' @inherit add_binary_decisions details return
+#'
+#' @seealso
+#' See [decisions] for an overview of all functions for adding decisions.
+#'
+#' @family decisions
 #'
 #' @examples
 #' # set seed for reproducibility

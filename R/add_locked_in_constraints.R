@@ -35,16 +35,16 @@ NULL
 #'
 #' \describe{
 #'
-#' \item{`integer`}{`vector` of indices pertaining to which
+#' \item{`data` as an `integer` `vector`}{containing indices that indicate which
 #'   planning units should be locked for the solution. This argument is only
 #'   compatible with problems that contain a single zone.}
 #'
-#' \item{`logical`}{`vector` containing `TRUE` and/or
+#' \item{`data` as a `logical` `vector`}{containing `TRUE` and/or
 #'   `FALSE` values that indicate which planning units should be locked
 #'   in the solution. This argument is only compatible with problems that
 #'   contain a single zone.}
 #'
-#' \item{`matrix`}{containing `logical` `TRUE` and/or
+#' \item{`data` as a `matrix` object}{containing `logical` `TRUE` and/or
 #'   `FALSE` values which indicate if certain planning units are
 #'   should be locked to a specific zone in the solution. Each row
 #'   corresponds to a planning unit, each column corresponds to a zone, and
@@ -52,25 +52,31 @@ NULL
 #'   zone. Thus each row should only contain at most a single `TRUE`
 #'   value.}
 #'
-#' \item{`character`}{field (column) name(s) that indicate if planning
-#'   units should be locked for the solution. This type of argument is only
+#' \item{`data` as a `character` `vector`}{containing field (column) name(s)
+#'   that indicate if planning units should be locked for the solution.
+#'   This format is only
 #'   compatible if the planning units in the argument to `x` are a
 #'   [`Spatial-class`], [sf::sf()], or
 #'   `data.frame` object. The fields
-#'   (columns) must have `logical`  (i.e. `TRUE` or `FALSE`)
+#'   (columns) must have `logical` (i.e. `TRUE` or `FALSE`)
 #'   values indicating if the planning unit is to be locked for the solution.
-#'   For problems containing multiple zones, this argument should contain
-#'   a field (column) name for each management zone.}
+#'   For problems that contain a single zone, the argument to `data` must
+#'   contain a single field name. Otherwise, for problems that
+#'   contain multiple zones, the argument to `data` must
+#'   contain a field name for each zone.}
 #'
-#' \item{[`Spatial-class`] or [sf::sf()]}{
-#'   planning units in `x` that spatially intersect with the
-#'   argument to `y` (according to [intersecting_units()]
-#'   are locked for to the solution. Note that this option is only available
+#' \item{`data` as a [`Spatial-class`] or [sf::sf()] object}{
+#'   containing geometries that will be used to lock planning units for
+#'   the solution. Specifically, planning units in `x` that spatially
+#'   intersect with `y` will be locked (per [intersecting_units()]).
+#'   Note that this option is only available
 #'   for problems that contain a single management zone.}
 #'
-#' \item{[`Raster-class`]}{planning units in `x`
-#'   that intersect with non-zero and non-`NA` raster cells are locked
-#'   for the solution. For problems that contain multiple zones, the
+#' \item{`data` as a [`Raster-class`] object}{containing cells used to lock
+#'   planning units for the solution. Specifically, planning units in `x`
+#'   that intersect with cells that have non-zero and non-`NA` values are
+#'   locked.
+#'   For problems that contain multiple zones, the
 #'   [`Raster-class`] object must contain a layer
 #'   for each zone. Note that for multi-band arguments, each pixel must
 #'   only contain a non-zero value in a single band. Additionally, if the
@@ -80,7 +86,12 @@ NULL
 #'   should also have `NA` values in the locked data.}
 #' }
 #'
-#' @inherit add_contiguity_constraints return seealso
+#' @inherit add_contiguity_constraints return
+#'
+#' @seealso
+#' See [constraints] for an overview of all functions for adding constraints.
+#'
+#' @family constraints
 #'
 #' @examples
 #' # set seed for reproducibility
@@ -212,7 +223,6 @@ NULL
 #' # plot solution
 #' plot(category_layer(s9), main = "solution", axes = FALSE, box = FALSE)
 #' }
-#' @seealso [constraints].
 #'
 #' @name add_locked_in_constraints
 #'

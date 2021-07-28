@@ -9,7 +9,12 @@ NULL
 #'
 #' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
-#' @seealso [decisions].
+#' @inherit add_binary_decisions return
+#'
+#' @seealso
+#' See [decisions] for an overview of all functions for adding decisions.
+#'
+#' @family decisions
 #'
 #' @export
 add_default_decisions <- function(x) {

@@ -60,21 +60,22 @@ The argument to \code{data} can be specified using the following formats.
 
 \describe{
 
-\item{\code{NULL}}{connection data should be calculated automatically
-using the \code{\link[=adjacency_matrix]{adjacency_matrix()}} function. This is the default
-argument. Note that the connection data must be manually defined
+\item{\code{data} as a \code{NULL} value}{indicating that connection data should be
+calculated automatically using the \code{\link[=adjacency_matrix]{adjacency_matrix()}} function.
+This is the default argument.
+Note that the connection data must be manually defined
 using one of the other formats below when the planning unit data
 in the argument to \code{x} is not spatially referenced (e.g.
 in \code{data.frame} or \code{numeric} format).}
 
-\item{\code{matrix}, \code{Matrix}}{where rows and columns represent
+\item{\code{data} as a \code{matrix}/\code{Matrix} object}{where rows and columns represent
 different planning units and the value of each cell indicates if the
 two planning units are connected or not. Cell values should be binary
 \code{numeric} values (i.e. one or zero). Cells that occur along the
 matrix diagonal have no effect on the solution at all because each
 planning unit cannot be a connected with itself.}
 
-\item{\code{data.frame}}{containing the fields (columns)
+\item{\code{data} as a \code{data.frame} object}{containing the fields (columns)
 \code{"id1"}, \code{"id2"}, and \code{"boundary"}. Here, each row
 denotes the connectivity between two planning units following the
 \emph{Marxan} format. The field \code{boundary} should contain
@@ -212,5 +213,15 @@ plot(s7, "solution", axes = FALSE, box = FALSE)
 reserve network. \emph{Operations Research}, 54: 379--388.
 }
 \seealso{
-\link{constraints}.
+See \link{constraints} for an overview of all functions for adding constraints.
+
+Other constraints: 
+\code{\link{add_feature_contiguity_constraints}()},
+\code{\link{add_linear_constraints}()},
+\code{\link{add_locked_in_constraints}()},
+\code{\link{add_locked_out_constraints}()},
+\code{\link{add_mandatory_allocation_constraints,ConservationProblem-method}},
+\code{\link{add_manual_bounded_constraints}()},
+\code{\link{add_manual_locked_constraints}()}
 }
+\concept{constraints}

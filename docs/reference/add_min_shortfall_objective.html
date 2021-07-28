@@ -108,7 +108,7 @@ ensuring that the cost of the solution does not exceed a budget." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.1.0.0</span>
       </span>
     </div>
 
@@ -184,7 +184,7 @@ ensuring that the cost of the solution does not exceed a budget." />
 
     <div class="ref-description">
     <p>Set the objective of a conservation planning <code><a href='problem.html'>problem()</a></code> to
-minimize the overall shortfall for as many targets as possible while
+minimize the overall shortfall for as many <a href='targets.html'>targets</a> as possible while
 ensuring that the cost of the solution does not exceed a budget.</p>
     </div>
 
@@ -213,12 +213,7 @@ a budget for each each management zone.</p></td>
 added to it.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>A problem objective is used to specify the overall goal of the
-conservation planning problem. Please note that all conservation
-planning problems formulated in the <span class="pkg">prioritizr</span> package require the
-addition of objectives---failing to do so will return an error
-message when attempting to solve problem.</p>
-<p>The minimum shortfall objective aims to
+    <p>The minimum shortfall objective aims to
 find the set of planning units that minimize the overall
 (weighted sum) shortfall for the
 representation targets---that is, the fraction of each target that
@@ -227,13 +222,17 @@ fixed budget (inspired by Table 1, equation IV, Arponen <em>et al.</em>
 2005). Additionally, weights can be used
 to favor the representation of certain features over other features (see
 <code><a href='add_feature_weights.html'>add_feature_weights()</a></code>.</p>
-<p>The minimum shortfall objective for the reserve design problem can be
-expressed mathematically for a set of planning units (\(I\) indexed by
-\(i\)) and a set of features (\(J\) indexed by \(j\)) as:</p>
+    <h2 class="hasAnchor" id="mathematical-formulation"><a class="anchor" href="#mathematical-formulation"></a>Mathematical formulation</h2>
+
+    
+
+<p>This objective can be expressed mathematically for a set of planning units
+(\(I\) indexed by \(i\)) and a set of features (\(J\) indexed
+by \(j\)) as:</p>
 <p>$$\mathit{Minimize} \space  \sum_{j = 1}^{J} w_j \frac{y_j}{t_j} \\
-  \mathit{subject \space to} \\
-  \sum_{i = 1}^{I} x_i r_{ij} + y_j \geq t_j \forall j \in J \\
-  \sum_{i = 1}^{I} x_i c_i \leq B$$</p>
+\mathit{subject \space to} \\
+\sum_{i = 1}^{I} x_i r_{ij} + y_j \geq t_j \forall j \in J \\
+\sum_{i = 1}^{I} x_i c_i \leq B$$</p>
 <p>Here, \(x_i\) is the <a href='decisions.html'>decisions</a> variable (e.g.
 specifying whether planning unit \(i\) has been selected (1) or not
 (0)), \(r_{ij}\) is the amount of feature \(j\) in planning
@@ -253,7 +252,17 @@ biodiversity in reserve selection: representation, species weighting, and
 benefit functions. <em>Conservation Biology</em>, 19: 2009--2014.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='add_feature_weights.html'>add_feature_weights()</a></code>, <a href='objectives.html'>objectives</a>.</p></div>
+    <div class='dont-index'><p>See <a href='objectives.html'>objectives</a> for an overview of all functions for adding objectives.
+Also, see <a href='targets.html'>targets</a> for an overview of all functions for adding targets, and
+<code><a href='add_feature_weights.html'>add_feature_weights()</a></code> to specify weights for different features.</p>
+<p>Other objectives: 
+<code><a href='add_max_cover_objective.html'>add_max_cover_objective</a>()</code>,
+<code><a href='add_max_features_objective.html'>add_max_features_objective</a>()</code>,
+<code><a href='add_max_phylo_div_objective.html'>add_max_phylo_div_objective</a>()</code>,
+<code><a href='add_max_phylo_end_objective.html'>add_max_phylo_end_objective</a>()</code>,
+<code><a href='add_max_utility_objective.html'>add_max_utility_objective</a>()</code>,
+<code><a href='add_min_largest_shortfall_objective.html'>add_min_largest_shortfall_objective</a>()</code>,
+<code><a href='add_min_set_objective.html'>add_min_set_objective</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='co'># load data</span></span>

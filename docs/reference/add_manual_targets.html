@@ -115,7 +115,7 @@ solution should not exceed a certain quantity using &quot;&amp;lt;=&quot; values
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.1.0.0</span>
       </span>
     </div>
 
@@ -251,12 +251,13 @@ in all zones must secure a specific amount. Thus the target could,
 potentially, be met through allocating all planning units to any specific
 management zone, or through allocating the planning units to different
 combinations of management zones.</p>
-    <h2 class="hasAnchor" id="target-data-format"><a class="anchor" href="#target-data-format"></a>Target data format</h2>
+    <h2 class="hasAnchor" id="targets-format"><a class="anchor" href="#targets-format"></a>Targets format</h2>
 
     
 
 
-<p>The <code>targets</code> argument should contain the following fields (columns):</p>
+<p>The <code>targets</code> argument should be a <code>data.frame</code> with the following
+fields (columns):</p>
 <dl>
 
 <dt>feature</dt><dd><p><code>character</code> name of features in argument
@@ -283,7 +284,11 @@ default to <code>"&gt;="</code> values.</p></dd>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='targets.html'>targets</a>.</p></div>
+    <div class='dont-index'><p>See <a href='targets.html'>targets</a> for an overview of all functions for adding targets.</p>
+<p>Other targets: 
+<code><a href='add_absolute_targets.html'>add_absolute_targets</a>()</code>,
+<code><a href='add_loglinear_targets.html'>add_loglinear_targets</a>()</code>,
+<code><a href='add_relative_targets.html'>add_relative_targets</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='co'># set seed for reproducibility</span></span>

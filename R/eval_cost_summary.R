@@ -65,7 +65,10 @@ NULL
 #'
 #' @name eval_cost_summary
 #'
-#' @seealso [problem()], [summaries].
+#' @seealso
+#' See [summaries] for an overview of all functions for summarizing solutions.
+#'
+#' @family summaries
 #'
 #' @examples
 #' \dontrun{

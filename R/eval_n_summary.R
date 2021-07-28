@@ -1,7 +1,7 @@
 #' @include internal.R ConservationProblem-proto.R
 NULL
 
-#' Evaluate number of planning units selected.
+#' Evaluate number of planning units selected
 #'
 #' Calculate the number of planning units selected within a solution
 #' to a conservation planning [problem()].
@@ -37,7 +37,10 @@ NULL
 #'
 #' @name eval_n_summary
 #'
-#' @inherit eval_cost_summary seealso
+#' @seealso
+#' See [summaries] for an overview of all functions for summarizing solutions.
+#'
+#' @family summaries
 #'
 #' @examples
 #' \dontrun{

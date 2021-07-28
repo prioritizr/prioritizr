@@ -36,6 +36,12 @@ NULL
 #'
 #' @inherit eval_replacement_importance return
 #'
+#' @seealso
+#' See [importance] for an overview of all functions for evaluating
+#' the importance of planning units selected in a solution.
+#.
+#' @family importances
+#'
 #' @examples
 #' \dontrun{
 #' # seed seed for reproducibility
@@ -97,8 +103,6 @@ NULL
 #' (1996) A comparison of richness hotspots, rarity hotspots and complementary
 #' areas for conserving diversity using British birds.
 #' *Conservation Biology*, 10: 155--174.
-#'
-#' @inherit eval_replacement_importance seealso
 #'
 #' @aliases eval_rare_richness_importance,ConservationProblem,numeric-method eval_rare_richness_importance,ConservationProblem,matrix-method eval_rare_richness_importance,ConservationProblem,data.frame-method eval_rare_richness_importance,ConservationProblem,Spatial-method eval_rare_richness_importance,ConservationProblem,sf-method eval_rare_richness_importance,ConservationProblem,Raster-method
 #'

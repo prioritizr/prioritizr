@@ -86,5 +86,12 @@ efficiency, and accountability: adapting reserve selection algorithms to
 more complex conservation problems. \emph{Ecography}, 23: 565--574.
 }
 \seealso{
-\link{portfolios}.
+See \link{portfolios} for an overview of all functions for adding a portfolio.
+
+Other portfolios: 
+\code{\link{add_extra_portfolio}()},
+\code{\link{add_gap_portfolio}()},
+\code{\link{add_shuffle_portfolio}()},
+\code{\link{add_top_portfolio}()}
 }
+\concept{portfolios}

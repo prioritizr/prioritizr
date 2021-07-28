@@ -89,7 +89,8 @@ bool rcpp_apply_min_largest_shortfall_objective(
       (ptr->_number_of_zones * ptr->_number_of_planning_units) +
       A_extra_ncol + n_targets);
   for (std::size_t i = 0; i < n_targets; ++i)
-    ptr->_A_x.push_back(-1.0 / targets_value[i]);
+    ptr->_A_x.push_back(
+      targets_value[i] > 1.0e-5 ? -1.0 / targets_value[i] : 0);
   for (std::size_t i = 0; i < n_targets; ++i)
     ptr->_A_x.push_back(1.0);
   // add in budget constraints

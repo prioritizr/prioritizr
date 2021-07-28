@@ -56,7 +56,12 @@ NULL
 #'
 #' @name eval_boundary_summary
 #'
-#' @seealso [problem()], [summaries], [add_boundary_penalties()].
+#' @seealso
+#' See [summaries] for an overview of all functions for summarizing solutions.
+#' Also, see [add_boundary_penalties()] to penalize solutions with high
+#' boundary length.
+#'
+#' @family summaries
 #'
 #' @examples
 #' \dontrun{

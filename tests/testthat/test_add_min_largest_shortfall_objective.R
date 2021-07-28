@@ -5,6 +5,7 @@ test_that("compile (compressed formulation, single zone)", {
   data(sim_pu_raster, sim_features)
   b <- floor(raster::cellStats(sim_pu_raster, "sum"))
   targ <- unname(floor(raster::cellStats(sim_features, "sum") * 0.25))
+  targ[2] <- 0
   p <- problem(sim_pu_raster, sim_features) %>%
     add_min_largest_shortfall_objective(budget = b) %>%
     add_absolute_targets(targ) %>%
@@ -36,7 +37,7 @@ test_that("compile (compressed formulation, single zone)", {
     all(o$A()[n_f + seq_len(n_f),
               n_pu + seq_len(n_f + 1)] ==
     cbind(triplet_sparse_matrix(
-        i = seq_len(n_f), j = seq_len(n_f), x = - 1 / targ), 1)))
+        i = seq_len(n_f), j = seq_len(n_f), x = replace(-1 / targ, 2, 0)), 1)))
   expect_true(all(o$lb() == 0))
   expect_equal(o$ub(), c(rep(1, n_pu), rep(Inf, n_f), Inf))
 })
@@ -71,6 +72,7 @@ test_that("compile (expanded formulation, single zone)", {
   data(sim_pu_raster, sim_features)
   b <- floor(raster::cellStats(sim_pu_raster, "sum"))
   targ <- unname(floor(raster::cellStats(sim_features, "sum") * 0.25))
+  targ[2] <- 0
   p <- problem(sim_pu_raster, sim_features) %>%
        add_min_largest_shortfall_objective(budget = b) %>%
        add_absolute_targets(targ) %>%
@@ -119,7 +121,8 @@ test_that("compile (expanded formulation, single zone)", {
   }
   for (i in seq_len(n_f)) {
     curr_row <- rep(0, n_pu + (n_pu * n_f) + n_f + 1)
-    curr_row[n_pu + (n_pu * n_f) + i] <- -1 / targ[i]
+    curr_row[n_pu + (n_pu * n_f) + i] <-
+      ifelse(targ[i] < 1e-5, 0, -1 / targ[i])
     curr_row[n_pu + (n_pu * n_f) + n_f + 1] <- 1
     expect_equal(o$A()[(n_f * n_pu) + n_f + i, ], curr_row)
   }

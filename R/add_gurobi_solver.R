@@ -109,7 +109,10 @@ NULL
 #' @return Object (i.e. [`ConservationProblem-class`]) with the solver
 #'  added to it.
 #'
-#' @seealso [solvers].
+#' @seealso
+#' See [solvers] for an overview of all functions for adding a solver.
+#'
+#' @family solvers
 #'
 #' @references
 #' Gurobi Optimization LLC (2021) Gurobi Optimizer Reference Manual.

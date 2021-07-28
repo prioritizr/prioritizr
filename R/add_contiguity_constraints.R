@@ -42,21 +42,22 @@ NULL
 #'
 #' \describe{
 #'
-#' \item{`NULL`}{connection data should be calculated automatically
-#'   using the [adjacency_matrix()] function. This is the default
-#'   argument. Note that the connection data must be manually defined
+#' \item{`data` as a `NULL` value}{indicating that connection data should be
+#'   calculated automatically using the [adjacency_matrix()] function.
+#'   This is the default argument. 
+#'   Note that the connection data must be manually defined
 #'   using one of the other formats below when the planning unit data
 #'   in the argument to `x` is not spatially referenced (e.g.
 #'   in `data.frame` or `numeric` format).}
 #'
-#' \item{`matrix`, `Matrix`}{where rows and columns represent
+#' \item{`data` as a `matrix`/`Matrix` object}{where rows and columns represent
 #'   different planning units and the value of each cell indicates if the
 #'   two planning units are connected or not. Cell values should be binary
 #'   `numeric` values (i.e. one or zero). Cells that occur along the
 #'   matrix diagonal have no effect on the solution at all because each
 #'   planning unit cannot be a connected with itself.}
 #'
-#' \item{`data.frame`}{containing the fields (columns)
+#' \item{`data` as a `data.frame` object}{containing the fields (columns)
 #'   `"id1"`, `"id2"`, and `"boundary"`. Here, each row
 #'   denotes the connectivity between two planning units following the
 #'   *Marxan* format. The field `boundary` should contain
@@ -78,7 +79,10 @@ NULL
 #' @return Object (i.e. [`ConservationProblem-class`]) with the constraints
 #'  added to it.
 #'
-#' @seealso [constraints].
+#' @seealso
+#' See [constraints] for an overview of all functions for adding constraints.
+#'
+#' @family constraints
 #'
 #' @references
 #' Önal H and Briers RA (2006) Optimal selection of a connected

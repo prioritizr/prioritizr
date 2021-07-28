@@ -13,8 +13,10 @@ require a solution that maximizes the number of conserved species while
 ensuring that the cost of the reserve network does not exceed the budget.
 }
 \details{
-\strong{Please note that failing to specify an objective before attempting
-to solve a problem will return an error.}
+\strong{Please note that all conservation
+planning problems formulated using the \pkg{prioritizr} package require an
+objective function---failing to do so will return an error
+message when attempting to solve problem.}
 
 The following objectives can be added to a conservation planning
 \code{\link[=problem]{problem()}}:
@@ -103,7 +105,14 @@ plot(s, axes = FALSE, box = FALSE,
 }
 }
 \seealso{
-\link{constraints}, \link{decisions},
-\link{penalties}, \link{portfolios}, \code{\link[=problem]{problem()}},
-\link{solvers}, \link{targets}.
+Other overviews: 
+\code{\link{constraints}},
+\code{\link{decisions}},
+\code{\link{importance}},
+\code{\link{penalties}},
+\code{\link{portfolios}},
+\code{\link{solvers}},
+\code{\link{summaries}},
+\code{\link{targets}}
 }
+\concept{overviews}

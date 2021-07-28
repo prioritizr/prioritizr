@@ -136,8 +136,14 @@ integer linear programming solvers outperform simulated annealing for
 solving conservation planning problems. \emph{PeerJ}, 8: e9258.
 }
 \seealso{
-\link{constraints},  \link{decisions},
-\link{objectives}, \link{penalties},
-\link{portfolios}, \code{\link[=problem]{problem()}},
-\link{targets}.
+Other overviews: 
+\code{\link{constraints}},
+\code{\link{decisions}},
+\code{\link{importance}},
+\code{\link{objectives}},
+\code{\link{penalties}},
+\code{\link{portfolios}},
+\code{\link{summaries}},
+\code{\link{targets}}
 }
+\concept{overviews}

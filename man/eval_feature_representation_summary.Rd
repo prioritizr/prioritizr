@@ -309,5 +309,13 @@ plot(s5[, "solution"])
 }
 }
 \seealso{
-\code{\link[=problem]{problem()}}, \link{summaries}.
+See \link{summaries} for an overview of all functions for summarizing solutions.
+
+Other summaries: 
+\code{\link{eval_boundary_summary}()},
+\code{\link{eval_connectivity_summary}()},
+\code{\link{eval_cost_summary}()},
+\code{\link{eval_n_summary}()},
+\code{\link{eval_target_coverage_summary}()}
 }
+\concept{summaries}

@@ -26,7 +26,7 @@ NULL
 #'
 #' @param data `character`, `numeric`,
 #'   [`Raster-class`], `matrix`, or `Matrix` object
-#'   containing the data used to penalize solutions. Planning units that are
+#'   containing the values used to penalize solutions. Planning units that are
 #'   associated with higher data values are penalized more strongly
 #'   in the solution. See the Data format section for more information.
 #'
@@ -35,18 +35,66 @@ NULL
 #' to the sum of the penalty values associated with each planning unit,
 #' weighted by status of each planning unit in the solution.
 #'
-#' Specifically, the linear penalties are calculated using the following
+#' @section Data format:
+#'
+#' The argument to `data` can be specified using the following formats.
+#'
+#' \describe{
+#'
+#' \item{`data` as `character` `vector`}{containing field (column) name(s) that
+#'   contain penalty values for planning units. This format is only
+#'   compatible if the planning units in the argument to `x` are a
+#'   [`Spatial-class`], [sf::sf()], or
+#'   `data.frame` object. The fields (columns) must have `numeric`
+#'   values, and must not contain any missing (`NA`) values.
+#'   For problems that contain a single zone, the argument to `data` must
+#'   contain a single field name. Otherwise, for problems that
+#'   contain multiple zones, the argument to `data` must
+#'   contain a field name for each zone.}
+#'
+#' \item{`data` as a `numeric` `vector`}{containing values for
+#'   planning units. These values must not contain any missing
+#'   (`NA`) values. Note that this format is only available
+#'   for planning units that contain a single zone.}
+#'
+#' \item{`data` as a `matrix`/`Matrix` object}{containing `numeric` values
+#'   that specify data for each planning unit.
+#'   Each row corresponds to a planning unit, each column corresponds to a
+#'   zone, and each cell indicates the data for penalizing a planning unit
+#'   when it is allocated to a given zone.}
+#'
+#' \item{`data` as a [`Raster-class`] object}{containing values for planning
+#'   units. This format is only
+#'   compatible if the planning units in the argument to `x` are
+#'   [`Spatial-class`], [sf::sf()], or
+#'   [`Raster-class`] objects.
+#'   If the planning unit data are a [`Spatial-class`] or
+#'   [sf::sf()] object, then the values are calculated by overlaying the
+#'   planning units with the argument to `data` and calculating the sum of the
+#'   values associated with each planning unit.
+#'   If the planning unit data are a
+#'   [`Raster-class`] object then the values are calculated by extracting the
+#'   cell
+#'   values (note that the planning unit data and the argument to `data` must
+#'   have exactly the same dimensionality, extent, and missingness).
+#'   For problems involving multiple zones, the argument to `data` must
+#'   contain a layer for each zone.}
+#'
+#' }
+#'
+#' @section Mathematical formulation:
+#' The linear penalties are implemented using the following
 #' equations.
 #' Let \eqn{I} denote the set of planning units
 #' (indexed by \eqn{i}), \eqn{Z} the set of management zones (indexed by
 #' \eqn{z}), and \eqn{X_{iz}}{Xiz} the decision variable for allocating
 #' planning unit \eqn{i} to zone \eqn{z} (e.g. with binary
-#' values one indicating if planning unit is allocated or not). Also, let
+#' values indicating if each planning unit is allocated or not). Also, let
 #' \eqn{P_z} represent the penalty scaling value for zones
 #' \eqn{z \in Z}{z in Z} (argument to `penalty`), and
 #' \eqn{D_{iz}}{Diz} the penalty data for allocating planning unit
 #' \eqn{i \in I}{i in I} to zones \eqn{z \in Z}{z in Z} (argument to
-#' `data` if supplied as a `matrix` object).
+#' `data`, if supplied as a `matrix` object).
 #'
 #' \deqn{
 #' \sum_{i}^{I} \sum_{z}^{Z} P_z \times D_{iz} \times X_{iz}
@@ -58,53 +106,12 @@ NULL
 #' benefit and not minimize some measure of cost, the term \eqn{P_z} is
 #' replaced with \eqn{-P_z}.
 #'
-#' @section Data format:
+#' @inherit add_boundary_penalties return
 #'
-#' The argument to `data` can be specified using the following formats.
+#' @seealso
+#' See [penalties] for an overview of all functions for adding penalties.
 #'
-#' \describe{
-#'
-#' \item{`character`}{field (column) name(s) that contain the data for
-#'   penalizing planning units. This type of argument is only
-#'   compatible if the planning units in the argument to `x` are a
-#'   [`Spatial-class`], [sf::sf()], or
-#'   `data.frame` object. The fields (columns) must have `numeric`
-#'   values, and must not contain any missing (`NA`) values.
-#'   For problems involving multiple zones, the argument to `data` must
-#'   contain a field name for each zone.}
-#'
-#' \item{`numeric`}{`vector` containing the data for penalizing
-#'   each planning unit. These values must not contain any missing
-#'   (`NA`) values. Note that this type of argument is only available
-#'   for planning units that contain a single zone.}
-#'
-#' \item{[`Raster-class`]}{containing the data for
-#'   penalizing planning units. This type of argument is only
-#'   compatible if the planning units in the argument to `x` are
-#'   [`Spatial-class`], [sf::sf()], or
-#'   or [`Raster-class`] (i.e. they are in a spatially
-#'   referenced format).
-#'   If the planning unit data are a [`Spatial-class`] or
-#'   [sf::sf()] object, then the
-#'   penalty `data` are calculated by overlaying the planning units with
-#'   the argument to `data` and calculating the sum of the values.
-#'   If the planning unit data are in the
-#'   [`Raster-class`] then the penalty `data` are
-#'   calculated by extracting the cell values (note that the
-#'   planning unit data and the argument to code{data} must have exactly
-#'   the same dimensionality, extent, and missingness).
-#'   For problems involving multiple zones, the argument to `data` must
-#'   contain a layer for each zone.}
-#'
-#' \item{`matrix`, `Matrix`}{containing `numeric` values
-#'   that specify data for penalizing each planning unit.
-#'   Each row corresponds to a planning unit, each column corresponds to a
-#'   zone, and each cell indicates the data for penalizing a planning unit
-#'   when it is allocated to a given zone.}
-#'
-#' }
-#'
-#' @inherit add_linear_penalties return seealso
+#' @family penalties
 #'
 #' @examples
 #' # set seed for reproducibility

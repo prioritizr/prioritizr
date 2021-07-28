@@ -39,9 +39,13 @@ must have a value for each zone.}
 
 \item{data}{\code{character}, \code{numeric},
 \code{\linkS4class{Raster}}, \code{matrix}, or \code{Matrix} object
-containing the data used to penalize solutions. Planning units that are
+containing the values used to penalize solutions. Planning units that are
 associated with higher data values are penalized more strongly
 in the solution. See the Data format section for more information.}
+}
+\value{
+Object (i.e. \code{\linkS4class{ConservationProblem}}) with the penalties
+added to it.
 }
 \description{
 Add penalties to a conservation planning \code{\link[=problem]{problem()}} to penalize
@@ -55,19 +59,70 @@ solution cost for minimum set problems; \code{\link[=add_min_set_objective]{add_
 This function penalizes solutions that have higher values according
 to the sum of the penalty values associated with each planning unit,
 weighted by status of each planning unit in the solution.
+}
+\section{Data format}{
 
-Specifically, the linear penalties are calculated using the following
+
+The argument to \code{data} can be specified using the following formats.
+
+\describe{
+
+\item{\code{data} as \code{character} \code{vector}}{containing field (column) name(s) that
+contain penalty values for planning units. This format is only
+compatible if the planning units in the argument to \code{x} are a
+\code{\linkS4class{Spatial}}, \code{\link[sf:sf]{sf::sf()}}, or
+\code{data.frame} object. The fields (columns) must have \code{numeric}
+values, and must not contain any missing (\code{NA}) values.
+For problems that contain a single zone, the argument to \code{data} must
+contain a single field name. Otherwise, for problems that
+contain multiple zones, the argument to \code{data} must
+contain a field name for each zone.}
+
+\item{\code{data} as a \code{numeric} \code{vector}}{containing values for
+planning units. These values must not contain any missing
+(\code{NA}) values. Note that this format is only available
+for planning units that contain a single zone.}
+
+\item{\code{data} as a \code{matrix}/\code{Matrix} object}{containing \code{numeric} values
+that specify data for each planning unit.
+Each row corresponds to a planning unit, each column corresponds to a
+zone, and each cell indicates the data for penalizing a planning unit
+when it is allocated to a given zone.}
+
+\item{\code{data} as a \code{\linkS4class{Raster}} object}{containing values for planning
+units. This format is only
+compatible if the planning units in the argument to \code{x} are
+\code{\linkS4class{Spatial}}, \code{\link[sf:sf]{sf::sf()}}, or
+\code{\linkS4class{Raster}} objects.
+If the planning unit data are a \code{\linkS4class{Spatial}} or
+\code{\link[sf:sf]{sf::sf()}} object, then the values are calculated by overlaying the
+planning units with the argument to \code{data} and calculating the sum of the
+values associated with each planning unit.
+If the planning unit data are a
+\code{\linkS4class{Raster}} object then the values are calculated by extracting the
+cell
+values (note that the planning unit data and the argument to \code{data} must
+have exactly the same dimensionality, extent, and missingness).
+For problems involving multiple zones, the argument to \code{data} must
+contain a layer for each zone.}
+
+}
+}
+
+\section{Mathematical formulation}{
+
+The linear penalties are implemented using the following
 equations.
 Let \eqn{I} denote the set of planning units
 (indexed by \eqn{i}), \eqn{Z} the set of management zones (indexed by
 \eqn{z}), and \eqn{X_{iz}}{Xiz} the decision variable for allocating
 planning unit \eqn{i} to zone \eqn{z} (e.g. with binary
-values one indicating if planning unit is allocated or not). Also, let
+values indicating if each planning unit is allocated or not). Also, let
 \eqn{P_z} represent the penalty scaling value for zones
 \eqn{z \in Z}{z in Z} (argument to \code{penalty}), and
 \eqn{D_{iz}}{Diz} the penalty data for allocating planning unit
 \eqn{i \in I}{i in I} to zones \eqn{z \in Z}{z in Z} (argument to
-\code{data} if supplied as a \code{matrix} object).
+\code{data}, if supplied as a \code{matrix} object).
 
 \deqn{
 \sum_{i}^{I} \sum_{z}^{Z} P_z \times D_{iz} \times X_{iz}
@@ -78,53 +133,6 @@ sum_i^I sum_z^Z (Pz * Diz * Xiz)
 Note that when the problem objective is to maximize some measure of
 benefit and not minimize some measure of cost, the term \eqn{P_z} is
 replaced with \eqn{-P_z}.
-}
-\section{Data format}{
-
-
-The argument to \code{data} can be specified using the following formats.
-
-\describe{
-
-\item{\code{character}}{field (column) name(s) that contain the data for
-penalizing planning units. This type of argument is only
-compatible if the planning units in the argument to \code{x} are a
-\code{\linkS4class{Spatial}}, \code{\link[sf:sf]{sf::sf()}}, or
-\code{data.frame} object. The fields (columns) must have \code{numeric}
-values, and must not contain any missing (\code{NA}) values.
-For problems involving multiple zones, the argument to \code{data} must
-contain a field name for each zone.}
-
-\item{\code{numeric}}{\code{vector} containing the data for penalizing
-each planning unit. These values must not contain any missing
-(\code{NA}) values. Note that this type of argument is only available
-for planning units that contain a single zone.}
-
-\item{\code{\linkS4class{Raster}}}{containing the data for
-penalizing planning units. This type of argument is only
-compatible if the planning units in the argument to \code{x} are
-\code{\linkS4class{Spatial}}, \code{\link[sf:sf]{sf::sf()}}, or
-or \code{\linkS4class{Raster}} (i.e. they are in a spatially
-referenced format).
-If the planning unit data are a \code{\linkS4class{Spatial}} or
-\code{\link[sf:sf]{sf::sf()}} object, then the
-penalty \code{data} are calculated by overlaying the planning units with
-the argument to \code{data} and calculating the sum of the values.
-If the planning unit data are in the
-\code{\linkS4class{Raster}} then the penalty \code{data} are
-calculated by extracting the cell values (note that the
-planning unit data and the argument to code{data} must have exactly
-the same dimensionality, extent, and missingness).
-For problems involving multiple zones, the argument to \code{data} must
-contain a layer for each zone.}
-
-\item{\code{matrix}, \code{Matrix}}{containing \code{numeric} values
-that specify data for penalizing each planning unit.
-Each row corresponds to a planning unit, each column corresponds to a
-zone, and each cell indicates the data for penalizing a planning unit
-when it is allocated to a given zone.}
-
-}
 }
 
 \examples{
@@ -218,3 +226,12 @@ plot(category_layer(s3), main = "multi-zone solution",
      axes = FALSE, box = FALSE)
 }
 }
+\seealso{
+See \link{penalties} for an overview of all functions for adding penalties.
+
+Other penalties: 
+\code{\link{add_boundary_penalties}()},
+\code{\link{add_connectivity_penalties}()},
+\code{\link{add_feature_weights}()}
+}
+\concept{penalties}

@@ -6,6 +6,11 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // rcpp_new_optimization_problem
 SEXP rcpp_new_optimization_problem(std::size_t nrow, std::size_t ncol, std::size_t ncell);
 RcppExport SEXP _prioritizr_rcpp_new_optimization_problem(SEXP nrowSEXP, SEXP ncolSEXP, SEXP ncellSEXP) {
@@ -249,6 +254,20 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< Rcpp::List >::type targets_list(targets_listSEXP);
     Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type solution(solutionSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_absolute_amount_held_by_solution(rij_list, targets_list, solution));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_apply_linear_constraints
+bool rcpp_apply_linear_constraints(SEXP x, double threshold, std::string sense, arma::sp_mat data);
+RcppExport SEXP _prioritizr_rcpp_apply_linear_constraints(SEXP xSEXP, SEXP thresholdSEXP, SEXP senseSEXP, SEXP dataSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    Rcpp::traits::input_parameter< double >::type threshold(thresholdSEXP);
+    Rcpp::traits::input_parameter< std::string >::type sense(senseSEXP);
+    Rcpp::traits::input_parameter< arma::sp_mat >::type data(dataSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_linear_constraints(x, threshold, sense, data));
     return rcpp_result_gen;
 END_RCPP
 }

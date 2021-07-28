@@ -115,7 +115,7 @@ planning unit allocations to a specific value." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.1.0.0</span>
       </span>
     </div>
 
@@ -259,16 +259,16 @@ a value for each cell---regardless of which planning unit cells contain
 <code>NA</code> values.</p>
 <dl>
 
-<dt><code>integer</code></dt><dd><p><code>vector</code> of indices pertaining to which
+<dt><code>data</code> as an <code>integer</code> <code>vector</code></dt><dd><p>containing indices that indicate which
 planning units should be locked for the solution. This argument is only
 compatible with problems that contain a single zone.</p></dd>
 
-<dt><code>logical</code></dt><dd><p><code>vector</code> containing <code>TRUE</code> and/or
+<dt><code>data</code> as a <code>logical</code> <code>vector</code></dt><dd><p>containing <code>TRUE</code> and/or
 <code>FALSE</code> values that indicate which planning units should be locked
 in the solution. This argument is only compatible with problems that
 contain a single zone.</p></dd>
 
-<dt><code>matrix</code></dt><dd><p>containing <code>logical</code> <code>TRUE</code> and/or
+<dt><code>data</code> as a <code>matrix</code> object</dt><dd><p>containing <code>logical</code> <code>TRUE</code> and/or
 <code>FALSE</code> values which indicate if certain planning units are
 should be locked to a specific zone in the solution. Each row
 corresponds to a planning unit, each column corresponds to a zone, and
@@ -276,24 +276,30 @@ each cell indicates if the planning unit should be locked to a given
 zone. Thus each row should only contain at most a single <code>TRUE</code>
 value.</p></dd>
 
-<dt><code>character</code></dt><dd><p>field (column) name(s) that indicate if planning
-units should be locked for the solution. This type of argument is only
+<dt><code>data</code> as a <code>character</code> <code>vector</code></dt><dd><p>containing field (column) name(s)
+that indicate if planning units should be locked for the solution.
+This format is only
 compatible if the planning units in the argument to <code>x</code> are a
 <code><a href='https://rdrr.io/pkg/sp/man/Spatial-class.html'>Spatial</a></code>, <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code>, or
 <code>data.frame</code> object. The fields
-(columns) must have <code>logical</code>  (i.e. <code>TRUE</code> or <code>FALSE</code>)
+(columns) must have <code>logical</code> (i.e. <code>TRUE</code> or <code>FALSE</code>)
 values indicating if the planning unit is to be locked for the solution.
-For problems containing multiple zones, this argument should contain
-a field (column) name for each management zone.</p></dd>
+For problems that contain a single zone, the argument to <code>data</code> must
+contain a single field name. Otherwise, for problems that
+contain multiple zones, the argument to <code>data</code> must
+contain a field name for each zone.</p></dd>
 
-<dt><code><a href='https://rdrr.io/pkg/sp/man/Spatial-class.html'>Spatial</a></code> or <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code></dt><dd><p>planning units in <code>x</code> that spatially intersect with the
-argument to <code>y</code> (according to <code><a href='intersecting_units.html'>intersecting_units()</a></code>
-are locked for to the solution. Note that this option is only available
+<dt><code>data</code> as a <code><a href='https://rdrr.io/pkg/sp/man/Spatial-class.html'>Spatial</a></code> or <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code> object</dt><dd><p>containing geometries that will be used to lock planning units for
+the solution. Specifically, planning units in <code>x</code> that spatially
+intersect with <code>y</code> will be locked (per <code><a href='intersecting_units.html'>intersecting_units()</a></code>).
+Note that this option is only available
 for problems that contain a single management zone.</p></dd>
 
-<dt><code><a href='https://rdrr.io/pkg/raster/man/Raster-classes.html'>Raster</a></code></dt><dd><p>planning units in <code>x</code>
-that intersect with non-zero and non-<code>NA</code> raster cells are locked
-for the solution. For problems that contain multiple zones, the
+<dt><code>data</code> as a <code><a href='https://rdrr.io/pkg/raster/man/Raster-classes.html'>Raster</a></code> object</dt><dd><p>containing cells used to lock
+planning units for the solution. Specifically, planning units in <code>x</code>
+that intersect with cells that have non-zero and non-<code>NA</code> values are
+locked.
+For problems that contain multiple zones, the
 <code><a href='https://rdrr.io/pkg/raster/man/Raster-classes.html'>Raster</a></code> object must contain a layer
 for each zone. Note that for multi-band arguments, each pixel must
 only contain a non-zero value in a single band. Additionally, if the
@@ -306,7 +312,15 @@ should also have <code>NA</code> values in the locked data.</p></dd>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='constraints.html'>constraints</a>.</p></div>
+    <div class='dont-index'><p>See <a href='constraints.html'>constraints</a> for an overview of all functions for adding constraints.</p>
+<p>Other constraints: 
+<code><a href='add_contiguity_constraints.html'>add_contiguity_constraints</a>()</code>,
+<code><a href='add_feature_contiguity_constraints.html'>add_feature_contiguity_constraints</a>()</code>,
+<code><a href='add_linear_constraints.html'>add_linear_constraints</a>()</code>,
+<code><a href='add_locked_out_constraints.html'>add_locked_out_constraints</a>()</code>,
+<code><a href='add_mandatory_allocation_constraints.html'>add_mandatory_allocation_constraints,ConservationProblem-method</a></code>,
+<code><a href='add_manual_bounded_constraints.html'>add_manual_bounded_constraints</a>()</code>,
+<code><a href='add_manual_locked_constraints.html'>add_manual_locked_constraints</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='co'># set seed for reproducibility</span></span>
@@ -443,6 +457,7 @@ should also have <code>NA</code> values in the locked data.</p></dd>
 <span class='r-in'><span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='category_layer.html'>category_layer</a></span><span class='op'>(</span><span class='va'>s9</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
 <span class='r-plt'><img src='add_locked_in_constraints-5.png' alt='' width='700' height='433' /></span>
 <span class='r-in'><span class='co'># }</span></span>
+<span class='r-in'></span>
 </code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

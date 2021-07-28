@@ -4,7 +4,7 @@
 \alias{add_manual_bounded_constraints}
 \alias{add_manual_bounded_constraints,ConservationProblem,data.frame-method}
 \alias{add_manual_bounded_constraints,ConservationProblem,tbl_df-method}
-\title{Add manually specified bounds constraints}
+\title{Add manually specified bound constraints}
 \usage{
 add_manual_bounded_constraints(x, data)
 
@@ -32,7 +32,8 @@ or semi-continuous decisions.
 }
 \section{Data format}{
 
-The argument to \code{data} must contain the following fields (columns):
+The argument to \code{data} should be a \code{data.frame} with the following fields
+(columns):
 
 \describe{
 
@@ -138,7 +139,18 @@ s4$solution_bounded <- factor(s4$solution_bounded)
 spplot(s4, zcol = c("solution", "solution_bounded"), axes = FALSE,
        box = FALSE)
 }
+
 }
 \seealso{
-\link{constraints}.
+See \link{constraints} for an overview of all functions for adding constraints.
+
+Other constraints: 
+\code{\link{add_contiguity_constraints}()},
+\code{\link{add_feature_contiguity_constraints}()},
+\code{\link{add_linear_constraints}()},
+\code{\link{add_locked_in_constraints}()},
+\code{\link{add_locked_out_constraints}()},
+\code{\link{add_mandatory_allocation_constraints,ConservationProblem-method}},
+\code{\link{add_manual_locked_constraints}()}
 }
+\concept{constraints}

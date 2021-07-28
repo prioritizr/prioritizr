@@ -21,35 +21,34 @@ added to it.
 }
 \description{
 Set the objective of a conservation planning \code{\link[=problem]{problem()}} to
-secure as much of the features as possible without exceeding a budget. This
-type of objective does not use targets, and feature weights should be used
-instead to increase the representation of different features in solutions.
+secure as much of the features as possible without exceeding a budget.
+This objective does not use targets, and feature
+weights should be used instead to increase the representation of certain
+features by a solution.
 Note that this objective does not aim to maximize as much of each feature as
-possible and so often results in solutions that are heavily biased towards
-specific features.
+possible, and so often results in solutions that are heavily biased towards
+just a few features.
 }
 \details{
-A problem objective is used to specify the overall goal of the
-conservation planning problem. Please note that all conservation
-planning problems formulated in the \pkg{prioritizr} package require the
-addition of objectives---failing to do so will return an error
-message when attempting to solve problem.
-
-The maximum utility objective seeks to find the set of planning units that
-maximizes the overall level of representation across a suite of
-conservation features, while keeping cost within a fixed budget.
+The maximum utility objective seeks to maximize the overall level of
+representation across a suite of conservation features, while keeping cost
+within a fixed budget.
 Additionally, weights can be used to favor the
 representation of certain features over other features (see
-\code{\link[=add_feature_weights]{add_feature_weights()}}). This objective can be
-expressed mathematically for a set of planning units (\eqn{I}{I} indexed by
-\eqn{i}{i}) and a set of features (\eqn{J}{J} indexed by \eqn{j}{j}) as:
+\code{\link[=add_feature_weights]{add_feature_weights()}}).
+}
+\section{Mathematical formulation}{
+
+This objective can be expressed mathematically for a set of planning units
+(\eqn{I}{I} indexed by \eqn{i}{i}) and a set of features (\eqn{J}{J} indexed
+by \eqn{j}{j}) as:
 
 \deqn{\mathit{Maximize} \space \sum_{i = 1}^{I} -s \space c_i \space x_i +
-  \sum_{j = 1}^{J} a_j w_j \\
-  \mathit{subject \space to} \\ a_j = \sum_{i = 1}^{I} x_i r_{ij} \space
-  \forall j \in J \\ \sum_{i = 1}^{I} x_i c_i \leq B}{
-  Maximize sum_i^I (-s * ci * xi) + sum_j^J (aj * wj) subject to
-  aj = sum_i^I (xi * rij) for all j in J & sum_i^I (xi * ci) <= B}
+\sum_{j = 1}^{J} a_j w_j \\
+\mathit{subject \space to} \\ a_j = \sum_{i = 1}^{I} x_i r_{ij} \space
+\forall j \in J \\ \sum_{i = 1}^{I} x_i c_i \leq B}{
+Maximize sum_i^I (-s * ci * xi) + sum_j^J (aj * wj) subject to
+aj = sum_i^I (xi * rij) for all j in J & sum_i^I (xi * ci) <= B}
 
 Here, \eqn{x_i}{xi} is the \link{decisions} variable (e.g.
 specifying whether planning unit \eqn{i}{i} has been selected (1) or not
@@ -64,6 +63,7 @@ the solution, \eqn{c_i}{ci} is the cost of planning unit \eqn{i}{i}, and
 will return a cheapest solution when there are multiple solutions that
 represent the same amount of all features within the budget.
 }
+
 \section{Notes}{
 
 In early versions (< 3.0.0.0), this function was named as
@@ -117,5 +117,16 @@ plot(category_layer(s3), main = "solution", axes = FALSE, box = FALSE)
 }
 }
 \seealso{
-\code{\link[=add_feature_weights]{add_feature_weights()}}, \link{objectives}.
+See \link{objectives} for an overview of all functions for adding objectives.
+Also, see \code{\link[=add_feature_weights]{add_feature_weights()}} to specify weights for different features.
+
+Other objectives: 
+\code{\link{add_max_cover_objective}()},
+\code{\link{add_max_features_objective}()},
+\code{\link{add_max_phylo_div_objective}()},
+\code{\link{add_max_phylo_end_objective}()},
+\code{\link{add_min_largest_shortfall_objective}()},
+\code{\link{add_min_set_objective}()},
+\code{\link{add_min_shortfall_objective}()}
 }
+\concept{objectives}

@@ -1,7 +1,7 @@
 #' @include internal.R pproto.R ConservationProblem-proto.R zones.R add_manual_targets.R
 NULL
 
-#' Add manually specified bounds constraints
+#' Add manually specified bound constraints
 #'
 #' Add constraints to a conservation planning [problem()] to ensure
 #' that the planning unit values (e.g. proportion, binary) in a solution
@@ -18,7 +18,8 @@ NULL
 #'   See the Data format section for more information.
 #'
 #' @section Data format:
-#' The argument to `data` must contain the following fields (columns):
+#' The argument to `data` should be a `data.frame` with the following fields
+#' (columns):
 #'
 #' \describe{
 #'
@@ -38,7 +39,12 @@ NULL
 #'
 #' }
 #'
-#' @inherit add_contiguity_constraints return seealso
+#' @inherit add_contiguity_constraints return
+#'
+#' @seealso
+#' See [constraints] for an overview of all functions for adding constraints.
+#'
+#' @family constraints
 #'
 #' @examples
 #' # set seed for reproducibility
@@ -125,7 +131,6 @@ NULL
 #' spplot(s4, zcol = c("solution", "solution_bounded"), axes = FALSE,
 #'        box = FALSE)
 #' }
-#' @seealso [constraints].
 #'
 #' @name add_manual_bounded_constraints
 #'

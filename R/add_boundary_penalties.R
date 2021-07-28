@@ -51,77 +51,83 @@ NULL
 #'   planning units (i.e. planning units that are adjacent to each other).
 #'   See the Data format section for more information.
 #'
-#' @details This function adds penalties to a conservation planning problem
-#'   to penalize fragmented solutions. It was is inspired by Ball *et al.*
-#'   (2009) and Beyer *et al.* (2016). The `penalty` argument is
-#'   equivalent to the boundary length modifier (`BLM`) used in
-#'   [*Marxan*](https://marxansolutions.org).
-#'   Note that this function can only
-#'   be used to represent symmetric relationships between planning units. If
-#'   asymmetric relationships are required, use the
-#'   [add_connectivity_penalties()] function.
-#'
-#'   The boundary penalties are calculated using the following equations. Let
-#'   \eqn{I} represent the set of planning units
-#'   (indexed by \eqn{i} or \eqn{j}), \eqn{Z} represent
-#'   the set of management zones (indexed by \eqn{z} or \eqn{y}), and
-#'   \eqn{X_{iz}}{Xiz} represent the decision
-#'   variable for planning unit \eqn{i} for in zone \eqn{z} (e.g. with binary
-#'   values one indicating if planning unit is allocated or not). Also, let
-#'   \eqn{p} represent the argument to `penalty`, \eqn{E_z}{Ez} represent the
-#'   argument to `edge_factor`, \eqn{B_{ij}}{Bij} represent the matrix argument
-#'   to `data` (e.g. generated using [boundary_matrix()]), and
-#'   \eqn{W_{zz}}{Wzz} represent the matrix argument to `zones`.
-#'
-#'   \deqn{
-#'   \sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z} (\mathit{ifelse}(i == j, E_z, 1)
-#'   \times p \times W_{zz} B_{ij}) + \sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z}
-#'   \sum_{y}^{Z} (-2 \times p \times X_{iz} \times X_{jy} \times W_{zy} \times
-#'   B_{ij})}{
-#'   sum_i^I sum_j^I sum_z^Z (ifelse(i == j, Ez, 1) * p * Wzz * Bij) + sum_i^I
-#'   sum_j^I sum_z^Z sum_y^Z (-2 * p * Xiz * Xjy * Wzy * Bij)
-#'   }
-#'
-#'  Note that when the problem objective is to maximize some measure of
-#'  benefit and not minimize some measure of cost, the term \eqn{p} is
-#'  replaced with \eqn{-p}.
+#' @details
+#' This function adds penalties to a conservation planning problem
+#' to penalize fragmented solutions. It was is inspired by Ball *et al.*
+#' (2009) and Beyer *et al.* (2016). The `penalty` argument is
+#' equivalent to the boundary length modifier (`BLM`) used in
+#' [*Marxan*](https://marxansolutions.org).
+#' Note that this function can only
+#' be used to represent symmetric relationships between planning units. If
+#' asymmetric relationships are required, use the
+#' [add_connectivity_penalties()] function.
 #'
 #' @section Data format:
-#'   The argument to `data` can be specified using the following formats.
-#'   Note that boundary data must always describe symmetric relationships
-#'   between planning units.
+#' The argument to `data` can be specified using the following formats.
+#' Note that boundary data must always describe symmetric relationships
+#' between planning units.
 #'
-#'   \describe{
+#' \describe{
 #'
-#'   \item{`NULL`}{boundary data are automatically calculated
-#'     using the [boundary_matrix()] function. This argument is the
-#'     default. Note that the boundary data must be supplied
-#'     using one of the other formats below if the planning unit data
-#'     in the argument to `x` do not explicitly contain spatial information
-#'     (e.g. planning unit data are a `data.frame` or `numeric` class).}
+#' \item{`data` as a `NULL` value}{indicating that the data should be
+#'   automatically calculated using the [boundary_matrix()] function.
+#'   This argument is the default.
+#'   Note that the boundary data must be supplied
+#'   using one of the other formats below if the planning unit data
+#'   in the argument to `x` do not explicitly contain spatial information
+#'   (e.g. planning unit data are a `data.frame` or `numeric` class).}
 #'
-#'   \item{`matrix`, `Matrix`}{where rows and columns represent
-#'     different planning units and the value of each cell represents the
-#'     amount of shared boundary length between two different planning units.
-#'     Cells that occur along the matrix diagonal represent the amount of
-#'     exposed boundary associated with each planning unit that has
-#'     no neighbor (e.g. these value might pertain to boundaries along a
-#'     coastline).}
+#' \item{`data` as a `matrix`/`Matrix` object}{where rows and columns represent
+#'   different planning units and the value of each cell represents the
+#'   amount of shared boundary length between two different planning units.
+#'   Cells that occur along the matrix diagonal represent the amount of
+#'   exposed boundary associated with each planning unit that has
+#'   no neighbor (e.g. these value might pertain to boundaries along a
+#'   coastline).}
 #'
-#'   \item{`data.frame`}{with the columns `"id1"`,
-#'     `"id2"`, and `"boundary"`. The `"id1"` and `"id2"` columns contain
-#'     identifiers (indices) for a pair of planning units, and the `"boundary"`
-#'     column contains the amount of shared boundary length between these
-#'     two planning units.
-#'     This format follows the the standard *Marxan* format for boundary
-#'     data (i.e. per the "bound.dat" file).}
+#' \item{`data` as a `data.frame` object}{with the columns `"id1"`,
+#'   `"id2"`, and `"boundary"`. The `"id1"` and `"id2"` columns contain
+#'   identifiers (indices) for a pair of planning units, and the `"boundary"`
+#'   column contains the amount of shared boundary length between these
+#'   two planning units.
+#'   This format follows the the standard *Marxan* format for boundary
+#'   data (i.e. per the "bound.dat" file).}
 #'
-#'   }
+#' }
+#'
+#' @section Mathematical formulation:
+#' The boundary penalties are implemented using the following equations. Let
+#' \eqn{I} represent the set of planning units
+#' (indexed by \eqn{i} or \eqn{j}), \eqn{Z} represent
+#' the set of management zones (indexed by \eqn{z} or \eqn{y}), and
+#' \eqn{X_{iz}}{Xiz} represent the decision
+#' variable for planning unit \eqn{i} for in zone \eqn{z} (e.g. with binary
+#' values one indicating if planning unit is allocated or not). Also, let
+#' \eqn{p} represent the argument to `penalty`, \eqn{E_z}{Ez} represent the
+#' argument to `edge_factor`, \eqn{B_{ij}}{Bij} represent the matrix argument
+#' to `data` (e.g. generated using [boundary_matrix()]), and
+#' \eqn{W_{zz}}{Wzz} represent the matrix argument to `zones`.
+#'
+#' \deqn{
+#' \sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z} (\mathit{ifelse}(i == j, E_z, 1)
+#' \times p \times W_{zz} B_{ij}) + \sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z}
+#' \sum_{y}^{Z} (-2 \times p \times X_{iz} \times X_{jy} \times W_{zy} \times
+#' B_{ij})}{
+#' sum_i^I sum_j^I sum_z^Z (ifelse(i == j, Ez, 1) * p * Wzz * Bij) + sum_i^I
+#' sum_j^I sum_z^Z sum_y^Z (-2 * p * Xiz * Xjy * Wzy * Bij)
+#' }
+#'
+#' Note that when the problem objective is to maximize some measure of
+#' benefit and not minimize some measure of cost, the term \eqn{p} is
+#' replaced with \eqn{-p}.
 #'
 #' @return Object (i.e. [`ConservationProblem-class`]) with the penalties
 #'  added to it.
 #'
-#' @seealso [penalties].
+#' @seealso
+#' See [penalties] for an overview of all functions for adding penalties.
+#'
+#' @family penalties
 #'
 #' @references
 #' Ball IR, Possingham HP, and Watts M (2009) *Marxan and relatives:

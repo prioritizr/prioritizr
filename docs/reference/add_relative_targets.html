@@ -110,7 +110,7 @@ cost data) using the feature_abundances() function." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.1.0.0</span>
       </span>
     </div>
 
@@ -213,7 +213,7 @@ cost data) using the <code><a href='feature_abundances.html'>feature_abundances(
     <tr>
       <th>targets</th>
       <td><p>Object that specifies the targets for each feature.
-See the Targets data format section for more information.</p></td>
+See the Targets format section for more information.</p></td>
     </tr>
     </table>
 
@@ -244,28 +244,29 @@ in all zones must secure a specific amount. Thus the target could,
 potentially, be met through allocating all planning units to any specific
 management zone, or through allocating the planning units to different
 combinations of management zones.</p>
-    <h2 class="hasAnchor" id="targets-data-format"><a class="anchor" href="#targets-data-format"></a>Targets data format</h2>
+    <h2 class="hasAnchor" id="targets-format"><a class="anchor" href="#targets-format"></a>Targets format</h2>
 
     
 
-<p>The targets for a problem can be specified using the following formats.</p>
+<p>The <code>targets</code> for a problem can be specified using the following formats.</p>
 <dl>
 
-<dt><code>numeric</code></dt><dd><p><code>vector</code> of target values for each feature.
-Additionally, for convenience, this type of argument can be a single
-value to assign the same target to each feature. Note that this type of
-argument cannot be used to specify targets for problems with multiple
-zones.</p></dd>
+<dt><code>targets</code> as a <code>numeric</code> <code>vector</code></dt><dd><p>containing target values for each
+feature.
+Additionally, for convenience, this format can be a single
+value to assign the same target to each feature. Note that this format
+cannot be used to specify targets for problems with multiple zones.</p></dd>
 
-<dt><code>matrix</code></dt><dd><p>containing a target for each feature in each zone.
+<dt><code>targets</code> as a <code>matrix</code> object</dt><dd><p>containing a target for each feature
+in each zone.
 Here, each row corresponds to a different feature in argument to
 <code>x</code>, each column corresponds to a different zone in argument to
 <code>x</code>, and each cell contains the target value for a given feature
 that the solution needs to secure in a given zone.</p></dd>
 
-<dt><code>character</code></dt><dd><p>containing the names of fields (columns) in the
-feature data associated with the argument to <code>x</code> that contain
-targets. This type of argument can only be used when the
+<dt><code>targets</code> as a <code>character</code> <code>vector</code></dt><dd><p>containing the names of fields
+(columns) in the feature data associated with the argument to <code>x</code> that
+contain targets. This format can only be used when the
 feature data associated with <code>x</code> is a <code>data.frame</code>.
 This argument must contain a field (column) name for each zone.</p></dd>
 
@@ -274,7 +275,11 @@ This argument must contain a field (column) name for each zone.</p></dd>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='targets.html'>targets</a>.</p></div>
+    <div class='dont-index'><p>See <a href='targets.html'>targets</a> for an overview of all functions for adding targets.</p>
+<p>Other targets: 
+<code><a href='add_absolute_targets.html'>add_absolute_targets</a>()</code>,
+<code><a href='add_loglinear_targets.html'>add_loglinear_targets</a>()</code>,
+<code><a href='add_manual_targets.html'>add_manual_targets</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='co'># set seed for reproducibility</span></span>

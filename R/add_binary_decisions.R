@@ -13,8 +13,7 @@ NULL
 #'
 #' @details Conservation planning problems involve making decisions on planning
 #'   units. These decisions are then associated with actions (e.g. turning a
-#'   planning unit into a protected area). If no decision is explicitly added to
-#'   a problem, then the binary decision class will be used by default. Only a
+#'   planning unit into a protected area). Only a
 #'   single decision should be added to a `ConservationProblem` object.
 #'   Note that if multiple decisions are added to a problem object, then the
 #'   last one to be added will be used.
@@ -22,7 +21,10 @@ NULL
 #' @return Object (i.e. [`ConservationProblem-class`]) with the decisions added
 #'   to it.
 #'
-#' @seealso [decisions].
+#' @seealso
+#' See [decisions] for an overview of all functions for adding decisions.
+#'
+#' @family decisions
 #'
 #' @examples
 #' # set seed for reproducibility

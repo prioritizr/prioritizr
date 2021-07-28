@@ -64,8 +64,14 @@ plot(s, axes = FALSE, box = FALSE,
 }
 }
 \seealso{
-\link{constraints}, \link{decisions},
-\link{objectives} \link{penalties},
-\link{portfolios}, \code{\link[=problem]{problem()}},
-\link{solvers}.
+Other overviews: 
+\code{\link{constraints}},
+\code{\link{decisions}},
+\code{\link{importance}},
+\code{\link{objectives}},
+\code{\link{penalties}},
+\code{\link{portfolios}},
+\code{\link{solvers}},
+\code{\link{summaries}}
 }
+\concept{overviews}

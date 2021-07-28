@@ -107,7 +107,7 @@ solutions that select planning units with high connectivity between them." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.1.0.0</span>
       </span>
     </div>
 
@@ -261,7 +261,59 @@ Specifically, it <strong>favors</strong> pair-wise connections between planning 
 that have high connectivity values.
 It was inspired by Beger <em>et al.</em> (2010) and can symmetric and asymmetric
 connectivity relationships between planning units.</p>
-<p>The connectivity penalties are calculated using the following equations.
+    <h2 class="hasAnchor" id="data-format"><a class="anchor" href="#data-format"></a>Data format</h2>
+
+    
+
+<p>The argument to <code>data</code> can be specified using several different formats.
+These formats can be used to describe symmetric or
+asymmetric relationships between planning units.</p>
+<dl>
+
+<dt><code>data</code> as a <code>matrix</code>/<code>Matrix</code> object</dt><dd><p>where rows and columns represent
+different planning units and the value of each cell represents the
+strength of connectivity between two different planning units. Cells
+that occur along the matrix diagonal are treated as weights which
+indicate that planning units are more desirable in the solution.
+The argument to <code>zones</code> can be used to control
+the strength of connectivity between planning units in different zones.
+The default argument for <code>zones</code> is to treat planning units
+allocated to different zones as having zero connectivity.</p></dd>
+
+<dt><code>data</code> as a <code>data.frame</code> object</dt><dd><p>containing the fields (columns)
+<code>"id1"</code>, <code>"id2"</code>, and <code>"boundary"</code>. Here, each row
+denotes the connectivity between two planning units following the
+<em>Marxan</em> format. The data can be used to denote symmetric or
+asymmetric relationships between planning units. By default,
+input data is assumed to be symmetric unless asymmetric data is
+also included (e.g. if data is present for planning units 2 and 3, then
+the same amount of connectivity is expected for planning units 3 and 2,
+unless connectivity data is also provided for planning units 3 and 2).
+If the argument to <code>x</code> contains multiple zones, then the columns
+<code>"zone1"</code> and <code>"zone2"</code> can optionally be provided to manually
+specify the connectivity values between planning units when they are
+allocated to specific zones. If the columns <code>"zone1"</code> and
+<code>"zone2"</code> are present, then the argument to <code>zones</code> must be
+<code>NULL</code>.</p></dd>
+
+<dt><code>data</code> as an <code>array</code> object</dt><dd><p>containing four-dimensions where cell values
+indicate the strength of connectivity between planning units
+when they are assigned to specific management zones. The first two
+dimensions (i.e. rows and columns) indicate the strength of
+connectivity between different planning units and the second two
+dimensions indicate the different management zones. Thus
+the <code>data[1, 2, 3, 4]</code> indicates the strength of
+connectivity between planning unit 1 and planning unit 2 when planning
+unit 1 is assigned to zone 3 and planning unit 2 is assigned to zone 4.</p></dd>
+
+
+</dl>
+
+    <h2 class="hasAnchor" id="mathematical-formulation"><a class="anchor" href="#mathematical-formulation"></a>Mathematical formulation</h2>
+
+    
+
+<p>The connectivity penalties are implemented using the following equations.
 Let \(I\) represent the set of planning units
 (indexed by \(i\) or \(j\)), \(Z\) represent the set
 of management zones (indexed by \(z\) or \(y\)), and \(X_{iz}\)
@@ -285,54 +337,6 @@ calculated as:</p>
 <p>Note that when the problem objective is to maximize some measure of
 benefit and not minimize some measure of cost, the term \(-p\) is
 replaced with \(p\).</p>
-    <h2 class="hasAnchor" id="data-format"><a class="anchor" href="#data-format"></a>Data format</h2>
-
-    
-
-<p>The argument to <code>data</code> can be specified using several different formats.
-These formats can be used to describe symmetric or
-asymmetric relationships between planning units.</p>
-<dl>
-
-<dt><code>matrix</code>, <code>Matrix</code></dt><dd><p>where rows and columns represent
-different planning units and the value of each cell represents the
-strength of connectivity between two different planning units. Cells
-that occur along the matrix diagonal are treated as weights which
-indicate that planning units are more desirable in the solution.
-The argument to <code>zones</code> can be used to control
-the strength of connectivity between planning units in different zones.
-The default argument for <code>zones</code> is to treat planning units
-allocated to different zones as having zero connectivity.</p></dd>
-
-<dt><code>data.frame</code></dt><dd><p>containing the fields (columns)
-<code>"id1"</code>, <code>"id2"</code>, and <code>"boundary"</code>. Here, each row
-denotes the connectivity between two planning units following the
-<em>Marxan</em> format. The data can be used to denote symmetric or
-asymmetric relationships between planning units. By default,
-input data is assumed to be symmetric unless asymmetric data is
-also included (e.g. if data is present for planning units 2 and 3, then
-the same amount of connectivity is expected for planning units 3 and 2,
-unless connectivity data is also provided for planning units 3 and 2).
-If the argument to <code>x</code> contains multiple zones, then the columns
-<code>"zone1"</code> and <code>"zone2"</code> can optionally be provided to manually
-specify the connectivity values between planning units when they are
-allocated to specific zones. If the columns <code>"zone1"</code> and
-<code>"zone2"</code> are present, then the argument to <code>zones</code> must be
-<code>NULL</code>.</p></dd>
-
-<dt><code>array</code></dt><dd><p>containing four-dimensions where cell values
-indicate the strength of connectivity between planning units
-when they are assigned to specific management zones. The first two
-dimensions (i.e. rows and columns) indicate the strength of
-connectivity between different planning units and the second two
-dimensions indicate the different management zones. Thus
-the <code>data[1, 2, 3, 4]</code> indicates the strength of
-connectivity between planning unit 1 and planning unit 2 when planning
-unit 1 is assigned to zone 3 and planning unit 2 is assigned to zone 4.</p></dd>
-
-
-</dl>
-
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Beger M, Linke S, Watts M, Game E, Treml E, Ball I, and Possingham, HP (2010)
@@ -340,7 +344,11 @@ Incorporating asymmetric connectivity into spatial decision making for
 conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='penalties.html'>penalties</a>.</p></div>
+    <div class='dont-index'><p>See <a href='penalties.html'>penalties</a> for an overview of all functions for adding penalties.</p>
+<p>Other penalties: 
+<code><a href='add_boundary_penalties.html'>add_boundary_penalties</a>()</code>,
+<code><a href='add_feature_weights.html'>add_feature_weights</a>()</code>,
+<code><a href='add_linear_penalties.html'>add_linear_penalties</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='co'># set seed for reproducibility</span></span>

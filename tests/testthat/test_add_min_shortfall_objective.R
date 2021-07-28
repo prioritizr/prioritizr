@@ -5,6 +5,7 @@ test_that("compile (compressed formulation, single zone)", {
   data(sim_pu_raster, sim_features)
   b <- floor(raster::cellStats(sim_pu_raster, "sum"))
   targ <- unname(floor(raster::cellStats(sim_features, "sum") * 0.25))
+  targ[2] <- 0
   p <- problem(sim_pu_raster, sim_features) %>%
     add_min_shortfall_objective(budget = b) %>%
     add_absolute_targets(targ) %>%
@@ -14,7 +15,7 @@ test_that("compile (compressed formulation, single zone)", {
   n_pu <- length(sim_pu_raster[[1]][!is.na(sim_pu_raster)])
   n_features <- raster::nlayers(sim_features)
   expect_equal(o$modelsense(), "min")
-  expect_equal(o$obj(), c(rep(0, n_pu), 1 / targ))
+  expect_equal(o$obj(), c(rep(0, n_pu), replace(1 / targ, 2, 0)))
   expect_equal(o$sense(), c(rep(">=", n_features), "<="))
   expect_equal(o$rhs(), c(targ, b))
   expect_equal(o$col_ids(), c(rep("pu", n_pu), rep("spp_met", n_features)))
@@ -60,6 +61,7 @@ test_that("compile (expanded formulation, single zone)", {
   data(sim_pu_raster, sim_features)
   b <- floor(raster::cellStats(sim_pu_raster, "sum"))
   targ <- unname(floor(raster::cellStats(sim_features, "sum") * 0.25))
+  targ[2] <- 0
   p <- problem(sim_pu_raster, sim_features) %>%
     add_min_shortfall_objective(budget = b) %>%
     add_absolute_targets(targ) %>%
@@ -70,7 +72,9 @@ test_that("compile (expanded formulation, single zone)", {
   n_f <- raster::nlayers(sim_features)
   rij <- rij_matrix(sim_pu_raster, sim_features)
   expect_equal(o$modelsense(), "min")
-  expect_equal(o$obj(), c(rep(0, n_pu), rep(0, n_pu * n_f), 1 / targ))
+  expect_equal(
+    o$obj(),
+    c(rep(0, n_pu), rep(0, n_pu * n_f), replace(1 / targ, 2, 0)))
   expect_equal(o$sense(), c(rep("<=", n_pu * n_f), rep(">=", n_f), "<="))
   expect_equal(o$rhs(), c(rep(0, n_pu * n_f), targ, b))
   expect_equal(o$col_ids(), c(rep("pu", n_pu), rep("pu_ijz", n_pu * n_f),

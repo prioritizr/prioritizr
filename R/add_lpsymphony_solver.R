@@ -39,9 +39,12 @@ NULL
 #' remotes::install_bioc("lpsymphony")
 #' ```
 #'
-#' @inherit add_rsymphony_solver seealso return references
+#' @inherit add_rsymphony_solver return references
 #'
-#' @seealso [solvers].
+#' @seealso
+#' See [solvers] for an overview of all functions for adding a solver.
+#'
+#' @family solvers
 #'
 #' @examples
 #' \dontrun{

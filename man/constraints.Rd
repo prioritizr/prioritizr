@@ -26,27 +26,39 @@ The following constraints can be added to a conservation planning
 
 \describe{
 
-\item{\code{\link[=add_locked_in_constraints]{add_locked_in_constraints()}}}{Add constraints to ensure
+\item{\code{\link[=add_locked_in_constraints]{add_locked_in_constraints()}}}{
+Add constraints to ensure
 that certain planning units are selected in the solution.}
 
-\item{\code{\link[=add_locked_out_constraints]{add_locked_out_constraints()}}}{Add constraints to ensure
+\item{\code{\link[=add_locked_out_constraints]{add_locked_out_constraints()}}}{
+Add constraints to ensure
 that certain planning units are not selected in the solution.}
 
-\item{\code{\link[=add_neighbor_constraints]{add_neighbor_constraints()}}}{Add constraints to
+\item{\code{\link[=add_neighbor_constraints]{add_neighbor_constraints()}}}{
+Add constraints to
 ensure that all selected planning units have at least a certain number
 of neighbors.}
 
-\item{\code{\link[=add_contiguity_constraints]{add_contiguity_constraints()}}}{Add constraints to a
+\item{\code{\link[=add_contiguity_constraints]{add_contiguity_constraints()}}}{
+Add constraints to a
 ensure that all selected planning units are spatially connected to each
 other and form a single contiguous unit.}
 
-\item{\code{\link[=add_feature_contiguity_constraints]{add_feature_contiguity_constraints()}}}{Add constraints to
+\item{\code{\link[=add_feature_contiguity_constraints]{add_feature_contiguity_constraints()}}}{
+Add constraints to
 ensure that each feature is represented in a contiguous unit of
 dispersible habitat. These constraints are a more advanced version of
 those implemented in the \code{\link[=add_contiguity_constraints]{add_contiguity_constraints()}}
 function, because they ensure that each feature is represented in a
 contiguous unit and not that the entire solution should form a
 contiguous unit.}
+
+\item{\code{\link[=add_linear_constraints]{add_linear_constraints()}}}{
+Add constraints to ensure that all selected planning units meet certain
+criteria. For example, they can be used to add
+multiple budgets, or limit the number of
+planning units selected in different administrative areas within a study
+region (e.g. different countries).}
 
 \item{\code{\link[=add_mandatory_allocation_constraints]{add_mandatory_allocation_constraints()}}}{
 Add constraints to ensure that every planning unit is allocated to a
@@ -92,7 +104,14 @@ plot(s, box = FALSE, axes = FALSE, nr = 2,
 }
 }
 \seealso{
-\link{decisions}, \link{objectives},
-\link{penalties}, \link{portfolios}, \code{\link[=problem]{problem()}},
-\link{solvers}, \link{targets}.
+Other overviews: 
+\code{\link{decisions}},
+\code{\link{importance}},
+\code{\link{objectives}},
+\code{\link{penalties}},
+\code{\link{portfolios}},
+\code{\link{solvers}},
+\code{\link{summaries}},
+\code{\link{targets}}
 }
+\concept{overviews}

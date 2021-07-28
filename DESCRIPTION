@@ -1,6 +1,6 @@
 Package: prioritizr
 Type: Package
-Version: 7.0.1.5
+Version: 7.1.0.0
 Title: Systematic Conservation Prioritization in R
 Description:
     Systematic conservation prioritization using mixed integer linear
@@ -144,6 +144,7 @@ Collate:
     'add_feature_weights.R'
     'add_gap_portfolio.R'
     'add_gurobi_solver.R'
+    'add_linear_constraints.R'
     'add_linear_penalties.R'
     'intersecting_units.R'
     'add_locked_in_constraints.R'
@@ -164,7 +165,7 @@ Collate:
     'add_min_largest_shortfall_objective.R'
     'add_min_set_objective.R'
     'add_min_shortfall_objective.R'
-    'add_neighbor_contraints.R'
+    'add_neighbor_constraints.R'
     'add_proportion_decisions.R'
     'add_relative_targets.R'
     'add_rsymphony_solver.R'

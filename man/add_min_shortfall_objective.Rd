@@ -21,16 +21,10 @@ added to it.
 }
 \description{
 Set the objective of a conservation planning \code{\link[=problem]{problem()}} to
-minimize the overall shortfall for as many targets as possible while
+minimize the overall shortfall for as many \link{targets} as possible while
 ensuring that the cost of the solution does not exceed a budget.
 }
 \details{
-A problem objective is used to specify the overall goal of the
-conservation planning problem. Please note that all conservation
-planning problems formulated in the \pkg{prioritizr} package require the
-addition of objectives---failing to do so will return an error
-message when attempting to solve problem.
-
 The minimum shortfall objective aims to
 find the set of planning units that minimize the overall
 (weighted sum) shortfall for the
@@ -40,18 +34,20 @@ fixed budget (inspired by Table 1, equation IV, Arponen \emph{et al.}
 2005). Additionally, weights can be used
 to favor the representation of certain features over other features (see
 \code{\link[=add_feature_weights]{add_feature_weights()}}.
+}
+\section{Mathematical formulation}{
 
-The minimum shortfall objective for the reserve design problem can be
-expressed mathematically for a set of planning units (\eqn{I}{I} indexed by
-\eqn{i}{i}) and a set of features (\eqn{J}{J} indexed by \eqn{j}{j}) as:
+This objective can be expressed mathematically for a set of planning units
+(\eqn{I}{I} indexed by \eqn{i}{i}) and a set of features (\eqn{J}{J} indexed
+by \eqn{j}{j}) as:
 
 \deqn{\mathit{Minimize} \space  \sum_{j = 1}^{J} w_j \frac{y_j}{t_j} \\
-  \mathit{subject \space to} \\
-  \sum_{i = 1}^{I} x_i r_{ij} + y_j \geq t_j \forall j \in J \\
-  \sum_{i = 1}^{I} x_i c_i \leq B}{
-  Minimize sum_j^J wj * (yj / tj) subject to
-  sum_i^I (xi * rij) + yj >= tj for all j in J &
-  sum_i^I (xi * ci) <= B}
+\mathit{subject \space to} \\
+\sum_{i = 1}^{I} x_i r_{ij} + y_j \geq t_j \forall j \in J \\
+\sum_{i = 1}^{I} x_i c_i \leq B}{
+Minimize sum_j^J wj * (yj / tj) subject to
+sum_i^I (xi * rij) + yj >= tj for all j in J &
+sum_i^I (xi * ci) <= B}
 
 Here, \eqn{x_i}{xi} is the \link{decisions} variable (e.g.
 specifying whether planning unit \eqn{i}{i} has been selected (1) or not
@@ -66,6 +62,7 @@ cost of planning unit \eqn{i}{i}. Note that \eqn{y_j}{yj} is a continuous
 variable bounded between zero and infinity, and denotes the shortfall
 for target \eqn{j}{j}.
 }
+
 \examples{
 # load data
 data(sim_pu_raster, sim_pu_zones_stack, sim_features, sim_features_zones)
@@ -122,5 +119,17 @@ biodiversity in reserve selection: representation, species weighting, and
 benefit functions. \emph{Conservation Biology}, 19: 2009--2014.
 }
 \seealso{
-\code{\link[=add_feature_weights]{add_feature_weights()}}, \link{objectives}.
+See \link{objectives} for an overview of all functions for adding objectives.
+Also, see \link{targets} for an overview of all functions for adding targets, and
+\code{\link[=add_feature_weights]{add_feature_weights()}} to specify weights for different features.
+
+Other objectives: 
+\code{\link{add_max_cover_objective}()},
+\code{\link{add_max_features_objective}()},
+\code{\link{add_max_phylo_div_objective}()},
+\code{\link{add_max_phylo_end_objective}()},
+\code{\link{add_max_utility_objective}()},
+\code{\link{add_min_largest_shortfall_objective}()},
+\code{\link{add_min_set_objective}()}
 }
+\concept{objectives}

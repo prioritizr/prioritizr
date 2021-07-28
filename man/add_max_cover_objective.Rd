@@ -22,17 +22,11 @@ added to it.
 \description{
 Set the objective of a conservation planning \code{\link[=problem]{problem()}} to
 represent at least one instance of as many features as possible within a
-given budget. This type of objective does not use targets, and feature
-weights should be used instead to increase the representation of different
-features in solutions.
+given budget. This objective does not use targets, and feature
+weights should be used instead to increase the representation of certain
+features by a solution.
 }
 \details{
-A problem objective is used to specify the overall goal of the
-conservation planning problem. Please note that all conservation
-planning problems formulated in the \pkg{prioritizr} package require the
-addition of objectives---failing to do so will return an error
-message when attempting to solve problem.
-
 The maximum coverage objective seeks to find the set of planning units that
 maximizes the number of represented features, while keeping cost within a
 fixed budget. Here, features are treated as being represented if
@@ -46,21 +40,23 @@ representation of certain features over other features (see
 \code{\link[=add_max_features_objective]{add_max_features_objective()}} for a more
 generalized formulation which can accommodate user-specified representation
 targets.
+}
+\section{Mathematical formulation}{
 
-This formulation is based on the historical maximum coverage reserve
-selection formulation (Church & Velle 1974; Church \emph{et al.} 1996).
+This objective is based on the maximum coverage reserve
+selection problem (Church & Velle 1974; Church \emph{et al.} 1996).
 The maximum coverage objective for the reserve design problem can be
 expressed mathematically for a set of planning units (\eqn{I}{I} indexed by
 \eqn{i}{i}) and a set of features (\eqn{J}{J} indexed by \eqn{j}{j}) as:
 
 \deqn{\mathit{Maximize} \space \sum_{i = 1}^{I} -s \space c_i \space x_i +
-  \sum_{j = 1}^{J} y_j w_j \\
-  \mathit{subject \space to} \\
-  \sum_{i = 1}^{I} x_i r_{ij} \geq y_j \times 1 \forall j \in J \\
-  \sum_{i = 1}^{I} x_i c_i \leq B}{
-  Maximize sum_i^I (-s * ci * xi) + sum_j^J (yj * wj) subject to
-  sum_i^I (xi * rij) >= (yj * 1) for all j in J &
-  sum_i^I (xi * ci) <= B}
+\sum_{j = 1}^{J} y_j w_j \\
+\mathit{subject \space to} \\
+\sum_{i = 1}^{I} x_i r_{ij} \geq y_j \times 1 \forall j \in J \\
+\sum_{i = 1}^{I} x_i c_i \leq B}{
+Maximize sum_i^I (-s * ci * xi) + sum_j^J (yj * wj) subject to
+sum_i^I (xi * rij) >= (yj * 1) for all j in J &
+sum_i^I (xi * ci) <= B}
 
 Here, \eqn{x_i}{xi} is the \link{decisions} variable (e.g.
 specifying whether planning unit \eqn{i}{i} has been selected (1) or not
@@ -75,6 +71,7 @@ to shrink the costs so that the problem will return a cheapest solution
 when there are multiple solutions that represent the same amount of all
 features within the budget.
 }
+
 \section{Notes}{
 
 In early versions (< 3.0.0.0), the mathematical formulation
@@ -156,5 +153,16 @@ Church RL, Stoms DM, and Davis FW (1996) Reserve selection as a maximum
 covering location problem. \emph{Biological Conservation}, 76: 105--112.
 }
 \seealso{
-\code{\link[=add_feature_weights]{add_feature_weights()}}, \link{objectives}.
+See \link{objectives} for an overview of all functions for adding objectives.
+Also, see \code{\link[=add_feature_weights]{add_feature_weights()}} to specify weights for different features.
+
+Other objectives: 
+\code{\link{add_max_features_objective}()},
+\code{\link{add_max_phylo_div_objective}()},
+\code{\link{add_max_phylo_end_objective}()},
+\code{\link{add_max_utility_objective}()},
+\code{\link{add_min_largest_shortfall_objective}()},
+\code{\link{add_min_set_objective}()},
+\code{\link{add_min_shortfall_objective}()}
 }
+\concept{objectives}

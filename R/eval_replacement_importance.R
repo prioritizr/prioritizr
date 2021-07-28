@@ -72,6 +72,12 @@ NULL
 #'   unit in the solution. Specifically, the returned object is in the
 #'   same format as the planning unit data in the argument to `x`.
 #'
+#' @seealso
+#' See [importance] for an overview of all functions for evaluating
+#' the importance of planning units selected in a solution.
+#.
+#' @family importances
+#'
 #' @examples
 #' \dontrun{
 #' # seed seed for reproducibility
@@ -183,8 +189,6 @@ NULL
 #' Cabeza M and Moilanen A (2006) Replacement cost: A practical measure of site
 #' value for cost-effective reserve planning. *Biological Conservation*,
 #' 132: 336--342.
-#'
-#' @seealso [importance].
 #'
 #' @aliases eval_replacement_importance,ConservationProblem,numeric-method eval_replacement_importance,ConservationProblem,matrix-method eval_replacement_importance,ConservationProblem,data.frame-method eval_replacement_importance,ConservationProblem,Spatial-method eval_replacement_importance,ConservationProblem,sf-method eval_replacement_importance,ConservationProblem,Raster-method
 #'

@@ -45,9 +45,7 @@ NULL
 #'
 #'   }
 #'
-#' @seealso [constraints], [objectives],
-#'  [penalties], [portfolios], [problem()],
-#'  [solvers], [targets].
+#' @family overviews
 #'
 #' @examples
 #' # load data

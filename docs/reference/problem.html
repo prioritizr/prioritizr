@@ -63,7 +63,9 @@ constructing this ConservationProblem-class object, it can be
 customized to meet specific goals using objectives,
 targets, constraints, and
 penalties. After building the problem, the
-solve() function can be used to identify solutions." />
+solve() function can be used to identify solutions.
+Note that problems require an objective, and failing to specify an
+an objective will throw an error when attempting to solve it." />
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 
 
@@ -114,7 +116,7 @@ solve() function can be used to identify solutions." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.1.0.0</span>
       </span>
     </div>
 
@@ -197,7 +199,9 @@ constructing this <code>ConservationProblem-class</code> object, it can be
 customized to meet specific goals using <a href='objectives.html'>objectives</a>,
 <a href='targets.html'>targets</a>, <a href='constraints.html'>constraints</a>, and
 <a href='penalties.html'>penalties</a>. After building the problem, the
-<code><a href='solve.html'>solve()</a></code> function can be used to identify solutions.</p>
+<code><a href='solve.html'>solve()</a></code> function can be used to identify solutions.
+<strong>Note that problems require an objective, and failing to specify an
+an objective will throw an error when attempting to solve it.</strong></p>
     </div>
 
     <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>problem</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>features</span>, <span class='va'>...</span><span class='op'>)</span>
@@ -400,64 +404,129 @@ to <code>x</code> is a <code>numeric</code> or <code>matrix</code> object.</p></
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code><a href='ConservationProblem-class.html'>ConservationProblem</a></code> object containing
-data for building a prioritization problem.</p>
+data for a prioritization.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>A reserve design exercise starts by dividing the study region
-into planning units (typically square or hexagonal cells) and, for
-each planning unit, assigning values that quantify socioeconomic
-cost and conservation benefit for a set of conservation features. The
-cost can be the acquisition cost of the land, the cost of management,
-the opportunity cost of foregone commercial activities (e.g. from logging
-or agriculture), or simply the area. The conservation features are
-typically species (e.g. Clouded Leopard) or habitats (e.g. mangroves or
-cloud forest). The benefit that each feature derives from a planning unit
-can take a variety of forms, but is typically either occupancy (i.e.
-presence or absence) or area of occurrence within each planning unit.
-Finally, in some types of reserve design models, representation targets
-must be set for each conservation feature, such as 20% of the current
-extent of cloud forest or 10,000 km^2 of Clouded Leopard habitat
-(see <a href='targets.html'>targets</a>).</p>
-<p>The goal of the reserve design exercise is then to optimize the trade-off
-between conservation benefit and socioeconomic cost, i.e. to get the most
-benefit for your limited conservation funds. In general, the goal of an
-optimization problem is to minimize an objective function over a set of
-decision variables, subject to a series of constraints. The decision
-variables are what we control, usually there is one binary variable for
-each planning unit specifying whether or not to protect that unit (but
-other approaches are available, see <a href='decisions.html'>decisions</a>). The
-constraints can be thought of as rules that need to be followed, for
-example, that the reserve must stay within a certain budget or meet the
-representation targets.</p>
-<p>Integer linear programming (ILP) is the subset of optimization algorithms
-used in this package to solve reserve design problems. The general form of
-an integer programming problem can be expressed in matrix notation using
+    <p>A systematic conservation planning exercise leverages data to help inform
+conservation decision making. To help ensure that the
+data -- and resulting prioritizations -- are relevant to the over-arching
+goals of the exercise, you should decide on the management action
+(or set of actions) that need be considered in the exercise.
+For example, these actions could include establishing protected areas,
+selecting land for conservation easements, restoring habitat,
+planting trees for carbon sequestration, eradicating invasive
+species, or some combination of the previous actions.
+If the exercise involves multiple different actions, they can
+be incorporated by using multiple zones
+(see the Management Zones vignette for details). After deciding
+on the management action(s), you can compile the following data.</p>
+<p>First, you will need to create a set of planning units
+(i.e. discrete spatial areas) to inform decision making.
+Planning units are often created by subdividing a study region
+into a set square or hexagonal cells. They can also be created using
+administrative boundaries (e.g. provinces), land management boundaries
+(e.g. property boundaries derived from cadastral data), or
+ecological boundaries (e.g. based on ecosystem classification data).
+The size (i.e. spatial grain) of the planning units is often determined
+based on a compromise between the scale needed to inform decision making, the
+spatial accuracy (resolution) of available datasets, and
+the computational resources available for generating prioritizations
+(e.g. RAM and number of CPUs on your computer).</p>
+<p>Second, you will need data to quantify the cost of implementing
+implementing each management action within each planning unit.
+Critically, the cost data should reflect the management action(s)
+considered in the exercise.
+For example, costs are often specified using data that reflect economic
+expenditure (e.g. land acquisition cost),
+socioeconomic conditions (e.g. human population density),
+opportunity costs of foregone commercial activities
+(e.g. logging or agriculture), or
+opportunity costs of foregone recreational activities
+(e.g. recreational fishing) activities,
+In some cases -- depending on the management action(s) considered --
+it can make sense to use a constant cost value
+(e.g. all planning units are assigned a cost value equal to one)
+or use a cost value based on spatial extent
+(e.g. each planning unit is assigned a cost value based on its total area).
+Also, in most cases, you want to avoid negative cost values.
+This because a negative value means that a place is <em>desirable</em>
+for implementing a management action, and such places will almost
+always be selected for prioritization even if they provide no benefit.</p>
+<p>Third, you will need data to quantify the benefits of implementing
+management actions within planning units.
+To achieve this, you will need to select a set of conservation features
+that relate to the over-arching goals of the exercise.
+For example, conservation features often include
+species (e.g. Clouded Leopard), habitats (e.g. mangroves or
+cloud forest), or ecosystems.
+The benefit that each feature derives from a planning unit
+can take a variety of forms, but is typically occupancy (i.e.
+presence or absence), area of occurrence within each planning unit
+(e.g. based on species' geographic range data), or
+a measure of habitat suitability (e.g. estimated using a statistical model).
+After compiling these data, you have the minimal data need to generate
+a prioritization.</p>
+<p>A systematic conservation planning exercise involves prioritizing a set of
+management actions to be implemented within certain planning units.
+Critically, this prioritization should ideally optimize the trade-off
+between benefits and costs.
+To accomplish this, the <span class="pkg">prioritizr</span> package uses input data
+to formulate optimization problems (see Optimization section for details).
+Broadly speaking, the goal of an optimization problem is to minimize
+(or maximize) an objective function over a set of
+decision variables, subject to a series of constraints.
+Here, an objective function specifies the metric for evaluating
+conservation plans. The decision variables are what we control, and usually
+there is one binary variable for each planning unit to specify whether that
+unit is selected or not (but other approaches are available, see
+<a href='decisions.html'>decisions</a>). The constraints can be thought of as rules that must be
+followed. For example, constraints can be used to ensure a prioritization
+must stay within a certain budget. These constraints can also leverage
+additional data to help ensure that prioritizations meet the over-arching
+goals of the exercise. For example, to account for existing conservation
+efforts, you could obtain data delineating the extent of existing protected
+areas and use constraints to lock in planning units that are covered by them
+(see <a href='add_locked_in_constraints.html'>add_locked_in_constraints</a>).</p>
+    <h2 class="hasAnchor" id="optimization"><a class="anchor" href="#optimization"></a>Optimization</h2>
+
+    
+
+<p>The <span class="pkg">prioritizr</span> package uses exact algorithms to solve reserve design
+problems (see <a href='solvers.html'>solvers</a> for details).
+To achieve this, it internally formulates mathematical optimization problems
+using mixed integer linear programming (MILP). The general form of
+such problems can be expressed in matrix notation using
 the following equation.</p>
 <p>$$\mathit{Minimize} \space \mathbf{c}^{\mathbf{T}}\mathbf{x} \space
-  \mathit{subject \space to} \space
-  \mathbf{Ax}\geq= or\leq \mathbf{b}$$</p>
+\mathit{subject \space to} \space
+\mathbf{Ax}\geq= or\leq \mathbf{b}$$</p>
 <p>Here, \(x\) is a vector of decision variables, \(c\) and \(b\) are
 vectors of known coefficients, and \(A\) is the constraint
 matrix. The final term specifies a series of structural
 constraints where relational operators for the constraint can be either
 \(\ge\), \(=\), or \(\le\) the coefficients. For example, in the
-minimum set
-cover problem, \(c\) would be a vector of costs for each planning unit,
-\(b\) a vector of targets for each conservation feature, the relational
-operator would be \(\ge\) for all features, and \(A\) would be the
-representation matrix with \(A_{ij}=r_{ij}\), the
-representation level of feature \(i\) in planning unit \(j\).</p>
+minimum set cover problem, \(c\) would be a vector of costs for each
+planning unit, \(b\) a vector of targets for each conservation feature,
+the relational operator would be \(\ge\) for all features, and \(A\)
+would be the representation matrix with \(A_{ij}=r_{ij}\), the
+representation level of feature \(i\) in planning unit \(j\).
+If you wish to see exactly how a conservation planning problem is
+formulated as mixed integer linear programming problem, you can use
+the <code><a href='write_problem.html'>write_problem()</a></code> function to save the optimization problem
+to a plain-text file on your computer and then view it using a standard
+text editor (e.g. Notepad).</p>
 <p>Please note that this function internally computes the amount of each
 feature in each planning unit when this data is not supplied (using the
-<code>rij_matrix</code> parameter). As a consequence, it can take a while to
+<a href='rij_matrix.html'>rij_matrix</a> function). As a consequence, it can take a while to
 initialize large-scale conservation planning problems that involve
 millions of planning units.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='constraints.html'>constraints</a>, <a href='decisions.html'>decisions</a>,
-<a href='objectives.html'>objectives</a> <a href='penalties.html'>penalties</a>,
-<a href='portfolios.html'>portfolios</a>, <a href='solvers.html'>solvers</a>, <a href='targets.html'>targets</a>,
-<a href='summaries.html'>summaries</a>, <a href='importance.html'>importance</a>.</p></div>
+    <div class='dont-index'><p>See <code><a href='solve.html'>solve()</a></code> for details on solving a problem to generate solutions.
+Also, see <a href='objectives.html'>objectives</a>, <a href='penalties.html'>penalties</a>, <a href='targets.html'>targets</a>, <a href='constraints.html'>constraints</a>,
+<a href='decisions.html'>decisions</a>, <a href='portfolios.html'>portfolios</a>, <a href='solvers.html'>solvers</a> for information on customizing problems.
+Additionally, see <a href='summaries.html'>summaries</a> and <a href='importance.html'>importance</a> for information on
+evaluating solutions.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='co'># load data</span></span>
@@ -499,6 +568,11 @@ millions of planning units.</p>
 <span class='r-in'>      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.2</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
 <span class='r-in'>      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
 <span class='r-in'>      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
 <span class='r-in'></span>
 <span class='r-in'><span class='co'># since geo-processing can be slow for large spatial vector datasets</span></span>
 <span class='r-in'><span class='co'># (e.g. polygons, lines, points), it can be worthwhile to pre-process the</span></span>
@@ -526,6 +600,9 @@ millions of planning units.</p>
 <span class='r-in'></span>
 <span class='r-in'><span class='co'># this strategy of pre-processing columns can be used for sf objects too</span></span>
 <span class='r-in'><span class='va'>pre_proc_data2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='rij_matrix.html'>rij_matrix</a></span><span class='op'>(</span><span class='va'>sim_pu_sf</span>, <span class='va'>sim_features</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
 <span class='r-in'><span class='va'>pre_proc_data2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/raster/man/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/transpose.html'>t</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/as.matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>pre_proc_data2</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
 <span class='r-in'><span class='fu'><a href='https://rdrr.io/pkg/raster/man/names.html'>names</a></span><span class='op'>(</span><span class='va'>pre_proc_data2</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/raster/man/names.html'>names</a></span><span class='op'>(</span><span class='va'>sim_features</span><span class='op'>)</span></span>
 <span class='r-in'><span class='va'>sim_pu_sf</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='va'>sim_pu_sf</span>, <span class='va'>pre_proc_data2</span><span class='op'>)</span></span>
@@ -576,7 +653,11 @@ millions of planning units.</p>
 <span class='r-in'></span>
 <span class='r-in'><span class='co'># note that as_Spatial() is for convenience to plot all solutions together</span></span>
 <span class='r-in'><span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/coerce-methods.html'>as_Spatial</a></span><span class='op'>(</span><span class='va'>s5</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='st'>"sf (polygon) data"</span>, pch <span class='op'>=</span> <span class='fl'>19</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
 <span class='r-in'><span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/coerce-methods.html'>as_Spatial</a></span><span class='op'>(</span><span class='va'>s5</span><span class='op'>[</span><span class='va'>s5</span><span class='op'>$</span><span class='va'>solution_1</span> <span class='op'>&gt;</span> <span class='fl'>0.5</span>, <span class='op'>]</span><span class='op'>)</span>, col <span class='op'>=</span> <span class='st'>"darkgreen"</span>, add <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
 <span class='r-in'></span>
 <span class='r-in'><span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>s6</span>, main <span class='op'>=</span> <span class='st'>"preprocessed data (polygon data)"</span>, pch <span class='op'>=</span> <span class='fl'>19</span><span class='op'>)</span></span>
 <span class='r-in'><span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>s6</span><span class='op'>[</span><span class='va'>s6</span><span class='op'>$</span><span class='va'>solution_1</span> <span class='op'>&gt;</span> <span class='fl'>0.5</span>, <span class='op'>]</span>, col <span class='op'>=</span> <span class='st'>"darkgreen"</span>, add <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>

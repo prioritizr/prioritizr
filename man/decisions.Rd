@@ -77,7 +77,14 @@ plot(s, main = c("default (binary)", "binary", "proportion",
 
 }
 \seealso{
-\link{constraints}, \link{objectives},
-\link{penalties}, \link{portfolios}, \code{\link[=problem]{problem()}},
-\link{solvers}, \link{targets}.
+Other overviews: 
+\code{\link{constraints}},
+\code{\link{importance}},
+\code{\link{objectives}},
+\code{\link{penalties}},
+\code{\link{portfolios}},
+\code{\link{solvers}},
+\code{\link{summaries}},
+\code{\link{targets}}
 }
+\concept{overviews}

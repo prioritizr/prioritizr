@@ -23,71 +23,75 @@ NULL
 #'   the presolve checks. Defaults to `FALSE`.
 #'
 #' @details
-#'   After formulating a conservation planning [problem()],
-#'   it can be solved using an exact algorithm solver (see [solvers]
-#'   for available solvers). If no solver has been explicitly specified,
-#'   then the best available exact algorithm solver will be used by default
-#'   (see [add_default_solver()]. Although these exact algorithm
-#'   solvers will often display a lot of information that isn't really that
-#'   helpful (e.g. nodes, cutting planes), they do display information
-#'   about the progress they are making on solving the problem (e.g. the
-#'   performance of the best solution found at a given point in time). If
-#'   potential issues were detected during the
-#'   presolve checks (see [presolve_check()])
-#'   and the problem is being forcibly solved (i.e. with `force = TRUE`),
-#'   then it is also worth checking for any warnings displayed by the solver
-#'   to see if these potential issues are actually causing issues
-#'   (e.g. *Gurobi* can display warnings that include
-#'   `"Warning: Model contains large matrix coefficient range"` and
-#'   `"Warning: Model contains large rhs"`).
+#' After formulating a conservation planning [problem()],
+#' it can be solved using an exact algorithm solver (see [solvers]
+#' for available solvers). If no solver has been explicitly specified,
+#' then the best available exact algorithm solver will be used by default
+#' (see [add_default_solver()]. Although these exact algorithm
+#' solvers will often display a lot of information that isn't really that
+#' helpful (e.g. nodes, cutting planes), they do display information
+#' about the progress they are making on solving the problem (e.g. the
+#' performance of the best solution found at a given point in time). If
+#' potential issues were detected during the
+#' presolve checks (see [presolve_check()])
+#' and the problem is being forcibly solved (i.e. with `force = TRUE`),
+#' then it is also worth checking for any warnings displayed by the solver
+#' to see if these potential issues are actually causing issues
+#' (e.g. *Gurobi* can display warnings that include
+#' `"Warning: Model contains large matrix coefficient range"` and
+#' `"Warning: Model contains large rhs"`).
 #'
-#'   The object returned from this function depends on the argument to
-#'   `a`. If the argument to `a` is an
-#'   [`OptimizationProblem-class`] object, then the
-#'   solution is returned as a `logical` `vector` showing the status
-#'   of each planning unit in each zone. However, in most cases, the argument
-#'   to `a` is an [`ConservationProblem-class`] object, and so
-#'   the type of object returned depends on the number of solutions
-#'   generated and the type data used to represent the planning units:
+#' The object returned from this function depends on the argument to
+#' `a`. If the argument to `a` is an
+#' [`OptimizationProblem-class`] object, then the
+#' solution is returned as a `logical` `vector` showing the status
+#' of each planning unit in each zone. However, in most cases, the argument
+#' to `a` will be a [`ConservationProblem-class`] object, and so
+#' the type of object returned depends on the number of solutions
+#' generated and the data format used to specify the planning units:
 #'
 #'   \describe{
 #'
-#'   \item{`numeric`}{`vector` containing the solution. Here,
-#'     Each element corresponds to a different planning unit. If
-#'     multiple solutions are generated, then the solution is returned as
-#'     a `list` of `numeric` `vectors`.}
+#'   \item{`a` has `numeric` planning units}{The solution will be
+#'    returned as a `numeric` vector. Here, each element in the vector
+#'     corresponds to a different planning unit.
+#'     Note that if a portfolio is used to generate multiple solutions,
+#'     then a `list` of such `numeric` vectors will be returned.}
 #'
-#'   \item{`matrix`}{containing `numeric` values for the solution.
+#'   \item{`a` has `matrix` planning units}{The solution will be
+#'     returned as a `matrix` object.
 #'     Here, rows correspond to different planning units,
-#'     and fields (columns) correspond to different  management zones. If
-#'     multiple solutions are generated, then the solution is returned as
-#'     a `list` of `matrix` objects.}
+#'     and fields (columns) correspond to different  management zones.
+#'     Note that if a portfolio is used to generate multiple solutions,
+#'     then a `list` of such `matrix` objects will be returned.}
 #'
-#'   \item{[`Raster-class`]}{object containing the solution
-#'     in pixel values. If the argument to `x` contains a single
-#'     management zone, then a `RasterLayer` object will be returned.
+#'   \item{`a` has [`Raster-class`] planning units}{The solution
+#'     will be returned as a [`Raster-class`] object.
+#'     If the argument to `x` contains a single
+#'     management zone, then a [`RasterLayer-class`] object will be returned.
 #'     Otherwise, if the argument to `x` contains multiple zones, then a
 #'     [`RasterStack-class`] object
 #'     will be returned containing a different layer for each management zone.
-#'     If multiple solutions are generated, then the solution is returned as
-#'     a `list` of `Raster` objects.}
+#'     Note that if a portfolio is used to generate multiple solutions,
+#'     then a `list` of such [`Raster-class`] objects will be returned.}
 #'
-#'   \item{[`Spatial-class`], [sf::sf()], or
-#'     `data.frame`}{
-#'     containing the solution in fields (columns). Here, each row
-#'     corresponds to a different planning unit. If the argument to `x`
-#'     contains a single zone, the fields containing solutions are named
-#'     `"solution_XXX"` where `"XXX"` corresponds to the solution
-#'     number. If the argument to `x` contains multiple zones, the fields
-#'     containing solutions are named `"solution_XXX_YYY"` where
-#'     `"XXX"` corresponds to the solution and `"YYY"` is the name
-#'     of the management zone.}
+#'   \item{`a` has [`Spatial-class`], [sf::sf()], or `data.frame`
+#'     planning units}{
+#'     The solution will be returned in the same data format as the planning
+#'     units.
+#'     Here, each row corresponds to a different planning unit,
+#'     and fields contain solutions.
+#'     If the argument to `a` contains a single zone, then the solution object
+#'     will contain fields (columns) that solution the values.
+#'     Specifically, the field name(s) containing the solution values
+#'     be will named as `"solution_XXX"` where `"XXX"` corresponds to a solution
+#'     identifier (e.g. `"solution_1"`).
+#'     If the argument to `a` contains multiple zones, then the fields
+#'     containing solutions will be named as `"solution_XXX_YYY"` where
+#'     `"XXX"` corresponds to the solution identifier and `"YYY"` is the name
+#'     of the management zone (e.g. `"solution_1_zone1"`).}
 #'
 #'   }
-#'
-#'   After solving problems that contain multiple zones,
-#'   it may be useful to use the [category_layer()] or
-#'   [category_vector()] function to reformat the output.
 #'
 #' @return A `numeric`, `matrix`,
 #'   [`RasterLayer-class`], [`Spatial-class`],
@@ -97,14 +101,16 @@ NULL
 #'   `"runtime"` denoting the number of seconds that elapsed while solving
 #'   the problem, and `"status"` describing the status of the solution
 #'   (e.g. `"OPTIMAL"` indicates that the optimal solution was found).
-#'   In most cases, the first solution (e.g. `"solution_001"`)
+#'   In most cases, the first solution (e.g. `"solution_1"`)
 #'   will contain the best solution found by the solver (note that this
 #'   may not be an optimal solution depending on the gap used to solve
 #'   the problem and noting that the default gap is 0.1).
 #'
-#' @seealso [eval_feature_representation_summary()], [problem()],
-#'   [solvers], [category_layer()],
-#'   [presolve_check()].
+#' @seealso
+#' See [problem()] to create conservation planning problems, and
+#' [presolve_check()] to check problems for potential issues.
+#' Also, see the [category_layer()] and [category_vector()] function to
+#' reformat solutions that contain multiple zones.
 #'
 #' @examples
 #' # set seed for reproducibility

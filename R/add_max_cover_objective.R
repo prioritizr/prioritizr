@@ -5,9 +5,9 @@ NULL
 #'
 #' Set the objective of a conservation planning [problem()] to
 #' represent at least one instance of as many features as possible within a
-#' given budget. This type of objective does not use targets, and feature
-#' weights should be used instead to increase the representation of different
-#' features in solutions.
+#' given budget. This objective does not use targets, and feature
+#' weights should be used instead to increase the representation of certain
+#' features by a solution.
 #'
 #' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
@@ -17,53 +17,49 @@ NULL
 #'   for the entire solution or a `numeric` `vector` to specify
 #'   a budget for each each management zone.
 #'
-#' @details A problem objective is used to specify the overall goal of the
-#'   conservation planning problem. Please note that all conservation
-#'   planning problems formulated in the \pkg{prioritizr} package require the
-#'   addition of objectives---failing to do so will return an error
-#'   message when attempting to solve problem.
+#' @details
+#' The maximum coverage objective seeks to find the set of planning units that
+#' maximizes the number of represented features, while keeping cost within a
+#' fixed budget. Here, features are treated as being represented if
+#' the reserve system contains at least a single instance of a feature
+#' (i.e. an amount greater than 1). This formulation has often been
+#' used in conservation planning problems dealing with binary biodiversity
+#' data that indicate the presence/absence of suitable habitat
+#' (e.g. Church & Velle 1974). Additionally, weights can be used to favor the
+#' representation of certain features over other features (see
+#' [add_feature_weights()]). Check out the
+#' [add_max_features_objective()] for a more
+#' generalized formulation which can accommodate user-specified representation
+#' targets.
 #'
-#'   The maximum coverage objective seeks to find the set of planning units that
-#'   maximizes the number of represented features, while keeping cost within a
-#'   fixed budget. Here, features are treated as being represented if
-#'   the reserve system contains at least a single instance of a feature
-#'   (i.e. an amount greater than 1). This formulation has often been
-#'   used in conservation planning problems dealing with binary biodiversity
-#'   data that indicate the presence/absence of suitable habitat
-#'   (e.g. Church & Velle 1974). Additionally, weights can be used to favor the
-#'   representation of certain features over other features (see
-#'   [add_feature_weights()]). Check out the
-#'   [add_max_features_objective()] for a more
-#'   generalized formulation which can accommodate user-specified representation
-#'   targets.
+#' @section Mathematical formulation:
+#' This objective is based on the maximum coverage reserve
+#' selection problem (Church & Velle 1974; Church *et al.* 1996).
+#' The maximum coverage objective for the reserve design problem can be
+#' expressed mathematically for a set of planning units (\eqn{I}{I} indexed by
+#' \eqn{i}{i}) and a set of features (\eqn{J}{J} indexed by \eqn{j}{j}) as:
 #'
-#'   This formulation is based on the historical maximum coverage reserve
-#'   selection formulation (Church & Velle 1974; Church *et al.* 1996).
-#'   The maximum coverage objective for the reserve design problem can be
-#'   expressed mathematically for a set of planning units (\eqn{I}{I} indexed by
-#'   \eqn{i}{i}) and a set of features (\eqn{J}{J} indexed by \eqn{j}{j}) as:
+#' \deqn{\mathit{Maximize} \space \sum_{i = 1}^{I} -s \space c_i \space x_i +
+#' \sum_{j = 1}^{J} y_j w_j \\
+#' \mathit{subject \space to} \\
+#' \sum_{i = 1}^{I} x_i r_{ij} \geq y_j \times 1 \forall j \in J \\
+#' \sum_{i = 1}^{I} x_i c_i \leq B}{
+#' Maximize sum_i^I (-s * ci * xi) + sum_j^J (yj * wj) subject to
+#' sum_i^I (xi * rij) >= (yj * 1) for all j in J &
+#' sum_i^I (xi * ci) <= B}
 #'
-#'   \deqn{\mathit{Maximize} \space \sum_{i = 1}^{I} -s \space c_i \space x_i +
-#'   \sum_{j = 1}^{J} y_j w_j \\
-#'   \mathit{subject \space to} \\
-#'   \sum_{i = 1}^{I} x_i r_{ij} \geq y_j \times 1 \forall j \in J \\
-#'   \sum_{i = 1}^{I} x_i c_i \leq B}{
-#'   Maximize sum_i^I (-s * ci * xi) + sum_j^J (yj * wj) subject to
-#'   sum_i^I (xi * rij) >= (yj * 1) for all j in J &
-#'   sum_i^I (xi * ci) <= B}
-#'
-#'   Here, \eqn{x_i}{xi} is the [decisions] variable (e.g.
-#'   specifying whether planning unit \eqn{i}{i} has been selected (1) or not
-#'   (0)), \eqn{r_{ij}}{rij} is the amount of feature \eqn{j}{j} in planning
-#'   unit \eqn{i}{i}, \eqn{y_j}{yj} indicates if the solution has meet
-#'   the target \eqn{t_j}{tj} for feature \eqn{j}{j}, and \eqn{w_j}{wj} is the
-#'   weight for feature \eqn{j}{j} (defaults to 1 for all features; see
-#'   [add_feature_weights()] to specify weights). Additionally,
-#'   \eqn{B}{B} is the budget allocated for the solution, \eqn{c_i}{ci} is the
-#'   cost of planning unit \eqn{i}{i}, and \eqn{s}{s} is a scaling factor used
-#'   to shrink the costs so that the problem will return a cheapest solution
-#'   when there are multiple solutions that represent the same amount of all
-#'   features within the budget.
+#' Here, \eqn{x_i}{xi} is the [decisions] variable (e.g.
+#' specifying whether planning unit \eqn{i}{i} has been selected (1) or not
+#' (0)), \eqn{r_{ij}}{rij} is the amount of feature \eqn{j}{j} in planning
+#' unit \eqn{i}{i}, \eqn{y_j}{yj} indicates if the solution has meet
+#' the target \eqn{t_j}{tj} for feature \eqn{j}{j}, and \eqn{w_j}{wj} is the
+#' weight for feature \eqn{j}{j} (defaults to 1 for all features; see
+#' [add_feature_weights()] to specify weights). Additionally,
+#' \eqn{B}{B} is the budget allocated for the solution, \eqn{c_i}{ci} is the
+#' cost of planning unit \eqn{i}{i}, and \eqn{s}{s} is a scaling factor used
+#' to shrink the costs so that the problem will return a cheapest solution
+#' when there are multiple solutions that represent the same amount of all
+#' features within the budget.
 #'
 #' @section Notes:
 #' In early versions (< 3.0.0.0), the mathematical formulation
@@ -79,7 +75,13 @@ NULL
 #' Church RL, Stoms DM, and Davis FW (1996) Reserve selection as a maximum
 #' covering location problem. *Biological Conservation*, 76: 105--112.
 #'
-#' @inherit add_max_features_objective seealso return
+#' @inherit add_max_features_objective return
+#'
+#' @seealso
+#' See [objectives] for an overview of all functions for adding objectives.
+#' Also, see [add_feature_weights()] to specify weights for different features.
+#'
+#' @family objectives
 #'
 #' @examples
 #' # load data

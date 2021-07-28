@@ -82,7 +82,13 @@ This summary statistic evaluates the connectivity of a solution using
 pair-wise connectivity values between combinations of planning units.
 }
 \details{
-\verb{This summary statistic is comparable to the}Connectivity_In\verb{metric reported by the [*Marxan* software](https://marxansolutions.org) (Ball *et al.* 2009). It is calculated using the same equations used to penalize solutions with connectivity data (i.e. [add_connectivity_penalties()]). Specifically, it is calculated as the sum of the pair-wise connectivity values in the argument to}data`, weighted by the value of the planning
+This summary statistic is comparable to the \code{Connectivity_In} metric
+reported by the
+\href{https://marxansolutions.org}{\emph{Marxan} software} (Ball \emph{et al.} 2009).
+It is calculated using the same equations used to penalize solutions
+with connectivity data (i.e. \code{\link[=add_connectivity_penalties]{add_connectivity_penalties()}}).
+Specifically, it is calculated as the sum of the pair-wise connectivity
+values in the argument to \code{data}, weighted by the value of the planning
 units in the solution.
 }
 \section{Solution format}{
@@ -171,7 +177,7 @@ asymmetric relationships between planning units.
 
 \describe{
 
-\item{\code{matrix}, \code{Matrix}}{where rows and columns represent
+\item{\code{data} as a \code{matrix}/\code{Matrix} object}{where rows and columns represent
 different planning units and the value of each cell represents the
 strength of connectivity between two different planning units. Cells
 that occur along the matrix diagonal are treated as weights which
@@ -181,7 +187,7 @@ the strength of connectivity between planning units in different zones.
 The default argument for \code{zones} is to treat planning units
 allocated to different zones as having zero connectivity.}
 
-\item{\code{data.frame}}{containing the fields (columns)
+\item{\code{data} as a \code{data.frame} object}{containing the fields (columns)
 \code{"id1"}, \code{"id2"}, and \code{"boundary"}. Here, each row
 denotes the connectivity between two planning units following the
 \emph{Marxan} format. The data can be used to denote symmetric or
@@ -197,7 +203,8 @@ allocated to specific zones. If the columns \code{"zone1"} and
 \code{"zone2"} are present, then the argument to \code{zones} must be
 \code{NULL}.}
 
-\item{\code{array}}{containing four-dimensions where cell values
+\item{\code{data} as an \code{array} object}{
+containing four-dimensions where cell values
 indicate the strength of connectivity between planning units
 when they are assigned to specific management zones. The first two
 dimensions (i.e. rows and columns) indicate the strength of
@@ -318,5 +325,15 @@ prioritisation: Quantitative methods and computational tools. Eds Moilanen
 A, Wilson KA, and Possingham HP. Oxford University Press, Oxford, UK.
 }
 \seealso{
-\code{\link[=problem]{problem()}}, \link{summaries}, \code{\link[=add_connectivity_penalties]{add_connectivity_penalties()}}.
+See \link{summaries} for an overview of all functions for summarizing solutions.
+Also, see \code{\link[=add_connectivity_penalties]{add_connectivity_penalties()}} to penalize solutions with low
+connectivity.
+
+Other summaries: 
+\code{\link{eval_boundary_summary}()},
+\code{\link{eval_cost_summary}()},
+\code{\link{eval_feature_representation_summary}()},
+\code{\link{eval_n_summary}()},
+\code{\link{eval_target_coverage_summary}()}
 }
+\concept{summaries}

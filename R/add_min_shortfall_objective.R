@@ -4,53 +4,54 @@ NULL
 #' Add minimum shortfall objective
 #'
 #' Set the objective of a conservation planning [problem()] to
-#' minimize the overall shortfall for as many targets as possible while
+#' minimize the overall shortfall for as many [targets] as possible while
 #' ensuring that the cost of the solution does not exceed a budget.
 #'
 #' @inheritParams add_max_features_objective
 #'
-#' @details A problem objective is used to specify the overall goal of the
-#'   conservation planning problem. Please note that all conservation
-#'   planning problems formulated in the \pkg{prioritizr} package require the
-#'   addition of objectives---failing to do so will return an error
-#'   message when attempting to solve problem.
+#' @details
+#' The minimum shortfall objective aims to
+#' find the set of planning units that minimize the overall
+#' (weighted sum) shortfall for the
+#' representation targets---that is, the fraction of each target that
+#' remains unmet---for as many features as possible while staying within a
+#' fixed budget (inspired by Table 1, equation IV, Arponen *et al.*
+#' 2005). Additionally, weights can be used
+#' to favor the representation of certain features over other features (see
+#' [add_feature_weights()].
 #'
-#'   The minimum shortfall objective aims to
-#'   find the set of planning units that minimize the overall
-#'   (weighted sum) shortfall for the
-#'   representation targets---that is, the fraction of each target that
-#'   remains unmet---for as many features as possible while staying within a
-#'   fixed budget (inspired by Table 1, equation IV, Arponen *et al.*
-#'   2005). Additionally, weights can be used
-#'   to favor the representation of certain features over other features (see
-#'   [add_feature_weights()].
+#' @section Mathematical formulation:
+#' This objective can be expressed mathematically for a set of planning units
+#' (\eqn{I}{I} indexed by \eqn{i}{i}) and a set of features (\eqn{J}{J} indexed
+#' by \eqn{j}{j}) as:
 #'
-#'   The minimum shortfall objective for the reserve design problem can be
-#'   expressed mathematically for a set of planning units (\eqn{I}{I} indexed by
-#'   \eqn{i}{i}) and a set of features (\eqn{J}{J} indexed by \eqn{j}{j}) as:
+#' \deqn{\mathit{Minimize} \space  \sum_{j = 1}^{J} w_j \frac{y_j}{t_j} \\
+#' \mathit{subject \space to} \\
+#' \sum_{i = 1}^{I} x_i r_{ij} + y_j \geq t_j \forall j \in J \\
+#' \sum_{i = 1}^{I} x_i c_i \leq B}{
+#' Minimize sum_j^J wj * (yj / tj) subject to
+#' sum_i^I (xi * rij) + yj >= tj for all j in J &
+#' sum_i^I (xi * ci) <= B}
 #'
-#'   \deqn{\mathit{Minimize} \space  \sum_{j = 1}^{J} w_j \frac{y_j}{t_j} \\
-#'   \mathit{subject \space to} \\
-#'   \sum_{i = 1}^{I} x_i r_{ij} + y_j \geq t_j \forall j \in J \\
-#'   \sum_{i = 1}^{I} x_i c_i \leq B}{
-#'   Minimize sum_j^J wj * (yj / tj) subject to
-#'   sum_i^I (xi * rij) + yj >= tj for all j in J &
-#'   sum_i^I (xi * ci) <= B}
+#' Here, \eqn{x_i}{xi} is the [decisions] variable (e.g.
+#' specifying whether planning unit \eqn{i}{i} has been selected (1) or not
+#' (0)), \eqn{r_{ij}}{rij} is the amount of feature \eqn{j}{j} in planning
+#' unit \eqn{i}{i}, \eqn{t_j}{tj} is the representation target for feature
+#' \eqn{j}{j}, \eqn{y_j}{yj} denotes the representation shortfall for
+#' the target \eqn{t_j}{tj} for feature \eqn{j}{j}, and \eqn{w_j}{wj} is the
+#' weight for feature \eqn{j}{j} (defaults to 1 for all features; see
+#' [add_feature_weights()] to specify weights). Additionally,
+#' \eqn{B}{B} is the budget allocated for the solution, \eqn{c_i}{ci} is the
+#' cost of planning unit \eqn{i}{i}. Note that \eqn{y_j}{yj} is a continuous
+#' variable bounded between zero and infinity, and denotes the shortfall
+#' for target \eqn{j}{j}.
 #'
-#'   Here, \eqn{x_i}{xi} is the [decisions] variable (e.g.
-#'   specifying whether planning unit \eqn{i}{i} has been selected (1) or not
-#'   (0)), \eqn{r_{ij}}{rij} is the amount of feature \eqn{j}{j} in planning
-#'   unit \eqn{i}{i}, \eqn{t_j}{tj} is the representation target for feature
-#'   \eqn{j}{j}, \eqn{y_j}{yj} denotes the representation shortfall for
-#'   the target \eqn{t_j}{tj} for feature \eqn{j}{j}, and \eqn{w_j}{wj} is the
-#'   weight for feature \eqn{j}{j} (defaults to 1 for all features; see
-#'   [add_feature_weights()] to specify weights). Additionally,
-#'   \eqn{B}{B} is the budget allocated for the solution, \eqn{c_i}{ci} is the
-#'   cost of planning unit \eqn{i}{i}. Note that \eqn{y_j}{yj} is a continuous
-#'   variable bounded between zero and infinity, and denotes the shortfall
-#'   for target \eqn{j}{j}.
+#' @seealso
+#' See [objectives] for an overview of all functions for adding objectives.
+#' Also, see [targets] for an overview of all functions for adding targets, and
+#' [add_feature_weights()] to specify weights for different features.
 #'
-#' @seealso [add_feature_weights()], [objectives].
+#' @family objectives
 #'
 #' @inherit add_min_set_objective return
 #'

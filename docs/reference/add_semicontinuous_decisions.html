@@ -116,7 +116,7 @@ planning units." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.1.0.0</span>
       </span>
     </div>
 
@@ -228,14 +228,17 @@ to it.</p>
 
     <p>Conservation planning problems involve making decisions on planning
 units. These decisions are then associated with actions (e.g. turning a
-planning unit into a protected area). If no decision is explicitly added to
-a problem, then the binary decision class will be used by default. Only a
+planning unit into a protected area). Only a
 single decision should be added to a <code>ConservationProblem</code> object.
 Note that if multiple decisions are added to a problem object, then the
 last one to be added will be used.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='decisions.html'>decisions</a>.</p></div>
+    <div class='dont-index'><p>See <a href='decisions.html'>decisions</a> for an overview of all functions for adding decisions.</p>
+<p>Other decisions: 
+<code><a href='add_binary_decisions.html'>add_binary_decisions</a>()</code>,
+<code><a href='add_default_decisions.html'>add_default_decisions</a>()</code>,
+<code><a href='add_proportion_decisions.html'>add_proportion_decisions</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='co'># set seed for reproducibility</span></span>
