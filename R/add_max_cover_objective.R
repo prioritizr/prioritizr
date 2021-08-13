@@ -14,7 +14,7 @@ NULL
 #' @param budget `numeric` value specifying the maximum expenditure of
 #'   the prioritization. For problems with multiple zones, the argument
 #'   to `budget` can be a single `numeric` value to specify a budget
-#'   for the entire solution or a `numeric` `vector` to specify
+#'   for the entire solution or a `numeric` vector to specify
 #'   a budget for each each management zone.
 #'
 #' @details

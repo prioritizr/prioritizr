@@ -23,11 +23,11 @@ category_vector(x)
 or \code{\link[sf:sf]{sf::sf()}} object.}
 }
 \value{
-\code{integer} \code{vector}
+\code{integer} vector.
 }
 \description{
 Convert an object containing binary (\code{integer}) fields (columns) into a
-\code{integer} \code{vector} indicating the column index where each row is
+\code{integer} vector indicating the column index where each row is
 \code{1}.
 }
 \details{

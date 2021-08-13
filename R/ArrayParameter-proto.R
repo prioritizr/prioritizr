@@ -19,20 +19,20 @@ NULL
 #'
 #' \item{$name}{`character` name of parameter.}
 #'
-#' \item{$value}{`numeric` `vector` of values.}
+#' \item{$value}{`numeric` vector of values.}
 #'
-#' \item{$label}{`character` `vector` of names for each value.}
+#' \item{$label}{`character` vector of names for each value.}
 #'
-#' \item{$default}{`numeric` `vector` of default values.}
+#' \item{$default}{`numeric` vector of default values.}
 #'
-#' \item{$length}{`integer` number of values.}
+#' \item{$length}{`integer` value specifying the number of values.}
 #'
-#' \item{$class}{`character` class of values.}
+#' \item{$class}{`character` value specifying the class of values.}
 #'
-#' \item{$lower_limit}{`numeric` `vector` specifying the minimum
+#' \item{$lower_limit}{`numeric` vector specifying the minimum
 #'   permitted values.}
 #'
-#' \item{$upper_limit}{`numeric` `vector` specifying the maximum
+#' \item{$upper_limit}{`numeric` vector specifying the maximum
 #'   permitted values.}
 #'
 #' }

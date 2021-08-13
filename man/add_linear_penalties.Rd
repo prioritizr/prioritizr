@@ -67,7 +67,7 @@ The argument to \code{data} can be specified using the following formats.
 
 \describe{
 
-\item{\code{data} as \code{character} \code{vector}}{containing field (column) name(s) that
+\item{\code{data} as \code{character} vector}{containing field (column) name(s) that
 contain penalty values for planning units. This format is only
 compatible if the planning units in the argument to \code{x} are a
 \code{\linkS4class{Spatial}}, \code{\link[sf:sf]{sf::sf()}}, or
@@ -78,7 +78,7 @@ contain a single field name. Otherwise, for problems that
 contain multiple zones, the argument to \code{data} must
 contain a field name for each zone.}
 
-\item{\code{data} as a \code{numeric} \code{vector}}{containing values for
+\item{\code{data} as a \code{numeric} vector}{containing values for
 planning units. These values must not contain any missing
 (\code{NA}) values. Note that this format is only available
 for planning units that contain a single zone.}

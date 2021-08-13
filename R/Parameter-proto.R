@@ -17,17 +17,17 @@ NULL
 #'
 #' \item{$name}{`character` name of parameter.}
 #'
-#' \item{$value}{`numeric` `vector` of values.}
+#' \item{$value}{`numeric` vector of values.}
 #'
-#' \item{$default}{`numeric` `vector` of default values.}
+#' \item{$default}{`numeric` vector of default values.}
 #'
 #' \item{$class}{`character` name of the class that the values inherit
 #'   from (e.g. `"integer"`.}
 #'
-#' \item{$lower_limit}{`numeric` `vector` specifying the minimum
+#' \item{$lower_limit}{`numeric` vector specifying the minimum
 #'   permitted value for each element in `$value`.}
 #'
-#' \item{$upper_limit}{`numeric` `vector` specifying the maximum
+#' \item{$upper_limit}{`numeric` vector specifying the maximum
 #'   permitted value for each element in `$value`.}
 #'
 #' }

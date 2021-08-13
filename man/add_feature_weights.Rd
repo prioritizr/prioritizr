@@ -51,7 +51,7 @@ The argument to \code{weights} can be specified using the following formats.
 
 \describe{
 
-\item{\code{weights} as a \code{numeric} \code{vector}}{containing weights for each feature.
+\item{\code{weights} as a \code{numeric} vector}{containing weights for each feature.
 Note that this format cannot be used to specify weights for problems with
 multiple zones.}
 

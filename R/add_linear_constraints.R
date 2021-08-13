@@ -29,13 +29,13 @@ NULL
 #' @details
 #' This function adds general purpose constraints that can be used to
 #' ensure that solutions meet certain criteria
-#' (see Example section below for details).
+#' (see Examples section below for details).
 #' For example, these constraints can be used to add multiple budgets.
 #' They can also be used to ensure that the total number of planning units
 #' allocated to a certain administrative area (e.g. country) does not exceed
-#' a certain threshold (e.g. 30\% of its total area). Furthermore,
+#' a certain threshold (e.g. 30% of its total area). Furthermore,
 #' they can also be used to ensure that features have a minimal level
-#' of representation (e.g. 30\%) when using an objective
+#' of representation (e.g. 30%) when using an objective
 #' function that aims to enhance feature representation given a budget
 #' (e.g. [add_min_shortfall_objective()]).
 #'
@@ -51,11 +51,11 @@ NULL
 #' planning units \eqn{i \in I}{i in I} for zones \eqn{z \in Z}{z in Z}
 #' (argument to `data`, if supplied as a `matrix` object),
 #' \eqn{\theta} denote the constraint sense
-#' (argument to `sense`), and \eqn{t} denote the constraint threshold
-#' (argument to `threshold`).
+#' (argument to `sense`, e.g. \eqn{<=}), and \eqn{t} denote the constraint
+#' threshold (argument to `threshold`).
 #'
 #' \deqn{
-#' \sum_{i}^{I} \sum_{z}^{Z} (D_{iz} \times X_{iz}) \theta t
+#' \sum_{i}^{I} \sum_{z}^{Z} (D_{iz} \times X_{iz}) \space \theta \space t
 #' }{
 #' sum_i^I sum (Diz * Xiz) \theta t
 #' }

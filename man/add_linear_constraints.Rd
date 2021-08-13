@@ -50,13 +50,13 @@ that all selected planning units meet certain criteria.
 \details{
 This function adds general purpose constraints that can be used to
 ensure that solutions meet certain criteria
-(see Example section below for details).
+(see Examples section below for details).
 For example, these constraints can be used to add multiple budgets.
 They can also be used to ensure that the total number of planning units
 allocated to a certain administrative area (e.g. country) does not exceed
-a certain threshold (e.g. 30\\% of its total area). Furthermore,
+a certain threshold (e.g. 30\% of its total area). Furthermore,
 they can also be used to ensure that features have a minimal level
-of representation (e.g. 30\\%) when using an objective
+of representation (e.g. 30\%) when using an objective
 function that aims to enhance feature representation given a budget
 (e.g. \code{\link[=add_min_shortfall_objective]{add_min_shortfall_objective()}}).
 }
@@ -73,11 +73,11 @@ values indicating if each planning unit is allocated or not). Also, let
 planning units \eqn{i \in I}{i in I} for zones \eqn{z \in Z}{z in Z}
 (argument to \code{data}, if supplied as a \code{matrix} object),
 \eqn{\theta} denote the constraint sense
-(argument to \code{sense}), and \eqn{t} denote the constraint threshold
-(argument to \code{threshold}).
+(argument to \code{sense}, e.g. \eqn{<=}), and \eqn{t} denote the constraint
+threshold (argument to \code{threshold}).
 
 \deqn{
-\sum_{i}^{I} \sum_{z}^{Z} (D_{iz} \times X_{iz}) \theta t
+\sum_{i}^{I} \sum_{z}^{Z} (D_{iz} \times X_{iz}) \space \theta \space t
 }{
 sum_i^I sum (Diz * Xiz) \theta t
 }
@@ -90,7 +90,7 @@ The argument to \code{data} can be specified using the following formats.
 
 \describe{
 
-\item{\code{data} as \code{character} \code{vector}}{containing field (column) name(s) that
+\item{\code{data} as \code{character} vector}{containing field (column) name(s) that
 contain penalty values for planning units. This format is only
 compatible if the planning units in the argument to \code{x} are a
 \code{\linkS4class{Spatial}}, \code{\link[sf:sf]{sf::sf()}}, or
@@ -101,7 +101,7 @@ contain a single field name. Otherwise, for problems that
 contain multiple zones, the argument to \code{data} must
 contain a field name for each zone.}
 
-\item{\code{data} as a \code{numeric} \code{vector}}{containing values for
+\item{\code{data} as a \code{numeric} vector}{containing values for
 planning units. These values must not contain any missing
 (\code{NA}) values. Note that this format is only available
 for planning units that contain a single zone.}

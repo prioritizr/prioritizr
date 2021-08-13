@@ -63,7 +63,7 @@ The \code{targets} for a problem can be specified using the following formats.
 
 \describe{
 
-\item{\code{targets} as a \code{numeric} \code{vector}}{containing target values for each
+\item{\code{targets} as a \code{numeric} vector}{containing target values for each
 feature.
 Additionally, for convenience, this format can be a single
 value to assign the same target to each feature. Note that this format
@@ -76,7 +76,7 @@ Here, each row corresponds to a different feature in argument to
 \code{x}, and each cell contains the target value for a given feature
 that the solution needs to secure in a given zone.}
 
-\item{\code{targets} as a \code{character} \code{vector}}{containing the names of fields
+\item{\code{targets} as a \code{character} vector}{containing the names of fields
 (columns) in the feature data associated with the argument to \code{x} that
 contain targets. This format can only be used when the
 feature data associated with \code{x} is a \code{data.frame}.

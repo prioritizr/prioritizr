@@ -31,15 +31,15 @@ numeric_parameter_array(
 \arguments{
 \item{name}{\code{character} name of parameter.}
 
-\item{value}{\code{vector} of values.}
+\item{value}{\code{numeric} vector of values.}
 
-\item{label}{\code{character} \code{vector} of labels for each value.}
+\item{label}{\code{character} vector of labels for each value.}
 
-\item{lower_limit}{\code{vector} of values denoting the minimum acceptable
+\item{lower_limit}{\code{numeric} vector of values denoting the minimum acceptable
 value for each element in \code{value}. Defaults to the
 smallest possible number on the system.}
 
-\item{upper_limit}{\code{vector} of values denoting the maximum acceptable
+\item{upper_limit}{\code{numeric} vector of values denoting the maximum acceptable
 value for each element in \code{value}. Defaults to the
 largest  possible number on the system.}
 }

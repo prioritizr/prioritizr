@@ -67,7 +67,7 @@ to see if these potential issues are actually causing issues
 The object returned from this function depends on the argument to
 \code{a}. If the argument to \code{a} is an
 \code{\linkS4class{OptimizationProblem}} object, then the
-solution is returned as a \code{logical} \code{vector} showing the status
+solution is returned as a \code{logical} vector showing the status
 of each planning unit in each zone. However, in most cases, the argument
 to \code{a} will be a \code{\linkS4class{ConservationProblem}} object, and so
 the type of object returned depends on the number of solutions

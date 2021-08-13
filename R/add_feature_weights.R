@@ -37,7 +37,7 @@ NULL
 #'
 #' \describe{
 #'
-#' \item{`weights` as a `numeric` `vector`}{containing weights for each feature.
+#' \item{`weights` as a `numeric` vector}{containing weights for each feature.
 #'   Note that this format cannot be used to specify weights for problems with
 #'   multiple zones.}
 #'

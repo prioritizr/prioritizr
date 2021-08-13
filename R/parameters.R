@@ -147,15 +147,15 @@ numeric_parameter <- function(name, value,
 #'
 #' @param name `character` name of parameter.
 #'
-#' @param value `vector` of values.
+#' @param value `numeric` vector of values.
 #'
-#' @param label `character` `vector` of labels for each value.
+#' @param label `character` vector of labels for each value.
 #'
-#' @param lower_limit `vector` of values denoting the minimum acceptable
+#' @param lower_limit `numeric` vector of values denoting the minimum acceptable
 #'   value for each element in `value`. Defaults to the
 #'   smallest possible number on the system.
 #'
-#' @param upper_limit `vector` of values denoting the maximum acceptable
+#' @param upper_limit `numeric` vector of values denoting the maximum acceptable
 #'   value for each element in `value`. Defaults to the
 #'   largest  possible number on the system.
 #'

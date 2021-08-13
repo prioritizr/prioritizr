@@ -41,7 +41,7 @@ NULL
 #'
 #' \describe{
 #'
-#' \item{`data` as `character` `vector`}{containing field (column) name(s) that
+#' \item{`data` as `character` vector}{containing field (column) name(s) that
 #'   contain penalty values for planning units. This format is only
 #'   compatible if the planning units in the argument to `x` are a
 #'   [`Spatial-class`], [sf::sf()], or
@@ -52,7 +52,7 @@ NULL
 #'   contain multiple zones, the argument to `data` must
 #'   contain a field name for each zone.}
 #'
-#' \item{`data` as a `numeric` `vector`}{containing values for
+#' \item{`data` as a `numeric` vector}{containing values for
 #'   planning units. These values must not contain any missing
 #'   (`NA`) values. Note that this format is only available
 #'   for planning units that contain a single zone.}

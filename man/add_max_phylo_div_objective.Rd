@@ -12,9 +12,9 @@ add_max_phylo_div_objective(x, budget, tree)
 
 \item{budget}{\code{numeric} value specifying the maximum expenditure of
 the prioritization. For problems with multiple zones, the argument
-to \code{budget} can be a single \code{numeric} value to specify a budget
-for the entire solution or a \code{numeric} \code{vector} to specify
-a budget for each each management zone.}
+to \code{budget} can be (i) a single \code{numeric} value to specify a single budget
+for the entire solution or (ii) a \code{numeric} vector to specify
+a separate budget for each management zone.}
 
 \item{tree}{\code{\link[=phylo]{phylo()}} object specifying a phylogenetic tree
 for the conservation features.}

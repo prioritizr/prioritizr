@@ -50,7 +50,7 @@ in separate layers in a \code{\link[raster:stack]{raster::stack()}} object.
 Note that all layers for a given zone must have \code{NA} values in exactly the
 same cells.}
 \item{planning unit data are a \code{\linkS4class{Spatial}} or \code{data.frame}
-object}{\code{character} \code{vector} containing column names can
+object}{\code{character} vector containing column names can
 be supplied to specify the expected amount of each feature under each
 zone. Note that these columns must not contain any \code{NA} values.}
 \item{planning unit data are a \code{\linkS4class{Spatial}}, \code{data.frame}, or

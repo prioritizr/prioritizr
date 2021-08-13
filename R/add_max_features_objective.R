@@ -7,13 +7,7 @@ NULL
 #' fulfill as many targets as possible while ensuring that the cost of the
 #' solution does not exceed a budget.
 #'
-#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
-#'
-#' @param budget `numeric` value specifying the maximum expenditure of
-#'   the prioritization. For problems with multiple zones, the argument
-#'   to `budget` can be a single `numeric` value to specify a budget
-#'   for the entire solution or a `numeric` `vector` to specify
-#'   a budget for each each management zone.
+#' @inheritParams add_max_utility_objective
 #'
 #' @details
 #' The maximum feature representation objective is an enhanced version of the

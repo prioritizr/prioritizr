@@ -16,9 +16,9 @@ NULL
 #'
 #' @param budget `numeric` value specifying the maximum expenditure of
 #'   the prioritization. For problems with multiple zones, the argument
-#'   to `budget` can be a single `numeric` value to specify a budget
-#'   for the entire solution or a `numeric` `vector` to specify
-#'   a budget for each each management zone.
+#'   to `budget` can be (i) a single `numeric` value to specify a single budget
+#'   for the entire solution or (ii) a `numeric` vector to specify
+#'   a separate budget for each management zone.
 #'
 #' @details
 #' The maximum utility objective seeks to maximize the overall level of

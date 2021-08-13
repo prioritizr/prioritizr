@@ -43,7 +43,7 @@ NULL
 #'
 #' \describe{
 #'
-#' \item{`targets` as a `numeric` `vector`}{containing target values for each
+#' \item{`targets` as a `numeric` vector}{containing target values for each
 #'   feature.
 #'   Additionally, for convenience, this format can be a single
 #'   value to assign the same target to each feature. Note that this format
@@ -56,7 +56,7 @@ NULL
 #'   `x`, and each cell contains the target value for a given feature
 #'   that the solution needs to secure in a given zone.}
 #'
-#' \item{`targets` as a `character` `vector`}{containing the names of fields
+#' \item{`targets` as a `character` vector}{containing the names of fields
 #'   (columns) in the feature data associated with the argument to `x` that
 #'   contain targets. This format can only be used when the
 #'   feature data associated with `x` is a `data.frame`.

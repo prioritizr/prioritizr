@@ -241,13 +241,13 @@ added to it.</p>
 
     <p>This function adds general purpose constraints that can be used to
 ensure that solutions meet certain criteria
-(see Example section below for details).
+(see Examples section below for details).
 For example, these constraints can be used to add multiple budgets.
 They can also be used to ensure that the total number of planning units
 allocated to a certain administrative area (e.g. country) does not exceed
-a certain threshold (e.g. 30\<!-- % of its total area). Furthermore, -->
+a certain threshold (e.g. 30% of its total area). Furthermore,
 they can also be used to ensure that features have a minimal level
-of representation (e.g. 30\<!-- %) when using an objective -->
+of representation (e.g. 30%) when using an objective
 function that aims to enhance feature representation given a budget
 (e.g. <code><a href='add_min_shortfall_objective.html'>add_min_shortfall_objective()</a></code>).</p>
     <h2 class="hasAnchor" id="mathematical-formulation"><a class="anchor" href="#mathematical-formulation"></a>Mathematical formulation</h2>
@@ -265,10 +265,10 @@ values indicating if each planning unit is allocated or not). Also, let
 planning units \(i \in I\) for zones \(z \in Z\)
 (argument to <code>data</code>, if supplied as a <code>matrix</code> object),
 \(\theta\) denote the constraint sense
-(argument to <code>sense</code>), and \(t\) denote the constraint threshold
-(argument to <code>threshold</code>).</p>
+(argument to <code>sense</code>, e.g. \(&lt;=\)), and \(t\) denote the constraint
+threshold (argument to <code>threshold</code>).</p>
 <p>$$
-\sum_{i}^{I} \sum_{z}^{Z} (D_{iz} \times X_{iz}) \theta t
+\sum_{i}^{I} \sum_{z}^{Z} (D_{iz} \times X_{iz}) \space \theta \space t
 $$</p>
     <h2 class="hasAnchor" id="data-format"><a class="anchor" href="#data-format"></a>Data format</h2>
 
@@ -278,7 +278,7 @@ $$</p>
 <p>The argument to <code>data</code> can be specified using the following formats.</p>
 <dl>
 
-<dt><code>data</code> as <code>character</code> <code>vector</code></dt><dd><p>containing field (column) name(s) that
+<dt><code>data</code> as <code>character</code> vector</dt><dd><p>containing field (column) name(s) that
 contain penalty values for planning units. This format is only
 compatible if the planning units in the argument to <code>x</code> are a
 <code><a href='https://rdrr.io/pkg/sp/man/Spatial-class.html'>Spatial</a></code>, <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code>, or
@@ -289,7 +289,7 @@ contain a single field name. Otherwise, for problems that
 contain multiple zones, the argument to <code>data</code> must
 contain a field name for each zone.</p></dd>
 
-<dt><code>data</code> as a <code>numeric</code> <code>vector</code></dt><dd><p>containing values for
+<dt><code>data</code> as a <code>numeric</code> vector</dt><dd><p>containing values for
 planning units. These values must not contain any missing
 (<code>NA</code>) values. Note that this format is only available
 for planning units that contain a single zone.</p></dd>
@@ -453,7 +453,7 @@ contain a layer for each zone.</p></dd>
 <span class='r-in'><span class='co'># accounting for the total area of each planning unit (because all</span></span>
 <span class='r-in'><span class='co'># planning units have the same area in raster formats) -- but if we were</span></span>
 <span class='r-in'><span class='co'># using vector data then we would need to account for the area of each unit</span></span>
-<span class='r-in'><span class='va'>admin_total</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/Matrix/man/colSums.html'>rowSums</a></span><span class='op'>(</span><span class='fu'><a href='rij_matrix.html'>rij_matrix</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_admin2</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>admin_total</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/raster/man/rowSums.html'>rowSums</a></span><span class='op'>(</span><span class='fu'><a href='rij_matrix.html'>rij_matrix</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_admin2</span><span class='op'>)</span><span class='op'>)</span></span>
 <span class='r-in'></span>
 <span class='r-in'><span class='co'># create a modified version of p0 with additional constraints for each</span></span>
 <span class='r-in'><span class='co'># administrative area to specify that the planning units in the solution must</span></span>

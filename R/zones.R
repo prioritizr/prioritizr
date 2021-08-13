@@ -48,7 +48,7 @@ NULL
 #'   Note that all layers for a given zone must have `NA` values in exactly the
 #'   same cells.}
 #' \item{planning unit data are a [`Spatial-class`] or `data.frame`
-#'   object}{`character` `vector` containing column names can
+#'   object}{`character` vector containing column names can
 #'   be supplied to specify the expected amount of each feature under each
 #'   zone. Note that these columns must not contain any `NA` values.}
 #' \item{planning unit data are a [`Spatial-class`], `data.frame`, or

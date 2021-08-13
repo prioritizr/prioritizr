@@ -63,11 +63,11 @@ a value for each cell---regardless of which planning unit cells contain
 
 \describe{
 
-\item{\code{data} as an \code{integer} \code{vector}}{containing indices that indicate which
+\item{\code{data} as an \code{integer} vector}{containing indices that indicate which
 planning units should be locked for the solution. This argument is only
 compatible with problems that contain a single zone.}
 
-\item{\code{data} as a \code{logical} \code{vector}}{containing \code{TRUE} and/or
+\item{\code{data} as a \code{logical} vector}{containing \code{TRUE} and/or
 \code{FALSE} values that indicate which planning units should be locked
 in the solution. This argument is only compatible with problems that
 contain a single zone.}
@@ -80,7 +80,7 @@ each cell indicates if the planning unit should be locked to a given
 zone. Thus each row should only contain at most a single \code{TRUE}
 value.}
 
-\item{\code{data} as a \code{character} \code{vector}}{containing field (column) name(s)
+\item{\code{data} as a \code{character} vector}{containing field (column) name(s)
 that indicate if planning units should be locked for the solution.
 This format is only
 compatible if the planning units in the argument to \code{x} are a

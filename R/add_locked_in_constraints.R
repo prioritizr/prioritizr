@@ -35,11 +35,11 @@ NULL
 #'
 #' \describe{
 #'
-#' \item{`data` as an `integer` `vector`}{containing indices that indicate which
+#' \item{`data` as an `integer` vector}{containing indices that indicate which
 #'   planning units should be locked for the solution. This argument is only
 #'   compatible with problems that contain a single zone.}
 #'
-#' \item{`data` as a `logical` `vector`}{containing `TRUE` and/or
+#' \item{`data` as a `logical` vector}{containing `TRUE` and/or
 #'   `FALSE` values that indicate which planning units should be locked
 #'   in the solution. This argument is only compatible with problems that
 #'   contain a single zone.}
@@ -52,7 +52,7 @@ NULL
 #'   zone. Thus each row should only contain at most a single `TRUE`
 #'   value.}
 #'
-#' \item{`data` as a `character` `vector`}{containing field (column) name(s)
+#' \item{`data` as a `character` vector}{containing field (column) name(s)
 #'   that indicate if planning units should be locked for the solution.
 #'   This format is only
 #'   compatible if the planning units in the argument to `x` are a

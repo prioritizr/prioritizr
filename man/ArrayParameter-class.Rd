@@ -18,20 +18,20 @@ interact directly with this prototype.}
 
 \item{$name}{\code{character} name of parameter.}
 
-\item{$value}{\code{numeric} \code{vector} of values.}
+\item{$value}{\code{numeric} vector of values.}
 
-\item{$label}{\code{character} \code{vector} of names for each value.}
+\item{$label}{\code{character} vector of names for each value.}
 
-\item{$default}{\code{numeric} \code{vector} of default values.}
+\item{$default}{\code{numeric} vector of default values.}
 
-\item{$length}{\code{integer} number of values.}
+\item{$length}{\code{integer} value specifying the number of values.}
 
-\item{$class}{\code{character} class of values.}
+\item{$class}{\code{character} value specifying the class of values.}
 
-\item{$lower_limit}{\code{numeric} \code{vector} specifying the minimum
+\item{$lower_limit}{\code{numeric} vector specifying the minimum
 permitted values.}
 
-\item{$upper_limit}{\code{numeric} \code{vector} specifying the maximum
+\item{$upper_limit}{\code{numeric} vector specifying the maximum
 permitted values.}
 
 }

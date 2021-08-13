@@ -44,7 +44,7 @@ NULL
 #' The object returned from this function depends on the argument to
 #' `a`. If the argument to `a` is an
 #' [`OptimizationProblem-class`] object, then the
-#' solution is returned as a `logical` `vector` showing the status
+#' solution is returned as a `logical` vector showing the status
 #' of each planning unit in each zone. However, in most cases, the argument
 #' to `a` will be a [`ConservationProblem-class`] object, and so
 #' the type of object returned depends on the number of solutions

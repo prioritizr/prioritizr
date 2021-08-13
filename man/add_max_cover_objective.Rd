@@ -12,7 +12,7 @@ add_max_cover_objective(x, budget)
 \item{budget}{\code{numeric} value specifying the maximum expenditure of
 the prioritization. For problems with multiple zones, the argument
 to \code{budget} can be a single \code{numeric} value to specify a budget
-for the entire solution or a \code{numeric} \code{vector} to specify
+for the entire solution or a \code{numeric} vector to specify
 a budget for each each management zone.}
 }
 \value{
