@@ -17,7 +17,8 @@ NULL
 #'   See the Data format section for more information.
 #'
 #' @section Data format:
-#' The argument to `data` must contain the following fields  (columns):
+#' The argument to `data` should be a `data.frame` with the following fields
+#' (columns):
 #'
 #' \describe{
 #'
@@ -38,7 +39,12 @@ NULL
 #'
 #'  }
 #'
-#' @inherit add_contiguity_constraints return seealso
+#' @inherit add_contiguity_constraints return
+#'
+#' @seealso
+#' See [constraints] for an overview of all functions for adding constraints.
+#'
+#' @family constraints
 #'
 #' @examples
 #' # set seed for reproducibility
@@ -124,7 +130,6 @@ NULL
 #' spplot(s4, zcol = c("solution", "solution_locked"), axes = FALSE,
 #'        box = FALSE)
 #' }
-#' @seealso [constraints].
 #'
 #' @name add_manual_locked_constraints
 #'

@@ -28,9 +28,9 @@ NULL
 #'
 #' # create minimal problem
 #' p <- problem(sim_pu_raster, sim_features) %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(0.1) %>%
-#'       add_binary_decisions()
+#'      add_min_set_objective() %>%
+#'      add_relative_targets(0.1) %>%
+#'      add_binary_decisions()
 #'
 #' # save problem to file (using the Rsymphony R package)
 #' write_problem(p, "model.lp")

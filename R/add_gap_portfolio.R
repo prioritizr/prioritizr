@@ -32,9 +32,12 @@ NULL
 #'   Also, note that this portfolio function only works with problems
 #'   that have binary decisions (i.e. specified using [add_binary_decisions()]).
 #'
-#' @inherit add_gap_portfolio details
+#' @inherit add_cuts_portfolio return
 #'
-#' @inherit add_cuts_portfolio seealso return
+#' @seealso
+#' See [portfolios] for an overview of all functions for adding a portfolio.
+#'
+#' @family portfolios
 #'
 #' @examples
 #' \dontrun{

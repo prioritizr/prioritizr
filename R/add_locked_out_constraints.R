@@ -20,9 +20,14 @@ NULL
 #' @param locked_out Object that determines which planning units that should be
 #'   locked out. See the Data format section for more information.
 #'
-#' @inherit add_contiguity_constraints return seealso
+#' @inherit add_contiguity_constraints return
 #' @inherit add_locked_in_constraints details
 #' @inheritSection add_locked_in_constraints Data format
+#'
+#' @seealso
+#' See [constraints] for an overview of all functions for adding constraints.
+#'
+#' @family constraints
 #'
 #' @examples
 #' # set seed for reproducibility

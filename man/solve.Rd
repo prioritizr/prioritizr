@@ -37,7 +37,7 @@ attributes: \code{"objective"} containing the solution's objective,
 \code{"runtime"} denoting the number of seconds that elapsed while solving
 the problem, and \code{"status"} describing the status of the solution
 (e.g. \code{"OPTIMAL"} indicates that the optimal solution was found).
-In most cases, the first solution (e.g. \code{"solution_001"})
+In most cases, the first solution (e.g. \code{"solution_1"})
 will contain the best solution found by the solver (note that this
 may not be an optimal solution depending on the gap used to solve
 the problem and noting that the default gap is 0.1).
@@ -67,50 +67,54 @@ to see if these potential issues are actually causing issues
 The object returned from this function depends on the argument to
 \code{a}. If the argument to \code{a} is an
 \code{\linkS4class{OptimizationProblem}} object, then the
-solution is returned as a \code{logical} \code{vector} showing the status
+solution is returned as a \code{logical} vector showing the status
 of each planning unit in each zone. However, in most cases, the argument
-to \code{a} is an \code{\linkS4class{ConservationProblem}} object, and so
+to \code{a} will be a \code{\linkS4class{ConservationProblem}} object, and so
 the type of object returned depends on the number of solutions
-generated and the type data used to represent the planning units:
+generated and the data format used to specify the planning units:
 
 \describe{
 
-\item{\code{numeric}}{\code{vector} containing the solution. Here,
-Each element corresponds to a different planning unit. If
-multiple solutions are generated, then the solution is returned as
-a \code{list} of \code{numeric} \code{vectors}.}
+\item{\code{a} has \code{numeric} planning units}{The solution will be
+returned as a \code{numeric} vector. Here, each element in the vector
+corresponds to a different planning unit.
+Note that if a portfolio is used to generate multiple solutions,
+then a \code{list} of such \code{numeric} vectors will be returned.}
 
-\item{\code{matrix}}{containing \code{numeric} values for the solution.
+\item{\code{a} has \code{matrix} planning units}{The solution will be
+returned as a \code{matrix} object.
 Here, rows correspond to different planning units,
-and fields (columns) correspond to different  management zones. If
-multiple solutions are generated, then the solution is returned as
-a \code{list} of \code{matrix} objects.}
+and fields (columns) correspond to different  management zones.
+Note that if a portfolio is used to generate multiple solutions,
+then a \code{list} of such \code{matrix} objects will be returned.}
 
-\item{\code{\linkS4class{Raster}}}{object containing the solution
-in pixel values. If the argument to \code{x} contains a single
-management zone, then a \code{RasterLayer} object will be returned.
+\item{\code{a} has \code{\linkS4class{Raster}} planning units}{The solution
+will be returned as a \code{\linkS4class{Raster}} object.
+If the argument to \code{x} contains a single
+management zone, then a \code{\linkS4class{RasterLayer}} object will be returned.
 Otherwise, if the argument to \code{x} contains multiple zones, then a
 \code{\linkS4class{RasterStack}} object
 will be returned containing a different layer for each management zone.
-If multiple solutions are generated, then the solution is returned as
-a \code{list} of \code{Raster} objects.}
+Note that if a portfolio is used to generate multiple solutions,
+then a \code{list} of such \code{\linkS4class{Raster}} objects will be returned.}
 
-\item{\code{\linkS4class{Spatial}}, \code{\link[sf:sf]{sf::sf()}}, or
-\code{data.frame}}{
-containing the solution in fields (columns). Here, each row
-corresponds to a different planning unit. If the argument to \code{x}
-contains a single zone, the fields containing solutions are named
-\code{"solution_XXX"} where \code{"XXX"} corresponds to the solution
-number. If the argument to \code{x} contains multiple zones, the fields
-containing solutions are named \code{"solution_XXX_YYY"} where
-\code{"XXX"} corresponds to the solution and \code{"YYY"} is the name
-of the management zone.}
+\item{\code{a} has \code{\linkS4class{Spatial}}, \code{\link[sf:sf]{sf::sf()}}, or \code{data.frame}
+planning units}{
+The solution will be returned in the same data format as the planning
+units.
+Here, each row corresponds to a different planning unit,
+and fields contain solutions.
+If the argument to \code{a} contains a single zone, then the solution object
+will contain fields (columns) that solution the values.
+Specifically, the field name(s) containing the solution values
+be will named as \code{"solution_XXX"} where \code{"XXX"} corresponds to a solution
+identifier (e.g. \code{"solution_1"}).
+If the argument to \code{a} contains multiple zones, then the fields
+containing solutions will be named as \code{"solution_XXX_YYY"} where
+\code{"XXX"} corresponds to the solution identifier and \code{"YYY"} is the name
+of the management zone (e.g. \code{"solution_1_zone1"}).}
 
 }
-
-After solving problems that contain multiple zones,
-it may be useful to use the \code{\link[=category_layer]{category_layer()}} or
-\code{\link[=category_vector]{category_vector()}} function to reformat the output.
 }
 \examples{
 # set seed for reproducibility
@@ -240,7 +244,8 @@ plot(s5[, "solution"])
 }
 }
 \seealso{
-\code{\link[=eval_feature_representation_summary]{eval_feature_representation_summary()}}, \code{\link[=problem]{problem()}},
-\link{solvers}, \code{\link[=category_layer]{category_layer()}},
-\code{\link[=presolve_check]{presolve_check()}}.
+See \code{\link[=problem]{problem()}} to create conservation planning problems, and
+\code{\link[=presolve_check]{presolve_check()}} to check problems for potential issues.
+Also, see the \code{\link[=category_layer]{category_layer()}} and \code{\link[=category_vector]{category_vector()}} function to
+reformat solutions that contain multiple zones.
 }

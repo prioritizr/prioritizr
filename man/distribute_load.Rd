@@ -20,7 +20,7 @@ for parallel processing.
 }
 \details{
 This function returns a \code{list} containing an element for
-each worker. Each element contains a \code{integer} \code{vector}
+each worker. Each element contains a \code{integer} vector
 specifying the indices that the worker should process.
 }
 \examples{

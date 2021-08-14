@@ -49,7 +49,7 @@ bool rcpp_apply_min_shortfall_objective(SEXP x, Rcpp::List targets_list,
        ptr->_obj.push_back(0.0);
   // add target totals to convert total amounts to proportions
   for (std::size_t i = 0; i < n_targets; ++i)
-    ptr->_obj.push_back(1.0 / targets_value[i]);
+    ptr->_obj.push_back(targets_value[i] > 1.0e-5 ? 1.0 / targets_value[i] : 0);
   // add in upper and lower bounds for the decision variables representing if
   // each species is adequately conserved
   for (std::size_t i = 0; i < n_targets; ++i)

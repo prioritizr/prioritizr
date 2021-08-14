@@ -46,12 +46,15 @@ NULL
 #' @return Object (i.e. [`ConservationProblem-class`]) with the solver
 #'  added to it.
 #'
+#' @seealso
+#' See [solvers] for an overview of all functions for adding a solver.
+#'
+#' @family solvers
+#'
 #' @references
 #' Forrest J and Lougee-Heimer R (2005) CBC User Guide. In Emerging theory,
 #' Methods, and Applications (pp. 257--277). INFORMS, Catonsville, MD.
 #' \doi{10.1287/educ.1053.0020}.
-#'
-#' @seealso [solvers].
 #'
 #' @examples
 #' \dontrun{

@@ -89,6 +89,10 @@ rcpp_absolute_amount_held_by_solution <- function(rij_list, targets_list, soluti
     .Call(`_prioritizr_rcpp_absolute_amount_held_by_solution`, rij_list, targets_list, solution)
 }
 
+rcpp_apply_linear_constraints <- function(x, threshold, sense, data) {
+    .Call(`_prioritizr_rcpp_apply_linear_constraints`, x, threshold, sense, data)
+}
+
 rcpp_add_rij_data <- function(x, rij_list, targets_list, compressed_formulation) {
     .Call(`_prioritizr_rcpp_add_rij_data`, x, rij_list, targets_list, compressed_formulation)
 }

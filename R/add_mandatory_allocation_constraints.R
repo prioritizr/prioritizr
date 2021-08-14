@@ -23,7 +23,12 @@ NULL
 #'   problem with multiple zones must be allocated to a management zone (i.e.
 #'   zone allocation is mandatory).
 #'
-#' @inherit add_contiguity_constraints return seealso
+#' @inherit add_contiguity_constraints return
+#'
+#' @seealso
+#' See [constraints] for an overview of all functions for adding constraints.
+#'
+#' @family constraints
 #'
 #' @examples
 #' # set seed for reproducibility

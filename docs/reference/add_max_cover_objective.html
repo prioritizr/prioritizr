@@ -57,9 +57,9 @@
 <meta property="og:title" content="Add maximum coverage objective — add_max_cover_objective" />
 <meta property="og:description" content="Set the objective of a conservation planning problem() to
 represent at least one instance of as many features as possible within a
-given budget. This type of objective does not use targets, and feature
-weights should be used instead to increase the representation of different
-features in solutions." />
+given budget. This objective does not use targets, and feature
+weights should be used instead to increase the representation of certain
+features by a solution." />
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 
 
@@ -110,7 +110,7 @@ features in solutions." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.1.0.0</span>
       </span>
     </div>
 
@@ -187,9 +187,9 @@ features in solutions." />
     <div class="ref-description">
     <p>Set the objective of a conservation planning <code><a href='problem.html'>problem()</a></code> to
 represent at least one instance of as many features as possible within a
-given budget. This type of objective does not use targets, and feature
-weights should be used instead to increase the representation of different
-features in solutions.</p>
+given budget. This objective does not use targets, and feature
+weights should be used instead to increase the representation of certain
+features by a solution.</p>
     </div>
 
     <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>add_max_cover_objective</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>budget</span><span class='op'>)</span></code></pre></div>
@@ -206,7 +206,7 @@ features in solutions.</p>
       <td><p><code>numeric</code> value specifying the maximum expenditure of
 the prioritization. For problems with multiple zones, the argument
 to <code>budget</code> can be a single <code>numeric</code> value to specify a budget
-for the entire solution or a <code>numeric</code> <code>vector</code> to specify
+for the entire solution or a <code>numeric</code> vector to specify
 a budget for each each management zone.</p></td>
     </tr>
     </table>
@@ -217,12 +217,7 @@ a budget for each each management zone.</p></td>
 added to it.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>A problem objective is used to specify the overall goal of the
-conservation planning problem. Please note that all conservation
-planning problems formulated in the <span class="pkg">prioritizr</span> package require the
-addition of objectives---failing to do so will return an error
-message when attempting to solve problem.</p>
-<p>The maximum coverage objective seeks to find the set of planning units that
+    <p>The maximum coverage objective seeks to find the set of planning units that
 maximizes the number of represented features, while keeping cost within a
 fixed budget. Here, features are treated as being represented if
 the reserve system contains at least a single instance of a feature
@@ -235,16 +230,20 @@ representation of certain features over other features (see
 <code><a href='add_max_features_objective.html'>add_max_features_objective()</a></code> for a more
 generalized formulation which can accommodate user-specified representation
 targets.</p>
-<p>This formulation is based on the historical maximum coverage reserve
-selection formulation (Church &amp; Velle 1974; Church <em>et al.</em> 1996).
+    <h2 class="hasAnchor" id="mathematical-formulation"><a class="anchor" href="#mathematical-formulation"></a>Mathematical formulation</h2>
+
+    
+
+<p>This objective is based on the maximum coverage reserve
+selection problem (Church &amp; Velle 1974; Church <em>et al.</em> 1996).
 The maximum coverage objective for the reserve design problem can be
 expressed mathematically for a set of planning units (\(I\) indexed by
 \(i\)) and a set of features (\(J\) indexed by \(j\)) as:</p>
 <p>$$\mathit{Maximize} \space \sum_{i = 1}^{I} -s \space c_i \space x_i +
-  \sum_{j = 1}^{J} y_j w_j \\
-  \mathit{subject \space to} \\
-  \sum_{i = 1}^{I} x_i r_{ij} \geq y_j \times 1 \forall j \in J \\
-  \sum_{i = 1}^{I} x_i c_i \leq B$$</p>
+\sum_{j = 1}^{J} y_j w_j \\
+\mathit{subject \space to} \\
+\sum_{i = 1}^{I} x_i r_{ij} \geq y_j \times 1 \forall j \in J \\
+\sum_{i = 1}^{I} x_i c_i \leq B$$</p>
 <p>Here, \(x_i\) is the <a href='decisions.html'>decisions</a> variable (e.g.
 specifying whether planning unit \(i\) has been selected (1) or not
 (0)), \(r_{ij}\) is the amount of feature \(j\) in planning
@@ -274,7 +273,16 @@ Church <em>et al.</em> (1996). The old formulation is now provided by the
 covering location problem. <em>Biological Conservation</em>, 76: 105--112.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='add_feature_weights.html'>add_feature_weights()</a></code>, <a href='objectives.html'>objectives</a>.</p></div>
+    <div class='dont-index'><p>See <a href='objectives.html'>objectives</a> for an overview of all functions for adding objectives.
+Also, see <code><a href='add_feature_weights.html'>add_feature_weights()</a></code> to specify weights for different features.</p>
+<p>Other objectives: 
+<code><a href='add_max_features_objective.html'>add_max_features_objective</a>()</code>,
+<code><a href='add_max_phylo_div_objective.html'>add_max_phylo_div_objective</a>()</code>,
+<code><a href='add_max_phylo_end_objective.html'>add_max_phylo_end_objective</a>()</code>,
+<code><a href='add_max_utility_objective.html'>add_max_utility_objective</a>()</code>,
+<code><a href='add_min_largest_shortfall_objective.html'>add_min_largest_shortfall_objective</a>()</code>,
+<code><a href='add_min_set_objective.html'>add_min_set_objective</a>()</code>,
+<code><a href='add_min_shortfall_objective.html'>add_min_shortfall_objective</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='co'># load data</span></span>

@@ -120,5 +120,11 @@ and solutions for meeting national and global conservation area targets.
 \emph{Conservation Letters}, 8: 329--337.
 }
 \seealso{
-\link{targets}, \code{\link[=loglinear_interpolation]{loglinear_interpolation()}}.
+See \link{targets} for an overview of all functions for adding targets.
+
+Other targets: 
+\code{\link{add_absolute_targets}()},
+\code{\link{add_manual_targets}()},
+\code{\link{add_relative_targets}()}
 }
+\concept{targets}

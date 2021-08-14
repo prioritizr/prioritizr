@@ -21,9 +21,10 @@ NULL
 #'
 #' @inherit add_absolute_targets details
 #'
-#' @section Target data format:
+#' @section Targets format:
 #'
-#'  The `targets` argument should contain the following fields (columns):
+#' The `targets` argument should be a `data.frame` with the following
+#' fields (columns):
 #'
 #' \describe{
 #'
@@ -51,7 +52,10 @@ NULL
 #' @return Object (i.e. [`ConservationProblem-class`]) with the targets added
 #'   to it.
 #'
-#' @seealso [targets].
+#' @seealso
+#' See [targets] for an overview of all functions for adding targets.
+#'
+#' @family targets
 #'
 #' @examples
 #' # set seed for reproducibility

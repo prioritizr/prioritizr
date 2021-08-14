@@ -43,21 +43,22 @@ NULL
 #'
 #' \describe{
 #'
-#' \item{`NULL`}{neighborhood data should be calculated automatically
+#' \item{`data` as a `NULL` value}{neighborhood data should be calculated
+#'   automatically
 #'   using the [adjacency_matrix()] function. This is the default
 #'   argument. Note that the neighborhood data must be manually defined
 #'   using one of the other formats below when the planning unit data
 #'   in the argument to `x` is not spatially referenced (e.g.
 #'   in `data.frame` or `numeric` format).}
 #'
-#' \item{`matrix`, `Matrix`}{where rows and columns represent
+#' \item{`data` as a `matrix`/`Matrix` object}{where rows and columns represent
 #'   different planning units and the value of each cell indicates if the
 #'   two planning units are neighbors or not. Cell values should be binary
 #'   `numeric` values (i.e. one or zero). Cells that occur along the
 #'   matrix diagonal have no effect on the solution at all because each
 #'   planning unit cannot be a neighbor with itself.}
 #'
-#' \item{`data.frame`}{containing the fields (columns)
+#' \item{`data` as a `data.frame` object}{containing the fields (columns)
 #'   `"id1"`, `"id2"`, and `"boundary"`. Here, each row
 #'   denotes the connectivity between two planning units following the
 #'   *Marxan* format. The field `boundary` should contain
@@ -76,7 +77,7 @@ NULL
 #'   names of the zones. If the columns `"zone1"` and `"zone2"`
 #'   are present, then the argument to `zones` must be `NULL`.}
 #'
-#' \item{`array`}{containing four-dimensions where binary
+#' \item{`data` as an `array` object}{containing four-dimensions where binary
 #'   `numeric` values indicate if planning unit should be treated
 #'   as being neighbors with every other planning unit when they
 #'   are allocated to every combination of management zone. The first two

@@ -60,10 +60,11 @@ potentially, be met through allocating all planning units to any specific
 management zone, or through allocating the planning units to different
 combinations of management zones.
 }
-\section{Target data format}{
+\section{Targets format}{
 
 
-The \code{targets} argument should contain the following fields (columns):
+The \code{targets} argument should be a \code{data.frame} with the following
+fields (columns):
 
 \describe{
 
@@ -227,5 +228,11 @@ plot(category_layer(s7), main = "solution", axes = FALSE, box = FALSE)
 }
 }
 \seealso{
-\link{targets}.
+See \link{targets} for an overview of all functions for adding targets.
+
+Other targets: 
+\code{\link{add_absolute_targets}()},
+\code{\link{add_loglinear_targets}()},
+\code{\link{add_relative_targets}()}
 }
+\concept{targets}

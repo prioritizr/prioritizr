@@ -71,5 +71,12 @@ plot(stack(lapply(s2, category_layer)), main = "solution", axes = FALSE,
 }
 }
 \seealso{
-\link{portfolios}.
+See \link{portfolios} for an overview of all functions for adding a portfolio.
+
+Other portfolios: 
+\code{\link{add_cuts_portfolio}()},
+\code{\link{add_gap_portfolio}()},
+\code{\link{add_shuffle_portfolio}()},
+\code{\link{add_top_portfolio}()}
 }
+\concept{portfolios}

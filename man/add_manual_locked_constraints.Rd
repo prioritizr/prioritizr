@@ -31,7 +31,8 @@ than the \code{\link[=add_locked_in_constraints]{add_locked_in_constraints()}} a
 }
 \section{Data format}{
 
-The argument to \code{data} must contain the following fields  (columns):
+The argument to \code{data} should be a \code{data.frame} with the following fields
+(columns):
 
 \describe{
 
@@ -137,7 +138,18 @@ s4$solution_locked <- factor(s4$solution_locked)
 spplot(s4, zcol = c("solution", "solution_locked"), axes = FALSE,
        box = FALSE)
 }
+
 }
 \seealso{
-\link{constraints}.
+See \link{constraints} for an overview of all functions for adding constraints.
+
+Other constraints: 
+\code{\link{add_contiguity_constraints}()},
+\code{\link{add_feature_contiguity_constraints}()},
+\code{\link{add_linear_constraints}()},
+\code{\link{add_locked_in_constraints}()},
+\code{\link{add_locked_out_constraints}()},
+\code{\link{add_mandatory_allocation_constraints,ConservationProblem-method}},
+\code{\link{add_manual_bounded_constraints}()}
 }
+\concept{constraints}

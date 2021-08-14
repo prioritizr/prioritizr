@@ -13,8 +13,13 @@ NULL
 
 #' Management zones
 #'
-#' Organize biodiversity data into the expected amount of different features
-#' under different management zones.
+#' Organize data for multiple features for multiple management zones.
+#' Specifically, the data should describe the expected amount of each
+#' feature within each planning unit given each management zone.
+#' For example, the data could describe the occupancy
+#' (e.g. presence/absence), probability of occurrence, or
+#' abundance expected for each feature when each planning unit
+#' is allocated to a different zone.
 #'
 #' @param ... [raster::raster()] or `character` objects that
 #'   pertain to the biodiversity data. See Details for more information.
@@ -25,42 +30,45 @@ NULL
 #' @param feature_names `character` names of the features zones. Defaults
 #'   to `NULL` which results in sequential integers.
 #'
-#' @details This function is used to store and organize data for use in a
-#'   conservation planning [problem()] that has multiple management
-#'   zones. In all cases, the data for each zone is input as a separate
-#'   argument. The correct arguments depends on the type of planning unit data
-#'   used when building the conservation planning [problem()].
+#' @details
+#' This function is used to store and organize data for use in a
+#' conservation planning [problem()] that has multiple management
+#' zones.
+#' In all cases, the data for each zone is input as a separate argument.
+#' The correct arguments depends on the type of planning unit data
+#' used when building the conservation planning [problem()].
 #'
+#' \describe{
+#' \item{planning unit data are a [`Raster-class`] or [`Spatial-class`] object}{
+#'   [`Raster-class`] object can be supplied to specify the expected amount of
+#'   each feature within each planning unit under each management zone.
+#'   Data for each zone should be specified as separate
+#'   arguments, and the data for each feature in a given zone are specified
+#'   in separate layers in a [raster::stack()] object.
+#'   Note that all layers for a given zone must have `NA` values in exactly the
+#'   same cells.}
+#' \item{planning unit data are a [`Spatial-class`] or `data.frame`
+#'   object}{`character` vector containing column names can
+#'   be supplied to specify the expected amount of each feature under each
+#'   zone. Note that these columns must not contain any `NA` values.}
+#' \item{planning unit data are a [`Spatial-class`], `data.frame`, or
+#'   `matrix` object}{`data.frame` object can be supplied to specify the
+#'   expected amount of each feature under each zone.
+#'   Following conventions used in *Marxan*, the
+#'   `data.frame` object should contain the following columns.
 #'   \describe{
-#'   \item{[`Raster-class`],
-#'     [`Spatial-class`]}{[`Raster-class`]
-#'     data denoting the amount of each feature present assuming each
-#'     management zone. Data for each zone are specified in separate
-#'     arguments, and the data for each feature in a given zone are specified
-#'     in separate layers in a [raster::stack()] object. Note that
-#'     all layers for a given zone must have `NA` values in exactly the
-#'     same cells.}
-#'   \item{[Spatial()], `data.frame`}{`character` vector
-#'     with column names that correspond to the abundance or occurrence of
-#'     different features in each planning unit for each zone. Note that
-#'     these columns must not contain any `NA` values.}
-#'   \item{[Spatial()], `data.frame` or
-#'     `matrix`}{`data.frame` denoting the amount of each feature
-#'     in each zone. Following conventions used in *Marxan*,
-#'     `data.frame` objects should be supplied with the columns:
-#'     \describe{
 #'     \item{pu}{`integer` planning unit identifier.}
 #'     \item{species}{`integer` feature identifier.}
 #'     \item{amount}{`numeric` amount of the feature in the
-#'       planning unit for a given zone.}
-#'     }
-#'     Note that data for each zone are specified in a separate argument, and
-#'     the data contained in a single `data.frame` object correspond to
-#'     a single zone. Also, note that data are not required for all
-#'     combinations of planning units, features, and zones. The amounts of
-#'     features in planning units assuming different management zones that are
-#'     missing from the table are treated as zero.}
+#'     planning unit for a given zone.}
 #'   }
+#'   Note that data for each zone are specified in a separate argument, and
+#'   the data contained in a single `data.frame` object should correspond to
+#'   a single zone. Also, note that data are not required for all
+#'   combinations of planning units, features, and zones. The expected amount of
+#'   features in planning units under management zones that are
+#'   missing from the table are assumed to be zero.}
+#' }
 #'
 #' @return [`Zones-class`] object.
 #'

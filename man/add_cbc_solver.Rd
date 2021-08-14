@@ -116,5 +116,13 @@ Methods, and Applications (pp. 257--277). INFORMS, Catonsville, MD.
 \doi{10.1287/educ.1053.0020}.
 }
 \seealso{
-\link{solvers}.
+See \link{solvers} for an overview of all functions for adding a solver.
+
+Other solvers: 
+\code{\link{add_cplex_solver}()},
+\code{\link{add_default_solver}()},
+\code{\link{add_gurobi_solver}()},
+\code{\link{add_lsymphony_solver}},
+\code{\link{add_rsymphony_solver}()}
 }
+\concept{solvers}

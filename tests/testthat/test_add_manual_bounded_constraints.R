@@ -34,7 +34,7 @@ test_that("solve (single zone)", {
            pu = seq_len(5),
            lower = rep(0.3, 10),
            upper = rep(0.35, 10))) %>%
-       add_default_solver(verbose = TRUE)
+       add_default_solver(verbose = FALSE)
   s1 <- solve(p)
   s2 <- solve(p)
   # check that the solution obeys constraints as expected

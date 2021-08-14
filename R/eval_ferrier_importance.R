@@ -37,6 +37,12 @@ NULL
 #' to real-world planning, and a research agenda for further refinement.
 #' *Biological Conservation*, 93: 303--325.
 #'
+#' @seealso
+#' See [importance] for an overview of all functions for evaluating
+#' the importance of planning units selected in a solution.
+#.
+#' @family importances
+#'
 #' @examples
 #' # seed seed for reproducibility
 #' set.seed(600)
@@ -95,8 +101,6 @@ NULL
 #' plot(fs2, main = "Ferrier scores")
 #'
 #' }
-#'
-#' @inherit eval_replacement_importance seealso
 #'
 #' @aliases eval_ferrier_importance,ConservationProblem,numeric-method eval_ferrier_importance,ConservationProblem,matrix-method eval_ferrier_importance,ConservationProblem,data.frame-method eval_ferrier_importance,ConservationProblem,Spatial-method eval_ferrier_importance,ConservationProblem,sf-method eval_ferrier_importance,ConservationProblem,Raster-method
 #'

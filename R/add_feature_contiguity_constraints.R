@@ -66,7 +66,8 @@ NULL
 #'
 #' \describe{
 #'
-#' \item{`NULL`}{connection data should be calculated automatically
+#' \item{`data` as a `NULL` value}{connection
+#'   data should be calculated automatically
 #'   using the [adjacency_matrix()] function. This is the default
 #'   argument and means that all adjacent planning units are treated
 #'   as potentially dispersible for all features.
@@ -75,7 +76,7 @@ NULL
 #'   in the argument to `x` is not spatially referenced (e.g.
 #'   in `data.frame` or `numeric` format).}
 #'
-#' \item{`matrix`, `Matrix`}{where rows and columns represent
+#' \item{`data` as a`matrix`/`Matrix` object}{where rows and columns represent
 #'   different planning units and the value of each cell indicates if the
 #'   two planning units are connected or not. Cell values should be binary
 #'   `numeric` values (i.e. one or zero). Cells that occur along the
@@ -84,7 +85,7 @@ NULL
 #'   of connected planning units are treated as being potentially dispersible
 #'   for all features.}
 #'
-#' \item{`data.frame`}{containing the fields (columns)
+#' \item{`data` as a `data.frame` object}{containing the fields (columns)
 #'   `"id1"`, `"id2"`, and `"boundary"`. Here, each row
 #'   denotes the connectivity between two planning units following the
 #'   *Marxan* format. The field `boundary` should contain
@@ -99,7 +100,7 @@ NULL
 #'   Note that pairs of connected planning units are treated as being
 #'   potentially dispersible for all features.}
 #'
-#' \item{`list`}{containing `matrix`, `Matrix`, or
+#' \item{`data` as a `list` object}{containing `matrix`, `Matrix`, or
 #'   `data.frame` objects showing which planning units
 #'   should be treated as connected for each feature. Each element in the
 #'   `list` should correspond to a different feature (specifically,
@@ -109,7 +110,12 @@ NULL
 #'
 #' }
 #'
-#' @inherit add_contiguity_constraints return seealso
+#' @inherit add_contiguity_constraints return
+#"
+#' @seealso
+#' See [constraints] for an overview of all functions for adding constraints.
+#'
+#' @family constraints
 #'
 #' @section Notes:
 #' In early versions, it was named as the `add_corridor_constraints` function.

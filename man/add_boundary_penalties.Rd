@@ -76,8 +76,45 @@ Note that this function can only
 be used to represent symmetric relationships between planning units. If
 asymmetric relationships are required, use the
 \code{\link[=add_connectivity_penalties]{add_connectivity_penalties()}} function.
+}
+\section{Data format}{
 
-The boundary penalties are calculated using the following equations. Let
+The argument to \code{data} can be specified using the following formats.
+Note that boundary data must always describe symmetric relationships
+between planning units.
+
+\describe{
+
+\item{\code{data} as a \code{NULL} value}{indicating that the data should be
+automatically calculated using the \code{\link[=boundary_matrix]{boundary_matrix()}} function.
+This argument is the default.
+Note that the boundary data must be supplied
+using one of the other formats below if the planning unit data
+in the argument to \code{x} do not explicitly contain spatial information
+(e.g. planning unit data are a \code{data.frame} or \code{numeric} class).}
+
+\item{\code{data} as a \code{matrix}/\code{Matrix} object}{where rows and columns represent
+different planning units and the value of each cell represents the
+amount of shared boundary length between two different planning units.
+Cells that occur along the matrix diagonal represent the amount of
+exposed boundary associated with each planning unit that has
+no neighbor (e.g. these value might pertain to boundaries along a
+coastline).}
+
+\item{\code{data} as a \code{data.frame} object}{with the columns \code{"id1"},
+\code{"id2"}, and \code{"boundary"}. The \code{"id1"} and \code{"id2"} columns contain
+identifiers (indices) for a pair of planning units, and the \code{"boundary"}
+column contains the amount of shared boundary length between these
+two planning units.
+This format follows the the standard \emph{Marxan} format for boundary
+data (i.e. per the "bound.dat" file).}
+
+}
+}
+
+\section{Mathematical formulation}{
+
+The boundary penalties are implemented using the following equations. Let
 \eqn{I} represent the set of planning units
 (indexed by \eqn{i} or \eqn{j}), \eqn{Z} represent
 the set of management zones (indexed by \eqn{z} or \eqn{y}), and
@@ -90,50 +127,17 @@ to \code{data} (e.g. generated using \code{\link[=boundary_matrix]{boundary_matr
 \eqn{W_{zz}}{Wzz} represent the matrix argument to \code{zones}.
 
 \deqn{
-  \sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z} (\mathit{ifelse}(i == j, E_z, 1)
-  \times p \times W_{zz} B_{ij}) + \sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z}
-  \sum_{y}^{Z} (-2 \times p \times X_{iz} \times X_{jy} \times W_{zy} \times
-  B_{ij})}{
-  sum_i^I sum_j^I sum_z^Z (ifelse(i == j, Ez, 1) * p * Wzz * Bij) + sum_i^I
-  sum_j^I sum_z^Z sum_y^Z (-2 * p * Xiz * Xjy * Wzy * Bij)
-  }
+\sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z} (\mathit{ifelse}(i == j, E_z, 1)
+\times p \times W_{zz} B_{ij}) + \sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z}
+\sum_{y}^{Z} (-2 \times p \times X_{iz} \times X_{jy} \times W_{zy} \times
+B_{ij})}{
+sum_i^I sum_j^I sum_z^Z (ifelse(i == j, Ez, 1) * p * Wzz * Bij) + sum_i^I
+sum_j^I sum_z^Z sum_y^Z (-2 * p * Xiz * Xjy * Wzy * Bij)
+}
 
 Note that when the problem objective is to maximize some measure of
 benefit and not minimize some measure of cost, the term \eqn{p} is
 replaced with \eqn{-p}.
-}
-\section{Data format}{
-
-The argument to \code{data} can be specified using the following formats.
-Note that boundary data must always describe symmetric relationships
-between planning units.
-
-\describe{
-
-\item{\code{NULL}}{boundary data are automatically calculated
-using the \code{\link[=boundary_matrix]{boundary_matrix()}} function. This argument is the
-default. Note that the boundary data must be supplied
-using one of the other formats below if the planning unit data
-in the argument to \code{x} do not explicitly contain spatial information
-(e.g. planning unit data are a \code{data.frame} or \code{numeric} class).}
-
-\item{\code{matrix}, \code{Matrix}}{where rows and columns represent
-different planning units and the value of each cell represents the
-amount of shared boundary length between two different planning units.
-Cells that occur along the matrix diagonal represent the amount of
-exposed boundary associated with each planning unit that has
-no neighbor (e.g. these value might pertain to boundaries along a
-coastline).}
-
-\item{\code{data.frame}}{with the columns \code{"id1"},
-\code{"id2"}, and \code{"boundary"}. The \code{"id1"} and \code{"id2"} columns contain
-identifiers (indices) for a pair of planning units, and the \code{"boundary"}
-column contains the amount of shared boundary length between these
-two planning units.
-This format follows the the standard \emph{Marxan} format for boundary
-data (i.e. per the "bound.dat" file).}
-
-}
 }
 
 \examples{
@@ -243,5 +247,11 @@ conservation planning problems with integer linear programming.
 \emph{Ecological Modelling}, 228: 14--22.
 }
 \seealso{
-\link{penalties}.
+See \link{penalties} for an overview of all functions for adding penalties.
+
+Other penalties: 
+\code{\link{add_connectivity_penalties}()},
+\code{\link{add_feature_weights}()},
+\code{\link{add_linear_penalties}()}
 }
+\concept{penalties}

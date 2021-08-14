@@ -108,7 +108,7 @@ boundary length (perimeter)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.1.0.0</span>
       </span>
     </div>
 
@@ -270,7 +270,47 @@ Note that this function can only
 be used to represent symmetric relationships between planning units. If
 asymmetric relationships are required, use the
 <code><a href='add_connectivity_penalties.html'>add_connectivity_penalties()</a></code> function.</p>
-<p>The boundary penalties are calculated using the following equations. Let
+    <h2 class="hasAnchor" id="data-format"><a class="anchor" href="#data-format"></a>Data format</h2>
+
+    
+
+<p>The argument to <code>data</code> can be specified using the following formats.
+Note that boundary data must always describe symmetric relationships
+between planning units.</p>
+<dl>
+
+<dt><code>data</code> as a <code>NULL</code> value</dt><dd><p>indicating that the data should be
+automatically calculated using the <code><a href='boundary_matrix.html'>boundary_matrix()</a></code> function.
+This argument is the default.
+Note that the boundary data must be supplied
+using one of the other formats below if the planning unit data
+in the argument to <code>x</code> do not explicitly contain spatial information
+(e.g. planning unit data are a <code>data.frame</code> or <code>numeric</code> class).</p></dd>
+
+<dt><code>data</code> as a <code>matrix</code>/<code>Matrix</code> object</dt><dd><p>where rows and columns represent
+different planning units and the value of each cell represents the
+amount of shared boundary length between two different planning units.
+Cells that occur along the matrix diagonal represent the amount of
+exposed boundary associated with each planning unit that has
+no neighbor (e.g. these value might pertain to boundaries along a
+coastline).</p></dd>
+
+<dt><code>data</code> as a <code>data.frame</code> object</dt><dd><p>with the columns <code>"id1"</code>,
+<code>"id2"</code>, and <code>"boundary"</code>. The <code>"id1"</code> and <code>"id2"</code> columns contain
+identifiers (indices) for a pair of planning units, and the <code>"boundary"</code>
+column contains the amount of shared boundary length between these
+two planning units.
+This format follows the the standard <em>Marxan</em> format for boundary
+data (i.e. per the "bound.dat" file).</p></dd>
+
+
+</dl>
+
+    <h2 class="hasAnchor" id="mathematical-formulation"><a class="anchor" href="#mathematical-formulation"></a>Mathematical formulation</h2>
+
+    
+
+<p>The boundary penalties are implemented using the following equations. Let
 \(I\) represent the set of planning units
 (indexed by \(i\) or \(j\)), \(Z\) represent
 the set of management zones (indexed by \(z\) or \(y\)), and
@@ -282,48 +322,13 @@ argument to <code>edge_factor</code>, \(B_{ij}\) represent the matrix argument
 to <code>data</code> (e.g. generated using <code><a href='boundary_matrix.html'>boundary_matrix()</a></code>), and
 \(W_{zz}\) represent the matrix argument to <code>zones</code>.</p>
 <p>$$
-  \sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z} (\mathit{ifelse}(i == j, E_z, 1)
-  \times p \times W_{zz} B_{ij}) + \sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z}
-  \sum_{y}^{Z} (-2 \times p \times X_{iz} \times X_{jy} \times W_{zy} \times
-  B_{ij})$$</p>
+\sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z} (\mathit{ifelse}(i == j, E_z, 1)
+\times p \times W_{zz} B_{ij}) + \sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z}
+\sum_{y}^{Z} (-2 \times p \times X_{iz} \times X_{jy} \times W_{zy} \times
+B_{ij})$$</p>
 <p>Note that when the problem objective is to maximize some measure of
 benefit and not minimize some measure of cost, the term \(p\) is
 replaced with \(-p\).</p>
-    <h2 class="hasAnchor" id="data-format"><a class="anchor" href="#data-format"></a>Data format</h2>
-
-    
-
-<p>The argument to <code>data</code> can be specified using the following formats.
-Note that boundary data must always describe symmetric relationships
-between planning units.</p>
-<dl>
-
-<dt><code>NULL</code></dt><dd><p>boundary data are automatically calculated
-using the <code><a href='boundary_matrix.html'>boundary_matrix()</a></code> function. This argument is the
-default. Note that the boundary data must be supplied
-using one of the other formats below if the planning unit data
-in the argument to <code>x</code> do not explicitly contain spatial information
-(e.g. planning unit data are a <code>data.frame</code> or <code>numeric</code> class).</p></dd>
-
-<dt><code>matrix</code>, <code>Matrix</code></dt><dd><p>where rows and columns represent
-different planning units and the value of each cell represents the
-amount of shared boundary length between two different planning units.
-Cells that occur along the matrix diagonal represent the amount of
-exposed boundary associated with each planning unit that has
-no neighbor (e.g. these value might pertain to boundaries along a
-coastline).</p></dd>
-
-<dt><code>data.frame</code></dt><dd><p>with the columns <code>"id1"</code>,
-<code>"id2"</code>, and <code>"boundary"</code>. The <code>"id1"</code> and <code>"id2"</code> columns contain
-identifiers (indices) for a pair of planning units, and the <code>"boundary"</code>
-column contains the amount of shared boundary length between these
-two planning units.
-This format follows the the standard <em>Marxan</em> format for boundary
-data (i.e. per the "bound.dat" file).</p></dd>
-
-
-</dl>
-
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Ball IR, Possingham HP, and Watts M (2009) <em>Marxan and relatives:
@@ -335,7 +340,11 @@ conservation planning problems with integer linear programming.
 <em>Ecological Modelling</em>, 228: 14--22.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='penalties.html'>penalties</a>.</p></div>
+    <div class='dont-index'><p>See <a href='penalties.html'>penalties</a> for an overview of all functions for adding penalties.</p>
+<p>Other penalties: 
+<code><a href='add_connectivity_penalties.html'>add_connectivity_penalties</a>()</code>,
+<code><a href='add_feature_weights.html'>add_feature_weights</a>()</code>,
+<code><a href='add_linear_penalties.html'>add_linear_penalties</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='co'># set seed for reproducibility</span></span>

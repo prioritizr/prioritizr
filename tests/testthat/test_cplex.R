@@ -28,7 +28,7 @@ test_that("LP", {
          A = methods::as(A, "dgCMatrix"),
          A2 = cplex_matrix(methods::as(A, "dgCMatrix")),
          vtype = vtype, rhs = rhs, sense = sense, lb = lb, ub = ub),
-    list(threads = 1, presolve = 1, gap = 0, time_limit = 1e+10, verbose = 1))
+    list(threads = 1, presolve = 1, gap = 0, time_limit = 1e+10, verbose = 0))
   # compare solutions
   expect_lte(max(abs(s1$objval - s2$objval)), 1e-5)
   expect_lte(max(abs(s1$solution - s2$x)), 1e-5)

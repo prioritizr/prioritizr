@@ -293,5 +293,11 @@ value for cost-effective reserve planning. \emph{Biological Conservation},
 132: 336--342.
 }
 \seealso{
-\link{importance}.
+See \link{importance} for an overview of all functions for evaluating
+the importance of planning units selected in a solution.
+
+Other importances: 
+\code{\link{eval_ferrier_importance}()},
+\code{\link{eval_rare_richness_importance}()}
 }
+\concept{importances}

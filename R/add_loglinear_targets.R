@@ -67,9 +67,12 @@ NULL
 #' Early versions (< 5.0.2.4) used different equations for calculating
 #' targets.
 #'
-#' @inherit add_relative_targets return
+#' @inherit add_manual_targets return
 #'
-#' @seealso [targets], [loglinear_interpolation()].
+#' @seealso
+#' See [targets] for an overview of all functions for adding targets.
+#'
+#' @family targets
 #'
 #' @references
 #' Rodrigues ASL, Akcakaya HR, Andelman SJ, Bakarr MI, Boitani L, Brooks TM,

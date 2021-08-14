@@ -1,7 +1,11 @@
 
 <!--- README.md is generated from README.Rmd. Please edit that file -->
 
-# Systematic Conservation Prioritization in R <img src="man/figures/logo.png" align="right" width=10% />
+# prioritizr: <img src="man/figures/logo.png" align="right" height="90px" />
+
+# Systematic Conservation Prioritization in R
+
+<!-- badges: start -->
 
 [![lifecycle](https://img.shields.io/badge/Lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![R-CMD-check-Ubuntu](https://img.shields.io/github/workflow/status/prioritizr/prioritizr/Ubuntu/master.svg?label=Ubuntu)](https://github.com/prioritizr/prioritizr/actions)
@@ -10,6 +14,7 @@
 [![Coverage
 Status](https://codecov.io/github/prioritizr/prioritizr/coverage.svg?branch=master)](https://codecov.io/github/prioritizr/prioritizr?branch=master)
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/prioritizr)](https://CRAN.R-project.org/package=prioritizr)
+<!-- badges: end -->
 
 The *prioritizr R* package uses integer linear programming (ILP)
 techniques to provide a flexible interface for building and solving
@@ -64,7 +69,7 @@ Alternatively, to cite the latest development version, please use:
 
 > Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese
 > P, Bennett J, Possingham HP (2021). prioritizr: Systematic
-> Conservation Prioritization in R. R package version 7.0.1.5. Available
+> Conservation Prioritization in R. R package version 7.1.0.0. Available
 > at <https://github.com/prioritizr/prioritizr>.
 
 Additionally, we keep a [record of
@@ -261,7 +266,7 @@ s1 <- solve(p1)
     ##   StrongCG: 39
     ##   Flow cover: 10
     ## 
-    ## Explored 99210 nodes (201659 simplex iterations) in 4.98 seconds
+    ## Explored 99210 nodes (201659 simplex iterations) in 4.77 seconds
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 5: 2627.64 2747.38 2761.33 ... 3139.89
@@ -283,7 +288,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##      5.003
+    ##      4.795
 
 ``` r
 # extract state message from the solver
@@ -310,7 +315,7 @@ statistics.
 print(eval_cost_summary(p1, s1[, "solution_1"]), width = Inf)
 ```
 
-    ## # A tibble: 1 x 2
+    ## # A tibble: 1 × 2
     ##   summary  cost
     ##   <chr>   <dbl>
     ## 1 overall 2628.
@@ -320,7 +325,7 @@ print(eval_cost_summary(p1, s1[, "solution_1"]), width = Inf)
 print(eval_target_coverage_summary(p1, s1[, "solution_1"]), width = Inf)
 ```
 
-    ## # A tibble: 5 x 9
+    ## # A tibble: 5 × 9
     ##   feature met   total_amount absolute_target absolute_held absolute_shortfall
     ##   <chr>   <lgl>        <dbl>           <dbl>         <dbl>              <dbl>
     ## 1 layer.1 TRUE          74.5           11.2          11.5                   0
@@ -406,7 +411,7 @@ s2 <- solve(p2)
     ##   StrongCG: 2
     ##   RLT: 1
     ## 
-    ## Explored 1 nodes (58 simplex iterations) in 0.01 seconds
+    ## Explored 1 nodes (58 simplex iterations) in 0.02 seconds
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 3: 2838.26 2839.12 3027.7 

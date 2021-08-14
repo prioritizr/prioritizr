@@ -108,7 +108,7 @@ with each other too." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.1.0.0</span>
       </span>
     </div>
 
@@ -272,6 +272,8 @@ with other spatial association matrix functions.</p>
 <span class='r-in'><span class='co'># create adjacency matrix using polygons (sf) data</span></span>
 <span class='r-in'><span class='co'>## subset 9 polygons</span></span>
 <span class='r-in'><span class='va'>ply</span> <span class='op'>&lt;-</span> <span class='va'>sim_pu_sf</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>, <span class='fl'>10</span><span class='op'>:</span><span class='fl'>12</span>, <span class='fl'>20</span><span class='op'>:</span><span class='fl'>22</span><span class='op'>)</span>, <span class='op'>]</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
 <span class='r-in'></span>
 <span class='r-in'><span class='co'>## make adjacency matrix</span></span>
 <span class='r-in'><span class='va'>am_ply</span> <span class='op'>&lt;-</span> <span class='fu'>adjacency_matrix</span><span class='op'>(</span><span class='va'>ply</span><span class='op'>)</span></span>

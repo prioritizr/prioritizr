@@ -13,7 +13,12 @@ NULL
 #'
 #' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
-#' @inherit add_binary_decisions details return seealso
+#' @inherit add_binary_decisions details return
+#'
+#' @seealso
+#' See [decisions] for an overview of all functions for adding decisions.
+#'
+#' @family decisions
 #'
 #' @examples
 #' # set seed for reproducibility

@@ -11,7 +11,7 @@ NULL
 #' @param n `integer` number of threads.
 #'
 #' @details This function returns a `list` containing an element for
-#'   each worker. Each element contains a `integer` `vector`
+#'   each worker. Each element contains a `integer` vector
 #'   specifying the indices that the worker should process.
 #'
 #' @return `list` object.

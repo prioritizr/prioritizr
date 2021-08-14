@@ -19,7 +19,12 @@ NULL
 #' [add_gurobi_solver()], [add_cplex_solver()], [add_cbc_solver()],
 #' [add_lpsymphony_solver()], and finally [add_rsymphony_solver()].
 #'
-#' @inherit add_gurobi_solver return seealso
+#' @inherit add_gurobi_solver return
+#'
+#' @seealso
+#' See [solvers] for an overview of all functions for adding a solver.
+#'
+#' @family solvers
 #'
 #' @references
 #' Schuster R, Hanson JO, Strimas-Mackey M, and Bennett JR (2020). Exact

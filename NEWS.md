@@ -1,3 +1,15 @@
+# prioritizr 7.1.0.0
+
+- New `add_linear_constraint` function to add arbitrary constraints.
+- Update `add_min_shortfall_objective` and
+  `add_min_largest_shortfall_objective` functions to handle targets with
+  a target threshold value of zero.
+- Minor improvements to the documentation. These include moving mathematical
+  details to dedicated sections, providing more links in the See also sections,
+  fixing text formatting for the `eval_connectivity_summary` function,
+  and tweaking the header in the README.
+- Update publication vignette.
+
 # prioritizr 7.0.1.5
 
 - Update publication vignette.

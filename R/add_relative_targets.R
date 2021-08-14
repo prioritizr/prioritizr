@@ -12,10 +12,15 @@ NULL
 #' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
 #' @param targets Object that specifies the targets for each feature.
-#'   See the Targets data format section for more information.
+#'   See the Targets format section for more information.
 #'
-#' @inherit add_absolute_targets details return seealso
-#' @inheritSection add_absolute_targets Targets data format
+#' @inherit add_absolute_targets details return
+#' @inheritSection add_absolute_targets Targets format
+#'
+#' @seealso
+#' See [targets] for an overview of all functions for adding targets.
+#'
+#' @family targets
 #'
 #' @examples
 #' # set seed for reproducibility

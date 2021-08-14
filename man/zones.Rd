@@ -24,33 +24,40 @@ to \code{NULL} which results in sequential integers.}
 \code{\linkS4class{Zones}} object.
 }
 \description{
-Organize biodiversity data into the expected amount of different features
-under different management zones.
+Organize data for multiple features for multiple management zones.
+Specifically, the data should describe the expected amount of each
+feature within each planning unit given each management zone.
+For example, the data could describe the occupancy
+(e.g. presence/absence), probability of occurrence, or
+abundance expected for each feature when each planning unit
+is allocated to a different zone.
 }
 \details{
 This function is used to store and organize data for use in a
 conservation planning \code{\link[=problem]{problem()}} that has multiple management
-zones. In all cases, the data for each zone is input as a separate
-argument. The correct arguments depends on the type of planning unit data
+zones.
+In all cases, the data for each zone is input as a separate argument.
+The correct arguments depends on the type of planning unit data
 used when building the conservation planning \code{\link[=problem]{problem()}}.
 
 \describe{
-\item{\code{\linkS4class{Raster}},
-\code{\linkS4class{Spatial}}}{\code{\linkS4class{Raster}}
-data denoting the amount of each feature present assuming each
-management zone. Data for each zone are specified in separate
+\item{planning unit data are a \code{\linkS4class{Raster}} or \code{\linkS4class{Spatial}} object}{
+\code{\linkS4class{Raster}} object can be supplied to specify the expected amount of
+each feature within each planning unit under each management zone.
+Data for each zone should be specified as separate
 arguments, and the data for each feature in a given zone are specified
-in separate layers in a \code{\link[raster:stack]{raster::stack()}} object. Note that
-all layers for a given zone must have \code{NA} values in exactly the
+in separate layers in a \code{\link[raster:stack]{raster::stack()}} object.
+Note that all layers for a given zone must have \code{NA} values in exactly the
 same cells.}
-\item{\code{\link[=Spatial]{Spatial()}}, \code{data.frame}}{\code{character} vector
-with column names that correspond to the abundance or occurrence of
-different features in each planning unit for each zone. Note that
-these columns must not contain any \code{NA} values.}
-\item{\code{\link[=Spatial]{Spatial()}}, \code{data.frame} or
-\code{matrix}}{\code{data.frame} denoting the amount of each feature
-in each zone. Following conventions used in \emph{Marxan},
-\code{data.frame} objects should be supplied with the columns:
+\item{planning unit data are a \code{\linkS4class{Spatial}} or \code{data.frame}
+object}{\code{character} vector containing column names can
+be supplied to specify the expected amount of each feature under each
+zone. Note that these columns must not contain any \code{NA} values.}
+\item{planning unit data are a \code{\linkS4class{Spatial}}, \code{data.frame}, or
+\code{matrix} object}{\code{data.frame} object can be supplied to specify the
+expected amount of each feature under each zone.
+Following conventions used in \emph{Marxan}, the
+\code{data.frame} object should contain the following columns.
 \describe{
 \item{pu}{\code{integer} planning unit identifier.}
 \item{species}{\code{integer} feature identifier.}
@@ -58,11 +65,11 @@ in each zone. Following conventions used in \emph{Marxan},
 planning unit for a given zone.}
 }
 Note that data for each zone are specified in a separate argument, and
-the data contained in a single \code{data.frame} object correspond to
+the data contained in a single \code{data.frame} object should correspond to
 a single zone. Also, note that data are not required for all
-combinations of planning units, features, and zones. The amounts of
-features in planning units assuming different management zones that are
-missing from the table are treated as zero.}
+combinations of planning units, features, and zones. The expected amount of
+features in planning units under management zones that are
+missing from the table are assumed to be zero.}
 }
 }
 \examples{

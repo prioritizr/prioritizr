@@ -35,7 +35,7 @@ NULL
 #'   implementation of superior data extraction.}
 #'
 #' \item{`is.parallel()`}{no longer needed used with the
-#'   implementation of superior data extraction}
+#'   implementation of superior data extraction.}
 #'
 #' \item{`add_pool_portfolio()`}{replaced by the
 #'   [add_extra_portfolio()] and [add_top_portfolio()].}

@@ -28,10 +28,7 @@ NULL
 #'
 #'   }
 #'
-#' @seealso [constraints], [decisions],
-#'  [objectives] [penalties],
-#'  [portfolios], [problem()],
-#'  [solvers].
+#' @family overviews
 #'
 #' @examples
 #' # load data

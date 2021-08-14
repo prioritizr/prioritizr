@@ -4,7 +4,7 @@ NULL
 #' Category vector
 #'
 #' Convert an object containing binary (`integer`) fields (columns) into a
-#' `integer` `vector` indicating the column index where each row is
+#' `integer` vector indicating the column index where each row is
 #' `1`.
 #'
 #' @param x `matrix`, `data.frame`, [`Spatial-class`],
@@ -15,7 +15,7 @@ NULL
 #'   value of zero. Also, note that in the argument to `x`, each row must
 #'   contain only a single value equal to `1`.
 #'
-#' @return `integer` `vector`
+#' @return `integer` vector.
 #'
 #' @seealso [base::max.col()]
 #'

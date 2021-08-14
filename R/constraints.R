@@ -24,27 +24,39 @@ NULL
 #'
 #'   \describe{
 #'
-#'   \item{[add_locked_in_constraints()]}{Add constraints to ensure
+#'   \item{[add_locked_in_constraints()]}{
+#'     Add constraints to ensure
 #'     that certain planning units are selected in the solution.}
 #'
-#'   \item{[add_locked_out_constraints()]}{Add constraints to ensure
+#'   \item{[add_locked_out_constraints()]}{
+#'     Add constraints to ensure
 #'     that certain planning units are not selected in the solution.}
 #'
-#'   \item{[add_neighbor_constraints()]}{Add constraints to
+#'   \item{[add_neighbor_constraints()]}{
+#'     Add constraints to
 #'     ensure that all selected planning units have at least a certain number
 #'     of neighbors.}
 #'
-#'   \item{[add_contiguity_constraints()]}{Add constraints to a
+#'   \item{[add_contiguity_constraints()]}{
+#'     Add constraints to a
 #'     ensure that all selected planning units are spatially connected to each
 #'     other and form a single contiguous unit.}
 #'
-#'   \item{[add_feature_contiguity_constraints()]}{Add constraints to
+#'   \item{[add_feature_contiguity_constraints()]}{
+#'     Add constraints to
 #'     ensure that each feature is represented in a contiguous unit of
 #'     dispersible habitat. These constraints are a more advanced version of
 #'     those implemented in the [add_contiguity_constraints()]
 #'     function, because they ensure that each feature is represented in a
 #'     contiguous unit and not that the entire solution should form a
 #'     contiguous unit.}
+#'
+#'   \item{[add_linear_constraints()]}{
+#'     Add constraints to ensure that all selected planning units meet certain
+#'     criteria. For example, they can be used to add
+#'     multiple budgets, or limit the number of
+#'     planning units selected in different administrative areas within a study
+#'     region (e.g. different countries).}
 #'
 #'   \item{[add_mandatory_allocation_constraints()]}{
 #'     Add constraints to ensure that every planning unit is allocated to a
@@ -53,9 +65,7 @@ NULL
 #'
 #'  }
 #'
-#' @seealso [decisions], [objectives],
-#'  [penalties], [portfolios], [problem()],
-#'  [solvers], [targets].
+#' @family overviews
 #'
 #' @examples
 #' # load data

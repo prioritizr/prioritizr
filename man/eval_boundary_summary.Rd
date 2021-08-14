@@ -108,14 +108,15 @@ between planning units.
 
 \describe{
 
-\item{\code{NULL}}{boundary data are automatically calculated
-using the \code{\link[=boundary_matrix]{boundary_matrix()}} function. This argument is the
-default. Note that the boundary data must be supplied
+\item{\code{data} as a \code{NULL} value}{indicating that the data should be
+automatically calculated using the \code{\link[=boundary_matrix]{boundary_matrix()}} function.
+This argument is the default.
+Note that the boundary data must be supplied
 using one of the other formats below if the planning unit data
 in the argument to \code{x} do not explicitly contain spatial information
 (e.g. planning unit data are a \code{data.frame} or \code{numeric} class).}
 
-\item{\code{matrix}, \code{Matrix}}{where rows and columns represent
+\item{\code{data} as a \code{matrix}/\code{Matrix} object}{where rows and columns represent
 different planning units and the value of each cell represents the
 amount of shared boundary length between two different planning units.
 Cells that occur along the matrix diagonal represent the amount of
@@ -123,7 +124,7 @@ exposed boundary associated with each planning unit that has
 no neighbor (e.g. these value might pertain to boundaries along a
 coastline).}
 
-\item{\code{data.frame}}{with the columns \code{"id1"},
+\item{\code{data} as a \code{data.frame} object}{with the columns \code{"id1"},
 \code{"id2"}, and \code{"boundary"}. The \code{"id1"} and \code{"id2"} columns contain
 identifiers (indices) for a pair of planning units, and the \code{"boundary"}
 column contains the amount of shared boundary length between these
@@ -319,5 +320,15 @@ prioritisation: Quantitative methods and computational tools. Eds Moilanen
 A, Wilson KA, and Possingham HP. Oxford University Press, Oxford, UK.
 }
 \seealso{
-\code{\link[=problem]{problem()}}, \link{summaries}, \code{\link[=add_boundary_penalties]{add_boundary_penalties()}}.
+See \link{summaries} for an overview of all functions for summarizing solutions.
+Also, see \code{\link[=add_boundary_penalties]{add_boundary_penalties()}} to penalize solutions with high
+boundary length.
+
+Other summaries: 
+\code{\link{eval_connectivity_summary}()},
+\code{\link{eval_cost_summary}()},
+\code{\link{eval_feature_representation_summary}()},
+\code{\link{eval_n_summary}()},
+\code{\link{eval_target_coverage_summary}()}
 }
+\concept{summaries}

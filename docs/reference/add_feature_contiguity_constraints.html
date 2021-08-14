@@ -114,7 +114,7 @@ designated for their conservation." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.1.0.0</span>
       </span>
     </div>
 
@@ -283,7 +283,8 @@ drastically increase the amount of time required to solve it.</strong></p>
 <p>The argument to <code>data</code> can be specified using the following formats.</p>
 <dl>
 
-<dt><code>NULL</code></dt><dd><p>connection data should be calculated automatically
+<dt><code>data</code> as a <code>NULL</code> value</dt><dd><p>connection
+data should be calculated automatically
 using the <code><a href='adjacency_matrix.html'>adjacency_matrix()</a></code> function. This is the default
 argument and means that all adjacent planning units are treated
 as potentially dispersible for all features.
@@ -292,7 +293,7 @@ using one of the other formats below when the planning unit data
 in the argument to <code>x</code> is not spatially referenced (e.g.
 in <code>data.frame</code> or <code>numeric</code> format).</p></dd>
 
-<dt><code>matrix</code>, <code>Matrix</code></dt><dd><p>where rows and columns represent
+<dt><code>data</code> as a<code>matrix</code>/<code>Matrix</code> object</dt><dd><p>where rows and columns represent
 different planning units and the value of each cell indicates if the
 two planning units are connected or not. Cell values should be binary
 <code>numeric</code> values (i.e. one or zero). Cells that occur along the
@@ -301,7 +302,7 @@ planning unit cannot be a connected with itself. Note that pairs
 of connected planning units are treated as being potentially dispersible
 for all features.</p></dd>
 
-<dt><code>data.frame</code></dt><dd><p>containing the fields (columns)
+<dt><code>data</code> as a <code>data.frame</code> object</dt><dd><p>containing the fields (columns)
 <code>"id1"</code>, <code>"id2"</code>, and <code>"boundary"</code>. Here, each row
 denotes the connectivity between two planning units following the
 <em>Marxan</em> format. The field <code>boundary</code> should contain
@@ -316,7 +317,7 @@ unless connectivity data is also provided for planning units 3 and 2).
 Note that pairs of connected planning units are treated as being
 potentially dispersible for all features.</p></dd>
 
-<dt><code>list</code></dt><dd><p>containing <code>matrix</code>, <code>Matrix</code>, or
+<dt><code>data</code> as a <code>list</code> object</dt><dd><p>containing <code>matrix</code>, <code>Matrix</code>, or
 <code>data.frame</code> objects showing which planning units
 should be treated as connected for each feature. Each element in the
 <code>list</code> should correspond to a different feature (specifically,
@@ -344,7 +345,15 @@ connectivity in conservation planning do not always maintain gene flow.
 <em>Journal of Applied Ecology</em>, 56: 913--922.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='constraints.html'>constraints</a>.</p></div>
+    <div class='dont-index'><p>See <a href='constraints.html'>constraints</a> for an overview of all functions for adding constraints.</p>
+<p>Other constraints: 
+<code><a href='add_contiguity_constraints.html'>add_contiguity_constraints</a>()</code>,
+<code><a href='add_linear_constraints.html'>add_linear_constraints</a>()</code>,
+<code><a href='add_locked_in_constraints.html'>add_locked_in_constraints</a>()</code>,
+<code><a href='add_locked_out_constraints.html'>add_locked_out_constraints</a>()</code>,
+<code><a href='add_mandatory_allocation_constraints.html'>add_mandatory_allocation_constraints,ConservationProblem-method</a></code>,
+<code><a href='add_manual_bounded_constraints.html'>add_manual_bounded_constraints</a>()</code>,
+<code><a href='add_manual_locked_constraints.html'>add_manual_locked_constraints</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='co'># load data</span></span>

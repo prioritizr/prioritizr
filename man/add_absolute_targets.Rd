@@ -20,7 +20,7 @@ add_absolute_targets(x, targets)
 \item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{targets}{Object that specifies the targets for each feature.
-See the Targets data format section for more information.}
+See the Targets format section for more information.}
 }
 \value{
 Object (i.e. \code{\linkS4class{ConservationProblem}}) with the targets added
@@ -57,27 +57,28 @@ potentially, be met through allocating all planning units to any specific
 management zone, or through allocating the planning units to different
 combinations of management zones.
 }
-\section{Targets data format}{
+\section{Targets format}{
 
-The targets for a problem can be specified using the following formats.
+The \code{targets} for a problem can be specified using the following formats.
 
 \describe{
 
-\item{\code{numeric}}{\code{vector} of target values for each feature.
-Additionally, for convenience, this type of argument can be a single
-value to assign the same target to each feature. Note that this type of
-argument cannot be used to specify targets for problems with multiple
-zones.}
+\item{\code{targets} as a \code{numeric} vector}{containing target values for each
+feature.
+Additionally, for convenience, this format can be a single
+value to assign the same target to each feature. Note that this format
+cannot be used to specify targets for problems with multiple zones.}
 
-\item{\code{matrix}}{containing a target for each feature in each zone.
+\item{\code{targets} as a \code{matrix} object}{containing a target for each feature
+in each zone.
 Here, each row corresponds to a different feature in argument to
 \code{x}, each column corresponds to a different zone in argument to
 \code{x}, and each cell contains the target value for a given feature
 that the solution needs to secure in a given zone.}
 
-\item{\code{character}}{containing the names of fields (columns) in the
-feature data associated with the argument to \code{x} that contain
-targets. This type of argument can only be used when the
+\item{\code{targets} as a \code{character} vector}{containing the names of fields
+(columns) in the feature data associated with the argument to \code{x} that
+contain targets. This format can only be used when the
 feature data associated with \code{x} is a \code{data.frame}.
 This argument must contain a field (column) name for each zone.}
 
@@ -157,5 +158,11 @@ plot(category_layer(s5), main = c("varying targets"))
 
 }
 \seealso{
-\link{targets}.
+See \link{targets} for an overview of all functions for adding targets.
+
+Other targets: 
+\code{\link{add_loglinear_targets}()},
+\code{\link{add_manual_targets}()},
+\code{\link{add_relative_targets}()}
 }
+\concept{targets}

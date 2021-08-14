@@ -113,7 +113,7 @@ about how the budget should be allocated." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.1.0.0</span>
       </span>
     </div>
 
@@ -244,11 +244,12 @@ lower than 0.01.</strong></p>
 <p>The argument to <code>weights</code> can be specified using the following formats.</p>
 <dl>
 
-<dt><code>numeric</code></dt><dd><p>containing weights for each feature. Note that this
-type of argument cannot be used to specify weights for problems with
+<dt><code>weights</code> as a <code>numeric</code> vector</dt><dd><p>containing weights for each feature.
+Note that this format cannot be used to specify weights for problems with
 multiple zones.</p></dd>
 
-<dt><code>matrix</code></dt><dd><p>containing weights for each feature in each zone.
+<dt><code>weights</code> as a <code>matrix</code> object</dt><dd><p>containing weights
+for each feature in each zone.
 Here, each row corresponds to a different feature in argument to
 <code>x</code>, each column corresponds to a different zone in argument to
 <code>x</code>, and each cell contains the weight value for a given feature
@@ -263,7 +264,11 @@ fulfilling each target.</p></dd>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='objectives.html'>objectives</a>.</p></div>
+    <div class='dont-index'><p>See <a href='penalties.html'>penalties</a> for an overview of all functions for adding penalties.</p>
+<p>Other penalties: 
+<code><a href='add_boundary_penalties.html'>add_boundary_penalties</a>()</code>,
+<code><a href='add_connectivity_penalties.html'>add_connectivity_penalties</a>()</code>,
+<code><a href='add_linear_penalties.html'>add_linear_penalties</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='co'># load ape package</span></span>
@@ -338,7 +343,7 @@ fulfilling each target.</p></dd>
 <span class='r-in'><span class='co'># find out which features have their targets met</span></span>
 <span class='r-in'><span class='va'>r4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='eval_target_coverage_summary.html'>eval_target_coverage_summary</a></span><span class='op'>(</span><span class='va'>p4</span>, <span class='va'>s4</span><span class='op'>)</span></span>
 <span class='r-in'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>r4</span>, width <span class='op'>=</span> <span class='cn'>Inf</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 5 x 9</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 5 × 9</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   feature met   total_amount absolute_target absolute_held absolute_shortfall</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;lgl&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>           <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>              <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> layer.1 FALSE         83.3            8.33          7.48              0.849</span>
@@ -388,7 +393,7 @@ fulfilling each target.</p></dd>
 <span class='r-in'><span class='co'># find which features have their targets met</span></span>
 <span class='r-in'><span class='va'>r5</span> <span class='op'>&lt;-</span> <span class='fu'><a href='eval_target_coverage_summary.html'>eval_target_coverage_summary</a></span><span class='op'>(</span><span class='va'>p4</span>, <span class='va'>s5</span><span class='op'>)</span></span>
 <span class='r-in'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>r5</span>, width <span class='op'>=</span> <span class='cn'>Inf</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 5 x 9</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 5 × 9</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   feature met   total_amount absolute_target absolute_held absolute_shortfall</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;lgl&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>           <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>              <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> layer.1 FALSE         83.3            8.33          7.48              0.849</span>

@@ -35,28 +35,32 @@ NULL
 #'
 #' The argument to `weights` can be specified using the following formats.
 #'
-#'   \describe{
+#' \describe{
 #'
-#'   \item{`numeric`}{containing weights for each feature. Note that this
-#'     type of argument cannot be used to specify weights for problems with
-#'     multiple zones.}
+#' \item{`weights` as a `numeric` vector}{containing weights for each feature.
+#'   Note that this format cannot be used to specify weights for problems with
+#'   multiple zones.}
 #'
-#'   \item{`matrix`}{containing weights for each feature in each zone.
-#'      Here, each row corresponds to a different feature in argument to
-#'      `x`, each column corresponds to a different zone in argument to
-#'      `x`, and each cell contains the weight value for a given feature
-#'      that the solution can to secure in a given zone. Note that
-#'      if the problem contains targets created using
-#'      [add_manual_targets()] then a `matrix` should be
-#'      supplied containing a single column that indicates that weight for
-#'      fulfilling each target.}
+#' \item{`weights` as a `matrix` object}{containing weights
+#'   for each feature in each zone.
+#'   Here, each row corresponds to a different feature in argument to
+#'   `x`, each column corresponds to a different zone in argument to
+#'   `x`, and each cell contains the weight value for a given feature
+#'   that the solution can to secure in a given zone. Note that
+#'   if the problem contains targets created using
+#'   [add_manual_targets()] then a `matrix` should be
+#'   supplied containing a single column that indicates that weight for
+#'   fulfilling each target.}
 #'
 #'   }
 #'
 #' @return Object (i.e. [`ConservationProblem-class`]) with the weights
 #'  added to it.
 #'
-#' @seealso [objectives].
+#' @seealso
+#' See [penalties] for an overview of all functions for adding penalties.
+#'
+#' @family penalties
 #'
 #' @examples
 #' # load ape package

@@ -73,10 +73,7 @@ NULL
 #'
 #' @name solvers
 #'
-#' @seealso [constraints],  [decisions],
-#'  [objectives], [penalties],
-#'  [portfolios], [problem()],
-#'  [targets].
+#' @family overviews
 #'
 #' @references
 #' Schuster R, Hanson JO, Strimas-Mackey M, and Bennett JR (2020). Exact

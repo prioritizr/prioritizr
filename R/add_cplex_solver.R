@@ -12,8 +12,6 @@ NULL
 #'
 #' @inheritParams add_gurobi_solver
 #'
-#' @inherit add_gurobi_solver return seealso
-#'
 #' @param presolve `logical` attempt to simplify the
 #'   problem before solving it? Defaults to `TRUE`.
 #'
@@ -44,6 +42,13 @@ NULL
 #' number in the file path (i.e. `"CPLEX_Studio128"`). For more information
 #' on installing the pkg{cplexAPI} package, please see the
 #' [official installation instructions for the package](https://CRAN.R-project.org/package=cplexAPI/INSTALL).
+#'
+#' @inherit add_gurobi_solver return
+#'
+#' @seealso
+#' See [solvers] for an overview of all functions for adding a solver.
+#'
+#' @family solvers
 #'
 #' @references
 #' IBM (2017) IBM ILOG CPLEX Optimization Studio CPLEX User's Manual.

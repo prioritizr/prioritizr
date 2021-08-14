@@ -87,7 +87,8 @@ The argument to \code{data} can be specified using the following formats.
 
 \describe{
 
-\item{\code{NULL}}{connection data should be calculated automatically
+\item{\code{data} as a \code{NULL} value}{connection
+data should be calculated automatically
 using the \code{\link[=adjacency_matrix]{adjacency_matrix()}} function. This is the default
 argument and means that all adjacent planning units are treated
 as potentially dispersible for all features.
@@ -96,7 +97,7 @@ using one of the other formats below when the planning unit data
 in the argument to \code{x} is not spatially referenced (e.g.
 in \code{data.frame} or \code{numeric} format).}
 
-\item{\code{matrix}, \code{Matrix}}{where rows and columns represent
+\item{\code{data} as a\code{matrix}/\code{Matrix} object}{where rows and columns represent
 different planning units and the value of each cell indicates if the
 two planning units are connected or not. Cell values should be binary
 \code{numeric} values (i.e. one or zero). Cells that occur along the
@@ -105,7 +106,7 @@ planning unit cannot be a connected with itself. Note that pairs
 of connected planning units are treated as being potentially dispersible
 for all features.}
 
-\item{\code{data.frame}}{containing the fields (columns)
+\item{\code{data} as a \code{data.frame} object}{containing the fields (columns)
 \code{"id1"}, \code{"id2"}, and \code{"boundary"}. Here, each row
 denotes the connectivity between two planning units following the
 \emph{Marxan} format. The field \code{boundary} should contain
@@ -120,7 +121,7 @@ unless connectivity data is also provided for planning units 3 and 2).
 Note that pairs of connected planning units are treated as being
 potentially dispersible for all features.}
 
-\item{\code{list}}{containing \code{matrix}, \code{Matrix}, or
+\item{\code{data} as a \code{list} object}{containing \code{matrix}, \code{Matrix}, or
 \code{data.frame} objects showing which planning units
 should be treated as connected for each feature. Each element in the
 \code{list} should correspond to a different feature (specifically,
@@ -233,5 +234,15 @@ connectivity in conservation planning do not always maintain gene flow.
 \emph{Journal of Applied Ecology}, 56: 913--922.
 }
 \seealso{
-\link{constraints}.
+See \link{constraints} for an overview of all functions for adding constraints.
+
+Other constraints: 
+\code{\link{add_contiguity_constraints}()},
+\code{\link{add_linear_constraints}()},
+\code{\link{add_locked_in_constraints}()},
+\code{\link{add_locked_out_constraints}()},
+\code{\link{add_mandatory_allocation_constraints,ConservationProblem-method}},
+\code{\link{add_manual_bounded_constraints}()},
+\code{\link{add_manual_locked_constraints}()}
 }
+\concept{constraints}

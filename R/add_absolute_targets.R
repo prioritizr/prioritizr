@@ -12,9 +12,7 @@ NULL
 #' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
 #' @param targets Object that specifies the targets for each feature.
-#'   See the Targets data format section for more information.
-#'
-#' @inherit add_manual_targets return seealso
+#'   See the Targets format section for more information.
 #'
 #' @details
 #' Targets are used to specify the minimum amount or proportion of a
@@ -40,31 +38,38 @@ NULL
 #' management zone, or through allocating the planning units to different
 #' combinations of management zones.
 #'
-#' @section Targets data format:
-#' The targets for a problem can be specified using the following formats.
+#' @section Targets format:
+#' The `targets` for a problem can be specified using the following formats.
 #'
 #' \describe{
 #'
-#' \item{`numeric`}{`vector` of target values for each feature.
-#'   Additionally, for convenience, this type of argument can be a single
-#'   value to assign the same target to each feature. Note that this type of
-#'   argument cannot be used to specify targets for problems with multiple
-#'   zones.}
+#' \item{`targets` as a `numeric` vector}{containing target values for each
+#'   feature.
+#'   Additionally, for convenience, this format can be a single
+#'   value to assign the same target to each feature. Note that this format
+#'   cannot be used to specify targets for problems with multiple zones.}
 #'
-#' \item{`matrix`}{containing a target for each feature in each zone.
+#' \item{`targets` as a `matrix` object}{containing a target for each feature
+#'   in each zone.
 #'   Here, each row corresponds to a different feature in argument to
 #'   `x`, each column corresponds to a different zone in argument to
 #'   `x`, and each cell contains the target value for a given feature
 #'   that the solution needs to secure in a given zone.}
 #'
-#' \item{`character`}{containing the names of fields (columns) in the
-#'   feature data associated with the argument to `x` that contain
-#'   targets. This type of argument can only be used when the
+#' \item{`targets` as a `character` vector}{containing the names of fields
+#'   (columns) in the feature data associated with the argument to `x` that
+#'   contain targets. This format can only be used when the
 #'   feature data associated with `x` is a `data.frame`.
 #'   This argument must contain a field (column) name for each zone.}
 #'
 #' }
 #'
+#' @inherit add_manual_targets return
+#'
+#' @seealso
+#' See [targets] for an overview of all functions for adding targets.
+#'
+#' @family targets
 #'
 #' @examples
 #' # set seed for reproducibility

@@ -110,7 +110,7 @@ add_locked_out_constraints() functions." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.0.1.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.1.0.0</span>
       </span>
     </div>
 
@@ -222,7 +222,8 @@ added to it.</p>
 
     
 
-<p>The argument to <code>data</code> must contain the following fields  (columns):</p>
+<p>The argument to <code>data</code> should be a <code>data.frame</code> with the following fields
+(columns):</p>
 <dl>
 
 <dt>pu</dt><dd><p><code>integer</code> planning unit identifier.</p></dd>
@@ -245,7 +246,15 @@ containing proportion-type decision variables (using the
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='constraints.html'>constraints</a>.</p></div>
+    <div class='dont-index'><p>See <a href='constraints.html'>constraints</a> for an overview of all functions for adding constraints.</p>
+<p>Other constraints: 
+<code><a href='add_contiguity_constraints.html'>add_contiguity_constraints</a>()</code>,
+<code><a href='add_feature_contiguity_constraints.html'>add_feature_contiguity_constraints</a>()</code>,
+<code><a href='add_linear_constraints.html'>add_linear_constraints</a>()</code>,
+<code><a href='add_locked_in_constraints.html'>add_locked_in_constraints</a>()</code>,
+<code><a href='add_locked_out_constraints.html'>add_locked_out_constraints</a>()</code>,
+<code><a href='add_mandatory_allocation_constraints.html'>add_mandatory_allocation_constraints,ConservationProblem-method</a></code>,
+<code><a href='add_manual_bounded_constraints.html'>add_manual_bounded_constraints</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='co'># set seed for reproducibility</span></span>
@@ -341,6 +350,7 @@ containing proportion-type decision variables (using the
 <span class='r-in'>       box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
 <span class='r-plt'><img src='add_manual_locked_constraints-2.png' alt='' width='700' height='433' /></span>
 <span class='r-in'><span class='co'># }</span></span>
+<span class='r-in'></span>
 </code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

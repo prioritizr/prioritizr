@@ -11,9 +11,9 @@ add_max_features_objective(x, budget)
 
 \item{budget}{\code{numeric} value specifying the maximum expenditure of
 the prioritization. For problems with multiple zones, the argument
-to \code{budget} can be a single \code{numeric} value to specify a budget
-for the entire solution or a \code{numeric} \code{vector} to specify
-a budget for each each management zone.}
+to \code{budget} can be (i) a single \code{numeric} value to specify a single budget
+for the entire solution or (ii) a \code{numeric} vector to specify
+a separate budget for each management zone.}
 }
 \value{
 Object (i.e. \code{\linkS4class{ConservationProblem}}) with the objective
@@ -25,12 +25,6 @@ fulfill as many targets as possible while ensuring that the cost of the
 solution does not exceed a budget.
 }
 \details{
-A problem objective is used to specify the overall goal of the
-conservation planning problem. Please note that all conservation
-planning problems formulated in the \pkg{prioritizr} package require the
-addition of objectives---failing to do so will return an error
-message when attempting to solve problem.
-
 The maximum feature representation objective is an enhanced version of the
 maximum coverage objective \code{\link[=add_max_cover_objective]{add_max_cover_objective()}} because
 targets can be used to ensure that a certain amount of each feature is
@@ -42,19 +36,20 @@ for as many features as possible while staying within a fixed budget
 \code{\link[=add_feature_weights]{add_feature_weights()}}). If multiple solutions can meet the same
 number of weighted targets while staying within budget, the cheapest
 solution is returned.
+}
+\section{Mathematical formulation}{
 
-The maximum feature objective for the reserve design problem can be
-expressed mathematically for a set of planning units (\eqn{I}{I} indexed by
+This objective can be expressed mathematically for a set of planning units
 \eqn{i}{i}) and a set of features (\eqn{J}{J} indexed by \eqn{j}{j}) as:
 
 \deqn{\mathit{Maximize} \space \sum_{i = 1}^{I} -s \space c_i \space x_i +
-  \sum_{j = 1}^{J} y_j w_j \\
-  \mathit{subject \space to} \\
-  \sum_{i = 1}^{I} x_i r_{ij} \geq y_j t_j \forall j \in J \\
-  \sum_{i = 1}^{I} x_i c_i \leq B}{
-  Maximize sum_i^I (-s * ci * xi) + sum_j^J (yj * wj) subject to
-  sum_i^I (xi * rij) >= (yj tj) for all j in J &
-  sum_i^I (xi * ci) <= B}
+\sum_{j = 1}^{J} y_j w_j \\
+\mathit{subject \space to} \\
+\sum_{i = 1}^{I} x_i r_{ij} \geq y_j t_j \forall j \in J \\
+\sum_{i = 1}^{I} x_i c_i \leq B}{
+Maximize sum_i^I (-s * ci * xi) + sum_j^J (yj * wj) subject to
+sum_i^I (xi * rij) >= (yj tj) for all j in J &
+sum_i^I (xi * ci) <= B}
 
 Here, \eqn{x_i}{xi} is the \link{decisions} variable (e.g.
 specifying whether planning unit \eqn{i}{i} has been selected (1) or not
@@ -70,6 +65,7 @@ to shrink the costs so that the problem will return a cheapest solution
 when there are multiple solutions that represent the same amount of all
 features within the budget.
 }
+
 \examples{
 # load data
 data(sim_pu_raster, sim_pu_zones_stack, sim_features, sim_features_zones)
@@ -126,5 +122,17 @@ persistence of biodiversity. \emph{Trends in Ecology & Evolution},
 16: 242--248.
 }
 \seealso{
-\code{\link[=add_feature_weights]{add_feature_weights()}}, \link{objectives}.
+See \link{objectives} for an overview of all functions for adding objectives.
+Also, see \link{targets} for an overview of all functions for adding targets, and
+\code{\link[=add_feature_weights]{add_feature_weights()}} to specify weights for different features.
+
+Other objectives: 
+\code{\link{add_max_cover_objective}()},
+\code{\link{add_max_phylo_div_objective}()},
+\code{\link{add_max_phylo_end_objective}()},
+\code{\link{add_max_utility_objective}()},
+\code{\link{add_min_largest_shortfall_objective}()},
+\code{\link{add_min_set_objective}()},
+\code{\link{add_min_shortfall_objective}()}
 }
+\concept{objectives}

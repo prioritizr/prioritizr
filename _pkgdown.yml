@@ -27,15 +27,10 @@ template:
       api_key: 486efa122ea6783724263412c5f28ab3
       index_name: prioritizr
 reference:
-  - title: Summary
-    desc: Summary of the package
+  - title: Overview
+    desc: Overview of the package
     contents:
       - prioritizr
-
-  - title: Data
-    desc: Simulated datasets distributed with the package
-    contents:
-      - sim_data
 
   - title: Create and solve problems
     desc: Functions for creating new problems and solving them
@@ -43,6 +38,11 @@ reference:
       - problem
       - marxan_problem
       - solve
+
+  - title: Data
+    desc: Simulated datasets distributed with the package
+    contents:
+      - sim_data
 
   - title: Objectives
     desc: Functions for adding an objective to a problem

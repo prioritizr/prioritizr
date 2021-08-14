@@ -76,7 +76,7 @@ NULL
 #' areas for conserving diversity using British birds.
 #' *Conservation Biology*, 10: 155--174.
 #'
-#' @seealso [problem()].
+#' @family overviews
 #'
 #' @examples
 #' \dontrun{

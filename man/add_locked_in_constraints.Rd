@@ -64,16 +64,16 @@ a value for each cell---regardless of which planning unit cells contain
 
 \describe{
 
-\item{\code{integer}}{\code{vector} of indices pertaining to which
+\item{\code{data} as an \code{integer} vector}{containing indices that indicate which
 planning units should be locked for the solution. This argument is only
 compatible with problems that contain a single zone.}
 
-\item{\code{logical}}{\code{vector} containing \code{TRUE} and/or
+\item{\code{data} as a \code{logical} vector}{containing \code{TRUE} and/or
 \code{FALSE} values that indicate which planning units should be locked
 in the solution. This argument is only compatible with problems that
 contain a single zone.}
 
-\item{\code{matrix}}{containing \code{logical} \code{TRUE} and/or
+\item{\code{data} as a \code{matrix} object}{containing \code{logical} \code{TRUE} and/or
 \code{FALSE} values which indicate if certain planning units are
 should be locked to a specific zone in the solution. Each row
 corresponds to a planning unit, each column corresponds to a zone, and
@@ -81,25 +81,31 @@ each cell indicates if the planning unit should be locked to a given
 zone. Thus each row should only contain at most a single \code{TRUE}
 value.}
 
-\item{\code{character}}{field (column) name(s) that indicate if planning
-units should be locked for the solution. This type of argument is only
+\item{\code{data} as a \code{character} vector}{containing field (column) name(s)
+that indicate if planning units should be locked for the solution.
+This format is only
 compatible if the planning units in the argument to \code{x} are a
 \code{\linkS4class{Spatial}}, \code{\link[sf:sf]{sf::sf()}}, or
 \code{data.frame} object. The fields
-(columns) must have \code{logical}  (i.e. \code{TRUE} or \code{FALSE})
+(columns) must have \code{logical} (i.e. \code{TRUE} or \code{FALSE})
 values indicating if the planning unit is to be locked for the solution.
-For problems containing multiple zones, this argument should contain
-a field (column) name for each management zone.}
+For problems that contain a single zone, the argument to \code{data} must
+contain a single field name. Otherwise, for problems that
+contain multiple zones, the argument to \code{data} must
+contain a field name for each zone.}
 
-\item{\code{\linkS4class{Spatial}} or \code{\link[sf:sf]{sf::sf()}}}{
-planning units in \code{x} that spatially intersect with the
-argument to \code{y} (according to \code{\link[=intersecting_units]{intersecting_units()}}
-are locked for to the solution. Note that this option is only available
+\item{\code{data} as a \code{\linkS4class{Spatial}} or \code{\link[sf:sf]{sf::sf()}} object}{
+containing geometries that will be used to lock planning units for
+the solution. Specifically, planning units in \code{x} that spatially
+intersect with \code{y} will be locked (per \code{\link[=intersecting_units]{intersecting_units()}}).
+Note that this option is only available
 for problems that contain a single management zone.}
 
-\item{\code{\linkS4class{Raster}}}{planning units in \code{x}
-that intersect with non-zero and non-\code{NA} raster cells are locked
-for the solution. For problems that contain multiple zones, the
+\item{\code{data} as a \code{\linkS4class{Raster}} object}{containing cells used to lock
+planning units for the solution. Specifically, planning units in \code{x}
+that intersect with cells that have non-zero and non-\code{NA} values are
+locked.
+For problems that contain multiple zones, the
 \code{\linkS4class{Raster}} object must contain a layer
 for each zone. Note that for multi-band arguments, each pixel must
 only contain a non-zero value in a single band. Additionally, if the
@@ -240,7 +246,18 @@ s9 <- solve(p9)
 # plot solution
 plot(category_layer(s9), main = "solution", axes = FALSE, box = FALSE)
 }
+
 }
 \seealso{
-\link{constraints}.
+See \link{constraints} for an overview of all functions for adding constraints.
+
+Other constraints: 
+\code{\link{add_contiguity_constraints}()},
+\code{\link{add_feature_contiguity_constraints}()},
+\code{\link{add_linear_constraints}()},
+\code{\link{add_locked_out_constraints}()},
+\code{\link{add_mandatory_allocation_constraints,ConservationProblem-method}},
+\code{\link{add_manual_bounded_constraints}()},
+\code{\link{add_manual_locked_constraints}()}
 }
+\concept{constraints}

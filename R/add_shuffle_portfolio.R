@@ -26,7 +26,12 @@ NULL
 #'   when problems are quick to solve and multiple threads are available for
 #'   solving each problem separately.
 #'
-#' @inherit add_cuts_portfolio seealso return
+#' @inherit add_cuts_portfolio return
+#'
+#' @seealso
+#' See [portfolios] for an overview of all functions for adding a portfolio.
+#'
+#' @family portfolios
 #'
 #' @examples
 #' # set seed for reproducibility

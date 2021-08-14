@@ -4,7 +4,7 @@
 \alias{eval_n_summary}
 \alias{eval_n_summary.default}
 \alias{eval_n_summary.ConservationProblem}
-\title{Evaluate number of planning units selected.}
+\title{Evaluate number of planning units selected}
 \usage{
 eval_n_summary(x, solution)
 
@@ -214,5 +214,13 @@ print(r3)
 }
 }
 \seealso{
-\code{\link[=problem]{problem()}}, \link{summaries}.
+See \link{summaries} for an overview of all functions for summarizing solutions.
+
+Other summaries: 
+\code{\link{eval_boundary_summary}()},
+\code{\link{eval_connectivity_summary}()},
+\code{\link{eval_cost_summary}()},
+\code{\link{eval_feature_representation_summary}()},
+\code{\link{eval_target_coverage_summary}()}
 }
+\concept{summaries}

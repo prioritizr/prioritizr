@@ -15,33 +15,31 @@ added to it.
 }
 \description{
 Set the objective of a conservation planning \code{\link[=problem]{problem()}} to
-minimize the cost of the solution whilst ensuring that all targets are met.
+minimize the cost of the solution whilst ensuring that all \link{targets} are met.
 This objective is similar to that used in
 \emph{Marxan} and is detailed in Rodrigues \emph{et al.} (2000).
 }
 \details{
-A problem objective is used to specify the overall goal of the
-conservation planning problem. Please note that all conservation
-planning problems formulated in the \pkg{prioritizr} package require the
-addition of objectives---failing to do so will return an error
-message when attempting to solve problem.
+The minimum set objective -- in the the context of systematic reserve
+design --  seeks to find the set of planning units that minimizes the
+overall cost of a reserve network, while meeting a set of representation
+targets for the conservation features. This objective is equivalent to a
+simplified \emph{Marxan} reserve design problem with the Boundary Length Modifier
+(BLM) set to zero. The difference between this objective and the
+\emph{Marxan} software is that the targets for the features will always be met
+(and as such it does not use Species Penalty Factors).
+}
+\section{Mathematical formulation}{
 
-In the context of systematic reserve design, the minimum set objective
-seeks to find the set of planning units that minimizes the overall cost of
-a reserve network, while meeting a set of representation targets for the
-conservation features. This objective is equivalent to a simplified
-\emph{Marxan} reserve design problem with the Boundary Length Modifier
-(BLM) set to zero.
-
-The minimum set objective for the reserve design problem can be expressed
+This objective can be expressed
 mathematically for a set of planning units (\eqn{I}{I} indexed by
 \eqn{i}{i}) and a set of features (\eqn{J}{J} indexed by \eqn{j}{j}) as:
 
 \deqn{\mathit{Minimize} \space \sum_{i = 1}^{I} x_i c_i \\
-  \mathit{subject \space to} \\
-  \sum_{i = 1}^{I} x_i r_{ij} \geq T_j \space \forall \space j \in J}{
-  Minimize sum_i^I (xi * ci) subject to sum_i^I (xi * rij) >= Tj for all
-  j in J}
+\mathit{subject \space to} \\
+\sum_{i = 1}^{I} x_i r_{ij} \geq T_j \space \forall \space j \in J}{
+Minimize sum_i^I (xi * ci) subject to sum_i^I (xi * rij) >= Tj for all
+j in J}
 
 Here, \eqn{x_i}{xi} is the \link{decisions} variable (e.g.
 specifying whether planning unit \eqn{i}{i} has been selected (1) or not
@@ -52,6 +50,7 @@ first term is the objective function and the second is the set of
 constraints. In words this says find the set of planning units that meets
 all the representation targets while minimizing the overall cost.
 }
+
 \examples{
 # set seed for reproducibility
 set.seed(500)
@@ -95,5 +94,16 @@ efficiency, and accountability: adapting reserve selection algorithms to
 more complex conservation problems. \emph{Ecography}, 23: 565--574.
 }
 \seealso{
-\link{objectives}, \link{targets}.
+See \link{objectives} for an overview of all functions for adding objectives.
+Also see \link{targets} for an overview of all functions for adding targets.
+
+Other objectives: 
+\code{\link{add_max_cover_objective}()},
+\code{\link{add_max_features_objective}()},
+\code{\link{add_max_phylo_div_objective}()},
+\code{\link{add_max_phylo_end_objective}()},
+\code{\link{add_max_utility_objective}()},
+\code{\link{add_min_largest_shortfall_objective}()},
+\code{\link{add_min_shortfall_objective}()}
 }
+\concept{objectives}

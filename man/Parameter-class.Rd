@@ -17,17 +17,17 @@ should interact directly with this class.}
 
 \item{$name}{\code{character} name of parameter.}
 
-\item{$value}{\code{numeric} \code{vector} of values.}
+\item{$value}{\code{numeric} vector of values.}
 
-\item{$default}{\code{numeric} \code{vector} of default values.}
+\item{$default}{\code{numeric} vector of default values.}
 
 \item{$class}{\code{character} name of the class that the values inherit
 from (e.g. \code{"integer"}.}
 
-\item{$lower_limit}{\code{numeric} \code{vector} specifying the minimum
+\item{$lower_limit}{\code{numeric} vector specifying the minimum
 permitted value for each element in \verb{$value}.}
 
-\item{$upper_limit}{\code{numeric} \code{vector} specifying the maximum
+\item{$upper_limit}{\code{numeric} vector specifying the maximum
 permitted value for each element in \verb{$value}.}
 
 }

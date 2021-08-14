@@ -53,7 +53,10 @@ NULL
 #'
 #' @aliases eval_feature_representation_summary,ConservationProblem,numeric-method eval_feature_representation_summary,ConservationProblem,matrix-method eval_feature_representation_summary,ConservationProblem,data.frame-method eval_feature_representation_summary,ConservationProblem,Spatial-method eval_feature_representation_summary,ConservationProblem,sf-method eval_feature_representation_summary,ConservationProblem,Raster-method
 #'
-#' @inherit eval_cost_summary seealso
+#' @seealso
+#' See [summaries] for an overview of all functions for summarizing solutions.
+#'
+#' @family summaries
 #'
 #' @examples
 #' # set seed for reproducibility

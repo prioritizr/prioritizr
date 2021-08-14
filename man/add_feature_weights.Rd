@@ -51,11 +51,12 @@ The argument to \code{weights} can be specified using the following formats.
 
 \describe{
 
-\item{\code{numeric}}{containing weights for each feature. Note that this
-type of argument cannot be used to specify weights for problems with
+\item{\code{weights} as a \code{numeric} vector}{containing weights for each feature.
+Note that this format cannot be used to specify weights for problems with
 multiple zones.}
 
-\item{\code{matrix}}{containing weights for each feature in each zone.
+\item{\code{weights} as a \code{matrix} object}{containing weights
+for each feature in each zone.
 Here, each row corresponds to a different feature in argument to
 \code{x}, each column corresponds to a different zone in argument to
 \code{x}, and each cell contains the weight value for a given feature
@@ -219,5 +220,11 @@ plot(s8, main = "solution", axes = FALSE, box = FALSE)
 }
 }
 \seealso{
-\link{objectives}.
+See \link{penalties} for an overview of all functions for adding penalties.
+
+Other penalties: 
+\code{\link{add_boundary_penalties}()},
+\code{\link{add_connectivity_penalties}()},
+\code{\link{add_linear_penalties}()}
 }
+\concept{penalties}
