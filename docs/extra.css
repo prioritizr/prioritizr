@@ -2,12 +2,12 @@
   background: #FFFFFF;
 }
 
-#prioritizr- .page-header {
+[id='prioritizr-'] .page-header {
   margin-bottom: 0px;
   padding-bottom: 0px;
 }
 
-#systematic-conservation-prioritization-in-r h1 {
+[id='systematic-conservation-prioritization-in-r'] h1 {
   margin-top: 0px;
   padding-top: 0px;
   font-size: 35px;

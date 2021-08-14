@@ -453,7 +453,7 @@ contain a layer for each zone.</p></dd>
 <span class='r-in'><span class='co'># accounting for the total area of each planning unit (because all</span></span>
 <span class='r-in'><span class='co'># planning units have the same area in raster formats) -- but if we were</span></span>
 <span class='r-in'><span class='co'># using vector data then we would need to account for the area of each unit</span></span>
-<span class='r-in'><span class='va'>admin_total</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/raster/man/rowSums.html'>rowSums</a></span><span class='op'>(</span><span class='fu'><a href='rij_matrix.html'>rij_matrix</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_admin2</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>admin_total</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/Matrix/man/colSums.html'>rowSums</a></span><span class='op'>(</span><span class='fu'><a href='rij_matrix.html'>rij_matrix</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_admin2</span><span class='op'>)</span><span class='op'>)</span></span>
 <span class='r-in'></span>
 <span class='r-in'><span class='co'># create a modified version of p0 with additional constraints for each</span></span>
 <span class='r-in'><span class='co'># administrative area to specify that the planning units in the solution must</span></span>
