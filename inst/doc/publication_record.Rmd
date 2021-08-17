@@ -18,6 +18,7 @@ This vignette contains a list of publications that have cited or used the _prior
 
 ### 2021
 
+* [Combes M, Vaz S, Grehan A, Morato T, Arnaud-Haond S, Dominguez-Carrió C, Fox A, González-Irusta JM, Johnson D, Callery O, Davies A, Fauconnet L, Kenchington E, Orejas C, Roberts JM, Taranto G, and Menot L (2021) Systematic conservation planning at an ocean basin scale: Identifying a viable network of deep-sea protected areas in the North Atlantic and the Mediterranean. _Frontiers in Marine Science_, **8**: 611358.](https://doi.org/10.3389/fmars.2021.611358)
 * [Delso Á, Fajardo J, and Muñoz J (2021) Protected area networks do not represent unseen biodiversity. _Scientific Reports_, **11**: 12275.](https://doi.org/10.1038/s41598-021-91651-z)
 * [Duchardt CJ, Monroe AP, Heinrichs JA, O'Donnell MS, Edmunds DR, and Aldridge CL (2021) Prioritizing restoration areas to conserve multiple sagebrush-associated wildlife species. _Biological Conservation_, **260**: 109212.](https://doi.org/10.1016/j.biocon.2021.109212)
 * [Carroll KA, Inman RM, Hansen AJ, Lawrence RL, and Barnett K (2021) A framework for collaborative wolverine connectivity conservation. _iScience_, **24**: 102840.](https://doi.org/10.1016/j.isci.2021.102840)

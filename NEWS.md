@@ -1,3 +1,7 @@
+# prioritizr 7.1.0.1
+
+- Update publication vignette.
+
 # prioritizr 7.1.0.0
 
 - New `add_linear_constraint` function to add arbitrary constraints.
