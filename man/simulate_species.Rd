@@ -40,7 +40,8 @@ the output will contain values between zero and one.
 r <- raster(ncol=10, nrow=10, xmn=0, xmx=1, ymn=0, ymx=1)
 values(r) <- 1
 
-# simulate 4 species
+# simulate data for 4 species
+# (note this requires the RandomFields package to be installed)
 spp <- simulate_species(r, 4)
 
 # plot simulated species

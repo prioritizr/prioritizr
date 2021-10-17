@@ -51,7 +51,25 @@ remotes::install_github("prioritizr/prioritizr")
 Please cite the _prioritizr R_ package when using it in publications. To cite the latest official version, please use:
 
 ```{r, include = FALSE}
-off_version <- available.packages()["prioritizr","Version"]
+cran_pkgs <- available.packages()
+if ("prioritizr" %in% rownames(cran_pkgs)) {
+  ## latest version available on CRAN
+  off_version <- available.packages()["prioritizr", "Version"]
+} else {
+  ## latest version archived on CRAN
+  ### download cran data (copied from remotes R package)
+  repo <- "https://cloud.r-project.org"
+  tf <- tempfile(fileext = ".gz")
+  on.exit(unlink(tf), add = TRUE)
+  download.file(tf, url = sprintf("%s/src/contrib/Meta/archive.rds", repo))
+  con <- gzfile(tf, "rb")
+  on.exit(close(con), add = TRUE)
+  ## extract version
+  off_version <- basename(rownames(readRDS(con)[["prioritizr"]]))
+  off_version <- sapply(strsplit(off_version, "_", fixed = TRUE), `[[`, 2)
+  off_version <- sapply(strsplit(off_version, ".tar", fixed = TRUE), `[[`, 1)
+  off_version <- max(off_version)
+}
 dev_version <- packageDescription("prioritizr")$Version
 if (length(strsplit(as.character(dev_version), ".", fixed = TRUE)[[1]]) == 3) {
   off_version <- dev_version

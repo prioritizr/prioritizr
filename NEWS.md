@@ -1,3 +1,8 @@
+# prioritizr 7.1.0.2
+
+- Fix examples that fail package checks.
+- Remove _xtable R_ package from Suggests because it is no longer used.
+
 # prioritizr 7.1.0.1
 
 - Update publication vignette.

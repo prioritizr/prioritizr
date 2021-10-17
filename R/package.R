@@ -89,3 +89,6 @@ NULL
 #' @name prioritizr
 #' @docType package
 NULL
+
+# avoid false positive NOTES
+f <- exactextractr::exact_extract

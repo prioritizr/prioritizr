@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.1.0.2</span>
       </span>
     </div>
 
@@ -115,7 +115,7 @@
 
       
 
-      </header><script src="prioritizr_files/header-attrs-2.8/header-attrs.js"></script><div class="row">
+      </header><script src="prioritizr_files/header-attrs-2.11/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>prioritizr: Systematic Conservation Prioritization in R</h1>
@@ -849,8 +849,8 @@
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
 ##   decisions:      default
-##   constraints:    &lt;Locked in planning units [10 locked units]
-##                    Locked out planning units [10 locked units]&gt;
+##   constraints:    &lt;Locked out planning units [10 locked units]
+##                    Locked in planning units [10 locked units]&gt;
 ##   penalties:      &lt;none&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
@@ -973,6 +973,7 @@
 </ul>
 <div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create data for penalizing planning units</span>
+<span class="co"># (note this requires the RandomFields package to be installed)</span>
 <span class="va">pen_raster</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simulate_cost.html">simulate_cost</a></span><span class="op">(</span><span class="va">sim_pu_raster</span><span class="op">)</span>
 
 <span class="co"># create problem with penalties that penalize solutions that select</span>
@@ -1376,13 +1377,13 @@
 ##   RHS range        [3e+00, 8e+00]
 ## Found heuristic solution: objective 20287.196992
 ## Found heuristic solution: objective 3087.9617505
-## Presolve time: 0.00s
+## Presolve time: 0.01s
 ## Presolved: 293 rows, 234 columns, 1026 nonzeros
 ## Variable types: 0 continuous, 234 integer (234 binary)
 ## Presolved: 293 rows, 234 columns, 1026 nonzeros
 ## 
 ## 
-## Root relaxation: objective 2.265862e+03, 220 iterations, 0.00 seconds
+## Root relaxation: objective 2.265862e+03, 220 iterations, 0.01 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -1400,7 +1401,7 @@
 ## Cutting planes:
 ##   Gomory: 3
 ## 
-## Explored 1 nodes (347 simplex iterations) in 0.11 seconds
+## Explored 1 nodes (347 simplex iterations) in 0.12 seconds
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 6: 2604.74 2790.87 2907.58 ... 20287.2
@@ -1423,7 +1424,7 @@
 <code class="sourceCode R"><span class="co"># extract time spent solving solution</span>
 <span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s40</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## solution_1 
-##      0.115</code></pre>
+##      0.166</code></pre>
 <div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># extract state message from the solver that describes why this specific</span>
 <span class="co"># solution was returned</span>

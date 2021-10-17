@@ -77,10 +77,12 @@ NULL
 #' @aliases Zones-class ZonesCharacter ZonesRaster Zones
 #'
 #' @examples
+#' \dontrun{
 #' # load planning unit data
 #' data(sim_pu_raster)
 #'
 #  # simulate distributions for three species under two management zones
+#' # (note this requires the RandomFields package to be installed)
 #' zone_1 <- simulate_species(sim_pu_raster, 3)
 #' zone_2 <- simulate_species(sim_pu_raster, 3)
 #'
@@ -108,6 +110,7 @@ NULL
 #'            zone_names = c("zone1", "zone2", "zone3"),
 #'            feature_names = c("spp1", "spp2"))
 #' print(z)
+#' }
 #' @export
 zones <- function(..., zone_names = NULL, feature_names = NULL) {
   # parse arguments

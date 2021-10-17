@@ -73,9 +73,11 @@ missing from the table are assumed to be zero.}
 }
 }
 \examples{
+\dontrun{
 # load planning unit data
 data(sim_pu_raster)
 
+# (note this requires the RandomFields package to be installed)
 zone_1 <- simulate_species(sim_pu_raster, 3)
 zone_2 <- simulate_species(sim_pu_raster, 3)
 
@@ -103,6 +105,7 @@ z <- zones(c("spp1_zone1", "spp2_zone1"),
            zone_names = c("zone1", "zone2", "zone3"),
            feature_names = c("spp1", "spp2"))
 print(z)
+}
 }
 \seealso{
 \code{\link[=problem]{problem()}}.

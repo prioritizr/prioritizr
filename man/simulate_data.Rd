@@ -35,6 +35,7 @@ r <- raster(ncol=10, nrow=10, xmn=0, xmx=1, ymn=0, ymx=1)
 values(r) <- 1
 
 # simulate data using a Gaussian field
+# (note this requires the RandomFields package to be installed)
 d <- simulate_data(r, n = 1, model = RandomFields::RMgauss())
 
 # plot simulated data

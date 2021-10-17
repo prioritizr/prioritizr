@@ -1,6 +1,6 @@
 Package: prioritizr
 Type: Package
-Version: 7.1.0.1
+Version: 7.1.0.2
 Title: Systematic Conservation Prioritization in R
 Description:
     Systematic conservation prioritization using mixed integer linear
@@ -66,7 +66,6 @@ Suggests:
     knitr,
     roxygen2,
     scales,
-    xtable,
     RandomFields,
     maptools,
     PBSmapping,
@@ -96,7 +95,7 @@ URL: https://prioritizr.net,
     https://github.com/prioritizr/prioritizr
 BugReports: https://github.com/prioritizr/prioritizr/issues
 VignetteBuilder: knitr
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Collate:
     'internal.R'
     'pproto.R'

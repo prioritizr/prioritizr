@@ -527,6 +527,7 @@ print(p25)
 * __Linear penalties__: Add penalties to penalize solutions that select planning units according to a certain variable (e.g. anthropogenic pressure).
 ```{r}
 # create data for penalizing planning units
+# (note this requires the RandomFields package to be installed)
 pen_raster <- simulate_cost(sim_pu_raster)
 
 # create problem with penalties that penalize solutions that select
