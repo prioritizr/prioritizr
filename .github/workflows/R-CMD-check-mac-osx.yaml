@@ -31,7 +31,6 @@ jobs:
       _R_CHECK_FORCE_SUGGESTS_: false
       _R_CHECK_TIMINGS_: 10
       _R_CHECK_CRAN_INCOMING_REMOTE_: false
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       CI: true
 
     steps:
@@ -70,6 +69,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          options("install.packages.compile.from.source" = "never")
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("rcmdcheck")
           remotes::install_cran("covr")

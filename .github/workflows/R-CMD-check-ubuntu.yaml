@@ -18,7 +18,7 @@ jobs:
   R-CMD-check:
     runs-on: ${{ matrix.config.os }}
 
-    name: ${{ matrix.config.os }} (${{ matrix.config.r }}) (${{ matrix.config.pkgs }} pkgs)
+    name: ${{ matrix.config.os }} (${{ matrix.config.r }}) (${{ matrix.config.pkgs }} packages)
 
     strategy:
       fail-fast: false
@@ -33,7 +33,6 @@ jobs:
       _R_CHECK_FORCE_SUGGESTS_: false
       _R_CHECK_TIMINGS_: 10
       _R_CHECK_CRAN_INCOMING_REMOTE_: false
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       CI: true
 
     steps:
@@ -83,7 +82,7 @@ jobs:
           sessioninfo::session_info(pkgs, include_base = TRUE)
         shell: Rscript {0}
 
-      - name: Set package environmental variables
+      - name: Set environmental variables for package checks
         if: matrix.config.pkgs == 'depends only'
         run: |
           echo "_R_CHECK_DEPENDS_ONLY_=true" >> $GITHUB_ENV
