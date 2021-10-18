@@ -63,8 +63,9 @@ p3 <- p1 \%>\% add_connectivity_penalties(25, data = scm)
 
 # create problem with linear penalties,
 # here the penalties will be based on random numbers to keep it simple
-
+\dontrun{
 # simulate penalty data
+# (note this requires the RandomFields package to be installed)
 sim_penalty_raster <- simulate_cost(sim_pu_raster)
 
 # plot penalty data
@@ -73,7 +74,6 @@ plot(sim_penalty_raster, main = "penalty data", axes = FALSE, box = FALSE)
 # create problem with linear penalties, with a penalty scaling factor of 100
 p4 <- p1 \%>\% add_linear_penalties(100, data = sim_penalty_raster)
 
-\dontrun{
 # solve problems
 s <- stack(solve(p1), solve(p2), solve(p3), solve(p4))
 

@@ -259,8 +259,9 @@ planning units based on a certain variable
 <span class='r-in'></span>
 <span class='r-in'><span class='co'># create problem with linear penalties,</span></span>
 <span class='r-in'><span class='co'># here the penalties will be based on random numbers to keep it simple</span></span>
-<span class='r-in'></span>
+<span class='r-in'><span class='co'># \dontrun{</span></span>
 <span class='r-in'><span class='co'># simulate penalty data</span></span>
+<span class='r-in'><span class='co'># (note this requires the RandomFields package to be installed)</span></span>
 <span class='r-in'><span class='va'>sim_penalty_raster</span> <span class='op'>&lt;-</span> <span class='fu'><a href='simulate_cost.html'>simulate_cost</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span><span class='op'>)</span></span>
 <span class='r-in'></span>
 <span class='r-in'><span class='co'># plot penalty data</span></span>
@@ -270,7 +271,6 @@ planning units based on a certain variable
 <span class='r-in'><span class='co'># create problem with linear penalties, with a penalty scaling factor of 100</span></span>
 <span class='r-in'><span class='va'>p4</span> <span class='op'>&lt;-</span> <span class='va'>p1</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span> <span class='fu'><a href='add_linear_penalties.html'>add_linear_penalties</a></span><span class='op'>(</span><span class='fl'>100</span>, data <span class='op'>=</span> <span class='va'>sim_penalty_raster</span><span class='op'>)</span></span>
 <span class='r-in'></span>
-<span class='r-in'><span class='co'># \dontrun{</span></span>
 <span class='r-in'><span class='co'># solve problems</span></span>
 <span class='r-in'><span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/raster/man/stack.html'>stack</a></span><span class='op'>(</span><span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p4</span><span class='op'>)</span><span class='op'>)</span></span>
 <span class='r-in'></span>
