@@ -209,7 +209,7 @@ p <- problem(sim_pu_raster, sim_features) \%>\%
      add_binary_decisions() \%>\%
      add_gurobi_solver(gap = 0, verbose = FALSE)
 
-# generate solution \%>\%
+# generate solution
 s <- solve(p)
 
 # plot solution

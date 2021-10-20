@@ -11,6 +11,7 @@ add_cbc_solver(
   presolve = TRUE,
   threads = 1,
   first_feasible = FALSE,
+  start_solution = NULL,
   verbose = TRUE
 )
 }
@@ -44,6 +45,14 @@ constraints, regardless of solution quality. Note that the first feasible
 solution is not an arbitrary solution, rather it is derived from the
 relaxed solution, and is therefore often reasonably close to optimality.
 Defaults to \code{FALSE}.}
+
+\item{start_solution}{\code{NULL} or object containing the starting solution
+for the solver. Defaults to \code{NULL} such that no starting solution is used.
+To specify a starting solution, the argument to \code{start_solution} should
+be in the same format as the planning units (i.e. a \code{NULL}, \code{numeric},
+\code{matrix}, \code{data.frame}, \code{\linkS4class{Raster}}, \code{\linkS4class{Spatial}},
+or \code{\link[sf:sf]{sf::sf()}} object).
+See the Start solution format section for more information.}
 
 \item{verbose}{\code{logical} should information be printed while solving
 optimization problems? Defaults to \code{TRUE}.}
@@ -91,6 +100,84 @@ For further details on installing this package, please consult
 \href{https://dirkschumacher.github.io/rcbc/}{official installation instructions for the package}.
 }
 
+\section{Start solution format}{
+
+Broadly speaking, the argument to \code{start_solution} must be in the same
+format as the planning unit data in the argument to \code{x}.
+Further details on the correct format are listed separately
+for each of the different planning unit data formats:
+
+\describe{
+
+\item{\code{x} has \code{numeric} planning units}{The argument to \code{start_solution} must be a
+\code{numeric} vector with each element corresponding to a different planning
+unit. It should have the same number of planning units as those
+in the argument to \code{x}. Additionally, any planning units missing
+cost (\code{NA}) values should also have missing (\code{NA}) values in the
+argument to \code{start_solution}.
+}
+
+\item{\code{x} has \code{matrix} planning units}{The argument to \code{start_solution} must be a
+\code{matrix} vector with each row corresponding to a different planning
+unit, and each column correspond to a different management zone.
+It should have the same number of planning units and zones
+as those in the argument to \code{x}. Additionally, any planning units
+missing cost (\code{NA}) values for a particular zone should also have a
+missing (\code{NA}) values in the argument to \code{start_solution}.
+}
+
+\item{\code{x} has \code{\linkS4class{Raster}} planning units}{The argument to \code{start_solution}
+be a \code{\linkS4class{Raster}} object where different grid cells (pixels) correspond
+to different planning units and layers correspond to
+a different management zones. It should have the same dimensionality
+(rows, columns, layers), resolution, extent, and coordinate reference
+system as the planning units in the argument to \code{x}. Additionally,
+any planning units missing cost (\code{NA}) values for a particular zone
+should also have missing (\code{NA})  values in the argument to \code{start_solution}.
+}
+
+\item{\code{x} has \code{data.frame} planning units}{The argument to \code{start_solution} must
+be a \code{data.frame} with each column corresponding to a different zone,
+each row corresponding to a different planning unit, and cell values
+corresponding to the solution value. This means that if a \code{data.frame}
+object containing the solution also contains additional columns, then
+these columns will need to be subsetted prior to using this function
+(see below for example with \code{\link[sf:sf]{sf::sf()}} data).
+Additionally, any planning units missing cost
+(\code{NA}) values for a particular zone should also have missing (\code{NA})
+values in the argument to \code{start_solution}.
+}
+
+\item{\code{x} has \code{\linkS4class{Spatial}} planning units}{The argument to \code{start_solution}
+must be a \code{\linkS4class{Spatial}} object with each column corresponding to a
+different zone, each row corresponding to a different planning unit, and
+cell values corresponding to the solution value. This means that if the
+\code{\linkS4class{Spatial}} object containing the solution also contains additional
+columns, then these columns will need to be subsetted prior to using this
+function (see below for example with \code{\link[sf:sf]{sf::sf()}} data).
+Additionally, the argument to \code{start_solution} must also have the same
+coordinate reference system as the planning unit data.
+Furthermore, any planning units missing cost
+(\code{NA}) values for a particular zone should also have missing (\code{NA})
+values in the argument to \code{start_solution}.
+}
+
+\item{\code{x} has \code{\link[sf:sf]{sf::sf()}} planning units}{The argument to \code{start_solution} must be
+a \code{\link[sf:sf]{sf::sf()}} object with each column corresponding to a different
+zone, each row corresponding to a different planning unit, and cell values
+corresponding to the solution value. This means that if the
+\code{\link[sf:sf]{sf::sf()}} object containing the solution also contains additional
+columns, then these columns will need to be subsetted prior to using this
+function (see below for example).
+Additionally, the argument to \code{start_solution} must also have the same
+coordinate reference system as the planning unit data.
+Furthermore, any planning units missing cost
+(\code{NA}) values for a particular zone should also have missing (\code{NA})
+values in the argument to \code{start_solution}.
+}
+}
+}
+
 \examples{
 \dontrun{
 # load data
@@ -98,16 +185,32 @@ data(sim_pu_raster, sim_features)
 
 # create problem
 p <- problem(sim_pu_raster, sim_features) \%>\%
-  add_min_set_objective() \%>\%
-  add_relative_targets(0.1) \%>\%
-  add_binary_decisions() \%>\%
-  add_cbc_solver(gap = 0.1, verbose = FALSE)
+     add_min_set_objective() \%>\%
+     add_relative_targets(0.1) \%>\%
+     add_binary_decisions() \%>\%
+     add_cbc_solver(gap = 0, verbose = FALSE)
 
 # generate solution \%>\%
 s <- solve(p)
 
 # plot solution
 plot(s, main = "solution", axes = FALSE, box = FALSE)
+
+# create a similar problem with boundary length penalties and
+# specify the solution from the previous run as a starting solution
+p2 <- problem(sim_pu_raster, sim_features) \%>\%
+     add_min_set_objective() \%>\%
+     add_relative_targets(0.1) \%>\%
+     add_boundary_penalties(10) \%>\%
+     add_binary_decisions() \%>\%
+     add_cbc_solver(gap = 0, start_solution = s, verbose = FALSE)
+
+# generate solution
+s2 <- solve(p2)
+
+# plot solution
+plot(s2, main = "solution with boundary penalties", axes = FALSE,
+     box = FALSE)
 }
 }
 \references{

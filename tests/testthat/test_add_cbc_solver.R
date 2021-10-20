@@ -177,3 +177,50 @@ test_that("correct solution (complex)", {
   expect_equal(raster::values(s1), c(1, 0, 1, 0, NA))
   expect_equal(raster::values(s1), raster::values(s2))
 })
+
+test_that("start_solution", {
+  skip_on_cran()
+  skip_if_not_installed("rcbc")
+  skip_if_not(
+    any(grepl(
+      "initial_solution", deparse1(args(rcbc::cbc_solve)), fixed = TRUE)),
+    message = "newer version of rcbc R package required"
+  )
+  # create data
+  cost <- raster::raster(matrix(c(1000, 100, 200, 300, NA), nrow = 1))
+  features <- raster::stack(
+    raster::raster(matrix(c(5,  5,   0,  0,  NA), nrow = 1)),
+    raster::raster(matrix(c(2,  0,   8,  10, NA), nrow = 1)),
+    raster::raster(matrix(c(10, 100, 10, 10, NA), nrow = 1)))
+  start_valid <- raster::raster(matrix(c(1, 0, 1, 0, NA), nrow = 1))
+  start_invalid <- raster::raster(matrix(c(0, 0, 0, 0, NA), nrow = 1))
+  # create problem
+  p <- problem(cost, features) %>%
+       add_min_set_objective() %>%
+       add_manual_targets(
+         tibble::tibble(
+           feature = names(features),
+           type = "absolute",
+           sense = c("=", ">=", "<="),
+           target = c(5, 10, 20))) %>%
+       add_binary_decisions()
+  # create solution
+  s1 <-
+    p %>%
+    add_cbc_solver(gap = 0, verbose = FALSE) %>%
+    solve()
+  s2 <-
+    p %>%
+    add_cbc_solver(
+      gap = 0, verbose = FALSE, start_solution = start_valid) %>%
+    solve()
+  s3 <-
+    p %>%
+    add_cbc_solver(
+      gap = 0, verbose = FALSE, start_solution = start_invalid) %>%
+    solve()
+  # test for correct solution
+  expect_equal(raster::values(s1), c(1, 0, 1, 0, NA))
+  expect_equal(raster::values(s1), raster::values(s2))
+  expect_equal(raster::values(s1), raster::values(s3))
+})
