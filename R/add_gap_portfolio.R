@@ -95,10 +95,10 @@ add_gap_portfolio <- function(x, number_solutions, pool_gap = 0.1) {
     assertthat::is.number(pool_gap), assertthat::noNA(pool_gap), isTRUE(pool_gap >= 0))
   # check that version 8.0.0 or greater of gurobi is installed
   if (!requireNamespace("gurobi", quietly = TRUE))
-    stop(paste("the gurobi R package is required to generate solutions ",
+    stop(paste("the \"gurobi\" package is required to generate solutions ",
                "using this portfolio method"))
   if (utils::packageVersion("gurobi") < as.package_version("8.0.0"))
-    stop(paste("version 8.0.0 (or greater) of the gurobi package is required ",
+    stop(paste("version 8.0.0 (or greater) of the Gurobi software is required ",
                "to generate solution using this portfolio method"))
   # add portfolio
   x$add_portfolio(pproto(

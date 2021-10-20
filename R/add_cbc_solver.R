@@ -43,6 +43,8 @@ NULL
 #' For further details on installing this package, please consult
 #' [official installation instructions for the package](https://dirkschumacher.github.io/rcbc/).
 #'
+#' @inheritSection add_gurobi_solver Start solution format
+#'
 #' @return Object (i.e. [`ConservationProblem-class`]) with the solver
 #'  added to it.
 #'
@@ -63,16 +65,32 @@ NULL
 #'
 #' # create problem
 #' p <- problem(sim_pu_raster, sim_features) %>%
-#'   add_min_set_objective() %>%
-#'   add_relative_targets(0.1) %>%
-#'   add_binary_decisions() %>%
-#'   add_cbc_solver(gap = 0.1, verbose = FALSE)
+#'      add_min_set_objective() %>%
+#'      add_relative_targets(0.1) %>%
+#'      add_binary_decisions() %>%
+#'      add_cbc_solver(gap = 0, verbose = FALSE)
 #'
 #' # generate solution %>%
 #' s <- solve(p)
 #'
 #' # plot solution
 #' plot(s, main = "solution", axes = FALSE, box = FALSE)
+#'
+#' # create a similar problem with boundary length penalties and
+#' # specify the solution from the previous run as a starting solution
+#' p2 <- problem(sim_pu_raster, sim_features) %>%
+#'      add_min_set_objective() %>%
+#'      add_relative_targets(0.1) %>%
+#'      add_boundary_penalties(10) %>%
+#'      add_binary_decisions() %>%
+#'      add_cbc_solver(gap = 0, start_solution = s, verbose = FALSE)
+#'
+#' # generate solution
+#' s2 <- solve(p2)
+#'
+#' # plot solution
+#' plot(s2, main = "solution with boundary penalties", axes = FALSE,
+#'      box = FALSE)
 #' }
 #' @name add_cbc_solver
 NULL
@@ -83,8 +101,9 @@ add_cbc_solver <- function(x, gap = 0.1,
                            time_limit = .Machine$integer.max,
                            presolve = TRUE, threads = 1,
                            first_feasible = FALSE,
+                           start_solution = NULL,
                            verbose = TRUE) {
-  # assert that arguments are valid
+  # assert that arguments are valid (except start_solution)
   assertthat::assert_that(inherits(x, "ConservationProblem"),
                           isTRUE(all(is.finite(gap))),
                           assertthat::is.scalar(gap),
@@ -100,12 +119,26 @@ add_cbc_solver <- function(x, gap = 0.1,
                           assertthat::noNA(first_feasible),
                           assertthat::is.flag(verbose),
                           requireNamespace("rcbc", quietly = TRUE))
+ # extract start solution
+  if (!is.null(start_solution)) {
+    # verify that version of rcbc installed supports starting solution
+    assertthat::assert_that(
+      any(grepl(
+        "initial_solution", deparse1(args(rcbc::cbc_solve)), fixed = TRUE)),
+      msg = paste(
+        "please update to a newer version of the \"rcbc\" package",
+        "to specify starting solutions"
+      )
+    )
+    # extract data
+    start_solution <- planning_unit_solution_status(x, start_solution)
+  }
   # add solver
   x$add_solver(pproto(
     "CbcSolver",
     Solver,
     name = "CBC",
-    data = list(),
+    data = list(start = start_solution),
     parameters = parameters(
       numeric_parameter("gap", gap, lower_limit = 0),
       integer_parameter("time_limit", time_limit, lower_limit = -1L,
@@ -122,7 +155,7 @@ add_cbc_solver <- function(x, gap = 0.1,
       sense <- x$sense()
       assertthat::assert_that(
         all(sense %in% c("=", "<=", ">=")),
-        msg = "failed to prepare problem formulation for rcbc package")
+        msg = "failed to prepare problem formulation for \"rcbc\" package")
       ## initialize CBC arguments
       row_lb <- numeric(length(rhs))
       row_ub <- numeric(length(rhs))
@@ -148,6 +181,12 @@ add_cbc_solver <- function(x, gap = 0.1,
         col_ub = x$ub(),
         row_lb = row_lb,
         row_ub = row_ub)
+      # add starting solution if specified
+      start <- self$get_data("start")
+      if (!is.null(start) && !is.Waiver(start)) {
+        n_extra <- length(model$obj) - length(start)
+        model$initial_solution <- c(c(start), rep(NA_real_, n_extra))
+      }
       # create parameters
       p <- list(
         log = as.character(as.numeric(self$parameters$get("verbose"))),

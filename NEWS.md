@@ -1,3 +1,7 @@
+# prioritizr 7.1.0.3
+
+Update `add_cbc_solver` function so that it can use a starting solution to reduce run time (via the `start_solution` parameter).
+
 # prioritizr 7.1.0.2
 
 - Fix examples that fail package checks.

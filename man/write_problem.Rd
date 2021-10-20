@@ -38,7 +38,7 @@ p <- problem(sim_pu_raster, sim_features) \%>\%
      add_relative_targets(0.1) \%>\%
      add_binary_decisions()
 
-# save problem to file (using the Rsymphony R package)
+# save problem to file (using the Rsymphony package)
 write_problem(p, "model.lp")
 }
 
