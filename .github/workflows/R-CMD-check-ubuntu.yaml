@@ -74,8 +74,8 @@ jobs:
           remotes::install_cran("rcmdcheck")
           remotes::install_cran("covr")
           remotes::install_bioc("lpsymphony")
-          remotes::install_cran('urlchecker')
-          shell: Rscript {0}
+          remotes::install_cran("urlchecker")
+        shell: Rscript {0}
 
       - name: Session information
         run: |
