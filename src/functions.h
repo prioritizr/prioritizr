@@ -23,6 +23,9 @@ inline double Pow<0>(double x) {
 // calculate euclidean distance
 double distance(double, double, double, double);
 
+// check if two numbers are approximately equal
+bool approx_equal(double x, double y);
+
 // convert object to string
 template<typename T>
 inline std::string num2str(T number, int precision=10) {

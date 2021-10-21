@@ -48,6 +48,7 @@ jobs:
       - name: Query dependencies
         run: |
           install.packages('remotes')
+          install.packages('urlchecker')
           saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
           writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
         shell: Rscript {0}
@@ -104,6 +105,16 @@ jobs:
         if: always()
         run: find check -name 'testthat.Rout*' -exec cat '{}' \; || true
         shell: bash
+
+      - name: Check URLs
+        if: runner.os == 'Linux' && matrix.config.r == 'release'
+        run: |
+          result <- urlchecker::url_check()
+          if (nrow(result) > 0) {
+            print(result)
+            stop("Invalid URLs detected")
+          }
+        shell: Rscript {0}
 
       - name: Test coverage
         if: runner.os == 'Linux' && matrix.config.r == 'release'

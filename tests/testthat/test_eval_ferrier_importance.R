@@ -19,14 +19,20 @@ test_that("numeric", {
   # calculate scores
   r1 <- eval_ferrier_importance(p, s)
   # create correct total scores
-  r2 <- c(0, 0.272683958214909, NA, 1.30274715364078)
+  r2 <- as.matrix(
+    ferrier_scores_r(
+      rij = t(as.matrix(pu[, c("spp1", "spp2")])),
+      targets = c(1, 10),
+      solution = c(s)
+    )
+  )
   # run tests
   expect_is(r1, "matrix")
   expect_equal(ncol(r1), 3)
   expect_equal(nrow(r1), 4)
   expect_equal(colnames(r1), c("spp1", "spp2", "total"))
-  expect_equal(r1[, "total"], r2)
   expect_equal(rowSums(r1[, -3]), r1[, 3])
+  expect_equal(r1, r2)
 })
 
 test_that("matrix (single zone)", {
@@ -49,14 +55,20 @@ test_that("matrix (single zone)", {
   # calculate scores
   r1 <- eval_ferrier_importance(p, s)
   # create correct total scores
-  r2 <- c(0, 0.272683958214909, NA, 1.30274715364078)
+  r2 <- as.matrix(
+    ferrier_scores_r(
+      rij = t(as.matrix(pu[, c("spp1", "spp2")])),
+      targets = c(1, 10),
+      solution = c(s)
+    )
+  )
   # run tests
   expect_is(r1, "matrix")
   expect_equal(ncol(r1), 3)
   expect_equal(nrow(r1), 4)
   expect_equal(colnames(r1), c("spp1", "spp2", "total"))
-  expect_equal(r1[, "total"], r2)
   expect_equal(rowSums(r1[, -3]), r1[, 3])
+  expect_equal(r1, r2)
 })
 
 test_that("data.frame (single zone)", {
@@ -77,14 +89,22 @@ test_that("data.frame (single zone)", {
   # calculate scores
   r1 <- eval_ferrier_importance(p, s)
   # create correct total scores
-  r2 <- c(0, 0.272683958214909, NA, 1.30274715364078)
+  r2 <- as.data.frame(
+    as.matrix(
+      ferrier_scores_r(
+        rij = t(as.matrix(pu[, c("spp1", "spp2")])),
+        targets = c(1, 10),
+        solution = c(s[[1]])
+      )
+    )
+  )
   # run tests
-  expect_is(r1, "tbl_df")
+  expect_is(r1, "data.frame")
   expect_equal(ncol(r1), 3)
   expect_equal(nrow(r1), 4)
-  expect_equal(names(r1), c("spp1", "spp2", "total"))
-  expect_equal(r1$total, r2)
-  expect_equal(rowSums(r1[, -3]), r1[[3]])
+  expect_equal(colnames(r1), c("spp1", "spp2", "total"))
+  expect_equal(rowSums(as.matrix(r1[, -3])), r1[[3]])
+  expect_equal(r1, tibble::as_tibble(r2))
 })
 
 test_that("Spatial (single zone)", {
@@ -107,14 +127,22 @@ test_that("Spatial (single zone)", {
   # calculate scores
   r1 <- eval_ferrier_importance(p, pu[, "solution"])
   # create correct total scores
-  r2 <- c(0, 0.272683958214909, NA, 1.30274715364078)
+  r2 <- as.data.frame(
+    as.matrix(
+      ferrier_scores_r(
+        rij = t(as.matrix(pu@data[, c("spp1", "spp2")])),
+        targets = c(1, 10),
+        solution = pu$solution
+      )
+    )
+  )
   # run tests
   expect_is(r1, "SpatialPolygonsDataFrame")
   expect_equal(ncol(r1), 3)
   expect_equal(nrow(r1), 4)
   expect_equal(names(r1), c("spp1", "spp2", "total"))
-  expect_equal(r1$total, r2)
-  expect_equivalent(rowSums(r1@data[, -3]), r1@data[[3]])
+  expect_equal(unname(rowSums(as.matrix(r1@data[, -3]))), r1@data[[3]])
+  expect_equal(tibble::as_tibble(r1@data), tibble::as_tibble(r2))
 })
 
 test_that("sf (single zone)", {
@@ -137,14 +165,25 @@ test_that("sf (single zone)", {
   # calculate scores
   r1 <- eval_ferrier_importance(p, pu[, "solution"])
   # create correct total scores
-  r2 <- c(0, 0.272683958214909, NA, 1.30274715364078)
+  r2 <- as.data.frame(
+    as.matrix(
+      ferrier_scores_r(
+        rij = t(as.matrix(sf::st_drop_geometry(pu)[, c("spp1", "spp2")])),
+        targets = c(1, 10),
+        solution = pu$solution
+      )
+    )
+  )
   # run tests
   expect_is(r1, "sf")
   expect_equal(ncol(sf::st_drop_geometry(r1)), 3)
   expect_equal(nrow(r1), 4)
   expect_equal(names(sf::st_drop_geometry(r1)), c("spp1", "spp2", "total"))
-  expect_equal(r1$total, r2)
   expect_equivalent(r1$spp1 + r1$spp2, r1$total)
+  expect_equal(
+    tibble::as_tibble(sf::st_drop_geometry(r1)[, c("spp1", "spp2", "total")]),
+    tibble::as_tibble(r2)
+  )
 })
 
 test_that("Raster (single zone)", {
@@ -165,8 +204,15 @@ test_that("Raster (single zone)", {
   # calculate scores
   r1 <- eval_ferrier_importance(p, s)
   # create correct total scores
-  r2 <- raster::raster(matrix(c(0, 0.272683958214909, NA, 1.30274715364078),
-                              nrow = 2))
+  r2 <- as.data.frame(
+    as.matrix(
+      ferrier_scores_r(
+        rij = t(as.matrix(raster::as.data.frame(features))),
+        targets = c(1, 10),
+        solution = raster::values(s)
+      )
+    )
+  )
   # run tests
   expect_is(r1, "Raster")
   expect_equal(raster::nlayers(r1), 3)
@@ -174,8 +220,9 @@ test_that("Raster (single zone)", {
   expect_equal(raster::ncol(r1), raster::ncol(pu))
   expect_equal(raster::nrow(r1), raster::nrow(pu))
   expect_equal(names(r1), c("spp1", "spp2", "total"))
-  expect_equal(raster::getValues(r1[["total"]]), raster::getValues(r2))
-  expect_equal(rowSums(as.matrix(r1)[, -3]), raster::values(r1[[3]]))
+  expect_equal(raster::getValues(r1[["spp1"]]), r2$spp1)
+  expect_equal(raster::getValues(r1[["spp2"]]), r2$spp2)
+  expect_equal(raster::getValues(r1[["total"]]), r2$total)
 })
 
 test_that("data.frame (complex dataset)", {
@@ -183,14 +230,11 @@ test_that("data.frame (complex dataset)", {
   # - rij.rds file contains a feature by planning unit matrix
   # - targets.rds file contains a data.frame with feature information
   # - portfolio_size is based on a Marxan analyses
-  # - scores.rds file contains the irreplaceability scores for each feature in
-  #   each planning unit
   # define raw data
   rij <- readRDS(system.file("testdata", "rij.rds", package = "prioritizr"))
   targ <- readRDS(system.file("testdata", "targets.rds",
                               package = "prioritizr"))
   portfolio_size <- 803
-  r2 <- readRDS(system.file("testdata", "scores.rds", package = "prioritizr"))
   # prepare for prioritizr
   s <- sample.int(ncol(rij), portfolio_size)
   s <- tibble::tibble(solution = replace(rep(0, ncol(rij)), s, 1))
@@ -206,11 +250,15 @@ test_that("data.frame (complex dataset)", {
   # calculate scores
   r1 <- eval_ferrier_importance(p, s)
   # correct result
-  r2 <- as.matrix(t(r2))
-  colnames(r2) <- c(targ$Name)
-  r2 <- tibble::as_tibble(r2)
-  r2$total <- rowSums(r2)
-  r2[!as.logical(s[[1]]), ] <- 0
+  r2 <- as.data.frame(
+    as.matrix(
+      ferrier_scores_r(
+        rij = t(as.matrix(pu[, targ$Name, drop = FALSE])),
+        targets = targ$Target,
+        solution = s[[1]]
+      )
+    )
+  )
   # run tests
   expect_lte(max(abs(as.matrix(r1) - as.matrix(r2))), 1e-5)
 })

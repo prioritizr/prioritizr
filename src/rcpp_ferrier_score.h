@@ -3,6 +3,7 @@
 #define FERRIER_SCORE_H
 
 #include "package.h"
+#include "functions.h"
 
 double calculate_feat_unit_irrep_value(
   double, double, double, double, double, double, double, double, double);

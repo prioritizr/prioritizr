@@ -77,13 +77,13 @@ if (length(strsplit(as.character(dev_version), ".", fixed = TRUE)[[1]]) == 3) {
 ```
 
 ```{r, echo = FALSE, results = "asis", comment = ""}
-cat(paste0("> Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (",format(Sys.time(), "%Y"),"). prioritizr: Systematic Conservation Prioritization in R. R package version ", off_version,". Available at https://CRAN.R-project.org/package=prioritizr.\n"))
+cat(paste0("> Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Edwards BPM, Watts ME, Arcese P, Bennett J, Possingham HP (",format(Sys.time(), "%Y"),"). prioritizr: Systematic Conservation Prioritization in R. R package version ", off_version,". Available at https://CRAN.R-project.org/package=prioritizr.\n"))
 ```
 
 Alternatively, to cite the latest development version, please use:
 
 ```{r, echo = FALSE, results = "asis", comment = ""}
-cat(paste0("> Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (",format(Sys.time(), "%Y"),"). prioritizr: Systematic Conservation Prioritization in R. R package version ", dev_version, ". Available at https://github.com/prioritizr/prioritizr.\n"))
+cat(paste0("> Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Edwards BPM, Watts ME, Arcese P, Bennett J, Possingham HP (",format(Sys.time(), "%Y"),"). prioritizr: Systematic Conservation Prioritization in R. R package version ", dev_version, ". Available at https://github.com/prioritizr/prioritizr.\n"))
 ```
 
 Additionally, we keep a [record of publications](https://prioritizr.net/articles/publication_record.html) that use the _prioritizr R_ package. If you use this package in any reports or publications, please [file an issue on GitHub](https://github.com/prioritizr/prioritizr/issues/new) so we can add it to the record.

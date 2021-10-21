@@ -60,16 +60,16 @@ remotes::install_github("prioritizr/prioritizr")
 Please cite the *prioritizr R* package when using it in publications. To
 cite the latest official version, please use:
 
-> Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese
-> P, Bennett J, Possingham HP (2021). prioritizr: Systematic
-> Conservation Prioritization in R. R package version 7.0.1. Available
+> Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Edwards BPM, Watts
+> ME, Arcese P, Bennett J, Possingham HP (2021). prioritizr: Systematic
+> Conservation Prioritization in R. R package version 7.1.1. Available
 > at <https://CRAN.R-project.org/package=prioritizr>.
 
 Alternatively, to cite the latest development version, please use:
 
-> Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese
-> P, Bennett J, Possingham HP (2021). prioritizr: Systematic
-> Conservation Prioritization in R. R package version 7.1.0.3. Available
+> Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Edwards BPM, Watts
+> ME, Arcese P, Bennett J, Possingham HP (2021). prioritizr: Systematic
+> Conservation Prioritization in R. R package version 7.1.1. Available
 > at <https://github.com/prioritizr/prioritizr>.
 
 Additionally, we keep a [record of
@@ -266,7 +266,7 @@ s1 <- solve(p1)
     ##   StrongCG: 39
     ##   Flow cover: 10
     ## 
-    ## Explored 99210 nodes (201659 simplex iterations) in 4.64 seconds
+    ## Explored 99210 nodes (201659 simplex iterations) in 4.49 seconds
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 5: 2627.64 2747.38 2761.33 ... 3139.89
@@ -288,7 +288,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##      4.652
+    ##      4.517
 
 ``` r
 # extract state message from the solver
