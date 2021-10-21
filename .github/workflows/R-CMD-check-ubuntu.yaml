@@ -48,7 +48,6 @@ jobs:
       - name: Query dependencies
         run: |
           install.packages('remotes')
-          install.packages('urlchecker')
           saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
           writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
         shell: Rscript {0}
@@ -63,7 +62,7 @@ jobs:
 
       - name: Install system dependencies
         run: |
-          sudo apt-get -y install libcurl4-openssl-dev coinor-libsymphony-dev coinor-libcbc-dev coinor-libclp-dev
+          sudo apt-get -y install libcurl4-openssl-dev coinor-libsymphony-dev coinor-libcbc-dev coinor-libclp-dev libcurl4-openssl-dev
           while read -r cmd
           do
             eval sudo $cmd
@@ -75,7 +74,8 @@ jobs:
           remotes::install_cran("rcmdcheck")
           remotes::install_cran("covr")
           remotes::install_bioc("lpsymphony")
-        shell: Rscript {0}
+          remotes::install_cran('urlchecker')
+          shell: Rscript {0}
 
       - name: Session information
         run: |
