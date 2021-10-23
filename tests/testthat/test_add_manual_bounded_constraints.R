@@ -1,6 +1,6 @@
 context("add_manual_bounded_constraints")
 
-test_that("compile (single zone)", {
+test_that("compile (SpatialPolygons, single zone)", {
   # create problem
   data(sim_pu_polygons, sim_features)
   p <- problem(sim_pu_polygons, sim_features, cost_column = "cost") %>%
@@ -12,6 +12,28 @@ test_that("compile (single zone)", {
                                                  upper = rep(0.35, 10)))
   suppressWarnings(o <- compile(p))
   # check that constraints added correctly
+  print(p)
+  locked_pos <- seq_len(5)
+  other_pos <- setdiff(seq_len(nrow(sim_pu_polygons)), locked_pos)
+  expect_true(isTRUE(all(o$lb()[locked_pos] == 0.3)))
+  expect_true(isTRUE(all(o$ub()[locked_pos] == 0.35)))
+  expect_true(isTRUE(all(o$lb()[other_pos] == 0)))
+  expect_true(isTRUE(all(o$ub()[other_pos] == 1)))
+})
+
+test_that("compile (Raster, single zone)", {
+  # create problem
+  data(sim_pu_raster, sim_features)
+  p <- problem(sim_pu_raster, sim_features) %>%
+       add_min_set_objective() %>%
+       add_relative_targets(0.1) %>%
+       add_proportion_decisions() %>%
+       add_manual_bounded_constraints(data.frame(pu = seq_len(5),
+                                                 lower = rep(0.3, 10),
+                                                 upper = rep(0.35, 10)))
+  suppressWarnings(o <- compile(p))
+  # check that constraints added correctly
+  print(p)
   locked_pos <- seq_len(5)
   other_pos <- setdiff(seq_len(nrow(sim_pu_polygons)), locked_pos)
   expect_true(isTRUE(all(o$lb()[locked_pos] == 0.3)))

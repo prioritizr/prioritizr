@@ -1,5 +1,22 @@
 context("add_default_solver")
 
+test_that("implicit default solver", {
+  skip_on_cran()
+  skip_if_no_fast_solvers_installed()
+  # make data
+  data(sim_pu_raster, sim_features)
+  p <- problem(sim_pu_raster, sim_features) %>%
+       add_min_set_objective() %>%
+       add_relative_targets(0.1) %>%
+       add_proportion_decisions()
+  s <- solve(p)
+  # check that solution has correct properties
+  expect_true(inherits(s, "Raster"))
+  expect_equal(raster::nlayers(s), 1)
+  expect_true(raster::compareRaster(sim_pu_raster, s, res = TRUE, crs = TRUE,
+              tolerance = 1e-5, stopiffalse = FALSE))
+})
+
 test_that("raster planning unit data", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()

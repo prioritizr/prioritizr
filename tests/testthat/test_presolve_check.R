@@ -45,7 +45,7 @@ test_that("instability due to range in rij data", {
   expect_warning(expect_false(presolve_check(p)), "feature amount", all = TRUE)
 })
 
-test_that("instability due to range in cost data", {
+test_that("instability due to range in cost data (objective function)", {
   data(sim_pu_raster, sim_features)
   sim_pu_raster <- sim_pu_raster
   sim_pu_raster[1] <- 1e+15
@@ -54,6 +54,27 @@ test_that("instability due to range in cost data", {
        add_relative_targets(0.1) %>%
        add_binary_decisions()
   expect_warning(expect_false(presolve_check(p)), "cost", all = TRUE)
+})
+
+test_that("instability due to range in cost data (constraint matrix)", {
+  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- sim_pu_raster
+  sim_pu_raster[1] <- 1e+15
+  p <- problem(sim_pu_raster, sim_features) %>%
+       add_min_shortfall_objective(budget = 1e+9) %>%
+       add_relative_targets(0.1) %>%
+       add_binary_decisions()
+  expect_warning(expect_false(presolve_check(p)), "values", all = TRUE)
+})
+
+test_that("instability due to budget", {
+  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- sim_pu_raster
+  p <- problem(sim_pu_raster, sim_features) %>%
+       add_min_shortfall_objective(budget = 1e+20) %>%
+       add_relative_targets(0.1) %>%
+       add_binary_decisions()
+  expect_warning(expect_false(presolve_check(p)), "budget", all = TRUE)
 })
 
 test_that("instability due to range in feature weights", {
@@ -128,4 +149,14 @@ test_that("all planning units locked out", {
        add_locked_out_constraints(seq_len(raster::ncell(sim_pu_raster))) %>%
        add_binary_decisions()
   expect_warning(expect_false(presolve_check(p)), "locked out", all = TRUE)
+})
+
+test_that("number of neighboring planning units", {
+  data(sim_pu_raster, sim_features)
+  p <- problem(sim_pu_raster, sim_features) %>%
+       add_min_set_objective() %>%
+       add_relative_targets(0.1) %>%
+       add_neighbor_constraints(k = 1e+9) %>%
+       add_binary_decisions()
+  expect_warning(expect_false(presolve_check(p)), "neighbors", all = TRUE)
 })

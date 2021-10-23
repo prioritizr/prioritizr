@@ -58,6 +58,28 @@ test_that("RasterLayer (all polygons are proximal)", {
   expect_equal(s, m)
 })
 
+test_that("RasterLayer (multiple layers)", {
+  # data
+  x <- raster::stack(
+    raster::raster(
+      matrix(c(NA, NA, 3:9), ncol = 3), xmn = 0, ymn = 0, xmx = 3, ymx = 3
+    ),
+    raster::raster(
+      matrix(c(NA, 2:9), ncol = 3), xmn = 0, ymn = 0, xmx = 3, ymx = 3
+    )
+  )
+  m <- proximity_matrix(x, distance = 1)
+  s <- boundary_matrix(x)
+  s[s > 0] <- 1
+  Matrix::diag(s) <- 0
+  s <- Matrix::drop0(as(s, "symmetricMatrix"))
+  # tests
+  expect_true(inherits(m, "dsCMatrix"))
+  expect_true(all(m == s))
+  expect_true(all(m[1, ] == 0))
+  expect_true(all(m[, 1] == 0))
+  expect_gt(min(Matrix::rowSums(m)[-1]), 0)
+})
 
 test_that("SpatialPolygons (adjacent polygons are proximal)", {
   # data
@@ -177,7 +199,9 @@ test_that("SpatialPoints (some points are proximal)", {
   r <- raster::raster(matrix(0:8, byrow = TRUE, ncol = 3),
                       xmn = 0, xmx = 3, ymn = 0, ymx = 3)
   x <- suppressWarnings({
-    sf::st_centroid(sf::st_as_sf(raster::rasterToPolygons(r, n = 4)))
+    sf::as_Spatial(
+      sf::st_centroid(sf::st_as_sf(raster::rasterToPolygons(r, n = 4)))
+    )
   })
   s <- adjacency_matrix(r)
   m <- proximity_matrix(x, distance = 1.0)
@@ -191,7 +215,9 @@ test_that("SpatialPoints (no points are proximal)", {
   r <- raster::raster(matrix(0:8, byrow = TRUE, ncol = 3),
                       xmn = 0, xmx = 3, ymn = 0, ymx = 3)
   x <- suppressWarnings({
-    sf::st_centroid(sf::st_as_sf(raster::rasterToPolygons(r, n = 4)))
+    sf::as_Spatial(
+      sf::st_centroid(sf::st_as_sf(raster::rasterToPolygons(r, n = 4)))
+    )
   })
   m <- proximity_matrix(x, distance = 1e-3)
   s <- Matrix::sparseMatrix(i = integer(0), j = integer(0),
@@ -200,4 +226,21 @@ test_that("SpatialPoints (no points are proximal)", {
   # tests
   expect_true(inherits(m, "dsCMatrix"))
   expect_equal(s, m)
+})
+
+test_that("invalid input", {
+  x <- sf::st_sf(
+    id = c(1, 2),
+    geom = sf::st_sfc(
+      sf::st_point(x = c(1, 2)),
+      sf::st_geometrycollection(
+        list(
+          sf::st_point(x = c(10, 20)),
+          sf::st_point(x = c(100, 200))
+        )
+      )
+    )
+  )
+  expect_error(proximity_matrix(x, 2))
+  expect_error(proximity_matrix(4, 1))
 })

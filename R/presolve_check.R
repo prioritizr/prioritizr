@@ -251,9 +251,6 @@ presolve_check.OptimizationProblem <- function(x) {
     out <- FALSE
     n <- x$row_ids()[r]
     ### throw warnings
-    if ("n" %in% n)
-    warning("number of neighbors required is very high (> 1e+6)",
-              immediate. = TRUE)
     if ("budget" %in% n)
       warning("budget is very high (> 1e+6)",
               immediate. = TRUE)
@@ -275,6 +272,12 @@ presolve_check.OptimizationProblem <- function(x) {
     cn <- cn[r]
     rn <- rn[r]
     ### throw warnings
+    if ("n" %in% rn) {
+      warning("number of neighbors required is very high (> 1e+6)",
+                immediate. = TRUE)
+      cn <- cn[rn != "n"]
+      rn <- rn[rn != "n"]
+    }
     if ("budget" %in% rn)
       warning(paste("planning units with very high (> 1e+6) or very low",
                     "(< 1e-6) non-zero values"),

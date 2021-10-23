@@ -85,10 +85,12 @@ add_lpsymphony_solver <- function(x, gap = 0.1,
                           assertthat::noNA(first_feasible),
                           requireNamespace("lpsymphony", quietly = TRUE))
   # throw warning about bug in lpsymphony
+  #nocov start
   if (utils::packageVersion("lpsymphony") <= as.package_version("1.4.1"))
     warning(paste0("The solution may be incorrect due to a bug in ",
                    "lpsymphony, please verify that it is correct, ",
                    "or use a different solver to generate solutions"))
+  #nocov end
   # add solver
   x$add_solver(pproto(
     "LpsymphonySolver",
@@ -142,10 +144,14 @@ add_lpsymphony_solver <- function(x, gap = 0.1,
       rt <- system.time({
         x <- do.call(lpsymphony::lpsymphony_solve_LP, append(model, p))
       })
+      # manually return NULL to indicate error if no solution
+      #nocov start
       if (is.null(x$solution) ||
           names(x$status) %in% c("TM_NO_SOLUTION", "PREP_NO_SOLUTION"))
         return(NULL)
+      #nocov end
       # fix floating point issues with binary variables
+      #nocov start
       b <- which(model$types == "B")
       if (any(x$solution[b] > 1)) {
         if (max(x$solution[b]) < 1.01) {
@@ -161,6 +167,7 @@ add_lpsymphony_solver <- function(x, gap = 0.1,
           stop("infeasible solution returned, try relaxing solver parameters")
         }
       }
+      #nocov end
       # fix floating point issues with continuous variables
       cv <- which(model$types == "C")
       x$solution[cv] <-

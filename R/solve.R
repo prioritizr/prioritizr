@@ -274,7 +274,7 @@ methods::setMethod(
       a <- add_default_solver(a)
     default_portfolio <- inherits(a$portfolio, "Waiver")
     if (inherits(a$portfolio, "Waiver"))
-      a <- add_default_portfolio(a)
+      a <- add_default_portfolio(a) #nocov
     # run presolve check to try to identify potential problems
     if (run_checks) {
       ch <- presolve_check(a)
@@ -287,10 +287,12 @@ methods::setMethod(
     # solve problem
     sol <- a$portfolio$run(opt, a$solver)
     # check that solution is valid
+    #nocov start
     if (is.null(sol) || is.null(sol[[1]]$x)) {
       stop("no solution found (e.g. due to problem infeasibility or time ",
            "limits)")
     }
+    #nocov end
     ## format solutions
     # format solutions into planning unit by zones matrix
     na_pos <- which(is.na(a$planning_unit_costs()), arr.ind = TRUE)
@@ -374,7 +376,7 @@ methods::setMethod(
       })
       names(ret) <- paste0("solution_", seq_along(sol))
     } else {
-      stop("planning unit data is of an unrecognized class")
+      stop("planning unit data is of an unrecognized class") # nocov
     }
     # if ret is a list of matrices with a single column then convert to numeric
     if (is.matrix(ret[[1]]) && ncol(ret[[1]]) == 1)

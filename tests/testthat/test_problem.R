@@ -14,6 +14,7 @@ test_that("x=Raster, features=RasterStack", {
   expect_equal(x$number_of_features(), raster::nlayers(sim_features))
   expect_equal(x$number_of_planning_units(),
     length(raster::Which(!is.na(sim_pu_raster), cells = TRUE)))
+  expect_equal(number_of_planning_units(x), x$number_of_planning_units())
   expect_equal(x$number_of_total_units(), raster::ncell(sim_pu_raster))
   expect_equal(x$planning_unit_indices(),
                raster::Which(!is.na(sim_pu_raster), cells = TRUE))
