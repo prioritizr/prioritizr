@@ -151,6 +151,32 @@ test_that("Spatial (single zone)", {
   expect_equivalent(r, pu[, "rwr"])
 })
 
+test_that("sf (single zone)", {
+  # create data
+  data(sim_pu_polygons)
+  pu <- sim_pu_polygons[1:4, ]
+  pu@data <- data.frame(id = seq_len(4),
+                        cost = c(10, 2, NA, 3),
+                        spp1 = c(0, 0, 0, 1),
+                        spp2 = c(10, 5, 10, 6))
+  pu <- sf::st_as_sf(pu)
+  # create problem
+  p <-
+    problem(pu, c("spp1", "spp2"), cost_column = "cost") %>%
+    add_min_set_objective() %>%
+    add_absolute_targets(c(1, 10)) %>%
+    add_binary_decisions() %>%
+    add_default_solver(gap = 0, verbose = FALSE)
+  # create a solution
+  pu$solution <- c(0, 1, NA, 1)
+  # calculate replacement costs
+  r <- eval_rare_richness_importance(p, pu[, "solution"], rescale = FALSE)
+  # create correct result
+  pu$rwr <- c(0, ((5 / 10) / 31), NA, ((6 / 10) / 31) + (1 / 1))
+  # run tests
+  expect_equivalent(r, pu[, "rwr"])
+})
+
 test_that("Raster (single zone)", {
   # create data
   pu <- raster::raster(matrix(c(10, 2, NA, 3), nrow = 1))

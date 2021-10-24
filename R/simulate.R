@@ -41,8 +41,10 @@ NULL
 #' @export
 simulate_data <- function(x, n, model, transform = identity, ...) {
   # assert valid arguments
+  #nocov start
   if (!requireNamespace("RandomFields", quietly = TRUE))
     stop("the \"RandomFields\" package needs to be installed to simulate data")
+  #nocov end
   assertthat::assert_that(
     inherits(x, "RasterLayer"),
     assertthat::is.number(n),

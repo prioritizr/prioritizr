@@ -40,8 +40,14 @@ test_that("minimum set objective (matrix, compile, single zone)", {
     p1 %>%
     add_linear_penalties(
       3, matrix(raster::values(sim_features[[1]]) * 8, ncol = 1))
+  p3 <-
+    p1 %>%
+    add_linear_penalties(
+      3,
+      as(matrix(raster::values(sim_features[[1]]) * 8, ncol = 1), "dgCMatrix"))
   o1 <- compile(p1)
   o2 <- compile(p2)
+  o3 <- compile(p3)
   # calculations
   pu_idx <- p1$planning_unit_indices()
   pen <- 3 * sim_features[[1]][pu_idx] * 8
@@ -53,6 +59,7 @@ test_that("minimum set objective (matrix, compile, single zone)", {
   expect_equal(o2$rhs(), o1$rhs())
   expect_equal(o2$sense(), o1$sense())
   expect_equal(o2$modelsense(), o1$modelsense())
+  expect_equal(as.list(o2), as.list(o3))
 })
 
 test_that("minimum set objective (raster, compile, single zone)", {

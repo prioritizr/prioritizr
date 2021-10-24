@@ -41,8 +41,13 @@ test_that("minimum set objective (matrix, compile, single zone)", {
     p1 %>%
     add_linear_constraints(
       3.124, "<=", matrix(raster::values(sim_data), ncol = 1))
+  p3 <-
+    p1 %>%
+    add_linear_constraints(
+      3.124, "<=", as(matrix(raster::values(sim_data), ncol = 1), "dgCMatrix"))
   o1 <- compile(p1)
   o2 <- compile(p2)
+  o3 <- compile(p3)
   # calculations
   pu_idx <- p1$planning_unit_indices()
   # tests
@@ -53,6 +58,7 @@ test_that("minimum set objective (matrix, compile, single zone)", {
   expect_equal(o2$rhs(), c(o1$rhs(), 3.124))
   expect_equal(o2$sense(), c(o1$sense(), "<="))
   expect_equal(o2$modelsense(), o1$modelsense())
+  expect_equal(as.list(o2), as.list(o3))
 })
 
 test_that("minimum set objective (raster, compile, single zone)", {

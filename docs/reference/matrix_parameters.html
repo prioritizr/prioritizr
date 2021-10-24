@@ -106,7 +106,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.1.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.1.1</span>
       </span>
     </div>
 
@@ -237,7 +237,7 @@ Defaults to <code>FALSE</code>.</p></td>
 <span class='r-in'><span class='co'># create a numeric matrix parameter</span></span>
 <span class='r-in'><span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'>numeric_matrix_parameter</span><span class='op'>(</span><span class='st'>"m"</span>, <span class='va'>m</span><span class='op'>)</span></span>
 <span class='r-in'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span> <span class='co'># print it</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;environment: 0x5633f93a6f88&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;environment: 0x56503ab74c50&gt;</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"class")</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "MiscParameter" "MiscParameter" "Parameter"     "pproto"       </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [5] "proto"         "environment"  </span>
@@ -247,7 +247,7 @@ Defaults to <code>FALSE</code>.</p></td>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> b 0.4846932 0.5758689 0.2372128</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> c 0.8543447 0.4674843 0.2312509</span>
 <span class='r-in'><span class='va'>p1</span><span class='op'>$</span><span class='va'>id</span> <span class='co'># get id</span></span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> id: bad6d4e5-b17b-46a9-ac77-01347e93f804</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> id: 55bf0901-f48e-43ce-a99b-ab11039ab83b</span>
 <span class='r-in'><span class='va'>p1</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='va'>m</span><span class='op'>[</span>, <span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span> <span class='co'># check if parameter can be updated</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [1] FALSE</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"msg")</span>
@@ -264,7 +264,7 @@ Defaults to <code>FALSE</code>.</p></td>
 <span class='r-in'><span class='co'># create a binary matrix parameter</span></span>
 <span class='r-in'><span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='fu'>binary_matrix_parameter</span><span class='op'>(</span><span class='st'>"m"</span>, <span class='va'>m</span><span class='op'>)</span></span>
 <span class='r-in'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span> <span class='co'># print it</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;environment: 0x5633f9198a90&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;environment: 0x56503c2ab9e8&gt;</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"class")</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "MiscParameter" "MiscParameter" "Parameter"     "pproto"       </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [5] "proto"         "environment"  </span>
@@ -274,7 +274,7 @@ Defaults to <code>FALSE</code>.</p></td>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> b 0 1 1</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> c 0 0 1</span>
 <span class='r-in'><span class='va'>p2</span><span class='op'>$</span><span class='va'>id</span> <span class='co'># get id</span></span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> id: bd3186ea-3fd6-48a9-b551-7ca9a15a2c19</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> id: 7688dbc8-570e-4fe5-a035-2e9dd6e4f3a5</span>
 <span class='r-in'><span class='va'>p2</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='va'>m</span><span class='op'>[</span>, <span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span> <span class='co'># check if parameter can be updated</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [1] FALSE</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"msg")</span>
@@ -294,7 +294,7 @@ Defaults to <code>FALSE</code>.</p></td>
 
       <footer>
       <div class="copyright">
-  <p><p>Developed by <a href="https://jeffrey-hanson.com" class="external-link">Jeffrey O Hanson</a>, <a href="http://www.richard-schuster.com" class="external-link">Richard Schuster</a>, Nina Morrell, <a href="http://strimas.com" class="external-link">Matthew Strimas-Mackey</a>, Matthew E Watts, <a href="https://arcese.forestry.ubc.ca" class="external-link">Peter Arcese</a>, <a href="https://josephrbennett.wordpress.com" class="external-link">Joseph Bennett</a>, <a href="http://www.possinghamlab.org" class="external-link">Hugh P Possingham</a>.</p></p>
+  <p><p>Developed by <a href="https://jeffrey-hanson.com" class="external-link">Jeffrey O Hanson</a>, <a href="http://www.richard-schuster.com" class="external-link">Richard Schuster</a>, Nina Morrell, <a href="http://strimas.com" class="external-link">Matthew Strimas-Mackey</a>, Brandon P M Edwards, Matthew E Watts, <a href="https://arcese.forestry.ubc.ca" class="external-link">Peter Arcese</a>, <a href="https://josephrbennett.wordpress.com" class="external-link">Joseph Bennett</a>, <a href="http://www.possinghamlab.org" class="external-link">Hugh P Possingham</a>.</p></p>
 </div>
 
 <div class="pkgdown">

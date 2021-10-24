@@ -47,17 +47,20 @@ the importance of a planning unit for achieving conservation goals.}
 
 }
 
-Generally speaking, we recommend using replacement cost scores for small and
-moderate sized problems (e.g. less than 30,000 planning units) when it is
-feasible to do so. It can take a very long time to compute replacement
-cost scores, and so it is simply not feasible to compute these scores for
-particularly large problems. For large sized problems (e.g.
-more than 100,000 planning units),
-we recommend using the rarity weighted richness scores simply because there
-is no other choice available. It has been known for decades that such
-measures of biodiversity lead to poor conservation plans
-(Kirkpatrick 1983). We do not currently recommend using the Ferrier
-scores because the code requires further testing to verify correctness.
+Broadly speaking, we recommend using replacement cost scores where
+possible. This is because they can be applied to any type of conservation
+planning problem -- regardless of the objective function or number of
+zones considered in the problem -- and measure planning unit importance based
+on degradation of the prioritization.
+Although the replacement cost scores can be calculated for small and
+moderate sized problems (e.g. less than 30,000 planning units), they may not
+be feasible for particularly large problems (e.g. more than 100,000 planning
+units). In such cases, we recommend calculating importance scores using the
+Ferrier method. This is because the Ferrier method can be
+calculated relatively quickly for large-sized problems and it
+explicitly accounts for representation targets.
+We only recommend using the rarity weighted richness metric
+when neither of the other two methods can be used.
 }
 \examples{
 \dontrun{
@@ -102,10 +105,6 @@ Ferrier S, Pressey RL, and Barrett TW (2000) A new predictor of the
 irreplaceability of areas for achieving a conservation goal, its application
 to real-world planning, and a research agenda for further refinement.
 \emph{Biological Conservation}, 93: 303--325.
-
-Kirkpatrick, JB (1983) An iterative method for establishing priorities for
-the selection of nature reserves: an example from Tasmania.
-\emph{Biological Conservation}, 25: 127--134.
 
 Williams P, Gibbons D, Margules C, Rebelo A, Humphries C, and Pressey RL
 (1996) A comparison of richness hotspots, rarity hotspots and complementary

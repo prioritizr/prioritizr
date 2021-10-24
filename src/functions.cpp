@@ -36,3 +36,7 @@ void import_connectivity_matrix_list(
   }
   return;
 }
+
+bool approx_equal(double x, double y) {
+  return (std::abs(x - y) < 1.0e-15);
+}

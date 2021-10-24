@@ -108,7 +108,7 @@ conservation planning problem()." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.1.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.1.1</span>
       </span>
     </div>
 
@@ -226,17 +226,20 @@ the importance of a planning unit for achieving conservation goals.</p></dd>
 
 </dl>
 
-<p>Generally speaking, we recommend using replacement cost scores for small and
-moderate sized problems (e.g. less than 30,000 planning units) when it is
-feasible to do so. It can take a very long time to compute replacement
-cost scores, and so it is simply not feasible to compute these scores for
-particularly large problems. For large sized problems (e.g.
-more than 100,000 planning units),
-we recommend using the rarity weighted richness scores simply because there
-is no other choice available. It has been known for decades that such
-measures of biodiversity lead to poor conservation plans
-(Kirkpatrick 1983). We do not currently recommend using the Ferrier
-scores because the code requires further testing to verify correctness.</p>
+<p>Broadly speaking, we recommend using replacement cost scores where
+possible. This is because they can be applied to any type of conservation
+planning problem -- regardless of the objective function or number of
+zones considered in the problem -- and measure planning unit importance based
+on degradation of the prioritization.
+Although the replacement cost scores can be calculated for small and
+moderate sized problems (e.g. less than 30,000 planning units), they may not
+be feasible for particularly large problems (e.g. more than 100,000 planning
+units). In such cases, we recommend calculating importance scores using the
+Ferrier method. This is because the Ferrier method can be
+calculated relatively quickly for large-sized problems and it
+explicitly accounts for representation targets.
+We only recommend using the rarity weighted richness metric
+when neither of the other two methods can be used.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Cabeza M and Moilanen A (2006) Replacement cost: A practical measure of site
@@ -246,9 +249,6 @@ value for cost-effective reserve planning. <em>Biological Conservation</em>,
 irreplaceability of areas for achieving a conservation goal, its application
 to real-world planning, and a research agenda for further refinement.
 <em>Biological Conservation</em>, 93: 303--325.</p>
-<p>Kirkpatrick, JB (1983) An iterative method for establishing priorities for
-the selection of nature reserves: an example from Tasmania.
-<em>Biological Conservation</em>, 25: 127--134.</p>
 <p>Williams P, Gibbons D, Margules C, Rebelo A, Humphries C, and Pressey RL
 (1996) A comparison of richness hotspots, rarity hotspots and complementary
 areas for conserving diversity using British birds.
@@ -312,7 +312,7 @@ areas for conserving diversity using British birds.
 
       <footer>
       <div class="copyright">
-  <p><p>Developed by <a href="https://jeffrey-hanson.com" class="external-link">Jeffrey O Hanson</a>, <a href="http://www.richard-schuster.com" class="external-link">Richard Schuster</a>, Nina Morrell, <a href="http://strimas.com" class="external-link">Matthew Strimas-Mackey</a>, Matthew E Watts, <a href="https://arcese.forestry.ubc.ca" class="external-link">Peter Arcese</a>, <a href="https://josephrbennett.wordpress.com" class="external-link">Joseph Bennett</a>, <a href="http://www.possinghamlab.org" class="external-link">Hugh P Possingham</a>.</p></p>
+  <p><p>Developed by <a href="https://jeffrey-hanson.com" class="external-link">Jeffrey O Hanson</a>, <a href="http://www.richard-schuster.com" class="external-link">Richard Schuster</a>, Nina Morrell, <a href="http://strimas.com" class="external-link">Matthew Strimas-Mackey</a>, Brandon P M Edwards, Matthew E Watts, <a href="https://arcese.forestry.ubc.ca" class="external-link">Peter Arcese</a>, <a href="https://josephrbennett.wordpress.com" class="external-link">Joseph Bennett</a>, <a href="http://www.possinghamlab.org" class="external-link">Hugh P Possingham</a>.</p></p>
 </div>
 
 <div class="pkgdown">

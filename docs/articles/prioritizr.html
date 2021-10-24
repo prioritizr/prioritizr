@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.1.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.1.1</span>
       </span>
     </div>
 
@@ -167,10 +167,10 @@
 <li>evaluate the relative <a href="https://prioritizr.net/reference/importance.html">importance</a> (irreplaceability) of planning units selected in a solution.</li>
 </ul>
 </div>
-<div id="package-work-flow" class="section level2">
+<div id="package-workflow" class="section level2">
 <h2 class="hasAnchor">
-<a href="#package-work-flow" class="anchor" aria-hidden="true"></a>Package work flow</h2>
-<p>The general work flow when using the <em>prioritizr R</em> package starts with creating a new conservation planning <code>problem</code> object using data. Specifically, the <code>problem</code> object should be constructed using data that specify the planning units, biodiversity features, management zones (if applicable), and costs. After creating a new <code>problem</code> object, it can be customized—by adding objectives, penalties, constraints, and other information—to build a precise representation of the conservation planning problem required, and then solved to obtain a solutions.</p>
+<a href="#package-workflow" class="anchor" aria-hidden="true"></a>Package workflow</h2>
+<p>The general workflow when using the <em>prioritizr R</em> package starts with creating a new conservation planning <code>problem</code> object using data. Specifically, the <code>problem</code> object should be constructed using data that specify the planning units, biodiversity features, management zones (if applicable), and costs. After creating a new <code>problem</code> object, it can be customized—by adding objectives, penalties, constraints, and other information—to build a precise representation of the conservation planning problem required, and then solved to obtain a solutions.</p>
 <p>All conservation planning problems require an objective. An objective specifies the property which is used to compare different feasible solutions. Simply put, the objective is the property of the solution which should be maximized or minimized during the optimization process. For instance, with the minimum set objective (specified using <code>add_min_set_objective</code>), we are seeking to minimize the cost of the solution (similar to <em>Marxan</em>). On the other hand, with the maximum coverage objective (specified using <code>add_max_cover_objective</code>), we are seeking to maximize the number of different features represented in the solution.</p>
 <p>Many objectives require <code>targets</code> (e.g. the minimum set objective). Targets are a specialized set of constraints that relate to the total quantity of each feature secured in the solution (e.g. amount of suitable habitat or number of individuals). In the case of the minimum set objective ( <code>add_min_set_objective</code>), they are used to ensure that solutions secure a sufficient quantity of each feature, and in other objectives, such as the maximum features objective ( <code>add_max_features_objective</code>) they are used to assess whether a feature has been adequately conserved by a candidate solution. Targets can be expressed numerically as the total amount required for a given feature (using <code>add_absolute_targets</code>), or as a proportion of the total amount found in the planning units (using <code>add_relative_targets</code>). Note that not all objectives require targets, and a warning will be thrown if an attempt is made to add targets to a problem with an objective that does not use them.</p>
 <p>Constraints and penalties can be added to a conservation planning problem to ensure that solutions exhibit a specific property or penalize solutions which don’t exhibit a specific property (respectively). The difference between constraints and penalties, strictly speaking, is constraints are used to rule out potential solutions that don’t exhibit a specific property. For instance, constraints can be used to ensure that specific planning units are selected in the solution for prioritization (using <code>add_locked_in_constraints</code>) or not selected in the solution for prioritization (using <code>add_locked_out_constraints</code>). On the other hand, penalties are combined with the objective of a problem, with a penalty factor, and the overall objective of the problem then becomes to minimize (or maximize) the primary objective function and the penalty function. For example, penalties can be added to a problem to penalize solutions that are excessively fragmented (using <code>add_boundary_penalties</code>). These penalties have a <code>penalty</code> argument that specifies the relative importance of having spatially clustered solutions. When the argument to <code>penalty</code> is high, then solutions which are less fragmented are valued more highly—even if they cost more—and when the argument to <code>penalty</code> is low, then the solutions which are more fragmented are valued less highly.</p>
@@ -849,8 +849,8 @@
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
 ##   decisions:      default
-##   constraints:    &lt;Locked in planning units [10 locked units]
-##                    Locked out planning units [10 locked units]&gt;
+##   constraints:    &lt;Locked out planning units [10 locked units]
+##                    Locked in planning units [10 locked units]&gt;
 ##   penalties:      &lt;none&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
@@ -1401,7 +1401,7 @@
 ## Cutting planes:
 ##   Gomory: 3
 ## 
-## Explored 1 nodes (347 simplex iterations) in 0.13 seconds
+## Explored 1 nodes (347 simplex iterations) in 0.12 seconds
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 6: 2604.74 2790.87 2907.58 ... 20287.2
@@ -1424,7 +1424,7 @@
 <code class="sourceCode R"><span class="co"># extract time spent solving solution</span>
 <span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s40</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## solution_1 
-##       0.14</code></pre>
+##      0.122</code></pre>
 <div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># extract state message from the solver that describes why this specific</span>
 <span class="co"># solution was returned</span>
@@ -1536,8 +1536,8 @@
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.3, max: 0.3)]
 ##   decisions:      default
-##   constraints:    &lt;Locked out planning units [1 locked units]
-##                    Locked in planning units [317 locked units]&gt;
+##   constraints:    &lt;Locked in planning units [317 locked units]
+##                    Locked out planning units [1 locked units]&gt;
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (1), zones]&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
@@ -1574,8 +1574,8 @@
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.3, max: 0.3)]
 ##   decisions:      default
-##   constraints:    &lt;Locked out planning units [1 locked units]
-##                    Locked in planning units [317 locked units]&gt;
+##   constraints:    &lt;Locked in planning units [317 locked units]
+##                    Locked out planning units [1 locked units]&gt;
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (0), zones]&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
@@ -1585,7 +1585,7 @@
 <a href="#importance-irreplaceability" class="anchor" aria-hidden="true"></a>Importance (irreplaceability)</h3>
 <p>Conservation plans can take a long time to implement. Since funding availability and habitat quality can decline over time, it is critical that the most important places in a prioritization are scheduled for protection as early as possible. For instance, some planning units in a solution might contain many rare species which do not occur in any other planning units. Alternatively, some planning units might offer an especially high return on investment that reduces costs considerably. As a consequence, conservation planners often need information on which planning units selected in a prioritization are most important to the overall success of the prioritization. To achieve this, conservation planners can use importance (irreplaceability) scores for each planning unit selected in a solution.</p>
 <p>The <em>prioritizr R</em> package offers multiple methods for assessing importance. These includes scores calculated based on replacement costs [<code><a href="../reference/eval_replacement_importance.html">eval_replacement_importance()</a></code>; <span class="citation">Cabeza &amp; Moilanen (2006)</span>], Ferrier <em>et al.</em> <span class="citation">(2000)</span> (<code><a href="../reference/eval_ferrier_importance.html">eval_ferrier_importance()</a></code>), and rarity weighted richness scores [<code><a href="../reference/eval_rare_richness_importance.html">eval_rare_richness_importance()</a></code>; <span class="citation">Williams <em>et al.</em> (1996)</span>]. The replacement cost scores quantify the change in the objective function (e.g. additional costs required to meet feature targets) of the optimal solution if a given planning unit in a solution cannot be acquired. They can (i) account for the cost of different planning units, (ii) account for multiple management zones, (iii) apply to any objective function, and (iv) identify truly irreplaceable planning units (denoted with infinite values). The Ferrier scores quantify the importance of planning units for meeting feature targets. They can only be applied to conservation problems with a minimum set objective and a single zone (i.e. the classic <em>Marxan</em>-type problem). Furthermore—unlike the replacement cost scores—the Ferrier scores provide a score for each feature within each planning unit, providing insight into why certain planning units are more important than other planning units. The rarity weighted richness scores are simply a measure of biological diversity. They do not account for planning costs, multiple management zones, objective functions, or feature targets (or weightings). They merely describe the spatial patterns of biodiversity, and do not account for many of the factors needed to quantify the importance of a planning unit for achieving conservation goals.</p>
-<p>We recommend using replacement cost scores for small and moderate sized problems (e.g. less than 30,000 planning units) when it is feasible to do so. It can take a very long time to compute replacement cost scores, and so it is simply not feasible to compute these scores for particularly large problems. For moderate and large sized problems (e.g. more than 30,000 planning units), we recommend using the rarity weighted richness scores. Beware, it has been known for decades that such static measures of biodiversity lead to poor conservation plans <span class="citation">(Kirkpatrick 1983)</span>. Although the Ferrier method is also provided, we do not recommend using this method until it has been verified by a statistical expert.</p>
+<p>We recommend using replacement cost scores for small and moderate sized problems (e.g. less than 30,000 planning units) when it is feasible to do so. It can take a very long time to compute replacement cost scores, and so it is simply not feasible to compute these scores for particularly large problems. For moderate and large sized problems (e.g. more than 30,000 planning units), we recommend using the Ferrier method. This is because it explicitly accounts for representation targets, unlike the rarity weighted richness scores.</p>
 <p>Below we will generate a solution, and then calculate importance scores for the planning units selected in the solution using the three different methods.</p>
 <div class="sourceCode" id="cb130"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># formulate the problem</span>
@@ -1759,7 +1759,7 @@ Williams, P., Gibbons, D., Margules, C., Rebelo, A., Humphries, C. &amp; Pressey
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by <a href="https://jeffrey-hanson.com" class="external-link external-link">Jeffrey O Hanson</a>, <a href="http://www.richard-schuster.com" class="external-link external-link">Richard Schuster</a>, Nina Morrell, <a href="http://strimas.com" class="external-link external-link">Matthew Strimas-Mackey</a>, Matthew E Watts, <a href="https://arcese.forestry.ubc.ca" class="external-link external-link">Peter Arcese</a>, <a href="https://josephrbennett.wordpress.com" class="external-link external-link">Joseph Bennett</a>, <a href="http://www.possinghamlab.org" class="external-link external-link">Hugh P Possingham</a>.</p>
+<p>Developed by <a href="https://jeffrey-hanson.com" class="external-link external-link">Jeffrey O Hanson</a>, <a href="http://www.richard-schuster.com" class="external-link external-link">Richard Schuster</a>, Nina Morrell, <a href="http://strimas.com" class="external-link external-link">Matthew Strimas-Mackey</a>, Brandon P M Edwards, Matthew E Watts, <a href="https://arcese.forestry.ubc.ca" class="external-link external-link">Peter Arcese</a>, <a href="https://josephrbennett.wordpress.com" class="external-link external-link">Joseph Bennett</a>, <a href="http://www.possinghamlab.org" class="external-link external-link">Hugh P Possingham</a>.</p>
 </div>
 
 <div class="pkgdown">

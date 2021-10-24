@@ -11,6 +11,7 @@ test_that("add_manual_targets (default, single zone)", {
   # calculate absolute targets
   targets <- p$targets$output()
   # run tests
+  print(p)
   expect_is(targets, "tbl_df")
   expect_true(all(names(targets) == c("feature", "zone", "sense", "value")))
   expect_is(targets$feature, "integer")
@@ -21,6 +22,33 @@ test_that("add_manual_targets (default, single zone)", {
   expect_equivalent(unlist(targets$zone),
                     rep(1, raster::nlayers(sim_features) - 1))
   expect_equal(targets$value, as.numeric(seq_len(4)))
+  expect_equal(targets$sense, rep(">=", raster::nlayers(sim_features) - 1))
+})
+
+test_that("add_manual_targets (mixed, single zone)", {
+  # load data
+  data(sim_pu_raster, sim_features)
+  # create problem
+  p <- problem(sim_pu_raster, sim_features) %>%
+       add_manual_targets(data.frame(feature = names(sim_features)[-1],
+                                     target = c(0.1, 1, 2, 3),
+                                     type = c("relative", rep("absolute", 3))))
+  # calculate absolute targets
+  targets <- p$targets$output()
+  # run tests
+  print(p)
+  expect_is(targets, "tbl_df")
+  expect_true(all(names(targets) == c("feature", "zone", "sense", "value")))
+  expect_is(targets$feature, "integer")
+  expect_is(targets$zone, "list")
+  expect_is(targets$value, "numeric")
+  expect_is(targets$sense, "character")
+  expect_equal(targets$feature, seq_len(raster::nlayers(sim_features))[-1])
+  expect_equivalent(unlist(targets$zone),
+                    rep(1, raster::nlayers(sim_features) - 1))
+  expect_equal(
+    targets$value,
+    c(0.1 * raster::cellStats(sim_features[[2]], "sum"), 1, 2, 3))
   expect_equal(targets$sense, rep(">=", raster::nlayers(sim_features) - 1))
 })
 

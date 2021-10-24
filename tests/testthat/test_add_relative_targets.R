@@ -9,6 +9,7 @@ test_that("add_relative_targets (numeric(1), single zone)", {
   # calculate relative targets
   targets <- p$targets$output()
   # run tests
+  print(p)
   expect_is(targets, "tbl_df")
   expect_true(all(names(targets) == c("feature", "zone", "sense", "value")))
   expect_is(targets$feature, "integer")

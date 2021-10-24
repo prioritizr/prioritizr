@@ -321,3 +321,30 @@ test_that("invalid inputs (multiple zones)", {
   expect_error(add_connectivity_penalties(p, 1, NULL, ca[, , -1, ]))
   expect_error(add_connectivity_penalties(p, 1, NULL, ca[, , , -1]))
 })
+
+test_that("alternative data formats", {
+  # load data
+  data(sim_pu_raster, sim_features)
+  # create connectivity matrices
+  m <- adjacency_matrix(sim_pu_raster)
+  m2 <- as(m, "dgTMatrix")
+  m2 <- data.frame(id1 = m2@i + 1, id2 = m2@j + 1, boundary = m2@x)
+  # create problem
+  p0 <- problem(sim_pu_raster, sim_features) %>%
+        add_min_set_objective() %>%
+        add_relative_targets(0.45) %>%
+        add_binary_decisions()
+  p1 <- p0 %>%
+        add_connectivity_penalties(1000, data = m)
+  p2 <- p0 %>%
+        add_connectivity_penalties(1000, data = as.matrix(m))
+  p3 <- p0 %>%
+        add_connectivity_penalties(1000, data = m2)
+  # create objects
+  o1 <- as.list(compile(p1))
+  o2 <- as.list(compile(p2))
+  o3 <- as.list(compile(p3))
+  # tests
+  expect_equal(o1, o2)
+  expect_equal(o1, o3)
+})

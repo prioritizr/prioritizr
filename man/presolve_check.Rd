@@ -180,5 +180,5 @@ plot(s3, main = "solution", axes = FALSE, box = FALSE)
 }
 }
 \seealso{
-\code{\link[=problem]{problem()}}, \code{\link[=solve]{solve()}}, \url{https://www.gurobi.com/documentation/8.1/refman/numerics_gurobi_guidelines.html}, \url{http://files.gurobi.com/Numerics.pdf}.
+\code{\link[=problem]{problem()}}, \code{\link[=solve]{solve()}}, \url{https://www.gurobi.com/documentation/9.1/refman/numerics_gurobi_guidelines.html}.
 }

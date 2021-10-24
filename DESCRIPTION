@@ -1,6 +1,6 @@
 Package: prioritizr
 Type: Package
-Version: 7.1.0.3
+Version: 7.1.1
 Title: Systematic Conservation Prioritization in R
 Description:
     Systematic conservation prioritization using mixed integer linear
@@ -31,6 +31,9 @@ Authors@R:
       person(c('Matthew'), 'Strimas-Mackey',
         email='mstrimas@gmail.com', role = c('aut'),
         comment = c(ORCID = '0000-0001-8929-7776')),
+      person(c('Brandon', 'P', 'M'), 'Edwards',
+        email='brandonedwards3@cmail.carleton.ca', role = c('aut'),
+        comment = c(ORCID = '0000-0003-0865-3076')),
       person(c('Matthew', 'E'), 'Watts',
         email='m.watts@uq.edu.au', role = c('aut')),
       person(c('Peter'), 'Arcese',

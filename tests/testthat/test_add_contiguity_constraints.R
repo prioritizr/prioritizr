@@ -244,6 +244,33 @@ test_that("invalid inputs (single zone)", {
   expect_error(add_contiguity_constraints(p, data = `[<-`(cm, 1, 1, NA)))
 })
 
+test_that("alternative data formats", {
+  # load data
+  data(sim_pu_raster, sim_features)
+  # create connection matrices
+  m <- adjacency_matrix(sim_pu_raster)
+  m2 <- as(m, "dgTMatrix")
+  m2 <- data.frame(id1 = m2@i + 1, id2 = m2@j + 1, boundary = m2@x)
+  # create problem
+  p0 <- problem(sim_pu_raster, sim_features) %>%
+        add_min_set_objective() %>%
+        add_relative_targets(0.45) %>%
+        add_binary_decisions()
+  p1 <- p0 %>%
+        add_contiguity_constraints(data = m)
+  p2 <- p0 %>%
+        add_contiguity_constraints(data = as.matrix(m))
+  p3 <- p0 %>%
+        add_contiguity_constraints(data = m2)
+  # create objects
+  o1 <- as.list(compile(p1))
+  o2 <- as.list(compile(p2))
+  o3 <- as.list(compile(p3))
+  # tests
+  expect_equal(o1, o2)
+  expect_equal(o1, o3)
+})
+
 test_that("invalid inputs (multiple zones)", {
   # create problem
   data(sim_pu_zones_polygons, sim_features_zones)

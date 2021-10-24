@@ -56,11 +56,7 @@
 
 <meta property="og:title" content="Evaluate solution importance using Ferrier scores — eval_ferrier_importance" />
 <meta property="og:description" content="Calculate importance scores for planning units selected in
-a solution following Ferrier et al. (2000).
-Please note that
-the mathematical formulation for computing these scores needs verification,
-and so this functionality should be considered experimental at this point in
-time." />
+a solution following Ferrier et al. (2000)." />
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 
 
@@ -111,7 +107,7 @@ time." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.1.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.1.1</span>
       </span>
     </div>
 
@@ -187,11 +183,7 @@ time." />
 
     <div class="ref-description">
     <p>Calculate importance scores for planning units selected in
-a solution following Ferrier <em>et al.</em> (2000).
-<strong>Please note that
-the mathematical formulation for computing these scores needs verification,
-and so this functionality should be considered experimental at this point in
-time.</strong></p>
+a solution following Ferrier <em>et al.</em> (2000).</p>
     </div>
 
     <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>eval_ferrier_importance</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span><span class='op'>)</span>
@@ -248,8 +240,20 @@ each planning unit. Additionally, a total importance score is also
 calculated as the sum of the scores for each feature.
 Note that this function only works for problems with
 a minimum set objective and a single zone.
-It will throw an error for other types of problems that do not meet
-this specification.</p>
+It will throw an error for problems that do not meet this criteria.</p>
+<p><strong>Please note that
+the mathematical formulation for computing these scores needs verification,
+and so this functionality should be considered experimental at this point in
+time.</strong></p>
+    <h2 class="hasAnchor" id="notes"><a class="anchor" href="#notes"></a>Notes</h2>
+
+    
+
+<p>In previous versions, the documentation for this function had a warning
+indicating that the mathematical formulation for this function required
+verification. The mathematical formulation for this function has since
+been corrected and verified, so now this function is recommended
+for general use.</p>
     <h2 class="hasAnchor" id="solution-format"><a class="anchor" href="#solution-format"></a>Solution format</h2>
 
     
@@ -383,9 +387,9 @@ the importance of planning units selected in a solution.</p>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> resolution : 0.1, 0.1  (x, y)</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> extent     : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> crs        : NA </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> names      :    layer.1,    layer.2,    layer.3,    layer.4,    layer.5,      total </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> min values :          0,          0,          0,          0,          0,          0 </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> max values : 0.01579546, 0.01722246, 0.01575790, 0.01793544, 0.01585958, 0.06844167 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> names      :     layer.1,     layer.2,     layer.3,     layer.4,     layer.5,       total </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> min values :           0,           0,           0,           0,           0,           0 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> max values : 0.003472042, 0.003596401, 0.003341572, 0.003768489, 0.003504223, 0.016417187 </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
 <span class='r-in'></span>
 <span class='r-in'><span class='co'># plot total importance scores</span></span>
@@ -466,7 +470,7 @@ the importance of planning units selected in a solution.</p>
 
       <footer>
       <div class="copyright">
-  <p><p>Developed by <a href="https://jeffrey-hanson.com" class="external-link">Jeffrey O Hanson</a>, <a href="http://www.richard-schuster.com" class="external-link">Richard Schuster</a>, Nina Morrell, <a href="http://strimas.com" class="external-link">Matthew Strimas-Mackey</a>, Matthew E Watts, <a href="https://arcese.forestry.ubc.ca" class="external-link">Peter Arcese</a>, <a href="https://josephrbennett.wordpress.com" class="external-link">Joseph Bennett</a>, <a href="http://www.possinghamlab.org" class="external-link">Hugh P Possingham</a>.</p></p>
+  <p><p>Developed by <a href="https://jeffrey-hanson.com" class="external-link">Jeffrey O Hanson</a>, <a href="http://www.richard-schuster.com" class="external-link">Richard Schuster</a>, Nina Morrell, <a href="http://strimas.com" class="external-link">Matthew Strimas-Mackey</a>, Brandon P M Edwards, Matthew E Watts, <a href="https://arcese.forestry.ubc.ca" class="external-link">Peter Arcese</a>, <a href="https://josephrbennett.wordpress.com" class="external-link">Joseph Bennett</a>, <a href="http://www.possinghamlab.org" class="external-link">Hugh P Possingham</a>.</p></p>
 </div>
 
 <div class="pkgdown">
