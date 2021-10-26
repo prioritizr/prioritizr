@@ -230,3 +230,4 @@ Collate:
 Roxygen: list(markdown = TRUE)
 Remotes:
   dirkschumacher/rcbc
+  vladchimescu/lpsymphony
