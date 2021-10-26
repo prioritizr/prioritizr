@@ -8,6 +8,7 @@
 - Update documentation with information about Ferrier importance scores.
 - Brandon Edwards added to package author list.
 - Update Gurobi Installation guide vignette.
+- Update benchmark vignette.
 - Update `presolve_check` function to throw warning when
   really high values specified in `add_neighbor_constraints`.
 

@@ -266,7 +266,7 @@ s1 <- solve(p1)
     ##   StrongCG: 39
     ##   Flow cover: 10
     ## 
-    ## Explored 99210 nodes (201659 simplex iterations) in 4.49 seconds
+    ## Explored 99210 nodes (201659 simplex iterations) in 4.36 seconds
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 5: 2627.64 2747.38 2761.33 ... 3139.89
@@ -288,7 +288,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##      4.517
+    ##      4.385
 
 ``` r
 # extract state message from the solver
@@ -411,7 +411,7 @@ s2 <- solve(p2)
     ##   StrongCG: 2
     ##   RLT: 1
     ## 
-    ## Explored 1 nodes (58 simplex iterations) in 0.01 seconds
+    ## Explored 1 nodes (58 simplex iterations) in 0.02 seconds
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 3: 2838.26 2839.12 3027.7 

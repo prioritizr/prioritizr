@@ -23,12 +23,16 @@ knitr::opts_chunk$set(fig.align = "center", eval = !is_check,
                       fig.width = w, fig.height = h)
 ```
 
-```{r, eval = TRUE}
+```{r, eval = TRUE, include = FALSE}
 # define variables for CRAN
 n_planning_units <- rep(0, 100)
 boundary_penalty_values <- list(
   add_min_set_objective = rep(0, 100),
   add_min_shortfall_objective = rep(0, 100))
+```
+
+```{r, include = FALSE}
+devtools::load_all()
 ```
 
 # Introduction
@@ -51,7 +55,7 @@ library(prioritizr)
 library(piggyback)
 library(ggplot2)
 library(units)
-library(tidyverse)
+library(dplyr)
 ```
 
 ## Download benchmark results

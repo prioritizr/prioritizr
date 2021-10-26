@@ -34,6 +34,14 @@ vigns:
 	cp -R doc inst/
 	touch inst/doc/.gitkeep
 
+purl_vigns:
+	R --slave -e "lapply(dir('vignettes', '^.*\\\\.Rmd$$'), function(x) knitr::purl(file.path('vignettes', x), gsub('.Rmd', '.R', x, fixed = TRUE)))"
+	rm -f Rplots.pdf
+
+check_vigns:
+	R --slave -e "f <- sapply(dir('vignettes', '^.*\\\\.Rmd$$'), function(x) {p <- file.path(tempdir(), gsub('.Rmd', '.R', x, fixed = TRUE)); knitr::purl(file.path('vignettes', x), p); p}); for (i in f) {message('\n########################################\nstarting ', basename(i), '\n########################################\n'); source(i)}"
+	rm -f Rplots.pdf
+
 quicksite:
 	cp docs/favicon.ico /tmp
 	cp docs/logo.png /tmp
@@ -73,9 +81,6 @@ check:
 	cp -R doc inst/
 	touch inst/doc/.gitkeep
 
-purl_vigns:
-	R --slave -e "lapply(dir('vignettes', '^.*\\\\.Rmd$$'), function(x) knitr::purl(file.path('vignettes', x), gsub('.Rmd', '.R', x, fixed = TRUE)))"
-
 wbcheck:
 	R --slave -e "devtools::check_win_devel()"
 	cp -R doc inst/
@@ -101,4 +106,4 @@ examples:
 	R --slave -e "devtools::run_examples(test = TRUE, run = TRUE);warnings()"  >> examples.log
 	rm -f Rplots.pdf
 
-.PHONY: initc clean data docs readme contrib site test check checkwb build install man spellcheck examples
+.PHONY: initc clean data docs readme contrib site test check checkwb build install man spellcheck examples purl_vigns check_vigns
