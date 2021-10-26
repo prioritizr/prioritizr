@@ -229,4 +229,5 @@ Collate:
     'zzz.R'
 Roxygen: list(markdown = TRUE)
 Remotes:
-  dirkschumacher/rcbc
+  dirkschumacher/rcbc,
+  bioc::release/lpsymphony
