@@ -52,7 +52,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          options("install.packages.compile.from.source" = "never")
+          options("install.packages.compile.from.source" = "never", pkgType = "binary")
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("rcmdcheck")
           remotes::install_cran("covr")
