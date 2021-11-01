@@ -1,3 +1,7 @@
+# prioritizr 7.1.1.1
+
+- Fix URL in vignette.
+
 # prioritizr 7.1.1
 
 - Release candidate for CRAN.
