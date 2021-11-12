@@ -69,7 +69,7 @@ Alternatively, to cite the latest development version, please use:
 
 > Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Edwards BPM, Watts
 > ME, Arcese P, Bennett J, Possingham HP (2021). prioritizr: Systematic
-> Conservation Prioritization in R. R package version 7.1.1.1. Available
+> Conservation Prioritization in R. R package version 7.1.1.2. Available
 > at <https://github.com/prioritizr/prioritizr>.
 
 Additionally, we keep a [record of
@@ -266,7 +266,7 @@ s1 <- solve(p1)
     ##   StrongCG: 39
     ##   Flow cover: 10
     ## 
-    ## Explored 99210 nodes (201659 simplex iterations) in 4.73 seconds
+    ## Explored 99210 nodes (201659 simplex iterations) in 4.44 seconds
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 5: 2627.64 2747.38 2761.33 ... 3139.89
@@ -288,7 +288,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##      4.754
+    ##      4.443
 
 ``` r
 # extract state message from the solver
