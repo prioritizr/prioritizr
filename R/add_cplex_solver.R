@@ -41,7 +41,7 @@ NULL
 #' Note that you may need to change the version
 #' number in the file path (i.e. `"CPLEX_Studio128"`). For more information
 #' on installing the pkg{cplexAPI} package, please see the
-#' [official installation instructions for the package](https://CRAN.R-project.org/package=cplexAPI/INSTALL).
+#' [official installation instructions for the package](https://github.com/cran/cplexAPI/blob/master/inst/INSTALL).
 #'
 #' @inherit add_gurobi_solver return
 #'
