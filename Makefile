@@ -94,6 +94,9 @@ asancheck:
 spellcheck:
 	R --slave -e "devtools::document();devtools::spell_check()"
 
+urlcheck:
+	R --slave -e "devtools::document();urlchecker::url_check()"
+
 build:
 	R --slave -e "devtools::build()"
 	cp -R doc inst/
@@ -106,4 +109,4 @@ examples:
 	R --slave -e "devtools::run_examples(test = TRUE, run = TRUE);warnings()"  >> examples.log
 	rm -f Rplots.pdf
 
-.PHONY: initc clean data docs readme contrib site test check checkwb build install man spellcheck examples purl_vigns check_vigns
+.PHONY: initc clean data docs readme contrib site test check checkwb build install man spellcheck examples purl_vigns check_vigns urlcheck
