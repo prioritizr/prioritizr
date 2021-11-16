@@ -106,7 +106,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.1.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.1.1.4</span>
       </span>
     </div>
 
@@ -413,19 +413,12 @@ reformat solutions that contain multiple zones.</p></div>
 <span class='r-in'>      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
 <span class='r-in'>      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
 <span class='r-in'>      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
 <span class='r-in'><span class='co'># \dontrun{</span></span>
 <span class='r-in'><span class='co'># solve the problem</span></span>
 <span class='r-in'><span class='va'>s3</span> <span class='op'>&lt;-</span> <span class='fu'>solve</span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span></span>
 <span class='r-in'></span>
 <span class='r-in'><span class='co'># print first six rows of the attribute table</span></span>
 <span class='r-in'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/headtail.html'>head</a></span><span class='op'>(</span><span class='va'>s3</span><span class='op'>)</span><span class='op'>)</span></span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> Simple feature collection with 6 features and 4 fields</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> Geometry type: POLYGON</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> Dimension:     XY</span>
@@ -441,8 +434,6 @@ reformat solutions that contain multiple zones.</p></div>
 <span class='r-in'></span>
 <span class='r-in'><span class='co'># calculate feature representation in the solution</span></span>
 <span class='r-in'><span class='va'>r3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='eval_feature_representation_summary.html'>eval_feature_representation_summary</a></span><span class='op'>(</span><span class='va'>p3</span>, <span class='va'>s3</span><span class='op'>[</span>, <span class='st'>"solution_1"</span><span class='op'>]</span><span class='op'>)</span></span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
 <span class='r-in'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>r3</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 5 × 5</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   summary feature total_amount absolute_held relative_held</span>
@@ -455,13 +446,6 @@ reformat solutions that contain multiple zones.</p></div>
 <span class='r-in'></span>
 <span class='r-in'><span class='co'># plot solution</span></span>
 <span class='r-in'><span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>s3</span><span class='op'>[</span>, <span class='st'>"solution_1"</span><span class='op'>]</span><span class='op'>)</span></span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
 <span class='r-plt'><img src='solve-3.png' alt='' width='700' height='433' /></span>
 <span class='r-in'><span class='co'># }</span></span>
 <span class='r-in'></span>
@@ -494,26 +478,26 @@ reformat solutions that contain multiple zones.</p></div>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 20 × 5</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>    summary feature   total_amount absolute_held relative_held</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>            <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 1</span> overall feature_1        250.          46.2          0.185</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 2</span> overall feature_2         93.6         17.5          0.187</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 1</span> overall feature_1        250.          47.1          0.188</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 2</span> overall feature_2         93.6         17.9          0.191</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 3</span> overall feature_3        216.          41.6          0.193</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 4</span> overall feature_4        128.          22.1          0.172</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 5</span> overall feature_5        170.          30.5          0.179</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 6</span> zone_1  feature_1         83.3         16.3          0.195</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 7</span> zone_1  feature_2         31.2          5.40         0.173</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 4</span> overall feature_4        128.          23.7          0.185</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 5</span> overall feature_5        170.          31.6          0.186</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 6</span> zone_1  feature_1         83.3         16.5          0.198</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 7</span> zone_1  feature_2         31.2          5.65         0.181</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 8</span> zone_1  feature_3         72.0         14.2          0.198</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 9</span> zone_1  feature_4         42.7          6.55         0.154</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>10</span> zone_1  feature_5         56.7         10.7          0.189</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>11</span> zone_2  feature_1         83.3         15.5          0.186</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>12</span> zone_2  feature_2         31.2          6.14         0.197</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>13</span> zone_2  feature_3         72.0         14.6          0.203</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>14</span> zone_2  feature_4         42.7          7.83         0.184</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>15</span> zone_2  feature_5         56.7          9.90         0.175</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>16</span> zone_3  feature_1         83.3         14.4          0.173</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>17</span> zone_3  feature_2         31.2          5.96         0.191</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>18</span> zone_3  feature_3         72.0         12.7          0.177</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>19</span> zone_3  feature_4         42.7          7.68         0.180</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>20</span> zone_3  feature_5         56.7          9.83         0.173</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 9</span> zone_1  feature_4         42.7          7.56         0.177</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>10</span> zone_1  feature_5         56.7         11.1          0.197</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>11</span> zone_2  feature_1         83.3         15.7          0.189</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>12</span> zone_2  feature_2         31.2          6.03         0.193</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>13</span> zone_2  feature_3         72.0         14.5          0.201</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>14</span> zone_2  feature_4         42.7          7.82         0.183</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>15</span> zone_2  feature_5         56.7         10.3          0.181</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>16</span> zone_3  feature_1         83.3         14.8          0.178</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>17</span> zone_3  feature_2         31.2          6.22         0.199</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>18</span> zone_3  feature_3         72.0         13.0          0.180</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>19</span> zone_3  feature_4         42.7          8.27         0.194</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>20</span> zone_3  feature_5         56.7         10.2          0.180</span>
 <span class='r-in'></span>
 <span class='r-in'><span class='co'># plot solution</span></span>
 <span class='r-in'><span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='category_layer.html'>category_layer</a></span><span class='op'>(</span><span class='va'>s4</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
@@ -527,19 +511,12 @@ reformat solutions that contain multiple zones.</p></div>
 <span class='r-in'>                                  ncol <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
 <span class='r-in'>      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
 <span class='r-in'>      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
 <span class='r-in'><span class='co'># \dontrun{</span></span>
 <span class='r-in'><span class='co'># solve the problem</span></span>
 <span class='r-in'><span class='va'>s5</span> <span class='op'>&lt;-</span> <span class='fu'>solve</span><span class='op'>(</span><span class='va'>p5</span><span class='op'>)</span></span>
 <span class='r-in'></span>
 <span class='r-in'><span class='co'># print first six rows of the attribute table</span></span>
 <span class='r-in'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/headtail.html'>head</a></span><span class='op'>(</span><span class='va'>s5</span><span class='op'>)</span><span class='op'>)</span></span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> Simple feature collection with 6 features and 9 fields</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> Geometry type: POLYGON</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> Dimension:     XY</span>
@@ -553,9 +530,9 @@ reformat solutions that contain multiple zones.</p></div>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> 5 214.0419 199.8033 220.7100    FALSE    FALSE    FALSE                 0</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> 6 213.7636 203.1867 224.6809    FALSE    FALSE    FALSE                 0</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>   solution_1_zone_2 solution_1_zone_3                       geometry</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 1                 0                 0 POLYGON ((0 1, 0.1 1, 0.1 0...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1                 1                 0 POLYGON ((0 1, 0.1 1, 0.1 0...</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> 2                 1                 0 POLYGON ((0.1 1, 0.2 1, 0.2...</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> 3                 1                 0 POLYGON ((0.2 1, 0.3 1, 0.3...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3                 0                 0 POLYGON ((0.2 1, 0.3 1, 0.3...</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> 4                 1                 0 POLYGON ((0.3 1, 0.4 1, 0.4...</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> 5                 1                 0 POLYGON ((0.4 1, 0.5 1, 0.5...</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> 6                 1                 0 POLYGON ((0.5 1, 0.6 1, 0.6...</span>
@@ -563,32 +540,30 @@ reformat solutions that contain multiple zones.</p></div>
 <span class='r-in'><span class='co'># calculate feature representation in the solution</span></span>
 <span class='r-in'><span class='va'>r5</span> <span class='op'>&lt;-</span> <span class='fu'><a href='eval_feature_representation_summary.html'>eval_feature_representation_summary</a></span><span class='op'>(</span></span>
 <span class='r-in'>  <span class='va'>p5</span>, <span class='va'>s5</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"solution_1_zone_1"</span>, <span class='st'>"solution_1_zone_2"</span>, <span class='st'>"solution_1_zone_3"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span></span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
 <span class='r-in'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>r5</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 20 × 5</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>    summary feature   total_amount absolute_held relative_held</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>            <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>         <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 1</span> overall feature_1        225.          36.7          0.163</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 2</span> overall feature_2         83.9         14.2          0.169</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 3</span> overall feature_3        195.          32.9          0.169</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 1</span> overall feature_1        225.          37.5          0.166</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 2</span> overall feature_2         83.9         14.6          0.174</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 3</span> overall feature_3        195.          34.0          0.174</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 4</span> overall feature_4        114.          18.4          0.161</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 5</span> overall feature_5        154.          24.3          0.159</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 6</span> zone_1  feature_1         75.1         12.4          0.166</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 7</span> zone_1  feature_2         28.0          4.35         0.155</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 8</span> zone_1  feature_3         65.0         10.5          0.162</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 9</span> zone_1  feature_4         38.0          6.13         0.161</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>10</span> zone_1  feature_5         51.2          8.32         0.163</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>11</span> zone_2  feature_1         75.1         10.2          0.136</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>12</span> zone_2  feature_2         28.0          5.07         0.181</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>13</span> zone_2  feature_3         65.0          9.83         0.151</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>14</span> zone_2  feature_4         38.0          6.33         0.167</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>15</span> zone_2  feature_5         51.2          6.79         0.133</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>16</span> zone_3  feature_1         75.1         14.0          0.187</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>17</span> zone_3  feature_2         28.0          4.76         0.170</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>18</span> zone_3  feature_3         65.0         12.6          0.193</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>19</span> zone_3  feature_4         38.0          5.96         0.157</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>20</span> zone_3  feature_5         51.2          9.23         0.180</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 5</span> overall feature_5        154.          25.1          0.163</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 6</span> zone_1  feature_1         75.1         12.8          0.170</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 7</span> zone_1  feature_2         28.0          4.63         0.165</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 8</span> zone_1  feature_3         65.0         10.6          0.163</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 9</span> zone_1  feature_4         38.0          6.29         0.165</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>10</span> zone_1  feature_5         51.2          8.88         0.174</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>11</span> zone_2  feature_1         75.1         11.0          0.146</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>12</span> zone_2  feature_2         28.0          5.26         0.188</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>13</span> zone_2  feature_3         65.0         10.7          0.165</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>14</span> zone_2  feature_4         38.0          6.49         0.171</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>15</span> zone_2  feature_5         51.2          7.27         0.142</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>16</span> zone_3  feature_1         75.1         13.7          0.182</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>17</span> zone_3  feature_2         28.0          4.75         0.170</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>18</span> zone_3  feature_3         65.0         12.7          0.195</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>19</span> zone_3  feature_4         38.0          5.62         0.148</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>20</span> zone_3  feature_5         51.2          8.93         0.175</span>
 <span class='r-in'></span>
 <span class='r-in'><span class='co'># create new column representing the zone id that each planning unit</span></span>
 <span class='r-in'><span class='co'># was allocated to in the solution</span></span>
@@ -599,13 +574,6 @@ reformat solutions that contain multiple zones.</p></div>
 <span class='r-in'></span>
 <span class='r-in'><span class='co'># plot solution</span></span>
 <span class='r-in'><span class='fu'><a href='https://rdrr.io/pkg/raster/man/plot.html'>plot</a></span><span class='op'>(</span><span class='va'>s5</span><span class='op'>[</span>, <span class='st'>"solution"</span><span class='op'>]</span><span class='op'>)</span></span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
 <span class='r-plt'><img src='solve-5.png' alt='' width='700' height='433' /></span>
 <span class='r-in'><span class='co'># }</span></span>
 </code></pre></div>

@@ -106,7 +106,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.1.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.1.1.4</span>
       </span>
     </div>
 
@@ -217,7 +217,7 @@ parameter.</p></td>
 <span class='r-in'><span class='co'># create table parameter can that can be updated to any other object</span></span>
 <span class='r-in'><span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'>misc_parameter</span><span class='op'>(</span><span class='st'>"tbl"</span>, <span class='va'>iris</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
 <span class='r-in'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span> <span class='co'># print it</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;environment: 0x55f90d606498&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;environment: 0x564226189508&gt;</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"class")</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "MiscParameter" "MiscParameter" "Parameter"     "pproto"       </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [5] "proto"         "environment"  </span>
@@ -374,7 +374,7 @@ parameter.</p></td>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> 149          6.2         3.4          5.4         2.3  virginica</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> 150          5.9         3.0          5.1         1.8  virginica</span>
 <span class='r-in'><span class='va'>p1</span><span class='op'>$</span><span class='va'>id</span> <span class='co'># get id</span></span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> id: ff808eab-8359-4509-8f70-18887a2b6f3f</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> id: 63b54362-2dd2-4512-bb80-773bdce363f6</span>
 <span class='r-in'><span class='va'>p1</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span> <span class='co'># check if parameter can be updated</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [1] TRUE</span>
 <span class='r-in'><span class='va'>p1</span><span class='op'>$</span><span class='fu'>set</span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span> <span class='co'># set parameter to mtcars</span></span>
@@ -388,7 +388,7 @@ parameter.</p></td>
 <span class='r-in'>                     <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/all.html'>all</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/names.html'>names</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/raster/man/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/pkg/raster/man/names.html'>names</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>&amp;&amp;</span></span>
 <span class='r-in'>                                 <span class='fu'><a href='https://rdrr.io/r/base/all.html'>all</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;</span> <span class='fl'>200</span><span class='op'>)</span><span class='op'>)</span></span>
 <span class='r-in'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span> <span class='co'># print it</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;environment: 0x55f914838970&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;environment: 0x56421aa597b0&gt;</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"class")</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "MiscParameter" "MiscParameter" "Parameter"     "pproto"       </span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [5] "proto"         "environment"  </span>
@@ -545,7 +545,7 @@ parameter.</p></td>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> 149          6.2         3.4          5.4         2.3  virginica</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> 150          5.9         3.0          5.1         1.8  virginica</span>
 <span class='r-in'><span class='va'>p2</span><span class='op'>$</span><span class='va'>id</span> <span class='co'># get id</span></span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> id: 4db98c13-0eab-44bb-8951-277a3ebbd0b1</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> id: e50355ed-fb0a-46e8-abbe-51e5b7af1617</span>
 <span class='r-in'><span class='va'>p2</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span> <span class='co'># check if parameter can be updated</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> [1] FALSE</span>
 <span class='r-in'><span class='va'>iris2</span> <span class='op'>&lt;-</span> <span class='va'>iris</span>; <span class='va'>iris2</span><span class='op'>[</span><span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>300</span> <span class='co'># create updated iris dataset</span></span>

@@ -102,6 +102,7 @@ test_that("minimum set objective (solve, single zone)", {
   skip_if_no_fast_solvers_installed()
   # check that solution is feasible
   data(sim_pu_raster, sim_features)
+  b <- raster::cellStats(sim_pu_raster, "sum") * 0.3
   p1 <- problem(sim_pu_raster, sim_features) %>%
         add_min_set_objective() %>%
         add_relative_targets(0.1) %>%
@@ -111,7 +112,7 @@ test_that("minimum set objective (solve, single zone)", {
   s1_1 <- solve(p1)
   s1_2 <- solve(p1)
   p2 <- problem(sim_pu_raster, sim_features) %>%
-        add_min_set_objective() %>%
+        add_min_shortfall_objective(budget = b) %>%
         add_relative_targets(0.1) %>%
         add_binary_decisions() %>%
         add_boundary_penalties(-10000, 0.5) %>%

@@ -220,7 +220,7 @@ div.csl-indent {
 ##   solver:         default</code></pre>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># solve problem</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>s1 <span class="ot">&lt;-</span> <span class="fu">solve</span>(p1)</span></code></pre></div>
-<pre><code>## Gurobi Optimizer version 9.1.2 build v9.1.2rc0 (linux64)
+<pre><code>## Gurobi Optimizer version 9.5.0 build v9.5.0rc5 (linux64)
 ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
 ## Optimize a model with 5 rows, 90 columns and 450 nonzeros
 ## Model fingerprint: 0x6442bf6e
@@ -234,28 +234,29 @@ div.csl-indent {
 ## Presolve time: 0.00s
 ## Presolved: 5 rows, 90 columns, 450 nonzeros
 ## Variable types: 0 continuous, 90 integer (90 binary)
-## Presolved: 5 rows, 90 columns, 450 nonzeros
+## Found heuristic solution: objective 2332.1003790
+## Root relaxation presolved: 5 rows, 90 columns, 450 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.931582e+03, 12 iterations, 0.00 seconds
+## Root relaxation: objective 1.931582e+03, 12 iterations, 0.00 seconds (0.00 work units)
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
-##      0     0 1931.58191    0    4 2337.96175 1931.58191  17.4%     -    0s
+##      0     0 1931.58191    0    4 2332.10038 1931.58191  17.2%     -    0s
 ## H    0     0                    1987.3985265 1931.58191  2.81%     -    0s
 ## 
-## Explored 1 nodes (12 simplex iterations) in 0.00 seconds
+## Explored 1 nodes (12 simplex iterations) in 0.00 seconds (0.00 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
-## Solution count 2: 1987.4 2337.96 
+## Solution count 3: 1987.4 2332.1 2337.96 
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
 ## Best objective 1.987398526526e+03, best bound 1.931581908865e+03, gap 2.8085%</code></pre>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate feature representation</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>r1 <span class="ot">&lt;-</span> <span class="fu">eval_feature_representation_summary</span>(p1, s1)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(r1)</span></code></pre></div>
-<pre><code>## # A tibble: 5 x 5
+<pre><code>## # A tibble: 5 × 5
 ##   summary feature total_amount absolute_held relative_held
 ##   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
 ## 1 overall layer.1         83.3          8.91         0.107
@@ -335,7 +336,7 @@ div.csl-indent {
 ##   solver:         default</code></pre>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># solve problem</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>s2 <span class="ot">&lt;-</span> <span class="fu">solve</span>(p2)</span></code></pre></div>
-<pre><code>## Gurobi Optimizer version 9.1.2 build v9.1.2rc0 (linux64)
+<pre><code>## Gurobi Optimizer version 9.5.0 build v9.5.0rc5 (linux64)
 ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
 ## Optimize a model with 100 rows, 180 columns and 1080 nonzeros
 ## Model fingerprint: 0xbdab1647
@@ -349,28 +350,29 @@ div.csl-indent {
 ## Presolve time: 0.00s
 ## Presolved: 100 rows, 180 columns, 1080 nonzeros
 ## Variable types: 0 continuous, 180 integer (180 binary)
-## Presolved: 100 rows, 180 columns, 1080 nonzeros
+## Found heuristic solution: objective 3440.6550560
+## Root relaxation presolved: 100 rows, 180 columns, 1080 nonzeros
 ## 
 ## 
-## Root relaxation: objective 2.911333e+03, 80 iterations, 0.00 seconds
+## Root relaxation: objective 2.911333e+03, 80 iterations, 0.00 seconds (0.00 work units)
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
-##      0     0 2911.33335    0   10 3568.49314 2911.33335  18.4%     -    0s
+##      0     0 2911.33335    0   10 3440.65506 2911.33335  15.4%     -    0s
 ## H    0     0                    3003.8743974 2911.33335  3.08%     -    0s
 ## 
-## Explored 1 nodes (83 simplex iterations) in 0.00 seconds
+## Explored 1 nodes (83 simplex iterations) in 0.00 seconds (0.00 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
-## Solution count 2: 3003.87 3568.49 
+## Solution count 3: 3003.87 3440.66 3568.49 
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
 ## Best objective 3.003874397435e+03, best bound 2.911333350606e+03, gap 3.0807%</code></pre>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate feature representation</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>r2 <span class="ot">&lt;-</span> <span class="fu">eval_feature_representation_summary</span>(p2, s2)</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(r2)</span></code></pre></div>
-<pre><code>## # A tibble: 15 x 5
+<pre><code>## # A tibble: 15 × 5
 ##    summary feature total_amount absolute_held relative_held
 ##    &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
 ##  1 overall 1              167.          13.3         0.0799
@@ -430,7 +432,7 @@ div.csl-indent {
 ##   solver:         default</code></pre>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># solve problem</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>s3 <span class="ot">&lt;-</span> <span class="fu">solve</span>(p3)</span></code></pre></div>
-<pre><code>## Gurobi Optimizer version 9.1.2 build v9.1.2rc0 (linux64)
+<pre><code>## Gurobi Optimizer version 9.5.0 build v9.5.0rc5 (linux64)
 ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
 ## Optimize a model with 100 rows, 180 columns and 1080 nonzeros
 ## Model fingerprint: 0x07455a48
@@ -444,28 +446,29 @@ div.csl-indent {
 ## Presolve time: 0.00s
 ## Presolved: 100 rows, 180 columns, 1080 nonzeros
 ## Variable types: 0 continuous, 180 integer (180 binary)
-## Presolved: 100 rows, 180 columns, 1080 nonzeros
+## Found heuristic solution: objective 3388.0248890
+## Root relaxation presolved: 100 rows, 180 columns, 1080 nonzeros
 ## 
 ## 
-## Root relaxation: objective 2.884872e+03, 38 iterations, 0.00 seconds
+## Root relaxation: objective 2.884872e+03, 38 iterations, 0.00 seconds (0.00 work units)
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
-##      0     0 2884.87200    0    8 3667.77087 2884.87200  21.3%     -    0s
+##      0     0 2884.87200    0    8 3388.02489 2884.87200  14.9%     -    0s
 ## H    0     0                    2958.1201508 2884.87200  2.48%     -    0s
 ## 
-## Explored 1 nodes (38 simplex iterations) in 0.00 seconds
+## Explored 1 nodes (38 simplex iterations) in 0.00 seconds (0.00 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
-## Solution count 2: 2958.12 3667.77 
+## Solution count 3: 2958.12 3388.02 3667.77 
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
 ## Best objective 2.958120150795e+03, best bound 2.884871999973e+03, gap 2.4762%</code></pre>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate feature representation</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>r3 <span class="ot">&lt;-</span> <span class="fu">eval_feature_representation_summary</span>(p3, s3)</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(r3)</span></code></pre></div>
-<pre><code>## # A tibble: 15 x 5
+<pre><code>## # A tibble: 15 × 5
 ##    summary feature total_amount absolute_held relative_held
 ##    &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
 ##  1 overall 1              125.         11.1          0.0891
@@ -507,7 +510,7 @@ div.csl-indent {
 <span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="co"># print targets</span></span>
 <span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(t4)</span></code></pre></div>
-<pre><code>## # A tibble: 5 x 4
+<pre><code>## # A tibble: 5 × 4
 ##   feature zone      target type    
 ##   &lt;chr&gt;   &lt;list&gt;     &lt;dbl&gt; &lt;chr&gt;   
 ## 1 layer.1 &lt;chr [3]&gt;      8 absolute
@@ -540,7 +543,7 @@ div.csl-indent {
 ##   solver:         default</code></pre>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># solve problem</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>s4 <span class="ot">&lt;-</span> <span class="fu">solve</span>(p4)</span></code></pre></div>
-<pre><code>## Gurobi Optimizer version 9.1.2 build v9.1.2rc0 (linux64)
+<pre><code>## Gurobi Optimizer version 9.5.0 build v9.5.0rc5 (linux64)
 ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
 ## Optimize a model with 105 rows, 300 columns and 1800 nonzeros
 ## Model fingerprint: 0xd67e7fdc
@@ -556,10 +559,10 @@ div.csl-indent {
 ## Presolved: 91 rows, 180 columns, 360 nonzeros
 ## Found heuristic solution: objective 4800.0000000
 ## Variable types: 0 continuous, 180 integer (180 binary)
-## Presolved: 91 rows, 180 columns, 360 nonzeros
+## Root relaxation presolved: 91 rows, 180 columns, 360 nonzeros
 ## 
 ## 
-## Root relaxation: objective 3.663237e+03, 1 iterations, 0.00 seconds
+## Root relaxation: objective 3.663237e+03, 1 iterations, 0.00 seconds (0.00 work units)
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -567,7 +570,7 @@ div.csl-indent {
 ##      0     0 3663.23657    0    1 4800.00000 3663.23657  23.7%     -    0s
 ## H    0     0                    3800.0000000 3663.23657  3.60%     -    0s
 ## 
-## Explored 1 nodes (1 simplex iterations) in 0.00 seconds
+## Explored 1 nodes (1 simplex iterations) in 0.00 seconds (0.00 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 3: 3800 4800 9400 
@@ -577,7 +580,7 @@ div.csl-indent {
 <div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate feature representation</span></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>r4 <span class="ot">&lt;-</span> <span class="fu">eval_feature_representation_summary</span>(p4, s4)</span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(r4)</span></code></pre></div>
-<pre><code>## # A tibble: 20 x 5
+<pre><code>## # A tibble: 20 × 5
 ##    summary    feature total_amount absolute_held relative_held
 ##    &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
 ##  1 overall    layer.1       117.           18.3          0.157
@@ -647,7 +650,7 @@ div.csl-indent {
 ##   solver:         default</code></pre>
 <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># solve problem</span></span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>s5 <span class="ot">&lt;-</span> <span class="fu">solve</span>(p5)</span></code></pre></div>
-<pre><code>## Gurobi Optimizer version 9.1.2 build v9.1.2rc0 (linux64)
+<pre><code>## Gurobi Optimizer version 9.5.0 build v9.5.0rc5 (linux64)
 ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
 ## Optimize a model with 105 rows, 300 columns and 1800 nonzeros
 ## Model fingerprint: 0x4ad99e4b
@@ -663,10 +666,10 @@ div.csl-indent {
 ## Presolved: 91 rows, 180 columns, 360 nonzeros
 ## Found heuristic solution: objective 9600.0000000
 ## Variable types: 0 continuous, 180 integer (180 binary)
-## Presolved: 91 rows, 180 columns, 360 nonzeros
+## Root relaxation presolved: 91 rows, 180 columns, 360 nonzeros
 ## 
 ## 
-## Root relaxation: objective 6.938068e+03, 1 iterations, 0.00 seconds
+## Root relaxation: objective 6.938068e+03, 1 iterations, 0.00 seconds (0.00 work units)
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -675,7 +678,7 @@ div.csl-indent {
 ## H    0     0                    7000.0000000 6938.06818  0.88%     -    0s
 ##      0     0 6938.06818    0    1 7000.00000 6938.06818  0.88%     -    0s
 ## 
-## Explored 1 nodes (1 simplex iterations) in 0.00 seconds
+## Explored 1 nodes (1 simplex iterations) in 0.00 seconds (0.00 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 3: 7000 9600 13600 
@@ -685,7 +688,7 @@ div.csl-indent {
 <div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate feature representation</span></span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>r5 <span class="ot">&lt;-</span> <span class="fu">eval_feature_representation_summary</span>(p5, s5)</span>
 <span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(r5)</span></code></pre></div>
-<pre><code>## # A tibble: 20 x 5
+<pre><code>## # A tibble: 20 × 5
 ##    summary    feature total_amount absolute_held relative_held
 ##    &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
 ##  1 overall    layer.1       117.           21.8          0.187
@@ -756,7 +759,7 @@ div.csl-indent {
 ##   solver:         default</code></pre>
 <div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># solve problem</span></span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>s6 <span class="ot">&lt;-</span> <span class="fu">solve</span>(p6)</span></code></pre></div>
-<pre><code>## Gurobi Optimizer version 9.1.2 build v9.1.2rc0 (linux64)
+<pre><code>## Gurobi Optimizer version 9.5.0 build v9.5.0rc5 (linux64)
 ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
 ## Optimize a model with 1905 rows, 1200 columns and 5400 nonzeros
 ## Model fingerprint: 0xb44cc86f
@@ -771,29 +774,30 @@ div.csl-indent {
 ## Presolve time: 0.01s
 ## Presolved: 877 rows, 968 columns, 2712 nonzeros
 ## Variable types: 0 continuous, 968 integer (968 binary)
-## Presolved: 877 rows, 968 columns, 2712 nonzeros
+## Found heuristic solution: objective 19632.000000
+## Root relaxation presolved: 877 rows, 968 columns, 2712 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.005410e+04, 529 iterations, 0.00 seconds
+## Root relaxation: objective 1.005410e+04, 569 iterations, 0.01 seconds (0.01 work units)
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
-##      0     0 10054.0986    0   57 20096.0000 10054.0986  50.0%     -    0s
+##      0     0 10054.0986    0   57 19632.0000 10054.0986  48.8%     -    0s
 ## H    0     0                    11300.000000 10054.0986  11.0%     -    0s
 ## H    0     0                    10588.000000 10054.0986  5.04%     -    0s
 ## 
-## Explored 1 nodes (785 simplex iterations) in 0.02 seconds
+## Explored 1 nodes (819 simplex iterations) in 0.02 seconds (0.03 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
-## Solution count 3: 10588 11300 20096 
+## Solution count 4: 10588 11300 19632 20096 
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
 ## Best objective 1.058800000000e+04, best bound 1.005600000000e+04, gap 5.0246%</code></pre>
 <div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate feature representation</span></span>
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>r6 <span class="ot">&lt;-</span> <span class="fu">eval_feature_representation_summary</span>(p6, s6)</span>
 <span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(r6)</span></code></pre></div>
-<pre><code>## # A tibble: 20 x 5
+<pre><code>## # A tibble: 20 × 5
 ##    summary    feature total_amount absolute_held relative_held
 ##    &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
 ##  1 overall    layer.1       117.           22.5          0.193
@@ -854,7 +858,7 @@ div.csl-indent {
 ##   solver:         default</code></pre>
 <div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># solve problem</span></span>
 <span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>s7 <span class="ot">&lt;-</span> <span class="fu">solve</span>(p7)</span></code></pre></div>
-<pre><code>## Gurobi Optimizer version 9.1.2 build v9.1.2rc0 (linux64)
+<pre><code>## Gurobi Optimizer version 9.5.0 build v9.5.0rc5 (linux64)
 ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
 ## Optimize a model with 1905 rows, 1200 columns and 5400 nonzeros
 ## Model fingerprint: 0x89a9dafb
@@ -869,28 +873,29 @@ div.csl-indent {
 ## Presolve time: 0.01s
 ## Presolved: 785 rows, 876 columns, 2448 nonzeros
 ## Variable types: 0 continuous, 876 integer (876 binary)
-## Presolved: 785 rows, 876 columns, 2448 nonzeros
+## Found heuristic solution: objective 18988.000000
+## Root relaxation presolved: 785 rows, 876 columns, 2448 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.323093e+04, 277 iterations, 0.00 seconds
+## Root relaxation: objective 1.323093e+04, 274 iterations, 0.00 seconds (0.00 work units)
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
-##      0     0 13230.9255    0   95 19600.0000 13230.9255  32.5%     -    0s
+##      0     0 13230.9255    0   95 18988.0000 13230.9255  30.3%     -    0s
 ## H    0     0                    13260.000000 13230.9255  0.22%     -    0s
 ## 
-## Explored 1 nodes (417 simplex iterations) in 0.02 seconds
+## Explored 1 nodes (412 simplex iterations) in 0.02 seconds (0.03 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
-## Solution count 2: 13260 19600 
+## Solution count 3: 13260 18988 19600 
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
 ## Best objective 1.326000000000e+04, best bound 1.323200000000e+04, gap 0.2112%</code></pre>
 <div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate feature representation</span></span>
 <span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>r7 <span class="ot">&lt;-</span> <span class="fu">eval_feature_representation_summary</span>(p7, s7)</span>
 <span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(r7)</span></code></pre></div>
-<pre><code>## # A tibble: 20 x 5
+<pre><code>## # A tibble: 20 × 5
 ##    summary    feature total_amount absolute_held relative_held
 ##    &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
 ##  1 overall    layer.1       117.           23.4         0.201 

@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.1.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.1.1.4</span>
       </span>
     </div>
 
@@ -216,7 +216,7 @@
 
 <span class="co"># solve the optimization problem using Gurobi</span>
 <span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/gurobi/man/gurobi.html" class="external-link">gurobi</a></span><span class="op">(</span><span class="va">model</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## Gurobi Optimizer version 9.1.2 build v9.1.2rc0 (linux64)
+<pre><code>## Gurobi Optimizer version 9.5.0 build v9.5.0rc5 (linux64)
 ## Thread count: 4 physical cores, 8 logical processors, using up to 8 threads
 ## Optimize a model with 2 rows, 3 columns and 5 nonzeros
 ## Model fingerprint: 0xba2d0add
@@ -231,7 +231,7 @@
 ## Presolve time: 0.00s
 ## Presolve: All rows and columns removed
 ## 
-## Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+## Explored 0 nodes (0 simplex iterations) in 0.00 seconds (0.00 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 2: 3 2 
@@ -265,7 +265,7 @@
 
 <span class="co"># solve the problem</span>
 <span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></code></pre></div>
-<pre><code>## Gurobi Optimizer version 9.1.2 build v9.1.2rc0 (linux64)
+<pre><code>## Gurobi Optimizer version 9.5.0 build v9.5.0rc5 (linux64)
 ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
 ## Optimize a model with 5 rows, 90 columns and 450 nonzeros
 ## Model fingerprint: 0x6442bf6e
@@ -279,21 +279,22 @@
 ## Presolve time: 0.00s
 ## Presolved: 5 rows, 90 columns, 450 nonzeros
 ## Variable types: 0 continuous, 90 integer (90 binary)
-## Presolved: 5 rows, 90 columns, 450 nonzeros
+## Found heuristic solution: objective 2332.1003790
+## Root relaxation presolved: 5 rows, 90 columns, 450 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.931582e+03, 12 iterations, 0.00 seconds
+## Root relaxation: objective 1.931582e+03, 12 iterations, 0.00 seconds (0.00 work units)
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
-##      0     0 1931.58191    0    4 2337.96175 1931.58191  17.4%     -    0s
+##      0     0 1931.58191    0    4 2332.10038 1931.58191  17.2%     -    0s
 ## H    0     0                    1987.3985265 1931.58191  2.81%     -    0s
 ## 
-## Explored 1 nodes (12 simplex iterations) in 0.00 seconds
+## Explored 1 nodes (12 simplex iterations) in 0.00 seconds (0.00 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
-## Solution count 2: 1987.4 2337.96 
+## Solution count 3: 1987.4 2332.1 2337.96 
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
 ## Best objective 1.987398526526e+03, best bound 1.931581908865e+03, gap 2.8085%</code></pre>

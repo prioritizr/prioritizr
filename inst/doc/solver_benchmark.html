@@ -230,7 +230,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="do">## and thus it has a NA value</span></span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">objective =</span> <span class="fu">unique</span>(benchmark_results<span class="sc">$</span>objective),</span>
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">budget =</span> <span class="fu">unique</span>(benchmark_results<span class="sc">$</span>budget))</span></code></pre></div>
-<pre><code>## # A tibble: 2 x 2
+<pre><code>## # A tibble: 2 × 2
 ##   objective                   budget
 ##   &lt;chr&gt;                        &lt;dbl&gt;
 ## 1 add_min_set_objective         NA  
@@ -332,7 +332,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We will now inspect the results of the benchmark analysis. The <code>benchmark_results</code> object is a table (i.e. <code>tibble()</code>) containing information for each benchmark run (e.g. run time), and the <code>solution_raster_data</code> object (i.e. <code>RasterStack</code>) contains the prioritizations generated for each benchmark run.</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># preview results</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(benchmark_results)</span></code></pre></div>
-<pre><code>## # A tibble: 480 x 21
+<pre><code>## # A tibble: 480 × 21
 ##    id                               pu_data number_of_planning_units
 ##    &lt;chr&gt;                              &lt;int&gt;                    &lt;int&gt;
 ##  1 faa32c2f8523182c46802419245901d6       1                     1478
@@ -393,7 +393,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  8 44995e0a5a1e43ef911d80c809fb7b7c.tif FALSE
 ##  9 2e848142afa1261148de69359e1635a6.tif FALSE
 ## 10 641e3775582176bd61acbcc4e6fcee20.tif FALSE
-## # ... with 470 more rows</code></pre>
+## # … with 470 more rows</code></pre>
 <p>Let’s examine the average run time for each solver across all benchmark runs. To achieve this, we will create a box plot. Since we prefer solvers that generate prioritizations in a short period of time, solvers that have shorter (lower) run times are considered better. When looking at this box plot, we can see that average run times for the <em>IBM CPLEX</em> and <em>Gurobi</em> solvers are consistently low and don’t differ much from each other. Additionally, the run times for the open source <em>CBC</em> solver are generally low too. However, there are some cases where the run times for the <em>CBC</em> solver are much higher than those for the <em>IBM CPLEX</em> and <em>Gurobi</em> solvers. We can also see that the <em>lpsymphony</em> and <em>Rsymphony</em> solvers – which both use the open source <em>SYMPHONY</em> software – can take much longer to generate prioritizations than the other solvers.</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot overall summary of solver performance</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>

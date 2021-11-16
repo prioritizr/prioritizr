@@ -108,7 +108,7 @@ requires the Rsymphony package to be installed." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.1.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.1.1.4</span>
       </span>
     </div>
 
@@ -218,17 +218,41 @@ format (respectively).</p></td>
 <span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>500</span><span class='op'>)</span></span>
 <span class='r-in'></span>
 <span class='r-in'><span class='co'># load data</span></span>
-<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span>, <span class='va'>sim_pu_zones_stack</span>, <span class='va'>sim_features_zones</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span></span>
 <span class='r-in'></span>
 <span class='r-in'><span class='co'># create minimal problem</span></span>
-<span class='r-in'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_sf</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>, , drop <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>]</span>, <span class='va'>sim_features</span>,</span>
+<span class='r-in'>             cost_column <span class='op'>=</span> <span class='st'>"cost"</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
 <span class='r-in'>     <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
 <span class='r-in'>     <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span> <span class='op'><a href='pipe.html'>%&gt;%</a></span></span>
 <span class='r-in'>     <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span></span>
 <span class='r-in'></span>
+<span class='r-in'><span class='co'># specify file path to save problem formulation</span></span>
+<span class='r-in'><span class='va'>path</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"model.lp"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
 <span class='r-in'><span class='co'># save problem to file (using the Rsymphony package)</span></span>
-<span class='r-in'><span class='fu'>write_problem</span><span class='op'>(</span><span class='va'>p</span>, <span class='st'>"model.lp"</span><span class='op'>)</span></span>
-<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>cannot rename file '/tmp/RtmpV2TXlO/file32c5662e4bdb/_prep.LPT' to 'model.lp', reason 'Invalid cross-device link'</span>
+<span class='r-in'><span class='fu'>write_problem</span><span class='op'>(</span><span class='va'>p</span>, <span class='va'>path</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># print model file</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span>, sep <span class='op'>=</span> <span class='st'>"\n"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> \Problem name: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Minimize</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> obj: 215.863839903 x0 + 212.782348080 x1 + 207.496243710 x2 + 208.932169949 x3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Subject To</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> cons0:  -0.277834868 x0 -0.277834868 x1 -0.277834868 x2 -0.277834868 x3 &lt;= -0.277834868</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> cons1:  -0.127301291 x0 -0.127301291 x1 -0.127301291 x2 -0.127301291 x3 &lt;= -0.127301291</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> cons2:  -0.316365083 x0 -0.316365083 x1 -0.316365083 x2 -0.316365083 x3 &lt;= -0.316365083</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> cons3:  -0.121097958 x0 -0.121097958 x1 -0.121097958 x2 -0.121097958 x3 &lt;= -0.121097958</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> cons4:  -0.176466230 x0 -0.176466230 x1 -0.176466230 x2 -0.176466230 x3 &lt;= -0.176466230</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Bounds</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0 &lt;= x0 &lt;= 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0 &lt;= x1 &lt;= 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0 &lt;= x2 &lt;= 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0 &lt;= x3 &lt;= 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Integers</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> x0 x1 x2 x3 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> End</span>
 <span class='r-in'><span class='co'># }</span></span>
 <span class='r-in'></span>
 </code></pre></div>

@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.1.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.1.1.4</span>
       </span>
     </div>
 
@@ -849,8 +849,8 @@
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
 ##   decisions:      default
-##   constraints:    &lt;Locked out planning units [10 locked units]
-##                    Locked in planning units [10 locked units]&gt;
+##   constraints:    &lt;Locked in planning units [10 locked units]
+##                    Locked out planning units [10 locked units]&gt;
 ##   penalties:      &lt;none&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
@@ -1365,7 +1365,7 @@
 
 <span class="co"># solve the problem (using the default solver)</span>
 <span class="va">s40</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p40</span><span class="op">)</span></code></pre></div>
-<pre><code>## Gurobi Optimizer version 9.1.2 build v9.1.2rc0 (linux64)
+<pre><code>## Gurobi Optimizer version 9.5.0 build v9.5.0rc5 (linux64)
 ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
 ## Optimize a model with 293 rows, 234 columns and 1026 nonzeros
 ## Model fingerprint: 0xbd38144b
@@ -1380,10 +1380,10 @@
 ## Presolve time: 0.00s
 ## Presolved: 293 rows, 234 columns, 1026 nonzeros
 ## Variable types: 0 continuous, 234 integer (234 binary)
-## Presolved: 293 rows, 234 columns, 1026 nonzeros
+## Root relaxation presolved: 293 rows, 234 columns, 1026 nonzeros
 ## 
 ## 
-## Root relaxation: objective 2.265862e+03, 220 iterations, 0.00 seconds
+## Root relaxation: objective 2.265862e+03, 220 iterations, 0.00 seconds (0.00 work units)
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -1393,21 +1393,21 @@
 ##      0     0 2361.03063    0  223 3087.96175 2361.03063  23.5%     -    0s
 ##      0     0 2371.27288    0  222 3087.96175 2371.27288  23.2%     -    0s
 ##      0     0 2371.27288    0  222 3087.96175 2371.27288  23.2%     -    0s
-## H    0     0                    2939.5085558 2371.27288  19.3%     -    0s
-## H    0     0                    2907.5844893 2371.27288  18.4%     -    0s
 ## H    0     0                    2790.8740409 2371.27288  15.0%     -    0s
-## H    0     0                    2604.7426048 2371.27288  8.96%     -    0s
+## H    0     0                    2730.9524342 2371.27288  13.2%     -    0s
+##      0     2 2372.02804    0  222 2730.95243 2372.02804  13.1%     -    0s
+## H    6     6                    2604.7426048 2375.46233  8.80%  21.0    0s
 ## 
 ## Cutting planes:
 ##   Gomory: 3
 ## 
-## Explored 1 nodes (347 simplex iterations) in 0.11 seconds
+## Explored 7 nodes (489 simplex iterations) in 0.08 seconds (0.10 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
-## Solution count 6: 2604.74 2790.87 2907.58 ... 20287.2
+## Solution count 5: 2604.74 2730.95 2790.87 ... 20287.2
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
-## Best objective 2.604742604847e+03, best bound 2.371272882044e+03, gap 8.9633%</code></pre>
+## Best objective 2.604742604847e+03, best bound 2.375462328932e+03, gap 8.8024%</code></pre>
 <div class="sourceCode" id="cb106"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># plot solution</span>
 <span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s40</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey90"</span>, <span class="st">"darkgreen"</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Solution"</span>,
@@ -1424,7 +1424,7 @@
 <code class="sourceCode R"><span class="co"># extract time spent solving solution</span>
 <span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s40</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## solution_1 
-##      0.137</code></pre>
+##      0.099</code></pre>
 <div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># extract state message from the solver that describes why this specific</span>
 <span class="co"># solution was returned</span>
@@ -1536,8 +1536,8 @@
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.3, max: 0.3)]
 ##   decisions:      default
-##   constraints:    &lt;Locked in planning units [317 locked units]
-##                    Locked out planning units [1 locked units]&gt;
+##   constraints:    &lt;Locked out planning units [1 locked units]
+##                    Locked in planning units [317 locked units]&gt;
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (1), zones]&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
@@ -1574,8 +1574,8 @@
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.3, max: 0.3)]
 ##   decisions:      default
-##   constraints:    &lt;Locked in planning units [317 locked units]
-##                    Locked out planning units [1 locked units]&gt;
+##   constraints:    &lt;Locked out planning units [1 locked units]
+##                    Locked in planning units [317 locked units]&gt;
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (0), zones]&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
@@ -1596,7 +1596,7 @@
 
 <span class="co"># solve the problem</span>
 <span class="va">s41</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p41</span><span class="op">)</span></code></pre></div>
-<pre><code>## Gurobi Optimizer version 9.1.2 build v9.1.2rc0 (linux64)
+<pre><code>## Gurobi Optimizer version 9.5.0 build v9.5.0rc5 (linux64)
 ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
 ## Optimize a model with 5 rows, 90 columns and 450 nonzeros
 ## Model fingerprint: 0x6442bf6e
@@ -1610,21 +1610,22 @@
 ## Presolve time: 0.00s
 ## Presolved: 5 rows, 90 columns, 450 nonzeros
 ## Variable types: 0 continuous, 90 integer (90 binary)
-## Presolved: 5 rows, 90 columns, 450 nonzeros
+## Found heuristic solution: objective 2332.1003790
+## Root relaxation presolved: 5 rows, 90 columns, 450 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.931582e+03, 12 iterations, 0.00 seconds
+## Root relaxation: objective 1.931582e+03, 12 iterations, 0.00 seconds (0.00 work units)
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
-##      0     0 1931.58191    0    4 2337.96175 1931.58191  17.4%     -    0s
+##      0     0 1931.58191    0    4 2332.10038 1931.58191  17.2%     -    0s
 ## H    0     0                    1987.3985265 1931.58191  2.81%     -    0s
 ## 
-## Explored 1 nodes (12 simplex iterations) in 0.00 seconds
+## Explored 1 nodes (12 simplex iterations) in 0.00 seconds (0.00 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
-## Solution count 2: 1987.4 2337.96 
+## Solution count 3: 1987.4 2332.1 2337.96 
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
 ## Best objective 1.987398526526e+03, best bound 1.931581908865e+03, gap 2.8085%</code></pre>

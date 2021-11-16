@@ -107,7 +107,7 @@ spatial proximity to each other." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.1.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">7.1.1.4</span>
       </span>
     </div>
 
@@ -255,8 +255,6 @@ values are set to zero too.</p>
 <span class='r-in'><span class='co'># create proximity matrix using polygon (sf) data</span></span>
 <span class='r-in'><span class='co'>## subset 9 polygons to provide a small example</span></span>
 <span class='r-in'><span class='va'>ply</span> <span class='op'>&lt;-</span> <span class='va'>sim_pu_sf</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>, <span class='fl'>10</span><span class='op'>:</span><span class='fl'>12</span>, <span class='fl'>20</span><span class='op'>:</span><span class='fl'>22</span><span class='op'>)</span>, <span class='op'>]</span></span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> old-style crs object detected; please recreate object with a recent sf::st_crs()</span>
 <span class='r-in'></span>
 <span class='r-in'><span class='co'>## make proximity matrix using a distance threshold of 2</span></span>
 <span class='r-in'><span class='va'>cm_ply</span> <span class='op'>&lt;-</span> <span class='fu'>proximity_matrix</span><span class='op'>(</span><span class='va'>ply</span>, distance <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></span>

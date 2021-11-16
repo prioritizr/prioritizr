@@ -1,3 +1,11 @@
+# prioritizr 7.1.1.4
+
+- Update tests to reduce run time and pass given slightly different results
+  with new Gurobi version (9.5.0).
+- Update built-in `sim_pu_sf` and `sim_pu_zones_sf` data given class
+  updates to the _sf_ package (compatible with version 1.0.3+).
+- Update example for `write_problem` function.
+
 # prioritizr 7.1.1.3
 
 - Update publication record.

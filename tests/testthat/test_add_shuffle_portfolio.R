@@ -82,8 +82,8 @@ test_that("solve (no duplicates)", {
   p <- problem(cost, features) %>%
        add_min_set_objective() %>%
        add_absolute_targets(c(2, 10)) %>%
-       add_shuffle_portfolio(100, remove_duplicates = TRUE) %>%
-       add_default_solver(gap = 0.1, verbose = FALSE)
+       add_shuffle_portfolio(5, remove_duplicates = TRUE) %>%
+       add_default_solver(gap = 0.8, verbose = FALSE)
   # solve problem
   s <- solve(p)
   # output checks

@@ -845,8 +845,8 @@ div.csl-indent {
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
 ##   decisions:      default
-##   constraints:    &lt;Locked in planning units [10 locked units]
-##                    Locked out planning units [10 locked units]&gt;
+##   constraints:    &lt;Locked out planning units [10 locked units]
+##                    Locked in planning units [10 locked units]&gt;
 ##   penalties:      &lt;none&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
@@ -1320,7 +1320,7 @@ div.csl-indent {
 <span id="cb102-7"><a href="#cb102-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb102-8"><a href="#cb102-8" aria-hidden="true" tabindex="-1"></a><span class="co"># solve the problem (using the default solver)</span></span>
 <span id="cb102-9"><a href="#cb102-9" aria-hidden="true" tabindex="-1"></a>s40 <span class="ot">&lt;-</span> <span class="fu">solve</span>(p40)</span></code></pre></div>
-<pre><code>## Gurobi Optimizer version 9.1.2 build v9.1.2rc0 (linux64)
+<pre><code>## Gurobi Optimizer version 9.5.0 build v9.5.0rc5 (linux64)
 ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
 ## Optimize a model with 293 rows, 234 columns and 1026 nonzeros
 ## Model fingerprint: 0xbd38144b
@@ -1335,10 +1335,10 @@ div.csl-indent {
 ## Presolve time: 0.00s
 ## Presolved: 293 rows, 234 columns, 1026 nonzeros
 ## Variable types: 0 continuous, 234 integer (234 binary)
-## Presolved: 293 rows, 234 columns, 1026 nonzeros
+## Root relaxation presolved: 293 rows, 234 columns, 1026 nonzeros
 ## 
 ## 
-## Root relaxation: objective 2.265862e+03, 220 iterations, 0.00 seconds
+## Root relaxation: objective 2.265862e+03, 220 iterations, 0.00 seconds (0.00 work units)
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -1348,21 +1348,21 @@ div.csl-indent {
 ##      0     0 2361.03063    0  223 3087.96175 2361.03063  23.5%     -    0s
 ##      0     0 2371.27288    0  222 3087.96175 2371.27288  23.2%     -    0s
 ##      0     0 2371.27288    0  222 3087.96175 2371.27288  23.2%     -    0s
-## H    0     0                    2939.5085558 2371.27288  19.3%     -    0s
-## H    0     0                    2907.5844893 2371.27288  18.4%     -    0s
 ## H    0     0                    2790.8740409 2371.27288  15.0%     -    0s
-## H    0     0                    2604.7426048 2371.27288  8.96%     -    0s
+## H    0     0                    2730.9524342 2371.27288  13.2%     -    0s
+##      0     2 2372.02804    0  222 2730.95243 2372.02804  13.1%     -    0s
+## H    6     6                    2604.7426048 2375.46233  8.80%  21.0    0s
 ## 
 ## Cutting planes:
 ##   Gomory: 3
 ## 
-## Explored 1 nodes (347 simplex iterations) in 0.11 seconds
+## Explored 7 nodes (489 simplex iterations) in 0.08 seconds (0.10 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
-## Solution count 6: 2604.74 2790.87 2907.58 ... 20287.2
+## Solution count 5: 2604.74 2730.95 2790.87 ... 20287.2
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
-## Best objective 2.604742604847e+03, best bound 2.371272882044e+03, gap 8.9633%</code></pre>
+## Best objective 2.604742604847e+03, best bound 2.375462328932e+03, gap 8.8024%</code></pre>
 <div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot solution</span></span>
 <span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s40, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;grey90&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>), <span class="at">main =</span> <span class="st">&quot;Solution&quot;</span>,</span>
 <span id="cb104-3"><a href="#cb104-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>))</span></code></pre></div>
@@ -1376,7 +1376,7 @@ div.csl-indent {
 <div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extract time spent solving solution</span></span>
 <span id="cb107-2"><a href="#cb107-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">attr</span>(s40, <span class="st">&quot;runtime&quot;</span>))</span></code></pre></div>
 <pre><code>## solution_1 
-##      0.112</code></pre>
+##      0.099</code></pre>
 <div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extract state message from the solver that describes why this specific</span></span>
 <span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a><span class="co"># solution was returned</span></span>
 <span id="cb109-3"><a href="#cb109-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">attr</span>(s40, <span class="st">&quot;status&quot;</span>))</span></code></pre></div>
@@ -1391,7 +1391,7 @@ div.csl-indent {
 </ul>
 <div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate statistic</span></span>
 <span id="cb111-2"><a href="#cb111-2" aria-hidden="true" tabindex="-1"></a><span class="fu">eval_n_summary</span>(p40, s40)</span></code></pre></div>
-<pre><code>## # A tibble: 1 x 2
+<pre><code>## # A tibble: 1 × 2
 ##   summary  cost
 ##   &lt;chr&gt;   &lt;dbl&gt;
 ## 1 overall    10</code></pre>
@@ -1400,7 +1400,7 @@ div.csl-indent {
 </ul>
 <div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate statistic</span></span>
 <span id="cb113-2"><a href="#cb113-2" aria-hidden="true" tabindex="-1"></a><span class="fu">eval_cost_summary</span>(p40, s40)</span></code></pre></div>
-<pre><code>## # A tibble: 1 x 2
+<pre><code>## # A tibble: 1 × 2
 ##   summary  cost
 ##   &lt;chr&gt;   &lt;dbl&gt;
 ## 1 overall 2005.</code></pre>
@@ -1409,7 +1409,7 @@ div.csl-indent {
 </ul>
 <div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate statistics</span></span>
 <span id="cb115-2"><a href="#cb115-2" aria-hidden="true" tabindex="-1"></a><span class="fu">eval_feature_representation_summary</span>(p40, s40)</span></code></pre></div>
-<pre><code>## # A tibble: 5 x 5
+<pre><code>## # A tibble: 5 × 5
 ##   summary feature total_amount absolute_held relative_held
 ##   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
 ## 1 overall layer.1         83.3          8.95         0.107
@@ -1422,7 +1422,7 @@ div.csl-indent {
 </ul>
 <div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate statistics</span></span>
 <span id="cb117-2"><a href="#cb117-2" aria-hidden="true" tabindex="-1"></a><span class="fu">eval_target_coverage_summary</span>(p40, s40)</span></code></pre></div>
-<pre><code>## # A tibble: 5 x 9
+<pre><code>## # A tibble: 5 × 9
 ##   feature met   total_amount absolute_target absolute_held absolute_shortfall
 ##   &lt;chr&gt;   &lt;lgl&gt;        &lt;dbl&gt;           &lt;dbl&gt;         &lt;dbl&gt;              &lt;dbl&gt;
 ## 1 layer.1 TRUE          83.3            8.33          8.95                  0
@@ -1442,7 +1442,7 @@ div.csl-indent {
 </ul>
 <div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate statistic</span></span>
 <span id="cb119-2"><a href="#cb119-2" aria-hidden="true" tabindex="-1"></a><span class="fu">eval_boundary_summary</span>(p40, s40)</span></code></pre></div>
-<pre><code>## # A tibble: 1 x 2
+<pre><code>## # A tibble: 1 × 2
 ##   summary boundary
 ##   &lt;chr&gt;      &lt;dbl&gt;
 ## 1 overall      1.2</code></pre>
@@ -1454,7 +1454,7 @@ div.csl-indent {
 <span id="cb121-3"><a href="#cb121-3" aria-hidden="true" tabindex="-1"></a><span class="co"># to parametrize pair-wise connectivity between different planning units</span></span>
 <span id="cb121-4"><a href="#cb121-4" aria-hidden="true" tabindex="-1"></a><span class="fu">eval_connectivity_summary</span>(</span>
 <span id="cb121-5"><a href="#cb121-5" aria-hidden="true" tabindex="-1"></a>  p40, s40, <span class="at">data =</span> <span class="fu">connectivity_matrix</span>(sim_pu_raster, sim_features[[<span class="dv">1</span>]]))</span></code></pre></div>
-<pre><code>## # A tibble: 1 x 2
+<pre><code>## # A tibble: 1 × 2
 ##   summary connectivity
 ##   &lt;chr&gt;          &lt;dbl&gt;
 ## 1 overall         1.97</code></pre>
@@ -1478,8 +1478,8 @@ div.csl-indent {
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.3, max: 0.3)]
 ##   decisions:      default
-##   constraints:    &lt;Locked out planning units [1 locked units]
-##                    Locked in planning units [317 locked units]&gt;
+##   constraints:    &lt;Locked in planning units [317 locked units]
+##                    Locked out planning units [1 locked units]&gt;
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (1), zones]&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
@@ -1534,7 +1534,7 @@ div.csl-indent {
 <span id="cb128-6"><a href="#cb128-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb128-7"><a href="#cb128-7" aria-hidden="true" tabindex="-1"></a><span class="co"># solve the problem</span></span>
 <span id="cb128-8"><a href="#cb128-8" aria-hidden="true" tabindex="-1"></a>s41 <span class="ot">&lt;-</span> <span class="fu">solve</span>(p41)</span></code></pre></div>
-<pre><code>## Gurobi Optimizer version 9.1.2 build v9.1.2rc0 (linux64)
+<pre><code>## Gurobi Optimizer version 9.5.0 build v9.5.0rc5 (linux64)
 ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
 ## Optimize a model with 5 rows, 90 columns and 450 nonzeros
 ## Model fingerprint: 0x6442bf6e
@@ -1548,21 +1548,22 @@ div.csl-indent {
 ## Presolve time: 0.00s
 ## Presolved: 5 rows, 90 columns, 450 nonzeros
 ## Variable types: 0 continuous, 90 integer (90 binary)
-## Presolved: 5 rows, 90 columns, 450 nonzeros
+## Found heuristic solution: objective 2332.1003790
+## Root relaxation presolved: 5 rows, 90 columns, 450 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.931582e+03, 12 iterations, 0.00 seconds
+## Root relaxation: objective 1.931582e+03, 12 iterations, 0.00 seconds (0.00 work units)
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
-##      0     0 1931.58191    0    4 2337.96175 1931.58191  17.4%     -    0s
+##      0     0 1931.58191    0    4 2332.10038 1931.58191  17.2%     -    0s
 ## H    0     0                    1987.3985265 1931.58191  2.81%     -    0s
 ## 
-## Explored 1 nodes (12 simplex iterations) in 0.00 seconds
+## Explored 1 nodes (12 simplex iterations) in 0.00 seconds (0.00 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
-## Solution count 2: 1987.4 2337.96 
+## Solution count 3: 1987.4 2332.1 2337.96 
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
 ## Best objective 1.987398526526e+03, best bound 1.931581908865e+03, gap 2.8085%</code></pre>
