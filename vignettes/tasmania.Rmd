@@ -58,7 +58,7 @@ print(tas_pu)
 plot(st_as_sf(tas_pu[, "cost"]), main = "Planning unit costs")
 ```
 
-Next, let examine the feature data. Here we will only plot the first four features as an example. The pixel values denote the presence or absence of each feature within the extent of the study area.
+Next, lets examine the feature data. Here we will only plot the first four features as an example. The pixel values denote the presence or absence of each feature within the extent of the study area.
 
 ```{r, fig.width = 4.5, fig.height = 4.5}
 # print planning unit data
@@ -124,7 +124,7 @@ p1 <- marxan_problem(pu_data, spec_data, puvspr_data, bound_data,
 print(p1)
 ```
 
-Next, we can solve the problem (see [`?solve`](https://prioritizr.net/reference/solve.html) for more information). The _prioritizr_ R package supports three different exact algorithm software packages: _gurobi_, _Rsymphony_, and _lpsymphony_. There are costs and benefits associated with each of these different solvers, but each software should return similar results. Note that you will need at least one of these package installed on your system to solve problems. We recommend using the _gurobi_ solver if possible, and have used this solver when building this tutorial. After solving the problem, we will calculate some statistics to describe the solution. Note that the planning unit selections are stored in the "solution_1" column of the solution object.
+Next, we can solve the problem (see [`?solve`](https://prioritizr.net/reference/solve.html) for more information). The _prioritizr_ R package currently supports five different exact algorithm software packages: _gurobi_, _CPLEX_, _CBC_, _Rsymphony_, and _lpsymphony_. There are costs and benefits associated with each of these different solvers, but each software should return similar results. Note that you will need at least one of these package installed on your system to solve problems. We recommend using the _gurobi_ solver if possible, and have used this solver when building this tutorial. After solving the problem, we will calculate some statistics to describe the solution. Note that the planning unit selections are stored in the "solution_1" column of the solution object.
 
 ```{r, fig.width = w, fig.height = h}
 # solve problem
