@@ -15,6 +15,12 @@ vignette: >
 ---
 
 ```{r, include = FALSE}
+# define dummy variables so that vignette passes package checks
+tas_features <- raster::raster(matrix(1))
+```
+
+```{r, include = FALSE}
+# define variables for vignette figures and code execution
 h <- 3.5
 w <- 3.5
 is_check <- ("CheckExEnv" %in% search()) || any(c("_R_CHECK_TIMINGS_",
@@ -24,17 +30,11 @@ knitr::opts_chunk$set(fig.align = "center", eval = !is_check)
 
 ## Introduction
 
-The aim of this tutorial is to provide a worked example of how vector-based data can be used to develop conservation prioritizations using the _prioritizr R_ package. It is also written for conservation planners that have used the _Marxan_ decision support tool [@r3] and are interested in applying the _prioritizr R_ package to their own work. The dataset used in this tutorial was obtained from the _Introduction to Marxan_ course. This data was originally a subset of a larger spatial prioritization project performed under contract to Australia's Department of Environment and Water Resources [@r30].
+The aim of this tutorial is to show how vector data can be used to develop conservation prioritizations using the _prioritizr R_ package. It is also written for conservation planners that have used the _Marxan_ decision support tool [@r3] and are interested in applying the _prioritizr R_ package to their own work. The dataset used in this tutorial was obtained from the _Introduction to Marxan_ course and spans the state of Tasmania in Australia. It was originally a subset of a larger spatial prioritization project performed under contract to Australia's Department of Environment and Water Resources [@r30].
 
-Please note that this tutorial uses data from the _prioritizrdata R_, so ensure that it is installed before trying out the code yourself.
+## Data
 
-## Exploring the data
-
-This dataset contains two items. First, a spatial planning unit layer that has an attribute table which contains three columns: integer unique identifiers ("id"), unimproved land values ("cost"), and their existing level of protection ("status"). Units with 50 % or more of their area contained in protected areas are associated with a status of 2, otherwise they are associated with a value of 0. If you are familiar with the _Marxan_ decision support tool, then you will notice that these columns are formatted in a similar manner to the input data for _Marxan_. For _Marxan_ input data, planning units must be described in a table containing one row for each planning unit with a unique identifier and the corresponding cost.
-
-The second item in this dataset is the raster-based feature data. Specifically, the feature data is expressed as a stack of rasters (termed a `RasterStack` object). Here each layer in the stack represents the distribution of a different vegetation class in Tasmania, Australia. There are 62 vegetation classes in total. For a given layer, pixel values indicate the presence (value of 1) or absence (value of 0) of the vegetation class in an area.
-
-First, load the required packages and the data.
+Let's load the packages and data used in this tutorial. Since this tutorial uses data from the _prioritizrdata R_ package, please ensure that it is installed.
 
 ```{r, message = FALSE}
 # load packages
@@ -44,11 +44,13 @@ library(prioritizr)
 # load planning unit data
 data(tas_pu)
 
-# load conservation feature data
+# load feature data
 data(tas_features)
 ```
 
-Now, let's have a look at the planning unit data.
+The `tas_pu` object contains planning units represented as spatial polygons (i.e. a `SpatialPolygonsDataFrame` object). This object has three columns that denote the following information for each planning unit: a unique identifier (`id`), unimproved land value (`cost`), and current conservation status (`locked_in`). Planning units that have at least half of their area overlapping with existing protected areas are denoted with a locked in value of 1, otherwise they are denoted with a value of 0. If you are familiar with the _Marxan_ decision support tool, then you will notice that some of these columns are formatted similar conventions.
+
+Now, let's have a look at the planning unit data. We can see that the planning units correspond to hexagonal land parcels. We can also see that is a clear spatial pattern in the cost and conservation status the planning units.
 
 ```{r, fig.width = w, fig.height = h}
 # print planning unit data
@@ -56,9 +58,14 @@ print(tas_pu)
 
 # plot map of planning unit costs
 plot(st_as_sf(tas_pu[, "cost"]), main = "Planning unit costs")
+
+# plot map of planning unit coverage by protected areas
+plot(st_as_sf(tas_pu[, "locked_in"]), main = "Protected area coverage")
 ```
 
-Next, let examine the feature data. Here we will only plot the first four features as an example. The pixel values denote the presence or absence of each feature within the extent of the study area.
+The `tas_features` object describes the spatial distribution of the features. Specifically, the feature data are expressed as a stack of `r raster::nlayers(tas_features)` rasters (i.e. a `RasterStack` object). Each layer in the stack corresponds to one of `r raster::nlayers(tas_features)` different vegetation communities. To describe the spatial distribution of a given vegetation community, each layer contains a spatially referenced grid of rectangular cells and each of these grid cells is associated with information on the distribution of the a given vegetation community. Specifically, these grid cells are assigned values that indicate if a given vegetation community is present (using value of 1) or absent (using value of 0) within the spatial extent of each grid cell.
+
+Next, let's examine the feature data. Here we will only plot the first four features as an example. The pixel values denote the presence (denoted by a value of 1) or absence (denoted by a value of zero) of each feature within the extent of the study area.
 
 ```{r, fig.width = 4.5, fig.height = 4.5}
 # print planning unit data
@@ -68,158 +75,148 @@ print(tas_features)
 plot(tas_features[[1:4]], main = paste("Feature", 1:4))
 ```
 
-The planning units in this example are a spatial polygon layer---not a raster---and so there can be considerable flexibility in the shape of the planning units. That said, there is a trade-off with the efficiency of data pre-processing in vector-based planning unit data compared to raster-based planning unit data. Vector-based planning unit data generally require more time to complete pre-processing computations (e.g. overlaying the planning unit data with the feature data, or generating boundary data). As a consequence, we generally recommend using raster-based planning unit data where possible to reduce processing time---but note that this is not possible when not all planning units are equal-sized squares. Another strategy is to complete the pre-processing in other software environments (e.g. _ArcGIS_) and use the pre-processed data directly with the _prioritizr_ package.
+The planning units in this tutorial are stored as spatial polygons. Although spatial polygons provide considerable flexibility in the shape and size of the planning units, such flexibility comes at a cost. This is because the spatial data processing routines needed to combine spatial polygon data and raster data for optimization can be very computationally expensive (e.g. calculating zonal statistics). As a consequence, we generally recommend using raster-based planning unit data where possible to reduce processing time. Another strategy is to complete spatial data processing routines manually using other software (e.g. _ESRI ArcGIS_) and use the pre-processed data directly with the _prioritizr R_ package.
 
-## _Marxan_ problem formulation
+## Problem formulation
 
-Here, we will provide an example of using the `marxan_problem` function to build and solve a typical _Marxan_ conservation planning problem. Then we will show how this same problem can be built and solved using the fully customizable `problem` function as a comparison.
-
-The dataset used in this example follows many of the conventions used by the _Marxan_ decision support tool. As a consequence, it is not too difficult to format the data for use with the `marxan_problem` function. The `marxan_problem` function is essentially a wrapper to the `problem` function. This means that when we solve problems created using the `marxan_problem` function, we will solve them using exact algorithms and not the simulated annealing algorithm used by _Marxan_.
-
-All problem objects formulated with `marxan_problem` use the minimum set objective. Targets can be either relative or absolute, and planning units can be specified for masking in or out using the `locked_in` and `locked_out` arguments. To favor clumped solutions, use the `penalty` argument to impose a penalty on solutions with high boundary lengths (equivalent to the Boundary Length Modifier (BLM) used in _Marxan_), and the `edge_factor` argument to scale the penalty for edges that do not have neighboring planning units, such as the coastline. For simplicity we set all of the targets at the same level, 17 %, to reflect the [Aichi](https://www.cbd.int/sp/targets/) biodiversity target to "safeguard" at least 17% of terrestrial ecosystems by 2020. For example, to prioritize planning units in Tasmania that meet the 17 % representation target at the least cost.
-
-First, we will convert the vector-based planning unit data and raster-based feature data into the tabular formats required by the `marxan_problem` function. These formats are very similar to the formats used by _Marxan_.
-
-```{r}
-# create table with planning unit data
-pu_data <- tas_pu@data
-
-# print first six rows
-head(pu_data)
-
-# create table with the feature identifiers, names, and targets
-spec_data <- data.frame(id = seq_len(nlayers(tas_features)),
-                        name = paste0("veg", seq_len(nlayers(tas_features))),
-                        prop = 0.17)
-
-# print first six rows
-head(spec_data)
-
-# create table with the planning unit vs. feature data
-puvspr_data <- rij_matrix(tas_pu, tas_features)
-puvspr_data <- as(puvspr_data, "dgTMatrix")
-puvspr_data <- data.frame(pu = puvspr_data@j + 1, species = puvspr_data@i + 1,
-                          amount = puvspr_data@x)
-
-# print first six rows
-head(puvspr_data)
-
-# create table with the boundary data
-bound_data <- boundary_matrix(tas_pu)
-bound_data <- as(bound_data, "dgTMatrix")
-bound_data <- data.frame(id1 = bound_data@i + 1, id2 = bound_data@j + 1,
-                         boundary = bound_data@x)
-# print first six rows
-head(bound_data)
-```
-
-Now that we have converted the data to tabular format, we can use the `marxan_problem` function to create a conservation planning problem.
-
-```{r}
-# create problem
-p1 <- marxan_problem(pu_data, spec_data, puvspr_data, bound_data,
-                     blm = 0.0005)
-
-# print problem
-print(p1)
-```
-
-Next, we can solve the problem (see [`?solve`](https://prioritizr.net/reference/solve.html) for more information). The _prioritizr_ R package supports three different exact algorithm software packages: _gurobi_, _Rsymphony_, and _lpsymphony_. There are costs and benefits associated with each of these different solvers, but each software should return similar results. Note that you will need at least one of these package installed on your system to solve problems. We recommend using the _gurobi_ solver if possible, and have used this solver when building this tutorial. After solving the problem, we will calculate some statistics to describe the solution. Note that the planning unit selections are stored in the "solution_1" column of the solution object.
-
-```{r, fig.width = w, fig.height = h}
-# solve problem
-s1 <- solve(p1)
-
-# print first six rows of solution object
-head(s1)
-
-# count number of planning units in solution
-sum(s1$solution_1)
-
-# proportion of planning units in solution
-mean(s1$solution_1)
-
-# calculate feature representation
-r1 <- eval_feature_representation_summary(p1, s1[, "solution_1", drop = FALSE])
-print(r1)
-
-# visualize the solution by converting the solution to a spatial object
-s1 <- SpatialPolygonsDataFrame(as(tas_pu, "SpatialPolygons"), data = s1)
-s1$solution_1 <- factor(s1$solution_1)
-plot(st_as_sf(s1[, "solution_1"]), pal = c("grey90", "darkgreen"),
-    main = "marxan_problem solution")
-```
-
-## General problem formulation
-
-Now we will formulate the exact same problem using the `problem` function and the spatially referenced data. We recommend using this approach instead of the `marxan_problem` because it is more verbose and you can specify exactly how the conservation planning problem should be formulated.
+Now we will formulate a conservation planing problem. To achieve this, we first specify which objects contain the planning unit and feature data (using the `problem` function). Next, we specify that we want to use the minimum set objective function (using the `add_min_set_objective` function). This objective function indicates that we wish to minimize the total cost of planning units selected by the prioritization. We then specify boundary penalties reduce spatial fragmentation in the resulting prioritization (using the `add_boundary_penalties` function; see the _Penalty calibration_ vignette for details on calibrating the penalty value). We also specify representation targets to ensure the resulting prioritization provides adequate coverage of each vegetation community (using the `add_relative_targets` function). Specifically, we specify targets to ensure at least 17% of the spatial extent of each vegetation community (based on the [Aichi Target 11](https://www.cbd.int/sp/targets/)). Additionally, we set constraints to ensure that planning units predominately covered by existing protected areas are selected by the prioritization (using the `add_locked_in_constraints` function). Finally, we specify that the prioritization should either select -- or not select -- planning units for prioritization (using the `add_binary_decisions` function).
 
 ```{r, fig.width = w, fig.height = h}
 # build problem
-p2 <- problem(tas_pu, tas_features, cost_column = "cost") %>%
+p1 <- problem(tas_pu, tas_features, cost_column = "cost") %>%
       add_min_set_objective() %>%
+      add_boundary_penalties(penalty = 0.0005) %>%
       add_relative_targets(0.17) %>%
       add_locked_in_constraints("locked_in") %>%
-      add_binary_decisions() %>%
-      add_boundary_penalties(penalty = 0.0005, edge_factor = 1)
+      add_binary_decisions()
 
 # print the problem
+print(p1)
+```
+
+## Prioritization
+
+We can now solve the problem formulation (`p1`) to generate a prioritization (using the `solve` function). The _prioritizr_ R package supports a range of different exact algorithm solvers, including _Gurobi_, _IBM CPLEX_, _CBC_, _Rsymphony_, and _lpsymphony_. Although there are benefits and limitations associated with each of these different solvers, they should return similar results. Note that you will need at least one solver installed on your system to generate prioritizations. Since we did not specify a solver when building the problem, the _prioritizr R_ package will automatically select the best available solver installed. We recommend using the _Gurobi_ solver if possible, and have used it for this tutorial (see the _Gurobi Installation Guide_ vignette for installation instructions). After solving the problem, the prioritization will be stored in the `solution_1` column of the `s1` object.
+
+```{r}
+# solve problem
+s1 <- solve(p1)
+
+# plot map of prioritization
+plot(st_as_sf(s1[, "solution_1"]), main = "Prioritization",
+     pal = c("grey90", "darkgreen"))
+```
+
+## Feature representation
+
+Let's examine how well the vegetation communities are represented by existing protected areas and the prioritization.
+
+```{r, fig.width = 7}
+# create column with existing protected areas
+tas_pu$pa <- round(tas_pu$locked_in)
+
+# calculate feature representation statistics based on existing protected areas
+tc_pa <- eval_target_coverage_summary(p1, tas_pu[, "pa"])
+print(tc_pa)
+
+# calculate  feature representation statistics based on the prioritization
+tc_s1 <- eval_target_coverage_summary(p1, s1[, "solution_1"])
+print(tc_s1)
+
+# explore representation by existing protected areas
+## calculate number of features adequately represented by existing protected
+## areas
+sum(tc_pa$met)
+
+## summarize representation (values show percent coverage)
+summary(tc_pa$relative_held * 100)
+
+## visualize representation  (values show percent coverage)
+hist(tc_pa$relative_held * 100,
+     main = "Feature representation by existing protected areas",
+     xlim = c(0, 100),
+     xlab = "Percent coverage of features (%)")
+
+
+# explore representation by prioritization
+## summarize representation (values show percent coverage)
+summary(tc_s1$relative_held * 100)
+
+## calculate number of features adequately represented by the prioritization
+sum(tc_s1$met)
+
+## visualize representation  (values show percent coverage)
+hist(tc_s1$relative_held * 100,
+     main = "Feature representation by prioritization",
+     xlim = c(0, 100),
+     xlab = "Percent coverage of features (%)")
+```
+
+We can see that representation of the vegetation communities by existing protected areas is remarkably poor. For example, many of the vegetation communities have nearly zero coverage by existing protected areas. In other words, are almost entirely absent from  existing protected areas. We can also see that all vegetation communities have at least 17% coverage by the prioritization -- meaning that it meets the representation targets for all of the features.
+
+## Irreplaceability
+
+After generating the prioritization, we can examine the relative importance of planning units selected by the prioritization. This can be useful to identify critically important planning units for conservation -- in other words, places that contain biodiversity features which cannot be represented anywhere else -- and schedule implementation of the prioritization. To achieve this, we will use the Ferrier metric [@r34].
+
+```{r}
+# calculate irreplaceability
+irrep_s1 <- eval_ferrier_importance(p1, s1["solution_1"])
+print(irrep_s1)
+
+# manually coerce values for planning units not selected in prioritization
+# to NA, so that they are shown in white
+irrep_s1$plot_total <- irrep_s1$total
+irrep_s1$plot_total[s1$solution_1 < 0.5] <- NA_real_
+
+# plot map of overall importance scores
+plot(st_as_sf(irrep_s1[, "plot_total"]), main = "Overall importance")
+```
+
+## _Marxan_ compatibility
+
+The _prioritizr R_ package provides functionality to help _Marxan_ users generate prioritizations. Specifically, it can import conservation planning data prepared for _Marxan_, and can generate prioritizations using a similar problem formulation as _Marxan_ [based on @r1]. Indeed, the problem formulation presented earlier in this vignette is very similar to that used by _Marxan_. The key difference is that the problem formulation we specified earlier uses "hard constraints" for feature representation, and _Marxan_ uses "soft constraints" for feature representation. This means that prioritization we generated earlier was mathematically guaranteed to reach the targets for all features. However, if we used _Marxan_ to generate the prioritization, then we could have produced a prioritization that would fail to reach targets (depending the _Species Penalty Factors_ used to generate the prioritization). In addition to these differences in terms problem formulation, the _prioritizr R_ package uses exact algorithms -- instead of the simulated annealing algorithm -- which ensures that we obtain prioritizations that are near optimal.
+
+Here we will show the _prioritizr R_ package can import _Marxan_ data and generate a prioritization. To begin with, let's import a conservation planning data prepared for _Marxan_.
+
+```{r}
+
+# import data
+## planning unit data
+pu_path <- system.file("extdata/input/pu.dat", package = "prioritizr")
+pu_data <- read.csv(pu_path, header = TRUE, stringsAsFactors = FALSE)
+print(head(pu_data))
+
+## feature data
+spec_path <- system.file("extdata/input/spec.dat", package = "prioritizr")
+spec_data <- read.csv(spec_path, header = TRUE, stringsAsFactors = FALSE)
+print(head(spec_data))
+
+## amount of each feature within each planning unit data
+puvspr_path <- system.file("extdata/input/puvspr.dat", package = "prioritizr")
+puvspr_data <- read.csv(puvspr_path, header = TRUE, stringsAsFactors = FALSE)
+print(head(puvspr_data))
+
+## boundary data
+bound_path <- system.file("extdata/input/bound.dat", package = "prioritizr")
+bound_data <- read.table(bound_path, header = TRUE, stringsAsFactors = FALSE)
+print(head(bound_data))
+```
+
+After importing the data, we can now generate a prioritization based on the _Marxan_ problem formulation (using the `marxan_problem` function). **Please note that this function does not generate prioritizations using _Marxan_.** Instead, it uses the data to create an optimization problem formulation similar to _Marxan_ -- using hard constraints instead of soft constraints -- and uses an exact algorithm solver to generate a prioritization.
+
+```{r}
+# create problem
+p2 <- marxan_problem(pu_data, spec_data, puvspr_data, bound_data,
+                     blm = 0.0005)
+
+# print problem
 print(p2)
 
 # solve problem
 s2 <- solve(p2)
 
-# calculate feature representation
-r2 <- eval_feature_representation_summary(p2, s2[, "solution_1"])
-print(r2)
-
-# visualize solution
-s2$solution_1 <- factor(s2$solution_1)
-plot(st_as_sf(s2[, "solution_1"]), pal = c("grey90", "darkgreen"),
-    main = "problem solution")
-```
-
-## Selection frequencies
-
-Similar to the _Marxan_ decision support tool, we can generate a portfolio of solutions and compute the planning unit selection frequencies to understand their relative importance. This can be useful when trying to understand which planning units in the solution are the most irreplaceable. To do this, we will create a portfolio containing 1000 solutions within 20% of optimality, and calculate the number of times that each planning unit was selected. Note that this requires the _Gurobi_ software to be installed.
-
-```{r}
-# create new problem with a portfolio added to it
-p3 <- p2 %>%
-      add_gap_portfolio(number_solutions = 1000, pool_gap = 0.2)
-
-# print problem
-print(p3)
-```
-
-```{r, message = FALSE, results = "hide"}
-# generate solutions
-s3 <- solve(p3)
-
-# find column numbers with the solutions
-solution_columns <- which(grepl("solution", names(s3)))
-
-# calculate selection frequencies
-s3$selection_frequencies <- rowSums(as.matrix(s3@data[, solution_columns]))
-```
-
-```{r, fig.width = 4.5, fig.height = 4.5}
-# plot first four solutions in the portfolio
-s3$solution_1 <- factor(s3$solution_1)
-s3$solution_2 <- factor(s3$solution_2)
-s3$solution_3 <- factor(s3$solution_3)
-s3$solution_4 <- factor(s3$solution_4)
-plot(st_as_sf(s3[, c("solution_1", "solution_2", "solution_3", "solution_4")]),
-  pal = c("grey90", "darkgreen"))
-```
-
-```{r, fig.width = w, fig.height = h}
-# plot histogram of selection frequencies
-hist(s3$selection_frequencies, main = "Selection frequencies",
-     xlab = "Number of times units were selected")
-
-# plot spatial distribution of the selection frequencies
-plot(st_as_sf(s3[, "selection_frequencies"]), main = "Selection frequencies")
+# print first six rows of solution object
+print(head(s2))
 ```
 
 ## References
