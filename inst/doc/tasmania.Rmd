@@ -40,6 +40,8 @@ Let's load the packages and data used in this tutorial. Since this tutorial uses
 # load packages
 library(prioritizrdata)
 library(prioritizr)
+library(vegan)
+library(cluster)
 
 # load planning unit data
 data(tas_pu)
@@ -85,7 +87,7 @@ Now we will formulate a conservation planing problem. To achieve this, we first 
 # build problem
 p1 <- problem(tas_pu, tas_features, cost_column = "cost") %>%
       add_min_set_objective() %>%
-      add_boundary_penalties(penalty = 0.0005) %>%
+      add_boundary_penalties(penalty = 0.005) %>%
       add_relative_targets(0.17) %>%
       add_locked_in_constraints("locked_in") %>%
       add_binary_decisions()
@@ -98,7 +100,7 @@ print(p1)
 
 We can now solve the problem formulation (`p1`) to generate a prioritization (using the `solve` function). The _prioritizr_ R package supports a range of different exact algorithm solvers, including _Gurobi_, _IBM CPLEX_, _CBC_, _Rsymphony_, and _lpsymphony_. Although there are benefits and limitations associated with each of these different solvers, they should return similar results. Note that you will need at least one solver installed on your system to generate prioritizations. Since we did not specify a solver when building the problem, the _prioritizr R_ package will automatically select the best available solver installed. We recommend using the _Gurobi_ solver if possible, and have used it for this tutorial (see the _Gurobi Installation Guide_ vignette for installation instructions). After solving the problem, the prioritization will be stored in the `solution_1` column of the `s1` object.
 
-```{r}
+```{r, fig.width = w, fig.height = h}
 # solve problem
 s1 <- solve(p1)
 
@@ -158,7 +160,7 @@ We can see that representation of the vegetation communities by existing protect
 
 After generating the prioritization, we can examine the relative importance of planning units selected by the prioritization. This can be useful to identify critically important planning units for conservation -- in other words, places that contain biodiversity features which cannot be represented anywhere else -- and schedule implementation of the prioritization. To achieve this, we will use the Ferrier metric [@r34].
 
-```{r}
+```{r, fig.width = w, fig.height = h}
 # calculate irreplaceability
 irrep_s1 <- eval_ferrier_importance(p1, s1["solution_1"])
 print(irrep_s1)
@@ -170,6 +172,65 @@ irrep_s1$plot_total[s1$solution_1 < 0.5] <- NA_real_
 
 # plot map of overall importance scores
 plot(st_as_sf(irrep_s1[, "plot_total"]), main = "Overall importance")
+```
+
+## Portfolios
+
+Conservation planning exercises often involve generating multiple different prioritizations. This can help decision makers consider different options, and provide starting points for building consensus among stakeholders. To generate a range of different prioritizations given the same problem formulation, we can use portfolio functions. Here we will use the gap portfolio to generate 1000 solutions that are within 30% of optimality. Please note that you will need to have the *Gurobi* solver installed to use this specific portfolio. If you don'thave access to *Gurobi*, you could try using the shuffle portfolio instead (using the `add_shuffle_portfolio` function).
+
+```{r}
+# create new problem with a portfolio added to it
+p2 <- p1 %>%
+      add_gap_portfolio(number_solutions = 1000, pool_gap = 0.2)
+
+# print problem
+print(p2)
+
+# generate prioritizations
+prt <- solve(p2)
+print(prt)
+```
+
+After generating all these prioritizations, we now want some way to visualize them. Because it would be onerous to look at each and every prioritization individually, we will use statistical analyses to help us. We can visualize the differences between these different prioritizations -- based on which planning units they selected -- using a hierarchical cluster analysis [@r35].
+
+```{r, fig.height = 4.5, fig.width = 7, fig.show = "hold"}
+# extract solutions
+prt_results <- prt@data[, startsWith(names(prt), "solution_"), ]
+
+# calculate pair-wise distances between different prioritizations for analysis
+prt_dists <- vegan::vegdist(t(prt_results), method = "jaccard", binary = TRUE)
+
+# run cluster analysis
+prt_clust <- hclust(as.dist(prt_dists), method = "average")
+
+# visualize clusters
+opar <- par()
+par(oma = c(0, 0, 0, 0), mar= c(0, 4.1, 1.5, 2.1))
+plot(prt_clust, labels = FALSE, sub = NA, xlab = "",
+     main = "Different prioritizations in portfolio")
+suppressWarnings(par(opar))
+```
+
+We can see that there are approximately six main groups of prioritizations in the portfolio. To explore these different groups, let's conduct another cluster analysis (i.e. a _k_-medoids analysis) to extract the most representative prioritization from each of these groups. In other words, we will run another statistical analysis to find the most central prioritization within each group.
+
+```{r, fig.width = 7, fig.height = 5}
+# run k-medoids analysis
+prt_med <- pam(prt_dists, k = 6)
+
+# extract names of prioritizations that are most central for each group.
+prt_med_names <- prt_med$medoids
+print(prt_med_names)
+
+# create a copy of prt and set values for locked in planning units to -1
+# so we can easily visualize differences between prioritizations
+prt2 <- prt[, prt_med_names]
+prt2@data[which(tas_pu$locked_in > 0.5), prt_med_names] <- -1
+
+# plot a map showing main different prioritizations
+# dark grey: locked in planning units
+# grey: planning units not selected
+# green: selected planning units
+plot(st_as_sf(prt2), pal = c("grey60", "grey90", "darkgreen"))
 ```
 
 ## _Marxan_ compatibility
