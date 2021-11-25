@@ -1,5 +1,5 @@
 ---
-title: "Publication Record"
+title: "Publication record"
 output:
   rmarkdown::html_vignette:
     toc: true
@@ -8,7 +8,7 @@ output:
 fontsize: 11pt
 documentclass: article
 vignette: >
-  %\VignetteIndexEntry{Publication Record}
+  %\VignetteIndexEntry{Publication record}
   %\VignetteEngine{knitr::rmarkdown_notangle}
 ---
 

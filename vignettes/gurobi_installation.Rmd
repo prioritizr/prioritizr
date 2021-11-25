@@ -1,5 +1,5 @@
 ---
-title: "Gurobi Installation Guide"
+title: "Gurobi installation guide"
 author: "Richard Schuster"
 date: "`r Sys.Date()`"
 output:
@@ -10,7 +10,7 @@ output:
 fontsize: 11pt
 documentclass: article
 vignette: >
-  %\VignetteIndexEntry{Gurobi Installation Guide}
+  %\VignetteIndexEntry{Gurobi installation guide}
   %\VignetteEngine{knitr::rmarkdown_notangle}
 ---
 

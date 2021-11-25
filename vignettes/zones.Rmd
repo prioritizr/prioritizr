@@ -1,5 +1,5 @@
 ---
-title: "Management Zones"
+title: "Management zones"
 output:
   rmarkdown::html_vignette:
     toc: true
@@ -10,7 +10,7 @@ documentclass: article
 bibliography: references.bib
 csl: reference-style.csl
 vignette: >
-  %\VignetteIndexEntry{Management Zones}
+  %\VignetteIndexEntry{Management zones}
   %\VignetteEngine{knitr::rmarkdown_notangle}
 ---
 

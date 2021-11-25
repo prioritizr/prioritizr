@@ -1,5 +1,5 @@
 ---
-title: "Solver Benchmarks"
+title: "Solver benchmarks"
 output:
   rmarkdown::html_vignette:
     toc: true
@@ -10,7 +10,7 @@ documentclass: article
 bibliography: references.bib
 csl: reference-style.csl
 vignette: >
-  %\VignetteIndexEntry{Solver Benchmarks}
+  %\VignetteIndexEntry{Solver benchmarks}
   %\VignetteEngine{knitr::rmarkdown_notangle}
 ---
 

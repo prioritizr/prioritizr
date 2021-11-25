@@ -1,5 +1,5 @@
 ---
-title: "Tasmania Tutorial"
+title: "Tasmania tutorial"
 output:
   rmarkdown::html_vignette:
     toc: true
@@ -10,7 +10,7 @@ documentclass: article
 bibliography: references.bib
 csl: reference-style.csl
 vignette: >
-  %\VignetteIndexEntry{Tasmania Tutorial}
+  %\VignetteIndexEntry{Tasmania tutorial}
   %\VignetteEngine{knitr::rmarkdown_notangle}
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: "prioritizr: Systematic Conservation Prioritization in R"
+title: "prioritizr: Systematic conservation prioritization in R"
 output:
   rmarkdown::html_vignette:
     toc: true
@@ -10,7 +10,7 @@ documentclass: article
 bibliography: references.bib
 csl: reference-style.csl
 vignette: >
-  %\VignetteIndexEntry{prioritizr: Systematic Conservation Prioritization in R}
+  %\VignetteIndexEntry{prioritizr: Systematic conservation prioritization in R}
   %\VignetteEngine{knitr::rmarkdown_notangle}
 ---
 
