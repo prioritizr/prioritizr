@@ -33,7 +33,7 @@ knitr::opts_chunk$set(fig.align = "center", eval = !is_check)
 
 Systematic conservation planning requires making trade-offs [@r4; @r35]. Since different criteria may conflict with one another -- or not align perfectly -- prioritizations need to trade-offs between different criteria [@r37]. Although some criteria can easily be accounted for by setting locked constraints or representation targets [e.g. @r40; @r39], this is not always straightforward [e.g. @r38]. For example, prioritizations often need to balance overall cost with the overall level spatial fragmentation among reserves [@r41; @r42]. Additionally, prioritizations often need to balance overall cost with the overall level of connectivity among reserves [@r43]. Since the best trade-off depends on a range of factors -- such as available budgets, species' connectivity requirements, and management capacity -- finding the best balance can be challenging.
 
-The _prioritizr R_ package provides multi-objective optimization methods to help identify the best trade-offs between different criteria. To achieve this, a conservation planning problem can be formulated with a primary objective (e.g. `add_min_set_objective()`) and penalties (e.g. `add_boundary_penalties()`) that relate to such criteria. When building the problem, the nature of the trade-offs can be specified using certain parameters (e.g. the `penalty` parameter of the `add_boundary_penalties()` function). To identify a prioritization that finds the best balance between different criteria, the trade-off parameters can be calibrated by conducting a multiple-criteria decision analysis [MCDA; reviewed in @r44]. These analyses -- in the context of systematic conservation planning -- typically involve generating a set of candidate prioritizations based on different parameters, measuring their performance according to each of the criteria, and then selecting a prioritization (or set of prioritizations) based on how well they achieve the criteria [@r41; @r42; @r43]. For example, the _Marxan_ decision support tools has a range of parameters (e.g. species penalty factors, boundary length modifier) that are calibrated to produce prioritizations that balance cost, species' representation, and spatial fragmentation [@r45].
+The _prioritizr R_ package provides multi-objective optimization methods to help identify the best trade-offs between different criteria. To achieve this, a conservation planning problem can be formulated with a primary objective (e.g. `add_min_set_objective()`) and penalties (e.g. `add_boundary_penalties()`) that relate to such criteria. When building the problem, the nature of the trade-offs can be specified using certain parameters (e.g. the `penalty` parameter of the `add_boundary_penalties()` function). To identify a prioritization that finds the best balance between different criteria, the trade-off parameters can be calibrated by conducting a multiple-criteria decision analysis [MCDA; reviewed in @r44]. These analyses -- in the context of systematic conservation planning -- typically involve generating a set of candidate prioritizations based on different parameters, measuring their performance according to each of the criteria, and then selecting a prioritization (or set of prioritizations) based on how well they achieve the criteria [@r41; @r42; @r43]. For example, the _Marxan_ decision support tool has a range of parameters (e.g. species penalty factors, boundary length modifier) that are calibrated to produce prioritizations that balance cost, species' representation, and spatial fragmentation [@r45].
 
 The aim of this tutorial is to provide guidance on using multiple-criteria decision analyses to navigate trade-offs among prioritizations generated using the _prioritizr R_ package. Here we will explore a couple of different approaches for generating candidate prioritizations, and methods for finding the best balance between different criteria. Specifically, we will try to generate prioritizations that strike the best balance between total cost and spatial fragmentation (measured as total boundary length). As such, the code used in this vignette will be directly applicable when performing a boundary length calibration analysis.
 
@@ -179,7 +179,7 @@ prelim_penalty <- round(10^seq(prelim_lower, prelim_upper, length.out = 9), 5)
 prelim_blended_results <- lapply(prelim_penalty, function(x) {
   s <-
     p0 %>%
-    add_boundary_penalties(x, data = tas_bd) %>%
+    add_boundary_penalties(penalty = x, data = tas_bd) %>%
     add_default_solver(gap = 0.2, time_limit = 10 * 60) %>%
     solve()
   s <- data.frame(s = s$solution_1)
@@ -267,13 +267,13 @@ plot(
 )
 ```
 
-We now have a set of candidate prioritizations generated using the blended approach. The main advantages of this approach is that it is similar calibration analyses used by other decision support tools for conservation (i.e. _Marxan_) and it is relatively straightforward to implement. However, this approach also has a key disadvantage. Because the `penalty` parameter is a unitless trade-off parameter -- meaning that we can't leverage existing knowledge to specify a suitable range of `penalty` values -- we first have to conduct a preliminary analysis to identify an upper limit. Although finding an upper limit was fairly simple for the example datset, it can be difficult to find for more realistic data. In the next section, we will show how to perform generate a set of candidate prioritzations using the hierachical approach -- which does not have this disadvantage.
+We now have a set of candidate prioritizations generated using the blended approach. The main advantages of this approach is that it is similar calibration analyses used by other decision support tools for conservation (i.e. _Marxan_) and it is relatively straightforward to implement. However, this approach also has a key disadvantage. Because the `penalty` parameter is a unitless trade-off parameter -- meaning that we can't leverage existing knowledge to specify a suitable range of `penalty` values -- we first have to conduct a preliminary analysis to identify an upper limit. Although finding an upper limit was fairly simple for the example datset, it can be difficult to find for more realistic data. In the next section, we will show how to generate a set of candidate prioritzations using the hierachical approach -- which does not have this disadvantage.
 
 ### Hierarchical approach
 
 The hierarchical approach for multi-objective optimization involves generating a series of incremental prioritizations -- using a different objective at each increment to refine the previous solution -- until the final solution achieves all of the objectives. The advantage with this approach is that we can specify trade-off parameters for each objective based on a percentage from optimality. This means that we can leverage our own knowledge -- or that of decision maker -- when to generate a range of suitable trade-off parameters. As such, this approach does not require us to generate a series of preliminary prioritizations.
 
-This approach is slightly more complicated to implement within the _prioritizr R_ package then blended approach. To start off, we generate an initial prioritization based on a problem formulation that does not consider any penalties. Critically, we will generate this prioritization by solving the problem to optimality (using the `gap` parameter of the `add_default_solver()` function).
+This approach is slightly more complicated to implement within the _prioritizr R_ package then the blended approach. To start off, we generate an initial prioritization based on a problem formulation that does not consider any penalties. Critically, we will generate this prioritization by solving the problem to optimality (using the `gap` parameter of the `add_default_solver()` function).
 
 ```{r, fig.width = w, fig.height = h}
 # define a problem without boundary penalties
@@ -406,7 +406,7 @@ hierarchical_metrics <- as_tibble(hierarchical_metrics)
 print(hierarchical_metrics)
 ```
 
-After calculating the metrics, let's visualize use them to visualize the relationship between total cost and total boundary length.
+After calculating the metrics, let's use them to visualize the relationship between total cost and total boundary length.
 
 ```{r, fig.width = 7, fig.height = 5.0}
 # create plot to visualize trade-offs
@@ -542,7 +542,7 @@ plot(
 )
 ```
 
-How do we which one is best? This is difficult to say. Ideally, additional information could be used to help select a prioritization, such as knowledge on available resources, species' connectivity requirements, and impacts of neighboring land use. However, from a practical perspective, prioritizations generated for an academic context might find the quantitative approach more useful because it is reproducible. Ultimately, both quantitative and qualitative methods are designed to support decision making. This means that they are intended to assist the decision making process, not serve as a replacement.
+How do we determine which one is best? This is difficult to say. Ideally, additional information could be used to help select a prioritization, such as knowledge on available resources, species' connectivity requirements, and impacts of neighboring land use. However, from a practical perspective, prioritizations generated for an academic context might find the quantitative approach more useful because it is reproducible. Ultimately, both quantitative and qualitative methods are designed to support decision making. This means that they are intended to assist the decision making process, not serve as a replacement.
 
 ## Conclusion
 
