@@ -7,10 +7,16 @@
     <loc>https://prioritizr.net/CONTRIBUTING.html</loc>
   </url>
   <url>
+    <loc>https://prioritizr.net/articles/calibrating_trade-offs.html</loc>
+  </url>
+  <url>
     <loc>https://prioritizr.net/articles/gurobi_installation.html</loc>
   </url>
   <url>
     <loc>https://prioritizr.net/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://prioritizr.net/articles/package_overview.html</loc>
   </url>
   <url>
     <loc>https://prioritizr.net/articles/prioritizr.html</loc>

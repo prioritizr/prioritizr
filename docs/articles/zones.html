@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Management Zones • prioritizr</title>
+<title>Management zones • prioritizr</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -20,7 +20,7 @@
 <script src="../pkgdown.js"></script><!-- docsearch --><script src="../docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
 <link href="../docsearch.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><link href="../extra.css" rel="stylesheet">
-<meta property="og:title" content="Management Zones">
+<meta property="og:title" content="Management zones">
 <meta property="og:description" content="prioritizr">
 <meta property="og:image" content="https://prioritizr.net/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -69,22 +69,25 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/gurobi_installation.html">Gurobi Installation Guide</a>
+      <a href="../articles/package_overview.html">Package overview</a>
     </li>
     <li>
-      <a href="../articles/publication_record.html">Publication Record</a>
+      <a href="../articles/gurobi_installation.html">Gurobi installation guide</a>
     </li>
     <li>
-      <a href="../articles/saltspring.html">Salt Spring Island Tutorial</a>
+      <a href="../articles/calibrating_trade-offs.html">Calibrating trade-offs</a>
     </li>
     <li>
-      <a href="../articles/solver_benchmark.html">Solver Benchmarks</a>
+      <a href="../articles/solver_benchmark.html">Solver benchmarks</a>
     </li>
     <li>
-      <a href="../articles/tasmania.html">Tasmania Tutorial</a>
+      <a href="../articles/saltspring.html">Salt Spring Island tutorial</a>
     </li>
     <li>
-      <a href="../articles/zones.html">Management Zones</a>
+      <a href="../articles/zones.html">Management zones</a>
+    </li>
+    <li>
+      <a href="../articles/publication_record.html">Publication record</a>
     </li>
   </ul>
 </li>
@@ -118,7 +121,7 @@
       </header><script src="zones_files/header-attrs-2.11/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Management Zones</h1>
+      <h1 data-toc-skip>Management zones</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/prioritizr/prioritizr/blob/master/vignettes/zones.Rmd" class="external-link"><code>vignettes/zones.Rmd</code></a></small>
@@ -713,7 +716,7 @@
 <span class="va">z6</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">1</span>
 <span class="va">z6</span><span class="op">[</span><span class="fl">2</span>, <span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">1</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">z6</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"few.traps"</span>, <span class="st">"many.traps"</span>, <span class="st">"baiting"</span><span class="op">)</span>
-<span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">z6</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">z6</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">z6</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">z6</span><span class="op">)</span>
 
 <span class="co"># print matrix</span>
 <span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">z6</span><span class="op">)</span></code></pre></div>
@@ -762,7 +765,7 @@
 ##   RHS range        [1e+00, 8e+00]
 ## Found heuristic solution: objective 20096.000000
 ## Presolve removed 1028 rows and 232 columns
-## Presolve time: 0.01s
+## Presolve time: 0.02s
 ## Presolved: 877 rows, 968 columns, 2712 nonzeros
 ## Variable types: 0 continuous, 968 integer (968 binary)
 ## Found heuristic solution: objective 19632.000000
@@ -846,8 +849,8 @@
 ##   objective:      Minimum set objective 
 ##   targets:        Absolute targets [targets (min: 8, max: 8)]
 ##   decisions:      Binary decision 
-##   constraints:    &lt;Mandatory allocation constraints [apply constraints? (1)]
-##                    Manually locked planning units [80 locked units]&gt;
+##   constraints:    &lt;Manually locked planning units [80 locked units]
+##                    Mandatory allocation constraints [apply constraints? (1)]&gt;
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 0.5, max: 0.5), penalty (640), zones]&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>

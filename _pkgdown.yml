@@ -26,6 +26,19 @@ template:
     docsearch:
       api_key: 486efa122ea6783724263412c5f28ab3
       index_name: prioritizr
+
+articles:
+- title: Articles
+  navbar: ~
+  contents:
+  - package_overview
+  - gurobi_installation
+  - calibrating_trade-offs
+  - solver_benchmark
+  - saltspring
+  - zones
+  - publication_record
+
 reference:
   - title: Overview
     desc: Overview of the package
