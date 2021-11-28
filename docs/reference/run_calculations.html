@@ -130,22 +130,25 @@ means that the same calculations will not be run multiple times." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/gurobi_installation.html">Gurobi Installation Guide</a>
+      <a href="../articles/package_overview.html">Package overview</a>
     </li>
     <li>
-      <a href="../articles/publication_record.html">Publication Record</a>
+      <a href="../articles/gurobi_installation.html">Gurobi installation guide</a>
     </li>
     <li>
-      <a href="../articles/saltspring.html">Salt Spring Island Tutorial</a>
+      <a href="../articles/calibrating_trade-offs.html">Calibrating trade-offs</a>
     </li>
     <li>
-      <a href="../articles/solver_benchmark.html">Solver Benchmarks</a>
+      <a href="../articles/solver_benchmark.html">Solver benchmarks</a>
     </li>
     <li>
-      <a href="../articles/tasmania.html">Tasmania Tutorial</a>
+      <a href="../articles/saltspring.html">Salt Spring Island tutorial</a>
     </li>
     <li>
-      <a href="../articles/zones.html">Management Zones</a>
+      <a href="../articles/zones.html">Management zones</a>
+    </li>
+    <li>
+      <a href="../articles/publication_record.html">Publication record</a>
     </li>
   </ul>
 </li>
@@ -261,10 +264,10 @@ anything. To use this function with <code><a href='pipe.html'>pipe()</a></code> 
 <span class='r-in'><span class='co'># now lets compare the times</span></span>
 <span class='r-in'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>s1</span><span class='op'>)</span> <span class='co'># time spent without running preliminary calculations</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>    user  system elapsed </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   1.216   0.016   1.295 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1.188   0.014   1.295 </span>
 <span class='r-in'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>s2</span><span class='op'>)</span> <span class='co'># time spent after running preliminary calculations</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>    user  system elapsed </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>   1.134   0.024   1.200 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1.135   0.008   1.185 </span>
 <span class='r-in'></span>
 <span class='r-in'><span class='co'># As we can see, we can save time by running the preliminary</span></span>
 <span class='r-in'><span class='co'># calculations before making copies of the problem with slightly</span></span>

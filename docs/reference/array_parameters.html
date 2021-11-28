@@ -127,22 +127,25 @@ to create a parameter with conflicting settings then an error will be thrown." /
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/gurobi_installation.html">Gurobi Installation Guide</a>
+      <a href="../articles/package_overview.html">Package overview</a>
     </li>
     <li>
-      <a href="../articles/publication_record.html">Publication Record</a>
+      <a href="../articles/gurobi_installation.html">Gurobi installation guide</a>
     </li>
     <li>
-      <a href="../articles/saltspring.html">Salt Spring Island Tutorial</a>
+      <a href="../articles/calibrating_trade-offs.html">Calibrating trade-offs</a>
     </li>
     <li>
-      <a href="../articles/solver_benchmark.html">Solver Benchmarks</a>
+      <a href="../articles/solver_benchmark.html">Solver benchmarks</a>
     </li>
     <li>
-      <a href="../articles/tasmania.html">Tasmania Tutorial</a>
+      <a href="../articles/saltspring.html">Salt Spring Island tutorial</a>
     </li>
     <li>
-      <a href="../articles/zones.html">Management Zones</a>
+      <a href="../articles/zones.html">Management zones</a>
+    </li>
+    <li>
+      <a href="../articles/publication_record.html">Publication record</a>
     </li>
   </ul>
 </li>
@@ -271,7 +274,7 @@ description of each.</p><dl>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> b   0.2</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> c   0.3</span>
 <span class='r-in'><span class='va'>p1</span><span class='op'>$</span><span class='va'>id</span> <span class='co'># get id</span></span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> id: 79916be9-839c-4864-be8d-bc16e9226395</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> id: b37ca11d-b359-43c6-af48-bdb805cd52f5</span>
 <span class='r-in'><span class='va'>invalid</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>value <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, row.names<span class='op'>=</span><span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span> <span class='co'># invalid values</span></span>
 <span class='r-in'><span class='va'>p1</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='va'>invalid</span><span class='op'>)</span> <span class='co'># check invalid input is invalid</span></span>
 <span class='r-in'><span class='va'>valid</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>value <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.4</span>, <span class='fl'>0.5</span>, <span class='fl'>0.6</span><span class='op'>)</span>, row.names<span class='op'>=</span><span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span> <span class='co'># valid</span></span>
@@ -290,7 +293,7 @@ description of each.</p><dl>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> b     1</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> c     0</span>
 <span class='r-in'><span class='va'>p2</span><span class='op'>$</span><span class='va'>id</span> <span class='co'># get id</span></span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> id: 955a2518-aa58-46c9-8dd0-ca5054f436e3</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> id: d9ddc10b-bfc1-42da-a6c5-27aaf1faf84f</span>
 <span class='r-in'><span class='va'>invalid</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>value <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, row.names<span class='op'>=</span><span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span> <span class='co'># invalid values</span></span>
 <span class='r-in'><span class='va'>p2</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='va'>invalid</span><span class='op'>)</span> <span class='co'># check invalid input is invalid</span></span>
 <span class='r-in'><span class='va'>valid</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>value <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0L</span>, <span class='fl'>0L</span>, <span class='fl'>0L</span><span class='op'>)</span>, row.names<span class='op'>=</span><span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span> <span class='co'># valid</span></span>
@@ -309,7 +312,7 @@ description of each.</p><dl>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> b     2</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> c     3</span>
 <span class='r-in'><span class='va'>p3</span><span class='op'>$</span><span class='va'>id</span> <span class='co'># get id</span></span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> id: db018677-fca9-46df-b1fd-33a3d023bc9e</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> id: cc3dc2e2-7904-4a14-bcef-ffe95b6326f6</span>
 <span class='r-in'><span class='va'>invalid</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>value <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>3</span><span class='op'>)</span>, row.names<span class='op'>=</span><span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span> <span class='co'># invalid</span></span>
 <span class='r-in'><span class='va'>p3</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='va'>invalid</span><span class='op'>)</span> <span class='co'># check invalid input is invalid</span></span>
 <span class='r-in'><span class='va'>valid</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>value <span class='op'>=</span> <span class='fl'>5</span><span class='op'>:</span><span class='fl'>7</span>, row.names<span class='op'>=</span><span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span> <span class='co'># valid</span></span>
@@ -328,7 +331,7 @@ description of each.</p><dl>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> b   4.0</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> c  -5.0</span>
 <span class='r-in'><span class='va'>p4</span><span class='op'>$</span><span class='va'>id</span> <span class='co'># get id</span></span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> id: d199e63a-36cf-47d9-8a05-b254f498e7d0</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> id: 45357f26-6d16-4360-8b04-8d07c03e934b</span>
 <span class='r-in'><span class='va'>invalid</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>value <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>NA</span>, <span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span>, row.names<span class='op'>=</span><span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span> <span class='co'># invalid</span></span>
 <span class='r-in'><span class='va'>p4</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='va'>invalid</span><span class='op'>)</span> <span class='co'># check invalid input is invalid</span></span>
 <span class='r-in'><span class='va'>valid</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>value <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span><span class='op'>)</span>, row.names<span class='op'>=</span><span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span> <span class='co'># valid</span></span>
@@ -348,7 +351,7 @@ description of each.</p><dl>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> b   4.0</span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span> c  -5.0</span>
 <span class='r-in'><span class='va'>p5</span><span class='op'>$</span><span class='va'>id</span><span class='co'># get id</span></span>
-<span class='r-msg co'><span class='r-pr'>#&gt;</span> id: d2529a02-5134-4b9c-bc60-c29c27cf4f3f</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> id: ee950c93-eae1-40c9-b41c-252be274bd08</span>
 <span class='r-in'><span class='va'>invalid</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>value <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>5</span>, <span class='fl'>5</span><span class='op'>)</span>, row.names<span class='op'>=</span><span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span> <span class='co'># invalid</span></span>
 <span class='r-in'><span class='va'>p5</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='va'>invalid</span><span class='op'>)</span> <span class='co'># check invalid input is invalid</span></span>
 <span class='r-in'><span class='va'>valid</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>value <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span>, row.names<span class='op'>=</span><span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span> <span class='co'># valid</span></span>
