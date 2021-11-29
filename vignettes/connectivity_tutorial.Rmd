@@ -187,19 +187,19 @@ There is also an even more complex version of the contiguity constraints that is
 
 ### Linear constraints
 
-Linear constraints can be used to specify that the prioritizations must meet an arbitrary set of criteria. As such, they can be used to ensure that prioritizations provide adequate coverage of planning units that have facilitate a high level of connectivity. Recall that the `salt_con` data are used to describe connectivity across the study area. Since higher values denote planning units with greater connectivity, we could use linear constraints to ensure that the total sum of connectivity values -- based on this dataset -- meets a particular threshold (e.g. cover at least 20% of the total amount). This would effectively be treating connectivity as an additional feature [similar to @r52].
+Linear constraints can be used to specify that the prioritizations must meet an arbitrary set of criteria. As such, they can be used to ensure that prioritizations provide adequate coverage of planning units that have facilitate a high level of connectivity. Recall that the `salt_con` data are used to describe connectivity across the study area. Since higher values denote planning units with greater connectivity, we could use linear constraints to ensure that the total sum of connectivity values -- based on this dataset -- meets a particular threshold (e.g. cover at least 10% of the total amount). This would effectively be treating connectivity as an additional feature [similar to @r52].
 
 ```{r, results = "hide"}
 # compute threshold for constraints
-## here we use a threshold of 20% of the total connectivity values
-threshold <- cellStats(salt_con, "sum") * 0.2
+## here we use a threshold of 10% of the total connectivity values
+threshold <- cellStats(salt_con, "sum") * 0.1
 
 # print threshold
 print(threshold)
 
 # create problem with added linear constraints and solve it
 s3 <- p0 %>%
-      add_contiguity_constraints(
+      add_linear_constraints(
         data = salt_con, threshold = threshold, sense = ">="
       ) %>%
       solve()
@@ -217,8 +217,8 @@ Although using continuous values has the advantage that the prioritization proce
 
 ```{r, results = "hide"}
 # calculate threshold limit
-## here we set a threshold limit based on the median value
-threshold_limit <- quantile(threshold, probs = 0.5)
+## here we set a threshold limit based on the median
+threshold_limit <- quantile(salt_con, probs = 0.5)
 
 # convert continuous values to binary values
 salt_con_binary <- round(salt_con <= threshold_limit)
@@ -228,10 +228,10 @@ plot(salt_con_binary)
 
 # create problem with added linear constraints and solve it
 ## note that we use the original threshold computed before,
-## to ensure the prioritization covers at least 20% of the total amount
+## to ensure the prioritization covers at least 10% of the total amount
 ## connectivity values
 s3 <- p0 %>%
-      add_contiguity_constraints(
+      add_linear_constraints(
         data = salt_con_binary, threshold = threshold, sense = ">="
       ) %>%
       solve()
@@ -257,10 +257,10 @@ plot(salt_con_clamp)
 
 # create problem with added linear constraints and solve it
 ## note that we use the original threshold computed before,
-## to ensure the prioritization covers at least 20% of the total amount
+## to ensure the prioritization covers at least 10% of the total amount
 ## connectivity values
 s4 <- p0 %>%
-      add_contiguity_constraints(
+      add_linear_constraints(
         data = salt_con_clamp, threshold = threshold, sense = ">="
       ) %>%
       solve()
@@ -279,7 +279,7 @@ If we were concerned that the prioritization did not facilitate a high enough le
 
 ```{r, results = "hide"}
 # compute threshold limit
-threshold_limit2 <- quantile(threshold, probs = 0.7)
+threshold_limit2 <- quantile(salt_con, probs = 0.7)
 
 # clamp continuous values using the threshold limit we computed before
 salt_con_clamp2 <- salt_con
@@ -290,10 +290,10 @@ plot(salt_con_clamp2)
 
 # create problem with added linear constraints and solve it
 ## note that we use the original threshold computed before,
-## to ensure the prioritization covers at least 20% of the total amount
+## to ensure the prioritization covers at least 10% of the total amount
 ## connectivity values
 s5 <- p0 %>%
-      add_contiguity_constraints(
+      add_linear_constraints(
         data = salt_con_clamp2, threshold = threshold, sense = ">="
       ) %>%
       solve()
@@ -319,10 +319,10 @@ Boundary penalties can be added to used to reduce the spatial fragmentation of p
 
 ```{r}
 # precompute the boundary data
-salt_bd <- boundary_matrix(salt_pu)
+salt_boundary_data <- boundary_matrix(salt_pu)
 
 # rescale boundary data
-salt_bd@x <- rescale(salt_bd@x, to = c(0.01, 100))
+salt_boundary_data@x <- rescale(salt_boundary_data@x, to = c(0.01, 100))
 ```
 
 Next, let's generate a prioritization using boundary penalties. To specify the relative importance reducing spatial fragmentation -- compared with the primary objective of a problem (e.g. minimizing cost) -- we need to a value for the `penalty` parameter is used. Setting a higher value for `penalty` indicates that it is more important to avoid highly fragmented solutions. Let's generate a prioritization with a `penalty` value of 0.001.
@@ -330,7 +330,7 @@ Next, let's generate a prioritization using boundary penalties. To specify the r
 ```{r}
 # create problem with added boundary penalties
 s6 <- p0 %>%
-      add_boundary_penalties(penalty = 0.001, data = salt_bd) %>%
+      add_boundary_penalties(penalty = 0.001, data = salt_boundary_data) %>%
       solve()
 
 # plot solutions
@@ -347,7 +347,7 @@ We can see that the resulting prioritization is still relatively fragmented, so 
 ```{r}
 # create problem with increased boundary penalties
 s7 <- p0 %>%
-      add_boundary_penalties(penalty = 0.05, data = salt_bd) %>%
+      add_boundary_penalties(penalty = 0.05, data = salt_boundary_data) %>%
       solve()
 
 # plot solutions
@@ -376,16 +376,16 @@ We can see that the cost of the prioritizations increase with when we use higher
 
 ### Connectivity penalties
 
-Connectivity penalties can be used to promote connectivity in prioritizations based on connectivity values (using the `add_connectivity_penalties()` function). These penalties use data (hereafter, connectivity scores) to parametrize the strength of connectivity between each pair of planning units [@r38]. Thus pairs of planning units associated with higher scores are associated with greater connectivity. For example, previous studies have used habitat quality, environmental similarity, river flow data to parametrize connectivity scores [e.g. @r59; @r63; @r43].
+Connectivity penalties can be used to promote connectivity in prioritizations (using the `add_connectivity_penalties()` function). These penalties use  connectivity scores to parametrize the strength of connectivity between pairs of planning units [@r38]. Thus higher scores denote a greater level of connectivity between different planning units. For example, previous studies have parametrized connectivity scores using data on habitat quality, environmental conditions, river flows [e.g. @r59; @r63; @r43]. Although there are many approaches to calculate connectivity scores, one approach involves using conductance data -- data that describe how much each planning unit facilitates movement (opposite of landscape resistance data) -- and calculating scores for each pair of planning units by averaging their conductance values (implemented using the `connectivity_matrix()` function).
 
-Let's compute connectivity scores using the `salt_con` object. To achieve this, we can use `connectivity_matrix()` function to convert connectivity values for each planning unit into pair-wise connectivity scores. **Note that the data used to compute the connectivity scores must conform to the same spatial properties as the planning unit data (e.g., resolution, spatial extent, coordinate reference system).** Also, although we are using raster data here, these scores can also be computed for vector data too (e.g., `sf::st_sf()` objects). Similar to the boundary data, we will also rescale the connectivity scores to avoid numerical issues during optimization.
+Let's compute connectivity scores by treating the `salt_con` object as conductance data. This means that we assume that neighboring planning units with higher values in the  `salt_con` object are capable of facilitating a greater amount of connectivity. **Note that the data used to compute connectivity scores must conform to the same spatial properties as the planning unit data (e.g., resolution, spatial extent, coordinate reference system).** Also, although we are using raster data here, these scores can also be computed for vector data too (e.g., `sf::st_sf()` objects). Similar to the boundary data, we will also rescale the connectivity scores to avoid numerical issues during optimization.
 
 ```{r}
 # compute connectivity scores
-salt_cd <- connectivity_matrix(salt_con)
+salt_con_scores <- connectivity_matrix(salt_pu, salt_con)
 
 # rescale scores
-salt_cd@x <- rescale(salt_cd@x, to = c(0.01, 100))
+salt_con_scores@x <- rescale(salt_con_scores@x, to = c(0.01, 100))
 ```
 
 After computing the connectivity scores, we can use them to generate prioritization using connectivity penalties. Similar to the boundary penalties, we use the `penalty` parameter to specify the relative importance of promoting connectivity relative to the primary objective of a problem (i.e., minimizing overall cost). Let's generate a prioritization with a `penalty` value of 0.001.
@@ -393,7 +393,7 @@ After computing the connectivity scores, we can use them to generate prioritizat
 ```{r}
 # create problem with added connectivity penalties
 s6 <- p0 %>%
-      add_connectivity_penalties(penalty = 0.001, data = salt_cd) %>%
+      add_connectivity_penalties(penalty = 0.001, data = salt_con_scores) %>%
       solve()
 
 # plot solutions
@@ -410,7 +410,7 @@ Now let's try generating another prioritization with a higher `penalty` value.
 ```{r}
 # create problem with increased connectivity penalties
 s7 <- p0 %>%
-      add_connectivity_penalties(penalty = 0.05, data = salt_cd) %>%
+      add_connectivity_penalties(penalty = 0.05, data = salt_con_scores) %>%
       solve()
 
 # plot solutions
