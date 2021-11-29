@@ -1,0 +1,438 @@
+---
+title: "Connectivity tutorial"
+output:
+  rmarkdown::html_vignette:
+    toc: true
+    fig_caption: true
+    self_contained: yes
+fontsize: 11pt
+documentclass: article
+bibliography: references.bib
+csl: reference-style.csl
+vignette: >
+  %\VignetteIndexEntry{Connectivity tutorial}
+  %\VignetteEngine{knitr::rmarkdown_notangle}
+---
+
+```{r, include = FALSE}
+h <- 3.5
+w <- 3.5
+is_check <- ("CheckExEnv" %in% search()) || any(c("_R_CHECK_TIMINGS_",
+             "_R_CHECK_LICENSE_") %in% names(Sys.getenv()))
+knitr::opts_chunk$set(fig.align = "center", eval = !is_check)
+```
+
+## Introduction
+
+Connectivity is a key consideration in systematic conservation planning [@4; @r55]. This is because isolated and fragmented populations are often more vulnerable to extinction [@r60; @r61; @r62]. To promote connectivity in prioritizations, a range of different methods are available [reviewed in @r56]. These methods typically involve using penalties to penalize solutions during the optimization process to produce prioritizations with desirable characteristic [e.g., low spatial fragmentation; @r38; @r41; @r42]. They can also involve adding constraints to ensure that prioritizations exhibit specific characteristics [e.g., selected planning units that form a contiguous reserve; @r16; @r57]. These methods can also leverage connectivity data to generate prioritizations that promote functional connectivity [e.g., @r43; @r58; @r59].
+
+This aim of this tutorial is to show how connectivity can be incorporated into prioritizations using the _prioritizr R_ package. Here we will explore various approaches for incorporating connectivity, and see how they alter the spatial configuration of prioritizations. As you will discover, many of these approaches involve setting threshold or penalty values to indicate the relative importance of connectivity compared to other criteria (e.g., overall cost). Although this tutorial does not cover methods for calibrating such thresholds or penalty values, the [_Calibrating trade-offs tutorial_](calibrating_trade-offs-tutorial.html) showcases various approaches for completing calibration analyses.
+
+## Data
+
+The dataset used in this tutorial was created for the Coastal Douglas-fir Conservation Partnership [CDFCP; @r29]. Although the original dataset covers a much larger area; for brevity, here we focus only on Salt Spring Island, British Columbia. Salt Spring Island is central to the region and supports a diverse and globally unique mix of dry forest and savanna habitats. Today, these habitats are critically threatened due to land conversion, invasive species, and altered disturbance regimes. Known broadly as the Georgia Depression-Puget Lowlands, this region includes threatened Coastal Douglas-fir forest and Oak-Savannah habitats, also referred to as Garry oak ecosystems. For more information on the data, please refer to the [Marxan tool portal](https://arcese.forestry.ubc.ca/marxan-tool/) and the [tool tutorial](https://peter-arcese-lab.sites.olt.ubc.ca/files/2016/09/CDFCP_tutorial_2017_05.pdf).
+
+<center>
+
+![Extent of Coastal Douglas-fir Conservation Partnership Tool area and location of Salt Spring Island](figures/map.jpg)
+
+</center>
+
+Let's begin by loading the packages and the data for this tutorial. Since this tutorial requires the _prioritizrdata R_ package, please ensure that it is installed. Specifically, the dataset contains two objects. The `salt_pu` object specifies the planning unit data as a raster layer (i.e., `RasterLayer` object), and the `salt_features` object contians biodiversity data as a multi-band raster stack (i.e., a `RasterStack` object).
+
+```{r, message = FALSE}
+# load packages
+library(prioritizrdata)
+library(prioritizr)
+
+# load planning unit data
+data(salt_pu)
+
+# load ecological data
+data(salt_features)
+```
+
+Now we will conduct some preliminary processing to reduce the time required to generate prioritizations in this tutorial. Although computational burden is an important to consider when deciding the scale to run a prioritization analysis, we generally recommend considering other criteria too (e.g. scale of decision making, resolution of underlying datasets). Specifically, we will aggregate from the 100 m resolution to the 300 m resolution.
+
+```{r}
+# aggregate data to coarser resolution
+salt_pu <- aggregate(salt_pu, fact = 3)
+salt_features <- aggregate(salt_features, fact = 3)
+```
+
+Next, let's have a look at the `salt_pu` object. Here each one hectare pixel represents a planning unit and values denote acquisition costs [@r28]. To aid with visualization, we will log-transform the raster values.
+
+```{r, fig.width = w, fig.height = h}
+# print planning unit data
+print(salt_pu)
+
+# plot histogram of the planning unit costs
+hist(values(salt_pu), main = "Histogram of costs", xlab = "Cost values")
+```
+
+```{r, fig.width = w, fig.height = h}
+# plot map showing the planning units costs on a log-scale
+plot(log(salt_pu), main = "Planning unit costs (log)")
+```
+
+Let's also look at the `salt_features` object. This object is a stack of raster layers, with each layer corresponding to a different variable that describes a particular aspect of biodiversity. The first four layers correspond to different ecological communities (i.e., _Old Forest_, _Savannah_, _Wetland_, and _Shrub_ communities), and their cell values indicate the probability of encountering a bird species associated the particular community. The fifth layer describes the inverse probability of occurrence of human commensal species. In this tutorial, we will use the first four layers as biodiversity features, and the fifth layer to help parameterize connectivity (wherein higher values denote greater connectivity). So, let's extract the data and visualize them.
+
+```{r, fig.width = 4.5, fig.height = 4.5}
+# print original data
+print(salt_features)
+
+# extract connectivity data
+salt_con <- salt_features[[nlayers(salt_features)]]
+
+# print connectivity data
+print(salt_con)
+
+# plot map showing the connectivity data
+plot(salt_con, main = "Connectivity data")
+```
+
+```{r, fig.width = 4.5, fig.height = 4.5}
+# extract ecological communities and use these as features
+salt_features <- salt_features[[seq(1, nlayers(salt_features) - 1)]]
+
+# print features
+print(salt_features)
+
+# plot map showing the distribution of the features
+plot(salt_features, main = names(salt_features))
+```
+
+## Formulating the baseline problem
+
+In this tutorial, we will explore a few different ways of incorporating connectivity into prioritizations. To enable comparisons among prioritizations based on different approaches, we will first create a baseline problem formulation that we will subsequently customize to incorporate connectivity. Specifically, we will formulate the baseline problem using the minimum set objective. We will use representation targets of 17% -- based on [Aichi Biodiversity Target 11](https://www.cbd.int/sp/targets/) -- to provide adequate coverage of each ecological community. Additionally, because land properties on Salt Spring Island can either be acquired in their entirety or not at all, we will use binary decision types. This means that planning units are either selected in the solution or not selected in the solution---planning units cannot be partially acquired. Given all these details, let's formulate the baseline problem.
+
+```{r}
+# create problem
+p0 <- problem(salt_pu, salt_features) %>%
+      add_min_set_objective() %>%
+      add_relative_targets(0.17) %>%
+      add_binary_decisions() %>%
+      add_default_solver()
+
+# print problem
+print(p0)
+```
+
+After formulating the baseline problem, we can solve it to generate a prioritization.
+
+```{r}
+# solve problem
+s0 <- solve(p0)
+
+# print solution
+print(s0)
+
+# calculate target coverage
+print(eval_target_coverage_summary(p0, s0), width = Inf)
+
+# plot solution
+plot(s0, breaks = c(0, 0.5, 1),  col = c("grey70", "darkgreen"))
+```
+
+Next, let's explore some options for incorporating connectivity.
+
+## Incorporating connectivity
+
+Numerous approaches have been developed to incorporate connectivity into prioritizations [@r52; @r56]. Some of these approaches aim to promote connectivity by focusing on solely the spatial arrangement of planning units selected by prioritizations (i.e., enhancing structural connectivity). Other approaches aim to promote connectivity by considering characteristics of the planning units -- such as how much planning units are used by particular taxa, or environmental conditions inside planning units -- and optimizing the spatial arrangement of selected planning units based on these characteristics. Regardless of the precise approach used to promote connectivity, all approaches involve adding penalties or constraints to a conservation planning `problem()`.
+
+### Adding constraints
+
+Let's explore approaches for promoting connectivity in prioritizations by adding constraints to the baseline problem formulation.
+
+### Neighbor constraints
+
+Neighbor constraints can be added to ensure that each selected planning unit has a certain number of neighbors surrounding it (using the `add_neighbor_constraints()` function) [based on @r16]. The `k` parameter can be used to specify the required number of neighbors for each selected planning unit. Let's generate a prioritization by specifying that each planning unit requires at least two neighbors.
+
+```{r, results = "hide"}
+# create problem with added neighbor constraints and solve it
+s1 <- p0 %>%
+      add_neighbor_constraints(k = 2) %>%
+      solve()
+
+# plot solutions
+plot(
+  stack(s0, s1),
+  main = c("baseline", "2 neighbors"),
+  breaks = c(0, 0.5, 1),
+  col = c("grey70", "darkgreen")
+)
+```
+
+### Contiguity constraints
+
+Contiguity constraints can be added to ensure that all planning units form a single contiguous reserve (using the `add_contiguity_constraints()` function) [similar to @r57]. These constraints are extremely complex. As such, they can only be applied to small conservation planning problems and the _Gurobi_ solver is required to solve them in a feasible period of time. Since it would take a long time to generate a near-optimal prioritization for this dataset with contiguity constraints, we will also tell the solver to simply return the first solution that it finds which meets the representation targets and the contiguity constraints.
+
+```{r, results = "hide"}
+# create problem with added contiguity constraints and solve it
+s2 <- p0 %>%
+      add_contiguity_constraints() %>%
+      add_gurobi_solver(first_feasible = TRUE) %>%
+      solve()
+
+# plot solutions
+plot(
+  stack(s0, s2),
+  main = c("baseline", "contiguity"),
+  breaks = c(0, 0.5, 1),
+  col = c("grey70", "darkgreen")
+)
+```
+
+There is also an even more complex version of the contiguity constraints that is available. These constraints -- termed feature contiguity constraints [similar to @r64] -- can be added to ensure that all of the selected planning units used to the reach representation targets within a prioritization form a contiguous network for each feature (using the `add_feature_contiguity_constraints()` function). In other words, they ensure that each feature can disperse through the prioritization to access a target threshold amount of habitat. However, these constraints are extraordinarily complex, only feasible for small problems, and require preprocessing routines to identify initial solutions. As such, we will not consider them in this tutorial.
+
+### Linear constraints
+
+Linear constraints can be used to specify that the prioritizations must meet an arbitrary set of criteria. As such, they can be used to ensure that prioritizations provide adequate coverage of planning units that have facilitate a high level of connectivity. Recall that the `salt_con` data are used to describe connectivity across the study area. Since higher values denote planning units with greater connectivity, we could use linear constraints to ensure that the total sum of connectivity values -- based on this dataset -- meets a particular threshold (e.g. cover at least 20% of the total amount). This would effectively be treating connectivity as an additional feature [similar to @r52].
+
+```{r, results = "hide"}
+# compute threshold for constraints
+## here we use a threshold of 20% of the total connectivity values
+threshold <- cellStats(salt_con, "sum") * 0.2
+
+# print threshold
+print(threshold)
+
+# create problem with added linear constraints and solve it
+s3 <- p0 %>%
+      add_contiguity_constraints(
+        data = salt_con, threshold = threshold, sense = ">="
+      ) %>%
+      solve()
+
+# plot solutions
+plot(
+  stack(s0, s2),
+  main = c("baseline", "linear constraints"),
+  breaks = c(0, 0.5, 1),
+  col = c("grey70", "darkgreen")
+)
+```
+
+Although using continuous values has the advantage that the prioritization process can explicitly account for differences in the relative amount of connectivity facilitated by different planning units, the disadvantage is that the prioritization could potentially focus on selecting lots of planning units with low connectivity values. To avoid this result, one strategy is to convert the continuous values into binary values using a threshold limit [similar to @r53]. By applying such a threshold limit, linear constraints can then be used to ensure that the prioritization selects a minimum amount of planning units with high connectivity values (i.e., those with connectivity values that are equal to or greater than the threshold limit).
+
+```{r, results = "hide"}
+# calculate threshold limit
+## here we set a threshold limit based on the median value
+threshold_limit <- quantile(threshold, probs = 0.5)
+
+# convert continuous values to binary values
+salt_con_binary <- round(salt_con <= threshold_limit)
+
+# plot binary values
+plot(salt_con_binary)
+
+# create problem with added linear constraints and solve it
+## note that we use the original threshold computed before,
+## to ensure the prioritization covers at least 20% of the total amount
+## connectivity values
+s3 <- p0 %>%
+      add_contiguity_constraints(
+        data = salt_con_binary, threshold = threshold, sense = ">="
+      ) %>%
+      solve()
+
+# plot solutions
+plot(
+  stack(s0, s2),
+  main = c("baseline", "linear constraints (binary)"),
+  breaks = c(0, 0.5, 1),
+  col = c("grey70", "darkgreen")
+)
+```
+
+Another strategy is to clamp the continuous values below a threshold limit are assigned a value of zero [similar to @r54]. This strategy has the advantage that (i) the prioritization won't focus on selecting lots of planning units with low connectivity values to meet the constraint threshold, and (ii) the optimization process can use semi-continuous values to distinguish between places that can facilitate a moderate amount and a high amount of connectivity.
+
+```{r, results = "hide"}
+# clamp continuous values using the threshold limit we computed before
+salt_con_clamp <- salt_con
+salt_con_clamp[Which(salt_con <= threshold_limit)] <- 0
+
+# plot clamped values
+plot(salt_con_clamp)
+
+# create problem with added linear constraints and solve it
+## note that we use the original threshold computed before,
+## to ensure the prioritization covers at least 20% of the total amount
+## connectivity values
+s4 <- p0 %>%
+      add_contiguity_constraints(
+        data = salt_con_clamp, threshold = threshold, sense = ">="
+      ) %>%
+      solve()
+
+# plot solutions
+plot(
+  stack(s0, s4),
+  main = c("baseline", "linear constraints (clamped)"),
+  breaks = c(0, 0.5, 1),
+  col = c("grey70", "darkgreen")
+)
+```
+
+If we were concerned that the prioritization did not facilitate a high enough level of connectivity, we could increase the `threshold` value or the `threshold_limit` value. For example, let's increase the `threshold_limit` value used to clamp the continuous connectivity values.
+
+
+```{r, results = "hide"}
+# compute threshold limit
+threshold_limit2 <- quantile(threshold, probs = 0.7)
+
+# clamp continuous values using the threshold limit we computed before
+salt_con_clamp2 <- salt_con
+salt_con_clamp2[Which(salt_con <= threshold_limit2)] <- 0
+
+# plot clamped values
+plot(salt_con_clamp2)
+
+# create problem with added linear constraints and solve it
+## note that we use the original threshold computed before,
+## to ensure the prioritization covers at least 20% of the total amount
+## connectivity values
+s5 <- p0 %>%
+      add_contiguity_constraints(
+        data = salt_con_clamp2, threshold = threshold, sense = ">="
+      ) %>%
+      solve()
+
+# plot solutions
+plot(
+  stack(s0, s5),
+  main = c("baseline", "linear constraints (clamped)"),
+  breaks = c(0, 0.5, 1),
+  col = c("grey70", "darkgreen")
+)
+```
+
+Despite the advantages of clamping the connectivity values, we can see that the prioritization has a relatively high level of spatial fragmentation. In fact, all prioritizations generated using the linear constraints can potentially have this issue. This is because linear constraints do not explicitly account for the spatial arrangement of the planning units. As such, we recommend combining the linear constraints approach with another approach [e.g., the boundary penalties approach discussed below; @r53].
+
+## Adding penalties
+
+Now let's explore approaches for promoting connectivity in prioritizations by adding penalties to the baseline problem formulation.
+
+### Boundary penalties
+
+Boundary penalties can be added to used to reduce the spatial fragmentation of prioritizations (using the `add_boundary_penalties()` function). Specifically, these penalties update the problem formulation to penalize solutions that have a high total amount of exposed boundary length [@r3]. Since boundary data often have large values which can degrade solver performance and result in excessive run times (see the [_Calibrating trade-offs tutorial_](calibrating_trade-offs-tutorial.html) for details), we will first precompute rescale the boundry data.
+
+```{r}
+# precompute the boundary data
+salt_bd <- boundary_matrix(salt_pu)
+
+# rescale boundary data
+salt_bd@x <- rescale(salt_bd@x, to = c(0.01, 100))
+```
+
+Next, let's generate a prioritization using boundary penalties. To specify the relative importance reducing spatial fragmentation -- compared with the primary objective of a problem (e.g. minimizing cost) -- we need to a value for the `penalty` parameter is used. Setting a higher value for `penalty` indicates that it is more important to avoid highly fragmented solutions. Let's generate a prioritization with a `penalty` value of 0.001.
+
+```{r}
+# create problem with added boundary penalties
+s6 <- p0 %>%
+      add_boundary_penalties(penalty = 0.001, data = salt_bd) %>%
+      solve()
+
+# plot solutions
+plot(
+  stack(s0, s6),
+  main = c("baseline", "boundary penalties (0.001)"),
+  breaks = c(0, 0.5, 1),
+  col = c("grey70", "darkgreen")
+)
+```
+
+We can see that the resulting prioritization is still relatively fragmented, so let's try generating another prioritization with a higher `penalty` value.
+
+```{r}
+# create problem with increased boundary penalties
+s7 <- p0 %>%
+      add_boundary_penalties(penalty = 0.05, data = salt_bd) %>%
+      solve()
+
+# plot solutions
+plot(
+  stack(s0, s6),
+  main = c("baseline", "boundary penalties (0.05)"),
+  breaks = c(0, 0.5, 1),
+  col = c("grey70", "darkgreen")
+)
+```
+
+Although the prioritization is now much less fragmented, it has also selected a much greater number of planning units. Let's calculate the cost of the prioritizations to see how they vary in overall cost.
+
+```{r}
+# calculate cost of baseline prioritization
+eval_cost_summary(p0, s0)
+
+# calculate cost of prioritization with low boundary penalties (i.e., 0.001)
+eval_cost_summary(p0, s6)
+
+# calculate cost of prioritization high low boundary penalties (i.e., 0.05)
+eval_cost_summary(p0, s7)
+```
+
+We can see that the cost of the prioritizations increase with when we use higher `penalty` values. This is because there is a trade-off between the cost of a prioritization and the level of spatial fragmentation. Although it can be challenging to find the best balance, there are qualitative and quantitative methods available to help navigate such trade-offs. Please see the [_Calibrating trade-offs tutorial_](calibrating_trade-offs-tutorial.html) for a details on these methods.
+
+### Connectivity penalties
+
+Connectivity penalties can be used to promote connectivity in prioritizations based on connectivity values (using the `add_connectivity_penalties()` function). These penalties use data (hereafter, connectivity scores) to parametrize the strength of connectivity between each pair of planning units [@r38]. Thus pairs of planning units associated with higher scores are associated with greater connectivity. For example, previous studies have used habitat quality, environmental similarity, river flow data to parametrize connectivity scores [e.g. @r59; @r63; @r43].
+
+Let's compute connectivity scores using the `salt_con` object. To achieve this, we can use `connectivity_matrix()` function to convert connectivity values for each planning unit into pair-wise connectivity scores. **Note that the data used to compute the connectivity scores must conform to the same spatial properties as the planning unit data (e.g., resolution, spatial extent, coordinate reference system).** Also, although we are using raster data here, these scores can also be computed for vector data too (e.g., `sf::st_sf()` objects). Similar to the boundary data, we will also rescale the connectivity scores to avoid numerical issues during optimization.
+
+```{r}
+# compute connectivity scores
+salt_cd <- connectivity_matrix(salt_con)
+
+# rescale scores
+salt_cd@x <- rescale(salt_cd@x, to = c(0.01, 100))
+```
+
+After computing the connectivity scores, we can use them to generate prioritization using connectivity penalties. Similar to the boundary penalties, we use the `penalty` parameter to specify the relative importance of promoting connectivity relative to the primary objective of a problem (i.e., minimizing overall cost). Let's generate a prioritization with a `penalty` value of 0.001.
+
+```{r}
+# create problem with added connectivity penalties
+s6 <- p0 %>%
+      add_connectivity_penalties(penalty = 0.001, data = salt_cd) %>%
+      solve()
+
+# plot solutions
+plot(
+  stack(s0, s6),
+  main = c("baseline", "connectivity penalties (0.001)"),
+  breaks = c(0, 0.5, 1),
+  col = c("grey70", "darkgreen")
+)
+```
+
+Now let's try generating another prioritization with a higher `penalty` value.
+
+```{r}
+# create problem with increased connectivity penalties
+s7 <- p0 %>%
+      add_connectivity_penalties(penalty = 0.05, data = salt_cd) %>%
+      solve()
+
+# plot solutions
+plot(
+  stack(s0, s6),
+  main = c("baseline", "connectivity penalties (0.05)"),
+  breaks = c(0, 0.5, 1),
+  col = c("grey70", "darkgreen")
+)
+```
+
+To help visualize the difference between these prioritizations, let's plot the connectivity values associated with each planning unit.
+
+```{r}
+# plot connectivity data
+plot(salt_con)
+```
+
+We can see that increasing the `penalty` parameter causes the prioritizations to select planning units in regions with greater connectivity values (i.e., per the `salt_con` object). As discussed with the boundary penalties, increasing the `penalty` value also increases the total cost of the prioritization too (i.e., because the primary objective is to minimize overall costs). For details on calibrating these trade-offs please see the [_Calibrating trade-offs tutorial_](calibrating_trade-offs-tutorial.html). **Note that you will need to the use `eval_connectivity_summary()` function -- instead of the `eval_boundary_summary()` function -- when adapting the code in the tutorial for connectivity penalties.**
+
+## Conclusion
+
+Hopefully, this tutorial has provided a helpful introduction for incorporating connectivity into prioritizations. Broadly speaking, we recommend using the boundary penalties or the connectivity penalties to ensure that prioritizations explicitly account for the spatial arrangement of selected planning units. Additionally, though not fully explored here, the connectivity penalties are a very approach for promoting connectivity. For instance, in addition to parameterizing pair-wise connectivity scores for neighboring planning units, they can also be used to parametrize pair-wise connectivity scores between more distant planning units. Thus connectivity penalties could be used to parametrize connectivity at fine-scales and across larger spatial scales (e.g., using a scaling procedure wherein connectivity scores between pairs of planning units decline with the distance between them).
+
+## References

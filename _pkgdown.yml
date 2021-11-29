@@ -33,11 +33,16 @@ articles:
   contents:
   - package_overview
   - gurobi_installation
-  - calibrating_trade-offs
   - solver_benchmark
-  - saltspring
-  - zones
   - publication_record
+
+articles:
+- title: Tutorials
+  navbar: ~
+  contents:
+  - connectivity_tutorial
+  - calibrating_trade-offs_tutorial
+  - zones_tutorial
 
 reference:
   - title: Overview

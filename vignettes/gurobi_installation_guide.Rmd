@@ -1,5 +1,5 @@
 ---
-title: "Gurobi installation guide"
+title: "*Gurobi* installation guide"
 author: "Richard Schuster"
 date: "`r Sys.Date()`"
 output:
@@ -28,7 +28,7 @@ devtools::load_all()
 
 ## Introduction
 
-_Gurobi_ is the most powerful and fastest solver that the _prioritizr R_ package can use to solve conservation planning problems. This vignette will walk you through the process of setting up _Gurobi_ on your computer so that you can use it to solve conservation planning problems. If you encounter any problems while following the instructions below, check out the [official _Gurobi_ documentation](https://www.gurobi.com/documentation/).
+_Gurobi_ is the most powerful and fastest solver that the _prioritizr R_ package can use to solve conservation planning problems (see the [_Solver benchmarks_](solver_benchmarks.html) vignette for further details). This guide will walk you through the process of setting up _Gurobi_ on your computer so that it can be used to solve conservation planning problems. If you encounter any problems while following the instructions below, please refer to the [official _Gurobi_ documentation](https://www.gurobi.com/documentation/).
 
 ## Obtaining a license
 
@@ -48,7 +48,7 @@ After obtaining a license, you will need to download the _Gurobi_ installer to y
 
 ## Software installation
 
-The process for installing the _Gurobi_ software depends on the operating system on your computer. Fortunately, _Gurobi_ provide platform-specific ["Quick Start Guides"](https://www.gurobi.com/documentation/) for [Windows](https://www.gurobi.com/documentation/9.0/quickstart_windows/software_installation_guid.html#section:Installation), [MacOS](https://www.gurobi.com/documentation/9.0/quickstart_mac/software_installation_guid.html), and [Linux](https://www.gurobi.com/documentation/9.0/quickstart_linux/software_installation_guid.html) systems that should help with this. Briefly, on Windows systems, you just need to double-click on the _Gurobi_ installer, follow the prompts, and the installer will automatically handle everything for you. On Linux and MacOS systems, you will need to manually extract the downloaded file's contents to a folder, move the extracted contents to a suitable location (typically _/opt/gurobi_), and update your system's variables so that it knows where to find _Gurobi_ (i.e. the `PATH` variable).
+The process for installing the _Gurobi_ software depends on the operating system on your computer. Fortunately, _Gurobi_ provide platform-specific ["Quick Start Guides"](https://www.gurobi.com/documentation/) for [Windows](https://www.gurobi.com/documentation/9.0/quickstart_windows/software_installation_guid.html#section:Installation), [MacOS](https://www.gurobi.com/documentation/9.0/quickstart_mac/software_installation_guid.html), and [Linux](https://www.gurobi.com/documentation/9.0/quickstart_linux/software_installation_guid.html) systems that should help with this. Briefly, on Windows systems, you just need to double-click on the _Gurobi_ installer, follow the prompts, and the installer will automatically handle everything for you. On Linux and MacOS systems, you will need to manually extract the downloaded file's contents to a folder, move the extracted contents to a suitable location (typically _/opt/gurobi_), and update your system's variables so that it knows where to find _Gurobi_ (i.e., the `PATH` variable).
 
 Additionally, if you are using [_RStudio_](https://www.rstudio.com/products/rstudio/) on a Linux system, you might need to add the following text to a Rstudio configuration file (located at `/etc/rstudio/rserver.conf`).
 
@@ -64,7 +64,7 @@ Now we will activate the _Gurobi_ software using the license you obtained earlie
 
 <br><center>![](figures/cmd-windows-success.png){ width=75% }</center><br>
 
-Next, we will now check that the license has been successfully activated. To achieve this, we will try running _Gurobi_ directly from the command line. Note that the following commands assume you are using version 8.0.0 of _Gurobi_, and so you will need to modify the command if you are using a more recent version (e.g. if using version 9.1.2, then use `gurobi912` instead of `gurobi800` below).
+Next, we will now check that the license has been successfully activated. To achieve this, we will try running _Gurobi_ directly from the command line. Note that the following commands assume you are using version 8.0.0 of _Gurobi_, and so you will need to modify the command if you are using a more recent version (e.g., if using version 9.1.2, then use `gurobi912` instead of `gurobi800` below).
 
 On Windows systems, users can type in the following system command to check their license activation.
 
@@ -86,7 +86,7 @@ After activating the license, you now need to install the _gurobi R_ package. Th
 
 ## _R_ package installation
 
-Now we will install the _gurobi R_ package. This package is not available on the Comprehensive R Archive Network and is instead distributed with the _Gurobi_ software suite. Specifically, the _gurobi_ _R_ package should be located within the folder where you installed the _Gurobi_ software suite. We will install the _gurobi_ _R_ package by running the following _R_ code within your _R_ session. Note that the following code assumes that you are using version 8.0.0 of _Gurobi_, and so you will need to modify the code if you are using a more recent version (e.g. if using version 9.1.2, then use `gurobi912` instead of `gurobi800` below).
+Now we will install the _gurobi R_ package. This package is not available on the Comprehensive R Archive Network and is instead distributed with the _Gurobi_ software suite. Specifically, the _gurobi_ _R_ package should be located within the folder where you installed the _Gurobi_ software suite. We will install the _gurobi_ _R_ package by running the following _R_ code within your _R_ session. Note that the following code assumes that you are using version 8.0.0 of _Gurobi_, and so you will need to modify the code if you are using a more recent version (e.g., if using version 9.1.2, then use `gurobi912` instead of `gurobi800` below).
 
 Assuming you installed _Gurobi_ in the default location, Windows users can install _gurobi_ _R_ package using the following code.
 
@@ -102,7 +102,7 @@ install.packages(file.path(Sys.getenv("GUROBI_HOME"),
                  repos = NULL)
 ```
 
-Next, you will need to install the _slam R_ package because the _gurobi_ _R_ package needs this package to work. Users of all platforms (i.e. Windows, Linux, and MacOS) can install the package using the following _R_ code.
+Next, you will need to install the _slam R_ package because the _gurobi_ _R_ package needs this package to work. Users of all platforms (i.e., Windows, Linux, and MacOS) can install the package using the following _R_ code.
 
 ```{r, eval  = FALSE}
 install.packages("slam", repos = "https://cloud.r-project.org")
@@ -136,7 +136,7 @@ If you see the outputs for `result$objval` and `result$x` and you don't see any 
 
 ## Solving a _prioritzr_ problem with _Gurobi_
 
-If you successfully installed the _Gurobi_ software suite and the _gurobi_ _R_ package, you can now try solving conservation planning problems using the _prioritzr_ _R_ package. Although the _prioritizr_ _R_ package should automatically detect that _Gurobi_ has been installed, you can use the function `add_gurobi_solver` to manually specify that _Gurobi_ should be used to solve problems. This function is also useful because you can use it to customize the optimization process (e.g. specify the desired optimality gap or set a limit on how much time should be spent searching for a solution).
+If you successfully installed the _Gurobi_ software suite and the _gurobi_ _R_ package, you can now try solving conservation planning problems using the _prioritzr_ _R_ package. Although the _prioritizr_ _R_ package should automatically detect that _Gurobi_ has been installed, you can use the function `add_gurobi_solver()` to manually specify that _Gurobi_ should be used to solve problems. This function is also useful because you can use it to customize the optimization process (e.g., specify the desired optimality gap or set a limit on how much time should be spent searching for a solution).
 
 Finally, to check that everything has been installed correctly, we will use the _Gurobi_ software suite to solve a reserve selection problem created using the _prioritzr_ _R_ package.
 

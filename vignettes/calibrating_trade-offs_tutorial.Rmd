@@ -1,5 +1,5 @@
 ---
-title: "Calibrating trade-offs"
+title: "Calibrating trade-offs tutorial"
 output:
   rmarkdown::html_vignette:
     toc: true
@@ -10,7 +10,7 @@ documentclass: article
 bibliography: references.bib
 csl: reference-style.csl
 vignette: >
-  %\VignetteIndexEntry{Calibrating trade-offs}
+  %\VignetteIndexEntry{Calibrating trade-offs tutorial}
   %\VignetteEngine{knitr::rmarkdown_notangle}
 ---
 
@@ -31,11 +31,11 @@ knitr::opts_chunk$set(fig.align = "center", eval = !is_check)
 
 ## Introduction
 
-Systematic conservation planning requires making trade-offs [@r4; @r36]. Since different criteria may conflict with one another -- or not align perfectly -- prioritizations need to make trade-offs between different criteria [@r37]. Although some criteria can easily be accounted for by using locked constraints or representation targets [e.g. @r40; @r39], this is not always the case [e.g. @r38]. For example, prioritizations often need to balance overall cost with the overall level spatial fragmentation among reserves [@r41; @r42]. Additionally, prioritizations often need to balance the overall level of connectivity among reserves against other criteria [@r43]. Since the best trade-off depends on a range of factors -- such as available budgets, species' connectivity requirements, and management capacity -- finding the best balance can be challenging.
+Systematic conservation planning requires making trade-offs [@r4; @r36]. Since different criteria may conflict with one another -- or not align perfectly -- prioritizations need to make trade-offs between different criteria [@r37]. Although some criteria can easily be accounted for by using locked constraints or representation targets [e.g., @r40; @r39], this is not always the case [e.g., @r38]. For example, prioritizations often need to balance overall cost with the overall level spatial fragmentation among reserves [@r41; @r42]. Additionally, prioritizations often need to balance the overall level of connectivity among reserves against other criteria [@r43]. Since the best trade-off depends on a range of factors -- such as available budgets, species' connectivity requirements, and management capacity -- finding the best balance can be challenging.
 
-The _prioritizr R_ package provides multi-objective optimization methods to help identify the best trade-offs between different criteria. To achieve this, a conservation planning problem can be formulated with a primary objective (e.g. `add_min_set_objective()`) and penalties (e.g. `add_boundary_penalties()`) that relate to such criteria. When building the problem, the nature of the trade-offs can be specified using certain parameters (e.g. the `penalty` parameter of the `add_boundary_penalties()` function). To identify a prioritization that finds the best balance between different criteria, the trade-off parameters can be tuned using a calibration analysis. These analyses -- in the context of systematic conservation planning -- typically involve generating a set of candidate prioritizations based on different parameters, measuring their performance according to each of the criteria, and then selecting a prioritization (or set of prioritizations) based on how well they achieve the criteria [@r41; @r42; @r43]. For example, the _Marxan_ decision support tool has a range of parameters (e.g. species penalty factors, boundary length modifier) that are calibrated to balance cost, species' representation, and spatial fragmentation [@r45].
+The _prioritizr R_ package provides multi-objective optimization methods to help identify the best trade-offs between different criteria. To achieve this, a conservation planning problem can be formulated with a primary objective (e.g., `add_min_set_objective()`) and penalties (e.g., `add_boundary_penalties()`) that relate to such criteria. When building the problem, the nature of the trade-offs can be specified using certain parameters (e.g., the `penalty` parameter of the `add_boundary_penalties()` function). To identify a prioritization that finds the best balance between different criteria, the trade-off parameters can be tuned using a calibration analysis. These analyses -- in the context of systematic conservation planning -- typically involve generating a set of candidate prioritizations based on different parameters, measuring their performance according to each of the criteria, and then selecting a prioritization (or set of prioritizations) based on how well they achieve the criteria [@r41; @r42; @r43]. For example, the _Marxan_ decision support tool has a range of parameters (e.g., species penalty factors, boundary length modifier) that are calibrated to balance cost, species' representation, and spatial fragmentation [@r45].
 
-The aim of this tutorial is to provide guidance on calibrating trade-offs when using using the _prioritizr R_ package. Here we will explore a couple of different approaches for generating candidate prioritizations, and methods for finding the best balance between different criteria. Specifically, we will try to generate prioritizations that strike the best balance between total cost and spatial fragmentation (measured as total boundary length). As such, the code used in this vignette will be directly applicable when performing a boundary length calibration analysis.
+The aim of this tutorial is to provide guidance on calibrating trade-offs when using the _prioritizr R_ package. Here we will explore a couple of different approaches for generating candidate prioritizations, and methods for finding the best balance between different criteria. Specifically, we will try to generate prioritizations that strike the best balance between total cost and spatial fragmentation (measured as total boundary length). As such, the code used in this vignette will be directly applicable when performing a boundary length calibration analysis.
 
 ## Data
 
@@ -68,7 +68,7 @@ print(tas_pu)
 print(tas_features)
 ```
 
-The `tas_pu` object contains planning units represented as spatial polygons (i.e. converted to a `sf::st_sf()` object). This object has three columns that denote the following information for each planning unit: a unique identifier (`id`), unimproved land value (`cost`), and current conservation status (`locked_in`). Specifically, the conservation status column indicates if at least half the area planning unit is covered by existing protected areas (denoted by a value of 1) or not (denoted by a value of zero).
+The `tas_pu` object contains planning units represented as spatial polygons (i.e., converted to a `sf::st_sf()` object). This object has three columns that denote the following information for each planning unit: a unique identifier (`id`), unimproved land value (`cost`), and current conservation status (`locked_in`). Specifically, the conservation status column indicates if at least half the area planning unit is covered by existing protected areas (denoted by a value of 1) or not (denoted by a value of zero).
 
 ```{r, fig.width = w, fig.height = h}
 # plot map of planning unit costs
@@ -85,7 +85,7 @@ The `tas_features` object describes the spatial distribution of different vegeta
 plot(tas_features[[1:4]], main = paste("Feature", 1:4))
 ```
 
-We can use this dataset to generate a prioritization. Specifically, we will use the minimum set objective so that the optimization process minimizes total cost. We will add representation targets to ensure that prioritizations cover 17% of each vegetation community. Additionally, we will add constraints to ensure that planning units covered by existing protected areas are selected (i.e. locked in). Finally, we will specify that the conservation planning exercise involves binary decisions (i.e. selecting or not selecting planning units for protected area establishment).
+We can use this dataset to generate a prioritization. Specifically, we will use the minimum set objective so that the optimization process minimizes total cost. We will add representation targets to ensure that prioritizations cover 17% of each vegetation community. Additionally, we will add constraints to ensure that planning units covered by existing protected areas are selected (i.e., locked in). Finally, we will specify that the conservation planning exercise involves binary decisions (i.e., selecting or not selecting planning units for protected area establishment).
 
 ```{r, fig.width = w, fig.height = h, results = "hide"}
 # define a problem
@@ -154,11 +154,11 @@ Here we will start the calibration analysis by generating a set of candidate pri
 
 ### Blended approach
 
-The blended approach for multi-objective optimization involves combining separate criteria (e.g. total cost and total boundary length) into a single joint criterion. To achieve this, a trade-off (or scaling) parameter is used to specify the relative importance of each criterion. This approach is the default approach provided by the _prioritizr R_ package. Specifically, each of the functions for adding a penalty to a problem formulation (e.g. `add_boundary_penalties()`) contains a parameter to control the relative importance of the penalties (i.e. the `penalty` parameter). For example, when using the `add_boundary_penalties()` function, setting a high `penalty` value will indicate that it is important to reduce the overall exposed boundary (perimeter) of the prioritization.
+The blended approach for multi-objective optimization involves combining separate criteria (e.g., total cost and total boundary length) into a single joint criterion. To achieve this, a trade-off (or scaling) parameter is used to specify the relative importance of each criterion. This approach is the default approach provided by the _prioritizr R_ package. Specifically, each of the functions for adding a penalty to a problem formulation (e.g., `add_boundary_penalties()`) contains a parameter to control the relative importance of the penalties (i.e., the `penalty` parameter). For example, when using the `add_boundary_penalties()` function, setting a high `penalty` value will indicate that it is important to reduce the overall exposed boundary (perimeter) of the prioritization.
 
-The main challenge with the blended approach is identifying a range of suitable `penalty` values to generate candidate prioritizations. If we set a `penalty` value that is too low, then the penalties will have no effect (e.g. boundary length penalties would have no effect on the prioritization). If we set a `penalty` value too high, then the prioritization will effectively ignore the primary objective. In such cases, the prioritization will be overly spatially clustered -- because the planning unit cost values have no effect --- and contain a single reserve. Thus we need to find a suitable range of `penalty` values before we can generate a set of candidate prioritizations.
+The main challenge with the blended approach is identifying a range of suitable `penalty` values to generate candidate prioritizations. If we set a `penalty` value that is too low, then the penalties will have no effect (e.g., boundary length penalties would have no effect on the prioritization). If we set a `penalty` value too high, then the prioritization will effectively ignore the primary objective. In such cases, the prioritization will be overly spatially clustered -- because the planning unit cost values have no effect --- and contain a single reserve. Thus we need to find a suitable range of `penalty` values before we can generate a set of candidate prioritizations.
 
-We can find a suitable range of `penalty` values by generating a set of preliminary prioritizations. These preliminary prioritizations will be based on different `penalty` values -- similar to the process for generating the candidate prioritizations -- but solved using customized settings that sacrifice optimality for fast run times (see below for details). This is especially important because specifying a `penalty` value that is too high will cause the optimization process to take a very long time to generate a solutions (due to the numerical scaling issues mentioned previously). To find a suitable range of `penalty` values, we need to identify an upper limit for the `penalty` value (i.e. the highest `penalty` value that result in a prioritization containing a single reserve). Let's create some preliminary `penalty` to identify this upper limit. **Please note that you might need to adjust the `prelim_upper` value to find the upper limit when analyzing different datasets.**
+We can find a suitable range of `penalty` values by generating a set of preliminary prioritizations. These preliminary prioritizations will be based on different `penalty` values -- similar to the process for generating the candidate prioritizations -- but solved using customized settings that sacrifice optimality for fast run times (see below for details). This is especially important because specifying a `penalty` value that is too high will cause the optimization process to take a very long time to generate a solutions (due to the numerical scaling issues mentioned previously). To find a suitable range of `penalty` values, we need to identify an upper limit for the `penalty` value (i.e., the highest `penalty` value that result in a prioritization containing a single reserve). Let's create some preliminary `penalty` to identify this upper limit. **Please note that you might need to adjust the `prelim_upper` value to find the upper limit when analyzing different datasets.**
 
 ```{r}
 # define a range of different penalty values
@@ -171,7 +171,7 @@ prelim_penalty <- round(10^seq(prelim_lower, prelim_upper, length.out = 9), 5)
 print(prelim_penalty)
 ```
 
-Next, let's use the preliminary `penalty` values to generate preliminary prioritizations. As mentioned earlier, we will generate these preliminary prioritizations using customized settings to reduce runtime. Specifically, we will set a time limit of 10 minutes per run, and relax the optimality gap to 20%. Although we would not normally use such settings -- because the resulting prioritizations are not guaranteed to be near-optimal (the default gap is 10%) -- this is fine because our goal here is to tune the preliminary `penalty` values. Indeed, none of these preliminary prioritizations will be considered as candidate prioritizations. **Please note that you might need to set a higher time limit, or relax the optimality  gap even further (e.g. 40%) when analyzing larger datasets.**
+Next, let's use the preliminary `penalty` values to generate preliminary prioritizations. As mentioned earlier, we will generate these preliminary prioritizations using customized settings to reduce runtime. Specifically, we will set a time limit of 10 minutes per run, and relax the optimality gap to 20%. Although we would not normally use such settings -- because the resulting prioritizations are not guaranteed to be near-optimal (the default gap is 10%) -- this is fine because our goal here is to tune the preliminary `penalty` values. Indeed, none of these preliminary prioritizations will be considered as candidate prioritizations. **Please note that you might need to set a higher time limit, or relax the optimality  gap even further (e.g., 40%) when analyzing larger datasets.**
 
 ```{r, results = "hide"}
 # define a problem without boundary penalties
@@ -222,7 +222,7 @@ plot(
 )
 ```
 
-We can see that as the `penalty` value used to generate the prioritizations increases, the spatial fragmentation of the prioritizations decreases. In particular, we can see that a `penalty` value of `r prelim_penalty[8]` results in a single reserve -- meaning this is our best guess of the upper limit. Using this `penalty` value as an upper limit, we will now generate a second series of prioritizations that will be the candidate prioritizations. Critically, these candidate prioritizations will not be generated using with time limit and be generated using a more suitable gap (i.e. default gap of 10%).
+We can see that as the `penalty` value used to generate the prioritizations increases, the spatial fragmentation of the prioritizations decreases. In particular, we can see that a `penalty` value of `r prelim_penalty[8]` results in a single reserve -- meaning this is our best guess of the upper limit. Using this `penalty` value as an upper limit, we will now generate a second series of prioritizations that will be the candidate prioritizations. Critically, these candidate prioritizations will not be generated using with time limit and be generated using a more suitable gap (i.e., default gap of 10%).
 
 ```{r, fig.width = 7, fig.height = 5.0, results = "hide"}
 # define a new set of penalty values
@@ -261,7 +261,7 @@ plot(
 )
 ```
 
-We now have a set of candidate prioritizations generated using the blended approach. The main advantages of this approach is that it is similar calibration analyses used by other decision support tools for conservation (i.e. _Marxan_) and it is relatively straightforward to implement. However, this approach also has a key disadvantage. Because the `penalty` parameter is a unitless trade-off parameter -- meaning that we can't leverage existing knowledge to specify a suitable range of `penalty` values -- we first have to conduct a preliminary analysis to identify an upper limit. Although finding an upper limit was fairly simple for the example datset, it can be difficult to find for more realistic data. In the next section, we will show how to generate a set of candidate prioritzations using the hierachical approach -- which does not have this disadvantage.
+We now have a set of candidate prioritizations generated using the blended approach. The main advantages of this approach is that it is similar calibration analyses used by other decision support tools for conservation (i.e., _Marxan_) and it is relatively straightforward to implement. However, this approach also has a key disadvantage. Because the `penalty` parameter is a unitless trade-off parameter -- meaning that we can't leverage existing knowledge to specify a suitable range of `penalty` values -- we first have to conduct a preliminary analysis to identify an upper limit. Although finding an upper limit was fairly simple for the example datset, it can be difficult to find for more realistic data. In the next section, we will show how to generate a set of candidate prioritzations using the hierachical approach -- which does not have this disadvantage.
 
 ### Hierarchical approach
 
@@ -316,7 +316,7 @@ threshold <- ceiling(threshold)
 print(threshold)
 ```
 
-After generating the cost thresholds, we can use them to generate prioritizations. Specifically, we will generate prioritizations that aim to minimize total boundary length as much as possible -- ignoring the total cost of the prioritizations -- whilst ensuring that the total cost of the prioritization does not exceed a given cost threshold and the other considerations (e.g. locked in constraints). To achieve this, we create a new column in the `tas_pu` object that contains only zero values (called `zeros`) and use this new column to specify the cost data for the prioritizations.
+After generating the cost thresholds, we can use them to generate prioritizations. Specifically, we will generate prioritizations that aim to minimize total boundary length as much as possible -- ignoring the total cost of the prioritizations -- whilst ensuring that the total cost of the prioritization does not exceed a given cost threshold and the other considerations (e.g., locked in constraints). To achieve this, we create a new column in the `tas_pu` object that contains only zero values (called `zeros`) and use this new column to specify the cost data for the prioritizations.
 **Although we normally recommend against cost data that contain zero values -- because planning units with zero costs are often selected in prioritizations even if they are not needed -- here we use zero cost values so that the prioritization will focus exclusively on spatial fragmentation.** Additionally, when it comes to generating the prioritization, we will add linear constraints to ensure that the total cost of the prioritization does not exceed a given cost threshold (using the `add_linear_constraints()` function).
 
 ```{r, fig.width = 7, fig.height = 5.0, results = "hide"}
@@ -339,7 +339,7 @@ p2 <- problem(tas_pu, tas_features, cost_column = "zeros") %>%
 ## (the default gap) because the gap is not specified
 hierarchical_results <- lapply(threshold, function(x) {
   ## generate solution by adding a constraint based on the threshold and
-  ## using the "real" cost values (i.e. not zeros)
+  ## using the "real" cost values (i.e., not zeros)
   s <-
     p2 %>%
     add_linear_constraints(threshold = x, sense = "<=", data = "cost") %>%
@@ -425,7 +425,7 @@ Next, let's examine some different methods for selecting prioritizations.
 
 ### Visual method
 
-One qualitative method involves plotting the relationship between the different criteria, and using the plot to visually select a candidate prioritization. This visual method is often used to help calibrate trade-offs among prioritizations generated using the _Marxan_ decision support tool [e.g. @r41; @r42]. So, let's create a plot to select a prioritization.
+One qualitative method involves plotting the relationship between the different criteria, and using the plot to visually select a candidate prioritization. This visual method is often used to help calibrate trade-offs among prioritizations generated using the _Marxan_ decision support tool [e.g., @r41; @r42]. So, let's create a plot to select a prioritization.
 
 ```{r, fig.width = 7, fig.height = 5.0}
 # create plot to visualize trade-offs and show selected candidate prioritization
@@ -506,7 +506,7 @@ s3 <- solve(p3)
 
 # generate ideal prioritization based on spatial fragmentation criteria
 ## note that any non-zero penalty value would here,
-## so we just use a penalty  of 1 because
+## so we just use a penalty  of 1
 p4 <- problem(tas_pu, tas_features, cost_column = "zeros") %>%
       add_min_set_objective() %>%
       add_boundary_penalties(penalty = 1, data = tas_bd) %>%
@@ -670,6 +670,6 @@ How do we determine which one is best? This is difficult to say. Ideally, additi
 
 ## Conclusion
 
-Hopefully, this vignette has provided a useful introduction for resolving trade-offs in prioritizations. Although we only explored trade-offs between total cost and spatial fragmentation in this tutorial, this analysis could be adapted to explore trade-offs between a wide range of different criteria. For instance, instead of considering total cost as the primary objective, future analyses could explore trade-offs with feature representation (using the `add_min_shortfall_objective()` function). Additionally, instead of spatial fragmentation, future analyses could explore trade-offs that directly relate to connectivity (using the `add_connectivity_penalties()` function) or specific variables of interest -- such as ecosystem intactness or inverse human footprint index [@r47; @r48] -- to inform decision making (using the `add_linear_penalties()` function). Furthermore, after identifying the best `penalty` or `threshold` values to strike a balance between multiple criteria, you could generate a portfolio of prioritizations (e.g. using the `add_gap_portfolio_function()`) to find multiple options for achieving a similar balance. This might be helpful when you need to generate a set of prioritizations that have comparable performance -- in terms of how well they achieve different criteria -- but select different planning units.
+Hopefully, this vignette has provided a useful introduction for resolving trade-offs in prioritizations. Although we only explored trade-offs between total cost and spatial fragmentation in this tutorial, this analysis could be adapted to explore trade-offs between a wide range of different criteria. For instance, instead of considering total cost as the primary objective, future analyses could explore trade-offs with feature representation (using the `add_min_shortfall_objective()` function). Additionally, instead of spatial fragmentation, future analyses could explore trade-offs that directly relate to connectivity (using the `add_connectivity_penalties()` function) or specific variables of interest -- such as ecosystem intactness or inverse human footprint index [@r47; @r48] -- to inform decision making (using the `add_linear_penalties()` function). Furthermore, after identifying the best `penalty` or `threshold` values to strike a balance between multiple criteria, you could generate a portfolio of prioritizations (e.g., using the `add_gap_portfolio_function()`) to find multiple options for achieving a similar balance. This might be helpful when you need to generate a set of prioritizations that have comparable performance -- in terms of how well they achieve different criteria -- but select different planning units.
 
 ## References

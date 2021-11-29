@@ -1,5 +1,5 @@
 ---
-title: "Management zones"
+title: "Management zones tutorial"
 output:
   rmarkdown::html_vignette:
     toc: true
@@ -10,7 +10,7 @@ documentclass: article
 bibliography: references.bib
 csl: reference-style.csl
 vignette: >
-  %\VignetteIndexEntry{Management zones}
+  %\VignetteIndexEntry{Management zones tutorial}
   %\VignetteEngine{knitr::rmarkdown_notangle}
 ---
 
@@ -23,16 +23,16 @@ knitr::opts_chunk$set(fig.align = "center", eval = !is_check,
 
 ## Introduction
 
-One of the main aims in conservation planning is to identify the most cost-effective set of areas to manage biodiversity [@r4]. To achieve this, prioritizations are generally created to identify areas for expanding protected area systems. However, many real-world conservation problems do not simply involve deciding if an area should be protected or not [e.g. @r5; @r18]. Instead, many real-world problems involve a range of different management categories and the goal is to determine which areas should be allocated to which management category. For example, a manager might have a range of different methods (e.g. baiting or trapping at various intensities) for controlling invasive pests in a set of different areas [e.g. @r25]. They would need a prioritization that shows which control methods should be implemented in which areas. In this particular case, a binary prioritization showing which areas contain the most biodiversity is simply not helpful. Furthermore, many real-world problems require decisions that meet multiple, and sometimes conflicting, objectives from different stakeholders. For example, a manager might need to implement a set of no-take and partial-take areas to prevent overfishing, but also ensure that there still remain plenty of areas for fishing activities [e.g. @r26; @r27]. Popularized by _Marxan with Zones_ [@r2], this concept has become known as "zones" and is becoming increasingly important in conservation planning.
+One of the main aims in conservation planning is to identify the most cost-effective set of areas to manage biodiversity [@r4]. To achieve this, prioritizations are generally created to identify areas for expanding protected area systems. However, many real-world conservation problems do not simply involve deciding if an area should be protected or not [e.g., @r5; @r18]. Instead, many real-world problems involve a range of different management categories and the goal is to determine which areas should be allocated to which management category. For example, a manager might have a range of different methods (e.g., baiting or trapping at various intensities) for controlling invasive pests in a set of different areas [e.g., @r25]. They would need a prioritization that shows which control methods should be implemented in which areas. In this particular case, a binary prioritization showing which areas contain the most biodiversity is simply not helpful. Furthermore, many real-world problems require decisions that meet multiple, and sometimes conflicting, objectives from different stakeholders. For example, a manager might need to implement a set of no-take and partial-take areas to prevent overfishing, but also ensure that there still remain plenty of areas for fishing activities [e.g., @r26; @r27]. Popularized by _Marxan with Zones_ [@r2], this concept has become known as "zones" and is becoming increasingly important in conservation planning.
 
-The aim of this vignette is to showcase the zones functionality of the _prioritizr R_ package. It will assume a certain level of familiarity with conservation planning terminology and the _prioritizr R_ package. We recommend reading the [_prioritizr_ vignette](prioritizr.html) first if you don't have much experience in either of these topics.
+The aim of this tutorial is to showcase the zones functionality of the _prioritizr R_ package. It will assume a certain level of familiarity with conservation planning terminology and the _prioritizr R_ package. If you don't have much experience in either of these topics, we recommend fist reading the [_Package overview_](package_overview.html) vignette.
 
 ## Usage
 
 
 ### Simple minimum set problem
 
-In the _prioritizr R_ package, all conservation planning problems---including those which contain multiple management zones or actions---are initialized using the `problem` function. To refresh our memory on how we can construct problems using the _prioritizr R_ package, let us quickly construct a simple conservation planning problem. This problem will use the simulated built-in planning unit and feature data distributed with the package. It will have a minimum set objective, targets which require that solution secure to 10 % of the habitat in the study area for each feature, and binary decision variables indicating that planning units are selected or not selected for protection.
+In the _prioritizr R_ package, all conservation planning problems -- including those which contain multiple management zones or actions -- are initialized using the `problem` function. To refresh our memory on how we can construct problems, let us quickly construct a simple conservation planning problem. This problem will use the simulated built-in planning unit and feature data distributed with the package. It will have a minimum set objective, targets which require that solution secure to 10 % of the habitat in the study area for each feature, and binary decision variables indicating that planning units are selected or not selected for protection.
 
 ```{r}
 # load prioritizr package
@@ -66,7 +66,7 @@ plot(s1, main = "solution", axes = FALSE, box = FALSE)
 
 ### Adding management zones
 
-Now let us imagine that instead of having a single management zone (e.g. protected area), we have two management zones. Similar to the example above, we require a solution that secures 10 % of the habitat in the study area for each feature in the first management zone. But we also require a solution that secures 5 % of the habitat in the study area for each feature in the second management zone. Each planning unit must be allocated to either zone or not selected for management at all. In this example, each planning unit costs the same when it is allocated to either of the two zones. We can formulate and solve this problem using the following code.
+Now let us imagine that instead of having a single management zone (e.g., protected area), we have two management zones. Similar to the example above, we require a solution that secures 10 % of the habitat in the study area for each feature in the first management zone. But we also require a solution that secures 5 % of the habitat in the study area for each feature in the second management zone. Each planning unit must be allocated to either zone or not selected for management at all. In this example, each planning unit costs the same when it is allocated to either of the two zones. We can formulate and solve this problem using the following code.
 
 ```{r}
 # create a matrix with the targets
@@ -125,7 +125,7 @@ plot(category_layer(s2), main = "solution", axes = FALSE, box = FALSE)
 
 ### Multiple zones with varying costs
 
-Real-world problems often have different costs for managing planning units under different zones. These problems also tend to have different expected amounts of each feature when planning units are managed differently. So let us consider a slightly more complex example. Similar to before we will have two management zones. But this time, the cost of managing each planning unit is different depending on which management zone it is assigned to in the solution. Furthermore, when we assign a planning unit to the second zone, we only expect to end up with half of the habitat we would get if we managed the unit in the first zone (e.g. because the second zone is a partial-take zone and the first zone is a no-take zone). We will use the same target data as in the previous example.
+Real-world problems often have different costs for managing planning units under different zones. These problems also tend to have different expected amounts of each feature when planning units are managed differently. So let us consider a slightly more complex example. Similar to before we will have two management zones. But this time, the cost of managing each planning unit is different depending on which management zone it is assigned to in the solution. Furthermore, when we assign a planning unit to the second zone, we only expect to end up with half of the habitat we would get if we managed the unit in the first zone (e.g., because the second zone is a partial-take zone and the first zone is a no-take zone). We will use the same target data as in the previous example.
 
 ```{r, fig.width = 4.0}
 # create new planning unit and cost data
@@ -159,7 +159,7 @@ plot(category_layer(s3), main = "solution", axes = FALSE, box = FALSE)
 
 ### Multiple zones with complex targets
 
-So far, we have dealt with problems where each feature has a target that pertains to a single zone. But sometimes we have targets that pertain to multiple zones. For example, what if we were in charge of managing pest control in a set of areas and we had three different pest control methods we could implement in any given planning unit. We could (1) set up a few traps in a given planning unit and make 10 % of the habitat in the unit pest-free, (2) set up a lot of traps and make 50 % of the habitat in the unit pest-free, or (3) drop baits over a given planning unit and make 80 % of the planning unit pest-free. Each of these different actions has a different cost, with a few low intensity trapping costing $100 per planning unit, a high intensity trapping costing $300, and baiting costing $200 (please note these costs aren't meant to be realistic). After defining our management actions and costs, we require a solution that will yield 8 units of pest free habitat per feature. It's important to note that unlike the previous examples, here we don't have targets for each feature in each zone, but rather our targets are for each feature and across multiple zones. In other words, we don't really care which management actions we implement, we just want the set of actions that will meet our targets for minimum expenditure. We can formulate and solve this problem using the following code.
+So far, we have dealt with problems where each feature has a target that pertains to a single zone. But sometimes we have targets that pertain to multiple zones. For example, what if we were in charge of managing pest control in a set of areas and we had three different pest control methods we could implement in any given planning unit. We could (i) set up a few traps in a given planning unit and make 10 % of the habitat in the unit pest-free, (ii) set up a lot of traps and make 50 % of the habitat in the unit pest-free, or (iii) drop baits over a given planning unit and make 80 % of the planning unit pest-free. Each of these different actions has a different cost, with a few low intensity trapping costing $100 per planning unit, a high intensity trapping costing $300, and baiting costing $200 (please note these costs aren't meant to be realistic). After defining our management actions and costs, we require a solution that will yield 8 units of pest free habitat per feature. It's important to note that unlike the previous examples, here we don't have targets for each feature in each zone, but rather our targets are for each feature and across multiple zones. In other words, we don't really care which management actions we implement, we just want the set of actions that will meet our targets for minimum expenditure. We can formulate and solve this problem using the following code.
 
 ```{r, fig.width = 4.5, fig.height = 3}
 # create planning unit data with costs
@@ -318,6 +318,6 @@ plot(category_layer(s7), main = "solution", axes = FALSE, box = FALSE)
 
 ## Conclusion
 
-Hopefully, this vignette has provided an informative introduction to building and solving problems with multiple zones using the _prioritizr R_ package. Although we have examined only a few different functions here, almost every single function for modifying conservation planning problems is compatible with problems that contain zones. It's worth noting that working with multiple zones is a lot trickier than working with a single zone, so we would recommend playing around with the code in the Examples sections of the help pages to get a feel for what different functions do when they are applied to problems with multiple zones.
+Hopefully, this vignette has provided an informative introduction to building and solving problems with multiple zones. Although we have examined only a few different functions here, almost every single function for modifying conservation planning problems is compatible with problems that contain zones. It's worth noting that working with multiple zones is a lot trickier than working with a single zone, so we would recommend playing around with the code in the _Examples_ sections of the package documentation to help understand how what functions work when they are applied to problems with multiple zones.
 
 ## References
