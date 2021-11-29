@@ -18,6 +18,9 @@ vignette: >
 # define dummy variables so that vignette passes package checks
 prelim_penalty <- rep(NA_real_, 100)
 threshold <- rep(NA_real_, 100)
+topsis_results <- data.frame(
+  alt.row = seq_len(3), score = runif(3), rank = seq_len(3)
+)
 ```
 
 ```{r, include = FALSE}
