@@ -249,7 +249,7 @@ s1 <- solve(p1)
     ##   StrongCG: 2
     ##   Flow cover: 1
     ## 
-    ## Explored 145469 nodes (243327 simplex iterations) in 3.57 seconds (2.59 work units)
+    ## Explored 145469 nodes (243327 simplex iterations) in 3.90 seconds (2.59 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 6: 2627.64 2747.38 2761.33 ... 3139.89
@@ -271,7 +271,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##      3.589
+    ##      3.945
 
 ``` r
 # extract state message from the solver
@@ -419,7 +419,7 @@ s2 <- solve(p2)
     ##   StrongCG: 1
     ##   Flow cover: 1
     ## 
-    ## Explored 10262 nodes (23307 simplex iterations) in 0.54 seconds (0.54 work units)
+    ## Explored 10262 nodes (23307 simplex iterations) in 0.60 seconds (0.54 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 5: 2838.26 2839.12 3021.28 ... 3027.7
@@ -499,7 +499,7 @@ s3 <- solve(p3)
     ##   GUB cover: 1
     ##   Zero half: 1
     ## 
-    ## Explored 1 nodes (221 simplex iterations) in 0.02 seconds (0.02 work units)
+    ## Explored 1 nodes (221 simplex iterations) in 0.03 seconds (0.02 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 7: 3939.6 3951.75 3960.65 ... 19567.2
@@ -643,22 +643,22 @@ following articles and tutorials.
     Introduction to systematic conservation planning and a comprehensive
     overview of the package.
 -   [**Connectivity
-    tutorial**](https://prioritizr.net/articles/connectivity.html):
+    tutorial**](https://prioritizr.net/articles/connectivity_tutorial.html):
     Tutorial on incorporating connectivity into prioritizations.
 -   [**Calibrating trade-offs
-    tutorial**](https://prioritizr.net/articles/calibrating_trade-ffs.html):
+    tutorial**](https://prioritizr.net/articles/calibrating_trade-offs_tutorial.html):
     Tutorial on running calibration analyses to satisfy multiple
     criteria (e.g., cost and spatial fragmentation).
 -   [**Management zones
-    tutorial**](https://prioritizr.net/articles/zones.html): Tutorial on
-    incorporating multiple management zones and actions into
+    tutorial**](https://prioritizr.net/articles/management_zones_tutorial.html):
+    Tutorial on incorporating multiple management zones and actions into
     prioritizations.
 -   [**Gurobi installation
     guide**](https://prioritizr.net/articles/gurobi_installation_guide.html):
     Instructions for installing the *Gurobi* optimization suite for
     generating prioritizations.
 -   [**Solver
-    benchmark**](https://prioritizr.net/articles/solver_benchmark.html):
+    benchmarks**](https://prioritizr.net/articles/solver_benchmarks.html):
     Performance comparison of optimization solvers for generating
     prioritizations.
 -   [**Publication

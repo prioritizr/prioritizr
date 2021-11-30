@@ -250,11 +250,11 @@ The [package website](https://prioritizr.net/index.html) contains information on
 
 * [**Getting started**](https://prioritizr.net/articles/getting_started.html): Short tutorial on using the package.
 * [**Package overview**](https://prioritizr.net/articles/package_overview.html): Introduction to systematic conservation planning and a comprehensive overview of the package.
-* [**Connectivity tutorial**](https://prioritizr.net/articles/connectivity.html): Tutorial on incorporating connectivity into prioritizations.
-* [**Calibrating trade-offs tutorial**](https://prioritizr.net/articles/calibrating_trade-ffs.html): Tutorial on running calibration analyses to satisfy multiple criteria (e.g., cost and spatial fragmentation).
-* [**Management zones tutorial**](https://prioritizr.net/articles/zones.html): Tutorial on incorporating multiple management zones and actions into prioritizations.
+* [**Connectivity tutorial**](https://prioritizr.net/articles/connectivity_tutorial.html): Tutorial on incorporating connectivity into prioritizations.
+* [**Calibrating trade-offs tutorial**](https://prioritizr.net/articles/calibrating_trade-offs_tutorial.html): Tutorial on running calibration analyses to satisfy multiple criteria (e.g., cost and spatial fragmentation).
+* [**Management zones tutorial**](https://prioritizr.net/articles/management_zones_tutorial.html): Tutorial on incorporating multiple management zones and actions into prioritizations.
 * [**Gurobi installation guide**](https://prioritizr.net/articles/gurobi_installation_guide.html): Instructions for installing the _Gurobi_ optimization suite for generating prioritizations.
-* [**Solver benchmark**](https://prioritizr.net/articles/solver_benchmark.html): Performance comparison of optimization solvers for generating prioritizations.
+* [**Solver benchmarks**](https://prioritizr.net/articles/solver_benchmarks.html): Performance comparison of optimization solvers for generating prioritizations.
 * [**Publication record**](https://prioritizr.net/articles/publication_record.html): List of publications that have cited the package.
 
 Additional resources can also be found in [online repositories under the _prioritizr_ organization](https://github.com/prioritizr). These resources include [slides for talks and seminars about the package](https://github.com/prioritizr/teaching). Additionally, workshop materials are available too (e.g., the [Massey University 2021 workshop](https://prioritizr.github.io/massey-workshop/) and the [PacMara 2019 workshop](https://prioritizr.github.io/PacMara_workshop/)).
