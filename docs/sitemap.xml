@@ -7,13 +7,19 @@
     <loc>https://prioritizr.net/CONTRIBUTING.html</loc>
   </url>
   <url>
-    <loc>https://prioritizr.net/articles/calibrating_trade-offs.html</loc>
+    <loc>https://prioritizr.net/articles/calibrating_trade-offs_tutorial.html</loc>
   </url>
   <url>
-    <loc>https://prioritizr.net/articles/gurobi_installation.html</loc>
+    <loc>https://prioritizr.net/articles/connectivity_tutorial.html</loc>
+  </url>
+  <url>
+    <loc>https://prioritizr.net/articles/gurobi_installation_guide.html</loc>
   </url>
   <url>
     <loc>https://prioritizr.net/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://prioritizr.net/articles/management_zones_tutorial.html</loc>
   </url>
   <url>
     <loc>https://prioritizr.net/articles/package_overview.html</loc>
@@ -25,13 +31,7 @@
     <loc>https://prioritizr.net/articles/publication_record.html</loc>
   </url>
   <url>
-    <loc>https://prioritizr.net/articles/saltspring.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/articles/solver_benchmark.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/articles/zones.html</loc>
+    <loc>https://prioritizr.net/articles/solver_benchmarks.html</loc>
   </url>
   <url>
     <loc>https://prioritizr.net/authors.html</loc>

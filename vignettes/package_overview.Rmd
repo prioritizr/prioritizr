@@ -51,7 +51,7 @@ Here, where $x$ is a vector of decision variables, $c$ and $b$ are vectors of kn
 
 ## A grammar for conservation planning
 
-The _prioritizr R_ package uses a grammar to describe elements of conservation planning. This means that functions are organized into verbs that relate to specific concepts. For example, the functions used to specify the primary objective for optimizations all end with the suffix `_objective` (e.g., `add_min_set_objective()` and `add_min_shortfall_objective()`). By combining multiple functions together, they can be used to formulate a complete conservation planning problem. Specifically, the verbs for formulating problems are used to:
+The _prioritizr R_ package uses a grammar to describe elements of conservation planning. This means that functions are organized into verbs that relate to specific concepts. For example, all of the functions used to specify the primary objective for optimization end with the `_objective` suffix (e.g., `add_min_set_objective()` and `add_min_shortfall_objective()`). By combining multiple functions together, they can be used to formulate a complete conservation planning problem. Specifically, the verbs for formulating problems are described below.
 
 * Create a new conservation planning [problem](https://prioritizr.net/reference/problem.html) by specifying the planning units, features, and management zones of conservation interest.
 * Add a primary [objective](https://prioritizr.net/reference/objectives.html) to a conservation planning problem (e.g., minimize overall cost).
@@ -62,7 +62,7 @@ The _prioritizr R_ package uses a grammar to describe elements of conservation p
 * Add a [portfolio](https://prioritizr.net/reference/portfolios.html) to a conservation planning problem to specify a methodological approach for generating multiple solutions (e.g. generate multiple solutions by finding 100 solutions within 10% of optimality).
 * Add a [solver](https://prioritizr.net/reference/solvers.html) to a conservation problem to specify the optimization software (e.g. Gurobi) for generating solutions and customize the optimization settings (e.g. generate an optimal solution).
 
-After building a conservation planning problem, it can be solved to generate a prioritization (using the `solve()` function). There are also verbs available for evaluating solutions:
+After building a conservation planning problem, it can be solved to generate a prioritization (using the `solve()` function). There are also verbs available to help evaluate and interpret solutions. These verbs are described below.
 
 * Evaluate performance by computing [summary statistics](https://prioritizr.net/reference/summaries.html) (e.g. overall cost, feature representation, or total boundary length).
 * Evaluate the relative [importance](https://prioritizr.net/reference/importance.html) of planning units selected by a solution (e.g. based on irreplaceability).

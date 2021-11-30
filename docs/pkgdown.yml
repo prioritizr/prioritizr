@@ -1,16 +1,16 @@
 pandoc: '2.13'
-pkgdown: 1.6.1.9001
-pkgdown_sha: 9ce6af43b55cd21e9563526e12a12d1243657bf6
+pkgdown: 1.9000.9000.9000
+pkgdown_sha: 38fca24beac66f50d8fa3f35d710b5cc358a8010
 articles:
-  calibrating_trade-offs: calibrating_trade-offs.html
-  gurobi_installation: gurobi_installation.html
+  calibrating_trade-offs_tutorial: calibrating_trade-offs_tutorial.html
+  connectivity_tutorial: connectivity_tutorial.html
+  gurobi_installation_guide: gurobi_installation_guide.html
+  management_zones_tutorial: management_zones_tutorial.html
   package_overview: package_overview.html
   prioritizr: prioritizr.html
   publication_record: publication_record.html
-  saltspring: saltspring.html
-  solver_benchmark: solver_benchmark.html
-  zones: zones.html
-last_built: 2021-11-28T03:01Z
+  solver_benchmarks: solver_benchmarks.html
+last_built: 2021-11-29T23:36Z
 urls:
   reference: https://prioritizr.net/reference
   article: https://prioritizr.net/articles

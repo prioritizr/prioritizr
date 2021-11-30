@@ -1,7 +1,7 @@
 
 <!--- README.md is generated from README.Rmd. Please edit that file -->
 
-# prioritizr: <img src="man/figures/logo.png" align="right" height="90px" />
+# prioritizr: <img src="man/figures/logo.png" align="right" style="height:90px!important;" />
 
 # Systematic Conservation Prioritization in R
 
@@ -249,7 +249,7 @@ s1 <- solve(p1)
     ##   StrongCG: 2
     ##   Flow cover: 1
     ## 
-    ## Explored 145469 nodes (243327 simplex iterations) in 3.68 seconds (2.59 work units)
+    ## Explored 145469 nodes (243327 simplex iterations) in 3.57 seconds (2.59 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 6: 2627.64 2747.38 2761.33 ... 3139.89
@@ -271,7 +271,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##      3.711
+    ##      3.589
 
 ``` r
 # extract state message from the solver
@@ -419,7 +419,7 @@ s2 <- solve(p2)
     ##   StrongCG: 1
     ##   Flow cover: 1
     ## 
-    ## Explored 10262 nodes (23307 simplex iterations) in 0.66 seconds (0.54 work units)
+    ## Explored 10262 nodes (23307 simplex iterations) in 0.54 seconds (0.54 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 5: 2838.26 2839.12 3021.28 ... 3027.7
@@ -499,7 +499,7 @@ s3 <- solve(p3)
     ##   GUB cover: 1
     ##   Zero half: 1
     ## 
-    ## Explored 1 nodes (221 simplex iterations) in 0.04 seconds (0.02 work units)
+    ## Explored 1 nodes (221 simplex iterations) in 0.02 seconds (0.02 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 7: 3939.6 3951.75 3960.65 ... 19567.2
@@ -633,7 +633,7 @@ information on the *prioritizr R* package. Here you can find
 dataset](https://prioritizr.net/reference/index.html), and [news
 describing the updates in each package
 version](https://prioritizr.net/news/index.html). It also contains the
-following articles:
+following articles and tutorials.
 
 -   [**Getting
     started**](https://prioritizr.net/articles/getting_started.html):
@@ -642,23 +642,24 @@ following articles:
     overview**](https://prioritizr.net/articles/package_overview.html):
     Introduction to systematic conservation planning and a comprehensive
     overview of the package.
+-   [**Connectivity
+    tutorial**](https://prioritizr.net/articles/connectivity.html):
+    Tutorial on incorporating connectivity into prioritizations.
+-   [**Calibrating trade-offs
+    tutorial**](https://prioritizr.net/articles/calibrating_trade-ffs.html):
+    Tutorial on running calibration analyses to satisfy multiple
+    criteria (e.g., cost and spatial fragmentation).
+-   [**Management zones
+    tutorial**](https://prioritizr.net/articles/zones.html): Tutorial on
+    incorporating multiple management zones and actions into
+    prioritizations.
 -   [**Gurobi installation
     guide**](https://prioritizr.net/articles/gurobi_installation_guide.html):
-    Instructions for installing the *Gurobi* optimization suite so that
-    it can be used to generate prioritizations.
+    Instructions for installing the *Gurobi* optimization suite for
+    generating prioritizations.
 -   [**Solver
     benchmark**](https://prioritizr.net/articles/solver_benchmark.html):
-    Performance comparison of optimization solvers that can be used to
-    generate prioritizations.
--   [**Calibrating
-    trade-offs**](https://prioritizr.net/articles/calibrating_trade-ffs.html):
-    Tutorial on running calibration analyses to generate prioritizations
-    that satisfy multiple criteria (e.g., overall cost and spatial
-    fragmentation).
--   [**Connectivity**](https://prioritizr.net/articles/connectivity.html):
-    Tutorial on incorporating connectivity into prioritizations.
--   [**Zones**](https://prioritizr.net/articles/zones.html): Tutorial on
-    incorporating multiple management zones and actions into
+    Performance comparison of optimization solvers for generating
     prioritizations.
 -   [**Publication
     record**](https://prioritizr.net/articles/publication_record.html):
@@ -675,6 +676,6 @@ workshop](https://prioritizr.github.io/PacMara_workshop/)).
 
 ## Getting help
 
-If you have any questions about using the *prioritizr R* package or
-suggestions for improving it, please [file an issue at the online code
+If you have any questions about the *prioritizr R* package or
+suggestions for improving it, please [post an issue on the code
 repository](https://github.com/prioritizr/prioritizr/issues/new).

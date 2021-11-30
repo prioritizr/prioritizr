@@ -6,7 +6,7 @@ output:
 
 <!--- README.md is generated from README.Rmd. Please edit that file -->
 
-# prioritizr: <img src="man/figures/logo.png" align="right" height="90px" />
+# prioritizr: <img src="man/figures/logo.png" align="right" style="height:90px!important;" />
 # Systematic Conservation Prioritization in R
 
 <!-- badges: start -->
@@ -251,9 +251,9 @@ The [package website](https://prioritizr.net/index.html) contains information on
 * [**Getting started**](https://prioritizr.net/articles/getting_started.html): Short tutorial on using the package.
 * [**Package overview**](https://prioritizr.net/articles/package_overview.html): Introduction to systematic conservation planning and a comprehensive overview of the package.
 * [**Connectivity tutorial**](https://prioritizr.net/articles/connectivity.html): Tutorial on incorporating connectivity into prioritizations.
-* [**Calibrating trade-offs tutorial**](https://prioritizr.net/articles/calibrating_trade-ffs.html): Tutorial on running calibration analyses to generate prioritizations that satisfy multiple criteria (e.g., overall cost and spatial fragmentation).
+* [**Calibrating trade-offs tutorial**](https://prioritizr.net/articles/calibrating_trade-ffs.html): Tutorial on running calibration analyses to satisfy multiple criteria (e.g., cost and spatial fragmentation).
 * [**Management zones tutorial**](https://prioritizr.net/articles/zones.html): Tutorial on incorporating multiple management zones and actions into prioritizations.
-* [**Gurobi installation guide**](https://prioritizr.net/articles/gurobi_installation_guide.html): Instructions for installing the _Gurobi_ optimization suite so that it can be used to generate prioritizations.
+* [**Gurobi installation guide**](https://prioritizr.net/articles/gurobi_installation_guide.html): Instructions for installing the _Gurobi_ optimization suite for generating prioritizations.
 * [**Solver benchmark**](https://prioritizr.net/articles/solver_benchmark.html): Performance comparison of optimization solvers for generating prioritizations.
 * [**Publication record**](https://prioritizr.net/articles/publication_record.html): List of publications that have cited the package.
 
@@ -261,4 +261,4 @@ Additional resources can also be found in [online repositories under the _priori
 
 ## Getting help
 
-If you have any questions about using the _prioritizr R_ package or suggestions for improving it, please [file an issue at the online code repository](https://github.com/prioritizr/prioritizr/issues/new).
+If you have any questions about the _prioritizr R_ package or suggestions for improving it, please [post an issue on the code repository](https://github.com/prioritizr/prioritizr/issues/new).
