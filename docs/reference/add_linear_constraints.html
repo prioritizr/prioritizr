@@ -24,7 +24,7 @@ that all selected planning units meet certain criteria."><meta property="og:imag
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.5</span>
       </span>
     </div>
 
@@ -124,7 +124,7 @@ that all selected planning units meet certain criteria.</p>
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
-<dd><p><code><a href="problem.html">problem()</a></code> (i.e. <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) object.</p></dd>
+<dd><p><code><a href="problem.html">problem()</a></code> (i.e., <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) object.</p></dd>
 <dt>threshold</dt>
 <dd><p><code>numeric</code> value.
 This threshold value is also known as a "right-hand-side" value
@@ -142,7 +142,7 @@ See the Data format section for more information.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Object (i.e. <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) with the constraints
+    <p>Object (i.e., <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) with the constraints
 added to it.</p>
     </div>
     <div id="details">
@@ -152,12 +152,12 @@ ensure that solutions meet certain criteria
 (see Examples section below for details).
 For example, these constraints can be used to add multiple budgets.
 They can also be used to ensure that the total number of planning units
-allocated to a certain administrative area (e.g. country) does not exceed
-a certain threshold (e.g. 30% of its total area). Furthermore,
+allocated to a certain administrative area (e.g., country) does not exceed
+a certain threshold (e.g., 30% of its total area). Furthermore,
 they can also be used to ensure that features have a minimal level
-of representation (e.g. 30%) when using an objective
+of representation (e.g., 30%) when using an objective
 function that aims to enhance feature representation given a budget
-(e.g. <code><a href="add_min_shortfall_objective.html">add_min_shortfall_objective()</a></code>).</p>
+(e.g., <code><a href="add_min_shortfall_objective.html">add_min_shortfall_objective()</a></code>).</p>
     </div>
     <div id="mathematical-formulation">
     <h2>Mathematical formulation</h2>
@@ -168,13 +168,13 @@ equation.
 Let \(I\) denote the set of planning units
 (indexed by \(i\)), \(Z\) the set of management zones (indexed by
 \(z\)), and \(X_{iz}\) the decision variable for allocating
-planning unit \(i\) to zone \(z\) (e.g. with binary
+planning unit \(i\) to zone \(z\) (e.g., with binary
 values indicating if each planning unit is allocated or not). Also, let
 \(D_{iz}\) denote the constraint data associated with
 planning units \(i \in I\) for zones \(z \in Z\)
 (argument to <code>data</code>, if supplied as a <code>matrix</code> object),
 \(\theta\) denote the constraint sense
-(argument to <code>sense</code>, e.g. \(&lt;=\)), and \(t\) denote the constraint
+(argument to <code>sense</code>, e.g., \(&lt;=\)), and \(t\) denote the constraint
 threshold (argument to <code>threshold</code>).</p>
 <p>$$
 \sum_{i}^{I} \sum_{z}^{Z} (D_{iz} \times X_{iz}) \space \theta \space t
@@ -337,7 +337,7 @@ contain a layer for each zone.</p></dd>
 <span class="r-in"><span class="co"># third, let's create a modified version of p0 that contains</span></span>
 <span class="r-in"><span class="co"># additional constraints to ensure that the solution equitably</span></span>
 <span class="r-in"><span class="co"># distributes conservation effort across different administrative areas</span></span>
-<span class="r-in"><span class="co"># (e.g. countries) within the study region</span></span>
+<span class="r-in"><span class="co"># (e.g., countries) within the study region</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># to begin with, we will simulate a dataset describing the spatial extent of</span></span>
 <span class="r-in"><span class="co"># four different administrative areas across the study region</span></span>
@@ -407,7 +407,7 @@ contain a layer for each zone.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.9000.</p>
 </div>
 
       </footer></div>

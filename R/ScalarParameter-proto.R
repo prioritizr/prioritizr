@@ -22,7 +22,7 @@ NULL
 #' \item{$default}{`numeric` scalar default value.}
 #'
 #' \item{$class}{`character` name of the class that `$value` should
-#'   inherit from (e.g. `integer`).}
+#'   inherit from (e.g., `integer`).}
 #'
 #' \item{$lower_limit}{`numeric` scalar value that is the minimum value
 #'   that `$value` is permitted to be.}

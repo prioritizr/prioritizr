@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.5</span>
       </span>
     </div>
 
@@ -110,7 +110,7 @@
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>a</dt>
-<dd><p><code><a href="problem.html">problem()</a></code> (i.e. <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) or
+<dd><p><code><a href="problem.html">problem()</a></code> (i.e., <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) or
 <code><a href="OptimizationProblem-class.html">OptimizationProblem</a></code> object.</p></dd>
 <dt>b</dt>
 <dd><p><code><a href="Solver-class.html">Solver</a></code> object. Not used if <code>a</code> is an
@@ -136,8 +136,8 @@ Additionally, the returned object will have the following additional
 attributes: <code>"objective"</code> containing the solution's objective,
 <code>"runtime"</code> denoting the number of seconds that elapsed while solving
 the problem, and <code>"status"</code> describing the status of the solution
-(e.g. <code>"OPTIMAL"</code> indicates that the optimal solution was found).
-In most cases, the first solution (e.g. <code>"solution_1"</code>)
+(e.g., <code>"OPTIMAL"</code> indicates that the optimal solution was found).
+In most cases, the first solution (e.g., <code>"solution_1"</code>)
 will contain the best solution found by the solver (note that this
 may not be an optimal solution depending on the gap used to solve
 the problem and noting that the default gap is 0.1).</p>
@@ -150,15 +150,15 @@ for available solvers). If no solver has been explicitly specified,
 then the best available exact algorithm solver will be used by default
 (see <code><a href="add_default_solver.html">add_default_solver()</a></code>. Although these exact algorithm
 solvers will often display a lot of information that isn't really that
-helpful (e.g. nodes, cutting planes), they do display information
-about the progress they are making on solving the problem (e.g. the
+helpful (e.g., nodes, cutting planes), they do display information
+about the progress they are making on solving the problem (e.g., the
 performance of the best solution found at a given point in time). If
 potential issues were detected during the
 presolve checks (see <code><a href="presolve_check.html">presolve_check()</a></code>)
-and the problem is being forcibly solved (i.e. with <code>force = TRUE</code>),
+and the problem is being forcibly solved (i.e., with <code>force = TRUE</code>),
 then it is also worth checking for any warnings displayed by the solver
 to see if these potential issues are actually causing issues
-(e.g. <em>Gurobi</em> can display warnings that include
+(e.g., <em>Gurobi</em> can display warnings that include
 <code>"Warning: Model contains large matrix coefficient range"</code> and
 <code>"Warning: Model contains large rhs"</code>).</p>
 <p>The object returned from this function depends on the argument to
@@ -208,11 +208,11 @@ If the argument to <code>a</code> contains a single zone, then the solution obje
 will contain fields (columns) that solution the values.
 Specifically, the field name(s) containing the solution values
 be will named as <code>"solution_XXX"</code> where <code>"XXX"</code> corresponds to a solution
-identifier (e.g. <code>"solution_1"</code>).
+identifier (e.g., <code>"solution_1"</code>).
 If the argument to <code>a</code> contains multiple zones, then the fields
 containing solutions will be named as <code>"solution_XXX_YYY"</code> where
 <code>"XXX"</code> corresponds to the solution identifier and <code>"YYY"</code> is the name
-of the management zone (e.g. <code>"solution_1_zone1"</code>).</p></dd>
+of the management zone (e.g., <code>"solution_1_zone1"</code>).</p></dd>
 
 
 
@@ -262,7 +262,7 @@ reformat solutions that contain multiple zones.</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   1987.399 </span>
 <span class="r-in"><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> solution_1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      0.025 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      0.005 </span>
 <span class="r-in"><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"status"</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> solution_1 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  "OPTIMAL" </span>
@@ -503,7 +503,7 @@ reformat solutions that contain multiple zones.</p></div>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.9000.</p>
 </div>
 
       </footer></div>

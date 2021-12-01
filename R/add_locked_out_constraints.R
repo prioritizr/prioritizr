@@ -9,13 +9,13 @@ NULL
 #' useful to lock out planning units that have been degraded and are not
 #' suitable for conserving species. If specific planning units should be locked
 #' in to the solution, use [add_locked_out_constraints()]. For
-#' problems with non-binary planning unit allocations (e.g. proportions), the
+#' problems with non-binary planning unit allocations (e.g., proportions), the
 #' [add_manual_locked_constraints()] function can be used to lock
 #' planning unit allocations to a specific value.
 #'
 #' @usage add_locked_out_constraints(x, locked_out)
 #'
-#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
+#' @param x [problem()] (i.e., [`ConservationProblem-class`]) object.
 #'
 #' @param locked_out Object that determines which planning units that should be
 #'   locked out. See the Data format section for more information.

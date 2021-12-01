@@ -9,7 +9,7 @@ NULL
 #' (USD), then the total cost would be net cost (USD) needed to acquire
 #' all planning units selected within the solution.
 #'
-#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
+#' @param x [problem()] (i.e., [`ConservationProblem-class`]) object.
 #'
 #' @param solution `numeric`, `matrix`, `data.frame`,
 #'   [`Raster-class`], [`Spatial-class`],
@@ -23,7 +23,7 @@ NULL
 #' [*Marxan* software](https://marxansolutions.org) (Ball *et al.* 2009).
 #' Specifically, the cost of a solution is defined as the sum of the cost
 #' values, supplied when creating a [problem()] object
-#' (e.g. using the `cost_column` argument),
+#' (e.g., using the `cost_column` argument),
 #' weighted by the status of each planning unit in the solution.
 #'
 #' @section Solution format:

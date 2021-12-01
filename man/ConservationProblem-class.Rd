@@ -7,13 +7,13 @@
 \description{
 This class is used to represent conservation planning problems. A
 conservation planning problem has spatially explicit planning units.
-A prioritization involves making a decision on each planning unit (e.g. is
+A prioritization involves making a decision on each planning unit (e.g., is
 the planning unit going to be turned into a protected area?). Each
 planning unit is associated with a cost that represents the cost incurred
 by applying the decision to the planning unit. The problem also has a set
 of representation targets for each feature. Further, it also has
 constraints used to ensure that the solution meets additional
-objectives (e.g. certain areas are locked into the solution). Finally,
+objectives (e.g., certain areas are locked into the solution). Finally,
 a conservation planning problem---unlike an optimization problem---also
 requires a method to solve the problem. \strong{This class represents a
 planning problem, to actually build and then solve a planning problem,

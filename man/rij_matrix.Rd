@@ -44,7 +44,7 @@ Generate a matrix showing the amount of each feature in each planning
 unit (also known as an \emph{rij} matrix).
 }
 \details{
-Generally, processing vector (i.e. \code{\linkS4class{Spatial}} or
+Generally, processing vector (i.e., \code{\linkS4class{Spatial}} or
 \code{\link[sf:sf]{sf::sf()}}) data takes much
 longer to process then \code{\linkS4class{Raster}} data,
 so it is recommended to use \code{\linkS4class{Raster}} data

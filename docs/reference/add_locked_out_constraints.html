@@ -5,7 +5,7 @@ that specific planning units are not selected
 useful to lock out planning units that have been degraded and are not
 suitable for conserving species. If specific planning units should be locked
 in to the solution, use add_locked_out_constraints(). For
-problems with non-binary planning unit allocations (e.g. proportions), the
+problems with non-binary planning unit allocations (e.g., proportions), the
 add_manual_locked_constraints() function can be used to lock
 planning unit allocations to a specific value."><meta property="og:image" content="https://prioritizr.net/logo.png"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -31,7 +31,7 @@ planning unit allocations to a specific value."><meta property="og:image" conten
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.5</span>
       </span>
     </div>
 
@@ -112,7 +112,7 @@ that specific planning units are not selected
 useful to lock out planning units that have been degraded and are not
 suitable for conserving species. If specific planning units should be locked
 in to the solution, use <code>add_locked_out_constraints()</code>. For
-problems with non-binary planning unit allocations (e.g. proportions), the
+problems with non-binary planning unit allocations (e.g., proportions), the
 <code><a href="add_manual_locked_constraints.html">add_manual_locked_constraints()</a></code> function can be used to lock
 planning unit allocations to a specific value.</p>
     </div>
@@ -143,14 +143,14 @@ planning unit allocations to a specific value.</p>
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
-<dd><p><code><a href="problem.html">problem()</a></code> (i.e. <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) object.</p></dd>
+<dd><p><code><a href="problem.html">problem()</a></code> (i.e., <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) object.</p></dd>
 <dt>locked_out</dt>
 <dd><p>Object that determines which planning units that should be
 locked out. See the Data format section for more information.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Object (i.e. <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) with the constraints
+    <p>Object (i.e., <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) with the constraints
 added to it.</p>
     </div>
     <div id="data-format">
@@ -197,7 +197,7 @@ This format is only
 compatible if the planning units in the argument to <code>x</code> are a
 <code><a href="https://rdrr.io/pkg/sp/man/Spatial-class.html" class="external-link">Spatial</a></code>, <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::sf()</a></code>, or
 <code>data.frame</code> object. The fields
-(columns) must have <code>logical</code> (i.e. <code>TRUE</code> or <code>FALSE</code>)
+(columns) must have <code>logical</code> (i.e., <code>TRUE</code> or <code>FALSE</code>)
 values indicating if the planning unit is to be locked for the solution.
 For problems that contain a single zone, the argument to <code>data</code> must
 contain a single field name. Otherwise, for problems that
@@ -392,7 +392,7 @@ should also have <code>NA</code> values in the locked data.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.9000.</p>
 </div>
 
       </footer></div>

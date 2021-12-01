@@ -69,7 +69,7 @@ Alternatively, to cite the latest development version, please use:
 
 > Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Edwards BPM, Watts
 > ME, Arcese P, Bennett J, Possingham HP (2021). prioritizr: Systematic
-> Conservation Prioritization in R. R package version 7.1.1.4. Available
+> Conservation Prioritization in R. R package version 7.1.1.5. Available
 > at <https://github.com/prioritizr/prioritizr>.
 
 Additionally, we keep a [record of
@@ -249,7 +249,7 @@ s1 <- solve(p1)
     ##   StrongCG: 2
     ##   Flow cover: 1
     ## 
-    ## Explored 145469 nodes (243327 simplex iterations) in 3.90 seconds (2.59 work units)
+    ## Explored 145469 nodes (243327 simplex iterations) in 3.83 seconds (2.59 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 6: 2627.64 2747.38 2761.33 ... 3139.89
@@ -271,7 +271,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##      3.945
+    ##      3.836
 
 ``` r
 # extract state message from the solver
@@ -419,7 +419,7 @@ s2 <- solve(p2)
     ##   StrongCG: 1
     ##   Flow cover: 1
     ## 
-    ## Explored 10262 nodes (23307 simplex iterations) in 0.60 seconds (0.54 work units)
+    ## Explored 10262 nodes (23307 simplex iterations) in 0.62 seconds (0.54 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 5: 2838.26 2839.12 3021.28 ... 3027.7
@@ -499,7 +499,7 @@ s3 <- solve(p3)
     ##   GUB cover: 1
     ##   Zero half: 1
     ## 
-    ## Explored 1 nodes (221 simplex iterations) in 0.03 seconds (0.02 work units)
+    ## Explored 1 nodes (221 simplex iterations) in 0.02 seconds (0.02 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 7: 3939.6 3951.75 3960.65 ... 19567.2
@@ -616,14 +616,12 @@ spplot(rc, "rc", main = "Irreplaceability", xlim = c(-0.1, 1.1),
 <img src="man/figures/README-replacement_cost-1.png" width="400" style="display: block; margin: auto;" />
 
 This short example demonstrates how the *prioritizr R* package can be
-used to build a minimal conservation problem, how constraints and
-penalties can be iteratively added to the problem to obtain a solution,
-and how importance scores can be calculated for the solution to identify
-critical places. Although we explored just a few different functions for
-modifying the a conservation problem, the package provides many
-functions for specifying objectives, constraints, penalties, and
-decision variables, so that you can build and custom-tailor a
-conservation planning problem to suit your exact planning scenario.
+used to build and customize conservation problems, and then solve them
+to generate solutions. Although we explored just a few different
+functions for modifying a conservation problem, the package provides
+many functions for specifying objectives, constraints, penalties, and
+decision variables, so that you can build and custom-tailor conservation
+planning problems to suit your planning scenario.
 
 ## Learning resources
 
@@ -636,8 +634,8 @@ version](https://prioritizr.net/news/index.html). It also contains the
 following articles and tutorials.
 
 -   [**Getting
-    started**](https://prioritizr.net/articles/getting_started.html):
-    Short tutorial on using the package.
+    started**](https://prioritizr.net/articles/prioritizr.html): Short
+    tutorial on using the package.
 -   [**Package
     overview**](https://prioritizr.net/articles/package_overview.html):
     Introduction to systematic conservation planning and a comprehensive
@@ -648,7 +646,7 @@ following articles and tutorials.
 -   [**Calibrating trade-offs
     tutorial**](https://prioritizr.net/articles/calibrating_trade-offs_tutorial.html):
     Tutorial on running calibration analyses to satisfy multiple
-    criteria (e.g., cost and spatial fragmentation).
+    criteria.
 -   [**Management zones
     tutorial**](https://prioritizr.net/articles/management_zones_tutorial.html):
     Tutorial on incorporating multiple management zones and actions into

@@ -14,7 +14,7 @@ NULL
 #'
 #' @return [tibble::tibble()] object describing feature representation.
 #'   Here, each row describes a specific summary statistic
-#'   (e.g. different management zone) for a specific feature.
+#'   (e.g., different management zone) for a specific feature.
 #'   It contains the following columns:
 #'
 #'   \describe{
@@ -34,13 +34,14 @@ NULL
 #'     (not just planning units selected within the solution).
 #'     It is calculated as the sum of the feature data,
 #'     supplied when creating a [problem()] object
-#'     (e.g. presence/absence values).}
+#'     (e.g., presence/absence values).}
 #'
 #'   \item{absolute_held}{`numeric` total amount of each feature secured within
 #'     the solution. It is calculated as the sum of the feature data,
 #'     supplied when creating a [problem()] object
-#'     (e.g. presence/absence values), weighted by the status of each
-#'     planning unit in the solution (e.g. selected or not for prioritization).}
+#'     (e.g., presence/absence values), weighted by the status of each
+#'     planning unit in the solution (e.g., selected or not for
+#'     prioritization).}
 #'
 #'   \item{relative_held}{`numeric` proportion of
 #'     each feature secured within the solution. It is calculated

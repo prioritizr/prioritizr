@@ -18,12 +18,12 @@ NULL
 #' @details
 #' [*IBM CPLEX*](https://www.ibm.com/analytics/cplex-optimizer) is a
 #' commercial optimization software. It is faster than
-#' the available open source solvers (e.g. [add_lpsymphony_solver()] and
+#' the available open source solvers (e.g., [add_lpsymphony_solver()] and
 #' [add_rsymphony_solver()].
 #' Although formal benchmarks examining the performance of this solver for
 #' conservation planning problems have yet to be completed, preliminary
 #' analyses suggest that it performs slightly slower than the *Gurobi*
-#' solver (i.e. [add_gurobi_solver()]).
+#' solver (i.e., [add_gurobi_solver()]).
 #' We recommend using this solver if the *Gurobi* solver is not available.
 #' Licenses are available for the *IBM CPLEX* software to academics at no cost
 #' (see <https://www.ibm.com/products/ilog-cplex-optimization-studio>).
@@ -39,7 +39,7 @@ NULL
 #'   export CPLEX_BIN="/opt/ibm/ILOG/CPLEX_Studio128/cplex/bin/x86-64_linux/cplex"
 #' ```
 #' Note that you may need to change the version
-#' number in the file path (i.e. `"CPLEX_Studio128"`). For more information
+#' number in the file path (i.e., `"CPLEX_Studio128"`). For more information
 #' on installing the pkg{cplexAPI} package, please see the
 #' [official installation instructions for the package](https://github.com/cran/cplexAPI/blob/master/inst/INSTALL).
 #'

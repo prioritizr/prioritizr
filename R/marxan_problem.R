@@ -6,7 +6,7 @@ NULL
 #' Create a conservation planning [problem()] following the
 #' mathematical formulations used in *Marxan* (detailed in Beyer
 #' *et al.* 2016). Note that these problems are solved using
-#' exact algorithms and not simulated annealing (i.e. the *Marxan* software).
+#' exact algorithms and not simulated annealing (i.e., the *Marxan* software).
 #'
 #' @param x `character` file path for a *Marxan* input file (typically
 #'   called `"input.dat"`), or `data.frame` containing planning unit
@@ -108,7 +108,7 @@ NULL
 #'   [official *Marxan* website](https://marxansolutions.org) and Ball
 #'   *et al.* (2009).
 #'
-#' @return [problem()] (i.e. [`ConservationProblem-class`]) object.
+#' @return [problem()] (i.e., [`ConservationProblem-class`]) object.
 #'
 #' @references
 #' Ball IR, Possingham HP, and Watts M (2009) *Marxan and relatives:

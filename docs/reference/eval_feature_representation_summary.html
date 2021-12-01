@@ -26,7 +26,7 @@ and each and every zone, within a conservation planning problem."><meta property
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.5</span>
       </span>
     </div>
 
@@ -130,7 +130,7 @@ and each and every zone, within a conservation planning problem.</p>
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
-<dd><p><code><a href="problem.html">problem()</a></code> (i.e. <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) object.</p></dd>
+<dd><p><code><a href="problem.html">problem()</a></code> (i.e., <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) object.</p></dd>
 <dt>solution</dt>
 <dd><p><code>numeric</code>, <code>matrix</code>, <code>data.frame</code>,
 <code><a href="https://rdrr.io/pkg/raster/man/Raster-classes.html" class="external-link">Raster</a></code>, <code><a href="https://rdrr.io/pkg/sp/man/Spatial-class.html" class="external-link">Spatial</a></code>,
@@ -143,7 +143,7 @@ See the Solution format section for more information.</p></dd>
     <h2>Value</h2>
     <p><code><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble::tibble()</a></code> object describing feature representation.
 Here, each row describes a specific summary statistic
-(e.g. different management zone) for a specific feature.
+(e.g., different management zone) for a specific feature.
 It contains the following columns:</p><dl><dt>summary</dt>
 <dd><p><code>character</code> description of the summary statistic.
 The statistic associated with the <code>"overall"</code> value
@@ -164,15 +164,16 @@ in the entire conservation planning problem
 (not just planning units selected within the solution).
 It is calculated as the sum of the feature data,
 supplied when creating a <code><a href="problem.html">problem()</a></code> object
-(e.g. presence/absence values).</p></dd>
+(e.g., presence/absence values).</p></dd>
 
 
 <dt>absolute_held</dt>
 <dd><p><code>numeric</code> total amount of each feature secured within
 the solution. It is calculated as the sum of the feature data,
 supplied when creating a <code><a href="problem.html">problem()</a></code> object
-(e.g. presence/absence values), weighted by the status of each
-planning unit in the solution (e.g. selected or not for prioritization).</p></dd>
+(e.g., presence/absence values), weighted by the status of each
+planning unit in the solution (e.g., selected or not for
+prioritization).</p></dd>
 
 
 <dt>relative_held</dt>
@@ -591,7 +592,7 @@ values in the argument to <code>solution</code>.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.9000.</p>
 </div>
 
       </footer></div>

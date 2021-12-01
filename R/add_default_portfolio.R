@@ -6,7 +6,7 @@ NULL
 #' Generate a portfolio for a conservation planning [problem()]
 #' that contains a single solution.
 #'
-#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
+#' @param x [problem()] (i.e., [`ConservationProblem-class`]) object.
 #'
 #' @seealso
 #' See [portfolios] for an overview of all functions for adding a portfolio.

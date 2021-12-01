@@ -7,7 +7,7 @@ NULL
 #' minimize the largest target shortfall while ensuring that
 #' the cost of the solution does not exceed a budget. Note that if the
 #' target shortfall for a single feature cannot be decreased beyond a certain
-#' point (e.g. because all remaining planning units occupied by that feature
+#' point (e.g., because all remaining planning units occupied by that feature
 #' are too costly or are locked out), then solutions may only use a small
 #' proportion of the specified budget.
 #'
@@ -41,7 +41,7 @@ NULL
 #' l >= (yj / tj) for all j in J &
 #' sum_i^I (xi * ci) <= B}
 #'
-#' Here, \eqn{x_i}{xi} is the [decisions] variable (e.g.
+#' Here, \eqn{x_i}{xi} is the [decisions] variable (e.g.,
 #' specifying whether planning unit \eqn{i}{i} has been selected (1) or not
 #' (0)), \eqn{r_{ij}}{rij} is the amount of feature \eqn{j}{j} in planning
 #' unit \eqn{i}{i}, and \eqn{t_j}{tj} is the representation target for feature

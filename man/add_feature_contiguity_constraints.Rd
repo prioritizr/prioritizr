@@ -17,13 +17,13 @@
 \S4method{add_feature_contiguity_constraints}{ConservationProblem,ANY,ANY}(x, zones, data)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{zones}{\code{matrix}, \code{Matrix} or \code{list} object describing
 the connection scheme for different zones. For \code{matrix} or
 and \code{Matrix} arguments, each row and column corresponds
 to a different zone in the argument to \code{x}, and cell values must
-contain binary \code{numeric} values (i.e. one or zero) that indicate
+contain binary \code{numeric} values (i.e., one or zero) that indicate
 if connected planning units (as specified in the argument to
 \code{data}) should be still considered connected if they are allocated to
 different zones. The cell values along the diagonal
@@ -36,7 +36,7 @@ should differ among the features, then the argument to \code{zones} should
 be a \code{list} of \code{matrix} or \code{Matrix} objects that shows the
 specific scheme for each feature using the conventions described above.
 The default argument to \code{zones} is an identity
-matrix (i.e. a matrix with ones along the matrix diagonal and zeros
+matrix (i.e., a matrix with ones along the matrix diagonal and zeros
 elsewhere), so that planning units are only considered connected if they
 are both allocated to the same zone.}
 
@@ -54,7 +54,7 @@ all adjacent planning units are treated as being connected for all
 features. See the Data format section for more information.}
 }
 \value{
-Object (i.e. \code{\linkS4class{ConservationProblem}}) with the constraints
+Object (i.e., \code{\linkS4class{ConservationProblem}}) with the constraints
 added to it.
 }
 \description{
@@ -94,13 +94,13 @@ argument and means that all adjacent planning units are treated
 as potentially dispersible for all features.
 Note that the connection data must be manually defined
 using one of the other formats below when the planning unit data
-in the argument to \code{x} is not spatially referenced (e.g.
+in the argument to \code{x} is not spatially referenced (e.g.,
 in \code{data.frame} or \code{numeric} format).}
 
 \item{\code{data} as a\code{matrix}/\code{Matrix} object}{where rows and columns represent
 different planning units and the value of each cell indicates if the
 two planning units are connected or not. Cell values should be binary
-\code{numeric} values (i.e. one or zero). Cells that occur along the
+\code{numeric} values (i.e., one or zero). Cells that occur along the
 matrix diagonal have no effect on the solution at all because each
 planning unit cannot be a connected with itself. Note that pairs
 of connected planning units are treated as being potentially dispersible
@@ -115,7 +115,7 @@ specified in the fields \code{"id1"} and \code{"id2"} are connected
 or not. This data can be used to describe symmetric or
 asymmetric relationships between planning units. By default,
 input data is assumed to be symmetric unless asymmetric data is
-also included (e.g. if data is present for planning units 2 and 3, then
+also included (e.g., if data is present for planning units 2 and 3, then
 the same amount of connectivity is expected for planning units 3 and 2,
 unless connectivity data is also provided for planning units 3 and 2).
 Note that pairs of connected planning units are treated as being

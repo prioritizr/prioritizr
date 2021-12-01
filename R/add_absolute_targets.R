@@ -9,7 +9,7 @@ NULL
 #' planning units for which their summed feature values are equal to or greater
 #' than 10.
 #'
-#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
+#' @param x [problem()] (i.e., [`ConservationProblem-class`]) object.
 #'
 #' @param targets Object that specifies the targets for each feature.
 #'   See the Targets format section for more information.

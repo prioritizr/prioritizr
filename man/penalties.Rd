@@ -7,7 +7,7 @@
 A penalty can be applied to a conservation planning \code{\link[=problem]{problem()}} to
 penalize solutions according to a specific metric. Penalties---unlike
 \link{constraints}---act as an explicit trade-off with the objective
-being minimized or maximized (e.g. solution cost when used with
+being minimized or maximized (e.g., solution cost when used with
 \code{\link[=add_min_set_objective]{add_min_set_objective()}}).
 }
 \details{
@@ -33,7 +33,7 @@ planning units with high connectivity between them.}
 \item{\code{\link[=add_linear_penalties]{add_linear_penalties()}}}{Add penalties to a
 conservation problem to favor solutions that avoid selecting
 planning units based on a certain variable
-(e.g. anthropogenic pressure).}
+(e.g., anthropogenic pressure).}
 
 }
 }

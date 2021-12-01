@@ -16,7 +16,7 @@ NULL
 #' reported by the
 #' [*Marxan* software](https://marxansolutions.org) (Ball *et al.* 2009).
 #' It is calculated using the same equations used to penalize solutions
-#' with connectivity data (i.e. [add_connectivity_penalties()]).
+#' with connectivity data (i.e., [add_connectivity_penalties()]).
 #' Specifically, it is calculated as the sum of the pair-wise connectivity
 #' values in the argument to `data`, weighted by the value of the planning
 #' units in the solution.

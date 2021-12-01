@@ -28,7 +28,7 @@ targets."><meta property="og:image" content="https://prioritizr.net/logo.png"><!
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.5</span>
       </span>
     </div>
 
@@ -127,7 +127,7 @@ Note that this function can only be used with problems that contain
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
-<dd><p><code><a href="problem.html">problem()</a></code> (i.e. <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) object.</p></dd>
+<dd><p><code><a href="problem.html">problem()</a></code> (i.e., <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) object.</p></dd>
 <dt>solution</dt>
 <dd><p><code>numeric</code>, <code>matrix</code>, <code>data.frame</code>,
 <code><a href="https://rdrr.io/pkg/raster/man/Raster-classes.html" class="external-link">Raster</a></code>, <code><a href="https://rdrr.io/pkg/sp/man/Spatial-class.html" class="external-link">Spatial</a></code>,
@@ -165,16 +165,16 @@ is <code>TRUE</code>.</p></dd>
 <dt>sense</dt>
 <dd><p><code>character</code> sense associated with each target.
 Sense values specify the nature of the target.
-Typically (e.g. when using the <code><a href="add_absolute_targets.html">add_absolute_targets()</a></code> or
+Typically (e.g., when using the <code><a href="add_absolute_targets.html">add_absolute_targets()</a></code> or
 <code><a href="add_relative_targets.html">add_relative_targets()</a></code> functions), targets are specified using sense
 values indicating that the total amount of a feature held within a
 solution (ideally) be greater than or equal to a threshold amount
-(i.e. a  sense value of <code>"&gt;="</code>).
-Additionally, targets (i.e. using the <code><a href="add_manual_targets.html">add_manual_targets()</a></code> function)
+(i.e., a  sense value of <code>"&gt;="</code>).
+Additionally, targets (i.e., using the <code><a href="add_manual_targets.html">add_manual_targets()</a></code> function)
 can also be specified using sense values indicating that the total
 amount of a feature held within a solution must be equal to a
-threshold amount (i.e. a sense value of <code>"="</code>) or smaller than or equal
-to a threshold amount (i.e. a sense value of <code>"&lt;="</code>).
+threshold amount (i.e., a sense value of <code>"="</code>) or smaller than or equal
+to a threshold amount (i.e., a sense value of <code>"&lt;="</code>).
 This column is only included if the argument to <code>include_sense</code> is
 <code>TRUE</code>.</p></dd>
 
@@ -204,8 +204,9 @@ the feature and (if relevant) zones associated with each target (per the
 <code>"feature"</code> and <code>"zone"</code> columns, respectively).
 This column is calculated as the sum of the feature data,
 supplied when creating a <code><a href="problem.html">problem()</a></code> object
-(e.g. presence/absence values), weighted by the status of each
-planning unit in the solution (e.g. selected or not for prioritization).</p></dd>
+(e.g., presence/absence values), weighted by the status of each
+planning unit in the solution (e.g., selected or not for
+prioritization).</p></dd>
 
 
 <dt>absolute_shortfall</dt>
@@ -213,10 +214,10 @@ planning unit in the solution (e.g. selected or not for prioritization).</p></dd
 fails to meet each target.
 This column is calculated as the difference between the total amount
 held within the solution for the feature and (if relevant) zones
-associated with the target (i.e. <code>"absolute_held"</code> column) and the
-target total threshold amount (i.e. <code>"absolute_target"</code> column), with
+associated with the target (i.e., <code>"absolute_held"</code> column) and the
+target total threshold amount (i.e., <code>"absolute_target"</code> column), with
 values set to zero depending on the sense specified for the target
-(e.g. if the target sense is <code>&gt;=</code> then the difference is
+(e.g., if the target sense is <code>&gt;=</code> then the difference is
 set to zero if the value in the <code>"absolute_held"</code> is smaller than
 that in the <code>"absolute_target"</code> column).</p></dd>
 
@@ -225,9 +226,9 @@ that in the <code>"absolute_target"</code> column).</p></dd>
 <dd><p><code>numeric</code> proportion threshold amount associated
 with each target.
 This column is calculated by dividing the total threshold amount
-associated with each target (i.e. <code>"absolute_target"</code> column) by
+associated with each target (i.e., <code>"absolute_target"</code> column) by
 the total amount associated with each target
-(i.e. <code>"total_amount"</code> column).</p></dd>
+(i.e., <code>"total_amount"</code> column).</p></dd>
 
 
 <dt>relative_held</dt>
@@ -235,23 +236,23 @@ the total amount associated with each target
 feature and (if relevant) zones associated with each target (per the
 <code>"feature"</code> and <code>"zone"</code> columns, respectively).
 This column is calculated by dividing the total amount held
-for each target (i.e. <code>"absolute_held"</code> column) by the
+for each target (i.e., <code>"absolute_held"</code> column) by the
 total amount for with each target
-(i.e. <code>"total_amount"</code> column).</p></dd>
+(i.e., <code>"total_amount"</code> column).</p></dd>
 
 
 <dt>relative_shortfall</dt>
 <dd><p><code>numeric</code> proportion by which the solution fails
 to meet each target.
 This column is calculated by dividing the total shortfall for
-each target (i.e. <code>"absolute_shortfall"</code> column) by the
-total amount for each target (i.e. <code>"total_amount"</code> column).</p></dd>
+each target (i.e., <code>"absolute_shortfall"</code> column) by the
+total amount for each target (i.e., <code>"total_amount"</code> column).</p></dd>
 
 
 <dt>met</dt>
 <dd><p><code>logical</code> indicating if each target is met by the solution. This
 column is calculated by checking if the total shortfall associated
-with each target (i.e. <code>"absolute_shortfall</code>" column) is equal to
+with each target (i.e., <code>"absolute_shortfall</code>" column) is equal to
 zero.</p></dd>
 
 
@@ -594,7 +595,7 @@ values in the argument to <code>solution</code>.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.9000.</p>
 </div>
 
       </footer></div>

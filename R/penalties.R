@@ -6,7 +6,7 @@ NULL
 #' A penalty can be applied to a conservation planning [problem()] to
 #' penalize solutions according to a specific metric. Penalties---unlike
 #' [constraints]---act as an explicit trade-off with the objective
-#' being minimized or maximized (e.g. solution cost when used with
+#' being minimized or maximized (e.g., solution cost when used with
 #' [add_min_set_objective()]).
 #'
 #' @details Both penalties and constraints can be used to modify a problem and
@@ -31,7 +31,7 @@ NULL
 #'   \item{[add_linear_penalties()]}{Add penalties to a
 #'     conservation problem to favor solutions that avoid selecting
 #'     planning units based on a certain variable
-#'     (e.g. anthropogenic pressure).}
+#'     (e.g., anthropogenic pressure).}
 #'
 #'   }
 #'

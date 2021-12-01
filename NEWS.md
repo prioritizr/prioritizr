@@ -1,3 +1,10 @@
+# prioritizr 7.1.1.5
+
+- The _Tasmania tutorial_ has been reworked into the _Getting started_ tutorial. This tutorial now provides short introduction to using the package.
+- The _Salt Spring Island tutorial_ has been reworked into the _Connectivity tutorial_. This tutorial now explores different approaches for incorporating connectivity.
+- The _prioritizr_ vignette has been renamed to the _Package overview_ vignette.
+- New _Calibrating trade-offs tutorial_ showcasing methods for running calibration analyses. It outlines blended and hierarchical approaches for generating a set of different prioritizations based on different parameters. It also covers different approaches for selecting a candidate prioritization based on different trade-offs.
+
 # prioritizr 7.1.1.4
 
 - Update tests to reduce run time and pass given slightly different results

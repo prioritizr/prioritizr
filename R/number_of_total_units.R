@@ -5,7 +5,7 @@ NULL
 #'
 #' Extract the number of total units in an object.
 #'
-#' @param x [problem()] (i.e. [`ConservationProblem-class`]),
+#' @param x [problem()] (i.e., [`ConservationProblem-class`]),
 #'   [`OptimizationProblem-class`], or [Zones()] object.
 #'
 #' @return `integer` number of total units.

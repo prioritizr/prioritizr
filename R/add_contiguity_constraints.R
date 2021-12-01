@@ -7,12 +7,12 @@ NULL
 #' that all selected planning units are spatially connected with each other
 #' and form a single contiguous unit.
 #'
-#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
+#' @param x [problem()] (i.e., [`ConservationProblem-class`]) object.
 #'
 #' @param zones `matrix` or `Matrix` object describing the
 #'   connection scheme for different zones. Each row and column corresponds
 #'   to a different zone in the argument to `x`, and cell values must
-#'   contain binary `numeric` values (i.e. one or zero) that indicate
+#'   contain binary `numeric` values (i.e., one or zero) that indicate
 #'   if connected planning units (as specified in the argument to
 #'   `data`) should be still considered connected if they are allocated to
 #'   different zones. The cell values along the diagonal
@@ -21,7 +21,7 @@ NULL
 #'   arguments to `zones` must be symmetric, and that a row or column has
 #'   a value of one then the diagonal element for that row or column must also
 #'   have a value of one. The default argument to `zones` is an identity
-#'   matrix (i.e. a matrix with ones along the matrix diagonal and zeros
+#'   matrix (i.e., a matrix with ones along the matrix diagonal and zeros
 #'   elsewhere), so that planning units are only considered connected if they
 #'   are both allocated to the same zone.
 #'
@@ -44,16 +44,16 @@ NULL
 #'
 #' \item{`data` as a `NULL` value}{indicating that connection data should be
 #'   calculated automatically using the [adjacency_matrix()] function.
-#'   This is the default argument. 
+#'   This is the default argument.
 #'   Note that the connection data must be manually defined
 #'   using one of the other formats below when the planning unit data
-#'   in the argument to `x` is not spatially referenced (e.g.
+#'   in the argument to `x` is not spatially referenced (e.g.,
 #'   in `data.frame` or `numeric` format).}
 #'
 #' \item{`data` as a `matrix`/`Matrix` object}{where rows and columns represent
 #'   different planning units and the value of each cell indicates if the
 #'   two planning units are connected or not. Cell values should be binary
-#'   `numeric` values (i.e. one or zero). Cells that occur along the
+#'   `numeric` values (i.e., one or zero). Cells that occur along the
 #'   matrix diagonal have no effect on the solution at all because each
 #'   planning unit cannot be a connected with itself.}
 #'
@@ -66,7 +66,7 @@ NULL
 #'   or not. This data can be used to describe symmetric or
 #'   asymmetric relationships between planning units. By default,
 #'   input data is assumed to be symmetric unless asymmetric data is
-#'   also included (e.g. if data is present for planning units 2 and 3, then
+#'   also included (e.g., if data is present for planning units 2 and 3, then
 #'   the same amount of connectivity is expected for planning units 3 and 2,
 #'   unless connectivity data is also provided for planning units 3 and 2).}
 #'
@@ -76,7 +76,7 @@ NULL
 #' In early versions, this function was named as the
 #' `add_connected_constraints()` function.
 #'
-#' @return Object (i.e. [`ConservationProblem-class`]) with the constraints
+#' @return Object (i.e., [`ConservationProblem-class`]) with the constraints
 #'  added to it.
 #'
 #' @seealso

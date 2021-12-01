@@ -7,10 +7,10 @@
 add_extra_portfolio(x)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
 }
 \value{
-Object (i.e. \code{\linkS4class{ConservationProblem}}) with the portfolio
+Object (i.e., \code{\linkS4class{ConservationProblem}}) with the portfolio
 added to it.
 }
 \description{
@@ -23,7 +23,7 @@ the quality of solutions.
 }
 \details{
 This strategy for generating a portfolio requires problems to
-be solved using the \emph{Gurobi} software suite (i.e. using
+be solved using the \emph{Gurobi} software suite (i.e., using
 \code{\link[=add_gurobi_solver]{add_gurobi_solver()}}. Specifically, version 8.0.0 (or greater)
 of the \pkg{gurobi} package must be installed.
 }

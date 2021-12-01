@@ -104,13 +104,13 @@ has an effect when argument to \code{x} is a \code{data.frame}. The
 default argument is zero.}
 }
 \value{
-\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.
+\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.
 }
 \description{
 Create a conservation planning \code{\link[=problem]{problem()}} following the
 mathematical formulations used in \emph{Marxan} (detailed in Beyer
 \emph{et al.} 2016). Note that these problems are solved using
-exact algorithms and not simulated annealing (i.e. the \emph{Marxan} software).
+exact algorithms and not simulated annealing (i.e., the \emph{Marxan} software).
 }
 \details{
 This function is provided as a convenient wrapper for solving

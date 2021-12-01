@@ -12,7 +12,7 @@ NULL
 #' false positives. Please note that these checks will not be able to
 #' verify if  a problem has a feasible solution or not.
 #'
-#' @param x [problem()] (i.e. [`ConservationProblem-class`]) or
+#' @param x [problem()] (i.e., [`ConservationProblem-class`]) or
 #'   [`OptimizationProblem-class`] object.
 #'
 #' @details This function checks for issues that are likely to result in
@@ -21,7 +21,7 @@ NULL
 #'   planning units have negative cost values (after applying penalties if any
 #'   were specified). Although such conservation planning problems
 #'   are mathematically valid, they are generally the result of a coding mistake
-#'   when building the problem (e.g. using an absurdly high
+#'   when building the problem (e.g., using an absurdly high
 #'   penalty value or using the wrong dataset to lock in planning units).
 #'   Thus such issues, if they are indeed issues and not false positives, can
 #'   be fixed by carefully checking the code, data, and parameters used to build
@@ -30,15 +30,15 @@ NULL
 #'   This function then checks for values that may lead to numerical instability
 #'   issues when solving the problem. Specifically, it checks if the range of
 #'   values in certain components of the optimization problem are over a
-#'   certain threshold (i.e. \eqn{1 \times 10 ^9}{1e+9}) or if the values
+#'   certain threshold (i.e., \eqn{1 \times 10 ^9}{1e+9}) or if the values
 #'   themselves exceed a certain threshold
-#'   (i.e. \eqn{1 \times 10^{10}}{1e+10}).
+#'   (i.e., \eqn{1 \times 10^{10}}{1e+10}).
 #'   In most cases, such issues will simply cause an exact
 #'   algorithm solver to take a very long time to generate a solution. In rare
 #'   cases, such issues can cause incorrect calculations which can lead
 #'   to exact algorithm solvers returning infeasible solutions
-#'   (e.g. a solution to the minimum set problem where not all targets are met)
-#'   or solutions that exceed the specified optimality gap (e.g. a suboptimal
+#'   (e.g., a solution to the minimum set problem where not all targets are met)
+#'   or solutions that exceed the specified optimality gap (e.g., a suboptimal
 #'   solution when a zero optimality gap is specified).
 #'
 #'   What can you do if a conservation planning problem fails to pass these
@@ -56,7 +56,7 @@ NULL
 #'   costs of the planning units in terms of USD then you might have
 #'   some planning units that cost over one billion dollars in large-scale
 #'   planning exercises. This can be fixed by rescaling the values so that they
-#'   are smaller (e.g. multiplying the values by a number smaller than one, or
+#'   are smaller (e.g., multiplying the values by a number smaller than one, or
 #'   expressing them as a fraction of the maximum cost). Let's consider another
 #'   common issue, let's pretend that you used habitat suitability models to
 #'   predict the amount of suitable habitat
@@ -83,7 +83,7 @@ NULL
 #'   solving the problem, you will need to manually recalculate the cost
 #'   of the solutions but at least now you can be confident that you have the
 #'   optimal solution. Now let's pretend that you are using the maximum features
-#'   objective (i.e. [add_max_features_objective()]) and assigned some
+#'   objective (i.e., [add_max_features_objective()]) and assigned some
 #'   really high weights to the targets for some features to ensure that their
 #'   targets were met in the optimal solution. If you set the weights for
 #'   these features to one billion then you will probably run into numerical
@@ -91,7 +91,7 @@ NULL
 #'   guarantee that these features will be represented in the optimal solution
 #'   and use this value instead of one billion. This minimum weight value
 #'   can be calculated as the sum of the weight values for the other features
-#'   and adding a small number to it (e.g. 1). Finally, if you're running out
+#'   and adding a small number to it (e.g., 1). Finally, if you're running out
 #'   of ideas for addressing numerical stability issues you have one remaining
 #'   option: you can use the `numeric_focus` argument in the
 #'   [add_gurobi_solver()] function to tell the solver to pay extra

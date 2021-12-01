@@ -28,7 +28,7 @@ It requires the gurobi package to be installed
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.5</span>
       </span>
     </div>
 
@@ -127,7 +127,7 @@ It requires the <span class="pkg">gurobi</span> package to be installed
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
-<dd><p><code><a href="problem.html">problem()</a></code> (i.e. <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) object.</p></dd>
+<dd><p><code><a href="problem.html">problem()</a></code> (i.e., <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) object.</p></dd>
 <dt>gap</dt>
 <dd><p><code>numeric</code> gap to optimality. This gap is relative
 and expresses the acceptable deviance from the optimal objective.
@@ -135,12 +135,12 @@ For example, a value of 0.01 will result in the solver stopping when
 it has found a solution within 1% of optimality.
 Additionally, a value of 0 will result in the solver stopping
 when it has found an optimal solution.
-The default value is 0.1 (i.e. 10% from optimality).</p></dd>
+The default value is 0.1 (i.e., 10% from optimality).</p></dd>
 <dt>time_limit</dt>
 <dd><p><code>numeric</code> time limit (seconds) for generating solutions.
 The solver will return the current best solution when this time limit is
 exceeded. The default value is the largest integer value
-(i.e. <code>.Machine$integer.max</code>), effectively meaning that solver
+(i.e., <code>.Machine$integer.max</code>), effectively meaning that solver
 will keep running until a solution within the optimality gap is found.</p></dd>
 <dt>presolve</dt>
 <dd><p><code>integer</code> number indicating how intensively the
@@ -174,7 +174,7 @@ the optimization problem exceeds this parameter value, the solver
 will begin storing this information on disk
 (using the *Gurobi( <code>NodeFileStart</code> parameter).
 This functionality is useful if the system has insufficient memory to
-solve a given problem (e.g. solving the problem with default settings
+solve a given problem (e.g., solving the problem with default settings
 yields the <code>OUT OF MEMORY</code> error message) and a system with more memory is
 not readily available.
 For example, a value of 4 indicates that the solver will start using
@@ -186,7 +186,7 @@ to store information on disk when solving a given problem.</p></dd>
 <dd><p><code>NULL</code> or object containing the starting solution
 for the solver. Defaults to <code>NULL</code> such that no starting solution is used.
 To specify a starting solution, the argument to <code>start_solution</code> should
-be in the same format as the planning units (i.e. a <code>NULL</code>, <code>numeric</code>,
+be in the same format as the planning units (i.e., a <code>NULL</code>, <code>numeric</code>,
 <code>matrix</code>, <code>data.frame</code>, <code><a href="https://rdrr.io/pkg/raster/man/Raster-classes.html" class="external-link">Raster</a></code>, <code><a href="https://rdrr.io/pkg/sp/man/Spatial-class.html" class="external-link">Spatial</a></code>,
 or <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::sf()</a></code> object).
 See the Start solution format section for more information.</p></dd>
@@ -196,7 +196,7 @@ optimization problems? Defaults to <code>TRUE</code>.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Object (i.e. <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) with the solver
+    <p>Object (i.e., <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) with the solver
 added to it.</p>
     </div>
     <div id="details">
@@ -375,7 +375,7 @@ solving conservation planning problems. <em>PeerJ</em>, 8: e9258.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.9000.</p>
 </div>
 
       </footer></div>

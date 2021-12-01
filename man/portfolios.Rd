@@ -7,10 +7,10 @@
 Conservation planning exercises rarely have access to all the
 data needed to identify the \emph{truly} perfect solution. This is because
 available data may lack important details
-(e.g. land acquisition costs may be unavailable), contain errors
-(e.g. species presence/absence data may have false positives),
+(e.g., land acquisition costs may be unavailable), contain errors
+(e.g., species presence/absence data may have false positives),
 or key objectives may not be formally incorporated into the
-prioritization process (e.g. future land use requirements).
+prioritization process (e.g., future land use requirements).
 As such, conservation planners can help decision makers by providing
 them with a portfolio of solutions to inform their decision.
 }

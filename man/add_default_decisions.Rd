@@ -7,10 +7,10 @@
 add_default_decisions(x)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
 }
 \value{
-Object (i.e. \code{\linkS4class{ConservationProblem}}) with the decisions added
+Object (i.e., \code{\linkS4class{ConservationProblem}}) with the decisions added
 to it.
 }
 \description{

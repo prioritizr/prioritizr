@@ -9,7 +9,7 @@ NULL
 #' weights should be used instead to increase the representation of certain
 #' features by a solution.
 #'
-#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
+#' @param x [problem()] (i.e., [`ConservationProblem-class`]) object.
 #'
 #' @param budget `numeric` value specifying the maximum expenditure of
 #'   the prioritization. For problems with multiple zones, the argument
@@ -22,10 +22,10 @@ NULL
 #' maximizes the number of represented features, while keeping cost within a
 #' fixed budget. Here, features are treated as being represented if
 #' the reserve system contains at least a single instance of a feature
-#' (i.e. an amount greater than 1). This formulation has often been
+#' (i.e., an amount greater than 1). This formulation has often been
 #' used in conservation planning problems dealing with binary biodiversity
 #' data that indicate the presence/absence of suitable habitat
-#' (e.g. Church & Velle 1974). Additionally, weights can be used to favor the
+#' (e.g., Church & Velle 1974). Additionally, weights can be used to favor the
 #' representation of certain features over other features (see
 #' [add_feature_weights()]). Check out the
 #' [add_max_features_objective()] for a more
@@ -48,7 +48,7 @@ NULL
 #' sum_i^I (xi * rij) >= (yj * 1) for all j in J &
 #' sum_i^I (xi * ci) <= B}
 #'
-#' Here, \eqn{x_i}{xi} is the [decisions] variable (e.g.
+#' Here, \eqn{x_i}{xi} is the [decisions] variable (e.g.,
 #' specifying whether planning unit \eqn{i}{i} has been selected (1) or not
 #' (0)), \eqn{r_{ij}}{rij} is the amount of feature \eqn{j}{j} in planning
 #' unit \eqn{i}{i}, \eqn{y_j}{yj} indicates if the solution has meet

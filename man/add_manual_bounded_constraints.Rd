@@ -13,18 +13,18 @@ add_manual_bounded_constraints(x, data)
 \S4method{add_manual_bounded_constraints}{ConservationProblem,tbl_df}(x, data)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{data}{\code{data.frame} or \code{\link[tibble:tibble]{tibble::tibble()}} object.
 See the Data format section for more information.}
 }
 \value{
-Object (i.e. \code{\linkS4class{ConservationProblem}}) with the constraints
+Object (i.e., \code{\linkS4class{ConservationProblem}}) with the constraints
 added to it.
 }
 \description{
 Add constraints to a conservation planning \code{\link[=problem]{problem()}} to ensure
-that the planning unit values (e.g. proportion, binary) in a solution
+that the planning unit values (e.g., proportion, binary) in a solution
 range between specific lower and upper bounds. This function offers more
 fine-grained control than the \code{\link[=add_manual_locked_constraints]{add_manual_locked_constraints()}}
 function and is is most useful for problems involving proportion-type

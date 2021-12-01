@@ -28,7 +28,7 @@ Organize data for multiple features for multiple management zones.
 Specifically, the data should describe the expected amount of each
 feature within each planning unit given each management zone.
 For example, the data could describe the occupancy
-(e.g. presence/absence), probability of occurrence, or
+(e.g., presence/absence), probability of occurrence, or
 abundance expected for each feature when each planning unit
 is allocated to a different zone.
 }

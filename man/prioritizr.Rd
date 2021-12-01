@@ -30,7 +30,7 @@ for more information.
 This package contains several vignettes that are designed to
 showcase its functionality. To view them, please use the code
 \code{vignette("name", package = "prioritizr")} where \code{"name"} is the
-name of the desired vignette (e.g. \code{"gurobi_installation"}).
+name of the desired vignette (e.g., \code{"gurobi_installation"}).
 
 \describe{
 

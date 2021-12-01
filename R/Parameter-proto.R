@@ -22,7 +22,7 @@ NULL
 #' \item{$default}{`numeric` vector of default values.}
 #'
 #' \item{$class}{`character` name of the class that the values inherit
-#'   from (e.g. `"integer"`.}
+#'   from (e.g., `"integer"`.}
 #'
 #' \item{$lower_limit}{`numeric` vector specifying the minimum
 #'   permitted value for each element in `$value`.}

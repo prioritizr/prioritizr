@@ -8,10 +8,10 @@
 \S4method{add_mandatory_allocation_constraints}{ConservationProblem}(x)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
 }
 \value{
-Object (i.e. \code{\linkS4class{ConservationProblem}}) with the constraints
+Object (i.e., \code{\linkS4class{ConservationProblem}}) with the constraints
 added to it.
 }
 \description{
@@ -27,11 +27,11 @@ developing land-use plans, some decision makers may require that each and
 every single parcel of land has been allocated a specific land-use type.
 In other words are no "left over" areas. Although it might seem tempting
 to simply solve the problem and manually assign "left over" planning units
-to a default zone afterwards (e.g. an "other", "urban", or "grazing"
+to a default zone afterwards (e.g., an "other", "urban", or "grazing"
 land-use), this could result in highly sub-optimal solutions if there
 penalties for siting the default land-use adjacent to other zones.
 Instead, this function can be used to specify that all planning units in a
-problem with multiple zones must be allocated to a management zone (i.e.
+problem with multiple zones must be allocated to a management zone (i.e.,
 zone allocation is mandatory).
 }
 \examples{

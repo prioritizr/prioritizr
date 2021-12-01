@@ -39,7 +39,7 @@ the conductance values. Note that argument to \code{y} can only be a
 Also, note that if the argument to \code{x} is a
 \code{\linkS4class{Raster}} object then
 argument to \code{y} must have the same spatial properties as it
-(i.e. coordinate system, extent, resolution).}
+(i.e., coordinate system, extent, resolution).}
 
 \item{...}{additional arguments passed to \code{\link[=fast_extract]{fast_extract()}} for
 extracting and calculating the conductance values for each planning unit.
@@ -112,7 +112,7 @@ plot(clamp(raster(as.matrix(cm_ply)), lower = 1e-5, useValues = FALSE),
 # create connectivity matrix using habitat suitability data for each feature,
 # this could be useful if prioritisations should spatially clump
 # together adjacent planning units that have suitable habitat
-# for the same species (e.g. to maintain functional connectivity)
+# for the same species (e.g., to maintain functional connectivity)
 
 ## let's use the raster data for this example, and we can generate the
 ## connectivity matrix that we would use in the prioritization by
@@ -131,7 +131,7 @@ plot(clamp(raster(as.matrix(cm_sum)), lower = 1e-5, useValues = FALSE),
 
 ## we could take this example one step further, and use weights to indicate
 ## relative importance of maintaining functional connectivity
-## for each feature (i.e. use the weighted sum instead of the sum)
+## for each feature (i.e., use the weighted sum instead of the sum)
 
 ## let's pretend that the first feature is 20 times more important
 ## than all the other species
@@ -151,7 +151,7 @@ plot(clamp(raster(as.matrix(cm_wsum)), lower = 1e-5, useValues = FALSE),
 }
 
 ## since the statistical distribution of the connectivity values
-## for each feature (e.g. the mean and standard deviation of the
+## for each feature (e.g., the mean and standard deviation of the
 ## connectivity values) are different, it might make sense -- depending
 ## on the goal of the conservation planning exercise and the underlying
 ## data -- to first normalize the conductance values before applying the

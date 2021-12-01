@@ -24,7 +24,7 @@ solutions that select planning units with high connectivity between them."><meta
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.5</span>
       </span>
     </div>
 
@@ -121,11 +121,11 @@ solutions that select planning units with high connectivity between them.</p>
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
-<dd><p><code><a href="problem.html">problem()</a></code> (i.e. <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) object.</p></dd>
+<dd><p><code><a href="problem.html">problem()</a></code> (i.e., <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) object.</p></dd>
 <dt>penalty</dt>
 <dd><p><code>numeric</code> penalty that is used to scale the importance
 of selecting planning units with strong connectivity between them compared
-to the main problem objective (e.g. solution cost when the argument to
+to the main problem objective (e.g., solution cost when the argument to
 <code>x</code> has a minimum set objective set using
 <code><a href="add_min_set_objective.html">add_min_set_objective()</a></code>). Higher <code>penalty</code> values
 can be used to obtain solutions with a high degree of connectivity,
@@ -141,7 +141,7 @@ of zones. Cell values along the diagonal of the matrix represent
 the level of connectivity between planning units allocated to the
 same zone. Cell values must lay between 1 and -1, where negative
 values favor solutions with weak connectivity. The default argument to
-<code>zones</code> is an identity matrix (i.e. a matrix with ones along the
+<code>zones</code> is an identity matrix (i.e., a matrix with ones along the
 matrix diagonal and zeros elsewhere), so that planning units are
 only considered to be connected when they are allocated to the same zone.
 This argument is required when the argument to <code>data</code> is a
@@ -158,7 +158,7 @@ See the Data format section for more information.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Object (i.e. <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) with the penalties
+    <p>Object (i.e., <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) with the penalties
 added to it.</p>
     </div>
     <div id="details">
@@ -196,7 +196,7 @@ denotes the connectivity between two planning units following the
 <em>Marxan</em> format. The data can be used to denote symmetric or
 asymmetric relationships between planning units. By default,
 input data is assumed to be symmetric unless asymmetric data is
-also included (e.g. if data is present for planning units 2 and 3, then
+also included (e.g., if data is present for planning units 2 and 3, then
 the same amount of connectivity is expected for planning units 3 and 2,
 unless connectivity data is also provided for planning units 3 and 2).
 If the argument to <code>x</code> contains multiple zones, then the columns
@@ -211,7 +211,7 @@ allocated to specific zones. If the columns <code>"zone1"</code> and
 <dd><p>containing four-dimensions where cell values
 indicate the strength of connectivity between planning units
 when they are assigned to specific management zones. The first two
-dimensions (i.e. rows and columns) indicate the strength of
+dimensions (i.e., rows and columns) indicate the strength of
 connectivity between different planning units and the second two
 dimensions indicate the different management zones. Thus
 the <code>data[1, 2, 3, 4]</code> indicates the strength of
@@ -230,7 +230,7 @@ Let \(I\) represent the set of planning units
 (indexed by \(i\) or \(j\)), \(Z\) represent the set
 of management zones (indexed by \(z\) or \(y\)), and \(X_{iz}\)
 represent the decision variable for planning unit \(i\) for in zone
-\(z\) (e.g. with binary
+\(z\) (e.g., with binary
 values one indicating if planning unit is allocated or not). Also, let
 \(p\) represent the argument to <code>penalty</code>, \(D\) represent the
 argument to <code>data</code>, and \(W\) represent the argument
@@ -303,7 +303,7 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 <span class="r-in"><span class="co"># }</span></span>
 <span class="r-in"><span class="co"># create a symmetric connectivity matrix where the connectivity between</span></span>
 <span class="r-in"><span class="co"># two planning units corresponds to their spatial proximity</span></span>
-<span class="r-in"><span class="co"># i.e. planning units that are further apart share less connectivity</span></span>
+<span class="r-in"><span class="co"># i.e., planning units that are further apart share less connectivity</span></span>
 <span class="r-in"><span class="va">centroids</span> <span class="op">&lt;-</span> <span class="fu">rgeos</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rgeos/man/topo-unary-gCentroid.html" class="external-link">gCentroid</a></span><span class="op">(</span><span class="va">sim_pu_polygons</span>, byid <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">d_matrix</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fl">1</span> <span class="op">/</span> <span class="op">(</span><span class="fu"><a href="as.html">as</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></span><span class="op">(</span><span class="va">centroids</span><span class="op">@</span><span class="va">coords</span><span class="op">)</span>, <span class="st">"Matrix"</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"></span>
@@ -348,7 +348,7 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 <span class="r-in">    <span class="co"># find if planning units are adjacent</span></span>
 <span class="r-in">    <span class="kw">if</span> <span class="op">(</span><span class="va">adjacent_units</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span><span class="op">)</span> <span class="op">{</span></span>
 <span class="r-in">      <span class="co"># find if planning units lay north and south of each other</span></span>
-<span class="r-in">      <span class="co"># i.e. they have the same x-coordinate</span></span>
+<span class="r-in">      <span class="co"># i.e., they have the same x-coordinate</span></span>
 <span class="r-in">      <span class="kw">if</span> <span class="op">(</span><span class="va">centroids</span><span class="op">@</span><span class="va">coords</span><span class="op">[</span><span class="va">i</span>, <span class="fl">1</span><span class="op">]</span> <span class="op">==</span> <span class="va">centroids</span><span class="op">@</span><span class="va">coords</span><span class="op">[</span><span class="va">j</span>, <span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">{</span></span>
 <span class="r-in">        <span class="kw">if</span> <span class="op">(</span><span class="va">centroids</span><span class="op">@</span><span class="va">coords</span><span class="op">[</span><span class="va">i</span>, <span class="fl">2</span><span class="op">]</span> <span class="op">&gt;</span> <span class="va">centroids</span><span class="op">@</span><span class="va">coords</span><span class="op">[</span><span class="va">j</span>, <span class="fl">2</span><span class="op">]</span><span class="op">)</span> <span class="op">{</span></span>
 <span class="r-in">          <span class="co"># if i is north of j add 10 units of connectivity</span></span>
@@ -572,7 +572,7 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.9000.</p>
 </div>
 
       </footer></div>

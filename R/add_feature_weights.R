@@ -12,14 +12,14 @@ NULL
 #' representation of some features over other features when making decisions
 #' about how the budget should be allocated.
 #'
-#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
+#' @param x [problem()] (i.e., [`ConservationProblem-class`]) object.
 #'
 #' @param weights `numeric` or `matrix` of weights.
 #'   See the Weights format section for more information.
 #'
 #' @details
 #' Weights can only be applied to problems that have an objective
-#' that is budget limited (e.g. [add_max_cover_objective()]).
+#' that is budget limited (e.g., [add_max_cover_objective()]).
 #' They can be applied to problems that aim to maximize phylogenetic
 #' representation ([add_max_phylo_div_objective()]) to favor the
 #' representation of specific features over the representation of
@@ -54,7 +54,7 @@ NULL
 #'
 #'   }
 #'
-#' @return Object (i.e. [`ConservationProblem-class`]) with the weights
+#' @return Object (i.e., [`ConservationProblem-class`]) with the weights
 #'  added to it.
 #'
 #' @seealso
@@ -88,7 +88,7 @@ NULL
 #'
 #' # create manually specified weights that assign higher importance to
 #' # certain features. These weights could be based on a pre-calculated index
-#' # (e.g. an index measuring extinction risk where higher values
+#' # (e.g., an index measuring extinction risk where higher values
 #' # denote higher extinction risk)
 #' w3 <- c(0, 0, 0, 100, 200)
 #' p3 <- p1 %>% add_feature_weights(w3)
@@ -130,18 +130,18 @@ NULL
 #'      tip.color = replace(rep("black", nlayers(sim_features)),
 #'                          which(r4$met), "red"))
 #' }
-#' # we can see here that the third feature ("layer.3", i.e.
+#' # we can see here that the third feature ("layer.3", i.e.,
 #' # sim_features[[3]]) is not represented in the solution. Let us pretend
 #' # that it is absolutely critical this feature is adequately conserved
 #' # in the solution. For example, this feature could represent a species
 #' # that plays important role in the ecosystem, or a species that is
-#' # important commercial activities (e.g. eco-tourism). So, to generate
+#' # important commercial activities (e.g., eco-tourism). So, to generate
 #' # a solution that conserves the third feature whilst also aiming to
 #' # maximize phylogenetic diversity, we will create a set of weights that
 #' # assign a particularly high weighting to the third feature
 #' w5 <- c(0, 0, 1000, 0, 0)
 #'
-#' # we can see that this weighting (i.e. w5[3]) has a much higher value than
+#' # we can see that this weighting (i.e., w5[3]) has a much higher value than
 #' # the branch lengths in the phylogeny so solutions that represent this
 #' # feature be much closer to optimality
 #' print(sim_phylogeny$edge.length)

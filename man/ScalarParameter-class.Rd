@@ -21,7 +21,7 @@ This prototype is used to represent a parameter has a single value.
 \item{$default}{\code{numeric} scalar default value.}
 
 \item{$class}{\code{character} name of the class that \verb{$value} should
-inherit from (e.g. \code{integer}).}
+inherit from (e.g., \code{integer}).}
 
 \item{$lower_limit}{\code{numeric} scalar value that is the minimum value
 that \verb{$value} is permitted to be.}

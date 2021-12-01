@@ -25,7 +25,7 @@ eval_rare_richness_importance(x, solution, ...)
 \S4method{eval_rare_richness_importance}{ConservationProblem,Raster}(x, solution, rescale, ...)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{solution}{\code{numeric}, \code{matrix}, \code{data.frame},
 \code{\linkS4class{Raster}}, \code{\linkS4class{Spatial}},
@@ -51,7 +51,7 @@ same format as the planning unit data in the argument to \code{x}.
 Calculate importance scores for planning units selected in a solution
 using rarity weighted richness scores (based on Williams \emph{et al.} 1996).
 This method is only recommended for large-scaled conservation
-planning exercises (i.e. more than 100,000 planning units) where
+planning exercises (i.e., more than 100,000 planning units) where
 importance scores cannot be calculated using other methods in a feasible
 period of time. This is because rarity weighted richness scores cannot (i)
 account for the cost of different planning units, (ii) account for multiple

@@ -24,7 +24,7 @@ of a conservation planning problem."><meta property="og:image" content="https://
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.5</span>
       </span>
     </div>
 
@@ -111,7 +111,7 @@ of a conservation planning problem.</p>
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
-<dd><p><code><a href="problem.html">problem()</a></code> (i.e. <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) object.</p></dd>
+<dd><p><code><a href="problem.html">problem()</a></code> (i.e., <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) object.</p></dd>
 <dt>na.rm</dt>
 <dd><p><code>logical</code> should planning units with <code>NA</code> cost
 data be excluded from the abundance calculations? The default argument
@@ -154,10 +154,10 @@ then this column will contain values between zero and one.</p></dd>
     <div id="details">
     <h2>Details</h2>
     <p>Planning units can have cost data with finite values
-(e.g. 0.1, 3, 100) and <code>NA</code> values. This functionality is provided so
+(e.g., 0.1, 3, 100) and <code>NA</code> values. This functionality is provided so
 that locations which are not available for protected area acquisition can
 be included when calculating targets for conservation features
-(e.g. when targets are specified using <code><a href="add_relative_targets.html">add_relative_targets()</a></code>).
+(e.g., when targets are specified using <code><a href="add_relative_targets.html">add_relative_targets()</a></code>).
 If the total amount of each feature in all the planning units is
 required---including the planning units with <code>NA</code> cost data---then the
 the <code>na.rm</code> argument should be set to <code>FALSE</code>. However, if
@@ -252,7 +252,7 @@ each feature---then the <code>na.rm</code> argument should be set to
 <span class="r-in"><span class="co"># \dontrun{</span></span>
 <span class="r-in"><span class="va">s4</span> <span class="op">&lt;-</span> <span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p4</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Error in .local(a, b = b, ...) : </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   no solution found (e.g. due to problem infeasibility or time limits)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   no solution found (e.g., due to problem infeasibility or time limits)</span>
 <span class="r-in"><span class="co"># }</span></span>
 <span class="r-in"><span class="co"># calculate feature abundances; excluding planning units with NA costs</span></span>
 <span class="r-in"><span class="va">a5</span> <span class="op">&lt;-</span> <span class="fu">feature_abundances</span><span class="op">(</span><span class="va">p3</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -278,8 +278,8 @@ each feature---then the <code>na.rm</code> argument should be set to
 <span class="r-in"><span class="va">s5</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p5</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># plot the solution</span></span>
-<span class="r-in"><span class="co"># this solution contains all the planning units with finite cost data (i.e.</span></span>
-<span class="r-in"><span class="co"># cost data that do not have NA values)</span></span>
+<span class="r-in"><span class="co"># this solution contains all the planning units with finite cost data</span></span>
+<span class="r-in"><span class="co"># (i.e., cost data that do not have NA values)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s5</span><span class="op">)</span></span>
 <span class="r-plt"><img src="feature_abundances-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span class="co"># }</span></span>
@@ -297,7 +297,7 @@ each feature---then the <code>na.rm</code> argument should be set to
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.9000.</p>
 </div>
 
       </footer></div>

@@ -7,11 +7,11 @@ NULL
 #' that spatially clump planning units together based on the overall
 #' boundary length (perimeter).
 #'
-#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
+#' @param x [problem()] (i.e., [`ConservationProblem-class`]) object.
 #'
 #' @param penalty `numeric` penalty that is used to scale the importance
 #'   of selecting planning units that are spatially clumped together compared
-#'   to the main problem objective (e.g. solution cost when the argument to
+#'   to the main problem objective (e.g., solution cost when the argument to
 #'   `x` has a minimum set objective per [add_min_set_objective()]).
 #'   Higher `penalty` values prefer solutions with a higher degree of spatial
 #'   clumping, and smaller `penalty` values prefer solutions with a smaller
@@ -36,19 +36,19 @@ NULL
 #'   allocated to the same zone. Cell values must range between 1 and -1, where
 #'   negative values favor solutions that spread out planning units. The default
 #'   argument to `zones` is an identity
-#'   matrix (i.e. a matrix with ones along the matrix diagonal and zeros
+#'   matrix (i.e., a matrix with ones along the matrix diagonal and zeros
 #'   elsewhere), so that penalties are incurred when neighboring planning units
 #'   are not assigned to the same zone. If the cells along
 #'   the matrix diagonal contain markedly smaller values than those found
 #'   elsewhere in the matrix, then solutions are preferred that surround
 #'   planning units with those allocated to different zones
-#'   (i.e. greater spatial fragmentation).
+#'   (i.e., greater spatial fragmentation).
 #'
 #' @param data `NULL`, `data.frame`, `matrix`, or `Matrix`
 #'   object containing the boundary data. These data describe the total
 #'   amount of boundary (perimeter) length  for each planning unit,
 #'   and the amount of boundary (perimeter) length shared between different
-#'   planning units (i.e. planning units that are adjacent to each other).
+#'   planning units (i.e., planning units that are adjacent to each other).
 #'   See the Data format section for more information.
 #'
 #' @details
@@ -75,14 +75,14 @@ NULL
 #'   Note that the boundary data must be supplied
 #'   using one of the other formats below if the planning unit data
 #'   in the argument to `x` do not explicitly contain spatial information
-#'   (e.g. planning unit data are a `data.frame` or `numeric` class).}
+#'   (e.g., planning unit data are a `data.frame` or `numeric` class).}
 #'
 #' \item{`data` as a `matrix`/`Matrix` object}{where rows and columns represent
 #'   different planning units and the value of each cell represents the
 #'   amount of shared boundary length between two different planning units.
 #'   Cells that occur along the matrix diagonal represent the amount of
 #'   exposed boundary associated with each planning unit that has
-#'   no neighbor (e.g. these value might pertain to boundaries along a
+#'   no neighbor (e.g., these value might pertain to boundaries along a
 #'   coastline).}
 #'
 #' \item{`data` as a `data.frame` object}{with the columns `"id1"`,
@@ -91,7 +91,7 @@ NULL
 #'   column contains the amount of shared boundary length between these
 #'   two planning units.
 #'   This format follows the the standard *Marxan* format for boundary
-#'   data (i.e. per the "bound.dat" file).}
+#'   data (i.e., per the "bound.dat" file).}
 #'
 #' }
 #'
@@ -101,11 +101,11 @@ NULL
 #' (indexed by \eqn{i} or \eqn{j}), \eqn{Z} represent
 #' the set of management zones (indexed by \eqn{z} or \eqn{y}), and
 #' \eqn{X_{iz}}{Xiz} represent the decision
-#' variable for planning unit \eqn{i} for in zone \eqn{z} (e.g. with binary
+#' variable for planning unit \eqn{i} for in zone \eqn{z} (e.g., with binary
 #' values one indicating if planning unit is allocated or not). Also, let
 #' \eqn{p} represent the argument to `penalty`, \eqn{E_z}{Ez} represent the
 #' argument to `edge_factor`, \eqn{B_{ij}}{Bij} represent the matrix argument
-#' to `data` (e.g. generated using [boundary_matrix()]), and
+#' to `data` (e.g., generated using [boundary_matrix()]), and
 #' \eqn{W_{zz}}{Wzz} represent the matrix argument to `zones`.
 #'
 #' \deqn{
@@ -121,7 +121,7 @@ NULL
 #' benefit and not minimize some measure of cost, the term \eqn{p} is
 #' replaced with \eqn{-p}.
 #'
-#' @return Object (i.e. [`ConservationProblem-class`]) with the penalties
+#' @return Object (i.e., [`ConservationProblem-class`]) with the penalties
 #'  added to it.
 #'
 #' @seealso
@@ -214,7 +214,7 @@ NULL
 #'
 #' # create zone matrix which favors clumping planning units in zones 1 and 2
 #' # together, and favors planning units in zone 3 being spread out
-#' # (i.e. negative clumping)
+#' # (i.e., negative clumping)
 #' zm10 <- diag(3)
 #' zm10[3, 3] <- -1
 #' print(zm10)

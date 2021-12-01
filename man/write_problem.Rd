@@ -7,7 +7,7 @@
 write_problem(x, path)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{path}{\code{character} file path to save the problem formulation.
 The argument should contain a \code{".lp"} or \verb{.mps"} file extension

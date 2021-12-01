@@ -14,7 +14,7 @@ add_cplex_solver(
 )
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{gap}{\code{numeric} gap to optimality. This gap is relative
 and expresses the acceptable deviance from the optimal objective.
@@ -22,12 +22,12 @@ For example, a value of 0.01 will result in the solver stopping when
 it has found a solution within 1\% of optimality.
 Additionally, a value of 0 will result in the solver stopping
 when it has found an optimal solution.
-The default value is 0.1 (i.e. 10\% from optimality).}
+The default value is 0.1 (i.e., 10\% from optimality).}
 
 \item{time_limit}{\code{numeric} time limit (seconds) for generating solutions.
 The solver will return the current best solution when this time limit is
 exceeded. The default value is the largest integer value
-(i.e. \code{.Machine$integer.max}), effectively meaning that solver
+(i.e., \code{.Machine$integer.max}), effectively meaning that solver
 will keep running until a solution within the optimality gap is found.}
 
 \item{presolve}{\code{logical} attempt to simplify the
@@ -40,7 +40,7 @@ optimization algorithm. The default value is 1.}
 optimization problems? Defaults to \code{TRUE}.}
 }
 \value{
-Object (i.e. \code{\linkS4class{ConservationProblem}}) with the solver
+Object (i.e., \code{\linkS4class{ConservationProblem}}) with the solver
 added to it.
 }
 \description{
@@ -54,12 +54,12 @@ It requires the \pkg{cplexAPI} package to be installed
 \details{
 \href{https://www.ibm.com/analytics/cplex-optimizer}{\emph{IBM CPLEX}} is a
 commercial optimization software. It is faster than
-the available open source solvers (e.g. \code{\link[=add_lpsymphony_solver]{add_lpsymphony_solver()}} and
+the available open source solvers (e.g., \code{\link[=add_lpsymphony_solver]{add_lpsymphony_solver()}} and
 \code{\link[=add_rsymphony_solver]{add_rsymphony_solver()}}.
 Although formal benchmarks examining the performance of this solver for
 conservation planning problems have yet to be completed, preliminary
 analyses suggest that it performs slightly slower than the \emph{Gurobi}
-solver (i.e. \code{\link[=add_gurobi_solver]{add_gurobi_solver()}}).
+solver (i.e., \code{\link[=add_gurobi_solver]{add_gurobi_solver()}}).
 We recommend using this solver if the \emph{Gurobi} solver is not available.
 Licenses are available for the \emph{IBM CPLEX} software to academics at no cost
 (see \url{https://www.ibm.com/products/ilog-cplex-optimization-studio}).
@@ -75,7 +75,7 @@ this variable can be specified by adding the following text to the
 }
 
 Note that you may need to change the version
-number in the file path (i.e. \code{"CPLEX_Studio128"}). For more information
+number in the file path (i.e., \code{"CPLEX_Studio128"}). For more information
 on installing the pkg{cplexAPI} package, please see the
 \href{https://github.com/cran/cplexAPI/blob/master/inst/INSTALL}{official installation instructions for the package}.
 }

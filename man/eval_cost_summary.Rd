@@ -13,7 +13,7 @@ eval_cost_summary(x, solution)
 \method{eval_cost_summary}{ConservationProblem}(x, solution)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{solution}{\code{numeric}, \code{matrix}, \code{data.frame},
 \code{\linkS4class{Raster}}, \code{\linkS4class{Spatial}},
@@ -58,7 +58,7 @@ This metric is equivalent to the \code{Cost} metric reported by the
 \href{https://marxansolutions.org}{\emph{Marxan} software} (Ball \emph{et al.} 2009).
 Specifically, the cost of a solution is defined as the sum of the cost
 values, supplied when creating a \code{\link[=problem]{problem()}} object
-(e.g. using the \code{cost_column} argument),
+(e.g., using the \code{cost_column} argument),
 weighted by the status of each planning unit in the solution.
 }
 \section{Solution format}{

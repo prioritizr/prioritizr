@@ -30,7 +30,7 @@ see below for installation instructions)."><meta property="og:image" content="ht
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.5</span>
       </span>
     </div>
 
@@ -129,7 +129,7 @@ see below for installation instructions).</p>
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
-<dd><p><code><a href="problem.html">problem()</a></code> (i.e. <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) object.</p></dd>
+<dd><p><code><a href="problem.html">problem()</a></code> (i.e., <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) object.</p></dd>
 <dt>gap</dt>
 <dd><p><code>numeric</code> gap to optimality. This gap is relative
 and expresses the acceptable deviance from the optimal objective.
@@ -137,12 +137,12 @@ For example, a value of 0.01 will result in the solver stopping when
 it has found a solution within 1% of optimality.
 Additionally, a value of 0 will result in the solver stopping
 when it has found an optimal solution.
-The default value is 0.1 (i.e. 10% from optimality).</p></dd>
+The default value is 0.1 (i.e., 10% from optimality).</p></dd>
 <dt>time_limit</dt>
 <dd><p><code>numeric</code> time limit (seconds) for generating solutions.
 The solver will return the current best solution when this time limit is
 exceeded. The default value is the largest integer value
-(i.e. <code>.Machine$integer.max</code>), effectively meaning that solver
+(i.e., <code>.Machine$integer.max</code>), effectively meaning that solver
 will keep running until a solution within the optimality gap is found.</p></dd>
 <dt>presolve</dt>
 <dd><p><code>logical</code> attempt to simplify the
@@ -162,7 +162,7 @@ Defaults to <code>FALSE</code>.</p></dd>
 <dd><p><code>NULL</code> or object containing the starting solution
 for the solver. Defaults to <code>NULL</code> such that no starting solution is used.
 To specify a starting solution, the argument to <code>start_solution</code> should
-be in the same format as the planning units (i.e. a <code>NULL</code>, <code>numeric</code>,
+be in the same format as the planning units (i.e., a <code>NULL</code>, <code>numeric</code>,
 <code>matrix</code>, <code>data.frame</code>, <code><a href="https://rdrr.io/pkg/raster/man/Raster-classes.html" class="external-link">Raster</a></code>, <code><a href="https://rdrr.io/pkg/sp/man/Spatial-class.html" class="external-link">Spatial</a></code>,
 or <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::sf()</a></code> object).
 See the Start solution format section for more information.</p></dd>
@@ -172,7 +172,7 @@ optimization problems? Defaults to <code>TRUE</code>.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Object (i.e. <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) with the solver
+    <p>Object (i.e., <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) with the solver
 added to it.</p>
     </div>
     <div id="details">
@@ -183,7 +183,7 @@ Computational Infrastructure for Operations Research (COIN-OR) project.
 Although formal benchmarks examining the performance of this solver for
 conservation planning problems have yet to be completed, preliminary
 analyses suggest that it performs much faster than the other open-source
-solvers (i.e. <code><a href="add_rsymphony_solver.html">add_rsymphony_solver()</a></code>, <code><a href="add_rsymphony_solver.html">add_rsymphony_solver()</a></code>), and
+solvers (i.e., <code><a href="add_rsymphony_solver.html">add_rsymphony_solver()</a></code>, <code><a href="add_rsymphony_solver.html">add_rsymphony_solver()</a></code>), and
 so we recommend using this solver if the <em>Gurobi</em> and <em>IBM CPLEX</em> solvers
 are unavailable.</p>
     </div>
@@ -356,7 +356,7 @@ doi: <a href="https://doi.org/10.1287/educ.1053.0020" class="external-link">10.1
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.9000.</p>
 </div>
 
       </footer></div>

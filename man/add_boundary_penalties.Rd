@@ -13,11 +13,11 @@ add_boundary_penalties(
 )
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{penalty}{\code{numeric} penalty that is used to scale the importance
 of selecting planning units that are spatially clumped together compared
-to the main problem objective (e.g. solution cost when the argument to
+to the main problem objective (e.g., solution cost when the argument to
 \code{x} has a minimum set objective per \code{\link[=add_min_set_objective]{add_min_set_objective()}}).
 Higher \code{penalty} values prefer solutions with a higher degree of spatial
 clumping, and smaller \code{penalty} values prefer solutions with a smaller
@@ -42,23 +42,23 @@ represent the relative importance of clumping planning units that are
 allocated to the same zone. Cell values must range between 1 and -1, where
 negative values favor solutions that spread out planning units. The default
 argument to \code{zones} is an identity
-matrix (i.e. a matrix with ones along the matrix diagonal and zeros
+matrix (i.e., a matrix with ones along the matrix diagonal and zeros
 elsewhere), so that penalties are incurred when neighboring planning units
 are not assigned to the same zone. If the cells along
 the matrix diagonal contain markedly smaller values than those found
 elsewhere in the matrix, then solutions are preferred that surround
 planning units with those allocated to different zones
-(i.e. greater spatial fragmentation).}
+(i.e., greater spatial fragmentation).}
 
 \item{data}{\code{NULL}, \code{data.frame}, \code{matrix}, or \code{Matrix}
 object containing the boundary data. These data describe the total
 amount of boundary (perimeter) length  for each planning unit,
 and the amount of boundary (perimeter) length shared between different
-planning units (i.e. planning units that are adjacent to each other).
+planning units (i.e., planning units that are adjacent to each other).
 See the Data format section for more information.}
 }
 \value{
-Object (i.e. \code{\linkS4class{ConservationProblem}}) with the penalties
+Object (i.e., \code{\linkS4class{ConservationProblem}}) with the penalties
 added to it.
 }
 \description{
@@ -91,14 +91,14 @@ This argument is the default.
 Note that the boundary data must be supplied
 using one of the other formats below if the planning unit data
 in the argument to \code{x} do not explicitly contain spatial information
-(e.g. planning unit data are a \code{data.frame} or \code{numeric} class).}
+(e.g., planning unit data are a \code{data.frame} or \code{numeric} class).}
 
 \item{\code{data} as a \code{matrix}/\code{Matrix} object}{where rows and columns represent
 different planning units and the value of each cell represents the
 amount of shared boundary length between two different planning units.
 Cells that occur along the matrix diagonal represent the amount of
 exposed boundary associated with each planning unit that has
-no neighbor (e.g. these value might pertain to boundaries along a
+no neighbor (e.g., these value might pertain to boundaries along a
 coastline).}
 
 \item{\code{data} as a \code{data.frame} object}{with the columns \code{"id1"},
@@ -107,7 +107,7 @@ identifiers (indices) for a pair of planning units, and the \code{"boundary"}
 column contains the amount of shared boundary length between these
 two planning units.
 This format follows the the standard \emph{Marxan} format for boundary
-data (i.e. per the "bound.dat" file).}
+data (i.e., per the "bound.dat" file).}
 
 }
 }
@@ -119,11 +119,11 @@ The boundary penalties are implemented using the following equations. Let
 (indexed by \eqn{i} or \eqn{j}), \eqn{Z} represent
 the set of management zones (indexed by \eqn{z} or \eqn{y}), and
 \eqn{X_{iz}}{Xiz} represent the decision
-variable for planning unit \eqn{i} for in zone \eqn{z} (e.g. with binary
+variable for planning unit \eqn{i} for in zone \eqn{z} (e.g., with binary
 values one indicating if planning unit is allocated or not). Also, let
 \eqn{p} represent the argument to \code{penalty}, \eqn{E_z}{Ez} represent the
 argument to \code{edge_factor}, \eqn{B_{ij}}{Bij} represent the matrix argument
-to \code{data} (e.g. generated using \code{\link[=boundary_matrix]{boundary_matrix()}}), and
+to \code{data} (e.g., generated using \code{\link[=boundary_matrix]{boundary_matrix()}}), and
 \eqn{W_{zz}}{Wzz} represent the matrix argument to \code{zones}.
 
 \deqn{
@@ -215,7 +215,7 @@ p9 <- p5 \%>\% add_boundary_penalties(500, zone = zm9)
 
 # create zone matrix which favors clumping planning units in zones 1 and 2
 # together, and favors planning units in zone 3 being spread out
-# (i.e. negative clumping)
+# (i.e., negative clumping)
 zm10 <- diag(3)
 zm10[3, 3] <- -1
 print(zm10)

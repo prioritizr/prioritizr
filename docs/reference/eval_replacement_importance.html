@@ -24,7 +24,7 @@ based on the replacement cost method (Cabeza and Moilanen 2006)."><meta property
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.5</span>
       </span>
     </div>
 
@@ -126,7 +126,7 @@ based on the replacement cost method (Cabeza and Moilanen 2006).</p>
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
-<dd><p><code><a href="problem.html">problem()</a></code> (i.e. <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) object.</p></dd>
+<dd><p><code><a href="problem.html">problem()</a></code> (i.e., <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) object.</p></dd>
 <dt>solution</dt>
 <dd><p><code>numeric</code>, <code>matrix</code>, <code>data.frame</code>,
 <code><a href="https://rdrr.io/pkg/raster/man/Raster-classes.html" class="external-link">Raster</a></code>, <code><a href="https://rdrr.io/pkg/sp/man/Spatial-class.html" class="external-link">Spatial</a></code>,
@@ -182,18 +182,18 @@ objective function (<code><a href="add_max_utility_objective.html">add_max_utili
 replacement cost scores correspond to the reduction in the utility when
 each planning unit is locked out. Infinite values mean that no feasible
 solution exists when planning units are locked out---they are
-absolutely essential for obtaining a solution (e.g. they contain rare
+absolutely essential for obtaining a solution (e.g., they contain rare
 species that are not found in any other planning units or were locked in).
 Zeros values mean that planning units can swapped with other planning units
 and this will have no effect on the performance of the solution at all
-(e.g. because they were only selected due to spatial fragmentation
+(e.g., because they were only selected due to spatial fragmentation
 penalties).</p>
 <p>These calculations can take a long time to complete for large
 or complex conservation planning problems. As such, we using this
 method for small or moderate-sized conservation planning problems
-(e.g. &lt; 30,000 planning units). To reduce run time, we
-recommend calculating these scores without additional penalties (e.g.
-<code><a href="add_boundary_penalties.html">add_boundary_penalties()</a></code>) or spatial constraints (e.g.
+(e.g., &lt; 30,000 planning units). To reduce run time, we
+recommend calculating these scores without additional penalties (e.g.,
+<code><a href="add_boundary_penalties.html">add_boundary_penalties()</a></code>) or spatial constraints (e.g.,
 <code><a href="add_contiguity_constraints.html">add_contiguity_constraints()</a></code>). To further reduce run time,
 we recommend using proportion-type decisions when calculating the scores
 (see below for an example).</p>
@@ -477,7 +477,7 @@ the importance of planning units selected in a solution.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.9000.</p>
 </div>
 
       </footer></div>

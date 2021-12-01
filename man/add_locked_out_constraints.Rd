@@ -28,13 +28,13 @@ add_locked_out_constraints(x, locked_out)
 \S4method{add_locked_out_constraints}{ConservationProblem,Raster}(x, locked_out)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{locked_out}{Object that determines which planning units that should be
 locked out. See the Data format section for more information.}
 }
 \value{
-Object (i.e. \code{\linkS4class{ConservationProblem}}) with the constraints
+Object (i.e., \code{\linkS4class{ConservationProblem}}) with the constraints
 added to it.
 }
 \description{
@@ -44,7 +44,7 @@ that specific planning units are not selected
 useful to lock out planning units that have been degraded and are not
 suitable for conserving species. If specific planning units should be locked
 in to the solution, use \code{\link[=add_locked_out_constraints]{add_locked_out_constraints()}}. For
-problems with non-binary planning unit allocations (e.g. proportions), the
+problems with non-binary planning unit allocations (e.g., proportions), the
 \code{\link[=add_manual_locked_constraints]{add_manual_locked_constraints()}} function can be used to lock
 planning unit allocations to a specific value.
 }
@@ -86,7 +86,7 @@ This format is only
 compatible if the planning units in the argument to \code{x} are a
 \code{\linkS4class{Spatial}}, \code{\link[sf:sf]{sf::sf()}}, or
 \code{data.frame} object. The fields
-(columns) must have \code{logical} (i.e. \code{TRUE} or \code{FALSE})
+(columns) must have \code{logical} (i.e., \code{TRUE} or \code{FALSE})
 values indicating if the planning unit is to be locked for the solution.
 For problems that contain a single zone, the argument to \code{data} must
 contain a single field name. Otherwise, for problems that

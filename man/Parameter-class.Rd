@@ -22,7 +22,7 @@ should interact directly with this class.}
 \item{$default}{\code{numeric} vector of default values.}
 
 \item{$class}{\code{character} name of the class that the values inherit
-from (e.g. \code{"integer"}.}
+from (e.g., \code{"integer"}.}
 
 \item{$lower_limit}{\code{numeric} vector specifying the minimum
 permitted value for each element in \verb{$value}.}

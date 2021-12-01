@@ -15,13 +15,13 @@ add_manual_targets(x, targets)
 \S4method{add_manual_targets}{ConservationProblem,tbl_df}(x, targets)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{targets}{\code{data.frame} or \code{\link[tibble:tibble]{tibble::tibble()}} object.
 See the Target data format section for more information.}
 }
 \value{
-Object (i.e. \code{\linkS4class{ConservationProblem}}) with the targets added
+Object (i.e., \code{\linkS4class{ConservationProblem}}) with the targets added
 to it.
 }
 \description{
@@ -33,7 +33,7 @@ most cases, targets can be specified using the
 functions. However, this function can be used to (i) mix absolute and
 relative targets for different features and zones, (ii) set targets that
 pertain to the allocations of planning units in multiple zones, and (iii)
-set targets that require different senses (e.g. targets which specify the
+set targets that require different senses (e.g., targets which specify the
 solution should not exceed a certain quantity using \code{"<="} values).
 }
 \details{

@@ -242,16 +242,16 @@ spplot(rc, "rc", main = "Irreplaceability", xlim = c(-0.1, 1.1),
                        "#FF0000"))
 ```
 
-This short example demonstrates how the _prioritizr R_ package can be used to build a minimal conservation problem, how constraints and penalties can be iteratively added to the problem to obtain a solution, and how importance scores can be calculated for the solution to identify critical places. Although we explored just a few different functions for modifying the a conservation problem, the package provides many functions for specifying objectives, constraints, penalties, and decision variables, so that you can build and custom-tailor a conservation planning problem to suit your exact planning scenario.
+This short example demonstrates how the _prioritizr R_ package can be used to build and customize conservation problems, and then solve them to generate solutions. Although we explored just a few different functions for modifying a conservation problem, the package provides many functions for specifying objectives, constraints, penalties, and decision variables, so that you can build and custom-tailor conservation planning problems to suit your planning scenario.
 
 ## Learning resources
 
 The [package website](https://prioritizr.net/index.html) contains information on the _prioritizr R_ package. Here you can find [documentation for every function and built-in dataset](https://prioritizr.net/reference/index.html), and [news describing the updates in each package version](https://prioritizr.net/news/index.html). It also contains the following articles and tutorials.
 
-* [**Getting started**](https://prioritizr.net/articles/getting_started.html): Short tutorial on using the package.
+* [**Getting started**](https://prioritizr.net/articles/prioritizr.html): Short tutorial on using the package.
 * [**Package overview**](https://prioritizr.net/articles/package_overview.html): Introduction to systematic conservation planning and a comprehensive overview of the package.
 * [**Connectivity tutorial**](https://prioritizr.net/articles/connectivity_tutorial.html): Tutorial on incorporating connectivity into prioritizations.
-* [**Calibrating trade-offs tutorial**](https://prioritizr.net/articles/calibrating_trade-offs_tutorial.html): Tutorial on running calibration analyses to satisfy multiple criteria (e.g., cost and spatial fragmentation).
+* [**Calibrating trade-offs tutorial**](https://prioritizr.net/articles/calibrating_trade-offs_tutorial.html): Tutorial on running calibration analyses to satisfy multiple criteria.
 * [**Management zones tutorial**](https://prioritizr.net/articles/management_zones_tutorial.html): Tutorial on incorporating multiple management zones and actions into prioritizations.
 * [**Gurobi installation guide**](https://prioritizr.net/articles/gurobi_installation_guide.html): Instructions for installing the _Gurobi_ optimization suite for generating prioritizations.
 * [**Solver benchmarks**](https://prioritizr.net/articles/solver_benchmarks.html): Performance comparison of optimization solvers for generating prioritizations.

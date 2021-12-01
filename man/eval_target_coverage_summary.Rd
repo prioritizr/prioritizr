@@ -24,7 +24,7 @@ eval_target_coverage_summary(x, solution, include_zone, include_sense)
 )
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{solution}{\code{numeric}, \code{matrix}, \code{data.frame},
 \code{\linkS4class{Raster}}, \code{\linkS4class{Spatial}},
@@ -60,16 +60,16 @@ is \code{TRUE}.}
 
 \item{sense}{\code{character} sense associated with each target.
 Sense values specify the nature of the target.
-Typically (e.g. when using the \code{\link[=add_absolute_targets]{add_absolute_targets()}} or
+Typically (e.g., when using the \code{\link[=add_absolute_targets]{add_absolute_targets()}} or
 \code{\link[=add_relative_targets]{add_relative_targets()}} functions), targets are specified using sense
 values indicating that the total amount of a feature held within a
 solution (ideally) be greater than or equal to a threshold amount
-(i.e. a  sense value of \code{">="}).
-Additionally, targets (i.e. using the \code{\link[=add_manual_targets]{add_manual_targets()}} function)
+(i.e., a  sense value of \code{">="}).
+Additionally, targets (i.e., using the \code{\link[=add_manual_targets]{add_manual_targets()}} function)
 can also be specified using sense values indicating that the total
 amount of a feature held within a solution must be equal to a
-threshold amount (i.e. a sense value of \code{"="}) or smaller than or equal
-to a threshold amount (i.e. a sense value of \code{"<="}).
+threshold amount (i.e., a sense value of \code{"="}) or smaller than or equal
+to a threshold amount (i.e., a sense value of \code{"<="}).
 This column is only included if the argument to \code{include_sense} is
 \code{TRUE}.}
 
@@ -93,44 +93,45 @@ the feature and (if relevant) zones associated with each target (per the
 \code{"feature"} and \code{"zone"} columns, respectively).
 This column is calculated as the sum of the feature data,
 supplied when creating a \code{\link[=problem]{problem()}} object
-(e.g. presence/absence values), weighted by the status of each
-planning unit in the solution (e.g. selected or not for prioritization).}
+(e.g., presence/absence values), weighted by the status of each
+planning unit in the solution (e.g., selected or not for
+prioritization).}
 
 \item{absolute_shortfall}{ \code{numeric} total amount by which the solution
 fails to meet each target.
 This column is calculated as the difference between the total amount
 held within the solution for the feature and (if relevant) zones
-associated with the target (i.e. \code{"absolute_held"} column) and the
-target total threshold amount (i.e. \code{"absolute_target"} column), with
+associated with the target (i.e., \code{"absolute_held"} column) and the
+target total threshold amount (i.e., \code{"absolute_target"} column), with
 values set to zero depending on the sense specified for the target
-(e.g. if the target sense is \code{>=} then the difference is
+(e.g., if the target sense is \code{>=} then the difference is
 set to zero if the value in the \code{"absolute_held"} is smaller than
 that in the \code{"absolute_target"} column).}
 
 \item{relative_target}{\code{numeric} proportion threshold amount associated
 with each target.
 This column is calculated by dividing the total threshold amount
-associated with each target (i.e. \code{"absolute_target"} column) by
+associated with each target (i.e., \code{"absolute_target"} column) by
 the total amount associated with each target
-(i.e. \code{"total_amount"} column).}
+(i.e., \code{"total_amount"} column).}
 
 \item{relative_held}{\code{numeric} proportion held within the solution for the
 feature and (if relevant) zones associated with each target (per the
 \code{"feature"} and \code{"zone"} columns, respectively).
 This column is calculated by dividing the total amount held
-for each target (i.e. \code{"absolute_held"} column) by the
+for each target (i.e., \code{"absolute_held"} column) by the
 total amount for with each target
-(i.e. \code{"total_amount"} column).}
+(i.e., \code{"total_amount"} column).}
 
 \item{relative_shortfall}{\code{numeric} proportion by which the solution fails
 to meet each target.
 This column is calculated by dividing the total shortfall for
-each target (i.e. \code{"absolute_shortfall"} column) by the
-total amount for each target (i.e. \code{"total_amount"} column).}
+each target (i.e., \code{"absolute_shortfall"} column) by the
+total amount for each target (i.e., \code{"total_amount"} column).}
 
 \item{met}{\code{logical} indicating if each target is met by the solution. This
 column is calculated by checking if the total shortfall associated
-with each target (i.e. \verb{"absolute_shortfall}" column) is equal to
+with each target (i.e., \verb{"absolute_shortfall}" column) is equal to
 zero.}
 
 }

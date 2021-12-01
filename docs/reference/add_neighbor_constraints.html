@@ -25,7 +25,7 @@ number of neighbors that are also selected in the solution."><meta property="og:
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.5</span>
       </span>
     </div>
 
@@ -120,7 +120,7 @@ number of neighbors that are also selected in the solution.</p>
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
-<dd><p><code><a href="problem.html">problem()</a></code> (i.e. <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) object.</p></dd>
+<dd><p><code><a href="problem.html">problem()</a></code> (i.e., <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) object.</p></dd>
 <dt>k</dt>
 <dd><p><code>integer</code> minimum number of neighbors for selected
 planning units in the solution. For problems with multiple zones,
@@ -129,13 +129,13 @@ the argument to <code>k</code> must have an element for each zone.</p></dd>
 <dd><p><code>matrix</code> or <code>Matrix</code> object describing the
 neighborhood scheme for different zones. Each row and column corresponds
 to a different zone in the argument to <code>x</code>, and cell values must
-contain binary <code>numeric</code> values (i.e. one or zero) that indicate
+contain binary <code>numeric</code> values (i.e., one or zero) that indicate
 if neighboring planning units (as specified in the argument to
 <code>data</code>) should be considered neighbors if they are allocated to
 different zones. The cell values along the diagonal
 of the matrix indicate if planning units that are allocated to the same
 zone should be considered neighbors or not. The default argument to
-<code>zones</code> is an identity matrix (i.e. a matrix with ones along the
+<code>zones</code> is an identity matrix (i.e., a matrix with ones along the
 matrix diagonal and zeros elsewhere), so that planning units are
 only considered neighbors if they are both allocated to the same zone.</p></dd>
 <dt>data</dt>
@@ -148,7 +148,7 @@ See the Data format section for more information.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Object (i.e. <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) with the constraints
+    <p>Object (i.e., <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) with the constraints
 added to it.</p>
     </div>
     <div id="details">
@@ -169,7 +169,7 @@ automatically
 using the <code><a href="adjacency_matrix.html">adjacency_matrix()</a></code> function. This is the default
 argument. Note that the neighborhood data must be manually defined
 using one of the other formats below when the planning unit data
-in the argument to <code>x</code> is not spatially referenced (e.g.
+in the argument to <code>x</code> is not spatially referenced (e.g.,
 in <code>data.frame</code> or <code>numeric</code> format).</p></dd>
 
 
@@ -177,7 +177,7 @@ in <code>data.frame</code> or <code>numeric</code> format).</p></dd>
 <dd><p>where rows and columns represent
 different planning units and the value of each cell indicates if the
 two planning units are neighbors or not. Cell values should be binary
-<code>numeric</code> values (i.e. one or zero). Cells that occur along the
+<code>numeric</code> values (i.e., one or zero). Cells that occur along the
 matrix diagonal have no effect on the solution at all because each
 planning unit cannot be a neighbor with itself.</p></dd>
 
@@ -192,7 +192,7 @@ specified in the fields <code>"id1"</code> and <code>"id2"</code> are neighbors
 or not. This data can be used to describe symmetric or
 asymmetric relationships between planning units. By default,
 input data is assumed to be symmetric unless asymmetric data is
-also included (e.g. if data is present for planning units 2 and 3, then
+also included (e.g., if data is present for planning units 2 and 3, then
 the same amount of connectivity is expected for planning units 3 and 2,
 unless connectivity data is also provided for planning units 3 and 2).
 If the argument to <code>x</code> contains multiple zones, then the columns
@@ -208,7 +208,7 @@ are present, then the argument to <code>zones</code> must be <code>NULL</code>.<
 <code>numeric</code> values indicate if planning unit should be treated
 as being neighbors with every other planning unit when they
 are allocated to every combination of management zone. The first two
-dimensions (i.e. rows and columns) correspond to the planning units,
+dimensions (i.e., rows and columns) correspond to the planning units,
 and second two dimensions correspond to the management zones. For
 example, if the argument to <code>data</code> had a value of 1 at the index
 <code>data[1, 2, 3, 4]</code> this would indicate that planning unit 1 and
@@ -336,7 +336,7 @@ conservation. <em>European Journal of Operational Research</em>, 231:
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.9000.</p>
 </div>
 
       </footer></div>

@@ -25,7 +25,7 @@ boundary length (perimeter)."><meta property="og:image" content="https://priorit
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.5</span>
       </span>
     </div>
 
@@ -116,11 +116,11 @@ boundary length (perimeter).</p>
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
-<dd><p><code><a href="problem.html">problem()</a></code> (i.e. <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) object.</p></dd>
+<dd><p><code><a href="problem.html">problem()</a></code> (i.e., <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) object.</p></dd>
 <dt>penalty</dt>
 <dd><p><code>numeric</code> penalty that is used to scale the importance
 of selecting planning units that are spatially clumped together compared
-to the main problem objective (e.g. solution cost when the argument to
+to the main problem objective (e.g., solution cost when the argument to
 <code>x</code> has a minimum set objective per <code><a href="add_min_set_objective.html">add_min_set_objective()</a></code>).
 Higher <code>penalty</code> values prefer solutions with a higher degree of spatial
 clumping, and smaller <code>penalty</code> values prefer solutions with a smaller
@@ -145,24 +145,24 @@ represent the relative importance of clumping planning units that are
 allocated to the same zone. Cell values must range between 1 and -1, where
 negative values favor solutions that spread out planning units. The default
 argument to <code>zones</code> is an identity
-matrix (i.e. a matrix with ones along the matrix diagonal and zeros
+matrix (i.e., a matrix with ones along the matrix diagonal and zeros
 elsewhere), so that penalties are incurred when neighboring planning units
 are not assigned to the same zone. If the cells along
 the matrix diagonal contain markedly smaller values than those found
 elsewhere in the matrix, then solutions are preferred that surround
 planning units with those allocated to different zones
-(i.e. greater spatial fragmentation).</p></dd>
+(i.e., greater spatial fragmentation).</p></dd>
 <dt>data</dt>
 <dd><p><code>NULL</code>, <code>data.frame</code>, <code>matrix</code>, or <code>Matrix</code>
 object containing the boundary data. These data describe the total
 amount of boundary (perimeter) length  for each planning unit,
 and the amount of boundary (perimeter) length shared between different
-planning units (i.e. planning units that are adjacent to each other).
+planning units (i.e., planning units that are adjacent to each other).
 See the Data format section for more information.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Object (i.e. <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) with the penalties
+    <p>Object (i.e., <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) with the penalties
 added to it.</p>
     </div>
     <div id="details">
@@ -191,7 +191,7 @@ This argument is the default.
 Note that the boundary data must be supplied
 using one of the other formats below if the planning unit data
 in the argument to <code>x</code> do not explicitly contain spatial information
-(e.g. planning unit data are a <code>data.frame</code> or <code>numeric</code> class).</p></dd>
+(e.g., planning unit data are a <code>data.frame</code> or <code>numeric</code> class).</p></dd>
 
 
 <dt><code>data</code> as a <code>matrix</code>/<code>Matrix</code> object</dt>
@@ -200,7 +200,7 @@ different planning units and the value of each cell represents the
 amount of shared boundary length between two different planning units.
 Cells that occur along the matrix diagonal represent the amount of
 exposed boundary associated with each planning unit that has
-no neighbor (e.g. these value might pertain to boundaries along a
+no neighbor (e.g., these value might pertain to boundaries along a
 coastline).</p></dd>
 
 
@@ -211,7 +211,7 @@ identifiers (indices) for a pair of planning units, and the <code>"boundary"</co
 column contains the amount of shared boundary length between these
 two planning units.
 This format follows the the standard <em>Marxan</em> format for boundary
-data (i.e. per the "bound.dat" file).</p></dd>
+data (i.e., per the "bound.dat" file).</p></dd>
 
 
 
@@ -225,11 +225,11 @@ data (i.e. per the "bound.dat" file).</p></dd>
 (indexed by \(i\) or \(j\)), \(Z\) represent
 the set of management zones (indexed by \(z\) or \(y\)), and
 \(X_{iz}\) represent the decision
-variable for planning unit \(i\) for in zone \(z\) (e.g. with binary
+variable for planning unit \(i\) for in zone \(z\) (e.g., with binary
 values one indicating if planning unit is allocated or not). Also, let
 \(p\) represent the argument to <code>penalty</code>, \(E_z\) represent the
 argument to <code>edge_factor</code>, \(B_{ij}\) represent the matrix argument
-to <code>data</code> (e.g. generated using <code><a href="boundary_matrix.html">boundary_matrix()</a></code>), and
+to <code>data</code> (e.g., generated using <code><a href="boundary_matrix.html">boundary_matrix()</a></code>), and
 \(W_{zz}\) represent the matrix argument to <code>zones</code>.</p>
 <p>$$
 \sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z} (\mathit{ifelse}(i == j, E_z, 1)
@@ -348,7 +348,7 @@ conservation planning problems with integer linear programming.
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># create zone matrix which favors clumping planning units in zones 1 and 2</span></span>
 <span class="r-in"><span class="co"># together, and favors planning units in zone 3 being spread out</span></span>
-<span class="r-in"><span class="co"># (i.e. negative clumping)</span></span>
+<span class="r-in"><span class="co"># (i.e., negative clumping)</span></span>
 <span class="r-in"><span class="va">zm10</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">zm10</span><span class="op">[</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">1</span></span>
 <span class="r-in"><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">zm10</span><span class="op">)</span></span>
@@ -387,7 +387,7 @@ conservation planning problems with integer linear programming.
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.9000.</p>
 </div>
 
       </footer></div>

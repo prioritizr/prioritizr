@@ -6,17 +6,17 @@ NULL
 #' Calculate the total abundance of each feature found in the planning units
 #' of a conservation planning problem.
 #'
-#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
+#' @param x [problem()] (i.e., [`ConservationProblem-class`]) object.
 #'
 #' @param na.rm `logical` should planning units with `NA` cost
 #'   data be excluded from the abundance calculations? The default argument
 #'   is `FALSE`.
 #'
 #' @details Planning units can have cost data with finite values
-#'   (e.g. 0.1, 3, 100) and `NA` values. This functionality is provided so
+#'   (e.g., 0.1, 3, 100) and `NA` values. This functionality is provided so
 #'   that locations which are not available for protected area acquisition can
 #'   be included when calculating targets for conservation features
-#'   (e.g. when targets are specified using [add_relative_targets()]).
+#'   (e.g., when targets are specified using [add_relative_targets()]).
 #'   If the total amount of each feature in all the planning units is
 #'   required---including the planning units with `NA` cost data---then the
 #'   the `na.rm` argument should be set to `FALSE`. However, if
@@ -129,8 +129,8 @@ NULL
 #' s5 <- solve(p5)
 #'
 #' # plot the solution
-#' # this solution contains all the planning units with finite cost data (i.e.
-#' # cost data that do not have NA values)
+#' # this solution contains all the planning units with finite cost data
+#' # (i.e., cost data that do not have NA values)
 #' plot(s5)
 #' }
 #' @export

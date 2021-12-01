@@ -28,7 +28,7 @@ It requires the cplexAPI package to be installed
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.5</span>
       </span>
     </div>
 
@@ -123,7 +123,7 @@ It requires the <span class="pkg">cplexAPI</span> package to be installed
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
-<dd><p><code><a href="problem.html">problem()</a></code> (i.e. <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) object.</p></dd>
+<dd><p><code><a href="problem.html">problem()</a></code> (i.e., <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) object.</p></dd>
 <dt>gap</dt>
 <dd><p><code>numeric</code> gap to optimality. This gap is relative
 and expresses the acceptable deviance from the optimal objective.
@@ -131,12 +131,12 @@ For example, a value of 0.01 will result in the solver stopping when
 it has found a solution within 1% of optimality.
 Additionally, a value of 0 will result in the solver stopping
 when it has found an optimal solution.
-The default value is 0.1 (i.e. 10% from optimality).</p></dd>
+The default value is 0.1 (i.e., 10% from optimality).</p></dd>
 <dt>time_limit</dt>
 <dd><p><code>numeric</code> time limit (seconds) for generating solutions.
 The solver will return the current best solution when this time limit is
 exceeded. The default value is the largest integer value
-(i.e. <code>.Machine$integer.max</code>), effectively meaning that solver
+(i.e., <code>.Machine$integer.max</code>), effectively meaning that solver
 will keep running until a solution within the optimality gap is found.</p></dd>
 <dt>presolve</dt>
 <dd><p><code>logical</code> attempt to simplify the
@@ -150,19 +150,19 @@ optimization problems? Defaults to <code>TRUE</code>.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Object (i.e. <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) with the solver
+    <p>Object (i.e., <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) with the solver
 added to it.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
     <p><a href="https://www.ibm.com/analytics/cplex-optimizer" class="external-link"><em>IBM CPLEX</em></a> is a
 commercial optimization software. It is faster than
-the available open source solvers (e.g. <code><a href="add_lsymphony_solver.html">add_lpsymphony_solver()</a></code> and
+the available open source solvers (e.g., <code><a href="add_lsymphony_solver.html">add_lpsymphony_solver()</a></code> and
 <code><a href="add_rsymphony_solver.html">add_rsymphony_solver()</a></code>.
 Although formal benchmarks examining the performance of this solver for
 conservation planning problems have yet to be completed, preliminary
 analyses suggest that it performs slightly slower than the <em>Gurobi</em>
-solver (i.e. <code><a href="add_gurobi_solver.html">add_gurobi_solver()</a></code>).
+solver (i.e., <code><a href="add_gurobi_solver.html">add_gurobi_solver()</a></code>).
 We recommend using this solver if the <em>Gurobi</em> solver is not available.
 Licenses are available for the <em>IBM CPLEX</em> software to academics at no cost
 (see <a href="https://www.ibm.com/products/ilog-cplex-optimization-studio" class="external-link">https://www.ibm.com/products/ilog-cplex-optimization-studio</a>).</p>
@@ -180,7 +180,7 @@ this variable can be specified by adding the following text to the
 </code></pre></div>
 
 <p>Note that you may need to change the version
-number in the file path (i.e. <code>"CPLEX_Studio128"</code>). For more information
+number in the file path (i.e., <code>"CPLEX_Studio128"</code>). For more information
 on installing the pkgcplexAPI package, please see the
 <a href="https://github.com/cran/cplexAPI/blob/master/inst/INSTALL" class="external-link">official installation instructions for the package</a>.</p>
     </div>
@@ -234,7 +234,7 @@ Version 12 Release 8. IBM ILOG CPLEX Division, Incline Village, NV.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.9000.</p>
 </div>
 
       </footer></div>

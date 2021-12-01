@@ -30,7 +30,7 @@ about how the budget should be allocated."><meta property="og:image" content="ht
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.5</span>
       </span>
     </div>
 
@@ -124,20 +124,20 @@ about how the budget should be allocated.</p>
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
-<dd><p><code><a href="problem.html">problem()</a></code> (i.e. <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) object.</p></dd>
+<dd><p><code><a href="problem.html">problem()</a></code> (i.e., <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) object.</p></dd>
 <dt>weights</dt>
 <dd><p><code>numeric</code> or <code>matrix</code> of weights.
 See the Weights format section for more information.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Object (i.e. <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) with the weights
+    <p>Object (i.e., <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) with the weights
 added to it.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
     <p>Weights can only be applied to problems that have an objective
-that is budget limited (e.g. <code><a href="add_max_cover_objective.html">add_max_cover_objective()</a></code>).
+that is budget limited (e.g., <code><a href="add_max_cover_objective.html">add_max_cover_objective()</a></code>).
 They can be applied to problems that aim to maximize phylogenetic
 representation (<code><a href="add_max_phylo_div_objective.html">add_max_phylo_div_objective()</a></code>) to favor the
 representation of specific features over the representation of
@@ -220,7 +220,7 @@ fulfilling each target.</p></dd>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># create manually specified weights that assign higher importance to</span></span>
 <span class="r-in"><span class="co"># certain features. These weights could be based on a pre-calculated index</span></span>
-<span class="r-in"><span class="co"># (e.g. an index measuring extinction risk where higher values</span></span>
+<span class="r-in"><span class="co"># (e.g., an index measuring extinction risk where higher values</span></span>
 <span class="r-in"><span class="co"># denote higher extinction risk)</span></span>
 <span class="r-in"><span class="va">w3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">100</span>, <span class="fl">200</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">p3</span> <span class="op">&lt;-</span> <span class="va">p1</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">add_feature_weights</span><span class="op">(</span><span class="va">w3</span><span class="op">)</span></span>
@@ -281,18 +281,18 @@ fulfilling each target.</p></dd>
 <span class="r-in">                         <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">r4</span><span class="op">$</span><span class="va">met</span><span class="op">)</span>, <span class="st">"red"</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-plt"><img src="add_feature_weights-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span class="co"># }</span></span>
-<span class="r-in"><span class="co"># we can see here that the third feature ("layer.3", i.e.</span></span>
+<span class="r-in"><span class="co"># we can see here that the third feature ("layer.3", i.e.,</span></span>
 <span class="r-in"><span class="co"># sim_features[[3]]) is not represented in the solution. Let us pretend</span></span>
 <span class="r-in"><span class="co"># that it is absolutely critical this feature is adequately conserved</span></span>
 <span class="r-in"><span class="co"># in the solution. For example, this feature could represent a species</span></span>
 <span class="r-in"><span class="co"># that plays important role in the ecosystem, or a species that is</span></span>
-<span class="r-in"><span class="co"># important commercial activities (e.g. eco-tourism). So, to generate</span></span>
+<span class="r-in"><span class="co"># important commercial activities (e.g., eco-tourism). So, to generate</span></span>
 <span class="r-in"><span class="co"># a solution that conserves the third feature whilst also aiming to</span></span>
 <span class="r-in"><span class="co"># maximize phylogenetic diversity, we will create a set of weights that</span></span>
 <span class="r-in"><span class="co"># assign a particularly high weighting to the third feature</span></span>
 <span class="r-in"><span class="va">w5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1000</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span></span>
 <span class="r-in"></span>
-<span class="r-in"><span class="co"># we can see that this weighting (i.e. w5[3]) has a much higher value than</span></span>
+<span class="r-in"><span class="co"># we can see that this weighting (i.e., w5[3]) has a much higher value than</span></span>
 <span class="r-in"><span class="co"># the branch lengths in the phylogeny so solutions that represent this</span></span>
 <span class="r-in"><span class="co"># feature be much closer to optimality</span></span>
 <span class="r-in"><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">sim_phylogeny</span><span class="op">$</span><span class="va">edge.length</span><span class="op">)</span></span>
@@ -397,7 +397,7 @@ fulfilling each target.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.9000.</p>
 </div>
 
       </footer></div>

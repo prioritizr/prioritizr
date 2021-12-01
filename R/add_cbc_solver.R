@@ -22,7 +22,7 @@ NULL
 #' Although formal benchmarks examining the performance of this solver for
 #' conservation planning problems have yet to be completed, preliminary
 #' analyses suggest that it performs much faster than the other open-source
-#' solvers (i.e. [add_rsymphony_solver()], [add_rsymphony_solver()]), and
+#' solvers (i.e., [add_rsymphony_solver()], [add_rsymphony_solver()]), and
 #' so we recommend using this solver if the *Gurobi* and *IBM CPLEX* solvers
 #' are unavailable.
 #'
@@ -45,7 +45,7 @@ NULL
 #'
 #' @inheritSection add_gurobi_solver Start solution format
 #'
-#' @return Object (i.e. [`ConservationProblem-class`]) with the solver
+#' @return Object (i.e., [`ConservationProblem-class`]) with the solver
 #'  added to it.
 #'
 #' @seealso

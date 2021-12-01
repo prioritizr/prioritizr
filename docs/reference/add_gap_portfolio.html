@@ -28,7 +28,7 @@ Marxan)."><meta property="og:image" content="https://prioritizr.net/logo.png"><!
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.5</span>
       </span>
     </div>
 
@@ -116,7 +116,7 @@ frequencies for moderate and large-sized problems (similar to
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
-<dd><p><code><a href="problem.html">problem()</a></code> (i.e. <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) object.</p></dd>
+<dd><p><code><a href="problem.html">problem()</a></code> (i.e., <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) object.</p></dd>
 <dt>number_solutions</dt>
 <dd><p><code>integer</code> number of solutions required.</p></dd>
 <dt>pool_gap</dt>
@@ -124,26 +124,27 @@ frequencies for moderate and large-sized problems (similar to
 This relative gap specifies a threshold worst-case performance for
 solutions in the portfolio. For example, value of 0.1 will result in the
 portfolio returning solutions that are within 10% of an optimal solution.
-Note that the gap specified in the solver (i.e.
+Note that the gap specified in the solver (i.e.,
 <code><a href="add_gurobi_solver.html">add_gurobi_solver()</a></code> must be less than or equal to the gap
 specified to generate the portfolio. Defaults to 0.1.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Object (i.e. <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) with the portfolio
+    <p>Object (i.e., <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) with the portfolio
 added to it.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
     <p>This strategy for generating a portfolio requires problems to
-be solved using the <em>Gurobi</em> software suite (i.e. using
+be solved using the <em>Gurobi</em> software suite (i.e., using
 <code><a href="add_gurobi_solver.html">add_gurobi_solver()</a></code>. Specifically, version 9.0.0 (or greater)
 of the <span class="pkg">gurobi</span> package must be installed.
 Note that the number of solutions returned may be less than the argument to
 <code>number_solutions</code>, if the total number of solutions that
 meet the optimality gap is less than the number of solutions requested.
 Also, note that this portfolio function only works with problems
-that have binary decisions (i.e. specified using <code><a href="add_binary_decisions.html">add_binary_decisions()</a></code>).</p>
+that have binary decisions (i.e., specified using
+<code><a href="add_binary_decisions.html">add_binary_decisions()</a></code>).</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -218,7 +219,7 @@ that have binary decisions (i.e. specified using <code><a href="add_binary_decis
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.9000.</p>
 </div>
 
       </footer></div>

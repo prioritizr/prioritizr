@@ -26,7 +26,7 @@ pair-wise connectivity values between combinations of planning units."><meta pro
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.5</span>
       </span>
     </div>
 
@@ -125,7 +125,7 @@ pair-wise connectivity values between combinations of planning units.</p>
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
-<dd><p><code><a href="problem.html">problem()</a></code> (i.e. <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) object.</p></dd>
+<dd><p><code><a href="problem.html">problem()</a></code> (i.e., <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) object.</p></dd>
 <dt>solution</dt>
 <dd><p><code>numeric</code>, <code>matrix</code>, <code>data.frame</code>,
 <code><a href="https://rdrr.io/pkg/raster/man/Raster-classes.html" class="external-link">Raster</a></code>, <code><a href="https://rdrr.io/pkg/sp/man/Spatial-class.html" class="external-link">Spatial</a></code>,
@@ -142,7 +142,7 @@ of zones. Cell values along the diagonal of the matrix represent
 the level of connectivity between planning units allocated to the
 same zone. Cell values must lay between 1 and -1, where negative
 values favor solutions with weak connectivity. The default argument to
-<code>zones</code> is an identity matrix (i.e. a matrix with ones along the
+<code>zones</code> is an identity matrix (i.e., a matrix with ones along the
 matrix diagonal and zeros elsewhere), so that planning units are
 only considered to be connected when they are allocated to the same zone.
 This argument is required when the argument to <code>data</code> is a
@@ -187,7 +187,7 @@ with greater values.</p></dd>
 reported by the
 <a href="https://marxansolutions.org" class="external-link"><em>Marxan</em> software</a> (Ball <em>et al.</em> 2009).
 It is calculated using the same equations used to penalize solutions
-with connectivity data (i.e. <code><a href="add_connectivity_penalties.html">add_connectivity_penalties()</a></code>).
+with connectivity data (i.e., <code><a href="add_connectivity_penalties.html">add_connectivity_penalties()</a></code>).
 Specifically, it is calculated as the sum of the pair-wise connectivity
 values in the argument to <code>data</code>, weighted by the value of the planning
 units in the solution.</p>
@@ -300,7 +300,7 @@ denotes the connectivity between two planning units following the
 <em>Marxan</em> format. The data can be used to denote symmetric or
 asymmetric relationships between planning units. By default,
 input data is assumed to be symmetric unless asymmetric data is
-also included (e.g. if data is present for planning units 2 and 3, then
+also included (e.g., if data is present for planning units 2 and 3, then
 the same amount of connectivity is expected for planning units 3 and 2,
 unless connectivity data is also provided for planning units 3 and 2).
 If the argument to <code>x</code> contains multiple zones, then the columns
@@ -315,7 +315,7 @@ allocated to specific zones. If the columns <code>"zone1"</code> and
 <dd><p>containing four-dimensions where cell values
 indicate the strength of connectivity between planning units
 when they are assigned to specific management zones. The first two
-dimensions (i.e. rows and columns) indicate the strength of
+dimensions (i.e., rows and columns) indicate the strength of
 connectivity between different planning units and the second two
 dimensions indicate the different management zones. Thus
 the <code>data[1, 2, 3, 4]</code> indicates the strength of
@@ -518,7 +518,7 @@ connectivity.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.9000.</p>
 </div>
 
       </footer></div>

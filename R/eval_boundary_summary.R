@@ -18,7 +18,7 @@ NULL
 #' reported by the [*Marxan* software](https://marxansolutions.org)
 #' (Ball *et al.* 2009).
 #' It is calculated using the same equations used to penalize solutions
-#' according to their total exposed boundary (i.e. [add_boundary_penalties()]).
+#' according to their total exposed boundary (i.e., [add_boundary_penalties()]).
 #' See the Examples section for examples on how differences `zone` arguments
 #' can be used to calculate boundaries for different combinations of zones.
 #'

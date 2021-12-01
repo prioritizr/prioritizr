@@ -14,7 +14,7 @@ add_lpsymphony_solver(
 )
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{gap}{\code{numeric} gap to optimality. This gap is relative
 and expresses the acceptable deviance from the optimal objective.
@@ -22,12 +22,12 @@ For example, a value of 0.01 will result in the solver stopping when
 it has found a solution within 1\% of optimality.
 Additionally, a value of 0 will result in the solver stopping
 when it has found an optimal solution.
-The default value is 0.1 (i.e. 10\% from optimality).}
+The default value is 0.1 (i.e., 10\% from optimality).}
 
 \item{time_limit}{\code{numeric} time limit (seconds) for generating solutions.
 The solver will return the current best solution when this time limit is
 exceeded. The default value is the largest integer value
-(i.e. \code{.Machine$integer.max}), effectively meaning that solver
+(i.e., \code{.Machine$integer.max}), effectively meaning that solver
 will keep running until a solution within the optimality gap is found.}
 
 \item{first_feasible}{\code{logical} should the first feasible solution be
@@ -42,7 +42,7 @@ Defaults to \code{FALSE}.}
 optimization problems? Defaults to \code{TRUE}.}
 }
 \value{
-Object (i.e. \code{\linkS4class{ConservationProblem}}) with the solver
+Object (i.e., \code{\linkS4class{ConservationProblem}}) with the solver
 added to it.
 }
 \description{

@@ -41,7 +41,7 @@ similar to \code{add_proportion_decision} except that it has an upper
 bound parameter. By default, the decision can range from prioritizing
 none (0\%) to all (100\%) of a planning unit. However, a upper
 bound can be specified to ensure that at most only a fraction
-(e.g. 80\%) of a planning unit can be preserved. This type of
+(e.g., 80\%) of a planning unit can be preserved. This type of
 decision may be useful when it is not practical to conserve the
 entire area encompassed by any single planning unit.}
 
