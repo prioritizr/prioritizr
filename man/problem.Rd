@@ -66,7 +66,7 @@ the study area. To exclude planning units, set the cost for those raster
 cells to \code{NA}, or use the \code{add_locked_out_constraint} function.}
 
 \item{features}{The feature data can be specified in a variety of ways.
-The specific formats that can be used depend on the cost data format (i.e.
+The specific formats that can be used depend on the cost data format (i.e.,
 argument to \code{x}) and whether the problem should have a single zone or
 multiple zones. If the problem should have a single zone, then the feature
 data can be specified following:
@@ -76,7 +76,7 @@ data can be specified following:
 \code{\link[sf:sf]{x = sf::st_sf()}}:
 \code{\link[raster:Raster-classes]{y = Raster-class}}
 object showing the distribution of conservation features. Missing
-values (i.e. \code{NA} values) can be used to indicate the absence of
+values (i.e., \code{NA} values) can be used to indicate the absence of
 a feature in a particular cell instead of explicitly setting these
 cells to zero. Note that this argument type for \code{features} can
 only be used to specify data for problems involving a single zone.
@@ -117,7 +117,7 @@ data can be specified following:
 \code{\link[sf:sf]{x = sf::st_sf()}}:
 \code{\link[=zones]{y = ZonesRaster}}:
 object showing the distribution of conservation features in multiple
-zones. As above, missing values (i.e. \code{NA} values) can be used to
+zones. As above, missing values (i.e., \code{NA} values) can be used to
 indicate the absence of a feature in a particular cell instead of
 explicitly setting these cells to zero.
 \item \code{\link[sp:Spatial-class]{x = Spatial-class}}, or
@@ -191,7 +191,7 @@ data for a prioritization.
 Create a systematic conservation planning problem. This function is used to
 specify the basic data used in a spatial prioritization problem: the
 spatial distribution of the planning units and their costs, as well as
-the features (e.g. species, ecosystems) that need to be conserved. After
+the features (e.g., species, ecosystems) that need to be conserved. After
 constructing this \code{ConservationProblem-class} object, it can be
 customized to meet specific goals using \link{objectives},
 \link{targets}, \link{constraints}, and
@@ -216,34 +216,34 @@ be incorporated by using multiple zones
 on the management action(s), you can compile the following data.
 
 First, you will need to create a set of planning units
-(i.e. discrete spatial areas) to inform decision making.
+(i.e., discrete spatial areas) to inform decision making.
 Planning units are often created by subdividing a study region
 into a set square or hexagonal cells. They can also be created using
-administrative boundaries (e.g. provinces), land management boundaries
-(e.g. property boundaries derived from cadastral data), or
-ecological boundaries (e.g. based on ecosystem classification data).
-The size (i.e. spatial grain) of the planning units is often determined
+administrative boundaries (e.g., provinces), land management boundaries
+(e.g., property boundaries derived from cadastral data), or
+ecological boundaries (e.g., based on ecosystem classification data).
+The size (i.e., spatial grain) of the planning units is often determined
 based on a compromise between the scale needed to inform decision making, the
 spatial accuracy (resolution) of available datasets, and
 the computational resources available for generating prioritizations
-(e.g. RAM and number of CPUs on your computer).
+(e.g., RAM and number of CPUs on your computer).
 
 Second, you will need data to quantify the cost of implementing
 implementing each management action within each planning unit.
 Critically, the cost data should reflect the management action(s)
 considered in the exercise.
 For example, costs are often specified using data that reflect economic
-expenditure (e.g. land acquisition cost),
-socioeconomic conditions (e.g. human population density),
+expenditure (e.g., land acquisition cost),
+socioeconomic conditions (e.g., human population density),
 opportunity costs of foregone commercial activities
-(e.g. logging or agriculture), or
+(e.g., logging or agriculture), or
 opportunity costs of foregone recreational activities
-(e.g. recreational fishing) activities,
+(e.g., recreational fishing) activities,
 In some cases -- depending on the management action(s) considered --
 it can make sense to use a constant cost value
-(e.g. all planning units are assigned a cost value equal to one)
+(e.g., all planning units are assigned a cost value equal to one)
 or use a cost value based on spatial extent
-(e.g. each planning unit is assigned a cost value based on its total area).
+(e.g., each planning unit is assigned a cost value based on its total area).
 Also, in most cases, you want to avoid negative cost values.
 This because a negative value means that a place is \emph{desirable}
 for implementing a management action, and such places will almost
@@ -254,13 +254,13 @@ management actions within planning units.
 To achieve this, you will need to select a set of conservation features
 that relate to the over-arching goals of the exercise.
 For example, conservation features often include
-species (e.g. Clouded Leopard), habitats (e.g. mangroves or
+species (e.g., Clouded Leopard), habitats (e.g., mangroves or
 cloud forest), or ecosystems.
 The benefit that each feature derives from a planning unit
-can take a variety of forms, but is typically occupancy (i.e.
+can take a variety of forms, but is typically occupancy (i.e.,
 presence or absence), area of occurrence within each planning unit
-(e.g. based on species' geographic range data), or
-a measure of habitat suitability (e.g. estimated using a statistical model).
+(e.g., based on species' geographic range data), or
+a measure of habitat suitability (e.g., estimated using a statistical model).
 After compiling these data, you have the minimal data need to generate
 a prioritization.
 
@@ -314,7 +314,7 @@ If you wish to see exactly how a conservation planning problem is
 formulated as mixed integer linear programming problem, you can use
 the \code{\link[=write_problem]{write_problem()}} function to save the optimization problem
 to a plain-text file on your computer and then view it using a standard
-text editor (e.g. Notepad).
+text editor (e.g., Notepad).
 
 Please note that this function internally computes the amount of each
 feature in each planning unit when this data is not supplied (using the
@@ -365,13 +365,13 @@ p5 <- problem(sim_pu_sf, sim_features, "cost") \%>\%
       add_default_solver(verbose = FALSE)
 
 # since geo-processing can be slow for large spatial vector datasets
-# (e.g. polygons, lines, points), it can be worthwhile to pre-process the
+# (e.g., polygons, lines, points), it can be worthwhile to pre-process the
 # planning unit data so that it contains columns indicating the amount of
 # each feature inside each planning unit
-# (i.e. each column corresponds to a different feature)
+# (i.e., each column corresponds to a different feature)
 
 # calculate the amount of each species within each planning unit
-# (i.e. SpatialPolygonsDataFrame object)
+# (i.e., SpatialPolygonsDataFrame object)
 pre_proc_data <- rij_matrix(sim_pu_polygons, sim_features)
 
 # add extra columns to the polygon (Spatial) planning unit data
@@ -404,7 +404,7 @@ p7 <- problem(sim_pu_sf, features = names(pre_proc_data2), "cost") \%>\%
 
 # in addition to spatially explicit data, pre-processed aspatial data
 # can also be used to create a problem
-# (e.g. data created using external spreadsheet software)
+# (e.g., data created using external spreadsheet software)
 costs <- sim_pu_polygons$cost
 features <- data.frame(id = seq_len(nlayers(sim_features)),
                        name = names(sim_features))

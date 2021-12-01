@@ -13,13 +13,13 @@ add_manual_locked_constraints(x, data)
 \S4method{add_manual_locked_constraints}{ConservationProblem,tbl_df}(x, data)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{data}{\code{data.frame} or \code{\link[tibble:tibble]{tibble::tibble()}} object.
 See the Data format section for more information.}
 }
 \value{
-Object (i.e. \code{\linkS4class{ConservationProblem}}) with the constraints
+Object (i.e., \code{\linkS4class{ConservationProblem}}) with the constraints
 added to it.
 }
 \description{
@@ -44,10 +44,10 @@ zone.}
 
 \item{status}{\code{numeric} values indicating how much
 of each planning unit should be allocated to each zone in the solution.
-For example, the \code{numeric} values could be binary values (i.e. zero
+For example, the \code{numeric} values could be binary values (i.e., zero
 or one) for problems containing binary-type decision variables
 (using the \code{\link[=add_binary_decisions]{add_binary_decisions()}} function). Alternatively,
-the \code{numeric} values could be proportions (e.g. 0.5) for problems
+the \code{numeric} values could be proportions (e.g., 0.5) for problems
 containing proportion-type decision variables (using the
 \code{\link[=add_proportion_decisions]{add_proportion_decisions()}}).}
 

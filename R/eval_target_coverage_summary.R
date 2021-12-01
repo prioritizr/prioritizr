@@ -40,16 +40,16 @@ NULL
 #'
 #'   \item{sense}{`character` sense associated with each target.
 #'     Sense values specify the nature of the target.
-#'     Typically (e.g. when using the [add_absolute_targets()] or
+#'     Typically (e.g., when using the [add_absolute_targets()] or
 #'     [add_relative_targets()] functions), targets are specified using sense
 #'     values indicating that the total amount of a feature held within a
 #'     solution (ideally) be greater than or equal to a threshold amount
-#'     (i.e. a  sense value of `">="`).
-#'     Additionally, targets (i.e. using the [add_manual_targets()] function)
+#'     (i.e., a  sense value of `">="`).
+#'     Additionally, targets (i.e., using the [add_manual_targets()] function)
 #'     can also be specified using sense values indicating that the total
 #'     amount of a feature held within a solution must be equal to a
-#'     threshold amount (i.e. a sense value of `"="`) or smaller than or equal
-#'     to a threshold amount (i.e. a sense value of `"<="`).
+#'     threshold amount (i.e., a sense value of `"="`) or smaller than or equal
+#'     to a threshold amount (i.e., a sense value of `"<="`).
 #'     This column is only included if the argument to `include_sense` is
 #'     `TRUE`.}
 #'
@@ -73,44 +73,45 @@ NULL
 #'     `"feature"` and `"zone"` columns, respectively).
 #'     This column is calculated as the sum of the feature data,
 #'     supplied when creating a [problem()] object
-#'     (e.g. presence/absence values), weighted by the status of each
-#'     planning unit in the solution (e.g. selected or not for prioritization).}
+#'     (e.g., presence/absence values), weighted by the status of each
+#'     planning unit in the solution (e.g., selected or not for
+#'     prioritization).}
 #'
 #'   \item{absolute_shortfall}{ `numeric` total amount by which the solution
 #'     fails to meet each target.
 #'     This column is calculated as the difference between the total amount
 #'     held within the solution for the feature and (if relevant) zones
-#'     associated with the target (i.e. `"absolute_held"` column) and the
-#'     target total threshold amount (i.e. `"absolute_target"` column), with
+#'     associated with the target (i.e., `"absolute_held"` column) and the
+#'     target total threshold amount (i.e., `"absolute_target"` column), with
 #'     values set to zero depending on the sense specified for the target
-#'     (e.g. if the target sense is `>=` then the difference is
+#'     (e.g., if the target sense is `>=` then the difference is
 #'     set to zero if the value in the `"absolute_held"` is smaller than
 #'     that in the `"absolute_target"` column).}
 #'
 #'   \item{relative_target}{`numeric` proportion threshold amount associated
 #'     with each target.
 #'     This column is calculated by dividing the total threshold amount
-#'     associated with each target (i.e. `"absolute_target"` column) by
+#'     associated with each target (i.e., `"absolute_target"` column) by
 #'     the total amount associated with each target
-#'     (i.e. `"total_amount"` column).}
+#'     (i.e., `"total_amount"` column).}
 #'
 #'   \item{relative_held}{`numeric` proportion held within the solution for the
 #'     feature and (if relevant) zones associated with each target (per the
 #'     `"feature"` and `"zone"` columns, respectively).
 #'     This column is calculated by dividing the total amount held
-#'     for each target (i.e. `"absolute_held"` column) by the
+#'     for each target (i.e., `"absolute_held"` column) by the
 #'     total amount for with each target
-#'     (i.e. `"total_amount"` column).}
+#'     (i.e., `"total_amount"` column).}
 #'
 #'   \item{relative_shortfall}{`numeric` proportion by which the solution fails
 #'     to meet each target.
 #'     This column is calculated by dividing the total shortfall for
-#'     each target (i.e. `"absolute_shortfall"` column) by the
-#'     total amount for each target (i.e. `"total_amount"` column).}
+#'     each target (i.e., `"absolute_shortfall"` column) by the
+#'     total amount for each target (i.e., `"total_amount"` column).}
 #'
 #'   \item{met}{`logical` indicating if each target is met by the solution. This
 #'     column is calculated by checking if the total shortfall associated
-#'     with each target (i.e. `"absolute_shortfall`" column) is equal to
+#'     with each target (i.e., `"absolute_shortfall`" column) is equal to
 #'    zero.}
 #'
 #' }

@@ -7,10 +7,10 @@
 add_min_set_objective(x)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
 }
 \value{
-Object (i.e. \code{\linkS4class{ConservationProblem}}) with the objective
+Object (i.e., \code{\linkS4class{ConservationProblem}}) with the objective
 added to it.
 }
 \description{
@@ -41,7 +41,7 @@ mathematically for a set of planning units (\eqn{I}{I} indexed by
 Minimize sum_i^I (xi * ci) subject to sum_i^I (xi * rij) >= Tj for all
 j in J}
 
-Here, \eqn{x_i}{xi} is the \link{decisions} variable (e.g.
+Here, \eqn{x_i}{xi} is the \link{decisions} variable (e.g.,
 specifying whether planning unit \eqn{i}{i} has been selected (1) or not
 (0)), \eqn{c_i}{ci} is the cost of planning unit \eqn{i}{i},
 \eqn{r_{ij}}{rij} is the amount of feature \eqn{j}{j} in planning unit

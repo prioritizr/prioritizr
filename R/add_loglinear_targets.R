@@ -10,7 +10,7 @@ NULL
 #' distributions from being over-represented
 #' in solutions (Butchart *et al.* 2015).
 #'
-#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
+#' @param x [problem()] (i.e., [`ConservationProblem-class`]) object.
 #'
 #' @param lower_bound_amount `numeric` threshold.
 #'
@@ -56,7 +56,7 @@ NULL
 #'
 #'   The target calculations do not account for the
 #'   size of each planning unit. Therefore, the feature data should account for
-#'   the size of each planning unit if this is important (e.g. pixel values in
+#'   the size of each planning unit if this is important (e.g., pixel values in
 #'   the argument to `features` in the function [problem()] could
 #'   correspond to amount of land occupied by the feature in \eqn{km^2} units).
 #'   Additionally, the function can only be applied to

@@ -4,7 +4,7 @@ NULL
 #' Add manually specified bound constraints
 #'
 #' Add constraints to a conservation planning [problem()] to ensure
-#' that the planning unit values (e.g. proportion, binary) in a solution
+#' that the planning unit values (e.g., proportion, binary) in a solution
 #' range between specific lower and upper bounds. This function offers more
 #' fine-grained control than the [add_manual_locked_constraints()]
 #' function and is is most useful for problems involving proportion-type
@@ -12,7 +12,7 @@ NULL
 #'
 #' @usage add_manual_bounded_constraints(x, data)
 #'
-#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
+#' @param x [problem()] (i.e., [`ConservationProblem-class`]) object.
 #'
 #' @param data `data.frame` or [tibble::tibble()] object.
 #'   See the Data format section for more information.
@@ -213,7 +213,7 @@ methods::setMethod("add_manual_bounded_constraints",
           data$zone <- x$zone_names()[1]
         data$zone <- match(as.character(data$zone), x$zone_names())
         # remove rows for raster cells that aren't really planning units
-        # i.e. contain NA values in all zones
+        # i.e., contain NA values in all zones
         pu <- x$get_data("cost")
         if (inherits(pu, "Raster")) {
           if (raster::nlayers(pu) == 1) {

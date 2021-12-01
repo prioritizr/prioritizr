@@ -6,10 +6,10 @@ NULL
 #' Execute preliminary calculations in a conservation problem and store the
 #' results for later use. This function is useful when creating slightly
 #' different versions of the same conservation planning problem that involve
-#' the same pre-processing steps (e.g. calculating boundary data), because
+#' the same pre-processing steps (e.g., calculating boundary data), because
 #' means that the same calculations will not be run multiple times.
 #'
-#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
+#' @param x [problem()] (i.e., [`ConservationProblem-class`]) object.
 #'
 #' @details This function is used for the effect of modifying the input
 #'   [`ConservationProblem-class`] object. As such, it does not return

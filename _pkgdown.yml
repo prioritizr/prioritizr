@@ -1,10 +1,5 @@
 url: https://prioritizr.net
 
-home:
-  links:
-    - text: Learn about contributing
-      href: http://prioritizr.net/CONTRIBUTING.html
-
 authors:
   Jeffrey O Hanson:
     href: https://jeffrey-hanson.com
@@ -26,6 +21,40 @@ template:
     docsearch:
       api_key: 486efa122ea6783724263412c5f28ab3
       index_name: prioritizr
+
+home:
+  sidebar:
+    structure: [links, citation, license, authors, dev]
+  links:
+    - text: Learn about contributing
+      href: http://prioritizr.net/CONTRIBUTING.html
+
+navbar:
+  structure:
+    left:  [home, intro, reference, articles, tutorial, news]
+    right: [search, github]
+  components:
+    articles:
+      text: Articles
+      menu:
+      - text: Package overview
+        href: articles/package_overview.html
+      - text: Gurobi installation guide
+        href: articles/gurobi_installation_guide.html
+      - text: Solver benchmarks
+        href: articles/solver_benchmarks.html
+      - text: Publication record
+        href: articles/publication_record.html
+    tutorial:
+      text: Tutorials
+      menu:
+      - text: Connectivity
+        href: articles/connectivity_tutorial.html
+      - text: Calibrating trade-offs
+        href: articles/calibrating_trade-offs_tutorial.html
+      - text: Management zones
+        href: articles/management_zones_tutorial.html
+
 reference:
   - title: Overview
     desc: Overview of the package

@@ -38,7 +38,7 @@ NULL
 #' @details This package contains several vignettes that are designed to
 #'   showcase its functionality. To view them, please use the code
 #'   `vignette("name", package = "prioritizr")` where `"name"` is the
-#'   name of the desired vignette (e.g. `"gurobi_installation"`).
+#'   name of the desired vignette (e.g., `"gurobi_installation"`).
 #'
 #'   \describe{
 #'

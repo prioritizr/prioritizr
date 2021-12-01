@@ -20,7 +20,7 @@ NULL
 #'   will be used to pre-compute which planning units are adjacent to
 #'   each other and potentially reduce the processing time required to
 #'   generate the boundary matrices. This argument is only used when
-#'   the planning unit data are vector-based polygons (i.e.
+#'   the planning unit data are vector-based polygons (i.e.,
 #'   [sp::SpatialPolygonsDataFrame()] objects). **Note that
 #'   using `TRUE` may crash Mac OSX systems.** The default argument
 #'   is `FALSE`.
@@ -29,11 +29,11 @@ NULL
 #'   symmetric sparse matrix. Cells on the off-diagonal indicate the length of
 #'   the shared boundary between two different planning units. Cells on the
 #'   diagonal indicate length of a given planning unit's edges that have no
-#'   neighbors (e.g. for edges of planning units found along the
+#'   neighbors (e.g., for edges of planning units found along the
 #'   coastline). **This function assumes the data are in a coordinate
 #'   system where Euclidean distances accurately describe the proximity
 #'   between two points on the earth**. Thus spatial data in a longitude/latitude
-#'   coordinate system (i.e.
+#'   coordinate system (i.e.,
 #'   [WGS84](https://spatialreference.org/ref/epsg/wgs-84/))
 #'   should be reprojected to another coordinate system before using this
 #'   function. Note that for [`Raster-class`] objects

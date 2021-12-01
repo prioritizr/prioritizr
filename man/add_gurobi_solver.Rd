@@ -18,7 +18,7 @@ add_gurobi_solver(
 )
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{gap}{\code{numeric} gap to optimality. This gap is relative
 and expresses the acceptable deviance from the optimal objective.
@@ -26,12 +26,12 @@ For example, a value of 0.01 will result in the solver stopping when
 it has found a solution within 1\% of optimality.
 Additionally, a value of 0 will result in the solver stopping
 when it has found an optimal solution.
-The default value is 0.1 (i.e. 10\% from optimality).}
+The default value is 0.1 (i.e., 10\% from optimality).}
 
 \item{time_limit}{\code{numeric} time limit (seconds) for generating solutions.
 The solver will return the current best solution when this time limit is
 exceeded. The default value is the largest integer value
-(i.e. \code{.Machine$integer.max}), effectively meaning that solver
+(i.e., \code{.Machine$integer.max}), effectively meaning that solver
 will keep running until a solution within the optimality gap is found.}
 
 \item{presolve}{\code{integer} number indicating how intensively the
@@ -65,7 +65,7 @@ the optimization problem exceeds this parameter value, the solver
 will begin storing this information on disk
 (using the *Gurobi( \code{NodeFileStart} parameter).
 This functionality is useful if the system has insufficient memory to
-solve a given problem (e.g. solving the problem with default settings
+solve a given problem (e.g., solving the problem with default settings
 yields the \verb{OUT OF MEMORY} error message) and a system with more memory is
 not readily available.
 For example, a value of 4 indicates that the solver will start using
@@ -77,7 +77,7 @@ to store information on disk when solving a given problem.}
 \item{start_solution}{\code{NULL} or object containing the starting solution
 for the solver. Defaults to \code{NULL} such that no starting solution is used.
 To specify a starting solution, the argument to \code{start_solution} should
-be in the same format as the planning units (i.e. a \code{NULL}, \code{numeric},
+be in the same format as the planning units (i.e., a \code{NULL}, \code{numeric},
 \code{matrix}, \code{data.frame}, \code{\linkS4class{Raster}}, \code{\linkS4class{Spatial}},
 or \code{\link[sf:sf]{sf::sf()}} object).
 See the Start solution format section for more information.}
@@ -86,7 +86,7 @@ See the Start solution format section for more information.}
 optimization problems? Defaults to \code{TRUE}.}
 }
 \value{
-Object (i.e. \code{\linkS4class{ConservationProblem}}) with the solver
+Object (i.e., \code{\linkS4class{ConservationProblem}}) with the solver
 added to it.
 }
 \description{

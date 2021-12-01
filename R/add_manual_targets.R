@@ -11,10 +11,10 @@ NULL
 #' functions. However, this function can be used to (i) mix absolute and
 #' relative targets for different features and zones, (ii) set targets that
 #' pertain to the allocations of planning units in multiple zones, and (iii)
-#' set targets that require different senses (e.g. targets which specify the
+#' set targets that require different senses (e.g., targets which specify the
 #' solution should not exceed a certain quantity using `"<="` values).
 #'
-#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
+#' @param x [problem()] (i.e., [`ConservationProblem-class`]) object.
 #'
 #' @param targets `data.frame` or [tibble::tibble()] object.
 #'   See the Target data format section for more information.
@@ -49,7 +49,7 @@ NULL
 #'
 #' }
 #'
-#' @return Object (i.e. [`ConservationProblem-class`]) with the targets added
+#' @return Object (i.e., [`ConservationProblem-class`]) with the targets added
 #'   to it.
 #'
 #' @seealso

@@ -7,7 +7,7 @@
 add_max_cover_objective(x, budget)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{budget}{\code{numeric} value specifying the maximum expenditure of
 the prioritization. For problems with multiple zones, the argument
@@ -16,7 +16,7 @@ for the entire solution or a \code{numeric} vector to specify
 a budget for each each management zone.}
 }
 \value{
-Object (i.e. \code{\linkS4class{ConservationProblem}}) with the objective
+Object (i.e., \code{\linkS4class{ConservationProblem}}) with the objective
 added to it.
 }
 \description{
@@ -31,10 +31,10 @@ The maximum coverage objective seeks to find the set of planning units that
 maximizes the number of represented features, while keeping cost within a
 fixed budget. Here, features are treated as being represented if
 the reserve system contains at least a single instance of a feature
-(i.e. an amount greater than 1). This formulation has often been
+(i.e., an amount greater than 1). This formulation has often been
 used in conservation planning problems dealing with binary biodiversity
 data that indicate the presence/absence of suitable habitat
-(e.g. Church & Velle 1974). Additionally, weights can be used to favor the
+(e.g., Church & Velle 1974). Additionally, weights can be used to favor the
 representation of certain features over other features (see
 \code{\link[=add_feature_weights]{add_feature_weights()}}). Check out the
 \code{\link[=add_max_features_objective]{add_max_features_objective()}} for a more
@@ -58,7 +58,7 @@ Maximize sum_i^I (-s * ci * xi) + sum_j^J (yj * wj) subject to
 sum_i^I (xi * rij) >= (yj * 1) for all j in J &
 sum_i^I (xi * ci) <= B}
 
-Here, \eqn{x_i}{xi} is the \link{decisions} variable (e.g.
+Here, \eqn{x_i}{xi} is the \link{decisions} variable (e.g.,
 specifying whether planning unit \eqn{i}{i} has been selected (1) or not
 (0)), \eqn{r_{ij}}{rij} is the amount of feature \eqn{j}{j} in planning
 unit \eqn{i}{i}, \eqn{y_j}{yj} indicates if the solution has meet

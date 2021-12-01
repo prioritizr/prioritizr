@@ -47,19 +47,19 @@ NULL
 #' replacement cost scores correspond to the reduction in the utility when
 #' each planning unit is locked out. Infinite values mean that no feasible
 #' solution exists when planning units are locked out---they are
-#' absolutely essential for obtaining a solution (e.g. they contain rare
+#' absolutely essential for obtaining a solution (e.g., they contain rare
 #' species that are not found in any other planning units or were locked in).
 #' Zeros values mean that planning units can swapped with other planning units
 #' and this will have no effect on the performance of the solution at all
-#' (e.g. because they were only selected due to spatial fragmentation
+#' (e.g., because they were only selected due to spatial fragmentation
 #' penalties).
 #'
 #' These calculations can take a long time to complete for large
 #' or complex conservation planning problems. As such, we using this
 #' method for small or moderate-sized conservation planning problems
-#' (e.g. < 30,000 planning units). To reduce run time, we
-#' recommend calculating these scores without additional penalties (e.g.
-#' [add_boundary_penalties()]) or spatial constraints (e.g.
+#' (e.g., < 30,000 planning units). To reduce run time, we
+#' recommend calculating these scores without additional penalties (e.g.,
+#' [add_boundary_penalties()]) or spatial constraints (e.g.,
 #' [add_contiguity_constraints()]). To further reduce run time,
 #' we recommend using proportion-type decisions when calculating the scores
 #' (see below for an example).

@@ -20,7 +20,7 @@
 \S4method{eval_connectivity_summary}{ConservationProblem,ANY,ANY,array}(x, solution, zones, data)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{solution}{\code{numeric}, \code{matrix}, \code{data.frame},
 \code{\linkS4class{Raster}}, \code{\linkS4class{Spatial}},
@@ -37,7 +37,7 @@ of zones. Cell values along the diagonal of the matrix represent
 the level of connectivity between planning units allocated to the
 same zone. Cell values must lay between 1 and -1, where negative
 values favor solutions with weak connectivity. The default argument to
-\code{zones} is an identity matrix (i.e. a matrix with ones along the
+\code{zones} is an identity matrix (i.e., a matrix with ones along the
 matrix diagonal and zeros elsewhere), so that planning units are
 only considered to be connected when they are allocated to the same zone.
 This argument is required when the argument to \code{data} is a
@@ -86,7 +86,7 @@ This summary statistic is comparable to the \code{Connectivity_In} metric
 reported by the
 \href{https://marxansolutions.org}{\emph{Marxan} software} (Ball \emph{et al.} 2009).
 It is calculated using the same equations used to penalize solutions
-with connectivity data (i.e. \code{\link[=add_connectivity_penalties]{add_connectivity_penalties()}}).
+with connectivity data (i.e., \code{\link[=add_connectivity_penalties]{add_connectivity_penalties()}}).
 Specifically, it is calculated as the sum of the pair-wise connectivity
 values in the argument to \code{data}, weighted by the value of the planning
 units in the solution.
@@ -193,7 +193,7 @@ denotes the connectivity between two planning units following the
 \emph{Marxan} format. The data can be used to denote symmetric or
 asymmetric relationships between planning units. By default,
 input data is assumed to be symmetric unless asymmetric data is
-also included (e.g. if data is present for planning units 2 and 3, then
+also included (e.g., if data is present for planning units 2 and 3, then
 the same amount of connectivity is expected for planning units 3 and 2,
 unless connectivity data is also provided for planning units 3 and 2).
 If the argument to \code{x} contains multiple zones, then the columns
@@ -207,7 +207,7 @@ allocated to specific zones. If the columns \code{"zone1"} and
 containing four-dimensions where cell values
 indicate the strength of connectivity between planning units
 when they are assigned to specific management zones. The first two
-dimensions (i.e. rows and columns) indicate the strength of
+dimensions (i.e., rows and columns) indicate the strength of
 connectivity between different planning units and the second two
 dimensions indicate the different management zones. Thus
 the \code{data[1, 2, 3, 4]} indicates the strength of

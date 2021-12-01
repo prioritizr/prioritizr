@@ -6,11 +6,11 @@ NULL
 #' Add penalties to a conservation planning [problem()] to favor
 #' solutions that select planning units with high connectivity between them.
 #'
-#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
+#' @param x [problem()] (i.e., [`ConservationProblem-class`]) object.
 #'
 #' @param penalty `numeric` penalty that is used to scale the importance
 #'   of selecting planning units with strong connectivity between them compared
-#'   to the main problem objective (e.g. solution cost when the argument to
+#'   to the main problem objective (e.g., solution cost when the argument to
 #'   `x` has a minimum set objective set using
 #'   [add_min_set_objective()]). Higher `penalty` values
 #'   can be used to obtain solutions with a high degree of connectivity,
@@ -26,7 +26,7 @@ NULL
 #'   the level of connectivity between planning units allocated to the
 #'   same zone. Cell values must lay between 1 and -1, where negative
 #'   values favor solutions with weak connectivity. The default argument to
-#'   `zones` is an identity matrix (i.e. a matrix with ones along the
+#'   `zones` is an identity matrix (i.e., a matrix with ones along the
 #'   matrix diagonal and zeros elsewhere), so that planning units are
 #'   only considered to be connected when they are allocated to the same zone.
 #'   This argument is required when the argument to `data` is a
@@ -72,7 +72,7 @@ NULL
 #'   *Marxan* format. The data can be used to denote symmetric or
 #'   asymmetric relationships between planning units. By default,
 #'   input data is assumed to be symmetric unless asymmetric data is
-#'   also included (e.g. if data is present for planning units 2 and 3, then
+#'   also included (e.g., if data is present for planning units 2 and 3, then
 #'   the same amount of connectivity is expected for planning units 3 and 2,
 #'   unless connectivity data is also provided for planning units 3 and 2).
 #'   If the argument to `x` contains multiple zones, then the columns
@@ -86,7 +86,7 @@ NULL
 #'   containing four-dimensions where cell values
 #'   indicate the strength of connectivity between planning units
 #'   when they are assigned to specific management zones. The first two
-#'   dimensions (i.e. rows and columns) indicate the strength of
+#'   dimensions (i.e., rows and columns) indicate the strength of
 #'   connectivity between different planning units and the second two
 #'   dimensions indicate the different management zones. Thus
 #'   the `data[1, 2, 3, 4]` indicates the strength of
@@ -101,7 +101,7 @@ NULL
 #' (indexed by \eqn{i} or \eqn{j}), \eqn{Z} represent the set
 #' of management zones (indexed by \eqn{z} or \eqn{y}), and \eqn{X_{iz}}{Xiz}
 #' represent the decision variable for planning unit \eqn{i} for in zone
-#' \eqn{z} (e.g. with binary
+#' \eqn{z} (e.g., with binary
 #' values one indicating if planning unit is allocated or not). Also, let
 #' \eqn{p} represent the argument to `penalty`, \eqn{D} represent the
 #' argument to `data`, and \eqn{W} represent the argument
@@ -177,7 +177,7 @@ NULL
 #' }
 #' # create a symmetric connectivity matrix where the connectivity between
 #' # two planning units corresponds to their spatial proximity
-#' # i.e. planning units that are further apart share less connectivity
+#' # i.e., planning units that are further apart share less connectivity
 #' centroids <- rgeos::gCentroid(sim_pu_polygons, byid = TRUE)
 #' d_matrix <- (1 / (as(dist(centroids@coords), "Matrix") + 1))
 #'
@@ -220,7 +220,7 @@ NULL
 #'     # find if planning units are adjacent
 #'     if (adjacent_units[i, j]) {
 #'       # find if planning units lay north and south of each other
-#'       # i.e. they have the same x-coordinate
+#'       # i.e., they have the same x-coordinate
 #'       if (centroids@coords[i, 1] == centroids@coords[j, 1]) {
 #'         if (centroids@coords[i, 2] > centroids@coords[j, 2]) {
 #'           # if i is north of j add 10 units of connectivity

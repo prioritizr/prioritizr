@@ -25,7 +25,7 @@ eval_feature_representation_summary(x, solution)
 \S4method{eval_feature_representation_summary}{ConservationProblem,Raster}(x, solution)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{solution}{\code{numeric}, \code{matrix}, \code{data.frame},
 \code{\linkS4class{Raster}}, \code{\linkS4class{Spatial}},
@@ -37,7 +37,7 @@ See the Solution format section for more information.}
 \value{
 \code{\link[tibble:tibble]{tibble::tibble()}} object describing feature representation.
 Here, each row describes a specific summary statistic
-(e.g. different management zone) for a specific feature.
+(e.g., different management zone) for a specific feature.
 It contains the following columns:
 
 \describe{
@@ -57,13 +57,14 @@ in the entire conservation planning problem
 (not just planning units selected within the solution).
 It is calculated as the sum of the feature data,
 supplied when creating a \code{\link[=problem]{problem()}} object
-(e.g. presence/absence values).}
+(e.g., presence/absence values).}
 
 \item{absolute_held}{\code{numeric} total amount of each feature secured within
 the solution. It is calculated as the sum of the feature data,
 supplied when creating a \code{\link[=problem]{problem()}} object
-(e.g. presence/absence values), weighted by the status of each
-planning unit in the solution (e.g. selected or not for prioritization).}
+(e.g., presence/absence values), weighted by the status of each
+planning unit in the solution (e.g., selected or not for
+prioritization).}
 
 \item{relative_held}{\code{numeric} proportion of
 each feature secured within the solution. It is calculated

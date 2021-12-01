@@ -7,7 +7,7 @@
 run_calculations(x)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
 }
 \value{
 Invisible \code{TRUE} indicating success.
@@ -16,7 +16,7 @@ Invisible \code{TRUE} indicating success.
 Execute preliminary calculations in a conservation problem and store the
 results for later use. This function is useful when creating slightly
 different versions of the same conservation planning problem that involve
-the same pre-processing steps (e.g. calculating boundary data), because
+the same pre-processing steps (e.g., calculating boundary data), because
 means that the same calculations will not be run multiple times.
 }
 \details{

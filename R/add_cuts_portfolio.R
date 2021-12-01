@@ -9,7 +9,7 @@ NULL
 #'  [add_gap_portfolio()] when the *Gurobi* software is not
 #'  available.
 #'
-#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
+#' @param x [problem()] (i.e., [`ConservationProblem-class`]) object.
 #'
 #' @param number_solutions `integer` number of attempts to generate
 #'   different solutions. Defaults to 10.
@@ -22,11 +22,11 @@ NULL
 #
 #' @section Notes:
 #' In early versions (< 4.0.1), this function was only compatible with
-#' *Gurobi* (i.e. [add_gurobi_solver()]). To provide functionality with
+#' *Gurobi* (i.e., [add_gurobi_solver()]). To provide functionality with
 #' exact algorithm solvers, this function now adds constraints to the
 #' problem formulation to generate multiple solutions.
 #'
-#' @return Object (i.e. [`ConservationProblem-class`]) with the portfolio
+#' @return Object (i.e., [`ConservationProblem-class`]) with the portfolio
 #'  added to it.
 #'
 #' @seealso

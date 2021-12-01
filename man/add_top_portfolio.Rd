@@ -7,12 +7,12 @@
 add_top_portfolio(x, number_solutions)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{number_solutions}{\code{integer} number of solutions required.}
 }
 \value{
-Object (i.e. \code{\linkS4class{ConservationProblem}}) with the portfolio
+Object (i.e., \code{\linkS4class{ConservationProblem}}) with the portfolio
 added to it.
 }
 \description{
@@ -22,7 +22,7 @@ are closest to optimality (i.e the top solutions).
 }
 \details{
 This strategy for generating a portfolio requires problems to
-be solved using the \emph{Gurobi} software suite (i.e. using
+be solved using the \emph{Gurobi} software suite (i.e., using
 \code{\link[=add_gurobi_solver]{add_gurobi_solver()}}. Specifically, version 9.0.0 (or greater)
 of the \pkg{gurobi} package must be installed.
 Note that the number of solutions returned may be less than the argument to

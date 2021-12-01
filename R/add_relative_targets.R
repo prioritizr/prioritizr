@@ -9,7 +9,7 @@ NULL
 #' (including any locked out planning units, or planning units with `NA`
 #' cost data) using the [feature_abundances()] function.
 #'
-#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
+#' @param x [problem()] (i.e., [`ConservationProblem-class`]) object.
 #'
 #' @param targets Object that specifies the targets for each feature.
 #'   See the Targets format section for more information.

@@ -1,5 +1,5 @@
 ---
-title: "prioritizr: Systematic Conservation Prioritization in R"
+title: "Getting started"
 output:
   rmarkdown::html_vignette:
     toc: true
@@ -10,900 +10,278 @@ documentclass: article
 bibliography: references.bib
 csl: reference-style.csl
 vignette: >
-  %\VignetteIndexEntry{prioritizr: Systematic Conservation Prioritization in R}
+  %\VignetteIndexEntry{Getting started}
   %\VignetteEngine{knitr::rmarkdown_notangle}
 ---
 
 ```{r, include = FALSE}
-h = 3.5
-w = 3.5
-is_check <- ("CheckExEnv" %in% search()) || any(c("_R_CHECK_TIMINGS_",
-             "_R_CHECK_LICENSE_") %in% names(Sys.getenv()))
-knitr::opts_chunk$set(fig.align = "center", eval = !is_check,
-                      root.dir = normalizePath("../.."))
+# define dummy variables so that vignette passes package checks
+tas_features <- raster::raster(matrix(1))
 ```
 
-## Summary
-
-The _prioritizr R_ package uses integer linear programming (ILP) techniques to provide a flexible interface for building and solving conservation planning problems [@r11; @r16]. It supports a broad range of objectives, constraints, and penalties that can be used to custom-tailor conservation planning problems to the specific needs of a conservation planning exercise. Once built, conservation planning problems can be solved using a variety of commercial and open-source exact algorithm solvers. In contrast to the algorithms conventionally used to solve conservation problems, such as heuristics or simulated annealing [@r3], the exact algorithms used here are guaranteed to find optimal solutions. Furthermore, conservation problems can be constructed to optimize the spatial allocation of different management zone (or actions), meaning that conservation practitioners can identify solutions that benefit multiple stakeholders. Finally, this package has the functionality to read input data formatted for the _Marxan_ conservation planning program [@r3], and find much cheaper solutions in a much shorter period of time than _Marxan_ [@r1].
+```{r, include = FALSE}
+# define variables for vignette figures and code execution
+h <- 3.5
+w <- 3.5
+is_check <- ("CheckExEnv" %in% search()) || any(c("_R_CHECK_TIMINGS_",
+             "_R_CHECK_LICENSE_") %in% names(Sys.getenv()))
+knitr::opts_chunk$set(fig.align = "center", eval = !is_check)
+```
 
 ## Introduction
 
-Systematic conservation planning is a rigorous, repeatable, and structured approach to designing new protected areas that efficiently meet conservation objectives [@r4]. Historically, conservation decision-making has often evaluated parcels opportunistically as they became available for purchase, donation, or under threat. Although purchasing such areas may improve the _status quo_, such decisions may not substantially enhance the long-term persistence of target species or communities. Faced with this realization, conservation planners began using decision support tools to help simulate alternative reserve designs over a range of different biodiversity and management goals and, ultimately, guide protected area acquisitions and management actions. Due to the systematic, evidence-based nature of these tools, conservation prioritization can help contribute to a transparent, inclusive, and more defensible decision making process.
+The aim of this tutorial is to provide a short introduction to the _prioritizr R_ package. It is also intended for helping conservation planners familiar the _Marxan_ decision support tool [@r3] to start using the package for their work.
 
-A conservation planning exercise typically starts by defining a study area. This study area should encompass all the areas relevant to the decision maker or the hypothesis being tested. The extent of a study area could encompass a few important localities [e.g. @r18], a single state [e.g. @r17], an entire country [@r19], or the entire planet [@r20]. Next, the study area is divided into a set of discrete areas termed _planning units_. Each planning unit represents a discrete locality in the study area that can be managed independently of other areas. The general idea is that some combination of the planning units can be selected for conservation actions (e.g. protected area establishment, habitat restoration). Planning units are often created as square or hexagon cells that are sized according to the scale of the conservation actions, and the resolution of the data that underpin the planning exercise [but see @r5].
+## Data
 
-Cost data (or a surrogate thereof) are needed to inform the prioritization process. Specifically, these cost data describe the relative expenditure associated with managing each planning unit for conservation. For example, if the goal of the conservation planning exercise is to identify priority areas for expanding a local protected area system, then the cost data could represent the physical cost of purchasing the land. Alternatively, if such data are not available, then surrogate data could are often used instead (e.g. human population density, opportunity cost of foregone commercial activities, or planning unit size).
+Let's load the packages and data used in this tutorial. Since this tutorial uses data from the _prioritizrdata R_ package, please ensure that it is installed. The data used in this tutorial were obtained from the _Introduction to Marxan_ course. Specifically, the data were originally a subset of a larger spatial prioritization project performed under contract to Australia's Department of Environment and Water Resources [@r30].
 
-Conservation planning exercises also require data on the biodiversity elements that are of conservation interest (termed _conservation features_). These features could be species (e.g. _Neofelis nebulosa_, the Clouded Leopard), populations, or habitats (e.g. mangroves or cloud forest). After identifying the set of relevant conservation features for a conservation planning exercise, spatially explicit data need to be obtained for each and every feature to describe their spatial distribution (e.g. habitat suitability data, probability of occurrence data, presence/absence data). This is important to ensure that conservation features are adequately covered (represented) by prioritizations. After assembling all the data, the next step is to define the conservation planning problem.
-
-The _prioritizr R_ package is designed to help you build and solve conservation planning problems. Specifically, prioritizations are generated by using formulating a mathematical optimization problem and then solving it to generate a solution. These mathematical optimization problems are formulated using the planning unit data, cost data, and feature data, and with information related to the overarching aim of the prioritization process. In general, the goal of an optimization problem is to minimize (or maximize) an _objective function_ that is calculated using a set of _decision variables_, subject to a series of constraints to ensure that solution exhibits specific properties. The objective function describes the quantity which we are trying to minimize (e.g. cost of the solution) or maximize (e.g. number of features conserved). The decision variables describe the entities that we can control, and indicate which planning units are selected for conservation management and which of those are not. The constraints can be thought of as rules that the need decision variables need to follow. For example, a commonly used constraint is specifying that the solution must not exceed a certain budget.
-
-A wide variety of approaches have been developed for solving optimization problems. Reserve design problems are frequently solved using simulated annealing [@r6] or heuristics [@r8; @r7]. These methods are conceptually simple and can be applied to a wide variety of optimization problems. However, they do not scale well for large or complex problems [@r1]. Additionally, these methods cannot tell you how close any given solution is to the optimal solution. The _prioritizr R_ package uses exact algorithms to efficiently solve conservation planning problems to within a pre-specified a optimality gap. In other words, you can specify that you need the optimal solution (i.e. a gap of 0%) and the algorithms will, given enough time, find a solution that meets this criteria. In the past, exact algorithms have been too slow for conservation planning exercises [@r9]. However, improvements over the last decade mean that they are now much faster [@r23; @r1].
-
-In this package, optimization problems are expressed using _integer linear programming_ (ILP) so that they can be solved using (linear) exact algorithm solvers. The general form of an integer programming problem can be expressed in matrix notation using the following equation.
-
-$$\text{Minimize} \space \boldsymbol{c}^\text{T} \boldsymbol{x} \space
-\space \text{subject to} \space A\boldsymbol{x}
-\space \Box \space \boldsymbol{b}$$
-
-Here, where $x$ is a vector of decision variables, $c$ and $b$ are vectors of known coefficients, and $A$ is the constraint matrix. The final term specifies a series of structural constants and the $\Box$ symbol is used to indicate that the relational operators for the constraints can be either $\geq$, $=$, or $\leq$. In the context of a conservation planning problem, $c$ could be used to represent the planning unit costs, $A$ could be used to store the data showing the presence / absence (or amount) of each feature in each planning unit, $b$ could be used to represent minimum amount of habitat required for each species in the solution, the $\Box$ could be set to $\geq$ symbols to indicate that the total amount of each feature in the solution must exceed the quantities in $b$. But there are many other ways of formulating the reserve selection problem [@r11].
-
-## Package overview
-
-The _prioritizr R_ package contains eight main types of functions. These
-functions are used to:
-
-* create a new conservation planning [problem](https://prioritizr.net/reference/problem.html) by specifying the planning units, features, and management zones of conservation interest (e.g. species, ecosystems).
-* add an [objective](https://prioritizr.net/reference/objectives.html) to a conservation planning problem.
-* add [targets](https://prioritizr.net/reference/targets.html) to a problem to specify how much of each feature is desired or required to be conserved in the solutions.
-* add [constraints](https://prioritizr.net/reference/constraints.html) to a conservation planning problem to ensure that solutions exhibit specific properties (e.g. select specific planning units for protection).
-* add [penalties](https://prioritizr.net/reference/penalties.html) to a problem to penalize solutions according to specific metric (e.g. connectivity).
-* add [decisions](https://prioritizr.net/reference/decisions.html) to a problem to specify the nature of the decisions in the problem.
-* add methods to generate a [portfolio](https://prioritizr.net/reference/portfolios.html) of solutions.
-* add a [solver](https://prioritizr.net/reference/solvers.html) to a conservation problem to specify which software should be used to generate solutions and customize the optimization process.
-* [solve](https://prioritizr.net/reference/solve.html) a conservation problem.
-* evaluate a solution by computing [summary](https://prioritizr.net/reference/summaries.html) statistics.
-* evaluate the relative [importance](https://prioritizr.net/reference/importance.html) (irreplaceability) of planning units selected in a solution.
-
-## Package workflow
-
-The general workflow when using the _prioritizr R_ package starts with creating a new conservation planning `problem` object using data. Specifically, the `problem` object should be constructed using data that specify the planning units, biodiversity features, management zones (if applicable), and costs. After creating a new `problem` object, it can be customized---by adding objectives, penalties, constraints, and other information---to build a precise representation of the conservation planning problem required, and then solved to obtain a solutions.
-
-All conservation planning problems require an objective. An objective specifies the property which is used to compare different feasible solutions. Simply put, the objective is the property of the solution which should be maximized or minimized during the optimization process. For instance, with the minimum set objective (specified using `add_min_set_objective`), we are seeking to minimize the cost of the solution (similar to _Marxan_). On the other hand, with the maximum coverage objective (specified using `add_max_cover_objective`), we are seeking to maximize the number of different features represented in the solution.
-
-Many objectives require `targets` (e.g. the minimum set objective). Targets are a specialized set of constraints that relate to the total quantity of each feature secured in the solution (e.g. amount of suitable habitat or number of individuals). In the case of the minimum set objective ( `add_min_set_objective`), they are used to ensure that solutions secure a sufficient quantity of each feature, and in other objectives, such as the maximum features objective ( `add_max_features_objective`) they are used to assess whether a feature has been adequately conserved by a candidate solution. Targets can be expressed numerically as the total amount required for a given feature (using `add_absolute_targets`), or as a proportion of the total amount found in the planning units (using `add_relative_targets`). Note that not all objectives require targets, and a warning will be thrown if an attempt is made to add targets to a problem with an objective that does not use them.
-
-Constraints and penalties can be added to a conservation planning problem to ensure that solutions exhibit a specific property or penalize solutions which don't exhibit a specific property (respectively). The difference between constraints and penalties, strictly speaking, is constraints are used to rule out potential solutions that don't exhibit a specific property. For instance, constraints can be used to ensure that specific planning units are selected in the solution for prioritization (using `add_locked_in_constraints`) or not selected in the solution for prioritization (using `add_locked_out_constraints`). On the other hand, penalties are combined with the objective of a problem, with a penalty factor, and the overall objective of the problem then becomes to minimize (or maximize) the primary objective function and the penalty function. For example, penalties can be added to a problem to penalize solutions that are excessively fragmented (using `add_boundary_penalties`). These penalties have a `penalty` argument that specifies the relative importance of having spatially clustered solutions. When the argument to `penalty` is high, then solutions which are less fragmented are valued more highly---even if they cost more---and when the argument to `penalty` is low, then the solutions which are more fragmented are valued less highly.
-
-After building a conservation problem, it can then be solved to obtain a solution (or portfolio of solutions if desired). The solution is returned in the same format as the planning unit data used to construct the problem. This means that if raster or shapefile / vector data was used when initializing the problem, then the solution will also be in raster or shapefile / vector data. This can be very helpful when it comes to interpreting and visualizing solutions because it means that the solution data does not first have to be merged with spatial data before they can be plotted on a map.
-
-## Usage
-
-Here we will provide an introduction to using the _prioritizr R_ package to build and solve a conservation planning problem. Please note that we will not discuss conservation planning with multiple zones in this vignette, for more information on working with multiple management zones please see the [zones vignette](zones.html).
-
-First, we will load the _prioritizr_ package.
-
-```{r, results = "hide", message = FALSE}
-# load package
+```{r, message = FALSE}
+# load packages
+library(prioritizrdata)
 library(prioritizr)
+library(vegan)
+library(cluster)
 
-# set default options for printing tabular data
-options(tibble.width = Inf)
-```
+# load planning unit data
+data(tas_pu)
 
-### Data
-
-Now we will load some built-in data sets that are distributed with the _prioritizr R_ package. This package contains several different planning unit data sets. To provide a comprehensive overview of the different ways that we can initialize a conservation planning problem, we will load each of them.
-
-First, we will load the raster planning unit data (`sim_pu_raster`). Here, the planning units are represented as a raster (i.e. a `RasterLayer` object) and each pixel corresponds to the spatial extent of each panning unit. The pixel values correspond to the acquisition costs of each planning unit.
-
-```{r}
-# load raster planning unit data
-data(sim_pu_raster)
-
-# print description of the data
-print(sim_pu_raster)
-
-# plot the data
-plot(sim_pu_raster)
-```
-
-Secondly, we will load one of the spatial vector planning unit data sets (`sim_pu_polygons`). Here, each polygon (i.e. feature using ArcGIS terminology) corresponds to a different planning unit. This data set has an attribute table that contains additional information about each polygon. Namely, the `cost` field (column) in the attribute table contains the acquisition cost for each planning unit.
-
-```{r}
-# load polygon planning unit data
-data(sim_pu_polygons)
-
-# print first six rows of attribute table
-head(sim_pu_polygons@data)
-
-# plot the planning units
-spplot(sim_pu_polygons, zcol = "cost")
-```
-
-Thirdly, we will load some planning unit data stored in tabular format (i.e. `data.frame` format). For those familiar with _Marxan_ or dealing with very large conservation planning problems (> 10 million planning units), it may be useful to work with data in this format because it does not contain any spatial information which will reduce computational burden. When using tabular data to initialize conservation planning problems, the data must follow the conventions used by _Marxan_. Specifically, each row in the planning unit table must correspond to a different planning unit. The table must also have an "id" column to provide a unique integer identifier for each planning unit, and it must also have a column that indicates the cost of each planning unit. For more information, please see the [official _Marxan_ documentation](https://marxansolutions.org/).
-
-```{r}
-# specify file path for planning unit data
-pu_path <- system.file("extdata/input/pu.dat", package = "prioritizr")
-
-# load in the tabular planning unit data
-# note that we use the data.table::fread function, as opposed to the read.csv
-# function, because it is much faster
-pu_dat <- data.table::fread(pu_path, data.table = FALSE)
-
-# preview first six rows of the tabular planning unit data
-# note that it has some extra columns other than id and cost as per the
-# Marxan format
-head(pu_dat)
-```
-
-Finally, we will load data showing the spatial distribution of the conservation features. Our conservation features (`sim_features`) are represented as a stack of raster objects (i.e. a `RasterStack` object) where each layer corresponds to a different feature (e.g. a multi-band GeoTIFF where each band corresponds to a different feature). The pixel values in each layer correspond to the amount of suitable habitat available in a given planning unit. Note that our planning unit raster layer and our conservation feature stack have exactly the same spatial properties (i.e. resolution, extent, coordinate reference system) so their pixels line up perfectly.
-
-```{r, fig.width = 4, fig.height = 3}
 # load feature data
-data(sim_features)
-
-# plot the distribution of suitable habitat for each feature
-plot(sim_features, main = paste("Feature", seq_len(nlayers(sim_features))),
-     nr = 2, box = FALSE, axes = FALSE)
+data(tas_features)
 ```
 
-### Initialize a problem
+The `tas_pu` object contains planning units represented as spatial polygons (i.e., a `SpatialPolygonsDataFrame` object). This object has three columns that denote the following information for each planning unit: a unique identifier (`id`), unimproved land value (`cost`), and current conservation status (`locked_in`). Planning units that have at least half of their area overlapping with existing protected areas are denoted with a locked in value of 1, otherwise they are denoted with a value of 0. If you are familiar with the _Marxan_ decision support tool, then you will notice that some of these columns are formatted similar conventions.
 
-After having loaded our planning unit and feature data, we will now try initializing the some conservation planning problems. There are a lot of different ways to initialize a conservation planning problem, so here we will just showcase a few of the more commonly used methods. For an exhaustive description of all the ways you can initialize a conservation problem, see the help file for the `problem` function (which you can open using the code `?problem`). First off, we will initialize a conservation planning problem using the raster data.
+Now, let's have a look at the planning unit data. We can see that the planning units correspond to hexagonal land parcels. We can also see that is a clear spatial pattern in the cost and conservation status the planning units.
 
-```{r}
-# create problem
-p1 <- problem(sim_pu_raster, sim_features)
+```{r, fig.width = w, fig.height = h}
+# print planning unit data
+print(tas_pu)
 
-# print problem
+# plot map of planning unit costs
+plot(st_as_sf(tas_pu[, "cost"]), main = "Planning unit costs")
+
+# plot map of planning unit coverage by protected areas
+plot(st_as_sf(tas_pu[, "locked_in"]), main = "Protected area coverage")
+```
+
+The `tas_features` object describes the spatial distribution of the features. Specifically, the feature data are expressed as a stack of `r raster::nlayers(tas_features)` rasters (i.e., a `RasterStack` object). Each layer in the stack corresponds to one of `r raster::nlayers(tas_features)` different vegetation communities. To describe the spatial distribution of a given vegetation community, each layer contains a spatially referenced grid of rectangular cells and each of these grid cells is associated with information on the distribution of the a given vegetation community. Specifically, these grid cells are assigned values that indicate if a given vegetation community is present (using value of 1) or absent (using value of 0) within the spatial extent of each grid cell.
+
+Next, let's examine the feature data. Here we will only plot the first four features as an example. The pixel values denote the presence (denoted by a value of 1) or absence (denoted by a value of zero) of each feature within the extent of the study area.
+
+```{r, fig.width = 4.5, fig.height = 4.5}
+# print planning unit data
+print(tas_features)
+
+# plot map of the first four vegetation classes
+plot(tas_features[[1:4]], main = paste("Feature", 1:4))
+```
+
+The planning units in this tutorial are stored as spatial polygons. Although spatial polygons provide considerable flexibility in the shape and size of the planning units, such flexibility comes at a cost. This is because the spatial data processing routines needed to combine spatial polygon data and raster data for optimization can be very computationally expensive (e.g., calculating zonal statistics). As a consequence, we generally recommend using raster-based planning unit data where possible to reduce processing time. Another strategy is to complete spatial data processing routines manually using other software (e.g., _ESRI ArcGIS_) and use the pre-processed data directly with the _prioritizr R_ package.
+
+## Problem formulation
+
+Now we will formulate a conservation planing problem. To achieve this, we first specify which objects contain the planning unit and feature data (using the `problem()` function). Next, we specify that we want to use the minimum set objective function (using the `add_min_set_objective()` function). This objective function indicates that we wish to minimize the total cost of planning units selected by the prioritization. We then specify boundary penalties reduce spatial fragmentation in the resulting prioritization (using the `add_boundary_penalties()` function; see the [_Calibrating trade-offs_ vignette](calibrating_trade-offs.html) for details on calibrating the penalty value). We also specify representation targets to ensure the resulting prioritization provides adequate coverage of each vegetation community (using the `add_relative_targets()` function). Specifically, we specify targets to ensure at least 17% of the spatial extent of each vegetation community (based on the [Aichi Target 11](https://www.cbd.int/sp/targets/)). Additionally, we set constraints to ensure that planning units predominately covered by existing protected areas are selected by the prioritization (using the `add_locked_in_constraints()` function). Finally, we specify that the prioritization should either select -- or not select -- planning units for prioritization (using the `add_binary_decisions()` function).
+
+```{r, fig.width = w, fig.height = h}
+# build problem
+p1 <- problem(tas_pu, tas_features, cost_column = "cost") %>%
+      add_min_set_objective() %>%
+      add_boundary_penalties(penalty = 0.005) %>%
+      add_relative_targets(0.17) %>%
+      add_locked_in_constraints("locked_in") %>%
+      add_binary_decisions()
+
+# print the problem
 print(p1)
-
-# print number of planning units
-number_of_planning_units(p1)
-
-# print number of features
-number_of_features(p1)
 ```
 
-Generally, we recommend initializing problems using raster data where possible. This is because the `problem` function needs to calculate the amount of each feature in each planning unit, and by providing both the planning unit and feature data in raster format with the same spatial resolution, extents, and coordinate systems, this means that the `problem` function does not need to do any geo-processing behind the scenes. But sometimes we can't use raster planning unit data because our planning units aren't equal-sized grid cells. So, below is an example showing how we can initialize a conservation planning problem using planning units that are formatted as spatial vector data. Note that if we had pre-computed the amount of each feature in each planning unit and stored the data in the attribute table, we could pass in the names of the columns as an argument to the `problem` function.
+## Prioritization
+
+We can now solve the problem formulation (`p1`) to generate a prioritization (using the `solve()` function). The _prioritizr_ R package supports a range of different exact algorithm solvers, including _Gurobi_, _IBM CPLEX_, _CBC_, _Rsymphony_, and _lpsymphony_. Although there are benefits and limitations associated with each of these different solvers, they should return similar results. Note that you will need at least one solver installed on your system to generate prioritizations. Since we did not specify a solver when building the problem, the _prioritizr R_ package will automatically select the best available solver installed. We recommend using the _Gurobi_ solver if possible, and have used it for this tutorial (see the _Gurobi Installation Guide_ vignette for installation instructions). After solving the problem, the prioritization will be stored in the `solution_1` column of the `s1` object.
+
+```{r, fig.width = w, fig.height = h}
+# solve problem
+s1 <- solve(p1)
+
+# plot map of prioritization
+plot(st_as_sf(s1[, "solution_1"]), main = "Prioritization",
+     pal = c("grey90", "darkgreen"))
+```
+
+## Feature representation
+
+Let's examine how well the vegetation communities are represented by existing protected areas and the prioritization.
+
+```{r, fig.width = 7}
+# create column with existing protected areas
+tas_pu$pa <- round(tas_pu$locked_in)
+
+# calculate feature representation statistics based on existing protected areas
+tc_pa <- eval_target_coverage_summary(p1, tas_pu[, "pa"])
+print(tc_pa)
+
+# calculate  feature representation statistics based on the prioritization
+tc_s1 <- eval_target_coverage_summary(p1, s1[, "solution_1"])
+print(tc_s1)
+
+# explore representation by existing protected areas
+## calculate number of features adequately represented by existing protected
+## areas
+sum(tc_pa$met)
+
+## summarize representation (values show percent coverage)
+summary(tc_pa$relative_held * 100)
+
+## visualize representation  (values show percent coverage)
+hist(tc_pa$relative_held * 100,
+     main = "Feature representation by existing protected areas",
+     xlim = c(0, 100),
+     xlab = "Percent coverage of features (%)")
+
+
+# explore representation by prioritization
+## summarize representation (values show percent coverage)
+summary(tc_s1$relative_held * 100)
+
+## calculate number of features adequately represented by the prioritization
+sum(tc_s1$met)
+
+## visualize representation  (values show percent coverage)
+hist(tc_s1$relative_held * 100,
+     main = "Feature representation by prioritization",
+     xlim = c(0, 100),
+     xlab = "Percent coverage of features (%)")
+```
+
+We can see that representation of the vegetation communities by existing protected areas is remarkably poor. For example, many of the vegetation communities have nearly zero coverage by existing protected areas. In other words, are almost entirely absent from  existing protected areas. We can also see that all vegetation communities have at least 17% coverage by the prioritization -- meaning that it meets the representation targets for all of the features.
+
+## Irreplaceability
+
+After generating the prioritization, we can examine the relative importance of planning units selected by the prioritization. This can be useful to identify critically important planning units for conservation -- in other words, places that contain biodiversity features which cannot be represented anywhere else -- and schedule implementation of the prioritization. To achieve this, we will use the Ferrier metric [@r34].
+
+```{r, fig.width = w, fig.height = h}
+# calculate irreplaceability
+irrep_s1 <- eval_ferrier_importance(p1, s1["solution_1"])
+print(irrep_s1)
+
+# manually coerce values for planning units not selected in prioritization
+# to NA, so that they are shown in white
+irrep_s1$plot_total <- irrep_s1$total
+irrep_s1$plot_total[s1$solution_1 < 0.5] <- NA_real_
+
+# plot map of overall importance scores
+plot(st_as_sf(irrep_s1[, "plot_total"]), main = "Overall importance")
+```
+
+## Portfolios
+
+Conservation planning exercises often involve generating multiple different prioritizations. This can help decision makers consider different options, and provide starting points for building consensus among stakeholders. To generate a range of different prioritizations given the same problem formulation, we can use portfolio functions. Here we will use the gap portfolio to generate 1000 solutions that are within 30% of optimality. Please note that you will need to have the *Gurobi* solver installed to use this specific portfolio. If you don'thave access to *Gurobi*, you could try using the shuffle portfolio instead (using the `add_shuffle_portfolio()` function).
 
 ```{r}
-# create problem with spatial vector data
-# note that we have to specify which column in the attribute table contains
-# the cost data
-p2 <- problem(sim_pu_polygons, sim_features, cost_column = "cost")
+# create new problem with a portfolio added to it
+p2 <- p1 %>%
+      add_gap_portfolio(number_solutions = 1000, pool_gap = 0.2)
 
 # print problem
 print(p2)
+
+# generate prioritizations
+prt <- solve(p2)
+print(prt)
 ```
 
-We can also initialize a conservation planning problem using tabular planning unit data (i.e. a `data.frame`). Since the tabular planning unit data does not contain any spatial information, we also have to provide the feature data in tabular format (i.e. a `data.frame`) and data showing the amount of each feature in each planning unit in tabular format (i.e. a `data.frame`). The feature data must have an "id" column containing a unique integer identifier for each feature, and the planning unit by feature data must contain the following three columns: "pu" corresponding to the planning unit identifiers, "species" corresponding to the feature identifiers, and "amount" showing the amount of a given feature in a given planning unit.
+After generating all these prioritizations, we now want some way to visualize them. Because it would be onerous to look at each and every prioritization individually, we will use statistical analyses to help us. We can visualize the differences between these different prioritizations -- based on which planning units they selected -- using a hierarchical cluster analysis [@r35].
+
+```{r, fig.height = 4.5, fig.width = 7, fig.show = "hold"}
+# extract solutions
+prt_results <- prt@data[, startsWith(names(prt), "solution_"), ]
+
+# calculate pair-wise distances between different prioritizations for analysis
+prt_dists <- vegan::vegdist(t(prt_results), method = "jaccard", binary = TRUE)
+
+# run cluster analysis
+prt_clust <- hclust(as.dist(prt_dists), method = "average")
+
+# visualize clusters
+opar <- par()
+par(oma = c(0, 0, 0, 0), mar= c(0, 4.1, 1.5, 2.1))
+plot(prt_clust, labels = FALSE, sub = NA, xlab = "",
+     main = "Different prioritizations in portfolio")
+suppressWarnings(par(opar))
+```
+
+We can see that there are approximately six main groups of prioritizations in the portfolio. To explore these different groups, let's conduct another cluster analysis (i.e., a _k_-medoids analysis) to extract the most representative prioritization from each of these groups. In other words, we will run another statistical analysis to find the most central prioritization within each group.
+
+```{r, fig.width = 7, fig.height = 5}
+# run k-medoids analysis
+prt_med <- pam(prt_dists, k = 6)
+
+# extract names of prioritizations that are most central for each group.
+prt_med_names <- prt_med$medoids
+print(prt_med_names)
+
+# create a copy of prt and set values for locked in planning units to -1
+# so we can easily visualize differences between prioritizations
+prt2 <- prt[, prt_med_names]
+prt2@data[which(tas_pu$locked_in > 0.5), prt_med_names] <- -1
+
+# plot a map showing main different prioritizations
+# dark grey: locked in planning units
+# grey: planning units not selected
+# green: selected planning units
+plot(st_as_sf(prt2), pal = c("grey60", "grey90", "darkgreen"))
+```
+
+## _Marxan_ compatibility
+
+The _prioritizr R_ package provides functionality to help _Marxan_ users generate prioritizations. Specifically, it can import conservation planning data prepared for _Marxan_, and can generate prioritizations using a similar problem formulation as _Marxan_ [based on @r1]. Indeed, the problem formulation presented earlier in this vignette is very similar to that used by _Marxan_. The key difference is that the problem formulation we specified earlier uses "hard constraints" for feature representation, and _Marxan_ uses "soft constraints" for feature representation. This means that prioritization we generated earlier was mathematically guaranteed to reach the targets for all features. However, if we used _Marxan_ to generate the prioritization, then we could have produced a prioritization that would fail to reach targets (depending the _Species Penalty Factors_ used to generate the prioritization). In addition to these differences in terms problem formulation, the _prioritizr R_ package uses exact algorithms -- instead of the simulated annealing algorithm -- which ensures that we obtain prioritizations that are near optimal.
+
+Here we will show the _prioritizr R_ package can import _Marxan_ data and generate a prioritization. To begin with, let's import a conservation planning data prepared for _Marxan_.
 
 ```{r}
-# set file path for feature data
+
+# import data
+## planning unit data
+pu_path <- system.file("extdata/input/pu.dat", package = "prioritizr")
+pu_data <- read.csv(pu_path, header = TRUE, stringsAsFactors = FALSE)
+print(head(pu_data))
+
+## feature data
 spec_path <- system.file("extdata/input/spec.dat", package = "prioritizr")
+spec_data <- read.csv(spec_path, header = TRUE, stringsAsFactors = FALSE)
+print(head(spec_data))
 
-# load in feature data
-spec_dat <- data.table::fread(spec_path, data.table = FALSE)
-
-# print first six rows of the data
-# note that it contains extra columns
-head(spec_dat)
-
-# set file path for planning unit vs. feature data
+## amount of each feature within each planning unit data
 puvspr_path <- system.file("extdata/input/puvspr.dat", package = "prioritizr")
+puvspr_data <- read.csv(puvspr_path, header = TRUE, stringsAsFactors = FALSE)
+print(head(puvspr_data))
 
-# load in planning unit vs feature data
-puvspr_dat <- data.table::fread(puvspr_path, data.table = FALSE)
+## boundary data
+bound_path <- system.file("extdata/input/bound.dat", package = "prioritizr")
+bound_data <- read.table(bound_path, header = TRUE, stringsAsFactors = FALSE)
+print(head(bound_data))
+```
 
-# print first six rows of the data
-head(puvspr_dat)
+After importing the data, we can now generate a prioritization based on the _Marxan_ problem formulation (using the `marxan_problem()` function). **Please note that this function does not generate prioritizations using _Marxan_.** Instead, it uses the data to create an optimization problem formulation similar to _Marxan_ -- using hard constraints instead of soft constraints -- and uses an exact algorithm solver to generate a prioritization.
 
+```{r}
 # create problem
-p3 <- problem(pu_dat, spec_dat, cost_column = "cost", rij = puvspr_dat)
+p2 <- marxan_problem(pu_data, spec_data, puvspr_data, bound_data,
+                     blm = 0.0005)
 
 # print problem
-print(p3)
+print(p2)
+
+# solve problem
+s2 <- solve(p2)
+
+# print first six rows of solution object
+print(head(s2))
 ```
-
-For more information on initializing problems, please see the help page for the `problem` function (which you can open using the code `?problem`). Now that we have initialized a conservation planning problem, we will show you how you can customize it to suit the exact needs of your conservation planning scenario. Although we initialized the conservation planning problems using several different methods, moving forward, we will only use raster-based planning unit data to keep things simple.
-
-### Add an objective
-
-The next step is to add an objective to the problem. A problem objective is used to specify the primary goal of the problem (i.e. the quantity that is to be maximized or minimized). All conservation planning problems involve minimizing or maximizing some kind of objective. For instance, we might require a solution that conserves enough habitat for each species while minimizing the overall cost of the reserve network. Alternatively, we might require a solution that maximizes the number of conserved species while ensuring that the cost of the reserve network does not exceed the budget. Please note that objectives are added in the same way regardless of the type of data used to initialize the problem.
-
-The _prioritizr R_ package supports a variety of different objective functions.
-
-* __Minimum set objective__: Minimize the cost of the solution whilst ensuring that all targets are met [@r11]. This objective is similar to that used in _Marxan_ [@r3]. For example, we can add a minimum set objective to a problem using the following code.
-```{r}
-# create a new problem that has the minimum set objective
-p3 <- problem(sim_pu_raster, sim_features) %>%
-      add_min_set_objective()
-
-# print the problem
-print(p3)
-```
-* __Maximum cover objective__: Represent at least one instance of as many features as possible within a given budget [@r12].
-```{r}
-# create a new problem that has the maximum coverage objective and a budget
-# of 5000
-p4 <- problem(sim_pu_raster, sim_features) %>%
-      add_max_cover_objective(5000)
-
-# print the problem
-print(p4)
-```
-* __Maximum features objective__: Fulfill as many targets as possible while ensuring that the cost of the solution does not exceed a budget [inspired by @r10]. This object is similar to the maximum cover objective except that we have the option of later specifying targets for each feature. In practice, this objective is more useful than the maximum cover objective because features often require a certain amount of area for them to persist and simply capturing a single instance of habitat for each feature is generally unlikely to enhance their long-term persistence.
-```{r}
-# create a new problem that has the maximum features objective and a budget
-# of 5000
-p5 <- problem(sim_pu_raster, sim_features) %>%
-      add_max_features_objective(budget = 5000)
-
-# print the problem
-print(p5)
-```
-* __Minimum shortfall objective__: Minimize the overall (weighted sum) shortfall for as many targets as possible while ensuring that the cost of the solution does not exceed a budget. In practice, this objective useful when there is a large amount of left-over budget when using the maximum feature representation objective and the remaining funds need to be allocated to places that will enhance the representation of features with unmet targets.
-```{r}
-# create a new problem that has the minimum shortfall objective and a budget
-# of 5000
-p6 <- problem(sim_pu_raster, sim_features) %>%
-      add_min_shortfall_objective(budget = 5000)
-
-# print the problem
-print(p6)
-```
-* __Minimum largest shortfall objective__: Minimize the largest (maximum) shortfall while ensuring that the cost of the solution does not exceed a budget. In practice, this objective useful when the minimum shortfall objective returns solutions that focus too much on representing a small number of features (e.g. because they occur in much cheaper planning units), and solutions are needed to spread conservation effort out more evenly amongst all features---even if it means that all features will have (relatively) poor representation.
-```{r}
-# create a new problem that has the minimum largest shortfall objective and a
-# budget of 5000
-p7 <- problem(sim_pu_raster, sim_features) %>%
-      add_min_largest_shortfall_objective(budget = 5000)
-
-# print the problem
-print(p7)
-```
-* __Maximum phylogenetic diversity objective__: Maximize the phylogenetic diversity of the features represented in the solution subject to a budget [inspired by @r13; @r14]. This objective is similar to the maximum features objective except that emphasis is placed on protecting features which are associated with a diverse range of evolutionary histories. The _prioritizr R_ package contains a simulated phylogeny that can be used with the simulated feature data (`sim_phylogny`).
-```{r}
-# load simulated phylogeny data
-data(sim_phylogeny)
-
-# create a new problem that has the maximum phylogenetic diversity
-# objective and a budget of 5000
-p8 <- problem(sim_pu_raster, sim_features) %>%
-      add_max_phylo_div_objective(budget = 5000, tree = sim_phylogeny)
-
-# print the problem
-print(p8)
-```
-* __Maximum phylogenetic endemism objective__: Maximize the phylogenetic endemism of the features represented in the solution subject to a budget [inspired by @r13; @r14; @r32]. This objective is similar to the maximum phylogenetic diversity except that emphasis is placed conserving features that are associated with geographically restricted periods of evolutionary history rather than a diverse range of evolutionary histories.
-```{r}
-# load simulated phylogeny data
-data(sim_phylogeny)
-
-# create a new problem that has the maximum phylogenetic diversity
-# objective and a budget of 5000
-p9 <- problem(sim_pu_raster, sim_features) %>%
-      add_max_phylo_end_objective(budget = 5000, tree = sim_phylogeny)
-
-# print the problem
-print(p9)
-```
-* __Maximum utility objective__: Secure as much of the features as possible without exceeding a budget. This objective is functionally equivalent to selecting the planning units with the greatest amounts of each feature (e.g. species richness). Generally, we don't encourage the use of this objective because it will only rarely identify complementary solutions---solutions which adequately conserve a range of different features---except perhaps to explore trade-offs or provide a baseline solution with which to compare other solutions.
-```{r}
-# create a new problem that has the maximum utility objective and a budget
-# of 5000
-p10 <- problem(sim_pu_raster, sim_features) %>%
-      add_max_utility_objective(budget = 5000)
-
-# print the problem
-print(p10)
-```
-
-### Add targets
-
-Most conservation planning problems require targets. Targets are used to specify the minimum amount or proportion of a feature's distribution that needs to be protected in the solution. For example, we may want to develop a reserve network that will secure 20% of the distribution for each feature for minimal cost.
-
-There are four ways for specifying targets in the _prioritizr R_ package:
-
-* __Absolute targets__: Targets are expressed as the total amount of each feature in the study area that need to be secured. For example, if we had binary feature data that showed the absence or presence of suitable habitat across the study area, we could set an absolute target as 5 to mean that we require 5 planning units with suitable habitat in the solution.
-```{r}
-# create a problem with targets which specify that the solution must conserve
-# a need a sum total of 3 units of suitable habitat for each feature
-p11 <- problem(sim_pu_raster, sim_features) %>%
-       add_min_set_objective() %>%
-       add_absolute_targets(3)
-
-# print problem
-print(p11)
-```
-* __Relative targets__: Targets are set as a proportion (between 0 and 1) of the total amount of each feature in the study area. For example, if we had binary feature data and the feature occupied a total of 20 planning units in the study area, we could set a relative target of 50 % to specify that the solution must secure 10 planning units for the feature. We could alternatively specify an absolute target of 10 to achieve the same result, but sometimes proportions are easier to work with.
-```{r}
-# create a problem with the minimum set objective and relative targets of 10 %
-# for each feature
-p12 <- problem(sim_pu_raster, sim_features) %>%
-       add_min_set_objective() %>%
-       add_relative_targets(0.1)
-
-# print problem
-print(p12)
-
-# create a problem with targets which specify that we need 10 % of the habitat
-# for the first feature, 15 % for the second feature, 20 % for the third feature
-# 25 % for the fourth feature and 30 % of the habitat for the fifth feature
-targets <- c(0.1, 0.15, 0.2, 0.25, 0.3)
-p13 <- problem(sim_pu_raster, sim_features) %>%
-       add_min_set_objective() %>%
-       add_relative_targets(targets)
-
-# print problem
-print(p13)
-```
-* __Log-linear targets__: Targets are expressed using scaling factors and log-linear interpolation. This method for specifying targets is commonly used for global prioritization analyses [@r15].
-```{r}
-# create problem with added log-linear targets
-p14 <- problem(sim_pu_raster, sim_features) %>%
-       add_min_set_objective() %>%
-       add_loglinear_targets(10, 0.9, 100, 0.2)
-
-# print problem
-print(p14)
-```
-* __Manual targets__: Targets are manually specified. This is only really recommended for advanced users or problems that involve multiple management zones. See the [zones vignette](zones.html) for more information on these targets.
-
-As with the functions for specifying the objective of a problem, if we try adding multiple targets to a problem, only the most recently added set of targets are used.
-
-### Add constraints
-
-A constraint can be added to a conservation planning problem to ensure that all solutions exhibit a specific property. For example, they can be used to make sure that all solutions select a specific planning unit or that all selected planning units in the solution follow a certain configuration.
-
-The following constraints can be added to conservation planning problems in the _prioritizr R_ package.
-
-* __Locked in constraints__: Add constraints to ensure that certain planning units are prioritized in the solution. For example, it may be desirable to lock in planning units that are inside existing protected areas so that the solution fills in the gaps in the existing reserve network.
-```{r}
-# create problem with constraints which specify that the first planning unit
-# must be selected in the solution
-p15 <- problem(sim_pu_raster, sim_features) %>%
-       add_min_set_objective() %>%
-       add_relative_targets(0.1) %>%
-       add_locked_in_constraints(1)
-
-# print problem
-print(p15)
-```
-* __Locked out constraints__: Add constraints to ensure that certain planning units are not prioritized in the solution. For example, it may be useful to lock out planning units that have been degraded and are not suitable for conserving species.
-```{r}
-# create problem with constraints which specify that the second planning unit
-# must not be selected in the solution
-p16 <- problem(sim_pu_raster, sim_features) %>%
-       add_min_set_objective() %>%
-       add_relative_targets(0.1) %>%
-       add_locked_out_constraints(2)
-
-# print problem
-print(p16)
-```
-* __Neighbor constraints__: Add constraints to a conservation problem to ensure that all selected planning units have at least a certain number of neighbors.
-```{r}
-# create problem with constraints which specify that all selected planning units
-# in the solution must have at least 1 neighbor
-p17 <- problem(sim_pu_raster, sim_features) %>%
-       add_min_set_objective() %>%
-       add_relative_targets(0.1) %>%
-       add_neighbor_constraints(1)
-
-# print problem
-print(p17)
-```
-* __Contiguity constraints__: Add constraints to a conservation problem to ensure that all selected planning units are spatially connected to each other and form spatially contiguous unit.
-```{r}
-# create problem with constraints which specify that all selected planning units
-# in the solution must form a single contiguous unit
-p18 <- problem(sim_pu_raster, sim_features) %>%
-       add_min_set_objective() %>%
-       add_relative_targets(0.1) %>%
-       add_contiguity_constraints()
-
-# print problem
-print(p18)
-```
-* __Feature contiguity constraints__: Add constraints to ensure that each feature is represented in a contiguous unit of dispersible habitat. These constraints are a more advanced version of those implemented in the `add_contiguity_constraints` function, because they ensure that each feature is represented in a contiguous unit and not that the entire solution should form a contiguous unit.
-```{r}
-# create problem with constraints which specify that the planning units used
-# to conserve each feature must form a contiguous unit
-p19 <- problem(sim_pu_raster, sim_features) %>%
-       add_min_set_objective() %>%
-       add_relative_targets(0.1) %>%
-       add_feature_contiguity_constraints()
-
-# print problem
-print(p19)
-```
-
-* __Linear constraints__: Add constraints to ensure that all selected planning units meet certain criteria. For example, they can be used to add multiple budgets, or limit the number of planning units selected in different administrative areas within a study region (e.g. different countries).
-
-```{r}
-# create problem with constraints which specify that the sum of
-# values in sim_features[[1]] among selected planning units must not exceed a
-#' threshold value of 190.
-p20 <- problem(sim_pu_raster, sim_features) %>%
-       add_min_shortfall_objective(budget = 1800) %>%
-       add_relative_targets(0.1) %>%
-       add_linear_constraints(190, "<=", sim_features[[1]])
-
-# print problem
-print(p20)
-```
-
-* __Mandatory allocation constraints__: Add constraints to ensure that every planning unit is allocated to a management zone in the solution. Please note that this function can only be used with problems that contain multiple zones. For more information on problems with multiple zones and an example using this function, see the Management Zones vignette.
-
-In particular, The `add_locked_in_constraints` and `add_locked_out_constraints` functions are incredibly useful for real-world conservation planning exercises, so it's worth pointing out that there are several ways we can specify which planning units should be locked in or out of the solutions. If we use raster planning unit data, we can also use raster data to specify which planning units should be locked in our locked out.
-
-```{r, fig.width = 6.5, fig.height = 2.5}
-# load data to lock in or lock out planning units
-data(sim_locked_in_raster)
-data(sim_locked_out_raster)
-
-# plot the locked data
-plot(stack(sim_locked_in_raster, sim_locked_out_raster),
-     main = c("Locked In", "Locked Out"))
-
-# create a problem using raster planning unit data and use the locked raster
-# data to lock in some planning units and lock out some other planning units
-p21 <- problem(sim_pu_raster, sim_features) %>%
-       add_min_set_objective() %>%
-       add_relative_targets(0.1) %>%
-       add_locked_in_constraints(sim_locked_in_raster) %>%
-       add_locked_out_constraints(sim_locked_out_raster)
-
-# print problem
-print(p21)
-```
-
-If our planning unit data are in a spatial vector format (similar to the `sim_pu_polygons` data) or a tabular format (similar to `pu_dat`), we can use the field names in the data to refer to which planning units should be locked in and / or out. For example, the `sim_pu_polygons` object has `TRUE` / `FALSE` values in the "locked_in" field which indicate which planning units should be selected in the solution. We could use the data in this field to specify that those planning units with `TRUE` values should be locked in using the following methods.
-
-```{r}
-# preview first six rows of the attribute table for sim_pu_polygons
-head(sim_pu_polygons@data)
-
-# specify locked in data using the field name
-p22 <- problem(sim_pu_polygons, sim_features, cost_column = "cost") %>%
-       add_min_set_objective() %>%
-       add_relative_targets(0.1) %>%
-       add_locked_in_constraints("locked_in")
-
-# print problem
-print(p22)
-
-# specify locked in data using the values in the field
-p23 <- problem(sim_pu_polygons, sim_features, cost_column = "cost") %>%
-       add_min_set_objective() %>%
-       add_relative_targets(0.1) %>%
-       add_locked_in_constraints(which(sim_pu_polygons$locked_in))
-
-# print problem
-print(p23)
-```
-
-### Add penalties
-
-We can also add penalties to a problem to favor or penalize solutions according to a secondary objective. Unlike the constraint functions, these functions will add extra information to the objective function of the optimization function to penalize solutions that do not exhibit specific characteristics. For example, penalties can be added to a problem to avoid highly fragmented solutions at the expense of accepting slightly more expensive solutions. All penalty functions have a `penalty` argument that controls the relative importance of the secondary penalty function compared to the primary objective function. It is worth noting that incredibly low or incredibly high `penalty` values---relative to the main objective function---can cause problems to take a very long time to solve, so when trying out a range of different penalty values it can be helpful to limit the solver to run for a set period of time.
-
-The _prioritizr R_ package currently offers only two methods for adding penalties to a conservation planning problem.
-
-* __Boundary penalties__:  Add penalties to penalize solutions that are excessively fragmented. These penalties are similar to those used in _Marxan_ [@r3; @r1].
-```{r}
-# create problem with penalties that penalize fragmented solutions with a
-# penalty factor of 0.01
-p24 <- problem(sim_pu_raster, sim_features) %>%
-       add_min_set_objective() %>%
-       add_relative_targets(0.1) %>%
-       add_boundary_penalties(penalty = 0.01)
-
-# print problem
-print(p24)
-```
-* __Connectivity penalties__: Add penalties to favor solutions that select combinations of planning units with high connectivity between them. These penalties are similar to those used in _Marxan with Zones_ [@r2; @r1]. This function supports both symmetric and asymmetric connectivities among planning units.
-```{r}
-# create problem with penalties that favor combinations of planning units with
-# high connectivity, here we will use only the first four layers in
-# sim_features for the features and we will use the fifth layer in sim_features
-# to represent the connectivity data, where the connectivity_matrix function
-# will create a matrix showing the average strength of connectivity between
-# adjacent planning units using the data in the fifth layer of sim_features
-p25 <- problem(sim_pu_raster, sim_features[[1:4]]) %>%
-       add_min_set_objective() %>%
-       add_relative_targets(0.1) %>%
-       add_boundary_penalties(
-         penalty = 5,
-         data = connectivity_matrix(sim_pu_raster, sim_features[[5]]))
-
-# print problem
-print(p25)
-```
-* __Linear penalties__: Add penalties to penalize solutions that select planning units according to a certain variable (e.g. anthropogenic pressure).
-```{r}
-# create data for penalizing planning units
-# (note this requires the RandomFields package to be installed)
-pen_raster <- simulate_cost(sim_pu_raster)
-
-# create problem with penalties that penalize solutions that select
-# planning units with high values in the pen_raster object,
-# here we will use a penalty value of 5 to indicate the trade-off (scaling)
-# between the penalty values (in the sim_pu_raster) and the main objective
-# (i.e. the cost of the solution)
-p26 <- problem(sim_pu_raster, sim_features) %>%
-       add_min_set_objective() %>%
-       add_relative_targets(0.1) %>%
-       add_linear_penalties(penalty = 5, data = pen_raster)
-
-# print problem
-print(p26)
-```
-
-### Add the decision types
-
-Conservation planning problems involve making decisions on how planning units will be managed. These decisions are then associated with management actions (e.g. turning a planning unit into a protected area). The type of decision describes how the action is applied to planning units. For instance, the default decision-type is a binary decision type, meaning that we are either selecting or not selecting planning units for management.
-
-The _prioritizr R_ package currently offers the following types of decisions for customizing problems.
-
-* __Binary decisions__: Add a binary decision to a conservation planning problem. This is the classic decision of either prioritizing or not prioritizing a planning unit. Typically, this decision has the assumed action of buying the planning unit to include in a protected area network. If no decision is added to a problem object, then this decision class will be used by default.
-```{r}
-# add binary decisions to a problem
-p27 <- problem(sim_pu_raster, sim_features) %>%
-       add_min_set_objective() %>%
-       add_relative_targets(0.1) %>%
-       add_binary_decisions()
-
-# print problem
-print(p27)
-```
-* __Proportion decisions__: Add a proportion decision to a problem. This is a relaxed decision where a part of a planning unit can be prioritized, as opposed to the default of the entire planning unit. Typically, this decision has the assumed action of buying a fraction of a planning unit to include in a protected area network. Generally, problems can be solved much faster with proportion-type decisions than binary-type decisions, so they can be very useful when commercial solvers are not available.
-```{r}
-# add proportion decisions to a problem
-p28 <- problem(sim_pu_raster, sim_features) %>%
-       add_min_set_objective() %>%
-       add_relative_targets(0.1) %>%
-       add_proportion_decisions()
-
-# print problem
-print(p28)
-```
-* __Semi-continuous decisions__: Add a semi-continuous decision to a problem. This decision is similar to proportion decisions except that it has an upper bound parameter. By default, the decision can range from prioritizing none (0%) to all (100%) of a planning unit. However, a upper bound can be specified to ensure that at most only a fraction (e.g. 80%) of a planning unit can be purchased. This type of decision may be useful when it is not practical to conserve the entire area indicated by a planning unit.
-```{r}
-# add semi-continuous decisions to a problem, where we can only manage at most
-# 50 % of the area encompassed by a planning unit
-p29 <- problem(sim_pu_raster, sim_features) %>%
-       add_min_set_objective() %>%
-       add_relative_targets(0.1) %>%
-       add_semicontinuous_decisions(0.5)
-
-# print problem
-print(p29)
-```
-
-### Add a solver
-
-Next, after specifying the mathematical formulation that underpins your conservation planning problem, you can specify how the problem should be solved. If you do not specify this information, the _prioritizr R_ package will automatically use the best solver currently installed on your system with some reasonable defaults. __We strongly recommend installing the [Gurobi software suite and the _gurobi_ _R_ package](https://www.gurobi.com/) to solve problems, and for more information on this topic please refer to the [Gurobi Installation Guide](gurobi_installation.html)__.
-
-Currently, the _prioritizr R_ package supports five different solvers.
-
-* __*Gurobi* solver__: [_Gurobi_](https://www.gurobi.com/) is a state of the art commercial optimization software. It is by far the fastest of the solvers that can be used to solve conservation problems. However, it is not freely available. That said, special licenses are available to academics at no cost.
-```{r}
-# create a problem and specify that Gurobi should be used to solve the problem
-# and specify an optimality gap of zero to obtain the optimal solution
-p30 <- problem(sim_pu_raster, sim_features) %>%
-       add_min_set_objective() %>%
-       add_relative_targets(0.1) %>%
-       add_binary_decisions() %>%
-       add_gurobi_solver(gap = 0)
-
-# print problem
-print(p30)
-```
-* __*IBM CPLEX* solver__: [_IBM CPLEX_](https://www.ibm.com/analytics/cplex-optimizer) is a commercial optimization software. It is faster than the open source solvers available for generating prioritizations (see below), however, it is not freely available. Similar to the _Gurobi_ software, special licenses are available to academics at no cost.
-```{r}
-# create a problem and specify that IBM CPLEX should be used to solve the
-# problem and specify an optimality gap of zero to obtain the optimal solution
-p31 <- problem(sim_pu_raster, sim_features) %>%
-       add_min_set_objective() %>%
-       add_relative_targets(0.1) %>%
-       add_binary_decisions() %>%
-       add_cplex_solver(gap = 0)
-
-# print problem
-print(p31)
-```
-* __*CBC* solver__: [*CBC*](https://projects.coin-or.org/Cbc) is an
-open-source mixed integer programming solver that is part of the Computational Infrastructure for Operations Research (COIN-OR) project. Although formal benchmarks have yet to be completed, preliminary analyses suggest that it is
-the fastest open-source solver available for generating prioritizations. It requires the _rcbc R_ package, which is currently only available on [GitHub](https://github.com/dirkschumacher/rcbc).
-```{r}
-# create a problem and specify that CBC should be used to solve the
-# problem and specify an optimality gap of zero to obtain the optimal solution
-p32 <- problem(sim_pu_raster, sim_features) %>%
-       add_min_set_objective() %>%
-       add_relative_targets(0.1) %>%
-       add_binary_decisions() %>%
-       add_cbc_solver(gap = 0)
-
-# print problem
-print(p32)
-```
-* __*lpsymphony* solver__: [_SYMPHONY_](https://projects.coin-or.org/SYMPHONY) is an open-source integer programming solver that is also part of the COIN-OR project. This solver uses the _lpsymphony R_ package (available on [Bioconductor](http://bioconductor.org/packages/release/bioc/html/lpsymphony.html)) to interface with the _SYMPHONY_ software.
-```{r}
-# create a problem and specify that lpsymphony should be used to solve the
-# problem and specify an optimality gap of zero to obtain the optimal solution
-p33 <- problem(sim_pu_raster, sim_features) %>%
-       add_min_set_objective() %>%
-       add_relative_targets(0.1) %>%
-       add_binary_decisions() %>%
-       add_lpsymphony_solver(gap = 0)
-
-# print problem
-print(p33)
-```
-* __*Rsymphony* solver__: This solver provides a different interface to the [_SYMPHONY_](https://projects.coin-or.org/SYMPHONY) software. It uses the _Rsymphony R_ package which is available on The Comprehensive R Archive Network (CRAN). This solver is generally slower than the other solvers, because it cannot use parallel processing.
-```{r}
-# create a problem and specify that Rsymphony should be used to solve the
-# problem and specify an optimality gap of zero to obtain the optimal solution
-p34 <- problem(sim_pu_raster, sim_features) %>%
-       add_min_set_objective() %>%
-       add_relative_targets(0.1) %>%
-       add_binary_decisions() %>%
-       add_rsymphony_solver(gap = 0)
-
-# print problem
-print(p34)
-```
-
-### Add a portfolio
-
-Many conservation planning exercises require a portfolio of solutions. For example, real-world exercises can involve presenting decision makers with a range of near-optimal decisions. Additionally, the number of times that different planning units are selected in different solutions can provide insight into their relative importance.
-
-The following methods are available for generating a portfolio of solutions.
-
-* __Extra portfolio__: Generate a portfolio of solutions by storing feasible solutions found during the optimization process. Note that this method requires that the _Gurobi_ optimization software is used to generate solutions.
-```{r}
-# create a problem and specify that a portfolio should be created using
-# extra solutions found while solving the problem
-p35 <- problem(sim_pu_raster, sim_features) %>%
-       add_min_set_objective() %>%
-       add_relative_targets(0.1) %>%
-       add_binary_decisions() %>%
-       add_extra_portfolio()
-
-# print problem
-print(p35)
-```
-* __Top portfolio__: Generate a portfolio of solutions by finding a pre-specified number of solutions that are closest to optimality (i.e the top solutions). Note that this method requires that the _Gurobi_ optimization software is used to generate solutions.
-```{r}
-# create a problem and specify that a portfolio should be created using
-# the top five solutions
-p36 <- problem(sim_pu_raster, sim_features) %>%
-       add_min_set_objective() %>%
-       add_relative_targets(0.1) %>%
-       add_binary_decisions() %>%
-       add_top_portfolio(number_solutions = 5)
-
-# print problem
-print(p36)
-```
-* __Gap portfolio__: Generate a portfolio of solutions by finding a certain number of solutions that are all within a pre-specified optimality gap. This method is especially useful for generating multiple solutions that can used be to calculate selection frequencies (similar to _Marxan_). Note that this method requires that the _Gurobi_ optimization software is used to generate solutions.
-```{r}
-# create a problem and specify that a portfolio should be created by
-# finding five solutions within 10% of optimality
-p37 <- problem(sim_pu_raster, sim_features) %>%
-       add_min_set_objective() %>%
-       add_relative_targets(0.1) %>%
-       add_binary_decisions() %>%
-       add_gap_portfolio(number_solutions = 5, pool_gap = 0.2)
-
-# print problem
-print(p37)
-```
-* __Cuts portfolio__: Generate a portfolio of distinct solutions within a pre-specified optimality gap. This method is only recommended if the _Gurobi_ optimization solver is not available.
-```{r}
-# create a problem and specify that a portfolio containing 10 solutions
-# should be created using using Bender's cuts
-p38 <- problem(sim_pu_raster, sim_features) %>%
-       add_min_set_objective() %>%
-       add_relative_targets(0.1) %>%
-       add_binary_decisions() %>%
-       add_cuts_portfolio(number_solutions = 10)
-
-# print problem
-print(p38)
-```
-* __Shuffle portfolio__: Generate a portfolio of solutions by randomly reordering the data prior to attempting to solve the problem. If the _Gurobi_ optimization solver is not available, this method is the fastest method for generating a set number of solutions within a specified distance from optimality.
-```{r}
-# create a problem and specify a portfolio should be created that contains
-# 10 solutions and that any duplicate solutions should not be removed
-p39 <- problem(sim_pu_raster, sim_features) %>%
-       add_min_set_objective() %>%
-       add_relative_targets(0.1) %>%
-       add_binary_decisions() %>%
-       add_shuffle_portfolio(number_solutions = 10, remove_duplicates = FALSE)
-
-# print problem
-print(p39)
-```
-
-### Solve the problem
-
-Finally, after formulating our conservation planning problem and specifying how the problem should be solved, we can use the `solve` function to obtain a solution. Note that the solver will typically print out some information describing the size of the problem and report its progress when searching for a suitable solution.
-
-```{r, fig.height = h, fig.width = w}
-# formulate the problem
-p40 <- problem(sim_pu_raster, sim_features) %>%
-       add_min_set_objective() %>%
-       add_relative_targets(0.1) %>%
-       add_boundary_penalties(penalty = 500, edge_factor = 0.5) %>%
-       add_binary_decisions()
-
-# solve the problem (using the default solver)
-s40 <- solve(p40)
-
-# plot solution
-plot(s40, col = c("grey90", "darkgreen"), main = "Solution",
-     xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1))
-```
-
-We can plot this solution because the planning unit input data are spatially referenced in a raster format. The output format will always match the planning unit data used to initialize the problem. For example, the solution to a problem with planning units in a spatial vector (shapefile) format would also be in a spatial vector format. Similarly, if the planning units were in a tabular format (i.e. `data.frame`), the solution would also be returned in a tabular format.
-
-We can also extract attributes from the solution that describe the quality of the solution and the optimization process.
-
-```{r}
-# extract the objective (numerical value being minimized or maximized)
-print(attr(s40, "objective"))
-
-# extract time spent solving solution
-print(attr(s40, "runtime"))
-
-# extract state message from the solver that describes why this specific
-# solution was returned
-print(attr(s40, "status"))
-```
-
-### Evaluate the performance of a solution
-
-After obtaining a solution to a conservation planning problem, it can be useful to calculate various summary statistics to understand its performance. The following functions are available to summarize a solution:
-
-* Calculate the number of planning units selected within a solution.
-```{r}
-# calculate statistic
-eval_n_summary(p40, s40)
-```
-* Calculate the total cost of a solution.
-```{r}
-# calculate statistic
-eval_cost_summary(p40, s40)
-```
-* Calculate how well features are represented by a solution. This function can be used for problems that are built using targets and those that are not built using targets.
-```{r}
-# calculate statistics
-eval_feature_representation_summary(p40, s40)
-```
-* Calculate how well feature representation targets are met by a solution. This function can only be used with problems contain targets.
-```{r}
-# calculate statistics
-eval_target_coverage_summary(p40, s40)
-```
-* Calculate the exposed boundary length (perimeter) associated with a solution.
-```{r}
-# calculate statistic
-eval_boundary_summary(p40, s40)
-```
-* Calculate the connectivity held within a solution.
-```{r}
-# calculate statistic
-# here we use the raster data for the first feature as an example
-# to parametrize pair-wise connectivity between different planning units
-eval_connectivity_summary(
-  p40, s40, data = connectivity_matrix(sim_pu_raster, sim_features[[1]]))
-```
-
-### _Marxan_ problems
-
-Although users are encouraged to build and tailor conservation planning problems to suit their own needs using the `problem` function, sometimes it just simply easier to use a more familiar formulation.  The `marxan_problem` function is provided as a convenient wrapper for building and solving _Marxan_-style conservation problems. If users already have their conservation planning data formatted for use with _Marxan_, this function can also read _Marxan_ data files and solve the _Marxan_-style problems using exact algorithm solvers. __Please note that problems built using the `marxan_problem` function are still solved the same way as a problem initialized using the `problem` function, and therefore still require the installation of one of the solver packages.__
-
-Here is a short example showing how the `marxan_problem` function can be used to read _Marxan_ input files and the `solve` function can be used to solve the problem.
-
-```{r, results = "hide"}
-# set file path for Marxan input file
-minput <- system.file("extdata/input.dat", package = "prioritizr")
-
-# read Marxan input file
-mp <- marxan_problem(minput)
-
-# print problem
-print(mp)
-
-# solve the problem
-ms <- solve(mp)
-
-# since the Marxan data was in a tabular format, the solution is also returned
-# in a tabular format, so we will print the first six rows of the table
-# containing the solution
-head(ms)
-```
-
-Alternatively, rather then using a _Marxan_ input file to construct the problem, we can manually read in the _Marxan_ data files and input these to the `marxan_problem` function.
-
-```{r}
-# load data
-pu <- system.file("extdata/input/pu.dat", package = "prioritizr") %>%
-      read.table(sep = ",", header = TRUE)
-features <- system.file("extdata/input/spec.dat", package = "prioritizr") %>%
-            read.table(sep = ",", header = TRUE)
-bound <- system.file("extdata/input/bound.dat", package = "prioritizr") %>%
-         read.table(sep = "\t", header = TRUE)
-rij <- system.file("extdata/input/puvspr.dat", package = "prioritizr") %>%
-       read.table(sep = ",", header = TRUE)
-
-# build Marxan problem using data.frame objects
-mp2 <- marxan_problem(x = pu, spec = features, puvspr = rij, bound = bound,
-                      blm = 0)
-
-# print problem
-print(mp2)
-```
-
-### Importance (irreplaceability)
-
-Conservation plans can take a long time to implement. Since funding availability and habitat quality can decline over time, it is critical that the most important places in a prioritization are scheduled for protection as early as possible. For instance, some planning units in a solution might contain many rare species which do not occur in any other planning units. Alternatively, some planning units might offer an especially high return on investment that reduces costs considerably. As a consequence, conservation planners often need information on which planning units selected in a prioritization are most important to the overall success of the prioritization. To achieve this, conservation planners can use importance (irreplaceability) scores for each planning unit selected in a solution.
-
-The _prioritizr R_ package offers multiple methods for assessing importance. These includes scores calculated based on replacement costs [`eval_replacement_importance()`; @r31], Ferrier _et al._ [-@r34] (`eval_ferrier_importance()`), and rarity weighted richness scores [`eval_rare_richness_importance()`; @r33]. The replacement cost scores quantify the change in the objective function (e.g. additional costs required to meet feature targets) of the optimal solution if a given planning unit in a solution cannot be acquired. They can (i) account for the cost of different planning units, (ii) account for multiple management zones, (iii) apply to any objective function, and (iv) identify truly irreplaceable planning units (denoted with infinite values). The Ferrier scores quantify the importance of planning units for meeting feature targets. They can only be applied to conservation problems with a minimum set objective and a single zone (i.e. the classic _Marxan_-type problem). Furthermore---unlike the replacement cost scores---the Ferrier scores provide a score for each feature within each planning unit, providing insight into why certain planning units are more important than other planning units. The rarity weighted richness scores are simply a measure of biological diversity. They do not account for planning costs, multiple management zones, objective functions, or feature targets (or weightings). They merely describe the spatial patterns of biodiversity, and do not account for many of the factors needed to quantify the importance of a planning unit for achieving conservation goals.
-
-We recommend using replacement cost scores for small and moderate sized problems (e.g. less than 30,000 planning units) when it is feasible to do so. It can take a very long time to compute replacement cost scores, and so it is simply not feasible to compute these scores for particularly large problems. For moderate and large sized problems (e.g. more than 30,000 planning units),  we recommend using the Ferrier method. This is because it explicitly accounts for representation targets, unlike the rarity weighted richness scores.
-
-Below we will generate a solution, and then calculate importance scores for the planning units selected in the solution using the three different methods.
-
-```{r, fig.height = h, fig.width = w}
-# formulate the problem
-p41 <- problem(sim_pu_raster, sim_features) %>%
-       add_min_set_objective() %>%
-       add_relative_targets(0.1) %>%
-       add_binary_decisions()
-
-# solve the problem
-s41 <- solve(p41)
-
-# plot solution
-plot(s41, col = c("grey90", "darkgreen"), main = "Solution",
-     xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1))
-
-# calculate replacement cost scores and make the solver quiet
-rc41 <- p41 %>%
-        add_default_solver(gap = 0, verbose = FALSE) %>%
-        eval_replacement_importance(s41)
-
-# plot replacement cost scores
-plot(rc41, main = "replacement cost")
-```
-
-```{r, fig.height = h, fig.width = w}
-# calculate Ferrier scores and extract total score
-fs41 <- eval_ferrier_importance(p40, s40)[["total"]]
-
-# plot Ferrier scores
-plot(fs41, main = "Ferrier scores")
-```
-
-```{r, fig.height = h, fig.width = w}
-# calculate rarity weighted richness scores
-rwr41 <- eval_rare_richness_importance(p40, s40)
-
-# plot replacement cost scores
-plot(rwr41, main = "rarity weighted richness")
-```
-
-Although rarity weighted richness scores can approximate scores derived from the other two methods in certain conservation planning exercises, we can see that the rarity weighted richness scores provide completely different results in this case.
 
 ## Conclusion
 
-Hopefully, this vignette has provided an informative introduction to the _prioritizr R_ package. For more worked examples using the _prioritizr R_ package, check out the [Tasmania](tasmania.html) and [Salt Spring Island](saltspring.html) vignettes. Perhaps, one of the best ways to learn a new piece of software is to just try it out. Test it, try breaking it, make mistakes, and learn from them. We would recommend trying to build conservation planning problems that resemble those you face in your own work---but using the built-in example data sets. This way you can quickly verify that the problems you build actually mean what you think they mean. For instance, you can try playing around with the targets and see what effect they have on the solutions, or try playing around with penalties and see what effect they have on the solutions. Finally, if you have any questions about using the _prioritizr R_ package or suggestions for it, please file an issue on the package's online coding repository (https://github.com/prioritizr/prioritizr/issues).
+This tutorial shows how the _prioritizr R_ package can be used to build a conservation problem, generate a prioritization, and evaluate it. Although we explored just a few functions, the package provides many different functions so that you can build and custom-tailor conservation planning problems to suit your needs. To learn more about the package, please see the package vignettes for [an overview of the package](package_overview.html), [instructions for installing the _Gurobi_ optimization suite](gurobi_installation_guide.html), [benchmarks comparing the performance of different solvers](solver_benchmarks.html), and [a record of publications that have cited the package](publication_record.html). In addition to this tutorial, the package also provides tutorials on [incorporating connectivity into prioritizations](connectivity_tutorial.html), [calibrating trade-offs between different criteria](calibrating_trade-offs.html) (e.g., total cost and spatial fragmentation), and [creating prioritizations that have multiple management zones or management actions](management_zones_tutorial.html).
 
 ## References

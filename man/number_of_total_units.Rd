@@ -10,7 +10,7 @@ number_of_total_units(x)
 \S4method{number_of_total_units}{ConservationProblem}(x)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}),
+\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}),
 \code{\linkS4class{OptimizationProblem}}, or \code{\link[=Zones]{Zones()}} object.}
 }
 \value{

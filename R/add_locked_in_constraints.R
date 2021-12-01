@@ -10,13 +10,13 @@ NULL
 #' solution fills in the gaps in the existing reserve network. If specific
 #' planning units should be locked out of a solution, use
 #' [add_locked_out_constraints()]. For problems with non-binary
-#' planning unit allocations (e.g. proportions), the
+#' planning unit allocations (e.g., proportions), the
 #' [add_manual_locked_constraints()] function can be used to lock
 #' planning unit allocations to a specific value.
 #'
 #' @usage add_locked_in_constraints(x, locked_in)
 #'
-#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
+#' @param x [problem()] (i.e., [`ConservationProblem-class`]) object.
 #'
 #' @param locked_in Object that determines which planning units that should be
 #'   locked in. See the Data format section for more information.
@@ -58,7 +58,7 @@ NULL
 #'   compatible if the planning units in the argument to `x` are a
 #'   [`Spatial-class`], [sf::sf()], or
 #'   `data.frame` object. The fields
-#'   (columns) must have `logical` (i.e. `TRUE` or `FALSE`)
+#'   (columns) must have `logical` (i.e., `TRUE` or `FALSE`)
 #'   values indicating if the planning unit is to be locked for the solution.
 #'   For problems that contain a single zone, the argument to `data` must
 #'   contain a single field name. Otherwise, for problems that

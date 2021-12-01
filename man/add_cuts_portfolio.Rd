@@ -7,13 +7,13 @@
 add_cuts_portfolio(x, number_solutions = 10L)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{number_solutions}{\code{integer} number of attempts to generate
 different solutions. Defaults to 10.}
 }
 \value{
-Object (i.e. \code{\linkS4class{ConservationProblem}}) with the portfolio
+Object (i.e., \code{\linkS4class{ConservationProblem}}) with the portfolio
 added to it.
 }
 \description{
@@ -33,7 +33,7 @@ having multiple threads allocated for solving an individual problem.
 \section{Notes}{
 
 In early versions (< 4.0.1), this function was only compatible with
-\emph{Gurobi} (i.e. \code{\link[=add_gurobi_solver]{add_gurobi_solver()}}). To provide functionality with
+\emph{Gurobi} (i.e., \code{\link[=add_gurobi_solver]{add_gurobi_solver()}}). To provide functionality with
 exact algorithm solvers, this function now adds constraints to the
 problem formulation to generate multiple solutions.
 }

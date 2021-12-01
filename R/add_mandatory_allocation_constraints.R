@@ -7,7 +7,7 @@ NULL
 #' management zone in the solution. Note that this function can only be used
 #' with problems that contain multiple zones.
 #'
-#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
+#' @param x [problem()] (i.e., [`ConservationProblem-class`]) object.
 #'
 #' @details For a conservation planning [problem()] with multiple
 #'   management zones, it may sometimes be desirable to obtain a solution that
@@ -16,11 +16,11 @@ NULL
 #'   every single parcel of land has been allocated a specific land-use type.
 #'   In other words are no "left over" areas. Although it might seem tempting
 #'   to simply solve the problem and manually assign "left over" planning units
-#'   to a default zone afterwards (e.g. an "other", "urban", or "grazing"
+#'   to a default zone afterwards (e.g., an "other", "urban", or "grazing"
 #'   land-use), this could result in highly sub-optimal solutions if there
 #'   penalties for siting the default land-use adjacent to other zones.
 #'   Instead, this function can be used to specify that all planning units in a
-#'   problem with multiple zones must be allocated to a management zone (i.e.
+#'   problem with multiple zones must be allocated to a management zone (i.e.,
 #'   zone allocation is mandatory).
 #'
 #' @inherit add_contiguity_constraints return

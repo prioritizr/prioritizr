@@ -13,7 +13,7 @@ NULL
 #' (where applicable).
 #' If a function is described as being renamed, then this means
 #' that only the name of the function has changed
-#' (i.e. the inputs, outputs, and underlying code remain the same).
+#' (i.e., the inputs, outputs, and underlying code remain the same).
 #'
 #' @param ... not used.
 #'

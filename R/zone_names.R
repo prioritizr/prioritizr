@@ -5,7 +5,7 @@ NULL
 #'
 #' Extract the names of zones in an object.
 #'
-#' @param x [problem()] (i.e. [`ConservationProblem-class`]) or [Zones()]
+#' @param x [problem()] (i.e., [`ConservationProblem-class`]) or [Zones()]
 #    object.
 #'
 #' @return `character` zone names.

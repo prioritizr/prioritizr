@@ -16,7 +16,7 @@ NULL
 #'   Calculate importance scores using replacement costs (based
 #'   on Cabeza and Moilanen 2006).
 #'   These scores quantify the change in the objective
-#'   function (e.g. additional costs required to meet feature targets) of the
+#'   function (e.g., additional costs required to meet feature targets) of the
 #'   optimal solution if a given planning unit in a solution cannot be acquired.
 #'   They can (i) account for the cost of different planning units, (ii) account
 #'   for multiple management zones, (iii) apply to any objective function, and
@@ -27,7 +27,7 @@ NULL
 #'  Calculate importance scores following Ferrier *et al.* (2000).
 #'  These scores measure importance based on how critical
 #'  planning units are for meeting targets. They can only be applied to
-#'  conservation problems with a minimum set objective and a single zone (i.e.
+#'  conservation problems with a minimum set objective and a single zone (i.e.,
 #'  the classic *Marxan*-type problem). Furthermore---unlike the
 #'  replacement cost scores---these scores provide a
 #'  score for each feature within each planning unit, providing insight into
@@ -51,8 +51,8 @@ NULL
 #' zones considered in the problem -- and measure planning unit importance based
 #' on degradation of the prioritization.
 #' Although the replacement cost scores can be calculated for small and
-#' moderate sized problems (e.g. less than 30,000 planning units), they may not
-#' be feasible for particularly large problems (e.g. more than 100,000 planning
+#' moderate sized problems (e.g., less than 30,000 planning units), they may not
+#' be feasible for particularly large problems (e.g., more than 100,000 planning
 #' units). In such cases, we recommend calculating importance scores using the
 #' Ferrier method. This is because the Ferrier method can be
 #' calculated relatively quickly for large-sized problems and it

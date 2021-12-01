@@ -5,7 +5,7 @@ NULL
 #'
 #' Extract planning unit solution status values.
 #'
-#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
+#' @param x [problem()] (i.e., [`ConservationProblem-class`]) object.
 #'
 #' @param solution object with solution data.
 #'

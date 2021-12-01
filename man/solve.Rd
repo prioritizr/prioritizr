@@ -11,7 +11,7 @@
 \S4method{solve}{ConservationProblem,missing}(a, b, ..., run_checks = TRUE, force = FALSE)
 }
 \arguments{
-\item{a}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) or
+\item{a}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) or
 \code{\linkS4class{OptimizationProblem}} object.}
 
 \item{b}{\code{\linkS4class{Solver}} object. Not used if \code{a} is an
@@ -36,8 +36,8 @@ Additionally, the returned object will have the following additional
 attributes: \code{"objective"} containing the solution's objective,
 \code{"runtime"} denoting the number of seconds that elapsed while solving
 the problem, and \code{"status"} describing the status of the solution
-(e.g. \code{"OPTIMAL"} indicates that the optimal solution was found).
-In most cases, the first solution (e.g. \code{"solution_1"})
+(e.g., \code{"OPTIMAL"} indicates that the optimal solution was found).
+In most cases, the first solution (e.g., \code{"solution_1"})
 will contain the best solution found by the solver (note that this
 may not be an optimal solution depending on the gap used to solve
 the problem and noting that the default gap is 0.1).
@@ -52,15 +52,15 @@ for available solvers). If no solver has been explicitly specified,
 then the best available exact algorithm solver will be used by default
 (see \code{\link[=add_default_solver]{add_default_solver()}}. Although these exact algorithm
 solvers will often display a lot of information that isn't really that
-helpful (e.g. nodes, cutting planes), they do display information
-about the progress they are making on solving the problem (e.g. the
+helpful (e.g., nodes, cutting planes), they do display information
+about the progress they are making on solving the problem (e.g., the
 performance of the best solution found at a given point in time). If
 potential issues were detected during the
 presolve checks (see \code{\link[=presolve_check]{presolve_check()}})
-and the problem is being forcibly solved (i.e. with \code{force = TRUE}),
+and the problem is being forcibly solved (i.e., with \code{force = TRUE}),
 then it is also worth checking for any warnings displayed by the solver
 to see if these potential issues are actually causing issues
-(e.g. \emph{Gurobi} can display warnings that include
+(e.g., \emph{Gurobi} can display warnings that include
 \code{"Warning: Model contains large matrix coefficient range"} and
 \code{"Warning: Model contains large rhs"}).
 
@@ -108,11 +108,11 @@ If the argument to \code{a} contains a single zone, then the solution object
 will contain fields (columns) that solution the values.
 Specifically, the field name(s) containing the solution values
 be will named as \code{"solution_XXX"} where \code{"XXX"} corresponds to a solution
-identifier (e.g. \code{"solution_1"}).
+identifier (e.g., \code{"solution_1"}).
 If the argument to \code{a} contains multiple zones, then the fields
 containing solutions will be named as \code{"solution_XXX_YYY"} where
 \code{"XXX"} corresponds to the solution identifier and \code{"YYY"} is the name
-of the management zone (e.g. \code{"solution_1_zone1"}).}
+of the management zone (e.g., \code{"solution_1_zone1"}).}
 
 }
 }

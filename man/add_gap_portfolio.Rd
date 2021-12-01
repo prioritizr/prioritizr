@@ -7,7 +7,7 @@
 add_gap_portfolio(x, number_solutions, pool_gap = 0.1)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{number_solutions}{\code{integer} number of solutions required.}
 
@@ -15,12 +15,12 @@ add_gap_portfolio(x, number_solutions, pool_gap = 0.1)
 This relative gap specifies a threshold worst-case performance for
 solutions in the portfolio. For example, value of 0.1 will result in the
 portfolio returning solutions that are within 10\% of an optimal solution.
-Note that the gap specified in the solver (i.e.
+Note that the gap specified in the solver (i.e.,
 \code{\link[=add_gurobi_solver]{add_gurobi_solver()}} must be less than or equal to the gap
 specified to generate the portfolio. Defaults to 0.1.}
 }
 \value{
-Object (i.e. \code{\linkS4class{ConservationProblem}}) with the portfolio
+Object (i.e., \code{\linkS4class{ConservationProblem}}) with the portfolio
 added to it.
 }
 \description{
@@ -33,14 +33,15 @@ frequencies for moderate and large-sized problems (similar to
 }
 \details{
 This strategy for generating a portfolio requires problems to
-be solved using the \emph{Gurobi} software suite (i.e. using
+be solved using the \emph{Gurobi} software suite (i.e., using
 \code{\link[=add_gurobi_solver]{add_gurobi_solver()}}. Specifically, version 9.0.0 (or greater)
 of the \pkg{gurobi} package must be installed.
 Note that the number of solutions returned may be less than the argument to
 \code{number_solutions}, if the total number of solutions that
 meet the optimality gap is less than the number of solutions requested.
 Also, note that this portfolio function only works with problems
-that have binary decisions (i.e. specified using \code{\link[=add_binary_decisions]{add_binary_decisions()}}).
+that have binary decisions (i.e., specified using
+\code{\link[=add_binary_decisions]{add_binary_decisions()}}).
 }
 \examples{
 \dontrun{

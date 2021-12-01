@@ -23,7 +23,7 @@
 \S4method{add_linear_penalties}{ConservationProblem,ANY,dgCMatrix}(x, penalty, data)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{penalty}{\code{numeric} penalty value that is used to scale the
 importance not selecting planning units with high \code{data} values.
@@ -44,15 +44,15 @@ associated with higher data values are penalized more strongly
 in the solution. See the Data format section for more information.}
 }
 \value{
-Object (i.e. \code{\linkS4class{ConservationProblem}}) with the penalties
+Object (i.e., \code{\linkS4class{ConservationProblem}}) with the penalties
 added to it.
 }
 \description{
 Add penalties to a conservation planning \code{\link[=problem]{problem()}} to penalize
 solutions that select planning units with higher values from a specific
-data source (e.g. anthropogenic impact). These penalties assume
+data source (e.g., anthropogenic impact). These penalties assume
 a linear trade-off between the penalty values and the primary
-objective of the conservation planning \code{\link[=problem]{problem()}} (e.g.
+objective of the conservation planning \code{\link[=problem]{problem()}} (e.g.,
 solution cost for minimum set problems; \code{\link[=add_min_set_objective]{add_min_set_objective()}}.
 }
 \details{
@@ -116,7 +116,7 @@ equations.
 Let \eqn{I} denote the set of planning units
 (indexed by \eqn{i}), \eqn{Z} the set of management zones (indexed by
 \eqn{z}), and \eqn{X_{iz}}{Xiz} the decision variable for allocating
-planning unit \eqn{i} to zone \eqn{z} (e.g. with binary
+planning unit \eqn{i} to zone \eqn{z} (e.g., with binary
 values indicating if each planning unit is allocated or not). Also, let
 \eqn{P_z} represent the penalty scaling value for zones
 \eqn{z \in Z}{z in Z} (argument to \code{penalty}), and
@@ -143,7 +143,7 @@ set.seed(600)
 data(sim_pu_polygons, sim_pu_zones_stack, sim_features, sim_features_zones)
 
 # add a column to contain the penalty data for each planning unit
-# e.g. these values could indicate the level of habitat
+# e.g., these values could indicate the level of habitat
 sim_pu_polygons$penalty_data <- runif(nrow(sim_pu_polygons))
 
 # plot the penalty data to visualise its spatial distribution
@@ -174,7 +174,7 @@ s1 <- solve(p1)
 s2 <- solve(p2)
 
 # plot the solutions and compare them,
-# since we supplied a very high penalty value (i.e. 100), relative
+# since we supplied a very high penalty value (i.e., 100), relative
 # to the range of values in the penalty data and the objective function,
 # the solution in s2 is very sensitive to values in the penalty data
 spplot(s1, zcol = "solution_1", main = "solution without penalties",
@@ -183,7 +183,7 @@ spplot(s2, zcol = "solution_1", main = "solution with penalties",
        axes = FALSE, box = FALSE)
 
 # for real conservation planning exercises,
-# it would be worth exploring a range of penalty values (e.g. ranging
+# it would be worth exploring a range of penalty values (e.g., ranging
 # from 1 to 100 increments of 5) to explore the trade-offs
 }
 

@@ -21,7 +21,7 @@ NULL
 #' @param ... not used.
 #'
 #' @details
-#'   Generally, processing vector (i.e. [`Spatial-class`] or
+#'   Generally, processing vector (i.e., [`Spatial-class`] or
 #'   [sf::sf()]) data takes much
 #'   longer to process then [`Raster-class`] data,
 #'   so it is recommended to use [`Raster-class`] data

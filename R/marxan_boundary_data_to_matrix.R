@@ -11,7 +11,7 @@ NULL
 #' a single zone, then a matrix object is returned. Otherwise if the boundary
 #' data contains data for multiple zones, then an array is returned.
 #'
-#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object that
+#' @param x [problem()] (i.e., [`ConservationProblem-class`]) object that
 #'   contains planning unit and zone data to ensure that the argument to
 #'   `data` is converted correctly. This argument can be set to
 #'   `NULL` if checks are not required (not recommended).

@@ -1,7 +1,7 @@
 
 <!--- README.md is generated from README.Rmd. Please edit that file -->
 
-# prioritizr: <img src="man/figures/logo.png" align="right" height="90px" />
+# prioritizr: <img src="man/figures/logo.png" align="right" style="height:90px!important;" />
 
 # Systematic Conservation Prioritization in R
 
@@ -69,7 +69,7 @@ Alternatively, to cite the latest development version, please use:
 
 > Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Edwards BPM, Watts
 > ME, Arcese P, Bennett J, Possingham HP (2021). prioritizr: Systematic
-> Conservation Prioritization in R. R package version 7.1.1.4. Available
+> Conservation Prioritization in R. R package version 7.1.1.5. Available
 > at <https://github.com/prioritizr/prioritizr>.
 
 Additionally, we keep a [record of
@@ -249,7 +249,7 @@ s1 <- solve(p1)
     ##   StrongCG: 2
     ##   Flow cover: 1
     ## 
-    ## Explored 145469 nodes (243327 simplex iterations) in 3.74 seconds (2.59 work units)
+    ## Explored 145469 nodes (243327 simplex iterations) in 3.83 seconds (2.59 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 6: 2627.64 2747.38 2761.33 ... 3139.89
@@ -271,7 +271,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##      3.762
+    ##      3.836
 
 ``` r
 # extract state message from the solver
@@ -419,7 +419,7 @@ s2 <- solve(p2)
     ##   StrongCG: 1
     ##   Flow cover: 1
     ## 
-    ## Explored 10262 nodes (23307 simplex iterations) in 0.53 seconds (0.54 work units)
+    ## Explored 10262 nodes (23307 simplex iterations) in 0.62 seconds (0.54 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 5: 2838.26 2839.12 3021.28 ... 3027.7
@@ -616,36 +616,64 @@ spplot(rc, "rc", main = "Irreplaceability", xlim = c(-0.1, 1.1),
 <img src="man/figures/README-replacement_cost-1.png" width="400" style="display: block; margin: auto;" />
 
 This short example demonstrates how the *prioritizr R* package can be
-used to build a minimal conservation problem, how constraints and
-penalties can be iteratively added to the problem to obtain a solution,
-and how importance scores can be calculated for the solution to identify
-critical places. Although we explored just a few different functions for
-modifying the a conservation problem, the *prioritizr R* package
-provides many functions for specifying objectives, constraints,
-penalties, and decision variables, so that you can build and
-custom-tailor a conservation planning problem to suit your exact
-planning scenario.
+used to build and customize conservation problems, and then solve them
+to generate solutions. Although we explored just a few different
+functions for modifying a conservation problem, the package provides
+many functions for specifying objectives, constraints, penalties, and
+decision variables, so that you can build and custom-tailor conservation
+planning problems to suit your planning scenario.
+
+## Learning resources
+
+The [package website](https://prioritizr.net/index.html) contains
+information on the *prioritizr R* package. Here you can find
+[documentation for every function and built-in
+dataset](https://prioritizr.net/reference/index.html), and [news
+describing the updates in each package
+version](https://prioritizr.net/news/index.html). It also contains the
+following articles and tutorials.
+
+-   [**Getting
+    started**](https://prioritizr.net/articles/prioritizr.html): Short
+    tutorial on using the package.
+-   [**Package
+    overview**](https://prioritizr.net/articles/package_overview.html):
+    Introduction to systematic conservation planning and a comprehensive
+    overview of the package.
+-   [**Connectivity
+    tutorial**](https://prioritizr.net/articles/connectivity_tutorial.html):
+    Tutorial on incorporating connectivity into prioritizations.
+-   [**Calibrating trade-offs
+    tutorial**](https://prioritizr.net/articles/calibrating_trade-offs_tutorial.html):
+    Tutorial on running calibration analyses to satisfy multiple
+    criteria.
+-   [**Management zones
+    tutorial**](https://prioritizr.net/articles/management_zones_tutorial.html):
+    Tutorial on incorporating multiple management zones and actions into
+    prioritizations.
+-   [**Gurobi installation
+    guide**](https://prioritizr.net/articles/gurobi_installation_guide.html):
+    Instructions for installing the *Gurobi* optimization suite for
+    generating prioritizations.
+-   [**Solver
+    benchmarks**](https://prioritizr.net/articles/solver_benchmarks.html):
+    Performance comparison of optimization solvers for generating
+    prioritizations.
+-   [**Publication
+    record**](https://prioritizr.net/articles/publication_record.html):
+    List of publications that have cited the package.
+
+Additional resources can also be found in [online repositories under the
+*prioritizr* organization](https://github.com/prioritizr). These
+resources include [slides for talks and seminars about the
+package](https://github.com/prioritizr/teaching). Additionally, workshop
+materials are available too (e.g., the [Massey University 2021
+workshop](https://prioritizr.github.io/massey-workshop/) and the
+[PacMara 2019
+workshop](https://prioritizr.github.io/PacMara_workshop/)).
 
 ## Getting help
 
-Please refer to the [package website](https://prioritizr.net/index.html)
-for more information on the *prioritizr R* package. This website
-contains [a comprehensive tutorial on the
-package](https://prioritizr.net/articles/prioritizr.html), [instructions
-for installing the *Gurobi* software suite to solve large-scale and
-complex conservation planning
-problems](https://prioritizr.net/articles/gurobi_installation.html), and
-[a tutorial on solving problems with multiple management
-zones](https://prioritizr.net/articles/zones.html). It also provides two
-worked examples that involve real-world data from [Tasmania,
-Australia](https://prioritizr.net/articles/tasmania.html) and [Salt
-Spring Island, Canada](https://prioritizr.net/articles/saltspring.html).
-Additionally, slides for previous seminars about the package can be
-found in [teaching repository](https://github.com/prioritizr/teaching).
-Furthermore, materials accompanying previous workshops are also
-available online too (i.e. the [CIBIO 2019
-workshop](https://prioritizr.github.io/cibio-workshop/) and the [PacMara
-2019 workshop](https://prioritizr.github.io/PacMara_workshop/)). If you
-have any questions about using the *prioritizr R* package or suggestions
-for improving it, please [file an issue at the package’s online code
+If you have any questions about the *prioritizr R* package or
+suggestions for improving it, please [post an issue on the code
 repository](https://github.com/prioritizr/prioritizr/issues/new).

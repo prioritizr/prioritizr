@@ -17,7 +17,7 @@ add_loglinear_targets(
 )
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{lower_bound_amount}{\code{numeric} threshold.}
 
@@ -43,7 +43,7 @@ use when calculating the targets. Defaults to the feature abundances in the
 study area (calculated using the \code{\link[=feature_abundances]{feature_abundances()}} function.}
 }
 \value{
-Object (i.e. \code{\linkS4class{ConservationProblem}}) with the targets added
+Object (i.e., \code{\linkS4class{ConservationProblem}}) with the targets added
 to it.
 }
 \description{
@@ -76,7 +76,7 @@ that should be used when calculating the targets.
 
 The target calculations do not account for the
 size of each planning unit. Therefore, the feature data should account for
-the size of each planning unit if this is important (e.g. pixel values in
+the size of each planning unit if this is important (e.g., pixel values in
 the argument to \code{features} in the function \code{\link[=problem]{problem()}} could
 correspond to amount of land occupied by the feature in \eqn{km^2} units).
 Additionally, the function can only be applied to

@@ -6,7 +6,7 @@ NULL
 #' Compile a conservation planning [problem()] into an
 #' (potentially mixed) integer linear programming problem.
 #'
-#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
+#' @param x [problem()] (i.e., [`ConservationProblem-class`]) object.
 #'
 #' @param compressed_formulation `logical` should the conservation problem
 #'   compiled into a compressed version of a planning problem?

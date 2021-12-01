@@ -10,7 +10,7 @@ NULL
 #' run time and solution quality of some of the available solvers when applied
 #' to different sized datasets.
 #'
-#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
+#' @param x [problem()] (i.e., [`ConservationProblem-class`]) object.
 #'
 #' @param ... arguments passed to the solver.
 #'

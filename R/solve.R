@@ -5,7 +5,7 @@ NULL
 #'
 #' Solve a conservation planning [problem()].
 #'
-#' @param a [problem()] (i.e. [`ConservationProblem-class`]) or
+#' @param a [problem()] (i.e., [`ConservationProblem-class`]) or
 #'   [`OptimizationProblem-class`] object.
 #'
 #' @param b [`Solver-class`] object. Not used if `a` is an
@@ -29,15 +29,15 @@ NULL
 #' then the best available exact algorithm solver will be used by default
 #' (see [add_default_solver()]. Although these exact algorithm
 #' solvers will often display a lot of information that isn't really that
-#' helpful (e.g. nodes, cutting planes), they do display information
-#' about the progress they are making on solving the problem (e.g. the
+#' helpful (e.g., nodes, cutting planes), they do display information
+#' about the progress they are making on solving the problem (e.g., the
 #' performance of the best solution found at a given point in time). If
 #' potential issues were detected during the
 #' presolve checks (see [presolve_check()])
-#' and the problem is being forcibly solved (i.e. with `force = TRUE`),
+#' and the problem is being forcibly solved (i.e., with `force = TRUE`),
 #' then it is also worth checking for any warnings displayed by the solver
 #' to see if these potential issues are actually causing issues
-#' (e.g. *Gurobi* can display warnings that include
+#' (e.g., *Gurobi* can display warnings that include
 #' `"Warning: Model contains large matrix coefficient range"` and
 #' `"Warning: Model contains large rhs"`).
 #'
@@ -85,11 +85,11 @@ NULL
 #'     will contain fields (columns) that solution the values.
 #'     Specifically, the field name(s) containing the solution values
 #'     be will named as `"solution_XXX"` where `"XXX"` corresponds to a solution
-#'     identifier (e.g. `"solution_1"`).
+#'     identifier (e.g., `"solution_1"`).
 #'     If the argument to `a` contains multiple zones, then the fields
 #'     containing solutions will be named as `"solution_XXX_YYY"` where
 #'     `"XXX"` corresponds to the solution identifier and `"YYY"` is the name
-#'     of the management zone (e.g. `"solution_1_zone1"`).}
+#'     of the management zone (e.g., `"solution_1_zone1"`).}
 #'
 #'   }
 #'
@@ -100,8 +100,8 @@ NULL
 #'   attributes: `"objective"` containing the solution's objective,
 #'   `"runtime"` denoting the number of seconds that elapsed while solving
 #'   the problem, and `"status"` describing the status of the solution
-#'   (e.g. `"OPTIMAL"` indicates that the optimal solution was found).
-#'   In most cases, the first solution (e.g. `"solution_1"`)
+#'   (e.g., `"OPTIMAL"` indicates that the optimal solution was found).
+#'   In most cases, the first solution (e.g., `"solution_1"`)
 #'   will contain the best solution found by the solver (note that this
 #'   may not be an optimal solution depending on the gap used to solve
 #'   the problem and noting that the default gap is 0.1).
@@ -289,7 +289,7 @@ methods::setMethod(
     # check that solution is valid
     #nocov start
     if (is.null(sol) || is.null(sol[[1]]$x)) {
-      stop("no solution found (e.g. due to problem infeasibility or time ",
+      stop("no solution found (e.g., due to problem infeasibility or time ",
            "limits)")
     }
     #nocov end

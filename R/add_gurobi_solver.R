@@ -10,7 +10,7 @@ NULL
 #' It requires the \pkg{gurobi} package to be installed
 #' (see below for installation instructions).
 #'
-#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
+#' @param x [problem()] (i.e., [`ConservationProblem-class`]) object.
 #'
 #' @param gap `numeric` gap to optimality. This gap is relative
 #'   and expresses the acceptable deviance from the optimal objective.
@@ -18,12 +18,12 @@ NULL
 #'   it has found a solution within 1% of optimality.
 #'   Additionally, a value of 0 will result in the solver stopping
 #'   when it has found an optimal solution.
-#'   The default value is 0.1 (i.e. 10% from optimality).
+#'   The default value is 0.1 (i.e., 10% from optimality).
 #'
 #' @param time_limit `numeric` time limit (seconds) for generating solutions.
 #'   The solver will return the current best solution when this time limit is
 #'   exceeded. The default value is the largest integer value
-#'   (i.e. `.Machine$integer.max`), effectively meaning that solver
+#'   (i.e., `.Machine$integer.max`), effectively meaning that solver
 #'   will keep running until a solution within the optimality gap is found.
 #'
 #' @param presolve `integer` number indicating how intensively the
@@ -57,7 +57,7 @@ NULL
 #'   will begin storing this information on disk
 #'   (using the *Gurobi( `NodeFileStart` parameter).
 #'   This functionality is useful if the system has insufficient memory to
-#'   solve a given problem (e.g. solving the problem with default settings
+#'   solve a given problem (e.g., solving the problem with default settings
 #'   yields the `OUT OF MEMORY` error message) and a system with more memory is
 #'   not readily available.
 #'   For example, a value of 4 indicates that the solver will start using
@@ -69,7 +69,7 @@ NULL
 #' @param start_solution `NULL` or object containing the starting solution
 #'   for the solver. Defaults to `NULL` such that no starting solution is used.
 #'   To specify a starting solution, the argument to `start_solution` should
-#'   be in the same format as the planning units (i.e. a `NULL`, `numeric`,
+#'   be in the same format as the planning units (i.e., a `NULL`, `numeric`,
 #'   `matrix`, `data.frame`, [`Raster-class`], [`Spatial-class`],
 #'   or [sf::sf()] object).
 #'   See the Start solution format section for more information.
@@ -106,7 +106,7 @@ NULL
 #' for each of the different planning unit data formats:
 #' `r solution_format_documentation("start_solution")`
 #'
-#' @return Object (i.e. [`ConservationProblem-class`]) with the solver
+#' @return Object (i.e., [`ConservationProblem-class`]) with the solver
 #'  added to it.
 #'
 #' @seealso

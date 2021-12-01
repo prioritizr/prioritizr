@@ -56,7 +56,7 @@ NULL
 #'     criteria. For example, they can be used to add
 #'     multiple budgets, or limit the number of
 #'     planning units selected in different administrative areas within a study
-#'     region (e.g. different countries).}
+#'     region (e.g., different countries).}
 #'
 #'   \item{[add_mandatory_allocation_constraints()]}{
 #'     Add constraints to ensure that every planning unit is allocated to a
