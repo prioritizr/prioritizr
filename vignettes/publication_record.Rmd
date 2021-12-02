@@ -12,9 +12,13 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown_notangle}
 ---
 
-This vignette contains a list of publications that have cited or used the _prioritizr R_ package. It may be useful if you are looking for case studies or examples of specific functionality. We would love to hear from you if you have used the _prioritizr R_ package in your own work. Please [file an issue on GitHub](https://github.com/prioritizr/prioritizr/issues/new) so we can add your work to this list.
+This vignette contains a list of publications that have cited or used the _prioritizr R_ package. It may be useful if you are looking for case studies or examples of specific functionality. We would love to hear from you if you have used the package in your own work. Please [post an issue on GitHub](https://github.com/prioritizr/prioritizr/issues/new) so we can add your work to this list.
 
 ## Research articles
+
+### 2022
+
+* [de Zwaan DR, Alavi N, Mitchell GW, Lapen DR, Duffe J, and Wilson S (2022) Balancing conservation priorities for grassland and forest specialist bird communities in agriculturally dominated landscapes. _Biological Conservation_, **265**, 109402.](https://doi.org/10.1016/j.biocon.2021.109402)
 
 ### 2021
 

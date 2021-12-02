@@ -1,3 +1,7 @@
+# prioritizr 7.1.1.6
+
+- Update publication record.
+
 # prioritizr 7.1.1.5
 
 - The _Tasmania tutorial_ has been reworked into the _Getting started_ tutorial. This tutorial now provides short introduction to using the package.
