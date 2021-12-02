@@ -93,7 +93,8 @@ NULL
 #' @section Installation:
 #' Please see the *Gurobi Installation Guide* vignette for details on
 #' installing the *Gurobi* software and the \pkg{gurobi} package.
-#' You can access this vignette [online](https://prioritizr.net/articles/gurobi_installation.html)
+#' You can access this vignette
+#' [online](https://prioritizr.net/articles/gurobi_installation_guide.html)
 #' or using the following code:
 #' ```
 #' vignette("gurobi_installation", package = "prioritizr")

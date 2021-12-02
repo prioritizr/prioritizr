@@ -143,7 +143,7 @@ p1 <- problem(sim_pu_polygons, features = sim_features,
       add_default_solver(gap = 0)
 ```
 
-After we have built a [`problem`](https://prioritizr.net/reference/problem.html), we can solve it to obtain a solution. Since we have not specified the method used to solve the problem, _prioritizr_ will automatically use the best solver currently installed. **It is strongly encouraged to install the [Gurobi software suite and the _gurobi_ _R_ package to solve problems quickly](https://www.gurobi.com/), for more information on this please refer to the [Gurobi Installation Guide](https://prioritizr.net/articles/gurobi_installation.html)**
+After we have built a [`problem`](https://prioritizr.net/reference/problem.html), we can solve it to obtain a solution. Since we have not specified the method used to solve the problem, _prioritizr_ will automatically use the best solver currently installed. **It is strongly encouraged to install the [Gurobi software suite and the _gurobi_ _R_ package to solve problems quickly](https://www.gurobi.com/), for more information on this please refer to the [Gurobi Installation Guide](https://prioritizr.net/articles/gurobi_installation_guide.html)**
 
 ```{r "minimal_solution", fig.height = h, fig.width = w, out.width = ow}
 # solve the problem
