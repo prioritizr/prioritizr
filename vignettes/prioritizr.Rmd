@@ -30,7 +30,7 @@ knitr::opts_chunk$set(fig.align = "center", eval = !is_check)
 
 ## Introduction
 
-The aim of this tutorial is to provide a short introduction to the _prioritizr R_ package. It is also intended for helping conservation planners familiar the _Marxan_ decision support tool [@r3] to start using the package for their work.
+The aim of this tutorial is to provide a short introduction to the _prioritizr R_ package. It is also intended to help conservation planners familiar the _Marxan_ decision support tool [@r3] start using the package for their work.
 
 ## Data
 
@@ -282,6 +282,6 @@ print(head(s2))
 
 ## Conclusion
 
-This tutorial shows how the _prioritizr R_ package can be used to build a conservation problem, generate a prioritization, and evaluate it. Although we explored just a few functions, the package provides many different functions so that you can build and custom-tailor conservation planning problems to suit your needs. To learn more about the package, please see the package vignettes for [an overview of the package](package_overview.html), [instructions for installing the _Gurobi_ optimization suite](gurobi_installation_guide.html), [benchmarks comparing the performance of different solvers](solver_benchmarks.html), and [a record of publications that have cited the package](publication_record.html). In addition to this tutorial, the package also provides tutorials on [incorporating connectivity into prioritizations](connectivity_tutorial.html), [calibrating trade-offs between different criteria](calibrating_trade-offs.html) (e.g., total cost and spatial fragmentation), and [creating prioritizations that have multiple management zones or management actions](management_zones_tutorial.html).
+This tutorial shows how the _prioritizr R_ package can be used to build a conservation problem, generate a prioritization, and evaluate it. Although we explored just a few functions, the package provides many different functions so that you can build and custom-tailor conservation planning problems to suit your needs. To learn more about the package, please see the package vignettes for [an overview of the package](package_overview.html), [instructions for installing the _Gurobi_ optimization suite](gurobi_installation_guide.html), [benchmarks comparing the performance of different solvers](solver_benchmarks.html), and [a record of publications that have cited the package](publication_record.html). In addition to this tutorial, the package also provides tutorials on [incorporating connectivity into prioritizations](connectivity_tutorial.html), [calibrating trade-offs between different criteria](calibrating_trade-offs_tutorial.html) (e.g., total cost and spatial fragmentation), and [creating prioritizations that have multiple management zones or management actions](management_zones_tutorial.html).
 
 ## References

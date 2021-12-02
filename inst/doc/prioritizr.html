@@ -179,7 +179,7 @@ div.csl-indent {
 
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
-<p>The aim of this tutorial is to provide a short introduction to the <em>prioritizr R</em> package. It is also intended for helping conservation planners familiar the <em>Marxan</em> decision support tool <span class="citation">(Ball <em>et al.</em> 2009)</span> to start using the package for their work.</p>
+<p>The aim of this tutorial is to provide a short introduction to the <em>prioritizr R</em> package. It is also intended to help conservation planners familiar the <em>Marxan</em> decision support tool <span class="citation">(Ball <em>et al.</em> 2009)</span> start using the package for their work.</p>
 </div>
 <div id="data" class="section level2">
 <h2>Data</h2>
@@ -300,7 +300,7 @@ div.csl-indent {
 ##   Zero half: 2
 ##   RLT: 10
 ## 
-## Explored 1 nodes (2393 simplex iterations) in 0.34 seconds (0.60 work units)
+## Explored 1 nodes (2393 simplex iterations) in 0.33 seconds (0.60 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 7: 21702.3 22977.8 23045.7 ... 37703.8
@@ -465,14 +465,14 @@ div.csl-indent {
 ## Found heuristic solution: objective 37703.827706
 ## Found heuristic solution: objective 27817.085072
 ## Presolve removed 1434 rows and 258 columns
-## Presolve time: 0.02s
+## Presolve time: 0.01s
 ## Presolved: 4924 rows, 4020 columns, 10889 nonzeros
 ## Variable types: 0 continuous, 4020 integer (4020 binary)
 ## Found heuristic solution: objective 27660.082384
 ## Root relaxation presolved: 4924 rows, 4020 columns, 10889 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.954728e+04, 1905 iterations, 0.10 seconds (0.18 work units)
+## Root relaxation: objective 1.954728e+04, 1905 iterations, 0.09 seconds (0.18 work units)
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -497,39 +497,37 @@ div.csl-indent {
 ##      0     0 19983.7957    0 1748 22049.9565 19983.7957  9.37%     -    0s
 ##      0     0 19984.9623    0 1754 22049.9565 19984.9623  9.37%     -    0s
 ##      0     0 19985.0928    0 1754 22049.9565 19985.0928  9.36%     -    0s
-##      0     0 19990.8490    0 2040 22049.9565 19990.8490  9.34%     -    1s
-##      0     0 19991.1771    0 2041 22049.9565 19991.1771  9.34%     -    1s
-##      0     0 19991.9721    0 2039 22049.9565 19991.9721  9.33%     -    1s
-##      0     0 19992.1795    0 2040 22049.9565 19992.1795  9.33%     -    1s
-##      0     0 19995.3797    0 1784 22049.9565 19995.3797  9.32%     -    1s
-##      0     0 19995.3847    0 1788 22049.9565 19995.3847  9.32%     -    1s
-##      0     0 19995.5716    0 2038 22049.9565 19995.5716  9.32%     -    1s
-##      0     0 19995.8374    0 2037 22049.9565 19995.8374  9.32%     -    1s
+##      0     0 19990.8490    0 2040 22049.9565 19990.8490  9.34%     -    0s
+##      0     0 19991.1771    0 2041 22049.9565 19991.1771  9.34%     -    0s
+##      0     0 19991.9721    0 2039 22049.9565 19991.9721  9.33%     -    0s
+##      0     0 19992.1795    0 2040 22049.9565 19992.1795  9.33%     -    0s
+##      0     0 19995.3797    0 1784 22049.9565 19995.3797  9.32%     -    0s
+##      0     0 19995.3847    0 1788 22049.9565 19995.3847  9.32%     -    0s
+##      0     0 19995.5716    0 2038 22049.9565 19995.5716  9.32%     -    0s
+##      0     0 19995.8374    0 2037 22049.9565 19995.8374  9.32%     -    0s
 ##      0     0 19996.1519    0 2039 22049.9565 19996.1519  9.31%     -    1s
 ##      0     0 19996.1519    0 2039 22049.9565 19996.1519  9.31%     -    1s
 ##      0     2 19996.6237    0 2039 22049.9565 19996.6237  9.31%     -    1s
-## H   27    27                    21471.431466 19996.6237  6.87%   117    2s
-## H   52    52                    21371.814002 19996.6237  6.43%   115    2s
-## H   54    54                    21254.060213 19996.6237  5.92%   117    2s
-## H  108   108                    21204.105802 19996.6237  5.69%   123    3s
-## H  162   162                    21202.636805 19996.6237  5.69%   104    4s
-## H  286   286                    21166.904542 19996.6237  5.53%  69.2    4s
-## H  606   599                    20993.604430 19996.6237  4.75%  32.8    5s
-##    631    15 20993.6044  182 1965 20993.6044 20027.8276  4.60%  31.5   10s
-##    652     7 20993.6044  492 1964 20993.6044 20029.9069  4.59%  37.6   15s
-##    673    15 20091.4377   24 1974 20993.6044 20082.6816  4.34%  45.4   20s
-## H  750    81                    20939.026645 20082.6816  4.09%  61.7   24s
-##    818   151 21249.5497  111   22 20939.0266 20082.6816  4.09%  64.7   25s
-## H 1231   560                    20924.385117 20082.6816  4.02%  44.7   27s
-##   1308   639 20794.8335   63 1319 20924.3851 20084.4398  4.01%  57.3   30s
-## H 1975  1297                    20813.687049 20092.6890  3.46%  50.6   32s
-##   2454  1776 20457.8715   40 1754 20813.6870 20099.7124  3.43%  45.6   35s
-##   3179  2499 21128.9121   88  183 20813.6870 20109.8128  3.38%  46.0   40s
-##   4699  3645 20485.1487   37 1861 20813.6870 20148.3760  3.20%  38.3   45s
-##   5194  3776 20246.3125   28 1773 20813.6870 20155.9610  3.16%  40.3   50s
-##   6021  4504 20367.1172   32 1919 20813.6870 20167.5494  3.10%  40.7   55s
-##   6667  4755 20279.8697   29 1791 20813.6870 20193.4219  2.98%  42.1   60s
-##   7228  4711 20514.1843   33 1904 20813.6870 20195.9413  2.97%  43.7   65s
+## H   27    27                    21471.431466 19996.6237  6.87%   117    1s
+## H   52    52                    21371.814002 19996.6237  6.43%   115    1s
+## H   54    54                    21254.060213 19996.6237  5.92%   117    1s
+## H  108   108                    21204.105802 19996.6237  5.69%   123    2s
+## H  162   162                    21202.636805 19996.6237  5.69%   104    2s
+## H  286   286                    21166.904542 19996.6237  5.53%  69.2    2s
+## H  606   599                    20993.604430 19996.6237  4.75%  32.8    3s
+##    617     7 20993.6044  517 2028 20993.6044 19998.3522  4.74%  32.3    5s
+##    652     7 20993.6044  492 1964 20993.6044 20029.9069  4.59%  37.6   10s
+##    701    34 20494.1629   38 1496 20993.6044 20082.6816  4.34%  54.1   15s
+## H  750    81                    20939.026645 20082.6816  4.09%  61.7   16s
+## H 1231   560                    20924.385117 20082.6816  4.02%  44.7   18s
+##   1280   611 20557.3943   49 1564 20924.3851 20084.4398  4.01%  54.3   20s
+## H 1975  1297                    20813.687049 20092.6890  3.46%  50.6   22s
+##   2489  1811 20749.8747   54  246 20813.6870 20099.7124  3.43%  48.9   25s
+##   3774  2967          -  127      20813.6870 20110.2720  3.38%  44.4   30s
+##   5069  3801 21721.7539  102  238 20813.6870 20153.3149  3.17%  40.6   35s
+##   6029  4512 20537.8071   35 1790 20813.6870 20167.5494  3.10%  41.1   40s
+##   6682  4770 20667.8854   44 1636 20813.6870 20193.4219  2.98%  42.5   45s
+##   7243  4726 20688.3574   41 1691 20813.6870 20195.9413  2.97%  44.2   50s
 ## 
 ## Cutting planes:
 ##   Gomory: 7
@@ -541,7 +539,7 @@ div.csl-indent {
 ##   Zero half: 22
 ##   RLT: 24
 ## 
-## Explored 7780 nodes (344017 simplex iterations) in 68.14 seconds (80.68 work units)
+## Explored 7780 nodes (344017 simplex iterations) in 52.53 seconds (80.68 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 1000: 20813.7 20924.4 20939 ... 22439.4
@@ -658,8 +656,8 @@ div.csl-indent {
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.3, max: 0.3)]
 ##   decisions:      default
-##   constraints:    &lt;Locked out planning units [1 locked units]
-##                    Locked in planning units [317 locked units]&gt;
+##   constraints:    &lt;Locked in planning units [317 locked units]
+##                    Locked out planning units [1 locked units]&gt;
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (5e-04), zones]&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
@@ -713,7 +711,7 @@ div.csl-indent {
 </div>
 <div id="conclusion" class="section level2">
 <h2>Conclusion</h2>
-<p>This tutorial shows how the <em>prioritizr R</em> package can be used to build a conservation problem, generate a prioritization, and evaluate it. Although we explored just a few functions, the package provides many different functions so that you can build and custom-tailor conservation planning problems to suit your needs. To learn more about the package, please see the package vignettes for <a href="package_overview.html">an overview of the package</a>, <a href="gurobi_installation_guide.html">instructions for installing the <em>Gurobi</em> optimization suite</a>, <a href="solver_benchmarks.html">benchmarks comparing the performance of different solvers</a>, and <a href="publication_record.html">a record of publications that have cited the package</a>. In addition to this tutorial, the package also provides tutorials on <a href="connectivity_tutorial.html">incorporating connectivity into prioritizations</a>, <a href="calibrating_trade-offs.html">calibrating trade-offs between different criteria</a> (e.g., total cost and spatial fragmentation), and <a href="management_zones_tutorial.html">creating prioritizations that have multiple management zones or management actions</a>.</p>
+<p>This tutorial shows how the <em>prioritizr R</em> package can be used to build a conservation problem, generate a prioritization, and evaluate it. Although we explored just a few functions, the package provides many different functions so that you can build and custom-tailor conservation planning problems to suit your needs. To learn more about the package, please see the package vignettes for <a href="package_overview.html">an overview of the package</a>, <a href="gurobi_installation_guide.html">instructions for installing the <em>Gurobi</em> optimization suite</a>, <a href="solver_benchmarks.html">benchmarks comparing the performance of different solvers</a>, and <a href="publication_record.html">a record of publications that have cited the package</a>. In addition to this tutorial, the package also provides tutorials on <a href="connectivity_tutorial.html">incorporating connectivity into prioritizations</a>, <a href="calibrating_trade-offs_tutorial.html">calibrating trade-offs between different criteria</a> (e.g., total cost and spatial fragmentation), and <a href="management_zones_tutorial.html">creating prioritizations that have multiple management zones or management actions</a>.</p>
 </div>
 <div id="references" class="section level2 unnumbered">
 <h2 class="unnumbered">References</h2>
