@@ -9,7 +9,7 @@ that all selected planning units meet certain criteria."><meta property="og:imag
   gtag('js', new Date());
 
   gtag('config', 'UA-70466840-4');
-</script><!-- dependencies from examples --></head><body data-spy="scroll" data-target="#toc">
+</script></head><body data-spy="scroll" data-target="#toc">
     
 
     <div class="container template-reference-topic">
@@ -24,7 +24,7 @@ that all selected planning units meet certain criteria."><meta property="og:imag
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.7</span>
       </span>
     </div>
 
@@ -103,7 +103,8 @@ that all selected planning units meet certain criteria."><meta property="og:imag
 that all selected planning units meet certain criteria.</p>
     </div>
 
-    <div id="ref-usage">Usage,<div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S4 method for ConservationProblem,ANY,ANY,character</span>
+    <div id="ref-usage">
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S4 method for ConservationProblem,ANY,ANY,character</span>
 <span class="fu">add_linear_constraints</span><span class="op">(</span><span class="va">x</span>, <span class="va">threshold</span>, <span class="va">sense</span>, <span class="va">data</span><span class="op">)</span>
 
 <span class="co"># S4 method for ConservationProblem,ANY,ANY,numeric</span>
@@ -119,7 +120,8 @@ that all selected planning units meet certain criteria.</p>
 <span class="fu">add_linear_constraints</span><span class="op">(</span><span class="va">x</span>, <span class="va">threshold</span>, <span class="va">sense</span>, <span class="va">data</span><span class="op">)</span>
 
 <span class="co"># S4 method for ConservationProblem,ANY,ANY,dgCMatrix</span>
-<span class="fu">add_linear_constraints</span><span class="op">(</span><span class="va">x</span>, <span class="va">threshold</span>, <span class="va">sense</span>, <span class="va">data</span><span class="op">)</span></code></pre></div></div>
+<span class="fu">add_linear_constraints</span><span class="op">(</span><span class="va">x</span>, <span class="va">threshold</span>, <span class="va">sense</span>, <span class="va">data</span><span class="op">)</span></code></pre></div>
+    </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
@@ -266,7 +268,7 @@ contain a layer for each zone.</p></dd>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># plot solution</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s0</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-plt"><img src="add_linear_constraints-1.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="add_linear_constraints-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># now let's create some modified versions of this baseline problem by</span></span>
 <span class="r-in"><span class="co"># adding additional criteria using linear constraints</span></span>
@@ -283,7 +285,7 @@ contain a layer for each zone.</p></dd>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/stack.html" class="external-link">stack</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_pu_raster2</span><span class="op">)</span>,</span>
 <span class="r-in">     main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sim_pu_raster"</span>, <span class="st">"sim_pu_raster2"</span><span class="op">)</span>,</span>
 <span class="r-in">     axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-plt"><img src="add_linear_constraints-2.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="add_linear_constraints-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># create a modified version of p0 with linear constraints that</span></span>
 <span class="r-in"><span class="co"># specify that the planning units in the solution must not have</span></span>
@@ -298,7 +300,7 @@ contain a layer for each zone.</p></dd>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># plot solutions s1 and s2 to compare them</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/stack.html" class="external-link">stack</a></span><span class="op">(</span><span class="va">s0</span>, <span class="va">s1</span><span class="op">)</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"s0"</span>, <span class="st">"s1"</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-plt"><img src="add_linear_constraints-3.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="add_linear_constraints-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># second, let's create a modified version of p0 that contains</span></span>
 <span class="r-in"><span class="co"># additional constraints to ensure that each feature has</span></span>
@@ -332,7 +334,7 @@ contain a layer for each zone.</p></dd>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># plot solutions s0 and s2 to compare them</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/stack.html" class="external-link">stack</a></span><span class="op">(</span><span class="va">s0</span>, <span class="va">s2</span><span class="op">)</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"s1"</span>, <span class="st">"s2"</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-plt"><img src="add_linear_constraints-4.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="add_linear_constraints-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># third, let's create a modified version of p0 that contains</span></span>
 <span class="r-in"><span class="co"># additional constraints to ensure that the solution equitably</span></span>
@@ -342,7 +344,7 @@ contain a layer for each zone.</p></dd>
 <span class="r-in"><span class="co"># to begin with, we will simulate a dataset describing the spatial extent of</span></span>
 <span class="r-in"><span class="co"># four different administrative areas across the study region</span></span>
 <span class="r-in"><span class="va">sim_admin</span> <span class="op">&lt;-</span> <span class="va">sim_pu_raster</span></span>
-<span class="r-in"><span class="va">sim_admin</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/aggregate.html" class="external-link">aggregate</a></span><span class="op">(</span><span class="va">sim_admin</span>, fact <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">sim_admin</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/sp/man/aggregate.html" class="external-link">aggregate</a></span><span class="op">(</span><span class="va">sim_admin</span>, fact <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/getValues.html" class="external-link">values</a></span><span class="op">(</span><span class="va">sim_admin</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/getValues.html" class="external-link">values</a></span><span class="op">(</span><span class="va">sim_admin</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">sim_admin</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/resample.html" class="external-link">resample</a></span><span class="op">(</span><span class="va">sim_admin</span>, <span class="va">sim_pu_raster</span>, method <span class="op">=</span> <span class="st">"ngb"</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">sim_admin</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/mask.html" class="external-link">mask</a></span><span class="op">(</span><span class="va">sim_admin</span>, <span class="va">sim_pu_raster</span><span class="op">)</span></span>
@@ -352,7 +354,7 @@ contain a layer for each zone.</p></dd>
 <span class="r-in"><span class="co"># the study region into four quadrants, and the sim_admin object is a</span></span>
 <span class="r-in"><span class="co"># RasterLayer with integer values denoting ids for the administrative areas</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">sim_admin</span><span class="op">)</span></span>
-<span class="r-plt"><img src="add_linear_constraints-5.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="add_linear_constraints-5.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># next we will convert the sim_admin RasterLayer object into a RasterStack</span></span>
 <span class="r-in"><span class="co"># object (with a layer for each administrative area) indicating which</span></span>
@@ -362,7 +364,7 @@ contain a layer for each zone.</p></dd>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># plot administrative areas stack</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">sim_admin2</span><span class="op">)</span></span>
-<span class="r-plt"><img src="add_linear_constraints-6.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="add_linear_constraints-6.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># we will now calculate the total amount of planning units associated</span></span>
 <span class="r-in"><span class="co"># with each administrative area, so that we can set the constraint threshold</span></span>
@@ -390,7 +392,7 @@ contain a layer for each zone.</p></dd>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># plot solutions s0 and s3 to compare them</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/stack.html" class="external-link">stack</a></span><span class="op">(</span><span class="va">s0</span>, <span class="va">s3</span><span class="op">)</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"s0"</span>, <span class="st">"s3"</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-plt"><img src="add_linear_constraints-7.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="add_linear_constraints-7.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span class="co"># }</span></span>
 <span class="r-in"></span>
 </code></pre></div>
@@ -407,7 +409,7 @@ contain a layer for each zone.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer></div>

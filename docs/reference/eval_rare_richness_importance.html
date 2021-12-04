@@ -17,7 +17,7 @@ limitations."><meta property="og:image" content="https://prioritizr.net/logo.png
   gtag('js', new Date());
 
   gtag('config', 'UA-70466840-4');
-</script><!-- dependencies from examples --></head><body data-spy="scroll" data-target="#toc">
+</script></head><body data-spy="scroll" data-target="#toc">
     
 
     <div class="container template-reference-topic">
@@ -32,7 +32,7 @@ limitations."><meta property="og:image" content="https://prioritizr.net/logo.png
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.7</span>
       </span>
     </div>
 
@@ -119,7 +119,8 @@ unlike the replacement cost metric which does not suffer any of these
 limitations.</p>
     </div>
 
-    <div id="ref-usage">Usage,<div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">eval_rare_richness_importance</span><span class="op">(</span><span class="va">x</span>, <span class="va">solution</span>, <span class="va">...</span><span class="op">)</span>
+    <div id="ref-usage">
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">eval_rare_richness_importance</span><span class="op">(</span><span class="va">x</span>, <span class="va">solution</span>, <span class="va">...</span><span class="op">)</span>
 
 <span class="co"># S4 method for ConservationProblem,numeric</span>
 <span class="fu">eval_rare_richness_importance</span><span class="op">(</span><span class="va">x</span>, <span class="va">solution</span>, <span class="va">rescale</span>, <span class="va">...</span><span class="op">)</span>
@@ -137,7 +138,8 @@ limitations.</p>
 <span class="fu">eval_rare_richness_importance</span><span class="op">(</span><span class="va">x</span>, <span class="va">solution</span>, <span class="va">rescale</span>, <span class="va">...</span><span class="op">)</span>
 
 <span class="co"># S4 method for ConservationProblem,Raster</span>
-<span class="fu">eval_rare_richness_importance</span><span class="op">(</span><span class="va">x</span>, <span class="va">solution</span>, <span class="va">rescale</span>, <span class="va">...</span><span class="op">)</span></code></pre></div></div>
+<span class="fu">eval_rare_richness_importance</span><span class="op">(</span><span class="va">x</span>, <span class="va">solution</span>, <span class="va">rescale</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
@@ -310,7 +312,7 @@ the importance of planning units selected in a solution.</p>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># plot solution</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s1</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-plt"><img src="eval_rare_richness_importance-1.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="eval_rare_richness_importance-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># calculate importance scores</span></span>
 <span class="r-in"><span class="va">rwr1</span> <span class="op">&lt;-</span> <span class="fu">eval_rare_richness_importance</span><span class="op">(</span><span class="va">p1</span>, <span class="va">s1</span><span class="op">)</span></span>
@@ -329,7 +331,7 @@ the importance of planning units selected in a solution.</p>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># plot importance scores</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">rwr1</span>, main <span class="op">=</span> <span class="st">"rarity weighted richness"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-plt"><img src="eval_rare_richness_importance-2.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="eval_rare_richness_importance-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># create minimal problem with polygon (sf) planning units</span></span>
 <span class="r-in"><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_sf</span>, <span class="va">sim_features</span>, cost_column <span class="op">=</span> <span class="st">"cost"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
@@ -363,14 +365,14 @@ the importance of planning units selected in a solution.</p>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># plot solution</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s2</span><span class="op">[</span>, <span class="st">"solution_1"</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"solution"</span><span class="op">)</span></span>
-<span class="r-plt"><img src="eval_rare_richness_importance-3.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="eval_rare_richness_importance-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># calculate importance scores</span></span>
 <span class="r-in"><span class="va">rwr2</span> <span class="op">&lt;-</span> <span class="fu">eval_rare_richness_importance</span><span class="op">(</span><span class="va">p2</span>, <span class="va">s2</span><span class="op">[</span>, <span class="st">"solution_1"</span><span class="op">]</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># plot importance scores</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">rwr2</span>, main <span class="op">=</span> <span class="st">"rarity weighted richness"</span><span class="op">)</span></span>
-<span class="r-plt"><img src="eval_rare_richness_importance-4.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="eval_rare_richness_importance-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span class="co"># }</span></span>
 <span class="r-in"></span>
 </code></pre></div>
@@ -387,7 +389,7 @@ the importance of planning units selected in a solution.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer></div>

@@ -95,8 +95,11 @@ NULL
 #'
 #' @param ... not used.
 #'
-#' @details This function is provided as a convenient wrapper for solving
-#'   *Marxan* problems using \pkg{prioritizr}.
+#' @details
+#' This function is provided as a convenient wrapper for solving
+#' *Marxan* problems using the \pkg{prioritizr} package.
+#' Please note that it requires installation of the \pkg{data.table} package
+#' to import *Marxan* data files.
 #'
 #' @section Notes:
 #' In early versions, this function could accommodate asymmetric connectivity
@@ -122,17 +125,20 @@ NULL
 #'
 #' @examples
 #' # create Marxan problem using Marxan input file
+#' # (note this example requires the data.table package to be installed)
+#' \dontrun{
 #' input_file <- system.file("extdata/input.dat", package = "prioritizr")
 #' p1 <- marxan_problem(input_file) %>%
 #'       add_default_solver(verbose = FALSE)
-#' \dontrun{
+#'
 #' # solve problem
 #' s1 <- solve(p1)
 #'
 #' # print solution
 #' head(s1)
-#' }
+#'
 #' # create Marxan problem using data.frames that have been loaded into R
+#' # (note this example also requires the data.table package to be installed)
 #' ## load in planning unit data
 #' pu_path <- system.file("extdata/input/pu.dat", package = "prioritizr")
 #' pu_dat <- data.table::fread(pu_path, data.table = FALSE)
@@ -157,18 +163,18 @@ NULL
 #' # create problem without the boundary data
 #' p2 <- marxan_problem(pu_dat, spec_dat, puvspr_dat) %>%
 #'       add_default_solver(verbose = FALSE)
-#' \dontrun{
+#'
 #' # solve problem
 #' s2 <- solve(p2)
 #'
 #' # print solution
 #' head(s2)
-#' }
+#'
 #' # create problem with the boundary data and a boundary length modifier
 #' # set to 5
 #' p3 <- marxan_problem(pu_dat, spec_dat, puvspr_dat, bound_dat, 5) %>%
 #'       add_default_solver(verbose = FALSE)
-#' \dontrun{
+#'
 #' # solve problem
 #' s3 <- solve(p3)
 #'
@@ -313,6 +319,9 @@ marxan_problem.character <- function(x, ...) {
     assertthat::is.string(x),
     assertthat::is.readable(x),
     no_extra_arguments(...))
+  if (!requireNamespace("data.table", quietly = TRUE)) {
+    stop("please install the \"data.table\" package to import Marxan data")
+  }
   # declare local functions
   parse_field <- function(field, lines) {
       x <- grep(field, lines, value = TRUE)

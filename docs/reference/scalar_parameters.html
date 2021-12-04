@@ -11,7 +11,7 @@ that are unacceptable then an error is thrown."><meta property="og:image" conten
   gtag('js', new Date());
 
   gtag('config', 'UA-70466840-4');
-</script><!-- dependencies from examples --></head><body data-spy="scroll" data-target="#toc">
+</script></head><body data-spy="scroll" data-target="#toc">
     
 
     <div class="container template-reference-topic">
@@ -26,7 +26,7 @@ that are unacceptable then an error is thrown."><meta property="og:image" conten
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.7</span>
       </span>
     </div>
 
@@ -107,7 +107,8 @@ values, a default value, and a class. If values are supplied to a parameter
 that are unacceptable then an error is thrown.</p>
     </div>
 
-    <div id="ref-usage">Usage,<div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">proportion_parameter</span><span class="op">(</span><span class="va">name</span>, <span class="va">value</span><span class="op">)</span>
+    <div id="ref-usage">
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">proportion_parameter</span><span class="op">(</span><span class="va">name</span>, <span class="va">value</span><span class="op">)</span>
 
 <span class="fu">binary_parameter</span><span class="op">(</span><span class="va">name</span>, <span class="va">value</span><span class="op">)</span>
 
@@ -123,7 +124,8 @@ that are unacceptable then an error is thrown.</p>
   <span class="va">value</span>,
   lower_limit <span class="op">=</span> <span class="va">.Machine</span><span class="op">$</span><span class="va">double.xmin</span>,
   upper_limit <span class="op">=</span> <span class="va">.Machine</span><span class="op">$</span><span class="va">double.xmax</span>
-<span class="op">)</span></code></pre></div></div>
+<span class="op">)</span></code></pre></div>
+    </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
@@ -179,7 +181,7 @@ values of zero or one.</p></dd>
 <span class="r-in"><span class="va">p1</span><span class="op">$</span><span class="fu">get</span><span class="op">(</span><span class="op">)</span> <span class="co"># get value</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.5</span>
 <span class="r-in"><span class="va">p1</span><span class="op">$</span><span class="va">id</span> <span class="co"># get id</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> id: 68fe7c54-63ba-4fdb-95a8-ac3865b17688</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> id: 14c4a566-3c2b-4a87-b00b-009a88eecaf3</span>
 <span class="r-in"><span class="va">p1</span><span class="op">$</span><span class="fu">validate</span><span class="op">(</span><span class="fl">5</span><span class="op">)</span> <span class="co"># check if 5 is a validate input</span></span>
 <span class="r-in"><span class="va">p1</span><span class="op">$</span><span class="fu">validate</span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span> <span class="co"># check if 0.1 is a validate input</span></span>
 <span class="r-in"><span class="va">p1</span><span class="op">$</span><span class="fu">set</span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span> <span class="co"># change value to 0.1</span></span>
@@ -193,7 +195,7 @@ values of zero or one.</p></dd>
 <span class="r-in"><span class="va">p2</span><span class="op">$</span><span class="fu">get</span><span class="op">(</span><span class="op">)</span> <span class="co"># get value</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
 <span class="r-in"><span class="va">p2</span><span class="op">$</span><span class="va">id</span> <span class="co"># get id</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> id: 81502831-607d-4a58-9681-b135fb1d3281</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> id: e390872a-4abe-430e-93ba-b799ce0fbca0</span>
 <span class="r-in"><span class="va">p2</span><span class="op">$</span><span class="fu">validate</span><span class="op">(</span><span class="fl">5</span><span class="op">)</span> <span class="co"># check if 5 is a validate input</span></span>
 <span class="r-in"><span class="va">p2</span><span class="op">$</span><span class="fu">validate</span><span class="op">(</span><span class="fl">1L</span><span class="op">)</span> <span class="co"># check if 1L is a validate input</span></span>
 <span class="r-in"><span class="va">p2</span><span class="op">$</span><span class="fu">set</span><span class="op">(</span><span class="fl">1L</span><span class="op">)</span> <span class="co"># change value to 1L</span></span>
@@ -207,7 +209,7 @@ values of zero or one.</p></dd>
 <span class="r-in"><span class="va">p3</span><span class="op">$</span><span class="fu">get</span><span class="op">(</span><span class="op">)</span> <span class="co"># get value</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 5</span>
 <span class="r-in"><span class="va">p3</span><span class="op">$</span><span class="va">id</span> <span class="co"># get id</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> id: 6ddb73c8-6cf1-425f-97c3-11dd5d4a4660</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> id: 348783dc-149d-4f49-a14d-b869af1ad52a</span>
 <span class="r-in"><span class="va">p3</span><span class="op">$</span><span class="fu">validate</span><span class="op">(</span><span class="fl">5.6</span><span class="op">)</span> <span class="co"># check if 5.6 is a validate input</span></span>
 <span class="r-in"><span class="va">p3</span><span class="op">$</span><span class="fu">validate</span><span class="op">(</span><span class="fl">2L</span><span class="op">)</span> <span class="co"># check if 2L is a validate input</span></span>
 <span class="r-in"><span class="va">p3</span><span class="op">$</span><span class="fu">set</span><span class="op">(</span><span class="fl">2L</span><span class="op">)</span> <span class="co"># change value to 2L</span></span>
@@ -221,7 +223,7 @@ values of zero or one.</p></dd>
 <span class="r-in"><span class="va">p4</span><span class="op">$</span><span class="fu">get</span><span class="op">(</span><span class="op">)</span> <span class="co"># get value</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] -7.6</span>
 <span class="r-in"><span class="va">p4</span><span class="op">$</span><span class="va">id</span> <span class="co"># get id</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> id: d4f91a39-bcb9-47af-8bbc-bf62db84ef35</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> id: 19bc1177-f1a5-4400-a465-63d5a0d48e15</span>
 <span class="r-in"><span class="va">p4</span><span class="op">$</span><span class="fu">validate</span><span class="op">(</span><span class="cn">NA</span><span class="op">)</span> <span class="co"># check if NA is a validate input</span></span>
 <span class="r-in"><span class="va">p4</span><span class="op">$</span><span class="fu">validate</span><span class="op">(</span><span class="fl">8.9</span><span class="op">)</span> <span class="co"># check if 8.9 is a validate input</span></span>
 <span class="r-in"><span class="va">p4</span><span class="op">$</span><span class="fu">set</span><span class="op">(</span><span class="fl">8.9</span><span class="op">)</span> <span class="co"># change value to 8.9</span></span>
@@ -235,7 +237,7 @@ values of zero or one.</p></dd>
 <span class="r-in"><span class="va">p5</span><span class="op">$</span><span class="fu">get</span><span class="op">(</span><span class="op">)</span> <span class="co"># get value</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 6</span>
 <span class="r-in"><span class="va">p5</span><span class="op">$</span><span class="va">id</span> <span class="co"># get id</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> id: 12bb63df-e9cd-4342-a38c-a512e4b19e2d</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> id: 406fdc58-f887-43e1-a55e-a9baf3781b16</span>
 <span class="r-in"><span class="va">p5</span><span class="op">$</span><span class="fu">validate</span><span class="op">(</span><span class="op">-</span><span class="fl">10</span><span class="op">)</span> <span class="co"># check if -10 is a validate input</span></span>
 <span class="r-in"><span class="va">p5</span><span class="op">$</span><span class="fu">validate</span><span class="op">(</span><span class="fl">90</span><span class="op">)</span> <span class="co"># check if 90 is a validate input</span></span>
 <span class="r-in"><span class="va">p5</span><span class="op">$</span><span class="fu">set</span><span class="op">(</span><span class="fl">90</span><span class="op">)</span> <span class="co"># change value to 8.9</span></span>
@@ -256,7 +258,7 @@ values of zero or one.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer></div>

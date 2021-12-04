@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.7</span>
       </span>
     </div>
 
@@ -239,7 +239,7 @@
 <span class="co">## 6 213.7636     FALSE      FALSE</span></code></pre>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># plot the planning units</span>
-<span class="fu"><a href="https://rdrr.io/pkg/raster/man/spplot.html" class="external-link">spplot</a></span><span class="op">(</span><span class="va">sim_pu_polygons</span>, zcol <span class="op">=</span> <span class="st">"cost"</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/pkg/sp/man/spplot.html" class="external-link">spplot</a></span><span class="op">(</span><span class="va">sim_pu_polygons</span>, zcol <span class="op">=</span> <span class="st">"cost"</span><span class="op">)</span></code></pre></div>
 <p><img src="package_overview_files/figure-html/unnamed-chunk-4-1.png" width="700" style="display: block; margin: auto;"></p>
 <p>Thirdly, we will load some planning unit data stored in tabular format (i.e., <code>data.frame</code> format). For those familiar with <em>Marxan</em> or dealing with very large conservation planning problems (&gt; 10 million planning units), it may be useful to work with data in this format because it does not contain any spatial information which will reduce computational burden. When using tabular data to initialize conservation planning problems, the data must follow the conventions used by <em>Marxan</em>. Specifically, each row in the planning unit table must correspond to a different planning unit. The table must also have an “id” column to provide a unique integer identifier for each planning unit, and it must also have a column that indicates the cost of each planning unit. For more information, please see the <a href="https://marxansolutions.org/" class="external-link">official <em>Marxan</em> documentation</a>.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
@@ -859,8 +859,8 @@
 <span class="co">##   objective:      Minimum set objective </span>
 <span class="co">##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]</span>
 <span class="co">##   decisions:      default</span>
-<span class="co">##   constraints:    &lt;Locked out planning units [10 locked units]</span>
-<span class="co">##                    Locked in planning units [10 locked units]&gt;</span>
+<span class="co">##   constraints:    &lt;Locked in planning units [10 locked units]</span>
+<span class="co">##                    Locked out planning units [10 locked units]&gt;</span>
 <span class="co">##   penalties:      &lt;none&gt;</span>
 <span class="co">##   portfolio:      default</span>
 <span class="co">##   solver:         default</span></code></pre>
@@ -1407,7 +1407,7 @@
 <span class="co">## Cutting planes:</span>
 <span class="co">##   Gomory: 3</span>
 <span class="co">## </span>
-<span class="co">## Explored 7 nodes (489 simplex iterations) in 0.08 seconds (0.10 work units)</span>
+<span class="co">## Explored 7 nodes (489 simplex iterations) in 0.09 seconds (0.10 work units)</span>
 <span class="co">## Thread count was 1 (of 8 available processors)</span>
 <span class="co">## </span>
 <span class="co">## Solution count 5: 2604.74 2730.95 2790.87 ... 20287.2</span>
@@ -1430,7 +1430,7 @@
 <code class="sourceCode R"><span class="co"># extract time spent solving solution</span>
 <span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s40</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">## solution_1 </span>
-<span class="co">##      0.082</span></code></pre>
+<span class="co">##      0.097</span></code></pre>
 <div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># extract state message from the solver that describes why this specific</span>
 <span class="co"># solution was returned</span>
@@ -1638,8 +1638,8 @@
 <span class="co">##   objective:      Minimum set objective </span>
 <span class="co">##   targets:        Relative targets [targets (min: 0.3, max: 0.3)]</span>
 <span class="co">##   decisions:      default</span>
-<span class="co">##   constraints:    &lt;Locked out planning units [1 locked units]</span>
-<span class="co">##                    Locked in planning units [317 locked units]&gt;</span>
+<span class="co">##   constraints:    &lt;Locked in planning units [317 locked units]</span>
+<span class="co">##                    Locked out planning units [1 locked units]&gt;</span>
 <span class="co">##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (1), zones]&gt;</span>
 <span class="co">##   portfolio:      default</span>
 <span class="co">##   solver:         default</span></code></pre>
@@ -1676,8 +1676,8 @@
 <span class="co">##   objective:      Minimum set objective </span>
 <span class="co">##   targets:        Relative targets [targets (min: 0.3, max: 0.3)]</span>
 <span class="co">##   decisions:      default</span>
-<span class="co">##   constraints:    &lt;Locked out planning units [1 locked units]</span>
-<span class="co">##                    Locked in planning units [317 locked units]&gt;</span>
+<span class="co">##   constraints:    &lt;Locked in planning units [317 locked units]</span>
+<span class="co">##                    Locked out planning units [1 locked units]&gt;</span>
 <span class="co">##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (0), zones]&gt;</span>
 <span class="co">##   portfolio:      default</span>
 <span class="co">##   solver:         default</span></code></pre>
@@ -1788,7 +1788,7 @@ Williams, P., Gibbons, D., Margules, C., Rebelo, A., Humphries, C. &amp; Pressey
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.9000.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>

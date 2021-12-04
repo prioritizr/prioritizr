@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.7</span>
       </span>
     </div>
 
@@ -170,8 +170,8 @@
 <p>Now we will conduct some preliminary processing. Specifically, we will aggregate from the 100 m resolution to the 300 m resolution. This is to reduce the time needed to generate prioritizations in this tutorial. In practice, we generally recommend consider other criteria too – such as the spatial scale that is relevant for decision making and the resolution of available datasets – when deciding on an appropriate scale for planning units.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># aggregate data to coarser resolution</span>
-<span class="va">salt_pu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/aggregate.html" class="external-link">aggregate</a></span><span class="op">(</span><span class="va">salt_pu</span>, fact <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
-<span class="va">salt_features</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/aggregate.html" class="external-link">aggregate</a></span><span class="op">(</span><span class="va">salt_features</span>, fact <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></code></pre></div>
+<span class="va">salt_pu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/sp/man/aggregate.html" class="external-link">aggregate</a></span><span class="op">(</span><span class="va">salt_pu</span>, fact <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
+<span class="va">salt_features</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/sp/man/aggregate.html" class="external-link">aggregate</a></span><span class="op">(</span><span class="va">salt_features</span>, fact <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></code></pre></div>
 <p>Next, let’s have a look at the <code>salt_pu</code> object. Here each grid cell represents a planning unit, and the grid cell values denote acquisition costs <span class="citation">(BC Assessment 2015)</span>. To aid with visualization, we will log-transform the values when plotting them on a map.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># print planning unit data</span>
@@ -642,7 +642,7 @@ Watts, M.E., Ball, I.R., Stewart, R.S., Klein, C.J., Wilson, K., Steinback, C., 
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.9000.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>

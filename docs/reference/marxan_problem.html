@@ -11,7 +11,7 @@ exact algorithms and not simulated annealing (i.e., the Marxan software)."><meta
   gtag('js', new Date());
 
   gtag('config', 'UA-70466840-4');
-</script><!-- dependencies from examples --></head><body data-spy="scroll" data-target="#toc">
+</script></head><body data-spy="scroll" data-target="#toc">
     
 
     <div class="container template-reference-topic">
@@ -26,7 +26,7 @@ exact algorithms and not simulated annealing (i.e., the Marxan software)."><meta
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.7</span>
       </span>
     </div>
 
@@ -107,7 +107,8 @@ mathematical formulations used in <em>Marxan</em> (detailed in Beyer
 exact algorithms and not simulated annealing (i.e., the <em>Marxan</em> software).</p>
     </div>
 
-    <div id="ref-usage">Usage,<div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">marxan_problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
+    <div id="ref-usage">
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">marxan_problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
 
 <span class="co"># S3 method for default</span>
 <span class="fu">marxan_problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
@@ -116,7 +117,8 @@ exact algorithms and not simulated annealing (i.e., the <em>Marxan</em> software
 <span class="fu">marxan_problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">spec</span>, <span class="va">puvspr</span>, bound <span class="op">=</span> <span class="cn">NULL</span>, blm <span class="op">=</span> <span class="fl">0</span>, <span class="va">...</span><span class="op">)</span>
 
 <span class="co"># S3 method for character</span>
-<span class="fu">marxan_problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></code></pre></div></div>
+<span class="fu">marxan_problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
@@ -233,7 +235,9 @@ default argument is zero.</p></dd>
     <div id="details">
     <h2>Details</h2>
     <p>This function is provided as a convenient wrapper for solving
-<em>Marxan</em> problems using <span class="pkg">prioritizr</span>.</p>
+<em>Marxan</em> problems using the <span class="pkg">prioritizr</span> package.
+Please note that it requires installation of the <span class="pkg">data.table</span> package
+to import <em>Marxan</em> data files.</p>
     </div>
     <div id="notes">
     <h2>Notes</h2>
@@ -264,10 +268,12 @@ for <em>Marxan</em> input data, see the
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># create Marxan problem using Marxan input file</span></span>
+<span class="r-in"><span class="co"># (note this example requires the data.table package to be installed)</span></span>
+<span class="r-in"><span class="co"># \dontrun{</span></span>
 <span class="r-in"><span class="va">input_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/input.dat"</span>, package <span class="op">=</span> <span class="st">"prioritizr"</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu">marxan_problem</span><span class="op">(</span><span class="va">input_file</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
 <span class="r-in">      <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># \dontrun{</span></span>
+<span class="r-in"></span>
 <span class="r-in"><span class="co"># solve problem</span></span>
 <span class="r-in"><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></span>
 <span class="r-in"></span>
@@ -280,8 +286,9 @@ for <em>Marxan</em> input data, see the
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 58  1695902.1      0 1116623 -4500408     FALSE      FALSE          0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5 84  3422025.6      0 1098623 -4503872     FALSE      FALSE          0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6 85 17890758.4      0 1110623 -4503872     FALSE      FALSE          0</span>
-<span class="r-in"><span class="co"># }</span></span>
+<span class="r-in"></span>
 <span class="r-in"><span class="co"># create Marxan problem using data.frames that have been loaded into R</span></span>
+<span class="r-in"><span class="co"># (note this example also requires the data.table package to be installed)</span></span>
 <span class="r-in"><span class="co">## load in planning unit data</span></span>
 <span class="r-in"><span class="va">pu_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/input/pu.dat"</span>, package <span class="op">=</span> <span class="st">"prioritizr"</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">pu_dat</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/fread.html" class="external-link">fread</a></span><span class="op">(</span><span class="va">pu_path</span>, data.table <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
@@ -334,7 +341,7 @@ for <em>Marxan</em> input data, see the
 <span class="r-in"><span class="co"># create problem without the boundary data</span></span>
 <span class="r-in"><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu">marxan_problem</span><span class="op">(</span><span class="va">pu_dat</span>, <span class="va">spec_dat</span>, <span class="va">puvspr_dat</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
 <span class="r-in">      <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># \dontrun{</span></span>
+<span class="r-in"></span>
 <span class="r-in"><span class="co"># solve problem</span></span>
 <span class="r-in"><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span>
 <span class="r-in"></span>
@@ -347,12 +354,12 @@ for <em>Marxan</em> input data, see the
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 58  1695902.1      0 1116623 -4500408     FALSE      FALSE          0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5 84  3422025.6      0 1098623 -4503872     FALSE      FALSE          0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6 85 17890758.4      0 1110623 -4503872     FALSE      FALSE          0</span>
-<span class="r-in"><span class="co"># }</span></span>
+<span class="r-in"></span>
 <span class="r-in"><span class="co"># create problem with the boundary data and a boundary length modifier</span></span>
 <span class="r-in"><span class="co"># set to 5</span></span>
 <span class="r-in"><span class="va">p3</span> <span class="op">&lt;-</span> <span class="fu">marxan_problem</span><span class="op">(</span><span class="va">pu_dat</span>, <span class="va">spec_dat</span>, <span class="va">puvspr_dat</span>, <span class="va">bound_dat</span>, <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
 <span class="r-in">      <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># \dontrun{</span></span>
+<span class="r-in"></span>
 <span class="r-in"><span class="co"># solve problem</span></span>
 <span class="r-in"><span class="va">s3</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span></span>
 <span class="r-in"></span>
@@ -380,7 +387,7 @@ for <em>Marxan</em> input data, see the
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer></div>

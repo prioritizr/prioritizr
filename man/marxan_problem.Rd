@@ -114,7 +114,9 @@ exact algorithms and not simulated annealing (i.e., the \emph{Marxan} software).
 }
 \details{
 This function is provided as a convenient wrapper for solving
-\emph{Marxan} problems using \pkg{prioritizr}.
+\emph{Marxan} problems using the \pkg{prioritizr} package.
+Please note that it requires installation of the \pkg{data.table} package
+to import \emph{Marxan} data files.
 }
 \section{Notes}{
 
@@ -125,17 +127,20 @@ connectivity, please see the \code{\link[=add_connectivity_penalties]{add_connec
 
 \examples{
 # create Marxan problem using Marxan input file
+# (note this example requires the data.table package to be installed)
+\dontrun{
 input_file <- system.file("extdata/input.dat", package = "prioritizr")
 p1 <- marxan_problem(input_file) \%>\%
       add_default_solver(verbose = FALSE)
-\dontrun{
+
 # solve problem
 s1 <- solve(p1)
 
 # print solution
 head(s1)
-}
+
 # create Marxan problem using data.frames that have been loaded into R
+# (note this example also requires the data.table package to be installed)
 ## load in planning unit data
 pu_path <- system.file("extdata/input/pu.dat", package = "prioritizr")
 pu_dat <- data.table::fread(pu_path, data.table = FALSE)
@@ -160,18 +165,18 @@ head(bound_dat)
 # create problem without the boundary data
 p2 <- marxan_problem(pu_dat, spec_dat, puvspr_dat) \%>\%
       add_default_solver(verbose = FALSE)
-\dontrun{
+
 # solve problem
 s2 <- solve(p2)
 
 # print solution
 head(s2)
-}
+
 # create problem with the boundary data and a boundary length modifier
 # set to 5
 p3 <- marxan_problem(pu_dat, spec_dat, puvspr_dat, bound_dat, 5) \%>\%
       add_default_solver(verbose = FALSE)
-\dontrun{
+
 # solve problem
 s3 <- solve(p3)
 

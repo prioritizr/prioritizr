@@ -1,6 +1,6 @@
 Package: prioritizr
 Type: Package
-Version: 7.1.1.6
+Version: 7.1.1.7
 Title: Systematic Conservation Prioritization in R
 Description:
     Systematic conservation prioritization using mixed integer linear
@@ -48,47 +48,47 @@ Authors@R:
 Imports:
     utils,
     methods,
-    assertthat (>= 0.2.0),
-    data.table,
-    uuid,
-    Matrix,
-    slam (>= 0.1-48),
-    igraph,
-    ape,
-    rgeos,
-    plyr,
     parallel,
-    doParallel,
-    magrittr,
+    Matrix,
+    assertthat (>= 0.2.0),
+    uuid (>= 1.0-3),
+    slam (>= 0.1-48),
+    igraph (>= 1.2.9),
+    ape (>= 5.5),
+    rgeos (>= 0.5-8),
+    plyr (>= 1.8.6),
+    doParallel (>= 1.0.16),
+    magrittr (>= 2.0.1),
     fasterize (>= 1.0.2),
     exactextractr (>= 0.2.0),
     tibble (>= 2.0.0),
     withr (>= 2.3.0)
 Suggests:
-    testthat,
-    knitr,
-    roxygen2,
-    scales,
-    RandomFields,
-    maptools,
-    PBSmapping,
-    gurobi,
+    testthat (>= 3.1.0),
+    knitr (>= 1.36),
+    roxygen2 (>= 7.1.2),
+    scales (>= 1.1.1),
+    RandomFields (>= 3.3.13),
+    maptools (>= 1.1-2),
+    PBSmapping (>= 2.73.0),
+    gurobi (>= 8.0-1),
     rcbc (>= 0.1.0.9001),
     cplexAPI (>= 1.4.0),
-    lpsymphony,
-    Rsymphony,
-    rmarkdown,
-    prioritizrdata (>= 0.2.4)
+    lpsymphony (>= 1.17.0),
+    Rsymphony (>= 0.1-31),
+    rmarkdown (>= 2.11),
+    prioritizrdata (>= 0.2.4),
+    data.table (>= 1.14.2)
 Depends:
     R (>= 3.5.0),
-    raster,
     sp,
+    raster (>= 3.5-2),
     sf (>= 0.8-0),
-    proto
+    proto (>= 1.0.0)
 LinkingTo:
-    Rcpp,
-    RcppArmadillo (>= 0.10.1.0.0),
-    BH
+    Rcpp (>= 1.0.7),
+    RcppArmadillo (>= 0.10.7.3.0),
+    BH (>= 1.75.0-0)
 License: GPL-3
 Language: en-US
 Encoding: UTF-8

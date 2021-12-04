@@ -1,3 +1,11 @@
+# prioritizr 7.1.1.7
+
+- Minimum version numbers are now provided for all R package dependencies
+  (excepting base R packages) (#217).
+- The _data.table_ package is now listed as a suggested (optional) dependency.
+  This is because it is only used by the `marxan_problem()` for importing
+  _Marxan_ data files.
+
 # prioritizr 7.1.1.6
 
 - Update publication record.

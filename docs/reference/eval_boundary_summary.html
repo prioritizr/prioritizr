@@ -11,7 +11,7 @@ planning units selected within a solution."><meta property="og:image" content="h
   gtag('js', new Date());
 
   gtag('config', 'UA-70466840-4');
-</script><!-- dependencies from examples --></head><body data-spy="scroll" data-target="#toc">
+</script></head><body data-spy="scroll" data-target="#toc">
     
 
     <div class="container template-reference-topic">
@@ -26,7 +26,7 @@ planning units selected within a solution."><meta property="og:image" content="h
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.7</span>
       </span>
     </div>
 
@@ -107,7 +107,8 @@ This summary statistic is useful for evaluating the spatial fragmentation of
 planning units selected within a solution.</p>
     </div>
 
-    <div id="ref-usage">Usage,<div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">eval_boundary_summary</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
+    <div id="ref-usage">
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">eval_boundary_summary</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
 
 <span class="co"># S3 method for default</span>
 <span class="fu">eval_boundary_summary</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
@@ -120,7 +121,8 @@ planning units selected within a solution.</p>
   zones <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fu"><a href="number_of_zones.html">number_of_zones</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>,
   data <span class="op">=</span> <span class="cn">NULL</span>,
   <span class="va">...</span>
-<span class="op">)</span></code></pre></div></div>
+<span class="op">)</span></code></pre></div>
+    </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
@@ -376,7 +378,7 @@ boundary length.</p>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># plot solution</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s1</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-plt"><img src="eval_boundary_summary-1.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="eval_boundary_summary-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># calculate boundary associated with the solution</span></span>
 <span class="r-in"><span class="va">r1</span> <span class="op">&lt;-</span> <span class="fu">eval_boundary_summary</span><span class="op">(</span><span class="va">p1</span>, <span class="va">s1</span><span class="op">)</span></span>
@@ -413,7 +415,7 @@ boundary length.</p>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># plot solution</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s2</span><span class="op">[</span>, <span class="st">"solution_1"</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-plt"><img src="eval_boundary_summary-2.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="eval_boundary_summary-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># calculate boundary associated with the solution</span></span>
 <span class="r-in"><span class="va">r2</span> <span class="op">&lt;-</span> <span class="fu">eval_boundary_summary</span><span class="op">(</span><span class="va">p2</span>, <span class="va">s2</span><span class="op">[</span>, <span class="st">"solution_1"</span><span class="op">]</span><span class="op">)</span></span>
@@ -465,7 +467,7 @@ boundary length.</p>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># plot solution</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s3</span><span class="op">[</span>, <span class="st">"solution"</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-plt"><img src="eval_boundary_summary-3.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="eval_boundary_summary-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># calculate boundary associated with the solution</span></span>
 <span class="r-in"><span class="co"># here we will use the default argument for zones which treats each</span></span>
@@ -521,7 +523,7 @@ boundary length.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer></div>

@@ -12,7 +12,7 @@ cost data) using the feature_abundances() function."><meta property="og:image" c
   gtag('js', new Date());
 
   gtag('config', 'UA-70466840-4');
-</script><!-- dependencies from examples --></head><body data-spy="scroll" data-target="#toc">
+</script></head><body data-spy="scroll" data-target="#toc">
     
 
     <div class="container template-reference-topic">
@@ -27,7 +27,7 @@ cost data) using the feature_abundances() function."><meta property="og:image" c
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.7</span>
       </span>
     </div>
 
@@ -109,7 +109,8 @@ are scaled according to the features' total abundances in the study area
 cost data) using the <code><a href="feature_abundances.html">feature_abundances()</a></code> function.</p>
     </div>
 
-    <div id="ref-usage">Usage,<div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">add_relative_targets</span><span class="op">(</span><span class="va">x</span>, <span class="va">targets</span><span class="op">)</span>
+    <div id="ref-usage">
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">add_relative_targets</span><span class="op">(</span><span class="va">x</span>, <span class="va">targets</span><span class="op">)</span>
 
 <span class="co"># S4 method for ConservationProblem,numeric</span>
 <span class="fu">add_relative_targets</span><span class="op">(</span><span class="va">x</span>, <span class="va">targets</span><span class="op">)</span>
@@ -118,7 +119,8 @@ cost data) using the <code><a href="feature_abundances.html">feature_abundances(
 <span class="fu">add_relative_targets</span><span class="op">(</span><span class="va">x</span>, <span class="va">targets</span><span class="op">)</span>
 
 <span class="co"># S4 method for ConservationProblem,character</span>
-<span class="fu">add_relative_targets</span><span class="op">(</span><span class="va">x</span>, <span class="va">targets</span><span class="op">)</span></code></pre></div></div>
+<span class="fu">add_relative_targets</span><span class="op">(</span><span class="va">x</span>, <span class="va">targets</span><span class="op">)</span></code></pre></div>
+    </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
@@ -225,7 +227,7 @@ This argument must contain a field (column) name for each zone.</p></dd>
 <span class="r-in"><span class="co"># plot solution</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"10% targets"</span>, <span class="st">"varying targets"</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span class="r-in">     box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-plt"><img src="add_relative_targets-1.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="add_relative_targets-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span class="co"># }</span></span>
 <span class="r-in"><span class="co"># create a problem with multiple management zones</span></span>
 <span class="r-in"><span class="va">p3</span> <span class="op">&lt;-</span> <span class="fu"><a href="problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_zones_stack</span>, <span class="va">sim_features_zones</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
@@ -255,7 +257,7 @@ This argument must contain a field (column) name for each zone.</p></dd>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># plot solution (pixel values correspond to zone identifiers)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s4</span><span class="op">)</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"equal targets"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-plt"><img src="add_relative_targets-2.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="add_relative_targets-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span class="co"># }</span></span>
 <span class="r-in"><span class="co"># create a problem with targets that require a varying amount of each</span></span>
 <span class="r-in"><span class="co"># feature to be represented in each zone</span></span>
@@ -278,7 +280,7 @@ This argument must contain a field (column) name for each zone.</p></dd>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># plot solution (pixel values correspond to zone identifiers)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s5</span><span class="op">)</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"varying targets"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-plt"><img src="add_relative_targets-3.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="add_relative_targets-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span class="co"># }</span></span>
 <span class="r-in"></span>
 </code></pre></div>
@@ -295,7 +297,7 @@ This argument must contain a field (column) name for each zone.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer></div>

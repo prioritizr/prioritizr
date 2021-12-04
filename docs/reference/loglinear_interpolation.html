@@ -8,7 +8,7 @@
   gtag('js', new Date());
 
   gtag('config', 'UA-70466840-4');
-</script><!-- dependencies from examples --></head><body data-spy="scroll" data-target="#toc">
+</script></head><body data-spy="scroll" data-target="#toc">
     
 
     <div class="container template-reference-topic">
@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.7</span>
       </span>
     </div>
 
@@ -101,13 +101,15 @@
     <p>Log-linearly interpolate values between two thresholds.</p>
     </div>
 
-    <div id="ref-usage">Usage,<div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">loglinear_interpolation</span><span class="op">(</span>
+    <div id="ref-usage">
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">loglinear_interpolation</span><span class="op">(</span>
   <span class="va">x</span>,
   <span class="va">coordinate_one_x</span>,
   <span class="va">coordinate_one_y</span>,
   <span class="va">coordinate_two_x</span>,
   <span class="va">coordinate_two_y</span>
-<span class="op">)</span></code></pre></div></div>
+<span class="op">)</span></code></pre></div>
+    </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
@@ -150,7 +152,7 @@ the minimum and maximum <em>y</em> coordinates.</p>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># add the reference points to the plot (shown in red)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">200</span>, <span class="fl">900</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">15</span><span class="op">)</span>, pch <span class="op">=</span> <span class="fl">18</span>, col <span class="op">=</span> <span class="st">"red"</span>, cex <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span class="r-plt"><img src="loglinear_interpolation-1.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="loglinear_interpolation-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span class="co"># }</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># this function can also be used to calculate representation targets</span></span>
@@ -180,7 +182,7 @@ the minimum and maximum <em>y</em> coordinates.</p>
 <span class="r-in"><span class="co"># plot species range sizes and representation targets</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">spp_target_percentage_butchart</span> <span class="op">~</span> <span class="va">spp_range_size_km2</span>,</span>
 <span class="r-in">  xlab <span class="op">=</span> <span class="st">"Range size km^2"</span> , ylab <span class="op">=</span> <span class="st">"Representation target (%)"</span>, type <span class="op">=</span> <span class="st">"l"</span><span class="op">)</span></span>
-<span class="r-plt"><img src="loglinear_interpolation-2.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="loglinear_interpolation-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># plot species range sizes and representation targets on a log10 scale</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">spp_target_percentage_butchart</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log10</a></span><span class="op">(</span><span class="va">spp_range_size_km2</span><span class="op">)</span>,</span>
@@ -188,7 +190,7 @@ the minimum and maximum <em>y</em> coordinates.</p>
 <span class="r-in">  type <span class="op">=</span> <span class="st">"l"</span>, xaxt <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/axis.html" class="external-link">axis</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/pretty.html" class="external-link">pretty</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log10</a></span><span class="op">(</span><span class="va">spp_range_size_km2</span><span class="op">)</span><span class="op">)</span>,</span>
 <span class="r-in">     <span class="fl">10</span><span class="op">^</span><span class="fu"><a href="https://rdrr.io/r/base/pretty.html" class="external-link">pretty</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log10</a></span><span class="op">(</span><span class="va">spp_range_size_km2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> </span>
-<span class="r-plt"><img src="loglinear_interpolation-3.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="loglinear_interpolation-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
@@ -204,7 +206,7 @@ the minimum and maximum <em>y</em> coordinates.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer></div>

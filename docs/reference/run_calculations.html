@@ -12,7 +12,7 @@ means that the same calculations will not be run multiple times."><meta property
   gtag('js', new Date());
 
   gtag('config', 'UA-70466840-4');
-</script><!-- dependencies from examples --></head><body data-spy="scroll" data-target="#toc">
+</script></head><body data-spy="scroll" data-target="#toc">
     
 
     <div class="container template-reference-topic">
@@ -27,7 +27,7 @@ means that the same calculations will not be run multiple times."><meta property
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.7</span>
       </span>
     </div>
 
@@ -109,7 +109,9 @@ the same pre-processing steps (e.g., calculating boundary data), because
 means that the same calculations will not be run multiple times.</p>
     </div>
 
-    <div id="ref-usage">Usage,<div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">run_calculations</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div></div>
+    <div id="ref-usage">
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">run_calculations</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
+    </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
@@ -177,10 +179,10 @@ anything. To use this function with <code><a href="pipe.html">pipe()</a></code> 
 <span class="r-in"><span class="co"># now lets compare the times</span></span>
 <span class="r-in"><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">s1</span><span class="op">)</span> <span class="co"># time spent without running preliminary calculations</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    user  system elapsed </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1.185   0.013   1.221 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1.308   0.029   1.361 </span>
 <span class="r-in"><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">s2</span><span class="op">)</span> <span class="co"># time spent after running preliminary calculations</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    user  system elapsed </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1.148   0.030   1.258 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1.237   0.010   1.274 </span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># As we can see, we can save time by running the preliminary</span></span>
 <span class="r-in"><span class="co"># calculations before making copies of the problem with slightly</span></span>
@@ -202,7 +204,7 @@ anything. To use this function with <code><a href="pipe.html">pipe()</a></code> 
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer></div>
