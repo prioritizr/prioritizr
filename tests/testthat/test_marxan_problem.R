@@ -1,6 +1,7 @@
 context("marxan_problem")
 
 test_that("character (compile)", {
+  skip_if_not_installed("data.table")
   # make and compile problem
   path <- system.file("extdata/input.dat", package = "prioritizr")
   p <- marxan_problem(path)
@@ -40,6 +41,7 @@ test_that("character (compile)", {
 test_that("character (solve)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
+  skip_if_not_installed("data.table")
   # make problem
   path <- system.file("extdata/input.dat", package = "prioritizr")
   p <- marxan_problem(path) %>%
@@ -55,6 +57,7 @@ test_that("character (solve)", {
 test_that("character (solve, absolute INPUTDIR path)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
+  skip_if_not_installed("data.table")
   # set up input.dat with absolute file paths
   path <- file.path(tempfile(fileext = ".dat"))
   f <- readLines(system.file("extdata/input.dat", package = "prioritizr"))
@@ -75,6 +78,7 @@ test_that("character (solve, absolute INPUTDIR path)", {
 test_that("character (solve, absolute file paths)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
+  skip_if_not_installed("data.table")
   # set up input.dat with absolute file paths
   path <- file.path(tempfile(fileext = ".dat"))
   f <- readLines(system.file("extdata/input.dat", package = "prioritizr"))
@@ -102,6 +106,7 @@ test_that("character (solve, absolute file paths)", {
 })
 
 test_that("data.frame (compile, boundary penalties)", {
+  skip_if_not_installed("data.table")
   # load data
   wd <- system.file("extdata/input", package = "prioritizr")
   pu_data <- read.table(file.path(wd, "pu.dat"), header = TRUE, sep = ",")
@@ -138,6 +143,7 @@ test_that("data.frame (compile, boundary penalties)", {
 })
 
 test_that("data.frame (compile, no boundary penalties)", {
+  skip_if_not_installed("data.table")
   # load data
   wd <- system.file("extdata/input", package = "prioritizr")
   pu_data <- read.table(file.path(wd, "pu.dat"), header = TRUE, sep = ",")
@@ -173,6 +179,7 @@ test_that("data.frame (compile, no boundary penalties)", {
 test_that("data.frame (solve, boundary penalties)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
+  skip_if_not_installed("data.table")
   # make problem
   path <- system.file("extdata/input.dat", package = "prioritizr")
   wd <- system.file("extdata/input", package = "prioritizr")
@@ -195,6 +202,7 @@ test_that("data.frame (solve, boundary penalties)", {
 test_that("data.frame (solve, no boundary penalties)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
+  skip_if_not_installed("data.table")
   # make problem
   path <- system.file("extdata/input.dat", package = "prioritizr")
   wd <- system.file("extdata/input", package = "prioritizr")
@@ -213,6 +221,7 @@ test_that("data.frame (solve, no boundary penalties)", {
 })
 
 test_that("invalid inputs", {
+  skip_if_not_installed("data.table")
   # load data
   wd <- system.file("extdata/input", package = "prioritizr")
   p <- read.table(file.path(wd, "pu.dat"), header = TRUE, sep = ",")
