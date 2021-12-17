@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.8</span>
       </span>
     </div>
 
@@ -384,7 +384,7 @@
   pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"purple"</span>, <span class="st">"grey90"</span>, <span class="st">"darkgreen"</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
 <p><img src="calibrating_trade-offs_tutorial_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;"></p>
-<p>We now have a set of candidate prioritizations generated using the blended approach. The main advantages of this approach is that it is similar calibration analyses used by other decision support tools for conservation (i.e., <em>Marxan</em>) and it is relatively straightforward to implement. However, this approach also has a key disadvantage. Because the <code>penalty</code> parameter is a unitless trade-off parameter – meaning that we can’t leverage existing knowledge to specify a suitable range of <code>penalty</code> values – we first have to conduct a preliminary analysis to identify an upper limit. Although finding an upper limit was fairly simple for the example datset, it can be difficult to find for more realistic data. In the next section, we will show how to generate a set of candidate prioritzations using the hierachical approach – which does not have this disadvantage.</p>
+<p>We now have a set of candidate prioritizations generated using the blended approach. The main advantages of this approach is that it is similar calibration analyses used by other decision support tools for conservation (i.e., <em>Marxan</em>) and it is relatively straightforward to implement. However, this approach also has a key disadvantage. Because the <code>penalty</code> parameter is a unitless trade-off parameter – meaning that we can’t leverage existing knowledge to specify a suitable range of <code>penalty</code> values – we first have to conduct a preliminary analysis to identify an upper limit. Although finding an upper limit was fairly simple for the example dataset, it can be difficult to find for more realistic data. In the next section, we will show how to generate a set of candidate prioritizations using the hierarchical approach – which does not have this disadvantage.</p>
 </div>
 <div class="section level3">
 <h3 id="hierarchical-approach">Hierarchical approach<a class="anchor" aria-label="anchor" href="#hierarchical-approach"></a>

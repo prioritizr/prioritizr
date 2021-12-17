@@ -57,100 +57,90 @@ navbar:
 
 reference:
   - title: Overview
-    desc: Overview of the package
+    desc: Overview of the package.
     contents:
       - prioritizr
 
   - title: Create and solve problems
-    desc: Functions for creating new problems and solving them
+    desc: Functions for creating new problems and solving them.
     contents:
       - problem
       - marxan_problem
       - solve
 
   - title: Data
-    desc: Simulated datasets distributed with the package
+    desc: Simulated datasets distributed with the package.
     contents:
       - sim_data
 
   - title: Objectives
-    desc: Functions for adding an objective to a problem
+    desc: Functions for adding an objective to a problem.
     contents:
       - objectives
-      - ends_with("_objective")
-      - -has_keyword("deprecated")
+      - has_concept("objectives")
 
   - title: Targets
-    desc: Functions for adding targets to a problem
+    desc: Functions for adding targets to a problem.
     contents:
       - targets
-      - ends_with("_targets")
-      - -has_keyword("deprecated")
+      - has_concept("targets")
 
   - title: Constraints
-    desc: Functions for adding constraints to a problem
+    desc: Functions for adding constraints to a problem.
     contents:
       - constraints
-      - ends_with("_constraints")
-      - -has_keyword("deprecated")
+      - has_concept("constraints")
 
   - title: Penalties
-    desc: Functions for adding penalties to a problem
+    desc: Functions for adding penalties to a problem.
     contents:
       - penalties
-      - ends_with("_penalties")
+      - has_concept("penalties")
       - add_feature_weights
-      - -has_keyword("deprecated")
 
   - title: Decisions
-    desc: Functions for specifying the type of decisions in a problem
+    desc: Functions for specifying the type of decisions in a problem.
     contents:
       - decisions
-      - ends_with("_decisions")
-      - -has_keyword("deprecated")
+      - has_concept("decisions")
 
   - title: Solvers
-    desc: Functions for specifying how a problem should be solved
+    desc: Functions for specifying how a problem should be solved.
     contents:
       - solvers
-      - ends_with("_solver")
-      - -has_keyword("deprecated")
+      - has_concept("solvers")
 
   - title: Portfolios
-    desc: Functions for generating a portfolio of solutions
+    desc: Functions for generating a portfolio of solutions.
     contents:
       - portfolios
-      - ends_with("_portfolio")
-      - -has_keyword("deprecated")
+      - has_concept("portfolios")
 
   - title: Summary statistics
-    desc: Functions for summarizing the performance of solutions
+    desc: Functions for summarizing the performance of solutions.
     contents:
       - summaries
-      - ends_with("_summary")
-      - -has_keyword("deprecated")
+      - has_concept("summaries")
 
   - title: Importance
-    desc: Functions for calculating importance scores for a solution
+    desc: Functions for calculating importance scores for a solution.
     contents:
       - importance
-      - ends_with("_importance")
-      - -has_keyword("deprecated")
+      - has_concept("importances")
 
   - title: Data simulation
-    desc: Functions for simulating new datasets
+    desc: Functions for simulating new datasets.
     contents:
       - starts_with("simulate_")
-      - -has_keyword("deprecated")
 
   - title: Geoprocessing
-    desc: Functions for manipulating spatial datasets
+    desc: Functions for manipulating spatial datasets.
     contents:
       - fast_extract
       - intersecting_units
 
   - title: Processing multi-zone data
-    desc: Functions for manipulating data that pertain to multiple zones
+    desc: Functions for manipulating data that pertain to multiple zones.
     contents:
     - category_layer
     - category_vector
@@ -159,13 +149,17 @@ reference:
   - title: Matrix functions
     desc: >
      Functions for creating matrices that are used in conservation planning
-     problems for use in planning problems
+     problems.
     contents:
-      - ends_with("_matrix")
-      - -has_keyword("deprecated")
+      - adjacency_matrix
+      - boundary_matrix
+      - branch_matrix
+      - connectivity_matrix
+      - proximity_matrix
+      - rij_matrix
 
   - title: Problem manipulation functions
-    desc: Functions for extracting information from problems
+    desc: Functions for extracting information from problems.
     contents:
       - number_of_features
       - number_of_planning_units
@@ -176,7 +170,7 @@ reference:
       - zone_names
 
   - title: Miscellaneous functions
-    desc: Assorted functions distributed with the package
+    desc: Assorted functions distributed with the package.
     contents:
       - print
       - show
@@ -190,12 +184,11 @@ reference:
       - run_calculations
       - distribute_load
       - write_problem
+      - marxan_boundary_data_to_matrix
 
   - title: Class definitions and methods
     desc: >
-     These pages document the package's internal data structures and functions
-     for manipulating them---they contain information that is really only
-     useful when adding new functionality to the package
+     Documentation for internal data structures and associated functions.
     contents:
       - new_id
       - new_waiver
@@ -208,13 +201,12 @@ reference:
 
   - title: Parameter definitions
     desc: >
-      These pages document the package's internal data structures for
-      representing different types of variables---they contain information that
-      is really only useful when adding new functionality to the package
+      Documentation for internal structures that describe input parameters.
     contents:
       - contains("_parameter")
       - parameters
 
   - title: Deprecated functions
+    desc: Documentation for functions that are no longer available.
     contents:
       - prioritizr-deprecated

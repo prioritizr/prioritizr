@@ -18,6 +18,7 @@ This vignette contains a list of publications that have cited or used the _prior
 
 ### 2022
 
+* [Burbano-Girón J, Jantke K, Molina-Berbeo MA, Buriticá-Mejía N, Urbina-Cardona JN, Sánchez-Clavijo LM, and Etter A (2022) An assessment of spatial conservation priorities for biodiversity attributes: Composition, structure, and function of Neotropical biodiversity. _Biological Conservation_, **265**: 109421.](https://doi.org/10.1016/j.biocon.2021.109421)
 * [de Zwaan DR, Alavi N, Mitchell GW, Lapen DR, Duffe J, and Wilson S (2022) Balancing conservation priorities for grassland and forest specialist bird communities in agriculturally dominated landscapes. _Biological Conservation_, **265**, 109402.](https://doi.org/10.1016/j.biocon.2021.109402)
 
 ### 2021

@@ -831,7 +831,7 @@ rc41 <- p41 %>%
 # plot replacement cost scores
 plot(rc41, main = "Replacement cost scores")
 ```
-* __Ferrier method__: Evaluate importance by computing irreplaceability scores following Ferrier *et al.* [@r-34]. The advantages of this method are that it (i) can be computed relatively quickly for moderate and large-sized problems, and (ii) calculates a score for each feature within each planning unit to provide insight into why certain planning units are more important than others. The disadvatange with this method is that it can only be applied to conservation problems with a minimum set objective and a single zone (i.e., similar to _Marxan_-type problems).
+* __Ferrier method__: Evaluate importance by computing irreplaceability scores following Ferrier *et al.* [@r-34]. The advantages of this method are that it (i) can be computed relatively quickly for moderate and large-sized problems, and (ii) calculates a score for each feature within each planning unit to provide insight into why certain planning units are more important than others. The disadvantage with this method is that it can only be applied to conservation problems with a minimum set objective and a single zone (i.e., similar to _Marxan_-type problems).
 ```{r, fig.height = h, fig.width = w}
 # calculate Ferrier scores and extract total score
 fs41 <- eval_ferrier_importance(p40, s40)[["total"]]

@@ -149,9 +149,9 @@ eval_n_summary.ConservationProblem <- function(x, solution) {
   if (x$number_of_zones() > 1) {
     out <- tibble::tibble(
       summary = c("overall", zone_names(x)),
-      cost = c(total_n, unname(colSums(solution))))
+      n = c(total_n, unname(colSums(solution))))
   } else {
-    out <- tibble::tibble(summary = "overall", cost = total_n)
+    out <- tibble::tibble(summary = "overall", n = total_n)
   }
   # return result
   out

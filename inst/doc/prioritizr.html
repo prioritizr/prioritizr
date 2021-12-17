@@ -273,7 +273,7 @@ div.csl-indent {
 ## Found heuristic solution: objective 37703.827706
 ## Found heuristic solution: objective 27817.085072
 ## Presolve removed 2077 rows and 1375 columns
-## Presolve time: 0.04s
+## Presolve time: 0.03s
 ## Presolved: 4281 rows, 2903 columns, 9594 nonzeros
 ## Found heuristic solution: objective 24454.499456
 ## Variable types: 0 continuous, 2903 integer (2903 binary)
@@ -432,7 +432,7 @@ div.csl-indent {
 </div>
 <div id="portfolios" class="section level2">
 <h2>Portfolios</h2>
-<p>Conservation planning exercises often involve generating multiple different prioritizations. This can help decision makers consider different options, and provide starting points for building consensus among stakeholders. To generate a range of different prioritizations given the same problem formulation, we can use portfolio functions. Here we will use the gap portfolio to generate 1000 solutions that are within 30% of optimality. Please note that you will need to have the <em>Gurobi</em> solver installed to use this specific portfolio. If you don’thave access to <em>Gurobi</em>, you could try using the shuffle portfolio instead (using the <code>add_shuffle_portfolio()</code> function).</p>
+<p>Conservation planning exercises often involve generating multiple different prioritizations. This can help decision makers consider different options, and provide starting points for building consensus among stakeholders. To generate a range of different prioritizations given the same problem formulation, we can use portfolio functions. Here we will use the gap portfolio to generate 1000 solutions that are within 30% of optimality. Please note that you will need to have the <em>Gurobi</em> solver installed to use this specific portfolio. If you don’t have access to <em>Gurobi</em>, you could try using the shuffle portfolio instead (using the <code>add_shuffle_portfolio()</code> function).</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create new problem with a portfolio added to it</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> p1 <span class="sc">%&gt;%</span></span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">add_gap_portfolio</span>(<span class="at">number_solutions =</span> <span class="dv">1000</span>, <span class="at">pool_gap =</span> <span class="fl">0.2</span>)</span>
@@ -472,7 +472,7 @@ div.csl-indent {
 ## Root relaxation presolved: 4924 rows, 4020 columns, 10889 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.954728e+04, 1905 iterations, 0.13 seconds (0.18 work units)
+## Root relaxation: objective 1.954728e+04, 1905 iterations, 0.12 seconds (0.18 work units)
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -515,23 +515,23 @@ div.csl-indent {
 ## H  162   162                    21202.636805 19996.6237  5.69%   104    4s
 ## H  286   286                    21166.904542 19996.6237  5.53%  69.2    4s
 ## H  606   599                    20993.604430 19996.6237  4.75%  32.8    6s
-##    623    10 20993.6044  209 1656 20993.6044 20012.9571  4.67%  32.0   10s
-##    652     7 20993.6044  492 1964 20993.6044 20029.9069  4.59%  37.6   15s
-##    684    20 20351.7330   30 1609 20993.6044 20082.6816  4.34%  48.7   20s
-## H  750    81                    20939.026645 20082.6816  4.09%  61.7   24s
-##    842   175 21486.4069  135   93 20939.0266 20082.6816  4.09%  63.8   25s
-## H 1231   560                    20924.385117 20082.6816  4.02%  44.7   27s
-##   1280   611 20557.3943   49 1564 20924.3851 20084.4398  4.01%  54.3   30s
-## H 1975  1297                    20813.687049 20092.6890  3.46%  50.6   33s
-##   2427  1749 20135.2054   28 1770 20813.6870 20099.7124  3.43%  42.7   35s
-##   3110  2430 20523.2877   35 1772 20813.6870 20109.8128  3.38%  43.5   40s
-##   4037  3204          -  390      20813.6870 20110.2720  3.38%  41.7   45s
-##   4954  3804 20984.5090   35 1580 20813.6870 20148.6068  3.20%  39.1   50s
-##   5233  3815 20705.6943   49  546 20813.6870 20155.9610  3.16%  42.0   55s
-##   6020  4503 20295.4699   31 1912 20813.6870 20167.5494  3.10%  40.7   60s
-##   6129  4610 20999.4413   58 1356 20813.6870 20171.2638  3.09%  43.8   65s
-##   6941  4615 20381.5035   31 1889 20813.6870 20193.4398  2.98%  42.2   70s
-##   7226  4709 20510.4513   32 1931 20813.6870 20195.9413  2.97%  43.6   75s
+##    626    12 20993.6044  580 1963 20993.6044 20015.3884  4.66%  31.8   10s
+##    651     8 20993.6044  348 1965 20993.6044 20028.7300  4.60%  37.6   15s
+##    662    13 20993.6044   74 1964 20993.6044 20031.4177  4.58%  37.0   20s
+##    723    56 20559.4179   49  907 20993.6044 20082.6816  4.34%  58.3   25s
+## H  750    81                    20939.026645 20082.6816  4.09%  61.7   25s
+## H 1231   560                    20924.385117 20082.6816  4.02%  44.7   29s
+##   1238   569 20174.8720   28 1642 20924.3851 20084.4398  4.01%  47.1   30s
+##   1912  1241 20841.5324   43 1149 20924.3851 20092.6890  3.97%  49.6   35s
+## H 1975  1297                    20813.687049 20092.6890  3.46%  50.6   35s
+##   2633  1955 22197.8065  190  123 20813.6870 20099.7124  3.43%  48.1   40s
+##   3658  2926 20440.8113   32 1909 20813.6870 20110.2720  3.38%  42.3   45s
+##   4765  3710 21582.8394  103  526 20813.6870 20148.3760  3.20%  39.4   50s
+##   5194  3776 20246.3125   28 1773 20813.6870 20155.9610  3.16%  40.3   55s
+##   5708  4239 21202.7868   95  589 20813.6870 20166.6830  3.11%  42.2   60s
+##   6128  4609 20992.8998   57 1321 20813.6870 20171.2638  3.09%  43.8   65s
+##   6962  4636 21229.1370   52 1391 20813.6870 20193.4398  2.98%  42.5   70s
+##   7258  4741 20891.8421   48 1381 20813.6870 20195.9413  2.97%  44.7   75s
 ## 
 ## Cutting planes:
 ##   Gomory: 7
@@ -543,7 +543,7 @@ div.csl-indent {
 ##   Zero half: 22
 ##   RLT: 24
 ## 
-## Explored 7780 nodes (344017 simplex iterations) in 79.89 seconds (80.68 work units)
+## Explored 7780 nodes (344017 simplex iterations) in 77.63 seconds (80.68 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 1000: 20813.7 20924.4 20939 ... 22439.4
@@ -660,8 +660,8 @@ div.csl-indent {
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.3, max: 0.3)]
 ##   decisions:      default
-##   constraints:    &lt;Locked in planning units [317 locked units]
-##                    Locked out planning units [1 locked units]&gt;
+##   constraints:    &lt;Locked out planning units [1 locked units]
+##                    Locked in planning units [317 locked units]&gt;
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (5e-04), zones]&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
@@ -682,7 +682,7 @@ div.csl-indent {
 ##          to avoid numerical issues.
 ## Found heuristic solution: objective 1.221185e+10
 ## Presolve removed 4707 rows and 3103 columns
-## Presolve time: 0.06s
+## Presolve time: 0.05s
 ## Presolved: 5368 rows, 3677 columns, 12704 nonzeros
 ## Variable types: 0 continuous, 3677 integer (3677 binary)
 ## Found heuristic solution: objective 1.009922e+10
@@ -696,7 +696,7 @@ div.csl-indent {
 ## 
 ##      0     0 9.5646e+09    0   20 1.0099e+10 9.5646e+09  5.29%     -    0s
 ## 
-## Explored 1 nodes (493 simplex iterations) in 0.09 seconds (0.10 work units)
+## Explored 1 nodes (493 simplex iterations) in 0.06 seconds (0.10 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 2: 1.00992e+10 1.22118e+10 

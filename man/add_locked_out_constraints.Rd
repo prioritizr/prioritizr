@@ -256,6 +256,7 @@ Other constraints:
 \code{\link{add_locked_in_constraints}()},
 \code{\link{add_mandatory_allocation_constraints,ConservationProblem-method}},
 \code{\link{add_manual_bounded_constraints}()},
-\code{\link{add_manual_locked_constraints}()}
+\code{\link{add_manual_locked_constraints}()},
+\code{\link{add_neighbor_constraints}()}
 }
 \concept{constraints}

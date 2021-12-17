@@ -194,9 +194,8 @@ conservation. \emph{European Journal of Operational Research}, 231:
 514--534.
 }
 \seealso{
-See \link{constraints} for an overview of all functions for adding constraints.
-
 Other constraints: 
+\code{\link{add_contiguity_constraints}()},
 \code{\link{add_feature_contiguity_constraints}()},
 \code{\link{add_linear_constraints}()},
 \code{\link{add_locked_in_constraints}()},
@@ -205,3 +204,4 @@ Other constraints:
 \code{\link{add_manual_bounded_constraints}()},
 \code{\link{add_manual_locked_constraints}()}
 }
+\concept{constraints}

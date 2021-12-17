@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.8</span>
       </span>
     </div>
 
@@ -452,7 +452,7 @@
 <div class="section level3">
 <h3 id="boundary-penalties">Boundary penalties<a class="anchor" aria-label="anchor" href="#boundary-penalties"></a>
 </h3>
-<p>Boundary penalties can be added to used to reduce the spatial fragmentation of prioritizations (using the <code><a href="../reference/add_boundary_penalties.html">add_boundary_penalties()</a></code> function). Specifically, these penalties update the problem formulation to penalize solutions that have a high total amount of exposed boundary length <span class="citation">(Ball <em>et al.</em> 2009)</span>. Since boundary data often have large values which can degrade solver performance and result in excessive run times (see the <a href="calibrating_trade-offs-tutorial.html"><em>Calibrating trade-offs tutorial</em></a> for details), we will first precompute rescale the boundry data.</p>
+<p>Boundary penalties can be added to used to reduce the spatial fragmentation of prioritizations (using the <code><a href="../reference/add_boundary_penalties.html">add_boundary_penalties()</a></code> function). Specifically, these penalties update the problem formulation to penalize solutions that have a high total amount of exposed boundary length <span class="citation">(Ball <em>et al.</em> 2009)</span>. Since boundary data often have large values which can degrade solver performance and result in excessive run times (see the <a href="calibrating_trade-offs-tutorial.html"><em>Calibrating trade-offs tutorial</em></a> for details), we will first precompute rescale the boundary data.</p>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># precompute the boundary data</span>
 <span class="va">salt_boundary_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/boundary_matrix.html">boundary_matrix</a></span><span class="op">(</span><span class="va">salt_pu</span><span class="op">)</span>
@@ -552,7 +552,7 @@
 <div class="section level2">
 <h2 id="conclusion">Conclusion<a class="anchor" aria-label="anchor" href="#conclusion"></a>
 </h2>
-<p>Hopefully, this tutorial has provided a helpful introduction for incorporating connectivity into prioritizations. Broadly speaking, we recommend using the boundary penalties or the connectivity penalties to ensure that prioritizations explicitly account for the spatial configuration of selected planning units. Additionally, though not fully explored here, the connectivity penalties are a very flexible approach for promoting connectivity. For instance, in addition to parameterizing pair-wise connectivity scores for neighboring planning units, they can also be used to parametrize pair-wise connectivity scores between more distant planning units. Thus connectivity penalties could be used to parametrize connectivity across both small scales and large spatial scales (e.g., using a scaling procedure wherein connectivity scores between pairs of planning units decline with the distance between them).</p>
+<p>Hopefully, this tutorial has provided a helpful introduction for incorporating connectivity into prioritizations. Broadly speaking, we recommend using the boundary penalties or the connectivity penalties to ensure that prioritizations explicitly account for the spatial configuration of selected planning units. Additionally, though not fully explored here, the connectivity penalties are a very flexible approach for promoting connectivity. For instance, in addition to parametrizing pair-wise connectivity scores for neighboring planning units, they can also be used to parametrize pair-wise connectivity scores between more distant planning units. Thus connectivity penalties could be used to parametrize connectivity across both small scales and large spatial scales (e.g., using a scaling procedure wherein connectivity scores between pairs of planning units decline with the distance between them).</p>
 </div>
 <div class="section level2 unnumbered">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>

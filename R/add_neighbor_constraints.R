@@ -101,6 +101,8 @@ NULL
 #' conservation. *European Journal of Operational Research*, 231:
 #' 514--534.
 #'
+#' @family constraints
+#'
 #' @examples
 #' # load data
 #' data(sim_pu_raster, sim_features, sim_pu_zones_stack, sim_features_zones)

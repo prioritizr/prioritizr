@@ -176,7 +176,7 @@ plot(st_as_sf(irrep_s1[, "plot_total"]), main = "Overall importance")
 
 ## Portfolios
 
-Conservation planning exercises often involve generating multiple different prioritizations. This can help decision makers consider different options, and provide starting points for building consensus among stakeholders. To generate a range of different prioritizations given the same problem formulation, we can use portfolio functions. Here we will use the gap portfolio to generate 1000 solutions that are within 30% of optimality. Please note that you will need to have the *Gurobi* solver installed to use this specific portfolio. If you don'thave access to *Gurobi*, you could try using the shuffle portfolio instead (using the `add_shuffle_portfolio()` function).
+Conservation planning exercises often involve generating multiple different prioritizations. This can help decision makers consider different options, and provide starting points for building consensus among stakeholders. To generate a range of different prioritizations given the same problem formulation, we can use portfolio functions. Here we will use the gap portfolio to generate 1000 solutions that are within 30% of optimality. Please note that you will need to have the *Gurobi* solver installed to use this specific portfolio. If you don't have access to *Gurobi*, you could try using the shuffle portfolio instead (using the `add_shuffle_portfolio()` function).
 
 ```{r}
 # create new problem with a portfolio added to it

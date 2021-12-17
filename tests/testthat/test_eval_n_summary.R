@@ -16,7 +16,7 @@ test_that("binary values (single zone)", {
   # create correct result
   r2 <- tibble::tibble(
     summary = "overall",
-    cost = sum(s[, 1], na.rm = TRUE))
+    n = sum(s[, 1], na.rm = TRUE))
   # run tests
   expect_equal(r1, r2)
 })
@@ -35,14 +35,14 @@ test_that("binary values (multiple zones)", {
   # create a solution
   s <- matrix(c(rep(c(0, 1), 5), rep(c(1, 0), 5)), ncol = 2)
   s[is.na(as.matrix(pu[, c("cost_1", "cost_2")]))] <- NA_real_
-  # calculate cost
+  # calculate n
   r1 <- eval_n_summary(p, s)
   # create correct result
   pos <- which(!is.na(pu$cost_1) | !is.na(pu$cost_2))
   v <- c(sum(s[, 1], na.rm = TRUE), sum(s[, 2], na.rm = TRUE))
   r2 <- tibble::tibble(
     summary = c("overall", "1", "2"),
-    cost = c(sum(v), v))
+    n = c(sum(v), v))
   # run tests
   expect_equal(r1, r2)
 })
@@ -58,12 +58,12 @@ test_that("proportion values (single zone)", {
   # create a solution
   s <- matrix(runif(10), ncol = 1)
   s[is.na(pu$cost)] <- NA_real_
-  # calculate cost
+  # calculate n
   r1 <- eval_n_summary(p, s)
   # create correct result
   r2 <- tibble::tibble(
     summary = "overall",
-    cost = sum(s[, 1], na.rm = TRUE))
+    n = sum(s[, 1], na.rm = TRUE))
   # run tests
   expect_equal(r1, r2)
 })
@@ -82,14 +82,14 @@ test_that("proportion values (multiple zones)", {
   # create a solution
   s <- matrix(runif(20), ncol = 2)
   s[is.na(as.matrix(pu[, c("cost_1", "cost_2")]))] <- NA_real_
-  # calculate cost
+  # calculate n
   r1 <- eval_n_summary(p, s)
   # create correct result
   pos <- which(!is.na(pu$cost_1) | !is.na(pu$cost_2))
   v <- c(sum(s[, 1], na.rm = TRUE), sum(s[, 2], na.rm = TRUE))
   r2 <- tibble::tibble(
     summary = c("overall", "1", "2"),
-    cost = c(sum(v), v))
+    n = c(sum(v), v))
   # run tests
   expect_equal(r1, r2)
 })

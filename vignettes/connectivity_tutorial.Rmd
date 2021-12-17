@@ -363,7 +363,7 @@ Now let's explore approaches for promoting connectivity in prioritizations by ad
 
 ### Boundary penalties
 
-Boundary penalties can be added to used to reduce the spatial fragmentation of prioritizations (using the `add_boundary_penalties()` function). Specifically, these penalties update the problem formulation to penalize solutions that have a high total amount of exposed boundary length [@r3]. Since boundary data often have large values which can degrade solver performance and result in excessive run times (see the [_Calibrating trade-offs tutorial_](calibrating_trade-offs-tutorial.html) for details), we will first precompute rescale the boundry data.
+Boundary penalties can be added to used to reduce the spatial fragmentation of prioritizations (using the `add_boundary_penalties()` function). Specifically, these penalties update the problem formulation to penalize solutions that have a high total amount of exposed boundary length [@r3]. Since boundary data often have large values which can degrade solver performance and result in excessive run times (see the [_Calibrating trade-offs tutorial_](calibrating_trade-offs-tutorial.html) for details), we will first precompute rescale the boundary data.
 
 ```{r}
 # precompute the boundary data
@@ -482,6 +482,6 @@ We can see that increasing the `penalty` parameter causes the prioritizations to
 
 ## Conclusion
 
-Hopefully, this tutorial has provided a helpful introduction for incorporating connectivity into prioritizations. Broadly speaking, we recommend using the boundary penalties or the connectivity penalties to ensure that prioritizations explicitly account for the spatial configuration of selected planning units. Additionally, though not fully explored here, the connectivity penalties are a very flexible approach for promoting connectivity. For instance, in addition to parameterizing pair-wise connectivity scores for neighboring planning units, they can also be used to parametrize pair-wise connectivity scores between more distant planning units. Thus connectivity penalties could be used to parametrize connectivity across both small scales and large spatial scales (e.g., using a scaling procedure wherein connectivity scores between pairs of planning units decline with the distance between them).
+Hopefully, this tutorial has provided a helpful introduction for incorporating connectivity into prioritizations. Broadly speaking, we recommend using the boundary penalties or the connectivity penalties to ensure that prioritizations explicitly account for the spatial configuration of selected planning units. Additionally, though not fully explored here, the connectivity penalties are a very flexible approach for promoting connectivity. For instance, in addition to parametrizing pair-wise connectivity scores for neighboring planning units, they can also be used to parametrize pair-wise connectivity scores between more distant planning units. Thus connectivity penalties could be used to parametrize connectivity across both small scales and large spatial scales (e.g., using a scaling procedure wherein connectivity scores between pairs of planning units decline with the distance between them).
 
 ## References
