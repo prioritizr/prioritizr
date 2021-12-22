@@ -16,11 +16,6 @@ NULL
 #' a minimum set objective and a single zone.
 #' It will throw an error for problems that do not meet this criteria.
 #'
-#' **Please note that
-#' the mathematical formulation for computing these scores needs verification,
-#' and so this functionality should be considered experimental at this point in
-#' time.**
-#'
 #' @section Notes:
 #' In previous versions, the documentation for this function had a warning
 #' indicating that the mathematical formulation for this function required

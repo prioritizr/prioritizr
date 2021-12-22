@@ -1,3 +1,9 @@
+# prioritizr 7.1.1.9
+
+- Update documentation for `eval_ferrier_importance()` (#220). Although this
+  function is now recommended for general use, the documentation
+  contained an outdated warning and so the warning has now been removed.
+
 # prioritizr 7.1.1.8
 
 - Update publication record.

@@ -54,11 +54,6 @@ calculated as the sum of the scores for each feature.
 Note that this function only works for problems with
 a minimum set objective and a single zone.
 It will throw an error for problems that do not meet this criteria.
-
-\strong{Please note that
-the mathematical formulation for computing these scores needs verification,
-and so this functionality should be considered experimental at this point in
-time.}
 }
 \section{Notes}{
 
