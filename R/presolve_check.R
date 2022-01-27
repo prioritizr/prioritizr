@@ -104,7 +104,7 @@ NULL
 #' @return `logical` value indicating if all checks are passed
 #'   successfully.
 #'
-#' @seealso [problem()], [solve()], <https://www.gurobi.com/documentation/9.1/refman/numerics_gurobi_guidelines.html>.
+#' @seealso [problem()], [solve()], <https://www.gurobi.com/documentation/9.5/refman/numerics_gurobi_guidelines.html>.
 #'
 #' @examples
 #' # set seed for reproducibility
