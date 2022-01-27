@@ -19,7 +19,8 @@ This vignette contains a list of publications that have cited or used the _prior
 ### 2022
 
 * [Burbano-Girón J, Jantke K, Molina-Berbeo MA, Buriticá-Mejía N, Urbina-Cardona JN, Sánchez-Clavijo LM, and Etter A (2022) An assessment of spatial conservation priorities for biodiversity attributes: Composition, structure, and function of Neotropical biodiversity. _Biological Conservation_, **265**: 109421.](https://doi.org/10.1016/j.biocon.2021.109421)
-* [de Zwaan DR, Alavi N, Mitchell GW, Lapen DR, Duffe J, and Wilson S (2022) Balancing conservation priorities for grassland and forest specialist bird communities in agriculturally dominated landscapes. _Biological Conservation_, **265**, 109402.](https://doi.org/10.1016/j.biocon.2021.109402)
+* [Chung HI, Choi Y, Yoo Y, Engler R, Lee K, and Jeon SW (2022) Integrated spatial model based evaluation methodology for optimal invasive species management: common ragweed in the Republic of Korea. _Environmental Research Letters_, **In press**: DOI:10.1088/1748-9326/ac4dc7.](https://doi.org/10.1088/1748-9326/ac4dc7)
+* [de Zwaan DR, Alavi N, Mitchell GW, Lapen DR, Duffe J, and Wilson S (2022) Balancing conservation priorities for grassland and forest specialist bird communities in agriculturally dominated landscapes. _Biological Conservation_, **265**: 109402.](https://doi.org/10.1016/j.biocon.2021.109402)
 
 ### 2021
 
@@ -35,7 +36,7 @@ This vignette contains a list of publications that have cited or used the _prior
 * [von Takach B, Penton CE, Murphy BP, Radford IJ, Davies HF, Hill BM, and Banks SC (2021) Population genomics and conservation management of a declining tropical rodent. _Heredity_, **126**: 763--775.](https://doi.org/10.1038/s41437-021-00418-9)
 * [Wilson S, Lin H-Y, Schuster R, González AM, Gómez C, Botero‐Delgadillo E, Bayly NJ, Bennett JR, Rodewald AD, Roehrdanz P, and Ruiz Gutierrez V (2021) Opportunities for the conservation of migratory birds to benefit threatened resident vertebrates in the Neotropics. _Journal of Applied Ecology_, **In press**: DOI:10.1111/1365-2664.14077.](https://doi.org/10.1111/1365-2664.14077)
 * [Xuereb A, D'Aloia CC, Andrello M, Bernatchez L, and Fortin M-J (2021), Incorporating putatively neutral and adaptive genomic data into marine conservation planning. _Conservation Biology_, **35**: 909--920.](https://doi.org/10.1111/cobi.13609)
-* [Zheng C, Wen Z, Liu Y, Guo Q, Jiang Y, Ren H, Fan Y, and Yang Y (2021) Integrating habitat suitability and the near-nature restoration priorities into revegetation plans Based on potential vegetation distribution. _Forests_, **12**: 218.](https://doi.org/10.3390/f12020218)
+* [Zheng C, Wen Z, Liu Y, Guo Q, Jiang Y, Ren H, Fan Y, and Yang Y (2021) Integrating habitat suitability and the near-nature restoration priorities into revegetation plans Based on potential vegetation distribution. _Forests_, **12**: 218.](https://www.mdpi.com/1999-4907/12/2/218)
 
 ### 2020
 * [Bryant BP, Kelsey TR, Vogl AL, Wolny SA, MacEwan DJ, Selmants PC, Biswas T, and Butterfield HS (2020) Shaping land use change and ecosystem restoration in a water-stressed agricultural landscape to achieve multiple benefits. _Frontiers in Sustainable Food Systems_, **4**: 138.](https://doi.org/10.3389/fsufs.2020.00138)

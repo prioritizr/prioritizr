@@ -12,19 +12,19 @@ on:
       - main
       - master
 
-name: Windows
+name: Documentation
 
 jobs:
-  R-CMD-check:
+  docs:
     runs-on: ${{ matrix.config.os }}
 
-    name: ${{ matrix.config.os }} (${{ matrix.config.r }})
+    name: docs
 
     strategy:
       fail-fast: false
       matrix:
         config:
-          - {os: windows-latest, r: 'release'}
+          - {os: ubuntu-20.04, r: 'release', pkgs: 'all'}
 
     env:
       _R_REMOTES_NO_ERRORS_FROM_WARNINGS_: true
@@ -50,14 +50,31 @@ jobs:
           writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
         shell: Rscript {0}
 
+      - name: Cache R packages
+        if: runner.os != 'Windows'
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.R_LIBS_USER }}
+          key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
+          restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get -y install \
+            libcurl4-openssl-dev coinor-libsymphony-dev coinor-libcbc-dev coinor-libclp-dev \
+            libudunits2-dev libgdal-dev libgeos-dev libproj-dev libglpk-dev
+          while read -r cmd
+          do
+            eval sudo $cmd
+          done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "20.04"))')
+
       - name: Install dependencies
         run: |
-          options("install.packages.compile.from.source" = "never", pkgType = "binary")
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("rcmdcheck")
           remotes::install_cran("covr")
-          options("install.packages.compile.from.source" = NULL)
-          install.packages("raster", type = "source")
+          remotes::install_bioc("lpsymphony")
+          remotes::install_cran("urlchecker")
         shell: Rscript {0}
 
       - name: Session information
@@ -67,19 +84,17 @@ jobs:
           sessioninfo::session_info(pkgs, include_base = TRUE)
         shell: Rscript {0}
 
-      - name: Check
+      - name: Set environmental variables for package checks
+        if: matrix.config.pkgs == 'depends only'
         run: |
-          rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran", "--no-build-vignettes"), error_on = "warning", check_dir = "check")
+          echo "_R_CHECK_DEPENDS_ONLY_=true" >> $GITHUB_ENV
+
+      - name: Check URLs
+        if: runner.os == 'Linux' && matrix.config.r == 'release'
+        run: |
+          result <- urlchecker::url_check()
+          if (nrow(result) > 0) {
+            print(result)
+            stop("Invalid URLs detected")
+          }
         shell: Rscript {0}
-
-      - name: Show testthat output
-        if: always()
-        run: find check -name 'testthat.Rout*' -exec cat '{}' \; || true
-        shell: bash
-
-      - name: Upload check results
-        if: failure()
-        uses: actions/upload-artifact@main
-        with:
-          name: ${{ runner.os }}-r${{ matrix.config.r }}-results
-          path: check

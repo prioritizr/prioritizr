@@ -108,16 +108,6 @@ jobs:
         run: find check -name 'testthat.Rout*' -exec cat '{}' \; || true
         shell: bash
 
-      - name: Check URLs
-        if: runner.os == 'Linux' && matrix.config.r == 'release'
-        run: |
-          result <- urlchecker::url_check()
-          if (nrow(result) > 0) {
-            print(result)
-            stop("Invalid URLs detected")
-          }
-        shell: Rscript {0}
-
       - name: Test coverage
         if: runner.os == 'Linux' && matrix.config.r == 'release'
         run: covr::codecov()

@@ -26,7 +26,7 @@ pair-wise connectivity values between combinations of planning units."><meta pro
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.10</span>
       </span>
     </div>
 
@@ -147,10 +147,12 @@ values favor solutions with weak connectivity. The default argument to
 <code>zones</code> is an identity matrix (i.e., a matrix with ones along the
 matrix diagonal and zeros elsewhere), so that planning units are
 only considered to be connected when they are allocated to the same zone.
-This argument is required when the argument to <code>data</code> is a
-<code>matrix</code> or <code>Matrix</code> object. If the argument to <code>data</code> is
-an <code>array</code> or <code>data.frame</code> with zone data, this argument
-must explicitly be set to <code>NULL</code> otherwise an error will be thrown.</p></dd>
+This argument is required when working with multiple zones and the
+argument to <code>data</code> is a <code>matrix</code> or <code>Matrix</code> object.
+If the argument to <code>data</code> is an <code>array</code> or <code>data.frame</code> with data for
+multiple zones (e.g., using the <code>"zone1"</code> and <code>"zone2"</code> column names),
+this argument must explicitly be set to <code>NULL</code> otherwise an error will be
+thrown.</p></dd>
 <dt>data</dt>
 <dd><p><code>matrix</code>, <code>Matrix</code>, <code>data.frame</code>, or
 <code>array</code> object containing connectivity data. The connectivity values
@@ -520,7 +522,7 @@ connectivity.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer></div>

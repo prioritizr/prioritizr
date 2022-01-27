@@ -12,7 +12,7 @@ on:
       - main
       - master
 
-name: Mac OSX
+name: macOS
 
 jobs:
   R-CMD-check:

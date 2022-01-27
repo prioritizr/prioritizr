@@ -1,3 +1,10 @@
+# prioritizr 7.1.1.10
+
+- Fix broken links in documentation.
+- Update publication vignette.
+- Improve documentation for the `zones` parameter of the
+  `add_connectivity_penalties()` function.
+
 # prioritizr 7.1.1.9
 
 - Update documentation for `eval_ferrier_importance()` (#220). Although this
