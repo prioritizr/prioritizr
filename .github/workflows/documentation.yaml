@@ -25,8 +25,6 @@ jobs:
       matrix:
         config:
           - {os: ubuntu-20.04, r: 'release', pkgs: 'all'}
-          - {os: ubuntu-20.04, r: 'devel', pkgs: 'all'}
-          - {os: ubuntu-20.04, r: 'devel', pkgs: 'depends only'}
 
     env:
       _R_REMOTES_NO_ERRORS_FROM_WARNINGS_: true
@@ -91,24 +89,12 @@ jobs:
         run: |
           echo "_R_CHECK_DEPENDS_ONLY_=true" >> $GITHUB_ENV
 
-      - name: Check
-        run: |
-          rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran", "--no-build-vignettes"), error_on = "warning", check_dir = "check")
-        shell: Rscript {0}
-
-      - name: Upload check results
-        if: failure()
-        uses: actions/upload-artifact@main
-        with:
-          name: ${{ runner.os }}-r${{ matrix.config.r }}-results
-          path: check
-
-      - name: Show testthat output
-        if: always()
-        run: find check -name 'testthat.Rout*' -exec cat '{}' \; || true
-        shell: bash
-
-      - name: Test coverage
+      - name: Check URLs
         if: runner.os == 'Linux' && matrix.config.r == 'release'
-        run: covr::codecov()
+        run: |
+          result <- urlchecker::url_check()
+          if (nrow(result) > 0) {
+            print(result)
+            stop("Invalid URLs detected")
+          }
         shell: Rscript {0}

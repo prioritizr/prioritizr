@@ -8,15 +8,15 @@
 <!-- badges: start -->
 
 [![lifecycle](https://img.shields.io/badge/Lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html)
-[![R-CMD-check-Ubuntu](https://img.shields.io/github/workflow/status/prioritizr/prioritizr/Ubuntu/master.svg?label=Ubuntu)](https://github.com/prioritizr/prioritizr/actions)
-[![R-CMD-check-Windows](https://img.shields.io/github/workflow/status/prioritizr/prioritizr/Windows/master.svg?label=Windows)](https://github.com/prioritizr/prioritizr/actions)
-[![R-CMD-check-Mac-OSX](https://img.shields.io/github/workflow/status/prioritizr/prioritizr/Mac%20OSX/master.svg?label=Mac%20OSX)](https://github.com/prioritizr/prioritizr/actions)
-[![Coverage
-Status](https://codecov.io/github/prioritizr/prioritizr/coverage.svg?branch=master)](https://codecov.io/github/prioritizr/prioritizr?branch=master)
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/prioritizr)](https://CRAN.R-project.org/package=prioritizr)
+[![R-CMD-check-ubuntu](https://img.shields.io/github/workflow/status/prioritizr/prioritizr/Ubuntu/master.svg?label=Ubuntu)](https://github.com/prioritizr/prioritizr/actions)
+[![R-CMD-check-windows](https://img.shields.io/github/workflow/status/prioritizr/prioritizr/Windows/master.svg?label=Windows)](https://github.com/prioritizr/prioritizr/actions)
+[![R-CMD-check-macos](https://img.shields.io/github/workflow/status/prioritizr/prioritizr/macos/master.svg?label=macOS)](https://github.com/prioritizr/prioritizr/actions)
+[![Documentation](https://img.shields.io/github/workflow/status/prioritizr/prioritizr/documentation/master.svg?label=Documentation)](https://github.com/prioritizr/prioritizr/actions)
+[![Coverage-Status](https://codecov.io/github/prioritizr/prioritizr/coverage.svg?branch=master)](https://codecov.io/github/prioritizr/prioritizr?branch=master)
+[![CRAN-Status-Badge](http://www.r-pkg.org/badges/version/prioritizr)](https://CRAN.R-project.org/package=prioritizr)
 <!-- badges: end -->
 
-The *prioritizr R* package uses integer linear programming (ILP)
+The *prioritizr R* package uses mixed integer linear programming (MILP)
 techniques to provide a flexible interface for building and solving
 conservation planning problems. It supports a broad range of objectives,
 constraints, and penalties that can be used to custom-tailor
@@ -61,16 +61,16 @@ Please cite the *prioritizr R* package when using it in publications. To
 cite the latest official version, please use:
 
 > Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Edwards BPM, Watts
-> ME, Arcese P, Bennett J, Possingham HP (2021). prioritizr: Systematic
+> ME, Arcese P, Bennett J, Possingham HP (2022). prioritizr: Systematic
 > Conservation Prioritization in R. R package version 7.1.1. Available
 > at <https://CRAN.R-project.org/package=prioritizr>.
 
 Alternatively, to cite the latest development version, please use:
 
 > Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Edwards BPM, Watts
-> ME, Arcese P, Bennett J, Possingham HP (2021). prioritizr: Systematic
-> Conservation Prioritization in R. R package version 7.1.1.9. Available
-> at <https://github.com/prioritizr/prioritizr>.
+> ME, Arcese P, Bennett J, Possingham HP (2022). prioritizr: Systematic
+> Conservation Prioritization in R. R package version 7.1.1.10.
+> Available at <https://github.com/prioritizr/prioritizr>.
 
 Additionally, we keep a [record of
 publications](https://prioritizr.net/articles/publication_record.html)
@@ -241,8 +241,7 @@ s1 <- solve(p1)
     ##      0     0 2612.52005    0   10 2747.37746 2612.52005  4.91%     -    0s
     ##      0     0 2612.54737    0   10 2747.37746 2612.54737  4.91%     -    0s
     ##      0     2 2613.31387    0   10 2747.37746 2613.31387  4.88%     -    0s
-    ## H128246  6692                    2627.6389306 2623.20411  0.17%   1.5    4s
-    ##  130147  6521 2624.60205   44    4 2627.63893 2623.52050  0.16%   1.6    5s
+    ## H128246  6692                    2627.6389306 2623.20411  0.17%   1.5    3s
     ## 
     ## Cutting planes:
     ##   Gomory: 2
@@ -250,7 +249,7 @@ s1 <- solve(p1)
     ##   StrongCG: 2
     ##   Flow cover: 1
     ## 
-    ## Explored 145469 nodes (243327 simplex iterations) in 5.58 seconds (2.59 work units)
+    ## Explored 145469 nodes (243327 simplex iterations) in 3.69 seconds (2.59 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 6: 2627.64 2747.38 2761.33 ... 3139.89
@@ -272,7 +271,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##      5.616
+    ##      3.699
 
 ``` r
 # extract state message from the solver
@@ -420,7 +419,7 @@ s2 <- solve(p2)
     ##   StrongCG: 1
     ##   Flow cover: 1
     ## 
-    ## Explored 10262 nodes (23307 simplex iterations) in 0.66 seconds (0.54 work units)
+    ## Explored 10262 nodes (23307 simplex iterations) in 0.57 seconds (0.54 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 5: 2838.26 2839.12 3021.28 ... 3027.7
@@ -500,7 +499,7 @@ s3 <- solve(p3)
     ##   GUB cover: 1
     ##   Zero half: 1
     ## 
-    ## Explored 1 nodes (221 simplex iterations) in 0.03 seconds (0.02 work units)
+    ## Explored 1 nodes (221 simplex iterations) in 0.02 seconds (0.02 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 7: 3939.6 3951.75 3960.65 ... 19567.2

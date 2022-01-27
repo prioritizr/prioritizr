@@ -43,10 +43,12 @@ values favor solutions with weak connectivity. The default argument to
 \code{zones} is an identity matrix (i.e., a matrix with ones along the
 matrix diagonal and zeros elsewhere), so that planning units are
 only considered to be connected when they are allocated to the same zone.
-This argument is required when the argument to \code{data} is a
-\code{matrix} or \code{Matrix} object. If the argument to \code{data} is
-an \code{array} or \code{data.frame} with zone data, this argument
-must explicitly be set to \code{NULL} otherwise an error will be thrown.}
+This argument is required when working with multiple zones and the
+argument to \code{data} is a \code{matrix} or \code{Matrix} object.
+If the argument to \code{data} is an \code{array} or \code{data.frame} with data for
+multiple zones (e.g., using the \code{"zone1"} and \code{"zone2"} column names),
+this argument must explicitly be set to \code{NULL} otherwise an error will be
+thrown.}
 
 \item{data}{\code{matrix}, \code{Matrix}, \code{data.frame}, or
 \code{array} object containing connectivity data. The connectivity values
