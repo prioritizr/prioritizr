@@ -12,13 +12,13 @@ on:
       - main
       - master
 
-name: Ubuntu
+name: Documentation
 
 jobs:
-  R-CMD-check:
+  docs:
     runs-on: ${{ matrix.config.os }}
 
-    name: ${{ matrix.config.os }} (${{ matrix.config.r }}) (${{ matrix.config.pkgs }} packages)
+    name: docs
 
     strategy:
       fail-fast: false
