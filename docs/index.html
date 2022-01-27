@@ -274,7 +274,7 @@
 <span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a><span class="do">##      0     0 2612.52005    0   10 2747.37746 2612.52005  4.91%     -    0s</span></span>
 <span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a><span class="do">##      0     0 2612.54737    0   10 2747.37746 2612.54737  4.91%     -    0s</span></span>
 <span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a><span class="do">##      0     2 2613.31387    0   10 2747.37746 2613.31387  4.88%     -    0s</span></span>
-<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a><span class="do">## H128246  6692                    2627.6389306 2623.20411  0.17%   1.5    3s</span></span>
+<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a><span class="do">## H128246  6692                    2627.6389306 2623.20411  0.17%   1.5    2s</span></span>
 <span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a><span class="do">## Cutting planes:</span></span>
 <span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a><span class="do">##   Gomory: 2</span></span>
@@ -282,7 +282,7 @@
 <span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a><span class="do">##   StrongCG: 2</span></span>
 <span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a><span class="do">##   Flow cover: 1</span></span>
 <span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a><span class="do">## Explored 145469 nodes (243327 simplex iterations) in 3.69 seconds (2.59 work units)</span></span>
+<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a><span class="do">## Explored 145469 nodes (243327 simplex iterations) in 3.45 seconds (2.59 work units)</span></span>
 <span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a><span class="do">## Thread count was 1 (of 8 available processors)</span></span>
 <span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a><span class="do">## Solution count 6: 2627.64 2747.38 2761.33 ... 3139.89</span></span>
@@ -298,7 +298,7 @@
 <code class="sourceCode R"><span class="co"># extract time spent solving the problem</span>
 <span class="fu"><a href="reference/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb15"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">## solution_1 </span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="do">##      3.699</span></span></code></pre></div>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="do">##      3.471</span></span></code></pre></div>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># extract state message from the solver</span>
 <span class="fu"><a href="reference/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"status"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
@@ -422,7 +422,7 @@
 <span id="cb24-76"><a href="#cb24-76" aria-hidden="true" tabindex="-1"></a><span class="do">##   StrongCG: 1</span></span>
 <span id="cb24-77"><a href="#cb24-77" aria-hidden="true" tabindex="-1"></a><span class="do">##   Flow cover: 1</span></span>
 <span id="cb24-78"><a href="#cb24-78" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb24-79"><a href="#cb24-79" aria-hidden="true" tabindex="-1"></a><span class="do">## Explored 10262 nodes (23307 simplex iterations) in 0.57 seconds (0.54 work units)</span></span>
+<span id="cb24-79"><a href="#cb24-79" aria-hidden="true" tabindex="-1"></a><span class="do">## Explored 10262 nodes (23307 simplex iterations) in 0.52 seconds (0.54 work units)</span></span>
 <span id="cb24-80"><a href="#cb24-80" aria-hidden="true" tabindex="-1"></a><span class="do">## Thread count was 1 (of 8 available processors)</span></span>
 <span id="cb24-81"><a href="#cb24-81" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb24-82"><a href="#cb24-82" aria-hidden="true" tabindex="-1"></a><span class="do">## Solution count 5: 2838.26 2839.12 3021.28 ... 3027.7</span></span>
@@ -656,8 +656,8 @@
 <li><a href="https://lifecycle.r-lib.org/articles/stages.html" class="external-link"><img src="https://img.shields.io/badge/Lifecycle-stable-brightgreen.svg" alt="lifecycle"></a></li>
 <li><a href="https://github.com/prioritizr/prioritizr/actions" class="external-link"><img src="https://img.shields.io/github/workflow/status/prioritizr/prioritizr/Ubuntu/master.svg?label=Ubuntu" alt="R-CMD-check-ubuntu"></a></li>
 <li><a href="https://github.com/prioritizr/prioritizr/actions" class="external-link"><img src="https://img.shields.io/github/workflow/status/prioritizr/prioritizr/Windows/master.svg?label=Windows" alt="R-CMD-check-windows"></a></li>
-<li><a href="https://github.com/prioritizr/prioritizr/actions" class="external-link"><img src="https://img.shields.io/github/workflow/status/prioritizr/prioritizr/macos/master.svg?label=macOS" alt="R-CMD-check-macos"></a></li>
-<li><a href="https://github.com/prioritizr/prioritizr/actions" class="external-link"><img src="https://img.shields.io/github/workflow/status/prioritizr/prioritizr/documentation/master.svg?label=Documentation" alt="Documentation"></a></li>
+<li><a href="https://github.com/prioritizr/prioritizr/actions" class="external-link"><img src="https://img.shields.io/github/workflow/status/prioritizr/prioritizr/macOS/master.svg?label=macOS" alt="R-CMD-check-macos"></a></li>
+<li><a href="https://github.com/prioritizr/prioritizr/actions" class="external-link"><img src="https://img.shields.io/github/workflow/status/prioritizr/prioritizr/Documentation/master.svg?label=Documentation" alt="Documentation"></a></li>
 <li><a href="https://codecov.io/github/prioritizr/prioritizr?branch=master" class="external-link"><img src="https://codecov.io/github/prioritizr/prioritizr/coverage.svg?branch=master" alt="Coverage-Status"></a></li>
 <li><a href="https://CRAN.R-project.org/package=prioritizr" class="external-link"><img src="http://www.r-pkg.org/badges/version/prioritizr" alt="CRAN-Status-Badge"></a></li>
 </ul>
