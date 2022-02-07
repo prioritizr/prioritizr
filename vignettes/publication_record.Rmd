@@ -18,8 +18,10 @@ This vignette contains a list of publications that have cited or used the _prior
 
 ### 2022
 
+* [Benez-Secanho FJ, Dwivedi P, Ferreira S, Hepinstall-Cymerman J, and Wenger S (2022) Trade-offs between the value of ecosystem services and connectivity among protected areas in the Upper Chattahoochee watershed. _Environmental Management_, **In press**: DOI:10.1007/s00267-021-01584-6.](https://doi.org/10.1007/s00267-021-01584-6)
 * [Burbano-Girón J, Jantke K, Molina-Berbeo MA, Buriticá-Mejía N, Urbina-Cardona JN, Sánchez-Clavijo LM, and Etter A (2022) An assessment of spatial conservation priorities for biodiversity attributes: Composition, structure, and function of Neotropical biodiversity. _Biological Conservation_, **265**: 109421.](https://doi.org/10.1016/j.biocon.2021.109421)
 * [Chung HI, Choi Y, Yoo Y, Engler R, Lee K, and Jeon SW (2022) Integrated spatial model based evaluation methodology for optimal invasive species management: common ragweed in the Republic of Korea. _Environmental Research Letters_, **In press**: DOI:10.1088/1748-9326/ac4dc7.](https://doi.org/10.1088/1748-9326/ac4dc7)
+* [Henry RC, Arneth A, Jung M, Rabin SS, Rounsevell MD, Warren F, and Alexander P (2022) Global and regional health and food security under strict conservation scenarios. _Nature Sustainability_, **In press**: DOI:10.1038/s41893-021-00844-x.](https://doi.org/10.1038/s41893-021-00844-x)
 * [de Zwaan DR, Alavi N, Mitchell GW, Lapen DR, Duffe J, and Wilson S (2022) Balancing conservation priorities for grassland and forest specialist bird communities in agriculturally dominated landscapes. _Biological Conservation_, **265**: 109402.](https://doi.org/10.1016/j.biocon.2021.109402)
 
 ### 2021
