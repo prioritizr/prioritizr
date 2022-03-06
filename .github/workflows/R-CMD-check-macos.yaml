@@ -71,6 +71,7 @@ jobs:
       - name: Install dependencies
         run: |
           options("install.packages.compile.from.source" = "never")
+          remotes::install_github("dirkschumacher/rcbc", configure.vars = "INCLUDE_DIR=/usr/local/opt/cbc/include LIB_DIR=/usr/local/opt/cbc/lib")
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("rcmdcheck")
           remotes::install_cran("covr")
