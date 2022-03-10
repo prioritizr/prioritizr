@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.12</span>
       </span>
     </div>
 
@@ -62,7 +62,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -83,7 +83,7 @@
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Tutorials
      
     <span class="caret"></span>
@@ -1371,7 +1371,7 @@
 
 <span class="co"># solve the problem (using the default solver)</span>
 <span class="va">s40</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p40</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Gurobi Optimizer version 9.5.0 build v9.5.0rc5 (linux64)</span>
+<pre><code><span class="co">## Gurobi Optimizer version 9.5.1 build v9.5.1rc2 (linux64)</span>
 <span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span>
 <span class="co">## Optimize a model with 293 rows, 234 columns and 1026 nonzeros</span>
 <span class="co">## Model fingerprint: 0xbd38144b</span>
@@ -1430,7 +1430,7 @@
 <code class="sourceCode R"><span class="co"># extract time spent solving solution</span>
 <span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s40</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">## solution_1 </span>
-<span class="co">##      0.096</span></code></pre>
+<span class="co">##      0.101</span></code></pre>
 <div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># extract state message from the solver that describes why this specific</span>
 <span class="co"># solution was returned</span>
@@ -1547,7 +1547,7 @@
 
 <span class="co"># solve the problem</span>
 <span class="va">s41</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p41</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Gurobi Optimizer version 9.5.0 build v9.5.0rc5 (linux64)</span>
+<pre><code><span class="co">## Gurobi Optimizer version 9.5.1 build v9.5.1rc2 (linux64)</span>
 <span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span>
 <span class="co">## Optimize a model with 5 rows, 90 columns and 450 nonzeros</span>
 <span class="co">## Model fingerprint: 0x6442bf6e</span>
@@ -1676,8 +1676,8 @@
 <span class="co">##   objective:      Minimum set objective </span>
 <span class="co">##   targets:        Relative targets [targets (min: 0.3, max: 0.3)]</span>
 <span class="co">##   decisions:      default</span>
-<span class="co">##   constraints:    &lt;Locked out planning units [1 locked units]</span>
-<span class="co">##                    Locked in planning units [317 locked units]&gt;</span>
+<span class="co">##   constraints:    &lt;Locked in planning units [317 locked units]</span>
+<span class="co">##                    Locked out planning units [1 locked units]&gt;</span>
 <span class="co">##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (0), zones]&gt;</span>
 <span class="co">##   portfolio:      default</span>
 <span class="co">##   solver:         default</span></code></pre>

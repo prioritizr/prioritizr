@@ -65,7 +65,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.12</span>
       </span>
     </div>
 
@@ -78,7 +78,7 @@
   <a href="reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -99,7 +99,7 @@
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Tutorials
      
     <span class="caret"></span>
@@ -176,7 +176,7 @@
 </blockquote>
 <p>Alternatively, to cite the latest development version, please use:</p>
 <blockquote>
-<p>Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Edwards BPM, Watts ME, Arcese P, Bennett J, Possingham HP (2022). prioritizr: Systematic Conservation Prioritization in R. R package version 7.1.1.11. Available at <a href="https://github.com/prioritizr/prioritizr" class="external-link uri">https://github.com/prioritizr/prioritizr</a>.</p>
+<p>Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Edwards BPM, Watts ME, Arcese P, Bennett J, Possingham HP (2022). prioritizr: Systematic Conservation Prioritization in R. R package version 7.1.1.12. Available at <a href="https://github.com/prioritizr/prioritizr" class="external-link uri">https://github.com/prioritizr/prioritizr</a>.</p>
 </blockquote>
 <p>Additionally, we keep a <a href="https://prioritizr.net/articles/publication_record.html">record of publications</a> that use the <em>prioritizr R</em> package. If you use this package in any reports or publications, please <a href="https://github.com/prioritizr/prioritizr/issues/new" class="external-link">file an issue on GitHub</a> so we can add it to the record.</p>
 </div>
@@ -235,7 +235,7 @@
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># solve the problem</span>
 <span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Gurobi Optimizer version 9.5.0 build v9.5.0rc5 (linux64)</span></span>
+<div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Gurobi Optimizer version 9.5.1 build v9.5.1rc2 (linux64)</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Optimize a model with 5 rows, 90 columns and 450 nonzeros</span></span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Model fingerprint: 0x8f50132f</span></span>
@@ -282,7 +282,7 @@
 <span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a><span class="do">##   StrongCG: 2</span></span>
 <span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a><span class="do">##   Flow cover: 1</span></span>
 <span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a><span class="do">## Explored 145469 nodes (243327 simplex iterations) in 4.18 seconds (2.59 work units)</span></span>
+<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a><span class="do">## Explored 145469 nodes (243327 simplex iterations) in 3.96 seconds (2.59 work units)</span></span>
 <span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a><span class="do">## Thread count was 1 (of 8 available processors)</span></span>
 <span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a><span class="do">## Solution count 6: 2627.64 2747.38 2761.33 ... 3139.89</span></span>
@@ -298,7 +298,7 @@
 <code class="sourceCode R"><span class="co"># extract time spent solving the problem</span>
 <span class="fu"><a href="reference/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb15"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">## solution_1 </span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="do">##       4.18</span></span></code></pre></div>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="do">##      3.969</span></span></code></pre></div>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># extract state message from the solver</span>
 <span class="fu"><a href="reference/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"status"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
@@ -344,7 +344,7 @@
 
 <span class="co"># solve the problem</span>
 <span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb24"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Gurobi Optimizer version 9.5.0 build v9.5.0rc5 (linux64)</span></span>
+<div class="sourceCode" id="cb24"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Gurobi Optimizer version 9.5.1 build v9.5.1rc2 (linux64)</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Optimize a model with 5 rows, 90 columns and 450 nonzeros</span></span>
 <span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Model fingerprint: 0xb2af8965</span></span>
@@ -422,7 +422,7 @@
 <span id="cb24-76"><a href="#cb24-76" aria-hidden="true" tabindex="-1"></a><span class="do">##   StrongCG: 1</span></span>
 <span id="cb24-77"><a href="#cb24-77" aria-hidden="true" tabindex="-1"></a><span class="do">##   Flow cover: 1</span></span>
 <span id="cb24-78"><a href="#cb24-78" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb24-79"><a href="#cb24-79" aria-hidden="true" tabindex="-1"></a><span class="do">## Explored 10262 nodes (23307 simplex iterations) in 0.61 seconds (0.54 work units)</span></span>
+<span id="cb24-79"><a href="#cb24-79" aria-hidden="true" tabindex="-1"></a><span class="do">## Explored 10262 nodes (23307 simplex iterations) in 0.59 seconds (0.54 work units)</span></span>
 <span id="cb24-80"><a href="#cb24-80" aria-hidden="true" tabindex="-1"></a><span class="do">## Thread count was 1 (of 8 available processors)</span></span>
 <span id="cb24-81"><a href="#cb24-81" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb24-82"><a href="#cb24-82" aria-hidden="true" tabindex="-1"></a><span class="do">## Solution count 5: 2838.26 2839.12 3021.28 ... 3027.7</span></span>
@@ -443,7 +443,7 @@
 
 <span class="co"># solve the problem</span>
 <span class="va">s3</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb27"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Gurobi Optimizer version 9.5.0 build v9.5.0rc5 (linux64)</span></span>
+<div class="sourceCode" id="cb27"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Gurobi Optimizer version 9.5.1 build v9.5.1rc2 (linux64)</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Optimize a model with 293 rows, 234 columns and 1026 nonzeros</span></span>
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Model fingerprint: 0x517c913c</span></span>
@@ -486,7 +486,7 @@
 <span id="cb27-41"><a href="#cb27-41" aria-hidden="true" tabindex="-1"></a><span class="do">##   GUB cover: 1</span></span>
 <span id="cb27-42"><a href="#cb27-42" aria-hidden="true" tabindex="-1"></a><span class="do">##   Zero half: 1</span></span>
 <span id="cb27-43"><a href="#cb27-43" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb27-44"><a href="#cb27-44" aria-hidden="true" tabindex="-1"></a><span class="do">## Explored 1 nodes (221 simplex iterations) in 0.02 seconds (0.02 work units)</span></span>
+<span id="cb27-44"><a href="#cb27-44" aria-hidden="true" tabindex="-1"></a><span class="do">## Explored 1 nodes (221 simplex iterations) in 0.03 seconds (0.02 work units)</span></span>
 <span id="cb27-45"><a href="#cb27-45" aria-hidden="true" tabindex="-1"></a><span class="do">## Thread count was 1 (of 8 available processors)</span></span>
 <span id="cb27-46"><a href="#cb27-46" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb27-47"><a href="#cb27-47" aria-hidden="true" tabindex="-1"></a><span class="do">## Solution count 7: 3939.6 3951.75 3960.65 ... 19567.2</span></span>
@@ -507,7 +507,7 @@
 
 <span class="co"># solve the problem</span>
 <span class="va">s4</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p4</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb30"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Gurobi Optimizer version 9.5.0 build v9.5.0rc5 (linux64)</span></span>
+<div class="sourceCode" id="cb30"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Gurobi Optimizer version 9.5.1 build v9.5.1rc2 (linux64)</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Optimize a model with 654 rows, 506 columns and 2292 nonzeros</span></span>
 <span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Model fingerprint: 0x1ced3129</span></span>

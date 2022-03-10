@@ -1,3 +1,7 @@
+# prioritizr 7.1.1.12
+
+- Update publication record.
+
 # prioritizr 7.1.1.11
 
 - Update publication record.
