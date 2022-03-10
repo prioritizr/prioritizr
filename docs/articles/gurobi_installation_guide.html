@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.12</span>
       </span>
     </div>
 
@@ -62,7 +62,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -83,7 +83,7 @@
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Tutorials
      
     <span class="caret"></span>
@@ -133,7 +133,7 @@
       <h1 data-toc-skip>Gurobi installation guide</h1>
                         <h4 data-toc-skip class="author">Richard Schuster</h4>
             
-            <h4 data-toc-skip class="date">2022-02-06</h4>
+            <h4 data-toc-skip class="date">2022-03-09</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/prioritizr/prioritizr/blob/HEAD/vignettes/gurobi_installation_guide.Rmd" class="external-link"><code>vignettes/gurobi_installation_guide.Rmd</code></a></small>
       <div class="hidden name"><code>gurobi_installation_guide.Rmd</code></div>
@@ -229,7 +229,7 @@
 
 <span class="co"># solve the optimization problem using Gurobi</span>
 <span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/gurobi/man/gurobi.html" class="external-link">gurobi</a></span><span class="op">(</span><span class="va">model</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Gurobi Optimizer version 9.5.0 build v9.5.0rc5 (linux64)</span>
+<pre><code><span class="co">## Gurobi Optimizer version 9.5.1 build v9.5.1rc2 (linux64)</span>
 <span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 8 threads</span>
 <span class="co">## Optimize a model with 2 rows, 3 columns and 5 nonzeros</span>
 <span class="co">## Model fingerprint: 0xba2d0add</span>
@@ -277,7 +277,7 @@
 
 <span class="co"># solve the problem</span>
 <span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Gurobi Optimizer version 9.5.0 build v9.5.0rc5 (linux64)</span>
+<pre><code><span class="co">## Gurobi Optimizer version 9.5.1 build v9.5.1rc2 (linux64)</span>
 <span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span>
 <span class="co">## Optimize a model with 5 rows, 90 columns and 450 nonzeros</span>
 <span class="co">## Model fingerprint: 0x6442bf6e</span>

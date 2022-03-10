@@ -18,6 +18,7 @@ This vignette contains a list of publications that have cited or used the _prior
 
 ### 2022
 
+* [de Assis Barros L, Venter M, Elkin C, and Venter O (2022) Managing forests for old-growth attributes better promotes the provision of ecosystem services than current age-based old-growth management. _Forest Ecology and Management_, **511**: 120130.](https://doi.org/10.1016/j.foreco.2022.120130)
 * [Benez-Secanho FJ, Dwivedi P, Ferreira S, Hepinstall-Cymerman J, and Wenger S (2022) Trade-offs between the value of ecosystem services and connectivity among protected areas in the Upper Chattahoochee watershed. _Environmental Management_, **In press**: DOI:10.1007/s00267-021-01584-6.](https://doi.org/10.1007/s00267-021-01584-6)
 * [Burbano-Girón J, Jantke K, Molina-Berbeo MA, Buriticá-Mejía N, Urbina-Cardona JN, Sánchez-Clavijo LM, and Etter A (2022) An assessment of spatial conservation priorities for biodiversity attributes: Composition, structure, and function of Neotropical biodiversity. _Biological Conservation_, **265**: 109421.](https://doi.org/10.1016/j.biocon.2021.109421)
 * [Chung HI, Choi Y, Yoo Y, Engler R, Lee K, and Jeon SW (2022) Integrated spatial model based evaluation methodology for optimal invasive species management: common ragweed in the Republic of Korea. _Environmental Research Letters_, **In press**: DOI:10.1088/1748-9326/ac4dc7.](https://doi.org/10.1088/1748-9326/ac4dc7)

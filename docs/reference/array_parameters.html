@@ -24,7 +24,7 @@ to create a parameter with conflicting settings then an error will be thrown."><
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.12</span>
       </span>
     </div>
 
@@ -36,7 +36,7 @@ to create a parameter with conflicting settings then an error will be thrown."><
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -55,7 +55,7 @@ to create a parameter with conflicting settings then an error will be thrown."><
     </li>
   </ul></li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Tutorials
      
     <span class="caret"></span>
@@ -185,7 +185,7 @@ description of each.</p><dl><dt>proportion_parameter_array</dt>
 <span class="r-out co"><span class="r-pr">#&gt;</span> b   0.2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> c   0.3</span>
 <span class="r-in"><span class="va">p1</span><span class="op">$</span><span class="va">id</span> <span class="co"># get id</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> id: b93d895e-0ba1-4be9-bfff-71da3006aad7</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> id: 3764d517-4a1d-49c7-9335-b9dc4e3bc19b</span>
 <span class="r-in"><span class="va">invalid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, row.names<span class="op">=</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span> <span class="co"># invalid values</span></span>
 <span class="r-in"><span class="va">p1</span><span class="op">$</span><span class="fu">validate</span><span class="op">(</span><span class="va">invalid</span><span class="op">)</span> <span class="co"># check invalid input is invalid</span></span>
 <span class="r-in"><span class="va">valid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.4</span>, <span class="fl">0.5</span>, <span class="fl">0.6</span><span class="op">)</span>, row.names<span class="op">=</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span> <span class="co"># valid</span></span>
@@ -204,7 +204,7 @@ description of each.</p><dl><dt>proportion_parameter_array</dt>
 <span class="r-out co"><span class="r-pr">#&gt;</span> b     1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> c     0</span>
 <span class="r-in"><span class="va">p2</span><span class="op">$</span><span class="va">id</span> <span class="co"># get id</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> id: 38a2decc-aa15-4105-8983-2fb29d2b8ba4</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> id: 86b4549c-2a2c-46fb-97c8-7579ffdd3914</span>
 <span class="r-in"><span class="va">invalid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, row.names<span class="op">=</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span> <span class="co"># invalid values</span></span>
 <span class="r-in"><span class="va">p2</span><span class="op">$</span><span class="fu">validate</span><span class="op">(</span><span class="va">invalid</span><span class="op">)</span> <span class="co"># check invalid input is invalid</span></span>
 <span class="r-in"><span class="va">valid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0L</span>, <span class="fl">0L</span>, <span class="fl">0L</span><span class="op">)</span>, row.names<span class="op">=</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span> <span class="co"># valid</span></span>
@@ -223,7 +223,7 @@ description of each.</p><dl><dt>proportion_parameter_array</dt>
 <span class="r-out co"><span class="r-pr">#&gt;</span> b     2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> c     3</span>
 <span class="r-in"><span class="va">p3</span><span class="op">$</span><span class="va">id</span> <span class="co"># get id</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> id: cbe783d9-6e3c-4c1f-b8a3-df0429e2ca9d</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> id: 7e968614-5036-478e-a3f5-3f46799a5841</span>
 <span class="r-in"><span class="va">invalid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>, row.names<span class="op">=</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span> <span class="co"># invalid</span></span>
 <span class="r-in"><span class="va">p3</span><span class="op">$</span><span class="fu">validate</span><span class="op">(</span><span class="va">invalid</span><span class="op">)</span> <span class="co"># check invalid input is invalid</span></span>
 <span class="r-in"><span class="va">valid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fl">5</span><span class="op">:</span><span class="fl">7</span>, row.names<span class="op">=</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span> <span class="co"># valid</span></span>
@@ -242,7 +242,7 @@ description of each.</p><dl><dt>proportion_parameter_array</dt>
 <span class="r-out co"><span class="r-pr">#&gt;</span> b   4.0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> c  -5.0</span>
 <span class="r-in"><span class="va">p4</span><span class="op">$</span><span class="va">id</span> <span class="co"># get id</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> id: 6d074f84-3d28-4bce-a680-7900e5444eaa</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> id: ada971fa-d71e-4946-b445-edb70c159749</span>
 <span class="r-in"><span class="va">invalid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, row.names<span class="op">=</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span> <span class="co"># invalid</span></span>
 <span class="r-in"><span class="va">p4</span><span class="op">$</span><span class="fu">validate</span><span class="op">(</span><span class="va">invalid</span><span class="op">)</span> <span class="co"># check invalid input is invalid</span></span>
 <span class="r-in"><span class="va">valid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>, row.names<span class="op">=</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span> <span class="co"># valid</span></span>
@@ -262,7 +262,7 @@ description of each.</p><dl><dt>proportion_parameter_array</dt>
 <span class="r-out co"><span class="r-pr">#&gt;</span> b   4.0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> c  -5.0</span>
 <span class="r-in"><span class="va">p5</span><span class="op">$</span><span class="va">id</span><span class="co"># get id</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> id: 25b55af9-f63b-440b-ab8f-632d5dc93606</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> id: d028b2aa-e066-4250-9581-ac87bd39ff75</span>
 <span class="r-in"><span class="va">invalid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">5</span>, <span class="fl">5</span><span class="op">)</span>, row.names<span class="op">=</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span> <span class="co"># invalid</span></span>
 <span class="r-in"><span class="va">p5</span><span class="op">$</span><span class="fu">validate</span><span class="op">(</span><span class="va">invalid</span><span class="op">)</span> <span class="co"># check invalid input is invalid</span></span>
 <span class="r-in"><span class="va">valid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, row.names<span class="op">=</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span> <span class="co"># valid</span></span>
