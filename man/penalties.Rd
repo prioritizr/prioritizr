@@ -22,12 +22,12 @@ The following penalties can be added to a conservation planning
 
 \describe{
 
-\item{\code{\link[=add_asym_connectivity_penalties]{add_asym_connectivity_penalties()}}}{Add penalties to a
-conservation problem to account for asymmetric connectivity.}
-
 \item{\code{\link[=add_boundary_penalties]{add_boundary_penalties()}}}{Add penalties to a
 conservation problem to favor solutions that have
 planning units clumped together into contiguous areas.}
+
+\item{\code{\link[=add_asym_connectivity_penalties]{add_asym_connectivity_penalties()}}}{Add penalties to a
+conservation problem to account for asymmetric connectivity.}
 
 \item{\code{\link[=add_connectivity_penalties]{add_connectivity_penalties()}}}{Add penalties to a
 conservation problem to account for
@@ -66,7 +66,10 @@ p3 <- p1 \%>\% add_connectivity_penalties(25, data = scm)
 
 # create asymmetric connectivity data by randomly simulating values
 acm <- matrix(runif(ncell(sim_pu_raster) ^ 2), ncol = ncell(sim_pu_raster))
-p4 <- p1 \%>\% add_connectivity_penalties(25, data = acm)
+acm[acm < 0.85] <- 0
+
+# create problem with asymmetric connectivity penalties
+p4 <- p1 \%>\% add_asym_connectivity_penalties(1, data = acm)
 
 # create problem with linear penalties,
 # here the penalties will be based on random numbers to keep it simple
@@ -87,7 +90,7 @@ s <- stack(solve(p1), solve(p2), solve(p3), solve(p4), solve(p5))
 # plot solutions
 plot(s, axes = FALSE, box = FALSE,
      main = c("basic solution", "boundary penalties",
-              "connectivity penalties", "asymmetric connectivity penalties"
+              "connectivity penalties", "asymmetric penalties",
               "linear penalties"))
  }
 }
