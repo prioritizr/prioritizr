@@ -50,13 +50,13 @@ test_that("minimum set objective (compile, single zone)", {
   expect_equal(c_sense, rep(c("<=", "<="), length(c_data@i)))
   expect_equal(c_rhs, rep(c(0, 0), length(c_data@i)))
   counter <- n_f
-  for (i in seq_along(length(c_data@i))) {
+  for (i in seq_along(c_data@i)) {
     counter <- counter + 1
-    expect_true(o$A()[counter, n_pu + i] == 1)
-    expect_true(o$A()[counter, c_data@i[i] + 1] == -1)
+    expect_equal(o$A()[counter, n_pu + i], 1)
+    expect_equal(o$A()[counter, c_data@i[i] + 1], -1)
     counter <- counter + 1
-    expect_true(o$A()[counter, n_pu + i] == 1)
-    expect_true(o$A()[counter, c_data@j[i] + 1] == -1)
+    expect_equal(o$A()[counter, n_pu + i], 1)
+    expect_equal(o$A()[counter, c_data@j[i] + 1], -1)
   }
 })
 
@@ -188,11 +188,11 @@ test_that("minimum set objective (compile, multiple zones)", {
       for (k in seq_along(c_data@i)) {
         counter <- counter + 1
         counter2 <- counter2 + 1
-        expect_true(o$A()[counter, (n_pu * n_z) + counter2] == 1)
-        expect_true(o$A()[counter, ((i - 1) * n_pu) + c_data@i[k] + 1] == -1)
+        expect_equal(o$A()[counter, (n_pu * n_z) + counter2], 1)
+        expect_equal(o$A()[counter, ((i - 1) * n_pu) + c_data@i[k] + 1], -1)
         counter <- counter + 1
-        expect_true(o$A()[counter, (n_pu * n_z) + counter2] == 1)
-        expect_true(o$A()[counter, ((j - 1) * n_pu) + c_data@j[k] + 1] == -1)
+        expect_equal(o$A()[counter, (n_pu * n_z) + counter2], 1)
+        expect_equal(o$A()[counter, ((j - 1) * n_pu) + c_data@j[k] + 1], -1)
       }
     }
   }
@@ -311,8 +311,8 @@ test_that("invalid inputs (multiple zones)", {
         add_relative_targets(matrix(0.1, nrow = 5, ncol = 3)) %>%
         add_binary_decisions()
   # tests
-  expect_error(add_connectivity_penalties(p, NA_real_, zm ,cm))
-  expect_error(add_connectivity_penalties(p, Inf, zm ,cm))
+  expect_error(add_connectivity_penalties(p, NA_real_, zm, cm))
+  expect_error(add_connectivity_penalties(p, Inf, zm,cm))
   expect_error(add_connectivity_penalties(p, 1, zm[-1, ], cm))
   expect_error(add_connectivity_penalties(p, 1, zm[, -1], cm))
   expect_error(add_connectivity_penalties(p, 1, `[<-`(zm, 1, -2), cm))

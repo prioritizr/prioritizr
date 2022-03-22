@@ -155,8 +155,9 @@ boundary_matrix.SpatialPolygons <- function(x, str_tree = FALSE) {
   y <- rcpp_boundary_data(rcpp_sp_to_polyset(x@polygons, "Polygons"),
                           strm, str_tree)$data
   # show warnings generated if any
-  if (length(y$warnings) > 0)
-    vapply(y$warnings, warning, character(1))
+  if (length(y$warnings) > 0) {
+    vapply(y$warnings, warning, character(1)) # nocov
+  }
   # return result
   Matrix::sparseMatrix(i = y[[1]], j = y[[2]], x = y[[3]],
                        symmetric = TRUE, dims = rep(length(x), 2))

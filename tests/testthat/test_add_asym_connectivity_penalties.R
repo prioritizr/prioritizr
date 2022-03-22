@@ -7,6 +7,7 @@ test_that("minimum set objective (compile, single zone)", {
   cmatrix <- matrix(0, nrow = raster::ncell(sim_pu_raster),
     ncol = raster::ncell(sim_pu_raster))
   cmatrix[] <- runif(length(cmatrix))
+  cmatrix[cmatrix[] < 0.9] <- 0
   cmatrix[raster::Which(is.na(sim_pu_raster), cells = TRUE)] <- 0
   cmatrix <- Matrix::drop0(as(cmatrix, "dgCMatrix"))
   p <- problem(sim_pu_raster, sim_features) %>%
@@ -59,13 +60,112 @@ test_that("minimum set objective (compile, single zone)", {
   expect_equal(c_sense, rep(c("<=", "<="), length(c_data@i)))
   expect_equal(c_rhs, rep(c(0, 0), length(c_data@i)))
   counter <- n_f
-  for (i in seq_along(length(c_data@i))) {
+  oA <- o$A()
+  for (i in seq_along(c_data@i)) {
     counter <- counter + 1
-    expect_true(o$A()[counter, n_pu + i] == 1)
-    expect_true(o$A()[counter, c_data@i[i] + 1] == -1)
+    expect_equal(oA[counter, n_pu + i], 1)
+    expect_equal(oA[counter, c_data@i[i] + 1], -1)
     counter <- counter + 1
-    expect_true(o$A()[counter, n_pu + i] == 1)
-    expect_true(o$A()[counter, c_data@j[i] + 1] == -1)
+    expect_equal(oA[counter, n_pu + i], 1)
+    expect_equal(oA[counter, c_data@j[i] + 1], -1)
+  }
+})
+
+test_that("maximum features objective (compile, single zone)", {
+  # make and compile problems
+  data(sim_pu_raster, sim_features)
+  # create connectivity matrix data
+  cmatrix <- matrix(0, nrow = raster::ncell(sim_pu_raster),
+    ncol = raster::ncell(sim_pu_raster))
+  cmatrix[] <- runif(length(cmatrix), -5, 5)
+  cmatrix[abs(cmatrix[]) < 4] <- 0
+  cmatrix[raster::Which(is.na(sim_pu_raster), cells = TRUE)] <- 0
+  cmatrix <- Matrix::drop0(as(cmatrix, "dgCMatrix"))
+  p <- problem(sim_pu_raster, sim_features) %>%
+       add_max_features_objective(100) %>%
+       add_relative_targets(0.1) %>%
+       add_binary_decisions() %>%
+       add_asym_connectivity_penalties(0.5, data = cmatrix)
+  o <- compile(p)
+  # run tests
+  ## create variables for debugging
+  n_pu <- p$number_of_planning_units()
+  n_f <- p$number_of_features()
+  pu_indices <- p$planning_unit_indices()
+  c_data <- cmatrix[pu_indices, pu_indices]
+  c_data <- c_data * -0.5
+  # connectivity weights for each planning unit
+  c_weights <- Matrix::diag(c_data)
+  # i,j,x matrix for planning unit boundaries
+  Matrix::diag(c_data) <- 0
+  c_data <- Matrix::drop0(c_data)
+  c_data <- as(c_data, "dgTMatrix")
+  # objectives for connectivity decision variables
+  c_obj <- o$obj()[n_pu + n_f + seq_len(length(c_data@i))]
+  # lower bound for connectivity decision variables
+  c_lb <- o$lb()[n_pu + n_f + seq_len(length(c_data@i))]
+  # upper bound for connectivity decision variables
+  c_ub <- o$ub()[n_pu + n_f + seq_len(length(c_data@i))]
+  # vtype bound for connectivity decision variables
+  c_vtype <- o$vtype()[n_pu + n_f +  seq_len(length(c_data@i))]
+  # pu costs including total connectivity
+  pu_costs <- o$obj()[seq_len(n_pu)]
+  scaled_costs <- c(p$planning_unit_costs())
+  scaled_costs <- scaled_costs * (-0.01 / sum(scaled_costs, na.rm = TRUE))
+  # matrix labels
+  c_col_labels <- o$col_ids()[n_pu + n_f + seq_len(length(c_data@i))]
+  c_row_labels <-
+    o$row_ids()[n_f + 1 + seq_len(length(o$row_ids()) - n_f - 1)]
+  # sense for connectivity decision constraints
+  c_sense <- o$sense()[n_f + 1 + seq_along(c_row_labels)]
+  # rhs for connectivity decision constraints
+  c_rhs <- o$rhs()[n_f + 1 + seq_along(c_row_labels)]
+  ## check that constraints added correctly
+  expect_equal(
+    pu_costs,
+    scaled_costs + (-1 * c_weights) + rowSums(c_data)
+  )
+  expect_equal(c_obj, -c_data@x)
+  expect_equal(c_lb, rep(0, length(c_data@i)))
+  expect_equal(c_ub, rep(1, length(c_data@i)))
+  expect_equal(c_vtype, rep("B", length(c_data@i)))
+  expect_equal(c_col_labels, rep("ac", length(c_data@i)))
+  expect_equal(
+    c_row_labels,
+    unlist(lapply(c_data@x, function(x) {
+      if (x > 0) return(c("ac1", "ac2", "ac3"))
+      return(c("ac1", "ac2"))
+    }))
+  )
+  expect_equal(
+    c_rhs,
+    unlist(lapply(c_data@x, function(x) {
+      if (x > 0) return(c(0, 0, -1))
+      return(c(0, 0))
+    }))
+  )
+  expect_equal(
+    c_sense,
+    unlist(lapply(c_data@x, function(x) {
+      if (x > 0) return(c("<=", "<=", ">="))
+      return(c("<=", "<="))
+    }))
+  )
+  counter <- n_f + 1
+  oA <- o$A()
+  for (i in seq_along(c_data@i)) {
+    counter <- counter + 1
+    expect_equal(oA[counter, n_pu + n_f + i], 1)
+    expect_equal(oA[counter, c_data@i[i] + 1], -1)
+    counter <- counter + 1
+    expect_equal(oA[counter, n_pu + n_f + i], 1)
+    expect_equal(oA[counter, c_data@j[i] + 1], -1)
+    if (c_data@x[i] > 0) {
+      counter <- counter + 1
+      expect_equal(oA[counter, n_pu + n_f + i], 1)
+      expect_equal(oA[counter, c_data@i[i] + 1], -1)
+      expect_equal(oA[counter, c_data@j[i] + 1], -1)
+    }
   }
 })
 
@@ -225,16 +325,17 @@ test_that("minimum set objective (compile, multiple zones)", {
   expect_equal(c_rhs, rep(c(0, 0), length(c_data@i)))
   counter <- (n_f * n_z) + n_pu
   counter2 <- 0
+  oA <- o$A()
   for (i in seq_len(n_z)) {
     for (j in seq_len(n_z)) {
       for (k in seq_along(c_data@i)) {
         counter <- counter + 1
         counter2 <- counter2 + 1
-        expect_true(o$A()[counter, (n_pu * n_z) + counter2] == 1)
-        expect_true(o$A()[counter, ((i - 1) * n_pu) + c_data@i[k] + 1] == -1)
+        expect_equal(oA[counter, (n_pu * n_z) + counter2], 1)
+        expect_equal(oA[counter, ((i - 1) * n_pu) + c_data@i[k] + 1], -1)
         counter <- counter + 1
-        expect_true(o$A()[counter, (n_pu * n_z) + counter2] == 1)
-        expect_true(o$A()[counter, ((j - 1) * n_pu) + c_data@j[k] + 1] == -1)
+        expect_equal(oA[counter, (n_pu * n_z) + counter2], 1)
+        expect_equal(oA[counter, ((j - 1) * n_pu) + c_data@j[k] + 1], -1)
       }
     }
   }

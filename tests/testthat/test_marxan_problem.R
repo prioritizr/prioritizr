@@ -54,6 +54,78 @@ test_that("character (solve)", {
   expect_true(is.numeric(s$solution_1))
 })
 
+test_that("data.frame (compile, no status column)", {
+  skip_if_not_installed("data.table")
+  # load data
+  path <- system.file("extdata/input.dat", package = "prioritizr")
+  wd <- system.file("extdata/input", package = "prioritizr")
+  pu_data <- read.table(file.path(wd, "pu.dat"), header = TRUE, sep = ",")
+  pu_data$status <- NULL
+  spec_data <- read.table(file.path(wd, "spec.dat"), header = TRUE, sep = ",")
+  puvspr_data <- read.table(file.path(wd, "puvspr.dat"), header = TRUE,
+                            sep = ",")
+  bound_data <- read.table(file.path(wd, "bound.dat"), header = TRUE,
+                           sep = "\t")
+   # make and compile problem
+  p <- marxan_problem(pu_data, spec_data, puvspr_data, bound_data, blm = 1)
+  o <- compile(p)
+  # make and compile equivalent problem
+  p2 <- problem(pu_data, spec_data, puvspr_data, cost_column = "cost") %>%
+        add_min_set_objective() %>%
+        add_relative_targets("prop") %>%
+        add_boundary_penalties(1, edge_factor = 1, data = bound_data) %>%
+        add_binary_decisions()
+  o2 <- compile(p2)
+  # compare two problems
+  expect_equal(o$obj(), o2$obj())
+  expect_true(all(o$A() == o2$A()))
+  expect_equal(o$rhs(), o2$rhs())
+  expect_equal(o$sense(), o2$sense())
+  expect_equal(o$modelsense(), o2$modelsense())
+  expect_equal(o$col_ids(), o2$col_ids())
+  expect_equal(o$row_ids(), o2$row_ids())
+  expect_equal(o$lb(), o2$lb())
+  expect_equal(o$ub(), o2$ub())
+  expect_equal(o$vtype(), o2$vtype())
+})
+
+test_that("data.frame (compile, absolute targets)", {
+  skip_if_not_installed("data.table")
+  # load data
+  path <- system.file("extdata/input.dat", package = "prioritizr")
+  wd <- system.file("extdata/input", package = "prioritizr")
+  pu_data <- read.table(file.path(wd, "pu.dat"), header = TRUE, sep = ",")
+  pu_data$status <- NULL
+  spec_data <- read.table(file.path(wd, "spec.dat"), header = TRUE, sep = ",")
+  spec_data$prop <- NULL
+  spec_data$amount <- seq_len(nrow(spec_data))
+  puvspr_data <- read.table(file.path(wd, "puvspr.dat"), header = TRUE,
+                            sep = ",")
+  bound_data <- read.table(file.path(wd, "bound.dat"), header = TRUE,
+                           sep = "\t")
+   # make and compile problem
+  p <- marxan_problem(pu_data, spec_data, puvspr_data, bound_data, blm = 1)
+  o <- compile(p)
+  # make and compile equivalent problem
+  p2 <- problem(pu_data, spec_data, puvspr_data, cost_column = "cost") %>%
+        add_min_set_objective() %>%
+        add_absolute_targets("amount") %>%
+        add_boundary_penalties(1, edge_factor = 1, data = bound_data) %>%
+        add_binary_decisions()
+  o2 <- compile(p2)
+  # compare two problems
+  expect_equal(o$obj(), o2$obj())
+  expect_true(all(o$A() == o2$A()))
+  expect_equal(o$rhs(), o2$rhs())
+  expect_equal(o$sense(), o2$sense())
+  expect_equal(o$modelsense(), o2$modelsense())
+  expect_equal(o$col_ids(), o2$col_ids())
+  expect_equal(o$row_ids(), o2$row_ids())
+  expect_equal(o$lb(), o2$lb())
+  expect_equal(o$ub(), o2$ub())
+  expect_equal(o$vtype(), o2$vtype())
+})
+
 test_that("character (solve, absolute INPUTDIR path)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
@@ -307,4 +379,9 @@ test_that("invalid inputs", {
   expect_error(marxan_problem(p, s, pv, `[<-`(b, 1, 1, NA), 5))
   expect_error(marxan_problem(p, s, pv, b, NA))
   expect_error(marxan_problem(p, s, pv, b, c(5, 5)))
+  expect_warning(marxan_problem(p, s, pv, NULL, 5), "blm")
+  expect_warning(
+    marxan_problem(p, s, pv, NULL, 0, symmetric = FALSE),
+    "symmetric"
+  )
 })

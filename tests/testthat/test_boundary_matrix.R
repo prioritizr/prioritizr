@@ -291,3 +291,34 @@ test_that("SpatialPoints", {
   # tests
   expect_error(boundary_matrix(x))
 })
+
+test_that("invalid inputs", {
+  expect_error(boundary_matrix(iris), "spatial format")
+  expect_error(
+    boundary_matrix(
+      sf::st_sf(
+        id = 1,
+        geometry = sf::st_sfc(sf::st_point(c(1, 2)))
+      )
+    ),
+    "no boundaries"
+  )
+  expect_error(
+    boundary_matrix(
+      sf::st_sf(
+        id = 1,
+        geometry = sf::st_sfc(sf::st_linestring(matrix(1:15, , 3)))
+      )
+    ),
+    "no boundaries"
+  )
+  expect_error(
+    boundary_matrix(
+      sf::st_sf(
+        id = 1,
+        geometry = sf::st_sfc(sf::st_geometrycollection())
+      )
+    ),
+    "geometry collection"
+  )
+})

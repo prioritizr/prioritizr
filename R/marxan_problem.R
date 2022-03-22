@@ -282,8 +282,12 @@ marxan_problem.data.frame <- function(x, spec, puvspr, bound = NULL,
   }
   ## blm
   assertthat::assert_that(assertthat::is.scalar(blm), is.finite(blm))
-  if (abs(blm) > 1e-50 && is.null(bound))
-    warning("no boundary data supplied so the blm argument has no effect")
+  if (abs(blm) > 1e-15 && is.null(bound)) {
+    warning(
+      "no boundary data supplied so the blm parameter has no effect",
+      call. = FALSE, immediate. = TRUE
+    )
+  }
   ## symmetric
   assertthat::assert_that(
     assertthat::is.flag(symmetric),
@@ -291,10 +295,7 @@ marxan_problem.data.frame <- function(x, spec, puvspr, bound = NULL,
   )
   if (!isTRUE(symmetric) && is.null(bound)) {
     warning(
-      paste(
-        "argument to bound is NULL, so setting \"symmetric=FALSE\"",
-        "has no effect on problem formulation"
-      ),
+      "no boundary data supplied to the symmetric parameter has no effect",
       call. = FALSE, immediate. = TRUE
     )
   }
