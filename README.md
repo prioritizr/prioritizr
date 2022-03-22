@@ -241,7 +241,8 @@ s1 <- solve(p1)
     ##      0     0 2612.52005    0   10 2747.37746 2612.52005  4.91%     -    0s
     ##      0     0 2612.54737    0   10 2747.37746 2612.54737  4.91%     -    0s
     ##      0     2 2613.31387    0   10 2747.37746 2613.31387  4.88%     -    0s
-    ## H128246  6692                    2627.6389306 2623.20411  0.17%   1.5    3s
+    ## H128246  6692                    2627.6389306 2623.20411  0.17%   1.5    4s
+    ##  134469  5876 2625.78336   50    2 2627.63893 2624.30685  0.13%   1.6    5s
     ## 
     ## Cutting planes:
     ##   Gomory: 2
@@ -249,7 +250,7 @@ s1 <- solve(p1)
     ##   StrongCG: 2
     ##   Flow cover: 1
     ## 
-    ## Explored 145469 nodes (243327 simplex iterations) in 3.56 seconds (2.59 work units)
+    ## Explored 145469 nodes (243327 simplex iterations) in 5.46 seconds (2.59 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 6: 2627.64 2747.38 2761.33 ... 3139.89
@@ -271,7 +272,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##      3.612
+    ##       5.47
 
 ``` r
 # extract state message from the solver
@@ -419,7 +420,7 @@ s2 <- solve(p2)
     ##   StrongCG: 1
     ##   Flow cover: 1
     ## 
-    ## Explored 10262 nodes (23307 simplex iterations) in 0.53 seconds (0.54 work units)
+    ## Explored 10262 nodes (23307 simplex iterations) in 0.84 seconds (0.54 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 5: 2838.26 2839.12 3021.28 ... 3027.7
@@ -499,7 +500,7 @@ s3 <- solve(p3)
     ##   GUB cover: 1
     ##   Zero half: 1
     ## 
-    ## Explored 1 nodes (221 simplex iterations) in 0.02 seconds (0.02 work units)
+    ## Explored 1 nodes (221 simplex iterations) in 0.04 seconds (0.02 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 7: 3939.6 3951.75 3960.65 ... 19567.2
