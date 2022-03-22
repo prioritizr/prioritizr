@@ -368,10 +368,10 @@ marxan_problem.character <- function(x, ...) {
       return(data.table::fread(x, data.table = FALSE))
     } else if (file.exists(file.path(input_dir, x))) {
       return(data.table::fread(file.path(input_dir, x), data.table = FALSE))
-    } else if (force) { #nocov
-      stop("file path in ", field, " field does not exist") #nocov
+    } else if (force) { # nocov
+      stop("file path in ", field, " field does not exist") # nocov
     } else {
-      return(NULL) #nocov
+      return(NULL) # nocov
     }
   }
   # read marxan file
@@ -396,7 +396,7 @@ marxan_problem.character <- function(x, ...) {
   # check if connectivity data should be asymmetric
   sym <- !isTRUE(as.logical(parse_field("ASYMMETRICCONNECTIVITY", x)))
   if (is.null(bound_data)) {
-    sym <- TRUE #nocov
+    sym <- TRUE # nocov
   }
   # return problem
   marxan_problem(x = pu_data, spec = spec_data, puvspr = puvspr_data,
