@@ -342,7 +342,9 @@ marxan_problem.character <- function(x, ...) {
     assertthat::is.readable(x),
     no_extra_arguments(...))
   if (!requireNamespace("data.table", quietly = TRUE)) {
+    # nocov start
     stop("please install the \"data.table\" package to import Marxan data")
+    # nocov end
   }
   # declare local functions
   parse_field <- function(field, lines) {
@@ -355,18 +357,21 @@ marxan_problem.character <- function(x, ...) {
   load_file <- function(field, lines, input_dir, force = TRUE) {
     x <- parse_field(field, lines)
     if (is.na(x)) {
-      if (force)
+      # nocov start
+      if (force) {
         stop("input file does not contain ", field, " field")
+      }
       return(NULL)
+      # nocov end
     }
     if (file.exists(x)) {
       return(data.table::fread(x, data.table = FALSE))
     } else if (file.exists(file.path(input_dir, x))) {
       return(data.table::fread(file.path(input_dir, x), data.table = FALSE))
-    } else if (force) {
-      stop("file path in ", field, " field does not exist")
+    } else if (force) { #nocov
+      stop("file path in ", field, " field does not exist") #nocov
     } else {
-      return(NULL)
+      return(NULL) #nocov
     }
   }
   # read marxan file
