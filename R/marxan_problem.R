@@ -391,7 +391,7 @@ marxan_problem.character <- function(x, ...) {
   # check if connectivity data should be asymmetric
   sym <- !isTRUE(as.logical(parse_field("ASYMMETRICCONNECTIVITY", x)))
   if (is.null(bound_data)) {
-    sym <- TRUE
+    sym <- TRUE #nocov
   }
   # return problem
   marxan_problem(x = pu_data, spec = spec_data, puvspr = puvspr_data,

@@ -216,3 +216,24 @@ test_that("multiple zones (variable zone matrix)", {
   expect_equal(r1, r4)
   expect_equal(nrow(na.omit(r1)), nrow(r1))
 })
+
+test_that("expected warnings", {
+  # simulate spatial data
+  set.seed(500)
+  pl <- raster::raster(matrix(seq_len(10), ncol = 2),
+                       xmn = 0, xmx = 2, ymn = 0, ymx = 5)
+  pl <- as(pl, "SpatialPolygons")
+  zm <- diag(1)
+  # simulate problem data
+  pu <- sp::SpatialPolygonsDataFrame(
+    pl, match.ID = FALSE,
+    data.frame(id = seq_len(10), cost = c(0.2, NA_real_, runif(8)),
+               spp1 = runif(10), spp2 = c(rpois(9, 4), NA),
+               solution = c(0, NA, 1, 1, 1, 0, 0, 0, 1, 0)))
+  # simulate connectivity matrix
+  cm <- boundary_matrix(pl)
+  # create problem
+  p <- problem(pu, features = c("spp1", "spp2"), cost_column = "cost")
+  # tests
+  expect_warning(eval_asym_connectivity_summary(p, pu[, "solution"], data = cm))
+})

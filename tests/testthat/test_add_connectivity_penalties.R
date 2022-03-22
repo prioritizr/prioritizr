@@ -112,6 +112,10 @@ test_that("invalid inputs (single zone)", {
   expect_error(add_connectivity_penalties(p, 1, 0, data = c_data))
   expect_error(add_connectivity_penalties(p, 5, data = c_data[, -1]))
   expect_error(add_connectivity_penalties(p, 5, data = c_data[-1, ]))
+  ac_data <- matrix(
+    runif(raster::ncell(sim_pu_raster) ^ 2),
+    ncol = raster::ncell(sim_pu_raster))
+  expect_error(add_connectivity_penalties(p, 5, data = ac_data))
 })
 
 test_that("minimum set objective (compile, multiple zones)", {

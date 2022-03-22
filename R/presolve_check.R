@@ -222,10 +222,12 @@ presolve_check.OptimizationProblem <- function(x) {
     out <- FALSE
     n <- x$col_ids()[r]
     ### throw warnings
-    if (("pu" %in% n))
+    ### note that we only throw a warning if there aren't any issues
+    ### due to boundary lengths or connectivity values because there
+    ### is high chance of a false positive
+    if (("pu" %in% n) && (!"ac" %in% n) && (!"b" %in% n) && (!"c" %in% n))
       warning(paste("planning units with very high (> 1e+6) or very low",
-                    "(< 1e-6) non-zero cost values note this may be a false",
-                    "positive"),
+                    "(< 1e-6) non-zero cost values"),
               immediate. = TRUE)
     if ("spp_met" %in% n)
       warning(paste0("feature targets with very high target weights (> 1e+6)"),

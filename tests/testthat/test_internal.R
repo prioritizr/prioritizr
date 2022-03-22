@@ -93,3 +93,34 @@ test_that("intersecting_extents", {
     raster::crop(sim_pu_raster, sim_pu_polygons[1, ]),
     raster::crop(sim_pu_raster, sim_pu_polygons[7, ])))
 })
+
+test_that("align_text", {
+  expect_equal(
+    align_text("animals: horse\npig\nbear", 9),
+    "animals: horse\n         pig\n         bear"
+  )
+})
+
+test_that("matrix_to_triplet_dataframe", {
+  skip_if_not(utils::packageVersion("Matrix") >= 1.3)
+  expect_equal(
+    matrix_to_triplet_dataframe(
+      Matrix::sparseMatrix(i = 1:3, j = c(1, 1, 2), x = 4:6, repr = "T")
+    ),
+    data.frame(i = 1:3, j = c(1, 1, 2), x = 4:6)
+  )
+  expect_equal(
+    matrix_to_triplet_dataframe(
+      Matrix::sparseMatrix(i = 1:3, j = c(1, 1, 2), x = 4:6, repr = "C")
+    ),
+    data.frame(i = 1:3, j = c(1, 1, 2), x = 4:6)
+  )
+  expect_equal(
+    matrix_to_triplet_dataframe(
+      Matrix::sparseMatrix(
+        i = 1:3, j = c(1, 1, 2), x = 4:6, repr = "C", symmetric = TRUE
+      )
+    ),
+    data.frame(i = 1:3, j = c(1, 1, 2), x = 4:6)
+  )
+})

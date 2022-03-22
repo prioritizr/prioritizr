@@ -2,6 +2,8 @@
 
 - Fix `presolve_check()` so that it does not throw a meaningless warning
   when the mathematical objective function only contains zeros.
+- Update `presolve_check()` to help reduce chances of mis-attributing
+  high connectivity/boundary values due to planning unit costs.
 - Update `add_connectivity_penalties()` function and documentation so that
   it is designed specifically for symmetric connectivity data.
 - New `add_asym_connectivity_penalties()` function that is designed

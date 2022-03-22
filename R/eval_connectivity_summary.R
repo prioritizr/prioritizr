@@ -206,7 +206,7 @@ methods::setMethod("eval_connectivity_summary",
           "argument to data does not contain symmetric connectivity values, ",
           "it it recommended to use eval_asym_connectivity_summary()"
         ),
-        .call = FALSE, .immediate = TRUE
+        call. = FALSE, immediate. = TRUE
       )
     }
     # convert zones & dgCMatrix data to list of sparse matrices

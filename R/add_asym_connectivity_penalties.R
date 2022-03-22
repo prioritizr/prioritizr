@@ -267,7 +267,7 @@ methods::setMethod("add_asym_connectivity_penalties",
           "argument to data contains symmetric connectivity values, ",
           "it it recommended to use add_connectivity_penalties()"
         ),
-        .call = FALSE, .immediate = TRUE
+        call. = FALSE, immediate. = TRUE
       )
     }
     # coerce zones to matrix

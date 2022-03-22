@@ -88,7 +88,7 @@ triplet_sparse_matrix <- function(...) {
   if (utils::packageVersion("Matrix") >= 1.3) {
     args <- list(..., repr = "T")
   } else {
-    args <- list(..., giveCsparse = FALSE)
+    args <- list(..., giveCsparse = FALSE) #nocov
   }
   # return result
   do.call(Matrix::sparseMatrix, args)
