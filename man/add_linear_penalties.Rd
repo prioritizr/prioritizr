@@ -231,6 +231,7 @@ plot(category_layer(s3), main = "multi-zone solution",
 See \link{penalties} for an overview of all functions for adding penalties.
 
 Other penalties: 
+\code{\link{add_asym_connectivity_penalties}()},
 \code{\link{add_boundary_penalties}()},
 \code{\link{add_connectivity_penalties}()},
 \code{\link{add_feature_weights}()}

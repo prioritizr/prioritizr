@@ -27,7 +27,7 @@ means that the same calculations will not be run multiple times."><meta property
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.0</span>
       </span>
     </div>
 
@@ -179,10 +179,10 @@ anything. To use this function with <code><a href="pipe.html">pipe()</a></code> 
 <span class="r-in"><span class="co"># now lets compare the times</span></span>
 <span class="r-in"><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">s1</span><span class="op">)</span> <span class="co"># time spent without running preliminary calculations</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    user  system elapsed </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1.417   0.019   1.459 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1.214   0.022   1.295 </span>
 <span class="r-in"><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">s2</span><span class="op">)</span> <span class="co"># time spent after running preliminary calculations</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    user  system elapsed </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1.398   0.032   1.516 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1.142   0.024   1.193 </span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># As we can see, we can save time by running the preliminary</span></span>
 <span class="r-in"><span class="co"># calculations before making copies of the problem with slightly</span></span>

@@ -26,7 +26,7 @@ exact algorithms and not simulated annealing (i.e., the Marxan software)."><meta
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.0</span>
       </span>
     </div>
 
@@ -114,7 +114,7 @@ exact algorithms and not simulated annealing (i.e., the <em>Marxan</em> software
 <span class="fu">marxan_problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
 
 <span class="co"># S3 method for data.frame</span>
-<span class="fu">marxan_problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">spec</span>, <span class="va">puvspr</span>, bound <span class="op">=</span> <span class="cn">NULL</span>, blm <span class="op">=</span> <span class="fl">0</span>, <span class="va">...</span><span class="op">)</span>
+<span class="fu">marxan_problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">spec</span>, <span class="va">puvspr</span>, bound <span class="op">=</span> <span class="cn">NULL</span>, blm <span class="op">=</span> <span class="fl">0</span>, symmetric <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span>
 
 <span class="co"># S3 method for character</span>
 <span class="fu">marxan_problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
@@ -227,6 +227,12 @@ between the planning units identified in the previous two columns.</p></dd>
 <dd><p><code>numeric</code> boundary length modifier. This argument only
 has an effect when argument to <code>x</code> is a <code>data.frame</code>. The
 default argument is zero.</p></dd>
+<dt>symmetric</dt>
+<dd><p><code>logical</code> does the boundary data (i.e., argument to
+<code>bound</code>) describe symmetric relationships between planning units?
+If the boundary data contain asymmetric connectivity data,
+this parameter should be set to <code>FALSE</code>.
+Defaults to <code>TRUE</code>.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -243,9 +249,9 @@ to import <em>Marxan</em> data files.</p>
     <h2>Notes</h2>
     
 
-<p>In early versions, this function could accommodate asymmetric connectivity
-data. This functionality is no longer supported. To specify asymmetric
-connectivity, please see the <code><a href="add_connectivity_penalties.html">add_connectivity_penalties()</a></code> function.</p>
+<p>In previous versions, this function could not accommodate asymmetric
+connectivity data. It has now been updated to handle asymmetric connectivity
+data.</p>
     </div>
     <div id="references">
     <h2>References</h2>

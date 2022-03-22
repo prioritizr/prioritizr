@@ -313,6 +313,7 @@ print(r3, width = Inf)
 See \link{summaries} for an overview of all functions for summarizing solutions.
 
 Other summaries: 
+\code{\link{eval_asym_connectivity_summary}()},
 \code{\link{eval_boundary_summary}()},
 \code{\link{eval_connectivity_summary}()},
 \code{\link{eval_cost_summary}()},

@@ -21,7 +21,7 @@ test_that("minimum set objective (compile, single zone)", {
   # i,j,x matrix for planning unit boundaries
   Matrix::diag(c_data) <- 0
   c_data <- Matrix::drop0(c_data)
-  c_data <- as(c_data, "dgTMatrix")
+  c_data <- as(Matrix::tril(c_data), "dgTMatrix")
   # objectives for boundary decision variables
   c_obj <- o$obj()[n_pu + seq_len(length(c_data@i))]
   # lower bound for boundary decision variables
@@ -135,14 +135,17 @@ test_that("minimum set objective (compile, multiple zones)", {
   n_z <- p$number_of_zones()
   # prepare matrix
   c_data <- cm * -100
+  c_data <- as(Matrix::tril(c_data), "dgTMatrix")
   c_weights <- rep(Matrix::diag(c_data), n_z) * rep(diag(zm), each = n_pu)
   Matrix::diag(c_data) <- 0
   c_data <- Matrix::drop0(c_data)
   c_data <- as(c_data, "dgTMatrix")
   c_penalties <- c()
-  for (i in seq_len(n_z))
-    for (j in seq_len(n_z))
-      c_penalties <- c(c_penalties, c_data@x *zm[i, j])
+  for (i in seq_len(n_z)) {
+    for (j in seq_len(n_z)) {
+      c_penalties <- c(c_penalties, c_data@x * zm[i, j])
+    }
+  }
   # objectives for connectivity decision variables
   c_obj <- o$obj()[(n_pu * n_z) + seq_len(length(c_data@i) * n_z * n_z)]
   # lower bound for connectivity decision variables

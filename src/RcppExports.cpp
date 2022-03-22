@@ -297,6 +297,19 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rcpp_apply_asym_connectivity_penalties
+bool rcpp_apply_asym_connectivity_penalties(SEXP x, double penalty, Rcpp::List data);
+RcppExport SEXP _prioritizr_rcpp_apply_asym_connectivity_penalties(SEXP xSEXP, SEXP penaltySEXP, SEXP dataSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    Rcpp::traits::input_parameter< double >::type penalty(penaltySEXP);
+    Rcpp::traits::input_parameter< Rcpp::List >::type data(dataSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_asym_connectivity_penalties(x, penalty, data));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rcpp_apply_boundary_penalties
 bool rcpp_apply_boundary_penalties(SEXP x, double penalty, Rcpp::NumericVector edge_factor, Rcpp::NumericMatrix zones_matrix, arma::sp_mat boundary_matrix);
 RcppExport SEXP _prioritizr_rcpp_apply_boundary_penalties(SEXP xSEXP, SEXP penaltySEXP, SEXP edge_factorSEXP, SEXP zones_matrixSEXP, SEXP boundary_matrixSEXP) {
@@ -527,6 +540,18 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< Rcpp::List >::type connected_data(connected_dataSEXP);
     Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type k(kSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_apply_neighbor_constraints(x, connected_data, k));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_asym_connectivity
+double rcpp_asym_connectivity(Rcpp::List data, Rcpp::NumericMatrix solution);
+RcppExport SEXP _prioritizr_rcpp_asym_connectivity(SEXP dataSEXP, SEXP solutionSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::List >::type data(dataSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type solution(solutionSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_asym_connectivity(data, solution));
     return rcpp_result_gen;
 END_RCPP
 }

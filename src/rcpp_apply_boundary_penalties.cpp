@@ -16,7 +16,7 @@ bool rcpp_apply_boundary_penalties(SEXP x, double penalty,
    * 2. the number of elements in edge_factor is equal to ptr->_number_of_zones
    *
    * 3. The number of rows and columns in boundary_matrix is equal to
-   *    ptr->_number_of_zones
+   *    ptr->_number_of_planning_units
    *
    * 4. The number of rows and columns in zones_matrix is equal to
    *    ptr->_number_of_zones

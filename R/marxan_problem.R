@@ -93,6 +93,12 @@ NULL
 #'   has an effect when argument to `x` is a `data.frame`. The
 #'   default argument is zero.
 #'
+#' @param symmetric `logical` does the boundary data (i.e., argument to
+#'   `bound`) describe symmetric relationships between planning units?
+#'    If the boundary data contain asymmetric connectivity data,
+#'    this parameter should be set to `FALSE`.
+#'    Defaults to `TRUE`.
+#'
 #' @param ... not used.
 #'
 #' @details
@@ -102,9 +108,9 @@ NULL
 #' to import *Marxan* data files.
 #'
 #' @section Notes:
-#' In early versions, this function could accommodate asymmetric connectivity
-#' data. This functionality is no longer supported. To specify asymmetric
-#' connectivity, please see the [add_connectivity_penalties()] function.
+#' In previous versions, this function could not accommodate asymmetric
+#' connectivity data. It has now been updated to handle asymmetric connectivity
+#' data.
 #'
 #' @seealso For more information on the correct format for
 #'   for *Marxan* input data, see the
@@ -196,7 +202,7 @@ marxan_problem.default <- function(x, ...) {
 #' @method marxan_problem data.frame
 #' @export
 marxan_problem.data.frame <- function(x, spec, puvspr, bound = NULL,
-                                      blm = 0, ...) {
+                                      blm = 0, symmetric = TRUE, ...) {
   # assert arguments are valid
   assertthat::assert_that(no_extra_arguments(...))
   ## x
@@ -278,6 +284,20 @@ marxan_problem.data.frame <- function(x, spec, puvspr, bound = NULL,
   assertthat::assert_that(assertthat::is.scalar(blm), is.finite(blm))
   if (abs(blm) > 1e-50 && is.null(bound))
     warning("no boundary data supplied so the blm argument has no effect")
+  ## symmetric
+  assertthat::assert_that(
+    assertthat::is.flag(symmetric),
+    assertthat::noNA(symmetric)
+  )
+  if (!isTRUE(symmetric) && is.null(bound)) {
+    warning(
+      paste(
+        "argument to bound is NULL, so setting \"symmetric=FALSE\"",
+        "has no effect on problem formulation"
+      ),
+      call. = FALSE, immediate. = TRUE
+    )
+  }
   # create locked in data
   if (assertthat::has_name(x, "status")) {
     x$locked_in <- x$status == 2
@@ -303,8 +323,10 @@ marxan_problem.data.frame <- function(x, spec, puvspr, bound = NULL,
     p <- add_absolute_targets(p, "amount")
   }
   # add boundary data
-  if (!is.null(bound)) {
-      p <- add_boundary_penalties(p, blm, 1, data = bound)
+  if (!is.null(bound) && isTRUE(symmetric)) {
+    p <- add_boundary_penalties(p, penalty = blm, edge_factor = 1, data = bound)
+  } else if (!is.null(bound) && !isTRUE(symmetric)) {
+    p <- add_asym_connectivity_penalties(p, penalty = blm, data = bound)
   }
   # return problem
   return(p)
@@ -366,11 +388,13 @@ marxan_problem.character <- function(x, ...) {
   puvspr_data <- load_file("PUVSPRNAME", x, input_dir)
   bound_data <- load_file("BOUNDNAME", x, input_dir, force = FALSE)
   blm <- as.numeric(parse_field("BLM", x))
-  # check that asymmetric connectivity is not specified
-  asym <- as.logical(parse_field("ASYMMETRICCONNECTIVITY", x))
-  if (isTRUE(asym))
-   stop("marxan_problem function cannot accommodate asymmetric connectivity")
+  # check if connectivity data should be asymmetric
+  sym <- !isTRUE(as.logical(parse_field("ASYMMETRICCONNECTIVITY", x)))
+  if (is.null(bound_data)) {
+    sym <- TRUE
+  }
   # return problem
   marxan_problem(x = pu_data, spec = spec_data, puvspr = puvspr_data,
-                 bound = bound_data, blm = ifelse(is.na(blm), 0, blm))
+                 bound = bound_data, blm = ifelse(is.na(blm), 0, blm),
+                 symmetric = sym)
 }

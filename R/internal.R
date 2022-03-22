@@ -35,23 +35,30 @@ matrix_to_triplet_dataframe <- function(x) {
 
 #' Convert a triplet data.frame to a matrix
 #'
-#' Convert a triplet data.framr object to a sparse matrix.
+#' Convert a triplet `data.frame` object to a sparse matrix.
 #'
 #' @param x `data.frame` object. The first column contains the row
 #'   numbers, the second column contains the column numbers, and the
 #'   third column contains the cell values.
 #
+#' @param forceSymmetric `logical` should matrix be coerced to symmetric?
 #' @return [`dgCMatrix-class`] object.
 #'
 #' @noRd
-triplet_dataframe_to_matrix <- function(x, forceSymmetric=FALSE, ...) {
-  assertthat::assert_that(inherits(x, "data.frame"), isTRUE(ncol(x) == 3),
-    isTRUE(all(x[[1]] == round(x[[1]]))), isTRUE(all(x[[2]] == round(x[[2]]))))
+triplet_dataframe_to_matrix <- function(x, forceSymmetric = FALSE, ...) {
+  # assert arguments are valid
+  assertthat::assert_that(
+    inherits(x, "data.frame"),
+    isTRUE(ncol(x) == 3),
+    isTRUE(all(x[[1]] == round(x[[1]]))),
+    isTRUE(all(x[[2]] == round(x[[2]]))),
+    assertthat::is.flag(forceSymmetric),
+    assertthat::noNA(forceSymmetric))
   # create sparse amtrix
   m <- triplet_sparse_matrix(i = x[[1]], j = x[[2]], x = x[[3]], ...)
   if (forceSymmetric) {
     # force the matrix to be symmetric
-    # we cannot gurantee that the cells that are filled in belong to either
+    # we cannot guarantee that the cells that are filled in belong to either
     # the upper or the lower diagonal
     m2 <- matrix(c(m@j + 1, m@i + 1, m@x), ncol = 3)
     m2 <- m2[m2[, 1] != m2[, 2], ]

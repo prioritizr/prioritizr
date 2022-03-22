@@ -187,7 +187,7 @@ presolve_check.OptimizationProblem <- function(x) {
   # define helper functions
   ratio <- function(x) {
     x <- abs(x)
-    x / min(x[x != 0])
+    x / suppressWarnings(min(x[x != 0]))
   }
   # set thresholds
   threshold_ratio <- 1e+9
@@ -240,8 +240,13 @@ presolve_check.OptimizationProblem <- function(x) {
       warning("penalty multiplied boundary lengths are very high",
               immediate. = TRUE)
     if ("c" %in% n)
-      warning(paste("penalty multiplied connectivity values are very high"),
+      warning("penalty multiplied connectivity values are very high",
               immediate. = TRUE)
+    if ("ac" %in% n)
+      warning(
+        "penalty multiplied asymmetric connectivity values are very high",
+        immediate. = TRUE
+      )
   }
   ## rhs
   r <- which((ratio(x$rhs()) > threshold_ratio) |
