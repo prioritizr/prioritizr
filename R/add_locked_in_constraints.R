@@ -281,13 +281,17 @@ methods::setMethod("add_locked_in_constraints",
   methods::signature("ConservationProblem", "matrix"),
   function(x, locked_in) {
     # assert valid arguments
-    assertthat::assert_that(inherits(x, "ConservationProblem"),
+    assertthat::assert_that(
+      inherits(x, "ConservationProblem"),
       inherits(locked_in, "matrix"),
       is.logical(locked_in),
       x$number_of_zones() == ncol(locked_in),
       x$number_of_total_units() == nrow(locked_in),
       all(is.finite(locked_in)),
       all(rowSums(locked_in) <= 1))
+    assertthat::assert_that(
+      sum(locked_in, na.rm = TRUE) > 0,
+      msg = "at least one planning unit must be locked in")
     # create data.frame with statuses
     ind <- which(locked_in, arr.ind = TRUE)
     y <- data.frame(pu = ind[, 1], zone = x$zone_names()[ind[, 2]], status = 1,

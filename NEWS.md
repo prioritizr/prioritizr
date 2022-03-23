@@ -1,5 +1,8 @@
 # prioritizr 7.2.0.0
 
+- Fix `add_locked_in_constraints()` and `add_locked_out_constraints()`
+  to ensure that a meaningful error message is provided when no planing
+  units are locked (#234).
 - Fix `presolve_check()` so that it does not throw a meaningless warning
   when the mathematical objective function only contains zeros.
 - Update `presolve_check()` to help reduce chances of mis-attributing
@@ -14,7 +17,7 @@
   sometimes resulted in the data being incorrectly treated as symmetric data.
   Additionally, this function uses an updated mathematical formulation
   for handling asymmetric connectivity so that it provides similar
-  results to the _Marxan_ software.
+  results to the _Marxan_ software (#323).
 - Update `marxan_problem()` function so that it can be used with asymmetric
   connectivity data. This is now possible because there are dedicated functions
   for symmetric and asymmetric connectivity.
