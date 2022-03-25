@@ -18,6 +18,7 @@ This vignette contains a list of publications that have cited or used the _prior
 
 ### 2022
 
+* André LV, Van Wynsberge S, Chinain M, Gatti CMI, Liao V, Andréfouët S (2022) Spatial solutions and their impacts when reshuffling coastal management priorities in small islands with limited diversification opportunities. _Sustainability_, **14**:3871.
 * de Assis Barros L, Venter M, Elkin C, and Venter O (2022) Managing forests for old-growth attributes better promotes the provision of ecosystem services than current age-based old-growth management. _Forest Ecology and Management_, **511**: 120130.
 * Benez-Secanho FJ, Dwivedi P, Ferreira S, Hepinstall-Cymerman J, and Wenger S (2022) Trade-offs between the value of ecosystem services and connectivity among protected areas in the Upper Chattahoochee watershed. _Environmental Management_, **In press**: DOI&#58;10.1007/s00267-021-01584-6.
 * Burbano-Girón J, Jantke K, Molina-Berbeo MA, Buriticá-Mejía N, Urbina-Cardona JN, Sánchez-Clavijo LM, and Etter A (2022) An assessment of spatial conservation priorities for biodiversity attributes: Composition, structure, and function of Neotropical biodiversity. _Biological Conservation_, **265**: 109421.
