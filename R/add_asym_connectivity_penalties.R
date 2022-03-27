@@ -8,10 +8,10 @@ NULL
 #' Asymmetric connectivity data describe connectivity information that is
 #' directional.
 #' For example, asymmetric connectivity data could describe
-#' the strength of rivers flowing between different planning unit. Since
+#' the strength of rivers flowing between different planning units. Since
 #' river flow is directional, the level of connectivity
 #' from an upstream planning unit to a downstream planning unit would
-#' be higher than that for a downstream planning unit to an upstream planning
+#' be higher than that from a downstream planning unit to an upstream planning
 #' unit.
 #'
 #' @inheritParams add_connectivity_penalties
