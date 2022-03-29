@@ -1,15 +1,13 @@
 #' @include internal.R
 NULL
 
-#' Convert *Marxan* connectivity data to a matrix format
+#' Convert *Marxan* connectivity data to matrix format
 #'
-#' Convert a `data.frame` object that follows the *Marxan* format
-#' to a matrix format. This function is useful for converting
-#' `data.frame` objects to `matrix` or `array` objects that
-#' are used by the various [penalties] and
-#' [constraints] functions. If the connectivity data contains data for
-#' a single zone, then a matrix object is returned. Otherwise if the boundary
-#' data contains data for multiple zones, then an array is returned.
+#' Convert a `data.frame` object containing *Marxan* connectivity data
+#' to matrix format. This function is designed specifically for
+#' connectivity data (not boundary data).
+#' It ensures that the output matrix correctly specifies
+#' symmetric or asymmetric connectivity relationships between planning units.
 #'
 #' @inheritParams marxan_boundary_data_to_matrix
 #'

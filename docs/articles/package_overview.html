@@ -859,8 +859,8 @@
 <span class="co">##   objective:      Minimum set objective </span>
 <span class="co">##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]</span>
 <span class="co">##   decisions:      default</span>
-<span class="co">##   constraints:    &lt;Locked in planning units [10 locked units]</span>
-<span class="co">##                    Locked out planning units [10 locked units]&gt;</span>
+<span class="co">##   constraints:    &lt;Locked out planning units [10 locked units]</span>
+<span class="co">##                    Locked in planning units [10 locked units]&gt;</span>
 <span class="co">##   penalties:      &lt;none&gt;</span>
 <span class="co">##   portfolio:      default</span>
 <span class="co">##   solver:         default</span></code></pre>
@@ -1438,7 +1438,7 @@
 <span class="co">## Cutting planes:</span>
 <span class="co">##   Gomory: 3</span>
 <span class="co">## </span>
-<span class="co">## Explored 7 nodes (489 simplex iterations) in 0.10 seconds (0.10 work units)</span>
+<span class="co">## Explored 7 nodes (489 simplex iterations) in 0.12 seconds (0.10 work units)</span>
 <span class="co">## Thread count was 1 (of 8 available processors)</span>
 <span class="co">## </span>
 <span class="co">## Solution count 5: 2604.74 2730.95 2790.87 ... 20287.2</span>
@@ -1461,7 +1461,7 @@
 <code class="sourceCode R"><span class="co"># extract time spent solving solution</span>
 <span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s41</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">## solution_1 </span>
-<span class="co">##      0.112</span></code></pre>
+<span class="co">##      0.127</span></code></pre>
 <div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># extract state message from the solver that describes why this specific</span>
 <span class="co"># solution was returned</span>
@@ -1579,7 +1579,7 @@
 <pre><code><span class="co">## <span style="color: #949494;"># A tibble: 1 × 2</span></span>
 <span class="co">##   summary asym_connectivity</span>
 <span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">## <span style="color: #BCBCBC;">1</span> overall              54.0</span></code></pre>
+<span class="co">## <span style="color: #BCBCBC;">1</span> overall              48.7</span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="evaluating-relative-importance">Evaluating relative importance<a class="anchor" aria-label="anchor" href="#evaluating-relative-importance"></a>
@@ -1686,8 +1686,8 @@
 <span class="co">##   objective:      Minimum set objective </span>
 <span class="co">##   targets:        Relative targets [targets (min: 0.3, max: 0.3)]</span>
 <span class="co">##   decisions:      default</span>
-<span class="co">##   constraints:    &lt;Locked in planning units [317 locked units]</span>
-<span class="co">##                    Locked out planning units [1 locked units]&gt;</span>
+<span class="co">##   constraints:    &lt;Locked out planning units [1 locked units]</span>
+<span class="co">##                    Locked in planning units [317 locked units]&gt;</span>
 <span class="co">##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (1), zones]&gt;</span>
 <span class="co">##   portfolio:      default</span>
 <span class="co">##   solver:         default</span></code></pre>

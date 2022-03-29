@@ -148,6 +148,8 @@ NULL
 #'
 #' @family penalties
 #'
+#' @encoding UTF-8
+#'
 #' @references
 #' Beger M, Linke S, Watts M, Game E, Treml E, Ball I, and Possingham, HP (2010)
 #' Incorporating asymmetric connectivity into spatial decision making for

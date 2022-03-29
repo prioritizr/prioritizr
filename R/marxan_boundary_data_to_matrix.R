@@ -1,15 +1,13 @@
 #' @include internal.R
 NULL
 
-#' Convert *Marxan* boundary data to a matrix format
+#' Convert *Marxan* boundary data to matrix format
 #'
-#' Convert a `data.frame` object that follows the *Marxan* format
-#' to a matrix format. This function is useful for converting
-#' `data.frame` objects to `matrix` or `array` objects that
-#' are used by the various [penalties] and
-#' [constraints] functions. If the boundary data contains data for
-#' a single zone, then a matrix object is returned. Otherwise if the boundary
-#' data contains data for multiple zones, then an array is returned.
+#' Convert a `data.frame` object containing *Marxan* boundary data
+#' to matrix format. This function is designed specifically for
+#' boundary data (not connectivity data).
+#' It ensures that the output matrix correctly specifies
+#' symmetric spatial relationships between planning units.
 #'
 #' @param x [problem()] (i.e., [`ConservationProblem-class`]) object that
 #'   contains planning unit and zone data to ensure that the argument to
@@ -20,7 +18,12 @@ NULL
 #'   `"id2"`, and `"boundary"`. The columns `"zone1"` and
 #'   `"zone2"` can also be provided to indicate zone data.
 #'
-#' @return `array` or [`dgCMatrix-class`] sparse matrix object.
+#' @return
+#' `array` or [`dgCMatrix-class`] sparse matrix object.
+#' If the argument to `data` corresponds to a single zone,
+#' then a [`dgCMatrix-class`]
+#' matrix is returned. Otherwise, if the argument to `data`
+#' corresponds to multiple zones, then an `array` is returned.
 #'
 #' @examples
 #' # create marxan boundary with four planning units and one zone
