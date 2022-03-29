@@ -84,6 +84,8 @@ NULL
 #'
 #' @family constraints
 #'
+#' @encoding UTF-8
+#'
 #' @references
 #' Önal H and Briers RA (2006) Optimal selection of a connected
 #' reserve network. *Operations Research*, 54: 379--388.

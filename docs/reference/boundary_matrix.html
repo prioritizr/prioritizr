@@ -133,7 +133,7 @@ planning unit exhibits.</p>
 <dd><p><code><a href="https://rdrr.io/pkg/raster/man/Raster-classes.html" class="external-link">Raster</a></code>,
 <code><a href="https://rdrr.io/pkg/sp/man/SpatialLines-class.html" class="external-link">SpatialLines</a></code>,
 <code><a href="https://rdrr.io/pkg/sp/man/SpatialPolygons-class.html" class="external-link">SpatialPolygons</a></code>,
-<code><a href="https://rdrr.io/pkg/sf/man/sf.html" class="external-link">sf::sf()</a></code> object representing planning units. If <code>x</code> is a
+<code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::sf()</a></code> object representing planning units. If <code>x</code> is a
 <code><a href="https://rdrr.io/pkg/raster/man/Raster-classes.html" class="external-link">Raster</a></code> object then it must have only one
 layer.</p></dd>
 <dt>str_tree</dt>
@@ -180,7 +180,7 @@ boundaries are missing for cells that have <code>NA</code> values in all cells.<
 <span class="r-in"><span class="co"># subset data to reduce processing time</span></span>
 <span class="r-in"><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/crop.html" class="external-link">crop</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.3</span>, <span class="fl">0</span>, <span class="fl">0.3</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">ply</span> <span class="op">&lt;-</span> <span class="va">sim_pu_polygons</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="fl">10</span><span class="op">:</span><span class="fl">12</span>, <span class="fl">20</span><span class="op">:</span><span class="fl">22</span><span class="op">)</span>, <span class="op">]</span></span>
-<span class="r-in"><span class="va">ply2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/sf/man/st_as_sf.html" class="external-link">st_as_sf</a></span><span class="op">(</span><span class="va">ply</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">ply2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">st_as_sf</a></span><span class="op">(</span><span class="va">ply</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># create boundary matrix using raster data</span></span>
 <span class="r-in"><span class="va">bm_raster</span> <span class="op">&lt;-</span> <span class="fu">boundary_matrix</span><span class="op">(</span><span class="va">r</span><span class="op">)</span></span>

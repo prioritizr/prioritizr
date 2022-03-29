@@ -174,7 +174,7 @@ an objective will throw an error when attempting to solve it.</strong></p>
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p><code><a href="https://rdrr.io/pkg/raster/man/Raster-classes.html" class="external-link">Raster</a></code>,
-<code><a href="https://rdrr.io/pkg/sf/man/sf.html" class="external-link">sf::st_sf()</a></code>,
+<code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::st_sf()</a></code>,
 <code><a href="https://rdrr.io/pkg/sp/man/SpatialPolygonsDataFrame-class.html" class="external-link">SpatialPolygonsDataFrame</a></code>,
 <code><a href="https://rdrr.io/pkg/sp/man/SpatialLinesDataFrame-class.html" class="external-link">SpatialLinesDataFrame</a></code>,
 <code><a href="https://rdrr.io/pkg/sp/man/SpatialPointsDataFrame-class.html" class="external-link">SpatialPointsDataFrame</a></code>,
@@ -192,7 +192,7 @@ argument to <code>x</code>) and whether the problem should have a single zone or
 multiple zones. If the problem should have a single zone, then the feature
 data can be specified following:</p><ul><li><p><code>x = RasterLayer-class</code>, or
 <code><a href="https://rdrr.io/pkg/sp/man/Spatial-class.html" class="external-link">x = Spatial-class</a></code>, or
-<code><a href="https://rdrr.io/pkg/sf/man/sf.html" class="external-link">x = sf::st_sf()</a></code>:
+<code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">x = sf::st_sf()</a></code>:
 <code>y = Raster-class</code>
 object showing the distribution of conservation features. Missing
 values (i.e., <code>NA</code> values) can be used to indicate the absence of
@@ -200,7 +200,7 @@ a feature in a particular cell instead of explicitly setting these
 cells to zero. Note that this argument type for <code>features</code> can
 only be used to specify data for problems involving a single zone.</p></li>
 <li><p><code><a href="https://rdrr.io/pkg/sp/man/Spatial-class.html" class="external-link">x = Spatial-class</a></code>, or
-<code><a href="https://rdrr.io/pkg/sf/man/sf.html" class="external-link">x = sf::st_sf()</a></code>, or
+<code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">x = sf::st_sf()</a></code>, or
 <code>x = data.frame</code>:
 <code>y = character</code> vector
 with column names that correspond to the abundance or occurrence of
@@ -236,14 +236,14 @@ feature (optional).</p></dd>
 data can be specified following:</p><ul><li><p><code>x = RasterStack-class</code>, or
 <code>x = RasterBrick-class</code>, or
 <code><a href="https://rdrr.io/pkg/sp/man/Spatial-class.html" class="external-link">x = Spatial-class</a></code>, or
-<code><a href="https://rdrr.io/pkg/sf/man/sf.html" class="external-link">x = sf::st_sf()</a></code>:
+<code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">x = sf::st_sf()</a></code>:
 <code><a href="zones.html">y = ZonesRaster</a></code>:
 object showing the distribution of conservation features in multiple
 zones. As above, missing values (i.e., <code>NA</code> values) can be used to
 indicate the absence of a feature in a particular cell instead of
 explicitly setting these cells to zero.</p></li>
 <li><p><code><a href="https://rdrr.io/pkg/sp/man/Spatial-class.html" class="external-link">x = Spatial-class</a></code>, or
-<code><a href="https://rdrr.io/pkg/sf/man/sf.html" class="external-link">x = sf::st_sf()</a></code>, or
+<code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">x = sf::st_sf()</a></code>, or
 or <code>x = data.frame</code>:
 <code><a href="zones.html">y = ZonesCharacter</a></code>
 object with column names that correspond to the abundance or
@@ -563,8 +563,8 @@ evaluating solutions.</p></div>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">s4</span><span class="op">[</span><span class="va">s4</span><span class="op">$</span><span class="va">solution_1</span> <span class="op">&gt;</span> <span class="fl">0.5</span>, <span class="op">]</span>, col <span class="op">=</span> <span class="st">"darkgreen"</span>, cex <span class="op">=</span> <span class="fl">2</span>, pch <span class="op">=</span> <span class="fl">19</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># note that as_Spatial() is for convenience to plot all solutions together</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/sf/man/coerce-methods.html" class="external-link">as_Spatial</a></span><span class="op">(</span><span class="va">s5</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"sf (polygon) data"</span>, pch <span class="op">=</span> <span class="fl">19</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/sf/man/coerce-methods.html" class="external-link">as_Spatial</a></span><span class="op">(</span><span class="va">s5</span><span class="op">[</span><span class="va">s5</span><span class="op">$</span><span class="va">solution_1</span> <span class="op">&gt;</span> <span class="fl">0.5</span>, <span class="op">]</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"darkgreen"</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/coerce-methods.html" class="external-link">as_Spatial</a></span><span class="op">(</span><span class="va">s5</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"sf (polygon) data"</span>, pch <span class="op">=</span> <span class="fl">19</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/coerce-methods.html" class="external-link">as_Spatial</a></span><span class="op">(</span><span class="va">s5</span><span class="op">[</span><span class="va">s5</span><span class="op">$</span><span class="va">solution_1</span> <span class="op">&gt;</span> <span class="fl">0.5</span>, <span class="op">]</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"darkgreen"</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s6</span>, main <span class="op">=</span> <span class="st">"preprocessed data (polygon data)"</span>, pch <span class="op">=</span> <span class="fl">19</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s6</span><span class="op">[</span><span class="va">s6</span><span class="op">$</span><span class="va">solution_1</span> <span class="op">&gt;</span> <span class="fl">0.5</span>, <span class="op">]</span>, col <span class="op">=</span> <span class="st">"darkgreen"</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>

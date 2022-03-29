@@ -199,7 +199,7 @@ value.</p></dd>
 that indicate if planning units should be locked for the solution.
 This format is only
 compatible if the planning units in the argument to <code>x</code> are a
-<code><a href="https://rdrr.io/pkg/sp/man/Spatial-class.html" class="external-link">Spatial</a></code>, <code><a href="https://rdrr.io/pkg/sf/man/sf.html" class="external-link">sf::sf()</a></code>, or
+<code><a href="https://rdrr.io/pkg/sp/man/Spatial-class.html" class="external-link">Spatial</a></code>, <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::sf()</a></code>, or
 <code>data.frame</code> object. The fields
 (columns) must have <code>logical</code> (i.e., <code>TRUE</code> or <code>FALSE</code>)
 values indicating if the planning unit is to be locked for the solution.
@@ -209,7 +209,7 @@ contain multiple zones, the argument to <code>data</code> must
 contain a field name for each zone.</p></dd>
 
 
-<dt><code>data</code> as a <code><a href="https://rdrr.io/pkg/sp/man/Spatial-class.html" class="external-link">Spatial</a></code> or <code><a href="https://rdrr.io/pkg/sf/man/sf.html" class="external-link">sf::sf()</a></code> object</dt>
+<dt><code>data</code> as a <code><a href="https://rdrr.io/pkg/sp/man/Spatial-class.html" class="external-link">Spatial</a></code> or <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::sf()</a></code> object</dt>
 <dd><p>containing geometries that will be used to lock planning units for
 the solution. Specifically, planning units in <code>x</code> that spatially
 intersect with <code>y</code> will be locked (per <code><a href="intersecting_units.html">intersecting_units()</a></code>).

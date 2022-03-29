@@ -46,6 +46,8 @@ NULL
 #'
 #' @family solvers
 #'
+#' @encoding UTF-8
+#'
 #' @examples
 #' \dontrun{
 #' # load data

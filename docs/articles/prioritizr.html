@@ -176,11 +176,11 @@
 <span class="co">## max values  : 1130,  61.9272727272727,      2,         1,          0</span></code></pre>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># plot map of planning unit costs</span>
-<span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/sf/man/st_as_sf.html" class="external-link">st_as_sf</a></span><span class="op">(</span><span class="va">tas_pu</span><span class="op">[</span>, <span class="st">"cost"</span><span class="op">]</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Planning unit costs"</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">st_as_sf</a></span><span class="op">(</span><span class="va">tas_pu</span><span class="op">[</span>, <span class="st">"cost"</span><span class="op">]</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Planning unit costs"</span><span class="op">)</span></code></pre></div>
 <p><img src="prioritizr_files/figure-html/unnamed-chunk-4-1.png" width="336" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># plot map of planning unit coverage by protected areas</span>
-<span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/sf/man/st_as_sf.html" class="external-link">st_as_sf</a></span><span class="op">(</span><span class="va">tas_pu</span><span class="op">[</span>, <span class="st">"locked_in"</span><span class="op">]</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Protected area coverage"</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">st_as_sf</a></span><span class="op">(</span><span class="va">tas_pu</span><span class="op">[</span>, <span class="st">"locked_in"</span><span class="op">]</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Protected area coverage"</span><span class="op">)</span></code></pre></div>
 <p><img src="prioritizr_files/figure-html/unnamed-chunk-4-2.png" width="336" style="display: block; margin: auto;"></p>
 <p>The <code>tas_features</code> object describes the spatial distribution of the features. Specifically, the feature data are expressed as a stack of 62 rasters (i.e., a <code>RasterStack</code> object). Each layer in the stack corresponds to one of 62 different vegetation communities. To describe the spatial distribution of a given vegetation community, each layer contains a spatially referenced grid of rectangular cells and each of these grid cells is associated with information on the distribution of the a given vegetation community. Specifically, these grid cells are assigned values that indicate if a given vegetation community is present (using value of 1) or absent (using value of 0) within the spatial extent of each grid cell.</p>
 <p>Next, let’s examine the feature data. Here we will only plot the first four features as an example. The pixel values denote the presence (denoted by a value of 1) or absence (denoted by a value of zero) of each feature within the extent of the study area.</p>
@@ -248,7 +248,7 @@
 <span class="co">## Found heuristic solution: objective 37703.827706</span>
 <span class="co">## Found heuristic solution: objective 27817.085072</span>
 <span class="co">## Presolve removed 2077 rows and 1375 columns</span>
-<span class="co">## Presolve time: 0.05s</span>
+<span class="co">## Presolve time: 0.03s</span>
 <span class="co">## Presolved: 4281 rows, 2903 columns, 9594 nonzeros</span>
 <span class="co">## Found heuristic solution: objective 24454.499456</span>
 <span class="co">## Variable types: 0 continuous, 2903 integer (2903 binary)</span>
@@ -256,7 +256,7 @@
 <span class="co">## Root relaxation presolved: 4281 rows, 2903 columns, 9594 nonzeros</span>
 <span class="co">## </span>
 <span class="co">## </span>
-<span class="co">## Root relaxation: objective 1.955605e+04, 1793 iterations, 0.12 seconds (0.19 work units)</span>
+<span class="co">## Root relaxation: objective 1.955605e+04, 1793 iterations, 0.08 seconds (0.19 work units)</span>
 <span class="co">## </span>
 <span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span>
 <span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span>
@@ -275,7 +275,7 @@
 <span class="co">##   Zero half: 2</span>
 <span class="co">##   RLT: 10</span>
 <span class="co">## </span>
-<span class="co">## Explored 1 nodes (2393 simplex iterations) in 0.43 seconds (0.60 work units)</span>
+<span class="co">## Explored 1 nodes (2393 simplex iterations) in 0.32 seconds (0.60 work units)</span>
 <span class="co">## Thread count was 1 (of 8 available processors)</span>
 <span class="co">## </span>
 <span class="co">## Solution count 7: 21702.3 22977.8 23045.7 ... 37703.8</span>
@@ -284,7 +284,7 @@
 <span class="co">## Best objective 2.170229740250e+04, best bound 1.983605855899e+04, gap 8.5993%</span></code></pre>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># plot map of prioritization</span>
-<span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/sf/man/st_as_sf.html" class="external-link">st_as_sf</a></span><span class="op">(</span><span class="va">s1</span><span class="op">[</span>, <span class="st">"solution_1"</span><span class="op">]</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Prioritization"</span>,
+<span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">st_as_sf</a></span><span class="op">(</span><span class="va">s1</span><span class="op">[</span>, <span class="st">"solution_1"</span><span class="op">]</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Prioritization"</span>,
      pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey90"</span>, <span class="st">"darkgreen"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="prioritizr_files/figure-html/unnamed-chunk-7-1.png" width="336" style="display: block; margin: auto;"></p>
 </div>
@@ -393,7 +393,7 @@
 <span class="va">irrep_s1</span><span class="op">$</span><span class="va">plot_total</span><span class="op">[</span><span class="va">s1</span><span class="op">$</span><span class="va">solution_1</span> <span class="op">&lt;</span> <span class="fl">0.5</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA_real_</span>
 
 <span class="co"># plot map of overall importance scores</span>
-<span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/sf/man/st_as_sf.html" class="external-link">st_as_sf</a></span><span class="op">(</span><span class="va">irrep_s1</span><span class="op">[</span>, <span class="st">"plot_total"</span><span class="op">]</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Overall importance"</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">st_as_sf</a></span><span class="op">(</span><span class="va">irrep_s1</span><span class="op">[</span>, <span class="st">"plot_total"</span><span class="op">]</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Overall importance"</span><span class="op">)</span></code></pre></div>
 <p><img src="prioritizr_files/figure-html/unnamed-chunk-9-1.png" width="336" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
@@ -434,14 +434,14 @@
 <span class="co">## Found heuristic solution: objective 37703.827706</span>
 <span class="co">## Found heuristic solution: objective 27817.085072</span>
 <span class="co">## Presolve removed 1434 rows and 258 columns</span>
-<span class="co">## Presolve time: 0.02s</span>
+<span class="co">## Presolve time: 0.01s</span>
 <span class="co">## Presolved: 4924 rows, 4020 columns, 10889 nonzeros</span>
 <span class="co">## Variable types: 0 continuous, 4020 integer (4020 binary)</span>
 <span class="co">## Found heuristic solution: objective 27660.082384</span>
 <span class="co">## Root relaxation presolved: 4924 rows, 4020 columns, 10889 nonzeros</span>
 <span class="co">## </span>
 <span class="co">## </span>
-<span class="co">## Root relaxation: objective 1.954728e+04, 1905 iterations, 0.14 seconds (0.18 work units)</span>
+<span class="co">## Root relaxation: objective 1.954728e+04, 1905 iterations, 0.08 seconds (0.18 work units)</span>
 <span class="co">## </span>
 <span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span>
 <span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span>
@@ -461,45 +461,43 @@
 <span class="co">##      0     0 19937.4882    0 2005 22049.9565 19937.4882  9.58%     -    0s</span>
 <span class="co">##      0     0 19937.6761    0 2005 22049.9565 19937.6761  9.58%     -    0s</span>
 <span class="co">##      0     0 19968.7333    0 1691 22049.9565 19968.7333  9.44%     -    0s</span>
-<span class="co">##      0     0 19970.0998    0 1714 22049.9565 19970.0998  9.43%     -    1s</span>
-<span class="co">##      0     0 19970.4702    0 1714 22049.9565 19970.4702  9.43%     -    1s</span>
-<span class="co">##      0     0 19983.7957    0 1748 22049.9565 19983.7957  9.37%     -    1s</span>
-<span class="co">##      0     0 19984.9623    0 1754 22049.9565 19984.9623  9.37%     -    1s</span>
-<span class="co">##      0     0 19985.0928    0 1754 22049.9565 19985.0928  9.36%     -    1s</span>
-<span class="co">##      0     0 19990.8490    0 2040 22049.9565 19990.8490  9.34%     -    1s</span>
-<span class="co">##      0     0 19991.1771    0 2041 22049.9565 19991.1771  9.34%     -    1s</span>
-<span class="co">##      0     0 19991.9721    0 2039 22049.9565 19991.9721  9.33%     -    1s</span>
-<span class="co">##      0     0 19992.1795    0 2040 22049.9565 19992.1795  9.33%     -    1s</span>
-<span class="co">##      0     0 19995.3797    0 1784 22049.9565 19995.3797  9.32%     -    1s</span>
-<span class="co">##      0     0 19995.3847    0 1788 22049.9565 19995.3847  9.32%     -    1s</span>
-<span class="co">##      0     0 19995.5716    0 2038 22049.9565 19995.5716  9.32%     -    1s</span>
-<span class="co">##      0     0 19995.8374    0 2037 22049.9565 19995.8374  9.32%     -    1s</span>
+<span class="co">##      0     0 19970.0998    0 1714 22049.9565 19970.0998  9.43%     -    0s</span>
+<span class="co">##      0     0 19970.4702    0 1714 22049.9565 19970.4702  9.43%     -    0s</span>
+<span class="co">##      0     0 19983.7957    0 1748 22049.9565 19983.7957  9.37%     -    0s</span>
+<span class="co">##      0     0 19984.9623    0 1754 22049.9565 19984.9623  9.37%     -    0s</span>
+<span class="co">##      0     0 19985.0928    0 1754 22049.9565 19985.0928  9.36%     -    0s</span>
+<span class="co">##      0     0 19990.8490    0 2040 22049.9565 19990.8490  9.34%     -    0s</span>
+<span class="co">##      0     0 19991.1771    0 2041 22049.9565 19991.1771  9.34%     -    0s</span>
+<span class="co">##      0     0 19991.9721    0 2039 22049.9565 19991.9721  9.33%     -    0s</span>
+<span class="co">##      0     0 19992.1795    0 2040 22049.9565 19992.1795  9.33%     -    0s</span>
+<span class="co">##      0     0 19995.3797    0 1784 22049.9565 19995.3797  9.32%     -    0s</span>
+<span class="co">##      0     0 19995.3847    0 1788 22049.9565 19995.3847  9.32%     -    0s</span>
+<span class="co">##      0     0 19995.5716    0 2038 22049.9565 19995.5716  9.32%     -    0s</span>
+<span class="co">##      0     0 19995.8374    0 2037 22049.9565 19995.8374  9.32%     -    0s</span>
+<span class="co">##      0     0 19996.1519    0 2039 22049.9565 19996.1519  9.31%     -    0s</span>
 <span class="co">##      0     0 19996.1519    0 2039 22049.9565 19996.1519  9.31%     -    1s</span>
-<span class="co">##      0     0 19996.1519    0 2039 22049.9565 19996.1519  9.31%     -    1s</span>
-<span class="co">##      0     2 19996.6237    0 2039 22049.9565 19996.6237  9.31%     -    2s</span>
-<span class="co">## H   27    27                    21471.431466 19996.6237  6.87%   117    2s</span>
-<span class="co">## H   52    52                    21371.814002 19996.6237  6.43%   115    2s</span>
-<span class="co">## H   54    54                    21254.060213 19996.6237  5.92%   117    3s</span>
-<span class="co">## H  108   108                    21204.105802 19996.6237  5.69%   123    3s</span>
-<span class="co">## H  162   162                    21202.636805 19996.6237  5.69%   104    4s</span>
-<span class="co">## H  286   286                    21166.904542 19996.6237  5.53%  69.2    4s</span>
-<span class="co">## H  606   599                    20993.604430 19996.6237  4.75%  32.8    5s</span>
-<span class="co">##    634    16 20993.6044  234 1965 20993.6044 20028.3465  4.60%  31.4   10s</span>
-<span class="co">##    664    14 20993.6044  483 1966 20993.6044 20032.0004  4.58%  36.9   15s</span>
-<span class="co">##    723    56 20559.4179   49  907 20993.6044 20082.6816  4.34%  58.3   20s</span>
-<span class="co">## H  750    81                    20939.026645 20082.6816  4.09%  61.7   21s</span>
-<span class="co">## H 1231   560                    20924.385117 20082.6816  4.02%  44.7   24s</span>
-<span class="co">##   1233   564 20115.9455   25 1670 20924.3851 20084.4398  4.01%  45.5   25s</span>
-<span class="co">##   1896  1225 20605.4188   35 1444 20924.3851 20092.6890  3.97%  48.1   30s</span>
-<span class="co">## H 1975  1297                    20813.687049 20092.6890  3.46%  50.6   31s</span>
-<span class="co">##   2506  1828 20973.5673   63  369 20813.6870 20099.7124  3.43%  49.7   35s</span>
-<span class="co">##   3657  2925 20356.1327   31 1882 20813.6870 20110.2720  3.38%  42.1   40s</span>
-<span class="co">##   4741  3687 21375.4770   79 1198 20813.6870 20148.3760  3.20%  39.2   45s</span>
-<span class="co">##   5066  3798 21670.0589   99  586 20813.6870 20153.3149  3.17%  40.5   50s</span>
-<span class="co">##   5650  4181 20593.7313   37 1554 20813.6870 20166.6830  3.11%  41.4   55s</span>
-<span class="co">##   6070  4553 21397.5079   51 1739 20813.6870 20167.5494  3.10%  42.6   60s</span>
-<span class="co">##   6713  4801 21155.0228   75  921 20813.6870 20193.4219  2.98%  42.8   65s</span>
-<span class="co">##   7235  4718 20576.8440   37 1698 20813.6870 20195.9413  2.97%  44.0   70s</span>
+<span class="co">##      0     2 19996.6237    0 2039 22049.9565 19996.6237  9.31%     -    1s</span>
+<span class="co">## H   27    27                    21471.431466 19996.6237  6.87%   117    1s</span>
+<span class="co">## H   52    52                    21371.814002 19996.6237  6.43%   115    1s</span>
+<span class="co">## H   54    54                    21254.060213 19996.6237  5.92%   117    1s</span>
+<span class="co">## H  108   108                    21204.105802 19996.6237  5.69%   123    2s</span>
+<span class="co">## H  162   162                    21202.636805 19996.6237  5.69%   104    2s</span>
+<span class="co">## H  286   286                    21166.904542 19996.6237  5.53%  69.2    2s</span>
+<span class="co">## H  606   599                    20993.604430 19996.6237  4.75%  32.8    3s</span>
+<span class="co">##    618     8 20993.6044  535 1949 20993.6044 20003.8143  4.71%  32.2    5s</span>
+<span class="co">##    654     8 20993.6044  550 1964 20993.6044 20030.2110  4.59%  37.4   10s</span>
+<span class="co">##    747    80 20783.8924   61  761 20993.6044 20082.6816  4.34%  61.4   15s</span>
+<span class="co">## H  750    81                    20939.026645 20082.6816  4.09%  61.7   15s</span>
+<span class="co">## H 1231   560                    20924.385117 20082.6816  4.02%  44.7   17s</span>
+<span class="co">##   1339   670 21058.7601   81  773 20924.3851 20084.4398  4.01%  60.3   20s</span>
+<span class="co">## H 1975  1297                    20813.687049 20092.6890  3.46%  50.6   21s</span>
+<span class="co">##   2490  1812 20778.3967   55  303 20813.6870 20099.7124  3.43%  48.9   25s</span>
+<span class="co">##   3659  2927 20385.0460   33 1880 20813.6870 20110.2720  3.38%  42.3   30s</span>
+<span class="co">##   4924  3782 22912.9737  262    5 20813.6870 20148.3760  3.20%  38.8   35s</span>
+<span class="co">##   5419  3952          -  218      20813.6870 20155.9610  3.16%  42.6   40s</span>
+<span class="co">##   6105  4586 20532.3259   34 1904 20813.6870 20171.2638  3.09%  43.3   45s</span>
+<span class="co">##   6972  4646 21513.4180   62 1483 20813.6870 20193.4398  2.98%  42.7   50s</span>
+<span class="co">##   7643  4926 20445.3414   36 1885 20813.6870 20197.6282  2.96%  43.5   55s</span>
 <span class="co">## </span>
 <span class="co">## Cutting planes:</span>
 <span class="co">##   Gomory: 7</span>
@@ -511,7 +509,7 @@
 <span class="co">##   Zero half: 22</span>
 <span class="co">##   RLT: 24</span>
 <span class="co">## </span>
-<span class="co">## Explored 7780 nodes (344017 simplex iterations) in 73.35 seconds (80.68 work units)</span>
+<span class="co">## Explored 7780 nodes (344017 simplex iterations) in 56.05 seconds (80.68 work units)</span>
 <span class="co">## Thread count was 1 (of 8 available processors)</span>
 <span class="co">## </span>
 <span class="co">## Solution count 1000: 20813.7 20924.4 20939 ... 22439.4</span>
@@ -566,7 +564,7 @@
 <span class="co"># dark grey: locked in planning units</span>
 <span class="co"># grey: planning units not selected</span>
 <span class="co"># green: selected planning units</span>
-<span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/sf/man/st_as_sf.html" class="external-link">st_as_sf</a></span><span class="op">(</span><span class="va">prt2</span><span class="op">)</span>, pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey60"</span>, <span class="st">"grey90"</span>, <span class="st">"darkgreen"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">st_as_sf</a></span><span class="op">(</span><span class="va">prt2</span><span class="op">)</span>, pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey60"</span>, <span class="st">"grey90"</span>, <span class="st">"darkgreen"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="prioritizr_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
@@ -639,8 +637,8 @@
 <span class="co">##   objective:      Minimum set objective </span>
 <span class="co">##   targets:        Relative targets [targets (min: 0.3, max: 0.3)]</span>
 <span class="co">##   decisions:      default</span>
-<span class="co">##   constraints:    &lt;Locked in planning units [317 locked units]</span>
-<span class="co">##                    Locked out planning units [1 locked units]&gt;</span>
+<span class="co">##   constraints:    &lt;Locked out planning units [1 locked units]</span>
+<span class="co">##                    Locked in planning units [317 locked units]&gt;</span>
 <span class="co">##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (5e-04), zones]&gt;</span>
 <span class="co">##   portfolio:      default</span>
 <span class="co">##   solver:         default</span></code></pre>
@@ -676,7 +674,7 @@
 <span class="co">## </span>
 <span class="co">##      0     0 9.5646e+09    0   20 1.0099e+10 9.5646e+09  5.29%     -    0s</span>
 <span class="co">## </span>
-<span class="co">## Explored 1 nodes (493 simplex iterations) in 0.07 seconds (0.10 work units)</span>
+<span class="co">## Explored 1 nodes (493 simplex iterations) in 0.06 seconds (0.10 work units)</span>
 <span class="co">## Thread count was 1 (of 8 available processors)</span>
 <span class="co">## </span>
 <span class="co">## Solution count 2: 1.00992e+10 1.22118e+10 </span>

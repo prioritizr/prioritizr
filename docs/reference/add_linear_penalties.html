@@ -175,7 +175,7 @@ weighted by status of each planning unit in the solution.</p>
 <dd><p>containing field (column) name(s) that
 contain penalty values for planning units. This format is only
 compatible if the planning units in the argument to <code>x</code> are a
-<code><a href="https://rdrr.io/pkg/sp/man/Spatial-class.html" class="external-link">Spatial</a></code>, <code><a href="https://rdrr.io/pkg/sf/man/sf.html" class="external-link">sf::sf()</a></code>, or
+<code><a href="https://rdrr.io/pkg/sp/man/Spatial-class.html" class="external-link">Spatial</a></code>, <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::sf()</a></code>, or
 <code>data.frame</code> object. The fields (columns) must have <code>numeric</code>
 values, and must not contain any missing (<code>NA</code>) values.
 For problems that contain a single zone, the argument to <code>data</code> must
@@ -203,10 +203,10 @@ when it is allocated to a given zone.</p></dd>
 <dd><p>containing values for planning
 units. This format is only
 compatible if the planning units in the argument to <code>x</code> are
-<code><a href="https://rdrr.io/pkg/sp/man/Spatial-class.html" class="external-link">Spatial</a></code>, <code><a href="https://rdrr.io/pkg/sf/man/sf.html" class="external-link">sf::sf()</a></code>, or
+<code><a href="https://rdrr.io/pkg/sp/man/Spatial-class.html" class="external-link">Spatial</a></code>, <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::sf()</a></code>, or
 <code><a href="https://rdrr.io/pkg/raster/man/Raster-classes.html" class="external-link">Raster</a></code> objects.
 If the planning unit data are a <code><a href="https://rdrr.io/pkg/sp/man/Spatial-class.html" class="external-link">Spatial</a></code> or
-<code><a href="https://rdrr.io/pkg/sf/man/sf.html" class="external-link">sf::sf()</a></code> object, then the values are calculated by overlaying the
+<code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::sf()</a></code> object, then the values are calculated by overlaying the
 planning units with the argument to <code>data</code> and calculating the sum of the
 values associated with each planning unit.
 If the planning unit data are a
