@@ -1,12 +1,13 @@
 #' @include internal.R ConservationProblem-proto.R
 NULL
 
-#' Evaluate solution connectivity
+#' Evaluate connectivity of solution
 #'
 #' Calculate the connectivity held within a solution to a conservation
 #' planning [problem()].
 #' This summary statistic evaluates the connectivity of a solution using
 #' pair-wise connectivity values between combinations of planning units.
+#' It is specifically designed for symmetric connectivity data.
 #'
 #' @inheritParams add_connectivity_penalties
 #' @inheritParams eval_cost_summary
@@ -97,10 +98,13 @@ NULL
 #' r1 <- eval_connectivity_summary(p1, s1, data = cm1)
 #' print(r1)
 #'
-#' # build minimal conservation problem with polygon (sf) data
-#' p2 <- problem(sim_pu_sf, sim_features, cost_column = "cost") %>%
+#'
+#' # build multi-zone conservation problem with polygon (sf) data
+#' p2 <- problem(sim_pu_zones_sf, sim_features_zones,
+#'               cost_column = c("cost_1", "cost_2", "cost_3")) %>%
 #'       add_min_set_objective() %>%
-#'       add_relative_targets(0.1) %>%
+#'       add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
+#'                                   ncol = 3)) %>%
 #'       add_binary_decisions() %>%
 #'       add_default_solver(verbose = FALSE)
 #'
@@ -110,54 +114,27 @@ NULL
 #' # print first six rows of the attribute table
 #' print(head(s2))
 #'
-#' # plot solution
-#' plot(s2[, "solution_1"])
-#'
-#' # simulate connectivity matrix
-#' # here, we will generate connectivity values randomly
-#' # between all pairs of planning units
-#' cm2 <- matrix(runif(nrow(sim_pu_sf) ^ 2), nrow = nrow(sim_pu_sf))
-#'
-#' # calculate connectivity associated with the solution
-#' r2 <- eval_connectivity_summary(p2, s2[, "solution_1"], data = cm2)
-#' print(r2)
-#'
-#' # build multi-zone conservation problem with polygon (sf) data
-#' p3 <- problem(sim_pu_zones_sf, sim_features_zones,
-#'               cost_column = c("cost_1", "cost_2", "cost_3")) %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
-#'                                   ncol = 3)) %>%
-#'       add_binary_decisions() %>%
-#'       add_default_solver(verbose = FALSE)
-#'
-#' # solve the problem
-#' s3 <- solve(p3)
-#'
-#' # print first six rows of the attribute table
-#' print(head(s3))
-#'
 #' # create new column representing the zone id that each planning unit
 #' # was allocated to in the solution
-#' s3$solution <- category_vector(
-#'   s3[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")])
-#' s3$solution <- factor(s3$solution)
+#' s2$solution <- category_vector(
+#'   s2[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")])
+#' s2$solution <- factor(s2$solution)
 #'
 #' # plot solution
-#' plot(s3[, "solution"])
+#' plot(s2[, "solution"])
 #'
 #' # simulate connectivity matrix
 #' # here, we will add a new column to sim_pu_zones_sf with
 #' # randomly simulated values and create a connectivity matrix
 #' # based on the average simulated values of adjacent planning units
 #' sim_pu_zones_sf$con <- runif(nrow(sim_pu_zones_sf))
-#' cm3 <- connectivity_matrix(sim_pu_zones_sf, "con")
+#' cm2 <- connectivity_matrix(sim_pu_zones_sf, "con")
 #'
 #' # calculate connectivity associated with the solution
-#' r3 <- eval_connectivity_summary(
-#'   p3, s3[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")],
-#'   data = cm3)
-#' print(r3)
+#' r2 <- eval_connectivity_summary(
+#'   p2, s2[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")],
+#'   data = cm2)
+#' print(r2)
 #'
 #' }
 #' @name eval_connectivity_summary
@@ -222,6 +199,16 @@ methods::setMethod("eval_connectivity_summary",
     zones <- as.matrix(zones)
     indices <- x$planning_unit_indices()
     data <- data[indices, indices, drop = FALSE]
+    # check for symmetry
+    if (!Matrix::isSymmetric(data)) {
+      warning(
+        paste0(
+          "argument to data does not contain symmetric connectivity values, ",
+          "it it recommended to use eval_asym_connectivity_summary()"
+        ),
+        call. = FALSE, immediate. = TRUE
+      )
+    }
     # convert zones & dgCMatrix data to list of sparse matrices
     m <- list()
     for (z1 in seq_len(ncol(zones))) {

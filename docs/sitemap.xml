@@ -97,6 +97,9 @@
     <loc>https://prioritizr.net/reference/add_absolute_targets.html</loc>
   </url>
   <url>
+    <loc>https://prioritizr.net/reference/add_asym_connectivity_penalties.html</loc>
+  </url>
+  <url>
     <loc>https://prioritizr.net/reference/add_binary_decisions.html</loc>
   </url>
   <url>
@@ -256,6 +259,9 @@
     <loc>https://prioritizr.net/reference/distribute_load.html</loc>
   </url>
   <url>
+    <loc>https://prioritizr.net/reference/eval_asym_connectivity_summary.html</loc>
+  </url>
+  <url>
     <loc>https://prioritizr.net/reference/eval_boundary_summary.html</loc>
   </url>
   <url>
@@ -308,6 +314,9 @@
   </url>
   <url>
     <loc>https://prioritizr.net/reference/marxan_boundary_data_to_matrix.html</loc>
+  </url>
+  <url>
+    <loc>https://prioritizr.net/reference/marxan_connectivity_data_to_matrix.html</loc>
   </url>
   <url>
     <loc>https://prioritizr.net/reference/marxan_problem.html</loc>

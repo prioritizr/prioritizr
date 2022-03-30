@@ -274,7 +274,7 @@ div.csl-indent {
 ## Found heuristic solution: objective 37703.827706
 ## Found heuristic solution: objective 27817.085072
 ## Presolve removed 2077 rows and 1375 columns
-## Presolve time: 0.05s
+## Presolve time: 0.03s
 ## Presolved: 4281 rows, 2903 columns, 9594 nonzeros
 ## Found heuristic solution: objective 24454.499456
 ## Variable types: 0 continuous, 2903 integer (2903 binary)
@@ -282,7 +282,7 @@ div.csl-indent {
 ## Root relaxation presolved: 4281 rows, 2903 columns, 9594 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.955605e+04, 1793 iterations, 0.14 seconds (0.19 work units)
+## Root relaxation: objective 1.955605e+04, 1793 iterations, 0.09 seconds (0.19 work units)
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -301,7 +301,7 @@ div.csl-indent {
 ##   Zero half: 2
 ##   RLT: 10
 ## 
-## Explored 1 nodes (2393 simplex iterations) in 0.49 seconds (0.60 work units)
+## Explored 1 nodes (2393 simplex iterations) in 0.34 seconds (0.60 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 7: 21702.3 22977.8 23045.7 ... 37703.8
@@ -473,7 +473,7 @@ div.csl-indent {
 ## Root relaxation presolved: 4924 rows, 4020 columns, 10889 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.954728e+04, 1905 iterations, 0.11 seconds (0.18 work units)
+## Root relaxation: objective 1.954728e+04, 1905 iterations, 0.12 seconds (0.18 work units)
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -509,29 +509,27 @@ div.csl-indent {
 ##      0     0 19996.1519    0 2039 22049.9565 19996.1519  9.31%     -    1s
 ##      0     0 19996.1519    0 2039 22049.9565 19996.1519  9.31%     -    1s
 ##      0     2 19996.6237    0 2039 22049.9565 19996.6237  9.31%     -    1s
-## H   27    27                    21471.431466 19996.6237  6.87%   117    2s
+## H   27    27                    21471.431466 19996.6237  6.87%   117    1s
 ## H   52    52                    21371.814002 19996.6237  6.43%   115    2s
 ## H   54    54                    21254.060213 19996.6237  5.92%   117    2s
-## H  108   108                    21204.105802 19996.6237  5.69%   123    3s
+## H  108   108                    21204.105802 19996.6237  5.69%   123    2s
 ## H  162   162                    21202.636805 19996.6237  5.69%   104    3s
 ## H  286   286                    21166.904542 19996.6237  5.53%  69.2    3s
-## H  606   599                    20993.604430 19996.6237  4.75%  32.8    5s
-##    636    17 20993.6044  153 1965 20993.6044 20028.5298  4.60%  31.3   10s
-##    655     8 20993.6044  382 1962 20993.6044 20030.2346  4.59%  37.4   15s
-##    683    19 20367.2058   29 1620 20993.6044 20082.6816  4.34%  48.5   20s
-## H  750    81                    20939.026645 20082.6816  4.09%  61.7   23s
-##    842   175 21486.4069  135   93 20939.0266 20082.6816  4.09%  63.8   25s
-## H 1231   560                    20924.385117 20082.6816  4.02%  44.7   27s
-##   1264   595 20426.2034   41 1573 20924.3851 20084.4398  4.01%  51.9   30s
-## H 1975  1297                    20813.687049 20092.6890  3.46%  50.6   34s
-##   2066  1390 21609.4416  173   18 20813.6870 20092.6890  3.46%  48.7   35s
-##   2870  2192 22841.6416  427   25 20813.6870 20099.7124  3.43%  44.2   40s
-##   3670  2938 20486.6249   39 1830 20813.6870 20110.2720  3.38%  42.9   45s
-##   4947  3797 20258.1019   28 1789 20813.6870 20148.6068  3.20%  38.8   50s
-##   5208  3790 20443.0872   36 1787 20813.6870 20155.9610  3.16%  41.1   55s
-##   6027  4510 20576.2937   35 1897 20813.6870 20167.5494  3.10%  41.1   60s
-##   6668  4756 20298.1533   30 1636 20813.6870 20193.4219  2.98%  42.2   65s
-##   7224  4707 20471.6454   31 1897 20813.6870 20195.9413  2.97%  43.5   70s
+## H  606   599                    20993.604430 19996.6237  4.75%  32.8    4s
+##    608     1 20993.6044  242 2039 20993.6044 19998.3522  4.74%  32.7    5s
+##    644     3 20993.6044   73 1683 20993.6044 20028.7300  4.60%  38.0   10s
+##    673    15 20091.4377   24 1974 20993.6044 20082.6816  4.34%  45.4   15s
+## H  750    81                    20939.026645 20082.6816  4.09%  61.7   18s
+## H 1231   560                    20924.385117 20082.6816  4.02%  44.7   21s
+##   1874  1203 20128.7731   24 1673 20924.3851 20092.6890  3.97%  44.9   25s
+## H 1975  1297                    20813.687049 20092.6890  3.46%  50.6   26s
+##   3087  2407 20238.3522   25 1896 20813.6870 20109.8128  3.38%  41.4   30s
+##   4181  3286 20412.2307   29 1933 20813.6870 20130.7144  3.28%  40.7   35s
+##   5010  3759 20826.3988   43 1675 20813.6870 20153.3149  3.17%  39.9   40s
+##   5663  4194 20884.8166   50 1660 20813.6870 20166.6830  3.11%  41.8   45s
+##   6497  4734 20212.0264   29 1778 20813.6870 20187.3603  3.01%  41.9   50s
+##   7087  4732 21087.7212   55 1608 20813.6870 20195.6514  2.97%  43.2   55s
+##   7672  4955 21060.8736   65  849 20813.6870 20197.6282  2.96%  43.9   60s
 ## 
 ## Cutting planes:
 ##   Gomory: 7
@@ -543,7 +541,7 @@ div.csl-indent {
 ##   Zero half: 22
 ##   RLT: 24
 ## 
-## Explored 7780 nodes (344017 simplex iterations) in 73.83 seconds (80.68 work units)
+## Explored 7780 nodes (344017 simplex iterations) in 60.49 seconds (80.68 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 1000: 20813.7 20924.4 20939 ... 22439.4
@@ -660,8 +658,8 @@ div.csl-indent {
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.3, max: 0.3)]
 ##   decisions:      default
-##   constraints:    &lt;Locked in planning units [317 locked units]
-##                    Locked out planning units [1 locked units]&gt;
+##   constraints:    &lt;Locked out planning units [1 locked units]
+##                    Locked in planning units [317 locked units]&gt;
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (5e-04), zones]&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
@@ -682,7 +680,7 @@ div.csl-indent {
 ##          to avoid numerical issues.
 ## Found heuristic solution: objective 1.221185e+10
 ## Presolve removed 4707 rows and 3103 columns
-## Presolve time: 0.04s
+## Presolve time: 0.06s
 ## Presolved: 5368 rows, 3677 columns, 12704 nonzeros
 ## Variable types: 0 continuous, 3677 integer (3677 binary)
 ## Found heuristic solution: objective 1.009922e+10
@@ -696,7 +694,7 @@ div.csl-indent {
 ## 
 ##      0     0 9.5646e+09    0   20 1.0099e+10 9.5646e+09  5.29%     -    0s
 ## 
-## Explored 1 nodes (493 simplex iterations) in 0.06 seconds (0.10 work units)
+## Explored 1 nodes (493 simplex iterations) in 0.09 seconds (0.10 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 2: 1.00992e+10 1.22118e+10 

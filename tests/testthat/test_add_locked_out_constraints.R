@@ -581,3 +581,14 @@ test_that("character (compile, sf identical to Spatial, multiple zones)", {
   # tests
   expect_equal(o1, o2)
 })
+
+test_that("invalid inputs", {
+  # create problem
+  data(sim_pu_polygons, sim_features)
+  sim_sf <- sf::st_as_sf(sim_pu_polygons)
+  sim_sf$locked_out <- FALSE
+  # make problems
+  p <- problem(sim_sf, sim_features, "cost")
+  # tests
+  expect_error(add_locked_out_constraints(p, "locked_out"), "locked")
+})

@@ -65,7 +65,6 @@ reference:
     desc: Functions for creating new problems and solving them.
     contents:
       - problem
-      - marxan_problem
       - solve
 
   - title: Data
@@ -139,12 +138,12 @@ reference:
       - fast_extract
       - intersecting_units
 
-  - title: Processing multi-zone data
-    desc: Functions for manipulating data that pertain to multiple zones.
+  - title: Marxan functions
+    desc: Functions for importing and converting _Marxan_ data.
     contents:
-    - category_layer
-    - category_vector
-    - binary_stack
+      - marxan_problem
+      - marxan_boundary_data_to_matrix
+      - marxan_connectivity_data_to_matrix
 
   - title: Matrix functions
     desc: >
@@ -157,6 +156,13 @@ reference:
       - connectivity_matrix
       - proximity_matrix
       - rij_matrix
+
+  - title: Processing multi-zone data
+    desc: Functions for manipulating data that pertain to multiple zones.
+    contents:
+    - category_layer
+    - category_vector
+    - binary_stack
 
   - title: Problem manipulation functions
     desc: Functions for extracting information from problems.
@@ -184,7 +190,6 @@ reference:
       - run_calculations
       - distribute_load
       - write_problem
-      - marxan_boundary_data_to_matrix
 
   - title: Class definitions and methods
     desc: >

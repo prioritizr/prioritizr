@@ -187,7 +187,7 @@ presolve_check.OptimizationProblem <- function(x) {
   # define helper functions
   ratio <- function(x) {
     x <- abs(x)
-    x / min(x[x != 0])
+    x / suppressWarnings(min(x[x != 0]))
   }
   # set thresholds
   threshold_ratio <- 1e+9
@@ -222,10 +222,12 @@ presolve_check.OptimizationProblem <- function(x) {
     out <- FALSE
     n <- x$col_ids()[r]
     ### throw warnings
-    if (("pu" %in% n))
+    ### note that we only throw a warning if there aren't any issues
+    ### due to boundary lengths or connectivity values because there
+    ### is high chance of a false positive
+    if (("pu" %in% n) && (!"ac" %in% n) && (!"b" %in% n) && (!"c" %in% n))
       warning(paste("planning units with very high (> 1e+6) or very low",
-                    "(< 1e-6) non-zero cost values note this may be a false",
-                    "positive"),
+                    "(< 1e-6) non-zero cost values"),
               immediate. = TRUE)
     if ("spp_met" %in% n)
       warning(paste0("feature targets with very high target weights (> 1e+6)"),
@@ -240,8 +242,13 @@ presolve_check.OptimizationProblem <- function(x) {
       warning("penalty multiplied boundary lengths are very high",
               immediate. = TRUE)
     if ("c" %in% n)
-      warning(paste("penalty multiplied connectivity values are very high"),
+      warning("penalty multiplied connectivity values are very high",
               immediate. = TRUE)
+    if ("ac" %in% n)
+      warning(
+        "penalty multiplied asymmetric connectivity values are very high",
+        immediate. = TRUE
+      )
   }
   ## rhs
   r <- which((ratio(x$rhs()) > threshold_ratio) |

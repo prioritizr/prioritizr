@@ -11,7 +11,7 @@ marxan_problem(x, ...)
 
 \method{marxan_problem}{default}(x, ...)
 
-\method{marxan_problem}{data.frame}(x, spec, puvspr, bound = NULL, blm = 0, ...)
+\method{marxan_problem}{data.frame}(x, spec, puvspr, bound = NULL, blm = 0, symmetric = TRUE, ...)
 
 \method{marxan_problem}{character}(x, ...)
 }
@@ -102,6 +102,12 @@ between the planning units identified in the previous two columns.}
 \item{blm}{\code{numeric} boundary length modifier. This argument only
 has an effect when argument to \code{x} is a \code{data.frame}. The
 default argument is zero.}
+
+\item{symmetric}{\code{logical} does the boundary data (i.e., argument to
+\code{bound}) describe symmetric relationships between planning units?
+If the boundary data contain asymmetric connectivity data,
+this parameter should be set to \code{FALSE}.
+Defaults to \code{TRUE}.}
 }
 \value{
 \code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.
@@ -120,9 +126,9 @@ to import \emph{Marxan} data files.
 }
 \section{Notes}{
 
-In early versions, this function could accommodate asymmetric connectivity
-data. This functionality is no longer supported. To specify asymmetric
-connectivity, please see the \code{\link[=add_connectivity_penalties]{add_connectivity_penalties()}} function.
+In previous versions, this function could not accommodate asymmetric
+connectivity data. It has now been updated to handle asymmetric connectivity
+data.
 }
 
 \examples{

@@ -5,17 +5,17 @@
 \title{Add a penalty}
 \description{
 A penalty can be applied to a conservation planning \code{\link[=problem]{problem()}} to
-penalize solutions according to a specific metric. Penalties---unlike
-\link{constraints}---act as an explicit trade-off with the objective
-being minimized or maximized (e.g., solution cost when used with
-\code{\link[=add_min_set_objective]{add_min_set_objective()}}).
+penalize solutions according to a specific metric. They
+directly trade-off with the primary objective of a problem
+(e.g., the primary objective when using \code{\link[=add_min_set_objective]{add_min_set_objective()}} is
+to minimize solution cost).
 }
 \details{
 Both penalties and constraints can be used to modify a problem and
 identify solutions that exhibit specific characteristics. Constraints work
 by invalidating solutions that do not exhibit specific characteristics.
 On the other hand, penalties work by specifying trade-offs against the
-main problem objective and are mediated by a penalty factor.
+primary problem objective and are mediated by a penalty factor.
 
 The following penalties can be added to a conservation planning
 \code{\link[=problem]{problem()}}:
@@ -26,9 +26,12 @@ The following penalties can be added to a conservation planning
 conservation problem to favor solutions that have
 planning units clumped together into contiguous areas.}
 
+\item{\code{\link[=add_asym_connectivity_penalties]{add_asym_connectivity_penalties()}}}{Add penalties to a
+conservation problem to account for asymmetric connectivity.}
+
 \item{\code{\link[=add_connectivity_penalties]{add_connectivity_penalties()}}}{Add penalties to a
-conservation problem to favor solutions that select
-planning units with high connectivity between them.}
+conservation problem to account for
+symmetric connectivity.}
 
 \item{\code{\link[=add_linear_penalties]{add_linear_penalties()}}}{Add penalties to a
 conservation problem to favor solutions that avoid selecting
@@ -61,6 +64,13 @@ scm[scm < 0.85] <- 0
 # create problem with connectivity penalties
 p3 <- p1 \%>\% add_connectivity_penalties(25, data = scm)
 
+# create asymmetric connectivity data by randomly simulating values
+acm <- matrix(runif(ncell(sim_pu_raster) ^ 2), ncol = ncell(sim_pu_raster))
+acm[acm < 0.85] <- 0
+
+# create problem with asymmetric connectivity penalties
+p4 <- p1 \%>\% add_asym_connectivity_penalties(1, data = acm)
+
 # create problem with linear penalties,
 # here the penalties will be based on random numbers to keep it simple
 \dontrun{
@@ -72,15 +82,16 @@ sim_penalty_raster <- simulate_cost(sim_pu_raster)
 plot(sim_penalty_raster, main = "penalty data", axes = FALSE, box = FALSE)
 
 # create problem with linear penalties, with a penalty scaling factor of 100
-p4 <- p1 \%>\% add_linear_penalties(100, data = sim_penalty_raster)
+p5 <- p1 \%>\% add_linear_penalties(100, data = sim_penalty_raster)
 
 # solve problems
-s <- stack(solve(p1), solve(p2), solve(p3), solve(p4))
+s <- stack(solve(p1), solve(p2), solve(p3), solve(p4), solve(p5))
 
 # plot solutions
 plot(s, axes = FALSE, box = FALSE,
      main = c("basic solution", "boundary penalties",
-              "connectivity penalties", "linear penalties"))
+              "connectivity penalties", "asymmetric penalties",
+              "linear penalties"))
  }
 }
 \seealso{

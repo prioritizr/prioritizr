@@ -30,7 +30,7 @@ verify if  a problem has a feasible solution or not.'><meta property="og:image" 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.0</span>
       </span>
     </div>
 
@@ -261,7 +261,7 @@ at all.</p>
 <span class="r-in"><span class="co"># some issues, such as long solve time or suboptimal solutions, when</span></span>
 <span class="r-in"><span class="co"># trying to solve the problem</span></span>
 <span class="r-in"><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="fu">presolve_check</span><span class="op">(</span><span class="va">p2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>planning units with very high (&gt; 1e+6) or very low (&lt; 1e-6) non-zero cost values note this may be a false positive</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>planning units with very high (&gt; 1e+6) or very low (&lt; 1e-6) non-zero cost values</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># create a minimal problem with connectivity penalties values that have</span></span>
@@ -289,25 +289,25 @@ at all.</p>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>penalty multiplied connectivity values are very high</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Gurobi Optimizer version 9.5.1 build v9.5.1rc2 (linux64)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Optimize a model with 581 rows, 378 columns and 1602 nonzeros</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Model fingerprint: 0xaaf590f0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Variable types: 0 continuous, 378 integer (378 binary)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Optimize a model with 293 rows, 234 columns and 1026 nonzeros</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Model fingerprint: 0xd4d4a74a</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Variable types: 0 continuous, 234 integer (234 binary)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Coefficient statistics:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Matrix range     [2e-01, 1e+00]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Objective range  [2e+02, 1e+15]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Bounds range     [1e+00, 1e+00]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   RHS range        [3e+00, 8e+00]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Warning: Model contains large objective coefficients</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Found heuristic solution: objective -2.88000e+17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Found heuristic solution: objective -1.44000e+17</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Explored 0 nodes (0 simplex iterations) in 0.00 seconds (0.00 work units)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Thread count was 1 (of 8 available processors)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Solution count 1: -2.88e+17 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> No other solutions better than -2.88e+17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Solution count 1: -1.44e+17 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> No other solutions better than -1.44e+17</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Optimal solution found (tolerance 1.00e-01)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Best objective -2.880000000000e+17, best bound -2.880000000000e+17, gap 0.0000%</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Best objective -1.440000000000e+17, best bound -1.440000000000e+17, gap 0.0000%</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># plot solution</span></span>
 <span class="r-in"><span class="co"># we can see that all planning units were selected because the connectivity</span></span>

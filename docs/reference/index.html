@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.0</span>
       </span>
     </div>
 
@@ -111,10 +111,6 @@
           <p><code><a href="problem.html">problem()</a></code> </p>
         </td>
         <td><p>Conservation planning problem</p></td>
-      </tr><tr><td>
-          <p><code><a href="marxan_problem.html">marxan_problem()</a></code> </p>
-        </td>
-        <td><p><em>Marxan</em> conservation problem</p></td>
       </tr><tr><td>
           <p><code><a href="solve.html">solve(<i>&lt;OptimizationProblem&gt;</i>,<i>&lt;Solver&gt;</i>)</a></code> <code><a href="solve.html">solve(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;missing&gt;</i>)</a></code> </p>
         </td>
@@ -244,6 +240,10 @@
         </td>
         <td><p>Add a penalty</p></td>
       </tr><tr><td>
+          <p><code><a href="add_asym_connectivity_penalties.html">add_asym_connectivity_penalties(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;matrix&gt;</i>)</a></code> <code><a href="add_asym_connectivity_penalties.html">add_asym_connectivity_penalties(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;Matrix&gt;</i>)</a></code> <code><a href="add_asym_connectivity_penalties.html">add_asym_connectivity_penalties(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;data.frame&gt;</i>)</a></code> <code><a href="add_asym_connectivity_penalties.html">add_asym_connectivity_penalties(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;dgCMatrix&gt;</i>)</a></code> <code><a href="add_asym_connectivity_penalties.html">add_asym_connectivity_penalties(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;array&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Add asymmetric connectivity penalties</p></td>
+      </tr><tr><td>
           <p><code><a href="add_boundary_penalties.html">add_boundary_penalties()</a></code> </p>
         </td>
         <td><p>Add boundary penalties</p></td>
@@ -352,13 +352,17 @@
         </td>
         <td><p>Evaluate solutions using summary statistics</p></td>
       </tr><tr><td>
+          <p><code><a href="eval_asym_connectivity_summary.html">eval_asym_connectivity_summary(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;matrix&gt;</i>)</a></code> <code><a href="eval_asym_connectivity_summary.html">eval_asym_connectivity_summary(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;Matrix&gt;</i>)</a></code> <code><a href="eval_asym_connectivity_summary.html">eval_asym_connectivity_summary(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;data.frame&gt;</i>)</a></code> <code><a href="eval_asym_connectivity_summary.html">eval_asym_connectivity_summary(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;dgCMatrix&gt;</i>)</a></code> <code><a href="eval_asym_connectivity_summary.html">eval_asym_connectivity_summary(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;array&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Evaluate asymmetric connectivity of solution</p></td>
+      </tr><tr><td>
           <p><code><a href="eval_boundary_summary.html">eval_boundary_summary()</a></code> </p>
         </td>
         <td><p>Evaluate solution boundary length</p></td>
       </tr><tr><td>
           <p><code><a href="eval_connectivity_summary.html">eval_connectivity_summary(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;matrix&gt;</i>)</a></code> <code><a href="eval_connectivity_summary.html">eval_connectivity_summary(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;Matrix&gt;</i>)</a></code> <code><a href="eval_connectivity_summary.html">eval_connectivity_summary(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;data.frame&gt;</i>)</a></code> <code><a href="eval_connectivity_summary.html">eval_connectivity_summary(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;dgCMatrix&gt;</i>)</a></code> <code><a href="eval_connectivity_summary.html">eval_connectivity_summary(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;array&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Evaluate solution connectivity</p></td>
+        <td><p>Evaluate connectivity of solution</p></td>
       </tr><tr><td>
           <p><code><a href="eval_cost_summary.html">eval_cost_summary()</a></code> </p>
         </td>
@@ -424,21 +428,21 @@
         </td>
         <td><p>Find intersecting units</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
-          <h2 id="processing-multi-zone-data">Processing multi-zone data <a href="#processing-multi-zone-data" class="anchor" aria-hidden="true"></a></h2>
-          <p class="section-desc"></p><p>Functions for manipulating data that pertain to multiple zones.</p>
+          <h2 id="marxan-functions">Marxan functions <a href="#marxan-functions" class="anchor" aria-hidden="true"></a></h2>
+          <p class="section-desc"></p><p>Functions for importing and converting <em>Marxan</em> data.</p>
         </th>
       </tr></tbody><tbody><tr><td>
-          <p><code><a href="category_layer.html">category_layer()</a></code> </p>
+          <p><code><a href="marxan_problem.html">marxan_problem()</a></code> </p>
         </td>
-        <td><p>Category layer</p></td>
+        <td><p><em>Marxan</em> conservation problem</p></td>
       </tr><tr><td>
-          <p><code><a href="category_vector.html">category_vector()</a></code> </p>
+          <p><code><a href="marxan_boundary_data_to_matrix.html">marxan_boundary_data_to_matrix()</a></code> </p>
         </td>
-        <td><p>Category vector</p></td>
+        <td><p>Convert <em>Marxan</em> boundary data to matrix format</p></td>
       </tr><tr><td>
-          <p><code><a href="binary_stack.html">binary_stack()</a></code> </p>
+          <p><code><a href="marxan_connectivity_data_to_matrix.html">marxan_connectivity_data_to_matrix()</a></code> </p>
         </td>
-        <td><p>Binary stack</p></td>
+        <td><p>Convert <em>Marxan</em> connectivity data to matrix format</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="matrix-functions">Matrix functions <a href="#matrix-functions" class="anchor" aria-hidden="true"></a></h2>
           <p class="section-desc"></p><p>Functions for creating matrices that are used in conservation planning problems.</p>
@@ -467,6 +471,22 @@
           <p><code><a href="rij_matrix.html">rij_matrix()</a></code> </p>
         </td>
         <td><p>Feature by planning unit matrix</p></td>
+      </tr></tbody><tbody><tr><th colspan="2">
+          <h2 id="processing-multi-zone-data">Processing multi-zone data <a href="#processing-multi-zone-data" class="anchor" aria-hidden="true"></a></h2>
+          <p class="section-desc"></p><p>Functions for manipulating data that pertain to multiple zones.</p>
+        </th>
+      </tr></tbody><tbody><tr><td>
+          <p><code><a href="category_layer.html">category_layer()</a></code> </p>
+        </td>
+        <td><p>Category layer</p></td>
+      </tr><tr><td>
+          <p><code><a href="category_vector.html">category_vector()</a></code> </p>
+        </td>
+        <td><p>Category vector</p></td>
+      </tr><tr><td>
+          <p><code><a href="binary_stack.html">binary_stack()</a></code> </p>
+        </td>
+        <td><p>Binary stack</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="problem-manipulation-functions">Problem manipulation functions <a href="#problem-manipulation-functions" class="anchor" aria-hidden="true"></a></h2>
           <p class="section-desc"></p><p>Functions for extracting information from problems.</p>
@@ -551,10 +571,6 @@
           <p><code><a href="write_problem.html">write_problem()</a></code> </p>
         </td>
         <td><p>Write problem</p></td>
-      </tr><tr><td>
-          <p><code><a href="marxan_boundary_data_to_matrix.html">marxan_boundary_data_to_matrix()</a></code> </p>
-        </td>
-        <td><p>Convert <em>Marxan</em> boundary data to a matrix format</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="class-definitions-and-methods">Class definitions and methods <a href="#class-definitions-and-methods" class="anchor" aria-hidden="true"></a></h2>
           <p class="section-desc"></p><p>Documentation for internal data structures and associated functions.</p>

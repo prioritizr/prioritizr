@@ -30,8 +30,12 @@ NULL
 #'  \item{[eval_boundary_summary()]}{Calculate the exposed boundary length
 #'    (perimeter) associated with a solution.}
 #'
-#'  \item{[eval_connectivity_summary()]}{Calculate the connectivity held within
-#'    a solution.}
+#'  \item{[eval_connectivity_summary()]}{Calculate the connectivity
+#'    held within a solution using symmetric data.}
+#'
+#'  \item{[eval_asym_connectivity_summary()]}{Calculate the connectivity
+#'    held within a solution using asymmetric data.
+#'   }
 #'
 #'  }
 #'
@@ -64,11 +68,10 @@ NULL
 #' # evaluate target coverage by solution
 #' eval_target_coverage_summary(p, s)
 #'
-#'
 #' # evaluate exposed boundary (perimeter) length by solution
 #' eval_boundary_summary(p, s)
 #'
-#' # create a connectivity matrix to describe pair-wise connectivity
+#' # create a symmetric connectivity matrix to describe pair-wise connectivity
 #' # values between combinations of planning units,
 #' # see ?connectivity_matrix for more information
 #'
@@ -77,8 +80,17 @@ NULL
 #' # cost valuers have high connectivity between them
 #' cm <- connectivity_matrix(sim_pu_raster, sim_pu_raster)
 #'
-#' # evaluate connectivity of solution
+#' # evaluate connectivity of solution using symmetric data
 #' eval_connectivity_summary(p, s, data = cm)
+#'
+#' # create an asymmetric connectivity matrix to describe pair-wise
+#' # connectivity values between combinations of planning units
+#'
+#' # for brevity, we will just generate a matrix with random values
+#' acm <- matrix(runif(ncell(sim_pu_raster) ^ 2), ncol = ncell(sim_pu_raster))
+#'
+#' # evaluate connectivity of solution using asymmetric data
+#' eval_asym_connectivity_summary(p, s, data = acm)
 #'
 #' }
 #' @name summaries

@@ -1,3 +1,29 @@
+# prioritizr 7.2.0.0
+
+- Fix `add_locked_in_constraints()` and `add_locked_out_constraints()`
+  to ensure that a meaningful error message is provided when no planing
+  units are locked (#234).
+- Fix `presolve_check()` so that it does not throw a meaningless warning
+  when the mathematical objective function only contains zeros.
+- Update `presolve_check()` to help reduce chances of mis-attributing
+  high connectivity/boundary values due to planning unit costs.
+- Update `add_connectivity_penalties()` function and documentation so that
+  it is designed specifically for symmetric connectivity data.
+- New `add_asym_connectivity_penalties()` function that is designed
+  specifically for asymmetric connectivity data. This function has been
+  created to help ensure that asymmetric connectivity data are handled
+  correctly. For instance, using asymmetric connectivity data with
+  `add_connectivity_penalties()` function in previous versions of the package
+  sometimes resulted in the data being incorrectly treated as symmetric data.
+  Additionally, this function uses an updated mathematical formulation
+  for handling asymmetric connectivity so that it provides similar
+  results to the _Marxan_ software (#323).
+- Update `marxan_problem()` function so that it can be used with asymmetric
+  connectivity data. This is now possible because there are dedicated functions
+  for symmetric and asymmetric connectivity.
+- Update publication record.
+- Update URLs in publication record so that they pass CRAN checks.
+
 # prioritizr 7.1.1.12
 
 - Update publication record.

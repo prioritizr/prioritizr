@@ -325,6 +325,7 @@ Also, see \code{\link[=add_boundary_penalties]{add_boundary_penalties()}} to pen
 boundary length.
 
 Other summaries: 
+\code{\link{eval_asym_connectivity_summary}()},
 \code{\link{eval_connectivity_summary}()},
 \code{\link{eval_cost_summary}()},
 \code{\link{eval_feature_representation_summary}()},

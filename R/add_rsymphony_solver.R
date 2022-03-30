@@ -31,6 +31,8 @@ NULL
 #'
 #' @family solvers
 #'
+#' @encoding UTF-8
+#'
 #' @references
 #' Ralphs TK and Güzelsoy M (2005) The SYMPHONY callable library for mixed
 #' integer programming. In The Next Wave in Computing, Optimization, and

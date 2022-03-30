@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.1.1.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.0</span>
       </span>
     </div>
 
@@ -96,6 +96,17 @@
       <small>Source: <a href="https://github.com/prioritizr/prioritizr/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="7.2.0.0" id="prioritizr-7200">prioritizr 7.2.0.0<a class="anchor" aria-label="anchor" href="#prioritizr-7200"></a></h2>
+<ul><li>Fix <code><a href="../reference/add_locked_in_constraints.html">add_locked_in_constraints()</a></code> and <code><a href="../reference/add_locked_out_constraints.html">add_locked_out_constraints()</a></code> to ensure that a meaningful error message is provided when no planing units are locked (<a href="https://github.com/prioritizr/prioritizr/issues/234" class="external-link">#234</a>).</li>
+<li>Fix <code><a href="../reference/presolve_check.html">presolve_check()</a></code> so that it does not throw a meaningless warning when the mathematical objective function only contains zeros.</li>
+<li>Update <code><a href="../reference/presolve_check.html">presolve_check()</a></code> to help reduce chances of mis-attributing high connectivity/boundary values due to planning unit costs.</li>
+<li>Update <code><a href="../reference/add_connectivity_penalties.html">add_connectivity_penalties()</a></code> function and documentation so that it is designed specifically for symmetric connectivity data.</li>
+<li>New <code><a href="../reference/add_asym_connectivity_penalties.html">add_asym_connectivity_penalties()</a></code> function that is designed specifically for asymmetric connectivity data. This function has been created to help ensure that asymmetric connectivity data are handled correctly. For instance, using asymmetric connectivity data with <code><a href="../reference/add_connectivity_penalties.html">add_connectivity_penalties()</a></code> function in previous versions of the package sometimes resulted in the data being incorrectly treated as symmetric data. Additionally, this function uses an updated mathematical formulation for handling asymmetric connectivity so that it provides similar results to the <em>Marxan</em> software (<a href="https://github.com/prioritizr/prioritizr/issues/323" class="external-link">#323</a>).</li>
+<li>Update <code><a href="../reference/marxan_problem.html">marxan_problem()</a></code> function so that it can be used with asymmetric connectivity data. This is now possible because there are dedicated functions for symmetric and asymmetric connectivity.</li>
+<li>Update publication record.</li>
+<li>Update URLs in publication record so that they pass CRAN checks.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="7.1.1.12" id="prioritizr-71112">prioritizr 7.1.1.12<a class="anchor" aria-label="anchor" href="#prioritizr-71112"></a></h2>
 <ul><li>Update publication record.</li>

@@ -35,6 +35,20 @@ test_that("instability due to range in connectivity penalties", {
   expect_warning(expect_false(presolve_check(p)), "connectivity", all = TRUE)
 })
 
+test_that("instability due to range in asymmetric connectivity penalties", {
+  data(sim_pu_raster, sim_features)
+  cm <- as(boundary_matrix(sim_pu_raster), "dgCMatrix")
+  diag(cm) <- 0
+  cm <- Matrix::drop0(cm)
+  cm@x <- cm@x + runif(length(cm@x))
+  p <- problem(sim_pu_raster, sim_features) %>%
+       add_min_set_objective() %>%
+       add_relative_targets(0.1) %>%
+       add_asym_connectivity_penalties(1e+15, data = cm) %>%
+       add_binary_decisions()
+  expect_warning(expect_false(presolve_check(p)), "asymmetric", all = TRUE)
+})
+
 test_that("instability due to range in rij data", {
   data(sim_pu_raster, sim_features)
   sim_features[[1]][1] <- 1e+15

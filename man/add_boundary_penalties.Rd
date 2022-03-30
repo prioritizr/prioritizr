@@ -250,6 +250,7 @@ conservation planning problems with integer linear programming.
 See \link{penalties} for an overview of all functions for adding penalties.
 
 Other penalties: 
+\code{\link{add_asym_connectivity_penalties}()},
 \code{\link{add_connectivity_penalties}()},
 \code{\link{add_feature_weights}()},
 \code{\link{add_linear_penalties}()}

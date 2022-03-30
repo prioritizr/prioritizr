@@ -120,6 +120,8 @@ NULL
 #' @section Notes:
 #' In early versions, it was named as the `add_corridor_constraints` function.
 #'
+#' @encoding UTF-8
+#'
 #' @references
 #' Önal H and Briers RA (2006) Optimal selection of a connected
 #' reserve network. *Operations Research*, 54: 379--388.

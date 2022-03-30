@@ -12,12 +12,40 @@ bool rcpp_apply_connectivity_penalties(SEXP x, double penalty,
    *    of each list in each element of data should be equal to the number
    *    of elements in data.
    *
+   * 2. each sparse matrix in data a sparse matrix with only cells in either
+   *    the upper or lower triangle and the diagonal filled in. If this
+   *    condition is not met, then the matrix calculations will be incorrect.
+   *
+   * 3. The number of rows and columns in each sparse matrix is equal to
+   *    ptr->_number_of_planning_units
+   *
+   * 4. The number of rows and columns in zones_matrix is equal to
+   *    ptr->_number_of_zones
+   *
    */
 
   // initialization
   Rcpp::XPtr<OPTIMIZATIONPROBLEM> ptr = Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x);
   std::size_t A_original_ncol = ptr->_obj.size();
   std::size_t A_original_nrow = ptr->_rhs.size();
+
+  // define variable to rescale penalty, thus
+  // if the objective is to maximize benefit:
+  //   the total amount of connectivity per planning unit/zone allocation is
+  //   added to the benefits and the amount of connectivity between planning
+  //   unit/zone allocations has postive contributions to the objective
+  // otherwise, if the objective is to minimize costs:
+  //   the total amount of boundary per planning unit/zone allocation is
+  //   substracted from the costs and the amount of connectivity between
+  //   planning unit/zone allocations has negative contributions to the
+  //   objective
+  //
+  // note that mult is either 1 or -1 depending on whether primary objective
+  // is to maximize or minimize
+  double mult = 1.0;
+  if (ptr->_modelsense == "min") {
+    mult *= -1.0;
+  }
 
   // convert the list of list of sparseMatrix objects to a Rcpp classes
   std::vector<std::vector<arma::sp_mat>> matrices;
@@ -32,20 +60,6 @@ bool rcpp_apply_connectivity_penalties(SEXP x, double penalty,
   for (std::size_t z1 = 0; z1 < ptr->_number_of_zones; ++z1)
     for (std::size_t z2 = z1; z2 < ptr->_number_of_zones; ++z2)
       n_non_zero += matrices[z1][z2].n_nonzero;
-
-  // rescale penalty, thus
-  // if the objective is to maximize benefit:
-  //   the total amount of connectivity per planning unit/zone allocation is
-  //   added to the benefits and the amount of connectivity between planning
-  //   unit/zone allocations has postive contributions to the objective
-  // otherwise, if the objective is to minimize costs:
-  //   the total amount of boundary per planning unit/zone allocation is
-  //   substracted from the costs and the amount of connectivity between
-  //   planning unit/zone allocations has negative contributions to the
-  //   objective
-  if (ptr->_modelsense == "min") {
-    penalty *= -1.0;
-  }
 
   // declare and initialize values for penalty data
   std::vector<std::size_t> pu_i;
@@ -64,7 +78,7 @@ bool rcpp_apply_connectivity_penalties(SEXP x, double penalty,
       // scale the boundary matrix using the zone's edge factor and weighting
       // in the zone matrix
       curr_matrix = matrices[z1][z2];
-      curr_matrix *= penalty;
+      curr_matrix *= penalty * mult;
       if (z1 != z2) {
         curr_matrix.diag().zeros();
       }
