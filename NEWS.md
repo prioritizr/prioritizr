@@ -1,3 +1,7 @@
+# prioritizr 7.2.0.1
+
+- Update publication record.
+
 # prioritizr 7.2.0.0
 
 - Fix `add_locked_in_constraints()` and `add_locked_out_constraints()`
