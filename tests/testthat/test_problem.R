@@ -664,7 +664,7 @@ test_that("x=data.frame, features=data.frame (multiple zones)", {
   expect_error(x$feature_targets())
 })
 
-test_that("x=numeric, features=data.frame", {
+test_that("x=numeric, features=data.frame, rij_matrix=matrix", {
   # simulate data
   pu <- data.frame(id = seq_len(10), cost = c(0.2, NA, runif(8)),
                    spp1 = runif(10), spp2 = c(rpois(9, 4), NA))
@@ -707,7 +707,7 @@ test_that("x=numeric, features=data.frame", {
   expect_error(x$feature_targets())
 })
 
-test_that("x=matrix, features=data.frame", {
+test_that("x=matrix, features=data.frame, rij_matrix=matrix", {
   # simulate data
   pu <- data.frame(id = seq_len(10), cost_1 = c(NA, NA, runif(8)),
                    cost_2 = c(0.3, NA, runif(8)),
@@ -759,6 +759,29 @@ test_that("x=matrix, features=data.frame", {
   expect_equal(rownames(x$data$rij_matrix[[2]]), c("spp1", "spp2"))
   # test that calling targets before they have been initialized throws error
   expect_error(x$feature_targets())
+})
+
+test_that("x=matrix, features=data.frame, rij_matrix=dgCMatrix", {
+  # simulate data
+  pu <- data.frame(id = seq_len(10), cost_1 = c(NA, NA, runif(8)),
+                   cost_2 = c(0.3, NA, runif(8)),
+                   spp1_1 = runif(10), spp2_1 = c(rpois(9, 4), NA),
+                   spp1_2 = runif(10), spp2_2 = runif(10))
+  rij <- list(as.matrix(t(pu[, 4:5])), as.matrix(t(pu[, 6:7])))
+  # create problem
+  x1 <- problem(as.matrix(pu[, 2:3]),
+                data.frame(id = seq_len(2), name = c("spp1", "spp2")),
+                rij_matrix = rij)
+  x2 <- problem(as.matrix(pu[, 2:3]),
+                data.frame(id = seq_len(2), name = c("spp1", "spp2")),
+                rij_matrix = lapply(rij, methods::as, "dgCMatrix"))
+  # verify that object can be printed
+  suppressMessages(print(x1))
+  suppressMessages(x1)
+  suppressMessages(print(x2))
+  suppressMessages(x2)
+  # tests
+  expect_equal(x1$data, x2$data)
 })
 
 test_that("x=sf, features=RasterStack", {

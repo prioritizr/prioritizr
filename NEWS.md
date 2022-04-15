@@ -1,3 +1,15 @@
+# prioritizr 7.2.0.2
+
+- Fix bug in processing planning unit data when a problem is constructed
+  using arguments to (i) `x` that are `numeric` or `matrix` format, (ii)
+  `x` that contain missing (`NA`) values, and (iii) `rij_matrix` that
+  are in `dgCMatrix` format. This bug only occurred when all three of these
+  specific conditions were met. When it occurred, the bug caused planning units
+  with `NA` cost values to receive very high cost values (e.g., 1e+300).
+  This bug  meant that when attempting to solve the problem, the
+  presolve checks (per `presolve_check()`) would throw an error complaining
+  about very high cost values (#236).
+
 # prioritizr 7.2.0.1
 
 - Update publication record.

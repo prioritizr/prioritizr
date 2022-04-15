@@ -939,12 +939,13 @@ methods::setMethod(
     # convert rij matrices to sparse format if needed
     pos <- which(rowSums(!is.na(x)) > 0)
     rij <- lapply(rij_matrix, function(z) {
-      if (!inherits(z, "dgCMatrix")) {
+      if (inherits(z, "dgCMatrix")) {
+        z@x[which(is.na(z@x))] <- 0
+      } else {
         z[which(is.na(z))] <- 0
-        rownames(z) <- as.character(features$name)
-        z <- methods::as(z[, pos, drop = FALSE], "dgCMatrix")
       }
-      return(z)
+      rownames(z) <- as.character(features$name)
+      Matrix::drop0(methods::as(z[, pos, drop = FALSE], "dgCMatrix"))
     })
     names(rij) <- names(rij_matrix)
     # create new problem object
