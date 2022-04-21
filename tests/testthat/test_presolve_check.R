@@ -141,7 +141,7 @@ test_that("instability due to high target weights", {
        add_feature_weights(
          c(1e+15, rep(1, raster::nlayers(sim_features) - 1))) %>%
        add_binary_decisions()
-  expect_warning(expect_false(presolve_check(p)), "target weights", all = TRUE)
+  expect_warning(expect_false(presolve_check(p)), "target weight", all = TRUE)
 })
 
 test_that("instability due to branch lengths", {
