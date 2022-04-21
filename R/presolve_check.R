@@ -207,7 +207,7 @@ presolve_check.OptimizationProblem <- function(x) {
   if (all(x$lb()[seq_len(n_pu_vars)] > 0.9999)) {
     out <- FALSE
     warning(
-      "all planning units locked in ",
+      "all planning units locked in, ",
       "try again solve(a, force = TRUE) if this correct",
       immediate. = TRUE)
   }
@@ -224,24 +224,24 @@ presolve_check.OptimizationProblem <- function(x) {
     ### throw warnings
     if (("pu" %in% n1) && (!"ac" %in% n2) && (!"b" %in% n2) && (!"c" %in% n2))
       warning(
-        "planning units with very high costs (> ", upper_value, ") ",
+        "planning units with very high costs (> ", upper_value, "), ",
         "please consider re-scaling the values to avoid numerical issues ",
         "(e.g., convert units from USD to millions of USD)",
         immediate. = TRUE
       )
     if ("spp_met" %in% n1)
       warning(
-        "features with very high target weights (> ", upper_value, "), ",
-        "try using a lower weight values in add_feature_weights()",
+        "feature(s) with very high target weight(s) (> ", upper_value, "), ",
+        "try using lower values in add_feature_weights()",
         immediate. = TRUE)
     if ("amount" %in% n1)
       warning(
-        "features with very high weights (> ", upper_value, ") ",
-        "try using a lower weight values in add_feature_weights()",
+        "feature(s) with very high weight(s) (> ", upper_value, "), ",
+        "try using lower values in add_feature_weights()",
         immediate. = TRUE)
     if ("branch_met" %in% n1)
       warning(
-        "features with very large branch lengths (> ", upper_value, ") ",
+        "feature(s) with very large branch lengths (> ", upper_value, "), ",
         "try rescaling the phylogenetic tree data ",
         "(e.g., convert units from years to millions of years)",
         immediate. = TRUE)
@@ -260,7 +260,7 @@ presolve_check.OptimizationProblem <- function(x) {
     if ("ac" %in% n2)
       warning(
         "penalty multiplied asymmetric connectivity values are very ",
-        "high (> ", upper_value, ") try using a smaller penalty value in ",
+        "high (> ", upper_value, "), try using a smaller penalty value in ",
         "add_asym_connectivity_penalties()",
         immediate. = TRUE
       )
@@ -283,8 +283,8 @@ presolve_check.OptimizationProblem <- function(x) {
         immediate. = TRUE)
     if ("spp_target" %in% n)
       warning(
-        "features targets are very high (> ", upper_value, "), ",
-        "try re-scaling the feature data to avoid numerical issues",
+        "feature(s) with very high target(s) (> ", upper_value, "), ",
+        "try re-scaling the feature data to avoid numerical issues ",
         "(e.g., convert units from m^2 to km^2)",
         immediate. = TRUE)
   }
@@ -302,7 +302,7 @@ presolve_check.OptimizationProblem <- function(x) {
         immediate. = TRUE)
     if ("spp_target" %in% n)
       warning(
-        "features target(s) is very low (< ", lower_value, ") ",
+        "feature(s) with very low target(s) (< ", lower_value, "), ",
         "so the target(s) will be rounded to zero",
         immediate. = TRUE)
   }
@@ -322,7 +322,7 @@ presolve_check.OptimizationProblem <- function(x) {
     #### throw warnings
     if ("budget" %in% rn1)
       warning(
-        "planning units with very high costs (> ", upper_value, ") ",
+        "planning units with very high costs (> ", upper_value, "), ",
         "try re-scaling cost data to different units ",
         "to avoid numerical issues ",
         "(e.g., convert units from USD to millions of USD)",
@@ -346,7 +346,7 @@ presolve_check.OptimizationProblem <- function(x) {
     out <- FALSE
     warning(
       "feature or rij data have very high values (> ", upper_value, "), ",
-      "try re-scaling the feature data to avoid numerical issues",
+      "try re-scaling them to avoid numerical issues ",
       "(e.g., convert units from m^2 to km^2)",
       immediate. = TRUE)
   }
