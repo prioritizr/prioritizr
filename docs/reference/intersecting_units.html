@@ -24,7 +24,7 @@ with the units in another spatial data object."><meta property="og:image" conten
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.3</span>
       </span>
     </div>
 
@@ -161,7 +161,7 @@ with the units in another spatial data object.</p>
 <span class="r-in"><span class="va">r_with_holes</span> <span class="op">&lt;-</span> <span class="va">r</span></span>
 <span class="r-in"><span class="va">r_with_holes</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span>, <span class="fl">9</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span>
 <span class="r-in"><span class="va">ply</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/rasterToPolygons.html" class="external-link">rasterToPolygons</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ply_with_holes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/sf/man/st_as_sf.html" class="external-link">st_as_sf</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/rasterToPolygons.html" class="external-link">rasterToPolygons</a></span><span class="op">(</span><span class="va">r_with_holes</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">ply_with_holes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">st_as_sf</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/rasterToPolygons.html" class="external-link">rasterToPolygons</a></span><span class="op">(</span><span class="va">r_with_holes</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># intersect raster with raster</span></span>
 <span class="r-in"><span class="co"># \dontrun{</span></span>

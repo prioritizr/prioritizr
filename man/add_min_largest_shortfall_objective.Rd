@@ -92,9 +92,9 @@ plot(s1, main = "solution", axes = FALSE, box = FALSE)
 # create multi-zone problem with minimum largest shortfall objective,
 # with 10\% representation targets for each feature, and set
 # a budget such that the total maximum expenditure in all zones
-# cannot exceed 3000
+# cannot exceed 1800
 p2 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
-      add_min_largest_shortfall_objective(3000) \%>\%
+      add_min_largest_shortfall_objective(1800) \%>\%
       add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) \%>\%
       add_binary_decisions() \%>\%
       add_default_solver(verbose = FALSE)
@@ -107,9 +107,9 @@ plot(category_layer(s2), main = "solution", axes = FALSE, box = FALSE)
 }
 # create multi-zone problem with minimum largest shortfall objective,
 # with 10\% representation targets for each feature, and set
-# separate budgets for each management zone
+# separate budgets of 1800 for each management zone
 p3 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
-      add_min_largest_shortfall_objective(c(3000, 3000, 3000)) \%>\%
+      add_min_largest_shortfall_objective(c(1800, 1800, 1800)) \%>\%
       add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) \%>\%
       add_binary_decisions() \%>\%
       add_default_solver(verbose = FALSE)

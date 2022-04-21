@@ -89,7 +89,7 @@ NULL
 #'
 #' # threshold the feature data to generate binary biodiversity data
 #' sim_binary_features <- sim_features
-#' thresholds <- raster::quantile(sim_features, probs = 0.95, names = FALSE,
+#' thresholds <- raster::quantile(sim_features, probs = 0.5, names = FALSE,
 #'                                na.rm = TRUE)
 #' for (i in seq_len(raster::nlayers(sim_features)))
 #'   sim_binary_features[[i]] <- as.numeric(raster::values(sim_features[[i]]) >
@@ -111,7 +111,7 @@ NULL
 #' # threshold the multi-zone feature data to generate binary biodiversity data
 #' sim_binary_features_zones <- sim_features_zones
 #' for (z in number_of_zones(sim_features_zones)) {
-#'   thresholds <- raster::quantile(sim_features_zones[[z]], probs = 0.95,
+#'   thresholds <- raster::quantile(sim_features_zones[[z]], probs = 0.5,
 #'                                  names = FALSE, na.rm = TRUE)
 #'   for (i in seq_len(number_of_features(sim_features_zones))) {
 #'     sim_binary_features_zones[[z]][[i]] <- as.numeric(

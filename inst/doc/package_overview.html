@@ -297,12 +297,12 @@ div.csl-indent {
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Marxan format</span></span>
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pu_dat)</span></code></pre></div>
 <pre><code>##   id       cost status    xloc     yloc
-## 1  3        0.0      0 1116623 -4493479
-## 2 30   752727.5      3 1110623 -4496943
-## 3 56  3734907.5      0 1092623 -4500408
-## 4 58  1695902.1      0 1116623 -4500408
-## 5 84  3422025.6      0 1098623 -4503872
-## 6 85 17890758.4      0 1110623 -4503872</code></pre>
+## 1  3      0.000      0 1116623 -4493479
+## 2 30   7527.275      3 1110623 -4496943
+## 3 56  37349.075      0 1092623 -4500408
+## 4 58  16959.021      0 1116623 -4500408
+## 5 84  34220.256      0 1098623 -4503872
+## 6 85 178907.584      0 1110623 -4503872</code></pre>
 <p>Finally, we will load data showing the spatial distribution of the conservation features. Our conservation features (<code>sim_features</code>) are represented as a stack of raster objects (i.e., a <code>RasterStack</code> object) where each layer corresponds to a different feature (e.g., a multi-band GeoTIFF where each band corresponds to a different feature). The pixel values in each layer correspond to the amount of suitable habitat available in a given planning unit. Note that our planning unit raster layer and our conservation feature stack have exactly the same spatial properties (i.e., resolution, extent, coordinate reference system) so their pixels line up perfectly.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load feature data</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(sim_features)</span>
@@ -382,12 +382,12 @@ div.csl-indent {
 <span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co"># print first six rows of the data</span></span>
 <span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(puvspr_dat)</span></code></pre></div>
 <pre><code>##   species  pu     amount
-## 1      26  56 1203448.84
-## 2      26  58  451670.10
-## 3      26  84  680473.75
-## 4      26  85   97356.24
-## 5      26  86   78034.76
-## 6      26 111 4783274.17</code></pre>
+## 1      26  56 120.344884
+## 2      26  58  45.167010
+## 3      26  84  68.047375
+## 4      26  85   9.735624
+## 5      26  86   7.803476
+## 6      26 111 478.327417</code></pre>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create problem</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">problem</span>(pu_dat, spec_dat, <span class="at">cost_column =</span> <span class="st">&quot;cost&quot;</span>, <span class="at">rij =</span> puvspr_dat)</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -395,7 +395,7 @@ div.csl-indent {
 <span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p3)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: data.frame (1751 units)
-##   cost:           min: 0, max: 41569219.38232
+##   cost:           min: 0, max: 415692.19382
 ##   features:       bird1, nvis2, nvis8, ... (17 features)
 ##   objective:      none
 ##   targets:        none
@@ -848,8 +848,8 @@ div.csl-indent {
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
 ##   decisions:      default
-##   constraints:    &lt;Locked in planning units [10 locked units]
-##                    Locked out planning units [10 locked units]&gt;
+##   constraints:    &lt;Locked out planning units [10 locked units]
+##                    Locked in planning units [10 locked units]&gt;
 ##   penalties:      &lt;none&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
@@ -1360,13 +1360,13 @@ div.csl-indent {
 ##   RHS range        [3e+00, 8e+00]
 ## Found heuristic solution: objective 20287.196992
 ## Found heuristic solution: objective 3087.9617505
-## Presolve time: 0.01s
+## Presolve time: 0.00s
 ## Presolved: 293 rows, 234 columns, 1026 nonzeros
 ## Variable types: 0 continuous, 234 integer (234 binary)
 ## Root relaxation presolved: 293 rows, 234 columns, 1026 nonzeros
 ## 
 ## 
-## Root relaxation: objective 2.265862e+03, 220 iterations, 0.01 seconds (0.00 work units)
+## Root relaxation: objective 2.265862e+03, 220 iterations, 0.00 seconds (0.00 work units)
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -1384,7 +1384,7 @@ div.csl-indent {
 ## Cutting planes:
 ##   Gomory: 3
 ## 
-## Explored 7 nodes (489 simplex iterations) in 0.09 seconds (0.10 work units)
+## Explored 7 nodes (489 simplex iterations) in 0.10 seconds (0.10 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 5: 2604.74 2730.95 2790.87 ... 20287.2
@@ -1404,7 +1404,7 @@ div.csl-indent {
 <div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extract time spent solving solution</span></span>
 <span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">attr</span>(s41, <span class="st">&quot;runtime&quot;</span>))</span></code></pre></div>
 <pre><code>## solution_1 
-##      0.135</code></pre>
+##      0.122</code></pre>
 <div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extract state message from the solver that describes why this specific</span></span>
 <span id="cb111-2"><a href="#cb111-2" aria-hidden="true" tabindex="-1"></a><span class="co"># solution was returned</span></span>
 <span id="cb111-3"><a href="#cb111-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">attr</span>(s41, <span class="st">&quot;status&quot;</span>))</span></code></pre></div>
@@ -1505,7 +1505,7 @@ div.csl-indent {
 <pre><code>## # A tibble: 1 × 2
 ##   summary asym_connectivity
 ##   &lt;chr&gt;               &lt;dbl&gt;
-## 1 overall              49.5</code></pre>
+## 1 overall              47.3</code></pre>
 </div>
 <div id="evaluating-relative-importance" class="section level3">
 <h3>Evaluating relative importance</h3>
@@ -1597,13 +1597,13 @@ div.csl-indent {
 <span id="cb133-8"><a href="#cb133-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mp)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: data.frame (1751 units)
-##   cost:           min: 0, max: 41569219.38232
+##   cost:           min: 0, max: 415692.19382
 ##   features:       bird1, nvis2, nvis8, ... (17 features)
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.3, max: 0.3)]
 ##   decisions:      default
-##   constraints:    &lt;Locked in planning units [317 locked units]
-##                    Locked out planning units [1 locked units]&gt;
+##   constraints:    &lt;Locked out planning units [1 locked units]
+##                    Locked in planning units [317 locked units]&gt;
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (1), zones]&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
@@ -1633,13 +1633,13 @@ div.csl-indent {
 <span id="cb136-16"><a href="#cb136-16" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mp2)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: data.frame (1751 units)
-##   cost:           min: 0, max: 41569219.38232
+##   cost:           min: 0, max: 415692.19382
 ##   features:       bird1, nvis2, nvis8, ... (17 features)
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.3, max: 0.3)]
 ##   decisions:      default
-##   constraints:    &lt;Locked in planning units [317 locked units]
-##                    Locked out planning units [1 locked units]&gt;
+##   constraints:    &lt;Locked out planning units [1 locked units]
+##                    Locked in planning units [317 locked units]&gt;
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (0), zones]&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>

@@ -32,7 +32,7 @@ limitations."><meta property="og:image" content="https://prioritizr.net/logo.png
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.3</span>
       </span>
     </div>
 
@@ -148,7 +148,7 @@ limitations.</p>
 <dt>solution</dt>
 <dd><p><code>numeric</code>, <code>matrix</code>, <code>data.frame</code>,
 <code><a href="https://rdrr.io/pkg/raster/man/Raster-classes.html" class="external-link">Raster</a></code>, <code><a href="https://rdrr.io/pkg/sp/man/Spatial-class.html" class="external-link">Spatial</a></code>,
-or <code><a href="https://rdrr.io/pkg/sf/man/sf.html" class="external-link">sf::sf()</a></code> object.
+or <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::sf()</a></code> object.
 The argument should be in the same format as the planning unit cost
 data in the argument to <code>x</code>.
 See the Solution format section for more information.</p></dd>
@@ -162,7 +162,7 @@ rescaled to range between 0.01 and 1. Defaults to <code>TRUE</code>.</p></dd>
     <div id="value">
     <h2>Value</h2>
     <p>A <code>numeric</code>, <code>matrix</code>, <code>data.frame</code><code><a href="https://rdrr.io/pkg/raster/man/Raster-classes.html" class="external-link">RasterLayer</a></code>, <code><a href="https://rdrr.io/pkg/sp/man/Spatial-class.html" class="external-link">Spatial</a></code>,
-or <code><a href="https://rdrr.io/pkg/sf/man/sf.html" class="external-link">sf::sf()</a></code> object containing the importance scores for each planning
+or <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::sf()</a></code> object containing the importance scores for each planning
 unit in the solution. Specifically, the returned object is in the
 same format as the planning unit data in the argument to <code>x</code>.</p>
     </div>
@@ -226,7 +226,7 @@ each row corresponding to a different planning unit, and cell values
 corresponding to the solution value. This means that if a <code>data.frame</code>
 object containing the solution also contains additional columns, then
 these columns will need to be subsetted prior to using this function
-(see below for example with <code><a href="https://rdrr.io/pkg/sf/man/sf.html" class="external-link">sf::sf()</a></code> data).
+(see below for example with <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::sf()</a></code> data).
 Additionally, any planning units missing cost
 (<code>NA</code>) values for a particular zone should also have missing (<code>NA</code>)
 values in the argument to <code>solution</code>.</p></dd>
@@ -239,7 +239,7 @@ different zone, each row corresponding to a different planning unit, and
 cell values corresponding to the solution value. This means that if the
 <code><a href="https://rdrr.io/pkg/sp/man/Spatial-class.html" class="external-link">Spatial</a></code> object containing the solution also contains additional
 columns, then these columns will need to be subsetted prior to using this
-function (see below for example with <code><a href="https://rdrr.io/pkg/sf/man/sf.html" class="external-link">sf::sf()</a></code> data).
+function (see below for example with <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::sf()</a></code> data).
 Additionally, the argument to <code>solution</code> must also have the same
 coordinate reference system as the planning unit data.
 Furthermore, any planning units missing cost
@@ -247,12 +247,12 @@ Furthermore, any planning units missing cost
 values in the argument to <code>solution</code>.</p></dd>
 
 
-<dt><code>x</code> has <code><a href="https://rdrr.io/pkg/sf/man/sf.html" class="external-link">sf::sf()</a></code> planning units</dt>
+<dt><code>x</code> has <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::sf()</a></code> planning units</dt>
 <dd><p>The argument to <code>solution</code> must be
-a <code><a href="https://rdrr.io/pkg/sf/man/sf.html" class="external-link">sf::sf()</a></code> object with each column corresponding to a different
+a <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::sf()</a></code> object with each column corresponding to a different
 zone, each row corresponding to a different planning unit, and cell values
 corresponding to the solution value. This means that if the
-<code><a href="https://rdrr.io/pkg/sf/man/sf.html" class="external-link">sf::sf()</a></code> object containing the solution also contains additional
+<code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::sf()</a></code> object containing the solution also contains additional
 columns, then these columns will need to be subsetted prior to using this
 function (see below for example).
 Additionally, the argument to <code>solution</code> must also have the same

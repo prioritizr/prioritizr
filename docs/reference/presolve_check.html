@@ -30,7 +30,7 @@ verify if  a problem has a feasible solution or not.'><meta property="og:image" 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.3</span>
       </span>
     </div>
 
@@ -261,7 +261,7 @@ at all.</p>
 <span class="r-in"><span class="co"># some issues, such as long solve time or suboptimal solutions, when</span></span>
 <span class="r-in"><span class="co"># trying to solve the problem</span></span>
 <span class="r-in"><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="fu">presolve_check</span><span class="op">(</span><span class="va">p2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>planning units with very high (&gt; 1e+6) or very low (&lt; 1e-6) non-zero cost values</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>planning units with very high costs (&gt; 1e+06) please consider re-scaling the values to avoid numerical issues (e.g., convert units from USD to millions of USD)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># create a minimal problem with connectivity penalties values that have</span></span>
@@ -278,7 +278,7 @@ at all.</p>
 <span class="r-in"><span class="co"># note that a warning is thrown which suggests that we might encounter</span></span>
 <span class="r-in"><span class="co"># some numerical instability issues when trying to solve the problem</span></span>
 <span class="r-in"><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="fu">presolve_check</span><span class="op">(</span><span class="va">p3</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>penalty multiplied connectivity values are very high</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>penalty multiplied connectivity values are very high (&gt; 1e+06), try using a smaller penalty value in add_connectivity_penalties()</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
 <span class="r-in"><span class="co"># \dontrun{</span></span>
 <span class="r-in"><span class="co"># let's forcibly solve the problem using Gurobi and tell it to</span></span>
@@ -286,7 +286,7 @@ at all.</p>
 <span class="r-in"><span class="va">s3</span> <span class="op">&lt;-</span> <span class="va">p3</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
 <span class="r-in">      <span class="fu"><a href="add_gurobi_solver.html">add_gurobi_solver</a></span><span class="op">(</span>numeric_focus <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
 <span class="r-in">      <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span>force <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>penalty multiplied connectivity values are very high</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>penalty multiplied connectivity values are very high (&gt; 1e+06), try using a smaller penalty value in add_connectivity_penalties()</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Gurobi Optimizer version 9.5.1 build v9.5.1rc2 (linux64)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Optimize a model with 293 rows, 234 columns and 1026 nonzeros</span>

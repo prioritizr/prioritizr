@@ -115,7 +115,7 @@ test_that("minimum set objective (solve, single zone)", {
         add_min_shortfall_objective(budget = b) %>%
         add_relative_targets(0.1) %>%
         add_binary_decisions() %>%
-        add_boundary_penalties(-10000, 0.5) %>%
+        add_boundary_penalties(-10000000, 0.5) %>%
         add_default_solver(time_limit = 5, verbose = FALSE)
   expect_warning(s2_1 <- solve(p2, force = TRUE))
   expect_warning(s2_2 <- solve(p2, force = TRUE))

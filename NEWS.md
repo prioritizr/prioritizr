@@ -1,3 +1,11 @@
+# prioritizr 7.2.0.3
+
+- Update the `presolve_check()` function to (i) reduce chances of
+  it incorrectly throwing an error when the input data won't actually
+  cause any issues, and (ii) provide recommendations for addressing issues.
+- Update documentation for `add_min_largest_shortfall_objective()` so that
+  examples complete in a shorter period of time.
+
 # prioritizr 7.2.0.2
 
 - Fix bug in processing planning unit data when a problem is constructed

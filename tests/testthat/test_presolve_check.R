@@ -56,7 +56,7 @@ test_that("instability due to range in rij data", {
        add_min_set_objective() %>%
        add_absolute_targets(1) %>%
        add_binary_decisions()
-  expect_warning(expect_false(presolve_check(p)), "feature amount", all = TRUE)
+  expect_warning(expect_false(presolve_check(p)), "rij", all = TRUE)
 })
 
 test_that("instability due to range in cost data (objective function)", {
@@ -70,15 +70,25 @@ test_that("instability due to range in cost data (objective function)", {
   expect_warning(expect_false(presolve_check(p)), "cost", all = TRUE)
 })
 
+test_that("instability due to range in cost data (rhs matrix)", {
+  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- sim_pu_raster
+  p <- problem(sim_pu_raster, sim_features) %>%
+       add_min_shortfall_objective(budget = 1e+9) %>%
+       add_relative_targets(0.1) %>%
+       add_binary_decisions()
+  expect_warning(expect_false(presolve_check(p)), "budget", all = TRUE)
+})
+
 test_that("instability due to range in cost data (constraint matrix)", {
   data(sim_pu_raster, sim_features)
   sim_pu_raster <- sim_pu_raster
   sim_pu_raster[1] <- 1e+15
   p <- problem(sim_pu_raster, sim_features) %>%
-       add_min_shortfall_objective(budget = 1e+9) %>%
+       add_min_shortfall_objective(budget = 1000) %>%
        add_relative_targets(0.1) %>%
        add_binary_decisions()
-  expect_warning(expect_false(presolve_check(p)), "values", all = TRUE)
+  expect_warning(expect_false(presolve_check(p)), "cost", all = TRUE)
 })
 
 test_that("instability due to budget", {
@@ -133,18 +143,6 @@ test_that("instability due to range in branch lengths", {
   expect_warning(expect_false(presolve_check(p)), "branch", all = TRUE)
 })
 
-test_that("all negative planning unit costs", {
-  data(sim_pu_raster, sim_features)
-  cm <- adjacency_matrix(sim_pu_raster)
-  diag(cm) <- 1
-  p <- problem(sim_pu_raster, sim_features) %>%
-       add_min_set_objective() %>%
-       add_relative_targets(0.1) %>%
-       add_connectivity_penalties(1e+10, data = cm) %>%
-       add_binary_decisions()
-  expect_warning(expect_false(presolve_check(p)), "negative", all = TRUE)
-})
-
 test_that("all planning units locked in", {
   data(sim_pu_raster, sim_features)
   p <- problem(sim_pu_raster, sim_features) %>%
@@ -173,4 +171,14 @@ test_that("number of neighboring planning units", {
        add_neighbor_constraints(k = 1e+9) %>%
        add_binary_decisions()
   expect_warning(expect_false(presolve_check(p)), "neighbors", all = TRUE)
+})
+
+test_that("sparse feature data", {
+  data(sim_pu_raster, sim_features)
+  sim_features <- sim_features * 1e-10
+  p <- problem(sim_pu_raster, sim_features) %>%
+       add_min_set_objective() %>%
+       add_relative_targets(0) %>%
+       add_binary_decisions()
+  expect_warning(expect_false(presolve_check(p)), "any features", all = TRUE)
 })

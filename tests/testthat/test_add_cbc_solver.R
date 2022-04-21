@@ -54,7 +54,7 @@ test_that("proportion decisions (floating point)", {
   skip_if_not_installed("prioritizrdata")
   # make data
   data(tas_pu, tas_features, package = "prioritizrdata")
-  tas_pu <- tas_pu[1:10, ]
+  tas_pu <- tas_pu[seq_len(15), ]
   p <- problem(tas_pu, tas_features, cost = "cost") %>%
        add_min_set_objective() %>%
        add_relative_targets(1) %>%

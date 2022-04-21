@@ -184,116 +184,183 @@ presolve_check.ConservationProblem <- function(x) {
 presolve_check.OptimizationProblem <- function(x) {
   # assert argument is valid
   assertthat::assert_that(inherits(x, "OptimizationProblem"))
-  # define helper functions
-  ratio <- function(x) {
-    x <- abs(x)
-    x / suppressWarnings(min(x[x != 0]))
-  }
+
   # set thresholds
-  threshold_ratio <- 1e+9
-  threshold_value <- 1e+10
-  # set output value
+  upper_value <- 1e+6
+  lower_value <- 1e-6
+
+  # initialize output value
   out <- TRUE
-  # check if all planning units locked out
+
+  # presolve checks
+  ## check for non-standard input data
+  ### check if all planning units locked out
   n_pu_vars <- x$number_of_planning_units() * x$number_of_zones()
   if (all(x$ub()[seq_len(n_pu_vars)] < 1e-5)) {
     out <- FALSE
-    warning("all planning units locked out", immediate. = TRUE)
+    warning(
+      "all planning units locked out, ",
+      "try again solve(a, force = TRUE) if this correct",
+      immediate. = TRUE)
   }
-  # check if all planning units locked in
+  ### check if all planning units locked in
   if (all(x$lb()[seq_len(n_pu_vars)] > 0.9999)) {
     out <- FALSE
-    warning("all planning units locked in", immediate. = TRUE)
+    warning(
+      "all planning units locked in ",
+      "try again solve(a, force = TRUE) if this correct",
+      immediate. = TRUE)
   }
-  # check if all planning units have negative costs
-  if (((x$modelsense() == "min") && all(x$obj()[seq_len(n_pu_vars)] < 0)) ||
-      ((x$modelsense() == "max") && all(x$obj()[seq_len(n_pu_vars)] > 0))) {
-    out <- FALSE
-    warning(paste("all planning units have negative values, may be due to",
-                  "(relatively) high penalty values"),
-            immediate. = TRUE)
-  }
-  # scan for values with really large ratio to smallest value
-  ## objective function
-  r <- which((ratio(x$obj()) > threshold_ratio)  |
-              (abs(x$obj()) > threshold_value))
-  if (length(r) > 0) {
+
+  ## check objective function
+  #### check upper threshold
+  r1 <- which(x$obj() > upper_value)
+  r2 <- which(abs(x$obj()) > upper_value)
+  if ((length(r1) > 0) || (length(r2) > 0)) {
     ### find names of decision variables in the problem which exceed thresholds
     out <- FALSE
-    n <- x$col_ids()[r]
+    n1 <- x$col_ids()[r1]
+    n2 <- x$col_ids()[r2]
     ### throw warnings
-    ### note that we only throw a warning if there aren't any issues
-    ### due to boundary lengths or connectivity values because there
-    ### is high chance of a false positive
-    if (("pu" %in% n) && (!"ac" %in% n) && (!"b" %in% n) && (!"c" %in% n))
-      warning(paste("planning units with very high (> 1e+6) or very low",
-                    "(< 1e-6) non-zero cost values"),
-              immediate. = TRUE)
-    if ("spp_met" %in% n)
-      warning(paste0("feature targets with very high target weights (> 1e+6)"),
-              immediate. = TRUE)
-    if ("amount" %in% n)
-      warning("features with (relatively) very high weights (> 1e+6)",
-              immediate. = TRUE)
-    if ("branch_met" %in% n)
-      warning("features with (relatively) very large branch lengths (> 1e+6)",
-              immediate. = TRUE)
-    if ("b" %in% n)
-      warning("penalty multiplied boundary lengths are very high",
-              immediate. = TRUE)
-    if ("c" %in% n)
-      warning("penalty multiplied connectivity values are very high",
-              immediate. = TRUE)
-    if ("ac" %in% n)
+    if (("pu" %in% n1) && (!"ac" %in% n2) && (!"b" %in% n2) && (!"c" %in% n2))
       warning(
-        "penalty multiplied asymmetric connectivity values are very high",
+        "planning units with very high costs (> ", upper_value, ") ",
+        "please consider re-scaling the values to avoid numerical issues ",
+        "(e.g., convert units from USD to millions of USD)",
+        immediate. = TRUE
+      )
+    if ("spp_met" %in% n1)
+      warning(
+        "features with very high target weights (> ", upper_value, "), ",
+        "try using a lower weight values in add_feature_weights()",
+        immediate. = TRUE)
+    if ("amount" %in% n1)
+      warning(
+        "features with very high weights (> ", upper_value, ") ",
+        "try using a lower weight values in add_feature_weights()",
+        immediate. = TRUE)
+    if ("branch_met" %in% n1)
+      warning(
+        "features with very large branch lengths (> ", upper_value, ") ",
+        "try rescaling the phylogenetic tree data ",
+        "(e.g., convert units from years to millions of years)",
+        immediate. = TRUE)
+    if ("b" %in% n2)
+      warning(
+        "penalty multiplied boundary lengths are very high (> ",
+        upper_value, "), ",
+        "try using a smaller penalty value in add_boundary_penalties()",
+              immediate. = TRUE)
+    if ("c" %in% n2)
+      warning(
+        "penalty multiplied connectivity values are very high (> ",
+        upper_value, "), ",
+        "try using a smaller penalty value in add_connectivity_penalties()",
+              immediate. = TRUE)
+    if ("ac" %in% n2)
+      warning(
+        "penalty multiplied asymmetric connectivity values are very ",
+        "high (> ", upper_value, ") try using a smaller penalty value in ",
+        "add_asym_connectivity_penalties()",
         immediate. = TRUE
       )
   }
-  ## rhs
-  r <- which((ratio(x$rhs()) > threshold_ratio) |
-             (abs(x$rhs()) > threshold_value))
+
+  ## check rhs
+  ### check upper threshold
+  r <- which(x$rhs() > upper_value)
   if (length(r) > 0) {
-    ### find names of constraints in the problem which exceed thresholds
+    #### find names of constraints in the problem which exceed thresholds
+    out <- FALSE
+    n <- x$row_ids()[r]
+    #### throw warnings
+    if ("budget" %in% n)
+      warning(
+        "budget is very high (> ", upper_value, "), ",
+        "try re-scaling cost data so the same budget can be specified ",
+        "by using a smaller value with different units ",
+        "(e.g., convert units from USD to millions of USD)",
+        immediate. = TRUE)
+    if ("spp_target" %in% n)
+      warning(
+        "features targets are very high (> ", upper_value, "), ",
+        "try re-scaling the feature data to avoid numerical issues",
+        "(e.g., convert units from m^2 to km^2)",
+        immediate. = TRUE)
+  }
+  ### check lower threshold
+  r <- which((x$rhs() < lower_value) & (x$rhs() > 1e-300))
+  if (length(r) > 0) {
+    #### find names of constraints in the problem which exceed thresholds
     out <- FALSE
     n <- x$row_ids()[r]
     ### throw warnings
     if ("budget" %in% n)
-      warning("budget is very high (> 1e+6)",
-              immediate. = TRUE)
+      warning(
+        "budget(s) is very low (< ", lower_value, "), ",
+        "so the budget will be rounded to zero",
+        immediate. = TRUE)
     if ("spp_target" %in% n)
-      warning(paste0("features targets are very high (> 1e+6) or ",
-                     "very low non-zero (< 1e-6) values"),
-              immediate. = TRUE)
+      warning(
+        "features target(s) is very low (< ", lower_value, ") ",
+        "so the target(s) will be rounded to zero",
+        immediate. = TRUE)
   }
-  ## constraint matrix
-  r <- which((ratio(x$A()@x) > threshold_ratio) |
-              (abs(x$A()@x) > threshold_value))
-  if (length(r) > 0) {
-    ### find names of constraints in the problem which exceed thresholds
+
+  ## check constraint matrix
+  y <- methods::as(x$A(), "dgTMatrix")
+  rownames(y) <- x$row_ids()
+  colnames(y) <- x$col_ids()
+  ### check upper threshold
+  r1 <- which(y@x > upper_value)
+  r2 <- which(abs(y@x) > upper_value)
+  if ((length(r1) > 0) || ((length(r2) > 0))) {
+    #### find names of constraints in the problem which exceed thresholds
     out <- FALSE
-    y <- methods::as(x$A(), "dgTMatrix")
-    rn <- x$row_ids()[y@i + 1]
-    cn <- x$col_ids()[y@j + 1]
-    rm(y)
-    cn <- cn[r]
-    rn <- rn[r]
-    ### throw warnings
-    if ("n" %in% rn) {
-      warning("number of neighbors required is very high (> 1e+6)",
-                immediate. = TRUE)
-      cn <- cn[rn != "n"]
-      rn <- rn[rn != "n"]
-    }
-    if ("budget" %in% rn)
-      warning(paste("planning units with very high (> 1e+6) or very low",
-                    "(< 1e-6) non-zero values"),
-              immediate. = TRUE)
-    if (("pu_ijz" %in% cn) | ("pu" %in% cn))
-      warning(paste("feature amounts in planning units have",
-                    "very high (> 1e+6) or very low (< 1e-6) non-zero values"),
-              immediate. = TRUE)
+    rn1 <- rownames(y)[y@i + 1][r1]
+    rn2 <- rownames(y)[y@i + 1][r2]
+    #### throw warnings
+    if ("budget" %in% rn1)
+      warning(
+        "planning units with very high costs (> ", upper_value, ") ",
+        "try re-scaling cost data to different units ",
+        "to avoid numerical issues ",
+        "(e.g., convert units from USD to millions of USD)",
+        immediate. = TRUE)
+    if ("n" %in% rn2)
+      warning(
+        "number of neighbors required is very high (> ", upper_value, ")",
+        immediate. = TRUE)
   }
+
+  ## check feature data
+  rij_cn_ids <- c("pu_ijz", "pu")
+  rij_rn_ids <- c("spp_amount", "spp_target", "spp_present", "pu_ijz")
+  rij <- y[
+    which(rownames(y) %in% rij_rn_ids),
+    which(colnames(y) %in% rij_cn_ids),
+    drop = FALSE]
+  ### check upper threshold
+  if (any(rij@x > upper_value)) {
+    #### throw warnings
+    out <- FALSE
+    warning(
+      "feature or rij data have very high values (> ", upper_value, "), ",
+      "try re-scaling the feature data to avoid numerical issues",
+      "(e.g., convert units from m^2 to km^2)",
+      immediate. = TRUE)
+  }
+  ### check lower threshold
+  if (mean(Matrix::colSums(rij) <= lower_value) >= 0.5) {
+    #### throw warnings
+    out <- FALSE
+    warning(
+      "most planning units do not have any features inside them, ",
+      "try obtaining data for more features to ensure that solutions ",
+      "are biologically meaningful",
+      immediate. = TRUE)
+  }
+
   # return check
   out
 }
