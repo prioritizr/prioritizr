@@ -27,7 +27,7 @@ test_that("character (compile)", {
   o2 <- compile(p2)
   # compare two problems
   expect_equal(o$obj(), o2$obj())
-  expect_true(all(o$A() == o2$A()))
+  expect_true(all(round(o$A(), 6) == round(o2$A(), 6)))
   expect_equal(o$rhs(), o2$rhs())
   expect_equal(o$sense(), o2$sense())
   expect_equal(o$modelsense(), o2$modelsense())

@@ -3,7 +3,7 @@ NULL
 
 #' Add a *Gurobi* solver
 #'
-#' Specify that the [*Gurobi*](https://www.gurobi.com/) software
+#' Specify that the [*Gurobi*](https://www.gurobi.com) software
 #' (Gurobi Optimization LLC 2021) should be used to solve a
 #' conservation planning [problem()]. This function can also be used to
 #' customize the behavior of the solver.
@@ -78,7 +78,7 @@ NULL
 #'  optimization problems? Defaults to `TRUE`.
 #'
 #' @details
-#' [*Gurobi*](https://www.gurobi.com/) is a
+#' [*Gurobi*](https://www.gurobi.com) is a
 #' state-of-the-art commercial optimization software with an R package
 #' interface. It is by far the fastest of the solvers available for
 #' generating prioritizations, however, it is not freely

@@ -57,6 +57,7 @@ jobs:
           remotes::install_cran("rcmdcheck")
           remotes::install_cran("covr")
           options("install.packages.compile.from.source" = NULL)
+          install.packages("uuid", type = "source")
           install.packages("raster", type = "source")
         shell: Rscript {0}
 

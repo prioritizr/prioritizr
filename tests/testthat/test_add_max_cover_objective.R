@@ -40,9 +40,9 @@ test_that("solve (compressed formulation, single zone)", {
                             raster::raster(matrix(c(1, 0, 1, 10), nrow = 1)))
   # create problem
   p <- problem(cost, features) %>%
-        add_max_cover_objective(budget = budget) %>%
-        add_locked_out_constraints(locked_out) %>%
-        add_default_solver(gap = 0, verbose = FALSE)
+       add_max_cover_objective(budget = budget) %>%
+       add_locked_out_constraints(locked_out) %>%
+       add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s1 <- solve(p)
   s2 <- solve(p)

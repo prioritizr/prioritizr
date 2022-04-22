@@ -9,7 +9,7 @@ test_that("no false positive", {
   expect_silent(expect_true(presolve_check(p)))
 })
 
-test_that("instability due to range in boundary penalties", {
+test_that("instability due to boundary data", {
   data(sim_pu_raster, sim_features)
   b <- boundary_matrix(sim_pu_raster)
   b[1, 2] <- 1e+10
@@ -22,7 +22,7 @@ test_that("instability due to range in boundary penalties", {
   expect_warning(expect_false(presolve_check(p)), "boundary")
 })
 
-test_that("instability due to range in connectivity penalties", {
+test_that("instability due to connectivity penalties", {
   data(sim_pu_raster, sim_features)
   cm <- boundary_matrix(sim_pu_raster)
   diag(cm) <- 0
@@ -35,7 +35,7 @@ test_that("instability due to range in connectivity penalties", {
   expect_warning(expect_false(presolve_check(p)), "connectivity", all = TRUE)
 })
 
-test_that("instability due to range in asymmetric connectivity penalties", {
+test_that("instability due to asymmetric connectivity penalties", {
   data(sim_pu_raster, sim_features)
   cm <- as(boundary_matrix(sim_pu_raster), "dgCMatrix")
   diag(cm) <- 0
@@ -49,17 +49,37 @@ test_that("instability due to range in asymmetric connectivity penalties", {
   expect_warning(expect_false(presolve_check(p)), "asymmetric", all = TRUE)
 })
 
-test_that("instability due to range in rij data", {
+test_that("instability due to rij data", {
   data(sim_pu_raster, sim_features)
   sim_features[[1]][1] <- 1e+15
   p <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_absolute_targets(1) %>%
        add_binary_decisions()
-  expect_warning(expect_false(presolve_check(p)), "feature amount", all = TRUE)
+  expect_warning(expect_false(presolve_check(p)), "rij", all = TRUE)
 })
 
-test_that("instability due to range in cost data (objective function)", {
+test_that("instability due to high budget", {
+  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- sim_pu_raster
+  p <- problem(sim_pu_raster, sim_features) %>%
+       add_min_shortfall_objective(budget = 1e+9) %>%
+       add_relative_targets(0.1) %>%
+       add_binary_decisions()
+  expect_warning(expect_false(presolve_check(p)), "budget", all = TRUE)
+})
+
+test_that("instability due to low budget", {
+  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- sim_pu_raster
+  p <- problem(sim_pu_raster, sim_features) %>%
+       add_min_shortfall_objective(budget = 1e-30) %>%
+       add_relative_targets(0.1) %>%
+       add_binary_decisions()
+  expect_warning(expect_false(presolve_check(p)), "budget", all = TRUE)
+})
+
+test_that("instability due to cost data (objective function)", {
   data(sim_pu_raster, sim_features)
   sim_pu_raster <- sim_pu_raster
   sim_pu_raster[1] <- 1e+15
@@ -70,28 +90,18 @@ test_that("instability due to range in cost data (objective function)", {
   expect_warning(expect_false(presolve_check(p)), "cost", all = TRUE)
 })
 
-test_that("instability due to range in cost data (constraint matrix)", {
+test_that("instability due to cost data (constraint matrix)", {
   data(sim_pu_raster, sim_features)
   sim_pu_raster <- sim_pu_raster
   sim_pu_raster[1] <- 1e+15
   p <- problem(sim_pu_raster, sim_features) %>%
-       add_min_shortfall_objective(budget = 1e+9) %>%
+       add_min_shortfall_objective(budget = 1000) %>%
        add_relative_targets(0.1) %>%
        add_binary_decisions()
-  expect_warning(expect_false(presolve_check(p)), "values", all = TRUE)
+  expect_warning(expect_false(presolve_check(p)), "cost", all = TRUE)
 })
 
-test_that("instability due to budget", {
-  data(sim_pu_raster, sim_features)
-  sim_pu_raster <- sim_pu_raster
-  p <- problem(sim_pu_raster, sim_features) %>%
-       add_min_shortfall_objective(budget = 1e+20) %>%
-       add_relative_targets(0.1) %>%
-       add_binary_decisions()
-  expect_warning(expect_false(presolve_check(p)), "budget", all = TRUE)
-})
-
-test_that("instability due to range in feature weights", {
+test_that("instability due to feature weights", {
   data(sim_pu_raster, sim_features)
   p <- problem(sim_pu_raster, sim_features) %>%
        add_max_utility_objective(600) %>%
@@ -101,7 +111,7 @@ test_that("instability due to range in feature weights", {
   expect_warning(expect_false(presolve_check(p)), "weight", all = TRUE)
 })
 
-test_that("instability due to range in target values", {
+test_that("instability due to high targets", {
   data(sim_pu_raster, sim_features)
   sim_features[[1]][1] <- 1e+15
   p <- problem(sim_pu_raster, sim_features) %>%
@@ -112,7 +122,18 @@ test_that("instability due to range in target values", {
   expect_warning(expect_false(presolve_check(p)), "target")
 })
 
-test_that("instability due to range in target weights", {
+test_that("instability due to low targets", {
+  data(sim_pu_raster, sim_features)
+  sim_features[[1]][1] <- 1e+15
+  p <- problem(sim_pu_raster, sim_features) %>%
+       add_min_set_objective() %>%
+       add_absolute_targets(
+         c(1e-15, rep(1, raster::nlayers(sim_features) - 1))) %>%
+       add_binary_decisions()
+  expect_warning(expect_false(presolve_check(p)), "target")
+})
+
+test_that("instability due to high target weights", {
   data(sim_pu_raster, sim_features)
   p <- problem(sim_pu_raster, sim_features) %>%
        add_max_features_objective(600) %>%
@@ -120,10 +141,10 @@ test_that("instability due to range in target weights", {
        add_feature_weights(
          c(1e+15, rep(1, raster::nlayers(sim_features) - 1))) %>%
        add_binary_decisions()
-  expect_warning(expect_false(presolve_check(p)), "target weights", all = TRUE)
+  expect_warning(expect_false(presolve_check(p)), "target weight", all = TRUE)
 })
 
-test_that("instability due to range in branch lengths", {
+test_that("instability due to branch lengths", {
   data(sim_pu_raster, sim_features, sim_phylogeny)
   sim_phylogeny$edge.length[length(sim_phylogeny$edge.length)] <- 1e+15
   p <- problem(sim_pu_raster, sim_features) %>%
@@ -133,16 +154,14 @@ test_that("instability due to range in branch lengths", {
   expect_warning(expect_false(presolve_check(p)), "branch", all = TRUE)
 })
 
-test_that("all negative planning unit costs", {
+test_that("instability due to number of neighboring planning units", {
   data(sim_pu_raster, sim_features)
-  cm <- adjacency_matrix(sim_pu_raster)
-  diag(cm) <- 1
   p <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
-       add_connectivity_penalties(1e+10, data = cm) %>%
+       add_neighbor_constraints(k = 1e+9) %>%
        add_binary_decisions()
-  expect_warning(expect_false(presolve_check(p)), "negative", all = TRUE)
+  expect_warning(expect_false(presolve_check(p)), "neighbors", all = TRUE)
 })
 
 test_that("all planning units locked in", {
@@ -165,12 +184,12 @@ test_that("all planning units locked out", {
   expect_warning(expect_false(presolve_check(p)), "locked out", all = TRUE)
 })
 
-test_that("number of neighboring planning units", {
+test_that("sparse feature data", {
   data(sim_pu_raster, sim_features)
+  sim_features <- sim_features * 1e-10
   p <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
-       add_relative_targets(0.1) %>%
-       add_neighbor_constraints(k = 1e+9) %>%
+       add_relative_targets(0) %>%
        add_binary_decisions()
-  expect_warning(expect_false(presolve_check(p)), "neighbors", all = TRUE)
+  expect_warning(expect_false(presolve_check(p)), "any features", all = TRUE)
 })

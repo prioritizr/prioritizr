@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.3</span>
       </span>
     </div>
 
@@ -96,6 +96,11 @@
       <small>Source: <a href="https://github.com/prioritizr/prioritizr/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="7.2.0.3" id="prioritizr-7203">prioritizr 7.2.0.3<a class="anchor" aria-label="anchor" href="#prioritizr-7203"></a></h2>
+<ul><li>Update the <code><a href="../reference/presolve_check.html">presolve_check()</a></code> function to (i) reduce chances of it incorrectly throwing an error when the input data won’t actually cause any issues, and (ii) provide recommendations for addressing issues.</li>
+<li>Update documentation for <code><a href="../reference/add_min_largest_shortfall_objective.html">add_min_largest_shortfall_objective()</a></code> so that examples complete in a shorter period of time.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="7.2.0.2" id="prioritizr-7202">prioritizr 7.2.0.2<a class="anchor" aria-label="anchor" href="#prioritizr-7202"></a></h2>
 <ul><li>Fix bug in processing planning unit data when a problem is constructed using arguments to (i) <code>x</code> that are <code>numeric</code> or <code>matrix</code> format, (ii) <code>x</code> that contain missing (<code>NA</code>) values, and (iii) <code>rij_matrix</code> that are in <code>dgCMatrix</code> format. This bug only occurred when all three of these specific conditions were met. When it occurred, the bug caused planning units with <code>NA</code> cost values to receive very high cost values (e.g., 1e+300). This bug meant that when attempting to solve the problem, the presolve checks (per <code><a href="../reference/presolve_check.html">presolve_check()</a></code>) would throw an error complaining about very high cost values (<a href="https://github.com/prioritizr/prioritizr/issues/236" class="external-link">#236</a>).</li>

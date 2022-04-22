@@ -274,7 +274,7 @@ div.csl-indent {
 ## Found heuristic solution: objective 37703.827706
 ## Found heuristic solution: objective 27817.085072
 ## Presolve removed 2077 rows and 1375 columns
-## Presolve time: 0.04s
+## Presolve time: 0.05s
 ## Presolved: 4281 rows, 2903 columns, 9594 nonzeros
 ## Found heuristic solution: objective 24454.499456
 ## Variable types: 0 continuous, 2903 integer (2903 binary)
@@ -282,7 +282,7 @@ div.csl-indent {
 ## Root relaxation presolved: 4281 rows, 2903 columns, 9594 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.955605e+04, 1793 iterations, 0.09 seconds (0.19 work units)
+## Root relaxation: objective 1.955605e+04, 1793 iterations, 0.11 seconds (0.19 work units)
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -301,7 +301,7 @@ div.csl-indent {
 ##   Zero half: 2
 ##   RLT: 10
 ## 
-## Explored 1 nodes (2393 simplex iterations) in 0.35 seconds (0.60 work units)
+## Explored 1 nodes (2393 simplex iterations) in 0.42 seconds (0.60 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 7: 21702.3 22977.8 23045.7 ... 37703.8
@@ -495,8 +495,8 @@ div.csl-indent {
 ##      0     0 19968.7333    0 1691 22049.9565 19968.7333  9.44%     -    0s
 ##      0     0 19970.0998    0 1714 22049.9565 19970.0998  9.43%     -    0s
 ##      0     0 19970.4702    0 1714 22049.9565 19970.4702  9.43%     -    0s
-##      0     0 19983.7957    0 1748 22049.9565 19983.7957  9.37%     -    0s
-##      0     0 19984.9623    0 1754 22049.9565 19984.9623  9.37%     -    0s
+##      0     0 19983.7957    0 1748 22049.9565 19983.7957  9.37%     -    1s
+##      0     0 19984.9623    0 1754 22049.9565 19984.9623  9.37%     -    1s
 ##      0     0 19985.0928    0 1754 22049.9565 19985.0928  9.36%     -    1s
 ##      0     0 19990.8490    0 2040 22049.9565 19990.8490  9.34%     -    1s
 ##      0     0 19991.1771    0 2041 22049.9565 19991.1771  9.34%     -    1s
@@ -514,21 +514,25 @@ div.csl-indent {
 ## H   54    54                    21254.060213 19996.6237  5.92%   117    2s
 ## H  108   108                    21204.105802 19996.6237  5.69%   123    3s
 ## H  162   162                    21202.636805 19996.6237  5.69%   104    3s
-## H  286   286                    21166.904542 19996.6237  5.53%  69.2    4s
+## H  286   286                    21166.904542 19996.6237  5.53%  69.2    3s
 ## H  606   599                    20993.604430 19996.6237  4.75%  32.8    5s
-##    632    15 20133.3528   14 1965 20993.6044 20028.1611  4.60%  31.5   10s
-##    662    13 20993.6044   74 1964 20993.6044 20031.4177  4.58%  37.0   15s
-## H  750    81                    20939.026645 20082.6816  4.09%  61.7   20s
-## H 1231   560                    20924.385117 20082.6816  4.02%  44.7   22s
-##   1282   613 20563.1988   50 1553 20924.3851 20084.4398  4.01%  54.5   25s
-## H 1975  1297                    20813.687049 20092.6890  3.46%  50.6   28s
-##   2456  1778 20440.5810   40 1870 20813.6870 20099.7124  3.43%  45.9   30s
-##   3651  2919 20258.4354   30 1908 20813.6870 20110.2720  3.38%  41.5   35s
-##   4801  3746 21803.0425  139  351 20813.6870 20148.3760  3.20%  39.3   40s
-##   5248  3830 20760.2966   57 1194 20813.6870 20155.9610  3.16%  42.5   45s
-##   6089  4572 22451.0416   70 1444 20813.6870 20167.5494  3.10%  42.9   50s
-##   6829  4559 22006.2123  191    2 20813.6870 20193.4219  2.98%  42.6   55s
-##   7254  4737 20783.3074   46 1748 20813.6870 20195.9413  2.97%  44.6   60s
+##    634    16 20993.6044  234 1965 20993.6044 20028.3465  4.60%  31.4   10s
+##    654     8 20993.6044  550 1964 20993.6044 20030.2110  4.59%  37.4   15s
+##    675    17 20109.6498   25 1696 20993.6044 20082.6816  4.34%  46.2   20s
+## H  750    81                    20939.026645 20082.6816  4.09%  61.7   24s
+##    783   116 20977.0287   79  370 20939.0266 20082.6816  4.09%  64.7   25s
+## H 1231   560                    20924.385117 20082.6816  4.02%  44.7   28s
+##   1266   597 20434.8664   42 1537 20924.3851 20084.4398  4.01%  52.2   30s
+## H 1975  1297                    20813.687049 20092.6890  3.46%  50.6   34s
+##   2030  1354          -  137      20813.6870 20092.6890  3.46%  49.4   35s
+##   2826  2148 22710.1675  383    7 20813.6870 20099.7124  3.43%  44.9   40s
+##   3657  2925 20356.1327   31 1882 20813.6870 20110.2720  3.38%  42.1   45s
+##   4715  3661 20757.7999   53 1732 20813.6870 20148.3760  3.20%  38.6   50s
+##   5050  3799 21545.8103   83  783 20813.6870 20153.3149  3.17%  40.5   55s
+##   5656  4187 20745.9592   43 1737 20813.6870 20166.6830  3.11%  41.6   60s
+##   6105  4586 20532.3259   34 1904 20813.6870 20171.2638  3.09%  43.3   65s
+##   6945  4619 20649.0602   35 1903 20813.6870 20193.4398  2.98%  42.2   70s
+##   7251  4734 20722.9411   45 1823 20813.6870 20195.9413  2.97%  44.4   75s
 ## 
 ## Cutting planes:
 ##   Gomory: 7
@@ -540,7 +544,7 @@ div.csl-indent {
 ##   Zero half: 22
 ##   RLT: 24
 ## 
-## Explored 7780 nodes (344017 simplex iterations) in 62.92 seconds (80.68 work units)
+## Explored 7780 nodes (344017 simplex iterations) in 77.85 seconds (80.68 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 1000: 20813.7 20924.4 20939 ... 22439.4
@@ -604,12 +608,12 @@ div.csl-indent {
 <span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>pu_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(pu_path, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(pu_data))</span></code></pre></div>
 <pre><code>##   id       cost status    xloc     yloc
-## 1  3        0.0      0 1116623 -4493479
-## 2 30   752727.5      3 1110623 -4496943
-## 3 56  3734907.5      0 1092623 -4500408
-## 4 58  1695902.1      0 1116623 -4500408
-## 5 84  3422025.6      0 1098623 -4503872
-## 6 85 17890758.4      0 1110623 -4503872</code></pre>
+## 1  3      0.000      0 1116623 -4493479
+## 2 30   7527.275      3 1110623 -4496943
+## 3 56  37349.075      0 1092623 -4500408
+## 4 58  16959.021      0 1116623 -4500408
+## 5 84  34220.256      0 1098623 -4503872
+## 6 85 178907.584      0 1110623 -4503872</code></pre>
 <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="do">## feature data</span></span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>spec_path <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;extdata/input/spec.dat&quot;</span>, <span class="at">package =</span> <span class="st">&quot;prioritizr&quot;</span>)</span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>spec_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(spec_path, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
@@ -626,12 +630,12 @@ div.csl-indent {
 <span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>puvspr_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(puvspr_path, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(puvspr_data))</span></code></pre></div>
 <pre><code>##   species  pu     amount
-## 1      26  56 1203448.84
-## 2      26  58  451670.10
-## 3      26  84  680473.75
-## 4      26  85   97356.24
-## 5      26  86   78034.76
-## 6      26 111 4783274.17</code></pre>
+## 1      26  56 120.344884
+## 2      26  58  45.167010
+## 3      26  84  68.047375
+## 4      26  85   9.735624
+## 5      26  86   7.803476
+## 6      26 111 478.327417</code></pre>
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="do">## boundary data</span></span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>bound_path <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;extdata/input/bound.dat&quot;</span>, <span class="at">package =</span> <span class="st">&quot;prioritizr&quot;</span>)</span>
 <span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>bound_data <span class="ot">&lt;-</span> <span class="fu">read.table</span>(bound_path, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
@@ -652,7 +656,7 @@ div.csl-indent {
 <span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p2)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: data.frame (1751 units)
-##   cost:           min: 0, max: 41569219.38232
+##   cost:           min: 0, max: 415692.19382
 ##   features:       bird1, nvis2, nvis8, ... (17 features)
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.3, max: 0.3)]
@@ -667,48 +671,45 @@ div.csl-indent {
 <pre><code>## Gurobi Optimizer version 9.5.1 build v9.5.1rc2 (linux64)
 ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
 ## Optimize a model with 10075 rows, 6780 columns and 24778 nonzeros
-## Model fingerprint: 0x2652a1c2
+## Model fingerprint: 0x37d7a0a1
 ## Variable types: 0 continuous, 6780 integer (6780 binary)
 ## Coefficient statistics:
-##   Matrix range     [5e-01, 4e+07]
-##   Objective range  [4e+00, 4e+07]
+##   Matrix range     [5e-05, 4e+03]
+##   Objective range  [4e+00, 4e+05]
 ##   Bounds range     [1e+00, 1e+00]
-##   RHS range        [5e+07, 3e+09]
-## Warning: Model contains large rhs
-##          Consider reformulating model or setting NumericFocus parameter
-##          to avoid numerical issues.
-## Found heuristic solution: objective 1.221185e+10
+##   RHS range        [5e+03, 3e+05]
+## Found heuristic solution: objective 1.221202e+08
 ## Presolve removed 4707 rows and 3103 columns
-## Presolve time: 0.06s
+## Presolve time: 0.05s
 ## Presolved: 5368 rows, 3677 columns, 12704 nonzeros
 ## Variable types: 0 continuous, 3677 integer (3677 binary)
-## Found heuristic solution: objective 1.009922e+10
+## Found heuristic solution: objective 1.009944e+08
 ## Root relaxation presolved: 5368 rows, 3677 columns, 12704 nonzeros
 ## 
 ## 
-## Root relaxation: objective 9.564577e+09, 493 iterations, 0.01 seconds (0.01 work units)
+## Root relaxation: objective 9.564790e+07, 521 iterations, 0.01 seconds (0.01 work units)
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
-##      0     0 9.5646e+09    0   20 1.0099e+10 9.5646e+09  5.29%     -    0s
+##      0     0 9.5648e+07    0   20 1.0099e+08 9.5648e+07  5.29%     -    0s
 ## 
-## Explored 1 nodes (493 simplex iterations) in 0.08 seconds (0.10 work units)
+## Explored 1 nodes (521 simplex iterations) in 0.07 seconds (0.10 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
-## Solution count 2: 1.00992e+10 1.22118e+10 
+## Solution count 2: 1.00994e+08 1.2212e+08 
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
-## Best objective 1.009922392231e+10, best bound 9.564577117609e+09, gap 5.2939%</code></pre>
+## Best objective 1.009944489031e+08, best bound 9.564790440581e+07, gap 5.2939%</code></pre>
 <div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># print first six rows of solution object</span></span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(s2))</span></code></pre></div>
 <pre><code>##   id       cost status    xloc     yloc locked_in locked_out solution_1
-## 1  3        0.0      0 1116623 -4493479     FALSE      FALSE          0
-## 2 30   752727.5      3 1110623 -4496943     FALSE       TRUE          0
-## 3 56  3734907.5      0 1092623 -4500408     FALSE      FALSE          0
-## 4 58  1695902.1      0 1116623 -4500408     FALSE      FALSE          0
-## 5 84  3422025.6      0 1098623 -4503872     FALSE      FALSE          0
-## 6 85 17890758.4      0 1110623 -4503872     FALSE      FALSE          0</code></pre>
+## 1  3      0.000      0 1116623 -4493479     FALSE      FALSE          0
+## 2 30   7527.275      3 1110623 -4496943     FALSE       TRUE          0
+## 3 56  37349.075      0 1092623 -4500408     FALSE      FALSE          0
+## 4 58  16959.021      0 1116623 -4500408     FALSE      FALSE          0
+## 5 84  34220.256      0 1098623 -4503872     FALSE      FALSE          0
+## 6 85 178907.584      0 1110623 -4503872     FALSE      FALSE          0</code></pre>
 </div>
 <div id="conclusion" class="section level2">
 <h2>Conclusion</h2>

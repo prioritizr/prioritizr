@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.3</span>
       </span>
     </div>
 
@@ -256,12 +256,12 @@
 <span class="co"># Marxan format</span>
 <span class="fu"><a href="https://rdrr.io/pkg/raster/man/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">pu_dat</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">##   id       cost status    xloc     yloc</span>
-<span class="co">## 1  3        0.0      0 1116623 -4493479</span>
-<span class="co">## 2 30   752727.5      3 1110623 -4496943</span>
-<span class="co">## 3 56  3734907.5      0 1092623 -4500408</span>
-<span class="co">## 4 58  1695902.1      0 1116623 -4500408</span>
-<span class="co">## 5 84  3422025.6      0 1098623 -4503872</span>
-<span class="co">## 6 85 17890758.4      0 1110623 -4503872</span></code></pre>
+<span class="co">## 1  3      0.000      0 1116623 -4493479</span>
+<span class="co">## 2 30   7527.275      3 1110623 -4496943</span>
+<span class="co">## 3 56  37349.075      0 1092623 -4500408</span>
+<span class="co">## 4 58  16959.021      0 1116623 -4500408</span>
+<span class="co">## 5 84  34220.256      0 1098623 -4503872</span>
+<span class="co">## 6 85 178907.584      0 1110623 -4503872</span></code></pre>
 <p>Finally, we will load data showing the spatial distribution of the conservation features. Our conservation features (<code>sim_features</code>) are represented as a stack of raster objects (i.e., a <code>RasterStack</code> object) where each layer corresponds to a different feature (e.g., a multi-band GeoTIFF where each band corresponds to a different feature). The pixel values in each layer correspond to the amount of suitable habitat available in a given planning unit. Note that our planning unit raster layer and our conservation feature stack have exactly the same spatial properties (i.e., resolution, extent, coordinate reference system) so their pixels line up perfectly.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># load feature data</span>
@@ -349,12 +349,12 @@
 <span class="co"># print first six rows of the data</span>
 <span class="fu"><a href="https://rdrr.io/pkg/raster/man/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">puvspr_dat</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">##   species  pu     amount</span>
-<span class="co">## 1      26  56 1203448.84</span>
-<span class="co">## 2      26  58  451670.10</span>
-<span class="co">## 3      26  84  680473.75</span>
-<span class="co">## 4      26  85   97356.24</span>
-<span class="co">## 5      26  86   78034.76</span>
-<span class="co">## 6      26 111 4783274.17</span></code></pre>
+<span class="co">## 1      26  56 120.344884</span>
+<span class="co">## 2      26  58  45.167010</span>
+<span class="co">## 3      26  84  68.047375</span>
+<span class="co">## 4      26  85   9.735624</span>
+<span class="co">## 5      26  86   7.803476</span>
+<span class="co">## 6      26 111 478.327417</span></code></pre>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create problem</span>
 <span class="va">p3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">pu_dat</span>, <span class="va">spec_dat</span>, cost_column <span class="op">=</span> <span class="st">"cost"</span>, rij <span class="op">=</span> <span class="va">puvspr_dat</span><span class="op">)</span>
@@ -363,7 +363,7 @@
 <span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">## Conservation Problem</span>
 <span class="co">##   planning units: data.frame (1751 units)</span>
-<span class="co">##   cost:           min: 0, max: 41569219.38232</span>
+<span class="co">##   cost:           min: 0, max: 415692.19382</span>
 <span class="co">##   features:       bird1, nvis2, nvis8, ... (17 features)</span>
 <span class="co">##   objective:      none</span>
 <span class="co">##   targets:        none</span>
@@ -1438,7 +1438,7 @@
 <span class="co">## Cutting planes:</span>
 <span class="co">##   Gomory: 3</span>
 <span class="co">## </span>
-<span class="co">## Explored 7 nodes (489 simplex iterations) in 0.10 seconds (0.10 work units)</span>
+<span class="co">## Explored 7 nodes (489 simplex iterations) in 0.11 seconds (0.10 work units)</span>
 <span class="co">## Thread count was 1 (of 8 available processors)</span>
 <span class="co">## </span>
 <span class="co">## Solution count 5: 2604.74 2730.95 2790.87 ... 20287.2</span>
@@ -1461,7 +1461,7 @@
 <code class="sourceCode R"><span class="co"># extract time spent solving solution</span>
 <span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s41</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">## solution_1 </span>
-<span class="co">##      0.121</span></code></pre>
+<span class="co">##      0.117</span></code></pre>
 <div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># extract state message from the solver that describes why this specific</span>
 <span class="co"># solution was returned</span>
@@ -1579,7 +1579,7 @@
 <pre><code><span class="co">## <span style="color: #949494;"># A tibble: 1 × 2</span></span>
 <span class="co">##   summary asym_connectivity</span>
 <span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">## <span style="color: #BCBCBC;">1</span> overall              48.1</span></code></pre>
+<span class="co">## <span style="color: #BCBCBC;">1</span> overall              47.5</span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="evaluating-relative-importance">Evaluating relative importance<a class="anchor" aria-label="anchor" href="#evaluating-relative-importance"></a>
@@ -1681,13 +1681,13 @@
 <span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">mp</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">## Conservation Problem</span>
 <span class="co">##   planning units: data.frame (1751 units)</span>
-<span class="co">##   cost:           min: 0, max: 41569219.38232</span>
+<span class="co">##   cost:           min: 0, max: 415692.19382</span>
 <span class="co">##   features:       bird1, nvis2, nvis8, ... (17 features)</span>
 <span class="co">##   objective:      Minimum set objective </span>
 <span class="co">##   targets:        Relative targets [targets (min: 0.3, max: 0.3)]</span>
 <span class="co">##   decisions:      default</span>
-<span class="co">##   constraints:    &lt;Locked in planning units [317 locked units]</span>
-<span class="co">##                    Locked out planning units [1 locked units]&gt;</span>
+<span class="co">##   constraints:    &lt;Locked out planning units [1 locked units]</span>
+<span class="co">##                    Locked in planning units [317 locked units]&gt;</span>
 <span class="co">##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (1), zones]&gt;</span>
 <span class="co">##   portfolio:      default</span>
 <span class="co">##   solver:         default</span></code></pre>
@@ -1719,7 +1719,7 @@
 <span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">mp2</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">## Conservation Problem</span>
 <span class="co">##   planning units: data.frame (1751 units)</span>
-<span class="co">##   cost:           min: 0, max: 41569219.38232</span>
+<span class="co">##   cost:           min: 0, max: 415692.19382</span>
 <span class="co">##   features:       bird1, nvis2, nvis8, ... (17 features)</span>
 <span class="co">##   objective:      Minimum set objective </span>
 <span class="co">##   targets:        Relative targets [targets (min: 0.3, max: 0.3)]</span>
