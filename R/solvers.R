@@ -37,7 +37,7 @@ NULL
 #'     This solver uses the \pkg{cplexAPI} package to solve problems using
 #'     *IBM CPLEX*.}
 #'
-#'  \item{[add_cbc_solver()]}{[*CBC*](https://projects.coin-or.org/Cbc) is an
+#'  \item{[add_cbc_solver()]}{[*CBC*](https://github.com/coin-or/Cbc) is an
 #'    open-source mixed integer programming solver that is part of the
 #'     Computational Infrastructure for Operations Research (COIN-OR) project.
 #'     Preliminary benchmarks indicate that it is the fastest open source
@@ -49,7 +49,7 @@ NULL
 #'  }
 #'
 #'   \item{[add_lpsymphony_solver()]}{
-#'     [*SYMPHONY*](https://projects.coin-or.org/SYMPHONY) is an
+#'     [*SYMPHONY*](https://github.com/coin-or/SYMPHONY) is an
 #'     open-source mixed integer programming solver that is also part of the
 #'     COIN-OR project. Although both *SYMPHONY* and *CBC* are part of
 #'     the COIN-OR project, they are different software.
@@ -63,7 +63,7 @@ NULL
 #'
 #'   \item{[add_rsymphony_solver()]}{
 #'     This solver provides an alternative interface to the
-#'     [*SYMPHONY*](https://projects.coin-or.org/SYMPHONY) solver using
+#'     [*SYMPHONY*](https://github.com/coin-or/SYMPHONY) solver using
 #'     the \pkg{Rsymphony} package.
 #'     Unlike other solvers, the \pkg{Rsymphony} package can be installed
 #'     directly from the Comprehensive R Archive Network (CRAN).

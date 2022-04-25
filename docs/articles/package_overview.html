@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.4</span>
       </span>
     </div>
 
@@ -1176,7 +1176,7 @@
 <span class="co">##   solver:         CPLEX [gap (0), presolve (1), threads (1), time_limit (2147483647), verbose (1)]</span></code></pre>
 <ul>
 <li>
-<strong><em>CBC</em> solver</strong>: <a href="https://projects.coin-or.org/Cbc" class="external-link"><em>CBC</em></a> is an open-source mixed integer programming solver that is part of the Computational Infrastructure for Operations Research (COIN-OR) project. Although formal benchmarks have yet to be completed, preliminary analyses suggest that it is the fastest open-source solver available for generating prioritizations. It requires the <em>rcbc R</em> package, which is currently only available on <a href="https://github.com/dirkschumacher/rcbc" class="external-link">GitHub</a>.</li>
+<strong><em>CBC</em> solver</strong>: <a href="https://github.com/coin-or/Cbc" class="external-link"><em>CBC</em></a> is an open-source mixed integer programming solver that is part of the Computational Infrastructure for Operations Research (COIN-OR) project. Although formal benchmarks have yet to be completed, preliminary analyses suggest that it is the fastest open-source solver available for generating prioritizations. It requires the <em>rcbc R</em> package, which is currently only available on <a href="https://github.com/dirkschumacher/rcbc" class="external-link">GitHub</a>.</li>
 </ul>
 <div class="sourceCode" id="cb90"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create a problem and specify that CBC should be used to solve the</span>
@@ -1202,7 +1202,7 @@
 <span class="co">##   solver:         CBC [first_feasible (0), gap (0), presolve (1), threads (1), time_limit (2147483647), verbose (1)]</span></code></pre>
 <ul>
 <li>
-<strong><em>lpsymphony</em> solver</strong>: <a href="https://projects.coin-or.org/SYMPHONY" class="external-link"><em>SYMPHONY</em></a> is an open-source integer programming solver that is also part of the COIN-OR project. This solver uses the <em>lpsymphony R</em> package (available on <a href="http://bioconductor.org/packages/release/bioc/html/lpsymphony.html" class="external-link">Bioconductor</a>) to interface with the <em>SYMPHONY</em> software.</li>
+<strong><em>lpsymphony</em> solver</strong>: <a href="https://github.com/coin-or/SYMPHONY" class="external-link"><em>SYMPHONY</em></a> is an open-source integer programming solver that is also part of the COIN-OR project. This solver uses the <em>lpsymphony R</em> package (available on <a href="http://bioconductor.org/packages/release/bioc/html/lpsymphony.html" class="external-link">Bioconductor</a>) to interface with the <em>SYMPHONY</em> software.</li>
 </ul>
 <div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create a problem and specify that lpsymphony should be used to solve the</span>
@@ -1228,7 +1228,7 @@
 <span class="co">##   solver:         Lpsymphony [first_feasible (0), gap (0), time_limit (2147483647), verbose (1)]</span></code></pre>
 <ul>
 <li>
-<strong><em>Rsymphony</em> solver</strong>: This solver provides a different interface to the <a href="https://projects.coin-or.org/SYMPHONY" class="external-link"><em>SYMPHONY</em></a> software. It uses the <em>Rsymphony R</em> package which is available on The Comprehensive R Archive Network (CRAN). This solver is generally slower than the other solvers, because it cannot use parallel processing.</li>
+<strong><em>Rsymphony</em> solver</strong>: This solver provides a different interface to the <a href="https://github.com/coin-or/SYMPHONY" class="external-link"><em>SYMPHONY</em></a> software. It uses the <em>Rsymphony R</em> package which is available on The Comprehensive R Archive Network (CRAN). This solver is generally slower than the other solvers, because it cannot use parallel processing.</li>
 </ul>
 <div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create a problem and specify that Rsymphony should be used to solve the</span>
@@ -1438,7 +1438,7 @@
 <span class="co">## Cutting planes:</span>
 <span class="co">##   Gomory: 3</span>
 <span class="co">## </span>
-<span class="co">## Explored 7 nodes (489 simplex iterations) in 0.11 seconds (0.10 work units)</span>
+<span class="co">## Explored 7 nodes (489 simplex iterations) in 0.08 seconds (0.10 work units)</span>
 <span class="co">## Thread count was 1 (of 8 available processors)</span>
 <span class="co">## </span>
 <span class="co">## Solution count 5: 2604.74 2730.95 2790.87 ... 20287.2</span>
@@ -1461,7 +1461,7 @@
 <code class="sourceCode R"><span class="co"># extract time spent solving solution</span>
 <span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s41</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">## solution_1 </span>
-<span class="co">##      0.117</span></code></pre>
+<span class="co">##      0.108</span></code></pre>
 <div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># extract state message from the solver that describes why this specific</span>
 <span class="co"># solution was returned</span>
@@ -1579,7 +1579,7 @@
 <pre><code><span class="co">## <span style="color: #949494;"># A tibble: 1 × 2</span></span>
 <span class="co">##   summary asym_connectivity</span>
 <span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">## <span style="color: #BCBCBC;">1</span> overall              47.5</span></code></pre>
+<span class="co">## <span style="color: #BCBCBC;">1</span> overall              50.1</span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="evaluating-relative-importance">Evaluating relative importance<a class="anchor" aria-label="anchor" href="#evaluating-relative-importance"></a>
@@ -1686,8 +1686,8 @@
 <span class="co">##   objective:      Minimum set objective </span>
 <span class="co">##   targets:        Relative targets [targets (min: 0.3, max: 0.3)]</span>
 <span class="co">##   decisions:      default</span>
-<span class="co">##   constraints:    &lt;Locked out planning units [1 locked units]</span>
-<span class="co">##                    Locked in planning units [317 locked units]&gt;</span>
+<span class="co">##   constraints:    &lt;Locked in planning units [317 locked units]</span>
+<span class="co">##                    Locked out planning units [1 locked units]&gt;</span>
 <span class="co">##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (1), zones]&gt;</span>
 <span class="co">##   portfolio:      default</span>
 <span class="co">##   solver:         default</span></code></pre>

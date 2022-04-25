@@ -47,7 +47,7 @@ Object (i.e., \code{\linkS4class{ConservationProblem}}) with the solver
 added to it.
 }
 \description{
-Specify that the \href{https://projects.coin-or.org/SYMPHONY}{\emph{SYMPHONY}}
+Specify that the \href{https://github.com/coin-or/SYMPHONY}{\emph{SYMPHONY}}
 software (Ralphs & Güzelsoy 2005) -- using the \pkg{lpsymphony} package --
 should be used to solve a conservation planning \code{\link[=problem]{problem()}}.
 This function can also be used to customize the behavior of the solver.
@@ -55,7 +55,7 @@ It requires the \pkg{lpsymphony} package to be installed
 (see below for installation instructions).
 }
 \details{
-\href{https://projects.coin-or.org/SYMPHONY}{\emph{SYMPHONY}} is an
+\href{https://github.com/coin-or/SYMPHONY}{\emph{SYMPHONY}} is an
 open-source mixed integer programming solver that is part of the
 Computational Infrastructure for Operations Research (COIN-OR) project.
 This solver is provided because it may be easier to install

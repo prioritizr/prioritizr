@@ -62,7 +62,7 @@ Object (i.e., \code{\linkS4class{ConservationProblem}}) with the solver
 added to it.
 }
 \description{
-Specify that the \href{https://projects.coin-or.org/Cbc}{\emph{CBC}}
+Specify that the \href{https://github.com/coin-or/Cbc}{\emph{CBC}}
 (COIN-OR branch and cut) software (Forrest &
 Lougee-Heimer 2005) should be used to solve a conservation planning
 \code{\link[=problem]{problem()}}.
@@ -72,7 +72,7 @@ It requires the \pkg{rcbc} package to be installed
 see below for installation instructions).
 }
 \details{
-\href{https://projects.coin-or.org/Cbc}{\emph{CBC}} is an
+\href{https://github.com/coin-or/Cbc}{\emph{CBC}} is an
 open-source mixed integer programming solver that is part of the
 Computational Infrastructure for Operations Research (COIN-OR) project.
 Although formal benchmarks examining the performance of this solver for

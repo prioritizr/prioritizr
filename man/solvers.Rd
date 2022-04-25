@@ -39,7 +39,7 @@ software, licenses are available to academics at no cost.
 This solver uses the \pkg{cplexAPI} package to solve problems using
 \emph{IBM CPLEX}.}
 
-\item{\code{\link[=add_cbc_solver]{add_cbc_solver()}}}{\href{https://projects.coin-or.org/Cbc}{\emph{CBC}} is an
+\item{\code{\link[=add_cbc_solver]{add_cbc_solver()}}}{\href{https://github.com/coin-or/Cbc}{\emph{CBC}} is an
 open-source mixed integer programming solver that is part of the
 Computational Infrastructure for Operations Research (COIN-OR) project.
 Preliminary benchmarks indicate that it is the fastest open source
@@ -51,7 +51,7 @@ It requires the \pkg{rcbc} package, which is currently only available on
 }
 
 \item{\code{\link[=add_lpsymphony_solver]{add_lpsymphony_solver()}}}{
-\href{https://projects.coin-or.org/SYMPHONY}{\emph{SYMPHONY}} is an
+\href{https://github.com/coin-or/SYMPHONY}{\emph{SYMPHONY}} is an
 open-source mixed integer programming solver that is also part of the
 COIN-OR project. Although both \emph{SYMPHONY} and \emph{CBC} are part of
 the COIN-OR project, they are different software.
@@ -65,7 +65,7 @@ faster than \pkg{Rsymphony} package interface (see below).
 
 \item{\code{\link[=add_rsymphony_solver]{add_rsymphony_solver()}}}{
 This solver provides an alternative interface to the
-\href{https://projects.coin-or.org/SYMPHONY}{\emph{SYMPHONY}} solver using
+\href{https://github.com/coin-or/SYMPHONY}{\emph{SYMPHONY}} solver using
 the \pkg{Rsymphony} package.
 Unlike other solvers, the \pkg{Rsymphony} package can be installed
 directly from the Comprehensive R Archive Network (CRAN).

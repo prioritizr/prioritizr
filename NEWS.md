@@ -1,3 +1,7 @@
+# prioritizr 7.2.0.4
+
+- Fix broken URLs in documentation.
+
 # prioritizr 7.2.0.3
 
 - Update the `presolve_check()` function to (i) reduce chances of

@@ -3,7 +3,7 @@ NULL
 
 #' Add a *CBC* solver
 #'
-#' Specify that the [*CBC*](https://projects.coin-or.org/Cbc)
+#' Specify that the [*CBC*](https://github.com/coin-or/Cbc)
 #' (COIN-OR branch and cut) software (Forrest &
 #' Lougee-Heimer 2005) should be used to solve a conservation planning
 #' [problem()].
@@ -16,7 +16,7 @@ NULL
 #' @inheritParams add_gurobi_solver
 #'
 #' @details
-#' [*CBC*](https://projects.coin-or.org/Cbc) is an
+#' [*CBC*](https://github.com/coin-or/Cbc) is an
 #' open-source mixed integer programming solver that is part of the
 #' Computational Infrastructure for Operations Research (COIN-OR) project.
 #' Although formal benchmarks examining the performance of this solver for
