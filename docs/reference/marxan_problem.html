@@ -26,7 +26,7 @@ exact algorithms and not simulated annealing (i.e., the Marxan software)."><meta
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.5</span>
       </span>
     </div>
 
@@ -108,16 +108,16 @@ exact algorithms and not simulated annealing (i.e., the <em>Marxan</em> software
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">marxan_problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for default</span>
-<span class="fu">marxan_problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for data.frame</span>
-<span class="fu">marxan_problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">spec</span>, <span class="va">puvspr</span>, bound <span class="op">=</span> <span class="cn">NULL</span>, blm <span class="op">=</span> <span class="fl">0</span>, symmetric <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for character</span>
-<span class="fu">marxan_problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">marxan_problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">marxan_problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for data.frame</span></span>
+<span><span class="fu">marxan_problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">spec</span>, <span class="va">puvspr</span>, bound <span class="op">=</span> <span class="cn">NULL</span>, blm <span class="op">=</span> <span class="fl">0</span>, symmetric <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for character</span></span>
+<span><span class="fu">marxan_problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -147,8 +147,12 @@ planning units to be selected in the initial solution (using values of
 
 
 </dl></dd>
+
+
 <dt>...</dt>
 <dd><p>not used.</p></dd>
+
+
 <dt>spec</dt>
 <dd><p><code>data.frame</code> containing information on the features.
 The argument to <code>spec</code> must follow the conventions used by
@@ -180,6 +184,8 @@ feature (optional).</p></dd>
 
 
 </dl></dd>
+
+
 <dt>puvspr</dt>
 <dd><p><code>data.frame</code> containing information on the amount of
 each feature in each planning unit. The argument to
@@ -201,6 +207,8 @@ planning unit.</p></dd>
 
 
 </dl></dd>
+
+
 <dt>bound</dt>
 <dd><p><code>NULL</code> object indicating that no boundary data
 is required for the conservation planning problem, or a <code>data.frame</code>
@@ -223,20 +231,27 @@ between the planning units identified in the previous two columns.</p></dd>
 
 
 </dl></dd>
+
+
 <dt>blm</dt>
 <dd><p><code>numeric</code> boundary length modifier. This argument only
 has an effect when argument to <code>x</code> is a <code>data.frame</code>. The
 default argument is zero.</p></dd>
+
+
 <dt>symmetric</dt>
 <dd><p><code>logical</code> does the boundary data (i.e., argument to
 <code>bound</code>) describe symmetric relationships between planning units?
 If the boundary data contain asymmetric connectivity data,
 this parameter should be set to <code>FALSE</code>.
 Defaults to <code>TRUE</code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code><a href="problem.html">problem()</a></code> (i.e., <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) object.</p>
+    
+
+<p><code><a href="problem.html">problem()</a></code> (i.e., <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) object.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -273,18 +288,18 @@ for <em>Marxan</em> input data, see the
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># create Marxan problem using Marxan input file</span></span>
-<span class="r-in"><span class="co"># (note this example requires the data.table package to be installed)</span></span>
-<span class="r-in"><span class="co"># \dontrun{</span></span>
-<span class="r-in"><span class="va">input_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/input.dat"</span>, package <span class="op">=</span> <span class="st">"prioritizr"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu">marxan_problem</span><span class="op">(</span><span class="va">input_file</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">      <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># solve problem</span></span>
-<span class="r-in"><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># print solution</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">s1</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># create Marxan problem using Marxan input file</span></span></span>
+<span class="r-in"><span><span class="co"># (note this example requires the data.table package to be installed)</span></span></span>
+<span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span><span class="va">input_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/input.dat"</span>, package <span class="op">=</span> <span class="st">"prioritizr"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu">marxan_problem</span><span class="op">(</span><span class="va">input_file</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>      <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># solve problem</span></span></span>
+<span class="r-in"><span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># print solution</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">s1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   id       cost status    xloc     yloc locked_in locked_out solution_1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  3      0.000      0 1116623 -4493479     FALSE      FALSE          0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 30   7527.275      3 1110623 -4496943     FALSE       TRUE          0</span>
@@ -292,13 +307,13 @@ for <em>Marxan</em> input data, see the
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 58  16959.021      0 1116623 -4500408     FALSE      FALSE          0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5 84  34220.256      0 1098623 -4503872     FALSE      FALSE          0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6 85 178907.584      0 1110623 -4503872     FALSE      FALSE          0</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># create Marxan problem using data.frames that have been loaded into R</span></span>
-<span class="r-in"><span class="co"># (note this example also requires the data.table package to be installed)</span></span>
-<span class="r-in"><span class="co">## load in planning unit data</span></span>
-<span class="r-in"><span class="va">pu_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/input/pu.dat"</span>, package <span class="op">=</span> <span class="st">"prioritizr"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">pu_dat</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/fread.html" class="external-link">fread</a></span><span class="op">(</span><span class="va">pu_path</span>, data.table <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">pu_dat</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># create Marxan problem using data.frames that have been loaded into R</span></span></span>
+<span class="r-in"><span><span class="co"># (note this example also requires the data.table package to be installed)</span></span></span>
+<span class="r-in"><span><span class="co">## load in planning unit data</span></span></span>
+<span class="r-in"><span><span class="va">pu_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/input/pu.dat"</span>, package <span class="op">=</span> <span class="st">"prioritizr"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">pu_dat</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/fread.html" class="external-link">fread</a></span><span class="op">(</span><span class="va">pu_path</span>, data.table <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">pu_dat</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   id       cost status    xloc     yloc</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  3      0.000      0 1116623 -4493479</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 30   7527.275      3 1110623 -4496943</span>
@@ -306,11 +321,11 @@ for <em>Marxan</em> input data, see the
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 58  16959.021      0 1116623 -4500408</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5 84  34220.256      0 1098623 -4503872</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6 85 178907.584      0 1110623 -4503872</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## load in feature data</span></span>
-<span class="r-in"><span class="va">spec_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/input/spec.dat"</span>, package <span class="op">=</span> <span class="st">"prioritizr"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">spec_dat</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/fread.html" class="external-link">fread</a></span><span class="op">(</span><span class="va">spec_path</span>, data.table <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">spec_dat</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## load in feature data</span></span></span>
+<span class="r-in"><span><span class="va">spec_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/input/spec.dat"</span>, package <span class="op">=</span> <span class="st">"prioritizr"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">spec_dat</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/fread.html" class="external-link">fread</a></span><span class="op">(</span><span class="va">spec_path</span>, data.table <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">spec_dat</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   id prop spf   name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 10  0.3   1  bird1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 11  0.3   1  nvis2</span>
@@ -318,12 +333,12 @@ for <em>Marxan</em> input data, see the
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 13  0.3   1  nvis9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5 14  0.3   1 nvis14</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6 15  0.3   1 nvis20</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## load in planning unit vs feature data</span></span>
-<span class="r-in"><span class="va">puvspr_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/input/puvspr.dat"</span>,</span>
-<span class="r-in">                           package <span class="op">=</span> <span class="st">"prioritizr"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">puvspr_dat</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/fread.html" class="external-link">fread</a></span><span class="op">(</span><span class="va">puvspr_path</span>, data.table <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">puvspr_dat</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## load in planning unit vs feature data</span></span></span>
+<span class="r-in"><span><span class="va">puvspr_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/input/puvspr.dat"</span>,</span></span>
+<span class="r-in"><span>                           package <span class="op">=</span> <span class="st">"prioritizr"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">puvspr_dat</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/fread.html" class="external-link">fread</a></span><span class="op">(</span><span class="va">puvspr_path</span>, data.table <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">puvspr_dat</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   species  pu     amount</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1      26  56 120.344884</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2      26  58  45.167010</span>
@@ -331,11 +346,11 @@ for <em>Marxan</em> input data, see the
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4      26  85   9.735624</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5      26  86   7.803476</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6      26 111 478.327417</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## load in the boundary data</span></span>
-<span class="r-in"><span class="va">bound_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/input/bound.dat"</span>, package <span class="op">=</span> <span class="st">"prioritizr"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">bound_dat</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/fread.html" class="external-link">fread</a></span><span class="op">(</span><span class="va">bound_path</span>, data.table <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">bound_dat</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## load in the boundary data</span></span></span>
+<span class="r-in"><span><span class="va">bound_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/input/bound.dat"</span>, package <span class="op">=</span> <span class="st">"prioritizr"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">bound_dat</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/fread.html" class="external-link">fread</a></span><span class="op">(</span><span class="va">bound_path</span>, data.table <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">bound_dat</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   id1 id2 boundary</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   3   3    16000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2   3  30     4000</span>
@@ -343,16 +358,16 @@ for <em>Marxan</em> input data, see the
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4  30  30    12000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5  30  58     4000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6  30  85     4000</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># create problem without the boundary data</span></span>
-<span class="r-in"><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu">marxan_problem</span><span class="op">(</span><span class="va">pu_dat</span>, <span class="va">spec_dat</span>, <span class="va">puvspr_dat</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">      <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># solve problem</span></span>
-<span class="r-in"><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># print solution</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">s2</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># create problem without the boundary data</span></span></span>
+<span class="r-in"><span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu">marxan_problem</span><span class="op">(</span><span class="va">pu_dat</span>, <span class="va">spec_dat</span>, <span class="va">puvspr_dat</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>      <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># solve problem</span></span></span>
+<span class="r-in"><span><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># print solution</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">s2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   id       cost status    xloc     yloc locked_in locked_out solution_1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  3      0.000      0 1116623 -4493479     FALSE      FALSE          0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 30   7527.275      3 1110623 -4496943     FALSE       TRUE          0</span>
@@ -360,17 +375,17 @@ for <em>Marxan</em> input data, see the
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 58  16959.021      0 1116623 -4500408     FALSE      FALSE          0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5 84  34220.256      0 1098623 -4503872     FALSE      FALSE          0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6 85 178907.584      0 1110623 -4503872     FALSE      FALSE          0</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># create problem with the boundary data and a boundary length modifier</span></span>
-<span class="r-in"><span class="co"># set to 5</span></span>
-<span class="r-in"><span class="va">p3</span> <span class="op">&lt;-</span> <span class="fu">marxan_problem</span><span class="op">(</span><span class="va">pu_dat</span>, <span class="va">spec_dat</span>, <span class="va">puvspr_dat</span>, <span class="va">bound_dat</span>, <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">      <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># solve problem</span></span>
-<span class="r-in"><span class="va">s3</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># print solution</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">s3</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># create problem with the boundary data and a boundary length modifier</span></span></span>
+<span class="r-in"><span><span class="co"># set to 5</span></span></span>
+<span class="r-in"><span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="fu">marxan_problem</span><span class="op">(</span><span class="va">pu_dat</span>, <span class="va">spec_dat</span>, <span class="va">puvspr_dat</span>, <span class="va">bound_dat</span>, <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>      <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># solve problem</span></span></span>
+<span class="r-in"><span><span class="va">s3</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># print solution</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">s3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   id       cost status    xloc     yloc locked_in locked_out solution_1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  3      0.000      0 1116623 -4493479     FALSE      FALSE          0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 30   7527.275      3 1110623 -4496943     FALSE       TRUE          0</span>
@@ -378,7 +393,7 @@ for <em>Marxan</em> input data, see the
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 58  16959.021      0 1116623 -4500408     FALSE      FALSE          0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5 84  34220.256      0 1098623 -4503872     FALSE      FALSE          0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6 85 178907.584      0 1110623 -4503872     FALSE      FALSE          0</span>
-<span class="r-in"><span class="co"># }</span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -393,7 +408,7 @@ for <em>Marxan</em> input data, see the
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

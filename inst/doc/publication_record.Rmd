@@ -20,11 +20,12 @@ This vignette contains a list of publications that have cited or used the _prior
 
 * André LV, Van Wynsberge S, Chinain M, Gatti CMI, Liao V, Andréfouët S (2022) Spatial solutions and their impacts when reshuffling coastal management priorities in small islands with limited diversification opportunities. _Sustainability_, **14**:3871.
 * de Assis Barros L, Venter M, Elkin C, and Venter O (2022) Managing forests for old-growth attributes better promotes the provision of ecosystem services than current age-based old-growth management. _Forest Ecology and Management_, **511**: 120130.
-* Benez-Secanho FJ, Dwivedi P, Ferreira S, Hepinstall-Cymerman J, and Wenger S (2022) Trade-offs between the value of ecosystem services and connectivity among protected areas in the Upper Chattahoochee watershed. _Environmental Management_, **In press**: DOI&#58;10.1007/s00267-021-01584-6.
+* Benez-Secanho FJ, Dwivedi P, Ferreira S, Hepinstall-Cymerman J, and Wenger S (2022) Trade-offs between the value of ecosystem services and connectivity among protected areas in the Upper Chattahoochee watershed. _Environmental Management_, **69**: 937--951.
 * Brito-Morales I, Schoeman DS, Everett JD, Klein CJ, Dunn DC, García Molinos J., Burrows MT, Buenafe KCV, Dominguez RM, Possingham HP, and Richardson AJ (2022) Towards climate-smart, three-dimensional protected areas for biodiversity conservation in the high seas. _Nature Climate Change_, **12**: 402--407.
 * Burbano-Girón J, Jantke K, Molina-Berbeo MA, Buriticá-Mejía N, Urbina-Cardona JN, Sánchez-Clavijo LM, and Etter A (2022) An assessment of spatial conservation priorities for biodiversity attributes: Composition, structure, and function of Neotropical biodiversity. _Biological Conservation_, **265**: 109421.
-* Chung HI, Choi Y, Yoo Y, Engler R, Lee K, and Jeon SW (2022) Integrated spatial model based evaluation methodology for optimal invasive species management: common ragweed in the Republic of Korea. _Environmental Research Letters_, **In press**: DOI&#58;10.1088/1748-9326/ac4dc7.
-* Henry RC, Arneth A, Jung M, Rabin SS, Rounsevell MD, Warren F, and Alexander P (2022) Global and regional health and food security under strict conservation scenarios. _Nature Sustainability_, **In press**: DOI&#58;10.1038/s41893-021-00844-x.
+* Chung HI, Choi Y, Yoo Y, Engler R, Lee K, and Jeon SW (2022) Integrated spatial model based evaluation methodology for optimal invasive species management: common ragweed in the Republic of Korea. _Environmental Research Letters_, **17**: 034047.
+* González-Fernández A, González-Salazar C, Sunny A, Ruíz-Gutiérrez F, and Chávez C (2022) Determination of priority areas for amphibian conservation in Guerrero (Mexico), through systematic conservation planning tools. _Journal for Nature Conservation_, **In press**: DOI&#58;10.1016/j.jnc.2022.126235.
+* Henry RC, Arneth A, Jung M, Rabin SS, Rounsevell MD, Warren F, and Alexander P (2022) Global and regional health and food security under strict conservation scenarios. _Nature Sustainability_, **5**: 303--310.
 * Ladouceur E, McGowan J, Huber P, Possingham H, Scridel D, van Klink R, Poschlod P, Cornelissen JHC, Bonomi C, and Jiménez-Alfaro B (2022) An objective-based prioritization approach to support trophic complexity through ecological restoration species mixes. _Journal of Applied Ecology_, **59**: 394--407.
 * Neo L, Tan HT, and Wong KM (2022) Too little, too late? Conservation exigencies for Borneo inferred from biogeographic considerations of its endemic plant genera against intense landscape modifications. _Biodiversity and Conservation_, **31**: 59--76.
 * Simkin RD, Seto KC, McDonald RI, and Jetz W (2022) Biodiversity impacts and conservation implications of urban land expansion projected to 2050. _Proceedings of the National Academy of Sciences_, **119**, e2117297119.
@@ -70,6 +71,10 @@ This vignette contains a list of publications that have cited or used the _prior
 * Rosauer DF, Pollock LJ, Linke S, and Jetz W (2017) Phylogenetically informed spatial planning is required to conserve the mammalian tree of life. _Proceedings of the Royal Society of London B: Biological Sciences_, **284**: 20170627.
 
 ## Review articles
+
+### 2022
+
+* Magdalena UR, Gonçalves de Souza GB, and Amorim RR (2022) Spatial analysis guiding decision making in environmental conservation: Systematic conservation planning and ecosystem services. _Progress in Physical Geography: Earth and Environment_, **In press**: DOI&#58;10.1177/03091333221112409.
 
 ### 2021
 

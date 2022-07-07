@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.5</span>
       </span>
     </div>
 
@@ -154,90 +154,90 @@
 </h3>
 <p>In the <em>prioritizr R</em> package, all conservation planning problems – including those which contain multiple management zones or actions – are initialized using the <code>problem</code> function. To refresh our memory on how we can construct problems, let us quickly construct a simple conservation planning problem. This problem will use the simulated built-in planning unit and feature data distributed with the package. It will have a minimum set objective, targets which require that solution secure to 10 % of the habitat in the study area for each feature, and binary decision variables indicating that planning units are selected or not selected for protection.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># load prioritizr package</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://prioritizr.net">prioritizr</a></span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Loading required package: sp</span></code></pre>
-<pre><code><span class="co">## Loading required package: raster</span></code></pre>
-<pre><code><span class="co">## Loading required package: sf</span></code></pre>
-<pre><code><span class="co">## Linking to GEOS 3.9.0, GDAL 3.2.2, PROJ 7.2.1; sf_use_s2() is TRUE</span></code></pre>
-<pre><code><span class="co">## Loading required package: proto</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># load prioritizr package</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://prioritizr.net">prioritizr</a></span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Loading required package: sp</span></span></code></pre>
+<pre><code><span><span class="co">## Loading required package: raster</span></span></code></pre>
+<pre><code><span><span class="co">## Loading required package: sf</span></span></code></pre>
+<pre><code><span><span class="co">## Linking to GEOS 3.9.0, GDAL 3.2.2, PROJ 7.2.1; sf_use_s2() is TRUE</span></span></code></pre>
+<pre><code><span><span class="co">## Loading required package: proto</span></span></code></pre>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># load data</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span>
-
-<span class="co"># create targets for each of the five features</span>
-<span class="va">t1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">5</span><span class="op">)</span>
-
-<span class="co"># build single-zone problem</span>
-<span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-      <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-      <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="va">t1</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-      <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="co"># print problem</span>
-<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Conservation Problem</span>
-<span class="co">##   planning units: RasterLayer (90 units)</span>
-<span class="co">##   cost:           min: 190.13276, max: 215.86384</span>
-<span class="co">##   features:       layer.1, layer.2, layer.3, ... (5 features)</span>
-<span class="co">##   objective:      Minimum set objective </span>
-<span class="co">##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]</span>
-<span class="co">##   decisions:      Binary decision </span>
-<span class="co">##   constraints:    &lt;none&gt;</span>
-<span class="co">##   penalties:      &lt;none&gt;</span>
-<span class="co">##   portfolio:      default</span>
-<span class="co">##   solver:         default</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># load data</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># create targets for each of the five features</span></span>
+<span><span class="va">t1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">5</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># build single-zone problem</span></span>
+<span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>      <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>      <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="va">t1</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>      <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># print problem</span></span>
+<span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Conservation Problem</span></span>
+<span><span class="co">##   planning units: RasterLayer (90 units)</span></span>
+<span><span class="co">##   cost:           min: 190.13276, max: 215.86384</span></span>
+<span><span class="co">##   features:       layer.1, layer.2, layer.3, ... (5 features)</span></span>
+<span><span class="co">##   objective:      Minimum set objective </span></span>
+<span><span class="co">##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]</span></span>
+<span><span class="co">##   decisions:      Binary decision </span></span>
+<span><span class="co">##   constraints:    &lt;none&gt;</span></span>
+<span><span class="co">##   penalties:      &lt;none&gt;</span></span>
+<span><span class="co">##   portfolio:      default</span></span>
+<span><span class="co">##   solver:         default</span></span></code></pre>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># solve problem</span>
-<span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Gurobi Optimizer version 9.5.1 build v9.5.1rc2 (linux64)</span>
-<span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span>
-<span class="co">## Optimize a model with 5 rows, 90 columns and 450 nonzeros</span>
-<span class="co">## Model fingerprint: 0x6442bf6e</span>
-<span class="co">## Variable types: 0 continuous, 90 integer (90 binary)</span>
-<span class="co">## Coefficient statistics:</span>
-<span class="co">##   Matrix range     [2e-01, 9e-01]</span>
-<span class="co">##   Objective range  [2e+02, 2e+02]</span>
-<span class="co">##   Bounds range     [1e+00, 1e+00]</span>
-<span class="co">##   RHS range        [3e+00, 8e+00]</span>
-<span class="co">## Found heuristic solution: objective 2337.9617505</span>
-<span class="co">## Presolve time: 0.00s</span>
-<span class="co">## Presolved: 5 rows, 90 columns, 450 nonzeros</span>
-<span class="co">## Variable types: 0 continuous, 90 integer (90 binary)</span>
-<span class="co">## Found heuristic solution: objective 2332.1003790</span>
-<span class="co">## Root relaxation presolved: 5 rows, 90 columns, 450 nonzeros</span>
-<span class="co">## </span>
-<span class="co">## </span>
-<span class="co">## Root relaxation: objective 1.931582e+03, 12 iterations, 0.00 seconds (0.00 work units)</span>
-<span class="co">## </span>
-<span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span>
-<span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span>
-<span class="co">## </span>
-<span class="co">##      0     0 1931.58191    0    4 2332.10038 1931.58191  17.2%     -    0s</span>
-<span class="co">## H    0     0                    1987.3985265 1931.58191  2.81%     -    0s</span>
-<span class="co">## </span>
-<span class="co">## Explored 1 nodes (12 simplex iterations) in 0.00 seconds (0.00 work units)</span>
-<span class="co">## Thread count was 1 (of 8 available processors)</span>
-<span class="co">## </span>
-<span class="co">## Solution count 3: 1987.4 2332.1 2337.96 </span>
-<span class="co">## </span>
-<span class="co">## Optimal solution found (tolerance 1.00e-01)</span>
-<span class="co">## Best objective 1.987398526526e+03, best bound 1.931581908865e+03, gap 2.8085%</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># solve problem</span></span>
+<span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Gurobi Optimizer version 9.5.1 build v9.5.1rc2 (linux64)</span></span>
+<span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
+<span><span class="co">## Optimize a model with 5 rows, 90 columns and 450 nonzeros</span></span>
+<span><span class="co">## Model fingerprint: 0x6442bf6e</span></span>
+<span><span class="co">## Variable types: 0 continuous, 90 integer (90 binary)</span></span>
+<span><span class="co">## Coefficient statistics:</span></span>
+<span><span class="co">##   Matrix range     [2e-01, 9e-01]</span></span>
+<span><span class="co">##   Objective range  [2e+02, 2e+02]</span></span>
+<span><span class="co">##   Bounds range     [1e+00, 1e+00]</span></span>
+<span><span class="co">##   RHS range        [3e+00, 8e+00]</span></span>
+<span><span class="co">## Found heuristic solution: objective 2337.9617505</span></span>
+<span><span class="co">## Presolve time: 0.00s</span></span>
+<span><span class="co">## Presolved: 5 rows, 90 columns, 450 nonzeros</span></span>
+<span><span class="co">## Variable types: 0 continuous, 90 integer (90 binary)</span></span>
+<span><span class="co">## Found heuristic solution: objective 2332.1003790</span></span>
+<span><span class="co">## Root relaxation presolved: 5 rows, 90 columns, 450 nonzeros</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Root relaxation: objective 1.931582e+03, 12 iterations, 0.00 seconds (0.00 work units)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
+<span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##      0     0 1931.58191    0    4 2332.10038 1931.58191  17.2%     -    0s</span></span>
+<span><span class="co">## H    0     0                    1987.3985265 1931.58191  2.81%     -    0s</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Explored 1 nodes (12 simplex iterations) in 0.00 seconds (0.00 work units)</span></span>
+<span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Solution count 3: 1987.4 2332.1 2337.96 </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
+<span><span class="co">## Best objective 1.987398526526e+03, best bound 1.931581908865e+03, gap 2.8085%</span></span></code></pre>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># calculate feature representation</span>
-<span class="va">r1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p1</span>, <span class="va">s1</span><span class="op">)</span>
-<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">r1</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## <span style="color: #949494;"># A tibble: 5 × 5</span></span>
-<span class="co">##   summary feature total_amount absolute_held relative_held</span>
-<span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">## <span style="color: #BCBCBC;">1</span> overall layer.1         83.3          8.91         0.107</span>
-<span class="co">## <span style="color: #BCBCBC;">2</span> overall layer.2         31.2          3.13         0.100</span>
-<span class="co">## <span style="color: #BCBCBC;">3</span> overall layer.3         72.0          7.34         0.102</span>
-<span class="co">## <span style="color: #BCBCBC;">4</span> overall layer.4         42.7          4.35         0.102</span>
-<span class="co">## <span style="color: #BCBCBC;">5</span> overall layer.5         56.7          6.01         0.106</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># calculate feature representation</span></span>
+<span><span class="va">r1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p1</span>, <span class="va">s1</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">r1</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 5 × 5</span></span></span>
+<span><span class="co">##   summary feature total_amount absolute_held relative_held</span></span>
+<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> overall layer.1         83.3          8.91         0.107</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> overall layer.2         31.2          3.13         0.100</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> overall layer.3         72.0          7.34         0.102</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> overall layer.4         42.7          4.35         0.102</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span> overall layer.5         56.7          6.01         0.106</span></span></code></pre>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># plot solution</span>
-<span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s1</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># plot solution</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s1</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="management_zones_tutorial_files/figure-html/unnamed-chunk-3-1.png" width="700" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
@@ -245,139 +245,139 @@
 </h3>
 <p>Now let us imagine that instead of having a single management zone (e.g., protected area), we have two management zones. Similar to the example above, we require a solution that secures 10 % of the habitat in the study area for each feature in the first management zone. But we also require a solution that secures 5 % of the habitat in the study area for each feature in the second management zone. Each planning unit must be allocated to either zone or not selected for management at all. In this example, each planning unit costs the same when it is allocated to either of the two zones. We can formulate and solve this problem using the following code.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># create a matrix with the targets</span>
-<span class="co"># here each column corresponds to a different zone,</span>
-<span class="co"># each row corresponds to a different feature, and</span>
-<span class="co"># each cell value corresponds to the target</span>
-<span class="va">t2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="cn">NA</span>, ncol <span class="op">=</span> <span class="fl">2</span>, nrow <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
-<span class="va">t2</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">0.1</span>
-<span class="va">t2</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">0.05</span>
-
-<span class="co"># print targets</span>
-<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">t2</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">##      [,1] [,2]</span>
-<span class="co">## [1,]  0.1 0.05</span>
-<span class="co">## [2,]  0.1 0.05</span>
-<span class="co">## [3,]  0.1 0.05</span>
-<span class="co">## [4,]  0.1 0.05</span>
-<span class="co">## [5,]  0.1 0.05</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># create a matrix with the targets</span></span>
+<span><span class="co"># here each column corresponds to a different zone,</span></span>
+<span><span class="co"># each row corresponds to a different feature, and</span></span>
+<span><span class="co"># each cell value corresponds to the target</span></span>
+<span><span class="va">t2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="cn">NA</span>, ncol <span class="op">=</span> <span class="fl">2</span>, nrow <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span><span class="va">t2</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">0.1</span></span>
+<span><span class="va">t2</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">0.05</span></span>
+<span></span>
+<span><span class="co"># print targets</span></span>
+<span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">t2</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##      [,1] [,2]</span></span>
+<span><span class="co">## [1,]  0.1 0.05</span></span>
+<span><span class="co">## [2,]  0.1 0.05</span></span>
+<span><span class="co">## [3,]  0.1 0.05</span></span>
+<span><span class="co">## [4,]  0.1 0.05</span></span>
+<span><span class="co">## [5,]  0.1 0.05</span></span></code></pre>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># create a zones object that contains the amount of each feature</span>
-<span class="co"># in each planning unit when it is allocated to each zone</span>
-<span class="co"># since our zones pertain to the same habitat data, we will</span>
-<span class="co"># to specify the same habitat data for each zone</span>
-<span class="va">z2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/zones.html">zones</a></span><span class="op">(</span><span class="st">"zone 1"</span> <span class="op">=</span> <span class="va">sim_features</span>, <span class="st">"zone 2"</span> <span class="op">=</span> <span class="va">sim_features</span><span class="op">)</span>
-
-<span class="co"># print zones</span>
-<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">z2</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Zones</span>
-<span class="co">##   zones: zone 1, zone 2 (2 zones)</span>
-<span class="co">##   features: 1, 2, 3, ... (5 features)</span>
-<span class="co">##   data type: RasterStack</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># create a zones object that contains the amount of each feature</span></span>
+<span><span class="co"># in each planning unit when it is allocated to each zone</span></span>
+<span><span class="co"># since our zones pertain to the same habitat data, we will</span></span>
+<span><span class="co"># to specify the same habitat data for each zone</span></span>
+<span><span class="va">z2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/zones.html">zones</a></span><span class="op">(</span><span class="st">"zone 1"</span> <span class="op">=</span> <span class="va">sim_features</span>, <span class="st">"zone 2"</span> <span class="op">=</span> <span class="va">sim_features</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># print zones</span></span>
+<span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">z2</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Zones</span></span>
+<span><span class="co">##   zones: zone 1, zone 2 (2 zones)</span></span>
+<span><span class="co">##   features: 1, 2, 3, ... (5 features)</span></span>
+<span><span class="co">##   data type: RasterStack</span></span></code></pre>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># create a raster stack with the planning unit data</span>
-<span class="co"># since our planning unit costs are the same for each zone,</span>
-<span class="co"># we will create a stack with two replicates of the cost data</span>
-<span class="va">pu2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/stack.html" class="external-link">stack</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_pu_raster</span><span class="op">)</span>
-
-<span class="co"># print stack</span>
-<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">pu2</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## class      : RasterStack </span>
-<span class="co">## dimensions : 10, 10, 100, 2  (nrow, ncol, ncell, nlayers)</span>
-<span class="co">## resolution : 0.1, 0.1  (x, y)</span>
-<span class="co">## extent     : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)</span>
-<span class="co">## crs        : NA </span>
-<span class="co">## names      :  layer.1,  layer.2 </span>
-<span class="co">## min values : 190.1328, 190.1328 </span>
-<span class="co">## max values : 215.8638, 215.8638</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># create a raster stack with the planning unit data</span></span>
+<span><span class="co"># since our planning unit costs are the same for each zone,</span></span>
+<span><span class="co"># we will create a stack with two replicates of the cost data</span></span>
+<span><span class="va">pu2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/stack.html" class="external-link">stack</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_pu_raster</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># print stack</span></span>
+<span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">pu2</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## class      : RasterStack </span></span>
+<span><span class="co">## dimensions : 10, 10, 100, 2  (nrow, ncol, ncell, nlayers)</span></span>
+<span><span class="co">## resolution : 0.1, 0.1  (x, y)</span></span>
+<span><span class="co">## extent     : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)</span></span>
+<span><span class="co">## crs        : NA </span></span>
+<span><span class="co">## names      :  layer.1,  layer.2 </span></span>
+<span><span class="co">## min values : 190.1328, 190.1328 </span></span>
+<span><span class="co">## max values : 215.8638, 215.8638</span></span></code></pre>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># build two-zone problem</span>
-<span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">pu2</span>, <span class="va">z2</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-      <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-      <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="va">t2</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-      <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="co"># print problem</span>
-<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Conservation Problem</span>
-<span class="co">##   zones:          zone 1, zone 2 (2 zones)</span>
-<span class="co">##   planning units: RasterStack (90 units)</span>
-<span class="co">##   cost:           min: 190.13276, max: 215.86384</span>
-<span class="co">##   features:       1, 2, 3, ... (5 features)</span>
-<span class="co">##   objective:      Minimum set objective </span>
-<span class="co">##   targets:        Relative targets [targets (min: 0.05, max: 0.1)]</span>
-<span class="co">##   decisions:      Binary decision </span>
-<span class="co">##   constraints:    &lt;none&gt;</span>
-<span class="co">##   penalties:      &lt;none&gt;</span>
-<span class="co">##   portfolio:      default</span>
-<span class="co">##   solver:         default</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># build two-zone problem</span></span>
+<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">pu2</span>, <span class="va">z2</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>      <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>      <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="va">t2</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>      <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># print problem</span></span>
+<span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Conservation Problem</span></span>
+<span><span class="co">##   zones:          zone 1, zone 2 (2 zones)</span></span>
+<span><span class="co">##   planning units: RasterStack (90 units)</span></span>
+<span><span class="co">##   cost:           min: 190.13276, max: 215.86384</span></span>
+<span><span class="co">##   features:       1, 2, 3, ... (5 features)</span></span>
+<span><span class="co">##   objective:      Minimum set objective </span></span>
+<span><span class="co">##   targets:        Relative targets [targets (min: 0.05, max: 0.1)]</span></span>
+<span><span class="co">##   decisions:      Binary decision </span></span>
+<span><span class="co">##   constraints:    &lt;none&gt;</span></span>
+<span><span class="co">##   penalties:      &lt;none&gt;</span></span>
+<span><span class="co">##   portfolio:      default</span></span>
+<span><span class="co">##   solver:         default</span></span></code></pre>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># solve problem</span>
-<span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Gurobi Optimizer version 9.5.1 build v9.5.1rc2 (linux64)</span>
-<span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span>
-<span class="co">## Optimize a model with 100 rows, 180 columns and 1080 nonzeros</span>
-<span class="co">## Model fingerprint: 0xbdab1647</span>
-<span class="co">## Variable types: 0 continuous, 180 integer (180 binary)</span>
-<span class="co">## Coefficient statistics:</span>
-<span class="co">##   Matrix range     [2e-01, 1e+00]</span>
-<span class="co">##   Objective range  [2e+02, 2e+02]</span>
-<span class="co">##   Bounds range     [1e+00, 1e+00]</span>
-<span class="co">##   RHS range        [1e+00, 8e+00]</span>
-<span class="co">## Found heuristic solution: objective 3568.4931394</span>
-<span class="co">## Presolve time: 0.00s</span>
-<span class="co">## Presolved: 100 rows, 180 columns, 1080 nonzeros</span>
-<span class="co">## Variable types: 0 continuous, 180 integer (180 binary)</span>
-<span class="co">## Found heuristic solution: objective 3440.6550560</span>
-<span class="co">## Root relaxation presolved: 100 rows, 180 columns, 1080 nonzeros</span>
-<span class="co">## </span>
-<span class="co">## </span>
-<span class="co">## Root relaxation: objective 2.911333e+03, 80 iterations, 0.00 seconds (0.00 work units)</span>
-<span class="co">## </span>
-<span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span>
-<span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span>
-<span class="co">## </span>
-<span class="co">##      0     0 2911.33335    0   10 3440.65506 2911.33335  15.4%     -    0s</span>
-<span class="co">## H    0     0                    3003.8743974 2911.33335  3.08%     -    0s</span>
-<span class="co">## </span>
-<span class="co">## Explored 1 nodes (83 simplex iterations) in 0.00 seconds (0.00 work units)</span>
-<span class="co">## Thread count was 1 (of 8 available processors)</span>
-<span class="co">## </span>
-<span class="co">## Solution count 3: 3003.87 3440.66 3568.49 </span>
-<span class="co">## </span>
-<span class="co">## Optimal solution found (tolerance 1.00e-01)</span>
-<span class="co">## Best objective 3.003874397435e+03, best bound 2.911333350606e+03, gap 3.0807%</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># solve problem</span></span>
+<span><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Gurobi Optimizer version 9.5.1 build v9.5.1rc2 (linux64)</span></span>
+<span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
+<span><span class="co">## Optimize a model with 100 rows, 180 columns and 1080 nonzeros</span></span>
+<span><span class="co">## Model fingerprint: 0xbdab1647</span></span>
+<span><span class="co">## Variable types: 0 continuous, 180 integer (180 binary)</span></span>
+<span><span class="co">## Coefficient statistics:</span></span>
+<span><span class="co">##   Matrix range     [2e-01, 1e+00]</span></span>
+<span><span class="co">##   Objective range  [2e+02, 2e+02]</span></span>
+<span><span class="co">##   Bounds range     [1e+00, 1e+00]</span></span>
+<span><span class="co">##   RHS range        [1e+00, 8e+00]</span></span>
+<span><span class="co">## Found heuristic solution: objective 3568.4931394</span></span>
+<span><span class="co">## Presolve time: 0.00s</span></span>
+<span><span class="co">## Presolved: 100 rows, 180 columns, 1080 nonzeros</span></span>
+<span><span class="co">## Variable types: 0 continuous, 180 integer (180 binary)</span></span>
+<span><span class="co">## Found heuristic solution: objective 3440.6550560</span></span>
+<span><span class="co">## Root relaxation presolved: 100 rows, 180 columns, 1080 nonzeros</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Root relaxation: objective 2.911333e+03, 80 iterations, 0.00 seconds (0.00 work units)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
+<span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##      0     0 2911.33335    0   10 3440.65506 2911.33335  15.4%     -    0s</span></span>
+<span><span class="co">## H    0     0                    3003.8743974 2911.33335  3.08%     -    0s</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Explored 1 nodes (83 simplex iterations) in 0.00 seconds (0.00 work units)</span></span>
+<span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Solution count 3: 3003.87 3440.66 3568.49 </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
+<span><span class="co">## Best objective 3.003874397435e+03, best bound 2.911333350606e+03, gap 3.0807%</span></span></code></pre>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># calculate feature representation</span>
-<span class="va">r2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p2</span>, <span class="va">s2</span><span class="op">)</span>
-<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">r2</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## <span style="color: #949494;"># A tibble: 15 × 5</span></span>
-<span class="co">##    summary feature total_amount absolute_held relative_held</span>
-<span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">## <span style="color: #BCBCBC;"> 1</span> overall 1              167.          13.3         0.079<span style="text-decoration: underline;">9</span></span>
-<span class="co">## <span style="color: #BCBCBC;"> 2</span> overall 2               62.4          4.75        0.076<span style="text-decoration: underline;">1</span></span>
-<span class="co">## <span style="color: #BCBCBC;"> 3</span> overall 3              144.          10.9         0.076<span style="text-decoration: underline;">0</span></span>
-<span class="co">## <span style="color: #BCBCBC;"> 4</span> overall 4               85.3          6.44        0.075<span style="text-decoration: underline;">5</span></span>
-<span class="co">## <span style="color: #BCBCBC;"> 5</span> overall 5              113.           9.03        0.079<span style="text-decoration: underline;">6</span></span>
-<span class="co">## <span style="color: #BCBCBC;"> 6</span> zone 1  1               83.3          8.87        0.106 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 7</span> zone 1  2               31.2          3.18        0.102 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 8</span> zone 1  3               72.0          7.22        0.100 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 9</span> zone 1  4               42.7          4.27        0.100 </span>
-<span class="co">## <span style="color: #BCBCBC;">10</span> zone 1  5               56.7          6.07        0.107 </span>
-<span class="co">## <span style="color: #BCBCBC;">11</span> zone 2  1               83.3          4.44        0.053<span style="text-decoration: underline;">3</span></span>
-<span class="co">## <span style="color: #BCBCBC;">12</span> zone 2  2               31.2          1.57        0.050<span style="text-decoration: underline;">4</span></span>
-<span class="co">## <span style="color: #BCBCBC;">13</span> zone 2  3               72.0          3.72        0.051<span style="text-decoration: underline;">7</span></span>
-<span class="co">## <span style="color: #BCBCBC;">14</span> zone 2  4               42.7          2.17        0.050<span style="text-decoration: underline;">8</span></span>
-<span class="co">## <span style="color: #BCBCBC;">15</span> zone 2  5               56.7          2.96        0.052<span style="text-decoration: underline;">1</span></span></code></pre>
+<code class="sourceCode R"><span><span class="co"># calculate feature representation</span></span>
+<span><span class="va">r2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p2</span>, <span class="va">s2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">r2</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 15 × 5</span></span></span>
+<span><span class="co">##    summary feature total_amount absolute_held relative_held</span></span>
+<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> overall 1              167.          13.3         0.079<span style="text-decoration: underline;">9</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> overall 2               62.4          4.75        0.076<span style="text-decoration: underline;">1</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> overall 3              144.          10.9         0.076<span style="text-decoration: underline;">0</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> overall 4               85.3          6.44        0.075<span style="text-decoration: underline;">5</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> overall 5              113.           9.03        0.079<span style="text-decoration: underline;">6</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> zone 1  1               83.3          8.87        0.106 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> zone 1  2               31.2          3.18        0.102 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> zone 1  3               72.0          7.22        0.100 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> zone 1  4               42.7          4.27        0.100 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> zone 1  5               56.7          6.07        0.107 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">11</span> zone 2  1               83.3          4.44        0.053<span style="text-decoration: underline;">3</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">12</span> zone 2  2               31.2          1.57        0.050<span style="text-decoration: underline;">4</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">13</span> zone 2  3               72.0          3.72        0.051<span style="text-decoration: underline;">7</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">14</span> zone 2  4               42.7          2.17        0.050<span style="text-decoration: underline;">8</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">15</span> zone 2  5               56.7          2.96        0.052<span style="text-decoration: underline;">1</span></span></span></code></pre>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># plot solution</span>
-<span class="co"># here we use the category layer function to generate raster showing the zone</span>
-<span class="co"># that each planning unit was allocated. Specifically, pixels with the</span>
-<span class="co"># value 1 are allocated to "zone 1" and pixels with the value 2 are allocated</span>
-<span class="co"># to "zone 2". Thus units depicted in gray are not allocated</span>
-<span class="co"># to any zone, units depicted in yellow are allocated to zone 1, and units</span>
-<span class="co"># depicted in green are allocated to zone 2</span>
-<span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s2</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># plot solution</span></span>
+<span><span class="co"># here we use the category layer function to generate raster showing the zone</span></span>
+<span><span class="co"># that each planning unit was allocated. Specifically, pixels with the</span></span>
+<span><span class="co"># value 1 are allocated to "zone 1" and pixels with the value 2 are allocated</span></span>
+<span><span class="co"># to "zone 2". Thus units depicted in gray are not allocated</span></span>
+<span><span class="co"># to any zone, units depicted in yellow are allocated to zone 1, and units</span></span>
+<span><span class="co"># depicted in green are allocated to zone 2</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s2</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="management_zones_tutorial_files/figure-html/unnamed-chunk-4-1.png" width="700" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
@@ -385,95 +385,95 @@
 </h3>
 <p>Real-world problems often have different costs for managing planning units under different zones. These problems also tend to have different expected amounts of each feature when planning units are managed differently. So let us consider a slightly more complex example. Similar to before we will have two management zones. But this time, the cost of managing each planning unit is different depending on which management zone it is assigned to in the solution. Furthermore, when we assign a planning unit to the second zone, we only expect to end up with half of the habitat we would get if we managed the unit in the first zone (e.g., because the second zone is a partial-take zone and the first zone is a no-take zone). We will use the same target data as in the previous example.</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># create new planning unit and cost data</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">sim_pu_zones_stack</span><span class="op">)</span>
-<span class="va">pu3</span> <span class="op">&lt;-</span> <span class="va">sim_pu_zones_stack</span><span class="op">[[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>
-
-<span class="co"># plot cost data</span>
-<span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pu3</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"zone 1"</span>, <span class="st">"zone 2"</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># create new planning unit and cost data</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">sim_pu_zones_stack</span><span class="op">)</span></span>
+<span><span class="va">pu3</span> <span class="op">&lt;-</span> <span class="va">sim_pu_zones_stack</span><span class="op">[[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span>
+<span></span>
+<span><span class="co"># plot cost data</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pu3</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"zone 1"</span>, <span class="st">"zone 2"</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="management_zones_tutorial_files/figure-html/unnamed-chunk-5-1.png" width="384" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># create problem</span>
-<span class="va">p3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">pu3</span>, <span class="fu"><a href="../reference/zones.html">zones</a></span><span class="op">(</span><span class="va">sim_features</span>, <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-      <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-      <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="va">t2</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-      <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="co"># print problem</span>
-<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Conservation Problem</span>
-<span class="co">##   zones:          1, 2 (2 zones)</span>
-<span class="co">##   planning units: RasterStack (90 units)</span>
-<span class="co">##   cost:           min: 182.60173, max: 221.36296</span>
-<span class="co">##   features:       1, 2, 3, ... (5 features)</span>
-<span class="co">##   objective:      Minimum set objective </span>
-<span class="co">##   targets:        Relative targets [targets (min: 0.05, max: 0.1)]</span>
-<span class="co">##   decisions:      Binary decision </span>
-<span class="co">##   constraints:    &lt;none&gt;</span>
-<span class="co">##   penalties:      &lt;none&gt;</span>
-<span class="co">##   portfolio:      default</span>
-<span class="co">##   solver:         default</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># create problem</span></span>
+<span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">pu3</span>, <span class="fu"><a href="../reference/zones.html">zones</a></span><span class="op">(</span><span class="va">sim_features</span>, <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>      <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>      <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="va">t2</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>      <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># print problem</span></span>
+<span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Conservation Problem</span></span>
+<span><span class="co">##   zones:          1, 2 (2 zones)</span></span>
+<span><span class="co">##   planning units: RasterStack (90 units)</span></span>
+<span><span class="co">##   cost:           min: 182.60173, max: 221.36296</span></span>
+<span><span class="co">##   features:       1, 2, 3, ... (5 features)</span></span>
+<span><span class="co">##   objective:      Minimum set objective </span></span>
+<span><span class="co">##   targets:        Relative targets [targets (min: 0.05, max: 0.1)]</span></span>
+<span><span class="co">##   decisions:      Binary decision </span></span>
+<span><span class="co">##   constraints:    &lt;none&gt;</span></span>
+<span><span class="co">##   penalties:      &lt;none&gt;</span></span>
+<span><span class="co">##   portfolio:      default</span></span>
+<span><span class="co">##   solver:         default</span></span></code></pre>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># solve problem</span>
-<span class="va">s3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Gurobi Optimizer version 9.5.1 build v9.5.1rc2 (linux64)</span>
-<span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span>
-<span class="co">## Optimize a model with 100 rows, 180 columns and 1080 nonzeros</span>
-<span class="co">## Model fingerprint: 0x07455a48</span>
-<span class="co">## Variable types: 0 continuous, 180 integer (180 binary)</span>
-<span class="co">## Coefficient statistics:</span>
-<span class="co">##   Matrix range     [1e-01, 1e+00]</span>
-<span class="co">##   Objective range  [2e+02, 2e+02]</span>
-<span class="co">##   Bounds range     [1e+00, 1e+00]</span>
-<span class="co">##   RHS range        [8e-01, 8e+00]</span>
-<span class="co">## Found heuristic solution: objective 3667.7708672</span>
-<span class="co">## Presolve time: 0.00s</span>
-<span class="co">## Presolved: 100 rows, 180 columns, 1080 nonzeros</span>
-<span class="co">## Variable types: 0 continuous, 180 integer (180 binary)</span>
-<span class="co">## Found heuristic solution: objective 3388.0248890</span>
-<span class="co">## Root relaxation presolved: 100 rows, 180 columns, 1080 nonzeros</span>
-<span class="co">## </span>
-<span class="co">## </span>
-<span class="co">## Root relaxation: objective 2.884872e+03, 38 iterations, 0.00 seconds (0.00 work units)</span>
-<span class="co">## </span>
-<span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span>
-<span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span>
-<span class="co">## </span>
-<span class="co">##      0     0 2884.87200    0    8 3388.02489 2884.87200  14.9%     -    0s</span>
-<span class="co">## H    0     0                    2958.1201508 2884.87200  2.48%     -    0s</span>
-<span class="co">## </span>
-<span class="co">## Explored 1 nodes (38 simplex iterations) in 0.00 seconds (0.00 work units)</span>
-<span class="co">## Thread count was 1 (of 8 available processors)</span>
-<span class="co">## </span>
-<span class="co">## Solution count 3: 2958.12 3388.02 3667.77 </span>
-<span class="co">## </span>
-<span class="co">## Optimal solution found (tolerance 1.00e-01)</span>
-<span class="co">## Best objective 2.958120150795e+03, best bound 2.884871999973e+03, gap 2.4762%</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># solve problem</span></span>
+<span><span class="va">s3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Gurobi Optimizer version 9.5.1 build v9.5.1rc2 (linux64)</span></span>
+<span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
+<span><span class="co">## Optimize a model with 100 rows, 180 columns and 1080 nonzeros</span></span>
+<span><span class="co">## Model fingerprint: 0x07455a48</span></span>
+<span><span class="co">## Variable types: 0 continuous, 180 integer (180 binary)</span></span>
+<span><span class="co">## Coefficient statistics:</span></span>
+<span><span class="co">##   Matrix range     [1e-01, 1e+00]</span></span>
+<span><span class="co">##   Objective range  [2e+02, 2e+02]</span></span>
+<span><span class="co">##   Bounds range     [1e+00, 1e+00]</span></span>
+<span><span class="co">##   RHS range        [8e-01, 8e+00]</span></span>
+<span><span class="co">## Found heuristic solution: objective 3667.7708672</span></span>
+<span><span class="co">## Presolve time: 0.00s</span></span>
+<span><span class="co">## Presolved: 100 rows, 180 columns, 1080 nonzeros</span></span>
+<span><span class="co">## Variable types: 0 continuous, 180 integer (180 binary)</span></span>
+<span><span class="co">## Found heuristic solution: objective 3388.0248890</span></span>
+<span><span class="co">## Root relaxation presolved: 100 rows, 180 columns, 1080 nonzeros</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Root relaxation: objective 2.884872e+03, 38 iterations, 0.00 seconds (0.00 work units)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
+<span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##      0     0 2884.87200    0    8 3388.02489 2884.87200  14.9%     -    0s</span></span>
+<span><span class="co">## H    0     0                    2958.1201508 2884.87200  2.48%     -    0s</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Explored 1 nodes (38 simplex iterations) in 0.00 seconds (0.00 work units)</span></span>
+<span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Solution count 3: 2958.12 3388.02 3667.77 </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
+<span><span class="co">## Best objective 2.958120150795e+03, best bound 2.884871999973e+03, gap 2.4762%</span></span></code></pre>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># calculate feature representation</span>
-<span class="va">r3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p3</span>, <span class="va">s3</span><span class="op">)</span>
-<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">r3</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## <span style="color: #949494;"># A tibble: 15 × 5</span></span>
-<span class="co">##    summary feature total_amount absolute_held relative_held</span>
-<span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">## <span style="color: #BCBCBC;"> 1</span> overall 1              125.         11.1          0.089<span style="text-decoration: underline;">1</span></span>
-<span class="co">## <span style="color: #BCBCBC;"> 2</span> overall 2               46.8         3.92         0.083<span style="text-decoration: underline;">8</span></span>
-<span class="co">## <span style="color: #BCBCBC;"> 3</span> overall 3              108.          9.28         0.086<span style="text-decoration: underline;">0</span></span>
-<span class="co">## <span style="color: #BCBCBC;"> 4</span> overall 4               64.0         5.37         0.083<span style="text-decoration: underline;">9</span></span>
-<span class="co">## <span style="color: #BCBCBC;"> 5</span> overall 5               85.1         7.46         0.087<span style="text-decoration: underline;">7</span></span>
-<span class="co">## <span style="color: #BCBCBC;"> 6</span> 1       1               83.3         8.94         0.107 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 7</span> 1       2               31.2         3.13         0.100 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 8</span> 1       3               72.0         7.42         0.103 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 9</span> 1       4               42.7         4.29         0.101 </span>
-<span class="co">## <span style="color: #BCBCBC;">10</span> 1       5               56.7         6.01         0.106 </span>
-<span class="co">## <span style="color: #BCBCBC;">11</span> 2       1               41.6         2.19         0.052<span style="text-decoration: underline;">7</span></span>
-<span class="co">## <span style="color: #BCBCBC;">12</span> 2       2               15.6         0.794        0.050<span style="text-decoration: underline;">9</span></span>
-<span class="co">## <span style="color: #BCBCBC;">13</span> 2       3               36.0         1.87         0.051<span style="text-decoration: underline;">9</span></span>
-<span class="co">## <span style="color: #BCBCBC;">14</span> 2       4               21.3         1.08         0.050<span style="text-decoration: underline;">5</span></span>
-<span class="co">## <span style="color: #BCBCBC;">15</span> 2       5               28.4         1.44         0.050<span style="text-decoration: underline;">9</span></span></code></pre>
+<code class="sourceCode R"><span><span class="co"># calculate feature representation</span></span>
+<span><span class="va">r3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p3</span>, <span class="va">s3</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">r3</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 15 × 5</span></span></span>
+<span><span class="co">##    summary feature total_amount absolute_held relative_held</span></span>
+<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> overall 1              125.         11.1          0.089<span style="text-decoration: underline;">1</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> overall 2               46.8         3.92         0.083<span style="text-decoration: underline;">8</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> overall 3              108.          9.28         0.086<span style="text-decoration: underline;">0</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> overall 4               64.0         5.37         0.083<span style="text-decoration: underline;">9</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> overall 5               85.1         7.46         0.087<span style="text-decoration: underline;">7</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> 1       1               83.3         8.94         0.107 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> 1       2               31.2         3.13         0.100 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 1       3               72.0         7.42         0.103 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 1       4               42.7         4.29         0.101 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> 1       5               56.7         6.01         0.106 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">11</span> 2       1               41.6         2.19         0.052<span style="text-decoration: underline;">7</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">12</span> 2       2               15.6         0.794        0.050<span style="text-decoration: underline;">9</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">13</span> 2       3               36.0         1.87         0.051<span style="text-decoration: underline;">9</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">14</span> 2       4               21.3         1.08         0.050<span style="text-decoration: underline;">5</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">15</span> 2       5               28.4         1.44         0.050<span style="text-decoration: underline;">9</span></span></span></code></pre>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># plot solution</span>
-<span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s3</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># plot solution</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s3</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="management_zones_tutorial_files/figure-html/unnamed-chunk-6-1.png" width="700" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
@@ -481,123 +481,123 @@
 </h3>
 <p>So far, we have dealt with problems where each feature has a target that pertains to a single zone. But sometimes we have targets that pertain to multiple zones. For example, what if we were in charge of managing pest control in a set of areas and we had three different pest control methods we could implement in any given planning unit. We could (i) set up a few traps in a given planning unit and make 10 % of the habitat in the unit pest-free, (ii) set up a lot of traps and make 50 % of the habitat in the unit pest-free, or (iii) drop baits over a given planning unit and make 80 % of the planning unit pest-free. Each of these different actions has a different cost, with a few low intensity trapping costing $100 per planning unit, a high intensity trapping costing $300, and baiting costing $200 (please note these costs aren’t meant to be realistic). After defining our management actions and costs, we require a solution that will yield 8 units of pest free habitat per feature. It’s important to note that unlike the previous examples, here we don’t have targets for each feature in each zone, but rather our targets are for each feature and across multiple zones. In other words, we don’t really care which management actions we implement, we just want the set of actions that will meet our targets for minimum expenditure. We can formulate and solve this problem using the following code.</p>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># create planning unit data with costs</span>
-<span class="va">pu4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/stack.html" class="external-link">stack</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/which.html" class="external-link">Which</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">sim_pu_raster</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span>,
-             <span class="fu"><a href="https://rdrr.io/pkg/raster/man/which.html" class="external-link">Which</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">sim_pu_raster</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="fl">300</span>,
-             <span class="fu"><a href="https://rdrr.io/pkg/raster/man/which.html" class="external-link">Which</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">sim_pu_raster</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="fl">200</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/pkg/raster/man/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">pu4</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"few.traps"</span>, <span class="st">"many.traps"</span>, <span class="st">"baiting"</span><span class="op">)</span>
-
-<span class="co"># plot planning unit data</span>
-<span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pu4</span>, nr <span class="op">=</span> <span class="fl">1</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># create planning unit data with costs</span></span>
+<span><span class="va">pu4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/stack.html" class="external-link">stack</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/which.html" class="external-link">Which</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">sim_pu_raster</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span>,</span>
+<span>             <span class="fu"><a href="https://rdrr.io/pkg/raster/man/which.html" class="external-link">Which</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">sim_pu_raster</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="fl">300</span>,</span>
+<span>             <span class="fu"><a href="https://rdrr.io/pkg/raster/man/which.html" class="external-link">Which</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">sim_pu_raster</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="fl">200</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">pu4</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"few.traps"</span>, <span class="st">"many.traps"</span>, <span class="st">"baiting"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># plot planning unit data</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pu4</span>, nr <span class="op">=</span> <span class="fl">1</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="management_zones_tutorial_files/figure-html/unnamed-chunk-7-1.png" width="432" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># create targets</span>
-<span class="va">t4</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>feature <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">sim_features</span><span class="op">)</span>,
-                     zone <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">pu4</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span><span class="op">]</span>,
-                     target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">8</span>, <span class="fl">5</span><span class="op">)</span>,
-                     type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"absolute"</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co"># print targets</span>
-<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">t4</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## <span style="color: #949494;"># A tibble: 5 × 4</span></span>
-<span class="co">##   feature zone      target type    </span>
-<span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   </span>
-<span class="co">## <span style="color: #BCBCBC;">1</span> layer.1 <span style="color: #949494;">&lt;chr [3]&gt;</span>      8 absolute</span>
-<span class="co">## <span style="color: #BCBCBC;">2</span> layer.2 <span style="color: #949494;">&lt;chr [3]&gt;</span>      8 absolute</span>
-<span class="co">## <span style="color: #BCBCBC;">3</span> layer.3 <span style="color: #949494;">&lt;chr [3]&gt;</span>      8 absolute</span>
-<span class="co">## <span style="color: #BCBCBC;">4</span> layer.4 <span style="color: #949494;">&lt;chr [3]&gt;</span>      8 absolute</span>
-<span class="co">## <span style="color: #BCBCBC;">5</span> layer.5 <span style="color: #949494;">&lt;chr [3]&gt;</span>      8 absolute</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># create targets</span></span>
+<span><span class="va">t4</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>feature <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">sim_features</span><span class="op">)</span>,</span>
+<span>                     zone <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">pu4</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>                     target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">8</span>, <span class="fl">5</span><span class="op">)</span>,</span>
+<span>                     type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"absolute"</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># print targets</span></span>
+<span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">t4</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 5 × 4</span></span></span>
+<span><span class="co">##   feature zone      target type    </span></span>
+<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> layer.1 <span style="color: #949494;">&lt;chr [3]&gt;</span>      8 absolute</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> layer.2 <span style="color: #949494;">&lt;chr [3]&gt;</span>      8 absolute</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> layer.3 <span style="color: #949494;">&lt;chr [3]&gt;</span>      8 absolute</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> layer.4 <span style="color: #949494;">&lt;chr [3]&gt;</span>      8 absolute</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span> layer.5 <span style="color: #949494;">&lt;chr [3]&gt;</span>      8 absolute</span></span></code></pre>
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># create problem</span>
-<span class="va">p4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">pu4</span>, <span class="fu"><a href="../reference/zones.html">zones</a></span><span class="op">(</span>few.traps <span class="op">=</span> <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.1</span>,
-                         many.traps <span class="op">=</span> <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.5</span>,
-                         baiting <span class="op">=</span> <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.8</span>,
-                         feature_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">sim_features</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-      <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-      <span class="fu"><a href="../reference/add_manual_targets.html">add_manual_targets</a></span><span class="op">(</span><span class="va">t4</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-      <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="co"># print problem</span>
-<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p4</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Conservation Problem</span>
-<span class="co">##   zones:          few.traps, many.traps, baiting (3 zones)</span>
-<span class="co">##   planning units: RasterStack (100 units)</span>
-<span class="co">##   cost:           min: 0, max: 300</span>
-<span class="co">##   features:       layer.1, layer.2, layer.3, ... (5 features)</span>
-<span class="co">##   objective:      Minimum set objective </span>
-<span class="co">##   targets:        Absolute targets [targets (min: 8, max: 8)]</span>
-<span class="co">##   decisions:      Binary decision </span>
-<span class="co">##   constraints:    &lt;none&gt;</span>
-<span class="co">##   penalties:      &lt;none&gt;</span>
-<span class="co">##   portfolio:      default</span>
-<span class="co">##   solver:         default</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># create problem</span></span>
+<span><span class="va">p4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">pu4</span>, <span class="fu"><a href="../reference/zones.html">zones</a></span><span class="op">(</span>few.traps <span class="op">=</span> <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.1</span>,</span>
+<span>                         many.traps <span class="op">=</span> <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.5</span>,</span>
+<span>                         baiting <span class="op">=</span> <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.8</span>,</span>
+<span>                         feature_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">sim_features</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>      <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>      <span class="fu"><a href="../reference/add_manual_targets.html">add_manual_targets</a></span><span class="op">(</span><span class="va">t4</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>      <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># print problem</span></span>
+<span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p4</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Conservation Problem</span></span>
+<span><span class="co">##   zones:          few.traps, many.traps, baiting (3 zones)</span></span>
+<span><span class="co">##   planning units: RasterStack (100 units)</span></span>
+<span><span class="co">##   cost:           min: 0, max: 300</span></span>
+<span><span class="co">##   features:       layer.1, layer.2, layer.3, ... (5 features)</span></span>
+<span><span class="co">##   objective:      Minimum set objective </span></span>
+<span><span class="co">##   targets:        Absolute targets [targets (min: 8, max: 8)]</span></span>
+<span><span class="co">##   decisions:      Binary decision </span></span>
+<span><span class="co">##   constraints:    &lt;none&gt;</span></span>
+<span><span class="co">##   penalties:      &lt;none&gt;</span></span>
+<span><span class="co">##   portfolio:      default</span></span>
+<span><span class="co">##   solver:         default</span></span></code></pre>
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># solve problem</span>
-<span class="va">s4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p4</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Gurobi Optimizer version 9.5.1 build v9.5.1rc2 (linux64)</span>
-<span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span>
-<span class="co">## Optimize a model with 105 rows, 300 columns and 1800 nonzeros</span>
-<span class="co">## Model fingerprint: 0xd67e7fdc</span>
-<span class="co">## Variable types: 0 continuous, 300 integer (300 binary)</span>
-<span class="co">## Coefficient statistics:</span>
-<span class="co">##   Matrix range     [2e-02, 1e+00]</span>
-<span class="co">##   Objective range  [1e+02, 3e+02]</span>
-<span class="co">##   Bounds range     [1e+00, 1e+00]</span>
-<span class="co">##   RHS range        [1e+00, 8e+00]</span>
-<span class="co">## Found heuristic solution: objective 9400.0000000</span>
-<span class="co">## Presolve removed 14 rows and 120 columns</span>
-<span class="co">## Presolve time: 0.00s</span>
-<span class="co">## Presolved: 91 rows, 180 columns, 360 nonzeros</span>
-<span class="co">## Found heuristic solution: objective 4800.0000000</span>
-<span class="co">## Variable types: 0 continuous, 180 integer (180 binary)</span>
-<span class="co">## Root relaxation presolved: 91 rows, 180 columns, 360 nonzeros</span>
-<span class="co">## </span>
-<span class="co">## </span>
-<span class="co">## Root relaxation: objective 3.663237e+03, 1 iterations, 0.00 seconds (0.00 work units)</span>
-<span class="co">## </span>
-<span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span>
-<span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span>
-<span class="co">## </span>
-<span class="co">##      0     0 3663.23657    0    1 4800.00000 3663.23657  23.7%     -    0s</span>
-<span class="co">## H    0     0                    3800.0000000 3663.23657  3.60%     -    0s</span>
-<span class="co">## </span>
-<span class="co">## Explored 1 nodes (1 simplex iterations) in 0.00 seconds (0.00 work units)</span>
-<span class="co">## Thread count was 1 (of 8 available processors)</span>
-<span class="co">## </span>
-<span class="co">## Solution count 3: 3800 4800 9400 </span>
-<span class="co">## </span>
-<span class="co">## Optimal solution found (tolerance 1.00e-01)</span>
-<span class="co">## Best objective 3.800000000000e+03, best bound 3.700000000000e+03, gap 2.6316%</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># solve problem</span></span>
+<span><span class="va">s4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p4</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Gurobi Optimizer version 9.5.1 build v9.5.1rc2 (linux64)</span></span>
+<span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
+<span><span class="co">## Optimize a model with 105 rows, 300 columns and 1800 nonzeros</span></span>
+<span><span class="co">## Model fingerprint: 0xd67e7fdc</span></span>
+<span><span class="co">## Variable types: 0 continuous, 300 integer (300 binary)</span></span>
+<span><span class="co">## Coefficient statistics:</span></span>
+<span><span class="co">##   Matrix range     [2e-02, 1e+00]</span></span>
+<span><span class="co">##   Objective range  [1e+02, 3e+02]</span></span>
+<span><span class="co">##   Bounds range     [1e+00, 1e+00]</span></span>
+<span><span class="co">##   RHS range        [1e+00, 8e+00]</span></span>
+<span><span class="co">## Found heuristic solution: objective 9400.0000000</span></span>
+<span><span class="co">## Presolve removed 14 rows and 120 columns</span></span>
+<span><span class="co">## Presolve time: 0.00s</span></span>
+<span><span class="co">## Presolved: 91 rows, 180 columns, 360 nonzeros</span></span>
+<span><span class="co">## Found heuristic solution: objective 4800.0000000</span></span>
+<span><span class="co">## Variable types: 0 continuous, 180 integer (180 binary)</span></span>
+<span><span class="co">## Root relaxation presolved: 91 rows, 180 columns, 360 nonzeros</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Root relaxation: objective 3.663237e+03, 1 iterations, 0.00 seconds (0.00 work units)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
+<span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##      0     0 3663.23657    0    1 4800.00000 3663.23657  23.7%     -    0s</span></span>
+<span><span class="co">## H    0     0                    3800.0000000 3663.23657  3.60%     -    0s</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Explored 1 nodes (1 simplex iterations) in 0.00 seconds (0.00 work units)</span></span>
+<span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Solution count 3: 3800 4800 9400 </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
+<span><span class="co">## Best objective 3.800000000000e+03, best bound 3.700000000000e+03, gap 2.6316%</span></span></code></pre>
 <div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># calculate feature representation</span>
-<span class="va">r4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p4</span>, <span class="va">s4</span><span class="op">)</span>
-<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">r4</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## <span style="color: #949494;"># A tibble: 20 × 5</span></span>
-<span class="co">##    summary    feature total_amount absolute_held relative_held</span>
-<span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">## <span style="color: #BCBCBC;"> 1</span> overall    layer.1       117.           18.3          0.157</span>
-<span class="co">## <span style="color: #BCBCBC;"> 2</span> overall    layer.2        43.7           8.19         0.187</span>
-<span class="co">## <span style="color: #BCBCBC;"> 3</span> overall    layer.3       101.           15.2          0.151</span>
-<span class="co">## <span style="color: #BCBCBC;"> 4</span> overall    layer.4        59.7          11.6          0.194</span>
-<span class="co">## <span style="color: #BCBCBC;"> 5</span> overall    layer.5        79.4          12.7          0.161</span>
-<span class="co">## <span style="color: #BCBCBC;"> 6</span> few.traps  layer.1         8.33          0            0    </span>
-<span class="co">## <span style="color: #BCBCBC;"> 7</span> few.traps  layer.2         3.12          0            0    </span>
-<span class="co">## <span style="color: #BCBCBC;"> 8</span> few.traps  layer.3         7.20          0            0    </span>
-<span class="co">## <span style="color: #BCBCBC;"> 9</span> few.traps  layer.4         4.27          0            0    </span>
-<span class="co">## <span style="color: #BCBCBC;">10</span> few.traps  layer.5         5.67          0            0    </span>
-<span class="co">## <span style="color: #BCBCBC;">11</span> many.traps layer.1        41.6           0            0    </span>
-<span class="co">## <span style="color: #BCBCBC;">12</span> many.traps layer.2        15.6           0            0    </span>
-<span class="co">## <span style="color: #BCBCBC;">13</span> many.traps layer.3        36.0           0            0    </span>
-<span class="co">## <span style="color: #BCBCBC;">14</span> many.traps layer.4        21.3           0            0    </span>
-<span class="co">## <span style="color: #BCBCBC;">15</span> many.traps layer.5        28.4           0            0    </span>
-<span class="co">## <span style="color: #BCBCBC;">16</span> baiting    layer.1        66.6          18.3          0.275</span>
-<span class="co">## <span style="color: #BCBCBC;">17</span> baiting    layer.2        25.0           8.19         0.328</span>
-<span class="co">## <span style="color: #BCBCBC;">18</span> baiting    layer.3        57.6          15.2          0.264</span>
-<span class="co">## <span style="color: #BCBCBC;">19</span> baiting    layer.4        34.1          11.6          0.340</span>
-<span class="co">## <span style="color: #BCBCBC;">20</span> baiting    layer.5        45.4          12.7          0.281</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># calculate feature representation</span></span>
+<span><span class="va">r4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p4</span>, <span class="va">s4</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">r4</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 20 × 5</span></span></span>
+<span><span class="co">##    summary    feature total_amount absolute_held relative_held</span></span>
+<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> overall    layer.1       117.           18.3          0.157</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> overall    layer.2        43.7           8.19         0.187</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> overall    layer.3       101.           15.2          0.151</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> overall    layer.4        59.7          11.6          0.194</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> overall    layer.5        79.4          12.7          0.161</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> few.traps  layer.1         8.33          0            0    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> few.traps  layer.2         3.12          0            0    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> few.traps  layer.3         7.20          0            0    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> few.traps  layer.4         4.27          0            0    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> few.traps  layer.5         5.67          0            0    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">11</span> many.traps layer.1        41.6           0            0    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">12</span> many.traps layer.2        15.6           0            0    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">13</span> many.traps layer.3        36.0           0            0    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">14</span> many.traps layer.4        21.3           0            0    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">15</span> many.traps layer.5        28.4           0            0    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">16</span> baiting    layer.1        66.6          18.3          0.275</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">17</span> baiting    layer.2        25.0           8.19         0.328</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">18</span> baiting    layer.3        57.6          15.2          0.264</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">19</span> baiting    layer.4        34.1          11.6          0.340</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">20</span> baiting    layer.5        45.4          12.7          0.281</span></span></code></pre>
 <div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># plot solution</span>
-<span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s4</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># plot solution</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s4</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="management_zones_tutorial_files/figure-html/unnamed-chunk-8-1.png" width="700" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
@@ -605,113 +605,113 @@
 </h3>
 <p>So it looks like baiting is the way to go! Except that we might recall that we can’t use baits in most of the planning units because they contain native species that are susceptible to baits. So now we need to specify that which of our planning units cannot be assigned to the third zone (baiting) to obtain a more useful solution.</p>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># create data.frame to specify that we cannot bait in the first 40 units</span>
-<span class="va">l5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>pu <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">80</span><span class="op">)</span>,
-                 zone <span class="op">=</span> <span class="st">"baiting"</span>,
-                 status <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>
-
-<span class="co"># preview locked data</span>
-<span class="fu"><a href="https://rdrr.io/pkg/raster/man/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">l5</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">##   pu    zone status</span>
-<span class="co">## 1  1 baiting      0</span>
-<span class="co">## 2  2 baiting      0</span>
-<span class="co">## 3  3 baiting      0</span>
-<span class="co">## 4  4 baiting      0</span>
-<span class="co">## 5  5 baiting      0</span>
-<span class="co">## 6  6 baiting      0</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># create data.frame to specify that we cannot bait in the first 40 units</span></span>
+<span><span class="va">l5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>pu <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">80</span><span class="op">)</span>,</span>
+<span>                 zone <span class="op">=</span> <span class="st">"baiting"</span>,</span>
+<span>                 status <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># preview locked data</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">l5</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##   pu    zone status</span></span>
+<span><span class="co">## 1  1 baiting      0</span></span>
+<span><span class="co">## 2  2 baiting      0</span></span>
+<span><span class="co">## 3  3 baiting      0</span></span>
+<span><span class="co">## 4  4 baiting      0</span></span>
+<span><span class="co">## 5  5 baiting      0</span></span>
+<span><span class="co">## 6  6 baiting      0</span></span></code></pre>
 <div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># create problem</span>
-<span class="va">p5</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">pu4</span>, <span class="fu"><a href="../reference/zones.html">zones</a></span><span class="op">(</span>few.traps <span class="op">=</span> <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.1</span>,
-                         many.traps <span class="op">=</span> <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.5</span>,
-                         baiting <span class="op">=</span> <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.8</span>,
-                         feature_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">sim_features</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-      <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-      <span class="fu"><a href="../reference/add_manual_targets.html">add_manual_targets</a></span><span class="op">(</span><span class="va">t4</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-      <span class="fu"><a href="../reference/add_manual_locked_constraints.html">add_manual_locked_constraints</a></span><span class="op">(</span><span class="va">l5</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-      <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="co"># print problem</span>
-<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p5</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Conservation Problem</span>
-<span class="co">##   zones:          few.traps, many.traps, baiting (3 zones)</span>
-<span class="co">##   planning units: RasterStack (100 units)</span>
-<span class="co">##   cost:           min: 0, max: 300</span>
-<span class="co">##   features:       layer.1, layer.2, layer.3, ... (5 features)</span>
-<span class="co">##   objective:      Minimum set objective </span>
-<span class="co">##   targets:        Absolute targets [targets (min: 8, max: 8)]</span>
-<span class="co">##   decisions:      Binary decision </span>
-<span class="co">##   constraints:    &lt;Manually locked planning units [80 locked units]&gt;</span>
-<span class="co">##   penalties:      &lt;none&gt;</span>
-<span class="co">##   portfolio:      default</span>
-<span class="co">##   solver:         default</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># create problem</span></span>
+<span><span class="va">p5</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">pu4</span>, <span class="fu"><a href="../reference/zones.html">zones</a></span><span class="op">(</span>few.traps <span class="op">=</span> <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.1</span>,</span>
+<span>                         many.traps <span class="op">=</span> <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.5</span>,</span>
+<span>                         baiting <span class="op">=</span> <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.8</span>,</span>
+<span>                         feature_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">sim_features</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>      <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>      <span class="fu"><a href="../reference/add_manual_targets.html">add_manual_targets</a></span><span class="op">(</span><span class="va">t4</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>      <span class="fu"><a href="../reference/add_manual_locked_constraints.html">add_manual_locked_constraints</a></span><span class="op">(</span><span class="va">l5</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>      <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># print problem</span></span>
+<span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p5</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Conservation Problem</span></span>
+<span><span class="co">##   zones:          few.traps, many.traps, baiting (3 zones)</span></span>
+<span><span class="co">##   planning units: RasterStack (100 units)</span></span>
+<span><span class="co">##   cost:           min: 0, max: 300</span></span>
+<span><span class="co">##   features:       layer.1, layer.2, layer.3, ... (5 features)</span></span>
+<span><span class="co">##   objective:      Minimum set objective </span></span>
+<span><span class="co">##   targets:        Absolute targets [targets (min: 8, max: 8)]</span></span>
+<span><span class="co">##   decisions:      Binary decision </span></span>
+<span><span class="co">##   constraints:    &lt;Manually locked planning units [80 locked units]&gt;</span></span>
+<span><span class="co">##   penalties:      &lt;none&gt;</span></span>
+<span><span class="co">##   portfolio:      default</span></span>
+<span><span class="co">##   solver:         default</span></span></code></pre>
 <div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># solve problem</span>
-<span class="va">s5</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p5</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Gurobi Optimizer version 9.5.1 build v9.5.1rc2 (linux64)</span>
-<span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span>
-<span class="co">## Optimize a model with 105 rows, 300 columns and 1800 nonzeros</span>
-<span class="co">## Model fingerprint: 0x4ad99e4b</span>
-<span class="co">## Variable types: 0 continuous, 300 integer (300 binary)</span>
-<span class="co">## Coefficient statistics:</span>
-<span class="co">##   Matrix range     [2e-02, 1e+00]</span>
-<span class="co">##   Objective range  [1e+02, 3e+02]</span>
-<span class="co">##   Bounds range     [1e+00, 1e+00]</span>
-<span class="co">##   RHS range        [1e+00, 8e+00]</span>
-<span class="co">## Found heuristic solution: objective 13600.000000</span>
-<span class="co">## Presolve removed 14 rows and 120 columns</span>
-<span class="co">## Presolve time: 0.00s</span>
-<span class="co">## Presolved: 91 rows, 180 columns, 360 nonzeros</span>
-<span class="co">## Found heuristic solution: objective 9600.0000000</span>
-<span class="co">## Variable types: 0 continuous, 180 integer (180 binary)</span>
-<span class="co">## Root relaxation presolved: 91 rows, 180 columns, 360 nonzeros</span>
-<span class="co">## </span>
-<span class="co">## </span>
-<span class="co">## Root relaxation: objective 6.938068e+03, 1 iterations, 0.00 seconds (0.00 work units)</span>
-<span class="co">## </span>
-<span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span>
-<span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span>
-<span class="co">## </span>
-<span class="co">##      0     0 6938.06818    0    1 9600.00000 6938.06818  27.7%     -    0s</span>
-<span class="co">## H    0     0                    7000.0000000 6938.06818  0.88%     -    0s</span>
-<span class="co">##      0     0 6938.06818    0    1 7000.00000 6938.06818  0.88%     -    0s</span>
-<span class="co">## </span>
-<span class="co">## Explored 1 nodes (1 simplex iterations) in 0.00 seconds (0.00 work units)</span>
-<span class="co">## Thread count was 1 (of 8 available processors)</span>
-<span class="co">## </span>
-<span class="co">## Solution count 3: 7000 9600 13600 </span>
-<span class="co">## </span>
-<span class="co">## Optimal solution found (tolerance 1.00e-01)</span>
-<span class="co">## Best objective 7.000000000000e+03, best bound 7.000000000000e+03, gap 0.0000%</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># solve problem</span></span>
+<span><span class="va">s5</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p5</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Gurobi Optimizer version 9.5.1 build v9.5.1rc2 (linux64)</span></span>
+<span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
+<span><span class="co">## Optimize a model with 105 rows, 300 columns and 1800 nonzeros</span></span>
+<span><span class="co">## Model fingerprint: 0x4ad99e4b</span></span>
+<span><span class="co">## Variable types: 0 continuous, 300 integer (300 binary)</span></span>
+<span><span class="co">## Coefficient statistics:</span></span>
+<span><span class="co">##   Matrix range     [2e-02, 1e+00]</span></span>
+<span><span class="co">##   Objective range  [1e+02, 3e+02]</span></span>
+<span><span class="co">##   Bounds range     [1e+00, 1e+00]</span></span>
+<span><span class="co">##   RHS range        [1e+00, 8e+00]</span></span>
+<span><span class="co">## Found heuristic solution: objective 13600.000000</span></span>
+<span><span class="co">## Presolve removed 14 rows and 120 columns</span></span>
+<span><span class="co">## Presolve time: 0.00s</span></span>
+<span><span class="co">## Presolved: 91 rows, 180 columns, 360 nonzeros</span></span>
+<span><span class="co">## Found heuristic solution: objective 9600.0000000</span></span>
+<span><span class="co">## Variable types: 0 continuous, 180 integer (180 binary)</span></span>
+<span><span class="co">## Root relaxation presolved: 91 rows, 180 columns, 360 nonzeros</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Root relaxation: objective 6.938068e+03, 1 iterations, 0.00 seconds (0.00 work units)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
+<span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##      0     0 6938.06818    0    1 9600.00000 6938.06818  27.7%     -    0s</span></span>
+<span><span class="co">## H    0     0                    7000.0000000 6938.06818  0.88%     -    0s</span></span>
+<span><span class="co">##      0     0 6938.06818    0    1 7000.00000 6938.06818  0.88%     -    0s</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Explored 1 nodes (1 simplex iterations) in 0.00 seconds (0.00 work units)</span></span>
+<span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Solution count 3: 7000 9600 13600 </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
+<span><span class="co">## Best objective 7.000000000000e+03, best bound 7.000000000000e+03, gap 0.0000%</span></span></code></pre>
 <div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># calculate feature representation</span>
-<span class="va">r5</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p5</span>, <span class="va">s5</span><span class="op">)</span>
-<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">r5</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## <span style="color: #949494;"># A tibble: 20 × 5</span></span>
-<span class="co">##    summary    feature total_amount absolute_held relative_held</span>
-<span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">## <span style="color: #BCBCBC;"> 1</span> overall    layer.1       117.           21.8          0.187</span>
-<span class="co">## <span style="color: #BCBCBC;"> 2</span> overall    layer.2        43.7           8.04         0.184</span>
-<span class="co">## <span style="color: #BCBCBC;"> 3</span> overall    layer.3       101.           17.7          0.176</span>
-<span class="co">## <span style="color: #BCBCBC;"> 4</span> overall    layer.4        59.7          10.9          0.182</span>
-<span class="co">## <span style="color: #BCBCBC;"> 5</span> overall    layer.5        79.4          15.2          0.192</span>
-<span class="co">## <span style="color: #BCBCBC;"> 6</span> few.traps  layer.1         8.33          0            0    </span>
-<span class="co">## <span style="color: #BCBCBC;"> 7</span> few.traps  layer.2         3.12          0            0    </span>
-<span class="co">## <span style="color: #BCBCBC;"> 8</span> few.traps  layer.3         7.20          0            0    </span>
-<span class="co">## <span style="color: #BCBCBC;"> 9</span> few.traps  layer.4         4.27          0            0    </span>
-<span class="co">## <span style="color: #BCBCBC;">10</span> few.traps  layer.5         5.67          0            0    </span>
-<span class="co">## <span style="color: #BCBCBC;">11</span> many.traps layer.1        41.6           7.40         0.178</span>
-<span class="co">## <span style="color: #BCBCBC;">12</span> many.traps layer.2        15.6           3.42         0.219</span>
-<span class="co">## <span style="color: #BCBCBC;">13</span> many.traps layer.3        36.0           6.00         0.167</span>
-<span class="co">## <span style="color: #BCBCBC;">14</span> many.traps layer.4        21.3           4.84         0.227</span>
-<span class="co">## <span style="color: #BCBCBC;">15</span> many.traps layer.5        28.4           5.26         0.186</span>
-<span class="co">## <span style="color: #BCBCBC;">16</span> baiting    layer.1        66.6          14.4          0.217</span>
-<span class="co">## <span style="color: #BCBCBC;">17</span> baiting    layer.2        25.0           4.62         0.185</span>
-<span class="co">## <span style="color: #BCBCBC;">18</span> baiting    layer.3        57.6          11.7          0.203</span>
-<span class="co">## <span style="color: #BCBCBC;">19</span> baiting    layer.4        34.1           6.05         0.177</span>
-<span class="co">## <span style="color: #BCBCBC;">20</span> baiting    layer.5        45.4           9.98         0.220</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># calculate feature representation</span></span>
+<span><span class="va">r5</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p5</span>, <span class="va">s5</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">r5</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 20 × 5</span></span></span>
+<span><span class="co">##    summary    feature total_amount absolute_held relative_held</span></span>
+<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> overall    layer.1       117.           21.8          0.187</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> overall    layer.2        43.7           8.04         0.184</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> overall    layer.3       101.           17.7          0.176</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> overall    layer.4        59.7          10.9          0.182</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> overall    layer.5        79.4          15.2          0.192</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> few.traps  layer.1         8.33          0            0    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> few.traps  layer.2         3.12          0            0    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> few.traps  layer.3         7.20          0            0    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> few.traps  layer.4         4.27          0            0    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> few.traps  layer.5         5.67          0            0    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">11</span> many.traps layer.1        41.6           7.40         0.178</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">12</span> many.traps layer.2        15.6           3.42         0.219</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">13</span> many.traps layer.3        36.0           6.00         0.167</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">14</span> many.traps layer.4        21.3           4.84         0.227</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">15</span> many.traps layer.5        28.4           5.26         0.186</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">16</span> baiting    layer.1        66.6          14.4          0.217</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">17</span> baiting    layer.2        25.0           4.62         0.185</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">18</span> baiting    layer.3        57.6          11.7          0.203</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">19</span> baiting    layer.4        34.1           6.05         0.177</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">20</span> baiting    layer.5        45.4           9.98         0.220</span></span></code></pre>
 <div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># plot solution</span>
-<span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s5</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># plot solution</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s5</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="management_zones_tutorial_files/figure-html/unnamed-chunk-9-1.png" width="700" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
@@ -719,114 +719,114 @@
 </h3>
 <p>So now the best strategy seems to be a combination of high intensity trapping and baiting. But we can also see that this solution is fairly fragmented, so we can add penalties to cluster managed planning units together. Here we will add penalties that will cluster the planning units allocated to the two trapping zones together, and penalties that will cluster the planning units allocated to the baiting zone together. We will also set an overall penalty factor to 640 to strongly penalize fragmented solutions.</p>
 <div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># create matrix that describe boundary penalties between planning units</span>
-<span class="co"># allocated to different zones</span>
-<span class="va">z6</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>
-<span class="va">z6</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">1</span>
-<span class="va">z6</span><span class="op">[</span><span class="fl">2</span>, <span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">1</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">z6</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"few.traps"</span>, <span class="st">"many.traps"</span>, <span class="st">"baiting"</span><span class="op">)</span>
-<span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">z6</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">z6</span><span class="op">)</span>
-
-<span class="co"># print matrix</span>
-<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">z6</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">##            few.traps many.traps baiting</span>
-<span class="co">## few.traps          1          1       0</span>
-<span class="co">## many.traps         1          1       0</span>
-<span class="co">## baiting            0          0       1</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># create matrix that describe boundary penalties between planning units</span></span>
+<span><span class="co"># allocated to different zones</span></span>
+<span><span class="va">z6</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
+<span><span class="va">z6</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
+<span><span class="va">z6</span><span class="op">[</span><span class="fl">2</span>, <span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">z6</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"few.traps"</span>, <span class="st">"many.traps"</span>, <span class="st">"baiting"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">z6</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">z6</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># print matrix</span></span>
+<span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">z6</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##            few.traps many.traps baiting</span></span>
+<span><span class="co">## few.traps          1          1       0</span></span>
+<span><span class="co">## many.traps         1          1       0</span></span>
+<span><span class="co">## baiting            0          0       1</span></span></code></pre>
 <div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># create problem</span>
-<span class="va">p6</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">pu4</span>, <span class="fu"><a href="../reference/zones.html">zones</a></span><span class="op">(</span><span class="st">"few.traps"</span> <span class="op">=</span> <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.1</span>,
-                         <span class="st">"many.traps"</span> <span class="op">=</span> <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.5</span>,
-                         <span class="st">"baiting"</span> <span class="op">=</span> <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.8</span>,
-                         feature_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">sim_features</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-      <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-      <span class="fu"><a href="../reference/add_manual_targets.html">add_manual_targets</a></span><span class="op">(</span><span class="va">t4</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-      <span class="fu"><a href="../reference/add_manual_locked_constraints.html">add_manual_locked_constraints</a></span><span class="op">(</span><span class="va">l5</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-      <span class="fu"><a href="../reference/add_boundary_penalties.html">add_boundary_penalties</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">640</span>, zones <span class="op">=</span> <span class="va">z6</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-      <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="co"># print problem</span>
-<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p6</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Conservation Problem</span>
-<span class="co">##   zones:          few.traps, many.traps, baiting (3 zones)</span>
-<span class="co">##   planning units: RasterStack (100 units)</span>
-<span class="co">##   cost:           min: 0, max: 300</span>
-<span class="co">##   features:       layer.1, layer.2, layer.3, ... (5 features)</span>
-<span class="co">##   objective:      Minimum set objective </span>
-<span class="co">##   targets:        Absolute targets [targets (min: 8, max: 8)]</span>
-<span class="co">##   decisions:      Binary decision </span>
-<span class="co">##   constraints:    &lt;Manually locked planning units [80 locked units]&gt;</span>
-<span class="co">##   penalties:      &lt;Boundary penalties [edge factor (min: 0.5, max: 0.5), penalty (640), zones]&gt;</span>
-<span class="co">##   portfolio:      default</span>
-<span class="co">##   solver:         default</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># create problem</span></span>
+<span><span class="va">p6</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">pu4</span>, <span class="fu"><a href="../reference/zones.html">zones</a></span><span class="op">(</span><span class="st">"few.traps"</span> <span class="op">=</span> <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.1</span>,</span>
+<span>                         <span class="st">"many.traps"</span> <span class="op">=</span> <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.5</span>,</span>
+<span>                         <span class="st">"baiting"</span> <span class="op">=</span> <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.8</span>,</span>
+<span>                         feature_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">sim_features</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>      <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>      <span class="fu"><a href="../reference/add_manual_targets.html">add_manual_targets</a></span><span class="op">(</span><span class="va">t4</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>      <span class="fu"><a href="../reference/add_manual_locked_constraints.html">add_manual_locked_constraints</a></span><span class="op">(</span><span class="va">l5</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>      <span class="fu"><a href="../reference/add_boundary_penalties.html">add_boundary_penalties</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">640</span>, zones <span class="op">=</span> <span class="va">z6</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>      <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># print problem</span></span>
+<span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p6</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Conservation Problem</span></span>
+<span><span class="co">##   zones:          few.traps, many.traps, baiting (3 zones)</span></span>
+<span><span class="co">##   planning units: RasterStack (100 units)</span></span>
+<span><span class="co">##   cost:           min: 0, max: 300</span></span>
+<span><span class="co">##   features:       layer.1, layer.2, layer.3, ... (5 features)</span></span>
+<span><span class="co">##   objective:      Minimum set objective </span></span>
+<span><span class="co">##   targets:        Absolute targets [targets (min: 8, max: 8)]</span></span>
+<span><span class="co">##   decisions:      Binary decision </span></span>
+<span><span class="co">##   constraints:    &lt;Manually locked planning units [80 locked units]&gt;</span></span>
+<span><span class="co">##   penalties:      &lt;Boundary penalties [edge factor (min: 0.5, max: 0.5), penalty (640), zones]&gt;</span></span>
+<span><span class="co">##   portfolio:      default</span></span>
+<span><span class="co">##   solver:         default</span></span></code></pre>
 <div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># solve problem</span>
-<span class="va">s6</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p6</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Gurobi Optimizer version 9.5.1 build v9.5.1rc2 (linux64)</span>
-<span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span>
-<span class="co">## Optimize a model with 1905 rows, 1200 columns and 5400 nonzeros</span>
-<span class="co">## Model fingerprint: 0xb44cc86f</span>
-<span class="co">## Variable types: 0 continuous, 1200 integer (1200 binary)</span>
-<span class="co">## Coefficient statistics:</span>
-<span class="co">##   Matrix range     [2e-02, 1e+00]</span>
-<span class="co">##   Objective range  [1e+02, 6e+02]</span>
-<span class="co">##   Bounds range     [1e+00, 1e+00]</span>
-<span class="co">##   RHS range        [1e+00, 8e+00]</span>
-<span class="co">## Found heuristic solution: objective 20096.000000</span>
-<span class="co">## Presolve removed 1028 rows and 232 columns</span>
-<span class="co">## Presolve time: 0.02s</span>
-<span class="co">## Presolved: 877 rows, 968 columns, 2712 nonzeros</span>
-<span class="co">## Variable types: 0 continuous, 968 integer (968 binary)</span>
-<span class="co">## Found heuristic solution: objective 19632.000000</span>
-<span class="co">## Root relaxation presolved: 877 rows, 968 columns, 2712 nonzeros</span>
-<span class="co">## </span>
-<span class="co">## </span>
-<span class="co">## Root relaxation: objective 1.005410e+04, 569 iterations, 0.01 seconds (0.01 work units)</span>
-<span class="co">## </span>
-<span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span>
-<span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span>
-<span class="co">## </span>
-<span class="co">##      0     0 10054.0986    0   57 19632.0000 10054.0986  48.8%     -    0s</span>
-<span class="co">## H    0     0                    11300.000000 10054.0986  11.0%     -    0s</span>
-<span class="co">## H    0     0                    10588.000000 10054.0986  5.04%     -    0s</span>
-<span class="co">## </span>
-<span class="co">## Explored 1 nodes (819 simplex iterations) in 0.02 seconds (0.03 work units)</span>
-<span class="co">## Thread count was 1 (of 8 available processors)</span>
-<span class="co">## </span>
-<span class="co">## Solution count 4: 10588 11300 19632 20096 </span>
-<span class="co">## </span>
-<span class="co">## Optimal solution found (tolerance 1.00e-01)</span>
-<span class="co">## Best objective 1.058800000000e+04, best bound 1.005600000000e+04, gap 5.0246%</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># solve problem</span></span>
+<span><span class="va">s6</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p6</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Gurobi Optimizer version 9.5.1 build v9.5.1rc2 (linux64)</span></span>
+<span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
+<span><span class="co">## Optimize a model with 1905 rows, 1200 columns and 5400 nonzeros</span></span>
+<span><span class="co">## Model fingerprint: 0xb44cc86f</span></span>
+<span><span class="co">## Variable types: 0 continuous, 1200 integer (1200 binary)</span></span>
+<span><span class="co">## Coefficient statistics:</span></span>
+<span><span class="co">##   Matrix range     [2e-02, 1e+00]</span></span>
+<span><span class="co">##   Objective range  [1e+02, 6e+02]</span></span>
+<span><span class="co">##   Bounds range     [1e+00, 1e+00]</span></span>
+<span><span class="co">##   RHS range        [1e+00, 8e+00]</span></span>
+<span><span class="co">## Found heuristic solution: objective 20096.000000</span></span>
+<span><span class="co">## Presolve removed 1028 rows and 232 columns</span></span>
+<span><span class="co">## Presolve time: 0.01s</span></span>
+<span><span class="co">## Presolved: 877 rows, 968 columns, 2712 nonzeros</span></span>
+<span><span class="co">## Variable types: 0 continuous, 968 integer (968 binary)</span></span>
+<span><span class="co">## Found heuristic solution: objective 19632.000000</span></span>
+<span><span class="co">## Root relaxation presolved: 877 rows, 968 columns, 2712 nonzeros</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Root relaxation: objective 1.005410e+04, 569 iterations, 0.01 seconds (0.01 work units)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
+<span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##      0     0 10054.0986    0   57 19632.0000 10054.0986  48.8%     -    0s</span></span>
+<span><span class="co">## H    0     0                    11300.000000 10054.0986  11.0%     -    0s</span></span>
+<span><span class="co">## H    0     0                    10588.000000 10054.0986  5.04%     -    0s</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Explored 1 nodes (819 simplex iterations) in 0.02 seconds (0.03 work units)</span></span>
+<span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Solution count 4: 10588 11300 19632 20096 </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
+<span><span class="co">## Best objective 1.058800000000e+04, best bound 1.005600000000e+04, gap 5.0246%</span></span></code></pre>
 <div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># calculate feature representation</span>
-<span class="va">r6</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p6</span>, <span class="va">s6</span><span class="op">)</span>
-<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">r6</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## <span style="color: #949494;"># A tibble: 20 × 5</span></span>
-<span class="co">##    summary    feature total_amount absolute_held relative_held</span>
-<span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">## <span style="color: #BCBCBC;"> 1</span> overall    layer.1       117.           22.5          0.193</span>
-<span class="co">## <span style="color: #BCBCBC;"> 2</span> overall    layer.2        43.7           8.06         0.184</span>
-<span class="co">## <span style="color: #BCBCBC;"> 3</span> overall    layer.3       101.           18.0          0.179</span>
-<span class="co">## <span style="color: #BCBCBC;"> 4</span> overall    layer.4        59.7          11.6          0.193</span>
-<span class="co">## <span style="color: #BCBCBC;"> 5</span> overall    layer.5        79.4          15.6          0.197</span>
-<span class="co">## <span style="color: #BCBCBC;"> 6</span> few.traps  layer.1         8.33          0            0    </span>
-<span class="co">## <span style="color: #BCBCBC;"> 7</span> few.traps  layer.2         3.12          0            0    </span>
-<span class="co">## <span style="color: #BCBCBC;"> 8</span> few.traps  layer.3         7.20          0            0    </span>
-<span class="co">## <span style="color: #BCBCBC;"> 9</span> few.traps  layer.4         4.27          0            0    </span>
-<span class="co">## <span style="color: #BCBCBC;">10</span> few.traps  layer.5         5.67          0            0    </span>
-<span class="co">## <span style="color: #BCBCBC;">11</span> many.traps layer.1        41.6           8.01         0.192</span>
-<span class="co">## <span style="color: #BCBCBC;">12</span> many.traps layer.2        15.6           3.44         0.221</span>
-<span class="co">## <span style="color: #BCBCBC;">13</span> many.traps layer.3        36.0           6.31         0.175</span>
-<span class="co">## <span style="color: #BCBCBC;">14</span> many.traps layer.4        21.3           5.50         0.258</span>
-<span class="co">## <span style="color: #BCBCBC;">15</span> many.traps layer.5        28.4           5.62         0.198</span>
-<span class="co">## <span style="color: #BCBCBC;">16</span> baiting    layer.1        66.6          14.4          0.217</span>
-<span class="co">## <span style="color: #BCBCBC;">17</span> baiting    layer.2        25.0           4.62         0.185</span>
-<span class="co">## <span style="color: #BCBCBC;">18</span> baiting    layer.3        57.6          11.7          0.203</span>
-<span class="co">## <span style="color: #BCBCBC;">19</span> baiting    layer.4        34.1           6.05         0.177</span>
-<span class="co">## <span style="color: #BCBCBC;">20</span> baiting    layer.5        45.4           9.98         0.220</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># calculate feature representation</span></span>
+<span><span class="va">r6</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p6</span>, <span class="va">s6</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">r6</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 20 × 5</span></span></span>
+<span><span class="co">##    summary    feature total_amount absolute_held relative_held</span></span>
+<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> overall    layer.1       117.           22.5          0.193</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> overall    layer.2        43.7           8.06         0.184</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> overall    layer.3       101.           18.0          0.179</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> overall    layer.4        59.7          11.6          0.193</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> overall    layer.5        79.4          15.6          0.197</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> few.traps  layer.1         8.33          0            0    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> few.traps  layer.2         3.12          0            0    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> few.traps  layer.3         7.20          0            0    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> few.traps  layer.4         4.27          0            0    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> few.traps  layer.5         5.67          0            0    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">11</span> many.traps layer.1        41.6           8.01         0.192</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">12</span> many.traps layer.2        15.6           3.44         0.221</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">13</span> many.traps layer.3        36.0           6.31         0.175</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">14</span> many.traps layer.4        21.3           5.50         0.258</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">15</span> many.traps layer.5        28.4           5.62         0.198</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">16</span> baiting    layer.1        66.6          14.4          0.217</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">17</span> baiting    layer.2        25.0           4.62         0.185</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">18</span> baiting    layer.3        57.6          11.7          0.203</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">19</span> baiting    layer.4        34.1           6.05         0.177</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">20</span> baiting    layer.5        45.4           9.98         0.220</span></span></code></pre>
 <div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># plot solution</span>
-<span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s6</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># plot solution</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s6</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="management_zones_tutorial_files/figure-html/unnamed-chunk-10-1.png" width="700" style="display: block; margin: auto;"></p>
 <p>Finally, it appears we might have a viable solution for this made-up conservation problem.</p>
 </div>
@@ -835,101 +835,101 @@
 </h3>
 <p>Finally, we might be interested in conservation planning scenarios where every single planning unit must be allocated to a management zone. This is often the case when developing land-use plans where every single planning unit needs to be allocated to a specific management zone. Though it makes less sense here, let’s see what happens to the solution if we needed to do at least one form of control in every single planning unit.</p>
 <div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># create matrix that describe boundary penalties between planning units</span>
-<span class="co"># allocated to different zones</span>
-<span class="va">p7</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">pu4</span>, <span class="fu"><a href="../reference/zones.html">zones</a></span><span class="op">(</span><span class="st">"few.traps"</span> <span class="op">=</span> <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.1</span>,
-                         <span class="st">"many.traps"</span> <span class="op">=</span> <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.5</span>,
-                         <span class="st">"baiting"</span> <span class="op">=</span> <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.8</span>,
-                         feature_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">sim_features</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-      <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-      <span class="fu"><a href="../reference/add_manual_targets.html">add_manual_targets</a></span><span class="op">(</span><span class="va">t4</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-      <span class="fu"><a href="../reference/add_mandatory_allocation_constraints.html">add_mandatory_allocation_constraints</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-      <span class="fu"><a href="../reference/add_manual_locked_constraints.html">add_manual_locked_constraints</a></span><span class="op">(</span><span class="va">l5</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-      <span class="fu"><a href="../reference/add_boundary_penalties.html">add_boundary_penalties</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">640</span>, zones <span class="op">=</span> <span class="va">z6</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-      <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="co"># print problem</span>
-<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p7</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Conservation Problem</span>
-<span class="co">##   zones:          few.traps, many.traps, baiting (3 zones)</span>
-<span class="co">##   planning units: RasterStack (100 units)</span>
-<span class="co">##   cost:           min: 0, max: 300</span>
-<span class="co">##   features:       layer.1, layer.2, layer.3, ... (5 features)</span>
-<span class="co">##   objective:      Minimum set objective </span>
-<span class="co">##   targets:        Absolute targets [targets (min: 8, max: 8)]</span>
-<span class="co">##   decisions:      Binary decision </span>
-<span class="co">##   constraints:    &lt;Mandatory allocation constraints [apply constraints? (1)]</span>
-<span class="co">##                    Manually locked planning units [80 locked units]&gt;</span>
-<span class="co">##   penalties:      &lt;Boundary penalties [edge factor (min: 0.5, max: 0.5), penalty (640), zones]&gt;</span>
-<span class="co">##   portfolio:      default</span>
-<span class="co">##   solver:         default</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># create matrix that describe boundary penalties between planning units</span></span>
+<span><span class="co"># allocated to different zones</span></span>
+<span><span class="va">p7</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">pu4</span>, <span class="fu"><a href="../reference/zones.html">zones</a></span><span class="op">(</span><span class="st">"few.traps"</span> <span class="op">=</span> <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.1</span>,</span>
+<span>                         <span class="st">"many.traps"</span> <span class="op">=</span> <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.5</span>,</span>
+<span>                         <span class="st">"baiting"</span> <span class="op">=</span> <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.8</span>,</span>
+<span>                         feature_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">sim_features</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>      <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>      <span class="fu"><a href="../reference/add_manual_targets.html">add_manual_targets</a></span><span class="op">(</span><span class="va">t4</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>      <span class="fu"><a href="../reference/add_mandatory_allocation_constraints.html">add_mandatory_allocation_constraints</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>      <span class="fu"><a href="../reference/add_manual_locked_constraints.html">add_manual_locked_constraints</a></span><span class="op">(</span><span class="va">l5</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>      <span class="fu"><a href="../reference/add_boundary_penalties.html">add_boundary_penalties</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">640</span>, zones <span class="op">=</span> <span class="va">z6</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>      <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># print problem</span></span>
+<span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p7</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Conservation Problem</span></span>
+<span><span class="co">##   zones:          few.traps, many.traps, baiting (3 zones)</span></span>
+<span><span class="co">##   planning units: RasterStack (100 units)</span></span>
+<span><span class="co">##   cost:           min: 0, max: 300</span></span>
+<span><span class="co">##   features:       layer.1, layer.2, layer.3, ... (5 features)</span></span>
+<span><span class="co">##   objective:      Minimum set objective </span></span>
+<span><span class="co">##   targets:        Absolute targets [targets (min: 8, max: 8)]</span></span>
+<span><span class="co">##   decisions:      Binary decision </span></span>
+<span><span class="co">##   constraints:    &lt;Mandatory allocation constraints [apply constraints? (1)]</span></span>
+<span><span class="co">##                    Manually locked planning units [80 locked units]&gt;</span></span>
+<span><span class="co">##   penalties:      &lt;Boundary penalties [edge factor (min: 0.5, max: 0.5), penalty (640), zones]&gt;</span></span>
+<span><span class="co">##   portfolio:      default</span></span>
+<span><span class="co">##   solver:         default</span></span></code></pre>
 <div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># solve problem</span>
-<span class="va">s7</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p7</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Gurobi Optimizer version 9.5.1 build v9.5.1rc2 (linux64)</span>
-<span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span>
-<span class="co">## Optimize a model with 1905 rows, 1200 columns and 5400 nonzeros</span>
-<span class="co">## Model fingerprint: 0x89a9dafb</span>
-<span class="co">## Variable types: 0 continuous, 1200 integer (1200 binary)</span>
-<span class="co">## Coefficient statistics:</span>
-<span class="co">##   Matrix range     [2e-02, 1e+00]</span>
-<span class="co">##   Objective range  [1e+02, 6e+02]</span>
-<span class="co">##   Bounds range     [1e+00, 1e+00]</span>
-<span class="co">##   RHS range        [1e+00, 8e+00]</span>
-<span class="co">## Found heuristic solution: objective 19600.000000</span>
-<span class="co">## Presolve removed 1120 rows and 324 columns</span>
-<span class="co">## Presolve time: 0.01s</span>
-<span class="co">## Presolved: 785 rows, 876 columns, 2448 nonzeros</span>
-<span class="co">## Variable types: 0 continuous, 876 integer (876 binary)</span>
-<span class="co">## Found heuristic solution: objective 18988.000000</span>
-<span class="co">## Root relaxation presolved: 785 rows, 876 columns, 2448 nonzeros</span>
-<span class="co">## </span>
-<span class="co">## </span>
-<span class="co">## Root relaxation: objective 1.323093e+04, 274 iterations, 0.00 seconds (0.00 work units)</span>
-<span class="co">## </span>
-<span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span>
-<span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span>
-<span class="co">## </span>
-<span class="co">##      0     0 13230.9255    0   95 18988.0000 13230.9255  30.3%     -    0s</span>
-<span class="co">## H    0     0                    13260.000000 13230.9255  0.22%     -    0s</span>
-<span class="co">## </span>
-<span class="co">## Explored 1 nodes (412 simplex iterations) in 0.02 seconds (0.03 work units)</span>
-<span class="co">## Thread count was 1 (of 8 available processors)</span>
-<span class="co">## </span>
-<span class="co">## Solution count 3: 13260 18988 19600 </span>
-<span class="co">## </span>
-<span class="co">## Optimal solution found (tolerance 1.00e-01)</span>
-<span class="co">## Best objective 1.326000000000e+04, best bound 1.323200000000e+04, gap 0.2112%</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># solve problem</span></span>
+<span><span class="va">s7</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p7</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Gurobi Optimizer version 9.5.1 build v9.5.1rc2 (linux64)</span></span>
+<span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
+<span><span class="co">## Optimize a model with 1905 rows, 1200 columns and 5400 nonzeros</span></span>
+<span><span class="co">## Model fingerprint: 0x89a9dafb</span></span>
+<span><span class="co">## Variable types: 0 continuous, 1200 integer (1200 binary)</span></span>
+<span><span class="co">## Coefficient statistics:</span></span>
+<span><span class="co">##   Matrix range     [2e-02, 1e+00]</span></span>
+<span><span class="co">##   Objective range  [1e+02, 6e+02]</span></span>
+<span><span class="co">##   Bounds range     [1e+00, 1e+00]</span></span>
+<span><span class="co">##   RHS range        [1e+00, 8e+00]</span></span>
+<span><span class="co">## Found heuristic solution: objective 19600.000000</span></span>
+<span><span class="co">## Presolve removed 1120 rows and 324 columns</span></span>
+<span><span class="co">## Presolve time: 0.01s</span></span>
+<span><span class="co">## Presolved: 785 rows, 876 columns, 2448 nonzeros</span></span>
+<span><span class="co">## Variable types: 0 continuous, 876 integer (876 binary)</span></span>
+<span><span class="co">## Found heuristic solution: objective 18988.000000</span></span>
+<span><span class="co">## Root relaxation presolved: 785 rows, 876 columns, 2448 nonzeros</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Root relaxation: objective 1.323093e+04, 274 iterations, 0.00 seconds (0.00 work units)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
+<span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##      0     0 13230.9255    0   95 18988.0000 13230.9255  30.3%     -    0s</span></span>
+<span><span class="co">## H    0     0                    13260.000000 13230.9255  0.22%     -    0s</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Explored 1 nodes (412 simplex iterations) in 0.02 seconds (0.03 work units)</span></span>
+<span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Solution count 3: 13260 18988 19600 </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
+<span><span class="co">## Best objective 1.326000000000e+04, best bound 1.323200000000e+04, gap 0.2112%</span></span></code></pre>
 <div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># calculate feature representation</span>
-<span class="va">r7</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p7</span>, <span class="va">s7</span><span class="op">)</span>
-<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">r7</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## <span style="color: #949494;"># A tibble: 20 × 5</span></span>
-<span class="co">##    summary    feature total_amount absolute_held relative_held</span>
-<span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">## <span style="color: #BCBCBC;"> 1</span> overall    layer.1       117.           23.4         0.201 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 2</span> overall    layer.2        43.7           8.04        0.184 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 3</span> overall    layer.3       101.           19.4         0.192 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 4</span> overall    layer.4        59.7          10.9         0.182 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 5</span> overall    layer.5        79.4          16.1         0.203 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 6</span> few.traps  layer.1         8.33          5.92        0.711 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 7</span> few.traps  layer.2         3.12          2.33        0.745 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 8</span> few.traps  layer.3         7.20          5.25        0.730 </span>
-<span class="co">## <span style="color: #BCBCBC;"> 9</span> few.traps  layer.4         4.27          3.18        0.745 </span>
-<span class="co">## <span style="color: #BCBCBC;">10</span> few.traps  layer.5         5.67          4.00        0.706 </span>
-<span class="co">## <span style="color: #BCBCBC;">11</span> many.traps layer.1        41.6           3.02        0.072<span style="text-decoration: underline;">5</span></span>
-<span class="co">## <span style="color: #BCBCBC;">12</span> many.traps layer.2        15.6           1.09        0.070<span style="text-decoration: underline;">0</span></span>
-<span class="co">## <span style="color: #BCBCBC;">13</span> many.traps layer.3        36.0           2.41        0.067<span style="text-decoration: underline;">0</span></span>
-<span class="co">## <span style="color: #BCBCBC;">14</span> many.traps layer.4        21.3           1.66        0.077<span style="text-decoration: underline;">9</span></span>
-<span class="co">## <span style="color: #BCBCBC;">15</span> many.traps layer.5        28.4           2.11        0.074<span style="text-decoration: underline;">3</span></span>
-<span class="co">## <span style="color: #BCBCBC;">16</span> baiting    layer.1        66.6          14.4         0.217 </span>
-<span class="co">## <span style="color: #BCBCBC;">17</span> baiting    layer.2        25.0           4.62        0.185 </span>
-<span class="co">## <span style="color: #BCBCBC;">18</span> baiting    layer.3        57.6          11.7         0.203 </span>
-<span class="co">## <span style="color: #BCBCBC;">19</span> baiting    layer.4        34.1           6.05        0.177 </span>
-<span class="co">## <span style="color: #BCBCBC;">20</span> baiting    layer.5        45.4           9.98        0.220</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># calculate feature representation</span></span>
+<span><span class="va">r7</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p7</span>, <span class="va">s7</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">r7</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 20 × 5</span></span></span>
+<span><span class="co">##    summary    feature total_amount absolute_held relative_held</span></span>
+<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> overall    layer.1       117.           23.4         0.201 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> overall    layer.2        43.7           8.04        0.184 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> overall    layer.3       101.           19.4         0.192 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> overall    layer.4        59.7          10.9         0.182 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> overall    layer.5        79.4          16.1         0.203 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> few.traps  layer.1         8.33          5.92        0.711 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> few.traps  layer.2         3.12          2.33        0.745 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> few.traps  layer.3         7.20          5.25        0.730 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> few.traps  layer.4         4.27          3.18        0.745 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> few.traps  layer.5         5.67          4.00        0.706 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">11</span> many.traps layer.1        41.6           3.02        0.072<span style="text-decoration: underline;">5</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">12</span> many.traps layer.2        15.6           1.09        0.070<span style="text-decoration: underline;">0</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">13</span> many.traps layer.3        36.0           2.41        0.067<span style="text-decoration: underline;">0</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">14</span> many.traps layer.4        21.3           1.66        0.077<span style="text-decoration: underline;">9</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">15</span> many.traps layer.5        28.4           2.11        0.074<span style="text-decoration: underline;">3</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">16</span> baiting    layer.1        66.6          14.4         0.217 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">17</span> baiting    layer.2        25.0           4.62        0.185 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">18</span> baiting    layer.3        57.6          11.7         0.203 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">19</span> baiting    layer.4        34.1           6.05        0.177 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">20</span> baiting    layer.5        45.4           9.98        0.220</span></span></code></pre>
 <div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># plot solution</span>
-<span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s7</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># plot solution</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s7</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="management_zones_tutorial_files/figure-html/unnamed-chunk-11-1.png" width="700" style="display: block; margin: auto;"></p>
 </div>
 </div>
@@ -984,7 +984,7 @@ Wilson, K.A., Meijaard, E., Drummond, S., Grantham, H.S., Boitani, L., Catullo, 
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer>

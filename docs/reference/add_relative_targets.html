@@ -27,7 +27,7 @@ cost data) using the feature_abundances() function."><meta property="og:image" c
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.5</span>
       </span>
     </div>
 
@@ -110,29 +110,34 @@ cost data) using the <code><a href="feature_abundances.html">feature_abundances(
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">add_relative_targets</span><span class="op">(</span><span class="va">x</span>, <span class="va">targets</span><span class="op">)</span>
-
-<span class="co"># S4 method for ConservationProblem,numeric</span>
-<span class="fu">add_relative_targets</span><span class="op">(</span><span class="va">x</span>, <span class="va">targets</span><span class="op">)</span>
-
-<span class="co"># S4 method for ConservationProblem,matrix</span>
-<span class="fu">add_relative_targets</span><span class="op">(</span><span class="va">x</span>, <span class="va">targets</span><span class="op">)</span>
-
-<span class="co"># S4 method for ConservationProblem,character</span>
-<span class="fu">add_relative_targets</span><span class="op">(</span><span class="va">x</span>, <span class="va">targets</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">add_relative_targets</span><span class="op">(</span><span class="va">x</span>, <span class="va">targets</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for ConservationProblem,numeric</span></span>
+<span><span class="fu">add_relative_targets</span><span class="op">(</span><span class="va">x</span>, <span class="va">targets</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for ConservationProblem,matrix</span></span>
+<span><span class="fu">add_relative_targets</span><span class="op">(</span><span class="va">x</span>, <span class="va">targets</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for ConservationProblem,character</span></span>
+<span><span class="fu">add_relative_targets</span><span class="op">(</span><span class="va">x</span>, <span class="va">targets</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p><code><a href="problem.html">problem()</a></code> (i.e., <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) object.</p></dd>
+
+
 <dt>targets</dt>
 <dd><p>Object that specifies the targets for each feature.
 See the Targets format section for more information.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Object (i.e., <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) with the targets added
+    
+
+<p>Object (i.e., <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) with the targets added
 to it.</p>
     </div>
     <div id="details">
@@ -202,87 +207,87 @@ This argument must contain a field (column) name for each zone.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># set seed for reproducibility</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">500</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># load data</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># create base problem</span></span>
-<span class="r-in"><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">     <span class="fu"><a href="add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">     <span class="fu"><a href="add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">     <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># create problem with 10% targets</span></span>
-<span class="r-in"><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">add_relative_targets</span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># create problem with varying targets for each feature</span></span>
-<span class="r-in"><span class="va">targets</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="fl">0.4</span>, <span class="fl">0.5</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">add_relative_targets</span><span class="op">(</span><span class="va">targets</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># \dontrun{</span></span>
-<span class="r-in"><span class="co"># solve problem</span></span>
-<span class="r-in"><span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/stack.html" class="external-link">stack</a></span><span class="op">(</span><span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># plot solution</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"10% targets"</span>, <span class="st">"varying targets"</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span class="r-in">     box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># set seed for reproducibility</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">500</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># load data</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># create base problem</span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>     <span class="fu"><a href="add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>     <span class="fu"><a href="add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>     <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># create problem with 10% targets</span></span></span>
+<span class="r-in"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">add_relative_targets</span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># create problem with varying targets for each feature</span></span></span>
+<span class="r-in"><span><span class="va">targets</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="fl">0.4</span>, <span class="fl">0.5</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">add_relative_targets</span><span class="op">(</span><span class="va">targets</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span><span class="co"># solve problem</span></span></span>
+<span class="r-in"><span><span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/stack.html" class="external-link">stack</a></span><span class="op">(</span><span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># plot solution</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"10% targets"</span>, <span class="st">"varying targets"</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span>     box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_relative_targets-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># }</span></span>
-<span class="r-in"><span class="co"># create a problem with multiple management zones</span></span>
-<span class="r-in"><span class="va">p3</span> <span class="op">&lt;-</span> <span class="fu"><a href="problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_zones_stack</span>, <span class="va">sim_features_zones</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">      <span class="fu"><a href="add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">      <span class="fu"><a href="add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">      <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># create a problem with targets that specify an equal amount of each feature</span></span>
-<span class="r-in"><span class="co"># to be represented in each zone</span></span>
-<span class="r-in"><span class="va">p4_targets</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">0.1</span>, nrow <span class="op">=</span> <span class="fl">5</span>, ncol <span class="op">=</span> <span class="fl">3</span>,</span>
-<span class="r-in">                     dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="feature_names.html">feature_names</a></span><span class="op">(</span><span class="va">sim_features_zones</span><span class="op">)</span>,</span>
-<span class="r-in">                                     <span class="fu"><a href="zone_names.html">zone_names</a></span><span class="op">(</span><span class="va">sim_features_zones</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">p4_targets</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
+<span class="r-in"><span><span class="co"># create a problem with multiple management zones</span></span></span>
+<span class="r-in"><span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="fu"><a href="problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_zones_stack</span>, <span class="va">sim_features_zones</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>      <span class="fu"><a href="add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>      <span class="fu"><a href="add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>      <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># create a problem with targets that specify an equal amount of each feature</span></span></span>
+<span class="r-in"><span><span class="co"># to be represented in each zone</span></span></span>
+<span class="r-in"><span><span class="va">p4_targets</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">0.1</span>, nrow <span class="op">=</span> <span class="fl">5</span>, ncol <span class="op">=</span> <span class="fl">3</span>,</span></span>
+<span class="r-in"><span>                     dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="feature_names.html">feature_names</a></span><span class="op">(</span><span class="va">sim_features_zones</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                                     <span class="fu"><a href="zone_names.html">zone_names</a></span><span class="op">(</span><span class="va">sim_features_zones</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">p4_targets</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           zone_1 zone_2 zone_3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> feature_1    0.1    0.1    0.1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> feature_2    0.1    0.1    0.1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> feature_3    0.1    0.1    0.1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> feature_4    0.1    0.1    0.1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> feature_5    0.1    0.1    0.1</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">p4</span> <span class="op">&lt;-</span> <span class="va">p3</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">add_relative_targets</span><span class="op">(</span><span class="va">p4_targets</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># solve problem</span></span>
-<span class="r-in"><span class="co"># \dontrun{</span></span>
-<span class="r-in"><span class="co"># solve problem</span></span>
-<span class="r-in"><span class="va">s4</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p4</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># plot solution (pixel values correspond to zone identifiers)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s4</span><span class="op">)</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"equal targets"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">p4</span> <span class="op">&lt;-</span> <span class="va">p3</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">add_relative_targets</span><span class="op">(</span><span class="va">p4_targets</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># solve problem</span></span></span>
+<span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span><span class="co"># solve problem</span></span></span>
+<span class="r-in"><span><span class="va">s4</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p4</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># plot solution (pixel values correspond to zone identifiers)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s4</span><span class="op">)</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"equal targets"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_relative_targets-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># }</span></span>
-<span class="r-in"><span class="co"># create a problem with targets that require a varying amount of each</span></span>
-<span class="r-in"><span class="co"># feature to be represented in each zone</span></span>
-<span class="r-in"><span class="va">p5_targets</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">15</span>, <span class="fl">0.01</span>, <span class="fl">0.2</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">5</span>, ncol <span class="op">=</span> <span class="fl">3</span>,</span>
-<span class="r-in">                     dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="feature_names.html">feature_names</a></span><span class="op">(</span><span class="va">sim_features_zones</span><span class="op">)</span>,</span>
-<span class="r-in">                                     <span class="fu"><a href="zone_names.html">zone_names</a></span><span class="op">(</span><span class="va">sim_features_zones</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">p5_targets</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
+<span class="r-in"><span><span class="co"># create a problem with targets that require a varying amount of each</span></span></span>
+<span class="r-in"><span><span class="co"># feature to be represented in each zone</span></span></span>
+<span class="r-in"><span><span class="va">p5_targets</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">15</span>, <span class="fl">0.01</span>, <span class="fl">0.2</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">5</span>, ncol <span class="op">=</span> <span class="fl">3</span>,</span></span>
+<span class="r-in"><span>                     dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="feature_names.html">feature_names</a></span><span class="op">(</span><span class="va">sim_features_zones</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                                     <span class="fu"><a href="zone_names.html">zone_names</a></span><span class="op">(</span><span class="va">sim_features_zones</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">p5_targets</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               zone_1     zone_2     zone_3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> feature_1 0.16838399 0.04908221 0.06359158</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> feature_2 0.14775224 0.10731456 0.17964011</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> feature_3 0.19530969 0.18583855 0.15529418</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> feature_4 0.09884473 0.16747797 0.04122594</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> feature_5 0.16433284 0.14519964 0.14909414</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">p5</span> <span class="op">&lt;-</span> <span class="va">p3</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">add_relative_targets</span><span class="op">(</span><span class="va">p4_targets</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># solve problem</span></span>
-<span class="r-in"><span class="co"># \dontrun{</span></span>
-<span class="r-in"><span class="co"># solve problem</span></span>
-<span class="r-in"><span class="va">s5</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p5</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># plot solution (pixel values correspond to zone identifiers)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s5</span><span class="op">)</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"varying targets"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">p5</span> <span class="op">&lt;-</span> <span class="va">p3</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">add_relative_targets</span><span class="op">(</span><span class="va">p4_targets</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># solve problem</span></span></span>
+<span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span><span class="co"># solve problem</span></span></span>
+<span class="r-in"><span><span class="va">s5</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p5</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># plot solution (pixel values correspond to zone identifiers)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s5</span><span class="op">)</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"varying targets"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_relative_targets-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># }</span></span>
-<span class="r-in"></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -297,7 +302,7 @@ This argument must contain a field (column) name for each zone.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

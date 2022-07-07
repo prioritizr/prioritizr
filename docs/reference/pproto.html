@@ -24,7 +24,7 @@ from the ggproto system used in the ggplot2 package."><meta property="og:image" 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.5</span>
       </span>
     </div>
 
@@ -104,7 +104,7 @@ from the <code>ggproto</code> system used in the <code>ggplot2</code> package.</
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">pproto</span><span class="op">(</span>`_class` <span class="op">=</span> <span class="cn">NULL</span>, `_inherit` <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">pproto</span><span class="op">(</span>`_class` <span class="op">=</span> <span class="cn">NULL</span>, `_inherit` <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -113,39 +113,44 @@ from the <code>ggproto</code> system used in the <code>ggplot2</code> package.</
 <dd><p>Class name to assign to the object. This is stored as the class
 attribute of the object. This is optional: if <code>NULL</code> (the default),
 no class name will be added to the object.</p></dd>
+
+
 <dt>_inherit</dt>
 <dd><p><code>pproto</code> object to inherit from. If <code>NULL</code>, don"t
 inherit from any object.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>A list of members to add to the new <code>pproto</code> object.</p></dd>
+
 </dl></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">Adder</span> <span class="op">&lt;-</span> <span class="fu">pproto</span><span class="op">(</span><span class="st">"Adder"</span>,</span>
-<span class="r-in">  x <span class="op">=</span> <span class="fl">0</span>,</span>
-<span class="r-in">  add <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">self</span>, <span class="va">n</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">    <span class="va">self</span><span class="op">$</span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">self</span><span class="op">$</span><span class="va">x</span> <span class="op">+</span> <span class="va">n</span></span>
-<span class="r-in">    <span class="va">self</span><span class="op">$</span><span class="va">x</span></span>
-<span class="r-in">  <span class="op">}</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">Adder</span><span class="op">$</span><span class="fu">add</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">Adder</span> <span class="op">&lt;-</span> <span class="fu">pproto</span><span class="op">(</span><span class="st">"Adder"</span>,</span></span>
+<span class="r-in"><span>  x <span class="op">=</span> <span class="fl">0</span>,</span></span>
+<span class="r-in"><span>  add <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">self</span>, <span class="va">n</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="va">self</span><span class="op">$</span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">self</span><span class="op">$</span><span class="va">x</span> <span class="op">+</span> <span class="va">n</span></span></span>
+<span class="r-in"><span>    <span class="va">self</span><span class="op">$</span><span class="va">x</span></span></span>
+<span class="r-in"><span>  <span class="op">}</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">Adder</span><span class="op">$</span><span class="fu">add</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 10</span>
-<span class="r-in"><span class="va">Adder</span><span class="op">$</span><span class="fu">add</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">Adder</span><span class="op">$</span><span class="fu">add</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 20</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">Abacus</span> <span class="op">&lt;-</span> <span class="fu">pproto</span><span class="op">(</span><span class="st">"Abacus"</span>, <span class="va">Adder</span>,</span>
-<span class="r-in">  subtract <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">self</span>, <span class="va">n</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">    <span class="va">self</span><span class="op">$</span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">self</span><span class="op">$</span><span class="va">x</span> <span class="op">-</span> <span class="va">n</span></span>
-<span class="r-in">    <span class="va">self</span><span class="op">$</span><span class="va">x</span></span>
-<span class="r-in">  <span class="op">}</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="va">Abacus</span><span class="op">$</span><span class="fu">add</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">Abacus</span> <span class="op">&lt;-</span> <span class="fu">pproto</span><span class="op">(</span><span class="st">"Abacus"</span>, <span class="va">Adder</span>,</span></span>
+<span class="r-in"><span>  subtract <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">self</span>, <span class="va">n</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="va">self</span><span class="op">$</span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">self</span><span class="op">$</span><span class="va">x</span> <span class="op">-</span> <span class="va">n</span></span></span>
+<span class="r-in"><span>    <span class="va">self</span><span class="op">$</span><span class="va">x</span></span></span>
+<span class="r-in"><span>  <span class="op">}</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">Abacus</span><span class="op">$</span><span class="fu">add</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 30</span>
-<span class="r-in"><span class="va">Abacus</span><span class="op">$</span><span class="fu">subtract</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">Abacus</span><span class="op">$</span><span class="fu">subtract</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 20</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -160,7 +165,7 @@ inherit from any object.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

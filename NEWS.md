@@ -1,3 +1,7 @@
+# prioritizr 7.2.0.5
+
+- Update publication record.
+
 # prioritizr 7.2.0.4
 
 - Fix broken URLs in documentation.

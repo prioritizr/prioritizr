@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.5</span>
       </span>
     </div>
 
@@ -102,94 +102,105 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">numeric_matrix_parameter</span><span class="op">(</span>
-  <span class="va">name</span>,
-  <span class="va">value</span>,
-  lower_limit <span class="op">=</span> <span class="va">.Machine</span><span class="op">$</span><span class="va">double.xmin</span>,
-  upper_limit <span class="op">=</span> <span class="va">.Machine</span><span class="op">$</span><span class="va">double.xmax</span>,
-  symmetric <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">binary_matrix_parameter</span><span class="op">(</span><span class="va">name</span>, <span class="va">value</span>, symmetric <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">numeric_matrix_parameter</span><span class="op">(</span></span>
+<span>  <span class="va">name</span>,</span>
+<span>  <span class="va">value</span>,</span>
+<span>  lower_limit <span class="op">=</span> <span class="va">.Machine</span><span class="op">$</span><span class="va">double.xmin</span>,</span>
+<span>  upper_limit <span class="op">=</span> <span class="va">.Machine</span><span class="op">$</span><span class="va">double.xmax</span>,</span>
+<span>  symmetric <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">binary_matrix_parameter</span><span class="op">(</span><span class="va">name</span>, <span class="va">value</span>, symmetric <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>name</dt>
 <dd><p><code>character</code> name of parameter.</p></dd>
+
+
 <dt>value</dt>
 <dd><p><code>matrix</code> object.</p></dd>
+
+
 <dt>lower_limit</dt>
 <dd><p><code>numeric</code> values denoting the minimum acceptable
 value in the matrix. Defaults to the smallest possible number on the
 system.</p></dd>
+
+
 <dt>upper_limit</dt>
 <dd><p><code>numeric</code> values denoting the maximum acceptable
 value in the matrix. Defaults to the smallest possible number on the
 system.</p></dd>
+
+
 <dt>symmetric</dt>
 <dd><p><code>logical</code> must the must be matrix be symmetric?
 Defaults to <code>FALSE</code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code><a href="MiscParameter-class.html">MiscParameter</a></code> object.</p>
+    
+
+<p><code><a href="MiscParameter-class.html">MiscParameter</a></code> object.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># create matrix</span></span>
-<span class="r-in"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">9</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># create a numeric matrix parameter</span></span>
-<span class="r-in"><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu">numeric_matrix_parameter</span><span class="op">(</span><span class="st">"m"</span>, <span class="va">m</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span> <span class="co"># print it</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5573dfae5738&gt;</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># create matrix</span></span></span>
+<span class="r-in"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">9</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># create a numeric matrix parameter</span></span></span>
+<span class="r-in"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu">numeric_matrix_parameter</span><span class="op">(</span><span class="st">"m"</span>, <span class="va">m</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span> <span class="co"># print it</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x56054be7f588&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "MiscParameter" "MiscParameter" "Parameter"     "pproto"       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [5] "proto"         "environment"  </span>
-<span class="r-in"><span class="va">p1</span><span class="op">$</span><span class="fu">get</span><span class="op">(</span><span class="op">)</span> <span class="co"># get value</span></span>
+<span class="r-in"><span><span class="va">p1</span><span class="op">$</span><span class="fu">get</span><span class="op">(</span><span class="op">)</span> <span class="co"># get value</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           a         b          c</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a 0.9639887 0.7706323 0.92975210</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> b 0.7216369 0.8443418 0.03378785</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> c 0.0269171 0.3865605 0.38969615</span>
-<span class="r-in"><span class="va">p1</span><span class="op">$</span><span class="va">id</span> <span class="co"># get id</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> id: 3ed45f36-49b8-476f-9d6e-7685846d1643</span>
-<span class="r-in"><span class="va">p1</span><span class="op">$</span><span class="fu">validate</span><span class="op">(</span><span class="va">m</span><span class="op">[</span>, <span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="co"># check if parameter can be updated</span></span>
+<span class="r-in"><span><span class="va">p1</span><span class="op">$</span><span class="va">id</span> <span class="co"># get id</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> id: 23cbaaa9-3c77-49b4-9e4f-f8f0b80aecf7</span>
+<span class="r-in"><span><span class="va">p1</span><span class="op">$</span><span class="fu">validate</span><span class="op">(</span><span class="va">m</span><span class="op">[</span>, <span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="co"># check if parameter can be updated</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"msg")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "ncol(m) not equal to ncol(value)"</span>
-<span class="r-in"><span class="va">p1</span><span class="op">$</span><span class="fu">set</span><span class="op">(</span><span class="va">m</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span> <span class="co"># set parameter to new values</span></span>
-<span class="r-in"><span class="va">p1</span><span class="op">$</span><span class="fu">print</span><span class="op">(</span><span class="op">)</span> <span class="co"># print it again</span></span>
+<span class="r-in"><span><span class="va">p1</span><span class="op">$</span><span class="fu">set</span><span class="op">(</span><span class="va">m</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span> <span class="co"># set parameter to new values</span></span></span>
+<span class="r-in"><span><span class="va">p1</span><span class="op">$</span><span class="fu">print</span><span class="op">(</span><span class="op">)</span> <span class="co"># print it again</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "m"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># create a binary matrix parameter</span></span>
-<span class="r-in"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">9</span><span class="op">)</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># create a binary matrix parameter</span></span>
-<span class="r-in"><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu">binary_matrix_parameter</span><span class="op">(</span><span class="st">"m"</span>, <span class="va">m</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span> <span class="co"># print it</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5573df043ee0&gt;</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># create a binary matrix parameter</span></span></span>
+<span class="r-in"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">9</span><span class="op">)</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># create a binary matrix parameter</span></span></span>
+<span class="r-in"><span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu">binary_matrix_parameter</span><span class="op">(</span><span class="st">"m"</span>, <span class="va">m</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span> <span class="co"># print it</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x56054b810420&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "MiscParameter" "MiscParameter" "Parameter"     "pproto"       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [5] "proto"         "environment"  </span>
-<span class="r-in"><span class="va">p2</span><span class="op">$</span><span class="fu">get</span><span class="op">(</span><span class="op">)</span> <span class="co"># get value</span></span>
+<span class="r-in"><span><span class="va">p2</span><span class="op">$</span><span class="fu">get</span><span class="op">(</span><span class="op">)</span> <span class="co"># get value</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   a b c</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a 0 0 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> b 0 0 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> c 0 0 0</span>
-<span class="r-in"><span class="va">p2</span><span class="op">$</span><span class="va">id</span> <span class="co"># get id</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> id: 9826266d-4a9a-45b3-9a41-a1052fd80188</span>
-<span class="r-in"><span class="va">p2</span><span class="op">$</span><span class="fu">validate</span><span class="op">(</span><span class="va">m</span><span class="op">[</span>, <span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="co"># check if parameter can be updated</span></span>
+<span class="r-in"><span><span class="va">p2</span><span class="op">$</span><span class="va">id</span> <span class="co"># get id</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> id: fe0980f5-58f8-4738-b6c0-302b02e569f4</span>
+<span class="r-in"><span><span class="va">p2</span><span class="op">$</span><span class="fu">validate</span><span class="op">(</span><span class="va">m</span><span class="op">[</span>, <span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="co"># check if parameter can be updated</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"msg")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "ncol(m) not equal to ncol(value)"</span>
-<span class="r-in"><span class="va">p2</span><span class="op">$</span><span class="fu">set</span><span class="op">(</span><span class="va">m</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span> <span class="co"># set parameter to new values</span></span>
-<span class="r-in"><span class="va">p2</span><span class="op">$</span><span class="fu">print</span><span class="op">(</span><span class="op">)</span> <span class="co"># print it again</span></span>
+<span class="r-in"><span><span class="va">p2</span><span class="op">$</span><span class="fu">set</span><span class="op">(</span><span class="va">m</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span> <span class="co"># set parameter to new values</span></span></span>
+<span class="r-in"><span><span class="va">p2</span><span class="op">$</span><span class="fu">print</span><span class="op">(</span><span class="op">)</span> <span class="co"># print it again</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "m"</span>
 </code></pre></div>
     </div>
@@ -205,7 +216,7 @@ Defaults to <code>FALSE</code>.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

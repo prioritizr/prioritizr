@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.5</span>
       </span>
     </div>
 
@@ -102,41 +102,50 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">fast_extract</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S4 method for Raster,SpatialPolygons</span>
-<span class="fu">fast_extract</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, fun <span class="op">=</span> <span class="st">"mean"</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S4 method for Raster,SpatialPoints</span>
-<span class="fu">fast_extract</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, fun <span class="op">=</span> <span class="st">"mean"</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S4 method for Raster,SpatialLines</span>
-<span class="fu">fast_extract</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, fun <span class="op">=</span> <span class="st">"mean"</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S4 method for Raster,sfc</span>
-<span class="fu">fast_extract</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, fun <span class="op">=</span> <span class="st">"mean"</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S4 method for Raster,sf</span>
-<span class="fu">fast_extract</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, fun <span class="op">=</span> <span class="st">"mean"</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fast_extract</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for Raster,SpatialPolygons</span></span>
+<span><span class="fu">fast_extract</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, fun <span class="op">=</span> <span class="st">"mean"</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for Raster,SpatialPoints</span></span>
+<span><span class="fu">fast_extract</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, fun <span class="op">=</span> <span class="st">"mean"</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for Raster,SpatialLines</span></span>
+<span><span class="fu">fast_extract</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, fun <span class="op">=</span> <span class="st">"mean"</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for Raster,sfc</span></span>
+<span><span class="fu">fast_extract</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, fun <span class="op">=</span> <span class="st">"mean"</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for Raster,sf</span></span>
+<span><span class="fu">fast_extract</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, fun <span class="op">=</span> <span class="st">"mean"</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p><code><a href="https://rdrr.io/pkg/raster/man/Raster-classes.html" class="external-link">Raster</a></code> object.</p></dd>
+
+
 <dt>y</dt>
 <dd><p><code><a href="https://rdrr.io/pkg/sp/man/Spatial-class.html" class="external-link">Spatial</a></code> or
 <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::sf()</a></code> object.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>not used.</p></dd>
+
+
 <dt>fun</dt>
 <dd><p><code>character</code> name of statistic to summarize data. Defaults
 to <code>"mean"</code>. Available options include <code>"sum"</code> or <code>"mean"</code>.
 Defaults to <code>"mean"</code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code>matrix</code> containing the summary amount of each feature
+    
+
+<p><code>matrix</code> containing the summary amount of each feature
 within each planning unit. Rows correspond to different spatial features
 in the argument to <code>y</code> and columns correspond to different raster
 layers in the argument to <code>x</code>.</p>
@@ -144,7 +153,7 @@ layers in the argument to <code>x</code>.</p>
     <div id="details">
     <h2>Details</h2>
     <p>This function is simply a wrapper that uses
-<code><a href="https://rdrr.io/pkg/raster/man/extract.html" class="external-link">raster::extract()</a></code> to extract data for
+<code><a href="https://rdrr.io/pkg/terra/man/extract.html" class="external-link">raster::extract()</a></code> to extract data for
 <code><a href="https://rdrr.io/pkg/sp/man/SpatialPoints-class.html" class="external-link">SpatialPoints</a></code> and
 <code><a href="https://rdrr.io/pkg/sp/man/SpatialLines-class.html" class="external-link">SpatialLines</a></code> and
 non-polygonal <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::sf()</a></code> data, and
@@ -154,20 +163,20 @@ polygonal <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class
     </div>
     <div id="see-also">
     <h2>See also</h2>
-    <div class="dont-index"><p><code><a href="https://rdrr.io/pkg/raster/man/extract.html" class="external-link">raster::extract()</a></code>,
+    <div class="dont-index"><p><code><a href="https://rdrr.io/pkg/terra/man/extract.html" class="external-link">raster::extract()</a></code>,
 <code><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html" class="external-link">exactextractr::exact_extract()</a></code>.</p></div>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># load data</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">sim_pu_sf</span>, <span class="va">sim_features</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># extract data</span></span>
-<span class="r-in"><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu">fast_extract</span><span class="op">(</span><span class="va">sim_features</span>, <span class="va">sim_pu_sf</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># show result</span></span>
-<span class="r-in"><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">result</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># load data</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">sim_pu_sf</span>, <span class="va">sim_features</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># extract data</span></span></span>
+<span class="r-in"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu">fast_extract</span><span class="op">(</span><span class="va">sim_features</span>, <span class="va">sim_pu_sf</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># show result</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">result</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           [,1]      [,2]      [,3]      [,4]      [,5]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.7150548 0.2900901 0.8178213 0.2199663 0.4533809</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.6990429 0.3052216 0.8064534 0.2713800 0.4413639</span>
@@ -175,7 +184,7 @@ polygonal <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,] 0.6783193 0.3510977 0.7541320 0.3900085 0.4355628</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [5,] 0.6782107 0.3750470 0.7131559 0.4468281 0.4474871</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [6,] 0.6863252 0.3950113 0.6628435 0.4946333 0.4714105</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -190,7 +199,7 @@ polygonal <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

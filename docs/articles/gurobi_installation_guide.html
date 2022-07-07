@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.5</span>
       </span>
     </div>
 
@@ -133,7 +133,7 @@
       <h1 data-toc-skip>Gurobi installation guide</h1>
                         <h4 data-toc-skip class="author">Richard Schuster</h4>
             
-            <h4 data-toc-skip class="date">2022-04-25</h4>
+            <h4 data-toc-skip class="date">2022-07-07</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/prioritizr/prioritizr/blob/HEAD/vignettes/gurobi_installation_guide.Rmd" class="external-link"><code>vignettes/gurobi_installation_guide.Rmd</code></a></small>
       <div class="hidden name"><code>gurobi_installation_guide.Rmd</code></div>
@@ -202,62 +202,62 @@
 <p>Now we will install the <em>gurobi R</em> package. This package is not available on the Comprehensive R Archive Network and is instead distributed with the <em>Gurobi</em> software suite. Specifically, the <em>gurobi</em> <em>R</em> package should be located within the folder where you installed the <em>Gurobi</em> software suite. We will install the <em>gurobi</em> <em>R</em> package by running the following <em>R</em> code within your <em>R</em> session. Note that the following code assumes that you are using version 8.0.0 of <em>Gurobi</em>, and so you will need to modify the code if you are using a more recent version (e.g., if using version 9.1.2, then use <code>gurobi912</code> instead of <code>gurobi800</code> below).</p>
 <p>Assuming you installed <em>Gurobi</em> in the default location, Windows users can install <em>gurobi</em> <em>R</em> package using the following code.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"c:/gurobi800/win64/R/gurobi_8.0-0.zip"</span>, repos <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"c:/gurobi800/win64/R/gurobi_8.0-0.zip"</span>, repos <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
 <p>Similarly, Linux and MacOS users can install the <em>gurobi</em> <em>R</em> package using the following code.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"GUROBI_HOME"</span><span class="op">)</span>,
-                           <span class="st">"R/gurobi_8.0-0_R_x86_64-pc-linux-gnu.tar.gz"</span><span class="op">)</span>,
-                 repos <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"GUROBI_HOME"</span><span class="op">)</span>,</span>
+<span>                           <span class="st">"R/gurobi_8.0-0_R_x86_64-pc-linux-gnu.tar.gz"</span><span class="op">)</span>,</span>
+<span>                 repos <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
 <p>Next, you will need to install the <em>slam R</em> package because the <em>gurobi</em> <em>R</em> package needs this package to work. Users of all platforms (i.e., Windows, Linux, and MacOS) can install the package using the following <em>R</em> code.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"slam"</span>, repos <span class="op">=</span> <span class="st">"https://cloud.r-project.org"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"slam"</span>, repos <span class="op">=</span> <span class="st">"https://cloud.r-project.org"</span><span class="op">)</span></span></code></pre></div>
 <p>Let’s check that the <em>gurobi</em> <em>R</em> package has been successfully installed. To do this, we can try using the <em>gurobi R</em> package to solve an optimization problem. Copy and paste the <em>R</em> code below into <em>R</em>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># load gurobi package</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://www.gurobi.com" class="external-link">gurobi</a></span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Loading required package: slam</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># load gurobi package</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://www.gurobi.com" class="external-link">gurobi</a></span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Loading required package: slam</span></span></code></pre>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># create optimization problem</span>
-<span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>
-<span class="va">model</span><span class="op">$</span><span class="va">obj</span>        <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>
-<span class="va">model</span><span class="op">$</span><span class="va">modelsense</span> <span class="op">&lt;-</span> <span class="st">"max"</span>
-<span class="va">model</span><span class="op">$</span><span class="va">rhs</span>        <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">1</span><span class="op">)</span>
-<span class="va">model</span><span class="op">$</span><span class="va">sense</span>      <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"&lt;"</span>, <span class="st">"&gt;"</span><span class="op">)</span>
-<span class="va">model</span><span class="op">$</span><span class="va">vtype</span>      <span class="op">&lt;-</span> <span class="st">"B"</span>
-<span class="va">model</span><span class="op">$</span><span class="va">A</span>          <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="fl">3</span>,
-                           byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-
-<span class="co"># solve the optimization problem using Gurobi</span>
-<span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/gurobi/man/gurobi.html" class="external-link">gurobi</a></span><span class="op">(</span><span class="va">model</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Gurobi Optimizer version 9.5.1 build v9.5.1rc2 (linux64)</span>
-<span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 8 threads</span>
-<span class="co">## Optimize a model with 2 rows, 3 columns and 5 nonzeros</span>
-<span class="co">## Model fingerprint: 0xba2d0add</span>
-<span class="co">## Variable types: 0 continuous, 3 integer (3 binary)</span>
-<span class="co">## Coefficient statistics:</span>
-<span class="co">##   Matrix range     [1e+00, 3e+00]</span>
-<span class="co">##   Objective range  [1e+00, 2e+00]</span>
-<span class="co">##   Bounds range     [0e+00, 0e+00]</span>
-<span class="co">##   RHS range        [1e+00, 4e+00]</span>
-<span class="co">## Found heuristic solution: objective 2.0000000</span>
-<span class="co">## Presolve removed 2 rows and 3 columns</span>
-<span class="co">## Presolve time: 0.00s</span>
-<span class="co">## Presolve: All rows and columns removed</span>
-<span class="co">## </span>
-<span class="co">## Explored 0 nodes (0 simplex iterations) in 0.00 seconds (0.00 work units)</span>
-<span class="co">## Thread count was 1 (of 8 available processors)</span>
-<span class="co">## </span>
-<span class="co">## Solution count 2: 3 2 </span>
-<span class="co">## </span>
-<span class="co">## Optimal solution found (tolerance 1.00e-04)</span>
-<span class="co">## Best objective 3.000000000000e+00, best bound 3.000000000000e+00, gap 0.0000%</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># create optimization problem</span></span>
+<span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">model</span><span class="op">$</span><span class="va">obj</span>        <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="va">model</span><span class="op">$</span><span class="va">modelsense</span> <span class="op">&lt;-</span> <span class="st">"max"</span></span>
+<span><span class="va">model</span><span class="op">$</span><span class="va">rhs</span>        <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">model</span><span class="op">$</span><span class="va">sense</span>      <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"&lt;"</span>, <span class="st">"&gt;"</span><span class="op">)</span></span>
+<span><span class="va">model</span><span class="op">$</span><span class="va">vtype</span>      <span class="op">&lt;-</span> <span class="st">"B"</span></span>
+<span><span class="va">model</span><span class="op">$</span><span class="va">A</span>          <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>                           byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># solve the optimization problem using Gurobi</span></span>
+<span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/gurobi/man/gurobi.html" class="external-link">gurobi</a></span><span class="op">(</span><span class="va">model</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Gurobi Optimizer version 9.5.1 build v9.5.1rc2 (linux64)</span></span>
+<span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 8 threads</span></span>
+<span><span class="co">## Optimize a model with 2 rows, 3 columns and 5 nonzeros</span></span>
+<span><span class="co">## Model fingerprint: 0xba2d0add</span></span>
+<span><span class="co">## Variable types: 0 continuous, 3 integer (3 binary)</span></span>
+<span><span class="co">## Coefficient statistics:</span></span>
+<span><span class="co">##   Matrix range     [1e+00, 3e+00]</span></span>
+<span><span class="co">##   Objective range  [1e+00, 2e+00]</span></span>
+<span><span class="co">##   Bounds range     [0e+00, 0e+00]</span></span>
+<span><span class="co">##   RHS range        [1e+00, 4e+00]</span></span>
+<span><span class="co">## Found heuristic solution: objective 2.0000000</span></span>
+<span><span class="co">## Presolve removed 2 rows and 3 columns</span></span>
+<span><span class="co">## Presolve time: 0.00s</span></span>
+<span><span class="co">## Presolve: All rows and columns removed</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Explored 0 nodes (0 simplex iterations) in 0.00 seconds (0.00 work units)</span></span>
+<span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Solution count 2: 3 2 </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Optimal solution found (tolerance 1.00e-04)</span></span>
+<span><span class="co">## Best objective 3.000000000000e+00, best bound 3.000000000000e+00, gap 0.0000%</span></span></code></pre>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># print the solution</span>
-<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">result</span><span class="op">$</span><span class="va">objval</span><span class="op">)</span> <span class="co"># objective</span></code></pre></div>
-<pre><code><span class="co">## [1] 3</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># print the solution</span></span>
+<span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">result</span><span class="op">$</span><span class="va">objval</span><span class="op">)</span> <span class="co"># objective</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 3</span></span></code></pre>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">result</span><span class="op">$</span><span class="va">x</span><span class="op">)</span>      <span class="co"># decision variables</span></code></pre></div>
-<pre><code><span class="co">## [1] 1 0 1</span></code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">result</span><span class="op">$</span><span class="va">x</span><span class="op">)</span>      <span class="co"># decision variables</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 1 0 1</span></span></code></pre>
 <p>If you see the outputs for <code>result$objval</code> and <code>result$x</code> and you don’t see any error messages, then you have (1) successfully installed the <em>Gurobi</em> software suite, (2) activated a valid license, and (3) successfully installed the <em>gurobi R</em> package. If do see an error message, then you might have missed a previous step or something might have gone wrong while installing <em>Gurobi</em> or activating the license. In such cases, try going back through this vignette and repeating the previous steps to see if that fixes the issue.</p>
 </div>
 <div class="section level2">
@@ -266,54 +266,54 @@
 <p>If you successfully installed the <em>Gurobi</em> software suite and the <em>gurobi</em> <em>R</em> package, you can now try solving conservation planning problems using the <em>prioritzr</em> <em>R</em> package. Although the <em>prioritizr</em> <em>R</em> package should automatically detect that <em>Gurobi</em> has been installed, you can use the function <code><a href="../reference/add_gurobi_solver.html">add_gurobi_solver()</a></code> to manually specify that <em>Gurobi</em> should be used to solve problems. This function is also useful because you can use it to customize the optimization process (e.g., specify the desired optimality gap or set a limit on how much time should be spent searching for a solution).</p>
 <p>Finally, to check that everything has been installed correctly, we will use the <em>Gurobi</em> software suite to solve a reserve selection problem created using the <em>prioritzr</em> <em>R</em> package.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://prioritizr.net">prioritizr</a></span><span class="op">)</span>
-
-<span class="co"># formulate the problem</span>
-<span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-     <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-     <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-     <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
-     <span class="fu"><a href="../reference/add_gurobi_solver.html">add_gurobi_solver</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="co"># solve the problem</span>
-<span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Gurobi Optimizer version 9.5.1 build v9.5.1rc2 (linux64)</span>
-<span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span>
-<span class="co">## Optimize a model with 5 rows, 90 columns and 450 nonzeros</span>
-<span class="co">## Model fingerprint: 0x6442bf6e</span>
-<span class="co">## Variable types: 0 continuous, 90 integer (90 binary)</span>
-<span class="co">## Coefficient statistics:</span>
-<span class="co">##   Matrix range     [2e-01, 9e-01]</span>
-<span class="co">##   Objective range  [2e+02, 2e+02]</span>
-<span class="co">##   Bounds range     [1e+00, 1e+00]</span>
-<span class="co">##   RHS range        [3e+00, 8e+00]</span>
-<span class="co">## Found heuristic solution: objective 2337.9617505</span>
-<span class="co">## Presolve time: 0.00s</span>
-<span class="co">## Presolved: 5 rows, 90 columns, 450 nonzeros</span>
-<span class="co">## Variable types: 0 continuous, 90 integer (90 binary)</span>
-<span class="co">## Found heuristic solution: objective 2332.1003790</span>
-<span class="co">## Root relaxation presolved: 5 rows, 90 columns, 450 nonzeros</span>
-<span class="co">## </span>
-<span class="co">## </span>
-<span class="co">## Root relaxation: objective 1.931582e+03, 12 iterations, 0.00 seconds (0.00 work units)</span>
-<span class="co">## </span>
-<span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span>
-<span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span>
-<span class="co">## </span>
-<span class="co">##      0     0 1931.58191    0    4 2332.10038 1931.58191  17.2%     -    0s</span>
-<span class="co">## H    0     0                    1987.3985265 1931.58191  2.81%     -    0s</span>
-<span class="co">## </span>
-<span class="co">## Explored 1 nodes (12 simplex iterations) in 0.00 seconds (0.00 work units)</span>
-<span class="co">## Thread count was 1 (of 8 available processors)</span>
-<span class="co">## </span>
-<span class="co">## Solution count 3: 1987.4 2332.1 2337.96 </span>
-<span class="co">## </span>
-<span class="co">## Optimal solution found (tolerance 1.00e-01)</span>
-<span class="co">## Best objective 1.987398526526e+03, best bound 1.931581908865e+03, gap 2.8085%</span></code></pre>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://prioritizr.net">prioritizr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># formulate the problem</span></span>
+<span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>     <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>     <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>     <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>     <span class="fu"><a href="../reference/add_gurobi_solver.html">add_gurobi_solver</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># solve the problem</span></span>
+<span><span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Gurobi Optimizer version 9.5.1 build v9.5.1rc2 (linux64)</span></span>
+<span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
+<span><span class="co">## Optimize a model with 5 rows, 90 columns and 450 nonzeros</span></span>
+<span><span class="co">## Model fingerprint: 0x6442bf6e</span></span>
+<span><span class="co">## Variable types: 0 continuous, 90 integer (90 binary)</span></span>
+<span><span class="co">## Coefficient statistics:</span></span>
+<span><span class="co">##   Matrix range     [2e-01, 9e-01]</span></span>
+<span><span class="co">##   Objective range  [2e+02, 2e+02]</span></span>
+<span><span class="co">##   Bounds range     [1e+00, 1e+00]</span></span>
+<span><span class="co">##   RHS range        [3e+00, 8e+00]</span></span>
+<span><span class="co">## Found heuristic solution: objective 2337.9617505</span></span>
+<span><span class="co">## Presolve time: 0.00s</span></span>
+<span><span class="co">## Presolved: 5 rows, 90 columns, 450 nonzeros</span></span>
+<span><span class="co">## Variable types: 0 continuous, 90 integer (90 binary)</span></span>
+<span><span class="co">## Found heuristic solution: objective 2332.1003790</span></span>
+<span><span class="co">## Root relaxation presolved: 5 rows, 90 columns, 450 nonzeros</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Root relaxation: objective 1.931582e+03, 12 iterations, 0.00 seconds (0.00 work units)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
+<span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##      0     0 1931.58191    0    4 2332.10038 1931.58191  17.2%     -    0s</span></span>
+<span><span class="co">## H    0     0                    1987.3985265 1931.58191  2.81%     -    0s</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Explored 1 nodes (12 simplex iterations) in 0.00 seconds (0.00 work units)</span></span>
+<span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Solution count 3: 1987.4 2332.1 2337.96 </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
+<span><span class="co">## Best objective 1.987398526526e+03, best bound 1.931581908865e+03, gap 2.8085%</span></span></code></pre>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># plot solution</span>
-<span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey90"</span>, <span class="st">"darkgreen"</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Solution"</span>,
-     xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># plot solution</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey90"</span>, <span class="st">"darkgreen"</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Solution"</span>,</span>
+<span>     xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="gurobi_installation_guide_files/figure-html/unnamed-chunk-9-1.png" width="336" style="display: block; margin: auto;"></p>
 <p>After running this code, hopefully, you should some information printed on-screen about the optimization process and <em>R</em> should produce a map displaying a solution. If this code does not produce any errors, then you have successfully installed everything and can begin using <em>Gurobi</em> and the <em>prioritizr R</em> package to solve your very own conservation planning problems.</p>
 </div>
@@ -336,7 +336,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer>

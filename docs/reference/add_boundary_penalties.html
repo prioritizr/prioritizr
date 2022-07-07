@@ -25,7 +25,7 @@ boundary length (perimeter)."><meta property="og:image" content="https://priorit
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.5</span>
       </span>
     </div>
 
@@ -106,19 +106,21 @@ boundary length (perimeter).</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">add_boundary_penalties</span><span class="op">(</span>
-  <span class="va">x</span>,
-  <span class="va">penalty</span>,
-  edge_factor <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fu"><a href="number_of_zones.html">number_of_zones</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>,
-  zones <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fu"><a href="number_of_zones.html">number_of_zones</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>,
-  data <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">add_boundary_penalties</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">penalty</span>,</span>
+<span>  edge_factor <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fu"><a href="number_of_zones.html">number_of_zones</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  zones <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fu"><a href="number_of_zones.html">number_of_zones</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  data <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p><code><a href="problem.html">problem()</a></code> (i.e., <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) object.</p></dd>
+
+
 <dt>penalty</dt>
 <dd><p><code>numeric</code> penalty that is used to scale the importance
 of selecting planning units that are spatially clumped together compared
@@ -130,6 +132,8 @@ degree of clumping. Note that negative <code>penalty</code> values prefer
 solutions that are more spread out. This parameter is equivalent to
 the boundary length modifier (BLM)
 parameter in <a href="https://marxansolutions.org/" class="external-link"><em>Marxan</em></a>.</p></dd>
+
+
 <dt>edge_factor</dt>
 <dd><p><code>numeric</code> proportion to scale
 planning unit edges (borders) that do not have any neighboring planning
@@ -137,6 +141,8 @@ units. For example, an edge factor of <code>0.5</code> is commonly used to
 avoid overly penalizing planning units along a coastline.
 Note that this argument must have an element for each zone in the argument
 to <code>x</code>.</p></dd>
+
+
 <dt>zones</dt>
 <dd><p><code>matrix</code> or <code>Matrix</code> object describing the
 clumping scheme for different zones. Each row and column corresponds to a
@@ -154,6 +160,8 @@ the matrix diagonal contain markedly smaller values than those found
 elsewhere in the matrix, then solutions are preferred that surround
 planning units with those allocated to different zones
 (i.e., greater spatial fragmentation).</p></dd>
+
+
 <dt>data</dt>
 <dd><p><code>NULL</code>, <code>data.frame</code>, <code>matrix</code>, or <code>Matrix</code>
 object containing the boundary data. These data describe the total
@@ -161,10 +169,13 @@ amount of boundary (perimeter) length  for each planning unit,
 and the amount of boundary (perimeter) length shared between different
 planning units (i.e., planning units that are adjacent to each other).
 See the Data format section for more information.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Object (i.e., <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) with the penalties
+    
+
+<p>Object (i.e., <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) with the penalties
 added to it.</p>
     </div>
     <div id="details">
@@ -264,118 +275,118 @@ conservation planning problems with integer linear programming.
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># set seed for reproducibility</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">500</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># load data</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span>, <span class="va">sim_pu_zones_stack</span>, <span class="va">sim_features_zones</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># create minimal problem</span></span>
-<span class="r-in"><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">      <span class="fu"><a href="add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">      <span class="fu"><a href="add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.2</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">      <span class="fu"><a href="add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">      <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># create problem with low boundary penalties</span></span>
-<span class="r-in"><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">p1</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">add_boundary_penalties</span><span class="op">(</span><span class="fl">50</span>, <span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># create problem with high boundary penalties but outer edges receive</span></span>
-<span class="r-in"><span class="co"># half the penalty as inner edges</span></span>
-<span class="r-in"><span class="va">p3</span> <span class="op">&lt;-</span> <span class="va">p1</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">add_boundary_penalties</span><span class="op">(</span><span class="fl">500</span>, <span class="fl">0.5</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># create a problem using precomputed boundary data</span></span>
-<span class="r-in"><span class="va">bmat</span> <span class="op">&lt;-</span> <span class="fu"><a href="boundary_matrix.html">boundary_matrix</a></span><span class="op">(</span><span class="va">sim_pu_raster</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">p4</span> <span class="op">&lt;-</span> <span class="va">p1</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">add_boundary_penalties</span><span class="op">(</span><span class="fl">50</span>, <span class="fl">1</span>, data <span class="op">=</span> <span class="va">bmat</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># \dontrun{</span></span>
-<span class="r-in"><span class="co"># solve problems</span></span>
-<span class="r-in"><span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/stack.html" class="external-link">stack</a></span><span class="op">(</span><span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p4</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># plot solutions</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"basic solution"</span>, <span class="st">"small penalties"</span>, <span class="st">"high penalties"</span>,</span>
-<span class="r-in">                 <span class="st">"precomputed data"</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># set seed for reproducibility</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">500</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># load data</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span>, <span class="va">sim_pu_zones_stack</span>, <span class="va">sim_features_zones</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># create minimal problem</span></span></span>
+<span class="r-in"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>      <span class="fu"><a href="add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>      <span class="fu"><a href="add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.2</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>      <span class="fu"><a href="add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>      <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># create problem with low boundary penalties</span></span></span>
+<span class="r-in"><span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">p1</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">add_boundary_penalties</span><span class="op">(</span><span class="fl">50</span>, <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># create problem with high boundary penalties but outer edges receive</span></span></span>
+<span class="r-in"><span><span class="co"># half the penalty as inner edges</span></span></span>
+<span class="r-in"><span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="va">p1</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">add_boundary_penalties</span><span class="op">(</span><span class="fl">500</span>, <span class="fl">0.5</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># create a problem using precomputed boundary data</span></span></span>
+<span class="r-in"><span><span class="va">bmat</span> <span class="op">&lt;-</span> <span class="fu"><a href="boundary_matrix.html">boundary_matrix</a></span><span class="op">(</span><span class="va">sim_pu_raster</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p4</span> <span class="op">&lt;-</span> <span class="va">p1</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">add_boundary_penalties</span><span class="op">(</span><span class="fl">50</span>, <span class="fl">1</span>, data <span class="op">=</span> <span class="va">bmat</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span><span class="co"># solve problems</span></span></span>
+<span class="r-in"><span><span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/stack.html" class="external-link">stack</a></span><span class="op">(</span><span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p4</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># plot solutions</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"basic solution"</span>, <span class="st">"small penalties"</span>, <span class="st">"high penalties"</span>,</span></span>
+<span class="r-in"><span>                 <span class="st">"precomputed data"</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_boundary_penalties-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># }</span></span>
-<span class="r-in"><span class="co"># create minimal problem with multiple zones and limit the run-time for</span></span>
-<span class="r-in"><span class="co"># solver to 10 seconds so this example doesn't take too long</span></span>
-<span class="r-in"><span class="va">p5</span> <span class="op">&lt;-</span> <span class="fu"><a href="problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_zones_stack</span>, <span class="va">sim_features_zones</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">      <span class="fu"><a href="add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">      <span class="fu"><a href="add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">0.2</span>, nrow <span class="op">=</span> <span class="fl">5</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">      <span class="fu"><a href="add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
-<span class="r-in">      <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>time_limit <span class="op">=</span> <span class="fl">10</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># create zone matrix which favors clumping planning units that are</span></span>
-<span class="r-in"><span class="co"># allocated to the same zone together - note that this is the default</span></span>
-<span class="r-in"><span class="va">zm6</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">zm6</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
+<span class="r-in"><span><span class="co"># create minimal problem with multiple zones and limit the run-time for</span></span></span>
+<span class="r-in"><span><span class="co"># solver to 10 seconds so this example doesn't take too long</span></span></span>
+<span class="r-in"><span><span class="va">p5</span> <span class="op">&lt;-</span> <span class="fu"><a href="problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_zones_stack</span>, <span class="va">sim_features_zones</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>      <span class="fu"><a href="add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>      <span class="fu"><a href="add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">0.2</span>, nrow <span class="op">=</span> <span class="fl">5</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>      <span class="fu"><a href="add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>      <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>time_limit <span class="op">=</span> <span class="fl">10</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># create zone matrix which favors clumping planning units that are</span></span></span>
+<span class="r-in"><span><span class="co"># allocated to the same zone together - note that this is the default</span></span></span>
+<span class="r-in"><span><span class="va">zm6</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">zm6</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    1    0    0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    0    1    0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,]    0    0    1</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># create problem with the zone matrix and low penalties</span></span>
-<span class="r-in"><span class="va">p6</span> <span class="op">&lt;-</span> <span class="va">p5</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">add_boundary_penalties</span><span class="op">(</span><span class="fl">50</span>, zone <span class="op">=</span> <span class="va">zm6</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># create another problem with the same zone matrix and higher penalties</span></span>
-<span class="r-in"><span class="va">p7</span> <span class="op">&lt;-</span> <span class="va">p5</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">add_boundary_penalties</span><span class="op">(</span><span class="fl">500</span>, zone <span class="op">=</span> <span class="va">zm6</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># create zone matrix which favors clumping units that are allocated to</span></span>
-<span class="r-in"><span class="co"># different zones together</span></span>
-<span class="r-in"><span class="va">zm8</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">1</span>, ncol <span class="op">=</span> <span class="fl">3</span>, nrow <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">zm8</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
-<span class="r-in"><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">zm8</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># create problem with the zone matrix and low penalties</span></span></span>
+<span class="r-in"><span><span class="va">p6</span> <span class="op">&lt;-</span> <span class="va">p5</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">add_boundary_penalties</span><span class="op">(</span><span class="fl">50</span>, zone <span class="op">=</span> <span class="va">zm6</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># create another problem with the same zone matrix and higher penalties</span></span></span>
+<span class="r-in"><span><span class="va">p7</span> <span class="op">&lt;-</span> <span class="va">p5</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">add_boundary_penalties</span><span class="op">(</span><span class="fl">500</span>, zone <span class="op">=</span> <span class="va">zm6</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># create zone matrix which favors clumping units that are allocated to</span></span></span>
+<span class="r-in"><span><span class="co"># different zones together</span></span></span>
+<span class="r-in"><span><span class="va">zm8</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">1</span>, ncol <span class="op">=</span> <span class="fl">3</span>, nrow <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">zm8</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">0</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">zm8</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    0    1    1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    1    0    1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,]    1    1    0</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># create problem with the zone matrix</span></span>
-<span class="r-in"><span class="va">p8</span> <span class="op">&lt;-</span> <span class="va">p5</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">add_boundary_penalties</span><span class="op">(</span><span class="fl">500</span>, zone <span class="op">=</span> <span class="va">zm8</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># create zone matrix which strongly favors clumping units</span></span>
-<span class="r-in"><span class="co"># that are allocated to the same zone together. It will also prefer</span></span>
-<span class="r-in"><span class="co"># clumping planning units in zones 1 and 2 together over having</span></span>
-<span class="r-in"><span class="co"># these planning units with no neighbors in the solution</span></span>
-<span class="r-in"><span class="va">zm9</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">zm9</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/lower.tri.html" class="external-link">upper.tri</a></span><span class="op">(</span><span class="va">zm9</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.3</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">zm9</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/lower.tri.html" class="external-link">lower.tri</a></span><span class="op">(</span><span class="va">zm9</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">zm9</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/lower.tri.html" class="external-link">upper.tri</a></span><span class="op">(</span><span class="va">zm9</span><span class="op">)</span><span class="op">]</span></span>
-<span class="r-in"><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">zm9</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># create problem with the zone matrix</span></span></span>
+<span class="r-in"><span><span class="va">p8</span> <span class="op">&lt;-</span> <span class="va">p5</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">add_boundary_penalties</span><span class="op">(</span><span class="fl">500</span>, zone <span class="op">=</span> <span class="va">zm8</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># create zone matrix which strongly favors clumping units</span></span></span>
+<span class="r-in"><span><span class="co"># that are allocated to the same zone together. It will also prefer</span></span></span>
+<span class="r-in"><span><span class="co"># clumping planning units in zones 1 and 2 together over having</span></span></span>
+<span class="r-in"><span><span class="co"># these planning units with no neighbors in the solution</span></span></span>
+<span class="r-in"><span><span class="va">zm9</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">zm9</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/lower.tri.html" class="external-link">upper.tri</a></span><span class="op">(</span><span class="va">zm9</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.3</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">zm9</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/lower.tri.html" class="external-link">lower.tri</a></span><span class="op">(</span><span class="va">zm9</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">zm9</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/lower.tri.html" class="external-link">upper.tri</a></span><span class="op">(</span><span class="va">zm9</span><span class="op">)</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">zm9</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.0  0.3    0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.3  1.0    0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.0  0.0    1</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># create problem with the zone matrix</span></span>
-<span class="r-in"><span class="va">p9</span> <span class="op">&lt;-</span> <span class="va">p5</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">add_boundary_penalties</span><span class="op">(</span><span class="fl">500</span>, zone <span class="op">=</span> <span class="va">zm9</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># create zone matrix which favors clumping planning units in zones 1 and 2</span></span>
-<span class="r-in"><span class="co"># together, and favors planning units in zone 3 being spread out</span></span>
-<span class="r-in"><span class="co"># (i.e., negative clumping)</span></span>
-<span class="r-in"><span class="va">zm10</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">zm10</span><span class="op">[</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">1</span></span>
-<span class="r-in"><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">zm10</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># create problem with the zone matrix</span></span></span>
+<span class="r-in"><span><span class="va">p9</span> <span class="op">&lt;-</span> <span class="va">p5</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">add_boundary_penalties</span><span class="op">(</span><span class="fl">500</span>, zone <span class="op">=</span> <span class="va">zm9</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># create zone matrix which favors clumping planning units in zones 1 and 2</span></span></span>
+<span class="r-in"><span><span class="co"># together, and favors planning units in zone 3 being spread out</span></span></span>
+<span class="r-in"><span><span class="co"># (i.e., negative clumping)</span></span></span>
+<span class="r-in"><span><span class="va">zm10</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">zm10</span><span class="op">[</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">1</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">zm10</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    1    0    0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    0    1    0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,]    0    0   -1</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># create problem with the zone matrix</span></span>
-<span class="r-in"><span class="va">p10</span> <span class="op">&lt;-</span> <span class="va">p5</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">add_boundary_penalties</span><span class="op">(</span><span class="fl">500</span>, zone <span class="op">=</span> <span class="va">zm10</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># \dontrun{</span></span>
-<span class="r-in"><span class="co"># solve problems</span></span>
-<span class="r-in"><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/stack.html" class="external-link">stack</a></span><span class="op">(</span><span class="fu"><a href="category_layer.html">category_layer</a></span><span class="op">(</span><span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p5</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="category_layer.html">category_layer</a></span><span class="op">(</span><span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p6</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">            <span class="fu"><a href="category_layer.html">category_layer</a></span><span class="op">(</span><span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p7</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="category_layer.html">category_layer</a></span><span class="op">(</span><span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p8</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">            <span class="fu"><a href="category_layer.html">category_layer</a></span><span class="op">(</span><span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p9</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="category_layer.html">category_layer</a></span><span class="op">(</span><span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p10</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># plot solutions</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s2</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"basic solution"</span>, <span class="st">"within zone clumping (low)"</span>,</span>
-<span class="r-in">                  <span class="st">"within zone clumping (high)"</span>, <span class="st">"between zone clumping"</span>,</span>
-<span class="r-in">                  <span class="st">"within + between clumping"</span>, <span class="st">"negative clumping"</span><span class="op">)</span>,</span>
-<span class="r-in">     axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># create problem with the zone matrix</span></span></span>
+<span class="r-in"><span><span class="va">p10</span> <span class="op">&lt;-</span> <span class="va">p5</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">add_boundary_penalties</span><span class="op">(</span><span class="fl">500</span>, zone <span class="op">=</span> <span class="va">zm10</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span><span class="co"># solve problems</span></span></span>
+<span class="r-in"><span><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/stack.html" class="external-link">stack</a></span><span class="op">(</span><span class="fu"><a href="category_layer.html">category_layer</a></span><span class="op">(</span><span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p5</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="category_layer.html">category_layer</a></span><span class="op">(</span><span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p6</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>            <span class="fu"><a href="category_layer.html">category_layer</a></span><span class="op">(</span><span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p7</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="category_layer.html">category_layer</a></span><span class="op">(</span><span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p8</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>            <span class="fu"><a href="category_layer.html">category_layer</a></span><span class="op">(</span><span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p9</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="category_layer.html">category_layer</a></span><span class="op">(</span><span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p10</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># plot solutions</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s2</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"basic solution"</span>, <span class="st">"within zone clumping (low)"</span>,</span></span>
+<span class="r-in"><span>                  <span class="st">"within zone clumping (high)"</span>, <span class="st">"between zone clumping"</span>,</span></span>
+<span class="r-in"><span>                  <span class="st">"within + between clumping"</span>, <span class="st">"negative clumping"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>     axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_boundary_penalties-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="co"># }</span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -390,7 +401,7 @@ conservation planning problems with integer linear programming.
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

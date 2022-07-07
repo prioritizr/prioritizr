@@ -88,9 +88,11 @@ The \pkg{rcbc} package is required to use this solver. Since the
 \pkg{rcbc} package is not available on the
 the Comprehensive R Archive Network (CRAN), it must be installed from
 \href{https://github.com/dirkschumacher/rcbc}{its GitHub repository}. To
-install the \pkg{rcbc} package, please use the following code:\preformatted{if (!require(remotes)) install.packages("remotes")
+install the \pkg{rcbc} package, please use the following code:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{if (!require(remotes)) install.packages("remotes")
 remotes::install_github("dirkschumacher/rcbc")
-}
+}\if{html}{\out{</div>}}
 
 Note that you may also need to install several dependencies --
 such as the

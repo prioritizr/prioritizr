@@ -65,7 +65,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.5</span>
       </span>
     </div>
 
@@ -146,38 +146,31 @@
       </header><div class="row">
   <div class="contents col-md-9">
 
-<div class="section level1">
-<div class="page-header"><h1 id="prioritizr-">prioritizr: <img src="reference/figures/logo.png" align="right" style="height:90px!important;"><a class="anchor" aria-label="anchor" href="#prioritizr-"></a>
-</h1></div>
-</div>
+<div class="section level1"><div class="page-header"><h1 id="prioritizr-">prioritizr: <img src="reference/figures/logo.png" align="right" style="height:90px!important;"><a class="anchor" aria-label="anchor" href="#prioritizr-"></a>
+</h1></div></div>
 <div class="section level1">
 <h1 id="systematic-conservation-prioritization-in-r">Systematic Conservation Prioritization in R<a class="anchor" aria-label="anchor" href="#systematic-conservation-prioritization-in-r"></a>
 </h1>
 <!-- badges: start -->
-
 <p>The <em>prioritizr R</em> package uses mixed integer linear programming (MILP) techniques to provide a flexible interface for building and solving conservation planning problems. It supports a broad range of objectives, constraints, and penalties that can be used to custom-tailor conservation planning problems to the specific needs of a conservation planning exercise. Once built, conservation planning problems can be solved using a variety of commercial and open-source exact algorithm solvers. In contrast to the algorithms conventionally used to solve conservation problems, such as heuristics or simulated annealing, the exact algorithms used here are guaranteed to find optimal solutions. Furthermore, conservation problems can be constructed to optimize the spatial allocation of different management actions or zones, meaning that conservation practitioners can identify solutions that benefit multiple stakeholders. Finally, this package has the functionality to read input data formatted for the <em>Marxan</em> conservation planning program, and find much cheaper solutions in a much shorter period of time than <em>Marxan</em>.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <p>The latest official version of the <em>prioritizr R</em> package can be installed from the <a href="https://cran.r-project.org/" class="external-link">Comprehensive R Archive Network (CRAN)</a> using the following <em>R</em> code.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"prioritizr"</span>, repos <span class="op">=</span> <span class="st">"https://cran.rstudio.com/"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"prioritizr"</span>, repos <span class="op">=</span> <span class="st">"https://cran.rstudio.com/"</span><span class="op">)</span></span></code></pre></div>
 <p>Alternatively, the latest development version can be installed from <a href="https://github.com/prioritizr/prioritizr" class="external-link">GitHub</a> using the following code. Please note that while developmental versions may contain additional features not present in the official version, they may also contain coding errors.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://remotes.r-lib.org" class="external-link">remotes</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span>
-<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"prioritizr/prioritizr"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://remotes.r-lib.org" class="external-link">remotes</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"prioritizr/prioritizr"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
 </h2>
 <p>Please cite the <em>prioritizr R</em> package when using it in publications. To cite the latest official version, please use:</p>
-<blockquote>
-<p>Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Edwards BPM, Watts ME, Arcese P, Bennett J, Possingham HP (2022). prioritizr: Systematic Conservation Prioritization in R. R package version 7.1.1. Available at <a href="https://CRAN.R-project.org/package=prioritizr" class="external-link uri">https://CRAN.R-project.org/package=prioritizr</a>.</p>
-</blockquote>
+<blockquote><p>Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Edwards BPM, Watts ME, Arcese P, Bennett J, Possingham HP (2022). prioritizr: Systematic Conservation Prioritization in R. R package version 7.1.1. Available at <a href="https://CRAN.R-project.org/package=prioritizr" class="external-link uri">https://CRAN.R-project.org/package=prioritizr</a>.</p></blockquote>
 <p>Alternatively, to cite the latest development version, please use:</p>
-<blockquote>
-<p>Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Edwards BPM, Watts ME, Arcese P, Bennett J, Possingham HP (2022). prioritizr: Systematic Conservation Prioritization in R. R package version 7.2.0.4. Available at <a href="https://github.com/prioritizr/prioritizr" class="external-link uri">https://github.com/prioritizr/prioritizr</a>.</p>
-</blockquote>
+<blockquote><p>Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Edwards BPM, Watts ME, Arcese P, Bennett J, Possingham HP (2022). prioritizr: Systematic Conservation Prioritization in R. R package version 7.2.0.5. Available at <a href="https://github.com/prioritizr/prioritizr" class="external-link uri">https://github.com/prioritizr/prioritizr</a>.</p></blockquote>
 <p>Additionally, we keep a <a href="https://prioritizr.net/articles/publication_record.html">record of publications</a> that use the <em>prioritizr R</em> package. If you use this package in any reports or publications, please <a href="https://github.com/prioritizr/prioritizr/issues/new" class="external-link">file an issue on GitHub</a> so we can add it to the record.</p>
 </div>
 <div class="section level2">
@@ -185,15 +178,15 @@
 </h2>
 <p>Here we will provide a short example showing how the <em>prioritizr R</em> package can be used to build and solve conservation problems. For brevity, we will use one of the built-in simulated datasets that is distributed with the package. First, we will load the <em>prioritizr R</em> package.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># load package</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://prioritizr.net">prioritizr</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># load package</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://prioritizr.net">prioritizr</a></span><span class="op">)</span></span></code></pre></div>
 <p>We will use the <code>sim_pu_polygons</code> object to represent our planning units. Although the <em>prioritizr R</em> can support many different types of planning unit data, here our planning units are represented as polygons in a spatial vector format (i.e. <code>SpatialPolygonsDataFrame</code>). Each polygon represents a different planning unit and we have 90 planning units in total. The attribute table associated with this dataset contains information describing the acquisition cost of each planning (“cost” column), and a value indicating if the unit is already located in protected area (“locked_in” column). Let’s explore the planning unit data.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># load planning unit data</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">sim_pu_polygons</span><span class="op">)</span>
-
-<span class="co"># show the first 6 rows in the attribute table</span>
-<span class="fu"><a href="https://rdrr.io/pkg/raster/man/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">sim_pu_polygons</span><span class="op">@</span><span class="va">data</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># load planning unit data</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">sim_pu_polygons</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># show the first 6 rows in the attribute table</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">sim_pu_polygons</span><span class="op">@</span><span class="va">data</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">##       cost locked_in locked_out</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 215.8638     FALSE      FALSE</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 212.7823     FALSE      FALSE</span></span>
@@ -202,39 +195,39 @@
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 5 214.0419     FALSE      FALSE</span></span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 6 213.7636     FALSE      FALSE</span></span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># plot the planning units and color them according to acquisition cost</span>
-<span class="fu"><a href="https://rdrr.io/pkg/sp/man/spplot.html" class="external-link">spplot</a></span><span class="op">(</span><span class="va">sim_pu_polygons</span>, <span class="st">"cost"</span>, main <span class="op">=</span> <span class="st">"Planning unit cost"</span>,
-       xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># plot the planning units and color them according to acquisition cost</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/sp/man/spplot.html" class="external-link">spplot</a></span><span class="op">(</span><span class="va">sim_pu_polygons</span>, <span class="st">"cost"</span>, main <span class="op">=</span> <span class="st">"Planning unit cost"</span>,</span>
+<span>       xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-9-1.png" width="400" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># plot the planning units and show which planning units are inside protected</span>
-<span class="co"># areas (colored in yellow)</span>
-<span class="fu"><a href="https://rdrr.io/pkg/sp/man/spplot.html" class="external-link">spplot</a></span><span class="op">(</span><span class="va">sim_pu_polygons</span>, <span class="st">"locked_in"</span>, main <span class="op">=</span> <span class="st">"Planning units in protected areas"</span>,
-       xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># plot the planning units and show which planning units are inside protected</span></span>
+<span><span class="co"># areas (colored in yellow)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/sp/man/spplot.html" class="external-link">spplot</a></span><span class="op">(</span><span class="va">sim_pu_polygons</span>, <span class="st">"locked_in"</span>, main <span class="op">=</span> <span class="st">"Planning units in protected areas"</span>,</span>
+<span>       xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-10-1.png" width="400" style="display: block; margin: auto;"></p>
 <p>Conservation features are represented using a stack of raster data (i.e. <code>RasterStack</code> objects). A <code>RasterStack</code> represents a collection of <code>RasterLayers</code> with the same spatial properties (i.e. spatial extent, coordinate system, dimensionality, and resolution). Each <code>RasterLayer</code> in the stack describes the distribution of a conservation feature.</p>
 <p>In our example, the <code>sim_features</code> object is a <code>RasterStack</code> object that contains 5 layers. Each <code>RasterLayer</code> describes the distribution of a species. Specifically, the pixel values denote the proportion of suitable habitat across different areas inside the study area. For a given layer, pixels with a value of one are comprised entirely of suitable habitat for the feature, and pixels with a value of zero contain no suitable habitat.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># load feature data</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">sim_features</span><span class="op">)</span>
-
-<span class="co"># plot the distribution of suitable habitat for each feature</span>
-<span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">sim_features</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Feature"</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/nlayers.html" class="external-link">nlayers</a></span><span class="op">(</span><span class="va">sim_features</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,
-     nr <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># load feature data</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">sim_features</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># plot the distribution of suitable habitat for each feature</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">sim_features</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Feature"</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/nlayers.html" class="external-link">nlayers</a></span><span class="op">(</span><span class="va">sim_features</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>     nr <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-11-1.png" width="800" style="display: block; margin: auto;"></p>
 <p>Let’s say that we want to develop a reserve network that will secure 15% of the distribution for each feature in the study area for minimal cost. In this planning scenario, we can either purchase all of the land inside a given planning unit, or none of the land inside a given planning unit. Thus we will create a new <a href="https://prioritizr.net/reference/problem.html"><code>problem</code></a> that will use a minimum set objective (<a href="https://prioritizr.net/reference/add_min_set_objective.html"><code>add_min_set_objective</code></a>), with relative targets of 15% (<a href="https://prioritizr.net/reference/add_relative_targets.html"><code>add_relative_targets</code></a>), binary decisions (<a href="https://prioritizr.net/reference/add_binary_decisions.html"><code>add_binary_decisions</code></a>), and specify that we want to want optimal solutions from the best solver installed on our system (<a href="https://prioritizr.net/reference/add_default_solver.html"><code>add_default_solver</code></a>).</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># create problem</span>
-<span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_polygons</span>, features <span class="op">=</span> <span class="va">sim_features</span>,
-              cost_column <span class="op">=</span> <span class="st">"cost"</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
-      <span class="fu"><a href="reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
-      <span class="fu"><a href="reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.15</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
-      <span class="fu"><a href="reference/add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
-      <span class="fu"><a href="reference/add_default_solver.html">add_default_solver</a></span><span class="op">(</span>gap <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># create problem</span></span>
+<span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_polygons</span>, features <span class="op">=</span> <span class="va">sim_features</span>,</span>
+<span>              cost_column <span class="op">=</span> <span class="st">"cost"</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>      <span class="fu"><a href="reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>      <span class="fu"><a href="reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.15</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>      <span class="fu"><a href="reference/add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>      <span class="fu"><a href="reference/add_default_solver.html">add_default_solver</a></span><span class="op">(</span>gap <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
 <p>After we have built a <a href="https://prioritizr.net/reference/problem.html"><code>problem</code></a>, we can solve it to obtain a solution. Since we have not specified the method used to solve the problem, <em>prioritizr</em> will automatically use the best solver currently installed. <strong>It is strongly encouraged to install the <a href="https://www.gurobi.com/" class="external-link">Gurobi software suite and the <em>gurobi</em> <em>R</em> package to solve problems quickly</a>, for more information on this please refer to the <a href="https://prioritizr.net/articles/gurobi_installation_guide.html">Gurobi Installation Guide</a></strong></p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># solve the problem</span>
-<span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># solve the problem</span></span>
+<span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Gurobi Optimizer version 9.5.1 build v9.5.1rc2 (linux64)</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Optimize a model with 5 rows, 90 columns and 450 nonzeros</span></span>
@@ -282,7 +275,7 @@
 <span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a><span class="do">##   StrongCG: 2</span></span>
 <span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a><span class="do">##   Flow cover: 1</span></span>
 <span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a><span class="do">## Explored 145469 nodes (243327 simplex iterations) in 3.95 seconds (2.59 work units)</span></span>
+<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a><span class="do">## Explored 145469 nodes (243327 simplex iterations) in 3.49 seconds (2.59 work units)</span></span>
 <span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a><span class="do">## Thread count was 1 (of 8 available processors)</span></span>
 <span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a><span class="do">## Solution count 6: 2627.64 2747.38 2761.33 ... 3139.89</span></span>
@@ -290,37 +283,37 @@
 <span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a><span class="do">## Optimal solution found (tolerance 0.00e+00)</span></span>
 <span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a><span class="do">## Best objective 2.627638930618e+03, best bound 2.627638930618e+03, gap 0.0000%</span></span></code></pre></div>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># extract the objective</span>
-<span class="fu"><a href="reference/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"objective"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># extract the objective</span></span>
+<span><span class="fu"><a href="reference/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"objective"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb13"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="do">## solution_1 </span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="do">##   2627.639</span></span></code></pre></div>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># extract time spent solving the problem</span>
-<span class="fu"><a href="reference/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># extract time spent solving the problem</span></span>
+<span><span class="fu"><a href="reference/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb15"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">## solution_1 </span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="do">##       3.97</span></span></code></pre></div>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="do">##      3.518</span></span></code></pre></div>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># extract state message from the solver</span>
-<span class="fu"><a href="reference/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"status"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># extract state message from the solver</span></span>
+<span><span class="fu"><a href="reference/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"status"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb17"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="do">## solution_1 </span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="do">##  "OPTIMAL"</span></span></code></pre></div>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># plot the solution</span>
-<span class="fu"><a href="https://rdrr.io/pkg/sp/man/spplot.html" class="external-link">spplot</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"solution_1"</span>, main <span class="op">=</span> <span class="st">"Solution"</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">1.1</span><span class="op">)</span>,
-       col.regions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey90"</span>, <span class="st">"darkgreen"</span><span class="op">)</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>,
-       ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># plot the solution</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/sp/man/spplot.html" class="external-link">spplot</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"solution_1"</span>, main <span class="op">=</span> <span class="st">"Solution"</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">1.1</span><span class="op">)</span>,</span>
+<span>       col.regions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey90"</span>, <span class="st">"darkgreen"</span><span class="op">)</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>,</span>
+<span>       ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-minimal_solution-1.png" width="400" style="display: block; margin: auto;"></p>
 <p>To evaluate the performance of the solution, we can calculate summary statistics.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># calculate solution cost</span>
-<span class="fu"><a href="reference/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="reference/eval_cost_summary.html">eval_cost_summary</a></span><span class="op">(</span><span class="va">p1</span>, <span class="va">s1</span><span class="op">[</span>, <span class="st">"solution_1"</span><span class="op">]</span><span class="op">)</span>, width <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># calculate solution cost</span></span>
+<span><span class="fu"><a href="reference/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="reference/eval_cost_summary.html">eval_cost_summary</a></span><span class="op">(</span><span class="va">p1</span>, <span class="va">s1</span><span class="op">[</span>, <span class="st">"solution_1"</span><span class="op">]</span><span class="op">)</span>, width <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb20"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 × 2</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="do">##   summary  cost</span></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;   &lt;dbl&gt;</span></span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 overall 2628.</span></span></code></pre></div>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># calculate information describing how well the targets are met by the solution</span>
-<span class="fu"><a href="reference/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="reference/eval_target_coverage_summary.html">eval_target_coverage_summary</a></span><span class="op">(</span><span class="va">p1</span>, <span class="va">s1</span><span class="op">[</span>, <span class="st">"solution_1"</span><span class="op">]</span><span class="op">)</span>, width <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># calculate information describing how well the targets are met by the solution</span></span>
+<span><span class="fu"><a href="reference/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="reference/eval_target_coverage_summary.html">eval_target_coverage_summary</a></span><span class="op">(</span><span class="va">p1</span>, <span class="va">s1</span><span class="op">[</span>, <span class="st">"solution_1"</span><span class="op">]</span><span class="op">)</span>, width <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb22"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 5 × 9</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="do">##   feature met   total_amount absolute_target absolute_held absolute_shortfall</span></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;   &lt;lgl&gt;        &lt;dbl&gt;           &lt;dbl&gt;         &lt;dbl&gt;              &lt;dbl&gt;</span></span>
@@ -338,12 +331,12 @@
 <span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 5            0.15         0.150                  0</span></span></code></pre></div>
 <p>Although this solution adequately conserves each feature, it is inefficient because it does not consider the fact some of the planning units are already inside protected areas. Since our planning unit data contains information on which planning units are already inside protected areas (in the <code>"locked_in"</code> column of the attribute table), we can add constraints to ensure they are prioritized in the solution (<a href="https://prioritizr.net/reference/add_locked_in_constraints.html"><code>add_locked_in_constraints</code></a>).</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># create new problem with locked in constraints added to it</span>
-<span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">p1</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
-      <span class="fu"><a href="reference/add_locked_in_constraints.html">add_locked_in_constraints</a></span><span class="op">(</span><span class="st">"locked_in"</span><span class="op">)</span>
-
-<span class="co"># solve the problem</span>
-<span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># create new problem with locked in constraints added to it</span></span>
+<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">p1</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>      <span class="fu"><a href="reference/add_locked_in_constraints.html">add_locked_in_constraints</a></span><span class="op">(</span><span class="st">"locked_in"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># solve the problem</span></span>
+<span><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb24"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Gurobi Optimizer version 9.5.1 build v9.5.1rc2 (linux64)</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Optimize a model with 5 rows, 90 columns and 450 nonzeros</span></span>
@@ -422,7 +415,7 @@
 <span id="cb24-76"><a href="#cb24-76" aria-hidden="true" tabindex="-1"></a><span class="do">##   StrongCG: 1</span></span>
 <span id="cb24-77"><a href="#cb24-77" aria-hidden="true" tabindex="-1"></a><span class="do">##   Flow cover: 1</span></span>
 <span id="cb24-78"><a href="#cb24-78" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb24-79"><a href="#cb24-79" aria-hidden="true" tabindex="-1"></a><span class="do">## Explored 10262 nodes (23307 simplex iterations) in 0.53 seconds (0.54 work units)</span></span>
+<span id="cb24-79"><a href="#cb24-79" aria-hidden="true" tabindex="-1"></a><span class="do">## Explored 10262 nodes (23307 simplex iterations) in 0.55 seconds (0.54 work units)</span></span>
 <span id="cb24-80"><a href="#cb24-80" aria-hidden="true" tabindex="-1"></a><span class="do">## Thread count was 1 (of 8 available processors)</span></span>
 <span id="cb24-81"><a href="#cb24-81" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb24-82"><a href="#cb24-82" aria-hidden="true" tabindex="-1"></a><span class="do">## Solution count 5: 2838.26 2839.12 3021.28 ... 3027.7</span></span>
@@ -430,19 +423,19 @@
 <span id="cb24-84"><a href="#cb24-84" aria-hidden="true" tabindex="-1"></a><span class="do">## Optimal solution found (tolerance 0.00e+00)</span></span>
 <span id="cb24-85"><a href="#cb24-85" aria-hidden="true" tabindex="-1"></a><span class="do">## Best objective 2.838264099909e+03, best bound 2.838264099909e+03, gap 0.0000%</span></span></code></pre></div>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># plot the solution</span>
-<span class="fu"><a href="https://rdrr.io/pkg/sp/man/spplot.html" class="external-link">spplot</a></span><span class="op">(</span><span class="va">s2</span>, <span class="st">"solution_1"</span>, main <span class="op">=</span> <span class="st">"Solution"</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">1.1</span><span class="op">)</span>,
-       col.regions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey90"</span>, <span class="st">"darkgreen"</span><span class="op">)</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>,
-       ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># plot the solution</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/sp/man/spplot.html" class="external-link">spplot</a></span><span class="op">(</span><span class="va">s2</span>, <span class="st">"solution_1"</span>, main <span class="op">=</span> <span class="st">"Solution"</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">1.1</span><span class="op">)</span>,</span>
+<span>       col.regions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey90"</span>, <span class="st">"darkgreen"</span><span class="op">)</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>,</span>
+<span>       ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-locked_in_constraints-1.png" width="400" style="display: block; margin: auto;"></p>
 <p>This solution is an improvement over the previous solution. However, it is also highly fragmented. As a consequence, this solution may be associated with increased management costs and the species in this scenario may not benefit substantially from this solution due to edge effects. We can further modify the problem by adding penalties that punish overly fragmented solutions (<a href="https://prioritizr.net/reference/add_boundary_penalties.html"><code>add_boundary_penalties</code></a>). Here we will use a penalty factor of 300 (i.e. boundary length modifier; BLM), and an edge factor of 50% so that planning units that occur outer edge of the study area are not overly penalized.</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># create new problem with boundary penalties added to it</span>
-<span class="va">p3</span> <span class="op">&lt;-</span> <span class="va">p2</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
-      <span class="fu"><a href="reference/add_boundary_penalties.html">add_boundary_penalties</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">300</span>, edge_factor <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>
-
-<span class="co"># solve the problem</span>
-<span class="va">s3</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># create new problem with boundary penalties added to it</span></span>
+<span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="va">p2</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>      <span class="fu"><a href="reference/add_boundary_penalties.html">add_boundary_penalties</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">300</span>, edge_factor <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># solve the problem</span></span>
+<span><span class="va">s3</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb27"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Gurobi Optimizer version 9.5.1 build v9.5.1rc2 (linux64)</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Optimize a model with 293 rows, 234 columns and 1026 nonzeros</span></span>
@@ -494,19 +487,19 @@
 <span id="cb27-49"><a href="#cb27-49" aria-hidden="true" tabindex="-1"></a><span class="do">## Optimal solution found (tolerance 0.00e+00)</span></span>
 <span id="cb27-50"><a href="#cb27-50" aria-hidden="true" tabindex="-1"></a><span class="do">## Best objective 3.939601536145e+03, best bound 3.939601536145e+03, gap 0.0000%</span></span></code></pre></div>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># plot the solution</span>
-<span class="fu"><a href="https://rdrr.io/pkg/sp/man/spplot.html" class="external-link">spplot</a></span><span class="op">(</span><span class="va">s3</span>, <span class="st">"solution_1"</span>, main <span class="op">=</span> <span class="st">"Solution"</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">1.1</span><span class="op">)</span>,
-       col.regions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey90"</span>, <span class="st">"darkgreen"</span><span class="op">)</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>,
-       ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># plot the solution</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/sp/man/spplot.html" class="external-link">spplot</a></span><span class="op">(</span><span class="va">s3</span>, <span class="st">"solution_1"</span>, main <span class="op">=</span> <span class="st">"Solution"</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">1.1</span><span class="op">)</span>,</span>
+<span>       col.regions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey90"</span>, <span class="st">"darkgreen"</span><span class="op">)</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>,</span>
+<span>       ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-boundary_penalties-1.png" width="400" style="display: block; margin: auto;"></p>
 <p>This solution is even better then the previous solution. However, we are not finished yet. This solution does not maintain connectivity between reserves, and so species may have limited capacity to disperse throughout the solution. To avoid this, we can add contiguity constraints (<a href="https://prioritizr.net/reference/add_contiguity_constraints.html"><code>add_contiguity_constraints</code></a>).</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># create new problem with contiguity constraints</span>
-<span class="va">p4</span> <span class="op">&lt;-</span> <span class="va">p3</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
-      <span class="fu"><a href="reference/add_contiguity_constraints.html">add_contiguity_constraints</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="co"># solve the problem</span>
-<span class="va">s4</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p4</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># create new problem with contiguity constraints</span></span>
+<span><span class="va">p4</span> <span class="op">&lt;-</span> <span class="va">p3</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>      <span class="fu"><a href="reference/add_contiguity_constraints.html">add_contiguity_constraints</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># solve the problem</span></span>
+<span><span class="va">s4</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p4</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb30"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Gurobi Optimizer version 9.5.1 build v9.5.1rc2 (linux64)</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Optimize a model with 654 rows, 506 columns and 2292 nonzeros</span></span>
@@ -545,29 +538,29 @@
 <span id="cb30-36"><a href="#cb30-36" aria-hidden="true" tabindex="-1"></a><span class="do">## Optimal solution found (tolerance 0.00e+00)</span></span>
 <span id="cb30-37"><a href="#cb30-37" aria-hidden="true" tabindex="-1"></a><span class="do">## Best objective 5.858418490821e+03, best bound 5.858418490821e+03, gap 0.0000%</span></span></code></pre></div>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># plot the solution</span>
-<span class="fu"><a href="https://rdrr.io/pkg/sp/man/spplot.html" class="external-link">spplot</a></span><span class="op">(</span><span class="va">s4</span>, <span class="st">"solution_1"</span>, main <span class="op">=</span> <span class="st">"Solution"</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">1.1</span><span class="op">)</span>,
-       col.regions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey90"</span>, <span class="st">"darkgreen"</span><span class="op">)</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>,
-       ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># plot the solution</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/sp/man/spplot.html" class="external-link">spplot</a></span><span class="op">(</span><span class="va">s4</span>, <span class="st">"solution_1"</span>, main <span class="op">=</span> <span class="st">"Solution"</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">1.1</span><span class="op">)</span>,</span>
+<span>       col.regions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey90"</span>, <span class="st">"darkgreen"</span><span class="op">)</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>,</span>
+<span>       ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-contiguity_constraints-1.png" width="400" style="display: block; margin: auto;"></p>
 <p>Now let’s explore which planning units selected in the prioritization are most important for meeting our targets as cost-effectively as possible. To achieve this, we will calculate importance (irreplaceability) scores using a version of the replacement cost method. Under this method, planning units with higher scores are more important for meeting the objective of our conservation planning problem than those with lower scores. Furthermore, planning units with infinite scores are irreplaceable—it is impossible to meet our targets without protecting these planning units. Note that we override the solver behavior in the code below to prevent lots of unnecessary text from being output.</p>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># solve the problem</span>
-<span class="va">rc</span> <span class="op">&lt;-</span> <span class="va">p4</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
-      <span class="fu"><a href="reference/add_default_solver.html">add_default_solver</a></span><span class="op">(</span>gap <span class="op">=</span> <span class="fl">0</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
-      <span class="fu"><a href="reference/eval_replacement_importance.html">eval_replacement_importance</a></span><span class="op">(</span><span class="va">s4</span><span class="op">[</span>, <span class="st">"solution_1"</span><span class="op">]</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># solve the problem</span></span>
+<span><span class="va">rc</span> <span class="op">&lt;-</span> <span class="va">p4</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>      <span class="fu"><a href="reference/add_default_solver.html">add_default_solver</a></span><span class="op">(</span>gap <span class="op">=</span> <span class="fl">0</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>      <span class="fu"><a href="reference/eval_replacement_importance.html">eval_replacement_importance</a></span><span class="op">(</span><span class="va">s4</span><span class="op">[</span>, <span class="st">"solution_1"</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb33"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning in res(x, ...): overwriting previously defined solver</span></span></code></pre></div>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># set infinite values as 1.09 so we can plot them</span>
-<span class="va">rc</span><span class="op">$</span><span class="va">rc</span><span class="op">[</span><span class="va">rc</span><span class="op">$</span><span class="va">rc</span> <span class="op">&gt;</span> <span class="fl">100</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">1.09</span>
-
-<span class="co"># plot the importance scores</span>
-<span class="co"># planning units that are truly irreplaceable are shown in red</span>
-<span class="fu"><a href="https://rdrr.io/pkg/sp/man/spplot.html" class="external-link">spplot</a></span><span class="op">(</span><span class="va">rc</span>, <span class="st">"rc"</span>, main <span class="op">=</span> <span class="st">"Irreplaceability"</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>,
-       ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.9</span>, <span class="fl">0.1</span><span class="op">)</span>, <span class="fl">1.01</span>, <span class="fl">1.1</span><span class="op">)</span>,
-       col.regions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#440154"</span>, <span class="st">"#482878"</span>, <span class="st">"#3E4A89"</span>, <span class="st">"#31688E"</span>, <span class="st">"#26828E"</span>,
-                       <span class="st">"#1F9E89"</span>, <span class="st">"#35B779"</span>, <span class="st">"#6DCD59"</span>, <span class="st">"#B4DE2C"</span>, <span class="st">"#FDE725"</span>,
-                       <span class="st">"#FF0000"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># set infinite values as 1.09 so we can plot them</span></span>
+<span><span class="va">rc</span><span class="op">$</span><span class="va">rc</span><span class="op">[</span><span class="va">rc</span><span class="op">$</span><span class="va">rc</span> <span class="op">&gt;</span> <span class="fl">100</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">1.09</span></span>
+<span></span>
+<span><span class="co"># plot the importance scores</span></span>
+<span><span class="co"># planning units that are truly irreplaceable are shown in red</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/sp/man/spplot.html" class="external-link">spplot</a></span><span class="op">(</span><span class="va">rc</span>, <span class="st">"rc"</span>, main <span class="op">=</span> <span class="st">"Irreplaceability"</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>,</span>
+<span>       ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.9</span>, <span class="fl">0.1</span><span class="op">)</span>, <span class="fl">1.01</span>, <span class="fl">1.1</span><span class="op">)</span>,</span>
+<span>       col.regions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#440154"</span>, <span class="st">"#482878"</span>, <span class="st">"#3E4A89"</span>, <span class="st">"#31688E"</span>, <span class="st">"#26828E"</span>,</span>
+<span>                       <span class="st">"#1F9E89"</span>, <span class="st">"#35B779"</span>, <span class="st">"#6DCD59"</span>, <span class="st">"#B4DE2C"</span>, <span class="st">"#FDE725"</span>,</span>
+<span>                       <span class="st">"#FF0000"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-replacement_cost-1.png" width="400" style="display: block; margin: auto;"></p>
 <p>This short example demonstrates how the <em>prioritizr R</em> package can be used to build and customize conservation problems, and then solve them to generate solutions. Although we explored just a few different functions for modifying a conservation problem, the package provides many functions for specifying objectives, constraints, penalties, and decision variables, so that you can build and custom-tailor conservation planning problems to suit your planning scenario.</p>
 </div>
@@ -674,7 +667,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer>

@@ -24,7 +24,7 @@ unit (also known as an rij matrix)."><meta property="og:image" content="https://
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.5</span>
       </span>
     </div>
 
@@ -104,16 +104,16 @@ unit (also known as an <em>rij</em> matrix).</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">rij_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S4 method for Raster,Raster</span>
-<span class="fu">rij_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S4 method for Spatial,Raster</span>
-<span class="fu">rij_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">fun</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S4 method for sf,Raster</span>
-<span class="fu">rij_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">fun</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">rij_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for Raster,Raster</span></span>
+<span><span class="fu">rij_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for Spatial,Raster</span></span>
+<span><span class="fu">rij_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">fun</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for sf,Raster</span></span>
+<span><span class="fu">rij_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">fun</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -122,20 +122,29 @@ unit (also known as an <em>rij</em> matrix).</p>
 <dd><p><code><a href="https://rdrr.io/pkg/raster/man/Raster-classes.html" class="external-link">Raster</a></code>,
 <code><a href="https://rdrr.io/pkg/sp/man/Spatial-class.html" class="external-link">Spatial</a></code>, or <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::sf()</a></code> object
 representing the planning units.</p></dd>
+
+
 <dt>y</dt>
 <dd><p><code><a href="https://rdrr.io/pkg/raster/man/Raster-classes.html" class="external-link">Raster</a></code> object representing the
 features.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>not used.</p></dd>
+
+
 <dt>fun</dt>
 <dd><p><code>character</code> for summarizing values inside each planning unit.
 This parameter is only used when the argument to <code>x</code> is a
 <code><a href="https://rdrr.io/pkg/sp/man/Spatial-class.html" class="external-link">Spatial</a></code> or <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::sf()</a></code> object.
 Defaults to <code>"sum"</code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code><a href="https://rdrr.io/pkg/Matrix/man/dgCMatrix-class.html" class="external-link">dgCMatrix</a></code> sparse matrix object.
+    
+
+<p><code><a href="https://rdrr.io/pkg/Matrix/man/dgCMatrix-class.html" class="external-link">dgCMatrix</a></code> sparse matrix object.
 The sparse matrix represents the spatial intersection between the
 planning units and the features. Rows correspond to features,
 and columns correspond to planning units. Values correspond to the amount
@@ -154,12 +163,12 @@ for planning units where possible.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># load data</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_pu_polygons</span>, <span class="va">sim_pu_sf</span>, <span class="va">sim_pu_zones_stack</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># create rij matrix using raster layer planning units</span></span>
-<span class="r-in"><span class="va">rij_raster</span> <span class="op">&lt;-</span> <span class="fu">rij_matrix</span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">rij_raster</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># load data</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_pu_polygons</span>, <span class="va">sim_pu_sf</span>, <span class="va">sim_pu_zones_stack</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># create rij matrix using raster layer planning units</span></span></span>
+<span class="r-in"><span><span class="va">rij_raster</span> <span class="op">&lt;-</span> <span class="fu">rij_matrix</span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">rij_raster</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5 x 90 sparse Matrix of class "dgCMatrix"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                              </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> layer.1 0.7150548 0.6990429 0.6859317 0.6783193 0.6782107 0.6863252 0.7017231</span>
@@ -239,10 +248,10 @@ for planning units where possible.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> layer.3 0.7679649 0.7589920 0.7195554 0.6927858 0.6644491 0.6371886</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> layer.4 0.3753241 0.3774461 0.3785580 0.3729116 0.3601426 0.3391285</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> layer.5 0.6002171 0.6002851 0.6166497 0.6288149 0.6410043 0.6515710</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># create rij matrix using polygon (Spatial) planning units</span></span>
-<span class="r-in"><span class="va">rij_polygons</span> <span class="op">&lt;-</span> <span class="fu">rij_matrix</span><span class="op">(</span><span class="va">sim_pu_polygons</span>, <span class="va">sim_features</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">rij_polygons</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># create rij matrix using polygon (Spatial) planning units</span></span></span>
+<span class="r-in"><span><span class="va">rij_polygons</span> <span class="op">&lt;-</span> <span class="fu">rij_matrix</span><span class="op">(</span><span class="va">sim_pu_polygons</span>, <span class="va">sim_features</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">rij_polygons</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5 x 90 sparse Matrix of class "dgCMatrix"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                              </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> layer.1 0.7150548 0.6990429 0.6859317 0.6783193 0.6782107 0.6863252 0.7017231</span>
@@ -322,10 +331,10 @@ for planning units where possible.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> layer.3 0.7679649 0.7589920 0.7195554 0.6927858 0.6644491 0.6371886</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> layer.4 0.3753241 0.3774461 0.3785580 0.3729116 0.3601426 0.3391285</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> layer.5 0.6002171 0.6002851 0.6166497 0.6288149 0.6410043 0.6515710</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># create rij matrix using polygon (sf) planning units</span></span>
-<span class="r-in"><span class="va">rij_sf</span> <span class="op">&lt;-</span> <span class="fu">rij_matrix</span><span class="op">(</span><span class="va">sim_pu_sf</span>, <span class="va">sim_features</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">rij_sf</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># create rij matrix using polygon (sf) planning units</span></span></span>
+<span class="r-in"><span><span class="va">rij_sf</span> <span class="op">&lt;-</span> <span class="fu">rij_matrix</span><span class="op">(</span><span class="va">sim_pu_sf</span>, <span class="va">sim_features</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">rij_sf</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5 x 90 sparse Matrix of class "dgCMatrix"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                              </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> layer.1 0.7150548 0.6990429 0.6859317 0.6783193 0.6782107 0.6863252 0.7017231</span>
@@ -405,10 +414,10 @@ for planning units where possible.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> layer.3 0.7679649 0.7589920 0.7195554 0.6927858 0.6644491 0.6371886</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> layer.4 0.3753241 0.3774461 0.3785580 0.3729116 0.3601426 0.3391285</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> layer.5 0.6002171 0.6002851 0.6166497 0.6288149 0.6410043 0.6515710</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># create rij matrix using raster stack planning units</span></span>
-<span class="r-in"><span class="va">rij_zones_raster</span> <span class="op">&lt;-</span> <span class="fu">rij_matrix</span><span class="op">(</span><span class="va">sim_pu_zones_stack</span>, <span class="va">sim_features</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">rij_zones_raster</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># create rij matrix using raster stack planning units</span></span></span>
+<span class="r-in"><span><span class="va">rij_zones_raster</span> <span class="op">&lt;-</span> <span class="fu">rij_matrix</span><span class="op">(</span><span class="va">sim_pu_zones_stack</span>, <span class="va">sim_features</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">rij_zones_raster</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5 x 90 sparse Matrix of class "dgCMatrix"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                              </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> layer.1 0.7150548 0.6990429 0.6859317 0.6783193 0.6782107 0.6863252 0.7219284</span>
@@ -502,7 +511,7 @@ for planning units where possible.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

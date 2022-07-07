@@ -17,7 +17,6 @@ NULL
 #' @details Proximity calculations are performed using
 #'   [sf::st_is_within_distance()].
 #'
-#' @return
 #' @return [`dsCMatrix-class`] symmetric sparse matrix object.
 #'   Each row and column represents a planning unit.
 #'   Cells values indicate if the pair-wise distances between different

@@ -76,9 +76,11 @@ run time and solution quality of the \pkg{Rsymphony} solver.
 The \pkg{lpsymphony} package is
 distributed through
 \href{https://doi.org/doi:10.18129/B9.bioc.lpsymphony}{Bioconductor}.
-To install the \pkg{lpsymphony} package, please use the following code:\preformatted{if (!require(remotes)) install.packages("remotes")
+To install the \pkg{lpsymphony} package, please use the following code:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{if (!require(remotes)) install.packages("remotes")
 remotes::install_bioc("lpsymphony")
-}
+}\if{html}{\out{</div>}}
 }
 
 \examples{

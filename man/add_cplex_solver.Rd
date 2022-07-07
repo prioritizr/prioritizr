@@ -71,8 +71,10 @@ this package, the \code{CPLEX_BIN} variable must be set (similar to
 the \code{GUROBI_HOME} variable for the \emph{Gurobi} software) to specify
 the file path for the \emph{CPLEX} software. For example, on a Linux system,
 this variable can be specified by adding the following text to the
-\verb{~/.bashrc} file:\preformatted{  export CPLEX_BIN="/opt/ibm/ILOG/CPLEX_Studio128/cplex/bin/x86-64_linux/cplex"
-}
+\verb{~/.bashrc} file:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{  export CPLEX_BIN="/opt/ibm/ILOG/CPLEX_Studio128/cplex/bin/x86-64_linux/cplex"
+}\if{html}{\out{</div>}}
 
 Note that you may need to change the version
 number in the file path (i.e., \code{"CPLEX_Studio128"}). For more information

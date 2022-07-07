@@ -24,7 +24,7 @@ to create a parameter with conflicting settings then an error will be thrown."><
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.5</span>
       </span>
     </div>
 
@@ -104,47 +104,58 @@ to create a parameter with conflicting settings then an error will be thrown.</p
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">proportion_parameter_array</span><span class="op">(</span><span class="va">name</span>, <span class="va">value</span>, <span class="va">label</span><span class="op">)</span>
-
-<span class="fu">binary_parameter_array</span><span class="op">(</span><span class="va">name</span>, <span class="va">value</span>, <span class="va">label</span><span class="op">)</span>
-
-<span class="fu">integer_parameter_array</span><span class="op">(</span>
-  <span class="va">name</span>,
-  <span class="va">value</span>,
-  <span class="va">label</span>,
-  lower_limit <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="op">-</span><span class="va">.Machine</span><span class="op">$</span><span class="va">integer.max</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span><span class="op">)</span>,
-  upper_limit <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="va">.Machine</span><span class="op">$</span><span class="va">integer.max</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span><span class="op">)</span>
-<span class="op">)</span>
-
-<span class="fu">numeric_parameter_array</span><span class="op">(</span>
-  <span class="va">name</span>,
-  <span class="va">value</span>,
-  <span class="va">label</span>,
-  lower_limit <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">.Machine</span><span class="op">$</span><span class="va">double.xmin</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span><span class="op">)</span>,
-  upper_limit <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">.Machine</span><span class="op">$</span><span class="va">double.xmax</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">proportion_parameter_array</span><span class="op">(</span><span class="va">name</span>, <span class="va">value</span>, <span class="va">label</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">binary_parameter_array</span><span class="op">(</span><span class="va">name</span>, <span class="va">value</span>, <span class="va">label</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">integer_parameter_array</span><span class="op">(</span></span>
+<span>  <span class="va">name</span>,</span>
+<span>  <span class="va">value</span>,</span>
+<span>  <span class="va">label</span>,</span>
+<span>  lower_limit <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="op">-</span><span class="va">.Machine</span><span class="op">$</span><span class="va">integer.max</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  upper_limit <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="va">.Machine</span><span class="op">$</span><span class="va">integer.max</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">numeric_parameter_array</span><span class="op">(</span></span>
+<span>  <span class="va">name</span>,</span>
+<span>  <span class="va">value</span>,</span>
+<span>  <span class="va">label</span>,</span>
+<span>  lower_limit <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">.Machine</span><span class="op">$</span><span class="va">double.xmin</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  upper_limit <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">.Machine</span><span class="op">$</span><span class="va">double.xmax</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>name</dt>
 <dd><p><code>character</code> name of parameter.</p></dd>
+
+
 <dt>value</dt>
 <dd><p><code>numeric</code> vector of values.</p></dd>
+
+
 <dt>label</dt>
 <dd><p><code>character</code> vector of labels for each value.</p></dd>
+
+
 <dt>lower_limit</dt>
 <dd><p><code>numeric</code> vector of values denoting the minimum acceptable
 value for each element in <code>value</code>. Defaults to the
 smallest possible number on the system.</p></dd>
+
+
 <dt>upper_limit</dt>
 <dd><p><code>numeric</code> vector of values denoting the maximum acceptable
 value for each element in <code>value</code>. Defaults to the
 largest  possible number on the system.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code><a href="ArrayParameter-class.html">ArrayParameter</a></code> object.</p>
+    
+
+<p><code><a href="ArrayParameter-class.html">ArrayParameter</a></code> object.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -174,103 +185,103 @@ description of each.</p><dl><dt>proportion_parameter_array</dt>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># proportion parameter array</span></span>
-<span class="r-in"><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu">proportion_parameter_array</span><span class="op">(</span><span class="st">'prop_array'</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span><span class="op">)</span>,</span>
-<span class="r-in">                                 <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span> <span class="co"># print it</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># proportion parameter array</span></span></span>
+<span class="r-in"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu">proportion_parameter_array</span><span class="op">(</span><span class="st">'prop_array'</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                                 <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span> <span class="co"># print it</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> prop_array (min: 0.1, max: 0.3)</span>
-<span class="r-in"><span class="va">p1</span><span class="op">$</span><span class="fu">get</span><span class="op">(</span><span class="op">)</span> <span class="co"># get value</span></span>
+<span class="r-in"><span><span class="va">p1</span><span class="op">$</span><span class="fu">get</span><span class="op">(</span><span class="op">)</span> <span class="co"># get value</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a   0.1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> b   0.2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> c   0.3</span>
-<span class="r-in"><span class="va">p1</span><span class="op">$</span><span class="va">id</span> <span class="co"># get id</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> id: a2da2429-2778-46ae-9242-d423a3a1c6ba</span>
-<span class="r-in"><span class="va">invalid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, row.names<span class="op">=</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span> <span class="co"># invalid values</span></span>
-<span class="r-in"><span class="va">p1</span><span class="op">$</span><span class="fu">validate</span><span class="op">(</span><span class="va">invalid</span><span class="op">)</span> <span class="co"># check invalid input is invalid</span></span>
-<span class="r-in"><span class="va">valid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.4</span>, <span class="fl">0.5</span>, <span class="fl">0.6</span><span class="op">)</span>, row.names<span class="op">=</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span> <span class="co"># valid</span></span>
-<span class="r-in"><span class="va">p1</span><span class="op">$</span><span class="fu">validate</span><span class="op">(</span><span class="va">valid</span><span class="op">)</span> <span class="co"># check valid input is valid</span></span>
-<span class="r-in"><span class="va">p1</span><span class="op">$</span><span class="fu">set</span><span class="op">(</span><span class="va">valid</span><span class="op">)</span> <span class="co"># change value to valid input</span></span>
-<span class="r-in"><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">p1</span><span class="op">$</span><span class="va">id</span> <span class="co"># get id</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> id: 9deb7097-9686-45c3-a6e6-71fe16703e5c</span>
+<span class="r-in"><span><span class="va">invalid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, row.names<span class="op">=</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span> <span class="co"># invalid values</span></span></span>
+<span class="r-in"><span><span class="va">p1</span><span class="op">$</span><span class="fu">validate</span><span class="op">(</span><span class="va">invalid</span><span class="op">)</span> <span class="co"># check invalid input is invalid</span></span></span>
+<span class="r-in"><span><span class="va">valid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.4</span>, <span class="fl">0.5</span>, <span class="fl">0.6</span><span class="op">)</span>, row.names<span class="op">=</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span> <span class="co"># valid</span></span></span>
+<span class="r-in"><span><span class="va">p1</span><span class="op">$</span><span class="fu">validate</span><span class="op">(</span><span class="va">valid</span><span class="op">)</span> <span class="co"># check valid input is valid</span></span></span>
+<span class="r-in"><span><span class="va">p1</span><span class="op">$</span><span class="fu">set</span><span class="op">(</span><span class="va">valid</span><span class="op">)</span> <span class="co"># change value to valid input</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> prop_array (min: 0.4, max: 0.6)</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># binary parameter array</span></span>
-<span class="r-in"><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu">binary_parameter_array</span><span class="op">(</span><span class="st">'bin_array'</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0L</span>, <span class="fl">1L</span>, <span class="fl">0L</span><span class="op">)</span>, <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span> <span class="co"># print it</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># binary parameter array</span></span></span>
+<span class="r-in"><span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu">binary_parameter_array</span><span class="op">(</span><span class="st">'bin_array'</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0L</span>, <span class="fl">1L</span>, <span class="fl">0L</span><span class="op">)</span>, <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span> <span class="co"># print it</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> bin_array (min: 0, max: 1)</span>
-<span class="r-in"><span class="va">p2</span><span class="op">$</span><span class="fu">get</span><span class="op">(</span><span class="op">)</span> <span class="co"># get value</span></span>
+<span class="r-in"><span><span class="va">p2</span><span class="op">$</span><span class="fu">get</span><span class="op">(</span><span class="op">)</span> <span class="co"># get value</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a     0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> b     1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> c     0</span>
-<span class="r-in"><span class="va">p2</span><span class="op">$</span><span class="va">id</span> <span class="co"># get id</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> id: 2af6ce54-0c00-4713-821a-d97e8f0fe90d</span>
-<span class="r-in"><span class="va">invalid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, row.names<span class="op">=</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span> <span class="co"># invalid values</span></span>
-<span class="r-in"><span class="va">p2</span><span class="op">$</span><span class="fu">validate</span><span class="op">(</span><span class="va">invalid</span><span class="op">)</span> <span class="co"># check invalid input is invalid</span></span>
-<span class="r-in"><span class="va">valid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0L</span>, <span class="fl">0L</span>, <span class="fl">0L</span><span class="op">)</span>, row.names<span class="op">=</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span> <span class="co"># valid</span></span>
-<span class="r-in"><span class="va">p2</span><span class="op">$</span><span class="fu">validate</span><span class="op">(</span><span class="va">valid</span><span class="op">)</span> <span class="co"># check valid input is valid</span></span>
-<span class="r-in"><span class="va">p2</span><span class="op">$</span><span class="fu">set</span><span class="op">(</span><span class="va">valid</span><span class="op">)</span> <span class="co"># change value to valid input</span></span>
-<span class="r-in"><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">p2</span><span class="op">$</span><span class="va">id</span> <span class="co"># get id</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> id: 31b6f323-3c9a-4524-92c1-6e74efb88c1a</span>
+<span class="r-in"><span><span class="va">invalid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, row.names<span class="op">=</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span> <span class="co"># invalid values</span></span></span>
+<span class="r-in"><span><span class="va">p2</span><span class="op">$</span><span class="fu">validate</span><span class="op">(</span><span class="va">invalid</span><span class="op">)</span> <span class="co"># check invalid input is invalid</span></span></span>
+<span class="r-in"><span><span class="va">valid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0L</span>, <span class="fl">0L</span>, <span class="fl">0L</span><span class="op">)</span>, row.names<span class="op">=</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span> <span class="co"># valid</span></span></span>
+<span class="r-in"><span><span class="va">p2</span><span class="op">$</span><span class="fu">validate</span><span class="op">(</span><span class="va">valid</span><span class="op">)</span> <span class="co"># check valid input is valid</span></span></span>
+<span class="r-in"><span><span class="va">p2</span><span class="op">$</span><span class="fu">set</span><span class="op">(</span><span class="va">valid</span><span class="op">)</span> <span class="co"># change value to valid input</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> bin_array (min: 0, max: 0)</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># integer parameter array</span></span>
-<span class="r-in"><span class="va">p3</span> <span class="op">&lt;-</span> <span class="fu">integer_parameter_array</span><span class="op">(</span><span class="st">'int_array'</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>, <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span> <span class="co"># print it</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># integer parameter array</span></span></span>
+<span class="r-in"><span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="fu">integer_parameter_array</span><span class="op">(</span><span class="st">'int_array'</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>, <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span> <span class="co"># print it</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> int_array (min: 1, max: 3)</span>
-<span class="r-in"><span class="va">p3</span><span class="op">$</span><span class="fu">get</span><span class="op">(</span><span class="op">)</span> <span class="co"># get value</span></span>
+<span class="r-in"><span><span class="va">p3</span><span class="op">$</span><span class="fu">get</span><span class="op">(</span><span class="op">)</span> <span class="co"># get value</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a     1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> b     2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> c     3</span>
-<span class="r-in"><span class="va">p3</span><span class="op">$</span><span class="va">id</span> <span class="co"># get id</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> id: edba0fc5-295d-4576-96da-f799a30f9316</span>
-<span class="r-in"><span class="va">invalid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>, row.names<span class="op">=</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span> <span class="co"># invalid</span></span>
-<span class="r-in"><span class="va">p3</span><span class="op">$</span><span class="fu">validate</span><span class="op">(</span><span class="va">invalid</span><span class="op">)</span> <span class="co"># check invalid input is invalid</span></span>
-<span class="r-in"><span class="va">valid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fl">5</span><span class="op">:</span><span class="fl">7</span>, row.names<span class="op">=</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span> <span class="co"># valid</span></span>
-<span class="r-in"><span class="va">p3</span><span class="op">$</span><span class="fu">validate</span><span class="op">(</span><span class="va">valid</span><span class="op">)</span> <span class="co"># check valid input is valid</span></span>
-<span class="r-in"><span class="va">p3</span><span class="op">$</span><span class="fu">set</span><span class="op">(</span><span class="va">valid</span><span class="op">)</span> <span class="co"># change value to valid input</span></span>
-<span class="r-in"><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">p3</span><span class="op">$</span><span class="va">id</span> <span class="co"># get id</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> id: 2ff16a2b-0b76-4934-8a1c-98d275ca1849</span>
+<span class="r-in"><span><span class="va">invalid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>, row.names<span class="op">=</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span> <span class="co"># invalid</span></span></span>
+<span class="r-in"><span><span class="va">p3</span><span class="op">$</span><span class="fu">validate</span><span class="op">(</span><span class="va">invalid</span><span class="op">)</span> <span class="co"># check invalid input is invalid</span></span></span>
+<span class="r-in"><span><span class="va">valid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fl">5</span><span class="op">:</span><span class="fl">7</span>, row.names<span class="op">=</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span> <span class="co"># valid</span></span></span>
+<span class="r-in"><span><span class="va">p3</span><span class="op">$</span><span class="fu">validate</span><span class="op">(</span><span class="va">valid</span><span class="op">)</span> <span class="co"># check valid input is valid</span></span></span>
+<span class="r-in"><span><span class="va">p3</span><span class="op">$</span><span class="fu">set</span><span class="op">(</span><span class="va">valid</span><span class="op">)</span> <span class="co"># change value to valid input</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> int_array (min: 5, max: 7)</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># numeric parameter array</span></span>
-<span class="r-in"><span class="va">p4</span> <span class="op">&lt;-</span> <span class="fu">numeric_parameter_array</span><span class="op">(</span><span class="st">'dbl_array'</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">4</span>, <span class="op">-</span><span class="fl">5</span><span class="op">)</span>, <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">p4</span><span class="op">)</span> <span class="co"># print it</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># numeric parameter array</span></span></span>
+<span class="r-in"><span><span class="va">p4</span> <span class="op">&lt;-</span> <span class="fu">numeric_parameter_array</span><span class="op">(</span><span class="st">'dbl_array'</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">4</span>, <span class="op">-</span><span class="fl">5</span><span class="op">)</span>, <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">p4</span><span class="op">)</span> <span class="co"># print it</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> dbl_array (min: -5, max: 4)</span>
-<span class="r-in"><span class="va">p4</span><span class="op">$</span><span class="fu">get</span><span class="op">(</span><span class="op">)</span> <span class="co"># get value</span></span>
+<span class="r-in"><span><span class="va">p4</span><span class="op">$</span><span class="fu">get</span><span class="op">(</span><span class="op">)</span> <span class="co"># get value</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a   0.1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> b   4.0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> c  -5.0</span>
-<span class="r-in"><span class="va">p4</span><span class="op">$</span><span class="va">id</span> <span class="co"># get id</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> id: 59f64748-58ee-4262-aea9-4863a2ccd393</span>
-<span class="r-in"><span class="va">invalid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, row.names<span class="op">=</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span> <span class="co"># invalid</span></span>
-<span class="r-in"><span class="va">p4</span><span class="op">$</span><span class="fu">validate</span><span class="op">(</span><span class="va">invalid</span><span class="op">)</span> <span class="co"># check invalid input is invalid</span></span>
-<span class="r-in"><span class="va">valid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>, row.names<span class="op">=</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span> <span class="co"># valid</span></span>
-<span class="r-in"><span class="va">p4</span><span class="op">$</span><span class="fu">validate</span><span class="op">(</span><span class="va">valid</span><span class="op">)</span> <span class="co"># check valid input is valid</span></span>
-<span class="r-in"><span class="va">p4</span><span class="op">$</span><span class="fu">set</span><span class="op">(</span><span class="va">valid</span><span class="op">)</span> <span class="co"># change value to valid input</span></span>
-<span class="r-in"><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">p4</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">p4</span><span class="op">$</span><span class="va">id</span> <span class="co"># get id</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> id: 26b4fa4d-3ffb-4f5a-aaf5-0ef822f19b3d</span>
+<span class="r-in"><span><span class="va">invalid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, row.names<span class="op">=</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span> <span class="co"># invalid</span></span></span>
+<span class="r-in"><span><span class="va">p4</span><span class="op">$</span><span class="fu">validate</span><span class="op">(</span><span class="va">invalid</span><span class="op">)</span> <span class="co"># check invalid input is invalid</span></span></span>
+<span class="r-in"><span><span class="va">valid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>, row.names<span class="op">=</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span> <span class="co"># valid</span></span></span>
+<span class="r-in"><span><span class="va">p4</span><span class="op">$</span><span class="fu">validate</span><span class="op">(</span><span class="va">valid</span><span class="op">)</span> <span class="co"># check valid input is valid</span></span></span>
+<span class="r-in"><span><span class="va">p4</span><span class="op">$</span><span class="fu">set</span><span class="op">(</span><span class="va">valid</span><span class="op">)</span> <span class="co"># change value to valid input</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">p4</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> dbl_array (min: 1, max: 3)</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># numeric parameter array with lower bounds</span></span>
-<span class="r-in"><span class="va">p5</span> <span class="op">&lt;-</span> <span class="fu">numeric_parameter_array</span><span class="op">(</span><span class="st">'b_dbl_array'</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">4</span>, <span class="op">-</span><span class="fl">5</span><span class="op">)</span>, <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>,</span>
-<span class="r-in">                              lower_limit<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">p5</span><span class="op">)</span> <span class="co"># print it</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># numeric parameter array with lower bounds</span></span></span>
+<span class="r-in"><span><span class="va">p5</span> <span class="op">&lt;-</span> <span class="fu">numeric_parameter_array</span><span class="op">(</span><span class="st">'b_dbl_array'</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">4</span>, <span class="op">-</span><span class="fl">5</span><span class="op">)</span>, <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>,</span></span>
+<span class="r-in"><span>                              lower_limit<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">p5</span><span class="op">)</span> <span class="co"># print it</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> b_dbl_array (min: -5, max: 4)</span>
-<span class="r-in"><span class="va">p5</span><span class="op">$</span><span class="fu">get</span><span class="op">(</span><span class="op">)</span> <span class="co"># get value</span></span>
+<span class="r-in"><span><span class="va">p5</span><span class="op">$</span><span class="fu">get</span><span class="op">(</span><span class="op">)</span> <span class="co"># get value</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a   0.1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> b   4.0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> c  -5.0</span>
-<span class="r-in"><span class="va">p5</span><span class="op">$</span><span class="va">id</span><span class="co"># get id</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> id: 11052c74-e832-4e00-b6f9-367524145a8f</span>
-<span class="r-in"><span class="va">invalid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">5</span>, <span class="fl">5</span><span class="op">)</span>, row.names<span class="op">=</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span> <span class="co"># invalid</span></span>
-<span class="r-in"><span class="va">p5</span><span class="op">$</span><span class="fu">validate</span><span class="op">(</span><span class="va">invalid</span><span class="op">)</span> <span class="co"># check invalid input is invalid</span></span>
-<span class="r-in"><span class="va">valid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, row.names<span class="op">=</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span> <span class="co"># valid</span></span>
-<span class="r-in"><span class="va">p5</span><span class="op">$</span><span class="fu">validate</span><span class="op">(</span><span class="va">valid</span><span class="op">)</span> <span class="co"># check valid input is valid</span></span>
-<span class="r-in"><span class="va">p5</span><span class="op">$</span><span class="fu">set</span><span class="op">(</span><span class="va">valid</span><span class="op">)</span> <span class="co"># change value to valid input</span></span>
-<span class="r-in"><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">p5</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">p5</span><span class="op">$</span><span class="va">id</span><span class="co"># get id</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> id: 0e407f1f-e096-42b6-a148-f209670b66da</span>
+<span class="r-in"><span><span class="va">invalid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">5</span>, <span class="fl">5</span><span class="op">)</span>, row.names<span class="op">=</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span> <span class="co"># invalid</span></span></span>
+<span class="r-in"><span><span class="va">p5</span><span class="op">$</span><span class="fu">validate</span><span class="op">(</span><span class="va">invalid</span><span class="op">)</span> <span class="co"># check invalid input is invalid</span></span></span>
+<span class="r-in"><span><span class="va">valid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, row.names<span class="op">=</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span> <span class="co"># valid</span></span></span>
+<span class="r-in"><span><span class="va">p5</span><span class="op">$</span><span class="fu">validate</span><span class="op">(</span><span class="va">valid</span><span class="op">)</span> <span class="co"># check valid input is valid</span></span></span>
+<span class="r-in"><span><span class="va">p5</span><span class="op">$</span><span class="fu">set</span><span class="op">(</span><span class="va">valid</span><span class="op">)</span> <span class="co"># change value to valid input</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">p5</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> b_dbl_array (min: 0, max: 2)</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -285,7 +296,7 @@ description of each.</p><dl><dt>proportion_parameter_array</dt>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

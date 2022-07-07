@@ -34,8 +34,6 @@ that are further apart from each other than this threshold are
 not treated as being within proximity of each other.}
 }
 \value{
-
-
 \code{\linkS4class{dsCMatrix}} symmetric sparse matrix object.
 Each row and column represents a planning unit.
 Cells values indicate if the pair-wise distances between different

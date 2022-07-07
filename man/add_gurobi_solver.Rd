@@ -116,8 +116,10 @@ Please see the \emph{Gurobi Installation Guide} vignette for details on
 installing the \emph{Gurobi} software and the \pkg{gurobi} package.
 You can access this vignette
 \href{https://prioritizr.net/articles/gurobi_installation_guide.html}{online}
-or using the following code:\preformatted{vignette("gurobi_installation", package = "prioritizr")
-}
+or using the following code:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{vignette("gurobi_installation", package = "prioritizr")
+}\if{html}{\out{</div>}}
 }
 
 \section{Start solution format}{

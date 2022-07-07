@@ -25,7 +25,7 @@ with each other too."><meta property="og:image" content="https://prioritizr.net/
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.5</span>
       </span>
     </div>
 
@@ -106,25 +106,25 @@ with each other too.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">adjacency_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for Raster</span>
-<span class="fu">adjacency_matrix</span><span class="op">(</span><span class="va">x</span>, directions <span class="op">=</span> <span class="fl">4L</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for SpatialPolygons</span>
-<span class="fu">adjacency_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for SpatialLines</span>
-<span class="fu">adjacency_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for SpatialPoints</span>
-<span class="fu">adjacency_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for sf</span>
-<span class="fu">adjacency_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for default</span>
-<span class="fu">adjacency_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">adjacency_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for Raster</span></span>
+<span><span class="fu">adjacency_matrix</span><span class="op">(</span><span class="va">x</span>, directions <span class="op">=</span> <span class="fl">4L</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for SpatialPolygons</span></span>
+<span><span class="fu">adjacency_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for SpatialLines</span></span>
+<span><span class="fu">adjacency_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for SpatialPoints</span></span>
+<span><span class="fu">adjacency_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for sf</span></span>
+<span><span class="fu">adjacency_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">adjacency_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -135,31 +135,41 @@ with each other too.</p>
 <code><a href="https://rdrr.io/pkg/sp/man/SpatialLines-class.html" class="external-link">SpatialLines</a></code>,
 or <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::sf()</a></code> object
 representing planning units.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>not used.</p></dd>
+
+
 <dt>directions</dt>
 <dd><p><code>integer</code> If <code>x</code> is a
 <code><a href="https://rdrr.io/pkg/raster/man/Raster-classes.html" class="external-link">Raster</a></code> object, the number of directions
 in which cells should be considered adjacent: 4 (rook's case), 8 (queen's
 case), 16 (knight and one-cell queen moves), or "bishop" to for cells
 with one-cell diagonal moves.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code><a href="https://rdrr.io/pkg/Matrix/man/dsCMatrix-class.html" class="external-link">dsCMatrix</a></code> sparse symmetric matrix.
+    
+
+<p><code><a href="https://rdrr.io/pkg/Matrix/man/dsCMatrix-class.html" class="external-link">dsCMatrix</a></code> sparse symmetric matrix.
 Each row and column represents a planning unit.
 Cells values indicate if different planning units are
 adjacent to each other or not (using ones and zeros).
 To reduce computational burden, cells among the matrix diagonal are
 set to zero. Furthermore, if the argument to <code>x</code> is a
-<code><a href="https://rdrr.io/pkg/raster/man/Raster-classes.html" class="external-link">Raster</a></code> object, then cells with <code>NA</code>values are set to zero too.</p>
+<code><a href="https://rdrr.io/pkg/raster/man/Raster-classes.html" class="external-link">Raster</a></code> object, then cells with <code>NA</code></p>
+
+
+<p>values are set to zero too.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
     <p>Spatial processing is completed using
 <code><a href="https://r-spatial.github.io/sf/reference/geos_binary_pred.html" class="external-link">sf::st_intersects()</a></code> for <code><a href="https://rdrr.io/pkg/sp/man/Spatial-class.html" class="external-link">Spatial</a></code> and
 <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::sf()</a></code> objects,
-and <code><a href="https://rdrr.io/pkg/raster/man/adjacent.html" class="external-link">raster::adjacent()</a></code> for <code><a href="https://rdrr.io/pkg/raster/man/Raster-classes.html" class="external-link">Raster</a></code>
+and <code><a href="https://rdrr.io/pkg/terra/man/adjacent.html" class="external-link">raster::adjacent()</a></code> for <code><a href="https://rdrr.io/pkg/raster/man/Raster-classes.html" class="external-link">Raster</a></code>
 objects.</p>
     </div>
     <div id="notes">
@@ -173,49 +183,49 @@ with other spatial association matrix functions.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># load data</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_pu_sf</span>, <span class="va">sim_pu_lines</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># create adjacency matrix using raster data</span></span>
-<span class="r-in"><span class="co">## crop raster to 9 cells</span></span>
-<span class="r-in"><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/crop.html" class="external-link">crop</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.3</span>, <span class="fl">0</span>, <span class="fl">0.3</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## make adjacency matrix</span></span>
-<span class="r-in"><span class="va">am_raster</span> <span class="op">&lt;-</span> <span class="fu">adjacency_matrix</span><span class="op">(</span><span class="va">r</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># create adjacency matrix using polygons (sf) data</span></span>
-<span class="r-in"><span class="co">## subset 9 polygons</span></span>
-<span class="r-in"><span class="va">ply</span> <span class="op">&lt;-</span> <span class="va">sim_pu_sf</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="fl">10</span><span class="op">:</span><span class="fl">12</span>, <span class="fl">20</span><span class="op">:</span><span class="fl">22</span><span class="op">)</span>, <span class="op">]</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## make adjacency matrix</span></span>
-<span class="r-in"><span class="va">am_ply</span> <span class="op">&lt;-</span> <span class="fu">adjacency_matrix</span><span class="op">(</span><span class="va">ply</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># create adjacency matrix using lines (Spatial) data</span></span>
-<span class="r-in"><span class="co">## subset 9 lines</span></span>
-<span class="r-in"><span class="va">lns</span> <span class="op">&lt;-</span> <span class="va">sim_pu_lines</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="fl">10</span><span class="op">:</span><span class="fl">12</span>, <span class="fl">20</span><span class="op">:</span><span class="fl">22</span><span class="op">)</span>, <span class="op">]</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## make adjacency matrix</span></span>
-<span class="r-in"><span class="va">am_lns</span> <span class="op">&lt;-</span> <span class="fu">adjacency_matrix</span><span class="op">(</span><span class="va">lns</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># plot data and the adjacency matrices</span></span>
-<span class="r-in"><span class="co"># \dontrun{</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## plot raster and adjacency matrix</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">r</span>, main <span class="op">=</span> <span class="st">"raster"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html" class="external-link">raster</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/as.matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">am_raster</span><span class="op">)</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"adjacency matrix"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span class="r-in">     box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## plot polygons (sf) and adjacency matrix</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">r</span>, main <span class="op">=</span> <span class="st">"polygons (sf)"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html" class="external-link">raster</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/as.matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">am_ply</span><span class="op">)</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"adjacency matrix"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span class="r-in">    box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## plot lines (Spatial) and adjacency matrix</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">r</span>, main <span class="op">=</span> <span class="st">"lines (Spatial)"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/raster/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html" class="external-link">raster</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/as.matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">am_lns</span><span class="op">)</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"adjacency matrix"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span class="r-in">     box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># }</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># load data</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_pu_sf</span>, <span class="va">sim_pu_lines</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># create adjacency matrix using raster data</span></span></span>
+<span class="r-in"><span><span class="co">## crop raster to 9 cells</span></span></span>
+<span class="r-in"><span><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/crop.html" class="external-link">crop</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.3</span>, <span class="fl">0</span>, <span class="fl">0.3</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## make adjacency matrix</span></span></span>
+<span class="r-in"><span><span class="va">am_raster</span> <span class="op">&lt;-</span> <span class="fu">adjacency_matrix</span><span class="op">(</span><span class="va">r</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># create adjacency matrix using polygons (sf) data</span></span></span>
+<span class="r-in"><span><span class="co">## subset 9 polygons</span></span></span>
+<span class="r-in"><span><span class="va">ply</span> <span class="op">&lt;-</span> <span class="va">sim_pu_sf</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="fl">10</span><span class="op">:</span><span class="fl">12</span>, <span class="fl">20</span><span class="op">:</span><span class="fl">22</span><span class="op">)</span>, <span class="op">]</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## make adjacency matrix</span></span></span>
+<span class="r-in"><span><span class="va">am_ply</span> <span class="op">&lt;-</span> <span class="fu">adjacency_matrix</span><span class="op">(</span><span class="va">ply</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># create adjacency matrix using lines (Spatial) data</span></span></span>
+<span class="r-in"><span><span class="co">## subset 9 lines</span></span></span>
+<span class="r-in"><span><span class="va">lns</span> <span class="op">&lt;-</span> <span class="va">sim_pu_lines</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="fl">10</span><span class="op">:</span><span class="fl">12</span>, <span class="fl">20</span><span class="op">:</span><span class="fl">22</span><span class="op">)</span>, <span class="op">]</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## make adjacency matrix</span></span></span>
+<span class="r-in"><span><span class="va">am_lns</span> <span class="op">&lt;-</span> <span class="fu">adjacency_matrix</span><span class="op">(</span><span class="va">lns</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># plot data and the adjacency matrices</span></span></span>
+<span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## plot raster and adjacency matrix</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">r</span>, main <span class="op">=</span> <span class="st">"raster"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html" class="external-link">raster</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">am_raster</span><span class="op">)</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"adjacency matrix"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span>     box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## plot polygons (sf) and adjacency matrix</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">r</span>, main <span class="op">=</span> <span class="st">"polygons (sf)"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html" class="external-link">raster</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">am_ply</span><span class="op">)</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"adjacency matrix"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span>    box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## plot lines (Spatial) and adjacency matrix</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">r</span>, main <span class="op">=</span> <span class="st">"lines (Spatial)"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html" class="external-link">raster</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">am_lns</span><span class="op">)</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"adjacency matrix"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span>     box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-plt img"><img src="adjacency_matrix-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -231,7 +241,7 @@ with other spatial association matrix functions.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>
