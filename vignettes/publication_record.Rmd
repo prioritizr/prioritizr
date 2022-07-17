@@ -25,6 +25,7 @@ This vignette contains a list of publications that have cited or used the _prior
 * Burbano-Girón J, Jantke K, Molina-Berbeo MA, Buriticá-Mejía N, Urbina-Cardona JN, Sánchez-Clavijo LM, and Etter A (2022) An assessment of spatial conservation priorities for biodiversity attributes: Composition, structure, and function of Neotropical biodiversity. _Biological Conservation_, **265**: 109421.
 * Chung HI, Choi Y, Yoo Y, Engler R, Lee K, and Jeon SW (2022) Integrated spatial model based evaluation methodology for optimal invasive species management: common ragweed in the Republic of Korea. _Environmental Research Letters_, **17**: 034047.
 * González-Fernández A, González-Salazar C, Sunny A, Ruíz-Gutiérrez F, and Chávez C (2022) Determination of priority areas for amphibian conservation in Guerrero (Mexico), through systematic conservation planning tools. _Journal for Nature Conservation_, **In press**: DOI&#58;10.1016/j.jnc.2022.126235.
+* Hanson JO, Vincent J, Schuster R, Fahrig L, Brennan A, Martin AE, Hughes JS, Pither R, and Bennett JR (2022) A comparison of approaches for including connectivity in systematic conservation planning. _Journal of Applied Ecology_, **In press**: DOI&#58;10.1111/1365-2664.14251.
 * Henry RC, Arneth A, Jung M, Rabin SS, Rounsevell MD, Warren F, and Alexander P (2022) Global and regional health and food security under strict conservation scenarios. _Nature Sustainability_, **5**: 303--310.
 * Ladouceur E, McGowan J, Huber P, Possingham H, Scridel D, van Klink R, Poschlod P, Cornelissen JHC, Bonomi C, and Jiménez-Alfaro B (2022) An objective-based prioritization approach to support trophic complexity through ecological restoration species mixes. _Journal of Applied Ecology_, **59**: 394--407.
 * Neo L, Tan HT, and Wong KM (2022) Too little, too late? Conservation exigencies for Borneo inferred from biogeographic considerations of its endemic plant genera against intense landscape modifications. _Biodiversity and Conservation_, **31**: 59--76.
@@ -46,6 +47,7 @@ This vignette contains a list of publications that have cited or used the _prior
 * Zheng C, Wen Z, Liu Y, Guo Q, Jiang Y, Ren H, Fan Y, and Yang Y (2021) Integrating habitat suitability and the near-nature restoration priorities into revegetation plans Based on potential vegetation distribution. _Forests_, **12**: 218.
 
 ### 2020
+
 * Bryant BP, Kelsey TR, Vogl AL, Wolny SA, MacEwan DJ, Selmants PC, Biswas T, and Butterfield HS (2020) Shaping land use change and ecosystem restoration in a water-stressed agricultural landscape to achieve multiple benefits. _Frontiers in Sustainable Food Systems_, **4**: 138.
 * Flower J, Ramdeen R, Estep A, Thomas LR, Francis S, Goldberg G, Johnson AE, McClintock W, Mendes SR, Mengerink K, and O'Garro M (2020) Marine spatial planning on the Caribbean island of Montserrat: Lessons for data-limited small islands. _Conservation Science and Practice_, **2**: e158.
 * Hanson JO, Marques A, Ver&#237;ssimo A, Camacho-Sanchez M, Velo-Ant&#243;n G, Mart&#237;nez-Solano &#205;, and Carvalho SB (2020) Conservation planning for adaptive and neutral evolutionary processes. _Journal of Applied Ecology_, **57**: 2159--2169.
@@ -59,6 +61,7 @@ This vignette contains a list of publications that have cited or used the _prior
 * Williams SH, Scriven SA, Burslem DF, Hill JK, Reynolds G, Agama AL, Kugan F, Maycock CR, Khoo E, Hastie AY, Sugau JB (2020) Incorporating connectivity into conservation planning for optimal representation of multiple species and ecosystem services. _Conservation Biology_, **34**: 934--942.
 
 ### 2019
+
 * Bombi P, Gnetti V, D'Andrea E, De Cinti B, Taglianti AV, Bologna MA, and Matteucci G (2019) Identifying priority sites for insect conservation in forest ecosystems at high resolution: the potential of LiDAR data. _Journal of Insect Conservation_, **23**: 689--698.
 * Domisch S, Friedrichs M, Hein T, Borgwardt F, Wetzig A, J&auml;hnig SC, and Langhans SD (2019) Spatially explicit species distribution models: A missed opportunity in conservation planning? _Diversity and Distributions_, **25**: 758--769.
 * Hanson JO, Fuller RA, and Rhodes JR (2019) Conventional methods for enhancing connectivity in conservation planning do not always maintain gene flow. _Journal of Applied Ecology_, **56**: 913--922.
@@ -68,6 +71,7 @@ This vignette contains a list of publications that have cited or used the _prior
 * Tack JD, Jakes AF, Jones PF, Smith JT, Newton RE, Martin BH, Hebblewhite M, and Naugle DE (2019) Beyond protected areas: Private lands and public policy anchor intact pathways for multi-species wildlife migration. _Biological Conservation_, **234**: 18--27.
 
 ### 2017
+
 * Rosauer DF, Pollock LJ, Linke S, and Jetz W (2017) Phylogenetically informed spatial planning is required to conserve the mammalian tree of life. _Proceedings of the Royal Society of London B: Biological Sciences_, **284**: 20170627.
 
 ## Review articles
