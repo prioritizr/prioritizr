@@ -7,8 +7,8 @@
 simulate_cost(
   x,
   n = 1,
-  model = RandomFields::RPpoisson(RandomFields::RMtruncsupport(radius = raster::xres(x)
-    * 10, RandomFields::RMgauss())),
+  model = RandomFields::RPpoisson(RandomFields::RMtruncsupport(radius = raster::xres(x) *
+    10, RandomFields::RMgauss())),
   transform = identity,
   ...
 )

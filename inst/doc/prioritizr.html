@@ -261,7 +261,7 @@ div.csl-indent {
 <p>We can now solve the problem formulation (<code>p1</code>) to generate a prioritization (using the <code>solve()</code> function). The <em>prioritizr</em> R package supports a range of different exact algorithm solvers, including <em>Gurobi</em>, <em>IBM CPLEX</em>, <em>CBC</em>, <em>Rsymphony</em>, and <em>lpsymphony</em>. Although there are benefits and limitations associated with each of these different solvers, they should return similar results. Note that you will need at least one solver installed on your system to generate prioritizations. Since we did not specify a solver when building the problem, the <em>prioritizr R</em> package will automatically select the best available solver installed. We recommend using the <em>Gurobi</em> solver if possible, and have used it for this tutorial (see the <em>Gurobi Installation Guide</em> vignette for installation instructions). After solving the problem, the prioritization will be stored in the <code>solution_1</code> column of the <code>s1</code> object.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># solve problem</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>s1 <span class="ot">&lt;-</span> <span class="fu">solve</span>(p1)</span></code></pre></div>
-<pre><code>## Gurobi Optimizer version 9.5.1 build v9.5.1rc2 (linux64)
+<pre><code>## Gurobi Optimizer version 9.5.2 build v9.5.2rc0 (linux64)
 ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
 ## Optimize a model with 6358 rows, 4278 columns and 14496 nonzeros
 ## Model fingerprint: 0xc7d1c688
@@ -301,7 +301,7 @@ div.csl-indent {
 ##   Zero half: 2
 ##   RLT: 10
 ## 
-## Explored 1 nodes (2393 simplex iterations) in 0.32 seconds (0.60 work units)
+## Explored 1 nodes (2393 simplex iterations) in 0.33 seconds (0.60 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 7: 21702.3 22977.8 23045.7 ... 37703.8
@@ -347,7 +347,8 @@ div.csl-indent {
 ##  8               2.19            0.17        0.119              0.0510
 ##  9              43.5             0.17        0.0578             0.112 
 ## 10               2.47            0.17        0                  0.17  
-## # … with 52 more rows</code></pre>
+## # … with 52 more rows
+## # ℹ Use `print(n = ...)` to see more rows</code></pre>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate  feature representation statistics based on the prioritization</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>tc_s1 <span class="ot">&lt;-</span> <span class="fu">eval_target_coverage_summary</span>(p1, s1[, <span class="st">&quot;solution_1&quot;</span>])</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(tc_s1)</span></code></pre></div>
@@ -376,7 +377,8 @@ div.csl-indent {
 ##  8                  0            0.17         0.189                  0
 ##  9                  0            0.17         0.182                  0
 ## 10                  0            0.17         0.200                  0
-## # … with 52 more rows</code></pre>
+## # … with 52 more rows
+## # ℹ Use `print(n = ...)` to see more rows</code></pre>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># explore representation by existing protected areas</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="do">## calculate number of features adequately represented by existing protected</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="do">## areas</span></span>
@@ -453,7 +455,7 @@ div.csl-indent {
 ##   solver:         default</code></pre>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># generate prioritizations</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>prt <span class="ot">&lt;-</span> <span class="fu">solve</span>(p2)</span></code></pre></div>
-<pre><code>## Gurobi Optimizer version 9.5.1 build v9.5.1rc2 (linux64)
+<pre><code>## Gurobi Optimizer version 9.5.2 build v9.5.2rc0 (linux64)
 ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
 ## Optimize a model with 6358 rows, 4278 columns and 14496 nonzeros
 ## Model fingerprint: 0xc7d1c688
@@ -518,16 +520,16 @@ div.csl-indent {
 ## H  606   599                    20993.604430 19996.6237  4.75%  32.8    3s
 ##    617     7 20993.6044  517 2028 20993.6044 19998.3522  4.74%  32.3    5s
 ##    653     7 20993.6044   41 1961 20993.6044 20030.1664  4.59%  37.5   10s
-##    733    66 20718.4131   54  737 20993.6044 20082.6816  4.34%  59.6   15s
+##    723    56 20559.4179   49  907 20993.6044 20082.6816  4.34%  58.3   15s
 ## H  750    81                    20939.026645 20082.6816  4.09%  61.7   15s
-## H 1231   560                    20924.385117 20082.6816  4.02%  44.7   17s
-##   1323   654 20874.9486   70 1097 20924.3851 20084.4398  4.01%  59.4   20s
-## H 1975  1297                    20813.687049 20092.6890  3.46%  50.6   21s
-##   2751  2073 22299.7221  308   23 20813.6870 20099.7124  3.43%  46.1   25s
-##   4197  3302 20872.0052   45 1778 20813.6870 20130.7144  3.28%  41.3   30s
-##   5206  3788 20336.6323   35 1778 20813.6870 20155.9610  3.16%  41.0   35s
-##   6105  4586 20532.3259   34 1904 20813.6870 20171.2638  3.09%  43.3   40s
-##   7190  4678 21932.8269  158   11 20813.6870 20195.6514  2.97%  43.3   45s
+## H 1231   560                    20924.385117 20082.6816  4.02%  44.7   18s
+##   1311   642 20881.4569   64  994 20924.3851 20084.4398  4.01%  58.0   20s
+## H 1975  1297                    20813.687049 20092.6890  3.46%  50.6   22s
+##   2560  1882 21512.7479  117   86 20813.6870 20099.7124  3.43%  49.4   25s
+##   4183  3288 20514.5621   31 1923 20813.6870 20130.7144  3.28%  40.8   30s
+##   5196  3778 20285.7122   29 1944 20813.6870 20155.9610  3.16%  40.5   35s
+##   6088  4571 22416.4753   69 1435 20813.6870 20167.5494  3.10%  42.8   40s
+##   7093  4738 21211.5189   61 1288 20813.6870 20195.6514  2.97%  43.2   45s
 ## 
 ## Cutting planes:
 ##   Gomory: 7
@@ -539,7 +541,7 @@ div.csl-indent {
 ##   Zero half: 22
 ##   RLT: 24
 ## 
-## Explored 7780 nodes (344017 simplex iterations) in 47.76 seconds (80.68 work units)
+## Explored 7780 nodes (344017 simplex iterations) in 48.15 seconds (80.68 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 1000: 20813.7 20924.4 20939 ... 22439.4
@@ -656,14 +658,14 @@ div.csl-indent {
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.3, max: 0.3)]
 ##   decisions:      default
-##   constraints:    &lt;Locked out planning units [1 locked units]
-##                    Locked in planning units [317 locked units]&gt;
+##   constraints:    &lt;Locked in planning units [317 locked units]
+##                    Locked out planning units [1 locked units]&gt;
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (5e-04), zones]&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># solve problem</span></span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>s2 <span class="ot">&lt;-</span> <span class="fu">solve</span>(p2)</span></code></pre></div>
-<pre><code>## Gurobi Optimizer version 9.5.1 build v9.5.1rc2 (linux64)
+<pre><code>## Gurobi Optimizer version 9.5.2 build v9.5.2rc0 (linux64)
 ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
 ## Optimize a model with 10075 rows, 6780 columns and 24778 nonzeros
 ## Model fingerprint: 0x37d7a0a1

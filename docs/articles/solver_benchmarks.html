@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.7</span>
       </span>
     </div>
 
@@ -329,23 +329,24 @@
 <code class="sourceCode R"><span><span class="co"># preview results</span></span>
 <span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">benchmark_results</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 480 × 21</span></span></span>
-<span><span class="co">##    id                  pu_data number_of_plann… number_features objective budget</span></span>
-<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> faa32c2f8523182c46…       1             <span style="text-decoration: underline;">1</span>478              72 add_min_…     <span style="color: #BB0000;">NA</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> d45739ff528cdf5b42…       2            <span style="text-decoration: underline;">12</span>902              72 add_min_…     <span style="color: #BB0000;">NA</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> dace50564e47d4e006…       3           <span style="text-decoration: underline;">102</span>242              72 add_min_…     <span style="color: #BB0000;">NA</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> 36e6f35f017be6eec1…       4           <span style="text-decoration: underline;">606</span>180              72 add_min_…     <span style="color: #BB0000;">NA</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> fb66b4160dac867fe7…       1             <span style="text-decoration: underline;">1</span>478              72 add_min_…     <span style="color: #BB0000;">NA</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> 2bb12ee18e2c82107c…       2            <span style="text-decoration: underline;">12</span>902              72 add_min_…     <span style="color: #BB0000;">NA</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> 21916c745740a1b479…       3           <span style="text-decoration: underline;">102</span>242              72 add_min_…     <span style="color: #BB0000;">NA</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 44995e0a5a1e43ef91…       4           <span style="text-decoration: underline;">606</span>180              72 add_min_…     <span style="color: #BB0000;">NA</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 2e848142afa1261148…       1             <span style="text-decoration: underline;">1</span>478              72 add_min_…     <span style="color: #BB0000;">NA</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">10</span> 641e3775582176bd61…       2            <span style="text-decoration: underline;">12</span>902              72 add_min_…     <span style="color: #BB0000;">NA</span></span></span>
-<span><span class="co">## <span style="color: #949494;"># … with 470 more rows, and 15 more variables: relative_target &lt;dbl&gt;,</span></span></span>
-<span><span class="co">## <span style="color: #949494;">#   boundary_penalty &lt;dbl&gt;, solver &lt;chr&gt;, threads &lt;int&gt;, time_limit &lt;dbl&gt;,</span></span></span>
-<span><span class="co">## <span style="color: #949494;">#   gap &lt;dbl&gt;, replicate &lt;int&gt;, id2 &lt;int&gt;, objective_value &lt;dbl&gt;, status &lt;chr&gt;,</span></span></span>
+<span><span class="co">##    id      pu_data numbe…¹ numbe…² objec…³ budget relat…⁴ bound…⁵ solver threads</span></span>
+<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> faa32c…       1    <span style="text-decoration: underline;">1</span>478      72 add_mi…     <span style="color: #BB0000;">NA</span>    0.1        0 add_g…       1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> d45739…       2   <span style="text-decoration: underline;">12</span>902      72 add_mi…     <span style="color: #BB0000;">NA</span>    0.1        0 add_g…       1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> dace50…       3  <span style="text-decoration: underline;">102</span>242      72 add_mi…     <span style="color: #BB0000;">NA</span>    0.1        0 add_g…       1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> 36e6f3…       4  <span style="text-decoration: underline;">606</span>180      72 add_mi…     <span style="color: #BB0000;">NA</span>    0.1        0 add_g…       1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> fb66b4…       1    <span style="text-decoration: underline;">1</span>478      72 add_mi…     <span style="color: #BB0000;">NA</span>    0.15       0 add_g…       1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> 2bb12e…       2   <span style="text-decoration: underline;">12</span>902      72 add_mi…     <span style="color: #BB0000;">NA</span>    0.15       0 add_g…       1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> 21916c…       3  <span style="text-decoration: underline;">102</span>242      72 add_mi…     <span style="color: #BB0000;">NA</span>    0.15       0 add_g…       1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 44995e…       4  <span style="text-decoration: underline;">606</span>180      72 add_mi…     <span style="color: #BB0000;">NA</span>    0.15       0 add_g…       1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 2e8481…       1    <span style="text-decoration: underline;">1</span>478      72 add_mi…     <span style="color: #BB0000;">NA</span>    0.2        0 add_g…       1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> 641e37…       2   <span style="text-decoration: underline;">12</span>902      72 add_mi…     <span style="color: #BB0000;">NA</span>    0.2        0 add_g…       1</span></span>
+<span><span class="co">## <span style="color: #949494;"># … with 470 more rows, 11 more variables: time_limit &lt;dbl&gt;, gap &lt;dbl&gt;,</span></span></span>
+<span><span class="co">## <span style="color: #949494;">#   replicate &lt;int&gt;, id2 &lt;int&gt;, objective_value &lt;dbl&gt;, status &lt;chr&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   total_time &lt;dbl&gt;, run_time &lt;dbl&gt;, exceeded_run_time &lt;lgl&gt;, solution &lt;chr&gt;,</span></span></span>
-<span><span class="co">## <span style="color: #949494;">#   cache &lt;lgl&gt;</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;">#   cache &lt;lgl&gt;, and abbreviated variable names ¹​number_of_planning_units,</span></span></span>
+<span><span class="co">## <span style="color: #949494;">#   ²​number_features, ³​objective, ⁴​relative_target, ⁵​boundary_penalty</span></span></span>
+<span><span class="co">## <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows, and `colnames()` to see all variable names</span></span></span></code></pre>
 <p>Let’s examine the average run time for each solver across all benchmark runs. To achieve this, we will create a box plot. Since we prefer solvers that generate prioritizations in a short period of time, solvers that have shorter (lower) run times are considered better. When looking at this box plot, we can see that average run times for the <em>IBM CPLEX</em> and <em>Gurobi</em> solvers are consistently low and don’t differ much from each other. Additionally, the run times for the open source <em>CBC</em> solver are generally low too. However, there are some cases where the run times for the <em>CBC</em> solver are much higher than those for the <em>IBM CPLEX</em> and <em>Gurobi</em> solvers. We can also see that the <em>lpsymphony</em> and <em>Rsymphony</em> solvers – which both use the open source <em>SYMPHONY</em> software – can take much longer to generate prioritizations than the other solvers.</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot overall summary of solver performance</span></span>

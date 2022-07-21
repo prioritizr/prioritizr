@@ -1348,7 +1348,7 @@ div.csl-indent {
 <span id="cb104-7"><a href="#cb104-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb104-8"><a href="#cb104-8" aria-hidden="true" tabindex="-1"></a><span class="co"># solve the problem (using the default solver)</span></span>
 <span id="cb104-9"><a href="#cb104-9" aria-hidden="true" tabindex="-1"></a>s41 <span class="ot">&lt;-</span> <span class="fu">solve</span>(p41)</span></code></pre></div>
-<pre><code>## Gurobi Optimizer version 9.5.1 build v9.5.1rc2 (linux64)
+<pre><code>## Gurobi Optimizer version 9.5.2 build v9.5.2rc0 (linux64)
 ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
 ## Optimize a model with 293 rows, 234 columns and 1026 nonzeros
 ## Model fingerprint: 0xbd38144b
@@ -1505,7 +1505,7 @@ div.csl-indent {
 <pre><code>## # A tibble: 1 × 2
 ##   summary asym_connectivity
 ##   &lt;chr&gt;               &lt;dbl&gt;
-## 1 overall              51.0</code></pre>
+## 1 overall              51.1</code></pre>
 </div>
 <div id="evaluating-relative-importance" class="section level3">
 <h3>Evaluating relative importance</h3>
@@ -1519,7 +1519,7 @@ div.csl-indent {
 <span id="cb127-6"><a href="#cb127-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb127-7"><a href="#cb127-7" aria-hidden="true" tabindex="-1"></a><span class="co"># solve the problem</span></span>
 <span id="cb127-8"><a href="#cb127-8" aria-hidden="true" tabindex="-1"></a>s42 <span class="ot">&lt;-</span> <span class="fu">solve</span>(p42)</span></code></pre></div>
-<pre><code>## Gurobi Optimizer version 9.5.1 build v9.5.1rc2 (linux64)
+<pre><code>## Gurobi Optimizer version 9.5.2 build v9.5.2rc0 (linux64)
 ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
 ## Optimize a model with 5 rows, 90 columns and 450 nonzeros
 ## Model fingerprint: 0x6442bf6e
@@ -1638,8 +1638,8 @@ div.csl-indent {
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.3, max: 0.3)]
 ##   decisions:      default
-##   constraints:    &lt;Locked in planning units [317 locked units]
-##                    Locked out planning units [1 locked units]&gt;
+##   constraints:    &lt;Locked out planning units [1 locked units]
+##                    Locked in planning units [317 locked units]&gt;
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (0), zones]&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>

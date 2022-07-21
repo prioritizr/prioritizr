@@ -24,7 +24,7 @@ it returns spatially auto-correlated integer values."><meta property="og:image" 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.7</span>
       </span>
     </div>
 
@@ -107,8 +107,8 @@ it returns spatially auto-correlated integer values.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">simulate_cost</span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
 <span>  n <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  model <span class="op">=</span> <span class="fu">RandomFields</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/RandomFields/man/RPpoisson.html" class="external-link">RPpoisson</a></span><span class="op">(</span><span class="fu">RandomFields</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/RandomFields/man/RMtruncsupport.html" class="external-link">RMtruncsupport</a></span><span class="op">(</span>radius <span class="op">=</span> <span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/dimensions.html" class="external-link">xres</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span>    <span class="op">*</span> <span class="fl">10</span>, <span class="fu">RandomFields</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/RandomFields/man/RMgauss.html" class="external-link">RMgauss</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  model <span class="op">=</span> <span class="fu">RandomFields</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/RandomFields/man/RPpoisson.html" class="external-link">RPpoisson</a></span><span class="op">(</span><span class="fu">RandomFields</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/RandomFields/man/RMtruncsupport.html" class="external-link">RMtruncsupport</a></span><span class="op">(</span>radius <span class="op">=</span> <span class="fu">raster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/dimensions.html" class="external-link">xres</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">*</span></span>
+<span>    <span class="fl">10</span>, <span class="fu">RandomFields</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/RandomFields/man/RMgauss.html" class="external-link">RMgauss</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  transform <span class="op">=</span> <span class="va">identity</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
