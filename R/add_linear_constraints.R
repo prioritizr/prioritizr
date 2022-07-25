@@ -90,7 +90,6 @@ NULL
 #' # an additional budget of 1600 based on a secondary cost dataset
 #'
 #' # create a secondary cost dataset by simulating values
-#' # (note this requires the RandomFields package to be installed)
 #' sim_pu_raster2 <- simulate_cost(sim_pu_raster)
 #'
 #' # plot the primary cost dataset (sim_pu_raster) and

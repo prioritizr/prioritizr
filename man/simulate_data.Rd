@@ -4,45 +4,56 @@
 \alias{simulate_data}
 \title{Simulate data}
 \usage{
-simulate_data(x, n, model, transform = identity, ...)
+simulate_data(
+  x,
+  n = 1,
+  intensity = 0,
+  sd = 1,
+  scale = 0.5,
+  transform = identity
+)
 }
 \arguments{
 \item{x}{\code{\linkS4class{RasterLayer}} object to use as
 a template.}
 
-\item{n}{\code{integer} number of species to simulate.}
+\item{n}{\code{integer} number of layers to simulate.
+Defaults to 1.}
 
-\item{model}{\code{\link[RandomFields:RP]{RandomFields::RP()}} model object
-to use for simulating data.}
+\item{intensity}{\code{numeric} average value of simulated data.
+Defaults to 0.}
 
-\item{transform}{\code{function} to transform values output
-from the random fields simulation.}
+\item{sd}{\code{numeric} standard deviation of simulated data.
+Defaults to 1.}
 
-\item{...}{additional arguments passed to
-\code{\link[RandomFields:RFsimulate]{RandomFields::RFsimulate()}}.}
+\item{scale}{\code{numeric} strength of spatial auto-correlation.
+Defaults to 0.5.}
+
+\item{transform}{\code{function} transformation function.
+Defaults to \code{\link[=identity]{identity()}}, such that values remain unchanged follow}
 }
 \value{
-\code{\linkS4class{RasterStack}} object with a
-layer for each species.
+\code{\linkS4class{RasterStack}} object.
 }
 \description{
 Simulate spatially auto-correlated data.
 }
+\details{
+Data are simulated based on a Gaussian random field.
+}
 \examples{
 \dontrun{
 # create raster
-r <- raster(ncol=10, nrow=10, xmn=0, xmx=1, ymn=0, ymx=1)
+r <- raster(ncol = 10, nrow = 10, xmn = 0, xmx = 1, ymn = 0, ymx = 1)
 values(r) <- 1
 
 # simulate data using a Gaussian field
-# (note this requires the RandomFields package to be installed)
-d <- simulate_data(r, n = 1, model = RandomFields::RMgauss())
+d <- simulate_data(r, n = 1)
 
 # plot simulated data
-plot(d, main = "random Gaussian field")
+plot(d, main = "simulated data")
 }
 }
 \seealso{
-\code{\link[RandomFields:RFsimulate]{RandomFields::RFsimulate()}},
 \code{\link[=simulate_cost]{simulate_cost()}}, \code{\link[=simulate_species]{simulate_species()}}.
 }

@@ -3,8 +3,6 @@
 set.seed(500)
 source("R/simulate.R")
 source("R/zones.R")
-library(RandomFields)
-RFoptions(seed = 500)
 
 # define functions
 rasterToLines <- function(x) {
@@ -166,7 +164,7 @@ save(sim_pu_polygons, file = "data/sim_pu_polygons.rda", compress = "xz",
      version = 2)
 save(sim_pu_zones_polygons, file = "data/sim_pu_zones_polygons.rda",
      compress = "xz", version = 2)
-save(sim_pu_lines, file = "data/sim_pu_lines.rda", compress = "xz", 
+save(sim_pu_lines, file = "data/sim_pu_lines.rda", compress = "xz",
      version = 2)
 save(sim_pu_points, file = "data/sim_pu_points.rda", compress = "xz",
      version = 2)

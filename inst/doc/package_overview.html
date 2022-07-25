@@ -961,20 +961,19 @@ div.csl-indent {
 <li><strong>Asymmetric connectivity penalties</strong>: Add penalties to penalize solutions that select planning units that share high connectivity values other planning units that are not selected by the solution. This function is used for asymmetric connectivities among planning units <span class="citation">(based on Beger <em>et al.</em> 2010)</span>.</li>
 </ul>
 <div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a matrix containing asymmetric connectivity data,</span></span>
-<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (the connectivity values will be simulated using random numbers)</span></span>
-<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>asym_con_matrix <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
-<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">runif</span>(<span class="fu">ncell</span>(sim_pu_raster)<span class="sc">^</span><span class="dv">2</span>),</span>
-<span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="fu">ncell</span>(sim_pu_raster),</span>
-<span id="cb74-6"><a href="#cb74-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="fu">ncell</span>(sim_pu_raster))</span>
-<span id="cb74-7"><a href="#cb74-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb74-8"><a href="#cb74-8" aria-hidden="true" tabindex="-1"></a><span class="co"># create problem with penalties for asymmetric connectivity</span></span>
-<span id="cb74-9"><a href="#cb74-9" aria-hidden="true" tabindex="-1"></a>p26 <span class="ot">&lt;-</span> <span class="fu">problem</span>(sim_pu_raster, sim_features[[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]]) <span class="sc">%&gt;%</span></span>
-<span id="cb74-10"><a href="#cb74-10" aria-hidden="true" tabindex="-1"></a>       <span class="fu">add_min_set_objective</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb74-11"><a href="#cb74-11" aria-hidden="true" tabindex="-1"></a>       <span class="fu">add_relative_targets</span>(<span class="fl">0.1</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb74-12"><a href="#cb74-12" aria-hidden="true" tabindex="-1"></a>       <span class="fu">add_asym_connectivity_penalties</span>(<span class="at">penalty =</span> <span class="dv">5</span>, <span class="at">data =</span> asym_con_matrix)</span>
-<span id="cb74-13"><a href="#cb74-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb74-14"><a href="#cb74-14" aria-hidden="true" tabindex="-1"></a><span class="co"># print problem</span></span>
-<span id="cb74-15"><a href="#cb74-15" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p25)</span></code></pre></div>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>asym_con_matrix <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">runif</span>(<span class="fu">ncell</span>(sim_pu_raster)<span class="sc">^</span><span class="dv">2</span>),</span>
+<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="fu">ncell</span>(sim_pu_raster),</span>
+<span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="fu">ncell</span>(sim_pu_raster))</span>
+<span id="cb74-6"><a href="#cb74-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-7"><a href="#cb74-7" aria-hidden="true" tabindex="-1"></a><span class="co"># create problem with penalties for asymmetric connectivity</span></span>
+<span id="cb74-8"><a href="#cb74-8" aria-hidden="true" tabindex="-1"></a>p26 <span class="ot">&lt;-</span> <span class="fu">problem</span>(sim_pu_raster, sim_features[[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]]) <span class="sc">%&gt;%</span></span>
+<span id="cb74-9"><a href="#cb74-9" aria-hidden="true" tabindex="-1"></a>       <span class="fu">add_min_set_objective</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb74-10"><a href="#cb74-10" aria-hidden="true" tabindex="-1"></a>       <span class="fu">add_relative_targets</span>(<span class="fl">0.1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb74-11"><a href="#cb74-11" aria-hidden="true" tabindex="-1"></a>       <span class="fu">add_asym_connectivity_penalties</span>(<span class="at">penalty =</span> <span class="dv">5</span>, <span class="at">data =</span> asym_con_matrix)</span>
+<span id="cb74-12"><a href="#cb74-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-13"><a href="#cb74-13" aria-hidden="true" tabindex="-1"></a><span class="co"># print problem</span></span>
+<span id="cb74-14"><a href="#cb74-14" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p25)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
 ##   cost:           min: 190.13276, max: 215.86384
@@ -990,21 +989,20 @@ div.csl-indent {
 <li><strong>Linear penalties</strong>: Add penalties to penalize solutions that select planning units according to a certain variable (e.g., anthropogenic pressure).</li>
 </ul>
 <div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create data for penalizing planning units</span></span>
-<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (note this requires the RandomFields package to be installed)</span></span>
-<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a>pen_raster <span class="ot">&lt;-</span> <span class="fu">simulate_cost</span>(sim_pu_raster)</span>
-<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a><span class="co"># create problem with penalties that penalize solutions that select</span></span>
-<span id="cb76-6"><a href="#cb76-6" aria-hidden="true" tabindex="-1"></a><span class="co"># planning units with high values in the pen_raster object,</span></span>
-<span id="cb76-7"><a href="#cb76-7" aria-hidden="true" tabindex="-1"></a><span class="co"># here we will use a penalty value of 5 to indicate the trade-off (scaling)</span></span>
-<span id="cb76-8"><a href="#cb76-8" aria-hidden="true" tabindex="-1"></a><span class="co"># between the penalty values (in the sim_pu_raster) and the main objective</span></span>
-<span id="cb76-9"><a href="#cb76-9" aria-hidden="true" tabindex="-1"></a><span class="co"># (i.e., the cost of the solution)</span></span>
-<span id="cb76-10"><a href="#cb76-10" aria-hidden="true" tabindex="-1"></a>p27 <span class="ot">&lt;-</span> <span class="fu">problem</span>(sim_pu_raster, sim_features) <span class="sc">%&gt;%</span></span>
-<span id="cb76-11"><a href="#cb76-11" aria-hidden="true" tabindex="-1"></a>       <span class="fu">add_min_set_objective</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb76-12"><a href="#cb76-12" aria-hidden="true" tabindex="-1"></a>       <span class="fu">add_relative_targets</span>(<span class="fl">0.1</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb76-13"><a href="#cb76-13" aria-hidden="true" tabindex="-1"></a>       <span class="fu">add_linear_penalties</span>(<span class="at">penalty =</span> <span class="dv">5</span>, <span class="at">data =</span> pen_raster)</span>
-<span id="cb76-14"><a href="#cb76-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb76-15"><a href="#cb76-15" aria-hidden="true" tabindex="-1"></a><span class="co"># print problem</span></span>
-<span id="cb76-16"><a href="#cb76-16" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p27)</span></code></pre></div>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>pen_raster <span class="ot">&lt;-</span> <span class="fu">simulate_cost</span>(sim_pu_raster)</span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a><span class="co"># create problem with penalties that penalize solutions that select</span></span>
+<span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a><span class="co"># planning units with high values in the pen_raster object,</span></span>
+<span id="cb76-6"><a href="#cb76-6" aria-hidden="true" tabindex="-1"></a><span class="co"># here we will use a penalty value of 5 to indicate the trade-off (scaling)</span></span>
+<span id="cb76-7"><a href="#cb76-7" aria-hidden="true" tabindex="-1"></a><span class="co"># between the penalty values (in the sim_pu_raster) and the main objective</span></span>
+<span id="cb76-8"><a href="#cb76-8" aria-hidden="true" tabindex="-1"></a><span class="co"># (i.e., the cost of the solution)</span></span>
+<span id="cb76-9"><a href="#cb76-9" aria-hidden="true" tabindex="-1"></a>p27 <span class="ot">&lt;-</span> <span class="fu">problem</span>(sim_pu_raster, sim_features) <span class="sc">%&gt;%</span></span>
+<span id="cb76-10"><a href="#cb76-10" aria-hidden="true" tabindex="-1"></a>       <span class="fu">add_min_set_objective</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb76-11"><a href="#cb76-11" aria-hidden="true" tabindex="-1"></a>       <span class="fu">add_relative_targets</span>(<span class="fl">0.1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb76-12"><a href="#cb76-12" aria-hidden="true" tabindex="-1"></a>       <span class="fu">add_linear_penalties</span>(<span class="at">penalty =</span> <span class="dv">5</span>, <span class="at">data =</span> pen_raster)</span>
+<span id="cb76-13"><a href="#cb76-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-14"><a href="#cb76-14" aria-hidden="true" tabindex="-1"></a><span class="co"># print problem</span></span>
+<span id="cb76-15"><a href="#cb76-15" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p27)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
 ##   cost:           min: 190.13276, max: 215.86384
@@ -1404,7 +1402,7 @@ div.csl-indent {
 <div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extract time spent solving solution</span></span>
 <span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">attr</span>(s41, <span class="st">&quot;runtime&quot;</span>))</span></code></pre></div>
 <pre><code>## solution_1 
-##      0.099</code></pre>
+##       0.08</code></pre>
 <div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extract state message from the solver that describes why this specific</span></span>
 <span id="cb111-2"><a href="#cb111-2" aria-hidden="true" tabindex="-1"></a><span class="co"># solution was returned</span></span>
 <span id="cb111-3"><a href="#cb111-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">attr</span>(s41, <span class="st">&quot;status&quot;</span>))</span></code></pre></div>
@@ -1505,7 +1503,7 @@ div.csl-indent {
 <pre><code>## # A tibble: 1 × 2
 ##   summary asym_connectivity
 ##   &lt;chr&gt;               &lt;dbl&gt;
-## 1 overall              51.1</code></pre>
+## 1 overall              52.4</code></pre>
 </div>
 <div id="evaluating-relative-importance" class="section level3">
 <h3>Evaluating relative importance</h3>
@@ -1602,8 +1600,8 @@ div.csl-indent {
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.3, max: 0.3)]
 ##   decisions:      default
-##   constraints:    &lt;Locked out planning units [1 locked units]
-##                    Locked in planning units [317 locked units]&gt;
+##   constraints:    &lt;Locked in planning units [317 locked units]
+##                    Locked out planning units [1 locked units]&gt;
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (1), zones]&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>

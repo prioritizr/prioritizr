@@ -1,3 +1,8 @@
+# prioritizr 7.2.0.8
+
+- Update `simulate_cost()` and `simulate_species()` so that they no longer
+  depend on the _RandomFields_ package.
+
 # prioritizr 7.2.0.7
 
 - Update publication record.

@@ -521,7 +521,6 @@ print(p25)
 that select planning units that share high connectivity values other planning units that are not selected by the solution. This function is used for asymmetric connectivities among planning units [based on @r38].
 ```{r}
 # create a matrix containing asymmetric connectivity data,
-# (the connectivity values will be simulated using random numbers)
 asym_con_matrix <- matrix(
   runif(ncell(sim_pu_raster)^2),
   nrow = ncell(sim_pu_raster),
@@ -539,7 +538,6 @@ print(p25)
 * __Linear penalties__: Add penalties to penalize solutions that select planning units according to a certain variable (e.g., anthropogenic pressure).
 ```{r}
 # create data for penalizing planning units
-# (note this requires the RandomFields package to be installed)
 pen_raster <- simulate_cost(sim_pu_raster)
 
 # create problem with penalties that penalize solutions that select

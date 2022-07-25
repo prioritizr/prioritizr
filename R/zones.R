@@ -82,7 +82,6 @@ NULL
 #' data(sim_pu_raster)
 #'
 #  # simulate distributions for three species under two management zones
-#' # (note this requires the RandomFields package to be installed)
 #' zone_1 <- simulate_species(sim_pu_raster, 3)
 #' zone_2 <- simulate_species(sim_pu_raster, 3)
 #'
