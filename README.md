@@ -69,7 +69,7 @@ Alternatively, to cite the latest development version, please use:
 
 > Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Edwards BPM, Watts
 > ME, Arcese P, Bennett J, Possingham HP (2022). prioritizr: Systematic
-> Conservation Prioritization in R. R package version 7.2.0.7. Available
+> Conservation Prioritization in R. R package version 7.2.0.8. Available
 > at <https://github.com/prioritizr/prioritizr>.
 
 Additionally, we keep a [record of
@@ -241,7 +241,7 @@ s1 <- solve(p1)
     ##      0     0 2612.52005    0   10 2747.37746 2612.52005  4.91%     -    0s
     ##      0     0 2612.54737    0   10 2747.37746 2612.54737  4.91%     -    0s
     ##      0     2 2613.31387    0   10 2747.37746 2613.31387  4.88%     -    0s
-    ## H128246  6692                    2627.6389306 2623.20411  0.17%   1.5    2s
+    ## H128246  6692                    2627.6389306 2623.20411  0.17%   1.5    3s
     ## 
     ## Cutting planes:
     ##   Gomory: 2
@@ -249,7 +249,7 @@ s1 <- solve(p1)
     ##   StrongCG: 2
     ##   Flow cover: 1
     ## 
-    ## Explored 145469 nodes (243327 simplex iterations) in 3.41 seconds (2.59 work units)
+    ## Explored 145469 nodes (243327 simplex iterations) in 3.49 seconds (2.59 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 6: 2627.64 2747.38 2761.33 ... 3139.89
@@ -271,7 +271,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##       3.41
+    ##      3.514
 
 ``` r
 # extract state message from the solver
@@ -419,7 +419,7 @@ s2 <- solve(p2)
     ##   StrongCG: 1
     ##   Flow cover: 1
     ## 
-    ## Explored 10262 nodes (23307 simplex iterations) in 0.52 seconds (0.54 work units)
+    ## Explored 10262 nodes (23307 simplex iterations) in 0.53 seconds (0.54 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 5: 2838.26 2839.12 3021.28 ... 3027.7

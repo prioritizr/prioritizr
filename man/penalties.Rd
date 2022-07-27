@@ -75,7 +75,6 @@ p4 <- p1 \%>\% add_asym_connectivity_penalties(1, data = acm)
 # here the penalties will be based on random numbers to keep it simple
 \dontrun{
 # simulate penalty data
-# (note this requires the RandomFields package to be installed)
 sim_penalty_raster <- simulate_cost(sim_pu_raster)
 
 # plot penalty data

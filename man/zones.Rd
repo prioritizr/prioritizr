@@ -77,7 +77,6 @@ missing from the table are assumed to be zero.}
 # load planning unit data
 data(sim_pu_raster)
 
-# (note this requires the RandomFields package to be installed)
 zone_1 <- simulate_species(sim_pu_raster, 3)
 zone_2 <- simulate_species(sim_pu_raster, 3)
 

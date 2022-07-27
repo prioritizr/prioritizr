@@ -4,45 +4,38 @@
 \alias{simulate_cost}
 \title{Simulate cost data}
 \usage{
-simulate_cost(
-  x,
-  n = 1,
-  model = RandomFields::RPpoisson(RandomFields::RMtruncsupport(radius = raster::xres(x) *
-    10, RandomFields::RMgauss())),
-  transform = identity,
-  ...
-)
+simulate_cost(x, n = 1, intensity = 100, sd = 60, scale = 60)
 }
 \arguments{
 \item{x}{\code{\linkS4class{RasterLayer}} object to use as
 a template.}
 
-\item{n}{\code{integer} number of species to simulate.}
+\item{n}{\code{integer} number of layers to simulate.
+Defaults to 1.}
 
-\item{model}{\code{\link[RandomFields:RP]{RandomFields::RP()}} model object
-to use for simulating data.}
+\item{intensity}{\code{numeric} average value of simulated data.
+Defaults to 100.}
 
-\item{transform}{\code{function} to transform values output
-from the random fields simulation.}
+\item{sd}{\code{numeric} standard deviation of simulated data.
+Defaults to 60.}
 
-\item{...}{additional arguments passed to
-\code{\link[RandomFields:RFsimulate]{RandomFields::RFsimulate()}}.}
+\item{scale}{\code{numeric} strength of spatial auto-correlation.
+Defaults to 60.}
 }
 \value{
 \code{\linkS4class{RasterStack}} object.
 }
 \description{
-This function generates cost layers using random field models. By default,
-it returns spatially auto-correlated integer values.
+Generates simulated cost data using Gaussian random fields.
+Specifically, t returns spatially auto-correlated data with integer values.
 }
 \examples{
 \dontrun{
 # create raster
-r <- raster(ncol=10, nrow=10, xmn=0, xmx=1, ymn=0, ymx=1)
+r <- raster(ncol = 10, nrow = 10, xmn = 0, xmx = 1, ymn = 0, ymx = 1)
 values(r) <- 1
 
 # simulate data
-# (note this requires the RandomFields package to be installed)
 cost <- simulate_cost(r)
 
 # plot simulated species

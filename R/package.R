@@ -91,4 +91,5 @@ NULL
 NULL
 
 # avoid false positive NOTES
-f <- exactextractr::exact_extract
+#' @importFrom exactextractr exact_extract
+NULL

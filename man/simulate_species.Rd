@@ -4,44 +4,33 @@
 \alias{simulate_species}
 \title{Simulate species habitat suitability data}
 \usage{
-simulate_species(
-  x,
-  n = 1,
-  model = RandomFields::RMgauss(),
-  transform = stats::plogis,
-  ...
-)
+simulate_species(x, n = 1, scale = 0.5)
 }
 \arguments{
 \item{x}{\code{\linkS4class{RasterLayer}} object to use as
 a template.}
 
-\item{n}{\code{integer} number of species to simulate.}
+\item{n}{\code{integer} number of layers to simulate.
+Defaults to 1.}
 
-\item{model}{\code{\link[RandomFields:RP]{RandomFields::RP()}} model object
-to use for simulating data.}
-
-\item{transform}{\code{function} to transform values output
-from the random fields simulation.}
-
-\item{...}{additional arguments passed to
-\code{\link[RandomFields:RFsimulate]{RandomFields::RFsimulate()}}.}
+\item{scale}{\code{numeric} strength of spatial auto-correlation.
+Defaults to 0.5.}
 }
 \value{
 \code{\linkS4class{RasterStack}} object.
 }
 \description{
-Generates a random set of species using random field models. By default,
-the output will contain values between zero and one.
+Generates simulated species data using Gaussian random fields.
+Specifically, it outputs spatially auto-correlated raster data with
+values between zero and one.
 }
 \examples{
 \dontrun{
 # create raster
-r <- raster(ncol=10, nrow=10, xmn=0, xmx=1, ymn=0, ymx=1)
+r <- raster(ncol = 10, nrow = 10, xmn = 0, xmx = 1, ymn = 0, ymx = 1)
 values(r) <- 1
 
 # simulate data for 4 species
-# (note this requires the RandomFields package to be installed)
 spp <- simulate_species(r, 4)
 
 # plot simulated species
