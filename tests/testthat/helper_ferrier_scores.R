@@ -24,7 +24,7 @@
 ferrier_scores_r <- function(rij, targets, solution) {
   # assert that arguments are valid
   if (inherits(rij, c("matrix", "Matrix")) && !inherits(rij, "dgTMatrix")) {
-    rij <- methods::as(rij, "dgTMatrix")
+    rij <- as_Matrix(rij, "dgTMatrix")
   }
   assertthat::assert_that(
     inherits(rij, "dgTMatrix"),
@@ -80,7 +80,7 @@ ferrier_scores_r <- function(rij, targets, solution) {
   out2[, which(solution < 0.5)] <- 0
 
   # prepare output
-  out2 <- methods::as(t(out2), "dgCMatrix")
+  out2 <- as_Matrix(t(out2), "dgCMatrix")
   out2 <- cbind(out2, rowSums(out2))
   colnames(out2) <- c(rownames(rij), "total")
 

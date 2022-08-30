@@ -34,10 +34,12 @@
     multiple stakeholders. To solve large-scale or complex conservation
     planning problems, users should install the Gurobi optimization software
     (available from &lt;https://www.gurobi.com/&gt;) and the gurobi R package (see
-    Gurobi Installation Guide vignette for details). Additionally, the rcbc R
-    package (available at &lt;https://github.com/dirkschumacher/rcbc&gt;) can be used
-    to generate solutions using the CBC optimization software
-    (&lt;https://github.com/coin-or/Cbc&gt;).">
+    Gurobi Installation Guide vignette for details). Users can also install the
+    IBM CPLEX software (&lt;https://www.ibm.com/analytics/cplex-optimizer&gt;) and
+    the cplexAPI R package (available at &lt;https://github.com/cran/cplexAPI&gt;).
+    Additionally, the rcbc R package (available at
+    &lt;https://github.com/dirkschumacher/rcbc&gt;) can be used to generate solutions
+    using the CBC optimization software (&lt;https://github.com/coin-or/Cbc&gt;).">
 <meta property="og:image" content="https://prioritizr.net/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -65,7 +67,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.9</span>
       </span>
     </div>
 
@@ -170,7 +172,7 @@
 <p>Please cite the <em>prioritizr R</em> package when using it in publications. To cite the latest official version, please use:</p>
 <blockquote><p>Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Edwards BPM, Watts ME, Arcese P, Bennett J, Possingham HP (2022). prioritizr: Systematic Conservation Prioritization in R. R package version 7.1.1. Available at <a href="https://CRAN.R-project.org/package=prioritizr" class="external-link uri">https://CRAN.R-project.org/package=prioritizr</a>.</p></blockquote>
 <p>Alternatively, to cite the latest development version, please use:</p>
-<blockquote><p>Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Edwards BPM, Watts ME, Arcese P, Bennett J, Possingham HP (2022). prioritizr: Systematic Conservation Prioritization in R. R package version 7.2.0.8. Available at <a href="https://github.com/prioritizr/prioritizr" class="external-link uri">https://github.com/prioritizr/prioritizr</a>.</p></blockquote>
+<blockquote><p>Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Edwards BPM, Watts ME, Arcese P, Bennett J, Possingham HP (2022). prioritizr: Systematic Conservation Prioritization in R. R package version 7.2.0.9. Available at <a href="https://github.com/prioritizr/prioritizr" class="external-link uri">https://github.com/prioritizr/prioritizr</a>.</p></blockquote>
 <p>Additionally, we keep a <a href="https://prioritizr.net/articles/publication_record.html">record of publications</a> that use the <em>prioritizr R</em> package. If you use this package in any reports or publications, please <a href="https://github.com/prioritizr/prioritizr/issues/new" class="external-link">file an issue on GitHub</a> so we can add it to the record.</p>
 </div>
 <div class="section level2">
@@ -267,21 +269,22 @@
 <span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a><span class="do">##      0     0 2612.52005    0   10 2747.37746 2612.52005  4.91%     -    0s</span></span>
 <span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a><span class="do">##      0     0 2612.54737    0   10 2747.37746 2612.54737  4.91%     -    0s</span></span>
 <span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a><span class="do">##      0     2 2613.31387    0   10 2747.37746 2613.31387  4.88%     -    0s</span></span>
-<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a><span class="do">## H128246  6692                    2627.6389306 2623.20411  0.17%   1.5    3s</span></span>
-<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a><span class="do">## Cutting planes:</span></span>
-<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a><span class="do">##   Gomory: 2</span></span>
-<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a><span class="do">##   MIR: 6</span></span>
-<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a><span class="do">##   StrongCG: 2</span></span>
-<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a><span class="do">##   Flow cover: 1</span></span>
-<span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a><span class="do">## Explored 145469 nodes (243327 simplex iterations) in 3.49 seconds (2.59 work units)</span></span>
-<span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a><span class="do">## Thread count was 1 (of 8 available processors)</span></span>
-<span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a><span class="do">## Solution count 6: 2627.64 2747.38 2761.33 ... 3139.89</span></span>
-<span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a><span class="do">## Optimal solution found (tolerance 0.00e+00)</span></span>
-<span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a><span class="do">## Best objective 2.627638930618e+03, best bound 2.627638930618e+03, gap 0.0000%</span></span></code></pre></div>
+<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a><span class="do">##  55350 30014 2676.57525   65    2 2747.37746 2621.61502  4.58%   1.6    5s</span></span>
+<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a><span class="do">## H128246  6692                    2627.6389306 2623.20411  0.17%   1.5    8s</span></span>
+<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a><span class="do">## Cutting planes:</span></span>
+<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a><span class="do">##   Gomory: 2</span></span>
+<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a><span class="do">##   MIR: 6</span></span>
+<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a><span class="do">##   StrongCG: 2</span></span>
+<span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a><span class="do">##   Flow cover: 1</span></span>
+<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a><span class="do">## Explored 145469 nodes (243327 simplex iterations) in 9.89 seconds (2.59 work units)</span></span>
+<span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a><span class="do">## Thread count was 1 (of 8 available processors)</span></span>
+<span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a><span class="do">## Solution count 6: 2627.64 2747.38 2761.33 ... 3139.89</span></span>
+<span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a><span class="do">## Optimal solution found (tolerance 0.00e+00)</span></span>
+<span id="cb11-55"><a href="#cb11-55" aria-hidden="true" tabindex="-1"></a><span class="do">## Best objective 2.627638930618e+03, best bound 2.627638930618e+03, gap 0.0000%</span></span></code></pre></div>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract the objective</span></span>
 <span><span class="fu"><a href="reference/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"objective"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -291,7 +294,7 @@
 <code class="sourceCode R"><span><span class="co"># extract time spent solving the problem</span></span>
 <span><span class="fu"><a href="reference/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb15"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">## solution_1 </span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="do">##      3.514</span></span></code></pre></div>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="do">##      9.909</span></span></code></pre></div>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract state message from the solver</span></span>
 <span><span class="fu"><a href="reference/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"status"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -415,7 +418,7 @@
 <span id="cb24-76"><a href="#cb24-76" aria-hidden="true" tabindex="-1"></a><span class="do">##   StrongCG: 1</span></span>
 <span id="cb24-77"><a href="#cb24-77" aria-hidden="true" tabindex="-1"></a><span class="do">##   Flow cover: 1</span></span>
 <span id="cb24-78"><a href="#cb24-78" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb24-79"><a href="#cb24-79" aria-hidden="true" tabindex="-1"></a><span class="do">## Explored 10262 nodes (23307 simplex iterations) in 0.53 seconds (0.54 work units)</span></span>
+<span id="cb24-79"><a href="#cb24-79" aria-hidden="true" tabindex="-1"></a><span class="do">## Explored 10262 nodes (23307 simplex iterations) in 1.49 seconds (0.54 work units)</span></span>
 <span id="cb24-80"><a href="#cb24-80" aria-hidden="true" tabindex="-1"></a><span class="do">## Thread count was 1 (of 8 available processors)</span></span>
 <span id="cb24-81"><a href="#cb24-81" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb24-82"><a href="#cb24-82" aria-hidden="true" tabindex="-1"></a><span class="do">## Solution count 5: 2838.26 2839.12 3021.28 ... 3027.7</span></span>
@@ -449,7 +452,7 @@
 <span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Found heuristic solution: objective 19567.196992</span></span>
 <span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="do">## Found heuristic solution: objective 4347.6970854</span></span>
 <span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="do">## Presolve removed 72 rows and 46 columns</span></span>
-<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a><span class="do">## Presolve time: 0.00s</span></span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a><span class="do">## Presolve time: 0.01s</span></span>
 <span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a><span class="do">## Presolved: 221 rows, 188 columns, 832 nonzeros</span></span>
 <span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a><span class="do">## Variable types: 0 continuous, 188 integer (188 binary)</span></span>
 <span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a><span class="do">## Found heuristic solution: objective 4118.0739655</span></span>
@@ -479,7 +482,7 @@
 <span id="cb27-41"><a href="#cb27-41" aria-hidden="true" tabindex="-1"></a><span class="do">##   GUB cover: 1</span></span>
 <span id="cb27-42"><a href="#cb27-42" aria-hidden="true" tabindex="-1"></a><span class="do">##   Zero half: 1</span></span>
 <span id="cb27-43"><a href="#cb27-43" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb27-44"><a href="#cb27-44" aria-hidden="true" tabindex="-1"></a><span class="do">## Explored 1 nodes (221 simplex iterations) in 0.02 seconds (0.02 work units)</span></span>
+<span id="cb27-44"><a href="#cb27-44" aria-hidden="true" tabindex="-1"></a><span class="do">## Explored 1 nodes (221 simplex iterations) in 0.07 seconds (0.02 work units)</span></span>
 <span id="cb27-45"><a href="#cb27-45" aria-hidden="true" tabindex="-1"></a><span class="do">## Thread count was 1 (of 8 available processors)</span></span>
 <span id="cb27-46"><a href="#cb27-46" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb27-47"><a href="#cb27-47" aria-hidden="true" tabindex="-1"></a><span class="do">## Solution count 7: 3939.6 3951.75 3960.65 ... 19567.2</span></span>
@@ -511,7 +514,7 @@
 <span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="do">##   Bounds range     [1e+00, 1e+00]</span></span>
 <span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="do">##   RHS range        [1e+00, 1e+01]</span></span>
 <span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Presolve removed 352 rows and 261 columns</span></span>
-<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="do">## Presolve time: 0.01s</span></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="do">## Presolve time: 0.03s</span></span>
 <span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a><span class="do">## Presolved: 302 rows, 245 columns, 678 nonzeros</span></span>
 <span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a><span class="do">## Variable types: 0 continuous, 245 integer (245 binary)</span></span>
 <span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a><span class="do">## Found heuristic solution: objective 7330.4055047</span></span>
@@ -530,7 +533,7 @@
 <span id="cb30-28"><a href="#cb30-28" aria-hidden="true" tabindex="-1"></a><span class="do">##      0     0 5829.13269    0    8 5858.41849 5829.13269  0.50%     -    0s</span></span>
 <span id="cb30-29"><a href="#cb30-29" aria-hidden="true" tabindex="-1"></a><span class="do">##      0     0 infeasible    0      5858.41849 5858.41849  0.00%     -    0s</span></span>
 <span id="cb30-30"><a href="#cb30-30" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb30-31"><a href="#cb30-31" aria-hidden="true" tabindex="-1"></a><span class="do">## Explored 1 nodes (193 simplex iterations) in 0.02 seconds (0.02 work units)</span></span>
+<span id="cb30-31"><a href="#cb30-31" aria-hidden="true" tabindex="-1"></a><span class="do">## Explored 1 nodes (193 simplex iterations) in 0.06 seconds (0.02 work units)</span></span>
 <span id="cb30-32"><a href="#cb30-32" aria-hidden="true" tabindex="-1"></a><span class="do">## Thread count was 1 (of 8 available processors)</span></span>
 <span id="cb30-33"><a href="#cb30-33" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb30-34"><a href="#cb30-34" aria-hidden="true" tabindex="-1"></a><span class="do">## Solution count 4: 5858.42 5859.21 6070.21 7330.41 </span></span>
@@ -667,7 +670,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>

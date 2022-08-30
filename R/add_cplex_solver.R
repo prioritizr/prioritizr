@@ -29,19 +29,29 @@ NULL
 #' (see <https://www.ibm.com/products/ilog-cplex-optimization-studio>).
 #'
 #' @section Installation:
-#' The pkg{cplexAPI} package is used to interface with *IBM CPLEX*. To install
-#' this package, the `CPLEX_BIN` variable must be set (similar to
-#' the `GUROBI_HOME` variable for the *Gurobi* software) to specify
-#' the file path for the *CPLEX* software. For example, on a Linux system,
+#' The \pkg{cplexAPI} package is used to interface with *IBM CPLEX* software.
+#' To install the package, the *IBM CPLEX* software must be installed
+#' (see <https://www.ibm.com/analytics/cplex-optimizer>). Next, the `CPLEX_BIN`
+#' environmental variable must be set to specify the file path for the
+#' *IBM CPLEX* software. For example, on a Linux system,
 #' this variable can be specified by adding the following text to the
 #' `~/.bashrc` file:
 #' ```
 #'   export CPLEX_BIN="/opt/ibm/ILOG/CPLEX_Studio128/cplex/bin/x86-64_linux/cplex"
 #' ```
-#' Note that you may need to change the version
-#' number in the file path (i.e., `"CPLEX_Studio128"`). For more information
-#' on installing the pkg{cplexAPI} package, please see the
-#' [official installation instructions for the package](https://github.com/cran/cplexAPI/blob/master/inst/INSTALL).
+#' Please Note that you may need to change the version number in the file path
+#' (i.e., `"CPLEX_Studio128"`). After specifying the `CPLEX_BIN`
+#' environmental variable, the \pkg{cplexAPI} package can be installed.
+#' Since the \pkg{cplexAPI} package is not available on the
+#' the Comprehensive R Archive Network (CRAN), it must be installed from
+#' [its GitHub repository](https://github.com/cran/cplexAPI). To
+#' install the \pkg{cplexAPI} package, please use the following code:
+#' ```
+#' if (!require(remotes)) install.packages("remotes")
+#' remotes::install_github("cran/cplexAPI")
+#' ```
+#' For further details on installing this package, please consult the
+#' [installation instructions](https://github.com/cran/cplexAPI/blob/master/inst/INSTALL).
 #'
 #' @inherit add_gurobi_solver return
 #'

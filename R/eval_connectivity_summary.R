@@ -156,7 +156,7 @@ methods::setGeneric("eval_connectivity_summary",
 methods::setMethod("eval_connectivity_summary",
   methods::signature("ConservationProblem", "ANY", "ANY", "matrix"),
   function(x, solution, zones, data) {
-     eval_connectivity_summary(x, solution, zones, methods::as(data, "dgCMatrix"))
+     eval_connectivity_summary(x, solution, zones, as_Matrix(data, "dgCMatrix"))
 })
 
 #' @name eval_connectivity_summary
@@ -165,7 +165,7 @@ methods::setMethod("eval_connectivity_summary",
 methods::setMethod("eval_connectivity_summary",
   methods::signature("ConservationProblem", "ANY", "ANY", "Matrix"),
   function(x, solution, zones, data) {
-     eval_connectivity_summary(x, solution, zones, methods::as(data, "dgCMatrix"))
+     eval_connectivity_summary(x, solution, zones, as_Matrix(data, "dgCMatrix"))
 })
 
 #' @name eval_connectivity_summary
@@ -245,7 +245,7 @@ methods::setMethod("eval_connectivity_summary",
       m[[z1]] <- list()
       for (z2 in seq_len(dim(data)[4])) {
         m[[z1]][[z2]] <-
-          methods::as(data[indices, indices, z1, z2], "dgCMatrix")
+          as_Matrix(data[indices, indices, z1, z2], "dgCMatrix")
       }
     }
     # calculate connectivity
@@ -274,7 +274,7 @@ internal_eval_connectivity_summary <- function(
     zv <- vapply(seq_len(ncol(solution)), FUN.VALUE = numeric(1), function(z) {
       ## prepare data the z'th zone
       if (is.null(data)) {
-        zd <- methods::as(zone_scaled_data[[z]][[z]], "dgCMatrix")
+        zd <- as_Matrix(zone_scaled_data[[z]][[z]], "dgCMatrix")
       } else {
         zd <- data
       }

@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.9</span>
       </span>
     </div>
 
@@ -1412,13 +1412,13 @@
 <span><span class="co">##   RHS range        [3e+00, 8e+00]</span></span>
 <span><span class="co">## Found heuristic solution: objective 20287.196992</span></span>
 <span><span class="co">## Found heuristic solution: objective 3087.9617505</span></span>
-<span><span class="co">## Presolve time: 0.00s</span></span>
+<span><span class="co">## Presolve time: 0.01s</span></span>
 <span><span class="co">## Presolved: 293 rows, 234 columns, 1026 nonzeros</span></span>
 <span><span class="co">## Variable types: 0 continuous, 234 integer (234 binary)</span></span>
 <span><span class="co">## Root relaxation presolved: 293 rows, 234 columns, 1026 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Root relaxation: objective 2.265862e+03, 220 iterations, 0.00 seconds (0.00 work units)</span></span>
+<span><span class="co">## Root relaxation: objective 2.265862e+03, 220 iterations, 0.01 seconds (0.00 work units)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
@@ -1436,7 +1436,7 @@
 <span><span class="co">## Cutting planes:</span></span>
 <span><span class="co">##   Gomory: 3</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 7 nodes (489 simplex iterations) in 0.08 seconds (0.10 work units)</span></span>
+<span><span class="co">## Explored 7 nodes (489 simplex iterations) in 0.23 seconds (0.10 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Solution count 5: 2604.74 2730.95 2790.87 ... 20287.2</span></span>
@@ -1459,7 +1459,7 @@
 <code class="sourceCode R"><span><span class="co"># extract time spent solving solution</span></span>
 <span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s41</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## solution_1 </span></span>
-<span><span class="co">##      0.109</span></span></code></pre>
+<span><span class="co">##      0.264</span></span></code></pre>
 <div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract state message from the solver that describes why this specific</span></span>
 <span><span class="co"># solution was returned</span></span>
@@ -1577,7 +1577,7 @@
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 1 × 2</span></span></span>
 <span><span class="co">##   summary asym_connectivity</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> overall              53.0</span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> overall              47.4</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="evaluating-relative-importance">Evaluating relative importance<a class="anchor" aria-label="anchor" href="#evaluating-relative-importance"></a>
@@ -1684,8 +1684,8 @@
 <span><span class="co">##   objective:      Minimum set objective </span></span>
 <span><span class="co">##   targets:        Relative targets [targets (min: 0.3, max: 0.3)]</span></span>
 <span><span class="co">##   decisions:      default</span></span>
-<span><span class="co">##   constraints:    &lt;Locked in planning units [317 locked units]</span></span>
-<span><span class="co">##                    Locked out planning units [1 locked units]&gt;</span></span>
+<span><span class="co">##   constraints:    &lt;Locked out planning units [1 locked units]</span></span>
+<span><span class="co">##                    Locked in planning units [317 locked units]&gt;</span></span>
 <span><span class="co">##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (1), zones]&gt;</span></span>
 <span><span class="co">##   portfolio:      default</span></span>
 <span><span class="co">##   solver:         default</span></span></code></pre>
@@ -1722,8 +1722,8 @@
 <span><span class="co">##   objective:      Minimum set objective </span></span>
 <span><span class="co">##   targets:        Relative targets [targets (min: 0.3, max: 0.3)]</span></span>
 <span><span class="co">##   decisions:      default</span></span>
-<span><span class="co">##   constraints:    &lt;Locked out planning units [1 locked units]</span></span>
-<span><span class="co">##                    Locked in planning units [317 locked units]&gt;</span></span>
+<span><span class="co">##   constraints:    &lt;Locked in planning units [317 locked units]</span></span>
+<span><span class="co">##                    Locked out planning units [1 locked units]&gt;</span></span>
 <span><span class="co">##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (0), zones]&gt;</span></span>
 <span><span class="co">##   portfolio:      default</span></span>
 <span><span class="co">##   solver:         default</span></span></code></pre>
@@ -1837,7 +1837,7 @@ Williams, P., Gibbons, D., Margules, C., Rebelo, A., Humphries, C. &amp; Pressey
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>

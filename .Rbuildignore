@@ -9,6 +9,7 @@
 ^appveyor\.yml$
 .gitkeep
 ^Makefile$
+^data-raw$
 cran-comments.md
 CRAN-RELEASE
 _pkgdown.yml

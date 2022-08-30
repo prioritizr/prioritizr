@@ -292,7 +292,7 @@ methods::setMethod("add_linear_constraints",
       assertthat::noNA(c(data)),
       number_of_total_units(x) == nrow(data),
       number_of_zones(x) == ncol(data))
-    add_linear_constraints(x, threshold, sense, methods::as(data, "dgCMatrix"))
+    add_linear_constraints(x, threshold, sense, as_Matrix(data, "dgCMatrix"))
 })
 
 #' @name add_linear_constraints
@@ -310,7 +310,7 @@ methods::setMethod("add_linear_constraints",
       assertthat::noNA(c(data)),
       number_of_total_units(x) == nrow(data),
       number_of_zones(x) == ncol(data))
-    add_linear_constraints(x, threshold, sense, methods::as(data, "dgCMatrix"))
+    add_linear_constraints(x, threshold, sense, as_Matrix(data, "dgCMatrix"))
 })
 
 #' @name add_linear_constraints
@@ -339,7 +339,7 @@ methods::setMethod("add_linear_constraints",
     }
     d[is.na(d)] <- 0
     # add constraints
-    add_linear_constraints(x, threshold, sense, methods::as(d, "dgCMatrix"))
+    add_linear_constraints(x, threshold, sense, as_Matrix(d, "dgCMatrix"))
 })
 
 #' @name add_linear_constraints

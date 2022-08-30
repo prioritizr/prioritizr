@@ -66,20 +66,31 @@ Licenses are available for the \emph{IBM CPLEX} software to academics at no cost
 }
 \section{Installation}{
 
-The pkg{cplexAPI} package is used to interface with \emph{IBM CPLEX}. To install
-this package, the \code{CPLEX_BIN} variable must be set (similar to
-the \code{GUROBI_HOME} variable for the \emph{Gurobi} software) to specify
-the file path for the \emph{CPLEX} software. For example, on a Linux system,
+The \pkg{cplexAPI} package is used to interface with \emph{IBM CPLEX} software.
+To install the package, the \emph{IBM CPLEX} software must be installed
+(see \url{https://www.ibm.com/analytics/cplex-optimizer}). Next, the \code{CPLEX_BIN}
+environmental variable must be set to specify the file path for the
+\emph{IBM CPLEX} software. For example, on a Linux system,
 this variable can be specified by adding the following text to the
 \verb{~/.bashrc} file:
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{  export CPLEX_BIN="/opt/ibm/ILOG/CPLEX_Studio128/cplex/bin/x86-64_linux/cplex"
 }\if{html}{\out{</div>}}
 
-Note that you may need to change the version
-number in the file path (i.e., \code{"CPLEX_Studio128"}). For more information
-on installing the pkg{cplexAPI} package, please see the
-\href{https://github.com/cran/cplexAPI/blob/master/inst/INSTALL}{official installation instructions for the package}.
+Please Note that you may need to change the version number in the file path
+(i.e., \code{"CPLEX_Studio128"}). After specifying the \code{CPLEX_BIN}
+environmental variable, the \pkg{cplexAPI} package can be installed.
+Since the \pkg{cplexAPI} package is not available on the
+the Comprehensive R Archive Network (CRAN), it must be installed from
+\href{https://github.com/cran/cplexAPI}{its GitHub repository}. To
+install the \pkg{cplexAPI} package, please use the following code:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{if (!require(remotes)) install.packages("remotes")
+remotes::install_github("cran/cplexAPI")
+}\if{html}{\out{</div>}}
+
+For further details on installing this package, please consult the
+\href{https://github.com/cran/cplexAPI/blob/master/inst/INSTALL}{installation instructions}.
 }
 
 \examples{

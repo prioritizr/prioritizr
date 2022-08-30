@@ -185,7 +185,7 @@ test_that("compile (compressed formulation, multiple zones)", {
     m[i + counter, n_pu + i] <- 1
     m[i + counter, (2 * n_pu) + i] <- 1
   }
-  m <- as(m, "Matrix")
+  m <- as_Matrix(m, "Matrix")
   expect_true(all(o$A() == m))
 })
 
@@ -290,7 +290,7 @@ test_that("compile (expanded formulation, multiple zones)", {
     m[i + counter, n_pu + i] <- 1
     m[i + counter, (2 * n_pu) + i] <- 1
   }
-  m <- as(m, "Matrix")
+  m <- as_Matrix(m, "Matrix")
   expect_true(all(o$A() == m))
 })
 

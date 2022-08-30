@@ -402,8 +402,9 @@ methods::setGeneric("add_connectivity_penalties",
 methods::setMethod("add_connectivity_penalties",
   methods::signature("ConservationProblem", "ANY", "ANY", "matrix"),
   function(x, penalty, zones, data) {
-     add_connectivity_penalties(x, penalty, zones,
-       methods::as(data, "dgCMatrix"))
+    add_connectivity_penalties(
+      x, penalty, zones, as_Matrix(data, "dgCMatrix")
+   )
 })
 
 #' @name add_connectivity_penalties
@@ -413,7 +414,7 @@ methods::setMethod("add_connectivity_penalties",
   methods::signature("ConservationProblem", "ANY", "ANY", "Matrix"),
   function(x, penalty, zones, data) {
      add_connectivity_penalties(x, penalty, zones,
-       methods::as(data, "dgCMatrix"))
+       as_Matrix(data, "dgCMatrix"))
 })
 
 #' @name add_connectivity_penalties
@@ -497,7 +498,7 @@ methods::setMethod("add_connectivity_penalties",
       m[[z1]] <- list()
       for (z2 in seq_len(dim(data)[4])) {
         m[[z1]][[z2]] <-
-          methods::as(data[indices, indices, z1, z2], "dgCMatrix")
+          as_Matrix(data[indices, indices, z1, z2], "dgCMatrix")
       }
     }
     # add penalties
@@ -523,7 +524,7 @@ internal_add_connectivity_penalties <- function(x, penalty, data) {
         # coerce to symmetric connectivity data
         cm <- self$get_data("data")
         cm <- lapply(cm, function(x) {
-          lapply(x, function(y) methods::as(Matrix::tril(y), "dgCMatrix"))
+          lapply(x, function(y) as_Matrix(Matrix::tril(y), "dgCMatrix"))
         })
         # apply penalties
         rcpp_apply_connectivity_penalties(

@@ -1,6 +1,6 @@
 Package: prioritizr
 Type: Package
-Version: 7.2.0.8
+Version: 7.2.1
 Title: Systematic Conservation Prioritization in R
 Description:
     Systematic conservation prioritization using mixed integer linear
@@ -15,10 +15,12 @@ Description:
     multiple stakeholders. To solve large-scale or complex conservation
     planning problems, users should install the Gurobi optimization software
     (available from <https://www.gurobi.com/>) and the 'gurobi' R package (see
-    Gurobi Installation Guide vignette for details). Additionally, the 'rcbc' R
-    package (available at <https://github.com/dirkschumacher/rcbc>) can be used
-    to generate solutions using the CBC optimization software
-    (<https://github.com/coin-or/Cbc>).
+    Gurobi Installation Guide vignette for details). Users can also install the
+    IBM CPLEX software (<https://www.ibm.com/analytics/cplex-optimizer>) and
+    the 'cplexAPI' R package (available at <https://github.com/cran/cplexAPI>).
+    Additionally, the 'rcbc' R package (available at
+    <https://github.com/dirkschumacher/rcbc>) can be used to generate solutions
+    using the CBC optimization software (<https://github.com/coin-or/Cbc>).
 Authors@R:
     c(person(c('Jeffrey', 'O'), 'Hanson',
         email='jeffrey.hanson@uqconnect.edu.au', role = c('aut'),
@@ -77,7 +79,8 @@ Suggests:
     Rsymphony (>= 0.1-31),
     rmarkdown (>= 2.11),
     prioritizrdata (>= 0.2.4),
-    data.table (>= 1.14.2)
+    data.table (>= 1.14.2),
+    fields (>= 14.0)
 Depends:
     R (>= 3.5.0),
     sp,

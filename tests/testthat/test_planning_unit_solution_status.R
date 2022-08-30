@@ -104,7 +104,7 @@ test_that("data.frame (multiple zone)", {
 test_that("Spatial (single zone)", {
   # load data
   data(sim_pu_polygons)
-  pu <- sim_pu_polygons
+  pu <- sim_pu_polygons[seq_len(10), , drop = FALSE]
   pu@proj4string <- as(sf::st_crs(32756), "CRS")
   pu$cost[1:5] <- NA
   pu$solution <- rep(c(0, 1), 5)
@@ -158,7 +158,7 @@ test_that("Spatial (multiple zone)", {
 test_that("sf (single zone)", {
   # load data
   data(sim_pu_sf)
-  pu <- sim_pu_sf
+  pu <- sim_pu_sf[seq_len(10), , drop = FALSE]
   sf::st_crs(pu) <- sf::st_crs(32756)
   pu$cost[1:5] <- NA
   pu$solution <- rep(c(0, 1), 5)

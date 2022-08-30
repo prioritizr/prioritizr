@@ -214,7 +214,7 @@ methods::setMethod("add_asym_connectivity_penalties",
   methods::signature("ConservationProblem", "ANY", "ANY", "matrix"),
   function(x, penalty, zones, data) {
      add_asym_connectivity_penalties(x, penalty, zones,
-       methods::as(data, "dgCMatrix"))
+      as_Matrix(data, "dgCMatrix"))
 })
 
 #' @name add_asym_connectivity_penalties
@@ -224,7 +224,7 @@ methods::setMethod("add_asym_connectivity_penalties",
   methods::signature("ConservationProblem", "ANY", "ANY", "Matrix"),
   function(x, penalty, zones, data) {
      add_asym_connectivity_penalties(x, penalty, zones,
-       methods::as(data, "dgCMatrix"))
+      as_Matrix(data, "dgCMatrix"))
 })
 
 #' @name add_asym_connectivity_penalties
@@ -308,8 +308,7 @@ methods::setMethod("add_asym_connectivity_penalties",
     for (z1 in seq_len(dim(data)[3])) {
       m[[z1]] <- list()
       for (z2 in seq_len(dim(data)[4])) {
-        m[[z1]][[z2]] <-
-          methods::as(data[indices, indices, z1, z2], "dgCMatrix")
+        m[[z1]][[z2]] <- as_Matrix(data[indices, indices, z1, z2], "dgCMatrix")
       }
     }
     # add penalties

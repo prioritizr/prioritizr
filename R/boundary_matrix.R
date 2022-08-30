@@ -134,7 +134,7 @@ boundary_matrix.Raster <- function(x, str_tree = FALSE) {
   Matrix::diag(m)[include] <- (sum(raster::res(x)) * 2) -
                               Matrix::colSums(m)[include]
   # return matrix
-  methods::as(m, "dsCMatrix")
+  as_Matrix(m, "dsCMatrix")
 }
 
 #' @rdname boundary_matrix

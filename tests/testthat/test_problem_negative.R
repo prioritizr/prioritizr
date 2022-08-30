@@ -627,7 +627,7 @@ test_that("x=numeric, features=data.frame", {
   # tests for rij_matrix field
   expect_equal(names(x$data$rij_matrix), "1")
   expect_equivalent(x$data$rij_matrix[[1]],
-                    as(t(pu[-2, 3:4]), "sparseMatrix"))
+                    as_Matrix(t(pu[-2, 3:4]), "dgCMatrix"))
   expect_equal(rownames(x$data$rij_matrix[[1]]), c("spp1", "spp2"))
   # test that calling targets before they have been initialized throws error
   expect_error(x$feature_targets())
@@ -680,9 +680,9 @@ test_that("x=matrix, features=data.frame", {
   # tests for rij_matrix field
   expect_equal(names(x$data$rij_matrix), c("1", "2"))
   expect_equivalent(x$data$rij_matrix[[1]],
-                    as(t(pu[-2, 4:5]), "sparseMatrix"))
+                    as_Matrix(t(pu[-2, 4:5]), "dgCMatrix"))
   expect_equivalent(x$data$rij_matrix[[2]],
-                    as(t(pu[-2, 6:7]), "sparseMatrix"))
+                    as_Matrix(t(pu[-2, 6:7]), "dgCMatrix"))
   expect_equal(rownames(x$data$rij_matrix[[1]]), c("spp1", "spp2"))
   expect_equal(rownames(x$data$rij_matrix[[2]]), c("spp1", "spp2"))
   # test that calling targets before they have been initialized throws error

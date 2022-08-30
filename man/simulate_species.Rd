@@ -7,13 +7,13 @@
 simulate_species(x, n = 1, scale = 0.5)
 }
 \arguments{
-\item{x}{\code{\linkS4class{RasterLayer}} object to use as
-a template.}
+\item{x}{\code{\link[raster:raster]{raster::raster()}} raster object to use as a template.}
 
 \item{n}{\code{integer} number of layers to simulate.
 Defaults to 1.}
 
-\item{scale}{\code{numeric} strength of spatial auto-correlation.
+\item{scale}{\code{numeric} parameter to control level of spatial
+auto-correlation.
 Defaults to 0.5.}
 }
 \value{

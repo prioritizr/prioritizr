@@ -4,11 +4,10 @@
 \alias{simulate_cost}
 \title{Simulate cost data}
 \usage{
-simulate_cost(x, n = 1, intensity = 100, sd = 60, scale = 60)
+simulate_cost(x, n = 1, intensity = 100, sd = 20, scale = 2.5)
 }
 \arguments{
-\item{x}{\code{\linkS4class{RasterLayer}} object to use as
-a template.}
+\item{x}{\code{\link[raster:raster]{raster::raster()}} raster object to use as a template.}
 
 \item{n}{\code{integer} number of layers to simulate.
 Defaults to 1.}
@@ -17,17 +16,17 @@ Defaults to 1.}
 Defaults to 100.}
 
 \item{sd}{\code{numeric} standard deviation of simulated data.
-Defaults to 60.}
+Defaults to 20.}
 
 \item{scale}{\code{numeric} strength of spatial auto-correlation.
-Defaults to 60.}
+Defaults to 2.5.}
 }
 \value{
 \code{\linkS4class{RasterStack}} object.
 }
 \description{
 Generates simulated cost data using Gaussian random fields.
-Specifically, t returns spatially auto-correlated data with integer values.
+Specifically, it returns spatially auto-correlated data with integer values.
 }
 \examples{
 \dontrun{

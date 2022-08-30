@@ -37,7 +37,7 @@ test_that("compile (compressed formulation, multiple zones)", {
   for (i in seq_len(n_pu))
     m[3 + i, c(i, n_pu + i, n_pu + n_pu + i) ] <- 1
   ## convert to sparseMatrix
-  m <- as(m, "dgCMatrix")
+  m <- as_Matrix(m, "dgCMatrix")
   ## tests
   expect_true(all(m == o$A()))
 })
@@ -114,7 +114,7 @@ test_that("compile (expanded formulation, multiple zones)", {
   for (i in seq_len(n_pu))
     m[r + i, c(i, n_pu + i, n_pu + n_pu + i)] <- 1
   ## convert to sparseMatrix
-  m <- as(m, "dgCMatrix")
+  m <- as_Matrix(m, "dgCMatrix")
   ## tests
   expect_true(all(m == o$A()))
 })

@@ -308,7 +308,7 @@ presolve_check.OptimizationProblem <- function(x) {
   }
 
   ## check constraint matrix
-  y <- methods::as(x$A(), "dgTMatrix")
+  y <- as_Matrix(x$A(), "dgTMatrix")
   rownames(y) <- x$row_ids()
   colnames(y) <- x$col_ids()
   ### check upper threshold

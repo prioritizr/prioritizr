@@ -10,7 +10,7 @@ initc:
 docs: man readme vigns site
 
 data:
-	Rscript --slave inst/extdata/simulate_data.R
+	Rscript --slave inst/scripts/builtin-data.R
 
 man:
 	R --slave -e "devtools::document()"
@@ -106,7 +106,7 @@ install:
 	R --slave -e "devtools::install_local('../prioritizr')"
 
 examples:
-	R --slave -e "devtools::run_examples(test = TRUE, run = TRUE);warnings()"  >> examples.log
+	R --slave -e "devtools::run_examples(run_donttest = TRUE, run_dontrun = TRUE);warnings()" > examples.log 2>&1
 	rm -f Rplots.pdf
 
 .PHONY: initc clean data docs readme contrib site test check checkwb build install man spellcheck examples purl_vigns check_vigns urlcheck

@@ -108,13 +108,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   for (var i = 0; i < sheets.length; i++) {
     if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
     try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    for (var j = 0; j < rules.length; j++) {
+    var j = 0;
+    while (j < rules.length) {
       var rule = rules[j];
       // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -347,7 +354,7 @@ div.csl-indent {
 ##   Bounds range     [1e+00, 1e+00]
 ##   RHS range        [1e+00, 8e+00]
 ## Found heuristic solution: objective 3568.4931394
-## Presolve time: 0.00s
+## Presolve time: 0.01s
 ## Presolved: 100 rows, 180 columns, 1080 nonzeros
 ## Variable types: 0 continuous, 180 integer (180 binary)
 ## Found heuristic solution: objective 3440.6550560
@@ -362,7 +369,7 @@ div.csl-indent {
 ##      0     0 2911.33335    0   10 3440.65506 2911.33335  15.4%     -    0s
 ## H    0     0                    3003.8743974 2911.33335  3.08%     -    0s
 ## 
-## Explored 1 nodes (83 simplex iterations) in 0.00 seconds (0.00 work units)
+## Explored 1 nodes (83 simplex iterations) in 0.01 seconds (0.00 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 3: 3003.87 3440.66 3568.49 
@@ -443,7 +450,7 @@ div.csl-indent {
 ##   Bounds range     [1e+00, 1e+00]
 ##   RHS range        [8e-01, 8e+00]
 ## Found heuristic solution: objective 3667.7708672
-## Presolve time: 0.00s
+## Presolve time: 0.01s
 ## Presolved: 100 rows, 180 columns, 1080 nonzeros
 ## Variable types: 0 continuous, 180 integer (180 binary)
 ## Found heuristic solution: objective 3388.0248890
@@ -458,7 +465,7 @@ div.csl-indent {
 ##      0     0 2884.87200    0    8 3388.02489 2884.87200  14.9%     -    0s
 ## H    0     0                    2958.1201508 2884.87200  2.48%     -    0s
 ## 
-## Explored 1 nodes (38 simplex iterations) in 0.00 seconds (0.00 work units)
+## Explored 1 nodes (38 simplex iterations) in 0.01 seconds (0.00 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 3: 2958.12 3388.02 3667.77 
@@ -570,7 +577,7 @@ div.csl-indent {
 ##      0     0 3663.23657    0    1 4800.00000 3663.23657  23.7%     -    0s
 ## H    0     0                    3800.0000000 3663.23657  3.60%     -    0s
 ## 
-## Explored 1 nodes (1 simplex iterations) in 0.00 seconds (0.00 work units)
+## Explored 1 nodes (1 simplex iterations) in 0.01 seconds (0.00 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 3: 3800 4800 9400 
@@ -678,7 +685,7 @@ div.csl-indent {
 ## H    0     0                    7000.0000000 6938.06818  0.88%     -    0s
 ##      0     0 6938.06818    0    1 7000.00000 6938.06818  0.88%     -    0s
 ## 
-## Explored 1 nodes (1 simplex iterations) in 0.00 seconds (0.00 work units)
+## Explored 1 nodes (1 simplex iterations) in 0.01 seconds (0.00 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 3: 7000 9600 13600 
@@ -771,14 +778,14 @@ div.csl-indent {
 ##   RHS range        [1e+00, 8e+00]
 ## Found heuristic solution: objective 20096.000000
 ## Presolve removed 1028 rows and 232 columns
-## Presolve time: 0.02s
+## Presolve time: 0.05s
 ## Presolved: 877 rows, 968 columns, 2712 nonzeros
 ## Variable types: 0 continuous, 968 integer (968 binary)
 ## Found heuristic solution: objective 19632.000000
 ## Root relaxation presolved: 877 rows, 968 columns, 2712 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.005410e+04, 569 iterations, 0.01 seconds (0.01 work units)
+## Root relaxation: objective 1.005410e+04, 569 iterations, 0.02 seconds (0.01 work units)
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -787,7 +794,7 @@ div.csl-indent {
 ## H    0     0                    11300.000000 10054.0986  11.0%     -    0s
 ## H    0     0                    10588.000000 10054.0986  5.04%     -    0s
 ## 
-## Explored 1 nodes (819 simplex iterations) in 0.02 seconds (0.03 work units)
+## Explored 1 nodes (819 simplex iterations) in 0.08 seconds (0.03 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 4: 10588 11300 19632 20096 
@@ -851,8 +858,8 @@ div.csl-indent {
 ##   objective:      Minimum set objective 
 ##   targets:        Absolute targets [targets (min: 8, max: 8)]
 ##   decisions:      Binary decision 
-##   constraints:    &lt;Mandatory allocation constraints [apply constraints? (1)]
-##                    Manually locked planning units [80 locked units]&gt;
+##   constraints:    &lt;Manually locked planning units [80 locked units]
+##                    Mandatory allocation constraints [apply constraints? (1)]&gt;
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 0.5, max: 0.5), penalty (640), zones]&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
@@ -870,14 +877,14 @@ div.csl-indent {
 ##   RHS range        [1e+00, 8e+00]
 ## Found heuristic solution: objective 19600.000000
 ## Presolve removed 1120 rows and 324 columns
-## Presolve time: 0.01s
+## Presolve time: 0.04s
 ## Presolved: 785 rows, 876 columns, 2448 nonzeros
 ## Variable types: 0 continuous, 876 integer (876 binary)
 ## Found heuristic solution: objective 18988.000000
 ## Root relaxation presolved: 785 rows, 876 columns, 2448 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.323093e+04, 274 iterations, 0.00 seconds (0.00 work units)
+## Root relaxation: objective 1.323093e+04, 274 iterations, 0.01 seconds (0.00 work units)
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -885,7 +892,7 @@ div.csl-indent {
 ##      0     0 13230.9255    0   95 18988.0000 13230.9255  30.3%     -    0s
 ## H    0     0                    13260.000000 13230.9255  0.22%     -    0s
 ## 
-## Explored 1 nodes (412 simplex iterations) in 0.02 seconds (0.03 work units)
+## Explored 1 nodes (412 simplex iterations) in 0.06 seconds (0.03 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 3: 13260 18988 19600 

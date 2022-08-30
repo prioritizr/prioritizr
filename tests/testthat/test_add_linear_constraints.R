@@ -44,7 +44,9 @@ test_that("minimum set objective (matrix, compile, single zone)", {
   p3 <-
     p1 %>%
     add_linear_constraints(
-      3.124, "<=", as(matrix(raster::values(sim_data), ncol = 1), "dgCMatrix"))
+      3.124,
+      "<=",
+      as_Matrix(matrix(raster::values(sim_data), ncol = 1), "dgCMatrix"))
   o1 <- compile(p1)
   o2 <- compile(p2)
   o3 <- compile(p3)

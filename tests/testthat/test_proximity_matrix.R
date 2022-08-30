@@ -25,7 +25,7 @@ test_that("RasterLayer (all non-NA pixels are proximal)", {
   s[, 9] <- 0
   s[1, ] <- 0
   s[9, ] <- 0
-  s <- as(as(s, "dgCMatrix"), "symmetricMatrix")
+  s <- as(as_Matrix(s, "dgCMatrix"), "symmetricMatrix")
   # tests
   expect_true(inherits(m, "dsCMatrix"))
   expect_equal(s, m)
@@ -52,7 +52,7 @@ test_that("RasterLayer (all polygons are proximal)", {
   m <- proximity_matrix(x, distance = 100)
   s <- matrix(1, ncol = 9, nrow = 9)
   diag(s) <- 0
-  s <- as(as(s, "dgCMatrix"), "symmetricMatrix")
+  s <- as(as_Matrix(s, "dgCMatrix"), "symmetricMatrix")
   # tests
   expect_true(inherits(m, "dsCMatrix"))
   expect_equal(s, m)
@@ -101,7 +101,7 @@ test_that("SpatialPolygons (all polygons are proximal)", {
   m <- proximity_matrix(x, distance = 100)
   s <- matrix(1, ncol = 9, nrow = 9)
   diag(s) <- 0
-  s <- as(as(s, "dgCMatrix"), "symmetricMatrix")
+  s <- as(as_Matrix(s, "dgCMatrix"), "symmetricMatrix")
   # tests
   expect_true(inherits(m, "dsCMatrix"))
   expect_equal(s, m)
@@ -136,7 +136,7 @@ test_that("sf (all polygons are proximal)", {
   m <- proximity_matrix(x, distance = 100)
   s <- matrix(1, ncol = 9, nrow = 9)
   diag(s) <- 0
-  s <- as(as(s, "dgCMatrix"), "symmetricMatrix")
+  s <- as(as_Matrix(s, "dgCMatrix"), "symmetricMatrix")
   # tests
   expect_true(inherits(m, "dsCMatrix"))
   expect_equal(s, m)

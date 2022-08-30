@@ -1,3 +1,19 @@
+# prioritizr 7.2.1
+
+- Release candidate for CRAN.
+
+# prioritizr 7.2.0.9
+
+- Fix compatibility issues with upcoming version of the _Matrix_ package
+  (version 1.4-2).
+- Update package documentation to provide details for obtaining and installing
+  the _cplexAPI_ package since it has been archived on CRAN.
+- Fix bug that caused the `add_cbc_solver()` to throw a segfault when solving
+  a problem wherein the `rij_matrix(x)` has a zero amount for the last feature
+  in the last planning unit (#247).
+- Update `simulate_data()`, `simulate_cost()` and `simulate_species()`
+  functions to improve performance using the _fields_ package.
+
 # prioritizr 7.2.0.8
 
 - Update `simulate_cost()` and `simulate_species()` so that they no longer

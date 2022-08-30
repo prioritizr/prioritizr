@@ -80,8 +80,8 @@ add_lpsymphony_solver <- function(x, gap = 0.1,
                           assertthat::is.scalar(gap),
                           isTRUE(gap >= 0), isTRUE(all(is.finite(time_limit))),
                           assertthat::is.scalar(time_limit),
-                          assertthat::is.count(time_limit) || isTRUE(time_limit
-                            == -1),
+                          assertthat::is.count(time_limit) ||
+                            isTRUE(time_limit == -1),
                           assertthat::is.flag(verbose),
                           assertthat::is.flag(first_feasible),
                           assertthat::noNA(first_feasible),
@@ -109,7 +109,7 @@ add_lpsymphony_solver <- function(x, gap = 0.1,
       # create model
       model <- list(
         obj = x$obj(),
-        mat = methods::as(x$A(), "dgTMatrix"),
+        mat = as_Matrix(x$A(), "dgTMatrix"),
         dir = x$sense(),
         rhs = x$rhs(),
         types = x$vtype(),

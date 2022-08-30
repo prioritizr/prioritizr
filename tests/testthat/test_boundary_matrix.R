@@ -128,10 +128,11 @@ test_that("SpatialPolygons (vertices not aligned)", {
   # non-existent element in an array causing an incorrect result
   # in approx. one in five runs
   skip_on_os("mac")
-  for (i in seq_len(2000)) {
+  result <- vapply(seq_len(2000), FUN.VALUE = logical(1), function(i) {
     b2 <- boundary_matrix(x, TRUE)
-    expect_lte(max(abs(b2 - s)), 1e-8)
-  }
+    isTRUE(max(abs(b2 - s)) <= 1e-8)
+  })
+  expect_true(all(result))
 })
 
 test_that("sf (squares)", {

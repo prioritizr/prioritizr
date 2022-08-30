@@ -8,7 +8,7 @@ test_that("x=RasterLayer, y=RasterLayer", {
   expect_true(inherits(m, "dgCMatrix"))
   expect_equal(m, {
     included <- raster::Which(!is.na(sim_pu_raster), cells = TRUE)
-    m <- as(matrix(sim_features[[1]][included], nrow = 1), "dgCMatrix")
+    m <- as_Matrix(matrix(sim_features[[1]][included], nrow = 1), "dgCMatrix")
     m
   })
 })
@@ -23,7 +23,7 @@ test_that("x=RasterLayer, y=RasterStack", {
     included <- raster::Which(!is.na(sim_pu_raster), cells = TRUE)
     m <- sim_features[included]
     m[is.na(m)] <- 0
-    m <- Matrix::t(as(m, "dgCMatrix"))
+    m <- Matrix::t(as_Matrix(m, "dgCMatrix"))
     m
   })
 })
@@ -40,7 +40,7 @@ test_that("x=RasterLayer, y=RasterStack (data size > raster maxmemory)", {
     included <- raster::Which(!is.na(sim_pu_raster), cells = TRUE)
     m <- sim_features[included]
     m[is.na(m)] <- 0
-    m <- Matrix::t(as(m, "dgCMatrix"))
+    m <- Matrix::t(as_Matrix(m, "dgCMatrix"))
     m
   })
   raster::rasterOptions(default = TRUE)
@@ -64,7 +64,7 @@ test_that("x=RasterStack, y=RasterStack", {
     included <- raster::Which(max(!is.na(costs)) > 0, cells = TRUE)
     m <- spp[included]
     m[is.na(m)] <- 0
-    m <- Matrix::t(as(m, "dgCMatrix"))
+    m <- Matrix::t(as_Matrix(m, "dgCMatrix"))
     m
   })
 })
@@ -76,7 +76,7 @@ test_that("x=SpatialPolygons, y=RasterStack", {
   # calculate correct result
   m2 <- raster::extract(sim_features, sim_pu_polygons, fun = mean,
                         na.rm = TRUE, sp = FALSE)
-  m2 <- as(m2, "dgCMatrix")
+  m2 <- as_Matrix(m2, "dgCMatrix")
   m2 <- Matrix::t(m2)
   # run tests
   expect_true(inherits(m, "dgCMatrix"))
@@ -93,7 +93,7 @@ test_that("x=SpatialLines, y=RasterStack", {
   expect_equal(m, {
     m <- raster::extract(sim_features, sim_pu_lines, fun = mean, na.rm = TRUE,
                          sp = FALSE)
-    m <- as(m, "dgCMatrix")
+    m <- as_Matrix(m, "dgCMatrix")
     Matrix::t(m)
   })
 })
@@ -106,7 +106,7 @@ test_that("x=SpatialPoints, y=RasterStack", {
   expect_true(inherits(m, "dgCMatrix"))
   expect_equal(m, {
     m <- raster::extract(sim_features, sim_pu_points, na.rm = TRUE, sp = FALSE)
-    m <- as(m, "dgCMatrix")
+    m <- as_Matrix(m, "dgCMatrix")
     Matrix::t(m)
   })
 })
@@ -120,7 +120,7 @@ test_that("x=sf, y=RasterStack (mean)", {
     m2 <- exactextractr::exact_extract(sim_features, sim_pu_sf, fun = "mean",
                                        progress = FALSE)
   })
-  m2 <- as(as.matrix(m2), "dgCMatrix")
+  m2 <- as_Matrix(as.matrix(m2), "dgCMatrix")
   m2 <- Matrix::t(m2)
   # run tests
   expect_true(inherits(m, "dgCMatrix"))
@@ -136,7 +136,7 @@ test_that("x=sf, y=RasterStack (sum)", {
     m2 <- exactextractr::exact_extract(sim_features, sim_pu_sf, fun = "sum",
                                        progress = FALSE)
   })
-  m2 <- as(as.matrix(m2), "dgCMatrix")
+  m2 <- as_Matrix(as.matrix(m2), "dgCMatrix")
   m2 <- Matrix::t(m2)
   # run tests
   expect_true(inherits(m, "dgCMatrix"))
@@ -158,7 +158,7 @@ test_that("x=sf, y=RasterStack (complex example, mean)", {
     m2 <- exactextractr::exact_extract(tas_features, tas_pu, fun = "mean",
                                        progress = FALSE)
   })
-  m2 <- as(as.matrix(m2), "dgCMatrix")
+  m2 <- as_Matrix(as.matrix(m2), "dgCMatrix")
   m2 <- Matrix::t(m2)
   # run tests
   # note that exactextractr uses floats and not doubles, so it has reduced
@@ -182,7 +182,7 @@ test_that("x=sf, y=RasterStack (complex example, sum)", {
     m2 <- exactextractr::exact_extract(tas_features, tas_pu, fun = "sum",
                                        progress = FALSE)
   })
-  m2 <- as(as.matrix(m2), "dgCMatrix")
+  m2 <- as_Matrix(as.matrix(m2), "dgCMatrix")
   m2 <- Matrix::t(m2)
   # calculate correct result using R
   suppressWarnings({
@@ -194,7 +194,7 @@ test_that("x=sf, y=RasterStack (complex example, sum)", {
     p <- x[, ncol(x), drop = TRUE]
     colSums(sweep(v, 1, p, "*"), na.rm = TRUE)
   })
-  m3 <- as(as.matrix(m3), "dgCMatrix")
+  m3 <- as_Matrix(as.matrix(m3), "dgCMatrix")
   # run tests
   # note that exactextractr uses floats and not doubles, so it has reduced
   # precision than our summary Rcpp and R summary functions which uses doubles
