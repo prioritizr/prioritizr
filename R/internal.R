@@ -317,6 +317,7 @@ as_Matrix <- function(object, class) {
     return(methods::as(object, class))
   }
   # convert matrix
+  # nocov start
   if (utils::packageVersion("Matrix") >= as.package_version("1.4-2")) {
     if (identical(class, "dgCMatrix")) {
       c1 <- "dMatrix"
@@ -345,6 +346,7 @@ as_Matrix <- function(object, class) {
   } else {
     out <- methods::as(object, class)
   }
+  # nocov end
   # return result
   out
 }
