@@ -158,10 +158,8 @@ NULL
 #' cm4 <- lapply(seq_len(nlayers(sim_features)), function(i) {
 #'   # create connectivity matrix using the i'th feature's habitat data
 #'   m <- connectivity_matrix(sim_pu_raster, sim_features[[i]])
-#'   # convert matrix to TRUE/FALSE values in top 20th percentile
-#'   m <- m > quantile(as.vector(m), 1 - 0.015, names = FALSE)
-#'   # convert matrix from TRUE/FALSE to sparse matrix with 0/1s
-#'   m <- as(m, "dgCMatrix")
+#'   # convert matrix to 0/1 values denoting values in top 20th percentile
+#'   m <- round(m > quantile(as.vector(m), 1 - 0.015, names = FALSE))
 #'   # remove 0s from the sparse matrix
 #'   m <- Matrix::drop0(m)
 #'   # return matrix

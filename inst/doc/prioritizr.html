@@ -240,7 +240,7 @@ div.csl-indent {
 </div>
 <div id="problem-formulation" class="section level2">
 <h2>Problem formulation</h2>
-<p>Now we will formulate a conservation planing problem. To achieve this, we first specify which objects contain the planning unit and feature data (using the <code>problem()</code> function). Next, we specify that we want to use the minimum set objective function (using the <code>add_min_set_objective()</code> function). This objective function indicates that we wish to minimize the total cost of planning units selected by the prioritization. We then specify boundary penalties reduce spatial fragmentation in the resulting prioritization (using the <code>add_boundary_penalties()</code> function; see the <a href="calibrating_trade-offs.html"><em>Calibrating trade-offs</em> vignette</a> for details on calibrating the penalty value). We also specify representation targets to ensure the resulting prioritization provides adequate coverage of each vegetation community (using the <code>add_relative_targets()</code> function). Specifically, we specify targets to ensure at least 17% of the spatial extent of each vegetation community (based on the <a href="https://www.cbd.int/sp/targets/">Aichi Target 11</a>). Additionally, we set constraints to ensure that planning units predominately covered by existing protected areas are selected by the prioritization (using the <code>add_locked_in_constraints()</code> function). Finally, we specify that the prioritization should either select – or not select – planning units for prioritization (using the <code>add_binary_decisions()</code> function).</p>
+<p>Now we will formulate a conservation planing problem. To achieve this, we first specify which objects contain the planning unit and feature data (using the <code>problem()</code> function). Next, we specify that we want to use the minimum set objective function (using the <code>add_min_set_objective()</code> function). This objective function indicates that we wish to minimize the total cost of planning units selected by the prioritization. We then specify boundary penalties reduce spatial fragmentation in the resulting prioritization (using the <code>add_boundary_penalties()</code> function; see the <a href="calibrating_trade-offs_tutorial.html"><em>Calibrating trade-offs</em> vignette</a> for details on calibrating the penalty value). We also specify representation targets to ensure the resulting prioritization provides adequate coverage of each vegetation community (using the <code>add_relative_targets()</code> function). Specifically, we specify targets to ensure at least 17% of the spatial extent of each vegetation community (based on the <a href="https://www.cbd.int/sp/targets/">Aichi Target 11</a>). Additionally, we set constraints to ensure that planning units predominately covered by existing protected areas are selected by the prioritization (using the <code>add_locked_in_constraints()</code> function). Finally, we specify that the prioritization should either select – or not select – planning units for prioritization (using the <code>add_binary_decisions()</code> function).</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># build problem</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">problem</span>(tas_pu, tas_features, <span class="at">cost_column =</span> <span class="st">&quot;cost&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">add_min_set_objective</span>() <span class="sc">%&gt;%</span></span>
@@ -281,7 +281,7 @@ div.csl-indent {
 ## Found heuristic solution: objective 37703.827706
 ## Found heuristic solution: objective 27817.085072
 ## Presolve removed 2077 rows and 1375 columns
-## Presolve time: 0.10s
+## Presolve time: 0.13s
 ## Presolved: 4281 rows, 2903 columns, 9594 nonzeros
 ## Found heuristic solution: objective 24454.499456
 ## Variable types: 0 continuous, 2903 integer (2903 binary)
@@ -289,7 +289,7 @@ div.csl-indent {
 ## Root relaxation presolved: 4281 rows, 2903 columns, 9594 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.955605e+04, 1793 iterations, 0.24 seconds (0.19 work units)
+## Root relaxation: objective 1.955605e+04, 1793 iterations, 0.30 seconds (0.19 work units)
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -298,7 +298,7 @@ div.csl-indent {
 ## H    0     0                    23045.733138 19556.0531  15.1%     -    0s
 ## H    0     0                    22977.771015 19556.0531  14.9%     -    0s
 ##      0     0 19836.0586    0 1855 22977.7710 19836.0586  13.7%     -    0s
-## H    0     0                    21702.297403 19836.0586  8.60%     -    0s
+## H    0     0                    21702.297403 19836.0586  8.60%     -    1s
 ## 
 ## Cutting planes:
 ##   Gomory: 2
@@ -308,7 +308,7 @@ div.csl-indent {
 ##   Zero half: 2
 ##   RLT: 10
 ## 
-## Explored 1 nodes (2393 simplex iterations) in 0.91 seconds (0.60 work units)
+## Explored 1 nodes (2393 simplex iterations) in 1.14 seconds (0.60 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 7: 21702.3 22977.8 23045.7 ... 37703.8
@@ -480,7 +480,7 @@ div.csl-indent {
 ## Root relaxation presolved: 4924 rows, 4020 columns, 10889 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.954728e+04, 1905 iterations, 0.24 seconds (0.18 work units)
+## Root relaxation: objective 1.954728e+04, 1905 iterations, 0.31 seconds (0.18 work units)
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -498,10 +498,10 @@ div.csl-indent {
 ##      0     0 19924.6889    0 1682 22049.9565 19924.6889  9.64%     -    1s
 ##      0     0 19936.2410    0 1978 22049.9565 19936.2410  9.59%     -    1s
 ##      0     0 19937.4882    0 2005 22049.9565 19937.4882  9.58%     -    1s
-##      0     0 19937.6761    0 2005 22049.9565 19937.6761  9.58%     -    1s
-##      0     0 19968.7333    0 1691 22049.9565 19968.7333  9.44%     -    1s
-##      0     0 19970.0998    0 1714 22049.9565 19970.0998  9.43%     -    1s
-##      0     0 19970.4702    0 1714 22049.9565 19970.4702  9.43%     -    1s
+##      0     0 19937.6761    0 2005 22049.9565 19937.6761  9.58%     -    2s
+##      0     0 19968.7333    0 1691 22049.9565 19968.7333  9.44%     -    2s
+##      0     0 19970.0998    0 1714 22049.9565 19970.0998  9.43%     -    2s
+##      0     0 19970.4702    0 1714 22049.9565 19970.4702  9.43%     -    2s
 ##      0     0 19983.7957    0 1748 22049.9565 19983.7957  9.37%     -    2s
 ##      0     0 19984.9623    0 1754 22049.9565 19984.9623  9.37%     -    2s
 ##      0     0 19985.0928    0 1754 22049.9565 19985.0928  9.36%     -    2s
@@ -509,48 +509,52 @@ div.csl-indent {
 ##      0     0 19991.1771    0 2041 22049.9565 19991.1771  9.34%     -    2s
 ##      0     0 19991.9721    0 2039 22049.9565 19991.9721  9.33%     -    2s
 ##      0     0 19992.1795    0 2040 22049.9565 19992.1795  9.33%     -    2s
-##      0     0 19995.3797    0 1784 22049.9565 19995.3797  9.32%     -    2s
-##      0     0 19995.3847    0 1788 22049.9565 19995.3847  9.32%     -    2s
-##      0     0 19995.5716    0 2038 22049.9565 19995.5716  9.32%     -    2s
-##      0     0 19995.8374    0 2037 22049.9565 19995.8374  9.32%     -    2s
-##      0     0 19996.1519    0 2039 22049.9565 19996.1519  9.31%     -    2s
-##      0     0 19996.1519    0 2039 22049.9565 19996.1519  9.31%     -    2s
-##      0     2 19996.6237    0 2039 22049.9565 19996.6237  9.31%     -    3s
-## H   27    27                    21471.431466 19996.6237  6.87%   117    4s
-## H   52    52                    21371.814002 19996.6237  6.43%   115    5s
-## H   54    54                    21254.060213 19996.6237  5.92%   117    5s
-## H  108   108                    21204.105802 19996.6237  5.69%   123    7s
-## H  162   162                    21202.636805 19996.6237  5.69%   104    7s
-## H  286   286                    21166.904542 19996.6237  5.53%  69.2    8s
-## H  606   599                    20993.604430 19996.6237  4.75%  32.8   11s
-##    622    10 20993.6044  226 2029 20993.6044 20004.8874  4.71%  32.0   15s
-##    632    15 20133.3528   14 1965 20993.6044 20028.1611  4.60%  31.5   20s
-##    643     2 20993.6044  125 1731 20993.6044 20028.7300  4.60%  38.1   25s
-##    654     8 20993.6044  550 1964 20993.6044 20030.2110  4.59%  37.4   30s
-##    668    17 20993.6044  521 1965 20993.6044 20032.3680  4.58%  36.7   35s
-##    682    19 20335.9531   29 1611 20993.6044 20082.6816  4.34%  48.0   40s
-##    730    63 20610.8043   53  793 20993.6044 20082.6816  4.34%  59.0   45s
-## H  750    81                    20939.026645 20082.6816  4.09%  61.7   46s
-## H 1231   560                    20924.385117 20082.6816  4.02%  44.7   53s
-##   1245   576 20330.6228   31 1812 20924.3851 20084.4398  4.01%  49.0   55s
-##   1387   718 21396.0415  129   46 20924.3851 20084.4398  4.01%  59.6   60s
-##   1952  1281 20916.6928   63    7 20924.3851 20092.6890  3.97%  51.0   65s
-## H 1975  1297                    20813.687049 20092.6890  3.46%  50.6   65s
-##   2449  1771 20426.1196   39 1804 20813.6870 20099.7124  3.43%  45.1   70s
-##   2859  2181          -  416      20813.6870 20099.7124  3.43%  44.4   75s
-##   3127  2447 20705.7432   47 1754 20813.6870 20109.8128  3.38%  44.7   80s
-##   3655  2923 20338.5237   31 1911 20813.6870 20110.2720  3.38%  42.0   85s
-##   4181  3286 20412.2307   29 1933 20813.6870 20130.7144  3.28%  40.7   90s
-##   4743  3689 21391.4919   81 1105 20813.6870 20148.3760  3.20%  39.2   95s
-##   5006  3764 20682.5667   39 1717 20813.6870 20153.3149  3.17%  39.7  100s
-##   5199  3781 20309.3822   30 1669 20813.6870 20155.9610  3.16%  40.7  105s
-##   5458  3991          -  257      20813.6870 20155.9610  3.16%  42.3  110s
-##   6021  4504 20367.1172   32 1919 20813.6870 20167.5494  3.10%  40.7  115s
-##   6103  4584 20390.3274   32 1816 20813.6870 20171.2638  3.09%  43.2  120s
-##   6531  4768 21408.5964   63  944 20813.6870 20187.3603  3.01%  42.6  125s
-##   6960  4634 21200.7319   50 1405 20813.6870 20193.4398  2.98%  42.5  130s
-##   7222  4705 20422.0129   30 1940 20813.6870 20195.9413  2.97%  43.4  135s
-##   7635  4918 20217.3670   28 1908 20813.6870 20197.6282  2.96%  43.3  140s
+##      0     0 19995.3797    0 1784 22049.9565 19995.3797  9.32%     -    3s
+##      0     0 19995.3847    0 1788 22049.9565 19995.3847  9.32%     -    3s
+##      0     0 19995.5716    0 2038 22049.9565 19995.5716  9.32%     -    3s
+##      0     0 19995.8374    0 2037 22049.9565 19995.8374  9.32%     -    3s
+##      0     0 19996.1519    0 2039 22049.9565 19996.1519  9.31%     -    3s
+##      0     0 19996.1519    0 2039 22049.9565 19996.1519  9.31%     -    3s
+##      0     2 19996.6237    0 2039 22049.9565 19996.6237  9.31%     -    4s
+##     20    22 20292.7067   15 1596 22049.9565 19996.6237  9.31%   120    5s
+## H   27    27                    21471.431466 19996.6237  6.87%   117    5s
+## H   52    52                    21371.814002 19996.6237  6.43%   115    6s
+## H   54    54                    21254.060213 19996.6237  5.92%   117    6s
+## H  108   108                    21204.105802 19996.6237  5.69%   123    8s
+## H  162   162                    21202.636805 19996.6237  5.69%   104    9s
+##    241   243 24045.5881  226    9 21202.6368 19996.6237  5.69%  80.1   10s
+## H  286   286                    21166.904542 19996.6237  5.53%  69.2   10s
+## H  606   599                    20993.604430 19996.6237  4.75%  32.8   13s
+##    608     1 20993.6044  242 2039 20993.6044 19998.3522  4.74%  32.7   15s
+##    623    10 20993.6044  209 1656 20993.6044 20012.9571  4.67%  32.0   21s
+##    633    16 20993.6044  584 1964 20993.6044 20028.3193  4.60%  31.4   25s
+##    643     2 20993.6044  125 1731 20993.6044 20028.7300  4.60%  38.1   30s
+##    653     7 20993.6044   41 1961 20993.6044 20030.1664  4.59%  37.5   35s
+##    662    13 20993.6044   74 1964 20993.6044 20031.4177  4.58%  37.0   40s
+##    674    16 20151.5513   25 1701 20993.6044 20082.6816  4.34%  45.9   45s
+##    698    31 20461.7127   37 1509 20993.6044 20082.6816  4.34%  52.8   50s
+## H  750    81                    20939.026645 20082.6816  4.09%  61.7   54s
+##    755    88 20810.0859   65  632 20939.0266 20082.6816  4.09%  62.4   55s
+## H 1231   560                    20924.385117 20082.6816  4.02%  44.7   62s
+##   1245   576 20330.6228   31 1812 20924.3851 20084.4398  4.01%  49.0   65s
+##   1321   652 20998.3857   69 1119 20924.3851 20084.4398  4.01%  59.2   70s
+##   1898  1227 20595.6018   36 1572 20924.3851 20092.6890  3.97%  48.3   75s
+## H 1975  1297                    20813.687049 20092.6890  3.46%  50.6   77s
+##   2430  1752 20233.3473   29 1793 20813.6870 20099.7124  3.43%  43.1   80s
+##   2482  1804 20678.7367   50 1464 20813.6870 20099.7124  3.43%  48.5   85s
+##   3095  2415 20320.5782   30 1761 20813.6870 20109.8128  3.38%  42.2   90s
+##   3154  2474 20972.1527   63  847 20813.6870 20109.8128  3.38%  46.0   95s
+##   3696  2964 20770.1248   56 1172 20813.6870 20110.2720  3.38%  44.0  100s
+##   4695  3641 20361.4291   33 1795 20813.6870 20148.3760  3.20%  38.1  105s
+##   4952  3802 20690.6214   33 1725 20813.6870 20148.6068  3.20%  39.1  110s
+##   5131  3851 22170.4182  164  121 20813.6870 20153.3149  3.17%  40.5  115s
+##   5302  3883 20955.1934  101  158 20813.6870 20155.9610  3.16%  43.1  120s
+##   6019  4502 20209.4072   31 1909 20813.6870 20167.5494  3.10%  40.6  125s
+##   6103  4584 20390.3274   32 1816 20813.6870 20171.2638  3.09%  43.2  130s
+##   6665  4756          -  197      20813.6870 20187.3603  3.01%  42.0  135s
+##   6979  4653 21620.1583   69 1230 20813.6870 20193.4398  2.98%  42.8  140s
+##   7228  4711 20514.1843   33 1904 20813.6870 20195.9413  2.97%  43.7  145s
+##   7659  4942 20885.3468   52 1691 20813.6870 20197.6282  2.96%  43.7  150s
 ## 
 ## Cutting planes:
 ##   Gomory: 7
@@ -562,7 +566,7 @@ div.csl-indent {
 ##   Zero half: 22
 ##   RLT: 24
 ## 
-## Explored 7780 nodes (344017 simplex iterations) in 142.71 seconds (80.68 work units)
+## Explored 7780 nodes (344017 simplex iterations) in 151.26 seconds (80.68 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 1000: 20813.7 20924.4 20939 ... 22439.4
@@ -679,8 +683,8 @@ div.csl-indent {
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.3, max: 0.3)]
 ##   decisions:      default
-##   constraints:    &lt;Locked in planning units [317 locked units]
-##                    Locked out planning units [1 locked units]&gt;
+##   constraints:    &lt;Locked out planning units [1 locked units]
+##                    Locked in planning units [317 locked units]&gt;
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (5e-04), zones]&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
@@ -698,7 +702,7 @@ div.csl-indent {
 ##   RHS range        [5e+03, 3e+05]
 ## Found heuristic solution: objective 1.221202e+08
 ## Presolve removed 4707 rows and 3103 columns
-## Presolve time: 0.12s
+## Presolve time: 0.11s
 ## Presolved: 5368 rows, 3677 columns, 12704 nonzeros
 ## Variable types: 0 continuous, 3677 integer (3677 binary)
 ## Found heuristic solution: objective 1.009944e+08
@@ -712,7 +716,7 @@ div.csl-indent {
 ## 
 ##      0     0 9.5648e+07    0   20 1.0099e+08 9.5648e+07  5.29%     -    0s
 ## 
-## Explored 1 nodes (521 simplex iterations) in 0.17 seconds (0.10 work units)
+## Explored 1 nodes (521 simplex iterations) in 0.15 seconds (0.10 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 2: 1.00994e+08 1.2212e+08 

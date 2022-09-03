@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.1</span>
       </span>
     </div>
 
@@ -97,10 +97,15 @@
     </div>
 
     <div class="section level2">
+<h2 class="page-header" data-toc-text="7.2.1" id="prioritizr-721">prioritizr 7.2.1<a class="anchor" aria-label="anchor" href="#prioritizr-721"></a></h2>
+<ul><li>Release candidate for CRAN.</li></ul></div>
+    <div class="section level2">
 <h2 class="page-header" data-toc-text="7.2.0.9" id="prioritizr-7209">prioritizr 7.2.0.9<a class="anchor" aria-label="anchor" href="#prioritizr-7209"></a></h2>
-<ul><li>Update package documentation to provide details for obtaining and installing the <em>cplexAPI</em> package since it has been archived on CRAN.</li>
-<li>Fix bug that caused the <code><a href="../reference/add_cbc_solver.html">add_cbc_solver()</a></code> to throw a segfault when solving a problem wherein the <code>rij_matrix(x)</code> has a zero amount for the last feature in the last planning unit.</li>
-<li>Fix compatibility issues with upcoming version of the <em>Matrix</em> package (version 1.4-2).</li>
+<ul><li>Fix compatibility issues with upcoming version of the <em>Matrix</em> package (version 1.4-2).</li>
+<li>Update package documentation to provide details for obtaining and installing the <em>cplexAPI</em> package since it has been archived on CRAN.</li>
+<li>Fix bug that caused the <code><a href="../reference/add_cbc_solver.html">add_cbc_solver()</a></code> to throw a segfault when solving a problem wherein the <code>rij_matrix(x)</code> has a zero amount for the last feature in the last planning unit (<a href="https://github.com/prioritizr/prioritizr/issues/247" class="external-link">#247</a>).</li>
+<li>Update <code><a href="../reference/simulate_data.html">simulate_data()</a></code>, <code><a href="../reference/simulate_cost.html">simulate_cost()</a></code> and <code><a href="../reference/simulate_species.html">simulate_species()</a></code> functions to improve performance using the <em>fields</em> package.</li>
+<li>Fix broken URLs in package documentation.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="7.2.0.8" id="prioritizr-7208">prioritizr 7.2.0.8<a class="anchor" aria-label="anchor" href="#prioritizr-7208"></a></h2>

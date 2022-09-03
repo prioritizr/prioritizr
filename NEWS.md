@@ -13,6 +13,7 @@
   in the last planning unit (#247).
 - Update `simulate_data()`, `simulate_cost()` and `simulate_species()`
   functions to improve performance using the _fields_ package.
+- Fix broken URLs in package documentation.
 
 # prioritizr 7.2.0.8
 

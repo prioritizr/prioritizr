@@ -247,7 +247,7 @@ div.csl-indent {
 </div>
 <div id="usage" class="section level2">
 <h2>Usage</h2>
-<p>Here we will provide an introduction to using the <em>prioritizr R</em> package to build and solve a conservation planning problem. Please note that we will not discuss conservation planning with multiple zones in this vignette, for more information on working with multiple management zones please see the <a href="zones.html">zones vignette</a>.</p>
+<p>Here we will provide an introduction to using the <em>prioritizr R</em> package to build and solve a conservation planning problem. Please note that we will not discuss conservation planning with multiple zones in this vignette, for more information on working with multiple management zones please see the <a href="management_zones_tutorial.html"><em>Management zones tutorial</em></a>.</p>
 <p>First, we will load the <em>prioritizr</em> package.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load package</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(prioritizr)</span>
@@ -289,7 +289,7 @@ div.csl-indent {
 ## 6 213.7636     FALSE      FALSE</code></pre>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the planning units</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">spplot</span>(sim_pu_polygons, <span class="at">zcol =</span> <span class="st">&quot;cost&quot;</span>)</span></code></pre></div>
-<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+<p><img src="data:image/png;base64,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zPJ2Q2M967Z17NKu6ttz5XJ8qN2TFQoG9z9Jkm6ZuDds2LA5c+bcKadpM/CxyNQlC7b3nfuId843s5el25o8Yax1M5KPn29dn1Q+fr4qo6HW0T+To2Bw/3Nzcztx4oQTQXsD+Lx1Pt5kNBhlaqomUow1BkXnrcN8MAB2dgbwhTWLjmmefyar7mWXLftsfpOY9kGOioSCAThkbwCfl3vc6JF+mxd9mmEUjWdXLNrgMfLZPh6O9oCCAThkdwAfaXsmr54b9PWQsICwwSv9Z69d0N/L4R7wGgzgRj5jNtSM+f1D9zYj/rZrxN9ueZB3l5e/OPZyQ3aHMxgARygYAEcoGABHKBgARy67yFFDRYfpPdZUER0wUWEue1AhiUh24ohEZKCS87TTyn7nv4FKrXSghv2gImVXVlbu2rWLNWi1WolkZ29GvEpERPW919sBE1EpkRP38JcRkVPPtp4nqdAdvlJ1b83V1POI/+B6BCqXHHvbtm0LFixwImi1WgsLC9VqZ06kJpNJp3NiwQmyWCweHh5OHFQQBCJyd3d34qCBgYERERGsKUVRMjIyRFF04ohms1mr1TrxadpsNpVK5cSnKUmSIAienp6sQSJq1qxZdnb2LRstFktsbGxUVFQ9wYqKCo1G4+9f33IMJSUl586dc+JZNZ5rCgYAduE1GABHKBgARygYAEcoGABHKBgARygYAEcoGABHKBgARygYAEcoGABHKBgARygYAEcoGABHKBgARygYAEcoGABHKBgARygYAEcoGABHKBgARygYAEcoGABHKBgARygYAEcoGABHKBgARygYAEcoGABHKBgARygYAEcoGABHKBgARygYAEcoGABHKBgARygYAEcoGABHKBgARygYAEcoGABHKBgARygYAEcoGABHKBgARygYAEcoGABHKBgARygYAEcoGABHKBgAR/8PalfFoeAewVAAAAAASUVORK5CYII=" style="display: block; margin: auto;" /></p>
 <p>Thirdly, we will load some planning unit data stored in tabular format (i.e., <code>data.frame</code> format). For those familiar with <em>Marxan</em> or dealing with very large conservation planning problems (&gt; 10 million planning units), it may be useful to work with data in this format because it does not contain any spatial information which will reduce computational burden. When using tabular data to initialize conservation planning problems, the data must follow the conventions used by <em>Marxan</em>. Specifically, each row in the planning unit table must correspond to a different planning unit. The table must also have an “id” column to provide a unique integer identifier for each planning unit, and it must also have a column that indicates the cost of each planning unit. For more information, please see the <a href="https://marxansolutions.org/">official <em>Marxan</em> documentation</a>.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># specify file path for planning unit data</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>pu_path <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;extdata/input/pu.dat&quot;</span>, <span class="at">package =</span> <span class="st">&quot;prioritizr&quot;</span>)</span>
@@ -329,7 +329,7 @@ div.csl-indent {
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p1)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
-##   cost:           min: 190.13276, max: 215.86384
+##   cost:           min: 190.13275, max: 215.86385
 ##   features:       layer.1, layer.2, layer.3, ... (5 features)
 ##   objective:      none
 ##   targets:        none
@@ -427,7 +427,7 @@ div.csl-indent {
 <span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p3)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
-##   cost:           min: 190.13276, max: 215.86384
+##   cost:           min: 190.13275, max: 215.86385
 ##   features:       layer.1, layer.2, layer.3, ... (5 features)
 ##   objective:      Minimum set objective 
 ##   targets:        none
@@ -448,7 +448,7 @@ div.csl-indent {
 <span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p4)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
-##   cost:           min: 190.13276, max: 215.86384
+##   cost:           min: 190.13275, max: 215.86385
 ##   features:       layer.1, layer.2, layer.3, ... (5 features)
 ##   objective:      Maximum coverage objective [budget (5000)]
 ##   targets:        none
@@ -469,7 +469,7 @@ div.csl-indent {
 <span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p5)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
-##   cost:           min: 190.13276, max: 215.86384
+##   cost:           min: 190.13275, max: 215.86385
 ##   features:       layer.1, layer.2, layer.3, ... (5 features)
 ##   objective:      Maximum representation objective [budget (5000)]
 ##   targets:        none
@@ -490,7 +490,7 @@ div.csl-indent {
 <span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p6)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
-##   cost:           min: 190.13276, max: 215.86384
+##   cost:           min: 190.13275, max: 215.86385
 ##   features:       layer.1, layer.2, layer.3, ... (5 features)
 ##   objective:      Minimum shortfall objective [budget (5000)]
 ##   targets:        none
@@ -511,7 +511,7 @@ div.csl-indent {
 <span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p7)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
-##   cost:           min: 190.13276, max: 215.86384
+##   cost:           min: 190.13275, max: 215.86385
 ##   features:       layer.1, layer.2, layer.3, ... (5 features)
 ##   objective:      Minimum largest shortfall objective [budget (5000)]
 ##   targets:        none
@@ -535,7 +535,7 @@ div.csl-indent {
 <span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p8)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
-##   cost:           min: 190.13276, max: 215.86384
+##   cost:           min: 190.13275, max: 215.86385
 ##   features:       layer.1, layer.2, layer.3, ... (5 features)
 ##   objective:      Phylogenetic diversity objective [budget (5000)]
 ##   targets:        none
@@ -559,7 +559,7 @@ div.csl-indent {
 <span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p9)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
-##   cost:           min: 190.13276, max: 215.86384
+##   cost:           min: 190.13275, max: 215.86385
 ##   features:       layer.1, layer.2, layer.3, ... (5 features)
 ##   objective:      Phylogenetic endemism objective [budget (5000)]
 ##   targets:        none
@@ -580,7 +580,7 @@ div.csl-indent {
 <span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p10)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
-##   cost:           min: 190.13276, max: 215.86384
+##   cost:           min: 190.13275, max: 215.86385
 ##   features:       layer.1, layer.2, layer.3, ... (5 features)
 ##   objective:      Maximum utility objective [budget (5000)]
 ##   targets:        none
@@ -606,7 +606,7 @@ div.csl-indent {
 <span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p11)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
-##   cost:           min: 190.13276, max: 215.86384
+##   cost:           min: 190.13275, max: 215.86385
 ##   features:       layer.1, layer.2, layer.3, ... (5 features)
 ##   objective:      Minimum set objective 
 ##   targets:        Absolute targets [targets (min: 3, max: 3)]
@@ -628,7 +628,7 @@ div.csl-indent {
 <span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p12)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
-##   cost:           min: 190.13276, max: 215.86384
+##   cost:           min: 190.13275, max: 215.86385
 ##   features:       layer.1, layer.2, layer.3, ... (5 features)
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
@@ -649,7 +649,7 @@ div.csl-indent {
 <span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p13)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
-##   cost:           min: 190.13276, max: 215.86384
+##   cost:           min: 190.13275, max: 215.86385
 ##   features:       layer.1, layer.2, layer.3, ... (5 features)
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.1, max: 0.3)]
@@ -670,17 +670,17 @@ div.csl-indent {
 <span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p14)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
-##   cost:           min: 190.13276, max: 215.86384
+##   cost:           min: 190.13275, max: 215.86385
 ##   features:       layer.1, layer.2, layer.3, ... (5 features)
 ##   objective:      Minimum set objective 
-##   targets:        Absolute targets [targets (min: 17.290505409161, max: 21.5906174426385)]
+##   targets:        Absolute targets [targets (min: 17.2905054096707, max: 21.5906174420414)]
 ##   decisions:      default
 ##   constraints:    &lt;none&gt;
 ##   penalties:      &lt;none&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
 <ul>
-<li><strong>Manual targets</strong>: Targets are manually specified. This is only really recommended for advanced users or problems that involve multiple management zones. See the <a href="zones.html">zones vignette</a> for more information on these targets.</li>
+<li><strong>Manual targets</strong>: Targets are manually specified. This is only really recommended for advanced users or problems that involve multiple management zones. See the <a href="management_zones_tutorial.html"><em>Management zones tutorial</em></a> for more information on these targets.</li>
 </ul>
 <p>As with the functions for specifying the objective of a problem, if we try adding multiple targets to a problem, only the most recently added set of targets are used.</p>
 </div>
@@ -701,7 +701,7 @@ div.csl-indent {
 <span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p15)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
-##   cost:           min: 190.13276, max: 215.86384
+##   cost:           min: 190.13275, max: 215.86385
 ##   features:       layer.1, layer.2, layer.3, ... (5 features)
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
@@ -724,7 +724,7 @@ div.csl-indent {
 <span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p16)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
-##   cost:           min: 190.13276, max: 215.86384
+##   cost:           min: 190.13275, max: 215.86385
 ##   features:       layer.1, layer.2, layer.3, ... (5 features)
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
@@ -747,7 +747,7 @@ div.csl-indent {
 <span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p17)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
-##   cost:           min: 190.13276, max: 215.86384
+##   cost:           min: 190.13275, max: 215.86385
 ##   features:       layer.1, layer.2, layer.3, ... (5 features)
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
@@ -770,7 +770,7 @@ div.csl-indent {
 <span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p18)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
-##   cost:           min: 190.13276, max: 215.86384
+##   cost:           min: 190.13275, max: 215.86385
 ##   features:       layer.1, layer.2, layer.3, ... (5 features)
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
@@ -793,7 +793,7 @@ div.csl-indent {
 <span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p19)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
-##   cost:           min: 190.13276, max: 215.86384
+##   cost:           min: 190.13275, max: 215.86385
 ##   features:       layer.1, layer.2, layer.3, ... (5 features)
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
@@ -817,7 +817,7 @@ div.csl-indent {
 <span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p20)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
-##   cost:           min: 190.13276, max: 215.86384
+##   cost:           min: 190.13275, max: 215.86385
 ##   features:       layer.1, layer.2, layer.3, ... (5 features)
 ##   objective:      Minimum shortfall objective [budget (1800)]
 ##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
@@ -827,7 +827,7 @@ div.csl-indent {
 ##   portfolio:      default
 ##   solver:         default</code></pre>
 <ul>
-<li><strong>Mandatory allocation constraints</strong>: Add constraints to ensure that every planning unit is allocated to a management zone in the solution. Please note that this function can only be used with problems that contain multiple zones. For more information on problems with multiple zones and an example using this function, see the Management Zones vignette.</li>
+<li><strong>Mandatory allocation constraints</strong>: Add constraints to ensure that every planning unit is allocated to a management zone in the solution. Please note that this function can only be used with problems that contain multiple zones. For more information on problems with multiple zones and an example using this function, see the <a href="management_zones_tutorial.html"><em>Management zones tutorial</em></a>.</li>
 </ul>
 <p>In particular, The <code>add_locked_in_constraints</code> and <code>add_locked_out_constraints</code> functions are incredibly useful for real-world conservation planning exercises, so it’s worth pointing out that there are several ways we can specify which planning units should be locked in or out of the solutions. If we use raster planning unit data, we can also use raster data to specify which planning units should be locked in our locked out.</p>
 <div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load data to lock in or lock out planning units</span></span>
@@ -850,13 +850,13 @@ div.csl-indent {
 <span id="cb62-10"><a href="#cb62-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p21)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
-##   cost:           min: 190.13276, max: 215.86384
+##   cost:           min: 190.13275, max: 215.86385
 ##   features:       layer.1, layer.2, layer.3, ... (5 features)
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
 ##   decisions:      default
-##   constraints:    &lt;Locked out planning units [10 locked units]
-##                    Locked in planning units [10 locked units]&gt;
+##   constraints:    &lt;Locked in planning units [10 locked units]
+##                    Locked out planning units [10 locked units]&gt;
 ##   penalties:      &lt;none&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
@@ -926,7 +926,7 @@ div.csl-indent {
 <span id="cb70-9"><a href="#cb70-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p24)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
-##   cost:           min: 190.13276, max: 215.86384
+##   cost:           min: 190.13275, max: 215.86385
 ##   features:       layer.1, layer.2, layer.3, ... (5 features)
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
@@ -955,7 +955,7 @@ div.csl-indent {
 <span id="cb72-15"><a href="#cb72-15" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p25)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
-##   cost:           min: 190.13276, max: 215.86384
+##   cost:           min: 190.13275, max: 215.86385
 ##   features:       layer.1, layer.2, layer.3, layer.4 (4 features)
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
@@ -983,7 +983,7 @@ div.csl-indent {
 <span id="cb74-14"><a href="#cb74-14" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p25)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
-##   cost:           min: 190.13276, max: 215.86384
+##   cost:           min: 190.13275, max: 215.86385
 ##   features:       layer.1, layer.2, layer.3, layer.4 (4 features)
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
@@ -1012,7 +1012,7 @@ div.csl-indent {
 <span id="cb76-15"><a href="#cb76-15" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p27)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
-##   cost:           min: 190.13276, max: 215.86384
+##   cost:           min: 190.13275, max: 215.86385
 ##   features:       layer.1, layer.2, layer.3, ... (5 features)
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
@@ -1038,7 +1038,7 @@ div.csl-indent {
 <span id="cb78-8"><a href="#cb78-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p28)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
-##   cost:           min: 190.13276, max: 215.86384
+##   cost:           min: 190.13275, max: 215.86385
 ##   features:       layer.1, layer.2, layer.3, ... (5 features)
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
@@ -1060,7 +1060,7 @@ div.csl-indent {
 <span id="cb80-8"><a href="#cb80-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p29)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
-##   cost:           min: 190.13276, max: 215.86384
+##   cost:           min: 190.13275, max: 215.86385
 ##   features:       layer.1, layer.2, layer.3, ... (5 features)
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
@@ -1083,7 +1083,7 @@ div.csl-indent {
 <span id="cb82-9"><a href="#cb82-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p30)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
-##   cost:           min: 190.13276, max: 215.86384
+##   cost:           min: 190.13275, max: 215.86385
 ##   features:       layer.1, layer.2, layer.3, ... (5 features)
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
@@ -1095,7 +1095,7 @@ div.csl-indent {
 </div>
 <div id="add-a-solver" class="section level3">
 <h3>Add a solver</h3>
-<p>Next, after specifying the mathematical formulation that underpins your conservation planning problem, you can specify how the problem should be solved. If you do not specify this information, the <em>prioritizr R</em> package will automatically use the best solver currently installed on your system with some reasonable defaults. <strong>We strongly recommend installing the <a href="https://www.gurobi.com/">Gurobi software suite and the <em>gurobi</em> <em>R</em> package</a> to solve problems, and for more information on this topic please refer to the <a href="gurobi_installation.html">Gurobi Installation Guide</a></strong>. The following solvers are available.</p>
+<p>Next, after specifying the mathematical formulation that underpins your conservation planning problem, you can specify how the problem should be solved. If you do not specify this information, the <em>prioritizr R</em> package will automatically use the best solver currently installed on your system with some reasonable defaults. <strong>We strongly recommend installing the <a href="https://www.gurobi.com/">Gurobi software suite and the <em>gurobi</em> <em>R</em> package</a> to solve problems, and for more information on this topic please refer to the <a href="gurobi_installation_guide.html">Gurobi Installation Guide</a></strong>. The following solvers are available.</p>
 <ul>
 <li><strong><em>Gurobi</em> solver</strong>: <a href="https://www.gurobi.com/"><em>Gurobi</em></a> is a state of the art commercial optimization software. It is by far the fastest of the solvers that can be used to solve conservation problems. However, it is not freely available. That said, special licenses are available to academics at no cost.</li>
 </ul>
@@ -1111,7 +1111,7 @@ div.csl-indent {
 <span id="cb84-10"><a href="#cb84-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p31)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
-##   cost:           min: 190.13276, max: 215.86384
+##   cost:           min: 190.13275, max: 215.86385
 ##   features:       layer.1, layer.2, layer.3, ... (5 features)
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
@@ -1135,7 +1135,7 @@ div.csl-indent {
 <span id="cb86-10"><a href="#cb86-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p32)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
-##   cost:           min: 190.13276, max: 215.86384
+##   cost:           min: 190.13275, max: 215.86385
 ##   features:       layer.1, layer.2, layer.3, ... (5 features)
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
@@ -1159,7 +1159,7 @@ div.csl-indent {
 <span id="cb88-10"><a href="#cb88-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p33)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
-##   cost:           min: 190.13276, max: 215.86384
+##   cost:           min: 190.13275, max: 215.86385
 ##   features:       layer.1, layer.2, layer.3, ... (5 features)
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
@@ -1183,7 +1183,7 @@ div.csl-indent {
 <span id="cb90-10"><a href="#cb90-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p34)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
-##   cost:           min: 190.13276, max: 215.86384
+##   cost:           min: 190.13275, max: 215.86385
 ##   features:       layer.1, layer.2, layer.3, ... (5 features)
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
@@ -1207,7 +1207,7 @@ div.csl-indent {
 <span id="cb92-10"><a href="#cb92-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p35)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
-##   cost:           min: 190.13276, max: 215.86384
+##   cost:           min: 190.13275, max: 215.86385
 ##   features:       layer.1, layer.2, layer.3, ... (5 features)
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
@@ -1235,7 +1235,7 @@ div.csl-indent {
 <span id="cb94-10"><a href="#cb94-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p36)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
-##   cost:           min: 190.13276, max: 215.86384
+##   cost:           min: 190.13275, max: 215.86385
 ##   features:       layer.1, layer.2, layer.3, ... (5 features)
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
@@ -1259,7 +1259,7 @@ div.csl-indent {
 <span id="cb96-10"><a href="#cb96-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p37)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
-##   cost:           min: 190.13276, max: 215.86384
+##   cost:           min: 190.13275, max: 215.86385
 ##   features:       layer.1, layer.2, layer.3, ... (5 features)
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
@@ -1283,7 +1283,7 @@ div.csl-indent {
 <span id="cb98-10"><a href="#cb98-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p38)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
-##   cost:           min: 190.13276, max: 215.86384
+##   cost:           min: 190.13275, max: 215.86385
 ##   features:       layer.1, layer.2, layer.3, ... (5 features)
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
@@ -1307,7 +1307,7 @@ div.csl-indent {
 <span id="cb100-10"><a href="#cb100-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p39)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
-##   cost:           min: 190.13276, max: 215.86384
+##   cost:           min: 190.13275, max: 215.86385
 ##   features:       layer.1, layer.2, layer.3, ... (5 features)
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
@@ -1331,7 +1331,7 @@ div.csl-indent {
 <span id="cb102-10"><a href="#cb102-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p40)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
-##   cost:           min: 190.13276, max: 215.86384
+##   cost:           min: 190.13275, max: 215.86385
 ##   features:       layer.1, layer.2, layer.3, ... (5 features)
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
@@ -1356,46 +1356,47 @@ div.csl-indent {
 <pre><code>## Gurobi Optimizer version 9.5.2 build v9.5.2rc0 (linux64)
 ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
 ## Optimize a model with 293 rows, 234 columns and 1026 nonzeros
-## Model fingerprint: 0xbd38144b
+## Model fingerprint: 0xb4b90756
 ## Variable types: 0 continuous, 234 integer (234 binary)
 ## Coefficient statistics:
 ##   Matrix range     [2e-01, 1e+00]
 ##   Objective range  [1e+02, 4e+02]
 ##   Bounds range     [1e+00, 1e+00]
 ##   RHS range        [3e+00, 8e+00]
-## Found heuristic solution: objective 20287.196992
-## Found heuristic solution: objective 3087.9617505
+## Found heuristic solution: objective 20287.197006
+## Found heuristic solution: objective 3087.9617767
 ## Presolve time: 0.01s
 ## Presolved: 293 rows, 234 columns, 1026 nonzeros
 ## Variable types: 0 continuous, 234 integer (234 binary)
 ## Root relaxation presolved: 293 rows, 234 columns, 1026 nonzeros
 ## 
 ## 
-## Root relaxation: objective 2.265862e+03, 220 iterations, 0.01 seconds (0.00 work units)
+## Root relaxation: objective 2.265862e+03, 228 iterations, 0.01 seconds (0.00 work units)
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
-##      0     0 2265.86242    0  234 3087.96175 2265.86242  26.6%     -    0s
-##      0     0 2325.53449    0  232 3087.96175 2325.53449  24.7%     -    0s
-##      0     0 2361.03063    0  223 3087.96175 2361.03063  23.5%     -    0s
-##      0     0 2371.27288    0  222 3087.96175 2371.27288  23.2%     -    0s
-##      0     0 2371.27288    0  222 3087.96175 2371.27288  23.2%     -    0s
-## H    0     0                    2790.8740409 2371.27288  15.0%     -    0s
-## H    0     0                    2730.9524342 2371.27288  13.2%     -    0s
-##      0     2 2372.02804    0  222 2730.95243 2372.02804  13.1%     -    0s
-## H    6     6                    2604.7426048 2375.46233  8.80%  21.0    0s
+##      0     0 2265.86242    0  234 3087.96178 2265.86242  26.6%     -    0s
+##      0     0 2328.27423    0  232 3087.96178 2328.27423  24.6%     -    0s
+##      0     0 2357.91894    0  229 3087.96178 2357.91894  23.6%     -    0s
+##      0     0 2379.43275    0  197 3087.96178 2379.43275  22.9%     -    0s
+##      0     0 2379.43275    0  197 3087.96178 2379.43275  22.9%     -    0s
+## H    0     0                    2846.1551056 2379.43275  16.4%     -    0s
+## H    0     0                    2814.4777374 2379.43275  15.5%     -    0s
+##      0     2 2379.78730    0  197 2814.47774 2379.78730  15.4%     -    0s
+## H   59    37                    2668.5003204 2385.59825  10.6%  14.8    0s
+## H   81    42                    2604.7425995 2386.83630  8.37%  15.6    0s
 ## 
 ## Cutting planes:
 ##   Gomory: 3
 ## 
-## Explored 7 nodes (489 simplex iterations) in 0.32 seconds (0.10 work units)
+## Explored 82 nodes (1676 simplex iterations) in 0.35 seconds (0.12 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
-## Solution count 5: 2604.74 2730.95 2790.87 ... 20287.2
+## Solution count 6: 2604.74 2668.5 2814.48 ... 20287.2
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
-## Best objective 2.604742604847e+03, best bound 2.375462328932e+03, gap 8.8024%</code></pre>
+## Best objective 2.604742599487e+03, best bound 2.386836298527e+03, gap 8.3658%</code></pre>
 <div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot solution</span></span>
 <span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s41, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;grey90&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>), <span class="at">main =</span> <span class="st">&quot;Solution&quot;</span>,</span>
 <span id="cb106-3"><a href="#cb106-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>))</span></code></pre></div>
@@ -1409,7 +1410,7 @@ div.csl-indent {
 <div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extract time spent solving solution</span></span>
 <span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">attr</span>(s41, <span class="st">&quot;runtime&quot;</span>))</span></code></pre></div>
 <pre><code>## solution_1 
-##      0.345</code></pre>
+##      0.378</code></pre>
 <div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extract state message from the solver that describes why this specific</span></span>
 <span id="cb111-2"><a href="#cb111-2" aria-hidden="true" tabindex="-1"></a><span class="co"># solution was returned</span></span>
 <span id="cb111-3"><a href="#cb111-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">attr</span>(s41, <span class="st">&quot;status&quot;</span>))</span></code></pre></div>
@@ -1510,7 +1511,7 @@ div.csl-indent {
 <pre><code>## # A tibble: 1 × 2
 ##   summary asym_connectivity
 ##   &lt;chr&gt;               &lt;dbl&gt;
-## 1 overall              51.5</code></pre>
+## 1 overall              55.1</code></pre>
 </div>
 <div id="evaluating-relative-importance" class="section level3">
 <h3>Evaluating relative importance</h3>
@@ -1527,18 +1528,18 @@ div.csl-indent {
 <pre><code>## Gurobi Optimizer version 9.5.2 build v9.5.2rc0 (linux64)
 ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
 ## Optimize a model with 5 rows, 90 columns and 450 nonzeros
-## Model fingerprint: 0x6442bf6e
+## Model fingerprint: 0x4bb5d283
 ## Variable types: 0 continuous, 90 integer (90 binary)
 ## Coefficient statistics:
 ##   Matrix range     [2e-01, 9e-01]
 ##   Objective range  [2e+02, 2e+02]
 ##   Bounds range     [1e+00, 1e+00]
 ##   RHS range        [3e+00, 8e+00]
-## Found heuristic solution: objective 2337.9617505
+## Found heuristic solution: objective 2337.9617767
 ## Presolve time: 0.00s
 ## Presolved: 5 rows, 90 columns, 450 nonzeros
 ## Variable types: 0 continuous, 90 integer (90 binary)
-## Found heuristic solution: objective 2332.1003790
+## Found heuristic solution: objective 2332.1004028
 ## Root relaxation presolved: 5 rows, 90 columns, 450 nonzeros
 ## 
 ## 
@@ -1547,8 +1548,8 @@ div.csl-indent {
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
-##      0     0 1931.58191    0    4 2332.10038 1931.58191  17.2%     -    0s
-## H    0     0                    1987.3985265 1931.58191  2.81%     -    0s
+##      0     0 1931.58191    0    4 2332.10040 1931.58191  17.2%     -    0s
+## H    0     0                    1987.3985291 1931.58191  2.81%     -    0s
 ## 
 ## Explored 1 nodes (12 simplex iterations) in 0.00 seconds (0.00 work units)
 ## Thread count was 1 (of 8 available processors)
@@ -1556,7 +1557,7 @@ div.csl-indent {
 ## Solution count 3: 1987.4 2332.1 2337.96 
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
-## Best objective 1.987398526526e+03, best bound 1.931581908865e+03, gap 2.8085%</code></pre>
+## Best objective 1.987398529053e+03, best bound 1.931581907658e+03, gap 2.8085%</code></pre>
 <div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot solution</span></span>
 <span id="cb129-2"><a href="#cb129-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s42, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;grey90&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>), <span class="at">main =</span> <span class="st">&quot;Solution&quot;</span>,</span>
 <span id="cb129-3"><a href="#cb129-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>))</span></code></pre></div>
@@ -1643,8 +1644,8 @@ div.csl-indent {
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.3, max: 0.3)]
 ##   decisions:      default
-##   constraints:    &lt;Locked in planning units [317 locked units]
-##                    Locked out planning units [1 locked units]&gt;
+##   constraints:    &lt;Locked out planning units [1 locked units]
+##                    Locked in planning units [317 locked units]&gt;
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (0), zones]&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>

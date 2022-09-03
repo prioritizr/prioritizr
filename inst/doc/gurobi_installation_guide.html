@@ -12,7 +12,7 @@
 
 <meta name="author" content="Richard Schuster" />
 
-<meta name="date" content="2022-08-29" />
+<meta name="date" content="2022-09-03" />
 
 <title>Gurobi installation guide</title>
 
@@ -149,7 +149,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <h1 class="title toc-ignore">Gurobi installation guide</h1>
 <h4 class="author">Richard Schuster</h4>
-<h4 class="date">2022-08-29</h4>
+<h4 class="date">2022-09-03</h4>
 
 
 <div id="TOC">
@@ -290,18 +290,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## Gurobi Optimizer version 9.5.2 build v9.5.2rc0 (linux64)
 ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
 ## Optimize a model with 5 rows, 90 columns and 450 nonzeros
-## Model fingerprint: 0x6442bf6e
+## Model fingerprint: 0x4bb5d283
 ## Variable types: 0 continuous, 90 integer (90 binary)
 ## Coefficient statistics:
 ##   Matrix range     [2e-01, 9e-01]
 ##   Objective range  [2e+02, 2e+02]
 ##   Bounds range     [1e+00, 1e+00]
 ##   RHS range        [3e+00, 8e+00]
-## Found heuristic solution: objective 2337.9617505
+## Found heuristic solution: objective 2337.9617767
 ## Presolve time: 0.00s
 ## Presolved: 5 rows, 90 columns, 450 nonzeros
 ## Variable types: 0 continuous, 90 integer (90 binary)
-## Found heuristic solution: objective 2332.1003790
+## Found heuristic solution: objective 2332.1004028
 ## Root relaxation presolved: 5 rows, 90 columns, 450 nonzeros
 ## 
 ## 
@@ -310,8 +310,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
-##      0     0 1931.58191    0    4 2332.10038 1931.58191  17.2%     -    0s
-## H    0     0                    1987.3985265 1931.58191  2.81%     -    0s
+##      0     0 1931.58191    0    4 2332.10040 1931.58191  17.2%     -    0s
+## H    0     0                    1987.3985291 1931.58191  2.81%     -    0s
 ## 
 ## Explored 1 nodes (12 simplex iterations) in 0.00 seconds (0.00 work units)
 ## Thread count was 1 (of 8 available processors)
@@ -319,7 +319,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Solution count 3: 1987.4 2332.1 2337.96 
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
-## Best objective 1.987398526526e+03, best bound 1.931581908865e+03, gap 2.8085%</code></pre>
+## Best objective 1.987398529053e+03, best bound 1.931581907658e+03, gap 2.8085%</code></pre>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot solution</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(s, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;grey90&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>), <span class="at">main =</span> <span class="st">&quot;Solution&quot;</span>,</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>))</span></code></pre></div>

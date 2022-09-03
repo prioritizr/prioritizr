@@ -26,6 +26,7 @@ Richard Schuster
   MILP (7:18)
   optimality (12:5)
   pre (11:62)
+  CPLEX (19:9)
 
   **These words are spelled correctly.**
 

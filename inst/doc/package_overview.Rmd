@@ -81,7 +81,7 @@ After building a conservation problem, it can then be solved to obtain a solutio
 
 ## Usage
 
-Here we will provide an introduction to using the _prioritizr R_ package to build and solve a conservation planning problem. Please note that we will not discuss conservation planning with multiple zones in this vignette, for more information on working with multiple management zones please see the [zones vignette](zones.html).
+Here we will provide an introduction to using the _prioritizr R_ package to build and solve a conservation planning problem. Please note that we will not discuss conservation planning with multiple zones in this vignette, for more information on working with multiple management zones please see the [_Management zones tutorial_](management_zones_tutorial.html).
 
 First, we will load the _prioritizr_ package.
 
@@ -349,7 +349,7 @@ p14 <- problem(sim_pu_raster, sim_features) %>%
 # print problem
 print(p14)
 ```
-* __Manual targets__: Targets are manually specified. This is only really recommended for advanced users or problems that involve multiple management zones. See the [zones vignette](zones.html) for more information on these targets.
+* __Manual targets__: Targets are manually specified. This is only really recommended for advanced users or problems that involve multiple management zones. See the [_Management zones tutorial_](management_zones_tutorial.html) for more information on these targets.
 
 As with the functions for specifying the objective of a problem, if we try adding multiple targets to a problem, only the most recently added set of targets are used.
 
@@ -433,7 +433,7 @@ p20 <- problem(sim_pu_raster, sim_features) %>%
 print(p20)
 ```
 
-* __Mandatory allocation constraints__: Add constraints to ensure that every planning unit is allocated to a management zone in the solution. Please note that this function can only be used with problems that contain multiple zones. For more information on problems with multiple zones and an example using this function, see the Management Zones vignette.
+* __Mandatory allocation constraints__: Add constraints to ensure that every planning unit is allocated to a management zone in the solution. Please note that this function can only be used with problems that contain multiple zones. For more information on problems with multiple zones and an example using this function, see the [_Management zones tutorial_](management_zones_tutorial.html).
 
 In particular, The `add_locked_in_constraints` and `add_locked_out_constraints` functions are incredibly useful for real-world conservation planning exercises, so it's worth pointing out that there are several ways we can specify which planning units should be locked in or out of the solutions. If we use raster planning unit data, we can also use raster data to specify which planning units should be locked in our locked out.
 
@@ -595,7 +595,7 @@ print(p30)
 
 ### Add a solver
 
-Next, after specifying the mathematical formulation that underpins your conservation planning problem, you can specify how the problem should be solved. If you do not specify this information, the _prioritizr R_ package will automatically use the best solver currently installed on your system with some reasonable defaults. __We strongly recommend installing the [Gurobi software suite and the _gurobi_ _R_ package](https://www.gurobi.com/) to solve problems, and for more information on this topic please refer to the [Gurobi Installation Guide](gurobi_installation.html)__. The following solvers are available.
+Next, after specifying the mathematical formulation that underpins your conservation planning problem, you can specify how the problem should be solved. If you do not specify this information, the _prioritizr R_ package will automatically use the best solver currently installed on your system with some reasonable defaults. __We strongly recommend installing the [Gurobi software suite and the _gurobi_ _R_ package](https://www.gurobi.com/) to solve problems, and for more information on this topic please refer to the [Gurobi Installation Guide](gurobi_installation_guide.html)__. The following solvers are available.
 
 * __*Gurobi* solver__: [_Gurobi_](https://www.gurobi.com/) is a state of the art commercial optimization software. It is by far the fastest of the solvers that can be used to solve conservation problems. However, it is not freely available. That said, special licenses are available to academics at no cost.
 ```{r}
