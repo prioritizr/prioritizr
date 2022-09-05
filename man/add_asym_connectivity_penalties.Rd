@@ -177,7 +177,7 @@ set.seed(600)
 require(Matrix)
 
 # load data
-data(sim_pu_polygons, sim_pu_zones_stack, sim_features, sim_features_zones)
+data(sim_pu_sf, sim_pu_zones_stack, sim_features, sim_features_zones)
 
 # define function to rescale values between zero and one so that we
 # can compare solutions from different connectivity matrices
@@ -186,7 +186,7 @@ rescale <- function(x, to = c(0, 1), from = range(x, na.rm = TRUE)) {
 }
 
 # create basic problem
-p1 <- problem(sim_pu_polygons, sim_features, "cost") \%>\%
+p1 <- problem(sim_pu_sf, sim_features, "cost") \%>\%
       add_min_set_objective() \%>\%
       add_relative_targets(0.2) \%>\%
       add_default_solver(verbose = FALSE)
@@ -195,21 +195,21 @@ p1 <- problem(sim_pu_polygons, sim_features, "cost") \%>\%
 # adjacent planning units and, due to rivers flowing southwards
 # through the study area, connectivity from northern planning units to
 # southern planning units is ten times stronger than the reverse.
-acm1 <- matrix(0, length(sim_pu_polygons), length(sim_pu_polygons))
+acm1 <- matrix(0, nrow(sim_pu_sf), nrow(sim_pu_sf))
 acm1 <- as(acm1, "Matrix")
-centroids <- rgeos::gCentroid(sim_pu_polygons, byid = TRUE)
-adjacent_units <- rgeos::gIntersects(sim_pu_polygons, byid = TRUE)
-for (i in seq_len(length(sim_pu_polygons))) {
-  for (j in seq_len(length(sim_pu_polygons))) {
+centroids <- sf::st_coordinates(suppressWarnings(sf::st_centroid(sim_pu_sf)))
+adjacent_units <- sf::st_intersects(sim_pu_sf, sparse = FALSE)
+for (i in seq_len(nrow(sim_pu_sf))) {
+  for (j in seq_len(nrow(sim_pu_sf))) {
     # find if planning units are adjacent
     if (adjacent_units[i, j]) {
       # find if planning units lay north and south of each other
       # i.e., they have the same x-coordinate
-      if (centroids@coords[i, 1] == centroids@coords[j, 1]) {
-        if (centroids@coords[i, 2] > centroids@coords[j, 2]) {
+      if (centroids[i, 1] == centroids[j, 1]) {
+        if (centroids[i, 2] > centroids[j, 2]) {
           # if i is north of j add 10 units of connectivity
           acm1[i, j] <- acm1[i, j] + 10
-        } else if (centroids@coords[i, 2] < centroids@coords[j, 2]) {
+        } else if (centroids[i, 2] < centroids[j, 2]) {
           # if i is south of j add 1 unit of connectivity
           acm1[i, j] <- acm1[i, j] + 1
         }
@@ -218,7 +218,7 @@ for (i in seq_len(length(sim_pu_polygons))) {
   }
 }
 
-# standardize matrix values to lay between zero and one
+# linearly re-scale matrix values to range between zero and one
 acm1[] <- rescale(acm1[])
 
 # visualize asymmetric connectivity matrix

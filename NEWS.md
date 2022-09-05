@@ -4,15 +4,19 @@
 
 # prioritizr 7.2.0.9
 
-- Fix compatibility issues with upcoming version of the _Matrix_ package
-  (version 1.4-2).
+- Fix compatibility with upcoming _Matrix_ package version (version 1.5-0).
 - Update package documentation to provide details for obtaining and installing
-  the _cplexAPI_ package since it has been archived on CRAN.
+  the _cplexAPI_ package since it has been archived on CRAN (#214).
 - Fix bug that caused the `add_cbc_solver()` to throw a segfault when solving
   a problem wherein the `rij_matrix(x)` has a zero amount for the last feature
   in the last planning unit (#247).
 - Update `simulate_data()`, `simulate_cost()` and `simulate_species()`
   functions to improve performance using the _fields_ package.
+- Update `boundary_matrix()` to use STR query trees by default.
+- Remove _maptools_, _PBSmapping_, and _rgeos_ packages as dependencies.
+  This involved updating the unit tests to hard-code correct results,
+  updating examples to use the _sf_ package, and updating the
+  `boundary_matrix()` to use the _geos_ package (#218).
 - Fix broken URLs in package documentation.
 
 # prioritizr 7.2.0.8
