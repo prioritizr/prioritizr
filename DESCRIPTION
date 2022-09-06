@@ -233,4 +233,5 @@ Collate:
 Roxygen: list(markdown = TRUE)
 Remotes:
   dirkschumacher/rcbc,
+  cran/cplexAPI
   bioc::release/lpsymphony
