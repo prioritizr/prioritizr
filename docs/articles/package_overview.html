@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.1</span>
       </span>
     </div>
 
@@ -192,7 +192,7 @@
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
-<p>Here we will provide an introduction to using the <em>prioritizr R</em> package to build and solve a conservation planning problem. Please note that we will not discuss conservation planning with multiple zones in this vignette, for more information on working with multiple management zones please see the <a href="zones.html">zones vignette</a>.</p>
+<p>Here we will provide an introduction to using the <em>prioritizr R</em> package to build and solve a conservation planning problem. Please note that we will not discuss conservation planning with multiple zones in this vignette, for more information on working with multiple management zones please see the <a href="management_zones_tutorial.html"><em>Management zones tutorial</em></a>.</p>
 <p>First, we will load the <em>prioritizr</em> package.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># load package</span></span>
@@ -284,7 +284,7 @@
 <span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Conservation Problem</span></span>
 <span><span class="co">##   planning units: RasterLayer (90 units)</span></span>
-<span><span class="co">##   cost:           min: 190.13276, max: 215.86384</span></span>
+<span><span class="co">##   cost:           min: 190.13275, max: 215.86385</span></span>
 <span><span class="co">##   features:       layer.1, layer.2, layer.3, ... (5 features)</span></span>
 <span><span class="co">##   objective:      none</span></span>
 <span><span class="co">##   targets:        none</span></span>
@@ -391,7 +391,7 @@
 <span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Conservation Problem</span></span>
 <span><span class="co">##   planning units: RasterLayer (90 units)</span></span>
-<span><span class="co">##   cost:           min: 190.13276, max: 215.86384</span></span>
+<span><span class="co">##   cost:           min: 190.13275, max: 215.86385</span></span>
 <span><span class="co">##   features:       layer.1, layer.2, layer.3, ... (5 features)</span></span>
 <span><span class="co">##   objective:      Minimum set objective </span></span>
 <span><span class="co">##   targets:        none</span></span>
@@ -414,7 +414,7 @@
 <span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p4</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Conservation Problem</span></span>
 <span><span class="co">##   planning units: RasterLayer (90 units)</span></span>
-<span><span class="co">##   cost:           min: 190.13276, max: 215.86384</span></span>
+<span><span class="co">##   cost:           min: 190.13275, max: 215.86385</span></span>
 <span><span class="co">##   features:       layer.1, layer.2, layer.3, ... (5 features)</span></span>
 <span><span class="co">##   objective:      Maximum coverage objective [budget (5000)]</span></span>
 <span><span class="co">##   targets:        none</span></span>
@@ -437,7 +437,7 @@
 <span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p5</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Conservation Problem</span></span>
 <span><span class="co">##   planning units: RasterLayer (90 units)</span></span>
-<span><span class="co">##   cost:           min: 190.13276, max: 215.86384</span></span>
+<span><span class="co">##   cost:           min: 190.13275, max: 215.86385</span></span>
 <span><span class="co">##   features:       layer.1, layer.2, layer.3, ... (5 features)</span></span>
 <span><span class="co">##   objective:      Maximum representation objective [budget (5000)]</span></span>
 <span><span class="co">##   targets:        none</span></span>
@@ -460,7 +460,7 @@
 <span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p6</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Conservation Problem</span></span>
 <span><span class="co">##   planning units: RasterLayer (90 units)</span></span>
-<span><span class="co">##   cost:           min: 190.13276, max: 215.86384</span></span>
+<span><span class="co">##   cost:           min: 190.13275, max: 215.86385</span></span>
 <span><span class="co">##   features:       layer.1, layer.2, layer.3, ... (5 features)</span></span>
 <span><span class="co">##   objective:      Minimum shortfall objective [budget (5000)]</span></span>
 <span><span class="co">##   targets:        none</span></span>
@@ -483,7 +483,7 @@
 <span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p7</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Conservation Problem</span></span>
 <span><span class="co">##   planning units: RasterLayer (90 units)</span></span>
-<span><span class="co">##   cost:           min: 190.13276, max: 215.86384</span></span>
+<span><span class="co">##   cost:           min: 190.13275, max: 215.86385</span></span>
 <span><span class="co">##   features:       layer.1, layer.2, layer.3, ... (5 features)</span></span>
 <span><span class="co">##   objective:      Minimum largest shortfall objective [budget (5000)]</span></span>
 <span><span class="co">##   targets:        none</span></span>
@@ -510,7 +510,7 @@
 <span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p8</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Conservation Problem</span></span>
 <span><span class="co">##   planning units: RasterLayer (90 units)</span></span>
-<span><span class="co">##   cost:           min: 190.13276, max: 215.86384</span></span>
+<span><span class="co">##   cost:           min: 190.13275, max: 215.86385</span></span>
 <span><span class="co">##   features:       layer.1, layer.2, layer.3, ... (5 features)</span></span>
 <span><span class="co">##   objective:      Phylogenetic diversity objective [budget (5000)]</span></span>
 <span><span class="co">##   targets:        none</span></span>
@@ -536,7 +536,7 @@
 <span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p9</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Conservation Problem</span></span>
 <span><span class="co">##   planning units: RasterLayer (90 units)</span></span>
-<span><span class="co">##   cost:           min: 190.13276, max: 215.86384</span></span>
+<span><span class="co">##   cost:           min: 190.13275, max: 215.86385</span></span>
 <span><span class="co">##   features:       layer.1, layer.2, layer.3, ... (5 features)</span></span>
 <span><span class="co">##   objective:      Phylogenetic endemism objective [budget (5000)]</span></span>
 <span><span class="co">##   targets:        none</span></span>
@@ -559,7 +559,7 @@
 <span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p10</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Conservation Problem</span></span>
 <span><span class="co">##   planning units: RasterLayer (90 units)</span></span>
-<span><span class="co">##   cost:           min: 190.13276, max: 215.86384</span></span>
+<span><span class="co">##   cost:           min: 190.13275, max: 215.86385</span></span>
 <span><span class="co">##   features:       layer.1, layer.2, layer.3, ... (5 features)</span></span>
 <span><span class="co">##   objective:      Maximum utility objective [budget (5000)]</span></span>
 <span><span class="co">##   targets:        none</span></span>
@@ -588,7 +588,7 @@
 <span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p11</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Conservation Problem</span></span>
 <span><span class="co">##   planning units: RasterLayer (90 units)</span></span>
-<span><span class="co">##   cost:           min: 190.13276, max: 215.86384</span></span>
+<span><span class="co">##   cost:           min: 190.13275, max: 215.86385</span></span>
 <span><span class="co">##   features:       layer.1, layer.2, layer.3, ... (5 features)</span></span>
 <span><span class="co">##   objective:      Minimum set objective </span></span>
 <span><span class="co">##   targets:        Absolute targets [targets (min: 3, max: 3)]</span></span>
@@ -612,7 +612,7 @@
 <span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p12</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Conservation Problem</span></span>
 <span><span class="co">##   planning units: RasterLayer (90 units)</span></span>
-<span><span class="co">##   cost:           min: 190.13276, max: 215.86384</span></span>
+<span><span class="co">##   cost:           min: 190.13275, max: 215.86385</span></span>
 <span><span class="co">##   features:       layer.1, layer.2, layer.3, ... (5 features)</span></span>
 <span><span class="co">##   objective:      Minimum set objective </span></span>
 <span><span class="co">##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]</span></span>
@@ -634,7 +634,7 @@
 <span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p13</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Conservation Problem</span></span>
 <span><span class="co">##   planning units: RasterLayer (90 units)</span></span>
-<span><span class="co">##   cost:           min: 190.13276, max: 215.86384</span></span>
+<span><span class="co">##   cost:           min: 190.13275, max: 215.86385</span></span>
 <span><span class="co">##   features:       layer.1, layer.2, layer.3, ... (5 features)</span></span>
 <span><span class="co">##   objective:      Minimum set objective </span></span>
 <span><span class="co">##   targets:        Relative targets [targets (min: 0.1, max: 0.3)]</span></span>
@@ -657,10 +657,10 @@
 <span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p14</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Conservation Problem</span></span>
 <span><span class="co">##   planning units: RasterLayer (90 units)</span></span>
-<span><span class="co">##   cost:           min: 190.13276, max: 215.86384</span></span>
+<span><span class="co">##   cost:           min: 190.13275, max: 215.86385</span></span>
 <span><span class="co">##   features:       layer.1, layer.2, layer.3, ... (5 features)</span></span>
 <span><span class="co">##   objective:      Minimum set objective </span></span>
-<span><span class="co">##   targets:        Absolute targets [targets (min: 17.290505409161, max: 21.5906174426385)]</span></span>
+<span><span class="co">##   targets:        Absolute targets [targets (min: 17.2905054096707, max: 21.5906174420414)]</span></span>
 <span><span class="co">##   decisions:      default</span></span>
 <span><span class="co">##   constraints:    &lt;none&gt;</span></span>
 <span><span class="co">##   penalties:      &lt;none&gt;</span></span>
@@ -668,7 +668,7 @@
 <span><span class="co">##   solver:         default</span></span></code></pre>
 <ul>
 <li>
-<strong>Manual targets</strong>: Targets are manually specified. This is only really recommended for advanced users or problems that involve multiple management zones. See the <a href="zones.html">zones vignette</a> for more information on these targets.</li>
+<strong>Manual targets</strong>: Targets are manually specified. This is only really recommended for advanced users or problems that involve multiple management zones. See the <a href="management_zones_tutorial.html"><em>Management zones tutorial</em></a> for more information on these targets.</li>
 </ul>
 <p>As with the functions for specifying the objective of a problem, if we try adding multiple targets to a problem, only the most recently added set of targets are used.</p>
 </div>
@@ -692,7 +692,7 @@
 <span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p15</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Conservation Problem</span></span>
 <span><span class="co">##   planning units: RasterLayer (90 units)</span></span>
-<span><span class="co">##   cost:           min: 190.13276, max: 215.86384</span></span>
+<span><span class="co">##   cost:           min: 190.13275, max: 215.86385</span></span>
 <span><span class="co">##   features:       layer.1, layer.2, layer.3, ... (5 features)</span></span>
 <span><span class="co">##   objective:      Minimum set objective </span></span>
 <span><span class="co">##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]</span></span>
@@ -717,7 +717,7 @@
 <span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p16</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Conservation Problem</span></span>
 <span><span class="co">##   planning units: RasterLayer (90 units)</span></span>
-<span><span class="co">##   cost:           min: 190.13276, max: 215.86384</span></span>
+<span><span class="co">##   cost:           min: 190.13275, max: 215.86385</span></span>
 <span><span class="co">##   features:       layer.1, layer.2, layer.3, ... (5 features)</span></span>
 <span><span class="co">##   objective:      Minimum set objective </span></span>
 <span><span class="co">##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]</span></span>
@@ -742,7 +742,7 @@
 <span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p17</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Conservation Problem</span></span>
 <span><span class="co">##   planning units: RasterLayer (90 units)</span></span>
-<span><span class="co">##   cost:           min: 190.13276, max: 215.86384</span></span>
+<span><span class="co">##   cost:           min: 190.13275, max: 215.86385</span></span>
 <span><span class="co">##   features:       layer.1, layer.2, layer.3, ... (5 features)</span></span>
 <span><span class="co">##   objective:      Minimum set objective </span></span>
 <span><span class="co">##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]</span></span>
@@ -767,7 +767,7 @@
 <span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p18</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Conservation Problem</span></span>
 <span><span class="co">##   planning units: RasterLayer (90 units)</span></span>
-<span><span class="co">##   cost:           min: 190.13276, max: 215.86384</span></span>
+<span><span class="co">##   cost:           min: 190.13275, max: 215.86385</span></span>
 <span><span class="co">##   features:       layer.1, layer.2, layer.3, ... (5 features)</span></span>
 <span><span class="co">##   objective:      Minimum set objective </span></span>
 <span><span class="co">##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]</span></span>
@@ -792,7 +792,7 @@
 <span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p19</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Conservation Problem</span></span>
 <span><span class="co">##   planning units: RasterLayer (90 units)</span></span>
-<span><span class="co">##   cost:           min: 190.13276, max: 215.86384</span></span>
+<span><span class="co">##   cost:           min: 190.13275, max: 215.86385</span></span>
 <span><span class="co">##   features:       layer.1, layer.2, layer.3, ... (5 features)</span></span>
 <span><span class="co">##   objective:      Minimum set objective </span></span>
 <span><span class="co">##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]</span></span>
@@ -818,7 +818,7 @@
 <span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p20</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Conservation Problem</span></span>
 <span><span class="co">##   planning units: RasterLayer (90 units)</span></span>
-<span><span class="co">##   cost:           min: 190.13276, max: 215.86384</span></span>
+<span><span class="co">##   cost:           min: 190.13275, max: 215.86385</span></span>
 <span><span class="co">##   features:       layer.1, layer.2, layer.3, ... (5 features)</span></span>
 <span><span class="co">##   objective:      Minimum shortfall objective [budget (1800)]</span></span>
 <span><span class="co">##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]</span></span>
@@ -829,7 +829,7 @@
 <span><span class="co">##   solver:         default</span></span></code></pre>
 <ul>
 <li>
-<strong>Mandatory allocation constraints</strong>: Add constraints to ensure that every planning unit is allocated to a management zone in the solution. Please note that this function can only be used with problems that contain multiple zones. For more information on problems with multiple zones and an example using this function, see the Management Zones vignette.</li>
+<strong>Mandatory allocation constraints</strong>: Add constraints to ensure that every planning unit is allocated to a management zone in the solution. Please note that this function can only be used with problems that contain multiple zones. For more information on problems with multiple zones and an example using this function, see the <a href="management_zones_tutorial.html"><em>Management zones tutorial</em></a>.</li>
 </ul>
 <p>In particular, The <code>add_locked_in_constraints</code> and <code>add_locked_out_constraints</code> functions are incredibly useful for real-world conservation planning exercises, so it’s worth pointing out that there are several ways we can specify which planning units should be locked in or out of the solutions. If we use raster planning unit data, we can also use raster data to specify which planning units should be locked in our locked out.</p>
 <div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
@@ -854,7 +854,7 @@
 <span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p21</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Conservation Problem</span></span>
 <span><span class="co">##   planning units: RasterLayer (90 units)</span></span>
-<span><span class="co">##   cost:           min: 190.13276, max: 215.86384</span></span>
+<span><span class="co">##   cost:           min: 190.13275, max: 215.86385</span></span>
 <span><span class="co">##   features:       layer.1, layer.2, layer.3, ... (5 features)</span></span>
 <span><span class="co">##   objective:      Minimum set objective </span></span>
 <span><span class="co">##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]</span></span>
@@ -936,7 +936,7 @@
 <span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p24</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Conservation Problem</span></span>
 <span><span class="co">##   planning units: RasterLayer (90 units)</span></span>
-<span><span class="co">##   cost:           min: 190.13276, max: 215.86384</span></span>
+<span><span class="co">##   cost:           min: 190.13275, max: 215.86385</span></span>
 <span><span class="co">##   features:       layer.1, layer.2, layer.3, ... (5 features)</span></span>
 <span><span class="co">##   objective:      Minimum set objective </span></span>
 <span><span class="co">##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]</span></span>
@@ -967,7 +967,7 @@
 <span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p25</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Conservation Problem</span></span>
 <span><span class="co">##   planning units: RasterLayer (90 units)</span></span>
-<span><span class="co">##   cost:           min: 190.13276, max: 215.86384</span></span>
+<span><span class="co">##   cost:           min: 190.13275, max: 215.86385</span></span>
 <span><span class="co">##   features:       layer.1, layer.2, layer.3, layer.4 (4 features)</span></span>
 <span><span class="co">##   objective:      Minimum set objective </span></span>
 <span><span class="co">##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]</span></span>
@@ -997,7 +997,7 @@
 <span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p25</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Conservation Problem</span></span>
 <span><span class="co">##   planning units: RasterLayer (90 units)</span></span>
-<span><span class="co">##   cost:           min: 190.13276, max: 215.86384</span></span>
+<span><span class="co">##   cost:           min: 190.13275, max: 215.86385</span></span>
 <span><span class="co">##   features:       layer.1, layer.2, layer.3, layer.4 (4 features)</span></span>
 <span><span class="co">##   objective:      Minimum set objective </span></span>
 <span><span class="co">##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]</span></span>
@@ -1028,7 +1028,7 @@
 <span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p27</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Conservation Problem</span></span>
 <span><span class="co">##   planning units: RasterLayer (90 units)</span></span>
-<span><span class="co">##   cost:           min: 190.13276, max: 215.86384</span></span>
+<span><span class="co">##   cost:           min: 190.13275, max: 215.86385</span></span>
 <span><span class="co">##   features:       layer.1, layer.2, layer.3, ... (5 features)</span></span>
 <span><span class="co">##   objective:      Minimum set objective </span></span>
 <span><span class="co">##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]</span></span>
@@ -1057,7 +1057,7 @@
 <span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p28</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Conservation Problem</span></span>
 <span><span class="co">##   planning units: RasterLayer (90 units)</span></span>
-<span><span class="co">##   cost:           min: 190.13276, max: 215.86384</span></span>
+<span><span class="co">##   cost:           min: 190.13275, max: 215.86385</span></span>
 <span><span class="co">##   features:       layer.1, layer.2, layer.3, ... (5 features)</span></span>
 <span><span class="co">##   objective:      Minimum set objective </span></span>
 <span><span class="co">##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]</span></span>
@@ -1081,7 +1081,7 @@
 <span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p29</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Conservation Problem</span></span>
 <span><span class="co">##   planning units: RasterLayer (90 units)</span></span>
-<span><span class="co">##   cost:           min: 190.13276, max: 215.86384</span></span>
+<span><span class="co">##   cost:           min: 190.13275, max: 215.86385</span></span>
 <span><span class="co">##   features:       layer.1, layer.2, layer.3, ... (5 features)</span></span>
 <span><span class="co">##   objective:      Minimum set objective </span></span>
 <span><span class="co">##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]</span></span>
@@ -1106,7 +1106,7 @@
 <span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p30</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Conservation Problem</span></span>
 <span><span class="co">##   planning units: RasterLayer (90 units)</span></span>
-<span><span class="co">##   cost:           min: 190.13276, max: 215.86384</span></span>
+<span><span class="co">##   cost:           min: 190.13275, max: 215.86385</span></span>
 <span><span class="co">##   features:       layer.1, layer.2, layer.3, ... (5 features)</span></span>
 <span><span class="co">##   objective:      Minimum set objective </span></span>
 <span><span class="co">##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]</span></span>
@@ -1119,7 +1119,7 @@
 <div class="section level3">
 <h3 id="add-a-solver">Add a solver<a class="anchor" aria-label="anchor" href="#add-a-solver"></a>
 </h3>
-<p>Next, after specifying the mathematical formulation that underpins your conservation planning problem, you can specify how the problem should be solved. If you do not specify this information, the <em>prioritizr R</em> package will automatically use the best solver currently installed on your system with some reasonable defaults. <strong>We strongly recommend installing the <a href="https://www.gurobi.com/" class="external-link">Gurobi software suite and the <em>gurobi</em> <em>R</em> package</a> to solve problems, and for more information on this topic please refer to the <a href="gurobi_installation.html">Gurobi Installation Guide</a></strong>. The following solvers are available.</p>
+<p>Next, after specifying the mathematical formulation that underpins your conservation planning problem, you can specify how the problem should be solved. If you do not specify this information, the <em>prioritizr R</em> package will automatically use the best solver currently installed on your system with some reasonable defaults. <strong>We strongly recommend installing the <a href="https://www.gurobi.com/" class="external-link">Gurobi software suite and the <em>gurobi</em> <em>R</em> package</a> to solve problems, and for more information on this topic please refer to the <a href="gurobi_installation_guide.html">Gurobi Installation Guide</a></strong>. The following solvers are available.</p>
 <ul>
 <li>
 <strong><em>Gurobi</em> solver</strong>: <a href="https://www.gurobi.com/" class="external-link"><em>Gurobi</em></a> is a state of the art commercial optimization software. It is by far the fastest of the solvers that can be used to solve conservation problems. However, it is not freely available. That said, special licenses are available to academics at no cost.</li>
@@ -1137,7 +1137,7 @@
 <span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p31</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Conservation Problem</span></span>
 <span><span class="co">##   planning units: RasterLayer (90 units)</span></span>
-<span><span class="co">##   cost:           min: 190.13276, max: 215.86384</span></span>
+<span><span class="co">##   cost:           min: 190.13275, max: 215.86385</span></span>
 <span><span class="co">##   features:       layer.1, layer.2, layer.3, ... (5 features)</span></span>
 <span><span class="co">##   objective:      Minimum set objective </span></span>
 <span><span class="co">##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]</span></span>
@@ -1163,7 +1163,7 @@
 <span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p32</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Conservation Problem</span></span>
 <span><span class="co">##   planning units: RasterLayer (90 units)</span></span>
-<span><span class="co">##   cost:           min: 190.13276, max: 215.86384</span></span>
+<span><span class="co">##   cost:           min: 190.13275, max: 215.86385</span></span>
 <span><span class="co">##   features:       layer.1, layer.2, layer.3, ... (5 features)</span></span>
 <span><span class="co">##   objective:      Minimum set objective </span></span>
 <span><span class="co">##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]</span></span>
@@ -1189,7 +1189,7 @@
 <span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p33</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Conservation Problem</span></span>
 <span><span class="co">##   planning units: RasterLayer (90 units)</span></span>
-<span><span class="co">##   cost:           min: 190.13276, max: 215.86384</span></span>
+<span><span class="co">##   cost:           min: 190.13275, max: 215.86385</span></span>
 <span><span class="co">##   features:       layer.1, layer.2, layer.3, ... (5 features)</span></span>
 <span><span class="co">##   objective:      Minimum set objective </span></span>
 <span><span class="co">##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]</span></span>
@@ -1215,7 +1215,7 @@
 <span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p34</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Conservation Problem</span></span>
 <span><span class="co">##   planning units: RasterLayer (90 units)</span></span>
-<span><span class="co">##   cost:           min: 190.13276, max: 215.86384</span></span>
+<span><span class="co">##   cost:           min: 190.13275, max: 215.86385</span></span>
 <span><span class="co">##   features:       layer.1, layer.2, layer.3, ... (5 features)</span></span>
 <span><span class="co">##   objective:      Minimum set objective </span></span>
 <span><span class="co">##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]</span></span>
@@ -1241,7 +1241,7 @@
 <span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p35</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Conservation Problem</span></span>
 <span><span class="co">##   planning units: RasterLayer (90 units)</span></span>
-<span><span class="co">##   cost:           min: 190.13276, max: 215.86384</span></span>
+<span><span class="co">##   cost:           min: 190.13275, max: 215.86385</span></span>
 <span><span class="co">##   features:       layer.1, layer.2, layer.3, ... (5 features)</span></span>
 <span><span class="co">##   objective:      Minimum set objective </span></span>
 <span><span class="co">##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]</span></span>
@@ -1272,7 +1272,7 @@
 <span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p36</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Conservation Problem</span></span>
 <span><span class="co">##   planning units: RasterLayer (90 units)</span></span>
-<span><span class="co">##   cost:           min: 190.13276, max: 215.86384</span></span>
+<span><span class="co">##   cost:           min: 190.13275, max: 215.86385</span></span>
 <span><span class="co">##   features:       layer.1, layer.2, layer.3, ... (5 features)</span></span>
 <span><span class="co">##   objective:      Minimum set objective </span></span>
 <span><span class="co">##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]</span></span>
@@ -1298,7 +1298,7 @@
 <span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p37</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Conservation Problem</span></span>
 <span><span class="co">##   planning units: RasterLayer (90 units)</span></span>
-<span><span class="co">##   cost:           min: 190.13276, max: 215.86384</span></span>
+<span><span class="co">##   cost:           min: 190.13275, max: 215.86385</span></span>
 <span><span class="co">##   features:       layer.1, layer.2, layer.3, ... (5 features)</span></span>
 <span><span class="co">##   objective:      Minimum set objective </span></span>
 <span><span class="co">##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]</span></span>
@@ -1324,7 +1324,7 @@
 <span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p38</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Conservation Problem</span></span>
 <span><span class="co">##   planning units: RasterLayer (90 units)</span></span>
-<span><span class="co">##   cost:           min: 190.13276, max: 215.86384</span></span>
+<span><span class="co">##   cost:           min: 190.13275, max: 215.86385</span></span>
 <span><span class="co">##   features:       layer.1, layer.2, layer.3, ... (5 features)</span></span>
 <span><span class="co">##   objective:      Minimum set objective </span></span>
 <span><span class="co">##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]</span></span>
@@ -1350,7 +1350,7 @@
 <span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p39</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Conservation Problem</span></span>
 <span><span class="co">##   planning units: RasterLayer (90 units)</span></span>
-<span><span class="co">##   cost:           min: 190.13276, max: 215.86384</span></span>
+<span><span class="co">##   cost:           min: 190.13275, max: 215.86385</span></span>
 <span><span class="co">##   features:       layer.1, layer.2, layer.3, ... (5 features)</span></span>
 <span><span class="co">##   objective:      Minimum set objective </span></span>
 <span><span class="co">##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]</span></span>
@@ -1376,7 +1376,7 @@
 <span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p40</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Conservation Problem</span></span>
 <span><span class="co">##   planning units: RasterLayer (90 units)</span></span>
-<span><span class="co">##   cost:           min: 190.13276, max: 215.86384</span></span>
+<span><span class="co">##   cost:           min: 190.13275, max: 215.86385</span></span>
 <span><span class="co">##   features:       layer.1, layer.2, layer.3, ... (5 features)</span></span>
 <span><span class="co">##   objective:      Minimum set objective </span></span>
 <span><span class="co">##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]</span></span>
@@ -1403,46 +1403,47 @@
 <pre><code><span><span class="co">## Gurobi Optimizer version 9.5.2 build v9.5.2rc0 (linux64)</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
 <span><span class="co">## Optimize a model with 293 rows, 234 columns and 1026 nonzeros</span></span>
-<span><span class="co">## Model fingerprint: 0xbd38144b</span></span>
+<span><span class="co">## Model fingerprint: 0xb4b90756</span></span>
 <span><span class="co">## Variable types: 0 continuous, 234 integer (234 binary)</span></span>
 <span><span class="co">## Coefficient statistics:</span></span>
 <span><span class="co">##   Matrix range     [2e-01, 1e+00]</span></span>
 <span><span class="co">##   Objective range  [1e+02, 4e+02]</span></span>
 <span><span class="co">##   Bounds range     [1e+00, 1e+00]</span></span>
 <span><span class="co">##   RHS range        [3e+00, 8e+00]</span></span>
-<span><span class="co">## Found heuristic solution: objective 20287.196992</span></span>
-<span><span class="co">## Found heuristic solution: objective 3087.9617505</span></span>
-<span><span class="co">## Presolve time: 0.00s</span></span>
+<span><span class="co">## Found heuristic solution: objective 20287.197006</span></span>
+<span><span class="co">## Found heuristic solution: objective 3087.9617767</span></span>
+<span><span class="co">## Presolve time: 0.01s</span></span>
 <span><span class="co">## Presolved: 293 rows, 234 columns, 1026 nonzeros</span></span>
 <span><span class="co">## Variable types: 0 continuous, 234 integer (234 binary)</span></span>
 <span><span class="co">## Root relaxation presolved: 293 rows, 234 columns, 1026 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Root relaxation: objective 2.265862e+03, 220 iterations, 0.00 seconds (0.00 work units)</span></span>
+<span><span class="co">## Root relaxation: objective 2.265862e+03, 228 iterations, 0.01 seconds (0.00 work units)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">##      0     0 2265.86242    0  234 3087.96175 2265.86242  26.6%     -    0s</span></span>
-<span><span class="co">##      0     0 2325.53449    0  232 3087.96175 2325.53449  24.7%     -    0s</span></span>
-<span><span class="co">##      0     0 2361.03063    0  223 3087.96175 2361.03063  23.5%     -    0s</span></span>
-<span><span class="co">##      0     0 2371.27288    0  222 3087.96175 2371.27288  23.2%     -    0s</span></span>
-<span><span class="co">##      0     0 2371.27288    0  222 3087.96175 2371.27288  23.2%     -    0s</span></span>
-<span><span class="co">## H    0     0                    2790.8740409 2371.27288  15.0%     -    0s</span></span>
-<span><span class="co">## H    0     0                    2730.9524342 2371.27288  13.2%     -    0s</span></span>
-<span><span class="co">##      0     2 2372.02804    0  222 2730.95243 2372.02804  13.1%     -    0s</span></span>
-<span><span class="co">## H    6     6                    2604.7426048 2375.46233  8.80%  21.0    0s</span></span>
+<span><span class="co">##      0     0 2265.86242    0  234 3087.96178 2265.86242  26.6%     -    0s</span></span>
+<span><span class="co">##      0     0 2328.27423    0  232 3087.96178 2328.27423  24.6%     -    0s</span></span>
+<span><span class="co">##      0     0 2357.91894    0  229 3087.96178 2357.91894  23.6%     -    0s</span></span>
+<span><span class="co">##      0     0 2379.43275    0  197 3087.96178 2379.43275  22.9%     -    0s</span></span>
+<span><span class="co">##      0     0 2379.43275    0  197 3087.96178 2379.43275  22.9%     -    0s</span></span>
+<span><span class="co">## H    0     0                    2846.1551056 2379.43275  16.4%     -    0s</span></span>
+<span><span class="co">## H    0     0                    2814.4777374 2379.43275  15.5%     -    0s</span></span>
+<span><span class="co">##      0     2 2379.78730    0  197 2814.47774 2379.78730  15.4%     -    0s</span></span>
+<span><span class="co">## H   59    37                    2668.5003204 2385.59825  10.6%  14.8    0s</span></span>
+<span><span class="co">## H   81    42                    2604.7425995 2386.83630  8.37%  15.6    0s</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Cutting planes:</span></span>
 <span><span class="co">##   Gomory: 3</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 7 nodes (489 simplex iterations) in 0.08 seconds (0.10 work units)</span></span>
+<span><span class="co">## Explored 82 nodes (1676 simplex iterations) in 0.28 seconds (0.12 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Solution count 5: 2604.74 2730.95 2790.87 ... 20287.2</span></span>
+<span><span class="co">## Solution count 6: 2604.74 2668.5 2814.48 ... 20287.2</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
-<span><span class="co">## Best objective 2.604742604847e+03, best bound 2.375462328932e+03, gap 8.8024%</span></span></code></pre>
+<span><span class="co">## Best objective 2.604742599487e+03, best bound 2.386836298527e+03, gap 8.3658%</span></span></code></pre>
 <div class="sourceCode" id="cb108"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot solution</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s41</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey90"</span>, <span class="st">"darkgreen"</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Solution"</span>,</span>
@@ -1459,7 +1460,7 @@
 <code class="sourceCode R"><span><span class="co"># extract time spent solving solution</span></span>
 <span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s41</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## solution_1 </span></span>
-<span><span class="co">##      0.109</span></span></code></pre>
+<span><span class="co">##      0.314</span></span></code></pre>
 <div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract state message from the solver that describes why this specific</span></span>
 <span><span class="co"># solution was returned</span></span>
@@ -1577,7 +1578,7 @@
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 1 × 2</span></span></span>
 <span><span class="co">##   summary asym_connectivity</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> overall              53.0</span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> overall              46.8</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="evaluating-relative-importance">Evaluating relative importance<a class="anchor" aria-label="anchor" href="#evaluating-relative-importance"></a>
@@ -1596,18 +1597,18 @@
 <pre><code><span><span class="co">## Gurobi Optimizer version 9.5.2 build v9.5.2rc0 (linux64)</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
 <span><span class="co">## Optimize a model with 5 rows, 90 columns and 450 nonzeros</span></span>
-<span><span class="co">## Model fingerprint: 0x6442bf6e</span></span>
+<span><span class="co">## Model fingerprint: 0x4bb5d283</span></span>
 <span><span class="co">## Variable types: 0 continuous, 90 integer (90 binary)</span></span>
 <span><span class="co">## Coefficient statistics:</span></span>
 <span><span class="co">##   Matrix range     [2e-01, 9e-01]</span></span>
 <span><span class="co">##   Objective range  [2e+02, 2e+02]</span></span>
 <span><span class="co">##   Bounds range     [1e+00, 1e+00]</span></span>
 <span><span class="co">##   RHS range        [3e+00, 8e+00]</span></span>
-<span><span class="co">## Found heuristic solution: objective 2337.9617505</span></span>
+<span><span class="co">## Found heuristic solution: objective 2337.9617767</span></span>
 <span><span class="co">## Presolve time: 0.00s</span></span>
 <span><span class="co">## Presolved: 5 rows, 90 columns, 450 nonzeros</span></span>
 <span><span class="co">## Variable types: 0 continuous, 90 integer (90 binary)</span></span>
-<span><span class="co">## Found heuristic solution: objective 2332.1003790</span></span>
+<span><span class="co">## Found heuristic solution: objective 2332.1004028</span></span>
 <span><span class="co">## Root relaxation presolved: 5 rows, 90 columns, 450 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
@@ -1616,8 +1617,8 @@
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">##      0     0 1931.58191    0    4 2332.10038 1931.58191  17.2%     -    0s</span></span>
-<span><span class="co">## H    0     0                    1987.3985265 1931.58191  2.81%     -    0s</span></span>
+<span><span class="co">##      0     0 1931.58191    0    4 2332.10040 1931.58191  17.2%     -    0s</span></span>
+<span><span class="co">## H    0     0                    1987.3985291 1931.58191  2.81%     -    0s</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Explored 1 nodes (12 simplex iterations) in 0.00 seconds (0.00 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
@@ -1625,7 +1626,7 @@
 <span><span class="co">## Solution count 3: 1987.4 2332.1 2337.96 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
-<span><span class="co">## Best objective 1.987398526526e+03, best bound 1.931581908865e+03, gap 2.8085%</span></span></code></pre>
+<span><span class="co">## Best objective 1.987398529053e+03, best bound 1.931581907658e+03, gap 2.8085%</span></span></code></pre>
 <div class="sourceCode" id="cb131"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot solution</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s42</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey90"</span>, <span class="st">"darkgreen"</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Solution"</span>,</span>
@@ -1837,7 +1838,7 @@ Williams, P., Gibbons, D., Margules, C., Rebelo, A., Humphries, C. &amp; Pressey
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>

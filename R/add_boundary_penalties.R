@@ -306,8 +306,9 @@ internal_prepare_planning_unit_boundary_data <- function(x, data)  {
     if (inherits(data, c("matrix", "Matrix"))) {
       # if it is matrix coerce to sparse matrix
       bm <- data
-      if (!inherits(data, c("dsCMatrix", "dgCMatrix")))
-        bm <- methods::as(data, "dgCMatrix")
+      if (!inherits(data, c("dsCMatrix", "dgCMatrix"))) {
+        bm <- as_Matrix(data, "dgCMatrix")
+      }
       # check that matrix properties are correct
       assertthat::assert_that(
         ncol(bm) == nrow(bm),

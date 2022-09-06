@@ -10,19 +10,19 @@
 \alias{boundary_matrix.default}
 \title{Boundary matrix}
 \usage{
-boundary_matrix(x, str_tree)
+boundary_matrix(x, ...)
 
-\method{boundary_matrix}{Raster}(x, str_tree = FALSE)
+\method{boundary_matrix}{Raster}(x, ...)
 
-\method{boundary_matrix}{SpatialPolygons}(x, str_tree = FALSE)
+\method{boundary_matrix}{SpatialPolygons}(x, ...)
 
-\method{boundary_matrix}{SpatialLines}(x, str_tree = FALSE)
+\method{boundary_matrix}{SpatialLines}(x, ...)
 
-\method{boundary_matrix}{SpatialPoints}(x, str_tree = FALSE)
+\method{boundary_matrix}{SpatialPoints}(x, ...)
 
-\method{boundary_matrix}{sf}(x, str_tree = FALSE)
+\method{boundary_matrix}{sf}(x, ...)
 
-\method{boundary_matrix}{default}(x, str_tree = FALSE)
+\method{boundary_matrix}{default}(x, ...)
 }
 \arguments{
 \item{x}{\code{\linkS4class{Raster}},
@@ -32,16 +32,7 @@ boundary_matrix(x, str_tree)
 \code{\linkS4class{Raster}} object then it must have only one
 layer.}
 
-\item{str_tree}{\code{logical} should a GEOS STRtree structure be used to
-to pre-process data? If \code{TRUE}, then the experimental
-\code{\link[rgeos:experimental-functions]{rgeos::gUnarySTRtreeQuery()}} function
-will be used to pre-compute which planning units are adjacent to
-each other and potentially reduce the processing time required to
-generate the boundary matrices. This argument is only used when
-the planning unit data are vector-based polygons (i.e.,
-\code{\link[sp:SpatialPolygons]{sp::SpatialPolygonsDataFrame()}} objects). \strong{Note that
-using \code{TRUE} may crash Mac OSX systems.} The default argument
-is \code{FALSE}.}
+\item{...}{not used.}
 }
 \value{
 \code{\linkS4class{dsCMatrix}} symmetric sparse matrix object.
@@ -62,13 +53,26 @@ diagonal indicate length of a given planning unit's edges that have no
 neighbors (e.g., for edges of planning units found along the
 coastline). \strong{This function assumes the data are in a coordinate
 system where Euclidean distances accurately describe the proximity
-between two points on the earth}. Thus spatial data in a longitude/latitude
-coordinate system (i.e.,
+between two points on the earth}. Thus spatial data in a
+longitude/latitude coordinate system (i.e.,
 \href{https://spatialreference.org/ref/epsg/wgs-84/}{WGS84})
 should be reprojected to another coordinate system before using this
 function. Note that for \code{\linkS4class{Raster}} objects
 boundaries are missing for cells that have \code{NA} values in all cells.
 }
+\section{Notes}{
+
+In earlier versions, this function had an extra \code{str_tree} parameter
+that could be used to leverage STR query trees to speed up processing
+for planning units in vector format.
+Although this functionality improved performance, it was not
+enabled by default because the underlying function
+(i.e., \code{rgeos:gUnarySTRtreeQuery()}) was documented as experimental.
+The \code{boundary_matrix()} function has since been updated so that it will
+use STR query trees to speed up processing for planning units in vector
+format (using \code{\link[geos:geos_strtree]{geos::geos_strtree()}}).
+}
+
 \examples{
 # load data
 data(sim_pu_raster, sim_pu_polygons)
@@ -87,10 +91,6 @@ bm_ply1 <- boundary_matrix(ply)
 # create boundary matrix using polygon (sf) data
 bm_ply2 <- boundary_matrix(ply2)
 
-# create boundary matrix with polygon (Spatial) data and GEOS STR query trees
-# to speed up processing
-bm_ply3 <- boundary_matrix(ply, TRUE)
-
 # plot raster and boundary matrix
 \dontrun{
 par(mfrow = c(1, 2))
@@ -107,7 +107,5 @@ plot(raster(as.matrix(bm_ply1)), main = "boundary matrix", axes = FALSE,
 plot(r, main = "polygons (sf)", axes = FALSE, box = FALSE)
 plot(raster(as.matrix(bm_ply2)), main = "boundary matrix", axes = FALSE,
      box = FALSE)
-plot(raster(as.matrix(bm_ply3)), main = "boundary matrix (Spatial, STR)",
-            axes = FALSE, box = FALSE)
 }
 }

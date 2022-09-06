@@ -17,7 +17,7 @@ test_that("single zone (x=NULL, symmetric=TRUE)", {
   x2[4, 4] <- 0.5
   # tests
   expect_is(x, "dsCMatrix")
-  expect_equal(x, as(x2, "dsCMatrix"))
+  expect_equal(x, as_Matrix(x2, "dsCMatrix"))
 })
 
 test_that("multiple zones (x = NULL, symmetric=TRUE)", {
@@ -65,7 +65,7 @@ test_that("single zone (x=ConservationProblem, symmetric=TRUE)", {
   x2[4, 4] <- 0.5
   # tests
   expect_is(x, "dsCMatrix")
-  expect_equal(x, as(x2, "dsCMatrix"))
+  expect_equal(x, as_Matrix(x2, "dsCMatrix"))
 })
 
 test_that("multiple zones (x=ConservationProblem, symmetric=TRUE)", {
@@ -111,7 +111,7 @@ test_that("single zone (x=NULL, symmetric=FALSE)", {
   x2[2, 3] <- 6
   # tests
   expect_is(x, "dgCMatrix")
-  expect_equal(x, as(x2, "dgCMatrix"))
+  expect_equal(x, as_Matrix(x2, "dgCMatrix"))
 })
 
 test_that("multiple zones (x=NULL, symmetric=FALSE)", {
@@ -154,7 +154,7 @@ test_that("single zone (x=ConservationProblem, symmetric=FALSE)", {
   x2[2, 3] <- 6
   # tests
   expect_is(x, "dgCMatrix")
-  expect_equal(x, as(x2, "dgCMatrix"))
+  expect_equal(x, as_Matrix(x2, "dgCMatrix"))
 })
 
 test_that("multiple zones (x=ConservationProblem, symmetric=FALSE)", {

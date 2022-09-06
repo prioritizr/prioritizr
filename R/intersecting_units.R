@@ -168,7 +168,7 @@ methods::setMethod(
                                  dims = c(nrow(y), nrow(x)))
     # exclude units from being intersecting if they only touch
     int1[int2 > 0.5] <- 0
-    int1 <- methods::as(Matrix::drop0(int1), "dgTMatrix")
+    int1 <- as_Matrix(Matrix::drop0(int1), "dgTMatrix")
     int1@j + 1
   }
 )
@@ -186,7 +186,7 @@ methods::setMethod(
       isTRUE(raster::nlayers(x) == 1),
       sf::st_crs(x@crs) == sf::st_crs(y),
       intersecting_extents(x, y))
-    intersecting_units(x = x,  y = fasterize::fasterize(y, x, field = NULL))
+    intersecting_units(x = x, y = fasterize::fasterize(y, x, field = NULL))
   }
 )
 

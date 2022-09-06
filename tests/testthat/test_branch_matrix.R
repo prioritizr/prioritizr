@@ -20,7 +20,7 @@ test_that("phylo input", {
   s[3, c(5, 1)] <- 1
   s[4, c(7, 6)] <- 1
   s[5, c(8, 6)] <- 1
-  s <- as(s, "dgCMatrix")
+  s <- as_Matrix(s, "dgCMatrix")
   # tests
   expect_is(m, "dgCMatrix")
   expect_true(all(m == s))

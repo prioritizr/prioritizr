@@ -108,13 +108,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   for (var i = 0; i < sheets.length; i++) {
     if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
     try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    for (var j = 0; j < rules.length; j++) {
+    var j = 0;
+    while (j < rules.length) {
       var rule = rules[j];
       // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -394,8 +401,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  8 44995e0a5a1e43ef911d80c809fb7b7c.tif FALSE
 ##  9 2e848142afa1261148de69359e1635a6.tif FALSE
 ## 10 641e3775582176bd61acbcc4e6fcee20.tif FALSE
-## # … with 470 more rows
-## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+## # … with 470 more rows</code></pre>
 <p>Let’s examine the average run time for each solver across all benchmark runs. To achieve this, we will create a box plot. Since we prefer solvers that generate prioritizations in a short period of time, solvers that have shorter (lower) run times are considered better. When looking at this box plot, we can see that average run times for the <em>IBM CPLEX</em> and <em>Gurobi</em> solvers are consistently low and don’t differ much from each other. Additionally, the run times for the open source <em>CBC</em> solver are generally low too. However, there are some cases where the run times for the <em>CBC</em> solver are much higher than those for the <em>IBM CPLEX</em> and <em>Gurobi</em> solvers. We can also see that the <em>lpsymphony</em> and <em>Rsymphony</em> solvers – which both use the open source <em>SYMPHONY</em> software – can take much longer to generate prioritizations than the other solvers.</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot overall summary of solver performance</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>

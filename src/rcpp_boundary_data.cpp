@@ -42,7 +42,7 @@ Rcpp::List rcpp_boundary_data(Rcpp::DataFrame data, arma::sp_mat strm,
     std::size_t j = 0;
     if (!str_tree) {
       while (i != PID.size()) {
-        if ((PID[i] == PID[currPidStart]) & (SID[i] == SID[currPidStart])) {
+        if ((PID[i] == PID[currPidStart]) && (SID[i] == SID[currPidStart])) {
           j = 0;
           while (j != PID.size()) {
             if (PID[currPidStart] != PID[j]) {
@@ -129,7 +129,7 @@ Rcpp::List rcpp_boundary_data(Rcpp::DataFrame data, arma::sp_mat strm,
   std::iota(pos.begin(), pos.end(), 1);
   currPidStart = 0;
   for (std::size_t i = 1; i != PID.size(); ++i) {
-    if ((PID[i] == PID[currPidStart]) & (SID[i] == SID[currPidStart])) {
+    if ((PID[i] == PID[currPidStart]) && (SID[i] == SID[currPidStart])) {
       currLine = LINE(PID[i], pos[i], pos[i - 1], X[i], Y[i], X[i - 1],
                       Y[i - 1], tol);
       line_UMMAP.insert(std::pair<LINEID, LINE>(currLine._id,

@@ -158,10 +158,8 @@ NULL
 #' cm4 <- lapply(seq_len(nlayers(sim_features)), function(i) {
 #'   # create connectivity matrix using the i'th feature's habitat data
 #'   m <- connectivity_matrix(sim_pu_raster, sim_features[[i]])
-#'   # convert matrix to TRUE/FALSE values in top 20th percentile
-#'   m <- m > quantile(as.vector(m), 1 - 0.015, names = FALSE)
-#'   # convert matrix from TRUE/FALSE to sparse matrix with 0/1s
-#'   m <- as(m, "dgCMatrix")
+#'   # convert matrix to 0/1 values denoting values in top 20th percentile
+#'   m <- round(m > quantile(as.vector(m), 1 - 0.015, names = FALSE))
 #'   # remove 0s from the sparse matrix
 #'   m <- Matrix::drop0(m)
 #'   # return matrix
@@ -267,7 +265,7 @@ methods::setMethod("add_feature_contiguity_constraints",
   methods::signature("ConservationProblem", "ANY", "matrix"),
   function(x, zones, data) {
     # add constraints
-    add_feature_contiguity_constraints(x, zones, methods::as(data, "dgCMatrix"))
+    add_feature_contiguity_constraints(x, zones, as_Matrix(data, "dgCMatrix"))
 })
 
 #' @name add_feature_contiguity_constraints
@@ -298,7 +296,7 @@ methods::setMethod("add_feature_contiguity_constraints",
             "or data.frame"))
         # coerce to correct format
         if (is.matrix(data[[i]]))
-          data[[i]] <- methods::as(data, "dgCMatrix")
+          data[[i]] <- as_Matrix(data, "dgCMatrix")
         if (is.data.frame(data[[i]]))
           data[[i]] <- marxan_boundary_data_to_matrix(x, data[[i]])
         # run checks
@@ -348,7 +346,7 @@ methods::setMethod("add_feature_contiguity_constraints",
         # create matrix
         data <- adjacency_matrix(x$data$cost)
         # coerce matrix to full matrix
-        data <- methods::as(data, "dgCMatrix")
+        data <- as_Matrix(data, "dgCMatrix")
         # create list for each feature
         data <- list(data)[rep(1, number_of_features(x))]
         # store data
@@ -377,7 +375,8 @@ methods::setMethod("add_feature_contiguity_constraints",
         })
         # convert d to lower triangle sparse matrix
         d <- lapply(d, Matrix::forceSymmetric, uplo = "L")
-        d <- lapply(d, `class<-`, "dgCMatrix")
+        d <- lapply(d, Matrix::tril)
+        d <- lapply(d, as_Matrix, "dgCMatrix")
         # apply the constraints
         if (max(vapply(z_cl, max, numeric(1))) > 0)
           rcpp_apply_feature_contiguity_constraints(x$ptr, d, z_cl)

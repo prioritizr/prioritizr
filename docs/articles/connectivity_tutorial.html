@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.1</span>
       </span>
     </div>
 
@@ -144,7 +144,7 @@
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
 <p>Connectivity is a key consideration in systematic conservation planning <span class="citation">(Margules &amp; Pressey 2000; Briers 2002)</span>. This is because isolated and fragmented populations are often more vulnerable to extinction <span class="citation">(Dixo <em>et al.</em> 2009; Olds <em>et al.</em> 2012; Hodgson <em>et al.</em> 2009)</span>. To promote connectivity in prioritizations, a range of different approaches are available <span class="citation">(reviewed in Balbar &amp; Metaxas 2019)</span>. These approaches can solely on the spatial configuration of a prioritization to enhance structural connectivity <span class="citation">(e.g, reducing the spatial fragmentation of a prioritization; Watts <em>et al.</em> 2009)</span>. They can also leverage data – such as environmental, river flow, and telemetry data – to generate prioritizations that promote functional connectivity <span class="citation">(e.g., Hermoso <em>et al.</em> 2012; Dwyer <em>et al.</em> 2019; Leonard <em>et al.</em> 2017)</span>.</p>
-<p>The aim of this tutorial is to show how connectivity can be incorporated into prioritizations using the <em>prioritizr R</em> package. Here we will explore various approaches for incorporating connectivity, and see how they alter the spatial configuration of prioritizations. As you will discover, many of these approaches involve setting threshold or penalty values to specify the relative importance of connectivity compared to other criteria (e.g., overall cost). For more information on calibrating these values, please see the <a href="calibrating_trade-offs-tutorial.html"><em>Calibrating trade-offs tutorial</em></a>.</p>
+<p>The aim of this tutorial is to show how connectivity can be incorporated into prioritizations using the <em>prioritizr R</em> package. Here we will explore various approaches for incorporating connectivity, and see how they alter the spatial configuration of prioritizations. As you will discover, many of these approaches involve setting threshold or penalty values to specify the relative importance of connectivity compared to other criteria (e.g., overall cost). For more information on calibrating these values, please see the <a href="calibrating_trade-offs_tutorial.html"><em>Calibrating trade-offs tutorial</em></a>.</p>
 </div>
 <div class="section level2">
 <h2 id="data">Data<a class="anchor" aria-label="anchor" href="#data"></a>
@@ -452,7 +452,7 @@
 <div class="section level3">
 <h3 id="boundary-penalties">Boundary penalties<a class="anchor" aria-label="anchor" href="#boundary-penalties"></a>
 </h3>
-<p>Boundary penalties can be added to used to reduce the spatial fragmentation of prioritizations (using the <code><a href="../reference/add_boundary_penalties.html">add_boundary_penalties()</a></code> function). Specifically, these penalties update the problem formulation to penalize solutions that have a high total amount of exposed boundary length <span class="citation">(Ball <em>et al.</em> 2009)</span>. Since boundary data often have large values which can degrade solver performance and result in excessive run times (see the <a href="calibrating_trade-offs-tutorial.html"><em>Calibrating trade-offs tutorial</em></a> for details), we will first precompute rescale the boundary data.</p>
+<p>Boundary penalties can be added to used to reduce the spatial fragmentation of prioritizations (using the <code><a href="../reference/add_boundary_penalties.html">add_boundary_penalties()</a></code> function). Specifically, these penalties update the problem formulation to penalize solutions that have a high total amount of exposed boundary length <span class="citation">(Ball <em>et al.</em> 2009)</span>. Since boundary data often have large values which can degrade solver performance and result in excessive run times (see the <a href="calibrating_trade-offs_tutorial.html"><em>Calibrating trade-offs tutorial</em></a> for details), we will first precompute rescale the boundary data.</p>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># precompute the boundary data</span></span>
 <span><span class="va">salt_boundary_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/boundary_matrix.html">boundary_matrix</a></span><span class="op">(</span><span class="va">salt_pu</span><span class="op">)</span></span>
@@ -507,7 +507,7 @@
 <span><span class="co">##   summary  cost</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">1</span> overall  52.3</span></span></code></pre>
-<p>We can see that the cost of the prioritizations increase with when we use higher <code>penalty</code> values. This is because there is a trade-off between the cost of a prioritization and the level of spatial fragmentation. Although it can be challenging to find the best balance, there are qualitative and quantitative methods available to help navigate such trade-offs. Please see the <a href="calibrating_trade-offs-tutorial.html"><em>Calibrating trade-offs tutorial</em></a> for a details on these methods.</p>
+<p>We can see that the cost of the prioritizations increase with when we use higher <code>penalty</code> values. This is because there is a trade-off between the cost of a prioritization and the level of spatial fragmentation. Although it can be challenging to find the best balance, there are qualitative and quantitative methods available to help navigate such trade-offs. Please see the <a href="calibrating_trade-offs_tutorial.html"><em>Calibrating trade-offs tutorial</em></a> for a details on these methods.</p>
 </div>
 <div class="section level3">
 <h3 id="connectivity-penalties">Connectivity penalties<a class="anchor" aria-label="anchor" href="#connectivity-penalties"></a>
@@ -546,7 +546,7 @@
 <span>  axes <span class="op">=</span> <span class="cn">FALSE</span>, breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">1</span><span class="op">)</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey70"</span>, <span class="st">"darkgreen"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-43-1.png" width="672" style="display: block; margin: auto;"></p>
-<p>We can see that increasing the <code>penalty</code> parameter causes the prioritizations to select planning units in regions with greater connectivity values (i.e., per the <code>salt_con</code> object). As discussed with the boundary penalties, increasing the <code>penalty</code> value tells the optimization process to focus more on promoting connectivity—meaning that it won’t focus as much on the primary objective (i.e., because the primary objective is to minimize overall costs). For details on calibrating these trade-offs please see the <a href="calibrating_trade-offs-tutorial.html"><em>Calibrating trade-offs tutorial</em></a>. <strong>Note that you will need to the use <code><a href="../reference/eval_connectivity_summary.html">eval_connectivity_summary()</a></code> function – instead of the <code><a href="../reference/eval_boundary_summary.html">eval_boundary_summary()</a></code> function – when adapting the tutorial code for connectivity penalties.</strong></p>
+<p>We can see that increasing the <code>penalty</code> parameter causes the prioritizations to select planning units in regions with greater connectivity values (i.e., per the <code>salt_con</code> object). As discussed with the boundary penalties, increasing the <code>penalty</code> value tells the optimization process to focus more on promoting connectivity—meaning that it won’t focus as much on the primary objective (i.e., because the primary objective is to minimize overall costs). For details on calibrating these trade-offs please see the <a href="calibrating_trade-offs_tutorial.html"><em>Calibrating trade-offs tutorial</em></a>. <strong>Note that you will need to the use <code><a href="../reference/eval_connectivity_summary.html">eval_connectivity_summary()</a></code> function – instead of the <code><a href="../reference/eval_boundary_summary.html">eval_boundary_summary()</a></code> function – when adapting the tutorial code for connectivity penalties.</strong></p>
 </div>
 </div>
 <div class="section level2">
@@ -642,7 +642,7 @@ Watts, M.E., Ball, I.R., Stewart, R.S., Klein, C.J., Wilson, K., Steinback, C., 
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>

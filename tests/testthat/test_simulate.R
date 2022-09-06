@@ -1,6 +1,7 @@
 context("simulation")
 
 test_that("simulate_data (single output layer)", {
+  skip_if_not_installed("fields")
   # simulate data
   r <- raster::raster(matrix(1, ncol = 10, nrow = 10))
   s <- simulate_data(r, n = 1, transform = plogis)
@@ -14,6 +15,7 @@ test_that("simulate_data (single output layer)", {
 })
 
 test_that("simulate_data (multiple output layers)", {
+  skip_if_not_installed("fields")
   # simulate data
   r <- raster::raster(matrix(1, ncol = 10, nrow = 10))
   s <- simulate_data(r, n = 2, transform = plogis)
@@ -27,6 +29,7 @@ test_that("simulate_data (multiple output layers)", {
 })
 
 test_that("simulate_species", {
+  skip_if_not_installed("fields")
   # simulate data
   r <- raster::raster(matrix(1, ncol = 10, nrow = 10))
   s <- simulate_species(r, n = 2)
@@ -40,6 +43,7 @@ test_that("simulate_species", {
 })
 
 test_that("simulate_cost", {
+  skip_if_not_installed("fields")
   # simulate data
   r <- raster::raster(matrix(1, ncol = 10, nrow = 10))
   s <- simulate_cost(r, n = 2)

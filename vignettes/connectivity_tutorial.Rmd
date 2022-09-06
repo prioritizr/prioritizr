@@ -30,7 +30,7 @@ knitr::opts_chunk$set(
 
 Connectivity is a key consideration in systematic conservation planning [@r4; @r55]. This is because isolated and fragmented populations are often more vulnerable to extinction [@r60; @r61; @r62]. To promote connectivity in prioritizations, a range of different approaches are available [reviewed in @r56]. These approaches can solely on the spatial configuration of a prioritization to enhance structural connectivity [e.g, reducing the spatial fragmentation of a prioritization\; @r2]. They can also leverage data -- such as environmental, river flow, and telemetry data -- to generate prioritizations that promote functional connectivity [e.g., @r43; @r58; @r59].
 
-The aim of this tutorial is to show how connectivity can be incorporated into prioritizations using the _prioritizr R_ package. Here we will explore various approaches for incorporating connectivity, and see how they alter the spatial configuration of prioritizations. As you will discover, many of these approaches involve setting threshold or penalty values to specify the relative importance of connectivity compared to other criteria (e.g., overall cost). For more information on calibrating these values, please see the [_Calibrating trade-offs tutorial_](calibrating_trade-offs-tutorial.html).
+The aim of this tutorial is to show how connectivity can be incorporated into prioritizations using the _prioritizr R_ package. Here we will explore various approaches for incorporating connectivity, and see how they alter the spatial configuration of prioritizations. As you will discover, many of these approaches involve setting threshold or penalty values to specify the relative importance of connectivity compared to other criteria (e.g., overall cost). For more information on calibrating these values, please see the [_Calibrating trade-offs tutorial_](calibrating_trade-offs_tutorial.html).
 
 ## Data
 
@@ -363,7 +363,7 @@ Now let's explore approaches for promoting connectivity in prioritizations by ad
 
 ### Boundary penalties
 
-Boundary penalties can be added to used to reduce the spatial fragmentation of prioritizations (using the `add_boundary_penalties()` function). Specifically, these penalties update the problem formulation to penalize solutions that have a high total amount of exposed boundary length [@r3]. Since boundary data often have large values which can degrade solver performance and result in excessive run times (see the [_Calibrating trade-offs tutorial_](calibrating_trade-offs-tutorial.html) for details), we will first precompute rescale the boundary data.
+Boundary penalties can be added to used to reduce the spatial fragmentation of prioritizations (using the `add_boundary_penalties()` function). Specifically, these penalties update the problem formulation to penalize solutions that have a high total amount of exposed boundary length [@r3]. Since boundary data often have large values which can degrade solver performance and result in excessive run times (see the [_Calibrating trade-offs tutorial_](calibrating_trade-offs_tutorial.html) for details), we will first precompute rescale the boundary data.
 
 ```{r}
 # precompute the boundary data
@@ -424,7 +424,7 @@ eval_cost_summary(p0, s7)
 eval_cost_summary(p0, s8)
 ```
 
-We can see that the cost of the prioritizations increase with when we use higher `penalty` values. This is because there is a trade-off between the cost of a prioritization and the level of spatial fragmentation. Although it can be challenging to find the best balance, there are qualitative and quantitative methods available to help navigate such trade-offs. Please see the [_Calibrating trade-offs tutorial_](calibrating_trade-offs-tutorial.html) for a details on these methods.
+We can see that the cost of the prioritizations increase with when we use higher `penalty` values. This is because there is a trade-off between the cost of a prioritization and the level of spatial fragmentation. Although it can be challenging to find the best balance, there are qualitative and quantitative methods available to help navigate such trade-offs. Please see the [_Calibrating trade-offs tutorial_](calibrating_trade-offs_tutorial.html) for a details on these methods.
 
 ### Connectivity penalties
 
@@ -478,7 +478,7 @@ plot(
 )
 ```
 
-We can see that increasing the `penalty` parameter causes the prioritizations to select planning units in regions with greater connectivity values (i.e., per the `salt_con` object). As discussed with the boundary penalties, increasing the `penalty` value tells the optimization process to focus more on promoting connectivity---meaning that it won't focus as much on the primary objective (i.e., because the primary objective is to minimize overall costs). For details on calibrating these trade-offs please see the [_Calibrating trade-offs tutorial_](calibrating_trade-offs-tutorial.html). **Note that you will need to the use `eval_connectivity_summary()` function -- instead of the `eval_boundary_summary()` function -- when adapting the tutorial code for connectivity penalties.**
+We can see that increasing the `penalty` parameter causes the prioritizations to select planning units in regions with greater connectivity values (i.e., per the `salt_con` object). As discussed with the boundary penalties, increasing the `penalty` value tells the optimization process to focus more on promoting connectivity---meaning that it won't focus as much on the primary objective (i.e., because the primary objective is to minimize overall costs). For details on calibrating these trade-offs please see the [_Calibrating trade-offs tutorial_](calibrating_trade-offs_tutorial.html). **Note that you will need to the use `eval_connectivity_summary()` function -- instead of the `eval_boundary_summary()` function -- when adapting the tutorial code for connectivity penalties.**
 
 ## Conclusion
 

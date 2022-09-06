@@ -9,7 +9,7 @@ test_that("minimum set objective (compile, single zone)", {
   cmatrix[] <- runif(length(cmatrix))
   cmatrix[cmatrix[] < 0.9] <- 0
   cmatrix[raster::Which(is.na(sim_pu_raster), cells = TRUE)] <- 0
-  cmatrix <- Matrix::drop0(as(cmatrix, "dgCMatrix"))
+  cmatrix <- Matrix::drop0(as_Matrix(cmatrix, "dgCMatrix"))
   p <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
@@ -28,7 +28,7 @@ test_that("minimum set objective (compile, single zone)", {
   # i,j,x matrix for planning unit boundaries
   Matrix::diag(c_data) <- 0
   c_data <- Matrix::drop0(c_data)
-  c_data <- as(c_data, "dgTMatrix")
+  c_data <- as_Matrix(c_data, "dgTMatrix")
   # objectives for connectivity decision variables
   c_obj <- o$obj()[n_pu + seq_len(length(c_data@i))]
   # lower bound for connectivity decision variables
@@ -80,7 +80,7 @@ test_that("maximum features objective (compile, single zone)", {
   cmatrix[] <- runif(length(cmatrix), -5, 5)
   cmatrix[abs(cmatrix[]) < 4] <- 0
   cmatrix[raster::Which(is.na(sim_pu_raster), cells = TRUE)] <- 0
-  cmatrix <- Matrix::drop0(as(cmatrix, "dgCMatrix"))
+  cmatrix <- Matrix::drop0(as_Matrix(cmatrix, "dgCMatrix"))
   p <- problem(sim_pu_raster, sim_features) %>%
        add_max_features_objective(100) %>%
        add_relative_targets(0.1) %>%
@@ -99,7 +99,7 @@ test_that("maximum features objective (compile, single zone)", {
   # i,j,x matrix for planning unit boundaries
   Matrix::diag(c_data) <- 0
   c_data <- Matrix::drop0(c_data)
-  c_data <- as(c_data, "dgTMatrix")
+  c_data <- as_Matrix(c_data, "dgTMatrix")
   # objectives for connectivity decision variables
   c_obj <- o$obj()[n_pu + n_f + seq_len(length(c_data@i))]
   # lower bound for connectivity decision variables
@@ -225,7 +225,7 @@ test_that("minimum set objective (solve, single zone)", {
 test_that("invalid inputs (single zone)", {
   # load data
   data(sim_pu_raster, sim_features)
-  c_matrix <- as(boundary_matrix(sim_pu_raster), "dgCMatrix")
+  c_matrix <- as_Matrix(boundary_matrix(sim_pu_raster), "dgCMatrix")
   c_matrix@x <- c_matrix@x + runif(length(c_matrix@x))
   p <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
@@ -269,7 +269,7 @@ test_that("minimum set objective (compile, multiple zones)", {
   c_weights <- rep(Matrix::diag(c_data), n_z) * rep(diag(zm), each = n_pu)
   Matrix::diag(c_data) <- 0
   c_data <- Matrix::drop0(c_data)
-  c_data <- as(c_data, "dgTMatrix")
+  c_data <- as_Matrix(c_data, "dgTMatrix")
   c_penalties <- c()
   for (i in seq_len(n_z)) {
     for (j in seq_len(n_z)) {
@@ -345,7 +345,7 @@ test_that("minimum set objective (compile, array data, multiple zones)", {
   # load data
   data(sim_pu_zones_polygons, sim_features_zones)
   # prepare data for problem
-  cm <- as(adjacency_matrix(sim_pu_zones_polygons), "dgCMatrix")
+  cm <- as_Matrix(adjacency_matrix(sim_pu_zones_polygons), "dgCMatrix")
   cm@x <- cm@x + runif(length(cm@x))
   zm <- matrix(seq_len(9) * 0.1, ncol = 3)
   ca <- array(0, dim = c(dim(cm), 3, 3))
@@ -473,7 +473,7 @@ test_that("minimum set objective (compile, Spatial and sf are identical)", {
   sim_pu_zones_polygons <- sim_pu_zones_polygons[seq_len(20), ]
   sim_sf <- sf::st_as_sf(sim_pu_zones_polygons)
   # prepare data for problem
-  cm <- as(adjacency_matrix(sim_pu_zones_polygons), "dgCMatrix")
+  cm <- as_Matrix(adjacency_matrix(sim_pu_zones_polygons), "dgCMatrix")
   cm@x <- cm@x + runif(length(cm@x))
   zm <- matrix(seq_len(9) * 0.1, ncol = 3)
   # make problems
@@ -503,7 +503,7 @@ test_that("invalid inputs (multiple zones)", {
   zm <- matrix(-1, ncol = 3, nrow = 3)
   diag(zm) <- 1
   # make connectivity data
-  cm <- as(adjacency_matrix(sim_pu_zones_stack), "dgCMatrix")
+  cm <- as_Matrix(adjacency_matrix(sim_pu_zones_stack), "dgCMatrix")
   cm@x <- cm@x + runif(length(cm@x))
   ca <- array(1, dim = c(dim(cm), 3, 3))
   # create problem
@@ -535,7 +535,7 @@ test_that("alternative data formats", {
   data(sim_pu_raster, sim_features)
   # create connectivity matrices
   m <- adjacency_matrix(sim_pu_raster)
-  m <- as(m, "dgTMatrix")
+  m <- as_Matrix(m, "dgTMatrix")
   m@x <- m@x + runif(length(m@x))
   m2 <- data.frame(id1 = m@i + 1, id2 = m@j + 1, boundary = m@x)
   # create problem

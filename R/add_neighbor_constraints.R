@@ -201,10 +201,10 @@ methods::setMethod("add_neighbor_constraints",
      inherits(data, c("NULL", "Matrix")))
     if (!is.null(data)) {
       # check argument to data if not NULL
-      assertthat::assert_that(all(methods::as(data, "dgCMatrix")@x %in%
+      assertthat::assert_that(all(as_Matrix(data, "dgCMatrix")@x %in%
                                   c(0, 1, NA)),
         ncol(data) == nrow(data), number_of_total_units(x) == ncol(data),
-        sum(!is.finite(methods::as(data, "dgCMatrix")@x)) == 0)
+        sum(!is.finite(as_Matrix(data, "dgCMatrix")@x)) == 0)
       d <- list(matrix = data)
     } else {
       # check that planning unit data is spatially referenced
@@ -245,7 +245,7 @@ methods::setMethod("add_neighbor_constraints",
           # create matrix
           data <- adjacency_matrix(x$data$cost)
           # coerce matrix to full matrix
-          data <- methods::as(data, "dgCMatrix")
+          data <- as_Matrix(data, "dgCMatrix")
           # store data
           self$set_data("matrix", data)
         }
@@ -266,7 +266,7 @@ methods::setMethod("add_neighbor_constraints",
           for (z1 in seq_len(ncol(z))) {
             m[[z1]] <- list()
             for (z2 in seq_len(nrow(z))) {
-              m[[z1]][[z2]] <- methods::as(d * z[z1, z2], "dgCMatrix")
+              m[[z1]][[z2]] <- as_Matrix(d * z[z1, z2], "dgCMatrix")
             }
           }
           # apply constraints
@@ -294,7 +294,7 @@ methods::setMethod("add_neighbor_constraints",
   methods::signature("ConservationProblem", "ANY", "ANY", "matrix"),
   function(x, k, zones, data) {
     # add constraints
-    add_neighbor_constraints(x, k, zones, methods::as(data, "dgCMatrix"))
+    add_neighbor_constraints(x, k, zones, as_Matrix(data, "dgCMatrix"))
 })
 
 #' @name add_neighbor_constraints
@@ -330,8 +330,7 @@ methods::setMethod("add_neighbor_constraints",
     for (z1 in seq_len(dim(data)[3])) {
       m[[z1]] <- list()
       for (z2 in seq_len(dim(data)[4])) {
-        m[[z1]][[z2]] <- methods::as(data[indices, indices, z1, z2],
-                                     "dgCMatrix")
+        m[[z1]][[z2]] <- as_Matrix(data[indices, indices, z1, z2], "dgCMatrix")
       }
     }
     # add the constraint

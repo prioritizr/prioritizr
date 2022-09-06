@@ -167,7 +167,7 @@ NULL
 #' require(Matrix)
 #'
 #' # load data
-#' data(sim_pu_polygons, sim_pu_zones_stack, sim_features, sim_features_zones)
+#' data(sim_pu_sf, sim_pu_zones_stack, sim_features, sim_features_zones)
 #'
 #' # define function to rescale values between zero and one so that we
 #' # can compare solutions from different connectivity matrices
@@ -176,14 +176,14 @@ NULL
 #' }
 #'
 #' # create basic problem
-#' p1 <- problem(sim_pu_polygons, sim_features, "cost") %>%
+#' p1 <- problem(sim_pu_sf, sim_features, "cost") %>%
 #'       add_min_set_objective() %>%
 #'       add_relative_targets(0.2) %>%
 #'       add_default_solver(verbose = FALSE)
 #'
 #' # create a symmetric connectivity matrix where the connectivity between
 #' # two planning units corresponds to their shared boundary length
-#' b_matrix <- boundary_matrix(sim_pu_polygons)
+#' b_matrix <- boundary_matrix(sim_pu_sf)
 #'
 #' # standardize matrix values to lay between zero and one
 #' b_matrix[] <- rescale(b_matrix[])
@@ -195,8 +195,8 @@ NULL
 #' # create a symmetric connectivity matrix where the connectivity between
 #' # two planning units corresponds to their spatial proximity
 #' # i.e., planning units that are further apart share less connectivity
-#' centroids <- rgeos::gCentroid(sim_pu_polygons, byid = TRUE)
-#' d_matrix <- (1 / (as(dist(centroids@coords), "Matrix") + 1))
+#' centroids <- sf::st_coordinates(suppressWarnings(sf::st_centroid(sim_pu_sf)))
+#' d_matrix <- (1 / (Matrix::Matrix(as.matrix(dist(centroids))) + 1))
 #'
 #' # standardize matrix values to lay between zero and one
 #' d_matrix[] <- rescale(d_matrix[])
@@ -216,7 +216,7 @@ NULL
 #' # each planning unit and we could use connectivity penalties to identify
 #' # solutions that cluster planning units together that both contain large
 #' # amounts of native vegetation
-#' c_matrix <- connectivity_matrix(sim_pu_polygons, "cost")
+#' c_matrix <- connectivity_matrix(sim_pu_sf, "cost")
 #'
 #' # standardize matrix values to lay between zero and one
 #' c_matrix[] <- rescale(c_matrix[])
@@ -402,8 +402,9 @@ methods::setGeneric("add_connectivity_penalties",
 methods::setMethod("add_connectivity_penalties",
   methods::signature("ConservationProblem", "ANY", "ANY", "matrix"),
   function(x, penalty, zones, data) {
-     add_connectivity_penalties(x, penalty, zones,
-       methods::as(data, "dgCMatrix"))
+    add_connectivity_penalties(
+      x, penalty, zones, as_Matrix(data, "dgCMatrix")
+   )
 })
 
 #' @name add_connectivity_penalties
@@ -413,7 +414,7 @@ methods::setMethod("add_connectivity_penalties",
   methods::signature("ConservationProblem", "ANY", "ANY", "Matrix"),
   function(x, penalty, zones, data) {
      add_connectivity_penalties(x, penalty, zones,
-       methods::as(data, "dgCMatrix"))
+       as_Matrix(data, "dgCMatrix"))
 })
 
 #' @name add_connectivity_penalties
@@ -497,7 +498,7 @@ methods::setMethod("add_connectivity_penalties",
       m[[z1]] <- list()
       for (z2 in seq_len(dim(data)[4])) {
         m[[z1]][[z2]] <-
-          methods::as(data[indices, indices, z1, z2], "dgCMatrix")
+          as_Matrix(data[indices, indices, z1, z2], "dgCMatrix")
       }
     }
     # add penalties
@@ -523,7 +524,7 @@ internal_add_connectivity_penalties <- function(x, penalty, data) {
         # coerce to symmetric connectivity data
         cm <- self$get_data("data")
         cm <- lapply(cm, function(x) {
-          lapply(x, function(y) methods::as(Matrix::tril(y), "dgCMatrix"))
+          lapply(x, function(y) as_Matrix(Matrix::tril(y), "dgCMatrix"))
         })
         # apply penalties
         rcpp_apply_connectivity_penalties(

@@ -32,11 +32,14 @@ test_that("x=Raster,y=Spatial", {
   # generate data
   data(sim_pu_raster, sim_pu_polygons)
   x <- sim_pu_raster
-  cell_index <- as.integer(sample(as.integer(row.names(sim_pu_polygons@data)),
-                                  5))
-  cell_index <- sort(cell_index)
-  pu_index <- match(cell_index, as.integer(row.names(sim_pu_polygons@data)))
+  pu_index <- sort(as.integer(sample.int(nrow(sim_pu_polygons), 5)))
   y <- sim_pu_polygons[pu_index, ]
+  cell_index <-
+    sim_pu_raster %>%
+    raster::as.data.frame(xy = TRUE, na.rm = FALSE) %>%
+    sf::st_as_sf(coords = c("x", "y")) %>%
+    sf::st_intersects(x = sf::st_as_sf(y)) %>%
+    unlist()
   # run tests
   expect_equal(intersecting_units(x, y), cell_index)
   # check that invalid arguments result in errors
@@ -74,10 +77,14 @@ test_that("x=Raster,y=sf", {
   # generate data
   data(sim_pu_raster, sim_pu_sf)
   x <- sim_pu_raster
-  cell_index <- as.integer(sample(as.integer(row.names(sim_pu_sf)), 5))
-  cell_index <- sort(cell_index)
-  pu_index <- match(cell_index, as.integer(row.names(sim_pu_sf)))
+  pu_index <- sort(as.integer(sample.int(nrow(sim_pu_sf), 5)))
   y <- sim_pu_sf[pu_index, ]
+  cell_index <-
+    sim_pu_raster %>%
+    raster::as.data.frame(xy = TRUE, na.rm = FALSE) %>%
+    sf::st_as_sf(coords = c("x", "y")) %>%
+    sf::st_intersects(x = sf::st_as_sf(y)) %>%
+    unlist()
   # run tests
   expect_equal(intersecting_units(x, y), cell_index)
   # check that invalid arguments result in errors

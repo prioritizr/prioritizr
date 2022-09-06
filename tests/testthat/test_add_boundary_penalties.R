@@ -25,9 +25,7 @@ test_that("minimum set objective (compile, single zone)", {
   b_total_boundary <- colSums(b_data)
   # remove diagonals
   Matrix::diag(b_data) <- 0
-  b_data <- Matrix::drop0(b_data)
-  class(b_data) <- "dgCMatrix"
-  b_data <- as(b_data, "dgTMatrix")
+  b_data <- as_Matrix(Matrix::tril(Matrix::drop0(b_data)), "dgTMatrix")
   # objectives for boundary decision variables
   b_obj <- o$obj()[n_pu + seq_len(length(b_data@i))]
   # lower bound for boundary decision variables

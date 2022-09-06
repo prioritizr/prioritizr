@@ -20,8 +20,9 @@ test_that("compile (single zone)", {
     1, 1, 1), byrow = TRUE, ncol = 3))
   cost <- raster::setValues(spp1_conductance, 1)
   features <- raster::stack(spp1_habitat, spp2_habitat)
-  cl <- list(as(connectivity_matrix(cost, spp1_conductance) > 0.3, "dgCMatrix"),
-             as(connectivity_matrix(cost, spp2_conductance) > 0.3, "dgCMatrix"))
+  cl <- list(
+    as_Matrix(connectivity_matrix(cost, spp1_conductance) > 0.3, "dgCMatrix"),
+    as_Matrix(connectivity_matrix(cost, spp2_conductance) > 0.3, "dgCMatrix"))
   cl <- lapply(cl, Matrix::drop0)
   # create problem
   p <- problem(cost, features) %>%
@@ -37,8 +38,8 @@ test_that("compile (single zone)", {
   costs <- raster::values(cost)
   targ <- c(6, 30)
   cm <- lapply(cl, Matrix::forceSymmetric, uplo = "L")
-  cm <- lapply(cm, `class<-`, "dgCMatrix")
-  cm <- lapply(cm, methods::as, "dgTMatrix")
+  cm <- lapply(cm, Matrix::tril)
+  cm <- lapply(cm, as_Matrix, "dgTMatrix")
   n_edges <- vapply(cm, function(x) length(x@i), integer(1))
   n_j_ends <- vapply(cm, function(x) length(unique(x@j)), integer(1))
   n_con_cols <- sum(n_edges)
@@ -135,8 +136,9 @@ test_that("solve (single zone)", {
     1, 1, 1), byrow = TRUE, ncol = 3))
   cost <- raster::setValues(spp1_conductance, 1)
   features <- raster::stack(spp1_habitat, spp2_habitat)
-  cl <- list(as(connectivity_matrix(cost, spp1_conductance) > 0.3, "dgCMatrix"),
-             as(connectivity_matrix(cost, spp2_conductance) > 0.3, "dgCMatrix"))
+  cl <- list(
+    as_Matrix(connectivity_matrix(cost, spp1_conductance) > 0.3, "dgCMatrix"),
+    as_Matrix(connectivity_matrix(cost, spp2_conductance) > 0.3, "dgCMatrix"))
   cl <- lapply(cl, Matrix::drop0)
   # create problem
   p <- problem(cost, features) %>%
@@ -198,8 +200,7 @@ test_that("compile (multiple zones)", {
   costs <- raster::values(cost)
   cm <- adjacency_matrix(cost)
   cm <- Matrix::forceSymmetric(cm, uplo = "L")
-  class(cm) <- "dgCMatrix"
-  cm <- methods::as(cm, "dgTMatrix")
+  cm <- as_Matrix(Matrix::tril(cm), "dgTMatrix")
   zcl <- lapply(zm, function(x) {
     igraph::clusters(igraph::graph_from_adjacency_matrix(x,
       diag = FALSE, mode = "undirected", weighted = NULL))$membership *

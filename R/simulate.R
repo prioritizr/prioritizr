@@ -3,16 +3,16 @@ NULL
 
 #' Simulate data
 #'
-#' Simulate spatially auto-correlated data.
+#' Simulate spatially auto-correlated data using Gaussian random fields.
 #'
-#' @details
-#' Data are simulated based on a Gaussian random field.
-#'
-#' @param x [`RasterLayer-class`] object to use as
-#'    a template.
+#' @param x [raster::raster()] raster object to use as a template.
 #'
 #' @param n `integer` number of layers to simulate.
 #'   Defaults to 1.
+#'
+#' @param scale `numeric` parameter to control level of spatial
+#'   auto-correlation.
+#'   Defaults to 0.5.
 #'
 #' @param intensity `numeric` average value of simulated data.
 #'   Defaults to 0.
@@ -20,16 +20,11 @@ NULL
 #' @param sd `numeric` standard deviation of simulated data.
 #'   Defaults to 1.
 #'
-#' @param scale `numeric` strength of spatial auto-correlation.
-#'   Defaults to 0.5.
+#' @param transform `function` transform values output from the simulation.
+#'   Defaults to the [identity()] function such that values remain the same
+#'   following transformation.
 #'
-#' @param transform `function` transformation function.
-#'   Defaults to [identity()], such that values remain unchanged follow
-#    transformation.
-#'
-#' @return [`RasterStack-class`] object.
-#'
-#' @seealso [simulate_cost()], [simulate_species()].
+#' @return [raster::stack()] object.
 #'
 #' @examples
 #' \dontrun{
@@ -38,48 +33,52 @@ NULL
 #' values(r) <- 1
 #'
 #' # simulate data using a Gaussian field
-#' d <- simulate_data(r, n = 1)
+#' x <- simulate_data(r, n = 1, scale = 0.2)
 #'
 #' # plot simulated data
-#' plot(d, main = "simulated data")
+#' plot(x, main = "simulated data")
 #' }
 #' @export
-simulate_data <- function(x, n = 1, intensity = 0, sd = 1, scale = 0.5,
+simulate_data <- function(x, n = 1, scale = 0.5, intensity = 0, sd = 1,
                           transform = identity) {
   # assert valid arguments
   assertthat::assert_that(
-    inherits(x, "RasterLayer"),
-    is.finite(raster::cellStats(x, "max", na.rm = TRUE)),
+    inherits(x, "Raster"),
     assertthat::is.number(n),
-    assertthat::noNA(n),
-    assertthat::is.number(intensity),
-    assertthat::noNA(intensity),
+    is.finite(raster::cellStats(x, "max")[[1]]),
     assertthat::is.number(scale),
     assertthat::noNA(scale),
-    inherits(transform, "function")
+    assertthat::is.number(intensity),
+    assertthat::noNA(intensity),
+    assertthat::is.number(sd),
+    assertthat::noNA(sd),
+    is.function(transform),
+    requireNamespace("fields", quietly = TRUE))
+
+  # create object for simulation
+  obj <- fields::circulantEmbeddingSetup(
+    grid = list(
+      x = seq(0, 5, length.out = raster::nrow(x)),
+      y = seq(0, 5, length.out = raster::ncol(x))
+    ),
+    Covariance = "Exponential",
+    aRange = scale
   )
-  # generate values for rasters
-  coords <- methods::as(x, "SpatialPoints")@coords
-  # main processing
-  mu <- rep(intensity, nrow(coords))
-  p <- nrow(coords)
-  chol_d <- chol(exp(-scale * as.matrix(stats::dist(coords))))
-  mtx <- t(
-    matrix(stats::rnorm(n = n * p, sd = sd), ncol = p) %*%
-    chol_d + rep(mu, rep(n, p))
-  )
-  # ensure matrix output
-  if (!is.matrix(mtx)) {
-    mtx <- matrix(mtx, ncol = 1)
-  }
+
   # generate populate rasters with values
-  stk <- raster::stack(lapply(seq_len(ncol(mtx)), function(i) {
-    r <- x[[1]]
-    r[raster::Which(!is.na(r))] <- transform(mtx[, i])
+  r <- raster::stack(lapply(seq_len(n), function(i) {
+    ## populate with simulated values
+    v <- c(t(fields::circulantEmbedding(obj)))
+    v <- transform(v + stats::rnorm(length(v), mean = intensity, sd = sd))
+    r <- raster::setValues(x[[1]], v[seq_len(raster::ncell(x))])
+    ## apply mask for consistency
+    r <- raster::mask(r, x[[1]])
+    ## return result
     r
   }))
-  # return raster stack with simulated data
-  stk
+
+  # return result
+  r
 }
 
 #' Simulate species habitat suitability data
@@ -122,7 +121,7 @@ simulate_species <- function(x, n = 1, scale = 0.5) {
 #' Simulate cost data
 #'
 #' Generates simulated cost data using Gaussian random fields.
-#' Specifically, t returns spatially auto-correlated data with integer values.
+#' Specifically, it returns spatially auto-correlated data with integer values.
 #'
 #' @inheritParams simulate_data
 #'
@@ -130,10 +129,10 @@ simulate_species <- function(x, n = 1, scale = 0.5) {
 #'   Defaults to 100.
 #'
 #' @param sd `numeric` standard deviation of simulated data.
-#'   Defaults to 60.
+#'   Defaults to 20.
 #'
 #' @param scale `numeric` strength of spatial auto-correlation.
-#'   Defaults to 60.
+#'   Defaults to 2.5.
 #'
 #' @return [`RasterStack-class`] object.
 #'
@@ -153,7 +152,7 @@ simulate_species <- function(x, n = 1, scale = 0.5) {
 #' }
 #'
 #' @export
-simulate_cost <- function(x, n = 1, intensity = 100, sd = 60, scale = 60) {
+simulate_cost <- function(x, n = 1, intensity = 100, sd = 20, scale = 2.5) {
   simulate_data(
     x,
     n = n,

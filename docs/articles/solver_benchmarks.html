@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.1</span>
       </span>
     </div>
 
@@ -345,8 +345,7 @@
 <span><span class="co">## <span style="color: #949494;">#   replicate &lt;int&gt;, id2 &lt;int&gt;, objective_value &lt;dbl&gt;, status &lt;chr&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   total_time &lt;dbl&gt;, run_time &lt;dbl&gt;, exceeded_run_time &lt;lgl&gt;, solution &lt;chr&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   cache &lt;lgl&gt;, and abbreviated variable names ¹​number_of_planning_units,</span></span></span>
-<span><span class="co">## <span style="color: #949494;">#   ²​number_features, ³​objective, ⁴​relative_target, ⁵​boundary_penalty</span></span></span>
-<span><span class="co">## <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows, and `colnames()` to see all variable names</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;">#   ²​number_features, ³​objective, ⁴​relative_target, ⁵​boundary_penalty</span></span></span></code></pre>
 <p>Let’s examine the average run time for each solver across all benchmark runs. To achieve this, we will create a box plot. Since we prefer solvers that generate prioritizations in a short period of time, solvers that have shorter (lower) run times are considered better. When looking at this box plot, we can see that average run times for the <em>IBM CPLEX</em> and <em>Gurobi</em> solvers are consistently low and don’t differ much from each other. Additionally, the run times for the open source <em>CBC</em> solver are generally low too. However, there are some cases where the run times for the <em>CBC</em> solver are much higher than those for the <em>IBM CPLEX</em> and <em>Gurobi</em> solvers. We can also see that the <em>lpsymphony</em> and <em>Rsymphony</em> solvers – which both use the open source <em>SYMPHONY</em> software – can take much longer to generate prioritizations than the other solvers.</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot overall summary of solver performance</span></span>
@@ -610,7 +609,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>

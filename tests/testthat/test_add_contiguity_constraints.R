@@ -11,10 +11,9 @@ test_that("compile (single zone)", {
   # compile problem
   o <- compile(p)
   # perform preliminary calculations
-  cm <- as(adjacency_matrix(sim_pu_polygons), "dgCMatrix")
+  cm <- as_Matrix(adjacency_matrix(sim_pu_polygons), "dgCMatrix")
   cm <- Matrix::forceSymmetric(cm, uplo = "L")
-  class(cm) <- "dgCMatrix"
-  cm <- as(cm, "dgTMatrix")
+  cm <- as_Matrix(Matrix::tril(cm), "dgTMatrix")
   n_pu <- length(sim_pu_polygons)
   n_f <- raster::nlayers(sim_features)
   n_edges <- length(cm@i)
@@ -91,10 +90,9 @@ test_that("compile (multiple zones)", {
   # compile problem
   o <- compile(p)
   # perform preliminary calculations
-  cm <- as(adjacency_matrix(sim_pu_zones_polygons), "dgCMatrix")
+  cm <- as_Matrix(adjacency_matrix(sim_pu_zones_polygons), "dgCMatrix")
   cm <- Matrix::forceSymmetric(cm, uplo = "L")
-  class(cm) <- "dgCMatrix"
-  cm <- as(cm, "dgTMatrix")
+  cm <- as_Matrix(Matrix::tril(cm), "dgTMatrix")
   cl <- c(1, 1, 2)
   n_pu <- length(sim_pu_zones_polygons)
   n_f <- raster::nlayers(sim_features_zones[[1]])
@@ -249,7 +247,7 @@ test_that("alternative data formats", {
   data(sim_pu_raster, sim_features)
   # create connection matrices
   m <- adjacency_matrix(sim_pu_raster)
-  m2 <- as(m, "dgTMatrix")
+  m2 <- as_Matrix(m, "dgTMatrix")
   m2 <- data.frame(id1 = m2@i + 1, id2 = m2@j + 1, boundary = m2@x)
   # create problem
   p0 <- problem(sim_pu_raster, sim_features) %>%

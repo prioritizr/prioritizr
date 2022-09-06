@@ -29,7 +29,7 @@ proximity_matrix())."><meta property="og:image" content="https://prioritizr.net/
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.1</span>
       </span>
     </div>
 
@@ -308,7 +308,7 @@ asymmetric connectivity between planning units.</p>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://Matrix.R-forge.R-project.org/" class="external-link">Matrix</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># load data</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">sim_pu_polygons</span>, <span class="va">sim_pu_zones_stack</span>, <span class="va">sim_features</span>, <span class="va">sim_features_zones</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">sim_pu_sf</span>, <span class="va">sim_pu_zones_stack</span>, <span class="va">sim_features</span>, <span class="va">sim_features_zones</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># define function to rescale values between zero and one so that we</span></span></span>
 <span class="r-in"><span><span class="co"># can compare solutions from different connectivity matrices</span></span></span>
@@ -317,14 +317,14 @@ asymmetric connectivity between planning units.</p>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create basic problem</span></span></span>
-<span class="r-in"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_polygons</span>, <span class="va">sim_features</span>, <span class="st">"cost"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_sf</span>, <span class="va">sim_features</span>, <span class="st">"cost"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>      <span class="fu"><a href="add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>      <span class="fu"><a href="add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.2</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>      <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create a symmetric connectivity matrix where the connectivity between</span></span></span>
 <span class="r-in"><span><span class="co"># two planning units corresponds to their shared boundary length</span></span></span>
-<span class="r-in"><span><span class="va">b_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="boundary_matrix.html">boundary_matrix</a></span><span class="op">(</span><span class="va">sim_pu_polygons</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">b_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="boundary_matrix.html">boundary_matrix</a></span><span class="op">(</span><span class="va">sim_pu_sf</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># standardize matrix values to lay between zero and one</span></span></span>
 <span class="r-in"><span><span class="va">b_matrix</span><span class="op">[</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">rescale</span><span class="op">(</span><span class="va">b_matrix</span><span class="op">[</span><span class="op">]</span><span class="op">)</span></span></span>
@@ -337,8 +337,8 @@ asymmetric connectivity between planning units.</p>
 <span class="r-in"><span><span class="co"># create a symmetric connectivity matrix where the connectivity between</span></span></span>
 <span class="r-in"><span><span class="co"># two planning units corresponds to their spatial proximity</span></span></span>
 <span class="r-in"><span><span class="co"># i.e., planning units that are further apart share less connectivity</span></span></span>
-<span class="r-in"><span><span class="va">centroids</span> <span class="op">&lt;-</span> <span class="fu">rgeos</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rgeos/man/topo-unary-gCentroid.html" class="external-link">gCentroid</a></span><span class="op">(</span><span class="va">sim_pu_polygons</span>, byid <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">d_matrix</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fl">1</span> <span class="op">/</span> <span class="op">(</span><span class="fu"><a href="as.html">as</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></span><span class="op">(</span><span class="va">centroids</span><span class="op">@</span><span class="va">coords</span><span class="op">)</span>, <span class="st">"Matrix"</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">centroids</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_coordinates.html" class="external-link">st_coordinates</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/warning.html" class="external-link">suppressWarnings</a></span><span class="op">(</span><span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_unary.html" class="external-link">st_centroid</a></span><span class="op">(</span><span class="va">sim_pu_sf</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">d_matrix</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fl">1</span> <span class="op">/</span> <span class="op">(</span><span class="fu">Matrix</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Matrix/man/Matrix.html" class="external-link">Matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></span><span class="op">(</span><span class="va">centroids</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># standardize matrix values to lay between zero and one</span></span></span>
 <span class="r-in"><span><span class="va">d_matrix</span><span class="op">[</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">rescale</span><span class="op">(</span><span class="va">d_matrix</span><span class="op">[</span><span class="op">]</span><span class="op">)</span></span></span>
@@ -359,7 +359,7 @@ asymmetric connectivity between planning units.</p>
 <span class="r-in"><span><span class="co"># each planning unit and we could use connectivity penalties to identify</span></span></span>
 <span class="r-in"><span><span class="co"># solutions that cluster planning units together that both contain large</span></span></span>
 <span class="r-in"><span><span class="co"># amounts of native vegetation</span></span></span>
-<span class="r-in"><span><span class="va">c_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="connectivity_matrix.html">connectivity_matrix</a></span><span class="op">(</span><span class="va">sim_pu_polygons</span>, <span class="st">"cost"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">c_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="connectivity_matrix.html">connectivity_matrix</a></span><span class="op">(</span><span class="va">sim_pu_sf</span>, <span class="st">"cost"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># standardize matrix values to lay between zero and one</span></span></span>
 <span class="r-in"><span><span class="va">c_matrix</span><span class="op">[</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">rescale</span><span class="op">(</span><span class="va">c_matrix</span><span class="op">[</span><span class="op">]</span><span class="op">)</span></span></span>
@@ -397,7 +397,20 @@ asymmetric connectivity between planning units.</p>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s2</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, cex <span class="op">=</span> <span class="fl">1.5</span>, col <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s2</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="va">s2</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">solution_1</span> <span class="op">==</span> <span class="fl">1</span>, <span class="op">]</span>, col <span class="op">=</span> <span class="st">"darkgreen"</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>ignoring all but the first attribute</span>
 <span class="r-plt img"><img src="add_connectivity_penalties-4.png" alt="" width="700" height="433"></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>ignoring all but the first attribute</span>
+<span class="r-plt img"><img src="add_connectivity_penalties-5.png" alt="" width="700" height="433"></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>ignoring all but the first attribute</span>
+<span class="r-plt img"><img src="add_connectivity_penalties-6.png" alt="" width="700" height="433"></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>ignoring all but the first attribute</span>
+<span class="r-plt img"><img src="add_connectivity_penalties-7.png" alt="" width="700" height="433"></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>ignoring all but the first attribute</span>
+<span class="r-plt img"><img src="add_connectivity_penalties-8.png" alt="" width="700" height="433"></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>ignoring all but the first attribute</span>
+<span class="r-plt img"><img src="add_connectivity_penalties-9.png" alt="" width="700" height="433"></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>ignoring all but the first attribute</span>
+<span class="r-plt img"><img src="add_connectivity_penalties-10.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create minimal multi-zone problem and limit solver to one minute</span></span></span>
@@ -414,6 +427,7 @@ asymmetric connectivity between planning units.</p>
 <span class="r-in"><span><span class="co"># visualize matrix</span></span></span>
 <span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image</a></span><span class="op">(</span><span class="va">a_matrix</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="add_connectivity_penalties-11.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span><span class="co"># create a zone matrix where connectivities are only present between</span></span></span>
 <span class="r-in"><span><span class="co"># planning units that are allocated to the same zone</span></span></span>
@@ -521,8 +535,7 @@ asymmetric connectivity between planning units.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot solutions</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s4</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">p4</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="add_connectivity_penalties-5.png" alt="" width="700" height="433"></span>
-<span class="r-plt img"><img src="add_connectivity_penalties-6.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="add_connectivity_penalties-12.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create an array to manually specify the connectivities between</span></span></span>
@@ -553,7 +566,7 @@ asymmetric connectivity between planning units.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot solutions</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s5</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">p5</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="add_connectivity_penalties-7.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="add_connectivity_penalties-13.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
@@ -569,7 +582,7 @@ asymmetric connectivity between planning units.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

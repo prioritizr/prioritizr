@@ -37,7 +37,7 @@ test_that("instability due to connectivity penalties", {
 
 test_that("instability due to asymmetric connectivity penalties", {
   data(sim_pu_raster, sim_features)
-  cm <- as(boundary_matrix(sim_pu_raster), "dgCMatrix")
+  cm <- as_Matrix(boundary_matrix(sim_pu_raster), "dgCMatrix")
   diag(cm) <- 0
   cm <- Matrix::drop0(cm)
   cm@x <- cm@x + runif(length(cm@x))

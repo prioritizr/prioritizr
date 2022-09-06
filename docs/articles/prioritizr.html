@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.1</span>
       </span>
     </div>
 
@@ -204,7 +204,7 @@
 <div class="section level2">
 <h2 id="problem-formulation">Problem formulation<a class="anchor" aria-label="anchor" href="#problem-formulation"></a>
 </h2>
-<p>Now we will formulate a conservation planing problem. To achieve this, we first specify which objects contain the planning unit and feature data (using the <code><a href="../reference/problem.html">problem()</a></code> function). Next, we specify that we want to use the minimum set objective function (using the <code><a href="../reference/add_min_set_objective.html">add_min_set_objective()</a></code> function). This objective function indicates that we wish to minimize the total cost of planning units selected by the prioritization. We then specify boundary penalties reduce spatial fragmentation in the resulting prioritization (using the <code><a href="../reference/add_boundary_penalties.html">add_boundary_penalties()</a></code> function; see the <a href="calibrating_trade-offs.html"><em>Calibrating trade-offs</em> vignette</a> for details on calibrating the penalty value). We also specify representation targets to ensure the resulting prioritization provides adequate coverage of each vegetation community (using the <code><a href="../reference/add_relative_targets.html">add_relative_targets()</a></code> function). Specifically, we specify targets to ensure at least 17% of the spatial extent of each vegetation community (based on the <a href="https://www.cbd.int/sp/targets/" class="external-link">Aichi Target 11</a>). Additionally, we set constraints to ensure that planning units predominately covered by existing protected areas are selected by the prioritization (using the <code><a href="../reference/add_locked_in_constraints.html">add_locked_in_constraints()</a></code> function). Finally, we specify that the prioritization should either select – or not select – planning units for prioritization (using the <code><a href="../reference/add_binary_decisions.html">add_binary_decisions()</a></code> function).</p>
+<p>Now we will formulate a conservation planing problem. To achieve this, we first specify which objects contain the planning unit and feature data (using the <code><a href="../reference/problem.html">problem()</a></code> function). Next, we specify that we want to use the minimum set objective function (using the <code><a href="../reference/add_min_set_objective.html">add_min_set_objective()</a></code> function). This objective function indicates that we wish to minimize the total cost of planning units selected by the prioritization. We then specify boundary penalties reduce spatial fragmentation in the resulting prioritization (using the <code><a href="../reference/add_boundary_penalties.html">add_boundary_penalties()</a></code> function; see the <a href="calibrating_trade-offs_tutorial.html"><em>Calibrating trade-offs</em> vignette</a> for details on calibrating the penalty value). We also specify representation targets to ensure the resulting prioritization provides adequate coverage of each vegetation community (using the <code><a href="../reference/add_relative_targets.html">add_relative_targets()</a></code> function). Specifically, we specify targets to ensure at least 17% of the spatial extent of each vegetation community (based on the <a href="https://www.cbd.int/sp/targets/" class="external-link">Aichi Target 11</a>). Additionally, we set constraints to ensure that planning units predominately covered by existing protected areas are selected by the prioritization (using the <code><a href="../reference/add_locked_in_constraints.html">add_locked_in_constraints()</a></code> function). Finally, we specify that the prioritization should either select – or not select – planning units for prioritization (using the <code><a href="../reference/add_binary_decisions.html">add_binary_decisions()</a></code> function).</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># build problem</span></span>
 <span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">tas_pu</span>, <span class="va">tas_features</span>, cost_column <span class="op">=</span> <span class="st">"cost"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -238,17 +238,17 @@
 <pre><code><span><span class="co">## Gurobi Optimizer version 9.5.2 build v9.5.2rc0 (linux64)</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
 <span><span class="co">## Optimize a model with 6358 rows, 4278 columns and 14496 nonzeros</span></span>
-<span><span class="co">## Model fingerprint: 0xc7d1c688</span></span>
+<span><span class="co">## Model fingerprint: 0x861c9b00</span></span>
 <span><span class="co">## Variable types: 0 continuous, 4278 integer (4278 binary)</span></span>
 <span><span class="co">## Coefficient statistics:</span></span>
 <span><span class="co">##   Matrix range     [2e-06, 4e+01]</span></span>
-<span><span class="co">##   Objective range  [5e-01, 1e+03]</span></span>
+<span><span class="co">##   Objective range  [5e-01, 2e+02]</span></span>
 <span><span class="co">##   Bounds range     [1e+00, 1e+00]</span></span>
 <span><span class="co">##   RHS range        [1e-01, 1e+02]</span></span>
-<span><span class="co">## Found heuristic solution: objective 37703.827706</span></span>
+<span><span class="co">## Found heuristic solution: objective 36805.575211</span></span>
 <span><span class="co">## Found heuristic solution: objective 27817.085072</span></span>
 <span><span class="co">## Presolve removed 2077 rows and 1375 columns</span></span>
-<span><span class="co">## Presolve time: 0.06s</span></span>
+<span><span class="co">## Presolve time: 0.11s</span></span>
 <span><span class="co">## Presolved: 4281 rows, 2903 columns, 9594 nonzeros</span></span>
 <span><span class="co">## Found heuristic solution: objective 24454.499456</span></span>
 <span><span class="co">## Variable types: 0 continuous, 2903 integer (2903 binary)</span></span>
@@ -256,7 +256,7 @@
 <span><span class="co">## Root relaxation presolved: 4281 rows, 2903 columns, 9594 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Root relaxation: objective 1.955605e+04, 1793 iterations, 0.13 seconds (0.19 work units)</span></span>
+<span><span class="co">## Root relaxation: objective 1.955605e+04, 1793 iterations, 0.23 seconds (0.19 work units)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
@@ -275,10 +275,10 @@
 <span><span class="co">##   Zero half: 2</span></span>
 <span><span class="co">##   RLT: 10</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 1 nodes (2393 simplex iterations) in 0.57 seconds (0.60 work units)</span></span>
+<span><span class="co">## Explored 1 nodes (2393 simplex iterations) in 0.89 seconds (0.60 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Solution count 7: 21702.3 22977.8 23045.7 ... 37703.8</span></span>
+<span><span class="co">## Solution count 7: 21702.3 22977.8 23045.7 ... 36805.6</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
 <span><span class="co">## Best objective 2.170229740250e+04, best bound 1.983605855899e+04, gap 8.5993%</span></span></code></pre>
@@ -314,8 +314,7 @@
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> tas_features.10 FALSE    14.5    2.47   0        2.47    0.17  0       0.17  </span></span>
 <span><span class="co">## <span style="color: #949494;"># … with 52 more rows, and abbreviated variable names ¹​total_amount,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   ²​absolute_target, ³​absolute_held, ⁴​absolute_shortfall, ⁵​relative_target,</span></span></span>
-<span><span class="co">## <span style="color: #949494;">#   ⁶​relative_held, ⁷​relative_shortfall</span></span></span>
-<span><span class="co">## <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;">#   ⁶​relative_held, ⁷​relative_shortfall</span></span></span></code></pre>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate  feature representation statistics based on the prioritization</span></span>
 <span><span class="va">tc_s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_target_coverage_summary.html">eval_target_coverage_summary</a></span><span class="op">(</span><span class="va">p1</span>, <span class="va">s1</span><span class="op">[</span>, <span class="st">"solution_1"</span><span class="op">]</span><span class="op">)</span></span>
@@ -335,8 +334,7 @@
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> tas_features.10 TRUE     14.5    2.47    2.91       0    0.17   0.200       0</span></span>
 <span><span class="co">## <span style="color: #949494;"># … with 52 more rows, and abbreviated variable names ¹​total_amount,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   ²​absolute_target, ³​absolute_held, ⁴​absolute_shortfall, ⁵​relative_target,</span></span></span>
-<span><span class="co">## <span style="color: #949494;">#   ⁶​relative_held, ⁷​relative_shortfall</span></span></span>
-<span><span class="co">## <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;">#   ⁶​relative_held, ⁷​relative_shortfall</span></span></span></code></pre>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># explore representation by existing protected areas</span></span>
 <span><span class="co">## calculate number of features adequately represented by existing protected</span></span>
@@ -428,24 +426,24 @@
 <pre><code><span><span class="co">## Gurobi Optimizer version 9.5.2 build v9.5.2rc0 (linux64)</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
 <span><span class="co">## Optimize a model with 6358 rows, 4278 columns and 14496 nonzeros</span></span>
-<span><span class="co">## Model fingerprint: 0xc7d1c688</span></span>
+<span><span class="co">## Model fingerprint: 0x861c9b00</span></span>
 <span><span class="co">## Variable types: 0 continuous, 4278 integer (4278 binary)</span></span>
 <span><span class="co">## Coefficient statistics:</span></span>
 <span><span class="co">##   Matrix range     [2e-06, 4e+01]</span></span>
-<span><span class="co">##   Objective range  [5e-01, 1e+03]</span></span>
+<span><span class="co">##   Objective range  [5e-01, 2e+02]</span></span>
 <span><span class="co">##   Bounds range     [1e+00, 1e+00]</span></span>
 <span><span class="co">##   RHS range        [1e-01, 1e+02]</span></span>
-<span><span class="co">## Found heuristic solution: objective 37703.827706</span></span>
+<span><span class="co">## Found heuristic solution: objective 36805.575211</span></span>
 <span><span class="co">## Found heuristic solution: objective 27817.085072</span></span>
 <span><span class="co">## Presolve removed 1434 rows and 258 columns</span></span>
-<span><span class="co">## Presolve time: 0.02s</span></span>
+<span><span class="co">## Presolve time: 0.05s</span></span>
 <span><span class="co">## Presolved: 4924 rows, 4020 columns, 10889 nonzeros</span></span>
 <span><span class="co">## Variable types: 0 continuous, 4020 integer (4020 binary)</span></span>
 <span><span class="co">## Found heuristic solution: objective 27660.082384</span></span>
 <span><span class="co">## Root relaxation presolved: 4924 rows, 4020 columns, 10889 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Root relaxation: objective 1.954728e+04, 1905 iterations, 0.15 seconds (0.18 work units)</span></span>
+<span><span class="co">## Root relaxation: objective 1.954728e+04, 1905 iterations, 0.24 seconds (0.18 work units)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
@@ -456,68 +454,85 @@
 <span><span class="co">##      0     0 19820.3758    0 1966 24520.0622 19820.3758  19.2%     -    0s</span></span>
 <span><span class="co">## H    0     0                    24498.644854 19820.3758  19.1%     -    0s</span></span>
 <span><span class="co">## H    0     0                    23263.485453 19820.3758  14.8%     -    0s</span></span>
-<span><span class="co">## H    0     0                    22049.956515 19820.3758  10.1%     -    0s</span></span>
-<span><span class="co">##      0     0 19847.8388    0 1956 22049.9565 19847.8388  10.0%     -    0s</span></span>
-<span><span class="co">##      0     0 19854.3259    0 1960 22049.9565 19854.3259  10.0%     -    0s</span></span>
-<span><span class="co">##      0     0 19854.3439    0 1958 22049.9565 19854.3439  10.0%     -    0s</span></span>
-<span><span class="co">##      0     0 19924.6889    0 1682 22049.9565 19924.6889  9.64%     -    0s</span></span>
-<span><span class="co">##      0     0 19936.2410    0 1978 22049.9565 19936.2410  9.59%     -    0s</span></span>
-<span><span class="co">##      0     0 19937.4882    0 2005 22049.9565 19937.4882  9.58%     -    0s</span></span>
-<span><span class="co">##      0     0 19937.6761    0 2005 22049.9565 19937.6761  9.58%     -    0s</span></span>
+<span><span class="co">## H    0     0                    22049.956515 19820.3758  10.1%     -    1s</span></span>
+<span><span class="co">##      0     0 19847.8388    0 1956 22049.9565 19847.8388  10.0%     -    1s</span></span>
+<span><span class="co">##      0     0 19854.3259    0 1960 22049.9565 19854.3259  10.0%     -    1s</span></span>
+<span><span class="co">##      0     0 19854.3439    0 1958 22049.9565 19854.3439  10.0%     -    1s</span></span>
+<span><span class="co">##      0     0 19924.6889    0 1682 22049.9565 19924.6889  9.64%     -    1s</span></span>
+<span><span class="co">##      0     0 19936.2410    0 1978 22049.9565 19936.2410  9.59%     -    1s</span></span>
+<span><span class="co">##      0     0 19937.4882    0 2005 22049.9565 19937.4882  9.58%     -    1s</span></span>
+<span><span class="co">##      0     0 19937.6761    0 2005 22049.9565 19937.6761  9.58%     -    1s</span></span>
 <span><span class="co">##      0     0 19968.7333    0 1691 22049.9565 19968.7333  9.44%     -    1s</span></span>
 <span><span class="co">##      0     0 19970.0998    0 1714 22049.9565 19970.0998  9.43%     -    1s</span></span>
 <span><span class="co">##      0     0 19970.4702    0 1714 22049.9565 19970.4702  9.43%     -    1s</span></span>
-<span><span class="co">##      0     0 19983.7957    0 1748 22049.9565 19983.7957  9.37%     -    1s</span></span>
-<span><span class="co">##      0     0 19984.9623    0 1754 22049.9565 19984.9623  9.37%     -    1s</span></span>
-<span><span class="co">##      0     0 19985.0928    0 1754 22049.9565 19985.0928  9.36%     -    1s</span></span>
-<span><span class="co">##      0     0 19990.8490    0 2040 22049.9565 19990.8490  9.34%     -    1s</span></span>
-<span><span class="co">##      0     0 19991.1771    0 2041 22049.9565 19991.1771  9.34%     -    1s</span></span>
-<span><span class="co">##      0     0 19991.9721    0 2039 22049.9565 19991.9721  9.33%     -    1s</span></span>
-<span><span class="co">##      0     0 19992.1795    0 2040 22049.9565 19992.1795  9.33%     -    1s</span></span>
-<span><span class="co">##      0     0 19995.3797    0 1784 22049.9565 19995.3797  9.32%     -    1s</span></span>
-<span><span class="co">##      0     0 19995.3847    0 1788 22049.9565 19995.3847  9.32%     -    1s</span></span>
-<span><span class="co">##      0     0 19995.5716    0 2038 22049.9565 19995.5716  9.32%     -    1s</span></span>
-<span><span class="co">##      0     0 19995.8374    0 2037 22049.9565 19995.8374  9.32%     -    1s</span></span>
-<span><span class="co">##      0     0 19996.1519    0 2039 22049.9565 19996.1519  9.31%     -    1s</span></span>
-<span><span class="co">##      0     0 19996.1519    0 2039 22049.9565 19996.1519  9.31%     -    1s</span></span>
-<span><span class="co">##      0     2 19996.6237    0 2039 22049.9565 19996.6237  9.31%     -    1s</span></span>
-<span><span class="co">## H   27    27                    21471.431466 19996.6237  6.87%   117    2s</span></span>
-<span><span class="co">## H   52    52                    21371.814002 19996.6237  6.43%   115    2s</span></span>
-<span><span class="co">## H   54    54                    21254.060213 19996.6237  5.92%   117    2s</span></span>
-<span><span class="co">## H  108   108                    21204.105802 19996.6237  5.69%   123    3s</span></span>
-<span><span class="co">## H  162   162                    21202.636805 19996.6237  5.69%   104    4s</span></span>
-<span><span class="co">## H  286   286                    21166.904542 19996.6237  5.53%  69.2    4s</span></span>
-<span><span class="co">## H  606   599                    20993.604430 19996.6237  4.75%  32.8    6s</span></span>
-<span><span class="co">##    627    13 20095.0873    8 1965 20993.6044 20027.1027  4.60%  31.7   10s</span></span>
-<span><span class="co">##    652     7 20993.6044  492 1964 20993.6044 20029.9069  4.59%  37.6   15s</span></span>
-<span><span class="co">##    677    18 20246.1869   26 1687 20993.6044 20082.6816  4.34%  46.6   20s</span></span>
-<span><span class="co">## H  750    81                    20939.026645 20082.6816  4.09%  61.7   23s</span></span>
-<span><span class="co">## H 1231   560                    20924.385117 20082.6816  4.02%  44.7   26s</span></span>
-<span><span class="co">##   1918  1247 20734.3467   46 1068 20924.3851 20092.6890  3.97%  49.7   30s</span></span>
-<span><span class="co">## H 1975  1297                    20813.687049 20092.6890  3.46%  50.6   30s</span></span>
-<span><span class="co">##   3116  2436 20594.0728   39 1814 20813.6870 20109.8128  3.38%  44.0   35s</span></span>
-<span><span class="co">##   4716  3662 20858.8301   54 1729 20813.6870 20148.3760  3.20%  38.7   40s</span></span>
-<span><span class="co">##   5241  3823 20763.5204   51  683 20813.6870 20155.9610  3.16%  42.3   45s</span></span>
-<span><span class="co">##   6124  4605 20942.5668   53 1275 20813.6870 20171.2638  3.09%  43.7   50s</span></span>
-<span><span class="co">##   7218  4701 20308.5341   28 1927 20813.6870 20195.9413  2.97%  43.2   55s</span></span>
+<span><span class="co">##      0     0 19983.7957    0 1748 22049.9565 19983.7957  9.37%     -    2s</span></span>
+<span><span class="co">##      0     0 19984.9623    0 1754 22049.9565 19984.9623  9.37%     -    2s</span></span>
+<span><span class="co">##      0     0 19985.0928    0 1754 22049.9565 19985.0928  9.36%     -    2s</span></span>
+<span><span class="co">##      0     0 19990.8490    0 2040 22049.9565 19990.8490  9.34%     -    2s</span></span>
+<span><span class="co">##      0     0 19991.1771    0 2041 22049.9565 19991.1771  9.34%     -    2s</span></span>
+<span><span class="co">##      0     0 19991.9721    0 2039 22049.9565 19991.9721  9.33%     -    2s</span></span>
+<span><span class="co">##      0     0 19992.1795    0 2040 22049.9565 19992.1795  9.33%     -    2s</span></span>
+<span><span class="co">##      0     0 19995.3797    0 1784 22049.9565 19995.3797  9.32%     -    2s</span></span>
+<span><span class="co">##      0     0 19995.3847    0 1788 22049.9565 19995.3847  9.32%     -    2s</span></span>
+<span><span class="co">##      0     0 19995.5716    0 2038 22049.9565 19995.5716  9.32%     -    2s</span></span>
+<span><span class="co">##      0     0 19995.8374    0 2037 22049.9565 19995.8374  9.32%     -    2s</span></span>
+<span><span class="co">##      0     0 19996.1519    0 2039 22049.9565 19996.1519  9.31%     -    2s</span></span>
+<span><span class="co">##      0     0 19996.1519    0 2039 22049.9565 19996.1519  9.31%     -    2s</span></span>
+<span><span class="co">##      0     2 19996.6237    0 2039 22049.9565 19996.6237  9.31%     -    3s</span></span>
+<span><span class="co">## H   27    27                    21471.431466 19996.6237  6.87%   117    4s</span></span>
+<span><span class="co">## H   52    52                    21371.814002 19996.6237  6.43%   115    4s</span></span>
+<span><span class="co">## H   54    54                    21254.060213 19996.6237  5.92%   117    5s</span></span>
+<span><span class="co">## H  108   108                    21204.105802 19996.6237  5.69%   123    6s</span></span>
+<span><span class="co">## H  162   162                    21202.636805 19996.6237  5.69%   104    7s</span></span>
+<span><span class="co">## H  286   286                    21166.904542 19996.6237  5.53%  69.2    7s</span></span>
+<span><span class="co">## H  606   599                    20993.604430 19996.6237  4.75%  32.8   10s</span></span>
+<span><span class="co">##    623    10 20993.6044  209 1656 20993.6044 20012.9571  4.67%  32.0   16s</span></span>
+<span><span class="co">##    634    15 20993.6044  234 1965 20993.6044 20028.3465  4.60%  31.4   20s</span></span>
+<span><span class="co">##    651     8 20993.6044  348 1965 20993.6044 20028.7300  4.60%  37.6   25s</span></span>
+<span><span class="co">##    659    10 20993.6044  100 1965 20993.6044 20031.1575  4.58%  37.2   30s</span></span>
+<span><span class="co">##    673    14 20091.4377   24 1974 20993.6044 20082.6816  4.34%  45.4   35s</span></span>
+<span><span class="co">##    707    40 20660.5710   41 1494 20993.6044 20082.6816  4.34%  55.3   40s</span></span>
+<span><span class="co">## H  739    70                    20939.026645 20082.6816  4.09%  60.1   42s</span></span>
+<span><span class="co">##   1035   368          -  328      20939.0266 20082.6816  4.09%  52.7   45s</span></span>
+<span><span class="co">## H 1283   612                    20924.385117 20084.4398  4.01%  54.4   49s</span></span>
+<span><span class="co">##   1303   634 20719.8954   60 1379 20924.3851 20084.4398  4.01%  56.6   50s</span></span>
+<span><span class="co">##   1906  1235 20711.3558   40 1180 20924.3851 20092.6890  3.97%  49.1   55s</span></span>
+<span><span class="co">## H 1975  1297                    20813.687049 20092.6890  3.46%  50.6   56s</span></span>
+<span><span class="co">##   2452  1774 20437.2187   40 1576 20813.6870 20099.7124  3.43%  45.3   60s</span></span>
+<span><span class="co">##   3088  2408 20251.7444   26 1946 20813.6870 20109.8128  3.38%  41.5   65s</span></span>
+<span><span class="co">##   3137  2457 20856.2025   51  866 20813.6870 20109.8128  3.38%  45.3   70s</span></span>
+<span><span class="co">##   3681  2881 20629.9468   47 1389 20813.6870 20110.2720  3.38%  43.4   75s</span></span>
+<span><span class="co">##   4688  3613 20220.1821   27 1909 20813.6870 20148.3760  3.20%  37.9   80s</span></span>
+<span><span class="co">##   4924  3777 22913.1257  263    5 20813.6870 20148.3760  3.20%  38.8   85s</span></span>
+<span><span class="co">##   4945  3720 20258.1019   28 1789 20813.6870 20148.6068  3.20%  38.8   90s</span></span>
+<span><span class="co">##   5066  3794 21697.8474  101  473 20813.6870 20153.3149  3.17%  40.5   95s</span></span>
+<span><span class="co">##   5262  3845 20937.3000   64 1105 20813.6870 20155.9610  3.16%  43.0  100s</span></span>
+<span><span class="co">##   5803  4295 22318.3219  194   15 20813.6870 20166.6830  3.11%  42.0  105s</span></span>
+<span><span class="co">##   5907  4394 20751.2082   39 1821 20813.6870 20167.5494  3.10%  42.9  111s</span></span>
+<span><span class="co">##   6002  4475 20947.2152   53 1275 20813.6870 20171.2638  3.09%  44.3  115s</span></span>
+<span><span class="co">##   6782  4962 20679.8811   41 1745 20813.6870 20193.4219  2.98%  41.7  120s</span></span>
+<span><span class="co">##   7119  5098 20301.7456   32 1891 20813.6870 20195.6514  2.97%  42.5  125s</span></span>
+<span><span class="co">##   7293  5270 20499.3936   33 1890 20813.6870 20195.9413  2.97%  44.0  130s</span></span>
+<span><span class="co">##   7729  5527 20991.7704   67  588 20813.6870 20197.6282  2.96%  44.0  135s</span></span>
+<span><span class="co">##   8464  5554 20504.0192   32 1907 20813.6870 20200.5188  2.95%  42.3  140s</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Cutting planes:</span></span>
 <span><span class="co">##   Gomory: 7</span></span>
-<span><span class="co">##   Cover: 4</span></span>
-<span><span class="co">##   MIR: 33</span></span>
+<span><span class="co">##   Cover: 5</span></span>
+<span><span class="co">##   MIR: 34</span></span>
 <span><span class="co">##   StrongCG: 1</span></span>
 <span><span class="co">##   Flow cover: 10</span></span>
 <span><span class="co">##   GUB cover: 2</span></span>
 <span><span class="co">##   Zero half: 22</span></span>
 <span><span class="co">##   RLT: 24</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 7780 nodes (344017 simplex iterations) in 58.08 seconds (80.68 work units)</span></span>
+<span><span class="co">## Explored 8610 nodes (373301 simplex iterations) in 142.54 seconds (90.12 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Solution count 1000: 20813.7 20924.4 20939 ... 22439.4</span></span>
+<span><span class="co">## Solution count 1000: 20813.7 20924.4 20939 ... 22442.4</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
-<span><span class="co">## Best objective 2.081368704941e+04, best bound 2.019762823706e+04, gap 2.9599%</span></span></code></pre>
+<span><span class="co">## Best objective 2.081368704941e+04, best bound 2.020051879263e+04, gap 2.9460%</span></span></code></pre>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">prt</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## class       : SpatialPolygonsDataFrame </span></span>
@@ -554,8 +569,8 @@
 <span><span class="co"># extract names of prioritizations that are most central for each group.</span></span>
 <span><span class="va">prt_med_names</span> <span class="op">&lt;-</span> <span class="va">prt_med</span><span class="op">$</span><span class="va">medoids</span></span>
 <span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">prt_med_names</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "solution_29"  "solution_228" "solution_41"  "solution_242" "solution_663"</span></span>
-<span><span class="co">## [6] "solution_447"</span></span></code></pre>
+<pre><code><span><span class="co">## [1] "solution_37"  "solution_14"  "solution_287" "solution_42"  "solution_374"</span></span>
+<span><span class="co">## [6] "solution_813"</span></span></code></pre>
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create a copy of prt and set values for locked in planning units to -1</span></span>
 <span><span class="co"># so we can easily visualize differences between prioritizations</span></span>
@@ -659,21 +674,21 @@
 <span><span class="co">##   RHS range        [5e+03, 3e+05]</span></span>
 <span><span class="co">## Found heuristic solution: objective 1.221202e+08</span></span>
 <span><span class="co">## Presolve removed 4707 rows and 3103 columns</span></span>
-<span><span class="co">## Presolve time: 0.04s</span></span>
+<span><span class="co">## Presolve time: 0.12s</span></span>
 <span><span class="co">## Presolved: 5368 rows, 3677 columns, 12704 nonzeros</span></span>
 <span><span class="co">## Variable types: 0 continuous, 3677 integer (3677 binary)</span></span>
 <span><span class="co">## Found heuristic solution: objective 1.009944e+08</span></span>
 <span><span class="co">## Root relaxation presolved: 5368 rows, 3677 columns, 12704 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Root relaxation: objective 9.564790e+07, 521 iterations, 0.01 seconds (0.01 work units)</span></span>
+<span><span class="co">## Root relaxation: objective 9.564790e+07, 521 iterations, 0.02 seconds (0.01 work units)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##      0     0 9.5648e+07    0   20 1.0099e+08 9.5648e+07  5.29%     -    0s</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 1 nodes (521 simplex iterations) in 0.06 seconds (0.10 work units)</span></span>
+<span><span class="co">## Explored 1 nodes (521 simplex iterations) in 0.16 seconds (0.10 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Solution count 2: 1.00994e+08 1.2212e+08 </span></span>
@@ -736,7 +751,7 @@ Klein, C., Carwardine, J., Wilson, K., Watts, M. &amp; Possingham, H. (2007). <e
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>

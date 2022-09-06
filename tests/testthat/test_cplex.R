@@ -25,8 +25,8 @@ test_that("LP", {
   s2 <- cplex(
     list(modelsense = modelsense,
          obj = obj,
-         A = methods::as(A, "dgCMatrix"),
-         A2 = cplex_matrix(methods::as(A, "dgCMatrix")),
+         A = as_Matrix(A, "dgCMatrix"),
+         A2 = cplex_matrix(as_Matrix(A, "dgCMatrix")),
          vtype = vtype, rhs = rhs, sense = sense, lb = lb, ub = ub),
     list(threads = 1, presolve = 1, gap = 0, time_limit = 1e+10, verbose = 0))
   # compare solutions
@@ -69,8 +69,8 @@ test_that("ILP", {
   s2 <- cplex(
     list(modelsense = modelsense,
          obj = obj,
-         A = methods::as(A, "dgCMatrix"),
-         A2 = cplex_matrix(methods::as(A, "dgCMatrix")),
+         A = as_Matrix(A, "dgCMatrix"),
+         A2 = cplex_matrix(as_Matrix(A, "dgCMatrix")),
          vtype = vtype, rhs = rhs, sense = sense, lb = lb, ub = ub),
     list(threads = 1, presolve = 1, gap = 0, time_limit = 1e+10, verbose = 0))
   # compare solutions
@@ -115,8 +115,8 @@ test_that("MILP", {
   s2 <- cplex(
     list(modelsense = modelsense,
          obj = obj,
-         A = methods::as(A, "dgCMatrix"),
-         A2 = cplex_matrix(methods::as(A, "dgCMatrix")),
+         A = as_Matrix(A, "dgCMatrix"),
+         A2 = cplex_matrix(as_Matrix(A, "dgCMatrix")),
          vtype = vtype, rhs = rhs, sense = sense, lb = lb, ub = ub),
     list(threads = 1, presolve = 1, gap = 0, time_limit = 1e+10, verbose = 1))
   # compare solutions

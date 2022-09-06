@@ -21,7 +21,7 @@ test_that("minimum set objective (compile, single zone)", {
   # i,j,x matrix for planning unit boundaries
   Matrix::diag(c_data) <- 0
   c_data <- Matrix::drop0(c_data)
-  c_data <- as(Matrix::tril(c_data), "dgTMatrix")
+  c_data <- as_Matrix(Matrix::tril(c_data), "dgTMatrix")
   # objectives for boundary decision variables
   c_obj <- o$obj()[n_pu + seq_len(length(c_data@i))]
   # lower bound for boundary decision variables
@@ -139,11 +139,11 @@ test_that("minimum set objective (compile, multiple zones)", {
   n_z <- p$number_of_zones()
   # prepare matrix
   c_data <- cm * -100
-  c_data <- as(Matrix::tril(c_data), "dgTMatrix")
+  c_data <- as_Matrix(Matrix::tril(c_data), "dgTMatrix")
   c_weights <- rep(Matrix::diag(c_data), n_z) * rep(diag(zm), each = n_pu)
   Matrix::diag(c_data) <- 0
   c_data <- Matrix::drop0(c_data)
-  c_data <- as(c_data, "dgTMatrix")
+  c_data <- as_Matrix(c_data, "dgTMatrix")
   c_penalties <- c()
   for (i in seq_len(n_z)) {
     for (j in seq_len(n_z)) {
@@ -334,7 +334,7 @@ test_that("alternative data formats", {
   data(sim_pu_raster, sim_features)
   # create connectivity matrices
   m <- adjacency_matrix(sim_pu_raster)
-  m2 <- as(m, "dgTMatrix")
+  m2 <- as_Matrix(m, "dgTMatrix")
   m2 <- data.frame(id1 = m2@i + 1, id2 = m2@j + 1, boundary = m2@x)
   # create problem
   p0 <- problem(sim_pu_raster, sim_features) %>%

@@ -40,8 +40,8 @@ NULL
 #' such as the
 #' [Rtools software](https://cran.r-project.org/bin/windows/Rtools/)
 #' or system libraries -- prior to installing the \pkg{rcbc} package.
-#' For further details on installing this package, please consult
-#' [official installation instructions for the package](https://dirkschumacher.github.io/rcbc/).
+#' For further details on installing this package, please consult the
+#' [online package documentation](https://dirkschumacher.github.io/rcbc/).
 #'
 #' @inheritSection add_gurobi_solver Start solution format
 #'
@@ -176,11 +176,23 @@ add_cbc_solver <- function(x, gap = 0.1,
         max = identical(x$modelsense(), "max"),
         obj = x$obj(),
         is_integer = x$vtype() == "B",
-        mat = x$A(),
+        mat = as_Matrix(x$A(), "dgTMatrix"),
         col_lb = x$lb(),
         col_ub = x$ub(),
         row_lb = row_lb,
         row_ub = row_ub)
+      # if needed, insert dummy row to ensure non-zero value in last rij cell
+      if (abs(model$mat[nrow(model$mat), ncol(model$mat)]) < 1e-300) {
+        model$mat <- as_Matrix(
+          rbind(
+            model$mat,
+            Matrix::sparseMatrix(i = 1, j = ncol(model$mat), x = 1, repr = "T")
+          ),
+          "dgTMatrix"
+        )
+        model$row_lb <- c(model$row_lb, -Inf)
+        model$row_ub <- c(model$row_ub, Inf)
+      }
       # add starting solution if specified
       start <- self$get_data("start")
       if (!is.null(start) && !is.Waiver(start)) {

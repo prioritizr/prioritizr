@@ -282,7 +282,7 @@ methods::setMethod("add_linear_penalties",
       assertthat::noNA(c(data)),
       number_of_total_units(x) == nrow(data),
       number_of_zones(x) == ncol(data))
-    add_linear_penalties(x, penalty, methods::as(data, "dgCMatrix"))
+    add_linear_penalties(x, penalty, as_Matrix(data, "dgCMatrix"))
 })
 
 #' @name add_linear_penalties
@@ -297,7 +297,7 @@ methods::setMethod("add_linear_penalties",
       assertthat::noNA(c(data)),
       number_of_total_units(x) == nrow(data),
       number_of_zones(x) == ncol(data))
-    add_linear_penalties(x, penalty, methods::as(data, "dgCMatrix"))
+    add_linear_penalties(x, penalty, as_Matrix(data, "dgCMatrix"))
 })
 
 #' @name add_linear_penalties
@@ -323,7 +323,7 @@ methods::setMethod("add_linear_penalties",
     }
     d[is.na(d)] <- 0
     # add penalties
-    add_linear_penalties(x, penalty, methods::as(d, "dgCMatrix"))
+    add_linear_penalties(x, penalty, as_Matrix(d, "dgCMatrix"))
 })
 
 #' @name add_linear_penalties

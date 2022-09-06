@@ -28,7 +28,7 @@ It requires the cplexAPI package to be installed
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.1</span>
       </span>
     </div>
 
@@ -186,17 +186,25 @@ Licenses are available for the <em>IBM CPLEX</em> software to academics at no co
     <h2>Installation</h2>
     
 
-<p>The pkgcplexAPI package is used to interface with <em>IBM CPLEX</em>. To install
-this package, the <code>CPLEX_BIN</code> variable must be set (similar to
-the <code>GUROBI_HOME</code> variable for the <em>Gurobi</em> software) to specify
-the file path for the <em>CPLEX</em> software. For example, on a Linux system,
+<p>The <span class="pkg">cplexAPI</span> package is used to interface with <em>IBM CPLEX</em> software.
+To install the package, the <em>IBM CPLEX</em> software must be installed
+(see <a href="https://www.ibm.com/analytics/cplex-optimizer" class="external-link">https://www.ibm.com/analytics/cplex-optimizer</a>). Next, the <code>CPLEX_BIN</code>
+environmental variable must be set to specify the file path for the
+<em>IBM CPLEX</em> software. For example, on a Linux system,
 this variable can be specified by adding the following text to the
 <code>~/.bashrc</code> file:</p>
 <p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>  export CPLEX_BIN<span class="ot">=</span><span class="st">"/opt/ibm/ILOG/CPLEX_Studio128/cplex/bin/x86-64_linux/cplex"</span></span></code></pre><p></p></div>
-<p>Note that you may need to change the version
-number in the file path (i.e., <code>"CPLEX_Studio128"</code>). For more information
-on installing the pkgcplexAPI package, please see the
-<a href="https://github.com/cran/cplexAPI/blob/master/inst/INSTALL" class="external-link">official installation instructions for the package</a>.</p>
+<p>Please Note that you may need to change the version number in the file path
+(i.e., <code>"CPLEX_Studio128"</code>). After specifying the <code>CPLEX_BIN</code>
+environmental variable, the <span class="pkg">cplexAPI</span> package can be installed.
+Since the <span class="pkg">cplexAPI</span> package is not available on the
+the Comprehensive R Archive Network (CRAN), it must be installed from
+<a href="https://github.com/cran/cplexAPI" class="external-link">its GitHub repository</a>. To
+install the <span class="pkg">cplexAPI</span> package, please use the following code:</p>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(remotes)) <span class="fu">install.packages</span>(<span class="st">"remotes"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"cran/cplexAPI"</span>)</span></code></pre><p></p></div>
+<p>For further details on installing this package, please consult the
+<a href="https://github.com/cran/cplexAPI/blob/master/inst/INSTALL" class="external-link">installation instructions</a>.</p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -248,7 +256,7 @@ Version 12 Release 8. IBM ILOG CPLEX Division, Incline Village, NV.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

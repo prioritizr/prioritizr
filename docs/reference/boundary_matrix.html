@@ -25,7 +25,7 @@ planning unit exhibits."><meta property="og:image" content="https://prioritizr.n
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.0.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.1</span>
       </span>
     </div>
 
@@ -106,25 +106,25 @@ planning unit exhibits.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">boundary_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">str_tree</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">boundary_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for Raster</span></span>
-<span><span class="fu">boundary_matrix</span><span class="op">(</span><span class="va">x</span>, str_tree <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu">boundary_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for SpatialPolygons</span></span>
-<span><span class="fu">boundary_matrix</span><span class="op">(</span><span class="va">x</span>, str_tree <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu">boundary_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for SpatialLines</span></span>
-<span><span class="fu">boundary_matrix</span><span class="op">(</span><span class="va">x</span>, str_tree <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu">boundary_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for SpatialPoints</span></span>
-<span><span class="fu">boundary_matrix</span><span class="op">(</span><span class="va">x</span>, str_tree <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu">boundary_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for sf</span></span>
-<span><span class="fu">boundary_matrix</span><span class="op">(</span><span class="va">x</span>, str_tree <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu">boundary_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for default</span></span>
-<span><span class="fu">boundary_matrix</span><span class="op">(</span><span class="va">x</span>, str_tree <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">boundary_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -138,17 +138,8 @@ planning unit exhibits.</p>
 layer.</p></dd>
 
 
-<dt>str_tree</dt>
-<dd><p><code>logical</code> should a GEOS STRtree structure be used to
-to pre-process data? If <code>TRUE</code>, then the experimental
-<code><a href="https://rdrr.io/pkg/rgeos/man/experimental-functions.html" class="external-link">rgeos::gUnarySTRtreeQuery()</a></code> function
-will be used to pre-compute which planning units are adjacent to
-each other and potentially reduce the processing time required to
-generate the boundary matrices. This argument is only used when
-the planning unit data are vector-based polygons (i.e.,
-<code><a href="https://rdrr.io/pkg/sp/man/SpatialPolygons.html" class="external-link">sp::SpatialPolygonsDataFrame()</a></code> objects). <strong>Note that
-using <code>TRUE</code> may crash Mac OSX systems.</strong> The default argument
-is <code>FALSE</code>.</p></dd>
+<dt>...</dt>
+<dd><p>not used.</p></dd>
 
 </dl></div>
     <div id="value">
@@ -169,12 +160,26 @@ diagonal indicate length of a given planning unit's edges that have no
 neighbors (e.g., for edges of planning units found along the
 coastline). <strong>This function assumes the data are in a coordinate
 system where Euclidean distances accurately describe the proximity
-between two points on the earth</strong>. Thus spatial data in a longitude/latitude
-coordinate system (i.e.,
+between two points on the earth</strong>. Thus spatial data in a
+longitude/latitude coordinate system (i.e.,
 <a href="https://spatialreference.org/ref/epsg/wgs-84/" class="external-link">WGS84</a>)
 should be reprojected to another coordinate system before using this
 function. Note that for <code><a href="https://rdrr.io/pkg/raster/man/Raster-classes.html" class="external-link">Raster</a></code> objects
 boundaries are missing for cells that have <code>NA</code> values in all cells.</p>
+    </div>
+    <div id="notes">
+    <h2>Notes</h2>
+    
+
+<p>In earlier versions, this function had an extra <code>str_tree</code> parameter
+that could be used to leverage STR query trees to speed up processing
+for planning units in vector format.
+Although this functionality improved performance, it was not
+enabled by default because the underlying function
+(i.e., <code>rgeos:gUnarySTRtreeQuery()</code>) was documented as experimental.
+The <code>boundary_matrix()</code> function has since been updated so that it will
+use STR query trees to speed up processing for planning units in vector
+format (using <code><a href="https://paleolimbot.github.io/geos/reference/geos_strtree.html" class="external-link">geos::geos_strtree()</a></code>).</p>
     </div>
 
     <div id="ref-examples">
@@ -196,10 +201,6 @@ boundaries are missing for cells that have <code>NA</code> values in all cells.<
 <span class="r-in"><span><span class="co"># create boundary matrix using polygon (sf) data</span></span></span>
 <span class="r-in"><span><span class="va">bm_ply2</span> <span class="op">&lt;-</span> <span class="fu">boundary_matrix</span><span class="op">(</span><span class="va">ply2</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># create boundary matrix with polygon (Spatial) data and GEOS STR query trees</span></span></span>
-<span class="r-in"><span><span class="co"># to speed up processing</span></span></span>
-<span class="r-in"><span><span class="va">bm_ply3</span> <span class="op">&lt;-</span> <span class="fu">boundary_matrix</span><span class="op">(</span><span class="va">ply</span>, <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot raster and boundary matrix</span></span></span>
 <span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
@@ -218,8 +219,6 @@ boundaries are missing for cells that have <code>NA</code> values in all cells.<
 <span class="r-plt img"><img src="boundary_matrix-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html" class="external-link">raster</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">bm_ply2</span><span class="op">)</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"boundary matrix"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
 <span class="r-in"><span>     box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html" class="external-link">raster</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">bm_ply3</span><span class="op">)</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"boundary matrix (Spatial, STR)"</span>,</span></span>
-<span class="r-in"><span>            axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-plt img"><img src="boundary_matrix-3.png" alt="" width="700" height="433"></span>
 </code></pre></div>
@@ -236,7 +235,7 @@ boundaries are missing for cells that have <code>NA</code> values in all cells.<
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

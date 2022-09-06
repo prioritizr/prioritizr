@@ -98,8 +98,8 @@ Note that you may also need to install several dependencies --
 such as the
 \href{https://cran.r-project.org/bin/windows/Rtools/}{Rtools software}
 or system libraries -- prior to installing the \pkg{rcbc} package.
-For further details on installing this package, please consult
-\href{https://dirkschumacher.github.io/rcbc/}{official installation instructions for the package}.
+For further details on installing this package, please consult the
+\href{https://dirkschumacher.github.io/rcbc/}{online package documentation}.
 }
 
 \section{Start solution format}{

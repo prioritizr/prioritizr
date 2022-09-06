@@ -774,7 +774,7 @@ test_that("x=matrix, features=data.frame, rij_matrix=dgCMatrix", {
                 rij_matrix = rij)
   x2 <- problem(as.matrix(pu[, 2:3]),
                 data.frame(id = seq_len(2), name = c("spp1", "spp2")),
-                rij_matrix = lapply(rij, methods::as, "dgCMatrix"))
+                rij_matrix = lapply(rij, as_Matrix, "dgCMatrix"))
   # verify that object can be printed
   suppressMessages(print(x1))
   suppressMessages(x1)

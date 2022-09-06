@@ -19,7 +19,7 @@ Rcpp::NumericMatrix rcpp_summarize_exactextractr(Rcpp::List x,
   const bool is_sum = fun == "sum";
 
   // verify that fun is valid
-  if ((fun != "sum") & (fun != "mean"))
+  if ((fun != "sum") && (fun != "mean"))
     Rcpp::stop("argument to fun must be mean or sum");
 
   // main processing

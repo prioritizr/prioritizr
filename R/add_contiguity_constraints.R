@@ -224,7 +224,7 @@ methods::setMethod("add_contiguity_constraints",
      inherits(data, c("NULL", "Matrix")))
     if (!is.null(data)) {
       # check argument to data if not NULL
-      data <- methods::as(data, "dgCMatrix")
+      data <- as_Matrix(data, "dgCMatrix")
       assertthat::assert_that(all(data@x %in% c(0, 1)),
         ncol(data) == nrow(data), number_of_total_units(x) == ncol(data),
         all(is.finite(data@x)), Matrix::isSymmetric(data))
@@ -261,7 +261,7 @@ methods::setMethod("add_contiguity_constraints",
           # create matrix
           data <- adjacency_matrix(x$data$cost)
           # coerce matrix to full matrix
-          data <- methods::as(data, "dgCMatrix")
+          data <- as_Matrix(data, "dgCMatrix")
           # store data
           self$set_data("matrix", data)
         }
@@ -314,5 +314,5 @@ methods::setMethod("add_contiguity_constraints",
   methods::signature("ConservationProblem", "ANY", "matrix"),
   function(x, zones, data) {
     # add constraints
-    add_contiguity_constraints(x, zones, methods::as(data, "dgCMatrix"))
+    add_contiguity_constraints(x, zones, as_Matrix(data, "dgCMatrix"))
 })

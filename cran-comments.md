@@ -1,6 +1,6 @@
 Dear CRAN maintainers,
 
-Thank you for reviewing this submission. It aims to re-instate the package on CRAN after it was archived on 2021-10-06. Specifically, it fixes the issue that previously resulted in archival. The issue was that a couple of the examples needed certain packages to be installed, and these packages were only listed under the Suggests field of the DESCRIPTION. Thus checking the examples without these packages resulted in errors (i.e. because they are not available on all platforms or given the `noSuggests` checks). To address the issue, the relevant parts of the examples have been encapsulated in `\dontrun{}` markup. This approach was used because the examples can potentially take a long time to run (> 30 seconds). Additionally, this submission contains several bug fixes and improvements to the documentation (see NEWS.md).
+Thank you for reviewing this submission. This submission provides substantial improvements to the package documentation; compatibility with updates to the _sf_, _gurobi_, _Matrix_ packages; reduces the number of hard dependencies; replaces the archived optional dependency _RandomFields_ with another dependency that is available on CRAN; adds new functions (such as `add_asym_connectivity_penalties()`); and includes assorted minor bug fixes (see NEWS.md for full list). It also address the compiler warnings and _exactextractr_ NOTE raised by CRAN's package checks.
 
 Cheers,
 
@@ -15,30 +15,20 @@ Richard Schuster
 * checking CRAN incoming feasibility ... NOTE
 
   Suggests or Enhances not in mainstream repositories:
-    gurobi, rcbc
+    gurobi, rcbc, cplexAPI
 
-  **The _gurobi_ and _rcbc_ R packages provide interfaces to optimization software. Although they are not available on CRAN, we provide instructions for installing these R packages in the DESCRIPTION file and the package documentation (see `?add_gurobi_solver`, `?add_cbc_solver`). Additioanlly, comprehensive instructions for installing the _gurobi_ R package are also provided in the Gurobi Installation Guide vignette (see `vignette('gurobi_installation', package = "prioritizr")`).**
+  **The _cplexAPI_, _gurobi_, and _rcbc_ R packages provide interfaces to optimization software. Although they are not available on CRAN, we provide instructions for installing these R packages in the DESCRIPTION file and the package documentation (see `?add_cplex_solver`, `?add_gurobi_solver`, `?add_cbc_solver`). Additionally, comprehensive instructions for installing the _gurobi_ R package are also provided in the Gurobi Installation Guide vignette (see `vignette('gurobi_installation', package = "prioritizr")`).**
 
-* Package was archived on CRAN
-
-  CRAN repository db overrides:
-  X-CRAN-Comment: Archived on 2021-10-06 as check problems were not
-    corrected in time.
-
-  **As previously mentioned, this version has been updated to fix the issues that resulted in archival.**
+  **We also wish to justify our inclusion of the archived _cplexAPI_ R package as an optional dependency. The _prioritizr_ R package aims to provide users with the ability to solve optimization problems using a variety of different software, and the _cplexAPI_ R package provides an interface to the IBM CPLEX software. Although compiler warnings resulted in the archival of the _cplexAPI_ R package, we have confirmed that it still works correctly and the source code remains publicly available (https://github.com/cran/cplexAPI). Thus we are confident that users will be able to use the _cplexAPI_ R package. Although the _Rcplex_ R package -- which is available on CRAN -- aims to provide a similar interface to the IBM CPLEX software, it is not a suitable replacement. This is because the _cplexAPI_ R package is not compatible with the latest version of the IBM CPLEX software. Despite attempts to contact the maintainer of the _Rcplex_ R package, we have not been successful and so the _Rcplex_ package remains unusable.**
 
 * Possibly misspelled words in DESCRIPTION:
   Gurobi (16:49, 18:5)
   MILP (7:18)
   optimality (12:5)
   pre (11:62)
+  CPLEX (19:9)
 
   **These words are spelled correctly.**
-
-* checking package dependencies ... NOTE
-  Packages suggested but not available for checking: 'gurobi', 'rcbc'
-
-  **The _gurobi_ and _rcbc_ R packages provide interfaces to optimization software. Although they are not available on CRAN, we provide instructions for installing these R packages in the package documentation (see `?add_gurobi_solver`, `?add_cbc_solver`). Comprehensive instructions for installing the _gurobi_ R package are also provided in the Gurobi Installation Guide vignette (see `vignette('gurobi_installation', package = "prioritizr")`). The DESCRIPTION file also provides information on installing these R packages.**
 
 ## Previous notes from CRAN maintainers
 
