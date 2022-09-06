@@ -139,10 +139,10 @@ test_that("sf (real data - simple shapes)", {
   skip_if_not_installed("prioritizrdata")
   # load data
   data(tas_pu, package = "prioritizrdata")
-  d <- tas_pu[c(300, 279), ]
+  d <- sf::st_as_sf(tas_pu[c(300, 279), ])
   # create matrices
-  x <- boundary_matrix(sf::st_as_sf(d))
-  y <- boundary_matrix(d)
+  x <- boundary_matrix(d)
+  y <- boundary_matrix(sf::as_Spatial(d))
   # tests
   expect_is(x, "dsCMatrix")
   expect_is(y, "dsCMatrix")
