@@ -50,6 +50,14 @@ It requires the \pkg{rcbc} package, which is currently only available on
 \href{https://github.com/dirkschumacher/rcbc}{GitHub}.
 }
 
+\item{\code{\link[=add_highs_solver]{add_highs_solver()}}}{\href{https://highs.dev/}{\emph{HiGHS}}) is an open
+source optimization software. Although formal benchmarks examining the
+performance of this solver for conservation planning problems have yet to
+be completed, preliminary analyses suggest that it performs much faster
+than some of the other open-source solvers (i.e.,
+\code{\link[=add_rsymphony_solver]{add_rsymphony_solver()}}, \code{\link[=add_lpsymphony_solver]{add_lpsymphony_solver()}}).
+}
+
 \item{\code{\link[=add_lpsymphony_solver]{add_lpsymphony_solver()}}}{
 \href{https://github.com/coin-or/SYMPHONY}{\emph{SYMPHONY}} is an
 open-source mixed integer programming solver that is also part of the
@@ -93,36 +101,43 @@ s <- stack()
 # if gurobi is installed: create problem with added gurobi solver
 if (require("gurobi")) {
   titles <- c(titles, "gurobi")
-  p3 <- p \%>\% add_gurobi_solver(verbose = FALSE)
-  s <- addLayer(s, solve(p3))
+  p1 <- p \%>\% add_gurobi_solver(verbose = FALSE)
+  s <- addLayer(s, solve(p1))
 }
 
 # if cplexAPI is installed: create problem with added CPLEX solver
 if (require("cplexAPI")) {
   titles <- c(titles, "CPLEX")
-  p4 <- p \%>\% add_cplex_solver(verbose = FALSE)
-  s <- addLayer(s, solve(p4))
+  p2 <- p \%>\% add_cplex_solver(verbose = FALSE)
+  s <- addLayer(s, solve(p2))
 }
 
-# if rcbc is installed: create problem with added cbc solver
+# if rcbc is installed: create problem with added CBC solver
 if (require("rcbc")) {
   titles <- c(titles, "CBC")
-  p6 <- p \%>\% add_cbc_solver(verbose = FALSE)
-  s <- addLayer(s, solve(p6))
+  p3 <- p \%>\% add_cbc_solver(verbose = FALSE)
+  s <- addLayer(s, solve(p3))
+}
+
+# if highs is installed: create problem with added HiGHs solver
+if (require("highs")) {
+  titles <- c(titles, "HiGHS")
+  p4 <- p \%>\% add_highs_solver(verbose = FALSE)
+  s <- addLayer(s, solve(p4))
 }
 
 # create problem with added rsymphony solver
 if (require("Rsymphony")) {
   titles <- c(titles, "Rsymphony")
-  p2 <- p \%>\% add_rsymphony_solver(verbose = FALSE)
-  s <- addLayer(s, solve(p2))
+  p5 <- p \%>\% add_rsymphony_solver(verbose = FALSE)
+  s <- addLayer(s, solve(p25))
 }
 
 # if lpsymphony is installed: create problem with added lpsymphony solver
 if (require("lpsymphony")) {
   titles <- c(titles, "lpsymphony")
-  p5 <- p \%>\% add_lpsymphony_solver(verbose = FALSE)
-  s <- addLayer(s, solve(p5))
+  p6 <- p \%>\% add_lpsymphony_solver(verbose = FALSE)
+  s <- addLayer(s, solve(p6))
 }
 
 # plot solutions

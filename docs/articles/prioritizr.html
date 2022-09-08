@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.1.1</span>
       </span>
     </div>
 
@@ -231,7 +231,7 @@
 <div class="section level2">
 <h2 id="prioritization">Prioritization<a class="anchor" aria-label="anchor" href="#prioritization"></a>
 </h2>
-<p>We can now solve the problem formulation (<code>p1</code>) to generate a prioritization (using the <code><a href="../reference/solve.html">solve()</a></code> function). The <em>prioritizr</em> R package supports a range of different exact algorithm solvers, including <em>Gurobi</em>, <em>IBM CPLEX</em>, <em>CBC</em>, <em>Rsymphony</em>, and <em>lpsymphony</em>. Although there are benefits and limitations associated with each of these different solvers, they should return similar results. Note that you will need at least one solver installed on your system to generate prioritizations. Since we did not specify a solver when building the problem, the <em>prioritizr R</em> package will automatically select the best available solver installed. We recommend using the <em>Gurobi</em> solver if possible, and have used it for this tutorial (see the <em>Gurobi Installation Guide</em> vignette for installation instructions). After solving the problem, the prioritization will be stored in the <code>solution_1</code> column of the <code>s1</code> object.</p>
+<p>We can now solve the problem formulation (<code>p1</code>) to generate a prioritization (using the <code><a href="../reference/solve.html">solve()</a></code> function). The <em>prioritizr</em> R package supports a range of different exact algorithm solvers, including <em>Gurobi</em>, <em>IBM CPLEX</em>, <em>CBC</em>, <em>HiGHS</em>, <em>Rsymphony</em>, and <em>lpsymphony</em>. Although there are benefits and limitations associated with each of these different solvers, they should return similar results. Note that you will need at least one solver installed on your system to generate prioritizations. Since we did not specify a solver when building the problem, the <em>prioritizr R</em> package will automatically select the best available solver installed. We recommend using the <em>Gurobi</em> solver if possible, and have used it for this tutorial (see the <em>Gurobi Installation Guide</em> vignette for installation instructions). After solving the problem, the prioritization will be stored in the <code>solution_1</code> column of the <code>s1</code> object.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></span></code></pre></div>
@@ -248,7 +248,7 @@
 <span><span class="co">## Found heuristic solution: objective 36805.575211</span></span>
 <span><span class="co">## Found heuristic solution: objective 27817.085072</span></span>
 <span><span class="co">## Presolve removed 2077 rows and 1375 columns</span></span>
-<span><span class="co">## Presolve time: 0.11s</span></span>
+<span><span class="co">## Presolve time: 0.12s</span></span>
 <span><span class="co">## Presolved: 4281 rows, 2903 columns, 9594 nonzeros</span></span>
 <span><span class="co">## Found heuristic solution: objective 24454.499456</span></span>
 <span><span class="co">## Variable types: 0 continuous, 2903 integer (2903 binary)</span></span>
@@ -256,7 +256,7 @@
 <span><span class="co">## Root relaxation presolved: 4281 rows, 2903 columns, 9594 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Root relaxation: objective 1.955605e+04, 1793 iterations, 0.23 seconds (0.19 work units)</span></span>
+<span><span class="co">## Root relaxation: objective 1.955605e+04, 1793 iterations, 0.27 seconds (0.19 work units)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
@@ -265,7 +265,7 @@
 <span><span class="co">## H    0     0                    23045.733138 19556.0531  15.1%     -    0s</span></span>
 <span><span class="co">## H    0     0                    22977.771015 19556.0531  14.9%     -    0s</span></span>
 <span><span class="co">##      0     0 19836.0586    0 1855 22977.7710 19836.0586  13.7%     -    0s</span></span>
-<span><span class="co">## H    0     0                    21702.297403 19836.0586  8.60%     -    0s</span></span>
+<span><span class="co">## H    0     0                    21702.297403 19836.0586  8.60%     -    1s</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Cutting planes:</span></span>
 <span><span class="co">##   Gomory: 2</span></span>
@@ -275,7 +275,7 @@
 <span><span class="co">##   Zero half: 2</span></span>
 <span><span class="co">##   RLT: 10</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 1 nodes (2393 simplex iterations) in 0.89 seconds (0.60 work units)</span></span>
+<span><span class="co">## Explored 1 nodes (2393 simplex iterations) in 1.03 seconds (0.60 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Solution count 7: 21702.3 22977.8 23045.7 ... 36805.6</span></span>
@@ -436,14 +436,14 @@
 <span><span class="co">## Found heuristic solution: objective 36805.575211</span></span>
 <span><span class="co">## Found heuristic solution: objective 27817.085072</span></span>
 <span><span class="co">## Presolve removed 1434 rows and 258 columns</span></span>
-<span><span class="co">## Presolve time: 0.05s</span></span>
+<span><span class="co">## Presolve time: 0.04s</span></span>
 <span><span class="co">## Presolved: 4924 rows, 4020 columns, 10889 nonzeros</span></span>
 <span><span class="co">## Variable types: 0 continuous, 4020 integer (4020 binary)</span></span>
 <span><span class="co">## Found heuristic solution: objective 27660.082384</span></span>
 <span><span class="co">## Root relaxation presolved: 4924 rows, 4020 columns, 10889 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Root relaxation: objective 1.954728e+04, 1905 iterations, 0.24 seconds (0.18 work units)</span></span>
+<span><span class="co">## Root relaxation: objective 1.954728e+04, 1905 iterations, 0.26 seconds (0.18 work units)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
@@ -477,44 +477,49 @@
 <span><span class="co">##      0     0 19995.5716    0 2038 22049.9565 19995.5716  9.32%     -    2s</span></span>
 <span><span class="co">##      0     0 19995.8374    0 2037 22049.9565 19995.8374  9.32%     -    2s</span></span>
 <span><span class="co">##      0     0 19996.1519    0 2039 22049.9565 19996.1519  9.31%     -    2s</span></span>
-<span><span class="co">##      0     0 19996.1519    0 2039 22049.9565 19996.1519  9.31%     -    2s</span></span>
+<span><span class="co">##      0     0 19996.1519    0 2039 22049.9565 19996.1519  9.31%     -    3s</span></span>
 <span><span class="co">##      0     2 19996.6237    0 2039 22049.9565 19996.6237  9.31%     -    3s</span></span>
 <span><span class="co">## H   27    27                    21471.431466 19996.6237  6.87%   117    4s</span></span>
-<span><span class="co">## H   52    52                    21371.814002 19996.6237  6.43%   115    4s</span></span>
+<span><span class="co">##     45    47 20881.5565   33 1483 21471.4315 19996.6237  6.87%   121    5s</span></span>
+<span><span class="co">## H   52    52                    21371.814002 19996.6237  6.43%   115    5s</span></span>
 <span><span class="co">## H   54    54                    21254.060213 19996.6237  5.92%   117    5s</span></span>
-<span><span class="co">## H  108   108                    21204.105802 19996.6237  5.69%   123    6s</span></span>
+<span><span class="co">## H  108   108                    21204.105802 19996.6237  5.69%   123    7s</span></span>
 <span><span class="co">## H  162   162                    21202.636805 19996.6237  5.69%   104    7s</span></span>
-<span><span class="co">## H  286   286                    21166.904542 19996.6237  5.53%  69.2    7s</span></span>
-<span><span class="co">## H  606   599                    20993.604430 19996.6237  4.75%  32.8   10s</span></span>
-<span><span class="co">##    623    10 20993.6044  209 1656 20993.6044 20012.9571  4.67%  32.0   16s</span></span>
-<span><span class="co">##    634    15 20993.6044  234 1965 20993.6044 20028.3465  4.60%  31.4   20s</span></span>
-<span><span class="co">##    651     8 20993.6044  348 1965 20993.6044 20028.7300  4.60%  37.6   25s</span></span>
-<span><span class="co">##    659    10 20993.6044  100 1965 20993.6044 20031.1575  4.58%  37.2   30s</span></span>
-<span><span class="co">##    673    14 20091.4377   24 1974 20993.6044 20082.6816  4.34%  45.4   35s</span></span>
-<span><span class="co">##    707    40 20660.5710   41 1494 20993.6044 20082.6816  4.34%  55.3   40s</span></span>
-<span><span class="co">## H  739    70                    20939.026645 20082.6816  4.09%  60.1   42s</span></span>
-<span><span class="co">##   1035   368          -  328      20939.0266 20082.6816  4.09%  52.7   45s</span></span>
-<span><span class="co">## H 1283   612                    20924.385117 20084.4398  4.01%  54.4   49s</span></span>
-<span><span class="co">##   1303   634 20719.8954   60 1379 20924.3851 20084.4398  4.01%  56.6   50s</span></span>
-<span><span class="co">##   1906  1235 20711.3558   40 1180 20924.3851 20092.6890  3.97%  49.1   55s</span></span>
-<span><span class="co">## H 1975  1297                    20813.687049 20092.6890  3.46%  50.6   56s</span></span>
-<span><span class="co">##   2452  1774 20437.2187   40 1576 20813.6870 20099.7124  3.43%  45.3   60s</span></span>
-<span><span class="co">##   3088  2408 20251.7444   26 1946 20813.6870 20109.8128  3.38%  41.5   65s</span></span>
-<span><span class="co">##   3137  2457 20856.2025   51  866 20813.6870 20109.8128  3.38%  45.3   70s</span></span>
-<span><span class="co">##   3681  2881 20629.9468   47 1389 20813.6870 20110.2720  3.38%  43.4   75s</span></span>
-<span><span class="co">##   4688  3613 20220.1821   27 1909 20813.6870 20148.3760  3.20%  37.9   80s</span></span>
-<span><span class="co">##   4924  3777 22913.1257  263    5 20813.6870 20148.3760  3.20%  38.8   85s</span></span>
-<span><span class="co">##   4945  3720 20258.1019   28 1789 20813.6870 20148.6068  3.20%  38.8   90s</span></span>
-<span><span class="co">##   5066  3794 21697.8474  101  473 20813.6870 20153.3149  3.17%  40.5   95s</span></span>
-<span><span class="co">##   5262  3845 20937.3000   64 1105 20813.6870 20155.9610  3.16%  43.0  100s</span></span>
-<span><span class="co">##   5803  4295 22318.3219  194   15 20813.6870 20166.6830  3.11%  42.0  105s</span></span>
-<span><span class="co">##   5907  4394 20751.2082   39 1821 20813.6870 20167.5494  3.10%  42.9  111s</span></span>
-<span><span class="co">##   6002  4475 20947.2152   53 1275 20813.6870 20171.2638  3.09%  44.3  115s</span></span>
-<span><span class="co">##   6782  4962 20679.8811   41 1745 20813.6870 20193.4219  2.98%  41.7  120s</span></span>
-<span><span class="co">##   7119  5098 20301.7456   32 1891 20813.6870 20195.6514  2.97%  42.5  125s</span></span>
-<span><span class="co">##   7293  5270 20499.3936   33 1890 20813.6870 20195.9413  2.97%  44.0  130s</span></span>
-<span><span class="co">##   7729  5527 20991.7704   67  588 20813.6870 20197.6282  2.96%  44.0  135s</span></span>
-<span><span class="co">##   8464  5554 20504.0192   32 1907 20813.6870 20200.5188  2.95%  42.3  140s</span></span>
+<span><span class="co">## H  286   286                    21166.904542 19996.6237  5.53%  69.2    8s</span></span>
+<span><span class="co">## H  606   599                    20993.604430 19996.6237  4.75%  32.8   11s</span></span>
+<span><span class="co">##    618     7 20993.6044  535 1949 20993.6044 20003.8143  4.71%  32.2   15s</span></span>
+<span><span class="co">##    631    15 20993.6044  182 1965 20993.6044 20027.8276  4.60%  31.5   20s</span></span>
+<span><span class="co">##    638    15 20993.6044  494 1965 20993.6044 20028.7300  4.60%  31.2   25s</span></span>
+<span><span class="co">##    653     7 20993.6044   41 1961 20993.6044 20030.1664  4.59%  37.5   30s</span></span>
+<span><span class="co">##    662    12 20993.6044   74 1964 20993.6044 20031.4177  4.58%  37.0   36s</span></span>
+<span><span class="co">##    675    16 20109.6498   25 1696 20993.6044 20082.6816  4.34%  46.2   40s</span></span>
+<span><span class="co">##    707    40 20660.5710   41 1494 20993.6044 20082.6816  4.34%  55.3   45s</span></span>
+<span><span class="co">## H  739    70                    20939.026645 20082.6816  4.09%  60.1   48s</span></span>
+<span><span class="co">##    800   133 21061.1234   93  221 20939.0266 20082.6816  4.09%  64.8   50s</span></span>
+<span><span class="co">##   1265   596 20413.8331   41 1550 20939.0266 20084.4398  4.08%  52.1   55s</span></span>
+<span><span class="co">## H 1283   612                    20924.385117 20084.4398  4.01%  54.4   56s</span></span>
+<span><span class="co">##   1874  1203 20128.7731   24 1673 20924.3851 20092.6890  3.97%  44.9   60s</span></span>
+<span><span class="co">## H 1975  1297                    20813.687049 20092.6890  3.46%  50.6   64s</span></span>
+<span><span class="co">##   2257  1581 22192.6635  364   49 20813.6870 20092.6890  3.46%  44.7   65s</span></span>
+<span><span class="co">##   2466  1788 20516.6914   41 1847 20813.6870 20099.7124  3.43%  47.2   70s</span></span>
+<span><span class="co">##   3092  2412 20333.3528   26 1853 20813.6870 20109.8128  3.38%  41.9   75s</span></span>
+<span><span class="co">##   3129  2449 20821.3229   47 1774 20813.6870 20109.8128  3.38%  44.9   80s</span></span>
+<span><span class="co">##   3664  2864 20437.9569   36 1840 20813.6870 20110.2720  3.38%  42.7   85s</span></span>
+<span><span class="co">##   4187  3242 20659.3056   36 1866 20813.6870 20130.7144  3.28%  41.0   90s</span></span>
+<span><span class="co">##   4748  3673 21432.0830   87  958 20813.6870 20148.3760  3.20%  39.2   95s</span></span>
+<span><span class="co">##   4945  3720 20258.1019   28 1789 20813.6870 20148.6068  3.20%  38.8  103s</span></span>
+<span><span class="co">##   4997  3747 20427.9757   32 1763 20813.6870 20153.3149  3.17%  39.5  105s</span></span>
+<span><span class="co">##   5192  3775 20285.7122   29 1944 20813.6870 20155.9610  3.16%  40.5  110s</span></span>
+<span><span class="co">##   5320  3899 21227.8710  123  708 20813.6870 20155.9610  3.16%  43.2  115s</span></span>
+<span><span class="co">##   5882  4369 20183.1071   30 1917 20813.6870 20167.5494  3.10%  41.5  120s</span></span>
+<span><span class="co">##   5907  4394 20751.2082   39 1821 20813.6870 20167.5494  3.10%  42.9  127s</span></span>
+<span><span class="co">##   5984  4457 20452.0197   35 1738 20813.6870 20171.2638  3.09%  43.9  130s</span></span>
+<span><span class="co">##   6431  4797 21316.0177   81  510 20813.6870 20187.3737  3.01%  43.0  135s</span></span>
+<span><span class="co">##   6924  5102 20599.4249   36 1890 20813.6870 20193.4398  2.98%  42.4  140s</span></span>
+<span><span class="co">##   7165  5144 21480.4102   78 1229 20813.6870 20195.6514  2.97%  43.3  145s</span></span>
+<span><span class="co">##   7328  5305 20807.1647   51 1215 20813.6870 20195.9413  2.97%  44.9  150s</span></span>
+<span><span class="co">##   8019  5512 20515.8324   34 1845 20813.6870 20200.4590  2.95%  43.0  155s</span></span>
+<span><span class="co">##   8485  5575 20643.4963   43 1712 20813.6870 20200.5188  2.95%  42.7  160s</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Cutting planes:</span></span>
 <span><span class="co">##   Gomory: 7</span></span>
@@ -526,7 +531,7 @@
 <span><span class="co">##   Zero half: 22</span></span>
 <span><span class="co">##   RLT: 24</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 8610 nodes (373301 simplex iterations) in 142.54 seconds (90.12 work units)</span></span>
+<span><span class="co">## Explored 8610 nodes (373301 simplex iterations) in 161.65 seconds (90.12 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Solution count 1000: 20813.7 20924.4 20939 ... 22442.4</span></span>
@@ -674,7 +679,7 @@
 <span><span class="co">##   RHS range        [5e+03, 3e+05]</span></span>
 <span><span class="co">## Found heuristic solution: objective 1.221202e+08</span></span>
 <span><span class="co">## Presolve removed 4707 rows and 3103 columns</span></span>
-<span><span class="co">## Presolve time: 0.12s</span></span>
+<span><span class="co">## Presolve time: 0.13s</span></span>
 <span><span class="co">## Presolved: 5368 rows, 3677 columns, 12704 nonzeros</span></span>
 <span><span class="co">## Variable types: 0 continuous, 3677 integer (3677 binary)</span></span>
 <span><span class="co">## Found heuristic solution: objective 1.009944e+08</span></span>
@@ -688,7 +693,7 @@
 <span><span class="co">## </span></span>
 <span><span class="co">##      0     0 9.5648e+07    0   20 1.0099e+08 9.5648e+07  5.29%     -    0s</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 1 nodes (521 simplex iterations) in 0.16 seconds (0.10 work units)</span></span>
+<span><span class="co">## Explored 1 nodes (521 simplex iterations) in 0.18 seconds (0.10 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Solution count 2: 1.00994e+08 1.2212e+08 </span></span>

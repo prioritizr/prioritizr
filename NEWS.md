@@ -1,3 +1,8 @@
+# prioritizr 7.2.1.1
+
+- New `add_highs_solver()` function to solve problems using the HiGHS
+  optimization software.
+
 # prioritizr 7.2.1
 
 - Release candidate for CRAN.

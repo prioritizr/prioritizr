@@ -40,6 +40,7 @@ Other solvers:
 \code{\link{add_cbc_solver}()},
 \code{\link{add_cplex_solver}()},
 \code{\link{add_gurobi_solver}()},
+\code{\link{add_highs_solver}()},
 \code{\link{add_lsymphony_solver}},
 \code{\link{add_rsymphony_solver}()}
 }
