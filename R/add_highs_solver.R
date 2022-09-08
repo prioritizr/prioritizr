@@ -116,7 +116,10 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
         types = x$vtype(),
         lower = x$lb(),
         upper = x$ub())
-
+      # round values < 1e-6 to zero and drop them
+      model$A@x[abs(model$A@x) < 1e-6] <- 0
+      model$A <- Matrix::drop0(model$A)
+      model$L[abs(model$L) < 1e-6] <- 0
       # set variables types
       ## C = continuous (same as gurobi)
       ## I = integer (same as gurobi)

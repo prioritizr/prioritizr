@@ -114,6 +114,40 @@ test_that("threads patched", {
   expect_equal(raster::getValues(s1), raster::getValues(s2))
 })
 
+test_that("small values in constraint matrix", {
+  skip_if_not_installed("highs")
+  # make data
+  data(sim_pu_raster, sim_features)
+  sim_features[[1]][1] <- 1e-10
+  p1 <- problem(sim_pu_raster, sim_features) %>%
+        add_min_set_objective() %>%
+        add_relative_targets(0.1) %>%
+        add_binary_decisions() %>%
+        add_highs_solver(time_limit = 5, threads = 1, verbose = FALSE)
+  s1 <- solve(p1, force = TRUE, run_checks = FALSE)
+  # tests
+  expect_is(s1, "Raster")
+  expect_equal(raster::nlayers(s1), 1)
+  expect_equal(sort(unique(raster::getValues(s1))), c(0, 1))
+})
+
+test_that("small values in objective function", {
+  skip_if_not_installed("highs")
+  # make data
+  data(sim_pu_raster, sim_features)
+  sim_pu_raster[[1]][1] <- 1e-10
+  p1 <- problem(sim_pu_raster, sim_features) %>%
+        add_min_set_objective() %>%
+        add_relative_targets(0.1) %>%
+        add_binary_decisions() %>%
+        add_highs_solver(time_limit = 5, threads = 1, verbose = FALSE)
+  s1 <- solve(p1, force = TRUE, run_checks = FALSE)
+  # tests
+  expect_is(s1, "Raster")
+  expect_equal(raster::nlayers(s1), 1)
+  expect_equal(sort(unique(raster::getValues(s1))), c(0, 1))
+})
+
 test_that("mix of binary and continuous variables", {
   skip_on_cran()
   skip_if_not_installed("highs")
