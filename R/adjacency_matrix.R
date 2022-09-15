@@ -46,6 +46,10 @@ NULL
 #' @rdname adjacency_matrix
 #'
 #' @examples
+#' \dontrun{
+#' # load packages
+#' library(raster)
+#'
 #' # load data
 #' data(sim_pu_raster, sim_pu_sf, sim_pu_lines)
 #'
@@ -71,7 +75,6 @@ NULL
 #' am_lns <- adjacency_matrix(lns)
 #'
 #' # plot data and the adjacency matrices
-#' \dontrun{
 #' par(mfrow = c(4,2))
 #'
 #' ## plot raster and adjacency matrix

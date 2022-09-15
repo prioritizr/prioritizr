@@ -68,6 +68,9 @@ NULL
 #' @family overviews
 #'
 #' @examples
+#' # load packages
+#' library(raster)
+#'
 #' # load data
 #' data(sim_pu_raster, sim_features, sim_locked_in_raster,
 #'      sim_locked_out_raster)

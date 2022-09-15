@@ -20,6 +20,7 @@ NULL
 #' @inherit marxan_boundary_data_to_matrix return
 #'
 #' @examples
+#' \dontrun{
 #' # create marxan connectivity data with four planning units and one zone,
 #' # and symmetric connectivity values
 #' bldf1 <- expand.grid(id1 = seq_len(4), id2 = seq_len(4))
@@ -36,9 +37,8 @@ NULL
 #' print(m1)
 #'
 #' # visualize matrix
-#' \dontrun{
 #' image(m1)
-#' }
+#'
 #' # create marxan connectivity data with four planning units and one zone,
 #' # and asymmetric connectivity values
 #' bldf2 <- expand.grid(id1 = seq_len(4), id2 = seq_len(4))
@@ -55,9 +55,8 @@ NULL
 #' print(m2)
 #'
 #' # visualize matrix
-#' \dontrun{
 #' image(m2)
-#' }
+#'
 #' # create marxan connectivity with three planning units and two zones,
 #' # and symmetric connectivity values
 #' bldf3 <- expand.grid(id1 = seq_len(3), id2 = seq_len(3),
@@ -75,6 +74,7 @@ NULL
 #'
 #' # print array
 #' print(m3)
+#' }
 #' @export
 marxan_connectivity_data_to_matrix <- function(x, data, symmetric = TRUE) {
   # assert that argument to data is valid

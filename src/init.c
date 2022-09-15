@@ -60,7 +60,6 @@ extern SEXP _prioritizr_rcpp_optimization_problem_as_list(SEXP);
 extern SEXP _prioritizr_rcpp_predefined_optimization_problem(SEXP);
 extern SEXP _prioritizr_rcpp_set_optimization_problem_shuffled(SEXP);
 extern SEXP _prioritizr_rcpp_sp_to_polyset(SEXP, SEXP, SEXP);
-extern SEXP _prioritizr_rcpp_str_tree_to_sparse_matrix(SEXP);
 extern SEXP _prioritizr_rcpp_summarize_exactextractr(SEXP, SEXP, SEXP, SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
@@ -116,7 +115,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_prioritizr_rcpp_predefined_optimization_problem",                   (DL_FUNC) &_prioritizr_rcpp_predefined_optimization_problem,                   1},
     {"_prioritizr_rcpp_set_optimization_problem_shuffled",                 (DL_FUNC) &_prioritizr_rcpp_set_optimization_problem_shuffled,                 1},
     {"_prioritizr_rcpp_sp_to_polyset",                                     (DL_FUNC) &_prioritizr_rcpp_sp_to_polyset,                                     3},
-    {"_prioritizr_rcpp_str_tree_to_sparse_matrix",                         (DL_FUNC) &_prioritizr_rcpp_str_tree_to_sparse_matrix,                         1},
     {"_prioritizr_rcpp_summarize_exactextractr",                           (DL_FUNC) &_prioritizr_rcpp_summarize_exactextractr,                           4},
     {NULL, NULL, 0}
 };

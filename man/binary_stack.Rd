@@ -26,6 +26,9 @@ for preparing raster data for \code{\link[=add_locked_in_constraints]{add_locked
 \code{\linkS4class{RasterStack}} objects as input arguments.
 }
 \examples{
+# load packages
+library(raster)
+
 # create raster with categorical identifers
 x <- raster(matrix(c(1, 2, 3, 1, NA, 1), nrow = 3))
 
@@ -34,7 +37,8 @@ y <- binary_stack(x)
 
 # plot categorical raster and binary stack representation
 \dontrun{
-plot(stack(x, y), main = c("x", "y[[1]]", "y[[2]]", "y[[3]]"), nr = 1)
+plot(stack(x, y), main = c("x", "y[[1]]", "y[[2]]", "y[[3]]"),
+     nr = 1)
 }
 }
 \seealso{

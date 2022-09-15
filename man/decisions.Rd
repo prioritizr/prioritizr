@@ -48,6 +48,9 @@ entire area encompassed by any single planning unit.}
 }
 }
 \examples{
+# load packages
+library(raster)
+
 # load data
 data(sim_pu_raster, sim_features)
 

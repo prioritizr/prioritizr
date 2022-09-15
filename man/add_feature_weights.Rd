@@ -70,7 +70,9 @@ fulfilling each target.}
 }
 
 \examples{
-# load ape package
+\dontrun{
+# load packages
+library(raster)
 require(ape)
 
 # load data
@@ -99,20 +101,18 @@ p2 <- p1 \%>\% add_feature_weights(w2)
 # denote higher extinction risk)
 w3 <- c(0, 0, 0, 100, 200)
 p3 <- p1 \%>\% add_feature_weights(w3)
-\dontrun{
+
 # solve problems
 s1 <- stack(solve(p1), solve(p2), solve(p3))
 
 # plot solutions
 plot(s1, main = c("equal weights", "rarity weights", "manual weights"),
      axes = FALSE, box = FALSE)
-}
 
 # plot the example phylogeny
-\dontrun{
 par(mfrow = c(1, 1))
 plot(sim_phylogeny, main = "simulated phylogeny")
-}
+
 # create problem with a maximum phylogenetic diversity objective,
 # where each feature needs 10\% of its distribution to be secured for
 # it to be adequately conserved and a total budget of 1900
@@ -121,7 +121,7 @@ p4 <- problem(sim_pu_raster, sim_features) \%>\%
       add_relative_targets(0.1) \%>\%
       add_binary_decisions() \%>\%
       add_default_solver(verbose = FALSE)
-\dontrun{
+
 # solve problem
 s4 <- solve(p4)
 
@@ -136,7 +136,7 @@ print(r4, width = Inf)
 plot(sim_phylogeny, main = "represented features",
      tip.color = replace(rep("black", nlayers(sim_features)),
                          which(r4$met), "red"))
-}
+
 # we can see here that the third feature ("layer.3", i.e.,
 # sim_features[[3]]) is not represented in the solution. Let us pretend
 # that it is absolutely critical this feature is adequately conserved
@@ -152,7 +152,7 @@ w5 <- c(0, 0, 1000, 0, 0)
 # the branch lengths in the phylogeny so solutions that represent this
 # feature be much closer to optimality
 print(sim_phylogeny$edge.length)
-\dontrun{
+
 # create problem with high weighting for the third feature and solve it
 s5 <- p4 \%>\% add_feature_weights(w5) \%>\% solve()
 
@@ -171,7 +171,7 @@ print(r5, width = Inf)
 plot(sim_phylogeny, main = "represented features",
      tip.color = replace(rep("black", nlayers(sim_features)),
                          which(r5$met), "red"))
-}
+
 # create multi-zone problem with maximum features objective,
 # with 10\% representation targets for each feature, and set
 # a budget such that the total maximum expenditure in all zones
@@ -192,7 +192,7 @@ w7[3, 1] <- 100
 
 # create problem with weights
 p7 <- p6 \%>\% add_feature_weights(w7)
-\dontrun{
+
 # solve problems
 s6 <- solve(p6)
 s7 <- solve(p7)
@@ -200,7 +200,7 @@ s7 <- solve(p7)
 # plot solutions
 plot(stack(category_layer(s6), category_layer(s7)),
      main = c("equal weights", "manual weights"), axes = FALSE, box = FALSE)
-}
+
 # create minimal problem to show the correct method for setting
 # weights for problems with manual targets
 p8 <- problem(sim_pu_raster, sim_features) \%>\%
@@ -211,7 +211,7 @@ p8 <- problem(sim_pu_raster, sim_features) \%>\%
       add_feature_weights(matrix(c(1, 200), ncol = 1)) \%>\%
       add_binary_decisions() \%>\%
       add_default_solver(verbose = FALSE)
-\dontrun{
+
 # solve problem
 s8 <- solve(p8)
 

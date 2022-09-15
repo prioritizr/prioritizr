@@ -79,6 +79,9 @@ NULL
 #'
 #' @examples
 #' \dontrun{
+#' # load packages
+#' library(raster)
+#'
 #' # load data
 #' data(sim_pu_raster, sim_pu_polygons, sim_features)
 #'

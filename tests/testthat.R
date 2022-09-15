@@ -1,18 +1,32 @@
-# load packages
-library(testthat)
-library(prioritizr)
+# determine if tests should be skipped
+is_skip <- !identical(Sys.getenv("NOT_CRAN"), "true")
 
-# load solver packages
-require(gurobi)
-require(lpsymphony)
-require(Rsymphony)
+# run tests if needed
+if (!is_skip) {
+  ## load packages
+  library(testthat)
+  library(prioritizr)
 
-# enable parallel testing
-Sys.unsetenv("R_TESTS")
+  ## load spatial packages
+  library(sp)
+  library(sf)
+  library(raster)
 
-# run tests
-## except on CRAN's Windows systems to reduce test timings
-if ((!identical(.Platform$OS.type, "windows")) &&
-  identical(Sys.getenv("NOT_CRAN"), "true")) {
+  ## load solver packages
+  require(gurobi)
+  require(lpsymphony)
+  require(Rsymphony)
+
+  ## enable parallel testing
+  Sys.unsetenv("R_TESTS")
+
+  ## determine reporter
+  if (identical(Sys.getenv("CI"), "true")) {
+    reporter <- "progress"
+  } else {
+    reporter <- testthat::check_reporter()
+  }
+
+  ## check tests
   test_check("prioritizr")
 }

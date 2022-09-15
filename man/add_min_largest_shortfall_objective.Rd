@@ -72,6 +72,7 @@ and infinity.
 }
 
 \examples{
+\dontrun{
 # load data
 data(sim_pu_raster, sim_pu_zones_stack, sim_features, sim_features_zones)
 
@@ -81,13 +82,12 @@ p1 <- problem(sim_pu_raster, sim_features) \%>\%
       add_relative_targets(0.1) \%>\%
       add_binary_decisions() \%>\%
       add_default_solver(verbose = FALSE)
-\dontrun{
+
 # solve problem
 s1 <- solve(p1)
 
 # plot solution
 plot(s1, main = "solution", axes = FALSE, box = FALSE)
-}
 
 # create multi-zone problem with minimum largest shortfall objective,
 # with 10\% representation targets for each feature, and set
@@ -98,13 +98,13 @@ p2 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
       add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) \%>\%
       add_binary_decisions() \%>\%
       add_default_solver(verbose = FALSE)
-\dontrun{
+
 # solve problem
 s2 <- solve(p2)
 
 # plot solution
 plot(category_layer(s2), main = "solution", axes = FALSE, box = FALSE)
-}
+
 # create multi-zone problem with minimum largest shortfall objective,
 # with 10\% representation targets for each feature, and set
 # separate budgets of 1800 for each management zone
@@ -113,7 +113,7 @@ p3 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
       add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) \%>\%
       add_binary_decisions() \%>\%
       add_default_solver(verbose = FALSE)
-\dontrun{
+
 # solve problem
 s3 <- solve(p3)
 

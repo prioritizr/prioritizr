@@ -31,6 +31,9 @@ minimum amount of each feature required in the prioritization.}
 }
 }
 \examples{
+# load packages
+library(raster)
+
 # load data
 data(sim_pu_raster, sim_features)
 

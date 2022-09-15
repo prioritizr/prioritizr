@@ -82,6 +82,7 @@ Church \emph{et al.} (1996). The old formulation is now provided by the
 }
 
 \examples{
+\dontrun{
 # load data
 data(sim_pu_raster, sim_pu_zones_stack, sim_features, sim_features_zones)
 
@@ -98,13 +99,12 @@ p1 <- problem(sim_pu_raster, sim_binary_features) \%>\%
       add_max_cover_objective(500) \%>\%
       add_binary_decisions() \%>\%
       add_default_solver(verbose = FALSE)
-\dontrun{
+
 # solve problem
 s1 <- solve(p1)
 
 # plot solution
 plot(s1, main = "solution", axes = FALSE, box = FALSE)
-}
 
 # threshold the multi-zone feature data to generate binary biodiversity data
 sim_binary_features_zones <- sim_features_zones
@@ -123,13 +123,12 @@ p2 <- problem(sim_pu_zones_stack, sim_binary_features_zones) \%>\%
       add_max_cover_objective(800) \%>\%
       add_binary_decisions() \%>\%
       add_default_solver(verbose = FALSE)
-\dontrun{
+
 # solve problem
 s2 <- solve(p2)
 
 # plot solution
 plot(category_layer(s2), main = "solution", axes = FALSE, box = FALSE)
-}
 
 # create multi-zone problem with maximum utility objective that
 # has separate budgets for each zone
@@ -137,7 +136,7 @@ p3 <- problem(sim_pu_zones_stack, sim_binary_features_zones) \%>\%
       add_max_cover_objective(c(400, 400, 400)) \%>\%
       add_binary_decisions() \%>\%
       add_default_solver(verbose = FALSE)
-\dontrun{
+
 # solve problem
 s3 <- solve(p3)
 

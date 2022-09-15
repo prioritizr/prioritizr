@@ -55,6 +55,7 @@ NULL
 #'   added to it.
 #'
 #' @examples
+#' \dontrun{
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -67,13 +68,12 @@ NULL
 #'       add_relative_targets(0.1) %>%
 #'       add_binary_decisions() %>%
 #'       add_default_solver(verbose = FALSE)
-#' \dontrun{
+#'
 #' # solve problem
 #' s1 <- solve(p1)
 #'
 #' # plot solution
 #' plot(s1, main = "solution", axes = FALSE, box = FALSE)
-#' }
 #'
 #' # create multi-zone problem with minimum set objective
 #' targets_matrix <- matrix(rpois(15, 1), nrow = 5, ncol = 3)
@@ -83,7 +83,7 @@ NULL
 #'       add_absolute_targets(targets_matrix) %>%
 #'       add_binary_decisions() %>%
 #'       add_default_solver(verbose = FALSE)
-#' \dontrun{
+#'
 #' # solve problem
 #' s2 <- solve(p2)
 #'

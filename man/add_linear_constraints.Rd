@@ -133,6 +133,9 @@ contain a layer for each zone.}
 }
 
 \examples{
+# load packages
+library(raster)
+
 # load data
 data(sim_pu_raster, sim_features)
 

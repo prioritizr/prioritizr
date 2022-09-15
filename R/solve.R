@@ -113,6 +113,7 @@ NULL
 #' reformat solutions that contain multiple zones.
 #'
 #' @examples
+#' \dontrun{
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -126,7 +127,7 @@ NULL
 #'       add_relative_targets(0.1) %>%
 #'       add_binary_decisions() %>%
 #'       add_default_solver(verbose = FALSE)
-#' \dontrun{
+#'
 #' # solve the problem
 #' s1 <- solve(p1)
 #'
@@ -144,14 +145,14 @@ NULL
 #'
 #' # plot solution
 #' plot(s1, main = "solution", axes = FALSE, box = FALSE)
-#' }
+#'
 #' # build minimal conservation problem with polygon (Spatial) data
 #' p2 <- problem(sim_pu_polygons, sim_features, cost_column = "cost") %>%
 #'       add_min_set_objective() %>%
 #'       add_relative_targets(0.1) %>%
 #'       add_binary_decisions() %>%
 #'       add_default_solver(verbose = FALSE)
-#' \dontrun{
+#'
 #' # solve the problem
 #' s2 <- solve(p2)
 #'
@@ -164,7 +165,7 @@ NULL
 #'
 #' # plot solution
 #' spplot(s2, zcol = "solution_1", main = "solution", axes = FALSE, box = FALSE)
-#' }
+#'
 #'
 #' # build minimal conservation problem with polygon (sf) data
 #' p3 <- problem(sim_pu_sf, sim_features, cost_column = "cost") %>%
@@ -172,7 +173,7 @@ NULL
 #'       add_relative_targets(0.1) %>%
 #'       add_binary_decisions() %>%
 #'       add_default_solver(verbose = FALSE)
-#' \dontrun{
+#'
 #' # solve the problem
 #' s3 <- solve(p3)
 #'
@@ -185,7 +186,7 @@ NULL
 #'
 #' # plot solution
 #' plot(s3[, "solution_1"])
-#' }
+#'
 #'
 #' # build multi-zone conservation problem with raster data
 #' p4 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
@@ -194,7 +195,7 @@ NULL
 #'                                   ncol = 3)) %>%
 #'       add_binary_decisions() %>%
 #'       add_default_solver(verbose = FALSE)
-#' \dontrun{
+#'
 #' # solve the problem
 #' s4 <- solve(p4)
 #'
@@ -207,7 +208,7 @@ NULL
 #'
 #' # plot solution
 #' plot(category_layer(s4), main = "solution", axes = FALSE, box = FALSE)
-#' }
+#'
 #' # build multi-zone conservation problem with polygon (sf) data
 #' p5 <- problem(sim_pu_zones_sf, sim_features_zones,
 #'               cost_column = c("cost_1", "cost_2", "cost_3")) %>%
@@ -216,7 +217,7 @@ NULL
 #'                                   ncol = 3)) %>%
 #'       add_binary_decisions() %>%
 #'       add_default_solver(verbose = FALSE)
-#' \dontrun{
+#'
 #' # solve the problem
 #' s5 <- solve(p5)
 #'

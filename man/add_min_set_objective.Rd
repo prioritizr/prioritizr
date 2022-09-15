@@ -52,6 +52,7 @@ all the representation targets while minimizing the overall cost.
 }
 
 \examples{
+\dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -64,13 +65,12 @@ p1 <- problem(sim_pu_raster, sim_features) \%>\%
       add_relative_targets(0.1) \%>\%
       add_binary_decisions() \%>\%
       add_default_solver(verbose = FALSE)
-\dontrun{
+
 # solve problem
 s1 <- solve(p1)
 
 # plot solution
 plot(s1, main = "solution", axes = FALSE, box = FALSE)
-}
 
 # create multi-zone problem with minimum set objective
 targets_matrix <- matrix(rpois(15, 1), nrow = 5, ncol = 3)
@@ -80,7 +80,7 @@ p2 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
       add_absolute_targets(targets_matrix) \%>\%
       add_binary_decisions() \%>\%
       add_default_solver(verbose = FALSE)
-\dontrun{
+
 # solve problem
 s2 <- solve(p2)
 

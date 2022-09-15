@@ -4,7 +4,6 @@ output:
   rmarkdown::html_vignette:
     toc: true
     fig_caption: true
-    self_contained: yes
 fontsize: 11pt
 documentclass: article
 bibliography: references.bib
@@ -17,8 +16,11 @@ vignette: >
 ```{r, include = FALSE}
 is_check <- ("CheckExEnv" %in% search()) || any(c("_R_CHECK_TIMINGS_",
              "_R_CHECK_LICENSE_") %in% names(Sys.getenv()))
-knitr::opts_chunk$set(fig.align = "center", eval = !is_check,
-                      root.dir = normalizePath("../.."))
+knitr::opts_chunk$set(
+  fig.align = "center",
+  eval = !is_check, purl = !is_check,
+  root.dir = normalizePath("../..")
+)
 ```
 
 ## Introduction

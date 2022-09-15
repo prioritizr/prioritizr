@@ -42,6 +42,9 @@ NULL
 #'
 #' @examples
 #' \dontrun{
+#' # load packages
+#' library(raster)
+#'
 #' # set seed for reproducibility
 #' set.seed(600)
 #'
@@ -81,8 +84,8 @@ NULL
 #' print(length(s2))
 #'
 #' # plot solutions in portfolio
-#' plot(stack(lapply(s2, category_layer)), main = "solution", axes = FALSE,
-#'      box = FALSE)
+#' plot(stack(lapply(s2, category_layer)),
+#'      main = "solution", axes = FALSE, box = FALSE)
 #' }
 #' @name add_gap_portfolio
 NULL

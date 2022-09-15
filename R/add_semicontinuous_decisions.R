@@ -28,6 +28,7 @@ NULL
 #' @family decisions
 #'
 #' @examples
+#' \dontrun{
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -40,13 +41,13 @@ NULL
 #'       add_relative_targets(0.1) %>%
 #'       add_semicontinuous_decisions(0.5) %>%
 #'       add_default_solver(verbose = FALSE)
-#' \dontrun{
+#'
 #' # solve problem
 #' s1 <- solve(p1)
 #'
 #' # plot solutions
 #' plot(s1, main = "solution")
-#' }
+#'
 #' # build multi-zone conservation problem with semi-continuous decisions
 #' p2 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
 #'       add_min_set_objective() %>%
@@ -54,7 +55,7 @@ NULL
 #'                                   ncol = 3)) %>%
 #'       add_semicontinuous_decisions(0.5) %>%
 #'       add_default_solver(verbose = FALSE)
-#' \dontrun{
+#'
 #' # solve the problem
 #' s2 <- solve(p2)
 #'

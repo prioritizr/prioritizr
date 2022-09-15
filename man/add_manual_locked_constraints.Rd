@@ -55,6 +55,7 @@ containing proportion-type decision variables (using the
 }
 
 \examples{
+\dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -77,7 +78,7 @@ locked_data <- data.frame(pu = which(sim_pu_polygons$locked_in),
                           status = 1)
 
 p3 <- p1 \%>\% add_manual_locked_constraints(locked_data)
-\dontrun{
+
 # solve problems
 s1 <- solve(p1)
 s2 <- solve(p2)
@@ -93,7 +94,7 @@ plot(s2[s2$solution_1 == 1, ], col = "darkgreen", add = TRUE)
 
 plot(s3, main = "add_manual_constraints")
 plot(s3[s3$solution_1 == 1, ], col = "darkgreen", add = TRUE)
-}
+
 # create minimal problem with multiple zones
 p4 <- problem(sim_pu_zones_polygons, sim_features_zones,
               c("cost_1", "cost_2", "cost_3")) \%>\%
@@ -117,7 +118,7 @@ print(locked_data2)
 
 # create problem with added constraints
 p5 <- p4 \%>\% add_manual_locked_constraints(locked_data2)
-\dontrun{
+
 # solve problem
 s4 <- solve(p4)
 s5 <- solve(p5)

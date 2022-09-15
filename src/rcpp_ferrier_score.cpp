@@ -5,7 +5,6 @@ arma::sp_mat rcpp_ferrier_score(
   arma::sp_mat &rij, Rcpp::NumericVector &targets, double portfolio_size,
   arma::sp_mat &out) {
   // initialize variables
-  const std::size_t n_elem = rij.n_nonzero;
   const double n_pu = static_cast<double>(rij.n_cols);
   const double n_f = static_cast<double>(rij.n_rows);
   const double mult = n_pu / (n_pu - 1.0);

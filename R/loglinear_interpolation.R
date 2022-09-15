@@ -24,6 +24,7 @@ NULL
 #' @return `numeric` values.
 #'
 #' @examples
+#' \dontrun{
 #' # create series of x-values
 #' x <- seq(0, 1000)
 #'
@@ -32,12 +33,10 @@ NULL
 #' y <- loglinear_interpolation(x, 200, 100, 900, 15)
 #'
 #' # plot the interpolated values
-#' \dontrun{
 #' plot(y ~ x)
 #'
 #' # add the reference points to the plot (shown in red)
 #' points(x = c(200, 900), y = c(100, 15), pch = 18, col = "red", cex = 2)
-#' }
 #'
 #' # this function can also be used to calculate representation targets
 #' # following Rodrigues et al. (2014). For example, let's say that
@@ -72,8 +71,8 @@ NULL
 #'   xlab = "Range size km^2" , ylab = "Representation target (%)",
 #'   type = "l", xaxt = "n")
 #' axis(1, pretty(log10(spp_range_size_km2)),
-#'      10^pretty(log10(spp_range_size_km2))) 
-#'
+#'      10^pretty(log10(spp_range_size_km2)))
+#' }
 #' @export
 loglinear_interpolation <- function(x, coordinate_one_x, coordinate_one_y,
                                   coordinate_two_x, coordinate_two_y) {

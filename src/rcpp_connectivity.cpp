@@ -7,6 +7,7 @@ double rcpp_connectivity(
 
   // initialization
   std::size_t n_z = solution.ncol();
+  std::size_t n_pu = solution.nrow();
   double out = 0.0;
   arma::sp_mat curr_matrix;
 
@@ -15,8 +16,8 @@ double rcpp_connectivity(
   import_connectivity_matrix_list(data, matrices, true);
 
   // extract penalty data from matrices
-  for (std::size_t z1 = 0; z1 < solution.ncol(); ++z1) {
-    for (std::size_t z2 = 0; z2 < solution.ncol(); ++z2) {
+  for (std::size_t z1 = 0; z1 < n_z; ++z1) {
+    for (std::size_t z2 = 0; z2 < n_z; ++z2) {
       // extract connectivity matrix
       curr_matrix = matrices[z1][z2];
 
@@ -29,7 +30,7 @@ double rcpp_connectivity(
       }
 
       // set matrix cells to zero for planning units not selected in solution
-      for (std::size_t i = 0; i < solution.nrow(); ++i)  {
+      for (std::size_t i = 0; i < n_pu; ++i)  {
         curr_matrix.row(i) *= solution(i, z1);
         curr_matrix.col(i) *= solution(i, z2);
       }

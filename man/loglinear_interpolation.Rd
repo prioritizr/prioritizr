@@ -37,6 +37,7 @@ define the line. Values lesser or greater than these numbers are assigned
 the minimum and maximum \emph{y} coordinates.
 }
 \examples{
+\dontrun{
 # create series of x-values
 x <- seq(0, 1000)
 
@@ -45,12 +46,10 @@ x <- seq(0, 1000)
 y <- loglinear_interpolation(x, 200, 100, 900, 15)
 
 # plot the interpolated values
-\dontrun{
 plot(y ~ x)
 
 # add the reference points to the plot (shown in red)
 points(x = c(200, 900), y = c(100, 15), pch = 18, col = "red", cex = 2)
-}
 
 # this function can also be used to calculate representation targets
 # following Rodrigues et al. (2014). For example, let's say that
@@ -85,6 +84,6 @@ plot(spp_target_percentage_butchart ~ log10(spp_range_size_km2),
   xlab = "Range size km^2" , ylab = "Representation target (\%)",
   type = "l", xaxt = "n")
 axis(1, pretty(log10(spp_range_size_km2)),
-     10^pretty(log10(spp_range_size_km2))) 
-
+     10^pretty(log10(spp_range_size_km2)))
+}
 }

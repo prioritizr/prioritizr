@@ -57,6 +57,9 @@ when the \emph{Gurobi} software is not available.}
 }
 }
 \examples{
+# load packages
+library(raster)
+
 # load data
 data(sim_pu_raster, sim_features)
 

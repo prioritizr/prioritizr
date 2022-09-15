@@ -23,6 +23,10 @@ NULL
 #' @family targets
 #'
 #' @examples
+#' \dontrun{
+#' # load packages
+#' library(raster)
+#'
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -41,14 +45,14 @@ NULL
 #' # create problem with varying targets for each feature
 #' targets <- c(0.1, 0.2, 0.3, 0.4, 0.5)
 #' p2 <- p %>% add_relative_targets(targets)
-#' \dontrun{
+#'
 #' # solve problem
 #' s <- stack(solve(p1), solve(p2))
 #'
 #' # plot solution
 #' plot(s, main = c("10% targets", "varying targets"), axes = FALSE,
 #'      box = FALSE)
-#' }
+#'
 #' # create a problem with multiple management zones
 #' p3 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
 #'       add_min_set_objective() %>%
@@ -65,13 +69,11 @@ NULL
 #' p4 <- p3 %>% add_relative_targets(p4_targets)
 #'
 #' # solve problem
-#' \dontrun{
-#' # solve problem
 #' s4 <- solve(p4)
 #'
 #' # plot solution (pixel values correspond to zone identifiers)
 #' plot(category_layer(s4), main = c("equal targets"))
-#' }
+#'
 #' # create a problem with targets that require a varying amount of each
 #' # feature to be represented in each zone
 #' p5_targets <- matrix(runif(15, 0.01, 0.2), nrow = 5, ncol = 3,
@@ -80,8 +82,7 @@ NULL
 #' print(p5_targets)
 #'
 #' p5 <- p3 %>% add_relative_targets(p4_targets)
-#' # solve problem
-#' \dontrun{
+#'
 #' # solve problem
 #' s5 <- solve(p5)
 #'

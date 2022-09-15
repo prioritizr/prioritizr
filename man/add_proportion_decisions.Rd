@@ -30,6 +30,7 @@ Note that if multiple decisions are added to a problem object, then the
 last one to be added will be used.
 }
 \examples{
+\dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -42,13 +43,13 @@ p1 <- problem(sim_pu_raster, sim_features) \%>\%
       add_relative_targets(0.1) \%>\%
       add_proportion_decisions() \%>\%
       add_default_solver(verbose = FALSE)
-\dontrun{
+
 # solve problem
 s1 <- solve(p1)
 
 # plot solutions
 plot(s1, main = "solution")
-}
+
 # build multi-zone conservation problem with proportion decisions
 p2 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
       add_min_set_objective() \%>\%
@@ -56,7 +57,7 @@ p2 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
                                   ncol = 3)) \%>\%
       add_proportion_decisions() \%>\%
       add_default_solver(verbose = FALSE)
-\dontrun{
+
 # solve the problem
 s2 <- solve(p2)
 

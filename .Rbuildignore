@@ -26,3 +26,4 @@ inst/WORDLIST
 pkgdown
 .covrignore
 ^\.github$
+codecov.yml

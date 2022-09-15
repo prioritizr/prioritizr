@@ -69,6 +69,7 @@ Shared boundary calculations are performed using
 \code{\link[=boundary_matrix]{boundary_matrix()}}.
 }
 \examples{
+\dontrun{
 # load data
 data(sim_pu_raster, sim_pu_sf, sim_features)
 
@@ -85,13 +86,12 @@ cd <- crop(sim_features, r)
 cm_raster <- connectivity_matrix(r, cd[[2]])
 
 ## plot data and matrix
-\dontrun{
 par(mfrow = c(1,3))
 plot(r, main = "planning units (raster)", axes = FALSE, box = FALSE)
 plot(cd[[2]], main = "conductivity", axes = FALSE, box = FALSE)
 plot(clamp(raster(as.matrix(cm_raster)), lower = 1e-5, useValues = FALSE),
      main = "connectivity", axes = FALSE, box = FALSE)
-}
+
 # create connectivity matrix using polygon planning unit data using
 # the habitat suitability data for the second feature to represent
 # planning unit conductances
@@ -102,12 +102,10 @@ ply <- sim_pu_sf[c(1:2, 10:12, 20:22), ]
 cm_ply <- connectivity_matrix(ply, sim_features[[2]])
 
 ## plot data and matrix
-\dontrun{
 par(mfrow = c(1, 2))
-plot(st_geometry(ply), main = "planning units (sf)")
+plot(sf::st_geometry(ply), main = "planning units (sf)")
 plot(clamp(raster(as.matrix(cm_ply)), lower = 1e-5, useValues = FALSE),
      main = "connectivity", axes = FALSE, box = FALSE)
-}
 
 # create connectivity matrix using habitat suitability data for each feature,
 # this could be useful if prioritisations should spatially clump
@@ -122,12 +120,10 @@ cm_sum <- lapply(as.list(cd), connectivity_matrix, x = r) # make matrices
 cm_sum <- Reduce("+", cm_sum) # sum matrices together
 
 ## plot data and matrix
-\dontrun{
 par(mfrow = c(1, 2))
 plot(r, main = "planning units (raster)", axes = FALSE, box = FALSE)
 plot(clamp(raster(as.matrix(cm_sum)), lower = 1e-5, useValues = FALSE),
      main = "connectivity", axes = FALSE, box = FALSE)
-}
 
 ## we could take this example one step further, and use weights to indicate
 ## relative importance of maintaining functional connectivity
@@ -143,12 +139,10 @@ cm_wsum <- Map("*", cm_wsum, weights) # multiply by weights
 cm_wsum <- Reduce("+", cm_wsum) # sum matrices together
 
 ## plot data and matrix
-\dontrun{
 par(mfrow = c(1, 2))
 plot(r, main = "planning units (raster)", axes = FALSE, box = FALSE)
 plot(clamp(raster(as.matrix(cm_wsum)), lower = 1e-5, useValues = FALSE),
      main = "connectivity", axes = FALSE, box = FALSE)
-}
 
 ## since the statistical distribution of the connectivity values
 ## for each feature (e.g., the mean and standard deviation of the
@@ -161,7 +155,6 @@ plot(clamp(raster(as.matrix(cm_wsum)), lower = 1e-5, useValues = FALSE),
 ## note that we wouldn't want to rescale them between 0 and 1 since
 ## a value of zero means that there is no connectivity at all (and
 ## and not a relatively small amount of connectivity)
-\dontrun{
 ### define helper function
 library(scales) # load scales library for rescale
 rescale_matrix <- function(x) {x@x <- rescale(x@x, c(0.01, 1)); x}
@@ -173,15 +166,12 @@ cm_lwsum <- lapply(as.list(cd), connectivity_matrix, x = r) # make matrices
 cm_lwsum <- lapply(cm_lwsum, rescale_matrix) # rescale matrices to [0.01, 1]
 cm_lwsum <- Map("*", cm_lwsum, weights) # multiply by weights
 cm_lwsum <- Reduce("+", cm_lwsum) # sum matrices together
-}
 
 ## plot data and matrix
-\dontrun{
 par(mfrow = c(1, 2))
 plot(r, main = "planning units (raster)", axes = FALSE, box = FALSE)
 plot(clamp(raster(as.matrix(cm_lwsum)), lower = 1e-5, useValues = FALSE),
      main = "connectivity", axes = FALSE, box = FALSE)
-}
 
 ## another approach for normalizing the data could be using z-scores
 ## note that after normalizing the data we would need to add a constant
@@ -204,7 +194,6 @@ cm_zwsum <- Map("*", cm_zwsum, weights) # multiply by weights
 cm_zwsum <- Reduce("+", cm_zwsum) # sum matrices together
 
 ## plot data and matrix
-\dontrun{
 par(mfrow = c(1, 2))
 plot(r, main = "planning units (raster)", axes = FALSE, box = FALSE)
 plot(clamp(raster(as.matrix(cm_zwsum)), lower = 1e-5, useValues = FALSE),

@@ -31,6 +31,9 @@ is less than the number of solutions requested.
 }
 \examples{
 \dontrun{
+# load packages
+library(raster)
+
 # set seed for reproducibility
 set.seed(600)
 
@@ -68,8 +71,8 @@ s2 <- solve(p2)
 print(length(s2))
 
 # plot solutions in portfolio
-plot(stack(lapply(s2, category_layer)), main = "solution", axes = FALSE,
-     box = FALSE)
+plot(stack(lapply(s2, category_layer)),
+     main = "solution", axes = FALSE, box = FALSE)
 }
 }
 \seealso{

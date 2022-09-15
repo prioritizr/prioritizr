@@ -657,17 +657,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// rcpp_str_tree_to_sparse_matrix
-Rcpp::List rcpp_str_tree_to_sparse_matrix(Rcpp::List data);
-RcppExport SEXP _prioritizr_rcpp_str_tree_to_sparse_matrix(SEXP dataSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Rcpp::List >::type data(dataSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_str_tree_to_sparse_matrix(data));
-    return rcpp_result_gen;
-END_RCPP
-}
 // rcpp_summarize_exactextractr
 Rcpp::NumericMatrix rcpp_summarize_exactextractr(Rcpp::List x, std::size_t nrow, std::size_t ncol, std::string fun);
 RcppExport SEXP _prioritizr_rcpp_summarize_exactextractr(SEXP xSEXP, SEXP nrowSEXP, SEXP ncolSEXP, SEXP funSEXP) {
