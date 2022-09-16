@@ -81,8 +81,18 @@ check:
 	cp -R doc inst/
 	touch inst/doc/.gitkeep
 
+checkascran:
+	echo "\n===== R CMD CHECK =====\n" > check.log 2>&1
+	R --slave -e "devtools::check(remote = TRUE, build_args = '--no-build-vignettes', args = '--no-build-vignettes', vignettes = FALSE)" >> check.log 2>&1
+	cp -R doc inst/
+	touch inst/doc/.gitkeep
+
 wbcheck:
 	R --slave -e "devtools::check_win_devel()"
+	cp -R doc inst/
+
+jhwbcheck:
+	R --slave -e "devtools::check_win_devel(email = 'jeffrey.hanson@uqconnect.edu.au')"
 	cp -R doc inst/
 
 solarischeck:

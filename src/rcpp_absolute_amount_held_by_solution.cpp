@@ -16,7 +16,6 @@ Rcpp::NumericVector rcpp_absolute_amount_held_by_solution(
   std::vector<arma::sp_mat> rij;
   import_rij(rij_list, rij);
   // intialize variables
-  std::size_t n_f = static_cast<std::size_t>(rij[0].n_cols);
   std::size_t n_pu = static_cast<std::size_t>(rij[0].n_rows);
   std::size_t n_z = static_cast<std::size_t>(rij_list.size());
   std::size_t n_t = targets_feature.size();

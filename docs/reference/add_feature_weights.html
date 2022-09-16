@@ -30,7 +30,7 @@ about how the budget should be allocated."><meta property="og:image" content="ht
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.2</span>
       </span>
     </div>
 
@@ -195,7 +195,8 @@ fulfilling each target.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># load ape package</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span><span class="co"># load package</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="http://ape-package.ird.fr/" class="external-link">ape</a></span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: ape</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
@@ -232,7 +233,7 @@ fulfilling each target.</p></dd>
 <span class="r-in"><span><span class="co"># denote higher extinction risk)</span></span></span>
 <span class="r-in"><span><span class="va">w3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">100</span>, <span class="fl">200</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="va">p1</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">add_feature_weights</span><span class="op">(</span><span class="va">w3</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># solve problems</span></span></span>
 <span class="r-in"><span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/stack.html" class="external-link">stack</a></span><span class="op">(</span><span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
@@ -240,14 +241,12 @@ fulfilling each target.</p></dd>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s1</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"equal weights"</span>, <span class="st">"rarity weights"</span>, <span class="st">"manual weights"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>     axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_feature_weights-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot the example phylogeny</span></span></span>
-<span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">sim_phylogeny</span>, main <span class="op">=</span> <span class="st">"simulated phylogeny"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_feature_weights-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="co"># }</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create problem with a maximum phylogenetic diversity objective,</span></span></span>
 <span class="r-in"><span><span class="co"># where each feature needs 10% of its distribution to be secured for</span></span></span>
 <span class="r-in"><span><span class="co"># it to be adequately conserved and a total budget of 1900</span></span></span>
@@ -256,7 +255,7 @@ fulfilling each target.</p></dd>
 <span class="r-in"><span>      <span class="fu"><a href="add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>      <span class="fu"><a href="add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>      <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># solve problem</span></span></span>
 <span class="r-in"><span><span class="va">s4</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p4</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
@@ -288,7 +287,7 @@ fulfilling each target.</p></dd>
 <span class="r-in"><span>     tip.color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/replace.html" class="external-link">replace</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"black"</span>, <span class="fu"><a href="https://rdrr.io/pkg/raster/man/nlayers.html" class="external-link">nlayers</a></span><span class="op">(</span><span class="va">sim_features</span><span class="op">)</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                         <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">r4</span><span class="op">$</span><span class="va">met</span><span class="op">)</span>, <span class="st">"red"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_feature_weights-4.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="co"># }</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># we can see here that the third feature ("layer.3", i.e.,</span></span></span>
 <span class="r-in"><span><span class="co"># sim_features[[3]]) is not represented in the solution. Let us pretend</span></span></span>
 <span class="r-in"><span><span class="co"># that it is absolutely critical this feature is adequately conserved</span></span></span>
@@ -306,7 +305,7 @@ fulfilling each target.</p></dd>
 <span class="r-in"><span><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">sim_phylogeny</span><span class="op">$</span><span class="va">edge.length</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.42105185 0.34712544 0.04100098 0.30612447 0.30612447 0.59604770 1.17212960</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [8] 1.17212960</span>
-<span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create problem with high weighting for the third feature and solve it</span></span></span>
 <span class="r-in"><span><span class="va">s5</span> <span class="op">&lt;-</span> <span class="va">p4</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">add_feature_weights</span><span class="op">(</span><span class="va">w5</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
@@ -342,7 +341,7 @@ fulfilling each target.</p></dd>
 <span class="r-in"><span>     tip.color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/replace.html" class="external-link">replace</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"black"</span>, <span class="fu"><a href="https://rdrr.io/pkg/raster/man/nlayers.html" class="external-link">nlayers</a></span><span class="op">(</span><span class="va">sim_features</span><span class="op">)</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                         <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">r5</span><span class="op">$</span><span class="va">met</span><span class="op">)</span>, <span class="st">"red"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_feature_weights-6.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="co"># }</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create multi-zone problem with maximum features objective,</span></span></span>
 <span class="r-in"><span><span class="co"># with 10% representation targets for each feature, and set</span></span></span>
 <span class="r-in"><span><span class="co"># a budget such that the total maximum expenditure in all zones</span></span></span>
@@ -363,7 +362,7 @@ fulfilling each target.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create problem with weights</span></span></span>
 <span class="r-in"><span><span class="va">p7</span> <span class="op">&lt;-</span> <span class="va">p6</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">add_feature_weights</span><span class="op">(</span><span class="va">w7</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># solve problems</span></span></span>
 <span class="r-in"><span><span class="va">s6</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p6</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">s7</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p7</span><span class="op">)</span></span></span>
@@ -372,7 +371,7 @@ fulfilling each target.</p></dd>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/stack.html" class="external-link">stack</a></span><span class="op">(</span><span class="fu"><a href="category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s6</span><span class="op">)</span>, <span class="fu"><a href="category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s7</span><span class="op">)</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>     main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"equal weights"</span>, <span class="st">"manual weights"</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_feature_weights-7.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="co"># }</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create minimal problem to show the correct method for setting</span></span></span>
 <span class="r-in"><span><span class="co"># weights for problems with manual targets</span></span></span>
 <span class="r-in"><span><span class="va">p8</span> <span class="op">&lt;-</span> <span class="fu"><a href="problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
@@ -383,7 +382,7 @@ fulfilling each target.</p></dd>
 <span class="r-in"><span>      <span class="fu">add_feature_weights</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">200</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>      <span class="fu"><a href="add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>      <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># solve problem</span></span></span>
 <span class="r-in"><span><span class="va">s8</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p8</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>

@@ -24,7 +24,7 @@ spatial proximity to each other."><meta property="og:image" content="https://pri
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.2</span>
       </span>
     </div>
 
@@ -162,7 +162,8 @@ set to zero. Furthermore, if the argument to <code>x</code> is a
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># load data</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span><span class="co"># load data</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_pu_sf</span>, <span class="va">sim_pu_lines</span>, <span class="va">sim_pu_points</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create proximity matrix using raster data</span></span></span>
@@ -194,7 +195,6 @@ set to zero. Furthermore, if the argument to <code>x</code> is a
 <span class="r-in"><span><span class="va">cm_pts</span> <span class="op">&lt;-</span> <span class="fu">proximity_matrix</span><span class="op">(</span><span class="va">pts</span>, distance <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot data and the proximity matrices</span></span></span>
-<span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## plot raster and proximity matrix</span></span></span>

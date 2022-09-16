@@ -28,7 +28,7 @@ solution cost for minimum set problems; add_min_set_objective()."><meta property
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.2</span>
       </span>
     </div>
 
@@ -262,7 +262,8 @@ replaced with \(-P_z\).</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># set seed for reproducibility</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span><span class="co"># set seed for reproducibility</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">600</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># load data</span></span></span>
@@ -317,7 +318,6 @@ replaced with \(-P_z\).</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   portfolio:      default</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   solver:         Gurobi [first_feasible (0), gap (0.1), node_file_start (-1), numeric_focus (0), presolve (2), threads (1), time_limit (2147483647), verbose (0)]</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span><span class="co"># solve the two problems</span></span></span>
 <span class="r-in"><span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span></span>
@@ -336,12 +336,10 @@ replaced with \(-P_z\).</p>
 <span class="r-in"><span><span class="co"># for real conservation planning exercises,</span></span></span>
 <span class="r-in"><span><span class="co"># it would be worth exploring a range of penalty values (e.g., ranging</span></span></span>
 <span class="r-in"><span><span class="co"># from 1 to 100 increments of 5) to explore the trade-offs</span></span></span>
-<span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># now, let's examine a conservation planning exercise involving multiple</span></span></span>
 <span class="r-in"><span><span class="co"># management zones</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span><span class="co"># create targets for each feature within each zone,</span></span></span>
 <span class="r-in"><span><span class="co"># these targets indicate that each zone needs to represent 10% of the</span></span></span>
 <span class="r-in"><span><span class="co"># spatial distribution of each feature</span></span></span>

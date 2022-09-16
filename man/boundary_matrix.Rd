@@ -74,13 +74,14 @@ format (using \code{\link[geos:geos_strtree]{geos::geos_strtree()}}).
 }
 
 \examples{
+\dontrun{
 # load data
 data(sim_pu_raster, sim_pu_polygons)
 
 # subset data to reduce processing time
 r <- crop(sim_pu_raster, c(0, 0.3, 0, 0.3))
 ply <- sim_pu_polygons[c(1:2, 10:12, 20:22), ]
-ply2 <- st_as_sf(ply)
+ply2 <- sf::st_as_sf(ply)
 
 # create boundary matrix using raster data
 bm_raster <- boundary_matrix(r)
@@ -92,14 +93,12 @@ bm_ply1 <- boundary_matrix(ply)
 bm_ply2 <- boundary_matrix(ply2)
 
 # plot raster and boundary matrix
-\dontrun{
 par(mfrow = c(1, 2))
 plot(r, main = "raster", axes = FALSE, box = FALSE)
 plot(raster(as.matrix(bm_raster)), main = "boundary matrix",
      axes = FALSE, box = FALSE)
-}
+
 # plot polygons and boundary matrices
-\dontrun{
 par(mfrow = c(1, 3))
 plot(r, main = "polygons (Spatial)", axes = FALSE, box = FALSE)
 plot(raster(as.matrix(bm_ply1)), main = "boundary matrix", axes = FALSE,

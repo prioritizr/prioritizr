@@ -68,6 +68,7 @@ with problems that contain multiple zones.}}
 }
 }
 \examples{
+\dontrun{
 # load data
 data(sim_pu_raster, sim_features, sim_locked_in_raster,
      sim_locked_out_raster)
@@ -93,7 +94,7 @@ p5 <- p1 \%>\% add_contiguity_constraints()
 
 # create problem with feature contiguity constraints
 p6 <- p1 \%>\% add_feature_contiguity_constraints()
-\dontrun{
+
 # solve problems
 s <- stack(lapply(list(p1, p2, p3, p4, p5, p6), solve))
 

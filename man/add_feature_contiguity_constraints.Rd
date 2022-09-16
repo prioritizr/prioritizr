@@ -139,6 +139,7 @@ In early versions, it was named as the \code{add_corridor_constraints} function.
 }
 
 \examples{
+\dontrun{
 # load data
 data(sim_pu_raster, sim_pu_zones_stack, sim_features, sim_features_zones)
 
@@ -170,7 +171,7 @@ cm4 <- lapply(seq_len(nlayers(sim_features)), function(i) {
   m
 })
 p4 <- p1 \%>\% add_feature_contiguity_constraints(data = cm4)
-\dontrun{
+
 # solve problems
 s1 <- stack(solve(p1), solve(p2), solve(p3), solve(p4))
 
@@ -179,7 +180,7 @@ plot(s1,  axes = FALSE, box = FALSE,
      main = c("basic solution", "contiguity constraints",
               "feature contiguity constraints",
               "feature contiguity constraints with data"))
-}
+
 # create minimal problem with multiple zones, and limit the solver to
 # 30 seconds to obtain solutions in a feasible period of time
 p5 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
@@ -211,7 +212,7 @@ zm8 <- lapply(seq_len(number_of_features(sim_features_zones)), function(i)
   matrix(ifelse(i == 1, 1, 0), ncol = 3, nrow = 3))
 print(zm8)
 p8 <- p5 \%>\% add_feature_contiguity_constraints(zm8)
-\dontrun{
+
 # solve problems
 s2 <- lapply(list(p5, p6, p7, p8), solve)
 s2 <- stack(lapply(s2, category_layer))

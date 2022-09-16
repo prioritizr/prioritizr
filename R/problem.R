@@ -396,8 +396,9 @@ NULL
 #' points(s4[s4$solution_1 > 0.5, ], col = "darkgreen", cex = 2, pch = 19)
 #'
 #' # note that as_Spatial() is for convenience to plot all solutions together
-#' plot(as_Spatial(s5), main = "sf (polygon) data", pch = 19)
-#' plot(as_Spatial(s5[s5$solution_1 > 0.5, ]), col = "darkgreen", add = TRUE)
+#' plot(sf::as_Spatial(s5), main = "sf (polygon) data", pch = 19)
+#' plot(sf::as_Spatial(s5[s5$solution_1 > 0.5, ]),
+#'      col = "darkgreen", add = TRUE)
 #'
 #' plot(s6, main = "preprocessed data (polygon data)", pch = 19)
 #' plot(s6[s6$solution_1 > 0.5, ], col = "darkgreen", add = TRUE)

@@ -114,6 +114,7 @@ NULL
 #' @family penalties
 #'
 #' @examples
+#' \dontrun{
 #' # set seed for reproducibility
 #' set.seed(600)
 #'
@@ -146,7 +147,6 @@ NULL
 #' # print problem
 #' print(p2)
 #'
-#' \dontrun{
 #' # solve the two problems
 #' s1 <- solve(p1)
 #' s2 <- solve(p2)
@@ -163,12 +163,10 @@ NULL
 #' # for real conservation planning exercises,
 #' # it would be worth exploring a range of penalty values (e.g., ranging
 #' # from 1 to 100 increments of 5) to explore the trade-offs
-#' }
 #'
 #' # now, let's examine a conservation planning exercise involving multiple
 #' # management zones
 #'
-#' \dontrun{
 #' # create targets for each feature within each zone,
 #' # these targets indicate that each zone needs to represent 10% of the
 #' # spatial distribution of each feature

@@ -51,6 +51,7 @@ so it is recommended to use \code{\linkS4class{Raster}} data
 for planning units where possible.
 }
 \examples{
+\dontrun{
 # load data
 data(sim_pu_raster, sim_pu_polygons, sim_pu_sf, sim_pu_zones_stack)
 
@@ -69,4 +70,5 @@ print(rij_sf)
 # create rij matrix using raster stack planning units
 rij_zones_raster <- rij_matrix(sim_pu_zones_stack, sim_features)
 print(rij_zones_raster)
+}
 }

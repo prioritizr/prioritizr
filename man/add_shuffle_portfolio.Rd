@@ -42,6 +42,7 @@ when problems are quick to solve and multiple threads are available for
 solving each problem separately.
 }
 \examples{
+\dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -55,13 +56,12 @@ p1 <- problem(sim_pu_raster, sim_features) \%>\%
       add_shuffle_portfolio(10, remove_duplicates = FALSE) \%>\%
       add_default_solver(gap = 0.2, verbose = FALSE)
 
-\dontrun{
 # solve problem and generate 10 solutions within 20\% of optimality
 s1 <- solve(p1)
 
 # plot solutions in portfolio
 plot(stack(s1), axes = FALSE, box = FALSE)
-}
+
 # build multi-zone conservation problem with shuffle portfolio
 p2 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
       add_min_set_objective() \%>\%
@@ -71,7 +71,6 @@ p2 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
       add_shuffle_portfolio(10, remove_duplicates = FALSE) \%>\%
       add_default_solver(gap = 0.2, verbose = FALSE)
 
-\dontrun{
 # solve the problem
 s2 <- solve(p2)
 
@@ -79,8 +78,8 @@ s2 <- solve(p2)
 str(s2, max.level = 1)
 
 # plot solutions in portfolio
-plot(stack(lapply(s2, category_layer)), main = "solution", axes = FALSE,
-     box = FALSE)
+plot(stack(lapply(s2, category_layer)),
+     main = "solution", axes = FALSE, box = FALSE)
 }
 }
 \seealso{

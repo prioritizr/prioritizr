@@ -56,6 +56,7 @@ features as possible without exceeding a budget.}
 }
 }
 \examples{
+\dontrun{
 # load data
 data(sim_pu_raster, sim_features, sim_phylogeny)
 
@@ -91,10 +92,9 @@ p7 <- p \%>\% add_max_phylo_end_objective(1900, sim_phylogeny)
 # note that this objective does not use targets
 p8 <- p \%>\% add_max_utility_objective(1900)
 
-\dontrun{
 # solve problems
-s <- stack(solve(p1), solve(p2), solve(p3), solve(p4), solve(p5), solve(p6),
-           solve(p7), solve(p8))
+s <- stack(solve(p1), solve(p2), solve(p3), solve(p4), solve(p5),
+           solve(p6), solve(p7), solve(p8))
 
 # plot solutions
 plot(s, axes = FALSE, box = FALSE,

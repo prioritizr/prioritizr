@@ -63,8 +63,8 @@ NULL
 #' print(length(s2))
 #'
 #' # plot solutions in portfolio
-#' plot(stack(lapply(s2, category_layer)), main = "solution", axes = FALSE,
-#'      box = FALSE)
+#' plot(stack(lapply(s2, category_layer)),
+#'      main = "solution", axes = FALSE, box = FALSE)
 #' }
 #' @name add_extra_portfolio
 NULL

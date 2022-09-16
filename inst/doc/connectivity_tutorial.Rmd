@@ -4,7 +4,6 @@ output:
   rmarkdown::html_vignette:
     toc: true
     fig_caption: true
-    self_contained: yes
 fontsize: 11pt
 documentclass: article
 bibliography: references.bib
@@ -21,8 +20,8 @@ is_check <- ("CheckExEnv" %in% search()) || any(c("_R_CHECK_TIMINGS_",
              "_R_CHECK_LICENSE_") %in% names(Sys.getenv()))
 knitr::opts_knit$set(global.par = TRUE)
 knitr::opts_chunk$set(
-  fig.align = "center", eval = !is_check,
-  fig.width = 4.0, fig.height = 3.5
+  fig.align = "center", fig.width = 4.0, fig.height = 3.5,
+  eval = !is_check, purl = !is_check
 )
 ```
 
@@ -48,6 +47,8 @@ Let's begin by loading the packages and data for this tutorial. Since this tutor
 # load packages
 library(prioritizr)
 library(prioritizrdata)
+library(sf)
+library(raster)
 library(scales)
 
 # load planning unit data

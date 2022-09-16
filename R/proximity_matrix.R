@@ -31,6 +31,7 @@ NULL
 #' @rdname proximity_matrix
 #'
 #' @examples
+#' \dontrun{
 #' # load data
 #' data(sim_pu_raster, sim_pu_sf, sim_pu_lines, sim_pu_points)
 #'
@@ -63,7 +64,6 @@ NULL
 #' cm_pts <- proximity_matrix(pts, distance = 2)
 #'
 #' # plot data and the proximity matrices
-#' \dontrun{
 #' par(mfrow = c(4,2))
 #'
 #' ## plot raster and proximity matrix

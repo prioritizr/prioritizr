@@ -33,6 +33,7 @@ jobs:
       _R_CHECK_CRAN_INCOMING_REMOTE_: false
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       CI: true
+      NOT_CRAN: true
 
     steps:
       - uses: actions/checkout@v2

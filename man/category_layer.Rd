@@ -37,7 +37,8 @@ y <- category_layer(x)
 
 # plot categorical raster and binary stack representation
 \dontrun{
-plot(stack(x, y), main = c("x[[1]]", "x[[2]]", "x[[3]]", "y"), nr = 1)
+plot(stack(x, y), main = c("x[[1]]", "x[[2]]", "x[[3]]", "y"),
+     nr = 1)
 }
 }
 \seealso{

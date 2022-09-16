@@ -4,7 +4,6 @@ output:
   rmarkdown::html_vignette:
     toc: true
     fig_caption: true
-    self_contained: yes
 fontsize: 11pt
 documentclass: article
 bibliography: references.bib
@@ -19,8 +18,11 @@ h = 3.5
 w = 3.5
 is_check <- ("CheckExEnv" %in% search()) || any(c("_R_CHECK_TIMINGS_",
              "_R_CHECK_LICENSE_") %in% names(Sys.getenv()))
-knitr::opts_chunk$set(fig.align = "center", eval = !is_check,
-                      root.dir = normalizePath("../.."))
+knitr::opts_chunk$set(
+  fig.align = "center",
+  eval = !is_check, purl = !is_check,
+  root.dir = normalizePath("../..")
+)
 ```
 
 ## Summary
@@ -83,11 +85,13 @@ After building a conservation problem, it can then be solved to obtain a solutio
 
 Here we will provide an introduction to using the _prioritizr R_ package to build and solve a conservation planning problem. Please note that we will not discuss conservation planning with multiple zones in this vignette, for more information on working with multiple management zones please see the [_Management zones tutorial_](management_zones_tutorial.html).
 
-First, we will load the _prioritizr_ package.
+First, we will load the _prioritizr_ package and some packages for working with spatial data.
 
 ```{r, results = "hide", message = FALSE}
 # load package
 library(prioritizr)
+library(sp)
+library(raster)
 
 # set default options for printing tabular data
 options(tibble.width = Inf)

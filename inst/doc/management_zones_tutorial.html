@@ -198,8 +198,9 @@ div.csl-indent {
 <div id="simple-minimum-set-problem" class="section level3">
 <h3>Simple minimum set problem</h3>
 <p>In the <em>prioritizr R</em> package, all conservation planning problems – including those which contain multiple management zones or actions – are initialized using the <code>problem</code> function. To refresh our memory on how we can construct problems, let us quickly construct a simple conservation planning problem. This problem will use the simulated built-in planning unit and feature data distributed with the package. It will have a minimum set objective, targets which require that solution secure to 10 % of the habitat in the study area for each feature, and binary decision variables indicating that planning units are selected or not selected for protection.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load prioritizr package</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(prioritizr)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load packages</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(prioritizr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(raster)</span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load data</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(sim_pu_raster, sim_features)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -858,8 +859,8 @@ div.csl-indent {
 ##   objective:      Minimum set objective 
 ##   targets:        Absolute targets [targets (min: 8, max: 8)]
 ##   decisions:      Binary decision 
-##   constraints:    &lt;Mandatory allocation constraints [apply constraints? (1)]
-##                    Manually locked planning units [80 locked units]&gt;
+##   constraints:    &lt;Manually locked planning units [80 locked units]
+##                    Mandatory allocation constraints [apply constraints? (1)]&gt;
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 0.5, max: 0.5), penalty (640), zones]&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>

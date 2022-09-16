@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.2</span>
       </span>
     </div>
 
@@ -150,7 +150,8 @@ the minimum and maximum <em>y</em> coordinates.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># create series of x-values</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span><span class="co"># create series of x-values</span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1000</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># interpolate y-values for the x-values given the two reference points:</span></span></span>
@@ -158,13 +159,11 @@ the minimum and maximum <em>y</em> coordinates.</p>
 <span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu">loglinear_interpolation</span><span class="op">(</span><span class="va">x</span>, <span class="fl">200</span>, <span class="fl">100</span>, <span class="fl">900</span>, <span class="fl">15</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot the interpolated values</span></span></span>
-<span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># add the reference points to the plot (shown in red)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">200</span>, <span class="fl">900</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">15</span><span class="op">)</span>, pch <span class="op">=</span> <span class="fl">18</span>, col <span class="op">=</span> <span class="st">"red"</span>, cex <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="loglinear_interpolation-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># this function can also be used to calculate representation targets</span></span></span>
 <span class="r-in"><span><span class="co"># following Rodrigues et al. (2014). For example, let's say that</span></span></span>
@@ -200,9 +199,9 @@ the minimum and maximum <em>y</em> coordinates.</p>
 <span class="r-in"><span>  xlab <span class="op">=</span> <span class="st">"Range size km^2"</span> , ylab <span class="op">=</span> <span class="st">"Representation target (%)"</span>,</span></span>
 <span class="r-in"><span>  type <span class="op">=</span> <span class="st">"l"</span>, xaxt <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/axis.html" class="external-link">axis</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/pretty.html" class="external-link">pretty</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log10</a></span><span class="op">(</span><span class="va">spp_range_size_km2</span><span class="op">)</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>     <span class="fl">10</span><span class="op">^</span><span class="fu"><a href="https://rdrr.io/r/base/pretty.html" class="external-link">pretty</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log10</a></span><span class="op">(</span><span class="va">spp_range_size_km2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> </span></span>
+<span class="r-in"><span>     <span class="fl">10</span><span class="op">^</span><span class="fu"><a href="https://rdrr.io/r/base/pretty.html" class="external-link">pretty</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log10</a></span><span class="op">(</span><span class="va">spp_range_size_km2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="loglinear_interpolation-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </div>

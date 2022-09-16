@@ -102,6 +102,7 @@ NULL
 #' 4061--4072.
 #'
 #' @examples
+#' \dontrun{
 #' # load ape package
 #' require(ape)
 #'
@@ -110,10 +111,9 @@ NULL
 #'      sim_features_zones)
 #'
 #' # plot the simulated phylogeny
-#' \dontrun{
 #' par(mfrow = c(1, 1))
 #' plot(sim_phylogeny, main = "phylogeny")
-#' }
+#'
 #' # create problem with a maximum phylogenetic endemism objective,
 #' # where each feature needs 10% of its distribution to be secured for
 #' # it to be adequately conserved and a total budget of 1900
@@ -122,7 +122,7 @@ NULL
 #'       add_relative_targets(0.1) %>%
 #'       add_binary_decisions() %>%
 #'       add_default_solver(verbose = FALSE)
-#' \dontrun{
+#'
 #' # solve problem
 #' s1 <- solve(p1)
 #'
@@ -139,7 +139,7 @@ NULL
 #'        rep("black", nlayers(sim_features)),
 #'        sim_phylogeny$tip.label %in% r1$feature[r1$met],
 #'        "red"))
-#' }
+#'
 #' # rename the features in the example phylogeny for use with the
 #' # multi-zone data
 #' sim_phylogeny$tip.label <- feature_names(sim_features_zones)
@@ -161,7 +161,7 @@ NULL
 #'       add_manual_targets(targets) %>%
 #'       add_binary_decisions() %>%
 #'       add_default_solver(verbose = FALSE)
-#' \dontrun{
+#'
 #' # solve problem
 #' s2 <- solve(p2)
 #'
@@ -176,7 +176,7 @@ NULL
 #' plot(sim_phylogeny, main = "adequately represented features",
 #'      tip.color = replace(rep("black", nlayers(sim_features)),
 #'                          which(r2$met), "red"))
-#' }
+#'
 #' # create a multi-zone problem with a maximum phylogenetic endemism
 #' # objective, where each zone has a separate budget.
 #' p3 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
@@ -184,7 +184,7 @@ NULL
 #'       add_manual_targets(targets) %>%
 #'       add_binary_decisions() %>%
 #'       add_default_solver(verbose = FALSE)
-#' \dontrun{
+#'
 #' # solve problem
 #' s3 <- solve(p3)
 #'

@@ -60,6 +60,7 @@ NULL
 #' @family summaries
 #'
 #' @examples
+#' \dontrun{
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -109,7 +110,6 @@ NULL
 #'     sum(pu$spp2 * s1$s, na.rm = TRUE) / sum(pu$spp2, na.rm = TRUE)),
 #'   c("spp1", "spp2")))
 #'
-#' \dontrun{
 #' # solve the problem using an exact algorithm solver
 #' s1_2 <- solve(p1)
 #' print(s1_2)
@@ -138,14 +138,14 @@ NULL
 #'
 #' # plot solution
 #' plot(s2, main = "solution", axes = FALSE, box = FALSE)
-#' }
+#'
 #' # build minimal conservation problem with polygon (Spatial) data
 #' p3 <- problem(sim_pu_polygons, sim_features, cost_column = "cost") %>%
 #'       add_min_set_objective() %>%
 #'       add_relative_targets(0.1) %>%
 #'       add_binary_decisions() %>%
 #'       add_default_solver(verbose = FALSE)
-#' \dontrun{
+#'
 #' # solve the problem
 #' s3 <- solve(p3)
 #'
@@ -158,7 +158,7 @@ NULL
 #'
 #' # plot solution
 #' spplot(s3, zcol = "solution_1", main = "solution", axes = FALSE, box = FALSE)
-#' }
+#'
 #' # build multi-zone conservation problem with raster data
 #' p4 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
 #'       add_min_set_objective() %>%
@@ -166,7 +166,7 @@ NULL
 #'                                   ncol = 3)) %>%
 #'       add_binary_decisions() %>%
 #'       add_default_solver(verbose = FALSE)
-#' \dontrun{
+#'
 #' # solve the problem
 #' s4 <- solve(p4)
 #'
@@ -179,7 +179,7 @@ NULL
 #'
 #' # plot solution
 #' plot(category_layer(s4), main = "solution", axes = FALSE, box = FALSE)
-#' }
+#'
 #'
 #' # build multi-zone conservation problem with polygon (sf) data
 #' p5 <- problem(sim_pu_zones_sf, sim_features_zones,
@@ -189,7 +189,7 @@ NULL
 #'                                   ncol = 3)) %>%
 #'       add_binary_decisions() %>%
 #'       add_default_solver(verbose = FALSE)
-#' \dontrun{
+#'
 #' # solve the problem
 #' s5 <- solve(p5)
 #'

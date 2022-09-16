@@ -33,7 +33,7 @@ an objective will throw an error when attempting to solve it."><meta property="o
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.2</span>
       </span>
     </div>
 
@@ -580,8 +580,9 @@ evaluating solutions.</p></div>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">s4</span><span class="op">[</span><span class="va">s4</span><span class="op">$</span><span class="va">solution_1</span> <span class="op">&gt;</span> <span class="fl">0.5</span>, <span class="op">]</span>, col <span class="op">=</span> <span class="st">"darkgreen"</span>, cex <span class="op">=</span> <span class="fl">2</span>, pch <span class="op">=</span> <span class="fl">19</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># note that as_Spatial() is for convenience to plot all solutions together</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/coerce-methods.html" class="external-link">as_Spatial</a></span><span class="op">(</span><span class="va">s5</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"sf (polygon) data"</span>, pch <span class="op">=</span> <span class="fl">19</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/coerce-methods.html" class="external-link">as_Spatial</a></span><span class="op">(</span><span class="va">s5</span><span class="op">[</span><span class="va">s5</span><span class="op">$</span><span class="va">solution_1</span> <span class="op">&gt;</span> <span class="fl">0.5</span>, <span class="op">]</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"darkgreen"</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/coerce-methods.html" class="external-link">as_Spatial</a></span><span class="op">(</span><span class="va">s5</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"sf (polygon) data"</span>, pch <span class="op">=</span> <span class="fl">19</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/coerce-methods.html" class="external-link">as_Spatial</a></span><span class="op">(</span><span class="va">s5</span><span class="op">[</span><span class="va">s5</span><span class="op">$</span><span class="va">solution_1</span> <span class="op">&gt;</span> <span class="fl">0.5</span>, <span class="op">]</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>     col <span class="op">=</span> <span class="st">"darkgreen"</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s6</span>, main <span class="op">=</span> <span class="st">"preprocessed data (polygon data)"</span>, pch <span class="op">=</span> <span class="fl">19</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s6</span><span class="op">[</span><span class="va">s6</span><span class="op">$</span><span class="va">solution_1</span> <span class="op">&gt;</span> <span class="fl">0.5</span>, <span class="op">]</span>, col <span class="op">=</span> <span class="st">"darkgreen"</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
@@ -594,7 +595,7 @@ evaluating solutions.</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "names")= chr "solution_1"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "status")= Named chr "OPTIMAL"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "names")= chr "solution_1"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "runtime")= Named num 0.013</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "runtime")= Named num 0.009</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "names")= chr "solution_1"</span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span><span class="co"># create some problems with multiple zones</span></span></span>

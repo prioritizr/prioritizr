@@ -118,6 +118,7 @@ are already taking an unreasonable time to solve, then this will not help
 at all.
 }
 \examples{
+\dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -165,7 +166,7 @@ p3 <- problem(sim_pu_raster, sim_features) \%>\%
 # note that a warning is thrown which suggests that we might encounter
 # some numerical instability issues when trying to solve the problem
 print(presolve_check(p3))
-\dontrun{
+
 # let's forcibly solve the problem using Gurobi and tell it to
 # be extra careful about numerical instability problems
 s3 <- p3 \%>\%

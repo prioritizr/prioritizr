@@ -160,11 +160,12 @@ NULL
 #' *Series B: Biological Sciences*, 269: 2437--2441.
 #'
 #' @examples
+#' \dontrun{
+#' # load package
+#' library(Matrix)
+#'
 #' # set seed for reproducibility
 #' set.seed(600)
-#'
-#' # load Matrix package for visualizing matrices
-#' require(Matrix)
 #'
 #' # load data
 #' data(sim_pu_sf, sim_pu_zones_stack, sim_features, sim_features_zones)
@@ -189,9 +190,8 @@ NULL
 #' b_matrix[] <- rescale(b_matrix[])
 #'
 #' # visualize connectivity matrix
-#' \dontrun{
 #' image(b_matrix)
-#' }
+#'
 #' # create a symmetric connectivity matrix where the connectivity between
 #' # two planning units corresponds to their spatial proximity
 #' # i.e., planning units that are further apart share less connectivity
@@ -206,9 +206,8 @@ NULL
 #' d_matrix[d_matrix < 0.7] <- 0
 #'
 #' # visualize connectivity matrix
-#' \dontrun{
 #' image(d_matrix)
-#' }
+#'
 #' # create a symmetric connectivity matrix where the connectivity
 #' # between adjacent two planning units corresponds to their combined
 #' # value in a field in the planning unit attribute data
@@ -222,9 +221,8 @@ NULL
 #' c_matrix[] <- rescale(c_matrix[])
 #'
 #' # visualize connectivity matrix
-#' \dontrun{
 #' image(c_matrix)
-#' }
+#'
 #'
 #' # create penalties
 #' penalties <- c(10, 25)
@@ -243,7 +241,7 @@ NULL
 #'                paste0("b_matrix (", penalties,")"),
 #'                paste0("d_matrix (", penalties,")"),
 #'                paste0("c_matrix (", penalties,")"))
-#' \dontrun{
+#'
 #' # solve problems
 #' s2 <- lapply(p2, solve)
 #'
@@ -252,7 +250,6 @@ NULL
 #' for (i in seq_along(s2)) {
 #'   plot(s2[[i]], main = names(p2)[i], cex = 1.5, col = "white")
 #'   plot(s2[[i]][s2[[i]]$solution_1 == 1, ], col = "darkgreen", add = TRUE)
-#' }
 #' }
 #'
 #' # create minimal multi-zone problem and limit solver to one minute
@@ -267,9 +264,8 @@ NULL
 #' a_matrix <- adjacency_matrix(sim_pu_zones_stack)
 #'
 #' # visualize matrix
-#' \dontrun{
 #' image(a_matrix)
-#' }
+#'
 #' # create a zone matrix where connectivities are only present between
 #' # planning units that are allocated to the same zone
 #' zm1 <- as(diag(3), "Matrix")
@@ -344,7 +340,7 @@ NULL
 #' names(p4) <- c("basic problem",
 #'                paste0("zm", rep(seq_len(5), each = 2), " (",
 #'                       rep(penalties2, 2), ")"))
-#' \dontrun{
+#'
 #' # solve problems
 #' s4 <- lapply(p4, solve)
 #' s4 <- lapply(s4, category_layer)
@@ -352,7 +348,7 @@ NULL
 #'
 #' # plot solutions
 #' plot(s4, main = names(p4), axes = FALSE, box = FALSE)
-#' }
+#'
 #'
 #' # create an array to manually specify the connectivities between
 #' # each planning unit when they are allocated to each different zone
@@ -374,7 +370,7 @@ NULL
 #'
 #' # assign names to the problems
 #' names(p5) <- c("basic problem", "connectivity array")
-#' \dontrun{
+#'
 #' # solve problems
 #' s5 <- lapply(p5, solve)
 #' s5 <- lapply(s5, category_layer)

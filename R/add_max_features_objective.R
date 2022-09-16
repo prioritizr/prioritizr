@@ -66,6 +66,7 @@ NULL
 #' 16: 242--248.
 #'
 #' @examples
+#' \dontrun{
 #' # load data
 #' data(sim_pu_raster, sim_pu_zones_stack, sim_features, sim_features_zones)
 #'
@@ -75,13 +76,12 @@ NULL
 #'       add_relative_targets(0.1) %>%
 #'       add_binary_decisions() %>%
 #'       add_default_solver(verbose = FALSE)
-#' \dontrun{
+#'
 #' # solve problem
 #' s1 <- solve(p1)
 #'
 #' # plot solution
 #' plot(s1, main = "solution", axes = FALSE, box = FALSE)
-#' }
 #'
 #' # create multi-zone problem with maximum features objective,
 #' # with 10% representation targets for each feature, and set
@@ -92,13 +92,13 @@ NULL
 #'       add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
 #'       add_binary_decisions() %>%
 #'       add_default_solver(verbose = FALSE)
-#' \dontrun{
+#'
 #' # solve problem
 #' s2 <- solve(p2)
 #'
 #' # plot solution
 #' plot(category_layer(s2), main = "solution", axes = FALSE, box = FALSE)
-#' }
+#'
 #' # create multi-zone problem with maximum features objective,
 #' # with 10% representation targets for each feature, and set
 #' # separate budgets for each management zone
@@ -107,7 +107,7 @@ NULL
 #'       add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
 #'       add_binary_decisions() %>%
 #'       add_default_solver(verbose = FALSE)
-#' \dontrun{
+#'
 #' # solve problem
 #' s3 <- solve(p3)
 #'

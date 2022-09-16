@@ -248,12 +248,14 @@ div.csl-indent {
 <div id="usage" class="section level2">
 <h2>Usage</h2>
 <p>Here we will provide an introduction to using the <em>prioritizr R</em> package to build and solve a conservation planning problem. Please note that we will not discuss conservation planning with multiple zones in this vignette, for more information on working with multiple management zones please see the <a href="management_zones_tutorial.html"><em>Management zones tutorial</em></a>.</p>
-<p>First, we will load the <em>prioritizr</em> package.</p>
+<p>First, we will load the <em>prioritizr</em> package and some packages for working with spatial data.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load package</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(prioritizr)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># set default options for printing tabular data</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">tibble.width =</span> <span class="cn">Inf</span>)</span></code></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sp)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(raster)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># set default options for printing tabular data</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">tibble.width =</span> <span class="cn">Inf</span>)</span></code></pre></div>
 <div id="data" class="section level3">
 <h3>Data</h3>
 <p>Now we will load some built-in data sets that are distributed with the <em>prioritizr R</em> package. This package contains several different planning unit data sets. To provide a comprehensive overview of the different ways that we can initialize a conservation planning problem, we will load each of them.</p>
@@ -1390,7 +1392,7 @@ div.csl-indent {
 ## Cutting planes:
 ##   Gomory: 3
 ## 
-## Explored 82 nodes (1676 simplex iterations) in 0.27 seconds (0.12 work units)
+## Explored 82 nodes (1676 simplex iterations) in 0.29 seconds (0.12 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 6: 2604.74 2668.5 2814.48 ... 20287.2
@@ -1410,7 +1412,7 @@ div.csl-indent {
 <div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extract time spent solving solution</span></span>
 <span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">attr</span>(s41, <span class="st">&quot;runtime&quot;</span>))</span></code></pre></div>
 <pre><code>## solution_1 
-##        0.3</code></pre>
+##      0.336</code></pre>
 <div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extract state message from the solver that describes why this specific</span></span>
 <span id="cb111-2"><a href="#cb111-2" aria-hidden="true" tabindex="-1"></a><span class="co"># solution was returned</span></span>
 <span id="cb111-3"><a href="#cb111-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">attr</span>(s41, <span class="st">&quot;status&quot;</span>))</span></code></pre></div>
@@ -1511,7 +1513,7 @@ div.csl-indent {
 <pre><code>## # A tibble: 1 × 2
 ##   summary asym_connectivity
 ##   &lt;chr&gt;               &lt;dbl&gt;
-## 1 overall              51.8</code></pre>
+## 1 overall              54.1</code></pre>
 </div>
 <div id="evaluating-relative-importance" class="section level3">
 <h3>Evaluating relative importance</h3>
@@ -1608,8 +1610,8 @@ div.csl-indent {
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.3, max: 0.3)]
 ##   decisions:      default
-##   constraints:    &lt;Locked out planning units [1 locked units]
-##                    Locked in planning units [317 locked units]&gt;
+##   constraints:    &lt;Locked in planning units [317 locked units]
+##                    Locked out planning units [1 locked units]&gt;
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (1), zones]&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>

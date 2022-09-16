@@ -99,6 +99,7 @@ In early versions, this function was named as the
 }
 
 \examples{
+\dontrun{
 # load data
 data(sim_pu_raster, sim_features, sim_pu_zones_stack, sim_features_zones)
 
@@ -111,14 +112,14 @@ p1 <- problem(sim_pu_raster, sim_features) \%>\%
 
 # create problem with added connected constraints
 p2 <- p1 \%>\% add_contiguity_constraints()
-\dontrun{
+
 # solve problems
 s <- stack(solve(p1), solve(p2))
 
 # plot solutions
 plot(s, main = c("basic solution", "connected solution"), axes = FALSE,
      box = FALSE)
-}
+
 # create minimal problem with multiple zones, and limit the solver to
 # 30 seconds to obtain solutions in a feasible period of time
 p3 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
@@ -149,7 +150,7 @@ z6[1, 2] <- 1
 z6[2, 1] <- 1
 print(z6)
 p6 <- p3 \%>\% add_contiguity_constraints(z6)
-\dontrun{
+
 # solve problems
 s2 <- lapply(list(p3, p4, p5, p6), solve)
 s2 <- lapply(s2, category_layer)
@@ -158,7 +159,7 @@ s2 <- stack(s2)
 # plot solutions
 plot(s2, axes = FALSE, box = FALSE,
      main = c("basic solution", "p4", "p5", "p6"))
-}
+
 # create a problem that has a main "reserve zone" and a secondary
 # "corridor zone" to connect up import areas. Here, each feature has a
 # target of 30\% of its distribution. If a planning unit is allocated to the
@@ -201,7 +202,7 @@ p7 <- problem(pus, fts) \%>\%
       add_contiguity_constraints(z7) \%>\%
       add_binary_decisions() \%>\%
       add_default_solver(verbose = FALSE)
-\dontrun{
+
 # solve problems
 s7 <- category_layer(solve(p7))
 

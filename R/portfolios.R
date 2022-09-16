@@ -59,6 +59,7 @@ NULL
 #' @family overviews
 #'
 #' @examples
+#' \dontrun{
 #' # load data
 #' data(sim_pu_raster, sim_features)
 #'
@@ -74,7 +75,7 @@ NULL
 #'
 #' # create problem with shuffle portfolio with 4 solutions
 #' p2 <- p %>% add_shuffle_portfolio(4)
-#' \dontrun{
+#'
 #' # create problem with extra portfolio
 #' p3 <- p %>% add_extra_portfolio()
 #'
@@ -101,8 +102,7 @@ NULL
 #'
 #' # plot solutions from shuffle portfolio
 #' plot(stack(s[[5]]), axes = FALSE, box = FALSE)
-#'
-
 #' }
+#'
 #' @name portfolios
 NULL

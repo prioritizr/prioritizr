@@ -195,14 +195,16 @@ div.csl-indent {
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load packages</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(prioritizrdata)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(prioritizr)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vegan)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cluster)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># load planning unit data</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(tas_pu)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># load feature data</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(tas_features)</span></code></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(raster)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vegan)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cluster)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># load planning unit data</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(tas_pu)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># load feature data</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(tas_features)</span></code></pre></div>
 <p>The <code>tas_pu</code> object contains planning units represented as spatial polygons (i.e., a <code>SpatialPolygonsDataFrame</code> object). This object has three columns that denote the following information for each planning unit: a unique identifier (<code>id</code>), unimproved land value (<code>cost</code>), and current conservation status (<code>locked_in</code>). Planning units that have at least half of their area overlapping with existing protected areas are denoted with a locked in value of 1, otherwise they are denoted with a value of 0. If you are familiar with the <em>Marxan</em> decision support tool, then you will notice that some of these columns are formatted similar conventions.</p>
 <p>Now, let’s have a look at the planning unit data. We can see that the planning units correspond to hexagonal land parcels. We can also see that is a clear spatial pattern in the cost and conservation status the planning units.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># print planning unit data</span></span>
@@ -281,7 +283,7 @@ div.csl-indent {
 ## Found heuristic solution: objective 36805.575211
 ## Found heuristic solution: objective 27817.085072
 ## Presolve removed 2077 rows and 1375 columns
-## Presolve time: 0.10s
+## Presolve time: 0.11s
 ## Presolved: 4281 rows, 2903 columns, 9594 nonzeros
 ## Found heuristic solution: objective 24454.499456
 ## Variable types: 0 continuous, 2903 integer (2903 binary)
@@ -308,7 +310,7 @@ div.csl-indent {
 ##   Zero half: 2
 ##   RLT: 10
 ## 
-## Explored 1 nodes (2393 simplex iterations) in 0.90 seconds (0.60 work units)
+## Explored 1 nodes (2393 simplex iterations) in 0.93 seconds (0.60 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 7: 21702.3 22977.8 23045.7 ... 36805.6
@@ -480,7 +482,7 @@ div.csl-indent {
 ## Root relaxation presolved: 4924 rows, 4020 columns, 10889 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.954728e+04, 1905 iterations, 0.23 seconds (0.18 work units)
+## Root relaxation: objective 1.954728e+04, 1905 iterations, 0.24 seconds (0.18 work units)
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -521,37 +523,38 @@ div.csl-indent {
 ## H   54    54                    21254.060213 19996.6237  5.92%   117    5s
 ## H  108   108                    21204.105802 19996.6237  5.69%   123    6s
 ## H  162   162                    21202.636805 19996.6237  5.69%   104    7s
-## H  286   286                    21166.904542 19996.6237  5.53%  69.2    7s
+## H  286   286                    21166.904542 19996.6237  5.53%  69.2    8s
 ## H  606   599                    20993.604430 19996.6237  4.75%  32.8   10s
-##    623    10 20993.6044  209 1656 20993.6044 20012.9571  4.67%  32.0   16s
-##    635    15 20993.6044  271 1965 20993.6044 20028.5140  4.60%  31.3   20s
-##    652     7 20993.6044  492 1964 20993.6044 20029.9069  4.59%  37.6   25s
-##    661    11 20993.6044  207 1964 20993.6044 20031.2888  4.58%  37.0   30s
-##    675    16 20109.6498   25 1696 20993.6044 20082.6816  4.34%  46.2   35s
-##    707    40 20660.5710   41 1494 20993.6044 20082.6816  4.34%  55.3   40s
-## H  739    70                    20939.026645 20082.6816  4.09%  60.1   42s
-##   1231   562 20103.5372   24 1674 20939.0266 20084.4398  4.08%  45.0   45s
-## H 1283   612                    20924.385117 20084.4398  4.01%  54.4   48s
-##   1310   641 20815.8185   64 1186 20924.3851 20084.4398  4.01%  57.7   50s
-##   1916  1245 20852.8456   45  713 20924.3851 20092.6890  3.97%  49.7   55s
-## H 1975  1297                    20813.687049 20092.6890  3.46%  50.6   55s
-##   2456  1778 20440.5810   40 1870 20813.6870 20099.7124  3.43%  45.9   60s
-##   3091  2411 20318.8555   28 1835 20813.6870 20109.8128  3.38%  41.8   65s
-##   3147  2467 20895.4255   56  909 20813.6870 20109.8128  3.38%  45.9   70s
-##   3695  2893 20884.4232   55 1579 20813.6870 20110.2720  3.38%  44.0   75s
-##   4695  3620 20411.2629   34 1903 20813.6870 20148.3760  3.20%  38.2   80s
-##   4945  3720 20258.1019   28 1789 20813.6870 20148.6068  3.20%  38.8   89s
-##   4955  3730 21215.2077   38 1490 20813.6870 20148.6068  3.20%  39.2   90s
-##   5190  3773 20246.3125   28 1773 20813.6870 20155.9610  3.16%  40.3   95s
-##   5471  4008          -  274      20813.6870 20155.9610  3.16%  42.2  100s
-##   5889  4376 20371.5367   32 1911 20813.6870 20167.5494  3.10%  42.1  105s
-##   5907  4394 20751.2082   39 1821 20813.6870 20167.5494  3.10%  42.9  110s
-##   6367  4735          -  418      20813.6870 20171.2638  3.09%  42.3  115s
-##   6823  5003 21504.1302   82 1245 20813.6870 20193.4219  2.98%  42.1  120s
-##   7139  5118 20854.2405   52 1785 20813.6870 20195.6514  2.97%  42.9  125s
-##   7318  5295 20785.8433   46 1682 20813.6870 20195.9413  2.97%  44.6  130s
-##   8018  5511 20502.8138   33 1853 20813.6870 20200.4590  2.95%  43.0  135s
-##   8490  5580 20786.5406   44 1334 20813.6870 20200.5188  2.95%  42.8  140s
+##    622     9 20993.6044  226 2029 20993.6044 20004.8874  4.71%  32.0   15s
+##    633    15 20993.6044  584 1964 20993.6044 20028.3193  4.60%  31.4   20s
+##    644     3 20993.6044   73 1683 20993.6044 20028.7300  4.60%  38.0   25s
+##    658    10 20993.6044  121 1965 20993.6044 20030.7782  4.59%  37.2   30s
+##    671    13 20082.2138   23 1657 20993.6044 20044.6763  4.52%  43.7   35s
+##    698    31 20461.7127   37 1509 20993.6044 20082.6816  4.34%  52.8   40s
+## H  739    70                    20939.026645 20082.6816  4.09%  60.1   43s
+##    775   108 20923.7217   75  364 20939.0266 20082.6816  4.09%  64.5   45s
+##   1273   604 20568.6314   45 1640 20939.0266 20084.4398  4.08%  53.5   50s
+## H 1283   612                    20924.385117 20084.4398  4.01%  54.4   50s
+##   1885  1214 20378.9773   30 1682 20924.3851 20092.6890  3.97%  46.7   55s
+## H 1975  1297                    20813.687049 20092.6890  3.46%  50.6   57s
+##   2430  1752 20233.3473   29 1793 20813.6870 20099.7124  3.43%  43.1   60s
+##   2509  1831 20990.3165   66  327 20813.6870 20099.7124  3.43%  49.8   65s
+##   3120  2440 20748.4770   42 1723 20813.6870 20109.8128  3.38%  44.2   70s
+##   3652  2852 20230.9334   29 1816 20813.6870 20110.2720  3.38%  41.6   75s
+##   4182  3237 20514.5621   31 1923 20813.6870 20130.7144  3.28%  40.8   80s
+##   4746  3671 21416.2480   85  976 20813.6870 20148.3760  3.20%  39.2   85s
+##   4945  3720 20258.1019   28 1789 20813.6870 20148.6068  3.20%  38.8   92s
+##   5010  3741 20841.5499   45 1630 20813.6870 20153.3149  3.17%  39.9   96s
+##   5206  3789 20422.4483   37 1645 20813.6870 20155.9610  3.16%  41.3  100s
+##   5647  4172 20625.9327   38 1768 20813.6870 20166.6830  3.11%  41.5  105s
+##   5899  4386 20461.0578   34 1850 20813.6870 20167.5494  3.10%  42.6  110s
+##   5916  4403 20913.3841   42 1538 20813.6870 20167.5494  3.10%  43.1  115s
+##   6386  4752 20584.3852   36 1555 20813.6870 20187.3737  3.01%  42.5  120s
+##   6857  5037 21901.4352  116  335 20813.6870 20193.4219  2.98%  42.2  125s
+##   7147  5126 21149.6669   60 1632 20813.6870 20195.6514  2.97%  43.1  130s
+##   7321  5298 20816.6636   47 1716 20813.6870 20195.9413  2.97%  44.7  135s
+##   8018  5511 20502.8138   33 1853 20813.6870 20200.4590  2.95%  43.0  140s
+##   8486  5576 20712.1118   43 1333 20813.6870 20200.5188  2.95%  42.8  145s
 ## 
 ## Cutting planes:
 ##   Gomory: 7
@@ -563,7 +566,7 @@ div.csl-indent {
 ##   Zero half: 22
 ##   RLT: 24
 ## 
-## Explored 8610 nodes (373301 simplex iterations) in 141.17 seconds (90.12 work units)
+## Explored 8610 nodes (373301 simplex iterations) in 146.38 seconds (90.12 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 1000: 20813.7 20924.4 20939 ... 22442.4
@@ -680,8 +683,8 @@ div.csl-indent {
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.3, max: 0.3)]
 ##   decisions:      default
-##   constraints:    &lt;Locked out planning units [1 locked units]
-##                    Locked in planning units [317 locked units]&gt;
+##   constraints:    &lt;Locked in planning units [317 locked units]
+##                    Locked out planning units [1 locked units]&gt;
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (5e-04), zones]&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
@@ -699,7 +702,7 @@ div.csl-indent {
 ##   RHS range        [5e+03, 3e+05]
 ## Found heuristic solution: objective 1.221202e+08
 ## Presolve removed 4707 rows and 3103 columns
-## Presolve time: 0.11s
+## Presolve time: 0.12s
 ## Presolved: 5368 rows, 3677 columns, 12704 nonzeros
 ## Variable types: 0 continuous, 3677 integer (3677 binary)
 ## Found heuristic solution: objective 1.009944e+08

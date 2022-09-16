@@ -83,11 +83,12 @@ NULL
 #' conservation, *Conservation Letters*, 3: 359--368.
 #'
 #' @examples
+#' \dontrun{
+#' # load package
+#' library(Matrix)
+#'
 #' # set seed for reproducibility
 #' set.seed(600)
-#'
-#' # load Matrix package for visualizing matrices
-#' require(Matrix)
 #'
 #' # load data
 #' data(sim_pu_sf, sim_pu_zones_stack, sim_features, sim_features_zones)
@@ -135,9 +136,7 @@ NULL
 #' acm1[] <- rescale(acm1[])
 #'
 #' # visualize asymmetric connectivity matrix
-#' \dontrun{
 #' image(acm1)
-#' }
 #'
 #' # create penalties
 #' penalties <- c(1, 50)
@@ -151,7 +150,6 @@ NULL
 #' # assign names to the problems
 #' names(p2) <- c("basic problem", paste0("acm1 (", penalties,")"))
 #'
-#' \dontrun{
 #' # solve problems
 #' s2 <- lapply(p2, solve)
 #'
@@ -160,7 +158,6 @@ NULL
 #' for (i in seq_along(s2)) {
 #'   plot(s2[[i]], main = names(p2)[i], cex = 1.5, col = "white")
 #'   plot(s2[[i]][s2[[i]]$solution_1 == 1, ], col = "darkgreen", add = TRUE)
-#' }
 #' }
 #'
 #' # create minimal multi-zone problem and limit solver to one minute
@@ -184,7 +181,6 @@ NULL
 #' # assign names to the problems
 #' names(p4) <- c("basic problem", paste0("acm2 (", penalties,")"))
 #'
-#' \dontrun{
 #' # solve problems
 #' s4 <- lapply(p4, solve)
 #' s4 <- lapply(s4, category_layer)

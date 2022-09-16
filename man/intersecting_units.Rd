@@ -50,44 +50,38 @@ Find which of the units in a spatial data object intersect
 with the units in another spatial data object.
 }
 \examples{
+\dontrun{
 # create data
-r <- raster(matrix(1:9, byrow = TRUE, ncol=3))
+r <- raster(matrix(1:9, byrow = TRUE, ncol = 3))
 r_with_holes <- r
 r_with_holes[c(1, 5, 9)] <- NA
 ply <- rasterToPolygons(r)
-ply_with_holes <- st_as_sf(rasterToPolygons(r_with_holes))
+ply_with_holes <- sf::st_as_sf(rasterToPolygons(r_with_holes))
 
 # intersect raster with raster
-\dontrun{
 par(mfrow = c(1, 2))
 plot(r, main = "x=Raster")
 plot(r_with_holes, main = "y=Raster")
-}
 print(intersecting_units(r, r_with_holes))
 
 # intersect raster with polygons (sf)
-\dontrun{
 par(mfrow = c(1, 2))
 plot(r, main = "x=Raster")
 plot(ply_with_holes, main = "y=sf", key.pos = NULL, reset = FALSE)
-}
 print(intersecting_units(r, ply_with_holes))
 
 # intersect polygons (Spatial) with raster
-\dontrun{
 par(mfrow = c(1, 2))
 plot(ply, main = "x=Spatial")
 plot(r_with_holes, main = "y=Raster")
-}
 print(intersecting_units(ply, r_with_holes))
 
 # intersect polygons (Spatial) with polygons (sf)
-\dontrun{
 par(mfrow = c(1, 2))
 plot(ply, main = "x=Spatial")
 plot(ply_with_holes, main = "y=sf", key.pos = NULL, reset = FALSE)
-}
 print(intersecting_units(ply, ply_with_holes))
+}
 
 }
 \seealso{

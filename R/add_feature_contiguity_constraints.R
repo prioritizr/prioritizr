@@ -135,6 +135,7 @@ NULL
 #' *Journal of Applied Ecology*, 56: 913--922.
 #'
 #' @examples
+#' \dontrun{
 #' # load data
 #' data(sim_pu_raster, sim_pu_zones_stack, sim_features, sim_features_zones)
 #'
@@ -166,7 +167,7 @@ NULL
 #'   m
 #' })
 #' p4 <- p1 %>% add_feature_contiguity_constraints(data = cm4)
-#' \dontrun{
+#'
 #' # solve problems
 #' s1 <- stack(solve(p1), solve(p2), solve(p3), solve(p4))
 #'
@@ -175,7 +176,7 @@ NULL
 #'      main = c("basic solution", "contiguity constraints",
 #'               "feature contiguity constraints",
 #'               "feature contiguity constraints with data"))
-#' }
+#'
 #' # create minimal problem with multiple zones, and limit the solver to
 #' # 30 seconds to obtain solutions in a feasible period of time
 #' p5 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
@@ -207,7 +208,7 @@ NULL
 #'   matrix(ifelse(i == 1, 1, 0), ncol = 3, nrow = 3))
 #' print(zm8)
 #' p8 <- p5 %>% add_feature_contiguity_constraints(zm8)
-#' \dontrun{
+#'
 #' # solve problems
 #' s2 <- lapply(list(p5, p6, p7, p8), solve)
 #' s2 <- stack(lapply(s2, category_layer))

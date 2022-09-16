@@ -47,6 +47,7 @@ NULL
 #' @family constraints
 #'
 #' @examples
+#' \dontrun{
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -69,7 +70,7 @@ NULL
 #'                           lower = 1, upper = 1)
 #'
 #' p3 <- p1 %>% add_manual_bounded_constraints(bounds_data)
-#' \dontrun{
+#'
 #' # solve problems
 #' s1 <- solve(p1)
 #' s2 <- solve(p2)
@@ -85,7 +86,7 @@ NULL
 #'
 #' plot(s3, main = "add_bounds_constraints")
 #' plot(s3[s3$solution_1 == 1, ], col = "darkgreen", add = TRUE)
-#' }
+#'
 #' # create minimal problem with multiple zones
 #' p4 <- problem(sim_pu_zones_polygons, sim_features_zones,
 #'               c("cost_1", "cost_2", "cost_3")) %>%
@@ -110,7 +111,7 @@ NULL
 #'
 #' # create problem with added constraints
 #' p5 <- p4 %>% add_manual_bounded_constraints(bounds_data2)
-#' \dontrun{
+#'
 #' # solve problem
 #' s4 <- solve(p4)
 #' s5 <- solve(p5)

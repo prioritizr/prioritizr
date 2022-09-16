@@ -86,6 +86,7 @@ This argument must contain a field (column) name for each zone.}
 }
 
 \examples{
+\dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -104,14 +105,13 @@ p1 <- p \%>\% add_absolute_targets(3)
 # create problem with varying targets for each feature
 targets <- c(1, 2, 3, 2, 1)
 p2 <- p \%>\% add_absolute_targets(targets)
-\dontrun{
+
 # solve problem
 s <- stack(solve(p1), solve(p2))
 
 # plot solution
 plot(s, main = c("equal targets", "varying targets"), axes = FALSE,
      box = FALSE)
-}
 
 # create a problem with multiple management zones
 p3 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
@@ -130,13 +130,11 @@ print(p4_targets)
 p4 <- p3 \%>\% add_absolute_targets(p4_targets)
 
 # solve problem
-\dontrun{
-# solve problem
 s4 <- solve(p4)
 
 # plot solution (pixel values correspond to zone identifiers)
 plot(category_layer(s4), main = c("equal targets"))
-}
+
 # create a problem with targets that require a varying amount of each
 # feature to be represented in each zone
 p5_targets <- matrix(rpois(15, 1),
@@ -147,8 +145,7 @@ p5_targets <- matrix(rpois(15, 1),
 print(p5_targets)
 
 p5 <- p3 \%>\% add_absolute_targets(p4_targets)
-# solve problem
-\dontrun{
+
 # solve problem
 s5 <- solve(p5)
 

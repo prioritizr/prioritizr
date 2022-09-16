@@ -67,6 +67,7 @@ NULL
 #' @family objectives
 #'
 #' @examples
+#' \dontrun{
 #' # load data
 #' data(sim_pu_raster, sim_pu_zones_stack, sim_features, sim_features_zones)
 #'
@@ -75,13 +76,12 @@ NULL
 #'       add_max_utility_objective(5000) %>%
 #'       add_binary_decisions() %>%
 #'       add_default_solver(gap = 0, verbose = FALSE)
-#' \dontrun{
+#'
 #' # solve problem
 #' s1 <- solve(p1)
 #'
 #' # plot solution
 #' plot(s1, main = "solution", axes = FALSE, box = FALSE)
-#' }
 #'
 #' # create multi-zone problem with maximum utility objective that
 #' # has a single budget for all zones
@@ -89,13 +89,13 @@ NULL
 #'       add_max_utility_objective(5000) %>%
 #'       add_binary_decisions() %>%
 #'       add_default_solver(gap = 0, verbose = FALSE)
-#' \dontrun{
+#'
 #' # solve problem
 #' s2 <- solve(p2)
 #'
 #' # plot solution
 #' plot(category_layer(s2), main = "solution", axes = FALSE, box = FALSE)
-#' }
+#'
 #'
 #' # create multi-zone problem with maximum utility objective that
 #' # has separate budgets for each zone
@@ -103,7 +103,7 @@ NULL
 #'       add_max_utility_objective(c(1000, 2000, 3000)) %>%
 #'       add_binary_decisions() %>%
 #'       add_default_solver(gap = 0, verbose = FALSE)
-#' \dontrun{
+#'
 #' # solve problem
 #' s3 <- solve(p3)
 #'

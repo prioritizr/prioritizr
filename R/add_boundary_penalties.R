@@ -140,6 +140,7 @@ NULL
 #' *Ecological Modelling*, 228: 14--22.
 #'
 #' @examples
+#' \dontrun{
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -164,14 +165,13 @@ NULL
 #' bmat <- boundary_matrix(sim_pu_raster)
 #' p4 <- p1 %>% add_boundary_penalties(50, 1, data = bmat)
 #'
-#' \dontrun{
 #' # solve problems
 #' s <- stack(solve(p1), solve(p2), solve(p3), solve(p4))
 #'
 #' # plot solutions
 #' plot(s, main = c("basic solution", "small penalties", "high penalties",
 #'                  "precomputed data"), axes = FALSE, box = FALSE)
-#' }
+#'
 #' # create minimal problem with multiple zones and limit the run-time for
 #' # solver to 10 seconds so this example doesn't take too long
 #' p5 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
@@ -222,7 +222,6 @@ NULL
 #' # create problem with the zone matrix
 #' p10 <- p5 %>% add_boundary_penalties(500, zone = zm10)
 #'
-#' \dontrun{
 #' # solve problems
 #' s2 <- stack(category_layer(solve(p5)), category_layer(solve(p6)),
 #'             category_layer(solve(p7)), category_layer(solve(p8)),
