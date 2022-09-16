@@ -21,9 +21,6 @@ NULL
 #' @seealso [category_layer()].
 #'
 #' @examples
-#' # load packages
-#' library(raster)
-#'
 #' # create raster with categorical identifers
 #' x <- raster(matrix(c(1, 2, 3, 1, NA, 1), nrow = 3))
 #'

@@ -7,11 +7,6 @@ if (!is_skip) {
   library(testthat)
   library(prioritizr)
 
-  ## load spatial packages
-  library(sp)
-  library(sf)
-  library(raster)
-
   ## load solver packages
   require(gurobi)
   require(lpsymphony)

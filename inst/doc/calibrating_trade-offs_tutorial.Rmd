@@ -50,6 +50,8 @@ Let's load the packages and dataset used in this tutorial. Since this tutorial u
 # load packages
 library(prioritizrdata)
 library(prioritizr)
+library(sf)
+library(raster)
 library(dplyr)
 library(tibble)
 library(scales)

@@ -26,9 +26,6 @@ for preparing raster data for \code{\link[=add_locked_in_constraints]{add_locked
 \code{\linkS4class{RasterStack}} objects as input arguments.
 }
 \examples{
-# load packages
-library(raster)
-
 # create raster with categorical identifers
 x <- raster(matrix(c(1, 2, 3, 1, NA, 1), nrow = 3))
 

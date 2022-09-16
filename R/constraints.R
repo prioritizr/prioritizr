@@ -68,9 +68,7 @@ NULL
 #' @family overviews
 #'
 #' @examples
-#' # load packages
-#' library(raster)
-#'
+#' \dontrun{
 #' # load data
 #' data(sim_pu_raster, sim_features, sim_locked_in_raster,
 #'      sim_locked_out_raster)
@@ -96,7 +94,7 @@ NULL
 #'
 #' # create problem with feature contiguity constraints
 #' p6 <- p1 %>% add_feature_contiguity_constraints()
-#' \dontrun{
+#'
 #' # solve problems
 #' s <- stack(lapply(list(p1, p2, p3, p4, p5, p6), solve))
 #'

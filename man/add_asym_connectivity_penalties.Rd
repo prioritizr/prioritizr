@@ -171,8 +171,7 @@ unit 1 is assigned to zone 3 and planning unit 2 is assigned to zone 4.}
 
 \examples{
 \dontrun{
-# load packages
-library(raster)
+# load package
 library(Matrix)
 
 # set seed for reproducibility

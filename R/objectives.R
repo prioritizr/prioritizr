@@ -56,9 +56,7 @@ NULL
 #' @family overviews
 #'
 #' @examples
-#' # load packages
-#' library(raster)
-#'
+#' \dontrun{
 #' # load data
 #' data(sim_pu_raster, sim_features, sim_phylogeny)
 #'
@@ -94,7 +92,6 @@ NULL
 #' # note that this objective does not use targets
 #' p8 <- p %>% add_max_utility_objective(1900)
 #'
-#' \dontrun{
 #' # solve problems
 #' s <- stack(solve(p1), solve(p2), solve(p3), solve(p4), solve(p5),
 #'            solve(p6), solve(p7), solve(p8))

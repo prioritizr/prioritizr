@@ -23,9 +23,6 @@ NULL
 #'
 #' @examples
 #' \dontrun{
-#' # load packages
-#' library(raster)
-#'
 #' # create data
 #' r <- raster(matrix(1:9, byrow = TRUE, ncol = 3))
 #' r_with_holes <- r

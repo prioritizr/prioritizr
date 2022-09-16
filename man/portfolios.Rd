@@ -57,9 +57,7 @@ when the \emph{Gurobi} software is not available.}
 }
 }
 \examples{
-# load packages
-library(raster)
-
+\dontrun{
 # load data
 data(sim_pu_raster, sim_features)
 
@@ -75,7 +73,7 @@ p1 <- p \%>\% add_cuts_portfolio(4)
 
 # create problem with shuffle portfolio with 4 solutions
 p2 <- p \%>\% add_shuffle_portfolio(4)
-\dontrun{
+
 # create problem with extra portfolio
 p3 <- p \%>\% add_extra_portfolio()
 
@@ -102,8 +100,8 @@ plot(stack(s[[4]]), axes = FALSE, box = FALSE)
 
 # plot solutions from shuffle portfolio
 plot(stack(s[[5]]), axes = FALSE, box = FALSE)
-
 }
+
 }
 \seealso{
 Other overviews: 

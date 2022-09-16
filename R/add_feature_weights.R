@@ -64,8 +64,7 @@ NULL
 #'
 #' @examples
 #' \dontrun{
-#' # load packages
-#' library(raster)
+#' # load package
 #' require(ape)
 #'
 #' # load data

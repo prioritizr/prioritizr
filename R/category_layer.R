@@ -22,9 +22,6 @@ NULL
 #' @seealso [binary_stack()].
 #'
 #' @examples
-#' # load packages
-#' library(raster)
-#'
 #' # create a binary raster stack
 #' x <- stack(raster(matrix(c(1, 0, 0, 1, NA, 0), nrow = 3)),
 #'            raster(matrix(c(0, 1, 0, 0, NA, 0), nrow = 3)),

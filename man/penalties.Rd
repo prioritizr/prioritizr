@@ -41,9 +41,6 @@ planning units based on a certain variable
 }
 }
 \examples{
-# load packages
-library(raster)
-
 # load data
 data(sim_pu_raster, sim_features)
 

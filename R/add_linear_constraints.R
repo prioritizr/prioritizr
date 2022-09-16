@@ -66,13 +66,10 @@ NULL
 #' @family constraints
 #'
 #' @examples
-#' # load packages
-#' library(raster)
-#'
+#' \dontrun{
 #' # load data
 #' data(sim_pu_raster, sim_features)
 #'
-#' \dontrun{
 #' # create a baseline problem with minimum shortfall objective
 #' p0 <- problem(sim_pu_raster, sim_features) %>%
 #'       add_min_shortfall_objective(1800) %>%

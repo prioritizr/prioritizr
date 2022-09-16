@@ -88,9 +88,6 @@ This argument must contain a field (column) name for each zone.}
 
 \examples{
 \dontrun{
-# load packages
-library(raster)
-
 # set seed for reproducibility
 set.seed(500)
 

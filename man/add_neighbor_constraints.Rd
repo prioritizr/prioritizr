@@ -114,9 +114,6 @@ allocated to zones 3 and 4 respectively.}
 
 \examples{
 \dontrun{
-# load packages
-library(raster)
-
 # load data
 data(sim_pu_raster, sim_features, sim_pu_zones_stack, sim_features_zones)
 

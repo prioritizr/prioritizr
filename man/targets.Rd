@@ -31,9 +31,7 @@ minimum amount of each feature required in the prioritization.}
 }
 }
 \examples{
-# load packages
-library(raster)
-
+\dontrun{
 # load data
 data(sim_pu_raster, sim_features)
 
@@ -56,7 +54,7 @@ p3 <- p \%>\% add_loglinear_targets(10, 0.9, 100, 0.2)
 p4 <- p \%>\% add_manual_targets(data.frame(feature = names(sim_features),
                                           target = 0.1,
                                           type = "relative"))
-\dontrun{
+
 # solve problem
 s <- stack(solve(p1), solve(p2), solve(p3), solve(p4))
 

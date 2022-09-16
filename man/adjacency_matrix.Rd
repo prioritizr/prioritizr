@@ -70,9 +70,6 @@ with other spatial association matrix functions.
 
 \examples{
 \dontrun{
-# load packages
-library(raster)
-
 # load data
 data(sim_pu_raster, sim_pu_sf, sim_pu_lines)
 

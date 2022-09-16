@@ -35,9 +35,6 @@ problem with multiple zones must be allocated to a management zone (i.e.,
 zone allocation is mandatory).
 }
 \examples{
-# load packages
-library(raster)
-
 # set seed for reproducibility
 set.seed(500)
 

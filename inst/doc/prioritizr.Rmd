@@ -42,6 +42,8 @@ Let's load the packages and data used in this tutorial. Since this tutorial uses
 # load packages
 library(prioritizrdata)
 library(prioritizr)
+library(sf)
+library(raster)
 library(vegan)
 library(cluster)
 

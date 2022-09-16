@@ -36,8 +36,9 @@ The aim of this tutorial is to showcase the zones functionality of the _prioriti
 In the _prioritizr R_ package, all conservation planning problems -- including those which contain multiple management zones or actions -- are initialized using the `problem` function. To refresh our memory on how we can construct problems, let us quickly construct a simple conservation planning problem. This problem will use the simulated built-in planning unit and feature data distributed with the package. It will have a minimum set objective, targets which require that solution secure to 10 % of the habitat in the study area for each feature, and binary decision variables indicating that planning units are selected or not selected for protection.
 
 ```{r, results = "hide"}
-# load prioritizr package
+# load packages
 library(prioritizr)
+library(raster)
 ```
 
 ```{r}

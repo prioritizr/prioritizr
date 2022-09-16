@@ -29,9 +29,6 @@ of the \pkg{gurobi} package must be installed.
 }
 \examples{
 \dontrun{
-# load packages
-library(raster)
-
 # set seed for reproducibility
 set.seed(600)
 

@@ -40,9 +40,6 @@ problem formulation to generate multiple solutions.
 
 \examples{
 \dontrun{
-# load packages
-library(raster)
-
 # set seed for reproducibility
 set.seed(500)
 

@@ -170,8 +170,7 @@ asymmetric connectivity data.
 
 \examples{
 \dontrun{
-# load packages
-library(raster)
+# load package
 library(Matrix)
 
 # set seed for reproducibility

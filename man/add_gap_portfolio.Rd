@@ -45,9 +45,6 @@ that have binary decisions (i.e., specified using
 }
 \examples{
 \dontrun{
-# load packages
-library(raster)
-
 # set seed for reproducibility
 set.seed(600)
 

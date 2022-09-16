@@ -153,7 +153,8 @@ then a <code><a href="https://rdrr.io/pkg/Matrix/man/dgCMatrix-class.html" class
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># create marxan connectivity data with four planning units and one zone,</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span><span class="co"># create marxan connectivity data with four planning units and one zone,</span></span></span>
 <span class="r-in"><span><span class="co"># and symmetric connectivity values</span></span></span>
 <span class="r-in"><span><span class="va">bldf1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span>id1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span>, id2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">bldf1</span><span class="op">$</span><span class="va">boundary</span> <span class="op">&lt;-</span> <span class="fl">1</span></span></span>
@@ -192,10 +193,9 @@ then a <code><a href="https://rdrr.io/pkg/Matrix/man/dgCMatrix-class.html" class
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,] 1.0 1.0 1.0 0.5</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># visualize matrix</span></span></span>
-<span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="marxan_connectivity_data_to_matrix-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="co"># }</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create marxan connectivity data with four planning units and one zone,</span></span></span>
 <span class="r-in"><span><span class="co"># and asymmetric connectivity values</span></span></span>
 <span class="r-in"><span><span class="va">bldf2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span>id1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span>, id2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></span>
@@ -235,10 +235,9 @@ then a <code><a href="https://rdrr.io/pkg/Matrix/man/dgCMatrix-class.html" class
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,] 0.5892456 0.2372128 0.06918062 0.50000000</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># visualize matrix</span></span></span>
-<span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image</a></span><span class="op">(</span><span class="va">m2</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="marxan_connectivity_data_to_matrix-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="co"># }</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create marxan connectivity with three planning units and two zones,</span></span></span>
 <span class="r-in"><span><span class="co"># and symmetric connectivity values</span></span></span>
 <span class="r-in"><span><span class="va">bldf3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span>id1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>, id2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>,</span></span>
@@ -321,6 +320,7 @@ then a <code><a href="https://rdrr.io/pkg/Matrix/man/dgCMatrix-class.html" class
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    1    1    1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,]    1    1    1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </div>

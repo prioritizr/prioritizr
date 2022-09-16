@@ -73,9 +73,6 @@ NULL
 #'
 #' @examples
 #' \dontrun{
-#' # load packages
-#' library(raster)
-#'
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
