@@ -1,13 +1,14 @@
+# prioritizr 7.2.2.1
+
+- Fix mistake in NEWS.md.
+- Update publication record.
+
 # prioritizr 7.2.2
 
 - Release candidate for CRAN.
 - Fix compiler warnings.
 - Update tests to skip long-running tests on CRAN.
 - Update examples to minimize overall package check timings for CRAN.
-- Move _sp_, _sf_, and _raster_ packages from Depends to Imports.
-  This update was needed to ensure package checks complete on CRAN within
-  specified time limits. Due to this change, users will now need to import these packages manually in their own code, by using `library(sp)`,
-  `library(sf)`, `library(sp)` and/or `library(raster)` (as needed).
 
 # prioritizr 7.2.1
 

@@ -93,4 +93,6 @@ This vignette contains a list of publications that have cited or used the _prior
 
 ## Book chapters
 
-* Kuemmerle T, Kastner T, Meyfroidt P, and Qin S (2019) Conservation Telecouplings in _Telecoupling: Exploring Land-Use Change in a Globalised World, Springer International Publishing_ (eds Friis C, and Nielsen J). Palgrave Studies in Natural Resource Management. Palgrave Macmillan, Cham.
+* Riginos C, Beger M (2022). Incorporating Genetic Measures of Connectivity and Adaptation in Marine Spatial Planning for Corals in _Coral Reef Conservation and Restoration in the Omics Age_ (eds van Oppen MJH and Aranda Lastra M). Coral Reefs of the World. Springer, Cham.
+
+* Kuemmerle T, Kastner T, Meyfroidt P, and Qin S (2019) Conservation Telecouplings in _Telecoupling: Exploring Land-Use Change in a Globalised World, Springer International Publishing_ (eds Friis C and Nielsen J). Palgrave Studies in Natural Resource Management. Palgrave Macmillan, Cham.
