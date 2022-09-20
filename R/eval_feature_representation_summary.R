@@ -290,17 +290,22 @@ internal_eval_feature_representation_summary <- function(x, solution) {
     is.matrix(solution))
   # calculate amount of each feature in each planning unit
   total <- x$feature_abundances_in_total_units()
-  held <-
-    vapply(
-      seq_len(x$number_of_zones()),
-      FUN.VALUE = numeric(nrow(x$data$rij_matrix[[1]])),
-      function(i) {
-        rowSums(
-          x$data$rij_matrix[[i]] *
-            matrix(solution[, i], ncol = nrow(solution),
-                   nrow = nrow(x$data$rij_matrix[[1]]), byrow = TRUE),
-          na.rm = TRUE)
-    })
+  held <- vapply(
+    seq_len(x$number_of_zones()),
+    FUN.VALUE = numeric(nrow(x$data$rij_matrix[[1]])),
+    function(i) {
+      Matrix::rowSums(
+        x$data$rij_matrix[[i]] *
+        Matrix::Matrix(
+          solution[, i],
+          ncol = nrow(solution),
+          nrow = nrow(x$data$rij_matrix[[1]]),
+          byrow = TRUE,
+          sparse = FALSE
+        ),
+        na.rm = TRUE
+      )
+  })
   # prepare output
   if (x$number_of_zones() == 1) {
     out <- tibble::tibble(
@@ -310,8 +315,8 @@ internal_eval_feature_representation_summary <- function(x, solution) {
       absolute_held = unname(c(held)),
       relative_held = unname(c(held / total)))
   } else {
-    total <- c(rowSums(total), c(total))
-    held <- c(rowSums(held), c(held))
+    total <- c(Matrix::rowSums(total), c(total))
+    held <- c(Matrix::rowSums(held), c(held))
     out <- tibble::tibble(
       summary =
         rep(c("overall", x$zone_names()), each = x$number_of_features()),
