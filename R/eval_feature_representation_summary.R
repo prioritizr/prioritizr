@@ -301,7 +301,7 @@ internal_eval_feature_representation_summary <- function(x, solution) {
           ncol = nrow(solution),
           nrow = nrow(x$data$rij_matrix[[1]]),
           byrow = TRUE,
-          sparse = FALSE
+          sparse = TRUE
         ),
         na.rm = TRUE
       )
