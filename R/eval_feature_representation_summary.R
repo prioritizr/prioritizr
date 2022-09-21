@@ -288,24 +288,25 @@ internal_eval_feature_representation_summary <- function(x, solution) {
   assertthat::assert_that(
     inherits(x, "ConservationProblem"),
     is.matrix(solution))
+  # convert NAs in solution to zeros
+  solution[is.na(solution)] <- 0
   # calculate amount of each feature in each planning unit
   total <- x$feature_abundances_in_total_units()
   held <- vapply(
     seq_len(x$number_of_zones()),
     FUN.VALUE = numeric(nrow(x$data$rij_matrix[[1]])),
     function(i) {
-      Matrix::rowSums(
-        x$data$rij_matrix[[i]] *
+      as.numeric(
+        x$data$rij_matrix[[i]] %*%
         Matrix::Matrix(
           solution[, i],
-          ncol = nrow(solution),
-          nrow = nrow(x$data$rij_matrix[[1]]),
-          byrow = TRUE,
+          ncol = 1,
+          nrow = nrow(solution),
           sparse = TRUE
-        ),
-        na.rm = TRUE
+        )
       )
-  })
+    }
+  )
   # prepare output
   if (x$number_of_zones() == 1) {
     out <- tibble::tibble(
