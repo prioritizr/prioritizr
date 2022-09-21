@@ -90,7 +90,7 @@ Object (i.e., \code{\linkS4class{ConservationProblem}}) with the solver
 added to it.
 }
 \description{
-Specify that the \href{https://www.gurobi.com}{\emph{Gurobi}} software
+Specify that the \href{https://www.gurobi.com/}{\emph{Gurobi}} software
 (Gurobi Optimization LLC 2021) should be used to solve a
 conservation planning \code{\link[=problem]{problem()}}. This function can also be used to
 customize the behavior of the solver.
@@ -98,7 +98,7 @@ It requires the \pkg{gurobi} package to be installed
 (see below for installation instructions).
 }
 \details{
-\href{https://www.gurobi.com}{\emph{Gurobi}} is a
+\href{https://www.gurobi.com/}{\emph{Gurobi}} is a
 state-of-the-art commercial optimization software with an R package
 interface. It is by far the fastest of the solvers available for
 generating prioritizations, however, it is not freely
