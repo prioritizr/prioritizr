@@ -1,3 +1,9 @@
+# prioritizr 7.2.2.2
+
+- Update `problem()` and `eval_feature_representation_summary()` to avoid
+  needlessly converting sparse matrices to regular matrices (#252).
+- Fix broken URLs in documentation.
+
 # prioritizr 7.2.2.1
 
 - Fix mistake in NEWS.md.

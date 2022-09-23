@@ -931,14 +931,14 @@ methods::setMethod(
     if (is.null(names(rij_matrix)))
       names(rij_matrix) <- as.character(seq_along(rij_matrix))
     # calculate feature abundances in total units
-    fatu <- vapply(rij_matrix, rowSums, numeric(nrow(rij_matrix[[1]])),
+    fatu <- vapply(rij_matrix, Matrix::rowSums, numeric(nrow(rij_matrix[[1]])),
                    na.rm = TRUE)
     if (!is.matrix(fatu))
       fatu <- matrix(fatu, nrow = nrow(features), ncol = length(rij_matrix))
     rownames(fatu) <- as.character(features$name)
     colnames(fatu) <- names(rij_matrix)
     # convert rij matrices to sparse format if needed
-    pos <- which(rowSums(!is.na(x)) > 0)
+    pos <- which(Matrix::rowSums(!is.na(x)) > 0)
     rij <- lapply(rij_matrix, function(z) {
       if (inherits(z, "dgCMatrix")) {
         z@x[which(is.na(z@x))] <- 0
@@ -1013,7 +1013,7 @@ methods::setMethod(
       return(m)
     })
     # calculate feature abundances in total units
-    fatu <- vapply(rij, rowSums, numeric(number_of_features(features)),
+    fatu <- vapply(rij, Matrix::rowSums, numeric(number_of_features(features)),
                    na.rm = TRUE)
     if (!is.matrix(fatu))
       fatu <- matrix(fatu, nrow = number_of_features(features),
@@ -1021,8 +1021,9 @@ methods::setMethod(
     rownames(fatu) <- feature_names(features)
     colnames(fatu) <- zone_names(features)
     # create rij matrix
-    pos <- which(rowSums(!is.na(as.matrix(
-             x2[, cost_column, drop = FALSE]))) > 0)
+    pos <- which(
+      rowSums(!is.na(as.matrix(x2[, cost_column, drop = FALSE]))) > 0
+    )
     rij <- lapply(rij, function(x) x[, pos, drop = FALSE])
     names(rij) <- zone_names(features)
     # create ConservationProblem object
