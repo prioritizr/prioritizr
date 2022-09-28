@@ -53,10 +53,7 @@ NULL
 #' For further details on installing this package, please consult the
 #' [installation instructions](https://github.com/cran/cplexAPI/blob/master/inst/INSTALL).
 #'
-#' @inherit add_gurobi_solver return
-#'
-#' @seealso
-#' See [solvers] for an overview of all functions for adding a solver.
+#' @inherit add_gurobi_solver return seealso
 #'
 #' @family solvers
 #'

@@ -1,3 +1,11 @@
+# prioritizr 7.2.2.3
+
+- New `add_highs_solver()` function for the HiGHS optimization software (#250).
+- Update `add_default_solver()` to use the HiGHS solver if the Gurobi, IBM
+  CPLEX, and CBC solvers aren't available.
+- Fix `add_default_solver()` so that the `add_lpsymphony_solver()` is used
+  instead of `add_rsymphony_solver()`.
+
 # prioritizr 7.2.2.2
 
 - Update `problem()` and `eval_feature_representation_summary()` to avoid

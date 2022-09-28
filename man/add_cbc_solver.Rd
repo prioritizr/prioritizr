@@ -75,12 +75,12 @@ see below for installation instructions).
 \href{https://github.com/coin-or/Cbc}{\emph{CBC}} is an
 open-source mixed integer programming solver that is part of the
 Computational Infrastructure for Operations Research (COIN-OR) project.
-Although formal benchmarks examining the performance of this solver for
-conservation planning problems have yet to be completed, preliminary
-analyses suggest that it performs much faster than the other open-source
-solvers (i.e., \code{\link[=add_rsymphony_solver]{add_rsymphony_solver()}}, \code{\link[=add_rsymphony_solver]{add_rsymphony_solver()}}), and
-so we recommend using this solver if the \emph{Gurobi} and \emph{IBM CPLEX} solvers
-are unavailable.
+This solver seems to have much better performance than the other open-source
+solvers (i.e., \code{\link[=add_highs_solver]{add_highs_solver()}}, \code{\link[=add_rsymphony_solver]{add_rsymphony_solver()}},
+\code{\link[=add_lpsymphony_solver]{add_lpsymphony_solver()}})
+(see the \emph{Solver benchmarks} vignette for details).
+As such, it is strongly recommended to use this solver if the \emph{Gurobi} and
+\emph{IBM CPLEX} solvers are not available.
 }
 \section{Installation}{
 
@@ -221,12 +221,11 @@ Methods, and Applications (pp. 257--277). INFORMS, Catonsville, MD.
 \doi{10.1287/educ.1053.0020}.
 }
 \seealso{
-See \link{solvers} for an overview of all functions for adding a solver.
-
 Other solvers: 
 \code{\link{add_cplex_solver}()},
 \code{\link{add_default_solver}()},
 \code{\link{add_gurobi_solver}()},
+\code{\link{add_highs_solver}()},
 \code{\link{add_lsymphony_solver}},
 \code{\link{add_rsymphony_solver}()}
 }

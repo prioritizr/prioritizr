@@ -26,7 +26,8 @@ to different sized datasets.
 \details{
 Ranked from best to worst, the available solvers that can be used are:
 \code{\link[=add_gurobi_solver]{add_gurobi_solver()}}, \code{\link[=add_cplex_solver]{add_cplex_solver()}}, \code{\link[=add_cbc_solver]{add_cbc_solver()}},
-\code{\link[=add_lpsymphony_solver]{add_lpsymphony_solver()}}, and finally \code{\link[=add_rsymphony_solver]{add_rsymphony_solver()}}.
+\code{\link[=add_highs_solver]{add_highs_solver()}}, \code{\link[=add_lpsymphony_solver]{add_lpsymphony_solver()}}, and finally
+\code{\link[=add_rsymphony_solver]{add_rsymphony_solver()}}.
 }
 \references{
 Schuster R, Hanson JO, Strimas-Mackey M, and Bennett JR (2020). Exact
@@ -40,6 +41,7 @@ Other solvers:
 \code{\link{add_cbc_solver}()},
 \code{\link{add_cplex_solver}()},
 \code{\link{add_gurobi_solver}()},
+\code{\link{add_highs_solver}()},
 \code{\link{add_lsymphony_solver}},
 \code{\link{add_rsymphony_solver}()}
 }
