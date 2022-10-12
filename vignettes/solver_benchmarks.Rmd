@@ -27,6 +27,7 @@ knitr::opts_chunk$set(
 ```{r, eval = TRUE, include = FALSE}
 # define variables for CRAN
 n_planning_units <- rep(0, 100)
+benchmark_results <- data.frame(time_limit = NA_real_)
 boundary_penalty_values <- list(
   add_min_set_objective = rep(0, 100),
   add_min_shortfall_objective = rep(0, 100))
