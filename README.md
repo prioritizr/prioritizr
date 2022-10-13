@@ -69,7 +69,7 @@ Alternatively, to cite the latest development version, please use:
 
 > Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Edwards BPM, Watts
 > ME, Arcese P, Bennett J, Possingham HP (2022). prioritizr: Systematic
-> Conservation Prioritization in R. R package version 7.2.2.2. Available
+> Conservation Prioritization in R. R package version 7.2.2.3. Available
 > at <https://github.com/prioritizr/prioritizr>.
 
 Additionally, we keep a [record of
@@ -247,7 +247,7 @@ s1 <- solve(p1)
     ##      0     0 2612.49918    0   10 2747.37746 2612.49918  4.91%     -    0s
     ##      0     0 2612.50875    0   10 2747.37746 2612.50875  4.91%     -    0s
     ##      0     2 2612.81540    0   10 2747.37746 2612.81540  4.90%     -    0s
-    ##  28310 12843 2624.27040   53    3 2747.37746 2620.09309  4.63%   1.6    5s
+    ##  29267 13139 2623.25589   51    2 2747.37746 2620.18564  4.63%   1.6    5s
     ## H88635  5604                    2627.6389306 2622.33208  0.20%   1.6    7s
     ## 
     ## Cutting planes:
@@ -255,7 +255,7 @@ s1 <- solve(p1)
     ##   StrongCG: 2
     ##   Flow cover: 3
     ## 
-    ## Explored 108086 nodes (186594 simplex iterations) in 9.35 seconds (2.28 work units)
+    ## Explored 108086 nodes (186594 simplex iterations) in 9.51 seconds (2.28 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 6: 2627.64 2747.38 2761.33 ... 3139.89
@@ -277,7 +277,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##       9.38
+    ##      9.536
 
 ``` r
 # extract state message from the solver
@@ -412,7 +412,7 @@ s2 <- solve(p2)
     ##   MIR: 4
     ##   Flow cover: 1
     ## 
-    ## Explored 10370 nodes (24553 simplex iterations) in 2.72 seconds (1.01 work units)
+    ## Explored 10370 nodes (24553 simplex iterations) in 3.02 seconds (1.01 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 5: 2838.26 2839.12 3021.28 ... 3027.7
@@ -469,7 +469,7 @@ s3 <- solve(p3)
     ## Root relaxation presolved: 221 rows, 188 columns, 832 nonzeros
     ## 
     ## 
-    ## Root relaxation: objective 3.862929e+03, 120 iterations, 0.01 seconds (0.00 work units)
+    ## Root relaxation: objective 3.862929e+03, 120 iterations, 0.00 seconds (0.00 work units)
     ## 
     ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
     ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time

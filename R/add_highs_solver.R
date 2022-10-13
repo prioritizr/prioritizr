@@ -22,8 +22,6 @@ NULL
 #' the [add_gurobi_solver()], [add_cplex_solver()], [add_cbc_solver()] cannot
 #' be used.
 #'
-#' @inheritSection add_gurobi_solver Start solution format
-#'
 #' @inherit add_gurobi_solver return seealso
 #'
 #' @family solvers
