@@ -68,14 +68,13 @@ jobs:
           brew install proj
           brew install geos
           brew install gdal
-          export PKG_CONFIG_PATH="/usr/local/opt/cbc/lib/pkgconfig"
 
       - name: Install dependencies
         run: |
           options("install.packages.compile.from.source" = "never")
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("withr")
-          withr::with_envvar(c("PKG_CONFIG_PATH" = "/usr/local/opt/cbc/lib/pkgconfig"), remotes::install_github("dirkschumacher/rcbc")
+          withr::with_envvar(c("PKG_CONFIG_PATH" = "/usr/local/opt/cbc/lib/pkgconfig"), remotes::install_github("dirkschumacher/rcbc"))
           remotes::install_cran("covr")
           remotes::install_bioc("lpsymphony")
         shell: Rscript {0}
