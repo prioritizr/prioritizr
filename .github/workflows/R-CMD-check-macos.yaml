@@ -73,10 +73,19 @@ jobs:
         run: |
           options("install.packages.compile.from.source" = "never")
           remotes::install_deps(dependencies = TRUE)
-          remotes::install_cran("withr")
-          withr::with_envvar(c("PKG_CONFIG_PATH" = "/usr/local/opt/cbc/lib/pkgconfig"), remotes::install_github("dirkschumacher/rcbc"))
+          remotes::install_github("dirkschumacher/rcbc", configure.vars = "INCLUDE_DIR=/usr/local/opt/cbc/include LIB_DIR=/usr/local/opt/cbc/lib")
+          print("here1")
+          dir("/usr/local/opt/")
+          print("here2")
+          dir("/usr/local/opt/cbc")
+          print("here3")
+          dir("/usr/local/opt/cbc/include")
+          print("here4")
+          dir("/usr/local/opt/cbc/lib")
+          print("here5")
           remotes::install_cran("covr")
           remotes::install_bioc("lpsymphony")
+          stop("here")
         shell: Rscript {0}
 
       - name: Session information
