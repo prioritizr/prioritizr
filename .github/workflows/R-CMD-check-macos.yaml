@@ -71,9 +71,13 @@ jobs:
 
       - name: Debug
         run: |
-          export PKG_CONFIG_PATH=/usr/local/opt/cbc/lib/pkgconfig
+          echo "here1"
+          export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/opt/cbc/lib/pkgconfig
+          echo "here2"
           pkg-config --cflags --silence-errors cbc
+          echo "here3"
           pkg-config --libs cbc
+          echo "here4"
 
       - name: Install dependencies
         run: |
