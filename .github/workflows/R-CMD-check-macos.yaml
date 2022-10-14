@@ -68,6 +68,8 @@ jobs:
           brew install proj
           brew install geos
           brew install gdal
+          export PKG_CONFIG_PATH="${PKG_CONFIG_PATH}:/usr/local/opt/cbc/lib/pkgconfig" && pkg-config --cflags --silence-errors cbc
+          export PKG_CONFIG_PATH="${PKG_CONFIG_PATH}:/usr/local/opt/cbc/lib/pkgconfig" && pkg-config --libs cbc
 
       - name: Install dependencies
         run: |
@@ -89,7 +91,8 @@ jobs:
           print("here7")
           stop("here")
           remotes::install_cran("covr")
-          remotes::install_bioc("lpsymphony")
+          stop("done")
+          #remotes::install_bioc("lpsymphony")
         shell: Rscript {0}
 
       - name: Session information
