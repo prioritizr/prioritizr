@@ -65,14 +65,14 @@ jobs:
           brew tap coin-or-tools/coinor
           brew install coin-or-tools/coinor/symphony
           brew install coin-or-tools/coinor/cbc
-          brew install proj
-          brew install geos
-          brew install gdal
+          #brew install proj
+          #brew install geos
+          #brew install gdal
 
       - name: Debug
         run: |
           echo "here1"
-          export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/opt/cbc/lib/pkgconfig:/usr/local/opt/clp/lib/pkgconfig:/usr/local/opt/coinutils/lib/pkgconfig:/usr/local/opt/osi/lib/pkgconfig
+          export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/opt/cbc/lib/pkgconfig:/usr/local/opt/clp/lib/pkgconfig:/usr/local/opt/coinutils/lib/pkgconfig:/usr/local/opt/osi/lib/pkgconfig:/usr/local/opt/cgl/lib/pkgconfig
           echo "here2"
           pkg-config --version
           echo "here3"
