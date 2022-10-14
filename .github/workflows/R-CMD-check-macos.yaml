@@ -72,13 +72,13 @@ jobs:
       - name: Debug
         run: |
           echo "here1"
-          export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/opt/cbc/lib/pkgconfig:/usr/local/opt/clp/lib/pkgconfig:/usr/local/opt/coinutils/lib/pkgconfig
+          export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/opt/cbc/lib/pkgconfig:/usr/local/opt/clp/lib/pkgconfig:/usr/local/opt/coinutils/lib/pkgconfig:/usr/local/opt/osi/lib/pkgconfig
           echo "here2"
           pkg-config --version
           echo "here3"
           pkg-config --cflags --silence-errors cbc || true
           echo "here4"
-          pkg-config --libs cbc || true
+          pkg-config --libs cbc
           echo "here5"
 
       - name: Install dependencies
