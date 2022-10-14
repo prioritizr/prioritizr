@@ -65,49 +65,14 @@ jobs:
           brew tap coin-or-tools/coinor
           brew install coin-or-tools/coinor/symphony
           brew install coin-or-tools/coinor/cbc
-          #brew install proj
-          #brew install geos
-          #brew install gdal
-
-      - name: Debug
-        run: |
-          echo "here1"
-          export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/opt/cbc/lib/pkgconfig:/usr/local/opt/clp/lib/pkgconfig:/usr/local/opt/coinutils/lib/pkgconfig:/usr/local/opt/osi/lib/pkgconfig:/usr/local/opt/cgl/lib/pkgconfig
-          echo "here2"
-          pkg-config --version
-          echo "here3"
-          pkg-config --cflags --silence-errors cbc || true
-          echo "here4"
-          pkg-config --libs cbc
-          echo "here5"
-
-      - name: Install rcbc package
-        run: |
-          export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/opt/cbc/lib/pkgconfig:/usr/local/opt/clp/lib/pkgconfig:/usr/local/opt/coinutils/lib/pkgconfig:/usr/local/opt/osi/lib/pkgconfig:/usr/local/opt/cgl/lib
-          R -e "remotes::install_github('dirkschumacher/rcbc')"
+          brew install proj
+          brew install geos
+          brew install gdal
 
       - name: Install dependencies
         run: |
           options("install.packages.compile.from.source" = "never")
           remotes::install_deps(dependencies = TRUE)
-          remotes::install_github("dirkschumacher/rcbc", configure.vars = "INCLUDE_DIR=/usr/local/opt/cbc/include/cbc/coin LIB_DIR=/usr/local/opt/cbc/lib")
-          print("here1")
-          dir("/usr/local/opt/")
-          print("here2")
-          dir("/usr/local/opt/cbc")
-          print("here3")
-          dir("/usr/local/opt/cbc/include")
-          print("here4")
-          dir("/usr/local/opt/cbc/include/cbc")
-          print("here5")
-          dir("/usr/local/opt/cbc/include/cbc/coin")
-          print("here6")
-          dir("/usr/local/opt/cbc/lib")
-          print("here7")
-          stop("here")
-          remotes::install_cran("covr")
-          stop("done")
-          #remotes::install_bioc("lpsymphony")
         shell: Rscript {0}
 
       - name: Session information
