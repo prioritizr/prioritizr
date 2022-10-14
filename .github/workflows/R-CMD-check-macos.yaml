@@ -84,7 +84,7 @@ jobs:
       - name: Install rcbc package
         run: |
           export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/opt/cbc/lib/pkgconfig:/usr/local/opt/clp/lib/pkgconfig:/usr/local/opt/coinutils/lib/pkgconfig:/usr/local/opt/osi/lib/pkgconfig:/usr/local/opt/cgl/lib
-          R -e "remotes::install_github('dirkschumacher/rcbc')
+          R -e "remotes::install_github('dirkschumacher/rcbc')"
 
       - name: Install dependencies
         run: |
