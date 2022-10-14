@@ -4,6 +4,7 @@ output:
   rmarkdown::html_vignette:
     toc: true
     fig_caption: true
+    self_contained: yes
 fontsize: 11pt
 documentclass: article
 bibliography: references.bib
@@ -18,11 +19,8 @@ h = 3.5
 w = 3.5
 is_check <- ("CheckExEnv" %in% search()) || any(c("_R_CHECK_TIMINGS_",
              "_R_CHECK_LICENSE_") %in% names(Sys.getenv()))
-knitr::opts_chunk$set(
-  fig.align = "center",
-  eval = !is_check, purl = !is_check,
-  root.dir = normalizePath("../..")
-)
+knitr::opts_chunk$set(fig.align = "center", eval = !is_check,
+                      root.dir = normalizePath("../.."))
 ```
 
 ## Summary
@@ -85,13 +83,11 @@ After building a conservation problem, it can then be solved to obtain a solutio
 
 Here we will provide an introduction to using the _prioritizr R_ package to build and solve a conservation planning problem. Please note that we will not discuss conservation planning with multiple zones in this vignette, for more information on working with multiple management zones please see the [_Management zones tutorial_](management_zones_tutorial.html).
 
-First, we will load the _prioritizr_ package and some packages for working with spatial data.
+First, we will load the _prioritizr_ package.
 
 ```{r, results = "hide", message = FALSE}
 # load package
 library(prioritizr)
-library(sp)
-library(raster)
 
 # set default options for printing tabular data
 options(tibble.width = Inf)
@@ -628,8 +624,7 @@ p32 <- problem(sim_pu_raster, sim_features) %>%
 print(p32)
 ```
 * __*CBC* solver__: [*CBC*](https://github.com/coin-or/Cbc) is an
-open-source mixed integer programming solver that is part of the Computational Infrastructure for Operations Research (COIN-OR) project. Although formal benchmarks have yet to be completed, preliminary analyses suggest that it is
-the fastest open-source solver available for generating prioritizations. It requires the _rcbc R_ package, which is currently only available on [GitHub](https://github.com/dirkschumacher/rcbc).
+open-source mixed integer programming solver that is part of the Computational Infrastructure for Operations Research (COIN-OR) project. This solver seems to have much better performance than the other open-source solvers (i.e., `add_rsymphony_solver()`, `add_lpsymphony_solver()`) (see the [_Solver benchmarks vignette_](solver_benchmarks.html) for details). As such, it is strongly recommended to use this solver if the *Gurobi* and *IBM CPLEX* solvers are not available. This solver requires the _rcbc R_ package, which is currently only available on [GitHub](https://github.com/dirkschumacher/rcbc).
 ```{r}
 # create a problem and specify that CBC should be used to solve the
 # problem and specify an optimality gap of zero to obtain the optimal solution
@@ -642,31 +637,44 @@ p33 <- problem(sim_pu_raster, sim_features) %>%
 # print problem
 print(p33)
 ```
+* __*HiGHS* solver__: [*HiGHS*](https://highs.dev/) is an open source optimization software. Although this solver can have comparable performance to the *CBC* solver (i.e., `add_cbc_solver()`) for particular problems and is generally faster than the *SYMPHONY* based solvers (i.e., `add_rsymphony_solver()`, `add_lpsymphony_solver()`), it can sometimes take much longer than the *CBC* solver for particular problems. This solver is recommended if the `add_gurobi_solver()`, `add_cplex_solver()`, `add_cbc_solver()` cannot be used.
+```{r}
+# create a problem and specify that HiGHS should be used to solve the
+# problem and specify an optimality gap of zero to obtain the optimal solution
+p34 <- problem(sim_pu_raster, sim_features) %>%
+       add_min_set_objective() %>%
+       add_relative_targets(0.1) %>%
+       add_binary_decisions() %>%
+       add_highs_solver(gap = 0)
+
+# print problem
+print(p34)
+```
 * __*lpsymphony* solver__: [_SYMPHONY_](https://github.com/coin-or/SYMPHONY) is an open-source integer programming solver that is also part of the COIN-OR project. This solver uses the _lpsymphony R_ package (available on [Bioconductor](http://bioconductor.org/packages/release/bioc/html/lpsymphony.html)) to interface with the _SYMPHONY_ software.
 ```{r}
 # create a problem and specify that lpsymphony should be used to solve the
 # problem and specify an optimality gap of zero to obtain the optimal solution
-p34 <- problem(sim_pu_raster, sim_features) %>%
+p35 <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_binary_decisions() %>%
        add_lpsymphony_solver(gap = 0)
 
 # print problem
-print(p34)
+print(p35)
 ```
 * __*Rsymphony* solver__: This solver provides a different interface to the [_SYMPHONY_](https://github.com/coin-or/SYMPHONY) software. It uses the _Rsymphony R_ package which is available on The Comprehensive R Archive Network (CRAN). This solver is generally slower than the other solvers, because it cannot use parallel processing.
 ```{r}
 # create a problem and specify that Rsymphony should be used to solve the
 # problem and specify an optimality gap of zero to obtain the optimal solution
-p35 <- problem(sim_pu_raster, sim_features) %>%
+p36 <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_binary_decisions() %>%
        add_rsymphony_solver(gap = 0)
 
 # print problem
-print(p35)
+print(p36)
 ```
 
 ### Add a portfolio
@@ -677,66 +685,66 @@ Many conservation planning exercises require a portfolio of solutions. For examp
 ```{r}
 # create a problem and specify that a portfolio should be created by
 # finding five solutions within 10% of optimality
-p36 <- problem(sim_pu_raster, sim_features) %>%
+p37 <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_binary_decisions() %>%
        add_gap_portfolio(number_solutions = 5, pool_gap = 0.2)
 
 # print problem
-print(p36)
+print(p37)
 ```
 * __Top portfolio__: Generate a portfolio of solutions by finding a pre-specified number of solutions that are closest to optimality (i.e the top solutions). Note that this method requires that the _Gurobi_ optimization software is used to generate solutions.
 ```{r}
 # create a problem and specify that a portfolio should be created using
 # the top five solutions
-p37 <- problem(sim_pu_raster, sim_features) %>%
+p38 <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_binary_decisions() %>%
        add_top_portfolio(number_solutions = 5)
 
 # print problem
-print(p37)
+print(p38)
 ```
 * __Extra portfolio__: Generate a portfolio of solutions by storing feasible solutions found during the optimization process. Note that this method requires that the _Gurobi_ optimization software is used to generate solutions.
 ```{r}
 # create a problem and specify that a portfolio should be created using
 # extra solutions found while solving the problem
-p38 <- problem(sim_pu_raster, sim_features) %>%
+p39 <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_binary_decisions() %>%
        add_extra_portfolio()
 
 # print problem
-print(p38)
+print(p39)
 ```
 * __Cuts portfolio__: Generate a portfolio of distinct solutions within a pre-specified optimality gap. This method is only recommended if the _Gurobi_ optimization solver is not available.
 ```{r}
 # create a problem and specify that a portfolio containing 10 solutions
 # should be created using using Bender's cuts
-p39 <- problem(sim_pu_raster, sim_features) %>%
+p40 <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_binary_decisions() %>%
        add_cuts_portfolio(number_solutions = 10)
 
 # print problem
-print(p39)
+print(p40)
 ```
 * __Shuffle portfolio__: Generate a portfolio of solutions by randomly reordering the data prior to attempting to solve the problem. If the _Gurobi_ optimization solver is not available, this method is the fastest method for generating a set number of solutions within a specified distance from optimality.
 ```{r}
 # create a problem and specify a portfolio should be created that contains
 # 10 solutions and that any duplicate solutions should not be removed
-p40 <- problem(sim_pu_raster, sim_features) %>%
+p41 <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_binary_decisions() %>%
        add_shuffle_portfolio(number_solutions = 10, remove_duplicates = FALSE)
 
 # print problem
-print(p40)
+print(p41)
 ```
 
 ### Solve the problem
@@ -745,17 +753,17 @@ After formulating our conservation planning problem and specifying how the probl
 
 ```{r, fig.height = h, fig.width = w}
 # formulate the problem
-p41 <- problem(sim_pu_raster, sim_features) %>%
+p42 <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_boundary_penalties(penalty = 500, edge_factor = 0.5) %>%
        add_binary_decisions()
 
 # solve the problem (using the default solver)
-s41 <- solve(p41)
+s42 <- solve(p42)
 
 # plot solution
-plot(s41, col = c("grey90", "darkgreen"), main = "Solution",
+plot(s42, col = c("grey90", "darkgreen"), main = "Solution",
      xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1))
 ```
 
@@ -765,14 +773,14 @@ We can also extract attributes from the solution that describe the quality of th
 
 ```{r}
 # extract the objective (numerical value being minimized or maximized)
-print(attr(s41, "objective"))
+print(attr(s42, "objective"))
 
 # extract time spent solving solution
-print(attr(s41, "runtime"))
+print(attr(s42, "runtime"))
 
 # extract state message from the solver that describes why this specific
 # solution was returned
-print(attr(s41, "status"))
+print(attr(s42, "status"))
 ```
 
 ## Evaluate the solution
@@ -788,27 +796,27 @@ The following functions are available to summarize a solution:
 * __Number summary__: Calculate the number of planning units selected by a solution.
 ```{r}
 # calculate statistic
-eval_n_summary(p41, s41)
+eval_n_summary(p42, s42)
 ```
 * __Cost summary__: Calculate the total cost of a solution.
 ```{r}
 # calculate statistic
-eval_cost_summary(p41, s41)
+eval_cost_summary(p42, s42)
 ```
 * __Feature representation summary__: Calculate how well features are represented by a solution. This function can be used for any type of problem.
 ```{r}
 # calculate statistics
-eval_feature_representation_summary(p41, s41)
+eval_feature_representation_summary(p42, s42)
 ```
 * __Target coverage summary__: Calculate how well representation targets are met by a solution. This function can only be used with problems contain targets.
 ```{r}
 # calculate statistics
-eval_target_coverage_summary(p41, s41)
+eval_target_coverage_summary(p42, s42)
 ```
 * __Boundary summary__: Calculate the total exposed boundary length (perimeter) associated with a solution.
 ```{r}
 # calculate statistic
-eval_boundary_summary(p41, s41)
+eval_boundary_summary(p42, s42)
 ```
 * __Connectivity summary__: Calculate the connectivity of a solution using symmetric connectivity data.
 ```{r}
@@ -818,7 +826,7 @@ eval_boundary_summary(p41, s41)
 cm <- adjacency_matrix(sim_pu_raster)
 
 # calculate statistic
-eval_connectivity_summary(p41, s41, data = cm)
+eval_connectivity_summary(p42, s42, data = cm)
 ```
 * __Asymmetric connectivity summary__: Calculate the connectivity of a solution using asymmetric connectivity data.
 ```{r}
@@ -827,7 +835,7 @@ eval_connectivity_summary(p41, s41, data = cm)
 acm <- matrix(runif(ncell(sim_pu_raster) ^ 2), ncol = ncell(sim_pu_raster))
 
 # calculate statistic
-eval_asym_connectivity_summary(p41, s41, data = acm)
+eval_asym_connectivity_summary(p42, s42, data = acm)
 ```
 
 ### Evaluating relative importance
@@ -838,16 +846,16 @@ Let's generate a prioritization so that can compare the different importance met
 
 ```{r, fig.height = h, fig.width = w}
 # formulate the problem
-p42 <- problem(sim_pu_raster, sim_features) %>%
+p43 <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_binary_decisions()
 
 # solve the problem
-s42 <- solve(p42)
+s43 <- solve(p43)
 
 # plot solution
-plot(s42, col = c("grey90", "darkgreen"), main = "Solution",
+plot(s43, col = c("grey90", "darkgreen"), main = "Solution",
      xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1))
 ```
 
@@ -856,28 +864,28 @@ plot(s42, col = c("grey90", "darkgreen"), main = "Solution",
 * __Replacement cost__: Evaluate importance using the replacement cost method [@r31]. This method quantifies the importance of a given planning unit as the decrease in the performance of the solution (based on the objective function) if the planning unit cannot be acquired (e.g., in terms of the additional costs required to meet feature targets). The advantages of this method are that it (i) accounts for the costs of the planning units, (ii) can be applied to multiple management zones, (iii) can be applied to any objective function, and (iv) can identify truly irreplaceable planning units (denoted with infinite values). However, the key disadvantage  of this method, is that can take an infeasible amount of time to complete for large and complex problems.
 ```{r, fig.height = h, fig.width = w}
 # calculate replacement cost scores and make the solver quiet
-rc42 <- p42 %>%
+rc43 <- p43 %>%
         add_default_solver(gap = 0, verbose = FALSE) %>%
-        eval_replacement_importance(s41)
+        eval_replacement_importance(s43)
 
 # plot replacement cost scores
-plot(rc42, main = "Replacement cost scores")
+plot(rc43, main = "Replacement cost scores")
 ```
 * __Ferrier method__: Evaluate importance by computing irreplaceability scores following Ferrier *et al.* [@r-34]. The advantages of this method are that it (i) can be computed relatively quickly for moderate and large-sized problems, and (ii) calculates a score for each feature within each planning unit to provide insight into why certain planning units are more important than others. The disadvantage with this method is that it can only be applied to conservation problems with a minimum set objective and a single zone (i.e., similar to _Marxan_-type problems).
 ```{r, fig.height = h, fig.width = w}
 # calculate Ferrier scores and extract total score
-fs42 <- eval_ferrier_importance(p42, s42)[["total"]]
+fs43 <- eval_ferrier_importance(p43, s43)[["total"]]
 
 # plot Ferrier scores
-plot(fs42, main = "Ferrier scores")
+plot(fs43, main = "Ferrier scores")
 ```
 * __Rarity weighted richness__: Evaluate importance by computing rarity weighted richness scores [@r33]. The only advantage with this method is that it can be computed very quickly for very large problems. The key disadvantage with this approach is that it merely describes the spatial patterns of biodiversity, and does not consider any of the goals that underpin conservation planning exercise. For instance, it does not account for planning costs, management zones, objective functions, or feature representation targets.
 ```{r, fig.height = h, fig.width = w}
 # calculate rarity weighted richness scores
-rwr42 <- eval_rare_richness_importance(p42, s42)
+rwr43 <- eval_rare_richness_importance(p43, s43)
 
 # plot rarity weighted richness scores
-plot(rwr42, main = "Rarity weighted richness")
+plot(rwr43, main = "Rarity weighted richness")
 ```
 
 In general, we recommend using replacement cost scores for small and moderate sized problems (e.g., less than 30,000 planning units) when it is feasible to do so. It can take a very long time to compute replacement cost scores, and so it is simply not feasible to compute these scores for particularly large problems. For moderate and large sized problems (e.g., more than 30,000 planning units), we recommend using the Ferrier method. This is because it explicitly accounts for representation targets, unlike the rarity weighted richness scores. We almost never recommend using the rarity weighted richness scores. This is because they do not consider criteria needed to inform conservation decision making [@r51].

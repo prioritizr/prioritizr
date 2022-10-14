@@ -17,7 +17,8 @@ NULL
 #' @details
 #' Ranked from best to worst, the available solvers that can be used are:
 #' [add_gurobi_solver()], [add_cplex_solver()], [add_cbc_solver()],
-#' [add_lpsymphony_solver()], and finally [add_rsymphony_solver()].
+#' [add_highs_solver()], [add_lpsymphony_solver()], and finally
+#' [add_rsymphony_solver()].
 #'
 #' @inherit add_gurobi_solver return
 #'
@@ -40,6 +41,8 @@ add_default_solver <- function(x, ...) {
     return(add_cplex_solver(x, ...))
   } else if (identical(ds, "rcbc")) {
     return(add_cbc_solver(x, ...))
+  } else if (identical(ds, "highs")) {
+    return(add_highs_solver(x, ...))
   } else if (identical(ds, "lpsymphony")) {
     return(add_lpsymphony_solver(x, ...))
   } else if (identical(ds, "Rsymphony")) {
@@ -62,7 +65,8 @@ add_default_solver <- function(x, ...) {
 #' detected on the system, then a `NULL` object is returned.
 #'
 #' @details This function tests if any of the following packages are installed:
-#'   \pkg{Rsymphony}, \pkg{lpsymphony}, \pkg{gurobi}, \pkg{cplexAPI}.
+#'   \pkg{gurobi}, \pkg{cplexAPI}, \pkg{rcbc}, \pkg{highs},
+#'   \pkg{lpsymphony}, \pkg{Rsymphony}.
 #'
 #' @return `character` indicating the name of the default solver.
 #'
@@ -74,10 +78,12 @@ default_solver_name <- function() {
     return("cplexAPI")
   } else if (requireNamespace("rcbc", quietly = TRUE)) {
     return("rcbc")
-  } else if (requireNamespace("Rsymphony", quietly = TRUE)) {
-    return("Rsymphony")
+  } else if (requireNamespace("highs", quietly = TRUE)) {
+    return("highs")
   } else if (requireNamespace("lpsymphony", quietly = TRUE)) {
     return("lpsymphony")
+  } else if (requireNamespace("Rsymphony", quietly = TRUE)) {
+    return("Rsymphony")
   } else {
     return(NULL)
   }

@@ -101,6 +101,7 @@ Other solvers:
 \code{\link{add_cplex_solver}()},
 \code{\link{add_default_solver}()},
 \code{\link{add_gurobi_solver}()},
+\code{\link{add_highs_solver}()},
 \code{\link{add_lsymphony_solver}}
 }
 \concept{solvers}

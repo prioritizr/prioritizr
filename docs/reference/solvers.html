@@ -29,7 +29,7 @@ different sized datasets."><meta property="og:image" content="https://prioritizr
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.2.3</span>
       </span>
     </div>
 
@@ -157,6 +157,15 @@ It requires the <span class="pkg">rcbc</span> package, which is currently only a
 <a href="https://github.com/dirkschumacher/rcbc" class="external-link">GitHub</a>.</p></dd>
 
 
+<dt><code><a href="add_highs_solver.html">add_highs_solver()</a></code></dt>
+<dd><p><a href="https://highs.dev/" class="external-link"><em>HiGHS</em></a> is an open
+source optimization software. Although this solver can have
+comparable performance to the <em>CBC</em> solver for particular problems and is
+generally faster than the <em>SYMPHONY</em> based solvers (see below), it
+sometimes can take much longer than the <em>CBC</em> solver for particular
+problems.</p></dd>
+
+
 <dt><code><a href="add_lsymphony_solver.html">add_lpsymphony_solver()</a></code></dt>
 <dd><p><a href="https://github.com/coin-or/SYMPHONY" class="external-link"><em>SYMPHONY</em></a> is an
 open-source mixed integer programming solver that is also part of the
@@ -165,7 +174,8 @@ the COIN-OR project, they are different software.
 The <span class="pkg">lpsymphony</span> package provides an interface to the <em>SYMPHONY</em>
 software, and is distributed through
 <a href="https://doi.org/doi:10.18129/B9.bioc.lpsymphony" class="external-link">Bioconductor</a>.
-We recommend using this solver if the CBC solver cannot be installed.
+We recommend using this solver if the <em>CBC</em> and <em>HiGHS</em> solvers cannot
+be installed.
 This solver can use parallel processing to solve problems, so it is
 faster than <span class="pkg">Rsymphony</span> package interface (see below).</p></dd>
 
@@ -221,8 +231,8 @@ solving conservation planning problems. <em>PeerJ</em>, 8: e9258.</p>
 <span class="r-in"><span><span class="co"># if gurobi is installed: create problem with added gurobi solver</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://www.gurobi.com" class="external-link">"gurobi"</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="va">titles</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">titles</span>, <span class="st">"gurobi"</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="va">p3</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="add_gurobi_solver.html">add_gurobi_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/addLayer.html" class="external-link">addLayer</a></span><span class="op">(</span><span class="va">s</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="add_gurobi_solver.html">add_gurobi_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/addLayer.html" class="external-link">addLayer</a></span><span class="op">(</span><span class="va">s</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: gurobi</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: slam</span>
@@ -230,32 +240,41 @@ solving conservation planning problems. <em>PeerJ</em>, 8: e9258.</p>
 <span class="r-in"><span><span class="co"># if cplexAPI is installed: create problem with added CPLEX solver</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st">"cplexAPI"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="va">titles</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">titles</span>, <span class="st">"CPLEX"</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="va">p4</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="add_cplex_solver.html">add_cplex_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/addLayer.html" class="external-link">addLayer</a></span><span class="op">(</span><span class="va">s</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p4</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="add_cplex_solver.html">add_cplex_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/addLayer.html" class="external-link">addLayer</a></span><span class="op">(</span><span class="va">s</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: cplexAPI</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># if rcbc is installed: create problem with added cbc solver</span></span></span>
+<span class="r-in"><span><span class="co"># if rcbc is installed: create problem with added CBC solver</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://dirkschumacher.github.io/rcbc" class="external-link">"rcbc"</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="va">titles</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">titles</span>, <span class="st">"CBC"</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="va">p6</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="add_cbc_solver.html">add_cbc_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/addLayer.html" class="external-link">addLayer</a></span><span class="op">(</span><span class="va">s</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p6</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">p3</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="add_cbc_solver.html">add_cbc_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/addLayer.html" class="external-link">addLayer</a></span><span class="op">(</span><span class="va">s</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: rcbc</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># if highs is installed: create problem with added HiGHs solver</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st">"highs"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="va">titles</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">titles</span>, <span class="st">"HiGHS"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">p4</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="add_highs_solver.html">add_highs_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/addLayer.html" class="external-link">addLayer</a></span><span class="op">(</span><span class="va">s</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p4</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: highs</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create problem with added rsymphony solver</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://R-Forge.R-project.org/projects/rsymphony" class="external-link">"Rsymphony"</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="va">titles</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">titles</span>, <span class="st">"Rsymphony"</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="add_rsymphony_solver.html">add_rsymphony_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/addLayer.html" class="external-link">addLayer</a></span><span class="op">(</span><span class="va">s</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">p5</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="add_rsymphony_solver.html">add_rsymphony_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/addLayer.html" class="external-link">addLayer</a></span><span class="op">(</span><span class="va">s</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p25</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: Rsymphony</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'a' in selecting a method for function 'solve': object 'p25' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># if lpsymphony is installed: create problem with added lpsymphony solver</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="http://R-Forge.R-project.org/projects/rsymphony" class="external-link">"lpsymphony"</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="va">titles</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">titles</span>, <span class="st">"lpsymphony"</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="va">p5</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="add_lsymphony_solver.html">add_lpsymphony_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/addLayer.html" class="external-link">addLayer</a></span><span class="op">(</span><span class="va">s</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p5</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">p6</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="add_lsymphony_solver.html">add_lpsymphony_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/addLayer.html" class="external-link">addLayer</a></span><span class="op">(</span><span class="va">s</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p6</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: lpsymphony</span>
 <span class="r-in"><span></span></span>

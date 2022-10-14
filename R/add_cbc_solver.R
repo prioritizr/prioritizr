@@ -19,12 +19,12 @@ NULL
 #' [*CBC*](https://github.com/coin-or/Cbc) is an
 #' open-source mixed integer programming solver that is part of the
 #' Computational Infrastructure for Operations Research (COIN-OR) project.
-#' Although formal benchmarks examining the performance of this solver for
-#' conservation planning problems have yet to be completed, preliminary
-#' analyses suggest that it performs much faster than the other open-source
-#' solvers (i.e., [add_rsymphony_solver()], [add_rsymphony_solver()]), and
-#' so we recommend using this solver if the *Gurobi* and *IBM CPLEX* solvers
-#' are unavailable.
+#' This solver seems to have much better performance than the other open-source
+#' solvers (i.e., [add_highs_solver()], [add_rsymphony_solver()],
+#' [add_lpsymphony_solver()])
+#' (see the _Solver benchmarks_ vignette for details).
+#' As such, it is strongly recommended to use this solver if the *Gurobi* and
+#' *IBM CPLEX* solvers are not available.
 #'
 #' @section Installation:
 #' The \pkg{rcbc} package is required to use this solver. Since the
@@ -45,11 +45,7 @@ NULL
 #'
 #' @inheritSection add_gurobi_solver Start solution format
 #'
-#' @return Object (i.e., [`ConservationProblem-class`]) with the solver
-#'  added to it.
-#'
-#' @seealso
-#' See [solvers] for an overview of all functions for adding a solver.
+#' @inherit add_gurobi_solver return seealso
 #'
 #' @family solvers
 #'

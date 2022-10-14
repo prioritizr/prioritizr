@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.2.3</span>
       </span>
     </div>
 
@@ -96,6 +96,12 @@
       <small>Source: <a href="https://github.com/prioritizr/prioritizr/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="7.2.2.3" id="prioritizr-7223">prioritizr 7.2.2.3<a class="anchor" aria-label="anchor" href="#prioritizr-7223"></a></h2>
+<ul><li>New <code><a href="../reference/add_highs_solver.html">add_highs_solver()</a></code> function for the HiGHS optimization software (<a href="https://github.com/prioritizr/prioritizr/issues/250" class="external-link">#250</a>).</li>
+<li>Update <code><a href="../reference/add_default_solver.html">add_default_solver()</a></code> to use the HiGHS solver if the Gurobi, IBM CPLEX, and CBC solvers aren’t available.</li>
+<li>Fix <code><a href="../reference/add_default_solver.html">add_default_solver()</a></code> so that the <code><a href="../reference/add_lsymphony_solver.html">add_lpsymphony_solver()</a></code> is used instead of <code><a href="../reference/add_rsymphony_solver.html">add_rsymphony_solver()</a></code>.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="7.2.2.2" id="prioritizr-7222">prioritizr 7.2.2.2<a class="anchor" aria-label="anchor" href="#prioritizr-7222"></a></h2>
 <ul><li>Update <code><a href="../reference/problem.html">problem()</a></code> and <code><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary()</a></code> to avoid needlessly converting sparse matrices to regular matrices (<a href="https://github.com/prioritizr/prioritizr/issues/252" class="external-link">#252</a>).</li>

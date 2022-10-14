@@ -61,10 +61,10 @@ jobs:
 
       - name: Install system dependencies
         run: |
+          brew install pkg-config
           brew tap coin-or-tools/coinor
           brew install coin-or-tools/coinor/symphony
           brew install coin-or-tools/coinor/cbc
-          brew install pkg-config
           brew install proj
           brew install geos
           brew install gdal
@@ -72,11 +72,7 @@ jobs:
       - name: Install dependencies
         run: |
           options("install.packages.compile.from.source" = "never")
-          remotes::install_github("dirkschumacher/rcbc", configure.vars = "INCLUDE_DIR=/usr/local/opt/cbc/include LIB_DIR=/usr/local/opt/cbc/lib")
           remotes::install_deps(dependencies = TRUE)
-          remotes::install_cran("rcmdcheck")
-          remotes::install_cran("covr")
-          remotes::install_bioc("lpsymphony")
         shell: Rscript {0}
 
       - name: Session information

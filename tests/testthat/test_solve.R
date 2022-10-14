@@ -348,7 +348,7 @@ test_that("numerical instability (error when force = FALSE)", {
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%
     add_binary_decisions() %>%
-    add_default_solver(first_feasible = TRUE, verbose = FALSE)
+    add_default_solver(verbose = FALSE)
   expect_warning(expect_error(solve(p)))
 })
 

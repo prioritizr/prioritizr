@@ -50,6 +50,14 @@ It requires the \pkg{rcbc} package, which is currently only available on
 \href{https://github.com/dirkschumacher/rcbc}{GitHub}.
 }
 
+\item{\code{\link[=add_highs_solver]{add_highs_solver()}}}{\href{https://highs.dev/}{\emph{HiGHS}} is an open
+source optimization software. Although this solver can have
+comparable performance to the \emph{CBC} solver for particular problems and is
+generally faster than the \emph{SYMPHONY} based solvers (see below), it
+sometimes can take much longer than the \emph{CBC} solver for particular
+problems.
+}
+
 \item{\code{\link[=add_lpsymphony_solver]{add_lpsymphony_solver()}}}{
 \href{https://github.com/coin-or/SYMPHONY}{\emph{SYMPHONY}} is an
 open-source mixed integer programming solver that is also part of the
@@ -58,7 +66,8 @@ the COIN-OR project, they are different software.
 The \pkg{lpsymphony} package provides an interface to the \emph{SYMPHONY}
 software, and is distributed through
 \href{https://doi.org/doi:10.18129/B9.bioc.lpsymphony}{Bioconductor}.
-We recommend using this solver if the CBC solver cannot be installed.
+We recommend using this solver if the \emph{CBC} and \emph{HiGHS} solvers cannot
+be installed.
 This solver can use parallel processing to solve problems, so it is
 faster than \pkg{Rsymphony} package interface (see below).
 }
@@ -93,36 +102,43 @@ s <- stack()
 # if gurobi is installed: create problem with added gurobi solver
 if (require("gurobi")) {
   titles <- c(titles, "gurobi")
-  p3 <- p \%>\% add_gurobi_solver(verbose = FALSE)
-  s <- addLayer(s, solve(p3))
+  p1 <- p \%>\% add_gurobi_solver(verbose = FALSE)
+  s <- addLayer(s, solve(p1))
 }
 
 # if cplexAPI is installed: create problem with added CPLEX solver
 if (require("cplexAPI")) {
   titles <- c(titles, "CPLEX")
-  p4 <- p \%>\% add_cplex_solver(verbose = FALSE)
-  s <- addLayer(s, solve(p4))
+  p2 <- p \%>\% add_cplex_solver(verbose = FALSE)
+  s <- addLayer(s, solve(p2))
 }
 
-# if rcbc is installed: create problem with added cbc solver
+# if rcbc is installed: create problem with added CBC solver
 if (require("rcbc")) {
   titles <- c(titles, "CBC")
-  p6 <- p \%>\% add_cbc_solver(verbose = FALSE)
-  s <- addLayer(s, solve(p6))
+  p3 <- p \%>\% add_cbc_solver(verbose = FALSE)
+  s <- addLayer(s, solve(p3))
+}
+
+# if highs is installed: create problem with added HiGHs solver
+if (require("highs")) {
+  titles <- c(titles, "HiGHS")
+  p4 <- p \%>\% add_highs_solver(verbose = FALSE)
+  s <- addLayer(s, solve(p4))
 }
 
 # create problem with added rsymphony solver
 if (require("Rsymphony")) {
   titles <- c(titles, "Rsymphony")
-  p2 <- p \%>\% add_rsymphony_solver(verbose = FALSE)
-  s <- addLayer(s, solve(p2))
+  p5 <- p \%>\% add_rsymphony_solver(verbose = FALSE)
+  s <- addLayer(s, solve(p25))
 }
 
 # if lpsymphony is installed: create problem with added lpsymphony solver
 if (require("lpsymphony")) {
   titles <- c(titles, "lpsymphony")
-  p5 <- p \%>\% add_lpsymphony_solver(verbose = FALSE)
-  s <- addLayer(s, solve(p5))
+  p6 <- p \%>\% add_lpsymphony_solver(verbose = FALSE)
+  s <- addLayer(s, solve(p6))
 }
 
 # plot solutions
