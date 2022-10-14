@@ -68,8 +68,12 @@ jobs:
           brew install proj
           brew install geos
           brew install gdal
-          export PKG_CONFIG_PATH="${PKG_CONFIG_PATH}:/usr/local/opt/cbc/lib/pkgconfig" && pkg-config --cflags --silence-errors cbc
-          export PKG_CONFIG_PATH="${PKG_CONFIG_PATH}:/usr/local/opt/cbc/lib/pkgconfig" && pkg-config --libs cbc
+
+      - name: Debug
+        run: |
+          export PKG_CONFIG_PATH="/usr/local/opt/cbc/lib/pkgconfig"
+          pkg-config --cflags --silence-errors cbc
+          pkg-config --libs cbc
 
       - name: Install dependencies
         run: |
