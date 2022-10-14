@@ -64,7 +64,6 @@ jobs:
           brew install pkg-config
           brew tap coin-or-tools/coinor
           brew install coin-or-tools/coinor/symphony
-          brew install coin-or-tools/coinor/clp
           brew install coin-or-tools/coinor/cbc
           brew install proj
           brew install geos
@@ -73,7 +72,7 @@ jobs:
       - name: Debug
         run: |
           echo "here1"
-          export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/opt/cbc/lib/pkgconfig:/usr/local/opt/clp/lib/pkgconfig
+          export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/opt/cbc/lib/pkgconfig:/usr/local/opt/clp/lib/pkgconfig:/usr/local/opt/coinutils/lib/pkgconfig
           echo "here2"
           pkg-config --version
           echo "here3"
