@@ -1,3 +1,7 @@
+# prioritizr 7.2.2.4
+
+- Specify minimum version for Matrix package dependency (#255).
+
 # prioritizr 7.2.2.3
 
 - New `add_highs_solver()` function for the HiGHS optimization software (#250).
