@@ -1,3 +1,7 @@
+# prioritizr 7.2.2.5
+
+- Update publication record.
+
 # prioritizr 7.2.2.4
 
 - Specify minimum version for Matrix package dependency (#255).
