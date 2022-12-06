@@ -4,7 +4,7 @@ NULL
 #' Add a *CPLEX* solver
 #'
 #' Specify that the
-#' [*IBM CPLEX*](https://www.ibm.com/analytics/cplex-optimizer) software
+#' [*IBM CPLEX*](https://www.ibm.com/products/ilog-cplex-optimization-studio/cplex-optimizer) software
 #' (IBM 2017) should be used to solve a conservation planning [problem()].
 #' This function can also be used to customize the behavior of the solver.
 #' It requires the \pkg{cplexAPI} package to be installed
@@ -16,7 +16,7 @@ NULL
 #'   problem before solving it? Defaults to `TRUE`.
 #'
 #' @details
-#' [*IBM CPLEX*](https://www.ibm.com/analytics/cplex-optimizer) is a
+#' [*IBM CPLEX*](https://www.ibm.com/products/ilog-cplex-optimization-studio/cplex-optimizer) is a
 #' commercial optimization software. It is faster than
 #' the available open source solvers (e.g., [add_lpsymphony_solver()] and
 #' [add_rsymphony_solver()].
@@ -26,12 +26,12 @@ NULL
 #' solver (i.e., [add_gurobi_solver()]).
 #' We recommend using this solver if the *Gurobi* solver is not available.
 #' Licenses are available for the *IBM CPLEX* software to academics at no cost
-#' (see <https://www.ibm.com/products/ilog-cplex-optimization-studio>).
+#' (see <  https://www.ibm.com/products/ilog-cplex-optimization-studio/cplex-optimizer>).
 #'
 #' @section Installation:
 #' The \pkg{cplexAPI} package is used to interface with *IBM CPLEX* software.
 #' To install the package, the *IBM CPLEX* software must be installed
-#' (see <https://www.ibm.com/analytics/cplex-optimizer>). Next, the `CPLEX_BIN`
+#' (see <https://www.ibm.com/products/ilog-cplex-optimization-studio/cplex-optimizer>). Next, the `CPLEX_BIN`
 #' environmental variable must be set to specify the file path for the
 #' *IBM CPLEX* software. For example, on a Linux system,
 #' this variable can be specified by adding the following text to the

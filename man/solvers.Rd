@@ -30,7 +30,7 @@ said, licenses are available to academics at no cost. The
 \pkg{gurobi} package is distributed with the \emph{Gurobi} software
 suite. This solver uses the \pkg{gurobi} package to solve problems.}
 
-\item{\code{\link[=add_cplex_solver]{add_cplex_solver()}}}{\href{https://www.ibm.com/analytics/cplex-optimizer}{\emph{IBM CPLEX}}
+\item{\code{\link[=add_cplex_solver]{add_cplex_solver()}}}{\href{https://www.ibm.com/products/ilog-cplex-optimization-studio/cplex-optimizer}{\emph{IBM CPLEX}}
 is a commercial optimization software. It is faster than the open
 source solvers available for generating prioritizations, however, it
 is not freely available.

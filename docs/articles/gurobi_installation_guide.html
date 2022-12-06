@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.2.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.2.6</span>
       </span>
     </div>
 
@@ -133,7 +133,7 @@
       <h1 data-toc-skip>Gurobi installation guide</h1>
                         <h4 data-toc-skip class="author">Richard Schuster</h4>
             
-            <h4 data-toc-skip class="date">2022-11-05</h4>
+            <h4 data-toc-skip class="date">2022-12-06</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/prioritizr/prioritizr/blob/HEAD/vignettes/gurobi_installation_guide.Rmd" class="external-link"><code>vignettes/gurobi_installation_guide.Rmd</code></a></small>
       <div class="hidden name"><code>gurobi_installation_guide.Rmd</code></div>
@@ -171,7 +171,7 @@
 <h2 id="software-installation">Software installation<a class="anchor" aria-label="anchor" href="#software-installation"></a>
 </h2>
 <p>The process for installing the <em>Gurobi</em> software depends on the operating system on your computer. Fortunately, <em>Gurobi</em> provide platform-specific <a href="https://www.gurobi.com/documentation/" class="external-link">“Quick Start Guides”</a> for <a href="https://www.gurobi.com/documentation/9.0/quickstart_windows/software_installation_guid.html#section:Installation" class="external-link">Windows</a>, <a href="https://www.gurobi.com/documentation/9.0/quickstart_mac/software_installation_guid.html" class="external-link">MacOS</a>, and <a href="https://www.gurobi.com/documentation/9.0/quickstart_linux/software_installation_guid.html" class="external-link">Linux</a> systems that should help with this. Briefly, on Windows systems, you just need to double-click on the <em>Gurobi</em> installer, follow the prompts, and the installer will automatically handle everything for you. On Linux and MacOS systems, you will need to manually extract the downloaded file’s contents to a folder, move the extracted contents to a suitable location (typically <em>/opt/gurobi</em>), and update your system’s variables so that it knows where to find <em>Gurobi</em> (i.e., the <code>PATH</code> variable).</p>
-<p>Additionally, if you are using <a href="https://www.rstudio.com/products/rstudio/" class="external-link"><em>RStudio</em></a> on a Linux system, you might need to add the following text to a Rstudio configuration file (located at <code>/etc/rstudio/rserver.conf</code>).</p>
+<p>Additionally, if you are using <a href="https://posit.co/products/open-source/rstudio/" class="external-link"><em>RStudio</em></a> on a Linux system, you might need to add the following text to a Rstudio configuration file (located at <code>/etc/rstudio/rserver.conf</code>).</p>
 <pre><code>rsession-ld-library-path=/opt/gurobi650/linux64/lib</code></pre>
 <p>After installing the <em>Gurobi</em> software suite on your computer, you will need to activate your license.</p>
 </div>
