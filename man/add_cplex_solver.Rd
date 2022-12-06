@@ -45,14 +45,14 @@ added to it.
 }
 \description{
 Specify that the
-\href{https://www.ibm.com/analytics/cplex-optimizer}{\emph{IBM CPLEX}} software
+\href{https://www.ibm.com/products/ilog-cplex-optimization-studio/cplex-optimizer}{\emph{IBM CPLEX}} software
 (IBM 2017) should be used to solve a conservation planning \code{\link[=problem]{problem()}}.
 This function can also be used to customize the behavior of the solver.
 It requires the \pkg{cplexAPI} package to be installed
 (see below for installation instructions).
 }
 \details{
-\href{https://www.ibm.com/analytics/cplex-optimizer}{\emph{IBM CPLEX}} is a
+\href{https://www.ibm.com/products/ilog-cplex-optimization-studio/cplex-optimizer}{\emph{IBM CPLEX}} is a
 commercial optimization software. It is faster than
 the available open source solvers (e.g., \code{\link[=add_lpsymphony_solver]{add_lpsymphony_solver()}} and
 \code{\link[=add_rsymphony_solver]{add_rsymphony_solver()}}.
@@ -62,13 +62,13 @@ analyses suggest that it performs slightly slower than the \emph{Gurobi}
 solver (i.e., \code{\link[=add_gurobi_solver]{add_gurobi_solver()}}).
 We recommend using this solver if the \emph{Gurobi} solver is not available.
 Licenses are available for the \emph{IBM CPLEX} software to academics at no cost
-(see \url{https://www.ibm.com/products/ilog-cplex-optimization-studio}).
+(see <  https://www.ibm.com/products/ilog-cplex-optimization-studio/cplex-optimizer>).
 }
 \section{Installation}{
 
 The \pkg{cplexAPI} package is used to interface with \emph{IBM CPLEX} software.
 To install the package, the \emph{IBM CPLEX} software must be installed
-(see \url{https://www.ibm.com/analytics/cplex-optimizer}). Next, the \code{CPLEX_BIN}
+(see \url{https://www.ibm.com/products/ilog-cplex-optimization-studio/cplex-optimizer}). Next, the \code{CPLEX_BIN}
 environmental variable must be set to specify the file path for the
 \emph{IBM CPLEX} software. For example, on a Linux system,
 this variable can be specified by adding the following text to the

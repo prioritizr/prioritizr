@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.2.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.2.6</span>
       </span>
     </div>
 
@@ -143,7 +143,7 @@
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p>The <em>prioritizr R</em> package supports a variety of optimization solvers for generating prioritizations. Specifically, the following functions can be used: <code><a href="../reference/add_gurobi_solver.html">add_gurobi_solver()</a></code> (interfaces with the <a href="https://www.gurobi.com/" class="external-link"><em>Gurobi</em> software</a>), <code><a href="../reference/add_cplex_solver.html">add_cplex_solver()</a></code> (interfaces with the <a href="https://www.ibm.com/analytics/cplex-optimizer" class="external-link"><em>IBM CPLEX</em> software</a>), <code><a href="../reference/add_cbc_solver.html">add_cbc_solver()</a></code> (interfaces with the <a href="https://github.com/coin-or/Cbc" class="external-link"><em>CBC</em> software</a> using the <a href="https://dirkschumacher.github.io/rcbc/" class="external-link"><em>rcbc R</em> package</a>), <code><a href="../reference/add_rsymphony_solver.html">add_rsymphony_solver()</a></code> (interfaces with the <a href="https://github.com/coin-or/SYMPHONY" class="external-link"><em>SYMPHONY</em> software</a> using the <a href="https://CRAN.R-project.org/package=Rsymphony" class="external-link"><em>Rsymphony R</em> package</a>), <code><a href="../reference/add_lsymphony_solver.html">add_lpsymphony_solver()</a></code> function (interfaces with the <a href="https://github.com/coin-or/SYMPHONY" class="external-link"><em>SYMPHONY</em> software</a> using the <a href="https://www.bioconductor.org/packages/release/bioc/html/lpsymphony.html" class="external-link"><em>lpsymphony R</em> package</a>), and the <code><a href="../reference/add_highs_solver.html">add_highs_solver()</a></code> function (interfaces with the <a href="https://highs.dev/" class="external-link"><em>HiGHS</em> software</a>) using the <a href="https://cran.r-project.org/package=highs" class="external-link"><em>highs</em> package</a>. Broadly speaking, <em>IBM CPLEX</em> and <em>Gurobi</em> tend to be the fastest among the supported solvers. Although they are both commercial software, special academic licenses are available at no cost.</p>
+<p>The <em>prioritizr R</em> package supports a variety of optimization solvers for generating prioritizations. Specifically, the following functions can be used: <code><a href="../reference/add_gurobi_solver.html">add_gurobi_solver()</a></code> (interfaces with the <a href="https://www.gurobi.com/" class="external-link"><em>Gurobi</em> software</a>), <code><a href="../reference/add_cplex_solver.html">add_cplex_solver()</a></code> (interfaces with the <a href="https://www.ibm.com/products/ilog-cplex-optimization-studio/cplex-optimizer" class="external-link"><em>IBM CPLEX</em> software</a>), <code><a href="../reference/add_cbc_solver.html">add_cbc_solver()</a></code> (interfaces with the <a href="https://github.com/coin-or/Cbc" class="external-link"><em>CBC</em> software</a> using the <a href="https://dirkschumacher.github.io/rcbc/" class="external-link"><em>rcbc R</em> package</a>), <code><a href="../reference/add_rsymphony_solver.html">add_rsymphony_solver()</a></code> (interfaces with the <a href="https://github.com/coin-or/SYMPHONY" class="external-link"><em>SYMPHONY</em> software</a> using the <a href="https://CRAN.R-project.org/package=Rsymphony" class="external-link"><em>Rsymphony R</em> package</a>), <code><a href="../reference/add_lsymphony_solver.html">add_lpsymphony_solver()</a></code> function (interfaces with the <a href="https://github.com/coin-or/SYMPHONY" class="external-link"><em>SYMPHONY</em> software</a> using the <a href="https://www.bioconductor.org/packages/release/bioc/html/lpsymphony.html" class="external-link"><em>lpsymphony R</em> package</a>), and the <code><a href="../reference/add_highs_solver.html">add_highs_solver()</a></code> function (interfaces with the <a href="https://highs.dev/" class="external-link"><em>HiGHS</em> software</a>) using the <a href="https://cran.r-project.org/package=highs" class="external-link"><em>highs</em> package</a>. Broadly speaking, <em>IBM CPLEX</em> and <em>Gurobi</em> tend to be the fastest among the supported solvers. Although they are both commercial software, special academic licenses are available at no cost.</p>
 <p>In this vignette, we will explore the performance of different solvers. Using a benchmark analysis, we will see how well they can tackle problems of varying size (e.g., number of planning units) and complexity (e.g., adding boundary length penalties to reduce spatial fragmentation). Since users working in governmental and non-governmental organizations may need to purchase licenses for <em>IBM CPLEX</em> or <em>Gurobi</em> to use them, this vignette also aims to provide insight into whether the potential benefits of purchasing such licenses is worthwhile. Indeed – depending on the size and complexity of a given conservation planning problem – solvers based on open source software may only take slightly longer than commercial solvers.</p>
 </div>
 <div class="section level2">
@@ -394,7 +394,7 @@
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html" class="external-link">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">7</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Solver"</span>, y <span class="op">=</span> <span class="st">"Run time (hours)"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Warning: Removed 33 rows containing non-finite values (stat_boxplot).</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: Removed 33 rows containing non-finite values (`stat_boxplot()`).</span></span></code></pre>
 <p><img src="solver_benchmarks_files/figure-html/overall_average_run_times-1.png" width="672" style="display: block; margin: auto;"></p>
 <div class="section level3">
 <h3 id="minimum-set-results-no-boundary-penalty">Minimum set results (no boundary penalty)<a class="anchor" aria-label="anchor" href="#minimum-set-results-no-boundary-penalty"></a>
@@ -459,8 +459,8 @@
 <span>  objective <span class="op">=</span> <span class="st">"add_min_set_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>,</span>
 <span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_set_objective</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Warning: Removed 4 row(s) containing missing values (geom_path).</span></span></code></pre>
-<pre><code><span><span class="co">## Warning: Removed 4 rows containing missing values (geom_point).</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: Removed 4 rows containing missing values (`geom_line()`).</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: Removed 4 rows containing missing values (`geom_point()`).</span></span></code></pre>
 <p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_3_with_low_boundary_penalty-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>Finally, let’s look at timing comparisons for a large problem with 606,180 planning units. As with the scenario without boundary penalties, <em>lpsymphony</em> and <em>Rsymphony</em> solvers take a lot longer to generate prioritizations than the other three solvers.</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
@@ -468,8 +468,8 @@
 <span>  objective <span class="op">=</span> <span class="st">"add_min_set_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>,</span>
 <span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_set_objective</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Warning: Removed 4 row(s) containing missing values (geom_path).</span></span></code></pre>
-<pre><code><span><span class="co">## Warning: Removed 4 rows containing missing values (geom_point).</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: Removed 4 rows containing missing values (`geom_line()`).</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: Removed 4 rows containing missing values (`geom_point()`).</span></span></code></pre>
 <p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_4_with_low_boundary_penalty-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>Similar to earlier, let’s take a look at just the <em>CBC</em>, <em>IBM CPLEX</em>, and <em>Gurobi</em> solvers. We can see that the <em>Gurobi</em> solver has the best performance, generating prioritizations in under half an hour in all cases. This result shows that the commercial solvers can massively outperform the open source solvers for large-scale problems with boundary length penalties.</p>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
@@ -478,8 +478,8 @@
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>,</span>
 <span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_set_objective</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
 <span>  solver <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"add_cbc_solver"</span>, <span class="st">"add_cplex_solver"</span>, <span class="st">"add_gurobi_solver"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Warning: Removed 4 row(s) containing missing values (geom_path).</span></span></code></pre>
-<pre><code><span><span class="co">## Warning: Removed 4 rows containing missing values (geom_point).</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: Removed 4 rows containing missing values (`geom_line()`).</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: Removed 4 rows containing missing values (`geom_point()`).</span></span></code></pre>
 <p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_4_with_low_boundary_penalty_and_fast_solvers-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
@@ -505,8 +505,8 @@
 <span>  objective <span class="op">=</span> <span class="st">"add_min_set_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>,</span>
 <span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_set_objective</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Warning: Removed 4 row(s) containing missing values (geom_path).</span></span></code></pre>
-<pre><code><span><span class="co">## Warning: Removed 4 rows containing missing values (geom_point).</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: Removed 4 rows containing missing values (`geom_line()`).</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: Removed 4 rows containing missing values (`geom_point()`).</span></span></code></pre>
 <p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_3_with_high_boundary_penalty-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>Finally, let’s look at timing comparisons for a large problem with 606,180 planning units. As with the previous scenarios, <em>Rsymphony</em> and <em>lpsymphony</em> solvers take a lot longer to generate prioritizations than the other solvers.</p>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
@@ -514,8 +514,8 @@
 <span>  objective <span class="op">=</span> <span class="st">"add_min_set_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>,</span>
 <span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_set_objective</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Warning: Removed 4 row(s) containing missing values (geom_path).</span></span></code></pre>
-<pre><code><span><span class="co">## Warning: Removed 4 rows containing missing values (geom_point).</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: Removed 4 rows containing missing values (`geom_line()`).</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: Removed 4 rows containing missing values (`geom_point()`).</span></span></code></pre>
 <p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_4_with_high_boundary_penalty-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>Similar to before, let’s take a look at just the <em>CBC</em>, <em>IBM CPLEX</em>, and <em>Gurobi</em> solvers. We can see that <em>Gurobi</em> has the best performance. This result further emphasizes the potential speed gains of commercial solvers for large-scale conservation planning problems with boundary penalties.</p>
 <div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
@@ -524,8 +524,8 @@
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>,</span>
 <span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_set_objective</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>,</span>
 <span>  solver <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"add_cbc_solver"</span>, <span class="st">"add_cplex_solver"</span>, <span class="st">"add_gurobi_solver"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Warning: Removed 4 row(s) containing missing values (geom_path).</span></span></code></pre>
-<pre><code><span><span class="co">## Warning: Removed 4 rows containing missing values (geom_point).</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: Removed 4 rows containing missing values (`geom_line()`).</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: Removed 4 rows containing missing values (`geom_point()`).</span></span></code></pre>
 <p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_4_with_high_boundary_penalty_and_fast_solvers-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
@@ -558,8 +558,8 @@
 <span>  objective <span class="op">=</span> <span class="st">"add_min_shortfall_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>,</span>
 <span>  boundary_penalty <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Warning: Removed 1 row(s) containing missing values (geom_path).</span></span></code></pre>
-<pre><code><span><span class="co">## Warning: Removed 1 rows containing missing values (geom_point).</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: Removed 1 row containing missing values (`geom_line()`).</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: Removed 1 rows containing missing values (`geom_point()`).</span></span></code></pre>
 <p><img src="solver_benchmarks_files/figure-html/min_short_pu_n_4-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
@@ -592,8 +592,8 @@
 <span>  objective <span class="op">=</span> <span class="st">"add_min_shortfall_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>,</span>
 <span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_shortfall_objective</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Warning: Removed 1 row(s) containing missing values (geom_path).</span></span></code></pre>
-<pre><code><span><span class="co">## Warning: Removed 1 rows containing missing values (geom_point).</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: Removed 1 row containing missing values (`geom_line()`).</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: Removed 1 rows containing missing values (`geom_point()`).</span></span></code></pre>
 <p><img src="solver_benchmarks_files/figure-html/min_short_pu_n_4_with_low_boundary_penalty-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>To get a better sense of how the faster solvers compare (i.e., <em>CBC</em>, <em>IBM CPLEX</em>, and <em>Gurobi</em>), let’s take a closer look at these three solvers. We can see that the <em>CBC</em> solver takes a lot longer to generate prioritizations than the <em>IBM CPLEX</em> and <em>Gurobi</em> solvers. This result suggests that <em>IBM CPLEX</em> and <em>Gurobi</em> could be really beneficial for large-scale conservation planning problems with boundary length penalties and the minimum shortfall objective function.</p>
 <div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
@@ -627,8 +627,8 @@
 <span>  objective <span class="op">=</span> <span class="st">"add_min_shortfall_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>,</span>
 <span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_shortfall_objective</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Warning: Removed 4 row(s) containing missing values (geom_path).</span></span></code></pre>
-<pre><code><span><span class="co">## Warning: Removed 4 rows containing missing values (geom_point).</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: Removed 4 rows containing missing values (`geom_line()`).</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: Removed 4 rows containing missing values (`geom_point()`).</span></span></code></pre>
 <p><img src="solver_benchmarks_files/figure-html/min_short_pu_n_3_with_high_boundary_penalty-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>Finally, let’s look at timing comparisons for a large problem with 606,180 planning units. We can see that the benchmark times vary greatly for the <em>Rsymphony</em> and <em>lpsymphony</em> solvers, with run times ranging from one to two whole days. Additionally, although the <em>CBC</em> solver can still require several hours to generate a prioritization, it now outperforms the <em>Rsymphony</em> and <em>lpsymphony</em> solvers. Finally, the <em>IBM CPLEX</em> and <em>Gurobi</em> solvers perform much, much better than all the other solvers.</p>
 <div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
@@ -636,8 +636,8 @@
 <span>  objective <span class="op">=</span> <span class="st">"add_min_shortfall_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>,</span>
 <span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_shortfall_objective</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Warning: Removed 4 row(s) containing missing values (geom_path).</span></span></code></pre>
-<pre><code><span><span class="co">## Warning: Removed 4 rows containing missing values (geom_point).</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: Removed 4 rows containing missing values (`geom_line()`).</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: Removed 4 rows containing missing values (`geom_point()`).</span></span></code></pre>
 <p><img src="solver_benchmarks_files/figure-html/min_short_pu_n_4_with_high_boundary_penalty-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 </div>

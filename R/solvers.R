@@ -28,7 +28,7 @@ NULL
 #'     \pkg{gurobi} package is distributed with the *Gurobi* software
 #'     suite. This solver uses the \pkg{gurobi} package to solve problems.}
 #'
-#'   \item{[add_cplex_solver()]}{[*IBM CPLEX*](https://www.ibm.com/analytics/cplex-optimizer)
+#'   \item{[add_cplex_solver()]}{[*IBM CPLEX*](  https://www.ibm.com/products/ilog-cplex-optimization-studio/cplex-optimizer)
 #'     is a commercial optimization software. It is faster than the open
 #'     source solvers available for generating prioritizations, however, it
 #'     is not freely available.

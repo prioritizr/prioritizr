@@ -610,7 +610,7 @@ p31 <- problem(sim_pu_raster, sim_features) %>%
 # print problem
 print(p31)
 ```
-* __*IBM CPLEX* solver__: [_IBM CPLEX_](https://www.ibm.com/analytics/cplex-optimizer) is a commercial optimization software. It is faster than the open source solvers available for generating prioritizations (see below), however, it is not freely available. Similar to the _Gurobi_ software, special licenses are available to academics at no cost.
+* __*IBM CPLEX* solver__: [_IBM CPLEX_](  https://www.ibm.com/products/ilog-cplex-optimization-studio/cplex-optimizer) is a commercial optimization software. It is faster than the open source solvers available for generating prioritizations (see below), however, it is not freely available. Similar to the _Gurobi_ software, special licenses are available to academics at no cost.
 ```{r}
 # create a problem and specify that IBM CPLEX should be used to solve the
 # problem and specify an optimality gap of zero to obtain the optimal solution
