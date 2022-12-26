@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.2.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.2.7</span>
       </span>
     </div>
 
@@ -192,8 +192,11 @@
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Gurobi Optimizer version 9.5.2 build v9.5.2rc0 (linux64)</span></span>
+<pre><code><span><span class="co">## Gurobi Optimizer version 10.0.0 build v10.0.0rc2 (linux64)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
+<span><span class="co">## </span></span>
 <span><span class="co">## Optimize a model with 5 rows, 90 columns and 450 nonzeros</span></span>
 <span><span class="co">## Model fingerprint: 0x4bb5d283</span></span>
 <span><span class="co">## Variable types: 0 continuous, 90 integer (90 binary)</span></span>
@@ -316,8 +319,11 @@
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Gurobi Optimizer version 9.5.2 build v9.5.2rc0 (linux64)</span></span>
+<pre><code><span><span class="co">## Gurobi Optimizer version 10.0.0 build v10.0.0rc2 (linux64)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
+<span><span class="co">## </span></span>
 <span><span class="co">## Optimize a model with 100 rows, 180 columns and 1080 nonzeros</span></span>
 <span><span class="co">## Model fingerprint: 0x5c140ae3</span></span>
 <span><span class="co">## Variable types: 0 continuous, 180 integer (180 binary)</span></span>
@@ -327,7 +333,7 @@
 <span><span class="co">##   Bounds range     [1e+00, 1e+00]</span></span>
 <span><span class="co">##   RHS range        [1e+00, 8e+00]</span></span>
 <span><span class="co">## Found heuristic solution: objective 3568.4931335</span></span>
-<span><span class="co">## Presolve time: 0.00s</span></span>
+<span><span class="co">## Presolve time: 0.01s</span></span>
 <span><span class="co">## Presolved: 100 rows, 180 columns, 1080 nonzeros</span></span>
 <span><span class="co">## Variable types: 0 continuous, 180 integer (180 binary)</span></span>
 <span><span class="co">## Found heuristic solution: objective 3440.6550903</span></span>
@@ -342,7 +348,7 @@
 <span><span class="co">##      0     0 2911.33336    0   10 3440.65509 2911.33336  15.4%     -    0s</span></span>
 <span><span class="co">## H    0     0                    2996.1175232 2911.33336  2.83%     -    0s</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 1 nodes (79 simplex iterations) in 0.00 seconds (0.00 work units)</span></span>
+<span><span class="co">## Explored 1 nodes (79 simplex iterations) in 0.01 seconds (0.00 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Solution count 3: 2996.12 3440.66 3568.49 </span></span>
@@ -418,8 +424,11 @@
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Gurobi Optimizer version 9.5.2 build v9.5.2rc0 (linux64)</span></span>
+<pre><code><span><span class="co">## Gurobi Optimizer version 10.0.0 build v10.0.0rc2 (linux64)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
+<span><span class="co">## </span></span>
 <span><span class="co">## Optimize a model with 100 rows, 180 columns and 1080 nonzeros</span></span>
 <span><span class="co">## Model fingerprint: 0xdfa75166</span></span>
 <span><span class="co">## Variable types: 0 continuous, 180 integer (180 binary)</span></span>
@@ -429,7 +438,7 @@
 <span><span class="co">##   Bounds range     [1e+00, 1e+00]</span></span>
 <span><span class="co">##   RHS range        [8e-01, 8e+00]</span></span>
 <span><span class="co">## Found heuristic solution: objective 3667.7708740</span></span>
-<span><span class="co">## Presolve time: 0.00s</span></span>
+<span><span class="co">## Presolve time: 0.01s</span></span>
 <span><span class="co">## Presolved: 100 rows, 180 columns, 1080 nonzeros</span></span>
 <span><span class="co">## Variable types: 0 continuous, 180 integer (180 binary)</span></span>
 <span><span class="co">## Found heuristic solution: objective 3388.0249329</span></span>
@@ -444,7 +453,7 @@
 <span><span class="co">##      0     0 2884.87201    0    8 3388.02493 2884.87201  14.9%     -    0s</span></span>
 <span><span class="co">## H    0     0                    2958.1201477 2884.87201  2.48%     -    0s</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 1 nodes (38 simplex iterations) in 0.00 seconds (0.00 work units)</span></span>
+<span><span class="co">## Explored 1 nodes (38 simplex iterations) in 0.01 seconds (0.00 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Solution count 3: 2958.12 3388.02 3667.77 </span></span>
@@ -536,8 +545,11 @@
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p4</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Gurobi Optimizer version 9.5.2 build v9.5.2rc0 (linux64)</span></span>
+<pre><code><span><span class="co">## Gurobi Optimizer version 10.0.0 build v10.0.0rc2 (linux64)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
+<span><span class="co">## </span></span>
 <span><span class="co">## Optimize a model with 105 rows, 300 columns and 1800 nonzeros</span></span>
 <span><span class="co">## Model fingerprint: 0xba527df5</span></span>
 <span><span class="co">## Variable types: 0 continuous, 300 integer (300 binary)</span></span>
@@ -563,7 +575,7 @@
 <span><span class="co">##      0     0 3663.23656    0    1 4700.00000 3663.23656  22.1%     -    0s</span></span>
 <span><span class="co">## H    0     0                    3800.0000000 3663.23656  3.60%     -    0s</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 1 nodes (1 simplex iterations) in 0.00 seconds (0.00 work units)</span></span>
+<span><span class="co">## Explored 1 nodes (1 simplex iterations) in 0.01 seconds (0.00 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Solution count 3: 3800 4700 9400 </span></span>
@@ -649,8 +661,11 @@
 <div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s5</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p5</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Gurobi Optimizer version 9.5.2 build v9.5.2rc0 (linux64)</span></span>
+<pre><code><span><span class="co">## Gurobi Optimizer version 10.0.0 build v10.0.0rc2 (linux64)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
+<span><span class="co">## </span></span>
 <span><span class="co">## Optimize a model with 105 rows, 300 columns and 1800 nonzeros</span></span>
 <span><span class="co">## Model fingerprint: 0x0d87ce25</span></span>
 <span><span class="co">## Variable types: 0 continuous, 300 integer (300 binary)</span></span>
@@ -677,7 +692,7 @@
 <span><span class="co">## H    0     0                    7000.0000000 6938.06815  0.88%     -    0s</span></span>
 <span><span class="co">##      0     0 6938.06815    0    1 7000.00000 6938.06815  0.88%     -    0s</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 1 nodes (1 simplex iterations) in 0.00 seconds (0.00 work units)</span></span>
+<span><span class="co">## Explored 1 nodes (1 simplex iterations) in 0.01 seconds (0.00 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Solution count 3: 7000 9600 13600 </span></span>
@@ -764,8 +779,11 @@
 <div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s6</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p6</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Gurobi Optimizer version 9.5.2 build v9.5.2rc0 (linux64)</span></span>
+<pre><code><span><span class="co">## Gurobi Optimizer version 10.0.0 build v10.0.0rc2 (linux64)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
+<span><span class="co">## </span></span>
 <span><span class="co">## Optimize a model with 1905 rows, 1200 columns and 5400 nonzeros</span></span>
 <span><span class="co">## Model fingerprint: 0x9915d2c6</span></span>
 <span><span class="co">## Variable types: 0 continuous, 1200 integer (1200 binary)</span></span>
@@ -776,14 +794,14 @@
 <span><span class="co">##   RHS range        [1e+00, 8e+00]</span></span>
 <span><span class="co">## Found heuristic solution: objective 20096.000000</span></span>
 <span><span class="co">## Presolve removed 1028 rows and 232 columns</span></span>
-<span><span class="co">## Presolve time: 0.02s</span></span>
+<span><span class="co">## Presolve time: 0.05s</span></span>
 <span><span class="co">## Presolved: 877 rows, 968 columns, 2712 nonzeros</span></span>
 <span><span class="co">## Variable types: 0 continuous, 968 integer (968 binary)</span></span>
 <span><span class="co">## Found heuristic solution: objective 19632.000000</span></span>
 <span><span class="co">## Root relaxation presolved: 877 rows, 968 columns, 2712 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Root relaxation: objective 1.005410e+04, 568 iterations, 0.01 seconds (0.01 work units)</span></span>
+<span><span class="co">## Root relaxation: objective 1.005410e+04, 568 iterations, 0.02 seconds (0.01 work units)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
@@ -792,7 +810,7 @@
 <span><span class="co">## H    0     0                    11300.000000 10054.0986  11.0%     -    0s</span></span>
 <span><span class="co">## H    0     0                    11140.000000 10054.0986  9.75%     -    0s</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 1 nodes (823 simplex iterations) in 0.03 seconds (0.04 work units)</span></span>
+<span><span class="co">## Explored 1 nodes (823 simplex iterations) in 0.09 seconds (0.04 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Solution count 4: 11140 11300 19632 20096 </span></span>
@@ -868,8 +886,11 @@
 <div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s7</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p7</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Gurobi Optimizer version 9.5.2 build v9.5.2rc0 (linux64)</span></span>
+<pre><code><span><span class="co">## Gurobi Optimizer version 10.0.0 build v10.0.0rc2 (linux64)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
+<span><span class="co">## </span></span>
 <span><span class="co">## Optimize a model with 1905 rows, 1200 columns and 5400 nonzeros</span></span>
 <span><span class="co">## Model fingerprint: 0x3dc383b8</span></span>
 <span><span class="co">## Variable types: 0 continuous, 1200 integer (1200 binary)</span></span>
@@ -880,14 +901,14 @@
 <span><span class="co">##   RHS range        [1e+00, 8e+00]</span></span>
 <span><span class="co">## Found heuristic solution: objective 19600.000000</span></span>
 <span><span class="co">## Presolve removed 1120 rows and 324 columns</span></span>
-<span><span class="co">## Presolve time: 0.02s</span></span>
+<span><span class="co">## Presolve time: 0.05s</span></span>
 <span><span class="co">## Presolved: 785 rows, 876 columns, 2448 nonzeros</span></span>
 <span><span class="co">## Variable types: 0 continuous, 876 integer (876 binary)</span></span>
 <span><span class="co">## Found heuristic solution: objective 18988.000000</span></span>
 <span><span class="co">## Root relaxation presolved: 785 rows, 876 columns, 2448 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Root relaxation: objective 1.323093e+04, 265 iterations, 0.00 seconds (0.00 work units)</span></span>
+<span><span class="co">## Root relaxation: objective 1.323093e+04, 265 iterations, 0.01 seconds (0.00 work units)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
@@ -895,7 +916,7 @@
 <span><span class="co">##      0     0 13230.9255    0   95 18988.0000 13230.9255  30.3%     -    0s</span></span>
 <span><span class="co">## H    0     0                    13260.000000 13230.9255  0.22%     -    0s</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 1 nodes (426 simplex iterations) in 0.02 seconds (0.03 work units)</span></span>
+<span><span class="co">## Explored 1 nodes (426 simplex iterations) in 0.07 seconds (0.03 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Solution count 3: 13260 18988 19600 </span></span>
@@ -986,7 +1007,7 @@ Wilson, K.A., Meijaard, E., Drummond, S., Grantham, H.S., Boitani, L., Catullo, 
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

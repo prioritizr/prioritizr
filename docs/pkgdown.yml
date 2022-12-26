@@ -1,5 +1,5 @@
 pandoc: '2.13'
-pkgdown: 2.0.6
+pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   calibrating_trade-offs_tutorial: calibrating_trade-offs_tutorial.html
@@ -10,7 +10,7 @@ articles:
   prioritizr: prioritizr.html
   publication_record: publication_record.html
   solver_benchmarks: solver_benchmarks.html
-last_built: 2022-12-06T03:52Z
+last_built: 2022-12-26T00:54Z
 urls:
   reference: https://prioritizr.net/reference
   article: https://prioritizr.net/articles
