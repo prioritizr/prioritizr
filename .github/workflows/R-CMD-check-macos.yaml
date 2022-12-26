@@ -73,6 +73,7 @@ jobs:
         run: |
           options("install.packages.compile.from.source" = "never")
           remotes::install_deps(dependencies = TRUE)
+          remotes::install_cran("rcmdcheck")
         shell: Rscript {0}
 
       - name: Session information
