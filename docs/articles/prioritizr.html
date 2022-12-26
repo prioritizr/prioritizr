@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.2.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.2.7</span>
       </span>
     </div>
 
@@ -237,8 +237,11 @@
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Gurobi Optimizer version 9.5.2 build v9.5.2rc0 (linux64)</span></span>
+<pre><code><span><span class="co">## Gurobi Optimizer version 10.0.0 build v10.0.0rc2 (linux64)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
+<span><span class="co">## </span></span>
 <span><span class="co">## Optimize a model with 6358 rows, 4278 columns and 14496 nonzeros</span></span>
 <span><span class="co">## Model fingerprint: 0x861c9b00</span></span>
 <span><span class="co">## Variable types: 0 continuous, 4278 integer (4278 binary)</span></span>
@@ -250,7 +253,7 @@
 <span><span class="co">## Found heuristic solution: objective 36805.575211</span></span>
 <span><span class="co">## Found heuristic solution: objective 27817.085072</span></span>
 <span><span class="co">## Presolve removed 2077 rows and 1375 columns</span></span>
-<span><span class="co">## Presolve time: 0.05s</span></span>
+<span><span class="co">## Presolve time: 0.12s</span></span>
 <span><span class="co">## Presolved: 4281 rows, 2903 columns, 9594 nonzeros</span></span>
 <span><span class="co">## Found heuristic solution: objective 24454.499456</span></span>
 <span><span class="co">## Variable types: 0 continuous, 2903 integer (2903 binary)</span></span>
@@ -258,7 +261,7 @@
 <span><span class="co">## Root relaxation presolved: 4281 rows, 2903 columns, 9594 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Root relaxation: objective 1.955605e+04, 1793 iterations, 0.12 seconds (0.19 work units)</span></span>
+<span><span class="co">## Root relaxation: objective 1.955605e+04, 1793 iterations, 0.26 seconds (0.19 work units)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
@@ -266,24 +269,24 @@
 <span><span class="co">##      0     0 19556.0531    0 1615 23413.9875 19556.0531  16.5%     -    0s</span></span>
 <span><span class="co">## H    0     0                    23045.733138 19556.0531  15.1%     -    0s</span></span>
 <span><span class="co">## H    0     0                    22977.771015 19556.0531  14.9%     -    0s</span></span>
-<span><span class="co">##      0     0 19836.0586    0 1855 22977.7710 19836.0586  13.7%     -    0s</span></span>
-<span><span class="co">## H    0     0                    21702.297403 19836.0586  8.60%     -    0s</span></span>
+<span><span class="co">##      0     0 19835.6369    0 1833 22977.7710 19835.6369  13.7%     -    0s</span></span>
+<span><span class="co">## H    0     0                    21705.306602 19835.6369  8.61%     -    0s</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Cutting planes:</span></span>
 <span><span class="co">##   Gomory: 2</span></span>
 <span><span class="co">##   Cover: 5</span></span>
-<span><span class="co">##   MIR: 4</span></span>
+<span><span class="co">##   MIR: 5</span></span>
 <span><span class="co">##   GUB cover: 1</span></span>
 <span><span class="co">##   Zero half: 2</span></span>
-<span><span class="co">##   RLT: 10</span></span>
+<span><span class="co">##   RLT: 11</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 1 nodes (2393 simplex iterations) in 0.45 seconds (0.60 work units)</span></span>
+<span><span class="co">## Explored 1 nodes (2467 simplex iterations) in 0.99 seconds (0.55 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Solution count 7: 21702.3 22977.8 23045.7 ... 36805.6</span></span>
+<span><span class="co">## Solution count 7: 21705.3 22977.8 23045.7 ... 36805.6</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
-<span><span class="co">## Best objective 2.170229740250e+04, best bound 1.983605855899e+04, gap 8.5993%</span></span></code></pre>
+<span><span class="co">## Best objective 2.170530660204e+04, best bound 1.983563686947e+04, gap 8.6139%</span></span></code></pre>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot map of prioritization</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">st_as_sf</a></span><span class="op">(</span><span class="va">s1</span><span class="op">[</span>, <span class="st">"solution_1"</span><span class="op">]</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Prioritization"</span>,</span>
@@ -324,16 +327,16 @@
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 62 × 9</span></span></span>
 <span><span class="co">##    feature         met   total…¹ absol…² absol…³ absol…⁴ relat…⁵ relat…⁶ relat…⁷</span></span>
 <span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> tas_features.1  TRUE     33.9    5.77    5.97       0    0.17   0.176       0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> tas_features.2  TRUE    170.    28.9    43.8        0    0.17   0.258       0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> tas_features.3  TRUE     24.0    4.08    4.25       0    0.17   0.177       0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> tas_features.4  TRUE     32.8    5.57    6.37       0    0.17   0.195       0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> tas_features.5  TRUE     24.8    4.21    4.98       0    0.17   0.201       0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> tas_features.6  TRUE     22.0    3.74    7.00       0    0.17   0.318       0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> tas_features.1  TRUE     33.9    5.77    6.97       0    0.17   0.205       0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> tas_features.2  TRUE    170.    28.9    44.8        0    0.17   0.264       0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> tas_features.3  TRUE     24.0    4.08    5.00       0    0.17   0.208       0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> tas_features.4  TRUE     32.8    5.57   12.4        0    0.17   0.378       0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> tas_features.5  TRUE     24.8    4.21    4.49       0    0.17   0.181       0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> tas_features.6  TRUE     22.0    3.74    9.10       0    0.17   0.414       0</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 7</span> tas_features.7  TRUE     16.4    2.78    3.00       0    0.17   0.183       0</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 8</span> tas_features.8  TRUE     43.0    7.31    8.12       0    0.17   0.189       0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> tas_features.9  TRUE    388.    66.0    70.8        0    0.17   0.182       0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">10</span> tas_features.10 TRUE     14.5    2.47    2.91       0    0.17   0.200       0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> tas_features.9  TRUE    388.    66.0    76.0        0    0.17   0.196       0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> tas_features.10 TRUE     14.5    2.47    3          0    0.17   0.207       0</span></span>
 <span><span class="co">## <span style="color: #949494;"># … with 52 more rows, and abbreviated variable names ¹​total_amount,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   ²​absolute_target, ³​absolute_held, ⁴​absolute_shortfall, ⁵​relative_target,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   ⁶​relative_held, ⁷​relative_shortfall</span></span></span></code></pre>
@@ -360,7 +363,7 @@
 <span><span class="co">## summarize representation (values show percent coverage)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">tc_s1</span><span class="op">$</span><span class="va">relative_held</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
-<span><span class="co">##   17.14   20.18   25.56   33.83   43.19  100.00</span></span></code></pre>
+<span><span class="co">##   17.49   19.79   25.93   34.99   44.63  100.00</span></span></code></pre>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## calculate number of features adequately represented by the prioritization</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">tc_s1</span><span class="op">$</span><span class="va">met</span><span class="op">)</span></span></code></pre></div>
@@ -387,9 +390,9 @@
 <span><span class="co">## extent      : 298809.6, 613818.8, 5167775, 5502544  (xmin, xmax, ymin, ymax)</span></span>
 <span><span class="co">## crs         : +proj=utm +zone=55 +south +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 </span></span>
 <span><span class="co">## variables   : 63</span></span>
-<span><span class="co">## names       :      tas_features.1,     tas_features.2,      tas_features.3,      tas_features.4,      tas_features.5,    tas_features.6,      tas_features.7,      tas_features.8,      tas_features.9,     tas_features.10,   tas_features.11,     tas_features.12,    tas_features.13,   tas_features.14,     tas_features.15, ... </span></span>
-<span><span class="co">## min values  :                   0,                  0,                   0,                   0,                   0,                 0,                   0,                   0,                   0,                   0,                 0,                   0,                  0,                 0,                   0, ... </span></span>
-<span><span class="co">## max values  : 0.00701698358267939, 0.0066775439067078, 0.00248592654648536, 0.00594796984735507, 0.00219848915242862, 0.221777713215686, 0.00352460472775105, 0.00362070014565918, 0.00736044135306282, 0.00691379490000091, 0.225419698234888, 0.00465456428213494, 0.0025318990590772, 0.010045386228309, 0.00609443943530227, ...</span></span></code></pre>
+<span><span class="co">## names       :      tas_features.1,      tas_features.2,      tas_features.3,      tas_features.4,      tas_features.5,    tas_features.6,      tas_features.7,      tas_features.8,     tas_features.9,     tas_features.10,   tas_features.11,     tas_features.12,     tas_features.13,    tas_features.14,     tas_features.15, ... </span></span>
+<span><span class="co">## min values  :                   0,                   0,                   0,                   0,                   0,                 0,                   0,                   0,                  0,                   0,                 0,                   0,                   0,                  0,                   0, ... </span></span>
+<span><span class="co">## max values  : 0.00711824775612521, 0.00677617182804085, 0.00252250621218381, 0.00603461402882859, 0.00223116059711298, 0.226881579868195, 0.00357699100195298, 0.00367543492891132, 0.0074626121416326, 0.00701739172953936, 0.230759668693182, 0.00472477144676876, 0.00256953165096351, 0.0101913850980662, 0.00618368294591574, ...</span></span></code></pre>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># manually coerce values for planning units not selected in prioritization</span></span>
 <span><span class="co"># to NA, so that they are shown in white</span></span>
@@ -425,8 +428,11 @@
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># generate prioritizations</span></span>
 <span><span class="va">prt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Gurobi Optimizer version 9.5.2 build v9.5.2rc0 (linux64)</span></span>
+<pre><code><span><span class="co">## Gurobi Optimizer version 10.0.0 build v10.0.0rc2 (linux64)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
+<span><span class="co">## </span></span>
 <span><span class="co">## Optimize a model with 6358 rows, 4278 columns and 14496 nonzeros</span></span>
 <span><span class="co">## Model fingerprint: 0x861c9b00</span></span>
 <span><span class="co">## Variable types: 0 continuous, 4278 integer (4278 binary)</span></span>
@@ -438,14 +444,14 @@
 <span><span class="co">## Found heuristic solution: objective 36805.575211</span></span>
 <span><span class="co">## Found heuristic solution: objective 27817.085072</span></span>
 <span><span class="co">## Presolve removed 1434 rows and 258 columns</span></span>
-<span><span class="co">## Presolve time: 0.02s</span></span>
+<span><span class="co">## Presolve time: 0.05s</span></span>
 <span><span class="co">## Presolved: 4924 rows, 4020 columns, 10889 nonzeros</span></span>
 <span><span class="co">## Variable types: 0 continuous, 4020 integer (4020 binary)</span></span>
 <span><span class="co">## Found heuristic solution: objective 27660.082384</span></span>
 <span><span class="co">## Root relaxation presolved: 4924 rows, 4020 columns, 10889 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Root relaxation: objective 1.954728e+04, 1905 iterations, 0.12 seconds (0.18 work units)</span></span>
+<span><span class="co">## Root relaxation: objective 1.954728e+04, 1905 iterations, 0.26 seconds (0.18 work units)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
@@ -453,74 +459,80 @@
 <span><span class="co">##      0     0 19547.2818    0 1731 27660.0824 19547.2818  29.3%     -    0s</span></span>
 <span><span class="co">## H    0     0                    26145.941445 19547.2818  25.2%     -    0s</span></span>
 <span><span class="co">## H    0     0                    24520.062189 19547.2818  20.3%     -    0s</span></span>
-<span><span class="co">##      0     0 19820.3758    0 1966 24520.0622 19820.3758  19.2%     -    0s</span></span>
-<span><span class="co">## H    0     0                    24498.644854 19820.3758  19.1%     -    0s</span></span>
-<span><span class="co">## H    0     0                    23263.485453 19820.3758  14.8%     -    0s</span></span>
-<span><span class="co">## H    0     0                    22049.956515 19820.3758  10.1%     -    0s</span></span>
-<span><span class="co">##      0     0 19847.8388    0 1956 22049.9565 19847.8388  10.0%     -    0s</span></span>
-<span><span class="co">##      0     0 19854.3259    0 1960 22049.9565 19854.3259  10.0%     -    0s</span></span>
-<span><span class="co">##      0     0 19854.3439    0 1958 22049.9565 19854.3439  10.0%     -    0s</span></span>
-<span><span class="co">##      0     0 19924.6889    0 1682 22049.9565 19924.6889  9.64%     -    0s</span></span>
-<span><span class="co">##      0     0 19936.2410    0 1978 22049.9565 19936.2410  9.59%     -    0s</span></span>
-<span><span class="co">##      0     0 19937.4882    0 2005 22049.9565 19937.4882  9.58%     -    0s</span></span>
-<span><span class="co">##      0     0 19937.6761    0 2005 22049.9565 19937.6761  9.58%     -    0s</span></span>
-<span><span class="co">##      0     0 19968.7333    0 1691 22049.9565 19968.7333  9.44%     -    0s</span></span>
-<span><span class="co">##      0     0 19970.0998    0 1714 22049.9565 19970.0998  9.43%     -    0s</span></span>
-<span><span class="co">##      0     0 19970.4702    0 1714 22049.9565 19970.4702  9.43%     -    0s</span></span>
-<span><span class="co">##      0     0 19983.7957    0 1748 22049.9565 19983.7957  9.37%     -    1s</span></span>
-<span><span class="co">##      0     0 19984.9623    0 1754 22049.9565 19984.9623  9.37%     -    1s</span></span>
-<span><span class="co">##      0     0 19985.0928    0 1754 22049.9565 19985.0928  9.36%     -    1s</span></span>
-<span><span class="co">##      0     0 19990.8490    0 2040 22049.9565 19990.8490  9.34%     -    1s</span></span>
-<span><span class="co">##      0     0 19991.1771    0 2041 22049.9565 19991.1771  9.34%     -    1s</span></span>
-<span><span class="co">##      0     0 19991.9721    0 2039 22049.9565 19991.9721  9.33%     -    1s</span></span>
-<span><span class="co">##      0     0 19992.1795    0 2040 22049.9565 19992.1795  9.33%     -    1s</span></span>
-<span><span class="co">##      0     0 19995.3797    0 1784 22049.9565 19995.3797  9.32%     -    1s</span></span>
-<span><span class="co">##      0     0 19995.3847    0 1788 22049.9565 19995.3847  9.32%     -    1s</span></span>
-<span><span class="co">##      0     0 19995.5716    0 2038 22049.9565 19995.5716  9.32%     -    1s</span></span>
-<span><span class="co">##      0     0 19995.8374    0 2037 22049.9565 19995.8374  9.32%     -    1s</span></span>
-<span><span class="co">##      0     0 19996.1519    0 2039 22049.9565 19996.1519  9.31%     -    1s</span></span>
-<span><span class="co">##      0     0 19996.1519    0 2039 22049.9565 19996.1519  9.31%     -    1s</span></span>
-<span><span class="co">##      0     2 19996.6237    0 2039 22049.9565 19996.6237  9.31%     -    1s</span></span>
-<span><span class="co">## H   27    27                    21471.431466 19996.6237  6.87%   117    2s</span></span>
-<span><span class="co">## H   52    52                    21371.814002 19996.6237  6.43%   115    2s</span></span>
-<span><span class="co">## H   54    54                    21254.060213 19996.6237  5.92%   117    2s</span></span>
-<span><span class="co">## H  108   108                    21204.105802 19996.6237  5.69%   123    3s</span></span>
-<span><span class="co">## H  162   162                    21202.636805 19996.6237  5.69%   104    3s</span></span>
-<span><span class="co">## H  286   286                    21166.904542 19996.6237  5.53%  69.2    4s</span></span>
-<span><span class="co">## H  606   599                    20993.604430 19996.6237  4.75%  32.8    5s</span></span>
-<span><span class="co">##    633    15 20993.6044  584 1964 20993.6044 20028.3193  4.60%  31.4   10s</span></span>
-<span><span class="co">##    659    10 20993.6044  100 1965 20993.6044 20031.1575  4.58%  37.2   15s</span></span>
-<span><span class="co">##    707    40 20660.5710   41 1494 20993.6044 20082.6816  4.34%  55.3   20s</span></span>
-<span><span class="co">## H  739    70                    20939.026645 20082.6816  4.09%  60.1   21s</span></span>
-<span><span class="co">## H 1283   612                    20924.385117 20084.4398  4.01%  54.4   24s</span></span>
-<span><span class="co">##   1287   618 20656.0472   52 1537 20924.3851 20084.4398  4.01%  55.0   25s</span></span>
-<span><span class="co">## H 1975  1297                    20813.687049 20092.6890  3.46%  50.6   28s</span></span>
-<span><span class="co">##   2440  1762 20330.4174   35 1839 20813.6870 20099.7124  3.43%  44.4   30s</span></span>
-<span><span class="co">##   3123  2443 20660.0185   43 1711 20813.6870 20109.8128  3.38%  44.4   35s</span></span>
-<span><span class="co">##   4201  3256 20919.5403   50 1676 20813.6870 20130.7144  3.28%  41.4   40s</span></span>
-<span><span class="co">##   4945  3720 20258.1019   28 1789 20813.6870 20148.6068  3.20%  38.8   45s</span></span>
-<span><span class="co">##   5228  3811 20688.0782   49  588 20813.6870 20155.9610  3.16%  42.0   50s</span></span>
-<span><span class="co">##   5907  4394 20751.2082   39 1821 20813.6870 20167.5494  3.10%  42.9   55s</span></span>
-<span><span class="co">##   6917  5095 20297.3638   29 1921 20813.6870 20193.4398  2.98%  42.2   60s</span></span>
-<span><span class="co">##   7703  5501 20505.6126   41 1820 20813.6870 20197.6282  2.96%  43.7   65s</span></span>
+<span><span class="co">##      0     0 19816.1878    0 1965 24520.0622 19816.1878  19.2%     -    0s</span></span>
+<span><span class="co">## H    0     0                    24498.644854 19816.1878  19.1%     -    0s</span></span>
+<span><span class="co">## H    0     0                    23263.485453 19816.1878  14.8%     -    0s</span></span>
+<span><span class="co">## H    0     0                    21847.828075 19816.1878  9.30%     -    1s</span></span>
+<span><span class="co">##      0     0 19840.6230    0 1954 21847.8281 19840.6230  9.19%     -    1s</span></span>
+<span><span class="co">##      0     0 19847.1941    0 1958 21847.8281 19847.1941  9.16%     -    1s</span></span>
+<span><span class="co">##      0     0 19917.2650    0 1884 21847.8281 19917.2650  8.84%     -    1s</span></span>
+<span><span class="co">## H    0     0                    21831.394553 19917.2650  8.77%     -    1s</span></span>
+<span><span class="co">##      0     0 19923.8717    0 1873 21831.3946 19923.8717  8.74%     -    1s</span></span>
+<span><span class="co">##      0     0 19924.7815    0 1874 21831.3946 19924.7815  8.73%     -    1s</span></span>
+<span><span class="co">##      0     0 19948.6397    0 1733 21831.3946 19948.6397  8.62%     -    1s</span></span>
+<span><span class="co">##      0     0 19950.6344    0 1733 21831.3946 19950.6344  8.61%     -    1s</span></span>
+<span><span class="co">##      0     0 19960.2198    0 1895 21831.3946 19960.2198  8.57%     -    2s</span></span>
+<span><span class="co">##      0     0 19960.8567    0 1896 21831.3946 19960.8567  8.57%     -    2s</span></span>
+<span><span class="co">##      0     0 19960.8917    0 1896 21831.3946 19960.8917  8.57%     -    2s</span></span>
+<span><span class="co">##      0     0 19970.1883    0 1895 21831.3946 19970.1883  8.53%     -    2s</span></span>
+<span><span class="co">##      0     0 19970.3008    0 1895 21831.3946 19970.3008  8.52%     -    2s</span></span>
+<span><span class="co">##      0     0 19970.5283    0 1895 21831.3946 19970.5283  8.52%     -    2s</span></span>
+<span><span class="co">##      0     0 19970.5509    0 1896 21831.3946 19970.5509  8.52%     -    2s</span></span>
+<span><span class="co">##      0     0 19970.6229    0 1896 21831.3946 19970.6229  8.52%     -    2s</span></span>
+<span><span class="co">##      0     0 19970.6229    0 1896 21831.3946 19970.6229  8.52%     -    2s</span></span>
+<span><span class="co">##      0     2 19971.7903    0 1896 21831.3946 19971.7903  8.52%     -    3s</span></span>
+<span><span class="co">## H   27    27                    21427.973036 19975.2817  6.78%   120    4s</span></span>
+<span><span class="co">## H   54    54                    21343.168882 19975.2817  6.41%   138    5s</span></span>
+<span><span class="co">## H   81    81                    21292.350054 19975.2817  6.19%   122    6s</span></span>
+<span><span class="co">## H  108   108                    21239.822239 19975.2817  5.95%   101    6s</span></span>
+<span><span class="co">## H  135   135                    21239.702905 19975.2817  5.95%  91.2    6s</span></span>
+<span><span class="co">## H  162   162                    21232.051862 19975.2817  5.92%  83.2    7s</span></span>
+<span><span class="co">## H  216   216                    21222.883764 19975.2817  5.88%  69.6    7s</span></span>
+<span><span class="co">##    605     1 21222.8838  439 1731 21222.8838 19978.3972  5.86%  26.5   10s</span></span>
+<span><span class="co">## H  605     1                    21195.666934 19978.3972  5.74%  26.5   10s</span></span>
+<span><span class="co">## H  623    12                    21194.542724 20008.2764  5.60%  25.7   16s</span></span>
+<span><span class="co">## H  631    16                    21189.637384 20011.2375  5.56%  25.4   18s</span></span>
+<span><span class="co">##    636    17 21189.6374  149 1924 21189.6374 20011.9849  5.56%  25.2   20s</span></span>
+<span><span class="co">##    654    10 21189.6374  545 1918 21189.6374 20015.5211  5.54%  31.5   25s</span></span>
+<span><span class="co">## H  656     6                    20893.967099 20015.5293  4.20%  31.4   30s</span></span>
+<span><span class="co">##    715    60 20560.8867   51 1363 20893.9671 20062.9713  3.98%  50.2   35s</span></span>
+<span><span class="co">##   1359   702 20331.7094   36 1446 20893.9671 20063.1001  3.98%  39.5   40s</span></span>
+<span><span class="co">##   1921  1261 20206.4844   30 1822 20893.9671 20063.6213  3.97%  38.4   45s</span></span>
+<span><span class="co">## H 1975  1313                    20878.142023 20063.6213  3.90%  42.4   49s</span></span>
+<span><span class="co">## H 2090  1428                    20863.500495 20063.6213  3.83%  41.8   50s</span></span>
+<span><span class="co">## H 2194  1531                    20853.295502 20063.6213  3.79%  40.1   50s</span></span>
+<span><span class="co">##   2595  1932 21020.0336  100   30 20853.2955 20063.6280  3.79%  39.1   55s</span></span>
+<span><span class="co">## H 2647  1981                    20843.749539 20063.6280  3.74%  38.6   55s</span></span>
+<span><span class="co">## H 2682  2010                    20838.509678 20063.6280  3.72%  38.2   56s</span></span>
+<span><span class="co">##   3554  2843 20176.9843   27 1810 20838.5097 20070.5529  3.69%  32.1   60s</span></span>
+<span><span class="co">##   3880  3035 21095.1349   77 1206 20838.5097 20085.4110  3.61%  34.1   65s</span></span>
+<span><span class="co">##   4137  2937 20735.2142   51 1375 20838.5097 20086.7867  3.61%  33.8   70s</span></span>
+<span><span class="co">##   4446  3030 21348.3418   73 1153 20838.5097 20087.5173  3.60%  35.2   75s</span></span>
+<span><span class="co">##   4837  3275 20182.0182   28 1660 20838.5097 20090.5771  3.59%  36.3   80s</span></span>
+<span><span class="co">## H 5081  3462                    20818.880749 20093.3229  3.49%  38.4   85s</span></span>
+<span><span class="co">##   5412  3512 21979.6034  100  239 20818.8807 20097.6132  3.46%  39.4   90s</span></span>
+<span><span class="co">##   5740  3789 21030.4728   53 1510 20818.8807 20100.1571  3.45%  40.2   95s</span></span>
+<span><span class="co">##   5984  3925 20260.8315   28 1843 20818.8807 20117.0908  3.37%  41.4  100s</span></span>
+<span><span class="co">##   6255  3878 20712.7473   45 1409 20818.8807 20126.0922  3.33%  42.3  106s</span></span>
+<span><span class="co">## H 6256  3877                    20780.195969 20126.0922  3.15%  42.3  107s</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Cutting planes:</span></span>
-<span><span class="co">##   Gomory: 7</span></span>
-<span><span class="co">##   Cover: 5</span></span>
-<span><span class="co">##   MIR: 34</span></span>
-<span><span class="co">##   StrongCG: 1</span></span>
-<span><span class="co">##   Flow cover: 10</span></span>
-<span><span class="co">##   GUB cover: 2</span></span>
-<span><span class="co">##   Zero half: 22</span></span>
-<span><span class="co">##   RLT: 24</span></span>
+<span><span class="co">##   Gomory: 4</span></span>
+<span><span class="co">##   Cover: 4</span></span>
+<span><span class="co">##   MIR: 24</span></span>
+<span><span class="co">##   StrongCG: 5</span></span>
+<span><span class="co">##   Flow cover: 14</span></span>
+<span><span class="co">##   GUB cover: 1</span></span>
+<span><span class="co">##   Zero half: 27</span></span>
+<span><span class="co">##   RLT: 17</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 8610 nodes (373301 simplex iterations) in 68.62 seconds (90.12 work units)</span></span>
+<span><span class="co">## Explored 6302 nodes (271889 simplex iterations) in 107.99 seconds (61.30 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Solution count 1000: 20813.7 20924.4 20939 ... 22442.4</span></span>
+<span><span class="co">## Solution count 1000: 20780.2 20818.9 20838.5 ... 22360.9</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
-<span><span class="co">## Best objective 2.081368704941e+04, best bound 2.020051879263e+04, gap 2.9460%</span></span></code></pre>
+<span><span class="co">## Best objective 2.078019596858e+04, best bound 2.012609216398e+04, gap 3.1477%</span></span></code></pre>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">prt</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## class       : SpatialPolygonsDataFrame </span></span>
@@ -557,8 +569,8 @@
 <span><span class="co"># extract names of prioritizations that are most central for each group.</span></span>
 <span><span class="va">prt_med_names</span> <span class="op">&lt;-</span> <span class="va">prt_med</span><span class="op">$</span><span class="va">medoids</span></span>
 <span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">prt_med_names</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "solution_37"  "solution_14"  "solution_287" "solution_42"  "solution_374"</span></span>
-<span><span class="co">## [6] "solution_813"</span></span></code></pre>
+<pre><code><span><span class="co">## [1] "solution_3"   "solution_36"  "solution_446" "solution_242" "solution_421"</span></span>
+<span><span class="co">## [6] "solution_502"</span></span></code></pre>
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create a copy of prt and set values for locked in planning units to -1</span></span>
 <span><span class="co"># so we can easily visualize differences between prioritizations</span></span>
@@ -650,8 +662,11 @@
 <div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Gurobi Optimizer version 9.5.2 build v9.5.2rc0 (linux64)</span></span>
+<pre><code><span><span class="co">## Gurobi Optimizer version 10.0.0 build v10.0.0rc2 (linux64)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
+<span><span class="co">## </span></span>
 <span><span class="co">## Optimize a model with 10075 rows, 6780 columns and 24778 nonzeros</span></span>
 <span><span class="co">## Model fingerprint: 0x37d7a0a1</span></span>
 <span><span class="co">## Variable types: 0 continuous, 6780 integer (6780 binary)</span></span>
@@ -662,21 +677,21 @@
 <span><span class="co">##   RHS range        [5e+03, 3e+05]</span></span>
 <span><span class="co">## Found heuristic solution: objective 1.221202e+08</span></span>
 <span><span class="co">## Presolve removed 4707 rows and 3103 columns</span></span>
-<span><span class="co">## Presolve time: 0.05s</span></span>
+<span><span class="co">## Presolve time: 0.14s</span></span>
 <span><span class="co">## Presolved: 5368 rows, 3677 columns, 12704 nonzeros</span></span>
 <span><span class="co">## Variable types: 0 continuous, 3677 integer (3677 binary)</span></span>
 <span><span class="co">## Found heuristic solution: objective 1.009944e+08</span></span>
 <span><span class="co">## Root relaxation presolved: 5368 rows, 3677 columns, 12704 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Root relaxation: objective 9.564790e+07, 521 iterations, 0.01 seconds (0.01 work units)</span></span>
+<span><span class="co">## Root relaxation: objective 9.564790e+07, 521 iterations, 0.02 seconds (0.01 work units)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##      0     0 9.5648e+07    0   20 1.0099e+08 9.5648e+07  5.29%     -    0s</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 1 nodes (521 simplex iterations) in 0.07 seconds (0.10 work units)</span></span>
+<span><span class="co">## Explored 1 nodes (521 simplex iterations) in 0.19 seconds (0.10 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Solution count 2: 1.00994e+08 1.2212e+08 </span></span>
@@ -739,7 +754,7 @@ Klein, C., Carwardine, J., Wilson, K., Watts, M. &amp; Possingham, H. (2007). <e
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

@@ -1,3 +1,8 @@
+# prioritizr 7.2.2.7
+
+- Update README badges.
+- Update publication record.
+
 # prioritizr 7.2.2.6
 
 - Update publication record.
