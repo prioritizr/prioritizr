@@ -19,11 +19,10 @@ category_vector(x)
 \method{category_vector}{matrix}(x)
 }
 \arguments{
-\item{x}{\code{matrix}, \code{data.frame}, \code{\linkS4class{Spatial}},
-or \code{\link[sf:sf]{sf::sf()}} object.}
+\item{x}{\code{matrix}, \code{data.frame}, or \code{\link[sf:sf]{sf::sf()}} object.}
 }
 \value{
-\code{integer} vector.
+An \code{integer} vector.
 }
 \description{
 Convert an object containing binary (\code{integer}) fields (columns) into a

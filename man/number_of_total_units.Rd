@@ -10,24 +10,27 @@ number_of_total_units(x)
 \S4method{number_of_total_units}{ConservationProblem}(x)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}),
-\code{\linkS4class{OptimizationProblem}}, or \code{\link[=Zones]{Zones()}} object.}
+\item{x}{\code{\link[=problem]{problem()}} object.}
 }
 \value{
-\code{integer} number of total units.
+An \code{integer} number of total units.
 }
 \description{
 Extract the number of total units in an object.
 }
 \examples{
 # load data
-data(sim_pu_raster, sim_pu_zones_stack, sim_features, sim_features_zones)
+sim_pu_raster <- get_sim_pu_raster()
+ sim_pu_zones_raster <- get_sim_pu_zones_raster()
+sim_features <- get_sim_features()
+sim_features_zones <- get_sim_features_zones()
 
 # create problem with one zone
-p1 <- problem(sim_pu_raster, sim_features) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(0.2) \%>\%
-      add_binary_decisions()
+p1 <-
+  problem(sim_pu_raster, sim_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.2) \%>\%
+  add_binary_decisions()
 
 # print number of planning units
 print(number_of_planning_units(p1))
@@ -36,10 +39,11 @@ print(number_of_planning_units(p1))
 print(number_of_total_units(p1))
 
 # create problem with multiple zones
-p2 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(matrix(0.2, ncol = 3, nrow = 5)) \%>\%
-      add_binary_decisions()
+p2 <-
+  problem(sim_pu_zones_raster, sim_features_zones) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(matrix(0.2, ncol = 3, nrow = 5)) \%>\%
+  add_binary_decisions()
 
 # print number of planning units
 print(number_of_planning_units(p2))

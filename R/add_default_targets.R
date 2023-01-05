@@ -3,7 +3,7 @@ NULL
 
 add_default_targets <- function(x) {
   # assert arguments are valid
-  assertthat::assert_that(inherits(x, "ConservationProblem"))
+  assertthat::assert_that(is_conservation_problem(x))
   # throw error because targets must be chosen by the user
-  stop("problem is missing targets and they must be explicitly defined")
+  stop("problem is missing an targets, see ?targets for guidance")
 }

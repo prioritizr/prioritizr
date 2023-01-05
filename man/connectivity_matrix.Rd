@@ -7,6 +7,8 @@
 \alias{connectivity_matrix,Raster,Raster-method}
 \alias{connectivity_matrix,sf,character-method}
 \alias{connectivity_matrix,sf,Raster-method}
+\alias{connectivity_matrix,sf,SpatRaster-method}
+\alias{connectivity_matrix,SpatRaster,SpatRaster-method}
 \title{Connectivity matrix}
 \usage{
 connectivity_matrix(x, y, ...)
@@ -19,42 +21,38 @@ connectivity_matrix(x, y, ...)
 
 \S4method{connectivity_matrix}{sf,Raster}(x, y, ...)
 
+\S4method{connectivity_matrix}{sf,SpatRaster}(x, y, ...)
+
 \S4method{connectivity_matrix}{Raster,Raster}(x, y, ...)
+
+\S4method{connectivity_matrix}{SpatRaster,SpatRaster}(x, y, ...)
 }
 \arguments{
-\item{x}{\code{\linkS4class{Raster}},
-\code{\linkS4class{SpatialPolygonsDataFrame}},
-\code{\linkS4class{SpatialLinesDataFrame}},
-or \code{\link[sf:sf]{sf::sf()}} object
-representing planning units.
-If \code{x} is a \code{\linkS4class{Raster}} object then it must
-contain a single layer.}
+\item{x}{\code{\link[terra:rast]{terra::rast()}} or \code{\link[sf:sf]{sf::sf()}} object representing planning units.}
 
-\item{y}{\code{\linkS4class{Raster}} object showing the conductance
+\item{y}{\code{\link[terra:rast]{terra::rast()}} object showing the conductance
 of different areas across the study area, or a \code{character} object
 denoting a column name in the attribute table of \code{x} that contains
 the conductance values. Note that argument to \code{y} can only be a
-\code{character} object if the argument to \code{x} is a
-\code{\linkS4class{Spatial}} or \code{\link[sf:sf]{sf::sf()}} object.
+\code{character} object if the argument to \code{x} is a \code{\link[sf:sf]{sf::sf()}} object.
 Also, note that if the argument to \code{x} is a
-\code{\linkS4class{Raster}} object then
+\code{\link[terra:rast]{terra::rast()}} object then
 argument to \code{y} must have the same spatial properties as it
 (i.e., coordinate system, extent, resolution).}
 
 \item{...}{additional arguments passed to \code{\link[=fast_extract]{fast_extract()}} for
 extracting and calculating the conductance values for each planning unit.
 These arguments are only used if argument to \code{x} is a
-\code{link[sp]{Spatial-class}} or \code{\link[sf:sf]{sf::sf()}} object and argument
-to \code{y} is a \code{\linkS4class{Raster}} object.}
+\code{\link[sf:sf]{sf::sf()}} object and argument to \code{y} is a \code{\link[terra:rast]{terra::rast()}} object.}
 }
 \value{
-\code{\linkS4class{dsCMatrix}} symmetric sparse matrix object.
+A \code{\linkS4class{dsCMatrix}} symmetric sparse matrix object.
 Each row and column represents a planning unit.
 Cells values indicate the connectivity between different pairs of planning
 units.
 To reduce computational burden, cells among the matrix diagonal are
 set to zero. Furthermore, if the argument to \code{x} is a
-\code{\linkS4class{Raster}} object, then cells with \code{NA}
+\code{\link[terra:rast]{terra::rast()}} object, then cells with \code{NA}
 values are set to zero too.
 }
 \description{
@@ -71,41 +69,40 @@ Shared boundary calculations are performed using
 \examples{
 \dontrun{
 # load data
-data(sim_pu_raster, sim_pu_sf, sim_features)
+sim_pu_raster <- get_sim_pu_raster()
+sim_pu_polygons <- get_sim_pu_polygons()
+sim_features <- get_sim_features()
 
 # create connectivity matrix using raster planning unit data using
 # the raster cost values to represent conductance
 ## extract 9 planning units
-r <- crop(sim_pu_raster, c(0, 0.3, 0, 0.3))
+r <- terra::crop(sim_pu_raster, terra::ext(c(0, 0.3, 0, 0.3)))
 
 ## extract conductance data for the 9 planning units
-cd <- crop(sim_features, r)
+cd <- terra::crop(sim_features, r)
 
 ## make connectivity matrix using the habitat suitability data for the
 ## second feature to represent the planning unit conductance data
 cm_raster <- connectivity_matrix(r, cd[[2]])
 
 ## plot data and matrix
-par(mfrow = c(1,3))
-plot(r, main = "planning units (raster)", axes = FALSE, box = FALSE)
-plot(cd[[2]], main = "conductivity", axes = FALSE, box = FALSE)
-plot(clamp(raster(as.matrix(cm_raster)), lower = 1e-5, useValues = FALSE),
-     main = "connectivity", axes = FALSE, box = FALSE)
+par(mfrow = c(1,2))
+plot(r, main = "planning units (raster)", axes = FALSE)
+plot(cd[[2]], main = "conductivity", axes = FALSE)
+plot(cm_raster,  main = "connectivity")
 
 # create connectivity matrix using polygon planning unit data using
 # the habitat suitability data for the second feature to represent
 # planning unit conductances
 ## subset data to 9 polygons
-ply <- sim_pu_sf[c(1:2, 10:12, 20:22), ]
+ply <- sim_pu_polygons[c(1:2, 10:12, 20:22), ]
 
 ## make connectivity matrix
 cm_ply <- connectivity_matrix(ply, sim_features[[2]])
 
 ## plot data and matrix
-par(mfrow = c(1, 2))
-plot(sf::st_geometry(ply), main = "planning units (sf)")
-plot(clamp(raster(as.matrix(cm_ply)), lower = 1e-5, useValues = FALSE),
-     main = "connectivity", axes = FALSE, box = FALSE)
+plot(sf::st_geometry(ply), main = "planning units (polygons)")
+plot(cm_ply, main = "connectivity", axes = FALSE)
 
 # create connectivity matrix using habitat suitability data for each feature,
 # this could be useful if prioritisations should spatially clump
@@ -120,10 +117,8 @@ cm_sum <- lapply(as.list(cd), connectivity_matrix, x = r) # make matrices
 cm_sum <- Reduce("+", cm_sum) # sum matrices together
 
 ## plot data and matrix
-par(mfrow = c(1, 2))
-plot(r, main = "planning units (raster)", axes = FALSE, box = FALSE)
-plot(clamp(raster(as.matrix(cm_sum)), lower = 1e-5, useValues = FALSE),
-     main = "connectivity", axes = FALSE, box = FALSE)
+plot(r, main = "planning units (raster)", axes = FALSE)
+plot(cm_sum, main = "connectivity", axes = FALSE)
 
 ## we could take this example one step further, and use weights to indicate
 ## relative importance of maintaining functional connectivity
@@ -139,10 +134,8 @@ cm_wsum <- Map("*", cm_wsum, weights) # multiply by weights
 cm_wsum <- Reduce("+", cm_wsum) # sum matrices together
 
 ## plot data and matrix
-par(mfrow = c(1, 2))
-plot(r, main = "planning units (raster)", axes = FALSE, box = FALSE)
-plot(clamp(raster(as.matrix(cm_wsum)), lower = 1e-5, useValues = FALSE),
-     main = "connectivity", axes = FALSE, box = FALSE)
+plot(r, main = "planning units (raster)", axes = FALSE)
+plot(cm_wsum, main = "connectivity", axes = FALSE)
 
 ## since the statistical distribution of the connectivity values
 ## for each feature (e.g., the mean and standard deviation of the
@@ -168,10 +161,8 @@ cm_lwsum <- Map("*", cm_lwsum, weights) # multiply by weights
 cm_lwsum <- Reduce("+", cm_lwsum) # sum matrices together
 
 ## plot data and matrix
-par(mfrow = c(1, 2))
-plot(r, main = "planning units (raster)", axes = FALSE, box = FALSE)
-plot(clamp(raster(as.matrix(cm_lwsum)), lower = 1e-5, useValues = FALSE),
-     main = "connectivity", axes = FALSE, box = FALSE)
+plot(r, main = "planning units (raster)", axes = FALSE)
+plot(cm_lwsum, main = "connectivity", axes = FALSE)
 
 ## another approach for normalizing the data could be using z-scores
 ## note that after normalizing the data we would need to add a constant
@@ -194,10 +185,8 @@ cm_zwsum <- Map("*", cm_zwsum, weights) # multiply by weights
 cm_zwsum <- Reduce("+", cm_zwsum) # sum matrices together
 
 ## plot data and matrix
-par(mfrow = c(1, 2))
-plot(r, main = "planning units (raster)", axes = FALSE, box = FALSE)
-plot(clamp(raster(as.matrix(cm_zwsum)), lower = 1e-5, useValues = FALSE),
-     main = "connectivity", axes = FALSE, box = FALSE)
+plot(r, main = "planning units (raster)", axes = FALSE)
+plot(cm_zwsum, main = "connectivity", axes = FALSE)
 }
 
 }

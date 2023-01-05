@@ -15,7 +15,7 @@
 \S4method{add_contiguity_constraints}{ConservationProblem,ANY,matrix}(x, zones, data)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} object.}
 
 \item{zones}{\code{matrix} or \code{Matrix} object describing the
 connection scheme for different zones. Each row and column corresponds
@@ -41,8 +41,7 @@ connection data is calculated automatically using the
 See the Data format section for more information.}
 }
 \value{
-Object (i.e., \code{\linkS4class{ConservationProblem}}) with the constraints
-added to it.
+An updated \code{\link[=problem]{problem()}} object with the constraints added to it.
 }
 \description{
 Add constraints to a conservation planning \code{\link[=problem]{problem()}} to ensure
@@ -101,32 +100,37 @@ In early versions, this function was named as the
 \examples{
 \dontrun{
 # load data
-data(sim_pu_raster, sim_features, sim_pu_zones_stack, sim_features_zones)
+sim_pu_raster <- get_sim_pu_raster()
+sim_features <- get_sim_features()
+sim_pu_zones_raster <- get_sim_pu_zones_raster()
+sim_features_zones <- get_sim_features_zones()
 
 # create minimal problem
-p1 <- problem(sim_pu_raster, sim_features) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(0.2) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(verbose = FALSE)
+p1 <-
+  problem(sim_pu_raster, sim_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.2) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
 
 # create problem with added connected constraints
 p2 <- p1 \%>\% add_contiguity_constraints()
 
 # solve problems
-s <- stack(solve(p1), solve(p2))
+s1 <- c(solve(p1), solve(p2))
+names(s1) <- c("basic solution", "connected solution")
 
 # plot solutions
-plot(s, main = c("basic solution", "connected solution"), axes = FALSE,
-     box = FALSE)
+plot(s1, axes = FALSE)
 
 # create minimal problem with multiple zones, and limit the solver to
 # 30 seconds to obtain solutions in a feasible period of time
-p3 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(matrix(0.2, ncol = 3, nrow = 5)) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(time_limit = 30, verbose = FALSE)
+p3 <-
+  problem(sim_pu_zones_raster, sim_features_zones) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(matrix(0.2, ncol = 3, nrow = 5)) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(time_limit = 30, verbose = FALSE)
 
 # create problem with added constraints to ensure that the planning units
 # allocated to each zone form a separate contiguous unit
@@ -154,11 +158,11 @@ p6 <- p3 \%>\% add_contiguity_constraints(z6)
 # solve problems
 s2 <- lapply(list(p3, p4, p5, p6), solve)
 s2 <- lapply(s2, category_layer)
-s2 <- stack(s2)
+s2 <- terra::rast(s2)
+names(s2) <- c("basic solution", "p4", "p5", "p6")
 
 # plot solutions
-plot(s2, axes = FALSE, box = FALSE,
-     main = c("basic solution", "p4", "p5", "p6"))
+plot(s2, axes = FALSE)
 
 # create a problem that has a main "reserve zone" and a secondary
 # "corridor zone" to connect up import areas. Here, each feature has a
@@ -174,21 +178,25 @@ plot(s2, axes = FALSE, box = FALSE,
 # link up the planning units allocated to the "reserve zone"
 
 # create planning unit data
-pus <- sim_pu_zones_stack[[c(1, 1)]]
+pus <- sim_pu_zones_raster[[c(1, 1)]]
 pus[[2]] <- pus[[2]] * 0.45
 print(pus)
 
 # create biodiversity data
-fts <- zones(sim_features, sim_features * 0.4,
-             feature_names = names(sim_features),
-             zone_names = c("reserve zone", "corridor zone"))
+fts <- zones(
+  sim_features, sim_features * 0.4,
+  feature_names = names(sim_features),
+  zone_names = c("reserve zone", "corridor zone")
+)
 print(fts)
 
 # create targets
-targets <- tibble::tibble(feature = names(sim_features),
-                          zone = list(zone_names(fts))[rep(1, 5)],
-                          target = cellStats(sim_features, "sum") * 0.2,
-                          type = rep("absolute", 5))
+targets <- tibble::tibble(
+  feature = names(sim_features),
+  zone = list(zone_names(fts))[rep(1, 5)],
+  target = terra::global(sim_features, "sum", na.rm = TRUE)[[1]] * 0.2,
+  type = rep("absolute", 5)
+)
 print(targets)
 
 # create zones matrix
@@ -196,18 +204,19 @@ z7 <- matrix(1, ncol = 2, nrow = 2)
 print(z7)
 
 # create problem
-p7 <- problem(pus, fts) \%>\%
-      add_min_set_objective() \%>\%
-      add_manual_targets(targets) \%>\%
-      add_contiguity_constraints(z7) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(verbose = FALSE)
+p7 <-
+  problem(pus, fts) \%>\%
+  add_min_set_objective() \%>\%
+  add_manual_targets(targets) \%>\%
+  add_contiguity_constraints(z7) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
 
 # solve problems
 s7 <- category_layer(solve(p7))
 
 # plot solutions
-plot(s7, "solution", axes = FALSE, box = FALSE)
+plot(s7, main = "solution", axes = FALSE)
 }
 }
 \references{

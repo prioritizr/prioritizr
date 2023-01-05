@@ -7,7 +7,7 @@
 add_gap_portfolio(x, number_solutions, pool_gap = 0.1)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} object.}
 
 \item{number_solutions}{\code{integer} number of solutions required.}
 
@@ -20,8 +20,7 @@ Note that the gap specified in the solver (i.e.,
 specified to generate the portfolio. Defaults to 0.1.}
 }
 \value{
-Object (i.e., \code{\linkS4class{ConservationProblem}}) with the portfolio
-added to it.
+An updated \code{\link[=problem]{problem()}} object with the portfolio added to it.
 }
 \description{
 Generate a portfolio of solutions for a conservation planning
@@ -49,43 +48,52 @@ that have binary decisions (i.e., specified using
 set.seed(600)
 
 # load data
-data(sim_pu_raster, sim_features)
+sim_pu_raster <- get_sim_pu_raster()
+sim_features <- get_sim_features()
+sim_pu_zones_raster <- get_sim_pu_zones_raster()
+sim_features_zones <- get_sim_features_zones()
 
 # create minimal problem with a portfolio containing 10 solutions within 20\%
 # of optimality
-p1 <- problem(sim_pu_raster, sim_features) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(0.05) \%>\%
-      add_gap_portfolio(number_solutions = 5, pool_gap = 0.2) \%>\%
-      add_default_solver(gap = 0, verbose = FALSE)
+p1 <-
+  problem(sim_pu_raster, sim_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.05) \%>\%
+  add_gap_portfolio(number_solutions = 5, pool_gap = 0.2) \%>\%
+  add_default_solver(gap = 0, verbose = FALSE)
 
 # solve problem and generate portfolio
 s1 <- solve(p1)
 
+# convert portfolio into a multi-layer raster
+s1 <- terra::rast(s1)
+
 # print number of solutions found
-print(length(s1))
+print(terra::nlyr(s1))
 
 # plot solutions
-plot(stack(s1), axes = FALSE, box = FALSE)
+plot(s1, axes = FALSE)
 
 # create multi-zone  problem with a portfolio containing 10 solutions within
 # 20\% of optimality
-p2 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
-                                  ncol = 3)) \%>\%
-      add_gap_portfolio(number_solutions = 5, pool_gap = 0.2) \%>\%
-      add_default_solver(gap = 0, verbose = FALSE)
+p2 <-
+  problem(sim_pu_zones_raster, sim_features_zones) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5, ncol = 3)) \%>\%
+  add_gap_portfolio(number_solutions = 5, pool_gap = 0.2) \%>\%
+  add_default_solver(gap = 0, verbose = FALSE)
 
 # solve problem and generate portfolio
 s2 <- solve(p2)
 
+# convert portfolio into a multi-layer raster of category layers
+s2 <- terra::rast(lapply(s2, category_layer))
+
 # print number of solutions found
-print(length(s2))
+print(terra::nlyr(s2))
 
 # plot solutions in portfolio
-plot(stack(lapply(s2, category_layer)),
-     main = "solution", axes = FALSE, box = FALSE)
+plot(s2, axes = FALSE)
 }
 }
 \seealso{

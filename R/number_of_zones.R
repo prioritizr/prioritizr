@@ -5,27 +5,28 @@ NULL
 #'
 #' Extract the number of zones in an object.
 #'
-#' @param x [problem()] (i.e., [`ConservationProblem-class`]),
-#'   [`OptimizationProblem-class`], or [Zones()] object.
+#' @param x [problem()], [`OptimizationProblem-class`], or [zones()] object.
 #'
-#' @return `integer` number of zones.
+#' @return An `integer` number of zones.
 #'
 #' @name number_of_zones
 #'
-#' @aliases number_of_zones,ConservationProblem-method number_of_zones,OptimizationProblem-method number_of_zones,ZonesRaster-method number_of_zones,ZonesCharacter-method
+#' @aliases number_of_zones,ConservationProblem-method number_of_zones,OptimizationProblem-method number_of_zones,ZonesRaster-method number_of_zones,ZonesSpatRaster-method number_of_zones,ZonesCharacter-method
 #'
 #' @examples
 #' # load data
-#' data(sim_pu_zones_stack, sim_features_zones)
+#' sim_pu_zones_raster <- get_sim_pu_zones_raster()
+#' sim_features_zones <- get_sim_features_zones()
 #'
 #' # print number of zones in a Zones object
 #' print(number_of_zones(sim_features_zones))
 #
 #' # create problem with multiple zones
-#' p <- problem(sim_pu_zones_stack, sim_features_zones) %>%
-#'      add_min_set_objective() %>%
-#'      add_relative_targets(matrix(0.2, ncol = 3, nrow = 5)) %>%
-#'      add_binary_decisions()
+#' p <-
+#'   problem(sim_pu_zones_raster, sim_features_zones) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(matrix(0.2, ncol = 3, nrow = 5)) %>%
+#'   add_binary_decisions()
 #'
 #' # print number of zones in the problem
 #' print(number_of_zones(p))
@@ -67,6 +68,14 @@ methods::setMethod("number_of_zones", "OptimizationProblem",
 #' @usage \S4method{number_of_zones}{ZonesRaster}(x)
 #'
 methods::setMethod("number_of_zones", "ZonesRaster", function(x) length(x))
+
+#' @name number_of_zones
+#'
+#' @rdname number_of_zones
+#'
+#' @usage \S4method{number_of_zones}{ZonesSpatRaster}(x)
+#'
+methods::setMethod("number_of_zones", "ZonesSpatRaster", function(x) length(x))
 
 #' @name number_of_zones
 #'

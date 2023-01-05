@@ -45,20 +45,22 @@ NULL
 #' @examples
 #' \dontrun{
 #' # load data
-#' data(sim_pu_raster, sim_features)
+#' sim_pu_raster <- get_sim_pu_raster()
+#' sim_features <- get_sim_features()
 #'
 #' # create problem
-#' p <- problem(sim_pu_raster, sim_features) %>%
-#'      add_min_set_objective() %>%
-#'      add_relative_targets(0.1) %>%
-#'      add_binary_decisions() %>%
-#'      add_rsymphony_solver(time_limit = 10, verbose = FALSE)
+#' p <-
+#'   problem(sim_pu_raster, sim_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(0.1) %>%
+#'   add_binary_decisions() %>%
+#'   add_rsymphony_solver(time_limit = 10, verbose = FALSE)
 #'
 #' # generate solution
 #' s <- solve(p)
 #'
 #' # plot solution
-#' plot(s, main = "solution", axes = FALSE, box = FALSE)
+#' plot(s, main = "solution", axes = FALSE)
 #' }
 #' @name add_rsymphony_solver
 NULL
@@ -69,17 +71,20 @@ add_rsymphony_solver <- function(x, gap = 0.1,
                                  time_limit = .Machine$integer.max,
                                  first_feasible = FALSE, verbose = TRUE) {
   # assert that arguments are valid
-  assertthat::assert_that(inherits(x, "ConservationProblem"),
-                          isTRUE(all(is.finite(gap))),
-                          assertthat::is.scalar(gap),
-                          isTRUE(gap >= 0),
-                          isTRUE(all(is.finite(time_limit))),
-                          assertthat::is.scalar(time_limit),
-                          assertthat::noNA(time_limit),
-                          assertthat::is.flag(verbose),
-                          assertthat::is.flag(first_feasible),
-                          assertthat::noNA(first_feasible),
-                          requireNamespace("Rsymphony", quietly = TRUE))
+  assertthat::assert_that(
+    is_conservation_problem(x),
+    assertthat::is.number(gap),
+    all_finite(gap),
+    gap >= 0,
+    assertthat::is.number(time_limit),
+    all_finite(time_limit),
+    assertthat::noNA(time_limit),
+    assertthat::is.flag(verbose),
+    assertthat::noNA(verbose),
+    assertthat::is.flag(first_feasible),
+    assertthat::noNA(first_feasible),
+    is_installed("Rsymphony", "add_rsymphony_solver()")
+  )
   # add solver
   x$add_solver(pproto(
     "RsymphonySolver",
@@ -88,10 +93,13 @@ add_rsymphony_solver <- function(x, gap = 0.1,
     data = list(),
     parameters = parameters(
       numeric_parameter("gap", gap, lower_limit = 0),
-      integer_parameter("time_limit", time_limit, lower_limit = -1,
-                        upper_limit = .Machine$integer.max),
-      binary_parameter("first_feasible", first_feasible),
-      binary_parameter("verbose", verbose)),
+      integer_parameter(
+        "time_limit", time_limit, lower_limit = -1,
+        upper_limit = .Machine$integer.max
+      ),
+      binary_parameter("first_feasible", as.integer(first_feasible)),
+      binary_parameter("verbose", as.integer(verbose))
+    ),
     calculate = function(self, x, ...) {
       # create model
       model <- list(
@@ -100,9 +108,12 @@ add_rsymphony_solver <- function(x, gap = 0.1,
         dir = x$sense(),
         rhs = x$rhs(),
         types = x$vtype(),
-        bounds = list(lower = list(ind = seq_along(x$lb()), val = x$lb()),
-                      upper = list(ind = seq_along(x$ub()), val = x$ub())),
-        max = isTRUE(x$modelsense() == "max"))
+        bounds = list(
+          lower = list(ind = seq_along(x$lb()), val = x$lb()),
+          upper = list(ind = seq_along(x$ub()), val = x$ub())
+        ),
+        max = isTRUE(x$modelsense() == "max")
+      )
       # convert constraint matrix to sparse format
       model$dir <- replace(model$dir, model$dir == "=", "==")
       model$types <- replace(model$types, model$types == "S", "C")
@@ -172,6 +183,8 @@ add_rsymphony_solver <- function(x, gap = 0.1,
         x = x$solution,
         objective = x$objval,
         status = as.character(x$status),
-        runtime = rt[[3]])
-    }))
+        runtime = rt[[3]]
+      )
+    }
+  ))
 }

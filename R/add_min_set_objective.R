@@ -8,7 +8,7 @@ NULL
 #' This objective is similar to that used in
 #' *Marxan* and is detailed in Rodrigues *et al.* (2000).
 #'
-#' @param x [problem()] (i.e., [`ConservationProblem-class`]) object.
+#' @param x [problem()] object.
 #'
 #' @details
 #' The minimum set objective -- in the the context of systematic reserve
@@ -51,8 +51,7 @@ NULL
 #'
 #' @family objectives
 #'
-#' @return Object (i.e., [`ConservationProblem-class`]) with the objective
-#'   added to it.
+#' @return An updated `problem()` object with the objective added to it.
 #'
 #' @examples
 #' \dontrun{
@@ -60,35 +59,40 @@ NULL
 #' set.seed(500)
 #'
 #' # load data
-#' data(sim_pu_raster, sim_features, sim_pu_zones_stack, sim_features_zones)
+#' sim_pu_raster <- get_sim_pu_raster()
+#' sim_pu_zones_raster <- get_sim_pu_zones_raster()
+#' sim_features <- get_sim_features()
+#' sim_features_zones <- get_sim_features_zones()
 #'
 #' # create minimal problem with minimum set objective
-#' p1 <- problem(sim_pu_raster, sim_features) %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(0.1) %>%
-#'       add_binary_decisions() %>%
-#'       add_default_solver(verbose = FALSE)
+#' p1 <-
+#'   problem(sim_pu_raster, sim_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(0.1) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
 #'
 #' # solve problem
 #' s1 <- solve(p1)
 #'
 #' # plot solution
-#' plot(s1, main = "solution", axes = FALSE, box = FALSE)
+#' plot(s1, main = "solution", axes = FALSE)
 #'
 #' # create multi-zone problem with minimum set objective
 #' targets_matrix <- matrix(rpois(15, 1), nrow = 5, ncol = 3)
 #'
-#' p2 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
-#'       add_min_set_objective() %>%
-#'       add_absolute_targets(targets_matrix) %>%
-#'       add_binary_decisions() %>%
-#'       add_default_solver(verbose = FALSE)
+#' p2 <-
+#'   problem(sim_pu_zones_raster, sim_features_zones) %>%
+#'   add_min_set_objective() %>%
+#'   add_absolute_targets(targets_matrix) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
 #'
 #' # solve problem
 #' s2 <- solve(p2)
 #'
 #' # plot solution
-#' plot(category_layer(s2), main = "solution", axes = FALSE, box = FALSE)
+#' plot(category_layer(s2), main = "solution", axes = FALSE)
 #' }
 #' @name add_min_set_objective
 NULL
@@ -97,16 +101,22 @@ NULL
 #' @export
 add_min_set_objective <- function(x) {
   # assert argument is valid
-  assertthat::assert_that(inherits(x, "ConservationProblem"))
+  assertthat::assert_that(is_conservation_problem(x))
   # add objective to problem
   x$add_objective(pproto(
     "MinimumSetObjective",
     Objective,
     name = "Minimum set objective",
     apply = function(self, x, y) {
-      assertthat::assert_that(inherits(x, "OptimizationProblem"),
-                              inherits(y, "ConservationProblem"))
-      invisible(rcpp_apply_min_set_objective(x$ptr, y$feature_targets(),
-                                             y$planning_unit_costs()))
-    }))
+      assertthat::assert_that(
+        inherits(x, "OptimizationProblem"),
+        inherits(y, "ConservationProblem")
+      )
+      invisible(
+        rcpp_apply_min_set_objective(
+          x$ptr, y$feature_targets(), y$planning_unit_costs()
+        )
+      )
+    }
+  ))
 }

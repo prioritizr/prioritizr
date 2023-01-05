@@ -6,9 +6,7 @@ NULL
 #' Create a matrix showing which planning units are within a certain
 #' spatial proximity to each other.
 #'
-#' @param x [`Raster-class`],
-#'   [`Spatial-class`], or [sf::sf()] object
-#'   representing planning units.
+#' @param x [terra::rast()] or [sf::sf()] object representing planning units.
 #'
 #' @param distance `numeric` distance threshold. Planning units
 #'   that are further apart from each other than this threshold are
@@ -17,13 +15,13 @@ NULL
 #' @details Proximity calculations are performed using
 #'   [sf::st_is_within_distance()].
 #'
-#' @return [`dsCMatrix-class`] symmetric sparse matrix object.
+#' @return A [`dsCMatrix-class`] symmetric sparse matrix object.
 #'   Each row and column represents a planning unit.
 #'   Cells values indicate if the pair-wise distances between different
 #'   planning units are within the distance threshold or not (using ones and
 #'   zeros). To reduce computational burden, cells among the matrix diagonal are
 #'   set to zero. Furthermore, if the argument to `x` is a
-#'   [`Raster-class`] object, then cells with `NA`
+#'   [terra::rast()] object, then cells with `NA`
 #'   values are set to zero too.
 #'
 #' @name proximity_matrix
@@ -33,7 +31,10 @@ NULL
 #' @examples
 #' \dontrun{
 #' # load data
-#' data(sim_pu_raster, sim_pu_sf, sim_pu_lines, sim_pu_points)
+#' sim_pu_raster <- get_sim_pu_raster()
+#' sim_pu_polygons <- get_sim_pu_polygons()
+#' sim_pu_lines <- get_sim_pu_lines()
+#' sim_pu_points <- get_sim_pu_points()
 #'
 #' # create proximity matrix using raster data
 #' ## crop raster to 9 cells to provide a small example
@@ -42,49 +43,42 @@ NULL
 #' ## make proximity matrix using a distance threshold of 2
 #' cm_raster <- proximity_matrix(r, distance = 2)
 #'
-#' # create proximity matrix using polygon (sf) data
+#' # create proximity matrix using polygon data
 #' ## subset 9 polygons to provide a small example
-#' ply <- sim_pu_sf[c(1:2, 10:12, 20:22), ]
+#' ply <- sim_pu_polygons[c(1:2, 10:12, 20:22), ]
 #'
 #' ## make proximity matrix using a distance threshold of 2
 #' cm_ply <- proximity_matrix(ply, distance = 2)
 #'
-#' # create proximity matrix using line (Spatial) data
+#' # create proximity matrix using line data
 #' ## subset 9 lines to provide a small example
 #' lns <- sim_pu_lines[c(1:2, 10:12, 20:22), ]
 #'
 #' ## make proximity matrix
 #' cm_lns <- proximity_matrix(lns, distance = 2)
 #'
-#' ## create proximity matrix using point (Spatial) data
+#' ## create proximity matrix using point data
 #' ## subset 9 points to provide a small example
 #' pts <- sim_pu_points[c(1:2, 10:12, 20:22), ]
 #'
 #' # make proximity matrix
 #' cm_pts <- proximity_matrix(pts, distance = 2)
 #'
-#' # plot data and the proximity matrices
-#' par(mfrow = c(4,2))
-#'
 #' ## plot raster and proximity matrix
-#' plot(r, main = "raster", axes = FALSE, box = FALSE)
-#' plot(raster(as.matrix(cm_raster)), main = "proximity matrix", axes = FALSE,
-#'      box = FALSE)
+#' plot(r, main = "raster", axes = FALSE)
+#' plot(cm_raster, main = "proximity matrix", axes = FALSE)
 #'
 #' ## plot polygons and proximity matrix
-#' plot(r, main = "polygons (sf)", axes = FALSE, box = FALSE)
-#' plot(raster(as.matrix(cm_ply)), main = "proximity matrix", axes = FALSE,
-#'     box = FALSE)
+#' plot(ply, main = "polygons", axes = FALSE)
+#' plot(cm_ply, main = "proximity matrix")
 #'
 #' ## plot lines and proximity matrix
-#' plot(r, main = "lines (Spatial)", axes = FALSE, box = FALSE)
-#' plot(raster(as.matrix(cm_lns)), main = "proximity matrix", axes = FALSE,
-#'      box = FALSE)
+#' plot(lns, main = "lines", axes = FALSE)
+#' plot(cm_lns, main = "proximity matrix", axes = FALSE)
 #'
 #' ## plot points and proximity matrix
-#' plot(r, main = "points (Spatial)", axes = FALSE, box = FALSE)
-#' plot(raster(as.matrix(cm_pts)), main = "proximity matrix", axes = FALSE,
-#'      box = FALSE)
+#' plot(pts, main = "points", axes = FALSE)
+#' plot(cm_pts, main = "proximity matrix", axes = FALSE)
 #' }
 #' @export
 proximity_matrix <- function(x, distance) UseMethod("proximity_matrix")
@@ -93,22 +87,37 @@ proximity_matrix <- function(x, distance) UseMethod("proximity_matrix")
 #' @method proximity_matrix Raster
 #' @export
 proximity_matrix.Raster <- function(x, distance) {
-  assertthat::assert_that(inherits(x, "Raster"), raster::nlayers(x) >= 1,
-    assertthat::is.number(distance), assertthat::noNA(distance))
-  if (raster::nlayers(x) == 1) {
+  assertthat::assert_that(inherits(x, "Raster"))
+  proximity_matrix(terra::rast(x), distance)
+}
+
+#' @rdname proximity_matrix
+#' @method proximity_matrix SpatRaster
+#' @export
+proximity_matrix.SpatRaster <- function(x, distance) {
+  # assert arguments are valid
+  assertthat::assert_that(
+    inherits(x, "SpatRaster"),
+    terra::nlyr(x) >= 1,
+    assertthat::is.number(distance),
+    assertthat::noNA(distance)
+  )
+  if (terra::nlyr(x) == 1) {
     # indices of cells with finite values
-    include <- raster::Which(is.finite(x), cells = TRUE)
+    include <- terra::cells(is.na(x), 0)[[1]]
   } else {
     # indices of cells with finite values
-    include <- raster::Which(sum(is.finite(x)) > 0, cells = TRUE)
-    suppressWarnings(x <- raster::setValues(x[[1]], NA_real_))
+    include <- terra::cells(min(is.na(x)), 0)[[1]]
     # set x to a single raster layer with only values in pixels that are not
     # NA in all layers
+    suppressWarnings(x <- terra::setValues(x[[1]], NA_real_))
     x[include] <- 1
   }
   # convert cell centroids to points
-  pts <- sf::st_as_sf(as.data.frame(raster::xyFromCell(x, include)),
-                      coords = c(1, 2))
+  pts <- sf::st_as_sf(
+    as.data.frame(terra::xyFromCell(x, include)),
+    coords = c(1, 2)
+  )
   # find cells within the distance
   prx <- sf::st_is_within_distance(pts, dist = distance, sparse = TRUE)
   # convert list format to sparse matrix
@@ -116,8 +125,12 @@ proximity_matrix.Raster <- function(x, distance) {
   prx <- rcpp_list_to_matrix_indices(prx)
   prx$i <- include[prx$i]
   prx$j <- include[prx$j]
-  prx <- Matrix::sparseMatrix(i = prx$i, j = prx$j, x = 1,
-                              dims = rep(raster::ncell(x), 2))
+  prx <- Matrix::sparseMatrix(
+    i = prx$i,
+    j = prx$j,
+    x = 1,
+    dims = rep(terra::ncell(x), 2)
+  )
   Matrix::diag(prx) <- 0
   Matrix::drop0(Matrix::forceSymmetric(prx))
 }

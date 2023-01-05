@@ -5,24 +5,25 @@ NULL
 #'
 #' Extract the names of the features in an object.
 #'
-#' @param x [problem()] (i.e., [`ConservationProblem-class`]) or [Zones()]
-#'   object.
+#' @param x [problem()] or [Zones()] object.
 #'
-#' @return `character` feature names.
+#' @return A `character` vector of feature names.
 #'
 #' @name feature_names
 #'
-#' @aliases feature_names,ConservationProblem-method feature_names,ZonesRaster-method feature_names,ZonesCharacter-method
+#' @aliases feature_names,ConservationProblem-method feature_names,ZonesRaster-method feature_names,ZonesCharacter-method feature_names,ZonesSpatRaster-method
 #'
 #' @examples
 #' # load data
-#' data(sim_pu_raster, sim_features)
+#' sim_pu_raster <- get_sim_pu_raster()
+#' sim_features <- get_sim_features()
 #'
 #' # create problem
-#' p <- problem(sim_pu_raster, sim_features) %>%
-#'      add_min_set_objective() %>%
-#'      add_relative_targets(0.2) %>%
-#'      add_binary_decisions()
+#' p <-
+#'   problem(sim_pu_raster, sim_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(0.2) %>%
+#'   add_binary_decisions()
 #'
 #' # print feature names
 #' print(feature_names(p))
@@ -55,6 +56,15 @@ methods::setMethod("feature_names", "ConservationProblem",
 #' @usage \S4method{feature_names}{ZonesRaster}(x)
 #'
 methods::setMethod("feature_names", "ZonesRaster",
+  function(x) attr(x, "feature_names"))
+
+#' @name feature_names
+#'
+#' @rdname feature_names
+#'
+#' @usage \S4method{feature_names}{ZonesSpatRaster}(x)
+#'
+methods::setMethod("feature_names", "ZonesSpatRaster",
   function(x) attr(x, "feature_names"))
 
 #' @name feature_names

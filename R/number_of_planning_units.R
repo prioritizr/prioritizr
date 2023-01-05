@@ -5,10 +5,9 @@ NULL
 #'
 #' Extract the number of planning units in an object.
 #'
-#' @param x [problem()] (i.e., [`ConservationProblem-class`]),
-#'   [`OptimizationProblem-class`], or [Zones()] object.
+#' @param x [problem()] or [`OptimizationProblem-class`] object.
 #'
-#' @return `integer` number of planning units.
+#' @return An `integer` number of planning units.
 #'
 #' @name number_of_planning_units
 #'
@@ -16,13 +15,15 @@ NULL
 #'
 #' @examples
 #' # load data
-#' data(sim_pu_raster, sim_features)
+#' sim_pu_raster <- get_sim_pu_raster()
+#' sim_features <- get_sim_features()
 #'
 #' # create problem
-#' p <- problem(sim_pu_raster, sim_features) %>%
-#'      add_min_set_objective() %>%
-#'      add_relative_targets(0.2) %>%
-#'      add_binary_decisions()
+#' p <-
+#'   problem(sim_pu_raster, sim_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(0.2) %>%
+#'   add_binary_decisions()
 #'
 #' # print number of planning units
 #' print(number_of_planning_units(p))

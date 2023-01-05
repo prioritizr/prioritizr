@@ -3,12 +3,11 @@ NULL
 
 #' Fast extract
 #'
-#' Extract data from a [`Raster-class`] object.
+#' Extract data from a [terra::rast()] object.
 #'
-#' @param x [`Raster-class`] object.
+#' @param x [terra::rast()] object.
 #'
-#' @param y [`Spatial-class`] or
-#'          [sf::sf()] object.
+#' @param y [sf::sf()] object.
 #'
 #' @param fun `character` name of statistic to summarize data. Defaults
 #'   to `"mean"`. Available options include `"sum"` or `"mean"`.
@@ -16,22 +15,17 @@ NULL
 #'
 #' @param ... not used.
 #'
-#' @return `matrix` containing the summary amount of each feature
+#' @return A `matrix` containing the summary amount of each feature
 #'    within each planning unit. Rows correspond to different spatial features
 #'   in the argument to `y` and columns correspond to different raster
 #'   layers in the argument to `x`.
 #'
-#' @seealso [raster::extract()],
-#'   [exactextractr::exact_extract()].
+#' @seealso [terra::extract()], [exactextractr::exact_extract()].
 #'
-#' @details This function is simply a wrapper that uses
-#'   [raster::extract()] to extract data for
-#'   [`SpatialPoints-class`] and
-#'   [`SpatialLines-class`] and
-#'   non-polygonal [sf::sf()] data, and
-#'   [exactextractr::exact_extract()] for
-#'   [`SpatialPolygons-class`] and
-#'   polygonal [sf::sf()] data.
+#' @details
+#' This function is simply a wrapper that uses
+#' [terra::extract()] to extract data for non-polygon [sf::sf()] data, and
+#' [exactextractr::exact_extract()] for polygonal [sf::sf()] data.
 #'
 #' @name fast_extract
 #'
@@ -39,15 +33,16 @@ NULL
 #'
 #' @examples
 #' # load data
-#' data(sim_pu_sf, sim_features)
+#' sim_pu_polygons <- get_sim_pu_polygons()
+#' sim_features <- get_sim_features()
 #'
 #' # extract data
-#' result <- fast_extract(sim_features, sim_pu_sf)
+#' result <- fast_extract(sim_features, sim_pu_polygons)
 #'
 #' # show result
 #' print(head(result))
 #'
-#' @aliases fast_extract,Raster,SpatialLines-method fast_extract,Raster,SpatialPoints-method fast_extract,Raster,SpatialPolygons-method fast_extract,Raster,sf-method fast_extract,Raster,sfc-method
+#' @aliases fast_extract,Raster,Spatial-method fast_extract,Raster,sf-method fast_extract,Raster,sfc-method fast_extract,SpatRaster,Spatial-method fast_extract,SpatRaster,sf-method fast_extract,SpatRaster,sfc-method
 #'
 #' @export
 methods::setGeneric("fast_extract",
@@ -55,32 +50,25 @@ methods::setGeneric("fast_extract",
                     function(x, y, ...) standardGeneric("fast_extract"))
 
 #' @name fast_extract
-#' @usage \S4method{fast_extract}{Raster,SpatialPolygons}(x, y, fun = "mean", ...)
+#' @usage \S4method{fast_extract}{Raster,Spatial}(x, y, fun = "mean", ...)
 #' @rdname fast_extract
 methods::setMethod(
   "fast_extract",
-  signature(x = "Raster", y = "SpatialPolygons"),
+  signature(x = "Raster", y = "Spatial"),
   function(x, y, fun = "mean", ...) {
-    fast_extract(x, sf::st_as_sf(y), fun, ...)
+    .Deprecated(raster_pkg_deprecation_notice)
+    .Deprecated(sp_pkg_deprecation_notice)
+    fast_extract(terra::rast(x), sf::st_as_sf(y), fun, ...)
 })
 
 #' @name fast_extract
-#' @usage \S4method{fast_extract}{Raster,SpatialPoints}(x, y, fun = "mean", ...)
+#' @usage \S4method{fast_extract}{SpatRaster,Spatial}(x, y, fun = "mean", ...)
 #' @rdname fast_extract
 methods::setMethod(
   "fast_extract",
-  signature(x = "Raster", y = "SpatialPoints"),
+  signature(x = "SpatRaster", y = "Spatial"),
   function(x, y, fun = "mean", ...) {
-    fast_extract(x, sf::st_as_sf(y), fun, ...)
-})
-
-#' @name fast_extract
-#' @usage \S4method{fast_extract}{Raster,SpatialLines}(x, y, fun = "mean", ...)
-#' @rdname fast_extract
-methods::setMethod(
-  "fast_extract",
-  signature(x = "Raster", y = "SpatialLines"),
-  function(x, y, fun = "mean", ...) {
+    .Deprecated(sp_pkg_deprecation_notice)
     fast_extract(x, sf::st_as_sf(y), fun, ...)
 })
 
@@ -91,6 +79,17 @@ methods::setMethod(
   "fast_extract",
   signature(x = "Raster", y = "sfc"),
   function(x, y, fun = "mean", ...) {
+    .Deprecated(raster_pkg_deprecation_notice)
+    fast_extract(terra::rast(x), sf::st_sf(y), fun, ...)
+})
+
+#' @name fast_extract
+#' @usage \S4method{fast_extract}{SpatRaster,sfc}(x, y, fun = "mean", ...)
+#' @rdname fast_extract
+methods::setMethod(
+  "fast_extract",
+  signature(x = "SpatRaster", y = "sfc"),
+  function(x, y, fun = "mean", ...) {
     fast_extract(x, sf::st_sf(y), fun, ...)
 })
 
@@ -99,18 +98,35 @@ methods::setMethod(
 #' @rdname fast_extract
 methods::setMethod(
   "fast_extract",
-  signature(x = "Raster", y = "sf"),
+  signature(x = "Raster", y = "sfc"),
+  function(x, y, fun = "mean", ...) {
+    .Deprecated(raster_pkg_deprecation_notice)
+    fast_extract(terra::rast(x), y, fun, ...)
+})
+
+#' @name fast_extract
+#' @usage \S4method{fast_extract}{SpatRaster,sf}(x, y, fun = "mean", ...)
+#' @rdname fast_extract
+methods::setMethod(
+  "fast_extract",
+  signature(x = "SpatRaster", y = "sf"),
   function(x, y, fun = "mean", ...) {
     # assert arguments are valid
     assertthat::assert_that(
-      inherits(x, "Raster"),
+      inherits(x, "SpatRaster"),
       inherits(y, "sf"),
       assertthat::is.string(fun),
-      sf::st_crs(x@crs) == sf::st_crs(y),
-      intersecting_extents(x, y))
-    assertthat::assert_that(all(!geometry_classes(y) %in%
-                                  c("GEOMETRYCOLLECTION", "MULTIPOINT")))
-    assertthat::assert_that(fun %in% c("mean", "sum"))
+      is_match_of(fun, c("mean", "sum")),
+      is_same_crs(x, y),
+      is_spatial_extents_overlap(x, y)
+    )
+    assertthat::assert_that(
+      all(!geometry_classes(y) %in% c("GEOMETRYCOLLECTION", "MULTIPOINT")),
+      msg = paste0(
+        "argument to y contains \"GEOMETRYCOLLECTION\" or \"MULTIPOINT\"",
+        "geometries"
+      )
+    )
     # determine summary statistic
     if (identical(fun, "mean")) fun2 <- mean
     if (identical(fun, "sum")) fun2 <- sum
@@ -118,38 +134,49 @@ methods::setMethod(
     # coerce them to NA coordinate reference systems to avoid PROJ7 warnings
     # in exactextractr::exact_extract
     sf::st_crs(y) <- sf::st_crs(NA_character_)
-    x@crs <- sp::CRS(NA_character_)
+    terra::crs(x) <- NA_character_
     # identify geometry classes
     geomc <- geometry_classes(y)
     # prepare output vector
-    out <- matrix(NA_real_, nrow = nrow(y), ncol = raster::nlayers(x))
+    out <- matrix(NA_real_, nrow = nrow(y), ncol = terra::nlyr(x))
     # process point geometries
     point_idx <- grepl("POINT", geomc, fixed = TRUE)
     if (any(point_idx)) {
-        out[point_idx, ] <- as.matrix(raster::extract(
-          x = x, y = y[point_idx, ], fun = fun2, df = TRUE,
-          na.rm = FALSE)[, -1, drop = FALSE])
+      out[point_idx, ] <- as.matrix(
+        terra::extract(
+          x = x,
+          y = terra::vect(y[point_idx, ]),
+          ID = FALSE,
+          fun = fun2,
+          na.rm = FALSE
+        )
+      )
     }
     # process line geometries
     line_idx <- grepl("LINE", geomc, fixed = TRUE)
     if (any(line_idx)) {
-        out[line_idx, ] <- as.matrix(raster::extract(
-          x = x, y = y[line_idx, ], fun = fun2, df = TRUE,
-          na.rm = FALSE)[, -1, drop = FALSE])
+      out[line_idx, ] <- as.matrix(
+        terra::extract(
+          x = x,
+          y = terra::vect(y[line_idx, ]),
+          ID = FALSE,
+          touches = TRUE,
+          fun = fun2,
+          na.rm = FALSE
+        )
+      )
     }
     # process polygon geometries
     poly_idx <- grepl("POLYGON", geomc, fixed = TRUE)
     if (any(poly_idx)) {
-      if (raster::canProcessInMemory(x, n = 1, verbose = FALSE)) {
-        out[poly_idx, ] <-
-          rcpp_summarize_exactextractr(exactextractr::exact_extract(
-              x, y[poly_idx, ], fun = NULL, progress = FALSE),
-              nrow = sum(poly_idx), ncol = raster::nlayers(x), fun = fun)
-      } else {
-        out[poly_idx, ] <-
-          as.matrix(exactextractr::exact_extract(x, y[poly_idx, ], fun = fun,
-                                                 progress = TRUE))
-      }
+      out[poly_idx, ] <- as.matrix(
+        exactextractr::exact_extract(
+          x,
+          y[poly_idx, ],
+          fun = fun,
+          progress = TRUE
+        )
+      )
     }
     # round really small values to zero
     out[abs(out) < 1e-10] <- 0

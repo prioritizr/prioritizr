@@ -9,16 +9,17 @@ NULL
 #'  [add_gap_portfolio()] when the *Gurobi* software is not
 #'  available.
 #'
-#' @param x [problem()] (i.e., [`ConservationProblem-class`]) object.
+#' @param x [problem()] object.
 #'
 #' @param number_solutions `integer` number of attempts to generate
 #'   different solutions. Defaults to 10.
 #'
-#' @details This strategy for generating a portfolio of solutions involves
-#'   solving the problem multiple times and adding additional constraints
-#'   to forbid previously obtained solutions. In general, this strategy is most
-#'   useful when problems take a long time to solve and benefit from
-#'   having multiple threads allocated for solving an individual problem.
+#' @details
+#' This strategy for generating a portfolio of solutions involves
+#' solving the problem multiple times and adding additional constraints
+#' to forbid previously obtained solutions. In general, this strategy is most
+#' useful when problems take a long time to solve and benefit from
+#' having multiple threads allocated for solving an individual problem.
 #
 #' @section Notes:
 #' In early versions (< 4.0.1), this function was only compatible with
@@ -26,8 +27,7 @@ NULL
 #' exact algorithm solvers, this function now adds constraints to the
 #' problem formulation to generate multiple solutions.
 #'
-#' @return Object (i.e., [`ConservationProblem-class`]) with the portfolio
-#'  added to it.
+#' @return An updated [problem()] object with the portfolio added to it.
 #'
 #' @seealso
 #' See [portfolios] for an overview of all functions for adding a portfolio.
@@ -45,30 +45,36 @@ NULL
 #' set.seed(500)
 #'
 #' # load data
-#' data(sim_pu_raster, sim_features, sim_pu_zones_stack, sim_features_zones)
+#' sim_pu_raster <- get_sim_pu_raster()
+#' sim_features <- get_sim_features()
+#' sim_pu_zones_raster <- get_sim_pu_zones_raster()
+#' sim_features_zones <- get_sim_features_zones()
 #'
 #' # create minimal problem with cuts portfolio
-#' p1 <- problem(sim_pu_raster, sim_features) %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(0.2) %>%
-#'       add_cuts_portfolio(10) %>%
-#'       add_default_solver(gap = 0.2, verbose = FALSE)
-#'
+#' p1 <-
+#'   problem(sim_pu_raster, sim_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(0.2) %>%
+#'   add_cuts_portfolio(10) %>%
+#'   add_default_solver(gap = 0.2, verbose = FALSE)
 #'
 #' # solve problem and generate 10 solutions within 20% of optimality
 #' s1 <- solve(p1)
 #'
+#' # convert portfolio into a multi-layer raster object
+#' s1 <- terra::rast(s1)
+#'
 #' # plot solutions in portfolio
-#' plot(stack(s1), axes = FALSE, box = FALSE)
+#' plot(s1, axes = FALSE)
 #'
 #' # build multi-zone conservation problem with cuts portfolio
-#' p2 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
-#'                                   ncol = 3)) %>%
-#'       add_binary_decisions() %>%
-#'       add_cuts_portfolio(10) %>%
-#'       add_default_solver(gap = 0.2, verbose = FALSE)
+#' p2 <-
+#'  problem(sim_pu_zones_raster, sim_features_zones) %>%
+#'  add_min_set_objective() %>%
+#'  add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5, ncol = 3)) %>%
+#'  add_binary_decisions() %>%
+#'  add_cuts_portfolio(10) %>%
+#'  add_default_solver(gap = 0.2, verbose = FALSE)
 #'
 #' # solve the problem
 #' s2 <- solve(p2)
@@ -76,28 +82,34 @@ NULL
 #' # print solution
 #' str(s2, max.level = 1)
 #'
+#' # convert each solution in the portfolio into a single category layer
+#' s2 <- terra::rast(lapply(s2, category_layer))
+#'
 #' # plot solutions in portfolio
-#' plot(stack(lapply(s2, category_layer)),
-#'      main = "solution", axes = FALSE, box = FALSE)
+#' plot(s2, main = "solution", axes = FALSE)
 #' }
 #' @name add_cuts_portfolio
 NULL
 
 #' @rdname add_cuts_portfolio
 #' @export
-add_cuts_portfolio <- function(x, number_solutions = 10L) {
+add_cuts_portfolio <- function(x, number_solutions = 10) {
   # assert that arguments are valid
-  assertthat::assert_that(inherits(x, "ConservationProblem"),
-                          assertthat::is.count(number_solutions),
-                          isTRUE(all(is.finite(number_solutions))))
+  assertthat::assert_that(
+    is_conservation_problem(x),
+    assertthat::is.count(number_solutions),
+    all_finite(number_solutions)
+  )
   # add portfolio
   x$add_portfolio(pproto(
     "CutsPortfolio",
     Portfolio,
     name = "Cuts portfolio",
     parameters = parameters(
-      integer_parameter("number_solutions", number_solutions,
-                        lower_limit = 1L)),
+      integer_parameter(
+        "number_solutions", number_solutions, lower_limit = 1L
+      )
+    ),
     run = function(self, x, solver) {
       ## extract number of desired solutions
       n <- self$parameters$get("number_solutions")
@@ -118,12 +130,12 @@ add_cuts_portfolio <- function(x, number_solutions = 10L) {
           sol[[i]] <- curr_sol
         } else {
           if ((i + 1) < self$parameters$get("number_solutions"))
-            warning(paste("there are only", length(sol),
-                          "feasible solutions within the optimality gap"))
+            warning(paste("only found", length(sol), "solutions"))
           break()
         }
       }
-    ## compile results
-    return(sol)
-  }
-))}
+      ## compile results
+      return(sol)
+    }
+  ))
+}

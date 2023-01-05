@@ -48,14 +48,17 @@ NULL
 #' set.seed(600)
 #'
 #' # load data
-#' data(sim_pu_raster, sim_pu_sf, sim_features)
+#' sim_pu_raster <- get_sim_pu_raster()
+#' sim_pu_polygons <- get_sim_pu_polygons()
+#' sim_features <- get_sim_features()
 #'
 #' # create minimal problem with raster planning units
-#' p1 <- problem(sim_pu_raster, sim_features) %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(0.1) %>%
-#'       add_binary_decisions() %>%
-#'       add_default_solver(gap = 0, verbose = FALSE)
+#' p1 <-
+#'   problem(sim_pu_raster, sim_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(0.1) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(gap = 0, verbose = FALSE)
 #'
 #' # solve problem
 #' s1 <- solve(p1)
@@ -64,7 +67,7 @@ NULL
 #' print(s1)
 #'
 #' # plot solution
-#' plot(s1, main = "solution", axes = FALSE, box = FALSE)
+#' plot(s1, main = "solution", axes = FALSE)
 #'
 #' # calculate importance scores
 #' rwr1 <- eval_rare_richness_importance(p1, s1)
@@ -73,14 +76,15 @@ NULL
 #' print(rwr1)
 #'
 #' # plot importance scores
-#' plot(rwr1, main = "rarity weighted richness", axes = FALSE, box = FALSE)
+#' plot(rwr1, main = "rarity weighted richness", axes = FALSE)
 #'
-#' # create minimal problem with polygon (sf) planning units
-#' p2 <- problem(sim_pu_sf, sim_features, cost_column = "cost") %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(0.05) %>%
-#'       add_binary_decisions() %>%
-#'       add_default_solver(gap = 0, verbose = FALSE)
+#' # create minimal problem with polygon planning units
+#' p2 <-
+#'   problem(sim_pu_polygons, sim_features, cost_column = "cost") %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(0.05) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(gap = 0, verbose = FALSE)
 #'
 #' # solve problem
 #' s2 <- solve(p2)
@@ -104,7 +108,7 @@ NULL
 #' areas for conserving diversity using British birds.
 #' *Conservation Biology*, 10: 155--174.
 #'
-#' @aliases eval_rare_richness_importance,ConservationProblem,numeric-method eval_rare_richness_importance,ConservationProblem,matrix-method eval_rare_richness_importance,ConservationProblem,data.frame-method eval_rare_richness_importance,ConservationProblem,Spatial-method eval_rare_richness_importance,ConservationProblem,sf-method eval_rare_richness_importance,ConservationProblem,Raster-method
+#' @aliases eval_rare_richness_importance,ConservationProblem,numeric-method eval_rare_richness_importance,ConservationProblem,matrix-method eval_rare_richness_importance,ConservationProblem,data.frame-method eval_rare_richness_importance,ConservationProblem,Spatial-method eval_rare_richness_importance,ConservationProblem,sf-method eval_rare_richness_importance,ConservationProblem,Raster-method eval_rare_richness_importance,ConservationProblem,SpatRaster-method
 #'
 #' @name eval_rare_richness_importance
 #'
@@ -125,7 +129,10 @@ methods::setMethod("eval_rare_richness_importance",
     # assert valid arguments
     assertthat::assert_that(
       is.numeric(solution),
-      no_extra_arguments(...))
+      assertthat::is.flag(rescale),
+      assertthat::noNA(rescale),
+      no_extra_arguments(...)
+    )
     # extract planning unit solution status
     status <- planning_unit_solution_status(x, solution)
     # extract indices
@@ -148,9 +155,13 @@ methods::setMethod("eval_rare_richness_importance",
   function(x, solution, rescale = TRUE, ...) {
     # assert valid arguments
     assertthat::assert_that(
-      is.matrix(solution), is.numeric(solution),
+      is.matrix(solution),
+      is.numeric(solution),
       number_of_zones(x) == 1,
-      no_extra_arguments(...))
+      assertthat::is.flag(rescale),
+      assertthat::noNA(rescale),
+      no_extra_arguments(...)
+    )
     # extract planning unit solution status
     status <- planning_unit_solution_status(x, solution)
     # extract indices
@@ -159,8 +170,12 @@ methods::setMethod("eval_rare_richness_importance",
     # calculate scores
     v <- internal_eval_rare_richness_importance(x, pos, rescale)
     # return scores
-    out <- matrix(NA_real_, nrow = x$number_of_total_units(),
-                  ncol = 1, dimnames = list(NULL, "rwr"))
+    out <- matrix(
+      NA_real_,
+      nrow = x$number_of_total_units(),
+      ncol = 1,
+      dimnames = list(NULL, "rwr")
+    )
     out[idx, ] <- 0
     out[idx[pos], ] <- c(v)
     out
@@ -176,7 +191,10 @@ methods::setMethod("eval_rare_richness_importance",
     assertthat::assert_that(
       is.data.frame(solution),
       number_of_zones(x) == 1,
-      no_extra_arguments(...))
+      assertthat::is.flag(rescale),
+      assertthat::noNA(rescale),
+      no_extra_arguments(...)
+    )
     # extract planning unit solution status
     status <- planning_unit_solution_status(x, solution)
     # extract indices
@@ -185,8 +203,12 @@ methods::setMethod("eval_rare_richness_importance",
     # calculate scores
     v <- internal_eval_rare_richness_importance(x, pos, rescale)
     # return scores
-    out <- matrix(NA_real_, nrow = x$number_of_total_units(),
-                  ncol = 1, dimnames = list(NULL, "rwr"))
+    out <- matrix(
+      NA_real_,
+      nrow = x$number_of_total_units(),
+      ncol = 1,
+      dimnames = list(NULL, "rwr")
+    )
     out[idx, ] <- 0
     out[idx[pos], ] <- c(v)
     tibble::as_tibble(out)
@@ -200,10 +222,18 @@ methods::setMethod("eval_rare_richness_importance",
   function(x, solution, rescale = TRUE, ...) {
     # assert valid arguments
     assertthat::assert_that(
-      inherits(solution, c("SpatialPointsDataFrame", "SpatialLinesDataFrame",
-                           "SpatialPolygonsDataFrame")),
+      inherits(
+        solution,
+        c(
+          "SpatialPointsDataFrame", "SpatialLinesDataFrame",
+          "SpatialPolygonsDataFrame"
+        )
+      ),
       number_of_zones(x) == 1,
-      no_extra_arguments(...))
+      assertthat::is.flag(rescale),
+      assertthat::noNA(rescale),
+      no_extra_arguments(...)
+    )
     # extract planning unit solution status
     status <- planning_unit_solution_status(x, solution)
     # extract indices
@@ -212,8 +242,12 @@ methods::setMethod("eval_rare_richness_importance",
     # calculate scores
     v <- internal_eval_rare_richness_importance(x, pos, rescale)
     # return scores
-    out <- matrix(NA_real_, nrow = x$number_of_total_units(),
-                  ncol = 1, dimnames = list(NULL, "rwr"))
+    out <- matrix(
+      NA_real_,
+      nrow = x$number_of_total_units(),
+      ncol = 1,
+      dimnames = list(NULL, "rwr")
+    )
     out[idx, ] <- 0
     out[idx[pos], ] <- c(v)
     out <- as.data.frame(out)
@@ -232,7 +266,10 @@ methods::setMethod("eval_rare_richness_importance",
     assertthat::assert_that(
       inherits(solution, "sf"),
       number_of_zones(x) == 1,
-      no_extra_arguments(...))
+      assertthat::is.flag(rescale),
+      assertthat::noNA(rescale),
+      no_extra_arguments(...)
+    )
     # extract planning unit solution status
     status <- planning_unit_solution_status(x, solution)
     # extract indices
@@ -241,14 +278,20 @@ methods::setMethod("eval_rare_richness_importance",
     # calculate scores
     v <- internal_eval_rare_richness_importance(x, pos, rescale)
     # return scores
-    out <- matrix(NA_real_, nrow = x$number_of_total_units(),
-                  ncol = 1, dimnames = list(NULL, "rwr"))
+    out <- matrix(
+      NA_real_,
+      nrow = x$number_of_total_units(),
+      ncol = 1,
+      dimnames = list(NULL, "rwr")
+    )
     out[idx, ] <- 0
     out[idx[pos], ] <- c(v)
     out <- tibble::as_tibble(as.data.frame(out))
     sf::st_as_sf(
-      out, geometry = sf::st_geometry(x$data$cost),
-      crs = sf::st_crs(x$data$cost))
+      out,
+      geometry = sf::st_geometry(x$data$cost),
+      crs = sf::st_crs(x$data$cost)
+    )
 })
 
 #' @name eval_rare_richness_importance
@@ -260,7 +303,38 @@ methods::setMethod("eval_rare_richness_importance",
     assertthat::assert_that(
       inherits(solution, "Raster"),
       number_of_zones(x) == 1,
-      no_extra_arguments(...))
+      assertthat::is.flag(rescale),
+      assertthat::noNA(rescale),
+      no_extra_arguments(...)
+    )
+    # extract planning unit solution status
+    status <- planning_unit_solution_status(x, solution)
+    # extract indices
+    idx <- x$planning_unit_indices()
+    pos <- which(status > 1e-10)
+    # calculate scores
+    v <- internal_eval_rare_richness_importance(x, pos, rescale)
+    # return scores
+    out <- x$data$cost[[1]]
+    out[idx] <- 0
+    out[idx[pos]] <- c(v)
+    names(out) <- "rwr"
+    out
+})
+
+#' @name eval_rare_richness_importance
+#' @usage \S4method{eval_rare_richness_importance}{ConservationProblem,SpatRaster}(x, solution, rescale, ...)
+#' @rdname eval_rare_richness_importance
+methods::setMethod("eval_rare_richness_importance",
+  methods::signature("ConservationProblem", "SpatRaster"),
+  function(x, solution, rescale = TRUE, ...) {
+    assertthat::assert_that(
+      inherits(solution, "SpatRaster"),
+      number_of_zones(x) == 1,
+      assertthat::is.flag(rescale),
+      assertthat::noNA(rescale),
+      no_extra_arguments(...)
+    )
     # extract planning unit solution status
     status <- planning_unit_solution_status(x, solution)
     # extract indices
@@ -280,12 +354,18 @@ internal_eval_rare_richness_importance <- function(x, indices, rescale) {
   assertthat::assert_that(
     inherits(x, "ConservationProblem"),
     number_of_zones(x) == 1,
-    is.integer(indices), length(indices) > 0,
-    assertthat::is.flag(rescale))
+    is.integer(indices),
+    length(indices) > 0,
+    assertthat::is.flag(rescale)
+  )
   # calculate rarity weighted richness for each selected planning unit
   rs <- x$feature_abundances_in_total_units()
-  m <- matrix(apply(x$data$rij_matrix[[1]], 1, max, na.rm = TRUE),
-              nrow = nrow(rs), ncol = length(indices), byrow = FALSE)
+  m <- matrix(
+    apply(x$data$rij_matrix[[1]], 1, max, na.rm = TRUE),
+    nrow = nrow(rs),
+    ncol = length(indices),
+    byrow = FALSE
+  )
   out <- x$data$rij_matrix[[1]][, indices, drop = FALSE]
   ## account for divide by zero issues result in NaNs
   out <- (out / m)
@@ -293,7 +373,7 @@ internal_eval_rare_richness_importance <- function(x, indices, rescale) {
   ## account for divide by zero issues result in NaNs
   out <- out / rs[, rep.int(1, ncol(out)), drop = FALSE]
   out[!is.finite(out)] <- 0
-  out <- colSums(out)
+  out <- Matrix::colSums(out)
   # rescale values if specified
   if (rescale) {
     rescale_ind <- is.finite(out) & (abs(out) > 1e-10)

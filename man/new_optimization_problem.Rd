@@ -7,7 +7,7 @@
 new_optimization_problem()
 }
 \value{
-\code{\linkS4class{OptimizationProblem}} object.
+An \code{\linkS4class{OptimizationProblem}} object.
 }
 \description{
 Generate a new empty \code{\linkS4class{OptimizationProblem}} object.

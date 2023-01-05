@@ -139,4 +139,5 @@ Solver <- pproto(
   set_data = function(self, x, value) {
     self$data[[x]] <- value
     invisible()
-  })
+  }
+)

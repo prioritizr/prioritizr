@@ -70,4 +70,5 @@ Parameter <- pproto(
   },
   reset = function(self) {
     self$value <- self$default
-  })
+  }
+)

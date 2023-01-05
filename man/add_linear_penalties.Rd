@@ -8,6 +8,7 @@
 \alias{add_linear_penalties,ConservationProblem,ANY,character-method}
 \alias{add_linear_penalties,ConservationProblem,ANY,numeric-method}
 \alias{add_linear_penalties,ConservationProblem,ANY,Raster-method}
+\alias{add_linear_penalties,ConservationProblem,ANY,SpatRaster-method}
 \title{Add linear penalties}
 \usage{
 \S4method{add_linear_penalties}{ConservationProblem,ANY,character}(x, penalty, data)
@@ -20,10 +21,12 @@
 
 \S4method{add_linear_penalties}{ConservationProblem,ANY,Raster}(x, penalty, data)
 
+\S4method{add_linear_penalties}{ConservationProblem,ANY,SpatRaster}(x, penalty, data)
+
 \S4method{add_linear_penalties}{ConservationProblem,ANY,dgCMatrix}(x, penalty, data)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} object.}
 
 \item{penalty}{\code{numeric} penalty value that is used to scale the
 importance not selecting planning units with high \code{data} values.
@@ -38,14 +41,13 @@ penalties to problems with multiple zones, the argument to \code{penalty}
 must have a value for each zone.}
 
 \item{data}{\code{character}, \code{numeric},
-\code{\linkS4class{Raster}}, \code{matrix}, or \code{Matrix} object
+\code{\link[terra:rast]{terra::rast()}}, \code{matrix}, or \code{Matrix} object
 containing the values used to penalize solutions. Planning units that are
 associated with higher data values are penalized more strongly
 in the solution. See the Data format section for more information.}
 }
 \value{
-Object (i.e., \code{\linkS4class{ConservationProblem}}) with the penalties
-added to it.
+An updated \code{\link[=problem]{problem()}} object with the penalties added to it.
 }
 \description{
 Add penalties to a conservation planning \code{\link[=problem]{problem()}} to penalize
@@ -70,8 +72,7 @@ The argument to \code{data} can be specified using the following formats.
 \item{\code{data} as \code{character} vector}{containing field (column) name(s) that
 contain penalty values for planning units. This format is only
 compatible if the planning units in the argument to \code{x} are a
-\code{\linkS4class{Spatial}}, \code{\link[sf:sf]{sf::sf()}}, or
-\code{data.frame} object. The fields (columns) must have \code{numeric}
+\code{\link[sf:sf]{sf::sf()}} or \code{data.frame} object. The fields (columns) must have \code{numeric}
 values, and must not contain any missing (\code{NA}) values.
 For problems that contain a single zone, the argument to \code{data} must
 contain a single field name. Otherwise, for problems that
@@ -89,18 +90,16 @@ Each row corresponds to a planning unit, each column corresponds to a
 zone, and each cell indicates the data for penalizing a planning unit
 when it is allocated to a given zone.}
 
-\item{\code{data} as a \code{\linkS4class{Raster}} object}{containing values for planning
+\item{\code{data} as a \code{\link[terra:rast]{terra::rast()}} object}{containing values for planning
 units. This format is only
 compatible if the planning units in the argument to \code{x} are
-\code{\linkS4class{Spatial}}, \code{\link[sf:sf]{sf::sf()}}, or
-\code{\linkS4class{Raster}} objects.
-If the planning unit data are a \code{\linkS4class{Spatial}} or
-\code{\link[sf:sf]{sf::sf()}} object, then the values are calculated by overlaying the
+\code{\link[sf:sf]{sf::sf()}}, or \code{\link[terra:rast]{terra::rast()}} objects.
+If the planning unit data are a \code{\link[sf:sf]{sf::sf()}} object,
+then the values are calculated by overlaying the
 planning units with the argument to \code{data} and calculating the sum of the
 values associated with each planning unit.
-If the planning unit data are a
-\code{\linkS4class{Raster}} object then the values are calculated by extracting the
-cell
+If the planning unit data are a \code{\link[terra:rast]{terra::rast()}} object, then the values
+are calculated by extracting the cell
 values (note that the planning unit data and the argument to \code{data} must
 have exactly the same dimensionality, extent, and missingness).
 For problems involving multiple zones, the argument to \code{data} must
@@ -141,23 +140,26 @@ replaced with \eqn{-P_z}.
 set.seed(600)
 
 # load data
-data(sim_pu_polygons, sim_pu_zones_stack, sim_features, sim_features_zones)
+sim_pu_polygons <- get_sim_pu_polygons()
+sim_features <- get_sim_features()
+sim_pu_zones_raster <- get_sim_pu_zones_raster()
+sim_features_zones <- get_sim_features_zones()
 
 # add a column to contain the penalty data for each planning unit
 # e.g., these values could indicate the level of habitat
 sim_pu_polygons$penalty_data <- runif(nrow(sim_pu_polygons))
 
 # plot the penalty data to visualise its spatial distribution
-spplot(sim_pu_polygons, zcol = "penalty_data", main = "penalty data",
-       axes = FALSE, box = FALSE)
+plot(sim_pu_polygons[, "penalty_data"], axes = FALSE)
 
 # create minimal problem with minimum set objective,
 # this does not use the penalty data
-p1 <- problem(sim_pu_polygons, sim_features, cost_column = "cost") \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(0.1) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(verbose = FALSE)
+p1 <-
+  problem(sim_pu_polygons, sim_features, cost_column = "cost") \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.1) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
 
 # print problem
 print(p1)
@@ -173,14 +175,21 @@ print(p2)
 s1 <- solve(p1)
 s2 <- solve(p2)
 
+# create a new object with both solutions
+s3 <- sf::st_sf(
+  tibble::tibble(
+    s1 = s1$solution_1,
+    s2 = s2$solution_1
+  ),
+  geometry = sf::st_geometry(s1)
+)
+
+
 # plot the solutions and compare them,
 # since we supplied a very high penalty value (i.e., 100), relative
 # to the range of values in the penalty data and the objective function,
 # the solution in s2 is very sensitive to values in the penalty data
-spplot(s1, zcol = "solution_1", main = "solution without penalties",
-       axes = FALSE, box = FALSE)
-spplot(s2, zcol = "solution_1", main = "solution with penalties",
-       axes = FALSE, box = FALSE)
+plot(s3, axes = FALSE)
 
 # for real conservation planning exercises,
 # it would be worth exploring a range of penalty values (e.g., ranging
@@ -192,36 +201,40 @@ spplot(s2, zcol = "solution_1", main = "solution with penalties",
 # create targets for each feature within each zone,
 # these targets indicate that each zone needs to represent 10\% of the
 # spatial distribution of each feature
-targ <- matrix(0.1, ncol = number_of_zones(sim_features_zones),
-               nrow = number_of_features(sim_features_zones))
+targ <- matrix(
+  0.1, ncol = number_of_zones(sim_features_zones),
+  nrow = number_of_features(sim_features_zones)
+)
 
 # create penalty data for allocating each planning unit to each zone,
 # these data will be generated by simulating values
-penalty_stack <- simulate_cost(sim_pu_zones_stack[[1]],
-                               n = number_of_zones(sim_features_zones))
+penalty_raster <- simulate_cost(
+  sim_pu_zones_raster[[1]],
+  n = number_of_zones(sim_features_zones)
+)
 
 # plot the penalty data, each layer corresponds to a different zone
-plot(penalty_stack, main = "penalty data", axes = FALSE, box = FALSE)
+plot(penalty_raster, main = "penalty data", axes = FALSE)
 
 # create a multi-zone problem with the minimum set objective
 # and penalties for allocating planning units to each zone,
 # with a penalty scaling factor of 1 for each zone
-p3 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(targ) \%>\%
-      add_linear_penalties(c(1, 1, 1), penalty_stack) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(verbose = FALSE)
+p4 <-
+  problem(sim_pu_zones_raster, sim_features_zones) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(targ) \%>\%
+  add_linear_penalties(c(1, 1, 1), penalty_raster) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
 
 # print problem
-print(p3)
+print(p4)
 
 # solve problem
-s3 <- solve(p3)
+s4 <- solve(p4)
 
 # plot solution
-plot(category_layer(s3), main = "multi-zone solution",
-     axes = FALSE, box = FALSE)
+plot(category_layer(s4), main = "multi-zone solution", axes = FALSE)
 }
 }
 \seealso{

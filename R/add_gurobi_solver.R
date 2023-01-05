@@ -10,7 +10,7 @@ NULL
 #' It requires the \pkg{gurobi} package to be installed
 #' (see below for installation instructions).
 #'
-#' @param x [problem()] (i.e., [`ConservationProblem-class`]) object.
+#' @param x [problem()] object.
 #'
 #' @param gap `numeric` gap to optimality. This gap is relative
 #'   and expresses the acceptable deviance from the optimal objective.
@@ -70,8 +70,7 @@ NULL
 #'   for the solver. Defaults to `NULL` such that no starting solution is used.
 #'   To specify a starting solution, the argument to `start_solution` should
 #'   be in the same format as the planning units (i.e., a `NULL`, `numeric`,
-#'   `matrix`, `data.frame`, [`Raster-class`], [`Spatial-class`],
-#'   or [sf::sf()] object).
+#'   `matrix`, `data.frame`, [terra::rast()], or [sf::sf()] object).
 #'   See the Start solution format section for more information.
 #'
 #' @param verbose `logical` should information be printed while solving
@@ -97,7 +96,7 @@ NULL
 #' [online](https://prioritizr.net/articles/gurobi_installation_guide.html)
 #' or using the following code:
 #' ```
-#' vignette("gurobi_installation", package = "prioritizr")
+#' vignette("gurobi_installation_guide", package = "prioritizr")
 #' ```
 #'
 #' @section Start solution format:
@@ -107,8 +106,7 @@ NULL
 #' for each of the different planning unit data formats:
 #' `r solution_format_documentation("start_solution")`
 #'
-#' @return Object (i.e., [`ConservationProblem-class`]) with the solver
-#'  added to it.
+#' @return An updated [problem()] object with the solver added to it.
 #'
 #' @seealso
 #' See [solvers] for an overview of all functions for adding a solver.
@@ -126,36 +124,38 @@ NULL
 #' @examples
 #' \dontrun{
 #' # load data
-#' data(sim_pu_raster, sim_features)
+#' sim_pu_raster <- get_sim_pu_raster()
+#' sim_features <- get_sim_features()
 #'
 #' # create problem
-#' p <- problem(sim_pu_raster, sim_features) %>%
-#'      add_min_set_objective() %>%
-#'      add_relative_targets(0.1) %>%
-#'      add_binary_decisions() %>%
-#'      add_gurobi_solver(gap = 0, verbose = FALSE)
+#' p1 <-
+#'   problem(sim_pu_raster, sim_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(0.1) %>%
+#'   add_binary_decisions() %>%
+#'   add_gurobi_solver(gap = 0, verbose = FALSE)
 #'
 #' # generate solution
-#' s <- solve(p)
+#' s1 <- solve(p1)
 #'
 #' # plot solution
-#' plot(s, main = "solution", axes = FALSE, box = FALSE)
+#' plot(s1, main = "solution", axes = FALSE)
 #'
 #' # create a similar problem with boundary length penalties and
 #' # specify the solution from the previous run as a starting solution
-#' p2 <- problem(sim_pu_raster, sim_features) %>%
-#'      add_min_set_objective() %>%
-#'      add_relative_targets(0.1) %>%
-#'      add_boundary_penalties(10) %>%
-#'      add_binary_decisions() %>%
-#'      add_gurobi_solver(gap = 0, start_solution = s, verbose = FALSE)
+#' p2 <-
+#'   problem(sim_pu_raster, sim_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(0.1) %>%
+#'   add_boundary_penalties(10) %>%
+#'   add_binary_decisions() %>%
+#'   add_gurobi_solver(gap = 0, start_solution = s1, verbose = FALSE)
 #'
 #' # generate solution
 #' s2 <- solve(p2)
 #'
 #' # plot solution
-#' plot(s2, main = "solution with boundary penalties", axes = FALSE,
-#'      box = FALSE)
+#' plot(s2, main = "solution with boundary penalties", axes = FALSE)
 #' }
 #' @name add_gurobi_solver
 NULL
@@ -167,26 +167,27 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
                               numeric_focus = FALSE, node_file_start = Inf,
                               start_solution = NULL, verbose = TRUE) {
   # assert that arguments are valid (except start_solution)
-  assertthat::assert_that(inherits(x, "ConservationProblem"),
-                          isTRUE(all(is.finite(gap))),
-                          assertthat::is.scalar(gap),
-                          isTRUE(gap >= 0), isTRUE(all(is.finite(time_limit))),
-                          assertthat::is.count(time_limit),
-                          isTRUE(all(is.finite(presolve))),
-                          assertthat::is.scalar(presolve),
-                          isTRUE(presolve >= -1 & presolve <= 2),
-                          isTRUE(all(is.finite(threads))),
-                          assertthat::is.count(threads),
-                          isTRUE(threads <= parallel::detectCores(TRUE)),
-                          assertthat::is.flag(first_feasible),
-                          assertthat::noNA(first_feasible),
-                          assertthat::is.flag(numeric_focus),
-                          assertthat::noNA(numeric_focus),
-                          assertthat::is.number(node_file_start),
-                          assertthat::noNA(node_file_start),
-                          isTRUE(node_file_start >= 0),
-                          assertthat::is.flag(verbose),
-                          requireNamespace("gurobi", quietly = TRUE))
+  assertthat::assert_that(
+    is_conservation_problem(x),
+    assertthat::is.number(gap),
+    all_finite(gap),
+    gap >= 0,
+    assertthat::is.count(time_limit),
+    all_finite(time_limit),
+    assertthat::is.number(presolve),
+    all_finite(presolve),
+    is_match_of(presolve, c(-1, 0, 1, 2)),
+    is_thread_count(threads),
+    assertthat::is.flag(first_feasible),
+    assertthat::noNA(first_feasible),
+    assertthat::is.flag(numeric_focus),
+    assertthat::noNA(numeric_focus),
+    assertthat::is.number(node_file_start),
+    assertthat::noNA(node_file_start),
+    node_file_start >= 0,
+    assertthat::is.flag(verbose),
+    is_installed("gurobi", "add_gurobi_solver()")
+  )
   # extract start solution
   if (!is.null(start_solution)) {
     start_solution <- planning_unit_solution_status(x, start_solution)
@@ -203,16 +204,23 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
     data = list(start = start_solution),
     parameters = parameters(
       numeric_parameter("gap", gap, lower_limit = 0),
-      integer_parameter("time_limit", time_limit, lower_limit = -1L,
-                        upper_limit = as.integer(.Machine$integer.max)),
-      integer_parameter("presolve", presolve, lower_limit = -1L,
-                        upper_limit = 2L),
-      integer_parameter("threads", threads, lower_limit = 1L,
-                        upper_limit = parallel::detectCores(TRUE)),
-      binary_parameter("first_feasible", first_feasible),
-      binary_parameter("numeric_focus", numeric_focus),
+      integer_parameter(
+        "time_limit", time_limit, lower_limit = -1L,
+        upper_limit = as.integer(.Machine$integer.max)
+      ),
+      integer_parameter(
+        "presolve", presolve, lower_limit = -1L,
+        upper_limit = 2L
+      ),
+      integer_parameter(
+        "threads", threads, lower_limit = 1L,
+        upper_limit = parallel::detectCores(TRUE)
+      ),
+      binary_parameter("first_feasible", as.integer(first_feasible)),
+      binary_parameter("numeric_focus", as.integer(numeric_focus)),
       numeric_parameter("node_file_start", node_file_start, lower_limit = -1),
-      binary_parameter("verbose", verbose)),
+      binary_parameter("verbose", as.integer(verbose))
+    ),
     calculate = function(self, x, ...) {
       # create problem
       model <- list(
@@ -223,17 +231,20 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
         rhs = x$rhs(),
         sense = x$sense(),
         lb = x$lb(),
-        ub = x$ub())
+        ub = x$ub()
+      )
       # create parameters
-      p <- list(LogToConsole = as.numeric(self$parameters$get("verbose")),
-                LogFile = "",
-                Presolve = self$parameters$get("presolve"),
-                MIPGap = self$parameters$get("gap"),
-                TimeLimit = self$parameters$get("time_limit"),
-                Threads = self$parameters$get("threads"),
-                NumericFocus = self$parameters$get("numeric_focus"),
-                NodeFileStart = self$parameters$get("node_file_start"),
-                SolutionLimit = self$parameters$get("first_feasible"))
+      p <- list(
+        LogToConsole = as.numeric(self$parameters$get("verbose")),
+        LogFile = "",
+        Presolve = self$parameters$get("presolve"),
+        MIPGap = self$parameters$get("gap"),
+        TimeLimit = self$parameters$get("time_limit"),
+        Threads = self$parameters$get("threads"),
+        NumericFocus = self$parameters$get("numeric_focus"),
+        NodeFileStart = self$parameters$get("node_file_start"),
+        SolutionLimit = self$parameters$get("first_feasible")
+      )
       if (p$SolutionLimit == 0)
         p$SolutionLimit <- NULL
       if (p$NodeFileStart < 0) {
@@ -271,14 +282,15 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
       rt <- system.time({
         x <- withr::with_locale(
           c(LC_CTYPE = "C"),
-          gurobi::gurobi(model = model, params = p))
+          gurobi::gurobi(model = model, params = p)
+        )
       })
       # fix potential floating point arithmetic issues
       b <- model$vtype == "B"
       if (is.numeric(x$x)) {
         ## round binary variables because default precision is 1e-5
         x$x[b] <- round(x$x[b])
-        ## truncate semicontinuous variables
+        ## truncate semi-continuous variables
         v <- model$vtype == "S"
         x$x[v] <- pmax(x$x[v], 0)
         x$x[v] <- pmin(x$x[v], 1)
@@ -291,18 +303,24 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
         x = x$x,
         objective = x$objval,
         status = x$status,
-        runtime = rt[[3]])
+        runtime = rt[[3]]
+      )
       # add pool if required
-      if (!is.null(p$PoolSearchMode) && is.numeric(x$x) &&
-          isTRUE(length(x$pool) > 1)) {
+      if (!is.null(p$PoolSearchMode) &&
+          is.numeric(x$x) &&
+          isTRUE(length(x$pool) > 1)
+      ) {
         out$pool <- x$pool[-1]
         for (i in seq_len(length(out$pool))) {
           out$pool[[i]]$xn[b] <- round(out$pool[[i]]$xn[b])
-          out$pool[[i]]$status <-
-            ifelse(abs(out$pool[[i]]$objval - x$objval) < 1e-5,
-                   "OPTIMAL", "SUBOPTIMAL")
+          out$pool[[i]]$status <- ifelse(
+            abs(out$pool[[i]]$objval - x$objval) < 1e-5,
+            "OPTIMAL",
+            "SUBOPTIMAL"
+          )
         }
       }
       out
-    }))
+    }
+  ))
 }

@@ -1,53 +1,61 @@
 #' @include internal.R
 NULL
 
-#' Simulated conservation planning data
+#' Get simulated conservation planning data
 #'
-#' Simulated data for making spatial prioritizations.
+#' A set of functions for importing simulated datasets for making spatial
+#' prioritizations.
 #'
 #' \describe{
 #'
-#' \item{`sim_pu_raster`}{Planning units are represented as raster data.
-#'   Pixel values indicate planning unit cost and `NA` values indicate
+#' \item{`get_sim_pu_raster()`}{Import planning unit data that are stored
+#'   in raster format.
+#'   Here, pixel values indicate planning unit cost and `NA` values indicate
 #'   that a pixel is not a planning unit.}
 #'
-#' \item{`sim_pu_zones_stack`}{Planning units are represented as raster
-#'   stack data. Each layer indicates the cost for a different management
+#' \item{`get_sim_locked_in_raster()`}{Import planning unit data
+#'   that are stored in raster format.
+#'   Here, pixel values are binary and indicate if planning units should be
+#'   locked in to a solution.}
+#'
+#' \item{`get_sim_locked_out_raster()`}{Import planning unit data
+#'   that are stored in raster format.
+#'   Here, pixel values are binary and indicate if planning units
+#'   should be locked out from a solution.}
+#'
+#' \item{`get_sim_pu_zones_raster()`}{Import planning unit data
+#'   for multiple management zones that are stored in raster format.
+#'   Here, each layer indicates the cost for a different management
 #'   zone. Pixels with `NA` values in a given zone indicate that a
 #'   planning unit cannot be allocated to that zone in a solution.
 #'   Additionally, pixels with `NA` values in all layers are not a
 #'   planning unit.}
 #'
-#' \item{`sim_locked_in_raster`}{Planning units are represented as raster
-#'   data. Pixel values are binary and indicate if planning units should be
-#'   locked in to the solution.}
-#'
-#' \item{`sim_locked_out_raster`}{Planning units are represented as
-#'   raster data. Pixel values are binary and indicate if planning units
-#'   should be locked out from the solution.}
-#'
-#' \item{`sim_pu_polygons`}{Planning units represented as polygon data.
+#' \item{`get_sim_pu_polygons()`}{Import planning unit data stored in vector
+#'   format. Here, planning units are represented using spatial polygons
+#'   (e.g., each polygon corresponds to a different management areas).
 #'   The attribute table contains fields (columns) indicating the expenditure
 #'   required for prioritizing each planning unit ("cost" field), if the
 #'   planning units should be selected in the solution ("locked_in" field),
 #'   and if the planning units should never be selected in the solution
 #'   ("locked_out" field).}
 #'
-#' \item{`sim_pu_points`}{Planning units represented as point data.
+#' \item{`get_sim_pu_points()`}{Import planning unit data stored in vector
+#'   format. Here, planning units are represented using spatial lines
+#'   (e.g., each line corresponds to a different section along a river) .
 #'   The attribute table follows the same conventions as for
 #'   `sim_pu_polygons`.}
 #'
-#' \item{`sim_pu_lines`}{Planning units represented as line data.
+#' \item{`get_sim_pu_lines()`}{Import planning unit data stored in vector
+#'   format. Here, planning units are represented using spatial points
+#'   (e.g., each point corresponds to a different site) .
 #'   The attribute table follows the same conventions as for
 #'   `sim_pu_polygons`.}
 #'
-#' \item{`sim_pu_sf`}{Planning units represented as polygon data
-#'   using the [sf::sf()] package.
-#'   The attribute table follows the same conventions as for
-#'   `sim_pu_polygons`.}
-#'
-#' \item{`sim_pu_zones_polygons`}{Planning units represented as polygon
-#'   data. The attribute table contains fields (columns) indicating the
+#' \item{`get_sim_pu_zones_polygons()`}{Import planning unit data for
+#'   multiple management zones stored in vector format.
+#'   Here, planning units are represented using spatial polygons.
+#'   The attribute table contains fields (columns) indicating the
 #'   expenditure required for prioritizing each planning unit under different
 #'   management zones ("cost_1", "cost_2", and "cost_3" fields), and a series
 #'   of fields indicating the value that each planning unit that should be
@@ -55,83 +63,46 @@ NULL
 #'   In these locked fields, planning units that should not be locked to a
 #'   specific value are assigned a `NA` value.}
 #'
-#' \item{`sim_pu_zones_sf`}{Planning units represented as polygon data
-#'   using the [sf::sf()] package. The attribute tables follows
-#'   the same conventions as for `sim_pu_zone_polygons`.}
+#' \item{`get_sim_features()`}{Import feature data stored in raster format.
+#'   Here, data describe the spatial distribution of ten species.
+#'   Each layer corresponds to a different species, and
+#'   pixel values indicate habitat suitability.}
 #'
-#' \item{`sim_features`}{The simulated distribution of ten species.
-#'   Pixel values indicate habitat suitability.}
+#' \item{`get_sim_features_zones()`}{Import feature data for multiple
+#'   management zones stored in raster format.
+#'   Here, data describe the spatial distribution of ten species
+#'   under three different management zones.}
 #'
-#' \item{`sim_features_zones`}{The simulated distribution for five
-#'   species under three different management zones.}
-#'
-#'  \item{`sim_phylogeny`}{The phylogenetic tree for the ten species.}
+#'  \item{`get_sim_phylogeny()`}{Import phylogenetic tree for the ten species.}
 #'
 #' }
 #'
-#' @docType data
-#'
-#' @aliases sim_pu_polygons sim_pu_zones_polygons sim_pu_points sim_pu_lines sim_pu_raster sim_locked_in_raster sim_locked_out_raster sim_pu_zones_stack sim_features sim_features_zones sim_phylogeny sim_pu_sf sim_pu_zones_sf
-#'
-#' @usage data(sim_pu_polygons)
-#'
-#' @usage data(sim_pu_zones_polygons)
-#'
-#' @usage data(sim_pu_points)
-#
-#' @usage data(sim_pu_lines)
-#'
-#' @usage data(sim_pu_sf)
-#'
-#' @usage data(sim_pu_zones_sf)
-#'
-#' @usage data(sim_pu_raster)
-#'
-#' @usage data(sim_locked_in_raster)
-#'
-#' @usage data(sim_locked_out_raster)
-#'
-#' @usage data(sim_pu_zones_stack)
-#'
-#' @usage data(sim_features)
-#'
-#' @usage data(sim_features_zones)
-#'
-#' @usage data(sim_phylogeny)
+#' @aliases sim_pu_polygons sim_pu_zones_polygons sim_pu_points sim_pu_lines sim_pu_raster sim_locked_in_raster sim_locked_out_raster sim_pu_zones_raster sim_features sim_features_zones sim_phylogeny get_sim_pu_polygons get_sim_pu_zones_polygons get_sim_pu_points get_sim_pu_lines get_sim_pu_raster get_sim_locked_in_raster get_sim_locked_out_raster get_sim_pu_zones_raster get_sim_features get_sim_features_zones get_sim_phylogeny
 #'
 #' @format
 #' \describe{
 #'
-#' \item{sim_pu_polygons}{[`SpatialPolygonsDataFrame-class`]
-#'   object.}
+#' \item{`get_sim_pu_polygons()`}{[sf::st_sf()] object.}
 #'
-#' \item{sim_pu_zones_polygons}{
-#'   [`SpatialPolygonsDataFrame-class`] object.}
+#' \item{`get_sim_pu_zones_polygons()`}{[sf::st_sf()] object.}
 #'
-#' \item{sim_pu_sf}{[sf::sf()] object.}
+#' \item{`get_sim_pu_lines()`}{[sf::st_sf()] object.}
 #'
-#' \item{sim_pu_zones_sf}{[sf::sf()] object.}
+#' \item{`get_sim_pu_points()`}{[sf::st_sf()] object.}
 #'
-#' \item{sim_pu_lines}{[`SpatialLinesDataFrame-class`] object.}
+#' \item{`get_sim_pu_raster()`}{[terra::rast()] object.}
 #'
-#' \item{sim_pu_points}{[`SpatialPointsDataFrame-class`]
-#'   object.}
+#' \item{`get_sim_pu_zones_raster()`}{[terra::rast()] object.}
 #'
-#' \item{sim_pu_raster}{[`RasterLayer-class`] object.}
+#' \item{`get_sim_locked_in_raster()`}{[terra::rast()] object.}
 #'
-#' \item{sim_pu_zones_stack}{[`RasterStack-class`] object.}
+#' \item{`get_sim_locked_out_raster()`}{[terra::rast()] object.}
 #'
-#' \item{sim_locked_in_raster}{[`RasterLayer-class`]
-#'   object.}
+#' \item{`get_sim_features()`}{[terra::rast()] object.}
 #'
-#' \item{sim_locked_out_raster}{[`RasterLayer-class`]
-#'   object.}
+#' \item{`get_sim_features_zones()`}{[ZonesRaster()] object.}
 #'
-#' \item{sim_features}{[`RasterStack-class`] object.}
-#'
-#' \item{sim_features_zones}{[ZonesRaster()] object.}
-#'
-#' \item{sim_phylogeny}{[ape::phylo()] object.}
+#' \item{`get_sim_phylogeny()`}{[terra::rast()] object.}
 #'
 #' }
 #'
@@ -139,44 +110,195 @@ NULL
 #'
 #' @examples
 #' # load data
-#' data(sim_pu_polygons, sim_pu_lines, sim_pu_points, sim_pu_raster,
-#'      sim_locked_in_raster, sim_locked_out_raster, sim_phylogeny,
-#'      sim_features, sim_pu_sf)
+#' sim_pu_polygons <- get_sim_pu_polygons()
+#' sim_pu_zones_polygons <- get_sim_pu_zones_polygons()
+#' sim_pu_lines <- get_sim_pu_lines()
+#' sim_pu_points <- get_sim_pu_points()
+#' sim_pu_raster <- get_sim_pu_raster()
+#' sim_pu_zones_raster <- get_sim_pu_zones_raster()
+#' sim_locked_in_raster <- get_sim_locked_in_raster()
+#' sim_locked_out_raster <- get_sim_locked_out_raster()
+#' sim_phylogeny <- get_sim_phylogeny()
+#' sim_features <- get_sim_features()
+#' sim_features_zones <- get_sim_features_zones()
 #'
-#' # plot example Spatial-class planning unit data
+#' # plot raster data
 #' \dontrun{
 #' par(mfrow = c(2, 3))
 #' plot(sim_pu_raster, main = "planning units (raster)")
 #' plot(sim_locked_in_raster, main = "locked in units (raster)")
 #' plot(sim_locked_out_raster, main = "locked out units (raster)")
-#' plot(sim_pu_polygons, main = "planning units (polygons)")
-#' plot(sim_pu_lines, main = "planning units (lines)")
-#' plot(sim_pu_points, main = "planning units (points)")
 #'
-#' # plot example sf-class planning unit data
-#' plot(sim_pu_sf)
+#' # plot vector planning unit data
+#' plot(sim_pu_polygons)
+#' plot(sim_pu_lines)
+#' plot(sim_pu_points)
 #'
-#' # plot example phylogeny data
+#' # plot vector planning unit data for multiple management zones
+#' plot(sim_pu_zones_polygons)
+#'
+#' # plot phylogeny data
 #' par(mfrow = c(1, 1))
-#' ape::plot.phylo(sim_phylogeny, main = "simulated phylogeny")
+#' plot(sim_phylogeny, main = "simulated phylogeny")
 #'
-#' # plot example feature data
+#' # plot feature data
 #' par(mfrow = c(1, 1))
 #' plot(sim_features)
 #'
-#' # plot example management zone cost data
+#' # plot cost data for multiple management zones
 #' par(mfrow = c(1, 1))
-#' plot(sim_pu_zones_stack)
+#' plot(sim_pu_zones_raster)
 #'
-#' # plot example feature data for each management zone
-#' plot(do.call(stack, sim_features_zones),
-#'      main = paste0("Species ",
-#'                    rep(seq_len(number_of_zones(sim_features_zones)),
-#'                        number_of_features(sim_features_zones)),
-#'                    " (zone ",
-#'                    rep(seq_len(number_of_features(sim_features_zones)),
-#'                        each = number_of_zones(sim_features_zones)),
-#'                    ")"))
+#' # plot feature data for multiple management zones
+#' plot_names <- paste0(
+#'   "Species ",
+#'    rep(
+#'      seq_len(number_of_zones(sim_features_zones)),
+#'      number_of_features(sim_features_zones)
+#'    ),
+#'    " (zone ",
+#'    rep(
+#'      seq_len(number_of_features(sim_features_zones)),
+#'      each = number_of_zones(sim_features_zones)
+#'    ),
+#'    ")"
+#' )
+#' plot(terra::rast(as.list(sim_features_zones)), main = plot_names)
+#'
 #' }
 #' @name sim_data
 NULL
+
+#' @rdname sim_data
+#' @export
+get_sim_pu_polygons <- function() {
+  sf::st_set_crs(
+    sf::read_sf(
+      system.file("extdata", "sim_pu_polygons.gpkg", package = "prioritizr")
+    ),
+    na_crs
+  )
+}
+
+#' @rdname sim_data
+#' @export
+get_sim_pu_zones_polygons <- function() {
+  sf::st_set_crs(
+    sf::read_sf(
+      system.file(
+        "extdata", "sim_pu_zones_polygons.gpkg", package = "prioritizr"
+      )
+    ),
+    na_crs
+  )
+}
+
+#' @rdname sim_data
+#' @export
+get_sim_pu_lines <- function() {
+  sf::st_set_crs(
+    sf::read_sf(
+      system.file("extdata", "sim_pu_lines.gpkg", package = "prioritizr")
+    ),
+    na_crs
+  )
+}
+
+#' @rdname sim_data
+#' @export
+get_sim_pu_points <- function() {
+  sf::st_set_crs(
+    sf::read_sf(
+      system.file("extdata", "sim_pu_points.gpkg", package = "prioritizr")
+    ),
+    na_crs
+  )
+}
+
+#' @rdname sim_data
+#' @export
+get_sim_pu_raster <- function() {
+  x <- terra::rast(
+    system.file("extdata", "sim_pu_raster.tif", package = "prioritizr")
+  )
+  terra::crs(x) <- na_crs
+  x
+}
+
+#' @rdname sim_data
+#' @export
+get_sim_locked_in_raster <- function() {
+  x <- terra::rast(
+    system.file("extdata", "sim_locked_in_raster.tif", package = "prioritizr")
+  )
+  terra::crs(x) <- na_crs
+  x
+}
+
+#' @rdname sim_data
+#' @export
+get_sim_locked_out_raster <- function() {
+  x <- terra::rast(
+    system.file("extdata", "sim_locked_out_raster.tif", package = "prioritizr")
+  )
+  terra::crs(x) <- na_crs
+  x
+}
+
+#' @rdname sim_data
+#' @export
+get_sim_pu_zones_raster <- function() {
+  x <- terra::rast(
+    system.file("extdata", "sim_pu_zones_raster.tif", package = "prioritizr")
+  )
+  terra::crs(x) <- na_crs
+  x
+}
+
+#' @rdname sim_data
+#' @export
+get_sim_features <- function() {
+  x <- terra::rast(
+   system.file("extdata", "sim_features.tif", package = "prioritizr")
+  )
+  terra::crs(x) <- na_crs
+  x
+}
+
+#' @rdname sim_data
+#' @export
+get_sim_features_zones <- function() {
+  x <- zones(
+    zone_1 = terra::rast(
+       system.file(
+         "extdata", "sim_features_zones_1.tif", package = "prioritizr"
+       )
+    ),
+    zone_2 = terra::rast(
+       system.file(
+         "extdata", "sim_features_zones_2.tif", package = "prioritizr"
+       )
+     ),
+    zone_3 = terra::rast(
+       system.file(
+         "extdata", "sim_features_zones_3.tif", package = "prioritizr"
+       )
+     ),
+    zone_names = c("zone_1", "zone_2", "zone_3"),
+    feature_names = c(
+      "feature_1", "feature_2", "feature_3", "feature_4", "feature_5"
+    )
+  )
+  for (i in seq_along(x)) terra::crs(x[[i]]) <- na_crs
+  x
+}
+
+#' @rdname sim_data
+#' @export
+get_sim_phylogeny <- function() {
+  ape::read.tree(
+   system.file("extdata", "sim_phylogeny.txt", package = "prioritizr")
+  )
+}
+
+na_crs <- "ENGCRS[\"Undefined Cartesian SRS\",\n    EDATUM[\"\"],\n    CS[Cartesian,2],\n        AXIS[\"(E)\",east,\n            ORDER[1],\n            LENGTHUNIT[\"Meter\",1]],\n        AXIS[\"(N)\",north,\n            ORDER[2],\n            LENGTHUNIT[\"Meter\",1]]]"

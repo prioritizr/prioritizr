@@ -16,7 +16,7 @@ add_cbc_solver(
 )
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} object.}
 
 \item{gap}{\code{numeric} gap to optimality. This gap is relative
 and expresses the acceptable deviance from the optimal objective.
@@ -50,16 +50,14 @@ Defaults to \code{FALSE}.}
 for the solver. Defaults to \code{NULL} such that no starting solution is used.
 To specify a starting solution, the argument to \code{start_solution} should
 be in the same format as the planning units (i.e., a \code{NULL}, \code{numeric},
-\code{matrix}, \code{data.frame}, \code{\linkS4class{Raster}}, \code{\linkS4class{Spatial}},
-or \code{\link[sf:sf]{sf::sf()}} object).
+\code{matrix}, \code{data.frame}, \code{\link[terra:rast]{terra::rast()}}, or \code{\link[sf:sf]{sf::sf()}} object).
 See the Start solution format section for more information.}
 
 \item{verbose}{\code{logical} should information be printed while solving
 optimization problems? Defaults to \code{TRUE}.}
 }
 \value{
-Object (i.e., \code{\linkS4class{ConservationProblem}}) with the solver
-added to it.
+An updated \code{\link[=problem]{problem()}} object with the solver added to it.
 }
 \description{
 Specify that the \href{https://github.com/coin-or/Cbc}{\emph{CBC}}
@@ -128,8 +126,8 @@ missing cost (\code{NA}) values for a particular zone should also have a
 missing (\code{NA}) values in the argument to \code{start_solution}.
 }
 
-\item{\code{x} has \code{\linkS4class{Raster}} planning units}{The argument to \code{start_solution}
-be a \code{\linkS4class{Raster}} object where different grid cells (pixels) correspond
+\item{\code{x} has \code{\link[terra:rast]{terra::rast()}} planning units}{The argument to \code{start_solution}
+be a \code{\link[terra:rast]{terra::rast()}} object where different grid cells (pixels) correspond
 to different planning units and layers correspond to
 a different management zones. It should have the same dimensionality
 (rows, columns, layers), resolution, extent, and coordinate reference
@@ -146,20 +144,6 @@ object containing the solution also contains additional columns, then
 these columns will need to be subsetted prior to using this function
 (see below for example with \code{\link[sf:sf]{sf::sf()}} data).
 Additionally, any planning units missing cost
-(\code{NA}) values for a particular zone should also have missing (\code{NA})
-values in the argument to \code{start_solution}.
-}
-
-\item{\code{x} has \code{\linkS4class{Spatial}} planning units}{The argument to \code{start_solution}
-must be a \code{\linkS4class{Spatial}} object with each column corresponding to a
-different zone, each row corresponding to a different planning unit, and
-cell values corresponding to the solution value. This means that if the
-\code{\linkS4class{Spatial}} object containing the solution also contains additional
-columns, then these columns will need to be subsetted prior to using this
-function (see below for example with \code{\link[sf:sf]{sf::sf()}} data).
-Additionally, the argument to \code{start_solution} must also have the same
-coordinate reference system as the planning unit data.
-Furthermore, any planning units missing cost
 (\code{NA}) values for a particular zone should also have missing (\code{NA})
 values in the argument to \code{start_solution}.
 }
@@ -183,36 +167,38 @@ values in the argument to \code{start_solution}.
 \examples{
 \dontrun{
 # load data
-data(sim_pu_raster, sim_features)
+sim_pu_raster <- get_sim_pu_raster()
+sim_features <- get_sim_features()
 
 # create problem
-p <- problem(sim_pu_raster, sim_features) \%>\%
-     add_min_set_objective() \%>\%
-     add_relative_targets(0.1) \%>\%
-     add_binary_decisions() \%>\%
-     add_cbc_solver(gap = 0, verbose = FALSE)
+p1 <-
+  problem(sim_pu_raster, sim_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.1) \%>\%
+  add_binary_decisions() \%>\%
+  add_cbc_solver(gap = 0, verbose = FALSE)
 
 # generate solution \%>\%
-s <- solve(p)
+s1 <- solve(p1)
 
 # plot solution
-plot(s, main = "solution", axes = FALSE, box = FALSE)
+plot(s1, main = "solution", axes = FALSE)
 
 # create a similar problem with boundary length penalties and
 # specify the solution from the previous run as a starting solution
-p2 <- problem(sim_pu_raster, sim_features) \%>\%
-     add_min_set_objective() \%>\%
-     add_relative_targets(0.1) \%>\%
-     add_boundary_penalties(10) \%>\%
-     add_binary_decisions() \%>\%
-     add_cbc_solver(gap = 0, start_solution = s, verbose = FALSE)
+p2 <-
+  problem(sim_pu_raster, sim_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.1) \%>\%
+  add_boundary_penalties(10) \%>\%
+  add_binary_decisions() \%>\%
+  add_cbc_solver(gap = 0, start_solution = s1, verbose = FALSE)
 
 # generate solution
 s2 <- solve(p2)
 
 # plot solution
-plot(s2, main = "solution with boundary penalties", axes = FALSE,
-     box = FALSE)
+plot(s2, main = "solution with boundary penalties", axes = FALSE)
 }
 }
 \references{

@@ -8,11 +8,10 @@
 \S4method{add_mandatory_allocation_constraints}{ConservationProblem}(x)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} object.}
 }
 \value{
-Object (i.e., \code{\linkS4class{ConservationProblem}}) with the constraints
-added to it.
+An updated \code{\link[=problem]{problem()}} object with the constraints added to it.
 }
 \description{
 Add constraints to ensure that every planning unit is allocated to a
@@ -39,17 +38,19 @@ zone allocation is mandatory).
 set.seed(500)
 
 # load data
-data(sim_pu_zones_stack, sim_features_zones)
+sim_pu_zones_raster <- get_sim_pu_zones_raster()
+sim_features_zones <- get_sim_features_zones()
 
 # create multi-zone problem with minimum set objective
 targets_matrix <- matrix(rpois(15, 1), nrow = 5, ncol = 3)
 
 # create minimal problem with minimum set objective
-p1 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
-      add_min_set_objective() \%>\%
-      add_absolute_targets(targets_matrix) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(verbose = FALSE)
+p1 <-
+  problem(sim_pu_zones_raster, sim_features_zones) \%>\%
+  add_min_set_objective() \%>\%
+  add_absolute_targets(targets_matrix) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
 
 # create another problem that is the same as p1, but has constraints
 # to mandate that every planning unit in the solution is assigned to
@@ -66,8 +67,7 @@ c1 <- category_layer(s1)
 c2 <- category_layer(s2)
 
 # plot solution category layers
-plot(stack(c1, c2), main = c("default", "mandatory allocation"),
-     axes = FALSE, box = FALSE)
+plot(c(c1, c2), main = c("default", "mandatory allocation"), axes = FALSE)
 }
 }
 \seealso{

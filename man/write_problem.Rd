@@ -7,7 +7,7 @@
 write_problem(x, path)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} object.}
 
 \item{path}{\code{character} file path to save the problem formulation.
 The argument should contain a \code{".lp"} or \verb{.mps"} file extension
@@ -17,7 +17,7 @@ to specify whether the problem formulation will be saved in the
 format (respectively).}
 }
 \value{
-Invisible \code{TRUE} indicating success.
+An invisible \code{TRUE} indicating success.
 }
 \description{
 Save the mathematical formulation for a conservation planning \code{\link[=problem]{problem()}}
@@ -30,19 +30,25 @@ requires the \pkg{Rsymphony} package to be installed.
 set.seed(500)
 
 # load data
-data(sim_pu_raster, sim_features)
+sim_pu_polygons <- get_sim_pu_polygons()
+sim_features <- get_sim_features()
+
+# subset data to extract first four planning units
+sim_pu_polygons <- sim_pu_polygons[1:4, ]
 
 # create minimal problem
-p <- problem(sim_pu_sf[1:4, , drop = FALSE], sim_features,
-             cost_column = "cost") \%>\%
-     add_min_set_objective() \%>\%
-     add_relative_targets(0.1) \%>\%
-     add_binary_decisions()
+p <-
+  problem(sim_pu_polygons, sim_features, cost_column = "cost") \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.1) \%>\%
+  add_binary_decisions()
 
 # specify file path to save problem formulation
 path <- file.path(tempdir(), "model.lp")
+print(path)
 
-# save problem to file (using the Rsymphony package)
+# save problem to file
+## note that the Rsymphony package needs to be installed
 write_problem(p, path)
 
 # print model file

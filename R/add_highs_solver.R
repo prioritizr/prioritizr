@@ -33,20 +33,22 @@ NULL
 #' @examples
 #' \dontrun{
 #' # load data
-#' data(sim_pu_raster, sim_features)
+#' sim_pu_raster <- get_sim_pu_raster()
+#' sim_features <- get_sim_features()
 #'
 #' # create problem
-#' p <- problem(sim_pu_raster, sim_features) %>%
-#'      add_min_set_objective() %>%
-#'      add_relative_targets(0.1) %>%
-#'      add_binary_decisions() %>%
-#'      add_highs_solver(gap = 0, verbose = FALSE)
+#' p <-
+#'   problem(sim_pu_raster, sim_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(0.1) %>%
+#'   add_binary_decisions() %>%
+#'   add_highs_solver(gap = 0, verbose = FALSE)
 #'
 #' # generate solution
 #' s <- solve(p)
 #'
 #' # plot solution
-#' plot(s, main = "solution", axes = FALSE, box = FALSE)
+#' plot(s, main = "solution", axes = FALSE)
 #' }
 #' @name add_highs_solver
 NULL
@@ -57,19 +59,19 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
                              presolve = TRUE, threads = 1,
                              verbose = TRUE) {
   # assert that arguments are valid (except start_solution)
-  assertthat::assert_that(inherits(x, "ConservationProblem"),
-                          isTRUE(all(is.finite(gap))),
-                          assertthat::is.scalar(gap),
-                          isTRUE(gap >= 0), isTRUE(all(is.finite(time_limit))),
-                          assertthat::is.count(time_limit),
-                          isTRUE(all(is.finite(presolve))),
-                          assertthat::is.scalar(presolve),
-                          isTRUE(presolve >= -1 & presolve <= 2),
-                          isTRUE(all(is.finite(threads))),
-                          assertthat::is.count(threads),
-                          isTRUE(threads <= parallel::detectCores(TRUE)),
-                          assertthat::is.flag(verbose),
-                          requireNamespace("highs", quietly = TRUE))
+  assertthat::assert_that(
+    is_conservation_problem(x),
+    assertthat::is.number(gap),
+    all_finite(gap),
+    gap >= 0,
+    assertthat::is.count(time_limit),
+    all_finite(time_limit),
+    assertthat::is.flag(presolve),
+    assertthat::noNA(presolve),
+    is_thread_count(threads),
+    assertthat::is.flag(verbose),
+    is_installed("highs", "add_highs_solver()")
+  )
   # add solver
   x$add_solver(pproto(
     "HighsSolver",
@@ -78,12 +80,17 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
     data = list(),
     parameters = parameters(
       numeric_parameter("gap", gap, lower_limit = 0),
-      integer_parameter("time_limit", time_limit, lower_limit = -1L,
-                        upper_limit = as.integer(.Machine$integer.max)),
-      binary_parameter("presolve", presolve),
-      integer_parameter("threads", threads, lower_limit = 1L,
-                        upper_limit = parallel::detectCores(TRUE)),
-      binary_parameter("verbose", verbose)),
+      integer_parameter(
+        "time_limit", time_limit, lower_limit = -1L,
+        upper_limit = as.integer(.Machine$integer.max)
+      ),
+      binary_parameter("presolve", as.integer(presolve)),
+      integer_parameter(
+        "threads", threads, lower_limit = 1L,
+        upper_limit = parallel::detectCores(TRUE)
+      ),
+      binary_parameter("verbose", as.integer(verbose))
+    ),
     calculate = function(self, x, ...) {
       # prepare constraints
       ## extract info
@@ -91,7 +98,8 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
       sense <- x$sense()
       assertthat::assert_that(
         all(sense %in% c("=", "<=", ">=")),
-        msg = "failed to prepare problem formulation for \"highs\" package")
+        msg = "failed to prepare problem formulation for \"highs\" package"
+      )
       ## initialize arguments
       row_lb <- numeric(length(rhs))
       row_ub <- numeric(length(rhs))
@@ -116,7 +124,8 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
         rhs = row_ub,
         types = x$vtype(),
         lower = x$lb(),
-        upper = x$ub())
+        upper = x$ub()
+      )
       # round values < 1e-6 to zero and drop them
       model$A@x[abs(model$A@x) < 1e-6] <- 0
       model$A <- Matrix::drop0(model$A)
@@ -131,7 +140,7 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
       # create parameters
       p <- list(
         log_to_console = self$parameters$get("verbose"),
-        presolve = ifelse(self$parameters$get("presolve"), "on", "off"),
+        presolve = ifelse(self$parameters$get("presolve") > 0.5, "on", "off"),
         mip_rel_gap = self$parameters$get("gap"),
         time_limit = as.numeric(self$parameters$get("time_limit")),
         threads = self$parameters$get("threads")
@@ -189,6 +198,8 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
         x = sol,
         objective = x$objective_value,
         status = x$status_message,
-        runtime = rt[[3]])
-    }))
+        runtime = rt[[3]]
+      )
+    }
+  ))
 }

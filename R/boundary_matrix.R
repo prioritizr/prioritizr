@@ -7,12 +7,7 @@ NULL
 #' between different planning units, and the amount of exposed edge length each
 #' planning unit exhibits.
 #'
-#' @param x [`Raster-class`],
-#'   [`SpatialLines-class`],
-#'   [`SpatialPolygons-class`],
-#'   [sf::sf()] object representing planning units. If `x` is a
-#'   [`Raster-class`] object then it must have only one
-#'   layer.
+#' @param x [terra::rast()] or [sf::sf()] object representing planning units.
 #'
 #' @param ... not used.
 #'
@@ -27,7 +22,7 @@ NULL
 #'   longitude/latitude coordinate system (i.e.,
 #'   [WGS84](https://spatialreference.org/ref/epsg/wgs-84/))
 #'   should be reprojected to another coordinate system before using this
-#'   function. Note that for [`Raster-class`] objects
+#'   function. Note that for [terra::rast()] objects
 #'   boundaries are missing for cells that have `NA` values in all cells.
 #'
 #' @section Notes:
@@ -41,7 +36,7 @@ NULL
 #' use STR query trees to speed up processing for planning units in vector
 #' format (using [geos::geos_strtree()]).
 #'
-#' @return [`dsCMatrix-class`] symmetric sparse matrix object.
+#' @return A [`dsCMatrix-class`] symmetric sparse matrix object.
 #'   Each row and column represents a planning unit.
 #'   Cells values indicate the shared boundary length between different pairs
 #'   of planning units.
@@ -53,36 +48,26 @@ NULL
 #' @examples
 #' \dontrun{
 #' # load data
-#' data(sim_pu_raster, sim_pu_polygons)
+#' sim_pu_raster <- get_sim_pu_raster()
+#' sim_pu_polygons <- get_sim_pu_polygons()
 #'
 #' # subset data to reduce processing time
 #' r <- crop(sim_pu_raster, c(0, 0.3, 0, 0.3))
 #' ply <- sim_pu_polygons[c(1:2, 10:12, 20:22), ]
-#' ply2 <- sf::st_as_sf(ply)
 #'
 #' # create boundary matrix using raster data
 #' bm_raster <- boundary_matrix(r)
 #'
-#' # create boundary matrix using polygon (Spatial) data
-#' bm_ply1 <- boundary_matrix(ply)
-#'
-#' # create boundary matrix using polygon (sf) data
-#' bm_ply2 <- boundary_matrix(ply2)
+#' # create boundary matrix using polygon data
+#' bm_ply <- boundary_matrix(ply)
 #'
 #' # plot raster and boundary matrix
-#' par(mfrow = c(1, 2))
-#' plot(r, main = "raster", axes = FALSE, box = FALSE)
-#' plot(raster(as.matrix(bm_raster)), main = "boundary matrix",
-#'      axes = FALSE, box = FALSE)
+#' plot(r, main = "raster", axes = FALSE)
+#' plot(bm_raster, main = "boundary matrix", axes = FALSE)
 #'
 #' # plot polygons and boundary matrices
-#' par(mfrow = c(1, 3))
-#' plot(r, main = "polygons (Spatial)", axes = FALSE, box = FALSE)
-#' plot(raster(as.matrix(bm_ply1)), main = "boundary matrix", axes = FALSE,
-#'      box = FALSE)
-#' plot(r, main = "polygons (sf)", axes = FALSE, box = FALSE)
-#' plot(raster(as.matrix(bm_ply2)), main = "boundary matrix", axes = FALSE,
-#'      box = FALSE)
+#' plot(r, main = "polygons", axes = FALSE)
+#' plot(bm_ply, main = "boundary matrix", axes = FALSE)
 #' }
 #' @export
 boundary_matrix <- function(x, ...) UseMethod("boundary_matrix")
@@ -93,13 +78,26 @@ boundary_matrix <- function(x, ...) UseMethod("boundary_matrix")
 boundary_matrix.Raster <- function(x, ...) {
   # assert that arguments are valid
   assertthat::assert_that(inherits(x, "Raster"))
-  if (raster::nlayers(x) == 1) {
+  # deprecation notice
+  .Deprecated(raster_pkg_deprecation_notice)
+  # convert to SpatRaster for processing
+  boundary_matrix.SpatRaster(terra::rast(x), ...)
+}
+
+#' @rdname boundary_matrix
+#' @method boundary_matrix SpatRaster
+#' @export
+boundary_matrix.SpatRaster <- function(x, ...) {
+  # assert that arguments are valid
+  assertthat::assert_that(inherits(x, "SpatRaster"))
+  # main processing
+  if (terra::nlyr(x) == 1) {
     # indices of cells with finite values
-    include <- raster::Which(is.finite(x), cells = TRUE)
+    include <- terra::cells(is.na(x), 0)[[1]]
   } else {
     # indices of cells with finite values
-    include <- raster::Which(sum(is.finite(x)) > 0, cells = TRUE)
-    suppressWarnings(x <- raster::setValues(x[[1]], NA_real_))
+    include <- terra::cells(max(is.na(x)), 0)[[1]]
+    suppressWarnings(x <- terra::setValues(x[[1]], NA_real_))
     # set x to a single raster layer with only values in pixels that are not
     # NA in all layers
     x[include] <- 1
@@ -107,24 +105,33 @@ boundary_matrix.Raster <- function(x, ...) {
   # find the neighboring indices of these cells
   ud <- matrix(c(NA, NA, NA, 1, 0, 1, NA, NA, NA), 3, 3)
   lf <- matrix(c(NA, 1, NA, NA, 0, NA, NA, 1, NA), 3, 3)
-  b <- rbind(data.frame(raster::adjacent(x, include, pairs = TRUE,
-                                         directions = ud),
-                        boundary = raster::res(x)[1]),
-             data.frame(raster::adjacent(x, include, pairs = TRUE,
-                                         directions = lf),
-                        boundary = raster::res(x)[2]))
+  b <- rbind(
+    data.frame(
+      terra::adjacent(x, include, pairs = TRUE, directions = ud),
+      boundary = terra::xres(x)
+    ),
+    data.frame(
+      terra::adjacent(x, include, pairs = TRUE, directions = lf),
+      boundary = terra::yres(x)
+    )
+  )
   names(b) <- c("id1", "id2", "boundary")
   b$id1 <- as.integer(b$id1)
   b$id2 <- as.integer(b$id2)
   b <- b[(b$id1 %in% include) & (b$id2 %in% include), , drop = FALSE]
   # coerce to sparse matrix object
   m <- Matrix::forceSymmetric(
-    Matrix::sparseMatrix(i = b[[1]], j = b[[2]], x = b[[3]],
-                         dims = rep(raster::ncell(x), 2)))
+    Matrix::sparseMatrix(
+      i = b[[1]],
+      j = b[[2]],
+      x = b[[3]],
+      dims = rep(terra::ncell(x), 2)
+    )
+  )
   # if cells don't have four neighbors then set the diagonal to be the total
   # perimeter of the cell minus the boundaries of its neighbors
   Matrix::diag(m)[include] <-
-    (sum(raster::res(x)) * 2) - Matrix::colSums(m)[include]
+    (sum(terra::res(x)) * 2) - Matrix::colSums(m)[include]
   # return matrix
   as_Matrix(m, "dsCMatrix")
 }
@@ -135,6 +142,8 @@ boundary_matrix.Raster <- function(x, ...) {
 boundary_matrix.SpatialPolygons <- function(x, ...) {
   # assert that arguments are valid
   assertthat::assert_that(inherits(x, "SpatialPolygons"))
+  # deprecation notice
+  .Deprecated(sp_pkg_deprecation_notice)
   # convert to sf format for processing
   boundary_matrix.sf(sf::st_as_sf(x))
 }
@@ -144,7 +153,7 @@ boundary_matrix.SpatialPolygons <- function(x, ...) {
 #' @export
 boundary_matrix.SpatialLines <- function(x, ...) {
   assertthat::assert_that(inherits(x, "SpatialLines"))
-  stop("data represented by lines have no boundaries - ",
+  stop("data represented by lines have no boundaries, ",
     "see ?constraints for alternative constraints")
 }
 
@@ -153,7 +162,7 @@ boundary_matrix.SpatialLines <- function(x, ...) {
 #' @export
 boundary_matrix.SpatialPoints <- function(x, ...) {
   assertthat::assert_that(inherits(x, "SpatialPoints"))
-  stop("data represented by points have no boundaries - ",
+  stop("data represented by points have no boundaries, ",
     "see ?constraints alternative constraints")
 }
 
@@ -164,14 +173,24 @@ boundary_matrix.sf <- function(x, ...) {
   # assert valid arguments
   assertthat::assert_that(inherits(x, "sf"))
   geomc <- geometry_classes(x)
-  if (any(grepl("POINT", geomc, fixed = TRUE)))
-    stop("data represented by points have no boundaries - ",
-      "see ?constraints alternative constraints")
-  if (any(grepl("LINE", geomc, fixed = TRUE)))
-    stop("data represented by lines have no boundaries - ",
-      "see ?constraints alternative constraints")
-  if (any(grepl("GEOMETRYCOLLECTION", geomc, fixed = TRUE)))
-    stop("geometry collection data are not supported")
+  assertthat::assert_that(
+    !any(grepl("POINT", geomc, fixed = TRUE)),
+    msg = paste(
+      "data represented by points have no boundaries,",
+      "see ?constraints alternative constraints"
+    )
+  )
+  assertthat::assert_that(
+    !any(grepl("LINE", geomc, fixed = TRUE)),
+    msg = paste(
+      "data represented by lines have no boundaries,",
+      "see ?constraints alternative constraints"
+    )
+  )
+  assertthat::assert_that(
+    !any(grepl("GEOMETRYCOLLECTION", geomc, fixed = TRUE)),
+    msg = "geometry collection data are not supported"
+  )
   # generate STR query tree
   g <- geos::as_geos_geometry(x)
   tree <- geos::geos_basic_strtree(g)
@@ -195,8 +214,11 @@ boundary_matrix.sf <- function(x, ...) {
   }
   # return result
   Matrix::sparseMatrix(
-    i = y$data[[1]], j = y$data[[2]], x = y$data[[3]],
-    symmetric = TRUE, dims = rep(nrow(x), 2)
+    i = y$data[[1]],
+    j = y$data[[2]],
+    x = y$data[[3]],
+    symmetric = TRUE,
+    dims = rep(nrow(x), 2)
   )
 }
 

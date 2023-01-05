@@ -59,6 +59,9 @@ NULL
 #'  the [eval_ferrier_importance()] function for consistency with
 #'  other functions for evaluating solutions.}
 #'
+#' \item{`distribute_load()`}{has been removed because it is no longer used.
+#'   See `parallel::splitIndices()` for equivalent functionality.}
+#'
 #' }
 #'
 #' @keywords deprecated
@@ -150,3 +153,21 @@ ferrier_score <- function(...) {
     old = "ferrier_score",
     new = "eval_ferrier_importance")
 }
+
+#' @rdname prioritizr-deprecated
+#' @export
+distribute_load <- function(...) {
+  .Deprecated(
+    old = "distribute_load",
+    new = "parallel::splitIndices")
+}
+
+raster_pkg_deprecation_notice <- paste(
+  "support for raster package will be deprecated,",
+  "convert data with terra::rast() to ensure future compatibility"
+)
+
+sp_pkg_deprecation_notice <- paste(
+  "support for sp package will be deprecated,",
+  "convert data with sf::st_as_sf() to ensure future compatibility"
+)

@@ -7,7 +7,7 @@
 add_max_phylo_end_objective(x, budget, tree)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} object.}
 
 \item{budget}{\code{numeric} value specifying the maximum expenditure of
 the prioritization. For problems with multiple zones, the argument
@@ -15,12 +15,11 @@ to \code{budget} can be (i) a single \code{numeric} value to specify a single bu
 for the entire solution or (ii) a \code{numeric} vector to specify
 a separate budget for each management zone.}
 
-\item{tree}{\code{\link[=phylo]{phylo()}} object specifying a phylogenetic tree
+\item{tree}{\code{\link[ape:read.tree]{ape::phylo()}} object specifying a phylogenetic tree
 for the conservation features.}
 }
 \value{
-Object (i.e., \code{\linkS4class{ConservationProblem}}) with the objective
-added to it.
+An updated \code{problem()} object with the objective added to it.
 }
 \description{
 Set the objective of a conservation planning \code{\link[=problem]{problem()}} to
@@ -104,8 +103,11 @@ represent the same amount of all features within the budget.
 require(ape)
 
 # load data
-data(sim_pu_raster, sim_features, sim_phylogeny, sim_pu_zones_stack,
-     sim_features_zones)
+sim_pu_raster <- get_sim_pu_raster()
+sim_features <- get_sim_features()
+sim_phylogeny <- get_sim_phylogeny()
+sim_pu_zones_raster <- get_sim_pu_zones_raster()
+ sim_features_zones <- get_sim_features_zones()
 
 # plot the simulated phylogeny
 par(mfrow = c(1, 1))
@@ -114,28 +116,32 @@ plot(sim_phylogeny, main = "phylogeny")
 # create problem with a maximum phylogenetic endemism objective,
 # where each feature needs 10\% of its distribution to be secured for
 # it to be adequately conserved and a total budget of 1900
-p1 <- problem(sim_pu_raster, sim_features) \%>\%
-      add_max_phylo_end_objective(1900, sim_phylogeny) \%>\%
-      add_relative_targets(0.1) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(verbose = FALSE)
+p1 <-
+  problem(sim_pu_raster, sim_features) \%>\%
+  add_max_phylo_end_objective(1900, sim_phylogeny) \%>\%
+  add_relative_targets(0.1) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
 
 # solve problem
 s1 <- solve(p1)
 
 # plot solution
-plot(s1, main = "solution", axes = FALSE, box = FALSE)
+plot(s1, main = "solution", axes = FALSE)
 
 # find out which features have their targets met
 r1 <- eval_target_coverage_summary(p1, s1)
 print(r1, width = Inf)
 
 # plot the phylogeny and color the adequately represented features in red
-plot(sim_phylogeny, main = "adequately represented features",
-     tip.color = replace(
-       rep("black", nlayers(sim_features)),
-       sim_phylogeny$tip.label \%in\% r1$feature[r1$met],
-       "red"))
+plot(
+  sim_phylogeny, main = "adequately represented features",
+  tip.color = replace(
+    rep("black", terra::nlyr(sim_features)),
+    sim_phylogeny$tip.label \%in\% r1$feature[r1$met],
+    "red"
+  )
+)
 
 # rename the features in the example phylogeny for use with the
 # multi-zone data
@@ -146,56 +152,65 @@ sim_phylogeny$tip.label <- feature_names(sim_features_zones)
 # considered adequately conserved
 targets <- tibble::tibble(
   feature = feature_names(sim_features_zones),
-  zone = list(zone_names(sim_features_zones))[rep(1,
-          number_of_features(sim_features_zones))],
+  zone = list(zone_names(sim_features_zones))[
+    rep(1, number_of_features(sim_features_zones))],
   type = rep("absolute", number_of_features(sim_features_zones)),
-  target = rep(10, number_of_features(sim_features_zones)))
+  target = rep(10, number_of_features(sim_features_zones))
+)
 
 # create a multi-zone problem with a maximum phylogenetic endemism
 # objective, where the total expenditure in all zones is 5000.
-p2 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
-      add_max_phylo_end_objective(5000, sim_phylogeny) \%>\%
-      add_manual_targets(targets) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(verbose = FALSE)
+p2 <-
+  problem(sim_pu_zones_raster, sim_features_zones) \%>\%
+  add_max_phylo_end_objective(5000, sim_phylogeny) \%>\%
+  add_manual_targets(targets) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
 
 # solve problem
 s2 <- solve(p2)
 
 # plot solution
-plot(category_layer(s2), main = "solution", axes = FALSE, box = FALSE)
+plot(category_layer(s2), main = "solution", axes = FALSE)
 
 # find out which features have their targets met
 r2 <- eval_target_coverage_summary(p2, s2)
 print(r2, width = Inf)
 
 # plot the phylogeny and color the adequately represented features in red
-plot(sim_phylogeny, main = "adequately represented features",
-     tip.color = replace(rep("black", nlayers(sim_features)),
-                         which(r2$met), "red"))
+plot(
+  sim_phylogeny, main = "adequately represented features",
+  tip.color = replace(
+    rep("black", terra::nlyr(sim_features)), which(r2$met), "red"
+  )
+)
 
 # create a multi-zone problem with a maximum phylogenetic endemism
 # objective, where each zone has a separate budget.
-p3 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
-      add_max_phylo_end_objective(c(2500, 500, 2000), sim_phylogeny) \%>\%
-      add_manual_targets(targets) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(verbose = FALSE)
+p3 <-
+  problem(sim_pu_zones_raster, sim_features_zones) \%>\%
+  add_max_phylo_end_objective(c(2500, 500, 2000), sim_phylogeny) \%>\%
+  add_manual_targets(targets) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
 
 # solve problem
 s3 <- solve(p3)
 
 # plot solution
-plot(category_layer(s3), main = "solution", axes = FALSE, box = FALSE)
+plot(category_layer(s3), main = "solution", axes = FALSE)
 
 # find out which features have their targets met
 r3 <- eval_target_coverage_summary(p3, s3)
 print(r3, width = Inf)
 
 # plot the phylogeny and color the adequately represented features in red
-plot(sim_phylogeny, main = "adequately represented features",
-     tip.color = replace(rep("black", nlayers(sim_features)),
-                         which(r3$met), "red"))
+plot(
+  sim_phylogeny, main = "adequately represented features",
+  tip.color = replace(
+    rep("black", terra::nlyr(sim_features)), which(r3$met), "red"
+  )
+)
 }
 }
 \references{

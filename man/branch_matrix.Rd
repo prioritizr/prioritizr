@@ -16,7 +16,7 @@ branch_matrix(x)
 \item{x}{\code{\link[ape:read.tree]{ape::phylo()}} tree object.}
 }
 \value{
-\code{\linkS4class{dgCMatrix}} sparse matrix object. Each row
+A \code{\linkS4class{dgCMatrix}} sparse matrix object. Each row
 corresponds to a different species. Each column corresponds to a different
 branch. Species that inherit from a given branch are denoted with a one.
 }
@@ -31,7 +31,7 @@ each species have experienced.
 }
 \examples{
 # load data
-data(sim_phylogeny)
+sim_phylogeny <- get_sim_phylogeny()
 
 # generate species by branch matrix
 m <- branch_matrix(sim_phylogeny)
@@ -40,7 +40,6 @@ m <- branch_matrix(sim_phylogeny)
 \dontrun{
 par(mfrow = c(1,2))
 plot(sim_phylogeny, main = "phylogeny")
-plot(raster(as.matrix(m)), main = "branch matrix", axes = FALSE,
-     box = FALSE)
+plot(m, main = "branch matrix", axes = FALSE)
 }
 }

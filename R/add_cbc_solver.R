@@ -57,70 +57,80 @@ NULL
 #' @examples
 #' \dontrun{
 #' # load data
-#' data(sim_pu_raster, sim_features)
+#' sim_pu_raster <- get_sim_pu_raster()
+#' sim_features <- get_sim_features()
 #'
 #' # create problem
-#' p <- problem(sim_pu_raster, sim_features) %>%
-#'      add_min_set_objective() %>%
-#'      add_relative_targets(0.1) %>%
-#'      add_binary_decisions() %>%
-#'      add_cbc_solver(gap = 0, verbose = FALSE)
+#' p1 <-
+#'   problem(sim_pu_raster, sim_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(0.1) %>%
+#'   add_binary_decisions() %>%
+#'   add_cbc_solver(gap = 0, verbose = FALSE)
 #'
 #' # generate solution %>%
-#' s <- solve(p)
+#' s1 <- solve(p1)
 #'
 #' # plot solution
-#' plot(s, main = "solution", axes = FALSE, box = FALSE)
+#' plot(s1, main = "solution", axes = FALSE)
 #'
 #' # create a similar problem with boundary length penalties and
 #' # specify the solution from the previous run as a starting solution
-#' p2 <- problem(sim_pu_raster, sim_features) %>%
-#'      add_min_set_objective() %>%
-#'      add_relative_targets(0.1) %>%
-#'      add_boundary_penalties(10) %>%
-#'      add_binary_decisions() %>%
-#'      add_cbc_solver(gap = 0, start_solution = s, verbose = FALSE)
+#' p2 <-
+#'   problem(sim_pu_raster, sim_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(0.1) %>%
+#'   add_boundary_penalties(10) %>%
+#'   add_binary_decisions() %>%
+#'   add_cbc_solver(gap = 0, start_solution = s1, verbose = FALSE)
 #'
 #' # generate solution
 #' s2 <- solve(p2)
 #'
 #' # plot solution
-#' plot(s2, main = "solution with boundary penalties", axes = FALSE,
-#'      box = FALSE)
+#' plot(s2, main = "solution with boundary penalties", axes = FALSE)
 #' }
 #' @name add_cbc_solver
 NULL
 
 #' @rdname add_cbc_solver
 #' @export
-add_cbc_solver <- function(x, gap = 0.1,
+add_cbc_solver <- function(x,
+                           gap = 0.1,
                            time_limit = .Machine$integer.max,
-                           presolve = TRUE, threads = 1,
+                           presolve = TRUE,
+                           threads = 1,
                            first_feasible = FALSE,
                            start_solution = NULL,
                            verbose = TRUE) {
   # assert that arguments are valid (except start_solution)
-  assertthat::assert_that(inherits(x, "ConservationProblem"),
-                          isTRUE(all(is.finite(gap))),
-                          assertthat::is.scalar(gap),
-                          isTRUE(gap >= 0), isTRUE(all(is.finite(time_limit))),
-                          assertthat::is.count(time_limit),
-                          isTRUE(all(is.finite(presolve))),
-                          assertthat::is.flag(presolve),
-                          assertthat::noNA(presolve),
-                          isTRUE(all(is.finite(threads))),
-                          assertthat::is.count(threads),
-                          isTRUE(threads <= parallel::detectCores(TRUE)),
-                          assertthat::is.flag(first_feasible),
-                          assertthat::noNA(first_feasible),
-                          assertthat::is.flag(verbose),
-                          requireNamespace("rcbc", quietly = TRUE))
+  assertthat::assert_that(
+    is_conservation_problem(x),
+    assertthat::is.number(gap),
+    all_finite(gap),
+    gap >= 0,
+    assertthat::is.count(time_limit),
+    all_finite(time_limit),
+    assertthat::is.flag(presolve),
+    assertthat::noNA(presolve),
+    assertthat::is.count(threads),
+    all_finite(threads),
+    is_thread_count(threads),
+    assertthat::is.flag(first_feasible),
+    assertthat::noNA(first_feasible),
+    assertthat::is.flag(verbose),
+    is_installed("rcbc", "add_cbc_solver()")
+  )
  # extract start solution
   if (!is.null(start_solution)) {
     # verify that version of rcbc installed supports starting solution
     assertthat::assert_that(
-      any(grepl(
-        "initial_solution", deparse1(args(rcbc::cbc_solve)), fixed = TRUE)),
+      any(
+        grepl(
+          "initial_solution", deparse1(args(rcbc::cbc_solve)),
+          fixed = TRUE
+        )
+      ),
       msg = paste(
         "please update to a newer version of the \"rcbc\" package",
         "to specify starting solutions"
@@ -137,13 +147,18 @@ add_cbc_solver <- function(x, gap = 0.1,
     data = list(start = start_solution),
     parameters = parameters(
       numeric_parameter("gap", gap, lower_limit = 0),
-      integer_parameter("time_limit", time_limit, lower_limit = -1L,
-                        upper_limit = as.integer(.Machine$integer.max)),
-      binary_parameter("presolve", presolve),
-      integer_parameter("threads", threads, lower_limit = 1L,
-                        upper_limit = parallel::detectCores(TRUE)),
-      binary_parameter("first_feasible", first_feasible),
-      binary_parameter("verbose", verbose)),
+      integer_parameter(
+        "time_limit", time_limit, lower_limit = -1L,
+        upper_limit = as.integer(.Machine$integer.max)
+      ),
+      binary_parameter("presolve", as.integer(presolve)),
+      integer_parameter(
+        "threads", threads, lower_limit = 1L,
+        upper_limit = parallel::detectCores(TRUE)
+      ),
+      binary_parameter("first_feasible", as.integer(first_feasible)),
+      binary_parameter("verbose", as.integer(verbose))
+    ),
     calculate = function(self, x, ...) {
       # prepare constraints
       ## extract info
@@ -176,7 +191,8 @@ add_cbc_solver <- function(x, gap = 0.1,
         col_lb = x$lb(),
         col_ub = x$ub(),
         row_lb = row_lb,
-        row_ub = row_ub)
+        row_ub = row_ub
+      )
       # if needed, insert dummy row to ensure non-zero value in last rij cell
       if (abs(model$mat[nrow(model$mat), ncol(model$mat)]) < 1e-300) {
         model$mat <- as_Matrix(
@@ -202,7 +218,8 @@ add_cbc_solver <- function(x, gap = 0.1,
         presolve = ifelse(self$parameters$get("presolve") > 0.5, "on", "off"),
         ratio = as.character(self$parameters$get("gap")),
         sec = as.character(self$parameters$get("time_limit")),
-        threads = as.character(self$parameters$get("threads")))
+        threads = as.character(self$parameters$get("threads"))
+      )
       if (self$parameters$get("first_feasible") > 0.5) {
         p$maxso <- "1"
       }
@@ -249,6 +266,8 @@ add_cbc_solver <- function(x, gap = 0.1,
         x = x$column_solution,
         objective = x$objective_value,
         status = as.character(rcbc::solution_status(x)),
-        runtime = rt[[3]])
-    }))
+        runtime = rt[[3]]
+      )
+    }
+  ))
 }

@@ -24,9 +24,9 @@ The following methods are provided from manipulating
 \code{\link[tibble:tibble]{tibble::tibble()}} objects.
 
 \describe{
-\item{nrow}{extract \code{integer} number of rows.}
+\item{nrow}{\code{integer} number of rows.}
 
-\item{ncol}{extract \code{integer} number of columns.}
+\item{ncol}{\code{integer} number of columns.}
 
 \item{as.list}{convert to a \code{list}.}
 

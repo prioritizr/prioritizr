@@ -54,14 +54,24 @@ matrix.}
 }
 \examples{
 # create list with problem data
-l <- list(modelsense = "min", number_of_features = 2,
-          number_of_planning_units = 3, number_of_zones = 1,
-          A_i = c(0L, 1L, 0L, 1L, 0L, 1L), A_j = c(0L, 0L, 1L, 1L, 2L, 2L),
-          A_x = c(2, 10, 1, 10, 1, 10), obj = c(1, 2, 2), lb = c(0, 1, 0),
-          ub = c(0, 1, 1), rhs = c(2, 10), compressed_formulation = TRUE,
-          sense = c(">=", ">="), vtype = c("B", "B", "B"),
-          row_ids = c("spp_target", "spp_target"),
-          col_ids = c("pu", "pu", "pu"))
+l <- list(
+  modelsense = "min",
+  number_of_features = 2,
+  number_of_planning_units = 3,
+  number_of_zones = 1,
+  A_i = c(0L, 1L, 0L, 1L, 0L, 1L),
+  A_j = c(0L, 0L, 1L, 1L, 2L, 2L),
+  A_x = c(2, 10, 1, 10, 1, 10),
+  obj = c(1, 2, 2),
+  lb = c(0, 1, 0),
+  ub = c(0, 1, 1),
+  rhs = c(2, 10),
+  compressed_formulation = TRUE,
+  sense = c(">=", ">="),
+  vtype = c("B", "B", "B"),
+  row_ids = c("spp_target", "spp_target"),
+  col_ids = c("pu", "pu", "pu")
+)
 
 # create OptimizationProblem object
 x <- predefined_optimization_problem(l)

@@ -3,6 +3,7 @@
 \name{boundary_matrix}
 \alias{boundary_matrix}
 \alias{boundary_matrix.Raster}
+\alias{boundary_matrix.SpatRaster}
 \alias{boundary_matrix.SpatialPolygons}
 \alias{boundary_matrix.SpatialLines}
 \alias{boundary_matrix.SpatialPoints}
@@ -13,6 +14,8 @@
 boundary_matrix(x, ...)
 
 \method{boundary_matrix}{Raster}(x, ...)
+
+\method{boundary_matrix}{SpatRaster}(x, ...)
 
 \method{boundary_matrix}{SpatialPolygons}(x, ...)
 
@@ -25,17 +28,12 @@ boundary_matrix(x, ...)
 \method{boundary_matrix}{default}(x, ...)
 }
 \arguments{
-\item{x}{\code{\linkS4class{Raster}},
-\code{\linkS4class{SpatialLines}},
-\code{\linkS4class{SpatialPolygons}},
-\code{\link[sf:sf]{sf::sf()}} object representing planning units. If \code{x} is a
-\code{\linkS4class{Raster}} object then it must have only one
-layer.}
+\item{x}{\code{\link[terra:rast]{terra::rast()}} or \code{\link[sf:sf]{sf::sf()}} object representing planning units.}
 
 \item{...}{not used.}
 }
 \value{
-\code{\linkS4class{dsCMatrix}} symmetric sparse matrix object.
+A \code{\linkS4class{dsCMatrix}} symmetric sparse matrix object.
 Each row and column represents a planning unit.
 Cells values indicate the shared boundary length between different pairs
 of planning units.
@@ -57,7 +55,7 @@ between two points on the earth}. Thus spatial data in a
 longitude/latitude coordinate system (i.e.,
 \href{https://spatialreference.org/ref/epsg/wgs-84/}{WGS84})
 should be reprojected to another coordinate system before using this
-function. Note that for \code{\linkS4class{Raster}} objects
+function. Note that for \code{\link[terra:rast]{terra::rast()}} objects
 boundaries are missing for cells that have \code{NA} values in all cells.
 }
 \section{Notes}{
@@ -76,35 +74,25 @@ format (using \code{\link[geos:geos_strtree]{geos::geos_strtree()}}).
 \examples{
 \dontrun{
 # load data
-data(sim_pu_raster, sim_pu_polygons)
+sim_pu_raster <- get_sim_pu_raster()
+sim_pu_polygons <- get_sim_pu_polygons()
 
 # subset data to reduce processing time
 r <- crop(sim_pu_raster, c(0, 0.3, 0, 0.3))
 ply <- sim_pu_polygons[c(1:2, 10:12, 20:22), ]
-ply2 <- sf::st_as_sf(ply)
 
 # create boundary matrix using raster data
 bm_raster <- boundary_matrix(r)
 
-# create boundary matrix using polygon (Spatial) data
-bm_ply1 <- boundary_matrix(ply)
-
-# create boundary matrix using polygon (sf) data
-bm_ply2 <- boundary_matrix(ply2)
+# create boundary matrix using polygon data
+bm_ply <- boundary_matrix(ply)
 
 # plot raster and boundary matrix
-par(mfrow = c(1, 2))
-plot(r, main = "raster", axes = FALSE, box = FALSE)
-plot(raster(as.matrix(bm_raster)), main = "boundary matrix",
-     axes = FALSE, box = FALSE)
+plot(r, main = "raster", axes = FALSE)
+plot(bm_raster, main = "boundary matrix", axes = FALSE)
 
 # plot polygons and boundary matrices
-par(mfrow = c(1, 3))
-plot(r, main = "polygons (Spatial)", axes = FALSE, box = FALSE)
-plot(raster(as.matrix(bm_ply1)), main = "boundary matrix", axes = FALSE,
-     box = FALSE)
-plot(r, main = "polygons (sf)", axes = FALSE, box = FALSE)
-plot(raster(as.matrix(bm_ply2)), main = "boundary matrix", axes = FALSE,
-     box = FALSE)
+plot(r, main = "polygons", axes = FALSE)
+plot(bm_ply, main = "boundary matrix", axes = FALSE)
 }
 }

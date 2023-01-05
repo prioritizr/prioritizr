@@ -88,12 +88,15 @@ Parameters <- pproto(
     self$print()
   },
   repr = function(self) {
-    if (self$length() > 0)
-      return(paste0("[", paste(sort(vapply(self$ids(),
-                                           function(x) self[[x]]$repr(),
-                                           character(1))),
-                                collapse = ", "), "]"))
-    return("[]")
+    if (self$length() == 0) return("[]")
+    paste0(
+      "[",
+      paste(
+        sort(vapply(self$ids(), function(x) self[[x]]$repr(), character(1))),
+        collapse = ", "
+      ),
+      "]"
+    )
   },
   ids = function(self) {
     o <- self$ls()
@@ -101,17 +104,18 @@ Parameters <- pproto(
   },
   find = function(self, x) {
     assertthat::assert_that(assertthat::is.string(x) || is.id(x))
-      if (inherits(x, "Id")) {
-        return(x)
-    } else {
-      n <- self$ids()
-      x <- match(x, vapply(n, function(j) self[[j]]$name, character(1)))
-      if (!is.finite(x))
-        stop("parameter with matching name not found")
-      if (base::length(x) > 1)
-        stop("multiple parameters with the same name")
-      return(n[x])
-    }
+    if (inherits(x, "Id")) return(x)
+    n <- self$ids()
+    x <- match(x, vapply(n, function(j) self[[j]]$name, character(1)))
+    assertthat::assert_that(
+      is.finite(x),
+      msg = "parameter with matching name not found"
+    )
+    assertthat::assert_that(
+      base::length(x) == 1,
+      msg = "multiple parameters with the same name"
+    )
+    n[x]
   },
   length = function(self) {
     base::length(self$ids())
@@ -142,4 +146,5 @@ Parameters <- pproto(
     for (i in self$ids())
       self[[i]]$reset()
     invisible()
-  })
+  }
+)

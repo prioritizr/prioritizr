@@ -8,6 +8,7 @@
 \alias{add_linear_constraints,ConservationProblem,ANY,ANY,character-method}
 \alias{add_linear_constraints,ConservationProblem,ANY,ANY,numeric-method}
 \alias{add_linear_constraints,ConservationProblem,ANY,ANY,Raster-method}
+\alias{add_linear_constraints,ConservationProblem,ANY,ANY,SpatRaster-method}
 \title{Add linear constraints}
 \usage{
 \S4method{add_linear_constraints}{ConservationProblem,ANY,ANY,character}(x, threshold, sense, data)
@@ -20,10 +21,12 @@
 
 \S4method{add_linear_constraints}{ConservationProblem,ANY,ANY,Raster}(x, threshold, sense, data)
 
+\S4method{add_linear_constraints}{ConservationProblem,ANY,ANY,SpatRaster}(x, threshold, sense, data)
+
 \S4method{add_linear_constraints}{ConservationProblem,ANY,ANY,dgCMatrix}(x, threshold, sense, data)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} object.}
 
 \item{threshold}{\code{numeric} value.
 This threshold value is also known as a "right-hand-side" value
@@ -33,15 +36,14 @@ per integer programming terminology.}
 options include \code{">="}, \code{"<="}, or \code{"="} values.}
 
 \item{data}{\code{character}, \code{numeric},
-\code{\linkS4class{Raster}}, \code{matrix}, or \code{Matrix} object
+\code{\link[terra:rast]{terra::rast()}}, \code{matrix}, or \code{Matrix} object
 containing the constraint values.
 These constraint values are also known as constraint coefficients
 per integer programming terminology.
 See the Data format section for more information.}
 }
 \value{
-Object (i.e., \code{\linkS4class{ConservationProblem}}) with the constraints
-added to it.
+An updated \code{\link[=problem]{problem()}} object with the constraints added to it.
 }
 \description{
 Add constraints to a conservation planning \code{\link[=problem]{problem()}} to ensure
@@ -93,8 +95,7 @@ The argument to \code{data} can be specified using the following formats.
 \item{\code{data} as \code{character} vector}{containing field (column) name(s) that
 contain penalty values for planning units. This format is only
 compatible if the planning units in the argument to \code{x} are a
-\code{\linkS4class{Spatial}}, \code{\link[sf:sf]{sf::sf()}}, or
-\code{data.frame} object. The fields (columns) must have \code{numeric}
+\code{\link[sf:sf]{sf::sf()}} or \code{data.frame} object. The fields (columns) must have \code{numeric}
 values, and must not contain any missing (\code{NA}) values.
 For problems that contain a single zone, the argument to \code{data} must
 contain a single field name. Otherwise, for problems that
@@ -112,18 +113,16 @@ Each row corresponds to a planning unit, each column corresponds to a
 zone, and each cell indicates the data for penalizing a planning unit
 when it is allocated to a given zone.}
 
-\item{\code{data} as a \code{\linkS4class{Raster}} object}{containing values for planning
+\item{\code{data} as a \code{\link[terra:rast]{terra::rast()}} object}{containing values for planning
 units. This format is only
 compatible if the planning units in the argument to \code{x} are
-\code{\linkS4class{Spatial}}, \code{\link[sf:sf]{sf::sf()}}, or
-\code{\linkS4class{Raster}} objects.
-If the planning unit data are a \code{\linkS4class{Spatial}} or
-\code{\link[sf:sf]{sf::sf()}} object, then the values are calculated by overlaying the
+\code{\link[sf:sf]{sf::sf()}}, or \code{\link[terra:rast]{terra::rast()}} objects.
+If the planning unit data are a \code{\link[sf:sf]{sf::sf()}} object,
+then the values are calculated by overlaying the
 planning units with the argument to \code{data} and calculating the sum of the
 values associated with each planning unit.
-If the planning unit data are a
-\code{\linkS4class{Raster}} object then the values are calculated by extracting the
-cell
+If the planning unit data are a \code{\link[terra:rast]{terra::rast()}} object, then the values
+are calculated by extracting the cell
 values (note that the planning unit data and the argument to \code{data} must
 have exactly the same dimensionality, extent, and missingness).
 For problems involving multiple zones, the argument to \code{data} must
@@ -135,20 +134,22 @@ contain a layer for each zone.}
 \examples{
 \dontrun{
 # load data
-data(sim_pu_raster, sim_features)
+sim_pu_raster <- get_sim_pu_raster()
+sim_features <- get_sim_features()
 
 # create a baseline problem with minimum shortfall objective
-p0 <- problem(sim_pu_raster, sim_features) \%>\%
-      add_min_shortfall_objective(1800) \%>\%
-      add_relative_targets(0.2) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(verbose = FALSE)
+p0 <-
+  problem(sim_pu_raster, sim_features) \%>\%
+  add_min_shortfall_objective(1800) \%>\%
+  add_relative_targets(0.2) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
 
 # solve problem
 s0 <- solve(p0)
 
 # plot solution
-plot(s0, main = "solution", axes = FALSE, box = FALSE)
+plot(s0, main = "solution", axes = FALSE)
 
 # now let's create some modified versions of this baseline problem by
 # adding additional criteria using linear constraints
@@ -161,23 +162,26 @@ sim_pu_raster2 <- simulate_cost(sim_pu_raster)
 
 # plot the primary cost dataset (sim_pu_raster) and
 # the secondary cost dataset (sim_pu_raster2)
-plot(stack(sim_pu_raster, sim_pu_raster2),
-     main = c("sim_pu_raster", "sim_pu_raster2"),
-     axes = FALSE, box = FALSE)
+plot(
+  c(sim_pu_raster, sim_pu_raster2),
+  main = c("sim_pu_raster", "sim_pu_raster2"),
+  axes = FALSE
+)
 
 # create a modified version of p0 with linear constraints that
 # specify that the planning units in the solution must not have
 # values in sim_pu_raster2 that sum to a total greater than 1600
-p1 <- p0 \%>\%
-      add_linear_constraints(threshold = 1600,
-                             sense = "<=",
-                             data = sim_pu_raster2)
+p1 <-
+  p0 \%>\%
+  add_linear_constraints(
+    threshold = 1600, sense = "<=", data = sim_pu_raster2
+  )
 
 # solve problem
 s1 <- solve(p1)
 
 # plot solutions s1 and s2 to compare them
-plot(stack(s0, s1), main = c("s0", "s1"), axes = FALSE, box = FALSE)
+plot(c(s0, s1), main = c("s0", "s1"), axes = FALSE)
 
 # second, let's create a modified version of p0 that contains
 # additional constraints to ensure that each feature has
@@ -191,11 +195,14 @@ feat_abund <- feature_abundances(p0)$absolute_abundance
 # feature to specify that the planning units in the solution must
 # secure at least 8\% of the total abundance for each feature
 p2 <- p0
-for (i in seq_len(nlayers(sim_features))) {
-  p2 <- p2 \%>\%
-        add_linear_constraints(threshold = feat_abund[i] * 0.08,
-                               sense = ">=",
-                               data = sim_features[[i]])
+for (i in seq_len(terra::nlyr(sim_features))) {
+  p2 <-
+    p2 \%>\%
+    add_linear_constraints(
+      threshold = feat_abund[i] * 0.08,
+      sense = ">=",
+      data = sim_features[[i]]
+    )
 }
 
 # overall, p2 could be described as an optimization problem
@@ -210,7 +217,7 @@ for (i in seq_len(nlayers(sim_features))) {
 s2 <- solve(p2)
 
 # plot solutions s0 and s2 to compare them
-plot(stack(s0, s2), main = c("s1", "s2"), axes = FALSE, box = FALSE)
+plot(c(s0, s2), main = c("s1", "s2"), axes = FALSE)
 
 # third, let's create a modified version of p0 that contains
 # additional constraints to ensure that the solution equitably
@@ -220,24 +227,24 @@ plot(stack(s0, s2), main = c("s1", "s2"), axes = FALSE, box = FALSE)
 # to begin with, we will simulate a dataset describing the spatial extent of
 # four different administrative areas across the study region
 sim_admin <- sim_pu_raster
-sim_admin <- aggregate(sim_admin, fact = 5)
+sim_admin <- terra::aggregate(sim_admin, fact = 5)
 values(sim_admin) <- seq_along(values(sim_admin))
-sim_admin <- resample(sim_admin, sim_pu_raster, method = "ngb")
-sim_admin <- mask(sim_admin, sim_pu_raster)
+sim_admin <- terra::resample(sim_admin, sim_pu_raster, method = "near")
+sim_admin <- terra::mask(sim_admin, sim_pu_raster)
 
 # plot administrative areas layer,
 # we can see that the administrative areas subdivide
 # the study region into four quadrants, and the sim_admin object is a
-# RasterLayer with integer values denoting ids for the administrative areas
+# SpatRaster with integer values denoting ids for the administrative areas
 plot(sim_admin)
 
-# next we will convert the sim_admin RasterLayer object into a RasterStack
+# next we will convert the sim_admin SpatRaster object into a SpatRaster
 # object (with a layer for each administrative area) indicating which
 # planning units belong to each administrative area using binary
 # (presence/absence) values
 sim_admin2 <- binary_stack(sim_admin)
 
-# plot administrative areas stack
+# plot binary stack of administrative areas
 plot(sim_admin2)
 
 # we will now calculate the total amount of planning units associated
@@ -247,25 +254,28 @@ plot(sim_admin2)
 # accounting for the total area of each planning unit (because all
 # planning units have the same area in raster formats) -- but if we were
 # using vector data then we would need to account for the area of each unit
-admin_total <- rowSums(rij_matrix(sim_pu_raster, sim_admin2))
+admin_total <- Matrix::rowSums(rij_matrix(sim_pu_raster, sim_admin2))
 
 # create a modified version of p0 with additional constraints for each
 # administrative area to specify that the planning units in the solution must
 # not encompass more than 10\% of the total extent of the administrative
 # area
 p3 <- p0
-for (i in seq_len(nlayers(sim_admin2))) {
-  p3 <- p3 \%>\%
-        add_linear_constraints(threshold = admin_total[i] * 0.1,
-                               sense = "<=",
-                               data = sim_admin2[[i]])
+for (i in seq_len(terra::nlyr(sim_admin2))) {
+  p3 <-
+    p3 \%>\%
+    add_linear_constraints(
+      threshold = admin_total[i] * 0.1,
+      sense = "<=",
+      data = sim_admin2[[i]]
+    )
 }
 
 # solve problem
 s3 <- solve(p3)
 
 # plot solutions s0 and s3 to compare them
-plot(stack(s0, s3), main = c("s0", "s3"), axes = FALSE, box = FALSE)
+plot(c(s0, s3), main = c("s0", "s3"), axes = FALSE)
 }
 
 }

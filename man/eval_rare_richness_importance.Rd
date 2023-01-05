@@ -8,6 +8,7 @@
 \alias{eval_rare_richness_importance,ConservationProblem,Spatial-method}
 \alias{eval_rare_richness_importance,ConservationProblem,sf-method}
 \alias{eval_rare_richness_importance,ConservationProblem,Raster-method}
+\alias{eval_rare_richness_importance,ConservationProblem,SpatRaster-method}
 \title{Evaluate solution importance using rarity weighted richness scores}
 \usage{
 eval_rare_richness_importance(x, solution, ...)
@@ -23,13 +24,14 @@ eval_rare_richness_importance(x, solution, ...)
 \S4method{eval_rare_richness_importance}{ConservationProblem,sf}(x, solution, rescale, ...)
 
 \S4method{eval_rare_richness_importance}{ConservationProblem,Raster}(x, solution, rescale, ...)
+
+\S4method{eval_rare_richness_importance}{ConservationProblem,SpatRaster}(x, solution, rescale, ...)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} object.}
 
 \item{solution}{\code{numeric}, \code{matrix}, \code{data.frame},
-\code{\linkS4class{Raster}}, \code{\linkS4class{Spatial}},
-or \code{\link[sf:sf]{sf::sf()}} object.
+\code{\link[terra:rast]{terra::rast()}}, or \code{\link[sf:sf]{sf::sf()}} object.
 The argument should be in the same format as the planning unit cost
 data in the argument to \code{x}.
 See the Solution format section for more information.}
@@ -42,8 +44,8 @@ rescaled to range between 0.01 and 1. Defaults to \code{TRUE}.}
 }
 \value{
 A \code{numeric}, \code{matrix}, \code{data.frame}
-\code{\linkS4class{RasterLayer}}, \code{\linkS4class{Spatial}},
-or \code{\link[sf:sf]{sf::sf()}} object containing the importance scores for each planning
+\code{\link[terra:rast]{terra::rast()}}, or \code{\link[sf:sf]{sf::sf()}} object
+containing the importance scores for each planning
 unit in the solution. Specifically, the returned object is in the
 same format as the planning unit data in the argument to \code{x}.
 }
@@ -102,8 +104,8 @@ missing cost (\code{NA}) values for a particular zone should also have a
 missing (\code{NA}) values in the argument to \code{solution}.
 }
 
-\item{\code{x} has \code{\linkS4class{Raster}} planning units}{The argument to \code{solution}
-be a \code{\linkS4class{Raster}} object where different grid cells (pixels) correspond
+\item{\code{x} has \code{\link[terra:rast]{terra::rast()}} planning units}{The argument to \code{solution}
+be a \code{\link[terra:rast]{terra::rast()}} object where different grid cells (pixels) correspond
 to different planning units and layers correspond to
 a different management zones. It should have the same dimensionality
 (rows, columns, layers), resolution, extent, and coordinate reference
@@ -120,20 +122,6 @@ object containing the solution also contains additional columns, then
 these columns will need to be subsetted prior to using this function
 (see below for example with \code{\link[sf:sf]{sf::sf()}} data).
 Additionally, any planning units missing cost
-(\code{NA}) values for a particular zone should also have missing (\code{NA})
-values in the argument to \code{solution}.
-}
-
-\item{\code{x} has \code{\linkS4class{Spatial}} planning units}{The argument to \code{solution}
-must be a \code{\linkS4class{Spatial}} object with each column corresponding to a
-different zone, each row corresponding to a different planning unit, and
-cell values corresponding to the solution value. This means that if the
-\code{\linkS4class{Spatial}} object containing the solution also contains additional
-columns, then these columns will need to be subsetted prior to using this
-function (see below for example with \code{\link[sf:sf]{sf::sf()}} data).
-Additionally, the argument to \code{solution} must also have the same
-coordinate reference system as the planning unit data.
-Furthermore, any planning units missing cost
 (\code{NA}) values for a particular zone should also have missing (\code{NA})
 values in the argument to \code{solution}.
 }
@@ -160,14 +148,17 @@ values in the argument to \code{solution}.
 set.seed(600)
 
 # load data
-data(sim_pu_raster, sim_pu_sf, sim_features)
+sim_pu_raster <- get_sim_pu_raster()
+sim_pu_polygons <- get_sim_pu_polygons()
+sim_features <- get_sim_features()
 
 # create minimal problem with raster planning units
-p1 <- problem(sim_pu_raster, sim_features) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(0.1) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(gap = 0, verbose = FALSE)
+p1 <-
+  problem(sim_pu_raster, sim_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.1) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(gap = 0, verbose = FALSE)
 
 # solve problem
 s1 <- solve(p1)
@@ -176,7 +167,7 @@ s1 <- solve(p1)
 print(s1)
 
 # plot solution
-plot(s1, main = "solution", axes = FALSE, box = FALSE)
+plot(s1, main = "solution", axes = FALSE)
 
 # calculate importance scores
 rwr1 <- eval_rare_richness_importance(p1, s1)
@@ -185,14 +176,15 @@ rwr1 <- eval_rare_richness_importance(p1, s1)
 print(rwr1)
 
 # plot importance scores
-plot(rwr1, main = "rarity weighted richness", axes = FALSE, box = FALSE)
+plot(rwr1, main = "rarity weighted richness", axes = FALSE)
 
-# create minimal problem with polygon (sf) planning units
-p2 <- problem(sim_pu_sf, sim_features, cost_column = "cost") \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(0.05) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(gap = 0, verbose = FALSE)
+# create minimal problem with polygon planning units
+p2 <-
+  problem(sim_pu_polygons, sim_features, cost_column = "cost") \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.05) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(gap = 0, verbose = FALSE)
 
 # solve problem
 s2 <- solve(p2)

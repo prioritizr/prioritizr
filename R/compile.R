@@ -6,7 +6,7 @@ NULL
 #' Compile a conservation planning [problem()] into an
 #' (potentially mixed) integer linear programming problem.
 #'
-#' @param x [problem()] (i.e., [`ConservationProblem-class`]) object.
+#' @param x [problem()] object.
 #'
 #' @param compressed_formulation `logical` should the conservation problem
 #'   compiled into a compressed version of a planning problem?
@@ -31,11 +31,16 @@ NULL
 #'   an error, a misspecified problem, or unnecessarily long
 #'   solve times.
 #'
-#' @return [`OptimizationProblem-class`] object.
+#' @return An [`OptimizationProblem-class`] object.
 #'
 #' @examples
+#' # load data
+#' sim_pu_raster <- get_sim_pu_raster()
+#' sim_features <- get_sim_features()
+#'
 #' # build minimal conservation problem
-#' p <- problem(sim_pu_raster, sim_features) %>%
+#' p <-
+#'   problem(sim_pu_raster, sim_features) %>%
 #'   add_min_set_objective() %>%
 #'   add_relative_targets(0.1)
 #'
@@ -52,50 +57,74 @@ compile <- function(x, ...) UseMethod("compile")
 #' @export
 compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
   # assert arguments are valid
-  assertthat::assert_that(inherits(x, "ConservationProblem"),
+  assertthat::assert_that(
+    is_conservation_problem(x),
     no_extra_arguments(...),
-    is.na(compressed_formulation) ||
-          assertthat::is.flag(compressed_formulation))
+    assertthat::is.flag(compressed_formulation)
+  )
   # sanity checks
-  targets_not_supported <-
-    c("MaximumUtilityObjective", "MaximumCoverageObjective")
-  if (inherits(x$objective, targets_not_supported) &&
-      !is.Waiver(x$targets))
-    warning(paste("ignoring targets since the specified objective",
-                  "function doesn't use targets"))
+  targets_not_supported <- c(
+    "MaximumUtilityObjective",
+    "MaximumCoverageObjective"
+  )
+  if (
+    inherits(x$objective, targets_not_supported) &&
+    !is.Waiver(x$targets)
+  ) {
+    warning(
+      paste(
+        "ignoring targets since the specified objective",
+        "function doesn't use targets"
+      ),
+      call. = FALSE,
+      immediate. = TRUE
+    )
+  }
   # replace waivers with defaults
   if (is.Waiver(x$objective))
     x <- add_default_objective(x)
-  if (is.Waiver(x$targets) &
-      !inherits(x$objective,
-           c("MaximumUtilityObjective", "MaximumCoverageObjective")))
+  if (
+    is.Waiver(x$targets) &&
+    !inherits(
+      x$objective,
+      c("MaximumUtilityObjective", "MaximumCoverageObjective"))
+  ) {
     x <- add_default_targets(x)
+  }
   if (is.Waiver(x$decisions))
     x <- add_default_decisions(x)
   if (is.Waiver(x$solver))
     x <- add_default_solver(x)
   op <- new_optimization_problem()
   # determine if expanded formulation is required
-  if (is.na(compressed_formulation))
-    compressed_formulation <- all(vapply(x$constraints$ids(),
-      function(i) x$constraints[[i]]$compressed_formulation, logical(1)))
+  if (is.na(compressed_formulation)) {
+    compressed_formulation <- all(
+      vapply(x$constraints$ids(), FUN.VALUE = logical(1), function(i) {
+          x$constraints[[i]]$compressed_formulation
+      })
+    )
+  }
   # generate targets
   if (is.Waiver(x$targets)) {
     # if objective doesn't actually use targets, create a "fake" targets tibble
     # to initialize rij matrix
-    targets <- tibble::as_tibble(expand.grid(
-      feature = seq_along(x$feature_names()),
-      zone = seq_along(x$zone_names()),
-      sense = "?",
-      value = 0))
+    targets <- tibble::as_tibble(
+      expand.grid(
+        feature = seq_along(x$feature_names()),
+        zone = seq_along(x$zone_names()),
+        sense = "?",
+        value = 0
+      )
+    )
     targets$zone <- as.list(targets$zone)
   } else {
     # generate "real" targets
     targets <- x$feature_targets()
   }
   # add rij data to optimization problem
-  rcpp_add_rij_data(op$ptr, x$get_data("rij_matrix"), as.list(targets),
-                    compressed_formulation)
+  rcpp_add_rij_data(
+    op$ptr, x$get_data("rij_matrix"), as.list(targets), compressed_formulation
+  )
   # add decision types to optimization problem
   x$decisions$calculate(x)
   x$decisions$apply(op)
@@ -105,25 +134,36 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
   # add constraints for zones
   if (x$number_of_zones() > 1) {
     # detect if allocation constraints are mandatory
-    r <- try(x$constraints$find("Mandatory allocation constraints"),
-             silent = TRUE)
+    r <- try(
+      x$constraints$find("Mandatory allocation constraints"), silent = TRUE
+    )
     # set constraint type
     ct <- ifelse(
       !inherits(r, "try-error") &&
-      isTRUE(x$constraints[[r]]$get_parameter("apply constraints?") == 1L),
-      "=", "<=")
+        isTRUE(x$constraints[[r]]$get_parameter("apply constraints?") == 1L),
+      "=", "<="
+    )
     # apply constraints
     rcpp_add_zones_constraints(op$ptr, ct)
   }
   # add penalties to optimization problem
   for (i in x$penalties$ids()) {
     ## run sanity check
-    weights_not_supported <-
-      c("MinimumSetObjective", "MinimumLargestShortfallObjective" )
-    if (inherits(x$penalties[[i]], "FeatureWeights") &&
-        inherits(x$objective, weights_not_supported)) {
-      warning(paste("ignoring weights since the specified objective",
-                    "function doesn't use weights"))
+    weights_not_supported <- c(
+      "MinimumSetObjective", "MinimumLargestShortfallObjective"
+    )
+    if (
+      inherits(x$penalties[[i]], "FeatureWeights") &&
+      inherits(x$objective, weights_not_supported)
+    ) {
+      warning(
+        paste(
+          "ignoring weights since the specified objective",
+          "function doesn't use weights"
+        ),
+        call. = FALSE,
+        immediate. = TRUE
+      )
       next()
     }
     ## apply penalty if it makes sense to do so

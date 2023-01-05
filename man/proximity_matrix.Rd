@@ -3,6 +3,7 @@
 \name{proximity_matrix}
 \alias{proximity_matrix}
 \alias{proximity_matrix.Raster}
+\alias{proximity_matrix.SpatRaster}
 \alias{proximity_matrix.SpatialPolygons}
 \alias{proximity_matrix.SpatialLines}
 \alias{proximity_matrix.SpatialPoints}
@@ -13,6 +14,8 @@
 proximity_matrix(x, distance)
 
 \method{proximity_matrix}{Raster}(x, distance)
+
+\method{proximity_matrix}{SpatRaster}(x, distance)
 
 \method{proximity_matrix}{SpatialPolygons}(x, distance)
 
@@ -25,22 +28,20 @@ proximity_matrix(x, distance)
 \method{proximity_matrix}{default}(x, distance)
 }
 \arguments{
-\item{x}{\code{\linkS4class{Raster}},
-\code{\linkS4class{Spatial}}, or \code{\link[sf:sf]{sf::sf()}} object
-representing planning units.}
+\item{x}{\code{\link[terra:rast]{terra::rast()}} or \code{\link[sf:sf]{sf::sf()}} object representing planning units.}
 
 \item{distance}{\code{numeric} distance threshold. Planning units
 that are further apart from each other than this threshold are
 not treated as being within proximity of each other.}
 }
 \value{
-\code{\linkS4class{dsCMatrix}} symmetric sparse matrix object.
+A \code{\linkS4class{dsCMatrix}} symmetric sparse matrix object.
 Each row and column represents a planning unit.
 Cells values indicate if the pair-wise distances between different
 planning units are within the distance threshold or not (using ones and
 zeros). To reduce computational burden, cells among the matrix diagonal are
 set to zero. Furthermore, if the argument to \code{x} is a
-\code{\linkS4class{Raster}} object, then cells with \code{NA}
+\code{\link[terra:rast]{terra::rast()}} object, then cells with \code{NA}
 values are set to zero too.
 }
 \description{
@@ -54,7 +55,10 @@ Proximity calculations are performed using
 \examples{
 \dontrun{
 # load data
-data(sim_pu_raster, sim_pu_sf, sim_pu_lines, sim_pu_points)
+sim_pu_raster <- get_sim_pu_raster()
+sim_pu_polygons <- get_sim_pu_polygons()
+sim_pu_lines <- get_sim_pu_lines()
+sim_pu_points <- get_sim_pu_points()
 
 # create proximity matrix using raster data
 ## crop raster to 9 cells to provide a small example
@@ -63,48 +67,41 @@ r <- crop(sim_pu_raster, c(0, 0.3, 0, 0.3))
 ## make proximity matrix using a distance threshold of 2
 cm_raster <- proximity_matrix(r, distance = 2)
 
-# create proximity matrix using polygon (sf) data
+# create proximity matrix using polygon data
 ## subset 9 polygons to provide a small example
-ply <- sim_pu_sf[c(1:2, 10:12, 20:22), ]
+ply <- sim_pu_polygons[c(1:2, 10:12, 20:22), ]
 
 ## make proximity matrix using a distance threshold of 2
 cm_ply <- proximity_matrix(ply, distance = 2)
 
-# create proximity matrix using line (Spatial) data
+# create proximity matrix using line data
 ## subset 9 lines to provide a small example
 lns <- sim_pu_lines[c(1:2, 10:12, 20:22), ]
 
 ## make proximity matrix
 cm_lns <- proximity_matrix(lns, distance = 2)
 
-## create proximity matrix using point (Spatial) data
+## create proximity matrix using point data
 ## subset 9 points to provide a small example
 pts <- sim_pu_points[c(1:2, 10:12, 20:22), ]
 
 # make proximity matrix
 cm_pts <- proximity_matrix(pts, distance = 2)
 
-# plot data and the proximity matrices
-par(mfrow = c(4,2))
-
 ## plot raster and proximity matrix
-plot(r, main = "raster", axes = FALSE, box = FALSE)
-plot(raster(as.matrix(cm_raster)), main = "proximity matrix", axes = FALSE,
-     box = FALSE)
+plot(r, main = "raster", axes = FALSE)
+plot(cm_raster, main = "proximity matrix", axes = FALSE)
 
 ## plot polygons and proximity matrix
-plot(r, main = "polygons (sf)", axes = FALSE, box = FALSE)
-plot(raster(as.matrix(cm_ply)), main = "proximity matrix", axes = FALSE,
-    box = FALSE)
+plot(ply, main = "polygons", axes = FALSE)
+plot(cm_ply, main = "proximity matrix")
 
 ## plot lines and proximity matrix
-plot(r, main = "lines (Spatial)", axes = FALSE, box = FALSE)
-plot(raster(as.matrix(cm_lns)), main = "proximity matrix", axes = FALSE,
-     box = FALSE)
+plot(lns, main = "lines", axes = FALSE)
+plot(cm_lns, main = "proximity matrix", axes = FALSE)
 
 ## plot points and proximity matrix
-plot(r, main = "points (Spatial)", axes = FALSE, box = FALSE)
-plot(raster(as.matrix(cm_pts)), main = "proximity matrix", axes = FALSE,
-     box = FALSE)
+plot(pts, main = "points", axes = FALSE)
+plot(cm_pts, main = "proximity matrix", axes = FALSE)
 }
 }

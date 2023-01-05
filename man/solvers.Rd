@@ -85,64 +85,67 @@ It is also the slowest of the available solvers.}
 \examples{
 \dontrun{
 # load data
-data(sim_pu_raster, sim_features)
+sim_pu_raster <- get_sim_pu_raster()
+sim_features <- get_sim_features()
 
 # create basic problem
-p <- problem(sim_pu_raster, sim_features) \%>\%
+p <-
+  problem(sim_pu_raster, sim_features) \%>\%
   add_min_set_objective() \%>\%
   add_relative_targets(0.1) \%>\%
   add_proportion_decisions()
 
-# create vector to store plot titles
-titles <- c()
+# create vector to store plot names
+n <- c()
 
-# create empty stack to store solutions
-s <- stack()
+# create empty list to store solutions
+s <- c()
 
 # if gurobi is installed: create problem with added gurobi solver
 if (require("gurobi")) {
-  titles <- c(titles, "gurobi")
   p1 <- p \%>\% add_gurobi_solver(verbose = FALSE)
-  s <- addLayer(s, solve(p1))
+  n <- c(n, "gurobi")
+  s <- c(s, solve(p1))
 }
 
 # if cplexAPI is installed: create problem with added CPLEX solver
 if (require("cplexAPI")) {
-  titles <- c(titles, "CPLEX")
   p2 <- p \%>\% add_cplex_solver(verbose = FALSE)
-  s <- addLayer(s, solve(p2))
+  n <- c(n, "CPLEX")
+  s <- c(s, solve(p2))
 }
 
 # if rcbc is installed: create problem with added CBC solver
 if (require("rcbc")) {
-  titles <- c(titles, "CBC")
   p3 <- p \%>\% add_cbc_solver(verbose = FALSE)
-  s <- addLayer(s, solve(p3))
+  n <- c(n, "CBC")
+  s <- c(s, solve(p3))
 }
 
 # if highs is installed: create problem with added HiGHs solver
 if (require("highs")) {
-  titles <- c(titles, "HiGHS")
   p4 <- p \%>\% add_highs_solver(verbose = FALSE)
-  s <- addLayer(s, solve(p4))
+  n <- c(n, "HiGHS")
+  s <- c(s, solve(p4))
 }
 
 # create problem with added rsymphony solver
 if (require("Rsymphony")) {
-  titles <- c(titles, "Rsymphony")
   p5 <- p \%>\% add_rsymphony_solver(verbose = FALSE)
-  s <- addLayer(s, solve(p25))
+  n <- c(n, "Rsymphony")
+  s <- c(s, solve(p5))
 }
 
 # if lpsymphony is installed: create problem with added lpsymphony solver
 if (require("lpsymphony")) {
-  titles <- c(titles, "lpsymphony")
   p6 <- p \%>\% add_lpsymphony_solver(verbose = FALSE)
-  s <- addLayer(s, solve(p6))
+  n <- c(n, "lpsymphony")
+  s <- c(s, solve(p6))
 }
 
 # plot solutions
-plot(s, main = titles, axes = FALSE, box = FALSE)
+names(s) <- n
+plot(terra::rast(s), axes = FALSE)
 }
 
 }

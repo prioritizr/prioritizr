@@ -13,6 +13,7 @@
 \alias{replacement_cost}
 \alias{rarity_weighted_richness}
 \alias{ferrier_score}
+\alias{distribute_load}
 \title{Deprecation notice}
 \usage{
 add_connected_constraints(...)
@@ -36,6 +37,8 @@ replacement_cost(...)
 rarity_weighted_richness(...)
 
 ferrier_score(...)
+
+distribute_load(...)
 }
 \arguments{
 \item{...}{not used.}
@@ -94,6 +97,9 @@ other functions for evaluating solutions.}
 \item{\code{ferrier_score()}}{renamed as
 the \code{\link[=eval_ferrier_importance]{eval_ferrier_importance()}} function for consistency with
 other functions for evaluating solutions.}
+
+\item{\code{distribute_load()}}{has been removed because it is no longer used.
+See \code{parallel::splitIndices()} for equivalent functionality.}
 
 }
 }

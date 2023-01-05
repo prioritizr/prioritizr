@@ -48,10 +48,12 @@ NULL
 #' @examples
 #' \dontrun{
 #' # load data
-#' data(sim_pu_raster, sim_features)
+#' sim_pu_raster <- get_sim_pu_raster()
+#' sim_features <- get_sim_features()
 #'
 #' # create problem
-#' p <- problem(sim_pu_raster, sim_features) %>%
+#' p <-
+#'   problem(sim_pu_raster, sim_features) %>%
 #'   add_min_set_objective() %>%
 #'   add_relative_targets(0.05) %>%
 #'   add_proportion_decisions() %>%
@@ -61,7 +63,7 @@ NULL
 #' s <- solve(p)
 #'
 #' # plot solution
-#' plot(s, main = "solution", axes = FALSE, box = FALSE)
+#' plot(s, main = "solution", axes = FALSE)
 #' }
 #' @name add_lsymphony_solver
 NULL
@@ -72,24 +74,32 @@ add_lpsymphony_solver <- function(x, gap = 0.1,
                                   time_limit = .Machine$integer.max,
                                   first_feasible = FALSE, verbose = TRUE) {
   # assert that arguments are valid
-  assertthat::assert_that(inherits(x, "ConservationProblem"),
-                          isTRUE(all(is.finite(gap))),
-                          assertthat::is.scalar(gap),
-                          isTRUE(gap >= 0), isTRUE(all(is.finite(time_limit))),
-                          assertthat::is.scalar(time_limit),
-                          assertthat::is.count(time_limit) ||
-                            isTRUE(time_limit == -1),
-                          assertthat::is.flag(verbose),
-                          assertthat::is.flag(first_feasible),
-                          assertthat::noNA(first_feasible),
-                          requireNamespace("lpsymphony", quietly = TRUE))
-  # throw warning about bug in lpsymphony
-  #nocov start
-  if (utils::packageVersion("lpsymphony") <= as.package_version("1.4.1"))
-    warning(paste0("The solution may be incorrect due to a bug in ",
-                   "lpsymphony, please verify that it is correct, ",
-                   "or use a different solver to generate solutions"))
-  #nocov end
+  assertthat::assert_that(
+    is_conservation_problem(x),
+    assertthat::is.number(gap),
+    all_finite(gap),
+    gap >= 0,
+    assertthat::is.number(time_limit),
+    all_finite(time_limit),
+    time_limit >= -1,
+    assertthat::is.flag(verbose),
+    assertthat::noNA(verbose),
+    assertthat::is.flag(first_feasible),
+    assertthat::noNA(first_feasible),
+    is_installed("lpsymphony", "add_lpsymphony_solver()")
+  )
+
+  # throw error about bug in early version of lpsymphony
+  assertthat::assert_that(
+    utils::packageVersion("lpsymphony") > as.package_version("1.4.1"),
+    msg = paste(
+      "the version of lpsymphony that is currently installed has a",
+      "serious bug that can produce incorrect solutions,",
+      "please update it using:\"",
+      "remotes::install_bioc(\"lpsymphony\")"
+    )
+  )
+
   # add solver
   x$add_solver(pproto(
     "LpsymphonySolver",
@@ -98,10 +108,13 @@ add_lpsymphony_solver <- function(x, gap = 0.1,
     data = list(),
     parameters = parameters(
       numeric_parameter("gap", gap, lower_limit = 0),
-      integer_parameter("time_limit", time_limit, lower_limit = -1,
-                        upper_limit = .Machine$integer.max),
-      binary_parameter("first_feasible", first_feasible),
-      binary_parameter("verbose", verbose)),
+      integer_parameter(
+        "time_limit", time_limit, lower_limit = -1,
+        upper_limit = .Machine$integer.max
+      ),
+      binary_parameter("first_feasible", as.integer(first_feasible)),
+      binary_parameter("verbose", as.integer(verbose))
+    ),
     calculate = function(self, x, ...) {
       # create model
       model <- list(
@@ -110,13 +123,19 @@ add_lpsymphony_solver <- function(x, gap = 0.1,
         dir = x$sense(),
         rhs = x$rhs(),
         types = x$vtype(),
-        bounds = list(lower = list(ind = seq_along(x$lb()), val = x$lb()),
-                      upper = list(ind = seq_along(x$ub()), val = x$ub())),
-        max = isTRUE(x$modelsense() == "max"))
+        bounds = list(
+          lower = list(ind = seq_along(x$lb()), val = x$lb()),
+          upper = list(ind = seq_along(x$ub()), val = x$ub())
+        ),
+        max = isTRUE(x$modelsense() == "max")
+      )
       # convert constraint matrix to sparse format
       model$mat <- slam::simple_triplet_matrix(
-        i = model$mat@i + 1, j = model$mat@j + 1, v = model$mat@x,
-        nrow = nrow(model$mat), ncol = ncol(model$mat))
+        i = model$mat@i + 1,
+        j = model$mat@j + 1, v = model$mat@x,
+        nrow = nrow(model$mat),
+        ncol = ncol(model$mat)
+      )
       # prepare sense and variables types for SYMPHONY
       model$dir <- replace(model$dir, model$dir == "=", "==")
       model$types <- replace(model$types, model$types == "S", "C")
@@ -185,5 +204,6 @@ add_lpsymphony_solver <- function(x, gap = 0.1,
     set_variable_lb = function(self, index, value) {
       self$data$model$bounds$lower$val[index] <- value
       invisible(TRUE)
-    }))
+    }
+  ))
 }

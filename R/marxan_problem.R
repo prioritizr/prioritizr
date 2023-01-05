@@ -117,7 +117,7 @@ NULL
 #'   [official *Marxan* website](https://marxansolutions.org) and Ball
 #'   *et al.* (2009).
 #'
-#' @return [problem()] (i.e., [`ConservationProblem-class`]) object.
+#' @return A [problem()] object.
 #'
 #' @references
 #' Ball IR, Possingham HP, and Watts M (2009) *Marxan and relatives:
@@ -133,9 +133,10 @@ NULL
 #' # create Marxan problem using Marxan input file
 #' # (note this example requires the data.table package to be installed)
 #' \dontrun{
-#' input_file <- system.file("extdata/input.dat", package = "prioritizr")
-#' p1 <- marxan_problem(input_file) %>%
-#'       add_default_solver(verbose = FALSE)
+#' input_file <- system.file("extdata/marxan/input.dat", package = "prioritizr")
+#' p1 <-
+#'   marxan_problem(input_file) %>%
+#'   add_default_solver(verbose = FALSE)
 #'
 #' # solve problem
 #' s1 <- solve(p1)
@@ -146,29 +147,35 @@ NULL
 #' # create Marxan problem using data.frames that have been loaded into R
 #' # (note this example also requires the data.table package to be installed)
 #' ## load in planning unit data
-#' pu_path <- system.file("extdata/input/pu.dat", package = "prioritizr")
+#' pu_path <- system.file("extdata/marxan/input/pu.dat", package = "prioritizr")
 #' pu_dat <- data.table::fread(pu_path, data.table = FALSE)
 #' head(pu_dat)
 #'
 #' ## load in feature data
-#' spec_path <- system.file("extdata/input/spec.dat", package = "prioritizr")
+#' spec_path <- system.file(
+#'   "extdata/marxan/input/spec.dat", package = "prioritizr"
+#' )
 #' spec_dat <- data.table::fread(spec_path, data.table = FALSE)
 #' head(spec_dat)
 #'
 #' ## load in planning unit vs feature data
-#' puvspr_path <- system.file("extdata/input/puvspr.dat",
-#'                            package = "prioritizr")
+#' puvspr_path <- system.file(
+#'   "extdata/marxan/input/puvspr.dat", package = "prioritizr"
+#' )
 #' puvspr_dat <- data.table::fread(puvspr_path, data.table = FALSE)
 #' head(puvspr_dat)
 #'
 #' ## load in the boundary data
-#' bound_path <- system.file("extdata/input/bound.dat", package = "prioritizr")
+#' bound_path <- system.file(
+#'   "extdata/marxan/input/bound.dat", package = "prioritizr"
+#' )
 #' bound_dat <- data.table::fread(bound_path, data.table = FALSE)
 #' head(bound_dat)
 #'
 #' # create problem without the boundary data
-#' p2 <- marxan_problem(pu_dat, spec_dat, puvspr_dat) %>%
-#'       add_default_solver(verbose = FALSE)
+#' p2 <-
+#'   marxan_problem(pu_dat, spec_dat, puvspr_dat) %>%
+#'   add_default_solver(verbose = FALSE)
 #'
 #' # solve problem
 #' s2 <- solve(p2)
@@ -178,8 +185,9 @@ NULL
 #'
 #' # create problem with the boundary data and a boundary length modifier
 #' # set to 5
-#' p3 <- marxan_problem(pu_dat, spec_dat, puvspr_dat, bound_dat, 5) %>%
-#'       add_default_solver(verbose = FALSE)
+#' p3 <-
+#'   marxan_problem(pu_dat, spec_dat, puvspr_dat, bound_dat, blm = 5) %>%
+#'   add_default_solver(verbose = FALSE)
 #'
 #' # solve problem
 #' s3 <- solve(p3)
@@ -207,84 +215,100 @@ marxan_problem.data.frame <- function(x, spec, puvspr, bound = NULL,
   assertthat::assert_that(no_extra_arguments(...))
   ## x
   assertthat::assert_that(
-    inherits(x, "data.frame"),
+    is.data.frame(x),
     assertthat::has_name(x, "id"),
     assertthat::has_name(x, "cost"),
-    is.numeric(x$id),
-    anyDuplicated(x$id) == 0,
+    is_count_vector(x$id),
+    no_duplicates(x$id),
     assertthat::noNA(x$id),
     assertthat::has_name(x, "cost"),
     is.numeric(x$cost),
-    assertthat::noNA(x$cost))
-  if ("status" %in% names(x))
+    assertthat::noNA(x$cost)
+  )
+  if (assertthat::has_name(x, "status")) {
     assertthat::assert_that(
       is.numeric(x$status),
       assertthat::noNA(x$status),
-      all(x$status %in% seq(0, 3)))
+      all_match_of(x$status, seq(0, 3))
+    )
+  }
   ## spec
   assertthat::assert_that(
-    inherits(spec, "data.frame"),
+    is.data.frame(spec),
     assertthat::has_name(spec, "id"),
-    is.numeric(spec$id),
-    anyDuplicated(spec$id) == 0,
-    assertthat::noNA(spec$id))
-  if ("name" %in% names(spec)) {
-   assertthat::assert_that(
-     inherits(spec$name, c("character", "factor")),
-     anyDuplicated(as.character(spec$name)) == 0,
-     assertthat::noNA(as.character(spec$name)))
+    is_count_vector(spec$id),
+    no_duplicates(spec$id),
+    assertthat::noNA(spec$id)
+  )
+  if (assertthat::has_name(spec, "name")) {
+    assertthat::assert_that(
+      is_inherits(spec$name, c("character", "factor")),
+      no_duplicates(as.character(spec$name)),
+      assertthat::noNA(spec$name)
+    )
   } else {
    spec$name <- paste0("feature.", seq_len(nrow(spec)))
   }
-  if (!do.call(xor, as.list(c("prop", "amount") %in% names(spec))))
-    stop("argument to spec must have the column \"prop\" or \"amount\" and " ,
-         "not both")
-  if ("prop" %in% names(spec)) {
+  assertthat::assert_that(
+    do.call(xor, as.list(c("prop", "amount") %in% names(spec))),
+    msg = paste(
+      "argument to spec must have the column \"prop\" or \"amount\" and",
+      "not both"
+    )
+  )
+  if (assertthat::has_name(spec, "prop")) {
     assertthat::assert_that(
       is.numeric(spec$prop),
-      assertthat::noNA(spec$prop),
-      all(spec$prop >= 0),
-      all(spec$prop <= 1))
+      all_finite(spec$prop),
+      all_proportion(spec$prop)
+    )
   }
-  if ("amount" %in% names(spec)) {
+  if (assertthat::has_name(spec, "amount")) {
     assertthat::assert_that(
       is.numeric(spec$amount),
-      assertthat::noNA(spec$amount))
+      all_finite(spec$amount)
+    )
   }
   ## puvspr
   assertthat::assert_that(
-    inherits(puvspr, "data.frame"),
+    is.data.frame(puvspr),
     assertthat::has_name(puvspr, "pu"),
     assertthat::has_name(puvspr, "species"),
     assertthat::has_name(puvspr, "amount"),
-    is.numeric(puvspr$pu),
-    is.numeric(puvspr$species),
+    is_count_vector(puvspr$pu),
+    is_count_vector(puvspr$species),
     is.numeric(puvspr$amount),
-    assertthat::noNA(puvspr$pu),
-    assertthat::noNA(puvspr$species),
-    assertthat::noNA(puvspr$amount),
-    all(puvspr$pu %in% x$id),
-    all(puvspr$species %in% spec$id))
+    all_finite(puvspr$pu),
+    all_finite(puvspr$species),
+    all_finite(puvspr$amount),
+    all_match_of(puvspr$pu, x$id),
+    all_match_of(puvspr$species, spec$id)
+  )
   ## bound
-  assertthat::assert_that(inherits(bound, c("NULL", "data.frame")))
-  if (inherits(bound, c("data.frame"))) {
+  assertthat::assert_that(is_inherits(bound, c("NULL", "data.frame")))
+  if (is.data.frame(bound)) {
     assertthat::assert_that(
       assertthat::has_name(bound, "id1"),
       assertthat::has_name(bound, "id2"),
       assertthat::has_name(bound, "boundary"),
-      is.numeric(bound$id1),
-      is.numeric(bound$id2),
+      is_count_vector(bound$id1),
+      is_count_vector(bound$id2),
       is.numeric(bound$boundary),
       assertthat::noNA(bound$id1),
       assertthat::noNA(bound$id2),
       assertthat::noNA(bound$boundary),
-      all(bound$id1 %in% x$id), all(bound$id2 %in% x$id))
+      all(bound$id1 %in% x$id),
+      all(bound$id2 %in% x$id)
+    )
   }
   ## blm
-  assertthat::assert_that(assertthat::is.scalar(blm), is.finite(blm))
+  assertthat::assert_that(
+    assertthat::is.number(blm),
+    all_finite(blm)
+  )
   if (abs(blm) > 1e-15 && is.null(bound)) {
     warning(
-      "no boundary data supplied so the blm parameter has no effect",
+      "no boundary data supplied, so the blm parameter has no effect",
       call. = FALSE, immediate. = TRUE
     )
   }
@@ -295,7 +319,7 @@ marxan_problem.data.frame <- function(x, spec, puvspr, bound = NULL,
   )
   if (!isTRUE(symmetric) && is.null(bound)) {
     warning(
-      "no boundary data supplied to the symmetric parameter has no effect",
+      "no boundary data supplied, so the symmetric parameter has no effect",
       call. = FALSE, immediate. = TRUE
     )
   }
@@ -308,7 +332,7 @@ marxan_problem.data.frame <- function(x, spec, puvspr, bound = NULL,
     x$locked_out <- FALSE
   }
   # create problem
-  p <- problem(x, spec, puvspr, cost_column = "cost")
+  p <- problem(x = x, features = spec, rij = puvspr, cost_column = "cost")
   # add objective
   p <- add_min_set_objective(p)
   # add locked in constraints
@@ -330,7 +354,7 @@ marxan_problem.data.frame <- function(x, spec, puvspr, bound = NULL,
     p <- add_asym_connectivity_penalties(p, penalty = blm, data = bound)
   }
   # return problem
-  return(p)
+  p
 }
 
 #' @rdname marxan_problem
@@ -341,19 +365,16 @@ marxan_problem.character <- function(x, ...) {
   assertthat::assert_that(
     assertthat::is.string(x),
     assertthat::is.readable(x),
-    no_extra_arguments(...))
-  if (!requireNamespace("data.table", quietly = TRUE)) {
-    # nocov start
-    stop("please install the \"data.table\" package to import Marxan data")
-    # nocov end
-  }
+    no_extra_arguments(...),
+    is_installed("data.table", "marxan_problem()")
+  )
   # declare local functions
   parse_field <- function(field, lines) {
-      x <- grep(field, lines, value = TRUE)
-      if (length(x) == 0)
-        return(NA)
-      x <- sub(paste0(field, " "), "", x)
-      return(x)
+    x <- grep(field, lines, value = TRUE)
+    if (length(x) == 0)
+      return(NA)
+    x <- sub(paste0(field, " "), "", x)
+    x
   }
   load_file <- function(field, lines, input_dir, force = TRUE) {
     x <- parse_field(field, lines)
@@ -381,8 +402,10 @@ marxan_problem.character <- function(x, ...) {
   # parse working directory
   base_input_dir <- parse_field("INPUTDIR", x)
   if (!is.na(base_input_dir)) {
-    if ((substr(base_input_dir, 1, 1) == "/")  || # absolute path on unix
-        (substr(base_input_dir, 2, 2) == ":")) { # absolute path on Windows
+    if (
+      (substr(base_input_dir, 1, 1) == "/")  || # absolute path on unix
+      (substr(base_input_dir, 2, 2) == ":")     # absolute path on Windows
+    ) {
       input_dir <- base_input_dir
     } else {
       input_dir <- file.path(input_dir, base_input_dir)
@@ -400,7 +423,12 @@ marxan_problem.character <- function(x, ...) {
     sym <- TRUE # nocov
   }
   # return problem
-  marxan_problem(x = pu_data, spec = spec_data, puvspr = puvspr_data,
-                 bound = bound_data, blm = ifelse(is.na(blm), 0, blm),
-                 symmetric = sym)
+  marxan_problem(
+    x = pu_data,
+    spec = spec_data,
+    puvspr = puvspr_data,
+    bound = bound_data,
+    blm = ifelse(is.na(blm), 0, blm),
+    symmetric = sym
+  )
 }

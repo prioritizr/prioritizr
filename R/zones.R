@@ -11,6 +11,11 @@ if (!methods::isClass("ZonesRaster"))
   methods::setOldClass("ZonesRaster")
 NULL
 
+#' @export
+if (!methods::isClass("ZonesSpatRaster"))
+  methods::setOldClass("ZonesSpatRaster")
+NULL
+
 #' Management zones
 #'
 #' Organize data for multiple features for multiple management zones.
@@ -21,7 +26,7 @@ NULL
 #' abundance expected for each feature when each planning unit
 #' is allocated to a different zone.
 #'
-#' @param ... [raster::raster()] or `character` objects that
+#' @param ... [terra::rast()] or `character` objects that
 #'   pertain to the biodiversity data. See Details for more information.
 #'
 #' @param zone_names `character` names of the management zones. Defaults
@@ -39,19 +44,19 @@ NULL
 #' used when building the conservation planning [problem()].
 #'
 #' \describe{
-#' \item{planning unit data are a [`Raster-class`] or [`Spatial-class`] object}{
-#'   [`Raster-class`] object can be supplied to specify the expected amount of
+#' \item{planning unit data are a [terra::rast()`] or [`sf::st_sf()`] object}{
+#'   [`terra::rast()`] object can be supplied to specify the expected amount of
 #'   each feature within each planning unit under each management zone.
 #'   Data for each zone should be specified as separate
 #'   arguments, and the data for each feature in a given zone are specified
-#'   in separate layers in a [raster::stack()] object.
+#'   in separate layers in a [terra::rast()] object.
 #'   Note that all layers for a given zone must have `NA` values in exactly the
 #'   same cells.}
-#' \item{planning unit data are a [`Spatial-class`] or `data.frame`
+#' \item{planning unit data are a [sf::st_sf()`] or `data.frame`
 #'   object}{`character` vector containing column names can
 #'   be supplied to specify the expected amount of each feature under each
 #'   zone. Note that these columns must not contain any `NA` values.}
-#' \item{planning unit data are a [`Spatial-class`], `data.frame`, or
+#' \item{planning unit data are a [sf::st_sf()], `data.frame`, or
 #'   `matrix` object}{`data.frame` object can be supplied to specify the
 #'   expected amount of each feature under each zone.
 #'   Following conventions used in *Marxan*, the
@@ -70,44 +75,54 @@ NULL
 #'   missing from the table are assumed to be zero.}
 #' }
 #'
-#' @return [`Zones-class`] object.
+#' @return A [`Zones-class`] object.
 #'
-#' @seealso [problem()].
+#' @seealso
+#' See [problem()] for information on using this function to generate
+#' a prioritization with multiple management zones.
 #'
-#' @aliases Zones-class ZonesCharacter ZonesRaster Zones
+#' @aliases Zones-class ZonesCharacter ZonesRaster ZonesSpatRaster Zones
 #'
 #' @examples
 #' \dontrun{
 #' # load planning unit data
-#' data(sim_pu_raster)
+#' sim_pu_raster <- get_sim_pu_raster()
 #'
 #  # simulate distributions for three species under two management zones
 #' zone_1 <- simulate_species(sim_pu_raster, 3)
 #' zone_2 <- simulate_species(sim_pu_raster, 3)
 #'
-#' # create zones using two raster stack objects
+#' # create zones using two SpatRaster objects
 #' # each object corresponds to a different zone and each layer corresponds to
 #' # a different species
-#' z <- zones(zone_1, zone_2, zone_names = c("zone_1", "zone_2"),
-#'            feature_names = c("feature_1", "feature_2", "feature_3"))
+#' z <- zones(
+#'   zone_1, zone_2,
+#'   zone_names = c("zone_1", "zone_2"),
+#'   feature_names = c("feature_1", "feature_2", "feature_3")
+#' )
 #' print(z)
 #'
 #' # note that the do.call function can also be used to create a Zones object
 #' # this method for creating a Zones object can be helpful when there are many
 #' # management zones
-#' l <- list(zone_1, zone_2, zone_names = c("zone_1", "zone_2"),
-#'           feature_names = c("feature_1", "feature_2", "feature_3"))
+#' l <- list(
+#'   zone_1, zone_2,
+#'   zone_names = c("zone_1", "zone_2"),
+#'   feature_names = c("feature_1", "feature_2", "feature_3")
+#' )
 #' z <- do.call(zones, l)
 #' print(z)
 #'
 #' # create zones using character vectors that represent the names of
 #' # fields (columns) in a data.frame or Spatial object that contain the amount
 #' # of each species expected different management zones
-#' z <- zones(c("spp1_zone1", "spp2_zone1"),
-#'            c("spp1_zone2", "spp2_zone2"),
-#'            c("spp1_zone3", "spp2_zone3"),
-#'            zone_names = c("zone1", "zone2", "zone3"),
-#'            feature_names = c("spp1", "spp2"))
+#' z <- zones(
+#'   c("spp1_zone1", "spp2_zone1"),
+#'   c("spp1_zone2", "spp2_zone2"),
+#'   c("spp1_zone3", "spp2_zone3"),
+#'   zone_names = c("zone1", "zone2", "zone3"),
+#'   feature_names = c("spp1", "spp2")
+#' )
 #' print(z)
 #' }
 #' @export
@@ -121,71 +136,99 @@ zones <- function(..., zone_names = NULL, feature_names = NULL) {
     zone_names <- names(args)
   # set names of args to NULL
   names(args) <- NULL
-  # check zone names
-  assertthat::assert_that(length(zone_names) == length(args),
-                          msg = paste("number of supplied zones does not match",
-                                      "number of the supplied zone names"))
-  # assert that arguments are valid
-  assertthat::assert_that(all(vapply(args, inherits, logical(1), "Raster")) ||
-                          all(vapply(args, inherits, logical(1),
-                                     "character")),
-                          msg = paste("all arguments do not inherit from",
-                                      "Raster or character classes"))
-  assertthat::assert_that(anyDuplicated(names(args)) == 0)
-  # checks for Raster input
+  # check arguments
+  assertthat::assert_that(
+    all_elements_inherit(args, c("SpatRaster", "Raster", "character")),
+    no_duplicates(zone_names),
+    assertthat::noNA(zone_names)
+  )
+  assertthat::assert_that(
+    length(zone_names) == length(args),
+    msg = paste(
+      "number of supplied zones does not match",
+      "number of the supplied zone names"
+    )
+  )
+  # throw deprecation notice if needed
   if (inherits(args[[1]], "Raster")) {
-    # assign default feature names
-    if (is.null(feature_names))
-      feature_names <- as.character(seq_len(raster::nlayers(args[[1]])))
+    .Deprecated(msg = raster_pkg_deprecation_notice)
+  }
+  # checks for SpatRaster/Raster input
+  if (inherits(args[[1]], c("SpatRaster", "Raster"))) {
+    # set functions for calculating lengths
+    if (inherits(args[[1]], "SpatRaster")) {
+      n_fun <- terra::nlyr
+    } else if (inherits(args[[1]], "Raster")) {
+      n_fun <- raster::nlayers
+    }
+    # set names using defaults if none set
+    if (is.null(feature_names)) {
+      feature_names <- as.character(seq_len(n_fun(args[[1]])))
+    }
     # check feature names
-    assertthat::assert_that(length(feature_names) == raster::nlayers(args[[1]]),
-                            msg = paste("number of supplied features does not",
-                                        "match the number of supplied feature",
-                                        "names"))
-    assertthat::assert_that(anyDuplicated(feature_names) == 0,
-                            !anyNA(feature_names))
-    for (i in seq_along(args))
-      names(args[[i]]) <- feature_names
+    assertthat::assert_that(
+      length(feature_names) == n_fun(args[[1]]),
+      msg = paste(
+        "number of supplied features does not",
+        "match the number of supplied feature names"
+      )
+    )
     # data integrity checks
-    assertthat::assert_that(length(unique(vapply(args, raster::nlayers,
-                                                 numeric(1)))) == 1,
-                            msg = paste("all arguments do not have the same",
-                                        "number of layers"))
-    assertthat::assert_that(all(vapply(args, raster::compareRaster, logical(1),
-                                       x = args[[1]], stopiffalse = FALSE,
-                                       crs = TRUE, res = TRUE,
-                                       tolerance = 1e-5)),
-                            msg = paste("all arguments do not have the same",
-                                        "spatial properties"))
-    assertthat::assert_that(all(vapply(args, raster::nlayers, numeric(1)) >= 1),
-                            msg = "all argument must have at least one layer")
-    zone_class <- "ZonesRaster"
+    assertthat::assert_that(
+      length(unique(vapply(args, n_fun, numeric(1)))) == 1,
+      msg = "all arguments do not have the same number of layers"
+    )
+    assertthat::assert_that(
+      all(vapply(args, is_comparable_raster, logical(1), x = args[[1]]))
+    )
+    assertthat::assert_that(
+      all(vapply(args, n_fun, numeric(1)) >= 1),
+      msg = "all argument must have at least one layer"
+    )
+    # set class
+    zone_class <- ifelse(
+      inherits(args[[1]], "SpatRaster"),
+      "ZonesSpatRaster",
+      "ZonesRaster"
+    )
   }
   # checks for character input
   if (inherits(args[[1]], "character")) {
     # assign default feature names
-    if (is.null(feature_names))
+    if (is.null(feature_names)) {
       feature_names <- as.character(seq_along(args[[1]]))
+    }
     # check feature names
-    assertthat::assert_that(length(feature_names) == length(args[[1]]),
-                            msg = paste("number of supplied features does not",
-                                        "match the number of supplied feature",
-                                        "names"))
-    assertthat::assert_that(anyDuplicated(feature_names) == 0,
-                            !anyNA(feature_names))
+    assertthat::assert_that(
+      length(feature_names) == length(args[[1]]),
+      msg = paste(
+        "number of supplied features does not",
+        "match the number of supplied feature names"
+      )
+    )
     # data integrity checks
-    assertthat::assert_that(length(unique(vapply(args, length,
-                                               numeric(1)))) == 1,
-                          msg = paste("all arguments must all have the same",
-                                      "number of features"))
+    assertthat::assert_that(
+      length(unique(vapply(args, length, numeric(1)))) == 1,
+      msg = paste("all arguments must all have the same number of features")
+    )
     for (i in seq_along(args)) {
-      assertthat::assert_that(all(!is.na(args[[i]])),
-                              msg = paste("argument", i, "is contains NA",
-                                          "values"))
+      assertthat::assert_that(
+        assertthat::noNA(args[[i]]),
+        msg = paste("argument", i, "contains NA values")
+      )
     }
     zone_class <- "ZonesCharacter"
   }
+  # check feature names
+  assertthat::assert_that(
+    no_duplicates(feature_names),
+    assertthat::noNA(feature_names)
+  )
   # return Zones class object
-  structure(args, zone_names = zone_names, feature_names = feature_names,
-            class = c(zone_class, "Zones"))
+  structure(
+    args,
+    zone_names = zone_names,
+    feature_names = feature_names,
+    class = c(zone_class, "Zones")
+  )
 }

@@ -84,4 +84,5 @@ Portfolio <- pproto(
   },
   set_parameter = function(self, x, value) {
     self$parameters$set(x, value)
-  })
+  }
+)

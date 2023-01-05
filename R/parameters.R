@@ -38,7 +38,7 @@ NULL
 #'
 #'   }
 #'
-#' @return [`ScalarParameter-class`] object.
+#' @return A [`ScalarParameter-class`] object.
 #'
 #' @examples
 #' # proportion parameter
@@ -97,47 +97,96 @@ NULL
 #' @rdname scalar_parameters
 #' @export
 proportion_parameter <- function(name, value) {
-  assertthat::assert_that(assertthat::is.string(name), is.finite(value),
-    assertthat::is.scalar(value), isTRUE(value >= 0), isTRUE(value <= 1))
-  pproto("ProportionParameter", ScalarParameter, id = new_id(), name = name,
-         value = as.double(value), default = as.double(value),
-         class = "numeric", lower_limit = 0.0, upper_limit = 1.0)
+  assertthat::assert_that(
+    assertthat::is.string(name),
+    assertthat::is.number(value),
+    assertthat::noNA(value),
+    is.finite(value),
+    value >= 0,
+    value <= 1
+  )
+  pproto(
+    "ProportionParameter",
+    ScalarParameter,
+    id = new_id(),
+    name = name,
+    value = as.double(value),
+    default = as.double(value),
+    class = "numeric",
+    lower_limit = 0.0,
+    upper_limit = 1.0
+  )
 }
 
 #' @rdname scalar_parameters
 #' @export
 binary_parameter <- function(name, value) {
-  assertthat::assert_that(assertthat::is.string(name),
-    assertthat::is.scalar(value), isTRUE(value == 1 | value == 0),
-    is.finite(value))
-  pproto("BinaryParameter", ScalarParameter, id = new_id(), name = name,
-    value = as.integer(value), default = as.integer(value), class = "integer",
-    lower_limit = 0L, upper_limit = 1L)
+  assertthat::assert_that(
+    assertthat::is.string(name),
+    assertthat::is.number(value),
+    assertthat::noNA(value),
+    is.finite(value),
+    is_match_of(value, c(0, 1))
+  )
+  pproto(
+    "BinaryParameter",
+    ScalarParameter,
+    id = new_id(),
+    name = name,
+    value = as.integer(value),
+    default = as.integer(value),
+    class = "integer",
+    lower_limit = 0L,
+    upper_limit = 1L
+  )
 }
 
 #' @rdname scalar_parameters
 #' @export
 integer_parameter <- function(name, value,
-                              lower_limit=as.integer(-.Machine$integer.max),
-                              upper_limit=as.integer(.Machine$integer.max)) {
-  assertthat::assert_that(assertthat::is.string(name), is.finite(value),
-    assertthat::is.scalar(value), isTRUE(round(value) == value))
-  pproto("IntegerParameter", ScalarParameter, id = new_id(), name = name,
-    value = as.integer(value), default = as.integer(value), class = "integer",
+                              lower_limit = as.integer(-.Machine$integer.max),
+                              upper_limit = as.integer(.Machine$integer.max)) {
+  assertthat::assert_that(
+    assertthat::is.string(name),
+    assertthat::is.count(value),
+    assertthat::noNA(value),
+    is.finite(value)
+  )
+  pproto(
+    "IntegerParameter",
+    ScalarParameter,
+    id = new_id(),
+    name = name,
+    value = as.integer(value),
+    default = as.integer(value),
+    class = "integer",
     lower_limit = as.integer(lower_limit),
-    upper_limit = as.integer(upper_limit))
+    upper_limit = as.integer(upper_limit)
+  )
 }
 
 #' @rdname scalar_parameters
 #' @export
 numeric_parameter <- function(name, value,
-                              lower_limit=.Machine$double.xmin,
-                              upper_limit=.Machine$double.xmax) {
-  assertthat::assert_that(assertthat::is.string(name),
-    assertthat::is.scalar(value), is.finite(value))
-  pproto("NumericParameter", ScalarParameter, id = new_id(), name = name,
-    value = as.double(value), default = as.double(value), class = "numeric",
-    lower_limit = as.double(lower_limit), upper_limit = as.double(upper_limit))
+                              lower_limit = .Machine$double.xmin,
+                              upper_limit = .Machine$double.xmax) {
+  assertthat::assert_that(
+    assertthat::is.string(name),
+    assertthat::is.number(value),
+    assertthat::noNA(value),
+    is.finite(value)
+  )
+  pproto(
+    "NumericParameter",
+    ScalarParameter,
+    id = new_id(),
+    name = name,
+    value = as.double(value),
+    default = as.double(value),
+    class = "numeric",
+    lower_limit = as.double(lower_limit),
+    upper_limit = as.double(upper_limit)
+  )
 }
 
 #' Array parameters
@@ -177,12 +226,13 @@ numeric_parameter <- function(name, value,
 #'
 #' }
 #'
-#' @return [`ArrayParameter-class`] object.
+#' @return An [`ArrayParameter-class`] object.
 #'
 #' @examples
 #' # proportion parameter array
-#' p1 <- proportion_parameter_array('prop_array', c(0.1, 0.2, 0.3),
-#'                                  letters[1:3])
+#' p1 <- proportion_parameter_array(
+#'   "prop_array", c(0.1, 0.2, 0.3), letters[1:3]
+#' )
 #' print(p1) # print it
 #' p1$get() # get value
 #' p1$id # get id
@@ -248,12 +298,21 @@ NULL
 #' @rdname array_parameters
 #' @export
 proportion_parameter_array <- function(name, value, label) {
-  assertthat::assert_that(assertthat::is.string(name),
-    inherits(value, "numeric") || inherits(value, "integer"),
-    isTRUE(all(value >= 0)), isTRUE(all(value <= 1)), assertthat::noNA(value),
-    all(is.finite(value)), inherits(label, "character"),
-    assertthat::noNA(label), length(value) == length(label))
-  pproto("ProportionParameterArray", ArrayParameter, id = new_id(),
+  assertthat::assert_that(
+    assertthat::is.string(name),
+    is.numeric(value),
+    all_finite(value),
+    all(value >= 0),
+    all(value <= 1),
+    all(is.finite(value)),
+    is.character(label),
+    assertthat::noNA(label),
+    length(value) == length(label)
+  )
+  pproto(
+    "ProportionParameterArray",
+    ArrayParameter,
+    id = new_id(),
     name = name,
     value = as.double(value),
     label = label,
@@ -261,19 +320,26 @@ proportion_parameter_array <- function(name, value, label) {
     default = as.double(value),
     lower_limit = rep(0.0, length(value)),
     upper_limit = rep(1.0, length(value)),
-    length = length(value))
+    length = length(value)
+  )
 }
 
 #' @rdname array_parameters
 #' @export
 binary_parameter_array <- function(name, value, label) {
-  assertthat::assert_that(assertthat::is.string(name),
-    inherits(value, "numeric") || inherits(value, "integer"),
-    assertthat::noNA(value), all(is.finite(value)),
-    isTRUE(all(value == 1 | value == 0)),
-    inherits(label, "character"), assertthat::noNA(label),
-    length(value) == length(label))
-  pproto("BinaryParameterArray", ArrayParameter, id = new_id(),
+  assertthat::assert_that(
+    assertthat::is.string(name),
+    is.numeric(value),
+    assertthat::noNA(value),
+    all_finite(value),
+    all_binary(value),
+    is.character(label),
+    assertthat::noNA(label),
+    length(value) == length(label)
+  )
+  pproto(
+    "BinaryParameterArray",
+    ArrayParameter, id = new_id(),
     name = name,
     value = as.integer(value),
     label = label,
@@ -281,22 +347,35 @@ binary_parameter_array <- function(name, value, label) {
     lower_limit = rep(0L, length(value)),
     upper_limit = rep(1L, length(value)),
     default = as.integer(value),
-    length = length(value))
+    length = length(value)
+  )
 }
 
 #' @rdname array_parameters
 #' @export
 integer_parameter_array <- function(name, value, label,
-                                  lower_limit=rep(as.integer(
-                                    -.Machine$integer.max), length(value)),
-                                    upper_limit=rep(as.integer(
-                                      .Machine$integer.max), length(value))) {
-  assertthat::assert_that(assertthat::is.string(name),
-    inherits(value, "numeric") || inherits(value, "integer"),
-    assertthat::noNA(value), all(is.finite(value)),
-    inherits(label, "character"), assertthat::noNA(label),
-    length(value) == length(label))
-  pproto("IntegerParameterArray", ArrayParameter, id = new_id(),
+                                    lower_limit = rep(
+                                      as.integer(-.Machine$integer.max),
+                                      length(value)
+                                    ),
+                                    upper_limit = rep(
+                                      as.integer(.Machine$integer.max),
+                                      length(value)
+                                    )) {
+  assertthat::assert_that(
+    assertthat::is.string(name),
+    is.numeric(value),
+    is_integer(value),
+    assertthat::noNA(value),
+    all_finite(value),
+    is.character(label),
+    assertthat::noNA(label),
+    length(value) == length(label)
+  )
+  pproto(
+    "IntegerParameterArray",
+    ArrayParameter,
+    id = new_id(),
     name = name,
     value = as.integer(value),
     label = label,
@@ -304,22 +383,34 @@ integer_parameter_array <- function(name, value, label,
     lower_limit = as.integer(lower_limit),
     upper_limit = as.integer(upper_limit),
     default = as.integer(value),
-    length = length(value))
+    length = length(value)
+  )
 }
 
 #' @rdname array_parameters
 #' @export
 numeric_parameter_array <- function(name, value, label,
-                                    lower_limit=rep(.Machine$double.xmin,
-                                      length(value)),
-                                    upper_limit=rep(.Machine$double.xmax,
-                                      length(value))) {
-  assertthat::assert_that(assertthat::is.string(name),
-    inherits(value, "numeric") || inherits(value, "integer"),
-    assertthat::noNA(value), all(is.finite(value)),
-    inherits(label, "character"), assertthat::noNA(label),
-    length(value) == length(label))
-  pproto("NumericParameterArray", ArrayParameter, id = new_id(),
+                                    lower_limit = rep(
+                                      as.integer(-.Machine$double.max),
+                                      length(value)
+                                    ),
+                                    upper_limit = rep(
+                                      as.integer(.Machine$double.max),
+                                      length(value)
+                                    )) {
+  assertthat::assert_that(
+    assertthat::is.string(name),
+    is.numeric(value),
+    assertthat::noNA(value),
+    all_finite(value),
+    is.character(label),
+    assertthat::noNA(label),
+    length(value) == length(label)
+  )
+  pproto(
+    "NumericParameterArray",
+    ArrayParameter,
+    id = new_id(),
     name = name,
     value = as.double(value),
     label = label,
@@ -327,7 +418,8 @@ numeric_parameter_array <- function(name, value, label,
     lower_limit = as.double(lower_limit),
     upper_limit = as.double(upper_limit),
     default = as.double(value),
-    length = length(value))
+    length = length(value)
+  )
 }
 
 #' Miscellaneous parameter
@@ -343,7 +435,7 @@ numeric_parameter_array <- function(name, value, label,
 #'   `FALSE` depending on if the argument is valid candidate for the
 #'   parameter.
 #'
-#' @return [`MiscParameter-class`] object.
+#' @return A [`MiscParameter-class`] object.
 #'
 #' @examples
 #' # load data
@@ -361,9 +453,10 @@ numeric_parameter_array <- function(name, value, label,
 #' # create table parameter with validation function that requires
 #' # all values in the first column to be less then 200 and that the
 #' # parameter have the same column names as the iris dataset
-#' p2 <- misc_parameter("tbl2", iris,
-#'                      function(x) all(names(x) %in% names(iris)) &&
-#'                                  all(x[[1]] < 200))
+#' p2 <- misc_parameter(
+#'   "tbl2", iris,
+#'   function(x) all(names(x) %in% names(iris)) && all(x[[1]] < 200)
+#' )
 #' print(p2) # print it
 #' p2$get() # get value
 #' p2$id # get id
@@ -376,12 +469,21 @@ numeric_parameter_array <- function(name, value, label,
 #'
 #' @export
 misc_parameter <- function(name, value, validator) {
-  assertthat::assert_that(assertthat::is.string(name),
+  assertthat::assert_that(
+    assertthat::is.string(name),
     inherits(validator, "function"),
-    isTRUE(validator(value)))
-  pproto("MiscParameter", MiscParameter, id = new_id(),
-    name = name, value = value, validator = list(validator), default = value,
-    class = class(value))
+    isTRUE(validator(value))
+  )
+  pproto(
+    "MiscParameter",
+    MiscParameter,
+    id = new_id(),
+    name = name,
+    value = value,
+    validator = list(validator),
+    default = value,
+    class = class(value)
+  )
 }
 
 #' Matrix parameters
@@ -403,7 +505,7 @@ misc_parameter <- function(name, value, validator) {
 #' @param symmetric `logical` must the must be matrix be symmetric?
 #'   Defaults to `FALSE`.
 #'
-#' @return [`MiscParameter-class`] object.
+#' @return A [`MiscParameter-class`] object.
 #'
 #' @examples
 #' # create matrix
@@ -442,26 +544,54 @@ numeric_matrix_parameter <- function(name, value,
                                      lower_limit = .Machine$double.xmin,
                                      upper_limit = .Machine$double.xmax,
                                      symmetric = FALSE) {
-  assertthat::assert_that(assertthat::is.string(name), is.matrix(value),
-    assertthat::is.scalar(lower_limit), assertthat::is.scalar(upper_limit),
-    assertthat::is.flag(symmetric), all(is.finite(value)),
-    all(value >= lower_limit), all(value <= upper_limit))
-  vfun <- function(m) assertthat::see_if(is.matrix(m), all(is.finite(m)),
-    ncol(m) == ncol(value), nrow(m) == nrow(value),
-    all(value <= upper_limit), all(value >= lower_limit),
-    ifelse(symmetric, isSymmetric(m), TRUE))
+  assertthat::assert_that(
+    assertthat::is.string(name),
+    is.matrix(value),
+    all_finite(value),
+    assertthat::is.number(lower_limit),
+    assertthat::noNA(lower_limit),
+    assertthat::is.number(upper_limit),
+    assertthat::noNA(upper_limit),
+    assertthat::is.flag(symmetric),
+    assertthat::noNA(symmetric),
+    all(value >= lower_limit),
+    all(value <= upper_limit)
+  )
+  vfun <- function(m) {
+    assertthat::see_if(
+      is.matrix(m),
+      all_finite(m),
+      ncol(m) == ncol(value),
+      nrow(m) == nrow(value),
+      all(value <= upper_limit),
+      all(value >= lower_limit),
+      ifelse(symmetric, isSymmetric(m), TRUE)
+    )
+  }
   misc_parameter(name, value, vfun)
 }
 
 #' @rdname matrix_parameters
 #' @export
 binary_matrix_parameter <- function(name, value, symmetric = FALSE) {
-  assertthat::assert_that(assertthat::is.string(name), is.matrix(value),
-    assertthat::is.flag(symmetric), all(is.finite(value)),
-    all(value %in% c(0, 1)))
-  vfun <- function(m) assertthat::see_if(is.matrix(m), all(is.finite(m)),
-     ncol(m) == ncol(value), nrow(m) == nrow(value), all(value %in% c(0, 1)),
-     ifelse(symmetric, isSymmetric(m), TRUE))
+  assertthat::assert_that(
+    assertthat::is.string(name),
+    is.matrix(value),
+    all_finite(value),
+    all_binary(value),
+    assertthat::is.flag(symmetric),
+    assertthat::noNA(symmetric)
+  )
+  vfun <- function(m) {
+    assertthat::see_if(
+      is.matrix(m),
+      all_finite(m),
+      ncol(m) == ncol(value),
+      nrow(m) == nrow(value),
+      all_binary(value),
+     ifelse(symmetric, isSymmetric(m), TRUE)
+    )
+  }
   misc_parameter(name, value, vfun)
 }
 
@@ -471,7 +601,7 @@ binary_matrix_parameter <- function(name, value, symmetric = FALSE) {
 #'
 #' @param ... [`Parameter-class`] objects.
 #'
-#' @return [`Parameters-class`] object.
+#' @return A [`Parameters-class`] object.
 #'
 #' @seealso [array_parameters()], [scalar_parameters()].
 #'
@@ -490,9 +620,11 @@ binary_matrix_parameter <- function(name, value, symmetric = FALSE) {
 #' @export
 parameters <- function(...) {
   args <- list(...)
-  assertthat::assert_that(isTRUE(all(vapply(args, inherits, logical(1),
-                                            "Parameter"))))
+  assertthat::assert_that(
+    all_elements_inherit(args, "Parameter"),
+    msg = "arguments must all be \"Parameter\" objects"
+  )
   p <- pproto(NULL, Parameters)
   for (i in args) p$add(i)
-  return(p)
+  p
 }

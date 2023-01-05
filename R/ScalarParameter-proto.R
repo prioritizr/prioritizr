@@ -88,12 +88,14 @@ ScalarParameter <- pproto(
     paste0(self$name, " (", self$value, ")")
   },
   validate = function(self, x) {
-    invisible(assertthat::see_if(
-      inherits(x, self$class),
-      isTRUE(x >= self$lower_limit),
-      isTRUE(x <= self$upper_limit),
-      is.finite(x)
-    ))
+    invisible(
+      assertthat::see_if(
+        inherits(x, self$class),
+        isTRUE(x >= self$lower_limit),
+        isTRUE(x <= self$upper_limit),
+        is.finite(x)
+      )
+    )
   },
   get = function(self) {
     self$value
@@ -101,4 +103,5 @@ ScalarParameter <- pproto(
   set = function(self, x) {
     check_that(self$validate(x))
     self$value <- x
-  })
+  }
+)

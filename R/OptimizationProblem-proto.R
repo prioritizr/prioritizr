@@ -128,8 +128,10 @@ OptimizationProblem <- pproto(
   print = function(self) {
     if (self$ncol() > 0) {
     cv <- table(self$vtype())
-    cv <- paste(paste(unname(cv), paste0("(", names(cv), ")")),
-          collapse = ", ")
+    cv <- paste(
+      paste(unname(cv), paste0("(", names(cv), ")")),
+      collapse = ", "
+    )
     message("optimization problem",
       "\n  model sense: ", self$modelsense(),
       "\n  dimensions:  ", self$nrow(), ", ", self$ncol(), ", ", self$ncell(),
@@ -162,8 +164,10 @@ OptimizationProblem <- pproto(
   },
   A = function(self) {
     x <- rcpp_get_optimization_problem_A(self$ptr)
-    Matrix::sparseMatrix(i = x$i, j = x$j, x = x$x, index1 = FALSE,
-                         dims = c(nrow(self), ncol(self)))
+    Matrix::sparseMatrix(
+      i = x$i, j = x$j, x = x$x, index1 = FALSE,
+      dims = c(nrow(self), ncol(self))
+    )
   },
   rhs = function(self) {
     rcpp_get_optimization_problem_rhs(self$ptr)

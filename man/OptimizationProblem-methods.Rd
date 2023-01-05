@@ -92,7 +92,7 @@ compressed_formulation(x)
 \item{x}{\code{\linkS4class{OptimizationProblem}} object.}
 }
 \value{
-\code{\linkS4class{dgCMatrix}}, \code{numeric} vector,
+A \code{\linkS4class{dgCMatrix}}, \code{numeric} vector,
 \code{numeric} vector, or scalar \code{integer} depending on the method
 used.
 }

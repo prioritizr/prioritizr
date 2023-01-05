@@ -2,40 +2,21 @@
 % Please edit documentation in R/eval_feature_representation_summary.R
 \name{eval_feature_representation_summary}
 \alias{eval_feature_representation_summary}
-\alias{eval_feature_representation_summary,ConservationProblem,numeric-method}
-\alias{eval_feature_representation_summary,ConservationProblem,matrix-method}
-\alias{eval_feature_representation_summary,ConservationProblem,data.frame-method}
-\alias{eval_feature_representation_summary,ConservationProblem,Spatial-method}
-\alias{eval_feature_representation_summary,ConservationProblem,sf-method}
-\alias{eval_feature_representation_summary,ConservationProblem,Raster-method}
 \title{Evaluate feature representation}
 \usage{
 eval_feature_representation_summary(x, solution)
-
-\S4method{eval_feature_representation_summary}{ConservationProblem,numeric}(x, solution)
-
-\S4method{eval_feature_representation_summary}{ConservationProblem,matrix}(x, solution)
-
-\S4method{eval_feature_representation_summary}{ConservationProblem,data.frame}(x, solution)
-
-\S4method{eval_feature_representation_summary}{ConservationProblem,Spatial}(x, solution)
-
-\S4method{eval_feature_representation_summary}{ConservationProblem,sf}(x, solution)
-
-\S4method{eval_feature_representation_summary}{ConservationProblem,Raster}(x, solution)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} object.}
 
 \item{solution}{\code{numeric}, \code{matrix}, \code{data.frame},
-\code{\linkS4class{Raster}}, \code{\linkS4class{Spatial}},
-or \code{\link[sf:sf]{sf::sf()}} object.
+\code{\link[terra:rast]{terra::rast()}}, or \code{\link[sf:sf]{sf::sf()}} object.
 The argument should be in the same format as the planning unit cost
 data in the argument to \code{x}.
 See the Solution format section for more information.}
 }
 \value{
-\code{\link[tibble:tibble]{tibble::tibble()}} object describing feature representation.
+A \code{\link[tibble:tibble]{tibble::tibble()}} object describing feature representation.
 Here, each row describes a specific summary statistic
 (e.g., different management zone) for a specific feature.
 It contains the following columns:
@@ -105,8 +86,8 @@ missing cost (\code{NA}) values for a particular zone should also have a
 missing (\code{NA}) values in the argument to \code{solution}.
 }
 
-\item{\code{x} has \code{\linkS4class{Raster}} planning units}{The argument to \code{solution}
-be a \code{\linkS4class{Raster}} object where different grid cells (pixels) correspond
+\item{\code{x} has \code{\link[terra:rast]{terra::rast()}} planning units}{The argument to \code{solution}
+be a \code{\link[terra:rast]{terra::rast()}} object where different grid cells (pixels) correspond
 to different planning units and layers correspond to
 a different management zones. It should have the same dimensionality
 (rows, columns, layers), resolution, extent, and coordinate reference
@@ -123,20 +104,6 @@ object containing the solution also contains additional columns, then
 these columns will need to be subsetted prior to using this function
 (see below for example with \code{\link[sf:sf]{sf::sf()}} data).
 Additionally, any planning units missing cost
-(\code{NA}) values for a particular zone should also have missing (\code{NA})
-values in the argument to \code{solution}.
-}
-
-\item{\code{x} has \code{\linkS4class{Spatial}} planning units}{The argument to \code{solution}
-must be a \code{\linkS4class{Spatial}} object with each column corresponding to a
-different zone, each row corresponding to a different planning unit, and
-cell values corresponding to the solution value. This means that if the
-\code{\linkS4class{Spatial}} object containing the solution also contains additional
-columns, then these columns will need to be subsetted prior to using this
-function (see below for example with \code{\link[sf:sf]{sf::sf()}} data).
-Additionally, the argument to \code{solution} must also have the same
-coordinate reference system as the planning unit data.
-Furthermore, any planning units missing cost
 (\code{NA}) values for a particular zone should also have missing (\code{NA})
 values in the argument to \code{solution}.
 }
@@ -163,20 +130,29 @@ values in the argument to \code{solution}.
 set.seed(500)
 
 # load data
-data(sim_pu_raster, sim_pu_polygons, sim_pu_zones_sf, sim_features,
-     sim_pu_zones_stack, sim_features_zones)
+sim_pu_raster <- get_sim_pu_raster()
+sim_pu_polygons <- get_sim_pu_polygons()
+sim_features <- get_sim_features()
+sim_pu_zones_raster <- get_sim_pu_zones_raster()
+sim_pu_zones_polygons <- get_sim_pu_zones_polygons()
+sim_features_zones <- get_sim_features_zones()
 
 # create a simple conservation planning dataset so we can see exactly
 # how feature representation is calculated
-pu <- data.frame(id = seq_len(10), cost = c(0.2, NA, runif(8)),
-                 spp1 = runif(10), spp2 = c(rpois(9, 4), NA))
+pu <- data.frame(
+  id = seq_len(10),
+  cost = c(0.2, NA, runif(8)),
+  spp1 = runif(10),
+  spp2 = c(rpois(9, 4), NA)
+)
 
 # create problem
-p1 <- problem(pu, c("spp1", "spp2"), cost_column = "cost") \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(0.1) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(verbose = FALSE)
+p1 <-
+  problem(pu, c("spp1", "spp2"), cost_column = "cost") \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.1) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
 
 # create a solution
 # specifically, a data.frame with a single column that contains
@@ -191,40 +167,51 @@ print(r1)
 # let's verify that feature representation calculations are correct
 # by manually performing the calculations and compare the results with r1
 ## calculate total amount for each feature
-print(setNames(
-  c(sum(pu$spp1, na.rm = TRUE),
-    sum(pu$spp2, na.rm = TRUE)),
-  c("spp1", "spp2")))
+print(
+  setNames(
+    c(sum(pu$spp1, na.rm = TRUE), sum(pu$spp2, na.rm = TRUE)),
+    c("spp1", "spp2")
+  )
+)
 
 ## calculate absolute amount held for each feature
-print(setNames(
-  c(sum(pu$spp1 * s1$s, na.rm = TRUE),
-    sum(pu$spp2 * s1$s, na.rm = TRUE)),
-  c("spp1", "spp2")))
+print(
+  setNames(
+    c(sum(pu$spp1 * s1$s, na.rm = TRUE), sum(pu$spp2 * s1$s, na.rm = TRUE)),
+    c("spp1", "spp2")
+  )
+)
 
 ## calculate relative amount held for each feature
-print(setNames(
-  c(sum(pu$spp1 * s1$s, na.rm = TRUE) / sum(pu$spp1, na.rm = TRUE),
-    sum(pu$spp2 * s1$s, na.rm = TRUE) / sum(pu$spp2, na.rm = TRUE)),
-  c("spp1", "spp2")))
+print(
+  setNames(
+    c(
+      sum(pu$spp1 * s1$s, na.rm = TRUE) / sum(pu$spp1, na.rm = TRUE),
+      sum(pu$spp2 * s1$s, na.rm = TRUE) / sum(pu$spp2, na.rm = TRUE)
+    ),
+    c("spp1", "spp2")
+  )
+)
 
-# solve the problem using an exact algorithm solver
+# solve problem using an exact algorithm solver
 s1_2 <- solve(p1)
 print(s1_2)
 
 # calculate feature representation in this solution
 r1_2 <- eval_feature_representation_summary(
-  p1, s1_2[, "solution_1", drop = FALSE])
+  p1, s1_2[, "solution_1", drop = FALSE]
+)
 print(r1_2)
 
 # build minimal conservation problem with raster data
-p2 <- problem(sim_pu_raster, sim_features) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(0.1) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(verbose = FALSE)
+p2 <-
+  problem(sim_pu_raster, sim_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.1) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
 
-# solve the problem
+# solve problem
 s2 <- solve(p2)
 
 # print solution
@@ -235,16 +222,17 @@ r2 <- eval_feature_representation_summary(p2, s2)
 print(r2)
 
 # plot solution
-plot(s2, main = "solution", axes = FALSE, box = FALSE)
+plot(s2, main = "solution", axes = FALSE)
 
-# build minimal conservation problem with polygon (Spatial) data
-p3 <- problem(sim_pu_polygons, sim_features, cost_column = "cost") \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(0.1) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(verbose = FALSE)
+# build minimal conservation problem with polygon data
+p3 <-
+  problem(sim_pu_polygons, sim_features, cost_column = "cost") \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.1) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
 
-# solve the problem
+# solve problem
 s3 <- solve(p3)
 
 # print first six rows of the attribute table
@@ -255,17 +243,17 @@ r3 <- eval_feature_representation_summary(p3, s3[, "solution_1"])
 print(r3)
 
 # plot solution
-spplot(s3, zcol = "solution_1", main = "solution", axes = FALSE, box = FALSE)
+plot(s3[, "solution_1"], main = "solution", axes = FALSE)
 
 # build multi-zone conservation problem with raster data
-p4 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
-                                  ncol = 3)) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(verbose = FALSE)
+p4 <-
+  problem(sim_pu_zones_raster, sim_features_zones) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5, ncol = 3)) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
 
-# solve the problem
+# solve problem
 s4 <- solve(p4)
 
 # print solution
@@ -276,19 +264,20 @@ r4 <- eval_feature_representation_summary(p4, s4)
 print(r4)
 
 # plot solution
-plot(category_layer(s4), main = "solution", axes = FALSE, box = FALSE)
+plot(category_layer(s4), main = "solution", axes = FALSE)
 
+# build multi-zone conservation problem with polygon data
+p5 <-
+  problem(
+    sim_pu_zones_polygons, sim_features_zones,
+    cost_column = c("cost_1", "cost_2", "cost_3")
+  ) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5, ncol = 3)) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
 
-# build multi-zone conservation problem with polygon (sf) data
-p5 <- problem(sim_pu_zones_sf, sim_features_zones,
-              cost_column = c("cost_1", "cost_2", "cost_3")) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
-                                  ncol = 3)) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(verbose = FALSE)
-
-# solve the problem
+# solve problem
 s5 <- solve(p5)
 
 # print first six rows of the attribute table
@@ -296,13 +285,15 @@ print(head(s5))
 
 # calculate feature representation in the solution
 r5 <- eval_feature_representation_summary(
-  p5, s5[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")])
+  p5, s5[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")]
+)
 print(r5)
 
 # create new column representing the zone id that each planning unit
 # was allocated to in the solution
 s5$solution <- category_vector(
-  s5[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")])
+  s5[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")]
+)
 s5$solution <- factor(s5$solution)
 
 # plot solution

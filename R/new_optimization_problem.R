@@ -5,7 +5,7 @@ NULL
 #'
 #' Generate a new empty [`OptimizationProblem-class`] object.
 #'
-#' @return [`OptimizationProblem-class`] object.
+#' @return An [`OptimizationProblem-class`] object.
 #'
 #' @seealso [OptimizationProblem-methods]
 #'

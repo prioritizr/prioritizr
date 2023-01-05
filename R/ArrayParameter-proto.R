@@ -97,29 +97,36 @@ ArrayParameter <- pproto(
   lower_limit = numeric(0),
   length = 0,
   repr = function(self) {
-    paste0(self$name, " (min: ", min(self$value), ", max: ",
-      max(self$value), ")")
+    paste0(
+      self$name, " (min: ", min(self$value), ", max: ", max(self$value), ")"
+    )
   },
   validate = function(self, x) {
-    assertthat::assert_that(inherits(x, "data.frame"))
-    invisible(assertthat::see_if(
-      identical(names(x), "value"),
-      all(is.finite(x[[1]])),
-      ncol(x) == 1,
-      nrow(x) == self$length,
-      inherits(x[[1]], self$class),
-      setequal(self$label, rownames(x)),
-      sum(!is.finite(x[[1]])) == 0,
-      isTRUE(all(x[[1]] >= self$lower_limit)),
-      isTRUE(all(x[[1]] <= self$upper_limit))))
+    assertthat::assert_that(is.data.frame(x))
+    invisible(
+      assertthat::see_if(
+        identical(names(x), "value"),
+        all_finite(x[[1]]),
+        ncol(x) == 1,
+        nrow(x) == self$length,
+        inherits(x[[1]], self$class),
+        all_match_of(self$label, rownames(x)),
+        all_finite(x[[1]]),
+        all(x[[1]] >= self$lower_limit),
+        all(x[[1]] <= self$upper_limit)
+      )
+    )
   },
   set = function(self, x) {
     check_that(self$validate(x))
     self$value <- x[[1]][match(rownames(x), self$label)]
   },
   get = function(self) {
-    structure(list(value = self$value),
-              .Names = "value",
-              row.names = self$label,
-              class = "data.frame")
-  })
+    structure(
+      list(value = self$value),
+      .Names = "value",
+      row.names = self$label,
+      class = "data.frame"
+    )
+  }
+)

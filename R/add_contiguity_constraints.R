@@ -7,7 +7,7 @@ NULL
 #' that all selected planning units are spatially connected with each other
 #' and form a single contiguous unit.
 #'
-#' @param x [problem()] (i.e., [`ConservationProblem-class`]) object.
+#' @param x [problem()] object.
 #'
 #' @param zones `matrix` or `Matrix` object describing the
 #'   connection scheme for different zones. Each row and column corresponds
@@ -76,8 +76,7 @@ NULL
 #' In early versions, this function was named as the
 #' `add_connected_constraints()` function.
 #'
-#' @return Object (i.e., [`ConservationProblem-class`]) with the constraints
-#'  added to it.
+#' @return An updated [problem()] object with the constraints added to it.
 #'
 #' @seealso
 #' See [constraints] for an overview of all functions for adding constraints.
@@ -93,32 +92,37 @@ NULL
 #' @examples
 #' \dontrun{
 #' # load data
-#' data(sim_pu_raster, sim_features, sim_pu_zones_stack, sim_features_zones)
+#' sim_pu_raster <- get_sim_pu_raster()
+#' sim_features <- get_sim_features()
+#' sim_pu_zones_raster <- get_sim_pu_zones_raster()
+#' sim_features_zones <- get_sim_features_zones()
 #'
 #' # create minimal problem
-#' p1 <- problem(sim_pu_raster, sim_features) %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(0.2) %>%
-#'       add_binary_decisions() %>%
-#'       add_default_solver(verbose = FALSE)
+#' p1 <-
+#'   problem(sim_pu_raster, sim_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(0.2) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
 #'
 #' # create problem with added connected constraints
 #' p2 <- p1 %>% add_contiguity_constraints()
 #'
 #' # solve problems
-#' s <- stack(solve(p1), solve(p2))
+#' s1 <- c(solve(p1), solve(p2))
+#' names(s1) <- c("basic solution", "connected solution")
 #'
 #' # plot solutions
-#' plot(s, main = c("basic solution", "connected solution"), axes = FALSE,
-#'      box = FALSE)
+#' plot(s1, axes = FALSE)
 #'
 #' # create minimal problem with multiple zones, and limit the solver to
 #' # 30 seconds to obtain solutions in a feasible period of time
-#' p3 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(matrix(0.2, ncol = 3, nrow = 5)) %>%
-#'       add_binary_decisions() %>%
-#'       add_default_solver(time_limit = 30, verbose = FALSE)
+#' p3 <-
+#'   problem(sim_pu_zones_raster, sim_features_zones) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(matrix(0.2, ncol = 3, nrow = 5)) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(time_limit = 30, verbose = FALSE)
 #'
 #' # create problem with added constraints to ensure that the planning units
 #' # allocated to each zone form a separate contiguous unit
@@ -146,11 +150,11 @@ NULL
 #' # solve problems
 #' s2 <- lapply(list(p3, p4, p5, p6), solve)
 #' s2 <- lapply(s2, category_layer)
-#' s2 <- stack(s2)
+#' s2 <- terra::rast(s2)
+#' names(s2) <- c("basic solution", "p4", "p5", "p6")
 #'
 #' # plot solutions
-#' plot(s2, axes = FALSE, box = FALSE,
-#'      main = c("basic solution", "p4", "p5", "p6"))
+#' plot(s2, axes = FALSE)
 #'
 #' # create a problem that has a main "reserve zone" and a secondary
 #' # "corridor zone" to connect up import areas. Here, each feature has a
@@ -166,21 +170,25 @@ NULL
 #' # link up the planning units allocated to the "reserve zone"
 #'
 #' # create planning unit data
-#' pus <- sim_pu_zones_stack[[c(1, 1)]]
+#' pus <- sim_pu_zones_raster[[c(1, 1)]]
 #' pus[[2]] <- pus[[2]] * 0.45
 #' print(pus)
 #'
 #' # create biodiversity data
-#' fts <- zones(sim_features, sim_features * 0.4,
-#'              feature_names = names(sim_features),
-#'              zone_names = c("reserve zone", "corridor zone"))
+#' fts <- zones(
+#'   sim_features, sim_features * 0.4,
+#'   feature_names = names(sim_features),
+#'   zone_names = c("reserve zone", "corridor zone")
+#' )
 #' print(fts)
 #'
 #' # create targets
-#' targets <- tibble::tibble(feature = names(sim_features),
-#'                           zone = list(zone_names(fts))[rep(1, 5)],
-#'                           target = cellStats(sim_features, "sum") * 0.2,
-#'                           type = rep("absolute", 5))
+#' targets <- tibble::tibble(
+#'   feature = names(sim_features),
+#'   zone = list(zone_names(fts))[rep(1, 5)],
+#'   target = terra::global(sim_features, "sum", na.rm = TRUE)[[1]] * 0.2,
+#'   type = rep("absolute", 5)
+#' )
 #' print(targets)
 #'
 #' # create zones matrix
@@ -188,18 +196,19 @@ NULL
 #' print(z7)
 #'
 #' # create problem
-#' p7 <- problem(pus, fts) %>%
-#'       add_min_set_objective() %>%
-#'       add_manual_targets(targets) %>%
-#'       add_contiguity_constraints(z7) %>%
-#'       add_binary_decisions() %>%
-#'       add_default_solver(verbose = FALSE)
+#' p7 <-
+#'   problem(pus, fts) %>%
+#'   add_min_set_objective() %>%
+#'   add_manual_targets(targets) %>%
+#'   add_contiguity_constraints(z7) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
 #'
 #' # solve problems
 #' s7 <- category_layer(solve(p7))
 #'
 #' # plot solutions
-#' plot(s7, "solution", axes = FALSE, box = FALSE)
+#' plot(s7, main = "solution", axes = FALSE)
 #' }
 #' @name add_contiguity_constraints
 #'
@@ -220,30 +229,45 @@ methods::setMethod("add_contiguity_constraints",
   methods::signature("ConservationProblem", "ANY", "ANY"),
   function(x, zones, data) {
     # assert valid arguments
-    assertthat::assert_that(inherits(x, "ConservationProblem"),
-     inherits(zones, c("matrix", "Matrix")),
-     inherits(data, c("NULL", "Matrix")))
+    assertthat::assert_that(
+      is_conservation_problem(x),
+      is_a_matrix(zones)
+    )
     if (!is.null(data)) {
       # check argument to data if not NULL
+      assertthat::assert_that(is_a_matrix(data))
       data <- as_Matrix(data, "dgCMatrix")
-      assertthat::assert_that(all(data@x %in% c(0, 1)),
-        ncol(data) == nrow(data), number_of_total_units(x) == ncol(data),
-        all(is.finite(data@x)), Matrix::isSymmetric(data))
+      assertthat::assert_that(
+        is_numeric_values(data),
+        all_finite(data),
+        all_binary(data),
+        ncol(data) == nrow(data),
+        number_of_total_units(x) == ncol(data),
+        Matrix::isSymmetric(data)
+      )
       d <- list(matrix = data)
     } else {
       # check that planning unit data is spatially referenced
-      assertthat::assert_that(inherits(x$data$cost,
-                                       c("Spatial", "Raster", "sf")),
-        msg = paste("argument to data must be supplied because planning unit",
-                    "data are not in a spatially referenced format"))
+      assertthat::assert_that(
+        inherits(x$data$cost, c("Spatial", "Raster", "sf", "SpatRaster")),
+        msg = paste(
+          "argument to data must be supplied because planning unit",
+         "data are not in a spatially referenced format"
+        )
+      )
       d <- list()
     }
     # convert zones to matrix
     zones <- as.matrix(zones)
     assertthat::assert_that(
-      isSymmetric(zones), ncol(zones) == number_of_zones(x),
-      is.numeric(zones), all(zones %in% c(0, 1)),
-      all(colMeans(zones) <= diag(zones)), all(rowMeans(zones) <= diag(zones)))
+      is.matrix(zones),
+      isSymmetric(zones),
+      ncol(zones) == number_of_zones(x),
+      is_numeric_values(zones),
+      all_binary(zones),
+      all(colMeans(zones) <= diag(zones)),
+      all(rowMeans(zones) <= diag(zones))
+    )
     colnames(zones) <- x$zone_names()
     rownames(zones) <- colnames(zones)
     # add constraints
@@ -254,7 +278,8 @@ methods::setMethod("add_contiguity_constraints",
       name = "Contiguity constraints",
       parameters = parameters(
         binary_parameter("apply constraints?", 1L),
-        binary_matrix_parameter("zones", zones, symmetric = TRUE)),
+        binary_matrix_parameter("zones", zones, symmetric = TRUE)
+      ),
       calculate = function(self, x) {
         assertthat::assert_that(inherits(x, "ConservationProblem"))
         # generate matrix if null
@@ -270,8 +295,10 @@ methods::setMethod("add_contiguity_constraints",
         invisible(TRUE)
       },
       apply = function(self, x, y) {
-        assertthat::assert_that(inherits(x, "OptimizationProblem"),
-          inherits(y, "ConservationProblem"))
+        assertthat::assert_that(
+          inherits(x, "OptimizationProblem"),
+          inherits(y, "ConservationProblem")
+        )
         if (as.logical(self$parameters$get("apply constraints?")[[1]])) {
           # extract data and parameters
           ind <- y$planning_unit_indices()
@@ -291,7 +318,8 @@ methods::setMethod("add_contiguity_constraints",
             rcpp_apply_contiguity_constraints(x$ptr, d, z_cl)
         }
         invisible(TRUE)
-      }))
+      }
+  ))
 })
 
 #' @name add_contiguity_constraints
@@ -301,12 +329,16 @@ methods::setMethod("add_contiguity_constraints",
   methods::signature("ConservationProblem", "ANY", "data.frame"),
   function(x, zones, data) {
     # assert that does not have zone1 and zone2 columns
-    assertthat::assert_that(inherits(data, "data.frame"),
+    assertthat::assert_that(
+      is.data.frame(data),
       !assertthat::has_name(data, "zone1"),
       !assertthat::has_name(data, "zone2"))
     # add constraints
-    add_contiguity_constraints(x, zones, marxan_boundary_data_to_matrix(x, data))
-})
+    add_contiguity_constraints(
+      x, zones, marxan_boundary_data_to_matrix(x, data)
+    )
+  }
+)
 
 #' @name add_contiguity_constraints
 #' @usage \S4method{add_contiguity_constraints}{ConservationProblem,ANY,matrix}(x, zones, data)

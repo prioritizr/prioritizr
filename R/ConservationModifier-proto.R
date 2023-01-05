@@ -1,4 +1,4 @@
-#' @include internal.R waiver.R pproto.R parameters.R
+#' @include internal.R waiver.R pproto.R parameters.R assertions.R
 NULL
 
 #' @export
@@ -126,8 +126,6 @@ ConservationModifier <- pproto(
     invisible(TRUE)
   },
   apply = function(self, x, y) {
-    assertthat::assert_that(inherits(x, "OptimizationProblem"))
-    assertthat::assert_that(inherits(y, "ConservationProblem"))
     stop("no defined apply method")
   },
   output = function(self) {
@@ -143,9 +141,8 @@ ConservationModifier <- pproto(
     paste(self$name, gsub("[]", "", self$parameters$repr(), fixed = TRUE))
   },
   get_data = function(self, x) {
-    if (!x %in% names(self$data))
-      return(new_waiver())
-    return(self$data[[x]])
+    if (!x %in% names(self$data)) return(new_waiver())
+    self$data[[x]]
   },
   set_data = function(self, x, value) {
     self$data[[x]] <- value
@@ -158,8 +155,13 @@ ConservationModifier <- pproto(
     self$parameters$set(x, value)
   },
   get_all_parameters = function(self) {
-    structure(lapply(self$parameters, function(x) x$value),
-      .Names = vapply(self$parameters, function(x) x$name, character(1)),
-      id = vapply(self$parameters, function(x) as.character(x$id),
-                  character(1)))
+    structure(
+      lapply(self$parameters, function(x) x$value),
+      .Names = vapply(
+        self$parameters, function(x) x$name, character(1)
+      ),
+      id = vapply(
+        self$parameters, function(x) as.character(x$id), character(1)
+      )
+    )
   })

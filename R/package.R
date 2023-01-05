@@ -1,15 +1,10 @@
 #' @include internal.R
 NULL
 
-#' @import raster
-#' @import sp
-#' @import proto
+#' @import terra
 #' @import sf
+#' @import proto
 #' @useDynLib prioritizr, .registration = TRUE
-NULL
-
-#' @importMethodsFrom fasterize raster
-#' @export
 NULL
 
 #' prioritizr: Systematic Conservation Prioritization in R
@@ -92,4 +87,6 @@ NULL
 
 # avoid false positive NOTES
 #' @importFrom exactextractr exact_extract
+NULL
+
 NULL

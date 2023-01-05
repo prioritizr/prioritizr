@@ -10,7 +10,7 @@ NULL
 #' distributions from being over-represented
 #' in solutions (Butchart *et al.* 2015).
 #'
-#' @param x [problem()] (i.e., [`ConservationProblem-class`]) object.
+#' @param x [problem()] object.
 #'
 #' @param lower_bound_amount `numeric` threshold.
 #'
@@ -60,7 +60,7 @@ NULL
 #'   the argument to `features` in the function [problem()] could
 #'   correspond to amount of land occupied by the feature in \eqn{km^2} units).
 #'   Additionally, the function can only be applied to
-#'   [`ConservationProblem-class`] objects that are associated with a
+#'   [problem()] objects that are associated with a
 #'   single zone.
 #'
 #' @section Notes:
@@ -87,20 +87,22 @@ NULL
 #'
 #' @examples
 #' # load data
-#' data(sim_pu_raster, sim_features)
+#' sim_pu_raster <- get_sim_pu_raster()
+#' sim_features <- get_sim_features()
 #'
 #' # create problem using loglinear targets
-#' p <- problem(sim_pu_raster, sim_features) %>%
-#'      add_min_set_objective() %>%
-#'      add_loglinear_targets(10, 0.9, 100, 0.2) %>%
-#'      add_binary_decisions() %>%
-#'      add_default_solver(verbose = FALSE)
+#' p <-
+#'   problem(sim_pu_raster, sim_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_loglinear_targets(10, 0.9, 100, 0.2) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
 #' \dontrun{
 #' # solve problem
 #' s <- solve(p)
 #'
 #' # plot solution
-#' plot(s, main = "solution", axes = FALSE, box = FALSE)
+#' plot(s, main = "solution", axes = FALSE)
 #' }
 #'
 #' @name add_loglinear_targets
@@ -114,45 +116,49 @@ add_loglinear_targets <- function(x, lower_bound_amount, lower_bound_target,
   upper_bound_amount, upper_bound_target, cap_amount = NULL, cap_target = NULL,
   abundances = feature_abundances(x, na.rm = FALSE)$absolute_abundance) {
   # assert that arguments are valid
-  assertthat::assert_that(inherits(x, "ConservationProblem"),
-                          x$number_of_zones() == 1,
-                          isTRUE(all(is.finite(lower_bound_amount))),
-                          assertthat::is.scalar(lower_bound_amount),
-                          isTRUE(lower_bound_amount >= 0),
-                          isTRUE(all(is.finite(upper_bound_amount))),
-                          assertthat::is.scalar(upper_bound_amount),
-                          isTRUE(upper_bound_amount >= 0),
-                          isTRUE(all(is.finite(lower_bound_target))),
-                          assertthat::is.scalar(lower_bound_target),
-                          isTRUE(lower_bound_target >= 0),
-                          isTRUE(lower_bound_target <= 1),
-                          isTRUE(all(is.finite(upper_bound_target))),
-                          assertthat::is.scalar(upper_bound_target),
-                          isTRUE(upper_bound_target >= 0),
-                          isTRUE(upper_bound_target <= 1),
-                          isTRUE(lower_bound_amount <= upper_bound_amount),
-                          is.null(cap_amount) ||
-                            assertthat::is.scalar(cap_amount),
-                          is.null(cap_target) ||
-                            assertthat::is.scalar(cap_target),
-                          is.null(cap_amount) == is.null(cap_target),
-                          is.numeric(cap_amount) == is.numeric(cap_target),
-                          is.numeric(abundances),
-                          assertthat::noNA(abundances),
-                          isTRUE(min(abundances) >= 0),
-                          length(abundances) == x$number_of_features())
-  if (is.numeric(cap_amount))
-    assertthat::assert_that(is.finite(cap_amount), is.finite(cap_target),
-                            isTRUE(cap_amount >= 0), isTRUE(cap_target >= 0))
+  assertthat::assert_that(
+    is_conservation_problem(x),
+    x$number_of_zones() == 1,
+    assertthat::is.number(lower_bound_amount),
+    all_finite(lower_bound_amount),
+    lower_bound_amount >= 0,
+    assertthat::is.number(upper_bound_amount),
+    all_finite(upper_bound_amount),
+    upper_bound_amount >= 0,
+    assertthat::is.number(lower_bound_target),
+    all_finite(lower_bound_target),
+    lower_bound_target >= 0,
+    lower_bound_target <= 1,
+    assertthat::is.number(upper_bound_target),
+    all_finite(upper_bound_target),
+    upper_bound_target >= 0,
+    upper_bound_target <= 1,
+    lower_bound_amount <= upper_bound_amount,
+    is.numeric(abundances),
+    all_finite(abundances),
+    min(abundances, na.rm = TRUE) >= 0,
+    length(abundances) == x$number_of_features()
+  )
+  if (!is.null(cap_amount) || !is.null(cap_target)) {
+    assertthat::assert_that(
+      assertthat::is.number(cap_amount),
+      all_finite(cap_amount),
+      cap_amount >= 0,
+      assertthat::is.number(cap_target),
+      all_finite(cap_target),
+      cap_target >= 0
+    )
+  }
   # create targets as data.frame
   target_data <- expand.grid(feature = x$feature_names(), type = "absolute")
   # calculate targets as absolute amounts
-  target_data$target <- loglinear_interpolation(abundances,
-                                                lower_bound_amount,
-                                                lower_bound_target,
-                                                upper_bound_amount,
-                                                upper_bound_target) *
-                        abundances
+  target_data$target <- abundances * loglinear_interpolation(
+    abundances,
+    lower_bound_amount,
+    lower_bound_target,
+    upper_bound_amount,
+    upper_bound_target
+  )
   # apply targets
   if (is.numeric(cap_amount))
     target_data$target[abundances >= cap_amount] <- cap_target

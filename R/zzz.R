@@ -1,4 +1,3 @@
-
 .pkgenv <- new.env(parent = emptyenv())
 
 .onUnload <- function(libpath) {

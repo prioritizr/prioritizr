@@ -2,22 +2,28 @@
 % Please edit documentation in R/simulate.R
 \name{simulate_species}
 \alias{simulate_species}
+\alias{simulate_species.Raster}
+\alias{simulate_species.SpatRaster}
 \title{Simulate species habitat suitability data}
 \usage{
-simulate_species(x, n = 1, scale = 0.5)
+simulate_species(x, n, scale)
+
+\method{simulate_species}{Raster}(x, n = 1, scale = 0.5)
+
+\method{simulate_species}{SpatRaster}(x, n = 1, scale = 0.5)
 }
 \arguments{
-\item{x}{\code{\link[raster:raster]{raster::raster()}} raster object to use as a template.}
+\item{x}{\code{\link[terra:rast]{terra::rast()}} object to use as a template.}
 
 \item{n}{\code{integer} number of layers to simulate.
 Defaults to 1.}
 
 \item{scale}{\code{numeric} parameter to control level of spatial
-auto-correlation.
+auto-correlation in the simulated data.
 Defaults to 0.5.}
 }
 \value{
-\code{\linkS4class{RasterStack}} object.
+A \code{\link[terra:rast]{terra::rast()}} object.
 }
 \description{
 Generates simulated species data using Gaussian random fields.
@@ -27,8 +33,9 @@ values between zero and one.
 \examples{
 \dontrun{
 # create raster
-r <- raster(ncol = 10, nrow = 10, xmn = 0, xmx = 1, ymn = 0, ymx = 1)
-values(r) <- 1
+r <- terra::rast(
+  ncols = 10, nrows = 10, xmin = 0, xmax = 1, ymin = 0, ymax = 1, vals = 1
+)
 
 # simulate data for 4 species
 spp <- simulate_species(r, 4)
@@ -39,5 +46,8 @@ plot(spp, main = "simulated species distributions")
 
 }
 \seealso{
-\code{\link[=simulate_data]{simulate_data()}}.
+Other simulations: 
+\code{\link{simulate_cost}()},
+\code{\link{simulate_data}()}
 }
+\concept{simulations}

@@ -24,8 +24,8 @@ numeric_parameter_array(
   name,
   value,
   label,
-  lower_limit = rep(.Machine$double.xmin, length(value)),
-  upper_limit = rep(.Machine$double.xmax, length(value))
+  lower_limit = rep(as.integer(-.Machine$double.max), length(value)),
+  upper_limit = rep(as.integer(.Machine$double.max), length(value))
 )
 }
 \arguments{
@@ -44,7 +44,7 @@ value for each element in \code{value}. Defaults to the
 largest  possible number on the system.}
 }
 \value{
-\code{\linkS4class{ArrayParameter}} object.
+An \code{\linkS4class{ArrayParameter}} object.
 }
 \description{
 Create parameters that consist of multiple numbers. If an attempt is made
@@ -71,8 +71,9 @@ description of each.
 }
 \examples{
 # proportion parameter array
-p1 <- proportion_parameter_array('prop_array', c(0.1, 0.2, 0.3),
-                                 letters[1:3])
+p1 <- proportion_parameter_array(
+  "prop_array", c(0.1, 0.2, 0.3), letters[1:3]
+)
 print(p1) # print it
 p1$get() # get value
 p1$id # get id

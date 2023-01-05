@@ -11,11 +11,10 @@
 \S4method{solve}{ConservationProblem,missing}(a, b, ..., run_checks = TRUE, force = FALSE)
 }
 \arguments{
-\item{a}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) or
-\code{\linkS4class{OptimizationProblem}} object.}
+\item{a}{\code{\link[=problem]{problem()}} or \code{\linkS4class{OptimizationProblem}} object.}
 
 \item{b}{\code{\linkS4class{Solver}} object. Not used if \code{a} is an
-\code{\linkS4class{ConservationProblem}} object.}
+\code{\link[=problem]{problem()}} object.}
 
 \item{...}{arguments passed to \code{\link[=compile]{compile()}}.}
 
@@ -29,9 +28,8 @@ made to solve the problem even if potential issues were detected during
 the presolve checks. Defaults to \code{FALSE}.}
 }
 \value{
-A \code{numeric}, \code{matrix},
-\code{\linkS4class{RasterLayer}}, \code{\linkS4class{Spatial}},
-or \code{\link[sf:sf]{sf::sf()}} object containing the solution to the problem.
+A \code{numeric}, \code{matrix}, \code{data.frame}, \code{\link[sf:sf]{sf::st_sf()}}, or
+\code{\link[terra:rast]{terra::rast()}} object containing the solution to the problem.
 Additionally, the returned object will have the following additional
 attributes: \code{"objective"} containing the solution's objective,
 \code{"runtime"} denoting the number of seconds that elapsed while solving
@@ -88,18 +86,14 @@ and fields (columns) correspond to different  management zones.
 Note that if a portfolio is used to generate multiple solutions,
 then a \code{list} of such \code{matrix} objects will be returned.}
 
-\item{\code{a} has \code{\linkS4class{Raster}} planning units}{The solution
-will be returned as a \code{\linkS4class{Raster}} object.
-If the argument to \code{x} contains a single
-management zone, then a \code{\linkS4class{RasterLayer}} object will be returned.
-Otherwise, if the argument to \code{x} contains multiple zones, then a
-\code{\linkS4class{RasterStack}} object
-will be returned containing a different layer for each management zone.
+\item{\code{a} has \code{\link[terra:rast]{terra::rast()}} planning units}{The solution
+will be returned as a \code{\link[terra:rast]{terra::rast()}} object.
+If the argument to \code{x} contains multiple zones, then the object
+will be have a different layer for each management zone.
 Note that if a portfolio is used to generate multiple solutions,
-then a \code{list} of such \code{\linkS4class{Raster}} objects will be returned.}
+then a \code{list} of \code{\link[terra:rast]{terra::rast()}} objects will be returned.}
 
-\item{\code{a} has \code{\linkS4class{Spatial}}, \code{\link[sf:sf]{sf::sf()}}, or \code{data.frame}
-planning units}{
+\item{\code{a} has \code{\link[sf:sf]{sf::sf()}}, or \code{data.frame} planning units}{
 The solution will be returned in the same data format as the planning
 units.
 Here, each row corresponds to a different planning unit,
@@ -122,15 +116,20 @@ of the management zone (e.g., \code{"solution_1_zone1"}).}
 set.seed(500)
 
 # load data
-data(sim_pu_raster, sim_pu_polygons, sim_pu_sf, sim_features,
-     sim_pu_zones_stack, sim_pu_zones_sf, sim_features_zones)
+sim_pu_raster <- get_sim_pu_raster()
+sim_pu_polygons <- get_sim_pu_polygons()
+sim_features <- get_sim_features()
+sim_pu_zones_raster <- get_sim_pu_zones_raster()
+sim_pu_zones_polygons <- get_sim_pu_zones_polygons()
+sim_features_zones <- get_sim_features_zones()
 
 # build minimal conservation problem with raster data
-p1 <- problem(sim_pu_raster, sim_features) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(0.1) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(verbose = FALSE)
+p1 <-
+  problem(sim_pu_raster, sim_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.1) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
 
 # solve the problem
 s1 <- solve(p1)
@@ -148,41 +147,42 @@ r1 <- eval_feature_representation_summary(p1, s1)
 print(r1)
 
 # plot solution
-plot(s1, main = "solution", axes = FALSE, box = FALSE)
+plot(s1, main = "solution", axes = FALSE)
 
-# build minimal conservation problem with polygon (Spatial) data
-p2 <- problem(sim_pu_polygons, sim_features, cost_column = "cost") \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(0.1) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(verbose = FALSE)
+# build minimal conservation problem with polygon data
+p2 <-
+  problem(sim_pu_polygons, sim_features, cost_column = "cost") \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.1) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
 
 # solve the problem
 s2 <- solve(p2)
 
-# print first six rows of the attribute table
-print(head(s2))
+# print solution
+print(s2)
 
 # calculate feature representation in the solution
 r2 <- eval_feature_representation_summary(p2, s2[, "solution_1"])
 print(r2)
 
 # plot solution
-spplot(s2, zcol = "solution_1", main = "solution", axes = FALSE, box = FALSE)
+plot(s2[, "solution_1"], main = "solution", axes = FALSE)
 
-
-# build minimal conservation problem with polygon (sf) data
-p3 <- problem(sim_pu_sf, sim_features, cost_column = "cost") \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(0.1) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(verbose = FALSE)
+# build minimal conservation problem with polygon data
+p3 <-
+  problem(sim_pu_polygons, sim_features, cost_column = "cost") \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.1) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
 
 # solve the problem
 s3 <- solve(p3)
 
-# print first six rows of the attribute table
-print(head(s3))
+# print solution
+print(s3)
 
 # calculate feature representation in the solution
 r3 <- eval_feature_representation_summary(p3, s3[, "solution_1"])
@@ -191,14 +191,13 @@ print(r3)
 # plot solution
 plot(s3[, "solution_1"])
 
-
 # build multi-zone conservation problem with raster data
-p4 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
-                                  ncol = 3)) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(verbose = FALSE)
+p4 <-
+  problem(sim_pu_zones_raster, sim_features_zones) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5, ncol = 3)) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
 
 # solve the problem
 s4 <- solve(p4)
@@ -211,33 +210,36 @@ r4 <- eval_feature_representation_summary(p4, s4)
 print(r4)
 
 # plot solution
-plot(category_layer(s4), main = "solution", axes = FALSE, box = FALSE)
+plot(category_layer(s4), main = "solution", axes = FALSE)
 
-# build multi-zone conservation problem with polygon (sf) data
-p5 <- problem(sim_pu_zones_sf, sim_features_zones,
-              cost_column = c("cost_1", "cost_2", "cost_3")) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
-                                  ncol = 3)) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(verbose = FALSE)
+# build multi-zone conservation problem with polygon data
+p5 <-
+  problem(
+    sim_pu_zones_polygons, sim_features_zones,
+    cost_column = c("cost_1", "cost_2", "cost_3")
+  ) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5, ncol = 3)) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
 
 # solve the problem
 s5 <- solve(p5)
 
-# print first six rows of the attribute table
-print(head(s5))
+# print solution
+print(s5)
 
 # calculate feature representation in the solution
 r5 <- eval_feature_representation_summary(
-  p5, s5[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")])
+  p5, s5[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")]
+)
 print(r5)
 
 # create new column representing the zone id that each planning unit
 # was allocated to in the solution
-s5$solution <- category_vector(s5[, c("solution_1_zone_1",
-                                      "solution_1_zone_2",
-                                      "solution_1_zone_3")])
+s5$solution <- category_vector(
+  s5[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")]
+)
 s5$solution <- factor(s5$solution)
 
 # plot solution

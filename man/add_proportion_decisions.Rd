@@ -7,11 +7,10 @@
 add_proportion_decisions(x)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} object.}
 }
 \value{
-Object (i.e., \code{\linkS4class{ConservationProblem}}) with the decisions added
-to it.
+An updated \code{\link[=problem]{problem()}} object with the decisions added to it.
 }
 \description{
 Add a proportion decision to a conservation planning \code{\link[=problem]{problem()}}.
@@ -25,8 +24,8 @@ decisions
 Conservation planning problems involve making decisions on planning
 units. These decisions are then associated with actions (e.g., turning a
 planning unit into a protected area). Only a
-single decision should be added to a \code{ConservationProblem} object.
-Note that if multiple decisions are added to a problem object, then the
+single decision should be added to a \code{\link[=problem]{problem()}} object.
+Note that if multiple decisions are added to an object, then the
 last one to be added will be used.
 }
 \examples{
@@ -35,14 +34,18 @@ last one to be added will be used.
 set.seed(500)
 
 # load data
-data(sim_pu_raster, sim_features, sim_pu_zones_stack, sim_features_zones)
+sim_pu_raster <- get_sim_pu_raster()
+sim_pu_zones_raster <- get_sim_pu_zones_raster()
+sim_features <- get_sim_features()
+sim_features_zones <- get_sim_features_zones()
 
 # create minimal problem with proportion decisions
-p1 <- problem(sim_pu_raster, sim_features) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(0.1) \%>\%
-      add_proportion_decisions() \%>\%
-      add_default_solver(verbose = FALSE)
+p1 <-
+  problem(sim_pu_raster, sim_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.1) \%>\%
+  add_proportion_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
 
 # solve problem
 s1 <- solve(p1)
@@ -51,12 +54,12 @@ s1 <- solve(p1)
 plot(s1, main = "solution")
 
 # build multi-zone conservation problem with proportion decisions
-p2 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
-                                  ncol = 3)) \%>\%
-      add_proportion_decisions() \%>\%
-      add_default_solver(verbose = FALSE)
+p2 <-
+  problem(sim_pu_zones_raster, sim_features_zones) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5, ncol = 3)) \%>\%
+  add_proportion_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
 
 # solve the problem
 s2 <- solve(p2)
@@ -66,7 +69,7 @@ print(s2)
 
 # plot solution
 # panels show the proportion of each planning unit allocated to each zone
-plot(s2, axes = FALSE, box = FALSE)
+plot(s2, axes = FALSE)
 }
 }
 \seealso{

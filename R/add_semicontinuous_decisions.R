@@ -15,7 +15,7 @@ NULL
 #' type of decision may be useful when it is not practical to conserve entire
 #' planning units.
 #'
-#' @param x [problem()] (i.e., [`ConservationProblem-class`]) object.
+#' @param x [problem()] object.
 #'
 #' @param upper_limit `numeric` value specifying the maximum proportion
 #'   of a planning unit that can be reserved (e.g., set to 0.8 for 80%).
@@ -33,14 +33,18 @@ NULL
 #' set.seed(500)
 #'
 #' # load data
-#' data(sim_pu_raster, sim_features, sim_pu_zones_stack, sim_features_zones)
+#' sim_pu_raster <- get_sim_pu_raster()
+#' sim_pu_zones_raster <- get_sim_pu_zones_raster()
+#' sim_features <- get_sim_features()
+#' sim_features_zones <- get_sim_features_zones()
 #'
 #' # create minimal problem with semi-continuous decisions
-#' p1 <- problem(sim_pu_raster, sim_features) %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(0.1) %>%
-#'       add_semicontinuous_decisions(0.5) %>%
-#'       add_default_solver(verbose = FALSE)
+#' p1 <-
+#'   problem(sim_pu_raster, sim_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(0.1) %>%
+#'   add_semicontinuous_decisions(0.5) %>%
+#'   add_default_solver(verbose = FALSE)
 #'
 #' # solve problem
 #' s1 <- solve(p1)
@@ -49,12 +53,12 @@ NULL
 #' plot(s1, main = "solution")
 #'
 #' # build multi-zone conservation problem with semi-continuous decisions
-#' p2 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
-#'                                   ncol = 3)) %>%
-#'       add_semicontinuous_decisions(0.5) %>%
-#'       add_default_solver(verbose = FALSE)
+#' p2 <-
+#'   problem(sim_pu_zones_raster, sim_features_zones) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5, ncol = 3)) %>%
+#'   add_semicontinuous_decisions(0.5) %>%
+#'   add_default_solver(verbose = FALSE)
 #'
 #' # solve the problem
 #' s2 <- solve(p2)
@@ -64,7 +68,7 @@ NULL
 #'
 #' # plot solution
 #' # panels show the proportion of each planning unit allocated to each zone
-#' plot(s2, axes = FALSE, box = FALSE)
+#' plot(s2, axes = FALSE)
 #' }
 #' @name add_semicontinuous_decisions
 NULL
@@ -73,20 +77,28 @@ NULL
 #' @export
 add_semicontinuous_decisions <- function(x, upper_limit) {
   # assert arguments are valid
-  assertthat::assert_that(inherits(x, "ConservationProblem"),
-                          isTRUE(all(is.finite(upper_limit))),
-                          assertthat::is.scalar(upper_limit),
-                          isTRUE(upper_limit <= 1), isTRUE(upper_limit >= 0))
+  assertthat::assert_that(
+    is_conservation_problem(x),
+    assertthat::is.number(upper_limit),
+    all_finite(upper_limit),
+    upper_limit <= 1,
+    upper_limit >= 0
+  )
   # add decision to problem
-  x$add_decisions(
-    pproto("SemiContinuousDecision",
-           Decision,
-           name = "Semicontinuous decision",
-           parameters = parameters(
-             proportion_parameter("upper limit", upper_limit)),
-           apply = function(self, x) {
-             assertthat::assert_that(inherits(x, "OptimizationProblem"))
-             invisible(rcpp_apply_decisions(x$ptr, "C", 0,
-                                            self$parameters$get("upper limit")))
-           }))
+  x$add_decisions(pproto(
+    "SemiContinuousDecision",
+     Decision,
+     name = "Semicontinuous decision",
+     parameters = parameters(
+       proportion_parameter("upper limit", upper_limit)
+     ),
+     apply = function(self, x) {
+       assertthat::assert_that(inherits(x, "OptimizationProblem"))
+       invisible(
+         rcpp_apply_decisions(
+           x$ptr, "C", 0, self$parameters$get("upper limit")
+         )
+       )
+    }
+  ))
 }

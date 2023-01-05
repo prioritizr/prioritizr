@@ -17,7 +17,7 @@
 \S4method{add_neighbor_constraints}{ConservationProblem,ANY,ANY,array}(x, k, zones, data)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} object.}
 
 \item{k}{\code{integer} minimum number of neighbors for selected
 planning units in the solution. For problems with multiple zones,
@@ -44,8 +44,7 @@ neighborhood data is calculated automatically using the
 See the Data format section for more information.}
 }
 \value{
-Object (i.e., \code{\linkS4class{ConservationProblem}}) with the constraints
-added to it.
+An updated \code{\link[=problem]{problem()}} object with the constraints added to it.
 }
 \description{
 Add constraints to a conservation planning \code{\link[=problem]{problem()}} to ensure
@@ -115,13 +114,17 @@ allocated to zones 3 and 4 respectively.}
 \examples{
 \dontrun{
 # load data
-data(sim_pu_raster, sim_features, sim_pu_zones_stack, sim_features_zones)
+sim_pu_raster <- get_sim_pu_raster()
+sim_pu_zones_raster <- get_sim_pu_zones_raster()
+sim_features <- get_sim_features()
+sim_features_zones <- get_sim_features_zones()
 
 # create minimal problem
-p1 <- problem(sim_pu_raster, sim_features) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(0.1) \%>\%
-      add_default_solver(verbose = FALSE)
+p1 <-
+  problem(sim_pu_raster, sim_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.1) \%>\%
+  add_default_solver(verbose = FALSE)
 
 # create problem with constraints that require 1 neighbor
 # and neighbors are defined using a rook-style neighborhood
@@ -133,21 +136,25 @@ p3 <- p1 \%>\% add_neighbor_constraints(2)
 
 # create problem with constraints that require 3 neighbor
 # and neighbors are defined using a queen-style neighborhood
-p4 <- p1 \%>\% add_neighbor_constraints(3,
-               data = adjacency_matrix(sim_pu_raster, directions = 8))
+p4 <-
+  p1 \%>\%
+  add_neighbor_constraints(
+    3, data = adjacency_matrix(sim_pu_raster, directions = 8)
+  )
 
 # solve problems
-s1 <- stack(list(solve(p1), solve(p2), solve(p3), solve(p4)))
+s1 <- terra::rast(list(solve(p1), solve(p2), solve(p3), solve(p4)))
+names(s1) <- c("basic solution", "1 neighbor", "2 neighbors", "3 neighbors")
 
 # plot solutions
-plot(s1, box = FALSE, axes = FALSE,
-     main = c("basic solution", "1 neighbor", "2 neighbors", "3 neighbors"))
+plot(s1, axes = FALSE)
 
 # create minimal problem with multiple zones
-p5 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) \%>\%
-      add_default_solver(verbose = FALSE)
+p5 <-
+  problem(sim_pu_zones_raster, sim_features_zones) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) \%>\%
+  add_default_solver(verbose = FALSE)
 
 # create problem where selected planning units require at least 2 neighbors
 # for each zone and planning units are only considered neighbors if they
@@ -177,11 +184,11 @@ p8 <- p5 \%>\% add_neighbor_constraints(c(0, 1, 2), z8)
 s2 <- list(p5, p6, p7, p8)
 s2 <- lapply(s2, solve)
 s2 <- lapply(s2, category_layer)
-s2 <- stack(s2)
+s2 <- terra::rast(s2)
 names(s2) <- c("basic problem", "p6", "p7", "p8")
 
 # plot solutions
-plot(s2, main = names(s2), box = FALSE, axes = FALSE)
+plot(s2, main = names(s2), axes = FALSE)
 }
 }
 \references{

@@ -10,7 +10,7 @@ NULL
 #' frequencies for moderate and large-sized problems (similar to
 #' *Marxan*).
 #'
-#' @param x [problem()] (i.e., [`ConservationProblem-class`]) object.
+#' @param x [problem()] object.
 #'
 #' @param number_solutions `integer` number of solutions required.
 #'
@@ -46,43 +46,52 @@ NULL
 #' set.seed(600)
 #'
 #' # load data
-#' data(sim_pu_raster, sim_features)
+#' sim_pu_raster <- get_sim_pu_raster()
+#' sim_features <- get_sim_features()
+#' sim_pu_zones_raster <- get_sim_pu_zones_raster()
+#' sim_features_zones <- get_sim_features_zones()
 #'
 #' # create minimal problem with a portfolio containing 10 solutions within 20%
 #' # of optimality
-#' p1 <- problem(sim_pu_raster, sim_features) %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(0.05) %>%
-#'       add_gap_portfolio(number_solutions = 5, pool_gap = 0.2) %>%
-#'       add_default_solver(gap = 0, verbose = FALSE)
+#' p1 <-
+#'   problem(sim_pu_raster, sim_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(0.05) %>%
+#'   add_gap_portfolio(number_solutions = 5, pool_gap = 0.2) %>%
+#'   add_default_solver(gap = 0, verbose = FALSE)
 #'
 #' # solve problem and generate portfolio
 #' s1 <- solve(p1)
 #'
+#' # convert portfolio into a multi-layer raster
+#' s1 <- terra::rast(s1)
+#'
 #' # print number of solutions found
-#' print(length(s1))
+#' print(terra::nlyr(s1))
 #'
 #' # plot solutions
-#' plot(stack(s1), axes = FALSE, box = FALSE)
+#' plot(s1, axes = FALSE)
 #'
 #' # create multi-zone  problem with a portfolio containing 10 solutions within
 #' # 20% of optimality
-#' p2 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
-#'                                   ncol = 3)) %>%
-#'       add_gap_portfolio(number_solutions = 5, pool_gap = 0.2) %>%
-#'       add_default_solver(gap = 0, verbose = FALSE)
+#' p2 <-
+#'   problem(sim_pu_zones_raster, sim_features_zones) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5, ncol = 3)) %>%
+#'   add_gap_portfolio(number_solutions = 5, pool_gap = 0.2) %>%
+#'   add_default_solver(gap = 0, verbose = FALSE)
 #'
 #' # solve problem and generate portfolio
 #' s2 <- solve(p2)
 #'
+#' # convert portfolio into a multi-layer raster of category layers
+#' s2 <- terra::rast(lapply(s2, category_layer))
+#'
 #' # print number of solutions found
-#' print(length(s2))
+#' print(terra::nlyr(s2))
 #'
 #' # plot solutions in portfolio
-#' plot(stack(lapply(s2, category_layer)),
-#'      main = "solution", axes = FALSE, box = FALSE)
+#' plot(s2, axes = FALSE)
 #' }
 #' @name add_gap_portfolio
 NULL
@@ -91,49 +100,68 @@ NULL
 #' @export
 add_gap_portfolio <- function(x, number_solutions, pool_gap = 0.1) {
   # assert that arguments are valid
-  assertthat::assert_that(inherits(x, "ConservationProblem"),
-    assertthat::is.count(number_solutions), assertthat::noNA(number_solutions),
-    assertthat::is.number(pool_gap), assertthat::noNA(pool_gap), isTRUE(pool_gap >= 0))
-  # check that version 8.0.0 or greater of gurobi is installed
-  if (!requireNamespace("gurobi", quietly = TRUE))
-    stop(paste("the \"gurobi\" package is required to generate solutions ",
-               "using this portfolio method"))
-  if (utils::packageVersion("gurobi") < as.package_version("8.0.0"))
-    stop(paste("version 8.0.0 (or greater) of the Gurobi software is required ",
-               "to generate solution using this portfolio method"))
+  assertthat::assert_that(
+    is_conservation_problem(x),
+    assertthat::is.count(number_solutions),
+    assertthat::noNA(number_solutions),
+    assertthat::is.number(pool_gap),
+    assertthat::noNA(pool_gap),
+    pool_gap >= 0,
+    is_installed("gurobi", "add_gap_portfolio()")
+  )
+  assertthat::assert_that(
+    utils::packageVersion("gurobi") >= as.package_version("8.0.0"),
+    msg = paste(
+      "add_gap_portfolio() requires version 8.0.0 (or greater)",
+      "of the Gurobi software"
+    )
+  )
   # add portfolio
   x$add_portfolio(pproto(
     "GapPortfolio",
     Portfolio,
     name = "Gap portfolio",
     parameters = parameters(
-      integer_parameter("number_solutions", number_solutions,
-                        lower_limit = 1L),
-      numeric_parameter("pool_gap", pool_gap, lower_limit = 0)),
+      integer_parameter(
+        "number_solutions", number_solutions, lower_limit = 1L
+      ),
+      numeric_parameter("pool_gap", pool_gap, lower_limit = 0)
+    ),
     run = function(self, x, solver) {
       ## check that problems has gurobi solver
-      if (!inherits(solver, "GurobiSolver"))
-        stop(paste("add_gurobi_solver must be used to solve problems",
-                   "with portfolio method"))
+      assertthat::assert_that(
+        inherits(solver, "GurobiSolver"),
+        msg = "add_gap_portfolio() requires use of add_gurobi_solver()"
+      )
       ## check that solver gap <= portfolio gap
       assertthat::assert_that(
         solver$parameters$get("gap") <= self$parameters$get("pool_gap"),
         msg = "solver gap not smaller than or equal to portfolio gap")
       ## solve problem, and with gap of zero
-      sol <- solver$solve(x, PoolSearchMode = 2,
+      sol <- solver$solve(
+        x,
+        PoolSearchMode = 2,
         PoolSolutions = self$parameters$get("number_solutions"),
-        PoolGap = self$parameters$get("pool_gap"))
+        PoolGap = self$parameters$get("pool_gap")
+      )
       ## compile results
       if (!is.null(sol$pool)) {
-        sol <- append(list(sol[-5]),
-                      lapply(sol$pool,
-                             function(z) list(x = z$xn, objective = z$objval,
-                                              status = z$status,
-                                              runtime = sol$runtime)))
+        sol <- append(
+          list(sol[-5]),
+          lapply(sol$pool, function(z) {
+            list(
+              x = z$xn,
+              objective = z$objval,
+              status = z$status,
+              runtime = sol$runtime
+            )
+          })
+        )
       } else {
        sol <- list(sol)
       }
       ## return solution
       return(sol)
     }
-))}
+  ))
+}

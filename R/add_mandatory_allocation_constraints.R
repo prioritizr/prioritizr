@@ -7,7 +7,7 @@ NULL
 #' management zone in the solution. Note that this function can only be used
 #' with problems that contain multiple zones.
 #'
-#' @param x [problem()] (i.e., [`ConservationProblem-class`]) object.
+#' @param x [problem()] object.
 #'
 #' @details For a conservation planning [problem()] with multiple
 #'   management zones, it may sometimes be desirable to obtain a solution that
@@ -35,17 +35,19 @@ NULL
 #' set.seed(500)
 #'
 #' # load data
-#' data(sim_pu_zones_stack, sim_features_zones)
+#' sim_pu_zones_raster <- get_sim_pu_zones_raster()
+#' sim_features_zones <- get_sim_features_zones()
 #'
 #' # create multi-zone problem with minimum set objective
 #' targets_matrix <- matrix(rpois(15, 1), nrow = 5, ncol = 3)
 #'
 #' # create minimal problem with minimum set objective
-#' p1 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
-#'       add_min_set_objective() %>%
-#'       add_absolute_targets(targets_matrix) %>%
-#'       add_binary_decisions() %>%
-#'       add_default_solver(verbose = FALSE)
+#' p1 <-
+#'   problem(sim_pu_zones_raster, sim_features_zones) %>%
+#'   add_min_set_objective() %>%
+#'   add_absolute_targets(targets_matrix) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
 #'
 #' # create another problem that is the same as p1, but has constraints
 #' # to mandate that every planning unit in the solution is assigned to
@@ -62,8 +64,7 @@ NULL
 #' c2 <- category_layer(s2)
 #'
 #' # plot solution category layers
-#' plot(stack(c1, c2), main = c("default", "mandatory allocation"),
-#'      axes = FALSE, box = FALSE)
+#' plot(c(c1, c2), main = c("default", "mandatory allocation"), axes = FALSE)
 #' }
 #' @name add_mandatory_allocation_constraints
 #'
@@ -84,22 +85,28 @@ methods::setMethod("add_mandatory_allocation_constraints",
   methods::signature("ConservationProblem"),
   function(x) {
     # assert valid arguments
-    assertthat::assert_that(inherits(x, "ConservationProblem"),
-                            number_of_zones(x) >= 2)
+    assertthat::assert_that(
+      is_conservation_problem(x),
+      number_of_zones(x) >= 2
+    )
     # add constraints
     x$add_constraint(pproto(
       "MandatoryAllocationConstraint",
       Constraint,
       name = "Mandatory allocation constraints",
       parameters = parameters(
-        binary_parameter("apply constraints?", 1L)),
+        binary_parameter("apply constraints?", 1L)
+      ),
       apply = function(self, x, y) {
-        assertthat::assert_that(inherits(x, "OptimizationProblem"),
-                                inherits(y, "ConservationProblem"))
+        assertthat::assert_that(
+          inherits(x, "OptimizationProblem"),
+          inherits(y, "ConservationProblem")
+        )
         # the apply method for this function doesn't actually do anything,
         # the prioritizr::compile function will detect the presence of this
         # constraint and act accordingly. The rcpp_add_zones_constraints
         # function is "really" where this constraint is applied
         invisible(TRUE)
-      }))
+      }
+    ))
 })

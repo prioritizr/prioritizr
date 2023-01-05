@@ -63,51 +63,57 @@ NULL
 #' @examples
 #' \dontrun{
 #' # load data
-#' data(sim_pu_raster, sim_pu_zones_stack, sim_features, sim_features_zones)
+#' sim_pu_raster <- get_sim_pu_raster()
+#' sim_pu_zones_raster <- get_sim_pu_zones_raster()
+#' sim_features <- get_sim_features()
+#' sim_features_zones <- get_sim_features_zones()
 #'
 #' # create problem with minimum shortfall objective
-#' p1 <- problem(sim_pu_raster, sim_features) %>%
-#'       add_min_shortfall_objective(1800) %>%
-#'       add_relative_targets(0.1) %>%
-#'       add_binary_decisions() %>%
-#'       add_default_solver(verbose = FALSE)
+#' p1 <-
+#'   problem(sim_pu_raster, sim_features) %>%
+#'   add_min_shortfall_objective(1800) %>%
+#'   add_relative_targets(0.1) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
 #'
 #' # solve problem
 #' s1 <- solve(p1)
 #'
 #' # plot solution
-#' plot(s1, main = "solution", axes = FALSE, box = FALSE)
+#' plot(s1, main = "solution", axes = FALSE)
 #'
 #' # create multi-zone problem with minimum shortfall objective,
 #' # with 10% representation targets for each feature, and set
 #' # a budget such that the total maximum expenditure in all zones
 #' # cannot exceed 3000
-#' p2 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
-#'       add_min_shortfall_objective(3000) %>%
-#'       add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
-#'       add_binary_decisions() %>%
-#'       add_default_solver(verbose = FALSE)
+#' p2 <-
+#'   problem(sim_pu_zones_raster, sim_features_zones) %>%
+#'   add_min_shortfall_objective(3000) %>%
+#'   add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
 #'
 #' # solve problem
 #' s2 <- solve(p2)
 #'
 #' # plot solution
-#' plot(category_layer(s2), main = "solution", axes = FALSE, box = FALSE)
+#' plot(category_layer(s2), main = "solution", axes = FALSE)
 #'
 #' # create multi-zone problem with minimum shortfall objective,
 #' # with 10% representation targets for each feature, and set
 #' # separate budgets for each management zone
-#' p3 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
-#'       add_min_shortfall_objective(c(3000, 3000, 3000)) %>%
-#'       add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
-#'       add_binary_decisions() %>%
-#'       add_default_solver(verbose = FALSE)
+#' p3 <-
+#'   problem(sim_pu_zones_raster, sim_features_zones) %>%
+#'   add_min_shortfall_objective(c(3000, 3000, 3000)) %>%
+#'   add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
 #'
 #' # solve problem
 #' s3 <- solve(p3)
 #'
 #' # plot solution
-#' plot(category_layer(s3), main = "solution", axes = FALSE, box = FALSE)
+#' plot(category_layer(s3), main = "solution", axes = FALSE)
 #' }
 #' @name add_min_shortfall_objective
 NULL
@@ -116,23 +122,33 @@ NULL
 #' @export
 add_min_shortfall_objective <- function(x, budget) {
   # assert arguments are valid
-  assertthat::assert_that(inherits(x, "ConservationProblem"),
-                          is.numeric(budget),
-                          all(is.finite(budget)),
-                          all(budget >= 0.0),
-                          isTRUE(min(budget) > 0),
-                          length(budget) == 1 ||
-                            length(budget) == number_of_zones(x))
+  assertthat::assert_that(
+    is_conservation_problem(x),
+    is.numeric(budget),
+    all_finite(budget),
+    all(budget >= 0.0),
+    min(budget) > 0
+  )
+  if (length(budget) > 1) {
+    assertthat::assert_that(
+      length(budget) == number_of_zones(x),
+      msg = paste(
+        "argument to budget should contain a single value",
+        "or a value for each zone"
+      )
+    )
+  }
   # make parameter
   if (length(budget) == 1) {
-    p <- numeric_parameter("budget", budget, lower_limit = 0,
-                           upper_limit = sum(x$planning_unit_costs(),
-                                             na.rm = TRUE))
+    p <- numeric_parameter(
+      "budget", budget, lower_limit = 0,
+      upper_limit = sum(x$planning_unit_costs(), na.rm = TRUE)
+    )
   } else {
-    p <- numeric_parameter_array("budget", budget, x$zone_names(),
-                                 lower_limit = 0,
-                                 upper_limit = colSums(x$planning_unit_costs(),
-                                                       na.rm = TRUE))
+    p <- numeric_parameter_array(
+      "budget", budget, x$zone_names(), lower_limit = 0,
+      upper_limit = colSums(x$planning_unit_costs(), na.rm = TRUE)
+    )
   }
   # add objective to problem
   x$add_objective(pproto(
@@ -141,10 +157,16 @@ add_min_shortfall_objective <- function(x, budget) {
     name = "Minimum shortfall objective",
     parameters = parameters(p),
     apply = function(self, x, y) {
-      assertthat::assert_that(inherits(x, "OptimizationProblem"),
-                              inherits(y, "ConservationProblem"))
-      invisible(rcpp_apply_min_shortfall_objective(
-        x$ptr, y$feature_targets(), y$planning_unit_costs(),
-        self$parameters$get("budget")[[1]]))
-    }))
+      assertthat::assert_that(
+        inherits(x, "OptimizationProblem"),
+        inherits(y, "ConservationProblem")
+      )
+      invisible(
+        rcpp_apply_min_shortfall_objective(
+          x$ptr, y$feature_targets(), y$planning_unit_costs(),
+          self$parameters$get("budget")[[1]]
+        )
+      )
+    }
+  ))
 }

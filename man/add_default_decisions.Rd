@@ -7,11 +7,10 @@
 add_default_decisions(x)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} object.}
 }
 \value{
-Object (i.e., \code{\linkS4class{ConservationProblem}}) with the decisions added
-to it.
+An updated \code{\link[=problem]{problem()}} object with the decisions added to it.
 }
 \description{
 This function adds the default decision types to a conservation planning

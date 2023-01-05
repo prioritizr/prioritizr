@@ -20,11 +20,10 @@
 \S4method{eval_connectivity_summary}{ConservationProblem,ANY,ANY,array}(x, solution, zones, data)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} object.}
 
 \item{solution}{\code{numeric}, \code{matrix}, \code{data.frame},
-\code{\linkS4class{Raster}}, \code{\linkS4class{Spatial}},
-or \code{\link[sf:sf]{sf::sf()}} object.
+\code{\link[terra:rast]{terra::rast()}}, or \code{\link[sf:sf]{sf::sf()}} object.
 The argument should be in the same format as the planning unit cost
 data in the argument to \code{x}.
 See the Solution format section for more information.}
@@ -55,7 +54,7 @@ that are associated with higher values are more favorable in the solution.
 See the Data format section for more information.}
 }
 \value{
-\code{\link[tibble:tibble]{tibble::tibble()}} object describing the connectivity of the
+A \code{\link[tibble:tibble]{tibble::tibble()}} object describing the connectivity of the
 solution.
 It contains the following columns:
 
@@ -120,8 +119,8 @@ missing cost (\code{NA}) values for a particular zone should also have a
 missing (\code{NA}) values in the argument to \code{solution}.
 }
 
-\item{\code{x} has \code{\linkS4class{Raster}} planning units}{The argument to \code{solution}
-be a \code{\linkS4class{Raster}} object where different grid cells (pixels) correspond
+\item{\code{x} has \code{\link[terra:rast]{terra::rast()}} planning units}{The argument to \code{solution}
+be a \code{\link[terra:rast]{terra::rast()}} object where different grid cells (pixels) correspond
 to different planning units and layers correspond to
 a different management zones. It should have the same dimensionality
 (rows, columns, layers), resolution, extent, and coordinate reference
@@ -138,20 +137,6 @@ object containing the solution also contains additional columns, then
 these columns will need to be subsetted prior to using this function
 (see below for example with \code{\link[sf:sf]{sf::sf()}} data).
 Additionally, any planning units missing cost
-(\code{NA}) values for a particular zone should also have missing (\code{NA})
-values in the argument to \code{solution}.
-}
-
-\item{\code{x} has \code{\linkS4class{Spatial}} planning units}{The argument to \code{solution}
-must be a \code{\linkS4class{Spatial}} object with each column corresponding to a
-different zone, each row corresponding to a different planning unit, and
-cell values corresponding to the solution value. This means that if the
-\code{\linkS4class{Spatial}} object containing the solution also contains additional
-columns, then these columns will need to be subsetted prior to using this
-function (see below for example with \code{\link[sf:sf]{sf::sf()}} data).
-Additionally, the argument to \code{solution} must also have the same
-coordinate reference system as the planning unit data.
-Furthermore, any planning units missing cost
 (\code{NA}) values for a particular zone should also have missing (\code{NA})
 values in the argument to \code{solution}.
 }
@@ -220,15 +205,18 @@ unit 1 is assigned to zone 3 and planning unit 2 is assigned to zone 4.}
 set.seed(500)
 
 # load data
-data(sim_pu_raster, sim_pu_sf, sim_features,
-     sim_pu_zones_sf, sim_features_zones)
+sim_pu_raster <- get_sim_pu_raster()
+sim_features <- get_sim_features()
+sim_pu_zones_polygons <- get_sim_pu_zones_polygons()
+sim_features_zones <- get_sim_features_zones()
 
 # build minimal conservation problem with raster data
-p1 <- problem(sim_pu_raster, sim_features) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(0.1) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(verbose = FALSE)
+p1 <-
+  problem(sim_pu_raster, sim_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.1) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
 
 # solve the problem
 s1 <- solve(p1)
@@ -237,7 +225,7 @@ s1 <- solve(p1)
 print(s1)
 
 # plot solution
-plot(s1, main = "solution", axes = FALSE, box = FALSE)
+plot(s1, main = "solution", axes = FALSE)
 
 # simulate a connectivity matrix to describe the relative strength
 # of connectivity between different planning units
@@ -251,42 +239,45 @@ cm1 <- connectivity_matrix(sim_pu_raster, sim_pu_raster)
 r1 <- eval_connectivity_summary(p1, s1, data = cm1)
 print(r1)
 
-
-# build multi-zone conservation problem with polygon (sf) data
-p2 <- problem(sim_pu_zones_sf, sim_features_zones,
-              cost_column = c("cost_1", "cost_2", "cost_3")) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
-                                  ncol = 3)) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(verbose = FALSE)
+# build multi-zone conservation problem with polygon data
+p2 <-
+  problem(
+    sim_pu_zones_polygons, sim_features_zones,
+    cost_column = c("cost_1", "cost_2", "cost_3")
+  ) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5, ncol = 3)) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
 
 # solve the problem
 s2 <- solve(p2)
 
-# print first six rows of the attribute table
-print(head(s2))
+# print solution
+print(s2)
 
 # create new column representing the zone id that each planning unit
 # was allocated to in the solution
 s2$solution <- category_vector(
-  s2[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")])
+  s2[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")]
+)
 s2$solution <- factor(s2$solution)
 
 # plot solution
 plot(s2[, "solution"])
 
 # simulate connectivity matrix
-# here, we will add a new column to sim_pu_zones_sf with
+# here, we will add a new column to sim_pu_zones_polygons with
 # randomly simulated values and create a connectivity matrix
 # based on the average simulated values of adjacent planning units
-sim_pu_zones_sf$con <- runif(nrow(sim_pu_zones_sf))
-cm2 <- connectivity_matrix(sim_pu_zones_sf, "con")
+sim_pu_zones_polygons$con <- runif(nrow(sim_pu_zones_polygons))
+cm2 <- connectivity_matrix(sim_pu_zones_polygons, "con")
 
 # calculate connectivity associated with the solution
 r2 <- eval_connectivity_summary(
   p2, s2[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")],
-  data = cm2)
+  data = cm2
+)
 print(r2)
 
 }

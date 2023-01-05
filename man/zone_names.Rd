@@ -6,6 +6,7 @@
 \alias{zone_names,OptimizationProblem-method}
 \alias{zone_names,ZonesRaster-method}
 \alias{zone_names,ZonesCharacter-method}
+\alias{zone_names,ZonesSpatRaster-method}
 \title{Zone names}
 \usage{
 zone_names(x)
@@ -14,28 +15,32 @@ zone_names(x)
 
 \S4method{zone_names}{ZonesRaster}(x)
 
+\S4method{zone_names}{ZonesSpatRaster}(x)
+
 \S4method{zone_names}{ZonesCharacter}(x)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) or \code{\link[=Zones]{Zones()}}}
+\item{x}{\code{\link[=problem]{problem()}} or \code{\link[=zones]{zones()}} object.}
 }
 \value{
-\code{character} zone names.
+A \code{character} vector of zone names.
 }
 \description{
 Extract the names of zones in an object.
 }
 \examples{
 # load data
-data(sim_pu_zones_stack, sim_features_zones)
+sim_pu_zones_raster <- get_sim_pu_zones_raster()
+sim_features_zones <- get_sim_features_zones()
 
 # print names of zones in a Zones object
 print(zone_names(sim_features_zones))
 # create problem with multiple zones
-p <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
-     add_min_set_objective() \%>\%
-     add_relative_targets(matrix(0.2, ncol = 3, nrow = 5)) \%>\%
-     add_binary_decisions()
+p <-
+  problem(sim_pu_zones_raster, sim_features_zones) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(matrix(0.2, ncol = 3, nrow = 5)) \%>\%
+  add_binary_decisions()
 
 # print zone names in problem
 print(zone_names(p))

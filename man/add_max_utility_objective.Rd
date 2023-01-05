@@ -7,7 +7,7 @@
 add_max_utility_objective(x, budget)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} object.}
 
 \item{budget}{\code{numeric} value specifying the maximum expenditure of
 the prioritization. For problems with multiple zones, the argument
@@ -16,8 +16,7 @@ for the entire solution or (ii) a \code{numeric} vector to specify
 a separate budget for each management zone.}
 }
 \value{
-Object (i.e., \code{\linkS4class{ConservationProblem}}) with the objective
-added to it.
+An updated \code{problem()} object with the objective added to it.
 }
 \description{
 Set the objective of a conservation planning \code{\link[=problem]{problem()}} to
@@ -74,46 +73,51 @@ confusion with existing terminology.
 \examples{
 \dontrun{
 # load data
-data(sim_pu_raster, sim_pu_zones_stack, sim_features, sim_features_zones)
+sim_pu_raster <- get_sim_pu_raster()
+sim_pu_zones_raster <- get_sim_pu_zones_raster()
+sim_features <- get_sim_features()
+sim_features_zones <- get_sim_features_zones()
 
 # create problem with maximum utility objective
-p1 <- problem(sim_pu_raster, sim_features) \%>\%
-      add_max_utility_objective(5000) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(gap = 0, verbose = FALSE)
+p1 <-
+  problem(sim_pu_raster, sim_features) \%>\%
+  add_max_utility_objective(5000) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(gap = 0, verbose = FALSE)
 
 # solve problem
 s1 <- solve(p1)
 
 # plot solution
-plot(s1, main = "solution", axes = FALSE, box = FALSE)
+plot(s1, main = "solution", axes = FALSE)
 
 # create multi-zone problem with maximum utility objective that
 # has a single budget for all zones
-p2 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
-      add_max_utility_objective(5000) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(gap = 0, verbose = FALSE)
+p2 <-
+  problem(sim_pu_zones_raster, sim_features_zones) \%>\%
+  add_max_utility_objective(5000) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(gap = 0, verbose = FALSE)
 
 # solve problem
 s2 <- solve(p2)
 
 # plot solution
-plot(category_layer(s2), main = "solution", axes = FALSE, box = FALSE)
-
+plot(category_layer(s2), main = "solution", axes = FALSE)
 
 # create multi-zone problem with maximum utility objective that
 # has separate budgets for each zone
-p3 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
-      add_max_utility_objective(c(1000, 2000, 3000)) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(gap = 0, verbose = FALSE)
+p3 <-
+  problem(sim_pu_zones_raster, sim_features_zones) \%>\%
+  add_max_utility_objective(c(1000, 2000, 3000)) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(gap = 0, verbose = FALSE)
 
 # solve problem
 s3 <- solve(p3)
 
 # plot solution
-plot(category_layer(s3), main = "solution", axes = FALSE, box = FALSE)
+plot(category_layer(s3), main = "solution", axes = FALSE)
 }
 }
 \seealso{

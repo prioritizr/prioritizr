@@ -43,14 +43,16 @@ NULL
 #'
 #' @examples
 #' # load data
-#' data(sim_pu_raster, sim_features)
+#' sim_pu_raster <- get_sim_pu_raster()
+#' sim_features <- get_sim_features()
 #'
 #' # create a minimal problem
-#' p <- problem(sim_pu_raster, sim_features) %>%
-#'      add_min_set_objective() %>%
-#'      add_relative_targets(0.1) %>%
-#'      add_binary_decisions() %>%
-#'      add_default_solver(verbose = FALSE)
+#' p <-
+#'   problem(sim_pu_raster, sim_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(0.1) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
 #'
 #' \dontrun{
 #' # solve problem
@@ -87,7 +89,10 @@ NULL
 #' # connectivity values between combinations of planning units
 #'
 #' # for brevity, we will just generate a matrix with random values
-#' acm <- matrix(runif(ncell(sim_pu_raster) ^ 2), ncol = ncell(sim_pu_raster))
+#' acm <- matrix(
+#'   runif(ncell(sim_pu_raster) ^ 2),
+#'   ncol = terra::ncell(sim_pu_raster)
+#' )
 #'
 #' # evaluate connectivity of solution using asymmetric data
 #' eval_asym_connectivity_summary(p, s, data = acm)

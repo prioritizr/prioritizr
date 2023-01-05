@@ -9,7 +9,7 @@ NULL
 #' It ensures that the output matrix correctly specifies
 #' symmetric spatial relationships between planning units.
 #'
-#' @param x [problem()] (i.e., [`ConservationProblem-class`]) object that
+#' @param x [problem()] object that
 #'   contains planning unit and zone data to ensure that the argument to
 #'   `data` is converted correctly. This argument can be set to
 #'   `NULL` if checks are not required (not recommended).
@@ -19,7 +19,7 @@ NULL
 #'   `"zone2"` can also be provided to indicate zone data.
 #'
 #' @return
-#' `array` or [`dgCMatrix-class`] sparse matrix object.
+#' An `array` or [`dgCMatrix-class`] sparse matrix object.
 #' If the argument to `data` corresponds to a single zone,
 #' then a [`dgCMatrix-class`]
 #' matrix is returned. Otherwise, if the argument to `data`
@@ -39,9 +39,11 @@ NULL
 #' image(m1)
 #' }
 #' # create marxan boundary with three planning units and two zones
-#' bldf2 <- expand.grid(id1 = seq_len(3), id2 = seq_len(3),
-#'                      zone1 = c("z1", "z2"),
-#'                      zone2 = c("z1", "z2"))
+#' bldf2 <- expand.grid(
+#'   id1 = seq_len(3), id2 = seq_len(3),
+#'   zone1 = c("z1", "z2"),
+#'   zone2 = c("z1", "z2")
+#' )
 #' bldf2$boundary <- 1
 #' bldf2$boundary[bldf2$id1 == bldf2$id2 & bldf2$zone1 == bldf2$zone2] <- 0.5
 #' bldf2$boundary[bldf2$id1 == bldf2$id2 & bldf2$zone1 != bldf2$zone2] <- 0

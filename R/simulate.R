@@ -5,13 +5,13 @@ NULL
 #'
 #' Simulate spatially auto-correlated data using Gaussian random fields.
 #'
-#' @param x [raster::raster()] raster object to use as a template.
+#' @param x [terra::rast()] object to use as a template.
 #'
 #' @param n `integer` number of layers to simulate.
 #'   Defaults to 1.
 #'
 #' @param scale `numeric` parameter to control level of spatial
-#'   auto-correlation.
+#'   auto-correlation in the simulated data.
 #'   Defaults to 0.5.
 #'
 #' @param intensity `numeric` average value of simulated data.
@@ -24,13 +24,16 @@ NULL
 #'   Defaults to the [identity()] function such that values remain the same
 #'   following transformation.
 #'
-#' @return [raster::stack()] object.
+#' @family simulations
+#'
+#' @return A [terra::rast()] object.
 #'
 #' @examples
 #' \dontrun{
 #' # create raster
-#' r <- raster(ncol = 10, nrow = 10, xmn = 0, xmx = 1, ymn = 0, ymx = 1)
-#' values(r) <- 1
+#' r <- terra::rast(
+#'   ncols = 10, nrows = 10, xmin = 0, xmax = 1, ymin = 0, ymax = 1, vals = 1
+#' )
 #'
 #' # simulate data using a Gaussian field
 #' x <- simulate_data(r, n = 1, scale = 0.2)
@@ -39,13 +42,36 @@ NULL
 #' plot(x, main = "simulated data")
 #' }
 #' @export
-simulate_data <- function(x, n = 1, scale = 0.5, intensity = 0, sd = 1,
-                          transform = identity) {
+simulate_data <- function(x, n, scale, intensity, sd, transform)
+  UseMethod("simulate_data")
+
+#' @rdname simulate_data
+#' @method simulate_data Raster
+#' @export
+simulate_data.Raster <- function(x, n = 1, scale = 0.5, intensity = 0,
+                                     sd = 1, transform = identity) {
+  .Deprecated(msg = raster_pkg_deprecation_notice)
+  raster::raster(
+    simulate_data.SpatRaster(
+      x = terra::rast(x),
+      n = n, scale = scale,
+      intensity = intensity,
+      sd = sd,
+      transform = transform
+    )
+  )
+}
+
+#' @rdname simulate_data
+#' @method simulate_data SpatRaster
+#' @export
+simulate_data.SpatRaster <- function(x, n = 1, scale = 0.5, intensity = 0,
+                                     sd = 1, transform = identity) {
   # assert valid arguments
   assertthat::assert_that(
-    inherits(x, "Raster"),
-    assertthat::is.number(n),
-    is.finite(raster::cellStats(x, "max")[[1]]),
+    inherits(x, "SpatRaster"),
+    assertthat::is.count(n),
+    terra::global(x, "notNA")[[1]][[1]] > 0,
     assertthat::is.number(scale),
     assertthat::noNA(scale),
     assertthat::is.number(intensity),
@@ -53,26 +79,27 @@ simulate_data <- function(x, n = 1, scale = 0.5, intensity = 0, sd = 1,
     assertthat::is.number(sd),
     assertthat::noNA(sd),
     is.function(transform),
-    requireNamespace("fields", quietly = TRUE))
+    is_installed("fields", "simulate_data()")
+  )
 
   # create object for simulation
   obj <- fields::circulantEmbeddingSetup(
     grid = list(
-      x = seq(0, 5, length.out = raster::nrow(x)),
-      y = seq(0, 5, length.out = raster::ncol(x))
+      x = seq(0, 5, length.out = terra::nrow(x)),
+      y = seq(0, 5, length.out = terra::ncol(x))
     ),
     Covariance = "Exponential",
     aRange = scale
   )
 
   # generate populate rasters with values
-  r <- raster::stack(lapply(seq_len(n), function(i) {
+  r <- terra::rast(lapply(seq_len(n), function(i) {
     ## populate with simulated values
     v <- c(t(fields::circulantEmbedding(obj)))
     v <- transform(v + stats::rnorm(length(v), mean = intensity, sd = sd))
-    r <- raster::setValues(x[[1]], v[seq_len(raster::ncell(x))])
+    r <- terra::setValues(x[[1]], v[seq_len(terra::ncell(x))])
     ## apply mask for consistency
-    r <- raster::mask(r, x[[1]])
+    r <- terra::mask(r, x[[1]])
     ## return result
     r
   }))
@@ -89,15 +116,16 @@ simulate_data <- function(x, n = 1, scale = 0.5, intensity = 0, sd = 1,
 #'
 #' @inheritParams simulate_data
 #'
-#' @return [`RasterStack-class`] object.
+#' @inherit simulate_data return
 #'
-#' @seealso [simulate_data()].
+#' @family simulations
 #'
 #' @examples
 #' \dontrun{
 #' # create raster
-#' r <- raster(ncol = 10, nrow = 10, xmn = 0, xmx = 1, ymn = 0, ymx = 1)
-#' values(r) <- 1
+#' r <- terra::rast(
+#'   ncols = 10, nrows = 10, xmin = 0, xmax = 1, ymin = 0, ymax = 1, vals = 1
+#' )
 #'
 #' # simulate data for 4 species
 #' spp <- simulate_species(r, 4)
@@ -107,7 +135,26 @@ simulate_data <- function(x, n = 1, scale = 0.5, intensity = 0, sd = 1,
 #' }
 #'
 #' @export
-simulate_species <- function(x, n = 1, scale = 0.5) {
+simulate_species <- function(x, n, scale) UseMethod("simulate_species")
+
+#' @rdname simulate_species
+#' @method simulate_species Raster
+#' @export
+simulate_species.Raster <- function(x, n = 1, scale = 0.5) {
+  .Deprecated(msg = raster_pkg_deprecation_notice)
+  raster::raster(
+    simulate_species.SpatRaster(
+      x = terra::rast(x),
+      n = n,
+      scale = scale
+    )
+  )
+}
+
+#' @rdname simulate_species
+#' @method simulate_species SpatRaster
+#' @export
+simulate_species.SpatRaster <- function(x, n = 1, scale = 0.5) {
   simulate_data(
     x = x,
     n = n,
@@ -131,18 +178,20 @@ simulate_species <- function(x, n = 1, scale = 0.5) {
 #' @param sd `numeric` standard deviation of simulated data.
 #'   Defaults to 20.
 #'
-#' @param scale `numeric` strength of spatial auto-correlation.
+#' @param scale `numeric` parameter to control level of spatial
+#'   auto-correlation in the simulated data.
 #'   Defaults to 2.5.
 #'
-#' @return [`RasterStack-class`] object.
+#' @family simulations
 #'
-#' @seealso [simulate_data()].
+#' @inherit simulate_data return
 #'
 #' @examples
 #' \dontrun{
 #' # create raster
-#' r <- raster(ncol = 10, nrow = 10, xmn = 0, xmx = 1, ymn = 0, ymx = 1)
-#' values(r) <- 1
+#' r <- terra::rast(
+#'   ncols = 10, nrows = 10, xmin = 0, xmax = 1, ymin = 0, ymax = 1, vals = 1
+#' )
 #'
 #' # simulate data
 #' cost <- simulate_cost(r)
@@ -152,7 +201,30 @@ simulate_species <- function(x, n = 1, scale = 0.5) {
 #' }
 #'
 #' @export
-simulate_cost <- function(x, n = 1, intensity = 100, sd = 20, scale = 2.5) {
+simulate_cost <- function(x, n, intensity, sd, scale) UseMethod("simulate_cost")
+
+#' @rdname simulate_cost
+#' @method simulate_cost Raster
+#' @export
+simulate_cost.Raster <- function(x,  n = 1, intensity = 100,
+                                    sd = 20, scale = 2.5) {
+  .Deprecated(msg = raster_pkg_deprecation_notice)
+  raster::raster(
+    simulate_cost.SpatRaster(
+      x = terra::rast(x),
+      n = n,
+      intensity = intensity,
+      sd = sd,
+      scale = scale
+    )
+  )
+}
+
+#' @rdname simulate_cost
+#' @method simulate_cost SpatRaster
+#' @export
+simulate_cost.SpatRaster <- function(x, n = 1, intensity = 100,
+                                  sd = 20, scale = 2.5) {
   simulate_data(
     x,
     n = n,

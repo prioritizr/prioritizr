@@ -64,20 +64,22 @@ NULL
 #' @examples
 #' \dontrun{
 #' # load data
-#' data(sim_pu_raster, sim_features)
+#' sim_pu_raster <- get_sim_pu_raster()
+#' sim_features <- get_sim_features()
 #'
 #' # create problem
-#' p <- problem(sim_pu_raster, sim_features) %>%
-#'      add_min_set_objective() %>%
-#'      add_relative_targets(0.1) %>%
-#'      add_binary_decisions() %>%
-#'      add_cplex_solver(gap = 0.1, time_limit = 5, verbose = FALSE)
+#' p <-
+#'   problem(sim_pu_raster, sim_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(0.1) %>%
+#'   add_binary_decisions() %>%
+#'   add_cplex_solver(gap = 0.1, time_limit = 5, verbose = FALSE)
 #'
 #' # generate solution
 #' s <- solve(p)
 #'
 #' # plot solution
-#' plot(s, main = "solution", axes = FALSE, box = FALSE)
+#' plot(s, main = "solution", axes = FALSE)
 #' }
 #' @name add_cplex_solver
 NULL
@@ -85,20 +87,22 @@ NULL
 #' @rdname add_cplex_solver
 #' @export
 add_cplex_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
-                              presolve = TRUE, threads = 1, verbose = TRUE) {
+                             presolve = TRUE, threads = 1, verbose = TRUE) {
   # assert that arguments are valid
-  assertthat::assert_that(inherits(x, "ConservationProblem"),
-                          isTRUE(all(is.finite(gap))),
-                          assertthat::is.scalar(gap),
-                          isTRUE(gap >= 0), isTRUE(all(is.finite(time_limit))),
-                          assertthat::is.count(time_limit),
-                          assertthat::is.flag(presolve),
-                          assertthat::noNA(presolve),
-                          assertthat::is.count(threads),
-                          assertthat::noNA(threads),
-                          isTRUE(threads <= parallel::detectCores(TRUE)),
-                          assertthat::is.flag(verbose),
-                          requireNamespace("cplexAPI", quietly = TRUE))
+  assertthat::assert_that(
+    is_conservation_problem(x),
+    assertthat::is.number(gap),
+    all_finite(gap),
+    gap >= 0,
+    assertthat::is.count(time_limit),
+    all_finite(time_limit),
+    assertthat::is.flag(presolve),
+    assertthat::noNA(presolve),
+    is_thread_count(threads),
+    assertthat::noNA(threads),
+    assertthat::is.flag(verbose),
+    is_installed("cplexAPI", "add_cplex_solver()")
+  )
   # add solver
   x$add_solver(pproto(
     "CplexSolver",
@@ -107,12 +111,17 @@ add_cplex_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
     data = list(),
     parameters = parameters(
       numeric_parameter("gap", gap, lower_limit = 0),
-      integer_parameter("time_limit", time_limit, lower_limit = 0L,
-                        upper_limit = as.integer(.Machine$integer.max)),
-      integer_parameter("threads", threads, lower_limit = 1L,
-                        upper_limit = parallel::detectCores(TRUE)),
-      binary_parameter("presolve", presolve),
-      binary_parameter("verbose", verbose)),
+      integer_parameter(
+        "time_limit", time_limit, lower_limit = 0L,
+        upper_limit = as.integer(.Machine$integer.max)
+      ),
+      integer_parameter(
+        "threads", threads, lower_limit = 1L,
+        upper_limit = parallel::detectCores(TRUE)
+      ),
+      binary_parameter("presolve", as.integer(presolve)),
+      binary_parameter("verbose", as.integer(verbose))
+    ),
     calculate = function(self, x, ...) {
       # create problem
       model <- list(
@@ -124,18 +133,21 @@ add_cplex_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
         rhs = x$rhs(),
         sense = x$sense(),
         lb = x$lb(),
-        ub = x$ub())
+        ub = x$ub()
+      )
       # format problem for CPLEX
       model$sense[model$sense == ">="] <- "G"
       model$sense[model$sense == "="] <- "E"
       model$sense[model$sense == "<="] <- "L"
       model$vtype[model$vtype == "S"] <- "C"
       # create parameters
-      p <- list(verbose = as.integer(self$parameters$get("verbose")),
-                presolve = as.integer(self$parameters$get("presolve")),
-                gap = self$parameters$get("gap"),
-                threads = self$parameters$get("threads"),
-                time_limit = self$parameters$get("time_limit"))
+      p <- list(
+        verbose = as.integer(self$parameters$get("verbose")),
+        presolve = as.integer(self$parameters$get("presolve")),
+        gap = self$parameters$get("gap"),
+        threads = self$parameters$get("threads"),
+        time_limit = self$parameters$get("time_limit")
+      )
       # store input data and parameters
       self$set_data("model", model)
       self$set_data("parameters", p)
@@ -168,7 +180,8 @@ add_cplex_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
         x = sol,
         objective = x$objval,
         status = x$status,
-        runtime = rt[[3]])
+        runtime = rt[[3]]
+      )
     },
     set_variable_ub = function(self, index, value) {
       self$data$model$ub[index] <- value
@@ -177,7 +190,8 @@ add_cplex_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
     set_variable_lb = function(self, index, value) {
       self$data$model$lb[index] <- value
       invisible(TRUE)
-    }))
+    }
+  ))
 }
 
 cplex_error_wrap <- function(result, env = NULL) {
@@ -197,8 +211,12 @@ cplex_matrix <- function(m) {
   matcnt <- diff(c(m@p, length(m@x)))
   matind <- m@i
   matval <- m@x
-  list(matbeg = as.integer(matbeg), matcnt = as.integer(matcnt),
-        matind = as.integer(matind), matval = as.double(matval))
+  list(
+    matbeg = as.integer(matbeg),
+    matcnt = as.integer(matcnt),
+    matind = as.integer(matind),
+    matval = as.double(matval)
+  )
 }
 
 cplex <- function(model, control) {
@@ -220,28 +238,42 @@ cplex <- function(model, control) {
   }
   # set solving parameters
   ## verbose (parameter: CPX_PARAM_SCRIND)
-  cplex_error_wrap(cplexAPI::setIntParmCPLEX(
-      env, 1035, as.integer(control$verbose)), env)
+  cplex_error_wrap(
+    cplexAPI::setIntParmCPLEX(env, 1035, as.integer(control$verbose)),
+    env
+  )
   ## presolve (parameter: CPX_PARAM_PREIND)
-  cplex_error_wrap(cplexAPI::setIntParmCPLEX(
-      env, 1030, as.integer(control$presolve)), env)
+  cplex_error_wrap(
+    cplexAPI::setIntParmCPLEX(env, 1030, as.integer(control$presolve)),
+    env
+  )
   ## threads (parameter: CPX_PARAM_THREADS)
-  cplex_error_wrap(cplexAPI::setIntParmCPLEX(
-      env, 1067, as.integer(control$threads)), env)
+  cplex_error_wrap(
+    cplexAPI::setIntParmCPLEX(env, 1067, as.integer(control$threads)),
+    env
+  )
   ## (relative) optimality gap (parameter: CPX_PARAM_EPGAP)
-  cplex_error_wrap(cplexAPI::setDblParmCPLEX(
-      env, 2009, as.double(control$gap)), env)
+  cplex_error_wrap(
+    cplexAPI::setDblParmCPLEX(env, 2009, as.double(control$gap)),
+    env
+  )
   ## time limit (parameter: CPX_PARAM_TILIM)
-  cplex_error_wrap(cplexAPI::setDblParmCPLEX(
-      env, 1039, as.double(control$time_limit)), env)
+  cplex_error_wrap(
+    cplexAPI::setDblParmCPLEX(env, 1039, as.double(control$time_limit)),
+    env
+  )
   # initialize problem
   p <- cplexAPI::initProbCPLEX(env)
   cplex_error_wrap(cplexAPI::chgProbNameCPLEX(env, p, "prioritizr"), env)
   # build problem
   result <- cplexAPI::copyLpwNamesCPLEX(
-    env = env, lp = p, nCols = ncol(model$A), nRows = nrow(model$A),
-    lpdir = ifelse(identical(model$modelsense, "max"),
-                   cplexAPI::CPX_MAX, cplexAPI::CPX_MIN),
+    env = env, lp = p,
+    nCols = ncol(model$A),
+    nRows = nrow(model$A),
+    lpdir = ifelse(
+      identical(model$modelsense, "max"),
+      cplexAPI::CPX_MAX, cplexAPI::CPX_MIN
+    ),
     objf = model$obj,
     rhs = model$rhs,
     sense = model$sense,
@@ -250,10 +282,13 @@ cplex <- function(model, control) {
     matbeg = model$A2$matbeg,
     matcnt = model$A2$matcnt,
     matind = model$A2$matind,
-    matval = model$A2$matval)
+    matval = model$A2$matval
+  )
   if (!(identical(result, 0) || identical(result, 0L))) {
-     msg <- paste("issue preparing data for IBM CPLEX, please file an issue at",
-                   utils::packageDescription("prioritizr")$BugReports)
+    msg <- paste(
+      "issue preparing data for IBM CPLEX, please file an issue at",
+      utils::packageDescription("prioritizr")$BugReports
+    )
     stop(msg)
   }
   # solve problem

@@ -5,10 +5,9 @@ NULL
 #'
 #' Extract the number of total units in an object.
 #'
-#' @param x [problem()] (i.e., [`ConservationProblem-class`]),
-#'   [`OptimizationProblem-class`], or [Zones()] object.
+#' @param x [problem()] object.
 #'
-#' @return `integer` number of total units.
+#' @return An `integer` number of total units.
 #'
 #' @name number_of_total_units
 #'
@@ -16,13 +15,17 @@ NULL
 #'
 #' @examples
 #' # load data
-#' data(sim_pu_raster, sim_pu_zones_stack, sim_features, sim_features_zones)
+#' sim_pu_raster <- get_sim_pu_raster()
+#'  sim_pu_zones_raster <- get_sim_pu_zones_raster()
+#' sim_features <- get_sim_features()
+#' sim_features_zones <- get_sim_features_zones()
 #'
 #' # create problem with one zone
-#' p1 <- problem(sim_pu_raster, sim_features) %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(0.2) %>%
-#'       add_binary_decisions()
+#' p1 <-
+#'   problem(sim_pu_raster, sim_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(0.2) %>%
+#'   add_binary_decisions()
 #'
 #' # print number of planning units
 #' print(number_of_planning_units(p1))
@@ -31,10 +34,11 @@ NULL
 #' print(number_of_total_units(p1))
 #'
 #' # create problem with multiple zones
-#' p2 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(matrix(0.2, ncol = 3, nrow = 5)) %>%
-#'       add_binary_decisions()
+#' p2 <-
+#'   problem(sim_pu_zones_raster, sim_features_zones) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(matrix(0.2, ncol = 3, nrow = 5)) %>%
+#'   add_binary_decisions()
 #'
 #' # print number of planning units
 #' print(number_of_planning_units(p2))

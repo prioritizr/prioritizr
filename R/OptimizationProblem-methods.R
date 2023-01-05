@@ -49,7 +49,7 @@ NULL
 #'
 #' }
 #'
-#' @return [`dgCMatrix-class`], `numeric` vector,
+#' @return A [`dgCMatrix-class`], `numeric` vector,
 #'   `numeric` vector, or scalar `integer` depending on the method
 #'   used.
 #'

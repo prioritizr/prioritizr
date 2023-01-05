@@ -113,7 +113,7 @@ build:
 	touch inst/doc/.gitkeep
 
 install:
-	R --slave -e "devtools::install_local('../prioritizr')"
+	R --slave -e "devtools::install_local()"
 
 examples:
 	R --slave -e "devtools::run_examples(run_donttest = TRUE, run_dontrun = TRUE);warnings()" > examples.log 2>&1

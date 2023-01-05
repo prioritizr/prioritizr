@@ -14,7 +14,7 @@ add_rsymphony_solver(
 )
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} object.}
 
 \item{gap}{\code{numeric} gap to optimality. This gap is relative
 and expresses the acceptable deviance from the optimal objective.
@@ -42,8 +42,7 @@ Defaults to \code{FALSE}.}
 optimization problems? Defaults to \code{TRUE}.}
 }
 \value{
-Object (i.e., \code{\linkS4class{ConservationProblem}}) with the solver
-added to it.
+An updated \code{\link[=problem]{problem()}} object with the solver added to it.
 }
 \description{
 Specify that the \href{https://github.com/coin-or/SYMPHONY}{\emph{SYMPHONY}}
@@ -68,20 +67,22 @@ different sized datasets.
 \examples{
 \dontrun{
 # load data
-data(sim_pu_raster, sim_features)
+sim_pu_raster <- get_sim_pu_raster()
+sim_features <- get_sim_features()
 
 # create problem
-p <- problem(sim_pu_raster, sim_features) \%>\%
-     add_min_set_objective() \%>\%
-     add_relative_targets(0.1) \%>\%
-     add_binary_decisions() \%>\%
-     add_rsymphony_solver(time_limit = 10, verbose = FALSE)
+p <-
+  problem(sim_pu_raster, sim_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.1) \%>\%
+  add_binary_decisions() \%>\%
+  add_rsymphony_solver(time_limit = 10, verbose = FALSE)
 
 # generate solution
 s <- solve(p)
 
 # plot solution
-plot(s, main = "solution", axes = FALSE, box = FALSE)
+plot(s, main = "solution", axes = FALSE)
 }
 }
 \references{

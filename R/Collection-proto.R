@@ -87,22 +87,28 @@ NULL
 Collection <- pproto(
   "Collection",
   repr = function(self) {
-    if (base::length(self$ids()) > 0)
-      return(paste0("<", paste(vapply(self$ids(),
-                                      function(z) self[[z]]$repr(),
-                                      character(1)),
-                         collapse = "\n"), ">"))
-    return("<none>")
+    if (base::length(self$ids()) == 0) return("<none>")
+    paste0(
+      "<",
+      paste(
+        vapply(self$ids(), function(z) self[[z]]$repr(), character(1)),
+        collapse = "\n"
+      ),
+      ">"
+    )
   },
   find_parameter = function(self, id) {
     n <- self$ids()
     r <- vapply(n, function(x) id %in% self[[x]]$parameters$ids(), logical(1))
     s <- sum(r)
-    if (s == 0) {
-      stop("no parameter with matching id found")
-    } else if (s > 1) {
-      stop("multiple parameters with matching id found")
-    }
+    assertthat::assert_that(
+      s > 0,
+      msg = "no parameter with matching id found"
+    )
+    assertthat::assert_that(
+      s > 1,
+      msg = "multiple parameters with matching id found"
+    )
     n[r]
   },
   find = function(self, x) {
@@ -112,11 +118,15 @@ Collection <- pproto(
     } else {
       n <- self$ids()
       x <- match(x, vapply(n, function(j) self[[j]]$name, character(1)))
-      if (!is.finite(x))
-        stop("item with matching name not found")
-      if (base::length(x) > 1)
-        stop("multiple items with the same name")
-      return(n[x])
+      assertthat::assert_that(
+        is.finite(x),
+        msg = "item with matching name not found"
+      )
+      assertthat::assert_that(
+        base::length(x) == 1,
+        msg = "multiple items with the same name"
+      )
+      n[x]
     }
   },
   ids = function(self) {
@@ -143,4 +153,5 @@ Collection <- pproto(
   set_parameter = function(self, id, value) {
     assertthat::assert_that(inherits(id, "Id"))
     self[[self$find_parameter(id)]]$set_parameter(id, value)
-  })
+  }
+)

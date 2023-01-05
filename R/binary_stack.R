@@ -3,50 +3,54 @@ NULL
 
 #' Binary stack
 #'
-#' Convert a [`RasterLayer-class`] object containing
-#' categorical identifiers into a [`RasterStack-class`]
-#' object where each layer corresponds to a different identifier and values
-#' indicate the presence/absence of that category in the input object.
+#' Convert a [terra::rast()] object containing
+#' integer/categorical values into a raster
+#' object where each layer corresponds to a different integer/categorical
+#' value and pixel values denote the presence/absence of the given
+#' integer/categorical values.
 #'
-#' @param x [`Raster-class`] object containing a single layer.
+#' @param x [terra::rast()] object with a single layer.
 #'
 #' @details This function is provided to help manage data that encompass
 #'   multiple management zones. For instance, this function may be helpful
 #'   for preparing raster data for [add_locked_in_constraints()] and
 #'   [add_locked_out_constraints()] since they require binary
-#'   [`RasterStack-class`] objects as input arguments.
+#'   rasters as input arguments.
+#'   It is essentially a wrapper for [terra::segregate()].
 #'
-#' @return [`RasterStack-class`] object.
+#' @return A [terra::rast()] object.
 #'
 #' @seealso [category_layer()].
 #'
 #' @examples
-#' # create raster with categorical identifers
-#' x <- raster(matrix(c(1, 2, 3, 1, NA, 1), nrow = 3))
+#' # create raster with categorical values
+#' x <- terra::rast(matrix(c(1, 2, 3, 1, NA, 1), nrow = 3))
+#'
+#' # plot the raster
+#' plot(x, main = "x")
 #'
 #' # convert to binary stack
 #' y <- binary_stack(x)
 #'
-#' # plot categorical raster and binary stack representation
+#' # plot result
 #' \dontrun{
-#' plot(stack(x, y), main = c("x", "y[[1]]", "y[[2]]", "y[[3]]"),
-#'      nr = 1)
+#' plot(y)
 #' }
 #' @export
-binary_stack <- function(x) {
-  # validate argument
-  assertthat::assert_that(inherits(x, "Raster"), raster::nlayers(x) == 1,
-                          raster::cellStats(!is.na(x), "sum") > 0,
-                          raster::cellStats(x, "min") > 0)
-  max_value <- raster::cellStats(x, "max")
-  assertthat::assert_that(assertthat::is.count(max_value))
-  # initialize raster stack
-  out <- raster::setValues(x, 0)
-  out[raster::Which(is.na(x))] <- NA_real_
-  out <- out[[rep(1, max_value)]]
-  # populate raster stack
-  for (i in seq_len(max_value))
-    out[[i]][raster::Which(x == i)] <- 1
-  # return result
-  out
+binary_stack <- function(x) UseMethod("binary_stack")
+
+#' @rdname binary_stack
+#' @method binary_stack Raster
+#' @export
+binary_stack.Raster <- function(x) {
+  assertthat::assert_that(inherits(x, "Raster"))
+  .Deprecated(msg = raster_pkg_deprecation_notice)
+  raster::raster(binary_stack.default(terra::rast(x)))
+}
+
+#' @rdname binary_stack
+#' @method binary_stack default
+#' @export
+binary_stack.default <- function(x) {
+  terra::segregate(x, classes = NULL, keep = FALSE, other = 0, round = FALSE)
 }

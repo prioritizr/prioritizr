@@ -17,7 +17,7 @@ function must have a single argument and return either \code{TRUE} or
 parameter.}
 }
 \value{
-\code{\linkS4class{MiscParameter}} object.
+A \code{\linkS4class{MiscParameter}} object.
 }
 \description{
 Create a parameter that consists of a miscellaneous object.
@@ -38,9 +38,10 @@ p1$print() # print it again
 # create table parameter with validation function that requires
 # all values in the first column to be less then 200 and that the
 # parameter have the same column names as the iris dataset
-p2 <- misc_parameter("tbl2", iris,
-                     function(x) all(names(x) \%in\% names(iris)) &&
-                                 all(x[[1]] < 200))
+p2 <- misc_parameter(
+  "tbl2", iris,
+  function(x) all(names(x) \%in\% names(iris)) && all(x[[1]] < 200)
+)
 print(p2) # print it
 p2$get() # get value
 p2$id # get id

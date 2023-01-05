@@ -10,7 +10,7 @@ parameters(...)
 \item{...}{\code{\linkS4class{Parameter}} objects.}
 }
 \value{
-\code{\linkS4class{Parameters}} object.
+A \code{\linkS4class{Parameters}} object.
 }
 \description{
 Create a new collection of \code{Parameter} objects.

@@ -5,6 +5,7 @@
 \alias{number_of_features,ConservationProblem-method}
 \alias{number_of_features,OptimizationProblem-method}
 \alias{number_of_features,ZonesRaster-method}
+\alias{number_of_features,ZonesSpatRaster-method}
 \alias{number_of_features,ZonesCharacter-method}
 \title{Number of features}
 \usage{
@@ -14,29 +15,32 @@ number_of_features(x)
 
 \S4method{number_of_features}{OptimizationProblem}(x)
 
+\S4method{number_of_features}{ZonesSpatRaster}(x)
+
 \S4method{number_of_features}{ZonesRaster}(x)
 
 \S4method{number_of_features}{ZonesCharacter}(x)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}),
-\code{\linkS4class{OptimizationProblem}}, or \code{\link[=Zones]{Zones()}} object.}
+\item{x}{A \code{\link[=problem]{problem()}}, \code{\linkS4class{OptimizationProblem}}, or \code{\link[=zones]{zones()}} object.}
 }
 \value{
-\code{integer} number of features.
+An \code{integer} number of features.
 }
 \description{
 Extract the number of features in an object.
 }
 \examples{
 # load data
-data(sim_pu_raster, sim_features)
+sim_pu_raster <- get_sim_pu_raster()
+sim_features <- get_sim_features()
 
 # create problem
-p <- problem(sim_pu_raster, sim_features) \%>\%
-     add_min_set_objective() \%>\%
-     add_relative_targets(0.2) \%>\%
-     add_binary_decisions()
+p <-
+  problem(sim_pu_raster, sim_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.2) \%>\%
+  add_binary_decisions()
 
 # print number of features
 print(number_of_features(p))

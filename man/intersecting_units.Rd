@@ -2,48 +2,45 @@
 % Please edit documentation in R/intersecting_units.R
 \name{intersecting_units}
 \alias{intersecting_units}
-\alias{intersecting_units,Raster,Raster-method}
-\alias{intersecting_units,Raster,Spatial-method}
-\alias{intersecting_units,Spatial,Raster-method}
-\alias{intersecting_units,Spatial,Spatial-method}
-\alias{intersecting_units,sf,Spatial-method}
-\alias{intersecting_units,Spatial,sf-method}
+\alias{intersecting_units,Raster,ANY-method}
+\alias{intersecting_units,ANY,Raster-method}
+\alias{intersecting_units,Spatial,ANY-method}
+\alias{intersecting_units,ANY,Spatial-method}
 \alias{intersecting_units,sf,sf-method}
-\alias{intersecting_units,Raster,sf-method}
-\alias{intersecting_units,sf,Raster-method}
+\alias{intersecting_units,SpatRaster,sf-method}
+\alias{intersecting_units,SpatRaster,SpatRaster-method}
+\alias{intersecting_units,sf,SpatRaster-method}
 \alias{intersecting_units,data.frame,ANY-method}
 \title{Find intersecting units}
 \usage{
 intersecting_units(x, y)
 
-\S4method{intersecting_units}{Raster,Raster}(x, y)
+\S4method{intersecting_units}{Raster,ANY}(x, y)
 
-\S4method{intersecting_units}{Spatial,Spatial}(x, y)
+\S4method{intersecting_units}{ANY,Raster}(x, y)
 
-\S4method{intersecting_units}{sf,Spatial}(x, y)
+\S4method{intersecting_units}{Spatial,ANY}(x, y)
 
-\S4method{intersecting_units}{Spatial,Raster}(x, y)
+\S4method{intersecting_units}{ANY,Spatial}(x, y)
 
-\S4method{intersecting_units}{Spatial,sf}(x, y)
-
-\S4method{intersecting_units}{Raster,Spatial}(x, y)
+\S4method{intersecting_units}{SpatRaster,SpatRaster}(x, y)
 
 \S4method{intersecting_units}{sf,sf}(x, y)
 
-\S4method{intersecting_units}{Raster,sf}(x, y)
+\S4method{intersecting_units}{SpatRaster,sf}(x, y)
 
-\S4method{intersecting_units}{sf,Raster}(x, y)
+\S4method{intersecting_units}{sf,SpatRaster}(x, y)
 
 \S4method{intersecting_units}{data.frame,ANY}(x, y)
 }
 \arguments{
-\item{x}{\code{\linkS4class{Spatial}} or \code{\linkS4class{Raster}} object.}
+\item{x}{\code{\link[sf:sf]{sf::st_sf()}} or \code{\link[terra:rast]{terra::rast()}} object.}
 
-\item{y}{\code{\linkS4class{Spatial}} or \code{\linkS4class{Raster}} object.}
+\item{y}{\code{\link[sf:sf]{sf::st_sf()}} or \code{\link[terra:rast]{terra::rast()}} object.}
 }
 \value{
-\code{integer} indices of the units in \code{x} that intersect with
-\code{y}.
+An \code{integer} vector of indices of the units in \code{x} that intersect
+with \code{y}.
 }
 \description{
 Find which of the units in a spatial data object intersect
@@ -52,33 +49,33 @@ with the units in another spatial data object.
 \examples{
 \dontrun{
 # create data
-r <- raster(matrix(1:9, byrow = TRUE, ncol = 3))
+r <- terra::rast(matrix(1:9, byrow = TRUE, ncol = 3))
 r_with_holes <- r
 r_with_holes[c(1, 5, 9)] <- NA
-ply <- rasterToPolygons(r)
-ply_with_holes <- sf::st_as_sf(rasterToPolygons(r_with_holes))
+ply <- sf::st_as_sf(terra::as.polygons(r))
+ply_with_holes <- sf::st_as_sf(terra::as.polygons(r_with_holes))
 
 # intersect raster with raster
 par(mfrow = c(1, 2))
-plot(r, main = "x=Raster")
-plot(r_with_holes, main = "y=Raster")
+plot(r, main = "x=SpatRaster")
+plot(r_with_holes, main = "y=SpatRaster")
 print(intersecting_units(r, r_with_holes))
 
-# intersect raster with polygons (sf)
+# intersect raster with sf
 par(mfrow = c(1, 2))
-plot(r, main = "x=Raster")
+plot(r, main = "x=SpatRaster")
 plot(ply_with_holes, main = "y=sf", key.pos = NULL, reset = FALSE)
 print(intersecting_units(r, ply_with_holes))
 
-# intersect polygons (Spatial) with raster
+# intersect sf with raster
 par(mfrow = c(1, 2))
-plot(ply, main = "x=Spatial")
-plot(r_with_holes, main = "y=Raster")
+plot(ply, main = "x=sf")
+plot(r_with_holes, main = "y=SpatRaster")
 print(intersecting_units(ply, r_with_holes))
 
-# intersect polygons (Spatial) with polygons (sf)
+# intersect sf with sf
 par(mfrow = c(1, 2))
-plot(ply, main = "x=Spatial")
+plot(ply, main = "x=sf")
 plot(ply_with_holes, main = "y=sf", key.pos = NULL, reset = FALSE)
 print(intersecting_units(ply, ply_with_holes))
 }

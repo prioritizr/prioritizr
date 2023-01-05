@@ -7,10 +7,10 @@
 run_calculations(x)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} object.}
 }
 \value{
-Invisible \code{TRUE} indicating success.
+An invisible \code{TRUE} indicating success.
 }
 \description{
 Execute preliminary calculations in a conservation problem and store the
@@ -27,15 +27,20 @@ anything. To use this function with \code{\link[=pipe]{pipe()}} operators, use t
 }
 \examples{
 \dontrun{
-# Let us imagine a scenario where we wanted to understand the effect of
+# load data
+sim_pu_raster <- get_sim_pu_raster()
+sim_features <- get_sim_features()
+
+# let us imagine a scenario where we wanted to understand the effect of
 # setting different targets on our solution.
 
 # create a conservation problem with no targets
-p <- problem(sim_pu_raster, sim_features) \%>\%
-     add_min_set_objective() \%>\%
-     add_boundary_penalties(10, 0.5) \%>\%
-     add_binary_decisions() \%>\%
-     add_default_solver(verbose = FALSE)
+p <-
+  problem(sim_pu_raster, sim_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_boundary_penalties(10, 0.5) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
 
 # create a copies of p and add targets
 p1 <- p \%>\% add_relative_targets(0.1)
@@ -54,12 +59,13 @@ s1 <- system.time({solve(p1); solve(p2); solve(p3)})
 
 # recreate a conservation problem with no targets and tell R run the
 # preliminary calculations. Note how we use the \%T>\% operator here.
-p <- problem(sim_pu_raster, sim_features) \%>\%
-     add_min_set_objective() \%>\%
-     add_boundary_penalties(10, 0.5) \%>\%
-     add_binary_decisions() \%>\%
-     add_default_solver(verbose = FALSE) \%T>\%
-     run_calculations()
+p <-
+  problem(sim_pu_raster, sim_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_boundary_penalties(10, 0.5) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE) \%T>\%
+  run_calculations()
 
 # create a copies of p and add targets just like before
 p1 <- p \%>\% add_relative_targets(0.1)

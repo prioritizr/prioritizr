@@ -10,7 +10,7 @@ NULL
 #' run time and solution quality of some of the available solvers when applied
 #' to different sized datasets.
 #'
-#' @param x [problem()] (i.e., [`ConservationProblem-class`]) object.
+#' @param x [problem()] object.
 #'
 #' @param ... arguments passed to the solver.
 #'
@@ -48,14 +48,17 @@ add_default_solver <- function(x, ...) {
   } else if (identical(ds, "Rsymphony")) {
     return(add_rsymphony_solver(x, ...))
   } else {
-    assertthat::assert_that(inherits(x, "ConservationProblem"))
-    return(x$add_solver(pproto(
-      "MissingSolver",
-      Solver,
-      name = "MissingSolver",
-      solve = function(self, x) {
-        stop("no optimization problem solvers found on system")
-      })))
+    assertthat::assert_that(is_conservation_problem(x))
+    return(
+      x$add_solver(pproto(
+        "MissingSolver",
+        Solver,
+        name = "MissingSolver",
+        solve = function(self, x) {
+          stop("no optimization problem solvers installed")
+        }
+      ))
+    )
   }
 }
 
@@ -87,4 +90,18 @@ default_solver_name <- function() {
   } else {
     return(NULL)
   }
+}
+
+#' Any solvers installed?
+#'
+#' Test if any solvers are installed.
+#'
+#' @details This function tests if any of the following packages are installed:
+#'   \pkg{Rsymphony}, \pkg{lpsymphony}, \pkg{gurobi}.
+#'
+#' @return `logical` value indicating if any solvers are installed.
+#'
+#' @noRd
+any_solvers_installed <- function() {
+  !is.null(default_solver_name())
 }

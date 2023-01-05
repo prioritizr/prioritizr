@@ -13,7 +13,7 @@ add_boundary_penalties(
 )
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} object.}
 
 \item{penalty}{\code{numeric} penalty that is used to scale the importance
 of selecting planning units that are spatially clumped together compared
@@ -58,8 +58,7 @@ planning units (i.e., planning units that are adjacent to each other).
 See the Data format section for more information.}
 }
 \value{
-Object (i.e., \code{\linkS4class{ConservationProblem}}) with the penalties
-added to it.
+An updated \code{\link[=problem]{problem()}} object with the penalties added to it.
 }
 \description{
 Add penalties to a conservation planning \code{\link[=problem]{problem()}} to favor solutions
@@ -146,14 +145,18 @@ replaced with \eqn{-p}.
 set.seed(500)
 
 # load data
-data(sim_pu_raster, sim_features, sim_pu_zones_stack, sim_features_zones)
+sim_pu_raster <- get_sim_pu_raster()
+sim_features <- get_sim_features()
+sim_pu_zones_raster <- get_sim_pu_zones_raster()
+sim_features_zones <- get_sim_features_zones()
 
 # create minimal problem
-p1 <- problem(sim_pu_raster, sim_features) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(0.2) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(verbose = FALSE)
+p1 <-
+  problem(sim_pu_raster, sim_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.2) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
 
 # create problem with low boundary penalties
 p2 <- p1 \%>\% add_boundary_penalties(50, 1)
@@ -167,19 +170,22 @@ bmat <- boundary_matrix(sim_pu_raster)
 p4 <- p1 \%>\% add_boundary_penalties(50, 1, data = bmat)
 
 # solve problems
-s <- stack(solve(p1), solve(p2), solve(p3), solve(p4))
+s1 <- c(solve(p1), solve(p2), solve(p3), solve(p4))
+names(s1) <- c("basic solution", "small penalties", "high penalties",
+  "precomputed data"
+)
 
 # plot solutions
-plot(s, main = c("basic solution", "small penalties", "high penalties",
-                 "precomputed data"), axes = FALSE, box = FALSE)
+plot(s1, axes = FALSE)
 
 # create minimal problem with multiple zones and limit the run-time for
 # solver to 10 seconds so this example doesn't take too long
-p5 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(matrix(0.2, nrow = 5, ncol = 3)) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(time_limit = 10, verbose = FALSE)
+p5 <-
+  problem(sim_pu_zones_raster, sim_features_zones) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(matrix(0.2, nrow = 5, ncol = 3)) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(time_limit = 10, verbose = FALSE)
 
 # create zone matrix which favors clumping planning units that are
 # allocated to the same zone together - note that this is the default
@@ -224,15 +230,18 @@ print(zm10)
 p10 <- p5 \%>\% add_boundary_penalties(500, zone = zm10)
 
 # solve problems
-s2 <- stack(category_layer(solve(p5)), category_layer(solve(p6)),
-            category_layer(solve(p7)), category_layer(solve(p8)),
-            category_layer(solve(p9)), category_layer(solve(p10)))
+s2 <- list(solve(p5), solve(p6), solve(p7), solve(p8), solve(p9), solve(p10))
+
+#convert to category layers for visualization
+s2 <- terra::rast(lapply(s2, category_layer))
+names(s2) <- c(
+  "basic solution", "within zone clumping (low)",
+  "within zone clumping (high)", "between zone clumping",
+  "within + between clumping", "negative clumping"
+)
 
 # plot solutions
-plot(s2, main = c("basic solution", "within zone clumping (low)",
-                  "within zone clumping (high)", "between zone clumping",
-                  "within + between clumping", "negative clumping"),
-     axes = FALSE, box = FALSE)
+plot(s2, axes = FALSE)
 }
 }
 \references{

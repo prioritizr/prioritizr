@@ -21,7 +21,7 @@
 \S4method{add_connectivity_penalties}{ConservationProblem,ANY,ANY,array}(x, penalty, zones, data)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} object.}
 
 \item{penalty}{\code{numeric} penalty that is used to scale the importance
 of selecting planning units with strong connectivity between them compared
@@ -59,8 +59,7 @@ that are associated with higher values are more favorable in the solution.
 See the Data format section for more information.}
 }
 \value{
-Object (i.e., \code{\linkS4class{ConservationProblem}}) with the penalties
-added to it.
+An updated \code{\link[=problem]{problem()}} object with the penalties added to it.
 }
 \description{
 Add penalties to a conservation planning \code{\link[=problem]{problem()}} to account for
@@ -177,7 +176,10 @@ library(Matrix)
 set.seed(600)
 
 # load data
-data(sim_pu_sf, sim_pu_zones_stack, sim_features, sim_features_zones)
+sim_pu_polygons <- get_sim_pu_polygons()
+sim_pu_zones_raster <- get_sim_pu_zones_raster()
+sim_features <- get_sim_features()
+sim_features_zones <- get_sim_features_zones()
 
 # define function to rescale values between zero and one so that we
 # can compare solutions from different connectivity matrices
@@ -186,14 +188,15 @@ rescale <- function(x, to = c(0, 1), from = range(x, na.rm = TRUE)) {
 }
 
 # create basic problem
-p1 <- problem(sim_pu_sf, sim_features, "cost") \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(0.2) \%>\%
-      add_default_solver(verbose = FALSE)
+p1 <-
+  problem(sim_pu_polygons, sim_features, "cost") \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.2) \%>\%
+  add_default_solver(verbose = FALSE)
 
 # create a symmetric connectivity matrix where the connectivity between
 # two planning units corresponds to their shared boundary length
-b_matrix <- boundary_matrix(sim_pu_sf)
+b_matrix <- boundary_matrix(sim_pu_polygons)
 
 # standardize matrix values to lay between zero and one
 b_matrix[] <- rescale(b_matrix[])
@@ -204,7 +207,9 @@ image(b_matrix)
 # create a symmetric connectivity matrix where the connectivity between
 # two planning units corresponds to their spatial proximity
 # i.e., planning units that are further apart share less connectivity
-centroids <- sf::st_coordinates(suppressWarnings(sf::st_centroid(sim_pu_sf)))
+centroids <- sf::st_coordinates(
+  suppressWarnings(sf::st_centroid(sim_pu_polygons))
+)
 d_matrix <- (1 / (Matrix::Matrix(as.matrix(dist(centroids))) + 1))
 
 # standardize matrix values to lay between zero and one
@@ -224,7 +229,7 @@ image(d_matrix)
 # each planning unit and we could use connectivity penalties to identify
 # solutions that cluster planning units together that both contain large
 # amounts of native vegetation
-c_matrix <- connectivity_matrix(sim_pu_sf, "cost")
+c_matrix <- connectivity_matrix(sim_pu_polygons, "cost")
 
 # standardize matrix values to lay between zero and one
 c_matrix[] <- rescale(c_matrix[])
@@ -232,45 +237,59 @@ c_matrix[] <- rescale(c_matrix[])
 # visualize connectivity matrix
 image(c_matrix)
 
-
 # create penalties
 penalties <- c(10, 25)
 
 # create problems using the different connectivity matrices and penalties
-p2 <- list(p1,
-           p1 \%>\% add_connectivity_penalties(penalties[1], data = b_matrix),
-           p1 \%>\% add_connectivity_penalties(penalties[2], data = b_matrix),
-           p1 \%>\% add_connectivity_penalties(penalties[1], data = d_matrix),
-           p1 \%>\% add_connectivity_penalties(penalties[2], data = d_matrix),
-           p1 \%>\% add_connectivity_penalties(penalties[1], data = c_matrix),
-           p1 \%>\% add_connectivity_penalties(penalties[2], data = c_matrix))
+p2 <- list(
+  p1,
+  p1 \%>\% add_connectivity_penalties(penalties[1], data = b_matrix),
+  p1 \%>\% add_connectivity_penalties(penalties[2], data = b_matrix),
+  p1 \%>\% add_connectivity_penalties(penalties[1], data = d_matrix),
+  p1 \%>\% add_connectivity_penalties(penalties[2], data = d_matrix),
+  p1 \%>\% add_connectivity_penalties(penalties[1], data = c_matrix),
+  p1 \%>\% add_connectivity_penalties(penalties[2], data = c_matrix)
+)
 
 # assign names to the problems
-names(p2) <- c("basic problem",
-               paste0("b_matrix (", penalties,")"),
-               paste0("d_matrix (", penalties,")"),
-               paste0("c_matrix (", penalties,")"))
+names(p2) <- c(
+  "basic problem",
+  paste0("b_matrix (", penalties,")"),
+  paste0("d_matrix (", penalties,")"),
+  paste0("c_matrix (", penalties,")")
+)
 
 # solve problems
 s2 <- lapply(p2, solve)
 
+# create single object with all solutions
+s2 <- sf::st_sf(
+  tibble::tibble(
+    p2_1 = s2[[1]]$solution_1,
+    p2_2 = s2[[2]]$solution_1,
+    p2_3 = s2[[3]]$solution_1,
+    p2_4 = s2[[4]]$solution_1,
+    p2_5 = s2[[5]]$solution_1,
+    p2_6 = s2[[6]]$solution_1,
+    p2_7 = s2[[7]]$solution_1
+  ),
+  geometry = sf::st_geometry(s2[[1]])
+)
+
 # plot solutions
-par(mfrow = c(2, 2))
-for (i in seq_along(s2)) {
-  plot(s2[[i]], main = names(p2)[i], cex = 1.5, col = "white")
-  plot(s2[[i]][s2[[i]]$solution_1 == 1, ], col = "darkgreen", add = TRUE)
-}
+plot(s2, main = names(p2))
 
 # create minimal multi-zone problem and limit solver to one minute
 # to obtain solutions in a short period of time
-p3 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(matrix(0.15, nrow = 5, ncol = 3)) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(time_limit = 60, verbose = FALSE)
+p3 <-
+  problem(sim_pu_zones_raster, sim_features_zones) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(matrix(0.15, nrow = 5, ncol = 3)) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(time_limit = 60, verbose = FALSE)
 
 # create matrix showing which planning units are adjacent to other units
-a_matrix <- adjacency_matrix(sim_pu_zones_stack)
+a_matrix <- adjacency_matrix(sim_pu_zones_raster)
 
 # visualize matrix
 image(a_matrix)
@@ -343,50 +362,49 @@ p4 <- list(
   p3 \%>\% add_connectivity_penalties(penalties2[1], zm4, a_matrix),
   p3 \%>\% add_connectivity_penalties(penalties2[2], zm4, a_matrix),
   p3 \%>\% add_connectivity_penalties(penalties2[1], zm5, a_matrix),
-  p3 \%>\% add_connectivity_penalties(penalties2[2], zm5, a_matrix))
-
-# assign names to the problems
-names(p4) <- c("basic problem",
-               paste0("zm", rep(seq_len(5), each = 2), " (",
-                      rep(penalties2, 2), ")"))
+  p3 \%>\% add_connectivity_penalties(penalties2[2], zm5, a_matrix)
+)
 
 # solve problems
 s4 <- lapply(p4, solve)
 s4 <- lapply(s4, category_layer)
-s4 <- stack(s4)
+s4 <- terra::rast(s4)
+names(s4) <-  c(
+  "basic problem",
+  paste0("zm", rep(seq_len(5), each = 2), " (", rep(penalties2, 2), ")")
+)
 
 # plot solutions
-plot(s4, main = names(p4), axes = FALSE, box = FALSE)
-
+plot(s4, axes = FALSE)
 
 # create an array to manually specify the connectivities between
 # each planning unit when they are allocated to each different zone
 # for real-world problems, these connectivities would be generated using
 # data - but here these connectivity values are assigned as random
 # ones or zeros
-c_array <- array(0, c(rep(ncell(sim_pu_zones_stack[[1]]), 2), 3, 3))
+c_array <- array(0, c(rep(ncell(sim_pu_zones_raster[[1]]), 2), 3, 3))
 for (z1 in seq_len(3))
   for (z2 in seq_len(3))
-    c_array[, , z1, z2] <- round(runif(ncell(sim_pu_zones_stack[[1]]) ^ 2,
-                                       0, 0.505))
+    c_array[, , z1, z2] <- round(
+      runif(ncell(sim_pu_zones_raster[[1]]) ^ 2, 0, 0.505)
+    )
 
 # create a problem with the manually specified connectivity array
 # note that the zones argument is set to NULL because the connectivity
 # data is an array
-p5 <- list(p3,
-           p3 \%>\% add_connectivity_penalties(15, zones = NULL, c_array))
-
-
-# assign names to the problems
-names(p5) <- c("basic problem", "connectivity array")
+p5 <- list(
+  p3,
+  p3 \%>\% add_connectivity_penalties(15, zones = NULL, c_array)
+)
 
 # solve problems
 s5 <- lapply(p5, solve)
 s5 <- lapply(s5, category_layer)
-s5 <- stack(s5)
+s5 <- terra::rast(s5)
+names(s5) <- c("basic problem", "connectivity array")
 
 # plot solutions
-plot(s5, main = names(p5), axes = FALSE, box = FALSE)
+plot(s5, axes = FALSE)
 }
 }
 \references{

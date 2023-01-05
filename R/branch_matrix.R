@@ -13,7 +13,7 @@ NULL
 #'
 #' @param x [ape::phylo()] tree object.
 #'
-#' @return [`dgCMatrix-class`] sparse matrix object. Each row
+#' @return A [`dgCMatrix-class`] sparse matrix object. Each row
 #'   corresponds to a different species. Each column corresponds to a different
 #'   branch. Species that inherit from a given branch are denoted with a one.
 #'
@@ -23,7 +23,7 @@ NULL
 #'
 #' @examples
 #' # load data
-#' data(sim_phylogeny)
+#' sim_phylogeny <- get_sim_phylogeny()
 #'
 #' # generate species by branch matrix
 #' m <- branch_matrix(sim_phylogeny)
@@ -32,8 +32,7 @@ NULL
 #' \dontrun{
 #' par(mfrow = c(1,2))
 #' plot(sim_phylogeny, main = "phylogeny")
-#' plot(raster(as.matrix(m)), main = "branch matrix", axes = FALSE,
-#'      box = FALSE)
+#' plot(m, main = "branch matrix", axes = FALSE)
 #' }
 #' @export
 branch_matrix <- function(x) UseMethod("branch_matrix")
@@ -50,8 +49,11 @@ branch_matrix.default <- function(x)
 branch_matrix.phylo <- function(x) {
   # check that tree is valid and return error if not
   msg <- utils::capture.output(ape::checkValidPhylo(x))
-  if (any(grepl("FATAL", msg)) || any(grepl("MODERATE", msg)))
-    stop(paste(msg, collapse = "\n"))
+  assertthat::assert_that(
+    !any(grepl("FATAL", msg)),
+    !any(grepl("MODERATE", msg)),
+    msg = paste(msg, collapse = "\n")
+  )
   # generate matrix
   rcpp_branch_matrix(x)
 }

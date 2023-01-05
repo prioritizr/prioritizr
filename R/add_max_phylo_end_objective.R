@@ -107,8 +107,11 @@ NULL
 #' require(ape)
 #'
 #' # load data
-#' data(sim_pu_raster, sim_features, sim_phylogeny, sim_pu_zones_stack,
-#'      sim_features_zones)
+#' sim_pu_raster <- get_sim_pu_raster()
+#' sim_features <- get_sim_features()
+#' sim_phylogeny <- get_sim_phylogeny()
+#' sim_pu_zones_raster <- get_sim_pu_zones_raster()
+#'  sim_features_zones <- get_sim_features_zones()
 #'
 #' # plot the simulated phylogeny
 #' par(mfrow = c(1, 1))
@@ -117,28 +120,32 @@ NULL
 #' # create problem with a maximum phylogenetic endemism objective,
 #' # where each feature needs 10% of its distribution to be secured for
 #' # it to be adequately conserved and a total budget of 1900
-#' p1 <- problem(sim_pu_raster, sim_features) %>%
-#'       add_max_phylo_end_objective(1900, sim_phylogeny) %>%
-#'       add_relative_targets(0.1) %>%
-#'       add_binary_decisions() %>%
-#'       add_default_solver(verbose = FALSE)
+#' p1 <-
+#'   problem(sim_pu_raster, sim_features) %>%
+#'   add_max_phylo_end_objective(1900, sim_phylogeny) %>%
+#'   add_relative_targets(0.1) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
 #'
 #' # solve problem
 #' s1 <- solve(p1)
 #'
 #' # plot solution
-#' plot(s1, main = "solution", axes = FALSE, box = FALSE)
+#' plot(s1, main = "solution", axes = FALSE)
 #'
 #' # find out which features have their targets met
 #' r1 <- eval_target_coverage_summary(p1, s1)
 #' print(r1, width = Inf)
 #'
 #' # plot the phylogeny and color the adequately represented features in red
-#' plot(sim_phylogeny, main = "adequately represented features",
-#'      tip.color = replace(
-#'        rep("black", nlayers(sim_features)),
-#'        sim_phylogeny$tip.label %in% r1$feature[r1$met],
-#'        "red"))
+#' plot(
+#'   sim_phylogeny, main = "adequately represented features",
+#'   tip.color = replace(
+#'     rep("black", terra::nlyr(sim_features)),
+#'     sim_phylogeny$tip.label %in% r1$feature[r1$met],
+#'     "red"
+#'   )
+#' )
 #'
 #' # rename the features in the example phylogeny for use with the
 #' # multi-zone data
@@ -149,56 +156,65 @@ NULL
 #' # considered adequately conserved
 #' targets <- tibble::tibble(
 #'   feature = feature_names(sim_features_zones),
-#'   zone = list(zone_names(sim_features_zones))[rep(1,
-#'           number_of_features(sim_features_zones))],
+#'   zone = list(zone_names(sim_features_zones))[
+#'     rep(1, number_of_features(sim_features_zones))],
 #'   type = rep("absolute", number_of_features(sim_features_zones)),
-#'   target = rep(10, number_of_features(sim_features_zones)))
+#'   target = rep(10, number_of_features(sim_features_zones))
+#' )
 #'
 #' # create a multi-zone problem with a maximum phylogenetic endemism
 #' # objective, where the total expenditure in all zones is 5000.
-#' p2 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
-#'       add_max_phylo_end_objective(5000, sim_phylogeny) %>%
-#'       add_manual_targets(targets) %>%
-#'       add_binary_decisions() %>%
-#'       add_default_solver(verbose = FALSE)
+#' p2 <-
+#'   problem(sim_pu_zones_raster, sim_features_zones) %>%
+#'   add_max_phylo_end_objective(5000, sim_phylogeny) %>%
+#'   add_manual_targets(targets) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
 #'
 #' # solve problem
 #' s2 <- solve(p2)
 #'
 #' # plot solution
-#' plot(category_layer(s2), main = "solution", axes = FALSE, box = FALSE)
+#' plot(category_layer(s2), main = "solution", axes = FALSE)
 #'
 #' # find out which features have their targets met
 #' r2 <- eval_target_coverage_summary(p2, s2)
 #' print(r2, width = Inf)
 #'
 #' # plot the phylogeny and color the adequately represented features in red
-#' plot(sim_phylogeny, main = "adequately represented features",
-#'      tip.color = replace(rep("black", nlayers(sim_features)),
-#'                          which(r2$met), "red"))
+#' plot(
+#'   sim_phylogeny, main = "adequately represented features",
+#'   tip.color = replace(
+#'     rep("black", terra::nlyr(sim_features)), which(r2$met), "red"
+#'   )
+#' )
 #'
 #' # create a multi-zone problem with a maximum phylogenetic endemism
 #' # objective, where each zone has a separate budget.
-#' p3 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
-#'       add_max_phylo_end_objective(c(2500, 500, 2000), sim_phylogeny) %>%
-#'       add_manual_targets(targets) %>%
-#'       add_binary_decisions() %>%
-#'       add_default_solver(verbose = FALSE)
+#' p3 <-
+#'   problem(sim_pu_zones_raster, sim_features_zones) %>%
+#'   add_max_phylo_end_objective(c(2500, 500, 2000), sim_phylogeny) %>%
+#'   add_manual_targets(targets) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
 #'
 #' # solve problem
 #' s3 <- solve(p3)
 #'
 #' # plot solution
-#' plot(category_layer(s3), main = "solution", axes = FALSE, box = FALSE)
+#' plot(category_layer(s3), main = "solution", axes = FALSE)
 #'
 #' # find out which features have their targets met
 #' r3 <- eval_target_coverage_summary(p3, s3)
 #' print(r3, width = Inf)
 #'
 #' # plot the phylogeny and color the adequately represented features in red
-#' plot(sim_phylogeny, main = "adequately represented features",
-#'      tip.color = replace(rep("black", nlayers(sim_features)),
-#'                          which(r3$met), "red"))
+#' plot(
+#'   sim_phylogeny, main = "adequately represented features",
+#'   tip.color = replace(
+#'     rep("black", terra::nlyr(sim_features)), which(r3$met), "red"
+#'   )
+#' )
 #' }
 #' @name add_max_phylo_end_objective
 NULL
@@ -206,30 +222,37 @@ NULL
 #' @rdname add_max_phylo_end_objective
 #' @export
 add_max_phylo_end_objective <- function(x, budget, tree) {
-  # check that dependencies are installed
-  if (!requireNamespace("ape"))
-    stop("the \"ape\" package needs to be installed to use phylogenetic data")
   # assert arguments are valid
-  assertthat::assert_that(inherits(x, "ConservationProblem"),
-                          is.numeric(budget),
-                          all(is.finite(budget)),
-                          all(budget >= 0.0),
-                          isTRUE(min(budget) > 0),
-                          length(budget) == 1 ||
-                            length(budget) == number_of_zones(x),
-                          inherits(tree, "phylo"),
-                          length(tree$tip.label) == number_of_features(x),
-                          setequal(tree$tip.label, feature_names(x)))
+  assertthat::assert_that(
+    is_conservation_problem(x),
+    is.numeric(budget),
+    all_finite(budget),
+    all(budget >= 0.0),
+    min(budget) > 0,
+    inherits(tree, "phylo"),
+    length(tree$tip.label) == number_of_features(x),
+    all_match_of(tree$tip.label, feature_names(x))
+  )
+  if (length(budget) > 1) {
+    assertthat::assert_that(
+      length(budget) == number_of_zones(x),
+      msg = paste(
+        "argument to budget should contain a single value",
+        "or a value for each zone"
+      )
+    )
+  }
   # make parameter
   if (length(budget) == 1) {
-    p <- numeric_parameter("budget", budget, lower_limit = 0,
-                           upper_limit = sum(x$planning_unit_costs(),
-                                             na.rm = TRUE))
+    p <- numeric_parameter(
+      "budget", budget, lower_limit = 0,
+      upper_limit = sum(x$planning_unit_costs(), na.rm = TRUE)
+    )
   } else {
-    p <- numeric_parameter_array("budget", budget, x$zone_names(),
-                                 lower_limit = 0,
-                                 upper_limit = colSums(x$planning_unit_costs(),
-                                                       na.rm = TRUE))
+    p <- numeric_parameter_array(
+      "budget", budget, x$zone_names(), lower_limit = 0,
+      upper_limit = colSums(x$planning_unit_costs(), na.rm = TRUE)
+    )
   }
   # add objective to problem
   x$add_objective(pproto(
@@ -247,13 +270,16 @@ add_max_phylo_end_objective <- function(x, budget, tree) {
       # create re-ordered branch matrix
       bm <- branch_matrix(tr)[pos, , drop = FALSE]
       # calculate total abundance of each phylogenetic branch
-      ab <- matrix(rowSums(x$feature_abundances_in_total_units(), na.rm = TRUE),
-                   ncol = ncol(bm), nrow = nrow(bm), byrow = FALSE) * bm
+      ab <- bm * matrix(
+        rowSums(x$feature_abundances_in_total_units(), na.rm = TRUE),
+        ncol = ncol(bm), nrow = nrow(bm), byrow = FALSE
+      )
       # multiply branch lengths by endemism
-      tr$edge.length <- tr$edge.length * (1 / colSums(ab))
+      tr$edge.length <- tr$edge.length * (1 / Matrix::colSums(ab))
       # manually rescale branch lengths in case they are too small
-      if (min(tr$edge.length) < 1)
+      if (min(tr$edge.length) < 1) {
         tr$edge.length <- tr$edge.length * (1 / min(tr$edge.length))
+      }
       # store data
       self$set_data("branch_matrix", bm)
       self$set_data("tree_rescaled", tr)
@@ -261,13 +287,18 @@ add_max_phylo_end_objective <- function(x, budget, tree) {
       invisible(TRUE)
     },
     apply = function(self, x, y) {
-      assertthat::assert_that(inherits(x, "OptimizationProblem"),
-                              inherits(y, "ConservationProblem"))
-      invisible(rcpp_apply_max_phylo_objective(x$ptr,
-        y$feature_targets(), y$planning_unit_costs(),
-        self$parameters$get("budget")[[1]],
-        self$get_data("branch_matrix"),
-        self$get_data("tree_rescaled")$edge.length
-      ))
-    }))
+      assertthat::assert_that(
+        inherits(x, "OptimizationProblem"),
+        inherits(y, "ConservationProblem")
+      )
+      invisible(
+        rcpp_apply_max_phylo_objective(
+          x$ptr, y$feature_targets(), y$planning_unit_costs(),
+          self$parameters$get("budget")[[1]],
+          self$get_data("branch_matrix"),
+          self$get_data("tree_rescaled")$edge.length
+        )
+      )
+    }
+  ))
 }

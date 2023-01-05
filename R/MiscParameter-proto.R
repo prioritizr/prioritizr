@@ -89,4 +89,5 @@ MiscParameter <- pproto(
   set = function(self, x) {
     check_that(self$validate(x))
     self$value <- x
-  })
+  }
+)

@@ -68,15 +68,23 @@ the method for generating a portfolio of solutions.}
 
 \code{x$planning_unit_indices()}
 
+\code{x$set_planning_unit_indices()}
+
 \code{x$planning_unit_indices_with_finite_costs()}
 
+\code{x$set_planning_unit_indices_with_finite_costs()}
+
 \code{x$planning_unit_costs()}
+
+\code{x$set_planning_unit_costs()}
 
 \code{x$number_of_features()}
 
 \code{x$feature_names()}
 
 \code{x$feature_abundances_in_planning_units()}
+
+\code{x$set_feature_abundances_in_planning_units()}
 
 \code{x$feature_abundances_in_total_units()}
 
@@ -177,8 +185,14 @@ exists then the object is overwritten.}
 \item{planning_unit_indices}{\code{integer} indices of the planning units in
 the planning unit data.}
 
+\item{set_planning_unit_indices}{calculate the indices of the planning
+units.}
+
 \item{planning_unit_indices_with_finite_costs}{\code{list} of \code{integer}
 indices of planning units in each zone that have finite cost data.}
+
+\item{set_planning_unit_indices_with_finite_costs}{calculate the planning
+unit indices with finite costs.}
 
 \item{number_of_total_units}{\code{integer} number of units in the cost
 data including units that have \code{N} cost data.}
@@ -186,6 +200,8 @@ data including units that have \code{N} cost data.}
 \item{planning_unit_costs}{\code{matrix} cost of allocating each planning
 unit to each zone. Each column corresponds to a different zone and
 each row corresponds to a different planning unit.}
+
+\item{set_planning_unit_costs}{calculate the planning unit costs.}
 
 \item{number_of_features}{\code{integer} number of features.}
 
@@ -195,6 +211,9 @@ each row corresponds to a different planning unit.}
 abundance of each feature in planning units available in each zone. Each
 column corresponds to a different zone and each row corresponds to a
 different feature.}
+
+\item{set_feature_abundances_in_planning_units}{calculate the
+feature abundances in planning units.}
 
 \item{feature_abundances_in_total_units}{\code{matrix} total
 abundance of each feature in each zone. Each column corresponds to a

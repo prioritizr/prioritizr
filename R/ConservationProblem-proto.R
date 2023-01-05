@@ -67,15 +67,23 @@ NULL
 #'
 #' `x$planning_unit_indices()`
 #'
+#' `x$set_planning_unit_indices()`
+#'
 #' `x$planning_unit_indices_with_finite_costs()`
 #'
+#' `x$set_planning_unit_indices_with_finite_costs()`
+#'
 #' `x$planning_unit_costs()`
+#'
+#' `x$set_planning_unit_costs()`
 #'
 #' `x$number_of_features()`
 #'
 #' `x$feature_names()`
 #'
 #' `x$feature_abundances_in_planning_units()`
+#'
+#' `x$set_feature_abundances_in_planning_units()`
 #'
 #' `x$feature_abundances_in_total_units()`
 #'
@@ -172,8 +180,14 @@ NULL
 #' \item{planning_unit_indices}{`integer` indices of the planning units in
 #'   the planning unit data.}
 #'
+#' \item{set_planning_unit_indices}{calculate the indices of the planning
+#'   units.}
+#'
 #' \item{planning_unit_indices_with_finite_costs}{`list` of `integer`
 #'   indices of planning units in each zone that have finite cost data.}
+#'
+#' \item{set_planning_unit_indices_with_finite_costs}{calculate the planning
+#'   unit indices with finite costs.}
 #'
 #' \item{number_of_total_units}{`integer` number of units in the cost
 #'   data including units that have `N` cost data.}
@@ -181,6 +195,8 @@ NULL
 #' \item{planning_unit_costs}{`matrix` cost of allocating each planning
 #'   unit to each zone. Each column corresponds to a different zone and
 #'   each row corresponds to a different planning unit.}
+#'
+#' \item{set_planning_unit_costs}{calculate the planning unit costs.}
 #'
 #' \item{number_of_features}{`integer` number of features.}
 #'
@@ -190,6 +206,9 @@ NULL
 #'   abundance of each feature in planning units available in each zone. Each
 #'   column corresponds to a different zone and each row corresponds to a
 #'   different feature.}
+#'
+#' \item{set_feature_abundances_in_planning_units}{calculate the
+#'   feature abundances in planning units.}
 #'
 #' \item{feature_abundances_in_total_units}{`matrix` total
 #'   abundance of each feature in each zone. Each column corresponds to a
@@ -262,32 +281,47 @@ ConservationProblem <- pproto(
   portfolio  = new_waiver(),
   solver  = new_waiver(),
   print = function(self) {
-    r <- vapply(list(self$objective, self$targets), function(x) {
-      if (is.Waiver(x))
-        return("none")
-      return(x$repr())
-    }, character(1))
-    d <- vapply(list(self$solver, self$decisions, self$portfolio), function(x) {
-      if (is.Waiver(x))
-        return("default")
-      return(x$repr())
-    }, character(1))
+    r <- vapply(
+      list(self$objective, self$targets),
+      FUN.VALUE = character(1),
+      function(x) {
+        if (is.Waiver(x)) return("none")
+        x$repr()
+      }
+    )
+    d <- vapply(
+      list(self$solver, self$decisions, self$portfolio),
+      FUN.VALUE = character(1),
+      function(x) {
+        if (is.Waiver(x)) return("default")
+        x$repr()
+      }
+    )
     cs <- round(range(self$planning_unit_costs(), na.rm = TRUE), 5)
-    message(paste0("Conservation Problem",
-    ifelse(self$number_of_zones() > 1, paste0(
-      "\n  zones:          ", repr_atomic(self$zone_names(), "zones")),
-      ""),
-    "\n  planning units: ", class(self$data$cost)[1], " (",
-      self$number_of_planning_units(), " units)",
-    "\n  cost:           min: ", cs[1], ", max: ", cs[2],
-    "\n  features:       ", repr_atomic(self$feature_names(), "features"),
-    "\n  objective:      ", r[1],
-    "\n  targets:        ", r[2],
-    "\n  decisions:      ", d[2],
-    "\n  constraints:    ", align_text(self$constraints$repr(), 19),
-    "\n  penalties:      ", align_text(self$penalties$repr(), 19),
-    "\n  portfolio:      ", d[3],
-    "\n  solver:         ", d[1]))
+    message(
+      paste0(
+        "Conservation Problem",
+        ifelse(
+          self$number_of_zones() > 1,
+          paste0(
+            "\n  zones:          ",
+            repr_atomic(self$zone_names(), "zones")
+          ),
+          ""
+        ),
+        "\n  planning units: ", class(self$data$cost)[1], " (",
+          self$number_of_planning_units(), " units)",
+        "\n  cost:           min: ", cs[1], ", max: ", cs[2],
+        "\n  features:       ", repr_atomic(self$feature_names(), "features"),
+        "\n  objective:      ", r[1],
+        "\n  targets:        ", r[2],
+        "\n  decisions:      ", d[2],
+        "\n  constraints:    ", align_text(self$constraints$repr(), 19),
+        "\n  penalties:      ", align_text(self$penalties$repr(), 19),
+        "\n  portfolio:      ", d[3],
+        "\n  solver:         ", d[1]
+      )
+    )
   },
   show = function(self) {
     self$print()
@@ -297,9 +331,8 @@ ConservationProblem <- pproto(
   },
   get_data = function(self, x) {
     assertthat::assert_that(assertthat::is.string(x))
-    if (!x %in% names(self$data))
-      return(new_waiver())
-    return(self$data[[x]])
+    if (!x %in% names(self$data)) return(new_waiver())
+    self$data[[x]]
   },
   set_data = function(self, x, value) {
     assertthat::assert_that(assertthat::is.string(x))
@@ -307,71 +340,82 @@ ConservationProblem <- pproto(
     invisible()
   },
   number_of_planning_units = function(self) {
-    if (inherits(self$data$cost, "Raster")) {
-      if (raster::nlayers(self$data$cost) == 1) {
-        return(raster::cellStats(raster::Which(!is.na(self$data$cost)), "sum"))
-      } else {
-        return(raster::cellStats(max(!is.na(self$data$cost)), "sum"))
-      }
-    } else if (inherits(self$data$cost, c("data.frame", "Spatial"))) {
-      return(sum(rowSums(!is.na(as.matrix(
-        as.data.frame(self$data$cost)[, self$data$cost_column,
-                      drop = FALSE]))) > 0))
-    } else if (inherits(self$data$cost, "sf")) {
-      return(sum(rowSums(!is.na(as.matrix(
-        sf::st_drop_geometry(self$data$cost)[, self$data$cost_column,
-                                             drop = FALSE]))) > 0))
-    } else if (is.matrix(self$data$cost)) {
-      return(sum(rowSums(!is.na(self$data$cost)) > 0))
-    } else {
-      stop("cost is of unknown class")
-    }
+    length(self$get_data("planning_unit_indices"))
   },
   planning_unit_indices = function(self) {
+    i <- self$get_data("planning_unit_indices")
+    if (!is.Waiver(i)) return(i)
+    self$set_planning_unit_indices()
+    self$get_data("planning_unit_indices")
+  },
+  set_planning_unit_indices = function(self) {
     if (inherits(self$data$cost, "Raster")) {
       if (raster::nlayers(self$data$cost) == 1) {
-        return(raster::Which(!is.na(self$data$cost), cells = TRUE))
+        x <- raster::Which(!is.na(self$data$cost), cells = TRUE)
       } else {
-        return(raster::Which(max(!is.na(self$data$cost)) > 0, cells = TRUE))
+        x <- raster::Which(max(!is.na(self$data$cost)) > 0, cells = TRUE)
+      }
+    } else if (inherits(self$data$cost, "SpatRaster")) {
+      if (terra::nlyr(self$data$cost) == 1) {
+        x <- terra::cells(is.na(self$data$cost), 0)[[1]]
+      } else {
+        x <- terra::cells(min(is.na(self$data$cost)), 0)[[1]]
       }
     } else if (inherits(self$data$cost, c("data.frame", "Spatial"))) {
-      return(unname(which(rowSums(!is.na(as.matrix(
-             as.data.frame(self$data$cost)[, self$data$cost_column,
-              drop = FALSE]))) > 0)))
+      x <- as.data.frame(self$data$cost)[, self$data$cost_column, drop = FALSE]
+      x <- unname(which(rowSums(!is.na(as.matrix(x))) > 0))
     } else if (inherits(self$data$cost, "sf")) {
-      return(sum(rowSums(!is.na(as.matrix(
-        sf::st_drop_geometry(self$data$cost)[, self$data$cost_column,
-                                             drop = FALSE]))) > 0))
+      x <- sf::st_drop_geometry(self$data$cost)
+      x <- x[, self$data$cost_column, drop = FALSE]
+      x <- sum(rowSums(!is.na(as.matrix(x))) > 0)
     } else if (is.matrix(self$data$cost)) {
-      return(unname(which(rowSums(!is.na(self$data$cost)) > 0)))
+      x <- unname(which(rowSums(!is.na(self$data$cost)) > 0))
     } else {
       stop("cost is of unknown class")
     }
+    self$set_data("planning_unit_indices", x)
+    invisible()
   },
   planning_unit_indices_with_finite_costs = function(self) {
+    i <- self$get_data("planning_unit_indices_with_finite_costs")
+    if (!is.Waiver(i)) return(i)
+    self$set_planning_unit_indices_with_finite_costs()
+    self$get_data("planning_unit_indices_with_finite_costs")
+  },
+  set_planning_unit_indices_with_finite_costs = function(self) {
     if (inherits(self$data$cost, "Raster")) {
       if (raster::nlayers(self$data$cost) == 1) {
-        out <- list(raster::Which(!is.na(self$data$cost), cells = TRUE))
+        x <- list(raster::Which(!is.na(self$data$cost), cells = TRUE))
       } else {
-        out <- lapply(seq_len(raster::nlayers(self$data$cost)),
-                      function(i) raster::Which(!is.na(self$data$cost[[i]]),
-                                                cells = TRUE))
+        x <- lapply(
+          seq_len(raster::nlayers(self$data$cost)),
+          function(i) raster::Which(!is.na(self$data$cost[[i]]), cells = TRUE)
+        )
       }
+    } else if (inherits(self$data$cost, "SpatRaster")) {
+      x <- unname(terra::cells(is.na(self$data$cost), 0))
     } else if (inherits(self$data$cost, c("data.frame", "Spatial", "sf"))) {
-      out <- lapply(self$data$cost_column,
-                    function(i) which(!is.na(self$data$cost[[i]])))
+      x <- lapply(
+        self$data$cost_column,
+        function(i) which(!is.na(self$data$cost[[i]]))
+      )
     } else if (is.matrix(self$data$cost)) {
-      out <- lapply(seq_len(ncol(self$data$cost)),
-                    function(i) which(!is.na(self$data$cost[, i])))
+      x <- lapply(
+        seq_len(ncol(self$data$cost)),
+        function(i) which(!is.na(self$data$cost[, i]))
+      )
     } else {
       stop("cost is of unknown class")
     }
-    names(out) <- self$zone_names()
-    out
+    names(x) <- self$zone_names()
+    self$set_data("planning_unit_indices_with_finite_costs", x)
+    invisible()
   },
   number_of_total_units = function(self) {
     if (inherits(self$data$cost, "Raster")) {
       return(raster::ncell(self$data$cost))
+    } else if (inherits(self$data$cost, "SpatRaster")) {
+      return(terra::ncell(self$data$cost))
     } else if (inherits(self$data$cost, c("data.frame", "Spatial", "sf"))) {
       return(nrow(self$data$cost))
     } else if (is.matrix(self$data$cost)) {
@@ -381,38 +425,44 @@ ConservationProblem <- pproto(
     }
   },
   planning_unit_costs = function(self) {
+    i <- self$get_data("planning_unit_costs")
+    if (!is.Waiver(i)) return(i)
+    self$set_planning_unit_costs()
+    self$get_data("planning_unit_costs")
+  },
+  set_planning_unit_costs = function(self) {
+    idx <- self$planning_unit_indices()
     if (inherits(self$data$cost, "Raster")) {
       if (raster::nlayers(self$data$cost) == 1) {
-        m <- matrix(self$data$cost[raster::Which(!is.na(self$data$cost))],
-                    ncol = 1)
+        x <- matrix(self$data$cost[ind], ncol = 1)
       } else {
-        cells <- raster::Which(max(!is.na(self$data$cost)) == 1)
-        m <- self$data$cost[cells]
+        x <- self$data$cost[idx]
       }
-    } else if (inherits(self$data$cost,
-                        c("SpatialPolygonsDataFrame",
-                          "SpatialLinesDataFrame",
-                          "SpatialPointsDataFrame",
-                          "data.frame"))) {
-      m <- as.matrix(as.data.frame(self$data$cost)[, self$data$cost_column,
-                                                     drop = FALSE])
+    } else if (inherits(self$data$cost, "SpatRaster")) {
+      x <- as.matrix(self$data$cost[idx])
+    } else if (inherits(self$data$cost, c("Spatial", "data.frame"))) {
+      x <- as.matrix(
+        as.data.frame(self$data$cost)[idx, self$data$cost_column, drop = FALSE]
+      )
     } else if (inherits(self$data$cost, "sf")) {
-      m <-
-        as.matrix(sf::st_drop_geometry(self$data$cost)[, self$data$cost_column,
-                                                       drop = FALSE])
+      x <- sf::st_drop_geometry(self$data$cost)
+      x <- as.matrix(x[idx, self$data$cost_column, drop = FALSE])
     } else if (is.matrix(self$data$cost)) {
-      m <- self$data$cost
+      x <- self$data$cost
     } else {
       stop("cost is of unknown class")
     }
-    colnames(m) <- self$zone_names()
-    return(m[rowSums(!is.na(m)) > 0, , drop = FALSE])
+    colnames(x) <- self$zone_names()
+    self$set_data("planning_unit_costs", x)
+    invisible()
   },
   number_of_features = function(self) {
     if (inherits(self$data$features, "ZonesCharacter")) {
       return(length(self$data$features[[1]]))
     } else if (inherits(self$data$features, "ZonesRaster")) {
       return(raster::nlayers(self$data$features[[1]]))
+    } else if (inherits(self$data$features, "ZonesSpatRaster")) {
+      return(terra::nlyr(self$data$features[[1]]))
     } else if (inherits(self$data$features, "data.frame")) {
       return(nrow(self$data$features))
     } else {
@@ -429,17 +479,30 @@ ConservationProblem <- pproto(
     }
   },
   feature_abundances_in_planning_units = function(self) {
+    x <- self$get_data("feature_abundances_in_planning_units")
+    if (!is.Waiver(x)) return(x)
+    self$set_feature_abundances_in_planning_units()
+    self$get_data("feature_abundances_in_planning_units")
+  },
+  set_feature_abundances_in_planning_units = function(self) {
     pu_indices <- self$planning_unit_indices()
     ind <- self$planning_unit_indices_with_finite_costs()
     ind <- lapply(ind, function(x) match(x, pu_indices))
-    out <- vapply(seq_along(self$data$rij_matrix),
-      function(i) Matrix::rowSums(self$data$rij_matrix[[i]][, ind[[i]],
-        drop = FALSE], na.rm = TRUE),
-      numeric(nrow(self$data$rij_matrix[[1]])))
+    out <- vapply(
+      seq_along(self$data$rij_matrix),
+      FUN.VALUE = numeric(nrow(self$data$rij_matrix[[1]])),
+      function(i) {
+        Matrix::rowSums(
+          self$data$rij_matrix[[i]][, ind[[i]], drop = FALSE],
+          na.rm = TRUE
+        )
+      }
+    )
     if (!is.matrix(out))
       out <- matrix(out, ncol = self$number_of_zones())
     colnames(out) <- self$zone_names()
-    out
+    self$set_data("feature_abundances_in_planning_units", out)
+    invisible()
   },
   feature_abundances_in_total_units = function(self) {
     self$data$feature_abundances_in_total_units

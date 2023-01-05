@@ -10,7 +10,7 @@ compile(x, ...)
 \method{compile}{ConservationProblem}(x, compressed_formulation = NA, ...)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} object.}
 
 \item{...}{not used.}
 
@@ -23,7 +23,7 @@ of the constraints requires the expanded formulation. This argument
 defaults to \code{NA}.}
 }
 \value{
-\code{\linkS4class{OptimizationProblem}} object.
+An \code{\linkS4class{OptimizationProblem}} object.
 }
 \description{
 Compile a conservation planning \code{\link[=problem]{problem()}} into an
@@ -44,8 +44,13 @@ an error, a misspecified problem, or unnecessarily long
 solve times.
 }
 \examples{
+# load data
+sim_pu_raster <- get_sim_pu_raster()
+sim_features <- get_sim_features()
+
 # build minimal conservation problem
-p <- problem(sim_pu_raster, sim_features) \%>\%
+p <-
+  problem(sim_pu_raster, sim_features) \%>\%
   add_min_set_objective() \%>\%
   add_relative_targets(0.1)
 

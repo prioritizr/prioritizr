@@ -7,7 +7,7 @@ NULL
 #' that all selected planning units in the solution have at least a certain
 #' number of neighbors that are also selected in the solution.
 #'
-#' @param x [problem()] (i.e., [`ConservationProblem-class`]) object.
+#' @param x [problem()] object.
 #'
 #' @param k `integer` minimum number of neighbors for selected
 #'   planning units in the solution. For problems with multiple zones,
@@ -106,13 +106,17 @@ NULL
 #' @examples
 #' \dontrun{
 #' # load data
-#' data(sim_pu_raster, sim_features, sim_pu_zones_stack, sim_features_zones)
+#' sim_pu_raster <- get_sim_pu_raster()
+#' sim_pu_zones_raster <- get_sim_pu_zones_raster()
+#' sim_features <- get_sim_features()
+#' sim_features_zones <- get_sim_features_zones()
 #'
 #' # create minimal problem
-#' p1 <- problem(sim_pu_raster, sim_features) %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(0.1) %>%
-#'       add_default_solver(verbose = FALSE)
+#' p1 <-
+#'   problem(sim_pu_raster, sim_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(0.1) %>%
+#'   add_default_solver(verbose = FALSE)
 #'
 #' # create problem with constraints that require 1 neighbor
 #' # and neighbors are defined using a rook-style neighborhood
@@ -124,21 +128,25 @@ NULL
 #'
 #' # create problem with constraints that require 3 neighbor
 #' # and neighbors are defined using a queen-style neighborhood
-#' p4 <- p1 %>% add_neighbor_constraints(3,
-#'                data = adjacency_matrix(sim_pu_raster, directions = 8))
+#' p4 <-
+#'   p1 %>%
+#'   add_neighbor_constraints(
+#'     3, data = adjacency_matrix(sim_pu_raster, directions = 8)
+#'   )
 #'
 #' # solve problems
-#' s1 <- stack(list(solve(p1), solve(p2), solve(p3), solve(p4)))
+#' s1 <- terra::rast(list(solve(p1), solve(p2), solve(p3), solve(p4)))
+#' names(s1) <- c("basic solution", "1 neighbor", "2 neighbors", "3 neighbors")
 #'
 #' # plot solutions
-#' plot(s1, box = FALSE, axes = FALSE,
-#'      main = c("basic solution", "1 neighbor", "2 neighbors", "3 neighbors"))
+#' plot(s1, axes = FALSE)
 #'
 #' # create minimal problem with multiple zones
-#' p5 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
-#'       add_default_solver(verbose = FALSE)
+#' p5 <-
+#'   problem(sim_pu_zones_raster, sim_features_zones) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
+#'   add_default_solver(verbose = FALSE)
 #'
 #' # create problem where selected planning units require at least 2 neighbors
 #' # for each zone and planning units are only considered neighbors if they
@@ -168,11 +176,11 @@ NULL
 #' s2 <- list(p5, p6, p7, p8)
 #' s2 <- lapply(s2, solve)
 #' s2 <- lapply(s2, category_layer)
-#' s2 <- stack(s2)
+#' s2 <- terra::rast(s2)
 #' names(s2) <- c("basic problem", "p6", "p7", "p8")
 #'
 #' # plot solutions
-#' plot(s2, main = names(s2), box = FALSE, axes = FALSE)
+#' plot(s2, main = names(s2), axes = FALSE)
 #' }
 #' @name add_neighbor_constraints
 #'
@@ -194,41 +202,56 @@ methods::setMethod("add_neighbor_constraints",
   methods::signature("ConservationProblem", "ANY", "ANY", "ANY"),
   function(x, k, zones, data) {
     # assert valid arguments
-    assertthat::assert_that(inherits(x, "ConservationProblem"),
-     all(is.finite(k)), is.numeric(k), all(k == round(k), na.rm = TRUE),
-     all(k >= 0), length(k) == number_of_zones(x),
-     inherits(zones, c("matrix", "Matrix")),
-     inherits(data, c("NULL", "Matrix")))
+    assertthat::assert_that(
+      is_conservation_problem(x),
+      is.numeric(k),
+      all_finite(k),
+      is_integer(k),
+      all_positive(k),
+      all(k >= 0),
+      length(k) == number_of_zones(x),
+      is_inherits(zones, c("matrix", "Matrix")),
+      is_inherits(data, c("NULL", "Matrix"))
+    )
     if (!is.null(data)) {
       # check argument to data if not NULL
-      assertthat::assert_that(all(as_Matrix(data, "dgCMatrix")@x %in%
-                                  c(0, 1, NA)),
-        ncol(data) == nrow(data), number_of_total_units(x) == ncol(data),
-        sum(!is.finite(as_Matrix(data, "dgCMatrix")@x)) == 0)
+      assertthat::assert_that(
+        ncol(data) == nrow(data),
+        number_of_total_units(x) == ncol(data),
+        all_binary(data)
+      )
       d <- list(matrix = data)
     } else {
       # check that planning unit data is spatially referenced
-      assertthat::assert_that(inherits(x$data$cost,
-                                       c("Spatial", "Raster", "sf")),
-        msg = paste("argument to data must be supplied because planning unit",
-                    "data are not in a spatially referenced format"))
+      assertthat::assert_that(
+        inherits(x$data$cost, c("SpatRaster", "Spatial", "Raster", "sf")),
+        msg = paste(
+          "argument to data must be supplied because planning unit",
+          "data are not in a spatially referenced format"
+        )
+      )
       d <- list()
     }
     # convert zones to matrix
     zones <- as.matrix(zones)
     assertthat::assert_that(
-      isSymmetric(zones), ncol(zones) == number_of_zones(x),
-      is.numeric(zones), all(zones %in% c(0, 1)))
+      is.numeric(zones),
+      isSymmetric(zones),
+      ncol(zones) == number_of_zones(x),
+      all_binary(zones)
+    )
     colnames(zones) <- x$zone_names()
     rownames(zones) <- colnames(zones)
     # create parameter
     if (length(k) > 1) {
-      p <- integer_parameter_array("number of neighbors", as.integer(k),
-                                   x$zone_names(),
-                                   lower_limit = rep(0L, length(k)))
+      p <- integer_parameter_array(
+        "number of neighbors", as.integer(k), x$zone_names(),
+        lower_limit = rep(0L, length(k))
+      )
     } else {
-      p <- integer_parameter("number of neighbors", as.integer(k),
-                             lower_limit = 0L)
+      p <- integer_parameter(
+        "number of neighbors", as.integer(k), lower_limit = 0L
+      )
     }
     # add constraints
     x$add_constraint(pproto(
@@ -236,8 +259,10 @@ methods::setMethod("add_neighbor_constraints",
       Constraint,
       data = d,
       name = "Neighbor constraint",
-      parameters = parameters(p,
-        binary_matrix_parameter("zones", zones, symmetric = FALSE)),
+      parameters = parameters(
+        p,
+        binary_matrix_parameter("zones", zones, symmetric = FALSE)
+      ),
       calculate = function(self, x) {
         assertthat::assert_that(inherits(x, "ConservationProblem"))
         # generate adjacency matrix if null
@@ -283,8 +308,9 @@ methods::setMethod("add_neighbor_constraints",
   methods::signature("ConservationProblem", "ANY", "ANY", "data.frame"),
   function(x, k, zones, data) {
     # add constraints
-    add_neighbor_constraints(x, k, zones,
-                             marxan_boundary_data_to_matrix(x, data))
+    add_neighbor_constraints(
+      x, k, zones, marxan_boundary_data_to_matrix(x, data)
+    )
 })
 
 #' @name add_neighbor_constraints
@@ -304,25 +330,33 @@ methods::setMethod("add_neighbor_constraints",
   methods::signature("ConservationProblem", "ANY", "ANY", "array"),
   function(x, k, zones, data) {
     # assert arguments are valid
-    assertthat::assert_that(inherits(x, "ConservationProblem"),
+    assertthat::assert_that(
+      is_conservation_problem(x),
       inherits(data, "array"),
       is.null(zones),
-      all(is.finite(k)), is.numeric(k), all(k >= 0),
-      all(k == round(k), na.rm = TRUE), length(k) == number_of_zones(x),
+      is.numeric(k),
+      is_integer(k),
+      all_finite(k),
+      all_positive(k),
+      all(k >= 0),
+      length(k) == number_of_zones(x),
       dim(data)[1] == x$number_of_total_units(),
       dim(data)[2] == x$number_of_total_units(),
       dim(data)[3] == x$number_of_zones(),
       dim(data)[4] == x$number_of_zones(),
-      sum(is.finite(as.vector(data))) > 0,
-      all(as.vector(data) %in% c(0, 1)))
+      all_finite(data),
+      all_binary(data)
+    )
     # create parameter
     if (length(k) > 1) {
-      p <- integer_parameter_array("number of neighbors", as.integer(k),
-                                   x$zone_names(),
-                                   lower_limit = rep(0, length(k)))
+      p <- integer_parameter_array(
+        "number of neighbors", as.integer(k), x$zone_names(),
+        lower_limit = rep(0, length(k))
+      )
     } else {
-      p <- integer_parameter("number of neighbors", as.integer(k),
-                             lower_limit = 0)
+      p <- integer_parameter(
+        "number of neighbors", as.integer(k), lower_limit = 0
+      )
     }
     # convert matrix to list of sparse matrices
     indices <- x$planning_unit_indices()
@@ -341,12 +375,17 @@ methods::setMethod("add_neighbor_constraints",
       name = "Neighbor constraints",
       parameters = parameters(p),
       apply = function(self, x, y) {
-        assertthat::assert_that(inherits(x, "OptimizationProblem"),
-          inherits(y, "ConservationProblem"))
+        assertthat::assert_that(
+          inherits(x, "OptimizationProblem"),
+          inherits(y, "ConservationProblem")
+        )
         k <- self$parameters$get("number of neighbors")[[1]]
-        if (any(k > 0))
-          rcpp_apply_neighbor_constraints(x$ptr,
-            self$get_data("matrix_list"), k)
+        if (any(k > 0)) {
+          rcpp_apply_neighbor_constraints(
+            x$ptr, self$get_data("matrix_list"), k
+          )
+        }
         invisible(TRUE)
-      }))
+      }
+    ))
 })

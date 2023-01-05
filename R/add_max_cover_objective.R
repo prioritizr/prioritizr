@@ -9,7 +9,7 @@ NULL
 #' weights should be used instead to increase the representation of certain
 #' features by a solution.
 #'
-#' @param x [problem()] (i.e., [`ConservationProblem-class`]) object.
+#' @param x [problem()] object.
 #'
 #' @param budget `numeric` value specifying the maximum expenditure of
 #'   the prioritization. For problems with multiple zones, the argument
@@ -86,64 +86,75 @@ NULL
 #' @examples
 #' \dontrun{
 #' # load data
-#' data(sim_pu_raster, sim_pu_zones_stack, sim_features, sim_features_zones)
+#' sim_pu_raster <- get_sim_pu_raster()
+#' sim_pu_zones_raster <- get_sim_pu_zones_raster()
+#' sim_features <- get_sim_features()
+#' sim_features_zones <- get_sim_features_zones()
 #'
 #' # threshold the feature data to generate binary biodiversity data
 #' sim_binary_features <- sim_features
-#' thresholds <- raster::quantile(sim_features, probs = 0.5, names = FALSE,
-#'                                na.rm = TRUE)
-#' for (i in seq_len(raster::nlayers(sim_features)))
-#'   sim_binary_features[[i]] <- as.numeric(raster::values(sim_features[[i]]) >
-#'                                          thresholds[[i]])
+#' thresholds <- terra::global(
+#'   sim_features, fun = quantile, probs = 0.5, na.rm = TRUE
+#' )
+#' for (i in seq_len(terra::nlyr(sim_features))) {
+#'   sim_binary_features[[i]] <- terra::as.int(
+#'     sim_features[[i]] > thresholds[[1]][[i]]
+#'   )
+#' }
 #'
 #' # create problem with maximum utility objective
-#' p1 <- problem(sim_pu_raster, sim_binary_features) %>%
-#'       add_max_cover_objective(500) %>%
-#'       add_binary_decisions() %>%
-#'       add_default_solver(verbose = FALSE)
+#' p1 <-
+#'   problem(sim_pu_raster, sim_binary_features) %>%
+#'   add_max_cover_objective(500) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
 #'
 #' # solve problem
 #' s1 <- solve(p1)
 #'
 #' # plot solution
-#' plot(s1, main = "solution", axes = FALSE, box = FALSE)
+#' plot(s1, main = "solution", axes = FALSE)
 #'
 #' # threshold the multi-zone feature data to generate binary biodiversity data
 #' sim_binary_features_zones <- sim_features_zones
 #' for (z in number_of_zones(sim_features_zones)) {
-#'   thresholds <- raster::quantile(sim_features_zones[[z]], probs = 0.5,
-#'                                  names = FALSE, na.rm = TRUE)
+#'   thresholds <- terra::global(
+#'     sim_features_zones[[z]], fun = quantile, probs = 0.5, na.rm = TRUE
+#'   )
 #'   for (i in seq_len(number_of_features(sim_features_zones))) {
-#'     sim_binary_features_zones[[z]][[i]] <- as.numeric(
-#'       raster::values(sim_features_zones[[z]][[i]]) > thresholds[[i]])
+#'     sim_binary_features_zones[[z]][[i]] <- terra::as.int(
+#'       sim_features_zones[[z]][[i]] > thresholds[[1]][[i]]
+#'     )
 #'   }
 #' }
 #'
 #' # create multi-zone problem with maximum utility objective that
 #' # has a single budget for all zones
-#' p2 <- problem(sim_pu_zones_stack, sim_binary_features_zones) %>%
-#'       add_max_cover_objective(800) %>%
-#'       add_binary_decisions() %>%
-#'       add_default_solver(verbose = FALSE)
+#' p2 <-
+#'   problem(sim_pu_zones_raster, sim_binary_features_zones) %>%
+#'   add_max_cover_objective(800) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
 #'
 #' # solve problem
 #' s2 <- solve(p2)
 #'
 #' # plot solution
-#' plot(category_layer(s2), main = "solution", axes = FALSE, box = FALSE)
+#' plot(category_layer(s2), main = "solution", axes = FALSE)
 #'
 #' # create multi-zone problem with maximum utility objective that
 #' # has separate budgets for each zone
-#' p3 <- problem(sim_pu_zones_stack, sim_binary_features_zones) %>%
-#'       add_max_cover_objective(c(400, 400, 400)) %>%
-#'       add_binary_decisions() %>%
-#'       add_default_solver(verbose = FALSE)
+#' p3 <-
+#'   problem(sim_pu_zones_raster, sim_binary_features_zones) %>%
+#'   add_max_cover_objective(c(400, 400, 400)) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
 #'
 #' # solve problem
 #' s3 <- solve(p3)
 #'
 #' # plot solution
-#' plot(category_layer(s3), main = "solution", axes = FALSE, box = FALSE)
+#' plot(category_layer(s3), main = "solution", axes = FALSE)
 #' }
 #' @name add_max_cover_objective
 NULL
@@ -152,23 +163,33 @@ NULL
 #' @export
 add_max_cover_objective <- function(x, budget) {
   # assert argument is valid
-  assertthat::assert_that(inherits(x, "ConservationProblem"),
-                          is.numeric(budget),
-                          all(is.finite(budget)),
-                          all(budget >= 0.0),
-                          isTRUE(min(budget) > 0),
-                          length(budget) == 1 ||
-                            length(budget) == number_of_zones(x))
+  assertthat::assert_that(
+    is_conservation_problem(x),
+    is.numeric(budget),
+    all_finite(budget),
+    all(budget >= 0.0),
+    min(budget) > 0
+  )
+  if (length(budget) > 1) {
+    assertthat::assert_that(
+      length(budget) == number_of_zones(x),
+      msg = paste(
+        "argument to budget should contain a single value",
+        "or a value for each zone"
+      )
+    )
+  }
   # make parameter
   if (length(budget) == 1) {
-    p <- numeric_parameter("budget", budget, lower_limit = 0,
-                           upper_limit = sum(x$planning_unit_costs(),
-                                             na.rm = TRUE))
+    p <- numeric_parameter(
+      "budget", budget, lower_limit = 0,
+      upper_limit = sum(x$planning_unit_costs(), na.rm = TRUE)
+    )
   } else {
-    p <- numeric_parameter_array("budget", budget, x$zone_names(),
-                                 lower_limit = 0,
-                                 upper_limit = colSums(x$planning_unit_costs(),
-                                                       na.rm = TRUE))
+    p <- numeric_parameter_array(
+      "budget", budget, x$zone_names(), lower_limit = 0,
+     upper_limit = colSums(x$planning_unit_costs(), na.rm = TRUE)
+    )
   }
   # add objective to problem
   x$add_objective(pproto(
@@ -177,9 +198,15 @@ add_max_cover_objective <- function(x, budget) {
     name = "Maximum coverage objective",
     parameters = parameters(p),
     apply = function(self, x, y) {
-      assertthat::assert_that(inherits(x, "OptimizationProblem"),
-                              inherits(y, "ConservationProblem"))
-      invisible(rcpp_apply_max_cover_objective(x$ptr,
-                y$planning_unit_costs(), self$parameters$get("budget")[[1]]))
-    }))
+      assertthat::assert_that(
+        inherits(x, "OptimizationProblem"),
+        inherits(y, "ConservationProblem")
+      )
+      invisible(
+        rcpp_apply_max_cover_objective(
+          x$ptr, y$planning_unit_costs(), self$parameters$get("budget")[[1]]
+        )
+      )
+    }
+  ))
 }

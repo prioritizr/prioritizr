@@ -12,7 +12,7 @@ add_shuffle_portfolio(
 )
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} object.}
 
 \item{number_solutions}{\code{integer} number of attempts to generate
 different solutions. Defaults to 10.}
@@ -24,8 +24,7 @@ the solution portfolio. Defaults to 1.}
 be removed? Defaults to \code{TRUE}.}
 }
 \value{
-Object (i.e., \code{\linkS4class{ConservationProblem}}) with the portfolio
-added to it.
+An updated \code{\link[=problem]{problem()}} object with the portfolio added to it.
 }
 \description{
 Generate a portfolio of solutions for a conservation planning
@@ -47,39 +46,51 @@ solving each problem separately.
 set.seed(500)
 
 # load data
-data(sim_pu_raster, sim_features, sim_pu_zones_stack, sim_features_zones)
+sim_pu_raster <- get_sim_pu_raster()
+sim_pu_zones_raster <- get_sim_pu_zones_raster()
+sim_features <- get_sim_features()
+sim_features_zones <- get_sim_features_zones()
 
 # create minimal problem with shuffle portfolio
-p1 <- problem(sim_pu_raster, sim_features) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(0.2) \%>\%
-      add_shuffle_portfolio(10, remove_duplicates = FALSE) \%>\%
-      add_default_solver(gap = 0.2, verbose = FALSE)
+p1 <-
+  problem(sim_pu_raster, sim_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.2) \%>\%
+  add_shuffle_portfolio(10, remove_duplicates = FALSE) \%>\%
+  add_default_solver(gap = 0.2, verbose = FALSE)
 
 # solve problem and generate 10 solutions within 20\% of optimality
 s1 <- solve(p1)
 
+# convert portfolio into a multi-layer raster
+s1 <- terra::rast(s1)
+
+# print number of solutions found
+print(terra::nlyr(s1))
+
 # plot solutions in portfolio
-plot(stack(s1), axes = FALSE, box = FALSE)
+plot(s1, axes = FALSE)
 
 # build multi-zone conservation problem with shuffle portfolio
-p2 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
-                                  ncol = 3)) \%>\%
-      add_binary_decisions() \%>\%
-      add_shuffle_portfolio(10, remove_duplicates = FALSE) \%>\%
-      add_default_solver(gap = 0.2, verbose = FALSE)
+p2 <-
+  problem(sim_pu_zones_raster, sim_features_zones) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5, ncol = 3)) \%>\%
+  add_binary_decisions() \%>\%
+  add_shuffle_portfolio(10, remove_duplicates = FALSE) \%>\%
+  add_default_solver(gap = 0.2, verbose = FALSE)
 
 # solve the problem
 s2 <- solve(p2)
 
-# print solution
-str(s2, max.level = 1)
+# convert each solution in the portfolio into a single category layer
+s2 <- terra::rast(lapply(s2, category_layer))
+
+# print number of solutions found
+print(terra::nlyr(s2))
 
 # plot solutions in portfolio
-plot(stack(lapply(s2, category_layer)),
-     main = "solution", axes = FALSE, box = FALSE)
+plot(s2, axes = FALSE)
 }
 }
 \seealso{
