@@ -123,17 +123,17 @@ test_that("minimum set objective (solve, single zone)", {
   # tests
   expect_is(s1_1, "RasterLayer")
   expect_is(s1_2, "RasterLayer")
-  expect_true(all(na.omit(unique(raster::values(s1_1))) %in% c(0, 1)))
+  expect_true(all(na.omit(unique(terra::values(s1_1))) %in% c(0, 1)))
   expect_equal(sum(
-    raster::rasterToPolygons(s1_1, dissolve = TRUE)$layer == 1), 1)
-  expect_equal(raster::values(s1_1), raster::values(s1_2))
+    terra::rastToPolygons(s1_1, dissolve = TRUE)$layer == 1), 1)
+  expect_equal(terra::values(s1_1), terra::values(s1_2))
   expect_is(s2_1, "RasterLayer")
   expect_is(s2_2, "RasterLayer")
-  expect_true(all(na.omit(unique(raster::values(s2_1))) %in% c(0, 1)))
+  expect_true(all(na.omit(unique(terra::values(s2_1))) %in% c(0, 1)))
   s2_adj <- raster::adjacent(s2_1, raster::Which(s2_1 == 1, cells = TRUE),
                              pairs = FALSE)
   expect_true(all(s2_1[s2_adj] %in% c(0, NA)))
-  expect_equal(raster::values(s2_1), raster::values(s2_2))
+  expect_equal(terra::values(s2_1), terra::values(s2_2))
 })
 
 test_that("minimum set objective (compile, multiple zones)", {

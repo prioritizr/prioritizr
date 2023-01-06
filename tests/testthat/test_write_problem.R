@@ -4,11 +4,11 @@ test_that("correct result (lp format)", {
   skip_on_cran()
   skip_if_not_installed("Rsymphony")
   # create data
-  cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
+  cost <- terra::rast(matrix(c(1, 2, 2, NA), ncol = 4))
   locked_in <- 2
   locked_out <- 1
-  features <- raster::stack(raster::raster(matrix(c(2, 1, 1, 0), ncol = 4)),
-                            raster::raster(matrix(c(10, 10, 10, 10), ncol = 4)))
+  features <- terra::rast(terra::rast(matrix(c(2, 1, 1, 0), ncol = 4)),
+                            terra::rast(matrix(c(10, 10, 10, 10), ncol = 4)))
   # create problem
   p <- problem(cost, features) %>%
        add_min_set_objective() %>%
@@ -28,11 +28,11 @@ test_that("correct result (mps format)", {
   skip_on_cran()
   skip_if_not_installed("Rsymphony")
   # create data
-  cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
+  cost <- terra::rast(matrix(c(1, 2, 2, NA), ncol = 4))
   locked_in <- 2
   locked_out <- 1
-  features <- raster::stack(raster::raster(matrix(c(2, 1, 1, 0), ncol = 4)),
-                            raster::raster(matrix(c(10, 10, 10, 10), ncol = 4)))
+  features <- terra::rast(terra::rast(matrix(c(2, 1, 1, 0), ncol = 4)),
+                            terra::rast(matrix(c(10, 10, 10, 10), ncol = 4)))
   # create problem
   p <- problem(cost, features) %>%
        add_min_set_objective() %>%
@@ -52,11 +52,11 @@ test_that("invalid inputs", {
   skip_on_cran()
   skip_if_not_installed("Rsymphony")
   # create data
-  cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
+  cost <- terra::rast(matrix(c(1, 2, 2, NA), ncol = 4))
   locked_in <- 2
   locked_out <- 1
-  features <- raster::stack(raster::raster(matrix(c(2, 1, 1, 0), ncol = 4)),
-                            raster::raster(matrix(c(10, 10, 10, 10), ncol = 4)))
+  features <- terra::rast(terra::rast(matrix(c(2, 1, 1, 0), ncol = 4)),
+                            terra::rast(matrix(c(10, 10, 10, 10), ncol = 4)))
   # create problem
   p <- problem(cost, features) %>%
        add_absolute_targets(c(2, 10)) %>%

@@ -58,11 +58,11 @@ test_that("solution (compressed formulation, single zone)", {
   skip_if_no_fast_solvers_installed()
   # create data
   budget <- 4.23
-  cost <- raster::raster(matrix(c(1, 2, NA, 4), nrow = 1))
+  cost <- terra::rast(matrix(c(1, 2, NA, 4), nrow = 1))
   locked_out <- 1
-  features <- raster::stack(raster::raster(matrix(c(2, 1, 1, 0), nrow = 1)),
-                            raster::raster(matrix(c(10, 10, 10, 10), nrow = 1)),
-                            raster::raster(matrix(c(0, 0, 0, 2), nrow = 1)))
+  features <- terra::rast(terra::rast(matrix(c(2, 1, 1, 0), nrow = 1)),
+                            terra::rast(matrix(c(10, 10, 10, 10), nrow = 1)),
+                            terra::rast(matrix(c(0, 0, 0, 2), nrow = 1)))
   tr <- list(tip.label = c("layer.1", "layer.2", "layer.3"),
              edge.length = c(1, 1, 1, 100),
              Nnode = 2L,
@@ -84,8 +84,8 @@ test_that("solution (compressed formulation, single zone)", {
   s1 <- solve(p)
   s2 <- solve(p)
   # test for correct solution
-  expect_equal(raster::values(s1), c(0, 0, NA, 1))
-  expect_equal(raster::values(s1), raster::values(s2))
+  expect_equal(terra::values(s1), c(0, 0, NA, 1))
+  expect_equal(terra::values(s1), terra::values(s2))
 })
 
 test_that("compile (expanded formulation)", {
@@ -161,12 +161,12 @@ test_that("solution (expanded formulation, single zone)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # create data
-  cost <- raster::raster(matrix(c(1, 2, NA, 4), nrow = 1))
+  cost <- terra::rast(matrix(c(1, 2, NA, 4), nrow = 1))
   budget <- 4.23
   locked_out <- 1
-  features <- raster::stack(raster::raster(matrix(c(2, 1, 1, 0), nrow = 1)),
-                            raster::raster(matrix(c(10, 10, 10, 10), nrow = 1)),
-                            raster::raster(matrix(c(0, 0, 0, 2), nrow = 1)))
+  features <- terra::rast(terra::rast(matrix(c(2, 1, 1, 0), nrow = 1)),
+                            terra::rast(matrix(c(10, 10, 10, 10), nrow = 1)),
+                            terra::rast(matrix(c(0, 0, 0, 2), nrow = 1)))
   tr <- list(tip.label = c("layer.1", "layer.2", "layer.3"),
              edge.length = c(1, 1, 1, 100),
              Nnode = 2L,
@@ -187,7 +187,7 @@ test_that("solution (expanded formulation, single zone)", {
   # solve problem
   s <- solve(p, compressed_formulation = FALSE)
   # test for correct solution
-  expect_equal(raster::values(s), c(0, 0, NA, 1))
+  expect_equal(terra::values(s), c(0, 0, NA, 1))
 })
 
 test_that("invalid inputs (single zone)", {
@@ -302,18 +302,18 @@ test_that("solve (compressed formulation, multiple zones, scalar budget)", {
   skip_if_no_fast_solvers_installed()
   # create data
   budget <- 20
-  cost <- raster::stack(
-    raster::raster(matrix(c(5,  6,  7,  8,  NA, NA), nrow = 1)),
-    raster::raster(matrix(c(11, 12, 13, 14, NA, 15), nrow = 1)))
-  features <- raster::stack(
+  cost <- terra::rast(
+    terra::rast(matrix(c(5,  6,  7,  8,  NA, NA), nrow = 1)),
+    terra::rast(matrix(c(11, 12, 13, 14, NA, 15), nrow = 1)))
+  features <- terra::rast(
     # zone 1
-    raster::raster(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
-    raster::raster(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
-    raster::raster(matrix(c(2,  1,  1, 1, 1, 1), nrow = 1)),
+    terra::rast(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
+    terra::rast(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
+    terra::rast(matrix(c(2,  1,  1, 1, 1, 1), nrow = 1)),
     # zone 2
-    raster::raster(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
-    raster::raster(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
-    raster::raster(matrix(c(1,  1,  1, 1, 1, 3), nrow = 1)))
+    terra::rast(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
+    terra::rast(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
+    terra::rast(matrix(c(1,  1,  1, 1, 1, 3), nrow = 1)))
   targs <- tibble::tibble(feature = c("layer.1", "layer.2", "layer.3"),
                           zone = list("1", "1", c("1", "2")),
                           sense = rep(">=", 3),
@@ -339,8 +339,8 @@ test_that("solve (compressed formulation, multiple zones, scalar budget)", {
   # solve problem
   s <- solve(p)
   # test for correct solution
-  expect_equal(raster::values(s[[1]]), c(1, 0, 0, 0, NA, NA))
-  expect_equal(raster::values(s[[2]]), c(0, 0, 0, 0, NA, 1))
+  expect_equal(terra::values(s[[1]]), c(1, 0, 0, 0, NA, NA))
+  expect_equal(terra::values(s[[2]]), c(0, 0, 0, 0, NA, 1))
 })
 
 test_that("compile (compressed formulation, multiple zones, vector budget)", {
@@ -422,18 +422,18 @@ test_that("solve (compressed formulation, multiple zones, vector budget)", {
   skip_if_no_fast_solvers_installed()
   # create data
   budget <- c(5, 15)
-  cost <- raster::stack(
-    raster::raster(matrix(c(5,  6,  7,  8,  NA, NA), nrow = 1)),
-    raster::raster(matrix(c(11, 12, 13, 14, NA, 15), nrow = 1)))
-  features <- raster::stack(
+  cost <- terra::rast(
+    terra::rast(matrix(c(5,  6,  7,  8,  NA, NA), nrow = 1)),
+    terra::rast(matrix(c(11, 12, 13, 14, NA, 15), nrow = 1)))
+  features <- terra::rast(
     # zone 1
-    raster::raster(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
-    raster::raster(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
-    raster::raster(matrix(c(2,  1,  1, 1, 1, 1), nrow = 1)),
+    terra::rast(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
+    terra::rast(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
+    terra::rast(matrix(c(2,  1,  1, 1, 1, 1), nrow = 1)),
     # zone 2
-    raster::raster(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
-    raster::raster(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
-    raster::raster(matrix(c(1,  1,  1, 1, 1, 3), nrow = 1)))
+    terra::rast(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
+    terra::rast(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
+    terra::rast(matrix(c(1,  1,  1, 1, 1, 3), nrow = 1)))
   targs <- tibble::tibble(feature = c("layer.1", "layer.2", "layer.3"),
                           zone = list("1", "1", c("1", "2")),
                           sense = rep(">=", 3),
@@ -459,8 +459,8 @@ test_that("solve (compressed formulation, multiple zones, vector budget)", {
   # solve problem
   s <- solve(p)
   # test for correct solution
-  expect_equal(raster::values(s[[1]]), c(1, 0, 0, 0, NA, NA))
-  expect_equal(raster::values(s[[2]]), c(0, 0, 0, 0, NA, 1))
+  expect_equal(terra::values(s[[1]]), c(1, 0, 0, 0, NA, NA))
+  expect_equal(terra::values(s[[2]]), c(0, 0, 0, 0, NA, 1))
 })
 
 test_that("compile (expanded formulation, multiple zones, scalar budget)", {
@@ -563,18 +563,18 @@ test_that("solve (expanded formulation, multiple zones, scalar budget)", {
   skip_if_no_fast_solvers_installed()
   # create data
   budget <- 20
-  cost <- raster::stack(
-    raster::raster(matrix(c(5,  6,  7,  8,  NA, NA), nrow = 1)),
-    raster::raster(matrix(c(11, 12, 13, 14, NA, 15), nrow = 1)))
-  features <- raster::stack(
+  cost <- terra::rast(
+    terra::rast(matrix(c(5,  6,  7,  8,  NA, NA), nrow = 1)),
+    terra::rast(matrix(c(11, 12, 13, 14, NA, 15), nrow = 1)))
+  features <- terra::rast(
     # zone 1
-    raster::raster(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
-    raster::raster(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
-    raster::raster(matrix(c(2,  1,  1, 1, 1, 1), nrow = 1)),
+    terra::rast(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
+    terra::rast(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
+    terra::rast(matrix(c(2,  1,  1, 1, 1, 1), nrow = 1)),
     # zone 2
-    raster::raster(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
-    raster::raster(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
-    raster::raster(matrix(c(1,  1,  1, 1, 1, 3), nrow = 1)))
+    terra::rast(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
+    terra::rast(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
+    terra::rast(matrix(c(1,  1,  1, 1, 1, 3), nrow = 1)))
   targs <- tibble::tibble(feature = c("layer.1", "layer.2", "layer.3"),
                           zone = list("1", "1", c("1", "2")),
                           sense = rep(">=", 3),
@@ -600,8 +600,8 @@ test_that("solve (expanded formulation, multiple zones, scalar budget)", {
   # solve problem
   s <- solve(p, compressed_formulation = FALSE)
   # test for correct solution
-  expect_equal(raster::values(s[[1]]), c(1, 0, 0, 0, NA, NA))
-  expect_equal(raster::values(s[[2]]), c(0, 0, 0, 0, NA, 1))
+  expect_equal(terra::values(s[[1]]), c(1, 0, 0, 0, NA, NA))
+  expect_equal(terra::values(s[[2]]), c(0, 0, 0, 0, NA, 1))
 })
 
 test_that("compile (expanded formulation, multiple zones, vector budget)", {
@@ -709,18 +709,18 @@ test_that("solve (expanded formulation, multiple zones, vector budget)", {
   skip_if_no_fast_solvers_installed()
   # create data
   budget <- c(5, 15)
-  cost <- raster::stack(
-    raster::raster(matrix(c(5,  6,  7,  8,  NA, NA), nrow = 1)),
-    raster::raster(matrix(c(11, 12, 13, 14, NA, 15), nrow = 1)))
-  features <- raster::stack(
+  cost <- terra::rast(
+    terra::rast(matrix(c(5,  6,  7,  8,  NA, NA), nrow = 1)),
+    terra::rast(matrix(c(11, 12, 13, 14, NA, 15), nrow = 1)))
+  features <- terra::rast(
     # zone 1
-    raster::raster(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
-    raster::raster(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
-    raster::raster(matrix(c(2,  1,  1, 1, 1, 1), nrow = 1)),
+    terra::rast(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
+    terra::rast(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
+    terra::rast(matrix(c(2,  1,  1, 1, 1, 1), nrow = 1)),
     # zone 2
-    raster::raster(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
-    raster::raster(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
-    raster::raster(matrix(c(1,  1,  1, 1, 1, 3), nrow = 1)))
+    terra::rast(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
+    terra::rast(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
+    terra::rast(matrix(c(1,  1,  1, 1, 1, 3), nrow = 1)))
   targs <- tibble::tibble(feature = c("layer.1", "layer.2", "layer.3"),
                           zone = list("1", "1", c("1", "2")),
                           sense = rep(">=", 3),
@@ -746,8 +746,8 @@ test_that("solve (expanded formulation, multiple zones, vector budget)", {
   # solve problem
   s <- solve(p, compressed_formulation = FALSE)
   # test for correct solution
-  expect_equal(raster::values(s[[1]]), c(1, 0, 0, 0, NA, NA))
-  expect_equal(raster::values(s[[2]]), c(0, 0, 0, 0, NA, 1))
+  expect_equal(terra::values(s[[1]]), c(1, 0, 0, 0, NA, NA))
+  expect_equal(terra::values(s[[2]]), c(0, 0, 0, 0, NA, 1))
 })
 
 test_that("invalid inputs (multiple zones)", {

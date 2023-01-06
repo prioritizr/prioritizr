@@ -2,7 +2,7 @@ context("adjacency matrix")
 
 test_that("RasterLayer", {
   # data
-  x <- raster::raster(matrix(c(NA, 2:9), ncol = 3),
+  x <- terra::rast(matrix(c(NA, 2:9), ncol = 3),
                       xmn = 0, ymn = 0, xmx = 6, ymx = 3)
   m <- adjacency_matrix(x, directions = 4)
   s <- boundary_matrix(x)
@@ -15,10 +15,10 @@ test_that("RasterLayer", {
 
 test_that("SpatialPolygons (connected data)", {
   # data
-  r <- raster::raster(matrix(0:8, byrow = TRUE, ncol = 3),
+  r <- terra::rast(matrix(0:8, byrow = TRUE, ncol = 3),
                       xmn = 0, xmx = 3, ymn = 0, ymx = 3)
   s <- adjacency_matrix(r, directions = 8)
-  x <- raster::rasterToPolygons(r, n = 4)
+  x <- terra::rastToPolygons(r, n = 4)
   m <- adjacency_matrix(x)
   # tests
   expect_true(inherits(m, "dsCMatrix"))
@@ -34,10 +34,10 @@ test_that("SpatialPolygons (unconnected data)", {
 
 test_that("sf (connected data)", {
   # data
-  r <- raster::raster(matrix(0:8, byrow = TRUE, ncol = 3),
+  r <- terra::rast(matrix(0:8, byrow = TRUE, ncol = 3),
                       xmn = 0, xmx = 3, ymn = 0, ymx = 3)
   s <- adjacency_matrix(r, directions = 8)
-  x <- sf::st_as_sf(raster::rasterToPolygons(r, n = 4))
+  x <- sf::st_as_sf(terra::rastToPolygons(r, n = 4))
   m <- adjacency_matrix(x)
   # tests
   expect_true(inherits(m, "dsCMatrix"))

@@ -4,7 +4,7 @@ test_that("logical (compile, single zone)", {
   # create problem
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
-  locked_out <- c(rep(TRUE, 20), rep(FALSE, raster::ncell(sim_pu_raster) - 20))
+  locked_out <- c(rep(TRUE, 20), rep(FALSE, terra::ncell(sim_pu_raster) - 20))
   p <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
@@ -25,7 +25,7 @@ test_that("logical (compile, single zone)", {
        add_binary_decisions()
   expect_error(p %>% add_locked_out_constraints(c(TRUE)))
   expect_error(p %>% add_locked_out_constraints(
-    c(TRUE, NA_logical, rep(FALSE, raster::ncell(sim_pu_raster) - 2))))
+    c(TRUE, NA_logical, rep(FALSE, terra::ncell(sim_pu_raster) - 2))))
 })
 
 test_that("logical (solve, single zone)", {
@@ -34,7 +34,7 @@ test_that("logical (solve, single zone)", {
   # create problem
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
-  locked_out <- c(rep(TRUE, 20), rep(FALSE, raster::ncell(sim_pu_raster) - 20))
+  locked_out <- c(rep(TRUE, 20), rep(FALSE, terra::ncell(sim_pu_raster) - 20))
   suppressWarnings({
     s <- problem(sim_pu_raster, sim_features) %>%
          add_min_set_objective() %>%
@@ -76,7 +76,7 @@ test_that("integer (compile, single zone)", {
   expect_error(p %>% add_locked_out_constraints(-1))
   expect_error(p %>% add_locked_out_constraints(9.6))
   expect_error(p %>%
-                add_locked_out_constraints(raster::ncell(sim_pu_raster) + 1))
+                add_locked_out_constraints(terra::ncell(sim_pu_raster) + 1))
 })
 
 test_that("integer (solve, single zone)", {
@@ -98,14 +98,14 @@ test_that("integer (solve, single zone)", {
   locked_out_units <- locked_out_cells[locked_out_cells %in%
     raster::Which(!is.na(s1), cells = TRUE)]
   expect_true(all(s1[locked_out_units] == 0))
-  expect_equal(raster::values(s1), raster::values(s2))
+  expect_equal(terra::values(s1), terra::values(s2))
 })
 
 test_that("integer (compile, multiple zones)", {
   # create problem
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_zones_features <- get_sim_zones_features()
-  status <- matrix(FALSE, nrow = raster::ncell(sim_zones_pu_raster),
+  status <- matrix(FALSE, nrow = terra::ncell(sim_zones_pu_raster),
                    ncol = number_of_zones(sim_zones_features))
   locked_out_ind <- Which(!is.na(sim_zones_pu_raster[[1]]), cells = TRUE)[1:20]
   status[locked_out_ind, 1] <- TRUE
@@ -140,7 +140,7 @@ test_that("integer (solve, multiple zones)", {
   # create and solve problem
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_zones_features <- get_sim_zones_features()
-  status <- matrix(FALSE, nrow = raster::ncell(sim_zones_pu_raster),
+  status <- matrix(FALSE, nrow = terra::ncell(sim_zones_pu_raster),
                    ncol = number_of_zones(sim_zones_features))
   locked_out_ind <- Which(!is.na(sim_zones_pu_raster[[1]]), cells = TRUE)[1:20]
   status[locked_out_ind, 1] <- TRUE

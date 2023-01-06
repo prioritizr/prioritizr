@@ -3,7 +3,7 @@ context("eval_boundary_summary")
 test_that("single zone (edge_factor = 1, zone matrix = 1)", {
   # simulate spatial data
   set.seed(500)
-  pl <- raster::raster(matrix(seq_len(10), ncol = 2),
+  pl <- terra::rast(matrix(seq_len(10), ncol = 2),
                        xmn = 0, xmx = 2, ymn = 0, ymx = 5)
   pl <- as(pl, "SpatialPolygons")
   bm <- boundary_matrix(pl)
@@ -39,7 +39,7 @@ test_that("single zone (edge_factor = 1, zone matrix = 1)", {
 test_that("single zone (variable edge_factor, zone matrix)", {
   # simulate spatial data
   set.seed(500)
-  pl <- raster::raster(matrix(seq_len(10), ncol = 2),
+  pl <- terra::rast(matrix(seq_len(10), ncol = 2),
                        xmn = 0, xmx = 2, ymn = 0, ymx = 5)
   pl <- as(pl, "SpatialPolygons")
   bm <- boundary_matrix(pl)
@@ -70,7 +70,7 @@ test_that("single zone (variable edge_factor, zone matrix)", {
 test_that("multiple zones (edge_factor = 1, zone matrix = 1)", {
   # simulate spatial data
   set.seed(500)
-  pl <- raster::raster(matrix(seq_len(10), ncol = 2),
+  pl <- terra::rast(matrix(seq_len(10), ncol = 2),
                        xmn = 0, xmx = 2, ymn = 0, ymx = 5)
   pl <- as(pl, "SpatialPolygons")
   bm <- boundary_matrix(pl)
@@ -118,7 +118,7 @@ test_that("multiple zones (edge_factor = 1, zone matrix = 1)", {
 test_that("multiple zones (edge_factor = 1, zone matrix = identity matrix)", {
   # simulate spatial data
   set.seed(500)
-  pl <- raster::raster(matrix(seq_len(10), ncol = 2),
+  pl <- terra::rast(matrix(seq_len(10), ncol = 2),
                        xmn = 0, xmx = 2, ymn = 0, ymx = 5)
   pl <- as(pl, "SpatialPolygons")
   bm <- boundary_matrix(pl)
@@ -167,7 +167,7 @@ test_that("multiple zones (edge_factor = 1, zone matrix = identity matrix)", {
 test_that("multiple zones (variable edge_factor, zone matrix)", {
   # simulate spatial data
   set.seed(500)
-  pl <- raster::raster(matrix(seq_len(10), ncol = 2),
+  pl <- terra::rast(matrix(seq_len(10), ncol = 2),
                        xmn = 0, xmx = 2, ymn = 0, ymx = 5)
   pl <- as(pl, "SpatialPolygons")
   bm <- boundary_matrix(pl)

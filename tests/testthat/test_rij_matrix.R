@@ -32,7 +32,7 @@ test_that("x=RasterLayer, y=RasterStack", {
 
 test_that("x=RasterLayer, y=RasterStack (data size > raster maxmemory)", {
   # create data
-  raster::rasterOptions(todisk = TRUE)
+  terra::rastOptions(todisk = TRUE)
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
   m <- rij_matrix(sim_pu_raster, sim_features)
@@ -46,20 +46,20 @@ test_that("x=RasterLayer, y=RasterStack (data size > raster maxmemory)", {
     m <- Matrix::t(as_Matrix(m, "dgCMatrix"))
     m
   })
-  raster::rasterOptions(default = TRUE)
+  terra::rastOptions(default = TRUE)
 })
 
 
 test_that("x=RasterStack, y=RasterStack", {
   # create data
-  costs <- raster::stack(
-    raster::raster(matrix(c(1,  2,  NA, 3, 100, 100, NA), ncol = 7)),
-    raster::raster(matrix(c(10, 10, 10, 10,  4,   1, NA), ncol = 7)))
-  spp <- raster::stack(
-    raster::raster(matrix(c(1,  2, 0, 0, 0, 0,  0), ncol = 7)),
-    raster::raster(matrix(c(NA, 0, 1, 1, 0, 0,  0), ncol = 7)),
-    raster::raster(matrix(c(1,  0, 0, 0, 1, 0,  0), ncol = 7)),
-    raster::raster(matrix(c(0,  0, 0, 0, 0, 10, 0), ncol = 7)))
+  costs <- terra::rast(
+    terra::rast(matrix(c(1,  2,  NA, 3, 100, 100, NA), ncol = 7)),
+    terra::rast(matrix(c(10, 10, 10, 10,  4,   1, NA), ncol = 7)))
+  spp <- terra::rast(
+    terra::rast(matrix(c(1,  2, 0, 0, 0, 0,  0), ncol = 7)),
+    terra::rast(matrix(c(NA, 0, 1, 1, 0, 0,  0), ncol = 7)),
+    terra::rast(matrix(c(1,  0, 0, 0, 1, 0,  0), ncol = 7)),
+    terra::rast(matrix(c(0,  0, 0, 0, 0, 10, 0), ncol = 7)))
   m <- rij_matrix(costs, spp)
   # run tests
   expect_true(inherits(m, "dgCMatrix"))

@@ -3,9 +3,9 @@ context("add_extra_portfolio")
 test_that("compile", {
   skip_if_not_installed("gurobi")
   # create data
-  cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
-  features <- raster::stack(raster::raster(matrix(c(2, 1, 1, 0), ncol = 4)),
-                            raster::raster(matrix(c(10, 10, 10, 10), ncol = 4)))
+  cost <- terra::rast(matrix(c(1, 2, 2, NA), ncol = 4))
+  features <- terra::rast(terra::rast(matrix(c(2, 1, 1, 0), ncol = 4)),
+                            terra::rast(matrix(c(10, 10, 10, 10), ncol = 4)))
   # create problem
   p <- problem(cost, features) %>%
        add_min_set_objective() %>%
@@ -22,9 +22,9 @@ test_that("solve (single zone)", {
   skip_on_cran()
   skip_if_not_installed("gurobi")
   # create data
-  cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
-  features <- raster::stack(raster::raster(matrix(c(2, 1, 1, 0), ncol = 4)),
-                            raster::raster(matrix(c(10, 10, 10, 10), ncol = 4)))
+  cost <- terra::rast(matrix(c(1, 2, 2, NA), ncol = 4))
+  features <- terra::rast(terra::rast(matrix(c(2, 1, 1, 0), ncol = 4)),
+                            terra::rast(matrix(c(10, 10, 10, 10), ncol = 4)))
   locked_in <- 2
   # create problem
   p <- problem(cost, features) %>%

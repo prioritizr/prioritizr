@@ -2,7 +2,7 @@ context("proximity matrix")
 
 test_that("RasterLayer (adjacent non-NA pixels are proximal)", {
   # data
-  x <- raster::raster(matrix(c(NA, 2:9), ncol = 3),
+  x <- terra::rast(matrix(c(NA, 2:9), ncol = 3),
                       xmn = 0, ymn = 0, xmx = 3, ymx = 3)
   m <- proximity_matrix(x, distance = 1)
   s <- boundary_matrix(x)
@@ -16,7 +16,7 @@ test_that("RasterLayer (adjacent non-NA pixels are proximal)", {
 
 test_that("RasterLayer (all non-NA pixels are proximal)", {
   # data
-  x <- raster::raster(matrix(c(NA, 2:8, NA), byrow = TRUE, ncol = 3),
+  x <- terra::rast(matrix(c(NA, 2:8, NA), byrow = TRUE, ncol = 3),
                       xmn = 0, xmx = 3, ymn = 0, ymx = 3)
   m <- proximity_matrix(x, distance = 100)
   s <- matrix(1, ncol = 9, nrow = 9)
@@ -33,7 +33,7 @@ test_that("RasterLayer (all non-NA pixels are proximal)", {
 
 test_that("RasterLayer (none are proximal)", {
   # data
-  x <- raster::raster(matrix(c(NA, 2:8, NA), byrow = TRUE, ncol = 3),
+  x <- terra::rast(matrix(c(NA, 2:8, NA), byrow = TRUE, ncol = 3),
                       xmn = 0, xmx = 3, ymn = 0, ymx = 3)
   m <- proximity_matrix(x, distance = 1e-3)
   s <- Matrix::sparseMatrix(i = integer(0), j = integer(0),
@@ -46,9 +46,9 @@ test_that("RasterLayer (none are proximal)", {
 
 test_that("RasterLayer (all polygons are proximal)", {
   # data
-  x <- raster::raster(matrix(0:8, byrow = TRUE, ncol = 3),
+  x <- terra::rast(matrix(0:8, byrow = TRUE, ncol = 3),
                       xmn = 0, xmx = 3, ymn = 0, ymx = 3)
-  x <- raster::rasterToPolygons(x, n = 4)
+  x <- terra::rastToPolygons(x, n = 4)
   m <- proximity_matrix(x, distance = 100)
   s <- matrix(1, ncol = 9, nrow = 9)
   diag(s) <- 0
@@ -60,11 +60,11 @@ test_that("RasterLayer (all polygons are proximal)", {
 
 test_that("RasterLayer (multiple layers)", {
   # data
-  x <- raster::stack(
-    raster::raster(
+  x <- terra::rast(
+    terra::rast(
       matrix(c(NA, NA, 3:9), ncol = 3), xmn = 0, ymn = 0, xmx = 3, ymx = 3
     ),
-    raster::raster(
+    terra::rast(
       matrix(c(NA, 2:9), ncol = 3), xmn = 0, ymn = 0, xmx = 3, ymx = 3
     )
   )
@@ -83,9 +83,9 @@ test_that("RasterLayer (multiple layers)", {
 
 test_that("SpatialPolygons (adjacent polygons are proximal)", {
   # data
-  x <- raster::raster(matrix(0:8, byrow = TRUE, ncol = 3),
+  x <- terra::rast(matrix(0:8, byrow = TRUE, ncol = 3),
                       xmn = 0, xmx = 3, ymn = 0, ymx = 3)
-  x <- raster::rasterToPolygons(x, n = 4)
+  x <- terra::rastToPolygons(x, n = 4)
   s <- adjacency_matrix(x)
   m <- proximity_matrix(x, distance = 0.1)
   # tests
@@ -95,9 +95,9 @@ test_that("SpatialPolygons (adjacent polygons are proximal)", {
 
 test_that("SpatialPolygons (all polygons are proximal)", {
   # data
-  x <- raster::raster(matrix(0:8, byrow = TRUE, ncol = 3),
+  x <- terra::rast(matrix(0:8, byrow = TRUE, ncol = 3),
                       xmn = 0, xmx = 3, ymn = 0, ymx = 3)
-  x <- raster::rasterToPolygons(x, n = 4)
+  x <- terra::rastToPolygons(x, n = 4)
   m <- proximity_matrix(x, distance = 100)
   s <- matrix(1, ncol = 9, nrow = 9)
   diag(s) <- 0
@@ -118,9 +118,9 @@ test_that("SpatialPolygons (no polygons are proximal)", {
 
 test_that("sf (adjacent polygons are proximal)", {
   # data
-  x <- raster::raster(matrix(0:8, byrow = TRUE, ncol = 3),
+  x <- terra::rast(matrix(0:8, byrow = TRUE, ncol = 3),
                       xmn = 0, xmx = 3, ymn = 0, ymx = 3)
-  x <- sf::st_as_sf(raster::rasterToPolygons(x, n = 4))
+  x <- sf::st_as_sf(terra::rastToPolygons(x, n = 4))
   s <- adjacency_matrix(x)
   m <- proximity_matrix(x, distance = 0.1)
   # tests
@@ -130,9 +130,9 @@ test_that("sf (adjacent polygons are proximal)", {
 
 test_that("sf (all polygons are proximal)", {
   # data
-  x <- raster::raster(matrix(0:8, byrow = TRUE, ncol = 3),
+  x <- terra::rast(matrix(0:8, byrow = TRUE, ncol = 3),
                       xmn = 0, xmx = 3, ymn = 0, ymx = 3)
-  x <- sf::st_as_sf(raster::rasterToPolygons(x, n = 4))
+  x <- sf::st_as_sf(terra::rastToPolygons(x, n = 4))
   m <- proximity_matrix(x, distance = 100)
   s <- matrix(1, ncol = 9, nrow = 9)
   diag(s) <- 0
@@ -196,11 +196,11 @@ test_that("SpatialLines (no proximal lines)", {
 
 test_that("SpatialPoints (some points are proximal)", {
   # data
-  r <- raster::raster(matrix(0:8, byrow = TRUE, ncol = 3),
+  r <- terra::rast(matrix(0:8, byrow = TRUE, ncol = 3),
                       xmn = 0, xmx = 3, ymn = 0, ymx = 3)
   x <- suppressWarnings({
     sf::as_Spatial(
-      sf::st_centroid(sf::st_as_sf(raster::rasterToPolygons(r, n = 4)))
+      sf::st_centroid(sf::st_as_sf(terra::rastToPolygons(r, n = 4)))
     )
   })
   s <- adjacency_matrix(r)
@@ -212,11 +212,11 @@ test_that("SpatialPoints (some points are proximal)", {
 
 test_that("SpatialPoints (no points are proximal)", {
   # data
-  r <- raster::raster(matrix(0:8, byrow = TRUE, ncol = 3),
+  r <- terra::rast(matrix(0:8, byrow = TRUE, ncol = 3),
                       xmn = 0, xmx = 3, ymn = 0, ymx = 3)
   x <- suppressWarnings({
     sf::as_Spatial(
-      sf::st_centroid(sf::st_as_sf(raster::rasterToPolygons(r, n = 4)))
+      sf::st_centroid(sf::st_as_sf(terra::rastToPolygons(r, n = 4)))
     )
   })
   m <- proximity_matrix(x, distance = 1e-3)

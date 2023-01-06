@@ -8,7 +8,7 @@ test_that("integer (compile, single zone)", {
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_binary_decisions() %>%
-       add_locked_in_constraints(seq_len(raster::ncell(sim_pu_raster)))
+       add_locked_in_constraints(seq_len(terra::ncell(sim_pu_raster)))
   suppressWarnings(o <- compile(p))
   # check that constraints added correctly
   expect_true(isTRUE(all(o$lb()[seq_len(p$number_of_planning_units())] == 1)))
@@ -19,7 +19,7 @@ test_that("integer (compile, single zone)", {
        add_binary_decisions()
   expect_error(p %>% add_locked_in_constraints(-1))
   expect_error(p %>% add_locked_in_constraints(9.6))
-  expect_error(p %>% add_locked_in_constraints(raster::ncell(sim_pu_raster) +
+  expect_error(p %>% add_locked_in_constraints(terra::ncell(sim_pu_raster) +
                                                1))
 })
 
@@ -34,7 +34,7 @@ test_that("integer (solve, single zone)", {
          add_min_set_objective() %>%
          add_relative_targets(0.1) %>%
          add_binary_decisions() %>%
-         add_locked_in_constraints(seq_len(raster::ncell(sim_pu_raster))) %>%
+         add_locked_in_constraints(seq_len(terra::ncell(sim_pu_raster))) %>%
          add_default_solver(time_limit = 5, verbose = FALSE)
     expect_warning(s1 <- solve(p, force = TRUE))
     expect_warning(s2 <- solve(p, force = TRUE))
@@ -42,9 +42,9 @@ test_that("integer (solve, single zone)", {
   # check that the solution obeys constraints as expected
   expect_true(all(raster::Which(is.na(s1), cells = TRUE) ==
       raster::Which(is.na(sim_pu_raster), cells = TRUE)))
-  expect_true(isTRUE(all(raster::values(s1)[
+  expect_true(isTRUE(all(terra::values(s1)[
     raster::Which(!is.na(s1), cells = TRUE)] == 1)))
-  expect_equal(raster::values(s1), raster::values(s2))
+  expect_equal(terra::values(s1), terra::values(s2))
 })
 
 test_that("logical (compile, single zone)", {
@@ -55,7 +55,7 @@ test_that("logical (compile, single zone)", {
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_binary_decisions() %>%
-       add_locked_in_constraints(rep(TRUE, raster::ncell(sim_pu_raster)))
+       add_locked_in_constraints(rep(TRUE, terra::ncell(sim_pu_raster)))
   suppressWarnings(o <- compile(p))
   # check that constraints added correctly
   expect_true(isTRUE(all(o$lb()[seq_len(p$number_of_planning_units())] == 1)))
@@ -66,7 +66,7 @@ test_that("logical (compile, single zone)", {
        add_binary_decisions()
   expect_error(p %>% add_locked_in_constraints(c(TRUE)))
   expect_error(p %>% add_locked_in_constraints(
-    c(TRUE, NA_logical, rep(FALSE, raster::ncell(sim_pu_raster) - 2))))
+    c(TRUE, NA_logical, rep(FALSE, terra::ncell(sim_pu_raster) - 2))))
 })
 
 test_that("logical (solve, single zone)", {
@@ -80,14 +80,14 @@ test_that("logical (solve, single zone)", {
          add_min_set_objective() %>%
          add_relative_targets(0.1) %>%
          add_binary_decisions() %>%
-         add_locked_in_constraints(rep(TRUE, raster::ncell(sim_pu_raster))) %>%
+         add_locked_in_constraints(rep(TRUE, terra::ncell(sim_pu_raster))) %>%
          add_default_solver(time_limit = 5, verbose = FALSE) %>%
          solve(force = TRUE)
   })
   # check that the solution obeys constraints as expected
   expect_true(all(raster::Which(is.na(s), cells = TRUE) ==
       raster::Which(is.na(sim_pu_raster), cells = TRUE)))
-  expect_true(isTRUE(all(raster::values(s)[raster::Which(!is.na(s),
+  expect_true(isTRUE(all(terra::values(s)[raster::Which(!is.na(s),
                                                         cells = TRUE)] == 1)))
 })
 
@@ -95,7 +95,7 @@ test_that("matrix (compile, multiple zones)", {
   # create problem
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_zones_features <- get_sim_zones_features()
-  status <- matrix(FALSE, nrow = raster::ncell(sim_zones_pu_raster),
+  status <- matrix(FALSE, nrow = terra::ncell(sim_zones_pu_raster),
                    ncol = number_of_zones(sim_zones_features))
   status[, 1] <- TRUE
   targets <- matrix(FALSE, nrow = number_of_features(sim_zones_features),
@@ -130,7 +130,7 @@ test_that("matrix (solve, multiple zones)", {
   # create problem
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_zones_features <- get_sim_zones_features()
-  status <- matrix(FALSE, nrow = raster::ncell(sim_zones_pu_raster),
+  status <- matrix(FALSE, nrow = terra::ncell(sim_zones_pu_raster),
                    ncol = number_of_zones(sim_zones_features))
   status[, 1] <- TRUE
   targets <- matrix(FALSE, nrow = number_of_features(sim_zones_features),
@@ -150,7 +150,7 @@ test_that("matrix (solve, multiple zones)", {
                     raster::Which(is.na(sim_zones_pu_raster[[i]]),
                                   cells = TRUE)))
   for (i in seq_len(terra::nlyr(sim_zones_pu_raster)))
-    expect_true(all(raster::values(s[[i]])[
+    expect_true(all(terra::values(s[[i]])[
       raster::Which(!is.na(s[[i]]), cells = TRUE)] == as.numeric(i == 1)))
 })
 
@@ -487,7 +487,7 @@ test_that("raster (solve, multiple zones)", {
                     raster::Which(is.na(sim_zones_pu_raster[[i]]),
                                   cells = TRUE)))
   for (i in seq_len(terra::nlyr(sim_zones_pu_raster)))
-    expect_true(all(raster::values(s[[i]])[
+    expect_true(all(terra::values(s[[i]])[
       raster::Which(!is.na(s[[i]]), cells = TRUE)] == as.numeric(i == 1)))
 })
 

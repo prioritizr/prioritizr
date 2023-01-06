@@ -17,7 +17,7 @@ test_that("x=Raster, features=RasterStack", {
   expect_equal(x$number_of_features(), terra::nlyr(sim_features))
   expect_equal(x$number_of_planning_units(),
     length(raster::Which(!is.na(sim_pu_raster), cells = TRUE)))
-  expect_equal(x$number_of_total_units(), raster::ncell(sim_pu_raster))
+  expect_equal(x$number_of_total_units(), terra::ncell(sim_pu_raster))
   expect_equal(x$planning_unit_indices(),
                raster::Which(!is.na(sim_pu_raster), cells = TRUE))
   # tests for planning_unit_costs field
@@ -26,7 +26,7 @@ test_that("x=Raster, features=RasterStack", {
   expect_equal(colnames(x$planning_unit_costs()), names(sim_pu_raster))
   # tests for feature_abundances_in_planning_units field
   expect_equivalent(x$feature_abundances_in_planning_units(),
-    matrix(raster::cellStats(raster::mask(sim_features, sim_pu_raster),
+    matrix(raster::cellStats(terra::mask(sim_features, sim_pu_raster),
                              "sum"), ncol = 1))
   expect_equal(colnames(x$feature_abundances_in_planning_units()),
                x$zone_names())
@@ -70,7 +70,7 @@ test_that("x=RasterStack, features=ZonesRaster", {
                raster::cellStats(max(!is.na(sim_zones_pu_raster)), "sum"))
   expect_equal(x$planning_unit_indices(),
                raster::Which(max(!is.na(sim_zones_pu_raster)) > 0, cells = TRUE))
-  expect_equal(x$number_of_total_units(), raster::ncell(sim_zones_pu_raster))
+  expect_equal(x$number_of_total_units(), terra::ncell(sim_zones_pu_raster))
   # tests for planning_unit_costs field
   expect_equivalent(x$planning_unit_costs(),
                     sim_zones_pu_raster[raster::Which(
@@ -80,7 +80,7 @@ test_that("x=RasterStack, features=ZonesRaster", {
   # tests for feature_abundances_in_planning_units field
   expect_equivalent(x$feature_abundances_in_planning_units(),
     sapply(seq_len(terra::nlyr(sim_zones_pu_raster)), function(i) {
-      raster::cellStats(raster::mask(sim_zones_features[[i]],
+      raster::cellStats(terra::mask(sim_zones_features[[i]],
                                      sim_zones_pu_raster[[i]]), "sum")
   }))
   expect_equal(colnames(x$feature_abundances_in_planning_units()),

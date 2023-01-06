@@ -27,11 +27,11 @@ test_that("solve (compressed formulation, single zone)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # create data
-  cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
+  cost <- terra::rast(matrix(c(1, 2, 2, NA), ncol = 4))
   locked_in <- 2
   locked_out <- 1
-  features <- raster::stack(raster::raster(matrix(c(2, 1, 1, 0), ncol = 4)),
-                            raster::raster(matrix(c(10, 10, 10, 10), ncol = 4)))
+  features <- terra::rast(terra::rast(matrix(c(2, 1, 1, 0), ncol = 4)),
+                            terra::rast(matrix(c(10, 10, 10, 10), ncol = 4)))
   # create problem
   p <- problem(cost, features) %>%
        add_min_set_objective() %>%
@@ -43,20 +43,20 @@ test_that("solve (compressed formulation, single zone)", {
   s1 <- solve(p)
   s2 <- solve(p)
   # test for correct solution
-  expect_equal(raster::values(s1), c(0, 1, 1, NA))
-  expect_equal(raster::values(s1), raster::values(s2))
+  expect_equal(terra::values(s1), c(0, 1, 1, NA))
+  expect_equal(terra::values(s1), terra::values(s2))
 })
 
 test_that("solve (compressed formulation, single zone, negative values)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # create data
-  cost <- raster::raster(matrix(c(1, 2, 2, 0, 0, NA), nrow = 1))
+  cost <- terra::rast(matrix(c(1, 2, 2, 0, 0, NA), nrow = 1))
   locked_in <- 2
   locked_out <- 1
-  features <- raster::stack(
-    raster::raster(matrix(c(2,  1,  1,  100,  -200, 0), nrow = 1)),
-    raster::raster(matrix(c(10, 10, 10, -200, 100, 10), nrow = 1)))
+  features <- terra::rast(
+    terra::rast(matrix(c(2,  1,  1,  100,  -200, 0), nrow = 1)),
+    terra::rast(matrix(c(10, 10, 10, -200, 100, 10), nrow = 1)))
   # create problem
   expect_warning(p <- problem(cost, features) %>%
                       add_min_set_objective() %>%
@@ -67,7 +67,7 @@ test_that("solve (compressed formulation, single zone, negative values)", {
   # solve problem
   s <- solve(p)
   # test for correct solution
-  expect_equal(raster::values(s), c(0, 1, 1, 0, 0, NA))
+  expect_equal(terra::values(s), c(0, 1, 1, 0, 0, NA))
 })
 
 test_that("compile (expanded formulation, single zone)", {
@@ -117,11 +117,11 @@ test_that("solve (expanded formulation, single zone)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # create data
-  cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
+  cost <- terra::rast(matrix(c(1, 2, 2, NA), ncol = 4))
   locked_in <- 2
   locked_out <- 1
-  features <- raster::stack(raster::raster(matrix(c(2, 1, 1, 0), ncol = 4)),
-                            raster::raster(matrix(c(10, 10, 10, 10), ncol = 4)))
+  features <- terra::rast(terra::rast(matrix(c(2, 1, 1, 0), ncol = 4)),
+                            terra::rast(matrix(c(10, 10, 10, 10), ncol = 4)))
   # create problem
   p <- problem(cost, features) %>%
        add_min_set_objective() %>%
@@ -132,7 +132,7 @@ test_that("solve (expanded formulation, single zone)", {
   # solve problem
   s <- solve(p, compressed_formulation = FALSE)
   # test for correct solution
-  expect_equal(raster::values(s), c(0, 1, 1, NA))
+  expect_equal(terra::values(s), c(0, 1, 1, NA))
 })
 
 test_that("invalid inputs (single zone)", {
@@ -192,14 +192,14 @@ test_that("solve (compressed formulation, multiple zones)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # create data
-  costs <- raster::stack(
-    raster::raster(matrix(c(1,  2,  NA, 3, 100, 100, NA), ncol = 7)),
-    raster::raster(matrix(c(10, 10, 10, 10,  4,   1, NA), ncol = 7)))
-  spp <- raster::stack(
-    raster::raster(matrix(c(1,  2, 0, 0, 0, 0,  0), ncol = 7)),
-    raster::raster(matrix(c(NA, 0, 1, 1, 0, 0,  0), ncol = 7)),
-    raster::raster(matrix(c(1,  0, 0, 0, 1, 0,  0), ncol = 7)),
-    raster::raster(matrix(c(0,  0, 0, 0, 0, 10, 0), ncol = 7)))
+  costs <- terra::rast(
+    terra::rast(matrix(c(1,  2,  NA, 3, 100, 100, NA), ncol = 7)),
+    terra::rast(matrix(c(10, 10, 10, 10,  4,   1, NA), ncol = 7)))
+  spp <- terra::rast(
+    terra::rast(matrix(c(1,  2, 0, 0, 0, 0,  0), ncol = 7)),
+    terra::rast(matrix(c(NA, 0, 1, 1, 0, 0,  0), ncol = 7)),
+    terra::rast(matrix(c(1,  0, 0, 0, 1, 0,  0), ncol = 7)),
+    terra::rast(matrix(c(0,  0, 0, 0, 0, 10, 0), ncol = 7)))
   # create problem
   p <- problem(costs, zones(spp[[1:2]], spp[[3:4]])) %>%
        add_min_set_objective() %>%
@@ -210,8 +210,8 @@ test_that("solve (compressed formulation, multiple zones)", {
   s <- p %>% solve()
   # tests
   expect_is(s, "RasterStack")
-  expect_equal(raster::values(s[[1]]), c(1, 0, NA, 1, 0, 0, NA))
-  expect_equal(raster::values(s[[2]]), c(0, 0, 0,  0, 1, 0, NA))
+  expect_equal(terra::values(s[[1]]), c(1, 0, NA, 1, 0, 0, NA))
+  expect_equal(terra::values(s[[2]]), c(0, 0, 0,  0, 1, 0, NA))
 })
 
 test_that("compile (expanded formulation, multiple zones)", {
@@ -295,14 +295,14 @@ test_that("solve (expanded formulation, multiple zones)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # create data
-  costs <- raster::stack(
-    raster::raster(matrix(c(1,  2,  NA, 3, 100, 100, NA), ncol = 7)),
-    raster::raster(matrix(c(10, 10, 10, 10,  4,   1, NA), ncol = 7)))
-  spp <- raster::stack(
-    raster::raster(matrix(c(1,  2,  0,  0,   0,  0,  0), ncol = 7)),
-    raster::raster(matrix(c(NA, 0,  1,  1,   0,  0,  0), ncol = 7)),
-    raster::raster(matrix(c(1,  0,  0,  0,   1,  0,  0), ncol = 7)),
-    raster::raster(matrix(c(0,  0,  0,  0,   0,  10, 0), ncol = 7)))
+  costs <- terra::rast(
+    terra::rast(matrix(c(1,  2,  NA, 3, 100, 100, NA), ncol = 7)),
+    terra::rast(matrix(c(10, 10, 10, 10,  4,   1, NA), ncol = 7)))
+  spp <- terra::rast(
+    terra::rast(matrix(c(1,  2,  0,  0,   0,  0,  0), ncol = 7)),
+    terra::rast(matrix(c(NA, 0,  1,  1,   0,  0,  0), ncol = 7)),
+    terra::rast(matrix(c(1,  0,  0,  0,   1,  0,  0), ncol = 7)),
+    terra::rast(matrix(c(0,  0,  0,  0,   0,  10, 0), ncol = 7)))
   # create problem
   p <- problem(costs, zones(spp[[1:2]], spp[[3:4]])) %>%
        add_min_set_objective() %>%
@@ -313,8 +313,8 @@ test_that("solve (expanded formulation, multiple zones)", {
   s <- p %>% solve(compressed_formulation = FALSE)
   # tests
   expect_is(s, "RasterStack")
-  expect_equal(raster::values(s[[1]]), c(1, 0, NA, 1, 0, 0, NA))
-  expect_equal(raster::values(s[[2]]), c(0, 0, 0,  0, 1, 0, NA))
+  expect_equal(terra::values(s[[1]]), c(1, 0, NA, 1, 0, 0, NA))
+  expect_equal(terra::values(s[[2]]), c(0, 0, 0,  0, 1, 0, NA))
 })
 
 test_that("invalid inputs (multiple zones)", {

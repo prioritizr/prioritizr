@@ -334,9 +334,9 @@ test_that("Raster (single zone)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # create data
-  pu <- raster::raster(matrix(c(10, 2, NA, 3), nrow = 1))
-  features <- raster::stack(raster::raster(matrix(c(0, 0, 0, 1), nrow = 1)),
-                            raster::raster(matrix(c(10, 5, 10, 6), nrow = 1)))
+  pu <- terra::rast(matrix(c(10, 2, NA, 3), nrow = 1))
+  features <- terra::rast(terra::rast(matrix(c(0, 0, 0, 1), nrow = 1)),
+                            terra::rast(matrix(c(10, 5, 10, 6), nrow = 1)))
   # create problem
   p <-
     problem(pu, features) %>%
@@ -345,11 +345,11 @@ test_that("Raster (single zone)", {
     add_binary_decisions() %>%
     add_default_solver(gap = 0, verbose = FALSE)
   # create a solution
-  s <- raster::raster(matrix(c(0, 1, NA, 1), nrow = 1))
+  s <- terra::rast(matrix(c(0, 1, NA, 1), nrow = 1))
   # calculate replacement costs
   r <- eval_replacement_importance(p, s, rescale = FALSE)
   # create correct result
-  r2 <- raster::raster(matrix(c(0, 8, NA, Inf), nrow = 1))
+  r2 <- terra::rast(matrix(c(0, 8, NA, Inf), nrow = 1))
   names(r2) <- "rc"
   # run tests
   expect_equal(r, r2)
@@ -359,14 +359,14 @@ test_that("Raster (multiple zone)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # create data
-  pu <- raster::stack(
-    raster::raster(matrix(c(1,  2,  NA, 3, 100, 100, NA, 100), nrow = 1)),
-    raster::raster(matrix(c(10, 10, 10, 10,  4,   1, NA, 10), nrow = 1)))
-  features <- raster::stack(
-    raster::raster(matrix(c(1,  2, 0, 0, 0, 0,  0, 0), nrow = 1)),
-    raster::raster(matrix(c(NA, 0, 1, 1, 0, 0,  0, 0), nrow = 1)),
-    raster::raster(matrix(c(1,  0, 0, 0, 1, 0,  0, 1), nrow = 1)),
-    raster::raster(matrix(c(0,  0, 0, 0, 0, 10, 0, 0), nrow = 1)))
+  pu <- terra::rast(
+    terra::rast(matrix(c(1,  2,  NA, 3, 100, 100, NA, 100), nrow = 1)),
+    terra::rast(matrix(c(10, 10, 10, 10,  4,   1, NA, 10), nrow = 1)))
+  features <- terra::rast(
+    terra::rast(matrix(c(1,  2, 0, 0, 0, 0,  0, 0), nrow = 1)),
+    terra::rast(matrix(c(NA, 0, 1, 1, 0, 0,  0, 0), nrow = 1)),
+    terra::rast(matrix(c(1,  0, 0, 0, 1, 0,  0, 1), nrow = 1)),
+    terra::rast(matrix(c(0,  0, 0, 0, 0, 10, 0, 0), nrow = 1)))
   targets <- matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)
   # create problem
   p <-
@@ -376,15 +376,15 @@ test_that("Raster (multiple zone)", {
     add_binary_decisions() %>%
     add_default_solver(gap = 0, verbose = FALSE)
   # create a solution
-  s <- raster::stack(
-    raster::raster(matrix(c(1, 0, NA, 1, 0, 0, NA, 0), nrow = 1)),
-    raster::raster(matrix(c(0, 0, 0, 0, 1, 0, NA, 0), nrow = 1)))
+  s <- terra::rast(
+    terra::rast(matrix(c(1, 0, NA, 1, 0, 0, NA, 0), nrow = 1)),
+    terra::rast(matrix(c(0, 0, 0, 0, 1, 0, NA, 0), nrow = 1)))
   # calculate replacement costs
   r <- eval_replacement_importance(p, s, rescale = FALSE)
   # create correct result
-  r2 <- raster::stack(
-    raster::raster(matrix(c(1, 0, NA, Inf, 0, 0, NA, 0), nrow = 1)),
-    raster::raster(matrix(c(0, 0, 0,  0,   6, 0, NA, 0), nrow = 1)))
+  r2 <- terra::rast(
+    terra::rast(matrix(c(1, 0, NA, Inf, 0, 0, NA, 0), nrow = 1)),
+    terra::rast(matrix(c(0, 0, 0,  0,   6, 0, NA, 0), nrow = 1)))
   names(r2) <- c("rc_1", "rc_2")
   # run tests
   expect_equal(r, r2)
@@ -472,7 +472,7 @@ test_that("invalid inputs", {
     x <- problem(sim_pu_raster, sim_features)
     # create a solution
     y <- raster::setValues(sim_pu_raster,
-                           rep(c(0, 1), raster::ncell(sim_pu_raster) / 2))
+                           rep(c(0, 1), terra::ncell(sim_pu_raster) / 2))
     # calculate representation
     r <- eval_replacement_importance(x, y)
   })

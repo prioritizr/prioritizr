@@ -19,7 +19,7 @@ test_that("is_comparable_raster (valid inputs)", {
     sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
     is_comparable_raster(
-      raster::crop(sim_pu_raster, raster::extent(sim_pu_raster, 1, 5, 1, 5)),
+      terra::crop(sim_pu_raster, raster::extent(sim_pu_raster, 1, 5, 1, 5)),
                    sim_features)
   })
   # expect error
@@ -33,7 +33,7 @@ test_that("is_comparable_raster (valid inputs)", {
     sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
     assertthat::assert_that(is_comparable_raster(
-      raster::crop(sim_pu_raster, raster::extent(sim_pu_raster, 1, 5, 1, 5)),
+      terra::crop(sim_pu_raster, raster::extent(sim_pu_raster, 1, 5, 1, 5)),
                    sim_features))
   })
 })
@@ -84,7 +84,7 @@ test_that("intersecting_extents", {
   expect_true(intersecting_extents(
     sim_pu_polygons[1, ], sim_pu_raster))
   expect_true(intersecting_extents(
-    raster::crop(sim_pu_raster, sim_pu_polygons[1, ]), sim_pu_raster))
+    terra::crop(sim_pu_raster, sim_pu_polygons[1, ]), sim_pu_raster))
   expect_false(intersecting_extents(
     sim_pu_polygons[1, ], sim_pu_polygons[7, ]))
   expect_false(intersecting_extents(
@@ -92,12 +92,12 @@ test_that("intersecting_extents", {
   expect_false(intersecting_extents(
     sim_pu_polygons[1, ], sim_pu_polygons[7, ]))
   expect_false(intersecting_extents(
-    sim_pu_polygons[1, ], raster::crop(sim_pu_raster, sim_pu_polygons[7, ])))
+    sim_pu_polygons[1, ], terra::crop(sim_pu_raster, sim_pu_polygons[7, ])))
   expect_false(intersecting_extents(
-    sim_pu_polygons[1, ], raster::crop(sim_pu_raster, sim_pu_polygons[7, ])))
+    sim_pu_polygons[1, ], terra::crop(sim_pu_raster, sim_pu_polygons[7, ])))
   expect_false(intersecting_extents(
-    raster::crop(sim_pu_raster, sim_pu_polygons[1, ]),
-    raster::crop(sim_pu_raster, sim_pu_polygons[7, ])))
+    terra::crop(sim_pu_raster, sim_pu_polygons[1, ]),
+    terra::crop(sim_pu_raster, sim_pu_polygons[7, ])))
 })
 
 test_that("align_text", {

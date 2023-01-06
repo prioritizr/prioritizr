@@ -188,9 +188,9 @@ test_that("sf (single zone)", {
 
 test_that("Raster (single zone)", {
   # create data
-  pu <- raster::raster(matrix(c(10, 2, NA, 3), nrow = 2))
-  features <- raster::stack(raster::raster(matrix(c(0, 0, 0, 1), nrow = 2)),
-                            raster::raster(matrix(c(10, 5, 10, 6), nrow = 2)))
+  pu <- terra::rast(matrix(c(10, 2, NA, 3), nrow = 2))
+  features <- terra::rast(terra::rast(matrix(c(0, 0, 0, 1), nrow = 2)),
+                            terra::rast(matrix(c(10, 5, 10, 6), nrow = 2)))
   names(features) <- c("spp1", "spp2")
   # create problem
   p <-
@@ -200,7 +200,7 @@ test_that("Raster (single zone)", {
     add_binary_decisions() %>%
     add_default_solver(gap = 0, verbose = FALSE)
   # create a solution
-  s <- raster::raster(matrix(c(0, 1, NA, 1), nrow = 2))
+  s <- terra::rast(matrix(c(0, 1, NA, 1), nrow = 2))
   # calculate scores
   r1 <- eval_ferrier_importance(p, s)
   # create correct total scores
@@ -209,20 +209,20 @@ test_that("Raster (single zone)", {
       ferrier_scores_r(
         rij = t(as.matrix(raster::as.data.frame(features))),
         targets = c(1, 10),
-        solution = raster::values(s)
+        solution = terra::values(s)
       )
     )
   )
   # run tests
   expect_is(r1, "Raster")
   expect_equal(terra::nlyr(r1), 3)
-  expect_equal(raster::ncell(r1), 4)
+  expect_equal(terra::ncell(r1), 4)
   expect_equal(raster::ncol(r1), raster::ncol(pu))
   expect_equal(raster::nrow(r1), raster::nrow(pu))
   expect_equal(names(r1), c("spp1", "spp2", "total"))
-  expect_equal(raster::getValues(r1[["spp1"]]), r2$spp1)
-  expect_equal(raster::getValues(r1[["spp2"]]), r2$spp2)
-  expect_equal(raster::getValues(r1[["total"]]), r2$total)
+  expect_equal(terra::values(r1[["spp1"]]), r2$spp1)
+  expect_equal(terra::values(r1[["spp2"]]), r2$spp2)
+  expect_equal(terra::values(r1[["total"]]), r2$total)
 })
 
 test_that("data.frame (complex dataset)", {

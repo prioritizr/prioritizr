@@ -150,7 +150,7 @@ test_that("raster (na.rm = FALSE, multiple zones)", {
   expect_equal(x$zone, rep(zone_names(sim_zones_features),
                            each = number_of_features(sim_zones_features)))
   expect_equal(x$absolute_abundance,
-               unname(raster::cellStats(raster::stack(as.list(
+               unname(raster::cellStats(terra::rast(as.list(
                  sim_zones_features)), "sum")))
    expect_equal(x$relative_abundance,
                 rep(1, number_of_zones(sim_zones_features) *
@@ -174,16 +174,16 @@ test_that("raster (na.rm = TRUE, multiple zones)", {
                            each = number_of_features(sim_zones_features)))
   expect_equal(x$absolute_abundance,
     unname(raster::cellStats(
-      raster::stack(as.list(sim_zones_features)) *
+      terra::rast(as.list(sim_zones_features)) *
       !is.na(sim_zones_pu_raster[[rep(seq_len(3),
         each = number_of_features(sim_zones_features))]]),
       "sum")))
   expect_equal(x$relative_abundance,
     unname(raster::cellStats(
-      raster::stack(as.list(sim_zones_features)) *
+      terra::rast(as.list(sim_zones_features)) *
       !is.na(sim_zones_pu_raster[[rep(seq_len(3),
         each = number_of_features(sim_zones_features))]]),
       "sum")) /
-    unname(raster::cellStats(raster::stack(as.list(sim_zones_features)),
+    unname(raster::cellStats(terra::rast(as.list(sim_zones_features)),
       "sum")))
 })

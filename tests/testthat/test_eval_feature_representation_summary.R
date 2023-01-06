@@ -333,7 +333,7 @@ test_that("Raster (single zone)", {
   p <- problem(sim_pu_raster, sim_features)
   # create a solution
   s <- raster::setValues(
-    sim_pu_raster, rep(c(0, 1), raster::ncell(sim_pu_raster) / 2))
+    sim_pu_raster, rep(c(0, 1), terra::ncell(sim_pu_raster) / 2))
   s[is.na(sim_pu_raster)] <- NA_real_
   # calculate representation
   r1 <- eval_feature_representation_summary(p, s)
@@ -363,13 +363,13 @@ test_that("Raster (multiple zone)", {
   # create problem
   p <- problem(sim_zones_pu_raster, sim_zones_features)
   # create a solution
-  s <- raster::stack(
+  s <- terra::rast(
     raster::setValues(
-      sim_pu_raster, rep(c(0, 0.2), raster::ncell(sim_pu_raster) / 2)),
+      sim_pu_raster, rep(c(0, 0.2), terra::ncell(sim_pu_raster) / 2)),
     raster::setValues(
-      sim_pu_raster, rep(c(0.3, 0), raster::ncell(sim_pu_raster) / 2)),
+      sim_pu_raster, rep(c(0.3, 0), terra::ncell(sim_pu_raster) / 2)),
     raster::setValues(
-      sim_pu_raster, rep(c(0.4, 0), raster::ncell(sim_pu_raster) / 2)))
+      sim_pu_raster, rep(c(0.4, 0), terra::ncell(sim_pu_raster) / 2)))
   s[[1]][is.na(sim_zones_pu_raster[[1]])] <- NA_real_
   s[[2]][is.na(sim_zones_pu_raster[[2]])] <- NA_real_
   s[[3]][is.na(sim_zones_pu_raster[[3]])] <- NA_real_
@@ -498,7 +498,7 @@ test_that("invalid inputs", {
     p <- problem(sim_pu_raster, sim_features)
     # create a solution
     s <- raster::setValues(sim_pu_raster,
-                           rep(c(0, 1), raster::ncell(sim_pu_raster) / 2))
+                           rep(c(0, 1), terra::ncell(sim_pu_raster) / 2))
     # calculate representation
     eval_feature_representation_summary(p, s)
   })

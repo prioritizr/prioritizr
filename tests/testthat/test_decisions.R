@@ -30,8 +30,8 @@ test_that("add_binary_decisions (solve, single zone)", {
   s1 <- solve(p)
   s2 <- solve(p)
   # check that solutions have correct decisions
-  expect_true(all(raster::values(s1) %in% c(0L, 1L, NA_integer_)))
-  expect_equal(raster::values(s1), raster::values(s2))
+  expect_true(all(terra::values(s1) %in% c(0L, 1L, NA_integer_)))
+  expect_equal(terra::values(s1), terra::values(s2))
 })
 
 test_that("add_binary_decisions (compile, multiple zones)", {
@@ -68,7 +68,7 @@ test_that("add_binary_decisions (solve, multiple zones)", {
        add_default_solver(time_limit = 5, verbose = FALSE) %>%
        solve()
   # check that solutions have correct decisions
-  expect_true(all(c(raster::values(s)) %in% c(0L, 1L, NA_integer_)))
+  expect_true(all(c(terra::values(s)) %in% c(0L, 1L, NA_integer_)))
 })
 
 test_that("add_proportion_decisions (compile, single zone)", {
@@ -103,7 +103,7 @@ test_that("add_proportion_decisions (solve, single zone)", {
   # check that solutions have correct decisions
   expect_true(isTRUE(all(na.omit(values(s1)) <= 1)))
   expect_true(isTRUE(all(na.omit(values(s1)) >= 0)))
-  expect_equal(raster::values(s1), raster::values(s2))
+  expect_equal(terra::values(s1), terra::values(s2))
 })
 
 test_that("add_proportion_decisions (compile, multiple zones)", {
@@ -140,8 +140,8 @@ test_that("add_proportion_decisions (solve, multiple zones)", {
        add_default_solver(time_limit = 5, verbose = FALSE) %>%
        solve()
   # check that solutions have correct decisions
-  expect_true(all(round(na.omit(raster::values(s)), 5) <= 1))
-  expect_true(all(round(na.omit(raster::values(s)), 5) >= 0))
+  expect_true(all(round(na.omit(terra::values(s)), 5) <= 1))
+  expect_true(all(round(na.omit(terra::values(s)), 5) >= 0))
 })
 
 test_that("add_semicontinuous_decisions (compile, single zone)", {
@@ -181,7 +181,7 @@ test_that("add_semicontinuous_decisions (solve, single zone)", {
   # check that solutions have correct decisions
   expect_true(isTRUE(all(round(na.omit(values(s1)), 5) <= 0.3)))
   expect_true(isTRUE(all(na.omit(values(s1)) >= 0)))
-  expect_equal(raster::values(s1), raster::values(s2))
+  expect_equal(terra::values(s1), terra::values(s2))
 })
 
 test_that("add_semicontinuous_decisions (compile, multiple zones)", {
@@ -218,6 +218,6 @@ test_that("add_semicontinuous_decisions (solve, multiple zones)", {
        add_default_solver(time_limit = 5, verbose = FALSE) %>%
        solve()
   # check that solutions have correct decisions
-  expect_true(all(round(na.omit(raster::values(s)), 5) <= 0.3))
-  expect_true(all(round(na.omit(raster::values(s)), 5) >= 0))
+  expect_true(all(round(na.omit(terra::values(s)), 5) <= 0.3))
+  expect_true(all(round(na.omit(terra::values(s)), 5) >= 0))
 })

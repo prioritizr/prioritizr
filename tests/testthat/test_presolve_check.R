@@ -187,7 +187,7 @@ test_that("all planning units locked in", {
   p <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
-       add_locked_in_constraints(seq_len(raster::ncell(sim_pu_raster))) %>%
+       add_locked_in_constraints(seq_len(terra::ncell(sim_pu_raster))) %>%
        add_binary_decisions()
   expect_warning(expect_false(presolve_check(p)), "locked in", all = TRUE)
 })
@@ -198,7 +198,7 @@ test_that("all planning units locked out", {
   p <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
-       add_locked_out_constraints(seq_len(raster::ncell(sim_pu_raster))) %>%
+       add_locked_out_constraints(seq_len(terra::ncell(sim_pu_raster))) %>%
        add_binary_decisions()
   expect_warning(expect_false(presolve_check(p)), "locked out", all = TRUE)
 })

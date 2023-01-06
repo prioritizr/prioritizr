@@ -2,9 +2,9 @@ context("add_cuts_portfolio")
 
 test_that("compile", {
   # create data
-  cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
-  features <- raster::stack(raster::raster(matrix(c(2, 1, 1, 0), ncol = 4)),
-                            raster::raster(matrix(c(10, 10, 10, 10), ncol = 4)))
+  cost <- terra::rast(matrix(c(1, 2, 2, NA), ncol = 4))
+  features <- terra::rast(terra::rast(matrix(c(2, 1, 1, 0), ncol = 4)),
+                            terra::rast(matrix(c(10, 10, 10, 10), ncol = 4)))
   locked_in <- 2
   # create problem
   p <- problem(cost, features) %>%
@@ -23,9 +23,9 @@ test_that("solve (number_solutions within limit, single zone)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # create data
-  cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
-  features <- raster::stack(raster::raster(matrix(c(2, 2, 1, 0), ncol = 4)),
-                            raster::raster(matrix(c(10, 10, 10, 10), ncol = 4)))
+  cost <- terra::rast(matrix(c(1, 2, 2, NA), ncol = 4))
+  features <- terra::rast(terra::rast(matrix(c(2, 2, 1, 0), ncol = 4)),
+                            terra::rast(matrix(c(10, 10, 10, 10), ncol = 4)))
   # create problem
   p <- problem(cost, features) %>%
         add_min_set_objective() %>%
@@ -71,7 +71,7 @@ test_that("solve (number_solutions within limit, multiple zones)", {
     expect_true(all(raster::cellStats(s[[i]][[2]] * sim_zones_features[[i]],
                                       "sum") >= 1))
   expect_equal({lapply(s, category_layer) %>%
-                lapply(raster::values) %>%
+                lapply(terra::values) %>%
                 lapply(paste, collapse = ",") %>%
                 anyDuplicated()}, 0)
 })
@@ -80,9 +80,9 @@ test_that("solve (number_solutions outside limit)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # create data
-  cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
-  features <- raster::stack(raster::raster(matrix(c(2, 1, 1, 0), ncol = 4)),
-                            raster::raster(matrix(c(10, 10, 10, 10), ncol = 4)))
+  cost <- terra::rast(matrix(c(1, 2, 2, NA), ncol = 4))
+  features <- terra::rast(terra::rast(matrix(c(2, 1, 1, 0), ncol = 4)),
+                            terra::rast(matrix(c(10, 10, 10, 10), ncol = 4)))
   locked_in <- 2
   locked_out <- 1
   # create problem

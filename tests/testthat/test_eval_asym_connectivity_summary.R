@@ -3,7 +3,7 @@ context("eval_asym_connectivity_summary")
 test_that("single zone (zone matrix = 1)", {
   # simulate spatial data
   set.seed(500)
-  pl <- raster::raster(matrix(seq_len(10), ncol = 2),
+  pl <- terra::rast(matrix(seq_len(10), ncol = 2),
                        xmn = 0, xmx = 2, ymn = 0, ymx = 5)
   pl <- as(pl, "SpatialPolygons")
   zm <- diag(1)
@@ -39,7 +39,7 @@ test_that("single zone (zone matrix = 1)", {
 test_that("single zone (variable zone matrix)", {
   # simulate spatial data
   set.seed(500)
-  pl <- raster::raster(matrix(seq_len(10), ncol = 2),
+  pl <- terra::rast(matrix(seq_len(10), ncol = 2),
                        xmn = 0, xmx = 2, ymn = 0, ymx = 5)
   pl <- as(pl, "SpatialPolygons")
   zm <- matrix(0.4, ncol = 1, nrow = 1)
@@ -75,7 +75,7 @@ test_that("single zone (variable zone matrix)", {
 test_that("multiple zones (zone matrix = 1)", {
   # simulate spatial data
   set.seed(500)
-  pl <- raster::raster(matrix(seq_len(10), ncol = 2),
+  pl <- terra::rast(matrix(seq_len(10), ncol = 2),
                        xmn = 0, xmx = 2, ymn = 0, ymx = 5)
   pl <- as(pl, "SpatialPolygons")
   zm <- matrix(1, ncol = 2, nrow = 2)
@@ -121,7 +121,7 @@ test_that("multiple zones (zone matrix = 1)", {
 test_that("multiple zones (zone matrix = identity matrix)", {
   # simulate spatial data
   set.seed(500)
-  pl <- raster::raster(matrix(seq_len(10), ncol = 2),
+  pl <- terra::rast(matrix(seq_len(10), ncol = 2),
                        xmn = 0, xmx = 2, ymn = 0, ymx = 5)
   pl <- as(pl, "SpatialPolygons")
   zm <- diag(2)
@@ -170,7 +170,7 @@ test_that("multiple zones (zone matrix = identity matrix)", {
 test_that("multiple zones (variable zone matrix)", {
   # simulate spatial data
   set.seed(500)
-  pl <- raster::raster(matrix(seq_len(10), ncol = 2),
+  pl <- terra::rast(matrix(seq_len(10), ncol = 2),
                        xmn = 0, xmx = 2, ymn = 0, ymx = 5)
   pl <- as(pl, "SpatialPolygons")
   zm <- matrix(c(0.9, 0.2, 0.2, 0.4), ncol = 2, nrow = 2)
@@ -220,7 +220,7 @@ test_that("multiple zones (variable zone matrix)", {
 test_that("expected warnings", {
   # simulate spatial data
   set.seed(500)
-  pl <- raster::raster(matrix(seq_len(10), ncol = 2),
+  pl <- terra::rast(matrix(seq_len(10), ncol = 2),
                        xmn = 0, xmx = 2, ymn = 0, ymx = 5)
   pl <- as(pl, "SpatialPolygons")
   zm <- diag(1)

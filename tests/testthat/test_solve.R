@@ -4,9 +4,9 @@ test_that("x=RasterLayer, y=RasterStack (single zone)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # simulate data
-  costs <- raster::raster(matrix(c(1, 2, NA, 3), ncol = 4))
-  spp <- raster::stack(raster::raster(matrix(c(1, 2, 0, 0), ncol = 4)),
-                       raster::raster(matrix(c(NA, 0, 1, 1), ncol = 4)))
+  costs <- terra::rast(matrix(c(1, 2, NA, 3), ncol = 4))
+  spp <- terra::rast(terra::rast(matrix(c(1, 2, 0, 0), ncol = 4)),
+                       terra::rast(matrix(c(NA, 0, 1, 1), ncol = 4)))
   # solve problem
   s <- problem(costs, spp) %>%
        add_min_set_objective() %>%
@@ -16,7 +16,7 @@ test_that("x=RasterLayer, y=RasterStack (single zone)", {
        solve()
   # tests
   expect_is(s, "RasterLayer")
-  expect_equal(raster::values(s), c(1, 0, NA, 1))
+  expect_equal(terra::values(s), c(1, 0, NA, 1))
   expect_true(raster::compareRaster(s, costs, stopiffalse = FALSE,
                                     tolerance = 1e-5))
 })
@@ -25,14 +25,14 @@ test_that("x=RasterStack, y=ZonesRaster (multiple zones)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # simulate data
-  costs <- raster::stack(
-    raster::raster(matrix(c(1,  2,  NA, 3, 100, 100, NA), ncol = 7)),
-    raster::raster(matrix(c(10, 10, 10, 10,  4,   1, NA), ncol = 7)))
-  spp <- raster::stack(
-    raster::raster(matrix(c(1,  2, 0, 0, 0, 0,  0), ncol = 7)),
-    raster::raster(matrix(c(NA, 0, 1, 1, 0, 0,  0), ncol = 7)),
-    raster::raster(matrix(c(1,  0, 0, 0, 1, 0,  0), ncol = 7)),
-    raster::raster(matrix(c(0,  0, 0, 0, 0, 10, 0), ncol = 7)))
+  costs <- terra::rast(
+    terra::rast(matrix(c(1,  2,  NA, 3, 100, 100, NA), ncol = 7)),
+    terra::rast(matrix(c(10, 10, 10, 10,  4,   1, NA), ncol = 7)))
+  spp <- terra::rast(
+    terra::rast(matrix(c(1,  2, 0, 0, 0, 0,  0), ncol = 7)),
+    terra::rast(matrix(c(NA, 0, 1, 1, 0, 0,  0), ncol = 7)),
+    terra::rast(matrix(c(1,  0, 0, 0, 1, 0,  0), ncol = 7)),
+    terra::rast(matrix(c(0,  0, 0, 0, 0, 10, 0), ncol = 7)))
   # solve problem
   s <- problem(costs, zones(spp[[1:2]], spp[[3:4]])) %>%
        add_min_set_objective() %>%
@@ -42,20 +42,20 @@ test_that("x=RasterStack, y=ZonesRaster (multiple zones)", {
        solve()
   # tests
   expect_is(s, "RasterStack")
-  expect_equal(raster::values(s[[1]]), c(1, 0, NA, 1, 0, 0, NA))
-  expect_equal(raster::values(s[[2]]), c(0, 0, 0,  0, 1, 0, NA))
+  expect_equal(terra::values(s[[1]]), c(1, 0, NA, 1, 0, 0, NA))
+  expect_equal(terra::values(s[[2]]), c(0, 0, 0,  0, 1, 0, NA))
 })
 
 test_that("x=SpatialPolygonsDataFrame, y=RasterStack (single zone)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # make data
-  costs <- raster::raster(matrix(1:4, byrow = TRUE, ncol = 2)) %>%
+  costs <- terra::rast(matrix(1:4, byrow = TRUE, ncol = 2)) %>%
            as("SpatialPolygonsDataFrame")
   costs$cost <- c(1, 2, NA, 3)
-  spp <- raster::stack(raster::raster(matrix(c(1, 2, 0, 0), byrow = TRUE,
+  spp <- terra::rast(terra::rast(matrix(c(1, 2, 0, 0), byrow = TRUE,
                                              ncol = 2)),
-                       raster::raster(matrix(c(NA, 0, 1, 1), byrow = TRUE,
+                       terra::rast(matrix(c(NA, 0, 1, 1), byrow = TRUE,
                                              ncol = 2)))
   # solve problem
   s <- problem(costs, spp, cost_column = "cost") %>%
@@ -73,15 +73,15 @@ test_that("x=SpatialPolygonsDataFrame, y=ZonesRaster (multiple zones)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # make data
-  costs <- raster::raster(matrix(1:7, ncol = 7)) %>%
+  costs <- terra::rast(matrix(1:7, ncol = 7)) %>%
            as("SpatialPolygonsDataFrame")
   costs$cost_1 <- c(1,  2,  NA, 3, 100, 100, NA)
   costs$cost_2 <- c(10, 10, 10, 10,  4,   1, NA)
-    spp <- raster::stack(
-      raster::raster(matrix(c(1,  2, 0, 0, 0, 0,  0), ncol = 7)),
-      raster::raster(matrix(c(NA, 0, 1, 1, 0, 0,  0), ncol = 7)),
-      raster::raster(matrix(c(1,  0, 0, 0, 1, 0,  0), ncol = 7)),
-      raster::raster(matrix(c(0,  0, 0, 0, 0, 10, 0), ncol = 7)))
+    spp <- terra::rast(
+      terra::rast(matrix(c(1,  2, 0, 0, 0, 0,  0), ncol = 7)),
+      terra::rast(matrix(c(NA, 0, 1, 1, 0, 0,  0), ncol = 7)),
+      terra::rast(matrix(c(1,  0, 0, 0, 1, 0,  0), ncol = 7)),
+      terra::rast(matrix(c(0,  0, 0, 0, 0, 10, 0), ncol = 7)))
   # solve problem
   s <- problem(costs, zones(spp[[1:2]], spp[[3:4]]),
                cost_column = c("cost_1", "cost_2")) %>%
@@ -100,7 +100,7 @@ test_that("x=SpatialPolygonsDataFrame, y=character (single zone)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # make data
-  costs <- raster::raster(matrix(1:4, byrow = 2, ncol = 2)) %>%
+  costs <- terra::rast(matrix(1:4, byrow = 2, ncol = 2)) %>%
            as("SpatialPolygonsDataFrame")
   costs$cost <- c(1, 2, NA, 3)
   costs$spp1 <- c(1, 2, 0, 0)
@@ -121,7 +121,7 @@ test_that("x=SpatialPolygonsDataFrame, y=ZonesCharacter (multiple zones)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # make data
-  costs <- raster::raster(matrix(1:7, ncol = 7)) %>%
+  costs <- terra::rast(matrix(1:7, ncol = 7)) %>%
            as("SpatialPolygonsDataFrame")
   costs$cost_1 <- c(1,  2,  NA, 3, 100, 100, NA)
   costs$cost_2 <- c(10, 10, 10, 10,  4,   1, NA)
@@ -147,13 +147,13 @@ test_that("x=sf, y=RasterStack (single zone)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # make data
-  costs <- raster::raster(matrix(1:4, byrow = TRUE, ncol = 2)) %>%
+  costs <- terra::rast(matrix(1:4, byrow = TRUE, ncol = 2)) %>%
            as("SpatialPolygonsDataFrame") %>%
            sf::st_as_sf()
   costs$cost <- c(1, 2, NA, 3)
-  spp <- raster::stack(raster::raster(matrix(c(1, 2, 0, 0), byrow = TRUE,
+  spp <- terra::rast(terra::rast(matrix(c(1, 2, 0, 0), byrow = TRUE,
                                              ncol = 2)),
-                       raster::raster(matrix(c(NA, 0, 1, 1), byrow = TRUE,
+                       terra::rast(matrix(c(NA, 0, 1, 1), byrow = TRUE,
                                              ncol = 2)))
   # solve problem
   s <- problem(costs, spp, cost_column = "cost") %>%
@@ -171,16 +171,16 @@ test_that("x=sf, y=ZonesRaster (multiple zones)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # make data
-  costs <- raster::raster(matrix(1:7, ncol = 7)) %>%
+  costs <- terra::rast(matrix(1:7, ncol = 7)) %>%
            as("SpatialPolygonsDataFrame") %>%
            sf::st_as_sf()
   costs$cost_1 <- c(1,  2,  NA, 3, 100, 100, NA)
   costs$cost_2 <- c(10, 10, 10, 10,  4,   1, NA)
-    spp <- raster::stack(
-      raster::raster(matrix(c(1,  2, 0, 0, 0, 0,  0), ncol = 7)),
-      raster::raster(matrix(c(NA, 0, 1, 1, 0, 0,  0), ncol = 7)),
-      raster::raster(matrix(c(1,  0, 0, 0, 1, 0,  0), ncol = 7)),
-      raster::raster(matrix(c(0,  0, 0, 0, 0, 10, 0), ncol = 7)))
+    spp <- terra::rast(
+      terra::rast(matrix(c(1,  2, 0, 0, 0, 0,  0), ncol = 7)),
+      terra::rast(matrix(c(NA, 0, 1, 1, 0, 0,  0), ncol = 7)),
+      terra::rast(matrix(c(1,  0, 0, 0, 1, 0,  0), ncol = 7)),
+      terra::rast(matrix(c(0,  0, 0, 0, 0, 10, 0), ncol = 7)))
   # solve problem
   s <- problem(costs, zones(spp[[1:2]], spp[[3:4]]),
                cost_column = c("cost_1", "cost_2")) %>%
@@ -199,7 +199,7 @@ test_that("x=sf, y=character (single zone)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # make data
-  costs <- raster::raster(matrix(1:4, byrow = 2, ncol = 2)) %>%
+  costs <- terra::rast(matrix(1:4, byrow = 2, ncol = 2)) %>%
            as("SpatialPolygonsDataFrame") %>%
            sf::st_as_sf()
   costs$cost <- c(1, 2, NA, 3)
@@ -221,7 +221,7 @@ test_that("x=sf, y=ZonesCharacter (multiple zones)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # make data
-  costs <- raster::raster(matrix(1:7, ncol = 7)) %>%
+  costs <- terra::rast(matrix(1:7, ncol = 7)) %>%
            as("SpatialPolygonsDataFrame") %>%
            sf::st_as_sf()
   costs$cost_1 <- c(1,  2,  NA, 3, 100, 100, NA)

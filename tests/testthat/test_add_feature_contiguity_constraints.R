@@ -2,24 +2,24 @@ context("add_feature_contiguity_constraints")
 
 test_that("compile (single zone)", {
   # create data
-  spp1_habitat <- raster::raster(matrix(c(
+  spp1_habitat <- terra::rast(matrix(c(
     5, 0, 5,
     0, 0, 0,
     0, 0, 0), byrow = TRUE, ncol = 3))
-  spp2_habitat <- raster::raster(matrix(c(
+  spp2_habitat <- terra::rast(matrix(c(
     2, 2, 0,
     0, 0, 0,
     20, 0, 20), byrow = TRUE, ncol = 3))
-  spp1_conductance <- raster::raster(matrix(c(
+  spp1_conductance <- terra::rast(matrix(c(
     1, 1, 1,
     0, 0, 0,
     0, 0, 0), byrow = TRUE, ncol = 3))
-  spp2_conductance <- raster::raster(matrix(c(
+  spp2_conductance <- terra::rast(matrix(c(
     1, 1, 0,
     0, 0, 0,
     1, 1, 1), byrow = TRUE, ncol = 3))
   cost <- raster::setValues(spp1_conductance, 1)
-  features <- raster::stack(spp1_habitat, spp2_habitat)
+  features <- terra::rast(spp1_habitat, spp2_habitat)
   cl <- list(
     as_Matrix(connectivity_matrix(cost, spp1_conductance) > 0.3, "dgCMatrix"),
     as_Matrix(connectivity_matrix(cost, spp2_conductance) > 0.3, "dgCMatrix"))
@@ -32,10 +32,10 @@ test_that("compile (single zone)", {
   # compile problem
   o  <- compile(p)
   # perform preliminary calculations
-  n_pu <- raster::ncell(cost)
+  n_pu <- terra::ncell(cost)
   n_f <- terra::nlyr(features)
   rij <- rij_matrix(cost, features)
-  costs <- raster::values(cost)
+  costs <- terra::values(cost)
   targ <- c(6, 30)
   cm <- lapply(cl, Matrix::forceSymmetric, uplo = "L")
   cm <- lapply(cm, Matrix::tril)
@@ -118,24 +118,24 @@ test_that("solve (single zone)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # create data
-  spp1_habitat <- raster::raster(matrix(c(
+  spp1_habitat <- terra::rast(matrix(c(
     5, 0, 5,
     0, 0, 0,
     0, 0, 0), byrow = TRUE, ncol = 3))
-  spp2_habitat <- raster::raster(matrix(c(
+  spp2_habitat <- terra::rast(matrix(c(
     2, 2, 0,
     0, 0, 0,
     20, 0, 20), byrow = TRUE, ncol = 3))
-  spp1_conductance <- raster::raster(matrix(c(
+  spp1_conductance <- terra::rast(matrix(c(
     1, 1, 1,
     0, 0, 0,
     0, 0, 0), byrow = TRUE, ncol = 3))
-  spp2_conductance <- raster::raster(matrix(c(
+  spp2_conductance <- terra::rast(matrix(c(
     1, 1, 0,
     0, 0, 0,
     1, 1, 1), byrow = TRUE, ncol = 3))
   cost <- raster::setValues(spp1_conductance, 1)
-  features <- raster::stack(spp1_habitat, spp2_habitat)
+  features <- terra::rast(spp1_habitat, spp2_habitat)
   cl <- list(
     as_Matrix(connectivity_matrix(cost, spp1_conductance) > 0.3, "dgCMatrix"),
     as_Matrix(connectivity_matrix(cost, spp2_conductance) > 0.3, "dgCMatrix"))
@@ -150,39 +150,39 @@ test_that("solve (single zone)", {
   s1 <- solve(p)
   s2 <- solve(p)
   # check that solution is correct
-  expect_equal(raster::values(s1), c(1, 1, 1, 0, 0, 0, 1, 1, 1))
-  expect_equal(raster::values(s1), raster::values(s2))
+  expect_equal(terra::values(s1), c(1, 1, 1, 0, 0, 0, 1, 1, 1))
+  expect_equal(terra::values(s1), terra::values(s2))
 })
 
 test_that("compile (multiple zones)", {
   # create data and problem
-  spp1_z1 <- raster::raster(matrix(c(
+  spp1_z1 <- terra::rast(matrix(c(
     5, 0, 5,
     0, 0, 0,
     0, 0, 0,
     0, 0, 0,
     0, 0, 0), byrow = TRUE, ncol = 3))
-  spp2_z1 <- raster::raster(matrix(c(
+  spp2_z1 <- terra::rast(matrix(c(
     2, 2, 0,
     0, 0, 0,
     0, 0, 0,
     0, 0, 0,
     20, 0, 20), byrow = TRUE, ncol = 3))
-  spp1_z2 <- raster::raster(matrix(c(
+  spp1_z2 <- terra::rast(matrix(c(
     0, 0, 0,
     0, 0, 0,
     1, 0, 1,
     0, 0, 0,
     0, 0, 0), byrow = TRUE, ncol = 3))
-  spp2_z2 <- raster::raster(matrix(c(
+  spp2_z2 <- terra::rast(matrix(c(
     0, 0, 0,
     0, 0, 0,
     0, 1, 0,
     0, 0, 0,
     0, 0, 0), byrow = TRUE, ncol = 3))
   cost <- raster::setValues(spp1_z1, 1)[[c(1, 1)]]
-  features <- zones(raster::stack(spp1_z1, spp2_z1),
-                    raster::stack(spp1_z2, spp2_z2))
+  features <- zones(terra::rast(spp1_z1, spp2_z1),
+                    terra::rast(spp1_z2, spp2_z2))
   targets <- matrix(c(6, 30, 2, 1), ncol = 2, nrow = 2)
   zm <- list(diag(2), matrix(1, ncol = 2, nrow = 2))
   # create problem
@@ -193,11 +193,11 @@ test_that("compile (multiple zones)", {
   # compile problem
   o <- compile(p)
   # perform preliminary calculations
-  n_pu <- raster::ncell(cost)
+  n_pu <- terra::ncell(cost)
   n_f <- terra::nlyr(features[[1]])
   n_z <- number_of_zones(features)
   rij <- lapply(seq_len(2), function(i) rij_matrix(cost, features[[i]]))
-  costs <- raster::values(cost)
+  costs <- terra::values(cost)
   cm <- adjacency_matrix(cost)
   cm <- Matrix::forceSymmetric(cm, uplo = "L")
   cm <- as_Matrix(Matrix::tril(cm), "dgTMatrix")
@@ -352,46 +352,46 @@ test_that("solve (multiple zones)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # create data
-  spp1_z1 <- raster::raster(matrix(c(
+  spp1_z1 <- terra::rast(matrix(c(
     5, 0, 5,
     0, 0, 0,
     0, 0, 0,
     0, 0, 0,
     0, 0, 0), byrow = TRUE, ncol = 3))
-  spp2_z1 <- raster::raster(matrix(c(
+  spp2_z1 <- terra::rast(matrix(c(
     2, 2, 0,
     0, 0, 0,
     0, 0, 0,
     0, 0, 0,
     20, 0, 20), byrow = TRUE, ncol = 3))
-  spp1_z2 <- raster::raster(matrix(c(
+  spp1_z2 <- terra::rast(matrix(c(
     0, 0, 0,
     0, 0, 0,
     0, 0, 2,
     0, 0, 0,
     0, 0, 0), byrow = TRUE, ncol = 3))
-  spp2_z2 <- raster::raster(matrix(c(
+  spp2_z2 <- terra::rast(matrix(c(
     0, 0, 0,
     0, 0, 0,
     1, 0, 0,
     0, 0, 0,
     0, 0, 0), byrow = TRUE, ncol = 3))
   cost <-
-    raster::stack(
-      raster::raster(matrix(c(
+    terra::rast(
+      terra::rast(matrix(c(
         1, 1, 1,
         1, 1, 1,
         1, 1, 1,
         1, 1, 1,
         1, 1, 1), byrow = TRUE, ncol = 3)),
-      raster::raster(matrix(c(
+      terra::rast(matrix(c(
         2, 2, 2,
         2, 2, 2,
         2, 2, 2,
         2, 2, 2,
         2, 2, 2), byrow = TRUE, ncol = 3)))
-  features <- zones(raster::stack(spp1_z1, spp2_z1),
-                    raster::stack(spp1_z2, spp2_z2))
+  features <- zones(terra::rast(spp1_z1, spp2_z1),
+                    terra::rast(spp1_z2, spp2_z2))
   targets <- matrix(c(6, 30, 2, 1), ncol = 2, nrow = 2)
   zm <- list(diag(2), matrix(1, ncol = 2, nrow = 2))
   # create and solve problem
@@ -403,9 +403,9 @@ test_that("solve (multiple zones)", {
   s <- solve(p)
   # run tests
   expect_is(s, "RasterStack")
-  expect_equal(raster::values(s[[1]]),
+  expect_equal(terra::values(s[[1]]),
                c(1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1))
-  expect_equal(raster::values(s[[2]]),
+  expect_equal(terra::values(s[[2]]),
                c(0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0))
 })
 

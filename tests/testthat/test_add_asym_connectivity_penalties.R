@@ -5,8 +5,10 @@ test_that("minimum set objective (compile, single zone)", {
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
   # create connectivity matrix data
-  cmatrix <- matrix(0, nrow = raster::ncell(sim_pu_raster),
-    ncol = raster::ncell(sim_pu_raster))
+  cmatrix <- matrix(
+    0, nrow = terra::ncell(sim_pu_raster),
+    ncol = terra::ncell(sim_pu_raster)
+  )
   cmatrix[] <- runif(length(cmatrix))
   cmatrix[cmatrix[] < 0.9] <- 0
   cmatrix[raster::Which(is.na(sim_pu_raster), cells = TRUE)] <- 0
@@ -77,8 +79,8 @@ test_that("maximum features objective (compile, single zone)", {
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
   # create connectivity matrix data
-  cmatrix <- matrix(0, nrow = raster::ncell(sim_pu_raster),
-    ncol = raster::ncell(sim_pu_raster))
+  cmatrix <- matrix(0, nrow = terra::ncell(sim_pu_raster),
+    ncol = terra::ncell(sim_pu_raster))
   cmatrix[] <- runif(length(cmatrix), -5, 5)
   cmatrix[abs(cmatrix[]) < 4] <- 0
   cmatrix[raster::Which(is.na(sim_pu_raster), cells = TRUE)] <- 0
@@ -214,15 +216,15 @@ test_that("minimum set objective (solve, single zone)", {
   # tests
   expect_is(s1_1, "RasterLayer")
   expect_is(s1_2, "RasterLayer")
-  expect_true(all(na.omit(unique(raster::values(s1_1))) == 0))
-  expect_equal(raster::values(s1_1), raster::values(s1_2))
+  expect_true(all(na.omit(unique(terra::values(s1_1))) == 0))
+  expect_equal(terra::values(s1_1), terra::values(s1_2))
   expect_is(s2_1, "RasterLayer")
   expect_is(s2_2, "RasterLayer")
   expect_equal(
-    raster::values(s2_1),
+    terra::values(s2_1),
     c(1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
   )
-  expect_equal(raster::values(s2_1), raster::values(s2_2))
+  expect_equal(terra::values(s2_1), terra::values(s2_2))
 })
 
 test_that("invalid inputs (single zone)", {
@@ -390,8 +392,8 @@ test_that("minimum set objective (solve, multiple zones)", {
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_zones_features <- get_sim_zones_features()
   ext <- raster::extent(sim_zones_pu_raster, 1, 4, 1, 4)
-  pu <- raster::crop(sim_zones_pu_raster, ext)
-  feats <- lapply(sim_zones_features, raster::crop, ext)
+  pu <- terra::crop(sim_zones_pu_raster, ext)
+  feats <- lapply(sim_zones_features, terra::crop, ext)
   feats <- do.call(zones, append(feats, list(
     zone_names = zone_names(sim_zones_features),
     feature_names = feature_names(sim_zones_features))))
@@ -413,7 +415,7 @@ test_that("minimum set objective (solve, multiple zones)", {
   cmatrix[, seq(9, nrow(cmatrix))] <- 0
   cmatrix <- Matrix::drop0(cmatrix)
   # create a locked in matrix
-  locked_in1 <- raster::stack(pu * 0)[[rep(1, 3)]]
+  locked_in1 <- terra::rast(pu * 0)[[rep(1, 3)]]
   names(locked_in1) <- zone_names(sim_zones_features)
   locked_in1[[1]][6] <- 1
   locked_in2 <- locked_in1
@@ -448,30 +450,30 @@ test_that("minimum set objective (solve, multiple zones)", {
   # tests
   expect_is(s1_1, "RasterStack")
   expect_is(s1_2, "RasterStack")
-  expect_true(all(raster::values(sum(s1_1)) < 0.5, na.rm = TRUE))
-  expect_equal(raster::values(s1_1), raster::values(s1_2))
+  expect_true(all(terra::values(sum(s1_1)) < 0.5, na.rm = TRUE))
+  expect_equal(terra::values(s1_1), terra::values(s1_2))
   expect_is(s2_1, "RasterStack")
   expect_is(s2_2, "RasterStack")
   expect_equal(
-    as.data.frame(raster::values(s2_1)),
+    as.data.frame(terra::values(s2_1)),
     data.frame(
       zone_1 = c(1, 1, 0, 0, 1, 1, 0, 0, 0, 0, NA, NA, 0, 0, 0, 0),
       zone_2 = c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NA, NA, 0, 0, 0, 0),
       zone_3 = c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NA, NA, 0, 0, 0, 0)
     )
   )
-  expect_equal(raster::values(s2_1), raster::values(s2_2))
+  expect_equal(terra::values(s2_1), terra::values(s2_2))
   expect_is(s3_1, "RasterStack")
   expect_is(s3_2, "RasterStack")
   expect_equal(
-    as.data.frame(raster::values(s3_1)),
+    as.data.frame(terra::values(s3_1)),
     data.frame(
       zone_1 = c(1, 1, 0, 0, 1, 1, 0, 0, 0, 0, NA, NA, 0, 0, 0, 0),
       zone_2 = c(0, 0, 1, 0, 0, 0, 0, 0, 0, 0, NA, NA, 0, 0, 0, 0),
       zone_3 = c(0, 0, 0, 1, 0, 0, 0, 0, 0, 0, NA, NA, 0, 0, 0, 0)
     )
   )
-  expect_equal(raster::values(s3_1), raster::values(s3_2))
+  expect_equal(terra::values(s3_1), terra::values(s3_2))
 })
 
 test_that("minimum set objective (compile, Spatial and sf are identical)", {

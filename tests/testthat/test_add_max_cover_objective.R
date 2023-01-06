@@ -35,10 +35,10 @@ test_that("solve (compressed formulation, single zone)", {
   skip_if_no_fast_solvers_installed()
   # create data
   budget <- 3
-  cost <- raster::raster(matrix(c(1, 2, 4, NA), nrow = 1))
+  cost <- terra::rast(matrix(c(1, 2, 4, NA), nrow = 1))
   locked_out <- 1
-  features <- raster::stack(raster::raster(matrix(c(1, 1, 1, 0), nrow = 1)),
-                            raster::raster(matrix(c(1, 0, 1, 10), nrow = 1)))
+  features <- terra::rast(terra::rast(matrix(c(1, 1, 1, 0), nrow = 1)),
+                            terra::rast(matrix(c(1, 0, 1, 10), nrow = 1)))
   # create problem
   p <- problem(cost, features) %>%
        add_max_cover_objective(budget = budget) %>%
@@ -48,8 +48,8 @@ test_that("solve (compressed formulation, single zone)", {
   s1 <- solve(p)
   s2 <- solve(p)
   # test that solution is correct
-  expect_equal(raster::values(s1), c(0, 1, 0, NA))
-  expect_equal(raster::values(s1), raster::values(s2))
+  expect_equal(terra::values(s1), c(0, 1, 0, NA))
+  expect_equal(terra::values(s1), terra::values(s2))
 })
 
 test_that("compile (expanded formulation, single zone)", {
@@ -103,10 +103,10 @@ test_that("solve (expanded formulation, single zone)", {
   skip_if_no_fast_solvers_installed()
   # create data
   budget <- 3
-  cost <- raster::raster(matrix(c(1, 2, 4, NA), nrow = 1))
+  cost <- terra::rast(matrix(c(1, 2, 4, NA), nrow = 1))
   locked_out <- 1
-  features <- raster::stack(raster::raster(matrix(c(1, 1, 1, 0), nrow = 1)),
-                            raster::raster(matrix(c(1, 0, 1, 10), nrow = 1)))
+  features <- terra::rast(terra::rast(matrix(c(1, 1, 1, 0), nrow = 1)),
+                            terra::rast(matrix(c(1, 0, 1, 10), nrow = 1)))
   # create problem
   p <- problem(cost, features) %>%
         add_max_cover_objective(budget = budget) %>%
@@ -115,7 +115,7 @@ test_that("solve (expanded formulation, single zone)", {
   # solve problem
   s <- solve(p, compressed_formulation = FALSE)
   # test that solution is correct
-  expect_equal(raster::values(s), c(0, 1, 0, NA))
+  expect_equal(terra::values(s), c(0, 1, 0, NA))
 })
 
 test_that("invalid inputs (single zone)", {
@@ -199,14 +199,14 @@ test_that("solve (compressed formulation, multiple zones, scalar budget)", {
   budget <- 3
   locked_out <- matrix(FALSE, ncol = 2, nrow = 5)
   locked_out[1, 2] <- TRUE
-  cost <- raster::stack(
-    raster::raster(matrix(c(10, 10, 10, 10, NA), nrow = 1)),
-    raster::raster(matrix(c(1,  2,  4,  NA, NA), nrow = 1)))
-  features <- raster::stack(
-    raster::raster(matrix(c(1,  1,  1,  1,   1), nrow = 1)),
-    raster::raster(matrix(c(1,  1,  1,  1,   1), nrow = 1)),
-    raster::raster(matrix(c(1,  1,  1,  0,   1), nrow = 1)),
-    raster::raster(matrix(c(1,  0,  1,  10,  1), nrow = 1)))
+  cost <- terra::rast(
+    terra::rast(matrix(c(10, 10, 10, 10, NA), nrow = 1)),
+    terra::rast(matrix(c(1,  2,  4,  NA, NA), nrow = 1)))
+  features <- terra::rast(
+    terra::rast(matrix(c(1,  1,  1,  1,   1), nrow = 1)),
+    terra::rast(matrix(c(1,  1,  1,  1,   1), nrow = 1)),
+    terra::rast(matrix(c(1,  1,  1,  0,   1), nrow = 1)),
+    terra::rast(matrix(c(1,  0,  1,  10,  1), nrow = 1)))
  # create problem
   p <- problem(cost, zones(features[[1:2]], features[[3:4]])) %>%
        add_max_cover_objective(budget = budget) %>%
@@ -215,8 +215,8 @@ test_that("solve (compressed formulation, multiple zones, scalar budget)", {
   # solve problem
   s <- solve(p)
   # test that solution is correct
-  expect_equal(raster::values(s[[1]]), c(0, 0, 0, 0,  NA))
-  expect_equal(raster::values(s[[2]]), c(0, 1, 0, NA, NA))
+  expect_equal(terra::values(s[[1]]), c(0, 0, 0, 0,  NA))
+  expect_equal(terra::values(s[[2]]), c(0, 1, 0, NA, NA))
 })
 
 test_that("compile (expanded formulation, multiple zones, scalar budget)", {
@@ -295,14 +295,14 @@ test_that("solve (expanded formulation, multiple zones, scalar budget)", {
   budget <- 3
   locked_out <- matrix(FALSE, ncol = 2, nrow = 5)
   locked_out[1, 2] <- TRUE
-  cost <- raster::stack(
-    raster::raster(matrix(c(10, 10, 10, 10, NA), nrow = 1)),
-    raster::raster(matrix(c(1,  2,  4,  NA, NA), nrow = 1)))
-  features <- raster::stack(
-    raster::raster(matrix(c(1,  1,  1,  1,   1), nrow = 1)),
-    raster::raster(matrix(c(1,  1,  1,  1,   1), nrow = 1)),
-    raster::raster(matrix(c(1,  1,  1,  0,   1), nrow = 1)),
-    raster::raster(matrix(c(1,  0,  1,  10,  1), nrow = 1)))
+  cost <- terra::rast(
+    terra::rast(matrix(c(10, 10, 10, 10, NA), nrow = 1)),
+    terra::rast(matrix(c(1,  2,  4,  NA, NA), nrow = 1)))
+  features <- terra::rast(
+    terra::rast(matrix(c(1,  1,  1,  1,   1), nrow = 1)),
+    terra::rast(matrix(c(1,  1,  1,  1,   1), nrow = 1)),
+    terra::rast(matrix(c(1,  1,  1,  0,   1), nrow = 1)),
+    terra::rast(matrix(c(1,  0,  1,  10,  1), nrow = 1)))
  # create problem
   p <- problem(cost, zones(features[[1:2]], features[[3:4]])) %>%
        add_max_cover_objective(budget = budget) %>%
@@ -311,8 +311,8 @@ test_that("solve (expanded formulation, multiple zones, scalar budget)", {
   # solve problem
   s <- solve(p, compressed_formulation = FALSE)
   # test that solution is correct
-  expect_equal(raster::values(s[[1]]), c(0, 0, 0, 0,  NA))
-  expect_equal(raster::values(s[[2]]), c(0, 1, 0, NA, NA))
+  expect_equal(terra::values(s[[1]]), c(0, 0, 0, 0,  NA))
+  expect_equal(terra::values(s[[2]]), c(0, 1, 0, NA, NA))
 })
 
 test_that("compile (compressed formulation, multiple zones, vector budget)", {
@@ -373,14 +373,14 @@ test_that("solve (compressed formulation, multiple zones, vector budget)", {
   budget <- c(10, 3)
   locked_out <- matrix(FALSE, ncol = 2, nrow = 5)
   locked_out[1, 2] <- TRUE
-  cost <- raster::stack(
-    raster::raster(matrix(c(10, 10, 10, 10, NA), nrow = 1)),
-    raster::raster(matrix(c(1,  2,  4,  NA, NA), nrow = 1)))
-  features <- raster::stack(
-    raster::raster(matrix(c(1,  1,  0,  0,   0), nrow = 1)),
-    raster::raster(matrix(c(1,  0,  0,  0,   0), nrow = 1)),
-    raster::raster(matrix(c(1,  1,  1,  0,   1), nrow = 1)),
-    raster::raster(matrix(c(1,  0,  1,  10,  1), nrow = 1)))
+  cost <- terra::rast(
+    terra::rast(matrix(c(10, 10, 10, 10, NA), nrow = 1)),
+    terra::rast(matrix(c(1,  2,  4,  NA, NA), nrow = 1)))
+  features <- terra::rast(
+    terra::rast(matrix(c(1,  1,  0,  0,   0), nrow = 1)),
+    terra::rast(matrix(c(1,  0,  0,  0,   0), nrow = 1)),
+    terra::rast(matrix(c(1,  1,  1,  0,   1), nrow = 1)),
+    terra::rast(matrix(c(1,  0,  1,  10,  1), nrow = 1)))
  # create problem
   p <- problem(cost, zones(features[[1:2]], features[[3:4]])) %>%
        add_max_cover_objective(budget = budget) %>%
@@ -389,8 +389,8 @@ test_that("solve (compressed formulation, multiple zones, vector budget)", {
   # solve problem
   s <- solve(p)
   # test that solution is correct
-  expect_equal(raster::values(s[[1]]), c(1, 0, 0, 0,  NA))
-  expect_equal(raster::values(s[[2]]), c(0, 1, 0, NA, NA))
+  expect_equal(terra::values(s[[1]]), c(1, 0, 0, 0,  NA))
+  expect_equal(terra::values(s[[2]]), c(0, 1, 0, NA, NA))
 })
 
 test_that("compile (expanded formulation, multiple zones, vector budget)", {
@@ -473,14 +473,14 @@ test_that("solve (expanded formulation, multiple zones, vector budget)", {
   budget <- c(10, 3)
   locked_out <- matrix(FALSE, ncol = 2, nrow = 5)
   locked_out[1, 2] <- TRUE
-  cost <- raster::stack(
-    raster::raster(matrix(c(10, 10, 10, 10, NA), nrow = 1)),
-    raster::raster(matrix(c(1,  2,  4,  NA, NA), nrow = 1)))
-  features <- raster::stack(
-    raster::raster(matrix(c(1,  1,  0,  0,   0), nrow = 1)),
-    raster::raster(matrix(c(1,  0,  0,  0,   0), nrow = 1)),
-    raster::raster(matrix(c(1,  1,  1,  0,   1), nrow = 1)),
-    raster::raster(matrix(c(1,  0,  1,  10,  1), nrow = 1)))
+  cost <- terra::rast(
+    terra::rast(matrix(c(10, 10, 10, 10, NA), nrow = 1)),
+    terra::rast(matrix(c(1,  2,  4,  NA, NA), nrow = 1)))
+  features <- terra::rast(
+    terra::rast(matrix(c(1,  1,  0,  0,   0), nrow = 1)),
+    terra::rast(matrix(c(1,  0,  0,  0,   0), nrow = 1)),
+    terra::rast(matrix(c(1,  1,  1,  0,   1), nrow = 1)),
+    terra::rast(matrix(c(1,  0,  1,  10,  1), nrow = 1)))
  # create problem
   p <- problem(cost, zones(features[[1:2]], features[[3:4]])) %>%
        add_max_cover_objective(budget = budget) %>%
@@ -489,8 +489,8 @@ test_that("solve (expanded formulation, multiple zones, vector budget)", {
   # solve problem
   s <- solve(p, compressed_formulation = FALSE)
   # test that solution is correct
-  expect_equal(raster::values(s[[1]]), c(1, 0, 0, 0,  NA))
-  expect_equal(raster::values(s[[2]]), c(0, 1, 0, NA, NA))
+  expect_equal(terra::values(s[[1]]), c(1, 0, 0, 0,  NA))
+  expect_equal(terra::values(s[[2]]), c(0, 1, 0, NA, NA))
 })
 
 test_that("invalid inputs (multiple zones)", {

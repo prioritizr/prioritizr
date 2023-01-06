@@ -21,10 +21,10 @@ test_that("binary decisions", {
   # check that solution has correct properties
   expect_is(s1, "Raster")
   expect_equal(terra::nlyr(s1), 1)
-  expect_equal(sort(unique(raster::getValues(s1))), c(0, 1))
+  expect_equal(sort(unique(terra::values(s1))), c(0, 1))
   expect_true(raster::compareRaster(sim_pu_raster, s1, res = TRUE, crs = TRUE,
                                     tolerance = 1e-5, stopiffalse = FALSE))
-  expect_equal(raster::getValues(s1), raster::getValues(s2))
+  expect_equal(terra::values(s1), terra::values(s2))
 })
 
 test_that("proportion decisions", {
@@ -42,9 +42,9 @@ test_that("proportion decisions", {
   # check that solution has correct properties
   expect_is(s, "Raster")
   expect_equal(terra::nlyr(s), 1)
-  expect_gte(min(raster::getValues(s), na.rm = TRUE), 0)
-  expect_lte(max(raster::getValues(s), na.rm = TRUE), 1)
-  expect_gt(max(raster::getValues(s) - round(raster::getValues(s)),
+  expect_gte(min(terra::values(s), na.rm = TRUE), 0)
+  expect_lte(max(terra::values(s), na.rm = TRUE), 1)
+  expect_gt(max(terra::values(s) - round(terra::values(s)),
               na.rm = TRUE), 0.01)
   expect_true(raster::compareRaster(sim_pu_raster, s, res = TRUE, crs = TRUE,
                                     tolerance = 1e-5, stopiffalse = FALSE))
@@ -107,7 +107,7 @@ test_that("mix of binary and continuous variables", {
   # check that solution has correct properties
   expect_true(inherits(s, "Raster"))
   expect_equal(terra::nlyr(s), 1)
-  expect_equal(sort(unique(raster::getValues(s))), c(0, 1))
+  expect_equal(sort(unique(terra::values(s))), c(0, 1))
   expect_true(raster::compareRaster(sim_pu_raster, s, res = TRUE, crs = TRUE,
                                     tolerance = 1e-5, stopiffalse = FALSE))
 })
@@ -127,7 +127,7 @@ test_that("first_feasible", {
   # check that solution has correct properties
   expect_is(s1, "Raster")
   expect_equal(terra::nlyr(s1), 1)
-  expect_equal(sort(unique(raster::getValues(s1))), c(0, 1))
+  expect_equal(sort(unique(terra::values(s1))), c(0, 1))
   expect_true(raster::compareRaster(sim_pu_raster, s1, res = TRUE, crs = TRUE,
                                     tolerance = 1e-5, stopiffalse = FALSE))
 })
@@ -136,11 +136,11 @@ test_that("correct solution (simple)", {
   skip_on_cran()
   skip_if_not_installed("rcbc")
   # create data
-  cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
+  cost <- terra::rast(matrix(c(1, 2, 2, NA), ncol = 4))
   locked_in <- 2
   locked_out <- 1
-  features <- raster::stack(raster::raster(matrix(c(2, 1, 1, 0), ncol = 4)),
-                            raster::raster(matrix(c(10, 10, 10, 10), ncol = 4)))
+  features <- terra::rast(terra::rast(matrix(c(2, 1, 1, 0), ncol = 4)),
+                            terra::rast(matrix(c(10, 10, 10, 10), ncol = 4)))
   # create problem
   p <- problem(cost, features) %>%
        add_min_set_objective() %>%
@@ -152,19 +152,19 @@ test_that("correct solution (simple)", {
   s1 <- solve(p)
   s2 <- solve(p)
   # test for correct solution
-  expect_equal(raster::values(s1), c(0, 1, 1, NA))
-  expect_equal(raster::values(s1), raster::values(s2))
+  expect_equal(terra::values(s1), c(0, 1, 1, NA))
+  expect_equal(terra::values(s1), terra::values(s2))
 })
 
 test_that("correct solution (complex)", {
   skip_on_cran()
   skip_if_not_installed("rcbc")
   # create data
-  cost <- raster::raster(matrix(c(1000, 100, 200, 300, NA), nrow = 1))
-  features <- raster::stack(
-    raster::raster(matrix(c(5,  5,   0,  0,  NA), nrow = 1)),
-    raster::raster(matrix(c(2,  0,   8,  10, NA), nrow = 1)),
-    raster::raster(matrix(c(10, 100, 10, 10, NA), nrow = 1)))
+  cost <- terra::rast(matrix(c(1000, 100, 200, 300, NA), nrow = 1))
+  features <- terra::rast(
+    terra::rast(matrix(c(5,  5,   0,  0,  NA), nrow = 1)),
+    terra::rast(matrix(c(2,  0,   8,  10, NA), nrow = 1)),
+    terra::rast(matrix(c(10, 100, 10, 10, NA), nrow = 1)))
   # create problem
   p <- problem(cost, features) %>%
        add_min_set_objective() %>%
@@ -179,8 +179,8 @@ test_that("correct solution (complex)", {
   s1 <- solve(p)
   s2 <- solve(p)
   # test for correct solution
-  expect_equal(raster::values(s1), c(1, 0, 1, 0, NA))
-  expect_equal(raster::values(s1), raster::values(s2))
+  expect_equal(terra::values(s1), c(1, 0, 1, 0, NA))
+  expect_equal(terra::values(s1), terra::values(s2))
 })
 
 test_that("start_solution", {
@@ -192,13 +192,13 @@ test_that("start_solution", {
     message = "newer version of rcbc R package required"
   )
   # create data
-  cost <- raster::raster(matrix(c(1000, 100, 200, 300, NA), nrow = 1))
-  features <- raster::stack(
-    raster::raster(matrix(c(5,  5,   0,  0,  NA), nrow = 1)),
-    raster::raster(matrix(c(2,  0,   8,  10, NA), nrow = 1)),
-    raster::raster(matrix(c(10, 100, 10, 10, NA), nrow = 1)))
-  start_valid <- raster::raster(matrix(c(1, 0, 1, 0, NA), nrow = 1))
-  start_invalid <- raster::raster(matrix(c(0, 0, 0, 0, NA), nrow = 1))
+  cost <- terra::rast(matrix(c(1000, 100, 200, 300, NA), nrow = 1))
+  features <- terra::rast(
+    terra::rast(matrix(c(5,  5,   0,  0,  NA), nrow = 1)),
+    terra::rast(matrix(c(2,  0,   8,  10, NA), nrow = 1)),
+    terra::rast(matrix(c(10, 100, 10, 10, NA), nrow = 1)))
+  start_valid <- terra::rast(matrix(c(1, 0, 1, 0, NA), nrow = 1))
+  start_invalid <- terra::rast(matrix(c(0, 0, 0, 0, NA), nrow = 1))
   # create problem
   p <- problem(cost, features) %>%
        add_min_set_objective() %>%
@@ -225,20 +225,20 @@ test_that("start_solution", {
       gap = 0, verbose = FALSE, start_solution = start_invalid) %>%
     solve()
   # test for correct solution
-  expect_equal(raster::values(s1), c(1, 0, 1, 0, NA))
-  expect_equal(raster::values(s1), raster::values(s2))
-  expect_equal(raster::values(s1), raster::values(s3))
+  expect_equal(terra::values(s1), c(1, 0, 1, 0, NA))
+  expect_equal(terra::values(s1), terra::values(s2))
+  expect_equal(terra::values(s1), terra::values(s3))
 })
 
 test_that("correct solution (last rij value = 0)", {
   skip_on_cran()
   skip_if_not_installed("rcbc")
   # create data
-  cost <- raster::raster(matrix(c(1000, 100, 200, 300, 1), nrow = 1))
-  features <- raster::stack(
-    raster::raster(matrix(c(5,  5,   0,  0,  0), nrow = 1)),
-    raster::raster(matrix(c(2,  0,   8,  10, 0), nrow = 1)),
-    raster::raster(matrix(c(10, 100, 10, 10, 0), nrow = 1)))
+  cost <- terra::rast(matrix(c(1000, 100, 200, 300, 1), nrow = 1))
+  features <- terra::rast(
+    terra::rast(matrix(c(5,  5,   0,  0,  0), nrow = 1)),
+    terra::rast(matrix(c(2,  0,   8,  10, 0), nrow = 1)),
+    terra::rast(matrix(c(10, 100, 10, 10, 0), nrow = 1)))
   # create problem
   p <- problem(cost, features) %>%
        add_min_set_objective() %>%
@@ -253,5 +253,5 @@ test_that("correct solution (last rij value = 0)", {
   s1 <- solve(p)
   s2 <- solve(p)
   # test for correct solution
-  expect_equal(raster::values(s1), c(1, 0, 1, 0, 0))
-  expect_equal(raster::values(s1), raster::values(s2))})
+  expect_equal(terra::values(s1), c(1, 0, 1, 0, 0))
+  expect_equal(terra::values(s1), terra::values(s2))})

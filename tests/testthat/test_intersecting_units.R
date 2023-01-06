@@ -2,10 +2,10 @@ context("intersecting_units")
 
 test_that("x=Raster,y=Raster", {
   # generate data
-  x <- raster::raster(matrix(c(NA, 2:16), byrow = TRUE, ncol = 4))
-  x2 <- raster::stack(x)
+  x <- terra::rast(matrix(c(NA, 2:16), byrow = TRUE, ncol = 4))
+  x2 <- terra::rast(x)
   y <- x > 6
-  y2 <- raster::stack(y)
+  y2 <- terra::rast(y)
   # run tests
   expect_equal(intersecting_units(x, y), c(7:16))
   expect_equal(intersecting_units(x, y), intersecting_units(x2, y2))
@@ -102,7 +102,7 @@ test_that("x=sf,y=Raster", {
   m <- mean(sim_pu_polygons$cost, na.rm = TRUE)
   x <- sim_pu_polygons
   y <- sim_pu_raster < m
-  y2 <- raster::stack(y)
+  y2 <- terra::rast(y)
   # run tests
   expect_equal(intersecting_units(x, y), which(sim_pu_polygons$cost < m))
   expect_equal(intersecting_units(x, y), intersecting_units(x, y2))

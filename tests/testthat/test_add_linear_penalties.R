@@ -12,7 +12,7 @@ test_that("minimum set objective (numeric, compile, single zone)", {
     add_binary_decisions()
   p2 <-
     p1 %>%
-    add_linear_penalties(3, c(raster::values(sim_features[[1]])) * 8)
+    add_linear_penalties(3, c(terra::values(sim_features[[1]])) * 8)
   o1 <- compile(p1)
   o2 <- compile(p2)
   # calculations
@@ -41,13 +41,13 @@ test_that("minimum set objective (matrix, compile, single zone)", {
   p2 <-
     p1 %>%
     add_linear_penalties(
-      3, matrix(raster::values(sim_features[[1]]) * 8, ncol = 1))
+      3, matrix(terra::values(sim_features[[1]]) * 8, ncol = 1))
   p3 <-
     p1 %>%
     add_linear_penalties(
       3,
       as_Matrix(
-        matrix(raster::values(sim_features[[1]]) * 8, ncol = 1),
+        matrix(terra::values(sim_features[[1]]) * 8, ncol = 1),
         "dgCMatrix"))
   o1 <- compile(p1)
   o2 <- compile(p2)
@@ -185,11 +185,11 @@ test_that("minimum set objective (solve, single zone)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # create data
-  cost <- raster::raster(matrix(c(3, 2, 2, NA), ncol = 4))
+  cost <- terra::rast(matrix(c(3, 2, 2, NA), ncol = 4))
   locked_in <- 2
   locked_out <- 1
-  features <- raster::stack(raster::raster(matrix(c(2, 1, 1, 0), ncol = 4)),
-                            raster::raster(matrix(c(10, 10, 10, 10), ncol = 4)))
+  features <- terra::rast(terra::rast(matrix(c(2, 1, 1, 0), ncol = 4)),
+                            terra::rast(matrix(c(10, 10, 10, 10), ncol = 4)))
   # create problem
   p <- problem(cost, features) %>%
        add_min_set_objective() %>%
@@ -200,14 +200,14 @@ test_that("minimum set objective (solve, single zone)", {
   # solve problem
   s <- solve(p)
   # test for correct solution
-  expect_equal(raster::values(s), c(1, 1, 0, NA))
+  expect_equal(terra::values(s), c(1, 1, 0, NA))
 })
 
 test_that("minimum set objective (matrix, compile, multiple zones)", {
   # make data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_zones_features <- get_sim_zones_features()
-  m <- raster::values(sim_features[[seq_len(3)]])
+  m <- terra::values(sim_features[[seq_len(3)]])
   targ <- matrix(runif(number_of_features(sim_zones_features) *
                        number_of_zones(sim_zones_features)) * 10,
                  nrow = number_of_features(sim_zones_features),
@@ -241,7 +241,7 @@ test_that("minimum set objective (raster, compile, multiple zones)", {
   # make data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_zones_features <- get_sim_zones_features()
-  m <- raster::values(sim_features[[seq_len(3)]])
+  m <- terra::values(sim_features[[seq_len(3)]])
   targ <- matrix(runif(number_of_features(sim_zones_features) *
                        number_of_zones(sim_zones_features)) * 10,
                  nrow = number_of_features(sim_zones_features),
@@ -391,14 +391,14 @@ test_that("minimum set objective (solve, multiple zones)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # create data
-  costs <- raster::stack(
-    raster::raster(matrix(c(1,  2,  NA, 3, 100, 100, NA), ncol = 7)),
-    raster::raster(matrix(c(10, 10, 10, 10,  4,   1, NA), ncol = 7)))
-  spp <- raster::stack(
-    raster::raster(matrix(c(1,  2, 0, 0, 0, 0,  0), ncol = 7)),
-    raster::raster(matrix(c(NA, 0, 1, 1, 0, 0,  0), ncol = 7)),
-    raster::raster(matrix(c(1,  0, 0, 0, 1, 0,  0), ncol = 7)),
-    raster::raster(matrix(c(0,  0, 0, 0, 0, 10, 0), ncol = 7)))
+  costs <- terra::rast(
+    terra::rast(matrix(c(1,  2,  NA, 3, 100, 100, NA), ncol = 7)),
+    terra::rast(matrix(c(10, 10, 10, 10,  4,   1, NA), ncol = 7)))
+  spp <- terra::rast(
+    terra::rast(matrix(c(1,  2, 0, 0, 0, 0,  0), ncol = 7)),
+    terra::rast(matrix(c(NA, 0, 1, 1, 0, 0,  0), ncol = 7)),
+    terra::rast(matrix(c(1,  0, 0, 0, 1, 0,  0), ncol = 7)),
+    terra::rast(matrix(c(0,  0, 0, 0, 0, 10, 0), ncol = 7)))
   # create problem
   p <- problem(costs, zones(spp[[1:2]], spp[[3:4]])) %>%
        add_min_set_objective() %>%
@@ -412,8 +412,8 @@ test_that("minimum set objective (solve, multiple zones)", {
   s <- p %>% solve()
   # tests
   expect_is(s, "RasterStack")
-  expect_equal(raster::values(s[[1]]), c(0, 1, NA, 1, 0, 0, NA))
-  expect_equal(raster::values(s[[2]]), c(1, 0, 0,  0, 0, 0, NA))
+  expect_equal(terra::values(s[[1]]), c(0, 1, NA, 1, 0, 0, NA))
+  expect_equal(terra::values(s[[2]]), c(1, 0, 0,  0, 0, 0, NA))
 })
 
 test_that("invalid inputs", {
@@ -448,6 +448,6 @@ test_that("invalid inputs", {
   expect_error({
     problem(sim_pu_raster, sim_features) %>%
     add_linear_penalties(3,
-      raster::crop(sim_features[[1]], raster::extent(c(0, 0.5, 0, 0.5))))
+      terra::crop(sim_features[[1]], raster::extent(c(0, 0.5, 0, 0.5))))
   })
 })

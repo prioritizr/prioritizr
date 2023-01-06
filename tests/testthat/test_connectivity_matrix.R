@@ -134,7 +134,7 @@ test_that("x=Raster, y=Raster", {
   bd <- bd[which(bd$x > 0), ]
   correct_cm <- Matrix::sparseMatrix(i = bd$i, j = bd$j, x = bd$x,
                                      symmetric = TRUE,
-                                     dims = rep(raster::ncell(sim_pu_raster),
+                                     dims = rep(terra::ncell(sim_pu_raster),
                                                 2))
   # tests
   expect_equal(ncol(cm), ncol(correct_cm))

@@ -2,9 +2,9 @@ context("add_shuffle_portfolio")
 
 test_that("compile", {
   # create data
-  cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
-  features <- raster::stack(raster::raster(matrix(c(2, 1, 1, 0), ncol = 4)),
-                            raster::raster(matrix(c(10, 10, 10, 10), ncol = 4)))
+  cost <- terra::rast(matrix(c(1, 2, 2, NA), ncol = 4))
+  features <- terra::rast(terra::rast(matrix(c(2, 1, 1, 0), ncol = 4)),
+                            terra::rast(matrix(c(10, 10, 10, 10), ncol = 4)))
   # create problem
   p <- problem(cost, features) %>%
        add_min_set_objective() %>%
@@ -21,9 +21,9 @@ test_that("solve (single zone)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # create data
-  cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
-  features <- raster::stack(raster::raster(matrix(c(2, 1, 1, 0), ncol = 4)),
-                            raster::raster(matrix(c(10, 10, 10, 10), ncol = 4)))
+  cost <- terra::rast(matrix(c(1, 2, 2, NA), ncol = 4))
+  features <- terra::rast(terra::rast(matrix(c(2, 1, 1, 0), ncol = 4)),
+                            terra::rast(matrix(c(10, 10, 10, 10), ncol = 4)))
   locked_in <- 2
   # create problem
   p <- problem(cost, features) %>%
@@ -76,9 +76,9 @@ test_that("solve (no duplicates)", {
   skip_if_no_fast_solvers_installed()
   # create data
   set.seed(500)
-  cost <- raster::raster(matrix(c(1, 1, 0.5, NA), ncol = 4))
-  features <- raster::stack(raster::raster(matrix(c(2, 2, 1, 0), ncol = 4)),
-                            raster::raster(matrix(c(10, 10, 10, 10), ncol = 4)))
+  cost <- terra::rast(matrix(c(1, 1, 0.5, NA), ncol = 4))
+  features <- terra::rast(terra::rast(matrix(c(2, 2, 1, 0), ncol = 4)),
+                            terra::rast(matrix(c(10, 10, 10, 10), ncol = 4)))
   # create problem
   p <- problem(cost, features) %>%
        add_min_set_objective() %>%
@@ -92,7 +92,7 @@ test_that("solve (no duplicates)", {
   expect_equal(length(s), 2)
   expect_equal(names(s), paste0("solution_", seq_len(2)))
   expect_true(all(sapply(s, inherits, "RasterLayer")))
-  expect_equal(anyDuplicated(apply(raster::as.data.frame(raster::stack(s)), 2,
+  expect_equal(anyDuplicated(apply(raster::as.data.frame(terra::rast(s)), 2,
                                    paste, collapse = " ")), 0)
   expect_equal(names(s), paste0("solution_", seq_len(2)))
   for (i in seq_len(2))
@@ -104,9 +104,9 @@ test_that("solve (parallel processing)", {
   skip_if_no_fast_solvers_installed()
   # create data
   set.seed(500)
-  cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
-  features <- raster::stack(raster::raster(matrix(c(2, 1, 1, 0), ncol = 4)),
-                            raster::raster(matrix(c(10, 10, 10, 10), ncol = 4)))
+  cost <- terra::rast(matrix(c(1, 2, 2, NA), ncol = 4))
+  features <- terra::rast(terra::rast(matrix(c(2, 1, 1, 0), ncol = 4)),
+                            terra::rast(matrix(c(10, 10, 10, 10), ncol = 4)))
   # create problem
   p <- problem(cost, features) %>%
        add_min_set_objective() %>%

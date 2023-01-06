@@ -2,7 +2,7 @@ context("boundary_matrix")
 
 test_that("SpatialPolygons (squares)", {
   # data
-  d <- raster::rasterToPolygons(raster::raster(matrix(0:8, byrow = TRUE,
+  d <- terra::rastToPolygons(terra::rast(matrix(0:8, byrow = TRUE,
                                                       ncol = 3),
                                                xmn = 0, xmx = 3, ymn = 0,
                                                ymx = 3), n = 4)
@@ -108,7 +108,7 @@ test_that("SpatialPolygons (vertices not aligned)", {
 
 test_that("sf (squares)", {
   # data
-  d <- raster::rasterToPolygons(raster::raster(
+  d <- terra::rastToPolygons(terra::rast(
     matrix(0:8, byrow = TRUE, ncol = 3),
     xmn = 0, xmx = 3, ymn = 0, ymx = 3), n = 4)
   # create matrices
@@ -182,10 +182,10 @@ test_that("sf (vertices not aligned)", {
 
 test_that("RasterLayer", {
   # data
-  d <- raster::raster(matrix(c(NA, 2:9), ncol = 3),
+  d <- terra::rast(matrix(c(NA, 2:9), ncol = 3),
                xmn = 0, ymn = 0, xmx = 6, ymx = 3)
   x <- boundary_matrix(d)
-  y <- boundary_matrix(raster::rasterToPolygons(d, n = 4))
+  y <- boundary_matrix(terra::rastToPolygons(d, n = 4))
   y <- cbind(0, y)
   y <- rbind(0, y)
   # tests
@@ -196,12 +196,12 @@ test_that("RasterLayer", {
 
 test_that("RasterStack", {
   # data
-  d <- raster::raster(matrix(c(NA, 2:9), ncol = 3),
+  d <- terra::rast(matrix(c(NA, 2:9), ncol = 3),
                       xmn = 0, ymn = 0, xmx = 6, ymx = 3)
   d <- stack(d, d, d)
   d[[1]][2] <- NA
   x <- boundary_matrix(d)
-  y <- boundary_matrix(raster::rasterToPolygons(d[[2]], n = 4))
+  y <- boundary_matrix(terra::rastToPolygons(d[[2]], n = 4))
   y <- cbind(0, y)
   y <- rbind(0, y)
   # tests
