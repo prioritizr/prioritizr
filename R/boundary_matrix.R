@@ -52,7 +52,7 @@ NULL
 #' sim_pu_polygons <- get_sim_pu_polygons()
 #'
 #' # subset data to reduce processing time
-#' r <- crop(sim_pu_raster, c(0, 0.3, 0, 0.3))
+#' r <- terra::crop(sim_pu_raster, c(0, 0.3, 0, 0.3))
 #' ply <- sim_pu_polygons[c(1:2, 10:12, 20:22), ]
 #'
 #' # create boundary matrix using raster data
@@ -172,7 +172,7 @@ boundary_matrix.SpatialPoints <- function(x, ...) {
 boundary_matrix.sf <- function(x, ...) {
   # assert valid arguments
   assertthat::assert_that(inherits(x, "sf"))
-  geomc <- geometry_classes(x)
+  geomc <- st_geometry_classes(x)
   assertthat::assert_that(
     !any(grepl("POINT", geomc, fixed = TRUE)),
     msg = paste(

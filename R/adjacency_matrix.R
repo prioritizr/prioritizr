@@ -160,7 +160,7 @@ adjacency_matrix.sf <- function(x, ...) {
     no_extra_arguments(...)
   )
   # verify that geometry types are supported
-  geomc <- geometry_classes(x)
+  geomc <- st_geometry_classes(x)
   assertthat::assert_that(
     !any(grepl("POINT", geomc, fixed = TRUE)),
     msg = paste(

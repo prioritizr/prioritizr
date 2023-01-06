@@ -38,8 +38,8 @@ zone allocation is mandatory).
 set.seed(500)
 
 # load data
-sim_pu_zones_raster <- get_sim_pu_zones_raster()
-sim_features_zones <- get_sim_features_zones()
+sim_pu_zones_raster <- get_sim_zones_pu_raster()
+sim_features_zones <- get_sim_zones_features()
 
 # create multi-zone problem with minimum set objective
 targets_matrix <- matrix(rpois(15, 1), nrow = 5, ncol = 3)

@@ -121,7 +121,7 @@ methods::setMethod(
       is_spatial_extents_overlap(x, y)
     )
     assertthat::assert_that(
-      all(!geometry_classes(y) %in% c("GEOMETRYCOLLECTION", "MULTIPOINT")),
+      all(!st_geometry_classes(y) %in% c("GEOMETRYCOLLECTION", "MULTIPOINT")),
       msg = paste0(
         "argument to y contains \"GEOMETRYCOLLECTION\" or \"MULTIPOINT\"",
         "geometries"
@@ -136,7 +136,7 @@ methods::setMethod(
     sf::st_crs(y) <- sf::st_crs(NA_character_)
     terra::crs(x) <- NA_character_
     # identify geometry classes
-    geomc <- geometry_classes(y)
+    geomc <- st_geometry_classes(y)
     # prepare output vector
     out <- matrix(NA_real_, nrow = nrow(y), ncol = terra::nlyr(x))
     # process point geometries

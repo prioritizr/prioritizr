@@ -30,8 +30,8 @@ Extract the names of zones in an object.
 }
 \examples{
 # load data
-sim_pu_zones_raster <- get_sim_pu_zones_raster()
-sim_features_zones <- get_sim_features_zones()
+sim_pu_zones_raster <- get_sim_zones_pu_raster()
+sim_features_zones <- get_sim_zones_features()
 
 # print names of zones in a Zones object
 print(zone_names(sim_features_zones))

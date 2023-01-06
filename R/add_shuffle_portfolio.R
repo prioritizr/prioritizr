@@ -40,9 +40,9 @@ NULL
 #'
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
-#' sim_pu_zones_raster <- get_sim_pu_zones_raster()
 #' sim_features <- get_sim_features()
-#' sim_features_zones <- get_sim_features_zones()
+#' sim_pu_zones_raster <- get_sim_zones_pu_raster()
+#' sim_features_zones <- get_sim_zones_features()
 #'
 #' # create minimal problem with shuffle portfolio
 #' p1 <-

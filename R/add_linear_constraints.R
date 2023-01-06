@@ -162,7 +162,7 @@ NULL
 #' # four different administrative areas across the study region
 #' sim_admin <- sim_pu_raster
 #' sim_admin <- terra::aggregate(sim_admin, fact = 5)
-#' values(sim_admin) <- seq_along(values(sim_admin))
+#' sim_admin <- terra::setValues(sim_admin, seq_len(terra::ncell(sim_admin)))
 #' sim_admin <- terra::resample(sim_admin, sim_pu_raster, method = "near")
 #' sim_admin <- terra::mask(sim_admin, sim_pu_raster)
 #'

@@ -273,9 +273,9 @@ NULL
 #' sim_pu_points <- get_sim_pu_points()
 #' sim_pu_lines <- get_sim_pu_lines()
 #' sim_features <- get_sim_features()
-#' sim_pu_zones_raster <- get_sim_pu_zones_raster()
-#' sim_pu_zones_polygons <- get_sim_pu_zones_polygons()
-#' sim_features_zones <- get_sim_features_zones()
+#' sim_pu_zones_raster <- get_sim_zones_pu_raster()
+#' sim_pu_zones_polygons <- get_sim_zones_pu_polygons()
+#' sim_features_zones <- get_sim_zones_features()
 #'
 #' # create problem using raster planning unit data
 #' p1 <-
@@ -927,7 +927,7 @@ methods::setMethod(
       assertthat::noNA(run_checks)
     )
     assertthat::assert_that(
-      all(!geometry_classes(x) %in% c("GEOMETRYCOLLECTION", "MULTIPOINT")),
+      all(!st_geometry_classes(x) %in% c("GEOMETRYCOLLECTION", "MULTIPOINT")),
       msg = "argument to x contains GEOMETRYCOLLECTION or MULTIPOINT geometries"
     )
     # further validation checks
@@ -1018,7 +1018,7 @@ methods::setMethod(
       number_of_zones(features) == length(cost_column)
     )
     assertthat::assert_that(
-      all(!geometry_classes(x) %in% c("GEOMETRYCOLLECTION", "MULTIPOINT")),
+      all(!st_geometry_classes(x) %in% c("GEOMETRYCOLLECTION", "MULTIPOINT")),
       msg = "argument to x contains GEOMETRYCOLLECTION or MULTIPOINT geometries"
     )
     assertthat::assert_that(

@@ -5,6 +5,7 @@
 \alias{reexports}
 \alias{\%>\%}
 \alias{\%T>\%}
+\alias{plot}
 \alias{plot.phylo}
 \title{Objects exported from other packages}
 \keyword{internal}
@@ -16,5 +17,7 @@ below to see their documentation.
   \item{ape}{\code{\link[ape]{plot.phylo}}}
 
   \item{magrittr}{\code{\link[magrittr:pipe]{\%>\%}}, \code{\link[magrittr:tee]{\%T>\%}}}
+
+  \item{terra}{\code{\link[terra]{plot}}}
 }}
 

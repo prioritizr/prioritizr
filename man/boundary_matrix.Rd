@@ -78,7 +78,7 @@ sim_pu_raster <- get_sim_pu_raster()
 sim_pu_polygons <- get_sim_pu_polygons()
 
 # subset data to reduce processing time
-r <- crop(sim_pu_raster, c(0, 0.3, 0, 0.3))
+r <- terra::crop(sim_pu_raster, c(0, 0.3, 0, 0.3))
 ply <- sim_pu_polygons[c(1:2, 10:12, 20:22), ]
 
 # create boundary matrix using raster data

@@ -329,9 +329,9 @@ sim_pu_polygons <- get_sim_pu_polygons()
 sim_pu_points <- get_sim_pu_points()
 sim_pu_lines <- get_sim_pu_lines()
 sim_features <- get_sim_features()
-sim_pu_zones_raster <- get_sim_pu_zones_raster()
-sim_pu_zones_polygons <- get_sim_pu_zones_polygons()
-sim_features_zones <- get_sim_features_zones()
+sim_pu_zones_raster <- get_sim_zones_pu_raster()
+sim_pu_zones_polygons <- get_sim_zones_pu_polygons()
+sim_features_zones <- get_sim_zones_features()
 
 # create problem using raster planning unit data
 p1 <-

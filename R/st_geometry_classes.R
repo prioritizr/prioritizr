@@ -1,8 +1,4 @@
-#' @include internal.R
-NULL
-
-#' @export
-if (!methods::isClass("sf")) methods::setOldClass("sf")
+#' @include internal.R reexports.R
 NULL
 
 #' Geometry classes
@@ -14,7 +10,7 @@ NULL
 #' @return A `character` vector.
 #'
 #' @noRd
-geometry_classes <- function(x) {
+st_geometry_classes <- function(x) {
   assertthat::assert_that(inherits(x, "sf"))
   vapply(sf::st_geometry(x), class, character(3))[2, ]
 }

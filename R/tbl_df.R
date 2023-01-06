@@ -1,8 +1,4 @@
-#' @include internal.R
-NULL
-
-#' @export
-#' @importClassesFrom tibble tbl_df
+#' @include internal.R reexports.R
 NULL
 
 # Dear reader,

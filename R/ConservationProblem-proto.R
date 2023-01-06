@@ -145,10 +145,8 @@ NULL
 #'
 #' \item{targ}{[`Target-class`] object.}
 #'
-#' \item{cost}{[`RasterLayer-class`],
-#'   [`SpatialPolygonsDataFrame-class`], or
-#'   [`SpatialLinesDataFrame-class`] object showing spatial
-#'   representation of the planning units and their cost.}
+#' \item{cost}{`matrix`, `data.frame`, [terra::rast()], or [sf::st_sf()] object
+#'   containing the planning unit cost data.}
 #'
 #' \item{features}{[`Zones-class`] or `data.frame` object
 #'   containing feature data.}

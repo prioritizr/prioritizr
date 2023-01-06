@@ -32,8 +32,8 @@ Extract the number of zones in an object.
 }
 \examples{
 # load data
-sim_pu_zones_raster <- get_sim_pu_zones_raster()
-sim_features_zones <- get_sim_features_zones()
+sim_pu_zones_raster <- get_sim_zones_pu_raster()
+sim_features_zones <- get_sim_zones_features()
 
 # print number of zones in a Zones object
 print(number_of_zones(sim_features_zones))

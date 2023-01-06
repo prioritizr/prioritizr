@@ -9,6 +9,10 @@ magrittr::`%>%`
 #' @export
 magrittr::`%T>%`
 
+#' @importFrom terra plot
+#' @export
+terra::plot
+
 #' @importFrom ape plot.phylo
 #' @export
 ape::plot.phylo

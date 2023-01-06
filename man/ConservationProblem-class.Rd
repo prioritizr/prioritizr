@@ -148,10 +148,8 @@ the method for generating a portfolio of solutions.}
 
 \item{targ}{\code{\linkS4class{Target}} object.}
 
-\item{cost}{\code{\linkS4class{RasterLayer}},
-\code{\linkS4class{SpatialPolygonsDataFrame}}, or
-\code{\linkS4class{SpatialLinesDataFrame}} object showing spatial
-representation of the planning units and their cost.}
+\item{cost}{\code{matrix}, \code{data.frame}, \code{\link[terra:rast]{terra::rast()}}, or \code{\link[sf:sf]{sf::st_sf()}} object
+containing the planning unit cost data.}
 
 \item{features}{\code{\linkS4class{Zones}} or \code{data.frame} object
 containing feature data.}

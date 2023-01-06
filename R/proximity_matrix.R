@@ -38,7 +38,7 @@ NULL
 #'
 #' # create proximity matrix using raster data
 #' ## crop raster to 9 cells to provide a small example
-#' r <- crop(sim_pu_raster, c(0, 0.3, 0, 0.3))
+#' r <- terra::crop(sim_pu_raster, c(0, 0.3, 0, 0.3))
 #'
 #' ## make proximity matrix using a distance threshold of 2
 #' cm_raster <- proximity_matrix(r, distance = 2)
@@ -164,7 +164,7 @@ proximity_matrix.sf <- function(x, distance) {
   assertthat::assert_that(inherits(x, "sf"),
     assertthat::is.number(distance), assertthat::noNA(distance))
   # verify that geometry types are supported
-  geomc <- geometry_classes(x)
+  geomc <- st_geometry_classes(x)
   if (any(grepl("GEOMETRYCOLLECTION", geomc, fixed = TRUE)))
     stop("geometry collection data are not supported")
   # return sparse intersection matrix

@@ -177,9 +177,9 @@ set.seed(600)
 
 # load data
 sim_pu_polygons <- get_sim_pu_polygons()
-sim_pu_zones_raster <- get_sim_pu_zones_raster()
 sim_features <- get_sim_features()
-sim_features_zones <- get_sim_features_zones()
+sim_pu_zones_raster <- get_sim_zones_pu_raster()
+sim_features_zones <- get_sim_zones_features()
 
 # define function to rescale values between zero and one so that we
 # can compare solutions from different connectivity matrices

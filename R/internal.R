@@ -1,3 +1,6 @@
+#' @include external-classes.R
+NULL
+
 #' Check
 #'
 #' Check that the output from [assertthat::see_if()]

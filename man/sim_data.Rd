@@ -14,15 +14,15 @@
 \alias{sim_features_zones}
 \alias{sim_phylogeny}
 \alias{get_sim_pu_polygons}
-\alias{get_sim_pu_zones_polygons}
+\alias{get_sim_zones_pu_polygons}
 \alias{get_sim_pu_points}
 \alias{get_sim_pu_lines}
 \alias{get_sim_pu_raster}
 \alias{get_sim_locked_in_raster}
 \alias{get_sim_locked_out_raster}
-\alias{get_sim_pu_zones_raster}
+\alias{get_sim_zones_pu_raster}
 \alias{get_sim_features}
-\alias{get_sim_features_zones}
+\alias{get_sim_zones_features}
 \alias{get_sim_phylogeny}
 \title{Get simulated conservation planning data}
 \format{
@@ -30,7 +30,7 @@
 
 \item{\code{get_sim_pu_polygons()}}{\code{\link[sf:sf]{sf::st_sf()}} object.}
 
-\item{\code{get_sim_pu_zones_polygons()}}{\code{\link[sf:sf]{sf::st_sf()}} object.}
+\item{\code{get_sim_zones_pu_polygons()}}{\code{\link[sf:sf]{sf::st_sf()}} object.}
 
 \item{\code{get_sim_pu_lines()}}{\code{\link[sf:sf]{sf::st_sf()}} object.}
 
@@ -38,7 +38,7 @@
 
 \item{\code{get_sim_pu_raster()}}{\code{\link[terra:rast]{terra::rast()}} object.}
 
-\item{\code{get_sim_pu_zones_raster()}}{\code{\link[terra:rast]{terra::rast()}} object.}
+\item{\code{get_sim_zones_pu_raster()}}{\code{\link[terra:rast]{terra::rast()}} object.}
 
 \item{\code{get_sim_locked_in_raster()}}{\code{\link[terra:rast]{terra::rast()}} object.}
 
@@ -46,7 +46,7 @@
 
 \item{\code{get_sim_features()}}{\code{\link[terra:rast]{terra::rast()}} object.}
 
-\item{\code{get_sim_features_zones()}}{\code{\link[=ZonesRaster]{ZonesRaster()}} object.}
+\item{\code{get_sim_zones_features()}}{\code{\link[=ZonesRaster]{ZonesRaster()}} object.}
 
 \item{\code{get_sim_phylogeny()}}{\code{\link[terra:rast]{terra::rast()}} object.}
 
@@ -55,7 +55,7 @@
 \usage{
 get_sim_pu_polygons()
 
-get_sim_pu_zones_polygons()
+get_sim_zones_pu_polygons()
 
 get_sim_pu_lines()
 
@@ -67,19 +67,24 @@ get_sim_locked_in_raster()
 
 get_sim_locked_out_raster()
 
-get_sim_pu_zones_raster()
+get_sim_zones_pu_raster()
 
 get_sim_features()
 
-get_sim_features_zones()
+get_sim_zones_features()
 
 get_sim_phylogeny()
 }
 \description{
-A set of functions for importing simulated datasets for making spatial
-prioritizations.
+A set of functions are available for importing simulated datasets. These
+datasets are designed for creating small example spatial prioritizations.
 }
-\details{
+\section{Single zone datasets}{
+
+
+The following functions are provided for generating spatial prioritizations
+that only contain a single management zone.
+
 \describe{
 
 \item{\code{get_sim_pu_raster()}}{Import planning unit data that are stored
@@ -96,14 +101,6 @@ locked in to a solution.}
 that are stored in raster format.
 Here, pixel values are binary and indicate if planning units
 should be locked out from a solution.}
-
-\item{\code{get_sim_pu_zones_raster()}}{Import planning unit data
-for multiple management zones that are stored in raster format.
-Here, each layer indicates the cost for a different management
-zone. Pixels with \code{NA} values in a given zone indicate that a
-planning unit cannot be allocated to that zone in a solution.
-Additionally, pixels with \code{NA} values in all layers are not a
-planning unit.}
 
 \item{\code{get_sim_pu_polygons()}}{Import planning unit data stored in vector
 format. Here, planning units are represented using spatial polygons
@@ -126,7 +123,33 @@ format. Here, planning units are represented using spatial points
 The attribute table follows the same conventions as for
 \code{sim_pu_polygons}.}
 
-\item{\code{get_sim_pu_zones_polygons()}}{Import planning unit data for
+\item{\code{get_sim_features()}}{Import feature data stored in raster format.
+Here, data describe the spatial distribution of ten species.
+Each layer corresponds to a different species, and
+pixel values indicate habitat suitability.}
+
+\item{\code{get_sim_phylogeny()}}{Import phylogenetic tree for the ten species.}
+
+}
+}
+
+\section{Multiple zone datasets}{
+
+
+The following functions are provided for generating spatial prioritizations
+that contain multiple management zones.
+
+\describe{
+
+\item{\code{get_sim_zones_pu_raster()}}{Import planning unit data
+for multiple management zones that are stored in raster format.
+Here, each layer indicates the cost for a different management
+zone. Pixels with \code{NA} values in a given zone indicate that a
+planning unit cannot be allocated to that zone in a solution.
+Additionally, pixels with \code{NA} values in all layers are not a
+planning unit.}
+
+\item{\code{get_sim_zones_pu_polygons()}}{Import planning unit data for
 multiple management zones stored in vector format.
 Here, planning units are represented using spatial polygons.
 The attribute table contains fields (columns) indicating the
@@ -137,33 +160,27 @@ assigned in the solution ("locked_1", "locked_2", "locked_3" fields).
 In these locked fields, planning units that should not be locked to a
 specific value are assigned a \code{NA} value.}
 
-\item{\code{get_sim_features()}}{Import feature data stored in raster format.
-Here, data describe the spatial distribution of ten species.
-Each layer corresponds to a different species, and
-pixel values indicate habitat suitability.}
-
-\item{\code{get_sim_features_zones()}}{Import feature data for multiple
+\item{\code{get_sim_zones_features()}}{Import feature data for multiple
 management zones stored in raster format.
 Here, data describe the spatial distribution of ten species
 under three different management zones.}
 
-\item{\code{get_sim_phylogeny()}}{Import phylogenetic tree for the ten species.}
+}
+}
 
-}
-}
 \examples{
 # load data
 sim_pu_polygons <- get_sim_pu_polygons()
-sim_pu_zones_polygons <- get_sim_pu_zones_polygons()
+sim_pu_zones_polygons <- get_sim_zones_pu_polygons()
 sim_pu_lines <- get_sim_pu_lines()
 sim_pu_points <- get_sim_pu_points()
 sim_pu_raster <- get_sim_pu_raster()
-sim_pu_zones_raster <- get_sim_pu_zones_raster()
+sim_pu_zones_raster <- get_sim_zones_pu_raster()
 sim_locked_in_raster <- get_sim_locked_in_raster()
 sim_locked_out_raster <- get_sim_locked_out_raster()
 sim_phylogeny <- get_sim_phylogeny()
 sim_features <- get_sim_features()
-sim_features_zones <- get_sim_features_zones()
+sim_features_zones <- get_sim_zones_features()
 
 # plot raster data
 \dontrun{

@@ -62,7 +62,7 @@ sim_pu_points <- get_sim_pu_points()
 
 # create proximity matrix using raster data
 ## crop raster to 9 cells to provide a small example
-r <- crop(sim_pu_raster, c(0, 0.3, 0, 0.3))
+r <- terra::crop(sim_pu_raster, c(0, 0.3, 0, 0.3))
 
 ## make proximity matrix using a distance threshold of 2
 cm_raster <- proximity_matrix(r, distance = 2)
