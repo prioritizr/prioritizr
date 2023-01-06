@@ -2,7 +2,8 @@ context("add_absolute_targets")
 
 test_that("add_absolute_targets (numeric(1), single zone)", {
   # load data
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   # create problem
   p <- problem(sim_pu_raster, sim_features) %>%
        add_absolute_targets(5)
@@ -24,7 +25,8 @@ test_that("add_absolute_targets (numeric(1), single zone)", {
 
 test_that("add_absolute_targets (numeric(5), single zone)", {
   # load data
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   # create problem
   p <- problem(sim_pu_raster, sim_features) %>%
        add_absolute_targets(5:9)
@@ -45,7 +47,8 @@ test_that("add_absolute_targets (numeric(5), single zone)", {
 
 test_that("add_absolute_targets (matrix, single zone)", {
   # load data
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   # create problem
   p <- problem(sim_pu_raster, sim_features) %>%
        add_absolute_targets(matrix(5:9, ncol = 1))
@@ -91,7 +94,8 @@ test_that("add_absolute_targets (character, single zone)", {
 
 test_that("add_absolute_targets (invalid input, single zone)", {
   # load data
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   # create problem
   p <- problem(sim_pu_raster, sim_features)
   # tests
@@ -110,13 +114,14 @@ test_that("add_absolute_targets (invalid input, single zone)", {
 
 test_that("add_absolute_targets (matrix, multiple zones)", {
   # load data
-  data(sim_pu_zones_stack, sim_features_zones)
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
   m <- matrix(seq_len(raster::nlayers(sim_features) *
-                      raster::nlayers(sim_pu_zones_stack)),
-              ncol = raster::nlayers(sim_pu_zones_stack),
+                      raster::nlayers(sim_zones_pu_raster)),
+              ncol = raster::nlayers(sim_zones_pu_raster),
               nrow = raster::nlayers(sim_features))
   # create problem
-  p <- problem(sim_pu_zones_stack, sim_features_zones) %>%
+  p <- problem(sim_zones_pu_raster, sim_zones_features) %>%
        add_absolute_targets(m)
   # calculate absolute targets
   targets <- p$targets$output()
@@ -128,12 +133,12 @@ test_that("add_absolute_targets (matrix, multiple zones)", {
   expect_is(targets$value, "numeric")
   expect_is(targets$sense, "character")
   expect_equal(targets$feature, rep(seq_len(raster::nlayers(sim_features)),
-                                    raster::nlayers(sim_pu_zones_stack)))
+                                    raster::nlayers(sim_zones_pu_raster)))
   expect_equivalent(unlist(targets$zone),
-                    rep(seq_len(raster::nlayers(sim_pu_zones_stack)),
+                    rep(seq_len(raster::nlayers(sim_zones_pu_raster)),
                         each = raster::nlayers(sim_features)))
   expect_equal(targets$value, 1:15)
-  expect_equal(targets$sense, rep(">=", raster::nlayers(sim_pu_zones_stack) *
+  expect_equal(targets$sense, rep(">=", raster::nlayers(sim_zones_pu_raster) *
                                         raster::nlayers(sim_features)))
 })
 
@@ -166,7 +171,8 @@ test_that("add_absolute_targets (character, multiple zones)", {
 
 test_that("add_absolute_targets (invalid input, multiple zones)", {
   # simulate data
-  data(sim_pu_zones_stack, sim_features_zones)
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
   pu <- data.frame(id = seq_len(10),
                    cost_1 = runif(10), cost_2 = runif(10))
   species <- data.frame(id = seq_len(5), name = letters[1:5],
@@ -175,21 +181,21 @@ test_that("add_absolute_targets (invalid input, multiple zones)", {
   rij <- expand.grid(pu = seq_len(9), species = seq_len(5), zone = seq_len(2))
   rij$amount <- runif(nrow(rij))
   # numeric inputs
-  p <- problem(sim_pu_zones_stack, sim_features_zones)
+  p <- problem(sim_zones_pu_raster, sim_zones_features)
   expect_error(add_absolute_targets(p, 5))
   expect_error(
     add_absolute_targets(p,
-                         rep(5, raster::nlayers(sim_pu_zones_stack))))
+                         rep(5, raster::nlayers(sim_zones_pu_raster))))
   # matrix input
-  p <- problem(sim_pu_zones_stack, sim_features_zones)
+  p <- problem(sim_zones_pu_raster, sim_zones_features)
   expect_error(add_absolute_targets(p, matrix(1:5, ncol = 1)))
   expect_error(add_absolute_targets(p, matrix(1:5, nrow = 1)))
   expect_error(
     add_absolute_targets(p,
-      matrix(c(seq_len(number_of_zones(sim_features_zones) *
-                       number_of_features(sim_features_zones))[-1], NA),
-             ncol = number_of_zones(sim_features_zones),
-             nrow = number_of_features(sim_features_zones))))
+      matrix(c(seq_len(number_of_zones(sim_zones_features) *
+                       number_of_features(sim_zones_features))[-1], NA),
+             ncol = number_of_zones(sim_zones_features),
+             nrow = number_of_features(sim_zones_features))))
   # character inputs
   p <- problem(pu, species, rij, c("cost_1", "cost_2"), zone)
   expect_error(add_absolute_targets(p, "target_1"))
@@ -199,13 +205,14 @@ test_that("add_absolute_targets (invalid input, multiple zones)", {
 
 test_that("add_absolute_targets (matrix, multiple zones, negative data)", {
   # load data
-  data(sim_pu_zones_stack, sim_features_zones)
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
   m <- matrix(runif(raster::nlayers(sim_features) *
-                    raster::nlayers(sim_pu_zones_stack), -1, 1),
-              ncol = raster::nlayers(sim_pu_zones_stack),
+                    raster::nlayers(sim_zones_pu_raster), -1, 1),
+              ncol = raster::nlayers(sim_zones_pu_raster),
               nrow = raster::nlayers(sim_features))
   # create problem
-  expect_warning(p <- problem(sim_pu_zones_stack, sim_features_zones) %>%
+  expect_warning(p <- problem(sim_zones_pu_raster, sim_zones_features) %>%
                       add_absolute_targets(m))
   # calculate absolute targets
   targets <- p$targets$output()
@@ -217,11 +224,11 @@ test_that("add_absolute_targets (matrix, multiple zones, negative data)", {
   expect_is(targets$value, "numeric")
   expect_is(targets$sense, "character")
   expect_equal(targets$feature, rep(seq_len(raster::nlayers(sim_features)),
-                                    raster::nlayers(sim_pu_zones_stack)))
+                                    raster::nlayers(sim_zones_pu_raster)))
   expect_equivalent(unlist(targets$zone),
-                    rep(seq_len(raster::nlayers(sim_pu_zones_stack)),
+                    rep(seq_len(raster::nlayers(sim_zones_pu_raster)),
                         each = raster::nlayers(sim_features)))
   expect_equal(targets$value, c(m))
-  expect_equal(targets$sense, rep(">=", raster::nlayers(sim_pu_zones_stack) *
+  expect_equal(targets$sense, rep(">=", raster::nlayers(sim_zones_pu_raster) *
                                         raster::nlayers(sim_features)))
 })

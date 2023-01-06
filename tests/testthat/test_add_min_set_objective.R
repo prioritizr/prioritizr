@@ -2,7 +2,8 @@ context("add_min_set_objective")
 
 test_that("compile (compressed formulation, single zone)", {
   # generate optimization problem
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   targ <- unname(floor(raster::cellStats(sim_features, "sum") * 0.25))
   p <- problem(sim_pu_raster, sim_features) %>%
     add_min_set_objective() %>%
@@ -71,7 +72,8 @@ test_that("solve (compressed formulation, single zone, negative values)", {
 
 test_that("compile (expanded formulation, single zone)", {
   # generate optimization problem
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   targ <- unname(floor(raster::cellStats(sim_features, "sum") * 0.25))
   p <- problem(sim_pu_raster, sim_features) %>%
     add_min_set_objective() %>%
@@ -134,10 +136,11 @@ test_that("solve (expanded formulation, single zone)", {
 })
 
 test_that("invalid inputs (single zone)", {
-  data(sim_pu_zones_stack, sim_features_zones)
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
   # check that no targets results in error
   expect_error({
-    problem(sim_pu_zones_stack, sim_features_zones) %>%
+    problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_min_set_objective() %>%
     compile()
   })
@@ -145,8 +148,9 @@ test_that("invalid inputs (single zone)", {
 
 test_that("compile (compressed formulation, multiple zones)", {
   # generate optimization problem
-  data(sim_pu_zones_stack, sim_features_zones)
-  p <- problem(sim_pu_zones_stack, sim_features_zones) %>%
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
+  p <- problem(sim_zones_pu_raster, sim_zones_features) %>%
        add_min_set_objective() %>%
        add_manual_targets(tibble::tibble(feature = c("feature_1", "feature_2",
                                                      "feature_3"),
@@ -159,7 +163,7 @@ test_that("compile (compressed formulation, multiple zones)", {
   o <- compile(p)
   # check that objective has been correctly applied
   n_pu <- length(sim_pu_raster[[1]][!is.na(sim_pu_raster)])
-  n_zone <- number_of_zones(sim_features_zones)
+  n_zone <- number_of_zones(sim_zones_features)
   expect_equal(o$modelsense(), "min")
   expect_equal(o$obj(), c(p$planning_unit_costs()))
   expect_equal(o$sense(), c("<=", ">=", "=", rep("<=", n_pu)))
@@ -212,8 +216,9 @@ test_that("solve (compressed formulation, multiple zones)", {
 
 test_that("compile (expanded formulation, multiple zones)", {
   # generate optimization problem
-  data(sim_pu_zones_stack, sim_features_zones)
-  p <- problem(sim_pu_zones_stack, sim_features_zones) %>%
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
+  p <- problem(sim_zones_pu_raster, sim_zones_features) %>%
        add_min_set_objective() %>%
        add_manual_targets(tibble::tibble(feature = c("feature_1", "feature_2",
                                                      "feature_3"),
@@ -226,8 +231,8 @@ test_that("compile (expanded formulation, multiple zones)", {
   o <- compile(p, FALSE)
   # check that objective has been correctly applied
   n_pu <- length(sim_pu_raster[[1]][!is.na(sim_pu_raster)])
-  n_zone <- number_of_zones(sim_features_zones)
-  n_feature <- number_of_features(sim_features_zones)
+  n_zone <- number_of_zones(sim_zones_features)
+  n_feature <- number_of_features(sim_zones_features)
   expect_equal(o$modelsense(), "min")
   expect_equal(o$obj(), c(c(p$planning_unit_costs()),
                            rep(0, n_pu * n_zone * n_feature)))
@@ -313,10 +318,11 @@ test_that("solve (expanded formulation, multiple zones)", {
 })
 
 test_that("invalid inputs (multiple zones)", {
-  data(sim_pu_zones_stack, sim_features_zones)
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
   # check that no targets results in error
   expect_error({
-    problem(sim_pu_zones_stack, sim_features_zones) %>%
+    problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_min_set_objective() %>%
     compile()
   })

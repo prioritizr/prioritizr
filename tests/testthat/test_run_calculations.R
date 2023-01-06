@@ -2,7 +2,8 @@ context("run_calculations")
 
 test_that("works", {
   ## make data
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   p1 <-
     problem(sim_pu_raster, sim_features) %>%
     add_min_set_objective() %>%

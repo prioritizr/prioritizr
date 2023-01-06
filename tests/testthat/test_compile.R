@@ -2,7 +2,8 @@ context("compile")
 
 test_that("compile (compressed formulation)", {
   # generate optimization problem
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   targ <- unname(floor(raster::cellStats(sim_features, "sum") * 0.25))
   p <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
@@ -24,7 +25,8 @@ test_that("compile (compressed formulation)", {
 
 test_that("compile (compressed formulation, negative data)", {
   # generate optimization problem
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   sim_pu_raster[] <- sim_pu_raster[] * runif(length(sim_pu_raster[]), -0.5, 1)
   sim_features[] <- sim_features[] * runif(length(sim_features[]), -0.5, 1)
   expect_warning(x <- problem(sim_pu_raster, sim_features))
@@ -49,7 +51,8 @@ test_that("compile (compressed formulation, negative data)", {
 
 test_that("compile (expanded formulation)", {
   # generate optimization problem
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   targ <- unname(floor(raster::cellStats(sim_features, "sum") * 0.25))
   p <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
@@ -91,7 +94,8 @@ test_that("compile (expanded formulation)", {
 
 test_that("compile (expanded formulation, negative data)", {
   # generate optimization problem
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   sim_pu_raster[] <- sim_pu_raster[] * runif(length(sim_pu_raster[]), -0.5, 1)
   sim_features[] <- sim_features[] * runif(length(sim_features[]), -0.5, 1)
   targ <- unname(floor(raster::cellStats(sim_features, "sum") * 0.25))

@@ -2,7 +2,8 @@ context("add_feature_weights")
 
 test_that("compile (compressed formulation, single zone)", {
   # generate optimization problem
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   b <- floor(raster::cellStats(sim_pu_raster, "sum")) * 0.25
   p <- problem(sim_pu_raster, sim_features) %>%
        add_max_cover_objective(budget = b) %>%
@@ -56,7 +57,8 @@ test_that("solve (compressed formulation, single zone)", {
 
 test_that("compile (expanded formulation, single zone)", {
   # generate optimization problem
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   b <- floor(raster::cellStats(sim_pu_raster, "sum")) * 0.25
   p <- problem(sim_pu_raster, sim_features) %>%
        add_max_cover_objective(budget = b) %>%
@@ -144,9 +146,10 @@ test_that("invalid inputs (single zone)", {
 
 test_that("compile (compressed formulation, multiple zones)", {
   # generate optimization problem
-  data(sim_pu_zones_stack, sim_features_zones)
-  b <- min(floor(raster::cellStats(sim_pu_zones_stack, "sum")) * 0.25)
-  p <- problem(sim_pu_zones_stack, sim_features_zones) %>%
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
+  b <- min(floor(raster::cellStats(sim_zones_pu_raster, "sum")) * 0.25)
+  p <- problem(sim_zones_pu_raster, sim_zones_features) %>%
        add_max_cover_objective(budget = b) %>%
        add_feature_weights(matrix(10 + seq_len(15), ncol = 3))
   o <- compile(p)
@@ -228,9 +231,10 @@ test_that("solve (compressed formulation, multiple zones)", {
 
 test_that("compile (expanded formulation, multiple zones)", {
   # generate optimization problem
-  data(sim_pu_zones_stack, sim_features_zones)
-  b <- min(floor(raster::cellStats(sim_pu_zones_stack, "sum")) * 0.25)
-  p <- problem(sim_pu_zones_stack, sim_features_zones) %>%
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
+  b <- min(floor(raster::cellStats(sim_zones_pu_raster, "sum")) * 0.25)
+  p <- problem(sim_zones_pu_raster, sim_zones_features) %>%
        add_max_cover_objective(budget = b) %>%
        add_feature_weights(matrix(10 + seq_len(15), ncol = 3))
   o <- compile(p, FALSE)
@@ -332,32 +336,34 @@ test_that("solve (expanded formulation, multiple zones)", {
 })
 
 test_that("invalid inputs (multiple zones)", {
-  data(sim_pu_zones_stack, sim_features_zones)
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
   expect_error({
-    problem(sim_pu_zones_stack, sim_features_zones) %>%
+    problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_max_cover_objective(budget = c(1, -5, 1))
   })
   expect_error({
-    problem(sim_pu_zones_stack, sim_features_zones) %>%
+    problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_max_cover_objective(budget = c(1, NA, 1))
   })
   expect_error({
-    problem(sim_pu_zones_stack, sim_features_zones) %>%
+    problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_max_cover_objective(budget = c(NA, NA, NA))
   })
   expect_error({
-    problem(sim_pu_zones_stack, sim_features_zones) %>%
+    problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_max_cover_objective(budget = c(1, Inf, 9))
   })
   expect_error({
-    problem(sim_pu_zones_stack, sim_features_zones) %>%
+    problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_max_cover_objective(budget = c(1, Inf, 9))
   })
 })
 
 test_that("throw warning with min set objective", {
   # generate optimization problem
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   p1 <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
@@ -379,7 +385,8 @@ test_that("throw warning with min set objective", {
 
 test_that("throw warning with min largest shortfall objective", {
   # generate optimization problem
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   p1 <- problem(sim_pu_raster, sim_features) %>%
        add_min_largest_shortfall_objective(100) %>%
        add_relative_targets(0.1) %>%

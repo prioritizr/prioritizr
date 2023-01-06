@@ -2,7 +2,8 @@ context("add_asym_connectivity_penalties")
 
 test_that("minimum set objective (compile, single zone)", {
   # make and compile problems
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   # create connectivity matrix data
   cmatrix <- matrix(0, nrow = raster::ncell(sim_pu_raster),
     ncol = raster::ncell(sim_pu_raster))
@@ -73,7 +74,8 @@ test_that("minimum set objective (compile, single zone)", {
 
 test_that("maximum features objective (compile, single zone)", {
   # make and compile problems
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   # create connectivity matrix data
   cmatrix <- matrix(0, nrow = raster::ncell(sim_pu_raster),
     ncol = raster::ncell(sim_pu_raster))
@@ -173,7 +175,8 @@ test_that("minimum set objective (solve, single zone)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # load data
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   # crop data
   ext <- extent(sim_pu_raster, 1, 4, 1, 4)
   pu <- crop(sim_pu_raster, ext)
@@ -224,7 +227,8 @@ test_that("minimum set objective (solve, single zone)", {
 
 test_that("invalid inputs (single zone)", {
   # load data
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   c_matrix <- as_Matrix(boundary_matrix(sim_pu_raster), "dgCMatrix")
   c_matrix@x <- c_matrix@x + runif(length(c_matrix@x))
   p <- problem(sim_pu_raster, sim_features) %>%
@@ -242,18 +246,19 @@ test_that("invalid inputs (single zone)", {
 test_that("minimum set objective (compile, multiple zones)", {
   # load data
   set.seed(500)
-  data(sim_pu_zones_polygons, sim_features_zones)
-  sim_pu_zones_polygons <- sim_pu_zones_polygons[seq_len(20), ]
+  sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
+  sim_zones_features <- get_sim_zones_features()
+  sim_zones_pu_polygons <- sim_zones_pu_polygons[seq_len(20), ]
   # prepare data for problem
   cm <-
-    adjacency_matrix(sim_pu_zones_polygons) *
+    adjacency_matrix(sim_zones_pu_polygons) *
     matrix(
-      runif(nrow(sim_pu_zones_polygons)^2),
-      ncol = nrow(sim_pu_zones_polygons),
-      nrow = nrow(sim_pu_zones_polygons))
+      runif(nrow(sim_zones_pu_polygons)^2),
+      ncol = nrow(sim_zones_pu_polygons),
+      nrow = nrow(sim_zones_pu_polygons))
   zm <- matrix(seq_len(9) * 0.1, ncol = 3)
   # make and compile problem
-  p <- problem(sim_pu_zones_polygons, sim_features_zones,
+  p <- problem(sim_zones_pu_polygons, sim_zones_features,
                c("cost_1", "cost_2", "cost_3")) %>%
        add_min_set_objective() %>%
        add_relative_targets(matrix(0.1, nrow = 5, ncol = 3)) %>%
@@ -343,9 +348,10 @@ test_that("minimum set objective (compile, multiple zones)", {
 
 test_that("minimum set objective (compile, array data, multiple zones)", {
   # load data
-  data(sim_pu_zones_polygons, sim_features_zones)
+  sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
+  sim_zones_features <- get_sim_zones_features()
   # prepare data for problem
-  cm <- as_Matrix(adjacency_matrix(sim_pu_zones_polygons), "dgCMatrix")
+  cm <- as_Matrix(adjacency_matrix(sim_zones_pu_polygons), "dgCMatrix")
   cm@x <- cm@x + runif(length(cm@x))
   zm <- matrix(seq_len(9) * 0.1, ncol = 3)
   ca <- array(0, dim = c(dim(cm), 3, 3))
@@ -353,13 +359,13 @@ test_that("minimum set objective (compile, array data, multiple zones)", {
     for (j in seq_len(3))
       ca[, , i, j] <- as.matrix(cm * zm[i, j])
   # make and compile problems
-  p1 <- problem(sim_pu_zones_polygons, sim_features_zones,
+  p1 <- problem(sim_zones_pu_polygons, sim_zones_features,
                c("cost_1", "cost_2", "cost_3")) %>%
        add_min_set_objective() %>%
        add_relative_targets(matrix(0.1, nrow = 5, ncol = 3)) %>%
        add_asym_connectivity_penalties(100, zm, cm) %>%
        add_binary_decisions()
-  p2 <- problem(sim_pu_zones_polygons, sim_features_zones,
+  p2 <- problem(sim_zones_pu_polygons, sim_zones_features,
                c("cost_1", "cost_2", "cost_3")) %>%
        add_min_set_objective() %>%
        add_relative_targets(matrix(0.1, nrow = 5, ncol = 3)) %>%
@@ -381,21 +387,22 @@ test_that("minimum set objective (solve, multiple zones)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # load data
-  data(sim_pu_zones_stack, sim_features_zones)
-  ext <- raster::extent(sim_pu_zones_stack, 1, 4, 1, 4)
-  pu <- raster::crop(sim_pu_zones_stack, ext)
-  feats <- lapply(sim_features_zones, raster::crop, ext)
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
+  ext <- raster::extent(sim_zones_pu_raster, 1, 4, 1, 4)
+  pu <- raster::crop(sim_zones_pu_raster, ext)
+  feats <- lapply(sim_zones_features, raster::crop, ext)
   feats <- do.call(zones, append(feats, list(
-    zone_names = zone_names(sim_features_zones),
-    feature_names = feature_names(sim_features_zones))))
+    zone_names = zone_names(sim_zones_features),
+    feature_names = feature_names(sim_zones_features))))
   # make zones matrices
   zm <- matrix(0, ncol = 3, nrow = 3)
   zm[1, 1] <- 1
   zm[3, 2] <- 1
   # create targets matrix
   targets <- matrix(
-    0, nrow = length(feature_names(sim_features_zones)),
-    ncol = length(zone_names(sim_features_zones)))
+    0, nrow = length(feature_names(sim_zones_features)),
+    ncol = length(zone_names(sim_zones_features)))
   # create asymmetric connectivity matrix
   # here the first 5 planning units have very high connectivity with
   # their adjacent planning units, and the rest of the connections
@@ -407,7 +414,7 @@ test_that("minimum set objective (solve, multiple zones)", {
   cmatrix <- Matrix::drop0(cmatrix)
   # create a locked in matrix
   locked_in1 <- raster::stack(pu * 0)[[rep(1, 3)]]
-  names(locked_in1) <- zone_names(sim_features_zones)
+  names(locked_in1) <- zone_names(sim_zones_features)
   locked_in1[[1]][6] <- 1
   locked_in2 <- locked_in1
   locked_in2[[3]][4] <- 1
@@ -469,21 +476,22 @@ test_that("minimum set objective (solve, multiple zones)", {
 
 test_that("minimum set objective (compile, Spatial and sf are identical)", {
   # load data
-  data(sim_pu_zones_polygons, sim_features_zones)
-  sim_pu_zones_polygons <- sim_pu_zones_polygons[seq_len(20), ]
-  sim_sf <- sf::st_as_sf(sim_pu_zones_polygons)
+  sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
+  sim_zones_features <- get_sim_zones_features()
+  sim_zones_pu_polygons <- sim_zones_pu_polygons[seq_len(20), ]
+  sim_sf <- sf::st_as_sf(sim_zones_pu_polygons)
   # prepare data for problem
-  cm <- as_Matrix(adjacency_matrix(sim_pu_zones_polygons), "dgCMatrix")
+  cm <- as_Matrix(adjacency_matrix(sim_zones_pu_polygons), "dgCMatrix")
   cm@x <- cm@x + runif(length(cm@x))
   zm <- matrix(seq_len(9) * 0.1, ncol = 3)
   # make problems
-  p1 <- problem(sim_pu_zones_polygons, sim_features_zones,
+  p1 <- problem(sim_zones_pu_polygons, sim_zones_features,
                 c("cost_1", "cost_2", "cost_3")) %>%
         add_min_set_objective() %>%
         add_relative_targets(matrix(0.1, nrow = 5, ncol = 3)) %>%
         add_asym_connectivity_penalties(100, zm, cm) %>%
         add_binary_decisions()
-  p2 <- problem(sim_sf, sim_features_zones,
+  p2 <- problem(sim_sf, sim_zones_features,
                 c("cost_1", "cost_2", "cost_3")) %>%
         add_min_set_objective() %>%
         add_relative_targets(matrix(0.1, nrow = 5, ncol = 3)) %>%
@@ -498,16 +506,17 @@ test_that("minimum set objective (compile, Spatial and sf are identical)", {
 
 test_that("invalid inputs (multiple zones)", {
   # load data
-  data(sim_pu_zones_stack, sim_features_zones)
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
   # make zones matrices
   zm <- matrix(-1, ncol = 3, nrow = 3)
   diag(zm) <- 1
   # make connectivity data
-  cm <- as_Matrix(adjacency_matrix(sim_pu_zones_stack), "dgCMatrix")
+  cm <- as_Matrix(adjacency_matrix(sim_zones_pu_raster), "dgCMatrix")
   cm@x <- cm@x + runif(length(cm@x))
   ca <- array(1, dim = c(dim(cm), 3, 3))
   # create problem
-  p <- problem(sim_pu_zones_stack, sim_features_zones) %>%
+  p <- problem(sim_zones_pu_raster, sim_zones_features) %>%
         add_min_set_objective() %>%
         add_relative_targets(matrix(0.1, nrow = 5, ncol = 3)) %>%
         add_binary_decisions()
@@ -532,7 +541,8 @@ test_that("invalid inputs (multiple zones)", {
 
 test_that("alternative data formats", {
   # load data
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   # create connectivity matrices
   m <- adjacency_matrix(sim_pu_raster)
   m <- as_Matrix(m, "dgTMatrix")

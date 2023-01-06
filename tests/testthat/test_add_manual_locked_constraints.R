@@ -2,7 +2,8 @@ context("add_manual_locked_constraints")
 
 test_that("data.frame (compile, single zone)", {
   # create problem
-  data(sim_pu_polygons, sim_features)
+  sim_pu_polygons <- get_sim_pu_polygons()
+  sim_features <- get_sim_features()
   p <- problem(sim_pu_polygons, sim_features, cost_column = "cost") %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
@@ -23,7 +24,8 @@ test_that("data.frame (solve, single zone)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # create and solve problem
-  data(sim_pu_polygons, sim_features)
+  sim_pu_polygons <- get_sim_pu_polygons()
+  sim_features <- get_sim_features()
   p <- problem(sim_pu_polygons, sim_features, cost_column = "cost") %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
@@ -40,15 +42,16 @@ test_that("data.frame (solve, single zone)", {
 
 test_that("data.frame (compile, multiple zones (factor))", {
   # create problem
-  data(sim_pu_zones_polygons, sim_features_zones)
-  targets <- matrix(FALSE, nrow = number_of_features(sim_features_zones),
-                    ncol = number_of_zones(sim_features_zones))
+  sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
+  sim_zones_features <- get_sim_zones_features()
+  targets <- matrix(FALSE, nrow = number_of_features(sim_zones_features),
+                    ncol = number_of_zones(sim_zones_features))
   targets[] <- 0
   targets[, 1] <- 1
-  sim_pu_zones_polygons$locked_1 <- TRUE
-  sim_pu_zones_polygons$locked_2 <- FALSE
-  sim_pu_zones_polygons$locked_3 <- FALSE
-  p <- problem(sim_pu_zones_polygons, sim_features_zones,
+  sim_zones_pu_polygons$locked_1 <- TRUE
+  sim_zones_pu_polygons$locked_2 <- FALSE
+  sim_zones_pu_polygons$locked_3 <- FALSE
+  p <- problem(sim_zones_pu_polygons, sim_zones_features,
                c("cost_1", "cost_2", "cost_3")) %>%
        add_min_set_objective() %>%
        add_absolute_targets(targets) %>%
@@ -60,7 +63,7 @@ test_that("data.frame (compile, multiple zones (factor))", {
                                                 stringsAsFactors = TRUE))
   suppressWarnings(o <- compile(p))
   # check that constraints added correctly
-  locked_pos <- c(seq_len(5), nrow(sim_pu_zones_polygons) + 20)
+  locked_pos <- c(seq_len(5), nrow(sim_zones_pu_polygons) + 20)
   other_pos <- setdiff(seq_len(p$number_of_planning_units() *
                                p$number_of_zones()), locked_pos)
   expect_true(isTRUE(all(o$lb()[locked_pos] == 0.3)))
@@ -71,15 +74,16 @@ test_that("data.frame (compile, multiple zones (factor))", {
 
 test_that("data.frame (compile, multiple zones (character))", {
   # create problem
-  data(sim_pu_zones_polygons, sim_features_zones)
-  targets <- matrix(FALSE, nrow = number_of_features(sim_features_zones),
-                    ncol = number_of_zones(sim_features_zones))
+  sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
+  sim_zones_features <- get_sim_zones_features()
+  targets <- matrix(FALSE, nrow = number_of_features(sim_zones_features),
+                    ncol = number_of_zones(sim_zones_features))
   targets[] <- 0
   targets[, 1] <- 1
-  sim_pu_zones_polygons$locked_1 <- TRUE
-  sim_pu_zones_polygons$locked_2 <- FALSE
-  sim_pu_zones_polygons$locked_3 <- FALSE
-  p <- problem(sim_pu_zones_polygons, sim_features_zones,
+  sim_zones_pu_polygons$locked_1 <- TRUE
+  sim_zones_pu_polygons$locked_2 <- FALSE
+  sim_zones_pu_polygons$locked_3 <- FALSE
+  p <- problem(sim_zones_pu_polygons, sim_zones_features,
                c("cost_1", "cost_2", "cost_3")) %>%
        add_min_set_objective() %>%
        add_absolute_targets(targets) %>%
@@ -91,7 +95,7 @@ test_that("data.frame (compile, multiple zones (character))", {
                                                 stringsAsFactors = TRUE))
   suppressWarnings(o <- compile(p))
   # check that constraints added correctly
-  locked_pos <- c(seq_len(5), nrow(sim_pu_zones_polygons) + 20)
+  locked_pos <- c(seq_len(5), nrow(sim_zones_pu_polygons) + 20)
   other_pos <- setdiff(seq_len(p$number_of_planning_units() *
                                p$number_of_zones()), locked_pos)
   expect_true(isTRUE(all(o$lb()[locked_pos] == 0.3)))
@@ -104,12 +108,13 @@ test_that("data.frame (solve, multiple zones)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # create and solve problem
-  data(sim_pu_zones_polygons, sim_features_zones)
-  targets <- matrix(FALSE, nrow = number_of_features(sim_features_zones),
-                    ncol = number_of_zones(sim_features_zones))
+  sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
+  sim_zones_features <- get_sim_zones_features()
+  targets <- matrix(FALSE, nrow = number_of_features(sim_zones_features),
+                    ncol = number_of_zones(sim_zones_features))
   targets[] <- 0
   targets[, 1] <- 1
-  s <- problem(sim_pu_zones_polygons, sim_features_zones,
+  s <- problem(sim_zones_pu_polygons, sim_zones_features,
                c("cost_1", "cost_2", "cost_3")) %>%
        add_min_set_objective() %>%
        add_absolute_targets(targets) %>%
@@ -126,7 +131,8 @@ test_that("data.frame (solve, multiple zones)", {
 })
 
 test_that("invalid inputs (single zone)", {
-  data(sim_pu_polygons, sim_features)
+  sim_pu_polygons <- get_sim_pu_polygons()
+  sim_features <- get_sim_features()
   p <- problem(sim_pu_polygons, sim_features, cost_column = "cost") %>%
        add_min_set_objective() %>%
        add_absolute_targets(1) %>%
@@ -157,12 +163,13 @@ test_that("invalid inputs (single zone)", {
 })
 
 test_that("invalid inputs (multiple zones)", {
-  data(sim_pu_zones_polygons, sim_features_zones)
-  targets <- matrix(FALSE, nrow = number_of_features(sim_features_zones),
-                    ncol = number_of_zones(sim_features_zones))
+  sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
+  sim_zones_features <- get_sim_zones_features()
+  targets <- matrix(FALSE, nrow = number_of_features(sim_zones_features),
+                    ncol = number_of_zones(sim_zones_features))
   targets[] <- 0
   targets[, 1] <- 1
-  p <- problem(sim_pu_zones_polygons, sim_features_zones,
+  p <- problem(sim_zones_pu_polygons, sim_zones_features,
                cost_column = c("cost_1", "cost_2", "cost_3")) %>%
        add_min_set_objective() %>%
        add_absolute_targets(targets) %>%

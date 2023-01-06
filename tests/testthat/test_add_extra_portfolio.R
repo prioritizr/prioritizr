@@ -48,13 +48,14 @@ test_that("solve (multiple zones)", {
   skip_on_cran()
   skip_if_not_installed("gurobi")
   # create data
-  data(sim_pu_zones_stack, sim_features_zones)
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
   # create problem
-  p <- problem(sim_pu_zones_stack, sim_features_zones) %>%
+  p <- problem(sim_zones_pu_raster, sim_zones_features) %>%
        add_min_set_objective() %>%
        add_absolute_targets(matrix(2,
-                            nrow = number_of_features(sim_features_zones),
-                            ncol = number_of_zones(sim_features_zones))) %>%
+                            nrow = number_of_features(sim_zones_features),
+                            ncol = number_of_zones(sim_zones_features))) %>%
        add_extra_portfolio() %>%
        add_binary_decisions() %>%
        add_default_solver(gap = 0, verbose = FALSE)
@@ -66,7 +67,7 @@ test_that("solve (multiple zones)", {
   expect_true(all(sapply(s, inherits, "RasterStack")))
   expect_equal(names(s), paste0("solution_", seq_along(s)))
   for (i in seq_along(s))
-    for (z in seq_len(number_of_zones(sim_features_zones)))
-      expect_true(all(raster::cellStats(s[[i]][[z]] * sim_features_zones[[z]],
+    for (z in seq_len(number_of_zones(sim_zones_features)))
+      expect_true(all(raster::cellStats(s[[i]][[z]] * sim_zones_features[[z]],
                                         "sum") >= 2))
 })

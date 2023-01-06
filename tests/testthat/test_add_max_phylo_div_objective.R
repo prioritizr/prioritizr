@@ -2,7 +2,10 @@ context("add_max_phylo_div_objective")
 
 test_that("compile (compressed formulation, single zone)", {
   # generate optimization problem
-  data(sim_pu_raster, sim_features, sim_phylogeny)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  sim_phylogeny <- get_sim_phylogeny()
+
   b <- floor(raster::cellStats(sim_pu_raster, "sum")) * 0.25
   targ <- unname(floor(raster::cellStats(sim_features, "sum") * 0.25))
   p <- problem(sim_pu_raster, sim_features) %>%
@@ -87,7 +90,10 @@ test_that("solution (compressed formulation, single zone)", {
 
 test_that("compile (expanded formulation)", {
   # generate optimization problem
-  data(sim_pu_raster, sim_features, sim_phylogeny)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  sim_phylogeny <- get_sim_phylogeny()
+
   b <- floor(raster::cellStats(sim_pu_raster, "sum")) * 0.25
   targ <- unname(floor(raster::cellStats(sim_features, "sum") * 0.25))
   p <- problem(sim_pu_raster, sim_features) %>%
@@ -185,7 +191,10 @@ test_that("solution (expanded formulation, single zone)", {
 })
 
 test_that("invalid inputs (single zone)", {
-  data(sim_pu_raster, sim_features, sim_phylogeny)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  sim_phylogeny <- get_sim_phylogeny()
+
   # check that invalid arguments result in errors
   expect_error({
     problem(sim_pu_raster, sim_features) %>%
@@ -218,16 +227,19 @@ test_that("invalid inputs (single zone)", {
 
 test_that("compile (compressed formulation, multiple zones, scalar budget)", {
   # generate optimization problem
-  data(sim_pu_zones_stack, sim_features_zones, sim_phylogeny)
-  sim_phylogeny$tip.label <- feature_names(sim_features_zones)
-  b <- min(floor(raster::cellStats(sim_pu_zones_stack, "sum")) * 0.25)
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
+  sim_phylogeny <- get_sim_phylogeny()
+
+  sim_phylogeny$tip.label <- feature_names(sim_zones_features)
+  b <- min(floor(raster::cellStats(sim_zones_pu_raster, "sum")) * 0.25)
   targs <- tibble::tibble(
-    feature = feature_names(sim_features_zones)[1:3],
+    feature = feature_names(sim_zones_features)[1:3],
     zone = list("zone_1", "zone_2", c("zone_1", "zone_3")),
     sense = c(">=", "<=", ">="),
     target = c(5, 300, 10),
     type = c("absolute", "absolute", "absolute"))
-  p <- problem(sim_pu_zones_stack, sim_features_zones) %>%
+  p <- problem(sim_zones_pu_raster, sim_zones_features) %>%
        add_max_phylo_div_objective(budget = b, sim_phylogeny) %>%
        add_manual_targets(targs) %>%
        add_binary_decisions()
@@ -262,8 +274,8 @@ test_that("compile (compressed formulation, multiple zones, scalar budget)", {
               ncol = (n_pu * n_z) + nrow(targs) + n_br)
   counter <- 0
   for (i in seq_len(nrow(targs))) {
-    zs <- match(targs$zone[[i]], zone_names(sim_features_zones))
-    f <- match(targs$feature[i], feature_names(sim_features_zones))
+    zs <- match(targs$zone[[i]], zone_names(sim_zones_features))
+    f <- match(targs$feature[i], feature_names(sim_zones_features))
     counter <- counter + 1
     for (z in zs)
       m[counter, ((z - 1) * n_pu) + seq_len(n_pu)] <- p$data$rij_matrix[[z]][f, ]
@@ -333,16 +345,19 @@ test_that("solve (compressed formulation, multiple zones, scalar budget)", {
 
 test_that("compile (compressed formulation, multiple zones, vector budget)", {
   # generate optimization problem
-  data(sim_pu_zones_stack, sim_features_zones, sim_phylogeny)
-  sim_phylogeny$tip.label <- feature_names(sim_features_zones)
-  b <- unname(floor(raster::cellStats(sim_pu_zones_stack, "sum")) * 0.25)
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
+  sim_phylogeny <- get_sim_phylogeny()
+
+  sim_phylogeny$tip.label <- feature_names(sim_zones_features)
+  b <- unname(floor(raster::cellStats(sim_zones_pu_raster, "sum")) * 0.25)
   targs <- tibble::tibble(
-    feature = feature_names(sim_features_zones)[1:3],
+    feature = feature_names(sim_zones_features)[1:3],
     zone = list("zone_1", "zone_2", c("zone_1", "zone_3")),
     sense = c(">=", "<=", ">="),
     target = c(5, 300, 10),
     type = c("absolute", "absolute", "absolute"))
-  p <- problem(sim_pu_zones_stack, sim_features_zones) %>%
+  p <- problem(sim_zones_pu_raster, sim_zones_features) %>%
        add_max_phylo_div_objective(budget = b, sim_phylogeny) %>%
        add_manual_targets(targs) %>%
        add_binary_decisions()
@@ -377,8 +392,8 @@ test_that("compile (compressed formulation, multiple zones, vector budget)", {
               ncol = (n_pu * n_z) + nrow(targs) + n_br)
   counter <- 0
   for (i in seq_len(nrow(targs))) {
-    zs <- match(targs$zone[[i]], zone_names(sim_features_zones))
-    f <- match(targs$feature[i], feature_names(sim_features_zones))
+    zs <- match(targs$zone[[i]], zone_names(sim_zones_features))
+    f <- match(targs$feature[i], feature_names(sim_zones_features))
     counter <- counter + 1
     for (z in zs)
       m[counter, ((z - 1) * n_pu) + seq_len(n_pu)] <- p$data$rij_matrix[[z]][f, ]
@@ -450,16 +465,19 @@ test_that("solve (compressed formulation, multiple zones, vector budget)", {
 
 test_that("compile (expanded formulation, multiple zones, scalar budget)", {
   # generate optimization problem
-  data(sim_pu_zones_stack, sim_features_zones, sim_phylogeny)
-  sim_phylogeny$tip.label <- feature_names(sim_features_zones)
-  b <- min(floor(raster::cellStats(sim_pu_zones_stack, "sum")) * 0.25)
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
+  sim_phylogeny <- get_sim_phylogeny()
+
+  sim_phylogeny$tip.label <- feature_names(sim_zones_features)
+  b <- min(floor(raster::cellStats(sim_zones_pu_raster, "sum")) * 0.25)
   targs <- tibble::tibble(
-    feature = feature_names(sim_features_zones)[1:3],
+    feature = feature_names(sim_zones_features)[1:3],
     zone = list("zone_1", "zone_2", c("zone_1", "zone_3")),
     sense = c(">=", "<=", ">="),
     target = c(5, 300, 10),
     type = c("absolute", "absolute", "absolute"))
-  p <- problem(sim_pu_zones_stack, sim_features_zones) %>%
+  p <- problem(sim_zones_pu_raster, sim_zones_features) %>%
        add_max_phylo_div_objective(budget = b, sim_phylogeny) %>%
        add_manual_targets(targs) %>%
        add_binary_decisions()
@@ -511,8 +529,8 @@ test_that("compile (expanded formulation, multiple zones, scalar budget)", {
     }
   }
   for (i in seq_len(nrow(targs))) {
-    zs <- match(targs$zone[[i]], zone_names(sim_features_zones))
-    f <- match(targs$feature[i], feature_names(sim_features_zones))
+    zs <- match(targs$zone[[i]], zone_names(sim_zones_features))
+    f <- match(targs$feature[i], feature_names(sim_zones_features))
     counter <- counter + 1
     for (z in zs) {
       for (pu in seq_len(n_pu)) {
@@ -588,19 +606,22 @@ test_that("solve (expanded formulation, multiple zones, scalar budget)", {
 
 test_that("compile (expanded formulation, multiple zones, vector budget)", {
   # generate optimization problem
-  data(sim_pu_zones_stack, sim_features_zones, sim_phylogeny)
-  sim_pu_zones_stack <- crop(sim_pu_zones_stack, extent(0, 0.1, 0, 0.1))
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
+  sim_phylogeny <- get_sim_phylogeny()
+
+  sim_zones_pu_raster <- crop(sim_zones_pu_raster, extent(0, 0.1, 0, 0.1))
   for (i in 1:3)
-    sim_features_zones[[i]] <- crop(sim_features_zones[[i]], sim_pu_zones_stack)
-  sim_phylogeny$tip.label <- feature_names(sim_features_zones)
-  b <- unname(floor(raster::cellStats(sim_pu_zones_stack, "sum")) * 0.25)
+    sim_zones_features[[i]] <- crop(sim_zones_features[[i]], sim_zones_pu_raster)
+  sim_phylogeny$tip.label <- feature_names(sim_zones_features)
+  b <- unname(floor(raster::cellStats(sim_zones_pu_raster, "sum")) * 0.25)
   targs <- tibble::tibble(
-    feature = feature_names(sim_features_zones)[1:3],
+    feature = feature_names(sim_zones_features)[1:3],
     zone = list("zone_1", "zone_2", c("zone_1", "zone_3")),
     sense = c(">=", "<=", ">="),
     target = c(5, 300, 10),
     type = c("absolute", "absolute", "absolute"))
-  p <- problem(sim_pu_zones_stack, sim_features_zones) %>%
+  p <- problem(sim_zones_pu_raster, sim_zones_features) %>%
        add_max_phylo_div_objective(budget = b, sim_phylogeny) %>%
        add_manual_targets(targs) %>%
        add_binary_decisions()
@@ -652,8 +673,8 @@ test_that("compile (expanded formulation, multiple zones, vector budget)", {
     }
   }
   for (i in seq_len(nrow(targs))) {
-    zs <- match(targs$zone[[i]], zone_names(sim_features_zones))
-    f <- match(targs$feature[i], feature_names(sim_features_zones))
+    zs <- match(targs$zone[[i]], zone_names(sim_zones_features))
+    f <- match(targs$feature[i], feature_names(sim_zones_features))
     counter <- counter + 1
     for (z in zs) {
       for (pu in seq_len(n_pu)) {
@@ -730,37 +751,40 @@ test_that("solve (expanded formulation, multiple zones, vector budget)", {
 })
 
 test_that("invalid inputs (multiple zones)", {
-  data(sim_pu_zones_stack, sim_features_zones, sim_phylogeny)
-  sim_phylogeny$tip.label <- feature_names(sim_features_zones)
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
+  sim_phylogeny <- get_sim_phylogeny()
+
+  sim_phylogeny$tip.label <- feature_names(sim_zones_features)
   # check that invalid arguments result in errors
   expect_error({
-    problem(sim_pu_zones_stack, sim_features_zones) %>%
+    problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_max_phylo_div_objective(budget = c(1, -5, 1), sim_phylogeny)
   })
   expect_error({
-    problem(sim_pu_zones_stack, sim_features_zones) %>%
+    problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_max_phylo_div_objective(budget = c(1, NA, 1), sim_phylogeny)
   })
   expect_error({
-    problem(sim_pu_zones_stack, sim_features_zones) %>%
+    problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_max_phylo_div_objective(budget = c(NA, NA, NA), sim_phylogeny)
   })
   expect_error({
-    problem(sim_pu_zones_stack, sim_features_zones) %>%
+    problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_max_phylo_div_objective(budget = c(1, Inf, 9), sim_phylogeny)
   })
   expect_error({
-    problem(sim_pu_zones_stack, sim_features_zones) %>%
+    problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_max_phylo_div_objective(budget = c(1, Inf, 9), sim_phylogeny)
   })
   expect_error({
-    problem(sim_pu_zones_stack, sim_features_zones) %>%
+    problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_max_phylo_div_objective(
       budget = 5000, ape::drop.tip(sim_phylogeny, "feature_1"))
   })
   # check that no targets results in error
   expect_error({
-    problem(sim_pu_zones_stack, sim_features_zones) %>%
+    problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_max_phylo_div_objective(budget = c(5, 5, 5), sim_phylogeny) %>%
     compile()
   })

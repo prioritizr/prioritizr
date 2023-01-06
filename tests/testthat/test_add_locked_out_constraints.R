@@ -2,7 +2,8 @@ context("add_locked_out_constraints")
 
 test_that("logical (compile, single zone)", {
   # create problem
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   locked_out <- c(rep(TRUE, 20), rep(FALSE, raster::ncell(sim_pu_raster) - 20))
   p <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
@@ -31,7 +32,8 @@ test_that("logical (solve, single zone)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # create problem
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   locked_out <- c(rep(TRUE, 20), rep(FALSE, raster::ncell(sim_pu_raster) - 20))
   suppressWarnings({
     s <- problem(sim_pu_raster, sim_features) %>%
@@ -51,7 +53,8 @@ test_that("logical (solve, single zone)", {
 
 test_that("integer (compile, single zone)", {
   # create problem
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   p <- problem(sim_pu_raster, sim_features) %>%
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%
@@ -80,7 +83,8 @@ test_that("integer (solve, single zone)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # create problem
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   p <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.05) %>%
@@ -99,16 +103,17 @@ test_that("integer (solve, single zone)", {
 
 test_that("integer (compile, multiple zones)", {
   # create problem
-  data(sim_pu_zones_stack, sim_features_zones)
-  status <- matrix(FALSE, nrow = raster::ncell(sim_pu_zones_stack),
-                   ncol = number_of_zones(sim_features_zones))
-  locked_out_ind <- Which(!is.na(sim_pu_zones_stack[[1]]), cells = TRUE)[1:20]
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
+  status <- matrix(FALSE, nrow = raster::ncell(sim_zones_pu_raster),
+                   ncol = number_of_zones(sim_zones_features))
+  locked_out_ind <- Which(!is.na(sim_zones_pu_raster[[1]]), cells = TRUE)[1:20]
   status[locked_out_ind, 1] <- TRUE
-  targets <- matrix(FALSE, nrow = number_of_features(sim_features_zones),
-                    ncol = number_of_zones(sim_features_zones))
+  targets <- matrix(FALSE, nrow = number_of_features(sim_zones_features),
+                    ncol = number_of_zones(sim_zones_features))
   targets[] <- 0
   targets[, 1] <- 1
-  p <- problem(sim_pu_zones_stack, sim_features_zones) %>%
+  p <- problem(sim_zones_pu_raster, sim_zones_features) %>%
        add_min_set_objective() %>%
        add_absolute_targets(targets) %>%
        add_binary_decisions() %>%
@@ -121,7 +126,7 @@ test_that("integer (compile, multiple zones)", {
   expect_true(isTRUE(all(o$ub()[other_ind] == 1)))
   # invalid inputs
   expect_error({
-    problem(sim_pu_zones_stack, sim_features_zones) %>%
+    problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_min_set_objective() %>%
     add_relative_targets(targets) %>%
     add_binary_decisions()
@@ -133,16 +138,17 @@ test_that("integer (solve, multiple zones)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # create and solve problem
-  data(sim_pu_zones_stack, sim_features_zones)
-  status <- matrix(FALSE, nrow = raster::ncell(sim_pu_zones_stack),
-                   ncol = number_of_zones(sim_features_zones))
-  locked_out_ind <- Which(!is.na(sim_pu_zones_stack[[1]]), cells = TRUE)[1:20]
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
+  status <- matrix(FALSE, nrow = raster::ncell(sim_zones_pu_raster),
+                   ncol = number_of_zones(sim_zones_features))
+  locked_out_ind <- Which(!is.na(sim_zones_pu_raster[[1]]), cells = TRUE)[1:20]
   status[locked_out_ind, 1] <- TRUE
-  targets <- matrix(FALSE, nrow = number_of_features(sim_features_zones),
-                    ncol = number_of_zones(sim_features_zones))
+  targets <- matrix(FALSE, nrow = number_of_features(sim_zones_features),
+                    ncol = number_of_zones(sim_zones_features))
   targets[] <- 0
   targets[, 1] <- 1
-  s <- problem(sim_pu_zones_stack, sim_features_zones) %>%
+  s <- problem(sim_zones_pu_raster, sim_zones_features) %>%
        add_min_set_objective() %>%
        add_absolute_targets(targets) %>%
        add_binary_decisions() %>%
@@ -155,7 +161,8 @@ test_that("integer (solve, multiple zones)", {
 
 test_that("character (compile, single zone)", {
   # create problem
-  data(sim_pu_polygons, sim_features)
+  sim_pu_polygons <- get_sim_pu_polygons()
+  sim_features <- get_sim_features()
   p <- problem(sim_pu_polygons, sim_features, "cost") %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
@@ -200,7 +207,8 @@ test_that("character (solve, single zone)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # create problem
-  data(sim_pu_polygons, sim_features)
+  sim_pu_polygons <- get_sim_pu_polygons()
+  sim_features <- get_sim_features()
   p <- problem(sim_pu_polygons, sim_features, "cost") %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
@@ -216,7 +224,8 @@ test_that("character (solve, proportion decisions, single zone", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # create problem
-  data(sim_pu_polygons, sim_features)
+  sim_pu_polygons <- get_sim_pu_polygons()
+  sim_features <- get_sim_features()
   s <- problem(sim_pu_polygons, sim_features, "cost") %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
@@ -230,16 +239,17 @@ test_that("character (solve, proportion decisions, single zone", {
 
 test_that("character (compile, multiple zones)", {
   # create problem
-  data(sim_pu_zones_polygons, sim_features_zones)
-  targets <- matrix(FALSE, nrow = number_of_features(sim_features_zones),
-                    ncol = number_of_zones(sim_features_zones))
+  sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
+  sim_zones_features <- get_sim_zones_features()
+  targets <- matrix(FALSE, nrow = number_of_features(sim_zones_features),
+                    ncol = number_of_zones(sim_zones_features))
   targets[] <- 0
   targets[, 1] <- 1
-  sim_pu_zones_polygons$locked_1 <- FALSE
-  sim_pu_zones_polygons$locked_2 <- FALSE
-  sim_pu_zones_polygons$locked_3 <- FALSE
-  sim_pu_zones_polygons$locked_1[1:20] <- TRUE
-  p <- problem(sim_pu_zones_polygons, sim_features_zones,
+  sim_zones_pu_polygons$locked_1 <- FALSE
+  sim_zones_pu_polygons$locked_2 <- FALSE
+  sim_zones_pu_polygons$locked_3 <- FALSE
+  sim_zones_pu_polygons$locked_1[1:20] <- TRUE
+  p <- problem(sim_zones_pu_polygons, sim_zones_features,
                c("cost_1", "cost_2", "cost_3")) %>%
        add_min_set_objective() %>%
        add_relative_targets(targets) %>%
@@ -253,12 +263,13 @@ test_that("character (compile, multiple zones)", {
   expect_true(isTRUE(all(o$ub()[other_ind] == 1)))
   # invalid inputs
   expect_error({
-    data(sim_pu_zones_polygons, sim_features_zones)
-    sim_pu_zones_polygons$locked_1 <- FALSE
-    sim_pu_zones_polygons$locked_2 <- FALSE
-    sim_pu_zones_polygons$locked_3 <- FALSE
-    sim_pu_zones_polygons$locked_1[1] <- 2
-    problem(sim_pu_zones_polygons, sim_features_zones,
+    sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
+  sim_zones_features <- get_sim_zones_features()
+    sim_zones_pu_polygons$locked_1 <- FALSE
+    sim_zones_pu_polygons$locked_2 <- FALSE
+    sim_zones_pu_polygons$locked_3 <- FALSE
+    sim_zones_pu_polygons$locked_1[1] <- 2
+    problem(sim_zones_pu_polygons, sim_zones_features,
                c("cost_1", "cost_2", "cost_3")) %>%
     add_min_set_objective() %>%
     add_relative_targets(targets) %>%
@@ -271,16 +282,17 @@ test_that("character (solve, multiple zones)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # create and solve problem
-  data(sim_pu_zones_polygons, sim_features_zones)
-  targets <- matrix(FALSE, nrow = number_of_features(sim_features_zones),
-                    ncol = number_of_zones(sim_features_zones))
+  sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
+  sim_zones_features <- get_sim_zones_features()
+  targets <- matrix(FALSE, nrow = number_of_features(sim_zones_features),
+                    ncol = number_of_zones(sim_zones_features))
   targets[] <- 0
   targets[, 1] <- 1
-  sim_pu_zones_polygons$locked_1 <- FALSE
-  sim_pu_zones_polygons$locked_2 <- FALSE
-  sim_pu_zones_polygons$locked_3 <- FALSE
-  sim_pu_zones_polygons$locked_1[1:20] <- TRUE
-  s <- problem(sim_pu_zones_polygons, sim_features_zones,
+  sim_zones_pu_polygons$locked_1 <- FALSE
+  sim_zones_pu_polygons$locked_2 <- FALSE
+  sim_zones_pu_polygons$locked_3 <- FALSE
+  sim_zones_pu_polygons$locked_1[1:20] <- TRUE
+  s <- problem(sim_zones_pu_polygons, sim_zones_features,
                c("cost_1", "cost_2", "cost_3")) %>%
        add_min_set_objective() %>%
        add_absolute_targets(targets) %>%
@@ -289,23 +301,24 @@ test_that("character (solve, multiple zones)", {
        add_default_solver(time_limit = 5, verbose = FALSE) %>%
        solve()
   # check that the solution obeys constraints as expected
-  expect_true(all(s$solution_1_zone_1[sim_pu_zones_polygons$locked_1] == 0))
+  expect_true(all(s$solution_1_zone_1[sim_zones_pu_polygons$locked_1] == 0))
 })
 
 test_that("character (solve, proportion decisions, multiple zones)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # create and solve problem
-  data(sim_pu_zones_polygons, sim_features_zones)
-  targets <- matrix(FALSE, nrow = number_of_features(sim_features_zones),
-                    ncol = number_of_zones(sim_features_zones))
+  sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
+  sim_zones_features <- get_sim_zones_features()
+  targets <- matrix(FALSE, nrow = number_of_features(sim_zones_features),
+                    ncol = number_of_zones(sim_zones_features))
   targets[] <- 0
   targets[, 1] <- 1
-  sim_pu_zones_polygons$locked_1 <- FALSE
-  sim_pu_zones_polygons$locked_2 <- FALSE
-  sim_pu_zones_polygons$locked_3 <- FALSE
-  sim_pu_zones_polygons$locked_1[1:20] <- TRUE
-  s <- problem(sim_pu_zones_polygons, sim_features_zones,
+  sim_zones_pu_polygons$locked_1 <- FALSE
+  sim_zones_pu_polygons$locked_2 <- FALSE
+  sim_zones_pu_polygons$locked_3 <- FALSE
+  sim_zones_pu_polygons$locked_1[1:20] <- TRUE
+  s <- problem(sim_zones_pu_polygons, sim_zones_features,
                c("cost_1", "cost_2", "cost_3")) %>%
        add_min_set_objective() %>%
        add_absolute_targets(targets) %>%
@@ -314,12 +327,15 @@ test_that("character (solve, proportion decisions, multiple zones)", {
        add_default_solver(verbose = FALSE) %>%
        solve()
   # check that the solution obeys constraints as expected
-  expect_true(all(s$solution_1_zone_1[sim_pu_zones_polygons$locked_1] == 0))
+  expect_true(all(s$solution_1_zone_1[sim_zones_pu_polygons$locked_1] == 0))
 })
 
 test_that("raster (compile, single zone)", {
   # create problem
-  data(sim_pu_raster, sim_locked_out_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_locked_out_raster <- get_sim_locked_out_raster()
+  sim_features <- get_sim_features()
+
   p <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
@@ -335,7 +351,7 @@ test_that("raster (compile, single zone)", {
   expect_true(isTRUE(all(o$ub()[-locked_out_indices] == 1)))
   # check that invalid inputs throw errors
   expect_error({
-    data(sim_locked_out_raster)
+    sim_locked_out_raster <- get_sim_locked_out_raster()
     extent(sim_locked_out_raster) <- c(0, 20, 0, 20)
     problem(sim_pu_raster, sim_features) %>%
     add_min_set_objective() %>%
@@ -344,7 +360,7 @@ test_that("raster (compile, single zone)", {
     add_locked_out_constraints(sim_locked_out_raster)
   })
   expect_error({
-    data(sim_locked_out_raster)
+    sim_locked_out_raster <- get_sim_locked_out_raster()
     sim_locked_out_raster@crs <- sp::CRS("+proj=longlat +datum=WGS84 +no_defs")
     problem(sim_pu_raster, sim_features) %>%
     add_min_set_objective() %>%
@@ -353,7 +369,7 @@ test_that("raster (compile, single zone)", {
     add_locked_out_constraints(sim_locked_out_raster)
   })
   expect_error({
-    data(sim_locked_out_raster)
+    sim_locked_out_raster <- get_sim_locked_out_raster()
     suppressWarnings(sim_locked_out_raster <- raster::setValues(
       sim_locked_out_raster, NA))
     problem(sim_pu_raster, sim_features) %>%
@@ -363,7 +379,7 @@ test_that("raster (compile, single zone)", {
     add_locked_out_constraints(sim_locked_out_raster)
   })
   expect_error({
-    data(sim_locked_out_raster)
+    sim_locked_out_raster <- get_sim_locked_out_raster()
     sim_locked_out_raster <- raster::setValues(sim_locked_out_raster, 0)
     problem(sim_pu_raster, sim_features) %>%
     add_min_set_objective() %>%
@@ -377,7 +393,10 @@ test_that("raster (solve, single zone)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # create problem
-  data(sim_pu_raster, sim_locked_out_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_locked_out_raster <- get_sim_locked_out_raster()
+  sim_features <- get_sim_features()
+
   p <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
@@ -393,17 +412,18 @@ test_that("raster (solve, single zone)", {
 
 test_that("raster (compile, multiple zones)", {
   # create problem
-  data(sim_pu_zones_stack, sim_features_zones)
-  targets <- matrix(FALSE, nrow = number_of_features(sim_features_zones),
-                    ncol = number_of_zones(sim_features_zones))
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
+  targets <- matrix(FALSE, nrow = number_of_features(sim_zones_features),
+                    ncol = number_of_zones(sim_zones_features))
   targets[] <- 0
   targets[, 1] <- 1
-  status <- sim_pu_zones_stack
+  status <- sim_zones_pu_raster
   status[[1]][raster::Which(!is.na(status[[1]]))] <- 0
   status[[1]][raster::Which(!is.na(status[[1]]), cells = TRUE)[1:20]] <- 1
   status[[2]][raster::Which(!is.na(status[[2]]))] <- 0
   status[[3]][raster::Which(!is.na(status[[3]]))] <- 0
-  p <- problem(sim_pu_zones_stack, sim_features_zones) %>%
+  p <- problem(sim_zones_pu_raster, sim_zones_features) %>%
        add_min_set_objective() %>%
        add_absolute_targets(targets) %>%
        add_binary_decisions() %>%
@@ -421,17 +441,18 @@ test_that("raster (solve, multiple zones)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # make and solve problem
-  data(sim_pu_zones_stack, sim_features_zones)
-  targets <- matrix(FALSE, nrow = number_of_features(sim_features_zones),
-                    ncol = number_of_zones(sim_features_zones))
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
+  targets <- matrix(FALSE, nrow = number_of_features(sim_zones_features),
+                    ncol = number_of_zones(sim_zones_features))
   targets[] <- 0
   targets[, 1] <- 1
-  status <- sim_pu_zones_stack
+  status <- sim_zones_pu_raster
   status[[1]][raster::Which(!is.na(status[[1]]))] <- 0
   status[[1]][raster::Which(!is.na(status[[1]]), cells = TRUE)[1:20]] <- 1
   status[[2]][raster::Which(!is.na(status[[2]]))] <- 0
   status[[3]][raster::Which(!is.na(status[[3]]))] <- 0
-  s <- problem(sim_pu_zones_stack, sim_features_zones) %>%
+  s <- problem(sim_zones_pu_raster, sim_zones_features) %>%
        add_min_set_objective() %>%
        add_absolute_targets(targets) %>%
        add_binary_decisions() %>%
@@ -445,7 +466,8 @@ test_that("raster (solve, multiple zones)", {
 
 test_that("spatial (compile, single zone)", {
   # create problem
-  data(sim_pu_polygons, sim_features)
+  sim_pu_polygons <- get_sim_pu_polygons()
+  sim_features <- get_sim_features()
   p <- problem(sim_pu_polygons, sim_features, "cost") %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
@@ -458,7 +480,8 @@ test_that("spatial (compile, single zone)", {
   expect_true(isTRUE(all(o$ub()[-locked_out_units] == 1)))
   # check that invalid inputs throw errors
   expect_error({
-    data(sim_pu_polygons, sim_features)
+    sim_pu_polygons <- get_sim_pu_polygons()
+  sim_features <- get_sim_features()
     problem(sim_pu_polygons[1:10, ], sim_features) %>%
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%
@@ -466,7 +489,8 @@ test_that("spatial (compile, single zone)", {
     add_locked_out_constraints(sim_pu_polygons[50:55, ])
   })
   expect_error({
-    data(sim_pu_polygons, sim_features)
+    sim_pu_polygons <- get_sim_pu_polygons()
+  sim_features <- get_sim_features()
     problem(sim_pu_polygons[1:10, ], sim_features) %>%
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%
@@ -474,7 +498,8 @@ test_that("spatial (compile, single zone)", {
     add_locked_out_constraints(sim_pu_polygons[0, ])
   })
   expect_error({
-    data(sim_pu_polygons, sim_features)
+    sim_pu_polygons <- get_sim_pu_polygons()
+  sim_features <- get_sim_features()
     sim_pu_polygons2 <- sim_pu_polygons[1:10, ]
     sim_pu_polygons2@proj4string <-
       sp::CRS("+proj=longlat +datum=WGS84 +no_defs")
@@ -490,7 +515,8 @@ test_that("spatial (solve, single zone)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # create problem
-  data(sim_pu_polygons, sim_features)
+  sim_pu_polygons <- get_sim_pu_polygons()
+  sim_features <- get_sim_features()
   locked_ply <- sim_pu_polygons[sim_pu_polygons$locked_out, ]
   p <- problem(sim_pu_polygons, sim_features, "cost") %>%
        add_min_set_objective() %>%
@@ -505,18 +531,19 @@ test_that("spatial (solve, single zone)", {
 })
 
 test_that("spatial (compile, multiple zones, expect error)", {
-  data(sim_pu_zones_polygons, sim_features_zones)
-  targets <- matrix(FALSE, nrow = number_of_features(sim_features_zones),
-                    ncol = number_of_zones(sim_features_zones))
+  sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
+  sim_zones_features <- get_sim_zones_features()
+  targets <- matrix(FALSE, nrow = number_of_features(sim_zones_features),
+                    ncol = number_of_zones(sim_zones_features))
   targets[] <- 0
   targets[, 1] <- 1
   expect_error({
-    problem(sim_pu_zones_polygons, sim_features_zones,
+    problem(sim_zones_pu_polygons, sim_zones_features,
                  c("cost_1", "cost_2", "cost_3")) %>%
     add_min_set_objective() %>%
     add_absolute_targets(targets) %>%
     add_binary_decisions() %>%
-    add_locked_out_constraints(sim_pu_zones_polygons[seq_len(20), ]) %>%
+    add_locked_out_constraints(sim_zones_pu_polygons[seq_len(20), ]) %>%
     add_default_solver(verbose = FALSE) %>%
     solve()
   })
@@ -524,7 +551,8 @@ test_that("spatial (compile, multiple zones, expect error)", {
 
 test_that("sf (compile, sf identical to Spatial, single zone)", {
   # create problem
-  data(sim_pu_polygons, sim_features)
+  sim_pu_polygons <- get_sim_pu_polygons()
+  sim_features <- get_sim_features()
   sim_sf <- sf::st_as_sf(sim_pu_polygons)
   # make problems
   p1 <- problem(sim_pu_polygons, sim_features, "cost") %>%
@@ -553,23 +581,24 @@ test_that("sf (compile, sf identical to Spatial, single zone)", {
 
 test_that("character (compile, sf identical to Spatial, multiple zones)", {
   # create problem
-  data(sim_pu_zones_polygons, sim_features_zones)
-  targets <- matrix(FALSE, nrow = number_of_features(sim_features_zones),
-                    ncol = number_of_zones(sim_features_zones))
+  sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
+  sim_zones_features <- get_sim_zones_features()
+  targets <- matrix(FALSE, nrow = number_of_features(sim_zones_features),
+                    ncol = number_of_zones(sim_zones_features))
   targets[] <- 0
   targets[, 1] <- 1
-  sim_pu_zones_polygons$locked_1 <- TRUE
-  sim_pu_zones_polygons$locked_2 <- FALSE
-  sim_pu_zones_polygons$locked_3 <- FALSE
-  sim_sf <- sf::st_as_sf(sim_pu_zones_polygons)
+  sim_zones_pu_polygons$locked_1 <- TRUE
+  sim_zones_pu_polygons$locked_2 <- FALSE
+  sim_zones_pu_polygons$locked_3 <- FALSE
+  sim_sf <- sf::st_as_sf(sim_zones_pu_polygons)
   # make problems
-  p1 <- problem(sim_pu_zones_polygons, sim_features_zones,
+  p1 <- problem(sim_zones_pu_polygons, sim_zones_features,
                 c("cost_1", "cost_2", "cost_3")) %>%
         add_min_set_objective() %>%
         add_relative_targets(targets) %>%
         add_binary_decisions() %>%
         add_locked_out_constraints(c("locked_1", "locked_2", "locked_3"))
-  p2 <- problem(sim_sf, sim_features_zones,
+  p2 <- problem(sim_sf, sim_zones_features,
                 c("cost_1", "cost_2", "cost_3")) %>%
         add_min_set_objective() %>%
         add_relative_targets(targets) %>%
@@ -584,7 +613,8 @@ test_that("character (compile, sf identical to Spatial, multiple zones)", {
 
 test_that("invalid inputs", {
   # create problem
-  data(sim_pu_polygons, sim_features)
+  sim_pu_polygons <- get_sim_pu_polygons()
+  sim_features <- get_sim_features()
   sim_sf <- sf::st_as_sf(sim_pu_polygons)
   sim_sf$locked_out <- FALSE
   # make problems

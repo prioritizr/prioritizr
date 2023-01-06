@@ -128,7 +128,7 @@ test_that("data.frame (single zone)", {
 
 test_that("Spatial (single zone)", {
   # create data
-  data(sim_pu_polygons)
+  sim_pu_polygons <- get_sim_pu_polygons()
   pu <- sim_pu_polygons[1:4, ]
   pu@data <- data.frame(id = seq_len(4),
                         cost = c(10, 2, NA, 3),
@@ -153,7 +153,7 @@ test_that("Spatial (single zone)", {
 
 test_that("sf (single zone)", {
   # create data
-  data(sim_pu_polygons)
+  sim_pu_polygons <- get_sim_pu_polygons()
   pu <- sim_pu_polygons[1:4, ]
   pu@data <- data.frame(id = seq_len(4),
                         cost = c(10, 2, NA, 3),
@@ -240,7 +240,7 @@ test_that("invalid inputs", {
   })
   expect_error({
     # load data
-    data(sim_pu_polygons)
+    sim_pu_polygons <- get_sim_pu_polygons()
     pu <- sim_pu_polygons
     pu$cost[1:5] <- NA
     pu$solution <- rep(c(0, 1), 5)
@@ -255,7 +255,8 @@ test_that("invalid inputs", {
   })
   expect_error({
     # load data
-    data(sim_pu_raster, sim_features)
+    sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
     # create problem
     x <- problem(sim_pu_raster, sim_features)
     # create a solution

@@ -411,19 +411,20 @@ test_that("solve (multiple zones)", {
 
 test_that("compile (Spatial and sf are identical)", {
   # load data
-  data(sim_pu_zones_polygons, sim_features_zones)
+  sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
+  sim_zones_features <- get_sim_zones_features()
   z <- diag(3)
   z[1, 2] <- 1
   z[2, 1] <- 1
-  sim_pu_zones_polygons <- sim_pu_zones_polygons[c(1:2, 10:12, 20:22), ]
-  sim_sf <- sf::st_as_sf(sim_pu_zones_polygons)
+  sim_zones_pu_polygons <- sim_zones_pu_polygons[c(1:2, 10:12, 20:22), ]
+  sim_sf <- sf::st_as_sf(sim_zones_pu_polygons)
   # create problems
-  p1 <- problem(sim_pu_zones_polygons, sim_features_zones,
+  p1 <- problem(sim_zones_pu_polygons, sim_zones_features,
                 c("cost_1", "cost_2", "cost_3")) %>%
         add_min_set_objective() %>%
         add_relative_targets(matrix(0.2, nrow = 5, ncol = 3)) %>%
         add_feature_contiguity_constraints(z)
-  p2 <- problem(sim_sf, sim_features_zones,
+  p2 <- problem(sim_sf, sim_zones_features,
                 c("cost_1", "cost_2", "cost_3")) %>%
         add_min_set_objective() %>%
         add_relative_targets(matrix(0.2, nrow = 5, ncol = 3)) %>%
@@ -438,7 +439,8 @@ test_that("compile (Spatial and sf are identical)", {
 
 test_that("invalid inputs (single zone)", {
   # create problem
-  data(sim_pu_polygons, sim_features)
+  sim_pu_polygons <- get_sim_pu_polygons()
+  sim_features <- get_sim_features()
   cm <- as.matrix(adjacency_matrix(sim_pu_polygons))
   p <- problem(sim_pu_polygons, sim_features, "cost") %>%
        add_min_set_objective() %>%
@@ -458,9 +460,10 @@ test_that("invalid inputs (single zone)", {
 
 test_that("invalid inputs (multiple zones)", {
   # create problem
-  data(sim_pu_zones_polygons, sim_features_zones)
-  cm <- as.matrix(adjacency_matrix(sim_pu_zones_polygons))
-  p <- problem(sim_pu_zones_polygons, sim_features_zones,
+  sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
+  sim_zones_features <- get_sim_zones_features()
+  cm <- as.matrix(adjacency_matrix(sim_zones_pu_polygons))
+  p <- problem(sim_zones_pu_polygons, sim_zones_features,
                c("cost_1", "cost_2", "cost_3")) %>%
        add_min_set_objective() %>%
        add_relative_targets(matrix(0.2, nrow = 5, ncol = 3))

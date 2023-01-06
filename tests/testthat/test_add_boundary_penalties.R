@@ -2,7 +2,8 @@ context("add_boundary_penalties")
 
 test_that("minimum set objective (compile, single zone)", {
   ## make data
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   p <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
@@ -67,7 +68,8 @@ test_that("minimum set objective (compile, single zone)", {
 
 test_that("alternative data formats (single zone)", {
   # load data
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   bm <- boundary_matrix(sim_pu_raster)
   bdf <- matrix_to_triplet_dataframe(boundary_matrix(sim_pu_raster)) %>%
          setNames(c("id1", "id2", "boundary"))
@@ -99,7 +101,8 @@ test_that("minimum set objective (solve, single zone)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # check that solution is feasible
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   b <- raster::cellStats(sim_pu_raster, "sum") * 0.3
   p1 <- problem(sim_pu_raster, sim_features) %>%
         add_min_set_objective() %>%
@@ -135,14 +138,15 @@ test_that("minimum set objective (solve, single zone)", {
 
 test_that("minimum set objective (compile, multiple zones)", {
   ## make data
-  data(sim_pu_zones_polygons, sim_features_zones)
+  sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
+  sim_zones_features <- get_sim_zones_features()
   penalty <- 5
   p_zones <- matrix(0, ncol = 3, nrow = 3)
   diag(p_zones) <- c(0.7, 0.8, 0.9)
   p_zones[upper.tri(p_zones)] <- c(0.1, 0.2, 0.3)
   p_zones[lower.tri(p_zones)] <- p_zones[upper.tri(p_zones)]
   p_edge_factor <- seq(0.1, 0.1 * 3, 0.1)
-  p <- problem(sim_pu_zones_polygons, sim_features_zones,
+  p <- problem(sim_zones_pu_polygons, sim_zones_features,
                c("cost_1", "cost_2", "cost_3")) %>%
        add_min_set_objective() %>%
        add_absolute_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
@@ -300,18 +304,19 @@ test_that("minimum set objective (compile, multiple zones)", {
 
 test_that("alternative data formats (multiple zones)", {
   # load data
-  data(sim_pu_zones_polygons, sim_features_zones)
+  sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
+  sim_zones_features <- get_sim_zones_features()
   p_zones <- matrix(0, ncol = 3, nrow = 3)
   diag(p_zones) <- c(0.7, 0.8, 0.9)
   p_zones[upper.tri(p_zones)] <- c(0.1, 0.2, 0.3)
   p_zones[lower.tri(p_zones)] <- p_zones[upper.tri(p_zones)]
   p_edge_factor <- seq(0.1, 0.1 * 3, 0.1)
-  bm <- boundary_matrix(sim_pu_zones_polygons)
-  bdf <- matrix_to_triplet_dataframe(boundary_matrix(sim_pu_zones_polygons)) %>%
+  bm <- boundary_matrix(sim_zones_pu_polygons)
+  bdf <- matrix_to_triplet_dataframe(boundary_matrix(sim_zones_pu_polygons)) %>%
          setNames(c("id1", "id2", "boundary"))
   bdf2 <- data.frame(id1 = bdf[[2]], id2 = bdf[[1]], boundary = bdf[[3]])
   # create problems
-  p <- problem(sim_pu_zones_polygons, sim_features_zones,
+  p <- problem(sim_zones_pu_polygons, sim_zones_features,
                c("cost_1", "cost_2", "cost_3")) %>%
         add_min_set_objective() %>%
         add_absolute_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
@@ -338,13 +343,14 @@ test_that("minimum set objective (solve, multiple zones)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # load data
-  data(sim_pu_zones_polygons, sim_features_zones)
+  sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
+  sim_zones_features <- get_sim_zones_features()
   p_zones <- diag(3)
   p_zones[upper.tri(p_zones)] <- 0.1
   p_zones[lower.tri(p_zones)] <- p_zones[upper.tri(p_zones)]
   p_edge_factor <- rep(0.5, 3)
   # create and solve problem
-  s <- problem(sim_pu_zones_polygons, sim_features_zones,
+  s <- problem(sim_zones_pu_polygons, sim_zones_features,
                c("cost_1", "cost_2", "cost_3")) %>%
        add_min_set_objective() %>%
        add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
@@ -361,20 +367,21 @@ test_that("minimum set objective (solve, multiple zones)", {
 
 test_that("minimum set objective (compile, Spatial and sf are identical)", {
   # data
-  data(sim_pu_zones_polygons, sim_features_zones)
+  sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
+  sim_zones_features <- get_sim_zones_features()
   penalty <- 5
   p_zones <- matrix(0, ncol = 3, nrow = 3)
   diag(p_zones) <- c(0.7, 0.8, 0.9)
   p_zones[upper.tri(p_zones)] <- c(0.1, 0.2, 0.3)
   p_zones[lower.tri(p_zones)] <- p_zones[upper.tri(p_zones)]
   p_edge_factor <- seq(0.1, 0.1 * 3, 0.1)
-  p1 <- problem(sim_pu_zones_polygons, sim_features_zones,
+  p1 <- problem(sim_zones_pu_polygons, sim_zones_features,
                c("cost_1", "cost_2", "cost_3")) %>%
        add_min_set_objective() %>%
        add_absolute_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
        add_binary_decisions() %>%
        add_boundary_penalties(penalty, p_edge_factor, p_zones)
-  p2 <- problem(sf::st_as_sf(sim_pu_zones_polygons), sim_features_zones,
+  p2 <- problem(sf::st_as_sf(sim_zones_pu_polygons), sim_zones_features,
                c("cost_1", "cost_2", "cost_3")) %>%
        add_min_set_objective() %>%
        add_absolute_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
@@ -388,7 +395,8 @@ test_that("minimum set objective (compile, Spatial and sf are identical)", {
 })
 
 test_that("invalid inputs (single zone)", {
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   p <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
@@ -400,8 +408,9 @@ test_that("invalid inputs (single zone)", {
 })
 
 test_that("invalid inputs (multiple zones)", {
-  data(sim_pu_zones_stack, sim_features_zones)
-  p <- problem(sim_pu_zones_stack, sim_features_zones) %>%
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
+  p <- problem(sim_zones_pu_raster, sim_zones_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
        add_binary_decisions()

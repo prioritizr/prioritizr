@@ -103,7 +103,7 @@ test_that("data.frame (multiple zone)", {
 
 test_that("Spatial (single zone)", {
   # load data
-  data(sim_pu_polygons)
+  sim_pu_polygons <- get_sim_pu_polygons()
   pu <- sim_pu_polygons[seq_len(10), , drop = FALSE]
   pu@proj4string <- as(sf::st_crs(32756), "CRS")
   pu$cost[1:5] <- NA
@@ -126,8 +126,8 @@ test_that("Spatial (single zone)", {
 
 test_that("Spatial (multiple zone)", {
   # load data
-  data(sim_pu_zones_polygons)
-  pu <- sim_pu_zones_polygons
+  sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
+  pu <- sim_zones_pu_polygons
   pu@proj4string <- as(sf::st_crs(32756), "CRS")
   pu$spp1_1 <- c(NA, runif(nrow(pu) - 1))
   pu$spp2_1 <- c(rpois(nrow(pu) - 1, 1),
@@ -157,8 +157,8 @@ test_that("Spatial (multiple zone)", {
 
 test_that("sf (single zone)", {
   # load data
-  data(sim_pu_sf)
-  pu <- sim_pu_sf[seq_len(10), , drop = FALSE]
+  sim_pu_polygons <- get_sim_pu_polygons()
+  pu <- sim_pu_polygons[seq_len(10), , drop = FALSE]
   sf::st_crs(pu) <- sf::st_crs(32756)
   pu$cost[1:5] <- NA
   pu$solution <- rep(c(0, 1), 5)
@@ -180,8 +180,8 @@ test_that("sf (single zone)", {
 
 test_that("sf (multiple zone)", {
   # load data
-  data(sim_pu_zones_sf)
-  pu <- sim_pu_zones_sf
+  sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
+  pu <- sim_zones_pu_polygons
   sf::st_crs(pu) <- sf::st_crs(32756)
   pu$spp1_1 <- c(NA, runif(nrow(pu) - 1))
   pu$spp2_1 <- c(rpois(nrow(pu) - 1, 1),
@@ -211,7 +211,8 @@ test_that("sf (multiple zone)", {
 
 test_that("Raster (single zone)", {
   # load data
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   sim_pu_raster@crs <- as(sf::st_crs(32756), "CRS")
   sim_features@crs <- as(sf::st_crs(32756), "CRS")
   # create problem
@@ -230,13 +231,14 @@ test_that("Raster (single zone)", {
 
 test_that("Raster (multiple zone)", {
   # load data
-  data(sim_pu_zones_stack, sim_features_zones)
-  sim_pu_zones_stack@crs <- as(sf::st_crs(32756), "CRS")
-  sim_features_zones[[1]]@crs <- as(sf::st_crs(32756), "CRS")
-  sim_features_zones[[2]]@crs <- as(sf::st_crs(32756), "CRS")
-  sim_features_zones[[3]]@crs <- as(sf::st_crs(32756), "CRS")
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
+  sim_zones_pu_raster@crs <- as(sf::st_crs(32756), "CRS")
+  sim_zones_features[[1]]@crs <- as(sf::st_crs(32756), "CRS")
+  sim_zones_features[[2]]@crs <- as(sf::st_crs(32756), "CRS")
+  sim_zones_features[[3]]@crs <- as(sf::st_crs(32756), "CRS")
   # create problem
-  p <- problem(sim_pu_zones_stack, sim_features_zones)
+  p <- problem(sim_zones_pu_raster, sim_zones_features)
   # create a solution
   s <- raster::stack(
     raster::setValues(
@@ -245,9 +247,9 @@ test_that("Raster (multiple zone)", {
       sim_pu_raster, rep(c(0.3, 0), raster::ncell(sim_pu_raster) / 2)),
     raster::setValues(
       sim_pu_raster, rep(c(0.4, 0), raster::ncell(sim_pu_raster) / 2)))
-  s[[1]][is.na(sim_pu_zones_stack[[1]])] <- NA_real_
-  s[[2]][is.na(sim_pu_zones_stack[[2]])] <- NA_real_
-  s[[3]][is.na(sim_pu_zones_stack[[3]])] <- NA_real_
+  s[[1]][is.na(sim_zones_pu_raster[[1]])] <- NA_real_
+  s[[2]][is.na(sim_zones_pu_raster[[2]])] <- NA_real_
+  s[[3]][is.na(sim_zones_pu_raster[[3]])] <- NA_real_
   raster::crs(s) <- as(sf::st_crs(32756), "CRS")
   # extract solution status
   r1 <- planning_unit_solution_status(p, s)
@@ -297,7 +299,7 @@ test_that("invalid inputs", {
   })
   expect_error({
     # load data
-    data(sim_pu_polygons)
+    sim_pu_polygons <- get_sim_pu_polygons()
     pu <- sim_pu_polygons
     pu$cost[1:5] <- NA
     pu$solution <- rep(c(0, 1), 5)
@@ -312,7 +314,8 @@ test_that("invalid inputs", {
   })
   expect_error({
     # load data
-    data(sim_pu_raster, sim_features)
+    sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
     # create problem
     p <- problem(sim_pu_raster, sim_features)
     # create a solution

@@ -2,7 +2,8 @@ context("rij_matrix")
 
 test_that("x=RasterLayer, y=RasterLayer", {
   # create data
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   m <- rij_matrix(sim_pu_raster, sim_features[[1]])
   # run tests
   expect_true(inherits(m, "dgCMatrix"))
@@ -15,7 +16,8 @@ test_that("x=RasterLayer, y=RasterLayer", {
 
 test_that("x=RasterLayer, y=RasterStack", {
   # create data
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   m <- rij_matrix(sim_pu_raster, sim_features)
   # run tests
   expect_true(inherits(m, "dgCMatrix"))
@@ -31,7 +33,8 @@ test_that("x=RasterLayer, y=RasterStack", {
 test_that("x=RasterLayer, y=RasterStack (data size > raster maxmemory)", {
   # create data
   raster::rasterOptions(todisk = TRUE)
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   m <- rij_matrix(sim_pu_raster, sim_features)
   # run tests
   expect_true(inherits(m, "dgCMatrix"))
@@ -71,7 +74,8 @@ test_that("x=RasterStack, y=RasterStack", {
 
 test_that("x=SpatialPolygons, y=RasterStack", {
   # create data
-  data(sim_pu_polygons, sim_features)
+  sim_pu_polygons <- get_sim_pu_polygons()
+  sim_features <- get_sim_features()
   m <- rij_matrix(sim_pu_polygons, sim_features, fun = "mean")
   # calculate correct result
   m2 <- raster::extract(sim_features, sim_pu_polygons, fun = mean,
@@ -86,7 +90,8 @@ test_that("x=SpatialPolygons, y=RasterStack", {
 
 test_that("x=SpatialLines, y=RasterStack", {
   # create data
-  data(sim_pu_lines, sim_features)
+  sim_pu_lines <- get_sim_pu_lines()
+  sim_features <- get_sim_features()
   m <- rij_matrix(sim_pu_lines, sim_features, fun = "mean")
   # run tests
   expect_true(inherits(m, "dgCMatrix"))
@@ -100,7 +105,8 @@ test_that("x=SpatialLines, y=RasterStack", {
 
 test_that("x=SpatialPoints, y=RasterStack", {
   # create data
-  data(sim_pu_points, sim_features)
+  sim_pu_points <- get_sim_pu_points()
+  sim_features <- get_sim_features()
   m <- rij_matrix(sim_pu_points, sim_features)
   # run tests
   expect_true(inherits(m, "dgCMatrix"))
@@ -113,11 +119,12 @@ test_that("x=SpatialPoints, y=RasterStack", {
 
 test_that("x=sf, y=RasterStack (mean)", {
   # create data
-  data(sim_pu_sf, sim_features)
-  m <- rij_matrix(sim_pu_sf, sim_features, fun = "mean")
+  sim_pu_polygons <- get_sim_pu_polygons()
+  sim_features <- get_sim_features()
+  m <- rij_matrix(sim_pu_polygons, sim_features, fun = "mean")
   # calculate correct result
   suppressWarnings({
-    m2 <- exactextractr::exact_extract(sim_features, sim_pu_sf, fun = "mean",
+    m2 <- exactextractr::exact_extract(sim_features, sim_pu_polygons, fun = "mean",
                                        progress = FALSE)
   })
   m2 <- as_Matrix(as.matrix(m2), "dgCMatrix")
@@ -129,11 +136,12 @@ test_that("x=sf, y=RasterStack (mean)", {
 
 test_that("x=sf, y=RasterStack (sum)", {
   # create data
-  data(sim_pu_sf, sim_features)
-  m <- rij_matrix(sim_pu_sf, sim_features)
+  sim_pu_polygons <- get_sim_pu_polygons()
+  sim_features <- get_sim_features()
+  m <- rij_matrix(sim_pu_polygons, sim_features)
   # calculate correct result
   suppressWarnings({
-    m2 <- exactextractr::exact_extract(sim_features, sim_pu_sf, fun = "sum",
+    m2 <- exactextractr::exact_extract(sim_features, sim_pu_polygons, fun = "sum",
                                        progress = FALSE)
   })
   m2 <- as_Matrix(as.matrix(m2), "dgCMatrix")

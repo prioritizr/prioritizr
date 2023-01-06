@@ -2,31 +2,36 @@ context("internal functions")
 
 test_that("is_comparable_raster (valid inputs)", {
   # load data
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   # expect true
   expect_true(is_comparable_raster(sim_pu_raster, sim_features))
   expect_true(assertthat::assert_that(
     is_comparable_raster(sim_pu_raster, sim_features)))
   # expect false
   expect_false({
-    data(sim_pu_raster, sim_features)
+    sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
     sim_features@crs <- sp::CRS("+proj=longlat +datum=WGS84 +no_defs")
     is_comparable_raster(sim_pu_raster, sim_features)
   })
   expect_false({
-    data(sim_pu_raster, sim_features)
+    sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
     is_comparable_raster(
       raster::crop(sim_pu_raster, raster::extent(sim_pu_raster, 1, 5, 1, 5)),
                    sim_features)
   })
   # expect error
   expect_error({
-    data(sim_pu_raster, sim_features)
+    sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
     sim_features@crs <- sp::CRS("+proj=longlat +datum=WGS84 +no_defs")
     assertthat::assert_that(is_comparable_raster(sim_pu_raster, sim_features))
   })
   expect_error({
-    data(sim_pu_raster, sim_features)
+    sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
     assertthat::assert_that(is_comparable_raster(
       raster::crop(sim_pu_raster, raster::extent(sim_pu_raster, 1, 5, 1, 5)),
                    sim_features))
@@ -34,7 +39,8 @@ test_that("is_comparable_raster (valid inputs)", {
 })
 
 test_that("is_comparable_raster (invalid inputs)", {
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   expect_error({
     is_comparable_raster(sim_pu_raster, "a")
   })
@@ -70,11 +76,11 @@ test_that("intersecting_extents", {
   expect_true(intersecting_extents(
     sim_pu_polygons[1, ], sim_pu_polygons[1:10, ]))
   expect_true(intersecting_extents(
-    sim_pu_sf[1, ], sim_pu_sf[1:10, ]))
+    sim_pu_polygons[1, ], sim_pu_polygons[1:10, ]))
   expect_true(intersecting_extents(
-    sim_pu_sf[1, ], sim_pu_polygons[1:10, ]))
+    sim_pu_polygons[1, ], sim_pu_polygons[1:10, ]))
   expect_true(intersecting_extents(
-    sim_pu_sf[1, ], sim_pu_raster))
+    sim_pu_polygons[1, ], sim_pu_raster))
   expect_true(intersecting_extents(
     sim_pu_polygons[1, ], sim_pu_raster))
   expect_true(intersecting_extents(
@@ -82,11 +88,11 @@ test_that("intersecting_extents", {
   expect_false(intersecting_extents(
     sim_pu_polygons[1, ], sim_pu_polygons[7, ]))
   expect_false(intersecting_extents(
-    sim_pu_sf[1, ], sim_pu_sf[7, ]))
+    sim_pu_polygons[1, ], sim_pu_polygons[7, ]))
   expect_false(intersecting_extents(
-    sim_pu_sf[1, ], sim_pu_polygons[7, ]))
+    sim_pu_polygons[1, ], sim_pu_polygons[7, ]))
   expect_false(intersecting_extents(
-    sim_pu_sf[1, ], raster::crop(sim_pu_raster, sim_pu_polygons[7, ])))
+    sim_pu_polygons[1, ], raster::crop(sim_pu_raster, sim_pu_polygons[7, ])))
   expect_false(intersecting_extents(
     sim_pu_polygons[1, ], raster::crop(sim_pu_raster, sim_pu_polygons[7, ])))
   expect_false(intersecting_extents(

@@ -1,7 +1,8 @@
 context("fast_extract")
 
 # generate data
-data(sim_features, sim_pu_sf)
+sim_features <- get_sim_features()
+  sim_pu_polygons <- get_sim_pu_polygons()
 # make points
 p1 <- sf::st_point(c(0.1, 0.1))
 p2 <- sf::st_point(c(0.9, 0.9))
@@ -15,7 +16,7 @@ ls2 = matrix(c(0.1, 0.9, 0.9, 0.1), byrow = TRUE, nrow = 2) %>%
 ls_sfc <- sf::st_sfc(list(ls1, ls2))
 ls_sf <- sf::st_sf(ls_sfc)
 # mixture
-p_mix <- sf::st_sfc(list(p1, ls1, sf::st_geometry(sim_pu_sf)[[1]]))
+p_mix <- sf::st_sfc(list(p1, ls1, sf::st_geometry(sim_pu_polygons)[[1]]))
 p_mix_sf <- sf::st_sf(p_mix)
 
 test_that("x=Raster,y=SpatialPolygons", {
@@ -24,7 +25,7 @@ test_that("x=Raster,y=SpatialPolygons", {
   expect_equal(nrow(fe), nrow(sim_pu_polygons))
   expect_equal(ncol(fe), raster::nlayers(sim_features))
   # sp to sf conversion doesn't affect results
-  expect_identical(fe, fast_extract(sim_features, sim_pu_sf))
+  expect_identical(fe, fast_extract(sim_features, sim_pu_polygons))
 })
 
 test_that("x=Raster,y=SpatialPoints", {
@@ -56,8 +57,8 @@ test_that("x=Raster,y=sfc", {
   expect_equal(nrow(fe), length(ls_sfc))
   expect_equal(ncol(fe), raster::nlayers(sim_features))
   # polygons
-  fe <- fast_extract(sim_features, sf::st_geometry(sim_pu_sf))
-  expect_equal(nrow(fe), nrow(sim_pu_sf))
+  fe <- fast_extract(sim_features, sf::st_geometry(sim_pu_polygons))
+  expect_equal(nrow(fe), nrow(sim_pu_polygons))
   expect_equal(ncol(fe), raster::nlayers(sim_features))
   # mixture
   fe <- fast_extract(sim_features, p_mix)
@@ -76,8 +77,8 @@ test_that("x=Raster,y=sf", {
   expect_equal(nrow(fe), nrow(ls_sf))
   expect_equal(ncol(fe), raster::nlayers(sim_features))
   # polygons
-  fe <- fast_extract(sim_features, sim_pu_sf)
-  expect_equal(nrow(fe), nrow(sim_pu_sf))
+  fe <- fast_extract(sim_features, sim_pu_polygons)
+  expect_equal(nrow(fe), nrow(sim_pu_polygons))
   expect_equal(ncol(fe), raster::nlayers(sim_features))
   # mixture
   fe <- fast_extract(sim_features, p_mix_sf)
@@ -103,28 +104,28 @@ test_that("summary functions", {
 
 test_that("invalid inputs", {
   # bad functions
-  expect_error(fast_extract(sim_features, sim_pu_sf, fun = mean))
-  expect_error(fast_extract(sim_features, sim_pu_sf, fun = "median"))
-  expect_error(fast_extract(sim_features, sim_pu_sf, fun = c("mean", "sum")))
+  expect_error(fast_extract(sim_features, sim_pu_polygons, fun = mean))
+  expect_error(fast_extract(sim_features, sim_pu_polygons, fun = "median"))
+  expect_error(fast_extract(sim_features, sim_pu_polygons, fun = c("mean", "sum")))
   # incorrect spatial data format
-  expect_error(fast_extract(sim_pu_sf, sim_pu_sf))
+  expect_error(fast_extract(sim_pu_polygons, sim_pu_polygons))
   expect_error(fast_extract(sim_features, sim_features))
   # out of extent
   bad_pt <- sf::st_point(c(10, 10)) %>% 
     sf::st_sfc()
   expect_error(fast_extract(sim_features, bad_pt))
   # wrong crs
-  bad_crs <- sim_pu_sf
+  bad_crs <- sim_pu_polygons
   sf::st_crs(bad_crs) <- 4326
   expect_error(fast_extract(sim_features, bad_crs))
 })
 
 test_that("process in memory/on disk", {
   # in memory
-  in_mem <- fast_extract(sim_features, sim_pu_sf)
+  in_mem <- fast_extract(sim_features, sim_pu_polygons)
   # on disk
   options(rasterToDisk = TRUE)
-  on_disk <- fast_extract(sim_features, sim_pu_sf)
+  on_disk <- fast_extract(sim_features, sim_pu_polygons)
   options(rasterToDisk = NULL)
   expect_equal(round(in_mem, 5), round(on_disk, 5))
 })

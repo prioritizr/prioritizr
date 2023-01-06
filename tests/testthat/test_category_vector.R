@@ -20,7 +20,7 @@ test_that("data.frame", {
 
 test_that("Spatial", {
   # create data
-  data(sim_pu_polygons)
+  sim_pu_polygons <- get_sim_pu_polygons()
   x <- sim_pu_polygons[seq_len(4), ]
   x$V1 <- c(1, 0, 0, NA)
   x$V2 <- c(0, 1, 0, NA)
@@ -33,8 +33,8 @@ test_that("Spatial", {
 
 test_that("sf", {
   # create data
-  data(sim_pu_sf)
-  x <- sim_pu_sf[seq_len(4), ]
+  sim_pu_polygons <- get_sim_pu_polygons()
+  x <- sim_pu_polygons[seq_len(4), ]
   x$V1 <- c(1, 0, 0, NA)
   x$V2 <- c(0, 1, 0, NA)
   x$V3 <- c(0, 0, 0, NA)

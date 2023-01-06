@@ -42,7 +42,8 @@ test_that("data.frame (na.rm = TRUE, single zone)", {
 
 test_that("raster (na.rm = FALSE, single zone)", {
   # make data
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   p <- problem(sim_pu_raster, sim_features)
   # calculate abundances
   x <- feature_abundances(p, na.rm = FALSE)
@@ -58,7 +59,8 @@ test_that("raster (na.rm = FALSE, single zone)", {
 
 test_that("raster (na.rm = TRUE, single zone)", {
   # make data
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   p <- problem(sim_pu_raster, sim_features)
   # calculate abundances
   x <- feature_abundances(p, na.rm = TRUE)
@@ -134,52 +136,54 @@ test_that("data.frame (na.rm = TRUE, multiple zones)", {
 
 test_that("raster (na.rm = FALSE, multiple zones)", {
   # make data
-  data(sim_pu_zones_stack, sim_features_zones)
-  p <- problem(sim_pu_zones_stack, sim_features_zones)
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
+  p <- problem(sim_zones_pu_raster, sim_zones_features)
   # calculate abundances
   x <- feature_abundances(p, na.rm = FALSE)
   # run tests
   expect_is(x, "tbl_df")
   expect_equal(names(x), c("feature", "zone", "absolute_abundance",
                            "relative_abundance"))
-  expect_equal(x$feature, rep(feature_names(sim_features_zones),
-                              number_of_zones(sim_features_zones)))
-  expect_equal(x$zone, rep(zone_names(sim_features_zones),
-                           each = number_of_features(sim_features_zones)))
+  expect_equal(x$feature, rep(feature_names(sim_zones_features),
+                              number_of_zones(sim_zones_features)))
+  expect_equal(x$zone, rep(zone_names(sim_zones_features),
+                           each = number_of_features(sim_zones_features)))
   expect_equal(x$absolute_abundance,
                unname(raster::cellStats(raster::stack(as.list(
-                 sim_features_zones)), "sum")))
+                 sim_zones_features)), "sum")))
    expect_equal(x$relative_abundance,
-                rep(1, number_of_zones(sim_features_zones) *
-                       number_of_features(sim_features_zones)))
+                rep(1, number_of_zones(sim_zones_features) *
+                       number_of_features(sim_zones_features)))
 })
 
 test_that("raster (na.rm = TRUE, multiple zones)", {
   # make data
-  data(sim_pu_zones_stack, sim_features_zones)
-  p <- problem(sim_pu_zones_stack, sim_features_zones)
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
+  p <- problem(sim_zones_pu_raster, sim_zones_features)
   # calculate abundances
   x <- feature_abundances(p, na.rm = TRUE)
   # run tests
   expect_is(x, "tbl_df")
   expect_equal(names(x), c("feature", "zone", "absolute_abundance",
                            "relative_abundance"))
-  expect_equal(x$feature, rep(feature_names(sim_features_zones),
-                              number_of_zones(sim_features_zones)))
-  expect_equal(x$zone, rep(zone_names(sim_features_zones),
-                           each = number_of_features(sim_features_zones)))
+  expect_equal(x$feature, rep(feature_names(sim_zones_features),
+                              number_of_zones(sim_zones_features)))
+  expect_equal(x$zone, rep(zone_names(sim_zones_features),
+                           each = number_of_features(sim_zones_features)))
   expect_equal(x$absolute_abundance,
     unname(raster::cellStats(
-      raster::stack(as.list(sim_features_zones)) *
-      !is.na(sim_pu_zones_stack[[rep(seq_len(3),
-        each = number_of_features(sim_features_zones))]]),
+      raster::stack(as.list(sim_zones_features)) *
+      !is.na(sim_zones_pu_raster[[rep(seq_len(3),
+        each = number_of_features(sim_zones_features))]]),
       "sum")))
   expect_equal(x$relative_abundance,
     unname(raster::cellStats(
-      raster::stack(as.list(sim_features_zones)) *
-      !is.na(sim_pu_zones_stack[[rep(seq_len(3),
-        each = number_of_features(sim_features_zones))]]),
+      raster::stack(as.list(sim_zones_features)) *
+      !is.na(sim_zones_pu_raster[[rep(seq_len(3),
+        each = number_of_features(sim_zones_features))]]),
       "sum")) /
-    unname(raster::cellStats(raster::stack(as.list(sim_features_zones)),
+    unname(raster::cellStats(raster::stack(as.list(sim_zones_features)),
       "sum")))
 })

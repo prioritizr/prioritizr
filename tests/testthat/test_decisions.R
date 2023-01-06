@@ -2,7 +2,8 @@ context("decisions")
 
 test_that("add_binary_decisions (compile, single zone)", {
   # generate optimization problem
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   p <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
@@ -19,7 +20,8 @@ test_that("add_binary_decisions (solve, single zone)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # generate solution
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   p <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.05) %>%
@@ -34,17 +36,18 @@ test_that("add_binary_decisions (solve, single zone)", {
 
 test_that("add_binary_decisions (compile, multiple zones)", {
   # generate optimization problem
-  data(sim_pu_zones_stack, sim_features_zones)
-  p <- problem(sim_pu_zones_stack, sim_features_zones) %>%
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
+  p <- problem(sim_zones_pu_raster, sim_zones_features) %>%
        add_min_set_objective() %>%
        add_absolute_targets(
-         matrix(1, nrow = number_of_features(sim_features_zones),
-                ncol = number_of_zones(sim_features_zones))) %>%
+         matrix(1, nrow = number_of_features(sim_zones_features),
+                ncol = number_of_zones(sim_zones_features))) %>%
        add_binary_decisions()
   o <- compile(p)
   # check that decision variables are correctly applied
   n_pu <- length(raster::Which(!is.na(sim_pu_raster), cells = TRUE))
-  n_zone <- number_of_zones(sim_features_zones)
+  n_zone <- number_of_zones(sim_zones_features)
   expect_equal(o$lb(), rep(0, n_pu * n_zone))
   expect_equal(o$ub(), rep(1, n_pu * n_zone))
   expect_equal(o$vtype(), rep("B", n_pu * n_zone))
@@ -54,12 +57,13 @@ test_that("add_binary_decisions (solve, multiple zones)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # generate solution
-  data(sim_pu_raster, sim_features)
-  s <- problem(sim_pu_zones_stack, sim_features_zones) %>%
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  s <- problem(sim_zones_pu_raster, sim_zones_features) %>%
        add_min_set_objective() %>%
        add_absolute_targets(
-         matrix(1, nrow = number_of_features(sim_features_zones),
-                ncol = number_of_zones(sim_features_zones))) %>%
+         matrix(1, nrow = number_of_features(sim_zones_features),
+                ncol = number_of_zones(sim_zones_features))) %>%
        add_binary_decisions() %>%
        add_default_solver(time_limit = 5, verbose = FALSE) %>%
        solve()
@@ -69,7 +73,8 @@ test_that("add_binary_decisions (solve, multiple zones)", {
 
 test_that("add_proportion_decisions (compile, single zone)", {
   # generate optimization problem
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   p <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
@@ -86,7 +91,8 @@ test_that("add_proportion_decisions (solve, single zone)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # generate solution
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   p <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
@@ -102,17 +108,18 @@ test_that("add_proportion_decisions (solve, single zone)", {
 
 test_that("add_proportion_decisions (compile, multiple zones)", {
   # generate optimization problem
-  data(sim_pu_zones_stack, sim_features_zones)
-  p <- problem(sim_pu_zones_stack, sim_features_zones) %>%
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
+  p <- problem(sim_zones_pu_raster, sim_zones_features) %>%
        add_min_set_objective() %>%
        add_absolute_targets(
-         matrix(1, nrow = number_of_features(sim_features_zones),
-                ncol = number_of_zones(sim_features_zones))) %>%
+         matrix(1, nrow = number_of_features(sim_zones_features),
+                ncol = number_of_zones(sim_zones_features))) %>%
        add_proportion_decisions()
   o <- compile(p)
   # check that decision variables are correctly applied
   n_pu <- length(raster::Which(!is.na(sim_pu_raster), cells = TRUE))
-  n_zone <- number_of_zones(sim_features_zones)
+  n_zone <- number_of_zones(sim_zones_features)
   expect_equal(o$lb(), rep(0, n_pu * n_zone))
   expect_equal(o$ub(), rep(1, n_pu * n_zone))
   expect_equal(o$vtype(), rep("C", n_pu * n_zone))
@@ -122,12 +129,13 @@ test_that("add_proportion_decisions (solve, multiple zones)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # generate solution
-  data(sim_pu_raster, sim_features)
-  s <- problem(sim_pu_zones_stack, sim_features_zones) %>%
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  s <- problem(sim_zones_pu_raster, sim_zones_features) %>%
        add_min_set_objective() %>%
        add_absolute_targets(
-         matrix(1, nrow = number_of_features(sim_features_zones),
-                ncol = number_of_zones(sim_features_zones))) %>%
+         matrix(1, nrow = number_of_features(sim_zones_features),
+                ncol = number_of_zones(sim_zones_features))) %>%
        add_proportion_decisions() %>%
        add_default_solver(time_limit = 5, verbose = FALSE) %>%
        solve()
@@ -138,7 +146,8 @@ test_that("add_proportion_decisions (solve, multiple zones)", {
 
 test_that("add_semicontinuous_decisions (compile, single zone)", {
   # generate optimization problem
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   p <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
@@ -160,7 +169,8 @@ test_that("add_semicontinuous_decisions (solve, single zone)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # generate solution
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   p <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
@@ -176,17 +186,18 @@ test_that("add_semicontinuous_decisions (solve, single zone)", {
 
 test_that("add_semicontinuous_decisions (compile, multiple zones)", {
   # generate optimization problem
-  data(sim_pu_zones_stack, sim_features_zones)
-  p <- problem(sim_pu_zones_stack, sim_features_zones) %>%
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
+  p <- problem(sim_zones_pu_raster, sim_zones_features) %>%
        add_min_set_objective() %>%
        add_absolute_targets(
-         matrix(1, nrow = number_of_features(sim_features_zones),
-                ncol = number_of_zones(sim_features_zones))) %>%
+         matrix(1, nrow = number_of_features(sim_zones_features),
+                ncol = number_of_zones(sim_zones_features))) %>%
        add_semicontinuous_decisions(0.3)
   o <- compile(p)
   # check that decision variables are correctly applied
   n_pu <- length(raster::Which(!is.na(sim_pu_raster), cells = TRUE))
-  n_zone <- number_of_zones(sim_features_zones)
+  n_zone <- number_of_zones(sim_zones_features)
   expect_equal(o$lb(), rep(0, n_pu * n_zone))
   expect_equal(o$ub(), rep(0.3, n_pu * n_zone))
   expect_equal(o$vtype(), rep("C", n_pu * n_zone))
@@ -196,12 +207,13 @@ test_that("add_semicontinuous_decisions (solve, multiple zones)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # generate solution
-  data(sim_pu_raster, sim_features)
-  s <- problem(sim_pu_zones_stack, sim_features_zones) %>%
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  s <- problem(sim_zones_pu_raster, sim_zones_features) %>%
        add_min_set_objective() %>%
        add_absolute_targets(
-         matrix(1, nrow = number_of_features(sim_features_zones),
-                ncol = number_of_zones(sim_features_zones))) %>%
+         matrix(1, nrow = number_of_features(sim_zones_features),
+                ncol = number_of_zones(sim_zones_features))) %>%
        add_semicontinuous_decisions(0.3) %>%
        add_default_solver(time_limit = 5, verbose = FALSE) %>%
        solve()

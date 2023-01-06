@@ -2,7 +2,8 @@ context("add_max_utility_objective")
 
 test_that("compile (compressed formulation, single zone)", {
   # generate optimization problem
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   b <- floor(raster::cellStats(sim_pu_raster, "sum")) * 0.25
   p <- problem(sim_pu_raster, sim_features) %>%
        add_max_utility_objective(budget = b)
@@ -56,7 +57,8 @@ test_that("solve (compressed formulation, single zone)", {
 
 test_that("compile (expanded formulation, single zone)", {
   # generate optimization problem
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   b <- floor(raster::cellStats(sim_pu_raster, "sum")) * 0.25
   p <- problem(sim_pu_raster, sim_features) %>%
        add_max_utility_objective(budget = b)
@@ -151,9 +153,10 @@ test_that("invalid inputs (single zone)", {
 
 test_that("compile (compressed formulation, multiple zones, scalar budget)", {
   # generate optimization problem
-  data(sim_pu_zones_stack, sim_features_zones)
-  b <- min(floor(raster::cellStats(sim_pu_zones_stack, "sum")) * 0.25)
-  p <- problem(sim_pu_zones_stack, sim_features_zones) %>%
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
+  b <- min(floor(raster::cellStats(sim_zones_pu_raster, "sum")) * 0.25)
+  p <- problem(sim_zones_pu_raster, sim_zones_features) %>%
        add_max_utility_objective(budget = b)
   o <- compile(p)
   # check that constraints and metadata have been correctly applied
@@ -225,9 +228,10 @@ test_that("solve (compressed formulation, multiple zones, scalar budget)", {
 
 test_that("compile (expanded formulation, multiple zones, scalar budget)", {
   # generate optimization problem
-  data(sim_pu_zones_stack, sim_features_zones)
-  b <- min(floor(raster::cellStats(sim_pu_zones_stack, "sum")) * 0.25)
-  p <- problem(sim_pu_zones_stack, sim_features_zones) %>%
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
+  b <- min(floor(raster::cellStats(sim_zones_pu_raster, "sum")) * 0.25)
+  p <- problem(sim_zones_pu_raster, sim_zones_features) %>%
        add_max_utility_objective(budget = b)
   o <- compile(p, FALSE)
   # check that constraints and metadata have been correctly applied
@@ -321,9 +325,10 @@ test_that("solve (expanded formulation, multiple zones, scalar budget)", {
 
 test_that("compile (compressed formulation, multiple zones, vector budget)", {
   # generate optimization problem
-  data(sim_pu_zones_stack, sim_features_zones)
-  b <- unname(floor(raster::cellStats(sim_pu_zones_stack, "sum")) * 0.25)
-  p <- problem(sim_pu_zones_stack, sim_features_zones) %>%
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
+  b <- unname(floor(raster::cellStats(sim_zones_pu_raster, "sum")) * 0.25)
+  p <- problem(sim_zones_pu_raster, sim_zones_features) %>%
        add_max_utility_objective(budget = b)
   o <- compile(p)
   # check that constraints and metadata have been correctly applied
@@ -399,9 +404,10 @@ test_that("solve (compressed formulation, multiple zones, vector budget)", {
 
 test_that("compile (expanded formulation, multiple zones, vector budget)", {
   # generate optimization problem
-  data(sim_pu_zones_stack, sim_features_zones)
-  b <- unname(floor(raster::cellStats(sim_pu_zones_stack, "sum")) * 0.25)
-  p <- problem(sim_pu_zones_stack, sim_features_zones) %>%
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
+  b <- unname(floor(raster::cellStats(sim_zones_pu_raster, "sum")) * 0.25)
+  p <- problem(sim_zones_pu_raster, sim_zones_features) %>%
        add_max_utility_objective(budget = b)
   o <- compile(p, FALSE)
   # check that constraints and metadata have been correctly applied
@@ -498,25 +504,26 @@ test_that("solve (expanded formulation, multiple zones, vector budget)", {
 })
 
 test_that("invalid inputs (multiple zones)", {
-  data(sim_pu_zones_stack, sim_features_zones)
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
   expect_error({
-    problem(sim_pu_zones_stack, sim_features_zones) %>%
+    problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_max_utility_objective(budget = c(1, -5, 1))
   })
   expect_error({
-    problem(sim_pu_zones_stack, sim_features_zones) %>%
+    problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_max_utility_objective(budget = c(1, NA, 1))
   })
   expect_error({
-    problem(sim_pu_zones_stack, sim_features_zones) %>%
+    problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_max_utility_objective(budget = c(NA, NA, NA))
   })
   expect_error({
-    problem(sim_pu_zones_stack, sim_features_zones) %>%
+    problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_max_utility_objective(budget = c(1, Inf, 9))
   })
   expect_error({
-    problem(sim_pu_zones_stack, sim_features_zones) %>%
+    problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_max_utility_objective(budget = c(1, Inf, 9))
   })
 })

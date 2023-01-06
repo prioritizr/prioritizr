@@ -4,7 +4,8 @@ test_that("binary decisions", {
   skip_on_cran()
   skip_if_not_installed("lpsymphony")
   # make data
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   p <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
@@ -23,7 +24,8 @@ test_that("proportion decisions", {
   skip_on_cran()
   skip_if_not_installed("lpsymphony")
   # make data
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   p <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
@@ -67,7 +69,8 @@ test_that("proportion decisions (floating point)", {
 test_that("variable bounds methods", {
   skip_if_not_installed("lpsymphony")
   # make data
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   p <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
@@ -88,7 +91,8 @@ test_that("mix of binary and continuous variables", {
   skip_if_not_installed("lpsymphony")
   # make data
   b <- raster::cellStats(sim_pu_raster, "sum") * 0.2
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   p <- problem(sim_pu_raster, sim_features) %>%
        add_max_utility_objective(b) %>%
        add_binary_decisions() %>%
@@ -106,7 +110,8 @@ test_that("first_feasible", {
   skip_on_cran()
   skip_if_not_installed("lpsymphony")
   # make data
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   p1 <- problem(sim_pu_raster, sim_features) %>%
         add_min_set_objective() %>%
         add_relative_targets(0.1) %>%

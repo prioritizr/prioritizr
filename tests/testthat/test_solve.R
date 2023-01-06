@@ -342,7 +342,8 @@ test_that("x=matrix, y=data.frame (multiple zones)", {
 })
 
 test_that("numerical instability (error when force = FALSE)", {
-  data(sim_pu_polygons, sim_features)
+  sim_pu_polygons <- get_sim_pu_polygons()
+  sim_features <- get_sim_features()
   sim_pu_polygons$cost[1] <- 1e+35
   p <- problem(sim_pu_polygons, sim_features, "cost") %>%
     add_min_set_objective() %>%
@@ -356,7 +357,8 @@ test_that("numerical instability (solution when force = TRUE)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # make data
-  data(sim_pu_polygons, sim_features)
+  sim_pu_polygons <- get_sim_pu_polygons()
+  sim_features <- get_sim_features()
   sim_pu_polygons$cost[1] <- 1e+20
   p <- problem(sim_pu_polygons, sim_features, "cost") %>%
     add_min_set_objective() %>%

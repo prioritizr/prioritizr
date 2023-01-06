@@ -26,7 +26,7 @@ test_that("SpatialPolygons (connected data)", {
 })
 
 test_that("SpatialPolygons (unconnected data)", {
-  data(sim_pu_polygons)
+  sim_pu_polygons <- get_sim_pu_polygons()
   expect_true(all(Matrix::sparseMatrix(i = integer(0), j = integer(0),
                                        x = numeric(0), dims = c(2, 2)) ==
                   adjacency_matrix(sim_pu_polygons[c(1, 3), ])))
@@ -45,10 +45,10 @@ test_that("sf (connected data)", {
 })
 
 test_that("sf (unconnected data)", {
-  data(sim_pu_sf)
+  sim_pu_polygons <- get_sim_pu_polygons()
   expect_true(all(Matrix::sparseMatrix(i = integer(0), j = integer(0),
                                        x = numeric(0), dims = c(2, 2)) ==
-                  adjacency_matrix(sim_pu_sf[c(1, 3), ])))
+                  adjacency_matrix(sim_pu_polygons[c(1, 3), ])))
 })
 
 test_that("SpatialLines (connected data)", {
@@ -84,7 +84,7 @@ test_that("SpatialLines (connected data)", {
 })
 
 test_that("SpatialLines (unconnected data)", {
-  data(sim_pu_lines)
+  sim_pu_lines <- get_sim_pu_lines()
   expect_true(all(Matrix::sparseMatrix(i = integer(0), j = integer(0),
                                        x = numeric(0), dims = c(2, 2)) ==
                   adjacency_matrix(sim_pu_lines[c(1, 3), ])))
@@ -102,6 +102,6 @@ test_that("SpatialPoints (connected data)", {
 })
 
 test_that("SpatialPoints (unconnected data)", {
-  data(sim_pu_points)
+  sim_pu_points <- get_sim_pu_points()
   expect_error(adjacency_matrix(sim_pu_points))
 })

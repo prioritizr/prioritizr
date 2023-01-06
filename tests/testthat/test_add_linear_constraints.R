@@ -2,7 +2,8 @@ context("add_linear_constraints")
 
 test_that("minimum set objective (numeric, compile, single zone)", {
   # make data
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   sim_data <- (sim_features[[1]] * 0) + runif(ncell(sim_pu_raster) * 1000)
   # make and compile problem
   p1 <-
@@ -29,7 +30,8 @@ test_that("minimum set objective (numeric, compile, single zone)", {
 
 test_that("minimum set objective (matrix, compile, single zone)", {
   # make data
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   sim_data <- (sim_features[[1]] * 0) + runif(ncell(sim_pu_raster) * 1000)
   # make and compile problem
   p1 <-
@@ -65,7 +67,8 @@ test_that("minimum set objective (matrix, compile, single zone)", {
 
 test_that("minimum set objective (raster, compile, single zone)", {
   # make data
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   sim_data <- (sim_features[[1]] * 0) + runif(ncell(sim_pu_raster) * 1000)
   # make and compile problem
   p1 <-
@@ -92,7 +95,8 @@ test_that("minimum set objective (raster, compile, single zone)", {
 
 test_that("minimum set objective (character/Spatial, compile, single zone)", {
   # make data
-  data(sim_pu_polygons, sim_features)
+  sim_pu_polygons <- get_sim_pu_polygons()
+  sim_features <- get_sim_features()
   sim_pu_polygons$constraint_data <- runif(nrow(sim_pu_polygons)) * 1000
   # make and compile problem
   p1 <-
@@ -119,11 +123,12 @@ test_that("minimum set objective (character/Spatial, compile, single zone)", {
 
 test_that("minimum set objective (character/sf, compile, single zone)", {
   # make data
-  data(sim_pu_sf, sim_features)
-  sim_pu_sf$constraint_data <- runif(nrow(sim_pu_polygons)) * 1000
+  sim_pu_polygons <- get_sim_pu_polygons()
+  sim_features <- get_sim_features()
+  sim_pu_polygons$constraint_data <- runif(nrow(sim_pu_polygons)) * 1000
   # make and compile problem
   p1 <-
-    problem(sim_pu_sf, sim_features, cost_column = "cost") %>%
+    problem(sim_pu_polygons, sim_features, cost_column = "cost") %>%
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%
     add_binary_decisions()
@@ -136,7 +141,7 @@ test_that("minimum set objective (character/sf, compile, single zone)", {
   pu_idx <- p1$planning_unit_indices()
   # tests
   expect_equal(o2$obj(), o1$obj())
-  expect_equal(o2$A(), rbind(o1$A(), sim_pu_sf$constraint_data))
+  expect_equal(o2$A(), rbind(o1$A(), sim_pu_polygons$constraint_data))
   expect_equal(o2$ub(), o1$ub())
   expect_equal(o2$lb(), o1$lb())
   expect_equal(o2$rhs(), c(o1$rhs(), 3.124))
@@ -195,16 +200,17 @@ test_that("minimum set objective (solve, single zone)", {
 
 test_that("minimum set objective (matrix, compile, multiple zones)", {
   # make data
-  data(sim_pu_zones_stack, sim_features_zones)
-  m <- sim_features_zones[[1]][[rep(1, number_of_zones(sim_features_zones))]]
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
+  m <- sim_zones_features[[1]][[rep(1, number_of_zones(sim_zones_features))]]
   m <- as.matrix(m) * 600
-  targ <- matrix(runif(number_of_features(sim_features_zones) *
-                       number_of_zones(sim_features_zones)) * 10,
-                 nrow = number_of_features(sim_features_zones),
-                 ncol = number_of_zones(sim_features_zones))
+  targ <- matrix(runif(number_of_features(sim_zones_features) *
+                       number_of_zones(sim_zones_features)) * 10,
+                 nrow = number_of_features(sim_zones_features),
+                 ncol = number_of_zones(sim_zones_features))
   # make and compile problem
   p1 <-
-    problem(sim_pu_zones_stack, sim_features_zones) %>%
+    problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_min_set_objective() %>%
     add_absolute_targets(targ) %>%
     add_binary_decisions()
@@ -227,15 +233,16 @@ test_that("minimum set objective (matrix, compile, multiple zones)", {
 
 test_that("minimum set objective (raster, compile, multiple zones)", {
   # make data
-  data(sim_pu_zones_stack, sim_features_zones)
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
   cd <- sim_features[[seq_len(3)]] * c(2, 100, 500)
-  targ <- matrix(runif(number_of_features(sim_features_zones) *
-                       number_of_zones(sim_features_zones)) * 10,
-                 nrow = number_of_features(sim_features_zones),
-                 ncol = number_of_zones(sim_features_zones))
+  targ <- matrix(runif(number_of_features(sim_zones_features) *
+                       number_of_zones(sim_zones_features)) * 10,
+                 nrow = number_of_features(sim_zones_features),
+                 ncol = number_of_zones(sim_zones_features))
   # make and compile problem
   p1 <-
-    problem(sim_pu_zones_stack, sim_features_zones) %>%
+    problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_min_set_objective() %>%
     add_absolute_targets(targ) %>%
     add_binary_decisions()
@@ -259,17 +266,18 @@ test_that("minimum set objective (raster, compile, multiple zones)", {
 test_that(
   "minimum set objective (character/Spatial, compile, multiple zones)", {
   # make data
-  data(sim_pu_zones_polygons, sim_features_zones)
-  sim_pu_zones_polygons$c1 <- runif(nrow(sim_pu_zones_polygons)) * 5
-  sim_pu_zones_polygons$c2 <- runif(nrow(sim_pu_zones_polygons)) * 6
-  sim_pu_zones_polygons$c3 <- runif(nrow(sim_pu_zones_polygons)) * 9
-  targ <- matrix(runif(number_of_features(sim_features_zones) *
-                       number_of_zones(sim_features_zones)) * 10,
-                 nrow = number_of_features(sim_features_zones),
-                 ncol = number_of_zones(sim_features_zones))
+  sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
+  sim_zones_features <- get_sim_zones_features()
+  sim_zones_pu_polygons$c1 <- runif(nrow(sim_zones_pu_polygons)) * 5
+  sim_zones_pu_polygons$c2 <- runif(nrow(sim_zones_pu_polygons)) * 6
+  sim_zones_pu_polygons$c3 <- runif(nrow(sim_zones_pu_polygons)) * 9
+  targ <- matrix(runif(number_of_features(sim_zones_features) *
+                       number_of_zones(sim_zones_features)) * 10,
+                 nrow = number_of_features(sim_zones_features),
+                 ncol = number_of_zones(sim_zones_features))
   # make and compile problem
   p1 <-
-    problem(sim_pu_zones_polygons, sim_features_zones,
+    problem(sim_zones_pu_polygons, sim_zones_features,
             cost_column = c("cost_1", "cost_2", "cost_3")) %>%
     add_min_set_objective() %>%
     add_absolute_targets(targ) %>%
@@ -284,8 +292,8 @@ test_that(
   # tests
   expect_equal(o2$obj(), o1$obj())
   expect_equal(o2$A(), rbind(
-    o1$A(), c(sim_pu_zones_polygons$c1, sim_pu_zones_polygons$c2,
-              sim_pu_zones_polygons$c3)))
+    o1$A(), c(sim_zones_pu_polygons$c1, sim_zones_pu_polygons$c2,
+              sim_zones_pu_polygons$c3)))
   expect_equal(o2$ub(), o1$ub())
   expect_equal(o2$lb(), o1$lb())
   expect_equal(o2$rhs(), c(o1$rhs(), 3.124))
@@ -295,17 +303,19 @@ test_that(
 
 test_that("minimum set objective (character/sf, compile, multiple zones)", {
   # make data
-  data(sim_pu_zones_sf, sim_features_zones)
-  sim_pu_zones_sf$c1 <- runif(nrow(sim_pu_zones_sf)) * 5
-  sim_pu_zones_sf$c2 <- runif(nrow(sim_pu_zones_sf)) * 6
-  sim_pu_zones_sf$c3 <- runif(nrow(sim_pu_zones_sf)) * 9
-  targ <- matrix(runif(number_of_features(sim_features_zones) *
-                       number_of_zones(sim_features_zones)) * 10,
-                 nrow = number_of_features(sim_features_zones),
-                 ncol = number_of_zones(sim_features_zones))
+  sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
+  sim_zones_features <- get_sim_zones_features()
+
+  sim_zones_pu_polygons$c1 <- runif(nrow(sim_zones_pu_polygons)) * 5
+  sim_zones_pu_polygons$c2 <- runif(nrow(sim_zones_pu_polygons)) * 6
+  sim_zones_pu_polygons$c3 <- runif(nrow(sim_zones_pu_polygons)) * 9
+  targ <- matrix(runif(number_of_features(sim_zones_features) *
+                       number_of_zones(sim_zones_features)) * 10,
+                 nrow = number_of_features(sim_zones_features),
+                 ncol = number_of_zones(sim_zones_features))
   # make and compile problem
   p1 <-
-    problem(sim_pu_zones_sf, sim_features_zones,
+    problem(sim_zones_pu_polygons, sim_zones_features,
             cost_column = c("cost_1", "cost_2", "cost_3")) %>%
     add_min_set_objective() %>%
     add_absolute_targets(targ) %>%
@@ -320,7 +330,7 @@ test_that("minimum set objective (character/sf, compile, multiple zones)", {
   # tests
   expect_equal(o2$obj(), o1$obj())
   expect_equal(o2$A(), rbind(
-    o1$A(), c(sim_pu_zones_sf$c1, sim_pu_zones_sf$c2, sim_pu_zones_sf$c3)))
+    o1$A(), c(sim_zones_pu_polygons$c1, sim_zones_pu_polygons$c2, sim_zones_pu_polygons$c3)))
   expect_equal(o2$ub(), o1$ub())
   expect_equal(o2$lb(), o1$lb())
   expect_equal(o2$rhs(), c(o1$rhs(), 3.124))
@@ -395,38 +405,45 @@ test_that("minimum set objective (solve, multiple zones)", {
 
 test_that("invalid inputs", {
   expect_error({
-    data(sim_pu_raster, sim_features)
+    sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
     problem(sim_pu_raster, sim_features) %>%
     add_linear_constraints(NA_real_, "<=", sim_features[[1]])
   })
   expect_error({
-    data(sim_pu_raster, sim_features)
+    sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
     problem(sim_pu_raster, sim_features) %>%
     add_linear_constraints(1e+100, ">=", sim_features[[1]])
   })
   expect_error({
-    data(sim_pu_raster, sim_features)
+    sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
     problem(sim_pu_raster, sim_features) %>%
     add_linear_constraints(c(3, 3), "<=", sim_features[[1]])
   })
   expect_error({
-    data(sim_pu_raster, sim_features)
+    sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
     problem(sim_pu_raster, sim_features) %>%
     add_linear_constraints(3, NA_character_, sim_features[[1]])
   })
   expect_error({
-    data(sim_pu_raster, sim_features)
+    sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
     problem(sim_pu_raster, sim_features) %>%
     add_linear_constraints(3, "asdf", sim_features[[1]])
   })
   expect_error({
-    data(sim_pu_raster, sim_features)
+    sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
     problem(sim_pu_raster, sim_features) %>%
     add_linear_constraints(3, "<=", sim_features[[c(1, 1)]])
   })
   expect_error({
-    data(sim_pu_sf, sim_features)
-    problem(sim_pu_sf, sim_features, cost_column = "cost") %>%
+    sim_pu_polygons <- get_sim_pu_polygons()
+  sim_features <- get_sim_features()
+    problem(sim_pu_polygons, sim_features, cost_column = "cost") %>%
     add_linear_constraints(3, "<=",  c("cost", "cost"))
   })
   expect_error({

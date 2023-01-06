@@ -2,7 +2,8 @@ context("add_loglinear_targets")
 
 test_that("no cap", {
   # load data
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   # set total abundance of some features much higher than other features
   for (i in seq_len(raster::nlayers(sim_features)))
     sim_features[[i]] <- sim_features[[i]] ^ i
@@ -30,7 +31,8 @@ test_that("no cap", {
 
 test_that("cap", {
   # load data
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   # set total abundance of some features much higher than other features
   for (i in seq_len(raster::nlayers(sim_features)))
     sim_features[[i]] <- sim_features[[i]] ^ i
@@ -59,7 +61,8 @@ test_that("cap", {
 
 test_that("feature abundances", {
   # load data
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   # set total abundance of some features much higher than other features
   for (i in seq_len(raster::nlayers(sim_features)))
     sim_features[[i]] <- sim_features[[i]] ^ i
@@ -84,7 +87,8 @@ test_that("feature abundances", {
 })
 
 test_that("invalid inputs", {
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   p <- problem(sim_pu_raster, sim_features)
   expect_error(add_loglinear_targets(p, 200, 1, 100, 0.1))
   expect_error(add_loglinear_targets(p, NA, 1, 35, 0.1))

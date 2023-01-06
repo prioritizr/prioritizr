@@ -109,7 +109,7 @@ test_that("data.frame (single zone)", {
 
 test_that("Spatial (single zone)", {
   # create data
-  data(sim_pu_polygons)
+  sim_pu_polygons <- get_sim_pu_polygons()
   pu <- sim_pu_polygons[1:4, ]
   pu@data <- data.frame(id = seq_len(4),
                         cost = c(10, 2, NA, 3),
@@ -147,8 +147,8 @@ test_that("Spatial (single zone)", {
 
 test_that("sf (single zone)", {
   # create data
-  data(sim_pu_sf)
-  pu <- sim_pu_sf[1:4, ]
+  sim_pu_polygons <- get_sim_pu_polygons()
+  pu <- sim_pu_polygons[1:4, ]
   pu$id <- seq_len(4)
   pu$cost <- c(10, 2, NA, 3)
   pu$spp1 <- c(0, 0, 0, 1)

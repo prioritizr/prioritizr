@@ -4,7 +4,8 @@ test_that("implicit default solver", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # make data
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   p <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
@@ -21,7 +22,8 @@ test_that("raster planning unit data", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # make data
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   p <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
@@ -39,7 +41,8 @@ test_that("spatial planning unit data", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # make data
-  data(sim_pu_polygons, sim_features)
+  sim_pu_polygons <- get_sim_pu_polygons()
+  sim_features <- get_sim_features()
   p <- problem(sim_pu_polygons, sim_features, "cost") %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%

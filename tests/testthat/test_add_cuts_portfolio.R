@@ -47,13 +47,14 @@ test_that("solve (number_solutions within limit, multiple zones)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # create problem
-  data(sim_pu_zones_stack, sim_features_zones)
-  targets <- matrix(0, nrow = number_of_features(sim_features_zones),
-                    ncol = number_of_zones(sim_features_zones))
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
+  targets <- matrix(0, nrow = number_of_features(sim_zones_features),
+                    ncol = number_of_zones(sim_zones_features))
   targets[, 1] <- 0
   targets[, 2] <- 1
   targets[, 3] <- 0
-  p <- problem(sim_pu_zones_stack, sim_features_zones) %>%
+  p <- problem(sim_zones_pu_raster, sim_zones_features) %>%
        add_min_set_objective() %>%
        add_absolute_targets(targets) %>%
        add_cuts_portfolio(2) %>%
@@ -67,7 +68,7 @@ test_that("solve (number_solutions within limit, multiple zones)", {
   expect_true(all(sapply(s, inherits, "RasterStack")))
   expect_equal(names(s), paste0("solution_", seq_len(2)))
   for (i in seq_along(s))
-    expect_true(all(raster::cellStats(s[[i]][[2]] * sim_features_zones[[i]],
+    expect_true(all(raster::cellStats(s[[i]][[2]] * sim_zones_features[[i]],
                                       "sum") >= 1))
   expect_equal({lapply(s, category_layer) %>%
                 lapply(raster::values) %>%

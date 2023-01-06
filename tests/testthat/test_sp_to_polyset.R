@@ -1,7 +1,7 @@
 context("sp to PolySet")
 
 test_that("SpatialPolygons", {
-  data(sim_pu_polygons)
+  sim_pu_polygons <- get_sim_pu_polygons()
   p <- system.file("testdata", "polyset_polygons.rds", package = "prioritizr")
   x <- as.data.frame(rcpp_sp_to_polyset(sim_pu_polygons@polygons, "Polygons"))
   y <- readRDS(p)
@@ -11,7 +11,7 @@ test_that("SpatialPolygons", {
 })
 
 test_that("SpatialLines", {
-  data(sim_pu_polygons)
+  sim_pu_polygons <- get_sim_pu_polygons()
   p <- system.file("testdata", "polyset_lines.rds", package = "prioritizr")
   d <- as(sim_pu_polygons, "SpatialLines")
   x <- as.data.frame(rcpp_sp_to_polyset(d@lines, "Lines"))

@@ -2,7 +2,7 @@ context("connectivity_matrix")
 
 test_that("x=Spatial, y=character", {
   ## load data
-  data(sim_pu_polygons)
+  sim_pu_polygons <- get_sim_pu_polygons()
   ## make matrix
   cm <- connectivity_matrix(sim_pu_polygons, "cost")
   # preliminary calculations
@@ -21,15 +21,15 @@ test_that("x=Spatial, y=character", {
   expect_true(all(cm == correct_cm))
   ## check that invalid inputs result in errors
   expect_error({
-    data(sim_pu_polygons)
+    sim_pu_polygons <- get_sim_pu_polygons()
     connectivity_matrix(sim_pu_polygons, "column_that_doesnt_exist")
   })
   expect_error({
-    data(sim_pu_polygons)
+    sim_pu_polygons <- get_sim_pu_polygons()
     connectivity_matrix(sim_pu_polygons, NA_character_)
   })
   expect_error({
-    data(sim_pu_polygons)
+    sim_pu_polygons <- get_sim_pu_polygons()
     sim_pu_polygons$column <- "a"
     connectivity_matrix(sim_pu_polygons, "column")
   })
@@ -37,7 +37,8 @@ test_that("x=Spatial, y=character", {
 
 test_that("x=Spatial, y=Raster", {
   ## load data
-  data(sim_pu_polygons, sim_features)
+  sim_pu_polygons <- get_sim_pu_polygons()
+  sim_features <- get_sim_features()
   ## make matrix
   cm <- connectivity_matrix(sim_pu_polygons, sim_features[[1]])
   ## check that matrix is correct
@@ -57,11 +58,14 @@ test_that("x=Spatial, y=Raster", {
   expect_lte(max(abs(cm - correct_cm)), 1e-8)
   ## check that invalid inputs result in errors
   expect_error({
-    data(sim_pu_polygons, sim_features)
+    sim_pu_polygons <- get_sim_pu_polygons()
+  sim_features <- get_sim_features()
     connectivity_matrix(sim_pu_polygons, sim_features)
   })
   expect_error({
-    data(sim_pu_polygons, sim_pu_raster)
+    sim_pu_polygons <- get_sim_pu_polygons()
+  sim_pu_raster <- get_sim_pu_raster()
+
     sim_pu_raster@crs <- sp::CRS("+proj=longlat +datum=WGS84 +no_defs")
     connectivity_matrix(sim_pu_polygons, sim_pu_raster)
   })
@@ -69,7 +73,7 @@ test_that("x=Spatial, y=Raster", {
 
 test_that("x=sf, y=character", {
   ## load data
-  data(sim_pu_polygons)
+  sim_pu_polygons <- get_sim_pu_polygons()
   ## make matrix
   cm1 <- connectivity_matrix(sim_pu_polygons, "cost")
   cm2 <- connectivity_matrix(sf::st_as_sf(sim_pu_polygons), "cost")
@@ -77,23 +81,24 @@ test_that("x=sf, y=character", {
   expect_equal(cm1, cm2)
   ## check that invalid inputs result in errors
   expect_error({
-    data(sim_pu_sf)
-    connectivity_matrix(sim_pu_sf, "column_that_doesnt_exist")
+    sim_pu_polygons <- get_sim_pu_polygons()
+    connectivity_matrix(sim_pu_polygons, "column_that_doesnt_exist")
   })
   expect_error({
-    data(sim_pu_sf)
-    connectivity_matrix(sim_pu_sf, NA_character_)
+    sim_pu_polygons <- get_sim_pu_polygons()
+    connectivity_matrix(sim_pu_polygons, NA_character_)
   })
   expect_error({
-    data(sim_pu_sf)
-    sim_pu_sf$column <- "a"
-    connectivity_matrix(sim_pu_sf, "column")
+    sim_pu_polygons <- get_sim_pu_polygons()
+    sim_pu_polygons$column <- "a"
+    connectivity_matrix(sim_pu_polygons, "column")
   })
 })
 
 test_that("x=sf, y=Raster", {
   ## load data
-  data(sim_pu_polygons, sim_features)
+  sim_pu_polygons <- get_sim_pu_polygons()
+  sim_features <- get_sim_features()
   ## make matrix
   cm1 <- connectivity_matrix(sim_pu_polygons, sim_features[[1]])
   cm2 <- connectivity_matrix(sf::st_as_sf(sim_pu_polygons), sim_features[[1]])
@@ -101,19 +106,23 @@ test_that("x=sf, y=Raster", {
   expect_equal(cm1, cm2)
   ## check that invalid inputs result in errors
   expect_error({
-    data(sim_pu_sf, sim_features)
-    connectivity_matrix(sim_pu_sf, sim_features)
+    sim_pu_polygons <- get_sim_pu_polygons()
+  sim_features <- get_sim_features()
+    connectivity_matrix(sim_pu_polygons, sim_features)
   })
   expect_error({
-    data(sim_pu_sf, sim_pu_raster)
+    sim_pu_polygons <- get_sim_pu_polygons()
+  sim_pu_raster <- get_sim_pu_raster()
+
     sim_pu_raster@crs <- sp::CRS("+proj=longlat +datum=WGS84 +no_defs")
-    connectivity_matrix(sim_pu_sf, sim_pu_raster)
+    connectivity_matrix(sim_pu_polygons, sim_pu_raster)
   })
 })
 
 test_that("x=Raster, y=Raster", {
   # load data
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   # make matrix
   cm <- connectivity_matrix(sim_pu_raster, sim_features[[1]])
   # preliminary calculations
@@ -133,20 +142,24 @@ test_that("x=Raster, y=Raster", {
   expect_true(all(cm == correct_cm))
   # invalid inputs
   expect_error({
-    data(sim_pu_raster, sim_features)
+    sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
     connectivity_matrix(sim_pu_raster, sim_features)
   })
   expect_error({
-    data(sim_pu_raster, sim_features)
+    sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
     connectivity_matrix(sim_features, sim_pu_raster)
   })
   expect_error({
-    data(sim_pu_raster, sim_features)
+    sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
     extent(sim_pu_raster) <- c(0, 0.5, 0, 0.5)
     connectivity_matrix(sim_features, sim_pu_raster)
   })
   expect_error({
-    data(sim_pu_raster, sim_features)
+    sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
     sim_pu_raster@crs <- sp::CRS("+proj=longlat +datum=WGS84 +no_defs")
     connectivity_matrix(sim_features, sim_pu_raster)
   })

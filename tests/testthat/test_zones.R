@@ -2,7 +2,7 @@ context("zones")
 
 test_that("zones (Raster input)", {
   # load data
-  data(sim_features)
+  sim_features <- get_sim_features()
   # make zones
   x <- zones(sim_features, sim_features, sim_features,
              zone_names = c("z1", "z2", "z3"),

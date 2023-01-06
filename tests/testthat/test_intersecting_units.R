@@ -17,7 +17,7 @@ test_that("x=Raster,y=Raster", {
 
 test_that("x=Spatial,y=Spatial", {
   # generate data
-  data(sim_pu_polygons)
+  sim_pu_polygons <- get_sim_pu_polygons()
   x <- sim_pu_polygons[1:10, ]
   y <- sim_pu_polygons[5:15, ]
   # run tests
@@ -30,7 +30,8 @@ test_that("x=Spatial,y=Spatial", {
 
 test_that("x=Raster,y=Spatial", {
   # generate data
-  data(sim_pu_raster, sim_pu_polygons)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_pu_polygons <- get_sim_pu_polygons()
   x <- sim_pu_raster
   pu_index <- sort(as.integer(sample.int(nrow(sim_pu_polygons), 5)))
   y <- sim_pu_polygons[pu_index, ]
@@ -49,7 +50,8 @@ test_that("x=Raster,y=Spatial", {
 
 test_that("x=Spatial,y=Raster", {
   # generate data
-  data(sim_pu_raster, sim_pu_polygons)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_pu_polygons <- get_sim_pu_polygons()
   m <- mean(sim_pu_polygons$cost, na.rm = TRUE)
   x <- sim_pu_polygons
   y <- sim_pu_raster < m
@@ -62,9 +64,9 @@ test_that("x=Spatial,y=Raster", {
 
 test_that("x=sf,y=sf", {
   # generate data
-  data(sim_pu_sf)
-  x <- sim_pu_sf[1:10, ]
-  y <- sim_pu_sf[5:15, ]
+  sim_pu_polygons <- get_sim_pu_polygons()
+  x <- sim_pu_polygons[1:10, ]
+  y <- sim_pu_polygons[5:15, ]
   # run tests
   expect_equal(intersecting_units(x, y), 5:10)
   # check that invalid arguments result in errors
@@ -75,10 +77,11 @@ test_that("x=sf,y=sf", {
 
 test_that("x=Raster,y=sf", {
   # generate data
-  data(sim_pu_raster, sim_pu_sf)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_pu_polygons <- get_sim_pu_polygons()
   x <- sim_pu_raster
-  pu_index <- sort(as.integer(sample.int(nrow(sim_pu_sf), 5)))
-  y <- sim_pu_sf[pu_index, ]
+  pu_index <- sort(as.integer(sample.int(nrow(sim_pu_polygons), 5)))
+  y <- sim_pu_polygons[pu_index, ]
   cell_index <-
     sim_pu_raster %>%
     raster::as.data.frame(xy = TRUE, na.rm = FALSE) %>%
@@ -94,13 +97,14 @@ test_that("x=Raster,y=sf", {
 
 test_that("x=sf,y=Raster", {
   # generate data
-  data(sim_pu_raster, sim_pu_sf)
-  m <- mean(sim_pu_sf$cost, na.rm = TRUE)
-  x <- sim_pu_sf
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_pu_polygons <- get_sim_pu_polygons()
+  m <- mean(sim_pu_polygons$cost, na.rm = TRUE)
+  x <- sim_pu_polygons
   y <- sim_pu_raster < m
   y2 <- raster::stack(y)
   # run tests
-  expect_equal(intersecting_units(x, y), which(sim_pu_sf$cost < m))
+  expect_equal(intersecting_units(x, y), which(sim_pu_polygons$cost < m))
   expect_equal(intersecting_units(x, y), intersecting_units(x, y2))
   # check that invalid arguments result in errors
   y_crs <- `crs<-`(y, value = sp::CRS("+proj=longlat +datum=WGS84 +no_defs"))
@@ -109,8 +113,8 @@ test_that("x=sf,y=Raster", {
 
 test_that("x=sf,y=Spatial", {
   # generate data
-  data(sim_pu_sf, sim_pu_polygons)
-  x <- sim_pu_sf[1:10, ]
+  sim_pu_polygons <- get_sim_pu_polygons()
+  x <- sim_pu_polygons[1:10, ]
   y <- sim_pu_polygons[5:15, ]
   # run tests
   expect_equal(intersecting_units(x, y), 5:10)
@@ -122,9 +126,9 @@ test_that("x=sf,y=Spatial", {
 
 test_that("x=Spatial,y=sf", {
   # generate data
-  data(sim_pu_sf, sim_pu_polygons)
+  sim_pu_polygons <- get_sim_pu_polygons()
   x <- sim_pu_polygons[1:10, ]
-  y <- sim_pu_sf[5:15, ]
+  y <- sim_pu_polygons[5:15, ]
   # run tests
   expect_equal(intersecting_units(x, y), 5:10)
   # check that invalid arguments result in errors

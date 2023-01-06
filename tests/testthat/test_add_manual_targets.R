@@ -2,7 +2,8 @@ context("add_manual_targets")
 
 test_that("add_manual_targets (default, single zone)", {
   # load data
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   # create problem
   p <- problem(sim_pu_raster, sim_features) %>%
        add_manual_targets(data.frame(feature = names(sim_features)[-1],
@@ -27,7 +28,8 @@ test_that("add_manual_targets (default, single zone)", {
 
 test_that("add_manual_targets (mixed, single zone)", {
   # load data
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   # create problem
   p <- problem(sim_pu_raster, sim_features) %>%
        add_manual_targets(data.frame(feature = names(sim_features)[-1],
@@ -54,7 +56,8 @@ test_that("add_manual_targets (mixed, single zone)", {
 
 test_that("add_manual_targets (explicit, single zone)", {
   # load data
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   # create problem
   p <- problem(sim_pu_raster, sim_features) %>%
        add_manual_targets(tibble::tibble(feature = names(sim_features)[-1],
@@ -80,12 +83,13 @@ test_that("add_manual_targets (explicit, single zone)", {
 
 test_that("add_manual_targets (default, multiple zones)", {
   # load data
-  data(sim_pu_zones_stack, sim_features_zones)
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
   # create problem
-  p <- problem(sim_pu_zones_stack, sim_features_zones) %>%
+  p <- problem(sim_zones_pu_raster, sim_zones_features) %>%
        add_manual_targets(data.frame(
-         feature = feature_names(sim_features_zones)[c(1, 1, 2, 3)],
-         zone = zone_names(sim_features_zones)[c(1, 2, 1, 3)],
+         feature = feature_names(sim_zones_features)[c(1, 1, 2, 3)],
+         zone = zone_names(sim_zones_features)[c(1, 2, 1, 3)],
          target = 4:7,
          type = "absolute"))
   # calculate absolute targets
@@ -105,11 +109,12 @@ test_that("add_manual_targets (default, multiple zones)", {
 
 test_that("add_manual_targets (explicit, multiple zones)", {
   # load data
-  data(sim_pu_zones_stack, sim_features_zones)
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
   # create problem
-  p <- problem(sim_pu_zones_stack, sim_features_zones) %>%
+  p <- problem(sim_zones_pu_raster, sim_zones_features) %>%
        add_manual_targets(tibble::tibble(
-         feature = feature_names(sim_features_zones)[c(1, 1, 2, 3)],
+         feature = feature_names(sim_zones_features)[c(1, 1, 2, 3)],
          zone = list("zone_1", "zone_2", "zone_1", c("zone_1", "zone_2")),
          sense = c(">=", "<=", "=", ">="),
          target = 4:7,
@@ -131,12 +136,13 @@ test_that("add_manual_targets (explicit, multiple zones)", {
 
 test_that("add_manual_targets (explicit, multiple zones)", {
   # load data
-  data(sim_pu_zones_stack, sim_features_zones)
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
   # create problem
   expect_warning(
-    p <- problem(sim_pu_zones_stack, sim_features_zones) %>%
+    p <- problem(sim_zones_pu_raster, sim_zones_features) %>%
          add_manual_targets(tibble::tibble(
-           feature = feature_names(sim_features_zones)[c(1, 1, 2, 3)],
+           feature = feature_names(sim_zones_features)[c(1, 1, 2, 3)],
            zone = list("zone_1", "zone_2", "zone_1", c("zone_1", "zone_2")),
            sense = c(">=", "<=", "=", ">="),
            target = c(-1, -2, 1, 2),
@@ -158,50 +164,51 @@ test_that("add_manual_targets (explicit, multiple zones)", {
 
 test_that("add_manual_targets (invalid input)", {
   # load data
-  data(sim_pu_zones_stack, sim_features_zones)
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
   # create problem
-  p <- problem(sim_pu_zones_stack, sim_features_zones)
+  p <- problem(sim_zones_pu_raster, sim_zones_features)
   # tests
   expect_error(add_manual_targets(p, data.frame()))
   expect_error(add_manual_targets(p, data.frame(
     feature = "a",
-    zone = zone_names(sim_features_zones)[1],
+    zone = zone_names(sim_zones_features)[1],
     type = "absolute",
     target = 1)))
   expect_error(add_manual_targets(p, data.frame(
-    feature = feature_names(sim_features_zones)[1],
+    feature = feature_names(sim_zones_features)[1],
     zone = "a",
     type = "absolute",
     target = 1)))
   expect_error(add_manual_targets(p, data.frame(
-    feature = feature_names(sim_features_zones)[1],
-    zone = zone_names(sim_features_zones)[1],
+    feature = feature_names(sim_zones_features)[1],
+    zone = zone_names(sim_zones_features)[1],
     type = "a",
     target = 1)))
   expect_error(add_manual_targets(p, data.frame(
-    feature = feature_names(sim_features_zones)[1],
-    zone = zone_names(sim_features_zones)[1],
+    feature = feature_names(sim_zones_features)[1],
+    zone = zone_names(sim_zones_features)[1],
     type = "absolute",
     target = NA)))
   expect_error(add_manual_targets(p, data.frame(
-    feature = feature_names(sim_features_zones)[1],
-    zone = zone_names(sim_features_zones)[1],
+    feature = feature_names(sim_zones_features)[1],
+    zone = zone_names(sim_zones_features)[1],
     type = "absolute",
     target = Inf)))
   expect_error(add_manual_targets(p, data.frame(
-    feature = feature_names(sim_features_zones)[1],
-    zone = zone_names(sim_features_zones)[1],
+    feature = feature_names(sim_zones_features)[1],
+    zone = zone_names(sim_zones_features)[1],
     type = "absolute",
     target = "a")))
   expect_error(add_manual_targets(p, data.frame(
-    feature = feature_names(sim_features_zones)[1],
-    zone = zone_names(sim_features_zones)[1],
+    feature = feature_names(sim_zones_features)[1],
+    zone = zone_names(sim_zones_features)[1],
     sense = "a",
     type = "absolute",
     target = 1)))
   expect_error(add_manual_targets(p, data.frame(
-    feature = feature_names(sim_features_zones)[1],
-    zone = zone_names(sim_features_zones)[1],
+    feature = feature_names(sim_zones_features)[1],
+    zone = zone_names(sim_zones_features)[1],
     sense = NA_character_,
     type = "absolute",
     target = 1)))

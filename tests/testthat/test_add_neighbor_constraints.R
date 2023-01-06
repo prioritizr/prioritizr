@@ -2,7 +2,8 @@ context("add_neighbor_constraints")
 
 test_that("compile (Spatial, single zone)", {
   # create problem
-  data(sim_pu_polygons, sim_features)
+  sim_pu_polygons <- get_sim_pu_polygons()
+  sim_features <- get_sim_features()
   sim_pu_polygons <- sim_pu_polygons[c(1:2, 10:12, 20:22), ]
   p <- problem(sim_pu_polygons, sim_features, "cost") %>%
        add_min_set_objective() %>%
@@ -30,7 +31,8 @@ test_that("compile (Spatial, single zone)", {
 
 test_that("compile (manually data specified, single zone)", {
   # create problem
-  data(sim_pu_polygons, sim_features)
+  sim_pu_polygons <- get_sim_pu_polygons()
+  sim_features <- get_sim_features()
   sim_pu_polygons <- sim_pu_polygons[c(1:2, 10:12, 20:22), ]
   p <- problem(sim_pu_polygons, sim_features, "cost") %>%
        add_min_set_objective() %>%
@@ -63,7 +65,8 @@ test_that("solve (Spatial, single zone)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # create problem
-  data(sim_pu_polygons, sim_features)
+  sim_pu_polygons <- get_sim_pu_polygons()
+  sim_features <- get_sim_features()
   p <- problem(sim_pu_polygons, sim_features, "cost") %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
@@ -80,7 +83,8 @@ test_that("solve (Spatial, single zone)", {
 })
 
 test_that("invalid input (single zone)", {
-  data(sim_pu_polygons, sim_features)
+  sim_pu_polygons <- get_sim_pu_polygons()
+  sim_features <- get_sim_features()
   p <- problem(sim_pu_polygons, sim_features, "cost") %>%
        add_min_set_objective() %>%
        add_relative_targets(0.2)
@@ -98,15 +102,16 @@ test_that("invalid input (single zone)", {
 
 test_that("compile (Raster, multiple zones)", {
   # load data
-  data(sim_pu_zones_stack, sim_features_zones)
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
   # create data
   k <- seq_len(3)
   zones <- diag(3)
   zones[1, 2] <- 1
   zones[2, 1] <- 1
   # create problem
-  adj_m <- adjacency_matrix(sim_pu_zones_stack, directions = 8)
-  p <- problem(sim_pu_zones_stack, sim_features_zones) %>%
+  adj_m <- adjacency_matrix(sim_zones_pu_raster, directions = 8)
+  p <- problem(sim_zones_pu_raster, sim_zones_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(matrix(0.2, nrow = 5, ncol = 3)) %>%
        add_neighbor_constraints(k, zones, data = adj_m)
@@ -148,13 +153,14 @@ test_that("compile (Raster, multiple zones)", {
 
 test_that("compile (manually specified data, multiple zones)", {
   # load data
-  data(sim_pu_zones_polygons, sim_features_zones)
+  sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
+  sim_zones_features <- get_sim_zones_features()
   # create different data formats
   k <- seq_len(3)
   z <- diag(3)
   z[1, 2] <- 1
   z[2, 1] <- 1
-  cm1 <- adjacency_matrix(sim_pu_zones_polygons)
+  cm1 <- adjacency_matrix(sim_zones_pu_polygons)
   cm2 <- as.matrix(cm1)
   cdf <- cm1 %>% matrix_to_triplet_dataframe() %>%
                  setNames(c("id1", "id2", "boundary"))
@@ -163,7 +169,7 @@ test_that("compile (manually specified data, multiple zones)", {
     for (z2 in seq_len(3))
       carray[, , z1, z2] <- cm2 * z[z1, z2]
   # create basic problem
-  p <- problem(sim_pu_zones_polygons, sim_features_zones,
+  p <- problem(sim_zones_pu_polygons, sim_zones_features,
                c("cost_1", "cost_2", "cost_3")) %>%
        add_min_set_objective() %>%
        add_relative_targets(matrix(0.2, ncol = 3, nrow = 5))
@@ -188,12 +194,13 @@ test_that("solve (Spatial, multiple zones)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # load data
-  data(sim_pu_zones_polygons, sim_features_zones)
+  sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
+  sim_zones_features <- get_sim_zones_features()
   # create data
   k <- c(1, 2, 4)
   z <- diag(3)
   # create and solve problem
-  s <- problem(sim_pu_zones_polygons, sim_features_zones,
+  s <- problem(sim_zones_pu_polygons, sim_zones_features,
                c("cost_1", "cost_2", "cost_3")) %>%
        add_min_set_objective() %>%
        add_relative_targets(matrix(0.2, ncol = 3, nrow = 5)) %>%
@@ -211,11 +218,12 @@ test_that("solve (Spatial, multiple zones)", {
 
 test_that("invalid input (multiple zones)", {
   # create basic problem
-  data(sim_pu_zones_polygons, sim_features_zones)
+  sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
+  sim_zones_features <- get_sim_zones_features()
   k <- seq_len(3)
   z <- diag(3)
-  a <- array(1, dim = c(rep(length(sim_pu_zones_polygons), 2), 3, 3))
-  p <- problem(sim_pu_zones_polygons, sim_features_zones,
+  a <- array(1, dim = c(rep(length(sim_zones_pu_polygons), 2), 3, 3))
+  p <- problem(sim_zones_pu_polygons, sim_zones_features,
                c("cost_1", "cost_2", "cost_3")) %>%
        add_min_set_objective() %>%
        add_relative_targets(matrix(0.2, ncol = 3, nrow = 5))
@@ -240,19 +248,21 @@ test_that("invalid input (multiple zones)", {
 
 test_that("compile (sf identical to Spatial, multiple zones)", {
   # load data
-  data(sim_pu_zones_polygons, sim_pu_zones_sf, sim_features_zones)
+  sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
+  sim_zones_features <- get_sim_zones_features()
+
   # create data
   k <- seq_len(3)
   zones <- diag(3)
   zones[1, 2] <- 1
   zones[2, 1] <- 1
   # create problems
-  p1 <- problem(sim_pu_zones_polygons, sim_features_zones,
+  p1 <- problem(sim_zones_pu_polygons, sim_zones_features,
                 c("cost_1", "cost_2", "cost_3")) %>%
         add_min_set_objective() %>%
         add_relative_targets(matrix(0.2, nrow = 5, ncol = 3)) %>%
         add_neighbor_constraints(k, zones)
-  p2 <- problem(sf::st_as_sf(sim_pu_zones_polygons), sim_features_zones,
+  p2 <- problem(sf::st_as_sf(sim_zones_pu_polygons), sim_zones_features,
         c("cost_1", "cost_2", "cost_3")) %>%
         add_min_set_objective() %>%
         add_relative_targets(matrix(0.2, nrow = 5, ncol = 3)) %>%

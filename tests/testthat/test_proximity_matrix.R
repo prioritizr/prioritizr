@@ -108,7 +108,7 @@ test_that("SpatialPolygons (all polygons are proximal)", {
 })
 
 test_that("SpatialPolygons (no polygons are proximal)", {
-  data(sim_pu_polygons)
+  sim_pu_polygons <- get_sim_pu_polygons()
   s <- Matrix::sparseMatrix(i = integer(0), j = integer(0),
                             x = numeric(0), dims = c(2, 2))
   s <- as(s, "symmetricMatrix")
@@ -143,7 +143,7 @@ test_that("sf (all polygons are proximal)", {
 })
 
 test_that("sf (no polygons are proximal)", {
-  data(sim_pu_polygons)
+  sim_pu_polygons <- get_sim_pu_polygons()
   x <- st_as_sf(sim_pu_polygons[c(1, 3), ])
   s <- Matrix::sparseMatrix(i = integer(0), j = integer(0),
                             x = numeric(0), dims = c(2, 2))
@@ -185,7 +185,7 @@ test_that("SpatialLines (intersecting lines are proximal)", {
 })
 
 test_that("SpatialLines (no proximal lines)", {
-  data(sim_pu_lines)
+  sim_pu_lines <- get_sim_pu_lines()
   x <- sim_pu_lines[c(1, 3), ]
   m <- proximity_matrix(x, distance = 1e-3)
   s <- Matrix::sparseMatrix(i = integer(0), j = integer(0),

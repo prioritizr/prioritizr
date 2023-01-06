@@ -1,7 +1,8 @@
 context("presolve_check")
 
 test_that("no false positive", {
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   p <- problem(sim_pu_raster, sim_features) %>%
         add_min_set_objective() %>%
         add_relative_targets(0.1) %>%
@@ -10,7 +11,8 @@ test_that("no false positive", {
 })
 
 test_that("instability due to boundary data", {
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   b <- boundary_matrix(sim_pu_raster)
   b[1, 2] <- 1e+10
   b[2, 1] <- 1e+10
@@ -23,7 +25,8 @@ test_that("instability due to boundary data", {
 })
 
 test_that("instability due to connectivity penalties", {
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   cm <- boundary_matrix(sim_pu_raster)
   diag(cm) <- 0
   cm <- Matrix::drop0(cm)
@@ -36,7 +39,8 @@ test_that("instability due to connectivity penalties", {
 })
 
 test_that("instability due to asymmetric connectivity penalties", {
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   cm <- as_Matrix(boundary_matrix(sim_pu_raster), "dgCMatrix")
   diag(cm) <- 0
   cm <- Matrix::drop0(cm)
@@ -50,7 +54,8 @@ test_that("instability due to asymmetric connectivity penalties", {
 })
 
 test_that("instability due to rij data", {
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   sim_features[[1]][1] <- 1e+15
   p <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
@@ -60,7 +65,8 @@ test_that("instability due to rij data", {
 })
 
 test_that("instability due to high budget", {
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   sim_pu_raster <- sim_pu_raster
   p <- problem(sim_pu_raster, sim_features) %>%
        add_min_shortfall_objective(budget = 1e+9) %>%
@@ -70,7 +76,8 @@ test_that("instability due to high budget", {
 })
 
 test_that("instability due to low budget", {
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   sim_pu_raster <- sim_pu_raster
   p <- problem(sim_pu_raster, sim_features) %>%
        add_min_shortfall_objective(budget = 1e-30) %>%
@@ -80,7 +87,8 @@ test_that("instability due to low budget", {
 })
 
 test_that("instability due to cost data (objective function)", {
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   sim_pu_raster <- sim_pu_raster
   sim_pu_raster[1] <- 1e+15
   p <- problem(sim_pu_raster, sim_features) %>%
@@ -91,7 +99,8 @@ test_that("instability due to cost data (objective function)", {
 })
 
 test_that("instability due to cost data (constraint matrix)", {
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   sim_pu_raster <- sim_pu_raster
   sim_pu_raster[1] <- 1e+15
   p <- problem(sim_pu_raster, sim_features) %>%
@@ -102,7 +111,8 @@ test_that("instability due to cost data (constraint matrix)", {
 })
 
 test_that("instability due to feature weights", {
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   p <- problem(sim_pu_raster, sim_features) %>%
        add_max_utility_objective(600) %>%
        add_feature_weights(
@@ -112,7 +122,8 @@ test_that("instability due to feature weights", {
 })
 
 test_that("instability due to high targets", {
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   sim_features[[1]][1] <- 1e+15
   p <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
@@ -123,7 +134,8 @@ test_that("instability due to high targets", {
 })
 
 test_that("instability due to low targets", {
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   sim_features[[1]][1] <- 1e+15
   p <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
@@ -134,7 +146,8 @@ test_that("instability due to low targets", {
 })
 
 test_that("instability due to high target weights", {
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   p <- problem(sim_pu_raster, sim_features) %>%
        add_max_features_objective(600) %>%
        add_absolute_targets(1) %>%
@@ -145,7 +158,10 @@ test_that("instability due to high target weights", {
 })
 
 test_that("instability due to branch lengths", {
-  data(sim_pu_raster, sim_features, sim_phylogeny)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  sim_phylogeny <- get_sim_phylogeny()
+
   sim_phylogeny$edge.length[length(sim_phylogeny$edge.length)] <- 1e+15
   p <- problem(sim_pu_raster, sim_features) %>%
        add_max_phylo_div_objective(1900, sim_phylogeny) %>%
@@ -155,7 +171,8 @@ test_that("instability due to branch lengths", {
 })
 
 test_that("instability due to number of neighboring planning units", {
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   p <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
@@ -165,7 +182,8 @@ test_that("instability due to number of neighboring planning units", {
 })
 
 test_that("all planning units locked in", {
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   p <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
@@ -175,7 +193,8 @@ test_that("all planning units locked in", {
 })
 
 test_that("all planning units locked out", {
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   p <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
@@ -185,7 +204,8 @@ test_that("all planning units locked out", {
 })
 
 test_that("sparse feature data", {
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   sim_features <- sim_features * 1e-10
   p <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
