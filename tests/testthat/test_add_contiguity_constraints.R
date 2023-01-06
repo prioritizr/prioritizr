@@ -16,7 +16,7 @@ test_that("compile (single zone)", {
   cm <- Matrix::forceSymmetric(cm, uplo = "L")
   cm <- as_Matrix(Matrix::tril(cm), "dgTMatrix")
   n_pu <- length(sim_pu_polygons)
-  n_f <- raster::nlayers(sim_features)
+  n_f <- terra::nlyr(sim_features)
   n_edges <- length(cm@i)
   n_j_ends <- length(unique(cm@j))
   con_cols <- n_pu + seq_len(n_edges)
@@ -98,7 +98,7 @@ test_that("compile (multiple zones)", {
   cm <- as_Matrix(Matrix::tril(cm), "dgTMatrix")
   cl <- c(1, 1, 2)
   n_pu <- length(sim_zones_pu_polygons)
-  n_f <- raster::nlayers(sim_zones_features[[1]])
+  n_f <- terra::nlyr(sim_zones_features[[1]])
   n_z <- length(sim_zones_features)
   # compute edge data
   pu_i <- list()

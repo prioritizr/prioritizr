@@ -17,9 +17,9 @@ test_that("add_relative_targets (numeric(1), single zone)", {
   expect_is(targets$zone, "list")
   expect_is(targets$value, "numeric")
   expect_is(targets$sense, "character")
-  expect_equal(targets$feature, seq_len(raster::nlayers(sim_features)))
-  expect_equivalent(unlist(targets$zone), rep(1, raster::nlayers(sim_features)))
-  expect_equal(targets$sense, rep(">=", raster::nlayers(sim_features)))
+  expect_equal(targets$feature, seq_len(terra::nlyr(sim_features)))
+  expect_equivalent(unlist(targets$zone), rep(1, terra::nlyr(sim_features)))
+  expect_equal(targets$sense, rep(">=", terra::nlyr(sim_features)))
   expect_equal(targets$value, c(0.1 * p$feature_abundances_in_total_units()))
 })
 
@@ -39,11 +39,11 @@ test_that("add_relative_targets (numeric(5), single zone)", {
   expect_is(targets$zone, "list")
   expect_is(targets$value, "numeric")
   expect_is(targets$sense, "character")
-  expect_equal(targets$feature, seq_len(raster::nlayers(sim_features)))
-  expect_equivalent(unlist(targets$zone), rep(1, raster::nlayers(sim_features)))
+  expect_equal(targets$feature, seq_len(terra::nlyr(sim_features)))
+  expect_equivalent(unlist(targets$zone), rep(1, terra::nlyr(sim_features)))
   expect_equal(targets$value, c(seq(0.1, 0.6, length.out = 5) *
                                 p$feature_abundances_in_total_units()))
-  expect_equal(targets$sense, rep(">=", raster::nlayers(sim_features)))
+  expect_equal(targets$sense, rep(">=", terra::nlyr(sim_features)))
 })
 
 test_that("add_relative_targets (matrix, single zone)", {
@@ -62,11 +62,11 @@ test_that("add_relative_targets (matrix, single zone)", {
   expect_is(targets$zone, "list")
   expect_is(targets$value, "numeric")
   expect_is(targets$sense, "character")
-  expect_equal(targets$feature, seq_len(raster::nlayers(sim_features)))
-  expect_equivalent(unlist(targets$zone), rep(1, raster::nlayers(sim_features)))
+  expect_equal(targets$feature, seq_len(terra::nlyr(sim_features)))
+  expect_equivalent(unlist(targets$zone), rep(1, terra::nlyr(sim_features)))
   expect_equal(targets$value, c(seq(0.1, 0.6, length.out = 5) *
                                 p$feature_abundances_in_total_units()))
-  expect_equal(targets$sense, rep(">=", raster::nlayers(sim_features)))
+  expect_equal(targets$sense, rep(">=", terra::nlyr(sim_features)))
 })
 
 test_that("add_relative_targets (character, single zone)", {
@@ -92,7 +92,7 @@ test_that("add_relative_targets (character, single zone)", {
   expect_equivalent(unlist(targets$zone), rep(1, 5))
   expect_equal(targets$value, species$target *
                               c(p$feature_abundances_in_total_units()))
-  expect_equal(targets$sense, rep(">=", raster::nlayers(sim_features)))
+  expect_equal(targets$sense, rep(">=", terra::nlyr(sim_features)))
 })
 
 test_that("add_relative_targets (invalid input, single zone)", {
@@ -121,10 +121,10 @@ test_that("add_relative_targets (matrix, multiple zones)", {
   # load data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_zones_features <- get_sim_zones_features()
-  m <- matrix(runif(raster::nlayers(sim_features) *
-                      raster::nlayers(sim_zones_pu_raster)),
-              ncol = raster::nlayers(sim_zones_pu_raster),
-              nrow = raster::nlayers(sim_features))
+  m <- matrix(runif(terra::nlyr(sim_features) *
+                      terra::nlyr(sim_zones_pu_raster)),
+              ncol = terra::nlyr(sim_zones_pu_raster),
+              nrow = terra::nlyr(sim_features))
   # create problem
   p <- problem(sim_zones_pu_raster, sim_zones_features) %>%
        add_relative_targets(m)
@@ -137,15 +137,15 @@ test_that("add_relative_targets (matrix, multiple zones)", {
   expect_is(targets$zone, "list")
   expect_is(targets$value, "numeric")
   expect_is(targets$sense, "character")
-  expect_equal(targets$feature, rep(seq_len(raster::nlayers(sim_features)),
-                                    raster::nlayers(sim_zones_pu_raster)))
+  expect_equal(targets$feature, rep(seq_len(terra::nlyr(sim_features)),
+                                    terra::nlyr(sim_zones_pu_raster)))
   expect_equivalent(unlist(targets$zone),
-                    rep(seq_len(raster::nlayers(sim_zones_pu_raster)),
-                        each = raster::nlayers(sim_features)))
+                    rep(seq_len(terra::nlyr(sim_zones_pu_raster)),
+                        each = terra::nlyr(sim_features)))
   expect_equal(targets$value, c(m) *
                               c(p$feature_abundances_in_total_units()))
-  expect_equal(targets$sense, rep(">=", raster::nlayers(sim_features) *
-                                        raster::nlayers(sim_zones_pu_raster)))
+  expect_equal(targets$sense, rep(">=", terra::nlyr(sim_features) *
+                                        terra::nlyr(sim_zones_pu_raster)))
 })
 
 test_that("add_relative_targets (character, multiple zones)", {
@@ -192,7 +192,7 @@ test_that("add_relative_targets (invalid input, multiple zones)", {
   expect_error(add_relative_targets(p, 5))
   expect_error(
     add_relative_targets(p,
-                         rep(5, raster::nlayers(sim_zones_pu_raster))))
+                         rep(5, terra::nlyr(sim_zones_pu_raster))))
   # matrix input
   p <- problem(sim_zones_pu_raster, sim_zones_features)
   expect_error(add_relative_targets(p, matrix(1:5, ncol = 1)))

@@ -14,7 +14,7 @@ test_that("binary decisions", {
   s <- solve(p)
   # check that solution has correct properties
   expect_true(inherits(s, "Raster"))
-  expect_equal(raster::nlayers(s), 1)
+  expect_equal(terra::nlyr(s), 1)
   expect_equal(sort(unique(raster::getValues(s))), c(0, 1))
   expect_true(raster::compareRaster(sim_pu_raster, s, res = TRUE, crs = TRUE,
                                     tolerance = 1e-5, stopiffalse = FALSE))
@@ -34,7 +34,7 @@ test_that("proportion decisions", {
   s <- solve(p)
   # check that solution has correct properties
   expect_true(inherits(s, "Raster"))
-  expect_equal(raster::nlayers(s), 1)
+  expect_equal(terra::nlyr(s), 1)
   expect_gte(min(raster::getValues(s), na.rm = TRUE), 0)
   expect_lte(max(raster::getValues(s), na.rm = TRUE), 1)
   expect_gt(max(raster::getValues(s) - round(raster::getValues(s)),
@@ -100,7 +100,7 @@ test_that("mix of binary and continuous variables", {
   s <- solve(p)
   # check that solution has correct properties
   expect_true(inherits(s, "Raster"))
-  expect_equal(raster::nlayers(s), 1)
+  expect_equal(terra::nlyr(s), 1)
   expect_equal(sort(unique(raster::getValues(s))), c(0, 1))
   expect_true(raster::compareRaster(sim_pu_raster, s, res = TRUE, crs = TRUE,
                                     tolerance = 1e-5, stopiffalse = FALSE))
@@ -120,7 +120,7 @@ test_that("first_feasible", {
   s1 <- solve(p1)
   # check that solution has correct properties
   expect_is(s1, "Raster")
-  expect_equal(raster::nlayers(s1), 1)
+  expect_equal(terra::nlyr(s1), 1)
   expect_equal(sort(unique(raster::getValues(s1))), c(0, 1))
   expect_true(raster::compareRaster(sim_pu_raster, s1, res = TRUE, crs = TRUE,
                                     tolerance = 1e-5, stopiffalse = FALSE))

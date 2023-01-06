@@ -13,7 +13,7 @@ test_that("implicit default solver", {
   s <- solve(p)
   # check that solution has correct properties
   expect_true(inherits(s, "Raster"))
-  expect_equal(raster::nlayers(s), 1)
+  expect_equal(terra::nlyr(s), 1)
   expect_true(raster::compareRaster(sim_pu_raster, s, res = TRUE, crs = TRUE,
               tolerance = 1e-5, stopiffalse = FALSE))
 })
@@ -32,7 +32,7 @@ test_that("raster planning unit data", {
   s <- solve(p)
   # check that solution has correct properties
   expect_true(inherits(s, "Raster"))
-  expect_equal(raster::nlayers(s), 1)
+  expect_equal(terra::nlyr(s), 1)
   expect_true(raster::compareRaster(sim_pu_raster, s, res = TRUE, crs = TRUE,
               tolerance = 1e-5, stopiffalse = FALSE))
 })

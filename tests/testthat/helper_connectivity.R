@@ -11,7 +11,8 @@ r_connectivity_given_matrix <- function(
     ncol(solution) == ncol(zones),
     ncol(solution) == nrow(zones),
     nrow(solution) == ncol(connectivity_matrix),
-    nrow(solution) == nrow(connectivity_matrix))
+    nrow(solution) == nrow(connectivity_matrix)
+  )
   # initialization
   out <- 0
   # adjust inputs according to planning units

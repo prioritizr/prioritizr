@@ -14,7 +14,7 @@ test_that("compile (compressed formulation, single zone)", {
   o <- compile(p)
   # check that objective has been correctly applied
   n_pu <- length(sim_pu_raster[[1]][!is.na(sim_pu_raster)])
-  n_f <- raster::nlayers(sim_features)
+  n_f <- terra::nlyr(sim_features)
   expect_equal(o$modelsense(), "min")
   expect_equal(o$obj(), c(rep(0, n_pu), rep(0, n_f), 1))
   expect_equal(o$sense(), c(rep(">=", n_f), rep(">=", n_f), "<="))
@@ -82,7 +82,7 @@ test_that("compile (expanded formulation, single zone)", {
   o <- compile(p, compressed_formulation = FALSE)
   # check that objective has been correctly applied
   n_pu <- length(sim_pu_raster[[1]][!is.na(sim_pu_raster)])
-  n_f <- raster::nlayers(sim_features)
+  n_f <- terra::nlyr(sim_features)
   rij <- rij_matrix(sim_pu_raster, sim_features)
   expect_equal(o$modelsense(), "min")
   expect_equal(

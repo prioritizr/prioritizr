@@ -54,7 +54,7 @@ test_that("raster (na.rm = FALSE, single zone)", {
   expect_equal(x$feature, names(sim_features))
   expect_equal(x$absolute_abundance,
                unname(raster::cellStats(sim_features, "sum")))
-  expect_equal(x$relative_abundance, rep(1, raster::nlayers(sim_features)))
+  expect_equal(x$relative_abundance, rep(1, terra::nlyr(sim_features)))
 })
 
 test_that("raster (na.rm = TRUE, single zone)", {

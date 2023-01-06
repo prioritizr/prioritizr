@@ -14,7 +14,7 @@ test_that("x=Raster, features=RasterStack", {
   # tests for integer fields
   expect_equal(x$feature_names(), names(sim_features))
   expect_equal(x$zone_names(), names(sim_pu_raster))
-  expect_equal(x$number_of_features(), raster::nlayers(sim_features))
+  expect_equal(x$number_of_features(), terra::nlyr(sim_features))
   expect_equal(x$number_of_planning_units(),
     length(raster::Which(!is.na(sim_pu_raster), cells = TRUE)))
   expect_equal(x$number_of_total_units(), raster::ncell(sim_pu_raster))
@@ -79,7 +79,7 @@ test_that("x=RasterStack, features=ZonesRaster", {
                zone_names(sim_zones_features))
   # tests for feature_abundances_in_planning_units field
   expect_equivalent(x$feature_abundances_in_planning_units(),
-    sapply(seq_len(raster::nlayers(sim_zones_pu_raster)), function(i) {
+    sapply(seq_len(terra::nlyr(sim_zones_pu_raster)), function(i) {
       raster::cellStats(raster::mask(sim_zones_features[[i]],
                                      sim_zones_pu_raster[[i]]), "sum")
   }))
@@ -89,7 +89,7 @@ test_that("x=RasterStack, features=ZonesRaster", {
               feature_names(sim_zones_features))
   # tests for feature_abundances_in_total_units field
   expect_equivalent(x$feature_abundances_in_total_units(),
-    sapply(seq_len(raster::nlayers(sim_zones_pu_raster)), function(i) {
+    sapply(seq_len(terra::nlyr(sim_zones_pu_raster)), function(i) {
       raster::cellStats(sim_zones_features[[i]], "sum")
   }))
   expect_equal(colnames(x$feature_abundances_in_total_units()),
@@ -98,7 +98,7 @@ test_that("x=RasterStack, features=ZonesRaster", {
               feature_names(sim_zones_features))
   # tests for rij_matrix field
   expect_equivalent(x$data$rij_matrix,
-                    lapply(seq_len(raster::nlayers(sim_zones_pu_raster)),
+                    lapply(seq_len(terra::nlyr(sim_zones_pu_raster)),
                           function(i) rij_matrix(sim_zones_pu_raster[[i]],
                                                  sim_zones_features[[i]])))
   expect_equal(names(x$data$rij_matrix), zone_names(sim_zones_features))
@@ -126,7 +126,7 @@ test_that("x=SpatialPolygonsDataFrame, features=RasterStack", {
   # tests for integer fields
   expect_equal(x$feature_names(), names(sim_features))
   expect_equal(x$zone_names(), "cost")
-  expect_equal(x$number_of_features(), raster::nlayers(sim_features))
+  expect_equal(x$number_of_features(), terra::nlyr(sim_features))
   expect_equal(x$number_of_planning_units(), sum(!is.na(sim_pu_polygons$cost)))
   expect_equal(x$planning_unit_indices(), which(!is.na(sim_pu_polygons$cost)))
   expect_equal(x$number_of_total_units(), nrow(sim_pu_polygons))
@@ -182,7 +182,7 @@ test_that("x=SpatialPolygonsDataFrame, features=ZonesRaster", {
   # tests for integer fields
   expect_equal(x$feature_names(), feature_names(sim_zones_features))
   expect_equal(x$zone_names(), zone_names(sim_zones_features))
-  expect_equal(x$number_of_features(), raster::nlayers(sim_zones_features[[1]]))
+  expect_equal(x$number_of_features(), terra::nlyr(sim_zones_features[[1]]))
   expect_equal(x$number_of_planning_units(), nrow(sim_zones_pu_polygons) - 1)
   expect_equal(x$planning_unit_indices(),
                c(seq_len(4), seq(6, nrow(sim_zones_pu_polygons))))

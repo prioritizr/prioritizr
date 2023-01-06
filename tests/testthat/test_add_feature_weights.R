@@ -11,7 +11,7 @@ test_that("compile (compressed formulation, single zone)", {
   o <- compile(p)
   # check that objective has been correctly applied
   n_pu <- length(sim_pu_raster[[1]][!is.na(sim_pu_raster)])
-  n_f <- raster::nlayers(sim_features)
+  n_f <- terra::nlyr(sim_features)
   scaled_costs <- p$planning_unit_costs()
   scaled_costs <- scaled_costs * (-0.01 / sum(scaled_costs, na.rm = TRUE))
   expect_equal(o$modelsense(), "max")
@@ -66,7 +66,7 @@ test_that("compile (expanded formulation, single zone)", {
   o <- compile(p, compressed_formulation = FALSE)
   # check that constraints and metadata have been correctly applied
   n_pu <- length(sim_pu_raster[[1]][!is.na(sim_pu_raster)])
-  n_f <- raster::nlayers(sim_features)
+  n_f <- terra::nlyr(sim_features)
   rij <- rij_matrix(sim_pu_raster, sim_features)
   scaled_costs <- p$planning_unit_costs()
   scaled_costs <- scaled_costs * (-0.01 / sum(scaled_costs, na.rm = TRUE))
@@ -368,7 +368,7 @@ test_that("throw warning with min set objective", {
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_binary_decisions()
-  p2 <- p1 %>% add_feature_weights(runif(raster::nlayers(sim_features)))
+  p2 <- p1 %>% add_feature_weights(runif(terra::nlyr(sim_features)))
   # tests
   o1 <- compile(p1)
   expect_warning({o2 <- compile(p2)})
@@ -391,7 +391,7 @@ test_that("throw warning with min largest shortfall objective", {
        add_min_largest_shortfall_objective(100) %>%
        add_relative_targets(0.1) %>%
        add_binary_decisions()
-  p2 <- p1 %>% add_feature_weights(runif(raster::nlayers(sim_features)))
+  p2 <- p1 %>% add_feature_weights(runif(terra::nlyr(sim_features)))
   # tests
   o1 <- compile(p1)
   expect_warning({o2 <- compile(p2)})

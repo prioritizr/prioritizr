@@ -15,7 +15,7 @@ test_that("compile (compressed formulation, single zone)", {
   o <- compile(p)
   # check that objective has been correctly applied
   n_pu <- length(sim_pu_raster[[1]][!is.na(sim_pu_raster)])
-  n_f <- raster::nlayers(sim_features)
+  n_f <- terra::nlyr(sim_features)
   n_br <- nrow(sim_phylogeny$edge)
   bm <- branch_matrix(sim_phylogeny)
   scaled_costs <- p$planning_unit_costs() * ((-0.01*
@@ -103,7 +103,7 @@ test_that("compile (expanded formulation)", {
   o <- compile(p, compressed_formulation = FALSE)
   # run preliminary calculations
   n_pu <- length(sim_pu_raster[[1]][!is.na(sim_pu_raster)])
-  n_f <- raster::nlayers(sim_features)
+  n_f <- terra::nlyr(sim_features)
   n_b <- nrow(sim_phylogeny$edge)
   rij <- rij_matrix(sim_pu_raster, sim_features)
   n_rij <- length(rij@x)

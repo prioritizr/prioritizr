@@ -7,7 +7,7 @@ test_that("valid inputs", {
   y <- binary_stack(x)
   # run tests
   expect_is(y, "RasterStack")
-  expect_equal(raster::nlayers(y), 4)
+  expect_equal(terra::nlyr(y), 4)
   expect_true(raster::compareRaster(x, y, stopiffalse = FALSE,
                                     tolerance = 1e-5,
                                     crs = TRUE))

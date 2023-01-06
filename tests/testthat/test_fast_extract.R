@@ -23,7 +23,7 @@ test_that("x=Raster,y=SpatialPolygons", {
   # works as intended
   fe <- fast_extract(sim_features, sim_pu_polygons)
   expect_equal(nrow(fe), nrow(sim_pu_polygons))
-  expect_equal(ncol(fe), raster::nlayers(sim_features))
+  expect_equal(ncol(fe), terra::nlyr(sim_features))
   # sp to sf conversion doesn't affect results
   expect_identical(fe, fast_extract(sim_features, sim_pu_polygons))
 })
@@ -32,7 +32,7 @@ test_that("x=Raster,y=SpatialPoints", {
   # works as intended
   fe <- fast_extract(sim_features, as_Spatial(p_sf))
   expect_equal(nrow(fe), nrow(p_sf))
-  expect_equal(ncol(fe), raster::nlayers(sim_features))
+  expect_equal(ncol(fe), terra::nlyr(sim_features))
   # sp to sf conversion doesn't affect results
   expect_identical(fe, fast_extract(sim_features, p_sf))
 })
@@ -41,7 +41,7 @@ test_that("x=Raster,y=SpatialLines", {
   # works as intended
   fe <- fast_extract(sim_features, as_Spatial(ls_sf))
   expect_equal(nrow(fe), nrow(p_sf))
-  expect_equal(ncol(fe), raster::nlayers(sim_features))
+  expect_equal(ncol(fe), terra::nlyr(sim_features))
   # sp to sf conversion doesn't affect results
   expect_identical(fe, fast_extract(sim_features, ls_sf))
 })
@@ -51,19 +51,19 @@ test_that("x=Raster,y=sfc", {
   # points
   fe <- fast_extract(sim_features, p_sfc)
   expect_equal(nrow(fe), length(p_sfc))
-  expect_equal(ncol(fe), raster::nlayers(sim_features))
+  expect_equal(ncol(fe), terra::nlyr(sim_features))
   # lines
   fe <- fast_extract(sim_features, ls_sfc)
   expect_equal(nrow(fe), length(ls_sfc))
-  expect_equal(ncol(fe), raster::nlayers(sim_features))
+  expect_equal(ncol(fe), terra::nlyr(sim_features))
   # polygons
   fe <- fast_extract(sim_features, sf::st_geometry(sim_pu_polygons))
   expect_equal(nrow(fe), nrow(sim_pu_polygons))
-  expect_equal(ncol(fe), raster::nlayers(sim_features))
+  expect_equal(ncol(fe), terra::nlyr(sim_features))
   # mixture
   fe <- fast_extract(sim_features, p_mix)
   expect_equal(nrow(fe), length(p_mix))
-  expect_equal(ncol(fe), raster::nlayers(sim_features))
+  expect_equal(ncol(fe), terra::nlyr(sim_features))
 })
 
 test_that("x=Raster,y=sf", {
@@ -71,19 +71,19 @@ test_that("x=Raster,y=sf", {
   # points
   fe <- fast_extract(sim_features, p_sf)
   expect_equal(nrow(fe), nrow(p_sf))
-  expect_equal(ncol(fe), raster::nlayers(sim_features))
+  expect_equal(ncol(fe), terra::nlyr(sim_features))
   # lines
   fe <- fast_extract(sim_features, ls_sf)
   expect_equal(nrow(fe), nrow(ls_sf))
-  expect_equal(ncol(fe), raster::nlayers(sim_features))
+  expect_equal(ncol(fe), terra::nlyr(sim_features))
   # polygons
   fe <- fast_extract(sim_features, sim_pu_polygons)
   expect_equal(nrow(fe), nrow(sim_pu_polygons))
-  expect_equal(ncol(fe), raster::nlayers(sim_features))
+  expect_equal(ncol(fe), terra::nlyr(sim_features))
   # mixture
   fe <- fast_extract(sim_features, p_mix_sf)
   expect_equal(nrow(fe), nrow(p_mix_sf))
-  expect_equal(ncol(fe), raster::nlayers(sim_features))
+  expect_equal(ncol(fe), terra::nlyr(sim_features))
 })
 
 test_that("summary functions", {

@@ -88,10 +88,11 @@ ferrier_scores_r <- function(rij, targets, solution) {
   out2
 }
 
-internal_calculate_irrep_value <- function(
-  n_planning_units, portfolio_size, mult, wt_include,
-  wt_exclude, feature_amount, feature_target, sum_feature_amount,
-  sum_sq_feature_amount) {
+internal_calculate_irrep_value <- function(n_planning_units, portfolio_size,
+                                           mult, wt_include,
+                                           wt_exclude, feature_amount,
+                                           feature_target, sum_feature_amount,
+                                           sum_sq_feature_amount) {
   feature_amount_sq <- feature_amount ^ 2
   sum_feature_amount <- (sum_feature_amount - feature_amount) * mult
   sum_sq_feature_amount <- (sum_sq_feature_amount - feature_amount_sq) * mult
@@ -129,17 +130,19 @@ internal_calculate_irrep_value <- function(
   irrep_value
 }
 
-internal_calculate_standard_dev <- function(
-  sum_feature_amount, sum_sq_feature_amount, n_planning_units) {
+internal_calculate_standard_dev <- function(sum_feature_amount,
+                                            sum_sq_feature_amount,
+                                            n_planning_units) {
   sqrt(
     sum_sq_feature_amount -
     ((sum_feature_amount ^ 2) / n_planning_units) / n_planning_units)
 }
 
-internal_calculate_rx_removed <- function(
-  n_planning_units, portfolio_size, stdev,
-  feature_amount, feature_target, mean_feature_amount_per_pu,
-  sum_feature_amount) {
+internal_calculate_rx_removed <- function(n_planning_units, portfolio_size,
+                                          stdev, feature_amount,
+                                          feature_target,
+                                          mean_feature_amount_per_pu,
+                                          sum_feature_amount) {
   mean_target_per_portfolio_size <- feature_target / (portfolio_size - 1)
   adj_sd <- stdev * calculate_adjusted_portfolio_size(
     n_planning_units - 1, portfolio_size - 1)
@@ -162,9 +165,10 @@ internal_calculate_rx_removed <- function(
   rx_removed
 }
 
-internal_calculate_rx_included <- function(
-  n_planning_units, portfolio_size, stdev,
-  feature_amount, feature_target, mean_feature_amount_per_pu) {
+internal_calculate_rx_included <- function(n_planning_units, portfolio_size,
+                                           stdev, feature_amount,
+                                           feature_target,
+                                           mean_feature_amount_per_pu) {
   mean_target_per_portfolio_size <-
     (feature_target - feature_amount) / (portfolio_size - 1)
   adj_sd <- stdev * calculate_adjusted_portfolio_size(
@@ -180,21 +184,21 @@ internal_calculate_rx_included <- function(
       }
     } else {
       z <- (mean_target_per_portfolio_size - mean_feature_amount_per_pu) /
-           adj_sd
+        adj_sd
       rx_included <- 1 - pnorm(z) # area on the right tail
     }
   }
   rx_included
 }
 
-internal_calculate_rx_excluded <- function(
-  n_planning_units, portfolio_size, stdev,
-  feature_amount, feature_target, sum_feature_amount,
-  mean_feature_amount_per_pu) {
+internal_calculate_rx_excluded <- function(n_planning_units, portfolio_size,
+                                           stdev, feature_amount,
+                                           feature_target, sum_feature_amount,
+                                           mean_feature_amount_per_pu) {
   mean_target_per_portfolio_size <- feature_target / portfolio_size
 
-  adj_sd <- stdev * calculate_adjusted_portfolio_size(n_planning_units - 1,
-                                                      portfolio_size)
+  adj_sd <- stdev *
+    calculate_adjusted_portfolio_size(n_planning_units - 1, portfolio_size)
 
   if ((sum_feature_amount - feature_amount) < feature_target) {
     rx_excluded <- 0
@@ -207,7 +211,7 @@ internal_calculate_rx_excluded <- function(
       }
     } else {
       z <- (mean_target_per_portfolio_size - mean_feature_amount_per_pu) /
-              adj_sd
+        adj_sd
       rx_excluded <- 1 - pnorm(z) # area under the right tail
     }
   }

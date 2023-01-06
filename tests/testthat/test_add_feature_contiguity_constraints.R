@@ -33,7 +33,7 @@ test_that("compile (single zone)", {
   o  <- compile(p)
   # perform preliminary calculations
   n_pu <- raster::ncell(cost)
-  n_f <- raster::nlayers(features)
+  n_f <- terra::nlyr(features)
   rij <- rij_matrix(cost, features)
   costs <- raster::values(cost)
   targ <- c(6, 30)
@@ -194,7 +194,7 @@ test_that("compile (multiple zones)", {
   o <- compile(p)
   # perform preliminary calculations
   n_pu <- raster::ncell(cost)
-  n_f <- raster::nlayers(features[[1]])
+  n_f <- terra::nlyr(features[[1]])
   n_z <- number_of_zones(features)
   rij <- lapply(seq_len(2), function(i) rij_matrix(cost, features[[i]]))
   costs <- raster::values(cost)

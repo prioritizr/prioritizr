@@ -19,11 +19,11 @@ test_that("add_manual_targets (default, single zone)", {
   expect_is(targets$zone, "list")
   expect_is(targets$value, "numeric")
   expect_is(targets$sense, "character")
-  expect_equal(targets$feature, seq_len(raster::nlayers(sim_features))[-1])
+  expect_equal(targets$feature, seq_len(terra::nlyr(sim_features))[-1])
   expect_equivalent(unlist(targets$zone),
-                    rep(1, raster::nlayers(sim_features) - 1))
+                    rep(1, terra::nlyr(sim_features) - 1))
   expect_equal(targets$value, as.numeric(seq_len(4)))
-  expect_equal(targets$sense, rep(">=", raster::nlayers(sim_features) - 1))
+  expect_equal(targets$sense, rep(">=", terra::nlyr(sim_features) - 1))
 })
 
 test_that("add_manual_targets (mixed, single zone)", {
@@ -45,13 +45,13 @@ test_that("add_manual_targets (mixed, single zone)", {
   expect_is(targets$zone, "list")
   expect_is(targets$value, "numeric")
   expect_is(targets$sense, "character")
-  expect_equal(targets$feature, seq_len(raster::nlayers(sim_features))[-1])
+  expect_equal(targets$feature, seq_len(terra::nlyr(sim_features))[-1])
   expect_equivalent(unlist(targets$zone),
-                    rep(1, raster::nlayers(sim_features) - 1))
+                    rep(1, terra::nlyr(sim_features) - 1))
   expect_equal(
     targets$value,
     c(0.1 * raster::cellStats(sim_features[[2]], "sum"), 1, 2, 3))
-  expect_equal(targets$sense, rep(">=", raster::nlayers(sim_features) - 1))
+  expect_equal(targets$sense, rep(">=", terra::nlyr(sim_features) - 1))
 })
 
 test_that("add_manual_targets (explicit, single zone)", {
@@ -74,9 +74,9 @@ test_that("add_manual_targets (explicit, single zone)", {
   expect_is(targets$zone, "list")
   expect_is(targets$value, "numeric")
   expect_is(targets$sense, "character")
-  expect_equal(targets$feature, seq_len(raster::nlayers(sim_features))[-1])
+  expect_equal(targets$feature, seq_len(terra::nlyr(sim_features))[-1])
   expect_equivalent(unlist(targets$zone),
-                    rep(1, raster::nlayers(sim_features) - 1))
+                    rep(1, terra::nlyr(sim_features) - 1))
   expect_equal(targets$value, 2:5)
   expect_equal(targets$sense, c(">=", "=", "<=", "="))
 })

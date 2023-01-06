@@ -5,7 +5,7 @@
 #' @param packages `character` vector containing the package dependencies
 #'   for fast solvers. Defaults to `"gurobi"`, `"cplexAPI"`, and `"rcbc"`.
 #'
-#' @return `logical` indicating success.
+#' @return A `logical` value indicating success.
 skip_if_no_fast_solvers_installed <- function(
   packages = c("gurobi", "cplexAPI", "rcbc")) {
   # assert arguments are valid
@@ -27,7 +27,7 @@ skip_if_no_fast_solvers_installed <- function(
 #' @param packages `character` vector containing the package dependencies
 #'   for commercial solvers. Defaults to `"gurobi"` and `"cplexAPI"`.
 #'
-#' @return `logical` indicating success.
+#' @return A `logical` value indicating success.
 skip_if_no_commercial_solvers_installed <- function(
   packages = c("gurobi", "cplexAPI")) {
   # assert arguments are valid
@@ -49,7 +49,7 @@ skip_if_no_commercial_solvers_installed <- function(
 #' @param packages `character` vector containing the package dependencies
 #'   for fast solvers.
 #'
-#' @return `logical` indicating success.
+#' @return A `logical` value indicating success.
 skip_if_no_fast_solvers_installed <- function(
   packages = c("gurobi", "cplexAPI", "rcbc")) {
   # assert arguments are valid
@@ -68,7 +68,7 @@ skip_if_no_fast_solvers_installed <- function(
 #'
 #' Skip a test if no solvers are installed.
 #'
-#' @return `logical` indicating success.
+#' @return A `logical` value indicating success.
 skip_if_no_solvers_installed <- function() {
   # check if any dependencies present
   result <- any_solvers_installed()

@@ -8,7 +8,7 @@ test_that("simulate_data (single output layer)", {
   # check simulated data
   expect_true(raster::compareRaster(r, s[[1]], res = TRUE, orig = TRUE,
                                     values = FALSE, tolerance = 1e-5))
-  expect_equal(raster::nlayers(s), 1)
+  expect_equal(terra::nlyr(s), 1)
   expect_true(all(raster::values(s) >= 0))
   expect_true(all(raster::values(s) <= 1))
   expect_true(all(is.finite(raster::values(s))))
@@ -22,7 +22,7 @@ test_that("simulate_data (multiple output layers)", {
   # check simulated data
   expect_true(raster::compareRaster(r, s[[1]], res = TRUE, orig = TRUE,
                                     values = FALSE, tolerance = 1e-5))
-  expect_equal(raster::nlayers(s), 2)
+  expect_equal(terra::nlyr(s), 2)
   expect_true(all(raster::values(s) >= 0))
   expect_true(all(raster::values(s) <= 1))
   expect_true(all(is.finite(raster::values(s))))
@@ -36,7 +36,7 @@ test_that("simulate_species", {
   # check simulated data
   expect_true(raster::compareRaster(r, s[[1]], res = TRUE, orig = TRUE,
                                     values = FALSE, tolerance = 1e-5))
-  expect_equal(raster::nlayers(s), 2)
+  expect_equal(terra::nlyr(s), 2)
   expect_true(all(raster::values(s) >= 0))
   expect_true(all(raster::values(s) <= 1))
   expect_true(all(is.finite(raster::values(s))))
@@ -50,7 +50,7 @@ test_that("simulate_cost", {
   # check simulated data
   expect_true(raster::compareRaster(r, s[[1]], res = TRUE, orig = TRUE,
                     values = FALSE, tolerance = 1e-5))
-  expect_equal(raster::nlayers(s), 2)
+  expect_equal(terra::nlyr(s), 2)
   expect_true(all(raster::values(s) >= 0))
   expect_true(all(is.finite(raster::values(s))))
 })

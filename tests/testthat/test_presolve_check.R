@@ -116,7 +116,7 @@ test_that("instability due to feature weights", {
   p <- problem(sim_pu_raster, sim_features) %>%
        add_max_utility_objective(600) %>%
        add_feature_weights(
-         c(1e+15, rep(1, raster::nlayers(sim_features) - 1))) %>%
+         c(1e+15, rep(1, terra::nlyr(sim_features) - 1))) %>%
        add_binary_decisions()
   expect_warning(expect_false(presolve_check(p)), "weight", all = TRUE)
 })
@@ -128,7 +128,7 @@ test_that("instability due to high targets", {
   p <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_absolute_targets(
-         c(1e+15, rep(1, raster::nlayers(sim_features) - 1))) %>%
+         c(1e+15, rep(1, terra::nlyr(sim_features) - 1))) %>%
        add_binary_decisions()
   expect_warning(expect_false(presolve_check(p)), "target")
 })
@@ -140,7 +140,7 @@ test_that("instability due to low targets", {
   p <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_absolute_targets(
-         c(1e-15, rep(1, raster::nlayers(sim_features) - 1))) %>%
+         c(1e-15, rep(1, terra::nlyr(sim_features) - 1))) %>%
        add_binary_decisions()
   expect_warning(expect_false(presolve_check(p)), "target")
 })
@@ -152,7 +152,7 @@ test_that("instability due to high target weights", {
        add_max_features_objective(600) %>%
        add_absolute_targets(1) %>%
        add_feature_weights(
-         c(1e+15, rep(1, raster::nlayers(sim_features) - 1))) %>%
+         c(1e+15, rep(1, terra::nlyr(sim_features) - 1))) %>%
        add_binary_decisions()
   expect_warning(expect_false(presolve_check(p)), "target weight", all = TRUE)
 })

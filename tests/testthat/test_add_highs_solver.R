@@ -20,7 +20,7 @@ test_that("binary decisions", {
   s2 <- solve(p2)
   # check that solution has correct properties
   expect_is(s1, "Raster")
-  expect_equal(raster::nlayers(s1), 1)
+  expect_equal(terra::nlyr(s1), 1)
   expect_equal(sort(unique(raster::getValues(s1))), c(0, 1))
   expect_true(raster::compareRaster(sim_pu_raster, s1, res = TRUE, crs = TRUE,
                                     tolerance = 1e-5, stopiffalse = FALSE))
@@ -41,7 +41,7 @@ test_that("proportion decisions", {
   s <- solve(p)
   # check that solution has correct properties
   expect_is(s, "Raster")
-  expect_equal(raster::nlayers(s), 1)
+  expect_equal(terra::nlyr(s), 1)
   expect_gte(min(raster::getValues(s), na.rm = TRUE), 0)
   expect_lte(max(raster::getValues(s), na.rm = TRUE), 1)
   expect_gt(max(raster::getValues(s) - round(raster::getValues(s)),
@@ -111,7 +111,7 @@ test_that("threads patched", {
   s2 <- solve(p2)
   # check that solution has correct properties
   expect_is(s1, "Raster")
-  expect_equal(raster::nlayers(s1), 1)
+  expect_equal(terra::nlyr(s1), 1)
   expect_equal(sort(unique(raster::getValues(s1))), c(0, 1))
   expect_true(raster::compareRaster(sim_pu_raster, s1, res = TRUE, crs = TRUE,
                                     tolerance = 1e-5, stopiffalse = FALSE))
@@ -132,7 +132,7 @@ test_that("small values in constraint matrix", {
   s1 <- solve(p1, force = TRUE, run_checks = FALSE)
   # tests
   expect_is(s1, "Raster")
-  expect_equal(raster::nlayers(s1), 1)
+  expect_equal(terra::nlyr(s1), 1)
   expect_equal(sort(unique(raster::getValues(s1))), c(0, 1))
 })
 
@@ -150,7 +150,7 @@ test_that("small values in objective function", {
   s1 <- solve(p1, force = TRUE, run_checks = FALSE)
   # tests
   expect_is(s1, "Raster")
-  expect_equal(raster::nlayers(s1), 1)
+  expect_equal(terra::nlyr(s1), 1)
   expect_equal(sort(unique(raster::getValues(s1))), c(0, 1))
 })
 
@@ -168,7 +168,7 @@ test_that("mix of binary and continuous variables", {
   s <- solve(p)
   # check that solution has correct properties
   expect_true(inherits(s, "Raster"))
-  expect_equal(raster::nlayers(s), 1)
+  expect_equal(terra::nlyr(s), 1)
   expect_equal(sort(unique(raster::getValues(s))), c(0, 1))
   expect_true(raster::compareRaster(sim_pu_raster, s, res = TRUE, crs = TRUE,
                                     tolerance = 1e-5, stopiffalse = FALSE))

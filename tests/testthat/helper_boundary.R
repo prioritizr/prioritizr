@@ -12,7 +12,8 @@ r_boundary_given_matrix <- function(
     ncol(solution) == ncol(zones),
     ncol(solution) == nrow(zones),
     nrow(solution) == ncol(boundary_matrix),
-    nrow(solution) == nrow(boundary_matrix))
+    nrow(solution) == nrow(boundary_matrix)
+  )
   # initialization
   c1 <- 0
   c2 <- 0

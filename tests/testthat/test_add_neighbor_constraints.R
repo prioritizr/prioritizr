@@ -12,7 +12,7 @@ test_that("compile (Spatial, single zone)", {
   # compile problem
   o <- compile(p)
   n_pu <- length(sim_pu_polygons)
-  n_f <- raster::nlayers(sim_features)
+  n_f <- terra::nlyr(sim_features)
   neighbor_rows <- n_f + seq_len(n_pu)
   c_matrix <- adjacency_matrix(sim_pu_polygons)
   # check that rhs has been added correctly

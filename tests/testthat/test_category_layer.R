@@ -12,7 +12,7 @@ test_that("valid inputs", {
  y <- category_layer(x)
  # run tests
   expect_is(y, "RasterLayer")
-  expect_equal(raster::nlayers(y), 1)
+  expect_equal(terra::nlyr(y), 1)
   expect_true(raster::compareRaster(x, y, stopiffalse = FALSE, tolerance = 1e-5,
                                     crs = TRUE))
   expect_equal(raster::values(y), c(1, 2, 3, 1, NA, 3))

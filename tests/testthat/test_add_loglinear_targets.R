@@ -5,7 +5,7 @@ test_that("no cap", {
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
   # set total abundance of some features much higher than other features
-  for (i in seq_len(raster::nlayers(sim_features)))
+  for (i in seq_len(terra::nlyr(sim_features)))
     sim_features[[i]] <- sim_features[[i]] ^ i
   # create problem
   p <- problem(sim_pu_raster, sim_features) %>%
@@ -23,10 +23,10 @@ test_that("no cap", {
   expect_is(targets$zone, "list")
   expect_is(targets$value, "numeric")
   expect_is(targets$sense, "character")
-  expect_equal(targets$feature, seq_len(raster::nlayers(sim_features)))
-  expect_equivalent(unlist(targets$zone), rep(1, raster::nlayers(sim_features)))
+  expect_equal(targets$feature, seq_len(terra::nlyr(sim_features)))
+  expect_equivalent(unlist(targets$zone), rep(1, terra::nlyr(sim_features)))
   expect_equivalent(targets$value, values)
-  expect_equal(targets$sense, rep(">=", raster::nlayers(sim_features)))
+  expect_equal(targets$sense, rep(">=", terra::nlyr(sim_features)))
 })
 
 test_that("cap", {
@@ -34,7 +34,7 @@ test_that("cap", {
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
   # set total abundance of some features much higher than other features
-  for (i in seq_len(raster::nlayers(sim_features)))
+  for (i in seq_len(terra::nlyr(sim_features)))
     sim_features[[i]] <- sim_features[[i]] ^ i
   # create problem
   p <- problem(sim_pu_raster, sim_features) %>%
@@ -53,10 +53,10 @@ test_that("cap", {
   expect_is(targets$zone, "list")
   expect_is(targets$value, "numeric")
   expect_is(targets$sense, "character")
-  expect_equal(targets$feature, seq_len(raster::nlayers(sim_features)))
-  expect_equivalent(unlist(targets$zone), rep(1, raster::nlayers(sim_features)))
+  expect_equal(targets$feature, seq_len(terra::nlyr(sim_features)))
+  expect_equivalent(unlist(targets$zone), rep(1, terra::nlyr(sim_features)))
   expect_equivalent(targets$value, values)
-  expect_equal(targets$sense, rep(">=", raster::nlayers(sim_features)))
+  expect_equal(targets$sense, rep(">=", terra::nlyr(sim_features)))
 })
 
 test_that("feature abundances", {
@@ -64,7 +64,7 @@ test_that("feature abundances", {
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
   # set total abundance of some features much higher than other features
-  for (i in seq_len(raster::nlayers(sim_features)))
+  for (i in seq_len(terra::nlyr(sim_features)))
     sim_features[[i]] <- sim_features[[i]] ^ i
   # create problem
   p <- problem(sim_pu_raster, sim_features) %>%
@@ -80,10 +80,10 @@ test_that("feature abundances", {
   expect_is(targets$zone, "list")
   expect_is(targets$value, "numeric")
   expect_is(targets$sense, "character")
-  expect_equal(targets$feature, seq_len(raster::nlayers(sim_features)))
-  expect_equivalent(unlist(targets$zone), rep(1, raster::nlayers(sim_features)))
+  expect_equal(targets$feature, seq_len(terra::nlyr(sim_features)))
+  expect_equivalent(unlist(targets$zone), rep(1, terra::nlyr(sim_features)))
   expect_equivalent(targets$value, values)
-  expect_equal(targets$sense, rep(">=", raster::nlayers(sim_features)))
+  expect_equal(targets$sense, rep(">=", terra::nlyr(sim_features)))
 })
 
 test_that("invalid inputs", {

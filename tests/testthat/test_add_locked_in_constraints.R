@@ -145,11 +145,11 @@ test_that("matrix (solve, multiple zones)", {
        add_default_solver(time_limit = 5, verbose = FALSE) %>%
        solve()
   # check that the solution obeys constraints as expected
-  for (i in seq_len(raster::nlayers(sim_zones_pu_raster)))
+  for (i in seq_len(terra::nlyr(sim_zones_pu_raster)))
     expect_true(all(raster::Which(is.na(s[[i]]), cells = TRUE) ==
                     raster::Which(is.na(sim_zones_pu_raster[[i]]),
                                   cells = TRUE)))
-  for (i in seq_len(raster::nlayers(sim_zones_pu_raster)))
+  for (i in seq_len(terra::nlyr(sim_zones_pu_raster)))
     expect_true(all(raster::values(s[[i]])[
       raster::Which(!is.na(s[[i]]), cells = TRUE)] == as.numeric(i == 1)))
 })
@@ -482,11 +482,11 @@ test_that("raster (solve, multiple zones)", {
        add_default_solver(time_limit = 5, verbose = FALSE) %>%
        solve()
   # check that the solution obeys constraints as expected
-  for (i in seq_len(raster::nlayers(sim_zones_pu_raster)))
+  for (i in seq_len(terra::nlyr(sim_zones_pu_raster)))
     expect_true(all(raster::Which(is.na(s[[i]]), cells = TRUE) ==
                     raster::Which(is.na(sim_zones_pu_raster[[i]]),
                                   cells = TRUE)))
-  for (i in seq_len(raster::nlayers(sim_zones_pu_raster)))
+  for (i in seq_len(terra::nlyr(sim_zones_pu_raster)))
     expect_true(all(raster::values(s[[i]])[
       raster::Which(!is.na(s[[i]]), cells = TRUE)] == as.numeric(i == 1)))
 })

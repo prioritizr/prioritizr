@@ -215,7 +215,7 @@ test_that("Raster (single zone)", {
   )
   # run tests
   expect_is(r1, "Raster")
-  expect_equal(raster::nlayers(r1), 3)
+  expect_equal(terra::nlyr(r1), 3)
   expect_equal(raster::ncell(r1), 4)
   expect_equal(raster::ncol(r1), raster::ncol(pu))
   expect_equal(raster::nrow(r1), raster::nrow(pu))

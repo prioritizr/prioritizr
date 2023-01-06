@@ -10,7 +10,7 @@ test_that("compile (compressed formulation, single zone)", {
   o <- compile(p)
   # check that objective has been correctly applied
   n_pu <- length(sim_pu_raster[[1]][!is.na(sim_pu_raster)])
-  n_f <- raster::nlayers(sim_features)
+  n_f <- terra::nlyr(sim_features)
   scaled_costs <- c(p$planning_unit_costs())
   scaled_costs <- scaled_costs * (-0.01 / sum(scaled_costs, na.rm = TRUE))
   expect_equal(o$modelsense(), "max")
@@ -62,7 +62,7 @@ test_that("compile (expanded formulation, single zone)", {
   o <- compile(p, compressed_formulation = FALSE)
   # check that constraints and metadata have been correctly applied
   n_pu <- length(sim_pu_raster[[1]][!is.na(sim_pu_raster)])
-  n_f <- raster::nlayers(sim_features)
+  n_f <- terra::nlyr(sim_features)
   rij <- rij_matrix(sim_pu_raster, sim_features)
   scaled_costs <- c(p$planning_unit_costs())
   scaled_costs <- scaled_costs * (-0.01 / sum(scaled_costs, na.rm = TRUE))
