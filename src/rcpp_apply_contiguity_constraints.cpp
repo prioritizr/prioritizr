@@ -3,8 +3,8 @@
 #include "functions.h"
 
 // [[Rcpp::export]]
-bool rcpp_apply_contiguity_constraints(SEXP x, arma::sp_mat data,
-                                      Rcpp::IntegerVector clusters) {
+bool rcpp_apply_contiguity_constraints(
+  SEXP x, const arma::sp_mat data, const Rcpp::IntegerVector clusters) {
 
   /* The following code makes the following critical assumptions
    *

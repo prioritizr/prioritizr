@@ -2,9 +2,11 @@
 #include "optimization_problem.h"
 
 // [[Rcpp::export]]
-bool rcpp_apply_min_shortfall_objective(SEXP x, Rcpp::List targets_list,
-                                        Rcpp::NumericMatrix costs,
-                                        Rcpp::NumericVector budget) {
+bool rcpp_apply_min_shortfall_objective(
+  SEXP x,
+  const Rcpp::List targets_list,
+  Rcpp::NumericMatrix costs,
+  Rcpp::NumericVector budget) {
   // initialize
   Rcpp::XPtr<OPTIMIZATIONPROBLEM> ptr = Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x);
   Rcpp::NumericVector targets_value = targets_list["value"];
@@ -38,7 +40,6 @@ bool rcpp_apply_min_shortfall_objective(SEXP x, Rcpp::List targets_list,
         ptr->_obj.push_back(0.0);
         ptr->_lb[(z * ptr->_number_of_planning_units) + j] = 0.0;
         ptr->_ub[(z * ptr->_number_of_planning_units) + j] = 0.0;
-        costs(j, z) = 0.0;
       } else {
         ptr->_obj.push_back(0);
       }
@@ -83,7 +84,9 @@ bool rcpp_apply_min_shortfall_objective(SEXP x, Rcpp::List targets_list,
     ptr->_A_j.push_back(i);
   for (std::size_t z = 0; z < (ptr->_number_of_zones); ++z) {
     for (std::size_t j = 0; j < (ptr->_number_of_planning_units); ++j) {
-      ptr->_A_x.push_back(costs(j, z));
+      ptr->_A_x.push_back(
+        Rcpp::NumericMatrix::is_na(costs(j, z)) ? 0 : costs(j, z)
+      );
     }
   }
   // add in row and col ids

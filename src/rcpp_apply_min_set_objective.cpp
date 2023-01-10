@@ -2,8 +2,8 @@
 #include "optimization_problem.h"
 
 // [[Rcpp::export]]
-bool rcpp_apply_min_set_objective(SEXP x, Rcpp::List targets_list,
-                                      Rcpp::NumericMatrix costs) {
+bool rcpp_apply_min_set_objective(
+  SEXP x, const Rcpp::List targets_list, const Rcpp::NumericMatrix costs) {
   // initialization
   Rcpp::XPtr<OPTIMIZATIONPROBLEM> ptr = Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x);
   Rcpp::NumericVector targets_value = targets_list["value"];

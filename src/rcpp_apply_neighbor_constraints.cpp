@@ -3,9 +3,8 @@
 #include "functions.h"
 
 // [[Rcpp::export]]
-bool rcpp_apply_neighbor_constraints(SEXP x,
-                                     Rcpp::List connected_data,
-                                     Rcpp::IntegerVector k) {
+bool rcpp_apply_neighbor_constraints(
+  SEXP x, const Rcpp::List connected_data, const Rcpp::IntegerVector k) {
 
   /* The following code makes the following critical assumptions
    *

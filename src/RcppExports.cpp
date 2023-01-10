@@ -245,20 +245,20 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_absolute_amount_held_by_solution
-Rcpp::NumericVector rcpp_absolute_amount_held_by_solution(Rcpp::List rij_list, Rcpp::List targets_list, Rcpp::NumericMatrix solution);
+Rcpp::NumericVector rcpp_absolute_amount_held_by_solution(const Rcpp::List rij_list, const Rcpp::List targets_list, const Rcpp::NumericMatrix solution);
 RcppExport SEXP _prioritizr_rcpp_absolute_amount_held_by_solution(SEXP rij_listSEXP, SEXP targets_listSEXP, SEXP solutionSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Rcpp::List >::type rij_list(rij_listSEXP);
-    Rcpp::traits::input_parameter< Rcpp::List >::type targets_list(targets_listSEXP);
-    Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type solution(solutionSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::List >::type rij_list(rij_listSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::List >::type targets_list(targets_listSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix >::type solution(solutionSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_absolute_amount_held_by_solution(rij_list, targets_list, solution));
     return rcpp_result_gen;
 END_RCPP
 }
 // rcpp_apply_linear_constraints
-bool rcpp_apply_linear_constraints(SEXP x, double threshold, std::string sense, arma::sp_mat data);
+bool rcpp_apply_linear_constraints(SEXP x, double threshold, std::string sense, const arma::sp_mat data);
 RcppExport SEXP _prioritizr_rcpp_apply_linear_constraints(SEXP xSEXP, SEXP thresholdSEXP, SEXP senseSEXP, SEXP dataSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -266,20 +266,20 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
     Rcpp::traits::input_parameter< double >::type threshold(thresholdSEXP);
     Rcpp::traits::input_parameter< std::string >::type sense(senseSEXP);
-    Rcpp::traits::input_parameter< arma::sp_mat >::type data(dataSEXP);
+    Rcpp::traits::input_parameter< const arma::sp_mat >::type data(dataSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_apply_linear_constraints(x, threshold, sense, data));
     return rcpp_result_gen;
 END_RCPP
 }
 // rcpp_add_rij_data
-bool rcpp_add_rij_data(SEXP x, Rcpp::List rij_list, Rcpp::List targets_list, bool compressed_formulation);
+bool rcpp_add_rij_data(SEXP x, const Rcpp::List rij_list, const Rcpp::List targets_list, bool compressed_formulation);
 RcppExport SEXP _prioritizr_rcpp_add_rij_data(SEXP xSEXP, SEXP rij_listSEXP, SEXP targets_listSEXP, SEXP compressed_formulationSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    Rcpp::traits::input_parameter< Rcpp::List >::type rij_list(rij_listSEXP);
-    Rcpp::traits::input_parameter< Rcpp::List >::type targets_list(targets_listSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::List >::type rij_list(rij_listSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::List >::type targets_list(targets_listSEXP);
     Rcpp::traits::input_parameter< bool >::type compressed_formulation(compressed_formulationSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_add_rij_data(x, rij_list, targets_list, compressed_formulation));
     return rcpp_result_gen;
@@ -298,70 +298,70 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_apply_asym_connectivity_penalties
-bool rcpp_apply_asym_connectivity_penalties(SEXP x, double penalty, Rcpp::List data);
+bool rcpp_apply_asym_connectivity_penalties(SEXP x, double penalty, const Rcpp::List data);
 RcppExport SEXP _prioritizr_rcpp_apply_asym_connectivity_penalties(SEXP xSEXP, SEXP penaltySEXP, SEXP dataSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
     Rcpp::traits::input_parameter< double >::type penalty(penaltySEXP);
-    Rcpp::traits::input_parameter< Rcpp::List >::type data(dataSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::List >::type data(dataSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_apply_asym_connectivity_penalties(x, penalty, data));
     return rcpp_result_gen;
 END_RCPP
 }
 // rcpp_apply_boundary_penalties
-bool rcpp_apply_boundary_penalties(SEXP x, double penalty, Rcpp::NumericVector edge_factor, Rcpp::NumericMatrix zones_matrix, arma::sp_mat boundary_matrix);
+bool rcpp_apply_boundary_penalties(SEXP x, double penalty, const Rcpp::NumericVector edge_factor, const Rcpp::NumericMatrix zones_matrix, const arma::sp_mat boundary_matrix);
 RcppExport SEXP _prioritizr_rcpp_apply_boundary_penalties(SEXP xSEXP, SEXP penaltySEXP, SEXP edge_factorSEXP, SEXP zones_matrixSEXP, SEXP boundary_matrixSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
     Rcpp::traits::input_parameter< double >::type penalty(penaltySEXP);
-    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type edge_factor(edge_factorSEXP);
-    Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type zones_matrix(zones_matrixSEXP);
-    Rcpp::traits::input_parameter< arma::sp_mat >::type boundary_matrix(boundary_matrixSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector >::type edge_factor(edge_factorSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix >::type zones_matrix(zones_matrixSEXP);
+    Rcpp::traits::input_parameter< const arma::sp_mat >::type boundary_matrix(boundary_matrixSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_apply_boundary_penalties(x, penalty, edge_factor, zones_matrix, boundary_matrix));
     return rcpp_result_gen;
 END_RCPP
 }
 // rcpp_apply_bounded_constraints
-bool rcpp_apply_bounded_constraints(SEXP x, Rcpp::IntegerVector pu, Rcpp::IntegerVector zone, Rcpp::NumericVector lower, Rcpp::NumericVector upper);
+bool rcpp_apply_bounded_constraints(SEXP x, const Rcpp::IntegerVector pu, const Rcpp::IntegerVector zone, const Rcpp::NumericVector lower, const Rcpp::NumericVector upper);
 RcppExport SEXP _prioritizr_rcpp_apply_bounded_constraints(SEXP xSEXP, SEXP puSEXP, SEXP zoneSEXP, SEXP lowerSEXP, SEXP upperSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type pu(puSEXP);
-    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type zone(zoneSEXP);
-    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type lower(lowerSEXP);
-    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type upper(upperSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::IntegerVector >::type pu(puSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::IntegerVector >::type zone(zoneSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector >::type lower(lowerSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector >::type upper(upperSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_apply_bounded_constraints(x, pu, zone, lower, upper));
     return rcpp_result_gen;
 END_RCPP
 }
 // rcpp_apply_connectivity_penalties
-bool rcpp_apply_connectivity_penalties(SEXP x, double penalty, Rcpp::List data);
+bool rcpp_apply_connectivity_penalties(SEXP x, double penalty, const Rcpp::List data);
 RcppExport SEXP _prioritizr_rcpp_apply_connectivity_penalties(SEXP xSEXP, SEXP penaltySEXP, SEXP dataSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
     Rcpp::traits::input_parameter< double >::type penalty(penaltySEXP);
-    Rcpp::traits::input_parameter< Rcpp::List >::type data(dataSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::List >::type data(dataSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_apply_connectivity_penalties(x, penalty, data));
     return rcpp_result_gen;
 END_RCPP
 }
 // rcpp_apply_contiguity_constraints
-bool rcpp_apply_contiguity_constraints(SEXP x, arma::sp_mat data, Rcpp::IntegerVector clusters);
+bool rcpp_apply_contiguity_constraints(SEXP x, const arma::sp_mat data, const Rcpp::IntegerVector clusters);
 RcppExport SEXP _prioritizr_rcpp_apply_contiguity_constraints(SEXP xSEXP, SEXP dataSEXP, SEXP clustersSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    Rcpp::traits::input_parameter< arma::sp_mat >::type data(dataSEXP);
-    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type clusters(clustersSEXP);
+    Rcpp::traits::input_parameter< const arma::sp_mat >::type data(dataSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::IntegerVector >::type clusters(clustersSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_apply_contiguity_constraints(x, data, clusters));
     return rcpp_result_gen;
 END_RCPP
@@ -381,149 +381,149 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_apply_feature_contiguity_constraints
-bool rcpp_apply_feature_contiguity_constraints(SEXP x, Rcpp::List data, Rcpp::List clusters_list);
+bool rcpp_apply_feature_contiguity_constraints(SEXP x, const Rcpp::List data, const Rcpp::List clusters_list);
 RcppExport SEXP _prioritizr_rcpp_apply_feature_contiguity_constraints(SEXP xSEXP, SEXP dataSEXP, SEXP clusters_listSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    Rcpp::traits::input_parameter< Rcpp::List >::type data(dataSEXP);
-    Rcpp::traits::input_parameter< Rcpp::List >::type clusters_list(clusters_listSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::List >::type data(dataSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::List >::type clusters_list(clusters_listSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_apply_feature_contiguity_constraints(x, data, clusters_list));
     return rcpp_result_gen;
 END_RCPP
 }
 // rcpp_apply_feature_weights
-bool rcpp_apply_feature_weights(SEXP x, Rcpp::NumericVector weights);
+bool rcpp_apply_feature_weights(SEXP x, const Rcpp::NumericVector weights);
 RcppExport SEXP _prioritizr_rcpp_apply_feature_weights(SEXP xSEXP, SEXP weightsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type weights(weightsSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector >::type weights(weightsSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_apply_feature_weights(x, weights));
     return rcpp_result_gen;
 END_RCPP
 }
 // rcpp_apply_linear_penalties
-bool rcpp_apply_linear_penalties(SEXP x, Rcpp::NumericVector penalty, arma::sp_mat data);
+bool rcpp_apply_linear_penalties(SEXP x, const Rcpp::NumericVector penalty, const arma::sp_mat data);
 RcppExport SEXP _prioritizr_rcpp_apply_linear_penalties(SEXP xSEXP, SEXP penaltySEXP, SEXP dataSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type penalty(penaltySEXP);
-    Rcpp::traits::input_parameter< arma::sp_mat >::type data(dataSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector >::type penalty(penaltySEXP);
+    Rcpp::traits::input_parameter< const arma::sp_mat >::type data(dataSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_apply_linear_penalties(x, penalty, data));
     return rcpp_result_gen;
 END_RCPP
 }
 // rcpp_apply_locked_constraints
-bool rcpp_apply_locked_constraints(SEXP x, Rcpp::IntegerVector pu, Rcpp::IntegerVector zone, Rcpp::NumericVector status);
+bool rcpp_apply_locked_constraints(SEXP x, const Rcpp::IntegerVector pu, const Rcpp::IntegerVector zone, const Rcpp::NumericVector status);
 RcppExport SEXP _prioritizr_rcpp_apply_locked_constraints(SEXP xSEXP, SEXP puSEXP, SEXP zoneSEXP, SEXP statusSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type pu(puSEXP);
-    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type zone(zoneSEXP);
-    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type status(statusSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::IntegerVector >::type pu(puSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::IntegerVector >::type zone(zoneSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector >::type status(statusSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_apply_locked_constraints(x, pu, zone, status));
     return rcpp_result_gen;
 END_RCPP
 }
 // rcpp_apply_max_cover_objective
-bool rcpp_apply_max_cover_objective(SEXP x, Rcpp::NumericMatrix costs, Rcpp::NumericVector budget);
+bool rcpp_apply_max_cover_objective(SEXP x, const Rcpp::NumericMatrix costs, const Rcpp::NumericVector budget);
 RcppExport SEXP _prioritizr_rcpp_apply_max_cover_objective(SEXP xSEXP, SEXP costsSEXP, SEXP budgetSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type costs(costsSEXP);
-    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type budget(budgetSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix >::type costs(costsSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector >::type budget(budgetSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_apply_max_cover_objective(x, costs, budget));
     return rcpp_result_gen;
 END_RCPP
 }
 // rcpp_apply_max_features_objective
-bool rcpp_apply_max_features_objective(SEXP x, Rcpp::List targets_list, Rcpp::NumericMatrix costs, Rcpp::NumericVector budget);
+bool rcpp_apply_max_features_objective(SEXP x, const Rcpp::List targets_list, const Rcpp::NumericMatrix costs, const Rcpp::NumericVector budget);
 RcppExport SEXP _prioritizr_rcpp_apply_max_features_objective(SEXP xSEXP, SEXP targets_listSEXP, SEXP costsSEXP, SEXP budgetSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    Rcpp::traits::input_parameter< Rcpp::List >::type targets_list(targets_listSEXP);
-    Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type costs(costsSEXP);
-    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type budget(budgetSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::List >::type targets_list(targets_listSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix >::type costs(costsSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector >::type budget(budgetSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_apply_max_features_objective(x, targets_list, costs, budget));
     return rcpp_result_gen;
 END_RCPP
 }
 // rcpp_apply_max_phylo_objective
-bool rcpp_apply_max_phylo_objective(SEXP x, Rcpp::List targets_list, Rcpp::NumericMatrix costs, Rcpp::NumericVector budget, arma::sp_mat branch_matrix, Rcpp::NumericVector branch_lengths);
+bool rcpp_apply_max_phylo_objective(SEXP x, const Rcpp::List targets_list, const Rcpp::NumericMatrix costs, const Rcpp::NumericVector budget, const arma::sp_mat branch_matrix, const Rcpp::NumericVector branch_lengths);
 RcppExport SEXP _prioritizr_rcpp_apply_max_phylo_objective(SEXP xSEXP, SEXP targets_listSEXP, SEXP costsSEXP, SEXP budgetSEXP, SEXP branch_matrixSEXP, SEXP branch_lengthsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    Rcpp::traits::input_parameter< Rcpp::List >::type targets_list(targets_listSEXP);
-    Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type costs(costsSEXP);
-    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type budget(budgetSEXP);
-    Rcpp::traits::input_parameter< arma::sp_mat >::type branch_matrix(branch_matrixSEXP);
-    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type branch_lengths(branch_lengthsSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::List >::type targets_list(targets_listSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix >::type costs(costsSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector >::type budget(budgetSEXP);
+    Rcpp::traits::input_parameter< const arma::sp_mat >::type branch_matrix(branch_matrixSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector >::type branch_lengths(branch_lengthsSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_apply_max_phylo_objective(x, targets_list, costs, budget, branch_matrix, branch_lengths));
     return rcpp_result_gen;
 END_RCPP
 }
 // rcpp_apply_max_utility_objective
-bool rcpp_apply_max_utility_objective(SEXP x, Rcpp::NumericMatrix abundances, Rcpp::NumericMatrix costs, Rcpp::NumericVector budget);
+bool rcpp_apply_max_utility_objective(SEXP x, const Rcpp::NumericMatrix abundances, const Rcpp::NumericMatrix costs, const Rcpp::NumericVector budget);
 RcppExport SEXP _prioritizr_rcpp_apply_max_utility_objective(SEXP xSEXP, SEXP abundancesSEXP, SEXP costsSEXP, SEXP budgetSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type abundances(abundancesSEXP);
-    Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type costs(costsSEXP);
-    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type budget(budgetSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix >::type abundances(abundancesSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix >::type costs(costsSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector >::type budget(budgetSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_apply_max_utility_objective(x, abundances, costs, budget));
     return rcpp_result_gen;
 END_RCPP
 }
 // rcpp_apply_min_largest_shortfall_objective
-bool rcpp_apply_min_largest_shortfall_objective(SEXP x, Rcpp::List targets_list, Rcpp::NumericMatrix costs, Rcpp::NumericVector budget);
+bool rcpp_apply_min_largest_shortfall_objective(SEXP x, const Rcpp::List targets_list, const Rcpp::NumericMatrix costs, const Rcpp::NumericVector budget);
 RcppExport SEXP _prioritizr_rcpp_apply_min_largest_shortfall_objective(SEXP xSEXP, SEXP targets_listSEXP, SEXP costsSEXP, SEXP budgetSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    Rcpp::traits::input_parameter< Rcpp::List >::type targets_list(targets_listSEXP);
-    Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type costs(costsSEXP);
-    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type budget(budgetSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::List >::type targets_list(targets_listSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix >::type costs(costsSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector >::type budget(budgetSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_apply_min_largest_shortfall_objective(x, targets_list, costs, budget));
     return rcpp_result_gen;
 END_RCPP
 }
 // rcpp_apply_min_set_objective
-bool rcpp_apply_min_set_objective(SEXP x, Rcpp::List targets_list, Rcpp::NumericMatrix costs);
+bool rcpp_apply_min_set_objective(SEXP x, const Rcpp::List targets_list, const Rcpp::NumericMatrix costs);
 RcppExport SEXP _prioritizr_rcpp_apply_min_set_objective(SEXP xSEXP, SEXP targets_listSEXP, SEXP costsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    Rcpp::traits::input_parameter< Rcpp::List >::type targets_list(targets_listSEXP);
-    Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type costs(costsSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::List >::type targets_list(targets_listSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix >::type costs(costsSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_apply_min_set_objective(x, targets_list, costs));
     return rcpp_result_gen;
 END_RCPP
 }
 // rcpp_apply_min_shortfall_objective
-bool rcpp_apply_min_shortfall_objective(SEXP x, Rcpp::List targets_list, Rcpp::NumericMatrix costs, Rcpp::NumericVector budget);
+bool rcpp_apply_min_shortfall_objective(SEXP x, const Rcpp::List targets_list, Rcpp::NumericMatrix costs, Rcpp::NumericVector budget);
 RcppExport SEXP _prioritizr_rcpp_apply_min_shortfall_objective(SEXP xSEXP, SEXP targets_listSEXP, SEXP costsSEXP, SEXP budgetSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    Rcpp::traits::input_parameter< Rcpp::List >::type targets_list(targets_listSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::List >::type targets_list(targets_listSEXP);
     Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type costs(costsSEXP);
     Rcpp::traits::input_parameter< Rcpp::NumericVector >::type budget(budgetSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_apply_min_shortfall_objective(x, targets_list, costs, budget));
@@ -531,26 +531,26 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_apply_neighbor_constraints
-bool rcpp_apply_neighbor_constraints(SEXP x, Rcpp::List connected_data, Rcpp::IntegerVector k);
+bool rcpp_apply_neighbor_constraints(SEXP x, const Rcpp::List connected_data, const Rcpp::IntegerVector k);
 RcppExport SEXP _prioritizr_rcpp_apply_neighbor_constraints(SEXP xSEXP, SEXP connected_dataSEXP, SEXP kSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    Rcpp::traits::input_parameter< Rcpp::List >::type connected_data(connected_dataSEXP);
-    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type k(kSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::List >::type connected_data(connected_dataSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::IntegerVector >::type k(kSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_apply_neighbor_constraints(x, connected_data, k));
     return rcpp_result_gen;
 END_RCPP
 }
 // rcpp_asym_connectivity
-double rcpp_asym_connectivity(Rcpp::List data, Rcpp::NumericMatrix solution);
+double rcpp_asym_connectivity(const Rcpp::List data, const Rcpp::NumericMatrix solution);
 RcppExport SEXP _prioritizr_rcpp_asym_connectivity(SEXP dataSEXP, SEXP solutionSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Rcpp::List >::type data(dataSEXP);
-    Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type solution(solutionSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::List >::type data(dataSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix >::type solution(solutionSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_asym_connectivity(data, solution));
     return rcpp_result_gen;
 END_RCPP
@@ -595,12 +595,12 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_connectivity
-double rcpp_connectivity(Rcpp::List data, Rcpp::NumericMatrix solution);
+double rcpp_connectivity(const Rcpp::List data, Rcpp::NumericMatrix solution);
 RcppExport SEXP _prioritizr_rcpp_connectivity(SEXP dataSEXP, SEXP solutionSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Rcpp::List >::type data(dataSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::List >::type data(dataSEXP);
     Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type solution(solutionSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_connectivity(data, solution));
     return rcpp_result_gen;

@@ -3,9 +3,9 @@
 
 // [[Rcpp::export]]
 bool rcpp_apply_boundary_penalties(SEXP x, double penalty,
-                                   Rcpp::NumericVector edge_factor,
-                                   Rcpp::NumericMatrix zones_matrix,
-                                   arma::sp_mat boundary_matrix) {
+                                   const Rcpp::NumericVector edge_factor,
+                                   const Rcpp::NumericMatrix zones_matrix,
+                                   const arma::sp_mat boundary_matrix) {
 
   /* The following code makes the following critical assumptions
    *

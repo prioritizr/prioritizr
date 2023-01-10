@@ -6,7 +6,7 @@ double distance(double x0, double y0, double x1, double y1) {
 }
 
 // import rij matrix
-void import_rij(Rcpp::List& rij_list, std::vector<arma::sp_mat>& rij) {
+void import_rij(const Rcpp::List& rij_list, std::vector<arma::sp_mat>& rij) {
   arma::sp_mat m;
   rij.resize(rij_list.size());
   for (std::size_t i = 0; i < static_cast<std::size_t>(rij_list.size()); ++i) {
@@ -18,7 +18,8 @@ void import_rij(Rcpp::List& rij_list, std::vector<arma::sp_mat>& rij) {
 
 // import list of list of matrices
 void import_connectivity_matrix_list(
-  Rcpp::List& in, std::vector<std::vector<arma::sp_mat>>& out,
+  const Rcpp::List& in,
+  std::vector<std::vector<arma::sp_mat>>& out,
   bool full_matrix = true) {
   // initialize
   std::size_t n = in.size();

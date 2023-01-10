@@ -2,7 +2,7 @@
 #include "optimization_problem.h"
 
 // [[Rcpp::export]]
-bool rcpp_apply_feature_weights(SEXP x, Rcpp::NumericVector weights) {
+bool rcpp_apply_feature_weights(SEXP x, const Rcpp::NumericVector weights) {
   // initialize
   Rcpp::XPtr<OPTIMIZATIONPROBLEM> ptr = Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x);
   const std::size_t n_weights = weights.size();

@@ -4,7 +4,7 @@
 
 // [[Rcpp::export]]
 bool rcpp_apply_asym_connectivity_penalties(SEXP x, double penalty,
-                                            Rcpp::List data) {
+                                            const Rcpp::List data) {
 
   /* The following code makes the following critical assumptions
    *

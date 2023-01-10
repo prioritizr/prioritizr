@@ -34,10 +34,12 @@ inline std::string num2str(T number, int precision=10) {
   return(ss.str());
 }
 
-void import_rij(Rcpp::List&, std::vector<arma::sp_mat>&);
+void import_rij(const Rcpp::List&, std::vector<arma::sp_mat>&);
 
-void import_connectivity_matrix_list(Rcpp::List&,
-                                     std::vector<std::vector<arma::sp_mat>>&,
-                                     bool);
+void import_connectivity_matrix_list(
+  const Rcpp::List&,
+  std::vector<std::vector<arma::sp_mat>>&,
+  bool
+);
 
 #endif

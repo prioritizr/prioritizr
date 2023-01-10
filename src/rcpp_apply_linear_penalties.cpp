@@ -2,14 +2,18 @@
 #include "optimization_problem.h"
 
 // [[Rcpp::export]]
-bool rcpp_apply_linear_penalties(SEXP x, Rcpp::NumericVector penalty,
-                                 arma::sp_mat data) {
+bool rcpp_apply_linear_penalties(
+  SEXP x, const Rcpp::NumericVector penalty, const arma::sp_mat data) {
   // initialization
   Rcpp::XPtr<OPTIMIZATIONPROBLEM> ptr = Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x);
   std::size_t curr_i;
   std::size_t curr_j;
   std::size_t curr_col;
   double curr_value;
+
+  // create a copy of penalties if re-scaling needed
+  std::vector<double> penalty_std;
+  penalty_std.assign(penalty.cbegin(), penalty.cend());
 
   // rescale penalty, thus
   // if the objective is to maximize benefit:
@@ -19,7 +23,7 @@ bool rcpp_apply_linear_penalties(SEXP x, Rcpp::NumericVector penalty,
   //   the total penalty is added to the costs associated with
   //   the planning unit/zone allocations
   if (ptr->_modelsense == "max") {
-    for (auto itr = penalty.begin(); itr != penalty.end(); ++itr)
+    for (auto itr = penalty_std.begin(); itr != penalty_std.end(); ++itr)
       (*itr) *= -1.0;
   }
 
@@ -33,7 +37,7 @@ bool rcpp_apply_linear_penalties(SEXP x, Rcpp::NumericVector penalty,
     // get row and column indices for cell
     curr_i = it.row();
     curr_j = it.col();
-    curr_value = (*it) * penalty[curr_j];
+    curr_value = (*it) * penalty_std[curr_j];
     if (std::abs(curr_value) > 1.0e-15) {
       curr_col = (curr_j * ptr->_number_of_planning_units) + curr_i;
       pu_zone_penalties[curr_col] += curr_value;
