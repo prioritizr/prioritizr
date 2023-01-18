@@ -182,7 +182,7 @@ assertthat::on_failure(presolve_check) <- function(call, env) {
 #' @method presolve_check ConservationProblem
 #' @export
 presolve_check.ConservationProblem <- function(x) {
-  assertthat::assert_that(inherits(x, "ConservationProblem"))
+  assertthat::assert_that(is_conservation_problem(x))
   presolve_check(compile(x))
 }
 

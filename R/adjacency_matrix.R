@@ -90,7 +90,7 @@ adjacency_matrix <- function(x, ...) UseMethod("adjacency_matrix")
 adjacency_matrix.Raster <- function(x, directions = 4, ...) {
   assertthat::assert_that(inherits(x, "Raster"))
   .Deprecated(msg = raster_pkg_deprecation_notice)
-  adjacency_matrix.SpatRaster(x, directions = directions, ...)
+  adjacency_matrix.SpatRaster(terra::rast(x), directions = directions, ...)
 }
 
 #' @rdname adjacency_matrix

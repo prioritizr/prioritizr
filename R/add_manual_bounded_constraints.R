@@ -231,7 +231,7 @@ methods::setMethod("add_manual_bounded_constraints",
       },
       parameters = parameters(misc_parameter("Bound data", data, vfun)),
       calculate = function(self, x) {
-        assertthat::assert_that(inherits(x, "ConservationProblem"))
+        assertthat::assert_that(is_conservation_problem(x))
         # get bound data
         data <- self$parameters$get("Bound data")
         # convert zone names to indices

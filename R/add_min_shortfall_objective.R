@@ -126,7 +126,7 @@ add_min_shortfall_objective <- function(x, budget) {
     is_conservation_problem(x),
     is.numeric(budget),
     all_finite(budget),
-    all(budget >= 0.0),
+    all_positive(budget),
     min(budget) > 0
   )
   if (length(budget) > 1) {

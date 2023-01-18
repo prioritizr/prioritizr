@@ -281,7 +281,7 @@ methods::setMethod("add_contiguity_constraints",
         binary_matrix_parameter("zones", zones, symmetric = TRUE)
       ),
       calculate = function(self, x) {
-        assertthat::assert_that(inherits(x, "ConservationProblem"))
+        assertthat::assert_that(is_conservation_problem(x))
         # generate matrix if null
         if (is.Waiver(self$get_data("matrix"))) {
           # create matrix

@@ -19,7 +19,7 @@ assertthat::on_failure(all_columns_inherit) <- function(call, env) {
   if (length(w) > 1) {
     w <- paste0(paste(w[-length(w)], collapse = ", "), ", or ", w[length(w)])
   }
-  paste(deparse(call$x), "has some columns that are not a", w)
+  paste(deparse(call$x), "has some columns that do not contain", w, "values")
 }
 
 all_columns_inherit.default <- function(x, what) {
@@ -29,11 +29,20 @@ all_columns_inherit.default <- function(x, what) {
 .S3method("all_columns_inherit", "default", all_columns_inherit.default)
 
 all_columns_inherit.data.frame <- function(x, what) {
+  # assert valid arguments
   assertthat::assert_that(
     inherits(x, "data.frame"),
     is.character(what)
   )
-  all(vapply(x, inherits, logical(1), what = what))
+  # account for the fact that inherits(x, "numeric") != is.numeric(x),
+  # due to non-standardized way of handling integer values
+  if (identical(what, "numeric")) {
+    w <- c("numeric", "integer")
+  } else {
+    w <- what
+  }
+  # checks
+  all(vapply(x, inherits, logical(1), what = w))
 }
 
 .S3method("all_columns_inherit", "data.frame", all_columns_inherit.data.frame)

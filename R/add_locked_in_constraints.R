@@ -411,7 +411,7 @@ methods::setMethod("add_locked_in_constraints",
   function(x, locked_in) {
     # assert valid arguments
     assertthat::assert_that(
-      inherits(x, "ConservationProblem"),
+      is_conservation_problem(x),
       inherits(locked_in, "SpatRaster"),
       x$number_of_zones() == terra::nlyr(locked_in)
     )

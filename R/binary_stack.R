@@ -45,12 +45,30 @@ binary_stack <- function(x) UseMethod("binary_stack")
 binary_stack.Raster <- function(x) {
   assertthat::assert_that(inherits(x, "Raster"))
   .Deprecated(msg = raster_pkg_deprecation_notice)
-  raster::raster(binary_stack.default(terra::rast(x)))
+  raster::stack(binary_stack(terra::rast(x)))
 }
 
 #' @rdname binary_stack
-#' @method binary_stack default
+#' @method binary_stack SpatRaster
 #' @export
-binary_stack.default <- function(x) {
-  terra::segregate(x, classes = NULL, keep = FALSE, other = 0, round = FALSE)
+binary_stack.SpatRaster <- function(x) {
+  assertthat::assert_that(inherits(x, "SpatRaster"))
+  # create segregated raster
+  r <- terra::segregate(
+    x, classes = NULL, keep = FALSE, other = 0, round = FALSE
+  )
+  # check if additional blank rasters are needed
+  if (!identical(names(r), as.character(seq_len(terra::nlyr(r))))) {
+    # create a zero layer
+    z <- r[[1]] * 0
+    # insert additional layers as needed
+    for (i in setdiff(as.character(seq_len(terra::nlyr(r))), names(r))) {
+      names(z) <- i
+      r <- c(r, z)
+    }
+    # re-order layers
+    r <- r[[as.character(seq_len(terra::nlyr(r)))]]
+  }
+  # return result
+  r
 }

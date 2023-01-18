@@ -1,22 +1,23 @@
 context("add_loglinear_targets")
 
 test_that("no cap", {
-  # load data
+  # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
   # set total abundance of some features much higher than other features
   for (i in seq_len(terra::nlyr(sim_features)))
     sim_features[[i]] <- sim_features[[i]] ^ i
   # create problem
-  p <- problem(sim_pu_raster, sim_features) %>%
-       add_loglinear_targets(10, 1, 35, 0.1)
+  p <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_loglinear_targets(10, 1, 35, 0.1)
   # calculate absolute targets
   targets <- p$targets$output()
   # calculate expected targets
-  values <- loglinear_interpolation(p$feature_abundances_in_total_units()[, 1],
-                                    10, 1, 35, 0.1) *
-            p$feature_abundances_in_total_units()[, 1]
-  # run tests
+  values <- loglinear_interpolation(
+    p$feature_abundances_in_total_units()[, 1], 10, 1, 35, 0.1
+  ) * p$feature_abundances_in_total_units()[, 1]
+  # tests
   expect_is(targets, "tbl_df")
   expect_true(all(names(targets) == c("feature", "zone", "sense", "value")))
   expect_is(targets$feature, "integer")
@@ -30,23 +31,24 @@ test_that("no cap", {
 })
 
 test_that("cap", {
-  # load data
+  # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
   # set total abundance of some features much higher than other features
   for (i in seq_len(terra::nlyr(sim_features)))
     sim_features[[i]] <- sim_features[[i]] ^ i
   # create problem
-  p <- problem(sim_pu_raster, sim_features) %>%
-       add_loglinear_targets(10, 1, 35, 0.1, 70, 5)
+  p <-
+    problem(sim_pu_raster, sim_features) %>%
+      add_loglinear_targets(10, 1, 35, 0.1, 70, 5)
   # calculate absolute targets
   targets <- p$targets$output()
   # calculate expected targets
-  values <- loglinear_interpolation(p$feature_abundances_in_total_units()[, 1],
-                                    10, 1, 35, 0.1) *
-            p$feature_abundances_in_total_units()[, 1]
+  values <- loglinear_interpolation(
+    p$feature_abundances_in_total_units()[, 1], 10, 1, 35, 0.1
+  ) * p$feature_abundances_in_total_units()[, 1]
   values[p$feature_abundances_in_total_units()[, 1] > 70] <- 5
-  # run tests
+  # tests
   expect_is(targets, "tbl_df")
   expect_true(all(names(targets) == c("feature", "zone", "sense", "value")))
   expect_is(targets$feature, "integer")
@@ -60,20 +62,21 @@ test_that("cap", {
 })
 
 test_that("feature abundances", {
-  # load data
+  # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
   # set total abundance of some features much higher than other features
   for (i in seq_len(terra::nlyr(sim_features)))
     sim_features[[i]] <- sim_features[[i]] ^ i
   # create problem
-  p <- problem(sim_pu_raster, sim_features) %>%
-       add_loglinear_targets(10, 1, 35, 0.1, abundances = seq_len(5))
+  p <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_loglinear_targets(10, 1, 35, 0.1, abundances = seq_len(5))
   # calculate absolute targets
   targets <- p$targets$output()
   # calculate expected targets
   values <- loglinear_interpolation(seq_len(5), 10, 1, 35, 0.1) * seq_len(5)
-  # run tests
+  # tests
   expect_is(targets, "tbl_df")
   expect_true(all(names(targets) == c("feature", "zone", "sense", "value")))
   expect_is(targets$feature, "integer")
@@ -87,9 +90,12 @@ test_that("feature abundances", {
 })
 
 test_that("invalid inputs", {
+  # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
+  # create problem
   p <- problem(sim_pu_raster, sim_features)
+  # tests
   expect_error(add_loglinear_targets(p, 200, 1, 100, 0.1))
   expect_error(add_loglinear_targets(p, NA, 1, 35, 0.1))
   expect_error(add_loglinear_targets(p, 10, NA, 35, 0.1))

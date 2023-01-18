@@ -314,5 +314,3 @@ get_sim_phylogeny <- function() {
    system.file("extdata", "sim_phylogeny.txt", package = "prioritizr")
   )
 }
-
-na_crs <- "ENGCRS[\"Undefined Cartesian SRS\",\n    EDATUM[\"\"],\n    CS[Cartesian,2],\n        AXIS[\"(E)\",east,\n            ORDER[1],\n            LENGTHUNIT[\"Meter\",1]],\n        AXIS[\"(N)\",north,\n            ORDER[2],\n            LENGTHUNIT[\"Meter\",1]]]"

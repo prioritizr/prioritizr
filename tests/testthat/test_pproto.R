@@ -49,7 +49,6 @@ test_that("create inherited proto with proto fields", {
   p <- pproto("p", a = 1)
   p2 <- pproto("p2", p, b = 2, c = p)
   p3 <- pproto("p3", p, d = 3, f = p2)
-
   # check that fields are correct
   expect_equal(class(p), c("p", "pproto", "proto", "environment"))
   expect_equal(p$ls(), "a")

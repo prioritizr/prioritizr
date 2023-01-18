@@ -1,4 +1,4 @@
-all#' @include internal.R ConservationProblem-proto.R zones.R
+#' @include internal.R ConservationProblem-proto.R zones.R is_spatial_extents_overlap.R assertions.R
 NULL
 
 #' Conservation planning problem
@@ -492,6 +492,7 @@ methods::setMethod(
     assertthat::assert_that(
       inherits(x, "SpatRaster"),
       terra::nlyr(x) == 1,
+      no_duplicates(names(features)),
       no_extra_arguments(...)
     )
     problem(
@@ -519,15 +520,20 @@ methods::setMethod(
       no_extra_arguments(...),
       number_of_features(features) > 0,
       terra::nlyr(x) == number_of_zones(features),
-      is_comparable_raster(x, features[[1]])
+      is_comparable_raster(x, features)
     )
     if (run_checks) {
       assertthat::assert_that(any_nonNA(x))
       verify_that(all_positive(x))
+      verify_that(any_nonzero(x))
       verify_that(all_positive(features))
+      verify_that(any_nonzero(features))
     }
     # create rij matrix
-    rij <- lapply(terra::as.list(features), function(f) rij_matrix(x, f))
+    rij <- lapply(
+      terra::as.list(features),
+      function(f) `rownames<-`(rij_matrix(x, f), feature_names(features))
+    )
     names(rij) <- zone_names(features)
     # calculate feature abundances in total units
     fatu <- vapply(
@@ -603,7 +609,9 @@ methods::setMethod(
       )
     )
     verify_that(all_positive(x[, cost_column, drop = FALSE]))
+    verify_that(any_nonzero(x[, cost_column, drop = FALSE]))
     verify_that(all_positive(x[, unlist(features), drop = FALSE]))
+    verify_that(any_nonzero(x[, unlist(features), drop = FALSE]))
     # create rij matrix
     pos <- which(rowSums(!is.na(as.matrix(x[, cost_column, drop = FALSE]))) > 0)
     rij <- lapply(as.list(features), function(z) {
@@ -693,8 +701,10 @@ methods::setMethod(
       all_match_of(rij$species, features$id)
     )
     # verifications
-    verify_that(all_positive(rij$amount))
     verify_that(all_positive(x[, cost_column]))
+    verify_that(any_nonzero(x[, cost_column]))
+    verify_that(all_positive(rij$amount))
+    verify_that(any_nonzero(rij$amount))
     # validate zone data
     if (!"zone" %in% names(rij))
       rij$zone <- 1
@@ -772,9 +782,8 @@ methods::setMethod(
   "problem",
   methods::signature(x = "numeric", features = "data.frame"),
   function(x, features, rij_matrix, ...) {
-    if (!is.list(rij_matrix)) {
+    if (!is.list(rij_matrix))
       rij_matrix <- list("1" = rij_matrix)
-    }
     problem(matrix(x, ncol = 1), features, rij_matrix = rij_matrix)
 })
 
@@ -786,9 +795,8 @@ methods::setMethod(
   methods::signature(x = "matrix", features = "data.frame"),
   function(x, features, rij_matrix, ...) {
     # assert that arguments are valid
-    if (!inherits(rij_matrix, "list")) {
+    if (!inherits(rij_matrix, "list"))
       rij_matrix <- list(rij_matrix)
-    }
     assertthat::assert_that(
       is.matrix(x),
       is.data.frame(features),
@@ -799,7 +807,7 @@ methods::setMethod(
       length(rij_matrix) > 0,
       no_extra_arguments(...),
       # x
-      all_finite(x),
+      is.numeric(x),
       all_columns_any_finite(x),
       # features
       assertthat::has_name(features, "id"),
@@ -831,17 +839,26 @@ methods::setMethod(
       )
     )
     assertthat::assert_that(
-      all(vapply(rij_matrix, all_finite, logical(1))),
+      all(
+        vapply(rij_matrix, FUN.VALUE = logical(1), function(x) {
+          any(is.finite(x))
+        })
+      ),
       msg = paste(
-        "argument to x contains missing or non-finite values",
+        "argument to rij_matrix contains only missing or non-finite values",
         "(e.g., NaN, NA, Inf)"
       )
     )
     # verifications
     verify_that(all_positive(x))
+    verify_that(any_nonzero(x))
     verify_that(
       all(vapply(rij_matrix, all_positive, logical(1))),
       msg = "argument to rij_matrix has negative values"
+    )
+    verify_that(
+      all(vapply(rij_matrix, any_nonzero, logical(1))),
+      msg = "argument to rij_matrix contains matrix with only zero values"
     )
     # add names to rij_matrix if missing
     if (is.null(names(rij_matrix)))
@@ -917,8 +934,8 @@ methods::setMethod(
       all_match_of(cost_column, names(x)),
       all_columns_inherit(x[, cost_column], "numeric"),
       all_columns_any_finite(x[, cost_column]),
-      is_same_crs(x, features[[1]]),
-      is_spatial_extents_overlap(x, features[[1]]),
+      is_same_crs(x, features),
+      is_spatial_extents_overlap(x, features),
       is.character(cost_column),
       assertthat::noNA(cost_column),
       all_match_of(cost_column, names(x)),
@@ -932,8 +949,10 @@ methods::setMethod(
     )
     # further validation checks
     verify_that(all_positive(x[, cost_column]))
+    verify_that(any_nonzero(x[, cost_column]))
     if (run_checks) {
       verify_that(all_positive(features))
+      verify_that(any_nonzero(features))
     }
     # compute rij matrix including non-planning unit cells
     rij <- rij_matrix(x, terra::rast(as.list(features)))
@@ -1029,7 +1048,9 @@ methods::setMethod(
       )
     )
     verify_that(all_positive(x[, cost_column]))
+    verify_that(any_nonzero(x[, cost_column]))
     verify_that(all_positive(sf::st_drop_geometry(x)[, unlist(features)]))
+    verify_that(any_nonzero(sf::st_drop_geometry(x)[, unlist(features)]))
     # create rij matrix
     pos <- which(
       rowSums(

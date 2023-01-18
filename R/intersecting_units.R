@@ -81,7 +81,7 @@ methods::setMethod(
   methods::signature(x = "ANY", y = "Raster"),
   function(x, y) {
     .Deprecated(msg = raster_pkg_deprecation_notice)
-    intersecting_units(terra::rast(x), y)
+    intersecting_units(x, terra::rast(y))
   }
 )
 

@@ -1,50 +1,52 @@
 context("add_boundary_penalties")
 
 test_that("minimum set objective (compile, single zone)", {
-  ## make data
+  # load data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
-  p <- problem(sim_pu_raster, sim_features) %>%
-       add_min_set_objective() %>%
-       add_relative_targets(0.1) %>%
-       add_binary_decisions() %>%
-       add_boundary_penalties(3, 0.5)
+  # create problem
+  p <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.1) %>%
+    add_binary_decisions() %>%
+    add_boundary_penalties(3, 0.5)
   o <- compile(p)
-  ## create variables for debugging
-  # number of planning units
+  # create variables for debugging
+  ## number of planning units
   n_pu <- p$number_of_planning_units()
-  # number of features
+  ## number of features
   n_f <- p$number_of_features()
-  # prepare boundary calculations
+  ## prepare boundary calculations
   b_data <- boundary_matrix(p$data$cost)
   b_data <- b_data * 3
   Matrix::diag(b_data) <- Matrix::diag(b_data) * 0.5
   b_data <- prioritizr:::filter_planning_units_in_boundary_matrix(
     p$planning_unit_indices(), b_data
   )
-  # total boundary for each planning unit
-  b_total_boundary <- colSums(b_data)
-  # remove diagonals
+  ## total boundary for each planning unit
+  b_total_boundary <- Matrix::colSums(b_data)
+  ## remove diagonals
   Matrix::diag(b_data) <- 0
   b_data <- as_Matrix(Matrix::tril(Matrix::drop0(b_data)), "dgTMatrix")
-  # objectives for boundary decision variables
+  ## objectives for boundary decision variables
   b_obj <- o$obj()[n_pu + seq_len(length(b_data@i))]
-  # lower bound for boundary decision variables
+  ## lower bound for boundary decision variables
   b_lb <- o$lb()[n_pu + seq_len(length(b_data@i))]
-  # upper bound for boundary decision variables
+  ## upper bound for boundary decision variables
   b_ub <- o$ub()[n_pu + seq_len(length(b_data@i))]
-  # vtype bound for boundary decision variables
+  ## vtype bound for boundary decision variables
   b_vtype <- o$vtype()[n_pu + seq_len(length(b_data@i))]
-  # pu costs including total boundary
+  ## pu costs including total boundary
   pu_costs <- o$obj()[seq_len(n_pu)]
-  # matrix labels
+  ## matrix labels
   b_col_labels <- o$col_ids()[n_pu + seq_len(length(b_data@i))]
   b_row_labels <- o$row_ids()[n_f + seq_len(length(b_data@i) * 2)]
-  # sense for boundary decision constraints
+  ## sense for boundary decision constraints
   b_sense <- o$sense()[n_f + seq_len(length(b_data@i) * 2)]
-  # rhs for boundary decision constraints
+  ## rhs for boundary decision constraints
   b_rhs <- o$rhs()[n_f + seq_len(length(b_data@i) * 2)]
-  ## check that constraints added correctly
+  # tests
   expect_true(all(b_col_labels == "b"))
   expect_equal(pu_costs, p$planning_unit_costs()[, 1] + b_total_boundary)
   expect_equal(b_obj, -2 * b_data@x)
@@ -70,15 +72,20 @@ test_that("alternative data formats (single zone)", {
   # load data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
+  # create boundary matrix data
   bm <- boundary_matrix(sim_pu_raster)
-  bdf <- matrix_to_triplet_dataframe(boundary_matrix(sim_pu_raster)) %>%
-         setNames(c("id1", "id2", "boundary"))
+  bdf <-
+    sim_pu_raster %>%
+    boundary_matrix() %>%
+    matrix_to_triplet_dataframe() %>%
+    setNames(c("id1", "id2", "boundary"))
   bdf2 <- data.frame(id1 = bdf[[2]], id2 = bdf[[1]], boundary = bdf[[3]])
   # create problems
-  p <- problem(sim_pu_raster, sim_features) %>%
-        add_min_set_objective() %>%
-        add_relative_targets(0.1) %>%
-        add_binary_decisions()
+  p <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.1) %>%
+    add_binary_decisions()
   p1 <- p %>% add_boundary_penalties(2, 0.5)
   p2 <- p %>% add_boundary_penalties(2, 0.5, data = bm)
   p3 <- p %>% add_boundary_penalties(2, 0.5, data = bdf)
@@ -88,7 +95,7 @@ test_that("alternative data formats (single zone)", {
   o2 <- compile(p2)
   o3 <- compile(p3)
   o4 <- compile(p4)
-  # compare problems
+  # tests
   expect_equal(o1$obj(), o2$obj())
   expect_equal(o1$obj(), o3$obj())
   expect_equal(o1$obj(), o4$obj())
@@ -97,73 +104,79 @@ test_that("alternative data formats (single zone)", {
   expect_true(all(o1$A() == o4$A()))
 })
 
-test_that("minimum set objective (solve, single zone)", {
+test_that("minimum set and shortfall objective (solve, single zone)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
-  # check that solution is feasible
+  # load data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
-  b <- raster::cellStats(sim_pu_raster, "sum") * 0.3
-  p1 <- problem(sim_pu_raster, sim_features) %>%
-        add_min_set_objective() %>%
-        add_relative_targets(0.1) %>%
-        add_binary_decisions() %>%
-        add_boundary_penalties(10000, 0.5) %>%
-        add_default_solver(time_limit = 5, verbose = FALSE)
+  # calculate budget
+  b <- terra::global(sim_pu_raster, "sum", na.rm = TRUE)[[1]] * 0.3
+  # create problems
+  p1 <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.1) %>%
+    add_binary_decisions() %>%
+    add_boundary_penalties(10000, 0.5) %>%
+    add_default_solver(time_limit = 5, verbose = FALSE)
   s1_1 <- solve(p1)
   s1_2 <- solve(p1)
-  p2 <- problem(sim_pu_raster, sim_features) %>%
-        add_min_shortfall_objective(budget = b) %>%
-        add_relative_targets(0.1) %>%
-        add_binary_decisions() %>%
-        add_boundary_penalties(-10000000, 0.5) %>%
-        add_default_solver(time_limit = 5, verbose = FALSE)
+  p2 <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_min_shortfall_objective(budget = b) %>%
+    add_relative_targets(0.1) %>%
+    add_binary_decisions() %>%
+    add_boundary_penalties(-10000000, 0.5) %>%
+    add_default_solver(time_limit = 5, verbose = FALSE)
   expect_warning(s2_1 <- solve(p2, force = TRUE))
   expect_warning(s2_2 <- solve(p2, force = TRUE))
   # tests
-  expect_is(s1_1, "RasterLayer")
-  expect_is(s1_2, "RasterLayer")
-  expect_true(all(na.omit(unique(terra::values(s1_1))) %in% c(0, 1)))
-  expect_equal(sum(
-    terra::rastToPolygons(s1_1, dissolve = TRUE)$layer == 1), 1)
+  expect_is(s1_1, "SpatRaster")
+  expect_is(s1_2, "SpatRaster")
+  expect_true(all_binary(terra::values(s1_1)))
+  expect_true(is_single_patch_raster(s1_1))
   expect_equal(terra::values(s1_1), terra::values(s1_2))
-  expect_is(s2_1, "RasterLayer")
-  expect_is(s2_2, "RasterLayer")
-  expect_true(all(na.omit(unique(terra::values(s2_1))) %in% c(0, 1)))
-  s2_adj <- raster::adjacent(s2_1, raster::Which(s2_1 == 1, cells = TRUE),
-                             pairs = FALSE)
-  expect_true(all(s2_1[s2_adj] %in% c(0, NA)))
+  expect_is(s2_1, "SpatRaster")
+  expect_is(s2_2, "SpatRaster")
+  expect_true(all_binary(terra::values(s2_1)))
+  expect_true(is_checkerboard_raster(s2_1))
   expect_equal(terra::values(s2_1), terra::values(s2_2))
 })
 
 test_that("minimum set objective (compile, multiple zones)", {
-  ## make data
+  # load data
   sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
   sim_zones_features <- get_sim_zones_features()
+  # create zones data
   penalty <- 5
   p_zones <- matrix(0, ncol = 3, nrow = 3)
   diag(p_zones) <- c(0.7, 0.8, 0.9)
   p_zones[upper.tri(p_zones)] <- c(0.1, 0.2, 0.3)
   p_zones[lower.tri(p_zones)] <- p_zones[upper.tri(p_zones)]
   p_edge_factor <- seq(0.1, 0.1 * 3, 0.1)
-  p <- problem(sim_zones_pu_polygons, sim_zones_features,
-               c("cost_1", "cost_2", "cost_3")) %>%
-       add_min_set_objective() %>%
-       add_absolute_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
-       add_binary_decisions() %>%
-       add_boundary_penalties(penalty, p_edge_factor, p_zones)
+  # create problem
+  p <-
+    problem(
+      sim_zones_pu_polygons, sim_zones_features,
+      c("cost_1", "cost_2", "cost_3")
+    ) %>%
+    add_min_set_objective() %>%
+    add_absolute_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
+    add_binary_decisions() %>%
+    add_boundary_penalties(penalty, p_edge_factor, p_zones)
   o <- compile(p)
-  ## create variables for debugging
-  # number of planning units
+  # create variables for tests
+  ## number of planning units
   n_pu <- p$number_of_planning_units()
-  # number of features
+  ## number of features
   n_f <- p$number_of_features()
-  # number of zones
+  ## number of zones
   n_z <- p$number_of_zones()
-  # generate boundary data
+  ## generate boundary data
   pu_indices <- p$planning_unit_indices()
   b_matrix <- boundary_matrix(p$data$cost)[pu_indices, pu_indices]
-  # create matrix with the scaled boundary components
+  ## create matrix with the scaled boundary components
   zone_cmbs <- matrix("", ncol = n_z, nrow = n_z)
   diag(zone_cmbs) <- paste0("z", seq_len(n_z), "_z", seq_len(n_z))
   ind <- which(upper.tri(zone_cmbs), arr.ind = TRUE)
@@ -181,8 +194,8 @@ test_that("minimum set objective (compile, multiple zones)", {
     curr_m <- b_matrix
     curr_m <- curr_m * penalty * p_zones[indices[i, 1], indices[i, 2]]
     if (indices[i, 1] == indices[i, 2]) {
-      Matrix::diag(curr_m) <- Matrix::diag(curr_m) *
-                              p_edge_factor[indices[i, 1]]
+      Matrix::diag(curr_m) <-
+        Matrix::diag(curr_m) * p_edge_factor[indices[i, 1]]
     } else {
       Matrix::diag(curr_m) <- 0
     }
@@ -199,8 +212,9 @@ test_that("minimum set objective (compile, multiple zones)", {
     z1 <- indices[z, 1]
     z2 <- indices[z, 2]
     curr_m <- as.matrix(scb_list[[z]])
-    curr_m_indices <- which(lower.tri(curr_m, diag = TRUE) &
-                            (curr_m != 0), arr.ind = TRUE)
+    curr_m_indices <- which(
+      lower.tri(curr_m, diag = TRUE) & (curr_m != 0), arr.ind = TRUE
+    )
     for (i in seq_len(nrow(curr_m_indices))) {
       if ((curr_m_indices[i, 1] == curr_m_indices[i, 2]) &&
           (z1 == z2)) {
@@ -220,9 +234,13 @@ test_that("minimum set objective (compile, multiple zones)", {
         b_vars_i <- c(b_vars_i, pos1)
         b_vars_j <- c(b_vars_j, pos2)
         b_vars_b <- c(b_vars_b, curr_penalty)
-        b_vars_label <- c(b_vars_label,
-                          paste0("p", curr_m_indices[i, 1], "z", z1, "_p",
-                                 curr_m_indices[i, 2], "z", z1))
+        b_vars_label <- c(
+          b_vars_label,
+          paste0(
+            "p", curr_m_indices[i, 1], "z", z1, "_p",
+            curr_m_indices[i, 2], "z", z1
+          )
+        )
       } else {
         # if the boundary is for two different pus in two different zones
         # then add the boundary to the different pus in the different zones
@@ -234,40 +252,60 @@ test_that("minimum set objective (compile, multiple zones)", {
         b_vars_i <- c(b_vars_i, pos1)
         b_vars_j <- c(b_vars_j, pos2)
         b_vars_b <- c(b_vars_b, curr_penalty)
-        b_vars_label <- c(b_vars_label,
-                          paste0("p", curr_m_indices[i, 1], "z", z1, "_p",
-                                 curr_m_indices[i, 2], "z", z2))
+        b_vars_label <- c(
+          b_vars_label,
+          paste0(
+            "p", curr_m_indices[i, 1], "z", z1, "_p",
+            curr_m_indices[i, 2], "z", z2
+          )
+        )
         b_vars_i <- c(b_vars_i, pos3)
         b_vars_j <- c(b_vars_j, pos4)
         b_vars_b <- c(b_vars_b, curr_penalty)
-        b_vars_label <- c(b_vars_label,
-                          paste0("p", curr_m_indices[i, 1], "z", z2, "_p",
-                                 curr_m_indices[i, 2], "z", z1))
+        b_vars_label <- c(
+          b_vars_label,
+          paste0(
+            "p", curr_m_indices[i, 1], "z", z2, "_p",
+            curr_m_indices[i, 2], "z", z1
+          )
+        )
       }
     }
   }
-  # calculate number of penalty variables
+  ## calculate number of penalty variables
   n_z_p <- length(b_vars_b)
-  ## check that constraints added correctly
+  ## calculate objective function
   correct_obj <- c(c(p$planning_unit_costs()) + b_unit_additions, -2 * b_vars_b)
-  names(correct_obj) <- c(paste0("p", rep(seq_len(n_pu), n_z),
-                                 "z", rep(seq_len(n_z), each = n_pu)),
-                           b_vars_label)
+  names(correct_obj) <- c(
+    paste0("p", rep(seq_len(n_pu), n_z), "z", rep(seq_len(n_z), each = n_pu)),
+    b_vars_label
+  )
+  # tests
   expect_equivalent(o$obj(), correct_obj)
   expect_equal(o$lb(), rep(0, (n_pu * n_z) + n_z_p))
   expect_equal(o$ub(), rep(1, (n_pu * n_z) + n_z_p))
   expect_equal(o$vtype(), rep("B", (n_pu * n_z) + n_z_p))
-  expect_equal(o$row_ids(), c(rep("spp_target", n_f * n_z),
-                               rep("pu_zone", n_pu),
-                               rep(c("b1", "b2"), n_z_p)))
-  expect_equal(o$col_ids(), c(rep("pu", n_pu * n_z),
-                               rep("b", n_z_p)))
-  expect_equal(o$sense(), c(rep(">=", n_f * n_z),
-                            rep("<=", n_pu),
-                            rep(c("<=", "<="), n_z_p)))
-  expect_equal(o$rhs(), c(rep(0.1, n_f * n_z), rep(1, n_pu),
-                          rep(c(0, 0), n_z_p)))
-  # check model matrix is defined correctly
+  expect_equal(
+    o$row_ids(),
+    c(
+      rep("spp_target", n_f * n_z),
+      rep("pu_zone", n_pu),
+      rep(c("b1", "b2"), n_z_p)
+    )
+  )
+  expect_equal(
+    o$col_ids(),
+    c(rep("pu", n_pu * n_z), rep("b", n_z_p))
+  )
+  expect_equal(
+    o$sense(),
+    c(rep(">=", n_f * n_z), rep("<=", n_pu), rep(c("<=", "<="), n_z_p))
+  )
+  expect_equal(
+    o$rhs(),
+    c(rep(0.1, n_f * n_z), rep(1, n_pu), rep(c(0, 0), n_z_p))
+  )
+  ## check model matrix is defined correctly
   oA <- o$A()
   ## targets
   for (z in seq_len(n_z)) {
@@ -306,21 +344,29 @@ test_that("alternative data formats (multiple zones)", {
   # load data
   sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
   sim_zones_features <- get_sim_zones_features()
+  # calculate zones data
   p_zones <- matrix(0, ncol = 3, nrow = 3)
   diag(p_zones) <- c(0.7, 0.8, 0.9)
   p_zones[upper.tri(p_zones)] <- c(0.1, 0.2, 0.3)
   p_zones[lower.tri(p_zones)] <- p_zones[upper.tri(p_zones)]
   p_edge_factor <- seq(0.1, 0.1 * 3, 0.1)
+  # calculate boundary matrix data
   bm <- boundary_matrix(sim_zones_pu_polygons)
-  bdf <- matrix_to_triplet_dataframe(boundary_matrix(sim_zones_pu_polygons)) %>%
-         setNames(c("id1", "id2", "boundary"))
+  bdf <-
+    sim_zones_pu_polygons %>%
+    boundary_matrix() %>%
+    matrix_to_triplet_dataframe() %>%
+    setNames(c("id1", "id2", "boundary"))
   bdf2 <- data.frame(id1 = bdf[[2]], id2 = bdf[[1]], boundary = bdf[[3]])
   # create problems
-  p <- problem(sim_zones_pu_polygons, sim_zones_features,
-               c("cost_1", "cost_2", "cost_3")) %>%
-        add_min_set_objective() %>%
-        add_absolute_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
-        add_binary_decisions()
+  p <-
+    problem(
+      sim_zones_pu_polygons, sim_zones_features,
+      c("cost_1", "cost_2", "cost_3")
+    ) %>%
+    add_min_set_objective() %>%
+    add_absolute_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
+    add_binary_decisions()
   p1 <- p %>% add_boundary_penalties(5, p_edge_factor, p_zones)
   p2 <- p %>% add_boundary_penalties(5, p_edge_factor, p_zones, data = bm)
   p3 <- p %>% add_boundary_penalties(5, p_edge_factor, p_zones, data = bdf)
@@ -330,7 +376,7 @@ test_that("alternative data formats (multiple zones)", {
   o2 <- compile(p2)
   o3 <- compile(p3)
   o4 <- compile(p4)
-  # compare problems
+  # tests
   expect_equal(o1$obj(), o2$obj())
   expect_equal(o1$obj(), o3$obj())
   expect_equal(o1$obj(), o4$obj())
@@ -345,62 +391,41 @@ test_that("minimum set objective (solve, multiple zones)", {
   # load data
   sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
   sim_zones_features <- get_sim_zones_features()
+  # calculate zones data
   p_zones <- diag(3)
   p_zones[upper.tri(p_zones)] <- 0.1
   p_zones[lower.tri(p_zones)] <- p_zones[upper.tri(p_zones)]
   p_edge_factor <- rep(0.5, 3)
   # create and solve problem
-  s <- problem(sim_zones_pu_polygons, sim_zones_features,
-               c("cost_1", "cost_2", "cost_3")) %>%
-       add_min_set_objective() %>%
-       add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
-       add_binary_decisions() %>%
-       add_boundary_penalties(5, p_edge_factor,  p_zones) %>%
-       add_default_solver(verbose = FALSE) %>%
-       solve()
+  s <-
+    problem(
+      sim_zones_pu_polygons, sim_zones_features,
+      c("cost_1", "cost_2", "cost_3")
+    ) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
+    add_binary_decisions() %>%
+    add_boundary_penalties(5, p_edge_factor,  p_zones) %>%
+    add_default_solver(verbose = FALSE) %>%
+    solve()
   # check that solution forms a single cluster
-  expect_is(s, "SpatialPolygonsDataFrame")
-  expect_true(all(s$solution_1_zone_1 %in% c(0, 1, NA)))
-  expect_true(all(s$solution_1_zone_2 %in% c(0, 1, NA)))
-  expect_true(all(s$solution_1_zone_3 %in% c(0, 1, NA)))
-})
-
-test_that("minimum set objective (compile, Spatial and sf are identical)", {
-  # data
-  sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
-  sim_zones_features <- get_sim_zones_features()
-  penalty <- 5
-  p_zones <- matrix(0, ncol = 3, nrow = 3)
-  diag(p_zones) <- c(0.7, 0.8, 0.9)
-  p_zones[upper.tri(p_zones)] <- c(0.1, 0.2, 0.3)
-  p_zones[lower.tri(p_zones)] <- p_zones[upper.tri(p_zones)]
-  p_edge_factor <- seq(0.1, 0.1 * 3, 0.1)
-  p1 <- problem(sim_zones_pu_polygons, sim_zones_features,
-               c("cost_1", "cost_2", "cost_3")) %>%
-       add_min_set_objective() %>%
-       add_absolute_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
-       add_binary_decisions() %>%
-       add_boundary_penalties(penalty, p_edge_factor, p_zones)
-  p2 <- problem(sf::st_as_sf(sim_zones_pu_polygons), sim_zones_features,
-               c("cost_1", "cost_2", "cost_3")) %>%
-       add_min_set_objective() %>%
-       add_absolute_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
-       add_binary_decisions() %>%
-       add_boundary_penalties(penalty, p_edge_factor, p_zones)
-  # compile problems
-  o1 <- as.list(compile(p1))
-  o2 <- as.list(compile(p2))
-  # tests
-  expect_equal(o1, o2)
+  expect_is(s, "sf")
+  expect_true(all_binary(s$solution_1_zone_1))
+  expect_true(all_binary(s$solution_1_zone_2))
+  expect_true(all_binary(s$solution_1_zone_3))
 })
 
 test_that("invalid inputs (single zone)", {
+  # load data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
-  p <- problem(sim_pu_raster, sim_features) %>%
-       add_min_set_objective() %>%
-       add_relative_targets(0.1) %>%
-       add_binary_decisions()
+  # create problem
+  p <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.1) %>%
+    add_binary_decisions()
+  # tests
   expect_error(add_boundary_penalties(p, 9, 1.5))
   expect_error(add_boundary_penalties(p, 9, -0.5))
   expect_error(add_boundary_penalties(p, 9, NA))
@@ -408,15 +433,20 @@ test_that("invalid inputs (single zone)", {
 })
 
 test_that("invalid inputs (multiple zones)", {
+  # load data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_zones_features <- get_sim_zones_features()
-  p <- problem(sim_zones_pu_raster, sim_zones_features) %>%
-       add_min_set_objective() %>%
-       add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
-       add_binary_decisions()
+  # create problem
+  p <-
+    problem(sim_zones_pu_raster, sim_zones_features) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
+    add_binary_decisions()
+  # create zones data
   p_zones <- diag(3)
   p_zones[upper.tri(p_zones)] <- 0.1
   p_zones[lower.tri(p_zones)] <- p_zones[upper.tri(p_zones)]
+  # tests
   expect_error(add_boundary_penalties(p, c(0.1, 0.1)))
   expect_error(add_boundary_penalties(p, c(0.1, 0.1, NA)))
   expect_error(add_boundary_penalties(p, c(0.1, 0.1, 5)))

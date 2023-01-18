@@ -102,16 +102,19 @@ marxan_connectivity_data_to_matrix <- function(x, data, symmetric = TRUE) {
     assertthat::assert_that(
       assertthat::has_name(data, "zone1"),
       assertthat::has_name(data, "zone2"),
-      all_finite(data$zone1),
-      all_finite(data$zone2),
       is_inherits(data$zone1, c("character", "factor")),
-      is_inherits(data$zone2, c("character", "factor"))
+      is_inherits(data$zone2, c("character", "factor")),
+      assertthat::noNA(data$zone2),
+      assertthat::noNA(data$zone1)
     )
   }
   # if problem is not NULL, then assert that argument to data is valid
   if (!is.null(x)) {
     # assert that planning unit ids are valid
-    if (is.data.frame(x$data$cost)) {
+    if (
+      is.data.frame(x$data$cost) &&
+      !inherits(x$data$cost, c("Spatial", "sf"))
+    ) {
       # validate that ids in data are correct
       assertthat::assert_that(
         all(data$id1 %in% x$data$cost$id),

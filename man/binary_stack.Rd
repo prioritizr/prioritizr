@@ -3,14 +3,14 @@
 \name{binary_stack}
 \alias{binary_stack}
 \alias{binary_stack.Raster}
-\alias{binary_stack.default}
+\alias{binary_stack.SpatRaster}
 \title{Binary stack}
 \usage{
 binary_stack(x)
 
 \method{binary_stack}{Raster}(x)
 
-\method{binary_stack}{default}(x)
+\method{binary_stack}{SpatRaster}(x)
 }
 \arguments{
 \item{x}{\code{\link[terra:rast]{terra::rast()}} object with a single layer.}

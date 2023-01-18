@@ -1,6 +1,6 @@
 context("marxan_boundary_data_to_matrix")
 
-test_that("single zone (x=NULL)", {
+test_that("single zone (x = NULL)", {
   # create data
   d <- expand.grid(id1 = seq_len(4), id2 = c(1, 4))
   d$boundary <- 1
@@ -43,7 +43,7 @@ test_that("multiple zones (x = NULL)", {
   expect_equal(x, x2)
 })
 
-test_that("single zone (x=ConservationProblem)", {
+test_that("single zone (x = ConservationProblem)", {
   # create data
   d <- expand.grid(id1 = seq_len(4), id2 = c(1, 4))
   d$boundary <- 1
@@ -51,7 +51,7 @@ test_that("single zone (x=ConservationProblem)", {
   p <- problem(
     x = runif(5),
     features = data.frame(id = seq_len(2), name = letters[seq_len(2)]),
-    rij_matrix = matrix(0, ncol = 5, nrow = 2)
+    rij_matrix = matrix(1, ncol = 5, nrow = 2)
   )
   # create object
   x <- marxan_boundary_data_to_matrix(p, d)
@@ -68,7 +68,7 @@ test_that("single zone (x=ConservationProblem)", {
   expect_equal(x, as_Matrix(x2, "dsCMatrix"))
 })
 
-test_that("multiple zones (x=ConservationProblem)", {
+test_that("multiple zones (x = ConservationProblem)", {
   # create data
   d <- data.frame(
     id1 = c(1, 2, 3, 4, 1, 2),
@@ -81,8 +81,8 @@ test_that("multiple zones (x=ConservationProblem)", {
     x = matrix(1, nrow = 5, ncol = 2),
     features = data.frame(id = seq_len(2), name = letters[seq_len(2)]),
     rij_matrix = list(
-      "a" = matrix(0, ncol = 5, nrow = 2),
-      "b" = matrix(0, ncol = 5, nrow = 2)
+      "a" = matrix(1, ncol = 5, nrow = 2),
+      "b" = matrix(1, ncol = 5, nrow = 2)
     )
   )
   # create object

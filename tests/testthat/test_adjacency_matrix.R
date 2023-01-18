@@ -1,9 +1,12 @@
 context("adjacency matrix")
 
-test_that("RasterLayer", {
-  # data
-  x <- terra::rast(matrix(c(NA, 2:9), ncol = 3),
-                      xmn = 0, ymn = 0, xmx = 6, ymx = 3)
+test_that("SpatRaster", {
+  # create data
+  x <- terra::rast(
+    matrix(c(NA, 2:9), ncol = 3),
+    extent = terra::ext(0, 6, 0, 3)
+  )
+  # create matrices
   m <- adjacency_matrix(x, directions = 4)
   s <- boundary_matrix(x)
   s[s > 0] <- 1
@@ -13,95 +16,102 @@ test_that("RasterLayer", {
   expect_true(all(m == s))
 })
 
-test_that("SpatialPolygons (connected data)", {
-  # data
-  r <- terra::rast(matrix(0:8, byrow = TRUE, ncol = 3),
-                      xmn = 0, xmx = 3, ymn = 0, ymx = 3)
+test_that("sf (polygons, connected data)", {
+  # import data
+  r <- terra::rast(
+    matrix(0:8, byrow = TRUE, ncol = 3),
+    extent = terra::ext(0, 3, 0, 3)
+  )
+  x <- sf::st_as_sf(terra::as.polygons(r))
+  # create matrices
   s <- adjacency_matrix(r, directions = 8)
-  x <- terra::rastToPolygons(r, n = 4)
   m <- adjacency_matrix(x)
   # tests
   expect_true(inherits(m, "dsCMatrix"))
-  expect_equal(s, m)
+  expect_true(all(m == s))
 })
 
-test_that("SpatialPolygons (unconnected data)", {
+test_that("sf (polygons, unconnected data)", {
+  # import data
   sim_pu_polygons <- get_sim_pu_polygons()
-  expect_true(all(Matrix::sparseMatrix(i = integer(0), j = integer(0),
-                                       x = numeric(0), dims = c(2, 2)) ==
-                  adjacency_matrix(sim_pu_polygons[c(1, 3), ])))
-})
-
-test_that("sf (connected data)", {
-  # data
-  r <- terra::rast(matrix(0:8, byrow = TRUE, ncol = 3),
-                      xmn = 0, xmx = 3, ymn = 0, ymx = 3)
-  s <- adjacency_matrix(r, directions = 8)
-  x <- sf::st_as_sf(terra::rastToPolygons(r, n = 4))
-  m <- adjacency_matrix(x)
+  # create matrices
+  m <- adjacency_matrix(sim_pu_polygons[c(1, 3), ])
+  s <- Matrix::sparseMatrix(
+    i = integer(0), j = integer(0), x = numeric(0), dims = c(2, 2)
+  )
   # tests
   expect_true(inherits(m, "dsCMatrix"))
-  expect_equal(s, m)
+  expect_true(all(m == s))
 })
 
-test_that("sf (unconnected data)", {
-  sim_pu_polygons <- get_sim_pu_polygons()
-  expect_true(all(Matrix::sparseMatrix(i = integer(0), j = integer(0),
-                                       x = numeric(0), dims = c(2, 2)) ==
-                  adjacency_matrix(sim_pu_polygons[c(1, 3), ])))
-})
-
-test_that("SpatialLines (connected data)", {
-  # data
-  x <- sp::SpatialLines(list(
-    sp::Lines(ID = "1", list(sp::Line(matrix(
-      c(
-      0, 0,
-      1, 1,
-      2, 2), ncol = 2, byrow = TRUE)))),
-    sp::Lines(ID = "2", list(sp::Line(matrix(
-      c(
-      2, 2,
-      3, 3,
-      4, 4), ncol = 2, byrow = TRUE)))),
-    sp::Lines(ID = "3", list(sp::Line(matrix(
-      c(
-      5, 5,
-      7, 7), ncol = 2, byrow = TRUE)))),
-    sp::Lines(ID = "4", list(sp::Line(matrix(
-      c(
-      0, 1,
-      4, 1), ncol = 2, byrow = TRUE))))))
+test_that("sf (lines, connected data)", {
+  # create data
+  x <- sf::st_sf(
+    geometry = sf::st_sfc(list(
+      sf::st_linestring(matrix(c(0, 0, 1, 1, 2, 2), ncol = 2, byrow = TRUE)),
+      sf::st_linestring(matrix(c(2, 2, 3, 3, 4, 4), ncol = 2, byrow = TRUE)),
+      sf::st_linestring(matrix(c(5, 5, 7, 7), ncol = 2, byrow = TRUE)),
+      sf::st_linestring(matrix(c(0, 1, 4, 1), ncol = 2, byrow = TRUE))
+    ))
+  )
+  # create matrices
   m <- adjacency_matrix(x)
   s <- Matrix::sparseMatrix(
-    i = c(1, 1),
-    j = c(2, 4),
-    x = c(1, 1),
-    dims = c(4, 4), symmetric = TRUE)
+    i = c(1, 1), j = c(2, 4), x = c(1, 1), dims = c(4, 4), symmetric = TRUE
+  )
   # tests
   expect_true(inherits(m, "dsCMatrix"))
-  expect_equal(s, m)
+  expect_true(all(s == m))
 })
 
-test_that("SpatialLines (unconnected data)", {
+test_that("sf (lines, unconnected data)", {
+  # import data
   sim_pu_lines <- get_sim_pu_lines()
-  expect_true(all(Matrix::sparseMatrix(i = integer(0), j = integer(0),
-                                       x = numeric(0), dims = c(2, 2)) ==
-                  adjacency_matrix(sim_pu_lines[c(1, 3), ])))
+  # create matrices
+  m <- adjacency_matrix(sim_pu_lines[c(1, 3), ])
+  s <- Matrix::sparseMatrix(
+    i = integer(0), j = integer(0), x = numeric(0), dims = c(2, 2)
+  )
+  # tests
+  expect_true(inherits(m, "dsCMatrix"))
+  expect_true(all(s == m))
 })
 
-test_that("SpatialPoints (connected data)", {
-  # data
-  x <- sp::SpatialPoints(matrix(c(
-    0, 0,
-    0, 5,
-    0, 10,
-    100, 100
-  ), byrow = TRUE, ncol = 2))
+test_that("sf (points)", {
+  # import data
+  x <- get_sim_pu_points()
+  # tests
   expect_error(adjacency_matrix(x))
 })
 
-test_that("SpatialPoints (unconnected data)", {
-  sim_pu_points <- get_sim_pu_points()
-  expect_error(adjacency_matrix(sim_pu_points))
+test_that("Spatial", {
+  # polygons
+  m1 <- adjacency_matrix(get_sim_pu_polygons())
+  expect_warning(
+    m2 <- adjacency_matrix(sf::as_Spatial(get_sim_pu_polygons())),
+    "deprecated"
+  )
+  expect_equal(m1, m2)
+  # lines
+  m1 <- adjacency_matrix(get_sim_pu_lines())
+  expect_warning(
+    m2 <- adjacency_matrix(sf::as_Spatial(get_sim_pu_lines())),
+    "deprecated"
+  )
+  expect_equal(m1, m2)
+  # points
+  expect_error(
+    suppressWarnings(
+      adjacency_matrix(sf::as_Spatial(get_sim_pu_points()))
+    )
+  )
+})
+
+test_that("Raster", {
+  m1 <- adjacency_matrix(get_sim_pu_raster())
+  expect_warning(
+    m2 <- adjacency_matrix(raster::raster(get_sim_pu_raster())),
+    "deprecated"
+  )
+  expect_equal(m1, m2)
 })

@@ -6,8 +6,6 @@
 \alias{as}
 \alias{as.list.Parameters}
 \alias{as.list.Zones}
-\alias{as.ZonesSpatRaster}
-\alias{as.ZonesSpatRaster.ZonesRaster}
 \title{Coerce object to another object}
 \usage{
 as.Id(x, ...)
@@ -17,10 +15,6 @@ as.Id(x, ...)
 \method{as.list}{Parameters}(x, ...)
 
 \method{as.list}{Zones}(x, ...)
-
-as.ZonesSpatRaster(x)
-
-\method{as.ZonesSpatRaster}{ZonesRaster}(x)
 }
 \arguments{
 \item{x}{Object.}

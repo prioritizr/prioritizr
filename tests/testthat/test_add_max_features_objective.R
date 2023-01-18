@@ -1,34 +1,47 @@
 context("add_max_features_objective")
 
 test_that("compile (compressed formulation, single zone)", {
-  # generate optimization problem
+  # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
-  b <- floor(raster::cellStats(sim_pu_raster, "sum"))
-  targ <- unname(floor(raster::cellStats(sim_features, "sum") * 0.25))
-  p <- problem(sim_pu_raster, sim_features) %>%
+  # calculate budget
+  b <- floor(terra::global(sim_pu_raster, "sum", na.rm = TRUE)[[1]])
+  # calculate targets data
+  targ <- floor(terra::global(sim_features, "sum", na.rm = TRUE)[[1]] * 0.25)
+  # create problem
+  p <-
+    problem(sim_pu_raster, sim_features) %>%
     add_max_features_objective(budget = b) %>%
     add_absolute_targets(targ) %>%
     add_binary_decisions()
   o <- compile(p)
-  # check that objective has been correctly applied
+  # calculations for tests
   n_pu <- length(sim_pu_raster[[1]][!is.na(sim_pu_raster)])
   n_features <- terra::nlyr(sim_features)
   scaled_costs <- p$planning_unit_costs()[, 1]
   scaled_costs <- scaled_costs * (-0.01 / sum(scaled_costs, na.rm = TRUE))
+  # tests
   expect_equal(o$modelsense(), "max")
   expect_equal(o$obj(), c(scaled_costs, rep(1, n_features)))
   expect_equal(o$sense(), c(rep(">=", n_features), "<="))
   expect_equal(o$rhs(), c(rep(0, n_features), b))
   expect_equal(o$col_ids(), c(rep("pu", n_pu), rep("spp_met", n_features)))
   expect_equal(o$row_ids(), c(rep("spp_target", n_features), "budget"))
-  expect_true(all(o$A()[seq_len(n_features),
-                        seq_len(n_pu)] == p$data$rij_matrix[[1]]))
-  expect_equal(o$A()[n_features + 1, ],
-    c(p$planning_unit_costs(), rep(0, n_features)))
-  expect_true(all(o$A()[seq_len(n_features), n_pu + seq_len(n_features)] ==
-    triplet_sparse_matrix(
-      i = seq_len(n_features), j = seq_len(n_features), x = (-1 * targ))))
+  expect_true(
+    all(o$A()[seq_len(n_features), seq_len(n_pu)] == p$data$rij_matrix[[1]])
+  )
+  expect_equal(
+    o$A()[n_features + 1, ],
+    c(p$planning_unit_costs(), rep(0, n_features))
+  )
+  expect_true(
+    all(
+      o$A()[seq_len(n_features), n_pu + seq_len(n_features)] ==
+      triplet_sparse_matrix(
+        i = seq_len(n_features), j = seq_len(n_features), x = (-1 * targ)
+      )
+    )
+  )
   expect_true(all(o$lb() == 0))
   expect_true(all(o$ub() == 1))
 })
@@ -41,48 +54,61 @@ test_that("solution (compressed formulation, single zone)", {
   cost <- terra::rast(matrix(c(1, 2, 2, NA), ncol = 4))
   locked_in <- 2
   locked_out <- 1
-  features <- terra::rast(terra::rast(matrix(c(2, 1, 1, 0), ncol = 4)),
-                            terra::rast(matrix(c(10, 10, 10, 10), ncol = 4)))
+  features <- c(
+    terra::rast(matrix(c(2, 1, 1, 0), ncol = 4)),
+    terra::rast(matrix(c(10, 10, 10, 10), ncol = 4))
+  )
+  names(features) <- make.unique(names(features))
   # create problem
-  p <- problem(cost, features) %>%
-        add_max_features_objective(budget = budget) %>%
-        add_locked_in_constraints(locked_in) %>%
-        add_locked_out_constraints(locked_out) %>%
-        add_absolute_targets(c(2, 10)) %>%
-        add_default_solver(gap = 0, verbose = FALSE)
+  p <-
+    problem(cost, features) %>%
+    add_max_features_objective(budget = budget) %>%
+    add_locked_in_constraints(locked_in) %>%
+    add_locked_out_constraints(locked_out) %>%
+    add_absolute_targets(c(2, 10)) %>%
+    add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s1 <- solve(p)
   s2 <- solve(p)
   # test that solution is correct
-  expect_equal(terra::values(s1), c(0, 1, 1, NA))
+  expect_equal(c(terra::values(s1)), c(0, 1, 1, NA))
   expect_equal(terra::values(s1), terra::values(s2))
 })
 
 test_that("compile (expanded formulation, single zone)", {
-  # generate optimization problem
+  # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
-  b <- floor(raster::cellStats(sim_pu_raster, "sum"))
-  targ <- unname(floor(raster::cellStats(sim_features, "sum") * 0.25))
-  p <- problem(sim_pu_raster, sim_features) %>%
+  # calculate budget
+  b <- floor(terra::global(sim_pu_raster, "sum", na.rm = TRUE)[[1]])
+  # calculate target data
+  targ <- floor(terra::global(sim_features, "sum", na.rm = TRUE)[[1]] * 0.25)
+  # create problem
+  p <-
+    problem(sim_pu_raster, sim_features) %>%
     add_max_features_objective(budget = b) %>%
     add_absolute_targets(targ) %>%
     add_binary_decisions()
   o <- compile(p, compressed_formulation = FALSE)
-  # check that objective has been correctly applied
+  # calculations for tests
   n_pu <- length(sim_pu_raster[[1]][!is.na(sim_pu_raster)])
   n_f <- terra::nlyr(sim_features)
   rij <- rij_matrix(sim_pu_raster, sim_features)
   scaled_costs <- p$planning_unit_costs()
   scaled_costs <- scaled_costs * (-0.01 / sum(scaled_costs, na.rm = TRUE))
+  # tests
   expect_equal(o$modelsense(), "max")
   expect_equal(o$obj(), c(scaled_costs, rep(0, n_pu * n_f), rep(1, n_f)))
   expect_equal(o$sense(), c(rep("<=", n_pu * n_f), rep(">=", n_f), "<="))
   expect_equal(o$rhs(), c(rep(0, n_pu * n_f), rep(0, n_f), b))
-  expect_equal(o$col_ids(), c(rep("pu", n_pu), rep("pu_ijz", n_pu * n_f),
-                              rep("spp_met", n_f)))
-  expect_equal(o$row_ids(), c(rep("pu_ijz", n_pu * n_f), rep("spp_target", n_f),
-                              "budget"))
+  expect_equal(
+    o$col_ids(),
+    c(rep("pu", n_pu), rep("pu_ijz", n_pu * n_f), rep("spp_met", n_f))
+  )
+  expect_equal(
+    o$row_ids(),
+    c(rep("pu_ijz", n_pu * n_f), rep("spp_target", n_f), "budget")
+  )
   expect_equal(o$lb(), rep(0, n_pu + (n_pu * n_f) + n_f))
   expect_equal(o$ub(), rep(1, n_pu + (n_pu * n_f) + n_f))
   # test that model matrix has been constructed correctly
@@ -102,9 +128,10 @@ test_that("compile (expanded formulation, single zone)", {
     curr_row[n_pu + (n_f * n_pu) + i] <- -1 * targ[i]
     expect_equal(o$A()[(n_f * n_pu) + i, ], curr_row)
   }
-  expect_equal(o$A()[(n_pu * n_f) + n_f + 1, ], c(p$planning_unit_costs(),
-                                                  rep(0, n_f * n_pu),
-                                                  rep(0, n_f)))
+  expect_equal(
+    o$A()[(n_pu * n_f) + n_f + 1, ],
+    c(p$planning_unit_costs(), rep(0, n_f * n_pu), rep(0, n_f))
+  )
 })
 
 test_that("solution (expanded formulation, single zone)", {
@@ -115,96 +142,120 @@ test_that("solution (expanded formulation, single zone)", {
   cost <- terra::rast(matrix(c(1, 2, 2, NA), ncol = 4))
   locked_in <- 2
   locked_out <- 1
-  features <- terra::rast(terra::rast(matrix(c(2, 1, 1, 0), ncol = 4)),
-                            terra::rast(matrix(c(10, 10, 10, 10), ncol = 4)))
+  features <- c(
+    terra::rast(matrix(c(2, 1, 1, 0), ncol = 4)),
+    terra::rast(matrix(c(10, 10, 10, 10), ncol = 4))
+  )
+  names(features) <- make.unique(names(features))
   # create problem
-  p <- problem(cost, features) %>%
-        add_max_features_objective(budget = budget) %>%
-        add_locked_in_constraints(locked_in) %>%
-        add_locked_out_constraints(locked_out) %>%
-        add_absolute_targets(c(2, 10)) %>%
-        add_default_solver(gap = 0, verbose = FALSE)
+  p <-
+    problem(cost, features) %>%
+    add_max_features_objective(budget = budget) %>%
+    add_locked_in_constraints(locked_in) %>%
+    add_locked_out_constraints(locked_out) %>%
+    add_absolute_targets(c(2, 10)) %>%
+    add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p, compressed_formulation = FALSE)
   # test that solution is correct
-  expect_equal(terra::values(s), c(0, 1, 1, NA))
+  expect_equal(c(terra::values(s)), c(0, 1, 1, NA))
 })
 
 test_that("invalid inputs (single zone)", {
+  # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
-  # check that invalid arguments result in errors
-  expect_error({
+  # tests
+  expect_error(
     problem(sim_pu_raster, sim_features) %>%
       add_max_features_objective(budget = -5) %>%
       add_absolute_targets(targ)
-  })
-  expect_error({
+  )
+  expect_error(
     problem(sim_pu_raster, sim_features) %>%
       add_max_features_objective(budget = 0) %>%
       add_absolute_targets(targ)
-  })
-  expect_error({
+  )
+  expect_error(
     problem(sim_pu_raster, sim_features) %>%
       add_max_features_objective(budget = NA) %>%
       add_absolute_targets(targ)
-  })
-  expect_error({
+  )
+  expect_error(
     problem(sim_pu_raster, sim_features) %>%
       add_max_features_objective(budget = Inf) %>%
       add_absolute_targets(targ)
-  })
-  # check that no targets results in error
-  expect_error({
+  )
+  expect_error(
     problem(sim_pu_raster, sim_pu_raster) %>%
     add_max_features_objective(budget = 5) %>%
     compile()
-  })
+  )
 })
 
 test_that("compile (compressed formulation, multiple zones, scalar budget)", {
-  # generate optimization problem
+  # import data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_zones_features <- get_sim_zones_features()
-  b <- min(floor(raster::cellStats(sim_zones_pu_raster, "sum")) * 0.25)
+  # calculate budget
+  b <- min(floor(
+    terra::global(sim_zones_pu_raster, "sum", na.rm = TRUE)[[1]] * 0.25
+  ))
+  # create targets data
   targs <- tibble::tibble(
     feature = feature_names(sim_zones_features)[1:3],
     zone = list("zone_1", "zone_2", c("zone_1", "zone_3")),
     sense = c(">=", "<=", ">="),
     target = c(5, 300, 10),
-    type = c("absolute", "absolute", "absolute"))
-  p <- problem(sim_zones_pu_raster, sim_zones_features) %>%
-       add_max_features_objective(budget = b) %>%
-       add_manual_targets(targs) %>%
-       add_binary_decisions()
+    type = c("absolute", "absolute", "absolute")
+  )
+  # create problem
+  p <-
+    problem(sim_zones_pu_raster, sim_zones_features) %>%
+    add_max_features_objective(budget = b) %>%
+    add_manual_targets(targs) %>%
+    add_binary_decisions()
   o <- compile(p)
-  # check that constraints and metadata have been correctly applied
+  # calculations for tests
   n_pu <- p$number_of_planning_units()
   n_f <- p$number_of_features()
   n_z <- p$number_of_zones()
   scaled_costs <- c(p$planning_unit_costs())
   scaled_costs <- scaled_costs * (-0.01 / sum(scaled_costs, na.rm = TRUE))
+  # tests
   expect_equal(o$modelsense(), "max")
   expect_equal(o$obj(), c(scaled_costs, rep(1, 3)))
-  expect_equal(o$sense(), c(targs$sense, rep("<=", length(b)),
-                            rep("<=", n_pu)))
+  expect_equal(
+    o$sense(),
+    c(targs$sense, rep("<=", length(b)), rep("<=", n_pu))
+  )
   expect_equal(o$rhs(), c(rep(0, nrow(targs)), b, rep(1, n_pu)))
-  expect_equal(o$col_ids(), c(rep("pu", n_pu * n_z),
-                              rep("spp_met", nrow(targs))))
-  expect_equal(o$row_ids(), c(rep("spp_target", nrow(targs)),
-                              rep("budget", length(b)), rep("pu_zone", n_pu)))
+  expect_equal(
+    o$col_ids(),
+    c(rep("pu", n_pu * n_z), rep("spp_met", nrow(targs)))
+  )
+  expect_equal(
+    o$row_ids(),
+    c(
+      rep("spp_target", nrow(targs)),
+      rep("budget", length(b)),
+      rep("pu_zone", n_pu)
+    )
+  )
   expect_equal(o$lb(), rep(0, (n_pu * n_z) + nrow(targs)))
   expect_equal(o$ub(), rep(1, (n_pu * n_z) + nrow(targs)))
   # check that problem matrix is correct
-  m <- matrix(0, nrow = nrow(targs) + length(b) + n_pu,
-              ncol = (n_pu * n_z) + nrow(targs))
+  m <- matrix(
+    0, nrow = nrow(targs) + length(b) + n_pu, ncol = (n_pu * n_z) + nrow(targs)
+  )
   counter <- 0
   for (i in seq_len(nrow(targs))) {
     zs <- match(targs$zone[[i]], zone_names(sim_zones_features))
     f <- match(targs$feature[i], feature_names(sim_zones_features))
     counter <- counter + 1
     for (z in zs)
-      m[counter, ((z - 1) * n_pu) + seq_len(n_pu)] <- p$data$rij_matrix[[z]][f, ]
+      m[counter, ((z - 1) * n_pu) + seq_len(n_pu)] <-
+        p$data$rij_matrix[[z]][f, ]
     m[counter, (n_z * n_pu) + i] <- -1 * targs$target[i]
   }
   counter <- counter + 1
@@ -221,7 +272,7 @@ test_that("compile (compressed formulation, multiple zones, scalar budget)", {
 test_that("solve (compressed formulation, multiple zones, scalar budget)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
-  # make and solve problem
+  # create data
   budget <- 7
   locked_out <- matrix(FALSE, ncol = 2, nrow = 5)
   locked_out[1, 1] <- TRUE
@@ -230,80 +281,113 @@ test_that("solve (compressed formulation, multiple zones, scalar budget)", {
     zone = list("zone_1", "zone_2", c("zone_1", "zone_2")),
     sense = c(">=", ">=", "<="),
     target = c(5, 1, 300),
-    type = c("absolute", "absolute", "absolute"))
-  cost <- terra::rast(
+    type = c("absolute", "absolute", "absolute")
+  )
+  cost <- c(
     terra::rast(matrix(c(1, 2, 4, NA, NA), nrow = 1)),
-    terra::rast(matrix(c(0.5, 1, 1, 1, NA), nrow = 1)))
-  features <- terra::rast(
+    terra::rast(matrix(c(0.5, 1, 1, 1, NA), nrow = 1))
+  )
+  features <- c(
     terra::rast(matrix(c(5,   2,  3,  0,  4), nrow = 1)),
     terra::rast(matrix(c(5,   5,  5,  5,  5), nrow = 1)),
     terra::rast(matrix(c(5,   0,  1,  10, 4), nrow = 1)),
-    terra::rast(matrix(c(500, 5,  5,  5,  5), nrow = 1)))
+    terra::rast(matrix(c(500, 5,  5,  5,  5), nrow = 1))
+  )
+  names(features) <- make.unique(names(features))
   # create problem
-  p <- problem(cost, zones(features[[1:2]], features[[3:4]],
-                           zone_names = c("zone_1", "zone_2"),
-                           feature_names = c("f1", "f2"))) %>%
-       add_max_features_objective(budget = budget) %>%
-       add_manual_targets(targs) %>%
-       add_locked_out_constraints(locked_out) %>%
-       add_default_solver(gap = 0, verbose = FALSE)
+  p <-
+    problem(
+      cost,
+      zones(
+        features[[1:2]], features[[3:4]],
+        zone_names = c("zone_1", "zone_2"), feature_names = c("f1", "f2")
+      )
+    ) %>%
+    add_max_features_objective(budget = budget) %>%
+    add_manual_targets(targs) %>%
+    add_locked_out_constraints(locked_out) %>%
+    add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p)
-  # test that solution is correct
-  expect_equal(terra::values(s[[1]]), c(0, 1, 1, NA,  NA))
-  expect_equal(terra::values(s[[2]]), c(0, 0, 0, 1, NA))
+  # tests
+  expect_equal(c(terra::values(s[[1]])), c(0, 1, 1, NA,  NA))
+  expect_equal(c(terra::values(s[[2]])), c(0, 0, 0, 1, NA))
 })
 
 test_that("compile (expanded formulation, multiple zones, scalar budget)", {
-  # generate optimization problem
+  # import data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_zones_features <- get_sim_zones_features()
-  b <- min(floor(raster::cellStats(sim_zones_pu_raster, "sum")) * 0.25)
+  # calculate budget
+  b <- min(floor(
+    terra::global(sim_zones_pu_raster, "sum", na.rm = TRUE)[[1]] * 0.25
+  ))
+  # create targets data
   targs <- tibble::tibble(
     feature = feature_names(sim_zones_features)[1:3],
     zone = list("zone_1", "zone_2", c("zone_1", "zone_3")),
     sense = c(">=", "<=", ">="),
     target = c(5, 300, 10),
-    type = c("absolute", "absolute", "absolute"))
+    type = c("absolute", "absolute", "absolute")
+  )
+  # create problem
   p <- problem(sim_zones_pu_raster, sim_zones_features) %>%
        add_max_features_objective(budget = b) %>%
        add_manual_targets(targs) %>%
        add_binary_decisions()
   o <- compile(p, compressed_formulation = FALSE)
-  # check that constraints and metadata have been correctly applied
+  # calculations for tests
   n_pu <- p$number_of_planning_units()
   n_f <- p$number_of_features()
   n_z <- p$number_of_zones()
   scaled_costs <- c(p$planning_unit_costs())
   scaled_costs <- scaled_costs * (-0.01 / sum(scaled_costs, na.rm = TRUE))
+  # tests
   expect_equal(o$modelsense(), "max")
   expect_equal(o$obj(), c(scaled_costs, rep(0, n_pu * n_f * n_z), rep(1, 3)))
-  expect_equal(o$sense(), c(rep("<=", n_f * n_z * n_pu),
-                            targs$sense, rep("<=", length(b)),
-                            rep("<=", n_pu)))
-  expect_equal(o$rhs(), c(rep(0, n_pu * n_z * n_f),
-                          rep(0, nrow(targs)), b, rep(1, n_pu)))
-  expect_equal(o$col_ids(), c(rep("pu", n_pu * n_z),
-                              rep("pu_ijz", n_pu * n_z * n_f),
-                              rep("spp_met", nrow(targs))))
-  expect_equal(o$row_ids(), c(rep("pu_ijz", n_pu * n_z * n_f),
-                              rep("spp_target", nrow(targs)),
-                              rep("budget", length(b)), rep("pu_zone", n_pu)))
+  expect_equal(
+    o$sense(),
+    c(
+      rep("<=", n_f * n_z * n_pu),
+      targs$sense, rep("<=", length(b)),
+      rep("<=", n_pu)
+    )
+  )
+  expect_equal(
+    o$rhs(),
+    c(rep(0, n_pu * n_z * n_f), rep(0, nrow(targs)), b, rep(1, n_pu))
+  )
+  expect_equal(
+    o$col_ids(),
+    c(
+      rep("pu", n_pu * n_z),
+      rep("pu_ijz", n_pu * n_z * n_f),
+      rep("spp_met", nrow(targs))
+    )
+  )
+  expect_equal(
+    o$row_ids(),
+    c(
+      rep("pu_ijz", n_pu * n_z * n_f),
+      rep("spp_target", nrow(targs)),
+      rep("budget", length(b)), rep("pu_zone", n_pu)
+    )
+  )
   expect_equal(o$lb(), rep(0, (n_pu * n_z) + (n_pu * n_z * n_f) + nrow(targs)))
   expect_equal(o$ub(), rep(1, (n_pu * n_z) + (n_pu * n_z * n_f) + nrow(targs)))
   # check that problem matrix is correct
-  m <- matrix(0, nrow = (n_pu * n_z * n_f) + nrow(targs) + length(b) + n_pu,
-              ncol = (n_pu * n_z) + (n_pu * n_z * n_f) + nrow(targs))
+  m <- matrix(
+    0, nrow = (n_pu * n_z * n_f) + nrow(targs) + length(b) + n_pu,
+    ncol = (n_pu * n_z) + (n_pu * n_z * n_f) + nrow(targs)
+  )
   counter <- 0
   for (z in seq_len(n_z)) {
     for (i in seq_len(n_f)) {
       for (j in seq_len(n_pu)) {
         counter <- counter + 1
         m[counter, ((z - 1) * n_pu) + j] <- -1
-        m[counter, (n_pu * n_z) +
-                   ((z - 1) * n_pu * n_f) +
-                   ((i - 1) * n_pu) +
-                   j] <- 1
+        idx <- (n_pu * n_z) + ((z - 1) * n_pu * n_f) + ((i - 1) * n_pu) + j
+        m[counter, idx] <- 1
       }
     }
   }
@@ -313,8 +397,7 @@ test_that("compile (expanded formulation, multiple zones, scalar budget)", {
     counter <- counter + 1
     for (z in zs) {
       for (pu in seq_len(n_pu)) {
-        col <- (n_pu * n_z) + ((z - 1) * n_f * n_pu) +
-               ((f - 1) * n_pu) + pu
+        col <- (n_pu * n_z) + ((z - 1) * n_f * n_pu) + ((f - 1) * n_pu) + pu
         m[counter, col] <- p$data$rij_matrix[[z]][f, pu]
       }
       col <- (n_pu * n_z) + (n_pu * n_f * n_z) + i
@@ -335,7 +418,7 @@ test_that("compile (expanded formulation, multiple zones, scalar budget)", {
 test_that("solve (expanded formulation, multiple zones, scalar budget)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
-  # make and solve problem
+  # create data
   budget <- 7
   locked_out <- matrix(FALSE, ncol = 2, nrow = 5)
   locked_out[1, 1] <- TRUE
@@ -345,72 +428,100 @@ test_that("solve (expanded formulation, multiple zones, scalar budget)", {
     sense = c(">=", ">=", "<="),
     target = c(5, 1, 300),
     type = c("absolute", "absolute", "absolute"))
-  cost <- terra::rast(
+  cost <- c(
     terra::rast(matrix(c(1, 2, 4, NA, NA), nrow = 1)),
-    terra::rast(matrix(c(0.5, 1, 1, 1, NA), nrow = 1)))
-  features <- terra::rast(
+    terra::rast(matrix(c(0.5, 1, 1, 1, NA), nrow = 1))
+  )
+  features <- c(
     terra::rast(matrix(c(5,   2,  3,  0,  4), nrow = 1)),
     terra::rast(matrix(c(5,   5,  5,  5,  5), nrow = 1)),
     terra::rast(matrix(c(5,   0,  1,  10, 4), nrow = 1)),
-    terra::rast(matrix(c(500, 5,  5,  5,  5), nrow = 1)))
+    terra::rast(matrix(c(500, 5,  5,  5,  5), nrow = 1))
+  )
+  names(features) <- make.unique(names(features))
   # create problem
-  p <- problem(cost, zones(features[[1:2]], features[[3:4]],
-                           zone_names = c("zone_1", "zone_2"),
-                           feature_names = c("f1", "f2"))) %>%
-       add_max_features_objective(budget = budget) %>%
-       add_manual_targets(targs) %>%
-       add_locked_out_constraints(locked_out) %>%
-       add_default_solver(gap = 0, verbose = FALSE)
+  p <-
+    problem(
+      cost,
+      zones(
+        features[[1:2]], features[[3:4]],
+        zone_names = c("zone_1", "zone_2"),
+        feature_names = c("f1", "f2")
+      )
+    ) %>%
+    add_max_features_objective(budget = budget) %>%
+    add_manual_targets(targs) %>%
+    add_locked_out_constraints(locked_out) %>%
+    add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p, compressed_formulation = FALSE)
-  # test that solution is correct
-  expect_equal(terra::values(s[[1]]), c(0, 1, 1, NA,  NA))
-  expect_equal(terra::values(s[[2]]), c(0, 0, 0, 1, NA))
+  # tests
+  expect_equal(c(terra::values(s[[1]])), c(0, 1, 1, NA,  NA))
+  expect_equal(c(terra::values(s[[2]])), c(0, 0, 0, 1, NA))
 })
 
 test_that("compile (compressed formulation, multiple zones, vector budget)", {
-  # generate optimization problem
+  # import data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_zones_features <- get_sim_zones_features()
-  b <- unname(floor(raster::cellStats(sim_zones_pu_raster, "sum")) * 0.25)
+  # calculate budget
+  b <- floor(
+    terra::global(sim_zones_pu_raster, "sum", na.rm = TRUE)[[1]] * 0.25
+  )
+  # calculate targets data
   targs <- tibble::tibble(
     feature = feature_names(sim_zones_features)[1:3],
     zone = list("zone_1", "zone_2", c("zone_1", "zone_3")),
     sense = c(">=", "<=", ">="),
     target = c(5, 300, 10),
-    type = c("absolute", "absolute", "absolute"))
-  p <- problem(sim_zones_pu_raster, sim_zones_features) %>%
-       add_max_features_objective(budget = b) %>%
-       add_manual_targets(targs) %>%
-       add_binary_decisions()
+    type = c("absolute", "absolute", "absolute")
+  )
+  # create problem
+  p <-
+    problem(sim_zones_pu_raster, sim_zones_features) %>%
+    add_max_features_objective(budget = b) %>%
+    add_manual_targets(targs) %>%
+    add_binary_decisions()
   o <- compile(p)
-  # check that constraints and metadata have been correctly applied
+  # calculations for tests
   n_pu <- p$number_of_planning_units()
   n_f <- p$number_of_features()
   n_z <- p$number_of_zones()
   scaled_costs <- c(p$planning_unit_costs())
   scaled_costs <- scaled_costs * (-0.01 / sum(scaled_costs, na.rm = TRUE))
+  # tests
   expect_equal(o$modelsense(), "max")
   expect_equal(o$obj(), c(scaled_costs, rep(1, 3)))
-  expect_equal(o$sense(), c(targs$sense, rep("<=", length(b)),
-                            rep("<=", n_pu)))
+  expect_equal(
+    o$sense(),
+    c(targs$sense, rep("<=", length(b)), rep("<=", n_pu))
+  )
   expect_equal(o$rhs(), c(rep(0, nrow(targs)), b, rep(1, n_pu)))
-  expect_equal(o$col_ids(), c(rep("pu", n_pu * n_z),
-                              rep("spp_met", nrow(targs))))
-  expect_equal(o$row_ids(), c(rep("spp_target", nrow(targs)),
-                              rep("budget", length(b)), rep("pu_zone", n_pu)))
+  expect_equal(
+    o$col_ids(),
+    c(rep("pu", n_pu * n_z), rep("spp_met", nrow(targs)))
+  )
+  expect_equal(
+    o$row_ids(),
+    c(
+      rep("spp_target", nrow(targs)), rep("budget", length(b)),
+      rep("pu_zone", n_pu)
+    )
+  )
   expect_equal(o$lb(), rep(0, (n_pu * n_z) + nrow(targs)))
   expect_equal(o$ub(), rep(1, (n_pu * n_z) + nrow(targs)))
   # check that problem matrix is correct
-  m <- matrix(0, nrow = nrow(targs) + length(b) + n_pu,
-              ncol = (n_pu * n_z) + nrow(targs))
+  m <- matrix(
+    0, nrow = nrow(targs) + length(b) + n_pu, ncol = (n_pu * n_z) + nrow(targs)
+  )
   counter <- 0
   for (i in seq_len(nrow(targs))) {
     zs <- match(targs$zone[[i]], zone_names(sim_zones_features))
     f <- match(targs$feature[i], feature_names(sim_zones_features))
     counter <- counter + 1
     for (z in zs)
-      m[counter, ((z - 1) * n_pu) + seq_len(n_pu)] <- p$data$rij_matrix[[z]][f, ]
+      m[counter, ((z - 1) * n_pu) + seq_len(n_pu)] <-
+        p$data$rij_matrix[[z]][f, ]
     m[counter, (n_z * n_pu) + i] <- -1 * targs$target[i]
   }
   counter <- counter + 1
@@ -431,7 +542,7 @@ test_that("compile (compressed formulation, multiple zones, vector budget)", {
 test_that("solve (compressed formulation, multiple zones, vector budget)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
-  # make and solve problem
+  # create data
   budget <- c(6, 1)
   locked_out <- matrix(FALSE, ncol = 2, nrow = 5)
   locked_out[1, 1] <- TRUE
@@ -440,65 +551,97 @@ test_that("solve (compressed formulation, multiple zones, vector budget)", {
     zone = list("zone_1", "zone_2", c("zone_1", "zone_2")),
     sense = c(">=", ">=", "<="),
     target = c(5, 1, 300),
-    type = c("absolute", "absolute", "absolute"))
-  cost <- terra::rast(
+    type = c("absolute", "absolute", "absolute")
+  )
+  cost <- c(
     terra::rast(matrix(c(1, 2, 4, NA, NA), nrow = 1)),
-    terra::rast(matrix(c(0.5, 1, 1, 1, NA), nrow = 1)))
-  features <- terra::rast(
+    terra::rast(matrix(c(0.5, 1, 1, 1, NA), nrow = 1))
+  )
+  features <- c(
     terra::rast(matrix(c(5,   2,  3,  0,  4), nrow = 1)),
     terra::rast(matrix(c(5,   5,  5,  5,  5), nrow = 1)),
     terra::rast(matrix(c(5,   0,  1,  10, 4), nrow = 1)),
-    terra::rast(matrix(c(500, 5,  5,  5,  5), nrow = 1)))
+    terra::rast(matrix(c(500, 5,  5,  5,  5), nrow = 1))
+  )
+  names(features) <- make.unique(names(features))
   # create problem
-  p <- problem(cost, zones(features[[1:2]], features[[3:4]],
-                           zone_names = c("zone_1", "zone_2"),
-                           feature_names = c("f1", "f2"))) %>%
-       add_max_features_objective(budget = budget) %>%
-       add_manual_targets(targs) %>%
-       add_locked_out_constraints(locked_out) %>%
-       add_default_solver(gap = 0, verbose = FALSE)
+  p <-
+    problem(
+      cost,
+      zones(
+        features[[1:2]], features[[3:4]],
+        zone_names = c("zone_1", "zone_2"),
+        feature_names = c("f1", "f2")
+      )
+    ) %>%
+    add_max_features_objective(budget = budget) %>%
+    add_manual_targets(targs) %>%
+    add_locked_out_constraints(locked_out) %>%
+    add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p)
-  # test that solution is correct
-  expect_equal(terra::values(s[[1]]), c(0, 1, 1, NA,  NA))
-  expect_equal(terra::values(s[[2]]), c(0, 0, 0, 1, NA))
+  # tests
+  expect_equal(c(terra::values(s[[1]])), c(0, 1, 1, NA,  NA))
+  expect_equal(c(terra::values(s[[2]])), c(0, 0, 0, 1, NA))
 })
 
 test_that("compile (expanded formulation, multiple zones, vector budget)", {
-  # generate optimization problem
+  # import data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_zones_features <- get_sim_zones_features()
-  b <- unname(floor(raster::cellStats(sim_zones_pu_raster, "sum")) * 0.25)
+  # calculate budget
+  b <- floor(
+    terra::global(sim_zones_pu_raster, "sum", na.rm = TRUE)[[1]] * 0.25
+  )
+  # calculate targets
   targs <- tibble::tibble(
     feature = feature_names(sim_zones_features)[1:3],
     zone = list("zone_1", "zone_2", c("zone_1", "zone_3")),
     sense = c(">=", "<=", ">="),
     target = c(5, 300, 10),
-    type = c("absolute", "absolute", "absolute"))
-  p <- problem(sim_zones_pu_raster, sim_zones_features) %>%
-       add_max_features_objective(budget = b) %>%
-       add_manual_targets(targs) %>%
-       add_binary_decisions()
+    type = c("absolute", "absolute", "absolute")
+  )
+  # create problem
+  p <-
+    problem(sim_zones_pu_raster, sim_zones_features) %>%
+    add_max_features_objective(budget = b) %>%
+    add_manual_targets(targs) %>%
+    add_binary_decisions()
   o <- compile(p, compressed_formulation = FALSE)
-  # check that constraints and metadata have been correctly applied
+  # calculations for tests
   n_pu <- p$number_of_planning_units()
   n_f <- p$number_of_features()
   n_z <- p$number_of_zones()
   scaled_costs <- c(p$planning_unit_costs())
   scaled_costs <- scaled_costs * (-0.01 / sum(scaled_costs, na.rm = TRUE))
+  # tests
   expect_equal(o$modelsense(), "max")
   expect_equal(o$obj(), c(scaled_costs, rep(0, n_pu * n_f * n_z), rep(1, 3)))
-  expect_equal(o$sense(), c(rep("<=", n_f * n_z * n_pu),
-                            targs$sense, rep("<=", length(b)),
-                            rep("<=", n_pu)))
-  expect_equal(o$rhs(), c(rep(0, n_pu * n_z * n_f),
-                          rep(0, nrow(targs)), b, rep(1, n_pu)))
-  expect_equal(o$col_ids(), c(rep("pu", n_pu * n_z),
-                              rep("pu_ijz", n_pu * n_z * n_f),
-                              rep("spp_met", nrow(targs))))
-  expect_equal(o$row_ids(), c(rep("pu_ijz", n_pu * n_z * n_f),
-                              rep("spp_target", nrow(targs)),
-                              rep("budget", length(b)), rep("pu_zone", n_pu)))
+  expect_equal(
+    o$sense(),
+    c(
+      rep("<=", n_f * n_z * n_pu), targs$sense, rep("<=", length(b)),
+      rep("<=", n_pu)
+    )
+  )
+  expect_equal(
+    o$rhs(),
+    c(rep(0, n_pu * n_z * n_f), rep(0, nrow(targs)), b, rep(1, n_pu))
+  )
+  expect_equal(
+    o$col_ids(),
+    c(
+      rep("pu", n_pu * n_z), rep("pu_ijz", n_pu * n_z * n_f),
+      rep("spp_met", nrow(targs))
+    )
+  )
+  expect_equal(
+    o$row_ids(),
+    c(
+      rep("pu_ijz", n_pu * n_z * n_f), rep("spp_target", nrow(targs)),
+      rep("budget", length(b)), rep("pu_zone", n_pu)
+    )
+  )
   expect_equal(o$lb(), rep(0, (n_pu * n_z) + (n_pu * n_z * n_f) + nrow(targs)))
   expect_equal(o$ub(), rep(1, (n_pu * n_z) + (n_pu * n_z * n_f) + nrow(targs)))
   # check that problem matrix is correct
@@ -510,10 +653,8 @@ test_that("compile (expanded formulation, multiple zones, vector budget)", {
       for (j in seq_len(n_pu)) {
         counter <- counter + 1
         m[counter, ((z - 1) * n_pu) + j] <- -1
-        m[counter, (n_pu * n_z) +
-                   ((z - 1) * n_pu * n_f) +
-                   ((i - 1) * n_pu) +
-                   j] <- 1
+        idx <- (n_pu * n_z) + ((z - 1) * n_pu * n_f) + ((i - 1) * n_pu) + j
+        m[counter, idx] <- 1
       }
     }
   }
@@ -523,8 +664,7 @@ test_that("compile (expanded formulation, multiple zones, vector budget)", {
     counter <- counter + 1
     for (z in zs) {
       for (pu in seq_len(n_pu)) {
-        col <- (n_pu * n_z) + ((z - 1) * n_f * n_pu) +
-               ((f - 1) * n_pu) + pu
+        col <- (n_pu * n_z) + ((z - 1) * n_f * n_pu) + ((f - 1) * n_pu) + pu
         m[counter, col] <- p$data$rij_matrix[[z]][f, pu]
       }
       col <- (n_pu * n_z) + (n_pu * n_f * n_z) + i
@@ -549,7 +689,7 @@ test_that("compile (expanded formulation, multiple zones, vector budget)", {
 test_that("solve (expanded formulation, multiple zones, vector budget)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
-  # make and solve problem
+  # create data
   budget <- c(6, 1)
   locked_out <- matrix(FALSE, ncol = 2, nrow = 5)
   locked_out[1, 1] <- TRUE
@@ -558,58 +698,67 @@ test_that("solve (expanded formulation, multiple zones, vector budget)", {
     zone = list("zone_1", "zone_2", c("zone_1", "zone_2")),
     sense = c(">=", ">=", "<="),
     target = c(5, 1, 300),
-    type = c("absolute", "absolute", "absolute"))
-  cost <- terra::rast(
+    type = c("absolute", "absolute", "absolute")
+  )
+  cost <- c(
     terra::rast(matrix(c(1, 2, 4, NA, NA), nrow = 1)),
-    terra::rast(matrix(c(0.5, 1, 1, 1, NA), nrow = 1)))
-  features <- terra::rast(
+    terra::rast(matrix(c(0.5, 1, 1, 1, NA), nrow = 1))
+  )
+  features <- c(
     terra::rast(matrix(c(5,   2,  3,  0,  4), nrow = 1)),
     terra::rast(matrix(c(5,   5,  5,  5,  5), nrow = 1)),
     terra::rast(matrix(c(5,   0,  1,  10, 4), nrow = 1)),
-    terra::rast(matrix(c(500, 5,  5,  5,  5), nrow = 1)))
+    terra::rast(matrix(c(500, 5,  5,  5,  5), nrow = 1))
+  )
   # create problem
-  p <- problem(cost, zones(features[[1:2]], features[[3:4]],
-                           zone_names = c("zone_1", "zone_2"),
-                           feature_names = c("f1", "f2"))) %>%
-       add_max_features_objective(budget = budget) %>%
-       add_manual_targets(targs) %>%
-       add_locked_out_constraints(locked_out) %>%
-       add_default_solver(gap = 0, verbose = FALSE)
+  p <-
+    problem(
+      cost,
+      zones(
+        features[[1:2]], features[[3:4]],
+        zone_names = c("zone_1", "zone_2"),
+        feature_names = c("f1", "f2")
+      )
+    ) %>%
+    add_max_features_objective(budget = budget) %>%
+    add_manual_targets(targs) %>%
+    add_locked_out_constraints(locked_out) %>%
+    add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p, compressed_formulation = FALSE)
-  # test that solution is correct
-  expect_equal(terra::values(s[[1]]), c(0, 1, 1, NA,  NA))
-  expect_equal(terra::values(s[[2]]), c(0, 0, 0, 1, NA))
+  # tests
+  expect_equal(c(terra::values(s[[1]])), c(0, 1, 1, NA,  NA))
+  expect_equal(c(terra::values(s[[2]])), c(0, 0, 0, 1, NA))
 })
 
 test_that("invalid inputs (multiple zones)", {
+  # import data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_zones_features <- get_sim_zones_features()
-  # check that invalid arguments result in errors
-  expect_error({
+  # tests
+  expect_error(
     problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_max_features_objective(budget = c(1, -5, 1))
-  })
-  expect_error({
+  )
+  expect_error(
     problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_max_features_objective(budget = c(1, NA, 1))
-  })
-  expect_error({
+  )
+  expect_error(
     problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_max_features_objective(budget = c(NA, NA, NA))
-  })
-  expect_error({
+  )
+  expect_error(
     problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_max_features_objective(budget = c(1, Inf, 9))
-  })
-  expect_error({
+  )
+  expect_error(
     problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_max_features_objective(budget = c(1, Inf, 9))
-  })
-  # check that no targets results in error
-  expect_error({
+  )
+  expect_error(
     problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_max_features_objective(budget = c(5, 5, 5)) %>%
     compile()
-  })
+  )
 })

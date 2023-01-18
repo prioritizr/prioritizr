@@ -57,3 +57,9 @@ all_binary.sf <- function(x) {
 }
 
 .S3method("all_binary", "sf", all_binary.sf)
+
+all_binary.SpatRaster <- function(x) {
+  all(c(terra::values(x)) %in% c(0, 1, NA))
+}
+
+.S3method("all_binary", "SpatRaster", all_binary.SpatRaster)

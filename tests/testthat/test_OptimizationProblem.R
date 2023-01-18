@@ -31,8 +31,10 @@ test_that("get methods", {
   expect_equal(nrow(x), 2)
   expect_equal(ncol(x), 3)
   expect_equal(ncell(x), length(l$A_x))
-  expect_equal(A(x), Matrix::sparseMatrix(i = l$A_i, j = l$A_j, x = l$A_x,
-                                          index1 = FALSE))
+  expect_equal(
+    A(x),
+    Matrix::sparseMatrix(i = l$A_i, j = l$A_j, x = l$A_x, index1 = FALSE)
+  )
   expect_equal(modelsense(x), l$modelsense)
   expect_equal(obj(x), l$obj)
   expect_equal(rhs(x), l$rhs)
@@ -89,19 +91,28 @@ test_that("as.list", {
 test_that("shuffle_columns method", {
   # data
   set.seed(600)
-  l <- list(modelsense = "min", number_of_features = 2,
-           number_of_planning_units = 3, number_of_zones = 1,
-           A_i = c(0L, 1L, 0L, 1L, 0L, 1L), A_j = c(0L, 0L, 1L, 1L, 2L, 2L),
-           A_x = c(2, 10, 1, 10, 1, 10), obj = c(1, 2, 2), lb = c(0, 1, 0),
-           ub = c(0, 1, 1), rhs = c(2, 10), compressed_formulation = TRUE,
-           sense = c(">=", ">="), vtype = c("B", "B", "B"),
-           row_ids = c("spp_target", "spp_target"),
-           col_ids = c("pu", "pu", "pu"))
+  l <- list(
+    modelsense = "min",
+    number_of_features = 2,
+    number_of_planning_units = 3,
+    number_of_zones = 1,
+    A_i = c(0L, 1L, 0L, 1L, 0L, 1L),
+    A_j = c(0L, 0L, 1L, 1L, 2L, 2L),
+    A_x = c(2, 10, 1, 10, 1, 10),
+    obj = c(1, 2, 2),
+    lb = c(0, 1, 0),
+    ub = c(0, 1, 1),
+    rhs = c(2, 10),
+    compressed_formulation = TRUE,
+    sense = c(">=", ">="), vtype = c("B", "B", "B"),
+    row_ids = c("spp_target", "spp_target"),
+    col_ids = c("pu", "pu", "pu")
+  )
   x <- predefined_optimization_problem(l)
   # shuffle columns
   key <- x$shuffle_columns()
-  ## check that object integrity is maintained
-  # elements that should stay the same after shuffling
+  # tests
+  ## certain elements that should stay the same after shuffling
   expect_equal(nrow(x), 2)
   expect_equal(ncol(x), 3)
   expect_equal(ncell(x), length(l$A_x))
@@ -113,11 +124,12 @@ test_that("shuffle_columns method", {
   expect_equal(number_of_zones(x), l$number_of_zones)
   expect_equal(row_ids(x), l$row_ids)
   expect_equal(compressed_formulation(x), l$compressed_formulation)
-  # elements that should change after shuffling
+  ## certain elements that should change after shuffling
   expect_equal(obj(x)[key], l$obj)
   expect_equal(col_ids(x)[key], l$col_ids)
   expect_equal(vtype(x)[key], l$vtype)
-  original_matrix <- Matrix::sparseMatrix(i = l$A_i, j = l$A_j, x = l$A_x,
-                                          index1 = FALSE)
+  original_matrix <- Matrix::sparseMatrix(
+    i = l$A_i, j = l$A_j, x = l$A_x, index1 = FALSE
+  )
   expect_equal(A(x)[, key], original_matrix)
 })

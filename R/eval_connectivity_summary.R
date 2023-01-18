@@ -214,7 +214,7 @@ methods::setMethod("eval_connectivity_summary",
     if (!Matrix::isSymmetric(data)) {
       warning(
         paste0(
-          "argument to data does not contain symmetric connectivity values, ",
+          "argument to data contains asymmetric connectivity values, ",
           "it it recommended to use eval_asym_connectivity_summary()"
         ),
         call. = FALSE, immediate. = TRUE

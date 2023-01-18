@@ -91,7 +91,7 @@ any_nonNA.SpatRaster <- function(x) {
 .S3method("any_nonNA", "SpatRaster", any_nonNA.SpatRaster)
 
 any_nonNA.ZonesRaster <- function(x) {
-  any_nonNA(terra::rast(raster::as.list(x)))
+  any_nonNA(terra::rast(raster::stack(raster::as.list(x))))
 }
 
 .S3method("any_nonNA", "ZonesRaster", any_nonNA.ZonesRaster)

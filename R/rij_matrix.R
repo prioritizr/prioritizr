@@ -15,6 +15,17 @@ NULL
 #'   [sf::sf()] object.
 #'   Defaults to `"sum"`.
 #'
+#' @param memory `logical` should calculations be performed using a method
+#'   that prioritizes reduced memory consumption over speed?
+#'   If `TRUE`, then calculations are performed using a method that
+#'   reduces memory consumption, but can take a long time to complete.
+#'   If `FALSE`, then calculations are performed using a method that
+#'   reduces run time, but will fail when insufficient memory is available.
+#'   Defaults to `NA`, such that calculations are automatically performed
+#'   using the best method given available memory and dataset sizes.
+#'   Note that this parameter can only be used when the arguments to `x`
+#'   and `y` are both [terra::rast()] objects.
+#'
 #' @param ... not used.
 #'
 #' @details
@@ -79,7 +90,7 @@ methods::setMethod(
 methods::setMethod(
   "rij_matrix",
   signature(x = "SpatRaster", y = "SpatRaster"),
-  function(x, y, ...) {
+  function(x, y, memory = NA, ...) {
     # assert that arguments are valid
     assertthat::assert_that(
       inherits(x, "SpatRaster"),
@@ -87,6 +98,7 @@ methods::setMethod(
       terra::nlyr(x) > 0,
       terra::nlyr(y) > 0,
       is_comparable_raster(x, y),
+      assertthat::is.flag(memory),
       no_extra_arguments(...)
     )
     # identify included cells
@@ -95,10 +107,14 @@ methods::setMethod(
     } else {
       idx <- terra::cells(min(is.na(x)), 0)[[1]]
     }
-    # determine if can process in memory
-    mem_needed_kb <-
-      ((40 * length(idx)) + (terra::nlyr(y) * length(idx) * 8)) * 0.001
-    if (mem_needed_kb <= terra::free_RAM()) {
+    # if memory is NA, then set it automatically..
+    if (is.na(memory)) {
+      mem_needed_kb <-
+        ((40 * length(idx)) + (terra::nlyr(y) * length(idx) * 8)) * 0.001
+      memory <- isTRUE(mem_needed_kb > terra::free_RAM())
+    }
+    # run processing
+    if (!isTRUE(memory)) {
       # generate matrix
       m <- as.matrix(y[idx])
       m[is.na(m)] <- 0
@@ -113,7 +129,7 @@ methods::setMethod(
         v <- y[[i]][idx][[1]]
         v[is.na(v)] <- 0
         ii <- v != 0
-        m[i, idx[ii]] <- v[ii]
+        m[i, which(ii)] <- v[ii]
       }
     }
     # add row names

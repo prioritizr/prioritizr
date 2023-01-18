@@ -338,7 +338,7 @@ ConservationProblem <- pproto(
     invisible()
   },
   number_of_planning_units = function(self) {
-    length(self$get_data("planning_unit_indices"))
+    length(self$planning_unit_indices())
   },
   planning_unit_indices = function(self) {
     i <- self$get_data("planning_unit_indices")
@@ -432,7 +432,7 @@ ConservationProblem <- pproto(
     idx <- self$planning_unit_indices()
     if (inherits(self$data$cost, "Raster")) {
       if (raster::nlayers(self$data$cost) == 1) {
-        x <- matrix(self$data$cost[ind], ncol = 1)
+        x <- matrix(self$data$cost[idx], ncol = 1)
       } else {
         x <- self$data$cost[idx]
       }
@@ -446,7 +446,7 @@ ConservationProblem <- pproto(
       x <- sf::st_drop_geometry(self$data$cost)
       x <- as.matrix(x[idx, self$data$cost_column, drop = FALSE])
     } else if (is.matrix(self$data$cost)) {
-      x <- self$data$cost
+      x <- self$data$cost[idx, , drop = FALSE]
     } else {
       stop("cost is of unknown class")
     }
@@ -499,6 +499,7 @@ ConservationProblem <- pproto(
     if (!is.matrix(out))
       out <- matrix(out, ncol = self$number_of_zones())
     colnames(out) <- self$zone_names()
+    rownames(out) <- self$feature_names()
     self$set_data("feature_abundances_in_planning_units", out)
     invisible()
   },

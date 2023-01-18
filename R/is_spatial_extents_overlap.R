@@ -14,9 +14,17 @@ NULL
 #' @noRd
 is_spatial_extents_overlap <- function(x, y) {
   assertthat::assert_that(
-    is_inherits(x, c("SpatRaster", "Raster", "Spatial", "sf")),
-    is_inherits(y, c("SpatRaster", "Raster", "Spatial", "sf"))
+    is_inherits(x, c(
+      "SpatRaster", "Raster", "Spatial", "sf",
+      "ZonesRaster", "ZonesSpatRaster"
+    )),
+    is_inherits(y, c(
+      "SpatRaster", "Raster", "Spatial", "sf",
+      "ZonesRaster", "ZonesSpatRaster"
+    ))
   )
+  if (inherits(x, c("ZonesRaster", "ZonesSpatRaster"))) x <- x[[1]]
+  if (inherits(y, c("ZonesRaster", "ZonesSpatRaster"))) y <- y[[1]]
   if (inherits(x, "Raster")) x <- terra::rast(x)
   if (inherits(y, "Raster")) y <- terra::rast(y)
   if (inherits(x, "Spatial")) x <- terra::vect(sf::st_as_sf(x))

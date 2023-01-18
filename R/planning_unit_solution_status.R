@@ -141,7 +141,7 @@ methods::setMethod(
   methods::signature("ConservationProblem", "Spatial"),
   function(x, solution) {
     # assert valid arguments
-    .Deprecated(msg = sp_package_deprecation_notice)
+    .Deprecated(msg = sp_pkg_deprecation_notice)
     ## data types
     assertthat::assert_that(
       is_inherits(
@@ -268,7 +268,7 @@ methods::setMethod(
   methods::signature("ConservationProblem", "Raster"),
   function(x, solution) {
     # assert valid arguments
-    .Deprecated(msg = raster_package_deprecation_notice)
+    .Deprecated(msg = raster_pkg_deprecation_notice)
     ## data types
     assertthat::assert_that(
       inherits(solution, "Raster"),
@@ -398,8 +398,8 @@ methods::setMethod(
 #' @noRd
 internal_planning_unit_solution_status <- function(x, solution) {
   # assert valid arguments
+  assertthat::assert_that(is_conservation_problem(x))
   assertthat::assert_that(
-    inherits(x, "ConservationProblem"),
     is.matrix(solution),
     msg = paste(
       "argument to x and solution object have",

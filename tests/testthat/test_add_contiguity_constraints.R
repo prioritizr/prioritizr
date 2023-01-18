@@ -1,21 +1,23 @@
 context("add_contiguity_constraints")
 
 test_that("compile (single zone)", {
-  # create problem
+  # import data
   sim_pu_polygons <- get_sim_pu_polygons()
   sim_features <- get_sim_features()
   sim_pu_polygons <- sim_pu_polygons[c(1:2, 10:12, 20:22), ]
-  p <- problem(sim_pu_polygons, sim_features, "cost") %>%
-       add_min_set_objective() %>%
-       add_relative_targets(0.2) %>%
-       add_contiguity_constraints()
+  # create problem
+  p <-
+    problem(sim_pu_polygons, sim_features, "cost") %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.2) %>%
+    add_contiguity_constraints()
   # compile problem
   o <- compile(p)
   # perform preliminary calculations
   cm <- as_Matrix(adjacency_matrix(sim_pu_polygons), "dgCMatrix")
   cm <- Matrix::forceSymmetric(cm, uplo = "L")
   cm <- as_Matrix(Matrix::tril(cm), "dgTMatrix")
-  n_pu <- length(sim_pu_polygons)
+  n_pu <- nrow(sim_pu_polygons)
   n_f <- terra::nlyr(sim_features)
   n_edges <- length(cm@i)
   n_j_ends <- length(unique(cm@j))
@@ -28,11 +30,15 @@ test_that("compile (single zone)", {
   # check that rhs has been added correctly
   expect_equal(o$rhs()[con_rows], c(rep(0, n_edges),  rep(0, n_j_ends), -1))
   # check that sense has been added correctly
-  expect_equal(o$sense()[con_rows], c(rep("<=", n_edges), rep("<=", n_j_ends),
-                                      "="))
+  expect_equal(
+    o$sense()[con_rows],
+    c(rep("<=", n_edges), rep("<=", n_j_ends), "=")
+  )
   # check that row ids have been added correctly
-  expect_equal(o$row_ids()[con_rows], c(rep("c1", n_edges), rep("c2", n_j_ends),
-                                        "c3"))
+  expect_equal(
+    o$row_ids()[con_rows],
+    c(rep("c1", n_edges), rep("c2", n_j_ends), "c3")
+  )
   ## check that connected constraints have been added correctly
   # c1
   for (i in seq_along(n_edges)) {
@@ -59,37 +65,42 @@ test_that("compile (single zone)", {
 test_that("solve (single zone)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
-  # create problem
+  # load data
   sim_pu_polygons <- get_sim_pu_polygons()
   sim_features <- get_sim_features()
-  p <- problem(sim_pu_polygons, sim_features, "cost") %>%
-       add_min_set_objective() %>%
-       add_relative_targets(0.1) %>%
-       add_contiguity_constraints() %>%
-       add_default_solver(verbose = FALSE)
+  # create problem
+  p <-
+    problem(sim_pu_polygons, sim_features, "cost") %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.1) %>%
+    add_contiguity_constraints() %>%
+    add_default_solver(verbose = FALSE)
   # solve problem
   s1 <- solve(p)
   s2 <- solve(p)
   # check that all selected planning units form a contiguous unit
-  agg_s <- aggregate(s1[s1$solution_1 == 1, ])
-  expect_equal(length(agg_s@polygons), 1)
-  expect_equal(length(agg_s@polygons[[1]]), 1)
+  expect_true(is_single_patch_sf(s1[s1$solution_1 == 1, ]))
   expect_equal(s1$solution_1, s2$solution_1)
 })
 
 test_that("compile (multiple zones)", {
-  # create problem
-  z <- diag(3)
-  z[1, 2] <- 1
-  z[2, 1] <- 1
+  # load data
   sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
   sim_zones_features <- get_sim_zones_features()
   sim_zones_pu_polygons <- sim_zones_pu_polygons[c(1:2, 10:12, 20:22), ]
-  p <- problem(sim_zones_pu_polygons, sim_zones_features,
-               c("cost_1", "cost_2", "cost_3")) %>%
-       add_min_set_objective() %>%
-       add_relative_targets(matrix(0.2, nrow = 5, ncol = 3)) %>%
-       add_contiguity_constraints(z)
+  # create zones data
+  z <- diag(3)
+  z[1, 2] <- 1
+  z[2, 1] <- 1
+  # create problem
+  p <-
+    problem(
+      sim_zones_pu_polygons, sim_zones_features,
+      c("cost_1", "cost_2", "cost_3")
+    ) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(matrix(0.2, nrow = 5, ncol = 3)) %>%
+    add_contiguity_constraints(z)
   # compile problem
   o <- compile(p)
   # perform preliminary calculations
@@ -97,9 +108,9 @@ test_that("compile (multiple zones)", {
   cm <- Matrix::forceSymmetric(cm, uplo = "L")
   cm <- as_Matrix(Matrix::tril(cm), "dgTMatrix")
   cl <- c(1, 1, 2)
-  n_pu <- length(sim_zones_pu_polygons)
+  n_pu <- nrow(sim_zones_pu_polygons)
   n_f <- terra::nlyr(sim_zones_features[[1]])
-  n_z <- length(sim_zones_features)
+  n_z <- number_of_zones(sim_zones_features)
   # compute edge data
   pu_i <- list()
   pu_j <- list()
@@ -125,22 +136,27 @@ test_that("compile (multiple zones)", {
   n_edges <- sapply(pu_i, length)
   n_j_ends <- sapply(pu_j, function(x) length(unique(x)))
   con_cols <- (n_pu * n_z) + seq_len(sum(sapply(pu_i, length)))
-  con_rows <- (n_f * n_z) + n_pu +
-              seq_len(sum(n_edges) + sum(n_j_ends) + 2)
-
+  con_rows <-
+    (n_f * n_z) + n_pu + seq_len(sum(n_edges) + sum(n_j_ends) + 2)
   # check that obj has been added correctly
   expect_equal(o$obj()[con_cols], rep(0, sum(n_edges)))
   # check that col_ids have been added correctly
   expect_equal(o$col_ids()[con_cols], rep("c", sum(n_edges)))
   # check that rhs has been added correctly
-  expect_equal(o$rhs()[con_rows], c(rep(0, sum(n_edges)),
-                                    rep(0, sum(n_j_ends)), -1, -1))
+  expect_equal(
+    o$rhs()[con_rows],
+    c(rep(0, sum(n_edges)), rep(0, sum(n_j_ends)), -1, -1)
+  )
   # check that sense has been added correctly
-  expect_equal(o$sense()[con_rows], c(rep("<=", sum(n_edges)),
-                                      rep("<=", sum(n_j_ends)), "=", "="))
+  expect_equal(
+    o$sense()[con_rows],
+    c(rep("<=", sum(n_edges)), rep("<=", sum(n_j_ends)), "=", "=")
+  )
   # check that row ids have been added correctly
-  expect_equal(o$row_ids()[con_rows], c(rep("c1", sum(n_edges)),
-                                        rep("c2", sum(n_j_ends)), "c3", "c3"))
+  expect_equal(
+    o$row_ids()[con_rows],
+    c(rep("c1", sum(n_edges)), rep("c2", sum(n_j_ends)), "c3", "c3")
+  )
   ## check that connected constraints have been added correctly
   # c1
   for (k in seq_len(2)) {
@@ -165,87 +181,46 @@ test_that("compile (multiple zones)", {
   # c3
   for (k in seq_len(2)) {
     correct_row <- rep(0, (n_pu * n_z) + sum(n_edges))
-    curr_pus <- rep((which(cl == k) - 1) * n_pu, each = n_pu) +
-                rep(seq_len(n_pu), sum(cl == k))
+    curr_pus <-
+      rep((which(cl == k) - 1) * n_pu, each = n_pu) +
+        rep(seq_len(n_pu), sum(cl == k))
     curr_edges <- (n_z * n_pu) + seq_len(n_edges[k])
     if (k > 1) curr_edges <- curr_edges + n_edges[k - 1]
     correct_row[curr_pus] <- -1
     correct_row[curr_edges] <- 1
-    expect_equal(o$A()[(n_f * n_z) + n_pu + sum(n_edges) + sum(n_j_ends) + k, ],
-                 correct_row)
+    expect_equal(
+      o$A()[(n_f * n_z) + n_pu + sum(n_edges) + sum(n_j_ends) + k, ],
+      correct_row
+    )
   }
 })
 
 test_that("solve (multiple zones)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
-  # create and solve problem
-  z <- diag(3)
-  z[1, 2] <- 1
-  z[2, 1] <- 1
-  sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
-  sim_zones_features <- get_sim_zones_features()
-  s <- problem(sim_zones_pu_polygons, sim_zones_features,
-               c("cost_1", "cost_2", "cost_3")) %>%
-       add_min_set_objective() %>%
-       add_relative_targets(matrix(0.2, nrow = 5, ncol = 3)) %>%
-       add_contiguity_constraints(z) %>%
-       add_default_solver(verbose = FALSE) %>%
-       solve()
-  # check that all selected planning units form a contiguous unit
-  agg_c1 <- aggregate(s[s$solution_1_zone_1 == 1 | s$solution_1_zone_2 == 1, ])
-  agg_c2 <- aggregate(s[s$solution_1_zone_3 == 1, ])
-  expect_equal(length(agg_c1@polygons), 1)
-  expect_equal(length(agg_c1@polygons[[1]]), 1)
-  expect_equal(length(agg_c2@polygons), 1)
-  expect_equal(length(agg_c2@polygons[[1]]), 1)
-})
-
-test_that("compile (Spatial and sf are identical)", {
   # load data
   sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
   sim_zones_features <- get_sim_zones_features()
+  # create zones matrix
   z <- diag(3)
   z[1, 2] <- 1
   z[2, 1] <- 1
-  sim_zones_pu_polygons <- sim_zones_pu_polygons[c(1:2, 10:12, 20:22), ]
-  sim_sf <- sf::st_as_sf(sim_zones_pu_polygons)
-  # create problems
-  p1 <- problem(sim_zones_pu_polygons, sim_zones_features,
-                c("cost_1", "cost_2", "cost_3")) %>%
-        add_min_set_objective() %>%
-        add_relative_targets(matrix(0.2, nrow = 5, ncol = 3)) %>%
-        add_contiguity_constraints(z)
-  p2 <- problem(sim_sf, sim_zones_features,
-                c("cost_1", "cost_2", "cost_3")) %>%
-        add_min_set_objective() %>%
-        add_relative_targets(matrix(0.2, nrow = 5, ncol = 3)) %>%
-        add_contiguity_constraints(z)
-  # compile problems
-  o1 <- as.list(compile(p1))
-  o2 <- as.list(compile(p2))
+  # create and solve problem
+  s <-
+    problem(
+      sim_zones_pu_polygons, sim_zones_features,
+      c("cost_1", "cost_2", "cost_3")
+    ) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(matrix(0.2, nrow = 5, ncol = 3)) %>%
+    add_contiguity_constraints(z) %>%
+    add_default_solver(verbose = FALSE) %>%
+    solve()
   # tests
-  expect_equal(o1, o2)
-})
-
-test_that("invalid inputs (single zone)", {
-  # create problem
-  sim_pu_polygons <- get_sim_pu_polygons()
-  sim_features <- get_sim_features()
-  cm <- as.matrix(adjacency_matrix(sim_pu_polygons))
-  p <- problem(sim_pu_polygons, sim_features, "cost") %>%
-       add_min_set_objective() %>%
-       add_relative_targets(0.1)
-  # run tests
-  expect_error(add_contiguity_constraints(p, NA_logical_))
-  expect_error(add_contiguity_constraints(p, diag(1) + 1))
-  expect_error(add_contiguity_constraints(p, diag(1) - 2))
-  expect_error(add_contiguity_constraints(p, diag(1) - NA))
-  expect_error(add_contiguity_constraints(p, data = cm[-1, ]))
-  expect_error(add_contiguity_constraints(p, data = cm[, -1]))
-  expect_error(add_contiguity_constraints(p, data = cm + 1))
-  expect_error(add_contiguity_constraints(p, data = cm - 1))
-  expect_error(add_contiguity_constraints(p, data = `[<-`(cm, 1, 1, NA)))
+  expect_true(
+    is_single_patch_sf(s[s$solution_1_zone_1 == 1 | s$solution_1_zone_2 == 1, ])
+  )
+  expect_true(is_single_patch_sf(s[s$solution_1_zone_3 == 1, ]))
 })
 
 test_that("alternative data formats", {
@@ -257,16 +232,14 @@ test_that("alternative data formats", {
   m2 <- as_Matrix(m, "dgTMatrix")
   m2 <- data.frame(id1 = m2@i + 1, id2 = m2@j + 1, boundary = m2@x)
   # create problem
-  p0 <- problem(sim_pu_raster, sim_features) %>%
-        add_min_set_objective() %>%
-        add_relative_targets(0.45) %>%
-        add_binary_decisions()
-  p1 <- p0 %>%
-        add_contiguity_constraints(data = m)
-  p2 <- p0 %>%
-        add_contiguity_constraints(data = as.matrix(m))
-  p3 <- p0 %>%
-        add_contiguity_constraints(data = m2)
+  p0 <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.45) %>%
+    add_binary_decisions()
+  p1 <- p0 %>% add_contiguity_constraints(data = m)
+  p2 <- p0 %>% add_contiguity_constraints(data = as.matrix(m))
+  p3 <- p0 %>% add_contiguity_constraints(data = m2)
   # create objects
   o1 <- as.list(compile(p1))
   o2 <- as.list(compile(p2))
@@ -276,23 +249,54 @@ test_that("alternative data formats", {
   expect_equal(o1, o3)
 })
 
-test_that("invalid inputs (multiple zones)", {
+test_that("invalid inputs (single zone)", {
+  # load data
+  sim_pu_polygons <- get_sim_pu_polygons()
+  sim_features <- get_sim_features()
+  # create matrix
+  cm <- as.matrix(adjacency_matrix(sim_pu_polygons))
   # create problem
+  p <-
+    problem(sim_pu_polygons, sim_features, "cost") %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.1)
+  # tests
+  expect_error(add_contiguity_constraints(p, NA_logical_))
+  expect_error(add_contiguity_constraints(p, diag(1) + 1))
+  expect_error(add_contiguity_constraints(p, diag(1) - 2))
+  expect_error(add_contiguity_constraints(p, diag(1) - NA))
+  expect_error(add_contiguity_constraints(p, data = cm[-1, ]))
+  expect_error(add_contiguity_constraints(p, data = cm[, -1]))
+  expect_error(add_contiguity_constraints(p, data = cm + 1))
+  expect_error(add_contiguity_constraints(p, data = cm - 1))
+  expect_error(add_contiguity_constraints(p, data = `[<-`(cm, 1, 1, NA)))
+})
+
+test_that("invalid inputs (multiple zones)", {
+  # load data
   sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
   sim_zones_features <- get_sim_zones_features()
+  # create matrix
   cm <- as.matrix(adjacency_matrix(sim_zones_pu_polygons))
-  p <- problem(sim_zones_pu_polygons, sim_zones_features,
-               c("cost_1", "cost_2", "cost_3")) %>%
-       add_min_set_objective() %>%
-       add_relative_targets(matrix(0.2, nrow = 5, ncol = 3))
+  # create problem
+  p <-
+    problem(
+      sim_zones_pu_polygons, sim_zones_features,
+      c("cost_1", "cost_2", "cost_3")
+    ) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(matrix(0.2, nrow = 5, ncol = 3))
   # run tests
   expect_error(add_contiguity_constraints(p, NA))
   expect_error(add_contiguity_constraints(p, NULL))
   expect_error(add_contiguity_constraints(p, diag(3) + 1))
   expect_error(add_contiguity_constraints(p, diag(3) - 2))
   expect_error(add_contiguity_constraints(p, diag(3) - NA))
-  expect_error(add_contiguity_constraints(p, `[<-`(matrix(1, ncol = 3,
-                                                          nrow = 3), 3, 3, 0)))
+  expect_error(
+    add_contiguity_constraints(
+      p, `[<-`(matrix(1, ncol = 3, nrow = 3), 3, 3, 0)
+    )
+  )
   expect_error(add_contiguity_constraints(p, diag(3), cm[-1, ]))
   expect_error(add_contiguity_constraints(p, diag(3), cm[, -1]))
   expect_error(add_contiguity_constraints(p, diag(3), cm + 1))

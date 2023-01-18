@@ -391,11 +391,11 @@ integer_parameter_array <- function(name, value, label,
 #' @export
 numeric_parameter_array <- function(name, value, label,
                                     lower_limit = rep(
-                                      as.integer(-.Machine$double.max),
+                                      -.Machine$double.xmax,
                                       length(value)
                                     ),
                                     upper_limit = rep(
-                                      as.integer(.Machine$double.max),
+                                      .Machine$double.xmax,
                                       length(value)
                                     )) {
   assertthat::assert_that(

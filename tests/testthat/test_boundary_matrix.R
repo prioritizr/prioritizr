@@ -1,67 +1,182 @@
 context("boundary_matrix")
 
-test_that("SpatialPolygons (squares)", {
-  # data
-  d <- terra::rastToPolygons(terra::rast(matrix(0:8, byrow = TRUE,
-                                                      ncol = 3),
-                                               xmn = 0, xmx = 3, ymn = 0,
-                                               ymx = 3), n = 4)
+test_that("sf (squares)", {
+  # create data
+  d <- sf::st_as_sf(
+    terra::as.polygons(
+      terra::rast(
+        matrix(0:8, byrow = TRUE, ncol = 3),
+        ext = terra::ext(0, 3, 0, 3)
+      )
+    )
+  )
+  # create matrices
   x <- boundary_matrix(d)
   y <- triplet_sparse_matrix(
     i = c(0, 0, 0, 1, 1, 1, 2, 2, 3, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8) + 1,
     j = c(0, 1, 3, 1, 2, 4, 2, 5, 3, 4, 6, 5, 7, 5, 8, 6, 7, 7, 8, 8) + 1,
     x = c(2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 2),
-    symmetric = TRUE)
+    symmetric = TRUE
+  )
   # tests
   expect_is(x, "dsCMatrix")
   expect_true(all(x == y))
 })
 
-test_that("SpatialPolygons (hexagons)", {
-  # data
-  set.seed(401)
-  d <- sp::spsample(as(raster::extent(c(0, 5, 0, 5)), "SpatialPolygons"),
-                    type = "hexagonal", cellsize = 1 * sqrt(3))
-  d <- sp::HexPoints2SpatialPolygons(d)
+test_that("sf (hexagons)", {
+  # create data
+  d <- structure(list(geometry = structure(list(structure(list(structure(c(
+    0.268723672750073,
+    1.13474907653451, 2.00077448031895, 2.00077448031895, 1.13474907653451,
+    0.268723672750073, 0.268723672750073, 1.95862773503177, 2.45862773503177,
+    1.95862773503177, 0.958627735031769, 0.458627735031769, 0.958627735031769,
+    1.95862773503177
+  ), dim = c(7L, 2L), dimnames = list(NULL, c(
+    "x",
+    "y"
+  )))), class = c("XY", "POLYGON", "sfg")), structure(list(structure(c(
+    2.00077448031895,
+    2.86679988410339, 3.73282528788783, 3.73282528788783, 2.86679988410339,
+    2.00077448031895, 2.00077448031895, 1.95862773503177, 2.45862773503177,
+    1.95862773503177, 0.958627735031769, 0.458627735031769, 0.958627735031769,
+    1.95862773503177
+  ), dim = c(7L, 2L), dimnames = list(NULL, c(
+    "x",
+    "y"
+  )))), class = c("XY", "POLYGON", "sfg")), structure(list(structure(c(
+    3.73282528788783,
+    4.59885069167227, 5.4648760954567, 5.4648760954567, 4.59885069167227,
+    3.73282528788783, 3.73282528788783, 1.95862773503177, 2.45862773503177,
+    1.95862773503177, 0.958627735031769, 0.458627735031769, 0.958627735031769,
+    1.95862773503177
+  ), dim = c(7L, 2L), dimnames = list(NULL, c(
+    "x",
+    "y"
+  )))), class = c("XY", "POLYGON", "sfg")), structure(list(structure(c(
+    1.13474907653451,
+    2.00077448031895, 2.86679988410339, 2.86679988410339, 2.00077448031895,
+    1.13474907653451, 1.13474907653451, 3.45862773503177, 3.95862773503177,
+    3.45862773503177, 2.45862773503177, 1.95862773503177, 2.45862773503177,
+    3.45862773503177
+  ), dim = c(7L, 2L), dimnames = list(NULL, c(
+    "x",
+    "y"
+  )))), class = c("XY", "POLYGON", "sfg")), structure(list(structure(c(
+    2.86679988410339,
+    3.73282528788783, 4.59885069167227, 4.59885069167227, 3.73282528788783,
+    2.86679988410339, 2.86679988410339, 3.45862773503177, 3.95862773503177,
+    3.45862773503177, 2.45862773503177, 1.95862773503177, 2.45862773503177,
+    3.45862773503177
+  ), dim = c(7L, 2L), dimnames = list(NULL, c(
+    "x",
+    "y"
+  )))), class = c("XY", "POLYGON", "sfg")), structure(list(structure(c(
+    0.268723672750073,
+    1.13474907653451, 2.00077448031895, 2.00077448031895, 1.13474907653451,
+    0.268723672750073, 0.268723672750073, 4.95862773503177, 5.45862773503177,
+    4.95862773503177, 3.95862773503177, 3.45862773503177, 3.95862773503177,
+    4.95862773503177
+  ), dim = c(7L, 2L), dimnames = list(NULL, c(
+    "x",
+    "y"
+  )))), class = c("XY", "POLYGON", "sfg")), structure(list(structure(c(
+    2.00077448031895,
+    2.86679988410339, 3.73282528788783, 3.73282528788783, 2.86679988410339,
+    2.00077448031895, 2.00077448031895, 4.95862773503177, 5.45862773503177,
+    4.95862773503177, 3.95862773503177, 3.45862773503177, 3.95862773503177,
+    4.95862773503177
+  ), dim = c(7L, 2L), dimnames = list(NULL, c(
+    "x",
+    "y"
+  )))), class = c("XY", "POLYGON", "sfg")), structure(list(structure(c(
+    3.73282528788783,
+    4.59885069167227, 5.4648760954567, 5.4648760954567, 4.59885069167227,
+    3.73282528788783, 3.73282528788783, 4.95862773503177, 5.45862773503177,
+    4.95862773503177, 3.95862773503177, 3.45862773503177, 3.95862773503177,
+    4.95862773503177
+  ), dim = c(7L, 2L), dimnames = list(NULL, c(
+    "x",
+    "y"
+  )))), class = c("XY", "POLYGON", "sfg"))), class = c(
+    "sfc_POLYGON",
+    "sfc"
+  ), precision = 0, bbox = structure(c(
+    xmin = 0.268723672750073,
+    ymin = 0.458627735031769, xmax = 5.4648760954567, ymax = 5.45862773503177
+  ), class = "bbox"), crs = structure(list(
+    input = NA_character_,
+    wkt = NA_character_
+  ), class = "crs"), n_empty = 0L)), row.names = c(
+    NA,
+    8L
+  ), class = c("sf", "data.frame"), sf_column = "geometry", agr = structure(integer(0), class = "factor", levels = c(
+    "constant",
+    "aggregate", "identity"
+  ), names = character(0)))
+  d$id <- seq_len(nrow(d))
+  # create matrices
   x <- boundary_matrix(d)
   y <- Matrix::sparseMatrix(
     i = c(0, 0, 0, 1, 1, 1, 1, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5, 6, 6, 7),
     j = c(0, 1, 3, 1, 2, 3, 4, 2, 4, 3, 4, 5, 6, 4, 6, 7, 5, 6, 6, 7, 7),
     x = c(4, 1, 1, 2, 1, 1, 1, 4, 1, 1, 1, 1, 1, 1, 1, 1, 4, 1, 2, 1, 4),
-    index1 = FALSE, symmetric = TRUE)
+    index1 = FALSE,
+    symmetric = TRUE
+  )
   # tests
   expect_is(x, "dsCMatrix")
   expect_lte(max(abs(x - y)), 1e-8)
 })
 
-test_that("SpatialPolygons (real data - simple shapes)", {
-  skip_if_not_installed("prioritizrdata")
-  # load data
-  data(tas_pu, package = "prioritizrdata")
+test_that("sf (lines)", {
+  # create data
+  d <- get_sim_pu_lines()
+  # tests
+  expect_error(boundary_matrix(d), "no boundaries")
+})
+
+test_that("sf (points)", {
+  # data
+  d <- get_sim_pu_points()
+  # tests
+  expect_error(boundary_matrix(d), "no boundaries")
+})
+
+test_that("sf (simple shapes)", {
+  skip_if_not_installed("prioritizrdata", minimum_version = "3.0.0")
+  # create data
+  tas_pu <- prioritizrdata::get_tas_pu()
   d <- tas_pu[c(300, 279), ]
+  # create matrices
   x <- boundary_matrix(d)
   # calculate total length
   d2 <- sf::st_geometry(sf::st_cast(sf::st_as_sf(d), "MULTILINESTRING"))
   total_length <- as.numeric(sf::st_length(d2))
   shared_length <- as.numeric(
-    sf::st_length(sf::st_intersection(d2[[1]], d2[[2]])))
+    sf::st_length(sf::st_intersection(d2[[1]], d2[[2]]))
+  )
   # make correct matrix
   y <- Matrix::sparseMatrix(
     i = c(0, 0, 1),
     j = c(0, 1, 1),
-    x = c(total_length[1] - shared_length, shared_length,
-          total_length[2] - shared_length),
-    index1 = FALSE, symmetric = TRUE)
+    x = c(
+      total_length[1] - shared_length, shared_length,
+      total_length[2] - shared_length
+    ),
+    index1 = FALSE,
+    symmetric = TRUE
+  )
   # tests
   expect_is(x, "dsCMatrix")
   expect_lte(max(abs(x - y)), 1e-8)
 })
 
-test_that("SpatialPolygons (real data - complex shapes)", {
-  skip_if_not_installed("prioritizrdata")
-  # load data
-  data(tas_pu, package = "prioritizrdata")
+test_that("sf (complex shapes)", {
+  skip_if_not_installed("prioritizrdata", minimum_version = "3.0.0")
+  # create data
+  tas_pu <- prioritizrdata::get_tas_pu()
   d <- tas_pu[c(2, 4), ]
+  # create matrices
   x <- boundary_matrix(d)
   # calculate total length
   d2 <- sf::st_geometry(sf::st_cast(sf::st_as_sf(d), "MULTILINESTRING"))
@@ -74,190 +189,136 @@ test_that("SpatialPolygons (real data - complex shapes)", {
     j = c(0, 1, 1),
     x = c(total_length[1] - shared_length, shared_length,
           total_length[2] - shared_length),
-    index1 = FALSE, symmetric = TRUE)
+    index1 = FALSE,
+    symmetric = TRUE
+  )
   # tests
   expect_is(x, "dsCMatrix")
   expect_lte(max(abs(x - y)), 1e-8)
 })
 
-test_that("SpatialPolygons (vertices not aligned)", {
+test_that("sf (vertices not aligned)", {
   # data
-  d <- raster::spPolygons(
-    matrix(c(0,  0, 3,  3,  0, -1, 1, 1, -1, -1), ncol = 2),
-    matrix(c(0, 0, 3, 3, 0, 1, 3, 3, 1, 1), ncol = 2),
-    matrix(c(3, 3, 5, 5, 3, 0, 3, 3, 0, 0), ncol = 2))
-  # make boundary matrix
+  d <- sf::st_sf(
+    geometry = sf::st_sfc(
+      sf::st_polygon(
+        list(matrix(c(0,  0, 3,  3,  0, -1, 1, 1, -1, -1), ncol = 2))
+      ),
+      sf::st_polygon(
+        list(matrix(c(0, 0, 3, 3, 0, 1, 3, 3, 1, 1), ncol = 2))
+      ),
+      sf::st_polygon(
+        list(matrix(c(3, 3, 5, 5, 3, 0, 3, 3, 0, 0), ncol = 2))
+      )
+    )
+  )
+  # make boundary matrices
   x <- boundary_matrix(d)
   # make correct matrix
   d2 <- sf::st_geometry(sf::st_cast(sf::st_as_sf(d), "MULTILINESTRING"))
   y <- matrix(nrow = 3, ncol = 3)
   for (i in seq_len(3)) {
     for (j in seq_len(3)) {
-      if (i != j)
-        y[i, j] <-
-          as.numeric(sf::st_length(sf::st_intersection(d2[[i]], d2[[j]])))
+      if (i != j) {
+        y[i, j] <- as.numeric(
+          sf::st_length(sf::st_intersection(d2[[i]], d2[[j]]))
+        )
+      }
     }
   }
   total_length <- as.numeric(sf::st_length(d2))
-  diag(y) <- total_length - rowSums(y, na.rm = TRUE)
+  diag(y) <- total_length - Matrix::rowSums(y, na.rm = TRUE)
   y <- Matrix::Matrix(y, sparse = TRUE)
   # tests
   expect_is(x, "dsCMatrix")
   expect_lte(max(abs(x - y)), 1e-8)
 })
 
-test_that("sf (squares)", {
-  # data
-  d <- terra::rastToPolygons(terra::rast(
-    matrix(0:8, byrow = TRUE, ncol = 3),
-    xmn = 0, xmx = 3, ymn = 0, ymx = 3), n = 4)
+test_that("SpatRaster (single layer)", {
+  # create data
+  d <- terra::rast(
+    matrix(c(NA, 2:9), ncol = 3),
+    ext = terra::ext(0, 6, 0, 3)
+  )
   # create matrices
   x <- boundary_matrix(d)
-  y <- boundary_matrix(sf::st_as_sf(d))
-  # tests
-  expect_is(x, "dsCMatrix")
-  expect_is(y, "dsCMatrix")
-  expect_true(all(x == y))
-})
-
-test_that("sf (hexagons)", {
-  # data
-  set.seed(401)
-  d <- sp::spsample(as(raster::extent(c(0, 5, 0, 5)), "SpatialPolygons"),
-                    type = "hexagonal", cellsize = 1 * sqrt(3))
-  d <- sp::HexPoints2SpatialPolygons(d)
-  # create matrices
-  x <- boundary_matrix(d)
-  y <- boundary_matrix(sf::st_as_sf(d))
-  # tests
-  expect_is(x, "dsCMatrix")
-  expect_is(y, "dsCMatrix")
-  expect_lte(max(abs(x - y)), 1e-8)
-})
-
-test_that("sf (real data - simple shapes)", {
-  skip_if_not_installed("prioritizrdata")
-  # load data
-  data(tas_pu, package = "prioritizrdata")
-  d <- sf::st_as_sf(tas_pu[c(300, 279), ])
-  # create matrices
-  x <- boundary_matrix(d)
-  y <- boundary_matrix(sf::as_Spatial(d))
-  # tests
-  expect_is(x, "dsCMatrix")
-  expect_is(y, "dsCMatrix")
-  expect_lte(max(abs(x - y)), 1e-8)
-})
-
-test_that("sf (real data - complex shapes)", {
-  skip_if_not_installed("prioritizrdata")
-  # load data
-  data(tas_pu, package = "prioritizrdata")
-  d <- tas_pu[c(2, 4), ]
-  # create matrices
-  x <- boundary_matrix(d)
-  y <- boundary_matrix(sf::st_as_sf(d))
-  # tests
-  expect_is(x, "dsCMatrix")
-  expect_is(y, "dsCMatrix")
-  expect_lte(max(abs(x - y)), 1e-8)
-})
-
-test_that("sf (vertices not aligned)", {
-  # data
-  d <- raster::spPolygons(
-    matrix(c(0,  0, 3,  3,  0, -1, 1, 1, -1, -1), ncol = 2),
-    matrix(c(0, 0, 3, 3, 0, 1, 3, 3, 1, 1), ncol = 2),
-    matrix(c(3, 3, 5, 5, 3, 0, 3, 3, 0, 0), ncol = 2))
-
-  # create matrices
-  x <- boundary_matrix(d)
-  y  <- boundary_matrix(sf::st_as_sf(d))
-  # tests
-  expect_is(x, "dsCMatrix")
-  expect_is(y, "dsCMatrix")
-  expect_lte(max(abs(x - y)), 1e-8)
-})
-
-
-test_that("RasterLayer", {
-  # data
-  d <- terra::rast(matrix(c(NA, 2:9), ncol = 3),
-               xmn = 0, ymn = 0, xmx = 6, ymx = 3)
-  x <- boundary_matrix(d)
-  y <- boundary_matrix(terra::rastToPolygons(d, n = 4))
+  # create correct matrix
+  y <- boundary_matrix(sf::st_as_sf(terra::as.polygons(d)))
   y <- cbind(0, y)
   y <- rbind(0, y)
   # tests
   expect_is(x, "dsCMatrix")
-  expect_is(y, "dgCMatrix")
   expect_true(all(x == y))
 })
 
-test_that("RasterStack", {
-  # data
-  d <- terra::rast(matrix(c(NA, 2:9), ncol = 3),
-                      xmn = 0, ymn = 0, xmx = 6, ymx = 3)
-  d <- stack(d, d, d)
+test_that("SpatRaster (multiple layer)", {
+  # create data
+  d <- terra::rast(
+    matrix(c(NA, 2:9), ncol = 3),
+    ext = terra::ext(0, 6, 0, 3)
+  )
+  d <- terra::rast(list(d, d, d))
   d[[1]][2] <- NA
+  # create matrices
   x <- boundary_matrix(d)
-  y <- boundary_matrix(terra::rastToPolygons(d[[2]], n = 4))
+  # create correct matrix
+  y <- boundary_matrix(sf::st_as_sf(terra::as.polygons(d[[2]])))
   y <- cbind(0, y)
   y <- rbind(0, y)
   # tests
   expect_is(x, "dsCMatrix")
-  expect_is(y, "dgCMatrix")
   expect_true(all(x == y))
 })
 
-test_that("SpatialLines", {
-  # data
-  d <- sp::SpatialLines(list(
-    sp::Lines(ID = "1", list(sp::Line(matrix(
-      c(
-      0, 0,
-      1, 1,
-      2, 2), ncol = 2, byrow = TRUE)))),
-    sp::Lines(ID = "2", list(sp::Line(matrix(
-      c(
-      2, 2,
-      3, 3,
-      4, 4), ncol = 2, byrow = TRUE)))),
-    sp::Lines(ID = "3", list(sp::Line(matrix(
-      c(
-      5, 5,
-      7, 7), ncol = 2, byrow = TRUE))))))
-  # tests
-  expect_error(boundary_matrix(d))
+test_that("Spatial", {
+  # polygons
+  x <- boundary_matrix(get_sim_pu_polygons())
+  expect_warning(
+    y <- boundary_matrix(sf::as_Spatial(get_sim_pu_polygons())),
+    "deprecated"
+  )
+  expect_is(x, "dsCMatrix")
+  expect_is(y, "dsCMatrix")
+  expect_true(all(x == y))
+  # lines
+  expect_error(
+    suppressWarnings(
+      boundary_matrix(sf::as_Spatial(get_sim_pu_lines()))
+    )
+  )
+  # points
+  expect_error(
+    suppressWarnings(
+      boundary_matrix(sf::as_Spatial(get_sim_pu_points()))
+    )
+  )
 })
 
-test_that("SpatialPoints", {
-  # data
-  d <- sp::SpatialPoints(coords = matrix(runif(10), ncol = 2))
-  # tests
-  expect_error(boundary_matrix(d))
+test_that("Raster", {
+  # RasterLayer
+  x <- boundary_matrix(get_sim_pu_raster())
+  expect_warning(
+    y <- boundary_matrix(raster::raster(get_sim_pu_raster())),
+    "deprecated"
+  )
+  expect_is(x, "dsCMatrix")
+  expect_is(y, "dsCMatrix")
+  expect_true(all(x == y))
+  # RasterStack
+  r <- c(get_sim_pu_raster(), get_sim_pu_raster())
+  r[[1]][2] <- NA
+  x <- boundary_matrix(r)
+  expect_warning(
+    y <- boundary_matrix(raster::stack(r)),
+    "deprecated"
+  )
+  expect_is(x, "dsCMatrix")
+  expect_is(y, "dsCMatrix")
+  expect_true(all(x == y))
 })
 
 test_that("invalid inputs", {
   expect_error(boundary_matrix(iris), "spatial format")
-  expect_error(
-    boundary_matrix(
-      sf::st_sf(
-        id = 1,
-        geometry = sf::st_sfc(sf::st_point(c(1, 2)))
-      )
-    ),
-    "no boundaries"
-  )
-  expect_error(
-    boundary_matrix(
-      sf::st_sf(
-        id = 1,
-        geometry = sf::st_sfc(sf::st_linestring(matrix(1:15, , 3)))
-      )
-    ),
-    "no boundaries"
-  )
   expect_error(
     boundary_matrix(
       sf::st_sf(

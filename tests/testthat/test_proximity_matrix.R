@@ -1,10 +1,14 @@
-context("proximity matrix")
+context("proximity_matrix")
 
-test_that("RasterLayer (adjacent non-NA pixels are proximal)", {
-  # data
-  x <- terra::rast(matrix(c(NA, 2:9), ncol = 3),
-                      xmn = 0, ymn = 0, xmx = 3, ymx = 3)
+test_that("SpatRaster (adjacent non-NA pixels are proximal)", {
+  # create data
+  x <- terra::rast(
+    matrix(c(NA, 2:9), ncol = 3),
+    extent = terra::ext(0, 3, 0, 3)
+  )
+  # create matrix
   m <- proximity_matrix(x, distance = 1)
+  # calculate correct results
   s <- boundary_matrix(x)
   s[s > 0] <- 1
   Matrix::diag(s) <- 0
@@ -14,11 +18,15 @@ test_that("RasterLayer (adjacent non-NA pixels are proximal)", {
   expect_true(all(m == s))
 })
 
-test_that("RasterLayer (all non-NA pixels are proximal)", {
-  # data
-  x <- terra::rast(matrix(c(NA, 2:8, NA), byrow = TRUE, ncol = 3),
-                      xmn = 0, xmx = 3, ymn = 0, ymx = 3)
+test_that("SpatRaster (all non-NA pixels are proximal)", {
+  # create data
+  x <- terra::rast(
+    matrix(c(NA, 2:8, NA), byrow = TRUE, ncol = 3),
+    extent = terra::ext(0, 3, 0, 3)
+  )
+  # create matrix
   m <- proximity_matrix(x, distance = 100)
+  # create correct results
   s <- matrix(1, ncol = 9, nrow = 9)
   diag(s) <- 0
   s[, 1] <- 0
@@ -31,44 +39,38 @@ test_that("RasterLayer (all non-NA pixels are proximal)", {
   expect_equal(s, m)
 })
 
-test_that("RasterLayer (none are proximal)", {
-  # data
-  x <- terra::rast(matrix(c(NA, 2:8, NA), byrow = TRUE, ncol = 3),
-                      xmn = 0, xmx = 3, ymn = 0, ymx = 3)
-  m <- proximity_matrix(x, distance = 1e-3)
-  s <- Matrix::sparseMatrix(i = integer(0), j = integer(0),
-                            x = numeric(0), dims = c(2, 2))
-  s <- as(s, "symmetricMatrix")
-  m <- proximity_matrix(sim_pu_polygons[c(1, 3), ], distance = 0.01)
-  # tests
-  expect_equal(s, m)
-})
-
-test_that("RasterLayer (all polygons are proximal)", {
-  # data
-  x <- terra::rast(matrix(0:8, byrow = TRUE, ncol = 3),
-                      xmn = 0, xmx = 3, ymn = 0, ymx = 3)
-  x <- terra::rastToPolygons(x, n = 4)
-  m <- proximity_matrix(x, distance = 100)
-  s <- matrix(1, ncol = 9, nrow = 9)
-  diag(s) <- 0
-  s <- as(as_Matrix(s, "dgCMatrix"), "symmetricMatrix")
-  # tests
-  expect_true(inherits(m, "dsCMatrix"))
-  expect_equal(s, m)
-})
-
-test_that("RasterLayer (multiple layers)", {
-  # data
+test_that("SpatRaster (none are proximal)", {
+  # create data
   x <- terra::rast(
+    matrix(c(NA, 2:8, NA), byrow = TRUE, ncol = 3),
+    extent = terra::ext(0, 3, 0, 3)
+  )
+  # create matrix
+  m <- proximity_matrix(x, distance = 1e-3)
+  # create correct results
+  s <- Matrix::sparseMatrix(
+    i = integer(0), j = integer(0), x = numeric(0), dims = c(9, 9)
+  )
+  s <- as(s, "symmetricMatrix")
+  # tests
+  expect_equal(s, m)
+})
+
+test_that("SpatRaster (multiple layers)", {
+  # create data
+  x <- c(
     terra::rast(
-      matrix(c(NA, NA, 3:9), ncol = 3), xmn = 0, ymn = 0, xmx = 3, ymx = 3
+      matrix(c(NA, NA, 3:9), ncol = 3),
+      extent = terra::ext(0, 3, 0, 3)
     ),
     terra::rast(
-      matrix(c(NA, 2:9), ncol = 3), xmn = 0, ymn = 0, xmx = 3, ymx = 3
+      matrix(c(NA, 2:9), ncol = 3),
+      extent = terra::ext(0, 3, 0, 3)
     )
   )
+  # create matrix
   m <- proximity_matrix(x, distance = 1)
+  # calculate correct result
   s <- boundary_matrix(x)
   s[s > 0] <- 1
   Matrix::diag(s) <- 0
@@ -81,24 +83,16 @@ test_that("RasterLayer (multiple layers)", {
   expect_gt(min(Matrix::rowSums(m)[-1]), 0)
 })
 
-test_that("SpatialPolygons (adjacent polygons are proximal)", {
-  # data
-  x <- terra::rast(matrix(0:8, byrow = TRUE, ncol = 3),
-                      xmn = 0, xmx = 3, ymn = 0, ymx = 3)
-  x <- terra::rastToPolygons(x, n = 4)
-  s <- adjacency_matrix(x)
-  m <- proximity_matrix(x, distance = 0.1)
-  # tests
-  expect_true(inherits(m, "dsCMatrix"))
-  expect_equal(s, m)
-})
-
-test_that("SpatialPolygons (all polygons are proximal)", {
-  # data
-  x <- terra::rast(matrix(0:8, byrow = TRUE, ncol = 3),
-                      xmn = 0, xmx = 3, ymn = 0, ymx = 3)
-  x <- terra::rastToPolygons(x, n = 4)
+test_that("sf (all polygons are proximal)", {
+  # create data
+  x <- terra::rast(
+    matrix(0:8, byrow = TRUE, ncol = 3),
+    extent = terra::ext(0, 3, 0, 3)
+  )
+  x <- sf::st_as_sf(terra::as.polygons(x))
+  # calculate matrix
   m <- proximity_matrix(x, distance = 100)
+  # create correct matrix
   s <- matrix(1, ncol = 9, nrow = 9)
   diag(s) <- 0
   s <- as(as_Matrix(s, "dgCMatrix"), "symmetricMatrix")
@@ -107,33 +101,32 @@ test_that("SpatialPolygons (all polygons are proximal)", {
   expect_equal(s, m)
 })
 
-test_that("SpatialPolygons (no polygons are proximal)", {
-  sim_pu_polygons <- get_sim_pu_polygons()
-  s <- Matrix::sparseMatrix(i = integer(0), j = integer(0),
-                            x = numeric(0), dims = c(2, 2))
-  s <- as(s, "symmetricMatrix")
-  m <- proximity_matrix(sim_pu_polygons[c(1, 3), ], distance = 0.01)
-  expect_equal(s, m)
-})
-
 test_that("sf (adjacent polygons are proximal)", {
-  # data
-  x <- terra::rast(matrix(0:8, byrow = TRUE, ncol = 3),
-                      xmn = 0, xmx = 3, ymn = 0, ymx = 3)
-  x <- sf::st_as_sf(terra::rastToPolygons(x, n = 4))
-  s <- adjacency_matrix(x)
+  # create data
+  x <- terra::rast(
+    matrix(0:8, byrow = TRUE, ncol = 3),
+    extent = terra::ext(0, 3, 0, 3)
+  )
+  x <- sf::st_as_sf(terra::as.polygons(x))
+  # calculate matrix
   m <- proximity_matrix(x, distance = 0.1)
+  # calculate correct result
+  s <- adjacency_matrix(x)
   # tests
   expect_true(inherits(m, "dsCMatrix"))
   expect_equal(s, m)
 })
 
 test_that("sf (all polygons are proximal)", {
-  # data
-  x <- terra::rast(matrix(0:8, byrow = TRUE, ncol = 3),
-                      xmn = 0, xmx = 3, ymn = 0, ymx = 3)
-  x <- sf::st_as_sf(terra::rastToPolygons(x, n = 4))
+  # create data
+  x <- terra::rast(
+    matrix(0:8, byrow = TRUE, ncol = 3),
+    extent = terra::ext(0, 3, 0, 3)
+  )
+  x <- sf::st_as_sf(terra::as.polygons(x))
+  # create matrix
   m <- proximity_matrix(x, distance = 100)
+  # create correct result
   s <- matrix(1, ncol = 9, nrow = 9)
   diag(s) <- 0
   s <- as(as_Matrix(s, "dgCMatrix"), "symmetricMatrix")
@@ -143,92 +136,197 @@ test_that("sf (all polygons are proximal)", {
 })
 
 test_that("sf (no polygons are proximal)", {
+  # import data
   sim_pu_polygons <- get_sim_pu_polygons()
-  x <- st_as_sf(sim_pu_polygons[c(1, 3), ])
-  s <- Matrix::sparseMatrix(i = integer(0), j = integer(0),
-                            x = numeric(0), dims = c(2, 2))
+  # create matrix
+  m <- proximity_matrix(sim_pu_polygons[c(1, 3), ], distance = 0.01)
+  # calculate correct result
+  s <- Matrix::sparseMatrix(
+    i = integer(0), j = integer(0), x = numeric(0), dims = c(2, 2)
+  )
   s <- as(s, "symmetricMatrix")
-  m <- proximity_matrix(x, distance = 0.01)
+  # tests
   expect_equal(s, m)
 })
 
-test_that("SpatialLines (intersecting lines are proximal)", {
-  # data
-  x <- sp::SpatialLines(list(
-    sp::Lines(ID = "1", list(sp::Line(matrix(
-      c(
-      0, 0,
-      1, 1,
-      2, 2), ncol = 2, byrow = TRUE)))),
-    sp::Lines(ID = "2", list(sp::Line(matrix(
-      c(
-      2, 2,
-      3, 3,
-      4, 4), ncol = 2, byrow = TRUE)))),
-    sp::Lines(ID = "3", list(sp::Line(matrix(
-      c(
-      5, 5,
-      7, 7), ncol = 2, byrow = TRUE)))),
-    sp::Lines(ID = "4", list(sp::Line(matrix(
-      c(
-      0, 1,
-      4, 1), ncol = 2, byrow = TRUE))))))
+test_that("sf (adjacent polygons are proximal)", {
+  # create data
+  x <- terra::rast(
+    matrix(0:8, byrow = TRUE, ncol = 3),
+    extent = terra::ext(0, 3, 0, 3)
+  )
+  x <- sf::st_as_sf(terra::as.polygons(x))
+  # create matrix
+  m <- proximity_matrix(x, distance = 0.1)
+  # calculate correct results
+  s <- adjacency_matrix(x)
+  # tests
+  expect_true(inherits(m, "dsCMatrix"))
+  expect_equal(s, m)
+})
+
+test_that("sf (all polygons are proximal)", {
+  # create data
+  x <- terra::rast(
+    matrix(0:8, byrow = TRUE, ncol = 3),
+    extent = terra::ext(0, 3, 0, 3)
+  )
+  x <- sf::st_as_sf(terra::as.polygons(x))
+  # create matrix
+  m <- proximity_matrix(x, distance = 100)
+  # create correct result
+  s <- matrix(1, ncol = 9, nrow = 9)
+  diag(s) <- 0
+  s <- as(as_Matrix(s, "dgCMatrix"), "symmetricMatrix")
+  # tests
+  expect_true(inherits(m, "dsCMatrix"))
+  expect_equal(s, m)
+})
+
+test_that("sf (intersecting lines are proximal)", {
+  # create data
+  x <- sf::st_as_sf(
+    tibble::tibble(
+      geometry = sf::st_sfc(
+        sf::st_linestring(
+          matrix(
+            c(
+              0, 0,
+              1, 1,
+              2, 2
+            ),
+            ncol = 2, byrow = TRUE
+          )
+        ),
+        sf::st_linestring(
+          matrix(
+            c(
+              2, 2,
+              3, 3,
+              4, 4
+            ),
+            ncol = 2, byrow = TRUE
+          )
+        ),
+        sf::st_linestring(
+          matrix(
+            c(
+              5, 5,
+              7, 7
+            ),
+            ncol = 2, byrow = TRUE
+          )
+        ),
+        sf::st_linestring(
+          matrix(
+            c(
+              0, 1,
+              4, 1
+            ),
+            ncol = 2, byrow = TRUE
+          )
+        )
+      )
+    )
+  )
+  # create matrix
   m <- proximity_matrix(x, distance = 1e-3)
+  # create correct matrix
   s <- Matrix::sparseMatrix(
     i = c(1, 1),
     j = c(2, 4),
     x = c(1, 1),
-    dims = c(4, 4), symmetric = TRUE)
+    dims = c(4, 4),
+    symmetric = TRUE
+  )
   # tests
   expect_true(inherits(m, "dsCMatrix"))
   expect_equal(s, m)
 })
 
-test_that("SpatialLines (no proximal lines)", {
+test_that("sf (no proximal lines)", {
+  # import data
   sim_pu_lines <- get_sim_pu_lines()
+  # create data
   x <- sim_pu_lines[c(1, 3), ]
+  # create matrix
   m <- proximity_matrix(x, distance = 1e-3)
-  s <- Matrix::sparseMatrix(i = integer(0), j = integer(0),
-                            x = numeric(0), dims = c(2, 2))
+  # create correct matrix
+  s <- Matrix::sparseMatrix(
+    i = integer(0), j = integer(0), x = numeric(0), dims = c(2, 2)
+  )
   s <- as(s, "symmetricMatrix")
+  # tests
   expect_equal(s, m)
 })
 
-test_that("SpatialPoints (some points are proximal)", {
-  # data
-  r <- terra::rast(matrix(0:8, byrow = TRUE, ncol = 3),
-                      xmn = 0, xmx = 3, ymn = 0, ymx = 3)
-  x <- suppressWarnings({
-    sf::as_Spatial(
-      sf::st_centroid(sf::st_as_sf(terra::rastToPolygons(r, n = 4)))
-    )
-  })
-  s <- adjacency_matrix(r)
+test_that("sf (some points are proximal)", {
+  # create data
+  r <- terra::rast(
+    matrix(0:8, byrow = TRUE, ncol = 3),
+    extent = terra::ext(0, 3, 0, 3)
+  )
+  x <- suppressWarnings(sf::st_centroid(sf::st_as_sf(terra::as.polygons(r))))
+  # create matrix
   m <- proximity_matrix(x, distance = 1.0)
+  # calculate correct result
+  s <- adjacency_matrix(r)
   # tests
   expect_true(inherits(m, "dsCMatrix"))
   expect_equal(s, m)
 })
 
-test_that("SpatialPoints (no points are proximal)", {
-  # data
-  r <- terra::rast(matrix(0:8, byrow = TRUE, ncol = 3),
-                      xmn = 0, xmx = 3, ymn = 0, ymx = 3)
-  x <- suppressWarnings({
-    sf::as_Spatial(
-      sf::st_centroid(sf::st_as_sf(terra::rastToPolygons(r, n = 4)))
-    )
-  })
+test_that("sf (no points are proximal)", {
+  # create data
+  r <- terra::rast(
+    matrix(0:8, byrow = TRUE, ncol = 3),
+    extent = terra::ext(0, 3, 0, 3)
+  )
+  x <- suppressWarnings(sf::st_centroid(sf::st_as_sf(terra::as.polygons(r))))
+  # create matrix
   m <- proximity_matrix(x, distance = 1e-3)
-  s <- Matrix::sparseMatrix(i = integer(0), j = integer(0),
-                            x = numeric(0), dims = c(9, 9))
+  # create correct result
+  s <- Matrix::sparseMatrix(
+    i = integer(0), j = integer(0), x = numeric(0), dims = c(9, 9)
+  )
   s <- as(s, "symmetricMatrix")
   # tests
   expect_true(inherits(m, "dsCMatrix"))
   expect_equal(s, m)
+})
+
+test_that("Spatial", {
+  # import data
+  sim_pu_polygons <- get_sim_pu_polygons()
+  # create matrices
+  x <- proximity_matrix(sim_pu_polygons, 2)
+  y <- proximity_matrix(sf::as_Spatial(sim_pu_polygons), 2)
+  # tests
+  expect_equal(x, y)
+})
+
+test_that("Raster (single layer)", {
+  # import data
+  sim_pu_raster <- get_sim_pu_raster()
+  # create matrices
+  x <- proximity_matrix(sim_pu_raster, 2)
+  y <- proximity_matrix(raster::raster(sim_pu_raster), 2)
+  # tests
+  expect_equal(x, y)
+})
+
+test_that("Raster (multiple layers)", {
+  # import data
+  sim_features <- get_sim_features()
+  # create matrices
+  x <- proximity_matrix(sim_features, 2)
+  y <- proximity_matrix(raster::stack(sim_features), 2)
+  # tests
+  expect_equal(x, y)
 })
 
 test_that("invalid input", {
+  # create data
   x <- sf::st_sf(
     id = c(1, 2),
     geom = sf::st_sfc(
@@ -241,6 +339,13 @@ test_that("invalid input", {
       )
     )
   )
-  expect_error(proximity_matrix(x, 2))
-  expect_error(proximity_matrix(4, 1))
+  # tests
+  expect_error(
+    proximity_matrix(x, 2),
+    "geometry collection data are not supported"
+  )
+  expect_error(
+    proximity_matrix(4, 1),
+    "data are not stored in a spatial format"
+  )
 })

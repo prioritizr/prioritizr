@@ -24,8 +24,8 @@ numeric_parameter_array(
   name,
   value,
   label,
-  lower_limit = rep(as.integer(-.Machine$double.max), length(value)),
-  upper_limit = rep(as.integer(.Machine$double.max), length(value))
+  lower_limit = rep(-.Machine$double.xmax, length(value)),
+  upper_limit = rep(.Machine$double.xmax, length(value))
 )
 }
 \arguments{

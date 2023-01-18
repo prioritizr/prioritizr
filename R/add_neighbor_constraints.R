@@ -264,7 +264,7 @@ methods::setMethod("add_neighbor_constraints",
         binary_matrix_parameter("zones", zones, symmetric = FALSE)
       ),
       calculate = function(self, x) {
-        assertthat::assert_that(inherits(x, "ConservationProblem"))
+        assertthat::assert_that(is_conservation_problem(x))
         # generate adjacency matrix if null
         if (is.Waiver(self$get_data("matrix"))) {
           # create matrix

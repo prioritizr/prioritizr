@@ -4,18 +4,22 @@ test_that("compile", {
   skip_if_not_installed("gurobi")
   # create data
   cost <- terra::rast(matrix(c(1, 2, 2, NA), ncol = 4))
-  features <- terra::rast(terra::rast(matrix(c(2, 1, 1, 0), ncol = 4)),
-                            terra::rast(matrix(c(10, 10, 10, 10), ncol = 4)))
+  features <- c(
+    terra::rast(matrix(c(2, 1, 1, 0), ncol = 4)),
+    terra::rast(matrix(c(10, 10, 10, 10), ncol = 4))
+  )
+  names(features) <- make.unique(names(features))
   # create problem
-  p <- problem(cost, features) %>%
-       add_min_set_objective() %>%
-       add_absolute_targets(c(2, 10)) %>%
-       add_extra_portfolio() %>%
-       add_default_solver(gap = 0.2, verbose = FALSE)
+  p <-
+    problem(cost, features) %>%
+    add_min_set_objective() %>%
+    add_absolute_targets(c(2, 10)) %>%
+    add_extra_portfolio() %>%
+    add_default_solver(gap = 0.2, verbose = FALSE)
   # compile problem
-  cmp <- compile(p)
+  o <- compile(p)
   # tests
-  expect_is(cmp, "OptimizationProblem")
+  expect_is(o, "OptimizationProblem")
 })
 
 test_that("solve (single zone)", {
@@ -23,51 +27,68 @@ test_that("solve (single zone)", {
   skip_if_not_installed("gurobi")
   # create data
   cost <- terra::rast(matrix(c(1, 2, 2, NA), ncol = 4))
-  features <- terra::rast(terra::rast(matrix(c(2, 1, 1, 0), ncol = 4)),
-                            terra::rast(matrix(c(10, 10, 10, 10), ncol = 4)))
+  features <- c(
+    terra::rast(matrix(c(2, 1, 1, 0), ncol = 4)),
+    terra::rast(matrix(c(10, 10, 10, 10), ncol = 4))
+  )
+  names(features) <- make.unique(names(features))
   locked_in <- 2
   # create problem
-  p <- problem(cost, features) %>%
-       add_min_set_objective() %>%
-       add_absolute_targets(c(2, 10)) %>%
-       add_locked_in_constraints(locked_in) %>%
-       add_extra_portfolio() %>%
-       add_default_solver(gap = 1, verbose = FALSE)
+  p <-
+    problem(cost, features) %>%
+    add_min_set_objective() %>%
+    add_absolute_targets(c(2, 10)) %>%
+    add_locked_in_constraints(locked_in) %>%
+    add_extra_portfolio() %>%
+    add_default_solver(gap = 1, verbose = FALSE)
   # solve problem
   s <- solve(p)
   # output checks
   expect_is(s, "list")
   expect_true(length(s) > 1)
-  expect_true(all(sapply(s, inherits, "RasterLayer")))
-  expect_equal(names(s), paste0("solution_", seq_along(s)))
+  expect_true(all_elements_inherit(s, "SpatRaster"))
+  expect_named(s, paste0("solution_", seq_along(s)))
   for (i in seq_along(s))
-    expect_true(all(raster::cellStats(s[[i]] * features, "sum") >= c(2, 10)))
+    expect_true(
+      all(
+        terra::global(s[[i]] * features, "sum", na.rm = TRUE) >= c(2, 10)
+      )
+    )
 })
 
 test_that("solve (multiple zones)", {
   skip_on_cran()
   skip_if_not_installed("gurobi")
-  # create data
+  # load data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_zones_features <- get_sim_zones_features()
   # create problem
-  p <- problem(sim_zones_pu_raster, sim_zones_features) %>%
-       add_min_set_objective() %>%
-       add_absolute_targets(matrix(2,
-                            nrow = number_of_features(sim_zones_features),
-                            ncol = number_of_zones(sim_zones_features))) %>%
-       add_extra_portfolio() %>%
-       add_binary_decisions() %>%
-       add_default_solver(gap = 0, verbose = FALSE)
+  p <-
+    problem(sim_zones_pu_raster, sim_zones_features) %>%
+    add_min_set_objective() %>%
+    add_absolute_targets(
+      matrix(
+        2, nrow = number_of_features(sim_zones_features),
+        ncol = number_of_zones(sim_zones_features)
+      )
+    ) %>%
+    add_extra_portfolio() %>%
+    add_binary_decisions() %>%
+    add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p)
   # output checks
   expect_is(s, "list")
   expect_true(length(s) > 1)
-  expect_true(all(sapply(s, inherits, "RasterStack")))
-  expect_equal(names(s), paste0("solution_", seq_along(s)))
+  expect_true(all_elements_inherit(s, "SpatRaster"))
+  expect_named(s, paste0("solution_", seq_along(s)))
   for (i in seq_along(s))
     for (z in seq_len(number_of_zones(sim_zones_features)))
-      expect_true(all(raster::cellStats(s[[i]][[z]] * sim_zones_features[[z]],
-                                        "sum") >= 2))
+      expect_true(
+        all(
+          terra::global(
+            s[[i]][[z]] * sim_zones_features[[z]], "sum", na.rm = TRUE
+          ) >= 2
+        )
+      )
 })

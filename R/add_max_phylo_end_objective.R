@@ -227,7 +227,7 @@ add_max_phylo_end_objective <- function(x, budget, tree) {
     is_conservation_problem(x),
     is.numeric(budget),
     all_finite(budget),
-    all(budget >= 0.0),
+    all_positive(budget),
     min(budget) > 0,
     inherits(tree, "phylo"),
     length(tree$tip.label) == number_of_features(x),
@@ -262,7 +262,7 @@ add_max_phylo_end_objective <- function(x, budget, tree) {
     parameters = parameters(p),
     data = list(tree = tree),
     calculate = function(self, x) {
-      assertthat::assert_that(inherits(x, "ConservationProblem"))
+      assertthat::assert_that(is_conservation_problem(x))
       # get tree
       tr <- self$get_data("tree")
       # order rows to match order of features in problem

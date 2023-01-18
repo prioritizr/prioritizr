@@ -106,7 +106,7 @@ Collection <- pproto(
       msg = "no parameter with matching id found"
     )
     assertthat::assert_that(
-      s > 1,
+      s == 1,
       msg = "multiple parameters with matching id found"
     )
     n[r]

@@ -248,7 +248,7 @@ methods::setMethod("eval_asym_connectivity_summary",
   function(x, solution, zones, data) {
     # assert valid arguments
     assertthat::assert_that(
-      is_conservatio_problem(x),
+      is_conservation_problem(x),
       is.null(zones),
       is.array(data),
       length(dim(data)) == 4,

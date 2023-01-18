@@ -1,5 +1,7 @@
-r_boundary_given_matrix <- function(
-  solution, edge_factor, zones, boundary_matrix) {
+r_boundary_given_matrix <- function(solution, edge_factor, zones,
+                                    boundary_matrix) {
+  # convert sf solution to Spatial
+  if (inherits(solution, "sf")) solution <- sf::as_Spatial(solution)
   # convert Spatial solution to matrix
   if (inherits(solution, "Spatial")) solution <- as.matrix(solution@data)
   # convert data.frame solution to matrix
@@ -21,7 +23,8 @@ r_boundary_given_matrix <- function(
   # adjust inputs according to planning units
   idx <- which(rowSums(is.finite(solution)) > 0)
   boundary_matrix <- filter_planning_units_in_boundary_matrix(
-    idx, boundary_matrix)
+    idx, boundary_matrix
+  )
   solution <- solution[idx, , drop = FALSE]
   solution[is.na(solution)] <- 0
   # main processing
@@ -54,6 +57,8 @@ r_boundary_given_matrix <- function(
 }
 
 r_boundary_given_geometry <- function(solution, sp) {
+  # convert sf solution to matrix
+  if (inherits(solution, "sf")) solution <- sf::as_Spatial(solution)
   # convert Spatial solution to matrix
   if (inherits(solution, "Spatial")) solution <- as.matrix(solution@data)
   # convert data.frame solution to matrix
@@ -61,8 +66,7 @@ r_boundary_given_geometry <- function(solution, sp) {
   # coerce solution to matrix if not a matrix
   if (!is.matrix(solution)) solution <- matrix(solution, ncol = 1)
   # assert that solution contains binary values
-  assertthat::assert_that(
-    all(c(na.omit(as.matrix(solution))) %in% c(0, 1)))
+  assertthat::assert_that(all(c(na.omit(as.matrix(solution))) %in% c(0, 1)))
   # filter planning units
   solution <- rowSums(solution, na.rm = TRUE) > 1e-15
   # return boundary

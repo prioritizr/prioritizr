@@ -136,7 +136,7 @@ NULL
 #' @export
 eval_n_summary <- function(x, solution) {
   # assert arguments are valid
-  assertthat::assert_that(inherits(x, "ConservationProblem"))
+  assertthat::assert_that(is_conservation_problem(x))
   # convert solution to status matrix format
   solution <- planning_unit_solution_status(x, solution)
   # convert NA values in solution to 0

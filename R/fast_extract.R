@@ -139,6 +139,8 @@ methods::setMethod(
     geomc <- st_geometry_classes(y)
     # prepare output vector
     out <- matrix(NA_real_, nrow = nrow(y), ncol = terra::nlyr(x))
+    # ensure unique names in raster data
+    names(x) <- make.unique(names(x))
     # process point geometries
     point_idx <- grepl("POINT", geomc, fixed = TRUE)
     if (any(point_idx)) {
@@ -174,7 +176,7 @@ methods::setMethod(
           x,
           y[poly_idx, ],
           fun = fun,
-          progress = TRUE
+          progress = FALSE
         )
       )
     }

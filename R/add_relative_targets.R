@@ -196,7 +196,7 @@ methods::setMethod(
     assertthat::assert_that(
       all_columns_inherit(
         x$data$features[, targets, drop = FALSE],
-        "numeric"
+        c("numeric", "integer")
       ),
       msg = paste(
         "argument to targets refers to columns of the",

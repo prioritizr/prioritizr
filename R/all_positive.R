@@ -47,13 +47,13 @@ all_positive.Raster <- function(x) {
 .S3method("all_positive", "Raster", all_positive.Raster)
 
 all_positive.SpatRaster <- function(x) {
-  all_positive(terra::global(x, "min")[[1]])
+  all_positive(terra::global(x, "min", na.rm = TRUE)[[1]])
 }
 
 .S3method("all_positive", "SpatRaster", all_positive.SpatRaster)
 
 all_positive.ZonesRaster <- function(x) {
-  all_positive(terra::rast(raster::as.list(x)))
+  all_positive(terra::rast(raster::stack(raster::as.list(x))))
 }
 
 .S3method("all_positive", "ZonesRaster", all_positive.ZonesRaster)

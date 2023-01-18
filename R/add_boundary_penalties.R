@@ -243,9 +243,10 @@ NULL
 #' plot(s2, axes = FALSE)
 #' }
 #' @export
-add_boundary_penalties <- function(
-  x, penalty, edge_factor = rep(0.5, number_of_zones(x)),
-  zones = diag(number_of_zones(x)), data = NULL) {
+add_boundary_penalties <- function(x, penalty,
+                                   edge_factor = rep(0.5, number_of_zones(x)),
+                                   zones = diag(number_of_zones(x)),
+                                   data = NULL) {
   # assert that arguments are valid
   assertthat::assert_that(
     is_conservation_problem(x),
@@ -284,7 +285,7 @@ add_boundary_penalties <- function(
       )
     ),
     calculate = function(self, x) {
-        assertthat::assert_that(inherits(x, "ConservationProblem"))
+        assertthat::assert_that(is_conservation_problem(x))
         m <- self$get_data("boundary_matrix")
         if (is.Waiver(m)) {
           m <- internal_prepare_planning_unit_boundary_data(

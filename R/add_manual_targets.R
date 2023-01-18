@@ -279,7 +279,7 @@ methods::setMethod(
         is_inherits(targets$type, c("character", "factor")),
         all_match_of(as.character(targets$type), c("absolute", "relative"))
       )
-      verify_that(all(targets$target >= 0, na.rm = TRUE))
+      verify_that(all_positive(targets$target))
       if (x$number_of_zones() > 1 || assertthat::has_name(targets, "zone")) {
         assertthat::assert_that(
           assertthat::has_name(targets, "zone"),

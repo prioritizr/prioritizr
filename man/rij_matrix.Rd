@@ -28,6 +28,17 @@ rij_matrix(x, y, ...)
 
 \item{...}{not used.}
 
+\item{memory}{\code{logical} should calculations be performed using a method
+that prioritizes reduced memory consumption over speed?
+If \code{TRUE}, then calculations are performed using a method that
+reduces memory consumption, but can take a long time to complete.
+If \code{FALSE}, then calculations are performed using a method that
+reduces run time, but will fail when insufficient memory is available.
+Defaults to \code{NA}, such that calculations are automatically performed
+using the best method given available memory and dataset sizes.
+Note that this parameter can only be used when the arguments to \code{x}
+and \code{y} are both \code{\link[terra:rast]{terra::rast()}} objects.}
+
 \item{fun}{\code{character} for summarizing values inside each planning unit.
 This parameter is only used when the argument to \code{x} is a
 \code{\link[sf:sf]{sf::sf()}} object.

@@ -96,15 +96,15 @@ boundary_matrix.SpatRaster <- function(x, ...) {
     include <- terra::cells(is.na(x), 0)[[1]]
   } else {
     # indices of cells with finite values
-    include <- terra::cells(max(is.na(x)), 0)[[1]]
+    include <- terra::cells(min(is.na(x)), 0)[[1]]
     suppressWarnings(x <- terra::setValues(x[[1]], NA_real_))
     # set x to a single raster layer with only values in pixels that are not
     # NA in all layers
     x[include] <- 1
   }
   # find the neighboring indices of these cells
-  ud <- matrix(c(NA, NA, NA, 1, 0, 1, NA, NA, NA), 3, 3)
-  lf <- matrix(c(NA, 1, NA, NA, 0, NA, NA, 1, NA), 3, 3)
+  ud <- matrix(c(0, 0, 0, 1, 0, 1, 0, 0, 0), 3, 3)
+  lf <- matrix(c(0, 1, 0, 0, 0, 0, 0, 1, 0), 3, 3)
   b <- rbind(
     data.frame(
       terra::adjacent(x, include, pairs = TRUE, directions = ud),

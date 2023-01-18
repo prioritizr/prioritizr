@@ -352,7 +352,7 @@ methods::setMethod("eval_rare_richness_importance",
 
 internal_eval_rare_richness_importance <- function(x, indices, rescale) {
   assertthat::assert_that(
-    inherits(x, "ConservationProblem"),
+    is_conservation_problem(x),
     number_of_zones(x) == 1,
     is.integer(indices),
     length(indices) > 0,
