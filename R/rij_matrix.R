@@ -102,11 +102,7 @@ methods::setMethod(
       no_extra_arguments(...)
     )
     # identify included cells
-    if (terra::nlyr(x) == 1) {
-      idx <- terra::cells(is.na(x), 0)[[1]]
-    } else {
-      idx <- terra::cells(min(is.na(x)), 0)[[1]]
-    }
+    idx <- terra::cells(terra::allNA(x), 0)[[1]]
     # if memory is NA, then set it automatically..
     if (is.na(memory)) {
       mem_needed_kb <-

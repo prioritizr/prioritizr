@@ -524,10 +524,12 @@ methods::setMethod(
     )
     if (run_checks) {
       assertthat::assert_that(any_nonNA(x))
-      verify_that(all_positive(x))
-      verify_that(any_nonzero(x))
-      verify_that(all_positive(features))
-      verify_that(any_nonzero(features))
+      verify_that(
+        all_positive(x),
+        any_nonzero(x),
+        all_positive(features),
+        any_nonzero(features)
+      )
     }
     # create rij matrix
     rij <- lapply(
@@ -608,10 +610,12 @@ methods::setMethod(
         "not present in the argument to x"
       )
     )
-    verify_that(all_positive(x[, cost_column, drop = FALSE]))
-    verify_that(any_nonzero(x[, cost_column, drop = FALSE]))
-    verify_that(all_positive(x[, unlist(features), drop = FALSE]))
-    verify_that(any_nonzero(x[, unlist(features), drop = FALSE]))
+    verify_that(
+      all_positive(x[, cost_column, drop = FALSE]),
+      any_nonzero(x[, cost_column, drop = FALSE]),
+      all_positive(x[, unlist(features), drop = FALSE]),
+      any_nonzero(x[, unlist(features), drop = FALSE])
+    )
     # create rij matrix
     pos <- which(rowSums(!is.na(as.matrix(x[, cost_column, drop = FALSE]))) > 0)
     rij <- lapply(as.list(features), function(z) {
@@ -701,10 +705,12 @@ methods::setMethod(
       all_match_of(rij$species, features$id)
     )
     # verifications
-    verify_that(all_positive(x[, cost_column]))
-    verify_that(any_nonzero(x[, cost_column]))
-    verify_that(all_positive(rij$amount))
-    verify_that(any_nonzero(rij$amount))
+    verify_that(
+      all_positive(x[, cost_column]),
+      any_nonzero(x[, cost_column]),
+      all_positive(rij$amount),
+      any_nonzero(rij$amount)
+    )
     # validate zone data
     if (!"zone" %in% names(rij))
       rij$zone <- 1
@@ -850,8 +856,10 @@ methods::setMethod(
       )
     )
     # verifications
-    verify_that(all_positive(x))
-    verify_that(any_nonzero(x))
+    verify_that(
+      all_positive(x),
+      any_nonzero(x)
+    )
     verify_that(
       all(vapply(rij_matrix, all_positive, logical(1))),
       msg = "argument to rij_matrix has negative values"
@@ -948,11 +956,15 @@ methods::setMethod(
       msg = "argument to x contains GEOMETRYCOLLECTION or MULTIPOINT geometries"
     )
     # further validation checks
-    verify_that(all_positive(x[, cost_column]))
-    verify_that(any_nonzero(x[, cost_column]))
+    verify_that(
+      all_positive(x[, cost_column]),
+      any_nonzero(x[, cost_column])
+    )
     if (run_checks) {
-      verify_that(all_positive(features))
-      verify_that(any_nonzero(features))
+      verify_that(
+        all_positive(features),
+        any_nonzero(features)
+      )
     }
     # compute rij matrix including non-planning unit cells
     rij <- rij_matrix(x, terra::rast(as.list(features)))
@@ -1047,10 +1059,12 @@ methods::setMethod(
         "not present in the argument to x"
       )
     )
-    verify_that(all_positive(x[, cost_column]))
-    verify_that(any_nonzero(x[, cost_column]))
-    verify_that(all_positive(sf::st_drop_geometry(x)[, unlist(features)]))
-    verify_that(any_nonzero(sf::st_drop_geometry(x)[, unlist(features)]))
+    verify_that(
+      all_positive(x[, cost_column]),
+      any_nonzero(x[, cost_column]),
+      all_positive(sf::st_drop_geometry(x)[, unlist(features)]),
+      any_nonzero(sf::st_drop_geometry(x)[, unlist(features)])
+    )
     # create rij matrix
     pos <- which(
       rowSums(

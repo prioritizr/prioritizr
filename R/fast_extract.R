@@ -98,7 +98,7 @@ methods::setMethod(
 #' @rdname fast_extract
 methods::setMethod(
   "fast_extract",
-  signature(x = "Raster", y = "sfc"),
+  signature(x = "Raster", y = "sf"),
   function(x, y, fun = "mean", ...) {
     .Deprecated(raster_pkg_deprecation_notice)
     fast_extract(terra::rast(x), y, fun, ...)

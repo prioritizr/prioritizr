@@ -1,27 +1,44 @@
-# prioritizr 8.0.0.0
+# prioritizr 7.3.0.0
 
-- General improvement of error messages for almost every function in the
-  package. Hopefully, users should no longer see `"bad error message"`!
-- Fix instructions in `add_gurobi_solver()` documentation for opening vignette.
-- Update solver functions to provide instructions for installing
-  dependencies in error messages when their dependencies are not available.
+## Breaking changes
+
+- The package has been updated to focus on using the _sf_ and _terra_ package
+  for spatial vector and raster datasets. This is because the _sf_ package is
+  the successor to the _sp_ package and the _terra_ package is the successor
+  to the _raster_ package. By leveraging these newer packages, the _prioritizr_
+  package can provide better performance. Although _sp_ and _raster_ package
+  data formats (e.g., `raster::stack()` and `sp::SpatialPolyonsDataFrame()`)
+  are still supported, the _prioritizr_ package will now throw deprecation
+  warnings. Please note that the _sp_ and _raster_ package data formats will be fully deprecated and removed in a later version this year.
 - The built-in datasets have been removed and replaced with functions
-  to import them as needed (i.e.,  `get_sim_pu_raster()`, `get_sim_pu_polygons()`,
-  `get_sim_pu_lines()`, `get_sim_pu_points()`,,
-  `get_sim_locked_in_raster()`, `get_sim_locked_out_raster()`, `get_sim_zones_pu_raster()`, `get_sim_zones_pu_polygons()`,
-  `get_sim_phylogeny()`, `get_sim_features()`, `get_sim_zones_features()`).
-  This is because the `raster::raster()` datasets have been replaced with
-  `terra::rast()` datasets, and these cannot be distributed as built-in
-  datasets.
-- All built-in datasets are now `sf::st_sf()` and `terra::rast()` objects.
+  to import them as needed (see below). Note that these functions only return
+  `sf::st_sf()` and `terra::rast()` objects.
 - The `sim_pu_sf` and `sim_pu_zones_sf` built-in datasets have been
-  removed, because they are effectively the same as the `get_sim_pu_polygons()`
-  and `get_sim_zones_pu_polygons()` datasets.
+  removed, because they are now effectively the same as the
+  `get_sim_pu_polygons()` and `get_sim_zones_pu_polygons()` datasets.
 - The `add_lpsymphony_solver()` now throws an error -- instead of a warning --
   if an old version of the _lpsymphony_ package is installed that is known
   to produce incorrect results.
 - The `distribute_load()` function has been deprecated, because it is no
   longer used. See `parallel::splitIndices()` for equivalent functionality.
+
+## New features
+
+- General improvement of error messages for almost every function in the
+  package. Hopefully, users should no longer see `"bad error message"`!
+- New functions for importing built-in datasets (i.e.,  `get_sim_pu_raster()`,
+  `get_sim_pu_polygons()`, `get_sim_pu_lines()`, `get_sim_pu_points()`,,
+  `get_sim_locked_in_raster()`, `get_sim_locked_out_raster()`,
+  `get_sim_zones_pu_raster()`, `get_sim_zones_pu_polygons()`,
+  `get_sim_phylogeny()`, `get_sim_features()`, `get_sim_zones_features()`).
+  Note that these functions are provided because `data(...)` cannot be
+  used with `terra::rast()` objects.
+
+## Minor improvements and bug fixes
+
+- Fix instructions in `add_gurobi_solver()` documentation for opening vignette.
+- Update solver functions to provide instructions for installing
+  dependencies in error messages when their dependencies are not available.
 
 # prioritizr 7.2.2.7
 

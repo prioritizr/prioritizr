@@ -42,14 +42,13 @@ methods::setMethod(
       is_comparable_raster(x, features)
     )
     if (run_checks) {
-      assertthat::assert_that(
-        any_nonNA(x),
-        all_positive(x)
+      assertthat::assert_that(any_nonNA(x))
+      verify_that(
+        all_positive(x),
+        any_nonzero(x),
+        all_positive(features),
+        any_nonzero(features)
       )
-      verify_that(all_positive(x))
-      verify_that(any_nonzero(x))
-      verify_that(all_positive(features))
-      verify_that(any_nonzero(features))
     }
     # convert x to RasterLayer if has only one layer
     if (
@@ -146,11 +145,15 @@ methods::setMethod(
       is_same_crs(x, features),
       is_spatial_extents_overlap(x, features)
     )
-    verify_that(all_positive(x[, cost_column]))
-    verify_that(any_nonzero(x[, cost_column]))
+    verify_that(
+      all_positive(x[, cost_column]),
+      any_nonzero(x[, cost_column])
+    )
     if (run_checks) {
-      verify_that(all_positive(features))
-      verify_that(any_nonzero(features))
+      verify_that(
+        all_positive(features),
+        any_nonzero(features)
+      )
     }
     # compute rij matrix including non-planning unit cells
     rij <- suppressWarnings(rij_matrix(x, raster::stack(as.list(features))))
@@ -236,7 +239,6 @@ methods::setMethod(
       assertthat::noNA(cost_column),
       number_of_zones(features) == length(cost_column),
       all_match_of(cost_column, names(x)),
-      all_positive(x[, cost_column]),
       all_columns_any_finite(x[, cost_column])
     )
     assertthat::assert_that(
@@ -246,10 +248,12 @@ methods::setMethod(
         "not present in the argument to x"
       )
     )
-    verify_that(all_positive(x[, cost_column]))
-    verify_that(any_nonzero(x[, cost_column]))
-    verify_that(all_positive(x[, unlist(features)]))
-    verify_that(any_nonzero(x[, unlist(features)]))
+    verify_that(
+      all_positive(x[, cost_column]),
+      any_nonzero(x[, cost_column]),
+      all_positive(x[, unlist(features)]),
+      any_nonzero(x[, unlist(features)])
+    )
     # create rij matrix
     pos <- which(
       rowSums(!is.na(as.matrix(x@data[, cost_column, drop = FALSE]))) > 0
@@ -336,11 +340,15 @@ methods::setMethod(
       all(!st_geometry_classes(x) %in% c("GEOMETRYCOLLECTION", "MULTIPOINT"))
     )
     # further validation checks
-    verify_that(all_positive(x[, cost_column]))
-    verify_that(any_nonzero(x[, cost_column]))
+    verify_that(
+      all_positive(x[, cost_column]),
+      any_nonzero(x[, cost_column])
+    )
     if (run_checks) {
-      all_positive(features)
-      any_nonzero(features)
+      verify_that(
+        all_positive(features),
+        any_nonzero(features)
+      )
     }
     # compute rij matrix including non-planning unit cells
     rij <- suppressWarnings(rij_matrix(x, raster::stack(as.list(features))))

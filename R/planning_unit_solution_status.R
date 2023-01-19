@@ -363,11 +363,7 @@ methods::setMethod(
     )
     # subset planning units with finite cost values
     pos <- x$planning_unit_indices()
-    if (terra::nlyr(solution) > 1) {
-      pos2 <- terra::cells(min(is.na(solution)), 0)[[1]]
-    } else {
-      pos2 <- terra::cells(is.na(solution), 0)[[1]]
-    }
+    pos2 <- terra::cells(terra::allNA(solution), 0)[[1]]
     assertthat::assert_that(
       setequal(pos, pos2),
       msg = paste(

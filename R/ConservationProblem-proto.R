@@ -354,11 +354,7 @@ ConservationProblem <- pproto(
         x <- raster::Which(max(!is.na(self$data$cost)) > 0, cells = TRUE)
       }
     } else if (inherits(self$data$cost, "SpatRaster")) {
-      if (terra::nlyr(self$data$cost) == 1) {
-        x <- terra::cells(is.na(self$data$cost), 0)[[1]]
-      } else {
-        x <- terra::cells(min(is.na(self$data$cost)), 0)[[1]]
-      }
+      x <- terra::cells(terra::allNA(self$data$cost), 0)[[1]]
     } else if (inherits(self$data$cost, c("data.frame", "Spatial"))) {
       x <- as.data.frame(self$data$cost)[, self$data$cost_column, drop = FALSE]
       x <- unname(which(rowSums(!is.na(as.matrix(x))) > 0))

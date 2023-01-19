@@ -90,18 +90,12 @@ boundary_matrix.Raster <- function(x, ...) {
 boundary_matrix.SpatRaster <- function(x, ...) {
   # assert that arguments are valid
   assertthat::assert_that(inherits(x, "SpatRaster"))
-  # main processing
-  if (terra::nlyr(x) == 1) {
-    # indices of cells with finite values
-    include <- terra::cells(is.na(x), 0)[[1]]
-  } else {
-    # indices of cells with finite values
-    include <- terra::cells(min(is.na(x)), 0)[[1]]
-    suppressWarnings(x <- terra::setValues(x[[1]], NA_real_))
-    # set x to a single raster layer with only values in pixels that are not
-    # NA in all layers
-    x[include] <- 1
-  }
+  # indices of cells with finite values
+  include <- terra::cells(terra::allNA(x), 0)[[1]]
+  # set x to a single raster layer with only values in pixels that are not
+  # NA in all layers
+  x <- terra::setValues(x[[1]], NA_real_)
+  x[include] <- 1
   # find the neighboring indices of these cells
   ud <- matrix(c(0, 0, 0, 1, 0, 1, 0, 0, 0), 3, 3)
   lf <- matrix(c(0, 1, 0, 0, 0, 0, 0, 1, 0), 3, 3)

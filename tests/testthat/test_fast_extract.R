@@ -36,6 +36,11 @@ test_that("x = SpatRaster, y = sf (lines)", {
   expect_equal(nrow(x), nrow(sim_pu_lines))
   expect_equal(ncol(x), terra::nlyr(sim_features))
   expect_equivalent(x, y)
+  # test for double counting of cells
+  expect_equivalent(
+    fast_extract(sim_features[[1]], sim_pu_lines[1, ], fun = "sum"),
+    as.matrix(sim_features[[1]][1])
+  )
 })
 
 test_that("x = SpatRaster, y = sf (points)", {

@@ -332,10 +332,13 @@ methods::setMethod(
         names(ret) <- a$zone_names()
         ret
       })
-      names(ret) <- paste0("solution_", seq_along(sol))
-      if (inherits(a$data$cost, "Raster")) {
-        ret <- raster::raster(ret)
+      # convert to RasterStack or RasterLayer if needed
+      if (inherits(a$data$cost, c("RasterStack", "RasterBrick"))) {
+        ret <- lapply(ret, raster::stack)
+      } else if (inherits(a$data$cost, "RasterLayer")) {
+        ret <- lapply(ret, raster::raster)
       }
+      names(ret) <- paste0("solution_", seq_along(sol))
     } else if (inherits(pu, c("data.frame", "Spatial", "sf"))) {
       # Spatial* or data.frame planning units
       sol_status <- do.call(cbind, sol_status)

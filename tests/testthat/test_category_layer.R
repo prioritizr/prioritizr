@@ -3,7 +3,7 @@ context("category_layer")
 test_that("SpatRaster", {
   # create data
   x <- c(
-    terra::rast(matrix(c(1, 0, 0, 1, NA, 0), byrow = TRUE, nrow = 3)),
+    terra::rast(matrix(c(1, 0, 0, 0, NA, 0), byrow = TRUE, nrow = 3)),
     terra::rast(matrix(c(0, 1, 0, 0, NA, 0), byrow = TRUE, nrow = 3)),
     terra::rast(matrix(c(0, 0, 1, 0, NA, 1), byrow = TRUE, nrow = 3))
   )
@@ -13,7 +13,7 @@ test_that("SpatRaster", {
   expect_is(y, "SpatRaster")
   expect_equal(terra::nlyr(y), 1)
   expect_true(is_comparable_raster(x, y))
-  expect_equal(c(terra::values(y)), c(1, 2, 3, 1, NA, 3))
+  expect_equal(c(terra::values(y)), c(1, 2, 3, 0, NA, 3))
 })
 
 test_that("Raster", {

@@ -51,7 +51,7 @@ simulate_data <- function(x, n, scale, intensity, sd, transform)
 simulate_data.Raster <- function(x, n = 1, scale = 0.5, intensity = 0,
                                      sd = 1, transform = identity) {
   .Deprecated(msg = raster_pkg_deprecation_notice)
-  raster::raster(
+  raster::stack(
     simulate_data.SpatRaster(
       x = terra::rast(x),
       n = n, scale = scale,
@@ -142,7 +142,7 @@ simulate_species <- function(x, n, scale) UseMethod("simulate_species")
 #' @export
 simulate_species.Raster <- function(x, n = 1, scale = 0.5) {
   .Deprecated(msg = raster_pkg_deprecation_notice)
-  raster::raster(
+  raster::stack(
     simulate_species.SpatRaster(
       x = terra::rast(x),
       n = n,
@@ -209,7 +209,7 @@ simulate_cost <- function(x, n, intensity, sd, scale) UseMethod("simulate_cost")
 simulate_cost.Raster <- function(x,  n = 1, intensity = 100,
                                     sd = 20, scale = 2.5) {
   .Deprecated(msg = raster_pkg_deprecation_notice)
-  raster::raster(
+  raster::stack(
     simulate_cost.SpatRaster(
       x = terra::rast(x),
       n = n,

@@ -256,11 +256,7 @@ methods::setMethod("add_manual_locked_constraints",
           pu <- terra::rast(pu)
         }
         if (inherits(pu, "SpatRaster")) {
-          if (terra::nlyr(pu) == 1) {
-            units <- terra::cells(is.na(pu), 0)[[1]]
-          } else {
-            units <- terra::cells(min(is.na(pu)), 0)[[1]]
-          }
+          units <- terra::cells(terra::allNA(pu), 0)[[1]]
           data$pu <- match(data$pu, units)
           data <- data[!is.na(data$pu), , drop = FALSE]
         }
