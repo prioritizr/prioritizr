@@ -15,15 +15,15 @@ NULL
 #'   `NULL` if checks are not required (not recommended).
 #'
 #' @param data `data.frame` object with the columns `"id1"`,
-#'   `"id2"`, and `"boundary"`. The columns `"zone1"` and
-#'   `"zone2"` can also be provided to indicate zone data.
+#'   `"id2"`, and `"boundary"`.
 #'
 #' @return
-#' An `array` or [`dgCMatrix-class`] sparse matrix object.
-#' If the argument to `data` corresponds to a single zone,
-#' then a [`dgCMatrix-class`]
-#' matrix is returned. Otherwise, if the argument to `data`
-#' corresponds to multiple zones, then an `array` is returned.
+#' A [`dgCMatrix-class`] sparse matrix object.
+#'
+#' @section Notes:
+#' In earlier versions, the function could convert boundary data
+#' that pertain to multiple zones. This is no longer possible, following
+#' updates to streamline the package.
 #'
 #' @examples
 #' # create marxan boundary with four planning units and one zone
@@ -55,5 +55,22 @@ NULL
 #' print(m2)
 #' @export
 marxan_boundary_data_to_matrix <- function(x, data) {
-  marxan_connectivity_data_to_matrix(x, data, TRUE)
+  assertthat::assert_that(is.data.frame(data))
+  assertthat::assert_that(
+    !assertthat::has_name(data, "zone1"),
+    !assertthat::has_name(data, "zone2"),
+    msg = "boundary data must pertain to a single zone"
+  )
+
+  # convert to matrix format
+  m <- marxan_connectivity_data_to_matrix(x, data, TRUE)
+
+  # replace cell diagonals with total boundary lengths
+  ## this is because the Marxan format uses cell values on the matrix diagonal
+  ## to specify exposed boundary lengths, but here we use it to
+  ## refer to total lengths
+  Matrix::diag(m) <- Matrix::rowSums(m)
+
+  # return result
+  m
 }

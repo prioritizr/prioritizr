@@ -198,17 +198,25 @@ eval_boundary_summary <- function(x, solution,
   colnames(zones) <- x$zone_names()
   rownames(zones) <- colnames(zones)
   # prepare boundary matrix data
-  bm <- internal_prepare_planning_unit_boundary_data(x, data)
-  if (is.Waiver(bm)) {
-    bm <- internal_prepare_planning_unit_boundary_data(
-      x, boundary_matrix(x$get_data("cost"))
-    )
+  if (is.null(data)) {
+    data <- x$get_data("boundary_matrix")
+    if (is.Waiver(data)) {
+      data <-  boundary_matrix(x$get_data("cost"))
+    }
   }
-  class(bm) <- "dgCMatrix"
+  bm <- internal_prepare_planning_unit_boundary_data(x, data)
+  # compute data
+  total_boundary <- Matrix::diag(bm)
+  exposed_boundary <-
+    Matrix::diag(bm) - (Matrix::rowSums(bm) - Matrix::diag(bm))
+  Matrix::diag(bm) <- 0
+  bm <- as_Matrix(Matrix::tril(Matrix::drop0(bm)), "dgCMatrix")
   # manually coerce NA values in solution to 0
   solution[!is.finite(solution)] <- 0
   # calculate overall boundary length
-  v <- rcpp_boundary(edge_factor, zones, bm, solution)
+  v <- rcpp_boundary(
+    edge_factor, zones, bm, exposed_boundary, total_boundary, solution
+  )
   # main calculations
   if (number_of_zones(x) == 1) {
     ## store result for single zone
@@ -217,7 +225,8 @@ eval_boundary_summary <- function(x, solution,
     ## calculate boundary lengths for each zone separately
     zv <- vapply(seq_len(ncol(solution)), FUN.VALUE = numeric(1), function(z) {
       rcpp_boundary(
-        edge_factor[z], matrix(1), bm, solution[, z, drop = FALSE]
+        edge_factor[z], matrix(1), bm, exposed_boundary, total_boundary,
+        solution[, z, drop = FALSE]
       )
     })
     ## store results for multiple zones

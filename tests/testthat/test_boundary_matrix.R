@@ -1,5 +1,41 @@
 context("boundary_matrix")
 
+test_that("SpatRaster (single layer)", {
+  # create data
+  d <- terra::rast(
+    matrix(c(NA, 2:9), ncol = 3),
+    ext = terra::ext(0, 6, 0, 3)
+  )
+  # create matrices
+  x <- boundary_matrix(d)
+  # create correct matrix
+  y <- boundary_matrix(sf::st_as_sf(terra::as.polygons(d)))
+  y <- cbind(0, y)
+  y <- rbind(0, y)
+  # tests
+  expect_is(x, "dsCMatrix")
+  expect_true(all(x == y))
+})
+
+test_that("SpatRaster (multiple layer)", {
+  # create data
+  d <- terra::rast(
+    matrix(c(NA, 2:9), ncol = 3),
+    ext = terra::ext(0, 6, 0, 3)
+  )
+  d <- terra::rast(list(d, d, d))
+  d[[1]][2] <- NA
+  # create matrices
+  x <- boundary_matrix(d)
+  # create correct matrix
+  y <- boundary_matrix(sf::st_as_sf(terra::as.polygons(d[[2]])))
+  y <- cbind(0, y)
+  y <- rbind(0, y)
+  # tests
+  expect_is(x, "dsCMatrix")
+  expect_true(all(x == y))
+})
+
 test_that("sf (squares)", {
   # create data
   d <- sf::st_as_sf(
@@ -13,10 +49,20 @@ test_that("sf (squares)", {
   # create matrices
   x <- boundary_matrix(d)
   y <- triplet_sparse_matrix(
-    i = c(0, 0, 0, 1, 1, 1, 2, 2, 3, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8) + 1,
-    j = c(0, 1, 3, 1, 2, 4, 2, 5, 3, 4, 6, 5, 7, 5, 8, 6, 7, 7, 8, 8) + 1,
-    x = c(2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 2),
-    symmetric = TRUE
+    i = 1 + c(
+      0L, 0L, 1L, 1L, 2L, 3L, 3L, 4L, 4L, 5L, 6L, 7L, 0L, 1L, 2L,
+      3L, 4L, 5L, 6L, 7L, 8L, 1L, 3L, 2L, 4L, 5L, 4L, 6L, 5L, 7L, 8L,
+      7L, 8L
+    ),
+    j = 1 + c(
+      1L, 3L, 2L, 4L, 5L, 4L, 6L, 5L, 7L, 8L, 7L, 8L, 0L, 1L, 2L,
+      3L, 4L, 5L, 6L, 7L, 8L, 0L, 0L, 1L, 1L, 2L, 3L, 3L, 4L, 4L, 5L,
+      6L, 7L
+    ),
+    x = c(
+      1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4, 4, 4, 4, 4, 4, 4, 4,
+      4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+    )
   )
   # tests
   expect_is(x, "dsCMatrix")
@@ -117,11 +163,20 @@ test_that("sf (hexagons)", {
   # create matrices
   x <- boundary_matrix(d)
   y <- Matrix::sparseMatrix(
-    i = c(0, 0, 0, 1, 1, 1, 1, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5, 6, 6, 7),
-    j = c(0, 1, 3, 1, 2, 3, 4, 2, 4, 3, 4, 5, 6, 4, 6, 7, 5, 6, 6, 7, 7),
-    x = c(4, 1, 1, 2, 1, 1, 1, 4, 1, 1, 1, 1, 1, 1, 1, 1, 4, 1, 2, 1, 4),
-    index1 = FALSE,
-    symmetric = TRUE
+    i = c(
+      0, 1, 3, 0, 1, 2, 3, 4, 1, 2, 4, 0, 1, 3, 4, 5, 6, 1, 2, 3,
+      4, 6, 7, 3, 5, 6, 3, 4, 5, 6, 7, 4, 6, 7
+    ),
+    j = c(
+      0, 0, 0, 1, 1, 1, 1, 1, 2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 4,
+      4, 4, 4, 5, 5, 5, 6, 6, 6, 6, 6, 7, 7, 7
+    ),
+    x = c(
+      6, 1, 1, 1, 6, 1, 1, 1, 1, 6,
+      1, 1, 1, 6, 1, 1, 1, 1, 1, 1, 6,
+      1, 1, 1, 6, 1, 1, 1, 1, 6, 1, 1, 1, 6
+    ),
+    index1 = FALSE
   )
   # tests
   expect_is(x, "dsCMatrix")
@@ -226,48 +281,11 @@ test_that("sf (vertices not aligned)", {
       }
     }
   }
-  total_length <- as.numeric(sf::st_length(d2))
-  diag(y) <- total_length - Matrix::rowSums(y, na.rm = TRUE)
+  diag(y) <- as.numeric(sf::st_length(d2))
   y <- Matrix::Matrix(y, sparse = TRUE)
   # tests
   expect_is(x, "dsCMatrix")
   expect_lte(max(abs(x - y)), 1e-8)
-})
-
-test_that("SpatRaster (single layer)", {
-  # create data
-  d <- terra::rast(
-    matrix(c(NA, 2:9), ncol = 3),
-    ext = terra::ext(0, 6, 0, 3)
-  )
-  # create matrices
-  x <- boundary_matrix(d)
-  # create correct matrix
-  y <- boundary_matrix(sf::st_as_sf(terra::as.polygons(d)))
-  y <- cbind(0, y)
-  y <- rbind(0, y)
-  # tests
-  expect_is(x, "dsCMatrix")
-  expect_true(all(x == y))
-})
-
-test_that("SpatRaster (multiple layer)", {
-  # create data
-  d <- terra::rast(
-    matrix(c(NA, 2:9), ncol = 3),
-    ext = terra::ext(0, 6, 0, 3)
-  )
-  d <- terra::rast(list(d, d, d))
-  d[[1]][2] <- NA
-  # create matrices
-  x <- boundary_matrix(d)
-  # create correct matrix
-  y <- boundary_matrix(sf::st_as_sf(terra::as.polygons(d[[2]])))
-  y <- cbind(0, y)
-  y <- rbind(0, y)
-  # tests
-  expect_is(x, "dsCMatrix")
-  expect_true(all(x == y))
 })
 
 test_that("Spatial", {

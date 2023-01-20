@@ -5,7 +5,9 @@
 bool rcpp_apply_boundary_penalties(SEXP x, double penalty,
                                    const Rcpp::NumericVector edge_factor,
                                    const Rcpp::NumericMatrix zones_matrix,
-                                   const arma::sp_mat boundary_matrix) {
+                                   const arma::sp_mat boundary_matrix,
+                                   const Rcpp::NumericVector exposed_boundary,
+                                   const Rcpp::NumericVector total_boundary) {
 
   /* The following code makes the following critical assumptions
    *
@@ -13,12 +15,20 @@ bool rcpp_apply_boundary_penalties(SEXP x, double penalty,
    *    or lower triangle and the diagonal filled in. If this condition is not
    *    met, then the boundary calculations will be incorrect.
    *
-   * 2. the number of elements in edge_factor is equal to ptr->_number_of_zones
+   * 2. exposed_boundary contains the amount of exposed boundary length
+   *    for each planning unit.
    *
-   * 3. The number of rows and columns in boundary_matrix is equal to
+   * 3. total_boundary contains the amount of exposed boundary length
+   *    for each planning unit. Thus:
+   *    all(total_boundary >= exposed_boundary)
+   *    colSums(boundary_matrix) <= total_boundary
+   *
+   * 4. the number of elements in edge_factor is equal to ptr->_number_of_zones
+   *
+   * 5. The number of rows and columns in boundary_matrix is equal to
    *    ptr->_number_of_planning_units
    *
-   * 4. The number of rows and columns in zones_matrix is equal to
+   * 6. The number of rows and columns in zones_matrix is equal to
    *    ptr->_number_of_zones
    *
    */
@@ -64,16 +74,23 @@ bool rcpp_apply_boundary_penalties(SEXP x, double penalty,
   // extract penalty data from matrices
   for (std::size_t z1 = 0; z1 < ptr->_number_of_zones; ++z1) {
     for (std::size_t z2 = z1; z2 < ptr->_number_of_zones; ++z2) {
+
+      // add penalties for total length to the pu_zone_penalties
+      if (z1 == z2) {
+        for (std::size_t i = 0; i < ptr->_number_of_planning_units; ++i) {
+          curr_col1 = (z1 * ptr->_number_of_planning_units) + i;
+          pu_zone_penalties[curr_col1] += penalty * zones_matrix(z1, z2) * (
+            (total_boundary[i] - exposed_boundary[i]) +
+            (exposed_boundary[i] * edge_factor[z1])
+          );
+        }
+      }
+
       // scale the boundary matrix using the zone's edge factor and weighting
       // in the zone matrix
       curr_matrix = boundary_matrix;
       curr_matrix *= zones_matrix(z1, z2);
       curr_matrix *= penalty;
-      if (z1 == z2) {
-        curr_matrix.diag() *= edge_factor[z1];
-      } else {
-        curr_matrix.diag().zeros();
-      }
 
       // extract elements
       for (arma::sp_mat::const_iterator it = curr_matrix.begin();
@@ -82,30 +99,27 @@ bool rcpp_apply_boundary_penalties(SEXP x, double penalty,
         curr_i = it.row();
         curr_j = it.col();
         curr_value = *it;
-        if (std::abs(curr_value) > 1.0e-15) {
-          if ((curr_i == curr_j) && (z1 == z2)) {
-            // amount of exposed boundary in planning unit with no neighbours
-            curr_col1 = (z1 * ptr->_number_of_planning_units) + curr_i;
-            pu_zone_penalties[curr_col1] += curr_value;
-          } else if (z1 == z2) {
+        if (
+          (std::abs(curr_value) > 1.0e-15) &&
+          (curr_i != curr_j)
+        ) {
+          if (z1 == z2) {
             // amount of shared boundary between two different planning units
             // in the same zone
-            // add pi_z1 boundary
+            /// add pi_z1 boundary
             curr_col1 = (z1 * ptr->_number_of_planning_units) + curr_i;
-            pu_zone_penalties[curr_col1] += curr_value;
-            // add pj_z1 boundary
+            /// add pj_z1 boundary
             curr_col2 = (z1 * ptr->_number_of_planning_units) + curr_j;
-            pu_zone_penalties[curr_col2] += curr_value;
-            // store variable representing pi_z1_pj_z1
+            /// store variable representing pi_z1_pj_z1
             pu_i.push_back(curr_col1);
             pu_j.push_back(curr_col2);
             pu_b.push_back(curr_value * -2.0);
           } else {
             // amount of shared boundary between two different planning units
             // in two different zones
-            // pi_z1 boundary
+            /// pi_z1 boundary
             curr_col1 = (z1 * ptr->_number_of_planning_units) + curr_i;
-            // pj_z2 boundary
+            /// pj_z2 boundary
             curr_col2 = (z2 * ptr->_number_of_planning_units) + curr_j;
             // store variable representing pi_z1_pj_z2
             pu_i.push_back(curr_col1);

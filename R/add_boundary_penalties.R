@@ -80,10 +80,8 @@ NULL
 #' \item{`data` as a `matrix`/`Matrix` object}{where rows and columns represent
 #'   different planning units and the value of each cell represents the
 #'   amount of shared boundary length between two different planning units.
-#'   Cells that occur along the matrix diagonal represent the amount of
-#'   exposed boundary associated with each planning unit that has
-#'   no neighbor (e.g., these value might pertain to boundaries along a
-#'   coastline).}
+#'   Cells that occur along the matrix diagonal denote total the
+#'   boundary length associated with each planning unit.}
 #'
 #' \item{`data` as a `data.frame` object}{with the columns `"id1"`,
 #'   `"id2"`, and `"boundary"`. The `"id1"` and `"id2"` columns contain
@@ -286,14 +284,23 @@ add_boundary_penalties <- function(x, penalty,
     ),
     calculate = function(self, x) {
         assertthat::assert_that(is_conservation_problem(x))
+        # extract matrix
         m <- self$get_data("boundary_matrix")
+        # if waiver, then calculate boundary matrix
         if (is.Waiver(m)) {
           m <- internal_prepare_planning_unit_boundary_data(
             x, boundary_matrix(x$get_data("cost"))
           )
+          x$set_data("boundary_matrix", m)
         }
-        class(m) <- "dgCMatrix"
-        self$set_data("boundary_matrix", m)
+        # set total boundary
+        self$set_data("total_boundary", Matrix::diag(m))
+        # set exposed boundary
+        self$set_data(
+          "exposed_boundary",
+          Matrix::diag(m) - (Matrix::rowSums(m) - Matrix::diag(m))
+        )
+        # return invisible success
         invisible()
     },
     apply = function(self, x, y) {
@@ -303,13 +310,22 @@ add_boundary_penalties <- function(x, penalty,
       )
       p <- self$parameters$get("penalty")
       if (abs(p) > 1e-50) {
+        # create edge matrix from boundary matrix
+        m <- self$get_data("boundary_matrix")
+        if (is.Waiver(m)) {
+          m <- y$get_data("boundary_matrix")
+        }
+        Matrix::diag(m) <- 0
+        m <- as_Matrix(Matrix::tril(Matrix::drop0(m)), "dgCMatrix")
         # apply penalties
         rcpp_apply_boundary_penalties(
           x$ptr,
           p,
           self$parameters$get("edge factor")[[1]],
           self$parameters$get("zones"),
-          self$get_data("boundary_matrix")
+          m,
+          self$get_data("exposed_boundary"),
+          self$get_data("total_boundary")
         )
       }
       invisible(TRUE)
@@ -320,43 +336,36 @@ internal_prepare_planning_unit_boundary_data <- function(x, data)  {
   if (!is.null(data)) {
     # if boundary data is in data.frame format then coerce to sparse matrix
     if (inherits(data, "data.frame")) {
-      assertthat::assert_that(
-        !assertthat::has_name(data, "zone1"),
-        !assertthat::has_name(data, "zone2")
-      )
       data <- marxan_boundary_data_to_matrix(x, data)
     }
     # if/when data is matrix run further checks to ensure that
     # it is compatible with planning unit data
     if (inherits(data, c("matrix", "Matrix"))) {
       # if it is matrix coerce to sparse matrix
-      bm <- data
       if (!inherits(data, c("dsCMatrix", "dgCMatrix"))) {
-        bm <- as_Matrix(data, "dgCMatrix")
+        data <- as_Matrix(data, "dgCMatrix")
       }
       # check that matrix properties are correct
       assertthat::assert_that(
-        ncol(bm) == nrow(bm),
-        is_numeric_values(bm),
-        all_finite(bm),
+        ncol(data) == nrow(data),
+        is_numeric_values(data),
+        all_finite(data),
         msg = paste(
           "argument to data is not a valid symmetric matrix",
           "with finite (non-NA) values"
         )
       )
       assertthat::assert_that(
-        isTRUE(x$number_of_total_units() == ncol(bm)),
+        x$number_of_total_units() == ncol(data),
         msg = paste(
           "argument to data has a different number of rows/columns",
           "than the number of planning units in x"
         )
       )
       # return result
-      return(
-        filter_planning_units_in_boundary_matrix(x$planning_unit_indices(), bm)
-      )
+      return(data[x$planning_unit_indices(), x$planning_unit_indices()])
     } else {
-     # throw error because object class not recognized
+      # throw error because object class not recognized
       stop("argument to data is of a class that is not supported")
     }
   } else {
@@ -369,14 +378,4 @@ internal_prepare_planning_unit_boundary_data <- function(x, data)  {
     )
     return(new_waiver())
   }
-}
-
-filter_planning_units_in_boundary_matrix <- function(idx, bm) {
-  # add boundaries for non-planning units to diagonal of planning units
-  extra_boundaries <- Matrix::colSums(bm[-1 * idx, idx, drop = FALSE])
-  bm <- bm[idx, idx]
-  Matrix::diag(bm) <- Matrix::diag(bm) + extra_boundaries
-  # force symmetry
-  bm <- Matrix::forceSymmetric(bm, uplo = "L")
-  bm
 }

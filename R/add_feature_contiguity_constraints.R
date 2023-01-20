@@ -317,7 +317,7 @@ methods::setMethod("add_feature_contiguity_constraints",
         if (is.matrix(data[[i]]))
           data[[i]] <- as_Matrix(data, "dgCMatrix")
         if (is.data.frame(data[[i]]))
-          data[[i]] <- marxan_boundary_data_to_matrix(x, data[[i]])
+          data[[i]] <- marxan_connectivity_data_to_matrix(x, data[[i]], TRUE)
         # run checks
         assertthat::assert_that(
           all_binary(data[[i]]),

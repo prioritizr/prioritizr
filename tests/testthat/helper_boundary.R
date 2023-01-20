@@ -22,27 +22,34 @@ r_boundary_given_matrix <- function(solution, edge_factor, zones,
   c3 <- 0
   # adjust inputs according to planning units
   idx <- which(rowSums(is.finite(solution)) > 0)
-  boundary_matrix <- filter_planning_units_in_boundary_matrix(
-    idx, boundary_matrix
-  )
+  boundary_matrix <- boundary_matrix[idx, idx]
   solution <- solution[idx, , drop = FALSE]
   solution[is.na(solution)] <- 0
+  # prepare data for processing
+  total_boundary <- Matrix::diag(boundary_matrix)
+  exposed_boundary <-
+    Matrix::diag(boundary_matrix) -
+    (Matrix::rowSums(boundary_matrix) - Matrix::diag(boundary_matrix))
   # main processing
+  ## calculate total boundary
+  for (z in seq_len(ncol(zones))) {
+    for (i in seq_len(nrow(solution))) {
+      c1 <-
+        c1 + (solution[i, z] * zones[z, z] * (
+        (total_boundary[i] - exposed_boundary[i]) +
+        (exposed_boundary[i] * edge_factor[z])
+      ))
+    }
+  }
+
+  ## subtract shared boundary lengths
   for (z1 in seq_len(ncol(zones))) {
     for (z2 in seq(z1, nrow(zones))) {
       m <- boundary_matrix * zones[z1, z2]
-      if (z1 == z2) {
-        Matrix::diag(m) <- (Matrix::diag(m) * edge_factor[[z1]])
-      } else {
-        Matrix::diag(m) <- 0
-      }
+      Matrix::diag(m) <- 0
       for (i in seq_len(nrow(solution))) {
         for (j in seq(i, nrow(solution))) {
-          if ((z1 == z2) && (i == j)) {
-            c1 <- c1 + (m[i, j] * solution[i, z1])
-          } else if (z1 == z2) {
-            c2 <- c2 + (1 * m[i, j] * solution[i, z1])
-            c2 <- c2 + (1 * m[i, j] * solution[j, z2])
+          if (z1 == z2) {
             c2 <- c2 - (2 * m[i, j] * solution[i, z1] * solution[j, z2])
           } else {
             c3 <- c3 - (2 * m[i, j] * solution[i, z1] * solution[j, z2])
@@ -52,6 +59,7 @@ r_boundary_given_matrix <- function(solution, edge_factor, zones,
       }
     }
   }
+
   # return result
   sum(c1, c2, c3)
 }
@@ -66,7 +74,7 @@ r_boundary_given_geometry <- function(solution, sp) {
   # coerce solution to matrix if not a matrix
   if (!is.matrix(solution)) solution <- matrix(solution, ncol = 1)
   # assert that solution contains binary values
-  assertthat::assert_that(all(c(na.omit(as.matrix(solution))) %in% c(0, 1)))
+  assertthat::assert_that(all_binary(solution))
   # filter planning units
   solution <- rowSums(solution, na.rm = TRUE) > 1e-15
   # return boundary

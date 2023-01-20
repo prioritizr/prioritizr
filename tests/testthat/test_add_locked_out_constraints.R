@@ -76,7 +76,7 @@ test_that("integer (compile, single zone)", {
   locked_out_cells <- seq_len(20)
   locked_out_indices <- match(
     locked_out_cells,
-    terra::cells(is.na(sim_pu_raster))[[1]]
+    terra::cells(is.na(sim_pu_raster), 0)[[1]]
   )
   locked_out_indices <- locked_out_indices[!is.na(locked_out_indices)]
   # tests

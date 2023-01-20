@@ -1,4 +1,4 @@
-#' @include internal.R Penalty-proto.R marxan_boundary_data_to_matrix.R
+#' @include internal.R Penalty-proto.R marxan_connectivity_data_to_matrix.R
 NULL
 
 #' Add asymmetric connectivity penalties

@@ -1,4 +1,4 @@
-#' @include internal.R Constraint-proto.R marxan_boundary_data_to_matrix.R
+#' @include internal.R Constraint-proto.R marxan_connectivity_data_to_matrix.R
 NULL
 
 #' Add neighbor constraints
@@ -307,9 +307,29 @@ methods::setMethod("add_neighbor_constraints",
 methods::setMethod("add_neighbor_constraints",
   methods::signature("ConservationProblem", "ANY", "ANY", "data.frame"),
   function(x, k, zones, data) {
+    # assert valid arguments
+    assertthat::assert_that(
+      is.data.frame(data),
+      assertthat::has_name(data, "id1"),
+      assertthat::has_name(data, "id2"),
+      assertthat::has_name(data, "boundary")
+    )
+    if (
+      any(c("zone1", "zone2") %in% names(data))
+    ) {
+      assertthat::assert_that(
+        assertthat::has_name(data, "zone1"),
+        assertthat::has_name(data, "zone2"),
+        msg = paste(
+          "data must have both columns \"zone1\" and \"zone2\" when",
+          "specifying constraints for multiple zones"
+        )
+      )
+    }
+
     # add constraints
     add_neighbor_constraints(
-      x, k, zones, marxan_boundary_data_to_matrix(x, data)
+      x, k, zones, marxan_connectivity_data_to_matrix(x, data, TRUE)
     )
 })
 

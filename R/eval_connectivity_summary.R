@@ -181,7 +181,7 @@ methods::setMethod("eval_connectivity_summary",
   methods::signature("ConservationProblem", "ANY", "ANY", "data.frame"),
   function(x, solution, zones, data) {
     eval_connectivity_summary(
-      x, solution, zones, marxan_boundary_data_to_matrix(x, data)
+      x, solution, zones, marxan_connectivity_data_to_matrix(x, data, TRUE)
     )
 })
 

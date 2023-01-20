@@ -34,12 +34,19 @@ NULL
 #' (i.e., `rgeos:gUnarySTRtreeQuery()`) was documented as experimental.
 #' The `boundary_matrix()` function has since been updated so that it will
 #' use STR query trees to speed up processing for planning units in vector
-#' format (using [geos::geos_strtree()]).
+#' format (using [terra::sharedPaths()]).
+#'
+#' Also, note that in previous versions, cell values along the matrix
+#' diagonal indicated the perimeter associated with planning units
+#' that did not contain any neighbors. This has now changed such
+#' that values along the diagonal now correspond to the total
+#' perimeter associated with each planning unit.
 #'
 #' @return A [`dsCMatrix-class`] symmetric sparse matrix object.
 #'   Each row and column represents a planning unit.
-#'   Cells values indicate the shared boundary length between different pairs
-#'   of planning units.
+#'   Cell values indicate the shared boundary length between different pairs
+#'   of planning units. Values along the matrix diagonal indicate the
+#'   total perimeter associated with each planning unit.
 #'
 #' @name boundary_matrix
 #'
@@ -122,10 +129,8 @@ boundary_matrix.SpatRaster <- function(x, ...) {
       dims = rep(terra::ncell(x), 2)
     )
   )
-  # if cells don't have four neighbors then set the diagonal to be the total
-  # perimeter of the cell minus the boundaries of its neighbors
-  Matrix::diag(m)[include] <-
-    (sum(terra::res(x)) * 2) - Matrix::colSums(m)[include]
+  # set total boundary of each cell for matrix diagonal
+  Matrix::diag(m)[include] <- sum(terra::res(x)) * 2
   # return matrix
   as_Matrix(m, "dsCMatrix")
 }
@@ -185,32 +190,18 @@ boundary_matrix.sf <- function(x, ...) {
     !any(grepl("GEOMETRYCOLLECTION", geomc, fixed = TRUE)),
     msg = "geometry collection data are not supported"
   )
-  # generate STR query tree
-  g <- geos::as_geos_geometry(x)
-  tree <- geos::geos_basic_strtree(g)
-  strm <- geos::geos_basic_strtree_query(tree, g)
-  geos::geos_basic_strtree_finalized(tree)
-  rm(g, tree)
-  # convert to matrix
-  strm <- Matrix::sparseMatrix(
-    i = strm$tree, j = strm$x, x = 1, dims = rep(nrow(x), 2)
-  )
-  strm <- Matrix::forceSymmetric(strm, uplo = "U")
-  # calculate boundary data
-  y <- rcpp_boundary_data(
-    rcpp_sp_to_polyset(sf::as_Spatial(x)@polygons, "Polygons"),
-    strm = strm,
-    str_tree = TRUE
-  )
-  # if any warnings generated, then throw them
-  if (length(y$warnings) > 0) {
-    vapply(y$warnings, warning, character(1)) # nocov
-  }
+
+  # convert to terra object
+  x <- terra::vect(x)
+
+  # calculate shared paths
+  d <- terra::sharedPaths(x)
+
   # return result
   Matrix::sparseMatrix(
-    i = y$data[[1]],
-    j = y$data[[2]],
-    x = y$data[[3]],
+    i = c(d$id1, seq_len(nrow(x))),
+    j = c(d$id2, seq_len(nrow(x))),
+    x = suppressWarnings(c(terra::perim(d), terra::perim(x))),
     symmetric = TRUE,
     dims = rep(nrow(x), 2)
   )

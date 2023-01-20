@@ -105,8 +105,8 @@ rcpp_apply_asym_connectivity_penalties <- function(x, penalty, data) {
     .Call(`_prioritizr_rcpp_apply_asym_connectivity_penalties`, x, penalty, data)
 }
 
-rcpp_apply_boundary_penalties <- function(x, penalty, edge_factor, zones_matrix, boundary_matrix) {
-    .Call(`_prioritizr_rcpp_apply_boundary_penalties`, x, penalty, edge_factor, zones_matrix, boundary_matrix)
+rcpp_apply_boundary_penalties <- function(x, penalty, edge_factor, zones_matrix, boundary_matrix, exposed_boundary, total_boundary) {
+    .Call(`_prioritizr_rcpp_apply_boundary_penalties`, x, penalty, edge_factor, zones_matrix, boundary_matrix, exposed_boundary, total_boundary)
 }
 
 rcpp_apply_bounded_constraints <- function(x, pu, zone, lower, upper) {
@@ -177,12 +177,8 @@ rcpp_asym_connectivity <- function(data, solution) {
     .Call(`_prioritizr_rcpp_asym_connectivity`, data, solution)
 }
 
-rcpp_boundary <- function(edge_factor, zones_matrix, boundary_matrix, solution) {
-    .Call(`_prioritizr_rcpp_boundary`, edge_factor, zones_matrix, boundary_matrix, solution)
-}
-
-rcpp_boundary_data <- function(data, strm, str_tree, tolerance = 0.00001) {
-    .Call(`_prioritizr_rcpp_boundary_data`, data, strm, str_tree, tolerance)
+rcpp_boundary <- function(edge_factor, zones_matrix, boundary_matrix, exposed_boundary, total_boundary, solution) {
+    .Call(`_prioritizr_rcpp_boundary`, edge_factor, zones_matrix, boundary_matrix, exposed_boundary, total_boundary, solution)
 }
 
 rcpp_branch_matrix <- function(x) {
@@ -203,13 +199,5 @@ rcpp_forbid_solution <- function(x, solution) {
 
 rcpp_list_to_matrix_indices <- function(x, n_preallocate = 10000L) {
     .Call(`_prioritizr_rcpp_list_to_matrix_indices`, x, n_preallocate)
-}
-
-rcpp_sp_to_polyset <- function(x, slot, n_preallocate = 10000L) {
-    .Call(`_prioritizr_rcpp_sp_to_polyset`, x, slot, n_preallocate)
-}
-
-rcpp_summarize_exactextractr <- function(x, nrow, ncol, fun) {
-    .Call(`_prioritizr_rcpp_summarize_exactextractr`, x, nrow, ncol, fun)
 }
 

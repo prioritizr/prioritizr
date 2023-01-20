@@ -281,9 +281,11 @@ methods::setMethod(
     default_portfolio <- inherits(a$portfolio, "Waiver")
     if (inherits(a$portfolio, "Waiver"))
       a <- add_default_portfolio(a) #nocov
+    # compile optimization problem
+    opt <- compile.ConservationProblem(a, ...)
     # run presolve check to try to identify potential problems
     if (run_checks) {
-      ch <- presolve_check(a)
+      ch <- presolve_check(opt)
       assertthat::assert_that(
         isTRUE(force) || isTRUE(ch),
         msg = paste(
@@ -292,8 +294,6 @@ methods::setMethod(
          )
        )
     }
-    # compile optimisation problem
-    opt <- compile.ConservationProblem(a, ...)
     # solve problem
     sol <- a$portfolio$run(opt, a$solver)
     # check that solution is valid

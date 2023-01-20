@@ -1,6 +1,6 @@
 #include "package.h"
 #include "optimization_problem.h"
-#include "rcpp_boundary_data.h"
+#include "functions.h"
 
 // [[Rcpp::export]]
 bool rcpp_apply_connectivity_penalties(SEXP x, double penalty,

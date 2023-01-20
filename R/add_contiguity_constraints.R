@@ -331,11 +331,15 @@ methods::setMethod("add_contiguity_constraints",
     # assert that does not have zone1 and zone2 columns
     assertthat::assert_that(
       is.data.frame(data),
+      assertthat::has_name(data, "id1"),
+      assertthat::has_name(data, "id2"),
+      assertthat::has_name(data, "boundary"),
       !assertthat::has_name(data, "zone1"),
-      !assertthat::has_name(data, "zone2"))
+      !assertthat::has_name(data, "zone2")
+    )
     # add constraints
     add_contiguity_constraints(
-      x, zones, marxan_boundary_data_to_matrix(x, data)
+      x, zones, marxan_connectivity_data_to_matrix(x, data, TRUE)
     )
   }
 )
