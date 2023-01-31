@@ -6,7 +6,9 @@
 \alias{\%>\%}
 \alias{\%T>\%}
 \alias{plot}
-\alias{plot.phylo}
+\alias{nrow}
+\alias{ncol}
+\alias{ncell}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -14,10 +16,8 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{ape}{\code{\link[ape]{plot.phylo}}}
-
   \item{magrittr}{\code{\link[magrittr:pipe]{\%>\%}}, \code{\link[magrittr:tee]{\%T>\%}}}
 
-  \item{terra}{\code{\link[terra]{plot}}}
+  \item{terra}{\code{\link[terra:dimensions]{ncell}}, \code{\link[terra:dimensions]{ncol}}, \code{\link[terra:dimensions]{nrow}}, \code{\link[terra]{plot}}}
 }}
 

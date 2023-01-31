@@ -45,19 +45,4 @@ m1 <- marxan_boundary_data_to_matrix(NULL, bldf1)
 \dontrun{
 image(m1)
 }
-# create marxan boundary with three planning units and two zones
-bldf2 <- expand.grid(
-  id1 = seq_len(3), id2 = seq_len(3),
-  zone1 = c("z1", "z2"),
-  zone2 = c("z1", "z2")
-)
-bldf2$boundary <- 1
-bldf2$boundary[bldf2$id1 == bldf2$id2 & bldf2$zone1 == bldf2$zone2] <- 0.5
-bldf2$boundary[bldf2$id1 == bldf2$id2 & bldf2$zone1 != bldf2$zone2] <- 0
-
-# convert to array
-m2 <- marxan_boundary_data_to_matrix(NULL, bldf2)
-
-# print array
-print(m2)
 }

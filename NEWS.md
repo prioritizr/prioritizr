@@ -22,6 +22,8 @@
 - The `add_lpsymphony_solver()` now throws an error -- instead of a warning --
   if an old version of the _lpsymphony_ package is installed that is known
   to produce incorrect results.
+- The `marxan_boundary_data_to_matrix()` function is no longer compatible
+  with boundary data for multiple zones.
 - The `distribute_load()` function has been deprecated, because it is no
   longer used. For equivalent functionality, See `parallel::splitIndices()`.
 

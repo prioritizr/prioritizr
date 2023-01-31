@@ -13,7 +13,7 @@ rij_matrix(x, y, ...)
 
 \S4method{rij_matrix}{Raster,Raster}(x, y, ...)
 
-\S4method{rij_matrix}{SpatRaster,SpatRaster}(x, y, ...)
+\S4method{rij_matrix}{SpatRaster,SpatRaster}(x, y, memory, ...)
 
 \S4method{rij_matrix}{Spatial,Raster}(x, y, fun, ...)
 

@@ -21,6 +21,7 @@
 \alias{problem,sf,ZonesCharacter-method}
 \alias{problem,sf,character-method}
 \alias{problem,sf,ZonesRaster-method}
+\alias{problem,sf,ZonesSpatRaster-method}
 \title{Conservation planning problem}
 \usage{
 problem(x, features, ...)
@@ -41,7 +42,7 @@ problem(x, features, ...)
 
 \S4method{problem}{sf,SpatRaster}(x, features, cost_column, run_checks, ...)
 
-\S4method{problem}{sf,ZonesRaster}(x, features, cost_column, run_checks, ...)
+\S4method{problem}{sf,ZonesSpatRaster}(x, features, cost_column, run_checks, ...)
 
 \S4method{problem}{sf,character}(x, features, cost_column, ...)
 

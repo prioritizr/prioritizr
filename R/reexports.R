@@ -13,6 +13,19 @@ magrittr::`%T>%`
 #' @export
 terra::plot
 
-#' @importFrom ape plot.phylo
+#' @importFrom terra nrow
 #' @export
-ape::plot.phylo
+terra::nrow
+
+#' @importFrom terra ncol
+#' @export
+terra::ncol
+
+#' @importFrom terra ncell
+#' @export
+terra::ncell
+
+#' @importFrom ape plot.phylo
+#' @method plot phylo
+#' @export
+plot.phylo <- ape::plot.phylo

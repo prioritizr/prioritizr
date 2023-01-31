@@ -260,7 +260,7 @@ NULL
 #' Additionally, see [summaries] and [importance] for information on
 #' evaluating solutions.
 #'
-#' @aliases problem,Raster,Raster-method problem,SpatRaster,SpatRaster-method problem,Spatial,Raster-method problem,data.frame,data.frame-method problem,numeric,data.frame-method problem,data.frame,character-method problem,Spatial,character-method problem,Raster,ZonesRaster-method problem,SpatRaster,ZonesRaster-method problem,Spatial,ZonesRaster-method problem,Spatial,ZonesCharacter-method problem,data.frame,ZonesCharacter-method problem,matrix,data.frame-method problem,sf,Raster-method problem,sf,SpatRaster-method problem,SpatRaster,ZonesSpatRaster-method problem,sf,ZonesCharacter-method problem,sf,character-method problem,sf,ZonesRaster-method
+#' @aliases problem,Raster,Raster-method problem,SpatRaster,SpatRaster-method problem,Spatial,Raster-method problem,data.frame,data.frame-method problem,numeric,data.frame-method problem,data.frame,character-method problem,Spatial,character-method problem,Raster,ZonesRaster-method problem,SpatRaster,ZonesRaster-method problem,Spatial,ZonesRaster-method problem,Spatial,ZonesCharacter-method problem,data.frame,ZonesCharacter-method problem,matrix,data.frame-method problem,sf,Raster-method problem,sf,SpatRaster-method problem,SpatRaster,ZonesSpatRaster-method problem,sf,ZonesCharacter-method problem,sf,character-method problem,sf,ZonesRaster-method problem,sf,ZonesSpatRaster-method
 #'
 #' @exportMethod problem
 #'

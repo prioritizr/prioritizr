@@ -55,17 +55,8 @@ NULL
 #'
 #' @name OptimizationProblem-methods
 #'
-#' @aliases nrow ncol ncell modelsense vtype obj A rhs sense lb ub col_ids row_ids compressed_formulation ncell,OptimizationProblem-method A,OptimizationProblem-method col_ids,OptimizationProblem-method lb,OptimizationProblem-method modelsense,OptimizationProblem-method ncol,OptimizationProblem-method nrow,OptimizationProblem-method  obj,OptimizationProblem-method rhs,OptimizationProblem-method row_ids,OptimizationProblem-method sense,OptimizationProblem-method ub,OptimizationProblem-method vtype,OptimizationProblem-method  compressed_formulation,OptimizationProblem-method
+#' @aliases modelsense vtype obj A rhs sense lb ub col_ids row_ids compressed_formulation ncell,OptimizationProblem-method A,OptimizationProblem-method col_ids,OptimizationProblem-method lb,OptimizationProblem-method modelsense,OptimizationProblem-method ncol,OptimizationProblem-method nrow,OptimizationProblem-method  obj,OptimizationProblem-method rhs,OptimizationProblem-method row_ids,OptimizationProblem-method sense,OptimizationProblem-method ub,OptimizationProblem-method vtype,OptimizationProblem-method  compressed_formulation,OptimizationProblem-method
 NULL
-
-if (!isGeneric("nrow")) {
-#' @name OptimizationProblem-methods
-#'
-#' @rdname OptimizationProblem-methods
-#'
-#' @usage nrow(x)
-setGeneric("nrow", function(x) standardGeneric("nrow"))
-}
 
 #' @name OptimizationProblem-methods
 #'
@@ -74,30 +65,12 @@ setGeneric("nrow", function(x) standardGeneric("nrow"))
 #' @usage \S4method{nrow}{OptimizationProblem}(x)
 methods::setMethod("nrow", "OptimizationProblem", function(x) x$nrow())
 
-if (!isGeneric("ncol")) {
-#' @name OptimizationProblem-methods
-#'
-#' @rdname OptimizationProblem-methods
-#'
-#' @usage ncol(x)
-setGeneric("ncol", function(x) standardGeneric("ncol"))
-}
-
 #' @name OptimizationProblem-methods
 #'
 #' @rdname OptimizationProblem-methods
 #'
 #' @usage \S4method{ncol}{OptimizationProblem}(x)
 methods::setMethod("ncol", "OptimizationProblem", function(x) x$ncol())
-
-if (!isGeneric("ncell")) {
-#' @name OptimizationProblem-methods
-#'
-#' @rdname OptimizationProblem-methods
-#'
-#' @usage ncell(x)
-setGeneric("ncell", function(x) standardGeneric("ncell"))
-}
 
 #' @name OptimizationProblem-methods
 #'

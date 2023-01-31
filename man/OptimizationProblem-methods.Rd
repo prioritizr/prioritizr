@@ -2,9 +2,6 @@
 % Please edit documentation in R/OptimizationProblem-methods.R
 \name{OptimizationProblem-methods}
 \alias{OptimizationProblem-methods}
-\alias{nrow}
-\alias{ncol}
-\alias{ncell}
 \alias{modelsense}
 \alias{vtype}
 \alias{obj}
@@ -32,15 +29,9 @@
 \alias{compressed_formulation,OptimizationProblem-method}
 \title{Optimization problem methods}
 \usage{
-nrow(x)
-
 \S4method{nrow}{OptimizationProblem}(x)
 
-ncol(x)
-
 \S4method{ncol}{OptimizationProblem}(x)
-
-ncell(x)
 
 \S4method{ncell}{OptimizationProblem}(x)
 
