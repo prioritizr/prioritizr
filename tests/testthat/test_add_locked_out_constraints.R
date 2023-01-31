@@ -24,9 +24,9 @@ test_that("logical (compile, single zone)", {
   # tests
   expect_true(all(o$ub()[locked_out_indices] == 0))
   expect_true(all(o$ub()[-locked_out_indices] == 1))
-  expect_error(p %>% add_locked_out_constraints(c(TRUE)))
+  expect_tidy_error(p %>% add_locked_out_constraints(c(TRUE)))
   # tests for invalid inputs
-  expect_error(
+  expect_tidy_error(
     p %>%
     add_locked_out_constraints(
       c(TRUE, NA_logical, rep(FALSE, terra::ncell(sim_pu_raster) - 2))
@@ -82,10 +82,10 @@ test_that("integer (compile, single zone)", {
   # tests
   expect_true(all(o$ub()[locked_out_indices] == 0))
   expect_true(all(o$ub()[-locked_out_indices] == 1))
-  expect_error(p %>% add_locked_out_constraints(-1))
-  expect_error(p %>% add_locked_out_constraints(9.6))
+  expect_tidy_error(p %>% add_locked_out_constraints(-1))
+  expect_tidy_error(p %>% add_locked_out_constraints(9.6))
   # tests for invalid inputs
-  expect_error(
+  expect_tidy_error(
     p %>% add_locked_out_constraints(terra::ncell(sim_pu_raster) + 1)
   )
 })
@@ -147,7 +147,7 @@ test_that("integer (compile, multiple zones)", {
   # tests
   expect_true(all(o$ub()[1:20] == 0))
   expect_true(all(o$ub()[other_ind] == 1))
-  expect_error({
+  expect_tidy_error({
     p %>% add_locked_in_constraints({s <- status; s[1, 1] <- 2; s})
   })
 })
@@ -199,7 +199,7 @@ test_that("character (compile, single zone)", {
   # tests
   expect_true(all(o$ub()[which(sim_pu_polygons$locked_out)] == 0))
   # tests for invalid inputs
-  expect_error({
+  expect_tidy_error({
     sim_pu_polygons$locked_out <- as.integer(sim_pu_polygons$locked_out)
     problem(sim_pu_polygons, sim_features) %>%
     add_min_set_objective() %>%
@@ -207,21 +207,21 @@ test_that("character (compile, single zone)", {
     add_binary_decisions()  %>%
     add_locked_out_constraints("locked_out")
   })
-  expect_error({
+  expect_tidy_error({
     problem(sim_pu_polygons, sim_features) %>%
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%
     add_binary_decisions()  %>%
     add_locked_out_constraints(NA_character_)
   })
-  expect_error({
+  expect_tidy_error({
     problem(sim_pu_polygons, sim_features) %>%
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%
     add_binary_decisions()  %>%
     add_locked_out_constraints("column_name_that_doesnt_exist")
   })
-  expect_error({
+  expect_tidy_error({
     problem(sim_pu_polygons, sim_features) %>%
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%
@@ -301,7 +301,7 @@ test_that("character (compile, multiple zones)", {
   expect_true(all(o$ub()[locked_ind] == 0))
   expect_true(all(o$ub()[other_ind] == 1))
   # tests for invalid inputs
-  expect_error({
+  expect_tidy_error({
     sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
     sim_zones_features <- get_sim_zones_features()
     sim_zones_pu_polygons$locked_1 <- FALSE
@@ -408,25 +408,25 @@ test_that("raster (compile, single zone)", {
   expect_true(all(o$ub()[locked_out_indices] == 0))
   expect_true(all(o$ub()[-locked_out_indices] == 1))
   # tests for invalid inputs
-  expect_error({
+  expect_tidy_error({
     d <- get_sim_locked_out_raster()
     terra::ext(d) <- c(0, 20, 0, 20)
     p %>% add_locked_out_constraints(d)
   })
-  expect_error({
+  expect_tidy_error({
     d <- get_sim_locked_out_raster()
     terra::crs(d) <- as.character(
       sf::st_crs("+proj=longlat +datum=WGS84 +no_defs")
     )[[2]]
     p %>% add_locked_out_constraints(d)
   })
-  expect_error({
+  expect_tidy_error({
     p  %>%
     add_locked_out_constraints(
       terra::setValues(get_sim_locked_out_raster(), NA)
     )
   })
-  expect_error({
+  expect_tidy_error({
     p  %>%
     add_locked_out_constraints(
       terra::setValues(get_sim_locked_out_raster(), NA)
@@ -545,7 +545,7 @@ test_that("spatial (compile, single zone)", {
   expect_true(all(o$ub()[locked_out_units] == 0))
   expect_true(all(o$ub()[-locked_out_units] == 1))
   # tests for invalid inputs
-  expect_error({
+  expect_tidy_error({
     sim_pu_polygons <- sf::as_Spatial(get_sim_pu_polygons())
     sim_features <- raster::stack(get_sim_features())
     problem(sim_pu_polygons[1:10, ], sim_features) %>%
@@ -554,7 +554,7 @@ test_that("spatial (compile, single zone)", {
     add_binary_decisions()  %>%
     add_locked_out_constraints(sim_pu_polygons[50:55, ])
   })
-  expect_error({
+  expect_tidy_error({
     sim_pu_polygons <- sf::as_Spatial(get_sim_pu_polygons())
     sim_features <- raster::stack(get_sim_features())
     problem(sim_pu_polygons[1:10, ], sim_features) %>%
@@ -563,7 +563,7 @@ test_that("spatial (compile, single zone)", {
     add_binary_decisions()  %>%
     add_locked_out_constraints(sim_pu_polygons[0, ])
   })
-  expect_error({
+  expect_tidy_error({
     sim_pu_polygons <-sf::as_Spatial(get_sim_pu_polygons())
     sim_features <- raster::stack(get_sim_features())
     sim_pu_polygons2 <- sim_pu_polygons[1:10, ]
@@ -611,7 +611,7 @@ test_that("spatial (compile, multiple zones, expect error)", {
   )
   targets[, 1] <- 1
   # tests
-  expect_error({
+  expect_tidy_error({
     problem(
       sim_zones_pu_polygons, sim_zones_features,
       c("cost_1", "cost_2", "cost_3")

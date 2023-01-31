@@ -197,8 +197,8 @@ test_that("add_manual_targets (invalid input)", {
   # create problem
   p <- problem(sim_zones_pu_raster, sim_zones_features)
   # tests
-  expect_error(add_manual_targets(p, data.frame()))
-  expect_error(
+  expect_tidy_error(add_manual_targets(p, data.frame()))
+  expect_tidy_error(
     add_manual_targets(
       p,
       data.frame(
@@ -209,7 +209,7 @@ test_that("add_manual_targets (invalid input)", {
       )
     )
   )
-  expect_error(
+  expect_tidy_error(
     add_manual_targets(
       p,
       data.frame(
@@ -220,7 +220,7 @@ test_that("add_manual_targets (invalid input)", {
       )
     )
   )
-  expect_error(
+  expect_tidy_error(
     add_manual_targets(
       p,
       data.frame(
@@ -231,7 +231,7 @@ test_that("add_manual_targets (invalid input)", {
       )
     )
   )
-  expect_error(
+  expect_tidy_error(
     add_manual_targets(
       p,
       data.frame(
@@ -242,7 +242,7 @@ test_that("add_manual_targets (invalid input)", {
       )
     )
   )
-  expect_error(
+  expect_tidy_error(
     add_manual_targets(
       p,
       data.frame(
@@ -253,7 +253,7 @@ test_that("add_manual_targets (invalid input)", {
       )
     )
   )
-  expect_error(
+  expect_tidy_error(
     add_manual_targets(
       p,
       data.frame(
@@ -264,7 +264,7 @@ test_that("add_manual_targets (invalid input)", {
       )
     )
   )
-  expect_error(
+  expect_tidy_error(
     add_manual_targets(
       p,
       data.frame(
@@ -276,7 +276,7 @@ test_that("add_manual_targets (invalid input)", {
       )
     )
   )
-  expect_error(
+  expect_tidy_error(
     add_manual_targets(
       p,
       data.frame(

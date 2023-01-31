@@ -56,10 +56,21 @@ NULL
 #' }
 #'
 #' @export
-methods::setGeneric("intersecting_units",
-                    signature = methods::signature("x", "y"),
-                    function(x, y)
-                      standardGeneric("intersecting_units"))
+methods::setGeneric(
+  "intersecting_units",
+  signature = methods::signature("x", "y"),
+  function(x, y) {
+    rlang::check_required(x)
+    rlang::check_required(y)
+    assert(
+      is_inherits(
+        x, c("data.frame", "sf", "SpatRaster", "Spatial", "Raster")
+      ),
+      is_spatially_explicit(y)
+    )
+    standardGeneric("intersecting_units")
+  }
+)
 
 #' @name intersecting_units
 #' @usage \S4method{intersecting_units}{Raster,ANY}(x, y)
@@ -117,7 +128,7 @@ methods::setMethod(
   methods::signature(x = "SpatRaster", y = "SpatRaster"),
   function(x, y) {
     # assert arguments are valid
-    assertthat::assert_that(
+    assert(
       inherits(x, "SpatRaster"),
       inherits(y, "SpatRaster"),
       terra::nlyr(x) == 1,
@@ -141,7 +152,7 @@ methods::setMethod(
   methods::signature(x = "sf", y = "sf"),
   function(x, y) {
     # assert arguments are valid
-    assertthat::assert_that(
+    assert(
       inherits(x, "sf"),
       inherits(y, "sf"),
       is_same_crs(x, y),
@@ -178,7 +189,7 @@ methods::setMethod(
   methods::signature(x = "SpatRaster", y = "sf"),
   function(x, y) {
     # assert arguments are valid
-    assertthat::assert_that(
+    assert(
       inherits(x, "SpatRaster"),
       inherits(y, "sf"),
       terra::nlyr(x) == 1,
@@ -202,7 +213,7 @@ methods::setMethod("intersecting_units",
   methods::signature(x = "sf", y = "SpatRaster"),
   function(x, y) {
     # assert arguments are valid
-    assertthat::assert_that(
+    assert(
       inherits(x, "sf"),
       inherits(y, "SpatRaster"),
       terra::nlyr(y) == 1,
@@ -224,8 +235,13 @@ methods::setMethod(
   "intersecting_units",
   methods::signature(x = "data.frame", y = "ANY"),
   function(x, y) {
-    stop("planning units are stored as a data.frame and so the required ",
-         "spatial analysis cannot be performed")
+    cli::cli_abort(
+      "{.arg x} must not have planning units in a data frame.",
+      "i" = paste(
+        "This is data frames lack spatial information to",
+        "perform spatial analyses."
+      )
+    )
   }
 )
 

@@ -3,7 +3,14 @@ NULL
 
 add_default_objective <- function(x) {
   # assert argument is valid
-  assertthat::assert_that(is_conservation_problem(x))
+  rlang::check_required(x)
+  assert(is_conservation_problem(x), call = NULL)
   # throw error because objectives must be explicitly defined
-  stop("problem is missing an objective, see ?objectives for guidance")
+  cli::cli_abort(
+    "{.fn problem} is missing an objective.",
+    "i" = paste(
+      "see {.topic prioritizr::objectives} for guidance on selecting",
+      "an objective."
+    )
+  )
 }

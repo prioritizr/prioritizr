@@ -38,7 +38,7 @@ NULL
 #'
 #' @export
 pproto <- function(`_class` = NULL, `_inherit` = NULL, ...) {
-  assertthat::assert_that(assertthat::is.string(`_class`) || is.null(`_class`),
+  assert(assertthat::is.string(`_class`) || is.null(`_class`),
     inherits(`_inherit`, "pproto") || is.null(`_inherit`))
   # copy objects from one proto to another proto
   assign_fields <- function(p1, p2) {

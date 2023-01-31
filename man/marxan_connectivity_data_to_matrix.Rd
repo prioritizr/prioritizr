@@ -13,8 +13,7 @@ contains planning unit and zone data to ensure that the argument to
 \code{NULL} if checks are not required (not recommended).}
 
 \item{data}{\code{data.frame} object with the columns \code{"id1"},
-\code{"id2"}, and \code{"boundary"}. The columns \code{"zone1"} and
-\code{"zone2"} can also be provided to indicate zone data.}
+\code{"id2"}, and \code{"boundary"}.}
 
 \item{symmetric}{\code{logical} does the connectivity data
 describe symmetric relationships between planning units?
@@ -23,11 +22,7 @@ this parameter should be set to \code{FALSE}.
 Defaults to \code{TRUE}.}
 }
 \value{
-An \code{array} or \code{\linkS4class{dgCMatrix}} sparse matrix object.
-If the argument to \code{data} corresponds to a single zone,
-then a \code{\linkS4class{dgCMatrix}}
-matrix is returned. Otherwise, if the argument to \code{data}
-corresponds to multiple zones, then an \code{array} is returned.
+A \code{\linkS4class{dgCMatrix}} sparse matrix object.
 }
 \description{
 Convert a \code{data.frame} object containing \emph{Marxan} connectivity data

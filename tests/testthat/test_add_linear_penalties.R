@@ -532,27 +532,27 @@ test_that("invalid inputs", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
-  expect_error({
+  expect_tidy_error({
     problem(sim_pu_raster, sim_features) %>%
     add_linear_penalties(NA_real_, sim_features[[1]])
   })
-  expect_error({
+  expect_tidy_error({
     problem(sim_pu_raster, sim_features) %>%
     add_linear_penalties(c(3, 3), sim_features[[1]])
   })
-  expect_error({
+  expect_tidy_error({
     problem(sim_pu_raster, sim_features) %>%
     add_linear_penalties(c(3, 3), sim_features[[1:2]])
   })
-  expect_error({
+  expect_tidy_error({
     problem(sim_pu_polygons, sim_features, cost_column = "cost") %>%
     add_linear_penalties(3, c("cost", "cost"))
   })
-  expect_error({
+  expect_tidy_error({
     problem(sim_pu_raster, sim_features) %>%
     add_linear_penalties(3, "a")
   })
-  expect_error({
+  expect_tidy_error({
     problem(sim_pu_raster, sim_features) %>%
     add_linear_penalties(
       3, terra::crop(sim_features[[1]], terra::ext(c(0, 0.5, 0, 0.5)))

@@ -14,21 +14,21 @@ all_columns_any_finite <- function(x)
   UseMethod("all_columns_any_finite")
 
 assertthat::on_failure(all_columns_any_finite) <- function(call, env) {
-  paste(
-    deparse(call$x),
-      "has some columns only containing missing or non-finite values",
-      "(e.g., NaN, NA, Inf)"
+  paste0(
+    "{.arg ", deparse(call$x),
+      "} must have columns that do not only contain missing or non-finite",
+      " values (e.g., {.val {NaN}}, {.val {NA}}, {.val {Inf}})."
   )
 }
 
 all_columns_any_finite.default <- function(x) {
-  stop("argument to x is not a recognized class")
+  stop("{.arg x} is not a recognized class.")
 }
 
 .S3method("all_columns_any_finite", "default", all_columns_any_finite.default)
 
 all_columns_any_finite.data.frame <- function(x) {
-  assertthat::assert_that(
+  assert(
     is.data.frame(x)
   )
   all(colSums(vapply(x, is.finite, logical(nrow(x)))) > 0)
@@ -40,7 +40,7 @@ all_columns_any_finite.data.frame <- function(x) {
 )
 
 all_columns_any_finite.matrix <- function(x) {
-  assertthat::assert_that(
+  assert(
     is.matrix(x)
   )
   all(colSums(is.finite(x)) > 0)

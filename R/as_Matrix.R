@@ -18,7 +18,7 @@ NULL
 #' @noRd
 as_Matrix <- function(object, class) {
   # assert valid argument
-  assertthat::assert_that(
+  assert(
     assertthat::is.string(class),
     assertthat::noNA(class)
   )

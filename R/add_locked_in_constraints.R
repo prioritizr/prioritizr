@@ -241,10 +241,25 @@ NULL
 
 #'
 #' @export
-methods::setGeneric("add_locked_in_constraints",
-                    signature = methods::signature("x", "locked_in"),
-                    function(x, locked_in)
-                      standardGeneric("add_locked_in_constraints"))
+methods::setGeneric(
+  "add_locked_in_constraints",
+  signature = methods::signature("x", "locked_in"),
+  function(x, locked_in) {
+    rlang::check_required(x)
+    rlang::check_required(locked_in)
+    assert(
+      is_conservation_problem(x),
+      is_inherits(
+        locked_in,
+        c(
+          "character", "numeric", "logical",
+          "matrix", "sf", "SpatRaster", "Spatial", "Raster"
+        )
+      )
+    )
+    standardGeneric("add_locked_in_constraints")
+  }
+)
 
 #' @name add_locked_in_constraints
 #' @usage \S4method{add_locked_in_constraints}{ConservationProblem,numeric}(x, locked_in)
@@ -253,7 +268,7 @@ methods::setMethod("add_locked_in_constraints",
   methods::signature("ConservationProblem", "numeric"),
   function(x, locked_in) {
     # assert valid arguments
-    assertthat::assert_that(
+    assert(
       is_conservation_problem(x),
       x$number_of_zones() == 1,
       is.numeric(locked_in),
@@ -276,7 +291,7 @@ methods::setMethod("add_locked_in_constraints",
   methods::signature("ConservationProblem", "logical"),
   function(x, locked_in) {
     # assert valid arguments
-    assertthat::assert_that(
+    assert(
       is_conservation_problem(x),
       is.logical(locked_in),
       all_finite(locked_in),
@@ -294,7 +309,7 @@ methods::setMethod("add_locked_in_constraints",
   methods::signature("ConservationProblem", "matrix"),
   function(x, locked_in) {
     # assert valid arguments
-    assertthat::assert_that(
+    assert(
       is_conservation_problem(x),
       is.matrix(locked_in),
       is.logical(locked_in),
@@ -303,9 +318,9 @@ methods::setMethod("add_locked_in_constraints",
       x$number_of_total_units() == nrow(locked_in),
       all(rowSums(locked_in) <= 1)
     )
-    assertthat::assert_that(
+    assert(
       sum(locked_in, na.rm = TRUE) > 0,
-      msg = "at least one planning unit must be locked in"
+      msg = "{.arg locked_in} must lock in at least one planning unit."
     )
     # create data.frame with statuses
     ind <- which(locked_in, arr.ind = TRUE)
@@ -326,34 +341,36 @@ methods::setMethod("add_locked_in_constraints",
   methods::signature("ConservationProblem", "character"),
   function(x, locked_in) {
     # assert valid arguments
-    assertthat::assert_that(
+    assert(
       is_conservation_problem(x),
       is.character(locked_in),
       assertthat::noNA(locked_in),
       x$number_of_zones() == length(locked_in)
     )
-    assertthat::assert_that(
+    assert(
       inherits(x$data$cost, c("data.frame", "Spatial", "sf")),
       msg = paste(
-        "argument to locked_in contains character values, and the",
-        "planning unit data are not in a data.frame, Spatial, or sf format"
+        "{.arg locked_in} can only be a character vector, if the",
+        "planning unit data for {.arg x} is a",
+        "{.cls sf}, {.cls Spatial}, or data frame."
       )
     )
-    assertthat::assert_that(
+    assert(
       all_match_of(locked_in, names(x$data$cost)),
       msg = paste(
-        "argument to locked_in contains values that are not column names",
-        "in the planning unit data"
+        "{.arg locked_in} must contain character values that refer to",
+        "column names of the planning unit data for {.arg x}."
       )
     )
-    assertthat::assert_that(
+    assert(
       all_columns_inherit(
         as.data.frame(x$data$cost)[, locked_in, drop = FALSE],
         "logical"
       ),
       msg = paste(
-        "argument to locked_in refers to a column that does not",
-        "have logical (TRUE / FALSE) values"
+        ".arg{locked_in} must refer to columns of the",
+        "planning unit data for {.arg x} that contain",
+        "logical ({.code TRUE}/{.code FALSE}) values."
       )
     )
     # add constraints
@@ -383,7 +400,7 @@ methods::setMethod("add_locked_in_constraints",
   methods::signature("ConservationProblem", "sf"),
   function(x, locked_in) {
     # assert valid arguments
-    assertthat::assert_that(
+    assert(
       is_conservation_problem(x),
       inherits(locked_in, "sf"),
       x$number_of_zones() == 1
@@ -410,7 +427,7 @@ methods::setMethod("add_locked_in_constraints",
   methods::signature("ConservationProblem", "SpatRaster"),
   function(x, locked_in) {
     # assert valid arguments
-    assertthat::assert_that(
+    assert(
       is_conservation_problem(x),
       inherits(locked_in, "SpatRaster"),
       x$number_of_zones() == terra::nlyr(locked_in)
@@ -445,13 +462,16 @@ methods::setMethod("add_locked_in_constraints",
       )
     }
     # additional checks
-    assertthat::assert_that(
+    assert(
       all(rowSums(status) <= 1),
-      msg = "some planning units are locked in to multiple zones"
+      msg = paste(
+        "{.arg locked_in} must not specify that contain a",
+        "single planning unit should be locked to multiple zones."
+      )
     )
-    assertthat::assert_that(
+    assert(
       sum(status) >= 1,
-      msg = "at least one planning unit must be locked in"
+      msg = "{.arg locked_in} must lock in at least one planning unit."
     )
     # add constraints
     add_locked_in_constraints(x, status)

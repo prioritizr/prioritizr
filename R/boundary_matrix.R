@@ -77,14 +77,17 @@ NULL
 #' plot(bm_ply, main = "boundary matrix", axes = FALSE)
 #' }
 #' @export
-boundary_matrix <- function(x, ...) UseMethod("boundary_matrix")
+boundary_matrix <- function(x, ...) {
+  rlang::check_required(x)
+  UseMethod("boundary_matrix")
+}
 
 #' @rdname boundary_matrix
 #' @method boundary_matrix Raster
 #' @export
 boundary_matrix.Raster <- function(x, ...) {
   # assert that arguments are valid
-  assertthat::assert_that(inherits(x, "Raster"))
+  assert(inherits(x, "Raster"))
   # deprecation notice
   .Deprecated(raster_pkg_deprecation_notice)
   # convert to SpatRaster for processing
@@ -96,7 +99,7 @@ boundary_matrix.Raster <- function(x, ...) {
 #' @export
 boundary_matrix.SpatRaster <- function(x, ...) {
   # assert that arguments are valid
-  assertthat::assert_that(inherits(x, "SpatRaster"))
+  assert(inherits(x, "SpatRaster"))
   # indices of cells with finite values
   include <- terra::cells(terra::allNA(x), 0)[[1]]
   # set x to a single raster layer with only values in pixels that are not
@@ -140,7 +143,7 @@ boundary_matrix.SpatRaster <- function(x, ...) {
 #' @export
 boundary_matrix.SpatialPolygons <- function(x, ...) {
   # assert that arguments are valid
-  assertthat::assert_that(inherits(x, "SpatialPolygons"))
+  assert(inherits(x, "SpatialPolygons"))
   # deprecation notice
   .Deprecated(sp_pkg_deprecation_notice)
   # convert to sf format for processing
@@ -151,18 +154,28 @@ boundary_matrix.SpatialPolygons <- function(x, ...) {
 #' @method boundary_matrix SpatialLines
 #' @export
 boundary_matrix.SpatialLines <- function(x, ...) {
-  assertthat::assert_that(inherits(x, "SpatialLines"))
-  stop("data represented by lines have no boundaries, ",
-    "see ?constraints for alternative constraints")
+  assert(inherits(x, "SpatialLines"))
+  cli::cli_abort(
+    c(
+      "{.arg x} must not contain line geometries.",
+      "i" = "This is because lines do not have boundaries.",
+      "i" = "See {.code ?constraints} for alternative constraints."
+    )
+  )
 }
 
 #' @rdname boundary_matrix
 #' @method boundary_matrix SpatialPoints
 #' @export
 boundary_matrix.SpatialPoints <- function(x, ...) {
-  assertthat::assert_that(inherits(x, "SpatialPoints"))
-  stop("data represented by points have no boundaries, ",
-    "see ?constraints alternative constraints")
+  assert(inherits(x, "SpatialPoints"))
+  cli::cli_abort(
+    c(
+      "{.arg x} must not contain point geometries.",
+      "i" = "This is because points do not have boundaries.",
+      "i" = "See {.code ?constraints} for alternative constraints."
+    )
+  )
 }
 
 #' @rdname boundary_matrix
@@ -170,25 +183,23 @@ boundary_matrix.SpatialPoints <- function(x, ...) {
 #' @export
 boundary_matrix.sf <- function(x, ...) {
   # assert valid arguments
-  assertthat::assert_that(inherits(x, "sf"))
+  assert(inherits(x, "sf"), is_valid_geometries(x))
   geomc <- st_geometry_classes(x)
-  assertthat::assert_that(
+  assert(
     !any(grepl("POINT", geomc, fixed = TRUE)),
-    msg = paste(
-      "data represented by points have no boundaries,",
-      "see ?constraints alternative constraints"
+    msg = c(
+      "{.arg x} must not contain point geometries.",
+      "i" = "This is because points do not have boundaries.",
+      "i" = "See {.code ?constraints} for alternative constraints."
     )
   )
-  assertthat::assert_that(
+  assert(
     !any(grepl("LINE", geomc, fixed = TRUE)),
-    msg = paste(
-      "data represented by lines have no boundaries,",
-      "see ?constraints alternative constraints"
+    msg = c(
+      "{.arg x} must not contain line geometries.",
+      "i" = "This is because lines do not have boundaries.",
+      "i" = "See {.code ?constraints} for alternative constraints."
     )
-  )
-  assertthat::assert_that(
-    !any(grepl("GEOMETRYCOLLECTION", geomc, fixed = TRUE)),
-    msg = "geometry collection data are not supported"
   )
 
   # convert to terra object
@@ -211,5 +222,10 @@ boundary_matrix.sf <- function(x, ...) {
 #' @method boundary_matrix default
 #' @export
 boundary_matrix.default <- function(x, ...) {
-  stop("data must be in a spatial format to generate a boundary matrix")
+  cli::cli_abort(
+    c(
+      "{.arg x} must be a {.cls sf} or {.cls SpatRaster}.",
+      "x" = "{.arg x} is a {.cls {class(x)}}."
+    )
+  )
 }

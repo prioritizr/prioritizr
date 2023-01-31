@@ -14,7 +14,7 @@ NULL
 #' @noRd
 is_same_crs <- function(x, y) {
   # assert valid arguments
-  assertthat::assert_that(
+  assert(
     is_inherits(
       x,
       c(

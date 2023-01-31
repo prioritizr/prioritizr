@@ -222,8 +222,23 @@ NULL
 #' @export
 methods::setGeneric("add_linear_penalties",
   signature = methods::signature("x", "penalty", "data"),
-  function(x, penalty, data)
-    standardGeneric("add_linear_penalties"))
+  function(x, penalty, data) {
+    rlang::check_required(x)
+    rlang::check_required(penalty)
+    rlang::check_required(data)
+    assert(
+      is_conservation_problem(x),
+      is_inherits(
+        data,
+        c(
+          "character", "numeric", "dgCMatrix",
+          "matrix", "Matrix", "SpatRaster", "Raster"
+        )
+      )
+    )
+    standardGeneric("add_linear_penalties")
+  }
+)
 
 #' @name add_linear_penalties
 #' @usage \S4method{add_linear_penalties}{ConservationProblem,ANY,character}(x, penalty, data)
@@ -232,25 +247,25 @@ methods::setMethod("add_linear_penalties",
   methods::signature("ConservationProblem", "ANY", "character"),
   function(x, penalty, data) {
     # validate arguments
-    assertthat::assert_that(
-      inherits(x$data$cost, c("data.frame", "Spatial", "sf")),
-      msg = paste(
-        "argument to data is a character and planning units",
-        "specified in x are not a data.frame, Spatial, or sf object"
-      )
-    )
-    assertthat::assert_that(
+    assert(
       is.numeric(penalty),
       assertthat::noNA(penalty),
       number_of_zones(x) == length(penalty),
       assertthat::noNA(data),
       number_of_zones(x) == length(data)
     )
-    assertthat::assert_that(
+    assert(
+      is_inherits(x$data$cost, c("matrix", "data.frame", "sf", "Spatial")),
+      msg = paste(
+        "The planning unit data for {.arg x} does not have columns,",
+        "and so {.arg data} cannot be a character value.",
+      )
+    )
+    assert(
       all(data %in% names(x$data$cost)),
       msg = paste(
-        "argument to data is not a column name in the planning units",
-        "specified in x"
+        "{.arg data} must contain character values that refer to column",
+        "names of the planning unit data for {.arg x}."
       )
     )
     # extract planning unit data
@@ -263,18 +278,19 @@ methods::setMethod("add_linear_penalties",
       d <- as.matrix(d[, data, drop = FALSE])
     }
     # additional checks
-    assertthat::assert_that(
+    assert(
       is.numeric(d),
       msg = paste(
-        "argument to data correspond to non-numeric columns in",
-        "the planning unit data associated with x"
+        "{.arg data} must contain character values that refer to numeric",
+        "columns of the planning unit data for {.arg x}."
       )
     )
-    assertthat::assert_that(
+    assert(
       assertthat::noNA(d),
       msg = paste(
-        "argument to data correspond to fields with NA values in",
-        "the planning unit data associated with x"
+        "{.arg data} must not refer to columns",
+        "of the planning unit data for {.arg} with missing",
+        "({.val {NA}) values."
       )
     )
     # add penalties
@@ -325,7 +341,7 @@ methods::setMethod("add_linear_penalties",
   methods::signature("ConservationProblem", "ANY", "SpatRaster"),
   function(x, penalty, data) {
     # assert valid arguments
-    assertthat::assert_that(
+    assert(
       is_conservation_problem(x),
       inherits(data, "SpatRaster"),
       is.numeric(penalty),
@@ -333,25 +349,25 @@ methods::setMethod("add_linear_penalties",
       number_of_zones(x) == terra::nlyr(data),
       number_of_zones(x) == length(penalty)
     )
-    assertthat::assert_that(
-      inherits(x$data$cost, c("sf", "Spatial", "Raster", "SpatRaster")),
-      msg = paste(
-        "argument to data must be a matrix or Matrix, because the planning",
-        "unit data are not in a spatially referenced format"
+    assert(
+      is_pu_spatially_explicit(x),
+      msg =
+      c(
+        paste(
+          "{.arg x} has planning unit data that are not spatially explicit",
+          "(e.g., {.cls sf} or {.cls SpatRaster})."
+        ),
+        "i" = paste(
+          "{.arg data} must be a {.cls matrix}, {.cls Matrix},",
+          "or {.cls character} vector."
+        )
       )
     )
     # extract penalty data
     if (inherits(x$data$cost, c("sf", "Spatial"))) {
       d <- fast_extract(data, x$data$cost, fun = "sum")
     } else {
-      assertthat::assert_that(
-        is_comparable_raster(x$data$cost, data[[1]]),
-        msg = paste(
-          "argument to data is not comparable with planning unit data;",
-          "they have different spatial resolutions, extents,",
-          "coordinate reference systems, or dimensionality (rows / columns)"
-        )
-      )
+      assert(is_pu_comparable_raster(x, data[[1]]))
       d <- as.matrix(terra::as.data.frame(data, na.rm = FALSE))
     }
     d[is.na(d)] <- 0
@@ -366,7 +382,7 @@ methods::setMethod("add_linear_penalties",
   methods::signature("ConservationProblem", "ANY", "dgCMatrix"),
   function(x, penalty, data) {
     # assert valid arguments
-    assertthat::assert_that(
+    assert(
       is_conservation_problem(x),
       is.numeric(penalty),
       all_finite(penalty),
@@ -390,9 +406,10 @@ methods::setMethod("add_linear_penalties",
       data = list(data = data),
       parameters = parameters(p),
       apply = function(self, x, y) {
-        assertthat::assert_that(
+        assert(
           inherits(x, "OptimizationProblem"),
-          inherits(y, "ConservationProblem")
+          inherits(y, "ConservationProblem"),
+          .internal = TRUE
         )
         # extract parameters
         p <- self$parameters$get("penalty")

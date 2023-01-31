@@ -104,7 +104,15 @@ add_cbc_solver <- function(x,
                            start_solution = NULL,
                            verbose = TRUE) {
   # assert that arguments are valid (except start_solution)
-  assertthat::assert_that(
+  rlang::check_required(x)
+  rlang::check_required(gap)
+  rlang::check_required(time_limit)
+  rlang::check_required(presolve)
+  rlang::check_required(threads)
+  rlang::check_required(first_feasible)
+  rlang::check_required(start_solution)
+  rlang::check_required(verbose)
+  assert(
     is_conservation_problem(x),
     assertthat::is.number(gap),
     all_finite(gap),
@@ -119,12 +127,12 @@ add_cbc_solver <- function(x,
     assertthat::is.flag(first_feasible),
     assertthat::noNA(first_feasible),
     assertthat::is.flag(verbose),
-    is_installed("rcbc", "add_cbc_solver()")
+    is_installed("rcbc")
   )
  # extract start solution
   if (!is.null(start_solution)) {
     # verify that version of rcbc installed supports starting solution
-    assertthat::assert_that(
+    assert(
       any(
         grepl(
           "initial_solution", deparse1(args(rcbc::cbc_solve)),
@@ -132,8 +140,8 @@ add_cbc_solver <- function(x,
         )
       ),
       msg = paste(
-        "please update to a newer version of the \"rcbc\" package",
-        "to specify starting solutions"
+        "To use {.arg start_solution}, please install a newer",
+        "version of the {.pkg rcbc} package."
       )
     )
     # extract data
@@ -164,9 +172,11 @@ add_cbc_solver <- function(x,
       ## extract info
       rhs <- x$rhs()
       sense <- x$sense()
-      assertthat::assert_that(
+      assert(
         all(sense %in% c("=", "<=", ">=")),
-        msg = "failed to prepare problem formulation for \"rcbc\" package")
+        msg = "failed to prepare problem formulation for {.pkg rcbc} package.",
+        .internal = TRUE
+      )
       ## initialize CBC arguments
       row_lb <- numeric(length(rhs))
       row_ub <- numeric(length(rhs))

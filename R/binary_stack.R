@@ -37,13 +37,16 @@ NULL
 #' plot(y)
 #' }
 #' @export
-binary_stack <- function(x) UseMethod("binary_stack")
+binary_stack <- function(x) {
+  rlang::check_required(x)
+  UseMethod("binary_stack")
+}
 
 #' @rdname binary_stack
 #' @method binary_stack Raster
 #' @export
 binary_stack.Raster <- function(x) {
-  assertthat::assert_that(inherits(x, "Raster"))
+  assert(inherits(x, "Raster"))
   .Deprecated(msg = raster_pkg_deprecation_notice)
   raster::stack(binary_stack(terra::rast(x)))
 }
@@ -52,7 +55,7 @@ binary_stack.Raster <- function(x) {
 #' @method binary_stack SpatRaster
 #' @export
 binary_stack.SpatRaster <- function(x) {
-  assertthat::assert_that(inherits(x, "SpatRaster"))
+  assert(inherits(x, "SpatRaster"))
   # create segregated raster
   r <- terra::segregate(
     x, classes = NULL, keep = FALSE, other = 0, round = FALSE

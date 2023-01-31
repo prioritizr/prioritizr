@@ -384,29 +384,29 @@ test_that("invalid inputs", {
   p3 <- problem(pu, c("spp1", "spp2"), cost_column = "cost")
   p4 <- problem(sim_pu_raster, sim_features)
   # tests
-  expect_error(
+  expect_tidy_error(
     planning_unit_solution_status(p1, rep(c(0, 1), 5)),
-    "NA values in the solution"
+    "missing"
   )
-  expect_error(
+  expect_tidy_error(
     planning_unit_solution_status(p1, matrix(rep(c(0, 1), 5), ncol = 1)),
-    "NA values in the solution"
+    "missing"
   )
-  expect_error(
+  expect_tidy_error(
     planning_unit_solution_status(p2, data.frame(solution = rep(c(0, 1), 5))),
-    "NA values in the solution"
+    "missing"
   )
-  expect_error(
+  expect_tidy_error(
     planning_unit_solution_status(p3, pu[, "solution"]),
-    "NA values in the solution"
+    "missing"
   )
-  expect_error(
+  expect_tidy_error(
     planning_unit_solution_status(
       p4,
       terra::setValues(
         sim_pu_raster, rep(c(0, 1), terra::ncell(sim_pu_raster) / 2)
       )
     ),
-    "NA values in the solution"
+    "missing"
   )
 })

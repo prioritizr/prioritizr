@@ -1,6 +1,6 @@
 # prioritizr 7.3.0.0
 
-## Breaking changes
+## Notice
 
 - The package has been updated to focus on using the _sf_ and _terra_ package
   for spatial vector and raster datasets. This is because the _sf_ package is
@@ -10,6 +10,9 @@
   data formats (e.g., `raster::stack()` and `sp::SpatialPolyonsDataFrame()`)
   are still supported, the _prioritizr_ package will now throw deprecation
   warnings. Please note that the _sp_ and _raster_ package data formats will be fully deprecated and removed in a later version this year.
+
+## Breaking changes
+
 - The built-in datasets have been removed and replaced with functions
   to import them as needed (see below). Note that these functions only return
   `sf::st_sf()` and `terra::rast()` objects.
@@ -20,7 +23,7 @@
   if an old version of the _lpsymphony_ package is installed that is known
   to produce incorrect results.
 - The `distribute_load()` function has been deprecated, because it is no
-  longer used. See `parallel::splitIndices()` for equivalent functionality.
+  longer used. For equivalent functionality, See `parallel::splitIndices()`.
 
 ## New features
 
@@ -39,6 +42,8 @@
 - Fix instructions in `add_gurobi_solver()` documentation for opening vignette.
 - Update solver functions to provide instructions for installing
   dependencies in error messages when their dependencies are not available.
+- To ensure consistency among the portfolio functions, all of them (except for
+  `add_extra_portfolio()`) now generate 10 solutions by default.
 
 # prioritizr 7.2.2.7
 

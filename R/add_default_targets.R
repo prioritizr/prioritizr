@@ -3,7 +3,10 @@ NULL
 
 add_default_targets <- function(x) {
   # assert arguments are valid
-  assertthat::assert_that(is_conservation_problem(x))
+  assert(is_conservation_problem(x))
   # throw error because targets must be chosen by the user
-  stop("the specified objective requires targets, see ?targets for guidance")
+  cli::cli_abort(
+    "{.fn problem} is missing targets.",
+    "i" = "see {.topic prioritizr::targets} for guidance on selecting targets."
+  )
 }

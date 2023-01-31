@@ -25,15 +25,15 @@ test_that("proportion_parameter", {
   x$reset()
   expect_equal(x$get(), 0.1)
   # test for invalid inputs
-  expect_error(proportion_parameter("test", NA_real_))
-  expect_error(proportion_parameter("test", Inf))
-  expect_error(proportion_parameter("test", -5))
-  expect_error(proportion_parameter("test", 5))
-  expect_error(x$set(NA_real_))
-  expect_error(x$set(Inf))
-  expect_error(x$set(-5))
-  expect_error(x$set(5))
-  expect_error(x$set("a"))
+  expect_tidy_error(proportion_parameter("test", NA_real_))
+  expect_tidy_error(proportion_parameter("test", Inf))
+  expect_tidy_error(proportion_parameter("test", -5))
+  expect_tidy_error(proportion_parameter("test", 5))
+  expect_tidy_error(x$set(NA_real_))
+  expect_tidy_error(x$set(Inf))
+  expect_tidy_error(x$set(-5))
+  expect_tidy_error(x$set(5))
+  expect_tidy_error(x$set("a"))
 })
 
 test_that("integer_parameter", {
@@ -61,15 +61,15 @@ test_that("integer_parameter", {
   x$reset()
   expect_equal(x$get(), 1L)
   # test for invalid inputs
-  expect_error(integer_parameter("test", NA_real_))
-  expect_error(integer_parameter("test", Inf))
-  expect_error(integer_parameter("test", -5.5))
-  expect_error(integer_parameter("test", 5.5))
-  expect_error(x$set(NA_real_))
-  expect_error(x$set(Inf))
-  expect_error(x$set(-5.5))
-  expect_error(x$set(5.5))
-  expect_error(x$set("a"))
+  expect_tidy_error(integer_parameter("test", NA_real_))
+  expect_tidy_error(integer_parameter("test", Inf))
+  expect_tidy_error(integer_parameter("test", -5.5))
+  expect_tidy_error(integer_parameter("test", 5.5))
+  expect_tidy_error(x$set(NA_real_))
+  expect_tidy_error(x$set(Inf))
+  expect_tidy_error(x$set(-5.5))
+  expect_tidy_error(x$set(5.5))
+  expect_tidy_error(x$set("a"))
 })
 
 test_that("numeric_parameter", {
@@ -96,11 +96,11 @@ test_that("numeric_parameter", {
   x$reset()
   expect_equal(x$get(), 1)
   # test for invalid inputs
-  expect_error(numeric_parameter("test", NA_real_))
-  expect_error(numeric_parameter("test", Inf))
-  expect_error(x$set(NA_real_))
-  expect_error(x$set(Inf))
-  expect_error(x$set("a"))
+  expect_tidy_error(numeric_parameter("test", NA_real_))
+  expect_tidy_error(numeric_parameter("test", Inf))
+  expect_tidy_error(x$set(NA_real_))
+  expect_tidy_error(x$set(Inf))
+  expect_tidy_error(x$set("a"))
 })
 
 test_that("binary_parameter", {
@@ -128,15 +128,15 @@ test_that("binary_parameter", {
   x$reset()
   expect_equal(x$get(), 1L)
   # test for invalid inputs
-  expect_error(binary_parameter("test", NA_real_))
-  expect_error(binary_parameter("test", Inf))
-  expect_error(binary_parameter("test", 5L))
-  expect_error(binary_parameter("test", -1L))
-  expect_error(x$set(NA_real_))
-  expect_error(x$set(Inf))
-  expect_error(x$set(0))
-  expect_error(x$set(-1L))
-  expect_error(x$set("a"))
+  expect_tidy_error(binary_parameter("test", NA_real_))
+  expect_tidy_error(binary_parameter("test", Inf))
+  expect_tidy_error(binary_parameter("test", 5L))
+  expect_tidy_error(binary_parameter("test", -1L))
+  expect_tidy_error(x$set(NA_real_))
+  expect_tidy_error(x$set(Inf))
+  expect_tidy_error(x$set(0))
+  expect_tidy_error(x$set(-1L))
+  expect_tidy_error(x$set("a"))
 })
 
 test_that("proportion_parameter_array", {
@@ -191,48 +191,48 @@ test_that("proportion_parameter_array", {
   expect_equal(rownames(x$get()), letters[1:3])
   expect_equal(x$get()[[1]], c(0.3, 0.1, 0.4))
   # tests for invalid inputs
-  expect_error(
+  expect_tidy_error(
     proportion_parameter_array("test", c(Inf, 0.1, 0.2), letters[1:3])
   )
-  expect_error(
+  expect_tidy_error(
     proportion_parameter_array(
       "test",
       data.frame(value = c(NA_real_, 0.1, 0.2), row.names = letters[1:3])
     )
   )
-  expect_error(
+  expect_tidy_error(
     proportion_parameter_array(
       "test",
       data.frame(value = c(0L, 0L, 0L), row.names = letters[1:3])
     )
   )
-  expect_error(
+  expect_tidy_error(
     proportion_parameter_array(
       "test",
       data.frame(value = c(5, 0.1, 0.2), row.names = letters[1:3])
     )
   )
-  expect_error(
+  expect_tidy_error(
     x$set(
       data.frame(value = c(Inf, 0.1, 0.2), row.names = letters[1:3])
     )
   )
-  expect_error(
+  expect_tidy_error(
     x$set(
       data.frame(value = c(NA_real_, 0.1, 0.2), row.names = letters[1:3])
     )
   )
-  expect_error(
+  expect_tidy_error(
     x$set(
       data.frame(value = c(0L, 0L, 0L), row.names = letters[1:3])
     )
   )
-  expect_error(
+  expect_tidy_error(
     x$set(
       data.frame(value = c(5, 0.1, 0.2), row.names = letters[1:3])
     )
   )
-  expect_error(
+  expect_tidy_error(
     x$set(
       data.frame(value = c(0.1, 0.1, 0.2), row.names = c("a", "b", "d"))
     )
@@ -286,47 +286,47 @@ test_that("binary_parameter_array", {
   expect_equal(rownames(x$get()), letters[1:3])
   expect_equal(x$get()[[1]], c(0L, 1L, 1L))
   # test for invalid inputs
-  expect_error(
+  expect_tidy_error(
     binary_parameter_array(
       "test", c(Inf, 1L, 0L), letters[1:3]
     )
   )
-  expect_error(
+  expect_tidy_error(
     binary_parameter_array(
       "test", value = c(NA_real_, 1L, 0L), row.names = letters[1:3]
     )
   )
-  expect_error(
+  expect_tidy_error(
     binary_parameter_array(
       "test", value = c(0L, 1L, 5L), row.names = letters[1:3]
     )
   )
-  expect_error(
+  expect_tidy_error(
     binary_parameter_array(
       "test", value = c(-4L, 0L, 1L), row.names = letters[1:3]
     )
   )
-  expect_error(
+  expect_tidy_error(
     x$set(
       data.frame(value = c(Inf, 1L, 0L), row.names = letters[1:3])
     )
   )
-  expect_error(
+  expect_tidy_error(
     x$set(
       data.frame(value = c(NA_real_, 1L, 0L), row.names = letters[1:3])
     )
   )
-  expect_error(
+  expect_tidy_error(
     x$set(
       data.frame(value = c(0L, 1L, 5L), row.names = letters[1:3])
     )
   )
-  expect_error(
+  expect_tidy_error(
     x$set(
       data.frame(value = c(0L, 1L, 5L), row.names = letters[1:3])
     )
   )
-  expect_error(
+  expect_tidy_error(
     x$set(
       data.frame(value = c(-4L, 0L, 1L), row.names = c("a", "b", "d"))
     )
@@ -382,42 +382,42 @@ test_that("numeric_parameter_array", {
   expect_equal(rownames(x$get()), letters[1:3])
   expect_equal(x$get()[[1]], c(-8, 0.1, 5))
   # test for invalid inputs
-  expect_error(
+  expect_tidy_error(
     numeric_parameter_array(
       "test", value = c(Inf, 0.1, 0.2), row.names = letters[1:3]
     )
   )
-  expect_error(
+  expect_tidy_error(
     numeric_parameter_array(
       "test", value = c(NA_real_, 0.1, 0.2), row.names = letters[1:3]
     )
   )
-  expect_error(
+  expect_tidy_error(
     numeric_parameter_array(
       "test", value = c(0L, 0L, 0L), row.names = letters[1:3]
     )
   )
-  expect_error(
+  expect_tidy_error(
     numeric_parameter_array(
       "test", value = c(-5, 0.1, 0.2), row.names = letters[1:3]
     )
   )
-  expect_error(
+  expect_tidy_error(
     x$set(
       data.frame(value = c(Inf, 0.1, 0.2), row.names = letters[1:3])
     )
   )
-  expect_error(
+  expect_tidy_error(
     x$set(
       data.frame(value = c(NA_real_, 0.1, 0.2), row.names = letters[1:3])
     )
   )
-  expect_error(
+  expect_tidy_error(
     x$set(
       data.frame(value = c(0L, 0L, 0L), row.names = letters[1:3])
     )
   )
-  expect_error(
+  expect_tidy_error(
     x$set(
       data.frame(value = c(0.1, 5, 0.2), row.names = c("a", "b", "d"))
     )
@@ -450,8 +450,8 @@ test_that("misc_parameter", {
   expect_equal(x$get(), iris)
   # tests for invalid inputs
   iris2[1, 1] <- 300
-  expect_error(x$set(iris2))
-  expect_error(x$set(mtcars))
+  expect_tidy_error(x$set(iris2))
+  expect_tidy_error(x$set(mtcars))
 })
 
 test_that("numeric_matrix_parameter", {
@@ -474,8 +474,8 @@ test_that("numeric_matrix_parameter", {
   x$set(m + 1)
   expect_equal(x$get(), m + 1)
   # tests for invalid inputs
-  expect_error(x$set(as.data.frame(m)))
-  expect_error(x$set(m2))
+  expect_tidy_error(x$set(as.data.frame(m)))
+  expect_tidy_error(x$set(m2))
 })
 
 test_that("binary_matrix_parameter", {
@@ -498,8 +498,8 @@ test_that("binary_matrix_parameter", {
   x$set(abs(m - 1))
   expect_equal(x$get(), abs(m + -1))
   # tests for invalid inputs
-  expect_error(x$set(as.data.frame(m)))
-  expect_error(x$set(m2))
+  expect_tidy_error(x$set(as.data.frame(m)))
+  expect_tidy_error(x$set(m2))
 })
 
 test_that("parameters", {
@@ -536,8 +536,8 @@ test_that("parameters", {
   expect_equal(x$get(p2$id)[[1]], c(0, 10, 6))
   expect_equal(rownames(x$get(p2$name)), letters[1:3])
   # tests for invalid inputs
-  expect_error(parameters(1, p1))
-  expect_error(
+  expect_tidy_error(parameters(1, p1))
+  expect_tidy_error(
     x$set(
       data.frame(value = c(0.1, 5, 0.2), row.names = c("a", "b", "d"))
     )

@@ -73,10 +73,14 @@ NULL
 #' @aliases add_mandatory_allocation_constraints,ConservationProblem-method NULL
 NULL
 
-methods::setGeneric("add_mandatory_allocation_constraints",
+methods::setGeneric(
+  "add_mandatory_allocation_constraints",
   signature = methods::signature("x"),
-  function(x)
-  standardGeneric("add_mandatory_allocation_constraints"))
+  function(x) {
+    rlang::check_required(x)
+    standardGeneric("add_mandatory_allocation_constraints")
+  }
+)
 
 #' @name add_mandatory_allocation_constraints
 #' @usage \S4method{add_mandatory_allocation_constraints}{ConservationProblem}(x)
@@ -85,7 +89,7 @@ methods::setMethod("add_mandatory_allocation_constraints",
   methods::signature("ConservationProblem"),
   function(x) {
     # assert valid arguments
-    assertthat::assert_that(
+    assert(
       is_conservation_problem(x),
       number_of_zones(x) >= 2
     )
@@ -98,9 +102,10 @@ methods::setMethod("add_mandatory_allocation_constraints",
         binary_parameter("apply constraints?", 1L)
       ),
       apply = function(self, x, y) {
-        assertthat::assert_that(
+        assert(
           inherits(x, "OptimizationProblem"),
-          inherits(y, "ConservationProblem")
+          inherits(y, "ConservationProblem"),
+          .internal = TRUE
         )
         # the apply method for this function doesn't actually do anything,
         # the prioritizr::compile function will detect the presence of this

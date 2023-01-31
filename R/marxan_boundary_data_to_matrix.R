@@ -55,15 +55,26 @@ NULL
 #' print(m2)
 #' @export
 marxan_boundary_data_to_matrix <- function(x, data) {
-  assertthat::assert_that(is.data.frame(data))
-  assertthat::assert_that(
+  rlang::check_required(x)
+  rlang::check_required(data)
+  internal_marxan_boundary_data_to_matrix(x, data)
+}
+
+internal_marxan_boundary_data_to_matrix <- function(x, data,
+                                                    call = fn_caller_env()) {
+  assert(is.data.frame(data), call = call)
+  assert(
     !assertthat::has_name(data, "zone1"),
     !assertthat::has_name(data, "zone2"),
-    msg = "boundary data must pertain to a single zone"
+    msg = c(
+      "{.arg data} must not have the columns {.col zone1} or {.col zone2}.",
+      "i" = "This is because multiple zones are not supported."
+    ),
+    call = call
   )
 
   # convert to matrix format
-  m <- marxan_connectivity_data_to_matrix(x, data, TRUE)
+  m <- internal_marxan_connectivity_data_to_matrix(x, data, TRUE, call = call)
 
   # replace cell diagonals with total boundary lengths
   ## this is because the Marxan format uses cell values on the matrix diagonal

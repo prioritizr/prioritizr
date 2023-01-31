@@ -584,7 +584,22 @@ test_that("invalid inputs", {
     spp1 = runif(10), spp2 = c(rpois(9, 4), NA)
   )
   # tests
-  expect_error(
+  expect_tidy_error(
+    {
+      # create problem
+      x <- problem(
+        pu$cost,
+        data.frame(id = seq_len(2), name = c("spp1", "spp2")),
+        as.matrix(t(pu[, 3:4]))
+      )
+      # create a solution
+      y <- round(pu$cost)
+      # calculate representation
+      r <- eval_replacement_importance(x, y, rescale = "a")
+    },
+    "flag"
+  )
+  expect_tidy_error(
     {
       # create problem
       x <- problem(
@@ -597,9 +612,9 @@ test_that("invalid inputs", {
       # calculate representation
       r <- eval_replacement_importance(x, y)
     },
-    "NA values in the solution"
+    "missing"
   )
-  expect_error(
+  expect_tidy_error(
     {
       # create problem
       x <- problem(
@@ -612,9 +627,9 @@ test_that("invalid inputs", {
       # calculate representation
       r <- eval_replacement_importance(x, y)
     },
-    "NA values in the solution"
+    "missing"
   )
-  expect_error(
+  expect_tidy_error(
     {
       # create problem
       x <- problem(pu, c("spp1", "spp2"), cost_column = "cost")
@@ -623,9 +638,9 @@ test_that("invalid inputs", {
       # calculate representation
       r <- eval_replacement_importance(x, y)
     },
-    "NA values in the solution"
+    "missing"
   )
-  expect_error(
+  expect_tidy_error(
     {
       # create data
       pu <- sim_pu_polygons[1:10, ]
@@ -640,9 +655,9 @@ test_that("invalid inputs", {
       # calculate representation
       r <- eval_replacement_importance(x, y)
     },
-    "NA values in the solution"
+    "missing"
   )
-  expect_error(
+  expect_tidy_error(
     {
       # create problem
       x <- problem(sim_pu_raster, sim_features)
@@ -653,6 +668,6 @@ test_that("invalid inputs", {
       # calculate representation
       r <- eval_replacement_importance(x, y)
     },
-    "NA values in the solution"
+    "missing"
   )
 })

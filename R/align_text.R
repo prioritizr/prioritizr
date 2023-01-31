@@ -26,7 +26,7 @@ NULL
 #'
 #' @noRd
 align_text <- function(x, n) {
-  assertthat::assert_that(
+  assert(
     assertthat::is.string(x),
     assertthat::is.count(n)
   )

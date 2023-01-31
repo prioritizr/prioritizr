@@ -9,8 +9,8 @@ test_that("x = SpatRaster, y = SpatRaster", {
   # test for invalid
   y_crs <- y
   terra::crs(y_crs) <- as.character(sf::st_crs(4326)[[2]])
-  expect_error(intersecting_units(x, y_crs))
-  expect_error(intersecting_units(x, terra::disagg(y, fact = 2)))
+  expect_tidy_error(intersecting_units(x, y_crs))
+  expect_tidy_error(intersecting_units(x, terra::disagg(y, fact = 2)))
 })
 
 test_that("x = sf, y = sf", {
@@ -22,8 +22,8 @@ test_that("x = sf, y = sf", {
   # check that invalid arguments result in errors
   y_crs <- y
   suppressWarnings(sf::st_crs(y_crs) <- sf::st_crs(4326))
-  expect_error(intersecting_units(x, y_crs))
-  expect_error(intersecting_units(x[1:5, ], x[50:55, ]))
+  expect_tidy_error(intersecting_units(x, y_crs))
+  expect_tidy_error(intersecting_units(x[1:5, ], x[50:55, ]))
 })
 
 test_that("x = SpatRaster, y = sf", {
@@ -47,7 +47,7 @@ test_that("x = SpatRaster, y = sf", {
   # check that invalid arguments result in errors
   y_crs <- y
   suppressWarnings(sf::st_crs(y_crs) <- sf::st_crs(4326))
-  expect_error(intersecting_units(x, y_crs))
+  expect_tidy_error(intersecting_units(x, y_crs))
 })
 
 test_that("x = sf, y = SpatRaster", {
@@ -63,7 +63,7 @@ test_that("x = sf, y = SpatRaster", {
   # check that invalid arguments result in errors
   y_crs <- y
   terra::crs(y_crs) <- as.character(sf::st_crs(4326)[[2]])
-  expect_error(intersecting_units(x, y_crs))
+  expect_tidy_error(intersecting_units(x, y_crs))
 })
 
 test_that("x = Raster, y = Raster", {
@@ -150,5 +150,5 @@ test_that("x = sf/Spatial, y = sf/Spatial", {
 
 test_that("invalid input", {
   data(iris)
-  expect_error(intersecting_units(iris, iris))
+  expect_tidy_error(intersecting_units(iris, iris))
 })

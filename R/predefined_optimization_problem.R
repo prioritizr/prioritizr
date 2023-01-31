@@ -76,7 +76,7 @@ NULL
 #'
 #' @export
 predefined_optimization_problem <- function(x) {
-  assertthat::assert_that(
+  assert(
     is.list(x),
     assertthat::is.string(x$modelsense),
     is_match_of(x$modelsense, c("min", "max")),

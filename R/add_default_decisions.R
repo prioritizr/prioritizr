@@ -18,5 +18,6 @@ NULL
 #'
 #' @export
 add_default_decisions <- function(x) {
+  rlang::check_required(x, call = NULL)
   add_binary_decisions(x)
 }

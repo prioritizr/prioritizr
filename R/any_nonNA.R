@@ -15,11 +15,14 @@ NULL
 any_nonNA <- function(x) UseMethod("any_nonNA")
 
 assertthat::on_failure(any_nonNA) <- function(call, env) {
-  paste(deparse(call$x), "only has missing (NA) values")
+  paste(
+    "{.arg", deparse(call$x),
+    "} must not have only missing ({.val {NA}}) values."
+  )
 }
 
 any_nonNA.default <- function(x, what) {
-  stop("argument to x is not a recognized class")
+  stop("{.arg x} is not a recognized class.")
 }
 
 .S3method("any_nonNA", "default", any_nonNA.default)

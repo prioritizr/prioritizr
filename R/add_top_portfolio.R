@@ -10,6 +10,7 @@ NULL
 #' @param x [problem()] object.
 #'
 #' @param number_solutions `integer` number of solutions required.
+#'   Defaults to 10.
 #'
 #' @details This strategy for generating a portfolio requires problems to
 #'   be solved using the *Gurobi* software suite (i.e., using
@@ -82,16 +83,18 @@ NULL
 
 #' @rdname add_top_portfolio
 #' @export
-add_top_portfolio <- function(x, number_solutions) {
+add_top_portfolio <- function(x, number_solutions = 10) {
   # assert that arguments are valid
-  assertthat::assert_that(
+  rlang::check_required(x)
+  rlang::check_required(number_solutions)
+  assert(
     is_conservation_problem(x),
     assertthat::is.count(number_solutions),
     assertthat::noNA(number_solutions),
-    is_installed("gurobi", "add_top_portfolio()")
+    is_installed("gurobi")
   )
   # check that version 9.0.0 or greater of gurobi is installed
-  assertthat::assert_that(
+  assert(
     utils::packageVersion("gurobi") >= as.package_version("8.0.0"),
     msg = paste(
       "add_top_portfolio() requires version 8.0.0 (or greater)",
@@ -110,9 +113,13 @@ add_top_portfolio <- function(x, number_solutions) {
     ),
     run = function(self, x, solver) {
       ## check that problems has gurobi solver
-      assertthat::assert_that(
+      assert(
         inherits(solver, "GurobiSolver"),
-        msg = "add_top_portfolio() requires use of add_gurobi_solver()"
+        msg = paste(
+          "{.code add_top_portfolio} requires the",
+          "{.code add_gurobi_solver} to be specified."
+        ),
+        call = NULL
       )
       ## solve problem, and with gap of zero
       sol <- solver$solve(

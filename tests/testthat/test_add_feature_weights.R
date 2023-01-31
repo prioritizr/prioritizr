@@ -153,19 +153,19 @@ test_that("solve (expanded formulation, single zone)", {
 
 test_that("invalid inputs (single zone)", {
   # check that invalid arguments result in errors
-  expect_error({
+  expect_tidy_error({
     problem(sim_pu_raster, sim_features) %>%
     add_feature_weights(seq_len(4))
   })
-  expect_error({
+  expect_tidy_error({
     problem(sim_pu_raster, sim_features) %>%
     add_feature_weights(c(-1, 1, 2, 3, 4))
   })
-  expect_error({
+  expect_tidy_error({
     problem(sim_pu_raster, sim_features) %>%
     add_feature_weights(c(1, NA, 2, 3, 4))
   })
-  expect_error({
+  expect_tidy_error({
     problem(sim_pu_raster, sim_features) %>%
     add_feature_weights(c(1, Inf, 2, 3, 4))
   })
@@ -414,23 +414,23 @@ test_that("invalid inputs (multiple zones)", {
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_zones_features <- get_sim_zones_features()
   # tests
-  expect_error({
+  expect_tidy_error({
     problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_max_cover_objective(budget = c(1, -5, 1))
   })
-  expect_error({
+  expect_tidy_error({
     problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_max_cover_objective(budget = c(1, NA, 1))
   })
-  expect_error({
+  expect_tidy_error({
     problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_max_cover_objective(budget = c(NA, NA, NA))
   })
-  expect_error({
+  expect_tidy_error({
     problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_max_cover_objective(budget = c(1, Inf, 9))
   })
-  expect_error({
+  expect_tidy_error({
     problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_max_cover_objective(budget = c(1, Inf, 9))
   })
@@ -449,7 +449,7 @@ test_that("throw warning with min set objective", {
   p2 <- p1 %>% add_feature_weights(runif(terra::nlyr(sim_features)))
   # compile problems
   o1 <- compile(p1)
-  expect_warning({o2 <- compile(p2)}, "ignoring weights")
+  expect_warning({o2 <- compile(p2)}, "Weights will be ignored")
   # tests
   expect_equal(o1$modelsense(), o2$modelsense())
   expect_equal(o1$obj(), o2$obj())
@@ -475,7 +475,7 @@ test_that("throw warning with min largest shortfall objective", {
   p2 <- p1 %>% add_feature_weights(runif(terra::nlyr(sim_features)))
   # compile problems
   o1 <- compile(p1)
-  expect_warning({o2 <- compile(p2)}, "ignoring weights")
+  expect_warning({o2 <- compile(p2)}, "Weights will be ignored")
   # tests
   expect_equal(o1$modelsense(), o2$modelsense())
   expect_equal(o1$obj(), o2$obj())

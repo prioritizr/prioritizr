@@ -35,8 +35,9 @@ boundary_matrix(x, ...)
 \value{
 A \code{\linkS4class{dsCMatrix}} symmetric sparse matrix object.
 Each row and column represents a planning unit.
-Cells values indicate the shared boundary length between different pairs
-of planning units.
+Cell values indicate the shared boundary length between different pairs
+of planning units. Values along the matrix diagonal indicate the
+total perimeter associated with each planning unit.
 }
 \description{
 Generate a matrix describing the amount of shared boundary length
@@ -68,7 +69,13 @@ enabled by default because the underlying function
 (i.e., \code{rgeos:gUnarySTRtreeQuery()}) was documented as experimental.
 The \code{boundary_matrix()} function has since been updated so that it will
 use STR query trees to speed up processing for planning units in vector
-format (using \code{\link[geos:geos_strtree]{geos::geos_strtree()}}).
+format (using \code{\link[terra:sharedPaths]{terra::sharedPaths()}}).
+
+Also, note that in previous versions, cell values along the matrix
+diagonal indicated the perimeter associated with planning units
+that did not contain any neighbors. This has now changed such
+that values along the diagonal now correspond to the total
+perimeter associated with each planning unit.
 }
 
 \examples{

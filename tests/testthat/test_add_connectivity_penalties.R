@@ -115,15 +115,15 @@ test_that("invalid inputs (single zone)", {
     add_relative_targets(0.1) %>%
     add_binary_decisions()
   # tests
-  expect_error(add_connectivity_penalties(p, NA_real_, data = c_data))
-  expect_error(add_connectivity_penalties(p, 1, 0, data = c_data))
-  expect_error(add_connectivity_penalties(p, 5, data = c_data[, -1]))
-  expect_error(add_connectivity_penalties(p, 5, data = c_data[-1, ]))
+  expect_tidy_error(add_connectivity_penalties(p, NA_real_, data = c_data))
+  expect_tidy_error(add_connectivity_penalties(p, 1, 0, data = c_data))
+  expect_tidy_error(add_connectivity_penalties(p, 5, data = c_data[, -1]))
+  expect_tidy_error(add_connectivity_penalties(p, 5, data = c_data[-1, ]))
   ac_data <- matrix(
     runif(terra::ncell(sim_pu_raster) ^ 2),
     ncol = terra::ncell(sim_pu_raster)
   )
-  expect_error(add_connectivity_penalties(p, 5, data = ac_data))
+  expect_tidy_error(add_connectivity_penalties(p, 5, data = ac_data))
 })
 
 test_that("minimum set objective (compile, multiple zones)", {
@@ -300,22 +300,22 @@ test_that("invalid inputs (multiple zones)", {
     add_relative_targets(matrix(0.1, nrow = 5, ncol = 3)) %>%
     add_binary_decisions()
   # tests
-  expect_error(add_connectivity_penalties(p, NA_real_, zm, cm))
-  expect_error(add_connectivity_penalties(p, Inf, zm,cm))
-  expect_error(add_connectivity_penalties(p, 1, zm[-1, ], cm))
-  expect_error(add_connectivity_penalties(p, 1, zm[, -1], cm))
-  expect_error(add_connectivity_penalties(p, 1, `[<-`(zm, 1, -2), cm))
-  expect_error(add_connectivity_penalties(p, 1, `[<-`(zm, 1, 3), cm))
-  expect_error(add_connectivity_penalties(p, 1, `[<-`(zm, 1, NA), cm))
-  expect_error(add_connectivity_penalties(p, 1, zm, cm[-1, ]))
-  expect_error(add_connectivity_penalties(p, 1, zm, cm[, -1]))
-  expect_error(add_connectivity_penalties(p, 1, zm, cm[, -1]))
-  expect_error(add_connectivity_penalties(p, 1, zm, ca))
-  expect_error(add_connectivity_penalties(p, 1, data = ca))
-  expect_error(add_connectivity_penalties(p, 1, NULL, ca[-1, , , ]))
-  expect_error(add_connectivity_penalties(p, 1, NULL, ca[, -1, , ]))
-  expect_error(add_connectivity_penalties(p, 1, NULL, ca[, , -1, ]))
-  expect_error(add_connectivity_penalties(p, 1, NULL, ca[, , , -1]))
+  expect_tidy_error(add_connectivity_penalties(p, NA_real_, zm, cm))
+  expect_tidy_error(add_connectivity_penalties(p, Inf, zm,cm))
+  expect_tidy_error(add_connectivity_penalties(p, 1, zm[-1, ], cm))
+  expect_tidy_error(add_connectivity_penalties(p, 1, zm[, -1], cm))
+  expect_tidy_error(add_connectivity_penalties(p, 1, `[<-`(zm, 1, -2), cm))
+  expect_tidy_error(add_connectivity_penalties(p, 1, `[<-`(zm, 1, 3), cm))
+  expect_tidy_error(add_connectivity_penalties(p, 1, `[<-`(zm, 1, NA), cm))
+  expect_tidy_error(add_connectivity_penalties(p, 1, zm, cm[-1, ]))
+  expect_tidy_error(add_connectivity_penalties(p, 1, zm, cm[, -1]))
+  expect_tidy_error(add_connectivity_penalties(p, 1, zm, cm[, -1]))
+  expect_tidy_error(add_connectivity_penalties(p, 1, zm, ca))
+  expect_tidy_error(add_connectivity_penalties(p, 1, data = ca))
+  expect_tidy_error(add_connectivity_penalties(p, 1, NULL, ca[-1, , , ]))
+  expect_tidy_error(add_connectivity_penalties(p, 1, NULL, ca[, -1, , ]))
+  expect_tidy_error(add_connectivity_penalties(p, 1, NULL, ca[, , -1, ]))
+  expect_tidy_error(add_connectivity_penalties(p, 1, NULL, ca[, , , -1]))
 })
 
 test_that("alternative data formats", {

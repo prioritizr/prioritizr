@@ -153,8 +153,21 @@ NULL
 #' @export
 methods::setGeneric("eval_connectivity_summary",
   signature = methods::signature("x", "solution", "zones", "data"),
-  function(x, solution, zones = diag(number_of_zones(x)), data)
-    standardGeneric("eval_connectivity_summary"))
+  function(x, solution, zones = diag(number_of_zones(x)), data) {
+    rlang::check_required(x)
+    rlang::check_required(solution)
+    rlang::check_required(zones)
+    rlang::check_required(data)
+    assert(
+      is_conservation_problem(x),
+      is_inherits(
+        data,
+        c("matrix", "Matrix", "dgCMatrix", "data.frame", "array")
+      )
+    )
+    standardGeneric("eval_connectivity_summary")
+  }
+)
 
 #' @name eval_connectivity_summary
 #' @usage \S4method{eval_connectivity_summary}{ConservationProblem,ANY,ANY,matrix}(x, solution, zones, data)
@@ -192,9 +205,9 @@ methods::setMethod("eval_connectivity_summary",
   methods::signature("ConservationProblem", "ANY", "ANY", "dgCMatrix"),
   function(x, solution, zones, data) {
     # assert valid arguments
-    assertthat::assert_that(
+    assert(
       is_conservation_problem(x),
-      is_a_matrix(zones),
+      is_matrix_ish(zones),
       nrow(zones) == ncol(zones),
       is_numeric_values(zones),
       all_finite(zones),
@@ -213,11 +226,14 @@ methods::setMethod("eval_connectivity_summary",
     # check for symmetry
     if (!Matrix::isSymmetric(data)) {
       warning(
-        paste0(
-          "argument to data contains asymmetric connectivity values, ",
-          "it it recommended to use eval_asym_connectivity_summary()"
+        cli::format_warning(
+          paste0(
+            "{.arg data} contains asymmetric connectivity values, ",
+            "it it recommended to use {.fn eval_asym_connectivity_summary}."
+          )
         ),
-        call. = FALSE, immediate. = TRUE
+        call. = FALSE,
+        immediate. = TRUE
       )
     }
     # convert zones & dgCMatrix data to list of sparse matrices
@@ -241,7 +257,7 @@ methods::setMethod("eval_connectivity_summary",
   methods::signature("ConservationProblem", "ANY", "ANY", "array"),
   function(x, solution, zones, data) {
     # assert valid arguments
-    assertthat::assert_that(
+    assert(
       is_conservation_problem(x),
       is.null(zones),
       is.array(data),
@@ -274,7 +290,7 @@ methods::setMethod("eval_connectivity_summary",
 internal_eval_connectivity_summary <- function(
   x, solution, zone_scaled_data, data) {
   # assert valid arguments
-  assertthat::assert_that(
+  assert(
     is_conservation_problem(x),
     is.matrix(solution),
     is.list(zone_scaled_data),

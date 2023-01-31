@@ -583,39 +583,39 @@ test_that("invalid inputs", {
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
   # tests
-  expect_error({
+  expect_tidy_error({
     problem(sim_pu_raster, sim_features) %>%
     add_linear_constraints(NA_real_, "<=", sim_features[[1]])
   })
-  expect_error({
+  expect_tidy_error({
     problem(sim_pu_raster, sim_features) %>%
     add_linear_constraints(1e+100, ">=", sim_features[[1]])
   })
-  expect_error({
+  expect_tidy_error({
     problem(sim_pu_raster, sim_features) %>%
     add_linear_constraints(c(3, 3), "<=", sim_features[[1]])
   })
-  expect_error({
+  expect_tidy_error({
     problem(sim_pu_raster, sim_features) %>%
     add_linear_constraints(3, NA_character_, sim_features[[1]])
   })
-  expect_error({
+  expect_tidy_error({
     problem(sim_pu_raster, sim_features) %>%
     add_linear_constraints(3, "asdf", sim_features[[1]])
   })
-  expect_error({
+  expect_tidy_error({
     problem(sim_pu_raster, sim_features) %>%
     add_linear_constraints(3, "<=", sim_features[[c(1, 1)]])
   })
-  expect_error({
+  expect_tidy_error({
     problem(sim_pu_polygons, sim_features, cost_column = "cost") %>%
     add_linear_constraints(3, "<=",  c("cost", "cost"))
   })
-  expect_error({
+  expect_tidy_error({
     problem(sim_pu_raster, sim_features) %>%
     add_linear_constraints(3, "<=", "asdf")
   })
-  expect_error({
+  expect_tidy_error({
     problem(sim_pu_raster, sim_features) %>%
     add_linear_constraints(
       3, "<=",

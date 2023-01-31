@@ -81,7 +81,7 @@ test_that("sf (points)", {
   # import data
   x <- get_sim_pu_points()
   # tests
-  expect_error(adjacency_matrix(x))
+  expect_tidy_error(adjacency_matrix(x))
 })
 
 test_that("Spatial", {
@@ -100,7 +100,7 @@ test_that("Spatial", {
   )
   expect_equal(m1, m2)
   # points
-  expect_error(
+  expect_tidy_error(
     suppressWarnings(
       adjacency_matrix(sf::as_Spatial(get_sim_pu_points()))
     )

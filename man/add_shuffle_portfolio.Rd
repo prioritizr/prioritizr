@@ -6,8 +6,8 @@
 \usage{
 add_shuffle_portfolio(
   x,
-  number_solutions = 10L,
-  threads = 1L,
+  number_solutions = 10,
+  threads = 1,
   remove_duplicates = TRUE
 )
 }

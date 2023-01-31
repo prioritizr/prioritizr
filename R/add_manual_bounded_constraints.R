@@ -157,10 +157,19 @@ NULL
 #' @aliases add_manual_bounded_constraints,ConservationProblem,data.frame-method add_manual_bounded_constraints,ConservationProblem,tbl_df-method
 #'
 #' @export
-methods::setGeneric("add_manual_bounded_constraints",
-                    signature = methods::signature("x", "data"),
-                    function(x, data)
-                      standardGeneric("add_manual_bounded_constraints"))
+methods::setGeneric(
+  "add_manual_bounded_constraints",
+  signature = methods::signature("x", "data"),
+  function(x, data) {
+    rlang::check_required(x)
+    rlang::check_required(data)
+    assert(
+      is_conservation_problem(x),
+      is.data.frame(data)
+    )
+    standardGeneric("add_manual_bounded_constraints")
+  }
+)
 
 #' @name add_manual_bounded_constraints
 #' @usage \S4method{add_manual_bounded_constraints}{ConservationProblem,data.frame}(x, data)
@@ -169,7 +178,7 @@ methods::setMethod("add_manual_bounded_constraints",
   methods::signature("ConservationProblem", "data.frame"),
   function(x, data) {
     # assert valid arguments
-    assertthat::assert_that(
+    assert(
       is_conservation_problem(x),
       is.data.frame(data)
     )
@@ -185,7 +194,7 @@ methods::setMethod("add_manual_bounded_constraints",
   function(x, data) {
     # define function to validate data
     validate_data <- function(data) {
-      assertthat::assert_that(
+      assert(
         is.data.frame(data),
         inherits(data, "tbl_df"),
         nrow(data) > 0,
@@ -201,13 +210,15 @@ methods::setMethod("add_manual_bounded_constraints",
         assertthat::has_name(data, "upper"),
         is.numeric(data$upper),
         all_finite(data$upper),
-        all(data$upper >= data$lower)
+        all(data$upper >= data$lower),
+        call = fn_caller_env()
       )
       if (assertthat::has_name(data, "zone") || x$number_of_zones() > 1) {
-          assertthat::assert_that(
+          assert(
             assertthat::has_name(data, "zone"),
             is_inherits(data$zone, c("character", "factor")),
-            all_match_of(as.character(data$zone), zone_names(x))
+            all_match_of(as.character(data$zone), zone_names(x)),
+            call = fn_caller_env()
           )
       }
       return(TRUE)
@@ -231,7 +242,7 @@ methods::setMethod("add_manual_bounded_constraints",
       },
       parameters = parameters(misc_parameter("Bound data", data, vfun)),
       calculate = function(self, x) {
-        assertthat::assert_that(is_conservation_problem(x))
+        assert(is_conservation_problem(x))
         # get bound data
         data <- self$parameters$get("Bound data")
         # convert zone names to indices
@@ -257,8 +268,11 @@ methods::setMethod("add_manual_bounded_constraints",
         invisible(TRUE)
       },
       apply = function(self, x, y) {
-        assertthat::assert_that(inherits(x, "OptimizationProblem"),
-          inherits(y, "ConservationProblem"))
+        assert(
+          inherits(x, "OptimizationProblem"),
+          inherits(y, "ConservationProblem"),
+          .internal = TRUE
+        )
         data <- self$get_data("data_std")
         invisible(
           rcpp_apply_bounded_constraints(

@@ -52,17 +52,22 @@ NULL
 #' @export
 write_problem <- function(x, path) {
   # assert arguments are valid
-  assertthat::assert_that(
+  rlang::check_required(x)
+  rlang::check_required(path)
+  assert(
     is_conservation_problem(x),
     assertthat::is.string(path),
     assertthat::noNA(path),
-    is_installed("Rsymphony", "write_problem()"),
+    is_installed("Rsymphony"),
     assertthat:: is.writeable(dirname(path))
   )
-  assertthat::assert_that(
+  assert(
     assertthat::has_extension(path, "lp") ||
     assertthat::has_extension(path, "mps"),
-    msg = "argument to path must have a \".lp\" or \".mps\" file extension"
+    msg = paste(
+      "{.arg path} must have a",
+      "{.val \".lp\"} or {.val \".mps\"} file extension."
+    )
   )
 
   # add rsymphony solver
@@ -71,7 +76,7 @@ write_problem <- function(x, path) {
   # compile problem
   x$solver$calculate(compile(x))
   model <- x$solver$data$model
-  assertthat::assert_that(
+  assert(
     is.list(model),
     msg = "failed to compile optimization problem"
   )
@@ -96,7 +101,7 @@ write_problem <- function(x, path) {
   )
 
   # move file to desired location
-  assertthat::assert_that(
+  assert(
     length(dir(d)) == 1,
     msg = "failed to save problem formulation"
   )

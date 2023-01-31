@@ -137,16 +137,20 @@ zones <- function(..., zone_names = NULL, feature_names = NULL) {
   # set names of args to NULL
   names(args) <- NULL
   # check arguments
-  assertthat::assert_that(
+  assert(
     all_elements_inherit(args, c("SpatRaster", "Raster", "character")),
     no_duplicates(zone_names),
     assertthat::noNA(zone_names)
   )
-  assertthat::assert_that(
+  assert(
     length(zone_names) == length(args),
-    msg = paste(
-      "number of supplied zones does not match",
-      "number of the supplied zone names"
+    msg = c(
+      paste(
+        "The number of {.code ...} arguments must match the number of elements",
+        "in {.arg zone_names}."
+      ),
+      "x" = "Number of {.code ...} arguments: {.val {length(args)}}.",
+      "x" = "{.code length(zone_names)}: {.val {length(zone_names)}}."
     )
   )
   # throw deprecation notice if needed
@@ -166,24 +170,36 @@ zones <- function(..., zone_names = NULL, feature_names = NULL) {
       feature_names <- as.character(seq_len(n_fun(args[[1]])))
     }
     # check feature names
-    assertthat::assert_that(
+    assert(
       length(feature_names) == n_fun(args[[1]]),
-      msg = paste(
-        "number of supplied features does not",
-        "match the number of supplied feature names"
+      msg = c(
+        paste(
+          "The number of layers in each {.code ...} argument must match the",
+          "number of elements in {.arg feature_names}."
+        ),
+        "x" = paste(
+          "Number of layers in first {.code ...} argument:",
+          "{.val {n_fun(args[[1]])}}."
+        ),
+        "x" = "{.code length(feature_names)}: {.val {length(feature_names)}}."
       )
     )
     # data integrity checks
-    assertthat::assert_that(
+    assert(
       length(unique(vapply(args, n_fun, numeric(1)))) == 1,
-      msg = "all arguments do not have the same number of layers"
+      msg = "All {.code ...} arguments must have the same number of layers."
     )
-    assertthat::assert_that(
-      all(vapply(args, is_comparable_raster, logical(1), x = args[[1]]))
-    )
-    assertthat::assert_that(
+    assert(
       all(vapply(args, n_fun, numeric(1)) >= 1),
-      msg = "all argument must have at least one layer"
+      msg = "All {.code ...} arguments must have at least one layer."
+    )
+    assert(
+      all(vapply(args, is_comparable_raster, logical(1), x = args[[1]])),
+      msg = paste(
+        "All {.code ...} arguments must have the same",
+        "spatial resolutions, extents, coordinate reference systems, and",
+        "dimensionality (rows / columns)."
+      )
     )
     # set class
     zone_class <- ifelse(
@@ -199,28 +215,36 @@ zones <- function(..., zone_names = NULL, feature_names = NULL) {
       feature_names <- as.character(seq_along(args[[1]]))
     }
     # check feature names
-    assertthat::assert_that(
+    assert(
       length(feature_names) == length(args[[1]]),
-      msg = paste(
-        "number of supplied features does not",
-        "match the number of supplied feature names"
+      msg = c(
+        paste(
+          "The number of elements in each {.code ...} argument must match the",
+          "number of elements in {.arg feature_names}."
+        ),
+        "x" = paste(
+          "Number of elements in first {.code ...} argument:",
+          "{.val {length(args[[1]])}}."
+        ),
+        "x" = "{.code length(feature_names)}: {.val {length(feature_names)}}."
       )
     )
     # data integrity checks
-    assertthat::assert_that(
+    assert(
       length(unique(vapply(args, length, numeric(1)))) == 1,
-      msg = paste("all arguments must all have the same number of features")
+      msg = "All {.code ...} arguments must have the same number of elements."
     )
     for (i in seq_along(args)) {
-      assertthat::assert_that(
+      assert(
         assertthat::noNA(args[[i]]),
-        msg = paste("argument", i, "contains NA values")
-      )
+        msg =
+         "All {.code ...} arguments must not contain any {.val NA} values"
+       )
     }
     zone_class <- "ZonesCharacter"
   }
   # check feature names
-  assertthat::assert_that(
+  assert(
     no_duplicates(feature_names),
     assertthat::noNA(feature_names)
   )

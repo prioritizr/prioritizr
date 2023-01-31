@@ -116,8 +116,21 @@ NULL
 #' @exportMethod eval_ferrier_importance
 methods::setGeneric("eval_ferrier_importance",
   function(x, solution) {
-  standardGeneric("eval_ferrier_importance")
-})
+    rlang::check_required(x)
+    rlang::check_required(solution)
+    assert(
+      is_conservation_problem(x),
+      is_inherits(
+        solution,
+        c(
+          "numeric", "data.frame", "matrix", "sf", "SpatRaster",
+          "Spatial", "Raster"
+        )
+      )
+    )
+    standardGeneric("eval_ferrier_importance")
+  }
+)
 
 #' @name eval_ferrier_importance
 #' @usage \S4method{eval_ferrier_importance}{ConservationProblem,numeric}(x, solution)
@@ -126,7 +139,7 @@ methods::setMethod("eval_ferrier_importance",
   methods::signature("ConservationProblem", "numeric"),
   function(x, solution) {
     # assert valid arguments
-    assertthat::assert_that(is.numeric(solution))
+    assert(is.numeric(solution))
     # extract planning unit solution status
     status <- planning_unit_solution_status(x, solution)
     # extract indices
@@ -153,7 +166,7 @@ methods::setMethod("eval_ferrier_importance",
   methods::signature("ConservationProblem", "matrix"),
   function(x, solution) {
     # assert valid arguments
-    assertthat::assert_that(
+    assert(
       is.matrix(solution),
       is.numeric(solution),
       number_of_zones(x) == 1
@@ -184,7 +197,7 @@ methods::setMethod("eval_ferrier_importance",
   methods::signature("ConservationProblem", "data.frame"),
   function(x, solution) {
     # assert valid arguments
-    assertthat::assert_that(
+    assert(
       is.data.frame(solution),
       number_of_zones(x) == 1
     )
@@ -214,7 +227,7 @@ methods::setMethod("eval_ferrier_importance",
   methods::signature("ConservationProblem", "Spatial"),
   function(x, solution) {
     # assert valid arguments
-    assertthat::assert_that(
+    assert(
       is_inherits(
         solution,
         c(
@@ -253,7 +266,7 @@ methods::setMethod("eval_ferrier_importance",
   methods::signature("ConservationProblem", "sf"),
   function(x, solution) {
     # assert valid arguments
-    assertthat::assert_that(
+    assert(
       inherits(solution, "sf"),
       number_of_zones(x) == 1
     )
@@ -287,7 +300,7 @@ methods::setMethod("eval_ferrier_importance",
 methods::setMethod("eval_ferrier_importance",
   methods::signature("ConservationProblem", "Raster"),
   function(x, solution) {
-    assertthat::assert_that(
+    assert(
       inherits(solution, "Raster"),
       number_of_zones(x) == 1
     )
@@ -315,7 +328,7 @@ methods::setMethod("eval_ferrier_importance",
 methods::setMethod("eval_ferrier_importance",
   methods::signature("ConservationProblem", "SpatRaster"),
   function(x, solution) {
-    assertthat::assert_that(
+    assert(
       inherits(solution, "SpatRaster"),
       number_of_zones(x) == 1
     )
@@ -337,35 +350,84 @@ methods::setMethod("eval_ferrier_importance",
     out
 })
 
-internal_eval_ferrier_importance <- function(x, indices) {
+internal_eval_ferrier_importance <- function(x, indices,
+                                             call = fn_caller_env()) {
   # assert arguments are valid
-  assertthat::assert_that(
-    number_of_zones(x) == 1,
+  assert(
     is.integer(indices),
-    length(indices) > 0
+    length(indices) > 0,
+    .internal = TRUE
   )
-  assertthat::assert_that(
+  assert(
+    number_of_zones(x) == 1,
+    msg = c(
+      "This function requires that {.arg x} must have a single zone.",
+      "i" = paste(
+        "This is because the calculations only work",
+        "for a limited range of problem formulations."
+      ),
+      "i" = "Try using {.fn eval_replacement_importance} instead."
+    ),
+    call = call
+  )
+  assert(
     !any(x$feature_names() == "total"),
-    msg = paste(
-      "eval_ferrier_importance() requires that none of the features",
-      "are named \"total\""
-    )
+    msg = c(
+      paste(
+        "This function requires that none of the features in",
+        "{.arg x} are called \"total\"."
+      ),
+      "i" = paste(
+        "This is because {.fn eval_ferrier_importance} creates a new",
+        "column or layer named \"total\" to output results."
+      )
+    ),
+    call = call
   )
   # extract data
   rij <- x$data$rij_matrix[[1]]
   targets <- x$feature_targets()
   # validate data
-  assertthat::assert_that(
+  assert(
     all(targets$sense == ">="),
-    msg = "eval_ferrier_importance() requires all targets to have a >= sense"
+    msg = c(
+      paste(
+        "This function requires that all of the feature targets for {.arg x}",
+        "have a {.code >=} sense."
+      ),
+      "i" = paste(
+        "This is because the calculations only work",
+        "for a limited range of problem formulations."
+      ),
+      "i" = "Try using {.fn eval_replacement_importance} instead."
+    ),
+    call = call
   )
-  assertthat::assert_that(
+  assert(
     all(targets$value >= 0),
-    msg = "eval_ferrier_importance() requires all targets to be >= 0"
+    msg = c(
+      "This function requires that all of the feature targets for {.arg x}",
+      "are {.code >=} 0.",
+      "i" = paste(
+        "This is because the calculations only work",
+        "for a limited range of problem formulations."
+      ),
+      "i" = "Try using {.fn eval_replacement_importance} instead."
+    ),
+    call = call
   )
-  assertthat::assert_that(
+  assert(
     all(rij@x >= 0),
-    msg = "eval_ferrier_importance() requires all feature values to be >= 0"
+    msg = c(
+      "This function requires that all of the feature values for {.arg x}",
+      "are {.code >=} 0.",
+      "i" = paste(
+        "This is because the calculations only work",
+        "for a limited range of problem formulations."
+      ),
+      "i" = "Try using {.fn eval_replacement_importance} instead."
+    ),
+    call = call
   )
   # create sparse matrix with output indices to avoid calculations
   # for planning units that are not selected in the solution

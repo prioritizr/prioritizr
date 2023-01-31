@@ -219,8 +219,20 @@ NULL
 
 methods::setGeneric("add_contiguity_constraints",
   signature = methods::signature("x", "zones", "data"),
-  function(x, zones = diag(number_of_zones(x)), data = NULL)
-  standardGeneric("add_contiguity_constraints"))
+  function(x, zones = diag(number_of_zones(x)), data = NULL) {
+    rlang::check_required(x)
+    rlang::check_required(zones)
+    rlang::check_required(data)
+    assert(
+      is_conservation_problem(x),
+      is_inherits(
+        data,
+        c("NULL",  "dgCMatrix", "data.frame", "matrix", "Matrix")
+      )
+    )
+    standardGeneric("add_contiguity_constraints")
+  }
+)
 
 #' @name add_contiguity_constraints
 #' @usage \S4method{add_contiguity_constraints}{ConservationProblem,ANY,ANY}(x, zones, data)
@@ -229,15 +241,16 @@ methods::setMethod("add_contiguity_constraints",
   methods::signature("ConservationProblem", "ANY", "ANY"),
   function(x, zones, data) {
     # assert valid arguments
-    assertthat::assert_that(
+    assert(
       is_conservation_problem(x),
-      is_a_matrix(zones)
+      # is_inherits(zones, c("matrix", "Matrix"))
+      is_matrix_ish(zones)
     )
     if (!is.null(data)) {
       # check argument to data if not NULL
-      assertthat::assert_that(is_a_matrix(data))
+      assert(is_matrix_ish(data))
       data <- as_Matrix(data, "dgCMatrix")
-      assertthat::assert_that(
+      assert(
         is_numeric_values(data),
         all_finite(data),
         all_binary(data),
@@ -248,22 +261,30 @@ methods::setMethod("add_contiguity_constraints",
       d <- list(matrix = data)
     } else {
       # check that planning unit data is spatially referenced
-      assertthat::assert_that(
-        inherits(x$data$cost, c("Spatial", "Raster", "sf", "SpatRaster")),
-        msg = paste(
-          "argument to data must be supplied because planning unit",
-         "data are not in a spatially referenced format"
+      assert(
+        is_pu_spatially_explicit(x),
+        msg =
+        c(
+          paste(
+            "{.arg data} must be manually specified (e.g., as a Matrix)."
+          ),
+          "i" = paste(
+            "This is because {.arg x} has planning unit data that are not",
+            "spatially explicit",
+            "(e.g., {.cls sf}, or {.cls SpatRaster} objects)."
+          )
         )
       )
       d <- list()
     }
     # convert zones to matrix
     zones <- as.matrix(zones)
-    assertthat::assert_that(
+    assert(
       is.matrix(zones),
       isSymmetric(zones),
       ncol(zones) == number_of_zones(x),
       is_numeric_values(zones),
+      all_finite(zones),
       all_binary(zones),
       all(colMeans(zones) <= diag(zones)),
       all(rowMeans(zones) <= diag(zones))
@@ -281,7 +302,7 @@ methods::setMethod("add_contiguity_constraints",
         binary_matrix_parameter("zones", zones, symmetric = TRUE)
       ),
       calculate = function(self, x) {
-        assertthat::assert_that(is_conservation_problem(x))
+        assert(is_conservation_problem(x))
         # generate matrix if null
         if (is.Waiver(self$get_data("matrix"))) {
           # create matrix
@@ -295,9 +316,10 @@ methods::setMethod("add_contiguity_constraints",
         invisible(TRUE)
       },
       apply = function(self, x, y) {
-        assertthat::assert_that(
+        assert(
           inherits(x, "OptimizationProblem"),
-          inherits(y, "ConservationProblem")
+          inherits(y, "ConservationProblem"),
+          .internal = TRUE
         )
         if (as.logical(self$parameters$get("apply constraints?")[[1]])) {
           # extract data and parameters
@@ -329,7 +351,7 @@ methods::setMethod("add_contiguity_constraints",
   methods::signature("ConservationProblem", "ANY", "data.frame"),
   function(x, zones, data) {
     # assert that does not have zone1 and zone2 columns
-    assertthat::assert_that(
+    assert(
       is.data.frame(data),
       assertthat::has_name(data, "id1"),
       assertthat::has_name(data, "id2"),

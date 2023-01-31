@@ -8,11 +8,11 @@ methods::setMethod(
   "problem",
   methods::signature(x = "Raster", features = "Raster"),
   function(x, features, run_checks = TRUE, ...) {
-    assertthat::assert_that(
+    assert(
       inherits(x, "Raster"),
-      raster::nlayers(x) == 1,
-      no_extra_arguments(...)
+      raster::nlayers(x) == 1
     )
+    rlang::check_dots_empty()
     .Deprecated(msg = raster_pkg_deprecation_notice)
     problem(
       x,
@@ -31,19 +31,19 @@ methods::setMethod(
   function(x, features, run_checks = TRUE, ...) {
     .Deprecated(msg = raster_pkg_deprecation_notice)
     # assert that arguments are valid
-    assertthat::assert_that(
+    assert(
       inherits(x, "Raster"),
       inherits(features, "ZonesRaster"),
       assertthat::is.flag(run_checks),
-      no_extra_arguments(...),
       raster::nlayers(x) > 0,
       number_of_features(features) > 0,
       raster::nlayers(x) == number_of_zones(features),
       is_comparable_raster(x, features)
     )
+    rlang::check_dots_empty()
     if (run_checks) {
-      assertthat::assert_that(any_nonNA(x))
-      verify_that(
+      assert(any_nonNA(x))
+      verify(
         all_positive(x),
         any_nonzero(x),
         all_positive(features),
@@ -99,7 +99,7 @@ methods::setMethod(
   "problem",
   methods::signature(x = "Spatial", features = "Raster"),
   function(x, features, cost_column, run_checks = TRUE, ...) {
-    assertthat::assert_that(assertthat::is.string(cost_column))
+    assert(assertthat::is.string(cost_column))
     problem(
       x,
       zones(
@@ -122,7 +122,7 @@ methods::setMethod(
     .Deprecated(msg = raster_pkg_deprecation_notice)
     # assert valid arguments
     # assert that arguments are valid
-    assertthat::assert_that(
+    assert(
       is_inherits(
         x,
         c(
@@ -130,7 +130,6 @@ methods::setMethod(
           "SpatialPointsDataFrame"
         )
       ),
-      no_extra_arguments(...),
       nrow(x) > 0,
       is.character(cost_column),
       assertthat::noNA(cost_column),
@@ -139,18 +138,19 @@ methods::setMethod(
       all_columns_inherit(x[, cost_column], "numeric"),
       assertthat::is.flag(run_checks)
     )
+    rlang::check_dots_empty()
     # further validation checks
-    assertthat::assert_that(
+    assert(
       all_columns_any_finite(x[, cost_column]),
       is_same_crs(x, features),
       is_spatial_extents_overlap(x, features)
     )
-    verify_that(
+    verify(
       all_positive(x[, cost_column]),
       any_nonzero(x[, cost_column])
     )
     if (run_checks) {
-      verify_that(
+      verify(
         all_positive(features),
         any_nonzero(features)
       )
@@ -206,7 +206,7 @@ methods::setMethod(
   "problem",
   methods::signature(x = "Spatial", features = "character"),
   function(x, features, cost_column, ...) {
-    assertthat::assert_that(assertthat::is.string(cost_column))
+    assert(assertthat::is.string(cost_column))
     problem(
       x,
       zones(features, feature_names = features, zone_names = cost_column),
@@ -224,7 +224,7 @@ methods::setMethod(
   function(x, features, cost_column, ...) {
     .Deprecated(msg = sp_pkg_deprecation_notice)
     # assert that arguments are valid
-    assertthat::assert_that(
+    assert(
       is_inherits(
         x,
         c(
@@ -233,7 +233,6 @@ methods::setMethod(
         )
       ),
       inherits(features, "ZonesCharacter"),
-      no_extra_arguments(...),
       nrow(x) > 0,
       is.character(cost_column),
       assertthat::noNA(cost_column),
@@ -241,14 +240,15 @@ methods::setMethod(
       all_match_of(cost_column, names(x)),
       all_columns_any_finite(x[, cost_column])
     )
-    assertthat::assert_that(
+    rlang::check_dots_empty()
+    assert(
       all_match_of(unlist(as.list(features)), names(x)),
       msg = paste(
         "argument to features contains column names that are",
         "not present in the argument to x"
       )
     )
-    verify_that(
+    verify(
       all_positive(x[, cost_column]),
       any_nonzero(x[, cost_column]),
       all_positive(x[, unlist(features)]),
@@ -299,7 +299,7 @@ methods::setMethod(
   "problem",
   methods::signature(x = "sf", features = "Raster"),
   function(x, features, cost_column, run_checks = TRUE, ...) {
-    assertthat::assert_that(assertthat::is.string(cost_column))
+    assert(assertthat::is.string(cost_column))
     problem(
       x,
       zones(
@@ -322,9 +322,8 @@ methods::setMethod(
   function(x, features, cost_column, run_checks = TRUE, ...) {
     .Deprecated(msg = raster_pkg_deprecation_notice)
     # assert that arguments are valid
-    assertthat::assert_that(
+    assert(
       inherits(x, "sf"),
-      no_extra_arguments(...),
       nrow(x) > 0,
       is.character(cost_column),
       assertthat::noNA(cost_column),
@@ -336,16 +335,17 @@ methods::setMethod(
       is_same_crs(x, features),
       is_spatial_extents_overlap(x, features)
     )
-    assertthat::assert_that(
+    rlang::check_dots_empty()
+    assert(
       all(!st_geometry_classes(x) %in% c("GEOMETRYCOLLECTION", "MULTIPOINT"))
     )
     # further validation checks
-    verify_that(
+    verify(
       all_positive(x[, cost_column]),
       any_nonzero(x[, cost_column])
     )
     if (run_checks) {
-      verify_that(
+      verify(
         all_positive(features),
         any_nonzero(features)
       )

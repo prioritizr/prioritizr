@@ -13,7 +13,10 @@ NULL
 #' @noRd
 NULL
 
-get_crs <- function(x) UseMethod("get_crs")
+get_crs <- function(x) {
+  rlang::check_required(x)
+  UseMethod("get_crs")
+}
 
 get_crs.sf <- function(x) sf::st_crs(x)
 

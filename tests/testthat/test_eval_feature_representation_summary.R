@@ -566,7 +566,7 @@ test_that("invalid inputs", {
   sim_features <- get_sim_features()
   sim_pu_polygons <- get_sim_pu_polygons()
   # tests
-  expect_error(
+  expect_tidy_error(
     {
       # create problem
       p <- problem(
@@ -579,9 +579,9 @@ test_that("invalid inputs", {
       # calculate representation
       eval_feature_representation_summary(p, s)
     },
-    "NA values in the solution"
+    "missing"
   )
-  expect_error(
+  expect_tidy_error(
     {
       p <- problem(matrix(pu$cost, ncol = 1),
                    data.frame(id = seq_len(2), name = c("spp1", "spp2")),
@@ -591,9 +591,9 @@ test_that("invalid inputs", {
       # calculate representation
       eval_feature_representation_summary(p, s)
     },
-    "NA values in the solution"
+    "missing"
   )
-  expect_error(
+  expect_tidy_error(
     {
       # create problem
       p <- problem(pu, c("spp1", "spp2"), cost_column = "cost")
@@ -602,9 +602,9 @@ test_that("invalid inputs", {
       # calculate representation
       eval_feature_representation_summary(p, s)
     },
-    "NA values in the solution"
+    "missing"
   )
-  expect_error(
+  expect_tidy_error(
     {
       # create data
       pu <- sim_pu_polygons[seq_len(10), ]
@@ -619,9 +619,9 @@ test_that("invalid inputs", {
       # calculate representation
       eval_feature_representation_summary(p, s)
     },
-    "NA values in the solution"
+    "missing"
   )
-  expect_error(
+  expect_tidy_error(
     {
       # create problem
       p <- problem(sim_pu_raster, sim_features)
@@ -633,6 +633,6 @@ test_that("invalid inputs", {
       # calculate representation
       eval_feature_representation_summary(p, s)
     },
-    "NA values in the solution"
+    "missing"
   )
 })

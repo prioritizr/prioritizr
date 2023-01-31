@@ -9,25 +9,28 @@ NULL
 #'
 #' @param choices vector.
 #'
+#' @param call Caller environment.
+#'
 #' @return A `logical` value.
 #'
 #' @noRd
 is_match_of <- function(x, choices) {
-  assertthat::assert_that(
+  assert(
     assertthat::is.scalar(x),
-    is.vector(choices)
+    is.vector(choices),
+    .internal = TRUE
   )
   isTRUE(x %in% choices)
 }
 
 assertthat::on_failure(is_match_of) <- function(call, env) {
   w <- eval(call$choices, envir = env)
-  if (length(w) < 5) {
-    w <- list_text(w, last_sep = "or")
+  if (length(w) <= 5) {
+    w <- list_text(paste0("{.val {", w, "}"), last_sep = "or")
   } else {
-    w <- deparse(call$choices)
+    w <- paste0("one of the values in {.code ", deparse(call$choices), "}")
   }
-  paste(deparse(call$x), "is not one of", w)
+  paste0("{.arg ", deparse(call$x), "} must be ", w, ".")
 }
 
 #' All a match of?
@@ -38,28 +41,29 @@ assertthat::on_failure(is_match_of) <- function(call, env) {
 #'
 #' @param choices vector.
 #'
+#' @param call Caller environment.
+#'
 #' @return A `logical` value.
 #'
 #' @noRd
 all_match_of <- function(x, choices) {
-  assertthat::assert_that(
+  assert(
     is.vector(x) || is.factor(x),
-    is.vector(choices)
+    is.vector(choices),
+    .internal = TRUE
   )
   all(x %in% choices)
 }
 
 assertthat::on_failure(all_match_of) <- function(call, env) {
   w <- eval(call$choices, envir = env)
-  if (length(w) < 5) {
-    w <- list_text(w, last_sep = "or")
+  if (length(w) <= 2) {
+    w <- list_text(paste0("{.val ", w, "}"), last_sep = "or")
   } else {
-    w <- deparse(call$choices)
+    w <- paste0("one of the values in {.code ", deparse(call$choices), "}")
   }
-  paste(
-    deparse(call$x),
-    "contains a value is not one of",
-    w
+  paste0(
+    "All values in {.arg ", deparse(call$x), "} must be ", w, "."
   )
 }
 
@@ -69,16 +73,20 @@ assertthat::on_failure(all_match_of) <- function(call, env) {
 #'
 #' @param x vector object.
 #'
+#' @param call Caller environment.
+#'
 #' @return A `logical` value.
 #'
 #' @noRd
 no_duplicates <- function(x) {
-  assertthat::assert_that(is.vector(x))
+  assert(is.vector(x), .internal = TRUE)
   anyDuplicated(x) == 0L
 }
 
 assertthat::on_failure(no_duplicates) <- function(call, env) {
-  paste(deparse(call$x), "contains duplicate values")
+  paste0(
+    "{.arg ", deparse(call$x), "} must not contain duplicate values."
+  )
 }
 
 #' Is count vector?
@@ -87,38 +95,19 @@ assertthat::on_failure(no_duplicates) <- function(call, env) {
 #'
 #' @param x object.
 #'
+#' @param call Caller environment.
+#'
 #' @return A `logical` value.
 #'
 #' @noRd
 is_count_vector <- function(x) {
-  assertthat::assert_that(is.numeric(x))
+  assert(is.numeric(x), .internal = TRUE)
   all(x >= 1, na.rm = TRUE) && all(x == round(x), na.rm = TRUE)
 }
 
 assertthat::on_failure(is_count_vector) <- function(call, env) {
   paste(
-    deparse(call$x),
-    "contains zeros, negative, or non-integer values"
-  )
-}
-
-#' Is integer?
-#'
-#' Check if a vector contains integer values.
-#'
-#' @param x object.
-#'
-#' @return A `logical` value.
-#'
-#' @noRd
-is_integer <- function(x) {
-  assertthat::assert_that(is.numeric(x))
-  all(x == round(x), na.rm = TRUE)
-}
-
-assertthat::on_failure(is_count_vector) <- function(call, env) {
-  paste(
-    deparse(call$x),
-    "contains non-integer values"
+    "{.arg ", deparse(call$x),
+    "} must not contain zeros, negative, or non-integer values."
   )
 }

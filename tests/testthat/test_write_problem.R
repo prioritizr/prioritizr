@@ -75,13 +75,13 @@ test_that("invalid inputs", {
     add_locked_in_constraints(locked_in) %>%
     add_locked_out_constraints(locked_out)
   # tests
-  expect_error(
+  expect_tidy_error(
     p %>%
       add_min_set_objective() %>%
       write_problem(path = tempfile(fileext = ".asdf")),
     "file extension"
   )
-  expect_error(
+  expect_tidy_error(
     write_problem(p, tempfile(fileext = ".lp")),
     "missing an objective"
   )

@@ -233,8 +233,20 @@ NULL
 
 methods::setGeneric("add_feature_contiguity_constraints",
   signature = methods::signature("x", "zones", "data"),
-  function(x, zones = diag(number_of_zones(x)), data = NULL)
-  standardGeneric("add_feature_contiguity_constraints"))
+  function(x, zones = diag(number_of_zones(x)), data = NULL) {
+    rlang::check_required(x)
+    rlang::check_required(zones)
+    rlang::check_required(data)
+    assert(
+      is_conservation_problem(x),
+      is_inherits(
+        data,
+        c("NULL", "dgCMatrix", "matrix", "Matrix", "list")
+      )
+    )
+    standardGeneric("add_feature_contiguity_constraints")
+  }
+)
 
 #' @name add_feature_contiguity_constraints
 #' @usage \S4method{add_feature_contiguity_constraints}{ConservationProblem,ANY,Matrix}(x, zones, data)
@@ -243,10 +255,10 @@ methods::setMethod("add_feature_contiguity_constraints",
   methods::signature("ConservationProblem", "ANY", "Matrix"),
   function(x, zones, data) {
     # assert valid arguments
-    assertthat::assert_that(
+    assert(
       is_conservation_problem(x),
       is_inherits(zones, c("matrix", "Matrix", "list")),
-      is_a_matrix(data)
+      is_matrix_ish(data)
    )
     # apply constraints
     data <- list(data)[rep(1, number_of_features(x))]
@@ -260,7 +272,7 @@ methods::setMethod("add_feature_contiguity_constraints",
   methods::signature("ConservationProblem", "ANY", "data.frame"),
   function(x, zones, data) {
     # assert valid arguments
-    assertthat::assert_that(
+    assert(
       is_conservation_problem(x),
       is_inherits(zones, c("matrix", "Matrix", "list")),
       is.data.frame(data)
@@ -287,7 +299,7 @@ methods::setMethod("add_feature_contiguity_constraints",
   methods::signature("ConservationProblem", "ANY", "ANY"),
   function(x, zones, data) {
     # assert valid arguments
-    assertthat::assert_that(
+    assert(
       is_conservation_problem(x),
       is_inherits(zones, c("matrix", "Matrix", "list")),
       is_inherits(data, c("NULL", "list"))
@@ -296,7 +308,7 @@ methods::setMethod("add_feature_contiguity_constraints",
     if (inherits(zones, c("matrix", "Matrix"))) {
       zones <- list(zones)[rep(1, x$number_of_features())]
     } else {
-      assertthat::assert_that(
+      assert(
         length(zones) == number_of_features(x),
         all_elements_inherit(zones, c("matrix", "Matrix"))
       )
@@ -306,11 +318,11 @@ methods::setMethod("add_feature_contiguity_constraints",
       # check argument to data if not NULL
       for (i in seq_along(data)) {
         # assert that element is valid
-        assertthat::assert_that(
+        assert(
           is_inherits(data[[i]], c("matrix", "Matrix", "data.frame")),
           msg = paste(
-            "argument to data[[", i, "]] is not a matrix, Matrix",
-            "or data.frame"
+            "{.arg data[[", i, "]]} is not a {.cls matrix}, {.cls Matrix}",
+            "or a data frame."
           )
         )
         # coerce to correct format
@@ -319,7 +331,7 @@ methods::setMethod("add_feature_contiguity_constraints",
         if (is.data.frame(data[[i]]))
           data[[i]] <- marxan_connectivity_data_to_matrix(x, data[[i]], TRUE)
         # run checks
-        assertthat::assert_that(
+        assert(
           all_binary(data[[i]]),
           all_finite(data[[i]]),
           ncol(data[[i]]) == nrow(data[[i]]),
@@ -331,11 +343,18 @@ methods::setMethod("add_feature_contiguity_constraints",
       d <- list(matrices = data)
     } else {
       # check that planning unit data is spatially referenced
-      assertthat::assert_that(
-        inherits(x$data$cost, c("Spatial", "Raster", "sf", "SpatRaster")),
-        msg = paste(
-          "argument to data must be supplied because planning unit",
-          "data are not in a spatially referenced format"
+      assert(
+        is_pu_spatially_explicit(x),
+        msg =
+        c(
+          paste(
+            "{.arg data} must be manually specified (e.g., as a Matrix)."
+          ),
+          "i" = paste(
+            "This is because {.arg x} has planning unit data that are not",
+            "spatially explicit",
+            "(e.g., {.cls sf}, or {.cls SpatRaster} objects)."
+          )
         )
       )
       d <- list()
@@ -343,9 +362,10 @@ methods::setMethod("add_feature_contiguity_constraints",
     # convert zones to matrix
     for (i in seq_along(zones)) {
       zones[[i]] <- as.matrix(zones[[i]])
-      assertthat::assert_that(
+      assert(
         is.numeric(zones[[i]]),
         all_binary(zones[[i]]),
+        all_finite(zones[[i]]),
         isSymmetric(zones[[i]]),
         ncol(zones[[i]]) == number_of_zones(x),
         all(colMeans(zones[[i]]) <= diag(zones[[i]])),
@@ -387,9 +407,10 @@ methods::setMethod("add_feature_contiguity_constraints",
         invisible(TRUE)
       },
       apply = function(self, x, y) {
-        assertthat::assert_that(
+        assert(
           inherits(x, "OptimizationProblem"),
-          inherits(y, "ConservationProblem")
+          inherits(y, "ConservationProblem"),
+          .internal = TRUE
         )
         if (as.logical(self$parameters$get("apply constraints?"))) {
           # extract list of connectivity matrices

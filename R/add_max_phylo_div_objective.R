@@ -221,7 +221,9 @@ NULL
 #' @export
 add_max_phylo_div_objective <- function(x, budget, tree) {
   # assert arguments are valid
-  assertthat::assert_that(
+  rlang::check_required(x)
+  rlang::check_required(budget)
+  assert(
     is_conservation_problem(x),
     is.numeric(budget),
     all_finite(budget),
@@ -231,15 +233,18 @@ add_max_phylo_div_objective <- function(x, budget, tree) {
     length(tree$tip.label) == number_of_features(x),
     all_match_of(tree$tip.label, feature_names(x))
   )
-  if (length(budget) > 1) {
-    assertthat::assert_that(
-      length(budget) == number_of_zones(x),
-      msg = paste(
-        "argument to budget should contain a single value",
-        "or a value for each zone"
-      )
+  budget_msg <- ifelse(
+    number_of_zones(x) == 1,
+    "{.arg budget} must be a single numeric value.",
+    paste(
+      "{.arg budget} must have a single numeric value,",
+      "or a value for each zone in {.arg x}."
     )
-  }
+  )
+  assert(
+    length(budget) %in% c(1, number_of_zones(x)),
+    msg = budget_msg
+  )
   # make parameter
   if (length(budget) == 1) {
     p <- numeric_parameter(
@@ -260,7 +265,7 @@ add_max_phylo_div_objective <- function(x, budget, tree) {
     parameters = parameters(p),
     data = list(tree = tree),
     calculate = function(self, x) {
-      assertthat::assert_that(is_conservation_problem(x))
+      assert(is_conservation_problem(x))
       # get tree
       tr <- self$get_data("tree")
       # order rows to match order of features in problem
@@ -271,9 +276,10 @@ add_max_phylo_div_objective <- function(x, budget, tree) {
       invisible(TRUE)
     },
     apply = function(self, x, y) {
-      assertthat::assert_that(
+      assert(
         inherits(x, "OptimizationProblem"),
-        inherits(y, "ConservationProblem")
+        inherits(y, "ConservationProblem"),
+        .internal = TRUE
       )
       invisible(
         rcpp_apply_max_phylo_objective(

@@ -1,4 +1,4 @@
-#' @include internal.R pproto.R
+#' @include internal.R pproto.R assertions.R
 
 #' @export
 if (!methods::isClass("Parameter")) methods::setOldClass("Parameter")

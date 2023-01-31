@@ -88,7 +88,10 @@ adjacency_matrix <- function(x, ...) UseMethod("adjacency_matrix")
 #' @method adjacency_matrix Raster
 #' @export
 adjacency_matrix.Raster <- function(x, directions = 4, ...) {
-  assertthat::assert_that(inherits(x, "Raster"))
+  rlang::check_required(x)
+  rlang::check_required(directions)
+  rlang::check_dots_empty()
+  assert(inherits(x, "Raster"))
   .Deprecated(msg = raster_pkg_deprecation_notice)
   adjacency_matrix.SpatRaster(terra::rast(x), directions = directions, ...)
 }
@@ -97,10 +100,12 @@ adjacency_matrix.Raster <- function(x, directions = 4, ...) {
 #' @method adjacency_matrix SpatRaster
 #' @export
 adjacency_matrix.SpatRaster <- function(x, directions = 4, ...) {
-  assertthat::assert_that(
+  rlang::check_required(x)
+  rlang::check_required(directions)
+  rlang::check_dots_empty()
+  assert(
     inherits(x, "SpatRaster"),
     terra::nlyr(x) >= 1,
-    no_extra_arguments(...),
     assertthat::is.count(directions)
   )
   if (terra::nlyr(x) == 1) {
@@ -130,6 +135,8 @@ adjacency_matrix.SpatRaster <- function(x, directions = 4, ...) {
 #' @method adjacency_matrix SpatialPolygons
 #' @export
 adjacency_matrix.SpatialPolygons <- function(x, ...) {
+  rlang::check_required(x)
+  rlang::check_dots_empty()
   .Deprecated(msg = sp_pkg_deprecation_notice)
   adjacency_matrix(sf::st_as_sf(x), ...)
 }
@@ -138,6 +145,8 @@ adjacency_matrix.SpatialPolygons <- function(x, ...) {
 #' @method adjacency_matrix SpatialLines
 #' @export
 adjacency_matrix.SpatialLines <- function(x,  ...) {
+  rlang::check_required(x)
+  rlang::check_dots_empty()
   .Deprecated(msg = sp_pkg_deprecation_notice)
   adjacency_matrix(sf::st_as_sf(x), ...)
 }
@@ -146,6 +155,8 @@ adjacency_matrix.SpatialLines <- function(x,  ...) {
 #' @method adjacency_matrix SpatialPoints
 #' @export
 adjacency_matrix.SpatialPoints <- function(x, ...) {
+  rlang::check_required(x)
+  rlang::check_dots_empty()
   .Deprecated(msg = sp_pkg_deprecation_notice)
   adjacency_matrix(sf::st_as_sf(x), ...)
 }
@@ -155,22 +166,17 @@ adjacency_matrix.SpatialPoints <- function(x, ...) {
 #' @export
 adjacency_matrix.sf <- function(x, ...) {
   # assert valid arguments
-  assertthat::assert_that(
-    inherits(x, "sf"),
-    no_extra_arguments(...)
-  )
+  rlang::check_required(x)
+  rlang::check_dots_empty()
+  assert(inherits(x, "sf"), is_valid_geometries(x))
   # verify that geometry types are supported
   geomc <- st_geometry_classes(x)
-  assertthat::assert_that(
+  assert(
     !any(grepl("POINT", geomc, fixed = TRUE)),
     msg = paste(
-      "adjacency_matrix() no longer supports point data,",
-      "use proximity_matrix() for point data"
+      "This function no longer supports point data,",
+      "use {.fn proximity_matrix} for point data."
     )
-  )
-  assertthat::assert_that(
-    !any(grepl("GEOMETRYCOLLECTION", geomc, fixed = TRUE)),
-    msg = "argument to x contains sf::st_geometrycollection() geometries"
   )
   # return sparse intersection matrix
   int <- sf::st_intersects(x, sparse = TRUE)
@@ -187,5 +193,10 @@ adjacency_matrix.sf <- function(x, ...) {
 #' @method adjacency_matrix default
 #' @export
 adjacency_matrix.default <- function(x, ...) {
-  stop("data are not stored in a spatial format")
+  cli::cli_abort(
+    c(
+      "{.arg x} must be a {.cls sf} or {.cls SpatRaster}.",
+      "x" = "{.arg x} is a {.cls {class(x)}}."
+    )
+  )
 }

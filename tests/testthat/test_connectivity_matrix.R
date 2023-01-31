@@ -1,6 +1,6 @@
 context("connectivity_matrix")
 
-test_that("x=sf, y=character", {
+test_that("x = sf, y = character", {
   # import data
   sim_pu_polygons <- get_sim_pu_polygons()
   # create matrix
@@ -21,22 +21,22 @@ test_that("x=sf, y=character", {
   expect_equal(nrow(cm), nrow(correct_cm))
   expect_true(all(cm == correct_cm))
   # test for invalid inputs
-  expect_error({
+  expect_tidy_error({
     sim_pu_polygons <- get_sim_pu_polygons()
     connectivity_matrix(sim_pu_polygons, "column_that_doesnt_exist")
   })
-  expect_error({
+  expect_tidy_error({
     sim_pu_polygons <- get_sim_pu_polygons()
     connectivity_matrix(sim_pu_polygons, NA_character_)
   })
-  expect_error({
+  expect_tidy_error({
     sim_pu_polygons <- get_sim_pu_polygons()
     sim_pu_polygons$column <- "a"
     connectivity_matrix(sim_pu_polygons, "column")
   })
 })
 
-test_that("x=sf, y=Raster", {
+test_that("x = sf, y = Raster", {
   # import data
   sim_pu_polygons <- get_sim_pu_polygons()
   sim_features <- get_sim_features()
@@ -60,10 +60,10 @@ test_that("x=sf, y=Raster", {
   expect_equal(nrow(cm), nrow(correct_cm))
   expect_lte(max(abs(cm - correct_cm)), 1e-8)
   # tests for invalid inputs
-  expect_error(
+  expect_tidy_error(
     connectivity_matrix( get_sim_pu_polygons(), get_sim_features())
   )
-  expect_error(
+  expect_tidy_error(
     connectivity_matrix(
       suppressWarnings(sf::st_set_crs(get_sim_pu_polygons(), 3857)),
       get_sim_pu_raster()
@@ -71,7 +71,7 @@ test_that("x=sf, y=Raster", {
   )
 })
 
-test_that("x=SpatRaster, y=SpatRaster", {
+test_that("x = SpatRaster, y = SpatRaster", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
@@ -94,19 +94,19 @@ test_that("x=SpatRaster, y=SpatRaster", {
   expect_equal(nrow(cm), nrow(correct_cm))
   expect_true(all(cm == correct_cm))
   # tests for invalid inputs
-  expect_error(
+  expect_tidy_error(
     connectivity_matrix(get_sim_pu_raster(), get_sim_features())
   )
-  expect_error(
+  expect_tidy_error(
     connectivity_matrix(get_sim_features(), get_sim_pu_raster())
   )
-  expect_error(
+  expect_tidy_error(
     connectivity_matrix(
       get_sim_pu_raster(),
       {r <- get_sim_pu_raster(); terra::ext(r) <- c(0, 0.5, 0, 0.5); r}
     )
   )
-  expect_error(
+  expect_tidy_error(
     connectivity_matrix(
       sim_pu_raster,
       {
@@ -118,7 +118,7 @@ test_that("x=SpatRaster, y=SpatRaster", {
   )
 })
 
-test_that("x=Spatial, y=character", {
+test_that("x = Spatial, y = character", {
   # import data
   sim_pu_polygons <- get_sim_pu_polygons()
   # make matrices
@@ -131,7 +131,7 @@ test_that("x=Spatial, y=character", {
   expect_equal(cm1, cm2)
 })
 
-test_that("x=Spatial, y=Raster", {
+test_that("x = Spatial, y = Raster", {
   # import data
   sim_pu_polygons <- get_sim_pu_polygons()
   sim_features <- get_sim_features()

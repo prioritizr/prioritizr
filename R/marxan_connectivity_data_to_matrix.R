@@ -79,8 +79,16 @@ NULL
 #' }
 #' @export
 marxan_connectivity_data_to_matrix <- function(x, data, symmetric = TRUE) {
+  rlang::check_required(x)
+  rlang::check_required(data)
+  rlang::check_required(symmetric)
+  internal_marxan_connectivity_data_to_matrix(x, data, symmetric)
+}
+
+internal_marxan_connectivity_data_to_matrix <- function(
+  x, data, symmetric, call = fn_caller_env()) {
   # assert that argument to data is valid
-  assertthat::assert_that(
+  assert(
     is_inherits(x, c("NULL", "ConservationProblem")),
     is.data.frame(data),
     assertthat::has_name(data, "id1"),
@@ -93,19 +101,21 @@ marxan_connectivity_data_to_matrix <- function(x, data, symmetric = TRUE) {
     is.numeric(data$boundary),
     all_finite(data$boundary),
     assertthat::is.flag(symmetric),
-    assertthat::noNA(symmetric)
+    assertthat::noNA(symmetric),
+    call = call
   )
   if (
     assertthat::has_name(data, "zone1") ||
     assertthat::has_name(data, "zone2")
   ) {
-    assertthat::assert_that(
+    assert(
       assertthat::has_name(data, "zone1"),
       assertthat::has_name(data, "zone2"),
       is_inherits(data$zone1, c("character", "factor")),
       is_inherits(data$zone2, c("character", "factor")),
       assertthat::noNA(data$zone2),
-      assertthat::noNA(data$zone1)
+      assertthat::noNA(data$zone1),
+      call = call
     )
   }
   # if problem is not NULL, then assert that argument to data is valid
@@ -116,35 +126,38 @@ marxan_connectivity_data_to_matrix <- function(x, data, symmetric = TRUE) {
       !inherits(x$data$cost, c("Spatial", "sf"))
     ) {
       # validate that ids in data are correct
-      assertthat::assert_that(
+      assert(
         all(data$id1 %in% x$data$cost$id),
         all(data$id2 %in% x$data$cost$id),
         msg = paste(
-          "argument to data contains ids for planning",
-          "units that are not present in x"
-        )
+          "{.arg data} must not contain values in the {.col id} column",
+          "that do not refer to planning units in {.arg x}."
+        ),
+        call = call
       )
       # match the ids with their order in the cost data
       data$id1 <- match(data$id1, x$data$cost$id)
       data$id2 <- match(data$id2, x$data$cost$id)
     } else {
       n_pu <- x$number_of_total_units()
-      assertthat::assert_that(
+      assert(
         max(data$id1) <= n_pu,
         max(data$id2) <= n_pu,
         min(data$id1) >= 1,
         min(data$id2) >= 1,
         msg = paste(
-          "argument to data contains ids for planning",
-          "units that are not present in x"
-        )
+          "{.arg data} must not contain values in the {.code id} column",
+          "that do not refer to planning units in {.arg x}."
+        ),
+        call = call
       )
     }
     # assert that zone names is valid
     if (number_of_zones(x) > 1 || assertthat::has_name(x, "zone1")) {
-      assertthat::assert_that(
+      assert(
         all_match_of(as.character(data$zone1), zone_names(x)),
-        all_match_of(as.character(data$zone2), zone_names(x))
+        all_match_of(as.character(data$zone2), zone_names(x)),
+        call = call
       )
     }
   }

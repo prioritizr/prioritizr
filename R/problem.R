@@ -477,10 +477,31 @@ NULL
 #' plot(s9[, c("solution_1_z1", "solution_1_z2")], axes = FALSE)
 #' }
 #' @export
-methods::setGeneric("problem",
-                    signature = methods::signature("x", "features"),
-                    function(x, features, ...) standardGeneric("problem"))
-
+methods::setGeneric(
+  "problem",
+  signature = methods::signature("x", "features"),
+  function(x, features, ...) {
+    rlang::check_required(x)
+    rlang::check_required(features)
+    assert(
+      is_inherits(
+        x,
+        c(
+          "sf", "SpatRaster", "data.frame", "numeric", "matrix", "Raster",
+          "Spatial"
+        )
+      ),
+      is_inherits(
+        features,
+        c(
+          "character", "data.frame", "SpatRaster", "ZonesCharacter",
+          "ZonesSpatRaster", "Raster", "ZonesRaster"
+        )
+      )
+    )
+    standardGeneric("problem")
+  }
+)
 
 #' @name problem
 #' @usage \S4method{problem}{SpatRaster,SpatRaster}(x, features, run_checks, ...)
@@ -489,12 +510,12 @@ methods::setMethod(
   "problem",
   methods::signature(x = "SpatRaster", features = "SpatRaster"),
   function(x, features, run_checks = TRUE, ...) {
-    assertthat::assert_that(
+    assert(
       inherits(x, "SpatRaster"),
       terra::nlyr(x) == 1,
-      no_duplicates(names(features)),
-      no_extra_arguments(...)
+      no_duplicates(names(features))
     )
+    rlang::check_dots_empty()
     problem(
       x,
       zones(
@@ -513,18 +534,18 @@ methods::setMethod(
   methods::signature(x = "SpatRaster", features = "ZonesSpatRaster"),
   function(x, features, run_checks = TRUE, ...) {
     # assert that arguments are valid
-    assertthat::assert_that(
+    assert(
       inherits(x, "SpatRaster"),
       inherits(features, "ZonesSpatRaster"),
       assertthat::is.flag(run_checks),
-      no_extra_arguments(...),
       number_of_features(features) > 0,
       terra::nlyr(x) == number_of_zones(features),
       is_comparable_raster(x, features)
     )
+    rlang::check_dots_empty()
     if (run_checks) {
-      assertthat::assert_that(any_nonNA(x))
-      verify_that(
+      assert(any_nonNA(x))
+      verify(
         all_positive(x),
         any_nonzero(x),
         all_positive(features),
@@ -574,7 +595,7 @@ methods::setMethod(
   "problem",
   methods::signature(x = "data.frame", features = "character"),
   function(x, features, cost_column, ...) {
-    assertthat::assert_that(assertthat::is.string(cost_column))
+    assert(assertthat::is.string(cost_column))
     problem(
       x,
       zones(features, zone_names = cost_column, feature_names = features),
@@ -591,10 +612,9 @@ methods::setMethod(
   methods::signature(x = "data.frame", features = "ZonesCharacter"),
   function(x, features, cost_column, ...) {
     # assert that arguments are valid
-    assertthat::assert_that(
+    assert(
       is.data.frame(x),
       inherits(features, "ZonesCharacter"),
-      no_extra_arguments(...),
       nrow(x) > 0,
       is.character(cost_column),
       assertthat::noNA(cost_column),
@@ -603,14 +623,21 @@ methods::setMethod(
       all_columns_inherit(x[, cost_column, drop = FALSE], "numeric"),
       all_columns_any_finite(x[, cost_column, drop = FALSE])
     )
-    assertthat::assert_that(
+    rlang::check_dots_empty()
+    assert(
       all_match_of(unlist(as.list(features)), names(x)),
-      msg = paste(
-        "argument to features contains column names that are",
-        "not present in the argument to x"
+      msg = c(
+        paste(
+          "{.arg features} must contain character values that are column names",
+          "for {.arg x}."
+        ),
+        "x" = paste(
+          "The following values are not columns names of {.arg x}:",
+          "{.val {setdiff(unlist(as.list(features)), names(x))}}."
+        )
       )
     )
-    verify_that(
+    verify(
       all_positive(x[, cost_column, drop = FALSE]),
       any_nonzero(x[, cost_column, drop = FALSE]),
       all_positive(x[, unlist(features), drop = FALSE]),
@@ -660,7 +687,7 @@ methods::setMethod(
   methods::signature(x = "data.frame", features = "data.frame"),
   function(x, features, rij, cost_column, zones = NULL, ...) {
     # assert that arguments are valid
-    assertthat::assert_that(
+    assert(
       is.data.frame(x),
       is.data.frame(features),
       is.character(cost_column),
@@ -669,7 +696,6 @@ methods::setMethod(
       nrow(x) > 0,
       nrow(features) > 0,
       nrow(rij) > 0,
-      no_extra_arguments(...),
       # x
       assertthat::has_name(x, "id"),
       is.numeric(x$id),
@@ -704,8 +730,9 @@ methods::setMethod(
       all_match_of(rij$pu, x$id),
       all_match_of(rij$species, features$id)
     )
+    rlang::check_dots_empty()
     # verifications
-    verify_that(
+    verify(
       all_positive(x[, cost_column]),
       any_nonzero(x[, cost_column]),
       all_positive(rij$amount),
@@ -714,15 +741,13 @@ methods::setMethod(
     # validate zone data
     if (!"zone" %in% names(rij))
       rij$zone <- 1
-    assertthat::assert_that(
+    assert(
       !(length(unique(rij$zone)) > 1 && is.null(zones)),
-      msg = c(
-        "argument to zone must be specified for problems with multiple zones"
-      )
+      msg = "{.arg zone} must be specified when using multiple zones."
     )
     if (is.null(zones))
       zones <- data.frame(id = 1, name = cost_column)
-    assertthat::assert_that(
+    assert(
       is.numeric(rij$zone),
       is_count_vector(rij$zone),
       assertthat::noNA(rij$zone),
@@ -790,7 +815,7 @@ methods::setMethod(
   function(x, features, rij_matrix, ...) {
     if (!is.list(rij_matrix))
       rij_matrix <- list("1" = rij_matrix)
-    problem(matrix(x, ncol = 1), features, rij_matrix = rij_matrix)
+    problem(matrix(x, ncol = 1), features, rij_matrix = rij_matrix, ...)
 })
 
 #' @name problem
@@ -803,7 +828,7 @@ methods::setMethod(
     # assert that arguments are valid
     if (!inherits(rij_matrix, "list"))
       rij_matrix <- list(rij_matrix)
-    assertthat::assert_that(
+    assert(
       is.matrix(x),
       is.data.frame(features),
       is.list(rij_matrix),
@@ -811,7 +836,6 @@ methods::setMethod(
       ncol(x) > 0,
       nrow(features) > 0,
       length(rij_matrix) > 0,
-      no_extra_arguments(...),
       # x
       is.numeric(x),
       all_columns_any_finite(x),
@@ -830,43 +854,54 @@ methods::setMethod(
       # multiple arguments
       ncol(x) == length(rij_matrix)
     )
-    assertthat::assert_that(
-      all(vapply(rij_matrix, ncol, numeric(1)) == nrow(x)),
-      msg = paste0(
-        "argument to rij_matrix should contain matrices that each have",
-        "a number of columns equal to the number of rows in x",
+    rlang::check_dots_empty()
+    rij_matrix_ncol <- vapply(rij_matrix, ncol, numeric(1))
+    assert(
+      all(rij_matrix_ncol == nrow(x)),
+      msg = c(
+        paste0(
+          "{.arg rij_matrix} must contain matrices that have",
+          "the same number of columns as the number of rows in {.arg x}."
+        ),
+        "x" = "{.arg rij_matrix} has {.val {rij_matrix_ncol}} columns.",
+        "x" = "{.arg x} has {.val {nrow(x)}} rows."
       )
     )
-    assertthat::assert_that(
+    rij_matrix_nrow <- vapply(rij_matrix, nrow, numeric(1))
+    assert(
       all(vapply(rij_matrix, nrow, numeric(1)) == nrow(features)),
-      msg = paste0(
-        "argument to rij_matrix should contain matrices with the same",
-        "number of rows as features"
+      msg = c(
+        paste0(
+          "{.arg rij_matrix} must contain matrices that have",
+          "the same number of rows as {.arg features}."
+        ),
+        "x" = "{.arg rij_matrix} has {.val {rij_matrix_nrow}} rows.",
+        "x" = "{.arg x} has {.val {nrow(features)}} rows."
       )
     )
-    assertthat::assert_that(
+    assert(
       all(
         vapply(rij_matrix, FUN.VALUE = logical(1), function(x) {
           any(is.finite(x))
         })
       ),
       msg = paste(
-        "argument to rij_matrix contains only missing or non-finite values",
-        "(e.g., NaN, NA, Inf)"
+        "{.arg rij_matrix} must not contain only missing or",
+        "non-finite values (e.g., {.val {NaN}}, {.val {NA}}, {.val {Inf})."
       )
     )
     # verifications
-    verify_that(
+    verify(
       all_positive(x),
       any_nonzero(x)
     )
-    verify_that(
+    verify(
       all(vapply(rij_matrix, all_positive, logical(1))),
-      msg = "argument to rij_matrix has negative values"
+      msg = "{.arg rij_matrix} has negative values."
     )
-    verify_that(
+    verify(
       all(vapply(rij_matrix, any_nonzero, logical(1))),
-      msg = "argument to rij_matrix contains matrix with only zero values"
+      msg = "{.arg rij_matrix} has only zero values."
     )
     # add names to rij_matrix if missing
     if (is.null(names(rij_matrix)))
@@ -902,8 +937,9 @@ methods::setMethod(
         cost = x,
         features = features,
         rij_matrix = rij,
-        feature_abundances_in_total_units = fatu)
+        feature_abundances_in_total_units = fatu
       )
+    )
 })
 
 #' @name problem
@@ -913,7 +949,7 @@ methods::setMethod(
   "problem",
   methods::signature(x = "sf", features = "SpatRaster"),
   function(x, features, cost_column, run_checks = TRUE, ...) {
-    assertthat::assert_that(assertthat::is.string(cost_column))
+    assert(assertthat::is.string(cost_column))
     problem(
       x,
       zones(
@@ -928,16 +964,15 @@ methods::setMethod(
 })
 
 #' @name problem
-#' @usage \S4method{problem}{sf,ZonesRaster}(x, features, cost_column, run_checks, ...)
+#' @usage \S4method{problem}{sf,ZonesSpatRaster}(x, features, cost_column, run_checks, ...)
 #' @rdname problem
 methods::setMethod(
   "problem",
   methods::signature(x = "sf", features = "ZonesSpatRaster"),
   function(x, features, cost_column, run_checks = TRUE, ...) {
     # assert that arguments are valid
-    assertthat::assert_that(
+    assert(
       inherits(x, "sf"),
-      no_extra_arguments(...),
       nrow(x) > 0,
       all_match_of(cost_column, names(x)),
       all_columns_inherit(x[, cost_column], "numeric"),
@@ -951,17 +986,21 @@ methods::setMethod(
       assertthat::is.flag(run_checks),
       assertthat::noNA(run_checks)
     )
-    assertthat::assert_that(
+    rlang::check_dots_empty()
+    assert(
       all(!st_geometry_classes(x) %in% c("GEOMETRYCOLLECTION", "MULTIPOINT")),
-      msg = "argument to x contains GEOMETRYCOLLECTION or MULTIPOINT geometries"
+      msg = paste(
+        "{.arg x} must not contain {.cls GEOMETRYCOLLECTION} or",
+        "{.cls MULTIPOINT} geometries."
+      )
     )
     # further validation checks
-    verify_that(
+    verify(
       all_positive(x[, cost_column]),
       any_nonzero(x[, cost_column])
     )
     if (run_checks) {
-      verify_that(
+      verify(
         all_positive(features),
         any_nonzero(features)
       )
@@ -1019,7 +1058,7 @@ methods::setMethod(
   "problem",
   methods::signature(x = "sf", features = "character"),
   function(x, features, cost_column, ...) {
-    assertthat::assert_that(assertthat::is.string(cost_column))
+    assert(assertthat::is.string(cost_column))
     problem(
       x,
       zones(features, feature_names = features, zone_names = cost_column),
@@ -1036,10 +1075,9 @@ methods::setMethod(
   methods::signature(x = "sf", features = "ZonesCharacter"),
   function(x, features, cost_column, ...) {
     # assert that arguments are valid
-    assertthat::assert_that(
+    assert(
       inherits(x, "sf"),
       inherits(features, "ZonesCharacter"),
-      no_extra_arguments(...),
       nrow(x) > 0,
       is.character(cost_column),
       assertthat::noNA(cost_column),
@@ -1048,18 +1086,28 @@ methods::setMethod(
       all_columns_any_finite(x[, cost_column]),
       number_of_zones(features) == length(cost_column)
     )
-    assertthat::assert_that(
+    rlang::check_dots_empty()
+    assert(
       all(!st_geometry_classes(x) %in% c("GEOMETRYCOLLECTION", "MULTIPOINT")),
-      msg = "argument to x contains GEOMETRYCOLLECTION or MULTIPOINT geometries"
-    )
-    assertthat::assert_that(
-      all_match_of(unlist(as.list(features)), names(x)),
       msg = paste(
-        "argument to features contains column names that are",
-        "not present in the argument to x"
+        "{.arg x} must not contain {.cls GEOMETRYCOLLECTION} or",
+        "{.cls MULTIPOINT} geometries."
       )
     )
-    verify_that(
+    assert(
+      all_match_of(unlist(as.list(features)), names(x)),
+      msg = c(
+        paste(
+          "{.arg features} must contain character values that are column names",
+          "of {.arg x}."
+        ),
+        "x" = paste(
+          "The following values are not columns names of {.arg x}:",
+          "{.val {setdiff(unlist(as.list(features)), names(x))}}."
+        )
+      )
+    )
+    verify(
       all_positive(x[, cost_column]),
       any_nonzero(x[, cost_column]),
       all_positive(sf::st_drop_geometry(x)[, unlist(features)]),

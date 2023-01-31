@@ -17,7 +17,7 @@ NULL
 #'
 #' @noRd
 list_text <- function(x, last_sep = "and", quote = FALSE) {
-  assertthat::assert_that(
+  assert(
     is.vector(x),
     assertthat::is.string(last_sep),
     assertthat::is.flag(quote)

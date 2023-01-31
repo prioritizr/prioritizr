@@ -11,36 +11,36 @@ test_that("is_comparable_raster", {
       sim_pu_raster <- get_sim_pu_raster()
       sim_features <- get_sim_features()
       terra::crs(sim_features) <- as.character(sf::st_crs(4326))[[2]]
-      assertthat::assert_that(is_comparable_raster(sim_pu_raster, sim_features))
+      assert(is_comparable_raster(sim_pu_raster, sim_features))
     },
-    "not comparable"
+    "comparable"
   )
   expect_error(
     {
       sim_pu_raster <- get_sim_pu_raster()
       sim_features <- get_sim_features()
       sim_pu_raster <- terra::crop(sim_pu_raster, terra::ext(1, 5, 1, 5))
-      assertthat::assert_that(is_comparable_raster(sim_pu_raster, sim_features))
+      assert(is_comparable_raster(sim_pu_raster, sim_features))
     },
-    "not comparable"
+    "comparable"
   )
   expect_error(
     {
       sim_pu_raster <- get_sim_pu_raster()
       sim_features <- get_sim_features()
       terra::crs(sim_features) <- as.character(sf::st_crs(4326))[[2]]
-      assertthat::assert_that(is_comparable_raster(sim_features, sim_pu_raster))
+      assert(is_comparable_raster(sim_features, sim_pu_raster))
     },
-    "not comparable"
+    "comparable"
   )
   expect_error(
     {
       sim_pu_raster <- get_sim_pu_raster()
       sim_features <- get_sim_features()
       sim_pu_raster <- terra::crop(sim_pu_raster, terra::ext(1, 5, 1, 5))
-      assertthat::assert_that(is_comparable_raster(sim_features, sim_pu_raster))
+      assert(is_comparable_raster(sim_features, sim_pu_raster))
     },
-    "not comparable"
+    "comparable"
   )
   expect_error(is_comparable_raster(sim_pu_raster, "a"))
 })

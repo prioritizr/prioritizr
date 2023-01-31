@@ -13,6 +13,7 @@ NULL
 #' @param x [problem()] object.
 #'
 #' @param number_solutions `integer` number of solutions required.
+#'   Defaults to 10.
 #'
 #' @param pool_gap `numeric` gap to optimality for solutions in the portfolio.
 #'  This relative gap specifies a threshold worst-case performance for
@@ -98,18 +99,18 @@ NULL
 
 #' @rdname add_gap_portfolio
 #' @export
-add_gap_portfolio <- function(x, number_solutions, pool_gap = 0.1) {
+add_gap_portfolio <- function(x, number_solutions = 10, pool_gap = 0.1) {
   # assert that arguments are valid
-  assertthat::assert_that(
+  assert(
     is_conservation_problem(x),
     assertthat::is.count(number_solutions),
     assertthat::noNA(number_solutions),
     assertthat::is.number(pool_gap),
     assertthat::noNA(pool_gap),
     pool_gap >= 0,
-    is_installed("gurobi", "add_gap_portfolio()")
+    is_installed("gurobi")
   )
-  assertthat::assert_that(
+  assert(
     utils::packageVersion("gurobi") >= as.package_version("8.0.0"),
     msg = paste(
       "add_gap_portfolio() requires version 8.0.0 (or greater)",
@@ -129,12 +130,16 @@ add_gap_portfolio <- function(x, number_solutions, pool_gap = 0.1) {
     ),
     run = function(self, x, solver) {
       ## check that problems has gurobi solver
-      assertthat::assert_that(
+      assert(
         inherits(solver, "GurobiSolver"),
-        msg = "add_gap_portfolio() requires use of add_gurobi_solver()"
+        msg = paste(
+          "{.code add_gap_portfolio} requires the",
+          "{.code add_gurobi_solver} to be specified."
+        ),
+        call = NULL
       )
       ## check that solver gap <= portfolio gap
-      assertthat::assert_that(
+      assert(
         solver$parameters$get("gap") <= self$parameters$get("pool_gap"),
         msg = "solver gap not smaller than or equal to portfolio gap")
       ## solve problem, and with gap of zero

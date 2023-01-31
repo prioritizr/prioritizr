@@ -77,14 +77,15 @@ NULL
 #' @export
 add_binary_decisions <- function(x) {
   # assert argument is valid
-  assertthat::assert_that(is_conservation_problem(x))
+  rlang::check_required(x)
+  assert(is_conservation_problem(x))
   # add decision
   x$add_decisions(pproto(
     "BinaryDecision",
      Decision,
      name = "Binary decision",
      apply = function(self, x) {
-       assertthat::assert_that(inherits(x,"OptimizationProblem"))
+       assert(inherits(x,"OptimizationProblem"), .internal = TRUE)
        invisible(rcpp_apply_decisions(x$ptr, "B", 0, 1))
      }
    ))

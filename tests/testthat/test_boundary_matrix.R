@@ -187,14 +187,14 @@ test_that("sf (lines)", {
   # create data
   d <- get_sim_pu_lines()
   # tests
-  expect_error(boundary_matrix(d), "no boundaries")
+  expect_tidy_error(boundary_matrix(d), "not have boundaries")
 })
 
 test_that("sf (points)", {
   # data
   d <- get_sim_pu_points()
   # tests
-  expect_error(boundary_matrix(d), "no boundaries")
+  expect_tidy_error(boundary_matrix(d), "not have boundaries")
 })
 
 test_that("sf (simple shapes)", {
@@ -299,13 +299,13 @@ test_that("Spatial", {
   expect_is(y, "dsCMatrix")
   expect_true(all(x == y))
   # lines
-  expect_error(
+  expect_tidy_error(
     suppressWarnings(
       boundary_matrix(sf::as_Spatial(get_sim_pu_lines()))
     )
   )
   # points
-  expect_error(
+  expect_tidy_error(
     suppressWarnings(
       boundary_matrix(sf::as_Spatial(get_sim_pu_points()))
     )
@@ -336,14 +336,14 @@ test_that("Raster", {
 })
 
 test_that("invalid inputs", {
-  expect_error(boundary_matrix(iris), "spatial format")
-  expect_error(
+  expect_tidy_error(boundary_matrix(iris), "must be")
+  expect_tidy_error(
     boundary_matrix(
       sf::st_sf(
         id = 1,
         geometry = sf::st_sfc(sf::st_geometrycollection())
       )
     ),
-    "geometry collection"
+    "GEOMETRYCOLLECTION"
   )
 })

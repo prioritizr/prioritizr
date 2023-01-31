@@ -358,7 +358,7 @@ test_that("numerical instability (error when force = FALSE)", {
     add_binary_decisions() %>%
     add_default_solver(verbose = FALSE)
   # tests
-  expect_error(
+  expect_tidy_error(
     expect_warning(solve(p), "numerical issues"),
     "failed presolve checks"
   )

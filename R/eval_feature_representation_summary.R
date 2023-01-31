@@ -235,7 +235,9 @@ NULL
 #' @export
 eval_feature_representation_summary <- function(x, solution) {
   # assert arguments are valid
-  assertthat::assert_that(is_conservation_problem(x))
+  rlang::check_required(x)
+  rlang::check_required(solution)
+  assert(is_conservation_problem(x))
   # extract solution
   solution <- planning_unit_solution_status(x, solution)
   # convert NAs in solution to zeros

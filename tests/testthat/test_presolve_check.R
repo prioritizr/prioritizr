@@ -49,7 +49,7 @@ test_that("instability due to connectivity penalties", {
     add_connectivity_penalties(1e+15, data = cm) %>%
     add_binary_decisions()
   # tests
-  expect_warning(expect_false(presolve_check(p)), "connectivity", all = TRUE)
+  expect_warning(expect_false(presolve_check(p)), "connectivity")
 })
 
 test_that("instability due to asymmetric connectivity penalties", {
@@ -69,7 +69,7 @@ test_that("instability due to asymmetric connectivity penalties", {
     add_asym_connectivity_penalties(1e+15, data = cm) %>%
     add_binary_decisions()
   # tests
-  expect_warning(expect_false(presolve_check(p)), "asymmetric", all = TRUE)
+  expect_warning(expect_false(presolve_check(p)), "asymmetric")
 })
 
 test_that("instability due to rij data", {
@@ -85,7 +85,7 @@ test_that("instability due to rij data", {
     add_absolute_targets(1) %>%
     add_binary_decisions()
   # tests
-  expect_warning(expect_false(presolve_check(p)), "rij", all = TRUE)
+  expect_warning(expect_false(presolve_check(p)), "rij")
 })
 
 test_that("instability due to high budget", {
@@ -99,7 +99,7 @@ test_that("instability due to high budget", {
     add_relative_targets(0.1) %>%
     add_binary_decisions()
   # tests
-  expect_warning(expect_false(presolve_check(p)), "budget", all = TRUE)
+  expect_warning(expect_false(presolve_check(p)), "budget")
 })
 
 test_that("instability due to low budget", {
@@ -113,7 +113,7 @@ test_that("instability due to low budget", {
     add_relative_targets(0.1) %>%
     add_binary_decisions()
   # tests
-  expect_warning(expect_false(presolve_check(p)), "budget", all = TRUE)
+  expect_warning(expect_false(presolve_check(p)), "budget")
 })
 
 test_that("instability due to cost data (objective function)", {
@@ -129,7 +129,7 @@ test_that("instability due to cost data (objective function)", {
     add_relative_targets(0.1) %>%
     add_binary_decisions()
   # tests
-  expect_warning(expect_false(presolve_check(p)), "cost", all = TRUE)
+  expect_warning(expect_false(presolve_check(p)), "cost")
 })
 
 test_that("instability due to cost data (constraint matrix)", {
@@ -145,7 +145,7 @@ test_that("instability due to cost data (constraint matrix)", {
     add_relative_targets(0.1) %>%
     add_binary_decisions()
   # tests
-  expect_warning(expect_false(presolve_check(p)), "cost", all = TRUE)
+  expect_warning(expect_false(presolve_check(p)), "cost")
 })
 
 test_that("instability due to feature weights", {
@@ -159,7 +159,7 @@ test_that("instability due to feature weights", {
     add_feature_weights(c(1e+15, rep(1, terra::nlyr(sim_features) - 1))) %>%
     add_binary_decisions()
   # tests
-  expect_warning(expect_false(presolve_check(p)), "weight", all = TRUE)
+  expect_warning(expect_false(presolve_check(p)), "weight")
 })
 
 test_that("instability due to high targets", {
@@ -206,7 +206,7 @@ test_that("instability due to high target weights", {
     add_feature_weights(c(1e+15, rep(1, terra::nlyr(sim_features) - 1))) %>%
     add_binary_decisions()
   # tests
-  expect_warning(expect_false(presolve_check(p)), "target weight", all = TRUE)
+  expect_warning(expect_false(presolve_check(p)), "target weight")
 })
 
 test_that("instability due to branch lengths", {
@@ -223,7 +223,7 @@ test_that("instability due to branch lengths", {
     add_relative_targets(0.1) %>%
     add_binary_decisions()
   # tests
-  expect_warning(expect_false(presolve_check(p)), "branch", all = TRUE)
+  expect_warning(expect_false(presolve_check(p)), "branch")
 })
 
 test_that("instability due to number of neighboring planning units", {
@@ -238,7 +238,7 @@ test_that("instability due to number of neighboring planning units", {
     add_neighbor_constraints(k = 1e+9) %>%
     add_binary_decisions()
   # tests
-  expect_warning(expect_false(presolve_check(p)), "neighbors", all = TRUE)
+  expect_warning(expect_false(presolve_check(p)), "neighbors")
 })
 
 test_that("all planning units locked in", {
@@ -253,7 +253,7 @@ test_that("all planning units locked in", {
     add_locked_in_constraints(seq_len(terra::ncell(sim_pu_raster))) %>%
     add_binary_decisions()
   # tests
-  expect_warning(expect_false(presolve_check(p)), "locked in", all = TRUE)
+  expect_warning(expect_false(presolve_check(p)), "locked in")
 })
 
 test_that("all planning units locked out", {
@@ -268,7 +268,7 @@ test_that("all planning units locked out", {
     add_locked_out_constraints(seq_len(terra::ncell(sim_pu_raster))) %>%
     add_binary_decisions()
   # tests
-  expect_warning(expect_false(presolve_check(p)), "locked out", all = TRUE)
+  expect_warning(expect_false(presolve_check(p)), "locked out")
 })
 
 test_that("sparse feature data", {
@@ -287,5 +287,8 @@ test_that("sparse feature data", {
     "zero values"
   )
   # tests
-  expect_warning(expect_false(presolve_check(p)), "any features", all = TRUE)
+  expect_warning(
+    expect_false(presolve_check(p)),
+    "do not have a single feature"
+  )
 })

@@ -207,8 +207,21 @@ NULL
 #' @exportMethod eval_replacement_importance
 methods::setGeneric("eval_replacement_importance",
   function(x, solution, ...) {
-  standardGeneric("eval_replacement_importance")
-})
+    rlang::check_required(x)
+    rlang::check_required(solution)
+    assert(
+      is_conservation_problem(x),
+      is_inherits(
+        solution,
+        c(
+          "numeric", "data.frame", "matrix", "sf", "SpatRaster",
+          "Spatial", "Raster"
+        )
+      )
+    )
+    standardGeneric("eval_replacement_importance")
+  }
+)
 
 #' @name eval_replacement_importance
 #' @usage \S4method{eval_replacement_importance}{ConservationProblem,numeric}(x, solution, rescale, run_checks, force, threads, ...)
@@ -218,10 +231,8 @@ methods::setMethod("eval_replacement_importance",
   function(x, solution, rescale = TRUE, run_checks = TRUE, force = FALSE,
            threads = 1L, ...) {
     # assert valid arguments
-    assertthat::assert_that(
-      is.numeric(solution),
-      no_extra_arguments(...)
-    )
+    assert(is.numeric(solution))
+    rlang::check_dots_empty()
     # extract planning unit solution status
     status <- planning_unit_solution_status(x, solution)
     # subset planning units with finite cost values
@@ -246,11 +257,11 @@ methods::setMethod("eval_replacement_importance",
   function(x, solution, rescale = TRUE, run_checks = TRUE, force = FALSE,
            threads = 1L, ...) {
     # assert valid arguments
-    assertthat::assert_that(
+    assert(
       is.matrix(solution),
-      is.numeric(solution),
-      no_extra_arguments(...)
+      is.numeric(solution)
     )
+    rlang::check_dots_empty()
     # extract data
     status <- planning_unit_solution_status(x, solution)
     # extract planning units in solution
@@ -291,10 +302,8 @@ methods::setMethod("eval_replacement_importance",
   function(x, solution, rescale = TRUE, run_checks = TRUE, force = FALSE,
            threads = 1L, ...) {
     # assert valid arguments
-    assertthat::assert_that(
-      is.data.frame(solution),
-      no_extra_arguments(...)
-    )
+    assert(is.data.frame(solution))
+    rlang::check_dots_empty()
     # extract data
     status <- planning_unit_solution_status(x, solution)
     # extract planning units in solution
@@ -335,16 +344,16 @@ methods::setMethod("eval_replacement_importance",
   function(x, solution, rescale = TRUE, run_checks = TRUE, force = FALSE,
            threads = 1L, ...) {
     # assert valid arguments
-    assertthat::assert_that(
+    assert(
       is_inherits(
         solution,
         c(
           "SpatialPointsDataFrame", "SpatialLinesDataFrame",
           "SpatialPolygonsDataFrame"
         )
-      ),
-      no_extra_arguments(...)
+      )
     )
+    rlang::check_dots_empty()
     # extract data
     status <- planning_unit_solution_status(x, solution)
     # extract planning units in solution
@@ -388,10 +397,8 @@ methods::setMethod("eval_replacement_importance",
   function(x, solution, rescale = TRUE, run_checks = TRUE, force = FALSE,
            threads = 1L, ...) {
     # assert valid arguments
-    assertthat::assert_that(
-      inherits(solution, "sf"),
-      no_extra_arguments(...)
-    )
+    assert(inherits(solution, "sf"))
+    rlang::check_dots_empty()
     # extract data
     status <- planning_unit_solution_status(x, solution)
     # extract planning units in solution
@@ -435,10 +442,8 @@ methods::setMethod("eval_replacement_importance",
   methods::signature("ConservationProblem", "Raster"),
   function(x, solution, rescale = TRUE, run_checks = TRUE, force = FALSE,
            threads = 1L, ...) {
-    assertthat::assert_that(
-      inherits(solution, "Raster"),
-      no_extra_arguments(...)
-    )
+    assert(inherits(solution, "Raster"))
+    rlang::check_dots_empty()
     # extract data
     status <- planning_unit_solution_status(x, solution)
     # extract planning units in solution
@@ -483,10 +488,8 @@ methods::setMethod("eval_replacement_importance",
   methods::signature("ConservationProblem", "SpatRaster"),
   function(x, solution, rescale = TRUE, run_checks = TRUE, force = FALSE,
            threads = 1L, ...) {
-    assertthat::assert_that(
-      inherits(solution, "SpatRaster"),
-      no_extra_arguments(...)
-    )
+    assert(inherits(solution, "SpatRaster"))
+    rlang::check_dots_empty()
     # extract data
     status <- planning_unit_solution_status(x, solution)
     # extract planning units in solution
@@ -522,34 +525,50 @@ methods::setMethod("eval_replacement_importance",
 
 internal_eval_replacement_importance <- function(x, indices, rescale,
                                                  run_checks, force,
-                                                 threads = 1L) {
+                                                 threads = 1L,
+                                                 call = fn_caller_env()) {
   # assert valid arguments
-  assertthat::assert_that(
+  assert(
     is_conservation_problem(x),
     is.integer(indices),
     length(indices) > 0,
     assertthat::is.flag(rescale),
     assertthat::is.flag(run_checks),
     assertthat::is.flag(force),
-    is_thread_count(threads)
+    is_thread_count(threads),
+    call = call
   )
   # assign default solver and portfolio
   if (inherits(x$solver, "Waiver"))
     x <- add_default_solver(x)
   x <- add_default_portfolio(x)
+  # compile problem
+  opt <- compile.ConservationProblem(x)
   # run presolve check to try to identify potential problems
   if (run_checks) {
-    ch <- presolve_check(x)
-    assertthat::assert_that(
-      isTRUE(force) || isTRUE(ch),
-      msg = paste(
-        "problem failed presolve checks, for more information see",
-         "?presolve_check"
-       )
-     )
+    ## run checks
+    presolve_res <- internal_presolve_check(opt)
+    ## prepare message
+    msg <- presolve_res$msg
+    if (!isTRUE(force)) {
+      msg <- c(
+        msg,
+        "i" = paste(
+          "To ignore checks and attempt optimization anyway,",
+          "use {.code solve(force = TRUE)}."
+        )
+      )
+    }
+    ## determine if error or warning should be thrown
+    if (!isTRUE(force)) {
+      f <- assert
+    } else {
+      f <- verify
+    }
+    ## throw error or warning if checks failed
+    f(isTRUE(presolve_res$pass), call = parent.frame(), msg = msg)
   }
-  # construct problem
-  opt <- compile.ConservationProblem(x)
+  # solve problem
   x$solver$calculate(opt)
   modelsense <- opt$modelsense()
   rm(opt)
@@ -559,7 +578,10 @@ internal_eval_replacement_importance <- function(x, indices, rescale,
   # generate objective value for solution if unknown
   solution_obj <- x$solver$run()
   if (is.null(solution_obj) || is.null(solution_obj$x))
-    stop("argument to solution is infeasible for this problem")
+    cli::cli_abort(
+      "{.arg solution} is not feasible solution for the problem {.arg x}",
+      call = call
+    )
   solution_obj <- solution_obj[[2]]
   # prepare cluster for parallel processing
   if (isTRUE(threads > 1L)) {

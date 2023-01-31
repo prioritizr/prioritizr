@@ -77,7 +77,9 @@ NULL
 #' @export
 add_semicontinuous_decisions <- function(x, upper_limit) {
   # assert arguments are valid
-  assertthat::assert_that(
+  rlang::check_required(x)
+  rlang::check_required(upper_limit)
+  assert(
     is_conservation_problem(x),
     assertthat::is.number(upper_limit),
     all_finite(upper_limit),
@@ -93,7 +95,7 @@ add_semicontinuous_decisions <- function(x, upper_limit) {
        proportion_parameter("upper limit", upper_limit)
      ),
      apply = function(self, x) {
-       assertthat::assert_that(inherits(x, "OptimizationProblem"))
+       assert(inherits(x, "OptimizationProblem"), .internal = TRUE)
        invisible(
          rcpp_apply_decisions(
            x$ptr, "C", 0, self$parameters$get("upper limit")

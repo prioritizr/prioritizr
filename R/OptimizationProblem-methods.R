@@ -58,16 +58,14 @@ NULL
 #' @aliases nrow ncol ncell modelsense vtype obj A rhs sense lb ub col_ids row_ids compressed_formulation ncell,OptimizationProblem-method A,OptimizationProblem-method col_ids,OptimizationProblem-method lb,OptimizationProblem-method modelsense,OptimizationProblem-method ncol,OptimizationProblem-method nrow,OptimizationProblem-method  obj,OptimizationProblem-method rhs,OptimizationProblem-method row_ids,OptimizationProblem-method sense,OptimizationProblem-method ub,OptimizationProblem-method vtype,OptimizationProblem-method  compressed_formulation,OptimizationProblem-method
 NULL
 
+if (!isGeneric("nrow")) {
 #' @name OptimizationProblem-methods
 #'
 #' @rdname OptimizationProblem-methods
 #'
-#' @importFrom raster nrow
-#'
-#' @exportMethod nrow
-#'
 #' @usage nrow(x)
-NULL
+setGeneric("nrow", function(x) standardGeneric("nrow"))
+}
 
 #' @name OptimizationProblem-methods
 #'
@@ -76,16 +74,14 @@ NULL
 #' @usage \S4method{nrow}{OptimizationProblem}(x)
 methods::setMethod("nrow", "OptimizationProblem", function(x) x$nrow())
 
+if (!isGeneric("ncol")) {
 #' @name OptimizationProblem-methods
 #'
 #' @rdname OptimizationProblem-methods
 #'
-#' @importFrom raster ncol
-#'
-#' @exportMethod ncol
-#'
 #' @usage ncol(x)
-NULL
+setGeneric("ncol", function(x) standardGeneric("ncol"))
+}
 
 #' @name OptimizationProblem-methods
 #'
@@ -94,16 +90,14 @@ NULL
 #' @usage \S4method{ncol}{OptimizationProblem}(x)
 methods::setMethod("ncol", "OptimizationProblem", function(x) x$ncol())
 
+if (!isGeneric("ncell")) {
 #' @name OptimizationProblem-methods
 #'
 #' @rdname OptimizationProblem-methods
 #'
-#' @importFrom raster ncell
-#'
-#' @exportMethod ncell
-#'
 #' @usage ncell(x)
-NULL
+setGeneric("ncell", function(x) standardGeneric("ncell"))
+}
 
 #' @name OptimizationProblem-methods
 #'

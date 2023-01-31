@@ -147,24 +147,24 @@ test_that("invalid inputs", {
   sim_pu_polygons <- get_sim_pu_polygons()
   sim_features <- get_sim_features()
   # invalid arguments
-  expect_error(
+  expect_tidy_error(
     fast_extract(sim_features, sim_pu_polygons, fun = mean)
   )
-  expect_error(
+  expect_tidy_error(
     fast_extract(sim_features, sim_pu_polygons, fun = "median")
   )
-  expect_error(
+  expect_tidy_error(
     fast_extract(sim_features, sim_pu_polygons, fun = c("mean", "sum"))
   )
   # incorrect spatial data format
-  expect_error(fast_extract(sim_pu_polygons, sim_pu_polygons))
-  expect_error(fast_extract(sim_features, sim_features))
+  expect_tidy_error(fast_extract(sim_pu_polygons, sim_pu_polygons))
+  expect_tidy_error(fast_extract(sim_features, sim_features))
   # area out of extent
   bad_pt <- sf::st_sfc(sf::st_point(c(10, 10)))
-  expect_error(fast_extract(sim_features, bad_pt))
+  expect_tidy_error(fast_extract(sim_features, bad_pt))
   # different crs
   bad_crs <- suppressWarnings(sf::st_set_crs(sim_pu_polygons, 4326))
-  expect_error(fast_extract(sim_features, bad_crs))
+  expect_tidy_error(fast_extract(sim_features, bad_crs))
 })
 
 test_that("process in memory/on disk", {

@@ -72,7 +72,7 @@ test_that("x = SpatRaster, features = SpatRaster", {
   expect_equal(names(x$data$rij_matrix), x$zone_names())
   expect_equal(rownames(x$data$rij_matrix[[1]]), x$feature_names())
   # test that calling targets before they have been initialized throws error
-  expect_error(x$feature_targets())
+  expect_tidy_error(x$feature_targets())
 })
 
 test_that("x = SpatRaster, features = ZonesSpatRaster", {
@@ -157,7 +157,7 @@ test_that("x = SpatRaster, features = ZonesSpatRaster", {
     )
   )
   # test that calling targets before they have been initialized throws error
-  expect_error(x$feature_targets())
+  expect_tidy_error(x$feature_targets())
 })
 
 test_that("x = sf, features = SpatRaster", {
@@ -228,7 +228,7 @@ test_that("x = sf, features = SpatRaster", {
   expect_equal(names(x$data$rij_matrix), "cost")
   expect_equal(rownames(x$data$rij_matrix[[1]]), names(sim_features))
   # test that calling targets before they have been initialized throws error
-  expect_error(x$feature_targets())
+  expect_tidy_error(x$feature_targets())
 })
 
 test_that("x = sf, features = ZonesSpatRaster", {
@@ -322,7 +322,7 @@ test_that("x = sf, features = ZonesSpatRaster", {
     )
   )
   # test that calling targets before they have been initialized throws error
-  expect_error(x$feature_targets())
+  expect_tidy_error(x$feature_targets())
 })
 
 test_that("x = sf, features = character", {
@@ -410,7 +410,7 @@ test_that("x = sf, features = character", {
   expect_equal(names(x$data$rij_matrix), "cost")
   expect_equal(rownames(x$data$rij_matrix[[1]]),  c("spp1", "spp2"))
   # test that calling targets before they have been initialized throws error
-  expect_error(x$feature_targets())
+  expect_tidy_error(x$feature_targets())
 })
 
 test_that("x = sf, features = ZonesCharacter", {
@@ -545,7 +545,7 @@ test_that("x = sf, features = ZonesCharacter", {
   expect_true(all(x$data$rij_matrix[[1]] == rij[[1]]))
   expect_true(all(x$data$rij_matrix[[2]] == rij[[2]]))
   # test that calling targets before they have been initialized throws error
-  expect_error(x$feature_targets())
+  expect_tidy_error(x$feature_targets())
 })
 
 test_that("x = data.frame, features = character", {
@@ -611,7 +611,7 @@ test_that("x = data.frame, features = character", {
   expect_equal(names(x$data$rij_matrix), "cost")
   expect_equal(rownames(x$data$rij_matrix[[1]]), c("spp1", "spp2"))
   # test that calling targets before they have been initialized throws error
-  expect_error(x$feature_targets())
+  expect_tidy_error(x$feature_targets())
 })
 
 test_that("x=data.frame, features=ZonesCharacter", {
@@ -703,7 +703,7 @@ test_that("x=data.frame, features=ZonesCharacter", {
   expect_equal(rownames(x$data$rij_matrix[[1]]), c("1", "2"))
   expect_equal(rownames(x$data$rij_matrix[[2]]), c("1", "2"))
   # test that calling targets before they have been initialized throws error
-  expect_error(x$feature_targets())
+  expect_tidy_error(x$feature_targets())
 })
 
 test_that("x = data.frame, features = data.frame (single zone)", {
@@ -770,7 +770,7 @@ test_that("x = data.frame, features = data.frame (single zone)", {
   expect_equal(names(x$data$rij_matrix), "cost")
   expect_equal(rownames(x$data$rij_matrix[[1]]), letters[1:5])
   # test that calling targets before they have been initialized throws error
-  expect_error(x$feature_targets())
+  expect_tidy_error(x$feature_targets())
 })
 
 test_that("x=data.frame, features=data.frame (multiple zones)", {
@@ -859,7 +859,7 @@ test_that("x=data.frame, features=data.frame (multiple zones)", {
   expect_equal(rownames(x$data$rij_matrix[[1]]), letters[1:5])
   expect_equal(rownames(x$data$rij_matrix[[2]]), letters[1:5])
   # test that calling targets before they have been initialized throws error
-  expect_error(x$feature_targets())
+  expect_tidy_error(x$feature_targets())
 })
 
 test_that("x = numeric, features = data.frame, rij_matrix = matrix", {
@@ -918,7 +918,7 @@ test_that("x = numeric, features = data.frame, rij_matrix = matrix", {
   )
   expect_equal(rownames(x$data$rij_matrix[[1]]), c("spp1", "spp2"))
   # test that calling targets before they have been initialized throws error
-  expect_error(x$feature_targets())
+  expect_tidy_error(x$feature_targets())
 })
 
 test_that("x = matrix, features = data.frame, rij_matrix = matrix", {
@@ -993,7 +993,7 @@ test_that("x = matrix, features = data.frame, rij_matrix = matrix", {
   expect_equal(rownames(x$data$rij_matrix[[1]]), c("spp1", "spp2"))
   expect_equal(rownames(x$data$rij_matrix[[2]]), c("spp1", "spp2"))
   # test that calling targets before they have been initialized throws error
-  expect_error(x$feature_targets())
+  expect_tidy_error(x$feature_targets())
 })
 
 test_that("x = matrix, features = data.frame, rij_matrix = dgCMatrix", {
@@ -1031,9 +1031,9 @@ test_that("invalid problem inputs (invalid input class)", {
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
   # tests
-  expect_error(problem(1, sim_features))
-  expect_error(problem(sim_pu_polygons, sim_pu_polygons, "cost"))
-  expect_error(problem(c(sim_pu_raster, sim_pu_raster), sim_features))
+  expect_tidy_error(problem(1, sim_features))
+  expect_tidy_error(problem(sim_pu_polygons, sim_pu_polygons, "cost"))
+  expect_tidy_error(problem(c(sim_pu_raster, sim_pu_raster), sim_features))
 })
 
 test_that("invalid problem inputs (all planning units have NA costs)", {
@@ -1047,21 +1047,21 @@ test_that("invalid problem inputs (all planning units have NA costs)", {
   sim_pu_polygons$spp_1 <- runif(nrow(sim_pu_polygons))
   sim_pu_polygons$spp_2 <- runif(nrow(sim_pu_polygons))
   # tests
-  expect_error(
+  expect_tidy_error(
     problem(sim_pu_raster, sim_features),
-    "only has missing"
+    "missing"
   )
-  expect_error(
+  expect_tidy_error(
     problem(sim_pu_polygons, sim_features, "cost"),
-    "only containing missing"
+    "missing"
   )
-  expect_error(
+  expect_tidy_error(
     problem(sim_pu_polygons, c("spp_1", "spp_2"), "cost"),
-    "columns only containing missing"
+    "missing"
   )
-  expect_error(
+  expect_tidy_error(
     problem(sf::st_drop_geometry(sim_pu_polygons), c("spp_1", "spp_2"), "cost"),
-    "columns only containing missing"
+    "missing"
   )
 })
 
@@ -1144,23 +1144,23 @@ test_that("problematic problem inputs (feature contains only zero values)", {
   # tests
   expect_warning(
     problem(sim_pu_raster, sim_features),
-    "only has zero values"
+    "has only zero values"
   )
   expect_warning(
     problem(sim_pu_polygons, sim_features, "cost"),
-    "only has zero values"
+    "has only zero values"
   )
   expect_warning(
     problem(sim_pu_polygons, c("spp_1", "spp_2"), "cost"),
-    "only has zero values"
+    "has only zero values"
   )
   expect_warning(
     problem(sim_pu_polygons, c("spp_1", "spp_2"), "cost"),
-    "only has zero values"
+    "has only zero values"
   )
   expect_warning(
     problem(sf::st_drop_geometry(sim_pu_polygons), c("spp_1", "spp_2"), "cost"),
-    "only has zero values"
+    "has only zero values"
   )
 })
 

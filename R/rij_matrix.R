@@ -69,9 +69,19 @@ NULL
 #' print(rij_zones_raster)
 #' }
 #' @export
-methods::setGeneric("rij_matrix",
-                    signature = methods::signature("x", "y"),
-                    function(x, y, ...) standardGeneric("rij_matrix"))
+methods::setGeneric(
+  "rij_matrix",
+  signature = methods::signature("x", "y"),
+  function(x, y, ...) {
+    rlang::check_required(x)
+    rlang::check_required(y)
+    assert(
+      is_inherits(x, c("sf", "SpatRaster", "Spatial", "Raster")),
+      is_inherits(y, c("sf", "SpatRaster", "Spatial", "Raster"))
+    )
+    standardGeneric("rij_matrix")
+  }
+)
 
 #' @name rij_matrix
 #' @usage \S4method{rij_matrix}{Raster,Raster}(x, y, ...)
@@ -85,22 +95,22 @@ methods::setMethod(
 })
 
 #' @name rij_matrix
-#' @usage \S4method{rij_matrix}{SpatRaster,SpatRaster}(x, y, ...)
+#' @usage \S4method{rij_matrix}{SpatRaster,SpatRaster}(x, y, memory, ...)
 #' @rdname rij_matrix
 methods::setMethod(
   "rij_matrix",
   signature(x = "SpatRaster", y = "SpatRaster"),
   function(x, y, memory = NA, ...) {
     # assert that arguments are valid
-    assertthat::assert_that(
+    assert(
       inherits(x, "SpatRaster"),
       inherits(y, "SpatRaster"),
       terra::nlyr(x) > 0,
       terra::nlyr(y) > 0,
       is_comparable_raster(x, y),
-      assertthat::is.flag(memory),
-      no_extra_arguments(...)
+      assertthat::is.flag(memory)
     )
+    rlang::check_dots_empty()
     # identify included cells
     idx <- terra::cells(terra::allNA(x), 0)[[1]]
     # if memory is NA, then set it automatically..
@@ -163,6 +173,7 @@ methods::setMethod(
   "rij_matrix",
   signature(x = "sf", y = "SpatRaster"),
   function(x, y, fun = "sum", ...) {
+    rlang::check_dots_empty()
     m <- fast_extract(x = y, y = x, fun = fun)
     m[is.na(m[])] <- 0
     m <- Matrix::drop0(methods::as(m, "dgCMatrix"))

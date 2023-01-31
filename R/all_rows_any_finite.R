@@ -16,15 +16,15 @@ all_rows_any_finite_failure <- function(x)
   UseMethod("all_rows_any_finite_failure")
 
 assertthat::on_failure(all_rows_any_finite_failure) <- function(call, env) {
-  paste(
-    deparse(call$x),
-      "has some rows only contain missing or non-finite values",
-      "(e.g., NaN, NA, Inf)"
+  paste0(
+    "{.arg ", deparse(call$x),
+    "} must not have rows that only contain missing or non-finite values",
+    "(e.g., {.val {NaN}}, {.val {NA}}, {.val {Inf}})."
   )
 }
 
 all_rows_any_finite_failure.default <- function(x, what) {
-  stop("argument to x is not a recognized class")
+  stop("{.arg x} is not a recognized class")
 }
 
 .S3method(
@@ -33,7 +33,7 @@ all_rows_any_finite_failure.default <- function(x, what) {
 )
 
 all_rows_any_finite_failure.data.frame <- function(x, what) {
-  assertthat::assert_that(
+  assert(
     is.data.frame(x),
     is.character(what)
   )
@@ -46,7 +46,7 @@ all_rows_any_finite_failure.data.frame <- function(x, what) {
 )
 
 all_rows_any_finite_failure.matrix <- function(x, what) {
-  assertthat::assert_that(
+  assert(
     is.matrix(x),
     is.character(what)
   )

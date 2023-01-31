@@ -196,14 +196,16 @@ NULL
 #' head(s3)
 #' }
 #' @export
-marxan_problem <- function(x, ...) UseMethod("marxan_problem")
+marxan_problem <- function(x, ...) {
+  rlang::check_required(x)
+  UseMethod("marxan_problem")
+}
 
 #' @rdname marxan_problem
 #' @method marxan_problem default
 #' @export
 marxan_problem.default <- function(x, ...) {
-  stop("argument to x is not valid, it should be a character file path or ",
-       "a data.frame containing the planning unit data")
+  cli::cli_abort("{.arg x} must be character file path or a data frame.")
 }
 
 #' @rdname marxan_problem
@@ -212,9 +214,15 @@ marxan_problem.default <- function(x, ...) {
 marxan_problem.data.frame <- function(x, spec, puvspr, bound = NULL,
                                       blm = 0, symmetric = TRUE, ...) {
   # assert arguments are valid
-  assertthat::assert_that(no_extra_arguments(...))
+  rlang::check_required(x)
+  rlang::check_required(spec)
+  rlang::check_required(puvspr)
+  rlang::check_required(bound)
+  rlang::check_required(blm)
+  rlang::check_required(symmetric)
+  rlang::check_dots_empty()
   ## x
-  assertthat::assert_that(
+  assert(
     is.data.frame(x),
     assertthat::has_name(x, "id"),
     assertthat::has_name(x, "cost"),
@@ -226,14 +234,14 @@ marxan_problem.data.frame <- function(x, spec, puvspr, bound = NULL,
     assertthat::noNA(x$cost)
   )
   if (assertthat::has_name(x, "status")) {
-    assertthat::assert_that(
+    assert(
       is.numeric(x$status),
       assertthat::noNA(x$status),
       all_match_of(x$status, seq(0, 3))
     )
   }
   ## spec
-  assertthat::assert_that(
+  assert(
     is.data.frame(spec),
     assertthat::has_name(spec, "id"),
     is_count_vector(spec$id),
@@ -241,7 +249,7 @@ marxan_problem.data.frame <- function(x, spec, puvspr, bound = NULL,
     assertthat::noNA(spec$id)
   )
   if (assertthat::has_name(spec, "name")) {
-    assertthat::assert_that(
+    assert(
       is_inherits(spec$name, c("character", "factor")),
       no_duplicates(as.character(spec$name)),
       assertthat::noNA(spec$name)
@@ -249,28 +257,28 @@ marxan_problem.data.frame <- function(x, spec, puvspr, bound = NULL,
   } else {
    spec$name <- paste0("feature.", seq_len(nrow(spec)))
   }
-  assertthat::assert_that(
+  assert(
     do.call(xor, as.list(c("prop", "amount") %in% names(spec))),
     msg = paste(
-      "argument to spec must have the column \"prop\" or \"amount\" and",
-      "not both"
+      "{.arg spec} must have either column {.col prop} or {.col amount},",
+      "not both."
     )
   )
   if (assertthat::has_name(spec, "prop")) {
-    assertthat::assert_that(
+    assert(
       is.numeric(spec$prop),
       all_finite(spec$prop),
       all_proportion(spec$prop)
     )
   }
   if (assertthat::has_name(spec, "amount")) {
-    assertthat::assert_that(
+    assert(
       is.numeric(spec$amount),
       all_finite(spec$amount)
     )
   }
   ## puvspr
-  assertthat::assert_that(
+  assert(
     is.data.frame(puvspr),
     assertthat::has_name(puvspr, "pu"),
     assertthat::has_name(puvspr, "species"),
@@ -285,9 +293,9 @@ marxan_problem.data.frame <- function(x, spec, puvspr, bound = NULL,
     all_match_of(puvspr$species, spec$id)
   )
   ## bound
-  assertthat::assert_that(is_inherits(bound, c("NULL", "data.frame")))
+  assert(is_inherits(bound, c("NULL", "data.frame")))
   if (is.data.frame(bound)) {
-    assertthat::assert_that(
+    assert(
       assertthat::has_name(bound, "id1"),
       assertthat::has_name(bound, "id2"),
       assertthat::has_name(bound, "boundary"),
@@ -302,24 +310,28 @@ marxan_problem.data.frame <- function(x, spec, puvspr, bound = NULL,
     )
   }
   ## blm
-  assertthat::assert_that(
+  assert(
     assertthat::is.number(blm),
     all_finite(blm)
   )
   if (abs(blm) > 1e-15 && is.null(bound)) {
     warning(
-      "no boundary data supplied, so the blm parameter has no effect",
+      cli::format_warning(
+        "No boundary data supplied, so setting {.arg blm} has no effect."
+      ),
       call. = FALSE, immediate. = TRUE
     )
   }
   ## symmetric
-  assertthat::assert_that(
+  assert(
     assertthat::is.flag(symmetric),
     assertthat::noNA(symmetric)
   )
   if (!isTRUE(symmetric) && is.null(bound)) {
     warning(
-      "no boundary data supplied, so the symmetric parameter has no effect",
+      cli::format_warning(
+        "No boundary data supplied, so setting {.arg symmetric} has no effect."
+      ),
       call. = FALSE, immediate. = TRUE
     )
   }
@@ -362,12 +374,12 @@ marxan_problem.data.frame <- function(x, spec, puvspr, bound = NULL,
 #' @export
 marxan_problem.character <- function(x, ...) {
   # assert that arguments are valid
-  assertthat::assert_that(
+  assert(
     assertthat::is.string(x),
     assertthat::is.readable(x),
-    no_extra_arguments(...),
-    is_installed("data.table", "marxan_problem()")
+    is_installed("data.table")
   )
+  rlang::check_dots_empty()
   # declare local functions
   parse_field <- function(field, lines) {
     x <- grep(field, lines, value = TRUE)
@@ -376,12 +388,17 @@ marxan_problem.character <- function(x, ...) {
     x <- sub(paste0(field, " "), "", x)
     x
   }
-  load_file <- function(field, lines, input_dir, force = TRUE) {
+  load_file <- function(
+    field, lines, input_dir, force = TRUE,  call = fn_caller_env()
+  ) {
     x <- parse_field(field, lines)
     if (is.na(x)) {
       # nocov start
       if (force) {
-        stop("input file does not contain ", field, " field")
+        cli::cli_abort(
+          paste0("{.arg x} must contain a {.field ", field, "} field."),
+          call = call
+        )
       }
       return(NULL)
       # nocov end
@@ -391,7 +408,14 @@ marxan_problem.character <- function(x, ...) {
     } else if (file.exists(file.path(input_dir, x))) {
       return(data.table::fread(file.path(input_dir, x), data.table = FALSE))
     } else if (force) { # nocov
-      stop("file path in ", field, " field does not exist") # nocov
+      cli::cli_abort(
+        paste0(
+          "The {.field ", field, "} field in {.arg x} must specify a",
+          "file path that exists."
+        ),
+        call = call
+      )
+      # nocov
     } else {
       return(NULL) # nocov
     }

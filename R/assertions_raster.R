@@ -9,6 +9,8 @@ NULL
 #'
 #' @param y [terra::rast()] or [raster::raster()] object.
 #'
+#' @param call Caller environment.
+#'
 #' @return A `logical` value indicating if the
 #'   objects have the same
 #'   resolution, extent, dimensionality, and coordinate system.
@@ -22,9 +24,10 @@ is_comparable_raster <- function(x, y) {
   if (inherits(x, "Raster")) x <- terra::rast(x)
   if (inherits(y, "Raster")) y <- terra::rast(y)
   # assert valid arguments
-  assertthat::assert_that(
+  assert(
     inherits(x, "SpatRaster"),
-    inherits(y, "SpatRaster")
+    inherits(y, "SpatRaster"),
+    .internal = TRUE
   )
   # run checks
   is_same_crs(x, y) &&
@@ -35,10 +38,49 @@ is_comparable_raster <- function(x, y) {
 }
 
 assertthat::on_failure(is_comparable_raster) <- function(call, env) {
-  paste0(
-    deparse(call$x), " and ", deparse(call$y),  " are not comparable; ",
-    "they have different spatial resolutions, extents, ",
-    "coordinate reference systems, or dimensionality (rows / columns)"
+  c(
+    paste0(
+      "{.arg ", deparse(call$x), "} must be comparable with ",
+      "{.arg ", deparse(call$y),  "}."
+    ),
+    "x" = paste(
+      "They do not have the same spatial resolution, extent,",
+      "coordinate reference system, and dimensionality (rows / columns)."
+    )
+  )
+}
+
+#' Are planning unit rasters comparable?
+#'
+#' This function checks if the planning units in a `problem()` object
+#' is comparable with a raster.
+#'
+#' @param x [problem()] object.
+#'
+#' @param y [terra::rast()] or [raster::raster()] object.
+#'
+#' @param call Caller environment.
+#'
+#' @return A `logical` value indicating if the
+#'   objects have the same
+#'   resolution, extent, dimensionality, and coordinate system.
+#'
+#' @noRd
+is_pu_comparable_raster <- function(x, y) {
+  assert(is_conservation_problem(x), .internal = TRUE)
+  is_comparable_raster(x$data$cost, y)
+}
+
+assertthat::on_failure(is_pu_comparable_raster) <- function(call, env) {
+  c(
+    paste0(
+      "{.arg ", deparse(call$x), "} must have planning units that are ",
+      "comparable with {.arg ", deparse(call$y),  "}."
+    ),
+    "x" = paste(
+      "They do not have the same spatial resolution, extent,",
+      "coordinate reference system, and dimensionality (rows / columns)."
+    )
   )
 }
 
@@ -48,13 +90,16 @@ assertthat::on_failure(is_comparable_raster) <- function(call, env) {
 #'
 #' @param x [terra::rast()] object.
 #'
+#' @param call Caller environment.
+#'
 #' @return A `logical` value.
 #'
 #' @noRd
 is_single_patch_raster <- function(x) {
-  assertthat::assert_that(
-    is(x, "SpatRaster"),
-    terra::nlyr(x) == 1
+  assert(
+    inherits(x, "SpatRaster"),
+    terra::nlyr(x) == 1,
+    .internal = TRUE
   )
   x <- terra::patches(x, zeroAsNA = TRUE)
   isTRUE(terra::global(x, "max", na.rm = TRUE)[[1]] == 1)
@@ -67,13 +112,16 @@ is_single_patch_raster <- function(x) {
 #'
 #' @param x [terra::rast()] object.
 #'
+#' @param call Caller environment.
+#'
 #' @return A `logical` value.
 #'
 #' @noRd
 is_checkerboard_raster <- function(x) {
-  assertthat::assert_that(
-    is(x, "SpatRaster"),
-    terra::nlyr(x) == 1
+  assert(
+    inherits(x, "SpatRaster"),
+    terra::nlyr(x) == 1,
+    .internal = TRUE
   )
    a <- terra::adjacent(x, cells = terra::cells(x == 0, 0)[[1]], pairs = FALSE)
    all(x[na.omit(c(a))][[1]] %in% c(0, NA))
@@ -87,13 +135,16 @@ is_checkerboard_raster <- function(x) {
 #'
 #' @param x [terra::rast()] object.
 #'
+#' @param call Caller environment.
+#'
 #' @return A `logical` value.
 #'
 #' @noRd
 is_distinct_zones_raster <- function(x) {
-  assertthat::assert_that(
-    is(x, "SpatRaster"),
-    terra::nlyr(x) == 1
+  assert(
+    inherits(x, "SpatRaster"),
+    terra::nlyr(x) == 1,
+    .internal = TRUE
   )
   p <- terra::patches(x, zeroAsNA = TRUE)
   ids <- unique(terra::values(p)[, 1])

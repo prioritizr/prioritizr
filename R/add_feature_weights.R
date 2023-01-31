@@ -236,10 +236,19 @@ NULL
 NULL
 
 #' @export
-methods::setGeneric("add_feature_weights",
-                    signature = methods::signature("x", "weights"),
-                    function(x, weights)
-                      standardGeneric("add_feature_weights"))
+methods::setGeneric(
+  "add_feature_weights",
+  signature = methods::signature("x", "weights"),
+  function(x, weights) {
+    rlang::check_required(x)
+    rlang::check_required(weights)
+    assert(
+      is_conservation_problem(x),
+      is_inherits(weights, c("numeric", "matrix"))
+    )
+    standardGeneric("add_feature_weights")
+  }
+)
 
 #' @name add_feature_weights
 #' @usage \S4method{add_feature_weights}{ConservationProblem,numeric}(x, weights)
@@ -248,14 +257,14 @@ methods::setMethod("add_feature_weights",
   methods::signature("ConservationProblem", "numeric"),
   function(x, weights) {
     # assert that arguments are valid
-    assertthat::assert_that(
+    assert(
       is_conservation_problem(x),
       is.numeric(weights),
       all_finite(weights),
       all(weights >= 0),
       length(weights) == x$number_of_features()
     )
-    assertthat::assert_that(
+    assert(
       x$number_of_zones() == 1,
       msg = paste(
         "weights must be supplied as a matrix for problems",
@@ -273,7 +282,7 @@ methods::setMethod("add_feature_weights",
   methods::signature("ConservationProblem", "matrix"),
   function(x, weights) {
     # assert that arguments are valid
-    assertthat::assert_that(
+    assert(
       is_conservation_problem(x),
       is.matrix(weights),
       all_finite(weights),
@@ -282,9 +291,10 @@ methods::setMethod("add_feature_weights",
       nrow(weights) > 0
     )
     if (ncol(weights) > 1) {
-      assertthat::assert_that(
+      assert(
         ncol(weights) == x$number_of_zones(),
-        nrow(weights) == x$number_of_features()
+        nrow(weights) == x$number_of_features(),
+        call = parent.frame()
       )
     }
     # make parameters
@@ -317,13 +327,14 @@ methods::setMethod("add_feature_weights",
       name = "Feature weights",
       parameters = parameters(p),
       apply = function(self, x, y) {
-        assertthat::assert_that(
+        assert(
           inherits(x, "OptimizationProblem"),
-          inherits(y, "ConservationProblem")
+          inherits(y, "ConservationProblem"),
+          .internal = TRUE
         )
         weights <- c(as.matrix(self$parameters$get("weights")))
         if (!is.Waiver(y$targets)) {
-          assertthat::assert_that(
+          assert(
             length(weights) == nrow(y$targets$output()),
             msg = paste0(
               "the number of feature weights must correspond to ",

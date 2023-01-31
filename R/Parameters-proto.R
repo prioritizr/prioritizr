@@ -103,15 +103,15 @@ Parameters <- pproto(
     o[!vapply(o, function(x) inherits(self[[x]], "function"), logical(1))]
   },
   find = function(self, x) {
-    assertthat::assert_that(assertthat::is.string(x) || is.id(x))
+    assert(assertthat::is.string(x) || is.id(x))
     if (inherits(x, "Id")) return(x)
     n <- self$ids()
     x <- match(x, vapply(n, function(j) self[[j]]$name, character(1)))
-    assertthat::assert_that(
+    assert(
       is.finite(x),
       msg = "parameter with matching name not found"
     )
-    assertthat::assert_that(
+    assert(
       base::length(x) == 1,
       msg = "multiple parameters with the same name"
     )
@@ -124,21 +124,21 @@ Parameters <- pproto(
     vapply(self$ids(), function(x) self[[x]]$name, character(1))
   },
   get = function(self, x) {
-    assertthat::assert_that(assertthat::is.string(x) || is.id(x))
+    assert(assertthat::is.string(x) || is.id(x))
     self[[self$find(x)]]$get()
   },
   set = function(self, x, value) {
-    assertthat::assert_that(assertthat::is.string(x) || is.id(x))
+    assert(assertthat::is.string(x) || is.id(x))
     self[[self$find(x)]]$set(value)
     invisible()
   },
   add = function(self, x) {
-    assertthat::assert_that(inherits(x, "Parameter"))
+    assert(inherits(x, "Parameter"))
     self[[as.character(x$id)]] <- x
     invisible()
   },
   reset = function(self, x) {
-    assertthat::assert_that(assertthat::is.string(x) || is.id(x))
+    assert(assertthat::is.string(x) || is.id(x))
     self[[self$find(x)]]$reset()
     invisible()
   },

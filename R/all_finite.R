@@ -13,14 +13,15 @@ NULL
 all_finite <- function(x) UseMethod("all_finite")
 
 assertthat::on_failure(all_finite) <- function(call, env) {
-  paste(
-    deparse(call$x),
-    "contains missing or non-finite values (e.g., NaN, NA, Inf)"
+  paste0(
+    "{.arg ", deparse(call$x),
+    "} must not have missing or non-finite values ",
+    "(e.g., {.val {NaN}}, {.val {NA}}, {.val {Inf}})."
   )
 }
 
 all_finite.default <- function(x) {
-  stop("argument to x is not a recognized class")
+  stop("{.arg x} is not a recognized class.")
 }
 
 .S3method("all_finite", "default", all_finite.default)

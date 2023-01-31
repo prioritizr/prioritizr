@@ -162,7 +162,9 @@ feature_abundances <- function(x, na.rm) UseMethod("feature_abundances")
 #' @export
 feature_abundances.ConservationProblem <- function(x, na.rm = FALSE) {
   # assert that arguments are valid
-  assertthat::assert_that(
+  rlang::check_required(x)
+  rlang::check_required(na.rm)
+  assert(
     is_conservation_problem(x),
     assertthat::is.flag(na.rm),
     assertthat::noNA(na.rm)

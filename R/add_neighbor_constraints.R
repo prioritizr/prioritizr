@@ -192,8 +192,18 @@ NULL
 #' @export
 methods::setGeneric("add_neighbor_constraints",
   signature = methods::signature("x", "k", "zones", "data"),
-  function(x, k, zones = diag(number_of_zones(x)), data = NULL)
-  standardGeneric("add_neighbor_constraints"))
+  function(x, k, zones = diag(number_of_zones(x)), data = NULL) {
+    rlang::check_required(x)
+    rlang::check_required(k)
+    rlang::check_required(zones)
+    rlang::check_required(data)
+    assert(
+      is_conservation_problem(x),
+      is_inherits(data, c("NULL", "matrix", "Matrix", "data.frame", "array"))
+    )
+    standardGeneric("add_neighbor_constraints")
+  }
+)
 
 #' @name add_neighbor_constraints
 #' @usage \S4method{add_neighbor_constraints}{ConservationProblem,ANY,ANY,ANY}(x, k, zones, data)
@@ -202,7 +212,7 @@ methods::setMethod("add_neighbor_constraints",
   methods::signature("ConservationProblem", "ANY", "ANY", "ANY"),
   function(x, k, zones, data) {
     # assert valid arguments
-    assertthat::assert_that(
+    assert(
       is_conservation_problem(x),
       is.numeric(k),
       all_finite(k),
@@ -215,7 +225,7 @@ methods::setMethod("add_neighbor_constraints",
     )
     if (!is.null(data)) {
       # check argument to data if not NULL
-      assertthat::assert_that(
+      assert(
         ncol(data) == nrow(data),
         number_of_total_units(x) == ncol(data),
         all_binary(data)
@@ -223,22 +233,30 @@ methods::setMethod("add_neighbor_constraints",
       d <- list(matrix = data)
     } else {
       # check that planning unit data is spatially referenced
-      assertthat::assert_that(
-        inherits(x$data$cost, c("SpatRaster", "Spatial", "Raster", "sf")),
-        msg = paste(
-          "argument to data must be supplied because planning unit",
-          "data are not in a spatially referenced format"
+      assert(
+        is_pu_spatially_explicit(x),
+        msg =
+        c(
+          paste(
+            "{.arg data} must be manually specified (e.g., as a Matrix)."
+          ),
+          "i" = paste(
+            "This is because {.arg x} has planning unit data that are not",
+            "spatially explicit",
+            "(e.g., {.cls sf}, or {.cls SpatRaster} objects)."
+          )
         )
       )
       d <- list()
     }
     # convert zones to matrix
     zones <- as.matrix(zones)
-    assertthat::assert_that(
+    assert(
       is.numeric(zones),
+      all_binary(zones),
+      all_finite(zones),
       isSymmetric(zones),
-      ncol(zones) == number_of_zones(x),
-      all_binary(zones)
+      ncol(zones) == number_of_zones(x)
     )
     colnames(zones) <- x$zone_names()
     rownames(zones) <- colnames(zones)
@@ -264,7 +282,7 @@ methods::setMethod("add_neighbor_constraints",
         binary_matrix_parameter("zones", zones, symmetric = FALSE)
       ),
       calculate = function(self, x) {
-        assertthat::assert_that(is_conservation_problem(x))
+        assert(is_conservation_problem(x))
         # generate adjacency matrix if null
         if (is.Waiver(self$get_data("matrix"))) {
           # create matrix
@@ -278,8 +296,11 @@ methods::setMethod("add_neighbor_constraints",
         invisible(TRUE)
       },
       apply = function(self, x, y) {
-        assertthat::assert_that(inherits(x, "OptimizationProblem"),
-          inherits(y, "ConservationProblem"))
+        assert(
+          inherits(x, "OptimizationProblem"),
+          inherits(y, "ConservationProblem"),
+          .internal = TRUE
+        )
         k <- self$parameters$get("number of neighbors")[[1]]
         if (any(k > 0)) {
           # extract data and parameters
@@ -308,7 +329,7 @@ methods::setMethod("add_neighbor_constraints",
   methods::signature("ConservationProblem", "ANY", "ANY", "data.frame"),
   function(x, k, zones, data) {
     # assert valid arguments
-    assertthat::assert_that(
+    assert(
       is.data.frame(data),
       assertthat::has_name(data, "id1"),
       assertthat::has_name(data, "id2"),
@@ -317,11 +338,11 @@ methods::setMethod("add_neighbor_constraints",
     if (
       any(c("zone1", "zone2") %in% names(data))
     ) {
-      assertthat::assert_that(
+      assert(
         assertthat::has_name(data, "zone1"),
         assertthat::has_name(data, "zone2"),
         msg = paste(
-          "data must have both columns \"zone1\" and \"zone2\" when",
+          "{.arg data} must have the columns \"zone1\" and \"zone2\" when",
           "specifying constraints for multiple zones"
         )
       )
@@ -350,7 +371,7 @@ methods::setMethod("add_neighbor_constraints",
   methods::signature("ConservationProblem", "ANY", "ANY", "array"),
   function(x, k, zones, data) {
     # assert arguments are valid
-    assertthat::assert_that(
+    assert(
       is_conservation_problem(x),
       inherits(data, "array"),
       is.null(zones),
@@ -395,7 +416,7 @@ methods::setMethod("add_neighbor_constraints",
       name = "Neighbor constraints",
       parameters = parameters(p),
       apply = function(self, x, y) {
-        assertthat::assert_that(
+        assert(
           inherits(x, "OptimizationProblem"),
           inherits(y, "ConservationProblem")
         )

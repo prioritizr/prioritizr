@@ -33,13 +33,16 @@ NULL
 #' @name category_vector
 #'
 #' @export
-category_vector <- function(x) UseMethod("category_vector")
+category_vector <- function(x) {
+  rlang::check_required(x)
+  UseMethod("category_vector")
+}
 
 #' @rdname category_vector
 #' @method category_vector data.frame
 #' @export
 category_vector.data.frame <- function(x) {
-  assertthat::assert_that(
+  assert(
     is.data.frame(x),
     nrow(x) >= 1,
     ncol(x) >= 1,
@@ -52,7 +55,7 @@ category_vector.data.frame <- function(x) {
 #' @method category_vector sf
 #' @export
 category_vector.sf <- function(x) {
-  assertthat::assert_that(inherits(x, "sf"))
+  assert(inherits(x, "sf"))
   category_vector(sf::st_drop_geometry(x))
 }
 
@@ -60,7 +63,7 @@ category_vector.sf <- function(x) {
 #' @method category_vector Spatial
 #' @export
 category_vector.Spatial <- function(x) {
-  assertthat::assert_that(inherits(x, "Spatial"))
+  assert(inherits(x, "Spatial"))
   .Deprecated(msg = sp_pkg_deprecation_notice)
   category_vector(x@data)
 }
@@ -69,7 +72,7 @@ category_vector.Spatial <- function(x) {
 #' @method category_vector matrix
 #' @export
 category_vector.matrix <- function(x) {
-  assertthat::assert_that(
+  assert(
     is.matrix(x),
     is.numeric(x),
     nrow(x) >= 1,

@@ -276,7 +276,22 @@ test_that("invalid inputs", {
     solution = rep(c(0, 1), 5)
   )
   # tests
-  expect_error(
+  expect_tidy_error(
+    {
+      # create problem
+      x <- problem(
+        pu$cost,
+        data.frame(id = seq_len(2), name = c("spp1", "spp2")),
+        as.matrix(t(pu[, 3:4]))
+      )
+      # create a solution
+      y <- round(pu$cost)
+      # calculate representation
+      r <- eval_rare_richness_importance(x, y, rescale = "a")
+    },
+    "flag"
+  )
+  expect_tidy_error(
     {
       # create problem
       x <- problem(
@@ -289,9 +304,9 @@ test_that("invalid inputs", {
       # calculate representation
       r <- eval_rare_richness_importance(x, y)
     },
-    "NA values in the solution"
+    "missing"
   )
-  expect_error(
+  expect_tidy_error(
     {
       # create problem
       x <- problem(
@@ -304,9 +319,9 @@ test_that("invalid inputs", {
       # calculate representation
       r <- eval_rare_richness_importance(x, y)
     },
-    "NA values in the solution"
+    "missing"
   )
-  expect_error(
+  expect_tidy_error(
     {
       # create problem
       x <- problem(pu, c("spp1", "spp2"), cost_column = "cost")
@@ -315,9 +330,9 @@ test_that("invalid inputs", {
       # calculate representation
       r <- eval_rare_richness_importance(x, y)
     },
-    "NA values in the solution"
+    "missing"
   )
-  expect_error(
+  expect_tidy_error(
     {
       # create problem
       x <- problem(pu, c("spp1", "spp2"), "cost")
@@ -326,10 +341,10 @@ test_that("invalid inputs", {
       # calculate representation
       r <- eval_rare_richness_importance(x, y)
     },
-    "NA values in the solution"
+    "missing"
 
   )
-  expect_error(
+  expect_tidy_error(
     {
       # create problem
       x <- problem(sim_pu_raster, sim_features)
@@ -341,9 +356,9 @@ test_that("invalid inputs", {
       # calculate representation
       r <- eval_rare_richness_importance(x, y)
     },
-    "NA values in the solution"
+    "missing"
   )
-  expect_error(
+  expect_tidy_error(
     {
       # create data
       pu <- data.frame(
@@ -368,10 +383,13 @@ test_that("invalid inputs", {
         add_binary_decisions() %>%
         add_default_solver(gap = 0, verbose = FALSE)
       # create a solution
-      s <- matrix(c(1, 0, NA, 1, 0, 0, NA, 0, 0, 0, 0, 0, 1, 0, NA, 0), ncol = 2)
+      s <- matrix(
+        c(1, 0, NA, 1, 0, 0, NA, 0, 0, 0, 0, 0, 1, 0, NA, 0),
+        ncol = 2
+      )
       # calculate replacement costs
       eval_rare_richness_importance(p, s, rescale = FALSE)
     },
-    "not equal to 1"
+    "single zone"
   )
 })

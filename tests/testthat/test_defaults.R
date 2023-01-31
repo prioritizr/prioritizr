@@ -5,7 +5,7 @@ test_that("add_default_targets", {
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_zones_features <- get_sim_zones_features()
   # tests
-  expect_error(
+  expect_tidy_error(
     problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_default_targets(),
     "targets"
@@ -17,7 +17,7 @@ test_that("add_default_objective", {
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_zones_features <- get_sim_zones_features()
   # tests
-  expect_error(
+  expect_tidy_error(
     problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_default_objective(),
     "missing an objective"

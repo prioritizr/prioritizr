@@ -195,10 +195,10 @@ test_that("add_semicontinuous_decisions (compile, single zone)", {
   expect_equal(o$ub(), rep(0.3, n_pu))
   expect_equal(o$vtype(), rep("C", n_pu))
   # tests for invalid inputs
-  expect_error(p %>% add_semicontinuous_decisions(NA))
-  expect_error(p %>% add_semicontinuous_decisions(Inf))
-  expect_error(p %>% add_semicontinuous_decisions(c()))
-  expect_error(p %>% add_semicontinuous_decisions(c(1, 3)))
+  expect_tidy_error(p %>% add_semicontinuous_decisions(NA))
+  expect_tidy_error(p %>% add_semicontinuous_decisions(Inf))
+  expect_tidy_error(p %>% add_semicontinuous_decisions(c()))
+  expect_tidy_error(p %>% add_semicontinuous_decisions(c(1, 3)))
 })
 
 test_that("add_semicontinuous_decisions (solve, single zone)", {

@@ -246,20 +246,26 @@ add_boundary_penalties <- function(x, penalty,
                                    zones = diag(number_of_zones(x)),
                                    data = NULL) {
   # assert that arguments are valid
-  assertthat::assert_that(
+  rlang::check_required(x)
+  rlang::check_required(penalty)
+  rlang::check_required(edge_factor)
+  rlang::check_required(zones)
+  rlang::check_required(data)
+  assert(
     is_conservation_problem(x),
+    is_inherits(data, c("NULL", "data.frame", "matrix", "Matrix")),
     assertthat::is.number(penalty),
     all_finite(penalty),
     is.numeric(edge_factor),
     all_finite(edge_factor),
     all_proportion(edge_factor),
     length(edge_factor) == number_of_zones(x),
-    is_a_matrix(zones),
+    is_matrix_ish(zones),
     all_finite(zones)
   )
   # convert zones to matrix
   zones <- as.matrix(zones)
-  assertthat::assert_that(
+  assert(
     isSymmetric(zones),
     ncol(zones) == number_of_zones(x),
     min(zones) >= -1,
@@ -283,7 +289,7 @@ add_boundary_penalties <- function(x, penalty,
       )
     ),
     calculate = function(self, x) {
-        assertthat::assert_that(is_conservation_problem(x))
+        assert(is_conservation_problem(x))
         # extract matrix
         m <- self$get_data("boundary_matrix")
         # if waiver, then calculate boundary matrix
@@ -304,9 +310,10 @@ add_boundary_penalties <- function(x, penalty,
         invisible()
     },
     apply = function(self, x, y) {
-      assertthat::assert_that(
+      assert(
         inherits(x, "OptimizationProblem"),
-        inherits(y, "ConservationProblem")
+        inherits(y, "ConservationProblem"),
+        .internal = TRUE
       )
       p <- self$parameters$get("penalty")
       if (abs(p) > 1e-50) {
@@ -332,11 +339,12 @@ add_boundary_penalties <- function(x, penalty,
   }))
 }
 
-internal_prepare_planning_unit_boundary_data <- function(x, data)  {
+internal_prepare_planning_unit_boundary_data <- function(
+  x, data, call = fn_caller_env())  {
   if (!is.null(data)) {
     # if boundary data is in data.frame format then coerce to sparse matrix
     if (inherits(data, "data.frame")) {
-      data <- marxan_boundary_data_to_matrix(x, data)
+      data <- internal_marxan_boundary_data_to_matrix(x, data, call = call)
     }
     # if/when data is matrix run further checks to ensure that
     # it is compatible with planning unit data
@@ -346,34 +354,51 @@ internal_prepare_planning_unit_boundary_data <- function(x, data)  {
         data <- as_Matrix(data, "dgCMatrix")
       }
       # check that matrix properties are correct
-      assertthat::assert_that(
+      assert(
         ncol(data) == nrow(data),
         is_numeric_values(data),
         all_finite(data),
+        call = call,
         msg = paste(
-          "argument to data is not a valid symmetric matrix",
-          "with finite (non-NA) values"
+          "{.arg data} must be a symmetric matrix",
+          "with finite (non-{.val {NA}}) values."
         )
       )
-      assertthat::assert_that(
+      assert(
         x$number_of_total_units() == ncol(data),
-        msg = paste(
-          "argument to data has a different number of rows/columns",
-          "than the number of planning units in x"
+        call = call,
+        msg = c(
+          paste(
+            "{.arg data} must have the same number of number of rows",
+            "and columns as the total units for {.arg x}."
+          ),
+          "i" = paste0(
+            "{.arg x} has ", x$number_of_total_units(), " total units."
+          )
         )
       )
       # return result
       return(data[x$planning_unit_indices(), x$planning_unit_indices()])
     } else {
       # throw error because object class not recognized
-      stop("argument to data is of a class that is not supported")
+      cli::cli_abort(
+        "{.arg data} is not a recognized class.",
+        .internal = TRUE
+      )
     }
   } else {
-    assertthat::assert_that(
-      inherits(x$data$cost, c("Spatial", "Raster", "sf", "SpatRaster")),
-      msg = paste(
-        "argument to data must be supplied because planning unit",
-        "data are not in a spatially referenced format"
+    assert(
+      is_pu_spatially_explicit(x),
+      call = call,
+      msg = c(
+        paste(
+          "{.arg data} must be manually specified (e.g., as a {.cls Matrix})."
+        ),
+        "i" = paste(
+          "This is because {.arg x} has planning unit data that are not",
+          "spatially explicit",
+          "(e.g., {.cls sf}, or {.cls SpatRaster} objects)."
+        )
       )
     )
     return(new_waiver())

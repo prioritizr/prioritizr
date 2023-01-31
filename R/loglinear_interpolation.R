@@ -83,7 +83,12 @@ NULL
 #' @export
 loglinear_interpolation <- function(x, coordinate_one_x, coordinate_one_y,
                                     coordinate_two_x, coordinate_two_y) {
-  assertthat::assert_that(
+  rlang::check_required(x)
+  rlang::check_required(coordinate_one_x)
+  rlang::check_required(coordinate_one_y)
+  rlang::check_required(coordinate_two_x)
+  rlang::check_required(coordinate_two_y)
+  assert(
     is.numeric(x),
     all_finite(x),
     assertthat::is.number(coordinate_one_x),

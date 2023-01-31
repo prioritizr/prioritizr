@@ -53,7 +53,7 @@ matrix_to_triplet_dataframe <- function(x) {
 #' @noRd
 triplet_dataframe_to_matrix <- function(x, forceSymmetric = FALSE, ...) {
   # assert arguments are valid
-  assertthat::assert_that(
+  assert(
     inherits(x, "data.frame"),
     isTRUE(ncol(x) == 3),
     isTRUE(all(x[[1]] == round(x[[1]]))),

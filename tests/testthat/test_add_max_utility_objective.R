@@ -170,21 +170,21 @@ test_that("invalid inputs (single zone)", {
       add_max_utility_objective(budget = 5000) %>%
       add_relative_targets(0.1) %>%
       compile(),
-    "ignoring targets"
+    "Targets will be ignored"
   )
-  expect_error(
+  expect_tidy_error(
     problem(sim_pu_raster, sim_features) %>%
     add_max_utility_objective(budget = -5)
   )
-  expect_error(
+  expect_tidy_error(
     problem(sim_pu_raster, sim_features) %>%
     add_max_utility_objective(budget = 0)
   )
-  expect_error(
+  expect_tidy_error(
     problem(sim_pu_raster, sim_features) %>%
     add_max_utility_objective(budget = NA)
   )
-  expect_error(
+  expect_tidy_error(
     problem(sim_pu_raster, sim_features) %>%
     add_max_utility_objective(budget = Inf)
   )
@@ -648,23 +648,23 @@ test_that("invalid inputs (multiple zones)", {
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_zones_features <- get_sim_zones_features()
   # tests
-  expect_error(
+  expect_tidy_error(
     problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_max_utility_objective(budget = c(1, -5, 1))
   )
-  expect_error(
+  expect_tidy_error(
     problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_max_utility_objective(budget = c(1, NA, 1))
   )
-  expect_error(
+  expect_tidy_error(
     problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_max_utility_objective(budget = c(NA, NA, NA))
   )
-  expect_error(
+  expect_tidy_error(
     problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_max_utility_objective(budget = c(1, Inf, 9))
   )
-  expect_error(
+  expect_tidy_error(
     problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_max_utility_objective(budget = c(1, Inf, 9))
   )

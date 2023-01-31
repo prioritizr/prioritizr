@@ -13,11 +13,13 @@ NULL
 all_positive <- function(x) UseMethod("all_positive")
 
 assertthat::on_failure(all_positive) <- function(call, env) {
-  paste(deparse(call$x), "has negative values")
+  paste0(
+    "{.arg ", deparse(call$x), "} must not have negative values."
+  )
 }
 
 all_positive.default <- function(x) {
-  stop("argument to x is not a recognized class")
+  stop("{.arg x} is not a recognized class.")
 }
 
 .S3method("all_positive", "default", all_positive.default)

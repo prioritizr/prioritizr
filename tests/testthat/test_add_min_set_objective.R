@@ -171,7 +171,7 @@ test_that("invalid inputs (single zone)", {
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_zones_features <- get_sim_zones_features()
   # tests
-  expect_error(
+  expect_tidy_error(
     problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_min_set_objective() %>%
     compile()
@@ -377,7 +377,7 @@ test_that("invalid inputs (multiple zones)", {
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_zones_features <- get_sim_zones_features()
   # tests
-  expect_error(
+  expect_tidy_error(
     problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_min_set_objective() %>%
     compile()

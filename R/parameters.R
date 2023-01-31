@@ -97,7 +97,7 @@ NULL
 #' @rdname scalar_parameters
 #' @export
 proportion_parameter <- function(name, value) {
-  assertthat::assert_that(
+  assert(
     assertthat::is.string(name),
     assertthat::is.number(value),
     assertthat::noNA(value),
@@ -121,7 +121,7 @@ proportion_parameter <- function(name, value) {
 #' @rdname scalar_parameters
 #' @export
 binary_parameter <- function(name, value) {
-  assertthat::assert_that(
+  assert(
     assertthat::is.string(name),
     assertthat::is.number(value),
     assertthat::noNA(value),
@@ -146,7 +146,7 @@ binary_parameter <- function(name, value) {
 integer_parameter <- function(name, value,
                               lower_limit = as.integer(-.Machine$integer.max),
                               upper_limit = as.integer(.Machine$integer.max)) {
-  assertthat::assert_that(
+  assert(
     assertthat::is.string(name),
     assertthat::is.count(value),
     assertthat::noNA(value),
@@ -170,7 +170,7 @@ integer_parameter <- function(name, value,
 numeric_parameter <- function(name, value,
                               lower_limit = .Machine$double.xmin,
                               upper_limit = .Machine$double.xmax) {
-  assertthat::assert_that(
+  assert(
     assertthat::is.string(name),
     assertthat::is.number(value),
     assertthat::noNA(value),
@@ -298,7 +298,7 @@ NULL
 #' @rdname array_parameters
 #' @export
 proportion_parameter_array <- function(name, value, label) {
-  assertthat::assert_that(
+  assert(
     assertthat::is.string(name),
     is.numeric(value),
     all_finite(value),
@@ -327,7 +327,7 @@ proportion_parameter_array <- function(name, value, label) {
 #' @rdname array_parameters
 #' @export
 binary_parameter_array <- function(name, value, label) {
-  assertthat::assert_that(
+  assert(
     assertthat::is.string(name),
     is.numeric(value),
     assertthat::noNA(value),
@@ -362,7 +362,7 @@ integer_parameter_array <- function(name, value, label,
                                       as.integer(.Machine$integer.max),
                                       length(value)
                                     )) {
-  assertthat::assert_that(
+  assert(
     assertthat::is.string(name),
     is.numeric(value),
     is_integer(value),
@@ -398,7 +398,7 @@ numeric_parameter_array <- function(name, value, label,
                                       .Machine$double.xmax,
                                       length(value)
                                     )) {
-  assertthat::assert_that(
+  assert(
     assertthat::is.string(name),
     is.numeric(value),
     assertthat::noNA(value),
@@ -469,7 +469,7 @@ numeric_parameter_array <- function(name, value, label,
 #'
 #' @export
 misc_parameter <- function(name, value, validator) {
-  assertthat::assert_that(
+  assert(
     assertthat::is.string(name),
     inherits(validator, "function"),
     isTRUE(validator(value))
@@ -544,7 +544,7 @@ numeric_matrix_parameter <- function(name, value,
                                      lower_limit = .Machine$double.xmin,
                                      upper_limit = .Machine$double.xmax,
                                      symmetric = FALSE) {
-  assertthat::assert_that(
+  assert(
     assertthat::is.string(name),
     is.matrix(value),
     all_finite(value),
@@ -574,7 +574,7 @@ numeric_matrix_parameter <- function(name, value,
 #' @rdname matrix_parameters
 #' @export
 binary_matrix_parameter <- function(name, value, symmetric = FALSE) {
-  assertthat::assert_that(
+  assert(
     assertthat::is.string(name),
     is.matrix(value),
     all_finite(value),
@@ -620,7 +620,7 @@ binary_matrix_parameter <- function(name, value, symmetric = FALSE) {
 #' @export
 parameters <- function(...) {
   args <- list(...)
-  assertthat::assert_that(
+  assert(
     all_elements_inherit(args, "Parameter"),
     msg = "arguments must all be \"Parameter\" objects"
   )

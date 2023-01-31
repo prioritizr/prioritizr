@@ -241,7 +241,16 @@ NULL
 methods::setGeneric(
   "add_manual_targets",
   signature = methods::signature("x", "targets"),
-  function(x, targets) standardGeneric("add_manual_targets"))
+  function(x, targets) {
+    rlang::check_required(x)
+    rlang::check_required(targets)
+    assert(
+      is_conservation_problem(x),
+      is.data.frame(targets)
+    )
+    standardGeneric("add_manual_targets")
+  }
+)
 
 #' @name add_manual_targets
 #' @rdname add_manual_targets
@@ -261,9 +270,9 @@ methods::setMethod(
   methods::signature("ConservationProblem", "tbl_df"),
   function(x, targets) {
     # assert that arguments are valid
-    assertthat::assert_that(is_conservation_problem(x))
+    assert(is_conservation_problem(x))
     validate_targets <- function(targets) {
-      assertthat::assert_that(
+      assert(
         inherits(targets, "tbl_df"),
         assertthat::has_name(targets, "feature"),
         assertthat::has_name(targets, "target"),
@@ -277,21 +286,24 @@ methods::setMethod(
         is.numeric(targets$target),
         all_finite(targets$target),
         is_inherits(targets$type, c("character", "factor")),
-        all_match_of(as.character(targets$type), c("absolute", "relative"))
+        all_match_of(as.character(targets$type), c("absolute", "relative")),
+        call = fn_caller_env()
       )
-      verify_that(all_positive(targets$target))
+      verify(all_positive(targets$target))
       if (x$number_of_zones() > 1 || assertthat::has_name(targets, "zone")) {
-        assertthat::assert_that(
+        assert(
           assertthat::has_name(targets, "zone"),
           is_inherits(targets$zone, c("character", "factor", "list")),
           is_inherits(unlist(targets$zone), c("character", "factor")),
-          all_match_of(unlist(targets$zone), zone_names(x))
+          all_match_of(unlist(targets$zone), zone_names(x)),
+          call = fn_caller_env()
         )
       }
       if (assertthat::has_name(targets, "sense")) {
-        assertthat::assert_that(
+        assert(
           is_inherits(targets$sense, c("character", "factor")),
-          all_match_of(targets$sense, c(">=", "<=", "="))
+          all_match_of(targets$sense, c(">=", "<=", "=")),
+          call = fn_caller_env()
         )
       }
       TRUE

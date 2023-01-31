@@ -13,15 +13,10 @@ contains planning unit and zone data to ensure that the argument to
 \code{NULL} if checks are not required (not recommended).}
 
 \item{data}{\code{data.frame} object with the columns \code{"id1"},
-\code{"id2"}, and \code{"boundary"}. The columns \code{"zone1"} and
-\code{"zone2"} can also be provided to indicate zone data.}
+\code{"id2"}, and \code{"boundary"}.}
 }
 \value{
-An \code{array} or \code{\linkS4class{dgCMatrix}} sparse matrix object.
-If the argument to \code{data} corresponds to a single zone,
-then a \code{\linkS4class{dgCMatrix}}
-matrix is returned. Otherwise, if the argument to \code{data}
-corresponds to multiple zones, then an \code{array} is returned.
+A \code{\linkS4class{dgCMatrix}} sparse matrix object.
 }
 \description{
 Convert a \code{data.frame} object containing \emph{Marxan} boundary data
@@ -30,6 +25,13 @@ boundary data (not connectivity data).
 It ensures that the output matrix correctly specifies
 symmetric spatial relationships between planning units.
 }
+\section{Notes}{
+
+In earlier versions, the function could convert boundary data
+that pertain to multiple zones. This is no longer possible, following
+updates to streamline the package.
+}
+
 \examples{
 # create marxan boundary with four planning units and one zone
 bldf1 <- expand.grid(id1 = seq_len(4), id2 = seq_len(4))

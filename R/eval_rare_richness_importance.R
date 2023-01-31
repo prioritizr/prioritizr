@@ -117,8 +117,21 @@ NULL
 #' @exportMethod eval_rare_richness_importance
 methods::setGeneric("eval_rare_richness_importance",
   function(x, solution, ...) {
-  standardGeneric("eval_rare_richness_importance")
-})
+    rlang::check_required(x)
+    rlang::check_required(solution)
+    assert(
+      is_conservation_problem(x),
+      is_inherits(
+        solution,
+        c(
+          "numeric", "data.frame",  "matrix", "sf", "SpatRaster",
+          "Raster", "Spatial"
+        )
+      )
+    )
+    standardGeneric("eval_rare_richness_importance")
+  }
+)
 
 #' @name eval_rare_richness_importance
 #' @usage \S4method{eval_rare_richness_importance}{ConservationProblem,numeric}(x, solution, rescale, ...)
@@ -127,12 +140,8 @@ methods::setMethod("eval_rare_richness_importance",
   methods::signature("ConservationProblem", "numeric"),
   function(x, solution, rescale = TRUE, ...) {
     # assert valid arguments
-    assertthat::assert_that(
-      is.numeric(solution),
-      assertthat::is.flag(rescale),
-      assertthat::noNA(rescale),
-      no_extra_arguments(...)
-    )
+    assert(is.numeric(solution))
+    rlang::check_dots_empty()
     # extract planning unit solution status
     status <- planning_unit_solution_status(x, solution)
     # extract indices
@@ -154,14 +163,11 @@ methods::setMethod("eval_rare_richness_importance",
   methods::signature("ConservationProblem", "matrix"),
   function(x, solution, rescale = TRUE, ...) {
     # assert valid arguments
-    assertthat::assert_that(
+    assert(
       is.matrix(solution),
-      is.numeric(solution),
-      number_of_zones(x) == 1,
-      assertthat::is.flag(rescale),
-      assertthat::noNA(rescale),
-      no_extra_arguments(...)
+      is.numeric(solution)
     )
+    rlang::check_dots_empty()
     # extract planning unit solution status
     status <- planning_unit_solution_status(x, solution)
     # extract indices
@@ -188,13 +194,8 @@ methods::setMethod("eval_rare_richness_importance",
   methods::signature("ConservationProblem", "data.frame"),
   function(x, solution, rescale = TRUE, ...) {
     # assert valid arguments
-    assertthat::assert_that(
-      is.data.frame(solution),
-      number_of_zones(x) == 1,
-      assertthat::is.flag(rescale),
-      assertthat::noNA(rescale),
-      no_extra_arguments(...)
-    )
+    assert(is.data.frame(solution))
+    rlang::check_dots_empty()
     # extract planning unit solution status
     status <- planning_unit_solution_status(x, solution)
     # extract indices
@@ -221,19 +222,16 @@ methods::setMethod("eval_rare_richness_importance",
   methods::signature("ConservationProblem", "Spatial"),
   function(x, solution, rescale = TRUE, ...) {
     # assert valid arguments
-    assertthat::assert_that(
+    assert(
       inherits(
         solution,
         c(
           "SpatialPointsDataFrame", "SpatialLinesDataFrame",
           "SpatialPolygonsDataFrame"
         )
-      ),
-      number_of_zones(x) == 1,
-      assertthat::is.flag(rescale),
-      assertthat::noNA(rescale),
-      no_extra_arguments(...)
+      )
     )
+    rlang::check_dots_empty()
     # extract planning unit solution status
     status <- planning_unit_solution_status(x, solution)
     # extract indices
@@ -263,13 +261,8 @@ methods::setMethod("eval_rare_richness_importance",
   methods::signature("ConservationProblem", "sf"),
   function(x, solution, rescale = TRUE, ...) {
     # assert valid arguments
-    assertthat::assert_that(
-      inherits(solution, "sf"),
-      number_of_zones(x) == 1,
-      assertthat::is.flag(rescale),
-      assertthat::noNA(rescale),
-      no_extra_arguments(...)
-    )
+    assert(inherits(solution, "sf"))
+    rlang::check_dots_empty()
     # extract planning unit solution status
     status <- planning_unit_solution_status(x, solution)
     # extract indices
@@ -300,13 +293,8 @@ methods::setMethod("eval_rare_richness_importance",
 methods::setMethod("eval_rare_richness_importance",
   methods::signature("ConservationProblem", "Raster"),
   function(x, solution, rescale = TRUE, ...) {
-    assertthat::assert_that(
-      inherits(solution, "Raster"),
-      number_of_zones(x) == 1,
-      assertthat::is.flag(rescale),
-      assertthat::noNA(rescale),
-      no_extra_arguments(...)
-    )
+    assert(inherits(solution, "Raster"))
+    rlang::check_dots_empty()
     # extract planning unit solution status
     status <- planning_unit_solution_status(x, solution)
     # extract indices
@@ -328,13 +316,8 @@ methods::setMethod("eval_rare_richness_importance",
 methods::setMethod("eval_rare_richness_importance",
   methods::signature("ConservationProblem", "SpatRaster"),
   function(x, solution, rescale = TRUE, ...) {
-    assertthat::assert_that(
-      inherits(solution, "SpatRaster"),
-      number_of_zones(x) == 1,
-      assertthat::is.flag(rescale),
-      assertthat::noNA(rescale),
-      no_extra_arguments(...)
-    )
+    assert(inherits(solution, "SpatRaster"))
+    rlang::check_dots_empty()
     # extract planning unit solution status
     status <- planning_unit_solution_status(x, solution)
     # extract indices
@@ -350,13 +333,30 @@ methods::setMethod("eval_rare_richness_importance",
     out
 })
 
-internal_eval_rare_richness_importance <- function(x, indices, rescale) {
-  assertthat::assert_that(
+internal_eval_rare_richness_importance <- function(x, indices, rescale,
+                                                   call = fn_caller_env()) {
+  assert(
     is_conservation_problem(x),
-    number_of_zones(x) == 1,
+    assertthat::is.flag(rescale),
+    assertthat::noNA(rescale),
+    call = call
+  )
+  assert(
     is.integer(indices),
     length(indices) > 0,
-    assertthat::is.flag(rescale)
+    .internal = TRUE
+  )
+  assert(
+    number_of_zones(x) == 1,
+    msg = c(
+      "This function requires that {.arg x} must have a single zone.",
+      "i" = paste(
+        "This is because the calculations only work",
+        "for a limited range of problem formulations."
+      ),
+      "i" = "Try using {.fn eval_replacement_importance} instead."
+    ),
+    call = call
   )
   # calculate rarity weighted richness for each selected planning unit
   rs <- x$feature_abundances_in_total_units()

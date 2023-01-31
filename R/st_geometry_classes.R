@@ -11,6 +11,6 @@ NULL
 #'
 #' @noRd
 st_geometry_classes <- function(x) {
-  assertthat::assert_that(inherits(x, "sf"))
+  assert(inherits(x, "sf"))
   vapply(sf::st_geometry(x), class, character(3))[2, ]
 }

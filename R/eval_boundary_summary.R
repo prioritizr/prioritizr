@@ -176,20 +176,25 @@ eval_boundary_summary <- function(x, solution,
                                   zones = diag(number_of_zones(x)),
                                   data = NULL) {
   # assert that arguments are valid
-  assertthat::assert_that(
+  rlang::check_required(x)
+  rlang::check_required(solution)
+  rlang::check_required(edge_factor)
+  rlang::check_required(zones)
+  rlang::check_required(data)
+  assert(
     is_conservation_problem(x),
     is.numeric(edge_factor),
     all_finite(edge_factor),
     all_proportion(edge_factor),
     length(edge_factor) == number_of_zones(x),
-    is_a_matrix(zones),
+    is_matrix_ish(zones),
     all_finite(zones)
   )
   # convert solution to status matrix format
   solution <- planning_unit_solution_status(x, solution)
   # convert zones to matrix
   zones <- as.matrix(zones)
-  assertthat::assert_that(
+  assert(
     isSymmetric(zones),
     ncol(zones) == number_of_zones(x),
     min(zones) >= -1,

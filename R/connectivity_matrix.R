@@ -171,7 +171,16 @@ NULL
 methods::setGeneric(
   "connectivity_matrix",
   signature = methods::signature("x", "y"),
-  function(x, y, ...) standardGeneric("connectivity_matrix"))
+  function(x, y, ...) {
+    rlang::check_required(x)
+    rlang::check_required(y)
+    assert(
+      is_spatially_explicit(x),
+      is_inherits(y, c("character", "sf", "SpatRaster", "Spatial", "Raster"))
+    )
+    standardGeneric("connectivity_matrix")
+  }
+)
 
 #' @name connectivity_matrix
 #' @usage \S4method{connectivity_matrix}{Spatial,Raster}(x, y, ...)
@@ -192,7 +201,7 @@ methods::setMethod(
   "connectivity_matrix",
   signature(x = "Spatial", y = "character"),
   function(x, y, ...) {
-    assertthat::assert_that(inherits(x, "Spatial"))
+    assert(inherits(x, "Spatial"))
     .Deprecated(msg = sp_pkg_deprecation_notice)
     connectivity_matrix(sf::st_as_sf(x), y, ...)
   }
@@ -206,12 +215,13 @@ methods::setMethod(
   signature(x = "sf", y = "character"),
   function(x, y, ...) {
     # validate that arguments are valid
-    assertthat::assert_that(
+    assert(
       inherits(x, "sf"),
       assertthat::is.string(y),
-      assertthat::has_name(x, y)
+      assertthat::has_name(x, y),
+      is_valid_geometries(x)
     )
-    assertthat::assert_that(
+    assert(
       is.numeric(x[[y]]),
       assertthat::noNA(x[[y]])
     )
@@ -238,7 +248,7 @@ methods::setMethod(
   "connectivity_matrix",
   signature(x = "sf", y = "Raster"),
   function(x, y, ...) {
-    assertthat::assert_that(inherits(x, "sf"))
+    assert(inherits(x, "sf"))
     .Deprecated(msg = raster_pkg_deprecation_notice)
     connectivity_matrix(x, terra::rast(y), ...)
   }
@@ -252,12 +262,13 @@ methods::setMethod(
   signature(x = "sf", y = "SpatRaster"),
   function(x, y, ...) {
     # assert that arguments are valid
-    assertthat::assert_that(
+    assert(
       inherits(x, "sf"),
       inherits(y, "SpatRaster"),
       terra::nlyr(y) == 1,
       is_same_crs(x, y),
-      is_spatial_extents_overlap(x, y)
+      is_spatial_extents_overlap(x, y),
+      is_valid_geometries(x)
     )
     # extract conductance values
     cv <- fast_extract(y, x, ...)
@@ -297,7 +308,7 @@ methods::setMethod(
   signature(x = "SpatRaster", y = "SpatRaster"),
   function(x, y, ...) {
     # validate that arguments are valid
-    assertthat::assert_that(
+    assert(
       inherits(x, "SpatRaster"),
       inherits(y, "SpatRaster"),
       terra::nlyr(x) == 1,

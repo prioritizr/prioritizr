@@ -82,16 +82,15 @@ NULL
 #' @export
 add_extra_portfolio <- function(x) {
   # assert that arguments are valid
-  assertthat::assert_that(is_conservation_problem(x))
+  rlang::check_required(x)
+  assert(is_conservation_problem(x))
   # assert dependencies available
-  assertthat::assert_that(
-    is_installed("gurobi", "add_extra_portfolio()")
-  )
-  assertthat::assert_that(
+  assert(is_installed("gurobi"))
+  assert(
     utils::packageVersion("gurobi") >= as.package_version("8.0.0"),
     msg = paste(
-      "add_extra_portfolio() requires version 8.0.0 (or greater)",
-      "of the Gurobi software"
+      "This portfolio requires version 8.0.0 (or greater) of the",
+      "Gurobi software."
     )
   )
   # add portfolio
@@ -101,9 +100,13 @@ add_extra_portfolio <- function(x) {
     name = "Extra portfolio",
     run = function(self, x, solver) {
       ## check that problem has gurobi solver
-      assertthat::assert_that(
+      assert(
         inherits(solver, "GurobiSolver"),
-        msg = "add_extra_portfolio() requires use of add_gurobi_solver()"
+        call = NULL,
+        msg = paste(
+          "{.code add_extra_portfolio} requires the",
+          "{.code add_gurobi_solver} to be specified."
+        )
       )
       ## solve problem
       sol <- solver$solve(x, PoolSearchMode = 1)

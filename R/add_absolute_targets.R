@@ -164,7 +164,16 @@ NULL
 methods::setGeneric(
   "add_absolute_targets",
   signature = methods::signature("x", "targets"),
-  function(x, targets) standardGeneric("add_absolute_targets"))
+  function(x, targets) {
+    rlang::check_required(x)
+    rlang::check_required(targets)
+    assert(
+      is_conservation_problem(x),
+      is_inherits(targets, c("character", "numeric", "matrix"))
+    )
+    standardGeneric("add_absolute_targets")
+  }
+)
 
 #' @name add_absolute_targets
 #' @rdname add_absolute_targets
@@ -173,25 +182,27 @@ methods::setMethod(
   "add_absolute_targets",
   methods::signature("ConservationProblem", "numeric"),
   function(x, targets) {
-    assertthat::assert_that(is_conservation_problem(x))
-    assertthat::assert_that(
+    assert(is_conservation_problem(x))
+    assert(
       x$number_of_zones() == 1,
       msg = paste(
-        "argument to x has multiple zones and so targets must be provided as",
-        "a matrix"
+        "{.arg targets} must be a character vector or matrix, because",
+        "{.arg x} has multiple zones"
       )
     )
-    assertthat::assert_that(
+    assert(
       length(targets) %in% c(1, x$number_of_features()),
       msg  = paste(
-        "argument to targets must contain a single value,",
-        "or a value for each of the ", x$number_of_features(), "features"
+        "{.arg targets} must be a single numeric value,",
+        "or a numeric vector containing ", x$number_of_features(),
+        "values (one for each feature)."
       )
     )
     add_absolute_targets(
       x, matrix(targets, nrow = x$number_of_features(), ncol = 1)
     )
-})
+  }
+)
 
 #' @name add_absolute_targets
 #' @rdname add_absolute_targets
@@ -201,7 +212,7 @@ methods::setMethod(
   methods::signature("ConservationProblem", "matrix"),
   function(x, targets) {
     # assert that arguments are valid
-    assertthat::assert_that(
+    assert(
       is_conservation_problem(x),
       is.matrix(targets),
       is.numeric(targets),
@@ -210,13 +221,13 @@ methods::setMethod(
       nrow(targets) == x$number_of_features(),
       ncol(targets) == x$number_of_zones()
     )
-    verify_that(
-      all(targets >= 0.0, na.rm = TRUE),
-      msg = "some targets are below zero"
-    )
-    verify_that(
+    verify(all_positive(targets))
+    verify(
       all(targets <= x$feature_abundances_in_planning_units(), na.rm = TRUE),
-      msg = "some targets cannot be met even if all planning units are selected"
+      msg = paste0(
+        "Some {.arg targets} values cannot be met even if all planning units",
+        "are selected."
+      )
     )
     # create targets as data.frame
     if (x$number_of_zones() > 1) {
@@ -231,7 +242,8 @@ methods::setMethod(
     target_data$target <- as.numeric(targets)
     # add targets to problem
     add_manual_targets(x, target_data)
-  })
+  }
+)
 
 #' @name add_absolute_targets
 #' @rdname add_absolute_targets
@@ -241,36 +253,37 @@ methods::setMethod(
   methods::signature("ConservationProblem", "character"),
   function(x, targets) {
     # assert that arguments are valid
-    assertthat::assert_that(
+    assert(
       is_conservation_problem(x),
       is.character(targets),
       assertthat::noNA(targets),
       length(targets) == number_of_zones(x)
     )
-    assertthat::assert_that(
+    assert(
       is.data.frame(x$data$features),
       msg = paste(
-        "argument to targets can only be a character, if the feature data",
-        "in x is a data.frame"
+        "{.arg targets} cannot be a character vector, because the feature data",
+        "for {.arg x} are not a data frame."
       )
     )
-    assertthat::assert_that(
+    assert(
       all(assertthat::has_name(x$data$features, targets)),
-      msg = paste(
-        "argument to targets has values that are not column names of the",
-        "feature data in x"
+      msg = paste0(
+        "{.arg targets} must contain character values that are",
+        "column names of the feature data for {.arg x}."
       )
     )
-    assertthat::assert_that(
+    assert(
       all_columns_inherit(
         x$data$features[, targets, drop = FALSE],
         "numeric"
       ),
       msg = paste(
-        "argument to targets refers to columns of the",
-        "feature data in x that contain non-numeric values"
+        "{.arg targets} must contain character values that",
+        "refer to numeric columns of the feature data for {.arg x}."
       )
     )
     # add targets to problem
     add_absolute_targets(x, as.matrix(x$data$features[, targets, drop = FALSE]))
-})
+  }
+)

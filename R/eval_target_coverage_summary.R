@@ -228,7 +228,11 @@ eval_target_coverage_summary <- function(x,
                                          include_sense =
                                            number_of_zones(x) > 1) {
   # assert arguments are valid
-  assertthat::assert_that(
+  rlang::check_required(x)
+  rlang::check_required(solution)
+  rlang::check_required(include_zone)
+  rlang::check_required(include_sense)
+  assert(
     is_conservation_problem(x),
     assertthat::is.flag(include_zone),
     assertthat::noNA(include_zone),
@@ -236,11 +240,11 @@ eval_target_coverage_summary <- function(x,
     assertthat::noNA(include_sense)
   )
   # extract targets
-  assertthat::assert_that(
+  assert(
     !is.Waiver(x$targets),
-    msg = paste(
-      "argument to x does not have targets,",
-      "use the eval_feature_representation() for",
+    msg = c(
+      "{.arg x} does not have targets.",
+      "i" = "Use {.fn eval_feature_representation} for",
       "problems without targets"
     )
   )

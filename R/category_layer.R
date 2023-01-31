@@ -40,13 +40,16 @@ NULL
 #' plot(y)
 #' }
 #' @export
-category_layer <- function(x) UseMethod("category_layer")
+category_layer <- function(x) {
+  rlang::check_required(x)
+  UseMethod("category_layer")
+}
 
 #' @rdname category_layer
 #' @method category_layer Raster
 #' @export
 category_layer.Raster <- function(x) {
-  assertthat::assert_that(inherits(x, "Raster"))
+  assert(inherits(x, "Raster"))
   .Deprecated(msg = raster_pkg_deprecation_notice)
   raster::raster(category_layer.default(terra::rast(x)))
 }
@@ -56,7 +59,7 @@ category_layer.Raster <- function(x) {
 #' @export
 category_layer.default <- function(x) {
   # assert valid arguments
-  assertthat::assert_that(inherits(x, "SpatRaster"))
+  assert(inherits(x, "SpatRaster"))
   # create layer
   r <- terra::which.lyr(x)
   # ensure that category layer has zeros in correct places

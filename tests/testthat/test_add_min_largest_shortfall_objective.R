@@ -205,27 +205,27 @@ test_that("invalid inputs (single zone)", {
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
   # tests
-  expect_error(
+  expect_tidy_error(
     problem(sim_pu_raster, sim_features) %>%
       add_min_largest_shortfall_objective(budget = -5) %>%
       add_absolute_targets(targ)
   )
-  expect_error(
+  expect_tidy_error(
     problem(sim_pu_raster, sim_features) %>%
       add_min_largest_shortfall_objective(budget = 0) %>%
       add_absolute_targets(targ)
   )
-  expect_error(
+  expect_tidy_error(
     problem(sim_pu_raster, sim_features) %>%
       add_min_largest_shortfall_objective(budget = NA) %>%
       add_absolute_targets(targ)
   )
-  expect_error(
+  expect_tidy_error(
     problem(sim_pu_raster, sim_features) %>%
       add_min_largest_shortfall_objective(budget = Inf) %>%
       add_absolute_targets(targ)
   )
-  expect_error(
+  expect_tidy_error(
     problem(sim_pu_raster, sim_pu_raster) %>%
     add_min_largest_shortfall_objective(budget = 5) %>%
     compile()
@@ -662,27 +662,27 @@ test_that("invalid inputs (multiple zones)", {
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_zones_features <- get_sim_zones_features()
   # tests
-  expect_error(
+  expect_tidy_error(
     problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_min_largest_shortfall_objective(budget = c(1, -5, 1))
   )
-  expect_error(
+  expect_tidy_error(
     problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_min_largest_shortfall_objective(budget = c(1, NA, 1))
   )
-  expect_error(
+  expect_tidy_error(
     problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_min_largest_shortfall_objective(budget = c(NA, NA, NA))
   )
-  expect_error(
+  expect_tidy_error(
     problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_min_largest_shortfall_objective(budget = c(1, Inf, 9))
   )
-  expect_error(
+  expect_tidy_error(
     problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_min_largest_shortfall_objective(budget = c(1, Inf, 9))
   )
-  expect_error(
+  expect_tidy_error(
     problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_min_largest_shortfall_objective(budget = c(5, 5, 5)) %>%
     compile()

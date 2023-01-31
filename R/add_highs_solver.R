@@ -59,7 +59,13 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
                              presolve = TRUE, threads = 1,
                              verbose = TRUE) {
   # assert that arguments are valid (except start_solution)
-  assertthat::assert_that(
+  rlang::check_required(x)
+  rlang::check_required(gap)
+  rlang::check_required(time_limit)
+  rlang::check_required(presolve)
+  rlang::check_required(threads)
+  rlang::check_required(verbose)
+  assert(
     is_conservation_problem(x),
     assertthat::is.number(gap),
     all_finite(gap),
@@ -70,7 +76,7 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
     assertthat::noNA(presolve),
     is_thread_count(threads),
     assertthat::is.flag(verbose),
-    is_installed("highs", "add_highs_solver()")
+    is_installed("highs")
   )
   # add solver
   x$add_solver(pproto(
@@ -96,7 +102,7 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
       ## extract info
       rhs <- x$rhs()
       sense <- x$sense()
-      assertthat::assert_that(
+      assert(
         all(sense %in% c("=", "<=", ">=")),
         msg = "failed to prepare problem formulation for \"highs\" package"
       )

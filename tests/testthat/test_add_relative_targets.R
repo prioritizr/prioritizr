@@ -115,18 +115,18 @@ test_that("add_relative_targets (invalid input, single zone)", {
   p <- problem(sim_pu_raster, sim_features)
   # tests
   ## wrong number of features
-  expect_error(add_relative_targets(p, c(0.1, 0.2)))
-  expect_error(add_relative_targets(p, matrix(0.1, ncol = 1, nrow = 3)))
+  expect_tidy_error(add_relative_targets(p, c(0.1, 0.2)))
+  expect_tidy_error(add_relative_targets(p, matrix(0.1, ncol = 1, nrow = 3)))
   ## wrong number of zones
-  expect_error(add_relative_targets(p, matrix(0.1, ncol = 2, nrow = 5)))
-  expect_error(add_relative_targets(p, c("cost", "cost")))
+  expect_tidy_error(add_relative_targets(p, matrix(0.1, ncol = 2, nrow = 5)))
+  expect_tidy_error(add_relative_targets(p, c("cost", "cost")))
   ## NA values
-  expect_error(add_relative_targets(p, c(0.1, NA)))
-  expect_error(add_relative_targets(p, c("cost", NA_character_)))
+  expect_tidy_error(add_relative_targets(p, c(0.1, NA)))
+  expect_tidy_error(add_relative_targets(p, c("cost", NA_character_)))
   ## targets that are outside of exceed zero and one
-  expect_error(add_relative_targets(p, -0.2))
-  expect_error(add_relative_targets(p, -1))
-  expect_error(add_relative_targets(p, 1.2))
+  expect_tidy_error(add_relative_targets(p, -0.2))
+  expect_tidy_error(add_relative_targets(p, -1))
+  expect_tidy_error(add_relative_targets(p, 1.2))
 })
 
 test_that("add_relative_targets (matrix, multiple zones)", {
@@ -229,15 +229,15 @@ test_that("add_relative_targets (invalid input, multiple zones)", {
   # tests
   ## numeric targets
   p <- problem(sim_zones_pu_raster, sim_zones_features)
-  expect_error(add_relative_targets(p, 5))
-  expect_error(
+  expect_tidy_error(add_relative_targets(p, 5))
+  expect_tidy_error(
     add_relative_targets(p, rep(5, terra::nlyr(sim_zones_pu_raster)))
   )
   ## matrix targets
   p <- problem(sim_zones_pu_raster, sim_zones_features)
-  expect_error(add_relative_targets(p, matrix(1:5, ncol = 1)))
-  expect_error(add_relative_targets(p, matrix(1:5, nrow = 1)))
-  expect_error(
+  expect_tidy_error(add_relative_targets(p, matrix(1:5, ncol = 1)))
+  expect_tidy_error(add_relative_targets(p, matrix(1:5, nrow = 1)))
+  expect_tidy_error(
     add_relative_targets(
       p,
       matrix(
@@ -254,7 +254,7 @@ test_that("add_relative_targets (invalid input, multiple zones)", {
   )
   ## character targets
   p <- problem(pu, species, rij, c("cost_1", "cost_2"), zone)
-  expect_error(add_relative_targets(p, "target_1"))
-  expect_error(add_relative_targets(p, c("target_1", "name")))
-  expect_error(add_relative_targets(p, c("target_1", "target_2")))
+  expect_tidy_error(add_relative_targets(p, "target_1"))
+  expect_tidy_error(add_relative_targets(p, c("target_1", "name")))
+  expect_tidy_error(add_relative_targets(p, c("target_1", "target_2")))
 })

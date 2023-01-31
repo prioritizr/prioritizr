@@ -35,7 +35,10 @@ NULL
 #' plot(m, main = "branch matrix", axes = FALSE)
 #' }
 #' @export
-branch_matrix <- function(x) UseMethod("branch_matrix")
+branch_matrix <- function(x) {
+  rlang::check_required(x)
+  UseMethod("branch_matrix")
+}
 
 #' @rdname branch_matrix
 #' @method branch_matrix default
@@ -49,7 +52,7 @@ branch_matrix.default <- function(x)
 branch_matrix.phylo <- function(x) {
   # check that tree is valid and return error if not
   msg <- utils::capture.output(ape::checkValidPhylo(x))
-  assertthat::assert_that(
+  assert(
     !any(grepl("FATAL", msg)),
     !any(grepl("MODERATE", msg)),
     msg = paste(msg, collapse = "\n")

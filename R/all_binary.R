@@ -13,11 +13,14 @@ NULL
 all_binary <- function(x) UseMethod("all_binary")
 
 assertthat::on_failure(all_binary) <- function(call, env) {
-  paste(deparse(call$x), "has non-binary (0/1) values")
+  paste0(
+    "{.arg ", deparse(call$x), "} ",
+    "must have binary ({.val {0}} or {.val {1}}) values."
+  )
 }
 
 all_binary.default <- function(x) {
-  stop("argument to x is not a recognized class")
+  stop("{.arg x} is not a recognized class.")
 }
 
 .S3method("all_binary", "default", all_binary.default)

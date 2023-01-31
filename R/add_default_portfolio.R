@@ -17,5 +17,6 @@ NULL
 #'
 #' @noRd
 add_default_portfolio <- function(x) {
+  rlang::check_required(x)
   add_shuffle_portfolio(x, 1)
 }

@@ -94,9 +94,9 @@ test_that("invalid input (single zone)", {
     add_min_set_objective() %>%
     add_relative_targets(0.2)
   # tests
-  expect_error(add_neighbor_constraints(p, -3))
-  expect_error(add_neighbor_constraints(p, NA))
-  expect_error({
+  expect_tidy_error(add_neighbor_constraints(p, -3))
+  expect_tidy_error(add_neighbor_constraints(p, NA))
+  expect_tidy_error({
     # create problem without spatial data
     pu <- data.frame(
       id = seq_len(10), cost = c(0.2, NA, runif(8)),
@@ -250,20 +250,20 @@ test_that("invalid input (multiple zones)", {
     add_min_set_objective() %>%
     add_relative_targets(matrix(0.2, ncol = 3, nrow = 5))
   # tests
-  expect_error(add_neighbor_constraints(p, k[-1], z))
-  expect_error(add_neighbor_constraints(p, k + 0.5, z))
-  expect_error(add_neighbor_constraints(p, k + c(NA, 0, 0), z))
-  expect_error(add_neighbor_constraints(p, k, z[, -1]))
-  expect_error(add_neighbor_constraints(p, k, z[-1, ]))
-  expect_error(add_neighbor_constraints(p, k, z - 1))
-  expect_error(add_neighbor_constraints(p, k, z + 1))
-  expect_error(add_neighbor_constraints(p, k, `[<-`(z, 1, 1, NA)))
-  expect_error(add_neighbor_constraints(p, k, z, a))
-  expect_error(add_neighbor_constraints(p, k, NULL, a[-1, , , ]))
-  expect_error(add_neighbor_constraints(p, k, NULL, a[, -1, , ]))
-  expect_error(add_neighbor_constraints(p, k, NULL, a[, , -1, ]))
-  expect_error(add_neighbor_constraints(p, k, NULL, a[, , , -1]))
-  expect_error(add_neighbor_constraints(p, k, NULL, a + 1))
-  expect_error(add_neighbor_constraints(p, k, NULL, a - 2))
-  expect_error(add_neighbor_constraints(p, k, NULL, `[<-`(a, 1, 1, 1, 1, NA)))
+  expect_tidy_error(add_neighbor_constraints(p, k[-1], z))
+  expect_tidy_error(add_neighbor_constraints(p, k + 0.5, z))
+  expect_tidy_error(add_neighbor_constraints(p, k + c(NA, 0, 0), z))
+  expect_tidy_error(add_neighbor_constraints(p, k, z[, -1]))
+  expect_tidy_error(add_neighbor_constraints(p, k, z[-1, ]))
+  expect_tidy_error(add_neighbor_constraints(p, k, z - 1))
+  expect_tidy_error(add_neighbor_constraints(p, k, z + 1))
+  expect_tidy_error(add_neighbor_constraints(p, k, `[<-`(z, 1, 1, NA)))
+  expect_tidy_error(add_neighbor_constraints(p, k, z, a))
+  expect_tidy_error(add_neighbor_constraints(p, k, NULL, a[-1, , , ]))
+  expect_tidy_error(add_neighbor_constraints(p, k, NULL, a[, -1, , ]))
+  expect_tidy_error(add_neighbor_constraints(p, k, NULL, a[, , -1, ]))
+  expect_tidy_error(add_neighbor_constraints(p, k, NULL, a[, , , -1]))
+  expect_tidy_error(add_neighbor_constraints(p, k, NULL, a + 1))
+  expect_tidy_error(add_neighbor_constraints(p, k, NULL, a - 2))
+  expect_tidy_error(add_neighbor_constraints(p, k, NULL, `[<-`(a, 1, 1, 1, 1, NA)))
 })

@@ -180,10 +180,25 @@ NULL
 #' @aliases add_locked_out_constraints,ConservationProblem,numeric-method add_locked_out_constraints,ConservationProblem,logical-method add_locked_out_constraints,ConservationProblem,matrix-method add_locked_out_constraints,ConservationProblem,character-method add_locked_out_constraints,ConservationProblem,Raster-method add_locked_out_constraints,ConservationProblem,SpatRaster-method add_locked_out_constraints,ConservationProblem,Spatial-method add_locked_out_constraints,ConservationProblem,sf-method
 #'
 #' @export
-methods::setGeneric("add_locked_out_constraints",
-                    signature = methods::signature("x", "locked_out"),
-                    function(x, locked_out)
-                      standardGeneric("add_locked_out_constraints"))
+methods::setGeneric(
+  "add_locked_out_constraints",
+  signature = methods::signature("x", "locked_out"),
+  function(x, locked_out) {
+    rlang::check_required(x)
+    rlang::check_required(locked_out)
+    assert(
+      is_conservation_problem(x),
+      is_inherits(
+        locked_out,
+        c(
+          "character", "numeric", "logical",
+          "matrix", "sf", "SpatRaster", "Spatial", "Raster"
+        )
+      )
+    )
+    standardGeneric("add_locked_out_constraints")
+  }
+)
 
 
 #' @name add_locked_out_constraints
@@ -193,7 +208,7 @@ methods::setMethod("add_locked_out_constraints",
   methods::signature("ConservationProblem", "numeric"),
   function(x, locked_out) {
     # assert valid arguments
-    assertthat::assert_that(
+    assert(
       is_conservation_problem(x),
       is.numeric(locked_out),
       x$number_of_zones() == 1,
@@ -216,7 +231,7 @@ methods::setMethod("add_locked_out_constraints",
   methods::signature("ConservationProblem", "logical"),
   function(x, locked_out) {
     # assert valid arguments
-    assertthat::assert_that(
+    assert(
       is_conservation_problem(x),
       is.logical(locked_out),
       all_finite(locked_out),
@@ -234,7 +249,7 @@ methods::setMethod("add_locked_out_constraints",
   methods::signature("ConservationProblem", "matrix"),
   function(x, locked_out) {
     # assert valid arguments
-    assertthat::assert_that(
+    assert(
       is_conservation_problem(x),
       is.matrix(locked_out),
       is.logical(locked_out),
@@ -243,9 +258,9 @@ methods::setMethod("add_locked_out_constraints",
       x$number_of_total_units() == nrow(locked_out),
       all(rowSums(locked_out) <= ncol(locked_out))
     )
-    assertthat::assert_that(
+    assert(
       sum(locked_out, na.rm = TRUE) > 0,
-      msg = "at least one planning unit must be locked out"
+      msg = "{.arg locked_out} must lock out at least one planning unit."
     )
     # create data.frame with statuses
     ind <- which(locked_out, arr.ind = TRUE)
@@ -266,36 +281,39 @@ methods::setMethod("add_locked_out_constraints",
   methods::signature("ConservationProblem", "character"),
   function(x, locked_out) {
     # assert valid arguments
-    assertthat::assert_that(
+    assert(
       is_conservation_problem(x),
       is.character(locked_out),
       assertthat::noNA(locked_out),
       x$number_of_zones() == length(locked_out)
     )
-    assertthat::assert_that(
+    assert(
       inherits(x$data$cost, c("data.frame", "Spatial", "sf")),
       msg = paste(
-        "argument to locked_out contains character values, and the",
-        "planning unit data are not in a data.frame, Spatial, or sf format"
+        "{.arg locked_out} can only be a character vector, if the",
+        "planning unit data for {.arg x} is a",
+        "{.cls sf}, {.cls Spatial}, or data frame."
       )
     )
-    assertthat::assert_that(
+    assert(
       all_match_of(locked_out, names(x$data$cost)),
       msg = paste(
-        "argument to locked_out contains values that are not column names",
-        "in the planning unit data"
+        "{.arg locked_out} must contain character values that refer to",
+        "column locked_out of the planning unit data for {.arg x}."
       )
     )
-    assertthat::assert_that(
+    assert(
       all_columns_inherit(
         as.data.frame(x$data$cost)[, locked_out, drop = FALSE],
         "logical"
       ),
       msg = paste(
-        "argument to locked_out refers to a column that does not",
-        "have logical (TRUE / FALSE) values"
+        ".arg{locked_out} must refer to columns of the",
+        "planning unit data for {.arg x} that contain",
+        "logical ({.code TRUE}/{.code FALSE}) values."
       )
     )
+
     # add constraints
     add_locked_out_constraints(
       x, as.matrix(as.data.frame(x$data$cost)[, locked_out, drop = FALSE])
@@ -322,7 +340,7 @@ methods::setMethod("add_locked_out_constraints",
   methods::signature("ConservationProblem", "sf"),
   function(x, locked_out) {
     # assert valid arguments
-    assertthat::assert_that(
+    assert(
       is_conservation_problem(x),
       inherits(locked_out, "sf"),
       x$number_of_zones() == 1
@@ -347,7 +365,7 @@ methods::setMethod("add_locked_out_constraints",
 methods::setMethod("add_locked_out_constraints",
   methods::signature("ConservationProblem", "SpatRaster"),
   function(x, locked_out) {
-    assertthat::assert_that(
+    assert(
       is_conservation_problem(x),
       inherits(locked_out, "SpatRaster"),
       x$number_of_zones() == terra::nlyr(locked_out)
@@ -382,9 +400,9 @@ methods::setMethod("add_locked_out_constraints",
       )
     }
     # additional checks
-    assertthat::assert_that(
+    assert(
       sum(status) >= 1,
-      msg = "at least one planning unit must be locked in"
+      msg = "{.arg locked_out} must lock out at least one planning unit."
     )
     # add constraints
     add_locked_out_constraints(x, status)

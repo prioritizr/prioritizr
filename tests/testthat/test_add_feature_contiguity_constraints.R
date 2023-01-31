@@ -465,15 +465,15 @@ test_that("invalid inputs (single zone)", {
     add_min_set_objective() %>%
     add_relative_targets(0.1)
   # tests
-  expect_error(add_feature_contiguity_constraints(p, NA_logical_))
-  expect_error(add_feature_contiguity_constraints(p, diag(1) + 1))
-  expect_error(add_feature_contiguity_constraints(p, diag(1) - 2))
-  expect_error(add_feature_contiguity_constraints(p, diag(1) - NA))
-  expect_error(add_feature_contiguity_constraints(p, data = cm[-1, ]))
-  expect_error(add_feature_contiguity_constraints(p, data = cm[, -1]))
-  expect_error(add_feature_contiguity_constraints(p, data = cm + 1))
-  expect_error(add_feature_contiguity_constraints(p, data = cm - 1))
-  expect_error(
+  expect_tidy_error(add_feature_contiguity_constraints(p, NA_logical_))
+  expect_tidy_error(add_feature_contiguity_constraints(p, diag(1) + 1))
+  expect_tidy_error(add_feature_contiguity_constraints(p, diag(1) - 2))
+  expect_tidy_error(add_feature_contiguity_constraints(p, diag(1) - NA))
+  expect_tidy_error(add_feature_contiguity_constraints(p, data = cm[-1, ]))
+  expect_tidy_error(add_feature_contiguity_constraints(p, data = cm[, -1]))
+  expect_tidy_error(add_feature_contiguity_constraints(p, data = cm + 1))
+  expect_tidy_error(add_feature_contiguity_constraints(p, data = cm - 1))
+  expect_tidy_error(
     add_feature_contiguity_constraints(p, data = `[<-`(cm, 1, 1, NA))
   )
 })
@@ -492,22 +492,22 @@ test_that("invalid inputs (multiple zones)", {
   add_min_set_objective() %>%
   add_relative_targets(matrix(0.2, nrow = 5, ncol = 3))
   # tests
-  expect_error(add_feature_contiguity_constraints(p, NA))
-  expect_error(add_feature_contiguity_constraints(p, NULL))
-  expect_error(add_feature_contiguity_constraints(p, diag(3) + 1))
-  expect_error(add_feature_contiguity_constraints(p, diag(3) - 2))
-  expect_error(add_feature_contiguity_constraints(p, diag(3) - NA))
-  expect_error(
+  expect_tidy_error(add_feature_contiguity_constraints(p, NA))
+  expect_tidy_error(add_feature_contiguity_constraints(p, NULL))
+  expect_tidy_error(add_feature_contiguity_constraints(p, diag(3) + 1))
+  expect_tidy_error(add_feature_contiguity_constraints(p, diag(3) - 2))
+  expect_tidy_error(add_feature_contiguity_constraints(p, diag(3) - NA))
+  expect_tidy_error(
     add_feature_contiguity_constraints(
       p,
       `[<-`(matrix(1, ncol = 3, nrow = 3), 3, 3, 0)
     )
   )
-  expect_error(add_feature_contiguity_constraints(p, diag(3), cm[-1, ]))
-  expect_error(add_feature_contiguity_constraints(p, diag(3), cm[, -1]))
-  expect_error(add_feature_contiguity_constraints(p, diag(3), cm + 1))
-  expect_error(add_feature_contiguity_constraints(p, diag(3), cm - 1))
-  expect_error(
+  expect_tidy_error(add_feature_contiguity_constraints(p, diag(3), cm[-1, ]))
+  expect_tidy_error(add_feature_contiguity_constraints(p, diag(3), cm[, -1]))
+  expect_tidy_error(add_feature_contiguity_constraints(p, diag(3), cm + 1))
+  expect_tidy_error(add_feature_contiguity_constraints(p, diag(3), cm - 1))
+  expect_tidy_error(
     add_feature_contiguity_constraints(p, diag(3), `[<-`(cm, 1, 1, NA))
   )
 })

@@ -328,12 +328,12 @@ ConservationProblem <- pproto(
     "ConservationProblem object"
   },
   get_data = function(self, x) {
-    assertthat::assert_that(assertthat::is.string(x))
+    assert(assertthat::is.string(x))
     if (!x %in% names(self$data)) return(new_waiver())
     self$data[[x]]
   },
   set_data = function(self, x, value) {
-    assertthat::assert_that(assertthat::is.string(x))
+    assert(assertthat::is.string(x))
     self$data[[x]] <- value
     invisible()
   },
@@ -526,43 +526,43 @@ ConservationProblem <- pproto(
     }
   },
   add_portfolio = function(self, x) {
-    assertthat::assert_that(inherits(x, "Portfolio"))
+    assert(inherits(x, "Portfolio"))
     if (!is.Waiver(self$portfolio))
       warning("overwriting previously defined portfolio")
     pproto(NULL, self, portfolio = x)
   },
   add_solver = function(self, x) {
-    assertthat::assert_that(inherits(x, "Solver"))
+    assert(inherits(x, "Solver"))
     if (!is.Waiver(self$solver))
       warning("overwriting previously defined solver")
     pproto(NULL, self, solver = x)
   },
   add_targets = function(self, x) {
-    assertthat::assert_that(inherits(x, "Target"))
+    assert(inherits(x, "Target"))
     if (!is.Waiver(self$targets))
       warning("overwriting previously defined targets")
     pproto(NULL, self, targets = x)
   },
   add_objective = function(self, x) {
-    assertthat::assert_that(inherits(x, "Objective"))
+    assert(inherits(x, "Objective"))
     if (!is.Waiver(self$objective))
       warning("overwriting previously defined objective")
     pproto(NULL, self, objective = x)
   },
   add_decisions = function(self, x) {
-    assertthat::assert_that(inherits(x, "Decision"))
+    assert(inherits(x, "Decision"))
     if (!is.Waiver(self$decisions))
       warning("overwriting previously defined decision")
     pproto(NULL, self, decisions = x)
   },
   add_constraint = function(self, x) {
-    assertthat::assert_that(inherits(x, "Constraint"))
+    assert(inherits(x, "Constraint"))
     p <- pproto(NULL, self)
     p$constraints$add(x)
     return(p)
   },
   add_penalty = function(self, x) {
-    assertthat::assert_that(inherits(x, "Penalty"))
+    assert(inherits(x, "Penalty"))
     p <- pproto(NULL, self)
     p$penalties$add(x)
     return(p)

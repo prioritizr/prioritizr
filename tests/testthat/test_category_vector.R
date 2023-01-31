@@ -45,11 +45,11 @@ test_that("sf", {
 })
 
 test_that("invalid inputs", {
-  expect_error(category_vector(data.frame(integer(0), integer(0))))
-  expect_error(category_vector(data.frame(a = 1, b = 2)))
-  expect_error(category_vector(data.frame(a = 1, b = -1)))
-  expect_error(category_vector(data.frame(a = 1, b = "a")))
-  expect_error(category_vector(matrix(c(1, 2), ncol = 2)))
-  expect_error(category_vector(matrix(c(1, -1), ncol = 2)))
-  expect_error(category_vector(matrix(c("a", "b"), ncol = 2)))
+  expect_tidy_error(category_vector(data.frame(integer(0), integer(0))))
+  expect_tidy_error(category_vector(data.frame(a = 1, b = 2)))
+  expect_tidy_error(category_vector(data.frame(a = 1, b = -1)))
+  expect_tidy_error(category_vector(data.frame(a = 1, b = "a")))
+  expect_tidy_error(category_vector(matrix(c(1, 2), ncol = 2)))
+  expect_tidy_error(category_vector(matrix(c(1, -1), ncol = 2)))
+  expect_tidy_error(category_vector(matrix(c("a", "b"), ncol = 2)))
 })

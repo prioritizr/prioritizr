@@ -101,5 +101,5 @@ test_that("proportion values (multiple zones)", {
 })
 
 test_that("invalid input", {
-  expect_error(eval_n_summary(NULL, 1), "problem()")
+  expect_tidy_error(eval_n_summary(NULL, 1), "problem()")
 })

@@ -81,13 +81,17 @@ NULL
 #' plot(cm_pts, main = "proximity matrix", axes = FALSE)
 #' }
 #' @export
-proximity_matrix <- function(x, distance) UseMethod("proximity_matrix")
+proximity_matrix <- function(x, distance) {
+  rlang::check_required(x)
+  rlang::check_required(distance)
+  UseMethod("proximity_matrix")
+}
 
 #' @rdname proximity_matrix
 #' @method proximity_matrix Raster
 #' @export
 proximity_matrix.Raster <- function(x, distance) {
-  assertthat::assert_that(inherits(x, "Raster"))
+  assert(inherits(x, "Raster"))
   proximity_matrix(terra::rast(x), distance)
 }
 
@@ -96,7 +100,7 @@ proximity_matrix.Raster <- function(x, distance) {
 #' @export
 proximity_matrix.SpatRaster <- function(x, distance) {
   # assert arguments are valid
-  assertthat::assert_that(
+  assert(
     inherits(x, "SpatRaster"),
     terra::nlyr(x) >= 1,
     assertthat::is.number(distance),
@@ -156,12 +160,11 @@ proximity_matrix.SpatialPoints <- function(x, distance) {
 #' @export
 proximity_matrix.sf <- function(x, distance) {
   # assert valid arguments
-  assertthat::assert_that(inherits(x, "sf"),
-    assertthat::is.number(distance), assertthat::noNA(distance))
-  # verify that geometry types are supported
-  geomc <- st_geometry_classes(x)
-  if (any(grepl("GEOMETRYCOLLECTION", geomc, fixed = TRUE)))
-    stop("geometry collection data are not supported")
+  assert(inherits(x, "sf"),
+    assertthat::is.number(distance),
+    assertthat::noNA(distance),
+    is_valid_geometries(x)
+  )
   # return sparse intersection matrix
   prx <- sf::st_is_within_distance(x, dist = distance, sparse = TRUE)
   names(prx) <- as.character(seq_len(nrow(x)))
@@ -176,5 +179,10 @@ proximity_matrix.sf <- function(x, distance) {
 #' @method proximity_matrix default
 #' @export
 proximity_matrix.default <- function(x, distance) {
-  stop("data are not stored in a spatial format")
+  cli::cli_abort(
+    c(
+      "{.arg x} must be a {.cls sf} or {.cls SpatRaster}.",
+      "x" = "{.arg x} is a {.cls {class(x)}}."
+    )
+  )
 }

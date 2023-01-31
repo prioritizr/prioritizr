@@ -408,8 +408,21 @@ NULL
 #' @export
 methods::setGeneric("add_connectivity_penalties",
   signature = methods::signature("x", "penalty", "zones", "data"),
-  function(x, penalty, zones = diag(number_of_zones(x)), data)
-    standardGeneric("add_connectivity_penalties"))
+  function(x, penalty, zones = diag(number_of_zones(x)), data) {
+    rlang::check_required(x)
+    rlang::check_required(penalty)
+    rlang::check_required(zones)
+    rlang::check_required(data)
+    assert(
+      is_conservation_problem(x),
+      is_inherits(
+        data,
+        c("dgCMatrix", "data.frame", "matrix", "Matrix", "array")
+      )
+    )
+    standardGeneric("add_connectivity_penalties")
+  }
+)
 
 #' @name add_connectivity_penalties
 #' @usage \S4method{add_connectivity_penalties}{ConservationProblem,ANY,ANY,matrix}(x, penalty, zones, data)
@@ -439,17 +452,17 @@ methods::setMethod("add_connectivity_penalties",
   methods::signature("ConservationProblem", "ANY", "ANY", "data.frame"),
   function(x, penalty, zones, data) {
     # assert valid arguments
-    assertthat::assert_that(
+    assert(
       is_conservation_problem(x),
       assertthat::is.number(penalty),
       all_finite(penalty),
       is.data.frame(data)
     )
-  # add penalties to problem
-  add_connectivity_penalties(
-    x, penalty, zones,
-    marxan_connectivity_data_to_matrix(x, data, symmetric = TRUE)
-  )
+    # add penalties to problem
+    add_connectivity_penalties(
+      x, penalty, zones,
+      marxan_connectivity_data_to_matrix(x, data, symmetric = TRUE)
+    )
 })
 
 #' @name add_connectivity_penalties
@@ -459,11 +472,11 @@ methods::setMethod("add_connectivity_penalties",
   methods::signature("ConservationProblem", "ANY", "ANY", "dgCMatrix"),
   function(x, penalty, zones, data) {
     # assert valid arguments
-    assertthat::assert_that(
+    assert(
       is_conservation_problem(x),
       assertthat::is.number(penalty),
       all_finite(penalty),
-      is_a_matrix(zones),
+      is_matrix_ish(zones),
       nrow(zones) == ncol(zones),
       is_numeric_values(zones),
       all_finite(zones),
@@ -476,14 +489,13 @@ methods::setMethod("add_connectivity_penalties",
       number_of_zones(x) == ncol(zones)
     )
     # check for symmetry
-    if (!Matrix::isSymmetric(data)) {
-      stop(
-        paste0(
-          "argument to data does not contain symmetric connectivity values, ",
-          "use add_asym_connectivity_penalties()"
-        )
+    assert(
+      Matrix::isSymmetric(data),
+      msg = paste0(
+        "{.arg data} does not contain symmetric connectivity values, ",
+        "use {.fn add_asym_connectivity_penalties} instead."
       )
-    }
+    )
     # coerce zones to matrix
     zones <- as.matrix(zones)
     indices <- x$planning_unit_indices()
@@ -507,7 +519,7 @@ methods::setMethod("add_connectivity_penalties",
   methods::signature("ConservationProblem", "ANY", "ANY", "array"),
   function(x, penalty, zones, data) {
     # assert valid arguments
-    assertthat::assert_that(
+    assert(
       is_conservation_problem(x),
       assertthat::is.number(penalty),
       all_finite(penalty),
@@ -536,11 +548,12 @@ methods::setMethod("add_connectivity_penalties",
 
 internal_add_connectivity_penalties <- function(x, penalty, data) {
   # assert valid arguments
-  assertthat::assert_that(
+  assert(
     is_conservation_problem(x),
     assertthat::is.number(penalty),
     all_finite(penalty),
-    is.list(data)
+    is.list(data),
+    .internal = TRUE
   )
   # create new penalty object
   x$add_penalty(pproto(
@@ -550,9 +563,10 @@ internal_add_connectivity_penalties <- function(x, penalty, data) {
     data = list(data = data),
     parameters = parameters(numeric_parameter("penalty", penalty)),
     apply = function(self, x, y) {
-      assertthat::assert_that(
+      assert(
         inherits(x, "OptimizationProblem"),
-        inherits(y, "ConservationProblem")
+        inherits(y, "ConservationProblem"),
+        .internal = TRUE
       )
       # coerce to symmetric connectivity data
       cm <- self$get_data("data")

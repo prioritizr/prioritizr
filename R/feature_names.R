@@ -37,8 +37,13 @@ NULL
 #'
 #' @usage feature_names(x)
 #'
-methods::setGeneric("feature_names",
-                    function(x) standardGeneric("feature_names"))
+methods::setGeneric(
+  "feature_names",
+   function(x) {
+     rlang::check_required(x)
+     standardGeneric("feature_names")
+   }
+ )
 
 #' @name feature_names
 #'
@@ -46,8 +51,11 @@ methods::setGeneric("feature_names",
 #'
 #' @usage \S4method{feature_names}{ConservationProblem}(x)
 #'
-methods::setMethod("feature_names", "ConservationProblem",
-  function(x) x$feature_names())
+methods::setMethod(
+  "feature_names",
+  "ConservationProblem",
+  function(x) x$feature_names()
+)
 
 #' @name feature_names
 #'
@@ -55,8 +63,11 @@ methods::setMethod("feature_names", "ConservationProblem",
 #'
 #' @usage \S4method{feature_names}{ZonesRaster}(x)
 #'
-methods::setMethod("feature_names", "ZonesRaster",
-  function(x) attr(x, "feature_names"))
+methods::setMethod(
+  "feature_names",
+  "ZonesRaster",
+  function(x) attr(x, "feature_names")
+)
 
 #' @name feature_names
 #'
@@ -64,8 +75,11 @@ methods::setMethod("feature_names", "ZonesRaster",
 #'
 #' @usage \S4method{feature_names}{ZonesSpatRaster}(x)
 #'
-methods::setMethod("feature_names", "ZonesSpatRaster",
-  function(x) attr(x, "feature_names"))
+methods::setMethod(
+  "feature_names",
+  "ZonesSpatRaster",
+  function(x) attr(x, "feature_names")
+)
 
 #' @name feature_names
 #'
@@ -73,5 +87,8 @@ methods::setMethod("feature_names", "ZonesSpatRaster",
 #'
 #' @usage \S4method{feature_names}{ZonesCharacter}(x)
 #'
-methods::setMethod("feature_names", "ZonesCharacter",
-  function(x) attr(x, "feature_names"))
+methods::setMethod(
+  "feature_names",
+  "ZonesCharacter",
+  function(x) attr(x, "feature_names")
+)

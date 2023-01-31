@@ -45,9 +45,19 @@ NULL
 #' @aliases fast_extract,Raster,Spatial-method fast_extract,Raster,sf-method fast_extract,Raster,sfc-method fast_extract,SpatRaster,Spatial-method fast_extract,SpatRaster,sf-method fast_extract,SpatRaster,sfc-method
 #'
 #' @export
-methods::setGeneric("fast_extract",
-                    signature = methods::signature("x", "y"),
-                    function(x, y, ...) standardGeneric("fast_extract"))
+methods::setGeneric(
+  "fast_extract",
+  signature = methods::signature("x", "y"),
+  function(x, y, ...) {
+    rlang::check_required(x)
+    rlang::check_required(y)
+    assert(
+      is_spatially_explicit(x),
+      is_spatially_explicit(y)
+    )
+    standardGeneric("fast_extract")
+  }
+)
 
 #' @name fast_extract
 #' @usage \S4method{fast_extract}{Raster,Spatial}(x, y, fun = "mean", ...)
@@ -112,7 +122,7 @@ methods::setMethod(
   signature(x = "SpatRaster", y = "sf"),
   function(x, y, fun = "mean", ...) {
     # assert arguments are valid
-    assertthat::assert_that(
+    assert(
       inherits(x, "SpatRaster"),
       inherits(y, "sf"),
       assertthat::is.string(fun),
@@ -120,11 +130,11 @@ methods::setMethod(
       is_same_crs(x, y),
       is_spatial_extents_overlap(x, y)
     )
-    assertthat::assert_that(
+    assert(
       all(!st_geometry_classes(y) %in% c("GEOMETRYCOLLECTION", "MULTIPOINT")),
-      msg = paste0(
-        "argument to y contains \"GEOMETRYCOLLECTION\" or \"MULTIPOINT\"",
-        "geometries"
+      msg = paste(
+        "{.arg y} must not contain",
+        "{.cls GEOMETRYCOLLECTION} or {.cls MULTIPOINT} geometries."
       )
     )
     # determine summary statistic

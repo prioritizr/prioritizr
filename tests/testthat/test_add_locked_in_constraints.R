@@ -19,9 +19,9 @@ test_that("integer (compile, single zone)", {
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%
     add_binary_decisions()
-  expect_error(add_locked_in_constraints(p, -1))
-  expect_error(add_locked_in_constraints(p, 9.6))
-  expect_error(add_locked_in_constraints(terra::ncell(sim_pu_raster) + 1))
+  expect_tidy_error(add_locked_in_constraints(p, -1))
+  expect_tidy_error(add_locked_in_constraints(p, 9.6))
+  expect_tidy_error(add_locked_in_constraints(terra::ncell(sim_pu_raster) + 1))
 })
 
 test_that("integer (solve, single zone)", {
@@ -69,8 +69,8 @@ test_that("logical (compile, single zone)", {
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%
     add_binary_decisions()
-  expect_error(add_locked_in_constraints(p, c(TRUE)))
-  expect_error(
+  expect_tidy_error(add_locked_in_constraints(p, c(TRUE)))
+  expect_tidy_error(
     add_locked_in_constraints(
       p,
       c(TRUE, NA_logical, rep(FALSE, terra::ncell(sim_pu_raster) - 2))
@@ -138,10 +138,10 @@ test_that("matrix (compile, multiple zones)", {
     add_min_set_objective() %>%
     add_relative_targets(targets) %>%
     add_binary_decisions()
-  expect_error(
+  expect_tidy_error(
     add_locked_in_constraints(p, {s <- status; s[1, ] <- TRUE; s})
   )
-  expect_error(
+  expect_tidy_error(
     add_locked_in_constraints(p, {s <- status; s[1, 1] <- 2; s})
   )
 })
@@ -199,7 +199,7 @@ test_that("character (compile, sf, single zone)", {
   # check that constraints added correctly
   expect_true(isTRUE(all(o$lb()[which(sim_pu_polygons$locked_in)] == 1)))
   # invalid inputs
-  expect_error({
+  expect_tidy_error({
     sim_pu_polygons$locked_in <- as.integer(sim_pu_polygons$locked_in)
     problem(sim_pu_polygons, sim_features) %>%
     add_min_set_objective() %>%
@@ -207,21 +207,21 @@ test_that("character (compile, sf, single zone)", {
     add_binary_decisions()  %>%
     add_locked_in_constraints("locked_in")
   })
-  expect_error({
+  expect_tidy_error({
     problem(sim_pu_polygons, sim_features) %>%
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%
     add_binary_decisions()  %>%
     add_locked_in_constraints(NA_character_)
   })
-  expect_error({
+  expect_tidy_error({
     problem(sim_pu_polygons, sim_features) %>%
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%
     add_binary_decisions()  %>%
     add_locked_in_constraints("column_name_that_doesnt_exist")
   })
-  expect_error({
+  expect_tidy_error({
     problem(sim_pu_polygons, sim_features) %>%
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%
@@ -279,12 +279,12 @@ test_that("character (compile, sf, multiple zones)", {
   expect_true(isTRUE(all(o$lb()[first_zone_ind] == 1)))
   expect_true(isTRUE(all(o$lb()[other_zone_ind] == 0)))
   # invalid inputs
-  expect_error({
+  expect_tidy_error({
     sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
     sim_zones_features <- get_sim_zones_features()
     sim_zones_pu_polygons$locked_1 <- TRUE
     sim_zones_pu_polygons$locked_2 <- c(
-      TRUE, rep(FALSE, length(sim_zones_pu_polygons) - 1)
+      TRUE, rep(FALSE, nrow(sim_zones_pu_polygons) - 1)
     )
     sim_zones_pu_polygons$locked_3 <- FALSE
     p <-
@@ -297,7 +297,7 @@ test_that("character (compile, sf, multiple zones)", {
       add_binary_decisions() %>%
       add_locked_in_constraints(c("locked_1", "locked_2", "locked_3"))
   })
-  expect_error({
+  expect_tidy_error({
     sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
     sim_zones_features <- get_sim_zones_features()
     sim_zones_pu_polygons$locked_1 <- 1
@@ -415,7 +415,7 @@ test_that("raster (compile, single zone)", {
   expect_true(isTRUE(all(o$lb()[locked_in_indices] == 1)))
   expect_true(isTRUE(all(o$lb()[-locked_in_indices] == 0)))
   # check that invalid inputs throw errors
-  expect_error({
+  expect_tidy_error({
     sim_locked_in_raster <- get_sim_locked_in_raster()
     extent(sim_locked_in_raster) <- c(0, 20, 0, 20)
     problem(sim_pu_raster, sim_features) %>%
@@ -424,7 +424,7 @@ test_that("raster (compile, single zone)", {
       add_binary_decisions()  %>%
       add_locked_in_constraints(sim_locked_in_raster)
   })
-  expect_error({
+  expect_tidy_error({
     sim_locked_in_raster <- get_sim_locked_in_raster()
     terra::crs(sim_locked_in_raster) <- "+proj=longlat +datum=WGS84 +no_defs"
     problem(sim_pu_raster, sim_features) %>%
@@ -433,7 +433,7 @@ test_that("raster (compile, single zone)", {
       add_binary_decisions()  %>%
       add_locked_in_constraints(sim_locked_in_raster)
   })
-  expect_error({
+  expect_tidy_error({
     sim_locked_in_raster <- get_sim_locked_in_raster()
     sim_locked_in_raster <- terra::setValues(sim_locked_in_raster, NA)
     problem(sim_pu_raster, sim_features) %>%
@@ -442,7 +442,7 @@ test_that("raster (compile, single zone)", {
     add_binary_decisions()  %>%
     add_locked_in_constraints(sim_locked_in_raster)
   })
-  expect_error({
+  expect_tidy_error({
     sim_locked_in_raster <- get_sim_locked_in_raster()
     sim_locked_in_raster <- terra::setValues(sim_locked_in_raster, 0)
     problem(sim_pu_raster, sim_features) %>%
@@ -503,7 +503,7 @@ test_that("raster (compile, multiple zones)", {
   expect_true(isTRUE(all(o$lb()[first_zone_ind] == 1)))
   expect_true(isTRUE(all(o$lb()[other_zone_ind] == 0)))
   # invalid inputs
-  expect_error({
+  expect_tidy_error({
     sim_zones_pu_raster <- get_sim_zones_pu_raster()
     sim_zones_features <- get_sim_zones_features()
     status <- sim_zones_pu_raster
@@ -570,7 +570,7 @@ test_that("sf (compile, single zone)", {
   expect_true(isTRUE(all(o$lb()[locked_in_units] == 1)))
   expect_true(isTRUE(all(o$lb()[-locked_in_units] == 0)))
   # check that invalid inputs throw errors
-  expect_error({
+  expect_tidy_error({
     sim_pu_polygons <- get_sim_pu_polygons()
     sim_features <- get_sim_features()
     problem(sim_pu_polygons[1:10, ], sim_features) %>%
@@ -579,7 +579,7 @@ test_that("sf (compile, single zone)", {
       add_binary_decisions() %>%
       add_locked_in_constraints(sim_pu_polygons[50:55, ])
   })
-  expect_error({
+  expect_tidy_error({
     sim_pu_polygons <- get_sim_pu_polygons()
     sim_features <- get_sim_features()
     problem(sim_pu_polygons[1:10, ], sim_features) %>%
@@ -588,7 +588,7 @@ test_that("sf (compile, single zone)", {
       add_binary_decisions()  %>%
       add_locked_in_constraints(sim_pu_polygons[0, ])
   })
-  expect_error({
+  expect_tidy_error({
     sim_pu_polygons <- get_sim_pu_polygons()
     sim_features <- get_sim_features()
     sim_pu_polygons2 <- sim_pu_polygons[1:10, ]
@@ -622,7 +622,7 @@ test_that("sf (solve, single zone)", {
 })
 
 test_that("sf (compile, multiple zones)", {
-  expect_error({
+  expect_tidy_error({
     sim_zones_pu_raster <- get_sim_zones_pu_raster()
     sim_zones_features <- get_sim_zones_features()
     sim_pu_polygons <- get_sim_pu_polygons()
@@ -747,5 +747,5 @@ test_that("invalid inputs", {
   # make problems
   p <- problem(sim_spatial, sim_features, "cost")
   # tests
-  expect_error(add_locked_in_constraints(p, "locked_in"), "locked")
+  expect_tidy_error(add_locked_in_constraints(p, "locked_in"), "locked")
 })

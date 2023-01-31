@@ -4,12 +4,13 @@
 \alias{add_gap_portfolio}
 \title{Add a gap portfolio}
 \usage{
-add_gap_portfolio(x, number_solutions, pool_gap = 0.1)
+add_gap_portfolio(x, number_solutions = 10, pool_gap = 0.1)
 }
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} object.}
 
-\item{number_solutions}{\code{integer} number of solutions required.}
+\item{number_solutions}{\code{integer} number of solutions required.
+Defaults to 10.}
 
 \item{pool_gap}{\code{numeric} gap to optimality for solutions in the portfolio.
 This relative gap specifies a threshold worst-case performance for

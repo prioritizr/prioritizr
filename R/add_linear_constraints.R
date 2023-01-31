@@ -222,8 +222,24 @@ NULL
 #' @export
 methods::setGeneric("add_linear_constraints",
   signature = methods::signature("x", "threshold", "sense", "data"),
-  function(x, threshold, sense, data)
-    standardGeneric("add_linear_constraints"))
+  function(x, threshold, sense, data) {
+    rlang::check_required(x)
+    rlang::check_required(threshold)
+    rlang::check_required(sense)
+    rlang::check_required(data)
+    assert(
+      is_conservation_problem(x),
+      is_inherits(
+        data,
+        c(
+          "character", "numeric",  "dgCMatrix",
+          "matrix", "Matrix", "SpatRaster", "Raster"
+        )
+      )
+    )
+    standardGeneric("add_linear_constraints")
+  }
+)
 
 #' @name add_linear_constraints
 #' @usage \S4method{add_linear_constraints}{ConservationProblem,ANY,ANY,character}(x, threshold, sense, data)
@@ -232,31 +248,35 @@ methods::setMethod("add_linear_constraints",
   methods::signature("ConservationProblem", "ANY", "ANY", "character"),
   function(x, threshold, sense, data) {
     # validate arguments
-    assertthat::assert_that(
-      inherits(x$data$cost, c("data.frame", "Spatial", "sf")),
-      msg = paste(
-        "argument to data is a character and planning units",
-        "specified in x are not a data.frame, Spatial, or sf object"
-      )
-    )
-    assertthat::assert_that(
+    assert(
       assertthat::is.number(threshold),
       assertthat::noNA(threshold),
       assertthat::noNA(data),
       number_of_zones(x) == length(data)
     )
-    assertthat::assert_that(
+    assert(
       assertthat::is.string(sense),
       assertthat::noNA(sense),
       is_match_of(sense, c("<=", "=", ">="))
     )
-    assertthat::assert_that(
-      all(data %in% names(x$data$cost)),
-      msg = paste(
-        "argument to data is not a column name in the planning units",
-        "specified in x"
+    assert(
+      is_inherits(x$data$cost, c("data.frame", "tbl_df", "sf", "Spatial")),
+      msg = c(
+        "{.arg data} cannot be a character vector.",
+        "i" = paste(
+          "This is because planning unit data for {.arg x} are not a",
+          "data frame or {.cls sf}."
+        )
       )
     )
+    assert(
+      all(data %in% names(x$data$cost)),
+      msg = paste(
+        "{.arg data} must contain character values that refer to column",
+        "names of the planning unit data for {.arg x}."
+      )
+    )
+
     # extract planning unit data
     d <- x$data$cost
     if (inherits(d, "Spatial")) {
@@ -267,18 +287,19 @@ methods::setMethod("add_linear_constraints",
       d <- as.matrix(d[, data, drop = FALSE])
     }
     # additional checks
-    assertthat::assert_that(
+    assert(
       is.numeric(d),
       msg = paste(
-        "argument to data correspond to non-numeric columns in",
-        "the planning unit data associated with x"
+        "{.arg data} must contain character values that refer to numeric",
+        "columns of the planning unit data for {.arg x}."
       )
     )
-    assertthat::assert_that(
+    assert(
       assertthat::noNA(d),
       msg = paste(
-        "argument to data correspond to columns with NA values in",
-        "the planning unit data associated with x"
+        "{.arg data} must not refer to columns",
+        "of the planning unit data for {.arg} with missing",
+        "({.val {NA}) values."
       )
     )
     # add penalties
@@ -329,8 +350,9 @@ methods::setMethod("add_linear_constraints",
   methods::signature("ConservationProblem", "ANY", "ANY", "SpatRaster"),
   function(x, threshold, sense, data) {
     # assert valid arguments
-    assertthat::assert_that(
+    assert(
       is_conservation_problem(x),
+      is_pu_spatially_explicit(x),
       inherits(data, "SpatRaster"),
       assertthat::is.number(threshold),
       assertthat::noNA(threshold),
@@ -339,25 +361,11 @@ methods::setMethod("add_linear_constraints",
       is_match_of(sense, c("<=", "=", ">=")),
       number_of_zones(x) == terra::nlyr(data)
     )
-    assertthat::assert_that(
-      inherits(x$data$cost, c("sf", "Spatial", "Raster", "SpatRaster")),
-      msg = paste(
-        "argument to data must be a matrix or Matrix, because the planning",
-        "unit data are not in a spatially referenced format"
-      )
-    )
     # extract constraint data
     if (inherits(x$data$cost, c("sf", "Spatial"))) {
       d <- fast_extract(data, x$data$cost, fun = "sum")
     } else {
-      assertthat::assert_that(
-        is_comparable_raster(x$data$cost, data[[1]]),
-        msg = paste(
-          "argument to data is not comparable with planning unit data;",
-          "they have different spatial resolutions, extents,",
-          "coordinate reference systems, or dimensionality (rows / columns)"
-        )
-      )
+      assert(is_pu_comparable_raster(x, data[[1]]))
       d <- as.matrix(terra::as.data.frame(data, na.rm = FALSE))
     }
     d[is.na(d)] <- 0
@@ -372,7 +380,7 @@ methods::setMethod("add_linear_constraints",
   methods::signature("ConservationProblem", "ANY", "ANY", "dgCMatrix"),
   function(x, threshold, sense, data) {
     # assert valid arguments
-    assertthat::assert_that(
+    assert(
       is_conservation_problem(x),
       assertthat::is.number(threshold),
       assertthat::noNA(threshold),
@@ -386,10 +394,11 @@ methods::setMethod("add_linear_constraints",
     )
     # assert that constraint is even remotely possible
     if (identical(sense, ">=")) {
-      assertthat::assert_that(
+      assert(
         any(Matrix::colSums(data) >= threshold),
+        call = parent.frame(),
         msg = paste(
-          "linear constraint cannot be meet threshold even if all",
+          "The linear constraint cannot be meet {.arg threshold} even if all",
           "planning units selected in the solution"
         )
       )
@@ -402,9 +411,10 @@ methods::setMethod("add_linear_constraints",
       data = list(data = data, sense = sense),
       parameters = parameters(numeric_parameter("threshold", threshold)),
       apply = function(self, x, y) {
-        assertthat::assert_that(
+        assert(
           inherits(x, "OptimizationProblem"),
-          inherits(y, "ConservationProblem")
+          inherits(y, "ConservationProblem"),
+          .internal = TRUE
         )
         # extract parameters
         th <- self$parameters$get("threshold")

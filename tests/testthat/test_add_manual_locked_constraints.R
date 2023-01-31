@@ -181,43 +181,43 @@ test_that("invalid inputs (single zone)", {
     add_absolute_targets(1) %>%
     add_proportion_decisions()
   # tests
-  expect_error({
+  expect_tidy_error({
     add_manual_locked_constraints(
       p,
       data.frame(pu = integer(0), status = integer(0))
     )
   })
-  expect_error({
+  expect_tidy_error({
     add_manual_locked_constraints(
       p,
       data.frame(pu = "a", status = 1)
     )
   })
-  expect_error({
+  expect_tidy_error({
     add_manual_locked_constraints(
       p,
       data.frame(pu = 1000, status = 0.2)
     )
   })
-  expect_error({
+  expect_tidy_error({
     add_manual_locked_constraints(
       p,
       data.frame(pu = -5, status = 0.2)
     )
   })
-  expect_error({
+  expect_tidy_error({
     add_manual_locked_constraints(
       p,
       data.frame(pu = NA_integer_, status = 0.2)
     )
   })
-  expect_error({
+  expect_tidy_error({
     add_manual_locked_constraints(
       p,
       data.frame(pu = 1, status = NA_real_)
     )
   })
-  expect_error({
+  expect_tidy_error({
     add_manual_locked_constraints(
       p,
       data.frame(pu = 1, zone = "zone_10", status = 1)
@@ -246,7 +246,7 @@ test_that("invalid inputs (multiple zones)", {
     add_absolute_targets(targets) %>%
     add_proportion_decisions()
   # tests
-  expect_error({
+  expect_tidy_error({
     add_manual_locked_constraints(
       p,
       data.frame(
@@ -256,37 +256,37 @@ test_that("invalid inputs (multiple zones)", {
       )
     )
   })
-  expect_error({
+  expect_tidy_error({
     add_manual_locked_constraints(
       p,
       data.frame(pu = "a", zone = "zone_1", status = 1)
     )
   })
-  expect_error({
+  expect_tidy_error({
     add_manual_locked_constraints(
       p,
       data.frame(pu = 1000, zone = "zone_1", status = 0.2)
     )
   })
-  expect_error({
+  expect_tidy_error({
     add_manual_locked_constraints(
       p,
       data.frame(pu = -5, zone = "zone_1", status = 0.2)
     )
   })
-  expect_error({
+  expect_tidy_error({
     add_manual_locked_constraints(
       p,
       data.frame(pu = NA_integer_, zone = "zone_1", status = 0.2)
     )
   })
-  expect_error({
+  expect_tidy_error({
     add_manual_locked_constraints(
       p,
       data.frame(pu = 1, zone = "zone_10", status = 0.2)
     )
   })
-  expect_error({
+  expect_tidy_error({
     add_manual_locked_constraints(
       p,
       data.frame(pu = 1, zone = NA_character_, status = 0.2)

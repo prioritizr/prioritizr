@@ -13,17 +13,20 @@ NULL
 all_proportion <- function(x) UseMethod("all_proportion")
 
 assertthat::on_failure(all_proportion) <- function(call, env) {
-  paste(deparse(call$x), "has values smaller than zero or greater than one")
+  paste0(
+    "{.arg ", deparse(call$x),
+    "} must have values between {.val {0}} and {.val {1}}."
+  )
 }
 
 all_proportion.default <- function(x) {
-  stop("argument to x is not a recognized class")
+  stop("{.arg x} is not a recognized class.")
 }
 
 .S3method("all_proportion", "default", all_proportion.default)
 
 all_proportion.numeric <- function(x) {
-  all(x >= 0 & x <= 1, na.rm = TRUE)
+  suppressWarnings(all(x >= 0 & x <= 1, na.rm = TRUE))
 }
 
 .S3method("all_proportion", "numeric", all_proportion.numeric)

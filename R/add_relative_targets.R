@@ -117,15 +117,15 @@ methods::setMethod(
   "add_relative_targets",
   methods::signature("ConservationProblem", "numeric"),
   function(x, targets) {
-    assertthat::assert_that(is_conservation_problem(x))
-    assertthat::assert_that(
+    assert(is_conservation_problem(x))
+    assert(
       number_of_zones(x) == 1,
-      msg = paste(
-        "argument to x has multiple zones,",
-        "and so targets must be provided as a matrix"
+      msg = c(
+        "{.arg targets} must be a matrix.",
+        "i" = "This is because {.arg x} has multiple zones."
       )
     )
-    assertthat::assert_that(
+    assert(
       is_match_of(length(targets), c(1, number_of_features(x)))
     )
     add_relative_targets(
@@ -141,7 +141,7 @@ methods::setMethod(
   methods::signature("ConservationProblem", "matrix"),
   function(x, targets) {
     # assert that arguments are valid
-    assertthat::assert_that(
+    assert(
       is_conservation_problem(x),
       is.matrix(targets),
       is.numeric(targets),
@@ -173,42 +173,44 @@ methods::setMethod(
   methods::signature("ConservationProblem", "character"),
   function(x, targets) {
     # assert that arguments are valid
-    assertthat::assert_that(
+    assert(
       is_conservation_problem(x),
       is.character(targets),
       assertthat::noNA(targets),
       length(targets) == number_of_zones(x)
     )
-    assertthat::assert_that(
+    assert(
       is.data.frame(x$data$features),
-      msg = paste(
-        "argument to targets can only be a character, if the feature data",
-        "in x is a data.frame"
+      msg = c(
+        "{.arg targets} must not be a character vector.",
+        "i" = paste(
+          "This is because the feature data for {arg. x}",
+          "are not a data frame."
+        )
       )
     )
-    assertthat::assert_that(
+    assert(
       all(assertthat::has_name(x$data$features, targets)),
       msg = paste(
-        "argument to targets has values that are not column names of the",
-        "feature data in x"
+        "{.arg targets} must contain character values that refer",
+        "to column names of the feature data for {.arg x}."
       )
     )
-    assertthat::assert_that(
+    assert(
       all_columns_inherit(
         x$data$features[, targets, drop = FALSE],
         c("numeric", "integer")
       ),
       msg = paste(
-        "argument to targets refers to columns of the",
-        "feature data in x that contain non-numeric values"
+        "{.arg targets} must refer to numeric columns of the feature data",
+        "for {.arg x}."
       )
     )
-    assertthat::assert_that(
+    assert(
       all_proportion(x$data$features[, targets, drop = FALSE]),
       msg = paste(
-        "argument to targets refers to columns of the",
-        "feature data in x that contain values smaller",
-        "than zero or greater than one"
+        "{.arg targets} must refer to columns of the feature data",
+        "for {.arg x} that contain values {.val {0}} and {.val {1}}."
       )
     )
     # add targets to problem

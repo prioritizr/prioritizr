@@ -168,55 +168,55 @@ test_that("invalid inputs (single zone)", {
     add_absolute_targets(1) %>%
     add_proportion_decisions()
   # tests
-  expect_error({
+  expect_tidy_error({
     add_manual_bounded_constraints(
       p,
       data.frame(pu = integer(0), lower = integer(0), upper = integer(0))
     )
   })
-  expect_error({
+  expect_tidy_error({
     add_manual_bounded_constraints(
       p,
       data.frame(pu = "a", lower = 1, upper = 1)
     )
   })
-  expect_error({
+  expect_tidy_error({
     add_manual_bounded_constraints(
       p,
       data.frame(pu = 1000, lower = 0.2, upper = 1)
     )
   })
-  expect_error({
+  expect_tidy_error({
     add_manual_bounded_constraints(
       p,
       data.frame(pu = -5, lower = 0.2, upper = 1)
     )
   })
-  expect_error({
+  expect_tidy_error({
     add_manual_bounded_constraints(
       p,
       data.frame(pu = NA_integer_, lower = 0.2, upper = 1)
     )
   })
-  expect_error({
+  expect_tidy_error({
     add_manual_bounded_constraints(
       p,
       data.frame(pu = 1, lower = NA_real_, upper = 1)
     )
   })
-  expect_error({
+  expect_tidy_error({
     add_manual_bounded_constraints(
       p,
       data.frame(pu = 1, lower = 0, upper = NA_real_)
     )
   })
-  expect_error({
+  expect_tidy_error({
     add_manual_bounded_constraints(
       p,
       data.frame(pu = 1, lower = 0.7, upper = 0)
     )
   })
-  expect_error({
+  expect_tidy_error({
     add_manual_bounded_constraints(
       p,
       data.frame(pu = 1, zone = "zone_10", lower = 0, upper = 1)
@@ -242,55 +242,55 @@ test_that("invalid inputs (multiple zones)", {
     add_absolute_targets(targets) %>%
     add_proportion_decisions()
   # tests
-  expect_error({
+  expect_tidy_error({
     add_manual_bounded_constraints(
       p,
       data.frame(pu = integer(0), lower = integer(0), upper = integer(0))
     )
   })
-  expect_error({
+  expect_tidy_error({
      add_manual_bounded_constraints(
        p,
        data.frame(pu = "a", lower = 1, upper = 1)
      )
   })
-  expect_error({
+  expect_tidy_error({
     add_manual_bounded_constraints(
       p,
       data.frame(pu = 1000, lower = 0.2, upper = 1)
     )
   })
-  expect_error({
+  expect_tidy_error({
     add_manual_bounded_constraints(
       p,
       data.frame(pu = -5, lower = 0.2, upper = 1)
     )
   })
-  expect_error({
+  expect_tidy_error({
     add_manual_bounded_constraints(
       p,
       data.frame(pu = NA_integer_, lower = 0.2, upper = 1)
     )
   })
-  expect_error({
+  expect_tidy_error({
     add_manual_bounded_constraints(
       p,
       data.frame(pu = 1, lower = NA_real_, upper = 1)
     )
   })
-  expect_error({
+  expect_tidy_error({
     add_manual_bounded_constraints(
       p,
       data.frame(pu = 1, lower = 0, upper = NA_real_)
     )
   })
-  expect_error({
+  expect_tidy_error({
     add_manual_bounded_constraints(
       p,
       data.frame(pu = 1, lower = 0.7, upper = 0)
     )
   })
-  expect_error({
+  expect_tidy_error({
     add_manual_bounded_constraints(
       p,
       data.frame(pu = 1, zone = "zone_10", lower = 0, upper = 1)

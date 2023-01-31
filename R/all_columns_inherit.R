@@ -16,21 +16,21 @@ all_columns_inherit <- function(x, what) UseMethod("all_columns_inherit")
 
 assertthat::on_failure(all_columns_inherit) <- function(call, env) {
   w <- eval(call$what, envir = env)
-  if (length(w) > 1) {
-    w <- paste0(paste(w[-length(w)], collapse = ", "), ", or ", w[length(w)])
-  }
-  paste(deparse(call$x), "has some columns that do not contain", w, "values")
+  paste0(
+    "{.arg ", deparse(call$x),
+    "} has some columns that do not contain {.val {w}} values."
+  )
 }
 
 all_columns_inherit.default <- function(x, what) {
-  stop("argument to x is not a recognized class")
+  stop("{.arg x} is not a recognized class.")
 }
 
 .S3method("all_columns_inherit", "default", all_columns_inherit.default)
 
 all_columns_inherit.data.frame <- function(x, what) {
   # assert valid arguments
-  assertthat::assert_that(
+  assert(
     inherits(x, "data.frame"),
     is.character(what)
   )

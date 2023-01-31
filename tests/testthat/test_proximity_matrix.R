@@ -340,12 +340,12 @@ test_that("invalid input", {
     )
   )
   # tests
-  expect_error(
+  expect_tidy_error(
     proximity_matrix(x, 2),
-    "geometry collection data are not supported"
+    "GEOMETRYCOLLECTION"
   )
-  expect_error(
+  expect_tidy_error(
     proximity_matrix(4, 1),
-    "data are not stored in a spatial format"
+    "must be"
   )
 })

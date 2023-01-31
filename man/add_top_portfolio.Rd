@@ -4,12 +4,13 @@
 \alias{add_top_portfolio}
 \title{Add a top portfolio}
 \usage{
-add_top_portfolio(x, number_solutions)
+add_top_portfolio(x, number_solutions = 10)
 }
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} object.}
 
-\item{number_solutions}{\code{integer} number of solutions required.}
+\item{number_solutions}{\code{integer} number of solutions required.
+Defaults to 10.}
 }
 \value{
 An updated \code{\link[=problem]{problem()}} object with the portfolio added to it.

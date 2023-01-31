@@ -33,26 +33,29 @@ test_that("non-overlapping objects", {
   sim_pu_polygons <- get_sim_pu_polygons()
   sim_pu_raster <- get_sim_pu_raster()
   # tests
-  expect_error(
-    assertthat::assert_that(
+  expect_tidy_error(
+    assert(
       is_spatial_extents_overlap(sim_pu_polygons[1, ], sim_pu_polygons[7, ])
     ),
-    "spatially overlapping extents"
+    "overlapping extents",
+    name = NULL
   )
-  expect_error(
-    assertthat::assert_that(
+  expect_tidy_error(
+    assert(
       is_spatial_extents_overlap(sim_pu_polygons[1, ], sim_pu_polygons[7, ])
     ),
-    "spatially overlapping extents"
+    "overlapping extents",
+    name = NULL
   )
-  expect_error(
-    assertthat::assert_that(
+  expect_tidy_error(
+    assert(
       is_spatial_extents_overlap(sim_pu_polygons[1, ], sim_pu_polygons[7, ])
     ),
-    "spatially overlapping extents"
+    "overlapping extents",
+    name = NULL
   )
-  expect_error(
-    assertthat::assert_that(
+  expect_tidy_error(
+    assert(
       is_spatial_extents_overlap(
         sim_pu_polygons[1, ],
         terra::crop(
@@ -61,10 +64,11 @@ test_that("non-overlapping objects", {
         )
       )
     ),
-    "spatially overlapping extents"
+    "overlapping extents",
+    name = NULL
   )
-  expect_error(
-    assertthat::assert_that(
+  expect_tidy_error(
+    assert(
       is_spatial_extents_overlap(
         sim_pu_polygons[1, ],
         terra::crop(
@@ -73,10 +77,11 @@ test_that("non-overlapping objects", {
         )
       )
     ),
-    "spatially overlapping extents"
+    "overlapping extents",
+    name = NULL
   )
-  expect_error(
-    assertthat::assert_that(
+  expect_tidy_error(
+    assert(
       is_spatial_extents_overlap(
         terra::crop(
           sim_pu_raster,
@@ -88,7 +93,8 @@ test_that("non-overlapping objects", {
         )
       )
     ),
-    "spatially overlapping extents"
+    "overlapping extents",
+    name = NULL
   )
 })
 
@@ -102,14 +108,15 @@ test_that("Spatial", {
       sf::as_Spatial(sim_pu_polygons[1:10, ])
     )
   )
-  expect_error(
-    assertthat::assert_that(
+  expect_tidy_error(
+    assert(
       is_spatial_extents_overlap(
         sf::as_Spatial(sim_pu_polygons[1, ]),
         sf::as_Spatial(sim_pu_polygons[7, ])
       )
     ),
-    "spatially overlapping extents"
+    "overlapping extents",
+    name = NULL
   )
 })
 
@@ -128,8 +135,8 @@ test_that("Raster", {
       raster::raster(sim_pu_raster)
     )
   )
-  expect_error(
-    assertthat::assert_that(
+  expect_tidy_error(
+    assert(
       is_spatial_extents_overlap(
         raster::raster(
           terra::crop(
@@ -145,6 +152,7 @@ test_that("Raster", {
         )
       )
     ),
-    "spatially overlapping extents"
+    "overlapping extents",
+    name = NULL
   )
 })

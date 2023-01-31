@@ -102,7 +102,7 @@ ArrayParameter <- pproto(
     )
   },
   validate = function(self, x) {
-    assertthat::assert_that(is.data.frame(x))
+    assert(is.data.frame(x))
     invisible(
       assertthat::see_if(
         identical(names(x), "value"),

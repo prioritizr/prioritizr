@@ -13,11 +13,11 @@ NULL
 any_nonzero <- function(x) UseMethod("any_nonzero")
 
 assertthat::on_failure(any_nonzero) <- function(call, env) {
-  paste(deparse(call$x), "only has zero values")
+  paste0("{.arg ", deparse(call$x), "} must not have only zero values.")
 }
 
 any_nonzero.default <- function(x) {
-  stop("argument to x is not a recognized class")
+  stop("{.arg x} is not a recognized class.")
 }
 
 .S3method("any_nonzero", "default", any_nonzero.default)

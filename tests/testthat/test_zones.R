@@ -17,9 +17,9 @@ test_that("zones (SpatRaster)", {
   expect_equal(number_of_features(x), 5)
   expect_equal(zone_names(x), c("z1", "z2", "z3"))
   expect_equal(feature_names(x), names(sim_features))
-  expect_error(zones(sim_features[[1:2]], sim_features[[1:3]]))
-  expect_error(zones(sim_features[[1]], zone_names = c("z1", "z2")))
-  expect_error(zones(sim_features[[1]], feature_names = c("z1", "z2")))
+  expect_tidy_error(zones(sim_features[[1:2]], sim_features[[1:3]]))
+  expect_tidy_error(zones(sim_features[[1]], zone_names = c("z1", "z2")))
+  expect_tidy_error(zones(sim_features[[1]], feature_names = c("z1", "z2")))
 })
 
 test_that("zones (Raster)", {
@@ -42,19 +42,19 @@ test_that("zones (Raster)", {
   expect_equal(number_of_features(x), 5)
   expect_equal(zone_names(x), c("z1", "z2", "z3"))
   expect_equal(feature_names(x), names(sim_features))
-  expect_error(
+  expect_tidy_error(
     expect_warning(
       zones(sim_features[[1:2]], sim_features[[1:3]]),
       "deprecated"
     )
   )
-  expect_error(
+  expect_tidy_error(
     expect_warning(
       zones(sim_features[[1]], zone_names = c("z1", "z2")),
       "deprecated"
     )
   )
-  expect_error(
+  expect_tidy_error(
     expect_warning(
       zones(sim_features[[1]], feature_names = c("z1", "z2")),
       "deprecated"
@@ -77,7 +77,7 @@ test_that("zones (character)", {
   expect_equal(number_of_features(x), 2)
   expect_equal(zone_names(x), c("z1", "z2", "z3"))
   expect_equal(feature_names(x), c("a", "b"))
-  expect_error(zones(c("a1", "b1"), c("a2")))
-  expect_error(zones(c("a1"), zone_names = c("z1", "z2")))
-  expect_error(zones(c("a1"), feature_names = c("a", "b")))
+  expect_tidy_error(zones(c("a1", "b1"), c("a2")))
+  expect_tidy_error(zones(c("a1"), zone_names = c("z1", "z2")))
+  expect_tidy_error(zones(c("a1"), feature_names = c("a", "b")))
 })

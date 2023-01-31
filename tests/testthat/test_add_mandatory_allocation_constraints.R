@@ -203,7 +203,7 @@ test_that("throws error for problem with single zone", {
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
   # tests
-  expect_error(
+  expect_tidy_error(
     problem(sim_pu_raster, sim_features) %>%
     add_mandatory_allocation_constraints()
   )

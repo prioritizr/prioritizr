@@ -76,7 +76,7 @@ test_that("x = SpatRaster, features = SpatRaster", {
   expect_equal(names(x$data$rij_matrix), x$zone_names())
   expect_equal(rownames(x$data$rij_matrix[[1]]), x$feature_names())
   # test that calling targets before they have been initialized throws error
-  expect_error(x$feature_targets())
+  expect_tidy_error(x$feature_targets())
 })
 
 test_that("x = SpatRaster, features = ZonesSpatRaster", {
@@ -175,7 +175,7 @@ test_that("x = SpatRaster, features = ZonesSpatRaster", {
     )
   )
   # test that calling targets before they have been initialized throws error
-  expect_error(x$feature_targets())
+  expect_tidy_error(x$feature_targets())
 })
 
 test_that("x = sf, features = SpatRaster", {
@@ -256,7 +256,7 @@ test_that("x = sf, features = SpatRaster", {
   expect_equal(names(x$data$rij_matrix), "cost")
   expect_equal(rownames(x$data$rij_matrix[[1]]), names(sim_features))
   # test that calling targets before they have been initialized throws error
-  expect_error(x$feature_targets())
+  expect_tidy_error(x$feature_targets())
 })
 
 test_that("x = sf, features = ZonesSpatRaster", {
@@ -362,7 +362,7 @@ test_that("x = sf, features = ZonesSpatRaster", {
     )
   )
   # test that calling targets before they have been initialized throws error
-  expect_error(x$feature_targets())
+  expect_tidy_error(x$feature_targets())
 })
 
 test_that("x = sf, features = character", {
@@ -449,7 +449,7 @@ test_that("x = sf, features = character", {
   expect_equal(names(x$data$rij_matrix), "cost")
   expect_equal(rownames(x$data$rij_matrix[[1]]),  c("spp1", "spp2"))
   # test that calling targets before they have been initialized throws error
-  expect_error(x$feature_targets())
+  expect_tidy_error(x$feature_targets())
 })
 
 test_that("x = sf, features = ZonesCharacter", {
@@ -601,7 +601,7 @@ test_that("x = sf, features = ZonesCharacter", {
   expect_true(all(x$data$rij_matrix[[1]] == rij[[1]]))
   expect_true(all(x$data$rij_matrix[[2]] == rij[[2]]))
   # test that calling targets before they have been initialized throws error
-  expect_error(x$feature_targets())
+  expect_tidy_error(x$feature_targets())
 })
 
 test_that("x=data.frame, features=character", {
@@ -671,7 +671,7 @@ test_that("x=data.frame, features=character", {
   expect_equal(names(x$data$rij_matrix), "cost")
   expect_equal(rownames(x$data$rij_matrix[[1]]), c("spp1", "spp2"))
   # test that calling targets before they have been initialized throws error
-  expect_error(x$feature_targets())
+  expect_tidy_error(x$feature_targets())
 })
 
 test_that("x = data.frame, features = ZonesCharacter", {
@@ -767,7 +767,7 @@ test_that("x = data.frame, features = ZonesCharacter", {
   expect_equal(rownames(x$data$rij_matrix[[1]]), c("1", "2"))
   expect_equal(rownames(x$data$rij_matrix[[2]]), c("1", "2"))
   # test that calling targets before they have been initialized throws error
-  expect_error(x$feature_targets())
+  expect_tidy_error(x$feature_targets())
 })
 
 test_that("x = data.frame, features = data.frame (single zone)", {
@@ -826,7 +826,7 @@ test_that("x = data.frame, features = data.frame (single zone)", {
   expect_equal(names(x$data$rij_matrix), "cost")
   expect_equal(rownames(x$data$rij_matrix[[1]]), letters[1:5])
   # test that calling targets before they have been initialized throws error
-  expect_error(x$feature_targets())
+  expect_tidy_error(x$feature_targets())
 })
 
 test_that("x = data.frame, features = data.frame (multiple zones)", {
@@ -913,7 +913,7 @@ test_that("x = data.frame, features = data.frame (multiple zones)", {
   expect_equal(rownames(x$data$rij_matrix[[1]]), letters[1:5])
   expect_equal(rownames(x$data$rij_matrix[[2]]), letters[1:5])
   # test that calling targets before they have been initialized throws error
-  expect_error(x$feature_targets())
+  expect_tidy_error(x$feature_targets())
 })
 
 test_that("x = numeric, features = data.frame", {
@@ -974,7 +974,7 @@ test_that("x = numeric, features = data.frame", {
   )
   expect_equal(rownames(x$data$rij_matrix[[1]]), c("spp1", "spp2"))
   # test that calling targets before they have been initialized throws error
-  expect_error(x$feature_targets())
+  expect_tidy_error(x$feature_targets())
 })
 
 test_that("x = matrix, features = data.frame", {
@@ -1049,5 +1049,5 @@ test_that("x = matrix, features = data.frame", {
   expect_equal(rownames(x$data$rij_matrix[[1]]), c("spp1", "spp2"))
   expect_equal(rownames(x$data$rij_matrix[[2]]), c("spp1", "spp2"))
   # test that calling targets before they have been initialized throws error
-  expect_error(x$feature_targets())
+  expect_tidy_error(x$feature_targets())
 })

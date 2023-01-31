@@ -499,10 +499,10 @@ test_that("invalid inputs (single zone)", {
     add_relative_targets(0.1) %>%
     add_binary_decisions()
   # tests
-  expect_error(add_boundary_penalties(p, 9, 1.5))
-  expect_error(add_boundary_penalties(p, 9, -0.5))
-  expect_error(add_boundary_penalties(p, 9, NA))
-  expect_error(add_boundary_penalties(p, NA, 0.5))
+  expect_tidy_error(add_boundary_penalties(p, 9, 1.5))
+  expect_tidy_error(add_boundary_penalties(p, 9, -0.5))
+  expect_tidy_error(add_boundary_penalties(p, 9, NA))
+  expect_tidy_error(add_boundary_penalties(p, NA, 0.5))
 })
 
 test_that("invalid inputs (multiple zones)", {
@@ -520,14 +520,14 @@ test_that("invalid inputs (multiple zones)", {
   p_zones[upper.tri(p_zones)] <- 0.1
   p_zones[lower.tri(p_zones)] <- p_zones[upper.tri(p_zones)]
   # tests
-  expect_error(add_boundary_penalties(p, c(0.1, 0.1)))
-  expect_error(add_boundary_penalties(p, c(0.1, 0.1, NA)))
-  expect_error(add_boundary_penalties(p, c(0.1, 0.1, 5)))
-  expect_error(add_boundary_penalties(p, c(0.1, 0.1, -5)))
-  expect_error(add_boundary_penalties(p, zones = p_zones[-1, ]))
-  expect_error(add_boundary_penalties(p, zones = p_zones[, -1]))
-  expect_error(add_boundary_penalties(p, zones = p_zones * runif(9)))
-  expect_error(add_boundary_penalties(p, zones = p_zones + 5))
-  expect_error(add_boundary_penalties(p, zones = p_zones - 5))
-  expect_error(add_boundary_penalties(p, zones = p_zones + c(1, 2, NA)))
+  expect_tidy_error(add_boundary_penalties(p, c(0.1, 0.1)))
+  expect_tidy_error(add_boundary_penalties(p, c(0.1, 0.1, NA)))
+  expect_tidy_error(add_boundary_penalties(p, c(0.1, 0.1, 5)))
+  expect_tidy_error(add_boundary_penalties(p, c(0.1, 0.1, -5)))
+  expect_tidy_error(add_boundary_penalties(p, zones = p_zones[-1, ]))
+  expect_tidy_error(add_boundary_penalties(p, zones = p_zones[, -1]))
+  expect_tidy_error(add_boundary_penalties(p, zones = p_zones * runif(9)))
+  expect_tidy_error(add_boundary_penalties(p, zones = p_zones + 5))
+  expect_tidy_error(add_boundary_penalties(p, zones = p_zones - 5))
+  expect_tidy_error(add_boundary_penalties(p, zones = p_zones + c(1, 2, NA)))
 })

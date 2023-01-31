@@ -258,7 +258,11 @@ NULL
 methods::setMethod(
   "solve",
   signature(a = "OptimizationProblem", b = "Solver"),
-  function(a, b, ...) b$solve(a)
+  function(a, b, ...) {
+    rlang::check_required(a)
+    rlang::check_required(b)
+    b$solve(a)
+  }
 )
 
 #' @name solve
@@ -269,7 +273,8 @@ methods::setMethod(
   signature(a = "ConservationProblem", b = "missing"),
   function(a, b, ..., run_checks = TRUE, force = FALSE) {
     # assert arguments are valid
-    assertthat::assert_that(
+    rlang::check_required(a)
+    assert(
       assertthat::is.flag(run_checks),
       assertthat::noNA(run_checks),
       assertthat::is.flag(force),
@@ -285,24 +290,51 @@ methods::setMethod(
     opt <- compile.ConservationProblem(a, ...)
     # run presolve check to try to identify potential problems
     if (run_checks) {
-      ch <- presolve_check(opt)
-      assertthat::assert_that(
-        isTRUE(force) || isTRUE(ch),
-        msg = paste(
-          "problem failed presolve checks, for more information see",
-           "?presolve_check"
-         )
-       )
+      ## run checks
+      presolve_res <- internal_presolve_check(opt)
+      ## prepare message
+      msg <- presolve_res$msg
+      if (!isTRUE(force)) {
+        msg <- c(
+          msg,
+          "i" = paste(
+            "To ignore checks and attempt optimization anyway,",
+            "use {.code solve(force = TRUE)}."
+          )
+        )
+      }
+      ## determine if error or warning should be thrown
+      if (!isTRUE(force)) {
+        f <- assert
+      } else {
+        f <- verify
+      }
+      ## throw error or warning if checks failed
+      f(isTRUE(presolve_res$pass), call = parent.frame(), msg = msg)
     }
     # solve problem
     sol <- a$portfolio$run(opt, a$solver)
-    # check that solution is valid
-    assertthat::assert_that(
-      !is.null(sol) && !is.null(sol[[1]]$x),
-      msg = paste0(
-        "no solution found (e.g., due to problem infeasibility or time ",
-        "limits)"
+    # prepare message
+    msg <- c(
+      "Can't find solution!",
+      "i" = paste(
+        "This is because it is impossible to meet all the",
+        "targets, budgets, or constraints (i.e., problem infeasibility)."
       )
+    )
+    if (as.list(a$solver$parameters)$time_limit < 1e10) {
+      msg <- c(
+        msg,
+        "i" = paste(
+          "It could also be because the {.arg time_limit}",
+          "is too low to find a solution."
+        )
+      )
+    }
+    # check that solution is valid
+    assert(
+      !is.null(sol) && !is.null(sol[[1]]$x),
+      msg = msg
     )
     ## format solutions
     # format solutions into planning unit by zones matrix
@@ -391,7 +423,7 @@ methods::setMethod(
       })
       names(ret) <- paste0("solution_", seq_along(sol))
     } else {
-      stop("planning unit data is of an unrecognized class") # nocov
+      stop("Planning unit data is of an unrecognized class.") # nocov
     }
     # if ret is a list of matrices with a single column then convert to numeric
     if (is.matrix(ret[[1]]) && ncol(ret[[1]]) == 1) {

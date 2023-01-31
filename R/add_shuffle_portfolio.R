@@ -90,10 +90,14 @@ NULL
 
 #' @rdname add_shuffle_portfolio
 #' @export
-add_shuffle_portfolio <- function(x, number_solutions = 10L, threads = 1L,
+add_shuffle_portfolio <- function(x, number_solutions = 10, threads = 1,
                                   remove_duplicates = TRUE) {
   # assert that arguments are valid
-  assertthat::assert_that(
+  rlang::check_required(x)
+  rlang::check_required(number_solutions)
+  rlang::check_required(threads)
+  rlang::check_required(remove_duplicates)
+  assert(
     is_conservation_problem(x),
     assertthat::is.count(number_solutions),
     all_finite(number_solutions),

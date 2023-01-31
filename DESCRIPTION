@@ -1,6 +1,6 @@
 Package: prioritizr
 Type: Package
-Version: 8.0.0.0
+Version: 7.3.0.0
 Title: Systematic Conservation Prioritization in R
 Description:
     Systematic conservation prioritization using mixed integer linear
@@ -51,6 +51,8 @@ Imports:
     utils,
     methods,
     parallel,
+    rlang (>= 1.0.6),
+    cli (>= 3.6.0),
     sf (>= 0.8-0),
     terra (>= 1.6-53),
     raster (>= 3.6.11),
@@ -60,7 +62,6 @@ Imports:
     slam (>= 0.1-48),
     igraph (>= 1.2.9),
     ape (>= 5.5),
-    geos (>= 0.2),
     plyr (>= 1.8.6),
     doParallel (>= 1.0.16),
     magrittr (>= 2.0.1),
@@ -101,9 +102,8 @@ RoxygenNote: 7.2.3
 Collate:
     'external-classes.R'
     'internal.R'
-    'pproto.R'
-    'Parameter-proto.R'
-    'ArrayParameter-proto.R'
+    'assertions_class.R'
+    'assertions_sf.R'
     'assertions_misc.R'
     'assertions_raster.R'
     'assertions_vector.R'
@@ -117,6 +117,9 @@ Collate:
     'all_columns_any_finite.R'
     'all_binary.R'
     'assertions.R'
+    'pproto.R'
+    'Parameter-proto.R'
+    'ArrayParameter-proto.R'
     'MiscParameter-proto.R'
     'Parameters-proto.R'
     'ScalarParameter-proto.R'
@@ -141,9 +144,10 @@ Collate:
     'Target-proto.R'
     'zones.R'
     'add_absolute_targets.R'
-    'marxan_boundary_data_to_matrix.R'
+    'marxan_connectivity_data_to_matrix.R'
     'add_asym_connectivity_penalties.R'
     'add_binary_decisions.R'
+    'marxan_boundary_data_to_matrix.R'
     'add_boundary_penalties.R'
     'add_cbc_solver.R'
     'add_connectivity_penalties.R'
@@ -224,7 +228,6 @@ Collate:
     'is_numeric_values.R'
     'is_same_crs.R'
     'list_text.R'
-    'marxan_connectivity_data_to_matrix.R'
     'marxan_problem.R'
     'misc.R'
     'new_optimization_problem.R'
@@ -249,6 +252,7 @@ Collate:
     'st_geometry_classes.R'
     'summaries.R'
     'targets.R'
+    'test-helpers.R'
     'write_problem.R'
     'zone_names.R'
     'zzz.R'

@@ -74,7 +74,12 @@ add_lpsymphony_solver <- function(x, gap = 0.1,
                                   time_limit = .Machine$integer.max,
                                   first_feasible = FALSE, verbose = TRUE) {
   # assert that arguments are valid
-  assertthat::assert_that(
+  rlang::check_required(x)
+  rlang::check_required(gap)
+  rlang::check_required(time_limit)
+  rlang::check_required(first_feasible)
+  rlang::check_required(verbose)
+  assert(
     is_conservation_problem(x),
     assertthat::is.number(gap),
     all_finite(gap),
@@ -86,17 +91,16 @@ add_lpsymphony_solver <- function(x, gap = 0.1,
     assertthat::noNA(verbose),
     assertthat::is.flag(first_feasible),
     assertthat::noNA(first_feasible),
-    is_installed("lpsymphony", "add_lpsymphony_solver()")
+    is_installed("lpsymphony")
   )
-
   # throw error about bug in early version of lpsymphony
-  assertthat::assert_that(
+  assert(
     utils::packageVersion("lpsymphony") > as.package_version("1.4.1"),
     msg = paste(
-      "the version of lpsymphony that is currently installed has a",
+      "The version of {.pkg lpsymphony} that is currently installed has a",
       "serious bug that can produce incorrect solutions,",
       "please update it using:\"",
-      "remotes::install_bioc(\"lpsymphony\")"
+      "{.code remotes::install_bioc(\"lpsymphony\")}"
     )
   )
 
@@ -175,14 +179,32 @@ add_lpsymphony_solver <- function(x, gap = 0.1,
         if (max(x$solution[b]) < 1.01) {
           x$solution[x$solution[b] > 1] <- 1
         } else {
-          stop("infeasible solution returned, try relaxing solver parameters")
+          cli::cli_abort(
+            c(
+              "Solver returned infeasible solution.",
+              "i" = paste(
+                "Try relaxing parameters to obtain a solution",
+                "(e.g., {.arg gap} or {.arg time_limit})."
+              )
+            ),
+            call = NULL
+          )
         }
       }
       if (any(x$solution[b] < 0)) {
         if (min(x$solution[b]) > -0.01) {
           x$solution[x$solution[b] < 0] <- 0
         } else {
-          stop("infeasible solution returned, try relaxing solver parameters")
+          cli::cli_abort(
+            c(
+              "Solver returned infeasible solution.",
+              "i" = paste(
+                "Try relaxing parameters to obtain a solution",
+                "(e.g., {.arg gap} or {.arg time_limit})."
+              )
+            ),
+            call = NULL
+          )
         }
       }
       #nocov end

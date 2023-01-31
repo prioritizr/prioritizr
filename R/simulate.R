@@ -42,14 +42,17 @@ NULL
 #' plot(x, main = "simulated data")
 #' }
 #' @export
-simulate_data <- function(x, n, scale, intensity, sd, transform)
+simulate_data <- function(x, n, scale, intensity, sd, transform) {
+  rlang::check_required(x)
+  assert(is_inherits(x, c("SpatRaster", "Raster")))
   UseMethod("simulate_data")
+}
 
 #' @rdname simulate_data
 #' @method simulate_data Raster
 #' @export
 simulate_data.Raster <- function(x, n = 1, scale = 0.5, intensity = 0,
-                                     sd = 1, transform = identity) {
+                                 sd = 1, transform = identity) {
   .Deprecated(msg = raster_pkg_deprecation_notice)
   raster::stack(
     simulate_data.SpatRaster(
@@ -68,7 +71,7 @@ simulate_data.Raster <- function(x, n = 1, scale = 0.5, intensity = 0,
 simulate_data.SpatRaster <- function(x, n = 1, scale = 0.5, intensity = 0,
                                      sd = 1, transform = identity) {
   # assert valid arguments
-  assertthat::assert_that(
+  assert(
     inherits(x, "SpatRaster"),
     assertthat::is.count(n),
     terra::global(x, "notNA")[[1]][[1]] > 0,
@@ -79,7 +82,7 @@ simulate_data.SpatRaster <- function(x, n = 1, scale = 0.5, intensity = 0,
     assertthat::is.number(sd),
     assertthat::noNA(sd),
     is.function(transform),
-    is_installed("fields", "simulate_data()")
+    is_installed("fields")
   )
 
   # create object for simulation
@@ -135,7 +138,11 @@ simulate_data.SpatRaster <- function(x, n = 1, scale = 0.5, intensity = 0,
 #' }
 #'
 #' @export
-simulate_species <- function(x, n, scale) UseMethod("simulate_species")
+simulate_species <- function(x, n, scale) {
+  rlang::check_required(x)
+  assert(is_inherits(x, c("SpatRaster", "Raster")))
+  UseMethod("simulate_species")
+}
 
 #' @rdname simulate_species
 #' @method simulate_species Raster
@@ -201,13 +208,17 @@ simulate_species.SpatRaster <- function(x, n = 1, scale = 0.5) {
 #' }
 #'
 #' @export
-simulate_cost <- function(x, n, intensity, sd, scale) UseMethod("simulate_cost")
+simulate_cost <- function(x, n, intensity, sd, scale) {
+  rlang::check_required(x)
+  assert(is_inherits(x, c("SpatRaster", "Raster")))
+  UseMethod("simulate_cost")
+}
 
 #' @rdname simulate_cost
 #' @method simulate_cost Raster
 #' @export
-simulate_cost.Raster <- function(x,  n = 1, intensity = 100,
-                                    sd = 20, scale = 2.5) {
+simulate_cost.Raster <- function(x, n = 1, intensity = 100,
+                                 sd = 20, scale = 2.5) {
   .Deprecated(msg = raster_pkg_deprecation_notice)
   raster::stack(
     simulate_cost.SpatRaster(
@@ -224,7 +235,7 @@ simulate_cost.Raster <- function(x,  n = 1, intensity = 100,
 #' @method simulate_cost SpatRaster
 #' @export
 simulate_cost.SpatRaster <- function(x, n = 1, intensity = 100,
-                                  sd = 20, scale = 2.5) {
+                                     sd = 20, scale = 2.5) {
   simulate_data(
     x,
     n = n,

@@ -270,28 +270,28 @@ test_that("invalid inputs (single zone)", {
   sim_features <- get_sim_features()
   sim_phylogeny <- get_sim_phylogeny()
   # tests
-  expect_error(
+  expect_tidy_error(
     problem(sim_pu_raster, sim_features) %>%
       add_max_phylo_end_objective(budget = -5, sim_phylogeny)
   )
-  expect_error(
+  expect_tidy_error(
     problem(sim_pu_raster, sim_features) %>%
       add_max_phylo_end_objective(budget = 0, sim_phylogeny)
   )
-  expect_error(
+  expect_tidy_error(
     problem(sim_pu_raster, sim_features) %>%
       add_max_phylo_end_objective(budget = NA, sim_phylogeny)
   )
-  expect_error(
+  expect_tidy_error(
     problem(sim_pu_raster, sim_features) %>%
       add_max_phylo_end_objective(budget = Inf, sim_phylogeny)
   )
-  expect_error(
+  expect_tidy_error(
     problem(sim_pu_raster, sim_features) %>%
       add_max_phylo_end_objective(
         budget = 5000, ape::drop.tip(sim_phylogeny, "layer.1"))
   )
-  expect_error(
+  expect_tidy_error(
     problem(sim_pu_raster, sim_features) %>%
     add_max_phylo_end_objective(budget = 5, sim_phylogeny) %>%
     compile()
@@ -1028,32 +1028,32 @@ test_that("invalid inputs (multiple zones)", {
   # update feature names
   sim_phylogeny$tip.label <- feature_names(sim_zones_features)
   # tests
-  expect_error(
+  expect_tidy_error(
     problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_max_phylo_end_objective(budget = c(1, -5, 1), sim_phylogeny)
   )
-  expect_error(
+  expect_tidy_error(
     problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_max_phylo_end_objective(budget = c(1, NA, 1), sim_phylogeny)
   )
-  expect_error(
+  expect_tidy_error(
     problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_max_phylo_end_objective(budget = c(NA, NA, NA), sim_phylogeny)
   )
-  expect_error(
+  expect_tidy_error(
     problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_max_phylo_end_objective(budget = c(1, Inf, 9), sim_phylogeny)
   )
-  expect_error(
+  expect_tidy_error(
     problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_max_phylo_end_objective(budget = c(1, Inf, 9), sim_phylogeny)
   )
-  expect_error(
+  expect_tidy_error(
     problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_max_phylo_end_objective(
       budget = 5000, ape::drop.tip(sim_phylogeny, "feature_1"))
   )
-  expect_error(
+  expect_tidy_error(
     problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_max_phylo_end_objective(budget = c(5, 5, 5), sim_phylogeny) %>%
     compile()

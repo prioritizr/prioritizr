@@ -89,7 +89,13 @@ NULL
 add_cplex_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
                              presolve = TRUE, threads = 1, verbose = TRUE) {
   # assert that arguments are valid
-  assertthat::assert_that(
+  rlang::check_required(x)
+  rlang::check_required(gap)
+  rlang::check_required(time_limit)
+  rlang::check_required(presolve)
+  rlang::check_required(threads)
+  rlang::check_required(verbose)
+  assert(
     is_conservation_problem(x),
     assertthat::is.number(gap),
     all_finite(gap),
@@ -101,7 +107,7 @@ add_cplex_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
     is_thread_count(threads),
     assertthat::noNA(threads),
     assertthat::is.flag(verbose),
-    is_installed("cplexAPI", "add_cplex_solver()")
+    is_installed("cplexAPI")
   )
   # add solver
   x$add_solver(pproto(
@@ -206,7 +212,7 @@ cplex_error_wrap <- function(result, env = NULL) {
 
 cplex_matrix <- function(m) {
   # inspired by Rcplex:::toCPXMatrix function
-  assertthat::assert_that(inherits(m, "dgCMatrix"))
+  assert(inherits(m, "dgCMatrix"))
   matbeg <- m@p
   matcnt <- diff(c(m@p, length(m@x)))
   matind <- m@i
@@ -221,7 +227,7 @@ cplex_matrix <- function(m) {
 
 cplex <- function(model, control) {
   # assert valid arguments
-  assertthat::assert_that(is.list(model), is.list(control))
+  assert(is.list(model), is.list(control))
   # prepare model data for CPLEX
   model$lb[which(!is.finite(model$lb) & model$lb < 0)] <-
     -1 * cplexAPI::CPX_INFBOUND
@@ -285,11 +291,11 @@ cplex <- function(model, control) {
     matval = model$A2$matval
   )
   if (!(identical(result, 0) || identical(result, 0L))) {
-    msg <- paste(
-      "issue preparing data for IBM CPLEX, please file an issue at",
-      utils::packageDescription("prioritizr")$BugReports
+    msg <- paste0(
+      "Issue preparing data for IBM CPLEX, please file an issue at: {.url ",
+      utils::packageDescription("prioritizr")$BugReports, "}."
     )
-    stop(msg)
+    cli::cli_abort(msg, call = NULL)
   }
   # solve problem
   if (all(model$vtype == "C")) {

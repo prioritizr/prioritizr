@@ -57,11 +57,13 @@ compile <- function(x, ...) UseMethod("compile")
 #' @export
 compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
   # assert arguments are valid
-  assertthat::assert_that(
+  rlang::check_required(x)
+  rlang::check_required(compressed_formulation)
+  assert(
     is_conservation_problem(x),
-    no_extra_arguments(...),
     assertthat::is.flag(compressed_formulation)
   )
+  rlang::check_dots_empty()
   # sanity checks
   targets_not_supported <- c(
     "MaximumUtilityObjective",
@@ -72,9 +74,9 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
     !is.Waiver(x$targets)
   ) {
     warning(
-      paste(
-        "ignoring targets since the specified objective",
-        "function doesn't use targets"
+      cli::format_warning(
+        "Targets will be ignored, because the specified objective",
+        "function doesn't use them."
       ),
       call. = FALSE,
       immediate. = TRUE
@@ -157,9 +159,9 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
       inherits(x$objective, weights_not_supported)
     ) {
       warning(
-        paste(
-          "ignoring weights since the specified objective",
-          "function doesn't use weights"
+        cli::format_warning(
+          "Weights will be ignored, because the specified objective",
+          "function doesn't use them."
         ),
         call. = FALSE,
         immediate. = TRUE

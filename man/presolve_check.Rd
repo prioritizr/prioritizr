@@ -6,14 +6,17 @@
 \alias{presolve_check.OptimizationProblem}
 \title{Presolve check}
 \usage{
-presolve_check(x)
+presolve_check(x, warn = TRUE)
 
-\method{presolve_check}{ConservationProblem}(x)
+\method{presolve_check}{ConservationProblem}(x, warn = TRUE)
 
-\method{presolve_check}{OptimizationProblem}(x)
+\method{presolve_check}{OptimizationProblem}(x, warn = TRUE)
 }
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} or \code{\linkS4class{OptimizationProblem}} object.}
+
+\item{warn}{\code{logical} should a warning be thrown if the presolve checks fail?
+Defaults to \code{TRUE}.}
 }
 \value{
 A \code{logical} value indicating if all checks passed successfully.

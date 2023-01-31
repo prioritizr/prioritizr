@@ -13,7 +13,7 @@ NULL
 #'
 #' @noRd
 is_spatial_extents_overlap <- function(x, y) {
-  assertthat::assert_that(
+  assert(
     is_inherits(x, c(
       "SpatRaster", "Raster", "Spatial", "sf",
       "ZonesRaster", "ZonesSpatRaster"
