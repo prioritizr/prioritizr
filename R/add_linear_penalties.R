@@ -392,19 +392,12 @@ methods::setMethod("add_linear_penalties",
       number_of_total_units(x) == nrow(data),
       number_of_zones(x) == ncol(data)
     )
-    # create parameters
-    if (number_of_zones(x) == 1) {
-      p <- numeric_parameter("penalty", penalty)
-    } else {
-      p <- numeric_parameter_array("penalty", penalty, x$zone_names())
-    }
     # add penalties
     x$add_penalty(pproto(
       "LinearPenalty",
       Penalty,
       name = "Linear penalties",
-      data = list(data = data),
-      parameters = parameters(p),
+      data = list(penalty = penalty, data = data),
       apply = function(self, x, y) {
         assert(
           inherits(x, "OptimizationProblem"),
@@ -412,8 +405,7 @@ methods::setMethod("add_linear_penalties",
           .internal = TRUE
         )
         # extract parameters
-        p <- self$parameters$get("penalty")
-        if (inherits(p, "data.frame")) p <- p[[1]]
+        p <- self$get_data("penalty")
         if (min(abs(p)) > 1e-50) {
           # extract data
           indices <- y$planning_unit_indices()

@@ -20,9 +20,9 @@ far reaching effects.}
 
 \item{$name}{\code{character} name of object.}
 
-\item{$parameters}{\code{list} object used to customize the modifier.}
-
 \item{$data}{\code{list} object with data.}
+
+\item{$internal}{\code{list} object with internal data.}
 
 \item{$compressed_formulation}{\code{logical} can this constraint be applied
 to the compressed version of the conservation planning problem?. Defaults
@@ -44,17 +44,15 @@ to \code{TRUE}.}
 
 \code{x$set_data(name, value)}
 
+\code{x$get_internal(name)}
+
+\code{x$set_internal(name, value)}
+
 \code{x$calculate(cp)}
 
 \code{x$output()}
 
 \code{x$apply(op,cp)}
-
-\code{x$get_parameter(id)}
-
-\code{x$get_all_parameters()}
-
-\code{x$set_parameter(id, value)}
 }
 
 \section{Arguments}{
@@ -92,6 +90,14 @@ the corresponding \code{name}. If the object is not present in the
 the corresponding name. If an object with that name already
 exists then the object is overwritten.}
 
+\item{get_internal}{return an object stored in the \code{internal} field with
+the corresponding \code{name}. If the object is not present in the
+\code{data} field, a \code{waiver} object is returned.}
+
+\item{set_internal}{store an object stored in the \code{internal} field with
+the corresponding name. If an object with that name already
+exists then the object is overwritten.}
+
 \item{calculate}{\code{function} used to perform preliminary calculations
 and store the data so that they can be reused later without
 performing the same calculations multiple times. Data can be stored
@@ -105,13 +111,6 @@ This method is only used for \code{\linkS4class{Target}} objects.}
 \code{\linkS4class{OptimizationProblem}} object.
 This is used by \code{\linkS4class{Constraint}},
 \code{\linkS4class{Decision}}, and \code{\linkS4class{Objective}} objects.}
-
-\item{get_parameter}{retrieve the value of a parameter.}
-
-\item{get_all_parameters}{generate \code{list} containing all the
-parameters.}
-
-\item{set_parameter}{change the value of a parameter to new value.}
 
 }
 }

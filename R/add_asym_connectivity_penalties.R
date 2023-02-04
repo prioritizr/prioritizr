@@ -367,8 +367,7 @@ internal_add_asym_connectivity_penalties <- function(x, penalty, data) {
     "AsymConnectivityPenalty",
     Penalty,
     name = "Asymmetric connectivity penalties",
-    data = list(data = data),
-    parameters = parameters(numeric_parameter("penalty", penalty)),
+    data = list(penalty = penalty, data = data),
     apply = function(self, x, y) {
       assert(
         inherits(x, "OptimizationProblem"),
@@ -376,7 +375,8 @@ internal_add_asym_connectivity_penalties <- function(x, penalty, data) {
         .internal = TRUE
       )
       rcpp_apply_asym_connectivity_penalties(
-        x$ptr, self$parameters$get("penalty"), self$get_data("data"))
+        x$ptr, self$get_data("penalty"), self$get_data("data")
+      )
       invisible(TRUE)
     }
   ))

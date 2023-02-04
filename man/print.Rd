@@ -8,8 +8,6 @@
 \alias{print.ConservationModifier}
 \alias{print.Id}
 \alias{print.OptimizationProblem}
-\alias{print.ScalarParameter}
-\alias{print.ArrayParameter}
 \alias{print.Solver}
 \alias{print.Zones}
 \title{Print}
@@ -23,10 +21,6 @@
 \S4method{print}{Id}(x)
 
 \method{print}{OptimizationProblem}(x, ...)
-
-\method{print}{ScalarParameter}(x, ...)
-
-\method{print}{ArrayParameter}(x, ...)
 
 \method{print}{Solver}(x, ...)
 

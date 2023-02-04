@@ -18,10 +18,10 @@ help page on \link{portfolios}}.
 
 \item{$name}{\code{character} name of portfolio method.}
 
-\item{$parameters}{\code{Parameters} object with parameters used to customize
-the the portfolio.}
+\item{$data}{\code{list} object with data.}
 
-\item{$run}{\code{function} used to generate a portfolio.}
+\item{$internal}{\code{list} object with internal data.}
+
 }
 }
 
@@ -33,6 +33,14 @@ the the portfolio.}
 \code{x$show()}
 
 \code{x$repr()}
+
+\code{x$get_data(name)}
+
+\code{x$set_data(name, value)}
+
+\code{x$get_internal(name)}
+
+\code{x$set_internal(name, value)}
 
 \code{x$run(op, sol)}
 }
@@ -60,6 +68,22 @@ the the portfolio.}
 
 \item{run}{solve an \code{\linkS4class{OptimizationProblem}} object using this
 object and a \code{\linkS4class{Solver}} object.}
+
+\item{get_data}{return an object stored in the \code{data} field with
+the corresponding \code{name}. If the object is not present in the
+\code{data} field, a \code{waiver} object is returned.}
+
+\item{set_data}{store an object stored in the \code{data} field with
+the corresponding name. If an object with that name already
+exists then the object is overwritten.}
+
+\item{get_internal}{return an object stored in the \code{internal} field with
+the corresponding \code{name}. If the object is not present in the
+\code{internal} field, a \code{waiver} object is returned.}
+
+\item{set_internal}{store an object stored in the \code{internal} field with
+the corresponding name. If an object with that name already
+exists then the object is overwritten.}
 
 }
 }

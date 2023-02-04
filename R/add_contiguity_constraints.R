@@ -243,7 +243,6 @@ methods::setMethod("add_contiguity_constraints",
     # assert valid arguments
     assert(
       is_conservation_problem(x),
-      # is_inherits(zones, c("matrix", "Matrix"))
       is_matrix_ish(zones)
     )
     if (!is.null(data)) {
@@ -258,15 +257,13 @@ methods::setMethod("add_contiguity_constraints",
         number_of_total_units(x) == ncol(data),
         Matrix::isSymmetric(data)
       )
-      d <- list(matrix = data)
     } else {
       # check that planning unit data is spatially referenced
       assert(
         is_pu_spatially_explicit(x),
-        msg =
-        c(
+        msg = c(
           paste(
-            "{.arg data} must be manually specified (e.g., as a Matrix)."
+            "{.arg data} must be manually specified (e.g., as a {.cls Matrix})."
           ),
           "i" = paste(
             "This is because {.arg x} has planning unit data that are not",
@@ -275,7 +272,6 @@ methods::setMethod("add_contiguity_constraints",
           )
         )
       )
-      d <- list()
     }
     # convert zones to matrix
     zones <- as.matrix(zones)
@@ -295,22 +291,17 @@ methods::setMethod("add_contiguity_constraints",
     x$add_constraint(pproto(
       "ContiguityConstraint",
       Constraint,
-      data = d,
-      name = "Contiguity constraints",
-      parameters = parameters(
-        binary_parameter("apply constraints?", 1L),
-        binary_matrix_parameter("zones", zones, symmetric = TRUE)
-      ),
+      name = "contiguity constraints",
+      data = list(data = data, zones = zones),
       calculate = function(self, x) {
-        assert(is_conservation_problem(x))
-        # generate matrix if null
-        if (is.Waiver(self$get_data("matrix"))) {
-          # create matrix
-          data <- adjacency_matrix(x$data$cost)
-          # coerce matrix to full matrix
-          data <- as_Matrix(data, "dgCMatrix")
-          # store data
-          self$set_data("matrix", data)
+        # assert valid arguments
+        assert(is_conservation_problem(x), .internal = TRUE)
+        # if needed, calculate adjacency matrix
+        if (
+          is.null(self$get_data("data")) &&
+          is.Waiver(x$get_data("adjacency"))
+        ) {
+          x$set_data("adjacency", adjacency_matrix(x$data$cost))
         }
         # return success
         invisible(TRUE)
@@ -321,24 +312,30 @@ methods::setMethod("add_contiguity_constraints",
           inherits(y, "ConservationProblem"),
           .internal = TRUE
         )
-        if (as.logical(self$parameters$get("apply constraints?")[[1]])) {
-          # extract data and parameters
-          ind <- y$planning_unit_indices()
-          d <- self$get_data("matrix")[ind, ind, drop = FALSE]
-          z <- self$parameters$get("zones")
-          # extract clusters from z
-          z_cl <- igraph::graph_from_adjacency_matrix(z, diag = FALSE,
-            mode = "undirected", weighted = NULL)
-          z_cl <-  igraph::clusters(z_cl)$membership
-          # set cluster memberships to zero if constraints not needed
-          z_cl <- z_cl * diag(z)
-          # convert d to lower triangle sparse matrix
-          d <- Matrix::forceSymmetric(d, uplo = "L")
-          class(d) <- "dgCMatrix"
-          # apply constraints if any zones have contiguity constraints
-          if (max(z_cl) > 0)
-            rcpp_apply_contiguity_constraints(x$ptr, d, z_cl)
+        # extract data
+        z <- self$get_data("zones")
+        d <- self$get_data("data")
+        if (is.Waiver(d) || is.null(d)) {
+          d <- y$get_data("adjacency")
         }
+        # convert to dgCMatrix
+        d <- as_Matrix(d, "dgCMatrix")
+        # subset data by planning unit indices
+        ind <- y$planning_unit_indices()
+        d <- d[ind, ind, drop = FALSE]
+        # extract clusters from z
+        z_cl <- igraph::graph_from_adjacency_matrix(
+          z, diag = FALSE, mode = "undirected", weighted = NULL
+        )
+        z_cl <- igraph::clusters(z_cl)$membership
+        # set cluster memberships to zero if constraints not needed
+        z_cl <- z_cl * diag(z)
+        # convert d to lower triangle sparse matrix
+        d <- Matrix::forceSymmetric(d, uplo = "L")
+        d <- as_Matrix(Matrix::tril(d), "dgCMatrix")
+        # apply constraints if any zones have contiguity constraints
+        if (max(z_cl) > 0) rcpp_apply_contiguity_constraints(x$ptr, d, z_cl)
+        # return invisible
         invisible(TRUE)
       }
   ))

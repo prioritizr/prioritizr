@@ -152,20 +152,14 @@ add_cbc_solver <- function(x,
     "CbcSolver",
     Solver,
     name = "CBC",
-    data = list(start = start_solution),
-    parameters = parameters(
-      numeric_parameter("gap", gap, lower_limit = 0),
-      integer_parameter(
-        "time_limit", time_limit, lower_limit = -1L,
-        upper_limit = as.integer(.Machine$integer.max)
-      ),
-      binary_parameter("presolve", as.integer(presolve)),
-      integer_parameter(
-        "threads", threads, lower_limit = 1L,
-        upper_limit = parallel::detectCores(TRUE)
-      ),
-      binary_parameter("first_feasible", as.integer(first_feasible)),
-      binary_parameter("verbose", as.integer(verbose))
+    data = list(
+      gap = gap,
+      time_limit = time_limit,
+      presolve = presolve,
+      threads = threads,
+      first_feasible = first_feasible,
+      start = start_solution,
+      verbose = verbose
     ),
     calculate = function(self, x, ...) {
       # prepare constraints
@@ -223,35 +217,35 @@ add_cbc_solver <- function(x,
       }
       # create parameters
       p <- list(
-        log = as.character(as.numeric(self$parameters$get("verbose"))),
+        log = as.character(as.numeric(self$get_data("verbose"))),
         verbose = "1",
-        presolve = ifelse(self$parameters$get("presolve") > 0.5, "on", "off"),
-        ratio = as.character(self$parameters$get("gap")),
-        sec = as.character(self$parameters$get("time_limit")),
-        threads = as.character(self$parameters$get("threads"))
+        presolve = ifelse(self$get_data("presolve") > 0.5, "on", "off"),
+        ratio = as.character(self$get_data("gap")),
+        sec = as.character(self$get_data("time_limit")),
+        threads = as.character(self$get_data("threads"))
       )
-      if (self$parameters$get("first_feasible") > 0.5) {
+      if (self$get_data("first_feasible") > 0.5) {
         p$maxso <- "1"
       }
       p$timeMode <- "elapsed"
       # store input data and parameters
-      self$set_data("model", model)
-      self$set_data("parameters", p)
+      self$set_internal("model", model)
+      self$set_internal("parameters", p)
       # return success
       invisible(TRUE)
     },
     set_variable_ub = function(self, index, value) {
-      self$data$model$col_ub[index] <- value
+      self$internal$model$col_ub[index] <- value
       invisible(TRUE)
     },
     set_variable_lb = function(self, index, value) {
-      self$data$model$col_lb[index] <- value
+      self$internal$model$col_lb[index] <- value
       invisible(TRUE)
     },
     run = function(self, x) {
       # access input data and parameters
-      model <- self$get_data("model")
-      p <- self$get_data("parameters")
+      model <- self$get_internal("model")
+      p <- self$get_internal("parameters")
       # solve problem
       rt <- system.time({
         x <- do.call(rcbc::cbc_solve, append(model, list(cbc_args = p)))

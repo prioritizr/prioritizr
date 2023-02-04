@@ -113,8 +113,8 @@ add_gap_portfolio <- function(x, number_solutions = 10, pool_gap = 0.1) {
   assert(
     utils::packageVersion("gurobi") >= as.package_version("8.0.0"),
     msg = paste(
-      "add_gap_portfolio() requires version 8.0.0 (or greater)",
-      "of the Gurobi software"
+      "{.fn add_gap_portfolio} requires version 8.0.0 (or greater)",
+      "of the Gurobi software."
     )
   )
   # add portfolio
@@ -122,32 +122,32 @@ add_gap_portfolio <- function(x, number_solutions = 10, pool_gap = 0.1) {
     "GapPortfolio",
     Portfolio,
     name = "Gap portfolio",
-    parameters = parameters(
-      integer_parameter(
-        "number_solutions", number_solutions, lower_limit = 1L
-      ),
-      numeric_parameter("pool_gap", pool_gap, lower_limit = 0)
+    parameters = list(
+      number_solutions = number_solutions,
+      pool_gap = pool_gap
     ),
     run = function(self, x, solver) {
       ## check that problems has gurobi solver
       assert(
         inherits(solver, "GurobiSolver"),
+        call = NULL,
         msg = paste(
           "{.code add_gap_portfolio} requires the",
           "{.code add_gurobi_solver} to be specified."
-        ),
-        call = NULL
+        )
       )
       ## check that solver gap <= portfolio gap
       assert(
-        solver$parameters$get("gap") <= self$parameters$get("pool_gap"),
-        msg = "solver gap not smaller than or equal to portfolio gap")
+        solver$get_parameter("gap") <= self$get_parameter("pool_gap"),
+        call = NULL,
+        msg = "Solver {.arg gap} must be <= the portfolio {.arg gap}"
+      )
       ## solve problem, and with gap of zero
       sol <- solver$solve(
         x,
         PoolSearchMode = 2,
-        PoolSolutions = self$parameters$get("number_solutions"),
-        PoolGap = self$parameters$get("pool_gap")
+        PoolSolutions = self$get_parameter("number_solutions"),
+        PoolGap = self$get_parameter("pool_gap")
       )
       ## compile results
       if (!is.null(sol$pool)) {

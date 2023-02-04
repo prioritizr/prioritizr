@@ -64,22 +64,6 @@ print.OptimizationProblem <- function(x, ...) x$print()
 
 #' @rdname print
 #'
-#' @method print ScalarParameter
-#'
-#' @export
-#'
-print.ScalarParameter <- function(x, ...) x$print()
-
-#' @rdname print
-#'
-#' @method print ArrayParameter
-#'
-#' @export
-#'
-print.ArrayParameter <- function(x, ...) x$print()
-
-#' @rdname print
-#'
 #' @method print Solver
 #'
 #' @export

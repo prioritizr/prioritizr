@@ -6,7 +6,6 @@
 \alias{show,ConservationModifier-method}
 \alias{show,OptimizationProblem-method}
 \alias{show,Id-method}
-\alias{show,Parameter-method}
 \alias{show,Solver-method}
 \title{Show}
 \usage{
@@ -17,8 +16,6 @@
 \S4method{show}{Id}(x)
 
 \S4method{show}{OptimizationProblem}(x)
-
-\S4method{show}{Parameter}(x)
 
 \S4method{show}{Solver}(x)
 }

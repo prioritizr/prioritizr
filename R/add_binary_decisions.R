@@ -1,4 +1,4 @@
-#' @include internal.R Parameters-proto.R Decision-proto.R
+#' @include internal.R Decision-proto.R
 NULL
 
 #' Add binary decisions
@@ -83,7 +83,7 @@ add_binary_decisions <- function(x) {
   x$add_decisions(pproto(
     "BinaryDecision",
      Decision,
-     name = "Binary decision",
+     name = "binary decision",
      apply = function(self, x) {
        assert(inherits(x,"OptimizationProblem"), .internal = TRUE)
        invisible(rcpp_apply_decisions(x$ptr, "B", 0, 1))

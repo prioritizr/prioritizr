@@ -1,4 +1,4 @@
-#' @include internal.R pproto.R ConservationProblem-proto.R zones.R MiscParameter-proto.R tbl_df.R
+#' @include internal.R pproto.R ConservationProblem-proto.R zones.R tbl_df.R
 NULL
 
 #' Add manual targets
@@ -270,74 +270,59 @@ methods::setMethod(
   methods::signature("ConservationProblem", "tbl_df"),
   function(x, targets) {
     # assert that arguments are valid
-    assert(is_conservation_problem(x))
-    validate_targets <- function(targets) {
+    assert(
+      is_conservation_problem(x),
+      inherits(targets, "tbl_df"),
+      assertthat::has_name(targets, "feature"),
+      assertthat::has_name(targets, "target"),
+      assertthat::has_name(targets, "type"),
+      all_match_of(
+        names(targets),
+        c("feature", "zone", "type", "sense", "target")
+      ),
+      is_inherits(targets$feature, c("character", "factor")),
+      all_match_of(as.character(targets$feature), feature_names(x)),
+      is.numeric(targets$target),
+      all_finite(targets$target),
+      is_inherits(targets$type, c("character", "factor")),
+      all_match_of(as.character(targets$type), c("absolute", "relative"))
+    )
+    if (x$number_of_zones() > 1 || assertthat::has_name(targets, "zone")) {
       assert(
-        inherits(targets, "tbl_df"),
-        assertthat::has_name(targets, "feature"),
-        assertthat::has_name(targets, "target"),
-        assertthat::has_name(targets, "type"),
-        all_match_of(
-          names(targets),
-          c("feature", "zone", "type", "sense", "target")
-        ),
-        is_inherits(targets$feature, c("character", "factor")),
-        all_match_of(as.character(targets$feature), feature_names(x)),
-        is.numeric(targets$target),
-        all_finite(targets$target),
-        is_inherits(targets$type, c("character", "factor")),
-        all_match_of(as.character(targets$type), c("absolute", "relative")),
-        call = fn_caller_env()
+        assertthat::has_name(targets, "zone"),
+        is_inherits(targets$zone, c("character", "factor", "list")),
+        is_inherits(unlist(targets$zone), c("character", "factor")),
+        all_match_of(unlist(targets$zone), zone_names(x))
       )
-      verify(all_positive(targets$target))
-      if (x$number_of_zones() > 1 || assertthat::has_name(targets, "zone")) {
-        assert(
-          assertthat::has_name(targets, "zone"),
-          is_inherits(targets$zone, c("character", "factor", "list")),
-          is_inherits(unlist(targets$zone), c("character", "factor")),
-          all_match_of(unlist(targets$zone), zone_names(x)),
-          call = fn_caller_env()
-        )
-      }
-      if (assertthat::has_name(targets, "sense")) {
-        assert(
-          is_inherits(targets$sense, c("character", "factor")),
-          all_match_of(targets$sense, c(">=", "<=", "=")),
-          call = fn_caller_env()
-        )
-      }
-      TRUE
     }
-    validate_targets(targets)
-    # define function to validate changes to the targets object
-    vfun <- function(x) {
-      !inherits(try(validate_targets(x), silent = TRUE), "try-error")
+    if (assertthat::has_name(targets, "sense")) {
+      assert(
+        is_inherits(targets$sense, c("character", "factor")),
+        all_match_of(targets$sense, c(">=", "<=", "="))
+      )
     }
     # add targets to problem
     x$add_targets(pproto(
       "ManualTargets",
       Target,
       name = "Targets",
-      data = list(abundances = x$feature_abundances_in_total_units()),
-      parameters = parameters(misc_parameter("Targets", targets, vfun)),
-      repr = function(self) {
-        targets <- self$parameters$get("Targets")
-        if (all(as.character(targets$type) == "relative")) {
-          out <- "Relative"
-        } else if (all(as.character(targets$type) == "absolute")) {
-          out <- "Absolute"
+      data = list(targets = targets),
+      internal = list(abundances = x$feature_abundances_in_total_units()),
+      repr = function(self, compact = TRUE) {
+        d <- self$get_data("targets")
+        if (all(as.character(d$type) == "relative")) {
+          type <- "relative"
+        } else if (all(as.character(d$type) == "absolute")) {
+          type <- "absolute"
         } else {
-          out <- "Mixed"
+          type <- "mixed"
         }
-        paste0(
-          out, " targets [targets (min: ", min(targets$target),
-          ", max: ", max(targets$target), ")]"
-        )
+        cli::format_inline("{type} targets (between {.val {range(d$target)}})")
       },
       output = function(self) {
         # get data
-        targets <- self$parameters$get("Targets")
-        abundances <- self$data$abundances
+        targets <- self$get_data("targets")
+        abundances <- self$get_internal("abundances")
         # add zone column if missing
         if (!assertthat::has_name(targets, "zone"))
           targets$zone <- colnames(abundances)[[1]]
@@ -364,8 +349,8 @@ methods::setMethod(
           zone_id <- targets$zone[[relative_rows[[i]]]]
           feature_id <- targets$feature[[relative_rows[[i]]]]
           abund_mtx <- as.matrix(data.frame(feature_id, zone_id))
-          targets$value[relative_rows[i]] <- sum(
-            abundances[abund_mtx]) * targets$target[relative_rows[i]]
+          targets$value[relative_rows[i]] <-
+            sum(abundances[abund_mtx]) * targets$target[relative_rows[i]]
          }
         # return tibble
         targets[, c("feature", "zone", "sense", "value")]

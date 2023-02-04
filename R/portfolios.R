@@ -1,4 +1,4 @@
-#' @include internal.R Collection-proto.R
+#' @include internal.R
 NULL
 
 #' Solution portfolios

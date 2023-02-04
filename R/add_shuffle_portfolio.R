@@ -110,14 +110,11 @@ add_shuffle_portfolio <- function(x, number_solutions = 10, threads = 1,
   x$add_portfolio(pproto(
     "ShufflePortfolio",
     Portfolio,
-    name = "Shuffle portfolio",
-    parameters = parameters(
-      integer_parameter("number_solutions", number_solutions, lower_limit = 1L),
-      integer_parameter(
-        "threads", threads, lower_limit = 1L,
-        upper_limit = parallel::detectCores(TRUE)
-      ),
-      binary_parameter("remove_duplicates", as.integer(remove_duplicates))
+    name = "shuffle portfolio",
+    data = list(
+      number_solutions = number_solutions,
+      threads = threads,
+      remove_duplicates = remove_duplicates
     ),
     run = function(self, x, solver) {
       ## attempt initial solution for problem
@@ -125,18 +122,18 @@ add_shuffle_portfolio <- function(x, number_solutions = 10, threads = 1,
       # if solving the problem failed then return NULL
       if (is.null(initial_sol))
         return(initial_sol)
-      if (self$parameters$get("number_solutions") == 1)
+      if (self$get_data("number_solutions") == 1)
         return(list(initial_sol))
       ## generate additional solutions
       # convert OptimizationProblem to list
       x_list <- as.list(x)
       # prepare cluster for parallel processing
-      if (self$parameters$get("threads") > 1L) {
+      if (self$get_data("threads") > 1L) {
         # initialize cluster
-        cl <- parallel::makeCluster(self$parameters$get("threads"), "PSOCK")
+        cl <- parallel::makeCluster(self$get_data("threads"), "PSOCK")
         # create RNG seeds
         pids <- parallel::clusterEvalQ(cl, Sys.getpid())
-        seeds <- sample.int(n = 1e+5, size = self$parameters$get("threads"))
+        seeds <- sample.int(n = 1e+5, size = self$get_data("threads"))
         names(seeds) <- as.character(unlist(pids))
         # move data to workers
         parallel::clusterExport(
@@ -151,8 +148,8 @@ add_shuffle_portfolio <- function(x, number_solutions = 10, threads = 1,
         doParallel::registerDoParallel(cl)
       }
       sol <- plyr::llply(
-        seq_len(self$parameters$get("number_solutions") - 1),
-         .parallel = isTRUE(self$parameters$get("threads") > 1L),
+        seq_len(self$get_data("number_solutions") - 1),
+         .parallel = isTRUE(self$get_data("threads") > 1L),
          .fun = function(i) {
           # create and shuffle problem
           z <- prioritizr::predefined_optimization_problem(x_list)
@@ -165,13 +162,13 @@ add_shuffle_portfolio <- function(x, number_solutions = 10, threads = 1,
           s
         }
       )
-      if (self$parameters$get("threads") > 1L) {
+      if (self$get_data("threads") > 1L) {
         doParallel::stopImplicitCluster()
         cl <- parallel::stopCluster(cl)
       }
       ## compile results
       sol <- append(list(initial_sol), sol)
-      if (self$parameters$get("remove_duplicates")) {
+      if (self$get_data("remove_duplicates")) {
         unique_pos <- !duplicated(
           vapply(lapply(sol, `[[`, 1), paste, character(1), collapse = " ")
         )

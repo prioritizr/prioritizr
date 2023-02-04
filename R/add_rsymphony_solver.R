@@ -69,7 +69,8 @@ NULL
 #' @export
 add_rsymphony_solver <- function(x, gap = 0.1,
                                  time_limit = .Machine$integer.max,
-                                 first_feasible = FALSE, verbose = TRUE) {
+                                 first_feasible = FALSE,
+                                 verbose = TRUE) {
   # assert that arguments are valid
   rlang::check_required(x)
   rlang::check_required(gap)
@@ -95,17 +96,15 @@ add_rsymphony_solver <- function(x, gap = 0.1,
     "RsymphonySolver",
     Solver,
     name = "Rsymphony",
-    data = list(),
-    parameters = parameters(
-      numeric_parameter("gap", gap, lower_limit = 0),
-      integer_parameter(
-        "time_limit", time_limit, lower_limit = -1,
-        upper_limit = .Machine$integer.max
-      ),
-      binary_parameter("first_feasible", as.integer(first_feasible)),
-      binary_parameter("verbose", as.integer(verbose))
+    data = list(
+      gap = gap,
+      time_limit = time_limit,
+      first_feasible = first_feasible,
+      verbose = verbose
     ),
     calculate = function(self, x, ...) {
+      # assert valid argument
+      assert(is_conservation_problem(x), .internal = TRUE)
       # create model
       model <- list(
         obj = x$obj(),
@@ -123,7 +122,7 @@ add_rsymphony_solver <- function(x, gap = 0.1,
       model$dir <- replace(model$dir, model$dir == "=", "==")
       model$types <- replace(model$types, model$types == "S", "C")
       # prepare parameters
-      p <- as.list(self$parameters)
+      p <- self$data
       p$verbosity <- -1
       if (!p$verbose)
         p$verbosity <- -2
@@ -131,24 +130,24 @@ add_rsymphony_solver <- function(x, gap = 0.1,
       names(p)[which(names(p) == "gap")] <- "gap_limit"
       p$first_feasible <- as.logical(p$first_feasible)
       p$gap_limit <- p$gap_limit * 100
-      # store input data and parameters
-      self$set_data("model", model)
-      self$set_data("parameters", p)
+      # store internal data and parameters
+      self$set_internal("model", model)
+      self$set_internal("parameters", p)
       # return success
       invisible(TRUE)
     },
     set_variable_ub = function(self, index, value) {
-      self$data$model$bounds$upper$val[index] <- value
+      self$internal$model$bounds$upper$val[index] <- value
       invisible(TRUE)
     },
     set_variable_lb = function(self, index, value) {
-      self$data$model$bounds$lower$val[index] <- value
+      self$internal$model$bounds$lower$val[index] <- value
       invisible(TRUE)
     },
     run = function(self) {
       # access input data and parameters
-      model <- self$get_data("model")
-      p <- self$get_data("parameters")
+      model <- self$get_internal("model")
+      p <- self$get_internal("parameters")
       # solve problem
       rt <- system.time({
         x <- do.call(Rsymphony::Rsymphony_solve_LP, append(model, p))

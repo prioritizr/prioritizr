@@ -18,13 +18,10 @@ help page on \link{solvers}}.
 
 \item{$name}{\code{character} name of solver.}
 
-\item{$data}{\code{list} object optimization problem data.}
+\item{$data}{\code{list} of data.}
 
-\item{$parameters}{\code{Parameters} object with parameters used to customize
-the the solver.}
+\item{$internal}{\code{list} of internal data.}
 
-\item{$solve}{\code{function} used to solve a
-\code{\linkS4class{OptimizationProblem}} object.}
 }
 }
 
@@ -40,6 +37,10 @@ the the solver.}
 \code{x$get_data(name)}
 
 \code{x$set_data(name, value)}
+
+\code{x$get_internal(name)}
+
+\code{x$set_internal(name, value)}
 
 \code{x$set_variable_ub(index, value)}
 
@@ -78,6 +79,14 @@ the corresponding \code{name}. If the object is not present in the
 \code{data} field, a \code{waiver} object is returned.}
 
 \item{set_data}{store an object stored in the \code{data} field with
+the corresponding name. If an object with that name already
+exists then the object is overwritten.}
+
+\item{get_internal}{return an object stored in the \code{internal} field with
+the corresponding \code{name}. If the object is not present in the
+\code{internal} field, a \code{waiver} object is returned.}
+
+\item{set_internal}{store an object stored in the \code{internal} field with
 the corresponding name. If an object with that name already
 exists then the object is overwritten.}
 

@@ -190,97 +190,77 @@ methods::setMethod("add_manual_locked_constraints",
 methods::setMethod("add_manual_locked_constraints",
   methods::signature("ConservationProblem", "tbl_df"),
   function(x, data) {
-    # define function to validate data
-    validate_data <- function(data) {
+    assert(
+      is_conservation_problem(x),
+      is.data.frame(data),
+      inherits(data, "tbl_df"),
+      nrow(data) > 0,
+      assertthat::has_name(data, "pu"),
+      is.numeric(data$pu),
+      all_finite(data$pu),
+      is_count_vector(data$pu),
+      max(data$pu) <= number_of_total_units(x),
+      min(data$pu) >= 0,
+      assertthat::has_name(data, "status"),
+      is.numeric(data$status),
+      all_finite(data$status)
+    )
+    if (assertthat::has_name(data, "zone") || x$number_of_zones() > 1) {
       assert(
-        is_conservation_problem(x),
-        is.data.frame(data),
-        inherits(data, "tbl_df"),
-        nrow(data) > 0,
-        assertthat::has_name(data, "pu"),
-        is.numeric(data$pu),
-        all_finite(data$pu),
-        is_count_vector(data$pu),
-        max(data$pu) <= number_of_total_units(x),
-        min(data$pu) >= 0,
-        assertthat::has_name(data, "status"),
-        is.numeric(data$status),
-        all_finite(data$status),
-        call = fn_caller_env()
+        assertthat::has_name(data, "zone"),
+        is_inherits(data$zone, c("character", "factor")),
+        all_match_of(as.character(data$zone), zone_names(x))
       )
-      if (assertthat::has_name(data, "zone") || x$number_of_zones() > 1) {
-        assert(
-          assertthat::has_name(data, "zone"),
-          is_inherits(data$zone, c("character", "factor")),
-          all_match_of(as.character(data$zone), zone_names(x)),
-          call = fn_caller_env()
-        )
-      }
-      return(TRUE)
     }
-    # assert valid arguments
-    validate_data(data)
     # set attributes
     if (x$number_of_zones() == 1) {
       if (all(data$status == 1)) {
         class_name <- "LockedInConstraint"
-        constraint_name <- "Locked in planning units"
+        constraint_name <- "locked in constraints"
       } else if (all(data$status == 0)) {
          class_name <- "LockedOutConstraint"
-        constraint_name <- "Locked out planning units"
+        constraint_name <- "locked out constraints"
       } else {
        class_name <- "LockedManualConstraint"
-         constraint_name <- "Manually locked planning units"
+         constraint_name <- "manual locked constraints"
       }
     } else {
       class_name <- "LockedManualConstraint"
-      constraint_name <- "Manually locked planning units"
-    }
-    # define function to validate changes to data
-    vfun <- function(x) {
-      !inherits(try(validate_data(x), silent = TRUE), "try-error")
+      constraint_name <- "manual locked constraints"
     }
     # add constraints
     x$add_constraint(pproto(
       class_name,
       Constraint,
       name = constraint_name,
-      repr = function(self) {
+      repr = function(self, compact = TRUE) {
         paste0(
-          self$name, " [", nrow(self$parameters$get("Locked data")),
-          " locked units]"
+          self$name, " (", nrow(self$get_data("data")), " planning units)"
         )
       },
-      parameters = parameters(misc_parameter("Locked data", data, vfun)),
-      calculate = function(self, x) {
-        assert(is_conservation_problem(x))
-        # get locked data
-        data <- self$parameters$get("Locked data")
-        # convert zone names to indices
-        if (!assertthat::has_name(data, "zone"))
-          data$zone <- x$zone_names()[1]
-        data$zone <- match(as.character(data$zone), x$zone_names())
-        # remove rows for raster cells that aren't really planning units
-        # i.e., contain NA values in all zones
-        pu <- x$get_data("cost")
-        if (inherits(pu, "Raster")) {
-          pu <- terra::rast(pu)
-        }
-        if (inherits(pu, "SpatRaster")) {
-          units <- terra::cells(terra::allNA(pu), 0)[[1]]
-          data$pu <- match(data$pu, units)
-          data <- data[!is.na(data$pu), , drop = FALSE]
-        }
-        self$set_data("data_std", data)
-        invisible(TRUE)
-      },
+      data = list(data = data),
       apply = function(self, x, y) {
+        # assert argument is valid
         assert(
           inherits(x, "OptimizationProblem"),
           inherits(y, "ConservationProblem"),
           .internal = TRUE
         )
-        data <- self$get_data("data_std")
+        # get locked data
+        d <- self$get_data("data")
+        # convert zone names to indices
+        if (!assertthat::has_name(d, "zone"))
+          d$zone <- x$zone_names()[1]
+        d$zone <- match(as.character(d$zone), y$zone_names())
+        # remove rows for raster cells that aren't really planning units
+        # i.e., contain NA values in all zones
+        pu <- y$get_data("cost")
+        if (inherits(pu, c("SpatRaster", "Raster"))) {
+          units <- x$planning_unit_indices()
+          data$pu <- match(data$pu, units)
+          data <- data[!is.na(data$pu), , drop = FALSE]
+        }
+        # apply constraints
         invisible(
           rcpp_apply_locked_constraints(
             x$ptr, c(data$pu), c(data$zone), data$status

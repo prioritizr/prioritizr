@@ -83,19 +83,12 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
     "HighsSolver",
     Solver,
     name = "HiGHS",
-    data = list(),
-    parameters = parameters(
-      numeric_parameter("gap", gap, lower_limit = 0),
-      integer_parameter(
-        "time_limit", time_limit, lower_limit = -1L,
-        upper_limit = as.integer(.Machine$integer.max)
-      ),
-      binary_parameter("presolve", as.integer(presolve)),
-      integer_parameter(
-        "threads", threads, lower_limit = 1L,
-        upper_limit = parallel::detectCores(TRUE)
-      ),
-      binary_parameter("verbose", as.integer(verbose))
+    data = list(
+      gap = gap,
+      time_limit = time_limit,
+      presolve = presolve,
+      threads = threads,
+      verbose = verbose
     ),
     calculate = function(self, x, ...) {
       # prepare constraints
@@ -104,7 +97,8 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
       sense <- x$sense()
       assert(
         all(sense %in% c("=", "<=", ">=")),
-        msg = "failed to prepare problem formulation for \"highs\" package"
+        msg = "Failed to prepare problem for {.pkg highs} package.",
+        .internal = TRUE
       )
       ## initialize arguments
       row_lb <- numeric(length(rhs))
@@ -145,30 +139,30 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
       model$types[model$types == "S"] <- "SC"
       # create parameters
       p <- list(
-        log_to_console = self$parameters$get("verbose"),
-        presolve = ifelse(self$parameters$get("presolve") > 0.5, "on", "off"),
-        mip_rel_gap = self$parameters$get("gap"),
-        time_limit = as.numeric(self$parameters$get("time_limit")),
-        threads = self$parameters$get("threads")
+        log_to_console = as.integer(self$get_data("verbose")),
+        presolve = ifelse(self$get_data("presolve") > 0.5, "on", "off"),
+        mip_rel_gap = self$get_data("gap"),
+        time_limit = as.numeric(self$get_data("time_limit")),
+        threads = self$get_data("threads")
       )
-      # store input data and parameters
-      self$set_data("model", model)
-      self$set_data("parameters", p)
+      # store internal data and parameters
+      self$set_internal("model", model)
+      self$set_internal("parameters", p)
       # return success
       invisible(TRUE)
     },
     set_variable_ub = function(self, index, value) {
-      self$data$model$upper[index] <- value
+      self$internal$model$upper[index] <- value
       invisible(TRUE)
     },
     set_variable_lb = function(self, index, value) {
-      self$data$model$lower[index] <- value
+      self$internal$model$lower[index] <- value
       invisible(TRUE)
     },
     run = function(self, x) {
-      # access input data and parameters
-      model <- self$get_data("model")
-      p <- self$get_data("parameters")
+      # access internal data and parameters
+      model <- self$get_internal("model")
+      p <- self$get_internal("parameters")
       # solve problem
       rt <- system.time({
         x <- do.call(
@@ -176,7 +170,6 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
           append(model, list(control = p))
         )
       })
-      .GlobalEnv$o1 <- model
       # manually return NULL to indicate error if no solution
       # nocov start
       if (

@@ -25,6 +25,34 @@ assertthat::on_failure(is_thread_count) <- function(call, env) {
   )
 }
 
+#' Is budget length?
+#'
+#' Check if a value is a valid budget length for a [problem].
+#'
+#' @param x [problem] object.
+#'
+#' @param budget `numeric` vector.
+#'
+#' @return A `logical` value.
+#'
+#' @noRd
+is_budget_length <- function(x, budget) {
+  (length(budget) == 1) ||
+  (length(budget) == number_of_zones(x))
+}
+
+assertthat::on_failure(is_budget_length) <- function(call, env) {
+  nz <- number_of_zones(env$x)
+  budget_msg <- ifelse(
+    nz == 1,
+    "{.arg budget} must be a single numeric value.",
+    paste(
+      "{.arg budget} must have a single numeric value,",
+      "or a value for each zone in {.arg x}."
+    )
+  )
+}
+
 #' Is package installed?
 #'
 #' Check if a package is installed.

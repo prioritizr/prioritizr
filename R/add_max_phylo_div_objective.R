@@ -228,65 +228,41 @@ add_max_phylo_div_objective <- function(x, budget, tree) {
     is.numeric(budget),
     all_finite(budget),
     all_positive(budget),
-    min(budget) > 0,
     inherits(tree, "phylo"),
     length(tree$tip.label) == number_of_features(x),
-    all_match_of(tree$tip.label, feature_names(x))
+    all_match_of(tree$tip.label, feature_names(x)),
+    is_budget_length(x, budget)
   )
-  budget_msg <- ifelse(
-    number_of_zones(x) == 1,
-    "{.arg budget} must be a single numeric value.",
-    paste(
-      "{.arg budget} must have a single numeric value,",
-      "or a value for each zone in {.arg x}."
-    )
-  )
-  assert(
-    length(budget) %in% c(1, number_of_zones(x)),
-    msg = budget_msg
-  )
-  # make parameter
-  if (length(budget) == 1) {
-    p <- numeric_parameter(
-      "budget", budget, lower_limit = 0,
-      upper_limit = sum(x$planning_unit_costs(), na.rm = TRUE)
-    )
-  } else {
-    p <- numeric_parameter_array(
-      "budget", budget, x$zone_names(), lower_limit = 0,
-      upper_limit = colSums(x$planning_unit_costs(), na.rm = TRUE)
-    )
-  }
   # add objective to problem
   x$add_objective(pproto(
     "PhylogeneticDiversityObjective",
     Objective,
     name = "Phylogenetic diversity objective",
-    parameters = parameters(p),
-    data = list(tree = tree),
-    calculate = function(self, x) {
-      assert(is_conservation_problem(x))
-      # get tree
-      tr <- self$get_data("tree")
-      # order rows to match order of features in problem
-      pos <- match(tr$tip.label, x$feature_names())
-      # convert tree into matrix showing which species in which
-      # branches and store the result
-      self$set_data("branch_matrix", branch_matrix(tr)[pos, ])
-      invisible(TRUE)
-    },
+    data = list(budget = budget, tree = tree),
     apply = function(self, x, y) {
+      # assert arguments valid
       assert(
         inherits(x, "OptimizationProblem"),
         inherits(y, "ConservationProblem"),
         .internal = TRUE
       )
+      # extract data
+      tr <- self$get_data("tree")
+      el <- tr$edge.length
+      # order rows to match order of features in problem
+      pos <- match(tr$tip.label, x$feature_names())
+      # convert tree into matrix showing which species in which
+      # branches and store the result
+      bm <- branch_matrix(tr)[pos, ]
+      # apply objective
       invisible(
         rcpp_apply_max_phylo_objective(
-          x$ptr, y$feature_targets(), y$planning_unit_costs(),
-          self$parameters$get("budget")[[1]],
-          self$get_data("branch_matrix"),
-          self$get_data("tree")$edge.length
+          x$ptr,
+          y$feature_targets(),
+          y$planning_unit_costs(),
+          self$get_data("budget"),
+          bm,
+          tr$edge.length
         )
       )
     }

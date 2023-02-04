@@ -106,11 +106,7 @@ add_top_portfolio <- function(x, number_solutions = 10) {
     "TopPortfolio",
     Portfolio,
     name = "Top portfolio",
-    parameters = parameters(
-      integer_parameter(
-        "number_solutions", number_solutions, lower_limit = 1L
-      )
-    ),
+    data = list(number_solutions = number_solutions),
     run = function(self, x, solver) {
       ## check that problems has gurobi solver
       assert(
@@ -125,7 +121,7 @@ add_top_portfolio <- function(x, number_solutions = 10) {
       sol <- solver$solve(
         x,
         PoolSearchMode = 2,
-        PoolSolutions = self$parameters$get("number_solutions"),
+        PoolSolutions = self$get_data("number_solutions"),
         MIPGap = 0
       )
       ## compile results

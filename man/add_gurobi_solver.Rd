@@ -63,7 +63,7 @@ to 3). Defaults to \code{FALSE}.}
 Once the amount of memory (RAM) used to store information for solving
 the optimization problem exceeds this parameter value, the solver
 will begin storing this information on disk
-(using the *Gurobi( \code{NodeFileStart} parameter).
+(using the \emph{Gurobi} \code{NodeFileStart} parameter).
 This functionality is useful if the system has insufficient memory to
 solve a given problem (e.g., solving the problem with default settings
 yields the \verb{OUT OF MEMORY} error message) and a system with more memory is

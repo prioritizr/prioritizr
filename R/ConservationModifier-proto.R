@@ -1,4 +1,4 @@
-#' @include internal.R waiver.R pproto.R parameters.R assertions.R
+#' @include internal.R waiver.R pproto.R assertions.R
 NULL
 
 #' @export
@@ -21,9 +21,9 @@ NULL
 #'
 #' \item{$name}{`character` name of object.}
 #'
-#' \item{$parameters}{`list` object used to customize the modifier.}
-#'
 #' \item{$data}{`list` object with data.}
+#'
+#' \item{$internal}{`list` object with internal data.}
 #'
 #' \item{$compressed_formulation}{`logical` can this constraint be applied
 #'    to the compressed version of the conservation planning problem?. Defaults
@@ -43,17 +43,15 @@ NULL
 #'
 #' `x$set_data(name, value)`
 #'
+#' `x$get_internal(name)`
+#'
+#' `x$set_internal(name, value)`
+#'
 #' `x$calculate(cp)`
 #'
 #' `x$output()`
 #'
 #' `x$apply(op,cp)`
-#'
-#' `x$get_parameter(id)`
-#'
-#' `x$get_all_parameters()`
-#'
-#' `x$set_parameter(id, value)`
 #'
 #' @section Arguments:
 #' \describe{
@@ -87,6 +85,14 @@ NULL
 #'   the corresponding name. If an object with that name already
 #'   exists then the object is overwritten.}
 #'
+#' \item{get_internal}{return an object stored in the `internal` field with
+#'   the corresponding `name`. If the object is not present in the
+#'   `data` field, a `waiver` object is returned.}
+#'
+#' \item{set_internal}{store an object stored in the `internal` field with
+#'   the corresponding name. If an object with that name already
+#'   exists then the object is overwritten.}
+#'
 #' \item{calculate}{`function` used to perform preliminary calculations
 #'   and store the data so that they can be reused later without
 #'   performing the same calculations multiple times. Data can be stored
@@ -101,13 +107,6 @@ NULL
 #'   This is used by [`Constraint-class`],
 #'   [`Decision-class`], and [`Objective-class`] objects.}
 #'
-#' \item{get_parameter}{retrieve the value of a parameter.}
-#'
-#' \item{get_all_parameters}{generate `list` containing all the
-#'   parameters.}
-#'
-#' \item{set_parameter}{change the value of a parameter to new value.}
-#'
 #' }
 #'
 #' @name ConservationModifier-class
@@ -119,49 +118,40 @@ NULL
 ConservationModifier <- pproto(
   "ConservationModifier",
   name = character(0),
-  parameters = parameters(),
   data = list(),
+  internal = list(),
   compressed_formulation = TRUE,
   calculate = function(self, y) {
     invisible(TRUE)
   },
   apply = function(self, x, y) {
-    stop("no defined apply method")
+    cli::cli_abort("No defined $apply method.", .internal = TRUE)
   },
   output = function(self) {
-    stop("no defined output method")
+    cli::cli_abort("No defined $output method.", .internal = TRUE)
   },
   print = function(self) {
-    message(self$repr())
+    cli::cli_text(self$repr())
   },
   show = function(self) {
     self$print()
   },
-  repr = function(self) {
-    paste(self$name, gsub("[]", "", self$parameters$repr(), fixed = TRUE))
+  repr = function(self, compact = TRUE) {
+    repr_data_list(self$name, self$data, compact = compact)
   },
   get_data = function(self, x) {
-    if (!x %in% names(self$data)) return(new_waiver())
-    self$data[[x]]
+    self$data[[x]] %||% new_waiver()
   },
   set_data = function(self, x, value) {
     self$data[[x]] <- value
     invisible()
   },
-  get_parameter = function(self, x) {
-    self$parameters$get(x)
+  get_internal = function(self, x) {
+    self$internal[[x]] %||% new_waiver()
+    self$data[[x]]
   },
-  set_parameter = function(self, x, value) {
-    self$parameters$set(x, value)
-  },
-  get_all_parameters = function(self) {
-    structure(
-      lapply(self$parameters, function(x) x$value),
-      .Names = vapply(
-        self$parameters, function(x) x$name, character(1)
-      ),
-      id = vapply(
-        self$parameters, function(x) as.character(x$id), character(1)
-      )
-    )
-  })
+  set_internal = function(self, x, value) {
+    self$internal[[x]] <- value
+    invisible()
+  }
+)

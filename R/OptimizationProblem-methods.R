@@ -1,4 +1,4 @@
-#' @include internal.R OptimizationProblem-proto.R
+#' @include internal.R OptimizationProblem-proto.R reexports.R
 NULL
 
 #' Optimization problem methods

@@ -1,4 +1,4 @@
-#' @include internal.R waiver.R pproto.R Collection-proto.R binary_stack.R category_layer.R category_vector.R
+#' @include internal.R waiver.R pproto.R binary_stack.R category_layer.R category_vector.R
 NULL
 
 #' @export
@@ -36,11 +36,9 @@ NULL
 #' \item{$targets}{[`Target-class`] object used to represent
 #'   representation targets for features.}
 #'
-#' \item{$penalties}{[`Collection-class`] object used to represent
-#'   additional [penalties] that the problem is subject to.}
+#' \item{$penalties}{`list` containing [`Penalty-class`] objects.}
 #'
-#' \item{$constraints}{[`Collection-class`] object used to represent
-#'   additional [constraints] that the problem is subject to.}
+#' \item{$constraints}{`list` containing [`Constraint-class`] objects.}
 #'
 #' \item{$portfolio}{[`Portfolio-class`] object used to represent
 #'   the method for generating a portfolio of solutions.}
@@ -105,26 +103,6 @@ NULL
 #'
 #' `x$add_targets(targ)`
 #'
-#' `x$get_constraint_parameter(id)`
-#'
-#' `x$set_constraint_parameter(id, value)`
-#'
-#' `x$get_objective_parameter(id)`
-#'
-#' `x$set_objective_parameter(id, value)`
-#'
-#' `x$get_solver_parameter(id)`
-#'
-#' `x$set_solver_parameter(id, value)`
-#'
-#' `x$get_portfolio_parameter(id)`
-#'
-#' `x$set_portfolio_parameter(id, value)`
-#'
-#' `x$get_penalty_parameter(id)`
-#'
-#' `x$set_penalty_parameter(id, value)`
-#'
 #' @section Arguments:
 #'
 #' \describe{
@@ -150,10 +128,6 @@ NULL
 #'
 #' \item{features}{[`Zones-class`] or `data.frame` object
 #'   containing feature data.}
-#'
-#' \item{id}{`Id` object that refers to a specific parameter.}
-#'
-#' \item{value}{object that the parameter value should become.}
 #'
 #' }
 #'
@@ -235,31 +209,6 @@ NULL
 #'
 #' \item{add_targets}{return a copy with the targets added to the problem.}
 #'
-#' \item{get_constraint_parameter}{get the value of a parameter (specified by
-#'   argument `id`) used in one of the constraints in the object.}
-#'
-#' \item{set_constraint_parameter}{set the value of a parameter (specified by
-#'   argument `id`) used in one of the constraints in the object to
-#'   `value`.}
-#'
-#' \item{get_objective_parameter}{get the value of a parameter (specified by
-#'   argument `id`) used in the object's objective.}
-#'
-#' \item{set_objective_parameter}{set the value of a parameter (specified by
-#'   argument `id`) used in the object's objective to `value`.}
-#'
-#' \item{get_solver_parameter}{get the value of a parameter (specified by
-#'   argument `id`) used in the object's solver.}
-#'
-#' \item{set_solver_parameter}{set the value of a parameter (specified by
-#'   argument `id`) used in the object's solver to `value`.}
-#'
-#' \item{get_portfolio_parameter}{get the value of a parameter (specified by
-#'   argument `id`) used in the object's portfolio.}
-#'
-#' \item{set_portfolio_parameter}{set the value of a parameter (specified by
-#'   argument `id`) used in objects' solver to `value`.}
-#'
 #' }
 #'
 #' @name ConservationProblem-class
@@ -274,58 +223,423 @@ ConservationProblem <- pproto(
   objective = new_waiver(),
   decisions = new_waiver(),
   targets = new_waiver(),
-  constraints = pproto(NULL, Collection),
-  penalties = pproto(NULL, Collection),
-  portfolio  = new_waiver(),
-  solver  = new_waiver(),
-  print = function(self) {
-    r <- vapply(
-      list(self$objective, self$targets),
-      FUN.VALUE = character(1),
-      function(x) {
-        if (is.Waiver(x)) return("none")
-        x$repr()
-      }
+  constraints = list(),
+  penalties = list(),
+  portfolio = new_waiver(),
+  solver = new_waiver(),
+  summary = function(self) {
+    # define characters
+    ch <- box_chars()
+
+    # create container
+    div_id <- cli::cli_div(theme = conservation_problem_theme())
+
+    # create header
+    cli::cli_text(
+      "A conservation problem ({.cls ConservationProblem})"
     )
-    d <- vapply(
-      list(self$solver, self$decisions, self$portfolio),
-      FUN.VALUE = character(1),
-      function(x) {
-        if (is.Waiver(x)) return("default")
-        x$repr()
-      }
-    )
-    cs <- round(range(self$planning_unit_costs(), na.rm = TRUE), 5)
-    message(
-      paste0(
-        "Conservation Problem",
-        ifelse(
-          self$number_of_zones() > 1,
-          paste0(
-            "\n  zones:          ",
-            repr_atomic(self$zone_names(), "zones")
-          ),
-          ""
-        ),
-        "\n  planning units: ", class(self$data$cost)[1], " (",
-          self$number_of_planning_units(), " units)",
-        "\n  cost:           min: ", cs[1], ", max: ", cs[2],
-        "\n  features:       ", repr_atomic(self$feature_names(), "features"),
-        "\n  objective:      ", r[1],
-        "\n  targets:        ", r[2],
-        "\n  decisions:      ", d[2],
-        "\n  constraints:    ", align_text(self$constraints$repr(), 19),
-        "\n  penalties:      ", align_text(self$penalties$repr(), 19),
-        "\n  portfolio:      ", d[3],
-        "\n  solver:         ", d[1]
+
+    # pre-compute values for data section
+    if (is_spatially_explicit(self$data$cost)) {
+      crs_text <- repr.crs(get_crs(self$data$cost))
+      extent_text <- repr.bbox(sf::st_bbox(self$data$cost))
+    } else {
+      crs_text <- "{.gray NA}"
+      extent_text <- "{.gray NA}"
+    }
+    cost_range <- range(self$planning_unit_costs() , na.rm = TRUE)
+    cost_text <- ifelse(
+      all_binary(self$planning_unit_costs()),
+      paste(
+        "binary values ({.val 0} and {.val 1})"
+      ),
+      paste(
+        "continuous values (between {.val {cost_range}})"
       )
     )
+
+    ############# here
+
+    # print data section
+    cli::cli_text("{ch$j}{ch$b}{.bg data}:")
+    if (self$number_of_zones() > 1) {
+      cli_vtext(
+        "{ch$v}{ch$j}{ch$b}{.g zones}:     ",
+        repr.character(self$zone_names())
+      )
+    }
+    cli_vtext(
+      "{ch$v}{ch$j}{ch$b}{.g features}:     ",
+      repr.character(self$feature_names())
+    )
+    cli_vtext("{ch$v}{ch$l}{ch$b}{.g planning units}:")
+    cli_vtext(
+      "{ch$v} {ch$j}{ch$b}{.g data}:        ",
+      "{.cls ",
+      class(self$data$cost), "} (",
+      self$number_of_planning_units(),
+      " total)"
+    )
+    cli_vtext(
+      "{ch$v} {ch$j}{ch$b}{.g costs}:       ",
+      cost_text
+    )
+    cli_vtext(
+      "{ch$v} {ch$j}{ch$b}{.g extent}:      ",
+      extent_text
+    )
+    cli_vtext(
+      "{ch$v} {ch$l}{ch$b}{.g CRS}:         ",
+      crs_text
+    )
+
+    # pre-compute values for formulation section
+    ## missing text
+    missing_text <- "{.gray none specified}"
+    ## objective
+    objective_text <- missing_text
+    if (!is.Waiver(self$objective)) {
+      objective_text <- self$objective$repr(compact = FALSE)
+    }
+    ## targets
+    targets_text <- missing_text
+    if (!is.Waiver(self$targets)) {
+      targets_text <- self$targets$repr(compact = FALSE)
+    }
+    ## decisions
+    decisions_text <- missing_text
+    if (!is.Waiver(self$decisions)) {
+      decisions_text <- self$decisions$repr(compact = FALSE)
+    }
+    ## portfolio
+    portfolio_text <- missing_text
+    if (!is.Waiver(self$portfolio)) {
+      portfolio_text <- self$portfolio$repr(compact = FALSE)
+    }
+    ## solver
+    solver_text <- missing_text
+    if (!is.Waiver(self$solver)) {
+      solver_text <- self$solver$repr(compact = FALSE)
+    }
+    ## constraints
+    constraints_text <- missing_text
+    if (length(self$constraints) > 0) {
+      constraints_text <- lapply(
+        self$constraints,
+        function(w) w$repr(compact = FALSE)
+      )
+    }
+    ## penalties
+    penalties_text <- missing_text
+    if (length(self$penalties) > 0) {
+      penalties_text <- lapply(
+        self$penalties,
+        function(w) w$repr(compact = FALSE)
+      )
+    }
+
+    # print formulation section
+    ## header
+    cli::cli_text("{ch$l}{ch$b}{.bg formulation}:")
+    ## objective
+    cli_tree_component(
+      objective_text,
+      header = " {ch$j}{ch$b}{.g objective}:    ",
+      subheader = " {ch$v}",
+      width = 15
+    )
+    ## penalties
+    if (length(self$penalties) > 0) {
+      cli_vtext(" {ch$j}{ch$b}{.g penalties}:")
+      for (i in seq_along(penalties_text)) {
+        if (i < length(penalties_text)) {
+          cli_tree_component(
+            penalties_text[[i]],
+            header = "{ch$v}{ch$j}{ch$b}             ",
+            subheader = "{ch$v}{ch$v}",
+            padding = " ",
+            width = 14
+          )
+        } else {
+          cli_tree_component(
+            penalties_text[[i]],
+            header = "{ch$v}{ch$l}{ch$b}             ",
+            subheader = "{ch$v} ",
+            padding = " ",
+            width = 14
+          )
+        }
+      }
+    } else {
+      cli_vtext(
+        " {ch$j}{ch$b}{.g penalties}:    ",
+        penalties_text
+      )
+    }
+    ## targets
+    cli_vtext(
+     " {ch$j}{ch$b}{.g targets}:      ",
+      targets_text
+    )
+    ## constraints
+    if (length(self$constraints) > 0) {
+      cli_vtext(" {ch$j}{ch$b}{.g constraints}: ")
+      for (i in seq_along(constraints_text)) {
+        if (i < length(constraints_text)) {
+          cli_tree_component(
+            constraints_text[[i]],
+            header = "{ch$v}{ch$j}{ch$b}             ",
+            subheader = "{ch$v}{ch$v}",
+            padding = " ",
+            width = 14
+          )
+        } else {
+          cli_tree_component(
+            constraints_text[[i]],
+            header = "{ch$v}{ch$l}{ch$b}             ",
+            subheader = "{ch$v} ",
+            padding = " ",
+            width = 14
+          )
+        }
+      }
+    } else {
+      cli_vtext(
+        " {ch$j}{ch$b}{.g constraints}:  ",
+        constraints_text
+      )
+    }
+    ## decisions
+    cli_tree_component(
+      decisions_text,
+      header = " {ch$j}{ch$b}{.g decisions}:    ",
+      subheader = " {ch$v}",
+      width = 15
+    )
+    cli_tree_component(
+      portfolio_text,
+      header = " {ch$j}{ch$b}{.g portfolio}:    ",
+      subheader = " {ch$v}",
+      width = 15
+    )
+    cli_tree_component(
+      solver_text,
+      header = " {ch$l}{ch$b}{.g solver}:       ",
+      subheader = "  ",
+      width = 15
+    )
+
+    # end container
+    cli::cli_end(div_id)
+
+    # return success
+    invisible(TRUE)
+  },
+  print = function(self) {
+    # define characters
+    ch <- box_chars()
+
+    # create container
+    div_id <- cli::cli_div(theme = conservation_problem_theme())
+
+    # create header
+    cli::cli_text(
+      "A conservation problem ({.cls ConservationProblem})"
+    )
+
+    # pre-compute values for data section
+    if (is_spatially_explicit(self$data$cost)) {
+      crs_text <- repr.crs(get_crs(self$data$cost))
+      extent_text <- repr.bbox(sf::st_bbox(self$data$cost))
+    } else {
+      crs_text <- "{.gray NA}"
+      extent_text <- "{.gray NA}"
+    }
+    cost_range <- range(self$planning_unit_costs() , na.rm = TRUE)
+    cost_text <- ifelse(
+      all_binary(self$planning_unit_costs()),
+      paste(
+        "binary values ({.val 0} and {.val 1})"
+      ),
+      paste(
+        "continuous values (between {.val {cost_range}})"
+      )
+    )
+
+    # print data section
+    cli::cli_text("{ch$j}{ch$b}{.bg data}:")
+    if (self$number_of_zones() > 1) {
+      cli_vtext(
+        "{ch$v}{ch$j}{.g zones}:     ",
+        repr.character(self$zone_names())
+      )
+    }
+    cli_vtext(
+      "{ch$v}{ch$j}{ch$b}{.g features}:    ",
+      repr.character(self$feature_names())
+    )
+    cli_vtext("{ch$v}{ch$l}{ch$b}{.g planning units}:")
+    cli_vtext(
+      "{ch$v} {ch$j}{ch$b}{.g data}:       ",
+      "{.cls ",
+      class(self$data$cost), "} (",
+      self$number_of_planning_units(),
+      " total)"
+    )
+    cli_vtext(
+      "{ch$v} {ch$j}{ch$b}{.g costs}:      ",
+      cost_text
+    )
+    cli_vtext(
+      "{ch$v} {ch$j}{ch$b}{.g extent}:     ",
+      extent_text
+    )
+    cli_vtext(
+      "{ch$v} {ch$l}{ch$b}{.g CRS}:        ",
+      crs_text
+    )
+
+    # pre-compute values for formulation section
+    ## missing text
+    missing_text <- "{.gray none specified}"
+    ## objective
+    objective_text <- missing_text
+    if (!is.Waiver(self$objective)) {
+      objective_text <- self$objective$repr()
+    }
+    ## targets
+    targets_text <- missing_text
+    if (!is.Waiver(self$targets)) {
+      targets_text <- self$targets$repr()
+    }
+    ## decisions
+    decisions_text <- missing_text
+    if (!is.Waiver(self$decisions)) {
+      decisions_text <- self$decisions$repr()
+    }
+    ## portfolio
+    portfolio_text <- missing_text
+    if (!is.Waiver(self$portfolio)) {
+      portfolio_text <- self$portfolio$repr()
+    }
+    ## solver
+    solver_text <- missing_text
+    if (!is.Waiver(self$solver)) {
+      solver_text <- self$solver$repr()
+    }
+    ## constraints
+    constraints_text <- missing_text
+    if (length(self$constraints) > 0) {
+      constraints_text <- vapply(
+        self$constraints,
+        function(w) w$repr(),
+        character(1)
+      )
+    }
+    ## penalties
+    penalties_text <- missing_text
+    if (length(self$penalties) > 0) {
+      penalties_text <- vapply(
+        self$penalties,
+        function(w) w$repr(),
+        character(1)
+      )
+    }
+
+    # print formulation section
+    ## header
+    cli::cli_text("{ch$l}{ch$b}{.bg formulation}:")
+    ## objective
+    cli_vtext(
+      " {ch$j}{ch$b}{.g objective}:   ",
+      objective_text
+    )
+    ## penalties
+    if (length(self$penalties) > 0) {
+      cli_vtext(" {ch$j}{ch$b}{.g penalties}: ")
+      for (i in seq_along(penalties_text)) {
+        if (i < length(penalties_text)) {
+          cli_vtext(
+            " {ch$v}{ch$j}{ch$b}", i, ":",
+            paste(rep(" ", max(0, 11 - nchar(i))), collapse = ""),
+            penalties_text[[i]]
+          )
+        } else {
+          cli_vtext(
+            " {ch$v}{ch$l}{ch$b}", i, ":",
+            paste(rep(" ", max(0, 11 - nchar(i))), collapse = ""),
+            penalties_text[[i]]
+          )
+        }
+      }
+    } else {
+      cli_vtext(
+        " {ch$j}{ch$b}{.g penalties}:   ",
+        penalties_text
+      )
+    }
+    ## targets
+    cli_vtext(
+      " {ch$j}{ch$b}{.g targets}:     ",
+      targets_text
+    )
+    ## constraints
+    if (length(self$constraints) > 0) {
+      cli_vtext(" {ch$j}{ch$b}{.g constraints}: ")
+      for (i in seq_along(constraints_text)) {
+        if (i < length(constraints_text)) {
+          cli_vtext(
+            " {ch$v}{ch$j}{ch$b}", i, ":",
+            paste(rep(" ", max(0, 11 - nchar(i))), collapse = ""),
+            constraints_text[[i]]
+          )
+        } else {
+          cli_vtext(
+            " {ch$v}{ch$l}{ch$b}", i, ":",
+            paste(rep(" ", max(0, 11 - nchar(i))), collapse = ""),
+            constraints_text[[i]]
+          )
+        }
+      }
+    } else {
+      cli_vtext(
+        " {ch$j}{ch$b}{.g constraints}: ",
+        constraints_text
+      )
+    }
+    ## decisions
+    cli_vtext(
+      " {ch$j}{ch$b}{.g decisions}:   ",
+      decisions_text
+    )
+    cli_vtext(
+      " {ch$j}{ch$b}{.g portfolio}:   ",
+      portfolio_text
+    )
+    cli_vtext(
+      " {ch$l}{ch$b}{.g solver}:      ",
+      solver_text
+    )
+
+    # add footer
+    cli::cli_text(
+      cli::col_grey(
+        "# {cli::symbol$info} Use {.code summary(...)}",
+        " to see complete formulation."
+      )
+    )
+
+    # end container
+    cli::cli_end(div_id)
+
+    # return success
+    invisible(TRUE)
   },
   show = function(self) {
     self$print()
   },
   repr = function(self) {
-    "ConservationProblem object"
+    "{.cls ConservationProblem} object"
   },
   get_data = function(self, x) {
     assert(assertthat::is.string(x))
@@ -365,7 +679,7 @@ ConservationProblem <- pproto(
     } else if (is.matrix(self$data$cost)) {
       x <- unname(which(rowSums(!is.na(self$data$cost)) > 0))
     } else {
-      stop("cost is of unknown class")
+      cli::cli_abort("$data$cost is of unknown class", .internal = TRUE)
     }
     self$set_data("planning_unit_indices", x)
     invisible()
@@ -399,7 +713,7 @@ ConservationProblem <- pproto(
         function(i) which(!is.na(self$data$cost[, i]))
       )
     } else {
-      stop("cost is of unknown class")
+      cli::cli_abort("$data$cost is of unknown class", .internal = TRUE)
     }
     names(x) <- self$zone_names()
     self$set_data("planning_unit_indices_with_finite_costs", x)
@@ -415,7 +729,7 @@ ConservationProblem <- pproto(
     } else if (is.matrix(self$data$cost)) {
       return(nrow(self$data$cost))
     } else {
-      stop("cost is of unknown class")
+      cli::cli_abort("$data$cost is of unknown class", .internal = TRUE)
     }
   },
   planning_unit_costs = function(self) {
@@ -444,7 +758,7 @@ ConservationProblem <- pproto(
     } else if (is.matrix(self$data$cost)) {
       x <- self$data$cost[idx, , drop = FALSE]
     } else {
-      stop("cost is of unknown class")
+      cli::cli_abort("$data$cost is of unknown class", .internal = TRUE)
     }
     colnames(x) <- self$zone_names()
     self$set_data("planning_unit_costs", x)
@@ -460,7 +774,7 @@ ConservationProblem <- pproto(
     } else if (inherits(self$data$features, "data.frame")) {
       return(nrow(self$data$features))
     } else {
-      stop("feature data is of an unrecognized class")
+      cli::cli_abort("$features is of an unrecognized class", .internal = TRUE)
     }
   },
   feature_names = function(self) {
@@ -469,7 +783,7 @@ ConservationProblem <- pproto(
     } else if (inherits(self$data$features, "data.frame")) {
       return(as.character(self$data$features$name))
     } else {
-      stop("feature data is of an unrecognized class")
+      cli::cli_abort("$features is of an unrecognized class", .internal = TRUE)
     }
   },
   feature_abundances_in_planning_units = function(self) {
@@ -504,7 +818,7 @@ ConservationProblem <- pproto(
   },
   feature_targets = function(self) {
     if (is.Waiver(self$targets))
-      stop("problem is missing targets")
+      cli::cli_abort("Targets have not been specified.")
     self$targets$output()
   },
   number_of_zones = function(self) {
@@ -513,7 +827,7 @@ ConservationProblem <- pproto(
     } else if (inherits(self$data$features, "data.frame")) {
       return(length(self$data$rij_matrix))
     } else {
-      stop("feature is of an unrecognized class")
+      cli::cli_abort("$features is of an unrecognized class.", .internal = TRUE)
     }
   },
   zone_names = function(self) {
@@ -522,78 +836,119 @@ ConservationProblem <- pproto(
     } else if (inherits(self$data$features, "data.frame")) {
       return(names(self$data$rij_matrix))
     } else {
-      stop("feature is of an unrecognized class")
+      cli::cli_abort("$features is of an unrecognized class.", .internal = TRUE)
     }
   },
   add_portfolio = function(self, x) {
     assert(inherits(x, "Portfolio"))
     if (!is.Waiver(self$portfolio))
-      warning("overwriting previously defined portfolio")
+      cli::cli_warn("overwriting previously defined portfolio")
     pproto(NULL, self, portfolio = x)
   },
   add_solver = function(self, x) {
     assert(inherits(x, "Solver"))
     if (!is.Waiver(self$solver))
-      warning("overwriting previously defined solver")
+      cli::cli_warn("overwriting previously defined solver")
     pproto(NULL, self, solver = x)
   },
   add_targets = function(self, x) {
     assert(inherits(x, "Target"))
     if (!is.Waiver(self$targets))
-      warning("overwriting previously defined targets")
+      cli::cli_warn("overwriting previously defined targets")
     pproto(NULL, self, targets = x)
   },
   add_objective = function(self, x) {
     assert(inherits(x, "Objective"))
     if (!is.Waiver(self$objective))
-      warning("overwriting previously defined objective")
+      cli::cli_warn("overwriting previously defined objective")
     pproto(NULL, self, objective = x)
   },
   add_decisions = function(self, x) {
     assert(inherits(x, "Decision"))
     if (!is.Waiver(self$decisions))
-      warning("overwriting previously defined decision")
+      cli::cli_warn("overwriting previously defined decision")
     pproto(NULL, self, decisions = x)
   },
   add_constraint = function(self, x) {
     assert(inherits(x, "Constraint"))
     p <- pproto(NULL, self)
-    p$constraints$add(x)
+    p$constraints[[length(p$constraints) + 1]] <- x
     return(p)
   },
   add_penalty = function(self, x) {
     assert(inherits(x, "Penalty"))
     p <- pproto(NULL, self)
-    p$penalties$add(x)
+    p$penalties[[length(p$penalties) + 1]] <- x
     return(p)
-  },
-  get_constraint_parameter = function(self, id) {
-    self$constraints$get_parameter(id)
-  },
-  set_constraint_parameter = function(self, id, value) {
-    self$constraints$set_parameter(id, value)
-  },
-  get_objective_parameter = function(self, id) {
-    self$objective$get_parameter(id)
-  },
-  set_objective_parameter = function(self, id, value) {
-    self$objective$set_parameter(id, value)
-  },
-  get_solver_parameter = function(self, id) {
-    self$solver$get_parameter(id)
-  },
-  set_solver_parameter = function(self, id, value) {
-    self$solver$set_parameter(id, value)
-  },
-  get_portfolio_parameter = function(self, id) {
-    self$portfolio$get_parameter(id)
-  },
-  set_portfolio_parameter = function(self, id, value) {
-    self$portfolio$set_parameter(id, value)
-  },
-  get_penalty_parameter = function(self, id) {
-    self$penalties$get_parameter(id)
-  },
-  set_penalty_parameter = function(self, id, value) {
-    self$penalties$set_parameter(id, value)
-  })
+  }
+)
+
+# internal cli functions
+box_chars <- function() {
+  if (cli::is_utf8_output()) {
+    list(
+      "h" = "\u2500",                   # horizontal
+      "v" = "\u2502",                   # vertical
+      "l" = "\u2514",                   # leaf
+      "j" = "\u251C",                   # junction
+      "b" = "\u2022"                   # bullet
+    )
+  } else {
+    list(
+      "h" = "-",                        # horizontal
+      "v" = "|",                        # vertical
+      "l" = "\\",                       # leaf
+      "j" = "+",                        # junction
+      "b" = "@"                         # bullet
+    )
+  }
+}
+
+cli_vtext <- function(..., .envir = parent.frame()) {
+  cli::cli_verbatim(
+    cli::format_inline(..., keep_whitespace = TRUE, .envir = .envir)
+  )
+}
+
+cli_tree_component <- function(x,
+                               header = "",
+                               subheader = "",
+                               padding = "",
+                               width = 0,
+                               .envir = parent.frame()) {
+  ch <- box_chars()
+  out <- paste0(
+    padding, header, x[1]
+  )
+  if (length(x) > 1) {
+    if (length(x) > 2) {
+      out <- c(
+        out,
+        paste0(
+          padding, subheader, ch$j, ch$b,
+          paste(rep(" ", width), collapse = ""),
+          x[c(-1, -length(x))]
+        )
+      )
+    }
+    out <- c(
+      out,
+      paste0(
+        padding, subheader, ch$l, ch$b,
+        paste(rep(" ", width), collapse = ""),
+        x[length(x)]
+      )
+    )
+  }
+  for (x in out) cli_vtext(x, .envir = .envir)
+  invisible(TRUE)
+}
+
+conservation_problem_theme <- function() {
+  theme = list(
+    .gray = list(color = "gray"),
+    .val = list(digits = 4),
+    .bg = list("font-weight" = "bold", color = "br_green"),
+    .g = list(color = "br_green")
+  )
+}

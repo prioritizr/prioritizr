@@ -1,4 +1,4 @@
-#' @include internal.R Parameters-proto.R Decision-proto.R
+#' @include internal.R Decision-proto.R
 NULL
 
 #' Add semi-continuous decisions
@@ -91,16 +91,12 @@ add_semicontinuous_decisions <- function(x, upper_limit) {
     "SemiContinuousDecision",
      Decision,
      name = "Semicontinuous decision",
-     parameters = parameters(
-       proportion_parameter("upper limit", upper_limit)
-     ),
+     data = list(upper_limit = upper_limit),
      apply = function(self, x) {
-       assert(inherits(x, "OptimizationProblem"), .internal = TRUE)
-       invisible(
-         rcpp_apply_decisions(
-           x$ptr, "C", 0, self$parameters$get("upper limit")
-         )
-       )
+      assert(inherits(x, "OptimizationProblem"), .internal = TRUE)
+      invisible(
+        rcpp_apply_decisions(x$ptr, "C", 0, self$get_data("upper limit"))
+      )
     }
   ))
 }

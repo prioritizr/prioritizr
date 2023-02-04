@@ -1,4 +1,4 @@
-#' @include internal.R pproto.R Parameters-proto.R ConservationModifier-proto.R
+#' @include internal.R pproto.R ConservationModifier-proto.R
 NULL
 
 #' @export

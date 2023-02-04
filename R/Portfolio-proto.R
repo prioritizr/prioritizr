@@ -1,4 +1,4 @@
-#' @include internal.R pproto.R parameters.R
+#' @include internal.R pproto.R
 NULL
 
 #' @export
@@ -18,10 +18,10 @@ NULL
 #'
 #' \item{$name}{`character` name of portfolio method.}
 #'
-#' \item{$parameters}{`Parameters` object with parameters used to customize
-#'   the the portfolio.}
+#' \item{$data}{`list` object with data.}
 #'
-#' \item{$run}{`function` used to generate a portfolio.}
+#' \item{$internal}{`list` object with internal data.}
+#'
 #' }
 #'
 #' @section Usage:
@@ -31,6 +31,14 @@ NULL
 #' `x$show()`
 #'
 #' `x$repr()`
+#'
+#' `x$get_data(name)`
+#'
+#' `x$set_data(name, value)`
+#'
+#' `x$get_internal(name)`
+#'
+#' `x$set_internal(name, value)`
 #'
 #' `x$run(op, sol)`
 #'
@@ -55,6 +63,22 @@ NULL
 #' \item{run}{solve an [`OptimizationProblem-class`] object using this
 #'   object and a [`Solver-class`] object.}
 #'
+#' \item{get_data}{return an object stored in the `data` field with
+#'   the corresponding `name`. If the object is not present in the
+#'   `data` field, a `waiver` object is returned.}
+#'
+#' \item{set_data}{store an object stored in the `data` field with
+#'   the corresponding name. If an object with that name already
+#'   exists then the object is overwritten.}
+#'
+#' \item{get_internal}{return an object stored in the `internal` field with
+#'   the corresponding `name`. If the object is not present in the
+#'   `internal` field, a `waiver` object is returned.}
+#'
+#' \item{set_internal}{store an object stored in the `internal` field with
+#'   the corresponding name. If an object with that name already
+#'   exists then the object is overwritten.}
+#'
 #' }
 #'
 #' @name Portfolio-class
@@ -66,23 +90,33 @@ NULL
 Portfolio <- pproto(
   "Portfolio",
   name = character(0),
-  run = function(...) stop("portfolio is missing a run method"),
-  parameters = parameters(),
+  data = list(),
+  internal = list(),
   print = function(self) {
     message(self$repr())
   },
   show = function(self) {
     self$print()
   },
-  repr = function(self) {
-    if (self$parameters$length() > 0)
-      return(paste(self$name, self$parameters$repr()))
-    return(self$name)
+  repr = function(self, compact = TRUE) {
+    repr_data_list(self$name, self$data, compact = compact)
   },
-  get_parameter = function(self, x) {
-    self$parameters$get(x)
+  run = function(...) {
+    cli::cli_abort("Portfolio is missing a run method.", .internal = TRUE)
   },
-  set_parameter = function(self, x, value) {
-    self$parameters$set(x, value)
+  get_data = function(self, x) {
+    self$data[[x]] %||% new_waiver()
+  },
+  set_data = function(self, x, value) {
+    self$data[[x]] <- value
+    invisible()
+  },
+  get_internal = function(self, x) {
+    self$internal[[x]] %||% new_waiver()
+    self$data[[x]]
+  },
+  set_internal = function(self, x, value) {
+    self$internal[[x]] <- value
+    invisible()
   }
 )

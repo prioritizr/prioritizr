@@ -15,17 +15,6 @@ NULL
 NULL
 
 #' @rdname as
-#' @method as.list Parameters
-#' @export
-as.list.Parameters <- function(x, ...) {
-  structure(
-    lapply(x$ids(), function(i) x[[i]]$value),
-    .Names = x$names(),
-    id = x$ids()
-  )
-}
-
-#' @rdname as
 #' @method as.list Zones
 #' @export
 as.list.Zones <- function(x, ...) {

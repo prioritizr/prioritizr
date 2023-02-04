@@ -98,9 +98,6 @@ methods::setMethod("add_mandatory_allocation_constraints",
       "MandatoryAllocationConstraint",
       Constraint,
       name = "Mandatory allocation constraints",
-      parameters = parameters(
-        binary_parameter("apply constraints?", 1L)
-      ),
       apply = function(self, x, y) {
         assert(
           inherits(x, "OptimizationProblem"),

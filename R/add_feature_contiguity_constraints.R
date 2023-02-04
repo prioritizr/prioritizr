@@ -261,7 +261,6 @@ methods::setMethod("add_feature_contiguity_constraints",
       is_matrix_ish(data)
    )
     # apply constraints
-    data <- list(data)[rep(1, number_of_features(x))]
     add_feature_contiguity_constraints(x, zones, data)
 })
 
@@ -278,7 +277,6 @@ methods::setMethod("add_feature_contiguity_constraints",
       is.data.frame(data)
     )
     # apply constraints
-    data <- list(data)[rep(1, number_of_features(x))]
     add_feature_contiguity_constraints(x, zones, data)
 })
 
@@ -302,20 +300,44 @@ methods::setMethod("add_feature_contiguity_constraints",
     assert(
       is_conservation_problem(x),
       is_inherits(zones, c("matrix", "Matrix", "list")),
-      is_inherits(data, c("NULL", "list"))
+      is_inherits(data, c("NULL", "matrix", "Matrix", "data.frame", "list"))
     )
     # format zones
-    if (inherits(zones, c("matrix", "Matrix"))) {
-      zones <- list(zones)[rep(1, x$number_of_features())]
-    } else {
+    if (inherits(zones, "list")) {
       assert(
         length(zones) == number_of_features(x),
         all_elements_inherit(zones, c("matrix", "Matrix"))
       )
+      names(zones) <- paste(x$feature_names(), "zones")
+      for (i in seq_along(zones)) {
+        zones[[i]] <- as.matrix(zones[[i]])
+        assert(
+          is.numeric(zones[[i]]),
+          all_binary(zones[[i]]),
+          all_finite(zones[[i]]),
+          isSymmetric(zones[[i]]),
+          ncol(zones[[i]]) == number_of_zones(x),
+          all(colMeans(zones[[i]]) <= diag(zones[[i]])),
+          all(rowMeans(zones[[i]]) <= diag(zones[[i]]))
+        )
+        colnames(zones[[i]]) <- x$zone_names()
+        rownames(zones[[i]]) <- colnames(zones[[i]])
+      }
+    } else {
+      assert(
+        is_matrix_ish(zones),
+        all_binary(zones),
+        all_finite(zones),
+        isSymmetric(zones),
+        ncol(zones) == number_of_zones(x),
+        all(colMeans(zones) <= diag(zones)),
+        all(rowMeans(zones) <= diag(zones))
+      )
+      colnames(zones) <- x$zone_names()
+      rownames(zones) <- colnames(zones)
     }
     # format data
-    if (!is.null(data)) {
-      # check argument to data if not NULL
+    if (is.list(data)) {
       for (i in seq_along(data)) {
         # assert that element is valid
         assert(
@@ -325,7 +347,7 @@ methods::setMethod("add_feature_contiguity_constraints",
             "or a data frame."
           )
         )
-        # coerce to correct format
+        # coerce data to dgCMatrix
         if (is.matrix(data[[i]]))
           data[[i]] <- as_Matrix(data, "dgCMatrix")
         if (is.data.frame(data[[i]]))
@@ -339,10 +361,22 @@ methods::setMethod("add_feature_contiguity_constraints",
           Matrix::isSymmetric(data[[i]])
         )
       }
-      # create list with data
-      d <- list(matrices = data)
-    } else {
-      # check that planning unit data is spatially referenced
+    } else if (inherits(data, c("matrix", "dgCMatrix", "data.frame"))) {
+      # coerce data to dgCMatrix
+      if (is.matrix(data))
+        data <- as_Matrix(data, "dgCMatrix")
+      if (is.data.frame(data))
+        data <- marxan_connectivity_data_to_matrix(x, data[[i]], TRUE)
+      # run checks
+      assert(
+        all_binary(data),
+        all_finite(data),
+        ncol(data) == nrow(data),
+        number_of_total_units(x) == ncol(data),
+        Matrix::isSymmetric(data)
+      )
+    } else if (is.null(data)) {
+      # check that planning unit data is spatially explicit
       assert(
         is_pu_spatially_explicit(x),
         msg =
@@ -357,51 +391,25 @@ methods::setMethod("add_feature_contiguity_constraints",
           )
         )
       )
-      d <- list()
+    } else {
+      cli::cli_abort("{.arg data} is not a recognized class.")
     }
-    # convert zones to matrix
-    for (i in seq_along(zones)) {
-      zones[[i]] <- as.matrix(zones[[i]])
-      assert(
-        is.numeric(zones[[i]]),
-        all_binary(zones[[i]]),
-        all_finite(zones[[i]]),
-        isSymmetric(zones[[i]]),
-        ncol(zones[[i]]) == number_of_zones(x),
-        all(colMeans(zones[[i]]) <= diag(zones[[i]])),
-        all(rowMeans(zones[[i]]) <= diag(zones[[i]]))
-      )
-      colnames(zones[[i]]) <- x$zone_names()
-      rownames(zones[[i]]) <- colnames(zones[[i]])
-    }
-    # create list of parameters
-    p <- lapply(seq_along(zones), function(i) {
-      binary_matrix_parameter(
-        paste(x$feature_names()[i], "zones"), zones[[i]], symmetric = TRUE
-      )
-    })
     # add constraint
     x$add_constraint(pproto(
       "FeatureContiguityConstraint",
       Constraint,
       name = "Feature contiguity constraints",
       compressed_formulation = FALSE,
-      parameters = do.call(
-        parameters,
-        append(list(binary_parameter("apply constraints?", 1L)), p)
-      ),
-      data = d,
+      data = list(data, zones),
       calculate = function(self, x) {
         # generate connectivity data
-        if (is.Waiver(self$get_data("matrices"))) {
-          # create matrix
-          data <- adjacency_matrix(x$data$cost)
-          # coerce matrix to full matrix
-          data <- as_Matrix(data, "dgCMatrix")
-          # create list for each feature
-          data <- list(data)[rep(1, number_of_features(x))]
-          # store data
-          self$set_data("matrices", data)
+        d <- self$get_data("data")
+        if (is.Waiver(d) || is.null(d)) {
+          if (is.Waiver(x$get_data("adjacency"))) {
+            data <- adjacency_matrix(x$data$cost)
+            data <- as_Matrix(data, "dgCMatrix")
+            x$set_data("adjacency", data)
+          }
         }
         # return success
         invisible(TRUE)
@@ -412,28 +420,40 @@ methods::setMethod("add_feature_contiguity_constraints",
           inherits(y, "ConservationProblem"),
           .internal = TRUE
         )
-        if (as.logical(self$parameters$get("apply constraints?"))) {
-          # extract list of connectivity matrices
-          ind <- y$planning_unit_indices()
-          # format matrices
-          d <- self$get_data("matrices")
-          d <- lapply(d, `[`, ind, ind, drop = FALSE)
-          # extract clusters from z
-          z <- list()
-          for (i in seq_len(y$number_of_features()))
-          z[[i]] <- self$parameters$get(paste(y$feature_names()[i], "zones"))
-          z_cl <- lapply(seq_along(z), function(i) {
-            igraph::clusters(igraph::graph_from_adjacency_matrix(z[[i]],
-              diag = FALSE, mode = "undirected", weighted = NULL))$membership *
-              diag(z[[i]])
-          })
-          # convert d to lower triangle sparse matrix
-          d <- lapply(d, Matrix::forceSymmetric, uplo = "L")
-          d <- lapply(d, Matrix::tril)
-          d <- lapply(d, as_Matrix, "dgCMatrix")
-          # apply the constraints
-          if (max(vapply(z_cl, max, numeric(1))) > 0)
-            rcpp_apply_feature_contiguity_constraints(x$ptr, d, z_cl)
+        # extract data
+        zn <- self$get_data("zones")
+        d <- self$get_data("data")
+        if (is.Waiver(d) || is.null(d)) {
+          d <- y$get_data("adjacency")
+        }
+        # convert data to list format if needed
+        if (!is.list(d)) {
+          d <- list(d)[rep(1, number_of_features(y))]
+        }
+        if (!is.list(zn)) {
+          zn <- list(zn)[rep(1, number_of_features(y))]
+          names(zn) <- paste(x$feature_names(), "zones")
+        }
+        # convert to dgCMatrix
+        d <- lapply(d, as_Matrix, "dgCMatrix")
+        # subset matrix data to indices
+        ind <- y$planning_unit_indices()
+        d <- lapply(d, `[`, ind, ind, drop = FALSE)
+        # extract clusters from z
+        z_cl <- lapply(seq_along(z), function(i) {
+          igraph::clusters(
+            igraph::graph_from_adjacency_matrix(
+              zn[[i]], diag = FALSE, mode = "undirected", weighted = NULL
+            )
+          )$membership * diag(zn[[i]])
+        })
+        # convert d to lower triangle sparse matrix
+        d <- lapply(d, Matrix::forceSymmetric, uplo = "L")
+        d <- lapply(d, Matrix::tril)
+        d <- lapply(d, as_Matrix, "dgCMatrix")
+        # apply the constraints
+        if (max(vapply(z_cl, max, numeric(1))) > 0) {
+          rcpp_apply_feature_contiguity_constraints(x$ptr, d, z_cl)
         }
       }
     ))

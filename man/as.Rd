@@ -4,15 +4,12 @@
 \alias{as.Id}
 \alias{as.Id.character}
 \alias{as}
-\alias{as.list.Parameters}
 \alias{as.list.Zones}
 \title{Coerce object to another object}
 \usage{
 as.Id(x, ...)
 
 \method{as.Id}{character}(x, ...)
-
-\method{as.list}{Parameters}(x, ...)
 
 \method{as.list}{Zones}(x, ...)
 }

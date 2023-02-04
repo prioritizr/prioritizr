@@ -134,17 +134,14 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
   x$objective$calculate(x)
   x$objective$apply(op, x)
   # add constraints for zones
-  if (x$number_of_zones() > 1) {
-    # detect if allocation constraints are mandatory
-    r <- try(
-      x$constraints$find("Mandatory allocation constraints"), silent = TRUE
+  if ((x$number_of_zones() > 1) && (length(x$constraints) >= 1)) {
+    # detect if mandatory allocation constraints should be applied
+    constraint_names <- vapply(x$constraints, function(x) x$name, character(1))
+    apply_mandatory <- any(
+      constraint_names == "Mandatory allocation constraints"
     )
     # set constraint type
-    ct <- ifelse(
-      !inherits(r, "try-error") &&
-        isTRUE(x$constraints[[r]]$get_parameter("apply constraints?") == 1L),
-      "=", "<="
-    )
+    ct <- ifelse(apply_mandatory, "=", "<=")
     # apply constraints
     rcpp_add_zones_constraints(op$ptr, ct)
   }

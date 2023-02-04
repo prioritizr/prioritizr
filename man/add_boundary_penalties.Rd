@@ -2,15 +2,17 @@
 % Please edit documentation in R/add_boundary_penalties.R
 \name{add_boundary_penalties}
 \alias{add_boundary_penalties}
+\alias{add_boundary_penalties,ConservationProblem,ANY,ANY,ANY,array-method}
+\alias{add_boundary_penalties,ConservationProblem,ANY,ANY,ANY,matrix-method}
+\alias{add_boundary_penalties,ConservationProblem,ANY,ANY,ANY,data.frame-method}
+\alias{add_boundary_penalties,ConservationProblem,ANY,ANY,ANY,ANY-method}
 \title{Add boundary penalties}
 \usage{
-add_boundary_penalties(
-  x,
-  penalty,
-  edge_factor = rep(0.5, number_of_zones(x)),
-  zones = diag(number_of_zones(x)),
-  data = NULL
-)
+\S4method{add_boundary_penalties}{ConservationProblem,ANY,ANY,ANY,data.frame}(x, penalty, edge_factor, zones, data)
+
+\S4method{add_boundary_penalties}{ConservationProblem,ANY,ANY,ANY,matrix}(x, penalty, edge_factor, zones, data)
+
+\S4method{add_boundary_penalties}{ConservationProblem,ANY,ANY,ANY,ANY}(x, penalty, edge_factor, zones, data)
 }
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} object.}
@@ -241,6 +243,7 @@ names(s2) <- c(
 # plot solutions
 plot(s2, axes = FALSE)
 }
+
 }
 \references{
 Ball IR, Possingham HP, and Watts M (2009) \emph{Marxan and relatives:

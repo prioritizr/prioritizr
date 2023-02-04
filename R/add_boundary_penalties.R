@@ -240,167 +240,176 @@ NULL
 #' # plot solutions
 #' plot(s2, axes = FALSE)
 #' }
+#'
+#' @name add_boundary_penalties
+#'
+#' @aliases add_boundary_penalties,ConservationProblem,ANY,ANY,ANY,array-method add_boundary_penalties,ConservationProblem,ANY,ANY,ANY,matrix-method add_boundary_penalties,ConservationProblem,ANY,ANY,ANY,data.frame-method add_boundary_penalties,ConservationProblem,ANY,ANY,ANY,ANY-method
+NULL
+
 #' @export
-add_boundary_penalties <- function(x, penalty,
-                                   edge_factor = rep(0.5, number_of_zones(x)),
-                                   zones = diag(number_of_zones(x)),
-                                   data = NULL) {
-  # assert that arguments are valid
-  rlang::check_required(x)
-  rlang::check_required(penalty)
-  rlang::check_required(edge_factor)
-  rlang::check_required(zones)
-  rlang::check_required(data)
-  assert(
-    is_conservation_problem(x),
-    is_inherits(data, c("NULL", "data.frame", "matrix", "Matrix")),
-    assertthat::is.number(penalty),
-    all_finite(penalty),
-    is.numeric(edge_factor),
-    all_finite(edge_factor),
-    all_proportion(edge_factor),
-    length(edge_factor) == number_of_zones(x),
-    is_matrix_ish(zones),
-    all_finite(zones)
-  )
-  # convert zones to matrix
-  zones <- as.matrix(zones)
-  assert(
-    isSymmetric(zones),
-    ncol(zones) == number_of_zones(x),
-    min(zones) >= -1,
-    max(zones) <= 1
-  )
-  colnames(zones) <- x$zone_names()
-  rownames(zones) <- colnames(zones)
-  # prepare boundary matrix data
-  bm <- internal_prepare_planning_unit_boundary_data(x, data)
+methods::setGeneric("add_boundary_penalties",
+  signature = methods::signature(
+    "x", "penalty", "edge_factor", "zones", "data"
+  ),
+  function(
+    x, penalty, edge_factor = rep(0.5, number_of_zones(x)),
+    zones = diag(number_of_zones(x)), data = NULL
+  ) {
+    rlang::check_required(x)
+    rlang::check_required(penalty)
+    rlang::check_required(edge_factor)
+    rlang::check_required(zones)
+    rlang::check_required(data)
+    assert(
+      is_conservation_problem(x),
+      is_inherits(data, c("NULL", "matrix", "Matrix", "data.frame"))
+    )
+    standardGeneric("add_boundary_penalties")
+  }
+)
+
+#' @name add_boundary_penalties
+#' @usage \S4method{add_boundary_penalties}{ConservationProblem,ANY,ANY,ANY,data.frame}(x, penalty, edge_factor, zones, data)
+#' @rdname add_boundary_penalties
+methods::setMethod("add_boundary_penalties",
+  methods::signature("ConservationProblem", "ANY", "ANY", "ANY", "data.frame"),
+  function(x, penalty, edge_factor, zones, data) {
+    # add constraints
+    add_boundary_penalties(
+      x, penalty, edge_factor, zones,
+      internal_marxan_boundary_data_to_matrix(x, data)
+    )
+})
+
+#' @name add_boundary_penalties
+#' @usage \S4method{add_boundary_penalties}{ConservationProblem,ANY,ANY,ANY,matrix}(x, penalty, edge_factor, zones, data)
+#' @rdname add_boundary_penalties
+methods::setMethod("add_boundary_penalties",
+  methods::signature("ConservationProblem", "ANY", "ANY", "ANY", "matrix"),
+  function(x, penalty, edge_factor, zones, data) {
+    # add constraints
+    add_boundary_penalties(
+      x, penalty, edge_factor, zones, as_Matrix(data, "dgCMatrix")
+    )
+})
+
+#' @name add_boundary_penalties
+#' @usage \S4method{add_boundary_penalties}{ConservationProblem,ANY,ANY,ANY,ANY}(x, penalty, edge_factor, zones, data)
+#' @rdname add_boundary_penalties
+methods::setMethod("add_boundary_penalties",
+  methods::signature("ConservationProblem", "ANY", "ANY", "ANY", "ANY"),
+  function(x, penalty, edge_factor, zones, data) {
+    # assert valid arguments
+    assert(
+      is_conservation_problem(x),
+      is_inherits(data, c("NULL", "Matrix")),
+      assertthat::is.number(penalty),
+      all_finite(penalty),
+      is.numeric(edge_factor),
+      all_finite(edge_factor),
+      all_proportion(edge_factor),
+      length(edge_factor) == number_of_zones(x),
+      is_matrix_ish(zones),
+      all_finite(zones)
+    )
+    if (!is.null(data)) {
+      # check argument to data if not NULL
+      assert(
+        ncol(data) == nrow(data),
+        number_of_total_units(x) == ncol(data),
+        is_numeric_values(data),
+        all_finite(data),
+        Matrix::isSymmetric(data)
+      )
+    } else {
+      # check that planning unit data is spatially referenced
+      assert(
+        is_pu_spatially_explicit(x),
+        msg = c(
+          paste(
+            "{.arg data} must be manually specified (e.g., as a {.cls Matrix})."
+          ),
+          "i" = paste(
+            "This is because {.arg x} has planning unit data that are not",
+            "spatially explicit",
+            "(e.g., {.cls sf}, or {.cls SpatRaster} objects)."
+          )
+        )
+      )
+    }
+    # convert zones to matrix
+    zones <- as.matrix(zones)
+    assert(
+      isSymmetric(zones),
+      ncol(zones) == number_of_zones(x),
+      min(zones) >= -1,
+      max(zones) <= 1
+    )
+    colnames(zones) <- x$zone_names()
+    rownames(zones) <- colnames(zones)
   # create new constraint object
   x$add_penalty(pproto(
     "BoundaryPenalty",
     Penalty,
-    name = "Boundary penalties",
-    data = list(boundary_matrix = bm),
-    parameters = parameters(
-      numeric_parameter("penalty", penalty),
-      proportion_parameter_array("edge factor", edge_factor, x$zone_names()),
-      numeric_matrix_parameter(
-        "zones", zones, lower_limit = -1, upper_limit = 1, symmetric = TRUE
-      )
+    name = "boundary penalties",
+    data = list(
+      penalty = penalty,
+      edge_factor = edge_factor,
+      data = data,
+      zones = zones
     ),
     calculate = function(self, x) {
-        assert(is_conservation_problem(x))
-        # extract matrix
-        m <- self$get_data("boundary_matrix")
-        # if waiver, then calculate boundary matrix
-        if (is.Waiver(m)) {
-          m <- internal_prepare_planning_unit_boundary_data(
-            x, boundary_matrix(x$get_data("cost"))
-          )
-          x$set_data("boundary_matrix", m)
-        }
-        # set total boundary
-        self$set_data("total_boundary", Matrix::diag(m))
-        # set exposed boundary
-        self$set_data(
-          "exposed_boundary",
-          Matrix::diag(m) - (Matrix::rowSums(m) - Matrix::diag(m))
-        )
-        # return invisible success
-        invisible()
+      # assert valid argument
+      assert(is_conservation_problem(x), .internal = TRUE)
+      # if needed, calculate boundary matrix
+      if (
+        is.null(self$get_data("data")) &&
+        is.Waiver(x$get_data("boundary"))
+      ) {
+        x$set_data("boundary", boundary_matrix(x$get_data("cost")))
+      }
+      # return invisible success
+      invisible()
     },
     apply = function(self, x, y) {
+      # assert valid arguments
       assert(
         inherits(x, "OptimizationProblem"),
         inherits(y, "ConservationProblem"),
         .internal = TRUE
       )
-      p <- self$parameters$get("penalty")
+      # extract data
+      p <- self$get_data("penalty")
+      bm <- self$get_data("data")
+      if (is.null(bm)) {
+        bm <- y$get_data("boundary")
+      }
+      # convert to dgCMatrix
+      bm <- as_Matrix(bm, "dgCMatrix")
+      # subset data to planning units
+      ind <- y$planning_unit_indices()
+      bm <- bm[ind, ind]
+      # compute additional boundary information
+      total_boundary <- Matrix::diag(bm)
+      exposed_boundary <-
+        Matrix::diag(m) - (Matrix::rowSums(m) - Matrix::diag(m))
+      # prepare boundary data
+      Matrix::diag(bm) <- 0
+      bm <- as_Matrix(Matrix::tril(Matrix::drop0(bm)), "dgCMatrix")
+      # apply constraint
       if (abs(p) > 1e-50) {
-        # create edge matrix from boundary matrix
-        m <- self$get_data("boundary_matrix")
-        if (is.Waiver(m)) {
-          m <- y$get_data("boundary_matrix")
-        }
-        Matrix::diag(m) <- 0
-        m <- as_Matrix(Matrix::tril(Matrix::drop0(m)), "dgCMatrix")
         # apply penalties
         rcpp_apply_boundary_penalties(
           x$ptr,
           p,
-          self$parameters$get("edge factor")[[1]],
-          self$parameters$get("zones"),
-          m,
-          self$get_data("exposed_boundary"),
-          self$get_data("total_boundary")
+          self$get_data("edge_factor"),
+          self$get_data("zones"),
+          bm,
+          exposed_boundary,
+          total_boundary
         )
       }
+      # return success
       invisible(TRUE)
   }))
-}
-
-internal_prepare_planning_unit_boundary_data <- function(
-  x, data, call = fn_caller_env())  {
-  if (!is.null(data)) {
-    # if boundary data is in data.frame format then coerce to sparse matrix
-    if (inherits(data, "data.frame")) {
-      data <- internal_marxan_boundary_data_to_matrix(x, data, call = call)
-    }
-    # if/when data is matrix run further checks to ensure that
-    # it is compatible with planning unit data
-    if (inherits(data, c("matrix", "Matrix"))) {
-      # if it is matrix coerce to sparse matrix
-      if (!inherits(data, c("dsCMatrix", "dgCMatrix"))) {
-        data <- as_Matrix(data, "dgCMatrix")
-      }
-      # check that matrix properties are correct
-      assert(
-        ncol(data) == nrow(data),
-        is_numeric_values(data),
-        all_finite(data),
-        call = call,
-        msg = paste(
-          "{.arg data} must be a symmetric matrix",
-          "with finite (non-{.val {NA}}) values."
-        )
-      )
-      assert(
-        x$number_of_total_units() == ncol(data),
-        call = call,
-        msg = c(
-          paste(
-            "{.arg data} must have the same number of number of rows",
-            "and columns as the total units for {.arg x}."
-          ),
-          "i" = paste0(
-            "{.arg x} has ", x$number_of_total_units(), " total units."
-          )
-        )
-      )
-      # return result
-      return(data[x$planning_unit_indices(), x$planning_unit_indices()])
-    } else {
-      # throw error because object class not recognized
-      cli::cli_abort(
-        "{.arg data} is not a recognized class.",
-        .internal = TRUE
-      )
-    }
-  } else {
-    assert(
-      is_pu_spatially_explicit(x),
-      call = call,
-      msg = c(
-        paste(
-          "{.arg data} must be manually specified (e.g., as a {.cls Matrix})."
-        ),
-        "i" = paste(
-          "This is because {.arg x} has planning unit data that are not",
-          "spatially explicit",
-          "(e.g., {.cls sf}, or {.cls SpatRaster} objects)."
-        )
-      )
-    )
-    return(new_waiver())
-  }
-}
+})

@@ -129,38 +129,14 @@ add_min_shortfall_objective <- function(x, budget) {
     is.numeric(budget),
     all_finite(budget),
     all_positive(budget),
-    min(budget) > 0
+    is_budget_length(x, budget)
   )
-  budget_msg <- ifelse(
-    number_of_zones(x) == 1,
-    "{.arg budget} must be a single numeric value.",
-    paste(
-      "{.arg budget} must have a single numeric value,",
-      "or a value for each zone in {.arg x}."
-    )
-  )
-  assert(
-    length(budget) %in% c(1, number_of_zones(x)),
-    msg = budget_msg
-  )
-  # make parameter
-  if (length(budget) == 1) {
-    p <- numeric_parameter(
-      "budget", budget, lower_limit = 0,
-      upper_limit = sum(x$planning_unit_costs(), na.rm = TRUE)
-    )
-  } else {
-    p <- numeric_parameter_array(
-      "budget", budget, x$zone_names(), lower_limit = 0,
-      upper_limit = colSums(x$planning_unit_costs(), na.rm = TRUE)
-    )
-  }
   # add objective to problem
   x$add_objective(pproto(
     "MinimumShortfallObjective",
     Objective,
-    name = "Minimum shortfall objective",
-    parameters = parameters(p),
+    name = "minimum shortfall objective",
+    data = list(budget = budget),
     apply = function(self, x, y) {
       assert(
         inherits(x, "OptimizationProblem"),
@@ -169,8 +145,10 @@ add_min_shortfall_objective <- function(x, budget) {
       )
       invisible(
         rcpp_apply_min_shortfall_objective(
-          x$ptr, y$feature_targets(), y$planning_unit_costs(),
-          self$parameters$get("budget")[[1]]
+          x$ptr,
+          y$feature_targets(),
+          y$planning_unit_costs(),
+          self$get_data("budget")
         )
       )
     }

@@ -114,19 +114,12 @@ add_cplex_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
     "CplexSolver",
     Solver,
     name = "CPLEX",
-    data = list(),
-    parameters = parameters(
-      numeric_parameter("gap", gap, lower_limit = 0),
-      integer_parameter(
-        "time_limit", time_limit, lower_limit = 0L,
-        upper_limit = as.integer(.Machine$integer.max)
-      ),
-      integer_parameter(
-        "threads", threads, lower_limit = 1L,
-        upper_limit = parallel::detectCores(TRUE)
-      ),
-      binary_parameter("presolve", as.integer(presolve)),
-      binary_parameter("verbose", as.integer(verbose))
+    data = list(
+      gap = gap,
+      time_limit = time_limit,
+      threads = threads,
+      presolve = presolve,
+      verbose = verbose
     ),
     calculate = function(self, x, ...) {
       # create problem
@@ -148,22 +141,22 @@ add_cplex_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
       model$vtype[model$vtype == "S"] <- "C"
       # create parameters
       p <- list(
-        verbose = as.integer(self$parameters$get("verbose")),
-        presolve = as.integer(self$parameters$get("presolve")),
-        gap = self$parameters$get("gap"),
-        threads = self$parameters$get("threads"),
-        time_limit = self$parameters$get("time_limit")
+        verbose = as.integer(self$get_data("verbose")),
+        presolve = as.integer(self$get_data("presolve")),
+        gap = self$get_data("gap"),
+        threads = self$get_data("threads"),
+        time_limit = self$get_data("time_limit")
       )
       # store input data and parameters
-      self$set_data("model", model)
-      self$set_data("parameters", p)
+      self$set_internal("model", model)
+      self$set_internal("parameters", p)
       # return success
       invisible(TRUE)
     },
     run = function(self, x) {
       # access input data and parameters
-      model <- self$get_data("model")
-      p <- self$get_data("parameters")
+      model <- self$get_internal("model")
+      p <- self$get_internal("parameters")
       # solve problem
       rt <- system.time({
         x <- cplex(model, p)
@@ -190,11 +183,11 @@ add_cplex_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
       )
     },
     set_variable_ub = function(self, index, value) {
-      self$data$model$ub[index] <- value
+      self$internal$model$ub[index] <- value
       invisible(TRUE)
     },
     set_variable_lb = function(self, index, value) {
-      self$data$model$lb[index] <- value
+      self$internal$model$lb[index] <- value
       invisible(TRUE)
     }
   ))

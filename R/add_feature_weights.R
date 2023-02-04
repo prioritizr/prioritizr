@@ -1,4 +1,4 @@
-#' @include internal.R pproto.R ConservationProblem-proto.R  MiscParameter-proto.R
+#' @include internal.R pproto.R ConservationProblem-proto.R
 NULL
 
 #' Add feature weights
@@ -267,8 +267,8 @@ methods::setMethod("add_feature_weights",
     assert(
       x$number_of_zones() == 1,
       msg = paste(
-        "weights must be supplied as a matrix for problems",
-        "containing multiple zones"
+        "{.arg weights} must a matrix, because {.arg x} has",
+        "multiple zones."
       )
     )
     # add weights
@@ -286,59 +286,30 @@ methods::setMethod("add_feature_weights",
       is_conservation_problem(x),
       is.matrix(weights),
       all_finite(weights),
-      all(weights >= 0),
-      ncol(weights) > 0,
-      nrow(weights) > 0
+      all_positive(weights),
+      ncol(weights) == x$number_of_zones(),
+      nrow(weights) == x$number_of_features()
     )
-    if (ncol(weights) > 1) {
-      assert(
-        ncol(weights) == x$number_of_zones(),
-        nrow(weights) == x$number_of_features(),
-        call = parent.frame()
-      )
-    }
-    # make parameters
-    if (ncol(weights) == 1) {
-      p <- numeric_parameter_array(
-        "weights", weights[, 1],
-        as.character(seq_len(nrow(weights))),
-        lower_limit = 0
-      )
-    } else {
-      weights <- as.data.frame(weights)
-      colnames(weights) <- x$zone_names()
-      rownames(weights) <- x$feature_names()
-      nc <- ncol(weights)
-      nr <- nrow(weights)
-      vfun <- function(x) {
-        assertthat::see_if(
-          ncol(x) == nc,
-          nrow(x) == nr,
-          all_finite(x),
-          all(as.matrix(x) >= 0)
-        )
-      }
-      p <- misc_parameter("weights", weights, vfun)
-    }
     # add weights to problem
     x$add_penalty(pproto(
       "FeatureWeights",
       Penalty,
       name = "Feature weights",
-      parameters = parameters(p),
+      data = list(weights),
       apply = function(self, x, y) {
         assert(
           inherits(x, "OptimizationProblem"),
           inherits(y, "ConservationProblem"),
           .internal = TRUE
         )
-        weights <- c(as.matrix(self$parameters$get("weights")))
+        weights <- c(self$get_data("weights"))
         if (!is.Waiver(y$targets)) {
           assert(
             length(weights) == nrow(y$targets$output()),
-            msg = paste0(
-              "the number of feature weights must correspond to ",
-              "the number of targets in the problem"
+            call = NULL,
+            msg = paste(
+              "The number of feature weights must correspond to",
+              "the number of targets in the problem."
             )
           )
         }

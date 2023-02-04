@@ -1,4 +1,4 @@
-#' @include internal.R pproto.R parameters.R
+#' @include internal.R pproto.R
 NULL
 
 #' @export
@@ -19,13 +19,10 @@ NULL
 #'
 #' \item{$name}{`character` name of solver.}
 #'
-#' \item{$data}{`list` object optimization problem data.}
+#' \item{$data}{`list` of data.}
 #'
-#' \item{$parameters}{`Parameters` object with parameters used to customize
-#'   the the solver.}
+#' \item{$internal}{`list` of internal data.}
 #'
-#' \item{$solve}{`function` used to solve a
-#'   [`OptimizationProblem-class`] object.}
 #' }
 #'
 #' @section Usage:
@@ -39,6 +36,10 @@ NULL
 #' `x$get_data(name)`
 #'
 #' `x$set_data(name, value)`
+#'
+#' `x$get_internal(name)`
+#'
+#' `x$set_internal(name, value)`
 #'
 #' `x$set_variable_ub(index, value)`
 #'
@@ -76,6 +77,14 @@ NULL
 #'   the corresponding name. If an object with that name already
 #'   exists then the object is overwritten.}
 #'
+#' \item{get_internal}{return an object stored in the `internal` field with
+#'   the corresponding `name`. If the object is not present in the
+#'   `internal` field, a `waiver` object is returned.}
+#'
+#' \item{set_internal}{store an object stored in the `internal` field with
+#'   the corresponding name. If an object with that name already
+#'   exists then the object is overwritten.}
+#'
 #' \item{set_variable_ub}{set the upper bounds on decision variables in
 #'   a pre-calculated optimization problem stored in the solver.}
 #'
@@ -103,8 +112,22 @@ Solver <- pproto(
   "Solver",
   name = character(0),
   data = list(),
-  calculate = function(...) stop("solver is missing a calculate method"),
-  run = function(...) stop("solver is missing a run method"),
+  internal = list(),
+  print = function(self) {
+    cli::cli_text(self$repr())
+  },
+  show = function(self) {
+    self$print()
+  },
+  repr = function(self, compact = TRUE) {
+    repr_data_list(self$name, self$data, compact = compact)
+  },
+  calculate = function(...) {
+    cli::cli_abort("No defined calculate method.", .internal = TRUE)
+  },
+  run = function(...) {
+    cli::cli_abort("No defined calculate method.", .internal = TRUE)
+  },
   solve = function(self, x, ...) {
     # build optimization problem
     self$calculate(x, ...)
@@ -115,29 +138,19 @@ Solver <- pproto(
     # return output
     out
   },
-  parameters = parameters(),
-  print = function(self) {
-    message(self$repr())
-  },
-  show = function(self) {
-    self$print()
-  },
-  repr = function(self) {
-    paste(self$name, self$parameters$repr())
-  },
-  get_parameter = function(self, x) {
-    self$parameters$get(x)
-  },
-  set_parameter = function(self, x, value) {
-    self$parameters$set(x, value)
-  },
   get_data = function(self, x) {
-    if (!x %in% names(self$data))
-      return(new_waiver())
-    return(self$data[[x]])
+    self$data[[x]] %||% new_waiver()
   },
   set_data = function(self, x, value) {
     self$data[[x]] <- value
+    invisible()
+  },
+  get_internal = function(self, x) {
+    self$internal[[x]] %||% new_waiver()
+    self$data[[x]]
+  },
+  set_internal = function(self, x, value) {
+    self$internal[[x]] <- value
     invisible()
   }
 )

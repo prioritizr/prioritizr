@@ -35,11 +35,9 @@ type of decision made on planning units.}
 \item{$targets}{\code{\linkS4class{Target}} object used to represent
 representation targets for features.}
 
-\item{$penalties}{\code{\linkS4class{Collection}} object used to represent
-additional \link{penalties} that the problem is subject to.}
+\item{$penalties}{\code{list} containing \code{\linkS4class{Penalty}} objects.}
 
-\item{$constraints}{\code{\linkS4class{Collection}} object used to represent
-additional \link{constraints} that the problem is subject to.}
+\item{$constraints}{\code{list} containing \code{\linkS4class{Constraint}} objects.}
 
 \item{$portfolio}{\code{\linkS4class{Portfolio}} object used to represent
 the method for generating a portfolio of solutions.}
@@ -105,26 +103,6 @@ the method for generating a portfolio of solutions.}
 \code{x$add_constraint(con)}
 
 \code{x$add_targets(targ)}
-
-\code{x$get_constraint_parameter(id)}
-
-\code{x$set_constraint_parameter(id, value)}
-
-\code{x$get_objective_parameter(id)}
-
-\code{x$set_objective_parameter(id, value)}
-
-\code{x$get_solver_parameter(id)}
-
-\code{x$set_solver_parameter(id, value)}
-
-\code{x$get_portfolio_parameter(id)}
-
-\code{x$set_portfolio_parameter(id, value)}
-
-\code{x$get_penalty_parameter(id)}
-
-\code{x$set_penalty_parameter(id, value)}
 }
 
 \section{Arguments}{
@@ -153,10 +131,6 @@ containing the planning unit cost data.}
 
 \item{features}{\code{\linkS4class{Zones}} or \code{data.frame} object
 containing feature data.}
-
-\item{id}{\code{Id} object that refers to a specific parameter.}
-
-\item{value}{object that the parameter value should become.}
 
 }
 }
@@ -239,31 +213,6 @@ with the solver added to it.}
 object with the constraint added to it.}
 
 \item{add_targets}{return a copy with the targets added to the problem.}
-
-\item{get_constraint_parameter}{get the value of a parameter (specified by
-argument \code{id}) used in one of the constraints in the object.}
-
-\item{set_constraint_parameter}{set the value of a parameter (specified by
-argument \code{id}) used in one of the constraints in the object to
-\code{value}.}
-
-\item{get_objective_parameter}{get the value of a parameter (specified by
-argument \code{id}) used in the object's objective.}
-
-\item{set_objective_parameter}{set the value of a parameter (specified by
-argument \code{id}) used in the object's objective to \code{value}.}
-
-\item{get_solver_parameter}{get the value of a parameter (specified by
-argument \code{id}) used in the object's solver.}
-
-\item{set_solver_parameter}{set the value of a parameter (specified by
-argument \code{id}) used in the object's solver to \code{value}.}
-
-\item{get_portfolio_parameter}{get the value of a parameter (specified by
-argument \code{id}) used in the object's portfolio.}
-
-\item{set_portfolio_parameter}{set the value of a parameter (specified by
-argument \code{id}) used in objects' solver to \code{value}.}
 
 }
 }

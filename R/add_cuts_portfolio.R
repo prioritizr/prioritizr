@@ -107,14 +107,10 @@ add_cuts_portfolio <- function(x, number_solutions = 10) {
     "CutsPortfolio",
     Portfolio,
     name = "Cuts portfolio",
-    parameters = parameters(
-      integer_parameter(
-        "number_solutions", number_solutions, lower_limit = 1L
-      )
-    ),
+    data = list(number_solutions = number_solutions),
     run = function(self, x, solver) {
       ## extract number of desired solutions
-      n <- self$parameters$get("number_solutions")
+      n <- self$get_data("number_solutions")
       ## solve problem to verify that it is feasible
       sol <- solver$solve(x)
       ## if solving the problem failed then return NULL
@@ -131,8 +127,8 @@ add_cuts_portfolio <- function(x, number_solutions = 10) {
         if (!is.null(curr_sol$x)) {
           sol[[i]] <- curr_sol
         } else {
-          if ((i + 1) < self$parameters$get("number_solutions"))
-            warning(paste("only found", length(sol), "solutions"))
+          if ((i + 1) < self$get_data("number_solutions"))
+            cli::cli_warn(paste("Only found", length(sol), "solutions."))
           break()
         }
       }

@@ -55,7 +55,7 @@ NULL
 #'   Once the amount of memory (RAM) used to store information for solving
 #'   the optimization problem exceeds this parameter value, the solver
 #'   will begin storing this information on disk
-#'   (using the *Gurobi( `NodeFileStart` parameter).
+#'   (using the *Gurobi* `NodeFileStart` parameter).
 #'   This functionality is useful if the system has insufficient memory to
 #'   solve a given problem (e.g., solving the problem with default settings
 #'   yields the `OUT OF MEMORY` error message) and a system with more memory is
@@ -210,26 +210,17 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
   x$add_solver(pproto(
     "GurobiSolver",
     Solver,
-    name = "Gurobi",
-    data = list(start = start_solution),
-    parameters = parameters(
-      numeric_parameter("gap", gap, lower_limit = 0),
-      integer_parameter(
-        "time_limit", time_limit, lower_limit = -1L,
-        upper_limit = as.integer(.Machine$integer.max)
-      ),
-      integer_parameter(
-        "presolve", presolve, lower_limit = -1L,
-        upper_limit = 2L
-      ),
-      integer_parameter(
-        "threads", threads, lower_limit = 1L,
-        upper_limit = parallel::detectCores(TRUE)
-      ),
-      binary_parameter("first_feasible", as.integer(first_feasible)),
-      binary_parameter("numeric_focus", as.integer(numeric_focus)),
-      numeric_parameter("node_file_start", node_file_start, lower_limit = -1),
-      binary_parameter("verbose", as.integer(verbose))
+    name = "gurobi",
+    data = list(
+      gap = gap,
+      time_limit = time_limit,
+      presolve = presolve,
+      threads = threads,
+      first_feasible = first_feasible,
+      numeric_focus = numeric_focus,
+      node_file_start = node_file_start,
+      start_solution = start_solution,
+      verbose = verbose
     ),
     calculate = function(self, x, ...) {
       # create problem
@@ -245,15 +236,15 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
       )
       # create parameters
       p <- list(
-        LogToConsole = as.numeric(self$parameters$get("verbose")),
+        LogToConsole = as.numeric(self$get_data("verbose")),
         LogFile = "",
-        Presolve = self$parameters$get("presolve"),
-        MIPGap = self$parameters$get("gap"),
-        TimeLimit = self$parameters$get("time_limit"),
-        Threads = self$parameters$get("threads"),
-        NumericFocus = self$parameters$get("numeric_focus"),
-        NodeFileStart = self$parameters$get("node_file_start"),
-        SolutionLimit = self$parameters$get("first_feasible")
+        Presolve = self$get_data("presolve"),
+        MIPGap = self$get_data("gap"),
+        TimeLimit = self$get_data("time_limit"),
+        Threads = self$get_data("threads"),
+        NumericFocus = as.numeric(self$get_data("numeric_focus") * 2),
+        NodeFileStart = self$get_data("node_file_start"),
+        SolutionLimit = self$get_data("first_feasible")
       )
       if (p$SolutionLimit == 0)
         p$SolutionLimit <- NULL
@@ -261,7 +252,7 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
         p$NodeFileStart <- NULL
       }
       # add starting solution if specified
-      start <- self$get_data("start")
+      start <- self$get_data("start_solution")
       if (!is.null(start) && !is.Waiver(start)) {
         n_extra <- length(model$obj) - length(start)
         model$start <- c(c(start), rep(NA_real_, n_extra))
@@ -270,24 +261,24 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
       p2 <- list(...)
       for (i in seq_along(p2))
         p[[names(p2)[i]]] <- p2[[i]]
-      # store input data and parameters
-      self$set_data("model", model)
-      self$set_data("parameters", p)
+      # store internal model and parameters
+      self$set_internal("model", model)
+      self$set_internal("parameters", p)
       # return success
       invisible(TRUE)
     },
     set_variable_ub = function(self, index, value) {
-      self$data$model$ub[index] <- value
+      self$internal$model$ub[index] <- value
       invisible(TRUE)
     },
     set_variable_lb = function(self, index, value) {
-      self$data$model$lb[index] <- value
+      self$internal$model$lb[index] <- value
       invisible(TRUE)
     },
     run = function(self, x) {
-      # access input data and parameters
-      model <- self$get_data("model")
-      p <- self$get_data("parameters")
+      # access internal model and parameters
+      model <- self$get_internal("model")
+      p <- self$get_internal("parameters")
       # solve problem
       rt <- system.time({
         x <- withr::with_locale(

@@ -276,7 +276,6 @@ methods::setMethod("add_linear_constraints",
         "names of the planning unit data for {.arg x}."
       )
     )
-
     # extract planning unit data
     d <- x$data$cost
     if (inherits(d, "Spatial")) {
@@ -396,10 +395,9 @@ methods::setMethod("add_linear_constraints",
     if (identical(sense, ">=")) {
       assert(
         any(Matrix::colSums(data) >= threshold),
-        call = parent.frame(),
         msg = paste(
           "The linear constraint cannot be meet {.arg threshold} even if all",
-          "planning units selected in the solution"
+          "planning units selected in the solution."
         )
       )
     }
@@ -408,22 +406,23 @@ methods::setMethod("add_linear_constraints",
       "LinearConstraint",
       Constraint,
       name = "Linear constraints",
-      data = list(data = data, sense = sense),
-      parameters = parameters(numeric_parameter("threshold", threshold)),
+      data = list(threshold = threshold, sense = sense, data = data),
       apply = function(self, x, y) {
         assert(
           inherits(x, "OptimizationProblem"),
           inherits(y, "ConservationProblem"),
           .internal = TRUE
         )
-        # extract parameters
-        th <- self$parameters$get("threshold")
         # extract data
         indices <- y$planning_unit_indices()
         d <- self$get_data("data")[indices, , drop = FALSE]
-        s <- self$get_data("sense")
         # apply constraints
-        rcpp_apply_linear_constraints(x$ptr, th, s, d)
+        rcpp_apply_linear_constraints(
+          x$ptr,
+          self$get_data("threshold"),
+          self$get_data("sense"),
+          d
+        )
         # return success
         invisible(TRUE)
     }

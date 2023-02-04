@@ -96,11 +96,10 @@ add_lpsymphony_solver <- function(x, gap = 0.1,
   # throw error about bug in early version of lpsymphony
   assert(
     utils::packageVersion("lpsymphony") > as.package_version("1.4.1"),
-    msg = paste(
-      "The version of {.pkg lpsymphony} that is currently installed has a",
-      "serious bug that can produce incorrect solutions,",
-      "please update it using:\"",
-      "{.code remotes::install_bioc(\"lpsymphony\")}"
+    msg = c(
+      "The version of {.pkg lpsymphony} currently installed is outdated.",
+      "i" =
+        "Please update it using: {.code remotes::install_bioc(\"lpsymphony\")}."
     )
   )
 
@@ -109,15 +108,11 @@ add_lpsymphony_solver <- function(x, gap = 0.1,
     "LpsymphonySolver",
     Solver,
     name = "Lpsymphony",
-    data = list(),
-    parameters = parameters(
-      numeric_parameter("gap", gap, lower_limit = 0),
-      integer_parameter(
-        "time_limit", time_limit, lower_limit = -1,
-        upper_limit = .Machine$integer.max
-      ),
-      binary_parameter("first_feasible", as.integer(first_feasible)),
-      binary_parameter("verbose", as.integer(verbose))
+    data = list(
+      gap = gap,
+      time_limit = time_limit,
+      first_feasible = first_feasible,
+      verbose = verbose
     ),
     calculate = function(self, x, ...) {
       # create model
@@ -144,24 +139,21 @@ add_lpsymphony_solver <- function(x, gap = 0.1,
       model$dir <- replace(model$dir, model$dir == "=", "==")
       model$types <- replace(model$types, model$types == "S", "C")
       # set parameters
-      p <- as.list(self$parameters)
-      p$verbosity <- -1
-      if (!p$verbose)
-        p$verbosity <- -2
+      p <- self$parameters
+      p$verbosity <- ifelse(p$verbose, -1, -2)
       p <- p[names(p) != "verbose"]
       names(p)[which(names(p) == "gap")] <- "gap_limit"
-      p$first_feasible <- as.logical(p$first_feasible)
       p$gap_limit <- p$gap_limit * 100
-      # store input data and parameters
-      self$set_data("model", model)
-      self$set_data("parameters", p)
+      # store internal data and parameters
+      self$set_internal("model", model)
+      self$set_internal("parameters", p)
       # return success
       invisible(TRUE)
     },
     run = function(self) {
-      # access input data and parameters
-      model <- self$get_data("model")
-      p <- self$get_data("parameters")
+      # access internal data and parameters
+      model <- self$get_internal("model")
+      p <- self$get_internal("parameters")
       # solve problem
       rt <- system.time({
         x <- do.call(lpsymphony::lpsymphony_solve_LP, append(model, p))
@@ -211,20 +203,20 @@ add_lpsymphony_solver <- function(x, gap = 0.1,
       # fix floating point issues with continuous variables
       cv <- which(model$types == "C")
       x$solution[cv] <-
-        pmax(x$solution[cv], self$data$model$bounds$lower$val[cv])
+        pmax(x$solution[cv], self$internal$model$bounds$lower$val[cv])
       x$solution[cv] <-
-        pmin(x$solution[cv], self$data$model$bounds$upper$val[cv])
+        pmin(x$solution[cv], self$internal$model$bounds$upper$val[cv])
       # return output
       list(
         x = x$solution, objective = x$objval, status = as.character(x$status),
         runtime = rt[[3]])
     },
     set_variable_ub = function(self, index, value) {
-      self$data$model$bounds$upper$val[index] <- value
+      self$internal$model$bounds$upper$val[index] <- value
       invisible(TRUE)
     },
     set_variable_lb = function(self, index, value) {
-      self$data$model$bounds$lower$val[index] <- value
+      self$internal$model$bounds$lower$val[index] <- value
       invisible(TRUE)
     }
   ))

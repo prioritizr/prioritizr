@@ -577,8 +577,6 @@ methods::setMethod(
     pproto(
       NULL,
       ConservationProblem,
-      constraints = pproto(NULL, Collection),
-      penalties = pproto(NULL, Collection),
       data = list(
         cost = x,
         features = features,
@@ -667,8 +665,6 @@ methods::setMethod(
     pproto(
       NULL,
       ConservationProblem,
-      constraints = pproto(NULL, Collection),
-      penalties = pproto(NULL, Collection),
       data = list(
         cost = x,
         features = features,
@@ -794,8 +790,6 @@ methods::setMethod(
     pproto(
       NULL,
       ConservationProblem,
-      constraints = pproto(NULL, Collection),
-      penalties = pproto(NULL, Collection),
       data = list(
         cost = x,
         features = features,
@@ -931,8 +925,6 @@ methods::setMethod(
     pproto(
       NULL,
       ConservationProblem,
-      constraints = pproto(NULL, Collection),
-      penalties = pproto(NULL, Collection),
       data = list(
         cost = x,
         features = features,
@@ -1039,8 +1031,6 @@ methods::setMethod(
     pproto(
       NULL,
       ConservationProblem,
-      constraints = pproto(NULL, Collection),
-      penalties = pproto(NULL, Collection),
       data = list(
         cost = x,
         features = features,
@@ -1145,8 +1135,6 @@ methods::setMethod(
     pproto(
       NULL,
       ConservationProblem,
-      constraints = pproto(NULL, Collection),
-      penalties = pproto(NULL, Collection),
       data = list(
         cost = x,
         features = features,

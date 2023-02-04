@@ -251,6 +251,49 @@ internal_presolve_check <- function(x) {
     )
   }
 
+  ## check if budget exceeds total of planning unit costs
+  r1 <- which(x$row_ids() == "budget")
+  if (length(r1) > 0) {
+    result <- vapply(r1, FUN.VALUE = logical(1), function(x) {
+      sum(o$A()[r1, ]) <= x$rhs()[r1]
+    })
+    if (!all(r1)) {
+      if (length(r1) == 1) {
+        msg2 <- c(
+          msg2,
+          c(
+            "x" = paste(
+              "Budget is greater than the total cost of selecting",
+              "all planning units."
+            ),
+            ">" = paste(
+              "Maybe you made a mistake when setting the {.arg budget}",
+              "in the objective function?"
+            ),
+            ""
+          )
+        )
+      } else {
+        msg2 <- c(
+          msg2,
+          c(
+            "x" = paste(
+              "One or more of the budget values is greater than the total cost",
+              "of all planning units in a zone."
+            ),
+            ">" = cli::format_inline(
+              paste(
+                "Maybe you made a mistake when setting the {.arg budget}",
+                "in the objective function?"
+              )
+            ),
+            ""
+          )
+        )
+      }
+    }
+  }
+
   ## check objective function
   #### check upper threshold
   r1 <- which(x$obj() > upper_value)
