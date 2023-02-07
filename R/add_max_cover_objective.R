@@ -176,7 +176,7 @@ add_max_cover_objective <- function(x, budget) {
   x$add_objective(pproto(
     "MaximumCoverageObjective",
     Objective,
-    name = "Maximum coverage objective",
+    name = "maximum coverage objective",
     data = list(budget = budget),
     apply = function(self, x, y) {
       assert(

@@ -210,7 +210,7 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
   x$add_solver(pproto(
     "GurobiSolver",
     Solver,
-    name = "gurobi",
+    name = "gurobi solver",
     data = list(
       gap = gap,
       time_limit = time_limit,
@@ -242,9 +242,9 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
         MIPGap = self$get_data("gap"),
         TimeLimit = self$get_data("time_limit"),
         Threads = self$get_data("threads"),
-        NumericFocus = as.numeric(self$get_data("numeric_focus") * 2),
+        NumericFocus = as.numeric(self$get_data("numeric_focus")) * 2,
         NodeFileStart = self$get_data("node_file_start"),
-        SolutionLimit = self$get_data("first_feasible")
+        SolutionLimit = as.numeric(self$get_data("first_feasible"))
       )
       if (p$SolutionLimit == 0)
         p$SolutionLimit <- NULL

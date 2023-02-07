@@ -107,7 +107,7 @@ add_lpsymphony_solver <- function(x, gap = 0.1,
   x$add_solver(pproto(
     "LpsymphonySolver",
     Solver,
-    name = "Lpsymphony",
+    name = "lpsymphony",
     data = list(
       gap = gap,
       time_limit = time_limit,
@@ -139,7 +139,7 @@ add_lpsymphony_solver <- function(x, gap = 0.1,
       model$dir <- replace(model$dir, model$dir == "=", "==")
       model$types <- replace(model$types, model$types == "S", "C")
       # set parameters
-      p <- self$parameters
+      p <- self$data
       p$verbosity <- ifelse(p$verbose, -1, -2)
       p <- p[names(p) != "verbose"]
       names(p)[which(names(p) == "gap")] <- "gap_limit"
@@ -175,11 +175,11 @@ add_lpsymphony_solver <- function(x, gap = 0.1,
             c(
               "Solver returned infeasible solution.",
               "i" = paste(
-                "Try relaxing parameters to obtain a solution",
+                "Try using a different solver or relaxing parameters",
                 "(e.g., {.arg gap} or {.arg time_limit})."
               )
             ),
-            call = NULL
+            call = rlang::expr(add_lpsymphony_solver())
           )
         }
       }
@@ -191,11 +191,11 @@ add_lpsymphony_solver <- function(x, gap = 0.1,
             c(
               "Solver returned infeasible solution.",
               "i" = paste(
-                "Try relaxing parameters to obtain a solution",
+                "Try using a different solver or relaxing parameters",
                 "(e.g., {.arg gap} or {.arg time_limit})."
               )
             ),
-            call = NULL
+            call = rlang::expr(add_lpsymphony_solver())
           )
         }
       }

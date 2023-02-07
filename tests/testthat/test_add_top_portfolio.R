@@ -42,8 +42,10 @@ test_that("solve (single zone)", {
     add_top_portfolio(number_solutions = 5) %>%
     add_gurobi_solver(gap = 1, verbose = FALSE)
   # solve problem
-  s <- solve(p)
-  # tests
+  expect_warning(
+    s <- solve(p),
+    "only found"
+  )  # tests
   expect_is(s, "list")
   expect_length(s, 3) # only three feasible solutions exist
   expect_true(all_elements_inherit(s, "SpatRaster"))

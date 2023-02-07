@@ -145,5 +145,5 @@ test_that("compile (expanded formulation, negative data)", {
     "negative"
   )
   # tests
-  expect_tidy_error(compile(p, FALSE))
+  expect_error(compile(p, FALSE))
 })

@@ -138,7 +138,7 @@ add_min_largest_shortfall_objective <- function(x, budget) {
   x$add_objective(pproto(
     "MinimumLargestShortfallObjective",
     Objective,
-    name = "Minimum largest shortfall objective",
+    name = "minimum largest shortfall objective",
     data = list(budget = budget),
     apply = function(self, x, y) {
       assert(

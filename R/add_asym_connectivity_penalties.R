@@ -366,7 +366,7 @@ internal_add_asym_connectivity_penalties <- function(x, penalty, data) {
   x$add_penalty(pproto(
     "AsymConnectivityPenalty",
     Penalty,
-    name = "Asymmetric connectivity penalties",
+    name = "asymmetric connectivity penalties",
     data = list(penalty = penalty, data = data),
     apply = function(self, x, y) {
       assert(

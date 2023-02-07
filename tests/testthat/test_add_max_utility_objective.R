@@ -178,10 +178,6 @@ test_that("invalid inputs (single zone)", {
   )
   expect_tidy_error(
     problem(sim_pu_raster, sim_features) %>%
-    add_max_utility_objective(budget = 0)
-  )
-  expect_tidy_error(
-    problem(sim_pu_raster, sim_features) %>%
     add_max_utility_objective(budget = NA)
   )
   expect_tidy_error(

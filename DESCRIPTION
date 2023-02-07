@@ -245,6 +245,7 @@ Collate:
     'solvers.R'
     'st_geometry_classes.R'
     'summaries.R'
+    'summary.R'
     'targets.R'
     'test-helpers.R'
     'write_problem.R'

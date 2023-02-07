@@ -135,7 +135,7 @@ add_max_utility_objective <- function(x, budget) {
   x$add_objective(pproto(
     "MaximumUtilityObjective",
     Objective,
-    name = "Maximum utility objective",
+    name = "maximum utility objective",
     data = list(budget = budget),
     apply = function(self, x, y) {
       assert(

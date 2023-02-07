@@ -107,7 +107,7 @@ add_min_set_objective <- function(x) {
   x$add_objective(pproto(
     "MinimumSetObjective",
     Objective,
-    name = "Minimum set objective",
+    name = "minimum set objective",
     apply = function(self, x, y) {
       assert(
         inherits(x, "OptimizationProblem"),

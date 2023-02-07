@@ -14,6 +14,7 @@ test_that("x = SpatRaster, features = SpatRaster", {
   expect_warning(x <- problem(sim_pu_raster, sim_features))
   # verify that object can be printed
   suppressMessages(print(x))
+  suppressMessages(summary(x))
   suppressMessages(x)
   # tests for integer fields
   expect_equal(x$feature_names(), names(sim_features))
@@ -1173,6 +1174,6 @@ test_that("inheritance", {
   # create a modified copy of the problem
   p2 <- p1 %>% add_locked_in_constraints("locked_in")
   # test that the original problem remains unchanged
-  expect_equal(p1$constraints$length(), 0)
-  expect_equal(p2$constraints$length(), 1)
+  expect_length(p1$constraints, 0)
+  expect_length(p2$constraints, 1)
 })

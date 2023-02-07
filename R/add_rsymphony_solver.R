@@ -95,7 +95,7 @@ add_rsymphony_solver <- function(x, gap = 0.1,
   x$add_solver(pproto(
     "RsymphonySolver",
     Solver,
-    name = "Rsymphony",
+    name = "rsymphony solver",
     data = list(
       gap = gap,
       time_limit = time_limit,
@@ -103,8 +103,6 @@ add_rsymphony_solver <- function(x, gap = 0.1,
       verbose = verbose
     ),
     calculate = function(self, x, ...) {
-      # assert valid argument
-      assert(is_conservation_problem(x), .internal = TRUE)
       # create model
       model <- list(
         obj = x$obj(),
@@ -169,11 +167,11 @@ add_rsymphony_solver <- function(x, gap = 0.1,
             c(
               "Solver returned infeasible solution.",
               "i" = paste(
-                "Try relaxing parameters to obtain a solution",
+                "Try using a different solver or relaxing parameters",
                 "(e.g., {.arg gap} or {.arg time_limit})."
               )
             ),
-            call = NULL
+            call = rlang::expr(add_rsymphony_solver())
           )
         }
       }
@@ -185,11 +183,11 @@ add_rsymphony_solver <- function(x, gap = 0.1,
             c(
               "Solver returned infeasible solution.",
               "i" = paste(
-                "Try relaxing parameters to obtain a solution",
+                "Try using a different solver or relaxing parameters",
                 "(e.g., {.arg gap} or {.arg time_limit})."
               )
             ),
-            call = NULL
+            call = rlang::expr(add_rsymphony_solver())
           )
         }
       }
@@ -197,9 +195,9 @@ add_rsymphony_solver <- function(x, gap = 0.1,
       # fix floating point issues with continuous variables
       cv <- which(model$types == "C")
       x$solution[cv] <-
-        pmax(x$solution[cv], self$data$model$bounds$lower$val[cv])
+        pmax(x$solution[cv], self$internal$model$bounds$lower$val[cv])
       x$solution[cv] <-
-        pmin(x$solution[cv], self$data$model$bounds$upper$val[cv])
+        pmin(x$solution[cv], self$internal$model$bounds$upper$val[cv])
       # return output
       list(
         x = x$solution,

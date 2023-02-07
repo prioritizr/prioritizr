@@ -193,6 +193,7 @@ methods::setMethod("add_manual_bounded_constraints",
   methods::signature("ConservationProblem", "tbl_df"),
   function(x, data) {
     assert(
+      is_conservation_problem(x),
       is.data.frame(data),
       inherits(data, "tbl_df"),
       nrow(data) > 0,
@@ -208,7 +209,7 @@ methods::setMethod("add_manual_bounded_constraints",
       assertthat::has_name(data, "upper"),
       is.numeric(data$upper),
       all_finite(data$upper),
-      all(data$upper >= data$lower),
+      all(data$upper >= data$lower)
     )
     if (assertthat::has_name(data, "zone") || x$number_of_zones() > 1) {
       assert(
@@ -221,7 +222,7 @@ methods::setMethod("add_manual_bounded_constraints",
     x$add_constraint(pproto(
       "BoundsManualConstraint",
       Constraint,
-      name = "Manually bounded planning units",
+      name = "manually bounded planning units",
       repr = function(self) {
         paste0(
           self$name, " [", nrow(self$get_data("data")),
@@ -239,15 +240,15 @@ methods::setMethod("add_manual_bounded_constraints",
         d <- self$get_data("data")
         # convert zone names to indices
         if (!assertthat::has_name(d, "zone"))
-          d$zone <- x$zone_names()[1]
-        d$zone <- match(as.character(d$zone), x$zone_names())
+          d$zone <- y$zone_names()[1]
+        d$zone <- match(as.character(d$zone), y$zone_names())
         # remove rows for raster cells that aren't really planning units
         # i.e., contain NA values in all zones
         pu <- y$get_data("cost")
         if (inherits(pu, c("SpatRaster", "Raster"))) {
-          units <- x$planning_unit_indices()
-          data$pu <- match(data$pu, units)
-          data <- data[!is.na(data$pu), , drop = FALSE]
+          units <- y$planning_unit_indices()
+          d$pu <- match(d$pu, units)
+          d <- d[!is.na(d$pu), , drop = FALSE]
         }
         # apply constraints
         invisible(

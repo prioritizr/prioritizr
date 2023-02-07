@@ -642,12 +642,10 @@ ConservationProblem <- pproto(
     "{.cls ConservationProblem} object"
   },
   get_data = function(self, x) {
-    assert(assertthat::is.string(x))
     if (!x %in% names(self$data)) return(new_waiver())
     self$data[[x]]
   },
   set_data = function(self, x, value) {
-    assert(assertthat::is.string(x))
     self$data[[x]] <- value
     invisible()
   },

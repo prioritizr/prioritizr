@@ -140,15 +140,16 @@ ConservationModifier <- pproto(
     repr_data_list(self$name, self$data, compact = compact)
   },
   get_data = function(self, x) {
-    self$data[[x]] %||% new_waiver()
+    if (!x %in% names(self$data)) return(new_waiver())
+    self$data[[x]]
   },
   set_data = function(self, x, value) {
     self$data[[x]] <- value
     invisible()
   },
   get_internal = function(self, x) {
-    self$internal[[x]] %||% new_waiver()
-    self$data[[x]]
+    if (!x %in% names(self$internal)) return(new_waiver())
+    self$internal[[x]]
   },
   set_internal = function(self, x, value) {
     self$internal[[x]] <- value

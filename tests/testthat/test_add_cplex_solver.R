@@ -99,11 +99,11 @@ test_that("variable bounds methods", {
   p$solver$set_variable_lb(2, 1)
   # tests
   expect_equal(
-    p$solver$data$model$ub,
+    p$solver$internal$model$ub,
     replace(rep(1, p$number_of_planning_units()), 1, 0)
   )
   expect_equal(
-    p$solver$data$model$lb,
+    p$solver$internal$model$lb,
     replace(rep(0, p$number_of_planning_units()), 2, 1)
   )
 })

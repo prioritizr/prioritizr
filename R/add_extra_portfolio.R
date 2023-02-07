@@ -97,16 +97,13 @@ add_extra_portfolio <- function(x) {
   x$add_portfolio(pproto(
     "ExtraPortfolio",
     Portfolio,
-    name = "Extra portfolio",
+    name = "extra portfolio",
     run = function(self, x, solver) {
       ## check that problem has gurobi solver
       assert(
         inherits(solver, "GurobiSolver"),
-        call = NULL,
-        msg = paste(
-          "{.code add_extra_portfolio} requires the",
-          "{.code add_gurobi_solver} to be specified."
-        )
+        call = rlang::expr(add_gap_portfolio()),
+        msg = "The solver must be specified using {.fn add_gurobi_solver}."
       )
       ## solve problem
       sol <- solver$solve(x, PoolSearchMode = 1)

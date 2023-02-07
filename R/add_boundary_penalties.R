@@ -392,7 +392,7 @@ methods::setMethod("add_boundary_penalties",
       # compute additional boundary information
       total_boundary <- Matrix::diag(bm)
       exposed_boundary <-
-        Matrix::diag(m) - (Matrix::rowSums(m) - Matrix::diag(m))
+        Matrix::diag(bm) - (Matrix::rowSums(bm) - Matrix::diag(bm))
       # prepare boundary data
       Matrix::diag(bm) <- 0
       bm <- as_Matrix(Matrix::tril(Matrix::drop0(bm)), "dgCMatrix")

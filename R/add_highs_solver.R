@@ -82,7 +82,7 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
   x$add_solver(pproto(
     "HighsSolver",
     Solver,
-    name = "HiGHS",
+    name = "highs solver",
     data = list(
       gap = gap,
       time_limit = time_limit,
@@ -98,6 +98,7 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
       assert(
         all(sense %in% c("=", "<=", ">=")),
         msg = "Failed to prepare problem for {.pkg highs} package.",
+        call = rlang::expr(add_highs_solver()),
         .internal = TRUE
       )
       ## initialize arguments

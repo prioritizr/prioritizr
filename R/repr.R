@@ -115,7 +115,7 @@ repr.crs <- function(x) {
   # sf does not export its nice sf:::format.crs method for pretty crs
   # so, we have to use its nice methods
   x <- suppressMessages(suppressWarnings(
-    capture.output(print(sf::st_sfc(sf::st_point(c(1,1)), crs = x)))
+    utils::capture.output(print(sf::st_sfc(sf::st_point(c(1,1)), crs = x)))
   ))[[5]]
 
   # format output

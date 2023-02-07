@@ -549,31 +549,30 @@ test_that("spatial (compile, single zone)", {
     sim_pu_polygons <- sf::as_Spatial(get_sim_pu_polygons())
     sim_features <- raster::stack(get_sim_features())
     problem(sim_pu_polygons[1:10, ], sim_features) %>%
-    add_min_set_objective() %>%
-    add_relative_targets(0.1) %>%
-    add_binary_decisions()  %>%
-    add_locked_out_constraints(sim_pu_polygons[50:55, ])
+      add_min_set_objective() %>%
+      add_relative_targets(0.1) %>%
+      add_binary_decisions()  %>%
+      add_locked_out_constraints(sim_pu_polygons[50:55, ])
   })
   expect_tidy_error({
     sim_pu_polygons <- sf::as_Spatial(get_sim_pu_polygons())
     sim_features <- raster::stack(get_sim_features())
     problem(sim_pu_polygons[1:10, ], sim_features) %>%
-    add_min_set_objective() %>%
-    add_relative_targets(0.1) %>%
-    add_binary_decisions()  %>%
-    add_locked_out_constraints(sim_pu_polygons[0, ])
+      add_min_set_objective() %>%
+      add_relative_targets(0.1) %>%
+      add_binary_decisions()  %>%
+      add_locked_out_constraints(sim_pu_polygons[0, ])
   })
   expect_tidy_error({
-    sim_pu_polygons <-sf::as_Spatial(get_sim_pu_polygons())
-    sim_features <- raster::stack(get_sim_features())
+    sim_pu_polygons <- get_sim_pu_polygons()
+    sim_features <- get_sim_features()
     sim_pu_polygons2 <- sim_pu_polygons[1:10, ]
-    sim_pu_polygons2@proj4string <-
-      sp::CRS("+proj=longlat +datum=WGS84 +no_defs")
+    suppressWarnings(sf::st_crs(sim_pu_polygons2) <- sf::st_crs(3857))
     problem(sim_pu_polygons, sim_features) %>%
-    add_min_set_objective() %>%
-    add_relative_targets(0.1) %>%
-    add_binary_decisions()  %>%
-    add_locked_out_constraints(sim_pu_polygons2)
+      add_min_set_objective() %>%
+      add_relative_targets(0.1) %>%
+      add_binary_decisions()  %>%
+      add_locked_out_constraints(sim_pu_polygons2)
   })
 })
 

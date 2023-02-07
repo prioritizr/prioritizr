@@ -287,15 +287,21 @@ methods::setMethod("add_feature_weights",
       is.matrix(weights),
       all_finite(weights),
       all_positive(weights),
-      ncol(weights) == x$number_of_zones(),
-      nrow(weights) == x$number_of_features()
+      ncol(weights) > 0,
+      nrow(weights) > 0
     )
+    if (ncol(weights) > 1) {
+      assert(
+        ncol(weights) == number_of_zones(x),
+        nrow(weights) == number_of_features(x)
+      )
+    }
     # add weights to problem
     x$add_penalty(pproto(
       "FeatureWeights",
       Penalty,
-      name = "Feature weights",
-      data = list(weights),
+      name = "feature weights",
+      data = list(weights = weights),
       apply = function(self, x, y) {
         assert(
           inherits(x, "OptimizationProblem"),
@@ -304,12 +310,16 @@ methods::setMethod("add_feature_weights",
         )
         weights <- c(self$get_data("weights"))
         if (!is.Waiver(y$targets)) {
+          n_targets <- nrow(y$targets$output())
           assert(
-            length(weights) == nrow(y$targets$output()),
-            call = NULL,
-            msg = paste(
-              "The number of feature weights must correspond to",
-              "the number of targets in the problem."
+            length(weights) == n_targets,
+            call = rlang::expr(add_feature_weights()),
+            msg = c(
+              paste(
+                "{.arg weights} should have a value for each target."
+              ),
+              "x" = "Number of weights = {.val {length(weights)}}.",
+              "x" = "Number of targets = {.val {n_targets}}."
             )
           )
         }

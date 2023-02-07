@@ -123,18 +123,18 @@ Solver <- pproto(
     repr_data_list(self$name, self$data, compact = compact)
   },
   calculate = function(...) {
-    cli::cli_abort("No defined calculate method.", .internal = TRUE)
+    cli::cli_abort("No defined $calculate method.", .internal = TRUE)
   },
   run = function(...) {
-    cli::cli_abort("No defined calculate method.", .internal = TRUE)
+    cli::cli_abort("No defined $run method.", .internal = TRUE)
   },
   solve = function(self, x, ...) {
     # build optimization problem
     self$calculate(x, ...)
     # run solver and get solution
     out <- self$run()
-    # clear data store to reduce memory consumption
-    self$data <- list()
+    # clear internal store to reduce memory consumption
+    self$internal <- list()
     # return output
     out
   },
@@ -147,7 +147,6 @@ Solver <- pproto(
   },
   get_internal = function(self, x) {
     self$internal[[x]] %||% new_waiver()
-    self$data[[x]]
   },
   set_internal = function(self, x, value) {
     self$internal[[x]] <- value

@@ -121,8 +121,8 @@ add_gap_portfolio <- function(x, number_solutions = 10, pool_gap = 0.1) {
   x$add_portfolio(pproto(
     "GapPortfolio",
     Portfolio,
-    name = "Gap portfolio",
-    parameters = list(
+    name = "gap portfolio",
+    data = list(
       number_solutions = number_solutions,
       pool_gap = pool_gap
     ),
@@ -130,24 +130,24 @@ add_gap_portfolio <- function(x, number_solutions = 10, pool_gap = 0.1) {
       ## check that problems has gurobi solver
       assert(
         inherits(solver, "GurobiSolver"),
-        call = NULL,
-        msg = paste(
-          "{.code add_gap_portfolio} requires the",
-          "{.code add_gurobi_solver} to be specified."
-        )
+        call = rlang::expr(add_gap_portfolio()),
+        msg = "The solver must be specified using {.fn add_gurobi_solver}."
       )
       ## check that solver gap <= portfolio gap
       assert(
-        solver$get_parameter("gap") <= self$get_parameter("pool_gap"),
-        call = NULL,
-        msg = "Solver {.arg gap} must be <= the portfolio {.arg gap}"
+        solver$get_data("gap") <= self$get_data("pool_gap"),
+        call = rlang::expr(add_gap_portfolio()),
+        msg = paste(
+          "{.arg gap} for {.fn add_gurobi_solver} must be {cli::symbol$leq}",
+          "than the {.arg gap} for {.fn add_gap_portfolio}."
+        )
       )
       ## solve problem, and with gap of zero
       sol <- solver$solve(
         x,
         PoolSearchMode = 2,
-        PoolSolutions = self$get_parameter("number_solutions"),
-        PoolGap = self$get_parameter("pool_gap")
+        PoolSolutions = self$get_data("number_solutions"),
+        PoolGap = self$get_data("pool_gap")
       )
       ## compile results
       if (!is.null(sol$pool)) {

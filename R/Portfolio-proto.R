@@ -113,7 +113,6 @@ Portfolio <- pproto(
   },
   get_internal = function(self, x) {
     self$internal[[x]] %||% new_waiver()
-    self$data[[x]]
   },
   set_internal = function(self, x, value) {
     self$internal[[x]] <- value

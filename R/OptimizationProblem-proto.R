@@ -126,20 +126,28 @@ OptimizationProblem <- pproto(
   "OptimizationProblem",
   ptr = NULL,
   print = function(self) {
+    # compute statistics to display
     if (self$ncol() > 0) {
-    cv <- table(self$vtype())
-    cv <- paste(
-      paste(unname(cv), paste0("(", names(cv), ")")),
-      collapse = ", "
-    )
-    message("optimization problem",
-      "\n  model sense: ", self$modelsense(),
-      "\n  dimensions:  ", self$nrow(), ", ", self$ncol(), ", ", self$ncell(),
-                          " (nrow, ncol, ncell)",
-      "\n  variables:   ", cv)
+      cv <- table(self$vtype())
+      cv <- paste(
+        paste(unname(cv), paste0("(", names(cv), ")")),
+        collapse = ", "
+      )
+      ms <- self$modelsense()
+      dims <- paste0(self$nrow(), ", ", self$ncol(), ", ", self$ncell())
     } else {
-      message("optimization problem (empty)")
+      cv <- "none"
+      ms <- "missing"
+      dims <- "0, 0, 0"
     }
+    # print text
+    div_id <- cli::cli_div(theme = conservation_problem_theme())
+    ch <- box_chars()
+    cli::cli_text("An optimization problem ({.cls OptimizationProblem})")
+    cli::cli_text("{ch$b} {.g model sense}: ", ms)
+    cli::cli_text("{ch$b} {.g dimensions}:  ", dims, " (rows, columns, cells)")
+    cli::cli_text("{ch$b} {.g variables}:   ", cv)
+    cli::cli_end(div_id)
   },
   show = function(self) {
     self$print()

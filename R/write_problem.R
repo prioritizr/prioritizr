@@ -75,7 +75,7 @@ write_problem <- function(x, path) {
 
   # compile problem
   x$solver$calculate(compile(x))
-  model <- x$solver$data$model
+  model <- x$solver$internal$model
   assert(
     is.list(model),
     msg = "failed to compile optimization problem"

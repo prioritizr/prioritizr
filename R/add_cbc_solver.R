@@ -151,7 +151,7 @@ add_cbc_solver <- function(x,
   x$add_solver(pproto(
     "CbcSolver",
     Solver,
-    name = "CBC",
+    name = "cbc solver",
     data = list(
       gap = gap,
       time_limit = time_limit,
@@ -169,6 +169,7 @@ add_cbc_solver <- function(x,
       assert(
         all(sense %in% c("=", "<=", ">=")),
         msg = "failed to prepare problem formulation for {.pkg rcbc} package.",
+        call = rlang::expr(add_cbc_solver()),
         .internal = TRUE
       )
       ## initialize CBC arguments

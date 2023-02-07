@@ -125,7 +125,7 @@ test_that("solve (number_solutions outside limit)", {
   # solve problem
   expect_warning(
     s <- solve(p),
-    "only found 1 solutions"
+    "only found"
   )
   # output checks
   expect_is(s, "list")

@@ -396,7 +396,7 @@ methods::setMethod("add_linear_penalties",
     x$add_penalty(pproto(
       "LinearPenalty",
       Penalty,
-      name = "Linear penalties",
+      name = "linear penalties",
       data = list(penalty = penalty, data = data),
       apply = function(self, x, y) {
         assert(

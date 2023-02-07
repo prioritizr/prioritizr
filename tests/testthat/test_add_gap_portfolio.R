@@ -42,7 +42,10 @@ test_that("solve (single zone)", {
     add_gap_portfolio(number_solutions = 5, pool_gap = 0.5) %>%
     add_gurobi_solver(gap = 0, verbose = FALSE)
   # solve problem
-  s <- solve(p)
+  expect_warning(
+    s <- solve(p),
+    "only found"
+  )
   # tests
   expect_is(s, "list")
   expect_equal(length(s), 2) # only two solutions meet this gap

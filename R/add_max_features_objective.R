@@ -140,7 +140,7 @@ add_max_features_objective <- function(x, budget) {
   x$add_objective(pproto(
     "MaximumRepresentationObjective",
     Objective,
-    name = "Maximum representation objective",
+    name = "maximum representation objective",
     data = list(budget = budget),
     apply = function(self, x, y) {
       assert(

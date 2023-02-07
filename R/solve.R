@@ -322,7 +322,7 @@ methods::setMethod(
         "targets, budgets, or constraints (i.e., problem infeasibility)."
       )
     )
-    if (as.list(a$solver$parameters)$time_limit < 1e10) {
+    if (isTRUE(a$solver$data$time_limit < 1e10)) {
       msg <- c(
         msg,
         "i" = paste(
@@ -336,6 +336,19 @@ methods::setMethod(
       !is.null(sol) && !is.null(sol[[1]]$x),
       msg = msg
     )
+    # check that desired number of solutions were found
+    portfolio_number_solutions <- a$portfolio$get_data("number_solutions")
+    if (!is.Waiver(portfolio_number_solutions)) {
+      if (length(sol) != portfolio_number_solutions) {
+        cli::cli_warn(
+          paste(
+            "Couldn't find {.val {portfolio_number_solutions}} solution{?s}",
+            "for the portfolio",
+            "(only found {.val {length(sol)}} solution{?s})."
+          )
+        )
+      }
+    }
     ## format solutions
     # format solutions into planning unit by zones matrix
     na_pos <- which(is.na(a$planning_unit_costs()), arr.ind = TRUE)
@@ -423,7 +436,12 @@ methods::setMethod(
       })
       names(ret) <- paste0("solution_", seq_along(sol))
     } else {
-      stop("Planning unit data is of an unrecognized class.") # nocov
+      # nocov start
+      cli::cli_abort(
+        "Planning unit data is of an unrecognized class.",
+        .internal = TRUE
+      )
+      # nocov end
     }
     # if ret is a list of matrices with a single column then convert to numeric
     if (is.matrix(ret[[1]]) && ncol(ret[[1]]) == 1) {

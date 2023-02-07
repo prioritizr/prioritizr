@@ -254,8 +254,8 @@ internal_presolve_check <- function(x) {
   ## check if budget exceeds total of planning unit costs
   r1 <- which(x$row_ids() == "budget")
   if (length(r1) > 0) {
-    result <- vapply(r1, FUN.VALUE = logical(1), function(x) {
-      sum(o$A()[r1, ]) <= x$rhs()[r1]
+    result <- vapply(r1, FUN.VALUE = logical(1), function(i) {
+      sum(x$A()[i, ]) <= x$rhs()[i]
     })
     if (!all(r1)) {
       if (length(r1) == 1) {

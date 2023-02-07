@@ -101,9 +101,11 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
   # determine if expanded formulation is required
   if (is.na(compressed_formulation)) {
     compressed_formulation <- all(
-      vapply(x$constraints$ids(), FUN.VALUE = logical(1), function(i) {
-          x$constraints[[i]]$compressed_formulation
-      })
+      vapply(
+        x$constraints,
+        FUN.VALUE = logical(1),
+        function(i) i$compressed_formulation
+      )
     )
   }
   # generate targets
@@ -134,19 +136,24 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
   x$objective$calculate(x)
   x$objective$apply(op, x)
   # add constraints for zones
-  if ((x$number_of_zones() > 1) && (length(x$constraints) >= 1)) {
+  if ((x$number_of_zones() > 1)) {
     # detect if mandatory allocation constraints should be applied
-    constraint_names <- vapply(x$constraints, function(x) x$name, character(1))
-    apply_mandatory <- any(
-      constraint_names == "Mandatory allocation constraints"
-    )
+    if (length(x$constraints) == 0) {
+      apply_mandatory <- FALSE
+    } else {
+      apply_mandatory <- any(
+        vapply(
+          x$constraints, inherits, logical(1), "MandatoryAllocationConstraint"
+        )
+      )
+    }
     # set constraint type
     ct <- ifelse(apply_mandatory, "=", "<=")
     # apply constraints
     rcpp_add_zones_constraints(op$ptr, ct)
   }
   # add penalties to optimization problem
-  for (i in x$penalties$ids()) {
+  for (i in seq_along(x$penalties)) {
     ## run sanity check
     weights_not_supported <- c(
       "MinimumSetObjective", "MinimumLargestShortfallObjective"
@@ -170,7 +177,7 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
     x$penalties[[i]]$apply(op, x)
   }
   # add constraints to optimization problem
-  for (i in x$constraints$ids()) {
+  for (i in seq_along(x$constraints)) {
     x$constraints[[i]]$calculate(x)
     x$constraints[[i]]$apply(op, x)
   }

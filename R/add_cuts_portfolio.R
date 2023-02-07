@@ -106,7 +106,7 @@ add_cuts_portfolio <- function(x, number_solutions = 10) {
   x$add_portfolio(pproto(
     "CutsPortfolio",
     Portfolio,
-    name = "Cuts portfolio",
+    name = "cuts portfolio",
     data = list(number_solutions = number_solutions),
     run = function(self, x, solver) {
       ## extract number of desired solutions
@@ -127,8 +127,6 @@ add_cuts_portfolio <- function(x, number_solutions = 10) {
         if (!is.null(curr_sol$x)) {
           sol[[i]] <- curr_sol
         } else {
-          if ((i + 1) < self$get_data("number_solutions"))
-            cli::cli_warn(paste("Only found", length(sol), "solutions."))
           break()
         }
       }

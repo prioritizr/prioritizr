@@ -237,7 +237,7 @@ add_max_phylo_div_objective <- function(x, budget, tree) {
   x$add_objective(pproto(
     "PhylogeneticDiversityObjective",
     Objective,
-    name = "Phylogenetic diversity objective",
+    name = "phylogenetic diversity objective",
     data = list(budget = budget, tree = tree),
     apply = function(self, x, y) {
       # assert arguments valid
@@ -250,7 +250,7 @@ add_max_phylo_div_objective <- function(x, budget, tree) {
       tr <- self$get_data("tree")
       el <- tr$edge.length
       # order rows to match order of features in problem
-      pos <- match(tr$tip.label, x$feature_names())
+      pos <- match(tr$tip.label, y$feature_names())
       # convert tree into matrix showing which species in which
       # branches and store the result
       bm <- branch_matrix(tr)[pos, ]

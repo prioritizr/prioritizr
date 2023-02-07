@@ -254,10 +254,6 @@ test_that("invalid inputs (single zone)", {
   )
   expect_tidy_error(
     problem(sim_pu_raster, sim_features) %>%
-    add_max_phylo_div_objective(budget = 0, sim_phylogeny)
-  )
-  expect_tidy_error(
-    problem(sim_pu_raster, sim_features) %>%
     add_max_phylo_div_objective(budget = NA, sim_phylogeny)
   )
   expect_tidy_error(

@@ -97,7 +97,7 @@ methods::setMethod("add_mandatory_allocation_constraints",
     x$add_constraint(pproto(
       "MandatoryAllocationConstraint",
       Constraint,
-      name = "Mandatory allocation constraints",
+      name = "mandatory allocation constraints",
       apply = function(self, x, y) {
         assert(
           inherits(x, "OptimizationProblem"),

@@ -111,7 +111,10 @@ test_that("solve (no duplicates)", {
     add_shuffle_portfolio(5, remove_duplicates = TRUE) %>%
     add_default_solver(gap = 0.8, verbose = FALSE)
   # solve problem
-  s <- solve(p)
+  expect_warning(
+    s <- solve(p),
+    "only found"
+  )
   # tests
   expect_is(s, "list")
   expect_length(s, 2)

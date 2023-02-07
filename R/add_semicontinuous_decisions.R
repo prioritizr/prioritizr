@@ -90,12 +90,12 @@ add_semicontinuous_decisions <- function(x, upper_limit) {
   x$add_decisions(pproto(
     "SemiContinuousDecision",
      Decision,
-     name = "Semicontinuous decision",
+     name = "semicontinuous decision",
      data = list(upper_limit = upper_limit),
      apply = function(self, x) {
       assert(inherits(x, "OptimizationProblem"), .internal = TRUE)
       invisible(
-        rcpp_apply_decisions(x$ptr, "C", 0, self$get_data("upper limit"))
+        rcpp_apply_decisions(x$ptr, "C", 0, self$get_data("upper_limit"))
       )
     }
   ))

@@ -75,7 +75,7 @@ add_proportion_decisions <- function(x) {
   x$add_decisions(pproto(
     "ProportionDecision",
     Decision,
-    name = "Proportion decision",
+    name = "proportion decision",
     apply = function(self, x) {
       assert(inherits(x, "OptimizationProblem"), .internal = TRUE)
       invisible(

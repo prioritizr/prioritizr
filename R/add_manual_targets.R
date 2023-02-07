@@ -301,11 +301,12 @@ methods::setMethod(
         all_match_of(targets$sense, c(">=", "<=", "="))
       )
     }
+    verify(all_positive(targets$target))
     # add targets to problem
     x$add_targets(pproto(
       "ManualTargets",
       Target,
-      name = "Targets",
+      name = "targets",
       data = list(targets = targets),
       internal = list(abundances = x$feature_abundances_in_total_units()),
       repr = function(self, compact = TRUE) {
@@ -324,14 +325,17 @@ methods::setMethod(
         targets <- self$get_data("targets")
         abundances <- self$get_internal("abundances")
         # add zone column if missing
-        if (!assertthat::has_name(targets, "zone"))
+        if (!assertthat::has_name(targets, "zone")) {
           targets$zone <- colnames(abundances)[[1]]
+        }
         # convert zone column to list of characters if needed
-        if (!inherits(targets$zone, "list"))
+        if (!inherits(targets$zone, "list")) {
           targets$zone <- as.list(targets$zone)
+        }
         # add sense column if missing
-        if (!assertthat::has_name(targets, "sense"))
+        if (!assertthat::has_name(targets, "sense")) {
           targets$sense <- ">="
+        }
         targets$sense <- as.character(targets$sense)
         # convert feature names to indices
         targets$feature <- match(

@@ -204,12 +204,16 @@ eval_boundary_summary <- function(x, solution,
   rownames(zones) <- colnames(zones)
   # prepare boundary matrix data
   if (is.null(data)) {
-    data <- x$get_data("boundary_matrix")
+    data <- x$get_data("boundary")
     if (is.Waiver(data)) {
-      data <-  boundary_matrix(x$get_data("cost"))
+      data <- boundary_matrix(x$get_data("cost"))
+      x$set_data("boundary", data)
     }
   }
-  bm <- internal_prepare_planning_unit_boundary_data(x, data)
+  bm <- as_Matrix(data, "dgCMatrix")
+  # subset data to planning units
+  ind <- x$planning_unit_indices()
+  bm <- bm[ind, ind]
   # compute data
   total_boundary <- Matrix::diag(bm)
   exposed_boundary <-

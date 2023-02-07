@@ -308,6 +308,7 @@ methods::setMethod("add_neighbor_constraints",
       all_positive(k),
       all(k >= 0),
       length(k) == number_of_zones(x),
+      length(dim(data)) == 4,
       dim(data)[1] == x$number_of_total_units(),
       dim(data)[2] == x$number_of_total_units(),
       dim(data)[3] == x$number_of_zones(),
@@ -324,27 +325,29 @@ internal_add_neighbor_constraints <- function(x, k, zones, data) {
   assert(
     is_conservation_problem(x),
     is.numeric(k),
-    is_inherits(data, c("dgCMatrix", "array")),
+    is_inherits(data, c("NULL", "Matrix", "array")),
     .internal = TRUE
   )
   # convert zones to matrix
-  zones <- as.matrix(zones)
-  assert(
-    is.numeric(zones),
-    all_binary(zones),
-    all_finite(zones),
-    isSymmetric(zones),
-    ncol(zones) == number_of_zones(x),
-    call = fn_caller_env()
-  )
-  colnames(zones) <- x$zone_names()
-  rownames(zones) <- colnames(zones)
+  if (!is.null(zones)) {
+    zones <- as.matrix(zones)
+    assert(
+      is.numeric(zones),
+      all_binary(zones),
+      all_finite(zones),
+      isSymmetric(zones),
+      ncol(zones) == number_of_zones(x),
+      call = fn_caller_env()
+    )
+    colnames(zones) <- x$zone_names()
+    rownames(zones) <- colnames(zones)
+  }
   # add the constraint
   x$add_constraint(pproto(
     "NeighborConstraint",
     Constraint,
     data = list(k = k, zones = zones, data = data),
-    name = "Neighbor constraints",
+    name = "neighbor constraints",
     calculate = function(self, x) {
       assert(is_conservation_problem(x))
       # if needed, generate adjacency matrix if null
@@ -384,10 +387,10 @@ internal_add_neighbor_constraints <- function(x, k, zones, data) {
         }
       } else if (inherits(d, "array")) {
         ## if data is an array...
-        for (z1 in seq_len(dim(data)[3])) {
+        for (z1 in seq_len(dim(d)[3])) {
           m[[z1]] <- list()
-          for (z2 in seq_len(dim(data)[4])) {
-            m[[z1]][[z2]] <- as_Matrix(data[ind, ind, z1, z2], "dgCMatrix")
+          for (z2 in seq_len(dim(d)[4])) {
+            m[[z1]][[z2]] <- as_Matrix(d[ind, ind, z1, z2], "dgCMatrix")
           }
         }
       } else {

@@ -521,7 +521,7 @@ methods::setMethod("add_connectivity_penalties",
       all_finite(data)
     )
     # add penalties
-    internal_add_connectivity_penalties (x, penalty, as.matrix(zones), data)
+    internal_add_connectivity_penalties (x, penalty, zones, data)
 })
 
 internal_add_connectivity_penalties <- function(x, penalty, zones, data) {
@@ -530,14 +530,13 @@ internal_add_connectivity_penalties <- function(x, penalty, zones, data) {
     is_conservation_problem(x),
     assertthat::is.number(penalty),
     all_finite(penalty),
-    is.list(data),
     .internal = TRUE
   )
   # create new penalty object
   x$add_penalty(pproto(
     "ConnectivityPenalty",
     Penalty,
-    name = "Connectivity penalties",
+    name = "connectivity penalties",
     data = list(penalty = penalty, zones = zones, data = data),
     apply = function(self, x, y) {
       # assert valid arguments
@@ -547,26 +546,27 @@ internal_add_connectivity_penalties <- function(x, penalty, zones, data) {
         .internal = TRUE
       )
       # extract data
-      data <- self$get_data("data")
-      zones <- self$get_data("zones")
+      d <- self$get_data("data")
+      z <- self$get_data("zones")
+      indices <- y$planning_unit_indices()
       # process data
       m <- list()
       if (inherits(d, "dgCMatrix")) {
         ## if data is a dgCMatrix...
-        for (z1 in seq_len(ncol(zones))) {
+        d <- d[indices, indices, drop = FALSE]
+        for (z1 in seq_len(ncol(z))) {
           m[[z1]] <- list()
-          for (z2 in seq_len(nrow(zones))) {
-            m[[z1]][[z2]] <- data * zones[z1, z2]
+          for (z2 in seq_len(nrow(z))) {
+            m[[z1]][[z2]] <- d * z[z1, z2]
           }
         }
       } else if (inherits(d, "array")) {
         ## if data is an array...
-        indices <- y$planning_unit_indices()
-        for (z1 in seq_len(dim(data)[3])) {
+        for (z1 in seq_len(dim(d)[3])) {
           m[[z1]] <- list()
-          for (z2 in seq_len(dim(data)[4])) {
+          for (z2 in seq_len(dim(d)[4])) {
             m[[z1]][[z2]] <- as_Matrix(
-              data[indices, indices, z1, z2],
+              d[indices, indices, z1, z2],
               "dgCMatrix"
             )
           }

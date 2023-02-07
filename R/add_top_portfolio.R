@@ -96,26 +96,21 @@ add_top_portfolio <- function(x, number_solutions = 10) {
   # check that version 9.0.0 or greater of gurobi is installed
   assert(
     utils::packageVersion("gurobi") >= as.package_version("8.0.0"),
-    msg = paste(
-      "add_top_portfolio() requires version 8.0.0 (or greater)",
-      "of the Gurobi software"
-    )
+    msg =
+      "Version 8.0.0 (or greater) of the Gurobi software must be installed."
   )
   # add portfolio
   x$add_portfolio(pproto(
     "TopPortfolio",
     Portfolio,
-    name = "Top portfolio",
+    name = "top portfolio",
     data = list(number_solutions = number_solutions),
     run = function(self, x, solver) {
       ## check that problems has gurobi solver
       assert(
         inherits(solver, "GurobiSolver"),
-        msg = paste(
-          "{.code add_top_portfolio} requires the",
-          "{.code add_gurobi_solver} to be specified."
-        ),
-        call = NULL
+        call = rlang::expr(add_gap_portfolio()),
+        msg = "The solver must be specified using {.fn add_gurobi_solver}."
       )
       ## solve problem, and with gap of zero
       sol <- solver$solve(

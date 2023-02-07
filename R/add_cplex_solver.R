@@ -113,7 +113,7 @@ add_cplex_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
   x$add_solver(pproto(
     "CplexSolver",
     Solver,
-    name = "CPLEX",
+    name = "cplex solver",
     data = list(
       gap = gap,
       time_limit = time_limit,
@@ -198,7 +198,11 @@ cplex_error_wrap <- function(result, env = NULL) {
     if (!is.null(env)) {
       cplexAPI::closeEnvCPLEX(env)
     }
-    stop(cplexAPI::errmsg(result))
+    cli::cli_abort(
+      cplexAPI::errmsg(result),
+      call = rlang::expr(add_cbc_solver()),
+      .internal = TRUE
+    )
   }
   invisible(TRUE)
 }
@@ -284,11 +288,11 @@ cplex <- function(model, control) {
     matval = model$A2$matval
   )
   if (!(identical(result, 0) || identical(result, 0L))) {
-    msg <- paste0(
-      "Issue preparing data for IBM CPLEX, please file an issue at: {.url ",
-      utils::packageDescription("prioritizr")$BugReports, "}."
+    cli::cli_abort(
+      "Failed to prepare data for IBM CPLEX.",
+      .internal = TRUE,
+      call = rlang::expr(add_cplex_solver())
     )
-    cli::cli_abort(msg, call = NULL)
   }
   # solve problem
   if (all(model$vtype == "C")) {

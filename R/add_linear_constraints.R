@@ -405,7 +405,7 @@ methods::setMethod("add_linear_constraints",
     x$add_constraint(pproto(
       "LinearConstraint",
       Constraint,
-      name = "Linear constraints",
+      name = "linear constraints",
       data = list(threshold = threshold, sense = sense, data = data),
       apply = function(self, x, y) {
         assert(

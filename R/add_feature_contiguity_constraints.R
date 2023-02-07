@@ -249,22 +249,6 @@ methods::setGeneric("add_feature_contiguity_constraints",
 )
 
 #' @name add_feature_contiguity_constraints
-#' @usage \S4method{add_feature_contiguity_constraints}{ConservationProblem,ANY,Matrix}(x, zones, data)
-#' @rdname add_feature_contiguity_constraints
-methods::setMethod("add_feature_contiguity_constraints",
-  methods::signature("ConservationProblem", "ANY", "Matrix"),
-  function(x, zones, data) {
-    # assert valid arguments
-    assert(
-      is_conservation_problem(x),
-      is_inherits(zones, c("matrix", "Matrix", "list")),
-      is_matrix_ish(data)
-   )
-    # apply constraints
-    add_feature_contiguity_constraints(x, zones, data)
-})
-
-#' @name add_feature_contiguity_constraints
 #' @usage \S4method{add_feature_contiguity_constraints}{ConservationProblem,ANY,data.frame}(x, zones, data)
 #' @rdname add_feature_contiguity_constraints
 methods::setMethod("add_feature_contiguity_constraints",
@@ -398,13 +382,13 @@ methods::setMethod("add_feature_contiguity_constraints",
     x$add_constraint(pproto(
       "FeatureContiguityConstraint",
       Constraint,
-      name = "Feature contiguity constraints",
+      name = "feature contiguity constraints",
       compressed_formulation = FALSE,
-      data = list(data, zones),
+      data = list(data = data, zones = zones),
       calculate = function(self, x) {
         # generate connectivity data
         d <- self$get_data("data")
-        if (is.Waiver(d) || is.null(d)) {
+        if (is.null(d)) {
           if (is.Waiver(x$get_data("adjacency"))) {
             data <- adjacency_matrix(x$data$cost)
             data <- as_Matrix(data, "dgCMatrix")
@@ -423,7 +407,7 @@ methods::setMethod("add_feature_contiguity_constraints",
         # extract data
         zn <- self$get_data("zones")
         d <- self$get_data("data")
-        if (is.Waiver(d) || is.null(d)) {
+        if (is.null(d)) {
           d <- y$get_data("adjacency")
         }
         # convert data to list format if needed
@@ -432,7 +416,7 @@ methods::setMethod("add_feature_contiguity_constraints",
         }
         if (!is.list(zn)) {
           zn <- list(zn)[rep(1, number_of_features(y))]
-          names(zn) <- paste(x$feature_names(), "zones")
+          names(zn) <- paste(y$feature_names(), "zones")
         }
         # convert to dgCMatrix
         d <- lapply(d, as_Matrix, "dgCMatrix")
@@ -440,7 +424,7 @@ methods::setMethod("add_feature_contiguity_constraints",
         ind <- y$planning_unit_indices()
         d <- lapply(d, `[`, ind, ind, drop = FALSE)
         # extract clusters from z
-        z_cl <- lapply(seq_along(z), function(i) {
+        z_cl <- lapply(seq_along(zn), function(i) {
           igraph::clusters(
             igraph::graph_from_adjacency_matrix(
               zn[[i]], diag = FALSE, mode = "undirected", weighted = NULL

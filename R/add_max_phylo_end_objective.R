@@ -239,7 +239,7 @@ add_max_phylo_end_objective <- function(x, budget, tree) {
   x$add_objective(pproto(
     "PhylogeneticEndemismObjective",
     Objective,
-    name = "Phylogenetic endemism objective",
+    name = "phylogenetic endemism objective",
     data = list(budget = budget, tree = tree),
     calculate = function(self, x) {
       # assert valid argument
@@ -283,12 +283,12 @@ add_max_phylo_end_objective <- function(x, budget, tree) {
       # get tree
       tr <- self$get_data("tree")
       # order rows to match order of features in problem
-      pos <- match(tr$tip.label, x$feature_names())
+      pos <- match(tr$tip.label, y$feature_names())
       # create re-ordered branch matrix
       bm <- branch_matrix(tr)[pos, , drop = FALSE]
       # calculate total abundance of each phylogenetic branch
       ab <- bm * matrix(
-        rowSums(x$feature_abundances_in_total_units(), na.rm = TRUE),
+        rowSums(y$feature_abundances_in_total_units(), na.rm = TRUE),
         ncol = ncol(bm), nrow = nrow(bm), byrow = FALSE
       )
       # multiply branch lengths by endemism
