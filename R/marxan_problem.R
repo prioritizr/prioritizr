@@ -315,11 +315,8 @@ marxan_problem.data.frame <- function(x, spec, puvspr, bound = NULL,
     all_finite(blm)
   )
   if (abs(blm) > 1e-15 && is.null(bound)) {
-    warning(
-      cli::format_warning(
-        "No boundary data supplied, so setting {.arg blm} has no effect."
-      ),
-      call. = FALSE, immediate. = TRUE
+    cli_warning(
+      "No boundary data supplied, so setting {.arg blm} has no effect."
     )
   }
   ## symmetric
@@ -328,11 +325,8 @@ marxan_problem.data.frame <- function(x, spec, puvspr, bound = NULL,
     assertthat::noNA(symmetric)
   )
   if (!isTRUE(symmetric) && is.null(bound)) {
-    warning(
-      cli::format_warning(
-        "No boundary data supplied, so setting {.arg symmetric} has no effect."
-      ),
-      call. = FALSE, immediate. = TRUE
+    cli_warning(
+      "No boundary data supplied, so setting {.arg symmetric} has no effect."
     )
   }
   # create locked in data

@@ -195,10 +195,7 @@ presolve_check.ConservationProblem <- function(x, warn = TRUE) {
 presolve_check.OptimizationProblem <- function(x, warn = TRUE) {
   result <- internal_presolve_check(x)
   if (!isTRUE(result$pass) && isTRUE(warn)) {
-    warning(
-      cli::format_warning(result$msg),
-      immediate. = TRUE, call. = FALSE
-    )
+    cli_warning(result$msg)
   }
   result$pass
 }

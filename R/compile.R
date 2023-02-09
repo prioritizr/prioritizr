@@ -73,13 +73,11 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
     inherits(x$objective, targets_not_supported) &&
     !is.Waiver(x$targets)
   ) {
-    warning(
-      cli::format_warning(
+    cli_warning(
+      paste(
         "Targets will be ignored, because the specified objective",
         "function doesn't use them."
-      ),
-      call. = FALSE,
-      immediate. = TRUE
+      )
     )
   }
   # replace waivers with defaults
@@ -162,13 +160,11 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
       inherits(x$penalties[[i]], "FeatureWeights") &&
       inherits(x$objective, weights_not_supported)
     ) {
-      warning(
-        cli::format_warning(
+      cli_warning(
+        paste(
           "Weights will be ignored, because the specified objective",
           "function doesn't use them."
-        ),
-        call. = FALSE,
-        immediate. = TRUE
+        )
       )
       next()
     }

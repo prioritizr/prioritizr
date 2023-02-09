@@ -800,7 +800,7 @@ ConservationProblem <- R6::R6Class(
     add_portfolio = function(x) {
       assert(inherits(x, "Portfolio"))
       if (!is.Waiver(self$portfolio))
-        cli::cli_warn("Overwriting previously defined portfolio.")
+        cli_warning("Overwriting previously defined portfolio.")
       y <- self$clone(deep = TRUE)
       y$portfolio <- x
       y
@@ -813,7 +813,7 @@ ConservationProblem <- R6::R6Class(
     add_solver = function(x) {
       assert(inherits(x, "Solver"))
       if (!is.Waiver(self$solver))
-        cli::cli_warn("Overwriting previously defined solver.")
+        cli_warning("Overwriting previously defined solver.")
       p <- self$clone(deep = TRUE)
       p$solver <- x
       p
@@ -826,7 +826,7 @@ ConservationProblem <- R6::R6Class(
     add_targets = function(x) {
       assert(inherits(x, "Target"))
       if (!is.Waiver(self$targets))
-        cli::cli_warn("Overwriting previously defined targets.")
+        cli_warning("Overwriting previously defined targets.")
       p <- self$clone(deep = TRUE)
       p$targets <- x
       p
@@ -839,7 +839,7 @@ ConservationProblem <- R6::R6Class(
     add_objective = function(x) {
       assert(inherits(x, "Objective"))
       if (!is.Waiver(self$objective))
-        cli::cli_warn("Overwriting previously defined objective.")
+        cli_warning("Overwriting previously defined objective.")
       p <- self$clone(deep = TRUE)
       p$objective <- x
       p
@@ -852,7 +852,7 @@ ConservationProblem <- R6::R6Class(
     add_decisions = function(x) {
       assert(inherits(x, "Decision"))
       if (!is.Waiver(self$decisions))
-        cli::cli_warn("Overwriting previously defined decision.")
+        cli_warning("Overwriting previously defined decision.")
       p <- self$clone(deep = TRUE)
       p$decisions <- x
       p

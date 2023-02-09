@@ -295,7 +295,8 @@ methods::setMethod("add_linear_penalties",
     )
     # add penalties
     add_linear_penalties(x, penalty, d)
-})
+  }
+)
 
 #' @name add_linear_penalties
 #' @usage \S4method{add_linear_penalties}{ConservationProblem,ANY,numeric}(x, penalty, data)
@@ -304,7 +305,8 @@ methods::setMethod("add_linear_penalties",
   methods::signature("ConservationProblem", "ANY", "numeric"),
   function(x, penalty, data) {
     add_linear_penalties(x, penalty, matrix(data, ncol = 1))
-})
+  }
+)
 
 #' @name add_linear_penalties
 #' @usage \S4method{add_linear_penalties}{ConservationProblem,ANY,matrix}(x, penalty, data)
@@ -313,7 +315,8 @@ methods::setMethod("add_linear_penalties",
   methods::signature("ConservationProblem", "ANY", "matrix"),
   function(x, penalty, data) {
     add_linear_penalties(x, penalty, as_Matrix(data, "dgCMatrix"))
-})
+  }
+)
 
 #' @name add_linear_penalties
 #' @usage \S4method{add_linear_penalties}{ConservationProblem,ANY,Matrix}(x, penalty, data)
@@ -322,7 +325,8 @@ methods::setMethod("add_linear_penalties",
   methods::signature("ConservationProblem", "ANY", "Matrix"),
   function(x, penalty, data) {
     add_linear_penalties(x, penalty, as_Matrix(data, "dgCMatrix"))
-})
+  }
+)
 
 #' @name add_linear_penalties
 #' @usage \S4method{add_linear_penalties}{ConservationProblem,ANY,Raster}(x, penalty, data)
@@ -332,7 +336,8 @@ methods::setMethod("add_linear_penalties",
   function(x, penalty, data) {
     .Deprecated(msg = raster_pkg_deprecation_notice)
     add_linear_penalties(x, penalty, terra::rast(data))
-})
+  }
+)
 
 #' @name add_linear_penalties
 #' @usage \S4method{add_linear_penalties}{ConservationProblem,ANY,SpatRaster}(x, penalty, data)
@@ -373,7 +378,8 @@ methods::setMethod("add_linear_penalties",
     d[is.na(d)] <- 0
     # add penalties
     add_linear_penalties(x, penalty, as_Matrix(d, "dgCMatrix"))
-})
+  }
+)
 
 #' @name add_linear_penalties
 #' @usage \S4method{add_linear_penalties}{ConservationProblem,ANY,dgCMatrix}(x, penalty, data)
@@ -416,8 +422,9 @@ methods::setMethod("add_linear_penalties",
               rcpp_apply_linear_penalties(x$ptr, p, d)
             }
             invisible(TRUE)
-        }
-      )
-    )$new()
-  )
-})
+          }
+        )
+      )$new()
+    )
+  }
+)

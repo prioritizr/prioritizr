@@ -239,7 +239,8 @@ methods::setMethod("add_asym_connectivity_penalties",
     add_asym_connectivity_penalties(
       x, penalty, zones, as_Matrix(data, "dgCMatrix")
     )
-})
+  }
+)
 
 #' @name add_asym_connectivity_penalties
 #' @usage \S4method{add_asym_connectivity_penalties}{ConservationProblem,ANY,ANY,Matrix}(x, penalty, zones, data)
@@ -250,7 +251,8 @@ methods::setMethod("add_asym_connectivity_penalties",
     add_asym_connectivity_penalties(
       x, penalty, zones, as_Matrix(data, "dgCMatrix")
     )
-})
+  }
+)
 
 #' @name add_asym_connectivity_penalties
 #' @usage \S4method{add_asym_connectivity_penalties}{ConservationProblem,ANY,ANY,data.frame}(x, penalty, zones, data)
@@ -265,12 +267,13 @@ methods::setMethod("add_asym_connectivity_penalties",
       all_finite(penalty),
       is.data.frame(data)
     )
-  # add penalties to problem
-  add_asym_connectivity_penalties(
-    x, penalty, zones,
-    marxan_connectivity_data_to_matrix(x, data, symmetric = FALSE)
-  )
-})
+    # add penalties to problem
+    add_asym_connectivity_penalties(
+      x, penalty, zones,
+      marxan_connectivity_data_to_matrix(x, data, symmetric = FALSE)
+    )
+  }
+)
 
 #' @name add_asym_connectivity_penalties
 #' @usage \S4method{add_asym_connectivity_penalties}{ConservationProblem,ANY,ANY,dgCMatrix}(x, penalty, zones, data)
@@ -317,7 +320,8 @@ methods::setMethod("add_asym_connectivity_penalties",
     }
     # add penalties
     internal_add_asym_connectivity_penalties(x, penalty, m)
-})
+  }
+)
 
 #' @name add_asym_connectivity_penalties
 #' @usage \S4method{add_asym_connectivity_penalties}{ConservationProblem,ANY,ANY,array}(x, penalty, zones, data)
@@ -351,7 +355,8 @@ methods::setMethod("add_asym_connectivity_penalties",
     }
     # add penalties
     internal_add_asym_connectivity_penalties(x, penalty, m)
-})
+  }
+)
 
 internal_add_asym_connectivity_penalties <- function(x, penalty, data) {
   # assert valid arguments

@@ -182,7 +182,8 @@ methods::setMethod("add_manual_locked_constraints",
     )
     # add constraints
     add_manual_locked_constraints(x, tibble::as_tibble(data))
-})
+  }
+)
 
 #' @name add_manual_locked_constraints
 #' @usage \S4method{add_manual_locked_constraints}{ConservationProblem,tbl_df}(x, data)

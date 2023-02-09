@@ -279,7 +279,8 @@ methods::setMethod("add_boundary_penalties",
       x, penalty, edge_factor, zones,
       internal_marxan_boundary_data_to_matrix(x, data)
     )
-})
+  }
+)
 
 #' @name add_boundary_penalties
 #' @usage \S4method{add_boundary_penalties}{ConservationProblem,ANY,ANY,ANY,matrix}(x, penalty, edge_factor, zones, data)
@@ -291,7 +292,8 @@ methods::setMethod("add_boundary_penalties",
     add_boundary_penalties(
       x, penalty, edge_factor, zones, as_Matrix(data, "dgCMatrix")
     )
-})
+  }
+)
 
 #' @name add_boundary_penalties
 #' @usage \S4method{add_boundary_penalties}{ConservationProblem,ANY,ANY,ANY,ANY}(x, penalty, edge_factor, zones, data)

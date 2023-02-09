@@ -120,3 +120,29 @@ cli_tree_component <- function(x,
   for (x in out) cli_vtext(x, .envir = .envir)
   invisible(TRUE)
 }
+
+#' Warning
+#'
+#' Throw a warning.
+#'
+#' @param message `character` value with warning to display.
+#'
+#' @param immediate `logical` value indicating if warning should be
+#'   displayed immediately. Defaults to `TRUE`.
+#'
+#' @param call `logical` value indicating if the warning should contain
+#'   the function call. Defaults to `FALSE`.
+#'
+#' @return None.
+#'
+#' @examples
+#' cli_warning("{.strong Danger! Danger!} My hooks are flailing wildly!")
+#'
+#' @noRd
+cli_warning <- function(message, immediate = TRUE, call = FALSE,
+                        .envir = parent.frame()) {
+  warning(
+    cli::format_warning(message, .envir = .envir),
+    immediate. = immediate, call. = call
+  )
+}

@@ -52,10 +52,7 @@ verify <- function(..., env = parent.frame(), call = fn_caller_env()) {
   res <- gsub("must not have", "has", res, fixed = TRUE)
   res <- gsub("must have", "does not have", res, fixed = TRUE)
   # throw warning
-  warning(
-    cli::format_warning(res),
-    immediate. = TRUE, call. = FALSE
-  )
+  cli_warning(res, .envir = call)
   # return result
   FALSE
 }

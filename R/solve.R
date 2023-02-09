@@ -319,7 +319,7 @@ methods::setMethod(
     portfolio_number_solutions <- a$portfolio$get_data("number_solutions")
     if (!is.Waiver(portfolio_number_solutions)) {
       if (length(sol) != portfolio_number_solutions) {
-        cli::cli_warn(
+        cli_warning(
           paste(
             "Couldn't find {.val {portfolio_number_solutions}} solution{?s}",
             "for the portfolio",

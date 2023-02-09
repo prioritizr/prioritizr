@@ -192,7 +192,8 @@ methods::setMethod(
     .Deprecated(msg = sp_pkg_deprecation_notice)
     .Deprecated(msg = raster_pkg_deprecation_notice)
     connectivity_matrix(sf::st_as_sf(x), terra::rast(y), ...)
-  })
+  }
+)
 
 #' @name connectivity_matrix
 #' @usage \S4method{connectivity_matrix}{Spatial,character}(x, y, ...)
