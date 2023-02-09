@@ -9,7 +9,8 @@
   package can provide better performance. Although _sp_ and _raster_ package
   data formats (e.g., `raster::stack()` and `sp::SpatialPolyonsDataFrame()`)
   are still supported, the _prioritizr_ package will now throw deprecation
-  warnings. Please note that the _sp_ and _raster_ package data formats will be fully deprecated and removed in a later version this year.
+  warnings. Please note that the _sp_ and _raster_ package data formats will be
+  fully deprecated and removed in a later version this year.
 
 ## Breaking changes
 
