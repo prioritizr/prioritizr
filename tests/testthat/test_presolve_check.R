@@ -23,12 +23,14 @@ test_that("instability due to boundary data", {
   b[1, 2] <- 1e+10
   b[2, 1] <- 1e+10
   # create problem
-  p <-
-    problem(sim_pu_raster, sim_features) %>%
-    add_min_set_objective() %>%
-    add_relative_targets(0.1) %>%
-    add_boundary_penalties(1, data = b) %>%
-    add_binary_decisions()
+  suppressWarnings(
+    p <-
+      problem(sim_pu_raster, sim_features) %>%
+      add_min_set_objective() %>%
+      add_relative_targets(0.1) %>%
+      add_boundary_penalties(1, data = b) %>%
+      add_binary_decisions()
+  )
   # tests
   expect_warning(expect_false(presolve_check(p)), "boundary")
 })

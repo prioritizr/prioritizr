@@ -17,6 +17,9 @@
   memory usage. Note that any `problem()` objects that were produced using
   earlier versions of the package are not compatible with this version of
   the package.
+- The `boundary_matrix()` format has been updated. This means that
+  users will not be able to use boundary data generated using previous
+  verisons of the package.
 - The built-in datasets have been removed and replaced with functions
   to import them as needed (see below). Note that these functions only return
   `sf::st_sf()` and `terra::rast()` objects.
@@ -24,7 +27,7 @@
   removed, because they are now effectively the same as the
   `get_sim_pu_polygons()` and `get_sim_zones_pu_polygons()` datasets.
 - The `add_lpsymphony_solver()` now throws an error -- instead of a warning --
-  if an old version of the _lpsymphony_ package is installed that is known
+  if an old version of the _lpsymphony R_ package is installed that is known
   to produce incorrect results.
 - The `marxan_boundary_data_to_matrix()` function is no longer compatible
   with boundary data for multiple zones.

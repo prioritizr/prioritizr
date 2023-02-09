@@ -531,3 +531,19 @@ test_that("invalid inputs (multiple zones)", {
   expect_tidy_error(add_boundary_penalties(p, zones = p_zones - 5))
   expect_tidy_error(add_boundary_penalties(p, zones = p_zones + c(1, 2, NA)))
 })
+
+test_that("throws warnings", {
+  # load data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  ## create boundary matrix with weird values
+  bm <- boundary_matrix(sim_pu_raster)
+  Matrix::diag(bm) <- Matrix::diag(bm) * 0.5
+  # create problem
+  p <- problem(sim_pu_raster, sim_features)
+  ## tests
+  expect_warning(
+    add_boundary_penalties(p, 5, data = bm),
+    "unexpected"
+  )
+})

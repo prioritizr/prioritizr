@@ -315,6 +315,8 @@ methods::setMethod("add_boundary_penalties",
       all_finite(zones)
     )
     if (!is.null(data)) {
+      # round data to avoid numerical precision issues
+      data <- round(data, 5)
       # check argument to data if not NULL
       assert(
         ncol(data) == nrow(data),
@@ -322,6 +324,26 @@ methods::setMethod("add_boundary_penalties",
         is_numeric_values(data),
         all_finite(data),
         Matrix::isSymmetric(data)
+      )
+      # verify diagonal is >= edge lengths
+      verify(
+        all(
+          Matrix::diag(data) >=
+          (Matrix::rowSums(data) - Matrix::diag(data))
+        ),
+        msg = c(
+          "{.arg data} has unexpected values.",
+          "x" = paste(
+            "If {.arg data} is from an older version of",
+            "{.pkg prioritizr}, then use",
+            "{.fn boundary_matrix} to recreate it."
+          ),
+          "i" = paste(
+            "If {.arg data} is from the current version of",
+            "{.pkg prioritizr}, then {.arg x}",
+            "has spatially overlapping planning units."
+          )
+        )
       )
     } else {
       # check that planning unit data is spatially referenced
