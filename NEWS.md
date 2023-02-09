@@ -14,9 +14,10 @@
 ## Breaking changes
 
 - All _proto_ classes have been migrated to _R6_ classes. This update reduces
-  memory usage. Note that any `problem()` objects that were produced using
-  earlier versions of the package are not compatible with this version of
-  the package.
+  memory usage (#238), so `problem()` objects can now contain many more
+  constraints and penalties than previously. Note that any `problem()` objects
+  that were produced using earlier versions of the package are not compatible
+  with this version of the package.
 - The `boundary_matrix()` format has been updated. This means that
   users will not be able to use boundary data generated using previous
   verisons of the package.
