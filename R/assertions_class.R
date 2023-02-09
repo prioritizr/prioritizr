@@ -37,17 +37,33 @@ assertthat::on_failure(is_matrix_ish) <- function(call, env) {
 #'
 #' @noRd
 is_conservation_problem <- function(x) {
+  !inherits(x, "pproto") &&
   inherits(x, "ConservationProblem")
 }
 
 assertthat::on_failure(is_conservation_problem) <- function(call, env) {
-  c(
-    paste0(
-      "{.arg ", deparse(call$x),
-      "} is not a {.cls ConservationProblem}."
-    ),
-    "i" = "see {.fun problem} to create a new conservation problem."
-  )
+  if (inherits(env$x, "pproto")) {
+    return(
+      c(
+        paste0(
+          "{.arg ", deparse(call$x),
+          "} was created using an earlier version of the {.pkg prioritizr}",
+          " package."
+        ),
+        "i" = "Use {.fun problem} to create a new conservation problem."
+      )
+    )
+  } else {
+    return(
+      c(
+        paste0(
+          "{.arg ", deparse(call$x),
+          "} is not a {.cls ConservationProblem}."
+        ),
+        "i" = "See {.fun problem} to create a new conservation problem."
+      )
+    )
+  }
 }
 
 #' Is inherits?
