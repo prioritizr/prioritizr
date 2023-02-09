@@ -1,9 +1,6 @@
 #' @include internal.R
 NULL
 
-#' @import terra
-#' @import sf
-#' @import proto
 #' @useDynLib prioritizr, .registration = TRUE
 NULL
 
@@ -89,4 +86,6 @@ NULL
 #' @importFrom exactextractr exact_extract
 NULL
 
-NULL
+# avoid CRAN check NOTES due to R6 classes
+# see: https://github.com/r-lib/R6/issues/230
+if(getRversion() >= "2.15.1")  utils::globalVariables(c("self"))

@@ -1,4 +1,4 @@
-#' @include internal.R Constraint-proto.R intersecting_units.R
+#' @include internal.R Constraint-class.R intersecting_units.R
 NULL
 
 #' Add locked out constraints
@@ -222,7 +222,8 @@ methods::setMethod("add_locked_out_constraints",
     m[locked_out, 1] <- TRUE
     # add constraints
     add_locked_out_constraints(x, m)
-})
+  }
+)
 
 #' @name add_locked_out_constraints
 #' @usage \S4method{add_locked_out_constraints}{ConservationProblem,logical}(x, locked_out)
@@ -240,7 +241,8 @@ methods::setMethod("add_locked_out_constraints",
     )
     # add constraints
     add_locked_out_constraints(x, matrix(locked_out, ncol = 1))
-})
+  }
+)
 
 #' @name add_locked_out_constraints
 #' @usage \S4method{add_locked_out_constraints}{ConservationProblem,matrix}(x, locked_out)
@@ -272,7 +274,8 @@ methods::setMethod("add_locked_out_constraints",
     )
     # add constraints
     add_manual_locked_constraints(x, y)
-})
+  }
+)
 
 #' @name add_locked_out_constraints
 #' @usage \S4method{add_locked_out_constraints}{ConservationProblem,character}(x, locked_out)
@@ -318,7 +321,8 @@ methods::setMethod("add_locked_out_constraints",
     add_locked_out_constraints(
       x, as.matrix(as.data.frame(x$data$cost)[, locked_out, drop = FALSE])
     )
-})
+  }
+)
 
 #' @name add_locked_out_constraints
 #' @usage \S4method{add_locked_out_constraints}{ConservationProblem,Spatial}(x, locked_out)
@@ -331,7 +335,8 @@ methods::setMethod("add_locked_out_constraints",
       x,
       intersecting_units(x$data$cost, sf::st_as_sf(locked_out))
     )
-})
+  }
+)
 
 #' @name add_locked_out_constraints
 #' @usage \S4method{add_locked_out_constraints}{ConservationProblem,sf}(x, locked_out)
@@ -347,7 +352,8 @@ methods::setMethod("add_locked_out_constraints",
     )
     # add constraints
     add_locked_out_constraints(x, intersecting_units(x$data$cost, locked_out))
-})
+  }
+)
 
 #' @name add_locked_out_constraints
 #' @usage \S4method{add_locked_out_constraints}{ConservationProblem,Raster}(x, locked_out)
@@ -357,7 +363,8 @@ methods::setMethod("add_locked_out_constraints",
   function(x, locked_out) {
     .Deprecated(msg = raster_pkg_deprecation_notice)
     add_locked_out_constraints(x, terra::rast(locked_out))
-})
+  }
+)
 
 #' @name add_locked_out_constraints
 #' @usage \S4method{add_locked_out_constraints}{ConservationProblem,SpatRaster}(x, locked_out)
@@ -406,4 +413,5 @@ methods::setMethod("add_locked_out_constraints",
     )
     # add constraints
     add_locked_out_constraints(x, status)
-})
+  }
+)

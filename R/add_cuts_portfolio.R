@@ -1,4 +1,4 @@
-#' @include Portfolio-proto.R
+#' @include Portfolio-class.R
 NULL
 
 #' Add Bender's cuts portfolio
@@ -6,8 +6,8 @@ NULL
 #' Generate a portfolio of solutions for a conservation planning
 #' [problem()] using Bender's cuts (discussed in Rodrigues
 #' *et al.* 2000). This is recommended as a replacement for
-#'  [add_gap_portfolio()] when the *Gurobi* software is not
-#'  available.
+#' [add_gap_portfolio()] when the *Gurobi* software is not
+#' available.
 #'
 #' @param x [problem()] object.
 #'
@@ -103,35 +103,39 @@ add_cuts_portfolio <- function(x, number_solutions = 10) {
     all_finite(number_solutions)
   )
   # add portfolio
-  x$add_portfolio(pproto(
-    "CutsPortfolio",
-    Portfolio,
-    name = "cuts portfolio",
-    data = list(number_solutions = number_solutions),
-    run = function(self, x, solver) {
-      ## extract number of desired solutions
-      n <- self$get_data("number_solutions")
-      ## solve problem to verify that it is feasible
-      sol <- solver$solve(x)
-      ## if solving the problem failed then return NULL
-      if (is.null(sol))
-        return(sol)
-      ## generate additional solutions
-      sol <- list(sol)
-      for (i in seq_len(n - 1) + 1) {
-        ### add cuts
-        rcpp_forbid_solution(x$ptr, sol[[i - 1]][[1]])
-        ### solve solution
-        curr_sol <- solver$solve(x)
-        ### if contains valid solution then
-        if (!is.null(curr_sol$x)) {
-          sol[[i]] <- curr_sol
-        } else {
-          break()
+  x$add_portfolio(
+    R6::R6Class(
+      "CutsPortfolio",
+      inherit = Portfolio,
+      public = list(
+        name = "cuts portfolio",
+        data = list(number_solutions = number_solutions),
+        run = function(x, solver) {
+          ## extract number of desired solutions
+          n <- self$get_data("number_solutions")
+          ## solve problem to verify that it is feasible
+          sol <- solver$solve(x)
+          ## if solving the problem failed then return NULL
+          if (is.null(sol))
+            return(sol)
+          ## generate additional solutions
+          sol <- list(sol)
+          for (i in seq_len(n - 1) + 1) {
+            ### add cuts
+            rcpp_forbid_solution(x$ptr, sol[[i - 1]][[1]])
+            ### solve solution
+            curr_sol <- solver$solve(x)
+            ### if contains valid solution then
+            if (!is.null(curr_sol$x)) {
+              sol[[i]] <- curr_sol
+            } else {
+              break()
+            }
+          }
+          ## compile results
+          return(sol)
         }
-      }
-      ## compile results
-      return(sol)
-    }
-  ))
+      )
+    )$new()
+  )
 }

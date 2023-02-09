@@ -1,4 +1,4 @@
-#' @include Solver-proto.R
+#' @include Solver-class.R
 NULL
 
 #' Add a *Gurobi* solver
@@ -207,121 +207,125 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
     node_file_start <- -1 # this is used later to indicate Inf
   }
   # add solver
-  x$add_solver(pproto(
-    "GurobiSolver",
-    Solver,
-    name = "gurobi solver",
-    data = list(
-      gap = gap,
-      time_limit = time_limit,
-      presolve = presolve,
-      threads = threads,
-      first_feasible = first_feasible,
-      numeric_focus = numeric_focus,
-      node_file_start = node_file_start,
-      start_solution = start_solution,
-      verbose = verbose
-    ),
-    calculate = function(self, x, ...) {
-      # create problem
-      model <- list(
-        modelsense = x$modelsense(),
-        vtype = x$vtype(),
-        obj = x$obj(),
-        A = x$A(),
-        rhs = x$rhs(),
-        sense = x$sense(),
-        lb = x$lb(),
-        ub = x$ub()
-      )
-      # create parameters
-      p <- list(
-        LogToConsole = as.numeric(self$get_data("verbose")),
-        LogFile = "",
-        Presolve = self$get_data("presolve"),
-        MIPGap = self$get_data("gap"),
-        TimeLimit = self$get_data("time_limit"),
-        Threads = self$get_data("threads"),
-        NumericFocus = as.numeric(self$get_data("numeric_focus")) * 2,
-        NodeFileStart = self$get_data("node_file_start"),
-        SolutionLimit = as.numeric(self$get_data("first_feasible"))
-      )
-      if (p$SolutionLimit == 0)
-        p$SolutionLimit <- NULL
-      if (p$NodeFileStart < 0) {
-        p$NodeFileStart <- NULL
-      }
-      # add starting solution if specified
-      start <- self$get_data("start_solution")
-      if (!is.null(start) && !is.Waiver(start)) {
-        n_extra <- length(model$obj) - length(start)
-        model$start <- c(c(start), rep(NA_real_, n_extra))
-      }
-      # add extra parameters from portfolio if needed
-      p2 <- list(...)
-      for (i in seq_along(p2))
-        p[[names(p2)[i]]] <- p2[[i]]
-      # store internal model and parameters
-      self$set_internal("model", model)
-      self$set_internal("parameters", p)
-      # return success
-      invisible(TRUE)
-    },
-    set_variable_ub = function(self, index, value) {
-      self$internal$model$ub[index] <- value
-      invisible(TRUE)
-    },
-    set_variable_lb = function(self, index, value) {
-      self$internal$model$lb[index] <- value
-      invisible(TRUE)
-    },
-    run = function(self, x) {
-      # access internal model and parameters
-      model <- self$get_internal("model")
-      p <- self$get_internal("parameters")
-      # solve problem
-      rt <- system.time({
-        x <- withr::with_locale(
-          c(LC_CTYPE = "C"),
-          gurobi::gurobi(model = model, params = p)
-        )
-      })
-      # fix potential floating point arithmetic issues
-      b <- model$vtype == "B"
-      if (is.numeric(x$x)) {
-        ## round binary variables because default precision is 1e-5
-        x$x[b] <- round(x$x[b])
-        ## truncate semi-continuous variables
-        v <- model$vtype == "S"
-        x$x[v] <- pmax(x$x[v], 0)
-        x$x[v] <- pmin(x$x[v], 1)
-        ## truncate variables to account for rounding issues
-        x$x <- pmax(x$x, model$lb)
-        x$x <- pmin(x$x, model$ub)
-      }
-      # extract solutions
-      out <- list(
-        x = x$x,
-        objective = x$objval,
-        status = x$status,
-        runtime = rt[[3]]
-      )
-      # add pool if required
-      if (!is.null(p$PoolSearchMode) &&
-          is.numeric(x$x) &&
-          isTRUE(length(x$pool) > 1)
-      ) {
-        out$pool <- x$pool[-1]
-        for (i in seq_len(length(out$pool))) {
-          out$pool[[i]]$xn[b] <- round(out$pool[[i]]$xn[b])
-          out$pool[[i]]$status <- ifelse(
-            abs(out$pool[[i]]$objval - x$objval) < 1e-5,
-            "OPTIMAL",
-            "SUBOPTIMAL"
+  x$add_solver(
+    R6::R6Class(
+      "GurobiSolver",
+      inherit = Solver,
+      public = list(
+        name = "gurobi solver",
+        data = list(
+          gap = gap,
+          time_limit = time_limit,
+          presolve = presolve,
+          threads = threads,
+          first_feasible = first_feasible,
+          numeric_focus = numeric_focus,
+          node_file_start = node_file_start,
+          start_solution = start_solution,
+          verbose = verbose
+        ),
+        calculate = function(x, ...) {
+          # create problem
+          model <- list(
+            modelsense = x$modelsense(),
+            vtype = x$vtype(),
+            obj = x$obj(),
+            A = x$A(),
+            rhs = x$rhs(),
+            sense = x$sense(),
+            lb = x$lb(),
+            ub = x$ub()
           )
+          # create parameters
+          p <- list(
+            LogToConsole = as.numeric(self$get_data("verbose")),
+            LogFile = "",
+            Presolve = self$get_data("presolve"),
+            MIPGap = self$get_data("gap"),
+            TimeLimit = self$get_data("time_limit"),
+            Threads = self$get_data("threads"),
+            NumericFocus = as.numeric(self$get_data("numeric_focus")) * 2,
+            NodeFileStart = self$get_data("node_file_start"),
+            SolutionLimit = as.numeric(self$get_data("first_feasible"))
+          )
+          if (p$SolutionLimit == 0)
+            p$SolutionLimit <- NULL
+          if (p$NodeFileStart < 0) {
+            p$NodeFileStart <- NULL
+          }
+          # add starting solution if specified
+          start <- self$get_data("start_solution")
+          if (!is.null(start) && !is.Waiver(start)) {
+            n_extra <- length(model$obj) - length(start)
+            model$start <- c(c(start), rep(NA_real_, n_extra))
+          }
+          # add extra parameters from portfolio if needed
+          p2 <- list(...)
+          for (i in seq_along(p2))
+            p[[names(p2)[i]]] <- p2[[i]]
+          # store internal model and parameters
+          self$set_internal("model", model)
+          self$set_internal("parameters", p)
+          # return success
+          invisible(TRUE)
+        },
+        set_variable_ub = function(index, value) {
+          self$internal$model$ub[index] <- value
+          invisible(TRUE)
+        },
+        set_variable_lb = function(index, value) {
+          self$internal$model$lb[index] <- value
+          invisible(TRUE)
+        },
+        run = function() {
+          # access internal model and parameters
+          model <- self$get_internal("model")
+          p <- self$get_internal("parameters")
+          # solve problem
+          rt <- system.time({
+            x <- withr::with_locale(
+              c(LC_CTYPE = "C"),
+              gurobi::gurobi(model = model, params = p)
+            )
+          })
+          # fix potential floating point arithmetic issues
+          b <- model$vtype == "B"
+          if (is.numeric(x$x)) {
+            ## round binary variables because default precision is 1e-5
+            x$x[b] <- round(x$x[b])
+            ## truncate semi-continuous variables
+            v <- model$vtype == "S"
+            x$x[v] <- pmax(x$x[v], 0)
+            x$x[v] <- pmin(x$x[v], 1)
+            ## truncate variables to account for rounding issues
+            x$x <- pmax(x$x, model$lb)
+            x$x <- pmin(x$x, model$ub)
+          }
+          # extract solutions
+          out <- list(
+            x = x$x,
+            objective = x$objval,
+            status = x$status,
+            runtime = rt[[3]]
+          )
+          # add pool if required
+          if (!is.null(p$PoolSearchMode) &&
+              is.numeric(x$x) &&
+              isTRUE(length(x$pool) > 1)
+          ) {
+            out$pool <- x$pool[-1]
+            for (i in seq_len(length(out$pool))) {
+              out$pool[[i]]$xn[b] <- round(out$pool[[i]]$xn[b])
+              out$pool[[i]]$status <- ifelse(
+                abs(out$pool[[i]]$objval - x$objval) < 1e-5,
+                "OPTIMAL",
+                "SUBOPTIMAL"
+              )
+            }
+          }
+          out
         }
-      }
-      out
-    }
-  ))
+      )
+    )$new()
+  )
 }

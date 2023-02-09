@@ -1,4 +1,4 @@
-#' @include Portfolio-proto.R
+#' @include Portfolio-class.R
 NULL
 
 #' Add an extra portfolio
@@ -94,38 +94,42 @@ add_extra_portfolio <- function(x) {
     )
   )
   # add portfolio
-  x$add_portfolio(pproto(
-    "ExtraPortfolio",
-    Portfolio,
-    name = "extra portfolio",
-    run = function(self, x, solver) {
-      ## check that problem has gurobi solver
-      assert(
-        inherits(solver, "GurobiSolver"),
-        call = rlang::expr(add_gap_portfolio()),
-        msg = "The solver must be specified using {.fn add_gurobi_solver}."
-      )
-      ## solve problem
-      sol <- solver$solve(x, PoolSearchMode = 1)
-      ## compile results
-      if (!is.null(sol$pool)) {
-        sol <- append(
-          list(sol[-5]),
-          lapply(
-            sol$pool,
-            function(z) list(
-              x = z$xn,
-              objective = z$objval,
-              status = z$status,
-              runtime = sol$runtime
-            )
+  x$add_portfolio(
+    R6::R6Class(
+      "ExtraPortfolio",
+      inherit = Portfolio,
+      public = list(
+        name = "extra portfolio",
+        run = function(x, solver) {
+          ## check that problem has gurobi solver
+          assert(
+            inherits(solver, "GurobiSolver"),
+            call = rlang::expr(add_gap_portfolio()),
+            msg = "The solver must be specified using {.fn add_gurobi_solver}."
           )
-        )
-      } else {
-       sol <- list(sol)
-      }
-      ## return solution
-      return(sol)
-    }
-  ))
+          ## solve problem
+          sol <- solver$solve(x, PoolSearchMode = 1)
+          ## compile results
+          if (!is.null(sol$pool)) {
+            sol <- append(
+              list(sol[-5]),
+              lapply(
+                sol$pool,
+                function(z) list(
+                  x = z$xn,
+                  objective = z$objval,
+                  status = z$status,
+                  runtime = sol$runtime
+                )
+              )
+            )
+          } else {
+           sol <- list(sol)
+          }
+          ## return solution
+          return(sol)
+        }
+      )
+    )$new()
+  )
 }

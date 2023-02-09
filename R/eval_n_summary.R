@@ -1,4 +1,4 @@
-#' @include internal.R ConservationProblem-proto.R
+#' @include internal.R ConservationProblem-class.R
 NULL
 
 #' Evaluate number of planning units selected

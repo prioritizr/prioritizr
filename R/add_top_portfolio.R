@@ -1,4 +1,4 @@
-#' @include Portfolio-proto.R
+#' @include Portfolio-class.R
 NULL
 
 #' Add a top portfolio
@@ -100,43 +100,47 @@ add_top_portfolio <- function(x, number_solutions = 10) {
       "Version 8.0.0 (or greater) of the Gurobi software must be installed."
   )
   # add portfolio
-  x$add_portfolio(pproto(
-    "TopPortfolio",
-    Portfolio,
-    name = "top portfolio",
-    data = list(number_solutions = number_solutions),
-    run = function(self, x, solver) {
-      ## check that problems has gurobi solver
-      assert(
-        inherits(solver, "GurobiSolver"),
-        call = rlang::expr(add_gap_portfolio()),
-        msg = "The solver must be specified using {.fn add_gurobi_solver}."
-      )
-      ## solve problem, and with gap of zero
-      sol <- solver$solve(
-        x,
-        PoolSearchMode = 2,
-        PoolSolutions = self$get_data("number_solutions"),
-        MIPGap = 0
-      )
-      ## compile results
-      if (!is.null(sol$pool)) {
-        sol <- append(
-          list(sol[-5]),
-          lapply(
-            sol$pool,
-            function(z) list(
-              x = z$xn, objective = z$objval,
-              status = z$status,
-              runtime = sol$runtime
-            )
+  x$add_portfolio(
+    R6::R6Class(
+      "TopPortfolio",
+      inherit = Portfolio,
+      public = list(
+        name = "top portfolio",
+        data = list(number_solutions = number_solutions),
+        run = function(x, solver) {
+          ## check that problems has gurobi solver
+          assert(
+            inherits(solver, "GurobiSolver"),
+            call = rlang::expr(add_gap_portfolio()),
+            msg = "The solver must be specified using {.fn add_gurobi_solver}."
           )
-        )
-      } else {
-       sol <- list(sol)
-      }
-      ## return solution
-      sol
-    }
-  ))
+          ## solve problem, and with gap of zero
+          sol <- solver$solve(
+            x,
+            PoolSearchMode = 2,
+            PoolSolutions = self$get_data("number_solutions"),
+            MIPGap = 0
+          )
+          ## compile results
+          if (!is.null(sol$pool)) {
+            sol <- append(
+              list(sol[-5]),
+              lapply(
+                sol$pool,
+                function(z) list(
+                  x = z$xn, objective = z$objval,
+                  status = z$status,
+                  runtime = sol$runtime
+                )
+              )
+            )
+          } else {
+           sol <- list(sol)
+          }
+          ## return solution
+          sol
+        }
+      )
+    )$new()
+  )
 }

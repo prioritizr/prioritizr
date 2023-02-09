@@ -1,8 +1,8 @@
 context("OptimizationProblem")
 
-test_that("new problem", {
+test_that("optimization_problem (x = NULL)", {
   # data
-  x <- new_optimization_problem()
+  x <- optimization_problem()
   # tests
   expect_equal(ncell(x), 0)
 })
@@ -26,7 +26,7 @@ test_that("get methods", {
     row_ids = c("a", "b"),
     col_ids = c("d", "e", "f"),
     compressed_formulation = FALSE)
-  x <- predefined_optimization_problem(l)
+  x <- optimization_problem(l)
   # tests
   expect_equal(nrow(x), 2)
   expect_equal(ncol(x), 3)
@@ -68,7 +68,7 @@ test_that("as.list", {
     row_ids = c("a", "b"),
     col_ids = c("d", "e", "f"),
     compressed_formulation = FALSE)
-  l2 <- as.list(predefined_optimization_problem(l))
+  l2 <- as.list(optimization_problem(l))
   # tests
   expect_equal(l$modelsense, l2$modelsense)
   expect_equal(l$A_i, l2$A_i)
@@ -108,7 +108,7 @@ test_that("shuffle_columns method", {
     row_ids = c("spp_target", "spp_target"),
     col_ids = c("pu", "pu", "pu")
   )
-  x <- predefined_optimization_problem(l)
+  x <- optimization_problem(l)
   # shuffle columns
   key <- x$shuffle_columns()
   # tests

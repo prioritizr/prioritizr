@@ -38,15 +38,6 @@ methods::setMethod("show", "ConservationProblem",
 #'
 #' @rdname show
 #'
-#' @usage \S4method{show}{Id}(x)
-#'
-methods::setMethod("show", "Id",
-                   function(object) print.Id(object))
-
-#' @name show
-#'
-#' @rdname show
-#'
 #' @usage \S4method{show}{OptimizationProblem}(x)
 #'
 methods::setMethod("show", "OptimizationProblem",

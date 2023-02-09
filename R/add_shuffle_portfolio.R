@@ -1,4 +1,4 @@
-#' @include Portfolio-proto.R
+#' @include Portfolio-class.R
 NULL
 
 #' Add a shuffle portfolio
@@ -107,74 +107,80 @@ add_shuffle_portfolio <- function(x, number_solutions = 10, threads = 1,
     assertthat::noNA(remove_duplicates)
   )
   # add portfolio
-  x$add_portfolio(pproto(
-    "ShufflePortfolio",
-    Portfolio,
-    name = "shuffle portfolio",
-    data = list(
-      number_solutions = number_solutions,
-      threads = threads,
-      remove_duplicates = remove_duplicates
-    ),
-    run = function(self, x, solver) {
-      ## attempt initial solution for problem
-      initial_sol <- solver$solve(x)
-      # if solving the problem failed then return NULL
-      if (is.null(initial_sol))
-        return(initial_sol)
-      if (self$get_data("number_solutions") == 1)
-        return(list(initial_sol))
-      ## generate additional solutions
-      # convert OptimizationProblem to list
-      x_list <- as.list(x)
-      # prepare cluster for parallel processing
-      if (self$get_data("threads") > 1L) {
-        # initialize cluster
-        cl <- parallel::makeCluster(self$get_data("threads"), "PSOCK")
-        # create RNG seeds
-        pids <- parallel::clusterEvalQ(cl, Sys.getpid())
-        seeds <- sample.int(n = 1e+5, size = self$get_data("threads"))
-        names(seeds) <- as.character(unlist(pids))
-        # move data to workers
-        parallel::clusterExport(
-          cl, c("solver", "x_list", "seeds"), envir = environment()
-        )
-        # initalize RNG on workers
-        parallel::clusterEvalQ(cl, {
-          set.seed(seeds[as.character(Sys.getpid())])
-          NULL
-        })
-        # set default cluster
-        doParallel::registerDoParallel(cl)
-      }
-      sol <- plyr::llply(
-        seq_len(self$get_data("number_solutions") - 1),
-         .parallel = isTRUE(self$get_data("threads") > 1L),
-         .fun = function(i) {
-          # create and shuffle problem
-          z <- prioritizr::predefined_optimization_problem(x_list)
-          reorder_key <- z$shuffle_columns()
-          # solve problem
-          s <- solver$solve(z)
-          # reorder variables
-          s$x <- s$x[reorder_key]
-          # return result
-          s
+  x$add_portfolio(
+    R6::R6Class(
+      "ShufflePortfolio",
+      inherit = Portfolio,
+      public = list(
+        name = "shuffle portfolio",
+        data = list(
+          number_solutions = number_solutions,
+          threads = threads,
+          remove_duplicates = remove_duplicates
+        ),
+        run = function(x, solver) {
+          ## attempt initial solution for problem
+          initial_sol <- solver$solve(x)
+          # if solving the problem failed then return NULL
+          if (is.null(initial_sol))
+            return(initial_sol)
+          if (self$get_data("number_solutions") == 1)
+            return(list(initial_sol))
+          ## generate additional solutions
+          # convert OptimizationProblem to list
+          x_list <- as.list(x)
+          # prepare cluster for parallel processing
+          if (self$get_data("threads") > 1L) {
+            # initialize cluster
+            cl <- parallel::makeCluster(self$get_data("threads"), "PSOCK")
+            # create RNG seeds
+            pids <- parallel::clusterEvalQ(cl, Sys.getpid())
+            seeds <- sample.int(n = 1e+5, size = self$get_data("threads"))
+            names(seeds) <- as.character(unlist(pids))
+            # copy data to cluster
+            parallel::clusterExport(
+              cl,
+              c("solver", "x_list", "seeds"),
+              envir = environment()
+            )
+            # initialize RNG on cluster
+            parallel::clusterEvalQ(cl, {
+              set.seed(seeds[as.character(Sys.getpid())])
+              NULL
+            })
+            # set default cluster
+            doParallel::registerDoParallel(cl)
+          }
+          sol <- plyr::llply(
+            seq_len(self$get_data("number_solutions") - 1),
+             .parallel = isTRUE(self$get_data("threads") > 1L),
+             .fun = function(i) {
+              # create and shuffle problem
+              z <- prioritizr::optimization_problem(x_list)
+              reorder_key <- z$shuffle_columns()
+              # solve problem
+              s <- solver$solve(z)
+              # reorder variables
+              s$x <- s$x[reorder_key]
+              # return result
+              s
+            }
+          )
+          if (self$get_data("threads") > 1L) {
+            doParallel::stopImplicitCluster()
+            cl <- parallel::stopCluster(cl)
+          }
+          ## compile results
+          sol <- append(list(initial_sol), sol)
+          if (self$get_data("remove_duplicates")) {
+            unique_pos <- !duplicated(
+              vapply(lapply(sol, `[[`, 1), paste, character(1), collapse = " ")
+            )
+            sol <- sol[unique_pos]
+          }
+          return(sol)
         }
       )
-      if (self$get_data("threads") > 1L) {
-        doParallel::stopImplicitCluster()
-        cl <- parallel::stopCluster(cl)
-      }
-      ## compile results
-      sol <- append(list(initial_sol), sol)
-      if (self$get_data("remove_duplicates")) {
-        unique_pos <- !duplicated(
-          vapply(lapply(sol, `[[`, 1), paste, character(1), collapse = " ")
-        )
-        sol <- sol[unique_pos]
-      }
-      return(sol)
-    }
-  ))
+    )$new()
+  )
 }

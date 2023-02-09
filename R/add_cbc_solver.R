@@ -1,4 +1,4 @@
-#' @include Solver-proto.R
+#' @include Solver-class.R
 NULL
 
 #' Add a *CBC* solver
@@ -148,131 +148,138 @@ add_cbc_solver <- function(x,
     start_solution <- planning_unit_solution_status(x, start_solution)
   }
   # add solver
-  x$add_solver(pproto(
-    "CbcSolver",
-    Solver,
-    name = "cbc solver",
-    data = list(
-      gap = gap,
-      time_limit = time_limit,
-      presolve = presolve,
-      threads = threads,
-      first_feasible = first_feasible,
-      start = start_solution,
-      verbose = verbose
-    ),
-    calculate = function(self, x, ...) {
-      # prepare constraints
-      ## extract info
-      rhs <- x$rhs()
-      sense <- x$sense()
-      assert(
-        all(sense %in% c("=", "<=", ">=")),
-        msg = "failed to prepare problem formulation for {.pkg rcbc} package.",
-        call = rlang::expr(add_cbc_solver()),
-        .internal = TRUE
+  x$add_solver(
+    R6::R6Class(
+      "CbcSolver",
+      inherit = Solver,
+      public = list(
+        name = "cbc solver",
+        data = list(
+          gap = gap,
+          time_limit = time_limit,
+          presolve = presolve,
+          threads = threads,
+          first_feasible = first_feasible,
+          start = start_solution,
+          verbose = verbose
+        ),
+        calculate = function(x, ...) {
+          # prepare constraints
+          ## extract info
+          rhs <- x$rhs()
+          sense <- x$sense()
+          assert(
+            all(sense %in% c("=", "<=", ">=")),
+            msg =
+              "failed to prepare problem formulation for {.pkg rcbc} package.",
+            call = rlang::expr(add_cbc_solver()),
+            .internal = TRUE
+          )
+          ## initialize CBC arguments
+          row_lb <- numeric(length(rhs))
+          row_ub <- numeric(length(rhs))
+          ## set equality constraints
+          idx <- which(sense == "=")
+          row_lb[idx] <- rhs[idx]
+          row_ub[idx] <- rhs[idx]
+          ## set lte constraints
+          idx <- which(sense == "<=")
+          row_lb[idx] <- -Inf
+          row_ub[idx] <- rhs[idx]
+          ## set gte constraints
+          idx <- which(sense == ">=")
+          row_lb[idx] <- rhs[idx]
+          row_ub[idx] <- Inf
+          # create problem
+          model <- list(
+            max = identical(x$modelsense(), "max"),
+            obj = x$obj(),
+            is_integer = x$vtype() == "B",
+            mat = as_Matrix(x$A(), "dgTMatrix"),
+            col_lb = x$lb(),
+            col_ub = x$ub(),
+            row_lb = row_lb,
+            row_ub = row_ub
+          )
+          # if needed, insert dummy row to ensure non-zero value in last cell
+          if (abs(model$mat[nrow(model$mat), ncol(model$mat)]) < 1e-300) {
+            model$mat <- as_Matrix(
+              rbind(
+                model$mat,
+                Matrix::sparseMatrix(
+                  i = 1, j = ncol(model$mat), x = 1, repr = "T"
+                )
+              ),
+              "dgTMatrix"
+            )
+            model$row_lb <- c(model$row_lb, -Inf)
+            model$row_ub <- c(model$row_ub, Inf)
+          }
+          # add starting solution if specified
+          start <- self$get_data("start")
+          if (!is.null(start) && !is.Waiver(start)) {
+            n_extra <- length(model$obj) - length(start)
+            model$initial_solution <- c(c(start), rep(NA_real_, n_extra))
+          }
+          # create parameters
+          p <- list(
+            log = as.character(as.numeric(self$get_data("verbose"))),
+            verbose = "1",
+            presolve = ifelse(self$get_data("presolve") > 0.5, "on", "off"),
+            ratio = as.character(self$get_data("gap")),
+            sec = as.character(self$get_data("time_limit")),
+            threads = as.character(self$get_data("threads"))
+          )
+          if (self$get_data("first_feasible") > 0.5) {
+            p$maxso <- "1"
+          }
+          p$timeMode <- "elapsed"
+          # store input data and parameters
+          self$set_internal("model", model)
+          self$set_internal("parameters", p)
+          # return success
+          invisible(TRUE)
+        },
+        set_variable_ub = function(index, value) {
+          self$internal$model$col_ub[index] <- value
+          invisible(TRUE)
+        },
+        set_variable_lb = function(index, value) {
+          self$internal$model$col_lb[index] <- value
+          invisible(TRUE)
+        },
+        run = function() {
+          # access input data and parameters
+          model <- self$get_internal("model")
+          p <- self$get_internal("parameters")
+          # solve problem
+          rt <- system.time({
+            x <- do.call(rcbc::cbc_solve, append(model, list(cbc_args = p)))
+          })
+          # return NULL if infeasible
+          if (x$is_proven_dual_infeasible ||
+              x$is_proven_infeasible ||
+              x$is_abandoned) {
+            return(NULL)
+          }
+          # fix potential floating point arithmetic issues
+          if (is.numeric(x$objective_value)) {
+            ## round binary variables because default precision is 1e-5
+            x$column_solution[model$is_integer] <-
+              round(x$column_solution[model$is_integer])
+            ## truncate variables to account for rounding issues
+            x$column_solution <- pmax(x$column_solution, model$col_lb)
+            x$column_solution <- pmin(x$column_solution, model$col_ub)
+          }
+          # return output
+          list(
+            x = x$column_solution,
+            objective = x$objective_value,
+            status = as.character(rcbc::solution_status(x)),
+            runtime = rt[[3]]
+          )
+        }
       )
-      ## initialize CBC arguments
-      row_lb <- numeric(length(rhs))
-      row_ub <- numeric(length(rhs))
-      ## set equality constraints
-      idx <- which(sense == "=")
-      row_lb[idx] <- rhs[idx]
-      row_ub[idx] <- rhs[idx]
-      ## set lte constraints
-      idx <- which(sense == "<=")
-      row_lb[idx] <- -Inf
-      row_ub[idx] <- rhs[idx]
-      ## set gte constraints
-      idx <- which(sense == ">=")
-      row_lb[idx] <- rhs[idx]
-      row_ub[idx] <- Inf
-      # create problem
-      model <- list(
-        max = identical(x$modelsense(), "max"),
-        obj = x$obj(),
-        is_integer = x$vtype() == "B",
-        mat = as_Matrix(x$A(), "dgTMatrix"),
-        col_lb = x$lb(),
-        col_ub = x$ub(),
-        row_lb = row_lb,
-        row_ub = row_ub
-      )
-      # if needed, insert dummy row to ensure non-zero value in last rij cell
-      if (abs(model$mat[nrow(model$mat), ncol(model$mat)]) < 1e-300) {
-        model$mat <- as_Matrix(
-          rbind(
-            model$mat,
-            Matrix::sparseMatrix(i = 1, j = ncol(model$mat), x = 1, repr = "T")
-          ),
-          "dgTMatrix"
-        )
-        model$row_lb <- c(model$row_lb, -Inf)
-        model$row_ub <- c(model$row_ub, Inf)
-      }
-      # add starting solution if specified
-      start <- self$get_data("start")
-      if (!is.null(start) && !is.Waiver(start)) {
-        n_extra <- length(model$obj) - length(start)
-        model$initial_solution <- c(c(start), rep(NA_real_, n_extra))
-      }
-      # create parameters
-      p <- list(
-        log = as.character(as.numeric(self$get_data("verbose"))),
-        verbose = "1",
-        presolve = ifelse(self$get_data("presolve") > 0.5, "on", "off"),
-        ratio = as.character(self$get_data("gap")),
-        sec = as.character(self$get_data("time_limit")),
-        threads = as.character(self$get_data("threads"))
-      )
-      if (self$get_data("first_feasible") > 0.5) {
-        p$maxso <- "1"
-      }
-      p$timeMode <- "elapsed"
-      # store input data and parameters
-      self$set_internal("model", model)
-      self$set_internal("parameters", p)
-      # return success
-      invisible(TRUE)
-    },
-    set_variable_ub = function(self, index, value) {
-      self$internal$model$col_ub[index] <- value
-      invisible(TRUE)
-    },
-    set_variable_lb = function(self, index, value) {
-      self$internal$model$col_lb[index] <- value
-      invisible(TRUE)
-    },
-    run = function(self, x) {
-      # access input data and parameters
-      model <- self$get_internal("model")
-      p <- self$get_internal("parameters")
-      # solve problem
-      rt <- system.time({
-        x <- do.call(rcbc::cbc_solve, append(model, list(cbc_args = p)))
-      })
-      # return NULL if infeasible
-      if (x$is_proven_dual_infeasible ||
-          x$is_proven_infeasible ||
-          x$is_abandoned) {
-        return(NULL)
-      }
-      # fix potential floating point arithmetic issues
-      if (is.numeric(x$objective_value)) {
-        ## round binary variables because default precision is 1e-5
-        x$column_solution[model$is_integer] <-
-          round(x$column_solution[model$is_integer])
-        ## truncate variables to account for rounding issues
-        x$column_solution <- pmax(x$column_solution, model$col_lb)
-        x$column_solution <- pmin(x$column_solution, model$col_ub)
-      }
-      # return output
-      list(
-        x = x$column_solution,
-        objective = x$objective_value,
-        status = as.character(rcbc::solution_status(x)),
-        runtime = rt[[3]]
-      )
-    }
-  ))
+    )$new()
+  )
 }

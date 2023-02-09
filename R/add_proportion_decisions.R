@@ -1,4 +1,4 @@
-#' @include internal.R Decision-proto.R
+#' @include internal.R Decision-class.R
 NULL
 
 #' Add proportion decisions
@@ -72,15 +72,17 @@ add_proportion_decisions <- function(x) {
   # assert argument is valid
   assert(is_conservation_problem(x))
   # add decision
-  x$add_decisions(pproto(
-    "ProportionDecision",
-    Decision,
-    name = "proportion decision",
-    apply = function(self, x) {
-      assert(inherits(x, "OptimizationProblem"), .internal = TRUE)
-      invisible(
-        rcpp_apply_decisions(x$ptr, "C", 0, 1)
+  x$add_decisions(
+    R6::R6Class(
+      "ProportionDecision",
+      inherit = Decision,
+      public = list(
+        name = "proportion decision",
+        apply = function(x) {
+          assert(inherits(x, "OptimizationProblem"), .internal = TRUE)
+          invisible(rcpp_apply_decisions(x$ptr, "C", 0, 1))
+        }
       )
-   }
- ))
+    )$new()
+  )
 }

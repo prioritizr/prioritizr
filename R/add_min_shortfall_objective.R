@@ -1,4 +1,4 @@
-#' @include internal.R pproto.R Objective-proto.R
+#' @include internal.R Objective-class.R
 NULL
 
 #' Add minimum shortfall objective
@@ -132,25 +132,29 @@ add_min_shortfall_objective <- function(x, budget) {
     is_budget_length(x, budget)
   )
   # add objective to problem
-  x$add_objective(pproto(
-    "MinimumShortfallObjective",
-    Objective,
-    name = "minimum shortfall objective",
-    data = list(budget = budget),
-    apply = function(self, x, y) {
-      assert(
-        inherits(x, "OptimizationProblem"),
-        inherits(y, "ConservationProblem"),
-        .internal = TRUE
+  x$add_objective(
+    R6::R6Class(
+      "MinimumShortfallObjective",
+      inherit = Objective,
+      public = list(
+        name = "minimum shortfall objective",
+        data = list(budget = budget),
+        apply = function(x, y) {
+          assert(
+            inherits(x, "OptimizationProblem"),
+            inherits(y, "ConservationProblem"),
+            .internal = TRUE
+          )
+          invisible(
+            rcpp_apply_min_shortfall_objective(
+              x$ptr,
+              y$feature_targets(),
+              y$planning_unit_costs(),
+              self$get_data("budget")
+            )
+          )
+        }
       )
-      invisible(
-        rcpp_apply_min_shortfall_objective(
-          x$ptr,
-          y$feature_targets(),
-          y$planning_unit_costs(),
-          self$get_data("budget")
-        )
-      )
-    }
-  ))
+    )$new()
+  )
 }

@@ -1,4 +1,4 @@
-#' @include internal.R Decision-proto.R
+#' @include internal.R Decision-class.R
 NULL
 
 #' Add binary decisions
@@ -80,13 +80,17 @@ add_binary_decisions <- function(x) {
   rlang::check_required(x)
   assert(is_conservation_problem(x))
   # add decision
-  x$add_decisions(pproto(
-    "BinaryDecision",
-     Decision,
-     name = "binary decision",
-     apply = function(self, x) {
-       assert(inherits(x,"OptimizationProblem"), .internal = TRUE)
-       invisible(rcpp_apply_decisions(x$ptr, "B", 0, 1))
-     }
-   ))
+  x$add_decisions(
+    R6::R6Class(
+      "BinaryDecision",
+      inherit = Decision,
+      public = list(
+        name = "binary decision",
+        apply = function(x) {
+          assert(inherits(x,"OptimizationProblem"), .internal = TRUE)
+          invisible(rcpp_apply_decisions(x$ptr, "B", 0, 1))
+        }
+      )
+    )$new()
+  )
 }

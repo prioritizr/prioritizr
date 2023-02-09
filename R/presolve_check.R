@@ -1,4 +1,4 @@
-#' @include internal.R ConservationProblem-proto.R OptimizationProblem-proto.R compile.R
+#' @include internal.R ConservationProblem-class.R OptimizationProblem-class.R compile.R
 NULL
 
 #' Presolve check
@@ -12,7 +12,7 @@ NULL
 #' false positives. Please note that these checks will not be able to
 #' verify if a problem has a feasible solution or not.
 #'
-#' @param x [problem()] or [`OptimizationProblem-class`] object.
+#' @param x [problem()] or [optimization_problem()] object.
 #'
 #' @param warn `logical` should a warning be thrown if the presolve checks fail?
 #'  Defaults to `TRUE`.

@@ -13,7 +13,7 @@ number_of_planning_units(x)
 \S4method{number_of_planning_units}{OptimizationProblem}(x)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} or \code{\linkS4class{OptimizationProblem}} object.}
+\item{x}{\code{\link[=problem]{problem()}} or \code{\link[=optimization_problem]{optimization_problem()}} object.}
 }
 \value{
 An \code{integer} number of planning units.

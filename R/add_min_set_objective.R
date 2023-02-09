@@ -1,4 +1,4 @@
-#' @include internal.R pproto.R Objective-proto.R
+#' @include internal.R Objective-class.R
 NULL
 
 #' Add minimum set objective
@@ -104,21 +104,25 @@ add_min_set_objective <- function(x) {
   rlang::check_required(x)
   assert(is_conservation_problem(x))
   # add objective to problem
-  x$add_objective(pproto(
-    "MinimumSetObjective",
-    Objective,
-    name = "minimum set objective",
-    apply = function(self, x, y) {
-      assert(
-        inherits(x, "OptimizationProblem"),
-        inherits(y, "ConservationProblem"),
-        .internal = TRUE
+  x$add_objective(
+    R6::R6Class(
+      "MinimumSetObjective",
+      inherit = Objective,
+      public = list(
+        name = "minimum set objective",
+        apply = function(x, y) {
+          assert(
+            inherits(x, "OptimizationProblem"),
+            inherits(y, "ConservationProblem"),
+            .internal = TRUE
+          )
+          invisible(
+            rcpp_apply_min_set_objective(
+              x$ptr, y$feature_targets(), y$planning_unit_costs()
+            )
+          )
+        }
       )
-      invisible(
-        rcpp_apply_min_set_objective(
-          x$ptr, y$feature_targets(), y$planning_unit_costs()
-        )
-      )
-    }
-  ))
+    )$new()
+  )
 }

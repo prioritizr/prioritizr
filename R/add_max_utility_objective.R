@@ -1,4 +1,4 @@
-#' @include internal.R pproto.R Objective-proto.R
+#' @include internal.R Objective-class.R
 NULL
 
 #' Add maximum utility objective
@@ -132,25 +132,29 @@ add_max_utility_objective <- function(x, budget) {
     is_budget_length(x, budget)
   )
   # add objective to problem
-  x$add_objective(pproto(
-    "MaximumUtilityObjective",
-    Objective,
-    name = "maximum utility objective",
-    data = list(budget = budget),
-    apply = function(self, x, y) {
-      assert(
-        inherits(x, "OptimizationProblem"),
-        inherits(y, "ConservationProblem"),
-        .internal = TRUE
+  x$add_objective(
+    R6::R6Class(
+      "MaximumUtilityObjective",
+      inherit = Objective,
+      public = list(
+        name = "maximum utility objective",
+        data = list(budget = budget),
+        apply = function(x, y) {
+          assert(
+            inherits(x, "OptimizationProblem"),
+            inherits(y, "ConservationProblem"),
+            .internal = TRUE
+          )
+          invisible(
+            rcpp_apply_max_utility_objective(
+              x$ptr,
+              unname(y$feature_abundances_in_planning_units()),
+              y$planning_unit_costs(),
+              self$get_data("budget")
+            )
+          )
+        }
       )
-      invisible(
-        rcpp_apply_max_utility_objective(
-          x$ptr,
-          unname(y$feature_abundances_in_planning_units()),
-          y$planning_unit_costs(),
-          self$get_data("budget")
-        )
-      )
-    }
-  ))
+    )$new()
+  )
 }

@@ -1,4 +1,4 @@
-#' @include internal.R pproto.R ConservationProblem-proto.R zones.R
+#' @include internal.R ConservationProblem-class.R zones.R
 NULL
 
 #' Add absolute targets

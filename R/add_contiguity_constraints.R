@@ -1,4 +1,4 @@
-#' @include internal.R Constraint-proto.R
+#' @include internal.R Constraint-class.R
 NULL
 
 #' Add contiguity constraints
@@ -288,58 +288,63 @@ methods::setMethod("add_contiguity_constraints",
     colnames(zones) <- x$zone_names()
     rownames(zones) <- colnames(zones)
     # add constraints
-    x$add_constraint(pproto(
-      "ContiguityConstraint",
-      Constraint,
-      name = "contiguity constraints",
-      data = list(data = data, zones = zones),
-      calculate = function(self, x) {
-        # assert valid arguments
-        assert(is_conservation_problem(x), .internal = TRUE)
-        # if needed, calculate adjacency matrix
-        if (
-          is.null(self$get_data("data")) &&
-          is.Waiver(x$get_data("adjacency"))
-        ) {
-          x$set_data("adjacency", adjacency_matrix(x$data$cost))
-        }
-        # return success
-        invisible(TRUE)
-      },
-      apply = function(self, x, y) {
-        assert(
-          inherits(x, "OptimizationProblem"),
-          inherits(y, "ConservationProblem"),
-          .internal = TRUE
+    x$add_constraint(
+      R6::R6Class(
+        "ContiguityConstraint",
+        inherit = Constraint,
+        public = list(
+          name = "contiguity constraints",
+          data = list(data = data, zones = zones),
+          calculate = function(x) {
+            # assert valid arguments
+            assert(is_conservation_problem(x), .internal = TRUE)
+            # if needed, calculate adjacency matrix
+            if (
+              is.null(self$get_data("data")) &&
+              is.Waiver(x$get_data("adjacency"))
+            ) {
+              x$set_data("adjacency", adjacency_matrix(x$data$cost))
+            }
+            # return success
+            invisible(TRUE)
+          },
+          apply = function(x, y) {
+            assert(
+              inherits(x, "OptimizationProblem"),
+              inherits(y, "ConservationProblem"),
+              .internal = TRUE
+            )
+            # extract data
+            z <- self$get_data("zones")
+            d <- self$get_data("data")
+            if (is.Waiver(d) || is.null(d)) {
+              d <- y$get_data("adjacency")
+            }
+            # convert to dgCMatrix
+            d <- as_Matrix(d, "dgCMatrix")
+            # subset data by planning unit indices
+            ind <- y$planning_unit_indices()
+            d <- d[ind, ind, drop = FALSE]
+            # extract clusters from z
+            z_cl <- igraph::graph_from_adjacency_matrix(
+              z, diag = FALSE, mode = "undirected", weighted = NULL
+            )
+            z_cl <- igraph::clusters(z_cl)$membership
+            # set cluster memberships to zero if constraints not needed
+            z_cl <- z_cl * diag(z)
+            # convert d to lower triangle sparse matrix
+            d <- Matrix::forceSymmetric(d, uplo = "L")
+            d <- as_Matrix(Matrix::tril(d), "dgCMatrix")
+            # apply constraints if any zones have contiguity constraints
+            if (max(z_cl) > 0) rcpp_apply_contiguity_constraints(x$ptr, d, z_cl)
+            # return invisible
+            invisible(TRUE)
+          }
         )
-        # extract data
-        z <- self$get_data("zones")
-        d <- self$get_data("data")
-        if (is.Waiver(d) || is.null(d)) {
-          d <- y$get_data("adjacency")
-        }
-        # convert to dgCMatrix
-        d <- as_Matrix(d, "dgCMatrix")
-        # subset data by planning unit indices
-        ind <- y$planning_unit_indices()
-        d <- d[ind, ind, drop = FALSE]
-        # extract clusters from z
-        z_cl <- igraph::graph_from_adjacency_matrix(
-          z, diag = FALSE, mode = "undirected", weighted = NULL
-        )
-        z_cl <- igraph::clusters(z_cl)$membership
-        # set cluster memberships to zero if constraints not needed
-        z_cl <- z_cl * diag(z)
-        # convert d to lower triangle sparse matrix
-        d <- Matrix::forceSymmetric(d, uplo = "L")
-        d <- as_Matrix(Matrix::tril(d), "dgCMatrix")
-        # apply constraints if any zones have contiguity constraints
-        if (max(z_cl) > 0) rcpp_apply_contiguity_constraints(x$ptr, d, z_cl)
-        # return invisible
-        invisible(TRUE)
-      }
-  ))
-})
+      )$new()
+    )
+  }
+)
 
 #' @name add_contiguity_constraints
 #' @usage \S4method{add_contiguity_constraints}{ConservationProblem,ANY,data.frame}(x, zones, data)
@@ -371,4 +376,5 @@ methods::setMethod("add_contiguity_constraints",
   function(x, zones, data) {
     # add constraints
     add_contiguity_constraints(x, zones, as_Matrix(data, "dgCMatrix"))
-})
+  }
+)

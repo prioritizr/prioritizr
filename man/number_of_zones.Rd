@@ -22,7 +22,7 @@ number_of_zones(x)
 \S4method{number_of_zones}{ZonesCharacter}(x)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}}, \code{\linkS4class{OptimizationProblem}}, or \code{\link[=zones]{zones()}} object.}
+\item{x}{\code{\link[=problem]{problem()}}, \code{\link[=optimization_problem]{optimization_problem()}}, or \code{\link[=zones]{zones()}} object.}
 }
 \value{
 An \code{integer} number of zones.

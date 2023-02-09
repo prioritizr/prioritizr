@@ -1,4 +1,4 @@
-#' @include internal.R ConservationProblem-proto.R ConservationModifier-proto.R
+#' @include internal.R ConservationProblem-class.R ConservationModifier-class.R
 NULL
 
 #' Run calculations

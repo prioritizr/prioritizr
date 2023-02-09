@@ -1,4 +1,4 @@
-#' @include internal.R ConservationProblem-proto.R
+#' @include internal.R ConservationProblem-class.R
 NULL
 
 #' Evaluate asymmetric connectivity of solution
@@ -181,7 +181,8 @@ methods::setMethod("eval_asym_connectivity_summary",
     eval_asym_connectivity_summary(
       x, solution, zones, as_Matrix(data, "dgCMatrix")
     )
-})
+  }
+)
 
 #' @name eval_asym_connectivity_summary
 #' @usage \S4method{eval_asym_connectivity_summary}{ConservationProblem,ANY,ANY,Matrix}(x, solution, zones, data)
@@ -192,7 +193,8 @@ methods::setMethod("eval_asym_connectivity_summary",
     eval_asym_connectivity_summary(
       x, solution, zones, as_Matrix(data, "dgCMatrix")
     )
-})
+  }
+)
 
 #' @name eval_asym_connectivity_summary
 #' @usage \S4method{eval_asym_connectivity_summary}{ConservationProblem,ANY,ANY,data.frame}(x, solution, zones, data)
@@ -200,10 +202,11 @@ methods::setMethod("eval_asym_connectivity_summary",
 methods::setMethod("eval_asym_connectivity_summary",
   methods::signature("ConservationProblem", "ANY", "ANY", "data.frame"),
   function(x, solution, zones, data) {
-  eval_asym_connectivity_summary(
-    x, solution, zones, marxan_connectivity_data_to_matrix(x, data, FALSE)
-  )
-})
+    eval_asym_connectivity_summary(
+      x, solution, zones, marxan_connectivity_data_to_matrix(x, data, FALSE)
+    )
+  }
+)
 
 #' @name eval_asym_connectivity_summary
 #' @usage \S4method{eval_asym_connectivity_summary}{ConservationProblem,ANY,ANY,dgCMatrix}(x, solution, zones, data)
@@ -254,7 +257,8 @@ methods::setMethod("eval_asym_connectivity_summary",
     internal_eval_asym_connectivity_summary(
       x, planning_unit_solution_status(x, solution), m, data
     )
-})
+  }
+)
 
 #' @name eval_asym_connectivity_summary
 #' @usage \S4method{eval_asym_connectivity_summary}{ConservationProblem,ANY,ANY,array}(x, solution, zones, data)
@@ -288,7 +292,8 @@ methods::setMethod("eval_asym_connectivity_summary",
     internal_eval_asym_connectivity_summary(
       x, planning_unit_solution_status(x, solution), m, NULL
     )
-})
+  }
+)
 
 internal_eval_asym_connectivity_summary <- function(x, solution,
                                                     zone_scaled_data,

@@ -1,4 +1,4 @@
-#' @include Solver-proto.R
+#' @include Solver-class.R
 NULL
 
 #' Add a *HiGHS* solver
@@ -79,127 +79,131 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
     is_installed("highs")
   )
   # add solver
-  x$add_solver(pproto(
-    "HighsSolver",
-    Solver,
-    name = "highs solver",
-    data = list(
-      gap = gap,
-      time_limit = time_limit,
-      presolve = presolve,
-      threads = threads,
-      verbose = verbose
-    ),
-    calculate = function(self, x, ...) {
-      # prepare constraints
-      ## extract info
-      rhs <- x$rhs()
-      sense <- x$sense()
-      assert(
-        all(sense %in% c("=", "<=", ">=")),
-        msg = "Failed to prepare problem for {.pkg highs} package.",
-        call = rlang::expr(add_highs_solver()),
-        .internal = TRUE
+  x$add_solver(
+    R6::R6Class(
+      "HighsSolver",
+      inherit = Solver,
+      public = list(
+        name = "highs solver",
+        data = list(
+          gap = gap,
+          time_limit = time_limit,
+          presolve = presolve,
+          threads = threads,
+          verbose = verbose
+        ),
+        calculate = function(x, ...) {
+          # prepare constraints
+          ## extract info
+          rhs <- x$rhs()
+          sense <- x$sense()
+          assert(
+            all(sense %in% c("=", "<=", ">=")),
+            msg = "Failed to prepare problem for {.pkg highs} package.",
+            call = rlang::expr(add_highs_solver()),
+            .internal = TRUE
+          )
+          ## initialize arguments
+          row_lb <- numeric(length(rhs))
+          row_ub <- numeric(length(rhs))
+          ## set equality constraints
+          idx <- which(sense == "=")
+          row_lb[idx] <- rhs[idx]
+          row_ub[idx] <- rhs[idx]
+          ## set lte constraints
+          idx <- which(sense == "<=")
+          row_lb[idx] <- -Inf
+          row_ub[idx] <- rhs[idx]
+          ## set gte constraints
+          idx <- which(sense == ">=")
+          row_lb[idx] <- rhs[idx]
+          row_ub[idx] <- Inf
+          # create problem
+          model <- list(
+            maximum = identical(x$modelsense(), "max"),
+            L = x$obj(),
+            A = x$A(),
+            lhs = row_lb,
+            rhs = row_ub,
+            types = x$vtype(),
+            lower = x$lb(),
+            upper = x$ub()
+          )
+          # round values < 1e-6 to zero and drop them
+          model$A@x[abs(model$A@x) < 1e-6] <- 0
+          model$A <- Matrix::drop0(model$A)
+          model$L[abs(model$L) < 1e-6] <- 0
+          # set variables types
+          ## C = continuous (same as gurobi)
+          ## I = integer (same as gurobi)
+          ## SC = semi-continuous (not same as gurobi)
+          ## binary type not supported, convert to integer gurobi)
+          model$types[model$types == "B"] <- "I"
+          model$types[model$types == "S"] <- "SC"
+          # create parameters
+          p <- list(
+            log_to_console = as.integer(self$get_data("verbose")),
+            presolve = ifelse(self$get_data("presolve") > 0.5, "on", "off"),
+            mip_rel_gap = self$get_data("gap"),
+            time_limit = as.numeric(self$get_data("time_limit")),
+            threads = self$get_data("threads")
+          )
+          # store internal data and parameters
+          self$set_internal("model", model)
+          self$set_internal("parameters", p)
+          # return success
+          invisible(TRUE)
+        },
+        set_variable_ub = function(index, value) {
+          self$internal$model$upper[index] <- value
+          invisible(TRUE)
+        },
+        set_variable_lb = function(index, value) {
+          self$internal$model$lower[index] <- value
+          invisible(TRUE)
+        },
+        run = function() {
+          # access internal data and parameters
+          model <- self$get_internal("model")
+          p <- self$get_internal("parameters")
+          # solve problem
+          rt <- system.time({
+            x <- do.call(
+              highs::highs_solve,
+              append(model, list(control = p))
+            )
+          })
+          # manually return NULL to indicate error if no solution
+          # nocov start
+          if (
+            is.null(x) ||
+            is.null(x$primal_solution) ||
+            any(is.na(x$primal_solution)) ||
+            isTRUE(!x$status %in% c(7L, 11L, 12L, 13L, 14L))
+          ) {
+            return(NULL)
+          }
+          # nocov end
+          # extract solution values
+          sol <- x$primal_solution
+          ## fix potential floating point arithmetic issues
+          i <- model$types == "I"
+          if (is.numeric(sol)) {
+            ## round integer variables
+            sol[i] <- round(sol[i])
+            ## truncate variables to account for rounding issues
+            sol <- pmax(sol, model$lower)
+            sol <- pmin(sol, model$upper)
+          }
+          # return solution
+          list(
+            x = sol,
+            objective = x$objective_value,
+            status = x$status_message,
+            runtime = rt[[3]]
+          )
+        }
       )
-      ## initialize arguments
-      row_lb <- numeric(length(rhs))
-      row_ub <- numeric(length(rhs))
-      ## set equality constraints
-      idx <- which(sense == "=")
-      row_lb[idx] <- rhs[idx]
-      row_ub[idx] <- rhs[idx]
-      ## set lte constraints
-      idx <- which(sense == "<=")
-      row_lb[idx] <- -Inf
-      row_ub[idx] <- rhs[idx]
-      ## set gte constraints
-      idx <- which(sense == ">=")
-      row_lb[idx] <- rhs[idx]
-      row_ub[idx] <- Inf
-      # create problem
-      model <- list(
-        maximum = identical(x$modelsense(), "max"),
-        L = x$obj(),
-        A = x$A(),
-        lhs = row_lb,
-        rhs = row_ub,
-        types = x$vtype(),
-        lower = x$lb(),
-        upper = x$ub()
-      )
-      # round values < 1e-6 to zero and drop them
-      model$A@x[abs(model$A@x) < 1e-6] <- 0
-      model$A <- Matrix::drop0(model$A)
-      model$L[abs(model$L) < 1e-6] <- 0
-      # set variables types
-      ## C = continuous (same as gurobi)
-      ## I = integer (same as gurobi)
-      ## SC = semi-continuous (not same as gurobi)
-      ## binary type not supported, convert to integer gurobi)
-      model$types[model$types == "B"] <- "I"
-      model$types[model$types == "S"] <- "SC"
-      # create parameters
-      p <- list(
-        log_to_console = as.integer(self$get_data("verbose")),
-        presolve = ifelse(self$get_data("presolve") > 0.5, "on", "off"),
-        mip_rel_gap = self$get_data("gap"),
-        time_limit = as.numeric(self$get_data("time_limit")),
-        threads = self$get_data("threads")
-      )
-      # store internal data and parameters
-      self$set_internal("model", model)
-      self$set_internal("parameters", p)
-      # return success
-      invisible(TRUE)
-    },
-    set_variable_ub = function(self, index, value) {
-      self$internal$model$upper[index] <- value
-      invisible(TRUE)
-    },
-    set_variable_lb = function(self, index, value) {
-      self$internal$model$lower[index] <- value
-      invisible(TRUE)
-    },
-    run = function(self, x) {
-      # access internal data and parameters
-      model <- self$get_internal("model")
-      p <- self$get_internal("parameters")
-      # solve problem
-      rt <- system.time({
-        x <- do.call(
-          highs::highs_solve,
-          append(model, list(control = p))
-        )
-      })
-      # manually return NULL to indicate error if no solution
-      # nocov start
-      if (
-        is.null(x) ||
-        is.null(x$primal_solution) ||
-        any(is.na(x$primal_solution)) ||
-        isTRUE(!x$status %in% c(7L, 11L, 12L, 13L, 14L))
-      ) {
-        return(NULL)
-      }
-      # nocov end
-      # extract solution values
-      sol <- x$primal_solution
-      ## fix potential floating point arithmetic issues
-      i <- model$types == "I"
-      if (is.numeric(sol)) {
-        ## round integer variables
-        sol[i] <- round(sol[i])
-        ## truncate variables to account for rounding issues
-        sol <- pmax(sol, model$lower)
-        sol <- pmin(sol, model$upper)
-      }
-      # return solution
-      list(
-        x = sol,
-        objective = x$objective_value,
-        status = x$status_message,
-        runtime = rt[[3]]
-      )
-    }
-  ))
+    )$new()
+  )
 }

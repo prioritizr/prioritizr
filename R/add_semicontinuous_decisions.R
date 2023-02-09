@@ -1,4 +1,4 @@
-#' @include internal.R Decision-proto.R
+#' @include internal.R Decision-class.R
 NULL
 
 #' Add semi-continuous decisions
@@ -87,16 +87,20 @@ add_semicontinuous_decisions <- function(x, upper_limit) {
     upper_limit >= 0
   )
   # add decision to problem
-  x$add_decisions(pproto(
-    "SemiContinuousDecision",
-     Decision,
-     name = "semicontinuous decision",
-     data = list(upper_limit = upper_limit),
-     apply = function(self, x) {
-      assert(inherits(x, "OptimizationProblem"), .internal = TRUE)
-      invisible(
-        rcpp_apply_decisions(x$ptr, "C", 0, self$get_data("upper_limit"))
+  x$add_decisions(
+    R6::R6Class(
+      "SemiContinuousDecision",
+      inherit = Decision,
+       public = list(
+         name = "semicontinuous decision",
+         data = list(upper_limit = upper_limit),
+         apply = function(x) {
+          assert(inherits(x, "OptimizationProblem"), .internal = TRUE)
+          invisible(
+            rcpp_apply_decisions(x$ptr, "C", 0, self$get_data("upper_limit"))
+          )
+        }
       )
-    }
-  ))
+    )$new()
+  )
 }

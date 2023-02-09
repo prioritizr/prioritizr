@@ -23,7 +23,7 @@ of the constraints requires the expanded formulation. This argument
 defaults to \code{NA}.}
 }
 \value{
-An \code{\linkS4class{OptimizationProblem}} object.
+A \code{\link[=optimization_problem]{optimization_problem()}} object.
 }
 \description{
 Compile a conservation planning \code{\link[=problem]{problem()}} into an

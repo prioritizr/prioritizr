@@ -1,4 +1,4 @@
-#' @include internal.R Penalty-proto.R marxan_connectivity_data_to_matrix.R
+#' @include internal.R Penalty-class.R marxan_connectivity_data_to_matrix.R
 NULL
 
 #' Add connectivity penalties
@@ -533,58 +533,62 @@ internal_add_connectivity_penalties <- function(x, penalty, zones, data) {
     .internal = TRUE
   )
   # create new penalty object
-  x$add_penalty(pproto(
-    "ConnectivityPenalty",
-    Penalty,
-    name = "connectivity penalties",
-    data = list(penalty = penalty, zones = zones, data = data),
-    apply = function(self, x, y) {
-      # assert valid arguments
-      assert(
-        inherits(x, "OptimizationProblem"),
-        inherits(y, "ConservationProblem"),
-        .internal = TRUE
-      )
-      # extract data
-      d <- self$get_data("data")
-      z <- self$get_data("zones")
-      indices <- y$planning_unit_indices()
-      # process data
-      m <- list()
-      if (inherits(d, "dgCMatrix")) {
-        ## if data is a dgCMatrix...
-        d <- d[indices, indices, drop = FALSE]
-        for (z1 in seq_len(ncol(z))) {
-          m[[z1]] <- list()
-          for (z2 in seq_len(nrow(z))) {
-            m[[z1]][[z2]] <- d * z[z1, z2]
-          }
-        }
-      } else if (inherits(d, "array")) {
-        ## if data is an array...
-        for (z1 in seq_len(dim(d)[3])) {
-          m[[z1]] <- list()
-          for (z2 in seq_len(dim(d)[4])) {
-            m[[z1]][[z2]] <- as_Matrix(
-              d[indices, indices, z1, z2],
-              "dgCMatrix"
+  x$add_penalty(
+    R6::R6Class(
+      "ConnectivityPenalty",
+      inherit = Penalty,
+      public = list(
+        name = "connectivity penalties",
+        data = list(penalty = penalty, zones = zones, data = data),
+        apply = function(x, y) {
+          # assert valid arguments
+          assert(
+            inherits(x, "OptimizationProblem"),
+            inherits(y, "ConservationProblem"),
+            .internal = TRUE
+          )
+          # extract data
+          d <- self$get_data("data")
+          z <- self$get_data("zones")
+          indices <- y$planning_unit_indices()
+          # process data
+          m <- list()
+          if (inherits(d, "dgCMatrix")) {
+            ## if data is a dgCMatrix...
+            d <- d[indices, indices, drop = FALSE]
+            for (z1 in seq_len(ncol(z))) {
+              m[[z1]] <- list()
+              for (z2 in seq_len(nrow(z))) {
+                m[[z1]][[z2]] <- d * z[z1, z2]
+              }
+            }
+          } else if (inherits(d, "array")) {
+            ## if data is an array...
+            for (z1 in seq_len(dim(d)[3])) {
+              m[[z1]] <- list()
+              for (z2 in seq_len(dim(d)[4])) {
+                m[[z1]][[z2]] <- as_Matrix(
+                  d[indices, indices, z1, z2],
+                  "dgCMatrix"
+                )
+              }
+            }
+          } else {
+            ## throw error if not recognized
+            cli::cli_abort(
+              "Failed calculations for {.fn add_connectivity_penalties}.",
+              .internal = TRUE
             )
           }
+          # coerce to symmetric connectivity data
+          m <- lapply(m, function(x) {
+            lapply(x, function(y) as_Matrix(Matrix::tril(y), "dgCMatrix"))
+          })
+          # apply penalties
+          rcpp_apply_connectivity_penalties(x$ptr, self$get_data("penalty"), m)
+          invisible(TRUE)
         }
-      } else {
-        ## throw error if not recognized
-        cli::cli_abort(
-          "Failed calculations for {.fn add_connectivity_penalties}.",
-          .internal = TRUE
-        )
-      }
-      # coerce to symmetric connectivity data
-      m <- lapply(m, function(x) {
-        lapply(x, function(y) as_Matrix(Matrix::tril(y), "dgCMatrix"))
-      })
-      # apply penalties
-      rcpp_apply_connectivity_penalties(x$ptr, self$get_data("penalty"), m)
-      invisible(TRUE)
-    }
-  ))
+      )
+    )$new()
+  )
 }

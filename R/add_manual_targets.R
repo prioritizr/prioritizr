@@ -1,4 +1,4 @@
-#' @include internal.R pproto.R ConservationProblem-proto.R zones.R tbl_df.R
+#' @include internal.R ConservationProblem-class.R zones.R tbl_df.R
 NULL
 
 #' Add manual targets
@@ -260,7 +260,8 @@ methods::setMethod(
   methods::signature("ConservationProblem", "data.frame"),
   function(x, targets) {
     add_manual_targets(x, tibble::as_tibble(targets))
-})
+  }
+)
 
 #' @name add_manual_targets
 #' @rdname add_manual_targets
@@ -303,61 +304,70 @@ methods::setMethod(
     }
     verify(all_positive(targets$target))
     # add targets to problem
-    x$add_targets(pproto(
-      "ManualTargets",
-      Target,
-      name = "targets",
-      data = list(targets = targets),
-      internal = list(abundances = x$feature_abundances_in_total_units()),
-      repr = function(self, compact = TRUE) {
-        d <- self$get_data("targets")
-        if (all(as.character(d$type) == "relative")) {
-          type <- "relative"
-        } else if (all(as.character(d$type) == "absolute")) {
-          type <- "absolute"
-        } else {
-          type <- "mixed"
-        }
-        cli::format_inline("{type} targets (between {.val {range(d$target)}})")
-      },
-      output = function(self) {
-        # get data
-        targets <- self$get_data("targets")
-        abundances <- self$get_internal("abundances")
-        # add zone column if missing
-        if (!assertthat::has_name(targets, "zone")) {
-          targets$zone <- colnames(abundances)[[1]]
-        }
-        # convert zone column to list of characters if needed
-        if (!inherits(targets$zone, "list")) {
-          targets$zone <- as.list(targets$zone)
-        }
-        # add sense column if missing
-        if (!assertthat::has_name(targets, "sense")) {
-          targets$sense <- ">="
-        }
-        targets$sense <- as.character(targets$sense)
-        # convert feature names to indices
-        targets$feature <- match(
-          as.character(targets$feature), rownames(abundances)
+    x$add_targets(
+      R6::R6Class(
+        "ManualTargets",
+        inherit = Target,
+        public = list(
+          name = "targets",
+          data = list(targets = targets),
+          internal = list(abundances = x$feature_abundances_in_total_units()),
+          repr = function(compact = TRUE) {
+            d <- self$get_data("targets")
+            if (all(as.character(d$type) == "relative")) {
+              type <- "relative"
+            } else if (all(as.character(d$type) == "absolute")) {
+              type <- "absolute"
+            } else {
+              type <- "mixed"
+            }
+            cli::format_inline(
+              "{type} targets (between {.val {range(d$target)}})"
+            )
+          },
+          output = function() {
+            # get data
+            targets <- self$get_data("targets")
+            abundances <- self$get_internal("abundances")
+            # add zone column if missing
+            if (!assertthat::has_name(targets, "zone")) {
+              targets$zone <- colnames(abundances)[[1]]
+            }
+            # convert zone column to list of characters if needed
+            if (!inherits(targets$zone, "list")) {
+              targets$zone <- as.list(targets$zone)
+            }
+            # add sense column if missing
+            if (!assertthat::has_name(targets, "sense")) {
+              targets$sense <- ">="
+            }
+            targets$sense <- as.character(targets$sense)
+            # convert feature names to indices
+            targets$feature <- match(
+              as.character(targets$feature), rownames(abundances)
+            )
+            # convert zone names to indices
+            for (i in seq_len(nrow(targets))) {
+              targets$zone[[i]] <- match(
+                targets$zone[[i]], colnames(abundances)
+              )
+            }
+            # add compute relative targets as absolute targets and assign
+            # zone ids
+            targets$value <- as.numeric(targets$target)
+            relative_rows <- which(targets$type == "relative")
+            for (i in seq_along(relative_rows)) {
+              zone_id <- targets$zone[[relative_rows[[i]]]]
+              feature_id <- targets$feature[[relative_rows[[i]]]]
+              abund_mtx <- as.matrix(data.frame(feature_id, zone_id))
+              targets$value[relative_rows[i]] <-
+                sum(abundances[abund_mtx]) * targets$target[relative_rows[i]]
+             }
+            # return tibble
+            targets[, c("feature", "zone", "sense", "value")]
+          }
         )
-        # convert zone names to indices
-        for (i in seq_len(nrow(targets))) {
-          targets$zone[[i]] <- match(targets$zone[[i]], colnames(abundances))
-        }
-        # add compute relative targets as absolute targets and assign
-        # zone ids
-        targets$value <- as.numeric(targets$target)
-        relative_rows <- which(targets$type == "relative")
-        for (i in seq_along(relative_rows)) {
-          zone_id <- targets$zone[[relative_rows[[i]]]]
-          feature_id <- targets$feature[[relative_rows[[i]]]]
-          abund_mtx <- as.matrix(data.frame(feature_id, zone_id))
-          targets$value[relative_rows[i]] <-
-            sum(abundances[abund_mtx]) * targets$target[relative_rows[i]]
-         }
-        # return tibble
-        targets[, c("feature", "zone", "sense", "value")]
-      }
-    ))
-})
+      )$new()
+    )
+  }
+)

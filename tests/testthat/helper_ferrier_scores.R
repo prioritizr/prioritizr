@@ -80,7 +80,7 @@ ferrier_scores_r <- function(rij, targets, solution) {
   out2[, which(solution < 0.5)] <- 0
 
   # prepare output
-  out2 <- as_Matrix(t(out2), "dgCMatrix")
+  out2 <- as_Matrix(Matrix::t(out2), "dgCMatrix")
   out2 <- cbind(out2, Matrix::rowSums(out2))
   colnames(out2) <- c(rownames(rij), "total")
 

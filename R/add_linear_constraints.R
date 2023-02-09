@@ -303,7 +303,8 @@ methods::setMethod("add_linear_constraints",
     )
     # add penalties
     add_linear_constraints(x, threshold, sense, d)
-})
+  }
+)
 
 #' @name add_linear_constraints
 #' @usage \S4method{add_linear_constraints}{ConservationProblem,ANY,ANY,numeric}(x, threshold, sense, data)
@@ -312,7 +313,8 @@ methods::setMethod("add_linear_constraints",
   methods::signature("ConservationProblem", "ANY", "ANY", "numeric"),
   function(x, threshold, sense, data) {
     add_linear_constraints(x, threshold, sense, matrix(data, ncol = 1))
-})
+  }
+)
 
 #' @name add_linear_constraints
 #' @usage \S4method{add_linear_constraints}{ConservationProblem,ANY,ANY,matrix}(x, threshold, sense, data)
@@ -321,7 +323,8 @@ methods::setMethod("add_linear_constraints",
   methods::signature("ConservationProblem", "ANY", "ANY", "matrix"),
   function(x, threshold, sense, data) {
     add_linear_constraints(x, threshold, sense, as_Matrix(data, "dgCMatrix"))
-})
+  }
+)
 
 #' @name add_linear_constraints
 #' @usage \S4method{add_linear_constraints}{ConservationProblem,ANY,ANY,Matrix}(x, threshold, sense, data)
@@ -330,7 +333,8 @@ methods::setMethod("add_linear_constraints",
   methods::signature("ConservationProblem", "ANY", "ANY", "Matrix"),
   function(x, threshold, sense, data) {
     add_linear_constraints(x, threshold, sense, as_Matrix(data, "dgCMatrix"))
-})
+  }
+)
 
 #' @name add_linear_constraints
 #' @usage \S4method{add_linear_constraints}{ConservationProblem,ANY,ANY,Raster}(x, threshold, sense, data)
@@ -340,7 +344,8 @@ methods::setMethod("add_linear_constraints",
   function(x, threshold, sense, data) {
     .Deprecated(msg = raster_pkg_deprecation_notice)
     add_linear_constraints(x, threshold, sense, terra::rast(data, "SpatRaster"))
-})
+  }
+)
 
 #' @name add_linear_constraints
 #' @usage \S4method{add_linear_constraints}{ConservationProblem,ANY,ANY,SpatRaster}(x, threshold, sense, data)
@@ -370,7 +375,8 @@ methods::setMethod("add_linear_constraints",
     d[is.na(d)] <- 0
     # add constraints
     add_linear_constraints(x, threshold, sense, as_Matrix(d, "dgCMatrix"))
-})
+  }
+)
 
 #' @name add_linear_constraints
 #' @usage \S4method{add_linear_constraints}{ConservationProblem,ANY,ANY,dgCMatrix}(x, threshold, sense, data)
@@ -402,29 +408,34 @@ methods::setMethod("add_linear_constraints",
       )
     }
     # add penalties
-    x$add_constraint(pproto(
-      "LinearConstraint",
-      Constraint,
-      name = "linear constraints",
-      data = list(threshold = threshold, sense = sense, data = data),
-      apply = function(self, x, y) {
-        assert(
-          inherits(x, "OptimizationProblem"),
-          inherits(y, "ConservationProblem"),
-          .internal = TRUE
+    x$add_constraint(
+      R6::R6Class(
+        "LinearConstraint",
+        inherit = Constraint,
+        public = list(
+          name = "linear constraints",
+          data = list(threshold = threshold, sense = sense, data = data),
+          apply = function(x, y) {
+            assert(
+              inherits(x, "OptimizationProblem"),
+              inherits(y, "ConservationProblem"),
+              .internal = TRUE
+            )
+            # extract data
+            indices <- y$planning_unit_indices()
+            d <- self$get_data("data")[indices, , drop = FALSE]
+            # apply constraints
+            rcpp_apply_linear_constraints(
+              x$ptr,
+              self$get_data("threshold"),
+              self$get_data("sense"),
+              d
+            )
+            # return success
+            invisible(TRUE)
+          }
         )
-        # extract data
-        indices <- y$planning_unit_indices()
-        d <- self$get_data("data")[indices, , drop = FALSE]
-        # apply constraints
-        rcpp_apply_linear_constraints(
-          x$ptr,
-          self$get_data("threshold"),
-          self$get_data("sense"),
-          d
-        )
-        # return success
-        invisible(TRUE)
-    }
-  ))
-})
+      )$new()
+    )
+  }
+)

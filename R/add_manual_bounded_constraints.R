@@ -1,4 +1,4 @@
-#' @include internal.R pproto.R ConservationProblem-proto.R zones.R add_manual_targets.R
+#' @include internal.R ConservationProblem-class.R zones.R add_manual_targets.R
 NULL
 
 #' Add manually specified bound constraints
@@ -184,7 +184,8 @@ methods::setMethod("add_manual_bounded_constraints",
     )
     # add constraints
     add_manual_bounded_constraints(x, tibble::as_tibble(data))
-})
+  }
+)
 
 #' @name add_manual_bounded_constraints
 #' @usage \S4method{add_manual_bounded_constraints}{ConservationProblem,tbl_df}(x, data)
@@ -219,43 +220,48 @@ methods::setMethod("add_manual_bounded_constraints",
       )
     }
     # add constraints
-    x$add_constraint(pproto(
-      "BoundsManualConstraint",
-      Constraint,
-      name = "manually bounded planning units",
-      repr = function(self) {
-        paste0(
-          self$name, " [", nrow(self$get_data("data")),
-          " bound units]"
+    x$add_constraint(
+      R6::R6Class(
+        "BoundsManualConstraint",
+        inherit = Constraint,
+        public = list(
+          name = "manual bounded constraints",
+          data = list(data = data),
+          repr = function() {
+            paste0(
+              self$name, " (", nrow(self$get_data("data")),
+              " planning units)"
+            )
+          },
+          apply = function(x, y) {
+            assert(
+              inherits(x, "OptimizationProblem"),
+              inherits(y, "ConservationProblem"),
+              .internal = TRUE
+            )
+            # extract data
+            d <- self$get_data("data")
+            # convert zone names to indices
+            if (!assertthat::has_name(d, "zone"))
+              d$zone <- y$zone_names()[1]
+            d$zone <- match(as.character(d$zone), y$zone_names())
+            # remove rows for raster cells that aren't really planning units
+            # i.e., contain NA values in all zones
+            pu <- y$get_data("cost")
+            if (inherits(pu, c("SpatRaster", "Raster"))) {
+              units <- y$planning_unit_indices()
+              d$pu <- match(d$pu, units)
+              d <- d[!is.na(d$pu), , drop = FALSE]
+            }
+            # apply constraints
+            invisible(
+              rcpp_apply_bounded_constraints(
+                x$ptr, c(d$pu), c(d$zone), d$lower, d$upper
+              )
+            )
+          }
         )
-      },
-      data = list(data = data),
-      apply = function(self, x, y) {
-        assert(
-          inherits(x, "OptimizationProblem"),
-          inherits(y, "ConservationProblem"),
-          .internal = TRUE
-        )
-        # extract data
-        d <- self$get_data("data")
-        # convert zone names to indices
-        if (!assertthat::has_name(d, "zone"))
-          d$zone <- y$zone_names()[1]
-        d$zone <- match(as.character(d$zone), y$zone_names())
-        # remove rows for raster cells that aren't really planning units
-        # i.e., contain NA values in all zones
-        pu <- y$get_data("cost")
-        if (inherits(pu, c("SpatRaster", "Raster"))) {
-          units <- y$planning_unit_indices()
-          d$pu <- match(d$pu, units)
-          d <- d[!is.na(d$pu), , drop = FALSE]
-        }
-        # apply constraints
-        invisible(
-          rcpp_apply_bounded_constraints(
-            x$ptr, c(d$pu), c(d$zone), d$lower, d$upper
-          )
-        )
-      }
-    ))
-})
+      )$new()
+    )
+  }
+)

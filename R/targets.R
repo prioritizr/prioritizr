@@ -1,4 +1,4 @@
-#' @include internal.R pproto.R ConservationProblem-proto.R
+#' @include internal.R ConservationProblem-class.R
 NULL
 
 #' Add representation targets

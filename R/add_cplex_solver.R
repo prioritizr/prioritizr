@@ -1,4 +1,4 @@
-#' @include Solver-proto.R
+#' @include Solver-class.R
 NULL
 
 #' Add a *CPLEX* solver
@@ -110,87 +110,91 @@ add_cplex_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
     is_installed("cplexAPI")
   )
   # add solver
-  x$add_solver(pproto(
-    "CplexSolver",
-    Solver,
-    name = "cplex solver",
-    data = list(
-      gap = gap,
-      time_limit = time_limit,
-      threads = threads,
-      presolve = presolve,
-      verbose = verbose
-    ),
-    calculate = function(self, x, ...) {
-      # create problem
-      model <- list(
-        modelsense = x$modelsense(),
-        vtype = x$vtype(),
-        obj = x$obj(),
-        A = x$A(),
-        A2 = cplex_matrix(x$A()),
-        rhs = x$rhs(),
-        sense = x$sense(),
-        lb = x$lb(),
-        ub = x$ub()
+  x$add_solver(
+    R6::R6Class(
+      "CplexSolver",
+      inherit = Solver,
+      public = list(
+        name = "cplex solver",
+        data = list(
+          gap = gap,
+          time_limit = time_limit,
+          threads = threads,
+          presolve = presolve,
+          verbose = verbose
+        ),
+        calculate = function(x, ...) {
+          # create problem
+          model <- list(
+            modelsense = x$modelsense(),
+            vtype = x$vtype(),
+            obj = x$obj(),
+            A = x$A(),
+            A2 = cplex_matrix(x$A()),
+            rhs = x$rhs(),
+            sense = x$sense(),
+            lb = x$lb(),
+            ub = x$ub()
+          )
+          # format problem for CPLEX
+          model$sense[model$sense == ">="] <- "G"
+          model$sense[model$sense == "="] <- "E"
+          model$sense[model$sense == "<="] <- "L"
+          model$vtype[model$vtype == "S"] <- "C"
+          # create parameters
+          p <- list(
+            verbose = as.integer(self$get_data("verbose")),
+            presolve = as.integer(self$get_data("presolve")),
+            gap = self$get_data("gap"),
+            threads = self$get_data("threads"),
+            time_limit = self$get_data("time_limit")
+          )
+          # store input data and parameters
+          self$set_internal("model", model)
+          self$set_internal("parameters", p)
+          # return success
+          invisible(TRUE)
+        },
+        run = function() {
+          # access input data and parameters
+          model <- self$get_internal("model")
+          p <- self$get_internal("parameters")
+          # solve problem
+          rt <- system.time({
+            x <- cplex(model, p)
+          })
+          # fix potential floating point arithmetic issues
+          b <- model$vtype == "B"
+          if (is.numeric(x$x)) {
+            ## round binary variables because default precision is 1e-5
+            x$x[b] <- round(x$x[b])
+            ## truncate variables to account for rounding issues
+            x$x <- pmax(x$x, model$lb)
+            x$x <- pmin(x$x, model$ub)
+          }
+          # extract solution values, and
+          # set values to NULL if any values have NA in result
+          sol <- x$x
+          if (any(is.na(sol))) sol <- NULL
+          # return solution
+          list(
+            x = sol,
+            objective = x$objval,
+            status = x$status,
+            runtime = rt[[3]]
+          )
+        },
+        set_variable_ub = function(index, value) {
+          self$internal$model$ub[index] <- value
+          invisible(TRUE)
+        },
+        set_variable_lb = function(index, value) {
+          self$internal$model$lb[index] <- value
+          invisible(TRUE)
+        }
       )
-      # format problem for CPLEX
-      model$sense[model$sense == ">="] <- "G"
-      model$sense[model$sense == "="] <- "E"
-      model$sense[model$sense == "<="] <- "L"
-      model$vtype[model$vtype == "S"] <- "C"
-      # create parameters
-      p <- list(
-        verbose = as.integer(self$get_data("verbose")),
-        presolve = as.integer(self$get_data("presolve")),
-        gap = self$get_data("gap"),
-        threads = self$get_data("threads"),
-        time_limit = self$get_data("time_limit")
-      )
-      # store input data and parameters
-      self$set_internal("model", model)
-      self$set_internal("parameters", p)
-      # return success
-      invisible(TRUE)
-    },
-    run = function(self, x) {
-      # access input data and parameters
-      model <- self$get_internal("model")
-      p <- self$get_internal("parameters")
-      # solve problem
-      rt <- system.time({
-        x <- cplex(model, p)
-      })
-      # fix potential floating point arithmetic issues
-      b <- model$vtype == "B"
-      if (is.numeric(x$x)) {
-        ## round binary variables because default precision is 1e-5
-        x$x[b] <- round(x$x[b])
-        ## truncate variables to account for rounding issues
-        x$x <- pmax(x$x, model$lb)
-        x$x <- pmin(x$x, model$ub)
-      }
-      # extract solution values, and
-      # set values to NULL if any values have NA in result
-      sol <- x$x
-      if (any(is.na(sol))) sol <- NULL
-      # return solution
-      list(
-        x = sol,
-        objective = x$objval,
-        status = x$status,
-        runtime = rt[[3]]
-      )
-    },
-    set_variable_ub = function(self, index, value) {
-      self$internal$model$ub[index] <- value
-      invisible(TRUE)
-    },
-    set_variable_lb = function(self, index, value) {
-      self$internal$model$lb[index] <- value
-      invisible(TRUE)
-    }
-  ))
+    )$new()
+  )
 }
 
 cplex_error_wrap <- function(result, env = NULL) {

@@ -157,7 +157,8 @@ methods::setMethod("eval_ferrier_importance",
     out[idx, ] <- 0
     out[idx[pos], ] <- c(v)
     out
-})
+  }
+)
 
 #' @name eval_ferrier_importance
 #' @usage \S4method{eval_ferrier_importance}{ConservationProblem,matrix}(x, solution)
@@ -188,7 +189,8 @@ methods::setMethod("eval_ferrier_importance",
     out[idx, ] <- 0
     out[idx[pos], ] <- c(v)
     out
-})
+  }
+)
 
 #' @name eval_ferrier_importance
 #' @usage \S4method{eval_ferrier_importance}{ConservationProblem,data.frame}(x, solution)
@@ -218,7 +220,8 @@ methods::setMethod("eval_ferrier_importance",
     out[idx, ] <- 0
     out[idx[pos], ] <- c(v)
     tibble::as_tibble(out)
-})
+  }
+)
 
 #' @name eval_ferrier_importance
 #' @usage \S4method{eval_ferrier_importance}{ConservationProblem,Spatial}(x, solution)
@@ -257,7 +260,8 @@ methods::setMethod("eval_ferrier_importance",
     rownames(out) <- rownames(solution@data)
     solution@data <- out
     solution
-})
+  }
+)
 
 #' @name eval_ferrier_importance
 #' @usage \S4method{eval_ferrier_importance}{ConservationProblem,sf}(x, solution)
@@ -292,7 +296,8 @@ methods::setMethod("eval_ferrier_importance",
       geometry = sf::st_geometry(x$data$cost),
       crs = sf::st_crs(x$data$cost)
     )
-})
+  }
+)
 
 #' @name eval_ferrier_importance
 #' @usage \S4method{eval_ferrier_importance}{ConservationProblem,Raster}(x, solution)
@@ -320,7 +325,8 @@ methods::setMethod("eval_ferrier_importance",
     out <- raster::stack(out)
     names(out) <- c(x$feature_names(), "total")
     out
-})
+  }
+)
 
 #' @name eval_ferrier_importance
 #' @usage \S4method{eval_ferrier_importance}{ConservationProblem,SpatRaster}(x, solution)
@@ -348,7 +354,8 @@ methods::setMethod("eval_ferrier_importance",
     out <- terra::rast(out)
     names(out) <- c(x$feature_names(), "total")
     out
-})
+  }
+)
 
 internal_eval_ferrier_importance <- function(x, indices,
                                              call = fn_caller_env()) {
@@ -439,6 +446,6 @@ internal_eval_ferrier_importance <- function(x, indices,
   # extract selected planning units
   s <- s[, indices, drop = FALSE]
   # calculate totals
-  s <- cbind(t(s), Matrix::colSums(s))
+  s <- cbind(Matrix::t(s), Matrix::colSums(s))
   as.matrix(s)
 }

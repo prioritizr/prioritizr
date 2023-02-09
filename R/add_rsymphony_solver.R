@@ -1,4 +1,4 @@
-#' @include Solver-proto.R
+#' @include Solver-class.R
 NULL
 
 #' Add a *SYMPHONY* solver with *Rsymphony*
@@ -92,119 +92,123 @@ add_rsymphony_solver <- function(x, gap = 0.1,
     is_installed("Rsymphony")
   )
   # add solver
-  x$add_solver(pproto(
-    "RsymphonySolver",
-    Solver,
-    name = "rsymphony solver",
-    data = list(
-      gap = gap,
-      time_limit = time_limit,
-      first_feasible = first_feasible,
-      verbose = verbose
-    ),
-    calculate = function(self, x, ...) {
-      # create model
-      model <- list(
-        obj = x$obj(),
-        mat = x$A(),
-        dir = x$sense(),
-        rhs = x$rhs(),
-        types = x$vtype(),
-        bounds = list(
-          lower = list(ind = seq_along(x$lb()), val = x$lb()),
-          upper = list(ind = seq_along(x$ub()), val = x$ub())
+  x$add_solver(
+    R6::R6Class(
+      "RsymphonySolver",
+      inherit = Solver,
+      public = list(
+        name = "rsymphony solver",
+        data = list(
+          gap = gap,
+          time_limit = time_limit,
+          first_feasible = first_feasible,
+          verbose = verbose
         ),
-        max = isTRUE(x$modelsense() == "max")
-      )
-      # convert constraint matrix to sparse format
-      model$dir <- replace(model$dir, model$dir == "=", "==")
-      model$types <- replace(model$types, model$types == "S", "C")
-      # prepare parameters
-      p <- self$data
-      p$verbosity <- -1
-      if (!p$verbose)
-        p$verbosity <- -2
-      p <- p[names(p) != "verbose"]
-      names(p)[which(names(p) == "gap")] <- "gap_limit"
-      p$first_feasible <- as.logical(p$first_feasible)
-      p$gap_limit <- p$gap_limit * 100
-      # store internal data and parameters
-      self$set_internal("model", model)
-      self$set_internal("parameters", p)
-      # return success
-      invisible(TRUE)
-    },
-    set_variable_ub = function(self, index, value) {
-      self$internal$model$bounds$upper$val[index] <- value
-      invisible(TRUE)
-    },
-    set_variable_lb = function(self, index, value) {
-      self$internal$model$bounds$lower$val[index] <- value
-      invisible(TRUE)
-    },
-    run = function(self) {
-      # access input data and parameters
-      model <- self$get_internal("model")
-      p <- self$get_internal("parameters")
-      # solve problem
-      rt <- system.time({
-        x <- do.call(Rsymphony::Rsymphony_solve_LP, append(model, p))
-      })
-      # manually return NULL to indicate error if no solution
-      #nocov start
-      if (is.null(x$solution) ||
-          names(x$status) %in% c("TM_NO_SOLUTION", "PREP_NO_SOLUTION"))
-        return(NULL)
-      #nocov end
-      # fix floating point issues with binary variables
-      #nocov start
-      b <- which(model$types == "B")
-      if (any(x$solution[b] > 1)) {
-        if (max(x$solution[b]) < 1.01) {
-          x$solution[x$solution[b] > 1] <- 1
-        } else {
-          cli::cli_abort(
-            c(
-              "Solver returned infeasible solution.",
-              "i" = paste(
-                "Try using a different solver or relaxing parameters",
-                "(e.g., {.arg gap} or {.arg time_limit})."
-              )
+        calculate = function(x, ...) {
+          # create model
+          model <- list(
+            obj = x$obj(),
+            mat = x$A(),
+            dir = x$sense(),
+            rhs = x$rhs(),
+            types = x$vtype(),
+            bounds = list(
+              lower = list(ind = seq_along(x$lb()), val = x$lb()),
+              upper = list(ind = seq_along(x$ub()), val = x$ub())
             ),
-            call = rlang::expr(add_rsymphony_solver())
+            max = isTRUE(x$modelsense() == "max")
+          )
+          # convert constraint matrix to sparse format
+          model$dir <- replace(model$dir, model$dir == "=", "==")
+          model$types <- replace(model$types, model$types == "S", "C")
+          # prepare parameters
+          p <- self$data
+          p$verbosity <- -1
+          if (!p$verbose)
+            p$verbosity <- -2
+          p <- p[names(p) != "verbose"]
+          names(p)[which(names(p) == "gap")] <- "gap_limit"
+          p$first_feasible <- as.logical(p$first_feasible)
+          p$gap_limit <- p$gap_limit * 100
+          # store internal data and parameters
+          self$set_internal("model", model)
+          self$set_internal("parameters", p)
+          # return success
+          invisible(TRUE)
+        },
+        set_variable_ub = function(index, value) {
+          self$internal$model$bounds$upper$val[index] <- value
+          invisible(TRUE)
+        },
+        set_variable_lb = function(index, value) {
+          self$internal$model$bounds$lower$val[index] <- value
+          invisible(TRUE)
+        },
+        run = function() {
+          # access input data and parameters
+          model <- self$get_internal("model")
+          p <- self$get_internal("parameters")
+          # solve problem
+          rt <- system.time({
+            x <- do.call(Rsymphony::Rsymphony_solve_LP, append(model, p))
+          })
+          # manually return NULL to indicate error if no solution
+          #nocov start
+          if (is.null(x$solution) ||
+              names(x$status) %in% c("TM_NO_SOLUTION", "PREP_NO_SOLUTION"))
+            return(NULL)
+          #nocov end
+          # fix floating point issues with binary variables
+          #nocov start
+          b <- which(model$types == "B")
+          if (any(x$solution[b] > 1)) {
+            if (max(x$solution[b]) < 1.01) {
+              x$solution[x$solution[b] > 1] <- 1
+            } else {
+              cli::cli_abort(
+                c(
+                  "Solver returned infeasible solution.",
+                  "i" = paste(
+                    "Try using a different solver or relaxing parameters",
+                    "(e.g., {.arg gap} or {.arg time_limit})."
+                  )
+                ),
+                call = rlang::expr(add_rsymphony_solver())
+              )
+            }
+          }
+          if (any(x$solution[b] < 0)) {
+            if (min(x$solution[b]) > -0.01) {
+              x$solution[x$solution[b] < 0] <- 0
+            } else {
+              cli::cli_abort(
+                c(
+                  "Solver returned infeasible solution.",
+                  "i" = paste(
+                    "Try using a different solver or relaxing parameters",
+                    "(e.g., {.arg gap} or {.arg time_limit})."
+                  )
+                ),
+                call = rlang::expr(add_rsymphony_solver())
+              )
+            }
+          }
+          #nocov end
+          # fix floating point issues with continuous variables
+          cv <- which(model$types == "C")
+          x$solution[cv] <-
+            pmax(x$solution[cv], self$internal$model$bounds$lower$val[cv])
+          x$solution[cv] <-
+            pmin(x$solution[cv], self$internal$model$bounds$upper$val[cv])
+          # return output
+          list(
+            x = x$solution,
+            objective = x$objval,
+            status = as.character(x$status),
+            runtime = rt[[3]]
           )
         }
-      }
-      if (any(x$solution[b] < 0)) {
-        if (min(x$solution[b]) > -0.01) {
-          x$solution[x$solution[b] < 0] <- 0
-        } else {
-          cli::cli_abort(
-            c(
-              "Solver returned infeasible solution.",
-              "i" = paste(
-                "Try using a different solver or relaxing parameters",
-                "(e.g., {.arg gap} or {.arg time_limit})."
-              )
-            ),
-            call = rlang::expr(add_rsymphony_solver())
-          )
-        }
-      }
-      #nocov end
-      # fix floating point issues with continuous variables
-      cv <- which(model$types == "C")
-      x$solution[cv] <-
-        pmax(x$solution[cv], self$internal$model$bounds$lower$val[cv])
-      x$solution[cv] <-
-        pmin(x$solution[cv], self$internal$model$bounds$upper$val[cv])
-      # return output
-      list(
-        x = x$solution,
-        objective = x$objval,
-        status = as.character(x$status),
-        runtime = rt[[3]]
       )
-    }
-  ))
+    )$new()
+  )
 }

@@ -20,7 +20,8 @@ methods::setMethod(
       run_checks = run_checks,
       ...
     )
-})
+  }
+)
 
 #' @name problem
 #' @usage \S4method{problem}{Raster,ZonesRaster}(x, features, run_checks, ...)
@@ -78,9 +79,7 @@ methods::setMethod(
     colnames(fatu) <- zone_names(features)
     rownames(fatu) <- feature_names(features)
     # create ConservationProblem object
-    pproto(
-      NULL,
-      ConservationProblem,
+    ConservationProblem$new(
       data = list(
         cost = x,
         features = features,
@@ -88,7 +87,8 @@ methods::setMethod(
         feature_abundances_in_total_units = fatu
       )
     )
-})
+  }
+)
 
 #' @name problem
 #' @usage \S4method{problem}{Spatial,Raster}(x, features, cost_column, run_checks, ...)
@@ -182,9 +182,7 @@ methods::setMethod(
     rij <- lapply(rij, function(x) x[, pos, drop = FALSE])
     names(rij) <- zone_names(features)
     # create ConservationProblem object
-    pproto(
-      NULL,
-      ConservationProblem,
+    ConservationProblem$new(
       data = list(
         cost = x,
         features = features,
@@ -193,7 +191,8 @@ methods::setMethod(
         feature_abundances_in_total_units = fatu
       )
     )
-})
+  }
+)
 
 #' @name problem
 #' @usage \S4method{problem}{Spatial,character}(x, features, cost_column, ...)
@@ -209,7 +208,8 @@ methods::setMethod(
       cost_column = cost_column,
       ...
     )
-})
+  }
+)
 
 #' @name problem
 #' @usage \S4method{problem}{Spatial,ZonesCharacter}(x, features, cost_column, ...)
@@ -273,9 +273,7 @@ methods::setMethod(
       dimnames = list(feature_names(features), zone_names(features))
     )
     # create ConservationProblem object
-    pproto(
-      NULL,
-      ConservationProblem,
+    ConservationProblem$new(
       data = list(
         cost = x,
         features = features,
@@ -284,7 +282,8 @@ methods::setMethod(
         feature_abundances_in_total_units = fatu
       )
     )
-})
+  }
+)
 
 #' @name problem
 #' @usage \S4method{problem}{sf,Raster}(x, features, cost_column, run_checks, ...)
@@ -305,7 +304,8 @@ methods::setMethod(
       run_checks = run_checks,
       ...
     )
-})
+  }
+)
 
 #' @name problem
 #' @usage \S4method{problem}{sf,ZonesRaster}(x, features, cost_column, run_checks, ...)
@@ -375,9 +375,7 @@ methods::setMethod(
     rij <- lapply(rij, function(x) x[, pos, drop = FALSE])
     names(rij) <- zone_names(features)
     # create ConservationProblem object
-    pproto(
-      NULL,
-      ConservationProblem,
+    ConservationProblem$new(
       data = list(
         cost = x,
         features = features,
@@ -386,4 +384,5 @@ methods::setMethod(
         feature_abundances_in_total_units = fatu
       )
     )
-})
+  }
+)

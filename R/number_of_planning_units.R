@@ -5,7 +5,7 @@ NULL
 #'
 #' Extract the number of planning units in an object.
 #'
-#' @param x [problem()] or [`OptimizationProblem-class`] object.
+#' @param x [problem()] or [optimization_problem()] object.
 #'
 #' @return An `integer` number of planning units.
 #'

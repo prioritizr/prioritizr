@@ -1,4 +1,4 @@
-#' @include internal.R pproto.R Objective-proto.R
+#' @include internal.R Objective-class.R
 NULL
 
 #' Add maximum coverage objective
@@ -173,22 +173,26 @@ add_max_cover_objective <- function(x, budget) {
     is_budget_length(x, budget)
   )
   # add objective to problem
-  x$add_objective(pproto(
-    "MaximumCoverageObjective",
-    Objective,
-    name = "maximum coverage objective",
-    data = list(budget = budget),
-    apply = function(self, x, y) {
-      assert(
-        inherits(x, "OptimizationProblem"),
-        inherits(y, "ConservationProblem"),
-        .internal = TRUE
+  x$add_objective(
+    R6::R6Class(
+      "MaximumCoverageObjective",
+      inherit = Objective,
+      public = list(
+        name = "maximum coverage objective",
+        data = list(budget = budget),
+        apply = function(x, y) {
+          assert(
+            inherits(x, "OptimizationProblem"),
+            inherits(y, "ConservationProblem"),
+            .internal = TRUE
+          )
+          invisible(
+            rcpp_apply_max_cover_objective(
+              x$ptr, y$planning_unit_costs(), self$get_data("budget")
+            )
+          )
+        }
       )
-      invisible(
-        rcpp_apply_max_cover_objective(
-          x$ptr, y$planning_unit_costs(), self$get_data("budget")
-        )
-      )
-    }
-  ))
+    )$new()
+  )
 }

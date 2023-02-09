@@ -1,4 +1,4 @@
-#' @include internal.R pproto.R ConservationProblem-proto.R zones.R add_absolute_targets.R
+#' @include internal.R ConservationProblem-class.R zones.R add_absolute_targets.R
 NULL
 
 #' Add relative targets
@@ -108,7 +108,8 @@ NULL
 methods::setGeneric(
   "add_relative_targets",
   signature = methods::signature("x", "targets"),
-  function(x, targets) standardGeneric("add_relative_targets"))
+  function(x, targets) standardGeneric("add_relative_targets")
+)
 
 #' @name add_relative_targets
 #' @rdname add_relative_targets
@@ -131,7 +132,8 @@ methods::setMethod(
     add_relative_targets(
       x, matrix(targets, nrow = x$number_of_features(), ncol = 1)
     )
-})
+  }
+)
 
 #' @name add_relative_targets
 #' @rdname add_relative_targets
@@ -163,7 +165,8 @@ methods::setMethod(
     target_data$target <- as.numeric(targets)
     # add targets to problem
     add_manual_targets(x, target_data)
-})
+  }
+)
 
 #' @name add_relative_targets
 #' @rdname add_relative_targets
@@ -215,4 +218,5 @@ methods::setMethod(
     )
     # add targets to problem
     add_relative_targets(x, as.matrix(x$data$features[, targets, drop = FALSE]))
-})
+  }
+)

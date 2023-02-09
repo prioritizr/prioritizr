@@ -1,4 +1,4 @@
-#' @include internal.R Constraint-proto.R marxan_connectivity_data_to_matrix.R
+#' @include internal.R Constraint-class.R marxan_connectivity_data_to_matrix.R
 NULL
 
 #' Add neighbor constraints
@@ -248,7 +248,8 @@ methods::setMethod("add_neighbor_constraints",
     }
     # add constraints
     internal_add_neighbor_constraints(x, k, zones, data)
-})
+  }
+)
 
 #' @name add_neighbor_constraints
 #' @usage \S4method{add_neighbor_constraints}{ConservationProblem,ANY,ANY,data.frame}(x, k, zones, data)
@@ -279,7 +280,8 @@ methods::setMethod("add_neighbor_constraints",
     add_neighbor_constraints(
       x, k, zones, marxan_connectivity_data_to_matrix(x, data, TRUE)
     )
-})
+  }
+)
 
 #' @name add_neighbor_constraints
 #' @usage \S4method{add_neighbor_constraints}{ConservationProblem,ANY,ANY,matrix}(x, k, zones, data)
@@ -289,7 +291,8 @@ methods::setMethod("add_neighbor_constraints",
   function(x, k, zones, data) {
     # add constraints
     add_neighbor_constraints(x, k, zones, as_Matrix(data, "dgCMatrix"))
-})
+  }
+)
 
 #' @name add_neighbor_constraints
 #' @usage \S4method{add_neighbor_constraints}{ConservationProblem,ANY,ANY,array}(x, k, zones, data)
@@ -318,7 +321,8 @@ methods::setMethod("add_neighbor_constraints",
     )
     # add constraints
     internal_add_neighbor_constraints(x, k, zones, data)
-})
+  }
+)
 
 internal_add_neighbor_constraints <- function(x, k, zones, data) {
   # assert arguments valid
@@ -343,70 +347,74 @@ internal_add_neighbor_constraints <- function(x, k, zones, data) {
     rownames(zones) <- colnames(zones)
   }
   # add the constraint
-  x$add_constraint(pproto(
-    "NeighborConstraint",
-    Constraint,
-    data = list(k = k, zones = zones, data = data),
-    name = "neighbor constraints",
-    calculate = function(self, x) {
-      assert(is_conservation_problem(x))
-      # if needed, generate adjacency matrix if null
-      if (
-        is.null(self$get_data("data")) &&
-        is.Waiver(x$get_data("adjacency"))
-      ) {
-        x$set_data("adjacency", adjacency_matrix(x$data$cost))
-      }
-      # return success
-      invisible(TRUE)
-    },
-    apply = function(self, x, y) {
-      # assert valid arguments
-      assert(
-        inherits(x, "OptimizationProblem"),
-        inherits(y, "ConservationProblem"),
-        .internal = TRUE
+  x$add_constraint(
+    R6::R6Class(
+      "NeighborConstraint",
+      inherit = Constraint,
+      public = list(
+        name = "neighbor constraints",
+        data = list(k = k, zones = zones, data = data),
+        calculate = function(x) {
+          assert(is_conservation_problem(x))
+          # if needed, generate adjacency matrix if null
+          if (
+            is.null(self$get_data("data")) &&
+            is.Waiver(x$get_data("adjacency"))
+          ) {
+            x$set_data("adjacency", adjacency_matrix(x$data$cost))
+          }
+          # return success
+          invisible(TRUE)
+        },
+        apply = function(x, y) {
+          # assert valid arguments
+          assert(
+            inherits(x, "OptimizationProblem"),
+            inherits(y, "ConservationProblem"),
+            .internal = TRUE
+          )
+          # extract data
+          d <- self$get_data("data")
+          if (is.null(self$get_data("data"))) {
+            d <- y$get_data("adjacency")
+          }
+          # prepare data
+          m <- list()
+          ind <- y$planning_unit_indices()
+          if (inherits(d, "Matrix"))  {
+            # if data is an array...
+            d <- d[ind, ind]
+            z <- self$get_data("zones")
+            for (z1 in seq_len(ncol(z))) {
+              m[[z1]] <- list()
+              for (z2 in seq_len(nrow(z))) {
+                m[[z1]][[z2]] <- as_Matrix(d * z[z1, z2], "dgCMatrix")
+              }
+            }
+          } else if (inherits(d, "array")) {
+            ## if data is an array...
+            for (z1 in seq_len(dim(d)[3])) {
+              m[[z1]] <- list()
+              for (z2 in seq_len(dim(d)[4])) {
+                m[[z1]][[z2]] <- as_Matrix(d[ind, ind, z1, z2], "dgCMatrix")
+              }
+            }
+          } else {
+            ## throw error if not recognized
+            cli::cli_abort(
+              "Failed calculations for {.fn add_neighbor_constraints}.",
+              .internal = TRUE,
+            )
+          }
+          # apply constraints
+          k <- self$get_data("k")
+          if (any(k > 0)) {
+            rcpp_apply_neighbor_constraints(x$ptr, m, k)
+          }
+          # return success
+          invisible(TRUE)
+        }
       )
-      # extract data
-      d <- self$get_data("data")
-      if (is.null(self$get_data("data"))) {
-        d <- y$get_data("adjacency")
-      }
-      # prepare data
-      m <- list()
-      ind <- y$planning_unit_indices()
-      if (inherits(d, "Matrix"))  {
-        # if data is an array...
-        d <- d[ind, ind]
-        z <- self$get_data("zones")
-        for (z1 in seq_len(ncol(z))) {
-          m[[z1]] <- list()
-          for (z2 in seq_len(nrow(z))) {
-            m[[z1]][[z2]] <- as_Matrix(d * z[z1, z2], "dgCMatrix")
-          }
-        }
-      } else if (inherits(d, "array")) {
-        ## if data is an array...
-        for (z1 in seq_len(dim(d)[3])) {
-          m[[z1]] <- list()
-          for (z2 in seq_len(dim(d)[4])) {
-            m[[z1]][[z2]] <- as_Matrix(d[ind, ind, z1, z2], "dgCMatrix")
-          }
-        }
-      } else {
-        ## throw error if not recognized
-        cli::cli_abort(
-          "Failed calculations for {.fn add_neighbor_constraints}.",
-          .internal = TRUE,
-        )
-      }
-      # apply constraints
-      k <- self$get_data("k")
-      if (any(k > 0)) {
-        rcpp_apply_neighbor_constraints(x$ptr, m, k)
-      }
-      # return success
-      invisible(TRUE)
-    }
-  ))
+    )$new()
+  )
 }

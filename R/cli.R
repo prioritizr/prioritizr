@@ -1,0 +1,122 @@
+#' @include internal.R
+NULL
+
+#' Package theme
+#'
+#' Theme for the package.
+#'
+#" @details This function is designed to be used with [cli::cli_div].
+#'
+#' @return `list` object.
+#'
+#' @noRd
+cli_pkg_theme <- function() {
+  list(
+    .gray = list(color = "gray"),
+    .val = list(digits = 4),
+    .bg = list("font-weight" = "bold", color = "br_green"),
+    .g = list(color = "br_green")
+  )
+}
+
+#' Box characters
+#'
+#' Determine characters for creating boxes.
+#'
+#' @details This function is designed to be used with [cli::cli_text].
+#'
+#' @return `list` object.
+#'
+#' @noRd
+cli_box_chars <- function() {
+  if (cli::is_utf8_output()) {
+    list(
+      "h" = "\u2500",                   # horizontal
+      "v" = "\u2502",                   # vertical
+      "l" = "\u2514",                   # leaf
+      "j" = "\u251C",                   # junction
+      "b" = "\u2022"                    # bullet
+    )
+  } else {
+    list(
+      "h" = "-",                        # horizontal
+      "v" = "|",                        # vertical
+      "l" = "\\",                       # leaf
+      "j" = "+",                        # junction
+      "b" = "@"                         # bullet
+    )
+  }
+}
+
+#' Verbatim text
+#'
+#' Print text verbatim.
+#'
+#' @param ... `character` values to print.
+#'
+#' @param .envir `environment` for evaluating expressions.
+#'
+#' @details
+#' This function is a wrapper for [cli::cli_verbatim] that supports
+#' \pkg{glue} expressions.
+#'
+#' @return None.
+#'
+#' @noRd
+cli_vtext <- function(..., .envir = parent.frame()) {
+  cli::cli_verbatim(
+    cli::format_inline(..., keep_whitespace = TRUE, .envir = .envir)
+  )
+}
+
+#' Tree component
+#'
+#' Print text that is designed to appear in a tree.
+#'
+#' @param x `character` vector with text to print.
+#'
+#' @param header `character` value displayed before first element in `x`.
+#'
+#' @param subheader `character` value displayed before subsequent elements in
+#'   `x`.
+#'
+#' @param width `integer` extra spaces to insert between `subheader` and `x`.
+#'
+#' @param .envir `environment` for evaluating expressions.
+#'
+#' @return None.
+#'
+#' @noRd
+cli_tree_component <- function(x,
+                               header = "",
+                               subheader = "",
+                               padding = "",
+                               width = 0,
+                               .envir = parent.frame()) {
+  ch <- cli_box_chars()
+  out <- paste0(
+    padding, header, x[1]
+  )
+  if (length(x) > 1) {
+    if (length(x) > 2) {
+      out <- c(
+        out,
+        paste0(
+          padding, subheader, ch$j, ch$b,
+          paste(rep(" ", width), collapse = ""),
+          x[c(-1, -length(x))]
+        )
+      )
+    }
+    out <- c(
+      out,
+      paste0(
+        padding, subheader, ch$l, ch$b,
+        paste(rep(" ", width), collapse = ""),
+        x[length(x)]
+      )
+    )
+  }
+  for (x in out) cli_vtext(x, .envir = .envir)
+  invisible(TRUE)
+}

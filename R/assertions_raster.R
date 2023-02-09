@@ -124,7 +124,7 @@ is_checkerboard_raster <- function(x) {
     .internal = TRUE
   )
    a <- terra::adjacent(x, cells = terra::cells(x == 0, 0)[[1]], pairs = FALSE)
-   all(x[na.omit(c(a))][[1]] %in% c(0, NA))
+   all(x[stats::na.omit(c(a))][[1]] %in% c(0, NA))
 }
 
 #' Is distinct zones?

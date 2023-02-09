@@ -1,14 +1,13 @@
-#' @include internal.R ConservationProblem-proto.R OptimizationProblem-proto.R compile.R presolve_check.R
+#' @include internal.R ConservationProblem-class.R OptimizationProblem-class.R compile.R presolve_check.R
 NULL
 
 #' Solve
 #'
-#' Solve a conservation planning [problem()].
+#' Solve a conservation planning problem.
 #'
-#' @param a [problem()] or [`OptimizationProblem-class`] object.
+#' @param a [problem()] object.
 #'
-#' @param b [`Solver-class`] object. Not used if `a` is an
-#'   [problem()] object.
+#' @param b missing.
 #'
 #' @param ... arguments passed to [compile()].
 #'
@@ -40,14 +39,10 @@ NULL
 #' `"Warning: Model contains large matrix coefficient range"` and
 #' `"Warning: Model contains large rhs"`).
 #'
-#' The object returned from this function depends on the argument to
-#' `a`. If the argument to `a` is an
-#' [`OptimizationProblem-class`] object, then the
-#' solution is returned as a `logical` vector showing the status
-#' of each planning unit in each zone. However, in most cases, the argument
-#' to `a` will be a [`ConservationProblem-class`] object, and so
-#' the type of object returned depends on the number of solutions
-#' generated and the data format used to specify the planning units:
+#' @section Output format:
+#' This function will output solutions in a similar format to the
+#' planning units associated with `a`. Specifically, it will return
+#' solutions based on the following types of planning units.
 #'
 #'   \describe{
 #'
@@ -88,17 +83,14 @@ NULL
 #'
 #'   }
 #'
-#' @return A `numeric`, `matrix`, `data.frame`, [sf::st_sf()], or
-#'   [terra::rast()] object containing the solution to the problem.
-#'   Additionally, the returned object will have the following additional
-#'   attributes: `"objective"` containing the solution's objective,
-#'   `"runtime"` denoting the number of seconds that elapsed while solving
-#'   the problem, and `"status"` describing the status of the solution
-#'   (e.g., `"OPTIMAL"` indicates that the optimal solution was found).
-#'   In most cases, the first solution (e.g., `"solution_1"`)
-#'   will contain the best solution found by the solver (note that this
-#'   may not be an optimal solution depending on the gap used to solve
-#'   the problem and noting that the default gap is 0.1).
+#' @return
+#' A `numeric`, `matrix`, `data.frame`, [sf::st_sf()], or
+#' [terra::rast()] object containing the solution to the problem.
+#' Additionally, the returned object will have the following additional
+#' attributes: `"objective"` containing the solution's objective,
+#' `"runtime"` denoting the number of seconds that elapsed while solving
+#' the problem, and `"status"` describing the status of the solution
+#' (e.g., `"OPTIMAL"` indicates that the optimal solution was found).
 #'
 #' @seealso
 #' See [problem()] to create conservation planning problems, and
@@ -247,23 +239,10 @@ NULL
 #'
 #' @exportMethod solve
 #'
-#' @aliases solve,OptimizationProblem,Solver-method solve,ConservationProblem,missing-method
+#' @aliases solve,ConservationProblem,missing-method
 #'
 #' @export
 NULL
-
-#' @name solve
-#'
-#' @rdname solve
-methods::setMethod(
-  "solve",
-  signature(a = "OptimizationProblem", b = "Solver"),
-  function(a, b, ...) {
-    rlang::check_required(a)
-    rlang::check_required(b)
-    b$solve(a)
-  }
-)
 
 #' @name solve
 #'

@@ -151,14 +151,14 @@ test_that("solve (parallel processing)", {
     problem(cost, features) %>%
     add_min_set_objective() %>%
     add_absolute_targets(c(2, 10)) %>%
-    add_shuffle_portfolio(3, threads = 2, remove_duplicates = FALSE) %>%
+    add_shuffle_portfolio(10, threads = 2, remove_duplicates = FALSE) %>%
     add_default_solver(gap = 0.2, verbose = FALSE)
   # solve problem
   suppressWarnings(s <- solve(p))
   # tests
   expect_is(s, "list")
-  expect_length(s, 3)
-  expect_named(s, paste0("solution_", seq_len(3)))
+  expect_length(s, 10)
+  expect_named(s, paste0("solution_", seq_along(s)))
   expect_true(all_elements_inherit(s, "SpatRaster"))
   for (i in seq_along(s))
     expect_true(

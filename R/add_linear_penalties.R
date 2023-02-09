@@ -1,4 +1,4 @@
-#' @include internal.R Penalty-proto.R
+#' @include internal.R Penalty-class.R
 NULL
 
 #' Add linear penalties
@@ -393,27 +393,31 @@ methods::setMethod("add_linear_penalties",
       number_of_zones(x) == ncol(data)
     )
     # add penalties
-    x$add_penalty(pproto(
-      "LinearPenalty",
-      Penalty,
-      name = "linear penalties",
-      data = list(penalty = penalty, data = data),
-      apply = function(self, x, y) {
-        assert(
-          inherits(x, "OptimizationProblem"),
-          inherits(y, "ConservationProblem"),
-          .internal = TRUE
-        )
-        # extract parameters
-        p <- self$get_data("penalty")
-        if (min(abs(p)) > 1e-50) {
-          # extract data
-          indices <- y$planning_unit_indices()
-          d <- self$get_data("data")[indices, , drop = FALSE]
-          # apply penalties
-          rcpp_apply_linear_penalties(x$ptr, p, d)
+    x$add_penalty(
+      R6::R6Class(
+        "LinearPenalty",
+        inherit = Penalty,
+        public = list(
+          name = "linear penalties",
+          data = list(penalty = penalty, data = data),
+          apply = function(x, y) {
+            assert(
+              inherits(x, "OptimizationProblem"),
+              inherits(y, "ConservationProblem"),
+              .internal = TRUE
+            )
+            # extract parameters
+            p <- self$get_data("penalty")
+            if (min(abs(p)) > 1e-50) {
+              # extract data
+              indices <- y$planning_unit_indices()
+              d <- self$get_data("data")[indices, , drop = FALSE]
+              # apply penalties
+              rcpp_apply_linear_penalties(x$ptr, p, d)
+            }
+            invisible(TRUE)
         }
-        invisible(TRUE)
-    }
-  ))
+      )
+    )$new()
+  )
 })

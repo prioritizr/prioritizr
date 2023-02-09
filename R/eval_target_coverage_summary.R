@@ -1,4 +1,4 @@
-#' @include internal.R ConservationProblem-proto.R
+#' @include internal.R ConservationProblem-class.R
 NULL
 
 #' Evaluate target coverage
@@ -226,7 +226,7 @@ eval_target_coverage_summary <- function(x,
                                          include_zone =
                                           number_of_zones(x) > 1,
                                          include_sense =
-                                           number_of_zones(x) > 1) {
+                                          number_of_zones(x) > 1) {
   # assert arguments are valid
   rlang::check_required(x)
   rlang::check_required(solution)

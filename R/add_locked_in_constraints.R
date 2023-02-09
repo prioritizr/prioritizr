@@ -1,4 +1,4 @@
-#' @include internal.R Constraint-proto.R intersecting_units.R
+#' @include internal.R Constraint-class.R intersecting_units.R
 NULL
 
 #' Add locked in constraints
@@ -282,7 +282,8 @@ methods::setMethod("add_locked_in_constraints",
     m[locked_in, 1] <- TRUE
     # add constraints
     add_locked_in_constraints(x, m)
-})
+  }
+)
 
 #' @name add_locked_in_constraints
 #' @usage \S4method{add_locked_in_constraints}{ConservationProblem,logical}(x, locked_in)
@@ -300,7 +301,8 @@ methods::setMethod("add_locked_in_constraints",
     )
     # add constraints
     add_locked_in_constraints(x, matrix(locked_in, ncol = 1))
-})
+  }
+)
 
 #' @name add_locked_in_constraints
 #' @usage \S4method{add_locked_in_constraints}{ConservationProblem,matrix}(x, locked_in)
@@ -332,7 +334,8 @@ methods::setMethod("add_locked_in_constraints",
     )
     # add constraints
     add_manual_locked_constraints(x, y)
-})
+  }
+)
 
 #' @name add_locked_in_constraints
 #' @usage \S4method{add_locked_in_constraints}{ConservationProblem,character}(x, locked_in)
@@ -378,7 +381,8 @@ methods::setMethod("add_locked_in_constraints",
       x,
       as.matrix(as.data.frame(x$data$cost)[, locked_in, drop = FALSE])
     )
-})
+  }
+)
 
 #' @name add_locked_in_constraints
 #' @usage \S4method{add_locked_in_constraints}{ConservationProblem,Spatial}(x, locked_in)
@@ -391,7 +395,8 @@ methods::setMethod("add_locked_in_constraints",
       x,
       intersecting_units(x$data$cost, sf::st_as_sf(locked_in))
     )
-})
+  }
+)
 
 #' @name add_locked_in_constraints
 #' @usage \S4method{add_locked_in_constraints}{ConservationProblem,sf}(x, locked_in)
@@ -407,7 +412,8 @@ methods::setMethod("add_locked_in_constraints",
     )
     # add constraints
     add_locked_in_constraints(x, intersecting_units(x$data$cost, locked_in))
-})
+  }
+)
 
 #' @name add_locked_in_constraints
 #' @usage \S4method{add_locked_in_constraints}{ConservationProblem,Raster}(x, locked_in)
@@ -418,7 +424,8 @@ methods::setMethod("add_locked_in_constraints",
     # add constraints
     .Deprecated(msg = raster_pkg_deprecation_notice)
     add_locked_in_constraints(x, terra::rast(locked_in))
-})
+  }
+)
 
 #' @name add_locked_in_constraints
 #' @usage \S4method{add_locked_in_constraints}{ConservationProblem,SpatRaster}(x, locked_in)
@@ -475,4 +482,5 @@ methods::setMethod("add_locked_in_constraints",
     )
     # add constraints
     add_locked_in_constraints(x, status)
-})
+  }
+)

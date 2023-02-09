@@ -1,4 +1,4 @@
-#' @include internal.R pproto.R  ConservationProblem-proto.R OptimizationProblem-proto.R compile.R problem.R solve.R presolve_check.R
+#' @include internal.R ConservationProblem-class.R OptimizationProblem-class.R compile.R problem.R solve.R presolve_check.R
 NULL
 
 #' Evaluate solution importance using replacement cost scores
@@ -247,7 +247,8 @@ methods::setMethod("eval_replacement_importance",
     out[idx] <- 0
     out[idx[pos]] <- c(v)
     out
-})
+  }
+)
 
 #' @name eval_replacement_importance
 #' @usage \S4method{eval_replacement_importance}{ConservationProblem,matrix}(x, solution, rescale, run_checks, force, threads, ...)
@@ -292,7 +293,8 @@ methods::setMethod("eval_replacement_importance",
     }
     # return result
     m_total
-})
+  }
+)
 
 #' @name eval_replacement_importance
 #' @usage \S4method{eval_replacement_importance}{ConservationProblem,data.frame}(x, solution, rescale, run_checks, force, threads, ...)
@@ -334,7 +336,8 @@ methods::setMethod("eval_replacement_importance",
     }
     # return result
     tibble::as_tibble(m_total)
-})
+  }
+)
 
 #' @name eval_replacement_importance
 #' @usage \S4method{eval_replacement_importance}{ConservationProblem,Spatial}(x, solution, rescale, run_checks, force, threads, ...)
@@ -387,7 +390,8 @@ methods::setMethod("eval_replacement_importance",
     rownames(out) <- rownames(solution@data)
     solution@data <- out
     solution
-})
+  }
+)
 
 #' @name eval_replacement_importance
 #' @usage \S4method{eval_replacement_importance}{ConservationProblem,sf}(x, solution, rescale, run_checks, force, threads, ...)
@@ -433,7 +437,8 @@ methods::setMethod("eval_replacement_importance",
       out, geometry = sf::st_geometry(x$data$cost),
       crs = sf::st_crs(x$data$cost)
     )
-})
+  }
+)
 
 #' @name eval_replacement_importance
 #' @usage \S4method{eval_replacement_importance}{ConservationProblem,Raster}(x, solution, rescale, run_checks, force, threads, ...)
@@ -479,7 +484,8 @@ methods::setMethod("eval_replacement_importance",
     }
     names(out) <- colnames(m_pu)
     out
-})
+  }
+)
 
 #' @name eval_replacement_importance
 #' @usage \S4method{eval_replacement_importance}{ConservationProblem,SpatRaster}(x, solution, rescale, run_checks, force, threads, ...)
@@ -521,11 +527,12 @@ methods::setMethod("eval_replacement_importance",
     out <- terra::rast(out)
     names(out) <- colnames(m_pu)
     out
-})
+  }
+)
 
 internal_eval_replacement_importance <- function(x, indices, rescale,
                                                  run_checks, force,
-                                                 threads = 1L,
+                                                 threads = 1,
                                                  call = fn_caller_env()) {
   # assert valid arguments
   assert(

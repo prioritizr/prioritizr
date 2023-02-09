@@ -1,4 +1,4 @@
-#' @include internal.R ConservationProblem-proto.R zones.R is_spatial_extents_overlap.R assertions.R
+#' @include internal.R ConservationProblem-class.R zones.R is_spatial_extents_overlap.R assertions.R cli.R
 NULL
 
 #' Conservation planning problem
@@ -574,9 +574,7 @@ methods::setMethod(
     colnames(fatu) <- zone_names(features)
     rownames(fatu) <- feature_names(features)
     # create ConservationProblem object
-    pproto(
-      NULL,
-      ConservationProblem,
+    ConservationProblem$new(
       data = list(
         cost = x,
         features = features,
@@ -584,7 +582,8 @@ methods::setMethod(
         feature_abundances_in_total_units = fatu
       )
     )
-})
+  }
+)
 
 #' @name problem
 #' @usage \S4method{problem}{data.frame,character}(x, features, cost_column, ...)
@@ -662,9 +661,7 @@ methods::setMethod(
       dimnames = list(feature_names(features), zone_names(features))
     )
     # create ConservationProblem object
-    pproto(
-      NULL,
-      ConservationProblem,
+    ConservationProblem$new(
       data = list(
         cost = x,
         features = features,
@@ -673,7 +670,8 @@ methods::setMethod(
         feature_abundances_in_total_units = fatu
       )
     )
-})
+  }
+)
 
 #' @name problem
 #' @usage \S4method{problem}{data.frame,data.frame}(x, features, rij, cost_column, zones, ...)
@@ -787,9 +785,7 @@ methods::setMethod(
     })
     names(rij) <- as.character(zones$name)
     # create ConservationProblem object
-    pproto(
-      NULL,
-      ConservationProblem,
+    ConservationProblem$new(
       data = list(
         cost = x,
         features = features,
@@ -798,7 +794,8 @@ methods::setMethod(
         feature_abundances_in_total_units = fatu
       )
     )
-})
+  }
+)
 
 #' @name problem
 #' @usage \S4method{problem}{numeric,data.frame}(x, features, rij_matrix, ...)
@@ -810,7 +807,8 @@ methods::setMethod(
     if (!is.list(rij_matrix))
       rij_matrix <- list("1" = rij_matrix)
     problem(matrix(x, ncol = 1), features, rij_matrix = rij_matrix, ...)
-})
+  }
+)
 
 #' @name problem
 #' @usage \S4method{problem}{matrix,data.frame}(x, features, rij_matrix, ...)
@@ -922,9 +920,7 @@ methods::setMethod(
     })
     names(rij) <- names(rij_matrix)
     # create new problem object
-    pproto(
-      NULL,
-      ConservationProblem,
+    ConservationProblem$new(
       data = list(
         cost = x,
         features = features,
@@ -932,7 +928,8 @@ methods::setMethod(
         feature_abundances_in_total_units = fatu
       )
     )
-})
+  }
+)
 
 #' @name problem
 #' @usage \S4method{problem}{sf,SpatRaster}(x, features, cost_column, run_checks, ...)
@@ -1028,9 +1025,7 @@ methods::setMethod(
     rij <- lapply(rij, function(x) x[, pos, drop = FALSE])
     names(rij) <- zone_names(features)
     # create ConservationProblem object
-    pproto(
-      NULL,
-      ConservationProblem,
+    ConservationProblem$new(
       data = list(
         cost = x,
         features = features,
@@ -1039,7 +1034,8 @@ methods::setMethod(
         feature_abundances_in_total_units = fatu
       )
     )
-})
+  }
+)
 
 #' @name problem
 #' @usage \S4method{problem}{sf,character}(x, features, cost_column, ...)
@@ -1132,9 +1128,7 @@ methods::setMethod(
       dimnames = list(feature_names(features), zone_names(features))
     )
     # create ConservationProblem object
-    pproto(
-      NULL,
-      ConservationProblem,
+    ConservationProblem$new(
       data = list(
         cost = x,
         features = features,
@@ -1143,4 +1137,5 @@ methods::setMethod(
         feature_abundances_in_total_units = fatu
       )
     )
-})
+  }
+)

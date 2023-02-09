@@ -1,4 +1,4 @@
-#' @include internal.R pproto.R ConservationProblem-proto.R
+#' @include internal.R ConservationProblem-class.R
 NULL
 
 add_default_targets <- function(x) {

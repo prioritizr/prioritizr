@@ -1,4 +1,4 @@
-#' @include internal.R Constraint-proto.R
+#' @include internal.R Constraint-class.R
 NULL
 
 #' Add feature contiguity constraints
@@ -262,7 +262,8 @@ methods::setMethod("add_feature_contiguity_constraints",
     )
     # apply constraints
     add_feature_contiguity_constraints(x, zones, data)
-})
+  }
+)
 
 #' @name add_feature_contiguity_constraints
 #' @usage \S4method{add_feature_contiguity_constraints}{ConservationProblem,ANY,matrix}(x, zones, data)
@@ -272,7 +273,8 @@ methods::setMethod("add_feature_contiguity_constraints",
   function(x, zones, data) {
     # add constraints
     add_feature_contiguity_constraints(x, zones, as_Matrix(data, "dgCMatrix"))
-})
+  }
+)
 
 #' @name add_feature_contiguity_constraints
 #' @usage \S4method{add_feature_contiguity_constraints}{ConservationProblem,ANY,ANY}(x, zones, data)
@@ -379,67 +381,71 @@ methods::setMethod("add_feature_contiguity_constraints",
       cli::cli_abort("{.arg data} is not a recognized class.")
     }
     # add constraint
-    x$add_constraint(pproto(
-      "FeatureContiguityConstraint",
-      Constraint,
-      name = "feature contiguity constraints",
-      compressed_formulation = FALSE,
-      data = list(data = data, zones = zones),
-      calculate = function(self, x) {
-        # generate connectivity data
-        d <- self$get_data("data")
-        if (is.null(d)) {
-          if (is.Waiver(x$get_data("adjacency"))) {
-            data <- adjacency_matrix(x$data$cost)
-            data <- as_Matrix(data, "dgCMatrix")
-            x$set_data("adjacency", data)
-          }
-        }
-        # return success
-        invisible(TRUE)
-      },
-      apply = function(self, x, y) {
-        assert(
-          inherits(x, "OptimizationProblem"),
-          inherits(y, "ConservationProblem"),
-          .internal = TRUE
-        )
-        # extract data
-        zn <- self$get_data("zones")
-        d <- self$get_data("data")
-        if (is.null(d)) {
-          d <- y$get_data("adjacency")
-        }
-        # convert data to list format if needed
-        if (!is.list(d)) {
-          d <- list(d)[rep(1, number_of_features(y))]
-        }
-        if (!is.list(zn)) {
-          zn <- list(zn)[rep(1, number_of_features(y))]
-          names(zn) <- paste(y$feature_names(), "zones")
-        }
-        # convert to dgCMatrix
-        d <- lapply(d, as_Matrix, "dgCMatrix")
-        # subset matrix data to indices
-        ind <- y$planning_unit_indices()
-        d <- lapply(d, `[`, ind, ind, drop = FALSE)
-        # extract clusters from z
-        z_cl <- lapply(seq_along(zn), function(i) {
-          igraph::clusters(
-            igraph::graph_from_adjacency_matrix(
-              zn[[i]], diag = FALSE, mode = "undirected", weighted = NULL
+    x$add_constraint(
+      R6::R6Class(
+        "FeatureContiguityConstraint",
+        inherit = Constraint,
+        public = list(
+          name = "feature contiguity constraints",
+          compressed_formulation = FALSE,
+          data = list(data = data, zones = zones),
+          calculate = function(x) {
+            # generate connectivity data
+            d <- self$get_data("data")
+            if (is.null(d)) {
+              if (is.Waiver(x$get_data("adjacency"))) {
+                data <- adjacency_matrix(x$data$cost)
+                data <- as_Matrix(data, "dgCMatrix")
+                x$set_data("adjacency", data)
+              }
+            }
+            # return success
+            invisible(TRUE)
+          },
+          apply = function(x, y) {
+            assert(
+              inherits(x, "OptimizationProblem"),
+              inherits(y, "ConservationProblem"),
+              .internal = TRUE
             )
-          )$membership * diag(zn[[i]])
-        })
-        # convert d to lower triangle sparse matrix
-        d <- lapply(d, Matrix::forceSymmetric, uplo = "L")
-        d <- lapply(d, Matrix::tril)
-        d <- lapply(d, as_Matrix, "dgCMatrix")
-        # apply the constraints
-        if (max(vapply(z_cl, max, numeric(1))) > 0) {
-          rcpp_apply_feature_contiguity_constraints(x$ptr, d, z_cl)
-        }
-      }
-    ))
+            # extract data
+            zn <- self$get_data("zones")
+            d <- self$get_data("data")
+            if (is.null(d)) {
+              d <- y$get_data("adjacency")
+            }
+            # convert data to list format if needed
+            if (!is.list(d)) {
+              d <- list(d)[rep(1, number_of_features(y))]
+            }
+            if (!is.list(zn)) {
+              zn <- list(zn)[rep(1, number_of_features(y))]
+              names(zn) <- paste(y$feature_names(), "zones")
+            }
+            # convert to dgCMatrix
+            d <- lapply(d, as_Matrix, "dgCMatrix")
+            # subset matrix data to indices
+            ind <- y$planning_unit_indices()
+            d <- lapply(d, `[`, ind, ind, drop = FALSE)
+            # extract clusters from z
+            z_cl <- lapply(seq_along(zn), function(i) {
+              igraph::clusters(
+                igraph::graph_from_adjacency_matrix(
+                  zn[[i]], diag = FALSE, mode = "undirected", weighted = NULL
+                )
+              )$membership * diag(zn[[i]])
+            })
+            # convert d to lower triangle sparse matrix
+            d <- lapply(d, Matrix::forceSymmetric, uplo = "L")
+            d <- lapply(d, Matrix::tril)
+            d <- lapply(d, as_Matrix, "dgCMatrix")
+            # apply the constraints
+            if (max(vapply(z_cl, max, numeric(1))) > 0) {
+              rcpp_apply_feature_contiguity_constraints(x$ptr, d, z_cl)
+            }
+          }
+        )
+      )$new()
+    )
   }
 )

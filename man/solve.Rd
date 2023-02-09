@@ -2,19 +2,15 @@
 % Please edit documentation in R/solve.R
 \name{solve}
 \alias{solve}
-\alias{solve,OptimizationProblem,Solver-method}
 \alias{solve,ConservationProblem,missing-method}
 \title{Solve}
 \usage{
-\S4method{solve}{OptimizationProblem,Solver}(a, b, ...)
-
 \S4method{solve}{ConservationProblem,missing}(a, b, ..., run_checks = TRUE, force = FALSE)
 }
 \arguments{
-\item{a}{\code{\link[=problem]{problem()}} or \code{\linkS4class{OptimizationProblem}} object.}
+\item{a}{\code{\link[=problem]{problem()}} object.}
 
-\item{b}{\code{\linkS4class{Solver}} object. Not used if \code{a} is an
-\code{\link[=problem]{problem()}} object.}
+\item{b}{missing.}
 
 \item{...}{arguments passed to \code{\link[=compile]{compile()}}.}
 
@@ -35,13 +31,9 @@ attributes: \code{"objective"} containing the solution's objective,
 \code{"runtime"} denoting the number of seconds that elapsed while solving
 the problem, and \code{"status"} describing the status of the solution
 (e.g., \code{"OPTIMAL"} indicates that the optimal solution was found).
-In most cases, the first solution (e.g., \code{"solution_1"})
-will contain the best solution found by the solver (note that this
-may not be an optimal solution depending on the gap used to solve
-the problem and noting that the default gap is 0.1).
 }
 \description{
-Solve a conservation planning \code{\link[=problem]{problem()}}.
+Solve a conservation planning problem.
 }
 \details{
 After formulating a conservation planning \code{\link[=problem]{problem()}},
@@ -61,15 +53,12 @@ to see if these potential issues are actually causing issues
 (e.g., \emph{Gurobi} can display warnings that include
 \code{"Warning: Model contains large matrix coefficient range"} and
 \code{"Warning: Model contains large rhs"}).
+}
+\section{Output format}{
 
-The object returned from this function depends on the argument to
-\code{a}. If the argument to \code{a} is an
-\code{\linkS4class{OptimizationProblem}} object, then the
-solution is returned as a \code{logical} vector showing the status
-of each planning unit in each zone. However, in most cases, the argument
-to \code{a} will be a \code{\linkS4class{ConservationProblem}} object, and so
-the type of object returned depends on the number of solutions
-generated and the data format used to specify the planning units:
+This function will output solutions in a similar format to the
+planning units associated with \code{a}. Specifically, it will return
+solutions based on the following types of planning units.
 
 \describe{
 
@@ -110,6 +99,7 @@ of the management zone (e.g., \code{"solution_1_zone1"}).}
 
 }
 }
+
 \examples{
 \dontrun{
 # set seed for reproducibility

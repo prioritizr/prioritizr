@@ -1,4 +1,4 @@
-#' @include internal.R Decision-proto.R
+#' @include internal.R Decision-class.R
 NULL
 
 #' Add decision types

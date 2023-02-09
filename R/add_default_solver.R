@@ -1,4 +1,4 @@
-#' @include Solver-proto.R
+#' @include Solver-class.R
 NULL
 
 #' Add a default solver
@@ -50,21 +50,26 @@ add_default_solver <- function(x, ...) {
   } else if (identical(ds, "Rsymphony")) {
     return(add_rsymphony_solver(x, ...))
   } else {
-    assert(is_conservation_problem(x))
     return(
-      x$add_solver(pproto(
-        "MissingSolver",
-        Solver,
-        name = "MissingSolver",
-        solve = function(self, x) {
-          cli::cli_abort(
-            "No optimization solvers are installed.",
-            "i" = "You need to install a solver to generate prioritizations.",
-            "i" = "See {.code ?solvers} for guidance on installing a solver.",
-            call = NULL
+      x$add_solver(
+        R6::R6Class(
+          "MissingSolver",
+          inherit = Solver,
+          public = list(
+            name = "MissingSolver",
+            solve = function(x) {
+              cli::cli_abort(
+                "No optimization solvers are installed.",
+                "x" =
+                  "You need to install a solver to generate prioritizations.",
+                "i" =
+                  "See {.code ?solvers} for guidance on installing a solver.",
+                call = NULL
+              )
+            }
           )
-        }
-      ))
+        )$new()
+      )
     )
   }
 }

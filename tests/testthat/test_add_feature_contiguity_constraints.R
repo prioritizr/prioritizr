@@ -94,7 +94,8 @@ test_that("compile (single zone)", {
   for (i in seq_len(n_f)) {
     row <- row + 1
     curr_row <- rep(0, n_cols)
-    curr_row[n_pu + ( (i - 1) * n_pu) + seq_len(n_pu)] <- values(features[[i]])
+    curr_row[n_pu + ( (i - 1) * n_pu) + seq_len(n_pu)] <-
+      terra::values(features[[i]])
     expect_equal(o$A()[row, ], curr_row)
   }
   # fc1 contiguity constraints

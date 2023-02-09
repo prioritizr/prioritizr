@@ -282,7 +282,7 @@ test_that("data.frame (complex dataset)", {
   # prepare for prioritizr
   s <- sample.int(ncol(rij), portfolio_size)
   s <- tibble::tibble(solution = replace(rep(0, ncol(rij)), s, 1))
-  pu <- as.data.frame(as.matrix(t(rij)))
+  pu <- as.data.frame(as.matrix(Matrix::t(rij)))
   names(pu) <- targ$Name
   pu$cost <- 1
   # create problem

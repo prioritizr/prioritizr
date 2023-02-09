@@ -1,4 +1,4 @@
-#' @include internal.R pproto.R ConservationProblem-proto.R loglinear_interpolation.R
+#' @include internal.R ConservationProblem-class.R loglinear_interpolation.R
 NULL
 
 #' Add targets using log-linear scaling

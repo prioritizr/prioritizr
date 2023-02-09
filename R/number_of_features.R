@@ -5,7 +5,7 @@ NULL
 #'
 #' Extract the number of features in an object.
 #'
-#' @param x A [problem()], [`OptimizationProblem-class`], or [zones()] object.
+#' @param x A [problem()], [optimization_problem()], or [zones()] object.
 #'
 #' @return An `integer` number of features.
 #'

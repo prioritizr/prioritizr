@@ -13,7 +13,7 @@ presolve_check(x, warn = TRUE)
 \method{presolve_check}{OptimizationProblem}(x, warn = TRUE)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} or \code{\linkS4class{OptimizationProblem}} object.}
+\item{x}{\code{\link[=problem]{problem()}} or \code{\link[=optimization_problem]{optimization_problem()}} object.}
 
 \item{warn}{\code{logical} should a warning be thrown if the presolve checks fail?
 Defaults to \code{TRUE}.}

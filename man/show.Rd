@@ -13,8 +13,6 @@
 
 \S4method{show}{ConservationProblem}(x)
 
-\S4method{show}{Id}(x)
-
 \S4method{show}{OptimizationProblem}(x)
 
 \S4method{show}{Solver}(x)

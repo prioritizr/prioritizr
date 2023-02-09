@@ -1,4 +1,4 @@
-#' @include internal.R pproto.R Objective-proto.R
+#' @include internal.R Objective-class.R
 NULL
 
 add_default_objective <- function(x) {

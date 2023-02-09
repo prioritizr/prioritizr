@@ -59,7 +59,7 @@ test_that("compile (compressed formulation, single zone)", {
     )
   )
   expect_true(
-    all(o$A()[n_f + 1 + seq_len(n_br), n_pu + seq_len(n_f)] == t(bm))
+    all(o$A()[n_f + 1 + seq_len(n_br), n_pu + seq_len(n_f)] == Matrix::t(bm))
   )
   expect_true(
     all(

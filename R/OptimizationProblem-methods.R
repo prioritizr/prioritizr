@@ -1,12 +1,11 @@
-#' @include internal.R OptimizationProblem-proto.R reexports.R
+#' @include internal.R OptimizationProblem-class.R reexports.R
 NULL
 
 #' Optimization problem methods
 #'
-#' These functions are used to access data from an
-#' [`OptimizationProblem-class`] object.
+#' These functions are used to access data from a [optimization_problem()].
 #'
-#' @param x [`OptimizationProblem-class`] object.
+#' @param x [optimization_problem()] object.
 #'
 #' @details The functions return the following data:
 #'
@@ -259,20 +258,3 @@ methods::setGeneric("compressed_formulation",
 #' @usage \S4method{compressed_formulation}{OptimizationProblem}(x)
 methods::setMethod("compressed_formulation", "OptimizationProblem",
                    function(x) x$compressed_formulation())
-
-#' Convert `OptimizationProblem` to list
-#'
-#' @param x [`OptimizationProblem-class`] object.
-#'
-#' @param ... not used.
-#'
-#' @return `list()` object.
-#'
-#' @method as.list OptimizationProblem
-#'
-#' @rdname as.list
-#'
-#' @export
-as.list.OptimizationProblem <- function(x, ...) {
-  rcpp_optimization_problem_as_list(x$ptr)
-}

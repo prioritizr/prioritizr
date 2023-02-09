@@ -1,4 +1,4 @@
-#' @include internal.R pproto.R ConservationProblem-proto.R zones.R add_manual_targets.R
+#' @include internal.R ConservationProblem-class.R zones.R add_manual_targets.R
 NULL
 
 #' Add manually specified locked constraints
@@ -229,43 +229,48 @@ methods::setMethod("add_manual_locked_constraints",
       constraint_name <- "manual locked constraints"
     }
     # add constraints
-    x$add_constraint(pproto(
-      class_name,
-      Constraint,
-      name = constraint_name,
-      repr = function(self, compact = TRUE) {
-        paste0(
-          self$name, " (", nrow(self$get_data("data")), " planning units)"
+    x$add_constraint(
+      R6::R6Class(
+        class_name,
+        inherit = Constraint,
+        public = list(
+          name = constraint_name,
+          data = list(data = data),
+          repr = function(compact = TRUE) {
+            paste0(
+              self$name, " (", nrow(self$get_data("data")), " planning units)"
+            )
+          },
+          apply = function(x, y) {
+            # assert argument is valid
+            assert(
+              inherits(x, "OptimizationProblem"),
+              inherits(y, "ConservationProblem"),
+              .internal = TRUE
+            )
+            # get locked data
+            d <- self$get_data("data")
+            # convert zone names to indices
+            if (!assertthat::has_name(d, "zone"))
+              d$zone <- y$zone_names()[1]
+            d$zone <- match(as.character(d$zone), y$zone_names())
+            # remove rows for raster cells that aren't really planning units
+            # i.e., contain NA values in all zones
+            pu <- y$get_data("cost")
+            if (inherits(pu, c("SpatRaster", "Raster"))) {
+              units <- y$planning_unit_indices()
+              d$pu <- match(d$pu, units)
+              d <- d[!is.na(d$pu), , drop = FALSE]
+            }
+            # apply constraints
+            invisible(
+              rcpp_apply_locked_constraints(
+                x$ptr, c(d$pu), c(d$zone), d$status
+              )
+            )
+          }
         )
-      },
-      data = list(data = data),
-      apply = function(self, x, y) {
-        # assert argument is valid
-        assert(
-          inherits(x, "OptimizationProblem"),
-          inherits(y, "ConservationProblem"),
-          .internal = TRUE
-        )
-        # get locked data
-        d <- self$get_data("data")
-        # convert zone names to indices
-        if (!assertthat::has_name(d, "zone"))
-          d$zone <- y$zone_names()[1]
-        d$zone <- match(as.character(d$zone), y$zone_names())
-        # remove rows for raster cells that aren't really planning units
-        # i.e., contain NA values in all zones
-        pu <- y$get_data("cost")
-        if (inherits(pu, c("SpatRaster", "Raster"))) {
-          units <- y$planning_unit_indices()
-          d$pu <- match(d$pu, units)
-          d <- d[!is.na(d$pu), , drop = FALSE]
-        }
-        # apply constraints
-        invisible(
-          rcpp_apply_locked_constraints(
-            x$ptr, c(d$pu), c(d$zone), d$status
-          )
-        )
-      }
-    ))
-})
+      )$new()
+    )
+  }
+)

@@ -1,4 +1,4 @@
-#' @include internal.R pproto.R Objective-proto.R
+#' @include internal.R Objective-class.R
 NULL
 
 #' Add maximum phylogenetic diversity objective
@@ -234,37 +234,41 @@ add_max_phylo_div_objective <- function(x, budget, tree) {
     is_budget_length(x, budget)
   )
   # add objective to problem
-  x$add_objective(pproto(
-    "PhylogeneticDiversityObjective",
-    Objective,
-    name = "phylogenetic diversity objective",
-    data = list(budget = budget, tree = tree),
-    apply = function(self, x, y) {
-      # assert arguments valid
-      assert(
-        inherits(x, "OptimizationProblem"),
-        inherits(y, "ConservationProblem"),
-        .internal = TRUE
+  x$add_objective(
+    R6::R6Class(
+      "PhylogeneticDiversityObjective",
+      inherit = Objective,
+      public = list(
+        name = "phylogenetic diversity objective",
+        data = list(budget = budget, tree = tree),
+        apply = function(x, y) {
+          # assert arguments valid
+          assert(
+            inherits(x, "OptimizationProblem"),
+            inherits(y, "ConservationProblem"),
+            .internal = TRUE
+          )
+          # extract data
+          tr <- self$get_data("tree")
+          el <- tr$edge.length
+          # order rows to match order of features in problem
+          pos <- match(tr$tip.label, y$feature_names())
+          # convert tree into matrix showing which species in which
+          # branches and store the result
+          bm <- branch_matrix(tr)[pos, , drop = FALSE]
+          # apply objective
+          invisible(
+            rcpp_apply_max_phylo_objective(
+              x$ptr,
+              y$feature_targets(),
+              y$planning_unit_costs(),
+              self$get_data("budget"),
+              bm,
+              tr$edge.length
+            )
+          )
+        }
       )
-      # extract data
-      tr <- self$get_data("tree")
-      el <- tr$edge.length
-      # order rows to match order of features in problem
-      pos <- match(tr$tip.label, y$feature_names())
-      # convert tree into matrix showing which species in which
-      # branches and store the result
-      bm <- branch_matrix(tr)[pos, ]
-      # apply objective
-      invisible(
-        rcpp_apply_max_phylo_objective(
-          x$ptr,
-          y$feature_targets(),
-          y$planning_unit_costs(),
-          self$get_data("budget"),
-          bm,
-          tr$edge.length
-        )
-      )
-    }
-  ))
+    )$new()
+  )
 }

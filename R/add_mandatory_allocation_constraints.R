@@ -1,4 +1,4 @@
-#' @include internal.R Constraint-proto.R
+#' @include internal.R Constraint-class.R
 NULL
 
 #' Add mandatory allocation constraints
@@ -94,21 +94,26 @@ methods::setMethod("add_mandatory_allocation_constraints",
       number_of_zones(x) >= 2
     )
     # add constraints
-    x$add_constraint(pproto(
-      "MandatoryAllocationConstraint",
-      Constraint,
-      name = "mandatory allocation constraints",
-      apply = function(self, x, y) {
-        assert(
-          inherits(x, "OptimizationProblem"),
-          inherits(y, "ConservationProblem"),
-          .internal = TRUE
+    x$add_constraint(
+      R6::R6Class(
+        "MandatoryAllocationConstraint",
+        inherit = Constraint,
+        public = list(
+          name = "mandatory allocation constraints",
+          apply = function(x, y) {
+            assert(
+              inherits(x, "OptimizationProblem"),
+              inherits(y, "ConservationProblem"),
+              .internal = TRUE
+            )
+            # the apply method for this function doesn't actually do anything,
+            # the prioritizr::compile function will detect the presence of this
+            # constraint and act accordingly. The rcpp_add_zones_constraints
+            # function is "really" where this constraint is applied
+            invisible(TRUE)
+          }
         )
-        # the apply method for this function doesn't actually do anything,
-        # the prioritizr::compile function will detect the presence of this
-        # constraint and act accordingly. The rcpp_add_zones_constraints
-        # function is "really" where this constraint is applied
-        invisible(TRUE)
-      }
-    ))
-})
+      )$new()
+    )
+  }
+)

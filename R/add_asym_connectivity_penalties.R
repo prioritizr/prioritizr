@@ -1,4 +1,4 @@
-#' @include internal.R Penalty-proto.R marxan_connectivity_data_to_matrix.R
+#' @include internal.R Penalty-class.R marxan_connectivity_data_to_matrix.R
 NULL
 
 #' Add asymmetric connectivity penalties
@@ -363,21 +363,25 @@ internal_add_asym_connectivity_penalties <- function(x, penalty, data) {
     .internal = TRUE
   )
   # create new penalty object
-  x$add_penalty(pproto(
-    "AsymConnectivityPenalty",
-    Penalty,
-    name = "asymmetric connectivity penalties",
-    data = list(penalty = penalty, data = data),
-    apply = function(self, x, y) {
-      assert(
-        inherits(x, "OptimizationProblem"),
-        inherits(y, "ConservationProblem"),
-        .internal = TRUE
+  x$add_penalty(
+    R6::R6Class(
+      "AsymConnectivityPenalty",
+      inherit = Penalty,
+      public = list(
+        name = "asymmetric connectivity penalties",
+        data = list(penalty = penalty, data = data),
+        apply = function(x, y) {
+          assert(
+            inherits(x, "OptimizationProblem"),
+            inherits(y, "ConservationProblem"),
+            .internal = TRUE
+          )
+          rcpp_apply_asym_connectivity_penalties(
+            x$ptr, self$get_data("penalty"), self$get_data("data")
+          )
+          invisible(TRUE)
+        }
       )
-      rcpp_apply_asym_connectivity_penalties(
-        x$ptr, self$get_data("penalty"), self$get_data("data")
-      )
-      invisible(TRUE)
-    }
-  ))
+    )$new()
+  )
 }

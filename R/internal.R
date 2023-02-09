@@ -1,26 +1,6 @@
 #' @include external-classes.R
 NULL
 
-#' Check
-#'
-#' Check that the output from [assertthat::see_if()]
-#' is valid.
-#'
-#' @param x `character` or `object`
-#'
-#' @details This object will return an error if the argument to `x`
-#'   is `FALSE`, and for the error message, will show the error
-#'   message attached to the object.
-#'
-#' @return An invisible `TRUE`.
-#'
-#' @noRd
-check_that <- function(x) {
-  if (!isTRUE(x))
-    stop(attr(x, "msg")[1])
-  invisible(TRUE)
-}
-
 #' Convert sparse matrix to triplet data.frame
 #'
 #' Convert a sparse matrix to a triplet `data.frame`.
@@ -31,7 +11,7 @@ check_that <- function(x) {
 #'
 #' @noRd
 matrix_to_triplet_dataframe <- function(x) {
-  if (inherits(x, c("dsCMatrix")))
+  if (inherits(x, "dsCMatrix"))
     x <- as_Matrix(x, "dsTMatrix")
   if (inherits(x, c("dgCMatrix", "matrix")))
     x <- as_Matrix(x, "dgTMatrix")
@@ -100,32 +80,6 @@ triplet_sparse_matrix <- function(...) {
   }
   # return result
   do.call(Matrix::sparseMatrix, args)
-}
-
-#' Atomic representation
-#'
-#' Return a pretty character representation of an object with elements and
-#  names.
-#'
-#' @param x `object`.
-#'
-#' @return `character` object.
-#'
-#' @examples
-#' repr_atomic(letters)
-#' repr_atomic(letters, "characters")
-#'
-#' @noRd
-repr_atomic <- function(x, description = "") {
-  n <- length(x)
-  if (nchar(description) > 0)
-    description <- paste0(" ", description)
-  if (length(x) <= 4) {
-    x <- x[seq_len(min(length(x), 4))]
-  } else {
-    x <- c(x[seq_len(min(length(x), 3))], "...")
-  }
-  paste0(paste(x, collapse = ", "), " (", n, description, ")")
 }
 
 #' Rescale

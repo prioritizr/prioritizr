@@ -5,7 +5,7 @@ NULL
 #'
 #' Extract the number of zones in an object.
 #'
-#' @param x [problem()], [`OptimizationProblem-class`], or [zones()] object.
+#' @param x [problem()], [optimization_problem()], or [zones()] object.
 #'
 #' @return An `integer` number of zones.
 #'

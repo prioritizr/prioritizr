@@ -1,4 +1,4 @@
-#' @include internal.R ConservationProblem-proto.R OptimizationProblem-proto.R
+#' @include internal.R ConservationProblem-class.R OptimizationProblem-class.R
 NULL
 
 #' Compile a problem
@@ -31,7 +31,7 @@ NULL
 #'   an error, a misspecified problem, or unnecessarily long
 #'   solve times.
 #'
-#' @return An [`OptimizationProblem-class`] object.
+#' @return A [optimization_problem()] object.
 #'
 #' @examples
 #' # load data
@@ -97,7 +97,7 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
     x <- add_default_decisions(x)
   if (is.Waiver(x$solver))
     x <- add_default_solver(x)
-  op <- new_optimization_problem()
+  op <- optimization_problem()
   # determine if expanded formulation is required
   if (is.na(compressed_formulation)) {
     compressed_formulation <- all(

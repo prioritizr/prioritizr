@@ -1,4 +1,4 @@
-#' @include internal.R pproto.R ConservationProblem-proto.R
+#' @include internal.R ConservationProblem-class.R
 NULL
 
 #' Add feature weights
@@ -297,34 +297,38 @@ methods::setMethod("add_feature_weights",
       )
     }
     # add weights to problem
-    x$add_penalty(pproto(
-      "FeatureWeights",
-      Penalty,
-      name = "feature weights",
-      data = list(weights = weights),
-      apply = function(self, x, y) {
-        assert(
-          inherits(x, "OptimizationProblem"),
-          inherits(y, "ConservationProblem"),
-          .internal = TRUE
-        )
-        weights <- c(self$get_data("weights"))
-        if (!is.Waiver(y$targets)) {
-          n_targets <- nrow(y$targets$output())
-          assert(
-            length(weights) == n_targets,
-            call = rlang::expr(add_feature_weights()),
-            msg = c(
-              paste(
-                "{.arg weights} should have a value for each target."
-              ),
-              "x" = "Number of weights = {.val {length(weights)}}.",
-              "x" = "Number of targets = {.val {n_targets}}."
+    x$add_penalty(
+      R6::R6Class(
+        "FeatureWeights",
+        inherit = Penalty,
+        public = list(
+          name = "feature weights",
+          data = list(weights = weights),
+          apply = function(x, y) {
+            assert(
+              inherits(x, "OptimizationProblem"),
+              inherits(y, "ConservationProblem"),
+              .internal = TRUE
             )
-          )
-        }
-        invisible(rcpp_apply_feature_weights(x$ptr, weights))
-      }
-    ))
+            weights <- c(self$get_data("weights"))
+            if (!is.Waiver(y$targets)) {
+              n_targets <- nrow(y$targets$output())
+              assert(
+                length(weights) == n_targets,
+                call = rlang::expr(add_feature_weights()),
+                msg = c(
+                  paste(
+                    "{.arg weights} should have a value for each target."
+                  ),
+                  "x" = "Number of weights = {.val {length(weights)}}.",
+                  "x" = "Number of targets = {.val {n_targets}}."
+                )
+              )
+            }
+            invisible(rcpp_apply_feature_weights(x$ptr, weights))
+          }
+        )
+      )$new()
+    )
   }
 )

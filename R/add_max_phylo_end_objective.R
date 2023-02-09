@@ -1,4 +1,4 @@
-#' @include internal.R pproto.R Objective-proto.R
+#' @include internal.R Objective-class.R
 NULL
 
 #' Add maximum phylogenetic endemism objective
@@ -236,78 +236,82 @@ add_max_phylo_end_objective <- function(x, budget, tree) {
     is_budget_length(x, budget)
   )
   # add objective to problem
-  x$add_objective(pproto(
-    "PhylogeneticEndemismObjective",
-    Objective,
-    name = "phylogenetic endemism objective",
-    data = list(budget = budget, tree = tree),
-    calculate = function(self, x) {
-      # assert valid argument
-      assert(is_conservation_problem(x))
-      # if needed, run phylogenetic calculations
-      if (
-        is.Waiver(self$get_internal("branch_matrix")) ||
-        is.Waiver(self$get_internal("tree_rescaled"))
-      ) {
-        # get tree
-        tr <- self$get_data("tree")
-        # order rows to match order of features in problem
-        pos <- match(tr$tip.label, x$feature_names())
-        # create re-ordered branch matrix
-        bm <- branch_matrix(tr)[pos, , drop = FALSE]
-        # calculate total abundance of each phylogenetic branch
-        ab <- bm * matrix(
-          rowSums(x$feature_abundances_in_total_units(), na.rm = TRUE),
-          ncol = ncol(bm), nrow = nrow(bm), byrow = FALSE
-        )
-        # multiply branch lengths by endemism
-        tr$edge.length <- tr$edge.length * (1 / Matrix::colSums(ab))
-        # manually rescale branch lengths in case they are too small
-        if (min(tr$edge.length) < 1) {
-          tr$edge.length <- tr$edge.length * (1 / min(tr$edge.length))
+  x$add_objective(
+    R6::R6Class(
+      "PhylogeneticEndemismObjective",
+      inherit = Objective,
+      public = list(
+        name = "phylogenetic endemism objective",
+        data = list(budget = budget, tree = tree),
+        calculate = function(x) {
+          # assert valid argument
+          assert(is_conservation_problem(x))
+          # if needed, run phylogenetic calculations
+          if (
+            is.Waiver(self$get_internal("branch_matrix")) ||
+            is.Waiver(self$get_internal("tree_rescaled"))
+          ) {
+            # get tree
+            tr <- self$get_data("tree")
+            # order rows to match order of features in problem
+            pos <- match(tr$tip.label, x$feature_names())
+            # create re-ordered branch matrix
+            bm <- branch_matrix(tr)[pos, , drop = FALSE]
+            # calculate total abundance of each phylogenetic branch
+            ab <- bm * matrix(
+              rowSums(x$feature_abundances_in_total_units(), na.rm = TRUE),
+              ncol = ncol(bm), nrow = nrow(bm), byrow = FALSE
+            )
+            # multiply branch lengths by endemism
+            tr$edge.length <- tr$edge.length * (1 / Matrix::colSums(ab))
+            # manually rescale branch lengths in case they are too small
+            if (min(tr$edge.length) < 1) {
+              tr$edge.length <- tr$edge.length * (1 / min(tr$edge.length))
+            }
+            # store data
+            self$set_internal("branch_matrix", bm)
+            self$set_internal("tree_rescaled", tr)
+          }
+          # return success
+          invisible(TRUE)
+        },
+        apply = function(x, y) {
+          # assert arguments valid
+          assert(
+            inherits(x, "OptimizationProblem"),
+            inherits(y, "ConservationProblem"),
+            .internal = TRUE
+          )
+          # get tree
+          tr <- self$get_data("tree")
+          # order rows to match order of features in problem
+          pos <- match(tr$tip.label, y$feature_names())
+          # create re-ordered branch matrix
+          bm <- branch_matrix(tr)[pos, , drop = FALSE]
+          # calculate total abundance of each phylogenetic branch
+          ab <- bm * matrix(
+            rowSums(y$feature_abundances_in_total_units(), na.rm = TRUE),
+            ncol = ncol(bm), nrow = nrow(bm), byrow = FALSE
+          )
+          # multiply branch lengths by endemism
+          tr$edge.length <- tr$edge.length * (1 / Matrix::colSums(ab))
+          # manually rescale branch lengths in case they are too small
+          if (min(tr$edge.length) < 1) {
+            tr$edge.length <- tr$edge.length * (1 / min(tr$edge.length))
+          }
+          # apply method
+          invisible(
+            rcpp_apply_max_phylo_objective(
+              x$ptr,
+              y$feature_targets(),
+              y$planning_unit_costs(),
+              self$get_data("budget"),
+              bm,
+              tr$edge.length
+            )
+          )
         }
-        # store data
-        self$set_internal("branch_matrix", bm)
-        self$set_internal("tree_rescaled", tr)
-      }
-      # return success
-      invisible(TRUE)
-    },
-    apply = function(self, x, y) {
-      # assert arguments valid
-      assert(
-        inherits(x, "OptimizationProblem"),
-        inherits(y, "ConservationProblem"),
-        .internal = TRUE
       )
-      # get tree
-      tr <- self$get_data("tree")
-      # order rows to match order of features in problem
-      pos <- match(tr$tip.label, y$feature_names())
-      # create re-ordered branch matrix
-      bm <- branch_matrix(tr)[pos, , drop = FALSE]
-      # calculate total abundance of each phylogenetic branch
-      ab <- bm * matrix(
-        rowSums(y$feature_abundances_in_total_units(), na.rm = TRUE),
-        ncol = ncol(bm), nrow = nrow(bm), byrow = FALSE
-      )
-      # multiply branch lengths by endemism
-      tr$edge.length <- tr$edge.length * (1 / Matrix::colSums(ab))
-      # manually rescale branch lengths in case they are too small
-      if (min(tr$edge.length) < 1) {
-        tr$edge.length <- tr$edge.length * (1 / min(tr$edge.length))
-      }
-      # apply method
-      invisible(
-        rcpp_apply_max_phylo_objective(
-          x$ptr,
-          y$feature_targets(),
-          y$planning_unit_costs(),
-          self$get_data("budget"),
-          bm,
-          tr$edge.length
-        )
-      )
-    }
-  ))
+    )$new()
+  )
 }

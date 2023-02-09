@@ -1,4 +1,4 @@
-#' @include internal.R ConservationProblem-proto.R
+#' @include internal.R ConservationProblem-class.R
 NULL
 
 #' Evaluate connectivity of solution
@@ -176,7 +176,8 @@ methods::setMethod("eval_connectivity_summary",
   methods::signature("ConservationProblem", "ANY", "ANY", "matrix"),
   function(x, solution, zones, data) {
     eval_connectivity_summary(x, solution, zones, as_Matrix(data, "dgCMatrix"))
-})
+  }
+)
 
 #' @name eval_connectivity_summary
 #' @usage \S4method{eval_connectivity_summary}{ConservationProblem,ANY,ANY,Matrix}(x, solution, zones, data)
@@ -185,7 +186,8 @@ methods::setMethod("eval_connectivity_summary",
   methods::signature("ConservationProblem", "ANY", "ANY", "Matrix"),
   function(x, solution, zones, data) {
     eval_connectivity_summary(x, solution, zones, as_Matrix(data, "dgCMatrix"))
-})
+  }
+)
 
 #' @name eval_connectivity_summary
 #' @usage \S4method{eval_connectivity_summary}{ConservationProblem,ANY,ANY,data.frame}(x, solution, zones, data)
@@ -196,7 +198,8 @@ methods::setMethod("eval_connectivity_summary",
     eval_connectivity_summary(
       x, solution, zones, marxan_connectivity_data_to_matrix(x, data, TRUE)
     )
-})
+  }
+)
 
 #' @name eval_connectivity_summary
 #' @usage \S4method{eval_connectivity_summary}{ConservationProblem,ANY,ANY,dgCMatrix}(x, solution, zones, data)
@@ -248,7 +251,8 @@ methods::setMethod("eval_connectivity_summary",
     internal_eval_connectivity_summary(
       x, planning_unit_solution_status(x, solution), m, data
     )
-})
+  }
+)
 
 #' @name eval_connectivity_summary
 #' @usage \S4method{eval_connectivity_summary}{ConservationProblem,ANY,ANY,array}(x, solution, zones, data)
@@ -285,10 +289,11 @@ methods::setMethod("eval_connectivity_summary",
     internal_eval_connectivity_summary(
       x, planning_unit_solution_status(x, solution), m, NULL
     )
-})
+  }
+)
 
-internal_eval_connectivity_summary <- function(
-  x, solution, zone_scaled_data, data) {
+internal_eval_connectivity_summary <- function(x, solution, zone_scaled_data,
+                                               data) {
   # assert valid arguments
   assert(
     is_conservation_problem(x),

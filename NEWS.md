@@ -1,4 +1,4 @@
-# prioritizr 7.3.0.0
+# prioritizr 8.0.0.0
 
 ## Notice
 
@@ -26,6 +26,12 @@
   with boundary data for multiple zones.
 - The `distribute_load()` function has been deprecated, because it is no
   longer used. For equivalent functionality, See `parallel::splitIndices()`.
+- The `new_optimization_problem()` and `predefined_optiimzation_problem()`
+  functions have been superseded by the new `optimization_problem()` function.
+- To simplify package documentation, the following functions are no longer
+  exported: `is.Waiver()`.
+- As part of efforts to simplify the package internals, the following functions
+  have been deprecated: `new_id()`, `is.Id()`, `print.Id()`, `pproto()`.
 
 ## New features
 
@@ -45,7 +51,8 @@
 - Update solver functions to provide instructions for installing
   dependencies in error messages when their dependencies are not available.
 - To ensure consistency among the portfolio functions, all of them (except for
-  `add_extra_portfolio()`) now generate 10 solutions by default.
+  `add_extra_portfolio()`) default to generating 10 solutions.
+- Update publication record.
 
 # prioritizr 7.2.2.7
 

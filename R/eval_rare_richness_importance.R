@@ -1,4 +1,4 @@
-#' @include internal.R pproto.R  ConservationProblem-proto.R OptimizationProblem-proto.R problem.R
+#' @include internal.R ConservationProblem-class.R OptimizationProblem-class.R problem.R
 NULL
 
 #' Evaluate solution importance using rarity weighted richness scores
@@ -154,7 +154,8 @@ methods::setMethod("eval_rare_richness_importance",
     out[idx] <- 0
     out[idx[pos]] <- c(v)
     out
-})
+  }
+)
 
 #' @name eval_rare_richness_importance
 #' @usage \S4method{eval_rare_richness_importance}{ConservationProblem,matrix}(x, solution, rescale, ...)
@@ -185,7 +186,8 @@ methods::setMethod("eval_rare_richness_importance",
     out[idx, ] <- 0
     out[idx[pos], ] <- c(v)
     out
-})
+  }
+)
 
 #' @name eval_rare_richness_importance
 #' @usage \S4method{eval_rare_richness_importance}{ConservationProblem,data.frame}(x, solution, rescale, ...)
@@ -213,7 +215,8 @@ methods::setMethod("eval_rare_richness_importance",
     out[idx, ] <- 0
     out[idx[pos], ] <- c(v)
     tibble::as_tibble(out)
-})
+  }
+)
 
 #' @name eval_rare_richness_importance
 #' @usage \S4method{eval_rare_richness_importance}{ConservationProblem,Spatial}(x, solution, rescale, ...)
@@ -252,7 +255,8 @@ methods::setMethod("eval_rare_richness_importance",
     rownames(out) <- rownames(solution@data)
     solution@data <- out
     solution
-})
+  }
+)
 
 #' @name eval_rare_richness_importance
 #' @usage \S4method{eval_rare_richness_importance}{ConservationProblem,sf}(x, solution, rescale, ...)
@@ -285,7 +289,8 @@ methods::setMethod("eval_rare_richness_importance",
       geometry = sf::st_geometry(x$data$cost),
       crs = sf::st_crs(x$data$cost)
     )
-})
+  }
+)
 
 #' @name eval_rare_richness_importance
 #' @usage \S4method{eval_rare_richness_importance}{ConservationProblem,Raster}(x, solution, rescale, ...)
@@ -308,7 +313,8 @@ methods::setMethod("eval_rare_richness_importance",
     out[idx[pos]] <- c(v)
     names(out) <- "rwr"
     out
-})
+  }
+)
 
 #' @name eval_rare_richness_importance
 #' @usage \S4method{eval_rare_richness_importance}{ConservationProblem,SpatRaster}(x, solution, rescale, ...)

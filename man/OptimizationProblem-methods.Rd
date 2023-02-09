@@ -80,7 +80,7 @@ compressed_formulation(x)
 \S4method{compressed_formulation}{OptimizationProblem}(x)
 }
 \arguments{
-\item{x}{\code{\linkS4class{OptimizationProblem}} object.}
+\item{x}{\code{\link[=optimization_problem]{optimization_problem()}} object.}
 }
 \value{
 A \code{\linkS4class{dgCMatrix}}, \code{numeric} vector,
@@ -88,8 +88,7 @@ A \code{\linkS4class{dgCMatrix}}, \code{numeric} vector,
 used.
 }
 \description{
-These functions are used to access data from an
-\code{\linkS4class{OptimizationProblem}} object.
+These functions are used to access data from a \code{\link[=optimization_problem]{optimization_problem()}}.
 }
 \details{
 The functions return the following data:

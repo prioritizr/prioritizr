@@ -1,4 +1,4 @@
-#' @include internal.R Penalty-proto.R marxan_boundary_data_to_matrix.R
+#' @include internal.R Penalty-class.R marxan_boundary_data_to_matrix.R
 NULL
 
 #' Add boundary penalties
@@ -347,69 +347,75 @@ methods::setMethod("add_boundary_penalties",
     )
     colnames(zones) <- x$zone_names()
     rownames(zones) <- colnames(zones)
-  # create new constraint object
-  x$add_penalty(pproto(
-    "BoundaryPenalty",
-    Penalty,
-    name = "boundary penalties",
-    data = list(
-      penalty = penalty,
-      edge_factor = edge_factor,
-      data = data,
-      zones = zones
-    ),
-    calculate = function(self, x) {
-      # assert valid argument
-      assert(is_conservation_problem(x), .internal = TRUE)
-      # if needed, calculate boundary matrix
-      if (
-        is.null(self$get_data("data")) &&
-        is.Waiver(x$get_data("boundary"))
-      ) {
-        x$set_data("boundary", boundary_matrix(x$get_data("cost")))
-      }
-      # return invisible success
-      invisible()
-    },
-    apply = function(self, x, y) {
-      # assert valid arguments
-      assert(
-        inherits(x, "OptimizationProblem"),
-        inherits(y, "ConservationProblem"),
-        .internal = TRUE
-      )
-      # extract data
-      p <- self$get_data("penalty")
-      bm <- self$get_data("data")
-      if (is.null(bm)) {
-        bm <- y$get_data("boundary")
-      }
-      # convert to dgCMatrix
-      bm <- as_Matrix(bm, "dgCMatrix")
-      # subset data to planning units
-      ind <- y$planning_unit_indices()
-      bm <- bm[ind, ind]
-      # compute additional boundary information
-      total_boundary <- Matrix::diag(bm)
-      exposed_boundary <-
-        Matrix::diag(bm) - (Matrix::rowSums(bm) - Matrix::diag(bm))
-      # prepare boundary data
-      Matrix::diag(bm) <- 0
-      bm <- as_Matrix(Matrix::tril(Matrix::drop0(bm)), "dgCMatrix")
-      # apply constraint
-      if (abs(p) > 1e-50) {
-        # apply penalties
-        rcpp_apply_boundary_penalties(
-          x$ptr,
-          p,
-          self$get_data("edge_factor"),
-          self$get_data("zones"),
-          bm,
-          exposed_boundary,
-          total_boundary
+    # create new constraint object
+    x$add_penalty(
+      R6::R6Class(
+        "BoundaryPenalty",
+        inherit = Penalty,
+        public = list(
+          name = "boundary penalties",
+          data = list(
+            penalty = penalty,
+            edge_factor = edge_factor,
+            data = data,
+            zones = zones
+          ),
+          calculate = function(x) {
+            # assert valid argument
+            assert(is_conservation_problem(x), .internal = TRUE)
+            # if needed, calculate boundary matrix
+            if (
+              is.null(self$get_data("data")) &&
+              is.Waiver(x$get_data("boundary"))
+            ) {
+              x$set_data("boundary", boundary_matrix(x$get_data("cost")))
+            }
+            # return invisible success
+            invisible()
+          },
+          apply = function(x, y) {
+            # assert valid arguments
+            assert(
+              inherits(x, "OptimizationProblem"),
+              inherits(y, "ConservationProblem"),
+              .internal = TRUE
+            )
+            # extract data
+            p <- self$get_data("penalty")
+            bm <- self$get_data("data")
+            if (is.null(bm)) {
+              bm <- y$get_data("boundary")
+            }
+            # convert to dgCMatrix
+            bm <- as_Matrix(bm, "dgCMatrix")
+            # subset data to planning units
+            ind <- y$planning_unit_indices()
+            bm <- bm[ind, ind]
+            # compute additional boundary information
+            total_boundary <- Matrix::diag(bm)
+            exposed_boundary <-
+              Matrix::diag(bm) - (Matrix::rowSums(bm) - Matrix::diag(bm))
+            # prepare boundary data
+            Matrix::diag(bm) <- 0
+            bm <- as_Matrix(Matrix::tril(Matrix::drop0(bm)), "dgCMatrix")
+            # apply constraint
+            if (abs(p) > 1e-50) {
+              # apply penalties
+              rcpp_apply_boundary_penalties(
+                x$ptr,
+                p,
+                self$get_data("edge_factor"),
+                self$get_data("zones"),
+                bm,
+                exposed_boundary,
+                total_boundary
+              )
+            }
+            # return success
+            invisible(TRUE)
+          }
         )
-      }
-      # return success
-      invisible(TRUE)
-  }))
-})
+      )$new()
+    )
+  }
+)
