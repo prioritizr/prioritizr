@@ -574,7 +574,7 @@ methods::setMethod(
     colnames(fatu) <- zone_names(features)
     rownames(fatu) <- feature_names(features)
     # create ConservationProblem object
-    ConservationProblem$new(
+    conservation_problem(
       data = list(
         cost = x,
         features = features,
@@ -661,7 +661,7 @@ methods::setMethod(
       dimnames = list(feature_names(features), zone_names(features))
     )
     # create ConservationProblem object
-    ConservationProblem$new(
+    conservation_problem(
       data = list(
         cost = x,
         features = features,
@@ -785,7 +785,7 @@ methods::setMethod(
     })
     names(rij) <- as.character(zones$name)
     # create ConservationProblem object
-    ConservationProblem$new(
+    conservation_problem(
       data = list(
         cost = x,
         features = features,
@@ -920,7 +920,7 @@ methods::setMethod(
     })
     names(rij) <- names(rij_matrix)
     # create new problem object
-    ConservationProblem$new(
+    conservation_problem(
       data = list(
         cost = x,
         features = features,
@@ -1025,7 +1025,7 @@ methods::setMethod(
     rij <- lapply(rij, function(x) x[, pos, drop = FALSE])
     names(rij) <- zone_names(features)
     # create ConservationProblem object
-    ConservationProblem$new(
+    conservation_problem(
       data = list(
         cost = x,
         features = features,
@@ -1128,7 +1128,7 @@ methods::setMethod(
       dimnames = list(feature_names(features), zone_names(features))
     )
     # create ConservationProblem object
-    ConservationProblem$new(
+    conservation_problem(
       data = list(
         cost = x,
         features = features,

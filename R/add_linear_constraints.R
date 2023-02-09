@@ -342,7 +342,7 @@ methods::setMethod("add_linear_constraints",
 methods::setMethod("add_linear_constraints",
   methods::signature("ConservationProblem", "ANY", "ANY", "Raster"),
   function(x, threshold, sense, data) {
-    .Deprecated(msg = raster_pkg_deprecation_notice)
+    cli_warning(raster_pkg_deprecation_notice)
     add_linear_constraints(x, threshold, sense, terra::rast(data, "SpatRaster"))
   }
 )

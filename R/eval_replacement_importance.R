@@ -545,10 +545,11 @@ internal_eval_replacement_importance <- function(x, indices, rescale,
     is_thread_count(threads),
     call = call
   )
-  # assign default solver and portfolio
+  # assign default solver
   if (inherits(x$solver, "Waiver"))
     x <- add_default_solver(x)
-  x <- add_default_portfolio(x)
+  # overwrite portfolio
+  x <- add_shuffle_portfolio(x, 1)
   # compile problem
   opt <- compile.ConservationProblem(x)
   # run presolve check to try to identify potential problems

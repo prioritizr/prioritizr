@@ -56,6 +56,8 @@ Other classes:
 \describe{
 \item{\code{data}}{\code{list} containing data (e.g., planning units, costs).}
 
+\item{\code{defaults}}{\code{list} indicating if other fields contain defaults.}
+
 \item{\code{objective}}{\code{\linkS4class{Objective}} object specifying the objective
 function for the problem formulation.}
 

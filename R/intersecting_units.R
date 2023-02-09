@@ -79,7 +79,7 @@ methods::setMethod(
   "intersecting_units",
   methods::signature(x = "Raster", y = "ANY"),
   function(x, y) {
-    .Deprecated(msg = raster_pkg_deprecation_notice)
+    cli_warning(raster_pkg_deprecation_notice)
     intersecting_units(terra::rast(x), y)
   }
 )
@@ -91,7 +91,7 @@ methods::setMethod(
   "intersecting_units",
   methods::signature(x = "ANY", y = "Raster"),
   function(x, y) {
-    .Deprecated(msg = raster_pkg_deprecation_notice)
+    cli_warning(raster_pkg_deprecation_notice)
     intersecting_units(x, terra::rast(y))
   }
 )
@@ -103,7 +103,7 @@ methods::setMethod(
   "intersecting_units",
   methods::signature(x = "Spatial", y = "ANY"),
   function(x, y) {
-    .Deprecated(msg = sp_pkg_deprecation_notice)
+    cli_warning(sp_pkg_deprecation_notice)
     intersecting_units(sf::st_as_sf(x), y)
   }
 )
@@ -115,7 +115,7 @@ methods::setMethod(
   "intersecting_units",
   methods::signature(x = "ANY", y = "Spatial"),
   function(x, y) {
-    .Deprecated(msg = sp_pkg_deprecation_notice)
+    cli_warning(sp_pkg_deprecation_notice)
     intersecting_units(x, sf::st_as_sf(y))
   }
 )

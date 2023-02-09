@@ -77,7 +77,6 @@ plot(category_layer(s2), main = "solution", axes = FALSE)
 See \link{decisions} for an overview of all functions for adding decisions.
 
 Other decisions: 
-\code{\link{add_default_decisions}()},
 \code{\link{add_proportion_decisions}()},
 \code{\link{add_semicontinuous_decisions}()}
 }

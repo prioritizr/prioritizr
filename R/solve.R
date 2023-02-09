@@ -259,12 +259,6 @@ methods::setMethod(
       assertthat::is.flag(force),
       assertthat::noNA(force)
     )
-    # assign default solver and portfolio
-    if (inherits(a$solver, "Waiver"))
-      a <- add_default_solver(a)
-    default_portfolio <- inherits(a$portfolio, "Waiver")
-    if (inherits(a$portfolio, "Waiver"))
-      a <- add_default_portfolio(a) #nocov
     # compile optimization problem
     opt <- compile.ConservationProblem(a, ...)
     # run presolve check to try to identify potential problems
@@ -320,10 +314,12 @@ methods::setMethod(
     if (!is.Waiver(portfolio_number_solutions)) {
       if (length(sol) != portfolio_number_solutions) {
         cli_warning(
-          paste(
-            "Couldn't find {.val {portfolio_number_solutions}} solution{?s}",
-            "for the portfolio",
-            "(only found {.val {length(sol)}} solution{?s})."
+          c(
+            paste(
+              "Portfolio couldn't find {.val {portfolio_number_solutions}}",
+              "solution{?s}."
+            ),
+            "i" = "Only found {.val {length(sol)}} solution{?s})."
           )
         )
       }
@@ -427,7 +423,7 @@ methods::setMethod(
       ret <- lapply(ret, as.numeric)
     }
     # if ret is a list with a single element then extract the element
-    if (length(ret) == 1 && default_portfolio) {
+    if (length(ret) == 1) {
       ret <- ret[[1]]
     }
     # add attributes

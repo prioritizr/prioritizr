@@ -155,7 +155,7 @@ zones <- function(..., zone_names = NULL, feature_names = NULL) {
   )
   # throw deprecation notice if needed
   if (inherits(args[[1]], "Raster")) {
-    .Deprecated(msg = raster_pkg_deprecation_notice)
+    cli_warning(raster_pkg_deprecation_notice)
   }
   # checks for SpatRaster/Raster input
   if (inherits(args[[1]], c("SpatRaster", "Raster"))) {

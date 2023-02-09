@@ -449,7 +449,7 @@ test_that("throw warning with min set objective", {
   p2 <- p1 %>% add_feature_weights(runif(terra::nlyr(sim_features)))
   # compile problems
   o1 <- compile(p1)
-  expect_warning({o2 <- compile(p2)}, "Weights will be ignored")
+  expect_warning({o2 <- compile(p2)}, "ignored")
   # tests
   expect_equal(o1$modelsense(), o2$modelsense())
   expect_equal(o1$obj(), o2$obj())
@@ -475,7 +475,7 @@ test_that("throw warning with min largest shortfall objective", {
   p2 <- p1 %>% add_feature_weights(runif(terra::nlyr(sim_features)))
   # compile problems
   o1 <- compile(p1)
-  expect_warning({o2 <- compile(p2)}, "Weights will be ignored")
+  expect_warning({o2 <- compile(p2)}, "ignored")
   # tests
   expect_equal(o1$modelsense(), o2$modelsense())
   expect_equal(o1$obj(), o2$obj())

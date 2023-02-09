@@ -13,6 +13,10 @@
 
 ## Breaking changes
 
+- All _proto_ classes have been migrated to _R6_ classes. This update reduces
+  memory usage. Note that any `problem()` objects that were produced using
+  earlier versions of the package are not compatible with this version of
+  the package.
 - The built-in datasets have been removed and replaced with functions
   to import them as needed (see below). Note that these functions only return
   `sf::st_sf()` and `terra::rast()` objects.
@@ -28,15 +32,17 @@
   longer used. For equivalent functionality, See `parallel::splitIndices()`.
 - The `new_optimization_problem()` and `predefined_optiimzation_problem()`
   functions have been superseded by the new `optimization_problem()` function.
-- To simplify package documentation, the following functions are no longer
-  exported: `is.Waiver()`.
-- As part of efforts to simplify the package internals, the following functions
-  have been deprecated: `new_id()`, `is.Id()`, `print.Id()`, `pproto()`.
+- To simplify package documentation and functionality, the following functions
+  are no longer exported: `is.Waiver()`, `add_default_decisions()`
+  `new_id()`, `is.Id()`, `print.Id()`, `pproto()`.
 
 ## New features
 
-- General improvement of error messages for almost every function in the
-  package. Hopefully, users should no longer see `"bad error message"`!
+- The `print()` function for `problem()`, `optimization_problem()`, and
+  `zones()` objects has been updated to provide more information.
+- New `summary()` function to provide extensive detail on `problem()` objects.
+- Updates to improve the error messages. Hopefully, users should no longer
+  see `"bad error message"` in an error message!
 - New functions for importing built-in datasets (i.e.,  `get_sim_pu_raster()`,
   `get_sim_pu_polygons()`, `get_sim_pu_lines()`, `get_sim_pu_points()`,,
   `get_sim_locked_in_raster()`, `get_sim_locked_out_raster()`,

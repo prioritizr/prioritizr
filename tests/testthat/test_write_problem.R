@@ -83,6 +83,6 @@ test_that("invalid inputs", {
   )
   expect_tidy_error(
     write_problem(p, tempfile(fileext = ".lp")),
-    "missing an objective"
+    "objective"
   )
 })

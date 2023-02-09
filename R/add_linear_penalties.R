@@ -334,7 +334,7 @@ methods::setMethod("add_linear_penalties",
 methods::setMethod("add_linear_penalties",
   methods::signature("ConservationProblem", "ANY", "Raster"),
   function(x, penalty, data) {
-    .Deprecated(msg = raster_pkg_deprecation_notice)
+    cli_warning(raster_pkg_deprecation_notice)
     add_linear_penalties(x, penalty, terra::rast(data))
   }
 )

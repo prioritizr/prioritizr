@@ -13,7 +13,7 @@ methods::setMethod(
       raster::nlayers(x) == 1
     )
     rlang::check_dots_empty()
-    .Deprecated(msg = raster_pkg_deprecation_notice)
+    cli_warning(raster_pkg_deprecation_notice)
     problem(
       x,
       zones(features, zone_names = names(x), feature_names = names(features)),
@@ -30,7 +30,7 @@ methods::setMethod(
   "problem",
   methods::signature(x = "Raster", features = "ZonesRaster"),
   function(x, features, run_checks = TRUE, ...) {
-    .Deprecated(msg = raster_pkg_deprecation_notice)
+    cli_warning(raster_pkg_deprecation_notice)
     # assert that arguments are valid
     assert(
       inherits(x, "Raster"),
@@ -79,7 +79,7 @@ methods::setMethod(
     colnames(fatu) <- zone_names(features)
     rownames(fatu) <- feature_names(features)
     # create ConservationProblem object
-    ConservationProblem$new(
+    conservation_problem(
       data = list(
         cost = x,
         features = features,
@@ -116,8 +116,8 @@ methods::setMethod(
   "problem",
   methods::signature(x = "Spatial", features = "ZonesRaster"),
   function(x, features, cost_column, run_checks = TRUE, ...) {
-    .Deprecated(msg = sp_pkg_deprecation_notice)
-    .Deprecated(msg = raster_pkg_deprecation_notice)
+    cli_warning(sp_pkg_deprecation_notice)
+    cli_warning(raster_pkg_deprecation_notice)
     # assert valid arguments
     # assert that arguments are valid
     assert(
@@ -182,7 +182,7 @@ methods::setMethod(
     rij <- lapply(rij, function(x) x[, pos, drop = FALSE])
     names(rij) <- zone_names(features)
     # create ConservationProblem object
-    ConservationProblem$new(
+    conservation_problem(
       data = list(
         cost = x,
         features = features,
@@ -218,7 +218,7 @@ methods::setMethod(
   "problem",
   methods::signature(x = "Spatial", features = "ZonesCharacter"),
   function(x, features, cost_column, ...) {
-    .Deprecated(msg = sp_pkg_deprecation_notice)
+    cli_warning(sp_pkg_deprecation_notice)
     # assert that arguments are valid
     assert(
       is_inherits(
@@ -273,7 +273,7 @@ methods::setMethod(
       dimnames = list(feature_names(features), zone_names(features))
     )
     # create ConservationProblem object
-    ConservationProblem$new(
+    conservation_problem(
       data = list(
         cost = x,
         features = features,
@@ -314,7 +314,7 @@ methods::setMethod(
   "problem",
   methods::signature(x = "sf", features = "ZonesRaster"),
   function(x, features, cost_column, run_checks = TRUE, ...) {
-    .Deprecated(msg = raster_pkg_deprecation_notice)
+    cli_warning(raster_pkg_deprecation_notice)
     # assert that arguments are valid
     assert(
       inherits(x, "sf"),
@@ -375,7 +375,7 @@ methods::setMethod(
     rij <- lapply(rij, function(x) x[, pos, drop = FALSE])
     names(rij) <- zone_names(features)
     # create ConservationProblem object
-    ConservationProblem$new(
+    conservation_problem(
       data = list(
         cost = x,
         features = features,

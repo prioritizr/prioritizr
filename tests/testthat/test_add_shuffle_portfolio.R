@@ -113,7 +113,7 @@ test_that("solve (no duplicates)", {
   # solve problem
   expect_warning(
     s <- solve(p),
-    "only found"
+    "Only found"
   )
   # tests
   expect_is(s, "list")

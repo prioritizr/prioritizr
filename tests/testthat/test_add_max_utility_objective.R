@@ -170,7 +170,7 @@ test_that("invalid inputs (single zone)", {
       add_max_utility_objective(budget = 5000) %>%
       add_relative_targets(0.1) %>%
       compile(),
-    "Targets will be ignored"
+    "ignored"
   )
   expect_tidy_error(
     problem(sim_pu_raster, sim_features) %>%

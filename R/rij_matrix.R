@@ -90,7 +90,7 @@ methods::setMethod(
   "rij_matrix",
   signature(x = "Raster", y = "Raster"),
   function(x, y, ...) {
-    .Deprecated(msg = raster_pkg_deprecation_notice)
+    cli_warning(raster_pkg_deprecation_notice)
     rij_matrix(terra::rast(x), terra::rast(y), ...)
 })
 
@@ -151,7 +151,7 @@ methods::setMethod(
   "rij_matrix",
   signature(x = "Spatial", y = "Raster"),
   function(x, y, fun = "sum", ...) {
-    .Deprecated(msg = sp_pkg_deprecation_notice)
+    cli_warning(sp_pkg_deprecation_notice)
     rij_matrix(sf::st_as_sf(x), y, fun = fun, ...)
 })
 
@@ -162,7 +162,7 @@ methods::setMethod(
   "rij_matrix",
   signature(x = "sf", y = "Raster"),
   function(x, y, fun = "sum", ...) {
-    .Deprecated(msg = raster_pkg_deprecation_notice)
+    cli_warning(raster_pkg_deprecation_notice)
     rij_matrix(x, terra::rast(y), fun = fun, ...)
 })
 

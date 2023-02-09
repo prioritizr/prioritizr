@@ -125,16 +125,11 @@ test_that("solve (number_solutions outside limit)", {
   # solve problem
   expect_warning(
     s <- solve(p),
-    "only found"
+    "Only found"
   )
   # output checks
-  expect_is(s, "list")
-  expect_length(s, 1)
-  expect_named(s, "solution_1")
-  for (i in seq_len(length(s)))
-    expect_true(
-      all(
-        terra::global(s[[i]] * features, "sum", na.rm = TRUE) >= c(2, 10)
-      )
-    )
+  expect_is(s, "SpatRaster")
+  expect_true(
+    all(terra::global(s * features, "sum", na.rm = TRUE)[[1]] >= c(2, 10))
+  )
 })

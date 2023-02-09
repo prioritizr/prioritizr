@@ -189,8 +189,8 @@ methods::setMethod(
   "connectivity_matrix",
   signature(x = "Spatial", y = "Raster"),
   function(x, y, ...) {
-    .Deprecated(msg = sp_pkg_deprecation_notice)
-    .Deprecated(msg = raster_pkg_deprecation_notice)
+    cli_warning(sp_pkg_deprecation_notice)
+    cli_warning(raster_pkg_deprecation_notice)
     connectivity_matrix(sf::st_as_sf(x), terra::rast(y), ...)
   }
 )
@@ -203,7 +203,7 @@ methods::setMethod(
   signature(x = "Spatial", y = "character"),
   function(x, y, ...) {
     assert(inherits(x, "Spatial"))
-    .Deprecated(msg = sp_pkg_deprecation_notice)
+    cli_warning(sp_pkg_deprecation_notice)
     connectivity_matrix(sf::st_as_sf(x), y, ...)
   }
 )
@@ -250,7 +250,7 @@ methods::setMethod(
   signature(x = "sf", y = "Raster"),
   function(x, y, ...) {
     assert(inherits(x, "sf"))
-    .Deprecated(msg = raster_pkg_deprecation_notice)
+    cli_warning(raster_pkg_deprecation_notice)
     connectivity_matrix(x, terra::rast(y), ...)
   }
 )
@@ -296,7 +296,7 @@ methods::setMethod(
   "connectivity_matrix",
   signature(x = "Raster", y = "Raster"),
   function(x, y, ...) {
-    .Deprecated(msg = raster_pkg_deprecation_notice)
+    cli_warning(raster_pkg_deprecation_notice)
     connectivity_matrix(terra::rast(x), terra::rast(y), ...)
   }
 )

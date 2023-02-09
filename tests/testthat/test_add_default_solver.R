@@ -1,6 +1,6 @@
 context("add_default_solver")
 
-test_that("implicit default solver", {
+test_that("works", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # load data

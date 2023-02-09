@@ -1,14 +1,10 @@
 #' @include Solver-class.R
 NULL
 
-#' Add a default solver
+#' Add default solver
 #'
-#' Identify the best solver currently installed on the system and specify that
-#' it should be used to solve a conservation planning [problem()].
-#' For information on the performance of different solvers,
-#' please see Schuster _et al._ (2020) for benchmarks comparing the
-#' run time and solution quality of some of the available solvers when applied
-#' to different sized datasets.
+#' Specify that the best solver currently available should be
+#' used to solve a conservation planning [problem()].
 #'
 #' @param x [problem()] object.
 #'
@@ -19,6 +15,12 @@ NULL
 #' [add_gurobi_solver()], [add_cplex_solver()], [add_cbc_solver()],
 #' [add_highs_solver()], [add_lpsymphony_solver()], and finally
 #' [add_rsymphony_solver()].
+#' For information on the performance of different solvers,
+#' please see Schuster _et al._ (2020).
+#'
+#' @section Notes:
+#' In early versions, this function was named as the
+#' `add_default_solver()` function.
 #'
 #' @inherit add_gurobi_solver return
 #'
@@ -34,9 +36,23 @@ NULL
 #'
 #' @export
 add_default_solver <- function(x, ...) {
+  # assert valid arguments
   rlang::check_required(x)
   assert(is_conservation_problem(x), call = NULL)
+  # find solver
   ds <- default_solver_name()
+  # throw error if solver not installed
+  if (is.null(ds)) {
+    cli::cli_abort(
+      "No optimization solvers are installed.",
+      "x" =
+        "You need to install a solver to generate prioritizations.",
+      "i" =
+        "See {.code ?solvers} for guidance on installing a solver.",
+      call = NULL
+    )
+  }
+  # return solver
   if (identical(ds, "gurobi")) {
     return(add_gurobi_solver(x, ...))
   } else if (identical(ds, "cplexAPI")) {
@@ -50,27 +66,7 @@ add_default_solver <- function(x, ...) {
   } else if (identical(ds, "Rsymphony")) {
     return(add_rsymphony_solver(x, ...))
   } else {
-    return(
-      x$add_solver(
-        R6::R6Class(
-          "MissingSolver",
-          inherit = Solver,
-          public = list(
-            name = "MissingSolver",
-            solve = function(x) {
-              cli::cli_abort(
-                "No optimization solvers are installed.",
-                "x" =
-                  "You need to install a solver to generate prioritizations.",
-                "i" =
-                  "See {.code ?solvers} for guidance on installing a solver.",
-                call = NULL
-              )
-            }
-          )
-        )$new()
-      )
-    )
+    cli::cli_abort("Can't find solver", .internal = TRUE, call = NULL)
   }
 }
 

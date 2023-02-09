@@ -47,7 +47,7 @@ binary_stack <- function(x) {
 #' @export
 binary_stack.Raster <- function(x) {
   assert(inherits(x, "Raster"))
-  .Deprecated(msg = raster_pkg_deprecation_notice)
+  cli_warning(raster_pkg_deprecation_notice)
   raster::stack(binary_stack(terra::rast(x)))
 }
 

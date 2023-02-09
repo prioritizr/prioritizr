@@ -26,6 +26,16 @@ ConservationProblem <- R6::R6Class(
     #' @field data `list` containing data (e.g., planning units, costs).
     data = list(),
 
+    #' @field defaults `list` indicating if other fields contain defaults.
+    defaults = list(
+      objective = TRUE,
+      decisions = TRUE,
+      targets = TRUE,
+      constraints = TRUE,
+      penalties = TRUE,
+      solver = TRUE
+    ),
+
     #' @field objective [`Objective-class`] object specifying the objective
     #' function for the problem formulation.
     objective = new_waiver(),
@@ -799,11 +809,14 @@ ConservationProblem <- R6::R6Class(
     #' @return An updated `ConservationProblem` object.
     add_portfolio = function(x) {
       assert(inherits(x, "Portfolio"))
-      if (!is.Waiver(self$portfolio))
+      p <- self$clone(deep = TRUE)
+      if (!isTRUE(p$defaults$portfolio)) {
         cli_warning("Overwriting previously defined portfolio.")
-      y <- self$clone(deep = TRUE)
-      y$portfolio <- x
-      y
+      } else {
+        p$defaults$portfolio <- FALSE
+      }
+      p$portfolio <- x
+      p
     },
 
     #' @description
@@ -812,9 +825,12 @@ ConservationProblem <- R6::R6Class(
     #' @return An updated `ConservationProblem` object.
     add_solver = function(x) {
       assert(inherits(x, "Solver"))
-      if (!is.Waiver(self$solver))
-        cli_warning("Overwriting previously defined solver.")
       p <- self$clone(deep = TRUE)
+      if (!isTRUE(p$defaults$solver)) {
+        cli_warning("Overwriting previously defined solver.")
+      } else {
+        p$defaults$solver <- FALSE
+      }
       p$solver <- x
       p
     },
@@ -825,9 +841,12 @@ ConservationProblem <- R6::R6Class(
     #' @return An updated `ConservationProblem` object.
     add_targets = function(x) {
       assert(inherits(x, "Target"))
-      if (!is.Waiver(self$targets))
-        cli_warning("Overwriting previously defined targets.")
       p <- self$clone(deep = TRUE)
+      if (!isTRUE(p$defaults$targets)) {
+        cli_warning("Overwriting previously defined targets.")
+      } else {
+        p$defaults$targets <- FALSE
+      }
       p$targets <- x
       p
     },
@@ -838,9 +857,12 @@ ConservationProblem <- R6::R6Class(
     #' @return An updated `ConservationProblem` object.
     add_objective = function(x) {
       assert(inherits(x, "Objective"))
-      if (!is.Waiver(self$objective))
-        cli_warning("Overwriting previously defined objective.")
       p <- self$clone(deep = TRUE)
+      if (!isTRUE(p$defaults$objective)) {
+        cli_warning("Overwriting previously defined objective.")
+      } else {
+        p$defaults$objective <- FALSE
+      }
       p$objective <- x
       p
     },
@@ -851,9 +873,12 @@ ConservationProblem <- R6::R6Class(
     #' @return An updated `ConservationProblem` object.
     add_decisions = function(x) {
       assert(inherits(x, "Decision"))
-      if (!is.Waiver(self$decisions))
-        cli_warning("Overwriting previously defined decision.")
       p <- self$clone(deep = TRUE)
+      if (!isTRUE(p$defaults$decisions)) {
+        cli_warning("Overwriting previously defined decision.")
+      } else {
+        p$defaults$decisions <- FALSE
+      }
       p$decisions <- x
       p
     },
@@ -881,3 +906,29 @@ ConservationProblem <- R6::R6Class(
     }
   )
 )
+
+#' New conservation problem
+#'
+#' Create a new conservation problem with defaults.
+#'
+#' @param data `list` with data. Defaults to empty `list`.
+#'
+#' @return A [`ConservationProblem-class`] object.
+#'
+#' @noRd
+conservation_problem <- function(data = list()) {
+  # assert valid arguments
+  assert(is.list(data))
+  # create new problem
+  p <- ConservationProblem$new(data = data)
+  # add defaults
+  p <- suppressWarnings(add_shuffle_portfolio(p, number_solutions = 1))
+  p <- suppressWarnings(add_binary_decisions(p))
+  p <- suppressWarnings(add_default_solver(p))
+  # enforce defaults
+  p$defaults$portfolio <- TRUE
+  p$defaults$decisions <- TRUE
+  p$defaults$solver <- TRUE
+  # return result
+  p
+}

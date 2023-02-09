@@ -44,7 +44,7 @@ test_that("solve (single zone)", {
   # solve problem
   expect_warning(
     s <- solve(p),
-    "only found"
+    "Only found"
   )
   # tests
   expect_is(s, "list")

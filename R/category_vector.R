@@ -64,7 +64,7 @@ category_vector.sf <- function(x) {
 #' @export
 category_vector.Spatial <- function(x) {
   assert(inherits(x, "Spatial"))
-  .Deprecated(msg = sp_pkg_deprecation_notice)
+  cli_warning(sp_pkg_deprecation_notice)
   category_vector(x@data)
 }
 

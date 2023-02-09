@@ -77,7 +77,6 @@ See \link{decisions} for an overview of all functions for adding decisions.
 
 Other decisions: 
 \code{\link{add_binary_decisions}()},
-\code{\link{add_default_decisions}()},
 \code{\link{add_semicontinuous_decisions}()}
 }
 \concept{decisions}

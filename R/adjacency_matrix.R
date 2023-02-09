@@ -92,7 +92,7 @@ adjacency_matrix.Raster <- function(x, directions = 4, ...) {
   rlang::check_required(directions)
   rlang::check_dots_empty()
   assert(inherits(x, "Raster"))
-  .Deprecated(msg = raster_pkg_deprecation_notice)
+  cli_warning(raster_pkg_deprecation_notice)
   adjacency_matrix.SpatRaster(terra::rast(x), directions = directions, ...)
 }
 
@@ -137,7 +137,7 @@ adjacency_matrix.SpatRaster <- function(x, directions = 4, ...) {
 adjacency_matrix.SpatialPolygons <- function(x, ...) {
   rlang::check_required(x)
   rlang::check_dots_empty()
-  .Deprecated(msg = sp_pkg_deprecation_notice)
+  cli_warning(sp_pkg_deprecation_notice)
   adjacency_matrix(sf::st_as_sf(x), ...)
 }
 
@@ -147,7 +147,7 @@ adjacency_matrix.SpatialPolygons <- function(x, ...) {
 adjacency_matrix.SpatialLines <- function(x,  ...) {
   rlang::check_required(x)
   rlang::check_dots_empty()
-  .Deprecated(msg = sp_pkg_deprecation_notice)
+  cli_warning(sp_pkg_deprecation_notice)
   adjacency_matrix(sf::st_as_sf(x), ...)
 }
 
@@ -157,7 +157,7 @@ adjacency_matrix.SpatialLines <- function(x,  ...) {
 adjacency_matrix.SpatialPoints <- function(x, ...) {
   rlang::check_required(x)
   rlang::check_dots_empty()
-  .Deprecated(msg = sp_pkg_deprecation_notice)
+  cli_warning(sp_pkg_deprecation_notice)
   adjacency_matrix(sf::st_as_sf(x), ...)
 }
 

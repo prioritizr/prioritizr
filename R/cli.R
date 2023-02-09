@@ -146,3 +146,49 @@ cli_warning <- function(message, immediate = TRUE, call = FALSE,
     immediate. = immediate, call. = call
   )
 }
+
+#' Defunct
+#'
+#' Throw an error indicating that a function is defunct.
+#'
+#' @param old `character` value with name of defunct function.
+#'
+#' @param new `character` value with name of replacement function.
+#'   Defaults to `NULL` such that no replacement function is detailed.
+#'
+#' @return None.
+#'
+#' @examples
+#' cli_defunct(old = "greg", new = "gred")
+#'
+#' @noRd
+cli_defunct <- function(old, new = NULL) {
+  msg <- c("{.fn {old}} is defunct.")
+  if (!is.null(new)) {
+    msg <- c(msg, "v" = "Use {.fn {new}} instead.")
+  }
+  cli::cli_abort(msg, call = NULL)
+}
+
+#' Deprecated
+#'
+#' Throw an error indicating that a function is deprecated.
+#'
+#' @param old `character` value with name of deprecated function.
+#'
+#' @param new `character` value with name of replacement function.
+#'   Defaults to `NULL` such that no replacement function is detailed.
+#'
+#' @return None.
+#'
+#' @examples
+#' cli_deprecated(old = "greg", new = "gred")
+#'
+#' @noRd
+cli_deprecated <- function(old, new = NULL) {
+  msg <- c("{.fn {old}} is deprecated.")
+  if (!is.null(new)) {
+    msg <- c(msg, "i" = "Use {.fn {new}} instead.")
+  }
+  cli_warning(msg, call = FALSE)
+}

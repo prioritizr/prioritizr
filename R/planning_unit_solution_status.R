@@ -169,7 +169,7 @@ methods::setMethod(
   methods::signature("ConservationProblem", "Spatial"),
   function(x, solution, call = fn_caller_env()) {
     # assert valid arguments
-    .Deprecated(msg = sp_pkg_deprecation_notice)
+    cli_warning(sp_pkg_deprecation_notice)
     ## data types
     assert(
       is_inherits(
@@ -306,7 +306,7 @@ methods::setMethod(
   methods::signature("ConservationProblem", "Raster"),
   function(x, solution, call = fn_caller_env()) {
     # assert valid arguments
-    .Deprecated(msg = raster_pkg_deprecation_notice)
+    cli_warning(raster_pkg_deprecation_notice)
     ## data types
     assert(
       inherits(solution, "Raster"),

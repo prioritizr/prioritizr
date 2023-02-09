@@ -50,7 +50,7 @@ category_layer <- function(x) {
 #' @export
 category_layer.Raster <- function(x) {
   assert(inherits(x, "Raster"))
-  .Deprecated(msg = raster_pkg_deprecation_notice)
+  cli_warning(raster_pkg_deprecation_notice)
   raster::raster(category_layer.default(terra::rast(x)))
 }
 

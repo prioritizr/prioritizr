@@ -74,27 +74,41 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
     !is.Waiver(x$targets)
   ) {
     cli_warning(
-      paste(
-        "Targets will be ignored, because the specified objective",
-        "function doesn't use them."
+      c(
+        "Targets specified for the problem will be ignored.",
+        "i" = "If the targets are important, use a different objective."
       )
     )
   }
   # replace waivers with defaults
-  if (is.Waiver(x$objective))
-    x <- add_default_objective(x)
+  if (is.Waiver(x$objective)) {
+    cli::cli_abort(
+      "{.fn problem} must have an objective.",
+      "i" = paste(
+        "see {.topic prioritizr::objectives} for guidance on selecting",
+        "an objective."
+      )
+    )
+  }
   if (
     is.Waiver(x$targets) &&
     !inherits(
       x$objective,
       c("MaximumUtilityObjective", "MaximumCoverageObjective"))
   ) {
-    x <- add_default_targets(x)
+    cli::cli_abort(
+      "{.fn problem} must have targets.",
+      "i" =
+        "see {.topic prioritizr::targets} for guidance on selecting targets."
+    )
   }
   if (is.Waiver(x$decisions))
-    x <- add_default_decisions(x)
+    x <- suppressWarnings(add_binary_decisions(x))
   if (is.Waiver(x$solver))
-    x <- add_default_solver(x)
+    x <- suppressWarnings(add_default_solver(x))
+  if (is.Waiver(x$portfolio))
+    x <- suppressWarnings(add_shuffle_portfolio(x, 1))
+  # initialize optimization problems
   op <- optimization_problem()
   # determine if expanded formulation is required
   if (is.na(compressed_formulation)) {
@@ -153,17 +167,17 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
   # add penalties to optimization problem
   for (i in seq_along(x$penalties)) {
     ## run sanity check
-    weights_not_supported <- c(
-      "MinimumSetObjective", "MinimumLargestShortfallObjective"
-    )
     if (
       inherits(x$penalties[[i]], "FeatureWeights") &&
-      inherits(x$objective, weights_not_supported)
+      inherits(
+        x$objective,
+        c("MinimumSetObjective", "MinimumLargestShortfallObjective")
+      )
     ) {
       cli_warning(
-        paste(
-          "Weights will be ignored, because the specified objective",
-          "function doesn't use them."
+        c(
+          "Weights specified for the problem will be ignored.",
+          "i" = "If the weights are important, use a different objective."
         )
       )
       next()

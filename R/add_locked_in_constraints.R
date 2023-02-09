@@ -390,7 +390,7 @@ methods::setMethod("add_locked_in_constraints",
 methods::setMethod("add_locked_in_constraints",
   methods::signature("ConservationProblem", "Spatial"),
   function(x, locked_in) {
-    .Deprecated(msg = sp_pkg_deprecation_notice)
+    cli_warning(sp_pkg_deprecation_notice)
     add_locked_in_constraints(
       x,
       intersecting_units(x$data$cost, sf::st_as_sf(locked_in))
@@ -422,7 +422,7 @@ methods::setMethod("add_locked_in_constraints",
   methods::signature("ConservationProblem", "Raster"),
   function(x, locked_in) {
     # add constraints
-    .Deprecated(msg = raster_pkg_deprecation_notice)
+    cli_warning(raster_pkg_deprecation_notice)
     add_locked_in_constraints(x, terra::rast(locked_in))
   }
 )
