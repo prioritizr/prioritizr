@@ -129,46 +129,51 @@ add_shuffle_portfolio <- function(x, number_solutions = 10, threads = 1,
           ## generate additional solutions
           # convert OptimizationProblem to list
           x_list <- as.list(x)
-          # prepare cluster for parallel processing
+          # define function to generate solution
+          generate_solution <- function(i) {
+            # create and shuffle problem
+            z <- prioritizr::optimization_problem(x_list)
+            reorder_key <- z$shuffle_columns()
+            # solve problem
+            s <- solver$solve(z)
+            # reorder variables
+            s$x <- s$x[reorder_key]
+            # return result
+            s
+          }
+          # generate solutions
           if (self$get_data("threads") > 1L) {
-            # initialize cluster
+            ## initialize cluster
             cl <- parallel::makeCluster(self$get_data("threads"), "PSOCK")
-            # create RNG seeds
+            ## prepare cluster clean up
+            on.exit(try(cl <- parallel::stopCluster(cl), silent = TRUE))
+            ## create RNG seeds
             pids <- parallel::clusterEvalQ(cl, Sys.getpid())
             seeds <- sample.int(n = 1e+5, size = self$get_data("threads"))
             names(seeds) <- as.character(unlist(pids))
-            # copy data to cluster
+            ## copy data to cluster
             parallel::clusterExport(
               cl,
-              c("solver", "x_list", "seeds"),
+              c("solver", "x_list", "seeds", "generate_solution"),
               envir = environment()
             )
-            # initialize RNG on cluster
+            ## initialize RNG on cluster
             parallel::clusterEvalQ(cl, {
               set.seed(seeds[as.character(Sys.getpid())])
               NULL
             })
-            # set default cluster
-            doParallel::registerDoParallel(cl)
-          }
-          sol <- plyr::llply(
-            seq_len(self$get_data("number_solutions") - 1),
-             .parallel = isTRUE(self$get_data("threads") > 1L),
-             .fun = function(i) {
-              # create and shuffle problem
-              z <- prioritizr::optimization_problem(x_list)
-              reorder_key <- z$shuffle_columns()
-              # solve problem
-              s <- solver$solve(z)
-              # reorder variables
-              s$x <- s$x[reorder_key]
-              # return result
-              s
-            }
-          )
-          if (self$get_data("threads") > 1L) {
-            doParallel::stopImplicitCluster()
-            cl <- parallel::stopCluster(cl)
+            ## main processing
+            sol <- parallel::parLapply(
+              cl = cl,
+              seq_len(self$get_data("number_solutions") - 1),
+              generate_solution
+            )
+          } else {
+            ## main processing
+            sol <- lapply(
+              seq_len(self$get_data("number_solutions") - 1),
+              generate_solution
+            )
           }
           ## compile results
           sol <- append(list(initial_sol), sol)

@@ -62,8 +62,6 @@ Imports:
     slam (>= 0.1-48),
     igraph (>= 1.2.9),
     ape (>= 5.5),
-    plyr (>= 1.8.6),
-    doParallel (>= 1.0.16),
     magrittr (>= 2.0.1),
     exactextractr (>= 0.9.1),
     tibble (>= 2.0.0),

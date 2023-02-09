@@ -591,21 +591,12 @@ internal_eval_replacement_importance <- function(x, indices, rescale,
       call = call
     )
   solution_obj <- solution_obj[[2]]
-  # prepare cluster for parallel processing
-  if (isTRUE(threads > 1L)) {
-    # initialize cluster
-    cl <- parallel::makeCluster(threads, "PSOCK")
-    # move data to workers
-    parallel::clusterExport(cl, c("indices", "x"), envir = environment())
-    # set default cluster
-    doParallel::registerDoParallel(cl)
-  }
-  # iterate over decision variables in solution and store new objective values
-  alt_solution_obj <- plyr::llply(
-    parallel::splitIndices(length(indices), threads),
-    .parallel = isTRUE(threads > 1),
-    .fun = function(y) {
-      vapply(indices[y], FUN.VALUE = numeric(1), function(i) {
+  # define function for processing
+  calculate_alt_solution_obj <- function(y) {
+    vapply(
+      indices[y],
+      FUN.VALUE = numeric(1),
+      function(i) {
         # lock out i'th selected planning unit in solution
         x$solver$set_variable_lb(i, 0)
         x$solver$set_variable_ub(i, 0)
@@ -622,17 +613,38 @@ internal_eval_replacement_importance <- function(x, indices, rescale,
         x$solver$set_variable_ub(i, 1)
         # return result
         out
-      })
-    }
-  )
+      }
+    )
+  }
+  # iterate over decision variables in solution and store new objective values
+  if (isTRUE(threads > 1L)) {
+    ## initialize cluster
+    cl <- parallel::makeCluster(threads, "PSOCK")
+    ## prepare cluster clean up
+    on.exit(try(cl <- parallel::stopCluster(cl), silent = TRUE))
+    ## move data to workers
+    parallel::clusterExport(
+      cl,
+      c("indices", "x", "calculate_alt_solution_obj"),
+      envir = environment()
+    )
+    ## main processing
+    alt_solution_obj <- parallel::parLapply(
+      cl,
+      parallel::splitIndices(length(indices), threads),
+      calculate_alt_solution_obj
+    )
+  } else {
+    ## main processing
+    alt_solution_obj <- lapply(
+      parallel::splitIndices(length(indices), threads),
+      calculate_alt_solution_obj
+    )
+  }
+  # reformat output
   alt_solution_obj <- unlist(
     alt_solution_obj, recursive = TRUE, use.names = FALSE
   )
-  # kill works if needed
-  if (isTRUE(threads > 1L)) {
-    doParallel::stopImplicitCluster()
-    cl <- parallel::stopCluster(cl)
-  }
   # calculate replacement costs
   out <- alt_solution_obj - solution_obj
   if (identical(modelsense, "max")) # rescale values if maximization problem
