@@ -25,17 +25,33 @@ repr.logical <- function(x) {
 .S3method("repr", "logical", repr.logical)
 
 repr.character <- function(x) {
-  if (length(x) > 4) {
+  # get console width
+  w <- ceiling(cli::console_width() * 0.9)
+  # estimate total length of printing entire vector
+  print_all_length <-
+    ## count total characters for printing vector values
+    ## note the +2 is for the quotes surrounding values
+    sum(nchar(x) + 2) +
+    ## add in the ", "
+    ((length(x) - 1) * 2) +
+    ## add in the " and (X total)"
+    15 + nchar(length(x))
+  if (print_all_length < w) {
+    out <- cli::format_inline("{.val {x}} ({length(x)} total)")
+  } else {
+    # determine which characters to show
+    nc <- nchar(x) + 2
+    nc[-1] <- nc[-1] + 3
+    nc <- nc[cumsum(nc) < w]
+    nc <- nc[(cumsum(nc) + 10 + nchar(length(x))) < w]
+    y <- x[seq_along(nc)]
     out <- cli::format_inline(
       paste(
-        "{.val {x[1]}}, {.val {x[2]}}, {.val {x[3]}}, {.val {x[4]}},",
-        "{cli::symbol$ellipsis} ({length(x)} total)"
+        paste0("{.val ", y, "}", collapse = ", "),
+        ", {cli::symbol$ellipsis} ({length(x)} total)"
       )
     )
-  } else {
-    out <- cli::format_inline("{.val {x}}")
   }
-  out
 }
 
 .S3method("repr", "character", repr.character)
