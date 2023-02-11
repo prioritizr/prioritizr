@@ -176,12 +176,12 @@ test_that("x = sf, y = SpatRaster (multiple layers, fun = sum)", {
 
 test_that("x = sf (complex polygons), y = SpatRaster (fun = mean)", {
   skip_on_cran()
-  skip_if_not_installed("prioritizrdata", minimum_version = "3.0.0")
+  skip_if_not_installed("prioritizrdata", minimum_version = "0.3.0.0")
   # import data
   tas_pu <- prioritizrdata::get_tas_pu()
   tas_features <- prioritizrdata::get_tas_features()
   # subset data
-  tas_features <- tas_features[[c(1, 21, 52)]]
+  tas_features <- tas_features[[c(4, 6, 10)]]
   # run calculations
   x <- rij_matrix(tas_pu, tas_features, fun = "mean")
   # calculate correct result
@@ -190,32 +190,36 @@ test_that("x = sf (complex polygons), y = SpatRaster (fun = mean)", {
       tas_features, tas_pu, fun = "mean", progress = FALSE
     )
   })
-  y <- Matrix::t(as_Matrix(as.matrix(m2), "dgCMatrix"))
+  y <- Matrix::t(as_Matrix(as.matrix(y), "dgCMatrix"))
+  y[!is.finite(y)] <- 0
+  rownames(y) <- names(tas_features)
   # run tests
   # note that exactextractr uses floats and not doubles, so it has reduced
   # precision than our summary Rcpp and R summary functions which uses doubles
-  expect_true(inherits(m, "dgCMatrix"))
-  expect_equal(rownames(x), names(sim_features))
+  expect_true(inherits(x, "dgCMatrix"))
+  expect_equal(rownames(x), names(tas_features))
   expect_equal(x, y, tolerance = 1e-6)
 })
 
 test_that("x = sf (complex polygons), y = SpatRaster (fun = sum)", {
   skip_on_cran()
-  skip_if_not_installed("prioritizrdata", minimum_version = "3.0.0")
+  skip_if_not_installed("prioritizrdata", minimum_version = "0.3.0.0")
   # import data
   tas_pu <- prioritizrdata::get_tas_pu()
   tas_features <- prioritizrdata::get_tas_features()
   # subset data
-  tas_features <- tas_features[[c(1, 21, 52)]]
+  tas_features <- tas_features[[c(4, 6, 10)]]
   # run calculations
-  x <- rij_matrix(tas_pu, tas_features, fun = "mean")
+  x <- rij_matrix(tas_pu, tas_features, fun = "sum")
   # calculate correct result using exact exactextractr
   suppressWarnings({
     y <- exactextractr::exact_extract(
       tas_features, tas_pu, fun = "sum", progress = FALSE
     )
   })
-  y <- Matrix::t(as_Matrix(as.matrix(m2), "dgCMatrix"))
+  y <- Matrix::t(as_Matrix(as.matrix(y), "dgCMatrix"))
+  y[!is.finite(y)] <- 0
+  rownames(y) <- names(tas_features)
   # calculate correct result using R
   suppressWarnings({
     z <- exactextractr::exact_extract(
@@ -228,11 +232,13 @@ test_that("x = sf (complex polygons), y = SpatRaster (fun = sum)", {
     colSums(sweep(v, 1, p, "*"), na.rm = TRUE)
   })
   z <- as_Matrix(as.matrix(z), "dgCMatrix")
+  z[!is.finite(y)] <- 0
+  rownames(z) <- names(tas_features)
   # run tests
   # note that exactextractr uses floats and not doubles, so it has reduced
   # precision than our summary Rcpp and R summary functions which uses doubles
-  expect_true(inherits(m, "dgCMatrix"))
-  expect_equal(rownames(x), names(sim_features))
+  expect_true(inherits(x, "dgCMatrix"))
+  expect_equal(rownames(x), names(tas_features))
   expect_equal(x, y, tolerance = 1e-6)
   expect_equal(x, z, tolerance = 1e-6)
 })

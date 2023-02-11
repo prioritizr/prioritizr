@@ -198,7 +198,7 @@ test_that("sf (points)", {
 })
 
 test_that("sf (simple shapes)", {
-  skip_if_not_installed("prioritizrdata", minimum_version = "3.0.0")
+  skip_if_not_installed("prioritizrdata", minimum_version = "0.3.0.0")
   # create data
   tas_pu <- prioritizrdata::get_tas_pu()
   d <- tas_pu[c(300, 279), ]
@@ -214,10 +214,7 @@ test_that("sf (simple shapes)", {
   y <- Matrix::sparseMatrix(
     i = c(0, 0, 1),
     j = c(0, 1, 1),
-    x = c(
-      total_length[1] - shared_length, shared_length,
-      total_length[2] - shared_length
-    ),
+    x = c(total_length[1], shared_length, total_length[2]),
     index1 = FALSE,
     symmetric = TRUE
   )
@@ -227,7 +224,7 @@ test_that("sf (simple shapes)", {
 })
 
 test_that("sf (complex shapes)", {
-  skip_if_not_installed("prioritizrdata", minimum_version = "3.0.0")
+  skip_if_not_installed("prioritizrdata", minimum_version = "0.3.0.0")
   # create data
   tas_pu <- prioritizrdata::get_tas_pu()
   d <- tas_pu[c(2, 4), ]
@@ -242,8 +239,7 @@ test_that("sf (complex shapes)", {
   y <- Matrix::sparseMatrix(
     i = c(0, 0, 1),
     j = c(0, 1, 1),
-    x = c(total_length[1] - shared_length, shared_length,
-          total_length[2] - shared_length),
+    x = c(total_length[1], shared_length, total_length[2]),
     index1 = FALSE,
     symmetric = TRUE
   )

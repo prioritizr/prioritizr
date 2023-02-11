@@ -60,10 +60,10 @@ test_that("proportion decisions", {
 test_that("proportion decisions (floating point)", {
   skip_on_cran()
   skip_if_not_installed("cplexAPI")
-  skip_if_not_installed("prioritizrdata", minimum_version = "3.0.0")
+  skip_if_not_installed("prioritizrdata", minimum_version = "0.3.0.0")
   # import data
-  tas_pu <- get_tas_pu()[seq_len(15), ]
-  tas_features <- get_tas_features()
+  tas_pu <- prioritizrdata::get_tas_pu()[seq_len(15), ]
+  tas_features <- prioritizrdata::get_tas_features()
   # create problem
   p <-
     problem(tas_pu, tas_features, cost = "cost") %>%
@@ -74,7 +74,7 @@ test_that("proportion decisions (floating point)", {
   s <- solve(p)
   # tests
   expect_true(inherits(s, "sf"))
-  expect_true("solution_1" %in% names(s@data))
+  expect_true("solution_1" %in% names(s))
   expect_equal(nrow(s), nrow(tas_pu))
   expect_is(s$solution_1, "numeric")
   expect_gte(min(s$solution_1), 0)
