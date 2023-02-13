@@ -276,6 +276,7 @@ get_sim_features <- function() {
    system.file("extdata", "sim_features.tif", package = "prioritizr")
   )
   terra::crs(x) <- na_crs
+  names(x) <- paste0("feature_", seq_len(terra::nlyr(x)))
   x
 }
 
@@ -283,17 +284,17 @@ get_sim_features <- function() {
 #' @export
 get_sim_zones_features <- function() {
   x <- zones(
-    zone_1 = terra::rast(
+    terra::rast(
        system.file(
          "extdata", "sim_features_zones_1.tif", package = "prioritizr"
        )
     ),
-    zone_2 = terra::rast(
+    terra::rast(
        system.file(
          "extdata", "sim_features_zones_2.tif", package = "prioritizr"
        )
      ),
-    zone_3 = terra::rast(
+    terra::rast(
        system.file(
          "extdata", "sim_features_zones_3.tif", package = "prioritizr"
        )
@@ -310,7 +311,7 @@ get_sim_zones_features <- function() {
 #' @rdname sim_data
 #' @export
 get_sim_phylogeny <- function() {
-  ape::read.tree(
+  ape::read.nexus(
    system.file("extdata", "sim_phylogeny.txt", package = "prioritizr")
   )
 }
