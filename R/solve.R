@@ -392,7 +392,10 @@ methods::setMethod(
         ret <- pu
         ret@data <- cbind(ret@data, sol_status2)
       } else if (inherits(pu, "sf")) {
-        ret <- sf::st_sf(tibble::as_tibble(data.frame(pu, sol_status2)))
+        ret <- tibble::as_tibble(data.frame(pu, sol_status2))
+        sf_col <- attr(pu, "sf_column")
+        ret <- ret[, c(setdiff(names(ret), sf_col), sf_col), drop = FALSE]
+        ret <- ret <- sf::st_sf(ret)
       } else {
         ret <- cbind(pu, sol_status2)
         if (inherits(pu, "tbl_df")) {

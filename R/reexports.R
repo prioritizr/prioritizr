@@ -9,9 +9,9 @@ magrittr::`%>%`
 #' @export
 magrittr::`%T>%`
 
-#' @importFrom terra plot
+#' @importMethodsFrom terra plot
 #' @export
-terra::plot
+plot <- terra::plot
 
 #' @importMethodsFrom terra ncell
 #' @export

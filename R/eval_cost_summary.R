@@ -124,7 +124,7 @@ NULL
 #' print(r2)
 #'
 #' # manually calculate cost of the solution
-#' r2_manual <- sum(s2$solution * sim_pu_polygons$cost, na.rm = TRUE)
+#' r2_manual <- sum(s2$solution_1 * sim_pu_polygons$cost, na.rm = TRUE)
 #' print(r2_manual)
 #'
 #' # build multi-zone conservation problem with polygon data

@@ -164,7 +164,7 @@ r2 <- eval_n_summary(p2, s2[, "solution_1"])
 print(r2)
 
 # manually calculate number of selected planning units
-r2_manual <- sum(s2$solution, na.rm = TRUE)
+r2_manual <- sum(s2$solution_1, na.rm = TRUE)
 print(r2_manual)
 
 # build multi-zone conservation problem with polygon data
