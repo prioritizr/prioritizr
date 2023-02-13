@@ -34,6 +34,24 @@ knitr::opts_chunk$set(
 )
 ```
 
+```{r, include = FALSE}
+# wrapper for printing problem objects
+print_problem <- function(x) {
+  if (interactive()) {
+    print(x)
+    return(invisible())
+  }
+  res <- knitr::knit_child(
+    "print_problem.txt",
+    envir = list2env(
+      list(name = rlang::as_name(rlang::enquo(x)), x = x),
+      parent = parent.frame()),
+    quiet = TRUE,
+  )
+  cat(res, sep = "\n")
+}
+```
+
 ## Introduction
 
 Systematic conservation planning requires making trade-offs [@r4; @r36]. Since different criteria may conflict with one another -- or not align perfectly -- prioritizations need to make trade-offs between different criteria [@r37]. Although some criteria can easily be accounted for by using locked constraints or representation targets [e.g., @r40; @r39], this is not always the case [e.g., @r38]. For example, prioritizations often need to balance overall cost with the overall level spatial fragmentation among reserves [@r41; @r42]. Additionally, prioritizations often need to balance the overall level of connectivity among reserves against other criteria [@r43]. Since the best trade-off depends on a range of factors -- such as available budgets, species' connectivity requirements, and management capacity -- finding the best balance can be challenging.
@@ -44,14 +62,14 @@ The aim of this tutorial is to provide guidance on calibrating trade-offs when u
 
 ## Data
 
-Let's load the packages and dataset used in this tutorial. Since this tutorial uses the _prioritizrdata R_ package along with several other _R_ packages (see below), please ensure that they are all installed. This particular dataset comprises two object: `tas_pu` and `tas_features`. Although we will briefly discuss this dataset below, please refer to the _Tasmania Tutorial_ vignette for further details.
+Let's load the packages and dataset used in this tutorial. Since this tutorial uses the _prioritizrdata R_ package along with several other _R_ packages (see below), please ensure that they are all installed. This particular dataset comprises two object: `tas_pu` and `tas_features`. Although we will briefly describe this dataset below, please refer `?prioritizrdata::tas_data` for further details.
 
 ```{r, message = FALSE}
 # load packages
 library(prioritizrdata)
 library(prioritizr)
 library(sf)
-library(raster)
+library(terra)
 library(dplyr)
 library(tibble)
 library(scales)
@@ -60,18 +78,11 @@ library(topsis)
 library(withr)
 
 # load planning unit data
-data(tas_pu)
-
-# convert planning units to sf format
-tas_pu <- st_as_sf(tas_pu)
-
-# load feature data
-data(tas_features)
-
-# print planning unit data
+tas_pu <- get_tas_pu()
 print(tas_pu)
 
-# print feature data
+# load feature data
+tas_features <- get_tas_features()
 print(tas_features)
 ```
 
@@ -79,32 +90,36 @@ The `tas_pu` object contains planning units represented as spatial polygons (i.e
 
 ```{r, fig.width = w, fig.height = h}
 # plot map of planning unit costs
-plot(tas_pu[, "cost"], main = "Planning unit costs")
+plot(tas_pu[, "cost"])
 
 # plot map of planning unit statuses
-plot(tas_pu[, "locked_in"], main = "Planning unit status")
+plot(tas_pu[, "locked_in"])
 ```
 
 The `tas_features` object describes the spatial distribution of different vegetation communities (using presence/absence data). We will use the vegetation communities as the biodiversity features for the prioritization.
 
 ```{r, fig.width = 4.5, fig.height = 4.5}
 # plot map of the first four vegetation classes
-plot(tas_features[[1:4]], main = paste("Feature", 1:4))
+plot(tas_features[[1:4]])
 ```
 
 We can use this dataset to generate a prioritization. Specifically, we will use the minimum set objective so that the optimization process minimizes total cost. We will add representation targets to ensure that prioritizations cover 17% of each vegetation community. Additionally, we will add constraints to ensure that planning units covered by existing protected areas are selected (i.e., locked in). Finally, we will specify that the conservation planning exercise involves binary decisions (i.e., selecting or not selecting planning units for protected area establishment).
 
 ```{r, fig.width = w, fig.height = h, results = "hide"}
 # define a problem
-p0 <- problem(tas_pu, tas_features, cost_column = "cost") %>%
-      add_min_set_objective() %>%
-      add_relative_targets(0.17) %>%
-      add_locked_in_constraints("locked_in") %>%
-      add_binary_decisions()
+p0 <-
+  problem(tas_pu, tas_features, cost_column = "cost") %>%
+  add_min_set_objective() %>%
+  add_relative_targets(0.17) %>%
+  add_locked_in_constraints("locked_in") %>%
+  add_binary_decisions()
+```
 
-# print problem
-print(p0)
+```{r, echo = FALSE, results = "asis"}
+print_problem(p0)
+```
 
+```{r}
 # solve problem
 s0 <- solve(p0)
 
@@ -134,12 +149,11 @@ We need to conduct some preliminary processing procedures to prepare the data fo
 The first processing procedure involves setting the cost values for all locked in planning units to zero. This is so that the total cost estimates of the prioritization reflects the total cost of establishing new protected areas -- not just total land value. In other words, we want the total cost estimate for a prioritization to reflect the cost of implementing conservation actions. **This procedure is especially important when using the hierarchical approach described below, so that cost thresholds are based on percentage increases in the cost of establishing new protected areas.**
 
 ```{r, fig.width = w, fig.height = h}
-
 # set costs for planning units covered by existing protected areas to zero
 tas_pu$cost[tas_pu$locked_in > 0.5] <- 0
 
 # plot map of planning unit costs
-plot(tas_pu[, "cost"], main = "Planning unit cost")
+plot(tas_pu[, "cost"])
 ```
 
 The second procedure involves pre-computing the boundary length data and manually re-scaling the boundary length values. This procedure is important because boundary length values are often very large that, in turn, can cause numerical issues that result in excessive run times (see `presolve_check()` for further details).
@@ -182,11 +196,12 @@ Next, let's use the preliminary `penalty` values to generate preliminary priorit
 
 ```{r, results = "hide"}
 # define a problem without boundary penalties
-p0 <- problem(tas_pu, tas_features, cost_column = "cost") %>%
-      add_min_set_objective() %>%
-      add_relative_targets(0.17) %>%
-      add_locked_in_constraints("locked_in") %>%
-      add_binary_decisions()
+p0 <-
+  problem(tas_pu, tas_features, cost_column = "cost") %>%
+  add_min_set_objective() %>%
+  add_relative_targets(0.17) %>%
+  add_locked_in_constraints("locked_in") %>%
+  add_binary_decisions()
 
 # generate preliminary prioritizations based on each penalty
 ## note that we specify a relaxed gap and time limit for the solver
@@ -278,12 +293,13 @@ This approach is slightly more complicated to implement within the _prioritizr R
 
 ```{r, fig.width = w, fig.height = h, results = "hide"}
 # define a problem without boundary penalties
-p1 <- problem(tas_pu, tas_features, cost_column = "cost") %>%
-      add_min_set_objective() %>%
-      add_relative_targets(0.17) %>%
-      add_locked_in_constraints("locked_in") %>%
-      add_binary_decisions() %>%
-      add_default_solver(gap = 0)
+p1 <-
+  problem(tas_pu, tas_features, cost_column = "cost") %>%
+  add_min_set_objective() %>%
+  add_relative_targets(0.17) %>%
+  add_locked_in_constraints("locked_in") %>%
+  add_binary_decisions() %>%
+  add_default_solver(gap = 0)
 
 # solve problem
 s1 <- solve(p1)
@@ -334,12 +350,13 @@ tas_pu$zeros <- 0
 ## note that because all the costs are all zero, it doesn't actually
 ## matter what penalty value is used (as long as the value is > 0)
 ## and so we just use a value of 1
-p2 <- problem(tas_pu, tas_features, cost_column = "zeros") %>%
-      add_min_set_objective() %>%
-      add_boundary_penalties(penalty = 1, data = tas_bd) %>%
-      add_relative_targets(0.17) %>%
-      add_locked_in_constraints("locked_in") %>%
-      add_binary_decisions()
+p2 <-
+  problem(tas_pu, tas_features, cost_column = "zeros") %>%
+  add_min_set_objective() %>%
+  add_boundary_penalties(penalty = 1, data = tas_bd) %>%
+  add_relative_targets(0.17) %>%
+  add_locked_in_constraints("locked_in") %>%
+  add_binary_decisions()
 
 # generate prioritizations based on each cost threshold
 ## note that the prioritizations are solved to within 10% of optimality
@@ -501,12 +518,13 @@ This method is based on an algorithm that was originally developed by Cohon *et 
 # generate ideal prioritization based on cost criteria
 ## note that this is simply the same as the s1 prioritization we generated
 ## for the hierarchical approach
-p3 <- problem(tas_pu, tas_features, cost_column = "cost") %>%
-      add_min_set_objective() %>%
-      add_relative_targets(0.17) %>%
-      add_locked_in_constraints("locked_in") %>%
-      add_binary_decisions() %>%
-      add_default_solver(gap = 0)
+p3 <-
+  problem(tas_pu, tas_features, cost_column = "cost") %>%
+  add_min_set_objective() %>%
+  add_relative_targets(0.17) %>%
+  add_locked_in_constraints("locked_in") %>%
+  add_binary_decisions() %>%
+  add_default_solver(gap = 0)
 
 # solve problem
 s3 <- solve(p3)
@@ -514,13 +532,14 @@ s3 <- solve(p3)
 # generate ideal prioritization based on spatial fragmentation criteria
 ## note that any non-zero penalty value would here,
 ## so we just use a penalty  of 1
-p4 <- problem(tas_pu, tas_features, cost_column = "zeros") %>%
-      add_min_set_objective() %>%
-      add_boundary_penalties(penalty = 1, data = tas_bd) %>%
-      add_relative_targets(0.17) %>%
-      add_locked_in_constraints("locked_in") %>%
-      add_binary_decisions() %>%
-      add_default_solver(gap = 0)
+p4 <-
+  problem(tas_pu, tas_features, cost_column = "zeros") %>%
+  add_min_set_objective() %>%
+  add_boundary_penalties(penalty = 1, data = tas_bd) %>%
+  add_relative_targets(0.17) %>%
+  add_locked_in_constraints("locked_in") %>%
+  add_binary_decisions() %>%
+  add_default_solver(gap = 0)
 
 # solve problem
 s4 <- solve(p4)
@@ -531,12 +550,13 @@ Next, let's calculate the performance metrics for these prioritizations.
 ```{r}
 # generate problem formulation with costs and boundary penalties for
 # calculating performance metrics
-p5 <- problem(tas_pu, tas_features, cost_column = "cost") %>%
-      add_min_set_objective() %>%
-      add_boundary_penalties(penalty = 1, data = tas_bd) %>%
-      add_relative_targets(0.17) %>%
-      add_locked_in_constraints("locked_in") %>%
-      add_binary_decisions()
+p5 <-
+  problem(tas_pu, tas_features, cost_column = "cost") %>%
+  add_min_set_objective() %>%
+  add_boundary_penalties(penalty = 1, data = tas_bd) %>%
+  add_relative_targets(0.17) %>%
+  add_locked_in_constraints("locked_in") %>%
+  add_binary_decisions()
 
 # calculate performance metrics for ideal cost prioritization
 s3_metrics <- tibble(
@@ -573,12 +593,13 @@ Now that we have calculated a `penalty` value using this method, we can use it t
 
 ```{r, results = "hide"}
 # generate prioritization using penalty value calculated using Cohon et al. 1979
-p6 <- problem(tas_pu, tas_features, cost_column = "cost") %>%
-      add_min_set_objective() %>%
-      add_boundary_penalties(penalty = cohon_penalty, data = tas_bd) %>%
-      add_relative_targets(0.17) %>%
-      add_locked_in_constraints("locked_in") %>%
-      add_binary_decisions()
+p6 <-
+  problem(tas_pu, tas_features, cost_column = "cost") %>%
+  add_min_set_objective() %>%
+  add_boundary_penalties(penalty = cohon_penalty, data = tas_bd) %>%
+  add_relative_targets(0.17) %>%
+  add_locked_in_constraints("locked_in") %>%
+  add_binary_decisions()
 
 # solve problem
 s6 <- solve(p6)

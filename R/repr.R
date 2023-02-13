@@ -27,6 +27,9 @@ repr.logical <- function(x) {
 repr.character <- function(x) {
   # get console width
   w <- ceiling(cli::console_width() * 0.9)
+  if (!is.null(getOption("width"))) {
+    w <- min(w, getOption("width"))
+  }
   # estimate total length of printing entire vector
   print_all_length <-
     ## count total characters for printing vector values

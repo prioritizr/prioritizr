@@ -64,6 +64,8 @@
 - To ensure consistency among the portfolio functions, all of them (except for
   `add_extra_portfolio()`) default to generating 10 solutions.
 - Update publication record.
+- The `solve()` function will now output `tibble::tibble()` objects,
+  when the planning unit data are `tibble::tibble()` objects.
 
 # prioritizr 7.2.2.7
 

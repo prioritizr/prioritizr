@@ -131,12 +131,14 @@ test_that("sf (single zone)", {
   # calculate scores
   r1 <- eval_ferrier_importance(p, pu[, "solution"])
   # create correct total scores
-  r2 <- as.data.frame(
-    as.matrix(
-      ferrier_scores_r(
-        rij = t(as.matrix(sf::st_drop_geometry(pu)[, c("spp1", "spp2")])),
-        targets = c(1, 10),
-        solution = pu$solution
+  r2 <- tibble::as_tibble(
+    as.data.frame(
+      as.matrix(
+        ferrier_scores_r(
+          rij = t(as.matrix(sf::st_drop_geometry(pu)[, c("spp1", "spp2")])),
+          targets = c(1, 10),
+          solution = pu$solution
+        )
       )
     )
   )

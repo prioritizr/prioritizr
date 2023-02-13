@@ -25,7 +25,21 @@ knitr::opts_chunk$set(
 ```
 
 ```{r, include = FALSE}
-devtools::load_all()
+# wrapper for printing problem objects
+print_problem <- function(x) {
+  if (interactive()) {
+    print(x)
+    return(invisible())
+  }
+  res <- knitr::knit_child(
+    "print_problem.txt",
+    envir = list2env(
+      list(name = rlang::as_name(rlang::enquo(x)), x = x),
+      parent = parent.frame()),
+    quiet = TRUE,
+  )
+  cat(res, sep = "\n")
+}
 ```
 
 ## Introduction
@@ -99,9 +113,13 @@ install.packages("c:/gurobi800/win64/R/gurobi_8.0-0.zip", repos = NULL)
 Similarly, Linux and MacOS users can install the _gurobi_ _R_ package using the following code.
 
 ```{r, eval = FALSE}
-install.packages(file.path(Sys.getenv("GUROBI_HOME"),
-                           "R/gurobi_8.0-0_R_x86_64-pc-linux-gnu.tar.gz"),
-                 repos = NULL)
+install.packages(
+  file.path(
+    Sys.getenv("GUROBI_HOME"),
+    "R/gurobi_8.0-0_R_x86_64-pc-linux-gnu.tar.gz"
+  ),
+  repos = NULL
+)
 ```
 
 Next, you will need to install the _slam R_ package because the _gurobi_ _R_ package needs this package to work. Users of all platforms (i.e., Windows, Linux, and MacOS) can install the package using the following _R_ code.
@@ -143,21 +161,29 @@ If you successfully installed the _Gurobi_ software suite and the _gurobi_ _R_ p
 Finally, to check that everything has been installed correctly, we will use the _Gurobi_ software suite to solve a reserve selection problem created using the _prioritzr_ _R_ package.
 
 ```{r, fig.height = h, fig.width = w}
+# load package
 library(prioritizr)
 
+# load data
+sim_pu_raster <- get_sim_pu_raster()
+sim_features <- get_sim_features()
+
 # formulate the problem
-p <- problem(sim_pu_raster, sim_features) %>%
-     add_min_set_objective() %>%
-     add_relative_targets(0.1) %>%
-     add_binary_decisions() %>%
-     add_gurobi_solver()
+p <-
+  problem(sim_pu_raster, sim_features) %>%
+  add_min_set_objective() %>%
+  add_relative_targets(0.1) %>%
+  add_binary_decisions() %>%
+  add_gurobi_solver()
 
 # solve the problem
 s <- solve(p)
 
 # plot solution
-plot(s, col = c("grey90", "darkgreen"), main = "Solution",
-     xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1))
+plot(
+  s, col = c("grey90", "darkgreen"), main = "Solution",
+  xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1)
+)
 ```
 
 After running this code, hopefully, you should some information printed on-screen about the optimization process and _R_ should produce a map displaying a solution. If this code does not produce any errors, then you have successfully installed everything and can begin using _Gurobi_ and the _prioritizr R_ package to solve your very own conservation planning problems.

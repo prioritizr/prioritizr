@@ -25,6 +25,24 @@ knitr::opts_chunk$set(
 )
 ```
 
+```{r, include = FALSE}
+# wrapper for printing problem objects
+print_problem <- function(x) {
+  if (interactive()) {
+    print(x)
+    return(invisible())
+  }
+  res <- knitr::knit_child(
+    "print_problem.txt",
+    envir = list2env(
+      list(name = rlang::as_name(rlang::enquo(x)), x = x),
+      parent = parent.frame()),
+    quiet = TRUE,
+  )
+  cat(res, sep = "\n")
+}
+```
+
 ## Introduction
 
 Connectivity is a key consideration in systematic conservation planning [@r4; @r55]. This is because isolated and fragmented populations are often more vulnerable to extinction [@r60; @r61; @r62]. To promote connectivity in prioritizations, a range of different approaches are available [reviewed in @r56]. These approaches can solely on the spatial configuration of a prioritization to enhance structural connectivity [e.g, reducing the spatial fragmentation of a prioritization\; @r2]. They can also leverage data -- such as environmental, river flow, and telemetry data -- to generate prioritizations that promote functional connectivity [e.g., @r43; @r58; @r59].
@@ -41,21 +59,24 @@ The dataset used in this tutorial was created for the Coastal Douglas-fir Conser
 
 </center>
 
-Let's begin by loading the packages and data for this tutorial. Since this tutorial requires the _prioritizrdata R_ package, please ensure that it is installed. Specifically, two objects underpin the data for this tutorial. The `salt_pu` object specifies the planning unit data as a raster layer (i.e., `RasterLayer` object), and the `salt_features` object contains biodiversity data represented as a multi-band raster stack (i.e., a `RasterStack` object).
+Let's begin by loading the packages and data for this tutorial. Since this tutorial requires the _prioritizrdata R_ package, please ensure that it is installed. Specifically, two objects underpin the data for this tutorial. The `salt_pu` object specifies the planning unit data as a single-layer raster (i.e., `terra::rast()` object), and the `salt_features` object contains biodiversity data represented as a multi-layer raster (i.e., `terra::rast()` object).
 
 ```{r, message = FALSE}
 # load packages
 library(prioritizr)
 library(prioritizrdata)
 library(sf)
-library(raster)
+library(terra)
 library(scales)
 
 # load planning unit data
-data(salt_pu)
+salt_pu <- get_salt_pu()
 
-# load ecological data
-data(salt_features)
+# load biodiversity feature data
+salt_features <- get_salt_features()
+
+# load connectivity data
+salt_con <- get_salt_con()
 ```
 
 Now we will conduct some preliminary processing. Specifically, we will aggregate from the 100 m resolution to the 300 m resolution. This is to reduce the time needed to generate prioritizations in this tutorial. In practice, we generally recommend consider other criteria too -- such as the spatial scale that is relevant for decision making and the resolution of available datasets -- when deciding on an appropriate scale for planning units.
@@ -64,6 +85,7 @@ Now we will conduct some preliminary processing. Specifically, we will aggregate
 # aggregate data to coarser resolution
 salt_pu <- aggregate(salt_pu, fact = 3)
 salt_features <- aggregate(salt_features, fact = 3)
+salt_con <- aggregate(salt_con, fact = 3)
 ```
 
 Next, let's have a look at the `salt_pu` object. Here each grid cell represents a planning unit, and the grid cell values denote acquisition costs [@r28]. To aid with visualization, we will log-transform the values when plotting them on a map.
@@ -80,42 +102,32 @@ print(salt_pu)
 plot(log(salt_pu), main = "Planning unit costs (log)", axes = FALSE)
 ```
 
-Let's also look at the `salt_features` object. This object is a stack of raster layers, with each layer corresponding to a different variable that describes a particular aspect of biodiversity. The first four layers correspond to different ecological communities (i.e., _Old Forest_, _Savannah_, _Wetland_, and _Shrub_ communities), and their cell values indicate the probability of encountering a bird species associated a given community. The fifth layer describes the inverse probability of occurrence of human commensal species. In this tutorial, we will use the first four layers as biodiversity features, and the fifth layer to help parameterize connectivity (wherein higher values denote greater connectivity). So, let's extract the data and visualize them.
+Next, let's look at the `salt_features` object. It has multiple layers. Each layer corresponds to different ecological communities (i.e., _Old Forest_, _Savannah_, _Wetland_, and _Shrub_ communities), and their cell values indicate the probability of encountering a bird species associated a given community.
 
 ```{r, include = FALSE}
 par(mar = c(1.1, 4.1, 4.1, 2.1))
 ```
 
 ```{r}
-# print original data
+# print feature data
 print(salt_features)
 
-# extract connectivity data
-salt_con <- salt_features[[nlayers(salt_features)]]
-
-# print connectivity data
-print(salt_con)
-
-# plot map showing the connectivity data
-plot(salt_con, main = "Connectivity data", axes = FALSE)
+# plot map showing the feature data
+plot(salt_features, axes = FALSE)
 ```
+
+Let's look at the `salt_con` object. It describes the inverse probability of occurrence of human commensal species. Here we will assume that human modified areas impede connectivity for native species, and so cells with higher values will have greater connectivity.
 
 ```{r, include = FALSE}
 par(mar = c(1.1, 4.1, 4.1, 2.1), oma = c(0, 0, 0, 0.5))
 ```
 
-```{r, fig.width = 7.0, fig.height = 7.0}
-# extract ecological communities and use these as features
-salt_features <- salt_features[[seq_len(4)]]
+```{r}
+# print connectivity data
+print(salt_con)
 
-# assign names to features
-names(salt_features) <- c("Old_Forest", "Savannah", "Wetland", "Shrub")
-
-# print features
-print(salt_features)
-
-# plot map showing the distribution of the features
-plot(salt_features, main = names(salt_features), axes = FALSE)
+# plot map showing the connectivity data
+plot(salt_con, axes = FALSE)
 ```
 
 ## Baseline problem
@@ -124,14 +136,16 @@ In this tutorial, we will explore a few different ways of incorporating connecti
 
 ```{r}
 # create problem
-p0 <- problem(salt_pu, salt_features) %>%
-      add_min_set_objective() %>%
-      add_relative_targets(0.17) %>%
-      add_binary_decisions() %>%
-      add_default_solver()
+p0 <-
+  problem(salt_pu, salt_features) %>%
+  add_min_set_objective() %>%
+  add_relative_targets(0.17) %>%
+  add_binary_decisions() %>%
+  add_default_solver()
+```
 
-# print problem
-print(p0)
+```{r, echo = FALSE, results = "asis"}
+print_problem(p0)
 ```
 
 After formulating the baseline problem, we can solve it to generate a prioritization.
@@ -172,13 +186,14 @@ par(mar = c(1.1, 4.1, 4.1, 2.1))
 
 ```{r, fig.width = 7.0, results = "hide"}
 # create problem with added neighbor constraints and solve it
-s1 <- p0 %>%
-      add_neighbor_constraints(k = 2) %>%
-      solve()
+s1 <-
+  p0 %>%
+  add_neighbor_constraints(k = 2) %>%
+  solve()
 
 # plot solutions
 plot(
-  stack(s0, s1), main = c("baseline", "neighbors constraints"),
+  c(s0, s1), main = c("baseline", "neighbors constraints"),
   axes = FALSE, breaks = c(0, 0.5, 1), col = c("grey70", "darkgreen")
 )
 ```
@@ -193,14 +208,15 @@ par(mar = c(1.1, 4.1, 4.1, 2.1))
 
 ```{r, fig.width = 7.0, results = "hide"}
 # create problem with added contiguity constraints and solve it
-s2 <- p0 %>%
-      add_contiguity_constraints() %>%
-      add_gurobi_solver(first_feasible = TRUE) %>%
-      solve()
+s2 <-
+  p0 %>%
+  add_contiguity_constraints() %>%
+  add_gurobi_solver(first_feasible = TRUE) %>%
+  solve()
 
 # plot solutions
 plot(
-  stack(s0, s2), main = c("baseline", "contiguity constraints"),
+  c(s0, s2), main = c("baseline", "contiguity constraints"),
   axes = FALSE, breaks = c(0, 0.5, 1), col = c("grey70", "darkgreen")
 )
 ```
@@ -214,7 +230,7 @@ Linear constraints can be used to specify that the prioritizations must meet an 
 ```{r}
 # compute threshold for constraints
 ## here we use a threshold of 30% of the total connectivity values
-threshold <- cellStats(salt_con, "sum") * 0.3
+threshold <- global(salt_con, "sum", na.rm = TRUE)[[1]] * 0.3
 
 # print threshold
 print(threshold)
@@ -226,15 +242,16 @@ par(mar = c(1.1, 4.1, 4.1, 2.1))
 
 ```{r, fig.width = 7.0, results = "hide"}
 # create problem with added linear constraints and solve it
-s3 <- p0 %>%
-      add_linear_constraints(
-        data = salt_con, threshold = threshold, sense = ">="
-      ) %>%
-      solve()
+s3 <-
+  p0 %>%
+  add_linear_constraints(
+    data = salt_con, threshold = threshold, sense = ">="
+  ) %>%
+  solve()
 
 # plot solutions
 plot(
-  stack(s0, s3), main = c("baseline", "linear constraints"),
+  c(s0, s3), main = c("baseline", "linear constraints"),
    axes = FALSE, breaks = c(0, 0.5, 1), col = c("grey70", "darkgreen")
 )
 ```
@@ -248,7 +265,9 @@ par(mar = c(1.1, 4.1, 4.1, 2.1))
 ```{r}
 # calculate threshold limit
 ## here we set a threshold limit based on the median
-threshold_limit <- quantile(salt_con, probs = 0.5)
+threshold_limit <- global(
+  salt_con, fun = quantile, na.rm = TRUE, probs = 0.5
+)[[1]]
 
 # convert continuous values to binary values
 salt_con_binary <- round(salt_con <= threshold_limit)
@@ -266,15 +285,16 @@ par(mar = c(1.1, 4.1, 4.1, 2.1))
 ## note that we use the original threshold computed before,
 ## to ensure the prioritization covers at least 30% of the total amount
 ## connectivity values
-s4 <- p0 %>%
-      add_linear_constraints(
-        data = salt_con_binary, threshold = threshold, sense = ">="
-      ) %>%
-      solve()
+s4 <-
+  p0 %>%
+  add_linear_constraints(
+    data = salt_con_binary, threshold = threshold, sense = ">="
+  ) %>%
+  solve()
 
 # plot solutions
 plot(
-  stack(s0, s4), main = c("baseline", "linear constraints (binary)"),
+  c(s0, s4), main = c("baseline", "linear constraints (binary)"),
   axes = FALSE, breaks = c(0, 0.5, 1), col = c("grey70", "darkgreen")
 )
 ```
@@ -288,7 +308,7 @@ par(mar = c(1.1, 4.1, 4.1, 2.1))
 ```{r, results = "hide"}
 # clamp continuous values using the threshold limit we computed before
 salt_con_clamp <- salt_con
-salt_con_clamp[Which(salt_con <= threshold_limit)] <- 0
+salt_con_clamp[salt_con <= threshold_limit] <- 0
 
 # plot clamped values
 plot(salt_con_clamp, main = "salt_con_clamp", axes = FALSE)
@@ -303,15 +323,16 @@ par(mar = c(1.1, 4.1, 4.1, 2.1))
 ## note that we use the original threshold computed before,
 ## to ensure the prioritization covers at least 30% of the total amount
 ## connectivity values
-s5 <- p0 %>%
-      add_linear_constraints(
-        data = salt_con_clamp, threshold = threshold, sense = ">="
-      ) %>%
-      solve()
+s5 <-
+  p0 %>%
+  add_linear_constraints(
+    data = salt_con_clamp, threshold = threshold, sense = ">="
+  ) %>%
+  solve()
 
 # plot solutions
 plot(
-  stack(s0, s5), main = c("baseline", "linear constraints (clamped)"),
+  c(s0, s5), main = c("baseline", "linear constraints (clamped)"),
   axes = FALSE, breaks = c(0, 0.5, 1), col = c("grey70", "darkgreen")
 )
 ```
@@ -324,11 +345,13 @@ par(mar = c(1.1, 4.1, 4.1, 2.1))
 
 ```{r, results = "hide"}
 # compute threshold limit
-threshold_limit2 <- quantile(salt_con, probs = 0.7)
+threshold_limit2 <- global(
+  salt_con, fun = quantile, na.rm = TRUE, probs = 0.7
+)[[1]]
 
 # clamp continuous values using the threshold limit we computed before
 salt_con_clamp2 <- salt_con
-salt_con_clamp2[Which(salt_con <= threshold_limit2)] <- 0
+salt_con_clamp2[salt_con <= threshold_limit2] <- 0
 
 # plot clamped values
 plot(salt_con_clamp2, main = "salt_con_clamp", axes = FALSE)
@@ -343,15 +366,16 @@ par(mar = c(1.1, 4.1, 4.1, 2.1))
 ## note that we use the original threshold computed before,
 ## to ensure the prioritization covers at least 30% of the total amount
 ## connectivity values
-s6 <- p0 %>%
-      add_linear_constraints(
-        data = salt_con_clamp2, threshold = threshold, sense = ">="
-      ) %>%
-      solve()
+s6 <-
+  p0 %>%
+  add_linear_constraints(
+    data = salt_con_clamp2, threshold = threshold, sense = ">="
+  ) %>%
+  solve()
 
 # plot solutions
 plot(
-  stack(s0, s6), main = c("baseline", "linear constraints (clamped 2)"),
+  c(s0, s6), main = c("baseline", "linear constraints (clamped 2)"),
   axes = FALSE, breaks = c(0, 0.5, 1), col = c("grey70", "darkgreen")
 )
 ```
@@ -382,13 +406,14 @@ par(mar = c(1.1, 4.1, 4.1, 2.1))
 
 ```{r, fig.width = 7.0, results = "hide"}
 # create problem with added boundary penalties
-s7 <- p0 %>%
-      add_boundary_penalties(penalty = 0.001, data = salt_boundary_data) %>%
-      solve()
+s7 <-
+  p0 %>%
+  add_boundary_penalties(penalty = 0.001, data = salt_boundary_data) %>%
+  solve()
 
 # plot solutions
 plot(
-  stack(s0, s7), main = c("baseline", "boundary penalties (0.001)"),
+  c(s0, s7), main = c("baseline", "boundary penalties (0.001)"),
   axes = FALSE, breaks = c(0, 0.5, 1), col = c("grey70", "darkgreen")
 )
 ```
@@ -401,13 +426,14 @@ par(mar = c(1.1, 4.1, 4.1, 2.1))
 
 ```{r, fig.width = 7.0, results = "hide"}
 # create problem with increased boundary penalties
-s8 <- p0 %>%
-      add_boundary_penalties(penalty = 10, data = salt_boundary_data) %>%
-      solve()
+s8 <-
+  p0 %>%
+  add_boundary_penalties(penalty = 10, data = salt_boundary_data) %>%
+  solve()
 
 # plot solutions
 plot(
-  stack(s0, s8), main = c("baseline", "boundary penalties (10)"),
+  c(s0, s8), main = c("baseline", "boundary penalties (10)"),
   axes = FALSE, breaks = c(0, 0.5, 1), col = c("grey70", "darkgreen")
 )
 ```
@@ -449,13 +475,14 @@ par(mar = c(1.1, 4.1, 4.1, 2.1))
 
 ```{r, fig.width = 7.0, results = "hide"}
 # create problem with added connectivity penalties
-s9 <- p0 %>%
-      add_connectivity_penalties(penalty = 0.001, data = salt_con_scores) %>%
-      solve()
+s9 <-
+  p0 %>%
+  add_connectivity_penalties(penalty = 0.001, data = salt_con_scores) %>%
+  solve()
 
 # plot solutions
 plot(
-  stack(s0, s9), main = c("baseline", "connectivity penalties (0.001)"),
+  c(s0, s9), main = c("baseline", "connectivity penalties (0.001)"),
   axes = FALSE, breaks = c(0, 0.5, 1), col = c("grey70", "darkgreen")
 )
 ```
@@ -468,13 +495,14 @@ par(mar = c(1.1, 4.1, 4.1, 2.1))
 
 ```{r, fig.width = 7.0, results = "hide"}
 # create problem with increased connectivity penalties
-s10 <- p0 %>%
-      add_connectivity_penalties(penalty = 0.002, data = salt_con_scores) %>%
-      solve()
+s10 <-
+  p0 %>%
+  add_connectivity_penalties(penalty = 0.002, data = salt_con_scores) %>%
+  solve()
 
 # plot solutions
 plot(
-  stack(s0, s10), main = c("baseline", "connectivity penalties (0.002)"),
+  c(s0, s10), main = c("baseline", "connectivity penalties (0.002)"),
   axes = FALSE, breaks = c(0, 0.5, 1), col = c("grey70", "darkgreen")
 )
 ```

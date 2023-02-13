@@ -393,9 +393,12 @@ methods::setMethod(
         ret <- pu
         ret@data <- cbind(ret@data, sol_status2)
       } else if (inherits(pu, "sf")) {
-        ret <- sf::st_sf(data.frame(pu, sol_status2))
+        ret <- sf::st_sf(tibble::as_tibble(data.frame(pu, sol_status2)))
       } else {
         ret <- cbind(pu, sol_status2)
+        if (inherits(pu, "tbl_df")) {
+          pu <- tibble::as_tibble(pu)
+        }
       }
     } else if (is.matrix(pu)) {
       # matrix planning units

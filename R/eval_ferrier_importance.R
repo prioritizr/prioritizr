@@ -291,11 +291,8 @@ methods::setMethod("eval_ferrier_importance",
     out[idx, ] <- 0
     out[idx[pos], ] <- c(v)
     out <- tibble::as_tibble(as.data.frame(out))
-    sf::st_as_sf(
-      out,
-      geometry = sf::st_geometry(x$data$cost),
-      crs = sf::st_crs(x$data$cost)
-    )
+    out$geometry <- sf::st_geometry(x$data$cost)
+    sf::st_sf(out, crs = sf::st_crs(x$data$cost))
   }
 )
 

@@ -1,0 +1,12 @@
+---
+title: "Print problem"
+output: rmarkdown::html_vignette
+---
+
+```{r, code = paste0("# print the problem\nprint(", name, ")"), eval = FALSE}
+```
+
+```{r, echo = FALSE, collapse = TRUE}
+# print the problem
+print(x)
+```
