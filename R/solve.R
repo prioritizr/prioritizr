@@ -314,12 +314,11 @@ methods::setMethod(
     if (!is.Waiver(portfolio_number_solutions)) {
       if (length(sol) != portfolio_number_solutions) {
         cli_warning(
-          c(
-            paste(
-              "Portfolio couldn't find {.val {portfolio_number_solutions}}",
-              "solution{?s}."
-            ),
-            "i" = "Only found {.val {length(sol)}} solution{?s})."
+          paste(
+            "Portfolio could only find",
+            "{.val {length(sol)}} solution{?s} out of",
+            "{.val {portfolio_number_solutions}}",
+            "solution{?s}."
           )
         )
       }
