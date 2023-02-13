@@ -113,7 +113,7 @@ test_that("solve (no duplicates)", {
   # solve problem
   expect_warning(
     s <- solve(p),
-    "Only found"
+    "Portfolio could only"
   )
   # tests
   expect_is(s, "list")

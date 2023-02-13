@@ -285,7 +285,7 @@ test_that("invalid inputs (single zone)", {
   expect_tidy_error(
     problem(sim_pu_raster, sim_features) %>%
       add_max_phylo_end_objective(
-        budget = 5000, ape::drop.tip(sim_phylogeny, "layer.1"))
+        budget = 5000, ape::drop.tip(sim_phylogeny, "feature_1"))
   )
   expect_tidy_error(
     problem(sim_pu_raster, sim_features) %>%
@@ -412,11 +412,11 @@ test_that("solve (compressed formulation, multiple zones, scalar budget)", {
     terra::rast(matrix(c(11, 12, 13, 14, NA, 15), nrow = 1))
   )
   features <- c(
-    # zone 1
+    # zone_1
     terra::rast(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
     terra::rast(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
     terra::rast(matrix(c(2,  1,  1, 1, 1, 1), nrow = 1)),
-    # zone 2
+    # zone_2
     terra::rast(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
     terra::rast(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
     terra::rast(matrix(c(1,  1,  1, 1, 1, 3), nrow = 1))
@@ -576,11 +576,11 @@ test_that("solve (compressed formulation, multiple zones, vector budget)", {
     terra::rast(matrix(c(11, 12, 13, 14, NA, 15), nrow = 1))
   )
   features <- c(
-    # zone 1
+    # zone_1
     terra::rast(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
     terra::rast(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
     terra::rast(matrix(c(2,  1,  1, 1, 1, 1), nrow = 1)),
-    # zone 2
+    # zone_2
     terra::rast(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
     terra::rast(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
     terra::rast(matrix(c(1,  1,  1, 1, 1, 3), nrow = 1))
@@ -769,11 +769,11 @@ test_that("solve (expanded formulation, multiple zones, scalar budget)", {
     terra::rast(matrix(c(11, 12, 13, 14, NA, 15), nrow = 1))
   )
   features <- c(
-    # zone 1
+    # zone_1
     terra::rast(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
     terra::rast(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
     terra::rast(matrix(c(2,  1,  1, 1, 1, 1), nrow = 1)),
-    # zone 2
+    # zone_2
     terra::rast(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
     terra::rast(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
     terra::rast(matrix(c(1,  1,  1, 1, 1, 3), nrow = 1))
@@ -971,11 +971,11 @@ test_that("solve (expanded formulation, multiple zones, vector budget)", {
     terra::rast(matrix(c(5,  6,  7,  8,  NA, NA), nrow = 1)),
     terra::rast(matrix(c(11, 12, 13, 14, NA, 15), nrow = 1)))
   features <- c(
-    # zone 1
+    # zone_1
     terra::rast(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
     terra::rast(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
     terra::rast(matrix(c(2,  1,  1, 1, 1, 1), nrow = 1)),
-    # zone 2
+    # zone_2
     terra::rast(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
     terra::rast(matrix(c(1,  1,  1, 1, 1, 1), nrow = 1)),
     terra::rast(matrix(c(1,  1,  1, 1, 1, 3), nrow = 1))

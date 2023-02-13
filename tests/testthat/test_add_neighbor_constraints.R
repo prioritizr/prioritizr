@@ -81,7 +81,7 @@ test_that("solve (sf, single zone)", {
   )
   # tests
   expect_true(all(n_neighbors >= 3))
-  expect_equal(s1$solution, s2$solution)
+  expect_equal(s1$solution_1, s2$solution_1)
 })
 
 test_that("invalid input (single zone)", {

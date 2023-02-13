@@ -125,7 +125,7 @@ test_that("solve (number_solutions outside limit)", {
   # solve problem
   expect_warning(
     s <- solve(p),
-    "Only found"
+    "Portfolio could only"
   )
   # output checks
   expect_is(s, "SpatRaster")

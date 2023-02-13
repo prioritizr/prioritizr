@@ -316,7 +316,7 @@ methods::setMethod(
         cli_warning(
           paste(
             "Portfolio could only find",
-            "{.val {length(sol)}} solution{?s} out of",
+            "{.val {length(sol)}} out of",
             "{.val {portfolio_number_solutions}}",
             "solution{?s}."
           )

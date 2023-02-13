@@ -44,7 +44,7 @@ test_that("solve (single zone)", {
   # solve problem
   expect_warning(
     s <- solve(p),
-    "Only found"
+    "Portfolio could only"
   )  # tests
   expect_is(s, "list")
   expect_length(s, 3) # only three feasible solutions exist
