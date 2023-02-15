@@ -47,7 +47,7 @@ GitHub](https://github.com/prioritizr/prioritizr/issues/new) so we can
 fix it. A good bug report makes it easier for us to do so, so please
 include:
 
--   Your operating system name and version (e.g. Mac OS 10.13.6).
+-   Your operating system name and version (e.g., Mac OS 10.13.6).
 -   Details about your local setup that might be helpful in
     troubleshooting, such as your session information (via
     `sessionInfo()`).
@@ -151,14 +151,14 @@ All `OptimizationProblem` objects are simply a wrapper to an external
 pointer pointer (`XPtr`) that points to a C++ `OPTIMIZATIONPROBLEM`
 class object (defined in `src/optimization_problem.h`). The C++
 `OPTIMIZATIONPROBLEM` class contains the standard data needed to
-formulate a mixed integer linear programming problem (i.e. model sense,
+formulate a mixed integer linear programming problem (i.e., model sense,
 problem objective , constraint matrix, constraint senses,
 right-hand-side values, variable decision types, and variable bounds).
 This class also contains additional data that pertain to conservation
-problems (i.e. number of features, planning units, and zones). If you’re
-is unfamiliar with the standard representation of a mixed integer linear
-programming problem, we encourage them to read the documentation for the
-[*gurobi R*
+problems (i.e., number of features, planning units, and zones). If
+you’re is unfamiliar with the standard representation of a mixed integer
+linear programming problem, we encourage them to read the documentation
+for the [*gurobi R*
 package](http://www.gurobi.com/documentation/8.0/refman/r_api_overview.html#r:problem).
 The fields `A_i`, `A_j`, and `A_x` correspond the row, column, and cells
 values for the constraint matrix of the optimization problem
