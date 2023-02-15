@@ -142,7 +142,7 @@ sim_pu_polygons <- get_sim_pu_polygons()
 # print data
 print(sim_pu_polygons)
 
-# plot the planning units
+# plot the planning units, and color them according to cost values
 plot(sim_pu_polygons[, "cost"])
 ```
 
