@@ -159,7 +159,7 @@ boundary_matrix.SpatialLines <- function(x, ...) {
     c(
       "{.arg x} must not contain line geometries.",
       "i" = "This is because lines do not have boundaries.",
-      "i" = "See {.code ?constraints} for alternative constraints."
+      "i" = "See {.topic constraints} for alternative constraints."
     )
   )
 }
@@ -173,7 +173,7 @@ boundary_matrix.SpatialPoints <- function(x, ...) {
     c(
       "{.arg x} must not contain point geometries.",
       "i" = "This is because points do not have boundaries.",
-      "i" = "See {.code ?constraints} for alternative constraints."
+      "i" = "See {.topic constraints} for alternative constraints."
     )
   )
 }
@@ -190,7 +190,7 @@ boundary_matrix.sf <- function(x, ...) {
     msg = c(
       "{.arg x} must not contain point geometries.",
       "i" = "This is because points do not have boundaries.",
-      "i" = "See {.code ?constraints} for alternative constraints."
+      "i" = "See {.topic constraints} for alternative constraints."
     )
   )
   assert(
@@ -198,7 +198,7 @@ boundary_matrix.sf <- function(x, ...) {
     msg = c(
       "{.arg x} must not contain line geometries.",
       "i" = "This is because lines do not have boundaries.",
-      "i" = "See {.code ?constraints} for alternative constraints."
+      "i" = "See {.topic constraints} for alternative constraints."
     )
   )
 

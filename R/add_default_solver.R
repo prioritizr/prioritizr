@@ -45,10 +45,12 @@ add_default_solver <- function(x, ...) {
   if (is.null(ds)) {
     cli::cli_abort(
       "No optimization solvers are installed.",
-      "x" =
-        "You need to install a solver to generate prioritizations.",
-      "i" =
-        "See {.code ?solvers} for guidance on installing a solver.",
+      "x" = "You need to install a solver to generate prioritizations.",
+      "i" = paste(
+        "The HiGHs solver can be installed using:",
+        "{.code install.packages(\"highs\")}"
+      ),
+      "i" = "See {.topic solvers} for further options.",
       call = NULL
     )
   }

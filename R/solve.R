@@ -289,18 +289,18 @@ methods::setMethod(
     sol <- a$portfolio$run(opt, a$solver)
     # prepare message
     msg <- c(
-      "Can't find solution!",
+      "Can't find a solution!",
       "i" = paste(
-        "This is because it is impossible to meet all the",
-        "targets, budgets, or constraints (i.e., problem infeasibility)."
+        "This is because it is impossible to meet the",
+        "targets, budgets, or constraints."
       )
     )
-    if (isTRUE(a$solver$data$time_limit < 1e10)) {
+    if (isTRUE(a$solver$data$time_limit < 1e5)) {
       msg <- c(
         msg,
         "i" = paste(
           "It could also be because the {.arg time_limit}",
-          "is too low to find a solution."
+          "is too low."
         )
       )
     }
