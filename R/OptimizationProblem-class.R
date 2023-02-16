@@ -55,9 +55,9 @@ OptimizationProblem <- R6::R6Class(
       div_id <- cli::cli_div(theme = cli_pkg_theme())
       ch <- cli_box_chars()
       cli::cli_text("An optimization problem ({.cls OptimizationProblem})")
-      cli_vtext("{ch$b} {.g model sense}: ", ms)
-      cli_vtext("{ch$b} {.g dimensions}:  ", dims, " (rows, columns, cells)")
-      cli_vtext("{ch$b} {.g variables}:   ", cv)
+      cli_vtext("{ch$b} model sense: ", ms)
+      cli_vtext("{ch$b} dimensions:  ", dims, " (rows, columns, cells)")
+      cli_vtext("{ch$b} variables:   ", cv)
       cli::cli_end(div_id)
       # return success
       invisible(TRUE)

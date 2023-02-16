@@ -27,8 +27,8 @@ print.Solver <- function(x, ...) x$print()
 print.Zones <- function(x, ...) {
   div_id <- cli::cli_div(theme = cli_pkg_theme())
   ch <- cli_box_chars()
-  cli::cli_text("Zones {.cls {class(x)}}")
-  cli_vtext("{ch$b} {.g zones}:    ", repr(zone_names(x)))
-  cli_vtext("{ch$b} {.g features}: ", repr(feature_names(x)))
+  cli::cli_text("A zones object {.cls {class(x)}}")
+  cli_vtext("{ch$b} zones:    ", repr(zone_names(x)))
+  cli_vtext("{ch$b} features: ", repr(feature_names(x)))
   cli::cli_end(div_id)
 }

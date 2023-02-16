@@ -108,35 +108,35 @@ ConservationProblem <- R6::R6Class(
       )
 
       # print data section
-      cli::cli_text("{ch$j}{ch$b}{.bg data}:")
+      cli::cli_text("{ch$j}{ch$b}{.h data}:")
       if (self$number_of_zones() > 1) {
         cli_vtext(
-          "{ch$v}{ch$j}{ch$b}{.g zones}:     ",
+          "{ch$v}{ch$j}{ch$b}zones:        ",
           repr.character(self$zone_names())
         )
       }
       cli_vtext(
-        "{ch$v}{ch$j}{ch$b}{.g features}:     ",
+        "{ch$v}{ch$j}{ch$b}features:     ",
         repr.character(self$feature_names())
       )
-      cli_vtext("{ch$v}{ch$l}{ch$b}{.g planning units}:")
+      cli_vtext("{ch$v}{ch$l}{ch$b}planning units:")
       cli_vtext(
-        "{ch$v} {ch$j}{ch$b}{.g data}:        ",
+        "{ch$v} {ch$j}{ch$b}data:        ",
         "{.cls ",
         class(self$data$cost), "} (",
         self$number_of_planning_units(),
         " total)"
       )
       cli_vtext(
-        "{ch$v} {ch$j}{ch$b}{.g costs}:       ",
+        "{ch$v} {ch$j}{ch$b}costs:       ",
         cost_text
       )
       cli_vtext(
-        "{ch$v} {ch$j}{ch$b}{.g extent}:      ",
+        "{ch$v} {ch$j}{ch$b}extent:      ",
         extent_text
       )
       cli_vtext(
-        "{ch$v} {ch$l}{ch$b}{.g CRS}:         ",
+        "{ch$v} {ch$l}{ch$b}CRS:         ",
         crs_text
       )
 
@@ -187,17 +187,17 @@ ConservationProblem <- R6::R6Class(
 
       # print formulation section
       ## header
-      cli::cli_text("{ch$l}{ch$b}{.bg formulation}:")
+      cli::cli_text("{ch$l}{ch$b}{.h formulation}:")
       ## objective
       cli_tree_component(
         objective_text,
-        header = " {ch$j}{ch$b}{.g objective}:    ",
+        header = " {ch$j}{ch$b}objective:    ",
         subheader = " {ch$v}",
         width = 15
       )
       ## penalties
       if (length(self$penalties) > 0) {
-        cli_vtext(" {ch$j}{ch$b}{.g penalties}:")
+        cli_vtext(" {ch$j}{ch$b}penalties:")
         for (i in seq_along(penalties_text)) {
           if (i < length(penalties_text)) {
             cli_tree_component(
@@ -219,18 +219,18 @@ ConservationProblem <- R6::R6Class(
         }
       } else {
         cli_vtext(
-          " {ch$j}{ch$b}{.g penalties}:    ",
+          " {ch$j}{ch$b}penalties:    ",
           penalties_text
         )
       }
       ## targets
       cli_vtext(
-       " {ch$j}{ch$b}{.g targets}:      ",
+       " {ch$j}{ch$b}targets:      ",
         targets_text
       )
       ## constraints
       if (length(self$constraints) > 0) {
-        cli_vtext(" {ch$j}{ch$b}{.g constraints}: ")
+        cli_vtext(" {ch$j}{ch$b}constraints: ")
         for (i in seq_along(constraints_text)) {
           if (i < length(constraints_text)) {
             cli_tree_component(
@@ -252,26 +252,26 @@ ConservationProblem <- R6::R6Class(
         }
       } else {
         cli_vtext(
-          " {ch$j}{ch$b}{.g constraints}:  ",
+          " {ch$j}{ch$b}constraints:  ",
           constraints_text
         )
       }
       ## decisions
       cli_tree_component(
         decisions_text,
-        header = " {ch$j}{ch$b}{.g decisions}:    ",
+        header = " {ch$j}{ch$b}decisions:    ",
         subheader = " {ch$v}",
         width = 15
       )
       cli_tree_component(
         portfolio_text,
-        header = " {ch$j}{ch$b}{.g portfolio}:    ",
+        header = " {ch$j}{ch$b}portfolio:    ",
         subheader = " {ch$v}",
         width = 15
       )
       cli_tree_component(
         solver_text,
-        header = " {ch$l}{ch$b}{.g solver}:       ",
+        header = " {ch$l}{ch$b}solver:       ",
         subheader = "  ",
         width = 15
       )
@@ -318,35 +318,35 @@ ConservationProblem <- R6::R6Class(
       )
 
       # print data section
-      cli::cli_text("{ch$j}{ch$b}{.bg data}:")
+      cli::cli_text("{ch$j}{ch$b}{.h data}:")
       if (self$number_of_zones() > 1) {
         cli_vtext(
-          "{ch$v}{ch$j}{.g zones}:     ",
+          "{ch$v}{ch$j}{ch$b}zones:       ",
           repr.character(self$zone_names())
         )
       }
       cli_vtext(
-        "{ch$v}{ch$j}{ch$b}{.g features}:    ",
+        "{ch$v}{ch$j}{ch$b}features:    ",
         repr.character(self$feature_names())
       )
-      cli_vtext("{ch$v}{ch$l}{ch$b}{.g planning units}:")
+      cli_vtext("{ch$v}{ch$l}{ch$b}planning units:")
       cli_vtext(
-        "{ch$v} {ch$j}{ch$b}{.g data}:       ",
+        "{ch$v} {ch$j}{ch$b}data:       ",
         "{.cls ",
         class(self$data$cost), "} (",
         self$number_of_planning_units(),
         " total)"
       )
       cli_vtext(
-        "{ch$v} {ch$j}{ch$b}{.g costs}:      ",
+        "{ch$v} {ch$j}{ch$b}costs:      ",
         cost_text
       )
       cli_vtext(
-        "{ch$v} {ch$j}{ch$b}{.g extent}:     ",
+        "{ch$v} {ch$j}{ch$b}extent:     ",
         extent_text
       )
       cli_vtext(
-        "{ch$v} {ch$l}{ch$b}{.g CRS}:        ",
+        "{ch$v} {ch$l}{ch$b}CRS:        ",
         crs_text
       )
 
@@ -399,15 +399,15 @@ ConservationProblem <- R6::R6Class(
 
       # print formulation section
       ## header
-      cli::cli_text("{ch$l}{ch$b}{.bg formulation}:")
+      cli::cli_text("{ch$l}{ch$b}{.h formulation}:")
       ## objective
       cli_vtext(
-        " {ch$j}{ch$b}{.g objective}:   ",
+        " {ch$j}{ch$b}objective:   ",
         objective_text
       )
       ## penalties
       if (length(self$penalties) > 0) {
-        cli_vtext(" {ch$j}{ch$b}{.g penalties}: ")
+        cli_vtext(" {ch$j}{ch$b}penalties: ")
         for (i in seq_along(penalties_text)) {
           if (i < length(penalties_text)) {
             cli_vtext(
@@ -425,18 +425,18 @@ ConservationProblem <- R6::R6Class(
         }
       } else {
         cli_vtext(
-          " {ch$j}{ch$b}{.g penalties}:   ",
+          " {ch$j}{ch$b}penalties:   ",
           penalties_text
         )
       }
       ## targets
       cli_vtext(
-        " {ch$j}{ch$b}{.g targets}:     ",
+        " {ch$j}{ch$b}targets:     ",
         targets_text
       )
       ## constraints
       if (length(self$constraints) > 0) {
-        cli_vtext(" {ch$j}{ch$b}{.g constraints}: ")
+        cli_vtext(" {ch$j}{ch$b}constraints: ")
         for (i in seq_along(constraints_text)) {
           if (i < length(constraints_text)) {
             cli_vtext(
@@ -454,21 +454,21 @@ ConservationProblem <- R6::R6Class(
         }
       } else {
         cli_vtext(
-          " {ch$j}{ch$b}{.g constraints}: ",
+          " {ch$j}{ch$b}constraints: ",
           constraints_text
         )
       }
       ## decisions
       cli_vtext(
-        " {ch$j}{ch$b}{.g decisions}:   ",
+        " {ch$j}{ch$b}decisions:   ",
         decisions_text
       )
       cli_vtext(
-        " {ch$j}{ch$b}{.g portfolio}:   ",
+        " {ch$j}{ch$b}portfolio:   ",
         portfolio_text
       )
       cli_vtext(
-        " {ch$l}{ch$b}{.g solver}:      ",
+        " {ch$l}{ch$b}solver:      ",
         solver_text
       )
 

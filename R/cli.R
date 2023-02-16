@@ -14,8 +14,8 @@ cli_pkg_theme <- function() {
   list(
     .gray = list(color = "gray"),
     .val = list(digits = 4),
-    .bg = list("font-weight" = "bold", color = "br_green"),
-    .g = list(color = "br_green")
+    # .h = list("font-weight" = "bold")
+    .h = list(color = "cyan")
   )
 }
 
@@ -31,19 +31,19 @@ cli_pkg_theme <- function() {
 cli_box_chars <- function() {
   if (cli::is_utf8_output()) {
     list(
-      "h" = "\u2500",                   # horizontal
-      "v" = "\u2502",                   # vertical
-      "l" = "\u2514",                   # leaf
-      "j" = "\u251C",                   # junction
-      "b" = "\u2022"                    # bullet
+      "h" = cli::col_cyan("\u2500"),                   # horizontal
+      "v" = cli::col_cyan("\u2502"),                   # vertical
+      "l" = cli::col_cyan("\u2514"),                   # leaf
+      "j" = cli::col_cyan("\u251C"),                   # junction
+      "b" = cli::col_cyan("\u2022")                    # bullet
     )
   } else {
     list(
-      "h" = "-",                        # horizontal
-      "v" = "|",                        # vertical
-      "l" = "\\",                       # leaf
-      "j" = "+",                        # junction
-      "b" = "@"                         # bullet
+      "h" = cli::col_cyan("-"),                        # horizontal
+      "v" = cli::col_cyan("|"),                        # vertical
+      "l" = cli::col_cyan("\\"),                       # leaf
+      "j" = cli::col_cyan("+"),                        # junction
+      "b" = cli::col_cyan("@")                         # bullet
     )
   }
 }
