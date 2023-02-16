@@ -163,7 +163,7 @@ print(wa_pu)
 plot(wa_pu, main = "Costs", axes = FALSE)
 ```
 
-Next, we will use the `get_wa_features()` function to import the conservation feature data. Although the _prioritizr R_ package can support many different types of feature data, here our feature data are represented as a multi-layer raster (i.e., `terra::rast()` object). Each layer describes the spatial distribution of a feature. Here, our feature data correspond to different bird species. To account for migratory patterns, the breeding and non-breeding distributions of species are represented as different features. Specifically, the cell values denote the relative abundance of individuals, with higher values indicating a greater abundance.
+Next, we will use the `get_wa_features()` function to import the conservation feature data. Although the _prioritizr R_ package can support many different types of feature data, here our feature data are represented as a multi-layer raster (i.e., `terra::rast()` object). Each layer describes the spatial distribution of a feature. Here, our feature data correspond to different bird species. To account for migratory patterns, the breeding and non-breeding distributions of species are represented as different features. Specifically, the cell values denote the relative abundance of individuals, with higher values indicating greater abundance.
 
 ```{r "features", fig.height = w * 1.2, fig.width = w * 1.5, out.width = "800"}
 # import feature data
@@ -176,7 +176,7 @@ print(wa_features)
 plot(wa_features[[1:9]], nr = 3, axes = FALSE)
 ```
 
-Let's make sure that you have a solver installed on your computer. This is important so that you can use optimization algorithms to generate spatial prioritizations. If this is your first time using the _prioritizr R_ package, please install the HiGHS solver using the following _R_ code. Although the HiGHS solver is relatively fast, please note that you'll want to install the [Gurobi software suite and the _gurobi_ _R_ package](https://www.gurobi.com/) if you need best performance (see the [Gurobi Installation Guide](https://prioritizr.net/articles/gurobi_installation_guide.html) for details).
+Let's make sure that you have a solver installed on your computer. This is important so that you can use optimization algorithms to generate spatial prioritizations. If this is your first time using the _prioritizr R_ package, please install the HiGHS solver using the following _R_ code. Although the HiGHS solver is relatively fast and easy to install, please note that you'll need to install the [Gurobi software suite and the _gurobi_ _R_ package](https://www.gurobi.com/) for best performance (see the [Gurobi Installation Guide](https://prioritizr.net/articles/gurobi_installation_guide.html) for details).
 
 ```{r, eval = FALSE}
 # if needed, install HiGHS solver
@@ -225,7 +225,7 @@ After generating a solution, it is important to evaluate it. Here, we will calcu
 eval_n_summary(p1, s1)
 
 # calculate total cost of solution
-eval_n_summary(p1, s1)
+eval_cost_summary(p1, s1)
 
 # calculate target coverage for the solution
 p1_target_coverage <- eval_target_coverage_summary(p1, s1)
@@ -300,7 +300,7 @@ plot(s4, main = "Solution", axes = FALSE)
 
 Now, let's explore which planning units selected by the solution are most important for cost-effectively meeting the targets. To achieve this, we will calculate importance (irreplaceability) scores using the Ferrier method. Although this method produces scores for each feature separately, we will examine the total scores that summarize overall importance across all features.
 
-```{r "replacement_cost"}
+```{r "importance"}
 # calculate importance scores
 rc <-
   p4 %>%

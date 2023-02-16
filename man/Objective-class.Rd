@@ -24,20 +24,6 @@ Other classes:
 \section{Super class}{
 \code{\link[prioritizr:ConservationModifier]{prioritizr::ConservationModifier}} -> \code{Objective}
 }
-\section{Public fields}{
-\if{html}{\out{<div class="r6-fields">}}
-\describe{
-\item{\code{default_weights}}{Specify default values for weights.}
-}
-\if{html}{\out{</div>}}
-}
-\section{Active bindings}{
-\if{html}{\out{<div class="r6-active-bindings">}}
-\describe{
-\item{\code{default_weights}}{Specify default values for weights.}
-}
-\if{html}{\out{</div>}}
-}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
@@ -64,6 +50,7 @@ Other classes:
 \if{html}{\out{<a id="method-Objective-default_weights"></a>}}
 \if{latex}{\out{\hypertarget{method-Objective-default_weights}{}}}
 \subsection{Method \code{default_weights()}}{
+Specify default values for weights.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Objective$default_weights(x)}\if{html}{\out{</div>}}
 }
@@ -75,10 +62,6 @@ Other classes:
 }
 \if{html}{\out{</div>}}
 }
-\subsection{Details}{
-These are values are used when applying custom feature weights.
-}
-
 \subsection{Returns}{
 Invisible \code{TRUE}.
 }

@@ -15,8 +15,8 @@ ensuring that the cost of the reserve network does not exceed the budget.
 \details{
 \strong{Please note that all conservation
 planning problems formulated using the \pkg{prioritizr} package require an
-objective function---failing to do so will return an error
-message when attempting to solve problem.}
+objective function, and attempting to solve a problem without an objective
+will result in an error.}
 
 The following objectives can be added to a conservation planning
 \code{\link[=problem]{problem()}}:

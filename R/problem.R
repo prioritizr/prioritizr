@@ -12,39 +12,39 @@ NULL
 #' [targets], [constraints], and
 #' [penalties]. After building the problem, the
 #' [solve()] function can be used to identify solutions.
-#' **Note that problems require an objective, and failing to specify an
-#' an objective will throw an error when attempting to solve it.**
 #'
 #' @param x [terra::rast()], [sf::st_sf()], `data.frame`, `matrix`, or
 #'   `numeric` vector specifying the planning units to use in the reserve
 #'   design exercise and their corresponding cost. It may be desirable to
 #'   exclude some planning units from the analysis, for example those outside
 #'   the study area. To exclude planning units, set the cost for those raster
-#'   cells to `NA`, or use the `add_locked_out_constraint` function.
+#'   cells to `NA`, or use the [add_locked_out_constraint()] function.
 #'
 #' @param features The feature data can be specified in a variety of ways.
 #'   The specific formats that can be used depend on the cost data format (i.e.,
 #'   argument to `x`) and whether the problem should have a single zone or
 #'   multiple zones. If the problem should have a single zone, then the feature
 #'   data can be specified following:
-#'   * [`x = terra::rast()`][terra::rast()], or
-#'     [`x = sf::st_sf()`][sf::st_sf()]:
-#'     [`y = terra::rast()`][terra::rast()]
+#'
+#'   \describe{
+#'
+#'   \item{**`x` has [terra::rast()] or [sf::st_sf()] planning units**}{
+#'     The argument to `features` can be a [terra::rast()]
 #'     object showing the distribution of conservation features. Missing
 #'     values (i.e., `NA` values) can be used to indicate the absence of
 #'     a feature in a particular cell instead of explicitly setting these
 #'     cells to zero. Note that this argument type for `features` can
-#'     only be used to specify data for problems involving a single zone.
-#'   * [`x = sf::st_sf()`][sf::st_sf()], or
-#'     `x = data.frame`:
-#'     `y = character` vector
+#'     only be used to specify data for problems involving a single zone.}
+#'
+#'   \item{**`x` has [sf::st_sf()] or `data.frame` planning units**}{
+#'     The argument to `features` can be a `character` vector
 #'     with column names that correspond to the abundance or occurrence of
 #'     different features in each planning unit. Note that this argument
-#'     type can only be used to create problems involving a single zone.
-#'   * `x = data.frame`, or
-#'     `x = numeric` vector, or
-#'     `x = matrix`:
-#'     `y = data.frame` object
+#'     type can only be used to create problems involving a single zone.}
+#'
+#'   \item{**`x` has `data.frame`, `matrix`, or `numeric` vector planning
+#'      units**}{
+#'     The argument to `features` can be a `data.frame` object
 #'     containing the names of the features. Note that if this
 #'     type of argument is supplied to `features` then the argument
 #'     `rij` or `rij_matrix` must also be supplied. This type of
@@ -60,22 +60,29 @@ NULL
 #'     \item{amount}{`numeric` absolute target for each
 #'       feature (optional).}
 #'     }
+#'   }
+#'
+#' }
 #'
 #'   If the problem should have multiple zones, then the feature
 #'   data can be specified following:
-#'   * [`x = terra::rast()`][terra::rast()], or
-#'     [`x = sf::st_sf()`][sf::st_sf()]:
-#'     [`y = ZonesRaster`][zones()]:
-#'     object showing the distribution of conservation features in multiple
-#'     zones. As above, missing values (i.e., `NA` values) can be used to
-#'     indicate the absence of a feature in a particular cell instead of
-#'     explicitly setting these cells to zero.
-#'   * [`x = sf::st_sf()`][sf::st_sf()], or
-#'     or `x = data.frame`:
-#'     [`y = ZonesCharacter`][zones()]
-#'     object with column names that correspond to the abundance or
-#'     occurrence of different features in each planning unit in different
-#'     zones.
+#'
+#'   \describe{
+#'
+#'   \item{**`x` has [terra::rast()] or [sf::st_sf()] planning units**}{
+#'   The argument to `features` can be a [`ZonesRaster`][zones()]
+#'   object showing the distribution of conservation features in multiple
+#'   zones. As above, missing values (i.e., `NA` values) can be used to
+#'   indicate the absence of a feature in a particular cell instead of
+#'    explicitly setting these cells to zero.}
+#'
+#'   \item{**`x` has [sf::st_sf()] or `data.frame` planning units**}{
+#'    The argument to `features` can be a [`ZonesCharacter`][zones()]
+#'    object with column names that correspond to the abundance or
+#'    occurrence of different features in each planning unit in different
+#'    zones.}
+#'
+#' }
 #'
 #' @param cost_column `character` name or `integer` indicating the
 #'   column(s) with the cost data. This argument must be supplied when the

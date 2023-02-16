@@ -15,8 +15,8 @@ NULL
 #'
 #' \item{`get_sim_pu_raster()`}{Import planning unit data that are stored
 #'   in raster format.
-#'   Here, cell values indicate planning unit cost and `NA` values indicate
-#'   that a cell is not a planning unit.}
+#'   Here, cell values indicate planning unit cost and missing (`NA`)
+#'   values indicate that a cell is not a planning unit.}
 #'
 #' \item{`get_sim_locked_in_raster()`}{Import planning unit data
 #'   that are stored in raster format.
@@ -31,11 +31,11 @@ NULL
 #' \item{`get_sim_pu_polygons()`}{Import planning unit data stored in vector
 #'   format. Here, planning units are represented using spatial polygons
 #'   (e.g., each polygon corresponds to a different management areas).
-#'   The attribute table contains fields (columns) indicating the expenditure
-#'   required for prioritizing each planning unit ("cost" field), if the
-#'   planning units should be selected in the solution ("locked_in" field),
+#'   The data contains columns indicating the expenditure
+#'   required for prioritizing each planning unit (`"cost"` column), if the
+#'   planning units should be selected in the solution (`"locked_in"` column),
 #'   and if the planning units should never be selected in the solution
-#'   ("locked_out" field).}
+#'   (`"locked_out"` column).}
 #'
 #' \item{`get_sim_pu_points()`}{Import planning unit data stored in vector
 #'   format. Here, planning units are represented using spatial lines
@@ -76,13 +76,15 @@ NULL
 #' \item{`get_sim_zones_pu_polygons()`}{Import planning unit data for
 #'   multiple management zones stored in vector format.
 #'   Here, planning units are represented using spatial polygons.
-#'   The attribute table contains fields (columns) indicating the
+#'   The data contains columns indicating the
 #'   expenditure required for prioritizing each planning unit under different
-#'   management zones ("cost_1", "cost_2", and "cost_3" fields), and a series
-#'   of fields indicating the value that each planning unit that should be
-#'   assigned in the solution ("locked_1", "locked_2", "locked_3" fields).
-#'   In these locked fields, planning units that should not be locked to a
-#'   specific value are assigned a `NA` value.}
+#'   management zones (`"cost_1"`, `"cost_2"`, and `"cost_3"` columns), and a
+#'   series
+#'   of columns indicating the value that each planning unit that should be
+#'   assigned in the solution (`"locked_1"`, `"locked_2"`, `"locked_3"`
+#'   columns).
+#'   In these locked columns, planning units that should not be locked to a
+#'   specific value are assigned a missing (`NA`) value.}
 #'
 #' \item{`get_sim_zones_features()`}{Import feature data for multiple
 #'   management zones stored in raster format.

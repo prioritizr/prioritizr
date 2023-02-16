@@ -19,9 +19,8 @@ Objective <- R6::R6Class(
   inherit = ConservationModifier,
   public = list(
 
-    #' @field default_weights
+    #' @description
     #' Specify default values for weights.
-    #' @details These are values are used when applying custom feature weights.
     #' @param x [conservation_problem()] object.
     #' @return Invisible `TRUE`.
     default_weights = function(x) {

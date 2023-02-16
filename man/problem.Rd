@@ -70,32 +70,33 @@ problem(x, features, ...)
 design exercise and their corresponding cost. It may be desirable to
 exclude some planning units from the analysis, for example those outside
 the study area. To exclude planning units, set the cost for those raster
-cells to \code{NA}, or use the \code{add_locked_out_constraint} function.}
+cells to \code{NA}, or use the \code{\link[=add_locked_out_constraint]{add_locked_out_constraint()}} function.}
 
 \item{features}{The feature data can be specified in a variety of ways.
 The specific formats that can be used depend on the cost data format (i.e.,
 argument to \code{x}) and whether the problem should have a single zone or
 multiple zones. If the problem should have a single zone, then the feature
 data can be specified following:
-\itemize{
-\item \code{\link[terra:rast]{x = terra::rast()}}, or
-\code{\link[sf:sf]{x = sf::st_sf()}}:
-\code{\link[terra:rast]{y = terra::rast()}}
+
+\describe{
+
+\item{\strong{\code{x} has \code{\link[terra:rast]{terra::rast()}} or \code{\link[sf:sf]{sf::st_sf()}} planning units}}{
+The argument to \code{features} can be a \code{\link[terra:rast]{terra::rast()}}
 object showing the distribution of conservation features. Missing
 values (i.e., \code{NA} values) can be used to indicate the absence of
 a feature in a particular cell instead of explicitly setting these
 cells to zero. Note that this argument type for \code{features} can
-only be used to specify data for problems involving a single zone.
-\item \code{\link[sf:sf]{x = sf::st_sf()}}, or
-\code{x = data.frame}:
-\code{y = character} vector
+only be used to specify data for problems involving a single zone.}
+
+\item{\strong{\code{x} has \code{\link[sf:sf]{sf::st_sf()}} or \code{data.frame} planning units}}{
+The argument to \code{features} can be a \code{character} vector
 with column names that correspond to the abundance or occurrence of
 different features in each planning unit. Note that this argument
-type can only be used to create problems involving a single zone.
-\item \code{x = data.frame}, or
-\code{x = numeric} vector, or
-\code{x = matrix}:
-\code{y = data.frame} object
+type can only be used to create problems involving a single zone.}
+
+\item{\strong{\code{x} has \code{data.frame}, \code{matrix}, or \code{numeric} vector planning
+units}}{
+The argument to \code{features} can be a \code{data.frame} object
 containing the names of the features. Note that if this
 type of argument is supplied to \code{features} then the argument
 \code{rij} or \code{rij_matrix} must also be supplied. This type of
@@ -113,22 +114,26 @@ feature (optional).}
 }
 }
 
+}
+
 If the problem should have multiple zones, then the feature
 data can be specified following:
-\itemize{
-\item \code{\link[terra:rast]{x = terra::rast()}}, or
-\code{\link[sf:sf]{x = sf::st_sf()}}:
-\code{\link[=zones]{y = ZonesRaster}}:
+
+\describe{
+
+\item{\strong{\code{x} has \code{\link[terra:rast]{terra::rast()}} or \code{\link[sf:sf]{sf::st_sf()}} planning units}}{
+The argument to \code{features} can be a \code{\link[=zones]{ZonesRaster}}
 object showing the distribution of conservation features in multiple
 zones. As above, missing values (i.e., \code{NA} values) can be used to
 indicate the absence of a feature in a particular cell instead of
-explicitly setting these cells to zero.
-\item \code{\link[sf:sf]{x = sf::st_sf()}}, or
-or \code{x = data.frame}:
-\code{\link[=zones]{y = ZonesCharacter}}
+explicitly setting these cells to zero.}
+
+\item{\strong{\code{x} has \code{\link[sf:sf]{sf::st_sf()}} or \code{data.frame} planning units}}{
+The argument to \code{features} can be a \code{\link[=zones]{ZonesCharacter}}
 object with column names that correspond to the abundance or
 occurrence of different features in each planning unit in different
-zones.
+zones.}
+
 }}
 
 \item{...}{not used.}
@@ -197,8 +202,6 @@ customized to meet specific goals using \link{objectives},
 \link{targets}, \link{constraints}, and
 \link{penalties}. After building the problem, the
 \code{\link[=solve]{solve()}} function can be used to identify solutions.
-\strong{Note that problems require an objective, and failing to specify an
-an objective will throw an error when attempting to solve it.}
 }
 \details{
 A systematic conservation planning exercise leverages data to help inform

@@ -186,8 +186,8 @@ that only contain a single management zone.</p>
 <dl><dt><code>get_sim_pu_raster()</code></dt>
 <dd><p>Import planning unit data that are stored
 in raster format.
-Here, cell values indicate planning unit cost and <code>NA</code> values indicate
-that a cell is not a planning unit.</p></dd>
+Here, cell values indicate planning unit cost and missing (<code>NA</code>)
+values indicate that a cell is not a planning unit.</p></dd>
 
 
 <dt><code>get_sim_locked_in_raster()</code></dt>
@@ -208,11 +208,11 @@ should be locked out from a solution.</p></dd>
 <dd><p>Import planning unit data stored in vector
 format. Here, planning units are represented using spatial polygons
 (e.g., each polygon corresponds to a different management areas).
-The attribute table contains fields (columns) indicating the expenditure
-required for prioritizing each planning unit ("cost" field), if the
-planning units should be selected in the solution ("locked_in" field),
+The data contains columns indicating the expenditure
+required for prioritizing each planning unit (<code>"cost"</code> column), if the
+planning units should be selected in the solution (<code>"locked_in"</code> column),
 and if the planning units should never be selected in the solution
-("locked_out" field).</p></dd>
+(<code>"locked_out"</code> column).</p></dd>
 
 
 <dt><code>get_sim_pu_points()</code></dt>
@@ -265,13 +265,15 @@ planning unit.</p></dd>
 <dd><p>Import planning unit data for
 multiple management zones stored in vector format.
 Here, planning units are represented using spatial polygons.
-The attribute table contains fields (columns) indicating the
+The data contains columns indicating the
 expenditure required for prioritizing each planning unit under different
-management zones ("cost_1", "cost_2", and "cost_3" fields), and a series
-of fields indicating the value that each planning unit that should be
-assigned in the solution ("locked_1", "locked_2", "locked_3" fields).
-In these locked fields, planning units that should not be locked to a
-specific value are assigned a <code>NA</code> value.</p></dd>
+management zones (<code>"cost_1"</code>, <code>"cost_2"</code>, and <code>"cost_3"</code> columns), and a
+series
+of columns indicating the value that each planning unit that should be
+assigned in the solution (<code>"locked_1"</code>, <code>"locked_2"</code>, <code>"locked_3"</code>
+columns).
+In these locked columns, planning units that should not be locked to a
+specific value are assigned a missing (<code>NA</code>) value.</p></dd>
 
 
 <dt><code>get_sim_zones_features()</code></dt>
