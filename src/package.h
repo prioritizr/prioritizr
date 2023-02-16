@@ -10,7 +10,7 @@
 // [[Rcpp::depends(RcppArmadillo)]]
 #include <RcppArmadillo.h>
 
-// [[Rcpp::plugins(cpp11)]]
+// [[Rcpp::plugins(cpp17)]]
 using namespace Rcpp;
 
 #include <vector>

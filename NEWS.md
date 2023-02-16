@@ -70,6 +70,7 @@
 - Update publication record.
 - The `solve()` function will now output `tibble::tibble()` objects,
   when the planning unit data are `tibble::tibble()` objects.
+- The package now requires C++17 for compilation (#263).
 
 # prioritizr 7.2.2.7
 

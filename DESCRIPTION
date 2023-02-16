@@ -90,7 +90,7 @@ LinkingTo:
 License: GPL-3
 Language: en-US
 Encoding: UTF-8
-SystemRequirements: C++11
+SystemRequirements: C++17
 URL: https://prioritizr.net,
     https://github.com/prioritizr/prioritizr
 BugReports: https://github.com/prioritizr/prioritizr/issues
