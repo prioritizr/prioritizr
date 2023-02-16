@@ -5,11 +5,6 @@
 \alias{Target}
 \title{Target class}
 \description{
-Target class
-
-Target class
-}
-\details{
 This class is used to represent targets for optimization.
 \strong{Only experts should use the fields and methods for this class directly.}
 }

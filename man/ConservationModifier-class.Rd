@@ -5,33 +5,10 @@
 \alias{ConservationModifier}
 \title{Conservation problem modifier class}
 \description{
-Conservation problem modifier class
-
-Conservation problem modifier class
-}
-\details{
 This super-class is used to construct \code{\linkS4class{Objective}}
 \code{\linkS4class{Penalty}}, \code{\linkS4class{Target}}, \code{\linkS4class{Constraint}},
 \code{\linkS4class{Portfolio}}, \code{\linkS4class{Solver}}, and \code{\linkS4class{Decision}} objects.
 \strong{Only experts should use the fields and methods for this class directly.}
-
-This method accesses values in the \code{data} field.
-If the \code{data} field does not contain an object associated with the
-argument to \code{x}, then a \code{\link[=new_waiver]{new_waiver()}} object is returned.
-
-This method stores values in the \code{data} field.
-Note that if an object already contains a value associated
-with the argument to \code{x}, then it will be over-written with the new
-value.
-
-This method accesses values in the \code{internal} field.
-If the \code{internal} field does not contain an object associated with the
-argument to \code{x}, then a \code{\link[=new_waiver]{new_waiver()}} object is returned.
-
-This method stores values in the \code{internal} field.
-Note that if an object already contains a value associated
-with the argument to \code{x}, then it will be over-written with the new
-value.
 }
 \seealso{
 Other classes: 
@@ -51,7 +28,7 @@ Other classes:
 \describe{
 \item{\code{name}}{\code{character} value.}
 
-\item{\code{data}}{\code{list} containing data (e.g., parameter values).}
+\item{\code{data}}{\code{list} containing data.}
 
 \item{\code{internal}}{\code{list} containing internal computed values.}
 
@@ -148,7 +125,7 @@ Invisible \code{TRUE}.
 \if{html}{\out{<a id="method-ConservationModifier-get_data"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationModifier-get_data}{}}}
 \subsection{Method \code{get_data()}}{
-Get stored data.
+Get values stored in the \code{data} field.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ConservationModifier$get_data(x)}\if{html}{\out{</div>}}
 }
@@ -161,14 +138,17 @@ Get stored data.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-An object.
+An object. If the \code{data} field does not contain an object
+associated with the argument to \code{x}, then a \code{\link[=new_waiver]{new_waiver()}} object is
+returned.
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationModifier-set_data"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationModifier-set_data}{}}}
 \subsection{Method \code{set_data()}}{
-Set stored data.
+Set values stored in the \code{data} field. Note that this method will
+overwrite existing data.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ConservationModifier$set_data(x, value)}\if{html}{\out{</div>}}
 }
@@ -190,7 +170,7 @@ Invisible \code{TRUE}.
 \if{html}{\out{<a id="method-ConservationModifier-get_internal"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationModifier-get_internal}{}}}
 \subsection{Method \code{get_internal()}}{
-Get internal data.
+Get values stored in the \code{internal} field.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ConservationModifier$get_internal(x)}\if{html}{\out{</div>}}
 }
@@ -203,14 +183,17 @@ Get internal data.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-An object.
+An object. If the \code{internal} field does not contain an object
+associated with the argument to \code{x}, then a \code{\link[=new_waiver]{new_waiver()}} object is
+returned.
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationModifier-set_internal"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationModifier-set_internal}{}}}
 \subsection{Method \code{set_internal()}}{
-Set internal data.
+Set values stored in the \code{internal} field. Note that this method will
+overwrite existing data.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ConservationModifier$set_internal(x, value)}\if{html}{\out{</div>}}
 }
@@ -225,7 +208,9 @@ Set internal data.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-Invisible \code{TRUE}.
+An object. If the \code{internal} field does not contain an object
+associated with the argument to \code{x}, then a \code{\link[=new_waiver]{new_waiver()}} object is
+returned.
 }
 }
 \if{html}{\out{<hr>}}

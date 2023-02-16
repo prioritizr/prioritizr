@@ -166,12 +166,12 @@ plot(s2, axes = FALSE)
 
 # create a problem that has a main "reserve zone" and a secondary
 # "corridor zone" to connect up import areas. Here, each feature has a
-# target of 30\% of its distribution. If a planning unit is allocated to the
+# target of 50\% of its distribution. If a planning unit is allocated to the
 # "reserve zone", then the prioritization accrues 100\% of the amount of
 # each feature in the planning unit. If a planning unit is allocated to the
 # "corridor zone" then the prioritization accrues 40\% of the amount of each
 # feature in the planning unit. Also, the cost of managing a planning unit
-# in the "corridor zone" is 45\% of that when it is managed as the
+# in the "corridor zone" is 30\% of that when it is managed as the
 # "reserve zone". Finally, the problem has constraints which
 # ensure that all of the selected planning units form a single contiguous
 # unit, so that the planning units allocated to the "corridor zone" can
@@ -179,7 +179,7 @@ plot(s2, axes = FALSE)
 
 # create planning unit data
 pus <- sim_pu_zones_raster[[c(1, 1)]]
-pus[[2]] <- pus[[2]] * 0.45
+pus[[2]] <- pus[[2]] * 0.3
 print(pus)
 
 # create biodiversity data
@@ -194,7 +194,7 @@ print(fts)
 targets <- tibble::tibble(
   feature = names(sim_features),
   zone = list(zone_names(fts))[rep(1, 5)],
-  target = terra::global(sim_features, "sum", na.rm = TRUE)[[1]] * 0.2,
+  target = terra::global(sim_features, "sum", na.rm = TRUE)[[1]] * 0.5,
   type = rep("absolute", 5)
 )
 print(targets)

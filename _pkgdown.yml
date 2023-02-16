@@ -66,6 +66,7 @@ reference:
     contents:
       - problem
       - solve
+      - zones
 
   - title: Data
     desc: Simulated datasets distributed with the package.
@@ -165,51 +166,35 @@ reference:
     - binary_stack
 
   - title: Problem manipulation functions
-    desc: Functions for extracting information from problems.
+    desc: Functions for working with problems.
     contents:
+      - compile
+      - feature_abundances
+      - feature_names
       - number_of_features
       - number_of_planning_units
       - number_of_total_units
       - number_of_zones
-      - feature_names
-      - feature_abundances
+      - presolve_check
+      - run_calculations
+      - write_problem
       - zone_names
+
+  - title: Class definitions and methods
+    desc: >
+     Documentation for internal classes and associated functions.
+    contents:
+      - new_waiver
+      - optimization_problem
+      - ends_with("-class")
+      - ends_with("-methods")
+      - -matches("zones")
 
   - title: Miscellaneous functions
     desc: Assorted functions distributed with the package.
     contents:
-      - print
       - show
-      - pipe
-      - tee
-      - is
-      - as
-      - compile
-      - presolve_check
       - loglinear_interpolation
-      - run_calculations
-      - distribute_load
-      - write_problem
-
-  - title: Class definitions and methods
-    desc: >
-     Documentation for internal data structures and associated functions.
-    contents:
-      - new_id
-      - new_waiver
-      - pproto
-      - new_optimization_problem
-      - predefined_optimization_problem
-      - as.list.OptimizationProblem
-      - ends_with("-class")
-      - ends_with("-methods")
-
-  - title: Parameter definitions
-    desc: >
-      Documentation for internal structures that describe input parameters.
-    contents:
-      - contains("_parameter")
-      - parameters
 
   - title: Deprecated functions
     desc: Documentation for functions that are no longer available.

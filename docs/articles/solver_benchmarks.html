@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.2.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">8.0.0.0</span>
       </span>
     </div>
 
@@ -171,7 +171,8 @@
 <span><span class="fu"><a href="https://docs.ropensci.org/piggyback/reference/pb_download.html" class="external-link">pb_download</a></span><span class="op">(</span></span>
 <span>  file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"solutions.zip"</span>, <span class="st">"results.rda"</span><span class="op">)</span>,</span>
 <span>  repo <span class="op">=</span> <span class="st">"prioritizr/benchmark"</span>, dest <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, tag <span class="op">=</span> <span class="st">"latest"</span>,</span>
-<span>  show_progress <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span>  show_progress <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># load benchmark results</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"results.rda"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -182,46 +183,48 @@
 <p>After downloading the benchmark results, let’s have a look at the parameters that were used to conduct it. Note that all benchmark scenarios have 72 features.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># numbers of planning units examined the benchmark analysis</span></span>
-<span><span class="va">n_planning_units</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">benchmark_results</span><span class="op">$</span><span class="va">number_of_planning_units</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">n_planning_units</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">n_planning_units</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">benchmark_results</span><span class="op">$</span><span class="va">number_of_planning_units</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">n_planning_units</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1]   1478  12902 102242 606180</span></span></code></pre>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># number of features (e.g., number of different species examined)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">benchmark_results</span><span class="op">$</span><span class="va">number_features</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">benchmark_results</span><span class="op">$</span><span class="va">number_features</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 72</span></span></code></pre>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># representation targets,</span></span>
 <span><span class="co"># units are proportion of the total amount of each feature (e.g., 0.1 = 10%)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">benchmark_results</span><span class="op">$</span><span class="va">relative_target</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">benchmark_results</span><span class="op">$</span><span class="va">relative_target</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 0.10 0.15 0.20 0.30</span></span></code></pre>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># number of planning units</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">benchmark_results</span><span class="op">$</span><span class="va">number_of_planning_units</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">benchmark_results</span><span class="op">$</span><span class="va">number_of_planning_units</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1]   1478  12902 102242 606180</span></span></code></pre>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># objective functions</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">benchmark_results</span><span class="op">$</span><span class="va">objective</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">benchmark_results</span><span class="op">$</span><span class="va">objective</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "add_min_set_objective"       "add_min_shortfall_objective"</span></span></code></pre>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract boundary penalty values,</span></span>
 <span><span class="co"># note that different values were examined for different objective functions</span></span>
 <span><span class="va">boundary_penalty_values</span> <span class="op">&lt;-</span></span>
-<span>  <span class="va">benchmark_results</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">plyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/plyr/man/dlply.html" class="external-link">dlply</a></span><span class="op">(</span><span class="st">"objective"</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">x</span><span class="op">$</span><span class="va">boundary_penalty</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="va">benchmark_results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu">plyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/plyr/man/dlply.html" class="external-link">dlply</a></span><span class="op">(</span><span class="st">"objective"</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">x</span><span class="op">$</span><span class="va">boundary_penalty</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## boundary penalty values for min set objective function</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_set_objective</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_set_objective</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 0e+00 1e-05 1e-03</span></span></code></pre>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## boundary penalty values for min shortfall objective function</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_shortfall_objective</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_shortfall_objective</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 0e+00 1e-14 1e-13</span></span></code></pre>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># budgets examined for budget-limited objectives (e.g., 0.1 = 10% of total cost)</span></span>
 <span><span class="co">## note that the min set objective function does not use a budget,</span></span>
 <span><span class="co">## and thus it has a NA value</span></span>
-<span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>objective <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">benchmark_results</span><span class="op">$</span><span class="va">objective</span><span class="op">)</span>,</span>
-<span>       budget <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">benchmark_results</span><span class="op">$</span><span class="va">budget</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span>  objective <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">benchmark_results</span><span class="op">$</span><span class="va">objective</span><span class="op">)</span>,</span>
+<span>  budget <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">benchmark_results</span><span class="op">$</span><span class="va">budget</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 2 × 2</span></span></span>
 <span><span class="co">##   objective                   budget</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
@@ -240,17 +243,17 @@
 <span>  <span class="co">## verify parameters with no default arguments</span></span>
 <span>  <span class="fu">assertthat</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/assertthat/man/assert_that.html" class="external-link">assert_that</a></span><span class="op">(</span></span>
 <span>    <span class="fu">assertthat</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/assertthat/man/scalar.html" class="external-link">is.count</a></span><span class="op">(</span><span class="va">n_pu</span><span class="op">)</span>, <span class="fu">assertthat</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/assertthat/man/noNA.html" class="external-link">noNA</a></span><span class="op">(</span><span class="va">n_pu</span><span class="op">)</span>,</span>
-<span>    <span class="va">n_pu</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">benchmark_results</span><span class="op">$</span><span class="va">number_of_planning_units</span><span class="op">)</span>,</span>
+<span>    <span class="va">n_pu</span> <span class="op"><a href="https://rdrr.io/pkg/terra/man/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">benchmark_results</span><span class="op">$</span><span class="va">number_of_planning_units</span><span class="op">)</span>,</span>
 <span>    <span class="fu">assertthat</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/assertthat/man/scalar.html" class="external-link">is.number</a></span><span class="op">(</span><span class="va">boundary_penalty</span><span class="op">)</span>, <span class="fu">assertthat</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/assertthat/man/noNA.html" class="external-link">noNA</a></span><span class="op">(</span><span class="va">boundary_penalty</span><span class="op">)</span>,</span>
 <span>    <span class="fu">assertthat</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/assertthat/man/scalar.html" class="external-link">is.string</a></span><span class="op">(</span><span class="va">objective</span><span class="op">)</span>, <span class="fu">assertthat</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/assertthat/man/noNA.html" class="external-link">noNA</a></span><span class="op">(</span><span class="va">objective</span><span class="op">)</span>,</span>
-<span>    <span class="va">objective</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">benchmark_results</span><span class="op">$</span><span class="va">objective</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="va">objective</span> <span class="op"><a href="https://rdrr.io/pkg/terra/man/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">benchmark_results</span><span class="op">$</span><span class="va">objective</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="co">## set default argument for solver if needed</span></span>
 <span>  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">solver</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="va">solver</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">benchmark_results</span><span class="op">$</span><span class="va">solver</span><span class="op">)</span></span>
+<span>    <span class="va">solver</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">benchmark_results</span><span class="op">$</span><span class="va">solver</span><span class="op">)</span></span>
 <span>  <span class="op">}</span></span>
 <span>  <span class="co">## verify solver argument</span></span>
 <span>  <span class="fu">assertthat</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/assertthat/man/assert_that.html" class="external-link">assert_that</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">is.character</a></span><span class="op">(</span><span class="va">solver</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/all.html" class="external-link">all</a></span><span class="op">(</span><span class="va">solver</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">benchmark_results</span><span class="op">$</span><span class="va">solver</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">is.character</a></span><span class="op">(</span><span class="va">solver</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/all.html" class="external-link">all</a></span><span class="op">(</span><span class="va">solver</span> <span class="op"><a href="https://rdrr.io/pkg/terra/man/match.html" class="external-link">%in%</a></span> <span class="va">benchmark_results</span><span class="op">$</span><span class="va">solver</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="co">## verify that only a single set of features was used</span></span>
 <span>  <span class="fu">assertthat</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/assertthat/man/assert_that.html" class="external-link">assert_that</a></span><span class="op">(</span></span>
 <span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/n_distinct.html" class="external-link">n_distinct</a></span><span class="op">(</span><span class="va">benchmark_results</span><span class="op">$</span><span class="va">number_features</span><span class="op">)</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span></span>
@@ -262,8 +265,8 @@
 <span>  <span class="va">bp</span> <span class="op">&lt;-</span> <span class="va">boundary_penalty</span></span>
 <span>  <span class="co">## subset data relevant for plotting</span></span>
 <span>  <span class="va">plot_data</span> <span class="op">&lt;-</span></span>
-<span>    <span class="va">benchmark_results</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">.</span><span class="op">$</span><span class="va">objective</span> <span class="op">==</span> <span class="va">obj</span>, <span class="va">.</span><span class="op">$</span><span class="va">solver</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">sol</span>,</span>
+<span>    <span class="va">benchmark_results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">.</span><span class="op">$</span><span class="va">objective</span> <span class="op">==</span> <span class="va">obj</span>, <span class="va">.</span><span class="op">$</span><span class="va">solver</span> <span class="op"><a href="https://rdrr.io/pkg/terra/man/match.html" class="external-link">%in%</a></span> <span class="va">sol</span>,</span>
 <span>           <span class="va">.</span><span class="op">$</span><span class="va">number_of_planning_units</span> <span class="op">==</span> <span class="va">n_pu</span>,</span>
 <span>           <span class="va">.</span><span class="op">$</span><span class="va">boundary_penalty</span> <span class="op">==</span> <span class="va">bp</span><span class="op">)</span></span>
 <span>  <span class="co">## scale run time to helpful units for plotting</span></span>
@@ -276,12 +279,12 @@
 <span>      <span class="co"># else show seconds</span></span>
 <span>      <span class="cn">TRUE</span> <span class="op">~</span> <span class="st">"seconds"</span><span class="op">)</span></span>
 <span>   <span class="va">plot_data</span><span class="op">$</span><span class="va">min_set_scaled</span> <span class="op">&lt;-</span></span>
-<span>    <span class="va">plot_data</span><span class="op">$</span><span class="va">run_time</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu">units</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/units/man/units.html" class="external-link">set_units</a></span><span class="op">(</span><span class="va">s</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu">units</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/units/man/units.html" class="external-link">set_units</a></span><span class="op">(</span><span class="va">plot_units</span>, mode <span class="op">=</span> <span class="st">"standard"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="va">plot_data</span><span class="op">$</span><span class="va">run_time</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu">units</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/units/man/units.html" class="external-link">set_units</a></span><span class="op">(</span><span class="va">s</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu">units</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/units/man/units.html" class="external-link">set_units</a></span><span class="op">(</span><span class="va">plot_units</span>, mode <span class="op">=</span> <span class="st">"standard"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="co">## plot labels</span></span>
-<span>  <span class="va">n_f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">benchmark_results</span><span class="op">$</span><span class="va">number_features</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
+<span>  <span class="va">n_f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">benchmark_results</span><span class="op">$</span><span class="va">number_features</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
 <span>  <span class="va">plot_title</span> <span class="op">=</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span>
 <span>      <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html" class="external-link">case_when</a></span><span class="op">(</span></span>
@@ -301,7 +304,7 @@
 <span>    <span class="va">plot_title</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">plot_title</span>, <span class="st">", "</span>, <span class="va">bp</span>, <span class="st">" boundary penalty"</span><span class="op">)</span></span>
 <span>  <span class="op">}</span></span>
 <span>  <span class="co">## determine colors for solvers (so that solvers always have same color</span></span>
-<span>  <span class="va">solver_names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">benchmark_results</span><span class="op">$</span><span class="va">solver</span><span class="op">)</span></span>
+<span>  <span class="va">solver_names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">benchmark_results</span><span class="op">$</span><span class="va">solver</span><span class="op">)</span></span>
 <span>  <span class="va">solver_colors</span> <span class="op">&lt;-</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/hue_pal.html" class="external-link">hue_pal</a></span><span class="op">(</span><span class="op">)</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">solver_names</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">solver_colors</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">solver_names</span></span>
 <span></span>
@@ -328,7 +331,7 @@
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract columns from table with relevant data</span></span>
 <span><span class="va">benchmark_results</span> <span class="op">&lt;-</span></span>
-<span>  <span class="va">benchmark_results</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="va">benchmark_results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span></span>
 <span>    <span class="va">id</span>, <span class="va">number_of_planning_units</span>, <span class="va">number_features</span>,</span>
 <span>    <span class="va">objective</span>, <span class="va">budget</span>, <span class="va">relative_target</span>, <span class="va">boundary_penalty</span>,</span>
@@ -336,7 +339,7 @@
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="co"># preview results</span></span>
-<span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">benchmark_results</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">benchmark_results</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 576 × 12</span></span></span>
 <span><span class="co">##    id       numbe…¹ numbe…² objec…³ budget relat…⁴ bound…⁵ solver status total…⁶</span></span>
 <span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
@@ -386,11 +389,14 @@
 <code class="sourceCode R"><span><span class="co"># plot overall summary of solver performance</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span></span>
-<span>    <span class="va">benchmark_results</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="va">benchmark_results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
-<span>      min_set_scaled <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/units/man/units.html" class="external-link">set_units</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/units/man/units.html" class="external-link">set_units</a></span><span class="op">(</span></span>
-<span>        <span class="va">run_time</span>, <span class="st">"seconds"</span><span class="op">)</span>, <span class="st">"hours"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">solver</span>, y <span class="op">=</span> <span class="va">min_set_scaled</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>      min_set_scaled <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/pkg/units/man/units.html" class="external-link">set_units</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/units/man/units.html" class="external-link">set_units</a></span><span class="op">(</span><span class="va">run_time</span>, <span class="st">"seconds"</span><span class="op">)</span>, <span class="st">"hours"</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">solver</span>, y <span class="op">=</span> <span class="va">min_set_scaled</span><span class="op">)</span></span>
+<span><span class="op">)</span> <span class="op">+</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html" class="external-link">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">7</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Solver"</span>, y <span class="op">=</span> <span class="st">"Run time (hours)"</span><span class="op">)</span></span></code></pre></div>
@@ -404,28 +410,32 @@
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_set_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
-<span>  boundary_penalty <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
+<span>  boundary_penalty <span class="op">=</span> <span class="fl">0</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_1-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>Next, let’s look at the results for a more realistic problem involving 12,902 planning units and see how the timing of the different solvers used compares. Note that all other factors (e.g., absence of boundary length penalties) are the same as for the previous graph.</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_set_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
-<span>  boundary_penalty <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
+<span>  boundary_penalty <span class="op">=</span> <span class="fl">0</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_2-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>Next, we will look at a medium sized problem with 102,242 planning units. Now we really start to see the difference between the <em>Rsymphony</em> and <em>lpsymphony</em> solvers – which use the <em>SYMPHONY</em> software – and the other solvers.</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_set_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>,</span>
-<span>  boundary_penalty <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
+<span>  boundary_penalty <span class="op">=</span> <span class="fl">0</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_3-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>Finally, let’s look at timing comparisons for a large problem with 606,180 planning units. We can see that both the <em>Rsymphony</em> and <em>lpsymphony</em> solvers are really taking a much longer time to generate prioritizations now.</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_set_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>,</span>
-<span>  boundary_penalty <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
+<span>  boundary_penalty <span class="op">=</span> <span class="fl">0</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_4-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>To get a better sense of how the faster solvers (i.e., based on <em>CBC</em>, <em>IBM CPLEX</em>, <em>Gurobi</em>) compare for such a large problem, let’s take a closer look at these three solvers. Interestingly, we can see that the solver based on the open source <em>CBC</em> software is slightly faster – by a few minutes – than the other solvers.</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
@@ -433,7 +443,8 @@
 <span>  objective <span class="op">=</span> <span class="st">"add_min_set_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>,</span>
 <span>  boundary_penalty <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>  solver <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"add_cbc_solver"</span>, <span class="st">"add_cplex_solver"</span>, <span class="st">"add_gurobi_solver"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  solver <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"add_cbc_solver"</span>, <span class="st">"add_cplex_solver"</span>, <span class="st">"add_gurobi_solver"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_4_fast_only-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
@@ -444,21 +455,24 @@
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_set_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
-<span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_set_objective</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_set_objective</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_1_with_low_boundary_penalty-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>Next, let’s look at the results for a more realistic problem with 12,902 planning units and see how the timing of the different solvers used compares.</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_set_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
-<span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_set_objective</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_set_objective</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_2_with_low_boundary_penalty-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>Next, we will look at a medium sized problem with 102,242 planning units. Now we really start to see the difference between <em>lpsymphony</em> and <em>Rsymphony</em> solvers and the other solvers.</p>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_set_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>,</span>
-<span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_set_objective</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_set_objective</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Warning: Removed 4 rows containing missing values (`geom_line()`).</span></span></code></pre>
 <pre><code><span><span class="co">## Warning: Removed 4 rows containing missing values (`geom_point()`).</span></span></code></pre>
 <p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_3_with_low_boundary_penalty-1.png" width="672" style="display: block; margin: auto;"></p>
@@ -467,7 +481,8 @@
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_set_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>,</span>
-<span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_set_objective</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_set_objective</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Warning: Removed 4 rows containing missing values (`geom_line()`).</span></span></code></pre>
 <pre><code><span><span class="co">## Warning: Removed 4 rows containing missing values (`geom_point()`).</span></span></code></pre>
 <p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_4_with_low_boundary_penalty-1.png" width="672" style="display: block; margin: auto;"></p>
@@ -477,7 +492,8 @@
 <span>  objective <span class="op">=</span> <span class="st">"add_min_set_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>,</span>
 <span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_set_objective</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
-<span>  solver <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"add_cbc_solver"</span>, <span class="st">"add_cplex_solver"</span>, <span class="st">"add_gurobi_solver"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  solver <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"add_cbc_solver"</span>, <span class="st">"add_cplex_solver"</span>, <span class="st">"add_gurobi_solver"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Warning: Removed 4 rows containing missing values (`geom_line()`).</span></span></code></pre>
 <pre><code><span><span class="co">## Warning: Removed 4 rows containing missing values (`geom_point()`).</span></span></code></pre>
 <p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_4_with_low_boundary_penalty_and_fast_solvers-1.png" width="672" style="display: block; margin: auto;"></p>
@@ -490,21 +506,24 @@
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_set_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
-<span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_set_objective</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_set_objective</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_1_with_high_boundary_penalty-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>Next, let’s look at the results for a more realistic problem with 12,902 planning units and see how the timing of the different solvers used compares.</p>
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_set_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
-<span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_set_objective</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_set_objective</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_2_with_high_boundary_penalty-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>Next, we will look at a medium sized problem with 102,242 planning units. We again see the difference between <em>Rsymphony</em> and <em>lpsymphony</em> solvers and the other solvers.</p>
 <div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_set_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>,</span>
-<span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_set_objective</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_set_objective</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Warning: Removed 4 rows containing missing values (`geom_line()`).</span></span></code></pre>
 <pre><code><span><span class="co">## Warning: Removed 4 rows containing missing values (`geom_point()`).</span></span></code></pre>
 <p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_3_with_high_boundary_penalty-1.png" width="672" style="display: block; margin: auto;"></p>
@@ -513,7 +532,8 @@
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_set_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>,</span>
-<span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_set_objective</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_set_objective</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Warning: Removed 4 rows containing missing values (`geom_line()`).</span></span></code></pre>
 <pre><code><span><span class="co">## Warning: Removed 4 rows containing missing values (`geom_point()`).</span></span></code></pre>
 <p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_4_with_high_boundary_penalty-1.png" width="672" style="display: block; margin: auto;"></p>
@@ -523,7 +543,8 @@
 <span>  objective <span class="op">=</span> <span class="st">"add_min_set_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>,</span>
 <span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_set_objective</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>,</span>
-<span>  solver <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"add_cbc_solver"</span>, <span class="st">"add_cplex_solver"</span>, <span class="st">"add_gurobi_solver"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  solver <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"add_cbc_solver"</span>, <span class="st">"add_cplex_solver"</span>, <span class="st">"add_gurobi_solver"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Warning: Removed 4 rows containing missing values (`geom_line()`).</span></span></code></pre>
 <pre><code><span><span class="co">## Warning: Removed 4 rows containing missing values (`geom_point()`).</span></span></code></pre>
 <p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_4_with_high_boundary_penalty_and_fast_solvers-1.png" width="672" style="display: block; margin: auto;"></p>
@@ -536,28 +557,32 @@
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_shortfall_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
-<span>  boundary_penalty <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
+<span>  boundary_penalty <span class="op">=</span> <span class="fl">0</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="solver_benchmarks_files/figure-html/min_short_pu_n_1-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>Next, let’s look at the results for a more realistic problem with 12,902 planning units and see how the timing of the different solvers used compares. Here, the <em>CBC</em> solver takes slightly longer than the other solvers.</p>
 <div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_shortfall_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
-<span>  boundary_penalty <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
+<span>  boundary_penalty <span class="op">=</span> <span class="fl">0</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="solver_benchmarks_files/figure-html/min_short_pu_n_2-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>Next, we will look at a medium sized problem with 102,242 planning units. Now we see a larger difference between the <em>CBC</em> solver and the other solvers, with the <em>CBC</em> solver taking several minutes longer to complete.</p>
 <div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_shortfall_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>,</span>
-<span>  boundary_penalty <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
+<span>  boundary_penalty <span class="op">=</span> <span class="fl">0</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="solver_benchmarks_files/figure-html/min_short_pu_n_3-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>Finally, let’s look at timing comparisons for a large problem with 606,180 planning units. We can see that all the open source solvers (i.e., <em>CBC</em>, <em>Rsymphony</em> and <em>lpsymphony</em>) take a lot longer than the commercial solvers (i.e., <em>IBM CPLEX</em> and <em>Guorbi</em>).</p>
 <div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_shortfall_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>,</span>
-<span>  boundary_penalty <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
+<span>  boundary_penalty <span class="op">=</span> <span class="fl">0</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Warning: Removed 1 row containing missing values (`geom_line()`).</span></span></code></pre>
 <pre><code><span><span class="co">## Warning: Removed 1 rows containing missing values (`geom_point()`).</span></span></code></pre>
 <p><img src="solver_benchmarks_files/figure-html/min_short_pu_n_4-1.png" width="672" style="display: block; margin: auto;"></p>
@@ -570,28 +595,32 @@
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_shortfall_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
-<span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_shortfall_objective</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_shortfall_objective</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="solver_benchmarks_files/figure-html/min_short_pu_n_1_with_low_boundary_penalty-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>Next, let’s look at the results for a more realistic problem with 12,902 planning units and see how the timing of the different solvers compare. Similar to before, we can see the <em>CBC</em> solver takes slightly longer than the other solvers.</p>
 <div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_shortfall_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
-<span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_shortfall_objective</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_shortfall_objective</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="solver_benchmarks_files/figure-html/min_short_pu_n_2_with_low_boundary_penalty-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>Next, we will look at a medium sized problem with 102,242 planning units. Now we really start to see the difference between the <em>CBC</em> solver and the other solvers. Additionally, the <em>Rsymphony</em> and <em>lpsymphony</em> solvers also take considerably longer than the commercial solvers too.</p>
 <div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_shortfall_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>,</span>
-<span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_shortfall_objective</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_shortfall_objective</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="solver_benchmarks_files/figure-html/min_short_pu_n_3_with_low_boundary_penalty-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>Finally, let’s look at timing comparisons for a large problem with 606,180 planning units. The <em>CBC</em> solver now performs better than the <em>Rsymphony</em> and <em>lpsymphony</em> solvers, which can take over a whole day to complete.</p>
 <div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_shortfall_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>,</span>
-<span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_shortfall_objective</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_shortfall_objective</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Warning: Removed 1 row containing missing values (`geom_line()`).</span></span></code></pre>
 <pre><code><span><span class="co">## Warning: Removed 1 rows containing missing values (`geom_point()`).</span></span></code></pre>
 <p><img src="solver_benchmarks_files/figure-html/min_short_pu_n_4_with_low_boundary_penalty-1.png" width="672" style="display: block; margin: auto;"></p>
@@ -601,7 +630,8 @@
 <span>  objective <span class="op">=</span> <span class="st">"add_min_shortfall_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>,</span>
 <span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_shortfall_objective</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
-<span>  solver <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"add_cbc_solver"</span>, <span class="st">"add_cplex_solver"</span>, <span class="st">"add_gurobi_solver"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  solver <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"add_cbc_solver"</span>, <span class="st">"add_cplex_solver"</span>, <span class="st">"add_gurobi_solver"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="solver_benchmarks_files/figure-html/min_short_pu_n_4_and_boundary_penalty_and_fast_solvers-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
@@ -612,21 +642,24 @@
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_shortfall_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
-<span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_shortfall_objective</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_shortfall_objective</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="solver_benchmarks_files/figure-html/min_short_pu_n_1_with_high_boundary_penalty-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>Next, let’s look at the results for a greater number of planning units (i.e., 12,902 planning units) and see how the timings compare. All the solvers have a similar run time now. Interestingly, the <em>Gurobi</em> solver is the slowest – but only by a couple of minutes – for these benchmark parameters.</p>
 <div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_shortfall_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
-<span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_shortfall_objective</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_shortfall_objective</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="solver_benchmarks_files/figure-html/min_short_pu_n_2%20with%20boundary%20penalty-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>Next, we will look at a medium sized problem with 102,242 planning units. Similar to some of the previous results for the minimum shortfall objective, the <em>CBC</em> solver is the slowest and the <em>IBM CPLEX</em> and <em>Gurobi</em> commercial solvers are fastest.</p>
 <div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_shortfall_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>,</span>
-<span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_shortfall_objective</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_shortfall_objective</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Warning: Removed 4 rows containing missing values (`geom_line()`).</span></span></code></pre>
 <pre><code><span><span class="co">## Warning: Removed 4 rows containing missing values (`geom_point()`).</span></span></code></pre>
 <p><img src="solver_benchmarks_files/figure-html/min_short_pu_n_3_with_high_boundary_penalty-1.png" width="672" style="display: block; margin: auto;"></p>
@@ -635,7 +668,8 @@
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_shortfall_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>,</span>
-<span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_shortfall_objective</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_shortfall_objective</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Warning: Removed 4 rows containing missing values (`geom_line()`).</span></span></code></pre>
 <pre><code><span><span class="co">## Warning: Removed 4 rows containing missing values (`geom_point()`).</span></span></code></pre>
 <p><img src="solver_benchmarks_files/figure-html/min_short_pu_n_4_with_high_boundary_penalty-1.png" width="672" style="display: block; margin: auto;"></p>

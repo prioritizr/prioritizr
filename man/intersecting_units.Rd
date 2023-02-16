@@ -57,30 +57,28 @@ ply_with_holes <- sf::st_as_sf(terra::as.polygons(r_with_holes))
 
 # intersect raster with raster
 par(mfrow = c(1, 2))
-plot(r, main = "x=SpatRaster")
-plot(r_with_holes, main = "y=SpatRaster")
+plot(r, main = "x = SpatRaster", axes = FALSE)
+plot(r_with_holes, main = "y = SpatRaster", axes = FALSE)
 print(intersecting_units(r, r_with_holes))
 
 # intersect raster with sf
 par(mfrow = c(1, 2))
-plot(r, main = "x=SpatRaster")
-plot(ply_with_holes, main = "y=sf", key.pos = NULL, reset = FALSE)
+plot(r, main = "x = SpatRaster", axes = FALSE)
+plot(ply_with_holes, main = "y = sf", key.pos = NULL, reset = FALSE)
 print(intersecting_units(r, ply_with_holes))
 
 # intersect sf with raster
-par(mfrow = c(1, 2))
-plot(ply, main = "x=sf")
-plot(r_with_holes, main = "y=SpatRaster")
+plot(ply, main = "x = sf")
+plot(r_with_holes, main = "y = SpatRaster")
 print(intersecting_units(ply, r_with_holes))
 
 # intersect sf with sf
-par(mfrow = c(1, 2))
-plot(ply, main = "x=sf")
-plot(ply_with_holes, main = "y=sf", key.pos = NULL, reset = FALSE)
+plot(ply, main = "x = sf")
+plot(ply_with_holes, main = "y = sf", key.pos = NULL, reset = FALSE)
 print(intersecting_units(ply, ply_with_holes))
 }
 
 }
 \seealso{
-\code{\link[=fast_extract]{fast_extract()}}.
+See \code{\link[=fast_extract]{fast_extract()}} for extracting data from spatial datasets.
 }

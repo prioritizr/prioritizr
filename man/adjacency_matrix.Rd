@@ -97,14 +97,14 @@ am_lns <- adjacency_matrix(lns)
 
 ## plot raster and adjacency matrix
 plot(r, main = "raster", axes = FALSE)
-plot(am_raster, main = "adjacency matrix")
+Matrix::image(am_raster, main = "adjacency matrix")
 
 ## plot polygons and adjacency matrix
 plot(ply[, 1], main = "polygons")
-plot(am_ply, main = "adjacency matrix")
+Matrix::image(am_ply, main = "adjacency matrix")
 
 ## plot lines and adjacency matrix
 plot(lns[, 1], main = "lines")
-plot(am_lns, main = "adjacency matrix")
+Matrix::image(am_lns, main = "adjacency matrix")
 }
 }

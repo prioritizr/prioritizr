@@ -29,7 +29,7 @@ is allocated to a different zone."><meta property="og:image" content="https://pr
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.2.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">8.0.0.0</span>
       </span>
     </div>
 
@@ -120,7 +120,7 @@ is allocated to a different zone.</p>
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>...</dt>
-<dd><p><code><a href="https://rdrr.io/pkg/raster/man/raster.html" class="external-link">raster::raster()</a></code> or <code>character</code> objects that
+<dd><p><code><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">terra::rast()</a></code> or <code>character</code> objects that
 pertain to the biodiversity data. See Details for more information.</p></dd>
 
 
@@ -138,7 +138,7 @@ to <code>NULL</code> which results in sequential integers.</p></dd>
     <h2>Value</h2>
     
 
-<p><code>Zones</code> object.</p>
+<p>A <code>Zones</code> object.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -148,23 +148,24 @@ zones.
 In all cases, the data for each zone is input as a separate argument.
 The correct arguments depends on the type of planning unit data
 used when building the conservation planning <code><a href="problem.html">problem()</a></code>.</p>
-<dl><dt>planning unit data are a <code><a href="https://rdrr.io/pkg/raster/man/Raster-classes.html" class="external-link">Raster</a></code> or <code><a href="https://rdrr.io/pkg/sp/man/Spatial-class.html" class="external-link">Spatial</a></code> object</dt>
-<dd><p><code><a href="https://rdrr.io/pkg/raster/man/Raster-classes.html" class="external-link">Raster</a></code> object can be supplied to specify the expected amount of
+<dl><dt><code><a href="problem.html">problem()</a></code> will have <code><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">terra::rast()</a></code> or <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::st_sf()</a></code> planning units</dt>
+<dd><p><code><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">terra::rast()</a></code> object can be supplied to specify the expected amount of
 each feature within each planning unit under each management zone.
 Data for each zone should be specified as separate
 arguments, and the data for each feature in a given zone are specified
-in separate layers in a <code><a href="https://rdrr.io/pkg/raster/man/stack.html" class="external-link">raster::stack()</a></code> object.
-Note that all layers for a given zone must have <code>NA</code> values in exactly the
-same cells.</p></dd>
+in separate layers in a <code><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">terra::rast()</a></code> object.
+Note that all layers for a given zone must have missing (<code>NA</code>) values in
+exactly the same cells.</p></dd>
 
-<dt>planning unit data are a <code><a href="https://rdrr.io/pkg/sp/man/Spatial-class.html" class="external-link">Spatial</a></code> or <code>data.frame</code>
-object</dt>
+
+<dt><code><a href="problem.html">problem()</a></code> will have <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::st_sf()</a></code> or <code>data.frame</code> planning units</dt>
 <dd><p><code>character</code> vector containing column names can
 be supplied to specify the expected amount of each feature under each
-zone. Note that these columns must not contain any <code>NA</code> values.</p></dd>
+zone. Note that these columns must not contain any missing (<code>NA</code>) values.</p></dd>
 
-<dt>planning unit data are a <code><a href="https://rdrr.io/pkg/sp/man/Spatial-class.html" class="external-link">Spatial</a></code>, <code>data.frame</code>, or
-<code>matrix</code> object</dt>
+
+<dt><code><a href="problem.html">problem()</a></code> will have <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::st_sf()</a></code>, <code>data.frame</code>, or
+<code>matrix</code> planning units</dt>
 <dd><p><code>data.frame</code> object can be supplied to specify the
 expected amount of each feature under each zone.
 Following conventions used in <em>Marxan</em>, the
@@ -187,57 +188,64 @@ features in planning units under management zones that are
 missing from the table are assumed to be zero.</p></dd>
 
 
+
 </dl></div>
     <div id="see-also">
     <h2>See also</h2>
-    <div class="dont-index"><p><code><a href="problem.html">problem()</a></code>.</p></div>
+    <div class="dont-index"><p>See <code><a href="problem.html">problem()</a></code> for information on using this function to generate
+a prioritization with multiple management zones.</p></div>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span><span class="co"># load planning unit data</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">sim_pu_raster</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sim_pu_raster</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_pu_raster</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">zone_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="simulate_species.html">simulate_species</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">zone_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="simulate_species.html">simulate_species</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># create zones using two raster stack objects</span></span></span>
+<span class="r-in"><span><span class="co"># create zones using two SpatRaster objects</span></span></span>
 <span class="r-in"><span><span class="co"># each object corresponds to a different zone and each layer corresponds to</span></span></span>
 <span class="r-in"><span><span class="co"># a different species</span></span></span>
-<span class="r-in"><span><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu">zones</span><span class="op">(</span><span class="va">zone_1</span>, <span class="va">zone_2</span>, zone_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"zone_1"</span>, <span class="st">"zone_2"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>           feature_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"feature_1"</span>, <span class="st">"feature_2"</span>, <span class="st">"feature_3"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Zones</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   zones: zone_1, zone_2 (2 zones)</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   features: feature_1, feature_2, feature_3 (3 features)</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   data type: RasterStack</span>
+<span class="r-in"><span><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu">zones</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">zone_1</span>, <span class="va">zone_2</span>,</span></span>
+<span class="r-in"><span>  zone_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"zone_1"</span>, <span class="st">"zone_2"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  feature_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"feature_1"</span>, <span class="st">"feature_2"</span>, <span class="st">"feature_3"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Zones <span style="color: #0000BB;">&lt;ZonesSpatRaster/Zones&gt;</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> • <span style="color: #55FF55;">zones</span>:    <span style="color: #0000BB;">"zone_1"</span> and <span style="color: #0000BB;">"zone_2"</span> (2 total)</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> • <span style="color: #55FF55;">features</span>: <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, and <span style="color: #0000BB;">"feature_3"</span> (3 total)</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># note that the do.call function can also be used to create a Zones object</span></span></span>
 <span class="r-in"><span><span class="co"># this method for creating a Zones object can be helpful when there are many</span></span></span>
 <span class="r-in"><span><span class="co"># management zones</span></span></span>
-<span class="r-in"><span><span class="va">l</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">zone_1</span>, <span class="va">zone_2</span>, zone_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"zone_1"</span>, <span class="st">"zone_2"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>          feature_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"feature_1"</span>, <span class="st">"feature_2"</span>, <span class="st">"feature_3"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">l</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">zone_1</span>, <span class="va">zone_2</span>,</span></span>
+<span class="r-in"><span>  zone_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"zone_1"</span>, <span class="st">"zone_2"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  feature_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"feature_1"</span>, <span class="st">"feature_2"</span>, <span class="st">"feature_3"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">zones</span>, <span class="va">l</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Zones</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   zones: zone_1, zone_2 (2 zones)</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   features: feature_1, feature_2, feature_3 (3 features)</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   data type: RasterStack</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Zones <span style="color: #0000BB;">&lt;ZonesSpatRaster/Zones&gt;</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> • <span style="color: #55FF55;">zones</span>:    <span style="color: #0000BB;">"zone_1"</span> and <span style="color: #0000BB;">"zone_2"</span> (2 total)</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> • <span style="color: #55FF55;">features</span>: <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, and <span style="color: #0000BB;">"feature_3"</span> (3 total)</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create zones using character vectors that represent the names of</span></span></span>
 <span class="r-in"><span><span class="co"># fields (columns) in a data.frame or Spatial object that contain the amount</span></span></span>
 <span class="r-in"><span><span class="co"># of each species expected different management zones</span></span></span>
-<span class="r-in"><span><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu">zones</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"spp1_zone1"</span>, <span class="st">"spp2_zone1"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>           <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"spp1_zone2"</span>, <span class="st">"spp2_zone2"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>           <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"spp1_zone3"</span>, <span class="st">"spp2_zone3"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>           zone_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"zone1"</span>, <span class="st">"zone2"</span>, <span class="st">"zone3"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>           feature_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"spp1"</span>, <span class="st">"spp2"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Zones</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   zones: zone1, zone2, zone3 (3 zones)</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   features: spp1, spp2 (2 features)</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   data type: character</span>
+<span class="r-in"><span><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu">zones</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"spp1_zone1"</span>, <span class="st">"spp2_zone1"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"spp1_zone2"</span>, <span class="st">"spp2_zone2"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"spp1_zone3"</span>, <span class="st">"spp2_zone3"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  zone_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"zone1"</span>, <span class="st">"zone2"</span>, <span class="st">"zone3"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  feature_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"spp1"</span>, <span class="st">"spp2"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Zones <span style="color: #0000BB;">&lt;ZonesCharacter/Zones&gt;</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> • <span style="color: #55FF55;">zones</span>:    <span style="color: #0000BB;">"zone1"</span>, <span style="color: #0000BB;">"zone2"</span>, and <span style="color: #0000BB;">"zone3"</span> (3 total)</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> • <span style="color: #55FF55;">features</span>: <span style="color: #0000BB;">"spp1"</span> and <span style="color: #0000BB;">"spp2"</span> (2 total)</span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>

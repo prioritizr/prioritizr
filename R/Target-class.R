@@ -7,6 +7,7 @@ NULL
 
 #' Target class
 #'
+#' @description
 #' This class is used to represent targets for optimization.
 #' **Only experts should use the fields and methods for this class directly.**
 #'

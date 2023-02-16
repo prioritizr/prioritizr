@@ -41,7 +41,7 @@ r <- terra::rast(
 spp <- simulate_species(r, 4)
 
 # plot simulated species
-plot(spp, main = "simulated species distributions")
+plot(spp, main = "simulated species distributions", axes = FALSE)
 }
 
 }

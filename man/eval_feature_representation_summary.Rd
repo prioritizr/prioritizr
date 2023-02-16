@@ -2,7 +2,7 @@
 % Please edit documentation in R/eval_feature_representation_summary.R
 \name{eval_feature_representation_summary}
 \alias{eval_feature_representation_summary}
-\title{Evaluate feature representation}
+\title{Evaluate feature representation by solution}
 \usage{
 eval_feature_representation_summary(x, solution)
 }

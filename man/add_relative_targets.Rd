@@ -148,7 +148,7 @@ p6_targets <- matrix(
 )
 print(p6_targets)
 
-p6 <- p4 \%>\% add_relative_targets(p4_targets)
+p6 <- p4 \%>\% add_relative_targets(p6_targets)
 
 # solve problem
 s6 <- solve(p6)

@@ -5,11 +5,6 @@
 \alias{Constraint}
 \title{Constraint class}
 \description{
-Constraint class
-
-Constraint class
-}
-\details{
 This class is used to represent the constraints used in optimization.
 \strong{Only experts should use the fields and methods for this class directly.}
 }

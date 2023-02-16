@@ -28,14 +28,14 @@ NULL
 #' \item{`add_corridor_constraints()`}{replaced by the
 #'   [add_feature_contiguity_constraints()] function.}
 #'
-#' \item{`set_number_of_threads()`}{no longer needed used with the
-#'   implementation of superior data extraction.}
+#' \item{`set_number_of_threads()`}{
+#'   no longer needed due to improved data extraction methods.}
 #'
-#' \item{`get_number_of_threads()`}{no longer needed used with the
-#'   implementation of superior data extraction.}
+#' \item{`get_number_of_threads()`}{
+#'   no longer needed due to improved data extraction methods.}
 #'
-#' \item{`is.parallel()`}{no longer needed used with the
-#'   implementation of superior data extraction.}
+#' \item{`is.parallel()`}{
+#'   no longer needed due to improved data extraction methods.}
 #'
 #' \item{`add_pool_portfolio()`}{replaced by the
 #'   [add_extra_portfolio()] and [add_top_portfolio()].}
@@ -61,6 +61,12 @@ NULL
 #'
 #' \item{`distribute_load()`}{has been removed because it is no longer used.
 #'   See `parallel::splitIndices()` for equivalent functionality.}
+#'
+#' \item{`new_optimization_problem()`}{
+#'   replaced by [optimization_problem()].}
+#'
+#' \item{`predefined_optimization_problem()`}{
+#'   replaced by [optimization_problem()].}
 #'
 #' }
 #'
@@ -171,6 +177,24 @@ distribute_load <- function(...) {
   cli_defunct(
     old = "distribute_load",
     new = "parallel::splitIndices"
+  )
+}
+
+#' @rdname prioritizr-deprecated
+#' @export
+new_optimization_problem <- function(...) {
+  cli_defunct(
+    old = "new_optimization_problem",
+    new = "optimization_problem"
+  )
+}
+
+#' @rdname prioritizr-deprecated
+#' @export
+predefined_optimization_problem <- function(...) {
+  cli_defunct(
+    old = "predefined_optimization_problem",
+    new = "optimization_problem"
   )
 }
 

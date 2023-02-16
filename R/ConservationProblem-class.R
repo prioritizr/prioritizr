@@ -7,6 +7,7 @@ NULL
 
 #' Conservation problem class
 #'
+#' @description
 #' This class is used to represent conservation planning problems.
 #' It stores the data (e.g., planning units, and features) and
 #' mathematical formulation (e.g., the objective, constraints,
@@ -503,25 +504,21 @@ ConservationProblem <- R6::R6Class(
     },
 
     #' @description
-    #' Get stored data.
+    #' Get values stored in the `data` field.
     #' @param x `character` name of data.
-    #' @details This method accesses values in the `data` field.
-    #' If the `data` field does not contain an object associated with the
-    #' argument to `x`, then a [new_waiver()] object is returned.
-    #' @return An object.
+    #' @return An object. If the `data` field does not contain an object
+    #' associated with the argument to `x`, then a [new_waiver()] object is
+    #' returned.
     get_data = function(x) {
       if (!x %in% names(self$data)) return(new_waiver())
       self$data[[x]]
     },
 
     #' @description
-    #' Set stored data.
+    #' Set values stored in the `data` field. Note that this method will
+    #' overwrite existing data.
     #' @param x `character` name of data.
     #' @param value Object to store.
-    #' @details This method stores values in the `data` field.
-    #' Note that if an object already contains a value associated
-    #' with the argument to `x`, then it will be over-written with the new
-    #' value.
     #' @return Invisible `TRUE`.
     set_data = function(x, value) {
       self$data[[x]] <- value
@@ -529,8 +526,8 @@ ConservationProblem <- R6::R6Class(
     },
 
     #' @description
-    #' Obtain the number of planning units.
-    #' @details The planning units correspond to elements in the cost data
+    #' Obtain the number of planning units. The planning units correspond to
+    #' elements in the cost data
     #' (e.g., indices, rows, geometries, pixels) that have finite
     #' values in at least one zone. In other words, planning unit are
     #' elements in the cost data that do not have missing (`NA`) values in
@@ -626,8 +623,8 @@ ConservationProblem <- R6::R6Class(
     },
 
     #' @description
-    #' Obtain the number of total units.
-    #' @details The total units include all elements in the cost data
+    #' Obtain the number of total units. The total units include all elements
+    #' in the cost data
     #' (e.g., indices, rows, geometries, pixels), including those with
     #' missing (`NA`) values.
     #' @return An `integer` value.

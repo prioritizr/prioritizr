@@ -1,6 +1,6 @@
 context("add_feature_weights")
 
-test_that("compile (compressed formulation, single zone)", {
+test_that("compile (max cover, compressed formulation, single zone)", {
   # load data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
@@ -42,7 +42,55 @@ test_that("compile (compressed formulation, single zone)", {
   expect_equal(o$ub(), rep(1, n_f + n_pu))
 })
 
-test_that("solve (compressed formulation, single zone)", {
+test_that("compile (min shortfall, compressed formulation, single zone)", {
+  # import data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  # calculate budget
+  b <- floor(terra::global(sim_pu_raster, "sum", na.rm = TRUE)[[1]] * 0.2)
+  # calculate targets data
+  targ <- floor(terra::global(sim_features, "sum", na.rm = TRUE)[[1]] * 0.25)
+  targ[2] <- 0
+  # set weights
+  w <- round(runif(terra::nlyr(sim_features)), 3)
+  # create problem
+  p <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_min_shortfall_objective(budget = b) %>%
+    add_feature_weights(w) %>%
+    add_absolute_targets(targ) %>%
+    add_binary_decisions()
+  o <- compile(p)
+  # calculations for tests
+  n_pu <- length(sim_pu_raster[[1]][!is.na(sim_pu_raster)])
+  n_features <- terra::nlyr(sim_features)
+  # tests
+  expect_equal(o$modelsense(), "min")
+  expect_equal(o$obj(), c(rep(0, n_pu), replace(1 / targ, 2, 0) * w))
+  expect_equal(o$sense(), c(rep(">=", n_features), "<="))
+  expect_equal(o$rhs(), c(targ, b))
+  expect_equal(o$col_ids(), c(rep("pu", n_pu), rep("spp_met", n_features)))
+  expect_equal(o$row_ids(), c(rep("spp_target", n_features), "budget"))
+  expect_true(
+    all(o$A()[seq_len(n_features), seq_len(n_pu)] == p$data$rij_matrix[[1]])
+  )
+  expect_equal(
+    o$A()[n_features + 1, ],
+    c(p$planning_unit_costs(), rep(0, n_features))
+  )
+  expect_true(
+    all(
+      o$A()[seq_len(n_features), n_pu + seq_len(n_features)] ==
+      triplet_sparse_matrix(
+        i = seq_len(n_features), j = seq_len(n_features), x = 1
+      )
+    )
+  )
+  expect_true(all(o$lb() == 0))
+  expect_equal(o$ub(), c(rep(1, n_pu), rep(Inf, n_features)))
+})
+
+test_that("solve (max utility, compressed formulation, single zone)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # create data

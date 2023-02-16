@@ -3,7 +3,7 @@
 specify the basic data used in a spatial prioritization problem: the
 spatial distribution of the planning units and their costs, as well as
 the features (e.g., species, ecosystems) that need to be conserved. After
-constructing this ConservationProblem-class object, it can be
+constructing this object, it can be
 customized to meet specific goals using objectives,
 targets, constraints, and
 penalties. After building the problem, the
@@ -33,7 +33,7 @@ an objective will throw an error when attempting to solve it."><meta property="o
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.2.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">8.0.0.0</span>
       </span>
     </div>
 
@@ -103,7 +103,7 @@ an objective will throw an error when attempting to solve it."><meta property="o
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Conservation planning problem</h1>
-    <small class="dont-index">Source: <a href="https://github.com/prioritizr/prioritizr/blob/HEAD/R/problem.R" class="external-link"><code>R/problem.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/prioritizr/prioritizr/blob/HEAD/R/problem.R" class="external-link"><code>R/problem.R</code></a>, <a href="https://github.com/prioritizr/prioritizr/blob/HEAD/R/problem-deprecated.R" class="external-link"><code>R/problem-deprecated.R</code></a></small>
     <div class="hidden name"><code>problem.Rd</code></div>
     </div>
 
@@ -112,7 +112,7 @@ an objective will throw an error when attempting to solve it."><meta property="o
 specify the basic data used in a spatial prioritization problem: the
 spatial distribution of the planning units and their costs, as well as
 the features (e.g., species, ecosystems) that need to be conserved. After
-constructing this <code>ConservationProblem-class</code> object, it can be
+constructing this object, it can be
 customized to meet specific goals using <a href="objectives.html">objectives</a>,
 <a href="targets.html">targets</a>, <a href="constraints.html">constraints</a>, and
 <a href="penalties.html">penalties</a>. After building the problem, the
@@ -123,6 +123,39 @@ an objective will throw an error when attempting to solve it.</strong></p>
 
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for SpatRaster,SpatRaster</span></span>
+<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">run_checks</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for SpatRaster,ZonesSpatRaster</span></span>
+<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">run_checks</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for data.frame,character</span></span>
+<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">cost_column</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for data.frame,ZonesCharacter</span></span>
+<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">cost_column</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for data.frame,data.frame</span></span>
+<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">rij</span>, <span class="va">cost_column</span>, <span class="va">zones</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for numeric,data.frame</span></span>
+<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">rij_matrix</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for matrix,data.frame</span></span>
+<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">rij_matrix</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for sf,SpatRaster</span></span>
+<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">cost_column</span>, <span class="va">run_checks</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for sf,ZonesSpatRaster</span></span>
+<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">cost_column</span>, <span class="va">run_checks</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for sf,character</span></span>
+<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">cost_column</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for sf,ZonesCharacter</span></span>
+<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">cost_column</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for Raster,Raster</span></span>
 <span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">run_checks</span>, <span class="va">...</span><span class="op">)</span></span>
@@ -142,45 +175,18 @@ an objective will throw an error when attempting to solve it.</strong></p>
 <span><span class="co"># S4 method for Spatial,ZonesCharacter</span></span>
 <span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">cost_column</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># S4 method for data.frame,character</span></span>
-<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">cost_column</span>, <span class="va">...</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># S4 method for data.frame,ZonesCharacter</span></span>
-<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">cost_column</span>, <span class="va">...</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># S4 method for data.frame,data.frame</span></span>
-<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">rij</span>, <span class="va">cost_column</span>, <span class="va">zones</span>, <span class="va">...</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># S4 method for numeric,data.frame</span></span>
-<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">rij_matrix</span>, <span class="va">...</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># S4 method for matrix,data.frame</span></span>
-<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">rij_matrix</span>, <span class="va">...</span><span class="op">)</span></span>
-<span></span>
 <span><span class="co"># S4 method for sf,Raster</span></span>
 <span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">cost_column</span>, <span class="va">run_checks</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for sf,ZonesRaster</span></span>
-<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">cost_column</span>, <span class="va">run_checks</span>, <span class="va">...</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># S4 method for sf,character</span></span>
-<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">cost_column</span>, <span class="va">...</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># S4 method for sf,ZonesCharacter</span></span>
-<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">cost_column</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">cost_column</span>, <span class="va">run_checks</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
-<dd><p><code><a href="https://rdrr.io/pkg/raster/man/Raster-classes.html" class="external-link">Raster</a></code>,
-<code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::st_sf()</a></code>,
-<code><a href="https://rdrr.io/pkg/sp/man/SpatialPolygonsDataFrame-class.html" class="external-link">SpatialPolygonsDataFrame</a></code>,
-<code><a href="https://rdrr.io/pkg/sp/man/SpatialLinesDataFrame-class.html" class="external-link">SpatialLinesDataFrame</a></code>,
-<code><a href="https://rdrr.io/pkg/sp/man/SpatialPointsDataFrame-class.html" class="external-link">SpatialPointsDataFrame</a></code>,
-<code><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame()</a></code> object,
-<code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric()</a></code> vector, or
-<code><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix()</a></code> specifying the planning units to use in the reserve
+<dd><p><code><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">terra::rast()</a></code>, <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::st_sf()</a></code>, <code>data.frame</code>, <code>matrix</code>, or
+<code>numeric</code> vector specifying the planning units to use in the reserve
 design exercise and their corresponding cost. It may be desirable to
 exclude some planning units from the analysis, for example those outside
 the study area. To exclude planning units, set the cost for those raster
@@ -192,17 +198,15 @@ cells to <code>NA</code>, or use the <code>add_locked_out_constraint</code> func
 The specific formats that can be used depend on the cost data format (i.e.,
 argument to <code>x</code>) and whether the problem should have a single zone or
 multiple zones. If the problem should have a single zone, then the feature
-data can be specified following:</p><ul><li><p><code>x = RasterLayer-class</code>, or
-<code><a href="https://rdrr.io/pkg/sp/man/Spatial-class.html" class="external-link">x = Spatial-class</a></code>, or
+data can be specified following:</p><ul><li><p><code><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">x = terra::rast()</a></code>, or
 <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">x = sf::st_sf()</a></code>:
-<code>y = Raster-class</code>
+<code><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">y = terra::rast()</a></code>
 object showing the distribution of conservation features. Missing
 values (i.e., <code>NA</code> values) can be used to indicate the absence of
 a feature in a particular cell instead of explicitly setting these
 cells to zero. Note that this argument type for <code>features</code> can
 only be used to specify data for problems involving a single zone.</p></li>
-<li><p><code><a href="https://rdrr.io/pkg/sp/man/Spatial-class.html" class="external-link">x = Spatial-class</a></code>, or
-<code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">x = sf::st_sf()</a></code>, or
+<li><p><code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">x = sf::st_sf()</a></code>, or
 <code>x = data.frame</code>:
 <code>y = character</code> vector
 with column names that correspond to the abundance or occurrence of
@@ -235,17 +239,14 @@ feature (optional).</p></dd>
 
 </dl></li>
 </ul><p>If the problem should have multiple zones, then the feature
-data can be specified following:</p><ul><li><p><code>x = RasterStack-class</code>, or
-<code>x = RasterBrick-class</code>, or
-<code><a href="https://rdrr.io/pkg/sp/man/Spatial-class.html" class="external-link">x = Spatial-class</a></code>, or
+data can be specified following:</p><ul><li><p><code><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">x = terra::rast()</a></code>, or
 <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">x = sf::st_sf()</a></code>:
 <code><a href="zones.html">y = ZonesRaster</a></code>:
 object showing the distribution of conservation features in multiple
 zones. As above, missing values (i.e., <code>NA</code> values) can be used to
 indicate the absence of a feature in a particular cell instead of
 explicitly setting these cells to zero.</p></li>
-<li><p><code><a href="https://rdrr.io/pkg/sp/man/Spatial-class.html" class="external-link">x = Spatial-class</a></code>, or
-<code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">x = sf::st_sf()</a></code>, or
+<li><p><code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">x = sf::st_sf()</a></code>, or
 or <code>x = data.frame</code>:
 <code><a href="zones.html">y = ZonesCharacter</a></code>
 object with column names that correspond to the abundance or
@@ -262,14 +263,14 @@ zones.</p></li>
 <dd><p><code>logical</code> flag indicating whether checks should be
 run to ensure the integrity of the input data. These checks are run by
 default; however, for large datasets they may increase run time. If it is
-taking a prohibitively long time to create the prioritization problem, it
-is suggested to try setting <code>run_checks</code> to <code>FALSE</code>.</p></dd>
+taking a prohibitively long time to create the prioritization problem,
+try setting <code>run_checks</code> to <code>FALSE</code>.</p></dd>
 
 
 <dt>cost_column</dt>
 <dd><p><code>character</code> name or <code>integer</code> indicating the
 column(s) with the cost data. This argument must be supplied when the
-argument to <code>x</code> is a <code><a href="https://rdrr.io/pkg/sp/man/Spatial-class.html" class="external-link">Spatial</a></code> or
+argument to <code>x</code> is a <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::st_sf()</a></code> or
 <code>data.frame</code> object. This argument should contain the name of each
 column containing cost data for each management zone when creating
 problems with multiple zones. To create a problem with a single zone, then
@@ -318,8 +319,7 @@ columns:</p><dl><dt>id</dt>
 
 
 <dt>rij_matrix</dt>
-<dd><p><code>list</code> of <code>matrix</code> or
-<code><a href="https://rdrr.io/pkg/Matrix/man/dgCMatrix-class.html" class="external-link">dgCMatrix</a></code>
+<dd><p><code>list</code> of <code>matrix</code> or <code><a href="https://rdrr.io/pkg/Matrix/man/dgCMatrix-class.html" class="external-link">dgCMatrix</a></code>
 objects specifying the amount of each feature (rows) within each planning
 unit (columns) for each zone. The <code>list</code> elements denote
 different zones, matrix rows denote features, and matrix columns denote
@@ -334,8 +334,7 @@ to <code>x</code> is a <code>numeric</code> or <code>matrix</code> object.</p></
     <h2>Value</h2>
     
 
-<p><code><a href="ConservationProblem-class.html">ConservationProblem</a></code> object containing
-data for a prioritization.</p>
+<p>A new <code>problem()</code> (<code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) object.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -363,7 +362,7 @@ The size (i.e., spatial grain) of the planning units is often determined
 based on a compromise between the scale needed to inform decision making, the
 spatial accuracy (resolution) of available datasets, and
 the computational resources available for generating prioritizations
-(e.g., RAM and number of CPUs on your computer).</p>
+(e.g., RAM and number of CPU cores on your computer).</p>
 <p>Second, you will need data to quantify the cost of implementing
 implementing each management action within each planning unit.
 Critically, the cost data should reflect the management action(s)
@@ -450,7 +449,7 @@ to a plain-text file on your computer and then view it using a standard
 text editor (e.g., Notepad).</p>
 <p>Please note that this function internally computes the amount of each
 feature in each planning unit when this data is not supplied (using the
-<a href="rij_matrix.html">rij_matrix</a> function). As a consequence, it can take a while to
+<code><a href="rij_matrix.html">rij_matrix()</a></code> function). As a consequence, it can take a while to
 initialize large-scale conservation planning problems that involve
 millions of planning units.</p>
     </div>
@@ -466,44 +465,47 @@ evaluating solutions.</p></div>
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># load data</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_pu_polygons</span>, <span class="va">sim_pu_lines</span>, <span class="va">sim_pu_points</span>,</span></span>
-<span class="r-in"><span>     <span class="va">sim_pu_sf</span>, <span class="va">sim_features</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sim_pu_raster</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_pu_raster</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sim_pu_polygons</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_pu_polygons</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sim_pu_points</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_pu_points</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sim_pu_lines</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_pu_lines</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sim_features</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_features</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sim_pu_zones_raster</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_zones_pu_raster</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sim_pu_zones_polygons</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_zones_pu_polygons</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sim_features_zones</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_zones_features</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create problem using raster planning unit data</span></span></span>
-<span class="r-in"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu">problem</span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>      <span class="fu"><a href="add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>      <span class="fu"><a href="add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.2</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>      <span class="fu"><a href="add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>      <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p1</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="fu">problem</span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
-<span class="r-in"><span><span class="co"># create problem using polygon (Spatial) planning unit data</span></span></span>
-<span class="r-in"><span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu">problem</span><span class="op">(</span><span class="va">sim_pu_polygons</span>, <span class="va">sim_features</span>, <span class="st">"cost"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>      <span class="fu"><a href="add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>      <span class="fu"><a href="add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.2</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>      <span class="fu"><a href="add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>      <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># create problem using polygon planning unit data</span></span></span>
+<span class="r-in"><span><span class="va">p2</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="fu">problem</span><span class="op">(</span><span class="va">sim_pu_polygons</span>, <span class="va">sim_features</span>, <span class="st">"cost"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># create problem using line (Spatial) planning unit data</span></span></span>
-<span class="r-in"><span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="fu">problem</span><span class="op">(</span><span class="va">sim_pu_lines</span>, <span class="va">sim_features</span>, <span class="st">"cost"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>      <span class="fu"><a href="add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>      <span class="fu"><a href="add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.2</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>      <span class="fu"><a href="add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>      <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># create problem using line planning unit data</span></span></span>
+<span class="r-in"><span><span class="va">p3</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="fu">problem</span><span class="op">(</span><span class="va">sim_pu_lines</span>, <span class="va">sim_features</span>, <span class="st">"cost"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># create problem using point (Spatial) planning unit data</span></span></span>
-<span class="r-in"><span><span class="va">p4</span> <span class="op">&lt;-</span> <span class="fu">problem</span><span class="op">(</span><span class="va">sim_pu_points</span>, <span class="va">sim_features</span>, <span class="st">"cost"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>      <span class="fu"><a href="add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>      <span class="fu"><a href="add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.2</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>      <span class="fu"><a href="add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>      <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># create problem using polygon (sf) planning unit data</span></span></span>
-<span class="r-in"><span><span class="va">p5</span> <span class="op">&lt;-</span> <span class="fu">problem</span><span class="op">(</span><span class="va">sim_pu_sf</span>, <span class="va">sim_features</span>, <span class="st">"cost"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>      <span class="fu"><a href="add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>      <span class="fu"><a href="add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.2</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>      <span class="fu"><a href="add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>      <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># create problem using point planning unit data</span></span></span>
+<span class="r-in"><span><span class="va">p4</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="fu">problem</span><span class="op">(</span><span class="va">sim_pu_points</span>, <span class="va">sim_features</span>, <span class="st">"cost"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># since geo-processing can be slow for large spatial vector datasets</span></span></span>
 <span class="r-in"><span><span class="co"># (e.g., polygons, lines, points), it can be worthwhile to pre-process the</span></span></span>
@@ -512,49 +514,38 @@ evaluating solutions.</p></div>
 <span class="r-in"><span><span class="co"># (i.e., each column corresponds to a different feature)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># calculate the amount of each species within each planning unit</span></span></span>
-<span class="r-in"><span><span class="co"># (i.e., SpatialPolygonsDataFrame object)</span></span></span>
 <span class="r-in"><span><span class="va">pre_proc_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="rij_matrix.html">rij_matrix</a></span><span class="op">(</span><span class="va">sim_pu_polygons</span>, <span class="va">sim_features</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># add extra columns to the polygon (Spatial) planning unit data</span></span></span>
+<span class="r-in"><span><span class="co"># add extra columns to the polygon planning unit data</span></span></span>
 <span class="r-in"><span><span class="co"># to indicate the amount of each species within each planning unit</span></span></span>
 <span class="r-in"><span><span class="va">pre_proc_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">pre_proc_data</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">pre_proc_data</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">sim_features</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">sim_pu_polygons</span><span class="op">@</span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">sim_pu_polygons</span><span class="op">@</span><span class="va">data</span>, <span class="va">pre_proc_data</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sim_pu_polygons</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">sim_pu_polygons</span>, <span class="va">pre_proc_data</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># create problem using the polygon (Spatial) planning unit data</span></span></span>
+<span class="r-in"><span><span class="co"># create problem using the polygon planning unit data</span></span></span>
 <span class="r-in"><span><span class="co"># with the pre-processed columns</span></span></span>
-<span class="r-in"><span><span class="va">p6</span> <span class="op">&lt;-</span> <span class="fu">problem</span><span class="op">(</span><span class="va">sim_pu_polygons</span>, features <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">pre_proc_data</span><span class="op">)</span>, <span class="st">"cost"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>      <span class="fu"><a href="add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>      <span class="fu"><a href="add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.2</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>      <span class="fu"><a href="add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>      <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># this strategy of pre-processing columns can be used for sf objects too</span></span></span>
-<span class="r-in"><span><span class="va">pre_proc_data2</span> <span class="op">&lt;-</span> <span class="fu"><a href="rij_matrix.html">rij_matrix</a></span><span class="op">(</span><span class="va">sim_pu_sf</span>, <span class="va">sim_features</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">pre_proc_data2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">pre_proc_data2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">pre_proc_data2</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">sim_features</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">sim_pu_sf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">sim_pu_sf</span>, <span class="va">pre_proc_data2</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># create problem using the polygon (sf) planning unit data</span></span></span>
-<span class="r-in"><span><span class="co"># with pre-processed columns</span></span></span>
-<span class="r-in"><span><span class="va">p7</span> <span class="op">&lt;-</span> <span class="fu">problem</span><span class="op">(</span><span class="va">sim_pu_sf</span>, features <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">pre_proc_data2</span><span class="op">)</span>, <span class="st">"cost"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>      <span class="fu"><a href="add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>      <span class="fu"><a href="add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.2</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>      <span class="fu"><a href="add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>      <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p5</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="fu">problem</span><span class="op">(</span><span class="va">sim_pu_polygons</span>, features <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">pre_proc_data</span><span class="op">)</span>, <span class="st">"cost"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># in addition to spatially explicit data, pre-processed aspatial data</span></span></span>
 <span class="r-in"><span><span class="co"># can also be used to create a problem</span></span></span>
 <span class="r-in"><span><span class="co"># (e.g., data created using external spreadsheet software)</span></span></span>
 <span class="r-in"><span><span class="va">costs</span> <span class="op">&lt;-</span> <span class="va">sim_pu_polygons</span><span class="op">$</span><span class="va">cost</span></span></span>
-<span class="r-in"><span><span class="va">features</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/raster/man/nlayers.html" class="external-link">nlayers</a></span><span class="op">(</span><span class="va">sim_features</span><span class="op">)</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                       name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">sim_features</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">features</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/dimensions.html" class="external-link">nlyr</a></span><span class="op">(</span><span class="va">sim_features</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">sim_features</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">rij_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="rij_matrix.html">rij_matrix</a></span><span class="op">(</span><span class="va">sim_pu_polygons</span>, <span class="va">sim_features</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">p8</span> <span class="op">&lt;-</span> <span class="fu">problem</span><span class="op">(</span><span class="va">costs</span>, <span class="va">features</span>, rij_matrix <span class="op">=</span> <span class="va">rij_mat</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>      <span class="fu"><a href="add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>      <span class="fu"><a href="add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.2</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>      <span class="fu"><a href="add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>      <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p6</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="fu">problem</span><span class="op">(</span><span class="va">costs</span>, <span class="va">features</span>, rij_matrix <span class="op">=</span> <span class="va">rij_mat</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># solve problems</span></span></span>
 <span class="r-in"><span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></span></span>
@@ -563,39 +554,27 @@ evaluating solutions.</p></div>
 <span class="r-in"><span><span class="va">s4</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p4</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">s5</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p5</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">s6</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p6</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">s7</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p7</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">s8</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p8</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot solutions for problems associated with spatial data</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">2</span><span class="op">)</span>, mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">4.1</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s1</span>, main <span class="op">=</span> <span class="st">"raster data"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span>, legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s2</span>, main <span class="op">=</span> <span class="st">"polygon data"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s2</span><span class="op">[</span><span class="va">s2</span><span class="op">$</span><span class="va">solution_1</span> <span class="op">&gt;</span> <span class="fl">0.5</span>, <span class="op">]</span>, col <span class="op">=</span> <span class="st">"darkgreen"</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s3</span>, main <span class="op">=</span> <span class="st">"line data"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">s3</span><span class="op">[</span><span class="va">s3</span><span class="op">$</span><span class="va">solution_1</span> <span class="op">&gt;</span> <span class="fl">0.5</span>, <span class="op">]</span>, col <span class="op">=</span> <span class="st">"darkgreen"</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s4</span>, main <span class="op">=</span> <span class="st">"point data"</span>, pch <span class="op">=</span> <span class="fl">19</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">s4</span><span class="op">[</span><span class="va">s4</span><span class="op">$</span><span class="va">solution_1</span> <span class="op">&gt;</span> <span class="fl">0.5</span>, <span class="op">]</span>, col <span class="op">=</span> <span class="st">"darkgreen"</span>, cex <span class="op">=</span> <span class="fl">2</span>, pch <span class="op">=</span> <span class="fl">19</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># note that as_Spatial() is for convenience to plot all solutions together</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/coerce-methods.html" class="external-link">as_Spatial</a></span><span class="op">(</span><span class="va">s5</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"sf (polygon) data"</span>, pch <span class="op">=</span> <span class="fl">19</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/coerce-methods.html" class="external-link">as_Spatial</a></span><span class="op">(</span><span class="va">s5</span><span class="op">[</span><span class="va">s5</span><span class="op">$</span><span class="va">solution_1</span> <span class="op">&gt;</span> <span class="fl">0.5</span>, <span class="op">]</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>     col <span class="op">=</span> <span class="st">"darkgreen"</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s6</span>, main <span class="op">=</span> <span class="st">"preprocessed data (polygon data)"</span>, pch <span class="op">=</span> <span class="fl">19</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s6</span><span class="op">[</span><span class="va">s6</span><span class="op">$</span><span class="va">solution_1</span> <span class="op">&gt;</span> <span class="fl">0.5</span>, <span class="op">]</span>, col <span class="op">=</span> <span class="st">"darkgreen"</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s1</span>, main <span class="op">=</span> <span class="st">"raster data"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="problem-1.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s2</span><span class="op">[</span>, <span class="st">"solution_1"</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"polygon data"</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="problem-2.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s3</span><span class="op">[</span>, <span class="st">"solution_1"</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"line data"</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="problem-3.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s4</span><span class="op">[</span>, <span class="st">"solution_1"</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"point data"</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="problem-4.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s5</span><span class="op">[</span>, <span class="st">"solution_1"</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"preprocessed data (polygon data)"</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="problem-5.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># show solutions for problems associated with aspatial data</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">s8</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">s6</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  num [1:90] 0 0 0 0 0 0 0 0 0 1 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "objective")= Named num 3586</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "names")= chr "solution_1"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "status")= Named chr "OPTIMAL"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "names")= chr "solution_1"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "runtime")= Named num 0.029</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "runtime")= Named num 0.025</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "names")= chr "solution_1"</span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span><span class="co"># create some problems with multiple zones</span></span></span>
@@ -605,14 +584,17 @@ evaluating solutions.</p></div>
 <span class="r-in"><span><span class="co"># column corresponds to a different zone, and values correspond</span></span></span>
 <span class="r-in"><span><span class="co"># to the total (absolute) amount of a given feature that needs to be secured</span></span></span>
 <span class="r-in"><span><span class="co"># in a given zone</span></span></span>
-<span class="r-in"><span><span class="va">targets</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html" class="external-link">rpois</a></span><span class="op">(</span><span class="fl">15</span>, <span class="fl">1</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                  nrow <span class="op">=</span> <span class="fu"><a href="number_of_features.html">number_of_features</a></span><span class="op">(</span><span class="va">sim_features_zones</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                  ncol <span class="op">=</span> <span class="fu"><a href="number_of_zones.html">number_of_zones</a></span><span class="op">(</span><span class="va">sim_features_zones</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                  dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="feature_names.html">feature_names</a></span><span class="op">(</span><span class="va">sim_features_zones</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                                  <span class="fu"><a href="zone_names.html">zone_names</a></span><span class="op">(</span><span class="va">sim_features_zones</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">targets</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html" class="external-link">rpois</a></span><span class="op">(</span><span class="fl">15</span>, <span class="fl">1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  nrow <span class="op">=</span> <span class="fu"><a href="number_of_features.html">number_of_features</a></span><span class="op">(</span><span class="va">sim_features_zones</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  ncol <span class="op">=</span> <span class="fu"><a href="number_of_zones.html">number_of_zones</a></span><span class="op">(</span><span class="va">sim_features_zones</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="feature_names.html">feature_names</a></span><span class="op">(</span><span class="va">sim_features_zones</span><span class="op">)</span>, <span class="fu"><a href="zone_names.html">zone_names</a></span><span class="op">(</span><span class="va">sim_features_zones</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># print targets</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">targets</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">targets</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           zone_1 zone_2 zone_3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> feature_1      2      0      0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> feature_2      1      1      2</span>
@@ -621,50 +603,54 @@ evaluating solutions.</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> feature_5      2      1      1</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create a multi-zone problem with raster data</span></span></span>
-<span class="r-in"><span><span class="va">p8</span> <span class="op">&lt;-</span> <span class="fu">problem</span><span class="op">(</span><span class="va">sim_pu_zones_stack</span>, <span class="va">sim_features_zones</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>      <span class="fu"><a href="add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>      <span class="fu"><a href="add_absolute_targets.html">add_absolute_targets</a></span><span class="op">(</span><span class="va">targets</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>      <span class="fu"><a href="add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>      <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p7</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="fu">problem</span><span class="op">(</span><span class="va">sim_pu_zones_raster</span>, <span class="va">sim_features_zones</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_absolute_targets.html">add_absolute_targets</a></span><span class="op">(</span><span class="va">targets</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span><span class="co"># solve problem</span></span></span>
-<span class="r-in"><span><span class="va">s8</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p8</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">s7</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p7</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot solution</span></span></span>
 <span class="r-in"><span><span class="co"># here, each layer/panel corresponds to a different zone and pixel values</span></span></span>
 <span class="r-in"><span><span class="co"># indicate if a given planning unit has been allocated to a given zone</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s8</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"zone 1"</span>, <span class="st">"zone 2"</span>, <span class="st">"zone 3"</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="problem-2.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s7</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"zone 1"</span>, <span class="st">"zone 2"</span>, <span class="st">"zone 3"</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="problem-6.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># alternatively, the category_layer function can be used to create</span></span></span>
 <span class="r-in"><span><span class="co"># a new raster object containing the zone ids for each planning unit</span></span></span>
 <span class="r-in"><span><span class="co"># in the solution (note this only works for problems with binary decisions)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s8</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="problem-3.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s7</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="problem-7.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create a multi-zone problem with polygon data</span></span></span>
-<span class="r-in"><span><span class="va">p9</span> <span class="op">&lt;-</span> <span class="fu">problem</span><span class="op">(</span><span class="va">sim_pu_zones_polygons</span>, <span class="va">sim_features_zones</span>,</span></span>
-<span class="r-in"><span>              cost_column <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cost_1"</span>, <span class="st">"cost_2"</span>, <span class="st">"cost_3"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>      <span class="fu"><a href="add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>      <span class="fu"><a href="add_absolute_targets.html">add_absolute_targets</a></span><span class="op">(</span><span class="va">targets</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>      <span class="fu"><a href="add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>      <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p8</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="fu">problem</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="va">sim_pu_zones_polygons</span>, <span class="va">sim_features_zones</span>,</span></span>
+<span class="r-in"><span>    cost_column <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cost_1"</span>, <span class="st">"cost_2"</span>, <span class="st">"cost_3"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_absolute_targets.html">add_absolute_targets</a></span><span class="op">(</span><span class="va">targets</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># solve problem</span></span></span>
-<span class="r-in"><span><span class="va">s9</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p9</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">s8</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p8</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create column containing the zone id for which each planning unit was</span></span></span>
 <span class="r-in"><span><span class="co"># allocated to in the solution</span></span></span>
-<span class="r-in"><span><span class="va">s9</span><span class="op">$</span><span class="va">solution</span> <span class="op">&lt;-</span> <span class="fu"><a href="category_vector.html">category_vector</a></span><span class="op">(</span><span class="va">s9</span><span class="op">@</span><span class="va">data</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"solution_1_zone_1"</span>,</span></span>
-<span class="r-in"><span>                                           <span class="st">"solution_1_zone_2"</span>,</span></span>
-<span class="r-in"><span>                                           <span class="st">"solution_1_zone_3"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">s9</span><span class="op">$</span><span class="va">solution</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">s9</span><span class="op">$</span><span class="va">solution</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">s8</span><span class="op">$</span><span class="va">solution</span> <span class="op">&lt;-</span> <span class="fu"><a href="category_vector.html">category_vector</a></span><span class="op">(</span><span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html" class="external-link">st_drop_geometry</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span> <span class="va">s8</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"solution_1_zone_1"</span>, <span class="st">"solution_1_zone_2"</span>, <span class="st">"solution_1_zone_3"</span><span class="op">)</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">s8</span><span class="op">$</span><span class="va">solution</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">s8</span><span class="op">$</span><span class="va">solution</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot solution</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/sp/man/spplot.html" class="external-link">spplot</a></span><span class="op">(</span><span class="va">s9</span>, zcol <span class="op">=</span> <span class="st">"solution"</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="problem-4.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s8</span><span class="op">[</span>, <span class="st">"solution"</span><span class="op">]</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="problem-8.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create a multi-zone problem with polygon planning unit data</span></span></span>
 <span class="r-in"><span><span class="co"># and where fields (columns) in the attribute table correspond</span></span></span>
@@ -673,12 +659,12 @@ evaluating solutions.</p></div>
 <span class="r-in"><span><span class="co"># first fields need to be added to the planning unit data</span></span></span>
 <span class="r-in"><span><span class="co"># which indicate the amount of each feature in each zone</span></span></span>
 <span class="r-in"><span><span class="co"># to do this, the fields will be populated with random counts</span></span></span>
-<span class="r-in"><span><span class="va">sim_pu_zones_polygons</span><span class="op">$</span><span class="va">spp1_z1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html" class="external-link">rpois</a></span><span class="op">(</span><span class="fu"><a href="OptimizationProblem-methods.html">nrow</a></span><span class="op">(</span><span class="va">sim_pu_zones_polygons</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">sim_pu_zones_polygons</span><span class="op">$</span><span class="va">spp2_z1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html" class="external-link">rpois</a></span><span class="op">(</span><span class="fu"><a href="OptimizationProblem-methods.html">nrow</a></span><span class="op">(</span><span class="va">sim_pu_zones_polygons</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">sim_pu_zones_polygons</span><span class="op">$</span><span class="va">spp3_z1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html" class="external-link">rpois</a></span><span class="op">(</span><span class="fu"><a href="OptimizationProblem-methods.html">nrow</a></span><span class="op">(</span><span class="va">sim_pu_zones_polygons</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">sim_pu_zones_polygons</span><span class="op">$</span><span class="va">spp1_z2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html" class="external-link">rpois</a></span><span class="op">(</span><span class="fu"><a href="OptimizationProblem-methods.html">nrow</a></span><span class="op">(</span><span class="va">sim_pu_zones_polygons</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">sim_pu_zones_polygons</span><span class="op">$</span><span class="va">spp2_z2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html" class="external-link">rpois</a></span><span class="op">(</span><span class="fu"><a href="OptimizationProblem-methods.html">nrow</a></span><span class="op">(</span><span class="va">sim_pu_zones_polygons</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">sim_pu_zones_polygons</span><span class="op">$</span><span class="va">spp3_z2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html" class="external-link">rpois</a></span><span class="op">(</span><span class="fu"><a href="OptimizationProblem-methods.html">nrow</a></span><span class="op">(</span><span class="va">sim_pu_zones_polygons</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sim_pu_zones_polygons</span><span class="op">$</span><span class="va">spp1_z1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html" class="external-link">rpois</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">sim_pu_zones_polygons</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sim_pu_zones_polygons</span><span class="op">$</span><span class="va">spp2_z1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html" class="external-link">rpois</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">sim_pu_zones_polygons</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sim_pu_zones_polygons</span><span class="op">$</span><span class="va">spp3_z1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html" class="external-link">rpois</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">sim_pu_zones_polygons</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sim_pu_zones_polygons</span><span class="op">$</span><span class="va">spp1_z2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html" class="external-link">rpois</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">sim_pu_zones_polygons</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sim_pu_zones_polygons</span><span class="op">$</span><span class="va">spp2_z2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html" class="external-link">rpois</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">sim_pu_zones_polygons</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sim_pu_zones_polygons</span><span class="op">$</span><span class="va">spp3_z2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html" class="external-link">rpois</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">sim_pu_zones_polygons</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create problem with polygon planning unit data and use field names</span></span></span>
 <span class="r-in"><span><span class="co"># to indicate feature data</span></span></span>
@@ -686,23 +672,27 @@ evaluating solutions.</p></div>
 <span class="r-in"><span><span class="co"># the problem will have prfoportion-type decisions such that</span></span></span>
 <span class="r-in"><span><span class="co"># a proportion of each planning unit can be allocated to each of the</span></span></span>
 <span class="r-in"><span><span class="co"># two management zones</span></span></span>
-<span class="r-in"><span><span class="va">p10</span> <span class="op">&lt;-</span> <span class="fu">problem</span><span class="op">(</span><span class="va">sim_pu_zones_polygons</span>,</span></span>
-<span class="r-in"><span>               <span class="fu"><a href="zones.html">zones</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"spp1_z1"</span>, <span class="st">"spp2_z1"</span>, <span class="st">"spp3_z1"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                     <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"spp1_z2"</span>, <span class="st">"spp2_z2"</span>, <span class="st">"spp3_z2"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                     zone_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"z1"</span>, <span class="st">"z2"</span><span class="op">)</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>               cost_column <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cost_1"</span>, <span class="st">"cost_2"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>       <span class="fu"><a href="add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>       <span class="fu"><a href="add_absolute_targets.html">add_absolute_targets</a></span><span class="op">(</span><span class="va">targets</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>       <span class="fu"><a href="add_proportion_decisions.html">add_proportion_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>      <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p9</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="fu">problem</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="va">sim_pu_zones_polygons</span>,</span></span>
+<span class="r-in"><span>    <span class="fu"><a href="zones.html">zones</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>      <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"spp1_z1"</span>, <span class="st">"spp2_z1"</span>, <span class="st">"spp3_z1"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>      <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"spp1_z2"</span>, <span class="st">"spp2_z2"</span>, <span class="st">"spp3_z2"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>      zone_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"z1"</span>, <span class="st">"z2"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span>,</span></span>
+<span class="r-in"><span>    cost_column <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cost_1"</span>, <span class="st">"cost_2"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_absolute_targets.html">add_absolute_targets</a></span><span class="op">(</span><span class="va">targets</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_proportion_decisions.html">add_proportion_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># solve problem</span></span></span>
-<span class="r-in"><span><span class="va">s10</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">s9</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p9</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot solution</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/sp/man/spplot.html" class="external-link">spplot</a></span><span class="op">(</span><span class="va">s10</span>, zcol <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"solution_1_z1"</span>, <span class="st">"solution_1_z2"</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>,</span></span>
-<span class="r-in"><span>       axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="problem-5.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s9</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"solution_1_z1"</span>, <span class="st">"solution_1_z2"</span><span class="op">)</span><span class="op">]</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="problem-9.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>

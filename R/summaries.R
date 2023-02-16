@@ -25,7 +25,7 @@ NULL
 #'
 #'  \item{[eval_target_coverage_summary()]}{Calculate how well feature
 #'    representation [targets] are met by a solution. This function can only be
-#'    used with problems contain [targets].}
+#'    used with problems that contain [targets].}
 #'
 #'  \item{[eval_boundary_summary()]}{Calculate the exposed boundary length
 #'    (perimeter) associated with a solution.}

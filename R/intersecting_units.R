@@ -15,7 +15,8 @@ NULL
 #'
 #' @name intersecting_units
 #'
-#' @seealso [fast_extract()].
+#' @seealso
+#' See [fast_extract()] for extracting data from spatial datasets.
 #'
 #' @exportMethod intersecting_units
 #'
@@ -32,26 +33,24 @@ NULL
 #'
 #' # intersect raster with raster
 #' par(mfrow = c(1, 2))
-#' plot(r, main = "x=SpatRaster")
-#' plot(r_with_holes, main = "y=SpatRaster")
+#' plot(r, main = "x = SpatRaster", axes = FALSE)
+#' plot(r_with_holes, main = "y = SpatRaster", axes = FALSE)
 #' print(intersecting_units(r, r_with_holes))
 #'
 #' # intersect raster with sf
 #' par(mfrow = c(1, 2))
-#' plot(r, main = "x=SpatRaster")
-#' plot(ply_with_holes, main = "y=sf", key.pos = NULL, reset = FALSE)
+#' plot(r, main = "x = SpatRaster", axes = FALSE)
+#' plot(ply_with_holes, main = "y = sf", key.pos = NULL, reset = FALSE)
 #' print(intersecting_units(r, ply_with_holes))
 #'
 #' # intersect sf with raster
-#' par(mfrow = c(1, 2))
-#' plot(ply, main = "x=sf")
-#' plot(r_with_holes, main = "y=SpatRaster")
+#' plot(ply, main = "x = sf")
+#' plot(r_with_holes, main = "y = SpatRaster")
 #' print(intersecting_units(ply, r_with_holes))
 #'
 #' # intersect sf with sf
-#' par(mfrow = c(1, 2))
-#' plot(ply, main = "x=sf")
-#' plot(ply_with_holes, main = "y=sf", key.pos = NULL, reset = FALSE)
+#' plot(ply, main = "x = sf")
+#' plot(ply_with_holes, main = "y = sf", key.pos = NULL, reset = FALSE)
 #' print(intersecting_units(ply, ply_with_holes))
 #' }
 #'
@@ -138,9 +137,8 @@ methods::setMethod(
     # extract first layer
     x <- x[[1]]
     y <- y[[1]]
-    y <- terra::as.bool(y)
     # return positive cells
-    terra::cells(terra::as.bool(y) & !is.na(x), 1)[[1]]
+    as.integer(terra::cells((y > 0) & !is.na(x), 1)[[1]])
   }
 )
 
@@ -224,7 +222,7 @@ methods::setMethod("intersecting_units",
     y <- y[[1]]
     # find out which units in y contain at least one element of x
     ## precision is 1e-7
-    which(c(fast_extract(terra::as.bool(y), x, fun = "mean")) > 1e-7)
+    which(c(fast_extract(y > 0, x, fun = "mean")) > 1e-7)
   }
 )
 

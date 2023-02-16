@@ -126,11 +126,12 @@ methods::setMethod(
       m[is.na(m)] <- 0
       m <- Matrix::t(Matrix::drop0(methods::as(m, "dgCMatrix")))
     } else {
-      # generate matrix
+      # initialize matrix
       m <- Matrix::sparseMatrix(
         i = 1, j = 1, x = 0, repr = "C",
         dims = c(terra::nlyr(y), length(idx))
       )
+      # import data
       for (i in seq_len(terra::nlyr(y))) {
         v <- y[[i]][idx][[1]]
         v[is.na(v)] <- 0

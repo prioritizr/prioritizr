@@ -156,7 +156,7 @@ p5_targets <- matrix(
 )
 print(p5_targets)
 
-p5 <- p3 \%>\% add_absolute_targets(p4_targets)
+p5 <- p3 \%>\% add_absolute_targets(p5_targets)
 
 # solve problem
 s5 <- solve(p5)

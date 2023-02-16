@@ -170,11 +170,11 @@ plot(
 
 # create a modified version of p0 with linear constraints that
 # specify that the planning units in the solution must not have
-# values in sim_pu_raster2 that sum to a total greater than 1600
+# values in sim_pu_raster2 that sum to a total greater than 500
 p1 <-
   p0 \%>\%
   add_linear_constraints(
-    threshold = 1600, sense = "<=", data = sim_pu_raster2
+    threshold = 500, sense = "<=", data = sim_pu_raster2
   )
 
 # solve problem
@@ -236,7 +236,7 @@ sim_admin <- terra::mask(sim_admin, sim_pu_raster)
 # we can see that the administrative areas subdivide
 # the study region into four quadrants, and the sim_admin object is a
 # SpatRaster with integer values denoting ids for the administrative areas
-plot(sim_admin)
+plot(sim_admin, axes = FALSE)
 
 # next we will convert the sim_admin SpatRaster object into a SpatRaster
 # object (with a layer for each administrative area) indicating which
@@ -245,7 +245,7 @@ plot(sim_admin)
 sim_admin2 <- binary_stack(sim_admin)
 
 # plot binary stack of administrative areas
-plot(sim_admin2)
+plot(sim_admin2, axes = FALSE)
 
 # we will now calculate the total amount of planning units associated
 # with each administrative area, so that we can set the constraint threshold

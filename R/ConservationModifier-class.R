@@ -7,6 +7,7 @@ NULL
 
 #' Conservation problem modifier class
 #'
+#' @description
 #' This super-class is used to construct [`Objective-class`]
 #' [`Penalty-class`], [`Target-class`], [`Constraint-class`],
 #' [`Portfolio-class`], [`Solver-class`], and [`Decision-class`] objects.
@@ -22,7 +23,7 @@ ConservationModifier <- R6::R6Class(
     #' @field name `character` value.
     name = character(0),
 
-    #' @field data `list` containing data (e.g., parameter values).
+    #' @field data `list` containing data.
     data = list(),
 
     #' @field internal `list` containing internal computed values.
@@ -66,25 +67,21 @@ ConservationModifier <- R6::R6Class(
     },
 
     #' @description
-    #' Get stored data.
+    #' Get values stored in the `data` field.
     #' @param x `character` name of data.
-    #' @details This method accesses values in the `data` field.
-    #' If the `data` field does not contain an object associated with the
-    #' argument to `x`, then a [new_waiver()] object is returned.
-    #' @return An object.
+    #' @return An object. If the `data` field does not contain an object
+    #' associated with the argument to `x`, then a [new_waiver()] object is
+    #' returned.
     get_data = function(x) {
       if (!x %in% names(self$data)) return(new_waiver())
       self$data[[x]]
     },
 
     #' @description
-    #' Set stored data.
+    #' Set values stored in the `data` field. Note that this method will
+    #' overwrite existing data.
     #' @param x `character` name of data.
     #' @param value Object to store.
-    #' @details This method stores values in the `data` field.
-    #' Note that if an object already contains a value associated
-    #' with the argument to `x`, then it will be over-written with the new
-    #' value.
     #' @return Invisible `TRUE`.
     set_data = function(x, value) {
       self$data[[x]] <- value
@@ -92,26 +89,24 @@ ConservationModifier <- R6::R6Class(
     },
 
     #' @description
-    #' Get internal data.
+    #' Get values stored in the `internal` field.
     #' @param x `character` name of data.
-    #' @details This method accesses values in the `internal` field.
-    #' If the `internal` field does not contain an object associated with the
-    #' argument to `x`, then a [new_waiver()] object is returned.
-    #' @return An object.
+    #' @return An object. If the `internal` field does not contain an object
+    #' associated with the argument to `x`, then a [new_waiver()] object is
+    #' returned.
     get_internal = function(x) {
       if (!x %in% names(self$internal)) return(new_waiver())
       self$internal[[x]]
     },
 
     #' @description
-    #' Set internal data.
+    #' Set values stored in the `internal` field. Note that this method will
+    #' overwrite existing data.
     #' @param x `character` name of data.
     #' @param value Object to store.
-    #' @details This method stores values in the `internal` field.
-    #' Note that if an object already contains a value associated
-    #' with the argument to `x`, then it will be over-written with the new
-    #' value.
-    #' @return Invisible `TRUE`.
+    #' @return An object. If the `internal` field does not contain an object
+    #' associated with the argument to `x`, then a [new_waiver()] object is
+    #' returned.
     set_internal = function(x, value) {
       self$internal[[x]] <- value
       invisible()

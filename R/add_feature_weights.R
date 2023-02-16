@@ -19,8 +19,9 @@ NULL
 #'
 #' @details
 #' Weights can only be applied to problems that have an objective
-#' that is budget limited (e.g., [add_max_cover_objective()]).
-#' They can be applied to problems that aim to maximize phylogenetic
+#' that is budget limited (e.g., [add_max_cover_objective()],
+#' [add_min_shortfall_objective()]).
+#' They can also be applied to problems that aim to maximize phylogenetic
 #' representation ([add_max_phylo_div_objective()]) to favor the
 #' representation of specific features over the representation of
 #' some phylogenetic branches. Weights cannot be negative values
@@ -145,7 +146,7 @@ NULL
 #' # a solution that conserves the third feature whilst also aiming to
 #' # maximize phylogenetic diversity, we will create a set of weights that
 #' # assign a particularly high weighting to the third feature
-#' w5 <- c(0, 0, 1000, 0, 0)
+#' w5 <- c(0, 0, 10000, 0, 0)
 #'
 #' # we can see that this weighting (i.e., w5[3]) has a much higher value than
 #' # the branch lengths in the phylogeny so solutions that represent this
@@ -214,7 +215,7 @@ NULL
 #'   add_max_features_objective(budget = 3000) %>%
 #'   add_manual_targets(
 #'     data.frame(
-#'     feature = c("layer.1", "layer.4"),
+#'     feature = c("feature_1", "feature_4"),
 #'     type = "relative",
 #'     target = 0.1)
 #'   ) %>%
@@ -305,12 +306,15 @@ methods::setMethod("add_feature_weights",
           name = "feature weights",
           data = list(weights = weights),
           apply = function(x, y) {
+            # assert arguments valid
             assert(
               inherits(x, "OptimizationProblem"),
               inherits(y, "ConservationProblem"),
               .internal = TRUE
             )
+            # extract data
             weights <- c(self$get_data("weights"))
+            # check weights are compatible with targets
             if (!is.Waiver(y$targets)) {
               n_targets <- nrow(y$targets$output())
               assert(
@@ -325,7 +329,21 @@ methods::setMethod("add_feature_weights",
                 )
               )
             }
-            invisible(rcpp_apply_feature_weights(x$ptr, weights))
+            # use scale the weights to adjust the default weights
+            default_weights <- y$objective$default_weights(y)
+            if (length(default_weights) == 1) {
+              default_weights <- rep(default_weights, length(weights))
+            }
+            assert(
+              length(weights) == length(default_weights),
+              call = rlang::expr(add_feature_weights()),
+              msg = "Failed to calculate weights.",
+              .internal = TRUE
+            )
+            # apply targets
+            invisible(
+              rcpp_apply_feature_weights(x$ptr, weights * default_weights)
+            )
           }
         )
       )$new()

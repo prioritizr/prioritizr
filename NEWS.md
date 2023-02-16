@@ -35,7 +35,7 @@
   with boundary data for multiple zones.
 - The `distribute_load()` function has been deprecated, because it is no
   longer used. For equivalent functionality, See `parallel::splitIndices()`.
-- The `new_optimization_problem()` and `predefined_optiimzation_problem()`
+- The `new_optimization_problem()` and `predefined_optimization_problem()`
   functions have been superseded by the new `optimization_problem()` function.
 - To simplify package documentation and functionality, the following functions
   are no longer exported: `is.Waiver()`, `add_default_decisions()`
@@ -58,6 +58,10 @@
 
 ## Minor improvements and bug fixes
 
+- Fix bug for `add_feature_weights()` when applied to problems with
+  an `add_max_phylo_div_objective()` or `add_max_phylo_end_objectve()`.
+  Specifically, the bug meant that weights weren't being applied to
+  problems with these particular objectives.
 - Fix instructions in `add_gurobi_solver()` documentation for opening vignette.
 - Update solver functions to provide instructions for installing
   dependencies in error messages when their dependencies are not available.

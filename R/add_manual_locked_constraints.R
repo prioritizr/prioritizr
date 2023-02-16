@@ -92,14 +92,10 @@ NULL
 #' )
 #'
 #' # plot solutions
-#' plot(
-#'   s4,
-#'   main = c(
-#'     "none locked in",
-#'     "add_locked_in_constraints",
-#'     "add_manual_constraints"
-#'   )
-#' )
+#' ## s1 = none locked in
+#' ## s2 = locked in constraints
+#' ## s3 = manual locked constraints
+#' plot(s4)
 #'
 #' # create minimal problem with multiple zones
 #' p5 <-
@@ -140,7 +136,7 @@ NULL
 #' s5$solution <- factor(s5$solution)
 #'
 #' s5$solution_locked <- category_vector(sf::st_drop_geometry(
-#'   s5[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")]
+#'   s6[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")]
 #' ))
 #' s5$solution_locked <- factor(s5$solution_locked)
 #'

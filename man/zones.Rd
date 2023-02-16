@@ -42,12 +42,24 @@ The correct arguments depends on the type of planning unit data
 used when building the conservation planning \code{\link[=problem]{problem()}}.
 
 \describe{
-\item{planning unit data are a [terra::rast()\verb{] or [}sf::st_sf()\verb{] object\}\{ [}terra::rast()\verb{] object can be supplied to specify the expected amount of each feature within each planning unit under each management zone. Data for each zone should be specified as separate arguments, and the data for each feature in a given zone are specified in separate layers in a [terra::rast()] object. Note that all layers for a given zone must have }NA\verb{ values in exactly the same cells.\} \\item\{planning unit data are a [sf::st_sf()}] or \code{data.frame}
-object}{\code{character} vector containing column names can
+
+\item{\code{\link[=problem]{problem()}} will have \code{\link[terra:rast]{terra::rast()}} or \code{\link[sf:sf]{sf::st_sf()}} planning units}{
+\code{\link[terra:rast]{terra::rast()}} object can be supplied to specify the expected amount of
+each feature within each planning unit under each management zone.
+Data for each zone should be specified as separate
+arguments, and the data for each feature in a given zone are specified
+in separate layers in a \code{\link[terra:rast]{terra::rast()}} object.
+Note that all layers for a given zone must have missing (\code{NA}) values in
+exactly the same cells.}
+
+\item{\code{\link[=problem]{problem()}} will have \code{\link[sf:sf]{sf::st_sf()}} or \code{data.frame} planning units}{
+\code{character} vector containing column names can
 be supplied to specify the expected amount of each feature under each
-zone. Note that these columns must not contain any \code{NA} values.}
-\item{planning unit data are a \code{\link[sf:sf]{sf::st_sf()}}, \code{data.frame}, or
-\code{matrix} object}{\code{data.frame} object can be supplied to specify the
+zone. Note that these columns must not contain any missing (\code{NA}) values.}
+
+\item{\code{\link[=problem]{problem()}} will have \code{\link[sf:sf]{sf::st_sf()}}, \code{data.frame}, or
+\code{matrix} planning units}{
+\code{data.frame} object can be supplied to specify the
 expected amount of each feature under each zone.
 Following conventions used in \emph{Marxan}, the
 \code{data.frame} object should contain the following columns.
@@ -57,12 +69,14 @@ Following conventions used in \emph{Marxan}, the
 \item{amount}{\code{numeric} amount of the feature in the
 planning unit for a given zone.}
 }
+
 Note that data for each zone are specified in a separate argument, and
 the data contained in a single \code{data.frame} object should correspond to
 a single zone. Also, note that data are not required for all
 combinations of planning units, features, and zones. The expected amount of
 features in planning units under management zones that are
 missing from the table are assumed to be zero.}
+
 }
 }
 \examples{

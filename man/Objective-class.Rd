@@ -5,11 +5,6 @@
 \alias{Objective}
 \title{Objective class}
 \description{
-Objective class
-
-Objective class
-}
-\details{
 This class is used to represent the objective function used in optimization.
 \strong{Only experts should use the fields and methods for this class directly.}
 }
@@ -29,9 +24,24 @@ Other classes:
 \section{Super class}{
 \code{\link[prioritizr:ConservationModifier]{prioritizr::ConservationModifier}} -> \code{Objective}
 }
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{default_weights}}{Specify default values for weights.}
+}
+\if{html}{\out{</div>}}
+}
+\section{Active bindings}{
+\if{html}{\out{<div class="r6-active-bindings">}}
+\describe{
+\item{\code{default_weights}}{Specify default values for weights.}
+}
+\if{html}{\out{</div>}}
+}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
+\item \href{#method-Objective-default_weights}{\code{Objective$default_weights()}}
 \item \href{#method-Objective-apply}{\code{Objective$apply()}}
 \item \href{#method-Objective-clone}{\code{Objective$clone()}}
 }
@@ -50,6 +60,29 @@ Other classes:
 </ul>
 </details>
 }}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Objective-default_weights"></a>}}
+\if{latex}{\out{\hypertarget{method-Objective-default_weights}{}}}
+\subsection{Method \code{default_weights()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Objective$default_weights(x)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{x}}{\code{\link[=conservation_problem]{conservation_problem()}} object.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+These are values are used when applying custom feature weights.
+}
+
+\subsection{Returns}{
+Invisible \code{TRUE}.
+}
+}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Objective-apply"></a>}}
 \if{latex}{\out{\hypertarget{method-Objective-apply}{}}}

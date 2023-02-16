@@ -5,11 +5,6 @@
 \alias{Solver}
 \title{Solver class}
 \description{
-Solver class
-
-Solver class
-}
-\details{
 This class is used to represent solvers for optimization.
 \strong{Only experts should use the fields and methods for this class directly.}
 }

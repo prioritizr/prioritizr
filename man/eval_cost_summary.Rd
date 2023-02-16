@@ -2,7 +2,7 @@
 % Please edit documentation in R/eval_cost_summary.R
 \name{eval_cost_summary}
 \alias{eval_cost_summary}
-\title{Evaluate solution cost}
+\title{Evaluate cost of solution}
 \usage{
 eval_cost_summary(x, solution)
 }

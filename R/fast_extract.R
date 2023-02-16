@@ -24,8 +24,8 @@ NULL
 #'
 #' @details
 #' This function is simply a wrapper that uses
-#' [terra::extract()] to extract data for non-polygon [sf::sf()] data, and
-#' [exactextractr::exact_extract()] for polygonal [sf::sf()] data.
+#' [exactextractr::exact_extract()] for polygon geometries, and
+#' [terra::extract()] for other geometry types.
 #'
 #' @name fast_extract
 #'

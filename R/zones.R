@@ -44,20 +44,24 @@ NULL
 #' used when building the conservation planning [problem()].
 #'
 #' \describe{
-#' \item{planning unit data are a [terra::rast()`] or [`sf::st_sf()`] object}{
-#'   [`terra::rast()`] object can be supplied to specify the expected amount of
+#'
+#' \item{[problem()] will have [terra::rast()] or [sf::st_sf()] planning units}{
+#'   [terra::rast()] object can be supplied to specify the expected amount of
 #'   each feature within each planning unit under each management zone.
 #'   Data for each zone should be specified as separate
 #'   arguments, and the data for each feature in a given zone are specified
 #'   in separate layers in a [terra::rast()] object.
-#'   Note that all layers for a given zone must have `NA` values in exactly the
-#'   same cells.}
-#' \item{planning unit data are a [sf::st_sf()`] or `data.frame`
-#'   object}{`character` vector containing column names can
+#'   Note that all layers for a given zone must have missing (`NA`) values in
+#'   exactly the same cells.}
+#'
+#' \item{[problem()] will have [sf::st_sf()] or `data.frame` planning units}{
+#'   `character` vector containing column names can
 #'   be supplied to specify the expected amount of each feature under each
-#'   zone. Note that these columns must not contain any `NA` values.}
-#' \item{planning unit data are a [sf::st_sf()], `data.frame`, or
-#'   `matrix` object}{`data.frame` object can be supplied to specify the
+#'   zone. Note that these columns must not contain any missing (`NA`) values.}
+#'
+#' \item{[problem()] will have [sf::st_sf()], `data.frame`, or
+#'   `matrix` planning units}{
+#'   `data.frame` object can be supplied to specify the
 #'   expected amount of each feature under each zone.
 #'   Following conventions used in *Marxan*, the
 #'   `data.frame` object should contain the following columns.
@@ -67,12 +71,14 @@ NULL
 #'     \item{amount}{`numeric` amount of the feature in the
 #'     planning unit for a given zone.}
 #'   }
+#'
 #'   Note that data for each zone are specified in a separate argument, and
 #'   the data contained in a single `data.frame` object should correspond to
 #'   a single zone. Also, note that data are not required for all
 #'   combinations of planning units, features, and zones. The expected amount of
 #'   features in planning units under management zones that are
 #'   missing from the table are assumed to be zero.}
+#'
 #' }
 #'
 #' @return A [`Zones-class`] object.

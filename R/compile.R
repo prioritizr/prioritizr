@@ -24,7 +24,8 @@ NULL
 #'   be solved, then the [solve()] function should just be used.
 #'
 #'   **Please note that in nearly all cases, the default argument to
-#'   `formulation` should be used**. The only situation where manually
+#'   `compressed_formulation` should be used**. The only situation where
+#'    manually
 #'   setting the argument to `formulation` is desirable is during testing.
 #'   Manually setting the argument to `formulation` will at best
 #'   have no effect on the problem. At worst, it may result in

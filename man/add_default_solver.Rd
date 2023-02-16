@@ -26,12 +26,6 @@ Ranked from best to worst, the available solvers that can be used are:
 For information on the performance of different solvers,
 please see Schuster \emph{et al.} (2020).
 }
-\section{Notes}{
-
-In early versions, this function was named as the
-\code{add_default_solver()} function.
-}
-
 \references{
 Schuster R, Hanson JO, Strimas-Mackey M, and Bennett JR (2020). Exact
 integer linear programming solvers outperform simulated annealing for

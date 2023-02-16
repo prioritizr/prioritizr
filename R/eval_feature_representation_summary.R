@@ -1,7 +1,7 @@
 #' @include internal.R ConservationProblem-class.R
 NULL
 
-#' Evaluate feature representation
+#' Evaluate feature representation by solution
 #'
 #' Calculate how well features are represented by a solution
 #' to a conservation planning [problem()].

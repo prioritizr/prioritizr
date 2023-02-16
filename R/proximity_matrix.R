@@ -66,19 +66,19 @@ NULL
 #'
 #' ## plot raster and proximity matrix
 #' plot(r, main = "raster", axes = FALSE)
-#' plot(cm_raster, main = "proximity matrix", axes = FALSE)
+#' Matrix::image(cm_raster, main = "proximity matrix")
 #'
 #' ## plot polygons and proximity matrix
 #' plot(ply, main = "polygons", axes = FALSE)
-#' plot(cm_ply, main = "proximity matrix")
+#' Matrix::image(cm_ply, main = "proximity matrix")
 #'
 #' ## plot lines and proximity matrix
 #' plot(lns, main = "lines", axes = FALSE)
-#' plot(cm_lns, main = "proximity matrix", axes = FALSE)
+#' Matrix::image(cm_lns, main = "proximity matrix")
 #'
 #' ## plot points and proximity matrix
 #' plot(pts, main = "points", axes = FALSE)
-#' plot(cm_pts, main = "proximity matrix", axes = FALSE)
+#' Matrix::image(cm_pts, main = "proximity matrix")
 #' }
 #' @export
 proximity_matrix <- function(x, distance) {

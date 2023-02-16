@@ -57,29 +57,25 @@ The aim of this tutorial is to provide a short introduction to the _prioritizr R
 
 ## Data
 
-Let's load the packages and data used in this tutorial. Since this tutorial uses data from the _prioritizrdata R_ package, please ensure that it is installed. The data used in this tutorial were obtained from the _Introduction to Marxan_ course. Specifically, the data were originally a subset of a larger spatial prioritization project performed under contract to Australia's Department of Environment and Water Resources [@r30].
+Let's load the packages and data used in this tutorial. Since this tutorial uses data from the _prioritizrdata R_ package, please ensure that it is installed. The data used in this tutorial were obtained from the _Introduction to Marxan_ course and the Australian Government's National Vegetation Information System.
 
 ```{r, message = FALSE}
 # load packages
 library(prioritizrdata)
 library(prioritizr)
 library(sf)
-library(raster)
+library(terra)
 library(vegan)
 library(cluster)
 
 # load planning unit data
 tas_pu <- get_tas_pu()
-print(tas_pu)
 
 # load feature data
 tas_features <- get_tas_features()
-print(tas_features)
 ```
 
-The `tas_pu` object contains planning units represented as spatial polygons (i.e., a `sf::st_sf()` object). This object has three columns that denote the following information for each planning unit: a unique identifier (`id`), unimproved land value (`cost`), and current conservation status (`locked_in`). Planning units that have at least half of their area overlapping with existing protected areas are denoted with a locked in value of 1, otherwise they are denoted with a value of 0. If you are familiar with the _Marxan_ decision support tool, then you will notice that some of these columns are formatted similar conventions.
-
-Now, let's have a look at the planning unit data. We can see that the planning units correspond to hexagonal land parcels. We can also see that is a clear spatial pattern in the cost and conservation status the planning units.
+Let's have a look at the planning unit data. The `tas_pu` object contains planning units represented as spatial polygons (i.e., a `sf::st_sf()` object). This object has three columns that denote the following information for each planning unit: a unique identifier (`id`), unimproved land value (`cost`), and current conservation status (`locked_in`). Planning units that have at least half of their area overlapping with existing protected areas are denoted with a locked in `TRUE` value, otherwise they are denoted with a value of `FALSE`.
 
 ```{r, fig.width = w, fig.height = h}
 # print planning unit data
@@ -92,19 +88,15 @@ plot(st_as_sf(tas_pu[, "cost"]), main = "Planning unit costs")
 plot(st_as_sf(tas_pu[, "locked_in"]), main = "Protected area coverage")
 ```
 
-The `tas_features` object describes the spatial distribution of the features. Specifically, the feature data are a multi-layer raster (i.e., a `terra::rast()` object). Each layer corresponds to one of `r terra::nlyr(tas_features)` different vegetation communities. To describe the spatial distribution of a given vegetation community, each layer contains a spatially referenced grid of rectangular cells and each of these grid cells is associated with information on the distribution of the a given vegetation community. Specifically, these grid cells are assigned values that indicate if a given vegetation community is present (using value of 1) or absent (using value of 0) within the spatial extent of each grid cell.
-
-Next, let's examine the feature data. Here we will only plot the first four features as an example. The pixel values denote the presence (denoted by a value of 1) or absence (denoted by a value of zero) of each feature within the extent of the study area.
+Now, let's look at the conservation feature data. The `tas_features` object describes the spatial distribution of the features. Specifically, the feature data are a multi-layer raster (i.e., a `terra::rast()` object). Each layer corresponds to a different vegetation community. Within each layer, cells values denote the presence (using value of 1) or absence (using value of 0) of the vegetation community across the study area.
 
 ```{r, fig.width = 4.5, fig.height = 4.5}
 # print planning unit data
 print(tas_features)
 
 # plot map of the first four vegetation classes
-plot(tas_features[[1:4]], main = paste("Feature", 1:4))
+plot(tas_features[[1:4]])
 ```
-
-The planning units in this tutorial are stored as spatial polygons. Although spatial polygons provide considerable flexibility in the shape and size of the planning units, such flexibility comes at a cost. This is because the spatial data processing routines needed to combine spatial polygon data and raster data for optimization can be very computationally expensive (e.g., calculating zonal statistics). As a consequence, we generally recommend using raster-based planning unit data where possible to reduce processing time. Another strategy is to complete spatial data processing routines manually using other software (e.g., _ESRI ArcGIS_) and use the pre-processed data directly with the _prioritizr R_ package.
 
 ## Problem formulation
 

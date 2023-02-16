@@ -21,6 +21,14 @@ An \code{integer} number of planning units.
 \description{
 Extract the number of planning units in an object.
 }
+\details{
+The planning units for an object corresponds to the number
+of entries (e.g., rows, cells) for the planning unit data that
+do not have missing (\code{NA}) values for every zone.
+For example, a single-layer raster dataset might have 90 cells
+and only two of these cells contain non-missing (\code{NA}) values.
+As such, this dataset would have two planning units.
+}
 \examples{
 # load data
 sim_pu_raster <- get_sim_pu_raster()

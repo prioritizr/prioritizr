@@ -1,7 +1,7 @@
 #' @include internal.R ConservationProblem-class.R
 NULL
 
-#' Evaluate solution cost
+#' Evaluate cost of solution
 #'
 #' Calculate the total cost of a solution to a conservation planning
 #' [problem()].

@@ -24,7 +24,7 @@ Specifically, it returns spatially auto-correlated data with integer values."><m
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.2.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">8.0.0.0</span>
       </span>
     </div>
 
@@ -104,13 +104,19 @@ Specifically, it returns spatially auto-correlated data with integer values.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">simulate_cost</span><span class="op">(</span><span class="va">x</span>, n <span class="op">=</span> <span class="fl">1</span>, intensity <span class="op">=</span> <span class="fl">100</span>, sd <span class="op">=</span> <span class="fl">20</span>, scale <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">simulate_cost</span><span class="op">(</span><span class="va">x</span>, <span class="va">n</span>, <span class="va">intensity</span>, <span class="va">sd</span>, <span class="va">scale</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for Raster</span></span>
+<span><span class="fu">simulate_cost</span><span class="op">(</span><span class="va">x</span>, n <span class="op">=</span> <span class="fl">1</span>, intensity <span class="op">=</span> <span class="fl">100</span>, sd <span class="op">=</span> <span class="fl">20</span>, scale <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for SpatRaster</span></span>
+<span><span class="fu">simulate_cost</span><span class="op">(</span><span class="va">x</span>, n <span class="op">=</span> <span class="fl">1</span>, intensity <span class="op">=</span> <span class="fl">100</span>, sd <span class="op">=</span> <span class="fl">20</span>, scale <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
-<dd><p><code><a href="https://rdrr.io/pkg/raster/man/raster.html" class="external-link">raster::raster()</a></code> raster object to use as a template.</p></dd>
+<dd><p><code><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">terra::rast()</a></code> object to use as a template.</p></dd>
 
 
 <dt>n</dt>
@@ -129,7 +135,8 @@ Defaults to 20.</p></dd>
 
 
 <dt>scale</dt>
-<dd><p><code>numeric</code> strength of spatial auto-correlation.
+<dd><p><code>numeric</code> parameter to control level of spatial
+auto-correlation in the simulated data.
 Defaults to 2.5.</p></dd>
 
 </dl></div>
@@ -137,25 +144,28 @@ Defaults to 2.5.</p></dd>
     <h2>Value</h2>
     
 
-<p><code><a href="https://rdrr.io/pkg/raster/man/Raster-classes.html" class="external-link">RasterStack</a></code> object.</p>
+<p>A <code><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">terra::rast()</a></code> object.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
-    <div class="dont-index"><p><code><a href="simulate_data.html">simulate_data()</a></code>.</p></div>
+    <div class="dont-index"><p>Other simulations: 
+<code><a href="simulate_data.html">simulate_data</a>()</code>,
+<code><a href="simulate_species.html">simulate_species</a>()</code></p></div>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span><span class="co"># create raster</span></span></span>
-<span class="r-in"><span><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/raster/man/raster.html" class="external-link">raster</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">10</span>, nrow <span class="op">=</span> <span class="fl">10</span>, xmn <span class="op">=</span> <span class="fl">0</span>, xmx <span class="op">=</span> <span class="fl">1</span>, ymn <span class="op">=</span> <span class="fl">0</span>, ymx <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/values.html" class="external-link">values</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">1</span></span></span>
+<span class="r-in"><span><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">rast</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  ncols <span class="op">=</span> <span class="fl">10</span>, nrows <span class="op">=</span> <span class="fl">10</span>, xmin <span class="op">=</span> <span class="fl">0</span>, xmax <span class="op">=</span> <span class="fl">1</span>, ymin <span class="op">=</span> <span class="fl">0</span>, ymax <span class="op">=</span> <span class="fl">1</span>, vals <span class="op">=</span> <span class="fl">1</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># simulate data</span></span></span>
 <span class="r-in"><span><span class="va">cost</span> <span class="op">&lt;-</span> <span class="fu">simulate_cost</span><span class="op">(</span><span class="va">r</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot simulated species</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">cost</span>, main <span class="op">=</span> <span class="st">"simulated cost data"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">cost</span>, main <span class="op">=</span> <span class="st">"simulated cost data"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="simulate_cost-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>

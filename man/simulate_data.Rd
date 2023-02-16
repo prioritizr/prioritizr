@@ -63,7 +63,7 @@ r <- terra::rast(
 x <- simulate_data(r, n = 1, scale = 0.2)
 
 # plot simulated data
-plot(x, main = "simulated data")
+plot(x, main = "simulated data", axes = FALSE)
 }
 }
 \seealso{

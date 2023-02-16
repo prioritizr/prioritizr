@@ -7,6 +7,7 @@ NULL
 
 #' Penalty class
 #'
+#' @description
 #' This class is used to represent penalties used in optimization.
 #' **Only experts should use the fields and methods for this class directly.**
 #'

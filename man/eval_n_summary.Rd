@@ -2,7 +2,7 @@
 % Please edit documentation in R/eval_n_summary.R
 \name{eval_n_summary}
 \alias{eval_n_summary}
-\title{Evaluate number of planning units selected}
+\title{Evaluate number of planning units selected by solution}
 \usage{
 eval_n_summary(x, solution)
 }

@@ -46,7 +46,7 @@ r <- terra::rast(
 cost <- simulate_cost(r)
 
 # plot simulated species
-plot(cost, main = "simulated cost data")
+plot(cost, main = "simulated cost data", axes = FALSE)
 }
 
 }

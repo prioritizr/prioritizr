@@ -27,7 +27,7 @@ symmetric or asymmetric connectivity relationships between planning units."><met
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.2.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">8.0.0.0</span>
       </span>
     </div>
 
@@ -116,7 +116,7 @@ symmetric or asymmetric connectivity relationships between planning units.</p>
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
-<dd><p><code><a href="problem.html">problem()</a></code> (i.e., <code><a href="ConservationProblem-class.html">ConservationProblem</a></code>) object that
+<dd><p><code><a href="problem.html">problem()</a></code> object that
 contains planning unit and zone data to ensure that the argument to
 <code>data</code> is converted correctly. This argument can be set to
 <code>NULL</code> if checks are not required (not recommended).</p></dd>
@@ -124,8 +124,7 @@ contains planning unit and zone data to ensure that the argument to
 
 <dt>data</dt>
 <dd><p><code>data.frame</code> object with the columns <code>"id1"</code>,
-<code>"id2"</code>, and <code>"boundary"</code>. The columns <code>"zone1"</code> and
-<code>"zone2"</code> can also be provided to indicate zone data.</p></dd>
+<code>"id2"</code>, and <code>"boundary"</code>.</p></dd>
 
 
 <dt>symmetric</dt>
@@ -140,15 +139,7 @@ Defaults to <code>TRUE</code>.</p></dd>
     <h2>Value</h2>
     
 
-<p><code>array</code> or <code><a href="https://rdrr.io/pkg/Matrix/man/dgCMatrix-class.html" class="external-link">dgCMatrix</a></code> sparse matrix object.
-If the argument to <code>data</code> corresponds to a single zone,
-then a <code><a href="https://rdrr.io/pkg/Matrix/man/dgCMatrix-class.html" class="external-link">dgCMatrix</a></code></p>
-
-
-<p>matrix is returned. Otherwise, if the argument to <code>data</code></p>
-
-
-<p>corresponds to multiple zones, then an <code>array</code> is returned.</p>
+<p>A <code><a href="https://rdrr.io/pkg/Matrix/man/dgCMatrix-class.html" class="external-link">dgCMatrix</a></code> sparse matrix object.</p>
     </div>
 
     <div id="ref-examples">
@@ -161,7 +152,7 @@ then a <code><a href="https://rdrr.io/pkg/Matrix/man/dgCMatrix-class.html" class
 <span class="r-in"><span><span class="va">bldf1</span><span class="op">$</span><span class="va">boundary</span><span class="op">[</span><span class="va">bldf1</span><span class="op">$</span><span class="va">id1</span> <span class="op">==</span> <span class="va">bldf1</span><span class="op">$</span><span class="va">id2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">0.5</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># print data</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">bldf1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">bldf1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    id1 id2 boundary</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    1   1      0.5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2    2   1      1.0</span>
@@ -184,7 +175,7 @@ then a <code><a href="https://rdrr.io/pkg/Matrix/man/dgCMatrix-class.html" class
 <span class="r-in"><span><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu">marxan_connectivity_data_to_matrix</span><span class="op">(</span><span class="cn">NULL</span>, <span class="va">bldf1</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># print matrix</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 x 4 sparse Matrix of class "dsCMatrix"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.5 1.0 1.0 1.0</span>
@@ -199,11 +190,11 @@ then a <code><a href="https://rdrr.io/pkg/Matrix/man/dgCMatrix-class.html" class
 <span class="r-in"><span><span class="co"># create marxan connectivity data with four planning units and one zone,</span></span></span>
 <span class="r-in"><span><span class="co"># and asymmetric connectivity values</span></span></span>
 <span class="r-in"><span><span class="va">bldf2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span>id1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span>, id2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">bldf2</span><span class="op">$</span><span class="va">boundary</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fu"><a href="OptimizationProblem-methods.html">nrow</a></span><span class="op">(</span><span class="va">bldf2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">bldf2</span><span class="op">$</span><span class="va">boundary</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">bldf2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">bldf2</span><span class="op">$</span><span class="va">boundary</span><span class="op">[</span><span class="va">bldf1</span><span class="op">$</span><span class="va">id1</span> <span class="op">==</span> <span class="va">bldf1</span><span class="op">$</span><span class="va">id2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">0.5</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># print data</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">bldf2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">bldf2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    id1 id2   boundary</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    1   1 0.50000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2    2   1 0.48469318</span>
@@ -226,7 +217,7 @@ then a <code><a href="https://rdrr.io/pkg/Matrix/man/dgCMatrix-class.html" class
 <span class="r-in"><span><span class="va">m2</span> <span class="op">&lt;-</span> <span class="fu">marxan_connectivity_data_to_matrix</span><span class="op">(</span><span class="cn">NULL</span>, <span class="va">bldf2</span>, symmetric <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># print matrix</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">m2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">m2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 x 4 sparse Matrix of class "dgCMatrix"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                               </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.5000000 0.5758689 0.23125087 0.19277122</span>
@@ -240,15 +231,17 @@ then a <code><a href="https://rdrr.io/pkg/Matrix/man/dgCMatrix-class.html" class
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create marxan connectivity with three planning units and two zones,</span></span></span>
 <span class="r-in"><span><span class="co"># and symmetric connectivity values</span></span></span>
-<span class="r-in"><span><span class="va">bldf3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span>id1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>, id2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                     zone1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"z1"</span>, <span class="st">"z2"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                     zone2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"z1"</span>, <span class="st">"z2"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">bldf3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  id1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>, id2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  zone1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"z1"</span>, <span class="st">"z2"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  zone2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"z1"</span>, <span class="st">"z2"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">bldf3</span><span class="op">$</span><span class="va">boundary</span> <span class="op">&lt;-</span> <span class="fl">1</span></span></span>
 <span class="r-in"><span><span class="va">bldf3</span><span class="op">$</span><span class="va">boundary</span><span class="op">[</span><span class="va">bldf2</span><span class="op">$</span><span class="va">id1</span> <span class="op">==</span> <span class="va">bldf2</span><span class="op">$</span><span class="va">id2</span> <span class="op">&amp;</span> <span class="va">bldf2</span><span class="op">$</span><span class="va">zone1</span> <span class="op">==</span> <span class="va">bldf2</span><span class="op">$</span><span class="va">zone2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">0.5</span></span></span>
 <span class="r-in"><span><span class="va">bldf3</span><span class="op">$</span><span class="va">boundary</span><span class="op">[</span><span class="va">bldf2</span><span class="op">$</span><span class="va">id1</span> <span class="op">==</span> <span class="va">bldf2</span><span class="op">$</span><span class="va">id2</span> <span class="op">&amp;</span> <span class="va">bldf2</span><span class="op">$</span><span class="va">zone1</span> <span class="op">!=</span> <span class="va">bldf2</span><span class="op">$</span><span class="va">zone2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">0</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># print data</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">bldf3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">bldf3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    id1 id2 zone1 zone2 boundary</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    1   1    z1    z1        1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2    2   1    z1    z1        1</span>
@@ -291,7 +284,7 @@ then a <code><a href="https://rdrr.io/pkg/Matrix/man/dgCMatrix-class.html" class
 <span class="r-in"><span><span class="va">m3</span> <span class="op">&lt;-</span> <span class="fu">marxan_connectivity_data_to_matrix</span><span class="op">(</span><span class="cn">NULL</span>, <span class="va">bldf3</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># print array</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">m3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">m3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> , , 1, 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3]</span>

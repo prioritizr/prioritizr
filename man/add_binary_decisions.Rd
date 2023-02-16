@@ -50,7 +50,7 @@ p1 <-
 s1 <- solve(p1)
 
 # plot solution
-plot(s1, main = "solution")
+plot(s1, main = "solution", axes = FALSE)
 
 # create a matrix with targets for a multi-zone conservation problem
 targs <- matrix(runif(15, 0.1, 0.2), nrow = 5, ncol = 3)

@@ -5,11 +5,6 @@
 \alias{ConservationProblem}
 \title{Conservation problem class}
 \description{
-Conservation problem class
-
-Conservation problem class
-}
-\details{
 This class is used to represent conservation planning problems.
 It stores the data (e.g., planning units, and features) and
 mathematical formulation (e.g., the objective, constraints,
@@ -18,25 +13,6 @@ Most users should use \code{\link[=problem]{problem()}} to generate new conserva
 objects, and the functions distributed with the package to interact
 with them (e.g. \code{\link[=number_of_features]{number_of_features()}}, \code{\link[=number_of_planning_units]{number_of_planning_units()}}).
 \strong{Only experts should use the fields and methods for this class directly.}
-
-This method accesses values in the \code{data} field.
-If the \code{data} field does not contain an object associated with the
-argument to \code{x}, then a \code{\link[=new_waiver]{new_waiver()}} object is returned.
-
-This method stores values in the \code{data} field.
-Note that if an object already contains a value associated
-with the argument to \code{x}, then it will be over-written with the new
-value.
-
-The planning units correspond to elements in the cost data
-(e.g., indices, rows, geometries, pixels) that have finite
-values in at least one zone. In other words, planning unit are
-elements in the cost data that do not have missing (\code{NA}) values in
-every zone.
-
-The total units include all elements in the cost data
-(e.g., indices, rows, geometries, pixels), including those with
-missing (\code{NA}) values.
 }
 \seealso{
 Other classes: 
@@ -193,7 +169,7 @@ A \code{character} value.
 \if{html}{\out{<a id="method-ConservationProblem-get_data"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-get_data}{}}}
 \subsection{Method \code{get_data()}}{
-Get stored data.
+Get values stored in the \code{data} field.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$get_data(x)}\if{html}{\out{</div>}}
 }
@@ -206,14 +182,17 @@ Get stored data.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-An object.
+An object. If the \code{data} field does not contain an object
+associated with the argument to \code{x}, then a \code{\link[=new_waiver]{new_waiver()}} object is
+returned.
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationProblem-set_data"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-set_data}{}}}
 \subsection{Method \code{set_data()}}{
-Set stored data.
+Set values stored in the \code{data} field. Note that this method will
+overwrite existing data.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$set_data(x, value)}\if{html}{\out{</div>}}
 }
@@ -235,7 +214,12 @@ Invisible \code{TRUE}.
 \if{html}{\out{<a id="method-ConservationProblem-number_of_planning_units"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-number_of_planning_units}{}}}
 \subsection{Method \code{number_of_planning_units()}}{
-Obtain the number of planning units.
+Obtain the number of planning units. The planning units correspond to
+elements in the cost data
+(e.g., indices, rows, geometries, pixels) that have finite
+values in at least one zone. In other words, planning unit are
+elements in the cost data that do not have missing (\code{NA}) values in
+every zone.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$number_of_planning_units()}\if{html}{\out{</div>}}
 }
@@ -303,7 +287,10 @@ Invisible \code{TRUE}.
 \if{html}{\out{<a id="method-ConservationProblem-number_of_total_units"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-number_of_total_units}{}}}
 \subsection{Method \code{number_of_total_units()}}{
-Obtain the number of total units.
+Obtain the number of total units. The total units include all elements
+in the cost data
+(e.g., indices, rows, geometries, pixels), including those with
+missing (\code{NA}) values.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$number_of_total_units()}\if{html}{\out{</div>}}
 }

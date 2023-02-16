@@ -2,7 +2,7 @@
 % Please edit documentation in R/eval_boundary_summary.R
 \name{eval_boundary_summary}
 \alias{eval_boundary_summary}
-\title{Evaluate solution boundary length}
+\title{Evaluate boundary length of solution}
 \usage{
 eval_boundary_summary(
   x,
@@ -117,6 +117,9 @@ boundary length associated with each planning unit.}
 identifiers (indices) for a pair of planning units, and the \code{"boundary"}
 column contains the amount of shared boundary length between these
 two planning units.
+Additionally, if the values in the \code{"id1"} and \code{"id2"} columns
+contain the same values, then the value denotes the
+amount of exposed boundary length (not total boundary).
 This format follows the the standard \emph{Marxan} format for boundary
 data (i.e., per the "bound.dat" file).}
 

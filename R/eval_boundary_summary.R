@@ -1,7 +1,7 @@
 #' @include internal.R ConservationProblem-class.R
 NULL
 
-#' Evaluate solution boundary length
+#' Evaluate boundary length of solution
 #'
 #' Calculate the exposed boundary length (perimeter) associated with a
 #' solution to a conservation planning [problem()].

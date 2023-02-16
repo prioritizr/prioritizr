@@ -89,17 +89,17 @@ that only contain a single management zone.
 
 \item{\code{get_sim_pu_raster()}}{Import planning unit data that are stored
 in raster format.
-Here, pixel values indicate planning unit cost and \code{NA} values indicate
-that a pixel is not a planning unit.}
+Here, cell values indicate planning unit cost and \code{NA} values indicate
+that a cell is not a planning unit.}
 
 \item{\code{get_sim_locked_in_raster()}}{Import planning unit data
 that are stored in raster format.
-Here, pixel values are binary and indicate if planning units should be
+Here, cell values are binary and indicate if planning units should be
 locked in to a solution.}
 
 \item{\code{get_sim_locked_out_raster()}}{Import planning unit data
 that are stored in raster format.
-Here, pixel values are binary and indicate if planning units
+Here, cell values are binary and indicate if planning units
 should be locked out from a solution.}
 
 \item{\code{get_sim_pu_polygons()}}{Import planning unit data stored in vector
@@ -126,7 +126,7 @@ The attribute table follows the same conventions as for
 \item{\code{get_sim_features()}}{Import feature data stored in raster format.
 Here, data describe the spatial distribution of ten species.
 Each layer corresponds to a different species, and
-pixel values indicate habitat suitability.}
+cell values indicate habitat suitability.}
 
 \item{\code{get_sim_phylogeny()}}{Import phylogenetic tree for the ten species.}
 
@@ -144,9 +144,9 @@ that contain multiple management zones.
 \item{\code{get_sim_zones_pu_raster()}}{Import planning unit data
 for multiple management zones that are stored in raster format.
 Here, each layer indicates the cost for a different management
-zone. Pixels with \code{NA} values in a given zone indicate that a
+zone. Cells with \code{NA} values in a given zone indicate that a
 planning unit cannot be allocated to that zone in a solution.
-Additionally, pixels with \code{NA} values in all layers are not a
+Additionally, cells with \code{NA} values in all layers are not a
 planning unit.}
 
 \item{\code{get_sim_zones_pu_polygons()}}{Import planning unit data for
@@ -184,12 +184,13 @@ sim_features_zones <- get_sim_zones_features()
 
 # plot raster data
 \dontrun{
-par(mfrow = c(2, 3))
-plot(sim_pu_raster, main = "planning units (raster)")
-plot(sim_locked_in_raster, main = "locked in units (raster)")
-plot(sim_locked_out_raster, main = "locked out units (raster)")
+par(mfrow = c(1, 3))
+plot(sim_pu_raster, main = "planning units (raster)", axes = FALSE)
+plot(sim_locked_in_raster, main = "locked in units (raster)", axes = FALSE)
+plot(sim_locked_out_raster, main = "locked out units (raster)", axes = FALSE)
 
 # plot vector planning unit data
+par(mfrow = c(1, 1))
 plot(sim_pu_polygons)
 plot(sim_pu_lines)
 plot(sim_pu_points)
@@ -203,11 +204,11 @@ plot(sim_phylogeny, main = "simulated phylogeny")
 
 # plot feature data
 par(mfrow = c(1, 1))
-plot(sim_features)
+plot(sim_features, axes = FALSE)
 
 # plot cost data for multiple management zones
 par(mfrow = c(1, 1))
-plot(sim_pu_zones_raster)
+plot(sim_pu_zones_raster, axes = FALSE)
 
 # plot feature data for multiple management zones
 plot_names <- paste0(
@@ -223,8 +224,10 @@ plot_names <- paste0(
    ),
    ")"
 )
-plot(terra::rast(as.list(sim_features_zones)), main = plot_names)
-
+plot(
+  terra::rast(as.list(sim_features_zones)),
+   main = plot_names, axes = FALSE
+)
 }
 }
 \keyword{datasets}

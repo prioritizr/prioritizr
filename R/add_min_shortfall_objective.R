@@ -139,6 +139,15 @@ add_min_shortfall_objective <- function(x, budget) {
       public = list(
         name = "minimum shortfall objective",
         data = list(budget = budget),
+        default_weights = function(x) {
+          assert(
+            inherits(x, "ConservationProblem"),
+            .internal = TRUE
+          )
+          w <- 1 / x$feature_targets()$value
+          w[!is.finite(w)] <- 0 # replace 1/0 = Inf, with zeros
+          w
+        },
         apply = function(x, y) {
           assert(
             inherits(x, "OptimizationProblem"),

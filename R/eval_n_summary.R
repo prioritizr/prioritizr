@@ -1,7 +1,7 @@
 #' @include internal.R ConservationProblem-class.R
 NULL
 
-#' Evaluate number of planning units selected
+#' Evaluate number of planning units selected by solution
 #'
 #' Calculate the number of planning units selected within a solution
 #' to a conservation planning [problem()].

@@ -5,11 +5,6 @@
 \alias{Portfolio}
 \title{Portfolio class}
 \description{
-Portfolio class
-
-Portfolio class
-}
-\details{
 This class is used to represent portfolios used in optimization.
 \strong{Only experts should use the fields and methods for this class directly.}
 }

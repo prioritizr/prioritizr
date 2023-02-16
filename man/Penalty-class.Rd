@@ -5,11 +5,6 @@
 \alias{Penalty}
 \title{Penalty class}
 \description{
-Penalty class
-
-Penalty class
-}
-\details{
 This class is used to represent penalties used in optimization.
 \strong{Only experts should use the fields and methods for this class directly.}
 }

@@ -31,8 +31,9 @@ about how the budget should be allocated.
 }
 \details{
 Weights can only be applied to problems that have an objective
-that is budget limited (e.g., \code{\link[=add_max_cover_objective]{add_max_cover_objective()}}).
-They can be applied to problems that aim to maximize phylogenetic
+that is budget limited (e.g., \code{\link[=add_max_cover_objective]{add_max_cover_objective()}},
+\code{\link[=add_min_shortfall_objective]{add_min_shortfall_objective()}}).
+They can also be applied to problems that aim to maximize phylogenetic
 representation (\code{\link[=add_max_phylo_div_objective]{add_max_phylo_div_objective()}}) to favor the
 representation of specific features over the representation of
 some phylogenetic branches. Weights cannot be negative values
@@ -152,7 +153,7 @@ plot(
 # a solution that conserves the third feature whilst also aiming to
 # maximize phylogenetic diversity, we will create a set of weights that
 # assign a particularly high weighting to the third feature
-w5 <- c(0, 0, 1000, 0, 0)
+w5 <- c(0, 0, 10000, 0, 0)
 
 # we can see that this weighting (i.e., w5[3]) has a much higher value than
 # the branch lengths in the phylogeny so solutions that represent this
@@ -221,7 +222,7 @@ p8 <-
   add_max_features_objective(budget = 3000) \%>\%
   add_manual_targets(
     data.frame(
-    feature = c("layer.1", "layer.4"),
+    feature = c("feature_1", "feature_4"),
     type = "relative",
     target = 0.1)
   ) \%>\%

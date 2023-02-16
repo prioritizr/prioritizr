@@ -7,6 +7,13 @@ NULL
 #'
 #' @param x [problem()] object.
 #'
+#' @details
+#' The total units for an object corresponds to the total number
+#' of entries (e.g., rows, cells) for the planning unit data.
+#' For example, a single-layer raster dataset might have 90 cells
+#' and only two of these cells contain non-missing (`NA`) values.
+#' As such, this dataset would have 90 total units and two planning units.
+#'
 #' @return An `integer` number of total units.
 #'
 #' @name number_of_total_units

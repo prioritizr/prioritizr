@@ -39,7 +39,7 @@ NULL
 #' x <- simulate_data(r, n = 1, scale = 0.2)
 #'
 #' # plot simulated data
-#' plot(x, main = "simulated data")
+#' plot(x, main = "simulated data", axes = FALSE)
 #' }
 #' @export
 simulate_data <- function(x, n, scale, intensity, sd, transform) {
@@ -134,7 +134,7 @@ simulate_data.SpatRaster <- function(x, n = 1, scale = 0.5, intensity = 0,
 #' spp <- simulate_species(r, 4)
 #'
 #' # plot simulated species
-#' plot(spp, main = "simulated species distributions")
+#' plot(spp, main = "simulated species distributions", axes = FALSE)
 #' }
 #'
 #' @export
@@ -204,7 +204,7 @@ simulate_species.SpatRaster <- function(x, n = 1, scale = 0.5) {
 #' cost <- simulate_cost(r)
 #'
 #' # plot simulated species
-#' plot(cost, main = "simulated cost data")
+#' plot(cost, main = "simulated cost data", axes = FALSE)
 #' }
 #'
 #' @export

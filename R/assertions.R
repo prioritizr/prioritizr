@@ -65,13 +65,22 @@ verify <- function(..., env = parent.frame(), call = fn_caller_env()) {
 #'
 #' @param x `logical` condition.
 #'
+#' @param env `environment` passed to [assertthat::validate_that].
+#'
+#' @param env `environment` passed to [assertthat::validate_that].
+#'
+#' @param call `environment` passed to [cli::cli_abort].
+#'
+#' @param .internal `logical` passed to [cli::cli_abort].
+#'
 #' @details
 #' The function will throw warnings if any of the conditions are not met.
 #'
 #' @return A `logical` value.
 #'
 #' @noRd
-assert <- function(..., env = parent.frame(), call = fn_caller_env()) {
+assert <- function(..., env = parent.frame(), call = fn_caller_env(),
+                   .internal = FALSE) {
   # check if assertions met
   res <- assertthat::validate_that(..., env = env)
   # if res is TRUE, then return success
@@ -80,7 +89,7 @@ assert <- function(..., env = parent.frame(), call = fn_caller_env()) {
   # so now we will format it following tidyverse style guide
   res <- format_assertthat_msg(res)
   # throw error
-  cli::cli_abort(res, call = call)
+  cli::cli_abort(res, call = call, .internal = .internal)
   FALSE
 }
 

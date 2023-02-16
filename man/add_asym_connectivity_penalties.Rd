@@ -7,17 +7,7 @@
 \alias{add_asym_connectivity_penalties,ConservationProblem,ANY,ANY,dgCMatrix-method}
 \alias{add_asym_connectivity_penalties,ConservationProblem,ANY,ANY,data.frame-method}
 \alias{add_asym_connectivity_penalties,ConservationProblem,ANY,ANY,array-method}
-\title{Add asymmetric connectivity penalties
-Add penalties to a conservation planning \code{\link[=problem]{problem()}} to account for
-asymmetric connectivity between planning units.
-Asymmetric connectivity data describe connectivity information that is
-directional.
-For example, asymmetric connectivity data could describe
-the strength of rivers flowing between different planning units. Since
-river flow is directional, the level of connectivity
-from an upstream planning unit to a downstream planning unit would
-be higher than that from a downstream planning unit to an upstream planning
-unit.}
+\title{Add asymmetric connectivity penalties}
 \usage{
 \S4method{add_asym_connectivity_penalties}{ConservationProblem,ANY,ANY,matrix}(x, penalty, zones, data)
 
@@ -71,7 +61,6 @@ See the Data format section for more information.}
 An updated \code{\link[=problem]{problem()}} object with the penalties added to it.
 }
 \description{
-Add asymmetric connectivity penalties
 Add penalties to a conservation planning \code{\link[=problem]{problem()}} to account for
 asymmetric connectivity between planning units.
 Asymmetric connectivity data describe connectivity information that is

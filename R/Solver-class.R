@@ -7,6 +7,7 @@ NULL
 
 #' Solver class
 #'
+#' @description
 #' This class is used to represent solvers for optimization.
 #' **Only experts should use the fields and methods for this class directly.**
 #'

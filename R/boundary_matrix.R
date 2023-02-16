@@ -70,11 +70,11 @@ NULL
 #'
 #' # plot raster and boundary matrix
 #' plot(r, main = "raster", axes = FALSE)
-#' plot(bm_raster, main = "boundary matrix", axes = FALSE)
+#' Matrix::image(bm_raster, main = "boundary matrix")
 #'
 #' # plot polygons and boundary matrices
 #' plot(r, main = "polygons", axes = FALSE)
-#' plot(bm_ply, main = "boundary matrix", axes = FALSE)
+#' Matrix::image(bm_ply, main = "boundary matrix")
 #' }
 #' @export
 boundary_matrix <- function(x, ...) {

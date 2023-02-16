@@ -28,8 +28,8 @@ NULL
 #'  These scores measure importance based on how critical
 #'  planning units are for meeting targets. They can only be applied to
 #'  conservation problems with a minimum set objective and a single zone (i.e.,
-#'  the classic *Marxan*-type problem). Furthermore---unlike the
-#'  replacement cost scores---these scores provide a
+#'  the classic *Marxan*-type problem). Furthermore -- unlike the
+#'  replacement cost scores -- these scores provide a
 #'  score for each feature within each planning unit, providing insight into
 #'  why certain planning units are more important than other planning units.}
 #'

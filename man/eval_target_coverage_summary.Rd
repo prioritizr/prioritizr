@@ -9,7 +9,7 @@
 \alias{eval_target_coverage_summary,ConservationProblem,sf-method}
 \alias{eval_target_coverage_summary,ConservationProblem,Raster-method}
 \alias{eval_target_coverage_summary,ConservationProblem,SpatRaster-method}
-\title{Evaluate target coverage}
+\title{Evaluate target coverage by solution}
 \usage{
 eval_target_coverage_summary(
   x,

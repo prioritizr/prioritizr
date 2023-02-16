@@ -36,7 +36,8 @@ as a mathematical problem. However, if the problem just needs to
 be solved, then the \code{\link[=solve]{solve()}} function should just be used.
 
 \strong{Please note that in nearly all cases, the default argument to
-\code{formulation} should be used}. The only situation where manually
+\code{compressed_formulation} should be used}. The only situation where
+manually
 setting the argument to \code{formulation} is desirable is during testing.
 Manually setting the argument to \code{formulation} will at best
 have no effect on the problem. At worst, it may result in

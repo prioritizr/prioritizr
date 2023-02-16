@@ -18,10 +18,6 @@ NULL
 #' For information on the performance of different solvers,
 #' please see Schuster _et al._ (2020).
 #'
-#' @section Notes:
-#' In early versions, this function was named as the
-#' `add_default_solver()` function.
-#'
 #' @inherit add_gurobi_solver return
 #'
 #' @seealso

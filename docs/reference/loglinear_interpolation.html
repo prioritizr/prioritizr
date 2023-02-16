@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.2.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">8.0.0.0</span>
       </span>
     </div>
 
@@ -138,7 +138,7 @@ values.</p></dd>
     <h2>Value</h2>
     
 
-<p><code>numeric</code> values.</p>
+<p>A <code>numeric</code> vector.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -159,7 +159,7 @@ the minimum and maximum <em>y</em> coordinates.</p>
 <span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu">loglinear_interpolation</span><span class="op">(</span><span class="va">x</span>, <span class="fl">200</span>, <span class="fl">100</span>, <span class="fl">900</span>, <span class="fl">15</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot the interpolated values</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># add the reference points to the plot (shown in red)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">200</span>, <span class="fl">900</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">15</span><span class="op">)</span>, pch <span class="op">=</span> <span class="fl">18</span>, col <span class="op">=</span> <span class="st">"red"</span>, cex <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
@@ -174,32 +174,39 @@ the minimum and maximum <em>y</em> coordinates.</p>
 <span class="r-in"><span><span class="co"># we can now use this function to calculate representation targets</span></span></span>
 <span class="r-in"><span><span class="co"># (expressed as a percentage of the species' range sizes) using</span></span></span>
 <span class="r-in"><span><span class="co"># the thresholds and cap sizes reported by Rodrigues et al. 2014</span></span></span>
-<span class="r-in"><span><span class="va">spp_target_percentage_rodrigues</span> <span class="op">&lt;-</span></span></span>
-<span class="r-in"><span>  <span class="fu">loglinear_interpolation</span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="va">spp_target_percentage_rodrigues</span> <span class="op">&lt;-</span> <span class="fu">loglinear_interpolation</span><span class="op">(</span></span></span>
 <span class="r-in"><span>    x <span class="op">=</span> <span class="va">spp_range_size_km2</span>,</span></span>
 <span class="r-in"><span>    coordinate_one_x <span class="op">=</span> <span class="fl">1000</span>,</span></span>
 <span class="r-in"><span>    coordinate_one_y <span class="op">=</span> <span class="fl">1</span>,</span></span>
 <span class="r-in"><span>    coordinate_two_x <span class="op">=</span> <span class="fl">250000</span>,</span></span>
-<span class="r-in"><span>    coordinate_two_y <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span></span></span>
+<span class="r-in"><span>    coordinate_two_y <span class="op">=</span> <span class="fl">0.1</span></span></span>
+<span class="r-in"><span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># it is also common to apply a cap to the representation targets,</span></span></span>
 <span class="r-in"><span><span class="co"># so let's apply the cap these targets following Butchart et al. (2015)</span></span></span>
 <span class="r-in"><span><span class="va">spp_target_percentage_butchart</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">spp_range_size_km2</span> <span class="op">&gt;=</span> <span class="fl">10000000</span>,</span></span>
 <span class="r-in"><span>  <span class="op">(</span><span class="fl">1000000</span> <span class="op">/</span> <span class="va">spp_range_size_km2</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span>,</span></span>
-<span class="r-in"><span>  <span class="va">spp_target_percentage_rodrigues</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">spp_target_percentage_rodrigues</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot species range sizes and representation targets</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">spp_target_percentage_butchart</span> <span class="op">~</span> <span class="va">spp_range_size_km2</span>,</span></span>
-<span class="r-in"><span>  xlab <span class="op">=</span> <span class="st">"Range size km^2"</span> , ylab <span class="op">=</span> <span class="st">"Representation target (%)"</span>, type <span class="op">=</span> <span class="st">"l"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">spp_target_percentage_butchart</span> <span class="op">~</span> <span class="va">spp_range_size_km2</span>,</span></span>
+<span class="r-in"><span>  xlab <span class="op">=</span> <span class="st">"Range size km^2"</span> , ylab <span class="op">=</span> <span class="st">"Representation target (%)"</span>, type <span class="op">=</span> <span class="st">"l"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="loglinear_interpolation-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot species range sizes and representation targets on a log10 scale</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">spp_target_percentage_butchart</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log10</a></span><span class="op">(</span><span class="va">spp_range_size_km2</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">spp_target_percentage_butchart</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log10</a></span><span class="op">(</span><span class="va">spp_range_size_km2</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  xlab <span class="op">=</span> <span class="st">"Range size km^2"</span> , ylab <span class="op">=</span> <span class="st">"Representation target (%)"</span>,</span></span>
-<span class="r-in"><span>  type <span class="op">=</span> <span class="st">"l"</span>, xaxt <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/axis.html" class="external-link">axis</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/pretty.html" class="external-link">pretty</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log10</a></span><span class="op">(</span><span class="va">spp_range_size_km2</span><span class="op">)</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>     <span class="fl">10</span><span class="op">^</span><span class="fu"><a href="https://rdrr.io/r/base/pretty.html" class="external-link">pretty</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log10</a></span><span class="op">(</span><span class="va">spp_range_size_km2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  type <span class="op">=</span> <span class="st">"l"</span>, xaxt <span class="op">=</span> <span class="st">"n"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/axis.html" class="external-link">axis</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/pretty.html" class="external-link">pretty</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log10</a></span><span class="op">(</span><span class="va">spp_range_size_km2</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fl">10</span><span class="op">^</span><span class="fu"><a href="https://rdrr.io/r/base/pretty.html" class="external-link">pretty</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log10</a></span><span class="op">(</span><span class="va">spp_range_size_km2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="loglinear_interpolation-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>

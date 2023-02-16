@@ -50,7 +50,7 @@ NULL
 #' s1 <- solve(p1)
 #'
 #' # plot solutions
-#' plot(s1, main = "solution")
+#' plot(s1, main = "solution", axes = FALSE)
 #'
 #' # build multi-zone conservation problem with semi-continuous decisions
 #' p2 <-

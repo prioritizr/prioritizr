@@ -26,7 +26,7 @@ problems.}
 
 \item{\code{\link[=eval_target_coverage_summary]{eval_target_coverage_summary()}}}{Calculate how well feature
 representation \link{targets} are met by a solution. This function can only be
-used with problems contain \link{targets}.}
+used with problems that contain \link{targets}.}
 
 \item{\code{\link[=eval_boundary_summary]{eval_boundary_summary()}}}{Calculate the exposed boundary length
 (perimeter) associated with a solution.}

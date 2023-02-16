@@ -33,7 +33,7 @@ that only the name of the function has changed
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">7.2.2.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">8.0.0.0</span>
       </span>
     </div>
 
@@ -142,7 +142,13 @@ that only the name of the function has changed
 <span></span>
 <span><span class="fu">rarity_weighted_richness</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">ferrier_score</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">ferrier_score</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">distribute_load</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">new_optimization_problem</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">predefined_optimization_problem</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -165,18 +171,15 @@ as the <code><a href="add_contiguity_constraints.html">add_contiguity_constraint
 
 
 <dt><code>set_number_of_threads()</code></dt>
-<dd><p>no longer needed used with the
-implementation of superior data extraction.</p></dd>
+<dd><p>no longer needed due to improved data extraction methods.</p></dd>
 
 
 <dt><code>get_number_of_threads()</code></dt>
-<dd><p>no longer needed used with the
-implementation of superior data extraction.</p></dd>
+<dd><p>no longer needed due to improved data extraction methods.</p></dd>
 
 
 <dt><code>is.parallel()</code></dt>
-<dd><p>no longer needed used with the
-implementation of superior data extraction.</p></dd>
+<dd><p>no longer needed due to improved data extraction methods.</p></dd>
 
 
 <dt><code>add_pool_portfolio()</code></dt>
@@ -211,6 +214,19 @@ other functions for evaluating solutions.</p></dd>
 <dd><p>renamed as
 the <code><a href="eval_ferrier_importance.html">eval_ferrier_importance()</a></code> function for consistency with
 other functions for evaluating solutions.</p></dd>
+
+
+<dt><code>distribute_load()</code></dt>
+<dd><p>has been removed because it is no longer used.
+See <code><a href="https://rdrr.io/r/parallel/splitIndices.html" class="external-link">parallel::splitIndices()</a></code> for equivalent functionality.</p></dd>
+
+
+<dt><code>new_optimization_problem()</code></dt>
+<dd><p>replaced by <code><a href="optimization_problem.html">optimization_problem()</a></code>.</p></dd>
+
+
+<dt><code>predefined_optimization_problem()</code></dt>
+<dd><p>replaced by <code><a href="optimization_problem.html">optimization_problem()</a></code>.</p></dd>
 
 
 

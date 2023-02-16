@@ -1,7 +1,7 @@
 #' @include internal.R ConservationProblem-class.R
 NULL
 
-#' Evaluate target coverage
+#' Evaluate target coverage by solution
 #'
 #' Calculate how well feature representation [targets] are met by a solution to
 #' a conservation planning [problem()].

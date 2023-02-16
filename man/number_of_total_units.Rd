@@ -18,6 +18,13 @@ An \code{integer} number of total units.
 \description{
 Extract the number of total units in an object.
 }
+\details{
+The total units for an object corresponds to the total number
+of entries (e.g., rows, cells) for the planning unit data.
+For example, a single-layer raster dataset might have 90 cells
+and only two of these cells contain non-missing (\code{NA}) values.
+As such, this dataset would have 90 total units and two planning units.
+}
 \examples{
 # load data
 sim_pu_raster <- get_sim_pu_raster()

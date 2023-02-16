@@ -93,14 +93,10 @@ NULL
 #' )
 #'
 #' # plot solutions
-#' plot(
-#'   s4,
-#'   main = c(
-#'     "none locked in",
-#'     "add_locked_in_constraints",
-#'     "add_bounds_constraints"
-#'   )
-#' )
+#' ## s1 = none locked in
+#' ## s2 = locked in constraints
+#' ## s3 = manual bounds constraints
+#' plot(s4)
 #'
 #' # create minimal problem with multiple zones
 #' p5 <-

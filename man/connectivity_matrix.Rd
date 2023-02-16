@@ -86,10 +86,9 @@ cd <- terra::crop(sim_features, r)
 cm_raster <- connectivity_matrix(r, cd[[2]])
 
 ## plot data and matrix
-par(mfrow = c(1,2))
 plot(r, main = "planning units (raster)", axes = FALSE)
 plot(cd[[2]], main = "conductivity", axes = FALSE)
-plot(cm_raster,  main = "connectivity")
+Matrix::image(cm_raster,  main = "connectivity matrix")
 
 # create connectivity matrix using polygon planning unit data using
 # the habitat suitability data for the second feature to represent
@@ -102,7 +101,7 @@ cm_ply <- connectivity_matrix(ply, sim_features[[2]])
 
 ## plot data and matrix
 plot(sf::st_geometry(ply), main = "planning units (polygons)")
-plot(cm_ply, main = "connectivity", axes = FALSE)
+Matrix::image(cm_ply, main = "connectivity matrix")
 
 # create connectivity matrix using habitat suitability data for each feature,
 # this could be useful if prioritisations should spatially clump
@@ -118,7 +117,7 @@ cm_sum <- Reduce("+", cm_sum) # sum matrices together
 
 ## plot data and matrix
 plot(r, main = "planning units (raster)", axes = FALSE)
-plot(cm_sum, main = "connectivity", axes = FALSE)
+Matrix::image(cm_sum, main = "connectivity matrix")
 
 ## we could take this example one step further, and use weights to indicate
 ## relative importance of maintaining functional connectivity
@@ -135,7 +134,7 @@ cm_wsum <- Reduce("+", cm_wsum) # sum matrices together
 
 ## plot data and matrix
 plot(r, main = "planning units (raster)", axes = FALSE)
-plot(cm_wsum, main = "connectivity", axes = FALSE)
+Matrix::image(cm_wsum, main = "connectivity matrix")
 
 ## since the statistical distribution of the connectivity values
 ## for each feature (e.g., the mean and standard deviation of the
@@ -162,7 +161,7 @@ cm_lwsum <- Reduce("+", cm_lwsum) # sum matrices together
 
 ## plot data and matrix
 plot(r, main = "planning units (raster)", axes = FALSE)
-plot(cm_lwsum, main = "connectivity", axes = FALSE)
+Matrix::image(cm_lwsum, main = "connectivity matrix")
 
 ## another approach for normalizing the data could be using z-scores
 ## note that after normalizing the data we would need to add a constant
@@ -186,7 +185,7 @@ cm_zwsum <- Reduce("+", cm_zwsum) # sum matrices together
 
 ## plot data and matrix
 plot(r, main = "planning units (raster)", axes = FALSE)
-plot(cm_zwsum, main = "connectivity", axes = FALSE)
+Matrix::image(cm_zwsum, main = "connectivity matrix")
 }
 
 }

@@ -46,8 +46,8 @@ Extract data from a \code{\link[terra:rast]{terra::rast()}} object.
 }
 \details{
 This function is simply a wrapper that uses
-\code{\link[terra:extract]{terra::extract()}} to extract data for non-polygon \code{\link[sf:sf]{sf::sf()}} data, and
-\code{\link[exactextractr:exact_extract]{exactextractr::exact_extract()}} for polygonal \code{\link[sf:sf]{sf::sf()}} data.
+\code{\link[exactextractr:exact_extract]{exactextractr::exact_extract()}} for polygon geometries, and
+\code{\link[terra:extract]{terra::extract()}} for other geometry types.
 }
 \examples{
 # load data

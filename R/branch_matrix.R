@@ -30,9 +30,8 @@ NULL
 #'
 #' # plot data
 #' \dontrun{
-#' par(mfrow = c(1,2))
 #' plot(sim_phylogeny, main = "phylogeny")
-#' plot(m, main = "branch matrix", axes = FALSE)
+#' Matrix::image(m, main = "branch matrix")
 #' }
 #' @export
 branch_matrix <- function(x) {

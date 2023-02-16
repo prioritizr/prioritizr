@@ -105,6 +105,9 @@ boundary length associated with each planning unit.}
 identifiers (indices) for a pair of planning units, and the \code{"boundary"}
 column contains the amount of shared boundary length between these
 two planning units.
+Additionally, if the values in the \code{"id1"} and \code{"id2"} columns
+contain the same values, then the value denotes the
+amount of exposed boundary length (not total boundary).
 This format follows the the standard \emph{Marxan} format for boundary
 data (i.e., per the "bound.dat" file).}
 
@@ -126,11 +129,11 @@ to \code{data} (e.g., generated using \code{\link[=boundary_matrix]{boundary_mat
 \eqn{W_{zz}}{Wzz} represent the matrix argument to \code{zones}.
 
 \deqn{
-\sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z} (\mathit{ifelse}(i == j, E_z, 1)
-\times p \times W_{zz} B_{ij}) + \sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z}
+\sum_{i}^{I} \sum_{z}^{Z} (p \times W_{zz} B_{ii}) +
+\sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z}
 \sum_{y}^{Z} (-2 \times p \times X_{iz} \times X_{jy} \times W_{zy} \times
 B_{ij})}{
-sum_i^I sum_j^I sum_z^Z (ifelse(i == j, Ez, 1) * p * Wzz * Bij) + sum_i^I
+sum_i^I sum_z^Z (p * Wzz * Bii) + sum_i^I
 sum_j^I sum_z^Z sum_y^Z (-2 * p * Xiz * Xjy * Wzy * Bij)
 }
 

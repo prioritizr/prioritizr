@@ -7,6 +7,14 @@ NULL
 #'
 #' @param x [problem()] or [optimization_problem()] object.
 #'
+#' @details
+#' The planning units for an object corresponds to the number
+#' of entries (e.g., rows, cells) for the planning unit data that
+#' do not have missing (`NA`) values for every zone.
+#' For example, a single-layer raster dataset might have 90 cells
+#' and only two of these cells contain non-missing (`NA`) values.
+#' As such, this dataset would have two planning units.
+#'
 #' @return An `integer` number of planning units.
 #'
 #' @name number_of_planning_units
