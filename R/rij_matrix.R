@@ -131,12 +131,19 @@ methods::setMethod(
         i = 1, j = 1, x = 0, repr = "C",
         dims = c(terra::nlyr(y), length(idx))
       )
-      # import data
-      for (i in seq_len(terra::nlyr(y))) {
-        v <- y[[i]][idx][[1]]
+      # determine number of layers to process at once
+      n_layers <-
+        ((40 * length(idx)) + (rep(1, terra::nlyr(y)) * length(idx) * 8))
+      n_layers <- max(which(cumsum(n_layers) < (terra::free_RAM() * 0.45)))
+      layer_ind <- parallel::splitIndices(
+        terra::nlyr(y), ceiling(terra::nlyr(y) / n_layers)
+      )
+      # import data and add to matrix
+      for (i in seq_along(layer_ind)) {
+        v <- t(as.matrix(y[[layer_ind[[i]]]][idx]))
         v[is.na(v)] <- 0
-        ii <- v != 0
-        m[i, which(ii)] <- v[ii]
+        m[layer_ind[[i]], ] <- v
+        m <- Matrix::drop0(m)
       }
     }
     # add row names
@@ -181,3 +188,16 @@ methods::setMethod(
     colnames(m) <- names(y)
     Matrix::t(m)
 })
+
+split_layers <- function(nx, ncl) {
+  i <- seq_len(nx)
+  if (ncl == 0L)
+    list()
+  else if (ncl >= nx)
+    list(i)
+  else {
+    fuzz <- min((nx - 1L)/1000, 0.4 * nx / ncl)
+    breaks <- seq(1 - fuzz, nx + fuzz, length.out = ncl + 1L)
+    structure(split(i, cut(i, breaks)), names = NULL)
+  }
+}
