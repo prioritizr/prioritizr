@@ -3,10 +3,10 @@ NULL
 
 #' Add maximum phylogenetic endemism objective
 #'
-#' Set the objective of a conservation planning [problem()] to
+#' Set the objective of a conservation planning problem to
 #' maximize the phylogenetic endemism of the features represented in the
 #' solution subject to a budget. This objective is similar to
-#' [add_max_phylo_end_objective()] except
+#' [add_max_phylo_div_objective()] except
 #' that emphasis is placed on representing species with geographically
 #' restricted evolutionary histories, instead representing as much evolutionary
 #' history as possible. This function was inspired by Faith (1992),

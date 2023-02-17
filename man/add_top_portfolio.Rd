@@ -17,8 +17,8 @@ An updated \code{\link[=problem]{problem()}} object with the portfolio added to 
 }
 \description{
 Generate a portfolio of solutions for a conservation planning
-\code{\link[=problem]{problem()}} by finding a pre-specified number of solutions that
-are closest to optimality (i.e the top solutions).
+problem by finding a pre-specified number of solutions that
+are closest to optimality (i.e, the top solutions).
 }
 \details{
 This strategy for generating a portfolio requires problems to

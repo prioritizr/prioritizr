@@ -16,7 +16,7 @@ An updated \code{\link[=problem]{problem()}} object with the solver added to it.
 }
 \description{
 Specify that the best solver currently available should be
-used to solve a conservation planning \code{\link[=problem]{problem()}}.
+used to solve a conservation planning problem.
 }
 \details{
 Ranked from best to worst, the available solvers that can be used are:

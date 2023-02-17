@@ -3,7 +3,7 @@ NULL
 
 #' Add manual targets
 #'
-#' Set targets for a conservation planning [problem()] by manually
+#' Set targets for a conservation planning problem by manually
 #' specifying all the required information for each target. This function
 #' is useful because it can be used to customize all aspects of a target. For
 #' most cases, targets can be specified using the
@@ -24,7 +24,7 @@ NULL
 #' @section Targets format:
 #'
 #' The `targets` argument should be a `data.frame` with the following
-#' fields (columns):
+#' columns:
 #'
 #' \describe{
 #'
@@ -32,7 +32,7 @@ NULL
 #'   to `x`.}
 #'
 #' \item{zone}{`character` name of zones in argument to
-#'   `x`. This field (column) is optional for arguments to `x`
+#'   `x`. This column is optional for arguments to `x`
 #'   that do not contain multiple zones.}
 #'
 #' \item{type}{`character` describing the type of target.
@@ -41,8 +41,8 @@ NULL
 #'   and [add_relative_targets()] respectively.}
 #'
 #' \item{sense}{`character` sense of the target. Acceptable
-#'   values include: `">="`, `"<="`, and `"="`. This field
-#'   (column) is optional and if it is missing then target senses will
+#'   values include: `">="`, `"<="`, and `"="`. This
+#'   column is optional and if it is missing then target senses will
 #'   default to `">="` values.}
 #'
 #' \item{target}{`numeric` target threshold.}

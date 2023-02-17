@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">8.0.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">8.0.0</span>
       </span>
     </div>
 
@@ -184,7 +184,7 @@ then a <code>list</code> of such <code>numeric</code> vectors will be returned.<
 <dd><p>The solution will be
 returned as a <code>matrix</code> object.
 Here, rows correspond to different planning units,
-and fields (columns) correspond to different  management zones.
+and columns correspond to different  management zones.
 Note that if a portfolio is used to generate multiple solutions,
 then a <code>list</code> of such <code>matrix</code> objects will be returned.</p></dd>
 
@@ -202,13 +202,13 @@ then a <code>list</code> of <code><a href="https://rdrr.io/pkg/terra/man/rast.ht
 <dd><p>The solution will be returned in the same data format as the planning
 units.
 Here, each row corresponds to a different planning unit,
-and fields contain solutions.
+and columns contain solutions.
 If the argument to <code>a</code> contains a single zone, then the solution object
-will contain fields (columns) that solution the values.
-Specifically, the field name(s) containing the solution values
+will contain columns that solution the values.
+Specifically, the column names containing the solution values
 be will named as <code>"solution_XXX"</code> where <code>"XXX"</code> corresponds to a solution
 identifier (e.g., <code>"solution_1"</code>).
-If the argument to <code>a</code> contains multiple zones, then the fields
+If the argument to <code>a</code> contains multiple zones, then the columns
 containing solutions will be named as <code>"solution_XXX_YYY"</code> where
 <code>"XXX"</code> corresponds to the solution identifier and <code>"YYY"</code> is the name
 of the management zone (e.g., <code>"solution_1_zone1"</code>).</p></dd>
@@ -267,7 +267,7 @@ reformat solutions that contain multiple zones.</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   1987.399 </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> solution_1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      0.004 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      0.025 </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"status"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> solution_1 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  "OPTIMAL" </span>

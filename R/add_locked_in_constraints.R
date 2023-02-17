@@ -3,7 +3,7 @@ NULL
 
 #' Add locked in constraints
 #'
-#' Add constraints to a conservation planning [problem()] to ensure
+#' Add constraints to a conservation planning problem to ensure
 #' that specific planning units are selected (or allocated
 #' to a specific zone) in the solution. For example, it may be desirable to
 #' lock in planning units that are inside existing protected areas so that the
@@ -52,17 +52,17 @@ NULL
 #'   zone. Thus each row should only contain at most a single `TRUE`
 #'   value.}
 #'
-#' \item{`data` as a `character` vector}{containing field (column) name(s)
-#'   that indicate if planning units should be locked for the solution.
+#' \item{`data` as a `character` vector}{containing column name(s)
+#'   that indicates if planning units should be locked for the solution.
 #'   This format is only
 #'   compatible if the planning units in the argument to `x` are a
-#'   [sf::sf()] or `data.frame` object. The fields
-#'   (columns) must have `logical` (i.e., `TRUE` or `FALSE`)
+#'   [sf::sf()] or `data.frame` object. The columns
+#'   must have `logical` (i.e., `TRUE` or `FALSE`)
 #'   values indicating if the planning unit is to be locked for the solution.
 #'   For problems that contain a single zone, the argument to `data` must
-#'   contain a single field name. Otherwise, for problems that
+#'   contain a single column name. Otherwise, for problems that
 #'   contain multiple zones, the argument to `data` must
-#'   contain a field name for each zone.}
+#'   contain a column name for each zone.}
 #'
 #' \item{`data` as a [sf::sf()] object}{
 #'   containing geometries that will be used to lock planning units for
@@ -117,7 +117,7 @@ NULL
 #' # create problem with added locked in constraints using integers
 #' p2 <- p1 %>% add_locked_in_constraints(which(sim_pu_polygons$locked_in))
 #'
-#' # create problem with added locked in constraints using a field name
+#' # create problem with added locked in constraints using a column name
 #' p3 <- p1 %>% add_locked_in_constraints("locked_in")
 #'
 #' # create problem with added locked in constraints using raster data
@@ -187,7 +187,7 @@ NULL
 #' # plot solution
 #' plot(s7[ "solution"], axes = FALSE)
 #'
-#' # create multi-zone problem with locked in constraints using field names
+#' # create multi-zone problem with locked in constraints using column names
 #' p9 <- p7 %>% add_locked_in_constraints(c("locked_1", "locked_2", "locked_3"))
 #'
 #' # solve problem

@@ -22,7 +22,7 @@ See the Data format section for more information.}
 An updated \code{\link[=problem]{problem()}} object with the constraints added to it.
 }
 \description{
-Add constraints to a conservation planning \code{\link[=problem]{problem()}} to ensure
+Add constraints to a conservation planning problem to ensure
 that solutions allocate (or do not allocate) specific planning units to
 specific management zones. This function offers more fine-grained control
 than the \code{\link[=add_locked_in_constraints]{add_locked_in_constraints()}} and
@@ -30,8 +30,7 @@ than the \code{\link[=add_locked_in_constraints]{add_locked_in_constraints()}} a
 }
 \section{Data format}{
 
-The argument to \code{data} should be a \code{data.frame} with the following fields
-(columns):
+The argument to \code{data} should be a \code{data.frame} with the following columns:
 
 \describe{
 
@@ -161,7 +160,7 @@ Other constraints:
 \code{\link{add_linear_constraints}()},
 \code{\link{add_locked_in_constraints}()},
 \code{\link{add_locked_out_constraints}()},
-\code{\link{add_mandatory_allocation_constraints,ConservationProblem-method}},
+\code{\link{add_mandatory_allocation_constraints}()},
 \code{\link{add_manual_bounded_constraints}()},
 \code{\link{add_neighbor_constraints}()}
 }

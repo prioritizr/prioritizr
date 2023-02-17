@@ -3,7 +3,7 @@ NULL
 
 #' Add asymmetric connectivity penalties
 #'
-#' Add penalties to a conservation planning [problem()] to account for
+#' Add penalties to a conservation planning problem to account for
 #' asymmetric connectivity between planning units.
 #' Asymmetric connectivity data describe connectivity information that is
 #' directional.

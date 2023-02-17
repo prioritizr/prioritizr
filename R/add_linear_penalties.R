@@ -3,11 +3,11 @@ NULL
 
 #' Add linear penalties
 #'
-#' Add penalties to a conservation planning [problem()] to penalize
+#' Add penalties to a conservation planning problem to penalize
 #' solutions that select planning units with higher values from a specific
 #' data source (e.g., anthropogenic impact). These penalties assume
 #' a linear trade-off between the penalty values and the primary
-#' objective of the conservation planning [problem()] (e.g.,
+#' objective of the conservation planning problem (e.g.,
 #' solution cost for minimum set problems; [add_min_set_objective()].
 #'
 #' @param x [problem()] object.
@@ -41,15 +41,15 @@ NULL
 #'
 #' \describe{
 #'
-#' \item{`data` as `character` vector}{containing field (column) name(s) that
+#' \item{`data` as `character` vector}{containing column name(s) that
 #'   contain penalty values for planning units. This format is only
 #'   compatible if the planning units in the argument to `x` are a
-#'   [sf::sf()] or `data.frame` object. The fields (columns) must have `numeric`
+#'   [sf::sf()] or `data.frame` object. The column(s) must have `numeric`
 #'   values, and must not contain any missing (`NA`) values.
 #'   For problems that contain a single zone, the argument to `data` must
-#'   contain a single field name. Otherwise, for problems that
+#'   contain a single column name. Otherwise, for problems that
 #'   contain multiple zones, the argument to `data` must
-#'   contain a field name for each zone.}
+#'   contain a column name for each zone.}
 #'
 #' \item{`data` as a `numeric` vector}{containing values for
 #'   planning units. These values must not contain any missing

@@ -76,8 +76,8 @@ with smaller values.}
 }
 }
 \description{
-Calculate the exposed boundary length (perimeter) associated with a
-solution to a conservation planning \code{\link[=problem]{problem()}}.
+Calculate the exposed boundary length (i.e., perimeter) associated with a
+solution to a conservation planning problem.
 This summary statistic is useful for evaluating the spatial fragmentation of
 planning units selected within a solution.
 }

@@ -47,7 +47,7 @@ See the Data format section for more information.}
 An updated \code{\link[=problem]{problem()}} object with the constraints added to it.
 }
 \description{
-Add constraints to a conservation planning \code{\link[=problem]{problem()}} to ensure
+Add constraints to a conservation planning problem to ensure
 that all selected planning units in the solution have at least a certain
 number of neighbors that are also selected in the solution.
 }
@@ -78,22 +78,22 @@ two planning units are neighbors or not. Cell values should be binary
 matrix diagonal have no effect on the solution at all because each
 planning unit cannot be a neighbor with itself.}
 
-\item{\code{data} as a \code{data.frame} object}{containing the fields (columns)
+\item{\code{data} as a \code{data.frame} object}{containing columns that are named
 \code{"id1"}, \code{"id2"}, and \code{"boundary"}. Here, each row
 denotes the connectivity between two planning units following the
-\emph{Marxan} format. The field \code{boundary} should contain
+\emph{Marxan} format. The \code{"boundary"} column should contain
 binary \code{numeric} values that indicate if the two planning units
-specified in the fields \code{"id1"} and \code{"id2"} are neighbors
+specified in the \code{"id1"} and \code{"id2"} columns are neighbors
 or not. This data can be used to describe symmetric or
 asymmetric relationships between planning units. By default,
 input data is assumed to be symmetric unless asymmetric data is
 also included (e.g., if data is present for planning units 2 and 3, then
 the same amount of connectivity is expected for planning units 3 and 2,
 unless connectivity data is also provided for planning units 3 and 2).
-If the argument to \code{x} contains multiple zones, then the columns
-\code{"zone1"} and \code{"zone2"} can optionally be provided to manually
-specify if the neighborhood data pertain to specific zones. The fields
-\code{"zone1"} and \code{"zone2"} should contain the \code{character}
+If the argument to \code{x} contains multiple zones, then the
+\code{"zone1"} and \code{"zone2"} columns can optionally be provided to manually
+specify if the neighborhood data pertain to specific zones. The
+\code{"zone1"} and \code{"zone2"} columns should contain the \code{character}
 names of the zones. If the columns \code{"zone1"} and \code{"zone2"}
 are present, then the argument to \code{zones} must be \code{NULL}.}
 
@@ -207,7 +207,7 @@ Other constraints:
 \code{\link{add_linear_constraints}()},
 \code{\link{add_locked_in_constraints}()},
 \code{\link{add_locked_out_constraints}()},
-\code{\link{add_mandatory_allocation_constraints,ConservationProblem-method}},
+\code{\link{add_mandatory_allocation_constraints}()},
 \code{\link{add_manual_bounded_constraints}()},
 \code{\link{add_manual_locked_constraints}()}
 }

@@ -3,7 +3,7 @@ NULL
 
 #' Add linear constraints
 #'
-#' Add constraints to a conservation planning [problem()] to ensure
+#' Add constraints to a conservation planning problem to ensure
 #' that all selected planning units meet certain criteria.
 #'
 #' @inheritParams add_contiguity_constraints

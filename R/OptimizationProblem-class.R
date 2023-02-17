@@ -13,7 +13,7 @@ NULL
 #' an exact algorithm solver.
 #' Most users should use [compile()] to generate new optimization problem
 #' objects, and the functions distributed with the package to interact
-#' with them (e.g.[base::as.list()]).
+#' with them (e.g., [base::as.list()]).
 #' **Only experts should use the fields and methods for this class directly.**
 #'
 #' @name OptimizationProblem-class

@@ -56,7 +56,7 @@ features. See the Data format section for more information.}
 An updated \code{\link[=problem]{problem()}} object with the constraints added to it.
 }
 \description{
-Add constraints to a \code{\link[=problem]{problem()}} to ensure that each feature is
+Add constraints to a problem to ensure that each feature is
 represented in a contiguous unit of dispersible habitat. These constraints
 are a more advanced version of those implemented in the
 \code{\link[=add_contiguity_constraints]{add_contiguity_constraints()}} function, because they ensure that
@@ -104,12 +104,12 @@ planning unit cannot be a connected with itself. Note that pairs
 of connected planning units are treated as being potentially dispersible
 for all features.}
 
-\item{\code{data} as a \code{data.frame} object}{containing the fields (columns)
+\item{\code{data} as a \code{data.frame} object}{containing columns that are named
 \code{"id1"}, \code{"id2"}, and \code{"boundary"}. Here, each row
 denotes the connectivity between two planning units following the
-\emph{Marxan} format. The field \code{boundary} should contain
+\emph{Marxan} format. The \code{"boundary"} column should contain
 binary \code{numeric} values that indicate if the two planning units
-specified in the fields \code{"id1"} and \code{"id2"} are connected
+specified in the \code{"id1"} and \code{"id2"} columns are connected
 or not. This data can be used to describe symmetric or
 asymmetric relationships between planning units. By default,
 input data is assumed to be symmetric unless asymmetric data is
@@ -246,7 +246,7 @@ Other constraints:
 \code{\link{add_linear_constraints}()},
 \code{\link{add_locked_in_constraints}()},
 \code{\link{add_locked_out_constraints}()},
-\code{\link{add_mandatory_allocation_constraints,ConservationProblem-method}},
+\code{\link{add_mandatory_allocation_constraints}()},
 \code{\link{add_manual_bounded_constraints}()},
 \code{\link{add_manual_locked_constraints}()},
 \code{\link{add_neighbor_constraints}()}

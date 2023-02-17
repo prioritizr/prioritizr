@@ -10,7 +10,7 @@ It stores the information needed to generate a solution using
 an exact algorithm solver.
 Most users should use \code{\link[=compile]{compile()}} to generate new optimization problem
 objects, and the functions distributed with the package to interact
-with them (e.g.\code{\link[base:list]{base::as.list()}}).
+with them (e.g., \code{\link[base:list]{base::as.list()}}).
 \strong{Only experts should use the fields and methods for this class directly.}
 }
 \seealso{

@@ -29,14 +29,15 @@ NULL
 #' @details Shared boundary calculations are performed using
 #'   [boundary_matrix()].
 #'
-#' @return A [`dsCMatrix-class`] symmetric sparse matrix object.
-#'   Each row and column represents a planning unit.
-#'   Cells values indicate the connectivity between different pairs of planning
-#'   units.
-#'   To reduce computational burden, cells among the matrix diagonal are
-#'   set to zero. Furthermore, if the argument to `x` is a
-#'   [terra::rast()] object, then cells with `NA`
-#'   values are set to zero too.
+#' @return
+#' A [`dsCMatrix-class`] symmetric sparse matrix object.
+#' Each row and column represents a planning unit.
+#' Cells values indicate the connectivity between different pairs of planning
+#' units.
+#' To reduce computational burden, cells among the matrix diagonal are
+#' set to zero. Furthermore, if the argument to `x` is a
+#' [terra::rast()] object, then cells with missing (`NA`)
+#' values are set to zero too.
 #'
 #' @name connectivity_matrix
 #'

@@ -4,7 +4,7 @@
 \alias{constraints}
 \title{Conservation problem constraints}
 \description{
-A constraint can be added to a conservation planning \code{\link[=problem]{problem()}}
+A constraint can be added to a conservation planning problem
 to ensure that solutions exhibit a specific characteristic.
 }
 \details{

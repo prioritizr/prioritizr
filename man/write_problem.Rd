@@ -20,7 +20,7 @@ format (respectively).}
 An invisible \code{TRUE} indicating success.
 }
 \description{
-Save the mathematical formulation for a conservation planning \code{\link[=problem]{problem()}}
+Save the mathematical formulation for a conservation planning problem
 to a file for mixed integer programming solvers. Note that this function
 requires the \pkg{Rsymphony} package to be installed.
 }

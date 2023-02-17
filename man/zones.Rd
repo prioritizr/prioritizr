@@ -108,8 +108,8 @@ l <- list(
 z <- do.call(zones, l)
 print(z)
 
-# create zones using character vectors that represent the names of
-# fields (columns) in a data.frame or Spatial object that contain the amount
+# create zones using character vectors corresponding to column names
+# of a data.frame or Spatial object that contain the amount
 # of each species expected different management zones
 z <- zones(
   c("spp1_zone1", "spp2_zone1"),

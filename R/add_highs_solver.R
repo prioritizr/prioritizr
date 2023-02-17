@@ -4,8 +4,8 @@ NULL
 #' Add a *HiGHS* solver
 #'
 #' Specify that the [*HiGHS*](https://highs.dev/) software
-#' (Huangfu and Hall 2018) should be used to solve a
-#' conservation planning [problem()]. This function can also be used to
+#' should be used to solve a conservation planning problem
+#' (Huangfu and Hall 2018). This function can also be used to
 #' customize the behavior of the solver.
 #' It requires the \pkg{highs} package to be installed.
 #'

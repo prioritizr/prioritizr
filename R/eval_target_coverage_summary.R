@@ -4,7 +4,7 @@ NULL
 #' Evaluate target coverage by solution
 #'
 #' Calculate how well feature representation [targets] are met by a solution to
-#' a conservation planning [problem()].
+#' a conservation planning problem.
 #' It is useful for understanding if features are adequately represented by
 #' a solution.
 #' Note that this function can only be used with problems that contain

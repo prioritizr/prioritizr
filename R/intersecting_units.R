@@ -15,6 +15,15 @@ NULL
 #'
 #' @name intersecting_units
 #'
+#' @details
+#' The performance of this function for large [terra::rast()] objects
+#' can be improved by increasing the GDAL cache size.
+#' The default cache size is 25 MB.
+#' For example, the following code can be used to set the cache size to 4 GB.
+#' ```
+#' terra::gdalCache(size = 4000)
+#' ```
+#'
 #' @seealso
 #' See [fast_extract()] for extracting data from spatial datasets.
 #'

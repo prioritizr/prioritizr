@@ -3,7 +3,7 @@ NULL
 
 #' Add a penalty
 #'
-#' A penalty can be applied to a conservation planning [problem()] to
+#' A penalty can be applied to a conservation planning problem to
 #' penalize solutions according to a specific metric. They
 #' directly trade-off with the primary objective of a problem
 #' (e.g., the primary objective when using [add_min_set_objective()] is

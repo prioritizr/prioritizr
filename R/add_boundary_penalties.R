@@ -3,9 +3,9 @@ NULL
 
 #' Add boundary penalties
 #'
-#' Add penalties to a conservation planning [problem()] to favor solutions
+#' Add penalties to a conservation planning problem to favor solutions
 #' that spatially clump planning units together based on the overall
-#' boundary length (perimeter).
+#' boundary length (i.e., total perimeter).
 #'
 #' @param x [problem()] object.
 #'

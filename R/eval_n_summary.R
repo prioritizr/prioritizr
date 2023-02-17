@@ -4,7 +4,7 @@ NULL
 #' Evaluate number of planning units selected by solution
 #'
 #' Calculate the number of planning units selected within a solution
-#' to a conservation planning [problem()].
+#' to a conservation planning problem.
 #'
 #' @inheritParams eval_cost_summary
 #'

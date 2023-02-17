@@ -142,7 +142,7 @@ sim_pu_polygons <- get_sim_pu_polygons()
 # print data
 print(sim_pu_polygons)
 
-# plot the planning units
+# plot the planning units, and color them according to cost values
 plot(sim_pu_polygons[, "cost"])
 ```
 
@@ -197,7 +197,7 @@ number_of_planning_units(p1)
 number_of_features(p1)
 ```
 
-Generally, we recommend initializing problems using raster data where possible. This is because the `problem()` function needs to calculate the amount of each feature in each planning unit, and by providing both the planning unit and feature data in raster format with the same spatial resolution, extents, and coordinate systems, this means that the `problem()` function does not need to do any geoprocessing behind the scenes. But sometimes we can't use raster planning unit data, because our planning units aren't equal-sized grid cells. So, below is an example showing how we can initialize a conservation planning problem using planning units that are formatted as spatial vector data. Note that if we had precomputed the amount of each feature in each planning unit and stored the data in the attribute table, we could pass in the names of the columns as an argument to the `problem()` function.
+Generally, we recommend initializing problems using raster data where possible. This is because the `problem()` function needs to calculate the amount of each feature in each planning unit, and by providing both the planning unit and feature data in raster format with the same spatial resolution, extents, and coordinate systems, this means that the `problem()` function does not need to do any geoprocessing behind the scenes. But sometimes we can't use raster planning unit data, because our planning units aren't equal-sized grid cells. So, below is an example showing how we can initialize a conservation planning problem using planning units that are formatted as spatial vector data. Note that we could reduce run-time by pre-computiung the amount of each feature in each planning unit and storing the data in the attribute table (e.g., by performing zonal statistics with _R_ or _ESRI ArcGIS_), and then passing in the names of the columns as an argument to the `problem()` function (see Examples section for `problem()` for details).
 
 ```{r}
 # create problem with spatial vector data

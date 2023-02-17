@@ -15,6 +15,15 @@ NULL
 #'
 #' @param ... not used.
 #'
+#' @details
+#' The performance of this function for large [terra::rast()] objects
+#' can be improved by increasing the GDAL cache size.
+#' The default cache size is 25 MB.
+#' For example, the following code can be used to set the cache size to 4 GB.
+#' ```
+#' terra::gdalCache(size = 4000)
+#' ```
+#'
 #' @return A `matrix` containing the summary amount of each feature
 #'    within each planning unit. Rows correspond to different spatial features
 #'   in the argument to `y` and columns correspond to different raster

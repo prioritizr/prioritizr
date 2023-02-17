@@ -46,7 +46,7 @@ See the Data format section for more information.}
 An updated \code{\link[=problem]{problem()}} object with the constraints added to it.
 }
 \description{
-Add constraints to a conservation planning \code{\link[=problem]{problem()}} to ensure
+Add constraints to a conservation planning problem to ensure
 that all selected planning units meet certain criteria.
 }
 \details{
@@ -92,15 +92,15 @@ The argument to \code{data} can be specified using the following formats.
 
 \describe{
 
-\item{\code{data} as \code{character} vector}{containing field (column) name(s) that
+\item{\code{data} as \code{character} vector}{containing column name(s) that
 contain penalty values for planning units. This format is only
 compatible if the planning units in the argument to \code{x} are a
-\code{\link[sf:sf]{sf::sf()}} or \code{data.frame} object. The fields (columns) must have \code{numeric}
+\code{\link[sf:sf]{sf::sf()}} or \code{data.frame} object. The column(s) must have \code{numeric}
 values, and must not contain any missing (\code{NA}) values.
 For problems that contain a single zone, the argument to \code{data} must
-contain a single field name. Otherwise, for problems that
+contain a single column name. Otherwise, for problems that
 contain multiple zones, the argument to \code{data} must
-contain a field name for each zone.}
+contain a column name for each zone.}
 
 \item{\code{data} as a \code{numeric} vector}{containing values for
 planning units. These values must not contain any missing
@@ -287,7 +287,7 @@ Other constraints:
 \code{\link{add_feature_contiguity_constraints}()},
 \code{\link{add_locked_in_constraints}()},
 \code{\link{add_locked_out_constraints}()},
-\code{\link{add_mandatory_allocation_constraints,ConservationProblem-method}},
+\code{\link{add_mandatory_allocation_constraints}()},
 \code{\link{add_manual_bounded_constraints}()},
 \code{\link{add_manual_locked_constraints}()},
 \code{\link{add_neighbor_constraints}()}

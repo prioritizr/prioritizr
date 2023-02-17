@@ -4,8 +4,9 @@ NULL
 #' Add a *SYMPHONY* solver with *Rsymphony*
 #'
 #' Specify that the [*SYMPHONY*](https://github.com/coin-or/SYMPHONY)
-#' software (Ralphs & Güzelsoy 2005) -- using the \pkg{Rsymphony} package --
-#' should be used to solve a conservation planning [problem()].
+#' software -- using the \pkg{Rsymphony} package --
+#' should be used to solve a conservation planning problem
+#' (Ralphs & Güzelsoy 2005).
 #' This function can also be used to customize the behavior of the solver.
 #' It requires the \pkg{Rsymphony} package to be installed.
 #'

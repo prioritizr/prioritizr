@@ -4,7 +4,7 @@ NULL
 #' Evaluate asymmetric connectivity of solution
 #'
 #' Calculate the connectivity held within a solution to a conservation
-#' planning [problem()].
+#' planning problem.
 #' This summary statistic evaluates the connectivity of a solution using
 #' pair-wise connectivity values between combinations of planning units.
 #' It is specifically designed for asymmetric connectivity data.

@@ -13,7 +13,7 @@ add_binary_decisions(x)
 An updated \code{\link[=problem]{problem()}} object with the decisions added to it.
 }
 \description{
-Add a binary decision to a conservation planning \code{\link[=problem]{problem()}}.
+Add a binary decision to a conservation planning problem.
 This is the classic decision of either prioritizing or not prioritizing a
 planning unit. Typically, this decision has the assumed action of buying
 the planning unit to include in a protected area network. If no decision is

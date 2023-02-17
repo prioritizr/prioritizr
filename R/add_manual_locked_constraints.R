@@ -3,7 +3,7 @@ NULL
 
 #' Add manually specified locked constraints
 #'
-#' Add constraints to a conservation planning [problem()] to ensure
+#' Add constraints to a conservation planning problem to ensure
 #' that solutions allocate (or do not allocate) specific planning units to
 #' specific management zones. This function offers more fine-grained control
 #' than the [add_locked_in_constraints()] and
@@ -17,8 +17,7 @@ NULL
 #'   See the Data format section for more information.
 #'
 #' @section Data format:
-#' The argument to `data` should be a `data.frame` with the following fields
-#' (columns):
+#' The argument to `data` should be a `data.frame` with the following columns:
 #'
 #' \describe{
 #'

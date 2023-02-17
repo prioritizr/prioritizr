@@ -3,7 +3,7 @@ NULL
 
 #' Add minimum shortfall objective
 #'
-#' Set the objective of a conservation planning [problem()] to
+#' Set the objective of a conservation planning problem to
 #' minimize the overall shortfall for as many [targets] as possible while
 #' ensuring that the cost of the solution does not exceed a budget.
 #'

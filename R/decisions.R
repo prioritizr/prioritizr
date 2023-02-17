@@ -8,7 +8,7 @@ NULL
 #' turning an entire planning unit into a protected area, turning part
 #' of a planning unit into a protected area, or allocating a planning
 #' unit to a specific management zone. If no decision is explicitly added to a
-#' [problem()], then binary decisions will be used by default.
+#' problem, then binary decisions will be used by default.
 #'
 #' @details Only a single type of decision can be added to a conservation
 #'   planning [problem()]. Note that if multiple decisions are added

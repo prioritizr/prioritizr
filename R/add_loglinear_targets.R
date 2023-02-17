@@ -3,7 +3,7 @@ NULL
 
 #' Add targets using log-linear scaling
 #'
-#' Add targets to a conservation planning [problem()] by log-linearly
+#' Add targets to a conservation planning problem by log-linearly
 #' interpolating the targets between thresholds based on the total amount of
 #' each feature in the study area (Rodrigues *et al.* 2004). Additionally,
 #' caps can be applied to targets to prevent features with massive

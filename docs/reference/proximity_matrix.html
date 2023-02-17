@@ -24,7 +24,7 @@ spatial proximity to each other."><meta property="og:image" content="https://pri
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">8.0.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">8.0.0</span>
       </span>
     </div>
 
@@ -150,10 +150,8 @@ Cells values indicate if the pair-wise distances between different
 planning units are within the distance threshold or not (using ones and
 zeros). To reduce computational burden, cells among the matrix diagonal are
 set to zero. Furthermore, if the argument to <code>x</code> is a
-<code><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">terra::rast()</a></code> object, then cells with <code>NA</code></p>
-
-
-<p>values are set to zero too.</p>
+<code><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">terra::rast()</a></code> object, then cells with missing (<code>NA</code>)
+values are set to zero too.</p>
     </div>
     <div id="details">
     <h2>Details</h2>

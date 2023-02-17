@@ -40,7 +40,7 @@ locked out. See the Data format section for more information.}
 An updated \code{\link[=problem]{problem()}} object with the constraints added to it.
 }
 \description{
-Add constraints to a conservation planning \code{\link[=problem]{problem()}} to ensure
+Add constraints to a conservation planning problem to ensure
 that specific planning units are not selected
 (or allocated to a specific zone) in the solution. For example, it may be
 useful to lock out planning units that have been degraded and are not
@@ -82,17 +82,17 @@ each cell indicates if the planning unit should be locked to a given
 zone. Thus each row should only contain at most a single \code{TRUE}
 value.}
 
-\item{\code{data} as a \code{character} vector}{containing field (column) name(s)
-that indicate if planning units should be locked for the solution.
+\item{\code{data} as a \code{character} vector}{containing column name(s)
+that indicates if planning units should be locked for the solution.
 This format is only
 compatible if the planning units in the argument to \code{x} are a
-\code{\link[sf:sf]{sf::sf()}} or \code{data.frame} object. The fields
-(columns) must have \code{logical} (i.e., \code{TRUE} or \code{FALSE})
+\code{\link[sf:sf]{sf::sf()}} or \code{data.frame} object. The columns
+must have \code{logical} (i.e., \code{TRUE} or \code{FALSE})
 values indicating if the planning unit is to be locked for the solution.
 For problems that contain a single zone, the argument to \code{data} must
-contain a single field name. Otherwise, for problems that
+contain a single column name. Otherwise, for problems that
 contain multiple zones, the argument to \code{data} must
-contain a field name for each zone.}
+contain a column name for each zone.}
 
 \item{\code{data} as a \code{\link[sf:sf]{sf::sf()}} object}{
 containing geometries that will be used to lock planning units for
@@ -141,7 +141,7 @@ p1 <-
 # create problem with added locked out constraints using integers
 p2 <- p1 \%>\% add_locked_out_constraints(which(sim_pu_polygons$locked_out))
 
-# create problem with added locked out constraints using a field name
+# create problem with added locked out constraints using a column name
 p3 <- p1 \%>\% add_locked_out_constraints("locked_out")
 
 # create problem with added locked out constraints using raster data
@@ -214,7 +214,7 @@ s7$solution <- factor(s7$solution)
 # plot solution
 plot(s7[, "solution"], main = "solution", axes = FALSE)
 
-# create multi-zone problem with locked out constraints using field names
+# create multi-zone problem with locked out constraints using column names
 p9 <-
   p7 \%>\%
   add_locked_out_constraints(c("locked_1", "locked_2", "locked_3"))
@@ -270,7 +270,7 @@ Other constraints:
 \code{\link{add_feature_contiguity_constraints}()},
 \code{\link{add_linear_constraints}()},
 \code{\link{add_locked_in_constraints}()},
-\code{\link{add_mandatory_allocation_constraints,ConservationProblem-method}},
+\code{\link{add_mandatory_allocation_constraints}()},
 \code{\link{add_manual_bounded_constraints}()},
 \code{\link{add_manual_locked_constraints}()},
 \code{\link{add_neighbor_constraints}()}

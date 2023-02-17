@@ -220,9 +220,9 @@ print(p)
 
     ## A conservation problem (<ConservationProblem>)
 
-    ## ├•data:
+    ## ├•data
 
-    ## │├zones:     "z1" and "z2" (2 total)
+    ## │├•zones:       "z1" and "z2" (2 total)
 
     ## │├•features:    "f1" and "f2" (2 total)
 
@@ -236,7 +236,7 @@ print(p)
 
     ## │ └•CRS:        NA
 
-    ## └•formulation:
+    ## └•formulation
 
     ##  ├•objective:   none specified
 

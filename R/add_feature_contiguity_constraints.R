@@ -3,7 +3,7 @@ NULL
 
 #' Add feature contiguity constraints
 #'
-#' Add constraints to a [problem()] to ensure that each feature is
+#' Add constraints to a problem to ensure that each feature is
 #' represented in a contiguous unit of dispersible habitat. These constraints
 #' are a more advanced version of those implemented in the
 #' [add_contiguity_constraints()] function, because they ensure that
@@ -85,12 +85,12 @@ NULL
 #'   of connected planning units are treated as being potentially dispersible
 #'   for all features.}
 #'
-#' \item{`data` as a `data.frame` object}{containing the fields (columns)
+#' \item{`data` as a `data.frame` object}{containing columns that are named
 #'   `"id1"`, `"id2"`, and `"boundary"`. Here, each row
 #'   denotes the connectivity between two planning units following the
-#'   *Marxan* format. The field `boundary` should contain
+#'   *Marxan* format. The `"boundary"` column should contain
 #'   binary `numeric` values that indicate if the two planning units
-#'   specified in the fields `"id1"` and `"id2"` are connected
+#'   specified in the `"id1"` and `"id2"` columns are connected
 #'   or not. This data can be used to describe symmetric or
 #'   asymmetric relationships between planning units. By default,
 #'   input data is assumed to be symmetric unless asymmetric data is

@@ -23,7 +23,7 @@ for the conservation features.}
 An updated \code{problem()} object with the objective added to it.
 }
 \description{
-Set the objective of a conservation planning \code{\link[=problem]{problem()}} to
+Set the objective of a conservation planning problem to
 maximize the phylogenetic diversity of the features represented in the
 solution subject to a budget. This objective is similar to
 \code{\link[=add_max_features_objective]{add_max_features_objective()}} except

@@ -71,7 +71,7 @@ then a \code{list} of such \code{numeric} vectors will be returned.}
 \item{\code{a} has \code{matrix} planning units}{The solution will be
 returned as a \code{matrix} object.
 Here, rows correspond to different planning units,
-and fields (columns) correspond to different  management zones.
+and columns correspond to different  management zones.
 Note that if a portfolio is used to generate multiple solutions,
 then a \code{list} of such \code{matrix} objects will be returned.}
 
@@ -86,13 +86,13 @@ then a \code{list} of \code{\link[terra:rast]{terra::rast()}} objects will be re
 The solution will be returned in the same data format as the planning
 units.
 Here, each row corresponds to a different planning unit,
-and fields contain solutions.
+and columns contain solutions.
 If the argument to \code{a} contains a single zone, then the solution object
-will contain fields (columns) that solution the values.
-Specifically, the field name(s) containing the solution values
+will contain columns that solution the values.
+Specifically, the column names containing the solution values
 be will named as \code{"solution_XXX"} where \code{"XXX"} corresponds to a solution
 identifier (e.g., \code{"solution_1"}).
-If the argument to \code{a} contains multiple zones, then the fields
+If the argument to \code{a} contains multiple zones, then the columns
 containing solutions will be named as \code{"solution_XXX_YYY"} where
 \code{"XXX"} corresponds to the solution identifier and \code{"YYY"} is the name
 of the management zone (e.g., \code{"solution_1_zone1"}).}

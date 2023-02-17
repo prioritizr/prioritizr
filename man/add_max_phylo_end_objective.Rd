@@ -22,10 +22,10 @@ for the conservation features.}
 An updated \code{problem()} object with the objective added to it.
 }
 \description{
-Set the objective of a conservation planning \code{\link[=problem]{problem()}} to
+Set the objective of a conservation planning problem to
 maximize the phylogenetic endemism of the features represented in the
 solution subject to a budget. This objective is similar to
-\code{\link[=add_max_phylo_end_objective]{add_max_phylo_end_objective()}} except
+\code{\link[=add_max_phylo_div_objective]{add_max_phylo_div_objective()}} except
 that emphasis is placed on representing species with geographically
 restricted evolutionary histories, instead representing as much evolutionary
 history as possible. This function was inspired by Faith (1992),

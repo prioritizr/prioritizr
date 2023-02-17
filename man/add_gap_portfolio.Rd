@@ -25,7 +25,7 @@ An updated \code{\link[=problem]{problem()}} object with the portfolio added to 
 }
 \description{
 Generate a portfolio of solutions for a conservation planning
-\code{\link[=problem]{problem()}} by finding a certain number of solutions that
+problem by finding a certain number of solutions that
 are all within a pre-specified optimality gap. This method is useful for
 generating multiple solutions that can be used to calculate selection
 frequencies for moderate and large-sized problems (similar to

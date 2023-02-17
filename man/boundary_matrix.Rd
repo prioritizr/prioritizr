@@ -41,23 +41,19 @@ total perimeter associated with each planning unit.
 }
 \description{
 Generate a matrix describing the amount of shared boundary length
-between different planning units, and the amount of exposed edge length each
-planning unit exhibits.
+between different planning units, and the total amount of boundary length
+for each planning unit.
 }
 \details{
-This function returns a \code{\linkS4class{dsCMatrix}}
-symmetric sparse matrix. Cells on the off-diagonal indicate the length of
-the shared boundary between two different planning units. Cells on the
-diagonal indicate length of a given planning unit's edges that have no
-neighbors (e.g., for edges of planning units found along the
-coastline). \strong{This function assumes the data are in a coordinate
+This function assumes the data are in a coordinate
 system where Euclidean distances accurately describe the proximity
-between two points on the earth}. Thus spatial data in a
+between two points on the earth. Thus spatial data in a
 longitude/latitude coordinate system (i.e.,
 \href{https://spatialreference.org/ref/epsg/wgs-84/}{WGS84})
 should be reprojected to another coordinate system before using this
 function. Note that for \code{\link[terra:rast]{terra::rast()}} objects
-boundaries are missing for cells that have \code{NA} values in all cells.
+boundaries are missing for cells that have  missing (\code{NA}) values in all
+cells.
 }
 \section{Notes}{
 

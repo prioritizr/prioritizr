@@ -29,10 +29,17 @@ NULL
 #' @param ... not used.
 #'
 #' @details
-#'   Generally, processing [sf::st_sf()] data takes much
-#'   longer to process than [terra::rast()] data.
-#'   As such, it is recommended to use [terra::rast()] data
-#'   for planning units where possible.
+#' Generally, processing [sf::st_sf()] data takes much longer to process than
+#' [terra::rast()] data.
+#' As such, it is recommended to use [terra::rast()] data for planning units
+#' where possible.
+#' The performance of this function for large [terra::rast()] datasets
+#' can be improved by increasing the GDAL cache size.
+#' The default cache size is 25 MB.
+#' For example, the following code can be used to set the cache size to 4 GB.
+#' ```
+#' terra::gdalCache(size = 4000)
+#' ```
 #'
 #' @return A [`dgCMatrix-class`] sparse matrix object.
 #'   The sparse matrix represents the spatial intersection between the

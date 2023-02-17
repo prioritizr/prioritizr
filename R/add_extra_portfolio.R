@@ -4,7 +4,7 @@ NULL
 #' Add an extra portfolio
 #'
 #' Generate a portfolio of solutions for a conservation planning
-#' [problem()] by storing feasible solutions
+#' problem by storing feasible solutions
 #' discovered during the optimization process.
 #' This method is useful for quickly obtaining multiple solutions,
 #' but does not provide any guarantees on the number of solutions, or

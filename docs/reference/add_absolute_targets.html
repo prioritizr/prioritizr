@@ -27,7 +27,7 @@ than 10."><meta property="og:image" content="https://prioritizr.net/logo.png"><!
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">8.0.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">8.0.0</span>
       </span>
     </div>
 
@@ -186,11 +186,14 @@ that the solution needs to secure in a given zone.</p></dd>
 
 
 <dt><code>targets</code> as a <code>character</code> vector</dt>
-<dd><p>containing the names of fields
-(columns) in the feature data associated with the argument to <code>x</code> that
+<dd><p>containing the column name(s) in the
+feature data associated with the argument to <code>x</code> that
 contain targets. This format can only be used when the
-feature data associated with <code>x</code> is a <code>data.frame</code>.
-This argument must contain a field (column) name for each zone.</p></dd>
+feature data associated with <code>x</code> is a <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::st_sf()</a></code> or <code>data.frame</code>.
+For problems that contain a single zone, the argument to <code>targets</code> must
+contain a single column name. Otherwise, for problems that
+contain multiple zones, the argument to <code>targets</code> must
+contain a column name for each zone.</p></dd>
 
 
 

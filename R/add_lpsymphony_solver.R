@@ -4,8 +4,9 @@ NULL
 #' Add a *SYMPHONY* solver with *lpsymphony*
 #'
 #' Specify that the [*SYMPHONY*](https://github.com/coin-or/SYMPHONY)
-#' software (Ralphs & Güzelsoy 2005) -- using the \pkg{lpsymphony} package --
-#' should be used to solve a conservation planning [problem()].
+#' software -- using the \pkg{lpsymphony} package --
+#' should be used to solve a conservation planning problem
+#' (Ralphs & Güzelsoy 2005).
 #' This function can also be used to customize the behavior of the solver.
 #' It requires the \pkg{lpsymphony} package to be installed
 #' (see below for installation instructions).

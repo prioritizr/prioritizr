@@ -3,8 +3,8 @@ NULL
 
 #' Add maximum feature representation objective
 #'
-#' Set the objective of a conservation planning [problem()] to
-#' fulfill as many targets as possible while ensuring that the cost of the
+#' Set the objective of a conservation planning problem to
+#' fulfill as many targets as possible, whilst ensuring that the cost of the
 #' solution does not exceed a budget.
 #'
 #' @inheritParams add_max_utility_objective

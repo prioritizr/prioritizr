@@ -75,11 +75,14 @@ Here, each row corresponds to a different feature in argument to
 \code{x}, and each cell contains the target value for a given feature
 that the solution needs to secure in a given zone.}
 
-\item{\code{targets} as a \code{character} vector}{containing the names of fields
-(columns) in the feature data associated with the argument to \code{x} that
+\item{\code{targets} as a \code{character} vector}{containing the column name(s) in the
+feature data associated with the argument to \code{x} that
 contain targets. This format can only be used when the
-feature data associated with \code{x} is a \code{data.frame}.
-This argument must contain a field (column) name for each zone.}
+feature data associated with \code{x} is a \code{\link[sf:sf]{sf::st_sf()}} or \code{data.frame}.
+For problems that contain a single zone, the argument to \code{targets} must
+contain a single column name. Otherwise, for problems that
+contain multiple zones, the argument to \code{targets} must
+contain a column name for each zone.}
 
 }
 }

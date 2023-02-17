@@ -3,7 +3,7 @@ NULL
 
 #' Add locked out constraints
 #'
-#' Add constraints to a conservation planning [problem()] to ensure
+#' Add constraints to a conservation planning problem to ensure
 #' that specific planning units are not selected
 #' (or allocated to a specific zone) in the solution. For example, it may be
 #' useful to lock out planning units that have been degraded and are not
@@ -53,7 +53,7 @@ NULL
 #' # create problem with added locked out constraints using integers
 #' p2 <- p1 %>% add_locked_out_constraints(which(sim_pu_polygons$locked_out))
 #'
-#' # create problem with added locked out constraints using a field name
+#' # create problem with added locked out constraints using a column name
 #' p3 <- p1 %>% add_locked_out_constraints("locked_out")
 #'
 #' # create problem with added locked out constraints using raster data
@@ -126,7 +126,7 @@ NULL
 #' # plot solution
 #' plot(s7[, "solution"], main = "solution", axes = FALSE)
 #'
-#' # create multi-zone problem with locked out constraints using field names
+#' # create multi-zone problem with locked out constraints using column names
 #' p9 <-
 #'   p7 %>%
 #'   add_locked_out_constraints(c("locked_1", "locked_2", "locked_3"))

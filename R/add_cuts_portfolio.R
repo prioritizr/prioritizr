@@ -4,7 +4,7 @@ NULL
 #' Add Bender's cuts portfolio
 #'
 #' Generate a portfolio of solutions for a conservation planning
-#' [problem()] using Bender's cuts (discussed in Rodrigues
+#' problem using Bender's cuts (discussed in Rodrigues
 #' *et al.* 2000). This is recommended as a replacement for
 #' [add_gap_portfolio()] when the *Gurobi* software is not
 #' available.

@@ -17,7 +17,7 @@ An updated \code{\link[=problem]{problem()}} object with the portfolio added to 
 }
 \description{
 Generate a portfolio of solutions for a conservation planning
-\code{\link[=problem]{problem()}} using Bender's cuts (discussed in Rodrigues
+problem using Bender's cuts (discussed in Rodrigues
 \emph{et al.} 2000). This is recommended as a replacement for
 \code{\link[=add_gap_portfolio]{add_gap_portfolio()}} when the \emph{Gurobi} software is not
 available.

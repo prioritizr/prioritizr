@@ -24,7 +24,7 @@ See the Target data format section for more information.}
 An updated \code{\link[=problem]{problem()}} object with the targets added to it.
 }
 \description{
-Set targets for a conservation planning \code{\link[=problem]{problem()}} by manually
+Set targets for a conservation planning problem by manually
 specifying all the required information for each target. This function
 is useful because it can be used to customize all aspects of a target. For
 most cases, targets can be specified using the
@@ -63,7 +63,7 @@ combinations of management zones.
 
 
 The \code{targets} argument should be a \code{data.frame} with the following
-fields (columns):
+columns:
 
 \describe{
 
@@ -71,7 +71,7 @@ fields (columns):
 to \code{x}.}
 
 \item{zone}{\code{character} name of zones in argument to
-\code{x}. This field (column) is optional for arguments to \code{x}
+\code{x}. This column is optional for arguments to \code{x}
 that do not contain multiple zones.}
 
 \item{type}{\code{character} describing the type of target.
@@ -80,8 +80,8 @@ These values correspond to \code{\link[=add_absolute_targets]{add_absolute_targe
 and \code{\link[=add_relative_targets]{add_relative_targets()}} respectively.}
 
 \item{sense}{\code{character} sense of the target. Acceptable
-values include: \code{">="}, \code{"<="}, and \code{"="}. This field
-(column) is optional and if it is missing then target senses will
+values include: \code{">="}, \code{"<="}, and \code{"="}. This
+column is optional and if it is missing then target senses will
 default to \code{">="} values.}
 
 \item{target}{\code{numeric} target threshold.}

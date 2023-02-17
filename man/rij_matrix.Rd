@@ -58,10 +58,17 @@ Generate a matrix showing the amount of each feature in each planning
 unit (also known as an \emph{rij} matrix).
 }
 \details{
-Generally, processing \code{\link[sf:sf]{sf::st_sf()}} data takes much
-longer to process than \code{\link[terra:rast]{terra::rast()}} data.
-As such, it is recommended to use \code{\link[terra:rast]{terra::rast()}} data
-for planning units where possible.
+Generally, processing \code{\link[sf:sf]{sf::st_sf()}} data takes much longer to process than
+\code{\link[terra:rast]{terra::rast()}} data.
+As such, it is recommended to use \code{\link[terra:rast]{terra::rast()}} data for planning units
+where possible.
+The performance of this function for large \code{\link[terra:rast]{terra::rast()}} datasets
+can be improved by increasing the GDAL cache size.
+The default cache size is 25 MB.
+For example, the following code can be used to set the cache size to 4 GB.
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{terra::gdalCache(size = 4000)
+}\if{html}{\out{</div>}}
 }
 \examples{
 \dontrun{

@@ -3,7 +3,7 @@ NULL
 
 #' Add minimum largest shortfall objective
 #'
-#' Set the objective of a conservation planning [problem()] to
+#' Set the objective of a conservation planning problem to
 #' minimize the largest target shortfall while ensuring that
 #' the cost of the solution does not exceed a budget. Note that if the
 #' target shortfall for a single feature cannot be decreased beyond a certain

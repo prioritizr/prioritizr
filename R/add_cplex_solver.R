@@ -5,7 +5,7 @@ NULL
 #'
 #' Specify that the
 #' [*IBM CPLEX*](https://www.ibm.com/products/ilog-cplex-optimization-studio/cplex-optimizer) software
-#' (IBM 2017) should be used to solve a conservation planning [problem()].
+#' should be used to solve a conservation planning problem (IBM 2017) .
 #' This function can also be used to customize the behavior of the solver.
 #' It requires the \pkg{cplexAPI} package to be installed
 #' (see below for installation instructions).

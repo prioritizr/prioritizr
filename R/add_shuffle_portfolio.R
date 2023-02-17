@@ -4,7 +4,7 @@ NULL
 #' Add a shuffle portfolio
 #'
 #' Generate a portfolio of solutions for a conservation planning
-#' [problem()] by randomly reordering the data prior to
+#' problem by randomly reordering the data prior to
 #' solving the problem. This is recommended as a replacement for
 #' [add_top_portfolio()] when the *Gurobi* software is not
 #' available.

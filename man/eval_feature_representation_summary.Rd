@@ -56,7 +56,7 @@ by dividing values in the \code{"absolute_held"} column by those in the
 }
 \description{
 Calculate how well features are represented by a solution
-to a conservation planning \code{\link[=problem]{problem()}}.
+to a conservation planning problem.
 These summary statistics are reported for each and every feature,
 and each and every zone, within a conservation planning problem.
 }

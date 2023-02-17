@@ -14,7 +14,7 @@ NULL
 #' and other design criteria) needed to generate prioritizations.
 #' Most users should use [problem()] to generate new conservation problem
 #' objects, and the functions distributed with the package to interact
-#' with them (e.g. [number_of_features()], [number_of_planning_units()]).
+#' with them (e.g., [number_of_features()], [number_of_planning_units()]).
 #' **Only experts should use the fields and methods for this class directly.**
 #'
 #' @name ConservationProblem-class
@@ -108,7 +108,7 @@ ConservationProblem <- R6::R6Class(
       )
 
       # print data section
-      cli::cli_text("{ch$j}{ch$b}{.h data}:")
+      cli::cli_text("{ch$j}{ch$b}{.h data}")
       if (self$number_of_zones() > 1) {
         cli_vtext(
           "{ch$v}{ch$j}{ch$b}zones:        ",
@@ -187,7 +187,7 @@ ConservationProblem <- R6::R6Class(
 
       # print formulation section
       ## header
-      cli::cli_text("{ch$l}{ch$b}{.h formulation}:")
+      cli::cli_text("{ch$l}{ch$b}{.h formulation}")
       ## objective
       cli_tree_component(
         objective_text,
@@ -318,7 +318,7 @@ ConservationProblem <- R6::R6Class(
       )
 
       # print data section
-      cli::cli_text("{ch$j}{ch$b}{.h data}:")
+      cli::cli_text("{ch$j}{ch$b}{.h data}")
       if (self$number_of_zones() > 1) {
         cli_vtext(
           "{ch$v}{ch$j}{ch$b}zones:       ",
@@ -399,7 +399,7 @@ ConservationProblem <- R6::R6Class(
 
       # print formulation section
       ## header
-      cli::cli_text("{ch$l}{ch$b}{.h formulation}:")
+      cli::cli_text("{ch$l}{ch$b}{.h formulation}")
       ## objective
       cli_vtext(
         " {ch$j}{ch$b}objective:   ",

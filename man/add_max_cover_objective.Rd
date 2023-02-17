@@ -19,7 +19,7 @@ a budget for each each management zone.}
 An updated \code{problem()} object with the objective added to it.
 }
 \description{
-Set the objective of a conservation planning \code{\link[=problem]{problem()}} to
+Set the objective of a conservation planning problem to
 represent at least one instance of as many features as possible within a
 given budget. This objective does not use targets, and feature
 weights should be used instead to increase the representation of certain

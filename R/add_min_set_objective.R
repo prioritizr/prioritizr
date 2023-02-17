@@ -3,7 +3,7 @@ NULL
 
 #' Add minimum set objective
 #'
-#' Set the objective of a conservation planning [problem()] to
+#' Set the objective of a conservation planning problem to
 #' minimize the cost of the solution whilst ensuring that all [targets] are met.
 #' This objective is similar to that used in
 #' *Marxan* and is detailed in Rodrigues *et al.* (2000).

@@ -39,7 +39,7 @@ See the Solution format section for more information.}
 \item{...}{not used.}
 
 \item{rescale}{\code{logical} flag indicating if replacement cost
-values---excepting infinite (\code{Inf}) and zero values---should be
+values -- excepting infinite (\code{Inf}) and zero values -- should be
 rescaled to range between 0.01 and 1. Defaults to \code{TRUE}.}
 }
 \value{
@@ -57,7 +57,7 @@ planning exercises (i.e., more than 100,000 planning units) where
 importance scores cannot be calculated using other methods in a feasible
 period of time. This is because rarity weighted richness scores cannot (i)
 account for the cost of different planning units, (ii) account for multiple
-management zones, and (iii) identify truly irreplaceable planning units---
+management zones, and (iii) identify truly irreplaceable planning units ---
 unlike the replacement cost metric which does not suffer any of these
 limitations.
 }

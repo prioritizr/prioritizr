@@ -47,8 +47,9 @@ An updated \code{\link[=problem]{problem()}} object with the solver added to it.
 }
 \description{
 Specify that the \href{https://github.com/coin-or/SYMPHONY}{\emph{SYMPHONY}}
-software (Ralphs & Güzelsoy 2005) -- using the \pkg{lpsymphony} package --
-should be used to solve a conservation planning \code{\link[=problem]{problem()}}.
+software -- using the \pkg{lpsymphony} package --
+should be used to solve a conservation planning problem
+(Ralphs & Güzelsoy 2005).
 This function can also be used to customize the behavior of the solver.
 It requires the \pkg{lpsymphony} package to be installed
 (see below for installation instructions).

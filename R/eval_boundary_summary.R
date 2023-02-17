@@ -3,8 +3,8 @@ NULL
 
 #' Evaluate boundary length of solution
 #'
-#' Calculate the exposed boundary length (perimeter) associated with a
-#' solution to a conservation planning [problem()].
+#' Calculate the exposed boundary length (i.e., perimeter) associated with a
+#' solution to a conservation planning problem.
 #' This summary statistic is useful for evaluating the spatial fragmentation of
 #' planning units selected within a solution.
 #'

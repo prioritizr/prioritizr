@@ -25,7 +25,7 @@ category_vector(x)
 An \code{integer} vector.
 }
 \description{
-Convert an object containing binary (\code{integer}) fields (columns) into a
+Convert an object containing binary (\code{integer}) columns into a
 \code{integer} vector indicating the column index where each row is
 \code{1}.
 }
@@ -36,7 +36,7 @@ value of zero. Also, note that in the argument to \code{x}, each row must
 contain only a single value equal to \code{1}.
 }
 \examples{
-# create matrix with logical fields
+# create matrix with logical columns
 x <- matrix(c(1, 0, 0, NA, 0, 1, 0, NA, 0, 0, 0, NA), ncol = 3)
 
 # print matrix

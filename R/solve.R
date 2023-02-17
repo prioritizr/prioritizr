@@ -55,7 +55,7 @@ NULL
 #'   \item{`a` has `matrix` planning units}{The solution will be
 #'     returned as a `matrix` object.
 #'     Here, rows correspond to different planning units,
-#'     and fields (columns) correspond to different  management zones.
+#'     and columns correspond to different  management zones.
 #'     Note that if a portfolio is used to generate multiple solutions,
 #'     then a `list` of such `matrix` objects will be returned.}
 #'
@@ -70,13 +70,13 @@ NULL
 #'     The solution will be returned in the same data format as the planning
 #'     units.
 #'     Here, each row corresponds to a different planning unit,
-#'     and fields contain solutions.
+#'     and columns contain solutions.
 #'     If the argument to `a` contains a single zone, then the solution object
-#'     will contain fields (columns) that solution the values.
-#'     Specifically, the field name(s) containing the solution values
+#'     will contain columns that solution the values.
+#'     Specifically, the column names containing the solution values
 #'     be will named as `"solution_XXX"` where `"XXX"` corresponds to a solution
 #'     identifier (e.g., `"solution_1"`).
-#'     If the argument to `a` contains multiple zones, then the fields
+#'     If the argument to `a` contains multiple zones, then the columns
 #'     containing solutions will be named as `"solution_XXX_YYY"` where
 #'     `"XXX"` corresponds to the solution identifier and `"YYY"` is the name
 #'     of the management zone (e.g., `"solution_1_zone1"`).}

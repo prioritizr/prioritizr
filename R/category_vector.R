@@ -3,7 +3,7 @@ NULL
 
 #' Category vector
 #'
-#' Convert an object containing binary (`integer`) fields (columns) into a
+#' Convert an object containing binary (`integer`) columns into a
 #' `integer` vector indicating the column index where each row is
 #' `1`.
 #'
@@ -19,7 +19,7 @@ NULL
 #' @seealso [base::max.col()]
 #'
 #' @examples
-#' # create matrix with logical fields
+#' # create matrix with logical columns
 #' x <- matrix(c(1, 0, 0, NA, 0, 1, 0, NA, 0, 0, 0, NA), ncol = 3)
 #'
 #' # print matrix

@@ -3,7 +3,7 @@
 representation of features in the study area. Please note that proportions
 are scaled according to the features' total abundances in the study area
 (including any locked out planning units, or planning units with NA
-cost data) using the feature_abundances() function."><meta property="og:image" content="https://prioritizr.net/logo.png"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
+cost values) using the feature_abundances() function."><meta property="og:image" content="https://prioritizr.net/logo.png"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-70466840-4"></script><script>
@@ -27,7 +27,7 @@ cost data) using the feature_abundances() function."><meta property="og:image" c
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">8.0.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">8.0.0</span>
       </span>
     </div>
 
@@ -106,7 +106,7 @@ cost data) using the feature_abundances() function."><meta property="og:image" c
 representation of features in the study area. Please note that proportions
 are scaled according to the features' total abundances in the study area
 (including any locked out planning units, or planning units with <code>NA</code>
-cost data) using the <code><a href="feature_abundances.html">feature_abundances()</a></code> function.</p>
+cost values) using the <code><a href="feature_abundances.html">feature_abundances()</a></code> function.</p>
     </div>
 
     <div id="ref-usage">
@@ -186,11 +186,14 @@ that the solution needs to secure in a given zone.</p></dd>
 
 
 <dt><code>targets</code> as a <code>character</code> vector</dt>
-<dd><p>containing the names of fields
-(columns) in the feature data associated with the argument to <code>x</code> that
+<dd><p>containing the column name(s) in the
+feature data associated with the argument to <code>x</code> that
 contain targets. This format can only be used when the
-feature data associated with <code>x</code> is a <code>data.frame</code>.
-This argument must contain a field (column) name for each zone.</p></dd>
+feature data associated with <code>x</code> is a <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::st_sf()</a></code> or <code>data.frame</code>.
+For problems that contain a single zone, the argument to <code>targets</code> must
+contain a single column name. Otherwise, for problems that
+contain multiple zones, the argument to <code>targets</code> must
+contain a column name for each zone.</p></dd>
 
 
 

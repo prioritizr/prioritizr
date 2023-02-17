@@ -45,6 +45,14 @@ layers in the argument to \code{x}.
 Extract data from a \code{\link[terra:rast]{terra::rast()}} object.
 }
 \details{
+The performance of this function for large \code{\link[terra:rast]{terra::rast()}} objects
+can be improved by increasing the GDAL cache size.
+The default cache size is 25 MB.
+For example, the following code can be used to set the cache size to 4 GB.
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{terra::gdalCache(size = 4000)
+}\if{html}{\out{</div>}}
+
 This function is simply a wrapper that uses
 \code{\link[exactextractr:exact_extract]{exactextractr::exact_extract()}} for polygon geometries, and
 \code{\link[terra:extract]{terra::extract()}} for other geometry types.

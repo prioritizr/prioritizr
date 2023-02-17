@@ -5,7 +5,7 @@
 \title{Add an objective}
 \description{
 An objective is used to specify the overall goal of a conservation planning
-\code{\link[=problem]{problem()}}. All conservation planning problems involve minimizing
+problem. All conservation planning problems involve minimizing
 or maximizing some kind of objective. For instance, the planner may require
 a solution that conserves enough habitat for each species while minimizing
 the overall cost of the reserve network. Alternatively, the planner may

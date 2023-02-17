@@ -23,12 +23,10 @@ auto-correlation in the simulated data.
 Defaults to 0.5.}
 }
 \value{
-A \code{\link[terra:rast]{terra::rast()}} object.
+A \code{\link[terra:rast]{terra::rast()}} object with values between zero and one.
 }
 \description{
 Generates simulated species data using Gaussian random fields.
-Specifically, it outputs spatially auto-correlated raster data with
-values between zero and one.
 }
 \examples{
 \dontrun{

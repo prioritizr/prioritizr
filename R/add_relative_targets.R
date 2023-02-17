@@ -7,7 +7,7 @@ NULL
 #' representation of features in the study area. Please note that proportions
 #' are scaled according to the features' total abundances in the study area
 #' (including any locked out planning units, or planning units with `NA`
-#' cost data) using the [feature_abundances()] function.
+#' cost values) using the [feature_abundances()] function.
 #'
 #' @param x [problem()] object.
 #'

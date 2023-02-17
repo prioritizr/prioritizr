@@ -28,7 +28,7 @@ An updated \code{\link[=problem]{problem()}} object with the portfolio added to 
 }
 \description{
 Generate a portfolio of solutions for a conservation planning
-\code{\link[=problem]{problem()}} by randomly reordering the data prior to
+problem by randomly reordering the data prior to
 solving the problem. This is recommended as a replacement for
 \code{\link[=add_top_portfolio]{add_top_portfolio()}} when the \emph{Gurobi} software is not
 available.

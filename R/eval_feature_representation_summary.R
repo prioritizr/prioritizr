@@ -4,7 +4,7 @@ NULL
 #' Evaluate feature representation by solution
 #'
 #' Calculate how well features are represented by a solution
-#' to a conservation planning [problem()].
+#' to a conservation planning problem.
 #' These summary statistics are reported for each and every feature,
 #' and each and every zone, within a conservation planning problem.
 #'

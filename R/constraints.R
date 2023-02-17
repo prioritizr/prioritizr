@@ -3,7 +3,7 @@ NULL
 
 #' Conservation problem constraints
 #'
-#' A constraint can be added to a conservation planning [problem()]
+#' A constraint can be added to a conservation planning problem
 #' to ensure that solutions exhibit a specific characteristic.
 #'
 #' @details Constraints can be used to ensure that solutions exhibit

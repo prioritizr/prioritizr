@@ -4,7 +4,7 @@
 \alias{summaries}
 \title{Evaluate solutions using summary statistics}
 \description{
-After generating a solution to a conservation planning \code{\link[=problem]{problem()}},
+After generating a solution to a conservation planning problem,
 it can be useful to evaluate how well it performs. These functions
 can be used to evaluate a solution according to
 various different summary statistics.

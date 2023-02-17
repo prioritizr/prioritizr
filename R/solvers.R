@@ -1,10 +1,10 @@
 #' @include Solver-class.R
 NULL
 
-#' Problem solvers
+#' Add solvers
 #'
 #' Specify the software and configuration used to solve a conservation planning
-#' [problem()]. By default, the best available
+#' problem. By default, the best available
 #' software currently installed on the system will be used.
 #' For information on the performance of different solvers,
 #' please see Schuster _et al._ (2020) for benchmarks comparing the

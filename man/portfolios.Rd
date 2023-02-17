@@ -2,7 +2,7 @@
 % Please edit documentation in R/portfolios.R
 \name{portfolios}
 \alias{portfolios}
-\title{Solution portfolios}
+\title{Add portfolios}
 \description{
 Conservation planning exercises rarely have access to all the
 data needed to identify the \emph{truly} perfect solution. This is because
@@ -31,7 +31,7 @@ Note that it requires the \emph{Gurobi} solver.}
 
 \item{\code{\link[=add_top_portfolio]{add_top_portfolio()}}}{Generate a portfolio of
 solutions by finding a pre-specified number of solutions that
-are closest to optimality (i.e the top solutions). This is useful
+are closest to optimality (i.e., the top solutions). This is useful
 for examining differences among near-optimal solutions.
 It can also be used to generate multiple solutions and, in turn,
 to calculate selection frequencies for small problems.

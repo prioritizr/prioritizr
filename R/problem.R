@@ -442,12 +442,10 @@ NULL
 #' plot(s8[, "solution"], axes = FALSE)
 #'
 #' # create a multi-zone problem with polygon planning unit data
-#' # and where fields (columns) in the attribute table correspond
-#' # to feature abundances
+#' # and where columns correspond to feature abundances
 #'
-#' # first fields need to be added to the planning unit data
-#' # which indicate the amount of each feature in each zone
-#' # to do this, the fields will be populated with random counts
+#' # to begin with, we will add columns to the planning unit data
+#' # that indicate the amount of each feature in each zone
 #' sim_pu_zones_polygons$spp1_z1 <- rpois(nrow(sim_pu_zones_polygons), 1)
 #' sim_pu_zones_polygons$spp2_z1 <- rpois(nrow(sim_pu_zones_polygons), 1)
 #' sim_pu_zones_polygons$spp3_z1 <- rpois(nrow(sim_pu_zones_polygons), 1)
@@ -455,10 +453,10 @@ NULL
 #' sim_pu_zones_polygons$spp2_z2 <- rpois(nrow(sim_pu_zones_polygons), 1)
 #' sim_pu_zones_polygons$spp3_z2 <- rpois(nrow(sim_pu_zones_polygons), 1)
 #'
-#' # create problem with polygon planning unit data and use field names
+#' # create problem with polygon planning unit data and use column names
 #' # to indicate feature data
 #' # additionally, to make this example slightly more interesting,
-#' # the problem will have prfoportion-type decisions such that
+#' # the problem will have proportion-type decisions such that
 #' # a proportion of each planning unit can be allocated to each of the
 #' # two management zones
 #' p9 <-

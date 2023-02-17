@@ -3,7 +3,7 @@ NULL
 
 #' Add maximum coverage objective
 #'
-#' Set the objective of a conservation planning [problem()] to
+#' Set the objective of a conservation planning problem to
 #' represent at least one instance of as many features as possible within a
 #' given budget. This objective does not use targets, and feature
 #' weights should be used instead to increase the representation of certain

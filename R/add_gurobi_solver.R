@@ -4,8 +4,8 @@ NULL
 #' Add a *Gurobi* solver
 #'
 #' Specify that the [*Gurobi*](https://www.gurobi.com/) software
-#' (Gurobi Optimization LLC 2021) should be used to solve a
-#' conservation planning [problem()]. This function can also be used to
+#' should be used to solve a conservation planning problem
+#' (Gurobi Optimization LLC 2021). This function can also be used to
 #' customize the behavior of the solver.
 #' It requires the \pkg{gurobi} package to be installed
 #' (see below for installation instructions).

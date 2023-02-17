@@ -63,9 +63,9 @@ See the Data format section for more information.}
 An updated \code{\link[=problem]{problem()}} object with the penalties added to it.
 }
 \description{
-Add penalties to a conservation planning \code{\link[=problem]{problem()}} to favor solutions
+Add penalties to a conservation planning problem to favor solutions
 that spatially clump planning units together based on the overall
-boundary length (perimeter).
+boundary length (i.e., total perimeter).
 }
 \details{
 This function adds penalties to a conservation planning problem

@@ -46,6 +46,15 @@ with \code{y}.
 Find which of the units in a spatial data object intersect
 with the units in another spatial data object.
 }
+\details{
+The performance of this function for large \code{\link[terra:rast]{terra::rast()}} objects
+can be improved by increasing the GDAL cache size.
+The default cache size is 25 MB.
+For example, the following code can be used to set the cache size to 4 GB.
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{terra::gdalCache(size = 4000)
+}\if{html}{\out{</div>}}
+}
 \examples{
 \dontrun{
 # create data

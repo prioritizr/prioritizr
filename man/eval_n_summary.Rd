@@ -36,7 +36,7 @@ are also provided for each zone separately
 }
 \description{
 Calculate the number of planning units selected within a solution
-to a conservation planning \code{\link[=problem]{problem()}}.
+to a conservation planning problem.
 }
 \details{
 This summary statistic is calculated as the sum of the values in

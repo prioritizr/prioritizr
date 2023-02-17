@@ -4,7 +4,7 @@ NULL
 #' Add default solver
 #'
 #' Specify that the best solver currently available should be
-#' used to solve a conservation planning [problem()].
+#' used to solve a conservation planning problem.
 #'
 #' @param x [problem()] object.
 #'

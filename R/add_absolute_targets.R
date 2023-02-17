@@ -56,11 +56,14 @@ NULL
 #'   `x`, and each cell contains the target value for a given feature
 #'   that the solution needs to secure in a given zone.}
 #'
-#' \item{`targets` as a `character` vector}{containing the names of fields
-#'   (columns) in the feature data associated with the argument to `x` that
+#' \item{`targets` as a `character` vector}{containing the column name(s) in the
+#'   feature data associated with the argument to `x` that
 #'   contain targets. This format can only be used when the
-#'   feature data associated with `x` is a `data.frame`.
-#'   This argument must contain a field (column) name for each zone.}
+#'   feature data associated with `x` is a [sf::st_sf()] or `data.frame`.
+#'   For problems that contain a single zone, the argument to `targets` must
+#'   contain a single column name. Otherwise, for problems that
+#'   contain multiple zones, the argument to `targets` must
+#'   contain a column name for each zone.}
 #'
 #' }
 #'

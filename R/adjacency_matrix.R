@@ -4,8 +4,7 @@ NULL
 #' Adjacency matrix
 #'
 #' Create a matrix showing which planning units are spatially adjacent to
-#' each other. Note that this also include planning units that overlap
-#' with each other too.
+#' each other.
 #'
 #' @param x [terra::rast()] or [sf::sf()] object representing planning units.
 #'
@@ -17,9 +16,12 @@ NULL
 #'
 #' @param ... not used.
 #'
-#' @details Spatial processing is completed using
-#'   [sf::st_intersects()] for [sf::sf()] objects,
-#'   and [terra::adjacent()] for [terra::rast()] objects.
+#' @details
+#' Spatial processing is completed using
+#' [sf::st_intersects()] for [sf::sf()] objects,
+#' and [terra::adjacent()] for [terra::rast()] objects.
+#' Note that spatially overlapping planning units are considered
+#' adjacent.
 #'
 #' @section Notes:
 #'   In earlier versions (< 5.0.0), this function was named as the

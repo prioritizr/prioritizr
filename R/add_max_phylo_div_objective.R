@@ -3,7 +3,7 @@ NULL
 
 #' Add maximum phylogenetic diversity objective
 #'
-#' Set the objective of a conservation planning [problem()] to
+#' Set the objective of a conservation planning problem to
 #' maximize the phylogenetic diversity of the features represented in the
 #' solution subject to a budget. This objective is similar to
 #' [add_max_features_objective()] except

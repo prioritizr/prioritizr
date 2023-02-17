@@ -19,7 +19,7 @@ a separate budget for each management zone.}
 An updated \code{problem()} object with the objective added to it.
 }
 \description{
-Set the objective of a conservation planning \code{\link[=problem]{problem()}} to
+Set the objective of a conservation planning problem to
 secure as much of the features as possible without exceeding a budget.
 This objective does not use targets, and feature
 weights should be used instead to increase the representation of certain
@@ -34,7 +34,8 @@ representation across a suite of conservation features, while keeping cost
 within a fixed budget.
 Additionally, weights can be used to favor the
 representation of certain features over other features (see
-\code{\link[=add_feature_weights]{add_feature_weights()}}).
+\code{\link[=add_feature_weights]{add_feature_weights()}}). It is essentially calculated as a weighted
+sum of the feature data inside the selected planning units.
 }
 \section{Mathematical formulation}{
 

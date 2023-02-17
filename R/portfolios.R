@@ -1,7 +1,7 @@
 #' @include internal.R
 NULL
 
-#' Solution portfolios
+#' Add portfolios
 #'
 #' Conservation planning exercises rarely have access to all the
 #' data needed to identify the *truly* perfect solution. This is because
@@ -30,7 +30,7 @@ NULL
 #'
 #'   \item{[add_top_portfolio()]}{Generate a portfolio of
 #'     solutions by finding a pre-specified number of solutions that
-#'     are closest to optimality (i.e the top solutions). This is useful
+#'     are closest to optimality (i.e., the top solutions). This is useful
 #'     for examining differences among near-optimal solutions.
 #'     It can also be used to generate multiple solutions and, in turn,
 #'     to calculate selection frequencies for small problems.

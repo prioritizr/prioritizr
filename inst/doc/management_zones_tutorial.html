@@ -218,14 +218,14 @@ div.csl-indent {
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># print the problem</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p1)</span></code></pre></div>
 <pre><code>## A conservation problem (&lt;ConservationProblem&gt;)
-## ├•data:
-## │├•features:    &quot;layer.1&quot;, &quot;layer.2&quot;, &quot;layer.3&quot;, &quot;layer.4&quot;, and &quot;layer.5&quot; (5 total)
+## ├•data
+## │├•features:    &quot;feature_1&quot;, &quot;feature_2&quot;, &quot;feature_3&quot;, &quot;feature_4&quot;, and &quot;feature_5&quot; (5 total)
 ## │└•planning units:
 ## │ ├•data:       &lt;SpatRaster&gt; (90 total)
 ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
 ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
 ## │ └•CRS:        Undefined Cartesian SRS (unknown)
-## └•formulation:
+## └•formulation
 ##  ├•objective:   minimum set objective
 ##  ├•penalties:   none specified
 ##  ├•targets:     relative targets (between 0.1 and 0.1)
@@ -276,13 +276,13 @@ div.csl-indent {
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>r1 <span class="ot">&lt;-</span> <span class="fu">eval_feature_representation_summary</span>(p1, s1)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(r1)</span></code></pre></div>
 <pre><code>## # A tibble: 5 × 5
-##   summary feature total_amount absolute_held relative_held
-##   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
-## 1 overall layer.1         83.3          8.91         0.107
-## 2 overall layer.2         31.2          3.13         0.100
-## 3 overall layer.3         72.0          7.34         0.102
-## 4 overall layer.4         42.7          4.35         0.102
-## 5 overall layer.5         56.7          6.01         0.106</code></pre>
+##   summary feature   total_amount absolute_held relative_held
+##   &lt;chr&gt;   &lt;chr&gt;            &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
+## 1 overall feature_1         83.3          8.91         0.107
+## 2 overall feature_2         31.2          3.13         0.100
+## 3 overall feature_3         72.0          7.34         0.102
+## 4 overall feature_4         42.7          4.35         0.102
+## 5 overall feature_5         56.7          6.01         0.106</code></pre>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot solution</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  s1, <span class="at">main =</span> <span class="st">&quot;solution&quot;</span>,</span>
@@ -317,7 +317,7 @@ div.csl-indent {
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># print zones</span></span>
 <span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(z2)</span></code></pre></div>
-<pre><code>## Zones &lt;ZonesSpatRaster/Zones&gt;</code></pre>
+<pre><code>## A zones object &lt;ZonesSpatRaster/Zones&gt;</code></pre>
 <pre><code>## • zones:    &quot;zone 1&quot; and &quot;zone 2&quot; (2 total)</code></pre>
 <pre><code>## • features: &quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, and &quot;5&quot; (5 total)</code></pre>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a multi-layer raster with the planning unit data</span></span>
@@ -346,15 +346,15 @@ div.csl-indent {
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># print the problem</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p2)</span></code></pre></div>
 <pre><code>## A conservation problem (&lt;ConservationProblem&gt;)
-## ├•data:
-## │├zones:     &quot;zone 1&quot; and &quot;zone 2&quot; (2 total)
+## ├•data
+## │├•zones:       &quot;zone 1&quot; and &quot;zone 2&quot; (2 total)
 ## │├•features:    &quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, and &quot;5&quot; (5 total)
 ## │└•planning units:
 ## │ ├•data:       &lt;SpatRaster&gt; (90 total)
 ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
 ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
 ## │ └•CRS:        Undefined Cartesian SRS (unknown)
-## └•formulation:
+## └•formulation
 ##  ├•objective:   minimum set objective
 ##  ├•penalties:   none specified
 ##  ├•targets:     relative targets (between 0.05 and 0.1)
@@ -456,15 +456,15 @@ div.csl-indent {
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># print the problem</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p3)</span></code></pre></div>
 <pre><code>## A conservation problem (&lt;ConservationProblem&gt;)
-## ├•data:
-## │├zones:     &quot;1&quot; and &quot;2&quot; (2 total)
+## ├•data
+## │├•zones:       &quot;1&quot; and &quot;2&quot; (2 total)
 ## │├•features:    &quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, and &quot;5&quot; (5 total)
 ## │└•planning units:
 ## │ ├•data:       &lt;SpatRaster&gt; (90 total)
 ## │ ├•costs:      continuous values (between 182.6017 and 221.363)
 ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
 ## │ └•CRS:        Undefined Cartesian SRS (unknown)
-## └•formulation:
+## └•formulation
 ##  ├•objective:   minimum set objective
 ##  ├•penalties:   none specified
 ##  ├•targets:     relative targets (between 0.05 and 0.1)
@@ -567,13 +567,13 @@ div.csl-indent {
 <span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="co"># print targets</span></span>
 <span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(t4)</span></code></pre></div>
 <pre><code>## # A tibble: 5 × 4
-##   feature zone      target type    
-##   &lt;chr&gt;   &lt;list&gt;     &lt;dbl&gt; &lt;chr&gt;   
-## 1 layer.1 &lt;chr [3]&gt;      8 absolute
-## 2 layer.2 &lt;chr [3]&gt;      8 absolute
-## 3 layer.3 &lt;chr [3]&gt;      8 absolute
-## 4 layer.4 &lt;chr [3]&gt;      8 absolute
-## 5 layer.5 &lt;chr [3]&gt;      8 absolute</code></pre>
+##   feature   zone      target type    
+##   &lt;chr&gt;     &lt;list&gt;     &lt;dbl&gt; &lt;chr&gt;   
+## 1 feature_1 &lt;chr [3]&gt;      8 absolute
+## 2 feature_2 &lt;chr [3]&gt;      8 absolute
+## 3 feature_3 &lt;chr [3]&gt;      8 absolute
+## 4 feature_4 &lt;chr [3]&gt;      8 absolute
+## 5 feature_5 &lt;chr [3]&gt;      8 absolute</code></pre>
 <div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create problem</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>p4 <span class="ot">&lt;-</span></span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">problem</span>(</span>
@@ -592,15 +592,15 @@ div.csl-indent {
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># print the problem</span></span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p4)</span></code></pre></div>
 <pre><code>## A conservation problem (&lt;ConservationProblem&gt;)
-## ├•data:
-## │├zones:     &quot;few traps&quot;, &quot;many traps&quot;, and &quot;baiting&quot; (3 total)
-## │├•features:    &quot;layer.1&quot;, &quot;layer.2&quot;, &quot;layer.3&quot;, &quot;layer.4&quot;, and &quot;layer.5&quot; (5 total)
+## ├•data
+## │├•zones:       &quot;few traps&quot;, &quot;many traps&quot;, and &quot;baiting&quot; (3 total)
+## │├•features:    &quot;feature_1&quot;, &quot;feature_2&quot;, &quot;feature_3&quot;, &quot;feature_4&quot;, and &quot;feature_5&quot; (5 total)
 ## │└•planning units:
 ## │ ├•data:       &lt;SpatRaster&gt; (100 total)
 ## │ ├•costs:      continuous values (between 0 and 300)
 ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
 ## │ └•CRS:        Undefined Cartesian SRS (unknown)
-## └•formulation:
+## └•formulation
 ##  ├•objective:   minimum set objective
 ##  ├•penalties:   none specified
 ##  ├•targets:     absolute targets (between 8 and 8)
@@ -652,28 +652,28 @@ div.csl-indent {
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>r4 <span class="ot">&lt;-</span> <span class="fu">eval_feature_representation_summary</span>(p4, s4)</span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(r4)</span></code></pre></div>
 <pre><code>## # A tibble: 20 × 5
-##    summary    feature total_amount absolute_held relative_held
-##    &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
-##  1 overall    layer.1       117.           18.3          0.157
-##  2 overall    layer.2        43.7           8.19         0.187
-##  3 overall    layer.3       101.           15.2          0.151
-##  4 overall    layer.4        59.7          11.6          0.194
-##  5 overall    layer.5        79.4          12.7          0.161
-##  6 few traps  layer.1         8.33          0            0    
-##  7 few traps  layer.2         3.12          0            0    
-##  8 few traps  layer.3         7.20          0            0    
-##  9 few traps  layer.4         4.27          0            0    
-## 10 few traps  layer.5         5.67          0            0    
-## 11 many traps layer.1        41.6           0            0    
-## 12 many traps layer.2        15.6           0            0    
-## 13 many traps layer.3        36.0           0            0    
-## 14 many traps layer.4        21.3           0            0    
-## 15 many traps layer.5        28.4           0            0    
-## 16 baiting    layer.1        66.6          18.3          0.275
-## 17 baiting    layer.2        25.0           8.19         0.328
-## 18 baiting    layer.3        57.6          15.2          0.264
-## 19 baiting    layer.4        34.1          11.6          0.340
-## 20 baiting    layer.5        45.4          12.7          0.281</code></pre>
+##    summary    feature   total_amount absolute_held relative_held
+##    &lt;chr&gt;      &lt;chr&gt;            &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
+##  1 overall    feature_1       117.           18.3          0.157
+##  2 overall    feature_2        43.7           8.19         0.187
+##  3 overall    feature_3       101.           15.2          0.151
+##  4 overall    feature_4        59.7          11.6          0.194
+##  5 overall    feature_5        79.4          12.7          0.161
+##  6 few traps  feature_1         8.33          0            0    
+##  7 few traps  feature_2         3.12          0            0    
+##  8 few traps  feature_3         7.20          0            0    
+##  9 few traps  feature_4         4.27          0            0    
+## 10 few traps  feature_5         5.67          0            0    
+## 11 many traps feature_1        41.6           0            0    
+## 12 many traps feature_2        15.6           0            0    
+## 13 many traps feature_3        36.0           0            0    
+## 14 many traps feature_4        21.3           0            0    
+## 15 many traps feature_5        28.4           0            0    
+## 16 baiting    feature_1        66.6          18.3          0.275
+## 17 baiting    feature_2        25.0           8.19         0.328
+## 18 baiting    feature_3        57.6          15.2          0.264
+## 19 baiting    feature_4        34.1          11.6          0.340
+## 20 baiting    feature_5        45.4          12.7          0.281</code></pre>
 <div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot solution</span></span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">category_layer</span>(s4), <span class="at">main =</span> <span class="st">&quot;solution&quot;</span>, <span class="at">axes =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p><img src="data:image/png;base64,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n9L8jIA9pLjh8e/P/tFTz790wFcu/qi34tgJtjiAPaRi4KnzfvnU8sY7PrZo8iUP/SPrccqAQAOdrXXFDePHfHPJ9iRJkiSXHz5iYPO6dW85UaUkWxxACblcLvl7ktzW3mPbk1yu5M0YlQOH9f/Lmd+dN/aO80b2euXXc29bNvjYa+ssD0sSaKCEUaNG3Trn1mKx/SVvXV1dyStUHT1n4cwLp59cf8Wmiv2Hjj5zwf2XjxCf0rzd6E7xdqPsMd5ulHf5TwZAUAINEJRAAwQl0ABBCTRAUO50gd2saVxT1iOwl7CCBghKoAGCEmiAoAQaICiBBghKoAGCEmiAoAQaICiBBghKoAGCEmiAoAQaICiBBghKoAGCEmiAoAQaICiBBghKoAGCEmiAoHJpmmY9QxkoFApZj1CW8o/ms/rS5XswYE1NTdYjEIUVNEBQAg0QlEADBCXQAEEJNEBQAg0QlEADBCXQAEEJNEBQAg0QlEADBCXQAEEJNEBQAg0QlEADBCXQAEEJNEBQAg0QlEADBCXQAEF1y3oAaF+2p7525Ljb8j2vlmisoAGCEmiAoAQaICiBBghKoAGCEmiAoAQaICiBBghKoAGCEmiAoAQaICiBBghKoAGCEmiAoAQaICiBBghKoAGCEmiAoAQaICiBBggql6Zp1jOUgUKhkPUIdBU1NTVZj0AUVtAAQQk0QFACDRCUQAMEJdAAQQk0QFACDRCUQAMEJdAAQQk0QFACDRCUQAMEJdAAQQk0QFACDRCUQAMEJdAAQQk0QFACDRCUQAME1S3rAQgt/2i+I09vGte0uyaBLsgKGiAogQYISqABghJogKAEGiAogQYISqABghJogKAEGiAogQYISqABghJogKAEGiAogQYISqABghJogKAEGiAogQYISqABgsqlaZr1DGWgUCh05OkdOdmvyx7r18HjEDsowx97TU1NVl+aaKygAYISaICgBBogKIEGCEqgAYISaICgBBogKIEGCEqgAYISaICgBBogKIEGCEqgAYISaICgBBogKIEGCEqgAYISaICgBBogKIEGCKpb1gN0CRmeQNrBo1fL98ja8p0c3mUFDRCUQAMEJdAAQQk0QFACDRCUQAMEJdAAQQk0QFACDRCUQAMEJdAAQQk0QFACDRCUQAMEJdAAQQk0QFACDRCUQAMEJdAAQQk0QFC5NE2znqEMFAqFrEcoSx05srbLnvpaU1OT9QhEYQUNEJRAAwQl0ABBCTRAUAINEJRAAwQl0ABBCTRAUAINEJRAAwQl0ABBCTRAUAINEJRAAwQl0ABBCTRAUAINEJRAAwQl0ABBOZMQICgraICgBBogKIEGCEqgAYISaICgBBogKIEGCEqgAYISaICgBBogKIEGCEqgAYISaICgBBogKIEGCEqgAYISaICgBBogKIEGCEqgAYISaICgBBogKIEGCEqgAYISaICgBBogKIEGCEqgAYISaICgBBogKIEGCEqgAYISaICgBBogKIEGCEqgAYISaICgBBogKIEGCEqgAYISaICgBBogKIEGCEqgAYISaICgBBogKIEGCEqgAYISaICgBBogKIEGCEqgAYISaICgBBogKIEGCEqgAYISaICgBBogKIEGCOpfB1S1QAI2eKAAAAAASUVORK5CYII=" style="display: block; margin: auto;" /></p>
@@ -714,15 +714,15 @@ div.csl-indent {
 <div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># print the problem</span></span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p5)</span></code></pre></div>
 <pre><code>## A conservation problem (&lt;ConservationProblem&gt;)
-## ├•data:
-## │├zones:     &quot;few traps&quot;, &quot;many traps&quot;, and &quot;baiting&quot; (3 total)
-## │├•features:    &quot;layer.1&quot;, &quot;layer.2&quot;, &quot;layer.3&quot;, &quot;layer.4&quot;, and &quot;layer.5&quot; (5 total)
+## ├•data
+## │├•zones:       &quot;few traps&quot;, &quot;many traps&quot;, and &quot;baiting&quot; (3 total)
+## │├•features:    &quot;feature_1&quot;, &quot;feature_2&quot;, &quot;feature_3&quot;, &quot;feature_4&quot;, and &quot;feature_5&quot; (5 total)
 ## │└•planning units:
 ## │ ├•data:       &lt;SpatRaster&gt; (100 total)
 ## │ ├•costs:      continuous values (between 0 and 300)
 ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
 ## │ └•CRS:        Undefined Cartesian SRS (unknown)
-## └•formulation:
+## └•formulation
 ##  ├•objective:   minimum set objective
 ##  ├•penalties:   none specified
 ##  ├•targets:     absolute targets (between 8 and 8)
@@ -776,28 +776,28 @@ div.csl-indent {
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>r5 <span class="ot">&lt;-</span> <span class="fu">eval_feature_representation_summary</span>(p5, s5)</span>
 <span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(r5)</span></code></pre></div>
 <pre><code>## # A tibble: 20 × 5
-##    summary    feature total_amount absolute_held relative_held
-##    &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
-##  1 overall    layer.1       117.           21.8          0.187
-##  2 overall    layer.2        43.7           8.04         0.184
-##  3 overall    layer.3       101.           17.7          0.176
-##  4 overall    layer.4        59.7          10.9          0.182
-##  5 overall    layer.5        79.4          15.2          0.192
-##  6 few traps  layer.1         8.33          0            0    
-##  7 few traps  layer.2         3.12          0            0    
-##  8 few traps  layer.3         7.20          0            0    
-##  9 few traps  layer.4         4.27          0            0    
-## 10 few traps  layer.5         5.67          0            0    
-## 11 many traps layer.1        41.6           7.40         0.178
-## 12 many traps layer.2        15.6           3.42         0.219
-## 13 many traps layer.3        36.0           6.00         0.167
-## 14 many traps layer.4        21.3           4.84         0.227
-## 15 many traps layer.5        28.4           5.26         0.186
-## 16 baiting    layer.1        66.6          14.4          0.217
-## 17 baiting    layer.2        25.0           4.62         0.185
-## 18 baiting    layer.3        57.6          11.7          0.203
-## 19 baiting    layer.4        34.1           6.05         0.177
-## 20 baiting    layer.5        45.4           9.98         0.220</code></pre>
+##    summary    feature   total_amount absolute_held relative_held
+##    &lt;chr&gt;      &lt;chr&gt;            &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
+##  1 overall    feature_1       117.           21.8          0.187
+##  2 overall    feature_2        43.7           8.04         0.184
+##  3 overall    feature_3       101.           17.7          0.176
+##  4 overall    feature_4        59.7          10.9          0.182
+##  5 overall    feature_5        79.4          15.2          0.192
+##  6 few traps  feature_1         8.33          0            0    
+##  7 few traps  feature_2         3.12          0            0    
+##  8 few traps  feature_3         7.20          0            0    
+##  9 few traps  feature_4         4.27          0            0    
+## 10 few traps  feature_5         5.67          0            0    
+## 11 many traps feature_1        41.6           7.40         0.178
+## 12 many traps feature_2        15.6           3.42         0.219
+## 13 many traps feature_3        36.0           6.00         0.167
+## 14 many traps feature_4        21.3           4.84         0.227
+## 15 many traps feature_5        28.4           5.26         0.186
+## 16 baiting    feature_1        66.6          14.4          0.217
+## 17 baiting    feature_2        25.0           4.62         0.185
+## 18 baiting    feature_3        57.6          11.7          0.203
+## 19 baiting    feature_4        34.1           6.05         0.177
+## 20 baiting    feature_5        45.4           9.98         0.220</code></pre>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot solution</span></span>
 <span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">category_layer</span>(s5), <span class="at">main =</span> <span class="st">&quot;solution&quot;</span>, <span class="at">axes =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p><img src="data:image/png;base64,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Ag0QlEADBCXQAEEJNEBQAg0Q1FG5HoDQdtV2PZSXF5fuPFyTQAdkBQ0QlEADBCXQAEEJNEBQAg0QlEADBCXQAEEJNEBQAg0QlEADBCXQAEEJNEBQAg0QlEADBCXQAEEJNEBQAg0QlEADBCXQAEG5J2FbOJQ7++X2tn45/OyHeDvEQ+RuikRgBQ0QlEADBCXQAEEJNEBQAg0QlEADBCXQAEEJNEBQAg0QlEADBCXQAEEJNEBQAg0QlEADBCXQAEEJNEBQAg0QlEADBCXQAEEJNEBQqUwmk+sZ2oGCxQWNmcZcT0GHkBnvnyT/xwoaICiBBghKoAGCEmiAoAQaICiBBghKoAGCEmiAoAQaICiBBghKoAGCEmiAoAQaICiBBghKoAGCEmiAoAQaICiBBghKoAGCEmiAoAQaICiBBghKoAGCEmiAoAQaICiBBghKoAGCEmiAoAQaICiBBghKoAGCEmiAoAQaICiBBghKoAGCEmiAoAQaICiBBghKoAGCEmiAoFKZTCbXMwDQDCtogKAEGiAogQYISqABghJogKAEGiAogQYISqABghJogKAEGiAogQYISqABghJogKAEGiAogQYISqABghJogKAEGiAogQYISqABghJogKAEGiAogQYISqABghJogKAEGiAogQYISqABghJogKAEGiAogQYISqABghJogKAEGiAogQYISqABghJogKAEGiAogQYISqABghJogKAEGiAogQYISqABghJogKAEGiAogQYISqABghJogKAEGiAogQYISqABghJogKAEGiAogQYISqABghJogKAEGiAogQYI6n8BYLgkcWHuI4AAAAAASUVORK5CYII=" style="display: block; margin: auto;" /></p>
@@ -839,15 +839,15 @@ div.csl-indent {
 <div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># print the problem</span></span>
 <span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p6)</span></code></pre></div>
 <pre><code>## A conservation problem (&lt;ConservationProblem&gt;)
-## ├•data:
-## │├zones:     &quot;few traps&quot;, &quot;many traps&quot;, and &quot;baiting&quot; (3 total)
-## │├•features:    &quot;layer.1&quot;, &quot;layer.2&quot;, &quot;layer.3&quot;, &quot;layer.4&quot;, and &quot;layer.5&quot; (5 total)
+## ├•data
+## │├•zones:       &quot;few traps&quot;, &quot;many traps&quot;, and &quot;baiting&quot; (3 total)
+## │├•features:    &quot;feature_1&quot;, &quot;feature_2&quot;, &quot;feature_3&quot;, &quot;feature_4&quot;, and &quot;feature_5&quot; (5 total)
 ## │└•planning units:
 ## │ ├•data:       &lt;SpatRaster&gt; (100 total)
 ## │ ├•costs:      continuous values (between 0 and 300)
 ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
 ## │ └•CRS:        Undefined Cartesian SRS (unknown)
-## └•formulation:
+## └•formulation
 ##  ├•objective:   minimum set objective
 ##  ├•penalties:
 ##  │└•1:          boundary penalties (`penalty` = 640, `edge_factor` = 0.5, 0.5, and 0.5, …)
@@ -882,7 +882,7 @@ div.csl-indent {
 ## Root relaxation presolved: 877 rows, 968 columns, 2712 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.005410e+04, 568 iterations, 0.01 seconds (0.01 work units)
+## Root relaxation: objective 1.005410e+04, 568 iterations, 0.00 seconds (0.01 work units)
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -902,28 +902,28 @@ div.csl-indent {
 <span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>r6 <span class="ot">&lt;-</span> <span class="fu">eval_feature_representation_summary</span>(p6, s6)</span>
 <span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(r6)</span></code></pre></div>
 <pre><code>## # A tibble: 20 × 5
-##    summary    feature total_amount absolute_held relative_held
-##    &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
-##  1 overall    layer.1       117.           22.5          0.193
-##  2 overall    layer.2        43.7           8.11         0.186
-##  3 overall    layer.3       101.           18.0          0.178
-##  4 overall    layer.4        59.7          11.3          0.190
-##  5 overall    layer.5        79.4          15.7          0.198
-##  6 few traps  layer.1         8.33          0            0    
-##  7 few traps  layer.2         3.12          0            0    
-##  8 few traps  layer.3         7.20          0            0    
-##  9 few traps  layer.4         4.27          0            0    
-## 10 few traps  layer.5         5.67          0            0    
-## 11 many traps layer.1        41.6           8.00         0.192
-## 12 many traps layer.2        15.6           3.49         0.224
-## 13 many traps layer.3        36.0           6.24         0.174
-## 14 many traps layer.4        21.3           5.28         0.247
-## 15 many traps layer.5        28.4           5.72         0.202
-## 16 baiting    layer.1        66.6          14.4          0.217
-## 17 baiting    layer.2        25.0           4.62         0.185
-## 18 baiting    layer.3        57.6          11.7          0.203
-## 19 baiting    layer.4        34.1           6.05         0.177
-## 20 baiting    layer.5        45.4           9.98         0.220</code></pre>
+##    summary    feature   total_amount absolute_held relative_held
+##    &lt;chr&gt;      &lt;chr&gt;            &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
+##  1 overall    feature_1       117.           22.5          0.193
+##  2 overall    feature_2        43.7           8.11         0.186
+##  3 overall    feature_3       101.           18.0          0.178
+##  4 overall    feature_4        59.7          11.3          0.190
+##  5 overall    feature_5        79.4          15.7          0.198
+##  6 few traps  feature_1         8.33          0            0    
+##  7 few traps  feature_2         3.12          0            0    
+##  8 few traps  feature_3         7.20          0            0    
+##  9 few traps  feature_4         4.27          0            0    
+## 10 few traps  feature_5         5.67          0            0    
+## 11 many traps feature_1        41.6           8.00         0.192
+## 12 many traps feature_2        15.6           3.49         0.224
+## 13 many traps feature_3        36.0           6.24         0.174
+## 14 many traps feature_4        21.3           5.28         0.247
+## 15 many traps feature_5        28.4           5.72         0.202
+## 16 baiting    feature_1        66.6          14.4          0.217
+## 17 baiting    feature_2        25.0           4.62         0.185
+## 18 baiting    feature_3        57.6          11.7          0.203
+## 19 baiting    feature_4        34.1           6.05         0.177
+## 20 baiting    feature_5        45.4           9.98         0.220</code></pre>
 <div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot solution</span></span>
 <span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">category_layer</span>(s6), <span class="at">main =</span> <span class="st">&quot;solution&quot;</span>, <span class="at">axes =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p><img src="data:image/png;base64,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s7KCBlpdxyHTXnux87Gf9GbXiuXrOvYZWW55mJVAA60uVdy9d3GSJOkd//3kP42f/FzltN+e19Xd7LLybxhwKGRqV867/lsDRszde8mv/vj0lZXuldQMVtBA66tfNWvEGY/0rP7NyssHdLF0bi6BBrJIpVJr1mQm3drEW3v2JKlU9uDW/nbGzC0jH503vNuerVv2JEmSKijpelRh/hc+6mFGoIEsBg8efNddD6fTTZ9Od9nl5dl20LBh2etb16z8u573/eWVglOnrVpya6VCfz63G20Wtxs9OG43ehDcbpRP+SEhQFACDRCUQAMEJdAAQQk0QFBOs6MVteRMjNyehtHCc0gOM6+++urw4cMP9G5FRcXSpUuz7WPPW0/ffsMP5i/50+4uVcOumXbf5GE9nGOXlUADWWzfvn1Hzx3JPzT1Xm3y7rR3s+6hcd39l45d/LfzXnpi8FGbnhp75qgJfdYuuMDdOLJxiANohvwkKWrqV2Gztt697k97h4+f8N0+XYu7Dhg96psN61ZvdLp3dlbQQKsrGfHjZSOSZM/W9atW/9dzc147fsSNleKTne8RcIikN//+X+986OU33ul52c3HuptdMzjEARwieb0vmv3CyytWP/LVBWNuefbPuR6nDRBooLU1rrr37KF3Ld6bJEmSpEr7D+xdt3HjR9kfZdjuOcQBNENNkqxq6vVdzdk4v3e/Hv9z6Y9mD3/kupML3//d9J8s73PWDI+8yk6ggSwqKiqGHTcsOcC5zr3O6pV1D0XDps6ffOOE86tu35Z3TN8hl8575raB4pOd2402i9uNHnrt9kKVkpKSXH000fhPBkBQAg0QlEADBCXQAEEJNEBQAg0QlEADBCXQAEEJNEBQAg0QlMvhaUUtuVy7hRdbt/BK8RxODp+yggYISqABghJogKAEGiAogQYISqABghJogKAEGiAogQYISqABghJogKAEGiAogQYISqABghJogKAEGiAogQYISqABghJogKAEGiAogQYISqABghJogKAEGiAogQYISqABghJogKAEGiAogQYISqABghJogKAEGiAogQYISqABghJogKAEGiAogQYISqABghJogKAEGiAogQYIKpXJZHI9QxtQW1ub6xFoL0pKSnI9AlFYQQMEJdAAQQk0QFACDRCUQAMEJdAAQQk0QFACDRCUQAMEJdAAQQk0QFACDRCUQAMEJdAAQQk0QFACDRCUQAMEJdAAQQk0QFACDRBUh1wPQGg7a45oyebFpR99UZNAO2QFDRCUQAMEJdAAQQk0QFACDRCUQAMEJdAAQQk0QFACDRCUQAMEJdAAQQk0QFACDRCUQAMEJdAAQQk0QFACDRCUQAMEJdAAQXkm4aHQkif75faxfjn89BY+DrGFPE2RCKygAYISaICgBBogKIEGCEqgAYISaICgBBogKIEGCEqgAYISaICgBBogKIEGCEqgAYISaICgBBogKIEGCEqgAYISaICgBBogKIEGCCqVyWRyPUMbUDC/oCHTkOspaBcyo/yV5P9YQQMEJdAAQQk0QFACDRCUQAMEJdAAQQk0QFACDRCUQAMEJdAAQQk0QFACDRCUQAMEJdAAQQk0QFACDRCUQAMEJdAAQQk0QFACDRCUQAMEJdAAQQk0QFACDRCUQAMEJdAAQQk0QFACDRCUQAMEJdAAQQk0QFACDRCUQAMEJdAAQQk0QFACDRCUQAMEJdAAQQk0QFACDRBUKpPJ5HoGAJpgBQ0QlEADBCXQAEEJNEBQAg0QlEADBCXQAEEJNEBQAg0QlEADBCXQAEEJNEBQAg0QlEADBCXQAEEJNEBQAg0QlEADBCXQAEEJNEBQAg0QlEADBCXQAEEJNEBQAg0QlEADBCXQAEEJNEBQAg0QlEADBCXQAEEJNEBQAg0QlEADBCXQAEEJNEBQAg0QlEADBCXQAEEJNEBQAg0QlEADBCXQAEEJNEBQAg0QlEADBCXQAEEJNEBQAg0QlEADBCXQAEEJNEBQAg0QlEADBCXQAEEJNEBQAg0QlEADBCXQAEH9L748KyegvKCJAAAAAElFTkSuQmCC" style="display: block; margin: auto;" /></p>
@@ -954,15 +954,15 @@ div.csl-indent {
 <div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="co"># print the problem</span></span>
 <span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p7)</span></code></pre></div>
 <pre><code>## A conservation problem (&lt;ConservationProblem&gt;)
-## ├•data:
-## │├zones:     &quot;few traps&quot;, &quot;many traps&quot;, and &quot;baiting&quot; (3 total)
-## │├•features:    &quot;layer.1&quot;, &quot;layer.2&quot;, &quot;layer.3&quot;, &quot;layer.4&quot;, and &quot;layer.5&quot; (5 total)
+## ├•data
+## │├•zones:       &quot;few traps&quot;, &quot;many traps&quot;, and &quot;baiting&quot; (3 total)
+## │├•features:    &quot;feature_1&quot;, &quot;feature_2&quot;, &quot;feature_3&quot;, &quot;feature_4&quot;, and &quot;feature_5&quot; (5 total)
 ## │└•planning units:
 ## │ ├•data:       &lt;SpatRaster&gt; (100 total)
 ## │ ├•costs:      continuous values (between 0 and 300)
 ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
 ## │ └•CRS:        Undefined Cartesian SRS (unknown)
-## └•formulation:
+## └•formulation
 ##  ├•objective:   minimum set objective
 ##  ├•penalties:
 ##  │└•1:          boundary penalties (`penalty` = 640, `edge_factor` = 0.5, 0.5, and 0.5, …)
@@ -1017,28 +1017,28 @@ div.csl-indent {
 <span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>r7 <span class="ot">&lt;-</span> <span class="fu">eval_feature_representation_summary</span>(p7, s7)</span>
 <span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(r7)</span></code></pre></div>
 <pre><code>## # A tibble: 20 × 5
-##    summary    feature total_amount absolute_held relative_held
-##    &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
-##  1 overall    layer.1       117.           23.4         0.201 
-##  2 overall    layer.2        43.7           8.04        0.184 
-##  3 overall    layer.3       101.           19.4         0.192 
-##  4 overall    layer.4        59.7          10.9         0.182 
-##  5 overall    layer.5        79.4          16.1         0.203 
-##  6 few traps  layer.1         8.33          5.92        0.711 
-##  7 few traps  layer.2         3.12          2.33        0.745 
-##  8 few traps  layer.3         7.20          5.25        0.730 
-##  9 few traps  layer.4         4.27          3.18        0.745 
-## 10 few traps  layer.5         5.67          4.00        0.706 
-## 11 many traps layer.1        41.6           3.02        0.0725
-## 12 many traps layer.2        15.6           1.09        0.0700
-## 13 many traps layer.3        36.0           2.41        0.0670
-## 14 many traps layer.4        21.3           1.66        0.0779
-## 15 many traps layer.5        28.4           2.11        0.0743
-## 16 baiting    layer.1        66.6          14.4         0.217 
-## 17 baiting    layer.2        25.0           4.62        0.185 
-## 18 baiting    layer.3        57.6          11.7         0.203 
-## 19 baiting    layer.4        34.1           6.05        0.177 
-## 20 baiting    layer.5        45.4           9.98        0.220</code></pre>
+##    summary    feature   total_amount absolute_held relative_held
+##    &lt;chr&gt;      &lt;chr&gt;            &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
+##  1 overall    feature_1       117.           23.4         0.201 
+##  2 overall    feature_2        43.7           8.04        0.184 
+##  3 overall    feature_3       101.           19.4         0.192 
+##  4 overall    feature_4        59.7          10.9         0.182 
+##  5 overall    feature_5        79.4          16.1         0.203 
+##  6 few traps  feature_1         8.33          5.92        0.711 
+##  7 few traps  feature_2         3.12          2.33        0.745 
+##  8 few traps  feature_3         7.20          5.25        0.730 
+##  9 few traps  feature_4         4.27          3.18        0.745 
+## 10 few traps  feature_5         5.67          4.00        0.706 
+## 11 many traps feature_1        41.6           3.02        0.0725
+## 12 many traps feature_2        15.6           1.09        0.0700
+## 13 many traps feature_3        36.0           2.41        0.0670
+## 14 many traps feature_4        21.3           1.66        0.0779
+## 15 many traps feature_5        28.4           2.11        0.0743
+## 16 baiting    feature_1        66.6          14.4         0.217 
+## 17 baiting    feature_2        25.0           4.62        0.185 
+## 18 baiting    feature_3        57.6          11.7         0.203 
+## 19 baiting    feature_4        34.1           6.05        0.177 
+## 20 baiting    feature_5        45.4           9.98        0.220</code></pre>
 <div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot solution</span></span>
 <span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">category_layer</span>(s7), <span class="at">main =</span> <span class="st">&quot;solution&quot;</span>, <span class="at">axes =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p><img src="data:image/png;base64,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zYbmv7yl6NxFG9feNlShj02gcyLQ5K7zBZp88UNCgKAEGiAogQYISqABghJogKBcBw0nWEnZvnyPcIK9+OKLx7iQrrKyct26ddnWOPjqk3fc/KXla/9w4KSq8Tcsunfu+P6usctKoIEs9uzZs3fA3uQfWnusIXl90etZV2jZct/V09Z8Ytlz/3neyTv+a9pFk2cN2bzicq/GkY0jDiAHhUnSq7U/PXN69oEtfzhUPWPWp4b0KekzcsrkjzVvqd3ucu/s7KCBNlc64SsvT0iSg7u3bqz976cfeGnwhJlDxSc7nyOgnaR3/uTfFzz0/G9+N+Bzt57m1exy4IgDaCcFg65Y+uzz62sf/uCKqV/87p/yPU4HINBAW2vZeM/Ecf+45lCSJEmSKhtx1qDG7dv3Zb+VYZfniAPIQX2SbGzt7ftzeXLhoOH9f3/1vy6tfvgLZ/d888eLv/7KkIuXuOVVdgINZFFZWTn+9PHJUa51HnjxwKwr9Bq/cPncmbMuq7qjruDUYWOvXvbt288Sn+y83GhOvNwo7aa0tDTfIxCFbzIAghJogKAEGiAogQYISqABghJogKAEGiAogQYISqABghJogKAEGiAogQYISqABghJogKAEGiAogQYISqABghJogKAEGiAogQYISqABghJogKAEGiAogQYISqABghJogKAEGiAogQYISqABghJogKAEGiCobvkegM7s7fref/NzS8r2ncBJ/lodd3I6EztogKAEGiAogQYISqABghJogKAEGiAogQYISqABghJogKAEGiAogQYISqABghJogKAEGiAogQYISqABghJogKAEGiAogQYISqABgkplMpl8z9ABNDQ05HsEuorS0tJ8j0AUdtAAQQk0QFACDRCUQAMEJdAAQQk0QFACDRCUQAMEJdAAQQk0QFACDRCUQAMEJdAAQQk0QFACDRCUQAMEJdAAQQk0QFACDRCUQAME1S3fAxDa2/W9j+fpJWX7TtQk0AXZQQMEJdAAQQk0QFACDRCUQAMEJdAAQQk0QFACDRCUQAMEJdAAQQk0QFACDRCUQAMEJdAAQQk0QFACDRCUQAMEJdAAQQk0QFDuSdgejufOfvm9rV8e//bjvB3icXI3RSKwgwYISqABghJogKAEGiAogQYISqABghJogKAEGiAogQYISqABghJogKAEGiAogQYISqABghJogKAEGiAogQYISqABghJogKAEGiCoVCaTyfcMHUDR8qLmTHO+p6BLyEz2X5L/YwcNEJRAAwQl0ABBCTRAUAINEJRAAwQl0ABBCTRAUAINEJRAAwQl0ABBCTRAUAINEJRAAwQl0ABBCTRAUAINEJRAAwQl0ABBCTRAUAINEJRAAwQl0ABBCTRAUAINEJRAAwQl0ABBCTRAUAINEJRAAwQl0ABBCTRAUAINEJRAAwQl0ABBCTRAUAINEJRAAwQl0ABBCTRAUKlMJpPvGQBohR00QFACDRCUQAMEJdAAQQk0QFACDRCUQAMEJdAAQQk0QFACDRCUQAMEJdAAQQk0QFACDRCUQAMEJdAAQQk0QFACDRCUQAMEJdAAQQk0QFACDRCUQAMEJdAAQQk0QFACDRCUQAMEJdAAQQk0QFACDRCUQAMEJdAAQQk0QFACDRCUQAMEJdAAQQk0QFACDRCUQAMEJdAAQQk0QFACDRCUQAMEJdAAQQk0QFACDRCUQAMEJdAAQQk0QFACDRCUQAMEJdAAQQk0QFACDRCUQAMEJdAAQQk0QFACDRCUQAME9T9BXtVGLez3WAAAAABJRU5ErkJggg==" style="display: block; margin: auto;" /></p>

@@ -3,13 +3,13 @@ NULL
 
 #' Add proportion decisions
 #'
-#' Add a proportion decision to a conservation planning [problem()].
+#' Add a proportion decision to a conservation planning problem.
 #' This is a relaxed decision where a part of a planning unit can be
-#' prioritized as opposed to the entire planning unit. Typically, this decision
+#' prioritized, as opposed to the entire planning unit. Typically, this decision
 #' has the assumed action of buying a fraction of a planning unit to include in
 #  a protected area system. In most cases, problems that use proportion-type
 #' decisions will solve much faster than problems that use binary-type
-#' decisions
+#' decisions.
 #'
 #' @param x [problem()] object.
 #'

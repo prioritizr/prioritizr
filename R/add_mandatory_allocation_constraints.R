@@ -3,7 +3,8 @@ NULL
 
 #' Add mandatory allocation constraints
 #'
-#' Add constraints to ensure that every planning unit is allocated to a
+#' Add constraints to a conservation planning problem to ensure that every
+#' planning unit is allocated to a
 #' management zone in the solution. Note that this function can only be used
 #' with problems that contain multiple zones.
 #'
@@ -68,52 +69,34 @@ NULL
 #' }
 #' @name add_mandatory_allocation_constraints
 #'
-#' @exportMethod add_mandatory_allocation_constraints
-#'
-#' @aliases add_mandatory_allocation_constraints,ConservationProblem-method NULL
-NULL
-
-methods::setGeneric(
-  "add_mandatory_allocation_constraints",
-  signature = methods::signature("x"),
-  function(x) {
-    rlang::check_required(x)
-    standardGeneric("add_mandatory_allocation_constraints")
-  }
-)
-
-#' @name add_mandatory_allocation_constraints
-#' @usage \S4method{add_mandatory_allocation_constraints}{ConservationProblem}(x)
-#' @rdname add_mandatory_allocation_constraints
-methods::setMethod("add_mandatory_allocation_constraints",
-  methods::signature("ConservationProblem"),
-  function(x) {
-    # assert valid arguments
-    assert(
-      is_conservation_problem(x),
-      number_of_zones(x) >= 2
-    )
-    # add constraints
-    x$add_constraint(
-      R6::R6Class(
-        "MandatoryAllocationConstraint",
-        inherit = Constraint,
-        public = list(
-          name = "mandatory allocation constraints",
-          apply = function(x, y) {
-            assert(
-              inherits(x, "OptimizationProblem"),
-              inherits(y, "ConservationProblem"),
-              .internal = TRUE
-            )
-            # the apply method for this function doesn't actually do anything,
-            # the prioritizr::compile function will detect the presence of this
-            # constraint and act accordingly. The rcpp_add_zones_constraints
-            # function is "really" where this constraint is applied
-            invisible(TRUE)
-          }
-        )
-      )$new()
-    )
-  }
-)
+#' @export
+add_mandatory_allocation_constraints <- function(x) {
+  # assert valid arguments
+  rlang::check_required(x)
+  assert(
+    is_conservation_problem(x),
+    number_of_zones(x) >= 2
+  )
+  # add constraints
+  x$add_constraint(
+    R6::R6Class(
+      "MandatoryAllocationConstraint",
+      inherit = Constraint,
+      public = list(
+        name = "mandatory allocation constraints",
+        apply = function(x, y) {
+          assert(
+            inherits(x, "OptimizationProblem"),
+            inherits(y, "ConservationProblem"),
+            .internal = TRUE
+          )
+          # the apply method for this function doesn't actually do anything,
+          # the prioritizr::compile function will detect the presence of this
+          # constraint and act accordingly. The rcpp_add_zones_constraints
+          # function is "really" where this constraint is applied
+          invisible(TRUE)
+        }
+      )
+    )$new()
+  )
+}

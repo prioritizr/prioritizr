@@ -1,4 +1,4 @@
-# prioritizr 8.0.0.0
+# prioritizr 8.0.0
 
 ## Notice
 

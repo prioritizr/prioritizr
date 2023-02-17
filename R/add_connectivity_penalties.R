@@ -3,11 +3,11 @@ NULL
 
 #' Add connectivity penalties
 #'
-#' Add penalties to a conservation planning [problem()] to account for
+#' Add penalties to a conservation planning problem to account for
 #' symmetric connectivity between planning units.
 #' Symmetric connectivity data describe connectivity information that is not
 #' directional. For example, symmetric connectivity data could describe which
-#' planning units are adjacent to each other (see [adjacency_matrix()],
+#' planning units are adjacent to each other (see [adjacency_matrix()]),
 #' or which planning units are within threshold distance of each other (see
 #' [proximity_matrix()]).
 #'
@@ -69,16 +69,16 @@ NULL
 #'   The default argument for `zones` is to treat planning units
 #'   allocated to different zones as having zero connectivity.}
 #'
-#' \item{`data` as a `data.frame` object}{containing the fields (columns)
+#' \item{`data` as a `data.frame` object}{containing columns that are named
 #'   `"id1"`, `"id2"`, and `"boundary"`. Here, each row
 #'   denotes the connectivity between a pair of planning units
 #'   (per values in the `"id1"` and `"id2"` columns) following the
 #'   *Marxan* format.
-#'   If the argument to `x` contains multiple zones, then the columns
-#'   `"zone1"` and `"zone2"` can optionally be provided to manually
+#'   If the argument to `x` contains multiple zones, then the
+#'   `"zone1"` and `"zone2"` columns can optionally be provided to manually
 #'   specify the connectivity values between planning units when they are
-#'   allocated to specific zones. If the columns `"zone1"` and
-#'   `"zone2"` are present, then the argument to `zones` must be
+#'   allocated to specific zones. If the `"zone1"` and
+#'   `"zone2"` columns are present, then the argument to `zones` must be
 #'   `NULL`.}
 #'
 #' \item{`data` as an `array` object}{
@@ -216,8 +216,8 @@ NULL
 #'
 #' # create a symmetric connectivity matrix where the connectivity
 #' # between adjacent two planning units corresponds to their combined
-#' # value in a field in the planning unit attribute data
-#' # for example, this field could describe the extent of native vegetation in
+#' # value in a column of the planning unit data
+#' # for example, this column could describe the extent of native vegetation in
 #' # each planning unit and we could use connectivity penalties to identify
 #' # solutions that cluster planning units together that both contain large
 #' # amounts of native vegetation

@@ -14,7 +14,7 @@ An updated \code{\link[=problem]{problem()}} object with the portfolio added to 
 }
 \description{
 Generate a portfolio of solutions for a conservation planning
-\code{\link[=problem]{problem()}} by storing feasible solutions
+problem by storing feasible solutions
 discovered during the optimization process.
 This method is useful for quickly obtaining multiple solutions,
 but does not provide any guarantees on the number of solutions, or

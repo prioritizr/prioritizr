@@ -5,10 +5,11 @@ NULL
 #'
 #' Importance scores (also known as irreplaceability scores) can be used to
 #' assess the relative importance of planning units selected in a solution to a
-#' conservation planning [problem()].
+#' conservation planning problem.
 #'
 #' @details
-#' The following methods are available for calculating importance scores:
+#' The following methods are available for calculating importance scores
+#' for a solution to a conservation planning [problem()]:
 #'
 #' \describe{
 #'

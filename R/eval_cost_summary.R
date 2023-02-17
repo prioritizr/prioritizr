@@ -4,7 +4,7 @@ NULL
 #' Evaluate cost of solution
 #'
 #' Calculate the total cost of a solution to a conservation planning
-#' [problem()].
+#' problem.
 #' For example, if the planning unit cost data describe land acquisition costs
 #' (USD), then the total cost would be net cost (USD) needed to acquire
 #' all planning units selected within the solution.

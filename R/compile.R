@@ -3,8 +3,8 @@ NULL
 
 #' Compile a problem
 #'
-#' Compile a conservation planning [problem()] into an
-#' (potentially mixed) integer linear programming problem.
+#' Compile a conservation planning problem into an
+#' mixed integer linear programming problem.
 #'
 #' @param x [problem()] object.
 #'

@@ -41,7 +41,7 @@ Cells values indicate if the pair-wise distances between different
 planning units are within the distance threshold or not (using ones and
 zeros). To reduce computational burden, cells among the matrix diagonal are
 set to zero. Furthermore, if the argument to \code{x} is a
-\code{\link[terra:rast]{terra::rast()}} object, then cells with \code{NA}
+\code{\link[terra:rast]{terra::rast()}} object, then cells with missing (\code{NA})
 values are set to zero too.
 }
 \description{

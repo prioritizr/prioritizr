@@ -44,7 +44,7 @@ See the Data format section for more information.}
 An updated \code{\link[=problem]{problem()}} object with the constraints added to it.
 }
 \description{
-Add constraints to a conservation planning \code{\link[=problem]{problem()}} to ensure
+Add constraints to a conservation planning problem to ensure
 that all selected planning units are spatially connected with each other
 and form a single contiguous unit.
 }
@@ -75,12 +75,12 @@ two planning units are connected or not. Cell values should be binary
 matrix diagonal have no effect on the solution at all because each
 planning unit cannot be a connected with itself.}
 
-\item{\code{data} as a \code{data.frame} object}{containing the fields (columns)
+\item{\code{data} as a \code{data.frame} object}{containing columns that are named
 \code{"id1"}, \code{"id2"}, and \code{"boundary"}. Here, each row
 denotes the connectivity between two planning units following the
-\emph{Marxan} format. The field \code{boundary} should contain
+\emph{Marxan} format. The \code{"boundary"} column should contain
 binary \code{numeric} values that indicate if the two planning units
-specified in the fields \code{"id1"} and \code{"id2"} are connected
+specified in the \code{"id1"} and \code{"id2"} columns are connected
 or not. This data can be used to describe symmetric or
 asymmetric relationships between planning units. By default,
 input data is assumed to be symmetric unless asymmetric data is
@@ -231,7 +231,7 @@ Other constraints:
 \code{\link{add_linear_constraints}()},
 \code{\link{add_locked_in_constraints}()},
 \code{\link{add_locked_out_constraints}()},
-\code{\link{add_mandatory_allocation_constraints,ConservationProblem-method}},
+\code{\link{add_mandatory_allocation_constraints}()},
 \code{\link{add_manual_bounded_constraints}()},
 \code{\link{add_manual_locked_constraints}()},
 \code{\link{add_neighbor_constraints}()}

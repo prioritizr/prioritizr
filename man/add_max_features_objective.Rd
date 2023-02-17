@@ -19,8 +19,8 @@ a separate budget for each management zone.}
 An updated \code{problem()} object with the objective added to it.
 }
 \description{
-Set the objective of a conservation planning \code{\link[=problem]{problem()}} to
-fulfill as many targets as possible while ensuring that the cost of the
+Set the objective of a conservation planning problem to
+fulfill as many targets as possible, whilst ensuring that the cost of the
 solution does not exceed a budget.
 }
 \details{

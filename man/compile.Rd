@@ -26,8 +26,8 @@ defaults to \code{NA}.}
 A \code{\link[=optimization_problem]{optimization_problem()}} object.
 }
 \description{
-Compile a conservation planning \code{\link[=problem]{problem()}} into an
-(potentially mixed) integer linear programming problem.
+Compile a conservation planning problem into an
+mixed integer linear programming problem.
 }
 \details{
 This function might be useful for those interested in understanding

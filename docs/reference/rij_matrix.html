@@ -24,7 +24,7 @@ unit (also known as an rij matrix)."><meta property="og:image" content="https://
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">8.0.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">8.0.0</span>
       </span>
     </div>
 
@@ -170,10 +170,15 @@ stored in the third column and second row.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
-    <p>Generally, processing <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::st_sf()</a></code> data takes much
-longer to process than <code><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">terra::rast()</a></code> data.
-As such, it is recommended to use <code><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">terra::rast()</a></code> data
-for planning units where possible.</p>
+    <p>Generally, processing <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::st_sf()</a></code> data takes much longer to process than
+<code><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">terra::rast()</a></code> data.
+As such, it is recommended to use <code><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">terra::rast()</a></code> data for planning units
+where possible.
+The performance of this function for large <code><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">terra::rast()</a></code> datasets
+can be improved by increasing the GDAL cache size.
+The default cache size is 25 MB.
+For example, the following code can be used to set the cache size to 4 GB.</p>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>terra<span class="sc">::</span><span class="fu">gdalCache</span>(<span class="at">size =</span> <span class="dv">4000</span>)</span></code></pre><p></p></div>
     </div>
 
     <div id="ref-examples">

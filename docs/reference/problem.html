@@ -31,7 +31,7 @@ solve() function can be used to identify solutions."><meta property="og:image" c
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">8.0.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">8.0.0</span>
       </span>
     </div>
 
@@ -324,13 +324,13 @@ columns:</p><dl><dt>id</dt>
 
 
 <dt>rij_matrix</dt>
-<dd><p><code>list</code> of <code>matrix</code> or <code>dgCMatrix</code>
+<dd><p><code>list</code> of <code>matrix</code> or <code><a href="https://rdrr.io/pkg/Matrix/man/dgCMatrix-class.html" class="external-link">dgCMatrix</a></code>
 objects specifying the amount of each feature (rows) within each planning
 unit (columns) for each zone. The <code>list</code> elements denote
 different zones, matrix rows denote features, and matrix columns denote
 planning units. For convenience, the argument to
 <code>rij_matrix</code> can be a single <code>matrix</code> or
-<code>dgCMatrix</code> when specifying a problem with a
+<code><a href="https://rdrr.io/pkg/Matrix/man/dgCMatrix-class.html" class="external-link">dgCMatrix</a></code> when specifying a problem with a
 single management zone. This argument is only used when the argument
 to <code>x</code> is a <code>numeric</code> or <code>matrix</code> object.</p></dd>
 
@@ -579,7 +579,7 @@ evaluating solutions.</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "names")= chr "solution_1"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "status")= Named chr "OPTIMAL"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "names")= chr "solution_1"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "runtime")= Named num 0.044</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "runtime")= Named num 0.004</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "names")= chr "solution_1"</span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span><span class="co"># create some problems with multiple zones</span></span></span>
@@ -601,11 +601,11 @@ evaluating solutions.</p></div>
 <span class="r-in"><span><span class="co"># print targets</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">targets</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           zone_1 zone_2 zone_3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> feature_1      1      3      0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> feature_2      1      0      2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> feature_3      0      0      1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> feature_4      1      0      1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> feature_5      0      1      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> feature_1      2      0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> feature_2      1      1      2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> feature_3      3      3      2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> feature_4      1      2      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> feature_5      2      1      1</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create a multi-zone problem with raster data</span></span></span>
 <span class="r-in"><span><span class="va">p7</span> <span class="op">&lt;-</span></span></span>
@@ -658,12 +658,10 @@ evaluating solutions.</p></div>
 <span class="r-plt img"><img src="problem-8.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create a multi-zone problem with polygon planning unit data</span></span></span>
-<span class="r-in"><span><span class="co"># and where fields (columns) in the attribute table correspond</span></span></span>
-<span class="r-in"><span><span class="co"># to feature abundances</span></span></span>
+<span class="r-in"><span><span class="co"># and where columns correspond to feature abundances</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># first fields need to be added to the planning unit data</span></span></span>
-<span class="r-in"><span><span class="co"># which indicate the amount of each feature in each zone</span></span></span>
-<span class="r-in"><span><span class="co"># to do this, the fields will be populated with random counts</span></span></span>
+<span class="r-in"><span><span class="co"># to begin with, we will add columns to the planning unit data</span></span></span>
+<span class="r-in"><span><span class="co"># that indicate the amount of each feature in each zone</span></span></span>
 <span class="r-in"><span><span class="va">sim_pu_zones_polygons</span><span class="op">$</span><span class="va">spp1_z1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html" class="external-link">rpois</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">sim_pu_zones_polygons</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">sim_pu_zones_polygons</span><span class="op">$</span><span class="va">spp2_z1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html" class="external-link">rpois</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">sim_pu_zones_polygons</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">sim_pu_zones_polygons</span><span class="op">$</span><span class="va">spp3_z1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html" class="external-link">rpois</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">sim_pu_zones_polygons</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span></span></span>
@@ -671,10 +669,10 @@ evaluating solutions.</p></div>
 <span class="r-in"><span><span class="va">sim_pu_zones_polygons</span><span class="op">$</span><span class="va">spp2_z2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html" class="external-link">rpois</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">sim_pu_zones_polygons</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">sim_pu_zones_polygons</span><span class="op">$</span><span class="va">spp3_z2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html" class="external-link">rpois</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">sim_pu_zones_polygons</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># create problem with polygon planning unit data and use field names</span></span></span>
+<span class="r-in"><span><span class="co"># create problem with polygon planning unit data and use column names</span></span></span>
 <span class="r-in"><span><span class="co"># to indicate feature data</span></span></span>
 <span class="r-in"><span><span class="co"># additionally, to make this example slightly more interesting,</span></span></span>
-<span class="r-in"><span><span class="co"># the problem will have prfoportion-type decisions such that</span></span></span>
+<span class="r-in"><span><span class="co"># the problem will have proportion-type decisions such that</span></span></span>
 <span class="r-in"><span><span class="co"># a proportion of each planning unit can be allocated to each of the</span></span></span>
 <span class="r-in"><span><span class="co"># two management zones</span></span></span>
 <span class="r-in"><span><span class="va">p9</span> <span class="op">&lt;-</span></span></span>

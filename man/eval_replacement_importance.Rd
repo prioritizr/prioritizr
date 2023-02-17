@@ -39,7 +39,7 @@ See the Solution format section for more information.}
 \item{...}{not used.}
 
 \item{rescale}{\code{logical} flag indicating if replacement cost
-values---excepting infinite (\code{Inf}) and zero values---should be
+values -- excepting infinite (\code{Inf}) and zero values -- should be
 rescaled to range between 0.01 and 1. Defaults to \code{TRUE}.}
 
 \item{run_checks}{\code{logical} flag indicating whether presolve checks

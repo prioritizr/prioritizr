@@ -270,14 +270,14 @@ div.csl-indent {
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># print the problem</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p0)</span></code></pre></div>
 <pre><code>## A conservation problem (&lt;ConservationProblem&gt;)
-## ├•data:
+## ├•data
 ## │├•features:    &quot;Banksia woodlands&quot; , … (33 total)
 ## │└•planning units:
 ## │ ├•data:       &lt;sftbl_dftbldata.frame&gt; (1130 total)
 ## │ ├•costs:      continuous values (between 0.1925 and 61.9273)
 ## │ ├•extent:     298809.5764, 5167774.5993, 613818.7743, 5502543.7119 (xmin, ymin, xmax, ymax)
 ## │ └•CRS:        WGS 84 / UTM zone 55S (unknown)
-## └•formulation:
+## └•formulation
 ##  ├•objective:   minimum set objective
 ##  ├•penalties:   none specified
 ##  ├•targets:     relative targets (between 0.17 and 0.17)
@@ -309,7 +309,7 @@ div.csl-indent {
 ## Variable types: 0 continuous, 776 integer (776 binary)
 ## Found heuristic solution: objective 9018.7830067
 ## 
-## Explored 0 nodes (0 simplex iterations) in 0.02 seconds (0.01 work units)
+## Explored 0 nodes (0 simplex iterations) in 0.01 seconds (0.01 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 2: 9018.78 10337.6 
@@ -324,19 +324,19 @@ div.csl-indent {
 ## Bounding box:  xmin: 298809.6 ymin: 5167775 xmax: 613818.8 ymax: 5502544
 ## Projected CRS: WGS 84 / UTM zone 55S
 ## # A tibble: 1,130 × 6
-##       id  cost locked_in locked_out                                 geom solut…¹
-##    &lt;int&gt; &lt;dbl&gt; &lt;lgl&gt;     &lt;lgl&gt;                        &lt;MULTIPOLYGON [m]&gt;   &lt;dbl&gt;
-##  1     1 60.2  FALSE     TRUE       (((328497 5497704, 326783.8 5500050…       0
-##  2     2 19.9  FALSE     FALSE      (((307121.6 5490487, 305344.4 54929…       0
-##  3     3 59.7  FALSE     TRUE       (((321726.1 5492382, 320111 5494593…       0
-##  4     4 32.4  FALSE     FALSE      (((304314.5 5494324, 304342.2 54942…       0
-##  5     5 26.2  FALSE     FALSE      (((314958.5 5487057, 312336 5490646…       0
-##  6     6 51.3  FALSE     FALSE      (((327904.3 5491218, 326594.6 54930…       0
-##  7     7 32.3  FALSE     FALSE      (((308194.1 5481729, 306601.2 54839…       0
-##  8     8 38.4  FALSE     FALSE      (((322792.7 5483624, 319965.3 54874…       0
-##  9     9  3.55 FALSE     FALSE      (((334896.6 5490731, 335610.4 54924…       0
-## 10    10  1.83 FALSE     FALSE      (((356377.1 5487952, 353903.1 54876…       0
-## # … with 1,120 more rows, and abbreviated variable name ¹​solution_1</code></pre>
+##       id  cost locked_in locked_out solution_1                              geom
+##    &lt;int&gt; &lt;dbl&gt; &lt;lgl&gt;     &lt;lgl&gt;           &lt;dbl&gt;                &lt;MULTIPOLYGON [m]&gt;
+##  1     1 60.2  FALSE     TRUE                0 (((328497 5497704, 326783.8 5500…
+##  2     2 19.9  FALSE     FALSE               0 (((307121.6 5490487, 305344.4 54…
+##  3     3 59.7  FALSE     TRUE                0 (((321726.1 5492382, 320111 5494…
+##  4     4 32.4  FALSE     FALSE               0 (((304314.5 5494324, 304342.2 54…
+##  5     5 26.2  FALSE     FALSE               0 (((314958.5 5487057, 312336 5490…
+##  6     6 51.3  FALSE     FALSE               0 (((327904.3 5491218, 326594.6 54…
+##  7     7 32.3  FALSE     FALSE               0 (((308194.1 5481729, 306601.2 54…
+##  8     8 38.4  FALSE     FALSE               0 (((322792.7 5483624, 319965.3 54…
+##  9     9  3.55 FALSE     FALSE               0 (((334896.6 5490731, 335610.4 54…
+## 10    10  1.83 FALSE     FALSE               0 (((356377.1 5487952, 353903.1 54…
+## # … with 1,120 more rows</code></pre>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create column for making a map of the prioritization</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>s0<span class="sc">$</span>map_1 <span class="ot">&lt;-</span> <span class="fu">case_when</span>(</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  s0<span class="sc">$</span>locked_in <span class="sc">&gt;</span> <span class="fl">0.5</span> <span class="sc">~</span> <span class="st">&quot;locked in&quot;</span>,</span>

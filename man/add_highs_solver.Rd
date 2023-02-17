@@ -44,8 +44,8 @@ An updated \code{\link[=problem]{problem()}} object with the solver added to it.
 }
 \description{
 Specify that the \href{https://highs.dev/}{\emph{HiGHS}} software
-(Huangfu and Hall 2018) should be used to solve a
-conservation planning \code{\link[=problem]{problem()}}. This function can also be used to
+should be used to solve a conservation planning problem
+(Huangfu and Hall 2018). This function can also be used to
 customize the behavior of the solver.
 It requires the \pkg{highs} package to be installed.
 }

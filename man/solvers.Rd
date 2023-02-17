@@ -2,10 +2,10 @@
 % Please edit documentation in R/solvers.R
 \name{solvers}
 \alias{solvers}
-\title{Problem solvers}
+\title{Add solvers}
 \description{
 Specify the software and configuration used to solve a conservation planning
-\code{\link[=problem]{problem()}}. By default, the best available
+problem. By default, the best available
 software currently installed on the system will be used.
 For information on the performance of different solvers,
 please see Schuster \emph{et al.} (2020) for benchmarks comparing the

@@ -13,7 +13,7 @@ add_min_set_objective(x)
 An updated \code{problem()} object with the objective added to it.
 }
 \description{
-Set the objective of a conservation planning \code{\link[=problem]{problem()}} to
+Set the objective of a conservation planning problem to
 minimize the cost of the solution whilst ensuring that all \link{targets} are met.
 This objective is similar to that used in
 \emph{Marxan} and is detailed in Rodrigues \emph{et al.} (2000).

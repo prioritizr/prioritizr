@@ -3,7 +3,7 @@ NULL
 
 #' Write problem
 #'
-#' Save the mathematical formulation for a conservation planning [problem()]
+#' Save the mathematical formulation for a conservation planning problem
 #' to a file for mixed integer programming solvers. Note that this function
 #' requires the \pkg{Rsymphony} package to be installed.
 #'

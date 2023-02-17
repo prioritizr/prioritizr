@@ -114,12 +114,10 @@ simulate_data.SpatRaster <- function(x, n = 1, scale = 0.5, intensity = 0,
 #' Simulate species habitat suitability data
 #'
 #' Generates simulated species data using Gaussian random fields.
-#' Specifically, it outputs spatially auto-correlated raster data with
-#' values between zero and one.
 #'
 #' @inheritParams simulate_data
 #'
-#' @inherit simulate_data return
+#' @return A [terra::rast()] object with values between zero and one.
 #'
 #' @family simulations
 #'
@@ -175,7 +173,6 @@ simulate_species.SpatRaster <- function(x, n = 1, scale = 0.5) {
 #' Simulate cost data
 #'
 #' Generates simulated cost data using Gaussian random fields.
-#' Specifically, it returns spatially auto-correlated data with integer values.
 #'
 #' @inheritParams simulate_data
 #'
@@ -191,7 +188,7 @@ simulate_species.SpatRaster <- function(x, n = 1, scale = 0.5) {
 #'
 #' @family simulations
 #'
-#' @inherit simulate_data return
+#' @return A [terra::rast()] object with integer values greater than zero.
 #'
 #' @examples
 #' \dontrun{

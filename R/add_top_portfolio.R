@@ -4,8 +4,8 @@ NULL
 #' Add a top portfolio
 #'
 #' Generate a portfolio of solutions for a conservation planning
-#' [problem()] by finding a pre-specified number of solutions that
-#' are closest to optimality (i.e the top solutions).
+#' problem by finding a pre-specified number of solutions that
+#' are closest to optimality (i.e, the top solutions).
 #'
 #' @param x [problem()] object.
 #'

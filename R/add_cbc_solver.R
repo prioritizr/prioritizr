@@ -4,9 +4,8 @@ NULL
 #' Add a *CBC* solver
 #'
 #' Specify that the [*CBC*](https://github.com/coin-or/Cbc)
-#' (COIN-OR branch and cut) software (Forrest &
-#' Lougee-Heimer 2005) should be used to solve a conservation planning
-#' [problem()].
+#' (COIN-OR branch and cut) software should be used to solve a conservation
+#' planning problem (Forrest & Lougee-Heimer 2005).
 #' This function can also be used to customize the behavior of the solver.
 #' It requires the \pkg{rcbc} package to be installed
 #' (only [available on GitHub](https://github.com/dirkschumacher/rcbc),

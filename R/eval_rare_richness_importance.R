@@ -10,7 +10,7 @@ NULL
 #' importance scores cannot be calculated using other methods in a feasible
 #' period of time. This is because rarity weighted richness scores cannot (i)
 #' account for the cost of different planning units, (ii) account for multiple
-#' management zones, and (iii) identify truly irreplaceable planning units---
+#' management zones, and (iii) identify truly irreplaceable planning units ---
 #' unlike the replacement cost metric which does not suffer any of these
 #' limitations.
 #'

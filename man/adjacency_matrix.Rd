@@ -50,13 +50,14 @@ values are set to zero too.
 }
 \description{
 Create a matrix showing which planning units are spatially adjacent to
-each other. Note that this also include planning units that overlap
-with each other too.
+each other.
 }
 \details{
 Spatial processing is completed using
 \code{\link[sf:geos_binary_pred]{sf::st_intersects()}} for \code{\link[sf:sf]{sf::sf()}} objects,
 and \code{\link[terra:adjacent]{terra::adjacent()}} for \code{\link[terra:rast]{terra::rast()}} objects.
+Note that spatially overlapping planning units are considered
+adjacent.
 }
 \section{Notes}{
 

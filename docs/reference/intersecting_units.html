@@ -24,7 +24,7 @@ with the units in another spatial data object."><meta property="og:image" conten
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">8.0.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">8.0.0</span>
       </span>
     </div>
 
@@ -150,6 +150,14 @@ with the units in another spatial data object.</p>
 
 <p>An <code>integer</code> vector of indices of the units in <code>x</code> that intersect
 with <code>y</code>.</p>
+    </div>
+    <div id="details">
+    <h2>Details</h2>
+    <p>The performance of this function for large <code><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">terra::rast()</a></code> objects
+can be improved by increasing the GDAL cache size.
+The default cache size is 25 MB.
+For example, the following code can be used to set the cache size to 4 GB.</p>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>terra<span class="sc">::</span><span class="fu">gdalCache</span>(<span class="at">size =</span> <span class="dv">4000</span>)</span></code></pre><p></p></div>
     </div>
     <div id="see-also">
     <h2>See also</h2>

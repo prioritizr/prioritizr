@@ -29,11 +29,10 @@ auto-correlation in the simulated data.
 Defaults to 2.5.}
 }
 \value{
-A \code{\link[terra:rast]{terra::rast()}} object.
+A \code{\link[terra:rast]{terra::rast()}} object with integer values greater than zero.
 }
 \description{
 Generates simulated cost data using Gaussian random fields.
-Specifically, it returns spatially auto-correlated data with integer values.
 }
 \examples{
 \dontrun{

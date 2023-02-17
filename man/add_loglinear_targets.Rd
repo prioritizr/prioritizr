@@ -46,7 +46,7 @@ study area (calculated using the \code{\link[=feature_abundances]{feature_abunda
 An updated \code{\link[=problem]{problem()}} object with the targets added to it.
 }
 \description{
-Add targets to a conservation planning \code{\link[=problem]{problem()}} by log-linearly
+Add targets to a conservation planning problem by log-linearly
 interpolating the targets between thresholds based on the total amount of
 each feature in the study area (Rodrigues \emph{et al.} 2004). Additionally,
 caps can be applied to targets to prevent features with massive

@@ -11,7 +11,7 @@ mathematical formulation (e.g., the objective, constraints,
 and other design criteria) needed to generate prioritizations.
 Most users should use \code{\link[=problem]{problem()}} to generate new conservation problem
 objects, and the functions distributed with the package to interact
-with them (e.g. \code{\link[=number_of_features]{number_of_features()}}, \code{\link[=number_of_planning_units]{number_of_planning_units()}}).
+with them (e.g., \code{\link[=number_of_features]{number_of_features()}}, \code{\link[=number_of_planning_units]{number_of_planning_units()}}).
 \strong{Only experts should use the fields and methods for this class directly.}
 }
 \seealso{

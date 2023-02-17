@@ -17,14 +17,13 @@ An updated \code{\link[=problem]{problem()}} object with the decisions added to 
 }
 \description{
 Add a semi-continuous decision to a conservation planning
-\code{\link[=problem]{problem()}}. This is a relaxed decision where a part of a planning
-unit can be prioritized, as opposed to the entire planning unit, which is
-the default function (see \code{\link[=add_binary_decisions]{add_binary_decisions()}}).
+problem. This is a relaxed decision where a part of a planning
+unit can be prioritized, as opposed to the entire planning unit.
 This decision is similar to the \code{\link[=add_proportion_decisions]{add_proportion_decisions()}}
-function except that it has an upper bound parameter. By default, the
+function, except that it has an upper bound parameter. By default, the
 decision can range from prioritizing none (0\%) to all (100\%) of a
-planning unit. However, an upper bound can be specified to ensure that at
-most only a fraction (e.g., 80\%) of a planning unit can be preserved. This
+planning unit. However, an upper bound can be specified to ensure that, at
+most, only a fraction (e.g., 80\%) of a planning unit can be prioritized. This
 type of decision may be useful when it is not practical to conserve entire
 planning units.
 }

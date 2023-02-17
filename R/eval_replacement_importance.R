@@ -9,7 +9,7 @@ NULL
 #' @inheritParams eval_cost_summary
 #'
 #' @param rescale `logical` flag indicating if replacement cost
-#'  values---excepting infinite (`Inf`) and zero values---should be
+#'  values -- excepting infinite (`Inf`) and zero values -- should be
 #'  rescaled to range between 0.01 and 1. Defaults to `TRUE`.
 #'
 #' @param run_checks `logical` flag indicating whether presolve checks

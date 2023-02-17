@@ -3,7 +3,7 @@ NULL
 
 #' Presolve check
 #'
-#' Check a conservation planning [problem()] for potential issues
+#' Check a conservation planning problem for potential issues
 #' before trying to solve it. Specifically, problems are checked for (i) values
 #' that are likely to result in "strange" solutions and (ii) values that are
 #' likely to cause numerical instability issues and lead to unreasonably long

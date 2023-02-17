@@ -3,7 +3,7 @@ NULL
 
 #' Add contiguity constraints
 #'
-#' Add constraints to a conservation planning [problem()] to ensure
+#' Add constraints to a conservation planning problem to ensure
 #' that all selected planning units are spatially connected with each other
 #' and form a single contiguous unit.
 #'
@@ -57,12 +57,12 @@ NULL
 #'   matrix diagonal have no effect on the solution at all because each
 #'   planning unit cannot be a connected with itself.}
 #'
-#' \item{`data` as a `data.frame` object}{containing the fields (columns)
+#' \item{`data` as a `data.frame` object}{containing columns that are named
 #'   `"id1"`, `"id2"`, and `"boundary"`. Here, each row
 #'   denotes the connectivity between two planning units following the
-#'   *Marxan* format. The field `boundary` should contain
+#'   *Marxan* format. The `"boundary"` column should contain
 #'   binary `numeric` values that indicate if the two planning units
-#'   specified in the fields `"id1"` and `"id2"` are connected
+#'   specified in the `"id1"` and `"id2"` columns are connected
 #'   or not. This data can be used to describe symmetric or
 #'   asymmetric relationships between planning units. By default,
 #'   input data is assumed to be symmetric unless asymmetric data is

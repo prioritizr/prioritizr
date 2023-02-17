@@ -61,9 +61,8 @@ An updated \code{\link[=problem]{problem()}} object with the solver added to it.
 }
 \description{
 Specify that the \href{https://github.com/coin-or/Cbc}{\emph{CBC}}
-(COIN-OR branch and cut) software (Forrest &
-Lougee-Heimer 2005) should be used to solve a conservation planning
-\code{\link[=problem]{problem()}}.
+(COIN-OR branch and cut) software should be used to solve a conservation
+planning problem (Forrest & Lougee-Heimer 2005).
 This function can also be used to customize the behavior of the solver.
 It requires the \pkg{rcbc} package to be installed
 (only \href{https://github.com/dirkschumacher/rcbc}{available on GitHub},

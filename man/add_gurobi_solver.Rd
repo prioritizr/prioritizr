@@ -89,8 +89,8 @@ An updated \code{\link[=problem]{problem()}} object with the solver added to it.
 }
 \description{
 Specify that the \href{https://www.gurobi.com/}{\emph{Gurobi}} software
-(Gurobi Optimization LLC 2021) should be used to solve a
-conservation planning \code{\link[=problem]{problem()}}. This function can also be used to
+should be used to solve a conservation planning problem
+(Gurobi Optimization LLC 2021). This function can also be used to
 customize the behavior of the solver.
 It requires the \pkg{gurobi} package to be installed
 (see below for installation instructions).

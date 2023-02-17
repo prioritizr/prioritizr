@@ -3,7 +3,7 @@ NULL
 
 #' Add manually specified bound constraints
 #'
-#' Add constraints to a conservation planning [problem()] to ensure
+#' Add constraints to a conservation planning problem to ensure
 #' that the planning unit values (e.g., proportion, binary) in a solution
 #' range between specific lower and upper bounds. This function offers more
 #' fine-grained control than the [add_manual_locked_constraints()]
@@ -18,8 +18,7 @@ NULL
 #'   See the Data format section for more information.
 #'
 #' @section Data format:
-#' The argument to `data` should be a `data.frame` with the following fields
-#' (columns):
+#' The argument to `data` should be a `data.frame` with the following columns:
 #'
 #' \describe{
 #'

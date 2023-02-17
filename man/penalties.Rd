@@ -4,7 +4,7 @@
 \alias{penalties}
 \title{Add a penalty}
 \description{
-A penalty can be applied to a conservation planning \code{\link[=problem]{problem()}} to
+A penalty can be applied to a conservation planning problem to
 penalize solutions according to a specific metric. They
 directly trade-off with the primary objective of a problem
 (e.g., the primary objective when using \code{\link[=add_min_set_objective]{add_min_set_objective()}} is
