@@ -21,7 +21,7 @@ Objective <- R6::R6Class(
 
     #' @description
     #' Specify default values for weights.
-    #' @param x [conservation_problem()] object.
+    #' @param x [problem()] object.
     #' @return Invisible `TRUE`.
     default_weights = function(x) {
       return(1)

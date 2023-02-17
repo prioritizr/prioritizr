@@ -70,7 +70,7 @@ problem(x, features, ...)
 design exercise and their corresponding cost. It may be desirable to
 exclude some planning units from the analysis, for example those outside
 the study area. To exclude planning units, set the cost for those raster
-cells to \code{NA}, or use the \code{\link[=add_locked_out_constraint]{add_locked_out_constraint()}} function.}
+cells to \code{NA}, or use the \code{\link[=add_locked_out_constraints]{add_locked_out_constraints()}} function.}
 
 \item{features}{The feature data can be specified in a variety of ways.
 The specific formats that can be used depend on the cost data format (i.e.,

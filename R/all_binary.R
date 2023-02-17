@@ -20,7 +20,7 @@ assertthat::on_failure(all_binary) <- function(call, env) {
 }
 
 all_binary.default <- function(x) {
-  stop("{.arg x} is not a recognized class.")
+  cli::cli_abort("{.arg x} is not a recognized class.")
 }
 
 .S3method("all_binary", "default", all_binary.default)
@@ -66,3 +66,9 @@ all_binary.SpatRaster <- function(x) {
 }
 
 .S3method("all_binary", "SpatRaster", all_binary.SpatRaster)
+
+all_binary.Raster <- function(x) {
+  all_binary.SpatRaster(terra::rast(x))
+}
+
+.S3method("all_binary", "Raster", all_binary.Raster)

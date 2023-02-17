@@ -58,7 +58,7 @@ Specify default values for weights.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{x}}{\code{\link[=conservation_problem]{conservation_problem()}} object.}
+\item{\code{x}}{\code{\link[=problem]{problem()}} object.}
 }
 \if{html}{\out{</div>}}
 }

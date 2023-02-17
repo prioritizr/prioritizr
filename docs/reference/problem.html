@@ -186,7 +186,7 @@ customized to meet specific goals using <a href="objectives.html">objectives</a>
 design exercise and their corresponding cost. It may be desirable to
 exclude some planning units from the analysis, for example those outside
 the study area. To exclude planning units, set the cost for those raster
-cells to <code>NA</code>, or use the <code>add_locked_out_constraint()</code> function.</p></dd>
+cells to <code>NA</code>, or use the <code><a href="add_locked_out_constraints.html">add_locked_out_constraints()</a></code> function.</p></dd>
 
 
 <dt>features</dt>
@@ -324,13 +324,13 @@ columns:</p><dl><dt>id</dt>
 
 
 <dt>rij_matrix</dt>
-<dd><p><code>list</code> of <code>matrix</code> or <code><a href="https://rdrr.io/pkg/Matrix/man/dgCMatrix-class.html" class="external-link">dgCMatrix</a></code>
+<dd><p><code>list</code> of <code>matrix</code> or <code>dgCMatrix</code>
 objects specifying the amount of each feature (rows) within each planning
 unit (columns) for each zone. The <code>list</code> elements denote
 different zones, matrix rows denote features, and matrix columns denote
 planning units. For convenience, the argument to
 <code>rij_matrix</code> can be a single <code>matrix</code> or
-<code><a href="https://rdrr.io/pkg/Matrix/man/dgCMatrix-class.html" class="external-link">dgCMatrix</a></code> when specifying a problem with a
+<code>dgCMatrix</code> when specifying a problem with a
 single management zone. This argument is only used when the argument
 to <code>x</code> is a <code>numeric</code> or <code>matrix</code> object.</p></dd>
 
@@ -579,7 +579,7 @@ evaluating solutions.</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "names")= chr "solution_1"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "status")= Named chr "OPTIMAL"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "names")= chr "solution_1"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "runtime")= Named num 0.004</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "runtime")= Named num 0.003</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "names")= chr "solution_1"</span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span><span class="co"># create some problems with multiple zones</span></span></span>
@@ -601,11 +601,11 @@ evaluating solutions.</p></div>
 <span class="r-in"><span><span class="co"># print targets</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">targets</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           zone_1 zone_2 zone_3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> feature_1      2      0      0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> feature_2      1      1      2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> feature_3      3      3      2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> feature_1      0      2      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> feature_2      3      1      2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> feature_3      1      2      2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> feature_4      1      2      0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> feature_5      2      1      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> feature_5      0      1      1</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create a multi-zone problem with raster data</span></span></span>
 <span class="r-in"><span><span class="va">p7</span> <span class="op">&lt;-</span></span></span>
