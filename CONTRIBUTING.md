@@ -1,3 +1,5 @@
+Contributing
+================
 
 <!--- CONTRIBUTING.md is generated from CONTRIBUTING.Rmd. Please edit that file -->
 

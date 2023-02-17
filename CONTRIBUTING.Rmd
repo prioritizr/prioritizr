@@ -1,4 +1,5 @@
 ---
+title: "Contributing"
 output:
   rmarkdown::github_document:
     html_preview: no
