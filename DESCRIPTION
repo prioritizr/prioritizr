@@ -63,7 +63,7 @@ Imports:
     igraph (>= 1.2.9),
     ape (>= 5.5),
     magrittr (>= 2.0.1),
-    exactextractr (>= 0.9.1),
+    exactextractr (>= 0.8.2),
     tibble (>= 2.0.0),
     withr (>= 2.3.0)
 Suggests:
