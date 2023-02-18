@@ -20,9 +20,6 @@ inline double Pow<0>(double x) {
   return (1.0);
 }
 
-// calculate euclidean distance
-double distance(double, double, double, double);
-
 // check if two numbers are approximately equal
 bool approx_equal(double x, double y);
 
@@ -41,5 +38,12 @@ void import_connectivity_matrix_list(
   std::vector<std::vector<arma::sp_mat>>&,
   bool
 );
+
+// wrapper around R's RNG so that users can use set.seed() in R
+// console to make analyses reproducible
+// obtained from here: http://gallery.rcpp.org/articles/stl-random-shuffle/
+inline int rand_wrapper(const int n) { return floor(unif_rand()*n); }
+
+void r_random_shuffle(std::vector<std::size_t>&);
 
 #endif

@@ -21,12 +21,15 @@ test_that("data.frame", {
 test_that("Spatial", {
   # create data
   sim_pu_polygons <- get_sim_pu_polygons()
-  x <- sim_pu_polygons[seq_len(4), ]
+  x <- sf::as_Spatial(sim_pu_polygons[seq_len(4), ])
   x$V1 <- c(1, 0, 0, NA)
   x$V2 <- c(0, 1, 0, NA)
   x$V3 <- c(0, 0, 0, NA)
   # create category vector
-  y <- category_vector(x[, c("V1", "V2", "V3")])
+  expect_warning(
+    y <- category_vector(x[, c("V1", "V2", "V3")]),
+    "deprecated"
+  )
   # run tests
   expect_equal(y, c(1, 2, 0, NA))
 })

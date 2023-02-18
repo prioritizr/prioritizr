@@ -498,7 +498,7 @@ test_that("solve (compressed formulation, multiple zones, vector budget)", {
     ) %>%
     add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
-  s <- solve(p)
+  s <- solve(p, run_checks = FALSE, force = TRUE)
   # tests
   expect_equal(c(terra::values(s[[1]])), c(1, 0, 0, 0, NA))
   expect_equal(c(terra::values(s[[2]])), c(0, 1, 1, NA, NA))
@@ -633,7 +633,9 @@ test_that("solve (expanded formulation, multiple zones, vector budget)", {
     ) %>%
     add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
-  s <- solve(p, compressed_formulation = FALSE)
+  s <- solve(
+    p, compressed_formulation = FALSE, run_checks = FALSE, force = TRUE
+  )
   # tests
   expect_equal(c(terra::values(s[[1]])), c(1, 0, 0, 0, NA))
   expect_equal(c(terra::values(s[[2]])), c(0, 1, 1, NA, NA))

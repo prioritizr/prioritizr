@@ -64,7 +64,7 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
     is_conservation_problem(x),
     assertthat::is.flag(compressed_formulation)
   )
-  rlang::check_dots_empty()
+  assert_dots_empty()
   # sanity checks
   targets_not_supported <- c(
     "MaximumUtilityObjective",
@@ -103,12 +103,17 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
         "see {.topic prioritizr::targets} for guidance on selecting targets."
     )
   }
+  # add defaults if needed
+  ## this shouldn't really be needed because the
+  # default functions are now applied when the problem() is created
+  # nocov start
   if (is.Waiver(x$decisions))
     x <- suppressWarnings(add_binary_decisions(x))
   if (is.Waiver(x$solver))
     x <- suppressWarnings(add_default_solver(x))
   if (is.Waiver(x$portfolio))
     x <- suppressWarnings(add_shuffle_portfolio(x, 1))
+  # nocov end
   # initialize optimization problems
   op <- optimization_problem()
   # determine if expanded formulation is required

@@ -11,11 +11,14 @@ test_that("x = SpatRaster, features = SpatRaster", {
   sim_features[[1]] <-  terra::setValues(
     sim_features[[1]], runif(terra::ncell(sim_features[[1]]), -1, 1)
   )
-  expect_warning(x <- problem(sim_pu_raster, sim_features))
+  expect_warning(x <- problem(sim_pu_raster, sim_features), "negative")
   # verify that object can be printed
   suppressMessages(print(x))
   suppressMessages(summary(x))
   suppressMessages(x)
+  suppressMessages(x$print())
+  suppressMessages(x$show())
+  suppressMessages(x$repr())
   # tests for integer fields
   expect_equal(x$feature_names(), names(sim_features))
   expect_equal(x$zone_names(), names(sim_pu_raster))
@@ -84,6 +87,7 @@ test_that("x = SpatRaster, features = ZonesSpatRaster", {
   x <- problem(sim_zones_pu_raster, sim_zones_features)
   # verify that object can be printed
   suppressMessages(print(x))
+  suppressMessages(summary(x))
   suppressMessages(x)
   # tests for integer fields
   expect_equal(x$feature_names(), feature_names(sim_zones_features))
@@ -169,6 +173,7 @@ test_that("x = sf, features = SpatRaster", {
   x <- problem(sim_pu_polygons, sim_features, "cost")
   # verify that object can be printed
   suppressMessages(print(x))
+  suppressMessages(summary(x))
   suppressMessages(x)
   # tests for integer fields
   expect_equal(x$feature_names(), names(sim_features))
@@ -242,6 +247,7 @@ test_that("x = sf, features = ZonesSpatRaster", {
   x <- problem(sim_zones_pu_polygons, sim_zones_features, paste0("cost_", 1:3))
   # verify that object can be printed
   suppressMessages(print(x))
+  suppressMessages(summary(x))
   suppressMessages(x)
   # tests for integer fields
   expect_equal(x$feature_names(), feature_names(sim_zones_features))
@@ -337,6 +343,7 @@ test_that("x = sf, features = character", {
   x <- problem(sim_pu_polygons, c("spp1", "spp2"), "cost")
   # verify that object can be printed
   suppressMessages(print(x))
+  suppressMessages(summary(x))
   suppressMessages(x)
   # tests for integer fields
   expect_equal(x$feature_names(), c("spp1", "spp2"))
@@ -437,6 +444,7 @@ test_that("x = sf, features = ZonesCharacter", {
   )
   # verify that object can be printed
   suppressMessages(print(x))
+  suppressMessages(summary(x))
   suppressMessages(x)
   # tests for integer fields
   expect_equal(x$feature_names(), c("spp1", "spp2"))
@@ -559,6 +567,7 @@ test_that("x = data.frame, features = character", {
   x <- problem(pu, c("spp1", "spp2"), "cost")
   # verify that object can be printed
   suppressMessages(print(x))
+  suppressMessages(summary(x))
   suppressMessages(x)
   # tests for integer fields
   expect_equal(x$feature_names(), c("spp1", "spp2"))
@@ -630,6 +639,7 @@ test_that("x=data.frame, features=ZonesCharacter", {
   )
   # verify that object can be printed
   suppressMessages(print(x))
+  suppressMessages(summary(x))
   suppressMessages(x)
   # tests for integer fields
   expect_equal(x$feature_names(), c("1", "2"))
@@ -717,6 +727,7 @@ test_that("x = data.frame, features = data.frame (single zone)", {
   x <- problem(pu, species, rij, "cost")
   # verify that object can be printed
   suppressMessages(print(x))
+  suppressMessages(summary(x))
   suppressMessages(x)
   # tests for integer fields
   expect_equal(x$feature_names(), letters[1:5])
@@ -788,6 +799,7 @@ test_that("x=data.frame, features=data.frame (multiple zones)", {
   x <- problem(pu, species, rij, c("cost_1", "cost_2"), z)
   # verify that object can be printed
   suppressMessages(print(x))
+  suppressMessages(summary(x))
   suppressMessages(x)
   # tests for integer fields
   expect_equal(x$feature_names(), letters[1:5])
@@ -876,6 +888,7 @@ test_that("x = numeric, features = data.frame, rij_matrix = matrix", {
   )
   # verify that object can be printed
   suppressMessages(print(x))
+  suppressMessages(summary(x))
   suppressMessages(x)
   # tests for integer fields
   expect_equal(x$feature_names(), c("spp1", "spp2"))
@@ -938,6 +951,7 @@ test_that("x = matrix, features = data.frame, rij_matrix = matrix", {
   )
   # verify that object can be printed
   suppressMessages(print(x))
+  suppressMessages(summary(x))
   suppressMessages(x)
   # tests for integer fields
   expect_equal(x$feature_names(), c("spp1", "spp2"))

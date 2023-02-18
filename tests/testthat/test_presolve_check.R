@@ -104,6 +104,33 @@ test_that("instability due to high budget", {
   expect_warning(expect_false(presolve_check(p)), "budget")
 })
 
+test_that("budget higher than total costs (single zone)", {
+  # import data
+  sim_pu_raster <- (get_sim_pu_raster() * 0) + 1
+  sim_features <- get_sim_features()
+  # create problem
+  p <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_min_shortfall_objective(budget = 1000) %>%
+    add_relative_targets(0.1) %>%
+    add_binary_decisions()
+  # tests
+  expect_warning(expect_false(presolve_check(p)), "budget")
+})
+
+test_that("budget higher than total costs (multiple zones)", {
+  # import data
+  get_sim_zones_pu_raster <- (get_sim_zones_pu_raster() * 0) + 1
+  get_sim_zones_features <- get_sim_zones_features()
+  # create problem
+  p <-
+    problem(get_sim_zones_pu_raster, get_sim_zones_features) %>%
+    add_max_utility_objective(budget = c(1000, 1000, 1000)) %>%
+    add_binary_decisions()
+  # tests
+  expect_warning(expect_false(presolve_check(p)), "budget")
+})
+
 test_that("instability due to low budget", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()

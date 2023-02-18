@@ -317,6 +317,8 @@ test_that("data.frame (solve, no boundary penalties)", {
   puvspr_data <- read.table(
     file.path(wd, "puvspr.dat"), header = TRUE, sep = ","
   )
+  # remove name column from spec_data to verify works without names
+  spec_data$name <- NULL
   # create marxan problem
   p <-
     marxan_problem(pu_data, spec_data, puvspr_data) %>%

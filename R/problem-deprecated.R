@@ -12,7 +12,7 @@ methods::setMethod(
       inherits(x, "Raster"),
       raster::nlayers(x) == 1
     )
-    rlang::check_dots_empty()
+    assert_dots_empty()
     cli_warning(raster_pkg_deprecation_notice)
     problem(
       x,
@@ -41,7 +41,7 @@ methods::setMethod(
       raster::nlayers(x) == number_of_zones(features),
       is_comparable_raster(x, features)
     )
-    rlang::check_dots_empty()
+    assert_dots_empty()
     if (run_checks) {
       assert(any_nonNA(x))
       verify(
@@ -136,7 +136,7 @@ methods::setMethod(
       all_columns_inherit(x[, cost_column], "numeric"),
       assertthat::is.flag(run_checks)
     )
-    rlang::check_dots_empty()
+    assert_dots_empty()
     # further validation checks
     assert(
       all_columns_any_finite(x[, cost_column]),
@@ -236,7 +236,7 @@ methods::setMethod(
       all_match_of(cost_column, names(x)),
       all_columns_any_finite(x[, cost_column])
     )
-    rlang::check_dots_empty()
+    assert_dots_empty()
     assert(
       all_match_of(unlist(as.list(features)), names(x)),
       msg = paste(
@@ -329,7 +329,7 @@ methods::setMethod(
       is_same_crs(x, features),
       is_spatial_extents_overlap(x, features)
     )
-    rlang::check_dots_empty()
+    assert_dots_empty()
     assert(
       all(!st_geometry_classes(x) %in% c("GEOMETRYCOLLECTION", "MULTIPOINT"))
     )

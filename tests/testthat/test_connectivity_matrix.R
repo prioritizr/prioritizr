@@ -146,3 +146,35 @@ test_that("x = Spatial, y = Raster", {
   # tests
   expect_equal(cm1, cm2)
 })
+
+test_that("x = Raster, y = Raster", {
+  # import data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  # create matrices
+  cm1 <- connectivity_matrix(sim_pu_raster, sim_features[[1]])
+  expect_warning(
+    cm2 <- connectivity_matrix(
+      raster::raster(sim_pu_raster), raster::raster(sim_features[[1]])
+    ),
+    "deprecated"
+  )
+  # tests
+  expect_equal(cm1, cm2)
+})
+
+test_that("x = sf, y = Raster", {
+  # import data
+  sim_pu_polygons <- get_sim_pu_polygons()
+  sim_features <- get_sim_features()
+  # create matrices
+  cm1 <- connectivity_matrix(sim_pu_polygons, sim_features[[1]])
+  expect_warning(
+    cm2 <- connectivity_matrix(
+      sim_pu_polygons, raster::raster(sim_features[[1]])
+    ),
+    "deprecated"
+  )
+  # tests
+  expect_equal(cm1, cm2)
+})

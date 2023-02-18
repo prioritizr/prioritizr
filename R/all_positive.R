@@ -19,7 +19,7 @@ assertthat::on_failure(all_positive) <- function(call, env) {
 }
 
 all_positive.default <- function(x) {
-  stop("{.arg x} is not a recognized class.")
+  cli::cli_abort("{.arg x} is not a recognized class.")
 }
 
 .S3method("all_positive", "default", all_positive.default)

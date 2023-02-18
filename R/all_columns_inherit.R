@@ -18,12 +18,13 @@ assertthat::on_failure(all_columns_inherit) <- function(call, env) {
   w <- eval(call$what, envir = env)
   paste0(
     "{.arg ", deparse(call$x),
-    "} has some columns that do not contain {.val {w}} values."
+    "} must have ", cli::format_inline("{.cls {w}}"),
+    " values in all columns."
   )
 }
 
 all_columns_inherit.default <- function(x, what) {
-  stop("{.arg x} is not a recognized class.")
+  cli::cli_abort("{.arg x} is not a recognized class.")
 }
 
 .S3method("all_columns_inherit", "default", all_columns_inherit.default)

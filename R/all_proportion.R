@@ -20,7 +20,7 @@ assertthat::on_failure(all_proportion) <- function(call, env) {
 }
 
 all_proportion.default <- function(x) {
-  stop("{.arg x} is not a recognized class.")
+  cli::cli_abort("{.arg x} is not a recognized class.")
 }
 
 .S3method("all_proportion", "default", all_proportion.default)

@@ -60,10 +60,10 @@ methods::setGeneric(
   function(x, y, ...) {
     rlang::check_required(x)
     rlang::check_required(y)
-    assert(
-      is_spatially_explicit(x),
-      is_spatially_explicit(y)
-    )
+    assert(is_spatially_explicit(x))
+    if (!inherits(y, "sfc")) {
+      assert(is_spatially_explicit(y))
+    }
     standardGeneric("fast_extract")
   }
 )
@@ -78,17 +78,6 @@ methods::setMethod(
     .Deprecated(raster_pkg_deprecation_notice)
     .Deprecated(sp_pkg_deprecation_notice)
     fast_extract(terra::rast(x), sf::st_as_sf(y), fun, ...)
-})
-
-#' @name fast_extract
-#' @usage \S4method{fast_extract}{SpatRaster,Spatial}(x, y, fun = "mean", ...)
-#' @rdname fast_extract
-methods::setMethod(
-  "fast_extract",
-  signature(x = "SpatRaster", y = "Spatial"),
-  function(x, y, fun = "mean", ...) {
-    .Deprecated(sp_pkg_deprecation_notice)
-    fast_extract(x, sf::st_as_sf(y), fun, ...)
 })
 
 #' @name fast_extract

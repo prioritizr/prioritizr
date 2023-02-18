@@ -295,12 +295,32 @@ test_that("sf (no points are proximal)", {
   expect_equal(s, m)
 })
 
-test_that("Spatial", {
+test_that("SpatialPolygons", {
   # import data
   sim_pu_polygons <- get_sim_pu_polygons()
   # create matrices
   x <- proximity_matrix(sim_pu_polygons, 2)
   y <- proximity_matrix(sf::as_Spatial(sim_pu_polygons), 2)
+  # tests
+  expect_equal(x, y)
+})
+
+test_that("SpatialLines", {
+  # import data
+  sim_pu_lines <- get_sim_pu_lines()
+  # create matrices
+  x <- proximity_matrix(sim_pu_lines, 2)
+  y <- proximity_matrix(sf::as_Spatial(sim_pu_lines), 2)
+  # tests
+  expect_equal(x, y)
+})
+
+test_that("SpatialPoints", {
+  # import data
+  sim_pu_points <- get_sim_pu_points()
+  # create matrices
+  x <- proximity_matrix(sim_pu_points, 2)
+  y <- proximity_matrix(sf::as_Spatial(sim_pu_points), 2)
   # tests
   expect_equal(x, y)
 })
@@ -327,6 +347,7 @@ test_that("Raster (multiple layers)", {
 
 test_that("invalid input", {
   # create data
+  data(iris)
   x <- sf::st_sf(
     id = c(1, 2),
     geom = sf::st_sfc(
@@ -346,6 +367,10 @@ test_that("invalid input", {
   )
   expect_tidy_error(
     proximity_matrix(4, 1),
+    "must be"
+  )
+  expect_tidy_error(
+    proximity_matrix(iris),
     "must be"
   )
 })

@@ -235,21 +235,4 @@ methods::setMethod("intersecting_units",
   }
 )
 
-#' @name intersecting_units
-#' @usage \S4method{intersecting_units}{data.frame,ANY}(x, y)
-#' @rdname intersecting_units
-methods::setMethod(
-  "intersecting_units",
-  methods::signature(x = "data.frame", y = "ANY"),
-  function(x, y) {
-    cli::cli_abort(
-      "{.arg x} must not have planning units in a data frame.",
-      "i" = paste(
-        "This is data frames lack spatial information to",
-        "perform spatial analyses."
-      )
-    )
-  }
-)
-
 na_crs <- "ENGCRS[\"Undefined Cartesian SRS\",\n    EDATUM[\"\"],\n    CS[Cartesian,2],\n        AXIS[\"(E)\",east,\n            ORDER[1],\n            LENGTHUNIT[\"Meter\",1]],\n        AXIS[\"(N)\",north,\n            ORDER[2],\n            LENGTHUNIT[\"Meter\",1]]]"

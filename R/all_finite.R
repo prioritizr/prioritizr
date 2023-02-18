@@ -21,7 +21,7 @@ assertthat::on_failure(all_finite) <- function(call, env) {
 }
 
 all_finite.default <- function(x) {
-  stop("{.arg x} is not a recognized class.")
+  cli::cli_abort("{.arg x} is not a recognized class.")
 }
 
 .S3method("all_finite", "default", all_finite.default)
@@ -39,7 +39,7 @@ all_finite.logical <- function(x) {
 .S3method("all_finite", "logical", all_finite.logical)
 
 all_finite.character <- function(x) {
-  all(is.finite(x))
+  all(!is.na(x))
 }
 
 .S3method("all_finite", "character", all_finite.character)

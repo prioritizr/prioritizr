@@ -168,11 +168,6 @@ T1 extract_elements(T1 x, T2 &indices) {
   return r;
 }
 
-// wrapper around R's RNG so that users can use set.seed() in R
-// console to make analyses reproducible
-// obtained from here: http://gallery.rcpp.org/articles/stl-random-shuffle/
-inline int rand_wrapper(const int n) { return floor(unif_rand()*n); }
-
 // [[Rcpp::export]]
 Rcpp::IntegerVector rcpp_set_optimization_problem_shuffled(SEXP x) {
   // initialization
@@ -183,7 +178,7 @@ Rcpp::IntegerVector rcpp_set_optimization_problem_shuffled(SEXP x) {
   std::iota(old_order.begin(), old_order.end(), 0);
   // shuffle planning units
   std::vector<std::size_t> new_order = old_order;
-  std::random_shuffle(new_order.begin(), new_order.end(), rand_wrapper);
+  r_random_shuffle(new_order);
   // update data in optimization problem
   ptr->_obj = extract_elements<std::vector<double>,
                                std::vector<std::size_t>>(ptr->_obj, new_order);

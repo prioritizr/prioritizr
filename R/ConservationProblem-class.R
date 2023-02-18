@@ -570,7 +570,9 @@ ConservationProblem <- R6::R6Class(
       } else if (is.matrix(self$data$cost)) {
         x <- unname(which(rowSums(!is.na(self$data$cost)) > 0))
       } else {
-        cli::cli_abort("$data$cost is of unknown class", .internal = TRUE)
+        # nocov start
+        cli::cli_abort("$data$cost is not a recognized class", .internal = TRUE)
+        # nocov end
       }
       self$set_data("planning_unit_indices", x)
       invisible(TRUE)
@@ -695,9 +697,11 @@ ConservationProblem <- R6::R6Class(
       } else if (inherits(self$data$features, "data.frame")) {
         return(nrow(self$data$features))
       } else {
+        # nocov start
         cli::cli_abort(
-          "$features is of an unrecognized class", .internal = TRUE
+          "$features is not a recognized class", .internal = TRUE
         )
+        # nocov end
       }
     },
 
@@ -710,9 +714,11 @@ ConservationProblem <- R6::R6Class(
       } else if (inherits(self$data$features, "data.frame")) {
         return(as.character(self$data$features$name))
       } else {
+        # nocov start
         cli::cli_abort(
-          "$features is of an unrecognized class", .internal = TRUE
+          "$features is not a recognized class", .internal = TRUE
         )
+        # nocov end
       }
     },
 
@@ -779,9 +785,11 @@ ConservationProblem <- R6::R6Class(
       } else if (inherits(self$data$features, "data.frame")) {
         return(length(self$data$rij_matrix))
       } else {
+        # nocov start
         cli::cli_abort(
-          "$features is of an unrecognized class.", .internal = TRUE
+          "$features is not a recognized class", .internal = TRUE
         )
+        # nocov end
       }
     },
 
@@ -794,9 +802,11 @@ ConservationProblem <- R6::R6Class(
       } else if (inherits(self$data$features, "data.frame")) {
         return(names(self$data$rij_matrix))
       } else {
+        # nocov start
         cli::cli_abort(
-          "$features is of an unrecognized class.", .internal = TRUE
+          "$features is not a recognized class", .internal = TRUE
         )
+        # nocov end
       }
     },
 

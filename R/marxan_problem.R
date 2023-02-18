@@ -220,7 +220,7 @@ marxan_problem.data.frame <- function(x, spec, puvspr, bound = NULL,
   rlang::check_required(bound)
   rlang::check_required(blm)
   rlang::check_required(symmetric)
-  rlang::check_dots_empty()
+  assert_dots_empty()
   ## x
   assert(
     is.data.frame(x),
@@ -373,7 +373,7 @@ marxan_problem.character <- function(x, ...) {
     assertthat::is.readable(x),
     is_installed("data.table")
   )
-  rlang::check_dots_empty()
+  assert_dots_empty()
   # declare local functions
   parse_field <- function(field, lines) {
     x <- grep(field, lines, value = TRUE)
@@ -401,7 +401,8 @@ marxan_problem.character <- function(x, ...) {
       return(data.table::fread(x, data.table = FALSE))
     } else if (file.exists(file.path(input_dir, x))) {
       return(data.table::fread(file.path(input_dir, x), data.table = FALSE))
-    } else if (force) { # nocov
+    } else if (force) {
+      # nocov start
       cli::cli_abort(
         paste0(
           "The {.field ", field, "} field in {.arg x} must specify a",
@@ -409,7 +410,7 @@ marxan_problem.character <- function(x, ...) {
         ),
         call = call
       )
-      # nocov
+      # nocov end
     } else {
       return(NULL) # nocov
     }

@@ -22,7 +22,7 @@ assertthat::on_failure(all_columns_any_finite) <- function(call, env) {
 }
 
 all_columns_any_finite.default <- function(x) {
-  stop("{.arg x} is not a recognized class.")
+  cli::cli_abort("{.arg x} is not a recognized class.")
 }
 
 .S3method("all_columns_any_finite", "default", all_columns_any_finite.default)

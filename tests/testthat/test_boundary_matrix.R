@@ -332,6 +332,7 @@ test_that("Raster", {
 })
 
 test_that("invalid inputs", {
+  data(iris)
   expect_tidy_error(boundary_matrix(iris), "must be")
   expect_tidy_error(
     boundary_matrix(

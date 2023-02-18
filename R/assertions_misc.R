@@ -42,7 +42,8 @@ is_budget_length <- function(x, budget) {
 }
 
 assertthat::on_failure(is_budget_length) <- function(call, env) {
-  nz <- number_of_zones(env$x)
+  p <- eval(call$x, envir = env)
+  nz <- number_of_zones(p)
   budget_msg <- ifelse(
     nz == 1,
     "{.arg budget} must be a single numeric value.",
@@ -69,21 +70,22 @@ is_installed <- function(x) {
 }
 
 assertthat::on_failure(is_installed) <- function(call, env) {
-  pkg <- deparse(call$x)
+  pkg <- eval(call$x, envir = env)
   if (identical(pkg, "rcbc")) {
-    code <- ":\f{.code remotes::install_github(\"dirkschumacher/rcbc\")}"
+    code <- ": {.code remotes::install_github(\"dirkschumacher/rcbc\")}"
   } else if (identical(pkg, "cplexAPI")) {
-    code <- ":\f{.code remotes::install_github(\"cran/cplexAPI\")}"
+    code <- ": {.code remotes::install_github(\"cran/cplexAPI\")}"
   } else if  (identical(pkg, "lpsymphony")) {
-    code <- ":\f{.code remotes::install_bioc(\"lpsymphony\")}"
-  } else if  (identical(pkg, "gurobi")) {
+    code <- ": {.code remotes::install_bioc(\"lpsymphony\")}"
+  } else if (identical(pkg, "gurobi")) {
     code <- c(
-      "instructions in\f{.vignette prioritizr::gurobi_installation_guide}."
+      "instructions in {.vignette prioritizr::gurobi_installation_guide}."
     )
   } else {
-    code <- paste0(":\f{.code install.packages(\"", pkg, "\")}")
+    code <- paste0(": {.code install.packages(\"", pkg, "\")}")
   }
-  paste(
-    "The {.pkg ", pkg, "} package is required, install it using", code
+  c(
+    paste0("The {.pkg ", pkg, "} package must be installed."),
+    "i" = paste0("Install it using", code)
   )
 }

@@ -106,7 +106,6 @@ Collate:
     'assertions_vector.R'
     'any_nonzero.R'
     'any_nonNA.R'
-    'all_rows_any_finite.R'
     'all_proportion.R'
     'all_positive.R'
     'all_finite.R'

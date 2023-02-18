@@ -115,3 +115,33 @@ test_that("Raster", {
   )
   expect_equal(m1, m2)
 })
+
+test_that("invalid input", {
+  # create data
+  data(iris)
+  x <- sf::st_sf(
+    id = c(1, 2),
+    geom = sf::st_sfc(
+      sf::st_point(x = c(1, 2)),
+      sf::st_geometrycollection(
+        list(
+          sf::st_point(x = c(10, 20)),
+          sf::st_point(x = c(100, 200))
+        )
+      )
+    )
+  )
+  # tests
+  expect_tidy_error(
+    adjacency_matrix(x),
+    "GEOMETRYCOLLECTION"
+  )
+  expect_tidy_error(
+    adjacency_matrix(4),
+    "must be"
+  )
+  expect_tidy_error(
+    adjacency_matrix(iris),
+    "must be"
+  )
+})

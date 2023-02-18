@@ -74,7 +74,7 @@ test_that("x = SpatRaster, y = sfc", {
   # create data
   sim_data <- rbind(sim_pu_points, sim_pu_lines, sim_pu_polygons)
   idx <- sample.int(nrow(sim_data))
-  sim_data <- sim_data[idx, ]
+  sim_data <- sf::st_geometry(sim_data[idx, ])
   # calculations
   x <- fast_extract(sim_features, sim_data, fun = "sum")
   # calculate correct result
@@ -83,7 +83,7 @@ test_that("x = SpatRaster, y = sfc", {
   y <- rbind(y, fast_extract(sim_features, sim_pu_polygons, fun = "sum"))
   y <- y[idx, , drop = FALSE]
   # tests
-  expect_equal(nrow(x), nrow(sim_data))
+  expect_equal(nrow(x), length(sim_data))
   expect_equal(ncol(x), terra::nlyr(sim_features))
   expect_equal(x, y)
 })
@@ -140,6 +140,29 @@ test_that("x = Raster, y = SpatialPointsDataFrame", {
   )
   # tests
   expect_equal(x, y)
+})
+
+test_that("x = Raster, y = sf (polygons)", {
+  # import data
+  sim_pu_polygons <- get_sim_pu_polygons()
+  sim_features <- get_sim_features()
+  # calculations
+  expect_warning(
+    x <- fast_extract(
+      raster::stack(sim_features),
+      sf::as_Spatial(sim_pu_polygons),
+      fun = "sum"
+    ),
+    "deprecated"
+  )
+  # calculate correct results
+  y <- exactextractr::exact_extract(
+    sim_features, sim_pu_polygons, fun = "sum", progress = FALSE
+  )
+  # tests
+  expect_equal(nrow(x), nrow(sim_pu_polygons))
+  expect_equal(ncol(x), terra::nlyr(sim_features))
+  expect_equivalent(x, as.matrix(y))
 })
 
 test_that("invalid inputs", {

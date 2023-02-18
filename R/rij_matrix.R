@@ -117,7 +117,7 @@ methods::setMethod(
       is_comparable_raster(x, y),
       assertthat::is.flag(memory)
     )
-    rlang::check_dots_empty()
+    assert_dots_empty()
     # identify included cells
     idx <- terra::cells(terra::allNA(x), 0)[[1]]
     # if memory is NA, then set it automatically..
@@ -188,23 +188,10 @@ methods::setMethod(
   "rij_matrix",
   signature(x = "sf", y = "SpatRaster"),
   function(x, y, fun = "sum", ...) {
-    rlang::check_dots_empty()
+    assert_dots_empty()
     m <- fast_extract(x = y, y = x, fun = fun)
     m[is.na(m[])] <- 0
     m <- Matrix::drop0(methods::as(m, "dgCMatrix"))
     colnames(m) <- names(y)
     Matrix::t(m)
 })
-
-split_layers <- function(nx, ncl) {
-  i <- seq_len(nx)
-  if (ncl == 0L)
-    list()
-  else if (ncl >= nx)
-    list(i)
-  else {
-    fuzz <- min((nx - 1L)/1000, 0.4 * nx / ncl)
-    breaks <- seq(1 - fuzz, nx + fuzz, length.out = ncl + 1L)
-    structure(split(i, cut(i, breaks)), names = NULL)
-  }
-}

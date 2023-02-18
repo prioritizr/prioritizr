@@ -271,8 +271,8 @@ methods::setMethod("add_neighbor_constraints",
         assertthat::has_name(data, "zone1"),
         assertthat::has_name(data, "zone2"),
         msg = paste(
-          "{.arg data} must have the columns \"zone1\" and \"zone2\" when",
-          "specifying constraints for multiple zones"
+          "{.arg data} must have {.col zone1} and {.col zone2} columns ",
+          "when specifying constraints for multiple zones."
         )
       )
     }
@@ -401,10 +401,12 @@ internal_add_neighbor_constraints <- function(x, k, zones, data) {
             }
           } else {
             ## throw error if not recognized
+            # nocov start
             cli::cli_abort(
               "Failed calculations for {.fn add_neighbor_constraints}.",
               .internal = TRUE,
             )
+            # nocov end
           }
           # apply constraints
           k <- self$get_data("k")

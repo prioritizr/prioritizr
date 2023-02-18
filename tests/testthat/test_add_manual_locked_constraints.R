@@ -14,6 +14,8 @@ test_that("data.frame (compile, single zone)", {
       data.frame(pu = seq_len(5), status = rep(0.3, 10))
     )
   o <- compile(p)
+  suppressMessages(print(p))
+  suppressMessages(summary(p))
   # calculations for tests
   locked_pos <- seq_len(5)
   other_pos <- seq(6, nrow(sim_pu_polygons))

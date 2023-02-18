@@ -1,4 +1,4 @@
-#' @include internal.R all_binary.R all_columns_any_finite.R all_columns_any_finite.R all_columns_inherit.R all_finite.R all_positive.R all_proportion.R all_rows_any_finite.R any_nonNA.R any_nonzero.R assertions_vector.R assertions_raster.R assertions_misc.R assertions_sf.R assertions_class.R
+#' @include internal.R all_binary.R all_columns_any_finite.R all_columns_any_finite.R all_columns_inherit.R all_finite.R all_positive.R all_proportion.R any_nonNA.R any_nonzero.R assertions_vector.R assertions_raster.R assertions_misc.R assertions_sf.R assertions_class.R
 NULL
 
 fn_caller_env <- function(n = 1) {
@@ -33,6 +33,11 @@ fn_current_env <- function() {
 #'
 #' @param x `logical` condition.
 #'
+#' @param env `environment` passed to [assertthat::validate_that].
+#'   Defaults to [parent.frame()].
+#'
+#' @param call `environment` for call. Defaults to `fn_caller_env()`.
+#'
 #' @details
 #' The function will throw warnings if any of the conditions are not met.
 #'
@@ -66,10 +71,9 @@ verify <- function(..., env = parent.frame(), call = fn_caller_env()) {
 #' @param x `logical` condition.
 #'
 #' @param env `environment` passed to [assertthat::validate_that].
+#'   Defaults to [parent.frame()].
 #'
-#' @param env `environment` passed to [assertthat::validate_that].
-#'
-#' @param call `environment` passed to [cli::cli_abort].
+#' @param call `environment` for call. Defaults to `fn_caller_env()`.
 #'
 #' @param .internal `logical` passed to [cli::cli_abort].
 #'
@@ -118,4 +122,28 @@ format_assertthat_msg <- function(x) {
   }
   # return result
   x
+}
+
+
+#' Assert dots are empty
+#'
+#' Assert that `...` are empty.
+#'
+#' @param env passed to [rlang::check_dots_empty()].
+#'
+#' @param error passed to [rlang::check_dots_empty()].
+#'
+#' @param call [environment()] for call. Defaults to `fn_caller_env()`.
+#'
+#' @param action passed to [rlang::check_dots_empty()].
+#'
+#' @details
+#' This function is essentially a wrapper for [rlang::check_dots_empty()].
+#'
+#' @noRd
+assert_dots_empty <- function(env = rlang::caller_env(),
+                              error = NULL,
+                              call = fn_caller_env(),
+                              action = rlang::abort) {
+  rlang::check_dots_empty(env = env, call = call)
 }

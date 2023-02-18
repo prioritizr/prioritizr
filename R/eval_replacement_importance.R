@@ -232,7 +232,7 @@ methods::setMethod("eval_replacement_importance",
            threads = 1L, ...) {
     # assert valid arguments
     assert(is.numeric(solution))
-    rlang::check_dots_empty()
+    assert_dots_empty()
     # extract planning unit solution status
     status <- planning_unit_solution_status(x, solution)
     # subset planning units with finite cost values
@@ -262,7 +262,7 @@ methods::setMethod("eval_replacement_importance",
       is.matrix(solution),
       is.numeric(solution)
     )
-    rlang::check_dots_empty()
+    assert_dots_empty()
     # extract data
     status <- planning_unit_solution_status(x, solution)
     # extract planning units in solution
@@ -305,7 +305,7 @@ methods::setMethod("eval_replacement_importance",
            threads = 1L, ...) {
     # assert valid arguments
     assert(is.data.frame(solution))
-    rlang::check_dots_empty()
+    assert_dots_empty()
     # extract data
     status <- planning_unit_solution_status(x, solution)
     # extract planning units in solution
@@ -356,7 +356,7 @@ methods::setMethod("eval_replacement_importance",
         )
       )
     )
-    rlang::check_dots_empty()
+    assert_dots_empty()
     # extract data
     status <- planning_unit_solution_status(x, solution)
     # extract planning units in solution
@@ -402,7 +402,7 @@ methods::setMethod("eval_replacement_importance",
            threads = 1L, ...) {
     # assert valid arguments
     assert(inherits(solution, "sf"))
-    rlang::check_dots_empty()
+    assert_dots_empty()
     # extract data
     status <- planning_unit_solution_status(x, solution)
     # extract planning units in solution
@@ -446,7 +446,7 @@ methods::setMethod("eval_replacement_importance",
   function(x, solution, rescale = TRUE, run_checks = TRUE, force = FALSE,
            threads = 1L, ...) {
     assert(inherits(solution, "Raster"))
-    rlang::check_dots_empty()
+    assert_dots_empty()
     # extract data
     status <- planning_unit_solution_status(x, solution)
     # extract planning units in solution
@@ -493,7 +493,7 @@ methods::setMethod("eval_replacement_importance",
   function(x, solution, rescale = TRUE, run_checks = TRUE, force = FALSE,
            threads = 1L, ...) {
     assert(inherits(solution, "SpatRaster"))
-    rlang::check_dots_empty()
+    assert_dots_empty()
     # extract data
     status <- planning_unit_solution_status(x, solution)
     # extract planning units in solution

@@ -12,6 +12,9 @@ test_that("minimum set objective (compile, single zone)", {
     add_binary_decisions() %>%
     add_boundary_penalties(3, 0.5)
   o <- compile(p)
+  # print
+  suppressMessages(print(p))
+  suppressMessages(summary(p))
   # create variables for debugging
   ## number of planning units
   n_pu <- p$number_of_planning_units()

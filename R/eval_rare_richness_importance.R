@@ -141,7 +141,7 @@ methods::setMethod("eval_rare_richness_importance",
   function(x, solution, rescale = TRUE, ...) {
     # assert valid arguments
     assert(is.numeric(solution))
-    rlang::check_dots_empty()
+    assert_dots_empty()
     # extract planning unit solution status
     status <- planning_unit_solution_status(x, solution)
     # extract indices
@@ -168,7 +168,7 @@ methods::setMethod("eval_rare_richness_importance",
       is.matrix(solution),
       is.numeric(solution)
     )
-    rlang::check_dots_empty()
+    assert_dots_empty()
     # extract planning unit solution status
     status <- planning_unit_solution_status(x, solution)
     # extract indices
@@ -197,7 +197,7 @@ methods::setMethod("eval_rare_richness_importance",
   function(x, solution, rescale = TRUE, ...) {
     # assert valid arguments
     assert(is.data.frame(solution))
-    rlang::check_dots_empty()
+    assert_dots_empty()
     # extract planning unit solution status
     status <- planning_unit_solution_status(x, solution)
     # extract indices
@@ -234,7 +234,7 @@ methods::setMethod("eval_rare_richness_importance",
         )
       )
     )
-    rlang::check_dots_empty()
+    assert_dots_empty()
     # extract planning unit solution status
     status <- planning_unit_solution_status(x, solution)
     # extract indices
@@ -266,7 +266,7 @@ methods::setMethod("eval_rare_richness_importance",
   function(x, solution, rescale = TRUE, ...) {
     # assert valid arguments
     assert(inherits(solution, "sf"))
-    rlang::check_dots_empty()
+    assert_dots_empty()
     # extract planning unit solution status
     status <- planning_unit_solution_status(x, solution)
     # extract indices
@@ -296,7 +296,7 @@ methods::setMethod("eval_rare_richness_importance",
   methods::signature("ConservationProblem", "Raster"),
   function(x, solution, rescale = TRUE, ...) {
     assert(inherits(solution, "Raster"))
-    rlang::check_dots_empty()
+    assert_dots_empty()
     # extract planning unit solution status
     status <- planning_unit_solution_status(x, solution)
     # extract indices
@@ -320,7 +320,7 @@ methods::setMethod("eval_rare_richness_importance",
   methods::signature("ConservationProblem", "SpatRaster"),
   function(x, solution, rescale = TRUE, ...) {
     assert(inherits(solution, "SpatRaster"))
-    rlang::check_dots_empty()
+    assert_dots_empty()
     # extract planning unit solution status
     status <- planning_unit_solution_status(x, solution)
     # extract indices

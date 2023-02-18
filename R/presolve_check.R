@@ -254,7 +254,8 @@ internal_presolve_check <- function(x) {
     result <- vapply(r1, FUN.VALUE = logical(1), function(i) {
       sum(x$A()[i, ]) <= x$rhs()[i]
     })
-    if (!all(r1)) {
+    if (any(result)) {
+      pass <- FALSE
       if (length(r1) == 1) {
         msg2 <- c(
           msg2,

@@ -19,7 +19,7 @@ assertthat::on_failure(is_matrix_ish) <- function(call, env) {
   c(
     paste0(
       "{.arg ", deparse(call$x),
-      "} is not a {.cls matrix} or {.cls Matrix}."
+      "} must be a {.cls matrix} or {.cls Matrix}."
     ),
     "x" = paste0(
       "{.arg ", deparse(call$x), "} is a {.cls ", class(x)[[1]], "}."
@@ -42,7 +42,8 @@ is_conservation_problem <- function(x) {
 }
 
 assertthat::on_failure(is_conservation_problem) <- function(call, env) {
-  if (inherits(env$x, "pproto")) {
+  x <- eval(call$x, envir = env)
+  if (inherits(x, "pproto")) {
     return(
       c(
         paste0(
@@ -58,7 +59,7 @@ assertthat::on_failure(is_conservation_problem) <- function(call, env) {
       c(
         paste0(
           "{.arg ", deparse(call$x),
-          "} is not a {.cls ConservationProblem}."
+          "} must be a {.cls ConservationProblem}."
         ),
         "i" = "See {.fun problem} to create a new conservation problem."
       )
@@ -89,7 +90,7 @@ assertthat::on_failure(is_inherits) <- function(call, env) {
   c(
     paste0(
       paste0("{.arg ", deparse(call$x), "}"),
-      " is not a ",
+      " must be a ",
       list_text(paste0("{.cls ", w, "}"), last_sep = "or", quote = FALSE),
       "."
     ),

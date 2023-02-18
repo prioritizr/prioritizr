@@ -174,6 +174,19 @@ test_that("compile (manually specified data, multiple zones)", {
     cm1 %>%
     matrix_to_triplet_dataframe() %>%
     setNames(c("id1", "id2", "boundary"))
+  cdf2 <- cdf[0, ]
+  cdf2$zone1 <- character(0)
+  cdf2$zone2 <- character(0)
+  for (z1 in seq_len(3)) {
+    for (z2 in seq_len(3)) {
+      if (z[z1, z2] > 0.5) {
+        d <- cdf
+        d$zone1 <- paste0("zone_", z1)
+        d$zone2 <- paste0("zone_", z2)
+        cdf2 <- rbind(cdf2, d)
+      }
+    }
+  }
   carray <- array(0, dim = c(nrow(cm1), ncol(cm1), 3, 3))
   for (z1 in seq_len(3))
     for (z2 in seq_len(3))
@@ -191,16 +204,19 @@ test_that("compile (manually specified data, multiple zones)", {
   o2 <- p %>% add_neighbor_constraints(k, z, cm1) %>% compile()
   o3 <- p %>% add_neighbor_constraints(k, z, cm2) %>% compile()
   o4 <- p %>% add_neighbor_constraints(k, z, cdf) %>% compile()
-  o5 <- p %>% add_neighbor_constraints(k, z = NULL, carray) %>% compile()
+  o5 <- p %>% add_neighbor_constraints(k, z = NULL, cdf2) %>% compile()
+  o6 <- p %>% add_neighbor_constraints(k, z = NULL, carray) %>% compile()
   # tests
   expect_equal(o1$obj(), o2$obj())
   expect_equal(o1$obj(), o3$obj())
   expect_equal(o1$obj(), o4$obj())
   expect_equal(o1$obj(), o5$obj())
+  expect_equal(o1$obj(), o6$obj())
   expect_true(all(o1$A() == o2$A()))
   expect_true(all(o1$A() == o3$A()))
   expect_true(all(o1$A() == o4$A()))
-  expect_true(all(o5$A() == o5$A()))
+  expect_true(all(o1$A() == o5$A()))
+  expect_true(all(o1$A() == o6$A()))
 })
 
 test_that("solve (sf, multiple zones)", {

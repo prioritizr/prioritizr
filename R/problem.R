@@ -520,7 +520,7 @@ methods::setMethod(
       terra::nlyr(x) == 1,
       no_duplicates(names(features))
     )
-    rlang::check_dots_empty()
+    assert_dots_empty()
     problem(
       x,
       zones(
@@ -547,7 +547,7 @@ methods::setMethod(
       terra::nlyr(x) == number_of_zones(features),
       is_comparable_raster(x, features)
     )
-    rlang::check_dots_empty()
+    assert_dots_empty()
     if (run_checks) {
       assert(any_nonNA(x))
       verify(
@@ -625,7 +625,9 @@ methods::setMethod(
       all_columns_inherit(x[, cost_column, drop = FALSE], "numeric"),
       all_columns_any_finite(x[, cost_column, drop = FALSE])
     )
-    rlang::check_dots_empty()
+    print("here1")
+    assert_dots_empty()
+    print("here2")
     assert(
       all_match_of(unlist(as.list(features)), names(x)),
       msg = c(
@@ -729,7 +731,7 @@ methods::setMethod(
       all_match_of(rij$pu, x$id),
       all_match_of(rij$species, features$id)
     )
-    rlang::check_dots_empty()
+    assert_dots_empty()
     # verifications
     verify(
       all_positive(x[, cost_column]),
@@ -851,7 +853,7 @@ methods::setMethod(
       # multiple arguments
       ncol(x) == length(rij_matrix)
     )
-    rlang::check_dots_empty()
+    assert_dots_empty()
     rij_matrix_ncol <- vapply(rij_matrix, ncol, numeric(1))
     assert(
       all(rij_matrix_ncol == nrow(x)),
@@ -980,7 +982,7 @@ methods::setMethod(
       assertthat::is.flag(run_checks),
       assertthat::noNA(run_checks)
     )
-    rlang::check_dots_empty()
+    assert_dots_empty()
     assert(
       all(!st_geometry_classes(x) %in% c("GEOMETRYCOLLECTION", "MULTIPOINT")),
       msg = paste(
@@ -1077,7 +1079,7 @@ methods::setMethod(
       all_columns_any_finite(x[, cost_column]),
       number_of_zones(features) == length(cost_column)
     )
-    rlang::check_dots_empty()
+    assert_dots_empty()
     assert(
       all(!st_geometry_classes(x) %in% c("GEOMETRYCOLLECTION", "MULTIPOINT")),
       msg = paste(
