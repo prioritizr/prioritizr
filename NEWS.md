@@ -4,31 +4,39 @@
 
 - The package has been updated to focus on using the _sf_ and _terra_ package
   for spatial vector and raster datasets. This is because the _sf_ package is
-  the successor to the _sp_ package and the _terra_ package is the successor
+  the successor to the _sp_ package, and the _terra_ package is the successor
   to the _raster_ package. By leveraging these newer packages, the _prioritizr_
   package can provide better performance. Although _sp_ and _raster_ package
-  data formats (e.g., `raster::stack()` and `sp::SpatialPolyonsDataFrame()`)
+  classes (e.g., `raster::stack()` and `sp::SpatialPolyonsDataFrame()`)
   are still supported, the _prioritizr_ package will now throw deprecation
-  warnings. Please note that the _sp_ and _raster_ package data formats will be
-  fully deprecated and removed in a later version this year.
+  warnings. Since support for the _sp_ and _raster_ package classes
+  will be fully deprecated and removed in a later version this year, we
+  recommend updating code to use the _sf_ and _terra_ packages.
 
 ## Breaking changes
 
 - All _proto_ classes have been migrated to _R6_ classes. This update reduces
   memory usage (#238), so `problem()` objects can now contain many more
-  constraints and penalties than previously. Note that any `problem()` objects
+  constraints and penalties. Note that any `problem()` objects
   that were produced using earlier versions of the package are not compatible
   with this version of the package.
-- The `boundary_matrix()` format has been updated. This means that
-  users will not be able to use boundary data generated using previous
-  verisons of the package.
+- The _proto_, _raster_, _sf_, _sp_ packages are no longer automatically
+  loaded alongside _prioritizr_. As such, users will need to load them manually
+  (e.g., using `library(sf)`).
 - The built-in datasets have been removed and replaced with functions
-  to import them as needed (see below). Note that these functions only return
-  `sf::st_sf()` and `terra::rast()` objects.
-- The `sim_pu_sf` and `sim_pu_zones_sf` built-in datasets have been
-  removed, because they are now effectively the same as the
-  `get_sim_pu_polygons()` and `get_sim_zones_pu_polygons()` datasets.
-- The `add_lpsymphony_solver()` now throws an error -- instead of a warning --
+  to import them as needed (i.e., `get_sim_pu_raster()`,
+  `get_sim_pu_polygons()`, `get_sim_pu_lines()`, `get_sim_pu_points()`,,
+  `get_sim_locked_in_raster()`, `get_sim_locked_out_raster()`,
+  `get_sim_zones_pu_raster()`, `get_sim_zones_pu_polygons()`,
+  `get_sim_phylogeny()`, `get_sim_features()`, `get_sim_zones_features()`).
+  These functions now return `sf::st_sf()`,
+  `terra::rast()`, `ape::read.tree()` and `zones()` objects.
+  Note that these functions are provided because `data(...)` cannot be
+  used with `terra::rast()` objects. See `?data` for more information.
+- The `boundary_matrix()` output format has been updated. This means that
+  users will not be able to use boundary data generated using previous
+  versions of the package.
+- The `add_lpsymphony_solver()` now throws an error, instead of a warning,
   if an old version of the _lpsymphony R_ package is installed that is known
   to produce incorrect results.
 - The `marxan_boundary_data_to_matrix()` function is no longer compatible
@@ -46,15 +54,8 @@
 - The `print()` function for `problem()`, `optimization_problem()`, and
   `zones()` objects has been updated to provide more information.
 - New `summary()` function to provide extensive detail on `problem()` objects.
-- Updates to improve the error messages. Hopefully, users should no longer
-  see `"bad error message"` in an error message!
-- New functions for importing built-in datasets (i.e.,  `get_sim_pu_raster()`,
-  `get_sim_pu_polygons()`, `get_sim_pu_lines()`, `get_sim_pu_points()`,,
-  `get_sim_locked_in_raster()`, `get_sim_locked_out_raster()`,
-  `get_sim_zones_pu_raster()`, `get_sim_zones_pu_polygons()`,
-  `get_sim_phylogeny()`, `get_sim_features()`, `get_sim_zones_features()`).
-  Note that these functions are provided because `data(...)` cannot be
-  used with `terra::rast()` objects.
+- Updates to improve the error messages and error message handling.
+  Hopefully, users should no longer see `"bad error message"`!
 
 ## Minor improvements and bug fixes
 
@@ -68,9 +69,15 @@
 - To ensure consistency among the portfolio functions, all of them (except for
   `add_extra_portfolio()`) default to generating 10 solutions.
 - Update publication record.
-- The `solve()` function will now output `tibble::tibble()` objects,
-  when the planning unit data are `tibble::tibble()` objects.
+- The `solve()` function will now output `tibble::tibble()` objects
+  (instead of `data.frame()` objects), when the planning unit data are
+  `tibble::tibble()` objects.
+- The `boundary_matrix()` function now uses `terra::sharedPaths()` for
+  calculations, providing greater performance.
 - The package now requires C++17 for compilation (#263).
+- Remove _doParallel_ and _plyr_ packages as dependencies by simplifying
+  the `add_shuffle_portfolio()` and `eval_replacement_importance()` functions.
+- Assorted tweaks to improve writing in the vignettes and documentation.
 
 # prioritizr 7.2.2.7
 
