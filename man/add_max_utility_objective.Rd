@@ -76,8 +76,8 @@ confusion with existing terminology.
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
-sim_pu_zones_raster <- get_sim_zones_pu_raster()
-sim_features_zones <- get_sim_zones_features()
+sim_zones_pu_raster <- get_sim_zones_pu_raster()
+sim_zones_features <- get_sim_zones_features()
 
 # create problem with maximum utility objective
 p1 <-
@@ -95,7 +95,7 @@ plot(s1, main = "solution", axes = FALSE)
 # create multi-zone problem with maximum utility objective that
 # has a single budget for all zones
 p2 <-
-  problem(sim_pu_zones_raster, sim_features_zones) \%>\%
+  problem(sim_zones_pu_raster, sim_zones_features) \%>\%
   add_max_utility_objective(5000) \%>\%
   add_binary_decisions() \%>\%
   add_default_solver(gap = 0, verbose = FALSE)
@@ -109,7 +109,7 @@ plot(category_layer(s2), main = "solution", axes = FALSE)
 # create multi-zone problem with maximum utility objective that
 # has separate budgets for each zone
 p3 <-
-  problem(sim_pu_zones_raster, sim_features_zones) \%>\%
+  problem(sim_zones_pu_raster, sim_zones_features) \%>\%
   add_max_utility_objective(c(1000, 2000, 3000)) \%>\%
   add_binary_decisions() \%>\%
   add_default_solver(gap = 0, verbose = FALSE)

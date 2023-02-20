@@ -53,8 +53,8 @@ NULL
 #' # load data
 #' sim_pu_polygons <- get_sim_pu_polygons()
 #' sim_features <- get_sim_features()
-#' sim_pu_zones_polygons <- get_sim_zones_pu_polygons()
-#' sim_features_zones <- get_sim_zones_features()
+#' sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
+#' sim_zones_features <- get_sim_zones_features()
 #'
 #' # create minimal problem
 #' p1 <-
@@ -99,7 +99,7 @@ NULL
 #' # create minimal problem with multiple zones
 #' p5 <-
 #'   problem(
-#'     sim_pu_zones_polygons, sim_features_zones,
+#'     sim_zones_pu_polygons, sim_zones_features,
 #'     c("cost_1", "cost_2", "cost_3")
 #'   ) %>%
 #'   add_min_set_objective() %>%

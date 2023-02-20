@@ -85,6 +85,12 @@ check:
 	cp -R doc inst/
 	touch inst/doc/.gitkeep
 
+gpcheck:
+	echo "\n===== GOOD PRACTICE =====\n" > gp.log 2>&1
+	R --slave -e "goodpractice::gp('.')" >> gp.log 2>&1
+	cp -R doc inst/
+	touch inst/doc/.gitkeep
+
 checkascran:
 	echo "\n===== R CMD CHECK =====\n" > check.log 2>&1
 	R --slave -e "devtools::check(remote = TRUE, build_args = '--no-build-vignettes', args = '--no-build-vignettes', vignettes = FALSE)" >> check.log 2>&1

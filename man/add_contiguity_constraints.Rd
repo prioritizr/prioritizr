@@ -102,8 +102,8 @@ In early versions, this function was named as the
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
-sim_pu_zones_raster <- get_sim_zones_pu_raster()
-sim_features_zones <- get_sim_zones_features()
+sim_zones_pu_raster <- get_sim_zones_pu_raster()
+sim_zones_features <- get_sim_zones_features()
 
 # create minimal problem
 p1 <-
@@ -126,7 +126,7 @@ plot(s1, axes = FALSE)
 # create minimal problem with multiple zones, and limit the solver to
 # 30 seconds to obtain solutions in a feasible period of time
 p3 <-
-  problem(sim_pu_zones_raster, sim_features_zones) \%>\%
+  problem(sim_zones_pu_raster, sim_zones_features) \%>\%
   add_min_set_objective() \%>\%
   add_relative_targets(matrix(0.2, ncol = 3, nrow = 5)) \%>\%
   add_binary_decisions() \%>\%
@@ -178,7 +178,7 @@ plot(s2, axes = FALSE)
 # link up the planning units allocated to the "reserve zone"
 
 # create planning unit data
-pus <- sim_pu_zones_raster[[c(1, 1)]]
+pus <- sim_zones_pu_raster[[c(1, 1)]]
 pus[[2]] <- pus[[2]] * 0.3
 print(pus)
 

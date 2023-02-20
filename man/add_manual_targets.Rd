@@ -97,8 +97,8 @@ set.seed(500)
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
-sim_pu_zones_raster <- get_sim_zones_pu_raster()
-sim_features_zones <- get_sim_zones_features()
+sim_zones_pu_raster <- get_sim_zones_pu_raster()
+sim_zones_features <- get_sim_zones_features()
 
 # create problem with 10\% relative targets
 p1 <-
@@ -184,7 +184,7 @@ plot(s4, main = "solution", axes = FALSE)
 targets_matrix <- matrix(rpois(15, 1), nrow = 5, ncol = 3)
 
 p5 <-
-  problem(sim_pu_zones_raster, sim_features_zones) \%>\%
+  problem(sim_zones_pu_raster, sim_zones_features) \%>\%
   add_min_set_objective() \%>\%
   add_absolute_targets(targets_matrix) \%>\%
   add_binary_decisions() \%>\%
@@ -198,15 +198,15 @@ plot(category_layer(s5), main = "solution", axes = FALSE)
 
 # create equivalent problem using add_manual_targets
 targets_dataframe <- expand.grid(
-  feature = feature_names(sim_features_zones),
-  zone = zone_names(sim_features_zones),
+  feature = feature_names(sim_zones_features),
+  zone = zone_names(sim_zones_features),
   sense = ">=",
   type = "absolute"
 )
 targets_dataframe$target <- c(targets_matrix)
 
 p6 <-
-  problem(sim_pu_zones_raster, sim_features_zones) \%>\%
+  problem(sim_zones_pu_raster, sim_zones_features) \%>\%
   add_min_set_objective() \%>\%
   add_manual_targets(targets_dataframe) \%>\%
   add_binary_decisions() \%>\%
@@ -227,9 +227,9 @@ plot(category_layer(s6), main = "solution", axes = FALSE)
 # restoration
 
 # create data
-spp_zone1 <- as.list(sim_features_zones)[[1]][[1:2]]
+spp_zone1 <- as.list(sim_zones_features)[[1]][[1:2]]
 spp_zone2 <- spp_zone1 * 0.5
-costs <- sim_pu_zones_raster[[1:2]]
+costs <- sim_zones_pu_raster[[1:2]]
 
 # create targets
 targets_dataframe2 <- tibble::tibble(

@@ -32,14 +32,14 @@ Extract the names of zones in an object.
 \examples{
 \dontrun{
 # load data
-sim_pu_zones_raster <- get_sim_zones_pu_raster()
-sim_features_zones <- get_sim_zones_features()
+sim_zones_pu_raster <- get_sim_zones_pu_raster()
+sim_zones_features <- get_sim_zones_features()
 
 # print names of zones in a Zones object
-print(zone_names(sim_features_zones))
+print(zone_names(sim_zones_features))
 # create problem with multiple zones
 p <-
-  problem(sim_pu_zones_raster, sim_features_zones) \%>\%
+  problem(sim_zones_pu_raster, sim_zones_features) \%>\%
   add_min_set_objective() \%>\%
   add_relative_targets(matrix(0.2, ncol = 3, nrow = 5)) \%>\%
   add_binary_decisions()

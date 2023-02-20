@@ -48,8 +48,8 @@ set.seed(500)
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
-sim_pu_zones_raster <- get_sim_zones_pu_raster()
-sim_features_zones <- get_sim_zones_features()
+sim_zones_pu_raster <- get_sim_zones_pu_raster()
+sim_zones_features <- get_sim_zones_features()
 
 # create minimal problem with shuffle portfolio
 p1 <-
@@ -73,7 +73,7 @@ plot(s1, axes = FALSE)
 
 # build multi-zone conservation problem with shuffle portfolio
 p2 <-
-  problem(sim_pu_zones_raster, sim_features_zones) \%>\%
+  problem(sim_zones_pu_raster, sim_zones_features) \%>\%
   add_min_set_objective() \%>\%
   add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5, ncol = 3)) \%>\%
   add_binary_decisions() \%>\%

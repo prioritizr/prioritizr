@@ -61,8 +61,8 @@ NULL
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
-#' sim_pu_zones_raster <- get_sim_zones_pu_raster()
-#' sim_features_zones <- get_sim_zones_features()
+#' sim_zones_pu_raster <- get_sim_zones_pu_raster()
+#' sim_zones_features <- get_sim_zones_features()
 #'
 #' # create minimal problem with minimum set objective
 #' p1 <-
@@ -82,7 +82,7 @@ NULL
 #' targets_matrix <- matrix(rpois(15, 1), nrow = 5, ncol = 3)
 #'
 #' p2 <-
-#'   problem(sim_pu_zones_raster, sim_features_zones) %>%
+#'   problem(sim_zones_pu_raster, sim_zones_features) %>%
 #'   add_min_set_objective() %>%
 #'   add_absolute_targets(targets_matrix) %>%
 #'   add_binary_decisions() %>%

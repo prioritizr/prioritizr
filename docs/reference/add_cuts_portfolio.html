@@ -172,8 +172,8 @@ more complex conservation problems. <em>Ecography</em>, 23: 565--574.</p>
 <span class="r-in"><span><span class="co"># load data</span></span></span>
 <span class="r-in"><span><span class="va">sim_pu_raster</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_pu_raster</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">sim_features</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_features</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">sim_pu_zones_raster</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_zones_pu_raster</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">sim_features_zones</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_zones_features</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sim_zones_pu_raster</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_zones_pu_raster</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sim_zones_features</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_zones_features</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create minimal problem with cuts portfolio</span></span></span>
 <span class="r-in"><span><span class="va">p1</span> <span class="op">&lt;-</span></span></span>
@@ -195,7 +195,7 @@ more complex conservation problems. <em>Ecography</em>, 23: 565--574.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># build multi-zone conservation problem with cuts portfolio</span></span></span>
 <span class="r-in"><span><span class="va">p2</span> <span class="op">&lt;-</span></span></span>
-<span class="r-in"><span> <span class="fu"><a href="problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_zones_raster</span>, <span class="va">sim_features_zones</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span> <span class="fu"><a href="problem.html">problem</a></span><span class="op">(</span><span class="va">sim_zones_pu_raster</span>, <span class="va">sim_zones_features</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span> <span class="fu"><a href="add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span> <span class="fu"><a href="add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">15</span>, <span class="fl">0.1</span>, <span class="fl">0.2</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">5</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span> <span class="fu"><a href="add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
@@ -222,7 +222,7 @@ more complex conservation problems. <em>Ecography</em>, 23: 565--574.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "names")= chr [1:10] "solution_1" "solution_2" "solution_3" "solution_4" ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "status")= Named chr [1:10] "OPTIMAL" "OPTIMAL" "OPTIMAL" "OPTIMAL" ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "names")= chr [1:10] "solution_1" "solution_2" "solution_3" "solution_4" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "runtime")= Named num [1:10] 0.006 0.006 0.007 0.007 0.035 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "runtime")= Named num [1:10] 0.007 0.025 0.024 0.007 0.007 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "names")= chr [1:10] "solution_1" "solution_2" "solution_3" "solution_4" ...</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># convert each solution in the portfolio into a single category layer</span></span></span>

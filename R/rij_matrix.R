@@ -60,7 +60,7 @@ NULL
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_pu_polygons <- get_sim_pu_polygons()
-#' sim_pu_zones_raster <- get_sim_zones_pu_raster()
+#' sim_zones_pu_raster <- get_sim_zones_pu_raster()
 #' sim_features <- get_sim_features()
 #'
 #' # create rij matrix using raster layer planning units
@@ -72,7 +72,7 @@ NULL
 #' print(rij_polygons)
 #'
 #' # create rij matrix using raster planning units with multiple zones
-#' rij_zones_raster <- rij_matrix(sim_pu_zones_raster, sim_features)
+#' rij_zones_raster <- rij_matrix(sim_zones_pu_raster, sim_features)
 #' print(rij_zones_raster)
 #' }
 #' @export

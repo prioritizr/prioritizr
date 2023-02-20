@@ -109,8 +109,8 @@ require(ape)
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
 sim_phylogeny <- get_sim_phylogeny()
-sim_pu_zones_raster  <- get_sim_zones_pu_raster()
-sim_features_zones  <- get_sim_zones_features()
+sim_zones_pu_raster  <- get_sim_zones_pu_raster()
+sim_zones_features  <- get_sim_zones_features()
 
 # plot the simulated phylogeny
 par(mfrow = c(1, 1))
@@ -147,23 +147,23 @@ plot(
 
 # rename the features in the example phylogeny for use with the
 # multi-zone data
-sim_phylogeny$tip.label <- feature_names(sim_features_zones)
+sim_phylogeny$tip.label <- feature_names(sim_zones_features)
 
 # create targets for a multi-zone problem. Here, each feature needs a total
 # of 10 units of habitat to be conserved among the three zones to be
 # considered adequately conserved
 targets <- tibble::tibble(
-  feature = feature_names(sim_features_zones),
-  zone = list(zone_names(sim_features_zones))[
-    rep(1, number_of_features(sim_features_zones))],
-  type = rep("absolute", number_of_features(sim_features_zones)),
-  target = rep(10, number_of_features(sim_features_zones))
+  feature = feature_names(sim_zones_features),
+  zone = list(zone_names(sim_zones_features))[
+    rep(1, number_of_features(sim_zones_features))],
+  type = rep("absolute", number_of_features(sim_zones_features)),
+  target = rep(10, number_of_features(sim_zones_features))
 )
 
 # create a multi-zone problem with a maximum phylogenetic diversity
 # objective, where the total expenditure in all zones is 5000.
 p2 <-
-  problem(sim_pu_zones_raster, sim_features_zones) \%>\%
+  problem(sim_zones_pu_raster, sim_zones_features) \%>\%
   add_max_phylo_div_objective(5000, sim_phylogeny) \%>\%
   add_manual_targets(targets) \%>\%
   add_binary_decisions() \%>\%
@@ -190,7 +190,7 @@ plot(
 # create a multi-zone problem with a maximum phylogenetic diversity
 # objective, where each zone has a separate budget.
 p3 <-
-  problem(sim_pu_zones_raster, sim_features_zones) \%>\%
+  problem(sim_zones_pu_raster, sim_zones_features) \%>\%
   add_max_phylo_div_objective(c(2500, 500, 2000), sim_phylogeny) \%>\%
   add_manual_targets(targets) \%>\%
   add_binary_decisions() \%>\%

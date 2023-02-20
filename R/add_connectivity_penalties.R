@@ -170,8 +170,8 @@ NULL
 #' # load data
 #' sim_pu_polygons <- get_sim_pu_polygons()
 #' sim_features <- get_sim_features()
-#' sim_pu_zones_raster <- get_sim_zones_pu_raster()
-#' sim_features_zones <- get_sim_zones_features()
+#' sim_zones_pu_raster <- get_sim_zones_pu_raster()
+#' sim_zones_features <- get_sim_zones_features()
 #'
 #' # define function to rescale values between zero and one so that we
 #' # can compare solutions from different connectivity matrices
@@ -274,14 +274,14 @@ NULL
 #' # create minimal multi-zone problem and limit solver to one minute
 #' # to obtain solutions in a short period of time
 #' p3 <-
-#'   problem(sim_pu_zones_raster, sim_features_zones) %>%
+#'   problem(sim_zones_pu_raster, sim_zones_features) %>%
 #'   add_min_set_objective() %>%
 #'   add_relative_targets(matrix(0.15, nrow = 5, ncol = 3)) %>%
 #'   add_binary_decisions() %>%
 #'   add_default_solver(time_limit = 60, verbose = FALSE)
 #'
 #' # create matrix showing which planning units are adjacent to other units
-#' a_matrix <- adjacency_matrix(sim_pu_zones_raster)
+#' a_matrix <- adjacency_matrix(sim_zones_pu_raster)
 #'
 #' # visualize matrix
 #' image(a_matrix)
@@ -374,11 +374,11 @@ NULL
 #' # for real-world problems, these connectivities would be generated using
 #' # data - but here these connectivity values are assigned as random
 #' # ones or zeros
-#' c_array <- array(0, c(rep(ncell(sim_pu_zones_raster[[1]]), 2), 3, 3))
+#' c_array <- array(0, c(rep(ncell(sim_zones_pu_raster[[1]]), 2), 3, 3))
 #' for (z1 in seq_len(3))
 #'   for (z2 in seq_len(3))
 #'     c_array[, , z1, z2] <- round(
-#'       runif(ncell(sim_pu_zones_raster[[1]]) ^ 2, 0, 0.505)
+#'       runif(ncell(sim_zones_pu_raster[[1]]) ^ 2, 0, 0.505)
 #'     )
 #'
 #' # create a problem with the manually specified connectivity array

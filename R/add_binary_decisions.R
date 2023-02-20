@@ -33,8 +33,8 @@ NULL
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
-#' sim_pu_zones_raster <- get_sim_zones_pu_raster()
-#' sim_features_zones <- get_sim_zones_features()
+#' sim_zones_pu_raster <- get_sim_zones_pu_raster()
+#' sim_zones_features <- get_sim_zones_features()
 #'
 #' # create minimal problem with binary decisions
 #' p1 <-
@@ -55,7 +55,7 @@ NULL
 #'
 #' # build multi-zone conservation problem with binary decisions
 #' p2 <-
-#'   problem(sim_pu_zones_raster, sim_features_zones) %>%
+#'   problem(sim_zones_pu_raster, sim_zones_features) %>%
 #'   add_min_set_objective() %>%
 #'   add_relative_targets(targs)  %>%
 #'   add_binary_decisions() %>%

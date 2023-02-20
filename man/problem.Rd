@@ -334,9 +334,9 @@ sim_pu_polygons <- get_sim_pu_polygons()
 sim_pu_points <- get_sim_pu_points()
 sim_pu_lines <- get_sim_pu_lines()
 sim_features <- get_sim_features()
-sim_pu_zones_raster <- get_sim_zones_pu_raster()
-sim_pu_zones_polygons <- get_sim_zones_pu_polygons()
-sim_features_zones <- get_sim_zones_features()
+sim_zones_pu_raster <- get_sim_zones_pu_raster()
+sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
+sim_zones_features <- get_sim_zones_features()
 
 # create problem using raster planning unit data
 p1 <-
@@ -437,10 +437,10 @@ str(s6)
 # in a given zone
 targets <- matrix(
   rpois(15, 1),
-  nrow = number_of_features(sim_features_zones),
-  ncol = number_of_zones(sim_features_zones),
+  nrow = number_of_features(sim_zones_features),
+  ncol = number_of_zones(sim_zones_features),
   dimnames = list(
-    feature_names(sim_features_zones), zone_names(sim_features_zones)
+    feature_names(sim_zones_features), zone_names(sim_zones_features)
   )
 )
 
@@ -449,7 +449,7 @@ print(targets)
 
 # create a multi-zone problem with raster data
 p7 <-
-  problem(sim_pu_zones_raster, sim_features_zones) \%>\%
+  problem(sim_zones_pu_raster, sim_zones_features) \%>\%
   add_min_set_objective() \%>\%
   add_absolute_targets(targets) \%>\%
   add_binary_decisions() \%>\%
@@ -473,7 +473,7 @@ plot(category_layer(s7), axes = FALSE)
 # create a multi-zone problem with polygon data
 p8 <-
   problem(
-    sim_pu_zones_polygons, sim_features_zones,
+    sim_zones_pu_polygons, sim_zones_features,
     cost_column = c("cost_1", "cost_2", "cost_3")
   ) \%>\%
   add_min_set_objective() \%>\%
@@ -499,12 +499,12 @@ plot(s8[, "solution"], axes = FALSE)
 
 # to begin with, we will add columns to the planning unit data
 # that indicate the amount of each feature in each zone
-sim_pu_zones_polygons$spp1_z1 <- rpois(nrow(sim_pu_zones_polygons), 1)
-sim_pu_zones_polygons$spp2_z1 <- rpois(nrow(sim_pu_zones_polygons), 1)
-sim_pu_zones_polygons$spp3_z1 <- rpois(nrow(sim_pu_zones_polygons), 1)
-sim_pu_zones_polygons$spp1_z2 <- rpois(nrow(sim_pu_zones_polygons), 1)
-sim_pu_zones_polygons$spp2_z2 <- rpois(nrow(sim_pu_zones_polygons), 1)
-sim_pu_zones_polygons$spp3_z2 <- rpois(nrow(sim_pu_zones_polygons), 1)
+sim_zones_pu_polygons$spp1_z1 <- rpois(nrow(sim_zones_pu_polygons), 1)
+sim_zones_pu_polygons$spp2_z1 <- rpois(nrow(sim_zones_pu_polygons), 1)
+sim_zones_pu_polygons$spp3_z1 <- rpois(nrow(sim_zones_pu_polygons), 1)
+sim_zones_pu_polygons$spp1_z2 <- rpois(nrow(sim_zones_pu_polygons), 1)
+sim_zones_pu_polygons$spp2_z2 <- rpois(nrow(sim_zones_pu_polygons), 1)
+sim_zones_pu_polygons$spp3_z2 <- rpois(nrow(sim_zones_pu_polygons), 1)
 
 # create problem with polygon planning unit data and use column names
 # to indicate feature data
@@ -514,7 +514,7 @@ sim_pu_zones_polygons$spp3_z2 <- rpois(nrow(sim_pu_zones_polygons), 1)
 # two management zones
 p9 <-
   problem(
-    sim_pu_zones_polygons,
+    sim_zones_pu_polygons,
     zones(
       c("spp1_z1", "spp2_z1", "spp3_z1"),
       c("spp1_z2", "spp2_z2", "spp3_z2"),

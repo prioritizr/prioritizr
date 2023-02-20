@@ -94,8 +94,8 @@ contain a column name for each zone.}
 set.seed(500)
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
-sim_pu_zones_raster <- get_sim_zones_pu_raster()
-sim_features_zones <- get_sim_zones_features()
+sim_zones_pu_raster <- get_sim_zones_pu_raster()
+sim_zones_features <- get_sim_zones_features()
 
 # create base problem
 p <-
@@ -120,7 +120,7 @@ plot(s3, main = , axes = FALSE)
 
 # create a problem with multiple management zones
 p4 <-
-  problem(sim_pu_zones_raster, sim_features_zones) \%>\%
+  problem(sim_zones_pu_raster, sim_zones_features) \%>\%
   add_min_set_objective() \%>\%
   add_binary_decisions() \%>\%
   add_default_solver(verbose = FALSE)
@@ -129,7 +129,7 @@ p4 <-
 # to be represented in each zone
 p4_targets <- matrix(
   0.1, nrow = 5, ncol = 3, dimnames = list(
-    feature_names(sim_features_zones), zone_names(sim_features_zones)
+    feature_names(sim_zones_features), zone_names(sim_zones_features)
   )
 )
 print(p4_targets)
@@ -146,7 +146,7 @@ plot(category_layer(s5), main = "equal targets")
 # feature to be represented in each zone
 p6_targets <- matrix(
   runif(15, 0.01, 0.2), nrow = 5, ncol = 3, dimnames = list(
-    feature_names(sim_features_zones), zone_names(sim_features_zones)
+    feature_names(sim_zones_features), zone_names(sim_zones_features)
   )
 )
 print(p6_targets)

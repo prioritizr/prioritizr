@@ -123,7 +123,6 @@ format_assertthat_msg <- function(x) {
   x
 }
 
-
 #' Assert dots are empty
 #'
 #' Assert that `...` are empty.
@@ -145,4 +144,24 @@ assert_dots_empty <- function(env = rlang::caller_env(),
                               call = fn_caller_env(),
                               action = rlang::abort) {
   rlang::check_dots_empty(env = env, call = call)
+}
+
+#' Assert required
+#'
+#' Assert that an argument is required.
+#'
+#' @param x passed to [rlang::check_required()].
+#'
+#' @param arg passed to [rlang::check_required()].
+#'
+#' @param call [environment()] for call. Defaults to `fn_caller_env()`.
+#'
+#' @details
+#' This function is essentially a wrapper for [rlang::check_required()].
+#'
+#' @noRd
+assert_required <- function(x = rlang::caller_env(),
+                            arg = rlang::caller_arg(x),
+                            call = fn_caller_env()) {
+  rlang::check_required(x = x, arg = arg, call = call)
 }

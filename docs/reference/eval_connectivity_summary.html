@@ -351,8 +351,8 @@ connectivity.</p>
 <span class="r-in"><span><span class="co"># load data</span></span></span>
 <span class="r-in"><span><span class="va">sim_pu_raster</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_pu_raster</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">sim_features</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_features</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">sim_pu_zones_polygons</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_zones_pu_polygons</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">sim_features_zones</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_zones_features</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sim_zones_pu_polygons</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_zones_pu_polygons</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sim_zones_features</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_zones_features</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># build minimal conservation problem with raster data</span></span></span>
 <span class="r-in"><span><span class="va">p1</span> <span class="op">&lt;-</span></span></span>
@@ -400,7 +400,7 @@ connectivity.</p>
 <span class="r-in"><span><span class="co"># build multi-zone conservation problem with polygon data</span></span></span>
 <span class="r-in"><span><span class="va">p2</span> <span class="op">&lt;-</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="problem.html">problem</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    <span class="va">sim_pu_zones_polygons</span>, <span class="va">sim_features_zones</span>,</span></span>
+<span class="r-in"><span>    <span class="va">sim_zones_pu_polygons</span>, <span class="va">sim_zones_features</span>,</span></span>
 <span class="r-in"><span>    cost_column <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cost_1"</span>, <span class="st">"cost_2"</span>, <span class="st">"cost_3"</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
@@ -446,11 +446,11 @@ connectivity.</p>
 <span class="r-plt img"><img src="eval_connectivity_summary-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># simulate connectivity matrix</span></span></span>
-<span class="r-in"><span><span class="co"># here, we will add a new column to sim_pu_zones_polygons with</span></span></span>
+<span class="r-in"><span><span class="co"># here, we will add a new column to sim_zones_pu_polygons with</span></span></span>
 <span class="r-in"><span><span class="co"># randomly simulated values and create a connectivity matrix</span></span></span>
 <span class="r-in"><span><span class="co"># based on the average simulated values of adjacent planning units</span></span></span>
-<span class="r-in"><span><span class="va">sim_pu_zones_polygons</span><span class="op">$</span><span class="va">con</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">sim_pu_zones_polygons</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">cm2</span> <span class="op">&lt;-</span> <span class="fu"><a href="connectivity_matrix.html">connectivity_matrix</a></span><span class="op">(</span><span class="va">sim_pu_zones_polygons</span>, <span class="st">"con"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sim_zones_pu_polygons</span><span class="op">$</span><span class="va">con</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">sim_zones_pu_polygons</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">cm2</span> <span class="op">&lt;-</span> <span class="fu"><a href="connectivity_matrix.html">connectivity_matrix</a></span><span class="op">(</span><span class="va">sim_zones_pu_polygons</span>, <span class="st">"con"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># calculate connectivity associated with the solution</span></span></span>
 <span class="r-in"><span><span class="va">r2</span> <span class="op">&lt;-</span> <span class="fu">eval_connectivity_summary</span><span class="op">(</span></span></span>

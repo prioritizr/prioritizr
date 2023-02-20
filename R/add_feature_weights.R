@@ -74,8 +74,8 @@ NULL
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
 #' sim_phylogeny <- get_sim_phylogeny()
-#' sim_pu_zones_raster <- get_sim_zones_pu_raster()
-#' sim_features_zones <- get_sim_zones_features()
+#' sim_zones_pu_raster <- get_sim_zones_pu_raster()
+#' sim_zones_features <- get_sim_zones_features()
 #'
 #' # create minimal problem that aims to maximize the number of features
 #' # adequately conserved given a total budget of 3800. Here, each feature
@@ -183,7 +183,7 @@ NULL
 #' # a budget such that the total maximum expenditure in all zones
 #' # cannot exceed 3000
 #' p6 <-
-#'   problem(sim_pu_zones_raster, sim_features_zones) %>%
+#'   problem(sim_zones_pu_raster, sim_zones_features) %>%
 #'   add_max_features_objective(3000) %>%
 #'   add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
 #'   add_binary_decisions() %>%

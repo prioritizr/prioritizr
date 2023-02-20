@@ -108,8 +108,8 @@ NULL
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
-#' sim_pu_zones_raster <- get_sim_zones_pu_raster()
-#' sim_features_zones <- get_sim_zones_features()
+#' sim_zones_pu_raster <- get_sim_zones_pu_raster()
+#' sim_zones_features <- get_sim_zones_features()
 #'
 #' # create minimal problem
 #' p1 <-
@@ -143,7 +143,7 @@ NULL
 #'
 #' # create minimal problem with multiple zones
 #' p5 <-
-#'   problem(sim_pu_zones_raster, sim_features_zones) %>%
+#'   problem(sim_zones_pu_raster, sim_zones_features) %>%
 #'   add_min_set_objective() %>%
 #'   add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
 #'   add_default_solver(verbose = FALSE)

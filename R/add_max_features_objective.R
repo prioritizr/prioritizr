@@ -70,8 +70,8 @@ NULL
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
-#' sim_pu_zones_raster <- get_sim_zones_pu_raster()
-#' sim_features_zones <- get_sim_zones_features()
+#' sim_zones_pu_raster <- get_sim_zones_pu_raster()
+#' sim_zones_features <- get_sim_zones_features()
 #'
 #' # create problem with maximum features objective
 #' p1 <-
@@ -92,7 +92,7 @@ NULL
 #' # a budget such that the total maximum expenditure in all zones
 #' # cannot exceed 3000
 #' p2 <-
-#'   problem(sim_pu_zones_raster, sim_features_zones) %>%
+#'   problem(sim_zones_pu_raster, sim_zones_features) %>%
 #'   add_max_features_objective(3000) %>%
 #'   add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
 #'   add_binary_decisions() %>%
@@ -108,7 +108,7 @@ NULL
 #' # with 10% representation targets for each feature, and set
 #' # separate budgets for each management zone
 #' p3 <-
-#'   problem(sim_pu_zones_raster, sim_features_zones) %>%
+#'   problem(sim_zones_pu_raster, sim_zones_features) %>%
 #'   add_max_features_objective(c(3000, 3000, 3000)) %>%
 #'   add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
 #'   add_binary_decisions() %>%

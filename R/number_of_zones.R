@@ -14,15 +14,15 @@ NULL
 #' @examples
 #' \dontrun{
 #' # load data
-#' sim_pu_zones_raster <- get_sim_zones_pu_raster()
-#' sim_features_zones <- get_sim_zones_features()
+#' sim_zones_pu_raster <- get_sim_zones_pu_raster()
+#' sim_zones_features <- get_sim_zones_features()
 #'
 #' # print number of zones in a Zones object
-#' print(number_of_zones(sim_features_zones))
+#' print(number_of_zones(sim_zones_features))
 #
 #' # create problem with multiple zones
 #' p <-
-#'   problem(sim_pu_zones_raster, sim_features_zones) %>%
+#'   problem(sim_zones_pu_raster, sim_zones_features) %>%
 #'   add_min_set_objective() %>%
 #'   add_relative_targets(matrix(0.2, ncol = 3, nrow = 5)) %>%
 #'   add_binary_decisions()

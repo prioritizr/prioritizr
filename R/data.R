@@ -93,7 +93,7 @@ NULL
 #'
 #' }
 #'
-#' @aliases sim_pu_polygons sim_pu_zones_polygons sim_pu_points sim_pu_lines sim_pu_raster sim_locked_in_raster sim_locked_out_raster sim_pu_zones_raster sim_features sim_features_zones sim_phylogeny get_sim_pu_polygons get_sim_zones_pu_polygons get_sim_pu_points get_sim_pu_lines get_sim_pu_raster get_sim_locked_in_raster get_sim_locked_out_raster get_sim_zones_pu_raster get_sim_features get_sim_zones_features get_sim_phylogeny
+#' @aliases sim_pu_polygons sim_zones_pu_polygons sim_pu_points sim_pu_lines sim_pu_raster sim_locked_in_raster sim_locked_out_raster sim_zones_pu_raster sim_features sim_zones_features sim_phylogeny get_sim_pu_polygons get_sim_zones_pu_polygons get_sim_pu_points get_sim_pu_lines get_sim_pu_raster get_sim_locked_in_raster get_sim_locked_out_raster get_sim_zones_pu_raster get_sim_features get_sim_zones_features get_sim_phylogeny
 #'
 #' @format
 #' \describe{
@@ -127,16 +127,16 @@ NULL
 #' @examples
 #' # load data
 #' sim_pu_polygons <- get_sim_pu_polygons()
-#' sim_pu_zones_polygons <- get_sim_zones_pu_polygons()
+#' sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
 #' sim_pu_lines <- get_sim_pu_lines()
 #' sim_pu_points <- get_sim_pu_points()
 #' sim_pu_raster <- get_sim_pu_raster()
-#' sim_pu_zones_raster <- get_sim_zones_pu_raster()
+#' sim_zones_pu_raster <- get_sim_zones_pu_raster()
 #' sim_locked_in_raster <- get_sim_locked_in_raster()
 #' sim_locked_out_raster <- get_sim_locked_out_raster()
 #' sim_phylogeny <- get_sim_phylogeny()
 #' sim_features <- get_sim_features()
-#' sim_features_zones <- get_sim_zones_features()
+#' sim_zones_features <- get_sim_zones_features()
 #'
 #' # plot raster data
 #' \dontrun{
@@ -152,7 +152,7 @@ NULL
 #' plot(sim_pu_points)
 #'
 #' # plot vector planning unit data for multiple management zones
-#' plot(sim_pu_zones_polygons)
+#' plot(sim_zones_pu_polygons)
 #'
 #' # plot phylogeny data
 #' par(mfrow = c(1, 1))
@@ -164,24 +164,24 @@ NULL
 #'
 #' # plot cost data for multiple management zones
 #' par(mfrow = c(1, 1))
-#' plot(sim_pu_zones_raster, axes = FALSE)
+#' plot(sim_zones_pu_raster, axes = FALSE)
 #'
 #' # plot feature data for multiple management zones
 #' plot_names <- paste0(
 #'   "Species ",
 #'    rep(
-#'      seq_len(number_of_zones(sim_features_zones)),
-#'      number_of_features(sim_features_zones)
+#'      seq_len(number_of_zones(sim_zones_features)),
+#'      number_of_features(sim_zones_features)
 #'    ),
 #'    " (zone ",
 #'    rep(
-#'      seq_len(number_of_features(sim_features_zones)),
-#'      each = number_of_zones(sim_features_zones)
+#'      seq_len(number_of_features(sim_zones_features)),
+#'      each = number_of_zones(sim_zones_features)
 #'    ),
 #'    ")"
 #' )
 #' plot(
-#'   terra::rast(as.list(sim_features_zones)),
+#'   terra::rast(as.list(sim_zones_features)),
 #'    main = plot_names, axes = FALSE
 #' )
 #' }
@@ -205,7 +205,7 @@ get_sim_zones_pu_polygons <- function() {
   sf::st_set_crs(
     sf::read_sf(
       system.file(
-        "extdata", "sim_pu_zones_polygons.gpkg", package = "prioritizr"
+        "extdata", "sim_zones_pu_polygons.gpkg", package = "prioritizr"
       )
     ),
     na_crs
@@ -268,7 +268,7 @@ get_sim_locked_out_raster <- function() {
 #' @export
 get_sim_zones_pu_raster <- function() {
   x <- terra::rast(
-    system.file("extdata", "sim_pu_zones_raster.tif", package = "prioritizr")
+    system.file("extdata", "sim_zones_pu_raster.tif", package = "prioritizr")
   )
   terra::crs(x) <- na_crs
   names(x) <- paste0("zone_", seq_len(terra::nlyr(x)))
@@ -292,17 +292,17 @@ get_sim_zones_features <- function() {
   x <- zones(
     terra::rast(
        system.file(
-         "extdata", "sim_features_zones_1.tif", package = "prioritizr"
+         "extdata", "sim_zones_features_1.tif", package = "prioritizr"
        )
     ),
     terra::rast(
        system.file(
-         "extdata", "sim_features_zones_2.tif", package = "prioritizr"
+         "extdata", "sim_zones_features_2.tif", package = "prioritizr"
        )
      ),
     terra::rast(
        system.file(
-         "extdata", "sim_features_zones_3.tif", package = "prioritizr"
+         "extdata", "sim_zones_features_3.tif", package = "prioritizr"
        )
      ),
     zone_names = c("zone_1", "zone_2", "zone_3"),

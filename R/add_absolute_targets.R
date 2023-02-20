@@ -82,8 +82,8 @@ NULL
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
-#' sim_pu_zones_raster <- get_sim_zones_pu_raster()
-#' sim_features_zones <- get_sim_zones_features()
+#' sim_zones_pu_raster <- get_sim_zones_pu_raster()
+#' sim_zones_features <- get_sim_zones_features()
 #'
 #' # create minimal problem with no targets
 #' p0 <-
@@ -108,7 +108,7 @@ NULL
 #'
 #' # create a problem with multiple management zones
 #' p3 <-
-#'   problem(sim_pu_zones_raster, sim_features_zones) %>%
+#'   problem(sim_zones_pu_raster, sim_zones_features) %>%
 #'   add_min_set_objective() %>%
 #'   add_binary_decisions() %>%
 #'   add_default_solver(verbose = FALSE)
@@ -117,10 +117,10 @@ NULL
 #' # to be represented in each zone
 #' p4_targets <- matrix(
 #'   2,
-#'   nrow = number_of_features(sim_features_zones),
-#'   ncol = number_of_zones(sim_features_zones),
+#'   nrow = number_of_features(sim_zones_features),
+#'   ncol = number_of_zones(sim_zones_features),
 #'   dimnames = list(
-#'     feature_names(sim_features_zones), zone_names(sim_features_zones)
+#'     feature_names(sim_zones_features), zone_names(sim_zones_features)
 #'   )
 #' )
 #' print(p4_targets)
@@ -137,11 +137,11 @@ NULL
 #' # feature to be represented in each zone
 #' p5_targets <- matrix(
 #'   rpois(15, 1),
-#'   nrow = number_of_features(sim_features_zones),
-#'   ncol = number_of_zones(sim_features_zones),
+#'   nrow = number_of_features(sim_zones_features),
+#'   ncol = number_of_zones(sim_zones_features),
 #'   dimnames = list(
-#'     feature_names(sim_features_zones),
-#'     zone_names(sim_features_zones)
+#'     feature_names(sim_zones_features),
+#'     zone_names(sim_zones_features)
 #'   )
 #' )
 #' print(p5_targets)

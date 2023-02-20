@@ -216,8 +216,8 @@ contain a column name for each zone.</p></dd>
 <span class="r-in"><span><span class="co"># load data</span></span></span>
 <span class="r-in"><span><span class="va">sim_pu_raster</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_pu_raster</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">sim_features</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_features</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">sim_pu_zones_raster</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_zones_pu_raster</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">sim_features_zones</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_zones_features</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sim_zones_pu_raster</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_zones_pu_raster</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sim_zones_features</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_zones_features</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create minimal problem with no targets</span></span></span>
 <span class="r-in"><span><span class="va">p0</span> <span class="op">&lt;-</span></span></span>
@@ -243,7 +243,7 @@ contain a column name for each zone.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create a problem with multiple management zones</span></span></span>
 <span class="r-in"><span><span class="va">p3</span> <span class="op">&lt;-</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_zones_raster</span>, <span class="va">sim_features_zones</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="problem.html">problem</a></span><span class="op">(</span><span class="va">sim_zones_pu_raster</span>, <span class="va">sim_zones_features</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
@@ -252,10 +252,10 @@ contain a column name for each zone.</p></dd>
 <span class="r-in"><span><span class="co"># to be represented in each zone</span></span></span>
 <span class="r-in"><span><span class="va">p4_targets</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="fl">2</span>,</span></span>
-<span class="r-in"><span>  nrow <span class="op">=</span> <span class="fu"><a href="number_of_features.html">number_of_features</a></span><span class="op">(</span><span class="va">sim_features_zones</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  ncol <span class="op">=</span> <span class="fu"><a href="number_of_zones.html">number_of_zones</a></span><span class="op">(</span><span class="va">sim_features_zones</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  nrow <span class="op">=</span> <span class="fu"><a href="number_of_features.html">number_of_features</a></span><span class="op">(</span><span class="va">sim_zones_features</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  ncol <span class="op">=</span> <span class="fu"><a href="number_of_zones.html">number_of_zones</a></span><span class="op">(</span><span class="va">sim_zones_features</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    <span class="fu"><a href="feature_names.html">feature_names</a></span><span class="op">(</span><span class="va">sim_features_zones</span><span class="op">)</span>, <span class="fu"><a href="zone_names.html">zone_names</a></span><span class="op">(</span><span class="va">sim_features_zones</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="feature_names.html">feature_names</a></span><span class="op">(</span><span class="va">sim_zones_features</span><span class="op">)</span>, <span class="fu"><a href="zone_names.html">zone_names</a></span><span class="op">(</span><span class="va">sim_zones_features</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p4_targets</span><span class="op">)</span></span></span>
@@ -279,11 +279,11 @@ contain a column name for each zone.</p></dd>
 <span class="r-in"><span><span class="co"># feature to be represented in each zone</span></span></span>
 <span class="r-in"><span><span class="va">p5_targets</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html" class="external-link">rpois</a></span><span class="op">(</span><span class="fl">15</span>, <span class="fl">1</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  nrow <span class="op">=</span> <span class="fu"><a href="number_of_features.html">number_of_features</a></span><span class="op">(</span><span class="va">sim_features_zones</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  ncol <span class="op">=</span> <span class="fu"><a href="number_of_zones.html">number_of_zones</a></span><span class="op">(</span><span class="va">sim_features_zones</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  nrow <span class="op">=</span> <span class="fu"><a href="number_of_features.html">number_of_features</a></span><span class="op">(</span><span class="va">sim_zones_features</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  ncol <span class="op">=</span> <span class="fu"><a href="number_of_zones.html">number_of_zones</a></span><span class="op">(</span><span class="va">sim_zones_features</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    <span class="fu"><a href="feature_names.html">feature_names</a></span><span class="op">(</span><span class="va">sim_features_zones</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    <span class="fu"><a href="zone_names.html">zone_names</a></span><span class="op">(</span><span class="va">sim_features_zones</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="feature_names.html">feature_names</a></span><span class="op">(</span><span class="va">sim_zones_features</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    <span class="fu"><a href="zone_names.html">zone_names</a></span><span class="op">(</span><span class="va">sim_zones_features</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p5_targets</span><span class="op">)</span></span></span>

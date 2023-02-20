@@ -32,8 +32,8 @@ As such, this dataset would have 90 total units and two planning units.
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
-sim_pu_zones_raster <- get_sim_zones_pu_raster()
-sim_features_zones <- get_sim_zones_features()
+sim_zones_pu_raster <- get_sim_zones_pu_raster()
+sim_zones_features <- get_sim_zones_features()
 
 # create problem with one zone
 p1 <-
@@ -50,7 +50,7 @@ print(number_of_total_units(p1))
 
 # create problem with multiple zones
 p2 <-
-  problem(sim_pu_zones_raster, sim_features_zones) \%>\%
+  problem(sim_zones_pu_raster, sim_zones_features) \%>\%
   add_min_set_objective() \%>\%
   add_relative_targets(matrix(0.2, ncol = 3, nrow = 5)) \%>\%
   add_binary_decisions()

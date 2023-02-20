@@ -84,9 +84,9 @@ Church \emph{et al.} (1996). The old formulation is now provided by the
 \dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
-sim_pu_zones_raster <- get_sim_zones_pu_raster()
+sim_zones_pu_raster <- get_sim_zones_pu_raster()
 sim_features <- get_sim_features()
-sim_features_zones <- get_sim_zones_features()
+sim_zones_features <- get_sim_zones_features()
 
 # threshold the feature data to generate binary biodiversity data
 sim_binary_features <- sim_features
@@ -113,14 +113,14 @@ s1 <- solve(p1)
 plot(s1, main = "solution", axes = FALSE)
 
 # threshold the multi-zone feature data to generate binary biodiversity data
-sim_binary_features_zones <- sim_features_zones
-for (z in number_of_zones(sim_features_zones)) {
+sim_binary_features_zones <- sim_zones_features
+for (z in number_of_zones(sim_zones_features)) {
   thresholds <- terra::global(
-    sim_features_zones[[z]], fun = quantile, probs = 0.5, na.rm = TRUE
+    sim_zones_features[[z]], fun = quantile, probs = 0.5, na.rm = TRUE
   )
-  for (i in seq_len(number_of_features(sim_features_zones))) {
+  for (i in seq_len(number_of_features(sim_zones_features))) {
     sim_binary_features_zones[[z]][[i]] <- terra::as.int(
-      sim_features_zones[[z]][[i]] > thresholds[[1]][[i]]
+      sim_zones_features[[z]][[i]] > thresholds[[1]][[i]]
     )
   }
 }
@@ -128,7 +128,7 @@ for (z in number_of_zones(sim_features_zones)) {
 # create multi-zone problem with maximum utility objective that
 # has a single budget for all zones
 p2 <-
-  problem(sim_pu_zones_raster, sim_binary_features_zones) \%>\%
+  problem(sim_zones_pu_raster, sim_binary_features_zones) \%>\%
   add_max_cover_objective(800) \%>\%
   add_binary_decisions() \%>\%
   add_default_solver(verbose = FALSE)
@@ -142,7 +142,7 @@ plot(category_layer(s2), main = "solution", axes = FALSE)
 # create multi-zone problem with maximum utility objective that
 # has separate budgets for each zone
 p3 <-
-  problem(sim_pu_zones_raster, sim_binary_features_zones) \%>\%
+  problem(sim_zones_pu_raster, sim_binary_features_zones) \%>\%
   add_max_cover_objective(c(400, 400, 400)) \%>\%
   add_binary_decisions() \%>\%
   add_default_solver(verbose = FALSE)

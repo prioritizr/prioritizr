@@ -235,8 +235,8 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 <span class="r-in"><span><span class="co"># load data</span></span></span>
 <span class="r-in"><span><span class="va">sim_pu_raster</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_pu_raster</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">sim_features</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_features</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">sim_pu_zones_raster</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_zones_pu_raster</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">sim_features_zones</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_zones_features</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sim_zones_pu_raster</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_zones_pu_raster</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sim_zones_features</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_zones_features</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create minimal problem</span></span></span>
 <span class="r-in"><span><span class="va">p1</span> <span class="op">&lt;-</span></span></span>
@@ -260,7 +260,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 <span class="r-in"><span><span class="co"># create minimal problem with multiple zones, and limit the solver to</span></span></span>
 <span class="r-in"><span><span class="co"># 30 seconds to obtain solutions in a feasible period of time</span></span></span>
 <span class="r-in"><span><span class="va">p3</span> <span class="op">&lt;-</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_zones_raster</span>, <span class="va">sim_features_zones</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="problem.html">problem</a></span><span class="op">(</span><span class="va">sim_zones_pu_raster</span>, <span class="va">sim_zones_features</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">0.2</span>, ncol <span class="op">=</span> <span class="fl">3</span>, nrow <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
@@ -325,7 +325,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 <span class="r-in"><span><span class="co"># link up the planning units allocated to the "reserve zone"</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create planning unit data</span></span></span>
-<span class="r-in"><span><span class="va">pus</span> <span class="op">&lt;-</span> <span class="va">sim_pu_zones_raster</span><span class="op">[[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">]</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">pus</span> <span class="op">&lt;-</span> <span class="va">sim_zones_pu_raster</span><span class="op">[[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">]</span><span class="op">]</span></span></span>
 <span class="r-in"><span><span class="va">pus</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">pus</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span> <span class="op">*</span> <span class="fl">0.3</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">pus</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> class       : SpatRaster </span>
@@ -333,7 +333,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> resolution  : 0.1, 0.1  (x, y)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> extent      : 0, 1, -5.551115e-17, 1  (xmin, xmax, ymin, ymax)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> coord. ref. : Undefined Cartesian SRS </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> sources     : sim_pu_zones_raster.tif  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sources     : sim_zones_pu_raster.tif  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               memory  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> names       :   zone_1,   zone_1 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> min values  : 190.1328, 57.03983 </span>

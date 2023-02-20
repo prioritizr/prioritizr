@@ -281,9 +281,9 @@ NULL
 #' sim_pu_points <- get_sim_pu_points()
 #' sim_pu_lines <- get_sim_pu_lines()
 #' sim_features <- get_sim_features()
-#' sim_pu_zones_raster <- get_sim_zones_pu_raster()
-#' sim_pu_zones_polygons <- get_sim_zones_pu_polygons()
-#' sim_features_zones <- get_sim_zones_features()
+#' sim_zones_pu_raster <- get_sim_zones_pu_raster()
+#' sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
+#' sim_zones_features <- get_sim_zones_features()
 #'
 #' # create problem using raster planning unit data
 #' p1 <-
@@ -384,10 +384,10 @@ NULL
 #' # in a given zone
 #' targets <- matrix(
 #'   rpois(15, 1),
-#'   nrow = number_of_features(sim_features_zones),
-#'   ncol = number_of_zones(sim_features_zones),
+#'   nrow = number_of_features(sim_zones_features),
+#'   ncol = number_of_zones(sim_zones_features),
 #'   dimnames = list(
-#'     feature_names(sim_features_zones), zone_names(sim_features_zones)
+#'     feature_names(sim_zones_features), zone_names(sim_zones_features)
 #'   )
 #' )
 #'
@@ -396,7 +396,7 @@ NULL
 #'
 #' # create a multi-zone problem with raster data
 #' p7 <-
-#'   problem(sim_pu_zones_raster, sim_features_zones) %>%
+#'   problem(sim_zones_pu_raster, sim_zones_features) %>%
 #'   add_min_set_objective() %>%
 #'   add_absolute_targets(targets) %>%
 #'   add_binary_decisions() %>%
@@ -420,7 +420,7 @@ NULL
 #' # create a multi-zone problem with polygon data
 #' p8 <-
 #'   problem(
-#'     sim_pu_zones_polygons, sim_features_zones,
+#'     sim_zones_pu_polygons, sim_zones_features,
 #'     cost_column = c("cost_1", "cost_2", "cost_3")
 #'   ) %>%
 #'   add_min_set_objective() %>%
@@ -446,12 +446,12 @@ NULL
 #'
 #' # to begin with, we will add columns to the planning unit data
 #' # that indicate the amount of each feature in each zone
-#' sim_pu_zones_polygons$spp1_z1 <- rpois(nrow(sim_pu_zones_polygons), 1)
-#' sim_pu_zones_polygons$spp2_z1 <- rpois(nrow(sim_pu_zones_polygons), 1)
-#' sim_pu_zones_polygons$spp3_z1 <- rpois(nrow(sim_pu_zones_polygons), 1)
-#' sim_pu_zones_polygons$spp1_z2 <- rpois(nrow(sim_pu_zones_polygons), 1)
-#' sim_pu_zones_polygons$spp2_z2 <- rpois(nrow(sim_pu_zones_polygons), 1)
-#' sim_pu_zones_polygons$spp3_z2 <- rpois(nrow(sim_pu_zones_polygons), 1)
+#' sim_zones_pu_polygons$spp1_z1 <- rpois(nrow(sim_zones_pu_polygons), 1)
+#' sim_zones_pu_polygons$spp2_z1 <- rpois(nrow(sim_zones_pu_polygons), 1)
+#' sim_zones_pu_polygons$spp3_z1 <- rpois(nrow(sim_zones_pu_polygons), 1)
+#' sim_zones_pu_polygons$spp1_z2 <- rpois(nrow(sim_zones_pu_polygons), 1)
+#' sim_zones_pu_polygons$spp2_z2 <- rpois(nrow(sim_zones_pu_polygons), 1)
+#' sim_zones_pu_polygons$spp3_z2 <- rpois(nrow(sim_zones_pu_polygons), 1)
 #'
 #' # create problem with polygon planning unit data and use column names
 #' # to indicate feature data
@@ -461,7 +461,7 @@ NULL
 #' # two management zones
 #' p9 <-
 #'   problem(
-#'     sim_pu_zones_polygons,
+#'     sim_zones_pu_polygons,
 #'     zones(
 #'       c("spp1_z1", "spp2_z1", "spp3_z1"),
 #'       c("spp1_z2", "spp2_z2", "spp3_z2"),
@@ -597,6 +597,7 @@ methods::setMethod(
   "problem",
   methods::signature(x = "data.frame", features = "character"),
   function(x, features, cost_column, ...) {
+    assert_required(cost_column)
     assert(assertthat::is.string(cost_column))
     problem(
       x,
@@ -686,6 +687,8 @@ methods::setMethod(
   methods::signature(x = "data.frame", features = "data.frame"),
   function(x, features, rij, cost_column, zones = NULL, ...) {
     # assert that arguments are valid
+    assert_required(rij)
+    assert_required(cost_column)
     assert(
       is.data.frame(x),
       is.data.frame(features),
@@ -809,6 +812,7 @@ methods::setMethod(
   "problem",
   methods::signature(x = "numeric", features = "data.frame"),
   function(x, features, rij_matrix, ...) {
+    assert_required(rij_matrix)
     if (!is.list(rij_matrix))
       rij_matrix <- list("1" = rij_matrix)
     problem(matrix(x, ncol = 1), features, rij_matrix = rij_matrix, ...)
@@ -823,6 +827,7 @@ methods::setMethod(
   methods::signature(x = "matrix", features = "data.frame"),
   function(x, features, rij_matrix, ...) {
     # assert that arguments are valid
+    assert_required(rij_matrix)
     if (!inherits(rij_matrix, "list"))
       rij_matrix <- list(rij_matrix)
     assert(
@@ -943,6 +948,7 @@ methods::setMethod(
   "problem",
   methods::signature(x = "sf", features = "SpatRaster"),
   function(x, features, cost_column, run_checks = TRUE, ...) {
+    assert_required(cost_column)
     assert(assertthat::is.string(cost_column))
     problem(
       x,
@@ -965,6 +971,7 @@ methods::setMethod(
   methods::signature(x = "sf", features = "ZonesSpatRaster"),
   function(x, features, cost_column, run_checks = TRUE, ...) {
     # assert that arguments are valid
+    assert_required(cost_column)
     assert(
       inherits(x, "sf"),
       nrow(x) > 0,
@@ -1049,6 +1056,7 @@ methods::setMethod(
   "problem",
   methods::signature(x = "sf", features = "character"),
   function(x, features, cost_column, ...) {
+    assert_required(cost_column)
     assert(assertthat::is.string(cost_column))
     problem(
       x,
@@ -1066,6 +1074,7 @@ methods::setMethod(
   methods::signature(x = "sf", features = "ZonesCharacter"),
   function(x, features, cost_column, ...) {
     # assert that arguments are valid
+    assert_required(cost_column)
     assert(
       inherits(x, "sf"),
       inherits(features, "ZonesCharacter"),

@@ -97,6 +97,7 @@ methods::setMethod(
   "problem",
   methods::signature(x = "Spatial", features = "Raster"),
   function(x, features, cost_column, run_checks = TRUE, ...) {
+    assert_required(cost_column)
     assert(assertthat::is.string(cost_column))
     problem(
       x,
@@ -120,6 +121,7 @@ methods::setMethod(
     cli_warning(raster_pkg_deprecation_notice)
     # assert valid arguments
     # assert that arguments are valid
+    assert_required(cost_column)
     assert(
       is_inherits(
         x,
@@ -201,6 +203,7 @@ methods::setMethod(
   "problem",
   methods::signature(x = "Spatial", features = "character"),
   function(x, features, cost_column, ...) {
+    assert_required(cost_column)
     assert(assertthat::is.string(cost_column))
     problem(
       x,
@@ -220,6 +223,7 @@ methods::setMethod(
   function(x, features, cost_column, ...) {
     cli_warning(sp_pkg_deprecation_notice)
     # assert that arguments are valid
+    assert_required(cost_column)
     assert(
       is_inherits(
         x,
@@ -292,6 +296,7 @@ methods::setMethod(
   "problem",
   methods::signature(x = "sf", features = "Raster"),
   function(x, features, cost_column, run_checks = TRUE, ...) {
+    assert_required(cost_column)
     assert(assertthat::is.string(cost_column))
     problem(
       x,
@@ -316,6 +321,7 @@ methods::setMethod(
   function(x, features, cost_column, run_checks = TRUE, ...) {
     cli_warning(raster_pkg_deprecation_notice)
     # assert that arguments are valid
+    assert_required(cost_column)
     assert(
       inherits(x, "sf"),
       nrow(x) > 0,

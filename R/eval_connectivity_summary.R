@@ -69,8 +69,8 @@ NULL
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
-#' sim_pu_zones_polygons <- get_sim_zones_pu_polygons()
-#' sim_features_zones <- get_sim_zones_features()
+#' sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
+#' sim_zones_features <- get_sim_zones_features()
 #'
 #' # build minimal conservation problem with raster data
 #' p1 <-
@@ -104,7 +104,7 @@ NULL
 #' # build multi-zone conservation problem with polygon data
 #' p2 <-
 #'   problem(
-#'     sim_pu_zones_polygons, sim_features_zones,
+#'     sim_zones_pu_polygons, sim_zones_features,
 #'     cost_column = c("cost_1", "cost_2", "cost_3")
 #'   ) %>%
 #'   add_min_set_objective() %>%
@@ -129,11 +129,11 @@ NULL
 #' plot(s2[, "solution"])
 #'
 #' # simulate connectivity matrix
-#' # here, we will add a new column to sim_pu_zones_polygons with
+#' # here, we will add a new column to sim_zones_pu_polygons with
 #' # randomly simulated values and create a connectivity matrix
 #' # based on the average simulated values of adjacent planning units
-#' sim_pu_zones_polygons$con <- runif(nrow(sim_pu_zones_polygons))
-#' cm2 <- connectivity_matrix(sim_pu_zones_polygons, "con")
+#' sim_zones_pu_polygons$con <- runif(nrow(sim_zones_pu_polygons))
+#' cm2 <- connectivity_matrix(sim_zones_pu_polygons, "con")
 #'
 #' # calculate connectivity associated with the solution
 #' r2 <- eval_connectivity_summary(

@@ -179,8 +179,8 @@ set.seed(600)
 # load data
 sim_pu_polygons <- get_sim_pu_polygons()
 sim_features <- get_sim_features()
-sim_pu_zones_raster <- get_sim_zones_pu_raster()
-sim_features_zones <- get_sim_zones_features()
+sim_zones_pu_raster <- get_sim_zones_pu_raster()
+sim_zones_features <- get_sim_zones_features()
 
 # define function to rescale values between zero and one so that we
 # can compare solutions from different connectivity matrices
@@ -262,7 +262,7 @@ plot(s2, main = names(p2), cex = 1.5)
 # create minimal multi-zone problem and limit solver to one minute
 # to obtain solutions in a short period of time
 p3 <-
-  problem(sim_pu_zones_raster, sim_features_zones) \%>\%
+  problem(sim_zones_pu_raster, sim_zones_features) \%>\%
   add_min_set_objective() \%>\%
   add_relative_targets(matrix(0.15, nrow = 5, ncol = 3)) \%>\%
   add_binary_decisions() \%>\%
@@ -270,8 +270,8 @@ p3 <-
 
 # crate asymmetric connectivity data by randomly simulating values
 acm2 <- matrix(
-  runif(ncell(sim_pu_zones_raster) ^ 2),
-  nrow = ncell(sim_pu_zones_raster)
+  runif(ncell(sim_zones_pu_raster) ^ 2),
+  nrow = ncell(sim_zones_pu_raster)
 )
 
 # create multi-zone problems using the penalties

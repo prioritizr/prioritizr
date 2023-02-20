@@ -126,9 +126,9 @@ set.seed(500)
 sim_pu_polygons <- get_sim_pu_polygons()
 sim_features <- get_sim_features()
 sim_locked_out_raster <- get_sim_locked_out_raster()
-sim_pu_zones_raster <- get_sim_zones_pu_raster()
-sim_pu_zones_polygons <- get_sim_zones_pu_polygons()
-sim_features_zones <- get_sim_zones_features()
+sim_zones_pu_raster <- get_sim_zones_pu_raster()
+sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
+sim_zones_features <- get_sim_zones_features()
 
 # create minimal problem
 p1 <-
@@ -186,7 +186,7 @@ par(mfrow = c(1, 1))
 # create minimal multi-zone problem with spatial data
 p7 <-
   problem(
-    sim_pu_zones_polygons, sim_features_zones,
+    sim_zones_pu_polygons, sim_zones_features,
     cost_column = c("cost_1", "cost_2", "cost_3")
   ) \%>\%
   add_min_set_objective() \%>\%
@@ -196,7 +196,7 @@ p7 <-
 
 # create multi-zone problem with locked out constraints using matrix data
 locked_matrix <- as.matrix(sf::st_drop_geometry(
-  sim_pu_zones_polygons[, c("locked_1", "locked_2", "locked_3")]
+  sim_zones_pu_polygons[, c("locked_1", "locked_2", "locked_3")]
 ))
 
 p8 <- p7 \%>\% add_locked_out_constraints(locked_matrix)
@@ -235,14 +235,14 @@ plot(s9[, "solution"], main = "solution", axes = FALSE)
 
 # create multi-zone problem with raster planning units
 p10 <-
-  problem(sim_pu_zones_raster, sim_features_zones) \%>\%
+  problem(sim_zones_pu_raster, sim_zones_features) \%>\%
   add_min_set_objective() \%>\%
   add_absolute_targets(matrix(rpois(15, 1), nrow = 5, ncol = 3)) \%>\%
   add_binary_decisions() \%>\%
   add_default_solver(verbose = FALSE)
 
 # create multi-layer raster with locked out units
-locked_out_raster <- sim_pu_zones_raster[[1]]
+locked_out_raster <- sim_zones_pu_raster[[1]]
 locked_out_raster[!is.na(locked_out_raster)] <- 0
 locked_out_raster <- locked_out_raster[[c(1, 1, 1)]]
 locked_out_raster[[1]][1] <- 1

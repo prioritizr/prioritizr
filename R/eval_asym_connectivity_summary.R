@@ -71,8 +71,8 @@ NULL
 #' # load data
 #' sim_pu_polygons <- get_sim_pu_polygons()
 #' sim_features <- get_sim_features()
-#' sim_pu_zones_polygons <- get_sim_zones_pu_polygons()
-#' sim_features_zones <- get_sim_zones_features()
+#' sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
+#' sim_zones_features <- get_sim_zones_features()
 #'
 #' # build minimal conservation problem with polygon data
 #' p1 <-
@@ -106,7 +106,7 @@ NULL
 #' # build multi-zone conservation problem with polygon data
 #' p2 <-
 #'   problem(
-#'     sim_pu_zones_polygons, sim_features_zones,
+#'     sim_zones_pu_polygons, sim_zones_features,
 #'      cost_column = c("cost_1", "cost_2", "cost_3")
 #'   ) %>%
 #'   add_min_set_objective() %>%
@@ -132,8 +132,8 @@ NULL
 #'
 #' # simulate asymmetric connectivity matrix
 #' acm2 <- matrix(
-#'   runif(nrow(sim_pu_zones_polygons) ^ 2),
-#'   nrow = nrow(sim_pu_zones_polygons)
+#'   runif(nrow(sim_zones_pu_polygons) ^ 2),
+#'   nrow = nrow(sim_zones_pu_polygons)
 #' )
 #'
 #' # calculate connectivity associated with the solution

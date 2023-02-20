@@ -3,15 +3,15 @@
 \name{sim_data}
 \alias{sim_data}
 \alias{sim_pu_polygons}
-\alias{sim_pu_zones_polygons}
+\alias{sim_zones_pu_polygons}
 \alias{sim_pu_points}
 \alias{sim_pu_lines}
 \alias{sim_pu_raster}
 \alias{sim_locked_in_raster}
 \alias{sim_locked_out_raster}
-\alias{sim_pu_zones_raster}
+\alias{sim_zones_pu_raster}
 \alias{sim_features}
-\alias{sim_features_zones}
+\alias{sim_zones_features}
 \alias{sim_phylogeny}
 \alias{get_sim_pu_polygons}
 \alias{get_sim_zones_pu_polygons}
@@ -173,16 +173,16 @@ under three different management zones.}
 \examples{
 # load data
 sim_pu_polygons <- get_sim_pu_polygons()
-sim_pu_zones_polygons <- get_sim_zones_pu_polygons()
+sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
 sim_pu_lines <- get_sim_pu_lines()
 sim_pu_points <- get_sim_pu_points()
 sim_pu_raster <- get_sim_pu_raster()
-sim_pu_zones_raster <- get_sim_zones_pu_raster()
+sim_zones_pu_raster <- get_sim_zones_pu_raster()
 sim_locked_in_raster <- get_sim_locked_in_raster()
 sim_locked_out_raster <- get_sim_locked_out_raster()
 sim_phylogeny <- get_sim_phylogeny()
 sim_features <- get_sim_features()
-sim_features_zones <- get_sim_zones_features()
+sim_zones_features <- get_sim_zones_features()
 
 # plot raster data
 \dontrun{
@@ -198,7 +198,7 @@ plot(sim_pu_lines)
 plot(sim_pu_points)
 
 # plot vector planning unit data for multiple management zones
-plot(sim_pu_zones_polygons)
+plot(sim_zones_pu_polygons)
 
 # plot phylogeny data
 par(mfrow = c(1, 1))
@@ -210,24 +210,24 @@ plot(sim_features, axes = FALSE)
 
 # plot cost data for multiple management zones
 par(mfrow = c(1, 1))
-plot(sim_pu_zones_raster, axes = FALSE)
+plot(sim_zones_pu_raster, axes = FALSE)
 
 # plot feature data for multiple management zones
 plot_names <- paste0(
   "Species ",
    rep(
-     seq_len(number_of_zones(sim_features_zones)),
-     number_of_features(sim_features_zones)
+     seq_len(number_of_zones(sim_zones_features)),
+     number_of_features(sim_zones_features)
    ),
    " (zone ",
    rep(
-     seq_len(number_of_features(sim_features_zones)),
-     each = number_of_zones(sim_features_zones)
+     seq_len(number_of_features(sim_zones_features)),
+     each = number_of_zones(sim_zones_features)
    ),
    ")"
 )
 plot(
-  terra::rast(as.list(sim_features_zones)),
+  terra::rast(as.list(sim_zones_features)),
    main = plot_names, axes = FALSE
 )
 }
