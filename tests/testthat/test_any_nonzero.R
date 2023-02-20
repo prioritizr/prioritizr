@@ -5,6 +5,7 @@ test_that("x = default", {
 })
 
 test_that("x = numeric", {
+  expect_true(any_nonzero(c(NA_real_, NA_real_)))
   expect_true(any_nonzero(c(0, 1)))
   expect_true(any_nonzero(c(0L, 1L)))
   expect_false(any_nonzero(c(0L, NA)))
@@ -74,6 +75,7 @@ test_that("x = Spatial", {
 })
 
 test_that("x = SpatRaster", {
+  expect_true(any_nonzero(terra::rast(matrix(c(NA_real_, NA_real_)))))
   expect_true(any_nonzero(terra::rast(matrix(c(0, 1, NA)))))
   expect_false(any_nonzero(terra::rast(matrix(c(0, 0, NA)))))
   expect_error(

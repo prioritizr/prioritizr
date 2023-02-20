@@ -5,6 +5,7 @@ R/add_top_portfolio.R
 R/add_extra_portfolio.R
 R/add_gap_portfolio.R
 R/deprecated.R
+R/test-helpers.R
 R/print.R
 R/show.R
 R/zzz.R

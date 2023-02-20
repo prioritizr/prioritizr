@@ -180,7 +180,6 @@ Collate:
     'add_shuffle_portfolio.R'
     'add_top_portfolio.R'
     'adjacency_matrix.R'
-    'align_text.R'
     'as.R'
     'as_Matrix.R'
     'boundary_matrix.R'

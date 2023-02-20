@@ -143,9 +143,8 @@ repr.crs <- function(x) {
   # add information on if projected/geodetic
   if (grepl("geodetic", x, ignore.case = TRUE)) {
     out <- paste(out, "(geodetic)")
-  } else if (grepl("geodetic", x, ignore.case = TRUE)) {
-    out <- paste(out, "(projected)")
-  } else {
+  }
+  if (identical(out, "NA")) {
     out <- paste(out, "(unknown)")
   }
 

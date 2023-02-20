@@ -59,7 +59,6 @@ verify <- function(..., env = parent.frame(), call = fn_caller_env()) {
   # throw warning
   cli_warning(res, .envir = call)
   # return result
-  FALSE
 }
 
 #' Assert that a condition is met

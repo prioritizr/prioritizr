@@ -19,3 +19,11 @@ test_that("verify", {
   expect_warning(verify(1 == 2))
   expect_warning(verify(f(1 == 2)), "not TRUE")
 })
+
+test_that("fn_current_env", {
+  expect_is(fn_current_env(), "environment")
+})
+
+test_that("fn_caller_env", {
+  expect_is(fn_caller_env(), "environment")
+})

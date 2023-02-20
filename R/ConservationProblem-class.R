@@ -559,14 +559,14 @@ ConservationProblem <- R6::R6Class(
         }
       } else if (inherits(self$data$cost, "SpatRaster")) {
         x <- terra::cells(terra::allNA(self$data$cost), 0)[[1]]
+      } else if (inherits(self$data$cost, "sf")) {
+        x <- sf::st_drop_geometry(self$data$cost)
+        x <- x[, self$data$cost_column, drop = FALSE]
+        x <- unname(which(rowSums(!is.na(as.matrix(x))) > 0))
       } else if (inherits(self$data$cost, c("data.frame", "Spatial"))) {
         x <- as.data.frame(self$data$cost)
         x <- x[, self$data$cost_column, drop = FALSE]
         x <- unname(which(rowSums(!is.na(as.matrix(x))) > 0))
-      } else if (inherits(self$data$cost, "sf")) {
-        x <- sf::st_drop_geometry(self$data$cost)
-        x <- x[, self$data$cost_column, drop = FALSE]
-        x <- sum(rowSums(!is.na(as.matrix(x))) > 0)
       } else if (is.matrix(self$data$cost)) {
         x <- unname(which(rowSums(!is.na(self$data$cost)) > 0))
       } else {
@@ -617,7 +617,9 @@ ConservationProblem <- R6::R6Class(
           function(i) which(!is.na(self$data$cost[, i]))
         )
       } else {
+        # nocov start
         cli::cli_abort("$data$cost is of unknown class", .internal = TRUE)
+        # nocov end
       }
       names(x) <- self$zone_names()
       self$set_data("planning_unit_indices_with_finite_costs", x)
@@ -640,7 +642,9 @@ ConservationProblem <- R6::R6Class(
       } else if (is.matrix(self$data$cost)) {
         return(nrow(self$data$cost))
       } else {
+        # nocov start
         cli::cli_abort("$data$cost is of unknown class", .internal = TRUE)
+        # nocov end
       }
     },
 
@@ -667,17 +671,18 @@ ConservationProblem <- R6::R6Class(
         }
       } else if (inherits(self$data$cost, "SpatRaster")) {
         x <- as.matrix(self$data$cost[idx])
-      } else if (inherits(self$data$cost, c("Spatial", "data.frame"))) {
-        x <- as.data.frame(self$data$cost)
-        x <- x[idx, self$data$cost_column, drop = FALSE]
-        x <- as.matrix(x)
       } else if (inherits(self$data$cost, "sf")) {
         x <- sf::st_drop_geometry(self$data$cost)
+        x <- as.matrix(x[idx, self$data$cost_column, drop = FALSE])
+      } else if (inherits(self$data$cost, c("Spatial", "data.frame"))) {
+        x <- as.data.frame(self$data$cost)
         x <- as.matrix(x[idx, self$data$cost_column, drop = FALSE])
       } else if (is.matrix(self$data$cost)) {
         x <- self$data$cost[idx, , drop = FALSE]
       } else {
+        # nocov start
         cli::cli_abort("$data$cost is of unknown class", .internal = TRUE)
+        # nocov end
       }
       colnames(x) <- self$zone_names()
       self$set_data("planning_unit_costs", x)

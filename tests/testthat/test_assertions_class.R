@@ -7,6 +7,13 @@ test_that("is_matrix_ish", {
   expect_error(assert(is_matrix_ish(new_waiver())), "matrix")
 })
 
+test_that("is_integer", {
+  expect_true(is_integer(c(1, 2, 3, NA)))
+  expect_false(is_integer(c(0.5, 2, 3, NA)))
+  expect_false(is_integer("a"))
+  expect_error(assert(is_integer("a")), "integer")
+})
+
 test_that("is_conservation_problem", {
   # load data
   sim_pu_raster <- get_sim_pu_raster()

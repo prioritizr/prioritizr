@@ -1191,3 +1191,33 @@ test_that("inheritance", {
   expect_length(p1$constraints, 0)
   expect_length(p2$constraints, 1)
 })
+
+test_that("warnings on overriding components", {
+  # import data
+  sim_pu_polygons <- get_sim_pu_polygons()
+  sim_features <- get_sim_features()
+  # create problem
+  p <-
+    problem(sim_pu_polygons, sim_features, "cost") %>%
+    add_min_set_objective() %>%
+    add_binary_decisions() %>%
+    add_default_solver() %>%
+    add_shuffle_portfolio()
+  # tests
+  expect_warning(
+    add_min_set_objective(p),
+    "objective"
+  )
+  expect_warning(
+    add_binary_decisions(p),
+    "decision"
+  )
+  expect_warning(
+    add_default_solver(p),
+    "solver"
+  )
+  expect_warning(
+    add_shuffle_portfolio(p),
+    "portfolio"
+  )
+})

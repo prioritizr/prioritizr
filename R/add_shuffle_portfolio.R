@@ -122,8 +122,7 @@ add_shuffle_portfolio <- function(x, number_solutions = 10, threads = 1,
           ## attempt initial solution for problem
           initial_sol <- solver$solve(x)
           # if solving the problem failed then return NULL
-          if (is.null(initial_sol))
-            return(initial_sol)
+          if (is.null(initial_sol)) return(initial_sol) # nocov
           if (self$get_data("number_solutions") == 1)
             return(list(initial_sol))
           ## generate additional solutions

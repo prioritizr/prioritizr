@@ -88,6 +88,26 @@ test_that("x = SpatRaster, y = sfc", {
   expect_equal(x, y)
 })
 
+test_that("x = Raster, y = sfc", {
+  # import
+  sim_pu_points <- get_sim_pu_points()
+  sim_pu_lines <- get_sim_pu_lines()
+  sim_pu_polygons <- get_sim_pu_polygons()
+  sim_features <- get_sim_features()
+  # create data
+  sim_data <- rbind(sim_pu_points, sim_pu_lines, sim_pu_polygons)
+  idx <- sample.int(nrow(sim_data))
+  sim_data <- sf::st_geometry(sim_data[idx, ])
+  # calculations
+  x <- fast_extract(raster::stack(sim_features), sim_data, fun = "sum")
+  # calculate correct result
+  y <- fast_extract(sim_features, sim_data, fun = "sum")
+  # tests
+  expect_equal(nrow(x), length(sim_data))
+  expect_equal(ncol(x), terra::nlyr(sim_features))
+  expect_equal(x, y)
+})
+
 test_that("x = Raster, y = SpatialPolygonsDataFrame", {
   # import data
   sim_pu_polygons <- get_sim_pu_polygons()
@@ -150,7 +170,7 @@ test_that("x = Raster, y = sf (polygons)", {
   expect_warning(
     x <- fast_extract(
       raster::stack(sim_features),
-      sf::as_Spatial(sim_pu_polygons),
+      sim_pu_polygons,
       fun = "sum"
     ),
     "deprecated"

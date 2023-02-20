@@ -20,6 +20,10 @@ test_that("zones (SpatRaster)", {
   expect_tidy_error(zones(sim_features[[1:2]], sim_features[[1:3]]))
   expect_tidy_error(zones(sim_features[[1]], zone_names = c("z1", "z2")))
   expect_tidy_error(zones(sim_features[[1]], feature_names = c("z1", "z2")))
+  # as.list tests
+  l <- as.list(x)
+  expect_is(l, "list")
+  expect_length(l, 3)
 })
 
 test_that("zones (Raster)", {
@@ -60,6 +64,10 @@ test_that("zones (Raster)", {
       "deprecated"
     )
   )
+  # as.list tests
+  l <- as.list(x)
+  expect_is(l, "list")
+  expect_length(l, 3)
 })
 
 test_that("zones (character)", {

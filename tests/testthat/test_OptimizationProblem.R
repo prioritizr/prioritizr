@@ -3,6 +3,7 @@ context("OptimizationProblem")
 test_that("optimization_problem (x = NULL)", {
   # data
   x <- optimization_problem()
+  suppressMessages(print(x))
   # tests
   expect_equal(ncell(x), 0)
 })
@@ -27,6 +28,7 @@ test_that("get methods", {
     col_ids = c("d", "e", "f"),
     compressed_formulation = FALSE)
   x <- optimization_problem(l)
+  suppressMessages(print(x))
   # tests
   expect_equal(nrow(x), 2)
   expect_equal(ncol(x), 3)

@@ -3,9 +3,11 @@ context("assertions_raster")
 test_that("is_comparable_raster", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_features <- get_sim_features()
   # tests
   expect_true(is_comparable_raster(sim_pu_raster, sim_features))
+  expect_true(is_comparable_raster(sim_zones_pu_raster, sim_zones_pu_raster))
   expect_error(
     {
       sim_pu_raster <- get_sim_pu_raster()
