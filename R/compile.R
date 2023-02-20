@@ -35,6 +35,7 @@ NULL
 #' @return A [optimization_problem()] object.
 #'
 #' @examples
+#' \dontrun{
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
@@ -50,7 +51,7 @@ NULL
 #'
 #' # print the optimization problem
 #' print(o)
-#'
+#' }
 #' @export
 compile <- function(x, ...) UseMethod("compile")
 

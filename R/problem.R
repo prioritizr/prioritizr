@@ -274,6 +274,7 @@ NULL
 #' @name problem
 #'
 #' @examples
+#' \dontrun{
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_pu_polygons <- get_sim_pu_polygons()
@@ -292,7 +293,6 @@ NULL
 #'   add_binary_decisions() %>%
 #'   add_default_solver(verbose = FALSE)
 #'
-#' \dontrun{
 #' # create problem using polygon planning unit data
 #' p2 <-
 #'   problem(sim_pu_polygons, sim_features, "cost") %>%
@@ -374,7 +374,7 @@ NULL
 #'
 #' # show solutions for problems associated with aspatial data
 #' str(s6)
-#' }
+#'
 #' # create some problems with multiple zones
 #'
 #' # first, create a matrix containing the targets for multi-zone problems
@@ -401,7 +401,7 @@ NULL
 #'   add_absolute_targets(targets) %>%
 #'   add_binary_decisions() %>%
 #'   add_default_solver(verbose = FALSE)
-#' \dontrun{
+#'
 #' # solve problem
 #' s7 <- solve(p7)
 #'
@@ -625,9 +625,7 @@ methods::setMethod(
       all_columns_inherit(x[, cost_column, drop = FALSE], "numeric"),
       all_columns_any_finite(x[, cost_column, drop = FALSE])
     )
-    print("here1")
     assert_dots_empty()
-    print("here2")
     assert(
       all_match_of(unlist(as.list(features)), names(x)),
       msg = c(

@@ -41,6 +41,7 @@ planning units based on a certain variable
 }
 }
 \examples{
+\dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -75,7 +76,7 @@ p4 <- p1 \%>\% add_asym_connectivity_penalties(1, data = acm)
 
 # create problem with linear penalties,
 # here the penalties will be based on random numbers to keep it simple
-\dontrun{
+
 # simulate penalty data
 sim_penalty_raster <- simulate_cost(sim_pu_raster)
 

@@ -45,6 +45,7 @@ an error, a misspecified problem, or unnecessarily long
 solve times.
 }
 \examples{
+\dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -60,5 +61,5 @@ o <- compile(p)
 
 # print the optimization problem
 print(o)
-
+}
 }

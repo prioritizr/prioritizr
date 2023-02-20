@@ -14,8 +14,6 @@ fast_extract(x, y, ...)
 
 \S4method{fast_extract}{Raster,Spatial}(x, y, fun = "mean", ...)
 
-\S4method{fast_extract}{SpatRaster,Spatial}(x, y, fun = "mean", ...)
-
 \S4method{fast_extract}{Raster,sfc}(x, y, fun = "mean", ...)
 
 \S4method{fast_extract}{SpatRaster,sfc}(x, y, fun = "mean", ...)

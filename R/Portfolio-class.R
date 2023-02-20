@@ -25,7 +25,9 @@ Portfolio <- R6::R6Class(
     #' @param solver [`Solver-class`] object.
     #' @return `list` of solutions.
     run = function(x, solver) {
+      # nocov start
       cli::cli_abort("No defined $run method.", .internal = TRUE)
+      # nocov end
     }
   )
 )

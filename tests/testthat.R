@@ -7,12 +7,12 @@ if (!is_skip) {
   library(testthat)
   library(prioritizr)
 
-  ## load solver packages
+  ## try to load solver packages
   require(gurobi)
   require(lpsymphony)
   require(Rsymphony)
 
-  ## enable parallel testing
+  ## disable parallel testing
   Sys.unsetenv("R_TESTS")
 
   ## determine reporter
@@ -23,5 +23,5 @@ if (!is_skip) {
   }
 
   ## check tests
-  test_check("prioritizr")
+  test_check("prioritizr", reporter = reporter)
 }

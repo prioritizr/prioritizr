@@ -41,6 +41,7 @@ held within a solution using asymmetric data.
 }
 }
 \examples{
+\dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -53,7 +54,6 @@ p <-
   add_binary_decisions() \%>\%
   add_default_solver(verbose = FALSE)
 
-\dontrun{
 # solve problem
 s <- solve(p)
 

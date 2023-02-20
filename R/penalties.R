@@ -41,6 +41,7 @@ NULL
 #' @family overviews
 #'
 #' @examples
+#' \dontrun{
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
@@ -75,7 +76,7 @@ NULL
 #'
 #' # create problem with linear penalties,
 #' # here the penalties will be based on random numbers to keep it simple
-#' \dontrun{
+#'
 #' # simulate penalty data
 #' sim_penalty_raster <- simulate_cost(sim_pu_raster)
 #'

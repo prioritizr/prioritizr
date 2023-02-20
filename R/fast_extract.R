@@ -60,10 +60,10 @@ methods::setGeneric(
   function(x, y, ...) {
     rlang::check_required(x)
     rlang::check_required(y)
-    assert(is_spatially_explicit(x))
-    if (!inherits(y, "sfc")) {
-      assert(is_spatially_explicit(y))
-    }
+    assert(
+      is_spatially_explicit(x),
+      is_inherits(x, c("sf", "sfc", "SpatRaster", "Spatial", "Raster"))
+    )
     standardGeneric("fast_extract")
   }
 )

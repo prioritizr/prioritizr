@@ -92,8 +92,11 @@ methods::setGeneric("modelsense", function(x) standardGeneric("modelsense"))
 #' @rdname OptimizationProblem-methods
 #'
 #' @usage \S4method{modelsense}{OptimizationProblem}(x)
-methods::setMethod("modelsense", "OptimizationProblem",
-  function(x) x$modelsense())
+methods::setMethod(
+  "modelsense",
+  "OptimizationProblem",
+  function(x) x$modelsense()
+)
 
 #' @name OptimizationProblem-methods
 #'
@@ -222,8 +225,11 @@ methods::setGeneric("col_ids", function(x) standardGeneric("col_ids"))
 #' @rdname OptimizationProblem-methods
 #'
 #' @usage \S4method{col_ids}{OptimizationProblem}(x)
-methods::setMethod("col_ids", "OptimizationProblem",
-  function(x) x$col_ids())
+methods::setMethod(
+  "col_ids",
+  "OptimizationProblem",
+  function(x) x$col_ids()
+)
 
 #' @name OptimizationProblem-methods
 #'
@@ -248,13 +254,18 @@ methods::setMethod("row_ids", "OptimizationProblem", function(x) x$row_ids())
 #' @exportMethod compressed_formulation
 #'
 #' @usage compressed_formulation(x)
-methods::setGeneric("compressed_formulation",
-                    function(x) standardGeneric("compressed_formulation"))
+methods::setGeneric(
+  "compressed_formulation",
+  function(x) standardGeneric("compressed_formulation")
+)
 
 #' @name OptimizationProblem-methods
 #'
 #' @rdname OptimizationProblem-methods
 #'
 #' @usage \S4method{compressed_formulation}{OptimizationProblem}(x)
-methods::setMethod("compressed_formulation", "OptimizationProblem",
-                   function(x) x$compressed_formulation())
+methods::setMethod(
+  "compressed_formulation",
+  "OptimizationProblem",
+  function(x) x$compressed_formulation()
+)

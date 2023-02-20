@@ -34,6 +34,7 @@ problem with multiple zones must be allocated to a management zone (i.e.,
 zone allocation is mandatory).
 }
 \examples{
+\dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -56,7 +57,7 @@ p1 <-
 # to mandate that every planning unit in the solution is assigned to
 # zone
 p2 <- p1 \%>\% add_mandatory_allocation_constraints()
-\dontrun{
+
 # solve problems
 s1 <- solve(p1)
 s2 <- solve(p2)

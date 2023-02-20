@@ -926,16 +926,20 @@ ConservationProblem <- R6::R6Class(
 conservation_problem <- function(data = list()) {
   # assert valid arguments
   assert(is.list(data))
+
   # create new problem
   p <- ConservationProblem$new(data = data)
+
   # add defaults
   p <- suppressWarnings(add_shuffle_portfolio(p, number_solutions = 1))
   p <- suppressWarnings(add_binary_decisions(p))
   p <- suppressWarnings(add_default_solver(p))
+
   # enforce defaults
   p$defaults$portfolio <- TRUE
   p$defaults$decisions <- TRUE
   p$defaults$solver <- TRUE
+
   # return result
   p
 }

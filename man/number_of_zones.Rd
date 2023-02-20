@@ -2,27 +2,29 @@
 % Please edit documentation in R/number_of_zones.R
 \name{number_of_zones}
 \alias{number_of_zones}
-\alias{number_of_zones,ConservationProblem-method}
-\alias{number_of_zones,OptimizationProblem-method}
-\alias{number_of_zones,ZonesRaster-method}
-\alias{number_of_zones,ZonesSpatRaster-method}
-\alias{number_of_zones,ZonesCharacter-method}
+\alias{number_of_zones.ConservationProblem}
+\alias{number_of_zones.OptimizationProblem}
+\alias{number_of_zones.ZonesRaster}
+\alias{number_of_zones.ZonesSpatRaster}
+\alias{number_of_zones.ZonesCharacter}
 \title{Number of zones}
 \usage{
-number_of_zones(x)
+number_of_zones(x, ...)
 
-\S4method{number_of_zones}{ConservationProblem}(x)
+\method{number_of_zones}{ConservationProblem}(x, ...)
 
-\S4method{number_of_zones}{OptimizationProblem}(x)
+\method{number_of_zones}{OptimizationProblem}(x, ...)
 
-\S4method{number_of_zones}{ZonesRaster}(x)
+\method{number_of_zones}{ZonesRaster}(x, ...)
 
-\S4method{number_of_zones}{ZonesSpatRaster}(x)
+\method{number_of_zones}{ZonesSpatRaster}(x, ...)
 
-\S4method{number_of_zones}{ZonesCharacter}(x)
+\method{number_of_zones}{ZonesCharacter}(x, ...)
 }
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}}, \code{\link[=optimization_problem]{optimization_problem()}}, or \code{\link[=zones]{zones()}} object.}
+
+\item{...}{not used.}
 }
 \value{
 An \code{integer} number of zones.
@@ -31,6 +33,7 @@ An \code{integer} number of zones.
 Extract the number of zones in an object.
 }
 \examples{
+\dontrun{
 # load data
 sim_pu_zones_raster <- get_sim_zones_pu_raster()
 sim_features_zones <- get_sim_zones_features()
@@ -46,4 +49,5 @@ p <-
 
 # print number of zones in the problem
 print(number_of_zones(p))
+}
 }

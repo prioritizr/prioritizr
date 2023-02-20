@@ -30,8 +30,6 @@ intersecting_units(x, y)
 \S4method{intersecting_units}{SpatRaster,sf}(x, y)
 
 \S4method{intersecting_units}{sf,SpatRaster}(x, y)
-
-\S4method{intersecting_units}{data.frame,ANY}(x, y)
 }
 \arguments{
 \item{x}{\code{\link[sf:sf]{sf::st_sf()}} or \code{\link[terra:rast]{terra::rast()}} object.}

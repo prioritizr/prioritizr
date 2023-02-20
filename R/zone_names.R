@@ -7,13 +7,12 @@ NULL
 #'
 #' @param x [problem()] or [zones()] object.
 #'
+#' @param ... not used.
+#'
 #' @return A `character` vector of zone names.
 #'
-#' @name zone_names
-#'
-#' @aliases zone_names,ConservationProblem-method zone_names,OptimizationProblem-method zone_names,ZonesRaster-method zone_names,ZonesCharacter-method zone_names,ZonesSpatRaster-method
-#'
 #' @examples
+#' \dontrun{
 #' # load data
 #' sim_pu_zones_raster <- get_sim_zones_pu_raster()
 #' sim_features_zones <- get_sim_zones_features()
@@ -30,51 +29,42 @@ NULL
 #'
 #' # print zone names in problem
 #' print(zone_names(p))
-NULL
+#' }
+#' @export
+zone_names <- function(x, ...) UseMethod("zone_names")
 
-#' @name zone_names
-#'
 #' @rdname zone_names
 #'
-#' @exportMethod zone_names
-#'
-#' @usage zone_names(x)
-#'
-methods::setGeneric("zone_names",
-                    function(x) standardGeneric("zone_names"))
+#' @export
+zone_names.ConservationProblem <- function(x, ...) {
+  rlang::check_required(x)
+  rlang::check_dots_empty()
+  x$zone_names()
+}
 
-#' @name zone_names
-#'
 #' @rdname zone_names
 #'
-#' @usage \S4method{zone_names}{ConservationProblem}(x)
-#'
-methods::setMethod("zone_names", "ConservationProblem",
-  function(x) x$zone_names())
+#' @export
+zone_names.ZonesRaster <- function(x, ...) {
+  rlang::check_required(x)
+  rlang::check_dots_empty()
+  attr(x, "zone_names")
+}
 
-#' @name zone_names
-#'
 #' @rdname zone_names
 #'
-#' @usage \S4method{zone_names}{ZonesRaster}(x)
-#'
-methods::setMethod("zone_names", "ZonesRaster",
-  function(x) attr(x, "zone_names"))
+#' @export
+zone_names.ZonesSpatRaster <- function(x, ...) {
+  rlang::check_required(x)
+  rlang::check_dots_empty()
+  attr(x, "zone_names")
+}
 
-#' @name zone_names
-#'
 #' @rdname zone_names
 #'
-#' @usage \S4method{zone_names}{ZonesSpatRaster}(x)
-#'
-methods::setMethod("zone_names", "ZonesSpatRaster",
-  function(x) attr(x, "zone_names"))
-
-#' @name zone_names
-#'
-#' @rdname zone_names
-#'
-#' @usage \S4method{zone_names}{ZonesCharacter}(x)
-#'
-methods::setMethod("zone_names", "ZonesCharacter",
-  function(x) attr(x, "zone_names"))
+#' @export
+zone_names.ZonesCharacter <- function(x, ...) {
+  rlang::check_required(x)
+  rlang::check_dots_empty()
+  attr(x, "zone_names")
+}

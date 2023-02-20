@@ -64,6 +64,7 @@ each feature---then the \code{na.rm} argument should be set to
 \code{TRUE}.
 }
 \examples{
+\dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -136,9 +137,8 @@ p4 <-
 # attempt to solve the problem, but we will see that this problem is
 # infeasible because the targets cannot be met using only the planning units
 # with finite cost data
-\dontrun{
 s4 <- try(solve(p4))
-}
+
 # calculate feature abundances; excluding planning units with NA costs
 a5 <- feature_abundances(p3, na.rm = TRUE)
 print(a5)
@@ -151,7 +151,7 @@ p5 <-
   add_relative_targets(a5$relative_abundance) \%>\%
   add_binary_decisions() \%>\%
   add_default_solver(verbose = FALSE)
-\dontrun{
+
 # solve the problem
 s5 <- solve(p5)
 

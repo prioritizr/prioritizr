@@ -108,7 +108,15 @@ NULL
 methods::setGeneric(
   "add_relative_targets",
   signature = methods::signature("x", "targets"),
-  function(x, targets) standardGeneric("add_relative_targets")
+  function(x, targets) {
+    rlang::check_required(x)
+    rlang::check_required(targets)
+    assert(
+      is_conservation_problem(x),
+      is_inherits(targets, c("numeric", "matrix", "character"))
+    )
+    standardGeneric("add_relative_targets")
+  }
 )
 
 #' @name add_relative_targets

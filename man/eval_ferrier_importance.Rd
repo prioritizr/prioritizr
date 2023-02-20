@@ -130,6 +130,7 @@ values in the argument to \code{solution}.
 }
 
 \examples{
+\dontrun{
 # seed seed for reproducibility
 set.seed(600)
 
@@ -145,7 +146,7 @@ p1 <-
   add_relative_targets(0.1) \%>\%
   add_binary_decisions() \%>\%
   add_default_solver(gap = 0, verbose = FALSE)
-\dontrun{
+
 # solve problem
 s1 <- solve(p1)
 

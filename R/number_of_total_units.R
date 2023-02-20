@@ -7,6 +7,8 @@ NULL
 #'
 #' @param x [problem()] object.
 #'
+#' @param ... not used.
+#'
 #' @details
 #' The total units for an object corresponds to the total number
 #' of entries (e.g., rows, cells) for the planning unit data.
@@ -18,9 +20,8 @@ NULL
 #'
 #' @name number_of_total_units
 #'
-#' @aliases number_of_total_units,ConservationProblem-method
-#'
 #' @examples
+#' \dontrun{
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
@@ -52,24 +53,15 @@ NULL
 #'
 #' # print number of total units
 #' print(number_of_total_units(p2))
-NULL
+#' }
+#' @export
+number_of_total_units <- function(x, ...) UseMethod("number_of_total_units")
 
-#' @name number_of_total_units
-#'
 #' @rdname number_of_total_units
 #'
-#' @exportMethod number_of_total_units
-#'
-#' @usage number_of_total_units(x)
-#'
-methods::setGeneric("number_of_total_units",
-                    function(x) standardGeneric("number_of_total_units"))
-
-#' @name number_of_total_units
-#'
-#' @rdname number_of_total_units
-#'
-#' @usage \S4method{number_of_total_units}{ConservationProblem}(x)
-#'
-methods::setMethod("number_of_total_units", "ConservationProblem",
-  function(x) x$number_of_total_units())
+#' @export
+number_of_total_units.ConservationProblem <- function(x, ...) {
+  rlang::check_required(x)
+  rlang::check_dots_empty()
+  x$number_of_total_units()
+}

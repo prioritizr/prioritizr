@@ -327,6 +327,7 @@ millions of planning units.
 }
 
 \examples{
+\dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_pu_polygons <- get_sim_pu_polygons()
@@ -345,7 +346,6 @@ p1 <-
   add_binary_decisions() \%>\%
   add_default_solver(verbose = FALSE)
 
-\dontrun{
 # create problem using polygon planning unit data
 p2 <-
   problem(sim_pu_polygons, sim_features, "cost") \%>\%
@@ -427,7 +427,7 @@ plot(s5[, "solution_1"], main = "preprocessed data (polygon data)")
 
 # show solutions for problems associated with aspatial data
 str(s6)
-}
+
 # create some problems with multiple zones
 
 # first, create a matrix containing the targets for multi-zone problems
@@ -454,7 +454,7 @@ p7 <-
   add_absolute_targets(targets) \%>\%
   add_binary_decisions() \%>\%
   add_default_solver(verbose = FALSE)
-\dontrun{
+
 # solve problem
 s7 <- solve(p7)
 

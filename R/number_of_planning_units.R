@@ -7,6 +7,8 @@ NULL
 #'
 #' @param x [problem()] or [optimization_problem()] object.
 #'
+#' @param ... not used.
+#'
 #' @details
 #' The planning units for an object corresponds to the number
 #' of entries (e.g., rows, cells) for the planning unit data that
@@ -17,11 +19,8 @@ NULL
 #'
 #' @return An `integer` number of planning units.
 #'
-#' @name number_of_planning_units
-#'
-#' @aliases number_of_planning_units,ConservationProblem-method number_of_planning_units,OptimizationProblem-method
-#'
 #' @examples
+#' \dontrun{
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
@@ -35,33 +34,26 @@ NULL
 #'
 #' # print number of planning units
 #' print(number_of_planning_units(p))
-NULL
+#' }
+#' @export
+number_of_planning_units <- function(x, ...) {
+  UseMethod("number_of_planning_units")
+}
 
-#' @name number_of_planning_units
-#'
 #' @rdname number_of_planning_units
 #'
-#' @exportMethod number_of_planning_units
-#'
-#' @usage number_of_planning_units(x)
-#'
-methods::setGeneric("number_of_planning_units",
-  function(x) standardGeneric("number_of_planning_units"))
+#' @export
+number_of_planning_units.ConservationProblem <- function(x, ...) {
+  rlang::check_required(x)
+  rlang::check_dots_empty()
+  x$number_of_planning_units()
+}
 
-#' @name number_of_planning_units
-#'
 #' @rdname number_of_planning_units
 #'
-#' @usage \S4method{number_of_planning_units}{ConservationProblem}(x)
-#'
-methods::setMethod("number_of_planning_units", "ConservationProblem",
-  function(x) x$number_of_planning_units())
-
-#' @name number_of_planning_units
-#'
-#' @rdname number_of_planning_units
-#'
-#' @usage \S4method{number_of_planning_units}{OptimizationProblem}(x)
-#'
-methods::setMethod("number_of_planning_units", "OptimizationProblem",
-  function(x) x$number_of_planning_units())
+#' @export
+number_of_planning_units.OptimizationProblem <- function(x, ...) {
+  rlang::check_required(x)
+  rlang::check_dots_empty()
+  x$number_of_planning_units()
+}

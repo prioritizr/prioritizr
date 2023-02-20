@@ -23,7 +23,9 @@ Target <- R6::R6Class(
     #' Output the targets.
     #' @return [tibble::tibble()] data frame.
     output = function() {
+      # nocov start
       cli::cli_abort("No defined $output method.", .internal = TRUE)
+      # nocov end
     }
   )
 )

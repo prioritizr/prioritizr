@@ -37,19 +37,6 @@ add_default_solver <- function(x, ...) {
   assert(is_conservation_problem(x), call = NULL)
   # find solver
   ds <- default_solver_name()
-  # throw error if solver not installed
-  if (is.null(ds)) {
-    cli::cli_abort(
-      "No optimization solvers are installed.",
-      "x" = "You need to install a solver to generate prioritizations.",
-      "i" = paste(
-        "The HiGHs solver can be installed using:",
-        "{.code install.packages(\"highs\")}"
-      ),
-      "i" = "See {.topic solvers} for further options.",
-      call = NULL
-    )
-  }
   # return solver
   if (identical(ds, "gurobi")) {
     return(add_gurobi_solver(x, ...))
@@ -63,8 +50,23 @@ add_default_solver <- function(x, ...) {
     return(add_lpsymphony_solver(x, ...))
   } else if (identical(ds, "Rsymphony")) {
     return(add_rsymphony_solver(x, ...))
+  } else if (
+      identical(Sys.getenv("PRIORITIZR_ENABLE_COMPILE_SOLVER"), "TRUE")
+    )
+  {
+    return(add_compile_solver(x, ...))
   } else {
-    cli::cli_abort("Can't find solver", .internal = TRUE, call = NULL)
+    # throw error if solver not installed
+    if (is.null(ds)) {
+      cli::cli_abort(
+        c(
+          "No optimization solvers are installed.",
+          "x" = "You must install a solver to generate prioritizations.",
+          "i" = "See {.topic solvers} for options."
+        ),
+        call = NULL
+      )
+    }
   }
 }
 

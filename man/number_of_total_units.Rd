@@ -2,15 +2,17 @@
 % Please edit documentation in R/number_of_total_units.R
 \name{number_of_total_units}
 \alias{number_of_total_units}
-\alias{number_of_total_units,ConservationProblem-method}
+\alias{number_of_total_units.ConservationProblem}
 \title{Number of total units}
 \usage{
-number_of_total_units(x)
+number_of_total_units(x, ...)
 
-\S4method{number_of_total_units}{ConservationProblem}(x)
+\method{number_of_total_units}{ConservationProblem}(x, ...)
 }
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} object.}
+
+\item{...}{not used.}
 }
 \value{
 An \code{integer} number of total units.
@@ -26,6 +28,7 @@ and only two of these cells contain non-missing (\code{NA}) values.
 As such, this dataset would have 90 total units and two planning units.
 }
 \examples{
+\dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -57,4 +60,5 @@ print(number_of_planning_units(p2))
 
 # print number of total units
 print(number_of_total_units(p2))
+}
 }

@@ -23,7 +23,9 @@ Solver <- R6::R6Class(
     #' Run the solver to generate a solution.
     #' @return `list` of solutions.
     run = function() {
+      # nocov start
       cli::cli_abort("No defined $run method.", .internal = TRUE)
+      # nocov end
     },
 
     #' @description
@@ -33,7 +35,9 @@ Solver <- R6::R6Class(
     #' @param ... Additional arguments.
     #' @return Invisible `TRUE`.
     calculate = function(...) {
+      # nocov start
       cli::cli_abort("No defined $calculate method.", .internal = TRUE)
+      # nocov end
     },
 
     #' @description
@@ -43,7 +47,9 @@ Solver <- R6::R6Class(
     #' @param value `numeric` new bound value.
     #' @return Invisible `TRUE`.
     set_variable_ub = function(index, value) {
+      # nocov start
       cli::cli_abort("No defined $set_variable_ub method.", .internal = TRUE)
+      # nocov end
     },
 
     #' @description
@@ -53,7 +59,9 @@ Solver <- R6::R6Class(
     #' @param value `numeric` new bound value.
     #' @return Invisible `TRUE`.
     set_variable_lb = function(index, value) {
+      # nocov start
       cli::cli_abort("No defined $set_variable_lb method.", .internal = TRUE)
+      # nocov end
     },
 
     #' @description

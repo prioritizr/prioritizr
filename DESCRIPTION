@@ -139,6 +139,7 @@ Collate:
     'marxan_boundary_data_to_matrix.R'
     'add_boundary_penalties.R'
     'add_cbc_solver.R'
+    'add_compile_solver.R'
     'add_connectivity_penalties.R'
     'add_contiguity_constraints.R'
     'add_cplex_solver.R'

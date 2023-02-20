@@ -48,6 +48,7 @@ entire area encompassed by any single planning unit.}
 }
 }
 \examples{
+\dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -68,7 +69,6 @@ p3 <- p1 \%>\% add_proportion_decisions()
 # create problem with semicontinuous decisions
 p4 <- p1 \%>\% add_semicontinuous_decisions(upper_limit = 0.5)
 
-\dontrun{
 # solve problem
 s <- c(solve(p1), solve(p2), solve(p3), solve(p4))
 names(s) <- c(

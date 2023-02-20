@@ -86,6 +86,7 @@ NULL
 #' *Conservation Letters*, 8: 329--337.
 #'
 #' @examples
+#' \dontrun{
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
@@ -97,7 +98,7 @@ NULL
 #'   add_loglinear_targets(10, 0.9, 100, 0.2) %>%
 #'   add_binary_decisions() %>%
 #'   add_default_solver(verbose = FALSE)
-#' \dontrun{
+#'
 #' # solve problem
 #' s <- solve(p)
 #'

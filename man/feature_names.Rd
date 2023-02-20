@@ -2,24 +2,26 @@
 % Please edit documentation in R/feature_names.R
 \name{feature_names}
 \alias{feature_names}
-\alias{feature_names,ConservationProblem-method}
-\alias{feature_names,ZonesRaster-method}
-\alias{feature_names,ZonesCharacter-method}
-\alias{feature_names,ZonesSpatRaster-method}
+\alias{feature_names.ConservationProblem}
+\alias{feature_names.ZonesRaster}
+\alias{feature_names.ZonesSpatRaster}
+\alias{feature_names.ZonesCharacter}
 \title{Feature names}
 \usage{
-feature_names(x)
+feature_names(x, ...)
 
-\S4method{feature_names}{ConservationProblem}(x)
+\method{feature_names}{ConservationProblem}(x, ...)
 
-\S4method{feature_names}{ZonesRaster}(x)
+\method{feature_names}{ZonesRaster}(x, ...)
 
-\S4method{feature_names}{ZonesSpatRaster}(x)
+\method{feature_names}{ZonesSpatRaster}(x, ...)
 
-\S4method{feature_names}{ZonesCharacter}(x)
+\method{feature_names}{ZonesCharacter}(x, ...)
 }
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} or \code{\link[=Zones]{Zones()}} object.}
+
+\item{...}{not used.}
 }
 \value{
 A \code{character} vector of feature names.
@@ -28,6 +30,7 @@ A \code{character} vector of feature names.
 Extract the names of the features in an object.
 }
 \examples{
+\dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -41,4 +44,5 @@ p <-
 
 # print feature names
 print(feature_names(p))
+}
 }

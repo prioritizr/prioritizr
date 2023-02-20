@@ -7,13 +7,12 @@ NULL
 #'
 #' @param x [problem()], [optimization_problem()], or [zones()] object.
 #'
+#' @param ... not used.
+#'
 #' @return An `integer` number of zones.
 #'
-#' @name number_of_zones
-#'
-#' @aliases number_of_zones,ConservationProblem-method number_of_zones,OptimizationProblem-method number_of_zones,ZonesRaster-method number_of_zones,ZonesSpatRaster-method number_of_zones,ZonesCharacter-method
-#'
 #' @examples
+#' \dontrun{
 #' # load data
 #' sim_pu_zones_raster <- get_sim_zones_pu_raster()
 #' sim_features_zones <- get_sim_zones_features()
@@ -30,57 +29,51 @@ NULL
 #'
 #' # print number of zones in the problem
 #' print(number_of_zones(p))
-NULL
+#' }
+#' @export
+number_of_zones <- function(x, ...) UseMethod("number_of_zones")
 
-#' @name number_of_zones
-#'
 #' @rdname number_of_zones
 #'
-#' @exportMethod number_of_zones
-#'
-#' @usage number_of_zones(x)
-#'
-methods::setGeneric("number_of_zones",
-  function(x) standardGeneric("number_of_zones"))
+#' @export
+number_of_zones.ConservationProblem <- function(x, ...) {
+  rlang::check_required(x)
+  rlang::check_dots_empty()
+  x$number_of_zones()
+}
 
-#' @name number_of_zones
-#'
 #' @rdname number_of_zones
 #'
-#' @usage \S4method{number_of_zones}{ConservationProblem}(x)
-#'
-methods::setMethod("number_of_zones", "ConservationProblem",
-  function(x) x$number_of_zones())
+#' @export
+number_of_zones.OptimizationProblem <- function(x, ...) {
+  rlang::check_required(x)
+  rlang::check_dots_empty()
+  x$number_of_zones()
+}
 
-#' @name number_of_zones
-#'
 #' @rdname number_of_zones
 #'
-#' @usage \S4method{number_of_zones}{OptimizationProblem}(x)
-#'
-methods::setMethod("number_of_zones", "OptimizationProblem",
-  function(x) x$number_of_zones())
+#' @export
+number_of_zones.ZonesRaster <- function(x, ...) {
+  rlang::check_required(x)
+  rlang::check_dots_empty()
+  length(x)
+}
 
-#' @name number_of_zones
-#'
 #' @rdname number_of_zones
 #'
-#' @usage \S4method{number_of_zones}{ZonesRaster}(x)
-#'
-methods::setMethod("number_of_zones", "ZonesRaster", function(x) length(x))
+#' @export
+number_of_zones.ZonesSpatRaster <- function(x, ...) {
+  rlang::check_required(x)
+  rlang::check_dots_empty()
+  length(x)
+}
 
-#' @name number_of_zones
-#'
 #' @rdname number_of_zones
 #'
-#' @usage \S4method{number_of_zones}{ZonesSpatRaster}(x)
-#'
-methods::setMethod("number_of_zones", "ZonesSpatRaster", function(x) length(x))
-
-#' @name number_of_zones
-#'
-#' @rdname number_of_zones
-#'
-#' @usage \S4method{number_of_zones}{ZonesCharacter}(x)
-#'
-methods::setMethod("number_of_zones", "ZonesCharacter", function(x) length(x))
+#' @export
+number_of_zones.ZonesCharacter <- function(x, ...) {
+  rlang::check_required(x)
+  rlang::check_dots_empty()
+  length(x)
+}

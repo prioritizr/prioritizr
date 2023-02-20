@@ -24,7 +24,9 @@ Constraint <- R6::R6Class(
     #' @param x [optimization_problem()] object.
     #' @return Invisible `TRUE`.
     apply = function(x) {
+      # nocov start
       cli::cli_abort("No defined $apply method.", .internal = TRUE)
+      # nocov end
     }
   )
 )

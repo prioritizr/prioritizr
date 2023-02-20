@@ -2,18 +2,20 @@
 % Please edit documentation in R/number_of_planning_units.R
 \name{number_of_planning_units}
 \alias{number_of_planning_units}
-\alias{number_of_planning_units,ConservationProblem-method}
-\alias{number_of_planning_units,OptimizationProblem-method}
+\alias{number_of_planning_units.ConservationProblem}
+\alias{number_of_planning_units.OptimizationProblem}
 \title{Number of planning units}
 \usage{
-number_of_planning_units(x)
+number_of_planning_units(x, ...)
 
-\S4method{number_of_planning_units}{ConservationProblem}(x)
+\method{number_of_planning_units}{ConservationProblem}(x, ...)
 
-\S4method{number_of_planning_units}{OptimizationProblem}(x)
+\method{number_of_planning_units}{OptimizationProblem}(x, ...)
 }
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} or \code{\link[=optimization_problem]{optimization_problem()}} object.}
+
+\item{...}{not used.}
 }
 \value{
 An \code{integer} number of planning units.
@@ -30,6 +32,7 @@ and only two of these cells contain non-missing (\code{NA}) values.
 As such, this dataset would have two planning units.
 }
 \examples{
+\dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -43,4 +46,5 @@ p <-
 
 # print number of planning units
 print(number_of_planning_units(p))
+}
 }
