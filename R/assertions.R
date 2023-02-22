@@ -92,8 +92,7 @@ assert <- function(..., env = parent.frame(), call = fn_caller_env(),
   # so now we will format it following tidyverse style guide
   res <- format_assertthat_msg(res)
   # throw error
-  cli::cli_abort(res, call = call, .internal = .internal)
-  FALSE
+  cli::cli_abort(res, call = call, .envir = env, .internal = .internal)
 }
 
 format_assertthat_msg <- function(x) {

@@ -214,6 +214,28 @@ eval_boundary_summary <- function(x, solution,
   # subset data to planning units
   ind <- x$planning_unit_indices()
   bm <- bm[ind, ind]
+  # verify that boundary matrix has expected properties
+  verify(
+    all(
+      Matrix::diag(data) >=
+      (Matrix::rowSums(data) - Matrix::diag(data))
+    ),
+    msg = c(
+      "{.arg data} has unexpected values.",
+      "x" = paste(
+        "If {.arg data} is from an older version of",
+        "{.pkg prioritizr}, then use",
+        "{.fn boundary_matrix} to recreate it."
+      ),
+      "i" = paste(
+        "{.arg x} might have spatially overlapping planning units."
+      ),
+      "i" = paste(
+        "If {.arg solution} has selected multiple spatially",
+        "overlapping planning units, then results will be incorrect."
+      )
+    )
+  )
   # compute data
   total_boundary <- Matrix::diag(bm)
   exposed_boundary <-

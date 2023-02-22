@@ -342,9 +342,7 @@ methods::setMethod("add_boundary_penalties",
             "{.fn boundary_matrix} to recreate it."
           ),
           "i" = paste(
-            "If {.arg data} is from the current version of",
-            "{.pkg prioritizr}, then {.arg x}",
-            "has spatially overlapping planning units."
+            "{.arg x} might have spatially overlapping planning units."
           )
         )
       )

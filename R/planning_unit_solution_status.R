@@ -54,8 +54,8 @@ methods::setMethod(
           "{.arg x} and {.arg solution} must have",
           "the same type of planning unit data."
         ),
-        "x" = "{.arg x} is a {.cls {class(x)}}.",
-        "x" = "{.arg y} is a {.cls {class(x)}}."
+        "x" = "{.arg x} has {.cls {class(x$data$cost)}} planning units.",
+        "x" = "{.arg solution} has {.cls {class(solution)}} planning units."
       )
     )
     ## dimensionality
@@ -97,8 +97,8 @@ methods::setMethod(
           "{.arg x} and {.arg solution} must have",
           "the same type of planning unit data."
         ),
-        "x" = "{.arg x} is a {.cls {class(x)}}.",
-        "x" = "{.arg y} is a {.cls {class(x)}}."
+        "x" = "{.arg x} has {.cls {class(x$data$cost)}} planning units.",
+        "x" = "{.arg solution} is a {.cls {class(x)}}."
       )
     )
     ## number of columns
@@ -118,7 +118,10 @@ methods::setMethod(
       suppressWarnings(min(solution, na.rm = TRUE) >= 0),
       suppressWarnings(max(solution, na.rm = TRUE) <= 1),
       call = call,
-      msg =  "{.arg solution} should only contain values between {.val {0}} and {.val {1}}."
+      msg = paste(
+        "{.arg solution} must only contain values",
+        "between {.val {0}} and {.val {1}}."
+      )
     )
     # return status
     internal_planning_unit_solution_status(x, solution, call = call)
@@ -139,8 +142,8 @@ methods::setMethod(
           "{.arg x} and {.arg solution} must have",
           "the same type of planning unit data."
         ),
-        "x" = "{.arg x} is a {.cls {class(x)}}.",
-        "x" = "{.arg y} is a {.cls {class(x)}}."
+        "x" = "{.arg x} has {.cls {class(x$data$cost)}} planning units.",
+        "x" = "{.arg solution} is a {.cls {class(x)}}."
       )
     )
     ## number of columns
@@ -197,8 +200,8 @@ methods::setMethod(
           "{.arg x} and {.arg solution} must have",
           "the same type of planning unit data."
         ),
-        "x" = "{.arg x} is a {.cls {class(x)}}.",
-        "x" = "{.arg y} is a {.cls {class(x)}}."
+        "x" = "{.arg x} has {.cls {class(x$data$cost)}} planning units.",
+        "x" = "{.arg solution} is a {.cls {class(x)}}."
       )
     )
     ## number of columns
@@ -260,8 +263,8 @@ methods::setMethod(
           "{.arg x} and {.arg solution} must have",
           "the same type of planning unit data."
         ),
-        "x" = "{.arg x} is a {.cls {class(x)}}.",
-        "x" = "{.arg y} is a {.cls {class(x)}}."
+        "x" = "{.arg x} has {.cls {class(x$data$cost)}} planning units.",
+        "x" = "{.arg solution} is a {.cls {class(x)}}."
       )
     )
     ## number of columns
@@ -304,7 +307,7 @@ methods::setMethod(
       ),
       call = call,
       msg = paste(
-        "{.arg solution} should only contain columns with",
+        "{.arg solution} must only contain columns with",
         "values between {.val {0}} and {.val {1}}."
       )
     )
@@ -329,8 +332,8 @@ methods::setMethod(
           "{.arg x} and {.arg solution} must have",
           "the same type of planning unit data."
         ),
-        "x" = "{.arg x} is a {.cls {class(x)}}.",
-        "x" = "{.arg y} is a {.cls {class(x)}}."
+        "x" = "{.arg x} has {.cls {class(x$data$cost)}} planning units.",
+        "x" = "{.arg solution} is a {.cls {class(x)}}."
       )
     )
     ## dimensionality
@@ -403,8 +406,8 @@ methods::setMethod(
           "{.arg x} and {.arg solution} must have",
           "the same type of planning unit data."
         ),
-        "x" = "{.arg x} is a {.cls {class(x)}}.",
-        "x" = "{.arg y} is a {.cls {class(x)}}."
+        "x" = "{.arg x} has {.cls {class(x$data$cost)}} planning units.",
+        "x" = "{.arg solution} is a {.cls {class(x)}}."
       )
     )
     ## dimensionality
@@ -428,7 +431,7 @@ methods::setMethod(
       max(terra::global(solution, "max", na.rm = TRUE)[[1]]) <= 1,
       call = call,
       msg = paste(
-        "{.arg solution} should only contain",
+        "{.arg solution} must only contain",
         "values between {.val {0}} and {.val {1}}."
       )
     )
