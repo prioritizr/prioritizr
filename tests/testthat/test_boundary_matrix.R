@@ -248,6 +248,21 @@ test_that("sf (complex shapes)", {
   expect_lte(max(abs(x - y)), 1e-8)
 })
 
+test_that("sf (overlapping polygons)", {
+  # create data
+  d <- get_sim_pu_polygons()
+  d <- d[c(1, 2, 11, 12, 2), ]
+  # create matrix
+  x <- boundary_matrix(d)
+  # create correct matrix
+  y <- boundary_matrix(d[c(1, 2, 3, 4), ])
+  y <- rbind(y, y[2, ])
+  y <- cbind(y, y[, 2])
+  # tests
+  expect_is(x, "dsCMatrix")
+  expect_lte(max(abs(x - y)), 1e-8)
+})
+
 test_that("sf (vertices not aligned)", {
   # data
   d <- sf::st_sf(

@@ -47,6 +47,82 @@ test_that("single zone (edge_factor = 1, zone matrix = 1)", {
   expect_equal(nrow(na.omit(r1)), nrow(r1))
 })
 
+test_that("single zone (diagonal polygons)", {
+  # create data
+  pu <- get_sim_pu_polygons()
+  pu <- pu[c(1, 2, 11, 12, 20, 21), ]
+  pu$spp1 <- 1
+  pu$cost <- 1
+  pu$solution_1 <- c(0, 1, 1, 0, 1, 0)
+  # create boundary matrix
+  bm <- boundary_matrix(pu)
+  # create problem
+  p <- problem(pu, features = "spp1", cost_column = "cost")
+  # calculate boundary using manually specified boundary matrix
+  x <- eval_boundary_summary(
+    p, pu[, "solution_1"], edge_factor = 1, data = bm
+  )
+  # calculate boundary correctly
+  y <- terra::perim(terra::vect(sf::st_union(pu[pu$solution_1 > 0.5, ])))
+  # tests
+  expect_equal(x$boundary, y, tolerance = 1e-8)
+})
+
+test_that("single zone (overlapping polygons)", {
+  # create data
+  pu <- get_sim_pu_polygons()
+  pu <- pu[c(1, 2, 11, 12, 2), ]
+  pu$spp1 <- 1
+  pu$cost <- 1
+  pu$solution_1 <- c(1, 0, 1, 1, 1)
+  # create boundary matrix
+  bm <- boundary_matrix(pu)
+  # create problem
+  p <- problem(pu, features = "spp1", cost_column = "cost")
+  # calculate boundary using manually specified boundary matrix
+  expect_warning(
+    x <- eval_boundary_summary(
+      p, pu[, "solution_1"], edge_factor = 1, data = bm
+    ),
+    "overlapping"
+  )
+  # calculate boundary correctly
+  y <- terra::perim(terra::vect(sf::st_union(pu[pu$solution_1 > 0.5, ])))
+  # tests
+  expect_equal(x$boundary, y, tolerance = 1e-8)
+})
+
+test_that("single zone (multiple overlapping polygons)", {
+  # create data
+  pu <- get_sim_pu_polygons()
+  pu <- pu[c(1, 2, 11, 12, 20, 21), ]
+  pu <- sf::st_sf(
+    geom = c(
+      sf::st_geometry(pu),
+      sf::st_union(pu[c(1, 2, 3), ]),
+      sf::st_union(pu[c(5, 6), ])
+    )
+  )
+  pu$spp1 <- 1
+  pu$cost <- 1
+  pu$solution_1 <- c(0, 0, 0, 1, 0, 0, 1, 1)
+  # create boundary matrix
+  bm <- boundary_matrix(pu)
+  # create problem
+  p <- problem(pu, features = "spp1", cost_column = "cost")
+  # calculate boundary using manually specified boundary matrix
+  expect_warning(
+    x <- eval_boundary_summary(
+      p, pu[, "solution_1"], edge_factor = 1, data = bm
+    ),
+    "overlapping"
+  )
+  # calculate boundary correctly
+  y <- terra::perim(terra::vect(sf::st_union(pu[pu$solution_1 > 0.5, ])))
+  # tests
+  expect_equal(x$boundary, y, tolerance = 1e-8)
+})
+
 test_that("single zone (variable edge_factor, zone matrix)", {
   set.seed(500)
   # create zones data
