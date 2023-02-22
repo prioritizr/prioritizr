@@ -422,6 +422,12 @@ boundary length.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># calculate boundary associated with the solution</span></span></span>
 <span class="r-in"><span><span class="va">r2</span> <span class="op">&lt;-</span> <span class="fu">eval_boundary_summary</span><span class="op">(</span><span class="va">p2</span>, <span class="va">s2</span><span class="op">[</span>, <span class="st">"solution_1"</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`data` has unexpected values.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">✖</span> If `data` is from an older version of <span style="color: #0000BB;">prioritizr</span>, then use</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   `boundary_matrix()` to recreate it.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> `x` might have spatially overlapping planning units.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> If `solution` has selected multiple spatially overlapping planning units,</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   then results will be incorrect.</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">r2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   summary boundary</span>
@@ -483,6 +489,12 @@ boundary length.</p>
 <span class="r-in"><span><span class="va">r3</span> <span class="op">&lt;-</span> <span class="fu">eval_boundary_summary</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">p3</span>, <span class="va">s3</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"solution_1_zone_1"</span>, <span class="st">"solution_1_zone_2"</span>, <span class="st">"solution_1_zone_3"</span><span class="op">)</span><span class="op">]</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`data` has unexpected values.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">✖</span> If `data` is from an older version of <span style="color: #0000BB;">prioritizr</span>, then use</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   `boundary_matrix()` to recreate it.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> `x` might have spatially overlapping planning units.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> If `solution` has selected multiple spatially overlapping planning units,</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   then results will be incorrect.</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">r3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 4 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   summary boundary</span>
@@ -504,6 +516,12 @@ boundary length.</p>
 <span class="r-in"><span>  <span class="va">p3</span>, zones <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">1</span>, ncol <span class="op">=</span> <span class="fl">3</span>, nrow <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  <span class="va">s3</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"solution_1_zone_1"</span>, <span class="st">"solution_1_zone_2"</span>, <span class="st">"solution_1_zone_3"</span><span class="op">)</span><span class="op">]</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`data` has unexpected values.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">✖</span> If `data` is from an older version of <span style="color: #0000BB;">prioritizr</span>, then use</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   `boundary_matrix()` to recreate it.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> `x` might have spatially overlapping planning units.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> If `solution` has selected multiple spatially overlapping planning units,</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   then results will be incorrect.</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">r3_combined</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 4 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   summary boundary</span>
