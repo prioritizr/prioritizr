@@ -65,7 +65,9 @@ expect_tidy_error <- function(object, regexp = NULL, name = NA) {
   testthat::expect(
     (!grepl(".local", err_msg, fixed = TRUE)) &
       (!grepl("eval(assertion, env)", err_msg, fixed = TRUE)) &
-      (!grepl("assert_that", err_msg, fixed = TRUE)),
+      (!grepl("assert_that", err_msg, fixed = TRUE)) &
+      (!grepl("Could not evaluate", err_msg, fixed = TRUE)) &
+      (!grepl("Error in glue", err_msg, fixed = TRUE)),
     trace = act$cap[["trace"]],
     failure_message = "Failed to parse error message."
   )

@@ -86,7 +86,7 @@ boundary_matrix.Raster <- function(x, ...) {
   # assert that arguments are valid
   assert(inherits(x, "Raster"))
   # deprecation notice
-  .Deprecated(raster_pkg_deprecation_notice)
+  cli_warning(raster_pkg_deprecation_notice)
   # convert to SpatRaster for processing
   boundary_matrix.SpatRaster(terra::rast(x), ...)
 }
@@ -142,7 +142,7 @@ boundary_matrix.SpatialPolygons <- function(x, ...) {
   # assert that arguments are valid
   assert(inherits(x, "SpatialPolygons"))
   # deprecation notice
-  .Deprecated(sp_pkg_deprecation_notice)
+  cli_warning(sp_pkg_deprecation_notice)
   # convert to sf format for processing
   boundary_matrix.sf(sf::st_as_sf(x))
 }

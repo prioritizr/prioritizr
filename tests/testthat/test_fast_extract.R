@@ -99,7 +99,10 @@ test_that("x = Raster, y = sfc", {
   idx <- sample.int(nrow(sim_data))
   sim_data <- sf::st_geometry(sim_data[idx, ])
   # calculations
-  x <- fast_extract(raster::stack(sim_features), sim_data, fun = "sum")
+  expect_warning(
+    x <- fast_extract(raster::stack(sim_features), sim_data, fun = "sum"),
+    "deprecated"
+  )
   # calculate correct result
   y <- fast_extract(sim_features, sim_data, fun = "sum")
   # tests

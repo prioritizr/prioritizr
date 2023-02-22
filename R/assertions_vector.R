@@ -26,7 +26,10 @@ is_match_of <- function(x, choices) {
 assertthat::on_failure(is_match_of) <- function(call, env) {
   w <- eval(call$choices, envir = env)
   if (length(w) <= 5) {
-    w <- list_text(paste0("{.val {", w, "}}"), last_sep = "or")
+    if (is.numeric(w)) {
+      w <- paste0("{", w, "}")
+    }
+    w <- list_text(paste0("{.val ", w, "}"), last_sep = "or")
   } else {
     w <- paste0("one of the values in {.code ", deparse(call$choices), "}")
   }
@@ -58,7 +61,10 @@ all_match_of <- function(x, choices) {
 assertthat::on_failure(all_match_of) <- function(call, env) {
   w <- eval(call$choices, envir = env)
   if (length(w) <= 5) {
-    w <- list_text(paste0("{.val {", w, "}}"), last_sep = "or")
+    if (is.numeric(w)) {
+      w <- paste0("{", w, "}")
+    }
+    w <- list_text(paste0("{.val ", w, "}"), last_sep = "or")
   } else {
     w <- paste0("one of the values in {.code ", deparse(call$choices), "}")
   }

@@ -75,8 +75,8 @@ methods::setMethod(
   "fast_extract",
   signature(x = "Raster", y = "Spatial"),
   function(x, y, fun = "mean", ...) {
-    .Deprecated(raster_pkg_deprecation_notice)
-    .Deprecated(sp_pkg_deprecation_notice)
+    cli_warning(raster_pkg_deprecation_notice)
+    cli_warning(sp_pkg_deprecation_notice)
     fast_extract(terra::rast(x), sf::st_as_sf(y), fun, ...)
 })
 
@@ -87,7 +87,7 @@ methods::setMethod(
   "fast_extract",
   signature(x = "Raster", y = "sfc"),
   function(x, y, fun = "mean", ...) {
-    .Deprecated(raster_pkg_deprecation_notice)
+    cli_warning(raster_pkg_deprecation_notice)
     fast_extract(terra::rast(x), sf::st_sf(y), fun, ...)
 })
 
@@ -108,7 +108,7 @@ methods::setMethod(
   "fast_extract",
   signature(x = "Raster", y = "sf"),
   function(x, y, fun = "mean", ...) {
-    .Deprecated(raster_pkg_deprecation_notice)
+    cli_warning(raster_pkg_deprecation_notice)
     fast_extract(terra::rast(x), y, fun, ...)
 })
 
