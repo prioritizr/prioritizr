@@ -1,5 +1,5 @@
 all: clean contrib initc data docs test check
-
+ 
 clean:
 	rm -rf man/*
 
