@@ -12,9 +12,9 @@ NULL
 #' Importance scores are reported separately for each feature within
 #' each planning unit. Additionally, a total importance score is also
 #' calculated as the sum of the scores for each feature.
-#' Note that this function only works for problems with
-#' a minimum set objective and a single zone.
-#' It will throw an error for problems that do not meet this criteria.
+#' Note that this function only works for problems
+#' that use targets and a single zone.
+#' It will throw an error for problems that do not meet these criteria.
 #'
 #' @section Notes:
 #' In previous versions, the documentation for this function had a warning
@@ -41,7 +41,7 @@ NULL
 #' @seealso
 #' See [importance] for an overview of all functions for evaluating
 #' the importance of planning units selected in a solution.
-#.
+#'
 #' @family importances
 #'
 #' @examples
@@ -367,6 +367,36 @@ internal_eval_ferrier_importance <- function(x, indices,
     number_of_zones(x) == 1,
     msg = c(
       "This function requires that {.arg x} must have a single zone.",
+      "i" = paste(
+        "This is because the calculations only work",
+        "for a limited range of problem formulations."
+      ),
+      "i" = "Try using {.fn eval_replacement_importance} instead."
+    ),
+    call = call
+  )
+  assert(
+    !is.Waiver(x$targets),
+    msg = c(
+      "This function requires that {.arg x} must have targets.",
+      "i" = paste(
+        "This is because the calculations only work",
+        "for a limited range of problem formulations."
+      ),
+      "i" = "Try using {.fn eval_replacement_importance} instead."
+    ),
+    call = call
+  )
+  assert(
+    !inherits(
+      x$objective,
+      c("MaximumUtilityObjective", "MaximumCoverageObjective")
+    ),
+    msg = c(
+      paste(
+        "This function requires that {.arg x} must have an objective",
+        "that uses targets."
+      ),
       "i" = paste(
         "This is because the calculations only work",
         "for a limited range of problem formulations."
