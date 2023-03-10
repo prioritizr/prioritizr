@@ -77,7 +77,7 @@ library(dplyr)
 
 ### Download benchmark results
 
-Let's download the results of the benchmark analysis. This code will save the results to a temporary folder on your computer. Please note that downloading the results might take several minutes to complete depending on your Internet connection. If you are unable to download the results onto your computer, you can view the graphs shown in this vignette. You only need to run the code in this vignette if you wish to explore certain aspects of the results yourself.
+Let's download the results of the benchmark analysis. This code will save the results to a temporary folder on your computer. Please note that downloading the results might take several minutes to complete depending on your internet connection. If you are unable to download the results onto your computer, you can view the graphs shown in this vignette. You only need to run the code in this vignette if you wish to explore certain aspects of the results yourself.
 
 ```{r "import results", message = FALSE}
 # download data to temporary folder
@@ -212,19 +212,23 @@ plot_benchmark <- function(
   solver_colors <- scales::hue_pal()(length(solver_names))
   names(solver_colors) <- solver_names
 
-  # return plot for selected benchmark runs
-  ggplot(
-    data = plot_data,
-    mapping = aes(x = relative_target, y = min_set_scaled, color = solver)) +
-  scale_y_continuous(limits = c(0, NA_real_)) +
-  geom_line() +
-  geom_point() +
-  scale_x_continuous(labels = function(x) x * 100) +
-  scale_color_manual(values = solver_colors) +
-  labs(
-    title = plot_title,
-    x = "Representation targets (%)",
-    y = paste0("Run time (", plot_units, ")"))
+  # return plot for selected benchmark runs (suppress warnings when a solver doesn't have results)
+  suppressWarnings(
+    print(
+      ggplot(
+        data = plot_data,
+        mapping = aes(x = relative_target, y = min_set_scaled, color = solver)) +
+      scale_y_continuous(limits = c(0, NA_real_)) +
+      geom_line() +
+      geom_point() +
+      scale_x_continuous(labels = function(x) x * 100) +
+      scale_color_manual(values = solver_colors) +
+      labs(
+        title = plot_title,
+        x = "Representation targets (%)",
+        y = paste0("Run time (", plot_units, ")"))
+    )
+  )
 }
 ```
 
@@ -336,7 +340,7 @@ plot_benchmark(
 
 ### Minimum set results with low boundary penalty
 
-Now let's at the same problem types, but this time with a low boundary length penalty value added to the problem formulation. To start with, we will look at scenarios with a low `boundary_penalty` value (i.e., $`r boundary_penalty_values$add_min_set_objective[2]`$). Let's start again with the smallest problem size we've benchmarked. This problem has only `r formatC(n_planning_units[1], big.mark = ",")` planning units.
+Now let's look at the same problem types, but this time with a low boundary length penalty value added to the problem formulation. To start with, we will look at scenarios with a low `boundary_penalty` value (i.e., $`r boundary_penalty_values$add_min_set_objective[2]`$). Let's start again with the smallest problem size we've benchmarked. This problem has only `r formatC(n_planning_units[1], big.mark = ",")` planning units.
 
 ```{r "min_set_pu_n_1_with_low_boundary_penalty"}
 plot_benchmark(

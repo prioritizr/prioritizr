@@ -17,7 +17,7 @@ NULL
 #' @param x [problem()] object.
 #'
 #' @param targets `data.frame` or [tibble::tibble()] object.
-#'   See the Target data format section for more information.
+#'   See the Targets format section for more information.
 #'
 #' @inherit add_absolute_targets details
 #'

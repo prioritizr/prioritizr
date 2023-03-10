@@ -262,7 +262,7 @@ plot(s2, main = "Solution", axes = FALSE)
 This solution is an improvement over the previous solution. However, there are some places in the study area that are not available for protected area establishment (e.g., due to land tenure). As a consequence, the solution might not be practical for implementation, because it might select some places that are not available for protection. To address this issue, we will use the `get_wa_locked_out()` function to import spatial data describing which planning units are not available for protection. We will then add constraints to the `problem()` to ensure they are not selected by the solution (via `add_locked_out_constraints()`).
 
 ```{r "locked_out_constraints"}
-# import locked in data
+# import locked out data
 wa_locked_out <- get_wa_locked_out()
 
 # print data
@@ -271,10 +271,10 @@ print(wa_locked_out)
 # plot data
 plot(wa_locked_out, main = "Areas not available for protection", axes = FALSE)
 
-# create new problem with locked in constraints added to it
+# create new problem with locked out constraints added to it
 p3 <-
   p2 %>%
-  add_locked_in_constraints(wa_locked_out)
+  add_locked_out_constraints(wa_locked_out)
 
 # solve the problem
 s3 <- solve(p3)
@@ -283,7 +283,7 @@ s3 <- solve(p3)
 plot(s3, main = "Solution", axes = FALSE)
 ```
 
-This solution is even better then the previous solution. However, we are not finished yet. The planning units selected by the solution are fairly fragmented. This can cause issues because fragmentation increases management costs and reduces conservation benefits through edge effects. To address this issue, we can further modify the problem by adding penalties that punish overly fragmented solutions (via `add_boundary_penalties()`). Here we will use a penalty factor of 0.003 (i.e., boundary length modifier), and an edge factor of 50% so that planning units that occur outer edge of the study area are not overly penalized.
+This solution is even better then the previous solution. However, we are not finished yet. The planning units selected by the solution are fairly fragmented. This can cause issues because fragmentation increases management costs and reduces conservation benefits through edge effects. To address this issue, we can further modify the problem by adding penalties that punish overly fragmented solutions (via `add_boundary_penalties()`). Here we will use a penalty factor (i.e., boundary length modifier) of 0.003, and an edge factor of 50% so that planning units that occur on the outer edge of the study area are not overly penalized.
 
 ```{r "boundary_penalties"}
 # create new problem with boundary penalties added to it

@@ -155,7 +155,7 @@ NULL
 #' First, you will need to create a set of planning units
 #' (i.e., discrete spatial areas) to inform decision making.
 #' Planning units are often created by subdividing a study region
-#' into a set square or hexagonal cells. They can also be created using
+#' into a set of square or hexagonal cells. They can also be created using
 #' administrative boundaries (e.g., provinces), land management boundaries
 #' (e.g., property boundaries derived from cadastral data), or
 #' ecological boundaries (e.g., based on ecosystem classification data).
@@ -165,8 +165,8 @@ NULL
 #' the computational resources available for generating prioritizations
 #' (e.g., RAM and number of CPU cores on your computer).
 #'
-#' Second, you will need data to quantify the cost of implementing
-#' implementing each management action within each planning unit.
+#' Second, you will need data to quantify the cost of implementing 
+#' each management action within each planning unit.
 #' Critically, the cost data should reflect the management action(s)
 #' considered in the exercise.
 #' For example, costs are often specified using data that reflect economic
@@ -175,14 +175,14 @@ NULL
 #' opportunity costs of foregone commercial activities
 #' (e.g., logging or agriculture), or
 #' opportunity costs of foregone recreational activities
-#' (e.g., recreational fishing) activities,
+#' (e.g., recreational fishing).
 #' In some cases -- depending on the management action(s) considered --
 #' it can make sense to use a constant cost value
 #' (e.g., all planning units are assigned a cost value equal to one)
 #' or use a cost value based on spatial extent
 #' (e.g., each planning unit is assigned a cost value based on its total area).
 #' Also, in most cases, you want to avoid negative cost values.
-#' This because a negative value means that a place is *desirable*
+#' This is because a negative value means that a place is *desirable*
 #' for implementing a management action, and such places will almost
 #' always be selected for prioritization even if they provide no benefit.
 #'
