@@ -10,7 +10,7 @@ NULL
 #' each feature is represented in a contiguous unit and not that the entire
 #' solution should form a contiguous unit. Additionally, this function
 #' can use data showing the distribution of dispersible habitat for each
-#' feature to ensure that all features can disperse through out the areas
+#' feature to ensure that all features can disperse throughout the areas
 #' designated for their conservation.
 #'
 #' @param x [problem()] object.

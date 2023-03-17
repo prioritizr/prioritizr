@@ -90,19 +90,19 @@ NULL
 #' # solve problems and create solution portfolios
 #' s <- list(solve(p1), solve(p2), solve(p3), solve(p4), solve(p5))
 #'
-#' # plot solutions from extra portfolio
+#' # plot solutions from cuts portfolio
 #' plot(terra::rast(s[[1]]), axes = FALSE)
 #'
-#' # plot solutions from top portfolio
+#' # plot solutions from shuffle portfolio
 #' plot(terra::rast(s[[2]]), axes = FALSE)
 #'
-#' # plot solutions from gap portfolio
+#' # plot solutions from extra portfolio
 #' plot(terra::rast(s[[3]]), axes = FALSE)
 #'
-#' # plot solutions from cuts portfolio
+#' # plot solutions from top portfolio
 #' plot(terra::rast(s[[4]]), axes = FALSE)
 #'
-#' # plot solutions from shuffle portfolio
+#' # plot solutions from gap portfolio
 #' plot(terra::rast(s[[5]]), axes = FALSE)
 #' }
 #'

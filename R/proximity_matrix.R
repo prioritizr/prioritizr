@@ -46,21 +46,21 @@ NULL
 #'
 #' # create proximity matrix using polygon data
 #' ## subset 9 polygons to provide a small example
-#' ply <- sim_pu_polygons[c(1:2, 10:12, 20:22), ]
+#' ply <- sim_pu_polygons[c(1:3, 11:13, 20:22), ]
 #'
 #' ## make proximity matrix using a distance threshold of 2
 #' cm_ply <- proximity_matrix(ply, distance = 2)
 #'
 #' # create proximity matrix using line data
 #' ## subset 9 lines to provide a small example
-#' lns <- sim_pu_lines[c(1:2, 10:12, 20:22), ]
+#' lns <- sim_pu_lines[c(1:3, 11:13, 20:22), ]
 #'
 #' ## make proximity matrix
 #' cm_lns <- proximity_matrix(lns, distance = 2)
 #'
 #' ## create proximity matrix using point data
 #' ## subset 9 points to provide a small example
-#' pts <- sim_pu_points[c(1:2, 10:12, 20:22), ]
+#' pts <- sim_pu_points[c(1:3, 11:13, 20:22), ]
 #'
 #' # make proximity matrix
 #' cm_pts <- proximity_matrix(pts, distance = 2)
@@ -70,15 +70,15 @@ NULL
 #' Matrix::image(cm_raster, main = "proximity matrix")
 #'
 #' ## plot polygons and proximity matrix
-#' plot(ply, main = "polygons", axes = FALSE)
+#' plot(ply[, 1], main = "polygons", axes = FALSE)
 #' Matrix::image(cm_ply, main = "proximity matrix")
 #'
 #' ## plot lines and proximity matrix
-#' plot(lns, main = "lines", axes = FALSE)
+#' plot(lns[, 1], main = "lines", axes = FALSE)
 #' Matrix::image(cm_lns, main = "proximity matrix")
 #'
 #' ## plot points and proximity matrix
-#' plot(pts, main = "points", axes = FALSE)
+#' plot(pts[, 1], main = "points", axes = FALSE)
 #' Matrix::image(cm_pts, main = "proximity matrix")
 #' }
 #' @export

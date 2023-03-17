@@ -8,7 +8,7 @@ NULL
 #' (or allocated to a specific zone) in the solution. For example, it may be
 #' useful to lock out planning units that have been degraded and are not
 #' suitable for conserving species. If specific planning units should be locked
-#' in to the solution, use [add_locked_out_constraints()]. For
+#' in to the solution, use [add_locked_in_constraints()]. For
 #' problems with non-binary planning unit allocations (e.g., proportions), the
 #' [add_manual_locked_constraints()] function can be used to lock
 #' planning unit allocations to a specific value.
@@ -114,17 +114,17 @@ NULL
 #' p8 <- p7 %>% add_locked_out_constraints(locked_matrix)
 #'
 #' # solve problem
-#' s7 <- solve(p7)
+#' s8 <- solve(p8)
 #'
 #' # create new column representing the zone id that each planning unit
 #' # was allocated to in the solution
-#' s7$solution <- category_vector(sf::st_drop_geometry(
-#'   s7[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")]
+#' s8$solution <- category_vector(sf::st_drop_geometry(
+#'   s8[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")]
 #' ))
-#' s7$solution <- factor(s7$solution)
+#' s8$solution <- factor(s8$solution)
 #'
 #' # plot solution
-#' plot(s7[, "solution"], main = "solution", axes = FALSE)
+#' plot(s8[, "solution"], main = "solution", axes = FALSE)
 #'
 #' # create multi-zone problem with locked out constraints using column names
 #' p9 <-
@@ -157,6 +157,7 @@ NULL
 #' locked_out_raster <- sim_zones_pu_raster[[1]]
 #' locked_out_raster[!is.na(locked_out_raster)] <- 0
 #' locked_out_raster <- locked_out_raster[[c(1, 1, 1)]]
+#' names(locked_out_raster) <- c("zones_1", "zones_2", "zones_3")
 #' locked_out_raster[[1]][1] <- 1
 #' locked_out_raster[[2]][2] <- 1
 #' locked_out_raster[[3]][3] <- 1

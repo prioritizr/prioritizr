@@ -26,7 +26,7 @@ NULL
 #' For problems associated with multiple management zones, 
 #' [add_absolute_targets()] can
 #' be used to set targets that each pertain to a single feature and a single
-#' zone. To set targets which can be met through allocating different
+#' zone. To set targets that can be met through allocating different
 #' planning units to multiple zones, see the [add_manual_targets()]
 #' function. An example of a target that could be met through allocations
 #' to multiple zones might be where each management zone is expected to

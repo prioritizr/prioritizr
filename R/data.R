@@ -50,7 +50,7 @@ NULL
 #'   `sim_pu_polygons`.}
 #'
 #' \item{`get_sim_features()`}{Import feature data stored in raster format.
-#'   Here, data describe the spatial distribution of ten species.
+#'   Here, data describe the spatial distribution of five species.
 #'   Each layer corresponds to a different species, and
 #'   cell values indicate habitat suitability.}
 #'
@@ -140,7 +140,7 @@ NULL
 #'
 #' # plot raster data
 #' \dontrun{
-#' par(mfrow = c(1, 3))
+#' par(mfrow = c(2, 2))
 #' plot(sim_pu_raster, main = "planning units (raster)", axes = FALSE)
 #' plot(sim_locked_in_raster, main = "locked in units (raster)", axes = FALSE)
 #' plot(sim_locked_out_raster, main = "locked out units (raster)", axes = FALSE)

@@ -17,7 +17,7 @@ NULL
 #'   the [presolve_check()] function. Defaults to `TRUE`.
 #'   Skipping these checks may reduce run time for large problems.
 #'
-#' @param force `logical` flag indicating if an attempt to should be
+#' @param force `logical` flag indicating if an attempt should be
 #'   made to solve the problem even if potential issues were detected during
 #'   the presolve checks. Defaults to `FALSE`.
 #'
@@ -49,13 +49,13 @@ NULL
 #' solution exists when planning units are locked out---they are
 #' absolutely essential for obtaining a solution (e.g., they contain rare
 #' species that are not found in any other planning units or were locked in).
-#' Zeros values mean that planning units can swapped with other planning units
-#' and this will have no effect on the performance of the solution at all
+#' Zeros values mean that planning units can be swapped with other planning 
+#' units and this will have no effect on the performance of the solution at all
 #' (e.g., because they were only selected due to spatial fragmentation
 #' penalties).
 #'
 #' These calculations can take a long time to complete for large
-#' or complex conservation planning problems. As such, we using this
+#' or complex conservation planning problems. As such, we recommend using this
 #' method for small or moderate-sized conservation planning problems
 #' (e.g., < 30,000 planning units). To reduce run time, we
 #' recommend calculating these scores without additional penalties (e.g.,
@@ -66,7 +66,7 @@ NULL
 #'
 #' @inheritSection eval_cost_summary Solution format
 #'
-#' @return A `numeric`, `matrix`, `data.frame`
+#' @return A `numeric`, `matrix`, `data.frame`, 
 #'   [terra::rast()], or [sf::sf()] object
 #'   containing the importance scores for each planning
 #'   unit in the solution. Specifically, the returned object is in the

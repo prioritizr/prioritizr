@@ -38,9 +38,10 @@ NULL
 #'
 #'   \item{**`x` has [sf::st_sf()] or `data.frame` planning units**}{
 #'     The argument to `features` can be a `character` vector
-#'     with column names that correspond to the abundance or occurrence of
-#'     different features in each planning unit. Note that this argument
-#'     type can only be used to create problems involving a single zone.}
+#'     with column names (from `x`) that correspond to the abundance or 
+#'     occurrence of different features in each planning unit. Note that 
+#'     this argument type can only be used to create problems involving a 
+#'     single zone.}
 #'
 #'   \item{**`x` has `data.frame`, `matrix`, or `numeric` vector planning
 #'      units**}{
@@ -78,7 +79,7 @@ NULL
 #'
 #'   \item{**`x` has [sf::st_sf()] or `data.frame` planning units**}{
 #'    The argument to `features` can be a [`ZonesCharacter`][zones()]
-#'    object with column names that correspond to the abundance or
+#'    object with column names (from `x`) that correspond to the abundance or
 #'    occurrence of different features in each planning unit in different
 #'    zones.}
 #'
@@ -119,7 +120,7 @@ NULL
 #'    to `x` is a `numeric` or `matrix` object.
 #'
 #' @param zones `data.frame` containing information on the zones. This
-#'   argument is only used when argument to `x` and `y` are
+#'   argument is only used when argument to `x` and `features` are
 #'   both `data.frame` objects and the problem being built contains
 #'   multiple zones. Following conventions used in `MarZone`, this
 #'   argument should contain the following columns:
@@ -198,7 +199,7 @@ NULL
 #' presence or absence), area of occurrence within each planning unit
 #' (e.g., based on species' geographic range data), or
 #' a measure of habitat suitability (e.g., estimated using a statistical model).
-#' After compiling these data, you have the minimal data need to generate
+#' After compiling these data, you have the minimal data needed to generate
 #' a prioritization.
 #'
 #' A systematic conservation planning exercise involves prioritizing a set of

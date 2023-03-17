@@ -57,7 +57,7 @@ NULL
 #'
 #' # subset data to reduce processing time
 #' r <- terra::crop(sim_pu_raster, c(0, 0.3, 0, 0.3))
-#' ply <- sim_pu_polygons[c(1:2, 10:12, 20:22), ]
+#' ply <- sim_pu_polygons[c(1:3, 11:13, 20:22), ]
 #'
 #' # create boundary matrix using raster data
 #' bm_raster <- boundary_matrix(r)
@@ -70,7 +70,7 @@ NULL
 #' Matrix::image(bm_raster, main = "boundary matrix")
 #'
 #' # plot polygons and boundary matrices
-#' plot(r, main = "polygons", axes = FALSE)
+#' plot(ply[, 1], main = "polygons", axes = FALSE)
 #' Matrix::image(bm_ply, main = "boundary matrix")
 #' }
 #' @export
