@@ -183,13 +183,16 @@ Let's make sure that you have a solver installed on your computer. This is impor
 install.packages("highs", repos = "https://cran.rstudio.com/")
 ```
 
-Now, let's generate a spatial prioritization. Let's say that we want to develop a protected area system that will secure 20% of the distribution for each feature for minimal cost. In this scenario, we can either purchase all of the land inside a given planning unit, or none of the land inside a given planning unit. Thus we will create a new `problem()` that will use a minimum set objective (via `add_min_set_objective()`), with relative targets of 20% (via `add_relative_targets()`), binary decisions (via `add_binary_decisions()`), and specify that we want to want near-optimal solutions (i.e., 10% from optimality) using the best solver installed on our computer (via `add_default_solver()`).
+Now, let's generate a spatial prioritization. Let's say that we want to identify priority areas for expanding the protected area system. To ensure feasibility, we will set a budget. Specifically, the total cost of the prioritization will represent a 30% increase in the total land value associated with the existing protected area system. Given this budget, we want the prioritization to increase feature representation, as much as possible, so that each feature would, ideally, have 30% of its distribution covered by the prioritization. In this scenario, we can either purchase all of the land inside a given planning unit, or none of the land inside a given planning unit. Thus we will create a new `problem()` that will use a minimum set objective (via `add_min_set_objective()`), with relative targets of 20% (via `add_relative_targets()`), binary decisions (via `add_binary_decisions()`), and specify that we want to want near-optimal solutions (i.e., 10% from optimality) using the best solver installed on our computer (via `add_default_solver()`).
 
 ```{r}
+# calculate budget
+budget <- terra::global(wa_pu, "sum", na.rm = TRUE)[[1]] * 0.3
+
 # create problem
 p1 <-
   problem(wa_pu, features = wa_features) %>%
-  add_min_set_objective() %>%
+  add_min_shortfall_objective(budget) %>%
   add_relative_targets(0.2) %>%
   add_binary_decisions() %>%
   add_default_solver(gap = 0.1)
@@ -218,7 +221,7 @@ print(attr(s1, "status"))
 plot(s1, main = "Solution", axes = FALSE)
 ```
 
-After generating a solution, it is important to evaluate it. Here, we will calculate the number of planning units selected by the solution, and the total cost of the solution. We can also check that all the representation targets are met by the solution.
+After generating a solution, it is important to evaluate it. Here, we will calculate the number of planning units selected by the solution, and the total cost of the solution. We can also check how many representation targets are met by the solution.
 
 ```{r "eval_performance"}
 # calculate number of selected planning units by solution
@@ -231,11 +234,11 @@ eval_cost_summary(p1, s1)
 p1_target_coverage <- eval_target_coverage_summary(p1, s1)
 print(p1_target_coverage)
 
-# check if the solution meets all the targets
-print(all(p1_target_coverage$met))
+# check percentage of the features that have their target met given the solution
+print(mean(p1_target_coverage$met) * 100)
 ```
 
-Although this solution meets all of the representation targets, it does not account for existing protected areas inside the study area. As such, it may be inefficient. This is because it might not account for the possibility that some features could be partially -- or even fully -- represented by existing protected areas. To address this issue, we will use the `get_wa_locked_in()` function to import spatial data for protected areas in the study area. We will then add constraints to the `problem()` to ensure they are selected by the solution (via `add_locked_in_constraints()`).
+Although this solution helps meet the representation targets, it does not account for existing protected areas inside the study area. As such, it may be inefficient. This is because it might not account for the possibility that some features could be partially -- or even fully -- represented by existing protected areas. To address this issue, we will use the `get_wa_locked_in()` function to import spatial data for protected areas in the study area. We will then add constraints to the `problem()` to ensure they are selected by the solution (via `add_locked_in_constraints()`).
 
 ```{r "locked_in_constraints"}
 # import locked in data
@@ -257,6 +260,19 @@ s2 <- solve(p2)
 
 # plot the solution
 plot(s2, main = "Solution", axes = FALSE)
+```
+
+We can also confirm that the solution is improving feature representation. To achieve this, we can compare the percentage of features that have their target met given the existing protected area system to that given the prioritization. Below, we can see that the percentage is much higher given the solution.
+
+```{r}
+# check percentage of the features that have their target met given the solution
+p2_target_coverage <- eval_target_coverage_summary(p1, s1)
+print(mean(p2_target_coverage$met) * 100)
+
+# check percentage of the features that have their target met given the
+# existing protected area system
+p0_target_coverage <- eval_target_coverage_summary(p1, wa_locked_in)
+print(mean(p0_target_coverage$met) * 100)
 ```
 
 This solution is an improvement over the previous solution. However, there are some places in the study area that are not available for protected area establishment (e.g., due to land tenure). As a consequence, the solution might not be practical for implementation, because it might select some places that are not available for protection. To address this issue, we will use the `get_wa_locked_out()` function to import spatial data describing which planning units are not available for protection. We will then add constraints to the `problem()` to ensure they are not selected by the solution (via `add_locked_out_constraints()`).
@@ -289,7 +305,7 @@ This solution is even better then the previous solution. However, we are not fin
 # create new problem with boundary penalties added to it
 p4 <-
   p3 %>%
-  add_boundary_penalties(penalty = 0.003, edge_factor = 0.5)
+  add_boundary_penalties(penalty = 0.001, edge_factor = 0.5)
 
 # solve the problem
 s4 <- solve(p4)
