@@ -53,12 +53,14 @@ NULL
 #' print(intersecting_units(r, ply_with_holes))
 #'
 #' # intersect sf with raster
-#' plot(ply, main = "x = sf")
+#' par(mfrow = c(1, 2))
+#' plot(ply, main = "x = sf", key.pos = NULL, reset = FALSE)
 #' plot(r_with_holes, main = "y = SpatRaster")
 #' print(intersecting_units(ply, r_with_holes))
 #'
 #' # intersect sf with sf
-#' plot(ply, main = "x = sf")
+#' par(mfrow = c(1, 2))
+#' plot(ply, main = "x = sf", key.pos = NULL, reset = FALSE)
 #' plot(ply_with_holes, main = "y = sf", key.pos = NULL, reset = FALSE)
 #' print(intersecting_units(ply, ply_with_holes))
 #' }

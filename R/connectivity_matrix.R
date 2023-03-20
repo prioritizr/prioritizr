@@ -71,13 +71,14 @@ NULL
 #' # the habitat suitability data for the second feature to represent
 #' # planning unit conductances
 #' ## subset data to 9 polygons
-#' ply <- sim_pu_polygons[c(1:2, 10:12, 20:22), ]
+#' ply <- sim_pu_polygons[c(1:3, 11:13, 20:22), ]
 #'
 #' ## make connectivity matrix
 #' cm_ply <- connectivity_matrix(ply, sim_features[[2]])
 #'
 #' ## plot data and matrix
 #' plot(sf::st_geometry(ply), main = "planning units (polygons)")
+#' plot(terra::crop(sim_features[[2]], ply), main = "connectivity")
 #' Matrix::image(cm_ply, main = "connectivity matrix")
 #'
 #' # create connectivity matrix using habitat suitability data for each feature,
@@ -88,7 +89,7 @@ NULL
 #' ## let's use the raster data for this example, and we can generate the
 #' ## connectivity matrix that we would use in the prioritization by
 #' ## (1) generating a connectivity matrix for each feature separately, and
-#' ## and then (2) then summing the values together
+#' ## and then (2) summing the values together
 #' cm_sum <- lapply(as.list(cd), connectivity_matrix, x = r) # make matrices
 #' cm_sum <- Reduce("+", cm_sum) # sum matrices together
 #'

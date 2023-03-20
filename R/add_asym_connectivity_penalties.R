@@ -154,9 +154,6 @@ NULL
 #'   p1 %>% add_asym_connectivity_penalties(penalties[2], data = acm1)
 #' )
 #'
-#' # assign names to the problems
-#' names(p2) <- c("basic problem", paste0("acm1 (", penalties,")"))
-#'
 #' # solve problems
 #' s2 <- lapply(p2, solve)
 #'
@@ -170,8 +167,10 @@ NULL
 #'  geometry = sf::st_geometry(s2[[1]])
 #' )
 #'
+#' names(s2)[1:3] <- c("basic problem", paste0("acm1 (", penalties,")"))
+#'
 #' # plot solutions based on different penalty values
-#' plot(s2, main = names(p2), cex = 1.5)
+#' plot(s2, cex = 1.5)
 #'
 #' # create minimal multi-zone problem and limit solver to one minute
 #' # to obtain solutions in a short period of time

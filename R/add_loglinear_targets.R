@@ -33,7 +33,7 @@ NULL
 #'
 #' @param abundances `numeric` total amount of each feature to
 #'  use when calculating the targets. Defaults to the feature abundances in the
-#'  study area (calculated using the [feature_abundances()] function.
+#'  study area (calculated using the [feature_abundances()]) function.
 #'
 #' @details Targets are used to specify the minimum amount or proportion of a
 #'   feature's distribution that needs to be protected. All conservation

@@ -178,21 +178,30 @@ install.packages("highs", repos = "https://cran.rstudio.com/")
 ```
 
 Now, let’s generate a spatial prioritization. Let’s say that we want to
-develop a protected area system that will secure 20% of the distribution
-for each feature for minimal cost. In this scenario, we can either
-purchase all of the land inside a given planning unit, or none of the
-land inside a given planning unit. Thus we will create a new `problem()`
-that will use a minimum set objective (via `add_min_set_objective()`),
-with relative targets of 20% (via `add_relative_targets()`), binary
-decisions (via `add_binary_decisions()`), and specify that we want to
-want near-optimal solutions (i.e., 10% from optimality) using the best
-solver installed on our computer (via `add_default_solver()`).
+identify priority areas for expanding the protected area system. To
+ensure feasibility, we will set a budget. Specifically, the total cost
+of the prioritization will represent a 30% increase in the total land
+value associated with the existing protected area system. Given this
+budget, we want the prioritization to increase feature representation,
+as much as possible, so that each feature would, ideally, have 30% of
+its distribution covered by the prioritization. In this scenario, we can
+either purchase all of the land inside a given planning unit, or none of
+the land inside a given planning unit. Thus we will create a new
+`problem()` that will use a minimum set objective (via
+`add_min_set_objective()`), with relative targets of 20% (via
+`add_relative_targets()`), binary decisions (via
+`add_binary_decisions()`), and specify that we want to want near-optimal
+solutions (i.e., 10% from optimality) using the best solver installed on
+our computer (via `add_default_solver()`).
 
 ``` r
+# calculate budget
+budget <- terra::global(wa_pu, "sum", na.rm = TRUE)[[1]] * 0.3
+
 # create problem
 p1 <-
   problem(wa_pu, features = wa_features) %>%
-  add_min_set_objective() %>%
+  add_min_shortfall_objective(budget) %>%
   add_relative_targets(0.2) %>%
   add_binary_decisions() %>%
   add_default_solver(gap = 0.1)
@@ -212,7 +221,7 @@ print(p1)
     ## │ ├•extent:     -1816381.6182, 247483.5211, -1228381.6182, 683483.5211 (xmin, ymin, xmax, ymax)
     ## │ └•CRS:        PROJCRS["unknown",
     ## └•formulation
-    ##  ├•objective:   minimum set objective
+    ##  ├•objective:   minimum shortfall objective (`budget` = 53197.467)
     ##  ├•penalties:   none specified
     ##  ├•targets:     relative targets (between 0.2 and 0.2)
     ##  ├•constraints: none specified
@@ -233,47 +242,38 @@ s1 <- solve(p1)
     ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
     ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
     ## 
-    ## Optimize a model with 400 rows, 10757 columns and 1524361 nonzeros
-    ## Model fingerprint: 0xc260297a
-    ## Variable types: 0 continuous, 10757 integer (10757 binary)
+    ## Optimize a model with 401 rows, 11157 columns and 1535518 nonzeros
+    ## Model fingerprint: 0xb611ace6
+    ## Variable types: 400 continuous, 10757 integer (10757 binary)
     ## Coefficient statistics:
-    ##   Matrix range     [1e-03, 1e+02]
-    ##   Objective range  [3e-01, 2e+03]
+    ##   Matrix range     [1e-03, 2e+03]
+    ##   Objective range  [5e-02, 5e-02]
     ##   Bounds range     [1e+00, 1e+00]
-    ##   RHS range        [2e+01, 2e+01]
-    ## Found heuristic solution: objective 62359.684274
-    ## Presolve removed 17 rows and 5 columns (presolve time = 5s) ...
-    ## Presolve removed 17 rows and 5 columns
-    ## Presolve time: 8.22s
-    ## Presolved: 383 rows, 10752 columns, 1523132 nonzeros
-    ## Variable types: 0 continuous, 10752 integer (10752 binary)
-    ## Found heuristic solution: objective 24763.927629
-    ## Root relaxation presolved: 383 rows, 10752 columns, 1523132 nonzeros
+    ##   RHS range        [2e+01, 5e+04]
+    ## Found heuristic solution: objective 400.0000000
+    ## Found heuristic solution: objective 399.9999995
+    ## Presolve removed 5 rows and 5 columns
+    ## Presolve time: 1.81s
+    ## Presolved: 396 rows, 11152 columns, 1535508 nonzeros
+    ## Variable types: 394 continuous, 10758 integer (10758 binary)
+    ## Found heuristic solution: objective 393.9999995
+    ## Root relaxation presolved: 396 rows, 11152 columns, 1535508 nonzeros
     ## 
     ## 
-    ## Root simplex log...
-    ## 
-    ## Iteration    Objective       Primal Inf.    Dual Inf.      Time
-    ##        0    2.8348868e+02   5.900880e+05   0.000000e+00      9s
-    ##      304    1.3493756e+04   0.000000e+00   0.000000e+00      9s
-    ##      304    1.3493756e+04   0.000000e+00   0.000000e+00      9s
-    ## 
-    ## Root relaxation: objective 1.349376e+04, 304 iterations, 0.34 seconds (0.64 work units)
+    ## Root relaxation: objective 0.000000e+00, 543 iterations, 0.36 seconds (0.76 work units)
     ## 
     ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
     ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
     ## 
-    ##      0     0 13493.7559    0   46 24763.9276 13493.7559  45.5%     -    8s
-    ## H    0     0                    15821.627271 13493.7559  14.7%     -    8s
-    ## H    0     0                    14441.536489 13493.7559  6.56%     -    8s
+    ## *    0     0               0       0.0000000    0.00000  0.00%     -    2s
     ## 
-    ## Explored 1 nodes (304 simplex iterations) in 8.91 seconds (9.14 work units)
+    ## Explored 1 nodes (543 simplex iterations) in 2.31 seconds (5.28 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
-    ## Solution count 4: 14441.5 15821.6 24763.9 62359.7 
+    ## Solution count 3: 0 394 400 
     ## 
     ## Optimal solution found (tolerance 1.00e-01)
-    ## Best objective 1.444153648916e+04, best bound 1.349375593467e+04, gap 6.5629%
+    ## Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
 
 ``` r
 # extract the objective
@@ -281,7 +281,7 @@ print(attr(s1, "objective"))
 ```
 
     ## solution_1 
-    ##   14441.54
+    ##          0
 
 ``` r
 # extract time spent solving the problem
@@ -289,7 +289,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##      9.116
+    ##      2.537
 
 ``` r
 # extract state message from the solver
@@ -308,7 +308,7 @@ plot(s1, main = "Solution", axes = FALSE)
 
 After generating a solution, it is important to evaluate it. Here, we
 will calculate the number of planning units selected by the solution,
-and the total cost of the solution. We can also check that all the
+and the total cost of the solution. We can also check how many
 representation targets are met by the solution.
 
 ``` r
@@ -319,7 +319,7 @@ eval_n_summary(p1, s1)
     ## # A tibble: 1 × 2
     ##   summary     n
     ##   <chr>   <dbl>
-    ## 1 overall  2216
+    ## 1 overall  2177
 
 ``` r
 # calculate total cost of solution
@@ -329,7 +329,7 @@ eval_cost_summary(p1, s1)
     ## # A tibble: 1 × 2
     ##   summary   cost
     ##   <chr>    <dbl>
-    ## 1 overall 14442.
+    ## 1 overall 28280.
 
 ``` r
 # calculate target coverage for the solution
@@ -340,28 +340,28 @@ print(p1_target_coverage)
     ## # A tibble: 400 × 9
     ##    feature         met   total…¹ absol…² absol…³ absol…⁴ relat…⁵ relat…⁶ relat…⁷
     ##    <chr>           <lgl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
-    ##  1 American Avoce… TRUE    100.     20.0    22.0       0     0.2   0.220       0
-    ##  2 American Bitte… TRUE     99.9    20.0    26.8       0     0.2   0.268       0
-    ##  3 American Bitte… TRUE    100.     20.0    35.1       0     0.2   0.351       0
-    ##  4 American Crow … TRUE     99.9    20.0    20.1       0     0.2   0.201       0
-    ##  5 American Crow … TRUE     99.9    20.0    20.0       0     0.2   0.200       0
-    ##  6 American Dippe… TRUE    100.     20.0    20.0       0     0.2   0.200       0
-    ##  7 American Goldf… TRUE     99.9    20.0    21.1       0     0.2   0.211       0
-    ##  8 American Goldf… TRUE     99.9    20.0    22.3       0     0.2   0.224       0
-    ##  9 American Kestr… TRUE     99.9    20.0    22.2       0     0.2   0.222       0
-    ## 10 American Kestr… TRUE    100.     20.0    22.2       0     0.2   0.222       0
+    ##  1 American Avoce… TRUE    100.     20.0    23.7       0     0.2   0.237       0
+    ##  2 American Bitte… TRUE     99.9    20.0    23.3       0     0.2   0.234       0
+    ##  3 American Bitte… TRUE    100.     20.0    28.1       0     0.2   0.281       0
+    ##  4 American Crow … TRUE     99.9    20.0    20.3       0     0.2   0.203       0
+    ##  5 American Crow … TRUE     99.9    20.0    20.4       0     0.2   0.204       0
+    ##  6 American Dippe… TRUE    100.     20.0    20.1       0     0.2   0.201       0
+    ##  7 American Goldf… TRUE     99.9    20.0    20.5       0     0.2   0.205       0
+    ##  8 American Goldf… TRUE     99.9    20.0    20.3       0     0.2   0.203       0
+    ##  9 American Kestr… TRUE     99.9    20.0    20.7       0     0.2   0.207       0
+    ## 10 American Kestr… TRUE    100.     20.0    20.8       0     0.2   0.208       0
     ## # … with 390 more rows, and abbreviated variable names ¹​total_amount,
     ## #   ²​absolute_target, ³​absolute_held, ⁴​absolute_shortfall, ⁵​relative_target,
     ## #   ⁶​relative_held, ⁷​relative_shortfall
 
 ``` r
-# check if the solution meets all the targets
-print(all(p1_target_coverage$met))
+# check percentage of the features that have their target met given the solution
+print(mean(p1_target_coverage$met) * 100)
 ```
 
-    ## [1] TRUE
+    ## [1] 100
 
-Although this solution meets all of the representation targets, it does
+Although this solution helps meet the representation targets, it does
 not account for existing protected areas inside the study area. As such,
 it may be inefficient. This is because it might not account for the
 possibility that some features could be partially – or even fully –
@@ -411,38 +411,38 @@ s2 <- solve(p2)
     ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
     ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
     ## 
-    ## Optimize a model with 400 rows, 10757 columns and 1524361 nonzeros
-    ## Model fingerprint: 0x1510fcfd
-    ## Variable types: 0 continuous, 10757 integer (10757 binary)
+    ## Optimize a model with 401 rows, 11157 columns and 1535518 nonzeros
+    ## Model fingerprint: 0xdf92f7ce
+    ## Variable types: 400 continuous, 10757 integer (10757 binary)
     ## Coefficient statistics:
-    ##   Matrix range     [1e-03, 1e+02]
-    ##   Objective range  [3e-01, 2e+03]
+    ##   Matrix range     [1e-03, 2e+03]
+    ##   Objective range  [5e-02, 5e-02]
     ##   Bounds range     [1e+00, 1e+00]
-    ##   RHS range        [2e+01, 2e+01]
-    ## Found heuristic solution: objective 52650.002712
-    ## Presolve removed 171 rows and 3937 columns
-    ## Presolve time: 1.51s
-    ## Presolved: 229 rows, 6820 columns, 540180 nonzeros
-    ## Variable types: 0 continuous, 6820 integer (6820 binary)
-    ## Found heuristic solution: objective 38666.194816
-    ## Root relaxation presolved: 229 rows, 6820 columns, 540180 nonzeros
+    ##   RHS range        [2e+01, 5e+04]
+    ## Found heuristic solution: objective 132.9560977
+    ## Found heuristic solution: objective 132.9560972
+    ## Presolve removed 154 rows and 4086 columns
+    ## Presolve time: 0.71s
+    ## Presolved: 247 rows, 7071 columns, 550807 nonzeros
+    ## Variable types: 244 continuous, 6827 integer (6827 binary)
+    ## Found heuristic solution: objective 126.9326570
+    ## Root relaxation presolved: 247 rows, 7071 columns, 550807 nonzeros
     ## 
     ## 
-    ## Root relaxation: objective 3.061712e+04, 107 iterations, 0.07 seconds (0.18 work units)
+    ## Root relaxation: objective 0.000000e+00, 134 iterations, 0.07 seconds (0.19 work units)
     ## 
     ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
     ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
     ## 
-    ##      0     0 30617.1194    0   23 38666.1948 30617.1194  20.8%     -    1s
-    ## H    0     0                    31972.957002 30617.1194  4.24%     -    1s
+    ## *    0     0               0       0.0000000    0.00000  0.00%     -    0s
     ## 
-    ## Explored 1 nodes (107 simplex iterations) in 1.67 seconds (2.74 work units)
+    ## Explored 1 nodes (134 simplex iterations) in 0.84 seconds (1.87 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
-    ## Solution count 3: 31973 38666.2 52650 
+    ## Solution count 3: 0 126.933 132.956 
     ## 
     ## Optimal solution found (tolerance 1.00e-01)
-    ## Best objective 3.197295700160e+04, best bound 3.061711939500e+04, gap 4.2406%
+    ## Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%
 
 ``` r
 # plot the solution
@@ -450,6 +450,29 @@ plot(s2, main = "Solution", axes = FALSE)
 ```
 
 <img src="man/figures/README-locked_in_constraints-2.png" width="500" style="display: block; margin: auto;" />
+
+We can also confirm that the solution is improving feature
+representation. To achieve this, we can compare the percentage of
+features that have their target met given the existing protected area
+system to that given the prioritization. Below, we can see that the
+percentage is much higher given the solution.
+
+``` r
+# check percentage of the features that have their target met given the solution
+p2_target_coverage <- eval_target_coverage_summary(p1, s1)
+print(mean(p2_target_coverage$met) * 100)
+```
+
+    ## [1] 100
+
+``` r
+# check percentage of the features that have their target met given the
+# existing protected area system
+p0_target_coverage <- eval_target_coverage_summary(p1, wa_locked_in)
+print(mean(p0_target_coverage$met) * 100)
+```
+
+    ## [1] 37.25
 
 This solution is an improvement over the previous solution. However,
 there are some places in the study area that are not available for
@@ -463,7 +486,7 @@ available for protection. We will then add constraints to the
 `add_locked_out_constraints()`).
 
 ``` r
-# import locked in data
+# import locked out data
 wa_locked_out <- get_wa_locked_out()
 
 # print data
@@ -488,10 +511,10 @@ plot(wa_locked_out, main = "Areas not available for protection", axes = FALSE)
 <img src="man/figures/README-locked_out_constraints-1.png" width="500" style="display: block; margin: auto;" />
 
 ``` r
-# create new problem with locked in constraints added to it
+# create new problem with locked out constraints added to it
 p3 <-
   p2 %>%
-  add_locked_in_constraints(wa_locked_out)
+  add_locked_out_constraints(wa_locked_out)
 
 # solve the problem
 s3 <- solve(p3)
@@ -502,23 +525,38 @@ s3 <- solve(p3)
     ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
     ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
     ## 
-    ## Optimize a model with 400 rows, 10757 columns and 1524361 nonzeros
-    ## Model fingerprint: 0xef95833c
-    ## Variable types: 0 continuous, 10757 integer (10757 binary)
+    ## Optimize a model with 401 rows, 11157 columns and 1535518 nonzeros
+    ## Model fingerprint: 0xc977bf42
+    ## Variable types: 400 continuous, 10757 integer (10757 binary)
     ## Coefficient statistics:
-    ##   Matrix range     [1e-03, 1e+02]
-    ##   Objective range  [3e-01, 2e+03]
+    ##   Matrix range     [1e-03, 2e+03]
+    ##   Objective range  [5e-02, 5e-02]
     ##   Bounds range     [1e+00, 1e+00]
-    ##   RHS range        [2e+01, 2e+01]
-    ## Found heuristic solution: objective 120313.46438
+    ##   RHS range        [2e+01, 5e+04]
+    ## Found heuristic solution: objective 132.9560977
+    ## Found heuristic solution: objective 132.9560972
+    ## Presolve removed 157 rows and 4439 columns
+    ## Presolve time: 0.72s
+    ## Presolved: 244 rows, 6718 columns, 514094 nonzeros
+    ## Variable types: 241 continuous, 6477 integer (6477 binary)
+    ## Found heuristic solution: objective 128.7807444
+    ## Root relaxation presolved: 244 rows, 6718 columns, 514094 nonzeros
     ## 
-    ## Explored 0 nodes (0 simplex iterations) in 0.04 seconds (0.04 work units)
+    ## 
+    ## Root relaxation: objective 4.378302e+00, 90 iterations, 0.08 seconds (0.17 work units)
+    ## 
+    ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
+    ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+    ## 
+    ## *    0     0               0       4.3783020    4.37830  0.00%     -    0s
+    ## 
+    ## Explored 1 nodes (90 simplex iterations) in 0.86 seconds (1.80 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
-    ## Solution count 1: 120313 
+    ## Solution count 3: 4.3783 128.781 132.956 
     ## 
     ## Optimal solution found (tolerance 1.00e-01)
-    ## Best objective 1.203134643751e+05, best bound 1.172794714357e+05, gap 2.5217%
+    ## Best objective 4.378302022154e+00, best bound 4.378302022154e+00, gap 0.0000%
 
 ``` r
 # plot the solution
@@ -533,16 +571,16 @@ fragmented. This can cause issues because fragmentation increases
 management costs and reduces conservation benefits through edge effects.
 To address this issue, we can further modify the problem by adding
 penalties that punish overly fragmented solutions (via
-`add_boundary_penalties()`). Here we will use a penalty factor of 0.003
-(i.e., boundary length modifier), and an edge factor of 50% so that
-planning units that occur outer edge of the study area are not overly
-penalized.
+`add_boundary_penalties()`). Here we will use a penalty factor (i.e.,
+boundary length modifier) of 0.003, and an edge factor of 50% so that
+planning units that occur on the outer edge of the study area are not
+overly penalized.
 
 ``` r
 # create new problem with boundary penalties added to it
 p4 <-
   p3 %>%
-  add_boundary_penalties(penalty = 0.003, edge_factor = 0.5)
+  add_boundary_penalties(penalty = 0.001, edge_factor = 0.5)
 
 # solve the problem
 s4 <- solve(p4)
@@ -553,40 +591,41 @@ s4 <- solve(p4)
     ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
     ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
     ## 
-    ## Optimize a model with 42572 rows, 31843 columns and 1608705 nonzeros
-    ## Model fingerprint: 0x91181e1e
-    ## Variable types: 0 continuous, 31843 integer (31843 binary)
+    ## Optimize a model with 42573 rows, 32243 columns and 1619862 nonzeros
+    ## Model fingerprint: 0x19d4092a
+    ## Variable types: 400 continuous, 31843 integer (31843 binary)
     ## Coefficient statistics:
-    ##   Matrix range     [1e-03, 1e+02]
-    ##   Objective range  [2e+01, 2e+03]
+    ##   Matrix range     [1e-03, 2e+03]
+    ##   Objective range  [5e-02, 2e+01]
     ##   Bounds range     [1e+00, 1e+00]
-    ##   RHS range        [2e+01, 2e+01]
-    ## Found heuristic solution: objective 182167.38001
-    ## Found heuristic solution: objective 169909.46438
-    ## Presolve removed 21651 rows and 15464 columns
-    ## Presolve time: 2.06s
-    ## Presolved: 20921 rows, 16379 columns, 189666 nonzeros
-    ## Found heuristic solution: objective 158124.25349
-    ## Variable types: 0 continuous, 16379 integer (16379 binary)
-    ## Found heuristic solution: objective 157859.67459
-    ## Root relaxation presolve removed 6 rows and 4 columns
-    ## Root relaxation presolved: 20915 rows, 16375 columns, 184657 nonzeros
+    ##   RHS range        [2e+01, 5e+04]
+    ## Found heuristic solution: objective 13190.956098
+    ## Found heuristic solution: objective 13190.956097
+    ## Presolve removed 20465 rows and 14599 columns
+    ## Presolve time: 1.89s
+    ## Presolved: 22108 rows, 17644 columns, 557209 nonzeros
+    ## Variable types: 241 continuous, 17403 integer (17403 binary)
+    ## Found heuristic solution: objective 9650.9498965
+    ## Root relaxation presolved: 22108 rows, 17644 columns, 557209 nonzeros
     ## 
     ## 
-    ## Root relaxation: objective 1.466646e+05, 4591 iterations, 0.27 seconds (0.63 work units)
+    ## Root relaxation: objective 2.749550e+03, 8568 iterations, 1.31 seconds (4.70 work units)
     ## 
     ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
     ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
     ## 
-    ##      0     0 146664.650    0   44 157859.675 146664.650  7.09%     -    2s
+    ##      0     0 2749.55007    0   16 9650.94990 2749.55007  71.5%     -    3s
+    ## H    0     0                    2753.8338768 2749.55007  0.16%     -    3s
     ## 
-    ## Explored 1 nodes (4591 simplex iterations) in 2.43 seconds (5.70 work units)
+    ## Cleanup yields a better solution
+    ## 
+    ## Explored 1 nodes (8568 simplex iterations) in 3.39 seconds (8.96 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
-    ## Solution count 4: 157860 158124 169909 182167 
+    ## Solution count 4: 2753.75 2753.83 9650.95 13191 
     ## 
     ## Optimal solution found (tolerance 1.00e-01)
-    ## Best objective 1.578596745860e+05, best bound 1.466646495302e+05, gap 7.0918%
+    ## Best objective 2.753746452278e+03, best bound 2.749550066559e+03, gap 0.1524%
 
 ``` r
 # plot the solution
@@ -622,9 +661,9 @@ print(rc)
     ##               wa_pu 
     ##               wa_pu 
     ##               ...
-    ## names       :  Ameri~ding), Ameri~ding), Ameri~ding),  Ameri~ding),  Ameri~ding), Ameri~full), ... 
-    ## min values  : 0.0000000000,   0.0000000, 0.000000000, 0.0000000000, 0.0000000000, 0.000000000, ... 
-    ## max values  : 0.0006324382,   0.0010287, 0.001647519, 0.0003089722, 0.0004855097, 0.000163235, ...
+    ## names       : Ameri~ding), Ameri~ding), Ameri~ding),  Ameri~ding),  Ameri~ding),  Ameri~full), ... 
+    ## min values  : 0.000000000, 0.000000000, 0.000000000, 0.0000000000, 0.0000000000, 0.0000000000, ... 
+    ## max values  : 0.001754543, 0.002814002, 0.005946064, 0.0003499742, 0.0008111256, 0.0001789696, ...
 
 ``` r
 # plot the total importance scores

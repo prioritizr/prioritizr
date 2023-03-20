@@ -34,8 +34,8 @@ NULL
 #'   adjacent to each other or not (using ones and zeros).
 #'   To reduce computational burden, cells among the matrix diagonal are
 #'   set to zero. Furthermore, if the argument to `x` is a
-#'   [terra::rast()] object, then cells with `NA`
-#'   values are set to zero too.
+#'   [terra::rast()] object, then cells with `NA` values are set to
+#'   zero too.
 #'
 #' @name adjacency_matrix
 #'
@@ -57,14 +57,14 @@ NULL
 #'
 #' # create adjacency matrix using polygon data
 #' ## subset 9 polygons
-#' ply <- sim_pu_polygons[c(1:2, 10:12, 20:22), ]
+#' ply <- sim_pu_polygons[c(1:3, 11:13, 20:22), ]
 #'
 #' ## make adjacency matrix
 #' am_ply <- adjacency_matrix(ply)
 #'
 #' # create adjacency matrix using lines data
 #' ## subset 9 lines
-#' lns <- sim_pu_lines[c(1:2, 10:12, 20:22), ]
+#' lns <- sim_pu_lines[c(1:3, 11:13, 20:22), ]
 #'
 #' ## make adjacency matrix
 #' am_lns <- adjacency_matrix(lns)

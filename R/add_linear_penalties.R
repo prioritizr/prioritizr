@@ -13,7 +13,7 @@ NULL
 #' @param x [problem()] object.
 #'
 #' @param penalty `numeric` penalty value that is used to scale the
-#'   importance not selecting planning units with high `data` values.
+#'   importance of not selecting planning units with high `data` values.
 #'   Higher `penalty` values can be used to obtain solutions that
 #'   are strongly averse to selecting places with high `data`
 #'   values, and smaller `penalty` values can be used to obtain solutions

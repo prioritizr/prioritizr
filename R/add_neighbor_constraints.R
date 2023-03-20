@@ -33,7 +33,7 @@ NULL
 #'   [adjacency_matrix()] function.
 #'   See the Data format section for more information.
 #'
-#' @details This function uses neighborhood data identify solutions that
+#' @details This function uses neighborhood data to identify solutions that
 #'   surround planning units with a minimum number of neighbors. It
 #'   was inspired by the mathematical formulations detailed in
 #'   Billionnet (2013) and Beyer *et al.* (2016).

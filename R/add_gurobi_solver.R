@@ -46,7 +46,7 @@ NULL
 #'
 #' @param numeric_focus `logical` should extra attention be paid
 #'   to verifying the accuracy of numerical calculations? This may be
-#'   useful when dealing problems that may suffer from numerical instability
+#'   useful when dealing with problems that may suffer from numerical instability
 #'   issues. Beware that it will likely substantially increase run time
 #'   (sets the *Gurobi* `NumericFocus` parameter
 #'   to 3). Defaults to `FALSE`.

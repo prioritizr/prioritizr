@@ -81,7 +81,8 @@ NULL
 #'
 #' }
 #'
-#' @return A [`Zones-class`] object.
+#' @return A [`Zones-class`] object containing data for each zone, and
+#' the feature and zone names.
 #'
 #' @seealso
 #' See [problem()] for information on using this function to generate
@@ -107,6 +108,12 @@ NULL
 #'   feature_names = c("feature_1", "feature_2", "feature_3")
 #' )
 #' print(z)
+#'
+#' # plot the rasters for the first zone in the Zones object
+#' plot(
+#'  z[[1]],
+#'  main = c("Zone 1 feature 1", "Zone 1 feature 2", "Zone 1 feature 3")
+#' )
 #'
 #' # note that the do.call function can also be used to create a Zones object
 #' # this method for creating a Zones object can be helpful when there are many

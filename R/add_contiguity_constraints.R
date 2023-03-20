@@ -132,7 +132,7 @@ NULL
 #'
 #' # create problem with added constraints to ensure that the planning
 #' # units allocated to each zone form a separate contiguous unit,
-#' # except for planning units allocated to zone 2 which do not need
+#' # except for planning units allocated to zone 3 which do not need
 #' # form a single contiguous unit
 #' z5 <- diag(3)
 #' z5[3, 3] <- 0

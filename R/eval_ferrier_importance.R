@@ -81,7 +81,7 @@ NULL
 #' print(fs1)
 #'
 #' # plot total importance scores
-#' plot(fs1, main = "Ferrier scores", axes = FALSE)
+#' plot(fs1, main = names(fs1), axes = FALSE)
 #'
 #' # create minimal problem with polygon planning units
 #' p2 <-
@@ -104,7 +104,7 @@ NULL
 #' fs2 <- eval_ferrier_importance(p2, s2[, "solution_1"])
 #'
 #' # plot importance scores
-#' plot(fs2, main = "Ferrier scores")
+#' plot(fs2)
 #'
 #' }
 #'
