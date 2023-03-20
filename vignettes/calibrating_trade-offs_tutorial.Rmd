@@ -156,7 +156,7 @@ tas_pu$cost[tas_pu$locked_in > 0.5] <- 0
 plot(tas_pu[, "cost"])
 ```
 
-The second procedure involves pre-computing the boundary length data and manually re-scaling the boundary length values. This procedure is important because boundary length values are often very large, causing numerical issues that result in excessive run times (see `presolve_check()` for further details).
+The second procedure involves pre-computing the boundary length data and manually re-scaling the boundary length values. This procedure is important because boundary length values are often very high, which can cause numerical issues that result in excessive run times (see `presolve_check()` for further details).
 
 ```{r}
 # generate boundary length data for the planning units

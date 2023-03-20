@@ -35,20 +35,20 @@ NULL
 #'   \describe{
 #'
 #'   \item{prioritizr}{Background information on systematic conservation
-#'     planning, package intallation instructions and citation, and a 
+#'     planning, package intallation instructions and citation, and a
 #'    demonstration of the main package features.}
 #'
-#'   \item{package_overview}{Comprehensive introduction to the package and 
+#'   \item{package_overview}{Comprehensive introduction to the package and
 #'     example workflows for the main package features.
 #'   }
 #'
-#'   \item{calibrating_trade-offs_tutorial}{Examples of balancing different 
+#'   \item{calibrating_trade-offs_tutorial}{Examples of balancing different
 #'     criteria to identify candidate prioritizations.}
-#'     
-#'   \item{connectivity_tutorial}{Examples of incorporating and evaluating 
+#'
+#'   \item{connectivity_tutorial}{Examples of incorporating and evaluating
 #'     connectivity in prioritizations using a range of approaches.}
 #'
-#'   \item{management_zones_tutorial}{Tutorial on using multiple management 
+#'   \item{management_zones_tutorial}{Tutorial on using multiple management
 #'   actions or zones to create detailed prioritizations.}
 #'
 #'   \item{gurobi_installation}{Instructions for installing and setting up

@@ -34,7 +34,7 @@ NULL
 #'   adjacent to each other or not (using ones and zeros).
 #'   To reduce computational burden, cells among the matrix diagonal are
 #'   set to zero. Furthermore, if the argument to `x` is a
-#'   [terra::rast()] object, then cells with `NA` values are set to 
+#'   [terra::rast()] object, then cells with `NA` values are set to
 #'   zero too.
 #'
 #' @name adjacency_matrix

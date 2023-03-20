@@ -38,9 +38,9 @@ NULL
 #'
 #'   \item{**`x` has [sf::st_sf()] or `data.frame` planning units**}{
 #'     The argument to `features` can be a `character` vector
-#'     with column names (from `x`) that correspond to the abundance or 
-#'     occurrence of different features in each planning unit. Note that 
-#'     this argument type can only be used to create problems involving a 
+#'     with column names (from `x`) that correspond to the abundance or
+#'     occurrence of different features in each planning unit. Note that
+#'     this argument type can only be used to create problems involving a
 #'     single zone.}
 #'
 #'   \item{**`x` has `data.frame`, `matrix`, or `numeric` vector planning
@@ -166,7 +166,7 @@ NULL
 #' the computational resources available for generating prioritizations
 #' (e.g., RAM and number of CPU cores on your computer).
 #'
-#' Second, you will need data to quantify the cost of implementing 
+#' Second, you will need data to quantify the cost of implementing
 #' each management action within each planning unit.
 #' Critically, the cost data should reflect the management action(s)
 #' considered in the exercise.

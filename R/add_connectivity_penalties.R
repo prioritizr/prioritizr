@@ -259,16 +259,16 @@ NULL
 #'   ),
 #'   geometry = sf::st_geometry(s2[[1]])
 #' )
-#' 
+#'
 #' names(s2)[1:7] <- c(
-#'                   "basic problem",
-#'                   paste0("b_matrix (", penalties,")"),
-#'                   paste0("d_matrix (", penalties,")"),
-#'                   paste0("c_matrix (", penalties,")")
-#'                   )
+#'   "basic problem",
+#'   paste0("b_matrix (", penalties,")"),
+#'   paste0("d_matrix (", penalties,")"),
+#'   paste0("c_matrix (", penalties,")")
+#' )
 #'
 #' # plot solutions
-#' plot(s2, main = names(p2))
+#' plot(s2)
 #'
 #' # create minimal multi-zone problem and limit solver to one minute
 #' # to obtain solutions in a short period of time

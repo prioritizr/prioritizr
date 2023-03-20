@@ -48,7 +48,7 @@ print_problem <- function(x) {
 
 ## Summary
 
-The _prioritizr R_ package uses integer linear programming (ILP) techniques to provide a flexible interface for building and solving conservation planning problems [@r11; @r16]. It supports a broad range of objectives, constraints, and penalties that can be used to custom-tailor conservation planning problems to the specific needs of a conservation planning exercise. Once built, conservation planning problems can be solved using a variety of commercial and open-source exact algorithm solvers. In contrast to the algorithms conventionally used to solve conservation problems, such as heuristics or simulated annealing [@r3], the exact algorithms used here are guaranteed to find optimal solutions. Furthermore, conservation problems can be constructed to optimize the spatial allocation of different management zones (or actions), meaning that conservation practitioners can identify solutions that benefit multiple stakeholders. Finally, this package has the functionality to read input data formatted for the _Marxan_ conservation planning program [@r3], and find much cheaper solutions in a much shorter period of time than _Marxan_ [@r1].
+The _prioritizr R_ package uses mixed integer linear programming (MILP) techniques to provide a flexible interface for building and solving conservation planning problems [@r11; @r16]. It supports a broad range of objectives, constraints, and penalties that can be used to custom-tailor conservation planning problems to the specific needs of a conservation planning exercise. Once built, conservation planning problems can be solved using a variety of commercial and open-source exact algorithm solvers. In contrast to the algorithms conventionally used to solve conservation problems, such as heuristics or simulated annealing [@r3], the exact algorithms used here are guaranteed to find optimal solutions. Furthermore, conservation problems can be constructed to optimize the spatial allocation of different management zones (or actions), meaning that conservation practitioners can identify solutions that benefit multiple stakeholders. Finally, this package has the functionality to read input data formatted for the _Marxan_ conservation planning program [@r3], and find much cheaper solutions in a much shorter period of time than _Marxan_ [@r1].
 
 ## Introduction
 
@@ -79,7 +79,7 @@ The _prioritizr R_ package uses a grammar to describe elements of conservation p
 * Create a new conservation planning [problem](https://prioritizr.net/reference/problem.html) by specifying the planning units, features, and management zones of conservation interest.
 * Add a primary [objective](https://prioritizr.net/reference/objectives.html) to a conservation planning problem (e.g., minimize overall cost).
 * Add [penalties](https://prioritizr.net/reference/penalties.html) to a conservation planning problem to penalize solutions according to specific metric (e.g., connectivity).
-* Add [targets](https://prioritizr.net/reference/targets.html) to a conservation planning problem to specify how much of each feature should ideally be represented in solutions.
+* Add [targets](https://prioritizr.net/reference/targets.html) to a conservation planning problem to specify how much of each feature should ideally be represented by solutions.
 * Add [constraints](https://prioritizr.net/reference/constraints.html) to a conservation planning problem to ensure that solutions exhibit specific properties (e.g., select specific planning units for protection).
 * Add [decisions](https://prioritizr.net/reference/decisions.html) to a conservation planning problem to specify the nature of the decisions in the problem (e.g., binary decisions indicate the planning units should be selected or not selected for management).
 * Add a [portfolio](https://prioritizr.net/reference/portfolios.html) to a conservation planning problem to specify a methodological approach for generating multiple solutions (e.g., generate multiple solutions by finding 100 solutions within 10% of optimality).
@@ -360,7 +360,7 @@ p11 <-
 ```{r, echo = FALSE, results = "asis"}
 print_problem(p11)
 ```
-* __Relative targets__: Targets are set as a proportion (between 0 and 1) of the total amount of each feature in the study area. For example, if we had binary feature data and the feature occupied a total of 20 planning units in the study area, we could set a relative target of 0.5 (i.e. 50%) to specify that the solution must secure 10 planning units for the feature. We could alternatively specify an absolute target of 10 to achieve the same result, but sometimes proportions are easier to work with.
+* __Relative targets__: Targets are set as a proportion (between 0 and 1) of the total amount of each feature in the study area. For example, if we had binary feature data and the feature occupied a total of 20 planning units in the study area, we could set a relative target of 0.5 (i.e., 50%) to specify that the solution must secure 10 planning units for the feature. We could alternatively specify an absolute target of 10 to achieve the same result, but sometimes proportions are easier to work with.
 ```{r}
 # create a problem with the minimum set objective and relative targets of 10 %
 # for each feature

@@ -80,7 +80,7 @@ NULL
 #' \item{`data` as a `matrix`/`Matrix` object}{where rows and columns represent
 #'   different planning units and the value of each cell represents the
 #'   amount of shared boundary length between two different planning units.
-#'   Cells that occur along the matrix diagonal denote the total 
+#'   Cells that occur along the matrix diagonal denote the total
 #'   boundary length associated with each planning unit.}
 #'
 #' \item{`data` as a `data.frame` object}{with the columns `"id1"`,

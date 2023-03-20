@@ -23,7 +23,7 @@ NULL
 #' problems with objectives that require targets without specifying targets
 #' will throw an error.
 #'
-#' For problems associated with multiple management zones, 
+#' For problems associated with multiple management zones,
 #' [add_absolute_targets()] can
 #' be used to set targets that each pertain to a single feature and a single
 #' zone. To set targets that can be met through allocating different

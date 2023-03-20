@@ -150,17 +150,20 @@ plot_benchmark <- function(
     n_pu %in% unique(benchmark_results$number_of_planning_units),
     assertthat::is.number(boundary_penalty), assertthat::noNA(boundary_penalty),
     assertthat::is.string(objective), assertthat::noNA(objective),
-    objective %in% unique(benchmark_results$objective))
+    objective %in% unique(benchmark_results$objective)
+  )
   ## set default argument for solver if needed
   if (is.null(solver)) {
     solver <- unique(benchmark_results$solver)
   }
   ## verify solver argument
   assertthat::assert_that(
-    is.character(solver), all(solver %in% benchmark_results$solver))
+    is.character(solver), all(solver %in% benchmark_results$solver)
+  )
   ## verify that only a single set of features was used
   assertthat::assert_that(
-    dplyr::n_distinct(benchmark_results$number_features) == 1)
+    dplyr::n_distinct(benchmark_results$number_features) == 1
+  )
 
   # prepare data for plotting
   ## rename variables to avoid scoping issues
@@ -172,7 +175,8 @@ plot_benchmark <- function(
     benchmark_results %>%
     filter(.$objective == obj, .$solver %in% sol,
            .$number_of_planning_units == n_pu,
-           .$boundary_penalty == bp)
+           .$boundary_penalty == bp
+    )
   ## scale run time to helpful units for plotting
   plot_units <-
     dplyr::case_when(
@@ -181,7 +185,8 @@ plot_benchmark <- function(
       # show minutes if max(run_time) > 3 M
       max(plot_data$run_time, na.rm = TRUE) > 60 * 3 ~ "minutes",
       # else show seconds
-      TRUE ~ "seconds")
+      TRUE ~ "seconds"
+    )
    plot_data$min_set_scaled <-
     plot_data$run_time %>%
     units::set_units(s) %>%
@@ -203,7 +208,8 @@ plot_benchmark <- function(
       formatC(
         n_pu, big.mark = ",", digits = 2, format = "f",
         drop0trailing = TRUE),
-      " planning units")
+      " planning units"
+  )
   if (bp > 1e-15) {
     plot_title <- paste0(plot_title, ", ", bp, " boundary penalty")
   }
@@ -212,12 +218,16 @@ plot_benchmark <- function(
   solver_colors <- scales::hue_pal()(length(solver_names))
   names(solver_colors) <- solver_names
 
-  # return plot for selected benchmark runs (suppress warnings when a solver doesn't have results)
+  # return plot for selected benchmark runs
+  # (suppress warnings when a solver doesn't have results)
   suppressWarnings(
     print(
       ggplot(
         data = plot_data,
-        mapping = aes(x = relative_target, y = min_set_scaled, color = solver)) +
+        mapping = aes(
+          x = relative_target, y = min_set_scaled, color = solver
+        )
+      ) +
       scale_y_continuous(limits = c(0, NA_real_)) +
       geom_line() +
       geom_point() +

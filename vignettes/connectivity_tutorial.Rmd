@@ -384,7 +384,7 @@ Despite the advantages of clamping the connectivity values, we can see that the 
 
 ## Adding penalties
 
-Now let's explore approaches for promoting connectivity in prioritizations by adding penalties to the baseline problem formulation. These approaches involve penalizing solutions according to certain secondary objectives [e.g., penalize spatial fragmentation of prioritizations\; @r2]. Unlike constraint-based methods for incorporating connectivity -- if the optimality gap used to generate a prioritization is too high -- they may not necessarily produce prioritizations that exhibit desirable characteristics.
+Now let's explore approaches for promoting connectivity in prioritizations by adding penalties to the baseline problem formulation. These approaches involve penalizing solutions according to certain criteria [e.g., penalize spatial fragmentation of prioritizations\; @r2]. Unlike constraint-based methods for incorporating connectivity -- if the optimality gap used to generate a prioritization is too high -- they may not necessarily produce prioritizations that exhibit desirable characteristics.
 
 ### Boundary penalties
 

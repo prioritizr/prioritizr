@@ -49,7 +49,7 @@ NULL
 #' solution exists when planning units are locked out---they are
 #' absolutely essential for obtaining a solution (e.g., they contain rare
 #' species that are not found in any other planning units or were locked in).
-#' Zeros values mean that planning units can be swapped with other planning 
+#' Zeros values mean that planning units can be swapped with other planning
 #' units and this will have no effect on the performance of the solution at all
 #' (e.g., because they were only selected due to spatial fragmentation
 #' penalties).
@@ -66,7 +66,7 @@ NULL
 #'
 #' @inheritSection eval_cost_summary Solution format
 #'
-#' @return A `numeric`, `matrix`, `data.frame`, 
+#' @return A `numeric`, `matrix`, `data.frame`,
 #'   [terra::rast()], or [sf::sf()] object
 #'   containing the importance scores for each planning
 #'   unit in the solution. Specifically, the returned object is in the
