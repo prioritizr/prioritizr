@@ -183,7 +183,7 @@ Let's make sure that you have a solver installed on your computer. This is impor
 install.packages("highs", repos = "https://cran.rstudio.com/")
 ```
 
-Now, let's generate a spatial prioritization. To ensure feasibility, we will set a budget. Specifically, the total cost of the prioritization will represent a 5% of the total land value in the study area. Given this budget, we want the prioritization to increase feature representation, as much as possible, so that each feature would, ideally, have 20% of its distribution covered by the prioritization. In this scenario, we can either purchase all of the land inside a given planning unit, or none of the land inside a given planning unit. Thus we will create a new `problem()` that will use a minimum shortfall objective (via `add_min_shortfall_objective()`), with relative targets of 20% (via `add_relative_targets()`), binary decisions (via `add_binary_decisions()`), and specify that we want to want near-optimal solutions (i.e., 10% from optimality) using the best solver installed on our computer (via `add_default_solver()`).
+Now, let's generate a spatial prioritization. To ensure feasibility, we will set a budget. Specifically, the total cost of the prioritization will represent a 5% of the total land value in the study area. Given this budget, we want the prioritization to increase feature representation, as much as possible, so that each feature would, ideally, have 20% of its distribution covered by the prioritization. In this scenario, we can either purchase all of the land inside a given planning unit, or none of the land inside a given planning unit. Thus we will create a new `problem()` that will use a minimum shortfall objective (via `add_min_shortfall_objective()`), with relative targets of 20% (via `add_relative_targets()`), binary decisions (via `add_binary_decisions()`), and specify that we want near-optimal solutions (i.e., 10% from optimality) using the best solver installed on our computer (via `add_default_solver()`).
 
 ```{r}
 # calculate budget
@@ -238,7 +238,7 @@ print(p1_target_coverage)
 print(mean(p1_target_coverage$met) * 100)
 ```
 
-Although this solution helps meet the representation targets, it does not account for existing protected areas inside the study area. As such, it may be inefficient. This is because it might not account for the possibility that some features could be partially -- or even fully -- represented by existing protected areas. To address this issue, we will use the `get_wa_locked_in()` function to import spatial data for protected areas in the study area. We will then add constraints to the `problem()` to ensure they are selected by the solution (via `add_locked_in_constraints()`).
+Although this solution helps meet the representation targets, it does not account for existing protected areas inside the study area. As such, it may be inefficient. This is because it might not account for the possibility that some features could be partially -- or even fully -- represented by existing protected areas. To address this issue, we will use the `get_wa_locked_in()` function to import spatial data for protected areas in the study area. We will then add constraints to the `problem()` to ensure they are selected by the solution (via `add_locked_in_constraints()`). We will set the cost for locked in planning units to zero, this reflects the fact that they are already protected.
 
 ```{r "locked_in_constraints"}
 # import locked in data
@@ -250,9 +250,16 @@ print(wa_locked_in)
 # plot data
 plot(wa_locked_in, main = "Existing protected areas", axes = FALSE)
 
+# Set locked_in planning units to have cost of zero
+wa_pu2 <- wa_pu * terra::classify(wa_locked_in, matrix(c(0,1,1,0), ncol=2))
+  
 # create new problem with locked in constraints added to it
 p2 <-
-  p1 %>%
+  problem(wa_pu2, features = wa_features) %>%
+  add_min_shortfall_objective(budget) %>%
+  add_relative_targets(0.2) %>%
+  add_binary_decisions() %>%
+  add_default_solver(gap = 0.1) %>%
   add_locked_in_constraints(wa_locked_in)
 
 # solve the problem
@@ -266,7 +273,7 @@ We can also confirm that the solution is improving feature representation. To ac
 
 ```{r}
 # check percentage of the features that have their target met given the solution
-p2_target_coverage <- eval_target_coverage_summary(p1, s1)
+p2_target_coverage <- eval_target_coverage_summary(p2, s2)
 print(mean(p2_target_coverage$met) * 100)
 
 # check percentage of the features that have their target met given the
@@ -305,7 +312,7 @@ This solution is even better then the previous solution. However, we are not fin
 # create new problem with boundary penalties added to it
 p4 <-
   p3 %>%
-  add_boundary_penalties(penalty = 0.001, edge_factor = 0.5)
+  add_boundary_penalties(penalty = 0.003, edge_factor = 0.5)
 
 # solve the problem
 s4 <- solve(p4)
