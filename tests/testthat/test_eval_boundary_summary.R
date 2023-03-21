@@ -346,3 +346,23 @@ test_that("multiple zones (variable edge_factor, zone matrix)", {
   expect_equal(r1, r3)
   expect_equal(nrow(na.omit(r1)), nrow(r1))
 })
+
+test_that("tas_pu works", {
+  skip_if_not_installed("prioritizrdata", minimum_version = "0.3.0.0")
+  # import data
+  tas_pu <- prioritizrdata::get_tas_pu()
+  tas_features <- prioritizrdata::get_tas_features()
+  # create boundary matrix
+  bm <- boundary_matrix(tas_pu)
+  # create problem
+  p <- problem(tas_pu, tas_features, cost = "cost")
+  # create solution
+  tas_pu$solution <- round(runif(nrow(tas_pu)))
+  # tests
+  expect_silent({
+    eval_boundary_summary(p, tas_pu[, "solution"], data = bm)
+  })
+  expect_silent({
+    eval_boundary_summary(p, tas_pu[, "solution"])
+  })
+})

@@ -550,3 +550,21 @@ test_that("throws warnings", {
     "unexpected"
   )
 })
+
+test_that("tas_pu works", {
+  skip_if_not_installed("prioritizrdata", minimum_version = "0.3.0.0")
+  # import data
+  tas_pu <- prioritizrdata::get_tas_pu()
+  tas_features <- prioritizrdata::get_tas_features()
+  # create boundary matrix
+  bm <- boundary_matrix(tas_pu)
+  # create problem
+  expect_silent({
+    problem(tas_pu, tas_features, cost = "cost") %>%
+    add_boundary_penalties(0.001, data = bm)
+  })
+  expect_silent({
+    problem(tas_pu, tas_features, cost = "cost") %>%
+    add_boundary_penalties(0.001)
+  })
+})

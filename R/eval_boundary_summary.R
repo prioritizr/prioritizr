@@ -214,11 +214,15 @@ eval_boundary_summary <- function(x, solution,
   # subset data to planning units
   ind <- x$planning_unit_indices()
   bm <- bm[ind, ind]
-  # verify that boundary matrix has expected properties
+  # round data to avoid numerical precision issues
+  bm <- round(bm, 6)
+  # verify diagonal is >= edge lengths
   verify(
     all(
-      Matrix::diag(data) >=
-      (Matrix::rowSums(data) - Matrix::diag(data))
+      round(
+        Matrix::diag(bm) - (Matrix::rowSums(bm) - Matrix::diag(bm)),
+        6
+      ) >= -1e-5
     ),
     msg = c(
       "{.arg data} has unexpected values.",

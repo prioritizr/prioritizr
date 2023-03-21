@@ -319,7 +319,7 @@ methods::setMethod("add_boundary_penalties",
     )
     if (!is.null(data)) {
       # round data to avoid numerical precision issues
-      data <- round(data, 5)
+      data <- round(data, 6)
       # check argument to data if not NULL
       assert(
         ncol(data) == nrow(data),
@@ -331,8 +331,10 @@ methods::setMethod("add_boundary_penalties",
       # verify diagonal is >= edge lengths
       verify(
         all(
-          Matrix::diag(data) >=
-          (Matrix::rowSums(data) - Matrix::diag(data))
+          round(
+            Matrix::diag(data) - (Matrix::rowSums(data) - Matrix::diag(data)),
+            6
+          ) >= -1e-5
         ),
         msg = c(
           "{.arg data} has unexpected values.",

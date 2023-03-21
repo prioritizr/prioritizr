@@ -209,7 +209,7 @@ boundary_matrix.sf <- function(x, ...) {
   Matrix::sparseMatrix(
     i = c(d$id1, seq_len(nrow(x))),
     j = c(d$id2, seq_len(nrow(x))),
-    x = suppressWarnings(c(terra::perim(d), terra::perim(x))),
+    x = round(suppressWarnings(c(terra::perim(d), terra::perim(x))), 8),
     symmetric = TRUE,
     dims = rep(nrow(x), 2)
   )
