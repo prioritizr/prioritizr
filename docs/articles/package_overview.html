@@ -143,22 +143,22 @@
 <div class="section level2">
 <h2 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
 </h2>
-<p>The <em>prioritizr R</em> package uses integer linear programming (ILP) techniques to provide a flexible interface for building and solving conservation planning problems <span class="citation">(Rodrigues <em>et al.</em> 2000; Billionnet 2013)</span>. It supports a broad range of objectives, constraints, and penalties that can be used to custom-tailor conservation planning problems to the specific needs of a conservation planning exercise. Once built, conservation planning problems can be solved using a variety of commercial and open-source exact algorithm solvers. In contrast to the algorithms conventionally used to solve conservation problems, such as heuristics or simulated annealing <span class="citation">(Ball <em>et al.</em> 2009)</span>, the exact algorithms used here are guaranteed to find optimal solutions. Furthermore, conservation problems can be constructed to optimize the spatial allocation of different management zone (or actions), meaning that conservation practitioners can identify solutions that benefit multiple stakeholders. Finally, this package has the functionality to read input data formatted for the <em>Marxan</em> conservation planning program <span class="citation">(Ball <em>et al.</em> 2009)</span>, and find much cheaper solutions in a much shorter period of time than <em>Marxan</em> <span class="citation">(Beyer <em>et al.</em> 2016)</span>.</p>
+<p>The <em>prioritizr R</em> package uses mixed integer linear programming (MILP) techniques to provide a flexible interface for building and solving conservation planning problems <span class="citation">(Rodrigues <em>et al.</em> 2000; Billionnet 2013)</span>. It supports a broad range of objectives, constraints, and penalties that can be used to custom-tailor conservation planning problems to the specific needs of a conservation planning exercise. Once built, conservation planning problems can be solved using a variety of commercial and open-source exact algorithm solvers. In contrast to the algorithms conventionally used to solve conservation problems, such as heuristics or simulated annealing <span class="citation">(Ball <em>et al.</em> 2009)</span>, the exact algorithms used here are guaranteed to find optimal solutions. Furthermore, conservation problems can be constructed to optimize the spatial allocation of different management zones (or actions), meaning that conservation practitioners can identify solutions that benefit multiple stakeholders. Finally, this package has the functionality to read input data formatted for the <em>Marxan</em> conservation planning program <span class="citation">(Ball <em>et al.</em> 2009)</span>, and find much cheaper solutions in a much shorter period of time than <em>Marxan</em> <span class="citation">(Beyer <em>et al.</em> 2016)</span>.</p>
 </div>
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
 <p>Systematic conservation planning is a rigorous, repeatable, and structured approach to designing new protected areas that efficiently meet conservation objectives <span class="citation">(Margules &amp; Pressey 2000)</span>. Historically, conservation decision-making has often evaluated parcels opportunistically as they became available for purchase, donation, or under threat. Although purchasing such areas may improve the <em>status quo</em>, such decisions may not substantially enhance the long-term persistence of target species or communities. Faced with this realization, conservation planners began using decision support tools to help simulate alternative reserve designs over a range of different biodiversity and management goals and, ultimately, guide protected area acquisitions and management actions. Due to the systematic, evidence-based nature of these tools, conservation prioritization can help contribute to a transparent, inclusive, and more defensible decision making process.</p>
 <p>A conservation planning exercise typically starts by defining a study area. This study area should encompass all the areas relevant to the decision maker or the hypothesis being tested. The extent of a study area could encompass a few important localities <span class="citation">(e.g., Stigner <em>et al.</em> 2016)</span>, a single state <span class="citation">(e.g., Kirkpatrick 1983)</span>, an entire country <span class="citation">(Fuller <em>et al.</em> 2010)</span>, or the entire planet <span class="citation">(Butchart <em>et al.</em> 2015)</span>. Next, the study area is divided into a set of discrete areas termed <em>planning units</em>. Each planning unit represents a discrete locality in the study area that can be managed independently of other areas. The general idea is that some combination of the planning units can be selected for conservation actions (e.g., protected area establishment, habitat restoration). Planning units are often created as square or hexagon cells that are sized according to the scale of the conservation actions, and the resolution of the data that underpin the planning exercise <span class="citation">(but see Klein <em>et al.</em> 2009)</span>.</p>
-<p>Cost data (or a surrogate thereof) are needed to inform the prioritization process. Specifically, these cost data describe the relative expenditure associated with managing each planning unit for conservation. For example, if the goal of the conservation planning exercise is to identify priority areas for expanding a local protected area system, then the cost data could represent the physical cost of purchasing the land. Alternatively, if such data are not available, then surrogate data could are often used instead (e.g., human population density, opportunity cost of foregone commercial activities, or planning unit size).</p>
+<p>Cost data (or a surrogate thereof) are needed to inform the prioritization process. Specifically, these cost data describe the relative expenditure associated with managing each planning unit for conservation. For example, if the goal of the conservation planning exercise is to identify priority areas for expanding a local protected area system, then the cost data could represent the physical cost of purchasing the land. Alternatively, if such data are not available, then surrogate data are often used instead (e.g., human population density, opportunity cost of foregone commercial activities, or planning unit size).</p>
 <p>Conservation planning exercises also require data on the biodiversity elements that are of conservation interest (termed <em>conservation features</em>). These features could be species (e.g., <em>Neofelis nebulosa</em>, the Clouded Leopard), populations, or habitats (e.g., mangroves or cloud forest). After identifying the set of relevant conservation features for a conservation planning exercise, spatially explicit data need to be obtained for each and every feature to describe their spatial distribution (e.g., habitat suitability data, probability of occurrence data, presence/absence data). This is important to ensure that conservation features are adequately covered (represented) by prioritizations. After assembling all the data, the next step is to define the conservation planning problem.</p>
-<p>The <em>prioritizr R</em> package is designed to help you build and solve conservation planning problems. Specifically, prioritizations are generated by using formulating a mathematical optimization problem and then solving it to generate a solution. These mathematical optimization problems are formulated using the planning unit data, cost data, and feature data, and with information related to the overarching aim of the prioritization process. In general, the goal of an optimization problem is to minimize (or maximize) an <em>objective function</em> that is calculated using a set of <em>decision variables</em>, subject to a series of constraints to ensure that solution exhibits specific properties. The objective function describes the quantity which we are trying to minimize (e.g., cost of the solution) or maximize (e.g., number of features conserved). The decision variables describe the entities that we can control, and indicate which planning units are selected for conservation management and which of those are not. The constraints can be thought of as rules that the need decision variables need to follow. For example, a commonly used constraint is specifying that the solution must not exceed a certain budget.</p>
-<p>A wide variety of approaches have been developed for solving optimization problems. Reserve design problems are frequently solved using simulated annealing <span class="citation">(Kirkpatrick <em>et al.</em> 1983)</span> or heuristics <span class="citation">(Nicholls &amp; Margules 1993; Moilanen 2007)</span>. These methods are conceptually simple and can be applied to a wide variety of optimization problems. However, they do not scale well for large or complex problems <span class="citation">(Beyer <em>et al.</em> 2016)</span>. Additionally, these methods cannot tell you how close any given solution is to the optimal solution. The package uses exact algorithms to efficiently solve conservation planning problems to within a pre-specified a optimality gap. In other words, you can specify that you need the optimal solution (i.e., a gap of 0%) and the algorithms will, given enough time, find a solution that meets this criteria. In the past, exact algorithms have been too slow for conservation planning exercises <span class="citation">(Pressey <em>et al.</em> 1996)</span>. However, improvements over the last decade mean that they are now much faster <span class="citation">(Achterberg &amp; Wunderling 2013; Beyer <em>et al.</em> 2016)</span>.</p>
+<p>The <em>prioritizr R</em> package is designed to help you build and solve conservation planning problems. Specifically, prioritizations are generated by formulating a mathematical optimization problem and then solving it to generate a solution. These mathematical optimization problems are formulated using the planning unit data, cost data, and feature data, and with information related to the overarching aim of the prioritization process. In general, the goal of an optimization problem is to minimize (or maximize) an <em>objective function</em> that is calculated using a set of <em>decision variables</em>, subject to a series of constraints to ensure that solution exhibits specific properties. The objective function describes the quantity which we are trying to minimize (e.g., cost of the solution) or maximize (e.g., number of features conserved). The decision variables describe the entities that we can control, and indicate which planning units are selected for conservation management and which are not. The constraints can be thought of as rules that the decision variables need to follow. For example, a commonly used constraint is specifying that the solution must not exceed a certain budget.</p>
+<p>A wide variety of approaches have been developed for solving optimization problems. Reserve design problems are frequently solved using simulated annealing <span class="citation">(Kirkpatrick <em>et al.</em> 1983)</span> or heuristics <span class="citation">(Nicholls &amp; Margules 1993; Moilanen 2007)</span>. These methods are conceptually simple and can be applied to a wide variety of optimization problems. However, they do not scale well for large or complex problems <span class="citation">(Beyer <em>et al.</em> 2016)</span>. Additionally, these methods cannot tell you how close any given solution is to the optimal solution. The <em>prioritizr</em> package uses exact algorithms to efficiently solve conservation planning problems to within a pre-specified optimality gap. In other words, you can specify that you need the optimal solution (i.e., a gap of 0%) and the algorithms will, given enough time, find a solution that meets this criteria. In the past, exact algorithms have been too slow for conservation planning exercises <span class="citation">(Pressey <em>et al.</em> 1996)</span>. However, improvements over the last decade mean that they are now much faster <span class="citation">(Achterberg &amp; Wunderling 2013; Beyer <em>et al.</em> 2016)</span>.</p>
 <p>In this package, optimization problems are expressed using <em>integer linear programming</em> (ILP) so that they can be solved using (linear) exact algorithm solvers. The general form of an integer programming problem can be expressed in matrix notation using the following equation.</p>
 <p><span class="math display">\[\text{Minimize} \space \boldsymbol{c}^\text{T} \boldsymbol{x} \space
 \space \text{subject to} \space A\boldsymbol{x}
 \space \Box \space \boldsymbol{b}\]</span></p>
-<p>Here, where <span class="math inline">\(x\)</span> is a vector of decision variables, <span class="math inline">\(c\)</span> and <span class="math inline">\(b\)</span> are vectors of known coefficients, and <span class="math inline">\(A\)</span> is the constraint matrix. The final term specifies a series of structural constants and the <span class="math inline">\(\Box\)</span> symbol is used to indicate that the relational operators for the constraints can be either <span class="math inline">\(\geq\)</span>, <span class="math inline">\(=\)</span>, or <span class="math inline">\(\leq\)</span>. In the context of a conservation planning problem, <span class="math inline">\(c\)</span> could be used to represent the planning unit costs, <span class="math inline">\(A\)</span> could be used to store the data showing the presence / absence (or amount) of each feature in each planning unit, <span class="math inline">\(b\)</span> could be used to represent minimum amount of habitat required for each species in the solution, the <span class="math inline">\(\Box\)</span> could be set to <span class="math inline">\(\geq\)</span> symbols to indicate that the total amount of each feature in the solution must exceed the quantities in <span class="math inline">\(b\)</span>. But there are many other ways of formulating the reserve selection problem <span class="citation">(Rodrigues <em>et al.</em> 2000)</span>.</p>
+<p>Where <span class="math inline">\(x\)</span> is a vector of decision variables, <span class="math inline">\(c\)</span> and <span class="math inline">\(b\)</span> are vectors of known coefficients, and <span class="math inline">\(A\)</span> is the constraint matrix. The final term specifies a series of structural constants and the <span class="math inline">\(\Box\)</span> symbol is used to indicate that the relational operators for the constraints can be either <span class="math inline">\(\geq\)</span>, <span class="math inline">\(=\)</span>, or <span class="math inline">\(\leq\)</span>. In the context of a conservation planning problem, <span class="math inline">\(c\)</span> could be used to represent the planning unit costs, <span class="math inline">\(A\)</span> could be used to store the data showing the presence / absence (or amount) of each feature in each planning unit, <span class="math inline">\(b\)</span> could be used to represent minimum amount of habitat required for each species in the solution, the <span class="math inline">\(\Box\)</span> could be set to <span class="math inline">\(\geq\)</span> symbols to indicate that the total amount of each feature in the solution must exceed the quantities in <span class="math inline">\(b\)</span>. But there are many other ways of formulating the reserve selection problem <span class="citation">(Rodrigues <em>et al.</em> 2000)</span>.</p>
 </div>
 <div class="section level2">
 <h2 id="a-grammar-for-conservation-planning">A grammar for conservation planning<a class="anchor" aria-label="anchor" href="#a-grammar-for-conservation-planning"></a>
@@ -168,7 +168,7 @@
 <li>Create a new conservation planning <a href="https://prioritizr.net/reference/problem.html">problem</a> by specifying the planning units, features, and management zones of conservation interest.</li>
 <li>Add a primary <a href="https://prioritizr.net/reference/objectives.html">objective</a> to a conservation planning problem (e.g., minimize overall cost).</li>
 <li>Add <a href="https://prioritizr.net/reference/penalties.html">penalties</a> to a conservation planning problem to penalize solutions according to specific metric (e.g., connectivity).</li>
-<li>Add <a href="https://prioritizr.net/reference/targets.html">targets</a> to a conservation planning problem to specify how much of each feature should ideally be represented solutions.</li>
+<li>Add <a href="https://prioritizr.net/reference/targets.html">targets</a> to a conservation planning problem to specify how much of each feature should ideally be represented by solutions.</li>
 <li>Add <a href="https://prioritizr.net/reference/constraints.html">constraints</a> to a conservation planning problem to ensure that solutions exhibit specific properties (e.g., select specific planning units for protection).</li>
 <li>Add <a href="https://prioritizr.net/reference/decisions.html">decisions</a> to a conservation planning problem to specify the nature of the decisions in the problem (e.g., binary decisions indicate the planning units should be selected or not selected for management).</li>
 <li>Add a <a href="https://prioritizr.net/reference/portfolios.html">portfolio</a> to a conservation planning problem to specify a methodological approach for generating multiple solutions (e.g., generate multiple solutions by finding 100 solutions within 10% of optimality).</li>
@@ -183,7 +183,7 @@
 <div class="section level2">
 <h2 id="workflow">Workflow<a class="anchor" aria-label="anchor" href="#workflow"></a>
 </h2>
-<p>The general workflow when using the <em>prioritizr R</em> package starts with creating a new conservation planning <code><a href="../reference/problem.html">problem()</a></code> object using data. Specifically, the <code><a href="../reference/problem.html">problem()</a></code> object should be constructed using data that specify the planning units, biodiversity features, management zones (if applicable), and costs. After creating a new <code><a href="../reference/problem.html">problem()</a></code> object, it can be customized—by adding objectives, penalties, constraints, and other information—to build a precise representation of the conservation planning problem required, and then solved to obtain a solutions.</p>
+<p>The general workflow when using the <em>prioritizr R</em> package starts with creating a new conservation planning <code><a href="../reference/problem.html">problem()</a></code> object using data. Specifically, the <code><a href="../reference/problem.html">problem()</a></code> object should be constructed using data that specify the planning units, biodiversity features, management zones (if applicable), and costs. After creating a new <code><a href="../reference/problem.html">problem()</a></code> object, it can be customized—by adding objectives, penalties, constraints, and other information—to build a precise representation of the conservation planning problem required, and then solved to obtain a solution.</p>
 <p>All conservation planning problems require an objective. An objective specifies the property which is used to compare different feasible solutions. Simply put, the objective is the property of the solution which should be maximized or minimized during the optimization process. For instance, with the minimum set objective (specified using <code><a href="../reference/add_min_set_objective.html">add_min_set_objective()</a></code>), we are seeking to minimize the cost of the solution (similar to <em>Marxan</em>). On the other hand, with the minimum shortfall objective (specified using <code><a href="../reference/add_min_shortfall_objective.html">add_min_shortfall_objective()</a></code>), we are seeking to minimize the average target shortfall for all features represented in the solution, subject to a budget.</p>
 <p>Many objectives require representation targets (e.g., the minimum set objective). These targets are a specialized set of constraints that relate to the total quantity of each feature secured in the solution (e.g., amount of suitable habitat or number of individuals). In the case of the minimum set objective ( <code><a href="../reference/add_min_set_objective.html">add_min_set_objective()</a></code>), they are used to ensure that solutions secure a sufficient quantity of each feature, and in other objectives, such as the maximum features objective ( <code><a href="../reference/add_max_features_objective.html">add_max_features_objective()</a></code>) they are used to assess whether a feature has been adequately conserved by a candidate solution. Targets can be expressed numerically as the total amount required for a given feature (using <code><a href="../reference/add_absolute_targets.html">add_absolute_targets()</a></code>), or as a proportion of the total amount found in the planning units (using <code><a href="../reference/add_relative_targets.html">add_relative_targets()</a></code>). Note that not all objectives require targets, and a warning will be thrown if an attempt is made to add targets to a problem with an objective that does not use them.</p>
 <p>Constraints and penalties can be added to a conservation planning problem to ensure that solutions exhibit a specific property or penalize solutions which don’t exhibit a specific property (respectively). The difference between constraints and penalties, strictly speaking, is constraints are used to rule out potential solutions that don’t exhibit a specific property. For instance, constraints can be used to ensure that specific planning units are selected in the solution for prioritization (using <code><a href="../reference/add_locked_in_constraints.html">add_locked_in_constraints()</a></code>) or not selected in the solution for prioritization (using <code><a href="../reference/add_locked_out_constraints.html">add_locked_out_constraints()</a></code>). On the other hand, penalties are combined with the objective of a problem, with a penalty factor, and the overall objective of the problem then becomes to minimize (or maximize) the primary objective function and the penalty function. For example, penalties can be added to a problem to penalize solutions that are excessively fragmented (using <code><a href="../reference/add_boundary_penalties.html">add_boundary_penalties()</a></code>). These penalties have a <code>penalty</code> argument that specifies the relative importance of having spatially clustered solutions. When the argument to <code>penalty</code> is high, then solutions which are less fragmented are valued more highly – even if they cost more – and when the argument to <code>penalty</code> is low, then the solutions which are more fragmented are valued less highly.</p>
@@ -290,7 +290,7 @@
 <div class="section level3">
 <h3 id="initialize-a-problem">Initialize a problem<a class="anchor" aria-label="anchor" href="#initialize-a-problem"></a>
 </h3>
-<p>After having loaded our planning unit and feature data, we will now try initializing the some conservation planning problems. There are a lot of different ways to initialize a conservation planning problem, so here we will just showcase a few of the more commonly used methods. For an exhaustive description of all the ways you can initialize a conservation problem, see the help file for the <code><a href="../reference/problem.html">problem()</a></code> function. First off, we will initialize a conservation planning problem using the raster data.</p>
+<p>After having loaded our planning unit and feature data, we will now try initializing some conservation planning problems. There are a lot of different ways to initialize a conservation planning problem, so here we will just showcase a few of the more commonly used methods. For an exhaustive description of all the ways you can initialize a conservation problem, see the help file for the <code><a href="../reference/problem.html">problem()</a></code> function. First off, we will initialize a conservation planning problem using the raster data.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create problem</span></span>
 <span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span></span></code></pre></div>
@@ -305,12 +305,13 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
@@ -339,12 +340,13 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
@@ -400,12 +402,13 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">0</span> and <span style="color: #0000BB;">415692.1938</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #B2B2B2;">NA</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        <span style="color: #B2B2B2;">NA</span></span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
@@ -435,12 +438,13 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
@@ -465,12 +469,13 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   maximum coverage objective (`budget` = <span style="color: #0000BB;">5000</span>)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   maximum coverage objective (`budget` = <span style="color: #0000BB;">5000</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
@@ -495,18 +500,19 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   maximum representation objective (`budget` = <span style="color: #0000BB;">5000</span>)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   maximum representation objective (`budget` = <span style="color: #0000BB;">5000</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
 <ul>
 <li>
-<strong>Minimum shortfall objective</strong>: Minimize the overall (weighted sum) shortfall for as many targets as possible while ensuring that the cost of the solution does not exceed a budget. In practice, this objective useful when there is a large amount of left-over budget when using the maximum feature representation objective and the remaining funds need to be allocated to places that will enhance the representation of features with unmet targets.</li>
+<strong>Minimum shortfall objective</strong>: Minimize the overall (weighted sum) shortfall for as many targets as possible while ensuring that the cost of the solution does not exceed a budget. In practice, this objective is useful when there is a large amount of left-over budget when using the maximum feature representation objective and the remaining funds need to be allocated to places that will enhance the representation of features with unmet targets.</li>
 </ul>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create a new problem that has the minimum shortfall objective and a budget</span></span>
@@ -525,12 +531,13 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   minimum shortfall objective (`budget` = <span style="color: #0000BB;">5000</span>)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum shortfall objective (`budget` = <span style="color: #0000BB;">5000</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
@@ -555,12 +562,13 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   minimum largest shortfall objective (`budget` = <span style="color: #0000BB;">5000</span>)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum largest shortfall objective (`budget` = <span style="color: #0000BB;">5000</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
@@ -588,18 +596,19 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   phylogenetic diversity objective (`budget` = <span style="color: #0000BB;">5000</span>, `tree` = phylogenetic tree (branch lengths between <span style="color: #0000BB;">0.041</span> and <span style="color: #0000BB;">1.4211</span>))</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   phylogenetic diversity objective (`budget` = <span style="color: #0000BB;">5000</span>, `tree` = phylogenetic tree (branch lengths between <span style="color: #0000BB;">0.041</span> and <span style="color: #0000BB;">1.4211</span>))</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
 <ul>
 <li>
-<strong>Maximum phylogenetic endemism objective</strong>: Maximize the phylogenetic endemism of the features represented in the solution subject to a budget <span class="citation">(inspired by Faith 1992; Rodrigues &amp; Gaston 2002; Rosauer <em>et al.</em> 2009)</span>. This objective is similar to the maximum phylogenetic diversity except that emphasis is placed conserving features that are associated with geographically restricted periods of evolutionary history rather than a diverse range of evolutionary histories.</li>
+<strong>Maximum phylogenetic endemism objective</strong>: Maximize the phylogenetic endemism of the features represented in the solution subject to a budget <span class="citation">(inspired by Faith 1992; Rodrigues &amp; Gaston 2002; Rosauer <em>et al.</em> 2009)</span>. This objective is similar to the maximum phylogenetic diversity except that emphasis is placed on conserving features that are associated with geographically restricted periods of evolutionary history rather than a diverse range of evolutionary histories.</li>
 </ul>
 <div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># load simulated phylogeny data</span></span>
@@ -621,12 +630,13 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   phylogenetic endemism objective (`budget` = <span style="color: #0000BB;">5000</span>, `tree` = phylogenetic tree (branch lengths between <span style="color: #0000BB;">0.041</span> and <span style="color: #0000BB;">1.4211</span>))</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   phylogenetic endemism objective (`budget` = <span style="color: #0000BB;">5000</span>, `tree` = phylogenetic tree (branch lengths between <span style="color: #0000BB;">0.041</span> and <span style="color: #0000BB;">1.4211</span>))</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
@@ -651,12 +661,13 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   maximum utility objective (`budget` = <span style="color: #0000BB;">5000</span>)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   maximum utility objective (`budget` = <span style="color: #0000BB;">5000</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
@@ -667,11 +678,11 @@
 <p>Most conservation planning problems require targets. Targets are used to specify the minimum amount or proportion of a feature’s distribution that needs to be protected in the solution. For example, we may want to develop a reserve network that will secure 20% of the distribution for each feature for minimal cost. The following methods are available for specifying targets.</p>
 <ul>
 <li>
-<strong>Absolute targets</strong>: Targets are expressed as the total amount of each feature in the study area that need to be secured. For example, if we had binary feature data that showed the absence or presence of suitable habitat across the study area, we could set an absolute target as 5 to mean that we require 5 planning units with suitable habitat in the solution.</li>
+<strong>Absolute targets</strong>: Targets are expressed as the total amount of each feature in the study area that need to be secured. For example, if we had binary feature data that showed the absence or presence of suitable habitat across the study area, we could set an absolute target of 5 to mean that we require 5 planning units with suitable habitat in the solution.</li>
 </ul>
 <div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create a problem with targets which specify that the solution must conserve</span></span>
-<span><span class="co"># a need a sum total of 3 units of suitable habitat for each feature</span></span>
+<span><span class="co"># a sum total of 3 units of suitable habitat for each feature</span></span>
 <span><span class="va">p11</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -687,18 +698,19 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     absolute targets (between <span style="color: #0000BB;">3</span> and <span style="color: #0000BB;">3</span>)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     absolute targets (between <span style="color: #0000BB;">3</span> and <span style="color: #0000BB;">3</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
 <ul>
 <li>
-<strong>Relative targets</strong>: Targets are set as a proportion (between 0 and 1) of the total amount of each feature in the study area. For example, if we had binary feature data and the feature occupied a total of 20 planning units in the study area, we could set a relative target of 50 % to specify that the solution must secure 10 planning units for the feature. We could alternatively specify an absolute target of 10 to achieve the same result, but sometimes proportions are easier to work with.</li>
+<strong>Relative targets</strong>: Targets are set as a proportion (between 0 and 1) of the total amount of each feature in the study area. For example, if we had binary feature data and the feature occupied a total of 20 planning units in the study area, we could set a relative target of 0.5 (i.e., 50%) to specify that the solution must secure 10 planning units for the feature. We could alternatively specify an absolute target of 10 to achieve the same result, but sometimes proportions are easier to work with.</li>
 </ul>
 <div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create a problem with the minimum set objective and relative targets of 10 %</span></span>
@@ -718,12 +730,13 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
@@ -747,12 +760,13 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.3</span>)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.3</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
@@ -777,12 +791,13 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     absolute targets (between <span style="color: #0000BB;">17.2905</span> and <span style="color: #0000BB;">21.5906</span>)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     absolute targets (between <span style="color: #0000BB;">17.2905</span> and <span style="color: #0000BB;">21.5906</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
@@ -819,13 +834,14 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints:</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">│└•</span>1:          locked in constraints (1 planning units)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints:</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          locked in constraints (1 planning units)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
@@ -852,13 +868,14 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints:</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">│└•</span>1:          locked out constraints (1 planning units)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints:</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          locked out constraints (1 planning units)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
@@ -885,13 +902,14 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints:</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">│└•</span>1:          neighbor constraints (`k` = <span style="color: #0000BB;">1</span>, …)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints:</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          neighbor constraints (`k` = <span style="color: #0000BB;">1</span>, …)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
@@ -918,13 +936,14 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints:</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">│└•</span>1:          contiguity constraints</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints:</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          contiguity constraints</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
@@ -951,13 +970,14 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints:</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">│└•</span>1:          feature contiguity constraints</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints:</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          feature contiguity constraints</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
@@ -968,7 +988,7 @@
 <div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create problem with constraints which specify that the sum of</span></span>
 <span><span class="co"># values in sim_features[[1]] among selected planning units must not exceed a</span></span>
-<span><span class="co">#' threshold value of 190.</span></span>
+<span><span class="co"># threshold value of 190.</span></span>
 <span><span class="va">p20</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_min_shortfall_objective.html">add_min_shortfall_objective</a></span><span class="op">(</span>budget <span class="op">=</span> <span class="fl">1800</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -985,13 +1005,14 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   minimum shortfall objective (`budget` = <span style="color: #0000BB;">1800</span>)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints:</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">│└•</span>1:          linear constraints (`threshold` = <span style="color: #0000BB;">190</span>, `sense` = <span style="color: #0000BB;">"&lt;="</span> (1 total), …)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum shortfall objective (`budget` = <span style="color: #0000BB;">1800</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints:</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          linear constraints (`threshold` = <span style="color: #0000BB;">190</span>, `sense` = <span style="color: #0000BB;">"&lt;="</span> (1 total), …)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
@@ -999,7 +1020,7 @@
 <li>
 <strong>Mandatory allocation constraints</strong>: Add constraints to ensure that every planning unit is allocated to a management zone in the solution. Please note that this function can only be used with problems that contain multiple zones. For more information on problems with multiple zones and an example using this function, see the <a href="management_zones_tutorial.html"><em>Management zones tutorial</em></a>.</li>
 </ul>
-<p>In particular, The <code>add_locked_in_constraints</code> and <code>add_locked_out_constraints</code> functions are incredibly useful for real-world conservation planning exercises, so it’s worth pointing out that there are several ways we can specify which planning units should be locked in or out of the solutions. If we use raster planning unit data, we can also use raster data to specify which planning units should be locked in our locked out.</p>
+<p>In particular, The <code>add_locked_in_constraints</code> and <code>add_locked_out_constraints</code> functions are incredibly useful for real-world conservation planning exercises, so it’s worth pointing out that there are several ways we can specify which planning units should be locked in or out of the solutions. If we use raster planning unit data, we can also use raster data to specify which planning units should be locked in or locked out.</p>
 <div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># load data to lock in or lock out planning units</span></span>
 <span><span class="va">sim_locked_in_raster</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_data.html">get_sim_locked_in_raster</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -1032,14 +1053,15 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints:</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">│├•</span>1:          locked in constraints (10 planning units)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">│└•</span>2:          locked out constraints (10 planning units)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints:</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││├•</span>1:          locked in constraints (10 planning units)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>2:          locked out constraints (10 planning units)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
@@ -1084,13 +1106,14 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints:</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">│└•</span>1:          locked in constraints (10 planning units)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints:</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          locked in constraints (10 planning units)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
@@ -1112,13 +1135,14 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints:</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">│└•</span>1:          locked in constraints (10 planning units)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints:</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          locked in constraints (10 planning units)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
@@ -1150,13 +1174,14 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">│└•</span>1:          boundary penalties (`penalty` = <span style="color: #0000BB;">0.01</span>, `edge_factor` = <span style="color: #0000BB;">0.5</span>, …)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          boundary penalties (`penalty` = <span style="color: #0000BB;">0.01</span>, `edge_factor` = <span style="color: #0000BB;">0.5</span>, …)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
@@ -1190,19 +1215,20 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">│└•</span>1:          connectivity penalties (`penalty` = <span style="color: #0000BB;">5</span>, …)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          connectivity penalties (`penalty` = <span style="color: #0000BB;">5</span>, …)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
 <ul>
 <li>
-<strong>Asymmetric connectivity penalties</strong>: Add penalties to penalize solutions that select planning units that share high connectivity values other planning units that are not selected by the solution. This function is used for asymmetric connectivities among planning units <span class="citation">(based on Beger <em>et al.</em> 2010)</span>.</li>
+<strong>Asymmetric connectivity penalties</strong>: Add penalties to penalize solutions that select planning units that share high connectivity values with other planning units that are not selected by the solution. This function is used for asymmetric connectivities among planning units <span class="citation">(based on Beger <em>et al.</em> 2010)</span>.</li>
 </ul>
 <div class="sourceCode" id="cb100"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create a matrix containing asymmetric connectivity data,</span></span>
@@ -1229,13 +1255,14 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">│└•</span>1:          asymmetric connectivity penalties (`penalty` = <span style="color: #0000BB;">5</span>, …)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          asymmetric connectivity penalties (`penalty` = <span style="color: #0000BB;">5</span>, …)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
@@ -1268,13 +1295,14 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">│└•</span>1:          linear penalties (`penalty` = <span style="color: #0000BB;">5</span>, …)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          linear penalties (`penalty` = <span style="color: #0000BB;">5</span>, …)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
@@ -1305,12 +1333,13 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
@@ -1336,12 +1365,13 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   proportion decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   proportion decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
@@ -1368,12 +1398,13 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   semicontinuous decision (`upper_limit` = <span style="color: #0000BB;">0.5</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   semicontinuous decision (`upper_limit` = <span style="color: #0000BB;">0.5</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
@@ -1406,12 +1437,13 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
@@ -1439,12 +1471,13 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      cplex solver (`gap` = <span style="color: #0000BB;">0</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
@@ -1472,12 +1505,13 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      cbc solver (`gap` = <span style="color: #0000BB;">0</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, `start` = <span style="color: #0000BB;">NULL</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
@@ -1505,12 +1539,13 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      highs solver (`gap` = <span style="color: #0000BB;">0</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
@@ -1538,12 +1573,13 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      lpsymphony (`gap` = <span style="color: #0000BB;">0</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
@@ -1571,12 +1607,13 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      rsymphony solver (`gap` = <span style="color: #0000BB;">0</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
@@ -1609,12 +1646,13 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   gap portfolio (`number_solutions` = <span style="color: #0000BB;">5</span>, `pool_gap` = <span style="color: #0000BB;">0.2</span>)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
@@ -1642,12 +1680,13 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   top portfolio (`number_solutions` = <span style="color: #0000BB;">5</span>)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
@@ -1675,12 +1714,13 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   extra portfolio</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
@@ -1708,12 +1748,13 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   cuts portfolio (`number_solutions` = <span style="color: #0000BB;">10</span>)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
@@ -1741,12 +1782,13 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">10</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
@@ -1774,13 +1816,14 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">│└•</span>1:          boundary penalties (`penalty` = <span style="color: #0000BB;">500</span>, `edge_factor` = <span style="color: #0000BB;">0.5</span>, …)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          boundary penalties (`penalty` = <span style="color: #0000BB;">500</span>, `edge_factor` = <span style="color: #0000BB;">0.5</span>, …)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
@@ -1827,7 +1870,7 @@
 <span><span class="co">## Cutting planes:</span></span>
 <span><span class="co">##   Gomory: 3</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 82 nodes (1685 simplex iterations) in 0.12 seconds (0.12 work units)</span></span>
+<span><span class="co">## Explored 82 nodes (1685 simplex iterations) in 0.10 seconds (0.12 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Solution count 6: 2604.74 2668.5 2814.48 ... 20287.2</span></span>
@@ -1852,7 +1895,7 @@
 <code class="sourceCode R"><span><span class="co"># extract time spent solving solution</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s42</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## solution_1 </span></span>
-<span><span class="co">##      0.146</span></span></code></pre>
+<span><span class="co">##      0.123</span></span></code></pre>
 <div class="sourceCode" id="cb158"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract state message from the solver that describes why this specific</span></span>
 <span><span class="co"># solution was returned</span></span>
@@ -1965,7 +2008,7 @@
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 1 × 2</span></span></span>
 <span><span class="co">##   summary asym_connectivity</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> overall              49.9</span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> overall              46.6</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="evaluating-relative-importance">Evaluating relative importance<a class="anchor" aria-label="anchor" href="#evaluating-relative-importance"></a>
@@ -2042,7 +2085,7 @@
 <span>  <span class="va">rc43</span>, main <span class="op">=</span> <span class="st">"Replacement cost scores"</span>,</span>
 <span>  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="package_overview_files/figure-html/unnamed-chunk-105-1.png" width="480" style="display: block; margin: auto;"> * <strong>Ferrier method</strong>: Evaluate importance by computing irreplaceability scores following Ferrier <em>et al.</em> <span class="citation">(<strong>r-34?</strong>)</span>. The advantages of this method are that it (i) can be computed relatively quickly for moderate and large-sized problems, and (ii) calculates a score for each feature within each planning unit to provide insight into why certain planning units are more important than others. The disadvantage with this method is that it can only be applied to conservation problems with a minimum set objective and a single zone (i.e., similar to <em>Marxan</em>-type problems).</p>
+<p><img src="package_overview_files/figure-html/unnamed-chunk-105-1.png" width="480" style="display: block; margin: auto;"> * <strong>Ferrier method</strong>: Evaluate importance by computing irreplaceability scores following Ferrier <em>et al.</em> <span class="citation">(<strong>r-34?</strong>)</span>. The advantages of this method are that it (i) can be computed relatively quickly for moderate and large-sized problems, and (ii) calculates a score for each feature within each planning unit to provide insight into why certain planning units are more important than others. The disadvantage with this method is that it can only be applied to conservation problems that use targets and have a single zone (i.e., similar to <em>Marxan</em>-type problems).</p>
 <div class="sourceCode" id="cb178"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate Ferrier scores and extract total score</span></span>
 <span><span class="va">fs43</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_ferrier_importance.html">eval_ferrier_importance</a></span><span class="op">(</span><span class="va">p43</span>, <span class="va">s43</span><span class="op">)</span><span class="op">[[</span><span class="st">"total"</span><span class="op">]</span><span class="op">]</span></span>
@@ -2089,13 +2132,14 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">│└•</span>1:          boundary penalties (`penalty` = <span style="color: #0000BB;">500</span>, `edge_factor` = <span style="color: #0000BB;">0.5</span>, …)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          boundary penalties (`penalty` = <span style="color: #0000BB;">500</span>, `edge_factor` = <span style="color: #0000BB;">0.5</span>, …)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
@@ -2181,15 +2225,16 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">0</span> and <span style="color: #0000BB;">415692.1938</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #B2B2B2;">NA</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        <span style="color: #B2B2B2;">NA</span></span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">│└•</span>1:          boundary penalties (`penalty` = <span style="color: #0000BB;">0</span>, `edge_factor` = <span style="color: #0000BB;">1</span>, …)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.3</span> and <span style="color: #0000BB;">0.3</span>)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints:</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">│├•</span>1:          locked in constraints (317 planning units)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">│└•</span>2:          locked out constraints (1 planning units)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          boundary penalties (`penalty` = <span style="color: #0000BB;">0</span>, `edge_factor` = <span style="color: #0000BB;">1</span>, …)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.3</span> and <span style="color: #0000BB;">0.3</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints:</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││├•</span>1:          locked in constraints (317 planning units)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>2:          locked out constraints (1 planning units)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>

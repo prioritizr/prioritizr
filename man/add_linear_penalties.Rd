@@ -29,7 +29,7 @@
 \item{x}{\code{\link[=problem]{problem()}} object.}
 
 \item{penalty}{\code{numeric} penalty value that is used to scale the
-importance not selecting planning units with high \code{data} values.
+importance of not selecting planning units with high \code{data} values.
 Higher \code{penalty} values can be used to obtain solutions that
 are strongly averse to selecting places with high \code{data}
 values, and smaller \code{penalty} values can be used to obtain solutions

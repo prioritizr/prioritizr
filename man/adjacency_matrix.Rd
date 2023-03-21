@@ -45,8 +45,8 @@ Cells values indicate if different planning units are
 adjacent to each other or not (using ones and zeros).
 To reduce computational burden, cells among the matrix diagonal are
 set to zero. Furthermore, if the argument to \code{x} is a
-\code{\link[terra:rast]{terra::rast()}} object, then cells with \code{NA}
-values are set to zero too.
+\code{\link[terra:rast]{terra::rast()}} object, then cells with \code{NA} values are set to
+zero too.
 }
 \description{
 Create a matrix showing which planning units are spatially adjacent to
@@ -71,7 +71,6 @@ with other spatial association matrix functions.
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_pu_polygons <- get_sim_pu_polygons()
-sim_pu_lines <- get_sim_pu_lines()
 
 # create adjacency matrix using raster data
 ## crop raster to 9 cells
@@ -82,17 +81,10 @@ am_raster <- adjacency_matrix(r)
 
 # create adjacency matrix using polygon data
 ## subset 9 polygons
-ply <- sim_pu_polygons[c(1:2, 10:12, 20:22), ]
+ply <- sim_pu_polygons[c(1:3, 11:13, 20:22), ]
 
 ## make adjacency matrix
 am_ply <- adjacency_matrix(ply)
-
-# create adjacency matrix using lines data
-## subset 9 lines
-lns <- sim_pu_lines[c(1:2, 10:12, 20:22), ]
-
-## make adjacency matrix
-am_lns <- adjacency_matrix(lns)
 
 # plot data and the adjacency matrices
 
@@ -104,8 +96,5 @@ Matrix::image(am_raster, main = "adjacency matrix")
 plot(ply[, 1], main = "polygons")
 Matrix::image(am_ply, main = "adjacency matrix")
 
-## plot lines and adjacency matrix
-plot(lns[, 1], main = "lines")
-Matrix::image(am_lns, main = "adjacency matrix")
 }
 }

@@ -148,9 +148,10 @@ planning problems require targets with the exception of the maximum cover
 (see <code><a href="add_max_utility_objective.html">add_max_utility_objective()</a></code>) problems. Attempting to solve
 problems with objectives that require targets without specifying targets
 will throw an error.</p>
-<p>For problems associated with multiple management zones, this function can
+<p>For problems associated with multiple management zones,
+<code>add_absolute_targets()</code> can
 be used to set targets that each pertain to a single feature and a single
-zone. To set targets which can be met through allocating different
+zone. To set targets that can be met through allocating different
 planning units to multiple zones, see the <code><a href="add_manual_targets.html">add_manual_targets()</a></code>
 function. An example of a target that could be met through allocations
 to multiple zones might be where each management zone is expected to

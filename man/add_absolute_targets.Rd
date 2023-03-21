@@ -41,9 +41,10 @@ planning problems require targets with the exception of the maximum cover
 problems with objectives that require targets without specifying targets
 will throw an error.
 
-For problems associated with multiple management zones, this function can
+For problems associated with multiple management zones,
+\code{\link[=add_absolute_targets]{add_absolute_targets()}} can
 be used to set targets that each pertain to a single feature and a single
-zone. To set targets which can be met through allocating different
+zone. To set targets that can be met through allocating different
 planning units to multiple zones, see the \code{\link[=add_manual_targets]{add_manual_targets()}}
 function. An example of a target that could be met through allocations
 to multiple zones might be where each management zone is expected to

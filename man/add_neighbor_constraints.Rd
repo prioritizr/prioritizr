@@ -52,7 +52,7 @@ that all selected planning units in the solution have at least a certain
 number of neighbors that are also selected in the solution.
 }
 \details{
-This function uses neighborhood data identify solutions that
+This function uses neighborhood data to identify solutions that
 surround planning units with a minimum number of neighbors. It
 was inspired by the mathematical formulations detailed in
 Billionnet (2013) and Beyer \emph{et al.} (2016).

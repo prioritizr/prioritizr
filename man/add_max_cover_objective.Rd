@@ -99,7 +99,7 @@ for (i in seq_len(terra::nlyr(sim_features))) {
   )
 }
 
-# create problem with maximum utility objective
+# create problem with maximum cover objective
 p1 <-
   problem(sim_pu_raster, sim_binary_features) \%>\%
   add_max_cover_objective(500) \%>\%
@@ -114,7 +114,7 @@ plot(s1, main = "solution", axes = FALSE)
 
 # threshold the multi-zone feature data to generate binary biodiversity data
 sim_binary_features_zones <- sim_zones_features
-for (z in number_of_zones(sim_zones_features)) {
+for (z in seq_len(number_of_zones(sim_zones_features))) {
   thresholds <- terra::global(
     sim_zones_features[[z]], fun = quantile, probs = 0.5, na.rm = TRUE
   )
@@ -125,7 +125,7 @@ for (z in number_of_zones(sim_zones_features)) {
   }
 }
 
-# create multi-zone problem with maximum utility objective that
+# create multi-zone problem with maximum cover objective that
 # has a single budget for all zones
 p2 <-
   problem(sim_zones_pu_raster, sim_binary_features_zones) \%>\%
@@ -139,7 +139,7 @@ s2 <- solve(p2)
 # plot solution
 plot(category_layer(s2), main = "solution", axes = FALSE)
 
-# create multi-zone problem with maximum utility objective that
+# create multi-zone problem with maximum cover objective that
 # has separate budgets for each zone
 p3 <-
   problem(sim_zones_pu_raster, sim_binary_features_zones) \%>\%

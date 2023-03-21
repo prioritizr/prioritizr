@@ -43,7 +43,7 @@ values -- excepting infinite (\code{Inf}) and zero values -- should be
 rescaled to range between 0.01 and 1. Defaults to \code{TRUE}.}
 }
 \value{
-A \code{numeric}, \code{matrix}, \code{data.frame}
+A \code{numeric}, \code{matrix}, \code{data.frame},
 \code{\link[terra:rast]{terra::rast()}}, or \code{\link[sf:sf]{sf::sf()}} object
 containing the importance scores for each planning
 unit in the solution. Specifically, the returned object is in the

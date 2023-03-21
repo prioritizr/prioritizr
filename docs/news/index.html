@@ -128,6 +128,7 @@
 <li>Update publication record.</li>
 <li>The <code><a href="../reference/solve.html">solve()</a></code> function will now output <code><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble::tibble()</a></code> objects (instead of <code><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame()</a></code> objects), when the planning unit data are <code><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble::tibble()</a></code> objects.</li>
 <li>The <code><a href="../reference/boundary_matrix.html">boundary_matrix()</a></code> function now uses <code><a href="https://rdrr.io/pkg/terra/man/sharedPaths.html" class="external-link">terra::sharedPaths()</a></code> for calculations, providing greater performance.</li>
+<li>The <code><a href="../reference/eval_ferrier_importance.html">eval_ferrier_importance()</a></code> function can now be used with any objective function that uses targets and a single zone.</li>
 <li>The package now requires C++17 for compilation (<a href="https://github.com/prioritizr/prioritizr/issues/263" class="external-link">#263</a>).</li>
 <li>Remove <em>doParallel</em> and <em>plyr</em> packages as dependencies by simplifying the <code><a href="../reference/add_shuffle_portfolio.html">add_shuffle_portfolio()</a></code> and <code><a href="../reference/eval_replacement_importance.html">eval_replacement_importance()</a></code> functions.</li>
 <li>Assorted tweaks to improve writing in the vignettes and documentation.</li>

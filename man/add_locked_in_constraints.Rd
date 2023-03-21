@@ -33,7 +33,7 @@ add_locked_in_constraints(x, locked_in)
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} object.}
 
-\item{locked_in}{Object that determines which planning units that should be
+\item{locked_in}{Object that determines which planning units should be
 locked in. See the Data format section for more information.}
 }
 \value{
@@ -200,17 +200,17 @@ locked_matrix <- as.matrix(sf::st_drop_geometry(
 p8 <- p7 \%>\% add_locked_in_constraints(locked_matrix)
 
 # solve problem
-s7 <- solve(p7)
+s8 <- solve(p8)
 
 # create new column representing the zone id that each planning unit
 # was allocated to in the solution
-s7$solution <- category_vector(sf::st_drop_geometry(
-  s7[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")]
+s8$solution <- category_vector(sf::st_drop_geometry(
+  s8[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")]
 ))
-s7$solution <- factor(s7$solution)
+s8$solution <- factor(s8$solution)
 
 # plot solution
-plot(s7[ "solution"], axes = FALSE)
+plot(s8[ "solution"], axes = FALSE)
 
 # create multi-zone problem with locked in constraints using column names
 p9 <- p7 \%>\% add_locked_in_constraints(c("locked_1", "locked_2", "locked_3"))
@@ -241,6 +241,7 @@ p10 <-
 locked_in_raster <- sim_zones_pu_raster[[1]]
 locked_in_raster[!is.na(locked_in_raster)] <- 0
 locked_in_raster <- locked_in_raster[[c(1, 1, 1)]]
+names(locked_in_raster) <- c("zone_1", "zone_2", "zone_3")
 locked_in_raster[[1]][1] <- 1
 locked_in_raster[[2]][2] <- 1
 locked_in_raster[[3]][3] <- 1

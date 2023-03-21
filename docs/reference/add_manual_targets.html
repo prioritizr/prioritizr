@@ -137,7 +137,7 @@ solution should not exceed a certain quantity using <code>"&lt;="</code> values)
 
 <dt>targets</dt>
 <dd><p><code>data.frame</code> or <code><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble::tibble()</a></code> object.
-See the Target data format section for more information.</p></dd>
+See the Targets format section for more information.</p></dd>
 
 </dl></div>
     <div id="value">
@@ -155,9 +155,10 @@ planning problems require targets with the exception of the maximum cover
 (see <code><a href="add_max_utility_objective.html">add_max_utility_objective()</a></code>) problems. Attempting to solve
 problems with objectives that require targets without specifying targets
 will throw an error.</p>
-<p>For problems associated with multiple management zones, this function can
+<p>For problems associated with multiple management zones,
+<code><a href="add_absolute_targets.html">add_absolute_targets()</a></code> can
 be used to set targets that each pertain to a single feature and a single
-zone. To set targets which can be met through allocating different
+zone. To set targets that can be met through allocating different
 planning units to multiple zones, see the <code>add_manual_targets()</code>
 function. An example of a target that could be met through allocations
 to multiple zones might be where each management zone is expected to
@@ -183,8 +184,10 @@ to <code>x</code>.</p></dd>
 
 
 <dt>zone</dt>
-<dd><p><code>character</code> name of zones in argument to
-<code>x</code>. This column is optional for arguments to <code>x</code>
+<dd><p><code>character</code> name of zones in the argument
+<code>x</code>. It can also be a <code>list</code> of <code>character</code> vectors if
+targets should correspond to multiple zones (see Examples section below).
+This column is optional for arguments to <code>x</code>
 that do not contain multiple zones.</p></dd>
 
 

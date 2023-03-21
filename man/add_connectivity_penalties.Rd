@@ -251,14 +251,6 @@ p2 <- list(
   p1 \%>\% add_connectivity_penalties(penalties[2], data = c_matrix)
 )
 
-# assign names to the problems
-names(p2) <- c(
-  "basic problem",
-  paste0("b_matrix (", penalties,")"),
-  paste0("d_matrix (", penalties,")"),
-  paste0("c_matrix (", penalties,")")
-)
-
 # solve problems
 s2 <- lapply(p2, solve)
 
@@ -276,8 +268,15 @@ s2 <- sf::st_sf(
   geometry = sf::st_geometry(s2[[1]])
 )
 
+names(s2)[1:7] <- c(
+  "basic problem",
+  paste0("b_matrix (", penalties,")"),
+  paste0("d_matrix (", penalties,")"),
+  paste0("c_matrix (", penalties,")")
+)
+
 # plot solutions
-plot(s2, main = names(p2))
+plot(s2)
 
 # create minimal multi-zone problem and limit solver to one minute
 # to obtain solutions in a short period of time

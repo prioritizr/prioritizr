@@ -138,7 +138,8 @@ to <code>NULL</code> which results in sequential integers.</p></dd>
     <h2>Value</h2>
     
 
-<p>A <code>Zones</code> object.</p>
+<p>A <code>Zones</code> object containing data for each zone, and
+the feature and zone names.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -217,6 +218,13 @@ a prioritization with multiple management zones.</p></div>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> A zones object <span style="color: #0000BB;">&lt;ZonesSpatRaster/Zones&gt;</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> zones:    <span style="color: #0000BB;">"zone_1"</span> and <span style="color: #0000BB;">"zone_2"</span> (2 total)</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> features: <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, and <span style="color: #0000BB;">"feature_3"</span> (3 total)</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># plot the rasters for the first zone in the Zones object</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span> <span class="va">z</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>,</span></span>
+<span class="r-in"><span> main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Zone 1 feature 1"</span>, <span class="st">"Zone 1 feature 2"</span>, <span class="st">"Zone 1 feature 3"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="zones-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># note that the do.call function can also be used to create a Zones object</span></span></span>
 <span class="r-in"><span><span class="co"># this method for creating a Zones object can be helpful when there are many</span></span></span>

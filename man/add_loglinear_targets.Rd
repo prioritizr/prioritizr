@@ -40,7 +40,7 @@ Defaults to \code{NULL} so that targets are not capped.}
 
 \item{abundances}{\code{numeric} total amount of each feature to
 use when calculating the targets. Defaults to the feature abundances in the
-study area (calculated using the \code{\link[=feature_abundances]{feature_abundances()}} function.}
+study area (calculated using the \code{\link[=feature_abundances]{feature_abundances()}}) function.}
 }
 \value{
 An updated \code{\link[=problem]{problem()}} object with the targets added to it.

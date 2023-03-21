@@ -52,9 +52,9 @@ a solution following Ferrier \emph{et al.} (2000).
 Importance scores are reported separately for each feature within
 each planning unit. Additionally, a total importance score is also
 calculated as the sum of the scores for each feature.
-Note that this function only works for problems with
-a minimum set objective and a single zone.
-It will throw an error for problems that do not meet this criteria.
+Note that this function only works for problems
+that use targets and a single zone.
+It will throw an error for problems that do not meet these criteria.
 }
 \section{Notes}{
 
@@ -166,7 +166,7 @@ fs1 <- eval_ferrier_importance(p1, s1)
 print(fs1)
 
 # plot total importance scores
-plot(fs1, main = "Ferrier scores", axes = FALSE)
+plot(fs1, main = names(fs1), axes = FALSE)
 
 # create minimal problem with polygon planning units
 p2 <-
@@ -189,7 +189,7 @@ plot(s2[, "solution_1"], main = "solution")
 fs2 <- eval_ferrier_importance(p2, s2[, "solution_1"])
 
 # plot importance scores
-plot(fs2, main = "Ferrier scores")
+plot(fs2)
 
 }
 

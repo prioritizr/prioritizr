@@ -172,7 +172,9 @@ Defaults to <code>FALSE</code>.</p></dd>
 
 <dt>start_solution</dt>
 <dd><p><code>NULL</code> or object containing the starting solution
-for the solver. Defaults to <code>NULL</code> such that no starting solution is used.
+for the solver. This is can be useful because specifying a starting
+solution can speed up the optimization process.
+Defaults to <code>NULL</code> such that no starting solution is used.
 To specify a starting solution, the argument to <code>start_solution</code> should
 be in the same format as the planning units (i.e., a <code>NULL</code>, <code>numeric</code>,
 <code>matrix</code>, <code>data.frame</code>, <code><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">terra::rast()</a></code>, or <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::sf()</a></code> object).

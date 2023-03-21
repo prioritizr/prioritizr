@@ -206,9 +206,10 @@ only be used to specify data for problems involving a single zone.</p></dd>
 
 <dt><strong><code>x</code> has <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::st_sf()</a></code> or <code>data.frame</code> planning units</strong></dt>
 <dd><p>The argument to <code>features</code> can be a <code>character</code> vector
-with column names that correspond to the abundance or occurrence of
-different features in each planning unit. Note that this argument
-type can only be used to create problems involving a single zone.</p></dd>
+with column names (from <code>x</code>) that correspond to the abundance or
+occurrence of different features in each planning unit. Note that
+this argument type can only be used to create problems involving a
+single zone.</p></dd>
 
 
 <dt><strong><code>x</code> has <code>data.frame</code>, <code>matrix</code>, or <code>numeric</code> vector planning
@@ -251,7 +252,7 @@ explicitly setting these cells to zero.</p></dd>
 
 <dt><strong><code>x</code> has <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::st_sf()</a></code> or <code>data.frame</code> planning units</strong></dt>
 <dd><p>The argument to <code>features</code> can be a <code><a href="zones.html">ZonesCharacter</a></code>
-object with column names that correspond to the abundance or
+object with column names (from <code>x</code>) that correspond to the abundance or
 occurrence of different features in each planning unit in different
 zones.</p></dd>
 
@@ -309,7 +310,7 @@ planning unit.</p></dd>
 
 <dt>zones</dt>
 <dd><p><code>data.frame</code> containing information on the zones. This
-argument is only used when argument to <code>x</code> and <code>y</code> are
+argument is only used when argument to <code>x</code> and <code>features</code> are
 both <code>data.frame</code> objects and the problem being built contains
 multiple zones. Following conventions used in <code>MarZone</code>, this
 argument should contain the following columns:
@@ -359,7 +360,7 @@ on the management action(s), you can compile the following data.</p>
 <p>First, you will need to create a set of planning units
 (i.e., discrete spatial areas) to inform decision making.
 Planning units are often created by subdividing a study region
-into a set square or hexagonal cells. They can also be created using
+into a set of square or hexagonal cells. They can also be created using
 administrative boundaries (e.g., provinces), land management boundaries
 (e.g., property boundaries derived from cadastral data), or
 ecological boundaries (e.g., based on ecosystem classification data).
@@ -369,7 +370,7 @@ spatial accuracy (resolution) of available datasets, and
 the computational resources available for generating prioritizations
 (e.g., RAM and number of CPU cores on your computer).</p>
 <p>Second, you will need data to quantify the cost of implementing
-implementing each management action within each planning unit.
+each management action within each planning unit.
 Critically, the cost data should reflect the management action(s)
 considered in the exercise.
 For example, costs are often specified using data that reflect economic
@@ -378,14 +379,14 @@ socioeconomic conditions (e.g., human population density),
 opportunity costs of foregone commercial activities
 (e.g., logging or agriculture), or
 opportunity costs of foregone recreational activities
-(e.g., recreational fishing) activities,
+(e.g., recreational fishing).
 In some cases -- depending on the management action(s) considered --
 it can make sense to use a constant cost value
 (e.g., all planning units are assigned a cost value equal to one)
 or use a cost value based on spatial extent
 (e.g., each planning unit is assigned a cost value based on its total area).
 Also, in most cases, you want to avoid negative cost values.
-This because a negative value means that a place is <em>desirable</em>
+This is because a negative value means that a place is <em>desirable</em>
 for implementing a management action, and such places will almost
 always be selected for prioritization even if they provide no benefit.</p>
 <p>Third, you will need data to quantify the benefits of implementing
@@ -400,7 +401,7 @@ can take a variety of forms, but is typically occupancy (i.e.,
 presence or absence), area of occurrence within each planning unit
 (e.g., based on species' geographic range data), or
 a measure of habitat suitability (e.g., estimated using a statistical model).
-After compiling these data, you have the minimal data need to generate
+After compiling these data, you have the minimal data needed to generate
 a prioritization.</p>
 <p>A systematic conservation planning exercise involves prioritizing a set of
 management actions to be implemented within certain planning units.
@@ -579,7 +580,7 @@ evaluating solutions.</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "names")= chr "solution_1"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "status")= Named chr "OPTIMAL"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "names")= chr "solution_1"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "runtime")= Named num 0.003</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "runtime")= Named num 0.004</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "names")= chr "solution_1"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create some problems with multiple zones</span></span></span>

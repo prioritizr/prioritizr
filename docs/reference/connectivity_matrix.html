@@ -210,7 +210,7 @@ values are set to zero too.</p>
 <span class="r-in"><span><span class="co"># the habitat suitability data for the second feature to represent</span></span></span>
 <span class="r-in"><span><span class="co"># planning unit conductances</span></span></span>
 <span class="r-in"><span><span class="co">## subset data to 9 polygons</span></span></span>
-<span class="r-in"><span><span class="va">ply</span> <span class="op">&lt;-</span> <span class="va">sim_pu_polygons</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="fl">10</span><span class="op">:</span><span class="fl">12</span>, <span class="fl">20</span><span class="op">:</span><span class="fl">22</span><span class="op">)</span>, <span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">ply</span> <span class="op">&lt;-</span> <span class="va">sim_pu_polygons</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">11</span><span class="op">:</span><span class="fl">13</span>, <span class="fl">20</span><span class="op">:</span><span class="fl">22</span><span class="op">)</span>, <span class="op">]</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## make connectivity matrix</span></span></span>
 <span class="r-in"><span><span class="va">cm_ply</span> <span class="op">&lt;-</span> <span class="fu">connectivity_matrix</span><span class="op">(</span><span class="va">ply</span>, <span class="va">sim_features</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></span>
@@ -218,8 +218,10 @@ values are set to zero too.</p>
 <span class="r-in"><span><span class="co">## plot data and matrix</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html" class="external-link">st_geometry</a></span><span class="op">(</span><span class="va">ply</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"planning units (polygons)"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="connectivity_matrix-4.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="fu">Matrix</span><span class="fu">::</span><span class="fu">image</span><span class="op">(</span><span class="va">cm_ply</span>, main <span class="op">=</span> <span class="st">"connectivity matrix"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/crop.html" class="external-link">crop</a></span><span class="op">(</span><span class="va">sim_features</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, <span class="va">ply</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"connectivity"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="connectivity_matrix-5.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="fu">Matrix</span><span class="fu">::</span><span class="fu">image</span><span class="op">(</span><span class="va">cm_ply</span>, main <span class="op">=</span> <span class="st">"connectivity matrix"</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="connectivity_matrix-6.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create connectivity matrix using habitat suitability data for each feature,</span></span></span>
 <span class="r-in"><span><span class="co"># this could be useful if prioritisations should spatially clump</span></span></span>
@@ -229,15 +231,15 @@ values are set to zero too.</p>
 <span class="r-in"><span><span class="co">## let's use the raster data for this example, and we can generate the</span></span></span>
 <span class="r-in"><span><span class="co">## connectivity matrix that we would use in the prioritization by</span></span></span>
 <span class="r-in"><span><span class="co">## (1) generating a connectivity matrix for each feature separately, and</span></span></span>
-<span class="r-in"><span><span class="co">## and then (2) then summing the values together</span></span></span>
+<span class="r-in"><span><span class="co">## and then (2) summing the values together</span></span></span>
 <span class="r-in"><span><span class="va">cm_sum</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="va">cd</span><span class="op">)</span>, <span class="va">connectivity_matrix</span>, x <span class="op">=</span> <span class="va">r</span><span class="op">)</span> <span class="co"># make matrices</span></span></span>
 <span class="r-in"><span><span class="va">cm_sum</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/funprog.html" class="external-link">Reduce</a></span><span class="op">(</span><span class="st">"+"</span>, <span class="va">cm_sum</span><span class="op">)</span> <span class="co"># sum matrices together</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## plot data and matrix</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">r</span>, main <span class="op">=</span> <span class="st">"planning units (raster)"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="connectivity_matrix-6.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="fu">Matrix</span><span class="fu">::</span><span class="fu">image</span><span class="op">(</span><span class="va">cm_sum</span>, main <span class="op">=</span> <span class="st">"connectivity matrix"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="connectivity_matrix-7.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="fu">Matrix</span><span class="fu">::</span><span class="fu">image</span><span class="op">(</span><span class="va">cm_sum</span>, main <span class="op">=</span> <span class="st">"connectivity matrix"</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="connectivity_matrix-8.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## we could take this example one step further, and use weights to indicate</span></span></span>
 <span class="r-in"><span><span class="co">## relative importance of maintaining functional connectivity</span></span></span>
@@ -254,9 +256,9 @@ values are set to zero too.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## plot data and matrix</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">r</span>, main <span class="op">=</span> <span class="st">"planning units (raster)"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="connectivity_matrix-8.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="fu">Matrix</span><span class="fu">::</span><span class="fu">image</span><span class="op">(</span><span class="va">cm_wsum</span>, main <span class="op">=</span> <span class="st">"connectivity matrix"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="connectivity_matrix-9.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="fu">Matrix</span><span class="fu">::</span><span class="fu">image</span><span class="op">(</span><span class="va">cm_wsum</span>, main <span class="op">=</span> <span class="st">"connectivity matrix"</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="connectivity_matrix-10.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## since the statistical distribution of the connectivity values</span></span></span>
 <span class="r-in"><span><span class="co">## for each feature (e.g., the mean and standard deviation of the</span></span></span>
@@ -283,9 +285,9 @@ values are set to zero too.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## plot data and matrix</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">r</span>, main <span class="op">=</span> <span class="st">"planning units (raster)"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="connectivity_matrix-10.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="fu">Matrix</span><span class="fu">::</span><span class="fu">image</span><span class="op">(</span><span class="va">cm_lwsum</span>, main <span class="op">=</span> <span class="st">"connectivity matrix"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="connectivity_matrix-11.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="fu">Matrix</span><span class="fu">::</span><span class="fu">image</span><span class="op">(</span><span class="va">cm_lwsum</span>, main <span class="op">=</span> <span class="st">"connectivity matrix"</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="connectivity_matrix-12.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## another approach for normalizing the data could be using z-scores</span></span></span>
 <span class="r-in"><span><span class="co">## note that after normalizing the data we would need to add a constant</span></span></span>
@@ -309,9 +311,9 @@ values are set to zero too.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## plot data and matrix</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">r</span>, main <span class="op">=</span> <span class="st">"planning units (raster)"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="connectivity_matrix-12.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="fu">Matrix</span><span class="fu">::</span><span class="fu">image</span><span class="op">(</span><span class="va">cm_zwsum</span>, main <span class="op">=</span> <span class="st">"connectivity matrix"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="connectivity_matrix-13.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="fu">Matrix</span><span class="fu">::</span><span class="fu">image</span><span class="op">(</span><span class="va">cm_zwsum</span>, main <span class="op">=</span> <span class="st">"connectivity matrix"</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="connectivity_matrix-14.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

@@ -158,9 +158,9 @@ planning unit data in the argument to <code>x</code>.</p>
     <p>Importance scores are reported separately for each feature within
 each planning unit. Additionally, a total importance score is also
 calculated as the sum of the scores for each feature.
-Note that this function only works for problems with
-a minimum set objective and a single zone.
-It will throw an error for problems that do not meet this criteria.</p>
+Note that this function only works for problems
+that use targets and a single zone.
+It will throw an error for problems that do not meet these criteria.</p>
     </div>
     <div id="notes">
     <h2>Notes</h2>
@@ -316,7 +316,7 @@ the importance of planning units selected in a solution.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> max values  : 0.003472042, 0.003596401, 0.003341572, 0.003768489, 0.003504223, 0.01641719 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot total importance scores</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fs1</span>, main <span class="op">=</span> <span class="st">"Ferrier scores"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fs1</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">fs1</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="eval_ferrier_importance-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create minimal problem with polygon planning units</span></span></span>
@@ -360,7 +360,7 @@ the importance of planning units selected in a solution.</p>
 <span class="r-in"><span><span class="va">fs2</span> <span class="op">&lt;-</span> <span class="fu">eval_ferrier_importance</span><span class="op">(</span><span class="va">p2</span>, <span class="va">s2</span><span class="op">[</span>, <span class="st">"solution_1"</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot importance scores</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fs2</span>, main <span class="op">=</span> <span class="st">"Ferrier scores"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fs2</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="eval_ferrier_importance-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>

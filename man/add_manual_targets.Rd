@@ -18,7 +18,7 @@ add_manual_targets(x, targets)
 \item{x}{\code{\link[=problem]{problem()}} object.}
 
 \item{targets}{\code{data.frame} or \code{\link[tibble:tibble]{tibble::tibble()}} object.
-See the Target data format section for more information.}
+See the Targets format section for more information.}
 }
 \value{
 An updated \code{\link[=problem]{problem()}} object with the targets added to it.
@@ -44,9 +44,10 @@ planning problems require targets with the exception of the maximum cover
 problems with objectives that require targets without specifying targets
 will throw an error.
 
-For problems associated with multiple management zones, this function can
+For problems associated with multiple management zones,
+\code{\link[=add_absolute_targets]{add_absolute_targets()}} can
 be used to set targets that each pertain to a single feature and a single
-zone. To set targets which can be met through allocating different
+zone. To set targets that can be met through allocating different
 planning units to multiple zones, see the \code{\link[=add_manual_targets]{add_manual_targets()}}
 function. An example of a target that could be met through allocations
 to multiple zones might be where each management zone is expected to
@@ -70,8 +71,10 @@ columns:
 \item{feature}{\code{character} name of features in argument
 to \code{x}.}
 
-\item{zone}{\code{character} name of zones in argument to
-\code{x}. This column is optional for arguments to \code{x}
+\item{zone}{\code{character} name of zones in the argument
+\code{x}. It can also be a \code{list} of \code{character} vectors if
+targets should correspond to multiple zones (see Examples section below).
+This column is optional for arguments to \code{x}
 that do not contain multiple zones.}
 
 \item{type}{\code{character} describing the type of target.

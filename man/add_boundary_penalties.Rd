@@ -97,7 +97,7 @@ in the argument to \code{x} do not explicitly contain spatial information
 \item{\code{data} as a \code{matrix}/\code{Matrix} object}{where rows and columns represent
 different planning units and the value of each cell represents the
 amount of shared boundary length between two different planning units.
-Cells that occur along the matrix diagonal denote total the
+Cells that occur along the matrix diagonal denote the total
 boundary length associated with each planning unit.}
 
 \item{\code{data} as a \code{data.frame} object}{with the columns \code{"id1"},

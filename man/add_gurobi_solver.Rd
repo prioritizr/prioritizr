@@ -54,7 +54,7 @@ Defaults to \code{FALSE}.}
 
 \item{numeric_focus}{\code{logical} should extra attention be paid
 to verifying the accuracy of numerical calculations? This may be
-useful when dealing problems that may suffer from numerical instability
+useful when dealing with problems that may suffer from numerical instability
 issues. Beware that it will likely substantially increase run time
 (sets the \emph{Gurobi} \code{NumericFocus} parameter
 to 3). Defaults to \code{FALSE}.}
@@ -75,7 +75,9 @@ Defaults to \code{Inf} such that the solver will not attempt
 to store information on disk when solving a given problem.}
 
 \item{start_solution}{\code{NULL} or object containing the starting solution
-for the solver. Defaults to \code{NULL} such that no starting solution is used.
+for the solver. This is can be useful because specifying a starting
+solution can speed up the optimization process.
+Defaults to \code{NULL} such that no starting solution is used.
 To specify a starting solution, the argument to \code{start_solution} should
 be in the same format as the planning units (i.e., a \code{NULL}, \code{numeric},
 \code{matrix}, \code{data.frame}, \code{\link[terra:rast]{terra::rast()}}, or \code{\link[sf:sf]{sf::sf()}} object).

@@ -215,7 +215,7 @@
 <div class="section level2">
 <h2 id="problem-formulation">Problem formulation<a class="anchor" aria-label="anchor" href="#problem-formulation"></a>
 </h2>
-<p>Now we will formulate a conservation planing problem. To achieve this, we first specify which objects contain the planning unit and feature data (using the <code><a href="../reference/problem.html">problem()</a></code> function). Next, we specify that we want to use the minimum set objective function (using the <code><a href="../reference/add_min_set_objective.html">add_min_set_objective()</a></code> function). This objective function indicates that we wish to minimize the total cost of planning units selected by the prioritization. We then specify boundary penalties reduce spatial fragmentation in the resulting prioritization (using the <code><a href="../reference/add_boundary_penalties.html">add_boundary_penalties()</a></code> function; see the <a href="calibrating_trade-offs_tutorial.html"><em>Calibrating trade-offs</em> vignette</a> for details on calibrating the penalty value). We also specify representation targets to ensure the resulting prioritization provides adequate coverage of each vegetation community (using the <code><a href="../reference/add_relative_targets.html">add_relative_targets()</a></code> function). Specifically, we specify targets to ensure at least 17% of the spatial extent of each vegetation community (based on the <a href="https://www.cbd.int/sp/targets/" class="external-link">Aichi Target 11</a>). Additionally, we set constraints to ensure that planning units predominately covered by existing protected areas are selected by the prioritization (using the <code><a href="../reference/add_locked_in_constraints.html">add_locked_in_constraints()</a></code> function). Finally, we specify that the prioritization should either select – or not select – planning units for prioritization (using the <code><a href="../reference/add_binary_decisions.html">add_binary_decisions()</a></code> function).</p>
+<p>Now we will formulate a conservation planing problem. To achieve this, we first specify which objects contain the planning unit and feature data (using the <code><a href="../reference/problem.html">problem()</a></code> function). Next, we specify that we want to use the minimum set objective function (using the <code><a href="../reference/add_min_set_objective.html">add_min_set_objective()</a></code> function). This objective function indicates that we wish to minimize the total cost of planning units selected by the prioritization. We then specify boundary penalties to reduce spatial fragmentation in the resulting prioritization (using the <code><a href="../reference/add_boundary_penalties.html">add_boundary_penalties()</a></code> function; see the <a href="calibrating_trade-offs_tutorial.html"><em>Calibrating trade-offs</em> vignette</a> for details on calibrating the penalty value). We also specify representation targets to ensure the resulting prioritization provides adequate coverage of each vegetation community (using the <code><a href="../reference/add_relative_targets.html">add_relative_targets()</a></code> function). Specifically, we specify targets to ensure at least 17% of the spatial extent of each vegetation community (based on the <a href="https://www.cbd.int/sp/targets/" class="external-link">Aichi Target 11</a>). Additionally, we set constraints to ensure that planning units predominately covered by existing protected areas are selected by the prioritization (using the <code><a href="../reference/add_locked_in_constraints.html">add_locked_in_constraints()</a></code> function). Finally, we specify that the prioritization should either select – or not select – planning units for prioritization (using the <code><a href="../reference/add_binary_decisions.html">add_binary_decisions()</a></code> function).</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># build problem</span></span>
 <span><span class="va">p1</span> <span class="op">&lt;-</span></span>
@@ -236,14 +236,15 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">0.1925</span> and <span style="color: #0000BB;">61.9273</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">298809.5764</span>, <span style="color: #0000BB;">5167774.5993</span>, <span style="color: #0000BB;">613818.7743</span>, <span style="color: #0000BB;">5502543.7119</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        WGS 84 / UTM zone 55S</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">│└•</span>1:          boundary penalties (`penalty` = <span style="color: #0000BB;">0.005</span>, `edge_factor` = <span style="color: #0000BB;">0.5</span>, …)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.17</span> and <span style="color: #0000BB;">0.17</span>)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints:</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">│└•</span>1:          locked in constraints (257 planning units)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          boundary penalties (`penalty` = <span style="color: #0000BB;">0.005</span>, `edge_factor` = <span style="color: #0000BB;">0.5</span>, …)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.17</span> and <span style="color: #0000BB;">0.17</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints:</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          locked in constraints (257 planning units)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
@@ -261,7 +262,7 @@
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimize a model with 6329 rows, 4278 columns and 20749 nonzeros</span></span>
-<span><span class="co">## Model fingerprint: 0xf46f6134</span></span>
+<span><span class="co">## Model fingerprint: 0xf830e2c0</span></span>
 <span><span class="co">## Variable types: 0 continuous, 4278 integer (4278 binary)</span></span>
 <span><span class="co">## Coefficient statistics:</span></span>
 <span><span class="co">##   Matrix range     [2e-06, 6e+01]</span></span>
@@ -298,13 +299,13 @@
 <span><span class="co">##   GUB cover: 1</span></span>
 <span><span class="co">##   RLT: 1</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 1 nodes (1377 simplex iterations) in 0.49 seconds (0.78 work units)</span></span>
+<span><span class="co">## Explored 1 nodes (1377 simplex iterations) in 0.47 seconds (0.78 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Solution count 9: 19444.2 20161.7 21076.2 ... 36789.5</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
-<span><span class="co">## Best objective 1.944423376255e+04, best bound 1.809089224741e+04, gap 6.9601%</span></span></code></pre>
+<span><span class="co">## Best objective 1.944423376255e+04, best bound 1.809089224740e+04, gap 6.9601%</span></span></code></pre>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot map of prioritization</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
@@ -445,7 +446,7 @@
 <div class="section level2">
 <h2 id="portfolios">Portfolios<a class="anchor" aria-label="anchor" href="#portfolios"></a>
 </h2>
-<p>Conservation planning exercises often involve generating multiple different prioritizations. This can help decision makers consider different options, and provide starting points for building consensus among stakeholders. To generate a range of different prioritizations given the same problem formulation, we can use portfolio functions. Here we will use the gap portfolio to generate 1000 solutions that are within 30% of optimality. Please note that you will need to have the <em>Gurobi</em> solver installed to use this specific portfolio. If you don’t have access to <em>Gurobi</em>, you could try using the shuffle portfolio instead (using the <code><a href="../reference/add_shuffle_portfolio.html">add_shuffle_portfolio()</a></code> function).</p>
+<p>Conservation planning exercises often involve generating multiple different prioritizations. This can help decision makers consider different options, and provide starting points for building consensus among stakeholders. To generate a range of different prioritizations given the same problem formulation, we can use portfolio functions. Here we will use the gap portfolio to generate 1000 solutions that are within 20% of optimality. Please note that you will need to have the <em>Gurobi</em> solver installed to use this specific portfolio. If you don’t have access to <em>Gurobi</em>, you could try using the shuffle portfolio instead (using the <code><a href="../reference/add_shuffle_portfolio.html">add_shuffle_portfolio()</a></code> function).</p>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create new problem with a portfolio added to it</span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span></span>
@@ -462,14 +463,15 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">0.1925</span> and <span style="color: #0000BB;">61.9273</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">298809.5764</span>, <span style="color: #0000BB;">5167774.5993</span>, <span style="color: #0000BB;">613818.7743</span>, <span style="color: #0000BB;">5502543.7119</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        WGS 84 / UTM zone 55S</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">│└•</span>1:          boundary penalties (`penalty` = <span style="color: #0000BB;">0.005</span>, `edge_factor` = <span style="color: #0000BB;">0.5</span>, …)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.17</span> and <span style="color: #0000BB;">0.17</span>)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints:</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">│└•</span>1:          locked in constraints (257 planning units)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          boundary penalties (`penalty` = <span style="color: #0000BB;">0.005</span>, `edge_factor` = <span style="color: #0000BB;">0.5</span>, …)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.17</span> and <span style="color: #0000BB;">0.17</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints:</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          locked in constraints (257 planning units)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   gap portfolio (`number_solutions` = <span style="color: #0000BB;">1000</span>, `pool_gap` = <span style="color: #0000BB;">0.2</span>)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
@@ -482,7 +484,7 @@
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimize a model with 6329 rows, 4278 columns and 20749 nonzeros</span></span>
-<span><span class="co">## Model fingerprint: 0xf46f6134</span></span>
+<span><span class="co">## Model fingerprint: 0xf830e2c0</span></span>
 <span><span class="co">## Variable types: 0 continuous, 4278 integer (4278 binary)</span></span>
 <span><span class="co">## Coefficient statistics:</span></span>
 <span><span class="co">##   Matrix range     [2e-06, 6e+01]</span></span>
@@ -499,7 +501,7 @@
 <span><span class="co">## Root relaxation presolved: 4895 rows, 4020 columns, 12064 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Root relaxation: objective 1.799626e+04, 1497 iterations, 0.06 seconds (0.10 work units)</span></span>
+<span><span class="co">## Root relaxation: objective 1.799626e+04, 1497 iterations, 0.05 seconds (0.10 work units)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
@@ -509,21 +511,21 @@
 <span><span class="co">## H    0     0                    20449.688378 17996.2587  12.0%     -    0s</span></span>
 <span><span class="co">##      0     0 18090.6275    0 1238 20449.6884 18090.6275  11.5%     -    0s</span></span>
 <span><span class="co">## H    0     0                    19499.543014 18090.6275  7.23%     -    0s</span></span>
-<span><span class="co">##      0     0 18106.4253    0 1203 19499.5430 18106.4253  7.14%     -    1s</span></span>
-<span><span class="co">##      0     0 18106.5097    0 1128 19499.5430 18106.5097  7.14%     -    1s</span></span>
+<span><span class="co">##      0     0 18106.4253    0 1203 19499.5430 18106.4253  7.14%     -    0s</span></span>
+<span><span class="co">##      0     0 18106.5097    0 1128 19499.5430 18106.5097  7.14%     -    0s</span></span>
 <span><span class="co">##      0     0 18108.9518    0 1121 19499.5430 18108.9518  7.13%     -    1s</span></span>
 <span><span class="co">##      0     0 18108.9518    0 1121 19499.5430 18108.9518  7.13%     -    1s</span></span>
 <span><span class="co">##      0     2 18109.0152    0 1121 19499.5430 18109.0152  7.13%     -    1s</span></span>
 <span><span class="co">## H    3     3                    19238.085224 18121.7633  5.80%   134    1s</span></span>
 <span><span class="co">## H  158   158                    19215.171695 18121.7633  5.69%  43.1    1s</span></span>
-<span><span class="co">## H  176   176                    18949.413127 18121.7633  4.37%  40.3    2s</span></span>
-<span><span class="co">## H  347   347                    18884.866766 18121.7633  4.04%  23.2    2s</span></span>
-<span><span class="co">## H  429   429                    18876.991573 18121.7633  4.00%  19.5    2s</span></span>
+<span><span class="co">## H  176   176                    18949.413127 18121.7633  4.37%  40.3    1s</span></span>
+<span><span class="co">## H  347   347                    18884.866766 18121.7633  4.04%  23.2    1s</span></span>
+<span><span class="co">## H  429   429                    18876.991573 18121.7633  4.00%  19.5    1s</span></span>
 <span><span class="co">## H  574   573                    18868.868974 18121.9629  3.96%  15.1    2s</span></span>
-<span><span class="co">## H  577     1                    18847.239988 18121.9629  3.85%  15.0    3s</span></span>
-<span><span class="co">## H  580     3                    18796.437439 18121.9629  3.59%  15.0    3s</span></span>
-<span><span class="co">## H  589     3                    18395.725721 18129.8915  1.45%  14.7    4s</span></span>
-<span><span class="co">##    601    13 18296.1478   20 1111 18395.7257 18168.8755  1.23%  20.7    5s</span></span>
+<span><span class="co">## H  577     1                    18847.239988 18121.9629  3.85%  15.0    2s</span></span>
+<span><span class="co">## H  580     3                    18796.437439 18121.9629  3.59%  15.0    2s</span></span>
+<span><span class="co">## H  589     3                    18395.725721 18129.8915  1.45%  14.7    3s</span></span>
+<span><span class="co">##   1058   468 18727.6872  101   13 18395.7257 18186.7477  1.14%  23.4    5s</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Cutting planes:</span></span>
 <span><span class="co">##   MIR: 2</span></span>
@@ -532,7 +534,7 @@
 <span><span class="co">##   Zero half: 4</span></span>
 <span><span class="co">##   RLT: 5</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 2163 nodes (43958 simplex iterations) in 7.82 seconds (9.87 work units)</span></span>
+<span><span class="co">## Explored 2163 nodes (43958 simplex iterations) in 6.39 seconds (9.87 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Solution count 1000: 18395.7 18403.7 18409.4 ... 20315.8</span></span>
@@ -688,15 +690,16 @@
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">0</span> and <span style="color: #0000BB;">415692.1938</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #B2B2B2;">NA</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        <span style="color: #B2B2B2;">NA</span></span></span>
-<span><span class="co">## <span style="color: #00BBBB;">└•formulation</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>penalties:</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">│└•</span>1:          boundary penalties (`penalty` = <span style="color: #0000BB;">5e-04</span>, `edge_factor` = <span style="color: #0000BB;">1</span>, …)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.3</span> and <span style="color: #0000BB;">0.3</span>)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>constraints:</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">│├•</span>1:          locked in constraints (317 planning units)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">│└•</span>2:          locked out constraints (1 planning units)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          boundary penalties (`penalty` = <span style="color: #0000BB;">5e-04</span>, `edge_factor` = <span style="color: #0000BB;">1</span>, …)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.3</span> and <span style="color: #0000BB;">0.3</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints:</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││├•</span>1:          locked in constraints (317 planning units)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>2:          locked out constraints (1 planning units)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
@@ -718,7 +721,7 @@
 <span><span class="co">##   RHS range        [5e+03, 3e+05]</span></span>
 <span><span class="co">## Found heuristic solution: objective 1.221202e+08</span></span>
 <span><span class="co">## Presolve removed 4707 rows and 3103 columns</span></span>
-<span><span class="co">## Presolve time: 0.04s</span></span>
+<span><span class="co">## Presolve time: 0.05s</span></span>
 <span><span class="co">## Presolved: 5368 rows, 3677 columns, 12704 nonzeros</span></span>
 <span><span class="co">## Variable types: 0 continuous, 3677 integer (3677 binary)</span></span>
 <span><span class="co">## Found heuristic solution: objective 1.009944e+08</span></span>
@@ -732,7 +735,7 @@
 <span><span class="co">## </span></span>
 <span><span class="co">##      0     0 9.5648e+07    0   20 1.0099e+08 9.5648e+07  5.29%     -    0s</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 1 nodes (521 simplex iterations) in 0.06 seconds (0.10 work units)</span></span>
+<span><span class="co">## Explored 1 nodes (521 simplex iterations) in 0.07 seconds (0.10 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Solution count 2: 1.00994e+08 1.2212e+08 </span></span>
