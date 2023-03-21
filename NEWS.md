@@ -74,6 +74,8 @@
   `tibble::tibble()` objects.
 - The `boundary_matrix()` function now uses `terra::sharedPaths()` for
   calculations, providing greater performance.
+- The `eval_ferrier_importance()` function can now be used with
+  any objective function that uses targets and a single zone.
 - The package now requires C++17 for compilation (#263).
 - Remove _doParallel_ and _plyr_ packages as dependencies by simplifying
   the `add_shuffle_portfolio()` and `eval_replacement_importance()` functions.

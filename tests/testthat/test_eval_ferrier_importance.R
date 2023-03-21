@@ -308,3 +308,43 @@ test_that("data.frame (complex dataset)", {
   # run tests
   expect_lte(max(abs(as.matrix(r1) - as.matrix(r2))), 1e-5)
 })
+
+test_that("invalid input", {
+  # create data
+  pu <- data.frame(
+    id = seq_len(4), cost = c(10, 2, NA, 3),
+    spp1 = c(0, 0, 0, 1), spp2 = c(10, 5, 10, 6)
+  )
+  s <- c(0, 1, NA, 1)
+  # create problem
+  p <-
+    problem(
+      pu$cost,
+      data.frame(id = seq_len(2), name = c("spp1", "spp2")),
+      as.matrix(t(pu[, 3:4]))
+    )
+  # tests
+  expect_tidy_error(eval_ferrier_importance(p, s))
+  expect_tidy_error(
+    p %>%
+    add_max_utility_objective() %>%
+    eval_ferrier_importance(s)
+  )
+  expect_tidy_error(
+    p %>%
+    add_max_utility_objective() %>%
+    add_absolute_targets(1) %>%
+    eval_ferrier_importance(s)
+  )
+  expect_tidy_error(
+    p %>%
+    add_max_cover_objective() %>%
+    eval_ferrier_importance(s)
+  )
+  expect_tidy_error(
+    p %>%
+    add_max_cover_objective() %>%
+    add_absolute_targets(1) %>%
+    eval_ferrier_importance(s)
+  )
+})
