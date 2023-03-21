@@ -82,7 +82,7 @@ Suggests:
     data.table (>= 1.14.2),
     fields (>= 14.0)
 Depends:
-    R (>= 3.5.0)
+    R (>= 4.1.0)
 LinkingTo:
     Rcpp (>= 1.0.7),
     RcppArmadillo (>= 0.10.7.3.0),
@@ -90,7 +90,6 @@ LinkingTo:
 License: GPL-3
 Language: en-US
 Encoding: UTF-8
-SystemRequirements: C++17
 URL: https://prioritizr.net,
     https://github.com/prioritizr/prioritizr
 BugReports: https://github.com/prioritizr/prioritizr/issues
