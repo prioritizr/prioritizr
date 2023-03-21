@@ -183,11 +183,11 @@ Let's make sure that you have a solver installed on your computer. This is impor
 install.packages("highs", repos = "https://cran.rstudio.com/")
 ```
 
-Now, let's generate a spatial prioritization. Let's say that we want to identify priority areas for expanding the protected area system. To ensure feasibility, we will set a budget. Specifically, the total cost of the prioritization will represent a 30% increase in the total land value associated with the existing protected area system. Given this budget, we want the prioritization to increase feature representation, as much as possible, so that each feature would, ideally, have 30% of its distribution covered by the prioritization. In this scenario, we can either purchase all of the land inside a given planning unit, or none of the land inside a given planning unit. Thus we will create a new `problem()` that will use a minimum set objective (via `add_min_set_objective()`), with relative targets of 20% (via `add_relative_targets()`), binary decisions (via `add_binary_decisions()`), and specify that we want to want near-optimal solutions (i.e., 10% from optimality) using the best solver installed on our computer (via `add_default_solver()`).
+Now, let's generate a spatial prioritization. To ensure feasibility, we will set a budget. Specifically, the total cost of the prioritization will represent a 5% of the total land value in the study area. Given this budget, we want the prioritization to increase feature representation, as much as possible, so that each feature would, ideally, have 20% of its distribution covered by the prioritization. In this scenario, we can either purchase all of the land inside a given planning unit, or none of the land inside a given planning unit. Thus we will create a new `problem()` that will use a minimum shortfall objective (via `add_min_shortfall_objective()`), with relative targets of 20% (via `add_relative_targets()`), binary decisions (via `add_binary_decisions()`), and specify that we want to want near-optimal solutions (i.e., 10% from optimality) using the best solver installed on our computer (via `add_default_solver()`).
 
 ```{r}
 # calculate budget
-budget <- terra::global(wa_pu, "sum", na.rm = TRUE)[[1]] * 0.3
+budget <- terra::global(wa_pu, "sum", na.rm = TRUE)[[1]] * 0.05
 
 # create problem
 p1 <-
@@ -328,8 +328,8 @@ print(rc)
 # plot the total importance scores
 ## note that gray cells are not selected by the prioritization
 plot(
-  rc[["total"]], main = "Importance scores",
-  breaks = c(0, 1e-10, 1, 3, 6), axes = FALSE,
+  rc[["total"]], main = "Importance scores", axes = FALSE,
+  breaks = c(0, 1e-10, 0.005, 0.01, 0.025),
   col = c("#e5e5e5", "#fff7ec", "#fc8d59", "#7f0000")
 )
 ```

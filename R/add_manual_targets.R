@@ -31,8 +31,10 @@ NULL
 #' \item{feature}{`character` name of features in argument
 #'   to `x`.}
 #'
-#' \item{zone}{`character` name of zones in argument to
-#'   `x`. This column is optional for arguments to `x`
+#' \item{zone}{`character` name of zones in the argument
+#'   `x`. It can also be a `list` of `character` vectors if
+#'   targets should correspond to multiple zones (see Examples section below).
+#'   This column is optional for arguments to `x`
 #'   that do not contain multiple zones.}
 #'
 #' \item{type}{`character` describing the type of target.

@@ -79,7 +79,7 @@ assertthat::on_failure(is_installed) <- function(call, env) {
     code <- ": {.code remotes::install_bioc(\"lpsymphony\")}"
   } else if (identical(pkg, "gurobi")) {
     code <- c(
-      "instructions in {.vignette prioritizr::gurobi_installation_guide}."
+      "instructions in {.vignette \"gurobi_installation_guide\"}."
     )
   } else {
     code <- paste0(": {.code install.packages(\"", pkg, "\")}")

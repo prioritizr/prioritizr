@@ -67,7 +67,9 @@ NULL
 #'   to store information on disk when solving a given problem.
 #'
 #' @param start_solution `NULL` or object containing the starting solution
-#'   for the solver. Defaults to `NULL` such that no starting solution is used.
+#'   for the solver. This is can be useful because specifying a starting
+#'   solution can speed up the optimization process.
+#'   Defaults to `NULL` such that no starting solution is used.
 #'   To specify a starting solution, the argument to `start_solution` should
 #'   be in the same format as the planning units (i.e., a `NULL`, `numeric`,
 #'   `matrix`, `data.frame`, [terra::rast()], or [sf::sf()] object).

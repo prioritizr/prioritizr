@@ -46,7 +46,6 @@ NULL
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_pu_polygons <- get_sim_pu_polygons()
-#' sim_pu_lines <- get_sim_pu_lines()
 #'
 #' # create adjacency matrix using raster data
 #' ## crop raster to 9 cells
@@ -62,13 +61,6 @@ NULL
 #' ## make adjacency matrix
 #' am_ply <- adjacency_matrix(ply)
 #'
-#' # create adjacency matrix using lines data
-#' ## subset 9 lines
-#' lns <- sim_pu_lines[c(1:3, 11:13, 20:22), ]
-#'
-#' ## make adjacency matrix
-#' am_lns <- adjacency_matrix(lns)
-#'
 #' # plot data and the adjacency matrices
 #'
 #' ## plot raster and adjacency matrix
@@ -79,9 +71,6 @@ NULL
 #' plot(ply[, 1], main = "polygons")
 #' Matrix::image(am_ply, main = "adjacency matrix")
 #'
-#' ## plot lines and adjacency matrix
-#' plot(lns[, 1], main = "lines")
-#' Matrix::image(am_lns, main = "adjacency matrix")
 #' }
 #' @export
 adjacency_matrix <- function(x, ...) UseMethod("adjacency_matrix")
