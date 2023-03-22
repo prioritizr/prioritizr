@@ -69,7 +69,6 @@ Imports:
 Suggests:
     testthat (>= 3.1.0),
     knitr (>= 1.36),
-    roxygen2 (>= 7.1.2),
     scales (>= 1.1.1),
     gurobi (>= 8.0-1),
     rcbc (>= 0.1.0.9001),
@@ -210,6 +209,7 @@ Collate:
     'importance.R'
     'is_numeric_values.R'
     'is_same_crs.R'
+    'knit_print.R'
     'list_text.R'
     'marxan_problem.R'
     'number_of_features.R'

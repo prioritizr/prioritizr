@@ -23,20 +23,15 @@ knitr::opts_chunk$set(
 ```
 
 ```{r, include = FALSE}
-# wrapper for printing problem objects
-print_problem <- function(x) {
-  if (interactive()) {
-    print(x)
-    return(invisible())
+# set up print method
+print <- function(x, ...) {
+  if (inherits(x, "ConservationProblem")) {
+    prioritizr::knit_print.ConservationProblem(x)
+  } else if (inherits(x, "OptimizationProblem")) {
+    prioritizr::knit_print.OptimizationProblem(x)
+  } else {
+    base::print(x)
   }
-  res <- knitr::knit_child(
-    "print_problem.txt",
-    envir = list2env(
-      list(name = rlang::as_name(rlang::enquo(x)), x = x),
-      parent = parent.frame()),
-    quiet = TRUE,
-  )
-  cat(res, sep = "\n")
 }
 ```
 

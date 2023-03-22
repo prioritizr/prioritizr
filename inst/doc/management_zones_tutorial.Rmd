@@ -28,20 +28,15 @@ knitr::opts_chunk$set(
 ```
 
 ```{r, include = FALSE}
-# wrapper for printing problem objects
-print_problem <- function(x) {
-  if (interactive()) {
-    print(x)
-    return(invisible())
+# set up print method
+print <- function(x, ...) {
+  if (inherits(x, "ConservationProblem")) {
+    prioritizr::knit_print.ConservationProblem(x)
+  } else if (inherits(x, "OptimizationProblem")) {
+    prioritizr::knit_print.OptimizationProblem(x)
+  } else {
+    base::print(x)
   }
-  res <- knitr::knit_child(
-    "print_problem.txt",
-    envir = list2env(
-      list(name = rlang::as_name(rlang::enquo(x)), x = x),
-      parent = parent.frame()),
-    quiet = TRUE,
-  )
-  cat(res, sep = "\n")
 }
 ```
 
@@ -78,13 +73,10 @@ p1 <-
   add_min_set_objective() %>%
   add_relative_targets(t1) %>%
   add_binary_decisions()
-```
 
-```{r, echo = FALSE, results = "asis"}
-print_problem(p1)
-```
+# print problem
+print(p1)
 
-```{r}
 # solve problem
 s1 <- solve(p1)
 
@@ -138,13 +130,10 @@ p2 <-
   add_min_set_objective() %>%
   add_relative_targets(t2) %>%
   add_binary_decisions()
-```
 
-```{r, echo = FALSE, results = "asis"}
-print_problem(p2)
-```
+# print problem
+print(p2)
 
-```{r}
 # solve problem
 s2 <- solve(p2)
 
@@ -186,13 +175,10 @@ p3 <-
   add_min_set_objective() %>%
   add_relative_targets(t2) %>%
   add_binary_decisions()
-```
 
-```{r, echo = FALSE, results = "asis"}
-print_problem(p3)
-```
+# print problem
+print(p3)
 
-```{r}
 # solve problem
 s3 <- solve(p3)
 
@@ -254,13 +240,10 @@ p4 <-
   add_min_set_objective() %>%
   add_manual_targets(t4) %>%
   add_binary_decisions()
-```
 
-```{r, echo = FALSE, results = "asis"}
-print_problem(p4)
-```
+# print problem
+print(p4)
 
-```{r}
 # solve problem
 s4 <- solve(p4)
 
@@ -299,13 +282,10 @@ p5 <-
   add_manual_targets(t4) %>%
   add_manual_locked_constraints(l5) %>%
   add_binary_decisions()
-```
 
-```{r, echo = FALSE, results = "asis"}
-print_problem(p5)
-```
+# print problem
+print(p5)
 
-```{r}
 # solve problem
 s5 <- solve(p5)
 
@@ -350,13 +330,10 @@ p6 <-
   add_manual_locked_constraints(l5) %>%
   add_boundary_penalties(penalty = 640, zones = z6) %>%
   add_binary_decisions()
-```
 
-```{r, echo = FALSE, results = "asis"}
-print_problem(p6)
-```
+# print problem
+print(p6)
 
-```{r}
 # solve problem
 s6 <- solve(p6)
 
@@ -394,13 +371,10 @@ p7 <-
   add_manual_locked_constraints(l5) %>%
   add_boundary_penalties(penalty = 640, zones = z6) %>%
   add_binary_decisions()
-```
 
-```{r, echo = FALSE, results = "asis"}
-print_problem(p7)
-```
+# print problem
+print(p7)
 
-```{r}
 # solve problem
 s7 <- solve(p7)
 

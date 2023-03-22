@@ -195,6 +195,7 @@ reference:
     contents:
       - show
       - loglinear_interpolation
+      - knit_print
 
   - title: Deprecated functions
     desc: Documentation for functions that are no longer available.

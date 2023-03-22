@@ -205,10 +205,8 @@ p1 <-
   add_relative_targets(0.2) %>%
   add_binary_decisions() %>%
   add_default_solver(gap = 0.1, verbose = FALSE)
-```
 
-``` r
-# print the problem
+# print problem
 print(p1)
 ```
 
@@ -250,7 +248,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##      3.629
+    ##      3.778
 
 ``` r
 # extract state message from the solver

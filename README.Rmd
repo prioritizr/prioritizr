@@ -26,6 +26,7 @@ plot <- function(...) terra::plot(..., cex = 1.5)
 ```
 
 ```{r, include = FALSE}
+# set parameters for figure sizes
 h <- 4.5
 w <- 6.5
 ow <- "500"
@@ -38,20 +39,15 @@ knitr::opts_chunk$set(
 ```
 
 ```{r, include = FALSE}
-# wrapper for printing problem objects
-print_problem <- function(x) {
-  if (interactive()) {
-    print(x)
-    return(invisible())
+# set up print method
+print <- function(x, ...) {
+  if (inherits(x, "ConservationProblem")) {
+    prioritizr::knit_print.ConservationProblem(x)
+  } else if (inherits(x, "OptimizationProblem")) {
+    prioritizr::knit_print.OptimizationProblem(x)
+  } else {
+    base::print(x)
   }
-  res <- knitr::knit_child(
-    "vignettes/print_problem.txt",
-    envir = list2env(
-      list(name = rlang::as_name(rlang::enquo(x)), x = x),
-      parent = parent.frame()),
-    quiet = TRUE,
-  )
-  cat(res, sep = "\n")
 }
 ```
 
@@ -196,10 +192,9 @@ p1 <-
   add_relative_targets(0.2) %>%
   add_binary_decisions() %>%
   add_default_solver(gap = 0.1, verbose = FALSE)
-```
 
-```{r, echo = FALSE, results = "asis"}
-print_problem(p1)
+# print problem
+print(p1)
 ```
 
 After we have built a `problem()`, we can solve it to obtain a solution.

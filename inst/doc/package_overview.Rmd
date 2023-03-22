@@ -29,20 +29,15 @@ knitr::opts_chunk$set(
 ```
 
 ```{r, include = FALSE}
-# wrapper for printing problem objects
-print_problem <- function(x) {
-  if (interactive()) {
-    print(x)
-    return(invisible())
+# set up print method
+print <- function(x, ...) {
+  if (inherits(x, "ConservationProblem")) {
+    prioritizr::knit_print.ConservationProblem(x)
+  } else if (inherits(x, "OptimizationProblem")) {
+    prioritizr::knit_print.OptimizationProblem(x)
+  } else {
+    base::print(x)
   }
-  res <- knitr::knit_child(
-    "print_problem.txt",
-    envir = list2env(
-      list(name = rlang::as_name(rlang::enquo(x)), x = x),
-      parent = parent.frame()),
-    quiet = TRUE,
-  )
-  cat(res, sep = "\n")
 }
 ```
 
@@ -183,13 +178,10 @@ After having loaded our planning unit and feature data, we will now try initiali
 ```{r}
 # create problem
 p1 <- problem(sim_pu_raster, sim_features)
-```
 
-```{r, echo = FALSE, results = "asis"}
-print_problem(p1)
-```
+# print problem
+print(p1)
 
-```{r}
 # print number of planning units
 number_of_planning_units(p1)
 
@@ -204,10 +196,9 @@ Generally, we recommend initializing problems using raster data where possible. 
 # note that we have to specify which column in the attribute table contains
 # the cost data
 p2 <- problem(sim_pu_polygons, sim_features, cost_column = "cost")
-```
 
-```{r, echo = FALSE, results = "asis"}
-print_problem(p2)
+# print problem
+print(p2)
 ```
 
 We can also initialize a conservation planning problem using tabular planning unit data (i.e., `data.frame` format). Since the tabular planning unit data does not contain any spatial information, we also have to provide the feature data in tabular format (i.e., `data.frame` format) and data showing the amount of each feature in each planning unit in tabular format (i.e., `data.frame` format). The feature data must have an "id" column containing a unique integer identifier for each feature, and the planning unit by feature data must contain the following three columns: `pu` corresponding to the planning unit identifiers, `species` corresponding to the feature identifiers, and `amount` showing the amount of a given feature in a given planning unit.
@@ -238,10 +229,9 @@ head(puvspr_dat)
 
 # create problem
 p3 <- problem(pu_dat, spec_dat, cost_column = "cost", rij = puvspr_dat)
-```
 
-```{r, echo = FALSE, results = "asis"}
-print_problem(p3)
+# print problem
+print(p3)
 ```
 
 For more information on initializing problems, please see the help page for the `problem()` function (which you can open by entering the code: `?problem`). Now that we have initialized a conservation planning problem, we will show you how you can customize it to suit the exact needs of your conservation planning scenario. Although we initialized the conservation planning problems using several different methods, moving forward, we will only use raster-based planning unit data to keep things simple.
@@ -256,9 +246,9 @@ The next step is to add a primary objective to the problem. A problem objective 
 p3 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective()
-```
-```{r, echo = FALSE, results = "asis"}
-print_problem(p3)
+
+# print problem
+print(p3)
 ```
 * __Maximum cover objective__: Represent at least one instance of as many features as possible within a given budget [@r12].
 ```{r}
@@ -267,9 +257,9 @@ print_problem(p3)
 p4 <-
   problem(sim_pu_raster, sim_features) %>%
   add_max_cover_objective(5000)
-```
-```{r, echo = FALSE, results = "asis"}
-print_problem(p4)
+
+# print problem
+print(p4)
 ```
 * __Maximum features objective__: Fulfill as many targets as possible while ensuring that the cost of the solution does not exceed a budget [inspired by @r10]. This object is similar to the maximum cover objective except that we have the option of later specifying targets for each feature. In practice, this objective is more useful than the maximum cover objective because features often require a certain amount of area for them to persist and simply capturing a single instance of habitat for each feature is generally unlikely to enhance their long-term persistence.
 ```{r}
@@ -278,9 +268,9 @@ print_problem(p4)
 p5 <-
   problem(sim_pu_raster, sim_features) %>%
   add_max_features_objective(budget = 5000)
-```
-```{r, echo = FALSE, results = "asis"}
-print_problem(p5)
+
+# print problem
+print(p5)
 ```
 * __Minimum shortfall objective__: Minimize the overall (weighted sum) shortfall for as many targets as possible while ensuring that the cost of the solution does not exceed a budget. In practice, this objective is useful when there is a large amount of left-over budget when using the maximum feature representation objective and the remaining funds need to be allocated to places that will enhance the representation of features with unmet targets.
 ```{r}
@@ -289,9 +279,9 @@ print_problem(p5)
 p6 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_shortfall_objective(budget = 5000)
-```
-```{r, echo = FALSE, results = "asis"}
-print_problem(p6)
+
+# print problem
+print(p6)
 ```
 * __Minimum largest shortfall objective__: Minimize the largest (maximum) shortfall while ensuring that the cost of the solution does not exceed a budget. In practice, this objective useful when the minimum shortfall objective returns solutions that focus too much on representing a small number of features (e.g., because they occur in much cheaper planning units), and solutions are needed to spread conservation effort out more evenly among all features---even if it means that all features will have (relatively) poor representation.
 ```{r}
@@ -300,9 +290,9 @@ print_problem(p6)
 p7 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_largest_shortfall_objective(budget = 5000)
-```
-```{r, echo = FALSE, results = "asis"}
-print_problem(p7)
+
+# print problem
+print(p7)
 ```
 * __Maximum phylogenetic diversity objective__: Maximize the phylogenetic diversity of the features represented in the solution subject to a budget [inspired by @r13; @r14]. This objective is similar to the maximum features objective except that emphasis is placed on protecting features which are associated with a diverse range of evolutionary histories. The package contains a simulated phylogeny that can be used with the simulated feature data (`sim_phylogny`).
 ```{r}
@@ -314,9 +304,9 @@ sim_phylogeny <- get_sim_phylogeny()
 p8 <-
   problem(sim_pu_raster, sim_features) %>%
   add_max_phylo_div_objective(budget = 5000, tree = sim_phylogeny)
-```
-```{r, echo = FALSE, results = "asis"}
-print_problem(p8)
+
+# print problem
+print(p8)
 ```
 * __Maximum phylogenetic endemism objective__: Maximize the phylogenetic endemism of the features represented in the solution subject to a budget [inspired by @r13; @r14; @r32]. This objective is similar to the maximum phylogenetic diversity except that emphasis is placed on conserving features that are associated with geographically restricted periods of evolutionary history rather than a diverse range of evolutionary histories.
 ```{r}
@@ -328,9 +318,9 @@ sim_phylogeny <- get_sim_phylogeny()
 p9 <-
   problem(sim_pu_raster, sim_features) %>%
   add_max_phylo_end_objective(budget = 5000, tree = sim_phylogeny)
-```
-```{r, echo = FALSE, results = "asis"}
-print_problem(p9)
+
+# print problem
+print(p9)
 ```
 * __Maximum utility objective__: Secure as much of the features as possible without exceeding a budget. This objective is functionally equivalent to selecting the planning units with the greatest amounts of each feature (e.g., species richness). Generally, we don't encourage the use of this objective because it will only rarely identify complementary solutions--solutions which adequately conserve a range of different features---except perhaps to explore trade-offs or provide a baseline solution with which to compare other solutions.
 ```{r}
@@ -339,9 +329,9 @@ print_problem(p9)
 p10 <-
   problem(sim_pu_raster, sim_features) %>%
   add_max_utility_objective(budget = 5000)
-```
-```{r, echo = FALSE, results = "asis"}
-print_problem(p10)
+
+# print problem
+print(p10)
 ```
 
 ### Add targets
@@ -356,9 +346,9 @@ p11 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_absolute_targets(3)
-```
-```{r, echo = FALSE, results = "asis"}
-print_problem(p11)
+
+# print problem
+print(p11)
 ```
 * __Relative targets__: Targets are set as a proportion (between 0 and 1) of the total amount of each feature in the study area. For example, if we had binary feature data and the feature occupied a total of 20 planning units in the study area, we could set a relative target of 0.5 (i.e., 50%) to specify that the solution must secure 10 planning units for the feature. We could alternatively specify an absolute target of 10 to achieve the same result, but sometimes proportions are easier to work with.
 ```{r}
@@ -368,9 +358,9 @@ p12 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1)
-```
-```{r, echo = FALSE, results = "asis"}
-print_problem(p12)
+
+# print problem
+print(p12)
 ```
 ```{r}
 # create a problem with targets which specify that we need 10 % of the habitat
@@ -381,9 +371,9 @@ p13 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(targets)
-```
-```{r, echo = FALSE, results = "asis"}
-print_problem(p13)
+
+# print problem
+print(p13)
 ```
 * __Log-linear targets__: Targets are expressed using scaling factors and log-linear interpolation. This method for specifying targets is commonly used for global prioritization analyses [@r15].
 ```{r}
@@ -392,9 +382,9 @@ p14 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_loglinear_targets(10, 0.9, 100, 0.2)
-```
-```{r, echo = FALSE, results = "asis"}
-print_problem(p14)
+
+# print problem
+print(p14)
 ```
 * __Manual targets__: Targets are manually specified. This is only really recommended for advanced users or problems that involve multiple management zones. See the [_Management zones tutorial_](management_zones_tutorial.html) for more information on these targets.
 
@@ -413,9 +403,9 @@ p15 <-
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
   add_locked_in_constraints(1)
-```
-```{r, echo = FALSE, results = "asis"}
-print_problem(p15)
+
+# print problem
+print(p15)
 ```
 * __Locked out constraints__: Add constraints to ensure that certain planning units are not prioritized in the solution. For example, it may be useful to lock out planning units that have been degraded and are not suitable for conserving species.
 ```{r}
@@ -426,9 +416,9 @@ p16 <-
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
   add_locked_out_constraints(2)
-```
-```{r, echo = FALSE, results = "asis"}
-print_problem(p16)
+
+# print problem
+print(p16)
 ```
 * __Neighbor constraints__: Add constraints to a conservation problem to ensure that all selected planning units have at least a certain number of neighbors.
 ```{r}
@@ -439,9 +429,9 @@ p17 <-
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
   add_neighbor_constraints(1)
-```
-```{r, echo = FALSE, results = "asis"}
-print_problem(p17)
+
+# print problem
+print(p17)
 ```
 * __Contiguity constraints__: Add constraints to a conservation problem to ensure that all selected planning units are spatially connected to each other and form spatially contiguous unit.
 ```{r}
@@ -452,9 +442,9 @@ p18 <-
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
   add_contiguity_constraints()
-```
-```{r, echo = FALSE, results = "asis"}
-print_problem(p18)
+
+# print problem
+print(p18)
 ```
 * __Feature contiguity constraints__: Add constraints to ensure that each feature is represented in a contiguous unit of dispersible habitat. These constraints are a more advanced version of those implemented in the `add_contiguity_constraints` function, because they ensure that each feature is represented in a contiguous unit and not that the entire solution should form a contiguous unit.
 ```{r}
@@ -465,9 +455,9 @@ p19 <-
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
   add_feature_contiguity_constraints()
-```
-```{r, echo = FALSE, results = "asis"}
-print_problem(p19)
+
+# print problem
+print(p19)
 ```
 
 * __Linear constraints__: Add constraints to ensure that all selected planning units meet certain criteria. For example, they can be used to add multiple budgets, or limit the number of planning units selected in different administrative areas within a study region (e.g., different countries).
@@ -481,9 +471,9 @@ p20 <-
   add_min_shortfall_objective(budget = 1800) %>%
   add_relative_targets(0.1) %>%
   add_linear_constraints(190, "<=", sim_features[[1]])
-```
-```{r, echo = FALSE, results = "asis"}
-print_problem(p20)
+
+# print problem
+print(p20)
 ```
 
 * __Mandatory allocation constraints__: Add constraints to ensure that every planning unit is allocated to a management zone in the solution. Please note that this function can only be used with problems that contain multiple zones. For more information on problems with multiple zones and an example using this function, see the [_Management zones tutorial_](management_zones_tutorial.html).
@@ -510,9 +500,9 @@ p21 <-
   add_relative_targets(0.1) %>%
   add_locked_in_constraints(sim_locked_in_raster) %>%
   add_locked_out_constraints(sim_locked_out_raster)
-```
-```{r, echo = FALSE, results = "asis"}
-print_problem(p21)
+
+# print problem
+print(p21)
 ```
 
 If our planning unit data are in a spatial vector format (similar to the `sim_pu_polygons` data) or a tabular format (similar to `pu_dat`), we can use the field names in the data to refer to which planning units should be locked in and / or out. For example, the `sim_pu_polygons` object has `TRUE` / `FALSE` values in the "locked_in" field which indicate which planning units should be selected in the solution. We could use the data in this field to specify that those planning units with `TRUE` values should be locked in using the following methods.
@@ -527,9 +517,9 @@ p22 <-
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
   add_locked_in_constraints("locked_in")
-```
-```{r, echo = FALSE, results = "asis"}
-print_problem(p22)
+
+# print problem
+print(p22)
 ```
 ```{r}
 # specify locked in data using the values in the field
@@ -538,9 +528,9 @@ p23 <-
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
   add_locked_in_constraints(which(sim_pu_polygons$locked_in))
-```
-```{r, echo = FALSE, results = "asis"}
-print_problem(p23)
+
+# print problem
+print(p23)
 ```
 
 ### Add penalties
@@ -556,9 +546,9 @@ p24 <-
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
   add_boundary_penalties(penalty = 0.01)
-```
-```{r, echo = FALSE, results = "asis"}
-print_problem(p24)
+
+# print problem
+print(p24)
 ```
 * __Connectivity penalties__: Add penalties to favor solutions that select combinations of planning units with high connectivity between them. This function is used for symmetric connectivities among planning units [based on @r65].
 ```{r}
@@ -576,9 +566,9 @@ p25 <-
     penalty = 5,
     data = connectivity_matrix(sim_pu_raster, sim_features[[5]])
   )
-```
-```{r, echo = FALSE, results = "asis"}
-print_problem(p25)
+
+# print problem
+print(p25)
 ```
 * __Asymmetric connectivity penalties__: Add penalties to penalize solutions
 that select planning units that share high connectivity values with other planning units that are not selected by the solution. This function is used for asymmetric connectivities among planning units [based on @r38].
@@ -596,9 +586,9 @@ p26 <-
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
   add_asym_connectivity_penalties(penalty = 5, data = asym_con_matrix)
-```
-```{r, echo = FALSE, results = "asis"}
-print_problem(p26)
+
+# print problem
+print(p26)
 ```
 * __Linear penalties__: Add penalties to penalize solutions that select planning units according to a certain variable (e.g., anthropogenic pressure).
 ```{r}
@@ -615,9 +605,9 @@ p27 <-
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
   add_linear_penalties(penalty = 5, data = pen_raster)
-```
-```{r, echo = FALSE, results = "asis"}
-print_problem(p27)
+
+# print problem
+print(p27)
 ```
 
 ### Add the decision types
@@ -632,9 +622,9 @@ p28 <-
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
   add_binary_decisions()
-```
-```{r, echo = FALSE, results = "asis"}
-print_problem(p28)
+
+# print problem
+print(p28)
 ```
 * __Proportion decisions__: Add a proportion decision to a problem. This is a relaxed decision where a part of a planning unit can be prioritized, as opposed to the default of the entire planning unit. Typically, this decision has the assumed action of buying a fraction of a planning unit to include in a protected area network. Generally, problems can be solved much faster with proportion-type decisions than binary-type decisions, so they can be very useful when commercial solvers are not available.
 ```{r}
@@ -644,9 +634,9 @@ p29 <-
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
   add_proportion_decisions()
-```
-```{r, echo = FALSE, results = "asis"}
-print_problem(p29)
+
+# print problem
+print(p29)
 ```
 * __Semi-continuous decisions__: Add a semi-continuous decision to a problem. This decision is similar to proportion decisions except that it has an upper bound parameter. By default, the decision can range from prioritizing none (0%) to all (100%) of a planning unit. However, a upper bound can be specified to ensure that at most only a fraction (e.g., 80%) of a planning unit can be purchased. This type of decision may be useful when it is not practical to conserve the entire area indicated by a planning unit.
 ```{r}
@@ -657,9 +647,9 @@ p30 <-
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
   add_semicontinuous_decisions(0.5)
-```
-```{r, echo = FALSE, results = "asis"}
-print_problem(p30)
+
+# print problem
+print(p30)
 ```
 
 ### Add a solver
@@ -676,9 +666,9 @@ p31 <-
   add_relative_targets(0.1) %>%
   add_binary_decisions() %>%
   add_gurobi_solver(gap = 0)
-```
-```{r, echo = FALSE, results = "asis"}
-print_problem(p31)
+
+# print problem
+print(p31)
 ```
 * __*IBM CPLEX* solver__: [_IBM CPLEX_](  https://www.ibm.com/products/ilog-cplex-optimization-studio/cplex-optimizer) is a commercial optimization software. It is faster than the open source solvers available for generating prioritizations (see below), however, it is not freely available. Similar to the _Gurobi_ software, special licenses are available to academics at no cost.
 ```{r}
@@ -690,9 +680,9 @@ p32 <-
   add_relative_targets(0.1) %>%
   add_binary_decisions() %>%
   add_cplex_solver(gap = 0)
-```
-```{r, echo = FALSE, results = "asis"}
-print_problem(p32)
+
+# print problem
+print(p32)
 ```
 * __*CBC* solver__: [*CBC*](https://github.com/coin-or/Cbc) is an
 open-source mixed integer programming solver that is part of the Computational Infrastructure for Operations Research (COIN-OR) project. This solver seems to have much better performance than the other open-source solvers (i.e., `add_rsymphony_solver()`, `add_lpsymphony_solver()`) (see the [_Solver benchmarks vignette_](solver_benchmarks.html) for details). As such, it is strongly recommended to use this solver if the *Gurobi* and *IBM CPLEX* solvers are not available. This solver requires the _rcbc R_ package, which is currently only available on [GitHub](https://github.com/dirkschumacher/rcbc).
@@ -705,9 +695,9 @@ p33 <-
   add_relative_targets(0.1) %>%
   add_binary_decisions() %>%
   add_cbc_solver(gap = 0)
-```
-```{r, echo = FALSE, results = "asis"}
-print_problem(p33)
+
+# print problem
+print(p33)
 ```
 * __*HiGHS* solver__: [*HiGHS*](https://highs.dev/) is an open source optimization software. Although this solver can have comparable performance to the *CBC* solver (i.e., `add_cbc_solver()`) for particular problems and is generally faster than the *SYMPHONY* based solvers (i.e., `add_rsymphony_solver()`, `add_lpsymphony_solver()`), it can sometimes take much longer than the *CBC* solver for particular problems. This solver is recommended if the `add_gurobi_solver()`, `add_cplex_solver()`, `add_cbc_solver()` cannot be used.
 ```{r}
@@ -719,9 +709,9 @@ p34 <-
   add_relative_targets(0.1) %>%
   add_binary_decisions() %>%
   add_highs_solver(gap = 0)
-```
-```{r, echo = FALSE, results = "asis"}
-print_problem(p34)
+
+# print problem
+print(p34)
 ```
 * __*lpsymphony* solver__: [_SYMPHONY_](https://github.com/coin-or/SYMPHONY) is an open-source integer programming solver that is also part of the COIN-OR project. This solver uses the _lpsymphony R_ package (available on [Bioconductor](http://bioconductor.org/packages/release/bioc/html/lpsymphony.html)) to interface with the _SYMPHONY_ software.
 ```{r}
@@ -733,9 +723,9 @@ p35 <-
   add_relative_targets(0.1) %>%
   add_binary_decisions() %>%
   add_lpsymphony_solver(gap = 0)
-```
-```{r, echo = FALSE, results = "asis"}
-print_problem(p35)
+
+# print problem
+print(p35)
 ```
 * __*Rsymphony* solver__: This solver provides a different interface to the [_SYMPHONY_](https://github.com/coin-or/SYMPHONY) software. It uses the _Rsymphony R_ package which is available on The Comprehensive R Archive Network (CRAN). This solver is generally slower than the other solvers, because it cannot use parallel processing.
 ```{r}
@@ -747,9 +737,9 @@ p36 <-
   add_relative_targets(0.1) %>%
   add_binary_decisions() %>%
   add_rsymphony_solver(gap = 0)
-```
-```{r, echo = FALSE, results = "asis"}
-print_problem(p36)
+
+# print problem
+print(p36)
 ```
 
 ### Add a portfolio
@@ -766,9 +756,9 @@ p37 <-
   add_relative_targets(0.1) %>%
   add_binary_decisions() %>%
   add_gap_portfolio(number_solutions = 5, pool_gap = 0.2)
-```
-```{r, echo = FALSE, results = "asis"}
-print_problem(p37)
+
+# print problem
+print(p37)
 ```
 
 * __Top portfolio__: Generate a portfolio of solutions by finding a pre-specified number of solutions that are closest to optimality (i.e the top solutions). Note that this method requires that the _Gurobi_ optimization software is used to generate solutions.
@@ -781,9 +771,9 @@ p38 <-
   add_relative_targets(0.1) %>%
   add_binary_decisions() %>%
   add_top_portfolio(number_solutions = 5)
-```
-```{r, echo = FALSE, results = "asis"}
-print_problem(p38)
+
+# print problem
+print(p38)
 ```
 
 * __Extra portfolio__: Generate a portfolio of solutions by storing feasible solutions found during the optimization process. Note that this method requires that the _Gurobi_ optimization software is used to generate solutions.
@@ -796,9 +786,9 @@ p39 <-
   add_relative_targets(0.1) %>%
   add_binary_decisions() %>%
   add_extra_portfolio()
-```
-```{r, echo = FALSE, results = "asis"}
-print_problem(p39)
+
+# print problem
+print(p39)
 ```
 
 * __Cuts portfolio__: Generate a portfolio of distinct solutions within a pre-specified optimality gap. This method is only recommended if the _Gurobi_ optimization solver is not available.
@@ -811,9 +801,9 @@ p40 <-
   add_relative_targets(0.1) %>%
   add_binary_decisions() %>%
   add_cuts_portfolio(number_solutions = 10)
-```
-```{r, echo = FALSE, results = "asis"}
-print_problem(p40)
+
+# print problem
+print(p40)
 ```
 
 * __Shuffle portfolio__: Generate a portfolio of solutions by randomly reordering the data prior to attempting to solve the problem. If the _Gurobi_ optimization solver is not available, this method is the fastest method for generating a set number of solutions within a specified distance from optimality.
@@ -826,9 +816,9 @@ p41 <-
   add_relative_targets(0.1) %>%
   add_binary_decisions() %>%
   add_shuffle_portfolio(number_solutions = 10, remove_duplicates = FALSE)
-```
-```{r, echo = FALSE, results = "asis"}
-print_problem(p41)
+
+# print problem
+print(p41)
 ```
 
 ### Solve the problem
@@ -843,11 +833,10 @@ p42 <-
   add_relative_targets(0.1) %>%
   add_boundary_penalties(penalty = 500, edge_factor = 0.5) %>%
   add_binary_decisions()
-```
-```{r, echo = FALSE, results = "asis"}
-print_problem(p42)
-```
-```{r, fig.height = h, fig.width = w}
+
+# print problem
+print(p42)
+
 # solve the problem (using the default solver)
 s42 <- solve(p42)
 
@@ -1000,17 +989,16 @@ Although we encourage users to build and tailor conservation planning problems t
 
 Here is a short example showing how the `marxan_problem()` function can be used to read _Marxan_ input files and the `solve` function can be used to solve the problem.
 
-```{r, results = "hide"}
+```{r}
 # set file path for Marxan input file
 minput <- system.file("extdata/marxan/input.dat", package = "prioritizr")
 
 # read Marxan input file
 mp <- marxan_problem(minput)
-```
-```{r, echo = FALSE, results = "asis"}
-print_problem(p42)
-```
-```{r}
+
+# print problem
+print(mp)
+
 # solve the problem
 ms <- solve(mp)
 
@@ -1041,9 +1029,9 @@ rij <-
 mp2 <- marxan_problem(
   x = pu, spec = features, puvspr = rij, bound = bound, blm = 0
 )
-```
-```{r, echo = FALSE, results = "asis"}
-print_problem(mp2)
+
+# print problem
+print(mp2)
 ```
 
 Conservation planning problems that are built using the `marxan_problem()` function can also be customized. For example, we could change the decision type for `mp2` to involve selecting a proportion of each planing unit (using the `add_proportion_decisions()` function).

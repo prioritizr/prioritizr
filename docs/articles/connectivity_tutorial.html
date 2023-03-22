@@ -241,9 +241,9 @@
 <span>  <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.17</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/add_default_solver.html">add_default_solver</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># print the problem</span></span>
+<span>  <span class="fu"><a href="../reference/add_default_solver.html">add_default_solver</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># print problem</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p0</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## A conservation problem (<span style="color: #0000BB;">&lt;ConservationProblem&gt;</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•data</span></span></span>
@@ -264,10 +264,10 @@
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
 <p>After formulating the baseline problem, we can solve it to generate a prioritization.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s0</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p0</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># print solution</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">s0</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## class       : SpatRaster </span></span>
@@ -279,13 +279,13 @@
 <span><span class="co">## name        : cost </span></span>
 <span><span class="co">## min value   :    0 </span></span>
 <span><span class="co">## max value   :    1</span></span></code></pre>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot solution</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
 <span>  <span class="va">s0</span>, main <span class="op">=</span> <span class="st">"Baseline prioritization"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  type <span class="op">=</span> <span class="st">"classes"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey70"</span>, <span class="st">"darkgreen"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-15-1.png" width="384" style="display: block; margin: auto;"></p>
+<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-14-1.png" width="384" style="display: block; margin: auto;"></p>
 <p>Next, let’s explore some options for incorporating connectivity.</p>
 </div>
 <div class="section level2">
@@ -296,7 +296,7 @@
 <h3 id="neighbor-constraints">Neighbor constraints<a class="anchor" aria-label="anchor" href="#neighbor-constraints"></a>
 </h3>
 <p>Neighbor constraints can be added to ensure that each selected planning unit has a certain number of neighbors surrounding it (using the <code><a href="../reference/add_neighbor_constraints.html">add_neighbor_constraints()</a></code> function) <span class="citation">(based on Billionnet 2013)</span>. The <code>k</code> parameter can be used to specify the required number of neighbors for each selected planning unit. Let’s generate a prioritization by specifying that each planning unit requires at least two neighbors.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create problem with added neighbor constraints and solve it</span></span>
 <span><span class="va">s1</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">p0</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -308,13 +308,13 @@
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">s0</span>, <span class="va">s1</span><span class="op">)</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"baseline"</span>, <span class="st">"neighbors constraints"</span><span class="op">)</span>,</span>
 <span>  axes <span class="op">=</span> <span class="cn">FALSE</span>, type <span class="op">=</span> <span class="st">"classes"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey70"</span>, <span class="st">"darkgreen"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="contiguity-constraints">Contiguity constraints<a class="anchor" aria-label="anchor" href="#contiguity-constraints"></a>
 </h3>
 <p>Contiguity constraints can be added to ensure that all planning units form a single contiguous reserve (using the <code><a href="../reference/add_contiguity_constraints.html">add_contiguity_constraints()</a></code> function) <span class="citation">(similar to Önal &amp; Briers 2006)</span>. These constraints are extremely complex. As such, they can only be applied to small conservation planning problems and the <em>Gurobi</em> solver is required to solve them in a feasible period of time. Since it would take a long time to generate a near-optimal prioritization for this dataset with contiguity constraints, we will also tell the solver to simply return the first solution that it finds which meets the representation targets and the contiguity constraints.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create problem with added contiguity constraints and solve it</span></span>
 <span><span class="va">s2</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">p0</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -322,20 +322,20 @@
 <span>  <span class="fu"><a href="../reference/add_gurobi_solver.html">add_gurobi_solver</a></span><span class="op">(</span>first_feasible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Warning: Overwriting previously defined solver.</span></span></code></pre>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot solutions</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">s0</span>, <span class="va">s2</span><span class="op">)</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"baseline"</span>, <span class="st">"contiguity constraints"</span><span class="op">)</span>,</span>
 <span>  axes <span class="op">=</span> <span class="cn">FALSE</span>, type <span class="op">=</span> <span class="st">"classes"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey70"</span>, <span class="st">"darkgreen"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>There is also an even more complex version of the contiguity constraints that is available. These constraints – termed feature contiguity constraints <span class="citation">(similar to Cerdeira <em>et al.</em> 2010)</span> – can be added to ensure that all of the selected planning units used to the reach representation targets within a prioritization form a contiguous network for each feature (using the <code><a href="../reference/add_feature_contiguity_constraints.html">add_feature_contiguity_constraints()</a></code> function). In other words, they ensure that each feature can disperse through the prioritization to access a target threshold amount of habitat. However, these constraints are extraordinarily complex, only feasible for small problems, and require preprocessing routines to identify initial solutions. As such, we will not consider them in this tutorial.</p>
 </div>
 <div class="section level3">
 <h3 id="linear-constraints">Linear constraints<a class="anchor" aria-label="anchor" href="#linear-constraints"></a>
 </h3>
 <p>Linear constraints can be used to specify that the prioritizations must meet an arbitrary set of criteria. As such, they can be used to ensure that prioritizations provide adequate coverage of planning units that have facilitate a high level of connectivity. Recall that the <code>salt_con</code> data are used to describe connectivity across the study area. Since higher values denote planning units with greater connectivity, we could use linear constraints to ensure that the total sum of connectivity values – based on this dataset – meets a particular threshold (e.g. cover at least 30% of the total amount). This would effectively be treating connectivity as an additional feature <span class="citation">(similar to Daigle <em>et al.</em> 2020)</span>.</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># compute threshold for constraints</span></span>
 <span><span class="co">## here we use a threshold of 30% of the total connectivity values</span></span>
 <span><span class="va">threshold</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/global.html" class="external-link">global</a></span><span class="op">(</span><span class="va">salt_con</span>, <span class="st">"sum"</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">*</span> <span class="fl">0.3</span></span>
@@ -343,7 +343,7 @@
 <span><span class="co"># print threshold</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">threshold</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 449.6104</span></span></code></pre>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create problem with added linear constraints and solve it</span></span>
 <span><span class="va">s3</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">p0</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -357,9 +357,9 @@
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">s0</span>, <span class="va">s3</span><span class="op">)</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"baseline"</span>, <span class="st">"linear constraints"</span><span class="op">)</span>,</span>
 <span>   axes <span class="op">=</span> <span class="cn">FALSE</span>, type <span class="op">=</span> <span class="st">"classes"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey70"</span>, <span class="st">"darkgreen"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>Although using continuous values has the advantage that the prioritization process can explicitly account for differences in the relative amount of connectivity facilitated by different planning units, the disadvantage is that the prioritization could potentially focus on selecting lots of planning units with low connectivity values. To avoid this result, one strategy is to convert the continuous values into binary values using a threshold limit <span class="citation">(similar to Carroll 2021)</span>. By applying such a threshold limit, linear constraints can then be used to ensure that the prioritization selects a minimum amount of planning units with high connectivity values (i.e., those with connectivity values that are equal to or greater than the threshold limit).</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate threshold limit</span></span>
 <span><span class="co">## here we set a threshold limit based on the median</span></span>
 <span><span class="va">threshold_limit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/global.html" class="external-link">global</a></span><span class="op">(</span></span>
@@ -371,8 +371,8 @@
 <span></span>
 <span><span class="co"># plot binary values</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">salt_con_binary</span>, main <span class="op">=</span> <span class="st">"salt_con_binary"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-24-1.png" width="384" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-23-1.png" width="384" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create problem with added linear constraints and solve it</span></span>
 <span><span class="co">## note that we use the original threshold computed before,</span></span>
 <span><span class="co">## to ensure the prioritization covers at least 30% of the total amount</span></span>
@@ -389,17 +389,17 @@
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">s0</span>, <span class="va">s4</span><span class="op">)</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"baseline"</span>, <span class="st">"linear constraints (binary)"</span><span class="op">)</span>,</span>
 <span>  axes <span class="op">=</span> <span class="cn">FALSE</span>, type <span class="op">=</span> <span class="st">"classes"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey70"</span>, <span class="st">"darkgreen"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>Another strategy is to clamp the continuous values below a threshold limit and assign them a value of zero <span class="citation">(similar to Hanson <em>et al.</em> 2020)</span>. This strategy has the advantage that (i) the prioritization won’t focus on selecting lots of planning units with low connectivity values to meet the constraint threshold, and (ii) the optimization process can use semi-continuous values to distinguish between places that can facilitate a moderate amount and a high amount of connectivity.</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># clamp continuous values using the threshold limit we computed before</span></span>
 <span><span class="va">salt_con_clamp</span> <span class="op">&lt;-</span> <span class="va">salt_con</span></span>
 <span><span class="va">salt_con_clamp</span><span class="op">[</span><span class="va">salt_con</span> <span class="op">&lt;=</span> <span class="va">threshold_limit</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
 <span></span>
 <span><span class="co"># plot clamped values</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">salt_con_clamp</span>, main <span class="op">=</span> <span class="st">"salt_con_clamp"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-28-1.png" width="384" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-27-1.png" width="384" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create problem with added linear constraints and solve it</span></span>
 <span><span class="co">## note that we use the original threshold computed before,</span></span>
 <span><span class="co">## to ensure the prioritization covers at least 30% of the total amount</span></span>
@@ -416,9 +416,9 @@
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">s0</span>, <span class="va">s5</span><span class="op">)</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"baseline"</span>, <span class="st">"linear constraints (clamped)"</span><span class="op">)</span>,</span>
 <span>  axes <span class="op">=</span> <span class="cn">FALSE</span>, type <span class="op">=</span> <span class="st">"classes"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey70"</span>, <span class="st">"darkgreen"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>If we were concerned that the prioritization did not facilitate a high enough level of connectivity, we could increase the <code>threshold</code> value or the <code>threshold_limit</code> value. For example, let’s increase the <code>threshold_limit</code> value used to clamp the continuous connectivity values.</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># compute threshold limit</span></span>
 <span><span class="va">threshold_limit2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/global.html" class="external-link">global</a></span><span class="op">(</span></span>
 <span>  <span class="va">salt_con</span>, fun <span class="op">=</span> <span class="va">quantile</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span>, probs <span class="op">=</span> <span class="fl">0.7</span></span>
@@ -430,8 +430,8 @@
 <span></span>
 <span><span class="co"># plot clamped values</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">salt_con_clamp2</span>, main <span class="op">=</span> <span class="st">"salt_con_clamp"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-32-1.png" width="384" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-31-1.png" width="384" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create problem with added linear constraints and solve it</span></span>
 <span><span class="co">## note that we use the original threshold computed before,</span></span>
 <span><span class="co">## to ensure the prioritization covers at least 30% of the total amount</span></span>
@@ -448,7 +448,7 @@
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">s0</span>, <span class="va">s6</span><span class="op">)</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"baseline"</span>, <span class="st">"linear constraints (clamped 2)"</span><span class="op">)</span>,</span>
 <span>  axes <span class="op">=</span> <span class="cn">FALSE</span>, type <span class="op">=</span> <span class="st">"classes"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey70"</span>, <span class="st">"darkgreen"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>Despite the advantages of clamping the connectivity values, we can see that the prioritization has a relatively high level of spatial fragmentation. In fact, all prioritizations generated using the linear constraints can potentially have this issue. This is because linear constraints do not explicitly account for the spatial arrangement of the planning units. As such, we recommend combining the linear constraints approach with another approach [e.g., the boundary penalties approach discussed below; <span class="citation">Carroll (2021)</span>].</p>
 </div>
 </div>
@@ -460,14 +460,14 @@
 <h3 id="boundary-penalties">Boundary penalties<a class="anchor" aria-label="anchor" href="#boundary-penalties"></a>
 </h3>
 <p>Boundary penalties can be used to reduce the spatial fragmentation of prioritizations (using the <code><a href="../reference/add_boundary_penalties.html">add_boundary_penalties()</a></code> function). Specifically, these penalties update the problem formulation to penalize solutions that have a high total amount of exposed boundary length <span class="citation">(Ball <em>et al.</em> 2009)</span>. Since boundary data often have large values which can degrade solver performance and result in excessive run times (see the <a href="calibrating_trade-offs_tutorial.html"><em>Calibrating trade-offs tutorial</em></a> for details), we will first rescale the boundary data.</p>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># precompute the boundary data</span></span>
 <span><span class="va">salt_boundary_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/boundary_matrix.html">boundary_matrix</a></span><span class="op">(</span><span class="va">salt_pu</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># rescale boundary data</span></span>
 <span><span class="va">salt_boundary_data</span><span class="op">@</span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/rescale.html" class="external-link">rescale</a></span><span class="op">(</span><span class="va">salt_boundary_data</span><span class="op">@</span><span class="va">x</span>, to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.01</span>, <span class="fl">100</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Next, let’s generate a prioritization using boundary penalties. To specify the relative importance of reducing spatial fragmentation – compared with the primary objective of a problem (e.g. minimizing cost) – we need to set a value for the <code>penalty</code> parameter. Setting a higher value for <code>penalty</code> indicates that it is more important to avoid highly fragmented solutions. Let’s generate a prioritization with a <code>penalty</code> value of 0.001.</p>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create problem with added boundary penalties</span></span>
 <span><span class="va">s7</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">p0</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -479,9 +479,9 @@
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">s0</span>, <span class="va">s7</span><span class="op">)</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"baseline"</span>, <span class="st">"boundary penalties (0.001)"</span><span class="op">)</span>,</span>
 <span>  axes <span class="op">=</span> <span class="cn">FALSE</span>, type <span class="op">=</span> <span class="st">"classes"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey70"</span>, <span class="st">"darkgreen"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>We can see that the resulting prioritization is still relatively fragmented, so let’s try generating another prioritization with a higher <code>penalty</code> value.</p>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create problem with increased boundary penalties</span></span>
 <span><span class="va">s8</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">p0</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -493,23 +493,23 @@
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">s0</span>, <span class="va">s8</span><span class="op">)</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"baseline"</span>, <span class="st">"boundary penalties (10)"</span><span class="op">)</span>,</span>
 <span>  axes <span class="op">=</span> <span class="cn">FALSE</span>, type <span class="op">=</span> <span class="st">"classes"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey70"</span>, <span class="st">"darkgreen"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-39-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-38-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>Although the prioritization is now less fragmented, it has also selected a greater number of planning units. Let’s calculate the cost of the prioritizations to see how they vary in overall cost.</p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate cost of baseline prioritization</span></span>
 <span><span class="fu"><a href="../reference/eval_cost_summary.html">eval_cost_summary</a></span><span class="op">(</span><span class="va">p0</span>, <span class="va">s0</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 1 × 2</span></span></span>
 <span><span class="co">##   summary  cost</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">1</span> overall  36.0</span></span></code></pre>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate cost of prioritization with low boundary penalties (i.e., 0.001)</span></span>
 <span><span class="fu"><a href="../reference/eval_cost_summary.html">eval_cost_summary</a></span><span class="op">(</span><span class="va">p0</span>, <span class="va">s7</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 1 × 2</span></span></span>
 <span><span class="co">##   summary  cost</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">1</span> overall  41.0</span></span></code></pre>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate cost of prioritization high low boundary penalties (i.e., 0.1)</span></span>
 <span><span class="fu"><a href="../reference/eval_cost_summary.html">eval_cost_summary</a></span><span class="op">(</span><span class="va">p0</span>, <span class="va">s8</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 1 × 2</span></span></span>
@@ -523,14 +523,14 @@
 </h3>
 <p>Connectivity penalties can be used to promote connectivity in prioritizations (using the <code><a href="../reference/add_connectivity_penalties.html">add_connectivity_penalties()</a></code> function). These penalties use connectivity scores to parametrize the strength of connectivity between pairs of planning units <span class="citation">(Beger <em>et al.</em> 2010)</span>. Thus higher scores denote a greater level of connectivity between different planning units. For example, previous studies have parametrized connectivity scores using habitat quality, environmental, and river flow data <span class="citation">(e.g. Leonard <em>et al.</em> 2017; Alagador <em>et al.</em> 2012; Hermoso <em>et al.</em> 2012)</span>. Although there are many approaches to calculate connectivity scores, one approach involves using conductance data – data that describe how much each planning unit facilitates movement (opposite of landscape resistance data) – and calculating scores for each pair of planning units by averaging their conductance values (implemented using the <code><a href="../reference/connectivity_matrix.html">connectivity_matrix()</a></code> function).</p>
 <p>Let’s compute connectivity scores by treating the <code>salt_con</code> object as conductance data. This means that we assume that neighboring planning units with higher values in the <code>salt_con</code> object are capable of facilitating a greater amount of connectivity. <strong>Note that the data used to compute connectivity scores must conform to the same spatial properties as the planning unit data (e.g., resolution, spatial extent, coordinate reference system).</strong> Also, although we are using raster data here, these scores can also be computed for vector data too (e.g., <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::st_sf()</a></code> objects). Similar to the boundary data, we will also rescale the connectivity scores to avoid numerical issues during optimization.</p>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># compute connectivity scores</span></span>
 <span><span class="va">salt_con_scores</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/connectivity_matrix.html">connectivity_matrix</a></span><span class="op">(</span><span class="va">salt_pu</span>, <span class="va">salt_con</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># rescale scores</span></span>
 <span><span class="va">salt_con_scores</span><span class="op">@</span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/rescale.html" class="external-link">rescale</a></span><span class="op">(</span><span class="va">salt_con_scores</span><span class="op">@</span><span class="va">x</span>, to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.01</span>, <span class="fl">100</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>After computing the connectivity scores, we can use them to generate prioritizations using connectivity penalties. Similar to the boundary penalties, we use the <code>penalty</code> parameter to specify the relative importance of promoting connectivity relative to the primary objective of a problem (i.e., minimizing overall cost). Let’s generate a prioritization with a <code>penalty</code> value of 0.001.</p>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create problem with added connectivity penalties</span></span>
 <span><span class="va">s9</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">p0</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -542,9 +542,9 @@
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">s0</span>, <span class="va">s9</span><span class="op">)</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"baseline"</span>, <span class="st">"connectivity penalties (0.001)"</span><span class="op">)</span>,</span>
 <span>  axes <span class="op">=</span> <span class="cn">FALSE</span>, type <span class="op">=</span> <span class="st">"classes"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey70"</span>, <span class="st">"darkgreen"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-43-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-42-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>Now let’s try generating another prioritization with a higher <code>penalty</code> value.</p>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create problem with increased connectivity penalties</span></span>
 <span><span class="va">s10</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">p0</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -556,7 +556,7 @@
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">s0</span>, <span class="va">s10</span><span class="op">)</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"baseline"</span>, <span class="st">"connectivity penalties (0.002)"</span><span class="op">)</span>,</span>
 <span>  axes <span class="op">=</span> <span class="cn">FALSE</span>, type <span class="op">=</span> <span class="st">"classes"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey70"</span>, <span class="st">"darkgreen"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-45-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-44-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>We can see that increasing the <code>penalty</code> parameter causes the prioritizations to select planning units in regions with greater connectivity values (i.e., per the <code>salt_con</code> object). As discussed with the boundary penalties, increasing the <code>penalty</code> value tells the optimization process to focus more on promoting connectivity—meaning that it won’t focus as much on the primary objective (i.e., because the primary objective is to minimize overall costs). For details on calibrating these trade-offs please see the <a href="calibrating_trade-offs_tutorial.html"><em>Calibrating trade-offs tutorial</em></a>. <strong>Note that you will need to the use <code><a href="../reference/eval_connectivity_summary.html">eval_connectivity_summary()</a></code> function – instead of the <code><a href="../reference/eval_boundary_summary.html">eval_boundary_summary()</a></code> function – when adapting the tutorial code for connectivity penalties.</strong></p>
 </div>
 </div>

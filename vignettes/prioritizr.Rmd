@@ -34,20 +34,15 @@ knitr::opts_chunk$set(
 ```
 
 ```{r, include = FALSE}
-# wrapper for printing problem objects
-print_problem <- function(x) {
-  if (interactive()) {
-    print(x)
-    return(invisible())
+# set up print method
+print <- function(x, ...) {
+  if (inherits(x, "ConservationProblem")) {
+    prioritizr::knit_print.ConservationProblem(x)
+  } else if (inherits(x, "OptimizationProblem")) {
+    prioritizr::knit_print.OptimizationProblem(x)
+  } else {
+    base::print(x)
   }
-  res <- knitr::knit_child(
-    "print_problem.txt",
-    envir = list2env(
-      list(name = rlang::as_name(rlang::enquo(x)), x = x),
-      parent = parent.frame()),
-    quiet = TRUE,
-  )
-  cat(res, sep = "\n")
 }
 ```
 
@@ -111,10 +106,9 @@ p1 <-
   add_relative_targets(0.17) %>%
   add_locked_in_constraints("locked_in") %>%
   add_binary_decisions()
-```
 
-```{r, echo = FALSE, results = "asis"}
-print_problem(p1)
+# print problem
+print(p1)
 ```
 
 ## Prioritization
@@ -208,13 +202,10 @@ Conservation planning exercises often involve generating multiple different prio
 p2 <-
   p1 %>%
   add_gap_portfolio(number_solutions = 1000, pool_gap = 0.2)
-```
 
-```{r, echo = FALSE, results = "asis"}
-print_problem(p2)
-```
+# print problem
+print(p2)
 
-```{r}
 # generate prioritizations
 prt <- solve(p2)
 print(prt)
@@ -308,13 +299,10 @@ After importing the data, we can now generate a prioritization based on the _Mar
 p3 <- marxan_problem(
   pu_data, spec_data, puvspr_data, bound_data, blm = 0.0005
 )
-```
 
-```{r, echo = FALSE, results = "asis"}
-print_problem(p3)
-```
+# print problem
+print(p3)
 
-```{r}
 # solve problem
 s3 <- solve(p3)
 
