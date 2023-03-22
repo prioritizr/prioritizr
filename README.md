@@ -190,7 +190,7 @@ planning unit, or none of the land inside a given planning unit. Thus we
 will create a new `problem()` that will use a minimum shortfall
 objective (via `add_min_shortfall_objective()`), with relative targets
 of 20% (via `add_relative_targets()`), binary decisions (via
-`add_binary_decisions()`), and specify that we want to want near-optimal
+`add_binary_decisions()`), and specify that we want near-optimal
 solutions (i.e., 10% from optimality) using the best solver installed on
 our computer (via `add_default_solver()`).
 
@@ -204,7 +204,7 @@ p1 <-
   add_min_shortfall_objective(budget) %>%
   add_relative_targets(0.2) %>%
   add_binary_decisions() %>%
-  add_default_solver(gap = 0.1)
+  add_default_solver(gap = 0.1, verbose = FALSE)
 ```
 
 ``` r
@@ -236,49 +236,7 @@ After we have built a `problem()`, we can solve it to obtain a solution.
 ``` r
 # solve the problem
 s1 <- solve(p1)
-```
 
-    ## Gurobi Optimizer version 10.0.0 build v10.0.0rc2 (linux64)
-    ## 
-    ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
-    ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
-    ## 
-    ## Optimize a model with 397 rows, 11153 columns and 1535510 nonzeros
-    ## Model fingerprint: 0xed3a5545
-    ## Variable types: 396 continuous, 10757 integer (10757 binary)
-    ## Coefficient statistics:
-    ##   Matrix range     [1e-03, 2e+03]
-    ##   Objective range  [5e-02, 5e-02]
-    ##   Bounds range     [1e+00, 1e+00]
-    ##   RHS range        [2e+01, 9e+03]
-    ## Found heuristic solution: objective 396.0000000
-    ## Found heuristic solution: objective 395.9999995
-    ## Presolve removed 1 rows and 1 columns
-    ## Presolve time: 1.83s
-    ## Presolved: 396 rows, 11152 columns, 1535508 nonzeros
-    ## Variable types: 394 continuous, 10758 integer (10758 binary)
-    ## Found heuristic solution: objective 393.9999995
-    ## Root relaxation presolved: 396 rows, 11152 columns, 1535508 nonzeros
-    ## 
-    ## 
-    ## Root relaxation: objective 4.056159e+00, 428 iterations, 0.34 seconds (0.66 work units)
-    ## 
-    ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
-    ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-    ## 
-    ##      0     0    4.05616    0   41  394.00000    4.05616  99.0%     -    2s
-    ## H    0     0                       4.5230867    4.05616  10.3%     -    2s
-    ## H    0     0                       4.4052105    4.05616  7.92%     -    2s
-    ## 
-    ## Explored 1 nodes (428 simplex iterations) in 2.94 seconds (6.33 work units)
-    ## Thread count was 1 (of 8 available processors)
-    ## 
-    ## Solution count 4: 4.40521 4.52309 394 396 
-    ## 
-    ## Optimal solution found (tolerance 1.00e-01)
-    ## Best objective 4.405210494541e+00, best bound 4.056158599175e+00, gap 7.9236%
-
-``` r
 # extract the objective
 print(attr(s1, "objective"))
 ```
@@ -292,7 +250,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##      3.141
+    ##      3.629
 
 ``` r
 # extract state message from the solver
@@ -366,13 +324,13 @@ print(mean(p1_target_coverage$met) * 100)
 
 Although this solution helps meet the representation targets, it does
 not account for existing protected areas inside the study area. As such,
-it may be inefficient. This is because it might not account for the
-possibility that some features could be partially – or even fully –
-represented by existing protected areas. To address this issue, we will
-use the `get_wa_locked_in()` function to import spatial data for
-protected areas in the study area. We will then add constraints to the
-`problem()` to ensure they are selected by the solution (via
-`add_locked_in_constraints()`).
+it does not account for the possibility that some features could be
+partially – or even fully – represented by existing protected areas and,
+in turn, might fail to identify meaningful priorities for new protected
+areas. To address this issue, we will use the `get_wa_locked_in()`
+function to import spatial data for protected areas in the study area.
+We will then add constraints to the `problem()` to ensure they are
+selected by the solution (via `add_locked_in_constraints()`).
 
 ``` r
 # import locked in data
@@ -407,78 +365,12 @@ p2 <-
 
 # solve the problem
 s2 <- solve(p2)
-```
 
-    ## Gurobi Optimizer version 10.0.0 build v10.0.0rc2 (linux64)
-    ## 
-    ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
-    ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
-    ## 
-    ## Optimize a model with 397 rows, 11153 columns and 1535510 nonzeros
-    ## Model fingerprint: 0xfb76c9ab
-    ## Variable types: 396 continuous, 10757 integer (10757 binary)
-    ## Coefficient statistics:
-    ##   Matrix range     [1e-03, 2e+03]
-    ##   Objective range  [5e-02, 5e-02]
-    ##   Bounds range     [1e+00, 1e+00]
-    ##   RHS range        [2e+01, 9e+03]
-    ## Found heuristic solution: objective 333.7160201
-    ## Found heuristic solution: objective 333.7160193
-    ## Presolve removed 3 rows and 558 columns
-    ## Presolve time: 1.75s
-    ## Presolved: 394 rows, 10595 columns, 1465847 nonzeros
-    ## Variable types: 392 continuous, 10203 integer (10203 binary)
-    ## Found heuristic solution: objective 331.7160193
-    ## Root relaxation presolved: 394 rows, 10595 columns, 1465847 nonzeros
-    ## 
-    ## 
-    ## Root relaxation: objective 8.018469e+00, 405 iterations, 0.32 seconds (0.61 work units)
-    ## 
-    ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
-    ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-    ## 
-    ##      0     0    8.01847    0   37  331.71602    8.01847  97.6%     -    2s
-    ## H    0     0                       8.7313956    8.01847  8.17%     -    2s
-    ## 
-    ## Cleanup yields a better solution
-    ## 
-    ## Explored 1 nodes (405 simplex iterations) in 2.20 seconds (5.00 work units)
-    ## Thread count was 1 (of 8 available processors)
-    ## 
-    ## Solution count 4: 8.69101 8.7314 331.716 333.716 
-    ## 
-    ## Optimal solution found (tolerance 1.00e-01)
-    ## Best objective 8.691006632049e+00, best bound 8.018468564544e+00, gap 7.7383%
-
-``` r
 # plot the solution
 plot(s2, main = "Solution", axes = FALSE)
 ```
 
 <img src="man/figures/README-locked_in_constraints-2.png" width="500" style="display: block; margin: auto;" />
-
-We can also confirm that the solution is improving feature
-representation. To achieve this, we can compare the percentage of
-features that have their target met given the existing protected area
-system to that given the prioritization. Below, we can see that the
-percentage is much higher given the solution.
-
-``` r
-# check percentage of the features that have their target met given the solution
-p2_target_coverage <- eval_target_coverage_summary(p1, s1)
-print(mean(p2_target_coverage$met) * 100)
-```
-
-    ## [1] 96.46465
-
-``` r
-# check percentage of the features that have their target met given the
-# existing protected area system
-p0_target_coverage <- eval_target_coverage_summary(p1, wa_locked_in)
-print(mean(p0_target_coverage$met) * 100)
-```
-
-    ## [1] 0.5050505
 
 This solution is an improvement over the previous solution. However,
 there are some places in the study area that are not available for
@@ -524,50 +416,7 @@ p3 <-
 
 # solve the problem
 s3 <- solve(p3)
-```
 
-    ## Gurobi Optimizer version 10.0.0 build v10.0.0rc2 (linux64)
-    ## 
-    ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
-    ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
-    ## 
-    ## Optimize a model with 397 rows, 11153 columns and 1535510 nonzeros
-    ## Model fingerprint: 0xcd0ce6db
-    ## Variable types: 396 continuous, 10757 integer (10757 binary)
-    ## Coefficient statistics:
-    ##   Matrix range     [1e-03, 2e+03]
-    ##   Objective range  [5e-02, 5e-02]
-    ##   Bounds range     [1e+00, 1e+00]
-    ##   RHS range        [2e+01, 9e+03]
-    ## Found heuristic solution: objective 333.7160201
-    ## Found heuristic solution: objective 333.7160193
-    ## Presolve removed 7 rows and 1961 columns
-    ## Presolve time: 1.66s
-    ## Presolved: 390 rows, 9192 columns, 1240981 nonzeros
-    ## Variable types: 388 continuous, 8804 integer (8804 binary)
-    ## Found heuristic solution: objective 330.2780131
-    ## Root relaxation presolved: 390 rows, 9192 columns, 1240981 nonzeros
-    ## 
-    ## 
-    ## Root relaxation: objective 1.056277e+01, 329 iterations, 0.23 seconds (0.49 work units)
-    ## 
-    ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
-    ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-    ## 
-    ##      0     0   10.56277    0   33  330.27801   10.56277  96.8%     -    1s
-    ## H    0     0                      11.5634004   10.56277  8.65%     -    2s
-    ## 
-    ## Cleanup yields a better solution
-    ## 
-    ## Explored 1 nodes (329 simplex iterations) in 2.01 seconds (4.18 work units)
-    ## Thread count was 1 (of 8 available processors)
-    ## 
-    ## Solution count 4: 11.3821 11.5634 330.278 333.716 
-    ## 
-    ## Optimal solution found (tolerance 1.00e-01)
-    ## Best objective 1.138205342098e+01, best bound 1.056277047717e+01, gap 7.1980%
-
-``` r
 # plot the solution
 plot(s3, main = "Solution", axes = FALSE)
 ```
@@ -589,63 +438,11 @@ overly penalized.
 # create new problem with boundary penalties added to it
 p4 <-
   p3 %>%
-  add_boundary_penalties(penalty = 0.001, edge_factor = 0.5)
+  add_boundary_penalties(penalty = 0.003, edge_factor = 0.5)
 
 # solve the problem
 s4 <- solve(p4)
-```
 
-    ## Gurobi Optimizer version 10.0.0 build v10.0.0rc2 (linux64)
-    ## 
-    ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
-    ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
-    ## 
-    ## Optimize a model with 42569 rows, 32239 columns and 1619854 nonzeros
-    ## Model fingerprint: 0x5aa3e86e
-    ## Variable types: 396 continuous, 31843 integer (31843 binary)
-    ## Coefficient statistics:
-    ##   Matrix range     [1e-03, 2e+03]
-    ##   Objective range  [5e-02, 2e+01]
-    ##   Bounds range     [1e+00, 1e+00]
-    ##   RHS range        [2e+01, 9e+03]
-    ## Found heuristic solution: objective 2511.7160201
-    ## Found heuristic solution: objective 2511.7160193
-    ## Presolve removed 8989 rows and 6461 columns
-    ## Presolve time: 4.86s
-    ## Presolved: 33580 rows, 25778 columns, 1305846 nonzeros
-    ## Variable types: 388 continuous, 25390 integer (25390 binary)
-    ## Found heuristic solution: objective 2367.7159193
-    ## Root relaxation presolved: 33580 rows, 25778 columns, 1305846 nonzeros
-    ## 
-    ## 
-    ## Root simplex log...
-    ## 
-    ## Iteration    Objective       Primal Inf.    Dual Inf.      Time
-    ##        0   -9.1740427e+01   1.564548e+03   0.000000e+00      6s
-    ##     5951    6.0110274e+02   1.197542e+06   0.000000e+00     10s
-    ##     9187    9.0186157e+02   5.812451e+05   0.000000e+00     15s
-    ##    13907    1.7603123e+03   1.350032e+06   0.000000e+00     20s
-    ##    17777    1.9509150e+03   3.775711e+03   0.000000e+00     25s
-    ##    20274    2.0113000e+03   0.000000e+00   0.000000e+00     29s
-    ##    20274    2.0113000e+03   0.000000e+00   0.000000e+00     29s
-    ## 
-    ## Root relaxation: objective 2.011300e+03, 20274 iterations, 23.94 seconds (80.91 work units)
-    ## 
-    ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
-    ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-    ## 
-    ##      0     0 2011.29997    0 5152 2367.71592 2011.29997  15.1%     -   29s
-    ## H    0     0                    2101.6352738 2011.29997  4.30%     -   29s
-    ## 
-    ## Explored 1 nodes (20274 simplex iterations) in 29.65 seconds (92.46 work units)
-    ## Thread count was 1 (of 8 available processors)
-    ## 
-    ## Solution count 4: 2101.64 2101.64 2367.72 2511.72 
-    ## 
-    ## Optimal solution found (tolerance 1.00e-01)
-    ## Best objective 2.101635242801e+03, best bound 2.011299965454e+03, gap 4.2983%
-
-``` r
 # plot the solution
 plot(s4, main = "Solution", axes = FALSE)
 ```
@@ -681,7 +478,7 @@ print(rc)
     ##               ...
     ## names       :  Recur~ding),  Botau~ding),  Botau~ding),  Corvu~ding),  Corvu~ding),  Cincl~full), ... 
     ## min values  : 0.0000000000, 0.0000000000, 0.0000000000, 0.000000e+00, 0.000000e+00, 0.000000e+00, ... 
-    ## max values  : 0.0002938255, 0.0002174687, 0.0005957507, 7.268342e-05, 8.226956e-05, 7.940287e-05, ...
+    ## max values  : 0.0003227724, 0.0002213034, 0.0006622152, 7.771815e-05, 8.974447e-05, 8.483296e-05, ...
 
 ``` r
 # plot the total importance scores

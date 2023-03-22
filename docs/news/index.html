@@ -116,7 +116,7 @@
 <div class="section level3">
 <h3 id="new-features-8-0-0">New features<a class="anchor" aria-label="anchor" href="#new-features-8-0-0"></a></h3>
 <ul><li>The <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> function for <code><a href="../reference/problem.html">problem()</a></code>, <code><a href="../reference/optimization_problem.html">optimization_problem()</a></code>, and <code><a href="../reference/zones.html">zones()</a></code> objects has been updated to provide more information.</li>
-<li>New <code><a href="https://rdrr.io/pkg/terra/man/summary.html" class="external-link">summary()</a></code> function to provide extensive detail on <code><a href="../reference/problem.html">problem()</a></code> objects.</li>
+<li>New <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> function to provide extensive detail on <code><a href="../reference/problem.html">problem()</a></code> objects.</li>
 <li>Updates to improve the error messages and error message handling. Hopefully, users should no longer see <code>"bad error message"</code>!</li>
 </ul></div>
 <div class="section level3">
@@ -127,11 +127,11 @@
 <li>To ensure consistency among the portfolio functions, all of them (except for <code><a href="../reference/add_extra_portfolio.html">add_extra_portfolio()</a></code>) default to generating 10 solutions.</li>
 <li>Update publication record.</li>
 <li>The <code><a href="../reference/solve.html">solve()</a></code> function will now output <code><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble::tibble()</a></code> objects (instead of <code><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame()</a></code> objects), when the planning unit data are <code><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble::tibble()</a></code> objects.</li>
-<li>The <code><a href="../reference/boundary_matrix.html">boundary_matrix()</a></code> function now uses <code><a href="https://rdrr.io/pkg/terra/man/sharedPaths.html" class="external-link">terra::sharedPaths()</a></code> for calculations, providing greater performance.</li>
+<li>The <code><a href="../reference/boundary_matrix.html">boundary_matrix()</a></code> function now uses <code><a href="https://rdrr.io/pkg/terra/man/sharedPaths.html" class="external-link">terra::sharedPaths()</a></code> for calculations, providing greater performance (<a href="https://github.com/prioritizr/prioritizr/issues/257" class="external-link">#257</a>).</li>
 <li>The <code><a href="../reference/eval_ferrier_importance.html">eval_ferrier_importance()</a></code> function can now be used with any objective function that uses targets and a single zone.</li>
-<li>The package now requires C++17 for compilation (<a href="https://github.com/prioritizr/prioritizr/issues/263" class="external-link">#263</a>).</li>
+<li>Fix CRAN note regarding C++ standards (<a href="https://github.com/prioritizr/prioritizr/issues/263" class="external-link">#263</a>).</li>
 <li>Remove <em>doParallel</em> and <em>plyr</em> packages as dependencies by simplifying the <code><a href="../reference/add_shuffle_portfolio.html">add_shuffle_portfolio()</a></code> and <code><a href="../reference/eval_replacement_importance.html">eval_replacement_importance()</a></code> functions.</li>
-<li>Assorted tweaks to improve writing in the vignettes and documentation.</li>
+<li>Assorted tweaks to improve writing in the vignettes and documentation. Many thanks to Marc Edwards (<a href="https://github.com/edwardsmarc" class="external-link">@edwardsmarc</a>)!</li>
 </ul></div>
 </div>
     <div class="section level2">

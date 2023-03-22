@@ -73,13 +73,14 @@
   (instead of `data.frame()` objects), when the planning unit data are
   `tibble::tibble()` objects.
 - The `boundary_matrix()` function now uses `terra::sharedPaths()` for
-  calculations, providing greater performance.
+  calculations, providing greater performance (#257).
 - The `eval_ferrier_importance()` function can now be used with
   any objective function that uses targets and a single zone.
-- The package now requires C++17 for compilation (#263).
+- Fix CRAN note regarding C++ standards (#263).
 - Remove _doParallel_ and _plyr_ packages as dependencies by simplifying
   the `add_shuffle_portfolio()` and `eval_replacement_importance()` functions.
 - Assorted tweaks to improve writing in the vignettes and documentation.
+  Many thanks to Marc Edwards (@edwardsmarc)!
 
 # prioritizr 7.2.2.7
 

@@ -227,7 +227,7 @@
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># if needed, install HiGHS solver</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"highs"</span>, repos <span class="op">=</span> <span class="st">"https://cran.rstudio.com/"</span><span class="op">)</span></span></code></pre></div>
-<p>Now, let’s generate a spatial prioritization. To ensure feasibility, we will set a budget. Specifically, the total cost of the prioritization will represent a 5% of the total land value in the study area. Given this budget, we want the prioritization to increase feature representation, as much as possible, so that each feature would, ideally, have 20% of its distribution covered by the prioritization. In this scenario, we can either purchase all of the land inside a given planning unit, or none of the land inside a given planning unit. Thus we will create a new <code><a href="reference/problem.html">problem()</a></code> that will use a minimum shortfall objective (via <code><a href="reference/add_min_shortfall_objective.html">add_min_shortfall_objective()</a></code>), with relative targets of 20% (via <code><a href="reference/add_relative_targets.html">add_relative_targets()</a></code>), binary decisions (via <code><a href="reference/add_binary_decisions.html">add_binary_decisions()</a></code>), and specify that we want to want near-optimal solutions (i.e., 10% from optimality) using the best solver installed on our computer (via <code><a href="reference/add_default_solver.html">add_default_solver()</a></code>).</p>
+<p>Now, let’s generate a spatial prioritization. To ensure feasibility, we will set a budget. Specifically, the total cost of the prioritization will represent a 5% of the total land value in the study area. Given this budget, we want the prioritization to increase feature representation, as much as possible, so that each feature would, ideally, have 20% of its distribution covered by the prioritization. In this scenario, we can either purchase all of the land inside a given planning unit, or none of the land inside a given planning unit. Thus we will create a new <code><a href="reference/problem.html">problem()</a></code> that will use a minimum shortfall objective (via <code><a href="reference/add_min_shortfall_objective.html">add_min_shortfall_objective()</a></code>), with relative targets of 20% (via <code><a href="reference/add_relative_targets.html">add_relative_targets()</a></code>), binary decisions (via <code><a href="reference/add_binary_decisions.html">add_binary_decisions()</a></code>), and specify that we want near-optimal solutions (i.e., 10% from optimality) using the best solver installed on our computer (via <code><a href="reference/add_default_solver.html">add_default_solver()</a></code>).</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate budget</span></span>
 <span><span class="va">budget</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/global.html" class="external-link">global</a></span><span class="op">(</span><span class="va">wa_pu</span>, <span class="st">"sum"</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">*</span> <span class="fl">0.05</span></span>
@@ -238,7 +238,7 @@
 <span>  <span class="fu"><a href="reference/add_min_shortfall_objective.html">add_min_shortfall_objective</a></span><span class="op">(</span><span class="va">budget</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="reference/add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="reference/add_default_solver.html">add_default_solver</a></span><span class="op">(</span>gap <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="reference/add_default_solver.html">add_default_solver</a></span><span class="op">(</span>gap <span class="op">=</span> <span class="fl">0.1</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># print the problem</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></span></code></pre></div>
@@ -263,324 +263,144 @@
 <p>After we have built a <code><a href="reference/problem.html">problem()</a></code>, we can solve it to obtain a solution.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># solve the problem</span></span>
-<span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb15"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Gurobi Optimizer version 10.0.0 build v10.0.0rc2 (linux64)</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="do">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Optimize a model with 397 rows, 11153 columns and 1535510 nonzeros</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Model fingerprint: 0xed3a5545</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Variable types: 396 continuous, 10757 integer (10757 binary)</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Coefficient statistics:</span></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="do">##   Matrix range     [1e-03, 2e+03]</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="do">##   Objective range  [5e-02, 5e-02]</span></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="do">##   Bounds range     [1e+00, 1e+00]</span></span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="do">##   RHS range        [2e+01, 9e+03]</span></span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="do">## Found heuristic solution: objective 396.0000000</span></span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="do">## Found heuristic solution: objective 395.9999995</span></span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="do">## Presolve removed 1 rows and 1 columns</span></span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="do">## Presolve time: 1.83s</span></span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="do">## Presolved: 396 rows, 11152 columns, 1535508 nonzeros</span></span>
-<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="do">## Variable types: 394 continuous, 10758 integer (10758 binary)</span></span>
-<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a><span class="do">## Found heuristic solution: objective 393.9999995</span></span>
-<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a><span class="do">## Root relaxation presolved: 396 rows, 11152 columns, 1535508 nonzeros</span></span>
-<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a><span class="do">## Root relaxation: objective 4.056159e+00, 428 iterations, 0.34 seconds (0.66 work units)</span></span>
-<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a><span class="do">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
-<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a><span class="do">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
-<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a><span class="do">##      0     0    4.05616    0   41  394.00000    4.05616  99.0%     -    2s</span></span>
-<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a><span class="do">## H    0     0                       4.5230867    4.05616  10.3%     -    2s</span></span>
-<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a><span class="do">## H    0     0                       4.4052105    4.05616  7.92%     -    2s</span></span>
-<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a><span class="do">## Explored 1 nodes (428 simplex iterations) in 2.94 seconds (6.33 work units)</span></span>
-<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a><span class="do">## Thread count was 1 (of 8 available processors)</span></span>
-<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a><span class="do">## Solution count 4: 4.40521 4.52309 394 396 </span></span>
-<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a><span class="do">## Optimal solution found (tolerance 1.00e-01)</span></span>
-<span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a><span class="do">## Best objective 4.405210494541e+00, best bound 4.056158599175e+00, gap 7.9236%</span></span></code></pre></div>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># extract the objective</span></span>
+<span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># extract the objective</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"objective"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb17"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="do">## solution_1 </span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="do">##    4.40521</span></span></code></pre></div>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">## solution_1 </span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="do">##    4.40521</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract time spent solving the problem</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb19"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="do">## solution_1 </span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="do">##      3.141</span></span></code></pre></div>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="do">## solution_1 </span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="do">##      3.629</span></span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract state message from the solver</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"status"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb21"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="do">## solution_1 </span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="do">##  "OPTIMAL"</span></span></code></pre></div>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="do">## solution_1 </span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="do">##  "OPTIMAL"</span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot the solution</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s1</span>, main <span class="op">=</span> <span class="st">"Solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-minimal_solution-1.png" width="500" style="display: block; margin: auto;"></p>
 <p>After generating a solution, it is important to evaluate it. Here, we will calculate the number of planning units selected by the solution, and the total cost of the solution. We can also check how many representation targets are met by the solution.</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate number of selected planning units by solution</span></span>
 <span><span class="fu"><a href="reference/eval_n_summary.html">eval_n_summary</a></span><span class="op">(</span><span class="va">p1</span>, <span class="va">s1</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb24"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 × 2</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="do">##   summary     n</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;   &lt;dbl&gt;</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 overall  2319</span></span></code></pre></div>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 × 2</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="do">##   summary     n</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;   &lt;dbl&gt;</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 overall  2319</span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate total cost of solution</span></span>
 <span><span class="fu"><a href="reference/eval_cost_summary.html">eval_cost_summary</a></span><span class="op">(</span><span class="va">p1</span>, <span class="va">s1</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb26"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 × 2</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="do">##   summary  cost</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;   &lt;dbl&gt;</span></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 overall 8748.</span></span></code></pre></div>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 × 2</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="do">##   summary  cost</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;   &lt;dbl&gt;</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 overall 8748.</span></span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate target coverage for the solution</span></span>
 <span><span class="va">p1_target_coverage</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/eval_target_coverage_summary.html">eval_target_coverage_summary</a></span><span class="op">(</span><span class="va">p1</span>, <span class="va">s1</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p1_target_coverage</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb28"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 396 × 9</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="do">##    feature         met   total…¹ absol…² absol…³ absol…⁴ relat…⁵ relat…⁶ relat…⁷</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;chr&gt;           &lt;lgl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 Recurvirostra … TRUE    100.     20.0    23.4    0        0.2   0.233  0     </span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  2 Botaurus lenti… TRUE     99.9    20.0    29.2    0        0.2   0.293  0     </span></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  3 Botaurus lenti… TRUE    100.     20.0    34.0    0        0.2   0.340  0     </span></span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  4 Corvus brachyr… TRUE     99.9    20.0    20.2    0        0.2   0.202  0     </span></span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  5 Corvus brachyr… FALSE    99.9    20.0    18.7    1.29     0.2   0.187  0.0129</span></span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  6 Cinclus mexica… TRUE    100.     20.0    20.4    0        0.2   0.204  0     </span></span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  7 Spinus tristis… TRUE     99.9    20.0    22.4    0        0.2   0.224  0     </span></span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  8 Spinus tristis… TRUE     99.9    20.0    23.0    0        0.2   0.230  0     </span></span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 Falco sparveri… TRUE     99.9    20.0    24.5    0        0.2   0.245  0     </span></span>
-<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 Falco sparveri… TRUE    100.     20.0    24.4    0        0.2   0.244  0     </span></span>
-<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 386 more rows, and abbreviated variable names ¹​total_amount,</span></span>
-<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a><span class="do">## #   ²​absolute_target, ³​absolute_held, ⁴​absolute_shortfall, ⁵​relative_target,</span></span>
-<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a><span class="do">## #   ⁶​relative_held, ⁷​relative_shortfall</span></span></code></pre></div>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 396 × 9</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="do">##    feature         met   total…¹ absol…² absol…³ absol…⁴ relat…⁵ relat…⁶ relat…⁷</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;chr&gt;           &lt;lgl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 Recurvirostra … TRUE    100.     20.0    23.4    0        0.2   0.233  0     </span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  2 Botaurus lenti… TRUE     99.9    20.0    29.2    0        0.2   0.293  0     </span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  3 Botaurus lenti… TRUE    100.     20.0    34.0    0        0.2   0.340  0     </span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  4 Corvus brachyr… TRUE     99.9    20.0    20.2    0        0.2   0.202  0     </span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  5 Corvus brachyr… FALSE    99.9    20.0    18.7    1.29     0.2   0.187  0.0129</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  6 Cinclus mexica… TRUE    100.     20.0    20.4    0        0.2   0.204  0     </span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  7 Spinus tristis… TRUE     99.9    20.0    22.4    0        0.2   0.224  0     </span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  8 Spinus tristis… TRUE     99.9    20.0    23.0    0        0.2   0.230  0     </span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 Falco sparveri… TRUE     99.9    20.0    24.5    0        0.2   0.245  0     </span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 Falco sparveri… TRUE    100.     20.0    24.4    0        0.2   0.244  0     </span></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 386 more rows, and abbreviated variable names ¹​total_amount,</span></span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a><span class="do">## #   ²​absolute_target, ³​absolute_held, ⁴​absolute_shortfall, ⁵​relative_target,</span></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a><span class="do">## #   ⁶​relative_held, ⁷​relative_shortfall</span></span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># check percentage of the features that have their target met given the solution</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">p1_target_coverage</span><span class="op">$</span><span class="va">met</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb30"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 96.46465</span></span></code></pre></div>
-<p>Although this solution helps meet the representation targets, it does not account for existing protected areas inside the study area. As such, it may be inefficient. This is because it might not account for the possibility that some features could be partially – or even fully – represented by existing protected areas. To address this issue, we will use the <code><a href="http://prioritizr.github.io/prioritizrdata/reference/wa_data.html" class="external-link">get_wa_locked_in()</a></code> function to import spatial data for protected areas in the study area. We will then add constraints to the <code><a href="reference/problem.html">problem()</a></code> to ensure they are selected by the solution (via <code><a href="reference/add_locked_in_constraints.html">add_locked_in_constraints()</a></code>).</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 96.46465</span></span></code></pre></div>
+<p>Although this solution helps meet the representation targets, it does not account for existing protected areas inside the study area. As such, it does not account for the possibility that some features could be partially – or even fully – represented by existing protected areas and, in turn, might fail to identify meaningful priorities for new protected areas. To address this issue, we will use the <code><a href="http://prioritizr.github.io/prioritizrdata/reference/wa_data.html" class="external-link">get_wa_locked_in()</a></code> function to import spatial data for protected areas in the study area. We will then add constraints to the <code><a href="reference/problem.html">problem()</a></code> to ensure they are selected by the solution (via <code><a href="reference/add_locked_in_constraints.html">add_locked_in_constraints()</a></code>).</p>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># import locked in data</span></span>
 <span><span class="va">wa_locked_in</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://prioritizr.github.io/prioritizrdata/reference/wa_data.html" class="external-link">get_wa_locked_in</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># print data</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">wa_locked_in</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb32"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="do">## class       : SpatRaster </span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="do">## dimensions  : 109, 147, 1  (nrow, ncol, nlyr)</span></span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="do">## resolution  : 4000, 4000  (x, y)</span></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="do">## extent      : -1816382, -1228382, 247483.5, 683483.5  (xmin, xmax, ymin, ymax)</span></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="do">## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs </span></span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="do">## source      : wa_locked_in.tif </span></span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="do">## name        : protected areas </span></span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="do">## min value   :               0 </span></span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="do">## max value   :               1</span></span></code></pre></div>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="do">## class       : SpatRaster </span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="do">## dimensions  : 109, 147, 1  (nrow, ncol, nlyr)</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="do">## resolution  : 4000, 4000  (x, y)</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="do">## extent      : -1816382, -1228382, 247483.5, 683483.5  (xmin, xmax, ymin, ymax)</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="do">## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs </span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="do">## source      : wa_locked_in.tif </span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="do">## name        : protected areas </span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="do">## min value   :               0 </span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="do">## max value   :               1</span></span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot data</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">wa_locked_in</span>, main <span class="op">=</span> <span class="st">"Existing protected areas"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-locked_in_constraints-1.png" width="500" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create new problem with locked in constraints added to it</span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">p1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="reference/add_locked_in_constraints.html">add_locked_in_constraints</a></span><span class="op">(</span><span class="va">wa_locked_in</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># solve the problem</span></span>
-<span><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb35"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Gurobi Optimizer version 10.0.0 build v10.0.0rc2 (linux64)</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="do">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Optimize a model with 397 rows, 11153 columns and 1535510 nonzeros</span></span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Model fingerprint: 0xfb76c9ab</span></span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Variable types: 396 continuous, 10757 integer (10757 binary)</span></span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Coefficient statistics:</span></span>
-<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="do">##   Matrix range     [1e-03, 2e+03]</span></span>
-<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a><span class="do">##   Objective range  [5e-02, 5e-02]</span></span>
-<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a><span class="do">##   Bounds range     [1e+00, 1e+00]</span></span>
-<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a><span class="do">##   RHS range        [2e+01, 9e+03]</span></span>
-<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a><span class="do">## Found heuristic solution: objective 333.7160201</span></span>
-<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a><span class="do">## Found heuristic solution: objective 333.7160193</span></span>
-<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a><span class="do">## Presolve removed 3 rows and 558 columns</span></span>
-<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a><span class="do">## Presolve time: 1.75s</span></span>
-<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a><span class="do">## Presolved: 394 rows, 10595 columns, 1465847 nonzeros</span></span>
-<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a><span class="do">## Variable types: 392 continuous, 10203 integer (10203 binary)</span></span>
-<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a><span class="do">## Found heuristic solution: objective 331.7160193</span></span>
-<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a><span class="do">## Root relaxation presolved: 394 rows, 10595 columns, 1465847 nonzeros</span></span>
-<span id="cb35-22"><a href="#cb35-22" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb35-23"><a href="#cb35-23" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb35-24"><a href="#cb35-24" aria-hidden="true" tabindex="-1"></a><span class="do">## Root relaxation: objective 8.018469e+00, 405 iterations, 0.32 seconds (0.61 work units)</span></span>
-<span id="cb35-25"><a href="#cb35-25" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb35-26"><a href="#cb35-26" aria-hidden="true" tabindex="-1"></a><span class="do">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
-<span id="cb35-27"><a href="#cb35-27" aria-hidden="true" tabindex="-1"></a><span class="do">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
-<span id="cb35-28"><a href="#cb35-28" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb35-29"><a href="#cb35-29" aria-hidden="true" tabindex="-1"></a><span class="do">##      0     0    8.01847    0   37  331.71602    8.01847  97.6%     -    2s</span></span>
-<span id="cb35-30"><a href="#cb35-30" aria-hidden="true" tabindex="-1"></a><span class="do">## H    0     0                       8.7313956    8.01847  8.17%     -    2s</span></span>
-<span id="cb35-31"><a href="#cb35-31" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb35-32"><a href="#cb35-32" aria-hidden="true" tabindex="-1"></a><span class="do">## Cleanup yields a better solution</span></span>
-<span id="cb35-33"><a href="#cb35-33" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb35-34"><a href="#cb35-34" aria-hidden="true" tabindex="-1"></a><span class="do">## Explored 1 nodes (405 simplex iterations) in 2.20 seconds (5.00 work units)</span></span>
-<span id="cb35-35"><a href="#cb35-35" aria-hidden="true" tabindex="-1"></a><span class="do">## Thread count was 1 (of 8 available processors)</span></span>
-<span id="cb35-36"><a href="#cb35-36" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb35-37"><a href="#cb35-37" aria-hidden="true" tabindex="-1"></a><span class="do">## Solution count 4: 8.69101 8.7314 331.716 333.716 </span></span>
-<span id="cb35-38"><a href="#cb35-38" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb35-39"><a href="#cb35-39" aria-hidden="true" tabindex="-1"></a><span class="do">## Optimal solution found (tolerance 1.00e-01)</span></span>
-<span id="cb35-40"><a href="#cb35-40" aria-hidden="true" tabindex="-1"></a><span class="do">## Best objective 8.691006632049e+00, best bound 8.018468564544e+00, gap 7.7383%</span></span></code></pre></div>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># plot the solution</span></span>
+<span><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># plot the solution</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s2</span>, main <span class="op">=</span> <span class="st">"Solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-locked_in_constraints-2.png" width="500" style="display: block; margin: auto;"></p>
-<p>We can also confirm that the solution is improving feature representation. To achieve this, we can compare the percentage of features that have their target met given the existing protected area system to that given the prioritization. Below, we can see that the percentage is much higher given the solution.</p>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># check percentage of the features that have their target met given the solution</span></span>
-<span><span class="va">p2_target_coverage</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/eval_target_coverage_summary.html">eval_target_coverage_summary</a></span><span class="op">(</span><span class="va">p1</span>, <span class="va">s1</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">p2_target_coverage</span><span class="op">$</span><span class="va">met</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb38"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 96.46465</span></span></code></pre></div>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># check percentage of the features that have their target met given the</span></span>
-<span><span class="co"># existing protected area system</span></span>
-<span><span class="va">p0_target_coverage</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/eval_target_coverage_summary.html">eval_target_coverage_summary</a></span><span class="op">(</span><span class="va">p1</span>, <span class="va">wa_locked_in</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">p0_target_coverage</span><span class="op">$</span><span class="va">met</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb40"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.5050505</span></span></code></pre></div>
 <p>This solution is an improvement over the previous solution. However, there are some places in the study area that are not available for protected area establishment (e.g., due to land tenure). As a consequence, the solution might not be practical for implementation, because it might select some places that are not available for protection. To address this issue, we will use the <code><a href="http://prioritizr.github.io/prioritizrdata/reference/wa_data.html" class="external-link">get_wa_locked_out()</a></code> function to import spatial data describing which planning units are not available for protection. We will then add constraints to the <code><a href="reference/problem.html">problem()</a></code> to ensure they are not selected by the solution (via <code><a href="reference/add_locked_out_constraints.html">add_locked_out_constraints()</a></code>).</p>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># import locked out data</span></span>
 <span><span class="va">wa_locked_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://prioritizr.github.io/prioritizrdata/reference/wa_data.html" class="external-link">get_wa_locked_out</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># print data</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">wa_locked_out</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb42"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="do">## class       : SpatRaster </span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="do">## dimensions  : 109, 147, 1  (nrow, ncol, nlyr)</span></span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="do">## resolution  : 4000, 4000  (x, y)</span></span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="do">## extent      : -1816382, -1228382, 247483.5, 683483.5  (xmin, xmax, ymin, ymax)</span></span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="do">## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs </span></span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a><span class="do">## source      : wa_locked_out.tif </span></span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="do">## name        : urban areas </span></span>
-<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a><span class="do">## min value   :           0 </span></span>
-<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a><span class="do">## max value   :           1</span></span></code></pre></div>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="do">## class       : SpatRaster </span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="do">## dimensions  : 109, 147, 1  (nrow, ncol, nlyr)</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="do">## resolution  : 4000, 4000  (x, y)</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="do">## extent      : -1816382, -1228382, 247483.5, 683483.5  (xmin, xmax, ymin, ymax)</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="do">## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs </span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="do">## source      : wa_locked_out.tif </span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="do">## name        : urban areas </span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="do">## min value   :           0 </span></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="do">## max value   :           1</span></span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot data</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">wa_locked_out</span>, main <span class="op">=</span> <span class="st">"Areas not available for protection"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-locked_out_constraints-1.png" width="500" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create new problem with locked out constraints added to it</span></span>
 <span><span class="va">p3</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">p2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="reference/add_locked_out_constraints.html">add_locked_out_constraints</a></span><span class="op">(</span><span class="va">wa_locked_out</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># solve the problem</span></span>
-<span><span class="va">s3</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb45"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Gurobi Optimizer version 10.0.0 build v10.0.0rc2 (linux64)</span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="do">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Optimize a model with 397 rows, 11153 columns and 1535510 nonzeros</span></span>
-<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Model fingerprint: 0xcd0ce6db</span></span>
-<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Variable types: 396 continuous, 10757 integer (10757 binary)</span></span>
-<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Coefficient statistics:</span></span>
-<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a><span class="do">##   Matrix range     [1e-03, 2e+03]</span></span>
-<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a><span class="do">##   Objective range  [5e-02, 5e-02]</span></span>
-<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a><span class="do">##   Bounds range     [1e+00, 1e+00]</span></span>
-<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a><span class="do">##   RHS range        [2e+01, 9e+03]</span></span>
-<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a><span class="do">## Found heuristic solution: objective 333.7160201</span></span>
-<span id="cb45-15"><a href="#cb45-15" aria-hidden="true" tabindex="-1"></a><span class="do">## Found heuristic solution: objective 333.7160193</span></span>
-<span id="cb45-16"><a href="#cb45-16" aria-hidden="true" tabindex="-1"></a><span class="do">## Presolve removed 7 rows and 1961 columns</span></span>
-<span id="cb45-17"><a href="#cb45-17" aria-hidden="true" tabindex="-1"></a><span class="do">## Presolve time: 1.66s</span></span>
-<span id="cb45-18"><a href="#cb45-18" aria-hidden="true" tabindex="-1"></a><span class="do">## Presolved: 390 rows, 9192 columns, 1240981 nonzeros</span></span>
-<span id="cb45-19"><a href="#cb45-19" aria-hidden="true" tabindex="-1"></a><span class="do">## Variable types: 388 continuous, 8804 integer (8804 binary)</span></span>
-<span id="cb45-20"><a href="#cb45-20" aria-hidden="true" tabindex="-1"></a><span class="do">## Found heuristic solution: objective 330.2780131</span></span>
-<span id="cb45-21"><a href="#cb45-21" aria-hidden="true" tabindex="-1"></a><span class="do">## Root relaxation presolved: 390 rows, 9192 columns, 1240981 nonzeros</span></span>
-<span id="cb45-22"><a href="#cb45-22" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb45-23"><a href="#cb45-23" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb45-24"><a href="#cb45-24" aria-hidden="true" tabindex="-1"></a><span class="do">## Root relaxation: objective 1.056277e+01, 329 iterations, 0.23 seconds (0.49 work units)</span></span>
-<span id="cb45-25"><a href="#cb45-25" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb45-26"><a href="#cb45-26" aria-hidden="true" tabindex="-1"></a><span class="do">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
-<span id="cb45-27"><a href="#cb45-27" aria-hidden="true" tabindex="-1"></a><span class="do">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
-<span id="cb45-28"><a href="#cb45-28" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb45-29"><a href="#cb45-29" aria-hidden="true" tabindex="-1"></a><span class="do">##      0     0   10.56277    0   33  330.27801   10.56277  96.8%     -    1s</span></span>
-<span id="cb45-30"><a href="#cb45-30" aria-hidden="true" tabindex="-1"></a><span class="do">## H    0     0                      11.5634004   10.56277  8.65%     -    2s</span></span>
-<span id="cb45-31"><a href="#cb45-31" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb45-32"><a href="#cb45-32" aria-hidden="true" tabindex="-1"></a><span class="do">## Cleanup yields a better solution</span></span>
-<span id="cb45-33"><a href="#cb45-33" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb45-34"><a href="#cb45-34" aria-hidden="true" tabindex="-1"></a><span class="do">## Explored 1 nodes (329 simplex iterations) in 2.01 seconds (4.18 work units)</span></span>
-<span id="cb45-35"><a href="#cb45-35" aria-hidden="true" tabindex="-1"></a><span class="do">## Thread count was 1 (of 8 available processors)</span></span>
-<span id="cb45-36"><a href="#cb45-36" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb45-37"><a href="#cb45-37" aria-hidden="true" tabindex="-1"></a><span class="do">## Solution count 4: 11.3821 11.5634 330.278 333.716 </span></span>
-<span id="cb45-38"><a href="#cb45-38" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb45-39"><a href="#cb45-39" aria-hidden="true" tabindex="-1"></a><span class="do">## Optimal solution found (tolerance 1.00e-01)</span></span>
-<span id="cb45-40"><a href="#cb45-40" aria-hidden="true" tabindex="-1"></a><span class="do">## Best objective 1.138205342098e+01, best bound 1.056277047717e+01, gap 7.1980%</span></span></code></pre></div>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># plot the solution</span></span>
+<span><span class="va">s3</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># plot the solution</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s3</span>, main <span class="op">=</span> <span class="st">"Solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-locked_out_constraints-2.png" width="500" style="display: block; margin: auto;"></p>
 <p>This solution is even better then the previous solution. However, we are not finished yet. The planning units selected by the solution are fairly fragmented. This can cause issues because fragmentation increases management costs and reduces conservation benefits through edge effects. To address this issue, we can further modify the problem by adding penalties that punish overly fragmented solutions (via <code><a href="reference/add_boundary_penalties.html">add_boundary_penalties()</a></code>). Here we will use a penalty factor (i.e., boundary length modifier) of 0.003, and an edge factor of 50% so that planning units that occur on the outer edge of the study area are not overly penalized.</p>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create new problem with boundary penalties added to it</span></span>
 <span><span class="va">p4</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">p3</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="reference/add_boundary_penalties.html">add_boundary_penalties</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">0.001</span>, edge_factor <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="reference/add_boundary_penalties.html">add_boundary_penalties</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">0.003</span>, edge_factor <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># solve the problem</span></span>
-<span><span class="va">s4</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p4</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb48"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Gurobi Optimizer version 10.0.0 build v10.0.0rc2 (linux64)</span></span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="do">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Optimize a model with 42569 rows, 32239 columns and 1619854 nonzeros</span></span>
-<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Model fingerprint: 0x5aa3e86e</span></span>
-<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Variable types: 396 continuous, 31843 integer (31843 binary)</span></span>
-<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Coefficient statistics:</span></span>
-<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a><span class="do">##   Matrix range     [1e-03, 2e+03]</span></span>
-<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a><span class="do">##   Objective range  [5e-02, 2e+01]</span></span>
-<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a><span class="do">##   Bounds range     [1e+00, 1e+00]</span></span>
-<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a><span class="do">##   RHS range        [2e+01, 9e+03]</span></span>
-<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a><span class="do">## Found heuristic solution: objective 2511.7160201</span></span>
-<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a><span class="do">## Found heuristic solution: objective 2511.7160193</span></span>
-<span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a><span class="do">## Presolve removed 8989 rows and 6461 columns</span></span>
-<span id="cb48-17"><a href="#cb48-17" aria-hidden="true" tabindex="-1"></a><span class="do">## Presolve time: 4.86s</span></span>
-<span id="cb48-18"><a href="#cb48-18" aria-hidden="true" tabindex="-1"></a><span class="do">## Presolved: 33580 rows, 25778 columns, 1305846 nonzeros</span></span>
-<span id="cb48-19"><a href="#cb48-19" aria-hidden="true" tabindex="-1"></a><span class="do">## Variable types: 388 continuous, 25390 integer (25390 binary)</span></span>
-<span id="cb48-20"><a href="#cb48-20" aria-hidden="true" tabindex="-1"></a><span class="do">## Found heuristic solution: objective 2367.7159193</span></span>
-<span id="cb48-21"><a href="#cb48-21" aria-hidden="true" tabindex="-1"></a><span class="do">## Root relaxation presolved: 33580 rows, 25778 columns, 1305846 nonzeros</span></span>
-<span id="cb48-22"><a href="#cb48-22" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb48-23"><a href="#cb48-23" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb48-24"><a href="#cb48-24" aria-hidden="true" tabindex="-1"></a><span class="do">## Root simplex log...</span></span>
-<span id="cb48-25"><a href="#cb48-25" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb48-26"><a href="#cb48-26" aria-hidden="true" tabindex="-1"></a><span class="do">## Iteration    Objective       Primal Inf.    Dual Inf.      Time</span></span>
-<span id="cb48-27"><a href="#cb48-27" aria-hidden="true" tabindex="-1"></a><span class="do">##        0   -9.1740427e+01   1.564548e+03   0.000000e+00      6s</span></span>
-<span id="cb48-28"><a href="#cb48-28" aria-hidden="true" tabindex="-1"></a><span class="do">##     5951    6.0110274e+02   1.197542e+06   0.000000e+00     10s</span></span>
-<span id="cb48-29"><a href="#cb48-29" aria-hidden="true" tabindex="-1"></a><span class="do">##     9187    9.0186157e+02   5.812451e+05   0.000000e+00     15s</span></span>
-<span id="cb48-30"><a href="#cb48-30" aria-hidden="true" tabindex="-1"></a><span class="do">##    13907    1.7603123e+03   1.350032e+06   0.000000e+00     20s</span></span>
-<span id="cb48-31"><a href="#cb48-31" aria-hidden="true" tabindex="-1"></a><span class="do">##    17777    1.9509150e+03   3.775711e+03   0.000000e+00     25s</span></span>
-<span id="cb48-32"><a href="#cb48-32" aria-hidden="true" tabindex="-1"></a><span class="do">##    20274    2.0113000e+03   0.000000e+00   0.000000e+00     29s</span></span>
-<span id="cb48-33"><a href="#cb48-33" aria-hidden="true" tabindex="-1"></a><span class="do">##    20274    2.0113000e+03   0.000000e+00   0.000000e+00     29s</span></span>
-<span id="cb48-34"><a href="#cb48-34" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb48-35"><a href="#cb48-35" aria-hidden="true" tabindex="-1"></a><span class="do">## Root relaxation: objective 2.011300e+03, 20274 iterations, 23.94 seconds (80.91 work units)</span></span>
-<span id="cb48-36"><a href="#cb48-36" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb48-37"><a href="#cb48-37" aria-hidden="true" tabindex="-1"></a><span class="do">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
-<span id="cb48-38"><a href="#cb48-38" aria-hidden="true" tabindex="-1"></a><span class="do">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
-<span id="cb48-39"><a href="#cb48-39" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb48-40"><a href="#cb48-40" aria-hidden="true" tabindex="-1"></a><span class="do">##      0     0 2011.29997    0 5152 2367.71592 2011.29997  15.1%     -   29s</span></span>
-<span id="cb48-41"><a href="#cb48-41" aria-hidden="true" tabindex="-1"></a><span class="do">## H    0     0                    2101.6352738 2011.29997  4.30%     -   29s</span></span>
-<span id="cb48-42"><a href="#cb48-42" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb48-43"><a href="#cb48-43" aria-hidden="true" tabindex="-1"></a><span class="do">## Explored 1 nodes (20274 simplex iterations) in 29.65 seconds (92.46 work units)</span></span>
-<span id="cb48-44"><a href="#cb48-44" aria-hidden="true" tabindex="-1"></a><span class="do">## Thread count was 1 (of 8 available processors)</span></span>
-<span id="cb48-45"><a href="#cb48-45" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb48-46"><a href="#cb48-46" aria-hidden="true" tabindex="-1"></a><span class="do">## Solution count 4: 2101.64 2101.64 2367.72 2511.72 </span></span>
-<span id="cb48-47"><a href="#cb48-47" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb48-48"><a href="#cb48-48" aria-hidden="true" tabindex="-1"></a><span class="do">## Optimal solution found (tolerance 1.00e-01)</span></span>
-<span id="cb48-49"><a href="#cb48-49" aria-hidden="true" tabindex="-1"></a><span class="do">## Best objective 2.101635242801e+03, best bound 2.011299965454e+03, gap 4.2983%</span></span></code></pre></div>
-<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># plot the solution</span></span>
+<span><span class="va">s4</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p4</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># plot the solution</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s4</span>, main <span class="op">=</span> <span class="st">"Solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-boundary_penalties-1.png" width="500" style="display: block; margin: auto;"></p>
 <p>Now, let’s explore which planning units selected by the solution are most important for cost-effectively meeting the targets. To achieve this, we will calculate importance (irreplaceability) scores using the Ferrier method. Although this method produces scores for each feature separately, we will examine the total scores that summarize overall importance across all features.</p>
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate importance scores</span></span>
 <span><span class="va">rc</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">p4</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -588,20 +408,20 @@
 <span></span>
 <span><span class="co"># print scores</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">rc</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb51"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="do">## class       : SpatRaster </span></span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="do">## dimensions  : 109, 147, 397  (nrow, ncol, nlyr)</span></span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="do">## resolution  : 4000, 4000  (x, y)</span></span>
-<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="do">## extent      : -1816382, -1228382, 247483.5, 683483.5  (xmin, xmax, ymin, ymax)</span></span>
-<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a><span class="do">## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs </span></span>
-<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a><span class="do">## source(s)   : memory</span></span>
-<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a><span class="do">## varnames    : wa_pu </span></span>
-<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a><span class="do">##               wa_pu </span></span>
-<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a><span class="do">##               wa_pu </span></span>
-<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a><span class="do">##               ...</span></span>
-<span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a><span class="do">## names       :  Recur~ding),  Botau~ding),  Botau~ding),  Corvu~ding),  Corvu~ding),  Cincl~full), ... </span></span>
-<span id="cb51-12"><a href="#cb51-12" aria-hidden="true" tabindex="-1"></a><span class="do">## min values  : 0.0000000000, 0.0000000000, 0.0000000000, 0.000000e+00, 0.000000e+00, 0.000000e+00, ... </span></span>
-<span id="cb51-13"><a href="#cb51-13" aria-hidden="true" tabindex="-1"></a><span class="do">## max values  : 0.0002938255, 0.0002174687, 0.0005957507, 7.268342e-05, 8.226956e-05, 7.940287e-05, ...</span></span></code></pre></div>
-<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb39"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="do">## class       : SpatRaster </span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="do">## dimensions  : 109, 147, 397  (nrow, ncol, nlyr)</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="do">## resolution  : 4000, 4000  (x, y)</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="do">## extent      : -1816382, -1228382, 247483.5, 683483.5  (xmin, xmax, ymin, ymax)</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="do">## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs </span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="do">## source(s)   : memory</span></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a><span class="do">## varnames    : wa_pu </span></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a><span class="do">##               wa_pu </span></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a><span class="do">##               wa_pu </span></span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a><span class="do">##               ...</span></span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a><span class="do">## names       :  Recur~ding),  Botau~ding),  Botau~ding),  Corvu~ding),  Corvu~ding),  Cincl~full), ... </span></span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a><span class="do">## min values  : 0.0000000000, 0.0000000000, 0.0000000000, 0.000000e+00, 0.000000e+00, 0.000000e+00, ... </span></span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a><span class="do">## max values  : 0.0003227724, 0.0002213034, 0.0006622152, 7.771815e-05, 8.974447e-05, 8.483296e-05, ...</span></span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot the total importance scores</span></span>
 <span><span class="co">## note that gray cells are not selected by the prioritization</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span></span>
