@@ -10,8 +10,8 @@ test_that("loglinear_interpolation", {
 })
 
 test_that("invalid inputs", {
-  expect_tidy_error(loglinear_interpolate(seq_len(100), NA, 100, 900, 15))
-  expect_tidy_error(loglinear_interpolate(seq_len(100), 200, NA, 900, 15))
-  expect_tidy_error(loglinear_interpolate(seq_len(100), 200, 100, NA, 15))
-  expect_tidy_error(loglinear_interpolate(seq_len(100), 200, 100, 900, NA))
+  expect_tidy_error(loglinear_interpolation(seq_len(100), NA, 100, 900, 15))
+  expect_tidy_error(loglinear_interpolation(seq_len(100), 200, NA, 900, 15))
+  expect_tidy_error(loglinear_interpolation(seq_len(100), 200, 100, NA, 15))
+  expect_tidy_error(loglinear_interpolation(seq_len(100), 200, 100, 900, NA))
 })

@@ -1046,8 +1046,7 @@ test_that("invalid problem inputs (invalid input class)", {
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
   # tests
-  expect_tidy_error(problem(1, sim_features))
-  expect_tidy_error(problem(sim_pu_polygons, sim_pu_polygons, "cost"))
+  expect_tidy_error(problem("a", sim_features))
   expect_tidy_error(problem(c(sim_pu_raster, sim_pu_raster), sim_features))
 })
 

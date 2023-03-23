@@ -22,7 +22,7 @@ assertthat::on_failure(any_nonNA) <- function(call, env) {
 }
 
 any_nonNA.default <- function(x, what) {
-  stop("{.arg x} is not a recognized class.")
+  cli::cli_abort("{.arg x} is not a recognized class.")
 }
 
 .S3method("any_nonNA", "default", any_nonNA.default)

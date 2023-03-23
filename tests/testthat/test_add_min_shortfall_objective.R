@@ -169,23 +169,15 @@ test_that("invalid inputs (single zone)", {
   # tests
   expect_tidy_error(
     problem(sim_pu_raster, sim_features) %>%
-      add_min_shortfall_objective(budget = -5) %>%
-      add_absolute_targets(targ)
+      add_min_shortfall_objective(budget = -5)
   )
   expect_tidy_error(
     problem(sim_pu_raster, sim_features) %>%
-      add_min_shortfall_objective(budget = 0) %>%
-      add_absolute_targets(targ)
+      add_min_shortfall_objective(budget = NA)
   )
   expect_tidy_error(
     problem(sim_pu_raster, sim_features) %>%
-      add_min_shortfall_objective(budget = NA) %>%
-      add_absolute_targets(targ)
-  )
-  expect_tidy_error(
-    problem(sim_pu_raster, sim_features) %>%
-      add_min_shortfall_objective(budget = Inf) %>%
-      add_absolute_targets(targ)
+      add_min_shortfall_objective(budget = Inf)
   )
   expect_tidy_error(
     problem(sim_pu_raster, sim_pu_raster) %>%

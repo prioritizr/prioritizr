@@ -31,51 +31,75 @@ expect_tidy_error <- function(object, regexp = NULL, name = NA) {
   err_msg <- as.character(act$cap)
   err_msg <- cli::ansi_strip(err_msg)
 
+  # assert that error message contains a ! character
+  if (!any(grepl("!", err_msg, fixed = TRUE))) {
+    testthat::expect(
+      FALSE,
+      trace = act$cap[["trace"]],
+      failure_message = "Error message not generated with `cli::cli_abort()`."
+    )
+    return(invisible(act$val %||% act$cap))
+  }
+
   # assert that error message refers to a function
   if (!is.null(name)) {
+    if (
+      any(grepl(":", err_msg, fixed = TRUE)) &&
+      any(grepl("Error:", err_msg, fixed = TRUE))
+    )
     testthat::expect(
-      any(grepl(":", err_msg, fixed = TRUE)),
+      FALSE,
       trace = act$cap[["trace"]],
       failure_message = "Error message does not refer to a function."
     )
-    testthat::expect(
-      !any(grepl("Error:", err_msg, fixed = TRUE)),
-      trace = act$cap[["trace"]],
-      failure_message = "Error message does not refer to a function."
-    )
+    return(invisible(act$val %||% act$cap))
   }
+
   # assert error contains function name
   if (!is.null(name) && !is.na(name)) {
-    testthat::expect(
-      any(
-          grepl(
+    if (
+      !any(
+        grepl(
           name,
           strsplit(err_msg, ":", fixed = TRUE)[[1]][[1]],
           fixed = TRUE
         )
-      ),
-      trace = act$cap[["trace"]],
-      failure_message = paste0(
-        "Error message does not contain function name \"", name, "\"."
       )
-    )
+    ) {
+      testthat::expect(
+        FALSE,
+        trace = act$cap[["trace"]],
+        failure_message = paste0(
+          "Error message does not contain function name \"", name, "\"."
+        )
+      )
+      return(invisible(act$val %||% act$cap))
+    }
   }
+
   # assert error message doesn't contain words that suggest incorrect
   # error message handling
-  testthat::expect(
-    (!grepl(".local", err_msg, fixed = TRUE)) &
-      (!grepl("eval(assertion, env)", err_msg, fixed = TRUE)) &
-      (!grepl("assert_that", err_msg, fixed = TRUE)) &
-      (!grepl("Could not evaluate", err_msg, fixed = TRUE)) &
-      (!grepl("Error in glue", err_msg, fixed = TRUE)),
-    trace = act$cap[["trace"]],
-    failure_message = "Failed to parse error message."
-  )
-  testthat::expect(
-    !grepl("internal", err_msg, fixed = TRUE),
-    trace = act$cap[["trace"]],
-    failure_message = "Error message refers to internal function."
-  )
+  if (
+    grepl(".local", err_msg, fixed = TRUE) ||
+      grepl("eval(assertion, env)", err_msg, fixed = TRUE) ||
+      grepl("assert_that", err_msg, fixed = TRUE) ||
+      grepl("Could not evaluate", err_msg, fixed = TRUE) ||
+      grepl("Error in glue", err_msg, fixed = TRUE)
+  ) {
+    testthat::expect(
+      FALSE,
+      trace = act$cap[["trace"]],
+      failure_message = "Failed to parse error message."
+    )
+    return(invisible(act$val %||% act$cap))
+  }
+  if (grepl("internal", err_msg, fixed = TRUE)) {
+    testthat::expect(
+      FALSE,
+      trace = act$cap[["trace"]],
+      failure_message = "Error message refers to internal function."
+    )
+  }
 
   # return result
   invisible(act$val %||% act$cap)

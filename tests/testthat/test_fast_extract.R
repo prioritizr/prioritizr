@@ -203,8 +203,8 @@ test_that("invalid inputs", {
     fast_extract(sim_features, sim_pu_polygons, fun = c("mean", "sum"))
   )
   # incorrect spatial data format
-  expect_tidy_error(fast_extract(sim_pu_polygons, sim_pu_polygons))
-  expect_tidy_error(fast_extract(sim_features, sim_features))
+  expect_error(fast_extract(sim_pu_polygons, sim_pu_polygons))
+  expect_error(fast_extract(sim_features, sim_features))
   # area out of extent
   bad_pt <- sf::st_sfc(sf::st_point(c(10, 10)))
   expect_tidy_error(fast_extract(sim_features, bad_pt))

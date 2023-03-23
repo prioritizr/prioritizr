@@ -242,10 +242,18 @@ test_that("invalid inputs (single zone)", {
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%
     add_binary_decisions()
-  expect_tidy_error(add_asym_connectivity_penalties(p, NA_real_, data = c_data))
-  expect_tidy_error(add_asym_connectivity_penalties(p, 1, 0, data = c_data))
-  expect_tidy_error(add_asym_connectivity_penalties(p, 5, data = c_data[, -1]))
-  expect_tidy_error(add_asym_connectivity_penalties(p, 5, data = c_data[-1, ]))
+  expect_tidy_error(
+    add_asym_connectivity_penalties(p, NA_real_, data = c_matrix)
+  )
+  expect_tidy_error(
+    add_asym_connectivity_penalties(p, 1, 0, data = c_matrix)
+  )
+  expect_tidy_error(
+    add_asym_connectivity_penalties(p, 5, data = c_matrix[, -1])
+  )
+  expect_tidy_error(
+    add_asym_connectivity_penalties(p, 5, data = c_matrix[-1, ])
+  )
   c_matrix2 <- boundary_matrix(sim_pu_raster)
   expect_warning(add_asym_connectivity_penalties(p, 5, data = c_matrix2))
 })

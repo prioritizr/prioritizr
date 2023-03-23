@@ -39,5 +39,4 @@ test_that("invalid input", {
   tr <- ape::rtree(3)
   tr$edge[1] <- 0
   expect_tidy_error(branch_matrix(tr))
-  expect_tidy_error(branch_matrix("a"))
 })

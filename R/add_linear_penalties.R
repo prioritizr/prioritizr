@@ -258,7 +258,7 @@ methods::setMethod("add_linear_penalties",
       is_inherits(x$data$cost, c("matrix", "data.frame", "sf", "Spatial")),
       msg = paste(
         "The planning unit data for {.arg x} does not have columns,",
-        "and so {.arg data} cannot be a character value.",
+        "and so {.arg data} cannot be a character value."
       )
     )
     assert(

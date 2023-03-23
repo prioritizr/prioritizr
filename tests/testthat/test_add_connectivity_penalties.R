@@ -115,10 +115,10 @@ test_that("invalid inputs (single zone)", {
     add_relative_targets(0.1) %>%
     add_binary_decisions()
   # tests
-  expect_tidy_error(add_connectivity_penalties(p, NA_real_, data = c_data))
-  expect_tidy_error(add_connectivity_penalties(p, 1, 0, data = c_data))
-  expect_tidy_error(add_connectivity_penalties(p, 5, data = c_data[, -1]))
-  expect_tidy_error(add_connectivity_penalties(p, 5, data = c_data[-1, ]))
+  expect_tidy_error(add_connectivity_penalties(p, NA_real_, data = c_matrix))
+  expect_tidy_error(add_connectivity_penalties(p, 1, 0, data = c_matrix))
+  expect_tidy_error(add_connectivity_penalties(p, 5, data = c_matrix[, -1]))
+  expect_tidy_error(add_connectivity_penalties(p, 5, data = c_matrix[-1, ]))
   ac_data <- matrix(
     runif(terra::ncell(sim_pu_raster) ^ 2),
     ncol = terra::ncell(sim_pu_raster)

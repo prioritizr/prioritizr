@@ -364,6 +364,22 @@ test_that("numerical instability (error when force = FALSE)", {
   )
 })
 
+test_that("infeasibility (error when force = FALSE)", {
+  # import data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  # create problem
+  p <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.99) %>%
+    add_linear_constraints(0, "<=", sim_pu_raster) %>%
+    add_binary_decisions() %>%
+    add_default_solver(verbose = FALSE)
+  # tests
+  expect_tidy_error(solve(p))
+})
+
 test_that("numerical instability (solution when force = TRUE)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()

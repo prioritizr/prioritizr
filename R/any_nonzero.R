@@ -17,7 +17,7 @@ assertthat::on_failure(any_nonzero) <- function(call, env) {
 }
 
 any_nonzero.default <- function(x) {
-  stop("{.arg x} is not a recognized class.")
+  cli::cli_abort("{.arg x} is not a recognized class.")
 }
 
 .S3method("any_nonzero", "default", any_nonzero.default)

@@ -200,6 +200,9 @@ test_that("solve (expanded formulation, single zone)", {
 })
 
 test_that("invalid inputs (single zone)", {
+  # load data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   # check that invalid arguments result in errors
   expect_tidy_error({
     problem(sim_pu_raster, sim_features) %>%

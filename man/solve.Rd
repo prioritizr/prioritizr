@@ -2,10 +2,10 @@
 % Please edit documentation in R/solve.R
 \name{solve}
 \alias{solve}
-\alias{solve,ConservationProblem,missing-method}
+\alias{solve.ConservationProblem}
 \title{Solve}
 \usage{
-\S4method{solve}{ConservationProblem,missing}(a, b, ..., run_checks = TRUE, force = FALSE)
+\method{solve}{ConservationProblem}(a, b, ..., run_checks = TRUE, force = FALSE)
 }
 \arguments{
 \item{a}{\code{\link[=problem]{problem()}} object.}

@@ -29,7 +29,7 @@ test_that("logical (compile, single zone)", {
   expect_tidy_error(
     p %>%
     add_locked_out_constraints(
-      c(TRUE, NA_logical, rep(FALSE, terra::ncell(sim_pu_raster) - 2))
+      c(TRUE, NA, rep(FALSE, terra::ncell(sim_pu_raster) - 2))
     )
   )
 })

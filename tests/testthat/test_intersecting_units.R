@@ -23,7 +23,8 @@ test_that("x = sf, y = sf", {
   y_crs <- y
   suppressWarnings(sf::st_crs(y_crs) <- sf::st_crs(4326))
   expect_tidy_error(intersecting_units(x, y_crs))
-  expect_tidy_error(intersecting_units(x[1:5, ], x[50:55, ]))
+  expect_tidy_error(intersecting_units(x[1:2, ], x[9:10, ]))
+  expect_tidy_error(intersecting_units(x[1:2, ], x[100:110, ]))
 })
 
 test_that("x = SpatRaster, y = sf", {

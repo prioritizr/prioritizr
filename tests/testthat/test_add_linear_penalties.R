@@ -532,6 +532,8 @@ test_that("invalid inputs", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
+  sim_pu_polygons <- get_sim_pu_polygons()
+  # tests
   expect_tidy_error({
     problem(sim_pu_raster, sim_features) %>%
     add_linear_penalties(NA_real_, sim_features[[1]])

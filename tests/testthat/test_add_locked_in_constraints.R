@@ -73,7 +73,7 @@ test_that("logical (compile, single zone)", {
   expect_tidy_error(
     add_locked_in_constraints(
       p,
-      c(TRUE, NA_logical, rep(FALSE, terra::ncell(sim_pu_raster) - 2))
+      c(TRUE, NA, rep(FALSE, terra::ncell(sim_pu_raster) - 2))
     )
   )
 })
@@ -417,7 +417,7 @@ test_that("raster (compile, single zone)", {
   # check that invalid inputs throw errors
   expect_tidy_error({
     sim_locked_in_raster <- get_sim_locked_in_raster()
-    extent(sim_locked_in_raster) <- c(0, 20, 0, 20)
+    terra::ext(sim_locked_in_raster) <- c(0, 20, 0, 20)
     problem(sim_pu_raster, sim_features) %>%
       add_min_set_objective() %>%
       add_relative_targets(0.1) %>%

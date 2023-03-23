@@ -13,6 +13,7 @@ NULL
 #'
 #' @noRd
 is_spatial_extents_overlap <- function(x, y) {
+  # initial checks
   assert(
     is_inherits(x, c(
       "SpatRaster", "Raster", "Spatial", "sf",
@@ -23,12 +24,27 @@ is_spatial_extents_overlap <- function(x, y) {
       "ZonesRaster", "ZonesSpatRaster"
     ))
   )
+  # if needed, convert data
   if (inherits(x, c("ZonesRaster", "ZonesSpatRaster"))) x <- x[[1]]
   if (inherits(y, c("ZonesRaster", "ZonesSpatRaster"))) y <- y[[1]]
   if (inherits(x, "Raster")) x <- terra::rast(x)
   if (inherits(y, "Raster")) y <- terra::rast(y)
   if (inherits(x, "Spatial")) x <- terra::vect(sf::st_as_sf(x))
   if (inherits(y, "Spatial")) y <- terra::vect(sf::st_as_sf(y))
+  # if sf object, then check for empty geometries
+  if (inherits(x, "sf")) {
+    assert(
+      !all(sf::st_is_empty(sf::st_geometry(x))),
+      msg = "{.arg x} must contain at least one non-empty geometry."
+    )
+  }
+  if (inherits(y, "sf")) {
+    assert(
+      !all(sf::st_is_empty(sf::st_geometry(y))),
+      msg = "{.arg y} must contain at least one non-empty geometry."
+    )
+  }
+  # find overlaping indices
   x <- sf::st_as_sf(terra::as.polygons(terra::ext(x)))
   y <- sf::st_as_sf(terra::as.polygons(terra::ext(y)))
   isTRUE(
