@@ -14,7 +14,7 @@ NULL
 NULL
 
 get_crs <- function(x) {
-  rlang::check_required(x)
+  assert_required(x)
   UseMethod("get_crs")
 }
 

@@ -43,7 +43,7 @@ NULL
 #' }
 #' @export
 simulate_data <- function(x, n, scale, intensity, sd, transform) {
-  rlang::check_required(x)
+  assert_required(x)
   assert(is_inherits(x, c("SpatRaster", "Raster")))
   UseMethod("simulate_data")
 }
@@ -137,7 +137,7 @@ simulate_data.SpatRaster <- function(x, n = 1, scale = 0.5, intensity = 0,
 #'
 #' @export
 simulate_species <- function(x, n, scale) {
-  rlang::check_required(x)
+  assert_required(x)
   assert(is_inherits(x, c("SpatRaster", "Raster")))
   UseMethod("simulate_species")
 }
@@ -206,7 +206,7 @@ simulate_species.SpatRaster <- function(x, n = 1, scale = 0.5) {
 #'
 #' @export
 simulate_cost <- function(x, n, intensity, sd, scale) {
-  rlang::check_required(x)
+  assert_required(x)
   assert(is_inherits(x, c("SpatRaster", "Raster")))
   UseMethod("simulate_cost")
 }

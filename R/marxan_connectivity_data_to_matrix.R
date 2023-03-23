@@ -79,9 +79,9 @@ NULL
 #' }
 #' @export
 marxan_connectivity_data_to_matrix <- function(x, data, symmetric = TRUE) {
-  rlang::check_required(x)
-  rlang::check_required(data)
-  rlang::check_required(symmetric)
+  assert_required(x)
+  assert_required(data)
+  assert_required(symmetric)
   internal_marxan_connectivity_data_to_matrix(x, data, symmetric)
 }
 

@@ -37,6 +37,8 @@ NULL
 #' }
 #' @export
 number_of_planning_units <- function(x, ...) {
+  assert_required(x)
+  rlang::check_dots_empty()
   UseMethod("number_of_planning_units")
 }
 
@@ -44,8 +46,6 @@ number_of_planning_units <- function(x, ...) {
 #'
 #' @export
 number_of_planning_units.ConservationProblem <- function(x, ...) {
-  rlang::check_required(x)
-  rlang::check_dots_empty()
   x$number_of_planning_units()
 }
 
@@ -53,7 +53,5 @@ number_of_planning_units.ConservationProblem <- function(x, ...) {
 #'
 #' @export
 number_of_planning_units.OptimizationProblem <- function(x, ...) {
-  rlang::check_required(x)
-  rlang::check_dots_empty()
   x$number_of_planning_units()
 }

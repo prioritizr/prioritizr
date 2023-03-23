@@ -127,8 +127,8 @@ NULL
 #' @export
 add_max_features_objective <- function(x, budget) {
   # assert arguments are valid
-  rlang::check_required(x)
-  rlang::check_required(budget)
+  assert_required(x)
+  assert_required(budget)
   assert(
     is_conservation_problem(x),
     is.numeric(budget),

@@ -117,14 +117,14 @@ add_loglinear_targets <- function(x, lower_bound_amount, lower_bound_target,
   upper_bound_amount, upper_bound_target, cap_amount = NULL, cap_target = NULL,
   abundances = feature_abundances(x, na.rm = FALSE)$absolute_abundance) {
   # assert that arguments are valid
-  rlang::check_required(x)
-  rlang::check_required(lower_bound_amount)
-  rlang::check_required(lower_bound_target)
-  rlang::check_required(upper_bound_amount)
-  rlang::check_required(upper_bound_target)
-  rlang::check_required(cap_amount)
-  rlang::check_required(cap_target)
-  rlang::check_required(abundances)
+  assert_required(x)
+  assert_required(lower_bound_amount)
+  assert_required(lower_bound_target)
+  assert_required(upper_bound_amount)
+  assert_required(upper_bound_target)
+  assert_required(cap_amount)
+  assert_required(cap_target)
+  assert_required(abundances)
   assert(
     is_conservation_problem(x),
     x$number_of_zones() == 1,

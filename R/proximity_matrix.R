@@ -83,8 +83,8 @@ NULL
 #' }
 #' @export
 proximity_matrix <- function(x, distance) {
-  rlang::check_required(x)
-  rlang::check_required(distance)
+  assert_required(x)
+  assert_required(distance)
   UseMethod("proximity_matrix")
 }
 

@@ -38,7 +38,7 @@ feature_names <- function(x, ...) {
 #'
 #' @export
 feature_names.ConservationProblem <- function(x, ...) {
-  rlang::check_required(x)
+  assert_required(x)
   rlang::check_dots_empty()
   x$feature_names()
 }
@@ -47,7 +47,7 @@ feature_names.ConservationProblem <- function(x, ...) {
 #'
 #' @export
 feature_names.ZonesRaster <- function(x, ...) {
-  rlang::check_required(x)
+  assert_required(x)
   rlang::check_dots_empty()
   attr(x, "feature_names")
 }
@@ -56,7 +56,7 @@ feature_names.ZonesRaster <- function(x, ...) {
 #'
 #' @export
 feature_names.ZonesSpatRaster <- function(x, ...) {
-  rlang::check_required(x)
+  assert_required(x)
   rlang::check_dots_empty()
   attr(x, "feature_names")
 }
@@ -65,7 +65,7 @@ feature_names.ZonesSpatRaster <- function(x, ...) {
 #'
 #' @export
 feature_names.ZonesCharacter <- function(x, ...) {
-  rlang::check_required(x)
+  assert_required(x)
   rlang::check_dots_empty()
   attr(x, "feature_names")
 }

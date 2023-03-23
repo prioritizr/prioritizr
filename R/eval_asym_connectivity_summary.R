@@ -157,10 +157,10 @@ NULL
 methods::setGeneric("eval_asym_connectivity_summary",
   signature = methods::signature("x", "solution", "zones", "data"),
   function(x, solution, zones = diag(number_of_zones(x)), data) {
-    rlang::check_required(x)
-    rlang::check_required(solution)
-    rlang::check_required(zones)
-    rlang::check_required(data)
+    assert_required(x)
+    assert_required(solution)
+    assert_required(zones)
+    assert_required(data)
     assert(
       is_conservation_problem(x),
       is_inherits(

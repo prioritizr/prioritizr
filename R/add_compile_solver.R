@@ -41,7 +41,7 @@ NULL
 #' @noRd
 add_compile_solver <- function(x, ...) {
   # assert that arguments are valid (except start_solution)
-  rlang::check_required(x)
+  assert_required(x)
   assert(is_conservation_problem(x))
   # add solver
   x$add_solver(

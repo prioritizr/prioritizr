@@ -40,8 +40,8 @@ NULL
 #' }
 #' @export
 marxan_boundary_data_to_matrix <- function(x, data) {
-  rlang::check_required(x)
-  rlang::check_required(data)
+  assert_required(x)
+  assert_required(data)
   internal_marxan_boundary_data_to_matrix(x, data)
 }
 

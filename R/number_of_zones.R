@@ -31,14 +31,16 @@ NULL
 #' print(number_of_zones(p))
 #' }
 #' @export
-number_of_zones <- function(x, ...) UseMethod("number_of_zones")
+number_of_zones <- function(x, ...) {
+  assert_required(x)
+  rlang::check_dots_empty()
+  UseMethod("number_of_zones")
+}
 
 #' @rdname number_of_zones
 #'
 #' @export
 number_of_zones.ConservationProblem <- function(x, ...) {
-  rlang::check_required(x)
-  rlang::check_dots_empty()
   x$number_of_zones()
 }
 
@@ -46,8 +48,6 @@ number_of_zones.ConservationProblem <- function(x, ...) {
 #'
 #' @export
 number_of_zones.OptimizationProblem <- function(x, ...) {
-  rlang::check_required(x)
-  rlang::check_dots_empty()
   x$number_of_zones()
 }
 
@@ -55,8 +55,6 @@ number_of_zones.OptimizationProblem <- function(x, ...) {
 #'
 #' @export
 number_of_zones.ZonesRaster <- function(x, ...) {
-  rlang::check_required(x)
-  rlang::check_dots_empty()
   length(x)
 }
 
@@ -64,8 +62,6 @@ number_of_zones.ZonesRaster <- function(x, ...) {
 #'
 #' @export
 number_of_zones.ZonesSpatRaster <- function(x, ...) {
-  rlang::check_required(x)
-  rlang::check_dots_empty()
   length(x)
 }
 
@@ -73,7 +69,5 @@ number_of_zones.ZonesSpatRaster <- function(x, ...) {
 #'
 #' @export
 number_of_zones.ZonesCharacter <- function(x, ...) {
-  rlang::check_required(x)
-  rlang::check_dots_empty()
   length(x)
 }

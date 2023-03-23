@@ -81,7 +81,7 @@ NULL
 #' }
 #' @export
 run_calculations <- function(x) {
-  rlang::check_required(x)
+  assert_required(x)
   assert(is_conservation_problem(x))
   if (!is.Waiver(x$decisions))
     x$decisions$calculate(x)

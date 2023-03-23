@@ -109,8 +109,8 @@ methods::setGeneric(
   "add_relative_targets",
   signature = methods::signature("x", "targets"),
   function(x, targets) {
-    rlang::check_required(x)
-    rlang::check_required(targets)
+    assert_required(x)
+    assert_required(targets)
     assert(
       is_conservation_problem(x),
       is_inherits(targets, c("numeric", "matrix", "character"))

@@ -136,8 +136,8 @@ NULL
 #' @export
 eval_n_summary <- function(x, solution) {
   # assert arguments are valid
-  rlang::check_required(x)
-  rlang::check_required(solution)
+  assert_required(x)
+  assert_required(solution)
   assert(is_conservation_problem(x))
   # convert solution to status matrix format
   solution <- planning_unit_solution_status(x, solution)

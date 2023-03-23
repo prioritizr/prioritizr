@@ -223,8 +223,8 @@ NULL
 #' @export
 add_max_phylo_end_objective <- function(x, budget, tree) {
   # assert arguments are valid
-  rlang::check_required(x)
-  rlang::check_required(budget)
+  assert_required(x)
+  assert_required(budget)
   assert(
     is_conservation_problem(x),
     is.numeric(budget),

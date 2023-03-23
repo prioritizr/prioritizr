@@ -41,7 +41,7 @@ NULL
 #' }
 #' @export
 category_layer <- function(x) {
-  rlang::check_required(x)
+  assert_required(x)
   UseMethod("category_layer")
 }
 

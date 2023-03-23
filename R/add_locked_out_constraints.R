@@ -185,8 +185,8 @@ methods::setGeneric(
   "add_locked_out_constraints",
   signature = methods::signature("x", "locked_out"),
   function(x, locked_out) {
-    rlang::check_required(x)
-    rlang::check_required(locked_out)
+    assert_required(x)
+    assert_required(locked_out)
     assert(
       is_conservation_problem(x),
       is_inherits(

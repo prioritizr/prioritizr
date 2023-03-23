@@ -80,8 +80,8 @@ methods::setGeneric(
   "rij_matrix",
   signature = methods::signature("x", "y"),
   function(x, y, ...) {
-    rlang::check_required(x)
-    rlang::check_required(y)
+    assert_required(x)
+    assert_required(y)
     assert(
       is_inherits(x, c("sf", "SpatRaster", "Spatial", "Raster")),
       is_inherits(y, c("sf", "SpatRaster", "Spatial", "Raster"))

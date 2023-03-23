@@ -37,7 +37,7 @@ zone_names <- function(x, ...) UseMethod("zone_names")
 #'
 #' @export
 zone_names.ConservationProblem <- function(x, ...) {
-  rlang::check_required(x)
+  assert_required(x)
   rlang::check_dots_empty()
   x$zone_names()
 }
@@ -46,7 +46,7 @@ zone_names.ConservationProblem <- function(x, ...) {
 #'
 #' @export
 zone_names.ZonesRaster <- function(x, ...) {
-  rlang::check_required(x)
+  assert_required(x)
   rlang::check_dots_empty()
   attr(x, "zone_names")
 }
@@ -55,7 +55,7 @@ zone_names.ZonesRaster <- function(x, ...) {
 #'
 #' @export
 zone_names.ZonesSpatRaster <- function(x, ...) {
-  rlang::check_required(x)
+  assert_required(x)
   rlang::check_dots_empty()
   attr(x, "zone_names")
 }
@@ -64,7 +64,7 @@ zone_names.ZonesSpatRaster <- function(x, ...) {
 #'
 #' @export
 zone_names.ZonesCharacter <- function(x, ...) {
-  rlang::check_required(x)
+  assert_required(x)
   rlang::check_dots_empty()
   attr(x, "zone_names")
 }

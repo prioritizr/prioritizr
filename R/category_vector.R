@@ -34,7 +34,7 @@ NULL
 #'
 #' @export
 category_vector <- function(x) {
-  rlang::check_required(x)
+  assert_required(x)
   UseMethod("category_vector")
 }
 

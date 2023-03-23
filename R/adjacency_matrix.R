@@ -79,8 +79,8 @@ adjacency_matrix <- function(x, ...) UseMethod("adjacency_matrix")
 #' @method adjacency_matrix Raster
 #' @export
 adjacency_matrix.Raster <- function(x, directions = 4, ...) {
-  rlang::check_required(x)
-  rlang::check_required(directions)
+  assert_required(x)
+  assert_required(directions)
   assert_dots_empty()
   assert(inherits(x, "Raster"))
   cli_warning(raster_pkg_deprecation_notice)
@@ -91,8 +91,8 @@ adjacency_matrix.Raster <- function(x, directions = 4, ...) {
 #' @method adjacency_matrix SpatRaster
 #' @export
 adjacency_matrix.SpatRaster <- function(x, directions = 4, ...) {
-  rlang::check_required(x)
-  rlang::check_required(directions)
+  assert_required(x)
+  assert_required(directions)
   assert_dots_empty()
   assert(
     inherits(x, "SpatRaster"),
@@ -126,7 +126,7 @@ adjacency_matrix.SpatRaster <- function(x, directions = 4, ...) {
 #' @method adjacency_matrix SpatialPolygons
 #' @export
 adjacency_matrix.SpatialPolygons <- function(x, ...) {
-  rlang::check_required(x)
+  assert_required(x)
   assert_dots_empty()
   cli_warning(sp_pkg_deprecation_notice)
   adjacency_matrix(sf::st_as_sf(x), ...)
@@ -136,7 +136,7 @@ adjacency_matrix.SpatialPolygons <- function(x, ...) {
 #' @method adjacency_matrix SpatialLines
 #' @export
 adjacency_matrix.SpatialLines <- function(x,  ...) {
-  rlang::check_required(x)
+  assert_required(x)
   assert_dots_empty()
   cli_warning(sp_pkg_deprecation_notice)
   adjacency_matrix(sf::st_as_sf(x), ...)
@@ -146,7 +146,7 @@ adjacency_matrix.SpatialLines <- function(x,  ...) {
 #' @method adjacency_matrix SpatialPoints
 #' @export
 adjacency_matrix.SpatialPoints <- function(x, ...) {
-  rlang::check_required(x)
+  assert_required(x)
   assert_dots_empty()
   cli_warning(sp_pkg_deprecation_notice)
   adjacency_matrix(sf::st_as_sf(x), ...)
@@ -157,7 +157,7 @@ adjacency_matrix.SpatialPoints <- function(x, ...) {
 #' @export
 adjacency_matrix.sf <- function(x, ...) {
   # assert valid arguments
-  rlang::check_required(x)
+  assert_required(x)
   assert_dots_empty()
   assert(inherits(x, "sf"), is_valid_geometries(x))
   # verify that geometry types are supported

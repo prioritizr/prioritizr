@@ -117,8 +117,8 @@ NULL
 #' @exportMethod eval_ferrier_importance
 methods::setGeneric("eval_ferrier_importance",
   function(x, solution) {
-    rlang::check_required(x)
-    rlang::check_required(solution)
+    assert_required(x)
+    assert_required(solution)
     assert(
       is_conservation_problem(x),
       is_inherits(

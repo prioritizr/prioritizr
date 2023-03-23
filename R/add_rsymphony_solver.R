@@ -73,11 +73,11 @@ add_rsymphony_solver <- function(x, gap = 0.1,
                                  first_feasible = FALSE,
                                  verbose = TRUE) {
   # assert that arguments are valid
-  rlang::check_required(x)
-  rlang::check_required(gap)
-  rlang::check_required(time_limit)
-  rlang::check_required(first_feasible)
-  rlang::check_required(verbose)
+  assert_required(x)
+  assert_required(gap)
+  assert_required(time_limit)
+  assert_required(first_feasible)
+  assert_required(verbose)
   assert(
     is_conservation_problem(x),
     assertthat::is.number(gap),

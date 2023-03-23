@@ -75,7 +75,7 @@ NULL
 #' }
 #' @export
 boundary_matrix <- function(x, ...) {
-  rlang::check_required(x)
+  assert_required(x)
   UseMethod("boundary_matrix")
 }
 

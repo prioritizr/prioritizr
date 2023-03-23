@@ -153,7 +153,10 @@ NULL
 #' plot(s5)
 #' }
 #' @export
-feature_abundances <- function(x, na.rm) UseMethod("feature_abundances")
+feature_abundances <- function(x, na.rm) {
+  assert_required(x)
+  UseMethod("feature_abundances")
+}
 
 #' @rdname feature_abundances
 #'
@@ -162,8 +165,7 @@ feature_abundances <- function(x, na.rm) UseMethod("feature_abundances")
 #' @export
 feature_abundances.ConservationProblem <- function(x, na.rm = FALSE) {
   # assert that arguments are valid
-  rlang::check_required(x)
-  rlang::check_required(na.rm)
+  assert_required(na.rm)
   assert(
     is_conservation_problem(x),
     assertthat::is.flag(na.rm),

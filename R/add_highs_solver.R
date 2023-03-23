@@ -59,12 +59,12 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
                              presolve = TRUE, threads = 1,
                              verbose = TRUE) {
   # assert that arguments are valid (except start_solution)
-  rlang::check_required(x)
-  rlang::check_required(gap)
-  rlang::check_required(time_limit)
-  rlang::check_required(presolve)
-  rlang::check_required(threads)
-  rlang::check_required(verbose)
+  assert_required(x)
+  assert_required(gap)
+  assert_required(time_limit)
+  assert_required(presolve)
+  assert_required(threads)
+  assert_required(verbose)
   assert(
     is_conservation_problem(x),
     assertthat::is.number(gap),

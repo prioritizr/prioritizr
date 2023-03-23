@@ -93,10 +93,10 @@ NULL
 add_shuffle_portfolio <- function(x, number_solutions = 10, threads = 1,
                                   remove_duplicates = TRUE) {
   # assert that arguments are valid
-  rlang::check_required(x)
-  rlang::check_required(number_solutions)
-  rlang::check_required(threads)
-  rlang::check_required(remove_duplicates)
+  assert_required(x)
+  assert_required(number_solutions)
+  assert_required(threads)
+  assert_required(remove_duplicates)
   assert(
     is_conservation_problem(x),
     assertthat::is.count(number_solutions),

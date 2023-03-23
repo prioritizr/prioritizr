@@ -154,8 +154,8 @@ methods::setGeneric(
   "add_manual_locked_constraints",
   signature = methods::signature("x", "data"),
   function(x, data) {
-    rlang::check_required(x)
-    rlang::check_required(data)
+    assert_required(x)
+    assert_required(data)
     assert(
       is_conservation_problem(x),
       is.data.frame(data)

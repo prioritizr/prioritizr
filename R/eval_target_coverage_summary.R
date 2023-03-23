@@ -228,10 +228,10 @@ eval_target_coverage_summary <- function(x,
                                          include_sense =
                                           number_of_zones(x) > 1) {
   # assert arguments are valid
-  rlang::check_required(x)
-  rlang::check_required(solution)
-  rlang::check_required(include_zone)
-  rlang::check_required(include_sense)
+  assert_required(x)
+  assert_required(solution)
+  assert_required(include_zone)
+  assert_required(include_sense)
   assert(
     is_conservation_problem(x),
     assertthat::is.flag(include_zone),

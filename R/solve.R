@@ -221,7 +221,7 @@ NULL
 solve.ConservationProblem <- function(a, b, ...,
                                       run_checks = TRUE, force = FALSE) {
   # assert arguments are valid
-  rlang::check_required(a)
+  assert_required(a)
   assert(
     assertthat::is.flag(run_checks),
     assertthat::noNA(run_checks),

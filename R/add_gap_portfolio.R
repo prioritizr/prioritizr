@@ -101,6 +101,9 @@ NULL
 #' @export
 add_gap_portfolio <- function(x, number_solutions = 10, pool_gap = 0.1) {
   # assert that arguments are valid
+  assert_required(x)
+  assert_required(number_solutions)
+  assert_required(pool_gap)
   assert(
     is_conservation_problem(x),
     assertthat::is.count(number_solutions),

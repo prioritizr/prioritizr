@@ -223,10 +223,10 @@ NULL
 methods::setGeneric("add_linear_constraints",
   signature = methods::signature("x", "threshold", "sense", "data"),
   function(x, threshold, sense, data) {
-    rlang::check_required(x)
-    rlang::check_required(threshold)
-    rlang::check_required(sense)
-    rlang::check_required(data)
+    assert_required(x)
+    assert_required(threshold)
+    assert_required(sense)
+    assert_required(data)
     assert(
       is_conservation_problem(x),
       is_inherits(

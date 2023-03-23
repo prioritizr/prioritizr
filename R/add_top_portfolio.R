@@ -85,8 +85,8 @@ NULL
 #' @export
 add_top_portfolio <- function(x, number_solutions = 10) {
   # assert that arguments are valid
-  rlang::check_required(x)
-  rlang::check_required(number_solutions)
+  assert_required(x)
+  assert_required(number_solutions)
   assert(
     is_conservation_problem(x),
     assertthat::is.count(number_solutions),

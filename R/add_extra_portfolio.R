@@ -82,7 +82,7 @@ NULL
 #' @export
 add_extra_portfolio <- function(x) {
   # assert that arguments are valid
-  rlang::check_required(x)
+  assert_required(x)
   assert(is_conservation_problem(x))
   # assert dependencies available
   assert(is_installed("gurobi"))

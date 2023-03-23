@@ -33,7 +33,7 @@ NULL
 #' @export
 add_default_solver <- function(x, ...) {
   # assert valid arguments
-  rlang::check_required(x)
+  assert_required(x)
   assert(is_conservation_problem(x), call = NULL)
   # find solver
   ds <- default_solver_name()

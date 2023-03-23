@@ -73,7 +73,7 @@ NULL
 #' @export
 add_mandatory_allocation_constraints <- function(x) {
   # assert valid arguments
-  rlang::check_required(x)
+  assert_required(x)
   assert(
     is_conservation_problem(x),
     number_of_zones(x) >= 2

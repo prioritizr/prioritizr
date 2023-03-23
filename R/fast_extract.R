@@ -58,8 +58,8 @@ methods::setGeneric(
   "fast_extract",
   signature = methods::signature("x", "y"),
   function(x, y, ...) {
-    rlang::check_required(x)
-    rlang::check_required(y)
+    assert_required(x)
+    assert_required(y)
     assert(
       is_spatially_explicit(x),
       is_inherits(x, c("sf", "sfc", "SpatRaster", "Spatial", "Raster"))

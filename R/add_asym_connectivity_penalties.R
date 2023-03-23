@@ -215,10 +215,10 @@ NULL
 methods::setGeneric("add_asym_connectivity_penalties",
   signature = methods::signature("x", "penalty", "zones", "data"),
   function(x, penalty, zones = diag(number_of_zones(x)), data) {
-    rlang::check_required(x)
-    rlang::check_required(penalty)
-    rlang::check_required(zones)
-    rlang::check_required(data)
+    assert_required(x)
+    assert_required(penalty)
+    assert_required(zones)
+    assert_required(data)
     assert(
       is_conservation_problem(x),
       is_inherits(

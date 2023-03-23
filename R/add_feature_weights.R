@@ -244,8 +244,8 @@ methods::setGeneric(
   "add_feature_weights",
   signature = methods::signature("x", "weights"),
   function(x, weights) {
-    rlang::check_required(x)
-    rlang::check_required(weights)
+    assert_required(x)
+    assert_required(weights)
     assert(
       is_conservation_problem(x),
       is_inherits(weights, c("numeric", "matrix"))

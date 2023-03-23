@@ -76,8 +76,8 @@ NULL
 #' @export
 add_semicontinuous_decisions <- function(x, upper_limit) {
   # assert arguments are valid
-  rlang::check_required(x)
-  rlang::check_required(upper_limit)
+  assert_required(x)
+  assert_required(upper_limit)
   assert(
     is_conservation_problem(x),
     assertthat::is.number(upper_limit),

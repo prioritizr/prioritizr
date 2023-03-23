@@ -220,9 +220,9 @@ NULL
 methods::setGeneric("add_contiguity_constraints",
   signature = methods::signature("x", "zones", "data"),
   function(x, zones = diag(number_of_zones(x)), data = NULL) {
-    rlang::check_required(x)
-    rlang::check_required(zones)
-    rlang::check_required(data)
+    assert_required(x)
+    assert_required(zones)
+    assert_required(data)
     assert(
       is_conservation_problem(x),
       is_inherits(

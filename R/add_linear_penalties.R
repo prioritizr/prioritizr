@@ -223,9 +223,9 @@ NULL
 methods::setGeneric("add_linear_penalties",
   signature = methods::signature("x", "penalty", "data"),
   function(x, penalty, data) {
-    rlang::check_required(x)
-    rlang::check_required(penalty)
-    rlang::check_required(data)
+    assert_required(x)
+    assert_required(penalty)
+    assert_required(data)
     assert(
       is_conservation_problem(x),
       is_inherits(

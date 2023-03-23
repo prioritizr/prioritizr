@@ -52,8 +52,8 @@ NULL
 #' @export
 write_problem <- function(x, path) {
   # assert arguments are valid
-  rlang::check_required(x)
-  rlang::check_required(path)
+  assert_required(x)
+  assert_required(path)
   assert(
     is_conservation_problem(x),
     assertthat::is.string(path),

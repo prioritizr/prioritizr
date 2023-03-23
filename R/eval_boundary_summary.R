@@ -176,11 +176,11 @@ eval_boundary_summary <- function(x, solution,
                                   zones = diag(number_of_zones(x)),
                                   data = NULL) {
   # assert that arguments are valid
-  rlang::check_required(x)
-  rlang::check_required(solution)
-  rlang::check_required(edge_factor)
-  rlang::check_required(zones)
-  rlang::check_required(data)
+  assert_required(x)
+  assert_required(solution)
+  assert_required(edge_factor)
+  assert_required(zones)
+  assert_required(data)
   assert(
     is_conservation_problem(x),
     is.numeric(edge_factor),

@@ -70,8 +70,8 @@ methods::setGeneric(
   "intersecting_units",
   signature = methods::signature("x", "y"),
   function(x, y) {
-    rlang::check_required(x)
-    rlang::check_required(y)
+    assert_required(x)
+    assert_required(y)
     assert(
       is_inherits(
         x, c("data.frame", "sf", "SpatRaster", "Spatial", "Raster")

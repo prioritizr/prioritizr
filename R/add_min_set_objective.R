@@ -101,7 +101,7 @@ NULL
 #' @export
 add_min_set_objective <- function(x) {
   # assert argument is valid
-  rlang::check_required(x)
+  assert_required(x)
   assert(is_conservation_problem(x))
   # add objective to problem
   x$add_objective(

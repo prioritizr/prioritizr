@@ -197,7 +197,7 @@ NULL
 #' }
 #' @export
 marxan_problem <- function(x, ...) {
-  rlang::check_required(x)
+  assert_required(x)
   UseMethod("marxan_problem")
 }
 
@@ -214,12 +214,12 @@ marxan_problem.default <- function(x, ...) {
 marxan_problem.data.frame <- function(x, spec, puvspr, bound = NULL,
                                       blm = 0, symmetric = TRUE, ...) {
   # assert arguments are valid
-  rlang::check_required(x)
-  rlang::check_required(spec)
-  rlang::check_required(puvspr)
-  rlang::check_required(bound)
-  rlang::check_required(blm)
-  rlang::check_required(symmetric)
+  assert_required(x)
+  assert_required(spec)
+  assert_required(puvspr)
+  assert_required(bound)
+  assert_required(blm)
+  assert_required(symmetric)
   assert_dots_empty()
   ## x
   assert(

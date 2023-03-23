@@ -169,16 +169,16 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
                               numeric_focus = FALSE, node_file_start = Inf,
                               start_solution = NULL, verbose = TRUE) {
   # assert that arguments are valid (except start_solution)
-  rlang::check_required(x)
-  rlang::check_required(gap)
-  rlang::check_required(time_limit)
-  rlang::check_required(presolve)
-  rlang::check_required(threads)
-  rlang::check_required(first_feasible)
-  rlang::check_required(numeric_focus)
-  rlang::check_required(node_file_start)
-  rlang::check_required(start_solution)
-  rlang::check_required(verbose)
+  assert_required(x)
+  assert_required(gap)
+  assert_required(time_limit)
+  assert_required(presolve)
+  assert_required(threads)
+  assert_required(first_feasible)
+  assert_required(numeric_focus)
+  assert_required(node_file_start)
+  assert_required(start_solution)
+  assert_required(verbose)
   assert(
     is_conservation_problem(x),
     assertthat::is.number(gap),

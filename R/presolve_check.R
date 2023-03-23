@@ -176,8 +176,8 @@ NULL
 #' }
 #' @export
 presolve_check <- function(x, warn = TRUE) {
-  rlang::check_required(x)
-  rlang::check_required(warn)
+  assert_required(x)
+  assert_required(warn)
   UseMethod("presolve_check")
 }
 
@@ -202,7 +202,7 @@ presolve_check.OptimizationProblem <- function(x, warn = TRUE) {
 
 internal_presolve_check <- function(x) {
   # assert argument is valid
-  rlang::check_required(x)
+  assert_required(x)
   assert(inherits(x, "OptimizationProblem"), .internal = TRUE)
 
   # set thresholds

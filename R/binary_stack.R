@@ -38,7 +38,7 @@ NULL
 #' }
 #' @export
 binary_stack <- function(x) {
-  rlang::check_required(x)
+  assert_required(x)
   UseMethod("binary_stack")
 }
 

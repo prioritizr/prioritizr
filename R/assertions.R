@@ -159,8 +159,44 @@ assert_dots_empty <- function(env = rlang::caller_env(),
 #' This function is essentially a wrapper for [rlang::check_required()].
 #'
 #' @noRd
-assert_required <- function(x = rlang::caller_env(),
+assert_required <- function(x,
                             arg = rlang::caller_arg(x),
                             call = fn_caller_env()) {
+  # check that argument supplied
   rlang::check_required(x = x, arg = arg, call = call)
+  # check that argument yields valid expression
+  res <- try(eval.parent(substitute(x)), silent = TRUE)
+  # if it doesn't, then throw an error message
+  if (inherits(res, "try-error")) {
+    ## if the error message is a simpleError,
+    ## then this means that assert_required() is being called in pipe-chain
+    ## where the error is happening
+    if (inherits(attr(res, "condition"), "simpleError")) {
+      cause_msg <- deparse(attr(res, "condition")$call)
+      err_msg <- c(
+        "i" = "In argument to {.arg {arg}}.",
+        ifelse(
+          identical(cause_msg, "eval(expr, p)"),
+          "{.strong Caused by error:}",
+          paste0("{.strong Caused by {.code ", cause_msg, "}:}")
+        ),
+        "!" = trimws(attr(res, "condition")$message)
+      )
+      cli::cli_abort(message = err_msg, call = call)
+    } else {
+      ## if not,
+      ## then this means that assert_required() is being called in later
+      ## in the pipe chain after the error has happened, so we want to
+      ## throw the error embedded in the try()
+      cli::cli_abort(
+        message = c(
+          attr(res, "condition")$message,
+          attr(res, "condition")$body
+        ),
+        trace = attr(res, "condition")$trace,
+        call = attr(res, "condition")$call
+      )
+    }
+  }
+  invisible(TRUE)
 }

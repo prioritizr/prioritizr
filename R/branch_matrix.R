@@ -35,7 +35,7 @@ NULL
 #' }
 #' @export
 branch_matrix <- function(x) {
-  rlang::check_required(x)
+  assert_required(x)
   UseMethod("branch_matrix")
 }
 

@@ -59,8 +59,8 @@ compile <- function(x, ...) UseMethod("compile")
 #' @export
 compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
   # assert arguments are valid
-  rlang::check_required(x)
-  rlang::check_required(compressed_formulation)
+  assert_required(x)
+  assert_required(compressed_formulation)
   assert(
     is_conservation_problem(x),
     assertthat::is.flag(compressed_formulation)

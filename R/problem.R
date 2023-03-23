@@ -487,8 +487,8 @@ methods::setGeneric(
   "problem",
   signature = methods::signature("x", "features"),
   function(x, features, ...) {
-    rlang::check_required(x)
-    rlang::check_required(features)
+    assert_required(x)
+    assert_required(features)
     assert(
       is_inherits(
         x,

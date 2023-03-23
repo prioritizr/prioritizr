@@ -55,13 +55,15 @@ NULL
 #' print(number_of_total_units(p2))
 #' }
 #' @export
-number_of_total_units <- function(x, ...) UseMethod("number_of_total_units")
+number_of_total_units <- function(x, ...) {
+  assert_required(x)
+  rlang::check_dots_empty()
+  UseMethod("number_of_total_units")
+}
 
 #' @rdname number_of_total_units
 #'
 #' @export
 number_of_total_units.ConservationProblem <- function(x, ...) {
-  rlang::check_required(x)
-  rlang::check_dots_empty()
   x$number_of_total_units()
 }
