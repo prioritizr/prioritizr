@@ -306,7 +306,7 @@ should also have <code>NA</code> values in the locked data.</p></dd>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot solutions</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">s6</span>,</span></span>
 <span class="r-in"><span>  main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    <span class="st">"none locked out"</span>, <span class="st">"locked out (integer input)"</span>,</span></span>
@@ -331,7 +331,7 @@ should also have <code>NA</code> values in the locked data.</p></dd>
 <span class="r-in"><span>  <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create multi-zone problem with locked out constraints using matrix data</span></span></span>
-<span class="r-in"><span><span class="va">locked_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html" class="external-link">st_drop_geometry</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="va">locked_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/coerce.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html" class="external-link">st_drop_geometry</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">sim_zones_pu_polygons</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"locked_1"</span>, <span class="st">"locked_2"</span>, <span class="st">"locked_3"</span><span class="op">)</span><span class="op">]</span></span></span>
 <span class="r-in"><span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
@@ -348,7 +348,7 @@ should also have <code>NA</code> values in the locked data.</p></dd>
 <span class="r-in"><span><span class="va">s8</span><span class="op">$</span><span class="va">solution</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">s8</span><span class="op">$</span><span class="va">solution</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot solution</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s8</span><span class="op">[</span>, <span class="st">"solution"</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s8</span><span class="op">[</span>, <span class="st">"solution"</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_locked_out_constraints-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create multi-zone problem with locked out constraints using column names</span></span></span>
@@ -368,7 +368,7 @@ should also have <code>NA</code> values in the locked data.</p></dd>
 <span class="r-in"><span><span class="va">s9</span><span class="op">$</span><span class="va">solution</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">s9</span><span class="op">$</span><span class="va">solution</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot solution</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s9</span><span class="op">[</span>, <span class="st">"solution"</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s9</span><span class="op">[</span>, <span class="st">"solution"</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create multi-zone problem with raster planning units</span></span></span>
 <span class="r-in"><span><span class="va">p10</span> <span class="op">&lt;-</span></span></span>
@@ -388,7 +388,7 @@ should also have <code>NA</code> values in the locked data.</p></dd>
 <span class="r-in"><span><span class="va">locked_out_raster</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">1</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot locked out raster</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">locked_out_raster</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">locked_out_raster</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_locked_out_constraints-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># add locked out raster units to problem</span></span></span>
@@ -398,7 +398,7 @@ should also have <code>NA</code> values in the locked data.</p></dd>
 <span class="r-in"><span><span class="va">s10</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p10</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot solution</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s10</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s10</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_locked_out_constraints-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>

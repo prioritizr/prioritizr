@@ -13,7 +13,7 @@
 [![R-CMD-check-macOS](https://img.shields.io/github/actions/workflow/status/prioritizr/prioritizr/R-CMD-check-macos.yaml?branch=master&label=macOS)](https://github.com/prioritizr/prioritizr/actions)
 [![Documentation](https://img.shields.io/github/actions/workflow/status/prioritizr/prioritizr/documentation.yaml?branch=master&label=Documentation)](https://github.com/prioritizr/prioritizr/actions)
 [![Coverage
-Status](https://img.shields.io/codecov/c/github/prioritizr/prioritizr?label=Coverage)](https://codecov.io/github/prioritizr/prioritizr?branch=master)
+Status](https://img.shields.io/codecov/c/github/prioritizr/prioritizr?label=Coverage)](https://app.codecov.io/gh/prioritizr/prioritizr/branch/master)
 [![CRAN-Status-Badge](http://www.r-pkg.org/badges/version/prioritizr)](https://CRAN.R-project.org/package=prioritizr)
 <!-- badges: end -->
 
@@ -85,12 +85,14 @@ add it to the record.
 Here we provide a short example showing how the *prioritizr R* package
 can be used to build and solve conservation problems. Specifically, we
 will use an example dataset available through the *prioritizrdata R*
-package. To begin with, we will load the packages.
+package. Additionally, we will use the *terra R* package to perform
+raster calculations. To begin with, we will load the packages.
 
 ``` r
 # load packages
 library(prioritizr)
 library(prioritizrdata)
+library(terra)
 ```
 
 We will use the Washington dataset in this example. To import the
@@ -217,7 +219,7 @@ print(p1)
     ## │ ├•data:       <SpatRaster> (10757 total)
     ## │ ├•costs:      continuous values (between 0.2987 and 1804.1838)
     ## │ ├•extent:     -1816381.6182, 247483.5211, -1228381.6182, 683483.5211 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        PROJCRS["unknown",
+    ## │ └•CRS:        +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs
     ## ├•formulation
     ## │├•objective:   minimum shortfall objective (`budget` = 8748.4908)
     ## │├•penalties:   none specified
@@ -248,7 +250,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##      3.778
+    ##      3.553
 
 ``` r
 # extract state message from the solver

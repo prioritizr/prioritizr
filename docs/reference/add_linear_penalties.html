@@ -273,10 +273,10 @@ replaced with \(-P_z\).</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># add a column to contain the penalty data for each planning unit</span></span></span>
 <span class="r-in"><span><span class="co"># e.g., these values could indicate the level of habitat</span></span></span>
-<span class="r-in"><span><span class="va">sim_pu_polygons</span><span class="op">$</span><span class="va">penalty_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">sim_pu_polygons</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sim_pu_polygons</span><span class="op">$</span><span class="va">penalty_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/dimensions.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">sim_pu_polygons</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot the penalty data to visualise its spatial distribution</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">sim_pu_polygons</span><span class="op">[</span>, <span class="st">"penalty_data"</span><span class="op">]</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">sim_pu_polygons</span><span class="op">[</span>, <span class="st">"penalty_data"</span><span class="op">]</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_linear_penalties-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create minimal problem with minimum set objective,</span></span></span>
@@ -353,7 +353,7 @@ replaced with \(-P_z\).</p>
 <span class="r-in"><span><span class="co"># since we supplied a very high penalty value (i.e., 100), relative</span></span></span>
 <span class="r-in"><span><span class="co"># to the range of values in the penalty data and the objective function,</span></span></span>
 <span class="r-in"><span><span class="co"># the solution in s2 is very sensitive to values in the penalty data</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s3</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s3</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_linear_penalties-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># for real conservation planning exercises,</span></span></span>
@@ -379,7 +379,7 @@ replaced with \(-P_z\).</p>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot the penalty data, each layer corresponds to a different zone</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">penalty_raster</span>, main <span class="op">=</span> <span class="st">"penalty data"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">penalty_raster</span>, main <span class="op">=</span> <span class="st">"penalty data"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_linear_penalties-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create a multi-zone problem with the minimum set objective</span></span></span>
@@ -420,7 +420,7 @@ replaced with \(-P_z\).</p>
 <span class="r-in"><span><span class="va">s4</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p4</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot solution</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s4</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"multi-zone solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s4</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"multi-zone solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_linear_penalties-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>

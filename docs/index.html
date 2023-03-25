@@ -178,11 +178,12 @@
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
-<p>Here we provide a short example showing how the <em>prioritizr R</em> package can be used to build and solve conservation problems. Specifically, we will use an example dataset available through the <em>prioritizrdata R</em> package. To begin with, we will load the packages.</p>
+<p>Here we provide a short example showing how the <em>prioritizr R</em> package can be used to build and solve conservation problems. Specifically, we will use an example dataset available through the <em>prioritizrdata R</em> package. Additionally, we will use the <em>terra R</em> package to perform raster calculations. To begin with, we will load the packages.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># load packages</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://prioritizr.net">prioritizr</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://prioritizr.github.io/prioritizrdata/" class="external-link">prioritizrdata</a></span><span class="op">)</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://prioritizr.github.io/prioritizrdata/" class="external-link">prioritizrdata</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/terra/" class="external-link">terra</a></span><span class="op">)</span></span></code></pre></div>
 <p>We will use the Washington dataset in this example. To import the planning unit data, we will use the <code><a href="http://prioritizr.github.io/prioritizrdata/reference/wa_data.html" class="external-link">get_wa_pu()</a></code> function. Although the <em>prioritizr R</em> package can support many different types of planning unit data, here our planning units are represented as a single-layer raster (i.e., <code><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">terra::rast()</a></code> object). Each cell represents a different planning unit, and cell values denote land acquisition costs. Specifically, there are 10757 planning units in total (i.e., cells with non-missing values).</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># import planning unit data</span></span>
@@ -201,7 +202,7 @@
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="do">## max value   : 1804.1838379</span></span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot data</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">wa_pu</span>, main <span class="op">=</span> <span class="st">"Costs"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">wa_pu</span>, main <span class="op">=</span> <span class="st">"Costs"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-planning_units-1.png" width="500" style="display: block; margin: auto;"></p>
 <p>Next, we will use the <code><a href="http://prioritizr.github.io/prioritizrdata/reference/wa_data.html" class="external-link">get_wa_features()</a></code> function to import the conservation feature data. Although the <em>prioritizr R</em> package can support many different types of feature data, here our feature data are represented as a multi-layer raster (i.e., <code><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">terra::rast()</a></code> object). Each layer describes the spatial distribution of a feature. Here, our feature data correspond to different bird species. To account for migratory patterns, the breeding and non-breeding distributions of species are represented as different features. Specifically, the cell values denote the relative abundance of individuals, with higher values indicating greater abundance.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
@@ -221,7 +222,7 @@
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="do">## max values  :       0.514,       0.812,       3.129,       0.115,       0.296,        0.06, ...</span></span></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot the first nine features</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">wa_features</span><span class="op">[[</span><span class="fl">1</span><span class="op">:</span><span class="fl">9</span><span class="op">]</span><span class="op">]</span>, nr <span class="op">=</span> <span class="fl">3</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">wa_features</span><span class="op">[[</span><span class="fl">1</span><span class="op">:</span><span class="fl">9</span><span class="op">]</span><span class="op">]</span>, nr <span class="op">=</span> <span class="fl">3</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-features-1.png" width="800" style="display: block; margin: auto;"></p>
 <p>Let’s make sure that you have a solver installed on your computer. This is important so that you can use optimization algorithms to generate spatial prioritizations. If this is your first time using the <em>prioritizr R</em> package, please install the HiGHS solver using the following <em>R</em> code. Although the HiGHS solver is relatively fast and easy to install, please note that you’ll need to install the <a href="https://www.gurobi.com/" class="external-link">Gurobi software suite and the <em>gurobi</em> <em>R</em> package</a> for best performance (see the <a href="https://prioritizr.net/articles/gurobi_installation_guide.html">Gurobi Installation Guide</a> for details).</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
@@ -249,7 +250,7 @@
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="do">## │ ├•data:       &lt;SpatRaster&gt; (10757 total)</span></span>
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="do">## │ ├•costs:      continuous values (between 0.2987 and 1804.1838)</span></span>
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="do">## │ ├•extent:     -1816381.6182, 247483.5211, -1228381.6182, 683483.5211 (xmin, ymin, xmax, ymax)</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="do">## │ └•CRS:        PROJCRS["unknown",</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="do">## │ └•CRS:        +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs</span></span>
 <span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="do">## ├•formulation</span></span>
 <span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="do">## │├•objective:   minimum shortfall objective (`budget` = 8748.4908)</span></span>
 <span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="do">## │├•penalties:   none specified</span></span>
@@ -273,7 +274,7 @@
 <code class="sourceCode R"><span><span class="co"># extract time spent solving the problem</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb16"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="do">## solution_1 </span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="do">##      3.778</span></span></code></pre></div>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="do">##      3.553</span></span></code></pre></div>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract state message from the solver</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"status"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -281,7 +282,7 @@
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="do">##  "OPTIMAL"</span></span></code></pre></div>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot the solution</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s1</span>, main <span class="op">=</span> <span class="st">"Solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s1</span>, main <span class="op">=</span> <span class="st">"Solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-minimal_solution-1.png" width="500" style="display: block; margin: auto;"></p>
 <p>After generating a solution, it is important to evaluate it. Here, we will calculate the number of planning units selected by the solution, and the total cost of the solution. We can also check how many representation targets are met by the solution.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
@@ -320,7 +321,7 @@
 <span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a><span class="do">## #   ⁶​relative_held, ⁷​relative_shortfall</span></span></code></pre></div>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># check percentage of the features that have their target met given the solution</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">p1_target_coverage</span><span class="op">$</span><span class="va">met</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/summarize-generics.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">p1_target_coverage</span><span class="op">$</span><span class="va">met</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb27"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 96.46465</span></span></code></pre></div>
 <p>Although this solution helps meet the representation targets, it does not account for existing protected areas inside the study area. As such, it does not account for the possibility that some features could be partially – or even fully – represented by existing protected areas and, in turn, might fail to identify meaningful priorities for new protected areas. To address this issue, we will use the <code><a href="http://prioritizr.github.io/prioritizrdata/reference/wa_data.html" class="external-link">get_wa_locked_in()</a></code> function to import spatial data for protected areas in the study area. We will then add constraints to the <code><a href="reference/problem.html">problem()</a></code> to ensure they are selected by the solution (via <code><a href="reference/add_locked_in_constraints.html">add_locked_in_constraints()</a></code>).</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
@@ -340,7 +341,7 @@
 <span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="do">## max value   :               1</span></span></code></pre></div>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot data</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">wa_locked_in</span>, main <span class="op">=</span> <span class="st">"Existing protected areas"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">wa_locked_in</span>, main <span class="op">=</span> <span class="st">"Existing protected areas"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-locked_in_constraints-1.png" width="500" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create new problem with locked in constraints added to it</span></span>
@@ -352,7 +353,7 @@
 <span><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># plot the solution</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s2</span>, main <span class="op">=</span> <span class="st">"Solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s2</span>, main <span class="op">=</span> <span class="st">"Solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-locked_in_constraints-2.png" width="500" style="display: block; margin: auto;"></p>
 <p>This solution is an improvement over the previous solution. However, there are some places in the study area that are not available for protected area establishment (e.g., due to land tenure). As a consequence, the solution might not be practical for implementation, because it might select some places that are not available for protection. To address this issue, we will use the <code><a href="http://prioritizr.github.io/prioritizrdata/reference/wa_data.html" class="external-link">get_wa_locked_out()</a></code> function to import spatial data describing which planning units are not available for protection. We will then add constraints to the <code><a href="reference/problem.html">problem()</a></code> to ensure they are not selected by the solution (via <code><a href="reference/add_locked_out_constraints.html">add_locked_out_constraints()</a></code>).</p>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
@@ -372,7 +373,7 @@
 <span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="do">## max value   :           1</span></span></code></pre></div>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot data</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">wa_locked_out</span>, main <span class="op">=</span> <span class="st">"Areas not available for protection"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">wa_locked_out</span>, main <span class="op">=</span> <span class="st">"Areas not available for protection"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-locked_out_constraints-1.png" width="500" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create new problem with locked out constraints added to it</span></span>
@@ -384,7 +385,7 @@
 <span><span class="va">s3</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># plot the solution</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s3</span>, main <span class="op">=</span> <span class="st">"Solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s3</span>, main <span class="op">=</span> <span class="st">"Solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-locked_out_constraints-2.png" width="500" style="display: block; margin: auto;"></p>
 <p>This solution is even better then the previous solution. However, we are not finished yet. The planning units selected by the solution are fairly fragmented. This can cause issues because fragmentation increases management costs and reduces conservation benefits through edge effects. To address this issue, we can further modify the problem by adding penalties that punish overly fragmented solutions (via <code><a href="reference/add_boundary_penalties.html">add_boundary_penalties()</a></code>). Here we will use a penalty factor (i.e., boundary length modifier) of 0.003, and an edge factor of 50% so that planning units that occur on the outer edge of the study area are not overly penalized.</p>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
@@ -397,7 +398,7 @@
 <span><span class="va">s4</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p4</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># plot the solution</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s4</span>, main <span class="op">=</span> <span class="st">"Solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s4</span>, main <span class="op">=</span> <span class="st">"Solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-boundary_penalties-1.png" width="500" style="display: block; margin: auto;"></p>
 <p>Now, let’s explore which planning units selected by the solution are most important for cost-effectively meeting the targets. To achieve this, we will calculate importance (irreplaceability) scores using the Ferrier method. Although this method produces scores for each feature separately, we will examine the total scores that summarize overall importance across all features.</p>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
@@ -424,7 +425,7 @@
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot the total importance scores</span></span>
 <span><span class="co">## note that gray cells are not selected by the prioritization</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
 <span>  <span class="va">rc</span><span class="op">[[</span><span class="st">"total"</span><span class="op">]</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"Importance scores"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1e-10</span>, <span class="fl">0.005</span>, <span class="fl">0.01</span>, <span class="fl">0.025</span><span class="op">)</span>,</span>
 <span>  col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#e5e5e5"</span>, <span class="st">"#fff7ec"</span>, <span class="st">"#fc8d59"</span>, <span class="st">"#7f0000"</span><span class="op">)</span></span>
@@ -519,7 +520,7 @@
 <li><a href="https://github.com/prioritizr/prioritizr/actions" class="external-link"><img src="https://img.shields.io/github/actions/workflow/status/prioritizr/prioritizr/R-CMD-check-windows.yaml?branch=master&amp;label=Windows" alt="R-CMD-check-Windows"></a></li>
 <li><a href="https://github.com/prioritizr/prioritizr/actions" class="external-link"><img src="https://img.shields.io/github/actions/workflow/status/prioritizr/prioritizr/R-CMD-check-macos.yaml?branch=master&amp;label=macOS" alt="R-CMD-check-macOS"></a></li>
 <li><a href="https://github.com/prioritizr/prioritizr/actions" class="external-link"><img src="https://img.shields.io/github/actions/workflow/status/prioritizr/prioritizr/documentation.yaml?branch=master&amp;label=Documentation" alt="Documentation"></a></li>
-<li><a href="https://codecov.io/github/prioritizr/prioritizr?branch=master" class="external-link"><img src="https://img.shields.io/codecov/c/github/prioritizr/prioritizr?label=Coverage" alt="Coverage Status"></a></li>
+<li><a href="https://app.codecov.io/gh/prioritizr/prioritizr/branch/master" class="external-link"><img src="https://img.shields.io/codecov/c/github/prioritizr/prioritizr?label=Coverage" alt="Coverage Status"></a></li>
 <li><a href="https://CRAN.R-project.org/package=prioritizr" class="external-link"><img src="http://www.r-pkg.org/badges/version/prioritizr" alt="CRAN-Status-Badge"></a></li>
 </ul>
 </div>

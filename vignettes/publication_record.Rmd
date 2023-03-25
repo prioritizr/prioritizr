@@ -17,7 +17,8 @@ This vignette contains a list of publications that have cited or used the _prior
 
 ### 2023
 
-* Chowdhury S, Zalucki MP, Hanson JO, Tiatragul S, Green D, Watson JEM, and Fuller RA (2023) Three quarters of insects are insufficiently covered by protected areas. _One Earth_, 6: 1--8.
+* Buenafe KCV, Dunn DC, Everett JD, Brito-Morales I, Schoeman DS, Hanson JO, Dabalà A, Neubert S, Cannicci S, Kaschner K, and Richardson AJ (2023) A metric-based framework for climate-smart conservation planning. _Ecological Applications_, **In press**: DOI&#58;10.1002/eap.2852.
+* Chowdhury S, Zalucki MP, Hanson JO, Tiatragul S, Green D, Watson JEM, and Fuller RA (2023) Three quarters of insects are insufficiently covered by protected areas. _One Earth_, **6**: 1--8.
 * von Takach B, Sargent H, Penton CE, Rick K, Murphy BP, Neave G, Davies HF, Hill BM, and Banks SC (2023) Population genomics and conservation management of the threatened black-footed tree-rat (_Mesembriomys gouldii_) in northern Australia. _Heredity_, **In press**: DOI&#58;10.1038/s41437-023-00601-0.
 
 ### 2022
