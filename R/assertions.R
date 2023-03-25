@@ -166,6 +166,11 @@ assert_required <- function(x,
   rlang::check_required(x = x, arg = arg, call = call)
   # check that argument yields valid expression
   res <- try(identical(x, 1), silent = TRUE)
+  # define possible strings if result due to missing object
+  misc_msg <- c(
+    "doTryCatch(return(expr), name, parentenv, handler)",
+    "identical(x, 1)"
+  )
   # if it doesn't, then throw an error message
   if (inherits(res, "try-error")) {
     ## if the error message is a simpleError,
@@ -176,7 +181,7 @@ assert_required <- function(x,
       err_msg <- c(
         "i" = "In argument to {.arg {arg}}.",
         ifelse(
-          identical(cause_msg, "identical(x, 1)"),
+          any(vapply(misc_msg, identical, logical(1), cause_msg)),
           "{.strong Caused by error:}",
           paste0("{.strong Caused by {.code ", cause_msg, "}:}")
         ),
