@@ -165,7 +165,7 @@ assert_required <- function(x,
   # check that argument supplied
   rlang::check_required(x = x, arg = arg, call = call)
   # check that argument yields valid expression
-  res <- try(eval.parent(substitute(x)), silent = TRUE)
+  res <- try(identical(x, 1), silent = TRUE)
   # if it doesn't, then throw an error message
   if (inherits(res, "try-error")) {
     ## if the error message is a simpleError,
@@ -176,7 +176,7 @@ assert_required <- function(x,
       err_msg <- c(
         "i" = "In argument to {.arg {arg}}.",
         ifelse(
-          identical(cause_msg, "eval(expr, p)"),
+          identical(cause_msg, "identical(x, 1)"),
           "{.strong Caused by error:}",
           paste0("{.strong Caused by {.code ", cause_msg, "}:}")
         ),
