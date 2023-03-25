@@ -1,5 +1,3 @@
-context("add_loglinear_targets")
-
 test_that("no cap", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()
@@ -18,15 +16,15 @@ test_that("no cap", {
     p$feature_abundances_in_total_units()[, 1], 10, 1, 35, 0.1
   ) * p$feature_abundances_in_total_units()[, 1]
   # tests
-  expect_is(targets, "tbl_df")
+  expect_inherits(targets, "tbl_df")
   expect_true(all(names(targets) == c("feature", "zone", "sense", "value")))
-  expect_is(targets$feature, "integer")
-  expect_is(targets$zone, "list")
-  expect_is(targets$value, "numeric")
-  expect_is(targets$sense, "character")
+  expect_inherits(targets$feature, "integer")
+  expect_inherits(targets$zone, "list")
+  expect_inherits(targets$value, "numeric")
+  expect_inherits(targets$sense, "character")
   expect_equal(targets$feature, seq_len(terra::nlyr(sim_features)))
-  expect_equivalent(unlist(targets$zone), rep(1, terra::nlyr(sim_features)))
-  expect_equivalent(targets$value, values)
+  expect_equal(unlist(targets$zone), rep(1, terra::nlyr(sim_features)))
+  expect_equal(targets$value, unname(values))
   expect_equal(targets$sense, rep(">=", terra::nlyr(sim_features)))
 })
 
@@ -49,15 +47,15 @@ test_that("cap", {
   ) * p$feature_abundances_in_total_units()[, 1]
   values[p$feature_abundances_in_total_units()[, 1] > 70] <- 5
   # tests
-  expect_is(targets, "tbl_df")
+  expect_inherits(targets, "tbl_df")
   expect_true(all(names(targets) == c("feature", "zone", "sense", "value")))
-  expect_is(targets$feature, "integer")
-  expect_is(targets$zone, "list")
-  expect_is(targets$value, "numeric")
-  expect_is(targets$sense, "character")
+  expect_inherits(targets$feature, "integer")
+  expect_inherits(targets$zone, "list")
+  expect_inherits(targets$value, "numeric")
+  expect_inherits(targets$sense, "character")
   expect_equal(targets$feature, seq_len(terra::nlyr(sim_features)))
-  expect_equivalent(unlist(targets$zone), rep(1, terra::nlyr(sim_features)))
-  expect_equivalent(targets$value, values)
+  expect_equal(unlist(targets$zone), rep(1, terra::nlyr(sim_features)))
+  expect_equal(targets$value, unname(values))
   expect_equal(targets$sense, rep(">=", terra::nlyr(sim_features)))
 })
 
@@ -77,15 +75,15 @@ test_that("feature abundances", {
   # calculate expected targets
   values <- loglinear_interpolation(seq_len(5), 10, 1, 35, 0.1) * seq_len(5)
   # tests
-  expect_is(targets, "tbl_df")
+  expect_inherits(targets, "tbl_df")
   expect_true(all(names(targets) == c("feature", "zone", "sense", "value")))
-  expect_is(targets$feature, "integer")
-  expect_is(targets$zone, "list")
-  expect_is(targets$value, "numeric")
-  expect_is(targets$sense, "character")
+  expect_inherits(targets$feature, "integer")
+  expect_inherits(targets$zone, "list")
+  expect_inherits(targets$value, "numeric")
+  expect_inherits(targets$sense, "character")
   expect_equal(targets$feature, seq_len(terra::nlyr(sim_features)))
-  expect_equivalent(unlist(targets$zone), rep(1, terra::nlyr(sim_features)))
-  expect_equivalent(targets$value, values)
+  expect_equal(unlist(targets$zone), rep(1, terra::nlyr(sim_features)))
+  expect_equal(targets$value, values)
   expect_equal(targets$sense, rep(">=", terra::nlyr(sim_features)))
 })
 

@@ -1,5 +1,3 @@
-context("adjacency matrix")
-
 test_that("SpatRaster", {
   # create data
   x <- terra::rast(

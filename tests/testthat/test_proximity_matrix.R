@@ -1,5 +1,3 @@
-context("proximity_matrix")
-
 test_that("SpatRaster (adjacent non-NA pixels are proximal)", {
   # create data
   x <- terra::rast(

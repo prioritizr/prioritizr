@@ -1,5 +1,3 @@
-context("add_cbc_solver")
-
 test_that("binary decisions", {
   skip_on_cran()
   skip_if_not_installed("rcbc")
@@ -22,7 +20,7 @@ test_that("binary decisions", {
   s1 <- solve(p1)
   s2 <- solve(p2)
   # check that solution has correct properties
-  expect_is(s1, "SpatRaster")
+  expect_inherits(s1, "SpatRaster")
   expect_equal(terra::nlyr(s1), 1)
   expect_equal(sort(unique(c(terra::values(s1)))), c(0, 1))
   expect_equal(terra::values(s1), terra::values(s2))
@@ -43,7 +41,7 @@ test_that("proportion decisions", {
     add_cbc_solver(gap = 0, verbose = FALSE)
   s <- solve(p)
   # check that solution has correct properties
-  expect_is(s, "SpatRaster")
+  expect_inherits(s, "SpatRaster")
   expect_equal(terra::nlyr(s), 1)
   expect_gte(min(c(terra::values(s)), na.rm = TRUE), 0)
   expect_lte(max(c(terra::values(s)), na.rm = TRUE), 1)
@@ -76,7 +74,7 @@ test_that("proportion decisions (floating point)", {
   expect_true(inherits(s, "sf"))
   expect_true("solution_1" %in% names(s))
   expect_equal(nrow(s), nrow(tas_pu))
-  expect_is(s$solution_1, "numeric")
+  expect_inherits(s$solution_1, "numeric")
   expect_gte(min(s$solution_1), 0)
   expect_lte(max(s$solution_1), 1)
 })
@@ -144,7 +142,7 @@ test_that("first_feasible", {
     add_cbc_solver(first_feasible = TRUE, verbose = FALSE)
   s <- solve(p)
   # check that solution has correct properties
-  expect_is(s, "SpatRaster")
+  expect_inherits(s, "SpatRaster")
   expect_equal(terra::nlyr(s), 1)
   expect_equal(sort(unique(c(terra::values(s)))), c(0, 1))
   expect_true(is_comparable_raster(sim_pu_raster, s))

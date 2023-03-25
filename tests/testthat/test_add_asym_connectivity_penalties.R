@@ -1,5 +1,3 @@
-context("add_asym_connectivity_penalties")
-
 test_that("minimum set objective (compile, single zone)", {
   # make and compile problems
   sim_pu_raster <- get_sim_pu_raster()
@@ -218,12 +216,12 @@ test_that("minimum set objective (solve, single zone)", {
   s2_1 <- solve(p2)
   s2_2 <- solve(p2)
   # tests
-  expect_is(s1_1, "SpatRaster")
-  expect_is(s1_2, "SpatRaster")
+  expect_inherits(s1_1, "SpatRaster")
+  expect_inherits(s1_2, "SpatRaster")
   expect_true(all(na.omit(unique(terra::values(s1_1))) == 0))
   expect_equal(terra::values(s1_1), terra::values(s1_2))
-  expect_is(s2_1, "SpatRaster")
-  expect_is(s2_2, "SpatRaster")
+  expect_inherits(s2_1, "SpatRaster")
+  expect_inherits(s2_2, "SpatRaster")
   expect_equal(
     c(terra::values(s2_1)),
     c(1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
@@ -481,12 +479,12 @@ test_that("minimum set objective (solve, multiple zones)", {
   s3_1 <- solve(p3)
   s3_2 <- solve(p3)
   # tests
-  expect_is(s1_1, "SpatRaster")
-  expect_is(s1_2, "SpatRaster")
+  expect_inherits(s1_1, "SpatRaster")
+  expect_inherits(s1_2, "SpatRaster")
   expect_true(all(terra::values(sum(s1_1)) < 0.5, na.rm = TRUE))
   expect_equal(terra::values(s1_1), terra::values(s1_2))
-  expect_is(s2_1, "SpatRaster")
-  expect_is(s2_2, "SpatRaster")
+  expect_inherits(s2_1, "SpatRaster")
+  expect_inherits(s2_2, "SpatRaster")
   expect_equal(
     as.data.frame(terra::values(s2_1)),
     data.frame(
@@ -496,8 +494,8 @@ test_that("minimum set objective (solve, multiple zones)", {
     )
   )
   expect_equal(terra::values(s2_1), terra::values(s2_2))
-  expect_is(s3_1, "SpatRaster")
-  expect_is(s3_2, "SpatRaster")
+  expect_inherits(s3_1, "SpatRaster")
+  expect_inherits(s3_2, "SpatRaster")
   expect_equal(
     as.data.frame(terra::values(s3_1)),
     data.frame(

@@ -29,3 +29,7 @@ ncol <- terra::ncol
 #' @method plot phylo
 #' @export
 plot.phylo <- ape::plot.phylo
+
+#' @importClassesFrom Matrix dgTMatrix dgCMatrix Matrix
+#' @export
+NULL

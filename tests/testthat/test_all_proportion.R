@@ -1,5 +1,3 @@
-context("all_proportion")
-
 test_that("x = default", {
   expect_tidy_error(all_proportion(new_waiver()), "recognized")
 })

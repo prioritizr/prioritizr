@@ -1,5 +1,3 @@
-context("add_min_set_objective")
-
 test_that("compile (compressed formulation, single zone)", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()
@@ -249,7 +247,7 @@ test_that("solve (compressed formulation, multiple zones)", {
   # solve problem
   s <- p %>% solve()
   # tests
-  expect_is(s, "SpatRaster")
+  expect_inherits(s, "SpatRaster")
   expect_equal(c(terra::values(s[[1]])), c(1, 0, NA, 1, 0, 0, NA))
   expect_equal(c(terra::values(s[[2]])), c(0, 0, 0,  0, 1, 0, NA))
 })
@@ -367,7 +365,7 @@ test_that("solve (expanded formulation, multiple zones)", {
   # solve problem
   s <- solve(p, compressed_formulation = FALSE)
   # tests
-  expect_is(s, "SpatRaster")
+  expect_inherits(s, "SpatRaster")
   expect_equal(c(terra::values(s[[1]])), c(1, 0, NA, 1, 0, 0, NA))
   expect_equal(c(terra::values(s[[2]])), c(0, 0, 0,  0, 1, 0, NA))
 })

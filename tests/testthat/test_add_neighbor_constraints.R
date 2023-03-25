@@ -1,5 +1,3 @@
-context("add_neighbor_constraints")
-
 test_that("compile (sf, single zone)", {
   # import data
   sim_pu_polygons <- get_sim_pu_polygons()[c(1:2, 10:12, 20:22), ]

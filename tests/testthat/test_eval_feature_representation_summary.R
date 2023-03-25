@@ -1,5 +1,3 @@
-context("eval_feature_representation_summary")
-
 test_that("numeric", {
   # create data
   pu <- data.frame(

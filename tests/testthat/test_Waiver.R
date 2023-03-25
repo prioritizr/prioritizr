@@ -1,5 +1,3 @@
-context("Waiver")
-
 test_that("Waiver", {
   # constructor
   i <- new_waiver()

@@ -1,5 +1,3 @@
-context("add_rsymphony_solver")
-
 test_that("binary decisions", {
   skip_on_cran()
   skip_if_not_installed("Rsymphony")
@@ -66,7 +64,7 @@ test_that("proportion decisions (floating point)", {
   expect_true(inherits(s, "sf"))
   expect_true("solution_1" %in% names(s))
   expect_equal(nrow(s), nrow(tas_pu))
-  expect_is(s$solution_1, "numeric")
+  expect_inherits(s$solution_1, "numeric")
   expect_gte(min(s$solution_1), 0)
   expect_lte(max(s$solution_1), 1)
 })
@@ -135,7 +133,7 @@ test_that("first_feasible", {
     add_rsymphony_solver(first_feasible = TRUE, verbose = FALSE) %>%
     solve()
   # check that solution has correct properties
-  expect_is(s, "SpatRaster")
+  expect_inherits(s, "SpatRaster")
   expect_equal(terra::nlyr(s), 1)
   expect_true(all_binary(s))
   expect_true(is_comparable_raster(sim_pu_raster, s))

@@ -1,5 +1,3 @@
-context("add_contiguity_constraints")
-
 test_that("compile (single zone)", {
   # import data
   sim_pu_polygons <- get_sim_pu_polygons()

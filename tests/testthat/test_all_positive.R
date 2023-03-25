@@ -1,5 +1,3 @@
-context("all_positive")
-
 test_that("x = default", {
   expect_tidy_error(all_positive(new_waiver()), "recognized")
 })

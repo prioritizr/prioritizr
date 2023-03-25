@@ -1,12 +1,10 @@
-context("binary_layer")
-
 test_that("SpatRaster", {
   # create data
   x <- terra::rast(matrix(c(1, 2, 4, 1, NA, 1)))
   # convert to binary stack
   y <- binary_stack(x)
   # run tests
-  expect_is(y, "SpatRaster")
+  expect_inherits(y, "SpatRaster")
   expect_equal(terra::nlyr(y), 4)
   expect_true(is_comparable_raster(x, y))
   expect_equal(c(terra::values(y[[1]])), c(1, 0, 0, 1, NA, 1))
@@ -25,8 +23,8 @@ test_that("Raster", {
     "deprecated"
   )
   # tests
-  expect_equivalent(
-    terra::as.data.frame(x),
+  expect_equal(
+    setNames(terra::as.data.frame(x), c("X1", "X2", "X3", "X4")),
     terra::as.data.frame(terra::rast(y))
   )
 })

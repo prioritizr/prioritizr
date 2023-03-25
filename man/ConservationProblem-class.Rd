@@ -79,6 +79,8 @@ generating solutions.}
 \item \href{#method-ConservationProblem-feature_names}{\code{ConservationProblem$feature_names()}}
 \item \href{#method-ConservationProblem-feature_abundances_in_planning_units}{\code{ConservationProblem$feature_abundances_in_planning_units()}}
 \item \href{#method-ConservationProblem-set_feature_abundances_in_planning_units}{\code{ConservationProblem$set_feature_abundances_in_planning_units()}}
+\item \href{#method-ConservationProblem-feature_positive_abundances_in_planning_units}{\code{ConservationProblem$feature_positive_abundances_in_planning_units()}}
+\item \href{#method-ConservationProblem-set_feature_positive_abundances_in_planning_units}{\code{ConservationProblem$set_feature_positive_abundances_in_planning_units()}}
 \item \href{#method-ConservationProblem-feature_abundances_in_total_units}{\code{ConservationProblem$feature_abundances_in_total_units()}}
 \item \href{#method-ConservationProblem-feature_targets}{\code{ConservationProblem$feature_targets()}}
 \item \href{#method-ConservationProblem-number_of_zones}{\code{ConservationProblem$number_of_zones()}}
@@ -373,6 +375,35 @@ Perform calculations to cache the abundance of the features in the
 planning units.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$set_feature_abundances_in_planning_units()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+Invisible \code{TRUE}.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ConservationProblem-feature_positive_abundances_in_planning_units"></a>}}
+\if{latex}{\out{\hypertarget{method-ConservationProblem-feature_positive_abundances_in_planning_units}{}}}
+\subsection{Method \code{feature_positive_abundances_in_planning_units()}}{
+Obtain the positive abundance of the features in the planning units.
+Note that this method, unlike \code{feature_abundances_in_planning_units},
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$feature_positive_abundances_in_planning_units()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+A \code{numeric} matrix. Each column corresponds to a different zone
+and each row corresponds to a different feature.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ConservationProblem-set_feature_positive_abundances_in_planning_units"></a>}}
+\if{latex}{\out{\hypertarget{method-ConservationProblem-set_feature_positive_abundances_in_planning_units}{}}}
+\subsection{Method \code{set_feature_positive_abundances_in_planning_units()}}{
+Perform calculations to cache the positive abundance of the features in
+the planning units.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$set_feature_positive_abundances_in_planning_units()}\if{html}{\out{</div>}}
 }
 
 \subsection{Returns}{

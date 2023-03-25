@@ -1,5 +1,3 @@
-context("add_manual_bounded_constraints")
-
 test_that("compile (sf, single zone)", {
   # import problem
   sim_pu_polygons <- get_sim_pu_polygons()

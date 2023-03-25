@@ -1,5 +1,3 @@
-context("add_shuffle_portfolio")
-
 test_that("compile", {
   # import data
   cost <- terra::rast(matrix(c(1, 2, 2, NA), ncol = 4))
@@ -18,7 +16,7 @@ test_that("compile", {
   # compile problem
   o <- compile(p)
   # tests
-  expect_is(o, "OptimizationProblem")
+  expect_inherits(o, "OptimizationProblem")
 })
 
 test_that("solve (single zone)", {
@@ -43,7 +41,7 @@ test_that("solve (single zone)", {
   # solve problem
   s <- solve(p)
   # tests
-  expect_is(s, "list")
+  expect_inherits(s, "list")
   expect_equal(length(s), 3)
   expect_true(all_elements_inherit(s, "SpatRaster"))
   expect_named(s, paste0("solution_", seq_len(3)))
@@ -77,7 +75,7 @@ test_that("solve (multiple zones)", {
   # solve problem
   s <- solve(p)
   # tests
-  expect_is(s, "list")
+  expect_inherits(s, "list")
   expect_length(s, 3)
   expect_true(all_elements_inherit(s, "SpatRaster"))
   expect_named(s, paste0("solution_", seq_len(3)))
@@ -116,7 +114,7 @@ test_that("solve (no duplicates)", {
     "Portfolio could only"
   )
   # tests
-  expect_is(s, "list")
+  expect_inherits(s, "list")
   expect_length(s, 2)
   expect_named(s, paste0("solution_", seq_len(2)))
   expect_true(all_elements_inherit(s, "SpatRaster"))
@@ -156,7 +154,7 @@ test_that("solve (parallel processing)", {
   # solve problem
   suppressWarnings(s <- solve(p))
   # tests
-  expect_is(s, "list")
+  expect_inherits(s, "list")
   expect_length(s, 10)
   expect_named(s, paste0("solution_", seq_along(s)))
   expect_true(all_elements_inherit(s, "SpatRaster"))

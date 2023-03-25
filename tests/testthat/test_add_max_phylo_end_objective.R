@@ -1,5 +1,3 @@
-context("add_max_phylo_end_objective")
-
 test_that("compile (compressed formulation, single zone)", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()

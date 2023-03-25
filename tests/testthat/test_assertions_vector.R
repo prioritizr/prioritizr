@@ -1,5 +1,3 @@
-context("assertions (vector)")
-
 test_that("is_match_of", {
   expect_true(is_match_of(1, c(1, 2)))
   expect_true(is_match_of("1", c("1", "2")))

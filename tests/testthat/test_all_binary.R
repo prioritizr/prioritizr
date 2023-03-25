@@ -1,5 +1,3 @@
-context("all_binary")
-
 test_that("x = default", {
   expect_tidy_error(all_binary("a"), "recognized")
 })

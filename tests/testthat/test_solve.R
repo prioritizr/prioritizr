@@ -1,5 +1,3 @@
-context("solve")
-
 test_that("x = SpatRaster, y = SpatRaster (single zone)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
@@ -19,7 +17,7 @@ test_that("x = SpatRaster, y = SpatRaster (single zone)", {
     add_default_solver(gap = 0, verbose = FALSE) %>%
     solve()
   # tests
-  expect_is(s, "SpatRaster")
+  expect_inherits(s, "SpatRaster")
   expect_equal(c(terra::values(s)), c(1, 0, NA, 1))
   expect_true(is_comparable_raster(s, costs))
 })
@@ -48,7 +46,7 @@ test_that("x = SpatRaster, y = ZonesSpatRaster (multiple zones)", {
     add_default_solver(gap = 0, verbose = FALSE) %>%
     solve()
   # tests
-  expect_is(s, "SpatRaster")
+  expect_inherits(s, "SpatRaster")
   expect_equal(c(terra::values(s[[1]])), c(1, 0, NA, 1, 0, 0, NA))
   expect_equal(c(terra::values(s[[2]])), c(0, 0, 0,  0, 1, 0, NA))
 })
@@ -74,7 +72,7 @@ test_that("x = sf, y = SpatRaster (single zone)", {
     add_default_solver(gap = 0, verbose = FALSE) %>%
     solve()
   # tests
-  expect_is(s, "sf")
+  expect_inherits(s, "sf")
   expect_equal(s$solution_1, c(1, 0, NA, 1))
 })
 
@@ -104,7 +102,7 @@ test_that("x = sf, y = ZonesSpatRaster (multiple zones)", {
     add_default_solver(gap = 0, verbose = FALSE) %>%
     solve()
   # tests
-  expect_is(s, "sf")
+  expect_inherits(s, "sf")
   expect_equal(s$solution_1_1, c(1, 0, NA, 1, 0, 0, NA))
   expect_equal(s$solution_1_2, c(0, 0, 0,  0, 1, 0, NA))
 })
@@ -127,7 +125,7 @@ test_that("x = sf, y = character (single zone)", {
     add_default_solver(gap = 0, verbose = FALSE) %>%
     solve()
   # tests
-  expect_is(s, "sf")
+  expect_inherits(s, "sf")
   expect_equal(s$solution_1, c(1, 0, NA, 1))
 })
 
@@ -156,7 +154,7 @@ test_that("x = sf, y = ZonesCharacter (multiple zones)", {
     add_default_solver(gap = 0, verbose = FALSE) %>%
     solve()
   # tests
-  expect_is(s, "sf")
+  expect_inherits(s, "sf")
   expect_equal(s$solution_1_1, c(1, 0, NA, 1, 0, 0, NA))
   expect_equal(s$solution_1_2, c(0, 0, 0,  0, 1, 0, NA))
 })
@@ -184,7 +182,7 @@ test_that("x = sf, y = RasterStack (single zone)", {
     "deprecated"
   )
   # tests
-  expect_is(s, "sf")
+  expect_inherits(s, "sf")
   expect_equal(s$solution_1, c(1, 0, NA, 1))
 })
 
@@ -204,21 +202,24 @@ test_that("x = sf, y = ZonesRaster (multiple zones)", {
   )
   # solve problem
   expect_warning(
-    s <-
-      problem(
-        costs,
-        zones(raster::stack(spp[[1:2]]), raster::stack(spp[[3:4]])),
-        cost_column = c("cost_1", "cost_2")
-      ) %>%
-      add_min_set_objective() %>%
-      add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
-      add_binary_decisions() %>%
-      add_default_solver(gap = 0, verbose = FALSE) %>%
-      solve(),
+    expect_warning(
+      s <-
+        problem(
+          costs,
+          zones(raster::stack(spp[[1:2]]), raster::stack(spp[[3:4]])),
+          cost_column = c("cost_1", "cost_2")
+        ) %>%
+        add_min_set_objective() %>%
+        add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
+        add_binary_decisions() %>%
+        add_default_solver(gap = 0, verbose = FALSE) %>%
+        solve(),
+      "deprecated"
+    ),
     "deprecated"
   )
   # tests
-  expect_is(s, "sf")
+  expect_inherits(s, "sf")
   expect_equal(s$solution_1_1, c(1, 0, NA, 1, 0, 0, NA))
   expect_equal(s$solution_1_2, c(0, 0, 0,  0, 1, 0, NA))
 })
@@ -243,7 +244,7 @@ test_that("x = data.frame, y = data.frame (single zone)", {
     add_default_solver(gap = 0, verbose = FALSE) %>%
     solve()
   # run tests
-  expect_is(s, "data.frame")
+  expect_inherits(s, "data.frame")
   expect_equal(s$solution_1, c(1, 0, NA, 1))
 })
 
@@ -284,7 +285,7 @@ test_that("x = data.frame, y = data.frame (multiple zones)", {
     add_default_solver(gap = 0, verbose = FALSE) %>%
     solve()
   # tests
-  expect_is(s, "data.frame")
+  expect_inherits(s, "data.frame")
   expect_equal(s$solution_1_z1, c(1, 0, NA, 1, 0, 0, NA))
   expect_equal(s$solution_1_z2, c(0, 0, 0,  0, 1, 0, NA))
 })
@@ -305,7 +306,7 @@ test_that("x = numeric, y = data.frame (single zone)", {
     add_default_solver(gap = 0, verbose = FALSE) %>%
     solve()
   # run tests
-  expect_is(s, "numeric")
+  expect_inherits(s, "numeric")
   expect_equal(c(s), c(1, NA, 0, 1))
 })
 
@@ -339,7 +340,7 @@ test_that("x = matrix, y = data.frame (multiple zones)", {
     add_default_solver(gap = 0, verbose = FALSE) %>%
     solve()
   # tests
-  expect_is(s, "matrix")
+  expect_inherits(s, "matrix")
   expect_equal(s[, "z1"], c(1, 0, NA, 1, 0, 0, NA))
   expect_equal(s[, "z2"], c(0, 0, 0,  0, 1, 0, NA))
 })
@@ -401,7 +402,7 @@ test_that("numerical instability (solution when force = TRUE)", {
     "numerical issues"
   )
   # tests
-  expect_is(s, "sf")
+  expect_inherits(s, "sf")
 })
 
 test_that("x = RasterLayer, y = RasterStack (single zone)", {
@@ -426,7 +427,7 @@ test_that("x = RasterLayer, y = RasterStack (single zone)", {
     "deprecated"
   )
   # tests
-  expect_is(s, "RasterLayer")
+  expect_inherits(s, "RasterLayer")
   expect_equal(c(raster::values(s)), c(1, 0, NA, 1))
   expect_true(is_comparable_raster(s, raster::raster(costs)))
 })
@@ -448,20 +449,23 @@ test_that("x = RasterStack, y = ZonesRaster (multiple zones)", {
   names(spp) <- make.unique(names(spp))
   # create and solve problem
   expect_warning(
-    s <-
-      problem(
-        raster::stack(costs),
-        zones(raster::stack(spp[[1:2]]), raster::stack(spp[[3:4]]))
-      ) %>%
-      add_min_set_objective() %>%
-      add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
-      add_binary_decisions() %>%
-      add_default_solver(gap = 0, verbose = FALSE) %>%
-      solve(),
+    expect_warning(
+      s <-
+        problem(
+          raster::stack(costs),
+          zones(raster::stack(spp[[1:2]]), raster::stack(spp[[3:4]]))
+        ) %>%
+        add_min_set_objective() %>%
+        add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
+        add_binary_decisions() %>%
+        add_default_solver(gap = 0, verbose = FALSE) %>%
+        solve(),
+      "deprecated"
+    ),
     "deprecated"
   )
   # tests
-  expect_is(s, "RasterStack")
+  expect_inherits(s, "RasterStack")
   expect_equal(c(raster::values(s[[1]])), c(1, 0, NA, 1, 0, 0, NA))
   expect_equal(c(raster::values(s[[2]])), c(0, 0, 0,  0, 1, 0, NA))
 })
@@ -489,7 +493,7 @@ test_that("x = Spatial, y = character (single zone)", {
     "deprecated"
   )
   # tests
-  expect_is(s, "SpatialPolygonsDataFrame")
+  expect_inherits(s, "SpatialPolygonsDataFrame")
   expect_equal(s$solution_1, c(1, 0, NA, 1))
 })
 
@@ -521,7 +525,7 @@ test_that("x = Spatial, y = ZonesCharacter (multiple zones)", {
     "deprecated"
   )
   # tests
-  expect_is(s, "SpatialPolygonsDataFrame")
+  expect_inherits(s, "SpatialPolygonsDataFrame")
   expect_equal(s$solution_1_1, c(1, 0, NA, 1, 0, 0, NA))
   expect_equal(s$solution_1_2, c(0, 0, 0,  0, 1, 0, NA))
 })
@@ -539,19 +543,22 @@ test_that("x = Spatial, y = RasterStack (single zone)", {
   )
   # create and solve problem
   expect_warning(
-    s <-
-      problem(
-        sf::as_Spatial(costs), raster::stack(spp), cost_column = "cost"
-      ) %>%
-      add_min_set_objective() %>%
-      add_absolute_targets(c(1, 1)) %>%
-      add_binary_decisions() %>%
-      add_default_solver(gap = 0, verbose = FALSE) %>%
-      solve(),
+    expect_warning(
+      s <-
+        problem(
+          sf::as_Spatial(costs), raster::stack(spp), cost_column = "cost"
+        ) %>%
+        add_min_set_objective() %>%
+        add_absolute_targets(c(1, 1)) %>%
+        add_binary_decisions() %>%
+        add_default_solver(gap = 0, verbose = FALSE) %>%
+        solve(),
+      "deprecated"
+    ),
     "deprecated"
   )
   # tests
-  expect_is(s, "SpatialPolygonsDataFrame")
+  expect_inherits(s, "SpatialPolygonsDataFrame")
   expect_equal(s$solution_1, c(1, 0, NA, 1))
 })
 
@@ -571,21 +578,27 @@ test_that("x = Spatial, y = ZonesRaster (multiple zones)", {
   )
   # solve problem
   expect_warning(
-    s <-
-      problem(
-        sf::as_Spatial(costs),
-        zones(raster::stack(spp[[1:2]]), raster::stack(spp[[3:4]])),
-        cost_column = c("cost_1", "cost_2")
-      ) %>%
-      add_min_set_objective() %>%
-      add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
-      add_binary_decisions() %>%
-      add_default_solver(gap = 0, verbose = FALSE) %>%
-      solve(),
+    expect_warning(
+      expect_warning(
+        s <-
+          problem(
+            sf::as_Spatial(costs),
+            zones(raster::stack(spp[[1:2]]), raster::stack(spp[[3:4]])),
+            cost_column = c("cost_1", "cost_2")
+          ) %>%
+          add_min_set_objective() %>%
+          add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
+          add_binary_decisions() %>%
+          add_default_solver(gap = 0, verbose = FALSE) %>%
+          solve(),
+        "deprecated"
+      ),
+      "deprecated"
+    ),
     "deprecated"
   )
   # tests
-  expect_is(s, "SpatialPolygonsDataFrame")
+  expect_inherits(s, "SpatialPolygonsDataFrame")
   expect_equal(s$solution_1_1, c(1, 0, NA, 1, 0, 0, NA))
   expect_equal(s$solution_1_2, c(0, 0, 0,  0, 1, 0, NA))
 })

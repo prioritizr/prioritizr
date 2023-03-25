@@ -1,5 +1,3 @@
-context("assertions (misc)")
-
 test_that("is_thread_count", {
   expect_true(is_thread_count(1))
   expect_false(is_thread_count("a"))

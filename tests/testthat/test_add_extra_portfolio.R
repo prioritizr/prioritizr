@@ -1,5 +1,3 @@
-context("add_extra_portfolio")
-
 test_that("compile", {
   skip_if_not_installed("gurobi")
   # create data
@@ -19,7 +17,7 @@ test_that("compile", {
   # compile problem
   o <- compile(p)
   # tests
-  expect_is(o, "OptimizationProblem")
+  expect_inherits(o, "OptimizationProblem")
 })
 
 test_that("solve (single zone)", {
@@ -44,7 +42,7 @@ test_that("solve (single zone)", {
   # solve problem
   s <- solve(p)
   # output checks
-  expect_is(s, "list")
+  expect_inherits(s, "list")
   expect_true(length(s) > 1)
   expect_true(all_elements_inherit(s, "SpatRaster"))
   expect_named(s, paste0("solution_", seq_along(s)))
@@ -78,7 +76,7 @@ test_that("solve (multiple zones)", {
   # solve problem
   s <- solve(p)
   # output checks
-  expect_is(s, "list")
+  expect_inherits(s, "list")
   expect_true(length(s) > 1)
   expect_true(all_elements_inherit(s, "SpatRaster"))
   expect_named(s, paste0("solution_", seq_along(s)))

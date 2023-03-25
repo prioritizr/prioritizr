@@ -1,5 +1,3 @@
-context("planning_unit_solution_status")
-
 test_that("numeric", {
   # simulate data
   pu <- data.frame(

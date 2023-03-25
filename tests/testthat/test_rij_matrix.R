@@ -1,5 +1,3 @@
-context("rij_matrix")
-
 test_that("x = SpatRaster (single layer), y = SpatRaster (single layer)", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()
@@ -271,9 +269,12 @@ test_that("x = Spatial, y = RasterStack", {
   x <- rij_matrix(sim_pu_polygons, sim_features)
   # calculate correct matrix
   expect_warning(
-    y <- rij_matrix(
-      sf::as_Spatial(sim_pu_polygons),
-      raster::stack(sim_features)
+    expect_warning(
+      y <- rij_matrix(
+        sf::as_Spatial(sim_pu_polygons),
+        raster::stack(sim_features)
+      ),
+      "deprecated"
     ),
     "deprecated"
   )

@@ -1,5 +1,3 @@
-context("prioritizrdata")
-
 test_that("salt_data", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
@@ -16,7 +14,7 @@ test_that("salt_data", {
   s <- solve(p)
   # tests
   suppressMessages(print(p))
-  expect_is(s, "SpatRaster")
+  expect_inherits(s, "SpatRaster")
   expect_gte(terra::global(s, "sum", na.rm = TRUE)[[1]], 1)
   expect_true(all(Matrix::rowSums(p$data$rij_matrix[[1]]) > 0))
 })
@@ -39,7 +37,7 @@ test_that("tas_data", {
   s <- solve(p)
   # tests
   suppressMessages(print(p))
-  expect_is(s, "sf")
+  expect_inherits(s, "sf")
   expect_true(assertthat::has_name(s, "solution_1"))
   expect_gte(sum(s$solution_1), 1)
   expect_true(all(Matrix::rowSums(p$data$rij_matrix[[1]]) > 0))
@@ -65,7 +63,7 @@ test_that("wa_data", {
   s <- solve(p)
   # tests
   suppressMessages(print(p))
-  expect_is(s, "SpatRaster")
+  expect_inherits(s, "SpatRaster")
   expect_gte(terra::global(s, "sum", na.rm = TRUE)[[1]], 1)
   expect_true(all(Matrix::rowSums(p$data$rij_matrix[[1]]) > 0))
 })

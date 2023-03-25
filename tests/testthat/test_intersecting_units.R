@@ -1,5 +1,3 @@
-context("intersecting_units")
-
 test_that("x = SpatRaster, y = SpatRaster", {
   # create data
   x <- terra::rast(matrix(c(NA, 2:16), byrow = TRUE, ncol = 4))
@@ -72,9 +70,11 @@ test_that("x = Raster, y = Raster", {
   x <- terra::rast(matrix(c(NA, 2:16), byrow = TRUE, ncol = 4))
   y <- terra::as.int(x > 6)
   # calculations
-  expect_warning(
-    r <- intersecting_units(raster::raster(x), raster::raster(y)),
-    "deprecated"
+  suppressWarnings(
+    expect_warning(
+      r <- intersecting_units(raster::raster(x), raster::raster(y)),
+      "deprecated"
+    )
   )
   # run tests
   expect_equal(intersecting_units(x, y), r)
@@ -87,15 +87,17 @@ test_that("x = Spatial, y = Spatial", {
   x <- sim_pu_polygons[1:10, ]
   y <- sim_pu_polygons[5:15, ]
   # calculations
-  expect_warning(
-    r <- intersecting_units(sf::as_Spatial(x), sf::as_Spatial(y)),
-    "deprecated"
+  suppressWarnings(
+    expect_warning(
+      r <- intersecting_units(sf::as_Spatial(x), sf::as_Spatial(y)),
+      "deprecated"
+    )
   )
   # run tests
   expect_equal(intersecting_units(x, y), r)
 })
 
-test_that("x = Raster, y = sf", {
+test_that("x = Raster, y = Spatial", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_pu_polygons <- get_sim_pu_polygons()
@@ -105,7 +107,10 @@ test_that("x = Raster, y = sf", {
   y <- sim_pu_polygons[pu_index, ]
   # calculations
   expect_warning(
-    r <- intersecting_units(raster::raster(x), sf::as_Spatial(y)),
+    expect_warning(
+      r <- intersecting_units(raster::raster(x), sf::as_Spatial(y)),
+      "deprecated"
+    ),
     "deprecated"
   )
   # run tests
@@ -122,7 +127,10 @@ test_that("x = Spatial, y = Raster", {
   y <- terra::as.int(sim_pu_raster < m)
   # calculations
   expect_warning(
-    r <- intersecting_units(sf::as_Spatial(x), raster::raster(y)),
+    expect_warning(
+      r <- intersecting_units(sf::as_Spatial(x), raster::raster(y)),
+      "deprecated"
+    ),
     "deprecated"
   )
   # run tests

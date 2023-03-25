@@ -1,5 +1,3 @@
-context("feature_abundances")
-
 test_that("data.frame (na.rm = FALSE, single zone)", {
   # create data
   pu <- data.frame(
@@ -11,7 +9,7 @@ test_that("data.frame (na.rm = FALSE, single zone)", {
   # calculate abundances
   x <- feature_abundances(p, na.rm = FALSE)
   # run tests
-  expect_is(x, "tbl_df")
+  expect_inherits(x, "tbl_df")
   expect_named(
     x,
     c("feature", "absolute_abundance", "relative_abundance")
@@ -41,7 +39,7 @@ test_that("data.frame (na.rm = TRUE, single zone)", {
   # calculate abundances
   x <- feature_abundances(p, na.rm = TRUE)
   # run tests
-  expect_is(x, "tbl_df")
+  expect_inherits(x, "tbl_df")
   expect_named(
     x,
     c("feature", "absolute_abundance", "relative_abundance")
@@ -73,7 +71,7 @@ test_that("SpatRaster (na.rm = FALSE, single zone)", {
   # calculate abundances
   x <- feature_abundances(p, na.rm = FALSE)
   # run tests
-  expect_is(x, "tbl_df")
+  expect_inherits(x, "tbl_df")
   expect_named(
     x,
     c("feature", "absolute_abundance", "relative_abundance")
@@ -95,7 +93,7 @@ test_that("SpatRaster (na.rm = TRUE, single zone)", {
   # calculate abundances
   x <- feature_abundances(p, na.rm = TRUE)
   # run tests
-  expect_is(x, "tbl_df")
+  expect_inherits(x, "tbl_df")
   expect_named(
     x,
     c("feature", "absolute_abundance", "relative_abundance")
@@ -151,7 +149,7 @@ test_that("data.frame (na.rm = FALSE, multiple zones)", {
   # calculate abundances
   x <- feature_abundances(p, na.rm = FALSE)
   # run tests
-  expect_is(x, "tbl_df")
+  expect_inherits(x, "tbl_df")
   expect_named(
     x,
     c("feature", "zone", "absolute_abundance", "relative_abundance")
@@ -187,7 +185,7 @@ test_that("data.frame (na.rm = TRUE, multiple zones)", {
   # calculate abundances
   x <- feature_abundances(p, na.rm = TRUE)
   # run tests
-  expect_is(x, "tbl_df")
+  expect_inherits(x, "tbl_df")
   expect_named(
     x,
     c("feature", "zone", "absolute_abundance", "relative_abundance")
@@ -225,7 +223,7 @@ test_that("SpatRaster (na.rm = FALSE, multiple zones)", {
   # calculate abundances
   x <- feature_abundances(p, na.rm = FALSE)
   # run tests
-  expect_is(x, "tbl_df")
+  expect_inherits(x, "tbl_df")
   expect_named(
     x,
     c("feature", "zone", "absolute_abundance", "relative_abundance")
@@ -266,7 +264,7 @@ test_that("SpatRaster (na.rm = TRUE, multiple zones)", {
   # calculate abundances
   x <- feature_abundances(p, na.rm = TRUE)
   # run tests
-  expect_is(x, "tbl_df")
+  expect_inherits(x, "tbl_df")
   expect_named(
     x,
     c("feature", "zone", "absolute_abundance", "relative_abundance")

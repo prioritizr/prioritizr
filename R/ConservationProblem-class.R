@@ -777,6 +777,44 @@ ConservationProblem <- R6::R6Class(
     },
 
     #' @description
+    #' Obtain the positive abundance of the features in the planning units.
+    #' Note that this method, unlike `feature_abundances_in_planning_units`,
+    # is only calculated using positive values.
+    #' @return A `numeric` matrix. Each column corresponds to a different zone
+    #' and each row corresponds to a different feature.
+    feature_positive_abundances_in_planning_units = function() {
+      x <- self$get_data("feature_positive_abundances_in_planning_units")
+      if (!is.Waiver(x)) return(x)
+      self$set_feature_positive_abundances_in_planning_units()
+      self$get_data("feature_positive_abundances_in_planning_units")
+    },
+
+    #' @description
+    #' Perform calculations to cache the positive abundance of the features in
+    #' the planning units.
+    #' @return Invisible `TRUE`.
+    set_feature_positive_abundances_in_planning_units = function() {
+      pu_indices <- self$planning_unit_indices()
+      ind <- self$planning_unit_indices_with_finite_costs()
+      ind <- lapply(ind, function(x) match(x, pu_indices))
+      out <- vapply(
+        seq_along(self$data$rij_matrix),
+        FUN.VALUE = numeric(nrow(self$data$rij_matrix[[1]])),
+        function(i) {
+          m <- self$data$rij_matrix[[i]][, ind[[i]], drop = FALSE]
+          m@x <- pmax(m@x, 0)
+          Matrix::rowSums(m, na.rm = TRUE)
+        }
+      )
+      if (!is.matrix(out))
+        out <- matrix(out, ncol = self$number_of_zones())
+      colnames(out) <- self$zone_names()
+      rownames(out) <- self$feature_names()
+      self$set_data("feature_positive_abundances_in_planning_units", out)
+      invisible(TRUE)
+    },
+
+    #' @description
     #' Obtain the abundance of the features in the total units.
     #' @return A `numeric` matrix. Each column corresponds to a different zone
     #' and each row corresponds to a different feature.

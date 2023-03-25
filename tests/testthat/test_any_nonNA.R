@@ -1,5 +1,3 @@
-context("any_nonNA")
-
 test_that("x = default", {
   expect_tidy_error(any_nonNA(new_waiver()), "recognized")
 })

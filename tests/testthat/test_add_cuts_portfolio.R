@@ -1,5 +1,3 @@
-context("add_cuts_portfolio")
-
 test_that("compile", {
   # create data
   cost <- terra::rast(matrix(c(1, 2, 2, NA), ncol = 4))
@@ -20,7 +18,7 @@ test_that("compile", {
   # compile problem
   o <- compile(p)
   # tests
-  expect_is(o, "OptimizationProblem")
+  expect_inherits(o, "OptimizationProblem")
 })
 
 test_that("solve (number_solutions within limit, single zone)", {
@@ -43,7 +41,7 @@ test_that("solve (number_solutions within limit, single zone)", {
   # solve problem
   s <- solve(p)
   # tests
-  expect_is(s, "list")
+  expect_inherits(s, "list")
   expect_length(s, 2)
   expect_named(s, c("solution_1", "solution_2"))
   for (i in seq_len(length(s)))
@@ -79,7 +77,7 @@ test_that("solve (number_solutions within limit, multiple zones)", {
   # solve problem
   s <- solve(p)
   # tests
-  expect_is(s, "list")
+  expect_inherits(s, "list")
   expect_length(s, 2)
   expect_true(all_elements_inherit(s, "SpatRaster"))
   expect_named(s, paste0("solution_", seq_len(2)))
@@ -128,7 +126,7 @@ test_that("solve (number_solutions outside limit)", {
     "Portfolio could only"
   )
   # output checks
-  expect_is(s, "SpatRaster")
+  expect_inherits(s, "SpatRaster")
   expect_true(
     all(terra::global(s * features, "sum", na.rm = TRUE)[[1]] >= c(2, 10))
   )

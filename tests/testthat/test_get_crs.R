@@ -1,5 +1,3 @@
-context("get_crs")
-
 test_that("x = sf", {
   crs <- sf::st_crs(3875)
   g <- sf::st_sfc(list(sf::st_point(c(1, 0)), sf::st_point(c(0, 1))), crs = crs)

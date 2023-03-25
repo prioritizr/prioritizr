@@ -1,5 +1,3 @@
-context("simulate")
-
 test_that("simulate_data (SpatRaster, single layer)", {
   skip_if_not_installed("fields")
   # create data
@@ -7,7 +5,7 @@ test_that("simulate_data (SpatRaster, single layer)", {
   # simulate data
   s <- simulate_data(r, n = 1, transform = plogis)
   # tests
-  expect_is(s, "SpatRaster")
+  expect_inherits(s, "SpatRaster")
   expect_true(is_comparable_raster(r, s[[1]]))
   expect_equal(terra::nlyr(s), 1)
   expect_true(all(terra::values(s) >= 0))
@@ -22,7 +20,7 @@ test_that("simulate_data (SpatRaster, multiple layers)", {
   # simulate data
   s <- simulate_data(r, n = 2, transform = plogis)
   # tests
-  expect_is(s, "SpatRaster")
+  expect_inherits(s, "SpatRaster")
   expect_true(is_comparable_raster(r, s[[1]]))
   expect_equal(terra::nlyr(s), 2)
   expect_true(all(terra::values(s) >= 0))
@@ -37,7 +35,7 @@ test_that("simulate_species (SpatRaster)", {
   # simulate data
   s <- simulate_species(r, n = 2)
   # tests
-  expect_is(s, "SpatRaster")
+  expect_inherits(s, "SpatRaster")
   expect_true(is_comparable_raster(r, s[[1]]))
   expect_equal(terra::nlyr(s), 2)
   expect_true(all(terra::values(s) >= 0))
@@ -52,7 +50,7 @@ test_that("simulate_cost (SpatRaster)", {
   # simulate data
   s <- simulate_cost(r, n = 2)
   # tests
-  expect_is(s, "SpatRaster")
+  expect_inherits(s, "SpatRaster")
   expect_true(is_comparable_raster(r, s[[1]]))
   expect_equal(terra::nlyr(s), 2)
   expect_true(all(terra::values(s) >= 0))
@@ -70,7 +68,7 @@ test_that("simulate_data (RasterStack)", {
   )
   s2 <- terra::rast(s1)
   # tests
-  expect_is(s1, "RasterStack")
+  expect_inherits(s1, "RasterStack")
   expect_true(is_comparable_raster(r, s2[[1]]))
   expect_equal(terra::nlyr(s2), 1)
   expect_true(all(terra::values(s2) >= 0))
@@ -89,7 +87,7 @@ test_that("simulate_species (RasterStack)", {
   )
   s2 <- terra::rast(s1)
   # tests
-  expect_is(s1, "RasterStack")
+  expect_inherits(s1, "RasterStack")
   expect_true(is_comparable_raster(r, s2[[1]]))
   expect_equal(terra::nlyr(s2), 2)
   expect_true(all(terra::values(s2) >= 0))
@@ -108,7 +106,7 @@ test_that("simulate_cost (RasterStack)", {
   )
   s2 <- terra::rast(s1)
   # tests
-  expect_is(s1, "RasterStack")
+  expect_inherits(s1, "RasterStack")
   expect_true(is_comparable_raster(r, s2[[1]]))
   expect_equal(terra::nlyr(s2), 2)
   expect_true(all(terra::values(s2) >= 0))

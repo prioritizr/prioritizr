@@ -1,5 +1,3 @@
-context("boundary_matrix")
-
 test_that("SpatRaster (single layer)", {
   # create data
   d <- terra::rast(
@@ -13,7 +11,7 @@ test_that("SpatRaster (single layer)", {
   y <- cbind(0, y)
   y <- rbind(0, y)
   # tests
-  expect_is(x, "dsCMatrix")
+  expect_inherits(x, "dsCMatrix")
   expect_true(all(x == y))
 })
 
@@ -32,7 +30,7 @@ test_that("SpatRaster (multiple layer)", {
   y <- cbind(0, y)
   y <- rbind(0, y)
   # tests
-  expect_is(x, "dsCMatrix")
+  expect_inherits(x, "dsCMatrix")
   expect_true(all(x == y))
 })
 
@@ -65,7 +63,7 @@ test_that("sf (squares)", {
     )
   )
   # tests
-  expect_is(x, "dsCMatrix")
+  expect_inherits(x, "dsCMatrix")
   expect_true(all(x == y))
 })
 
@@ -179,7 +177,7 @@ test_that("sf (hexagons)", {
     index1 = FALSE
   )
   # tests
-  expect_is(x, "dsCMatrix")
+  expect_inherits(x, "dsCMatrix")
   expect_lte(max(abs(x - y)), 1e-8)
 })
 
@@ -219,7 +217,7 @@ test_that("sf (simple shapes)", {
     symmetric = TRUE
   )
   # tests
-  expect_is(x, "dsCMatrix")
+  expect_inherits(x, "dsCMatrix")
   expect_lte(max(abs(x - y)), 1e-8)
 })
 
@@ -244,7 +242,7 @@ test_that("sf (complex shapes)", {
     symmetric = TRUE
   )
   # tests
-  expect_is(x, "dsCMatrix")
+  expect_inherits(x, "dsCMatrix")
   expect_lte(max(abs(x - y)), 1e-8)
 })
 
@@ -259,7 +257,7 @@ test_that("sf (overlapping polygons)", {
   y <- rbind(y, y[2, ])
   y <- cbind(y, y[, 2])
   # tests
-  expect_is(x, "dsCMatrix")
+  expect_inherits(x, "dsCMatrix")
   expect_lte(max(abs(x - y)), 1e-8)
 })
 
@@ -295,7 +293,7 @@ test_that("sf (vertices not aligned)", {
   diag(y) <- as.numeric(sf::st_length(d2))
   y <- Matrix::Matrix(y, sparse = TRUE)
   # tests
-  expect_is(x, "dsCMatrix")
+  expect_inherits(x, "dsCMatrix")
   expect_lte(max(abs(x - y)), 1e-8)
 })
 
@@ -306,8 +304,8 @@ test_that("Spatial", {
     y <- boundary_matrix(sf::as_Spatial(get_sim_pu_polygons())),
     "deprecated"
   )
-  expect_is(x, "dsCMatrix")
-  expect_is(y, "dsCMatrix")
+  expect_inherits(x, "dsCMatrix")
+  expect_inherits(y, "dsCMatrix")
   expect_true(all(x == y))
   # lines
   expect_tidy_error(
@@ -330,8 +328,8 @@ test_that("Raster", {
     y <- boundary_matrix(raster::raster(get_sim_pu_raster())),
     "deprecated"
   )
-  expect_is(x, "dsCMatrix")
-  expect_is(y, "dsCMatrix")
+  expect_inherits(x, "dsCMatrix")
+  expect_inherits(y, "dsCMatrix")
   expect_true(all(x == y))
   # RasterStack
   r <- c(get_sim_pu_raster(), get_sim_pu_raster())
@@ -341,8 +339,8 @@ test_that("Raster", {
     y <- boundary_matrix(raster::stack(r)),
     "deprecated"
   )
-  expect_is(x, "dsCMatrix")
-  expect_is(y, "dsCMatrix")
+  expect_inherits(x, "dsCMatrix")
+  expect_inherits(y, "dsCMatrix")
   expect_true(all(x == y))
 })
 

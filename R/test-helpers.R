@@ -119,3 +119,30 @@ quasi_capture <- function (.quo, .label, .capture, ...) {
 }
 
 `%||%` <- rlang::`%||%`
+
+#' Expect inherits
+#'
+#' This function replicates [testthat::expect_is()] for use in the 3rd
+#' edition of the \pkg{testthat}.
+#'
+#' @param object Object.
+#'
+#' @param what `character` value.
+#'
+#' @return The `object` value.
+#'
+#' @noRd
+expect_inherits <- function(object, what) {
+  # capture object and label
+  act <- testthat::quasi_label(rlang::enquo(object), arg = "object")
+  # run expectation
+  act$what <- class(act$val)
+  testthat::expect(
+    inherits(act$val, what),
+    failure_message = sprintf(
+      "%s is a '%s', not a '%s' object.",
+      act$lab, act$what, what
+    )
+  )
+  invisible(act$val %||% act$cap)
+}

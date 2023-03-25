@@ -1,5 +1,3 @@
-context("decisions")
-
 test_that("add_binary_decisions (compile, single zone)", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()

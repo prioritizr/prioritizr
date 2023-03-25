@@ -1,5 +1,3 @@
-context("connectivity_matrix")
-
 test_that("x = sf, y = character", {
   # import data
   sim_pu_polygons <- get_sim_pu_polygons()
@@ -138,8 +136,11 @@ test_that("x = Spatial, y = Raster", {
   # create matrices
   cm1 <- connectivity_matrix(sim_pu_polygons, sim_features[[1]])
   expect_warning(
-    cm2 <- connectivity_matrix(
-      sf::as_Spatial(sim_pu_polygons), raster::stack(sim_features[[1]])
+    expect_warning(
+      cm2 <- connectivity_matrix(
+        sf::as_Spatial(sim_pu_polygons), raster::stack(sim_features[[1]])
+      ),
+      "deprecated"
     ),
     "deprecated"
   )

@@ -1,5 +1,3 @@
-context("fast_extract")
-
 test_that("x = SpatRaster, y = sf (polygons)", {
   # import data
   sim_pu_polygons <- get_sim_pu_polygons()
@@ -13,7 +11,7 @@ test_that("x = SpatRaster, y = sf (polygons)", {
   # tests
   expect_equal(nrow(x), nrow(sim_pu_polygons))
   expect_equal(ncol(x), terra::nlyr(sim_features))
-  expect_equivalent(x, as.matrix(y))
+  expect_equal(x, as.matrix(y), ignore_attr = TRUE)
 })
 
 test_that("x = SpatRaster, y = sf (lines)", {
@@ -35,11 +33,12 @@ test_that("x = SpatRaster, y = sf (lines)", {
   # tests
   expect_equal(nrow(x), nrow(sim_pu_lines))
   expect_equal(ncol(x), terra::nlyr(sim_features))
-  expect_equivalent(x, y)
+  expect_equal(x, y, ignore_attr = TRUE)
   # test for double counting of cells
-  expect_equivalent(
+  expect_equal(
     fast_extract(sim_features[[1]], sim_pu_lines[1, ], fun = "sum"),
-    as.matrix(sim_features[[1]][1])
+    as.matrix(sim_features[[1]][1]),
+    ignore_attr = TRUE
   )
 })
 
@@ -62,7 +61,7 @@ test_that("x = SpatRaster, y = sf (points)", {
   # tests
   expect_equal(nrow(x), nrow(sim_pu_points))
   expect_equal(ncol(x), terra::nlyr(sim_features))
-  expect_equivalent(x, y)
+  expect_equal(x, y, ignore_attr = TRUE)
 })
 
 test_that("x = SpatRaster, y = sfc", {
@@ -85,7 +84,7 @@ test_that("x = SpatRaster, y = sfc", {
   # tests
   expect_equal(nrow(x), length(sim_data))
   expect_equal(ncol(x), terra::nlyr(sim_features))
-  expect_equal(x, y)
+  expect_equal(x, y, ignore_attr = TRUE)
 })
 
 test_that("x = Raster, y = sfc", {
@@ -108,7 +107,7 @@ test_that("x = Raster, y = sfc", {
   # tests
   expect_equal(nrow(x), length(sim_data))
   expect_equal(ncol(x), terra::nlyr(sim_features))
-  expect_equal(x, y)
+  expect_equal(x, y, ignore_attr = TRUE)
 })
 
 test_that("x = Raster, y = SpatialPolygonsDataFrame", {
@@ -118,10 +117,13 @@ test_that("x = Raster, y = SpatialPolygonsDataFrame", {
   # calculations
   x <- fast_extract(sim_features, sim_pu_polygons, fun = "sum")
   expect_warning(
-    y <- fast_extract(
-      raster::stack(sim_features),
-      sf::as_Spatial(sim_pu_polygons),
-      fun = "sum"
+    expect_warning(
+      y <- fast_extract(
+        raster::stack(sim_features),
+        sf::as_Spatial(sim_pu_polygons),
+        fun = "sum"
+      ),
+      "deprecated"
     ),
     "deprecated"
   )
@@ -136,10 +138,13 @@ test_that("x = Raster, y = SpatialLinesDataFrame", {
   # calculations
   x <- fast_extract(sim_features, sim_pu_lines, fun = "sum")
   expect_warning(
-    y <- fast_extract(
-      raster::stack(sim_features),
-      sf::as_Spatial(sim_pu_lines),
-      fun = "sum"
+    expect_warning(
+      y <- fast_extract(
+        raster::stack(sim_features),
+        sf::as_Spatial(sim_pu_lines),
+        fun = "sum"
+      ),
+      "deprecated"
     ),
     "deprecated"
   )
@@ -154,10 +159,13 @@ test_that("x = Raster, y = SpatialPointsDataFrame", {
   # calculations
   x <- fast_extract(sim_features, sim_pu_points, fun = "sum")
   expect_warning(
-    y <- fast_extract(
-      raster::stack(sim_features),
-      sf::as_Spatial(sim_pu_points),
-      fun = "sum"
+    expect_warning(
+      y <- fast_extract(
+        raster::stack(sim_features),
+        sf::as_Spatial(sim_pu_points),
+        fun = "sum"
+      ),
+      "deprecated"
     ),
     "deprecated"
   )
@@ -185,7 +193,7 @@ test_that("x = Raster, y = sf (polygons)", {
   # tests
   expect_equal(nrow(x), nrow(sim_pu_polygons))
   expect_equal(ncol(x), terra::nlyr(sim_features))
-  expect_equivalent(x, as.matrix(y))
+  expect_equal(x, as.matrix(y), ignore_attr = TRUE)
 })
 
 test_that("invalid inputs", {

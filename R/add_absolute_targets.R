@@ -226,11 +226,20 @@ methods::setMethod(
       ncol(targets) == x$number_of_zones()
     )
     verify(all_positive(targets))
+    inf_idx <- which(
+      targets > x$feature_positive_abundances_in_planning_units()
+    )
     verify(
-      all(targets <= x$feature_abundances_in_planning_units(), na.rm = TRUE),
-      msg = paste0(
-        "Some {.arg targets} values cannot be met even if all planning units",
-        "are selected."
+      length(inf_idx) == 0,
+      msg = c(
+        paste(
+          "{.arg targets} contains infeasible values that cannot be met even",
+          "if all planning units selected."
+        ),
+        "i" = paste(
+          "Infeasible values found at {.val {length(inf_idx)}} locations:",
+          "{.val {inf_idx}}."
+        )
       )
     )
     # create targets as data.frame
@@ -245,7 +254,7 @@ methods::setMethod(
     }
     target_data$target <- as.numeric(targets)
     # add targets to problem
-    add_manual_targets(x, target_data)
+    suppressWarnings(add_manual_targets(x, target_data))
   }
 )
 
@@ -287,7 +296,29 @@ methods::setMethod(
         "refer to numeric columns of the feature data for {.arg x}."
       )
     )
+    inf_idx <- which(
+      as.matrix(x$data$features[, targets, drop = FALSE]) >
+        x$feature_positive_abundances_in_planning_units()
+    )
+    verify(
+      length(inf_idx) == 0,
+      msg = c(
+        paste(
+          "{.arg targets} contains infeasible values that cannot be met even",
+          "if all planning units selected."
+        ),
+        "i" = paste(
+          "Infeasible values found at {.val {length(inf_idx)}} locations:",
+          "{.val {inf_idx}}."
+        )
+      )
+    )
     # add targets to problem
-    add_absolute_targets(x, as.matrix(x$data$features[, targets, drop = FALSE]))
+    suppressWarnings(
+      add_absolute_targets(
+        x, as.matrix(x$data$features[, targets, drop = FALSE]
+        )
+      )
+    )
   }
 )

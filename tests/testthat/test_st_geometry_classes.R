@@ -1,5 +1,3 @@
-context("st_geometry_classes")
-
 test_that("works", {
   # data creation based on https://github.com/r-spatial/sf/blob/master/R/sfg.R
   p1 <- sf::st_point(c(1, 2))

@@ -13,10 +13,11 @@ methods::setMethod(
       raster::nlayers(x) == 1
     )
     assert_dots_empty()
-    cli_warning(raster_pkg_deprecation_notice)
     problem(
       x,
-      zones(features, zone_names = names(x), feature_names = names(features)),
+      suppressWarnings(
+        zones(features, zone_names = names(x), feature_names = names(features))
+      ),
       run_checks = run_checks,
       ...
     )
@@ -101,8 +102,10 @@ methods::setMethod(
     assert(assertthat::is.string(cost_column))
     problem(
       x,
-      zones(
-        features, zone_names = cost_column, feature_names = names(features)
+      suppressWarnings(
+        zones(
+          features, zone_names = cost_column, feature_names = names(features)
+        )
       ),
       cost_column = cost_column,
       run_checks = run_checks,
@@ -300,10 +303,12 @@ methods::setMethod(
     assert(assertthat::is.string(cost_column))
     problem(
       x,
-      zones(
-        features,
-        zone_names = cost_column,
-        feature_names = names(features)
+      suppressWarnings(
+        zones(
+          features,
+          zone_names = cost_column,
+          feature_names = names(features)
+        )
       ),
       cost_column = cost_column,
       run_checks = run_checks,

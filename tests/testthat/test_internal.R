@@ -1,5 +1,3 @@
-context("internal functions")
-
 test_that("matrix_to_triplet_dataframe", {
   skip_if_not(utils::packageVersion("Matrix") >= 1.3)
   expect_equal(

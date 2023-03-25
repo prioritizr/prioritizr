@@ -394,7 +394,9 @@ methods::setMethod("add_locked_in_constraints",
     cli_warning(sp_pkg_deprecation_notice)
     add_locked_in_constraints(
       x,
-      intersecting_units(x$data$cost, sf::st_as_sf(locked_in))
+      suppressWarnings(
+        intersecting_units(x$data$cost, sf::st_as_sf(locked_in))
+      )
     )
   }
 )

@@ -1,5 +1,3 @@
-context("loglinear interpolation")
-
 test_that("loglinear_interpolation", {
   x <- seq(0, 1000)
   y <- loglinear_interpolation(x, 200, 100, 900, 15)

@@ -1,5 +1,3 @@
-context("eval_n_summary")
-
 test_that("binary values (single zone)", {
   # create data
   pu <- data.frame(

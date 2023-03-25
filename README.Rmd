@@ -138,12 +138,13 @@ Additionally, we keep a [record of publications](https://prioritizr.net/articles
 
 ## Usage
 
-Here we provide a short example showing how the _prioritizr R_ package can be used to build and solve conservation problems. Specifically, we will use an example dataset available through the  _prioritizrdata R_ package. To begin with, we will load the packages.
+Here we provide a short example showing how the _prioritizr R_ package can be used to build and solve conservation problems. Specifically, we will use an example dataset available through the  _prioritizrdata R_ package. Additionally, we will use the _terra R_ package to perform raster calculations. To begin with, we will load the packages.
 
 ```{r, eval = FALSE}
 # load packages
 library(prioritizr)
 library(prioritizrdata)
+library(terra)
 ```
 
 We will use the Washington dataset in this example. To import the planning unit data, we will use the `get_wa_pu()` function. Although the _prioritizr R_ package can support many different types of planning unit data, here our planning units are represented as a single-layer raster (i.e., `terra::rast()` object). Each cell represents a different planning unit, and cell values denote land acquisition costs. Specifically, there are `r withr::with_options(list(scipen = 1000), as.character(terra::global(!is.na(get_wa_pu()), "sum", na.rm = TRUE)[[1]]))` planning units in total (i.e., cells with non-missing values).

@@ -1,5 +1,3 @@
-context("helper_raster")
-
 test_that("is_single_patch_raster", {
   # create data
   x <- matrix(

@@ -1,5 +1,3 @@
-context("eval_ferrier_importance")
-
 test_that("numeric", {
   # create data
   pu <- data.frame(
@@ -30,7 +28,7 @@ test_that("numeric", {
     )
   )
   # run tests
-  expect_is(r1, "matrix")
+  expect_inherits(r1, "matrix")
   expect_equal(ncol(r1), 3)
   expect_equal(nrow(r1), 4)
   expect_equal(colnames(r1), c("spp1", "spp2", "total"))
@@ -68,7 +66,7 @@ test_that("matrix (single zone)", {
     )
   )
   # run tests
-  expect_is(r1, "matrix")
+  expect_inherits(r1, "matrix")
   expect_equal(ncol(r1), 3)
   expect_equal(nrow(r1), 4)
   expect_equal(colnames(r1), c("spp1", "spp2", "total"))
@@ -104,7 +102,7 @@ test_that("data.frame (single zone)", {
     )
   )
   # run tests
-  expect_is(r1, "data.frame")
+  expect_inherits(r1, "data.frame")
   expect_equal(ncol(r1), 3)
   expect_equal(nrow(r1), 4)
   expect_equal(colnames(r1), c("spp1", "spp2", "total"))
@@ -143,7 +141,7 @@ test_that("sf (single zone)", {
     )
   )
   # run tests
-  expect_is(r1, "sf")
+  expect_inherits(r1, "sf")
   expect_equal(ncol(sf::st_drop_geometry(r1)), 3)
   expect_equal(nrow(r1), 4)
   expect_equal(names(sf::st_drop_geometry(r1)), c("spp1", "spp2", "total"))
@@ -185,7 +183,7 @@ test_that("SpatRaster (single zone)", {
     )
   )
   # run tests
-  expect_is(r1, "SpatRaster")
+  expect_inherits(r1, "SpatRaster")
   expect_equal(terra::nlyr(r1), 3)
   expect_equal(terra::ncell(r1), 4)
   expect_equal(terra::ncol(r1), terra::ncol(pu))

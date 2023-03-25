@@ -1,5 +1,3 @@
-context("category_vector")
-
 test_that("matrix", {
   # create data
   x <- matrix(c(1, 0, 0, NA, 0, 1, 0, NA, 0, 0, 0, NA), ncol = 3)

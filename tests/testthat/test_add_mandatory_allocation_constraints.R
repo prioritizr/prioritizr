@@ -1,5 +1,3 @@
-context("add_mandatory_allocation_constraints")
-
 test_that("compile (compressed formulation, multiple zones)", {
   # import data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
@@ -162,7 +160,7 @@ test_that("solve (compressed formulation, multiple zones)", {
     add_default_solver(gap = 0, verbose = FALSE) %>%
     solve()
   # tests
-  expect_is(s, "SpatRaster")
+  expect_inherits(s, "SpatRaster")
   expect_equal(terra::nlyr(s), 2)
   expect_equal(c(terra::values(s[[1]])), c(1, 1, NA, 1, 0, 0, NA))
   expect_equal(c(terra::values(s[[2]])), c(0, 0, 1,  0, 1, 1, NA))
@@ -192,7 +190,7 @@ test_that("solve (expanded formulation, multiple zones)", {
     add_default_solver(gap = 0, verbose = FALSE) %>%
     solve(compressed_formulation = FALSE)
   # tests
-  expect_is(s, "SpatRaster")
+  expect_inherits(s, "SpatRaster")
   expect_equal(terra::nlyr(s), 2)
   expect_equal(c(terra::values(s[[1]])), c(1, 1, NA, 1, 0, 0, NA))
   expect_equal(c(terra::values(s[[2]])), c(0, 0, 1,  0, 1, 1, NA))

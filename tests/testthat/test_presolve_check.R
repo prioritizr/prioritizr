@@ -1,5 +1,3 @@
-context("presolve_check")
-
 test_that("no false positive", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()

@@ -1,5 +1,3 @@
-context("add_absolute_targets")
-
 test_that("add_absolute_targets (numeric(1), single zone)", {
   # load data
   sim_pu_raster <- get_sim_pu_raster()
@@ -12,14 +10,14 @@ test_that("add_absolute_targets (numeric(1), single zone)", {
   targets <- p$targets$output()
   # run tests
   print(p)
-  expect_is(targets, "tbl_df")
+  expect_inherits(targets, "tbl_df")
   expect_true(all(names(targets) == c("feature", "zone", "sense", "value")))
-  expect_is(targets$feature, "integer")
-  expect_is(targets$zone, "list")
-  expect_is(targets$value, "numeric")
-  expect_is(targets$sense, "character")
+  expect_inherits(targets$feature, "integer")
+  expect_inherits(targets$zone, "list")
+  expect_inherits(targets$value, "numeric")
+  expect_inherits(targets$sense, "character")
   expect_equal(targets$feature, seq_len(terra::nlyr(sim_features)))
-  expect_equivalent(unlist(targets$zone), rep(1, terra::nlyr(sim_features)))
+  expect_equal(unlist(targets$zone), rep(1, terra::nlyr(sim_features)))
   expect_equal(targets$value, rep(5, terra::nlyr(sim_features)))
   expect_equal(targets$sense, rep(">=", terra::nlyr(sim_features)))
 })
@@ -35,14 +33,14 @@ test_that("add_absolute_targets (numeric(5), single zone)", {
   # calculate absolute targets
   targets <- p$targets$output()
   # run tests
-  expect_is(targets, "tbl_df")
+  expect_inherits(targets, "tbl_df")
   expect_true(all(names(targets) == c("feature", "zone", "sense", "value")))
-  expect_is(targets$feature, "integer")
-  expect_is(targets$zone, "list")
-  expect_is(targets$value, "numeric")
-  expect_is(targets$sense, "character")
+  expect_inherits(targets$feature, "integer")
+  expect_inherits(targets$zone, "list")
+  expect_inherits(targets$value, "numeric")
+  expect_inherits(targets$sense, "character")
   expect_equal(targets$feature, seq_len(terra::nlyr(sim_features)))
-  expect_equivalent(unlist(targets$zone), rep(1, terra::nlyr(sim_features)))
+  expect_equal(unlist(targets$zone), rep(1, terra::nlyr(sim_features)))
   expect_equal(targets$value, 5:9)
   expect_equal(targets$sense, rep(">=", terra::nlyr(sim_features)))
 })
@@ -58,14 +56,14 @@ test_that("add_absolute_targets (matrix, single zone)", {
   # calculate absolute targets
   targets <- p$targets$output()
   # run tests
-  expect_is(targets, "tbl_df")
+  expect_inherits(targets, "tbl_df")
   expect_true(all(names(targets) == c("feature", "zone", "sense", "value")))
-  expect_is(targets$feature, "integer")
-  expect_is(targets$zone, "list")
-  expect_is(targets$value, "numeric")
-  expect_is(targets$sense, "character")
+  expect_inherits(targets$feature, "integer")
+  expect_inherits(targets$zone, "list")
+  expect_inherits(targets$value, "numeric")
+  expect_inherits(targets$sense, "character")
   expect_equal(targets$feature, seq_len(terra::nlyr(sim_features)))
-  expect_equivalent(unlist(targets$zone), rep(1, terra::nlyr(sim_features)))
+  expect_equal(unlist(targets$zone), rep(1, terra::nlyr(sim_features)))
   expect_equal(targets$value, 5:9)
   expect_equal(targets$sense, rep(">=", terra::nlyr(sim_features)))
 })
@@ -87,14 +85,14 @@ test_that("add_absolute_targets (character, single zone)", {
   # calculate absolute targets
   targets <- p$targets$output()
   # run tests
-  expect_is(targets, "tbl_df")
+  expect_inherits(targets, "tbl_df")
   expect_true(all(names(targets) == c("feature", "zone", "sense", "value")))
-  expect_is(targets$feature, "integer")
-  expect_is(targets$zone, "list")
-  expect_is(targets$value, "numeric")
-  expect_is(targets$sense, "character")
+  expect_inherits(targets$feature, "integer")
+  expect_inherits(targets$zone, "list")
+  expect_inherits(targets$value, "numeric")
+  expect_inherits(targets$sense, "character")
   expect_equal(targets$feature, 1:5)
-  expect_equivalent(unlist(targets$zone), rep(1, 5))
+  expect_equal(unlist(targets$zone), rep(1, 5))
   expect_equal(targets$value, species$target)
   expect_equal(targets$sense, rep(">=", nrow(species)))
 })
@@ -138,12 +136,12 @@ test_that("add_absolute_targets (matrix, multiple zones)", {
   # calculate absolute targets
   targets <- p$targets$output()
   # run tests
-  expect_is(targets, "tbl_df")
+  expect_inherits(targets, "tbl_df")
   expect_true(all(names(targets) == c("feature", "zone", "sense", "value")))
-  expect_is(targets$feature, "integer")
-  expect_is(targets$zone, "list")
-  expect_is(targets$value, "numeric")
-  expect_is(targets$sense, "character")
+  expect_inherits(targets$feature, "integer")
+  expect_inherits(targets$zone, "list")
+  expect_inherits(targets$value, "numeric")
+  expect_inherits(targets$sense, "character")
   expect_equal(
     targets$feature,
     rep(
@@ -151,7 +149,7 @@ test_that("add_absolute_targets (matrix, multiple zones)", {
       number_of_zones(sim_zones_features)
     )
   )
-  expect_equivalent(
+  expect_equal(
     unlist(targets$zone),
     rep(
       seq_len(number_of_zones(sim_zones_features)),
@@ -192,14 +190,14 @@ test_that("add_absolute_targets (character, multiple zones)", {
   # calculate absolute targets
   targets <- p$targets$output()
   # run tests
-  expect_is(targets, "tbl_df")
+  expect_inherits(targets, "tbl_df")
   expect_true(all(names(targets) == c("feature", "zone", "sense", "value")))
-  expect_is(targets$feature, "integer")
-  expect_is(targets$zone, "list")
-  expect_is(targets$value, "numeric")
-  expect_is(targets$sense, "character")
+  expect_inherits(targets$feature, "integer")
+  expect_inherits(targets$zone, "list")
+  expect_inherits(targets$value, "numeric")
+  expect_inherits(targets$sense, "character")
   expect_equal(targets$feature, rep(1:5, 2))
-  expect_equivalent(unlist(targets$zone), rep(seq_len(2), each = 5))
+  expect_equal(unlist(targets$zone), rep(seq_len(2), each = 5))
   expect_equal(targets$value, c(species$target_1, species$target_2))
   expect_equal(targets$sense, rep(">=", 10))
 })
@@ -274,12 +272,12 @@ test_that("add_absolute_targets (matrix, multiple zones, negative data)", {
   # calculate absolute targets
   targets <- p$targets$output()
   # run tests
-  expect_is(targets, "tbl_df")
+  expect_inherits(targets, "tbl_df")
   expect_true(all(names(targets) == c("feature", "zone", "sense", "value")))
-  expect_is(targets$feature, "integer")
-  expect_is(targets$zone, "list")
-  expect_is(targets$value, "numeric")
-  expect_is(targets$sense, "character")
+  expect_inherits(targets$feature, "integer")
+  expect_inherits(targets$zone, "list")
+  expect_inherits(targets$value, "numeric")
+  expect_inherits(targets$sense, "character")
   expect_equal(
     targets$feature,
     rep(
@@ -287,7 +285,7 @@ test_that("add_absolute_targets (matrix, multiple zones, negative data)", {
       number_of_zones(sim_zones_features)
     )
   )
-  expect_equivalent(
+  expect_equal(
     unlist(targets$zone),
     rep(
       seq_len(number_of_zones(sim_zones_features)),

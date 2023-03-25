@@ -1,5 +1,3 @@
-context("add_locked_out_constraints")
-
 test_that("logical (compile, single zone)", {
   # import problem
   sim_pu_raster <- get_sim_pu_raster()
@@ -531,11 +529,13 @@ test_that("spatial (compile, single zone)", {
   # create problem
   expect_warning(
     p <-
-      problem(sim_pu_polygons, sim_features, "cost") %>%
+      suppressWarnings(problem(sim_pu_polygons, sim_features, "cost")) %>%
       add_min_set_objective() %>%
       add_relative_targets(0.1) %>%
       add_binary_decisions() %>%
-      add_locked_out_constraints(sim_pu_polygons[sim_pu_polygons$locked_out, ]),
+      add_locked_out_constraints(
+        sim_pu_polygons[sim_pu_polygons$locked_out, ]
+      ),
     "deprecated"
   )
   o <- compile(p)

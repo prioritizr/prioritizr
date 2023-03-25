@@ -1,5 +1,3 @@
-context("assertions_raster")
-
 test_that("is_comparable_raster", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()

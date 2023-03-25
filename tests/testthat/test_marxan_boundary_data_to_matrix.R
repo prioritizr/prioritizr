@@ -1,5 +1,3 @@
-context("marxan_boundary_data_to_matrix")
-
 test_that("single zone (x = NULL)", {
   # create data
   d <- expand.grid(id1 = seq_len(4), id2 = c(1, 4))
@@ -18,7 +16,7 @@ test_that("single zone (x = NULL)", {
   x2[3, 3] <- 2
   x2[4, 4] <- 3.5
   # tests
-  expect_is(x, "dsCMatrix")
+  expect_inherits(x, "dsCMatrix")
   expect_equal(x, as_Matrix(x2, "dsCMatrix"))
 })
 
@@ -45,6 +43,6 @@ test_that("single zone (x = ConservationProblem)", {
   x2[3, 3] <- 2
   x2[4, 4] <- 3.5
   # tests
-  expect_is(x, "dsCMatrix")
+  expect_inherits(x, "dsCMatrix")
   expect_equal(x, as_Matrix(x2, "dsCMatrix"))
 })

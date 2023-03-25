@@ -1,5 +1,3 @@
-context("eval_replacement_importance")
-
 test_that("numeric", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
@@ -242,6 +240,8 @@ test_that("sf (single zone)", {
   pu$spp1 <- c(0, 0, 0, 1)
   pu$spp2 <- c(10, 5, 10, 6)
   pu$solution <- c(0, 1, NA, 1)
+  pu$geometry <- sf::st_geometry(pu)
+  pu <- sf::st_set_geometry(pu, "geometry")
   # create problem
   p <-
     problem(pu, c("spp1", "spp2"), cost_column = "cost") %>%
@@ -254,7 +254,7 @@ test_that("sf (single zone)", {
   # create correct result
   pu$rc <- c(0, 8, NA, Inf)
   # run tests
-  expect_equivalent(r, pu[, "rc"])
+  expect_equal(r, pu[, "rc"])
 })
 
 test_that("sf (multiple zone)", {
@@ -269,6 +269,8 @@ test_that("sf (multiple zone)", {
   pu$spp2_1 <- c(NA, 0, 1, 1, 0, 0,  0, 0)
   pu$spp1_2 <- c(1,  0, 0, 0, 1, 0,  0, 1)
   pu$spp2_2 <- c(0,  0, 0, 0, 0, 10, 0, 0)
+  pu$geometry <- sf::st_geometry(pu)
+  pu <- sf::st_set_geometry(pu, "geometry")
   targets <- matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)
   # create problem
   p <-
@@ -292,7 +294,7 @@ test_that("sf (multiple zone)", {
   pu$rc_1 <- c(1, 0, NA, Inf, 0, 0, NA, 0)
   pu$rc_2 <- c(0, 0, 0, 0, 6, 0, NA, 0)
   # run tests
-  expect_equivalent(r, pu[, c("rc_1", "rc_2")])
+  expect_equal(r, pu[, c("rc_1", "rc_2")])
 })
 
 test_that("Spatial (single zone)", {
@@ -332,7 +334,7 @@ test_that("Spatial (single zone)", {
   # create correct result
   pu$rc <- c(0, 8, NA, Inf)
   # run tests
-  expect_equivalent(r1$rc, r2$rc)
+  expect_equal(r1$rc, r2$rc)
 })
 
 test_that("Spatial (multiple zone)", {
@@ -457,7 +459,7 @@ test_that("SpatRaster (multiple zone)", {
   )
   names(r2) <- c("rc_1", "rc_2")
   # run tests
-  expect_equal(r, r2)
+  expect_equal(terra::as.data.frame(r), terra::as.data.frame(r2))
 })
 
 test_that("Raster (single zone)", {

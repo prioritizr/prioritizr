@@ -131,21 +131,37 @@ repr.phylo <- function(x) {
 .S3method("repr", "phylo", repr.phylo)
 
 repr.crs <- function(x) {
-  # sf does not export its nice sf:::format.crs method for pretty crs
-  # so, we have to use its nice methods
-  x <- suppressMessages(suppressWarnings(
-    utils::capture.output(print(sf::st_sfc(sf::st_point(c(1,1)), crs = x)))
-  ))[[5]]
+  if (identical(x$wkt, "")) {
+    # if the CRS is an empty character value, then just return that
+    out <- ""
+  } else if (isTRUE(startsWith(x$wkt[[1]], "PROJCRS[\"unknown\""))) {
+    # if the CRS is not recognized, then use the terra package to prepare output
+    out <- try(
+      terra::rast(matrix(1), crs = x$wkt)@ptr$get_crs("proj4"),
+      silent = TRUE
+    )
+    if (inherits(out, "try-error")) {
+      out <- "Unrecognized Cartesian SRS"
+    }
+  } else {
+    # if the CRS is recognized, then use the sf package to prepare output
 
-  # format output
-  out <- trimws(strsplit(x, ":", fixed = TRUE)[[1]][[2]])
+    ## sf does not export its nice sf:::format.crs method for pretty crs
+    ## so, we have to use its nice methods
+    x <- suppressMessages(suppressWarnings(
+      utils::capture.output(print(sf::st_sfc(sf::st_point(c(1,1)), crs = x)))
+    ))[[5]]
 
-  # add information on if projected/geodetic
-  if (grepl("geodetic", x, ignore.case = TRUE)) {
-    out <- paste(out, "(geodetic)")
-  }
-  if (identical(out, "NA")) {
-    out <- paste(out, "(unknown)")
+    ## format output
+    out <- trimws(strsplit(x, ":", fixed = TRUE)[[1]][[2]])
+
+    ## add information on if projected/geodetic
+    if (grepl("geodetic", x, ignore.case = TRUE)) {
+      out <- paste(out, "(geodetic)")
+    }
+    if (identical(out, "NA")) {
+      out <- paste(out, "(unknown)")
+    }
   }
 
   # return result

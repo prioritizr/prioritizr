@@ -1,5 +1,3 @@
-context("add_gap_portfolio")
-
 test_that("compile", {
   skip_if_not_installed("gurobi")
   # create data
@@ -19,7 +17,7 @@ test_that("compile", {
   # compile problem
   o <- compile(p)
   # tests
-  expect_is(o, "OptimizationProblem")
+  expect_inherits(o, "OptimizationProblem")
 })
 
 test_that("solve (single zone)", {
@@ -47,7 +45,7 @@ test_that("solve (single zone)", {
     "Portfolio could only"
   )
   # tests
-  expect_is(s, "list")
+  expect_inherits(s, "list")
   expect_equal(length(s), 2) # only two solutions meet this gap
   expect_true(all_elements_inherit(s, "SpatRaster"))
   expect_named(s, paste0("solution_", seq_along(s)))
@@ -81,7 +79,7 @@ test_that("solve (multiple zones)", {
   # solve problem
   s <- solve(p)
   # tests
-  expect_is(s, "list")
+  expect_inherits(s, "list")
   expect_length(s, 5)
   expect_true(all_elements_inherit(s, "SpatRaster"))
   expect_named(s, paste0("solution_", seq_along(s)))

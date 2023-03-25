@@ -1,5 +1,3 @@
-context("all_columns_any_finite")
-
 test_that("x = default", {
   expect_error(all_columns_any_finite(new_waiver()), "recognized")
 })

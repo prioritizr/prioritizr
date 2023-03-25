@@ -1,5 +1,3 @@
-context("add_manual_locked_constraints")
-
 test_that("data.frame (compile, single zone)", {
   # import data
   sim_pu_polygons <- get_sim_pu_polygons()

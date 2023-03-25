@@ -1,5 +1,3 @@
-context("add_locked_in_constraints")
-
 test_that("integer (compile, single zone)", {
   # create problem
   sim_pu_raster <- get_sim_pu_raster()
@@ -694,15 +692,19 @@ test_that(
     add_binary_decisions() %>%
     add_locked_in_constraints(c("locked_1", "locked_2", "locked_3"))
   expect_warning(
-    p2 <-
-      problem(
-        sim_spatial, as.ZonesRaster(sim_zones_features),
-        c("cost_1", "cost_2", "cost_3")
-      ) %>%
-      add_min_set_objective() %>%
-      add_relative_targets(targets) %>%
-      add_binary_decisions() %>%
-      add_locked_in_constraints(c("locked_1", "locked_2", "locked_3"))
+    expect_warning(
+      p2 <-
+        problem(
+          sim_spatial, as.ZonesRaster(sim_zones_features),
+          c("cost_1", "cost_2", "cost_3")
+        ) %>%
+        add_min_set_objective() %>%
+        add_relative_targets(targets) %>%
+        add_binary_decisions() %>%
+        add_locked_in_constraints(c("locked_1", "locked_2", "locked_3")),
+      "deprecated"
+    ),
+    "deprecated"
   )
   # compile problems
   o1 <- as.list(compile(p1))

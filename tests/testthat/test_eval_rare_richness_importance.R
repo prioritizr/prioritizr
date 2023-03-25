@@ -1,5 +1,3 @@
-context("eval_rare_richness_importance")
-
 test_that("numeric", {
   # create data
   pu <- data.frame(
@@ -157,7 +155,7 @@ test_that("sf (single zone)", {
   # create correct result
   pu$rwr <- c(0, ((5 / 10) / 31), NA, ((6 / 10) / 31) + (1 / 1))
   # run tests
-  expect_equivalent(r, pu[, "rwr"])
+  expect_equal(r, pu[, "rwr"], ignore_attr = TRUE)
 })
 
 test_that("Spatial (single zone)", {
@@ -194,9 +192,10 @@ test_that("Spatial (single zone)", {
     "deprecated"
   )
   # run tests
-  expect_equivalent(
+  expect_equal(
     tibble::tibble(sf::st_drop_geometry(r1)),
-    tibble::tibble(r2@data)
+    tibble::tibble(r2@data),
+    ignore_attr = TRUE
   )
 })
 
@@ -225,7 +224,7 @@ test_that("SpatRaster (single zone)", {
   )
   names(r2) <- "rwr"
   # run tests
-  expect_equal(r, r2)
+  expect_equal(terra::values(r), terra::values(r2))
 })
 
 test_that("Raster (single zone)", {

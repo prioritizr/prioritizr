@@ -1,5 +1,3 @@
-context("eval_boundary_summary")
-
 test_that("single zone (edge_factor = 1, zone matrix = 1)", {
   set.seed(500)
   # create zones data

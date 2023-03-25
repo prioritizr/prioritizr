@@ -1,5 +1,3 @@
-context("write_problem")
-
 test_that("correct result (lp format)", {
   skip_on_cran()
   skip_if_not_installed("Rsymphony")

@@ -240,6 +240,7 @@ Collate:
     'zone_names.R'
     'zzz.R'
 Roxygen: list(markdown = TRUE)
+Config/testthat/edition: 3
 Remotes:
   dirkschumacher/rcbc,
   cran/cplexAPI,

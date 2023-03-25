@@ -1,5 +1,3 @@
-context("all_finite")
-
 test_that("x = default", {
   expect_tidy_error(all_finite(new_waiver()), "recognized")
 })

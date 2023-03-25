@@ -1,5 +1,3 @@
-context("assertions (class)")
-
 test_that("is_matrix_ish", {
   expect_true(is_matrix_ish(matrix(c(1, 2, 3))))
   expect_true(is_matrix_ish(Matrix::Matrix(c(1, 2, 3))))

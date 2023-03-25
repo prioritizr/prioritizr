@@ -1,5 +1,3 @@
-context("branch matrix")
-
 test_that("phylo input", {
   # create data
   phy <- structure(
@@ -31,7 +29,7 @@ test_that("phylo input", {
   s[5, c(8, 6)] <- 1
   s <- as_Matrix(s, "dgCMatrix")
   # tests
-  expect_is(m, "dgCMatrix")
+  expect_inherits(m, "dgCMatrix")
   expect_true(all(m == s))
 })
 

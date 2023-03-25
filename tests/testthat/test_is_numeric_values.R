@@ -1,5 +1,3 @@
-context("is_numeric_values")
-
 test_that("x = default", {
   expect_false(is_numeric_values(new_waiver()))
 })

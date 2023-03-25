@@ -1,5 +1,3 @@
-context("any_nonzero")
-
 test_that("x = default", {
   expect_tidy_error(any_nonzero("a"), "recognized")
 })

@@ -1,5 +1,3 @@
-context("add_linear_constraints")
-
 test_that("minimum set objective (numeric, compile, single zone)", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()
@@ -153,11 +151,14 @@ test_that("minimum set objective (character/Spatial, compile, single zone)", {
   sim_pu_polygons$constraint_data <- runif(nrow(sim_pu_polygons)) * 1000
   # create problems
   expect_warning(
-    p1 <-
-      problem(sim_pu_polygons, sim_features, cost_column = "cost") %>%
-      add_min_set_objective() %>%
-      add_relative_targets(0.1) %>%
-      add_binary_decisions(),
+    expect_warning(
+      p1 <-
+        problem(sim_pu_polygons, sim_features, cost_column = "cost") %>%
+        add_min_set_objective() %>%
+        add_relative_targets(0.1) %>%
+        add_binary_decisions(),
+      "deprecated"
+    ),
     "deprecated"
   )
   p2 <-
@@ -411,12 +412,15 @@ test_that(
   )
   # create problems
   expect_warning(
-    p1 <-
-      problem(sim_zones_pu_polygons, sim_zones_features,
-              cost_column = c("cost_1", "cost_2", "cost_3")) %>%
-      add_min_set_objective() %>%
-      add_absolute_targets(targ) %>%
-      add_binary_decisions(),
+    expect_warning(
+      p1 <-
+        problem(sim_zones_pu_polygons, sim_zones_features,
+                cost_column = c("cost_1", "cost_2", "cost_3")) %>%
+        add_min_set_objective() %>%
+        add_absolute_targets(targ) %>%
+        add_binary_decisions(),
+      "deprecated"
+    ),
     "deprecated"
   )
   p2 <-
@@ -573,7 +577,7 @@ test_that("minimum set objective (solve, SpatRaster, multiple zones)", {
   # solve problem
   s <- solve(p)
   # tests
-  expect_is(s, "SpatRaster")
+  expect_inherits(s, "SpatRaster")
   expect_equal(c(terra::values(s[[1]])), c(0, 1, NA, 1, 0, 0, NA))
   expect_equal(c(terra::values(s[[2]])), c(1, 0, 0,  0, 0, 0, NA))
 })

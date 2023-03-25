@@ -1,5 +1,3 @@
-context("compile")
-
 test_that("compile (compressed formulation)", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()
@@ -46,13 +44,15 @@ test_that("compile (compressed formulation, negative data)", {
     "negative"
   )
   # update problem
-  expect_warning(
-    p <-
-      p %>%
-      add_min_set_objective() %>%
-      add_absolute_targets(targ) %>%
-      add_binary_decisions(),
-    "negative"
+  suppressWarnings(
+    expect_warning(
+      p <-
+        p %>%
+        add_min_set_objective() %>%
+        add_absolute_targets(targ) %>%
+        add_binary_decisions(),
+      "negative"
+    )
   )
   o <- compile(p)
   # calculations for tests
@@ -137,11 +137,14 @@ test_that("compile (expanded formulation, negative data)", {
   targ <- floor(terra::global(sim_features, "sum", na.rm = TRUE)[[1]] * 0.25)
   # create problem
   expect_warning(
-    p <-
-      problem(sim_pu_raster, sim_features) %>%
-      add_min_set_objective() %>%
-      add_absolute_targets(targ) %>%
-      add_binary_decisions(),
+    expect_warning(
+      p <-
+        problem(sim_pu_raster, sim_features) %>%
+        add_min_set_objective() %>%
+        add_absolute_targets(targ) %>%
+        add_binary_decisions(),
+      "negative"
+    ),
     "negative"
   )
   # tests

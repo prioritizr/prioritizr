@@ -1,5 +1,3 @@
-context("add_feature_weights")
-
 test_that("compile (max cover, compressed formulation, single zone)", {
   # load data
   sim_pu_raster <- get_sim_pu_raster()

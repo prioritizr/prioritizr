@@ -1,5 +1,3 @@
-context("eval_cost_summary")
-
 test_that("binary values (single zone)", {
   # create data
   pu <- data.frame(

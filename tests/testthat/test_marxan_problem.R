@@ -1,5 +1,3 @@
-context("marxan_problem")
-
 test_that("character (compile)", {
   skip_if_not_installed("data.table")
   # import data
@@ -53,7 +51,7 @@ test_that("character (solve)", {
   # solve problem
   s <- solve(p)
   # tests
-  expect_is(s, "data.frame")
+  expect_inherits(s, "data.frame")
   expect_true("solution_1" %in% names(s))
   expect_true(is.numeric(s$solution_1))
 })
@@ -157,7 +155,7 @@ test_that("character (solve, absolute INPUTDIR path)", {
   # solve problem
   s <- solve(p)
   # tests
-  expect_is(s, "data.frame")
+  expect_inherits(s, "data.frame")
   expect_true("solution_1" %in% names(s))
   expect_true(is.numeric(s$solution_1))
 })
@@ -197,7 +195,7 @@ test_that("character (solve, absolute file paths)", {
   # check that problem can be solved
   s <- solve(p)
   # tests
-  expect_is(s, "data.frame")
+  expect_inherits(s, "data.frame")
   expect_true("solution_1" %in% names(s))
   expect_true(is.numeric(s$solution_1))
 })
@@ -300,7 +298,7 @@ test_that("data.frame (solve, boundary penalties)", {
   # check that problem can be solved
   s <- solve(p)
   # tests
-  expect_is(s, "data.frame")
+  expect_inherits(s, "data.frame")
   expect_true("solution_1" %in% names(s))
   expect_true(is.numeric(s$solution_1))
 })
@@ -326,7 +324,7 @@ test_that("data.frame (solve, no boundary penalties)", {
   # solve problem
   s <- solve(p)
   # tests
-  expect_is(s, "data.frame")
+  expect_inherits(s, "data.frame")
   expect_true("solution_1" %in% names(s))
   expect_true(is.numeric(s$solution_1))
 })
@@ -397,7 +395,7 @@ test_that("data.frame (solve, asymmetric connectivity data)", {
   # solve problem
   s <- solve(p)
   # tests
-  expect_is(s, "data.frame")
+  expect_inherits(s, "data.frame")
   expect_true("solution_1" %in% names(s))
   expect_true(is.numeric(s$solution_1))
 })

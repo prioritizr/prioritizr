@@ -1,5 +1,3 @@
-context("eval_connectivity_summary")
-
 test_that("single zone (zone matrix = 1)", {
   set.seed(500)
   # create zones data

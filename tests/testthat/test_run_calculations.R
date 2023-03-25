@@ -1,5 +1,3 @@
-context("run_calculations")
-
 test_that("works", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()

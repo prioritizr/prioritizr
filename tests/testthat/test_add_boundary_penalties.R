@@ -1,5 +1,3 @@
-context("add_boundary_penalties")
-
 test_that("minimum set objective (compile, single zone)", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()
@@ -130,14 +128,14 @@ test_that("minimum set and shortfall objective (obj fun, single zone)", {
     add_default_solver(gap = 0, verbose = FALSE)
   s <- solve(p)
   # calculations for tests
-  obj_value <- attr(s, "objective")
+  obj_value <- unname(attr(s, "objective"))
   total_perim <- terra::perim(
     terra::as.polygons(terra::clamp(s, lower = 0.5, values = FALSE))
   )
   # tests
-  expect_equivalent(
+  expect_equal(
     terra::global(sim_pu_raster * s, "sum", na.rm = TRUE)[[1]] +
-    (10000 * total_perim),
+      (10000 * total_perim),
     obj_value,
     tolerance = 1e-6
   )
@@ -171,13 +169,13 @@ test_that("minimum set and shortfall objective (solve, single zone)", {
   expect_warning(s2_1 <- solve(p2, force = TRUE))
   expect_warning(s2_2 <- solve(p2, force = TRUE))
   # tests
-  expect_is(s1_1, "SpatRaster")
-  expect_is(s1_2, "SpatRaster")
+  expect_inherits(s1_1, "SpatRaster")
+  expect_inherits(s1_2, "SpatRaster")
   expect_true(all_binary(terra::values(s1_1)))
   expect_true(is_single_patch_raster(s1_1))
   expect_equal(terra::values(s1_1), terra::values(s1_2))
-  expect_is(s2_1, "SpatRaster")
-  expect_is(s2_2, "SpatRaster")
+  expect_inherits(s2_1, "SpatRaster")
+  expect_inherits(s2_2, "SpatRaster")
   expect_true(all_binary(terra::values(s2_1)))
   expect_true(is_checkerboard_raster(s2_1))
   expect_equal(terra::values(s2_1), terra::values(s2_2))
@@ -336,7 +334,7 @@ test_that("minimum set objective (compile, multiple zones)", {
     b_vars_label
   )
   # tests
-  expect_equivalent(o$obj(), correct_obj)
+  expect_equal(o$obj(), unname(correct_obj))
   expect_equal(o$lb(), rep(0, (n_pu * n_z) + n_z_p))
   expect_equal(o$ub(), rep(1, (n_pu * n_z) + n_z_p))
   expect_equal(o$vtype(), rep("B", (n_pu * n_z) + n_z_p))
@@ -478,11 +476,11 @@ test_that("minimum set objective (solve, multiple zones)", {
     add_boundary_penalties(-300, rep(0.5, 3),  m) %>%
     solve()
   # tests
-  expect_is(s1, "SpatRaster")
+  expect_inherits(s1, "SpatRaster")
   expect_true(all_binary(s1[[1]]))
   expect_true(all_binary(s1[[2]]))
   expect_true(all_binary(s1[[3]]))
-  expect_is(s2, "SpatRaster")
+  expect_inherits(s2, "SpatRaster")
   expect_true(all_binary(s2[[1]]))
   expect_true(all_binary(s2[[2]]))
   expect_true(all_binary(s2[[3]]))

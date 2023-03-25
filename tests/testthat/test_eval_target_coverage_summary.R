@@ -1,5 +1,3 @@
-context("eval_target_coverage_summary")
-
 test_that("binary values (single zone)", {
   # simulate data
   pu <- data.frame(

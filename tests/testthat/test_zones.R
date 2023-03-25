@@ -1,5 +1,3 @@
-context("zones")
-
 test_that("zones (SpatRaster)", {
   # import data
   sim_features <- get_sim_features()
@@ -11,8 +9,8 @@ test_that("zones (SpatRaster)", {
   )
   # run tests
   suppressMessages(print(x))
-  expect_is(x, "Zones")
-  expect_is(x, "ZonesSpatRaster")
+  expect_inherits(x, "Zones")
+  expect_inherits(x, "ZonesSpatRaster")
   expect_equal(number_of_zones(x), 3)
   expect_equal(number_of_features(x), 5)
   expect_equal(zone_names(x), c("z1", "z2", "z3"))
@@ -22,7 +20,7 @@ test_that("zones (SpatRaster)", {
   expect_tidy_error(zones(sim_features[[1]], feature_names = c("z1", "z2")))
   # as.list tests
   l <- as.list(x)
-  expect_is(l, "list")
+  expect_inherits(l, "list")
   expect_length(l, 3)
 })
 
@@ -40,8 +38,8 @@ test_that("zones (Raster)", {
   )
   # run tests
   suppressMessages(print(x))
-  expect_is(x, "Zones")
-  expect_is(x, "ZonesRaster")
+  expect_inherits(x, "Zones")
+  expect_inherits(x, "ZonesRaster")
   expect_equal(number_of_zones(x), 3)
   expect_equal(number_of_features(x), 5)
   expect_equal(zone_names(x), c("z1", "z2", "z3"))
@@ -66,7 +64,7 @@ test_that("zones (Raster)", {
   )
   # as.list tests
   l <- as.list(x)
-  expect_is(l, "list")
+  expect_inherits(l, "list")
   expect_length(l, 3)
 })
 
@@ -79,8 +77,8 @@ test_that("zones (character)", {
   )
   # run tests
   suppressMessages(print(x))
-  expect_is(x, "Zones")
-  expect_is(x, "ZonesCharacter")
+  expect_inherits(x, "Zones")
+  expect_inherits(x, "ZonesCharacter")
   expect_equal(number_of_zones(x), 3)
   expect_equal(number_of_features(x), 2)
   expect_equal(zone_names(x), c("z1", "z2", "z3"))

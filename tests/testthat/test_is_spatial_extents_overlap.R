@@ -1,5 +1,3 @@
-context("is_spatial_extents_overlap")
-
 test_that("overlapping objects", {
   # import data
   sim_pu_polygons <- get_sim_pu_polygons()

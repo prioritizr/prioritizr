@@ -1,5 +1,3 @@
-context("all_columns_inherit")
-
 test_that("x = default", {
   expect_error(all_columns_inherit(new_waiver()), "recognized")
 })

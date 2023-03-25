@@ -653,6 +653,7 @@ methods::setMethod(
       r <- t(as.matrix(x[pos, z, drop = FALSE]))
       r[is.na(r)] <- 0
       rownames(r) <- feature_names(features)
+      colnames(r) <- NULL
       methods::as(r, "sparseMatrix")
     })
     names(rij) <- zone_names(features)
