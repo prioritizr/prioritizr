@@ -166,6 +166,11 @@ assert_required <- function(x,
   rlang::check_required(x = x, arg = arg, call = call)
   # check that argument yields valid expression
   res <- try(identical(x, 1), silent = TRUE)
+
+  # debugging
+  stop(.pkgenv[["missing_error_call"]])
+
+
   # if it doesn't, then throw an error message
   if (inherits(res, "try-error")) {
     ## if the error message is a simpleError,
