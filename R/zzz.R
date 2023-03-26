@@ -28,6 +28,15 @@ register_s3_method <- function(pkg, generic, class, fun = NULL) {
 
 .onLoad <- function(...) {
   register_s3_method("knitr", "knit_print", "ConservationProblem")
+  .pkgenv[["missing_error_call"]] <- deparse(
+    attr(
+      eval(
+        expression(try(identical(x, 1), silent = TRUE)),
+        envir = baseenv()
+      ),
+      "condition"
+    )$call
+  )
 }
 
 .onAttach <- function(libname, pkgname) {
