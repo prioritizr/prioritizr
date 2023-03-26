@@ -18,8 +18,8 @@
 - All _proto_ classes have been migrated to _R6_ classes. This update reduces
   memory usage (#238), so `problem()` objects can now contain many more
   constraints and penalties. Note that any `problem()` objects
-  that were produced using earlier versions of the package are not compatible
-  with this version of the package.
+  that were produced using earlier versions of the package are no longer
+  compatible.
 - The _proto_, _raster_, _sf_, _sp_ packages are no longer automatically
   loaded alongside _prioritizr_. As such, users will need to load them manually
   (e.g., using `library(sf)`).
