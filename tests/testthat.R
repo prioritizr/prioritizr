@@ -8,9 +8,9 @@ if (!is_skip) {
   library(prioritizr)
 
   ## try to load solver packages
-  require(gurobi)
-  require(lpsymphony)
-  require(Rsymphony)
+  suppressWarnings(require(gurobi))
+  suppressWarnings(require(lpsymphony))
+  suppressWarnings(require(Rsymphony))
 
   ## disable parallel testing
   Sys.unsetenv("R_TESTS")
