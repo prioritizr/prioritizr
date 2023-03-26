@@ -205,13 +205,13 @@ assert_required <- function(x,
 is_misc_error_call <- function(x) {
   any(
     vapply(
-      x
-      identical,
-      logical(1),
       c(
         "identical(x, 1)",
         "doTryCatch(return(expr), name, parentenv, handler)"
-      )
+      ),
+      identical,
+      logical(1),
+      x
     )
   )
 }
