@@ -166,24 +166,19 @@ assert_required <- function(x,
   rlang::check_required(x = x, arg = arg, call = call)
   # check that argument yields valid expression
   res <- try(identical(x, 1), silent = TRUE)
-
-  # debugging
-
-
   # if it doesn't, then throw an error message
   if (inherits(res, "try-error")) {
-    stop(paste0('"', .pkgenv[["missing_error_call"]], '" "', deparse(attr(res, "condition")$call), '"'))
     ## if the error message is a simpleError,
     ## then this means that assert_required() is being called in pipe-chain
     ## where the error is happening
     if (inherits(attr(res, "condition"), "simpleError")) {
-      cause_msg <- deparse(attr(res, "condition")$call)
+      call_msg <- deparse(attr(res, "condition")$call)
       err_msg <- c(
         "i" = "In argument to {.arg {arg}}.",
         ifelse(
-          identical(cause_msg, .pkgenv[["missing_error_call"]]),
+          is_misc_error_call(call_msg),
           "{.strong Caused by error:}",
-          paste0("{.strong Caused by {.code ", cause_msg, "}:}")
+          paste0("{.strong Caused by {.code ", call_msg, "}:}")
         ),
         "!" = trimws(attr(res, "condition")$message)
       )
@@ -204,4 +199,19 @@ assert_required <- function(x,
     }
   }
   invisible(TRUE)
+}
+
+# define function to determine if call is a miscellaneous call
+is_misc_error_call <- function(x) {
+  any(
+    vapply(
+      x
+      identical,
+      logical(1),
+      c(
+        "identical(x, 1)",
+        "doTryCatch(return(expr), name, parentenv, handler)"
+      )
+    )
+  )
 }
