@@ -168,11 +168,11 @@ assert_required <- function(x,
   res <- try(identical(x, 1), silent = TRUE)
 
   # debugging
-  stop(.pkgenv[["missing_error_call"]])
 
 
   # if it doesn't, then throw an error message
   if (inherits(res, "try-error")) {
+    stop(paste0('"', .pkgenv[["missing_error_call"]], '" "', deparse(attr(res, "condition")$call), '"'))
     ## if the error message is a simpleError,
     ## then this means that assert_required() is being called in pipe-chain
     ## where the error is happening
