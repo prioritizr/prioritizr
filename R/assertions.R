@@ -172,15 +172,16 @@ assert_required <- function(x,
     ## then this means that assert_required() is being called in pipe-chain
     ## where the error is happening
     if (inherits(attr(res, "condition"), "simpleError")) {
-      call_msg <- deparse(attr(res, "condition")$call)
+      cond_call <- deparse(attr(res, "condition")$call)
+      cond_msg <- trimws(attr(res, "condition")$message)
       err_msg <- c(
         "i" = "In argument to {.arg {arg}}.",
         ifelse(
-          is_misc_error_call(call_msg),
+          startsWith(cond_msg, "object ") && endsWith(cond_msg, "not found"),
           "{.strong Caused by error:}",
-          paste0("{.strong Caused by {.code ", call_msg, "}:}")
+          paste0("{.strong Caused by {.code ", cond_call, "}:}")
         ),
-        "!" = trimws(attr(res, "condition")$message)
+        "!" = cond_msg
       )
       cli::cli_abort(message = err_msg, call = call)
     } else {
@@ -199,19 +200,4 @@ assert_required <- function(x,
     }
   }
   invisible(TRUE)
-}
-
-# define function to determine if call is a miscellaneous call
-is_misc_error_call <- function(x) {
-  any(
-    vapply(
-      c(
-        "identical(x, 1)",
-        "doTryCatch(return(expr), name, parentenv, handler)"
-      ),
-      identical,
-      logical(1),
-      x
-    )
-  )
 }
