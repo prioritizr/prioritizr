@@ -132,6 +132,17 @@
 ---
 
     Code
+      problem(sim_pu_raster, sim_features) %>% add_min_shortfall_objective(budget = object_not_exist) %>%
+        add_relative_targets(0.1) %>% add_binary_decisions() %>% print()
+    Condition
+      Error in `add_min_shortfall_objective()`:
+      i In argument to `budget`.
+      Caused by error:
+      ! object 'object_not_exist' not found
+
+---
+
+    Code
       problem(sim_pu_raster, sim_features) %>% add_relative_targets(1 + "a") %>%
         add_min_set_objective() %>% add_binary_decisions() %>% print()
     Condition
@@ -181,6 +192,17 @@
     Condition
       Error in `add_relative_targets()`:
       i In argument to `targets`.
+      Caused by error:
+      ! object 'object_not_exist' not found
+
+---
+
+    Code
+      print(add_relative_targets(add_binary_decisions(add_min_shortfall_objective(
+        problem(sim_pu_raster, sim_features), budget = object_not_exist)), 0.1))
+    Condition
+      Error in `add_min_shortfall_objective()`:
+      i In argument to `budget`.
       Caused by error:
       ! object 'object_not_exist' not found
 

@@ -139,6 +139,15 @@ test_that("assert_required (prioritizr examples, magrittr pipe)", {
       add_binary_decisions() %>%
       print()
   )
+  expect_snapshot(
+    error = TRUE,
+    transform = cli::ansi_strip,
+    problem(sim_pu_raster, sim_features) %>%
+      add_min_shortfall_objective(budget = object_not_exist) %>%
+      add_relative_targets(0.1) %>%
+      add_binary_decisions() %>%
+      print()
+  )
   ## check that "caused by `expression`" appears in msg when object not found
   expect_snapshot(
     error = TRUE,
@@ -194,6 +203,15 @@ test_that("assert_required (prioritizr examples, native pipe)", {
       add_relative_targets(object_not_exist) |>
       add_min_set_objective() |>
       add_binary_decisions() |>
+      print()
+  )
+  expect_snapshot(
+    error = TRUE,
+    transform = cli::ansi_strip,
+    problem(sim_pu_raster, sim_features) |>
+      add_min_shortfall_objective(budget = object_not_exist) |>
+      add_binary_decisions() |>
+      add_relative_targets(0.1) |>
       print()
   )
   ## check that "caused by `expression`" appears in msg when object not found
