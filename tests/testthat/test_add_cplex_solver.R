@@ -58,7 +58,7 @@ test_that("proportion decisions", {
 test_that("proportion decisions (floating point)", {
   skip_on_cran()
   skip_if_not_installed("cplexAPI")
-  skip_if_not_installed("prioritizrdata", minimum_version = "0.3.0.0")
+  skip_if_not_installed("prioritizrdata", minimum_version = "0.3.0")
   # import data
   tas_pu <- prioritizrdata::get_tas_pu()[seq_len(15), ]
   tas_features <- prioritizrdata::get_tas_features()

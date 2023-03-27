@@ -196,7 +196,7 @@ test_that("sf (points)", {
 })
 
 test_that("sf (simple shapes)", {
-  skip_if_not_installed("prioritizrdata", minimum_version = "0.3.0.0")
+  skip_if_not_installed("prioritizrdata", minimum_version = "0.3.0")
   # create data
   tas_pu <- prioritizrdata::get_tas_pu()
   d <- tas_pu[c(300, 279), ]
@@ -222,7 +222,7 @@ test_that("sf (simple shapes)", {
 })
 
 test_that("sf (complex shapes)", {
-  skip_if_not_installed("prioritizrdata", minimum_version = "0.3.0.0")
+  skip_if_not_installed("prioritizrdata", minimum_version = "0.3.0")
   # create data
   tas_pu <- prioritizrdata::get_tas_pu()
   d <- tas_pu[c(2, 4), ]

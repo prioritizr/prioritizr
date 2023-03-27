@@ -550,7 +550,7 @@ test_that("throws warnings", {
 })
 
 test_that("tas_pu works", {
-  skip_if_not_installed("prioritizrdata", minimum_version = "0.3.0.0")
+  skip_if_not_installed("prioritizrdata", minimum_version = "0.3.0")
   # import data
   tas_pu <- prioritizrdata::get_tas_pu()
   tas_features <- prioritizrdata::get_tas_features()

@@ -61,7 +61,7 @@ test_that("x = crs", {
     repr(get_crs(get_sim_pu_polygons())),
     "Undefined Cartesian SRS"
   )
-  skip_if_not_installed("prioritizrdata", minimum_version = "0.3.0.0")
+  skip_if_not_installed("prioritizrdata", minimum_version = "0.3.0")
   expect_match(
     repr(get_crs(prioritizrdata::get_wa_pu())),
     "+proj=laea +lat_0=45",

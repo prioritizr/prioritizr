@@ -1,7 +1,7 @@
 test_that("salt_data", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
-  skip_if_not_installed("prioritizrdata", minimum_version = "0.3.0.0")
+  skip_if_not_installed("prioritizrdata", minimum_version = "0.3.0")
   # import data
   salt_pu <- prioritizrdata::get_salt_pu()
   salt_features <- prioritizrdata::get_salt_features()
@@ -22,7 +22,7 @@ test_that("salt_data", {
 test_that("tas_data", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
-  skip_if_not_installed("prioritizrdata", minimum_version = "0.3.0.0")
+  skip_if_not_installed("prioritizrdata", minimum_version = "0.3.0")
   # import data
   tas_pu <- prioritizrdata::get_tas_pu()
   tas_features <- prioritizrdata::get_tas_features()
@@ -46,7 +46,7 @@ test_that("tas_data", {
 test_that("wa_data", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
-  skip_if_not_installed("prioritizrdata", minimum_version = "0.3.0.0")
+  skip_if_not_installed("prioritizrdata", minimum_version = "0.3.0")
   # import data
   wa_pu <- prioritizrdata::get_wa_pu()
   wa_locked_in <- prioritizrdata::get_wa_locked_in()
