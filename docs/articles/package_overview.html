@@ -249,7 +249,7 @@
 <span><span class="co">## <span style="color: #BCBCBC;"> 8</span>  211. FALSE     TRUE       ((0.7 1, 0.8 1, 0.8 0.9, 0.7 0.9, 0.7 1))</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span>  210. FALSE     FALSE      ((0.8 1, 0.9 1, 0.9 0.9, 0.8 0.9, 0.8 1))</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span>  204. FALSE     FALSE          ((0.9 1, 1 1, 1 0.9, 0.9 0.9, 0.9 1))</span></span>
-<span><span class="co">## <span style="color: #949494;"># … with 80 more rows</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;"># ℹ 80 more rows</span></span></span></code></pre>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot the planning units, and color them according to cost values</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">sim_pu_polygons</span><span class="op">[</span>, <span class="st">"cost"</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
@@ -323,7 +323,7 @@
 <code class="sourceCode R"><span><span class="co"># print number of features</span></span>
 <span><span class="fu"><a href="../reference/number_of_features.html">number_of_features</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 5</span></span></code></pre>
-<p>Generally, we recommend initializing problems using raster data where possible. This is because the <code><a href="../reference/problem.html">problem()</a></code> function needs to calculate the amount of each feature in each planning unit, and by providing both the planning unit and feature data in raster format with the same spatial resolution, extents, and coordinate systems, this means that the <code><a href="../reference/problem.html">problem()</a></code> function does not need to do any geoprocessing behind the scenes. But sometimes we can’t use raster planning unit data, because our planning units aren’t equal-sized grid cells. So, below is an example showing how we can initialize a conservation planning problem using planning units that are formatted as spatial vector data. Note that we could reduce run-time by pre-computiung the amount of each feature in each planning unit and storing the data in the attribute table (e.g., by performing zonal statistics with <em>R</em> or <em>ESRI ArcGIS</em>), and then passing in the names of the columns as an argument to the <code><a href="../reference/problem.html">problem()</a></code> function (see Examples section for <code><a href="../reference/problem.html">problem()</a></code> for details).</p>
+<p>Generally, we recommend initializing problems using raster data where possible. This is because the <code><a href="../reference/problem.html">problem()</a></code> function needs to calculate the amount of each feature in each planning unit, and by providing both the planning unit and feature data in raster format with the same spatial resolution, extents, and coordinate systems, this means that the <code><a href="../reference/problem.html">problem()</a></code> function does not need to do any geoprocessing behind the scenes. But sometimes we can’t use raster planning unit data, because our planning units aren’t equal-sized grid cells. So, below is an example showing how we can initialize a conservation planning problem using planning units that are formatted as spatial vector data. Note that we could reduce run-time by pre-computing the amount of each feature in each planning unit and storing the data in the attribute table (e.g., by performing zonal statistics with <em>R</em> or <em>ESRI ArcGIS</em>), and then passing in the names of the columns as an argument to the <code><a href="../reference/problem.html">problem()</a></code> function (see Examples section for <code><a href="../reference/problem.html">problem()</a></code> for details).</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create problem with spatial vector data</span></span>
 <span><span class="co"># note that we have to specify which column in the attribute table contains</span></span>
@@ -1087,7 +1087,7 @@
 <span><span class="co">## <span style="color: #BCBCBC;"> 8</span>  211. FALSE     TRUE       ((0.7 1, 0.8 1, 0.8 0.9, 0.7 0.9, 0.7 1))</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span>  210. FALSE     FALSE      ((0.8 1, 0.9 1, 0.9 0.9, 0.8 0.9, 0.8 1))</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span>  204. FALSE     FALSE          ((0.9 1, 1 1, 1 0.9, 0.9 0.9, 0.9 1))</span></span>
-<span><span class="co">## <span style="color: #949494;"># … with 80 more rows</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;"># ℹ 80 more rows</span></span></span></code></pre>
 <div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># specify locked in data using the field name</span></span>
 <span><span class="va">p22</span> <span class="op">&lt;-</span></span>
@@ -1895,7 +1895,7 @@
 <code class="sourceCode R"><span><span class="co"># extract time spent solving solution</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s42</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## solution_1 </span></span>
-<span><span class="co">##      0.125</span></span></code></pre>
+<span><span class="co">##      0.124</span></span></code></pre>
 <div class="sourceCode" id="cb114"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract state message from the solver that describes why this specific</span></span>
 <span><span class="co"># solution was returned</span></span>
@@ -1958,15 +1958,15 @@
 <code class="sourceCode R"><span><span class="co"># calculate statistics</span></span>
 <span><span class="fu"><a href="../reference/eval_target_coverage_summary.html">eval_target_coverage_summary</a></span><span class="op">(</span><span class="va">p42</span>, <span class="va">s42</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 5 × 9</span></span></span>
-<span><span class="co">##   feature   met   total_amount absolut…¹ absol…² absol…³ relat…⁴ relat…⁵ relat…⁶</span></span>
-<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> feature_1 TRUE          83.3      8.33    8.95       0     0.1   0.107       0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> feature_2 TRUE          31.2      3.12    3.22       0     0.1   0.103       0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span> feature_3 TRUE          72.0      7.20    7.59       0     0.1   0.106       0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span> feature_4 TRUE          42.7      4.27    4.34       0     0.1   0.102       0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">5</span> feature_5 TRUE          56.7      5.67    5.89       0     0.1   0.104       0</span></span>
-<span><span class="co">## <span style="color: #949494;"># … with abbreviated variable names ¹​absolute_target, ²​absolute_held,</span></span></span>
-<span><span class="co">## <span style="color: #949494;">#   ³​absolute_shortfall, ⁴​relative_target, ⁵​relative_held, ⁶​relative_shortfall</span></span></span></code></pre>
+<span><span class="co">##   feature   met   total_amount absolute_target absolute_held absolute_shortfall</span></span>
+<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> feature_1 TRUE          83.3            8.33          8.95                  0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> feature_2 TRUE          31.2            3.12          3.22                  0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> feature_3 TRUE          72.0            7.20          7.59                  0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> feature_4 TRUE          42.7            4.27          4.34                  0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span> feature_5 TRUE          56.7            5.67          5.89                  0</span></span>
+<span><span class="co">## <span style="color: #949494;"># ℹ 3 more variables: relative_target &lt;dbl&gt;, relative_held &lt;dbl&gt;,</span></span></span>
+<span><span class="co">## <span style="color: #949494;">#   relative_shortfall &lt;dbl&gt;</span></span></span></code></pre>
 <ul>
 <li>
 <strong>Boundary summary</strong>: Calculate the total exposed boundary length (perimeter) associated with a solution.</li>
@@ -2008,7 +2008,7 @@
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 1 × 2</span></span></span>
 <span><span class="co">##   summary asym_connectivity</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> overall              49.8</span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> overall              51.6</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="evaluating-relative-importance">Evaluating relative importance<a class="anchor" aria-label="anchor" href="#evaluating-relative-importance"></a>

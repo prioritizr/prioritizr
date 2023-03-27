@@ -367,22 +367,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="co"># preview results</span></span>
 <span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(benchmark_results)</span></code></pre></div>
 <pre><code>## # A tibble: 576 × 12
-##    id       numbe…¹ numbe…² objec…³ budget relat…⁴ bound…⁵ solver status total…⁶
-##    &lt;chr&gt;      &lt;int&gt;   &lt;int&gt; &lt;chr&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;    &lt;dbl&gt;
-##  1 0095eaf…   12902      72 add_mi…   NA      0.3    0     add_c… integ…  3.49e0
-##  2 00da2f8…  606180      72 add_mi…    0.1    0.1    1e-13 add_r… 0       5.05e4
-##  3 00e9188…  606180      72 add_mi…   NA      0.2    1e- 5 add_c… integ…  4.87e3
-##  4 0115ce0…    1478      72 add_mi…    0.1    0.3    1e-13 add_h… Optim…  1.86e1
-##  5 0125fb9…    1478      72 add_mi…   NA      0.15   1e- 5 add_l… 231     1.33e0
-##  6 012c9b5…    1478      72 add_mi…   NA      0.3    1e- 5 add_c… integ…  1.49e0
-##  7 0184eb2…  606180      72 add_mi…   NA      0.2    1e- 3 add_l… 231     2.14e4
-##  8 02ae719…  606180      72 add_mi…    0.1    0.2    0     add_g… OPTIM…  3.52e2
-##  9 03fdbfa…  102242      72 add_mi…   NA      0.3    0     add_g… OPTIM…  7.48e1
-## 10 0408738…   12902      72 add_mi…    0.1    0.15   0     add_c… integ…  3.36e0
-## # … with 566 more rows, 2 more variables: run_time &lt;dbl&gt;,
-## #   exceeded_run_time &lt;lgl&gt;, and abbreviated variable names
-## #   ¹​number_of_planning_units, ²​number_features, ³​objective, ⁴​relative_target,
-## #   ⁵​boundary_penalty, ⁶​total_time</code></pre>
+##    id    number_of_planning_u…¹ number_features objective budget relative_target
+##    &lt;chr&gt;                  &lt;int&gt;           &lt;int&gt; &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;
+##  1 0095…                  12902              72 add_min_…   NA              0.3 
+##  2 00da…                 606180              72 add_min_…    0.1            0.1 
+##  3 00e9…                 606180              72 add_min_…   NA              0.2 
+##  4 0115…                   1478              72 add_min_…    0.1            0.3 
+##  5 0125…                   1478              72 add_min_…   NA              0.15
+##  6 012c…                   1478              72 add_min_…   NA              0.3 
+##  7 0184…                 606180              72 add_min_…   NA              0.2 
+##  8 02ae…                 606180              72 add_min_…    0.1            0.2 
+##  9 03fd…                 102242              72 add_min_…   NA              0.3 
+## 10 0408…                  12902              72 add_min_…    0.1            0.15
+## # ℹ 566 more rows
+## # ℹ abbreviated name: ¹​number_of_planning_units
+## # ℹ 6 more variables: boundary_penalty &lt;dbl&gt;, solver &lt;chr&gt;, status &lt;chr&gt;,
+## #   total_time &lt;dbl&gt;, run_time &lt;dbl&gt;, exceeded_run_time &lt;lgl&gt;</code></pre>
 <p>Specifically, the <code>benchmark_results</code> object has the following columns:</p>
 <ul>
 <li><code>id</code>: Unique identifier for run.</li>
