@@ -1,0 +1,126 @@
+# For help debugging build failures open an issue on the RStudio community with the 'github-actions' tag.
+# https://community.rstudio.com/new-topic?category=Package%20development&tags=github-actions
+on:
+  workflow_dispatch:
+
+name: Fedora
+
+env:
+  OMP_THREAD_LIMIT: 2
+  KMP_DEVICE_THREAD_LIMIT: 2
+  _R_CHECK_SUGGESTS_ONLY_: true
+  _R_CHECK_NO_RECOMMENDED_: true
+  _R_CHECK_DOC_SIZES2_: true
+  _R_CHECK_DEPRECATED_DEFUNCT_: true
+  _R_CHECK_SCREEN_DEVICE_: warn
+  _R_CHECK_REPLACING_IMPORTS_: true
+  _R_CHECK_TOPLEVEL_FILES_: true
+  _R_CHECK_DOT_FIRSTLIB_: true
+  _R_CHECK_RD_LINE_WIDTHS_: true
+  _R_CHECK_S3_METHODS_NOT_REGISTERED_: true
+  _R_CHECK_OVERWRITE_REGISTERED_S3_METHODS_: true
+  _R_CHECK_CODE_USAGE_WITH_ONLY_BASE_ATTACHED_: true
+  _R_CHECK_NATIVE_ROUTINE_REGISTRATION_: true
+  _R_CHECK_FF_CALLS_: registration
+  _R_CHECK_PRAGMAS_: true
+  _R_CHECK_COMPILATION_FLAGS_: true
+  _R_CHECK_R_DEPENDS_: true
+  _R_CHECK_PACKAGES_USED_IN_TESTS_USE_SUBDIRS_: true
+  _R_CHECK_SHLIB_OPENMP_FLAGS_: true
+  _R_CHECK_BROWSER_NONINTERACTIVE_: true
+  _R_CHECK_CODE_ASSIGN_TO_GLOBALENV_: true
+  _R_CHECK_CODE_DATA_INTO_GLOBALENV_: true
+  _R_CHECK_PKG_SIZES_: true
+  _R_CHECK_LIMIT_CORES_: true
+  _R_S3_METHOD_LOOKUP_BASEENV_AFTER_GLOBALENV_: true
+  _R_CHECK_AUTOCONF_: true
+  _R_CHECK_THINGS_IN_CHECK_DIR_: true
+  _R_CHECK_THINGS_IN_TEMP_DIR_: true
+  _R_CHECK_THINGS_IN_TEMP_DIR_EXCLUDE_: "^ompi"
+  _R_CHECK_BASHISMS_: true
+  _R_CHECK_ORPHANED_: true
+  _R_CHECK_DEPENDS_ONLY_DATA_: true
+  _R_CHECK_XREFS_PKGS_ARE_DECLARED_: true
+  _R_CHECK_MATRIX_DATA_: true
+  _R_CHECK_RD_VALIDATE_RD2HTML_: true
+  _R_CHECK_RD_MATH_RENDERING_: true
+
+jobs:
+  R-CMD-check:
+    name: Fedora (devel)
+
+    runs-on: ubuntu-latest
+
+    container:
+      image: docker://rhub/fedora-clang-devel:latest
+      options: --user root
+      env:
+        _R_REMOTES_NO_ERRORS_FROM_WARNINGS_: true
+        _R_CHECK_FORCE_SUGGESTS_: false
+        _R_CHECK_TIMINGS_: 10
+        _R_CHECK_CRAN_INCOMING_REMOTE_: false
+        _R_CHECK_LIMIT_CORES_: true
+        _R_CHECK_LICENSE_: true
+        OMP_THREAD_LIMIT: 2
+        KMP_DEVICE_THREAD_LIMIT: 2
+        KMP_TEAMS_THREAD_LIMIT: 2
+        KMP_ALL_THREADS: 2
+        NOT_CRAN: true
+        GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+        CI: true
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup path
+        run: |
+          echo "/opt/R-devel/bin" >> $GITHUB_PATH
+
+      - name: Install system dependencies
+        run: |
+          echo $PATH
+          dnf install -y \
+            mpfr-devel \
+            automake \
+            fftw-devel \
+            gmp-devel \
+            openssl-devel \
+            zlib-devel \
+            pandoc \
+            geos-devel \
+            make \
+            gdal \
+            libxml2-devel \
+            cmake \
+            proj-devel \
+            sqlite-devel \
+            gdal-devel \
+            libicu-devel \
+            udunits2-devel \
+            coin-or-SYMPHONY-devel \
+            git-all
+
+      - name: Install dependencies
+        run: |
+          options(repos = "https://cloud.r-project.org/")
+          install.packages("remotes")
+          remotes::install_deps(dependencies = TRUE)
+          remotes::install_cran("rcmdcheck")
+        shell: Rscript {0}
+
+      - name: Session information
+        run: |
+          options(width = 100)
+          pkgs <- installed.packages()[, "Package"]
+          sessioninfo::session_info(pkgs, include_base = TRUE)
+        shell: Rscript {0}
+
+      - name: Check
+        run: |
+          rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran", "--no-build-vignettes"), error_on = "warning", check_dir = "check")
+        shell: Rscript {0}
+
+      - name: Show testthat output
+        if: always()
+        run: find check -name 'testthat.Rout*' -exec cat '{}' \; || true
+        shell: bash
