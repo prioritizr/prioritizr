@@ -1,16 +1,17 @@
-context("add_connectivity_penalties")
-
 test_that("minimum set objective (compile, single zone)", {
-  # make and compile problems
-  data(sim_pu_raster, sim_features)
-  p <- problem(sim_pu_raster, sim_features) %>%
-       add_min_set_objective() %>%
-       add_relative_targets(0.1) %>%
-       add_binary_decisions() %>%
-       add_connectivity_penalties(5, data = boundary_matrix(sim_pu_raster))
+  # import data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  # create problem
+  p <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.1) %>%
+    add_binary_decisions() %>%
+    add_connectivity_penalties(5, data = boundary_matrix(sim_pu_raster))
+  # compile problem
   o <- compile(p)
-  # run tests
-  ## create variables for debugging
+  # create variables for testing
   n_pu <- p$number_of_planning_units()
   n_f <- p$number_of_features()
   pu_indices <- p$planning_unit_indices()
@@ -39,7 +40,7 @@ test_that("minimum set objective (compile, single zone)", {
   c_sense <- o$sense()[n_f + seq_len(length(c_data@i) * 2)]
   # rhs for boundary decision constraints
   c_rhs <- o$rhs()[n_f + seq_len(length(c_data@i) * 2)]
-  ## check that constraints added correctly
+  # tests
   expect_equal(pu_costs, p$planning_unit_costs()[, 1] + c_weights)
   expect_equal(c_obj, c_data@x)
   expect_equal(c_lb, rep(0, length(c_data@i)))
@@ -64,80 +65,90 @@ test_that("minimum set objective (solve, single zone)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # load data
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   # create and solve problem
-  p1 <- problem(sim_pu_raster, sim_features) %>%
-        add_min_set_objective() %>%
-        add_relative_targets(0.45) %>%
-        add_connectivity_penalties(
-          1000, data = adjacency_matrix(sim_pu_raster)) %>%
-        add_binary_decisions() %>%
-        add_default_solver(gap = 0.01, verbose = FALSE)
+  p1 <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.45) %>%
+    add_connectivity_penalties(1000, data = adjacency_matrix(sim_pu_raster)) %>%
+    add_binary_decisions() %>%
+    add_default_solver(gap = 0.01, verbose = FALSE)
   s1_1 <- solve(p1)
   s1_2 <- solve(p1)
-  p2 <- problem(sim_pu_raster, sim_features) %>%
-        add_min_set_objective() %>%
-        add_relative_targets(0.45) %>%
-        add_connectivity_penalties(
-          -1000, data = adjacency_matrix(sim_pu_raster)) %>%
-        add_binary_decisions() %>%
-        add_default_solver(gap = 0.01, verbose = FALSE)
+  p2 <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.45) %>%
+    add_connectivity_penalties(
+      -1000, data = adjacency_matrix(sim_pu_raster)
+    ) %>%
+    add_binary_decisions() %>%
+    add_default_solver(gap = 0.01, verbose = FALSE)
   s2_1 <- solve(p2)
   s2_2 <- solve(p2)
   # tests
-  expect_is(s1_1, "RasterLayer")
-  expect_is(s1_2, "RasterLayer")
-  expect_true(all(na.omit(unique(raster::values(s1_1))) %in% c(0, 1)))
-  expect_equal(sum(
-    raster::rasterToPolygons(s1_1, dissolve = TRUE)$layer == 1), 1)
-  expect_equal(raster::values(s1_1), raster::values(s1_2))
-  expect_is(s2_1, "RasterLayer")
-  expect_is(s2_2, "RasterLayer")
-  expect_true(all(na.omit(unique(raster::values(s2_1))) %in% c(0, 1)))
-  s2_adj <- raster::adjacent(s2_1, raster::Which(s2_1 == 1, cells = TRUE),
-                             pairs = FALSE)
-  expect_true(all(s2_1[s2_adj] %in% c(0, NA)))
-  expect_equal(raster::values(s2_1), raster::values(s2_2))
+  expect_inherits(s1_1, "SpatRaster")
+  expect_inherits(s1_2, "SpatRaster")
+  expect_true(all_binary(terra::values(s1_1)))
+  expect_true(is_single_patch_raster(s1_1))
+  expect_equal(terra::values(s1_1), terra::values(s1_2))
+  expect_inherits(s2_1, "SpatRaster")
+  expect_inherits(s2_2, "SpatRaster")
+  expect_true(all_binary(s2_1))
+  expect_true(is_checkerboard_raster(s2_1))
+  expect_equal(terra::values(s2_1), terra::values(s2_2))
 })
 
 test_that("invalid inputs (single zone)", {
   # load data
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   c_matrix <- boundary_matrix(sim_pu_raster)
-  p <- problem(sim_pu_raster, sim_features) %>%
-       add_min_set_objective() %>%
-       add_relative_targets(0.1) %>%
-       add_binary_decisions()
-  expect_error(add_connectivity_penalties(p, NA_real_, data = c_data))
-  expect_error(add_connectivity_penalties(p, 1, 0, data = c_data))
-  expect_error(add_connectivity_penalties(p, 5, data = c_data[, -1]))
-  expect_error(add_connectivity_penalties(p, 5, data = c_data[-1, ]))
+  # create problem
+  p <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.1) %>%
+    add_binary_decisions()
+  # tests
+  expect_tidy_error(add_connectivity_penalties(p, NA_real_, data = c_matrix))
+  expect_tidy_error(add_connectivity_penalties(p, 1, 0, data = c_matrix))
+  expect_tidy_error(add_connectivity_penalties(p, 5, data = c_matrix[, -1]))
+  expect_tidy_error(add_connectivity_penalties(p, 5, data = c_matrix[-1, ]))
   ac_data <- matrix(
-    runif(raster::ncell(sim_pu_raster) ^ 2),
-    ncol = raster::ncell(sim_pu_raster))
-  expect_error(add_connectivity_penalties(p, 5, data = ac_data))
+    runif(terra::ncell(sim_pu_raster) ^ 2),
+    ncol = terra::ncell(sim_pu_raster)
+  )
+  expect_tidy_error(add_connectivity_penalties(p, 5, data = ac_data))
 })
 
 test_that("minimum set objective (compile, multiple zones)", {
   # load data
-  data(sim_pu_zones_polygons, sim_features_zones)
-  sim_pu_zones_polygons <- sim_pu_zones_polygons[seq_len(20), ]
+  sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
+  sim_zones_features <- get_sim_zones_features()
+  sim_zones_pu_polygons <- sim_zones_pu_polygons[seq_len(20), ]
   # prepare data for problem
-  cm <- boundary_matrix(sim_pu_zones_polygons)
+  cm <- boundary_matrix(sim_zones_pu_polygons)
   zm <- matrix(seq_len(9) * 0.1, ncol = 3)
-  # make and compile problem
-  p <- problem(sim_pu_zones_polygons, sim_features_zones,
-               c("cost_1", "cost_2", "cost_3")) %>%
-       add_min_set_objective() %>%
-       add_relative_targets(matrix(0.1, nrow = 5, ncol = 3)) %>%
-       add_connectivity_penalties(100, zm, cm) %>%
-       add_binary_decisions()
+  # create and compile problem
+  p <-
+    problem(
+      sim_zones_pu_polygons, sim_zones_features,
+      c("cost_1", "cost_2", "cost_3")
+    ) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(matrix(0.1, nrow = 5, ncol = 3)) %>%
+    add_connectivity_penalties(100, zm, cm) %>%
+    add_binary_decisions()
   o <- compile(p)
-  ## prepare data for tests
+  # prepare data for tests
+  ## calculate constants
   n_pu <- p$number_of_planning_units()
   n_f <- p$number_of_features()
   n_z <- p$number_of_zones()
-  # prepare matrix
+  ## prepare matrix
   c_data <- cm * -100
   c_data <- as_Matrix(Matrix::tril(c_data), "dgTMatrix")
   c_weights <- rep(Matrix::diag(c_data), n_z) * rep(diag(zm), each = n_pu)
@@ -150,28 +161,28 @@ test_that("minimum set objective (compile, multiple zones)", {
       c_penalties <- c(c_penalties, c_data@x * zm[i, j])
     }
   }
-  # objectives for connectivity decision variables
+  ## objectives for connectivity decision variables
   c_obj <- o$obj()[(n_pu * n_z) + seq_len(length(c_data@i) * n_z * n_z)]
-  # lower bound for connectivity decision variables
+  ## lower bound for connectivity decision variables
   c_lb <- o$lb()[(n_pu * n_z) + seq_len(length(c_data@i) * n_z * n_z)]
-  # upper bound for connectivity decision variables
+  ## upper bound for connectivity decision variables
   c_ub <- o$ub()[(n_pu * n_z) + seq_len(length(c_data@i) * n_z * n_z)]
-  # vtype bound for connectivity decision variables
+  ## vtype bound for connectivity decision variables
   c_vtype <- o$vtype()[(n_pu * n_z) + seq_len(length(c_data@i) * n_z * n_z)]
-  # pu costs including connectivity penalties
+  ## pu costs including connectivity penalties
   pu_costs <- o$obj()[seq_len(n_pu * n_z)]
-  # matrix labels
-  c_col_labels <- o$col_ids()[(n_pu * n_z) +
-                              seq_len(length(c_data@i)  * n_z * n_z)]
-  c_row_labels <- o$row_ids()[(n_f * n_z) + n_pu +
-                               seq_len(length(c_data@i) * 2)]
-  # sense for connectivity decision constraints
-  c_sense <- o$sense()[(n_f * n_z) + n_pu +
-                       seq_len(length(c_data@i) * 2)]
-  # rhs for connectivity decision constraints
-  c_rhs <- o$rhs()[(n_f * n_z) + n_pu +
-                   seq_len(length(c_data@i) * 2)]
-  # run tests
+  ## matrix labels
+  c_col_labels <-
+    o$col_ids()[(n_pu * n_z) + seq_len(length(c_data@i)  * n_z * n_z)]
+  c_row_labels <-
+    o$row_ids()[(n_f * n_z) + n_pu + seq_len(length(c_data@i) * 2)]
+  ## sense for connectivity decision constraints
+  c_sense <-
+    o$sense()[(n_f * n_z) + n_pu + seq_len(length(c_data@i) * 2)]
+  ## rhs for connectivity decision constraints
+  c_rhs <-
+    o$rhs()[(n_f * n_z) + n_pu + seq_len(length(c_data@i) * 2)]
+  # tests
   expect_equal(pu_costs, c(p$planning_unit_costs()) + c_weights)
   expect_equal(c_obj, c_penalties)
   expect_equal(c_lb, rep(0, length(c_data@i) * n_z * n_z))
@@ -200,30 +211,37 @@ test_that("minimum set objective (compile, multiple zones)", {
 
 test_that("minimum set objective (compile, array data, multiple zones)", {
   # load data
-  data(sim_pu_zones_polygons, sim_features_zones)
+  sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
+  sim_zones_features <- get_sim_zones_features()
   # prepare data for problem
-  cm <- boundary_matrix(sim_pu_zones_polygons)
+  cm <- boundary_matrix(sim_zones_pu_polygons)
   zm <- matrix(seq_len(9) * 0.1, ncol = 3)
   ca <- array(0, dim = c(dim(cm), 3, 3))
   for (i in seq_len(3))
     for (j in seq_len(3))
       ca[, , i, j] <- as.matrix(cm * zm[i, j])
-  # make and compile problems
-  p1 <- problem(sim_pu_zones_polygons, sim_features_zones,
-               c("cost_1", "cost_2", "cost_3")) %>%
-       add_min_set_objective() %>%
-       add_relative_targets(matrix(0.1, nrow = 5, ncol = 3)) %>%
-       add_connectivity_penalties(100, zm, cm) %>%
-       add_binary_decisions()
-  p2 <- problem(sim_pu_zones_polygons, sim_features_zones,
-               c("cost_1", "cost_2", "cost_3")) %>%
-       add_min_set_objective() %>%
-       add_relative_targets(matrix(0.1, nrow = 5, ncol = 3)) %>%
-       add_connectivity_penalties(100, NULL, ca) %>%
-       add_binary_decisions()
+  # create and compile problems
+  p1 <-
+    problem(
+      sim_zones_pu_polygons, sim_zones_features,
+      c("cost_1", "cost_2", "cost_3")
+    ) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(matrix(0.1, nrow = 5, ncol = 3)) %>%
+    add_connectivity_penalties(100, zm, cm) %>%
+    add_binary_decisions()
+  p2 <-
+    problem(
+      sim_zones_pu_polygons, sim_zones_features,
+      c("cost_1", "cost_2", "cost_3")
+    ) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(matrix(0.1, nrow = 5, ncol = 3)) %>%
+    add_connectivity_penalties(100, NULL, ca) %>%
+    add_binary_decisions()
   o1 <- compile(p1)
   o2 <- compile(p2)
-  # run tests
+  # tests
   expect_equal(o1$obj(), o2$obj())
   expect_equal(o1$lb(), o2$lb())
   expect_equal(o1$ub(), o2$ub())
@@ -237,116 +255,84 @@ test_that("minimum set objective (solve, multiple zones)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # load data
-  data(sim_pu_zones_stack, sim_features_zones)
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
   # make zones matrices
   zm <- matrix(-1, ncol = 3, nrow = 3)
   diag(zm) <- 0.1
   # make connectivity data
-  cm <- adjacency_matrix(sim_pu_zones_stack)
+  cm <- adjacency_matrix(sim_zones_pu_raster)
   # create and solve problem
-  s <- problem(sim_pu_zones_stack, sim_features_zones) %>%
-       add_min_set_objective() %>%
-       add_relative_targets(matrix(0.1, nrow = 5, ncol = 3)) %>%
-       add_connectivity_penalties(100, zm, cm) %>%
-       add_binary_decisions() %>%
-       add_default_solver(gap = 0.15, verbose = FALSE) %>%
-       solve()
+  s <-
+    problem(sim_zones_pu_raster, sim_zones_features) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(matrix(0.1, nrow = 5, ncol = 3)) %>%
+    add_connectivity_penalties(10000, zm, cm) %>%
+    add_binary_decisions() %>%
+    add_default_solver(gap = 0, verbose = FALSE) %>%
+    solve()
   sc <- category_layer(s)
   # tests
-  expect_is(s, "RasterStack")
-  expect_true(all(na.omit(unique(raster::values(s))) %in% c(0, 1)))
-  for (i in seq_len(3)) {
-    # check that each zone forms a single contiguous block
-    p <- rasterToPolygons(s[[i]] == 1, dissolve = TRUE)
-    p <- p[p$layer == 1, ]
-    p <- aggregate(p)
-    expect_equal(length(p), 1)
-    # check that each zone is not adjacent to another zone
-    a <- raster::adjacent(sc, cells = Which(s[[i]] == 1, cells = TRUE),
-                          pairs = FALSE)
-    expect_true(all(sc[a] %in% c(0, i, NA)))
-  }
-})
-
-test_that("minimum set objective (compile, Spatial and sf are identical)", {
-  # load data
-  data(sim_pu_zones_polygons, sim_features_zones)
-  sim_pu_zones_polygons <- sim_pu_zones_polygons[seq_len(20), ]
-  sim_sf <- sf::st_as_sf(sim_pu_zones_polygons)
-  # prepare data for problem
-  cm <- boundary_matrix(sim_pu_zones_polygons)
-  zm <- matrix(seq_len(9) * 0.1, ncol = 3)
-  # make problems
-  p1 <- problem(sim_pu_zones_polygons, sim_features_zones,
-                c("cost_1", "cost_2", "cost_3")) %>%
-        add_min_set_objective() %>%
-        add_relative_targets(matrix(0.1, nrow = 5, ncol = 3)) %>%
-        add_connectivity_penalties(100, zm, cm) %>%
-        add_binary_decisions()
-  p2 <- problem(sim_sf, sim_features_zones,
-                c("cost_1", "cost_2", "cost_3")) %>%
-        add_min_set_objective() %>%
-        add_relative_targets(matrix(0.1, nrow = 5, ncol = 3)) %>%
-        add_connectivity_penalties(100, zm, cm) %>%
-        add_binary_decisions()
-  # compile problems
-  o1 <- as.list(compile(p1))
-  o2 <- as.list(compile(p2))
-  # tests
-  expect_equal(o1, o2)
+  expect_inherits(s, "SpatRaster")
+  expect_true(all_binary(s))
+  expect_true(is_single_patch_raster(s[[1]]))
+  expect_true(is_single_patch_raster(s[[2]]))
+  expect_true(is_single_patch_raster(s[[3]]))
+  expect_true(is_distinct_zones_raster(category_layer(s)))
 })
 
 test_that("invalid inputs (multiple zones)", {
   # load data
-  data(sim_pu_zones_stack, sim_features_zones)
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
   # make zones matrices
   zm <- matrix(-1, ncol = 3, nrow = 3)
   diag(zm) <- 1
   # make connectivity data
-  cm <- adjacency_matrix(sim_pu_zones_stack)
+  cm <- adjacency_matrix(sim_zones_pu_raster)
   ca <- array(1, dim = c(dim(cm), 3, 3))
   # create problem
-  p <- problem(sim_pu_zones_stack, sim_features_zones) %>%
-        add_min_set_objective() %>%
-        add_relative_targets(matrix(0.1, nrow = 5, ncol = 3)) %>%
-        add_binary_decisions()
+  p <-
+    problem(sim_zones_pu_raster, sim_zones_features) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(matrix(0.1, nrow = 5, ncol = 3)) %>%
+    add_binary_decisions()
   # tests
-  expect_error(add_connectivity_penalties(p, NA_real_, zm, cm))
-  expect_error(add_connectivity_penalties(p, Inf, zm,cm))
-  expect_error(add_connectivity_penalties(p, 1, zm[-1, ], cm))
-  expect_error(add_connectivity_penalties(p, 1, zm[, -1], cm))
-  expect_error(add_connectivity_penalties(p, 1, `[<-`(zm, 1, -2), cm))
-  expect_error(add_connectivity_penalties(p, 1, `[<-`(zm, 1, 3), cm))
-  expect_error(add_connectivity_penalties(p, 1, `[<-`(zm, 1, NA), cm))
-  expect_error(add_connectivity_penalties(p, 1, zm, cm[-1, ]))
-  expect_error(add_connectivity_penalties(p, 1, zm, cm[, -1]))
-  expect_error(add_connectivity_penalties(p, 1, zm, cm[, -1]))
-  expect_error(add_connectivity_penalties(p, 1, zm, ca))
-  expect_error(add_connectivity_penalties(p, 1, data = ca))
-  expect_error(add_connectivity_penalties(p, 1, NULL, ca[-1, , , ]))
-  expect_error(add_connectivity_penalties(p, 1, NULL, ca[, -1, , ]))
-  expect_error(add_connectivity_penalties(p, 1, NULL, ca[, , -1, ]))
-  expect_error(add_connectivity_penalties(p, 1, NULL, ca[, , , -1]))
+  expect_tidy_error(add_connectivity_penalties(p, NA_real_, zm, cm))
+  expect_tidy_error(add_connectivity_penalties(p, Inf, zm,cm))
+  expect_tidy_error(add_connectivity_penalties(p, 1, zm[-1, ], cm))
+  expect_tidy_error(add_connectivity_penalties(p, 1, zm[, -1], cm))
+  expect_tidy_error(add_connectivity_penalties(p, 1, `[<-`(zm, 1, -2), cm))
+  expect_tidy_error(add_connectivity_penalties(p, 1, `[<-`(zm, 1, 3), cm))
+  expect_tidy_error(add_connectivity_penalties(p, 1, `[<-`(zm, 1, NA), cm))
+  expect_tidy_error(add_connectivity_penalties(p, 1, zm, cm[-1, ]))
+  expect_tidy_error(add_connectivity_penalties(p, 1, zm, cm[, -1]))
+  expect_tidy_error(add_connectivity_penalties(p, 1, zm, cm[, -1]))
+  expect_tidy_error(add_connectivity_penalties(p, 1, zm, ca))
+  expect_tidy_error(add_connectivity_penalties(p, 1, data = ca))
+  expect_tidy_error(add_connectivity_penalties(p, 1, NULL, ca[-1, , , ]))
+  expect_tidy_error(add_connectivity_penalties(p, 1, NULL, ca[, -1, , ]))
+  expect_tidy_error(add_connectivity_penalties(p, 1, NULL, ca[, , -1, ]))
+  expect_tidy_error(add_connectivity_penalties(p, 1, NULL, ca[, , , -1]))
 })
 
 test_that("alternative data formats", {
   # load data
-  data(sim_pu_raster, sim_features)
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
   # create connectivity matrices
   m <- adjacency_matrix(sim_pu_raster)
   m2 <- as_Matrix(m, "dgTMatrix")
   m2 <- data.frame(id1 = m2@i + 1, id2 = m2@j + 1, boundary = m2@x)
   # create problem
-  p0 <- problem(sim_pu_raster, sim_features) %>%
-        add_min_set_objective() %>%
-        add_relative_targets(0.45) %>%
-        add_binary_decisions()
-  p1 <- p0 %>%
-        add_connectivity_penalties(1000, data = m)
-  p2 <- p0 %>%
-        add_connectivity_penalties(1000, data = as.matrix(m))
-  p3 <- p0 %>%
-        add_connectivity_penalties(1000, data = m2)
+  p0 <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.45) %>%
+    add_binary_decisions()
+  p1 <- add_connectivity_penalties(p0, 1000, data = m)
+  p2 <- add_connectivity_penalties(p0, 1000, data = as.matrix(m))
+  p3 <- add_connectivity_penalties(p0, 1000, data = m2)
   # create objects
   o1 <- as.list(compile(p1))
   o2 <- as.list(compile(p2))

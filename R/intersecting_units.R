@@ -6,133 +6,150 @@ NULL
 #' Find which of the units in a spatial data object intersect
 #' with the units in another spatial data object.
 #'
-#' @param x [`Spatial-class`] or [`Raster-class`] object.
+#' @param x [sf::st_sf()] or [terra::rast()] object.
 #'
-#' @param y [`Spatial-class`] or [`Raster-class`] object.
+#' @param y [sf::st_sf()] or [terra::rast()] object.
 #'
-#' @return `integer` indices of the units in `x` that intersect with
-#'   `y`.
+#' @return An `integer` vector of indices of the units in `x` that intersect
+#'   with `y`.
 #'
 #' @name intersecting_units
 #'
-#' @seealso [fast_extract()].
+#' @details
+#' The performance of this function for large [terra::rast()] objects
+#' can be improved by increasing the GDAL cache size.
+#' The default cache size is 25 MB.
+#' For example, the following code can be used to set the cache size to 4 GB.
+#' ```
+#' terra::gdalCache(size = 4000)
+#' ```
+#'
+#' @seealso
+#' See [fast_extract()] for extracting data from spatial datasets.
 #'
 #' @exportMethod intersecting_units
 #'
-#' @aliases intersecting_units,Raster,Raster-method intersecting_units,Raster,Spatial-method intersecting_units,Spatial,Raster-method intersecting_units,Spatial,Spatial-method intersecting_units,sf,Spatial-method intersecting_units,Spatial,sf-method intersecting_units,sf,sf-method intersecting_units,Raster,sf-method intersecting_units,sf,Raster-method intersecting_units,data.frame,ANY-method
+#' @aliases intersecting_units,Raster,ANY-method intersecting_units,ANY,Raster-method intersecting_units,Spatial,ANY-method intersecting_units,ANY,Spatial-method intersecting_units,sf,sf-method intersecting_units,SpatRaster,sf-method intersecting_units,SpatRaster,SpatRaster-method intersecting_units,sf,SpatRaster-method intersecting_units,data.frame,ANY-method
 #'
 #' @examples
 #' \dontrun{
 #' # create data
-#' r <- raster(matrix(1:9, byrow = TRUE, ncol = 3))
+#' r <- terra::rast(matrix(1:9, byrow = TRUE, ncol = 3))
 #' r_with_holes <- r
 #' r_with_holes[c(1, 5, 9)] <- NA
-#' ply <- rasterToPolygons(r)
-#' ply_with_holes <- sf::st_as_sf(rasterToPolygons(r_with_holes))
+#' ply <- sf::st_as_sf(terra::as.polygons(r))
+#' ply_with_holes <- sf::st_as_sf(terra::as.polygons(r_with_holes))
 #'
 #' # intersect raster with raster
 #' par(mfrow = c(1, 2))
-#' plot(r, main = "x=Raster")
-#' plot(r_with_holes, main = "y=Raster")
+#' plot(r, main = "x = SpatRaster", axes = FALSE)
+#' plot(r_with_holes, main = "y = SpatRaster", axes = FALSE)
 #' print(intersecting_units(r, r_with_holes))
 #'
-#' # intersect raster with polygons (sf)
+#' # intersect raster with sf
 #' par(mfrow = c(1, 2))
-#' plot(r, main = "x=Raster")
-#' plot(ply_with_holes, main = "y=sf", key.pos = NULL, reset = FALSE)
+#' plot(r, main = "x = SpatRaster", axes = FALSE)
+#' plot(ply_with_holes, main = "y = sf", key.pos = NULL, reset = FALSE)
 #' print(intersecting_units(r, ply_with_holes))
 #'
-#' # intersect polygons (Spatial) with raster
+#' # intersect sf with raster
 #' par(mfrow = c(1, 2))
-#' plot(ply, main = "x=Spatial")
-#' plot(r_with_holes, main = "y=Raster")
+#' plot(ply, main = "x = sf", key.pos = NULL, reset = FALSE)
+#' plot(r_with_holes, main = "y = SpatRaster")
 #' print(intersecting_units(ply, r_with_holes))
 #'
-#' # intersect polygons (Spatial) with polygons (sf)
+#' # intersect sf with sf
 #' par(mfrow = c(1, 2))
-#' plot(ply, main = "x=Spatial")
-#' plot(ply_with_holes, main = "y=sf", key.pos = NULL, reset = FALSE)
+#' plot(ply, main = "x = sf", key.pos = NULL, reset = FALSE)
+#' plot(ply_with_holes, main = "y = sf", key.pos = NULL, reset = FALSE)
 #' print(intersecting_units(ply, ply_with_holes))
 #' }
 #'
 #' @export
-methods::setGeneric("intersecting_units",
-                    signature = methods::signature("x", "y"),
-                    function(x, y)
-                      standardGeneric("intersecting_units"))
+methods::setGeneric(
+  "intersecting_units",
+  signature = methods::signature("x", "y"),
+  function(x, y) {
+    assert_required(x)
+    assert_required(y)
+    assert(
+      is_inherits(
+        x, c("data.frame", "sf", "SpatRaster", "Spatial", "Raster")
+      ),
+      is_spatially_explicit(y)
+    )
+    standardGeneric("intersecting_units")
+  }
+)
 
 #' @name intersecting_units
-#' @usage \S4method{intersecting_units}{Raster,Raster}(x, y)
+#' @usage \S4method{intersecting_units}{Raster,ANY}(x, y)
 #' @rdname intersecting_units
 methods::setMethod(
   "intersecting_units",
-  methods::signature(x = "Raster", y = "Raster"),
+  methods::signature(x = "Raster", y = "ANY"),
+  function(x, y) {
+    cli_warning(raster_pkg_deprecation_notice)
+    intersecting_units(terra::rast(x), y)
+  }
+)
+
+#' @name intersecting_units
+#' @usage \S4method{intersecting_units}{ANY,Raster}(x, y)
+#' @rdname intersecting_units
+methods::setMethod(
+  "intersecting_units",
+  methods::signature(x = "ANY", y = "Raster"),
+  function(x, y) {
+    cli_warning(raster_pkg_deprecation_notice)
+    intersecting_units(x, terra::rast(y))
+  }
+)
+
+#' @name intersecting_units
+#' @usage \S4method{intersecting_units}{Spatial,ANY}(x, y)
+#' @rdname intersecting_units
+methods::setMethod(
+  "intersecting_units",
+  methods::signature(x = "Spatial", y = "ANY"),
+  function(x, y) {
+    cli_warning(sp_pkg_deprecation_notice)
+    intersecting_units(sf::st_as_sf(x), y)
+  }
+)
+
+#' @name intersecting_units
+#' @usage \S4method{intersecting_units}{ANY,Spatial}(x, y)
+#' @rdname intersecting_units
+methods::setMethod(
+  "intersecting_units",
+  methods::signature(x = "ANY", y = "Spatial"),
+  function(x, y) {
+    cli_warning(sp_pkg_deprecation_notice)
+    intersecting_units(x, sf::st_as_sf(y))
+  }
+)
+
+#' @name intersecting_units
+#' @usage \S4method{intersecting_units}{SpatRaster,SpatRaster}(x, y)
+#' @rdname intersecting_units
+methods::setMethod(
+  "intersecting_units",
+  methods::signature(x = "SpatRaster", y = "SpatRaster"),
   function(x, y) {
     # assert arguments are valid
-    assertthat::assert_that(inherits(x, "Raster"), inherits(y, "Raster"),
-      isTRUE(raster::nlayers(x) == 1),
-      sf::st_crs(x@crs) == sf::st_crs(y@crs),
-      is_comparable_raster(x, y))
-    if (inherits(x, c("RasterStack", "RasterBrick"))) x <- x[[1]]
-    if (inherits(y, c("RasterStack", "RasterBrick"))) y <- y[[1]]
-    y <- as.logical(y)
+    assert(
+      inherits(x, "SpatRaster"),
+      inherits(y, "SpatRaster"),
+      terra::nlyr(x) == 1,
+      is_same_crs(x, y),
+      is_comparable_raster(x, y)
+    )
+    # extract first layer
+    x <- x[[1]]
+    y <- y[[1]]
     # return positive cells
-    raster::Which(y & !is.na(x), cells = TRUE)
-  }
-)
-
-#' @name intersecting_units
-#' @usage \S4method{intersecting_units}{Spatial,Spatial}(x, y)
-#' @rdname intersecting_units
-methods::setMethod(
-  "intersecting_units",
-  methods::signature(x = "Spatial", y = "Spatial"),
-  function(x, y) {
-    intersecting_units(sf::st_as_sf(x), sf::st_as_sf(y))
-  }
-)
-
-#' @name intersecting_units
-#' @usage \S4method{intersecting_units}{sf,Spatial}(x, y)
-#' @rdname intersecting_units
-methods::setMethod(
-  "intersecting_units",
-  methods::signature(x = "sf", y = "Spatial"),
-  function(x, y) {
-    intersecting_units(x, sf::st_as_sf(y))
-  }
-)
-
-#' @name intersecting_units
-#' @usage \S4method{intersecting_units}{Spatial,Raster}(x, y)
-#' @rdname intersecting_units
-methods::setMethod(
-  "intersecting_units",
-  methods::signature(x = "Spatial", y = "Raster"),
-  function(x, y) {
-    intersecting_units(sf::st_as_sf(x), y)
-  }
-)
-
-#' @name intersecting_units
-#' @usage \S4method{intersecting_units}{Spatial,sf}(x, y)
-#' @rdname intersecting_units
-methods::setMethod(
-  "intersecting_units",
-  methods::signature(x = "Spatial", y = "sf"),
-  function(x, y) {
-    intersecting_units(sf::st_as_sf(x), y)
-  }
-)
-
-#' @name intersecting_units
-#' @usage \S4method{intersecting_units}{Raster,Spatial}(x, y)
-#' @rdname intersecting_units
-methods::setMethod(
-  "intersecting_units",
-  methods::signature(x = "Raster", y = "Spatial"),
-  function(x, y) {
-    intersecting_units(x, sf::st_as_sf(y))
+    as.integer(terra::cells((y > 0) & !is.na(x), 1)[[1]])
   }
 )
 
@@ -144,10 +161,12 @@ methods::setMethod(
   methods::signature(x = "sf", y = "sf"),
   function(x, y) {
     # assert arguments are valid
-    assertthat::assert_that(
-      inherits(x, "sf"), inherits(y, "sf"),
-      sf::st_crs(x) == sf::st_crs(y),
-      intersecting_extents(x, y))
+    assert(
+      inherits(x, "sf"),
+      inherits(y, "sf"),
+      is_same_crs(x, y),
+      is_spatial_extents_overlap(x, y)
+    )
     # find out which units in x intersect with any units in y
     int1 <- sf::st_intersects(x, y, sparse = TRUE)
     int2 <- sf::st_touches(x, y, sparse = TRUE)
@@ -156,10 +175,14 @@ methods::setMethod(
     names(int2) <- as.character(seq_len(nrow(x)))
     int1 <- rcpp_list_to_matrix_indices(int1)
     int2 <- rcpp_list_to_matrix_indices(int2)
-    int1 <- Matrix::sparseMatrix(i = int1$i, j = int1$j, x = 1,
-                                 dims = c(nrow(y), nrow(x)))
-    int2 <- Matrix::sparseMatrix(i = int2$i, j = int2$j, x = 1,
-                                 dims = c(nrow(y), nrow(x)))
+    int1 <- Matrix::sparseMatrix(
+      i = int1$i, j = int1$j, x = 1,
+      dims = c(nrow(y), nrow(x))
+    )
+    int2 <- Matrix::sparseMatrix(
+      i = int2$i, j = int2$j, x = 1,
+      dims = c(nrow(y), nrow(x))
+    )
     # exclude units from being intersecting if they only touch
     int1[int2 > 0.5] <- 0
     int1 <- as_Matrix(Matrix::drop0(int1), "dgTMatrix")
@@ -168,51 +191,50 @@ methods::setMethod(
 )
 
 #' @name intersecting_units
-#' @usage \S4method{intersecting_units}{Raster,sf}(x, y)
+#' @usage \S4method{intersecting_units}{SpatRaster,sf}(x, y)
 #' @rdname intersecting_units
 methods::setMethod(
   "intersecting_units",
-  methods::signature(x = "Raster", y = "sf"),
+  methods::signature(x = "SpatRaster", y = "sf"),
   function(x, y) {
     # assert arguments are valid
-    assertthat::assert_that(
-      inherits(x, "Raster"), inherits(y, "sf"),
-      isTRUE(raster::nlayers(x) == 1),
-      sf::st_crs(x@crs) == sf::st_crs(y),
-      intersecting_extents(x, y))
-    intersecting_units(x = x, y = fasterize::fasterize(y, x, field = NULL))
+    assert(
+      inherits(x, "SpatRaster"),
+      inherits(y, "sf"),
+      terra::nlyr(x) == 1,
+      is_same_crs(x, y),
+      is_spatial_extents_overlap(x, y)
+    )
+    # add column with a value
+    y$value <- 1
+    # find intersecting units
+    intersecting_units(
+      x = x,
+      y = terra::rasterize(terra::vect(y), x, field = "value")
+    )
   }
 )
 
 #' @name intersecting_units
-#' @usage \S4method{intersecting_units}{sf,Raster}(x, y)
+#' @usage \S4method{intersecting_units}{sf,SpatRaster}(x, y)
 #' @rdname intersecting_units
 methods::setMethod("intersecting_units",
-  methods::signature(x = "sf", y = "Raster"),
+  methods::signature(x = "sf", y = "SpatRaster"),
   function(x, y) {
     # assert arguments are valid
-    assertthat::assert_that(
-      inherits(x, "sf"), inherits(y, "Raster"),
-      isTRUE(raster::nlayers(y) == 1),
-      sf::st_crs(x) == sf::st_crs(y@crs),
-      intersecting_extents(x, y))
+    assert(
+      inherits(x, "sf"),
+      inherits(y, "SpatRaster"),
+      terra::nlyr(y) == 1,
+      is_same_crs(x, y),
+      is_spatial_extents_overlap(x, y)
+    )
     # prepare raster data
-    if (inherits(y, c("RasterStack", "RasterBrick")))
-      y <- y[[1]]
-    y <- as.logical(y)
+    y <- y[[1]]
     # find out which units in y contain at least one element of x
-    which(c(fast_extract(y, x, fun = "mean")) > 1e-7) # precision is 1e-7
+    ## precision is 1e-7
+    which(c(fast_extract(y > 0, x, fun = "mean")) > 1e-7)
   }
 )
 
-#' @name intersecting_units
-#' @usage \S4method{intersecting_units}{data.frame,ANY}(x, y)
-#' @rdname intersecting_units
-methods::setMethod(
-  "intersecting_units",
-  methods::signature(x = "data.frame", y = "ANY"),
-  function(x, y) {
-    stop("planning units are stored as a data.frame and so the required ",
-         "spatial analysis cannot be performed")
-  }
-)
+na_crs <- "ENGCRS[\"Undefined Cartesian SRS\",\n    EDATUM[\"\"],\n    CS[Cartesian,2],\n        AXIS[\"(E)\",east,\n            ORDER[1],\n            LENGTHUNIT[\"Meter\",1]],\n        AXIS[\"(N)\",north,\n            ORDER[2],\n            LENGTHUNIT[\"Meter\",1]]]"

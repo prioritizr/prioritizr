@@ -7,14 +7,13 @@
 marxan_connectivity_data_to_matrix(x, data, symmetric = TRUE)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object that
+\item{x}{\code{\link[=problem]{problem()}} object that
 contains planning unit and zone data to ensure that the argument to
 \code{data} is converted correctly. This argument can be set to
 \code{NULL} if checks are not required (not recommended).}
 
 \item{data}{\code{data.frame} object with the columns \code{"id1"},
-\code{"id2"}, and \code{"boundary"}. The columns \code{"zone1"} and
-\code{"zone2"} can also be provided to indicate zone data.}
+\code{"id2"}, and \code{"boundary"}.}
 
 \item{symmetric}{\code{logical} does the connectivity data
 describe symmetric relationships between planning units?
@@ -23,11 +22,7 @@ this parameter should be set to \code{FALSE}.
 Defaults to \code{TRUE}.}
 }
 \value{
-\code{array} or \code{\linkS4class{dgCMatrix}} sparse matrix object.
-If the argument to \code{data} corresponds to a single zone,
-then a \code{\linkS4class{dgCMatrix}}
-matrix is returned. Otherwise, if the argument to \code{data}
-corresponds to multiple zones, then an \code{array} is returned.
+A \code{\linkS4class{dgCMatrix}} sparse matrix object.
 }
 \description{
 Convert a \code{data.frame} object containing \emph{Marxan} connectivity data
@@ -76,9 +71,11 @@ image(m2)
 
 # create marxan connectivity with three planning units and two zones,
 # and symmetric connectivity values
-bldf3 <- expand.grid(id1 = seq_len(3), id2 = seq_len(3),
-                     zone1 = c("z1", "z2"),
-                     zone2 = c("z1", "z2"))
+bldf3 <- expand.grid(
+  id1 = seq_len(3), id2 = seq_len(3),
+  zone1 = c("z1", "z2"),
+  zone2 = c("z1", "z2")
+)
 bldf3$boundary <- 1
 bldf3$boundary[bldf2$id1 == bldf2$id2 & bldf2$zone1 == bldf2$zone2] <- 0.5
 bldf3$boundary[bldf2$id1 == bldf2$id2 & bldf2$zone1 != bldf2$zone2] <- 0

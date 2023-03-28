@@ -4,21 +4,20 @@
 \alias{add_cuts_portfolio}
 \title{Add Bender's cuts portfolio}
 \usage{
-add_cuts_portfolio(x, number_solutions = 10L)
+add_cuts_portfolio(x, number_solutions = 10)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} object.}
 
 \item{number_solutions}{\code{integer} number of attempts to generate
 different solutions. Defaults to 10.}
 }
 \value{
-Object (i.e., \code{\linkS4class{ConservationProblem}}) with the portfolio
-added to it.
+An updated \code{\link[=problem]{problem()}} object with the portfolio added to it.
 }
 \description{
 Generate a portfolio of solutions for a conservation planning
-\code{\link[=problem]{problem()}} using Bender's cuts (discussed in Rodrigues
+problem using Bender's cuts (discussed in Rodrigues
 \emph{et al.} 2000). This is recommended as a replacement for
 \code{\link[=add_gap_portfolio]{add_gap_portfolio()}} when the \emph{Gurobi} software is not
 available.
@@ -44,30 +43,36 @@ problem formulation to generate multiple solutions.
 set.seed(500)
 
 # load data
-data(sim_pu_raster, sim_features, sim_pu_zones_stack, sim_features_zones)
+sim_pu_raster <- get_sim_pu_raster()
+sim_features <- get_sim_features()
+sim_zones_pu_raster <- get_sim_zones_pu_raster()
+sim_zones_features <- get_sim_zones_features()
 
 # create minimal problem with cuts portfolio
-p1 <- problem(sim_pu_raster, sim_features) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(0.2) \%>\%
-      add_cuts_portfolio(10) \%>\%
-      add_default_solver(gap = 0.2, verbose = FALSE)
-
+p1 <-
+  problem(sim_pu_raster, sim_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.2) \%>\%
+  add_cuts_portfolio(10) \%>\%
+  add_default_solver(gap = 0.2, verbose = FALSE)
 
 # solve problem and generate 10 solutions within 20\% of optimality
 s1 <- solve(p1)
 
+# convert portfolio into a multi-layer raster object
+s1 <- terra::rast(s1)
+
 # plot solutions in portfolio
-plot(stack(s1), axes = FALSE, box = FALSE)
+plot(s1, axes = FALSE)
 
 # build multi-zone conservation problem with cuts portfolio
-p2 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
-                                  ncol = 3)) \%>\%
-      add_binary_decisions() \%>\%
-      add_cuts_portfolio(10) \%>\%
-      add_default_solver(gap = 0.2, verbose = FALSE)
+p2 <-
+ problem(sim_zones_pu_raster, sim_zones_features) \%>\%
+ add_min_set_objective() \%>\%
+ add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5, ncol = 3)) \%>\%
+ add_binary_decisions() \%>\%
+ add_cuts_portfolio(10) \%>\%
+ add_default_solver(gap = 0.2, verbose = FALSE)
 
 # solve the problem
 s2 <- solve(p2)
@@ -75,9 +80,11 @@ s2 <- solve(p2)
 # print solution
 str(s2, max.level = 1)
 
+# convert each solution in the portfolio into a single category layer
+s2 <- terra::rast(lapply(s2, category_layer))
+
 # plot solutions in portfolio
-plot(stack(lapply(s2, category_layer)),
-     main = "solution", axes = FALSE, box = FALSE)
+plot(s2, main = "solution", axes = FALSE)
 }
 }
 \references{

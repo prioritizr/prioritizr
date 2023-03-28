@@ -2,9 +2,6 @@
 % Please edit documentation in R/OptimizationProblem-methods.R
 \name{OptimizationProblem-methods}
 \alias{OptimizationProblem-methods}
-\alias{nrow}
-\alias{ncol}
-\alias{ncell}
 \alias{modelsense}
 \alias{vtype}
 \alias{obj}
@@ -32,15 +29,9 @@
 \alias{compressed_formulation,OptimizationProblem-method}
 \title{Optimization problem methods}
 \usage{
-nrow(x)
-
 \S4method{nrow}{OptimizationProblem}(x)
 
-ncol(x)
-
 \S4method{ncol}{OptimizationProblem}(x)
-
-ncell(x)
 
 \S4method{ncell}{OptimizationProblem}(x)
 
@@ -89,16 +80,15 @@ compressed_formulation(x)
 \S4method{compressed_formulation}{OptimizationProblem}(x)
 }
 \arguments{
-\item{x}{\code{\linkS4class{OptimizationProblem}} object.}
+\item{x}{\code{\link[=optimization_problem]{optimization_problem()}} object.}
 }
 \value{
-\code{\linkS4class{dgCMatrix}}, \code{numeric} vector,
+A \code{\linkS4class{dgCMatrix}}, \code{numeric} vector,
 \code{numeric} vector, or scalar \code{integer} depending on the method
 used.
 }
 \description{
-These functions are used to access data from an
-\code{\linkS4class{OptimizationProblem}} object.
+These functions are used to access data from a \code{\link[=optimization_problem]{optimization_problem()}}.
 }
 \details{
 The functions return the following data:

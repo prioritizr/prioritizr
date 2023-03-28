@@ -2,7 +2,7 @@
 % Please edit documentation in R/portfolios.R
 \name{portfolios}
 \alias{portfolios}
-\title{Solution portfolios}
+\title{Add portfolios}
 \description{
 Conservation planning exercises rarely have access to all the
 data needed to identify the \emph{truly} perfect solution. This is because
@@ -31,7 +31,7 @@ Note that it requires the \emph{Gurobi} solver.}
 
 \item{\code{\link[=add_top_portfolio]{add_top_portfolio()}}}{Generate a portfolio of
 solutions by finding a pre-specified number of solutions that
-are closest to optimality (i.e the top solutions). This is useful
+are closest to optimality (i.e., the top solutions). This is useful
 for examining differences among near-optimal solutions.
 It can also be used to generate multiple solutions and, in turn,
 to calculate selection frequencies for small problems.
@@ -59,14 +59,16 @@ when the \emph{Gurobi} software is not available.}
 \examples{
 \dontrun{
 # load data
-data(sim_pu_raster, sim_features)
+sim_pu_raster <- get_sim_pu_raster()
+sim_features <- get_sim_features()
 
 # create problem
-p <- problem(sim_pu_raster, sim_features) \%>\%
-     add_min_set_objective() \%>\%
-     add_relative_targets(0.1) \%>\%
-     add_binary_decisions() \%>\%
-     add_default_solver(gap = 0.02, verbose = FALSE)
+p <-
+  problem(sim_pu_raster, sim_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.1) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(gap = 0.02, verbose = FALSE)
 
 # create problem with cuts portfolio with 4 solutions
 p1 <- p \%>\% add_cuts_portfolio(4)
@@ -86,20 +88,20 @@ p5 <- p \%>\% add_gap_portfolio(4, 0.5)
 # solve problems and create solution portfolios
 s <- list(solve(p1), solve(p2), solve(p3), solve(p4), solve(p5))
 
-# plot solutions from extra portfolio
-plot(stack(s[[1]]), axes = FALSE, box = FALSE)
-
-# plot solutions from top portfolio
-plot(stack(s[[2]]), axes = FALSE, box = FALSE)
-
-# plot solutions from gap portfolio
-plot(stack(s[[3]]), axes = FALSE, box = FALSE)
-
 # plot solutions from cuts portfolio
-plot(stack(s[[4]]), axes = FALSE, box = FALSE)
+plot(terra::rast(s[[1]]), axes = FALSE)
 
 # plot solutions from shuffle portfolio
-plot(stack(s[[5]]), axes = FALSE, box = FALSE)
+plot(terra::rast(s[[2]]), axes = FALSE)
+
+# plot solutions from extra portfolio
+plot(terra::rast(s[[3]]), axes = FALSE)
+
+# plot solutions from top portfolio
+plot(terra::rast(s[[4]]), axes = FALSE)
+
+# plot solutions from gap portfolio
+plot(terra::rast(s[[5]]), axes = FALSE)
 }
 
 }

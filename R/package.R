@@ -1,15 +1,7 @@
 #' @include internal.R
 NULL
 
-#' @import raster
-#' @import sp
-#' @import proto
-#' @import sf
 #' @useDynLib prioritizr, .registration = TRUE
-NULL
-
-#' @importMethodsFrom fasterize raster
-#' @export
 NULL
 
 #' prioritizr: Systematic Conservation Prioritization in R
@@ -43,18 +35,21 @@ NULL
 #'   \describe{
 #'
 #'   \item{prioritizr}{Background information on systematic conservation
-#'     planning and a comprehensive overview of the package and its usage.}
+#'     planning, package intallation instructions and citation, and a
+#'    demonstration of the main package features.}
 #'
-#'   \item{tasmania}{Tutorial using Tasmania, Australia
-#'     as a case-study. This tutorial uses vector-based planning unit data and
-#'     is written for individuals familiar with the *Marxan* decision
-#'     support tool.}
+#'   \item{package_overview}{Comprehensive introduction to the package and
+#'     example workflows for the main package features.
+#'   }
 #'
-#'   \item{saltspring}{Tutorial using Salt Spring Island, Canada as a
-#'     case-study. This tutorial uses raster-based planning unit data.}
+#'   \item{calibrating_trade-offs_tutorial}{Examples of balancing different
+#'     criteria to identify candidate prioritizations.}
 #'
-#'   \item{zones}{Tutorial on using multiple management actions or zones
-#'     to create detailed prioritizations.}
+#'   \item{connectivity_tutorial}{Examples of incorporating and evaluating
+#'     connectivity in prioritizations using a range of approaches.}
+#'
+#'   \item{management_zones_tutorial}{Tutorial on using multiple management
+#'   actions or zones to create detailed prioritizations.}
 #'
 #'   \item{gurobi_installation}{Instructions for installing and setting up
 #'     the *Gurobi* optimization software for use with the package.}
@@ -93,3 +88,7 @@ NULL
 # avoid false positive NOTES
 #' @importFrom exactextractr exact_extract
 NULL
+
+# avoid CRAN check NOTES due to R6 classes
+# see: https://github.com/r-lib/R6/issues/230
+if (getRversion() >= "2.15.1")  utils::globalVariables(c("self"))

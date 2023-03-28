@@ -20,11 +20,10 @@
 \S4method{eval_asym_connectivity_summary}{ConservationProblem,ANY,ANY,array}(x, solution, zones, data)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} object.}
 
 \item{solution}{\code{numeric}, \code{matrix}, \code{data.frame},
-\code{\linkS4class{Raster}}, \code{\linkS4class{Spatial}},
-or \code{\link[sf:sf]{sf::sf()}} object.
+\code{\link[terra:rast]{terra::rast()}}, or \code{\link[sf:sf]{sf::sf()}} object.
 The argument should be in the same format as the planning unit cost
 data in the argument to \code{x}.
 See the Solution format section for more information.}
@@ -55,7 +54,7 @@ that are associated with higher values are more favorable in the solution.
 See the Data format section for more information.}
 }
 \value{
-\code{\link[tibble:tibble]{tibble::tibble()}} object describing the connectivity of the
+A \code{\link[tibble:tibble]{tibble::tibble()}} object describing the connectivity of the
 solution.
 It contains the following columns:
 
@@ -79,7 +78,7 @@ with greater values.}
 }
 \description{
 Calculate the connectivity held within a solution to a conservation
-planning \code{\link[=problem]{problem()}}.
+planning problem.
 This summary statistic evaluates the connectivity of a solution using
 pair-wise connectivity values between combinations of planning units.
 It is specifically designed for asymmetric connectivity data.
@@ -122,8 +121,8 @@ missing cost (\code{NA}) values for a particular zone should also have a
 missing (\code{NA}) values in the argument to \code{solution}.
 }
 
-\item{\code{x} has \code{\linkS4class{Raster}} planning units}{The argument to \code{solution}
-be a \code{\linkS4class{Raster}} object where different grid cells (pixels) correspond
+\item{\code{x} has \code{\link[terra:rast]{terra::rast()}} planning units}{The argument to \code{solution}
+be a \code{\link[terra:rast]{terra::rast()}} object where different grid cells (pixels) correspond
 to different planning units and layers correspond to
 a different management zones. It should have the same dimensionality
 (rows, columns, layers), resolution, extent, and coordinate reference
@@ -140,20 +139,6 @@ object containing the solution also contains additional columns, then
 these columns will need to be subsetted prior to using this function
 (see below for example with \code{\link[sf:sf]{sf::sf()}} data).
 Additionally, any planning units missing cost
-(\code{NA}) values for a particular zone should also have missing (\code{NA})
-values in the argument to \code{solution}.
-}
-
-\item{\code{x} has \code{\linkS4class{Spatial}} planning units}{The argument to \code{solution}
-must be a \code{\linkS4class{Spatial}} object with each column corresponding to a
-different zone, each row corresponding to a different planning unit, and
-cell values corresponding to the solution value. This means that if the
-\code{\linkS4class{Spatial}} object containing the solution also contains additional
-columns, then these columns will need to be subsetted prior to using this
-function (see below for example with \code{\link[sf:sf]{sf::sf()}} data).
-Additionally, the argument to \code{solution} must also have the same
-coordinate reference system as the planning unit data.
-Furthermore, any planning units missing cost
 (\code{NA}) values for a particular zone should also have missing (\code{NA})
 values in the argument to \code{solution}.
 }
@@ -190,16 +175,16 @@ the strength of connectivity between planning units in different zones.
 The default argument for \code{zones} is to treat planning units
 allocated to different zones as having zero connectivity.}
 
-\item{\code{data} as a \code{data.frame} object}{containing the fields (columns)
+\item{\code{data} as a \code{data.frame} object}{containing columns that are named
 \code{"id1"}, \code{"id2"}, and \code{"boundary"}. Here, each row
 denotes the connectivity between a pair of planning units
 (per values in the \code{"id1"} and \code{"id2"} columns) following the
 \emph{Marxan} format.
-If the argument to \code{x} contains multiple zones, then the columns
-\code{"zone1"} and \code{"zone2"} can optionally be provided to manually
+If the argument to \code{x} contains multiple zones, then the
+\code{"zone1"} and \code{"zone2"} columns can optionally be provided to manually
 specify the connectivity values between planning units when they are
-allocated to specific zones. If the columns \code{"zone1"} and
-\code{"zone2"} are present, then the argument to \code{zones} must be
+allocated to specific zones. If the \code{"zone1"} and
+\code{"zone2"} columns are present, then the argument to \code{zones} must be
 \code{NULL}.}
 
 \item{\code{data} as an \code{array} object}{
@@ -222,21 +207,24 @@ unit 1 is assigned to zone 3 and planning unit 2 is assigned to zone 4.}
 set.seed(500)
 
 # load data
-data(sim_pu_raster, sim_pu_sf, sim_features,
-     sim_pu_zones_sf, sim_features_zones)
+sim_pu_polygons <- get_sim_pu_polygons()
+sim_features <- get_sim_features()
+sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
+sim_zones_features <- get_sim_zones_features()
 
-# build minimal conservation problem with polygon (sf) data
-p1 <- problem(sim_pu_sf, sim_features, cost_column = "cost") \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(0.1) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(verbose = FALSE)
+# build minimal conservation problem with polygon data
+p1 <-
+  problem(sim_pu_polygons, sim_features, cost_column = "cost") \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.1) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
 
 # solve the problem
 s1 <- solve(p1)
 
-# print first six rows of the attribute table
-print(head(s1))
+# print solution
+print(s1)
 
 # plot solution
 plot(s1[, "solution_1"])
@@ -244,43 +232,54 @@ plot(s1[, "solution_1"])
 # simulate connectivity matrix
 # here, we will generate connectivity values randomly
 # between all pairs of planning units
-acm1 <- matrix(runif(nrow(sim_pu_sf) ^ 2), nrow = nrow(sim_pu_sf))
+acm1 <- matrix(
+  runif(nrow(sim_pu_polygons) ^ 2),
+  nrow = nrow(sim_pu_polygons)
+)
 
 # calculate connectivity associated with the solution
 r1 <- eval_asym_connectivity_summary(p1, s1[, "solution_1"], data = acm1)
 print(r1)
 
-# build multi-zone conservation problem with polygon (sf) data
-p2 <- problem(sim_pu_zones_sf, sim_features_zones,
-              cost_column = c("cost_1", "cost_2", "cost_3")) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
-                                  ncol = 3)) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(verbose = FALSE)
+# build multi-zone conservation problem with polygon data
+p2 <-
+  problem(
+    sim_zones_pu_polygons, sim_zones_features,
+     cost_column = c("cost_1", "cost_2", "cost_3")
+  ) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5, ncol = 3)) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
 
 # solve the problem
 s2 <- solve(p2)
 
-# print first six rows of the attribute table
-print(head(s2))
+# print solution
+print(s2)
 
 # create new column representing the zone id that each planning unit
 # was allocated to in the solution
 s2$solution <- category_vector(
-  s2[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")])
+  s2[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")]
+)
 s2$solution <- factor(s2$solution)
 
 # plot solution
 plot(s2[, "solution"])
 
 # simulate asymmetric connectivity matrix
-acm2 <- matrix(runif(nrow(sim_pu_sf) ^ 2), nrow = nrow(sim_pu_sf))
+acm2 <- matrix(
+  runif(nrow(sim_zones_pu_polygons) ^ 2),
+  nrow = nrow(sim_zones_pu_polygons)
+)
 
 # calculate connectivity associated with the solution
 r2 <- eval_asym_connectivity_summary(
-  p2, s2[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")],
-  data = acm2)
+  p2,
+  s2[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")],
+  data = acm2
+)
 print(r2)
 
 }

@@ -3,6 +3,7 @@
 #define OPTIMIZATION_PROBLEM_H
 
 #include "package.h"
+#include "functions.h"
 
 class OPTIMIZATIONPROBLEM
 {

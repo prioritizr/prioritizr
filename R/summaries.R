@@ -3,7 +3,7 @@ NULL
 
 #' Evaluate solutions using summary statistics
 #'
-#' After generating a solution to a conservation planning [problem()],
+#' After generating a solution to a conservation planning problem,
 #' it can be useful to evaluate how well it performs. These functions
 #' can be used to evaluate a solution according to
 #' various different summary statistics.
@@ -25,7 +25,7 @@ NULL
 #'
 #'  \item{[eval_target_coverage_summary()]}{Calculate how well feature
 #'    representation [targets] are met by a solution. This function can only be
-#'    used with problems contain [targets].}
+#'    used with problems that contain [targets].}
 #'
 #'  \item{[eval_boundary_summary()]}{Calculate the exposed boundary length
 #'    (perimeter) associated with a solution.}
@@ -42,17 +42,19 @@ NULL
 #' @family overviews
 #'
 #' @examples
+#' \dontrun{
 #' # load data
-#' data(sim_pu_raster, sim_features)
+#' sim_pu_raster <- get_sim_pu_raster()
+#' sim_features <- get_sim_features()
 #'
 #' # create a minimal problem
-#' p <- problem(sim_pu_raster, sim_features) %>%
-#'      add_min_set_objective() %>%
-#'      add_relative_targets(0.1) %>%
-#'      add_binary_decisions() %>%
-#'      add_default_solver(verbose = FALSE)
+#' p <-
+#'   problem(sim_pu_raster, sim_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(0.1) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
 #'
-#' \dontrun{
 #' # solve problem
 #' s <- solve(p)
 #'
@@ -87,7 +89,10 @@ NULL
 #' # connectivity values between combinations of planning units
 #'
 #' # for brevity, we will just generate a matrix with random values
-#' acm <- matrix(runif(ncell(sim_pu_raster) ^ 2), ncol = ncell(sim_pu_raster))
+#' acm <- matrix(
+#'   runif(ncell(sim_pu_raster) ^ 2),
+#'   ncol = terra::ncell(sim_pu_raster)
+#' )
 #'
 #' # evaluate connectivity of solution using asymmetric data
 #' eval_asym_connectivity_summary(p, s, data = acm)

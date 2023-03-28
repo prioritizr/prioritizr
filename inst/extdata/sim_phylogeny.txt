@@ -1,0 +1,23 @@
+#NEXUS
+[R-package APE, Tue Feb 14 10:40:00 2023]
+
+BEGIN TAXA;
+	DIMENSIONS NTAX = 5;
+	TAXLABELS
+		feature_1
+		feature_2
+		feature_3
+		feature_4
+		feature_5
+	;
+END;
+BEGIN TREES;
+	TRANSLATE
+		1	feature_1,
+		2	feature_2,
+		3	feature_3,
+		4	feature_4,
+		5	feature_5
+	;
+	TREE * UNTITLED = [&R] ((1:0.3471254439,(2:0.3061244652,3:0.3061244652):0.04100097871):1.421051854,(4:1.172129603,5:1.172129603):0.5960476953);
+END;

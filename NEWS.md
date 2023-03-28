@@ -1,3 +1,87 @@
+# prioritizr 8.0.0
+
+## Notice
+
+- The package has been updated to focus on using the _sf_ and _terra_ package
+  for spatial vector and raster datasets. This is because the _sf_ package is
+  the successor to the _sp_ package, and the _terra_ package is the successor
+  to the _raster_ package. By leveraging these newer packages, the _prioritizr_
+  package can provide better performance. Although _sp_ and _raster_ package
+  classes (e.g., `raster::stack()` and `sp::SpatialPolyonsDataFrame()`)
+  are still supported, the _prioritizr_ package will now throw deprecation
+  warnings. Since support for the _sp_ and _raster_ package classes
+  will be fully deprecated and removed in a later version this year, we
+  recommend updating code to use the _sf_ and _terra_ packages.
+
+## Breaking changes
+
+- All _proto_ classes have been migrated to _R6_ classes. This update reduces
+  memory usage (#238), so `problem()` objects can now contain many more
+  constraints and penalties. Note that any `problem()` objects
+  that were produced using earlier versions of the package are no longer
+  compatible.
+- The _proto_, _raster_, _sf_, _sp_ packages are no longer automatically
+  loaded alongside _prioritizr_. As such, users will need to load them manually
+  (e.g., using `library(sf)`).
+- The built-in datasets have been removed and replaced with functions
+  to import them as needed (i.e., `get_sim_pu_raster()`,
+  `get_sim_pu_polygons()`, `get_sim_pu_lines()`, `get_sim_pu_points()`,,
+  `get_sim_locked_in_raster()`, `get_sim_locked_out_raster()`,
+  `get_sim_zones_pu_raster()`, `get_sim_zones_pu_polygons()`,
+  `get_sim_phylogeny()`, `get_sim_features()`, `get_sim_zones_features()`).
+  These functions now return `sf::st_sf()`,
+  `terra::rast()`, `ape::read.tree()` and `zones()` objects.
+  Note that these functions are provided because `data(...)` cannot be
+  used with `terra::rast()` objects. See `?data` for more information.
+- The `boundary_matrix()` output format has been updated. This means that
+  users will not be able to use boundary data generated using previous
+  versions of the package.
+- The `add_lpsymphony_solver()` now throws an error, instead of a warning,
+  if an old version of the _lpsymphony R_ package is installed that is known
+  to produce incorrect results.
+- The `marxan_boundary_data_to_matrix()` function is no longer compatible
+  with boundary data for multiple zones.
+- The `distribute_load()` function has been deprecated, because it is no
+  longer used. For equivalent functionality, See `parallel::splitIndices()`.
+- The `new_optimization_problem()` and `predefined_optimization_problem()`
+  functions have been superseded by the new `optimization_problem()` function.
+- To simplify package documentation and functionality, the following functions
+  are no longer exported: `is.Waiver()`, `add_default_decisions()`
+  `new_id()`, `is.Id()`, `print.Id()`, `pproto()`.
+
+## New features
+
+- The `print()` function for `problem()`, `optimization_problem()`, and
+  `zones()` objects has been updated to provide more information.
+- New `summary()` function to provide extensive detail on `problem()` objects.
+- Updates to improve the error messages and error message handling.
+  Hopefully, users should no longer see `"bad error message"`!
+
+## Minor improvements and bug fixes
+
+- Fix bug for `add_feature_weights()` when applied to problems with
+  an `add_max_phylo_div_objective()` or `add_max_phylo_end_objectve()`.
+  Specifically, the bug meant that weights weren't being applied to
+  problems with these particular objectives.
+- Fix instructions in `add_gurobi_solver()` documentation for opening vignette.
+- Update solver functions to provide instructions for installing
+  dependencies in error messages when their dependencies are not available.
+- To ensure consistency among the portfolio functions, all of them (except for
+  `add_extra_portfolio()`) default to generating 10 solutions.
+- Update publication record.
+- The `solve()` function will now output `tibble::tibble()` objects
+  (instead of `data.frame()` objects), when the planning unit data are
+  `tibble::tibble()` objects.
+- The `boundary_matrix()` function now uses `terra::sharedPaths()` for
+  calculations, providing greater performance (#257).
+- The `eval_ferrier_importance()` function can now be used with
+  any objective function that uses targets and a single zone.
+- Fix CRAN note regarding C++ standards (#263).
+- Remove _doParallel_ and _plyr_ packages as dependencies by simplifying
+  the `add_shuffle_portfolio()` and `eval_replacement_importance()` functions.
+- Assorted tweaks to improve writing in the vignettes and documentation.
+  Many thanks to Marc Edwards (@edwardsmarc)!
+
 # prioritizr 7.2.2.7
 
 - Update README badges.

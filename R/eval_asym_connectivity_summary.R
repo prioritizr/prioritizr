@@ -1,10 +1,10 @@
-#' @include internal.R ConservationProblem-proto.R
+#' @include internal.R ConservationProblem-class.R
 NULL
 
 #' Evaluate asymmetric connectivity of solution
 #'
 #' Calculate the connectivity held within a solution to a conservation
-#' planning [problem()].
+#' planning problem.
 #' This summary statistic evaluates the connectivity of a solution using
 #' pair-wise connectivity values between combinations of planning units.
 #' It is specifically designed for asymmetric connectivity data.
@@ -28,7 +28,7 @@ NULL
 #' @inheritSection add_asym_connectivity_penalties Data format
 #'
 #' @return
-#'  [tibble::tibble()] object describing the connectivity of the
+#'  A [tibble::tibble()] object describing the connectivity of the
 #'  solution.
 #'  It contains the following columns:
 #'
@@ -69,21 +69,24 @@ NULL
 #' set.seed(500)
 #'
 #' # load data
-#' data(sim_pu_raster, sim_pu_sf, sim_features,
-#'      sim_pu_zones_sf, sim_features_zones)
+#' sim_pu_polygons <- get_sim_pu_polygons()
+#' sim_features <- get_sim_features()
+#' sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
+#' sim_zones_features <- get_sim_zones_features()
 #'
-#' # build minimal conservation problem with polygon (sf) data
-#' p1 <- problem(sim_pu_sf, sim_features, cost_column = "cost") %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(0.1) %>%
-#'       add_binary_decisions() %>%
-#'       add_default_solver(verbose = FALSE)
+#' # build minimal conservation problem with polygon data
+#' p1 <-
+#'   problem(sim_pu_polygons, sim_features, cost_column = "cost") %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(0.1) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
 #'
 #' # solve the problem
 #' s1 <- solve(p1)
 #'
-#' # print first six rows of the attribute table
-#' print(head(s1))
+#' # print solution
+#' print(s1)
 #'
 #' # plot solution
 #' plot(s1[, "solution_1"])
@@ -91,43 +94,54 @@ NULL
 #' # simulate connectivity matrix
 #' # here, we will generate connectivity values randomly
 #' # between all pairs of planning units
-#' acm1 <- matrix(runif(nrow(sim_pu_sf) ^ 2), nrow = nrow(sim_pu_sf))
+#' acm1 <- matrix(
+#'   runif(nrow(sim_pu_polygons) ^ 2),
+#'   nrow = nrow(sim_pu_polygons)
+#' )
 #'
 #' # calculate connectivity associated with the solution
 #' r1 <- eval_asym_connectivity_summary(p1, s1[, "solution_1"], data = acm1)
 #' print(r1)
 #'
-#' # build multi-zone conservation problem with polygon (sf) data
-#' p2 <- problem(sim_pu_zones_sf, sim_features_zones,
-#'               cost_column = c("cost_1", "cost_2", "cost_3")) %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
-#'                                   ncol = 3)) %>%
-#'       add_binary_decisions() %>%
-#'       add_default_solver(verbose = FALSE)
+#' # build multi-zone conservation problem with polygon data
+#' p2 <-
+#'   problem(
+#'     sim_zones_pu_polygons, sim_zones_features,
+#'      cost_column = c("cost_1", "cost_2", "cost_3")
+#'   ) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5, ncol = 3)) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
 #'
 #' # solve the problem
 #' s2 <- solve(p2)
 #'
-#' # print first six rows of the attribute table
-#' print(head(s2))
+#' # print solution
+#' print(s2)
 #'
 #' # create new column representing the zone id that each planning unit
 #' # was allocated to in the solution
 #' s2$solution <- category_vector(
-#'   s2[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")])
+#'   s2[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")]
+#' )
 #' s2$solution <- factor(s2$solution)
 #'
 #' # plot solution
 #' plot(s2[, "solution"])
 #'
 #' # simulate asymmetric connectivity matrix
-#' acm2 <- matrix(runif(nrow(sim_pu_sf) ^ 2), nrow = nrow(sim_pu_sf))
+#' acm2 <- matrix(
+#'   runif(nrow(sim_zones_pu_polygons) ^ 2),
+#'   nrow = nrow(sim_zones_pu_polygons)
+#' )
 #'
 #' # calculate connectivity associated with the solution
 #' r2 <- eval_asym_connectivity_summary(
-#'   p2, s2[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")],
-#'   data = acm2)
+#'   p2,
+#'   s2[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")],
+#'   data = acm2
+#' )
 #' print(r2)
 #'
 #' }
@@ -142,8 +156,21 @@ NULL
 #' @export
 methods::setGeneric("eval_asym_connectivity_summary",
   signature = methods::signature("x", "solution", "zones", "data"),
-  function(x, solution, zones = diag(number_of_zones(x)), data)
-    standardGeneric("eval_asym_connectivity_summary"))
+  function(x, solution, zones = diag(number_of_zones(x)), data) {
+    assert_required(x)
+    assert_required(solution)
+    assert_required(zones)
+    assert_required(data)
+    assert(
+      is_conservation_problem(x),
+      is_inherits(
+        data,
+        c("dgCMatrix", "matrix", "Matrix", "data.frame", "array")
+      )
+    )
+    standardGeneric("eval_asym_connectivity_summary")
+  }
+)
 
 #' @name eval_asym_connectivity_summary
 #' @usage \S4method{eval_asym_connectivity_summary}{ConservationProblem,ANY,ANY,matrix}(x, solution, zones, data)
@@ -152,8 +179,10 @@ methods::setMethod("eval_asym_connectivity_summary",
   methods::signature("ConservationProblem", "ANY", "ANY", "matrix"),
   function(x, solution, zones, data) {
     eval_asym_connectivity_summary(
-      x, solution, zones, as_Matrix(data, "dgCMatrix"))
-})
+      x, solution, zones, as_Matrix(data, "dgCMatrix")
+    )
+  }
+)
 
 #' @name eval_asym_connectivity_summary
 #' @usage \S4method{eval_asym_connectivity_summary}{ConservationProblem,ANY,ANY,Matrix}(x, solution, zones, data)
@@ -161,9 +190,11 @@ methods::setMethod("eval_asym_connectivity_summary",
 methods::setMethod("eval_asym_connectivity_summary",
   methods::signature("ConservationProblem", "ANY", "ANY", "Matrix"),
   function(x, solution, zones, data) {
-    eval_asym_connectivity_summary(x, solution, zones,
-      as_Matrix(data, "dgCMatrix"))
-})
+    eval_asym_connectivity_summary(
+      x, solution, zones, as_Matrix(data, "dgCMatrix")
+    )
+  }
+)
 
 #' @name eval_asym_connectivity_summary
 #' @usage \S4method{eval_asym_connectivity_summary}{ConservationProblem,ANY,ANY,data.frame}(x, solution, zones, data)
@@ -171,9 +202,11 @@ methods::setMethod("eval_asym_connectivity_summary",
 methods::setMethod("eval_asym_connectivity_summary",
   methods::signature("ConservationProblem", "ANY", "ANY", "data.frame"),
   function(x, solution, zones, data) {
-  eval_asym_connectivity_summary(
-    x, solution, zones, marxan_boundary_data_to_matrix(x, data))
-})
+    eval_asym_connectivity_summary(
+      x, solution, zones, marxan_connectivity_data_to_matrix(x, data, FALSE)
+    )
+  }
+)
 
 #' @name eval_asym_connectivity_summary
 #' @usage \S4method{eval_asym_connectivity_summary}{ConservationProblem,ANY,ANY,dgCMatrix}(x, solution, zones, data)
@@ -182,27 +215,30 @@ methods::setMethod("eval_asym_connectivity_summary",
   methods::signature("ConservationProblem", "ANY", "ANY", "dgCMatrix"),
   function(x, solution, zones, data) {
     # assert valid arguments
-    assertthat::assert_that(
-      inherits(x, "ConservationProblem"),
-      inherits(zones, c("matrix", "Matrix")),
-      nrow(zones) == ncol(zones), is.numeric(as.vector(zones)),
-      all(is.finite(as.vector(zones))),
-      is.numeric(data@x), ncol(data) == nrow(data),
-      max(zones) <= 1, min(zones) >= -1,
+    assert(
+      is_conservation_problem(x),
+      is_matrix_ish(zones),
+      nrow(zones) == ncol(zones),
+      is_numeric_values(zones),
+      all_finite(zones),
+      max(zones) <= 1,
+      min(zones) >= -1,
+      is_numeric_values(data),
+      all_finite(data),
+      ncol(data) == nrow(data),
       number_of_total_units(x) == ncol(data),
-      number_of_zones(x) == ncol(zones),
-      all(is.finite(data@x)))
+      number_of_zones(x) == ncol(zones)
+    )
     # coerce zones to matrix
     zones <- as.matrix(zones)
     indices <- x$planning_unit_indices()
     data <- data[indices, indices, drop = FALSE]
     if (Matrix::isSymmetric(data)) {
-      warning(
+      cli_warning(
         paste0(
-          "argument to data contains symmetric connectivity values, ",
-          "it it recommended to use eval_connectivity_summary()"
-        ),
-        call. = FALSE, immediate. = TRUE
+          "{.arg data} contains symmetric connectivity values; ",
+          "it it recommended to use {.fn eval_connectivity_summary}."
+        )
       )
     }
     # convert zones & dgCMatrix data to list of sparse matrices
@@ -215,8 +251,10 @@ methods::setMethod("eval_asym_connectivity_summary",
     }
     # calculate connectivity
     internal_eval_asym_connectivity_summary(
-      x, planning_unit_solution_status(x, solution), m, data)
-})
+      x, planning_unit_solution_status(x, solution), m, data
+    )
+  }
+)
 
 #' @name eval_asym_connectivity_summary
 #' @usage \S4method{eval_asym_connectivity_summary}{ConservationProblem,ANY,ANY,array}(x, solution, zones, data)
@@ -225,14 +263,17 @@ methods::setMethod("eval_asym_connectivity_summary",
   methods::signature("ConservationProblem", "ANY", "ANY", "array"),
   function(x, solution, zones, data) {
     # assert valid arguments
-    assertthat::assert_that(inherits(x, "ConservationProblem"),
+    assert(
+      is_conservation_problem(x),
       is.null(zones),
-      is.array(data), length(dim(data)) == 4,
+      is.array(data),
+      length(dim(data)) == 4,
+      all_finite(data),
       dim(data)[1] == number_of_total_units(x),
       dim(data)[2] == number_of_total_units(x),
       dim(data)[3] == number_of_zones(x),
-      dim(data)[4] == number_of_zones(x),
-      all(is.finite(data)))
+      dim(data)[4] == number_of_zones(x)
+    )
     # generate indices for units that are planning units
     indices <- x$planning_unit_indices()
     # convert array to list of list of sparseMatrix objects
@@ -245,17 +286,21 @@ methods::setMethod("eval_asym_connectivity_summary",
     }
     # calculate connectivity
     internal_eval_asym_connectivity_summary(
-      x, planning_unit_solution_status(x, solution), m, NULL)
-})
+      x, planning_unit_solution_status(x, solution), m, NULL
+    )
+  }
+)
 
-internal_eval_asym_connectivity_summary <- function(
-  x, solution, zone_scaled_data, data) {
+internal_eval_asym_connectivity_summary <- function(x, solution,
+                                                    zone_scaled_data,
+                                                    data) {
   # assert valid arguments
-  assertthat::assert_that(
-    inherits(x, "ConservationProblem"),
+  assert(
+    is_conservation_problem(x),
     is.matrix(solution),
     is.list(zone_scaled_data),
-    inherits(data, c("dgCMatrix", "NULL")))
+    is_inherits(data, c("dgCMatrix", "NULL"))
+  )
   # manually coerce NA values in solution to 0
   solution[!is.finite(solution)] <- 0
   # calculate overall connectivity
@@ -278,7 +323,9 @@ internal_eval_asym_connectivity_summary <- function(
     })
     ## store results for multiple zones
     out <- tibble::tibble(
-      summary = c("overall", zone_names(x)), asym_connectivity = c(v, zv))
+      summary = c("overall", zone_names(x)),
+      asym_connectivity = c(v, zv)
+    )
   }
   # return result
   out

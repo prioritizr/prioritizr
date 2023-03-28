@@ -17,7 +17,7 @@ add_loglinear_targets(
 )
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} object.}
 
 \item{lower_bound_amount}{\code{numeric} threshold.}
 
@@ -40,14 +40,13 @@ Defaults to \code{NULL} so that targets are not capped.}
 
 \item{abundances}{\code{numeric} total amount of each feature to
 use when calculating the targets. Defaults to the feature abundances in the
-study area (calculated using the \code{\link[=feature_abundances]{feature_abundances()}} function.}
+study area (calculated using the \code{\link[=feature_abundances]{feature_abundances()}}) function.}
 }
 \value{
-Object (i.e., \code{\linkS4class{ConservationProblem}}) with the targets added
-to it.
+An updated \code{\link[=problem]{problem()}} object with the targets added to it.
 }
 \description{
-Add targets to a conservation planning \code{\link[=problem]{problem()}} by log-linearly
+Add targets to a conservation planning problem by log-linearly
 interpolating the targets between thresholds based on the total amount of
 each feature in the study area (Rodrigues \emph{et al.} 2004). Additionally,
 caps can be applied to targets to prevent features with massive
@@ -80,7 +79,7 @@ the size of each planning unit if this is important (e.g., pixel values in
 the argument to \code{features} in the function \code{\link[=problem]{problem()}} could
 correspond to amount of land occupied by the feature in \eqn{km^2} units).
 Additionally, the function can only be applied to
-\code{\linkS4class{ConservationProblem}} objects that are associated with a
+\code{\link[=problem]{problem()}} objects that are associated with a
 single zone.
 }
 \section{Notes}{
@@ -90,21 +89,24 @@ targets.
 }
 
 \examples{
+\dontrun{
 # load data
-data(sim_pu_raster, sim_features)
+sim_pu_raster <- get_sim_pu_raster()
+sim_features <- get_sim_features()
 
 # create problem using loglinear targets
-p <- problem(sim_pu_raster, sim_features) \%>\%
-     add_min_set_objective() \%>\%
-     add_loglinear_targets(10, 0.9, 100, 0.2) \%>\%
-     add_binary_decisions() \%>\%
-     add_default_solver(verbose = FALSE)
-\dontrun{
+p <-
+  problem(sim_pu_raster, sim_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_loglinear_targets(10, 0.9, 100, 0.2) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
+
 # solve problem
 s <- solve(p)
 
 # plot solution
-plot(s, main = "solution", axes = FALSE, box = FALSE)
+plot(s, main = "solution", axes = FALSE)
 }
 
 }

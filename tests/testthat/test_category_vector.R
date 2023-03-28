@@ -1,5 +1,3 @@
-context("category_vector")
-
 test_that("matrix", {
   # create data
   x <- matrix(c(1, 0, 0, NA, 0, 1, 0, NA, 0, 0, 0, NA), ncol = 3)
@@ -20,7 +18,23 @@ test_that("data.frame", {
 
 test_that("Spatial", {
   # create data
-  data(sim_pu_polygons)
+  sim_pu_polygons <- get_sim_pu_polygons()
+  x <- sf::as_Spatial(sim_pu_polygons[seq_len(4), ])
+  x$V1 <- c(1, 0, 0, NA)
+  x$V2 <- c(0, 1, 0, NA)
+  x$V3 <- c(0, 0, 0, NA)
+  # create category vector
+  expect_warning(
+    y <- category_vector(x[, c("V1", "V2", "V3")]),
+    "deprecated"
+  )
+  # run tests
+  expect_equal(y, c(1, 2, 0, NA))
+})
+
+test_that("sf", {
+  # create data
+  sim_pu_polygons <- get_sim_pu_polygons()
   x <- sim_pu_polygons[seq_len(4), ]
   x$V1 <- c(1, 0, 0, NA)
   x$V2 <- c(0, 1, 0, NA)
@@ -31,25 +45,12 @@ test_that("Spatial", {
   expect_equal(y, c(1, 2, 0, NA))
 })
 
-test_that("sf", {
-  # create data
-  data(sim_pu_sf)
-  x <- sim_pu_sf[seq_len(4), ]
-  x$V1 <- c(1, 0, 0, NA)
-  x$V2 <- c(0, 1, 0, NA)
-  x$V3 <- c(0, 0, 0, NA)
-  # create category vector
-  y <- category_vector(x[, c("V1", "V2", "V3")])
-  # run tests
-  expect_equal(y, c(1, 2, 0, NA))
-})
-
 test_that("invalid inputs", {
-  expect_error(category_vector(data.frame(integer(0), integer(0))))
-  expect_error(category_vector(data.frame(a = 1, b = 2)))
-  expect_error(category_vector(data.frame(a = 1, b = -1)))
-  expect_error(category_vector(data.frame(a = 1, b = "a")))
-  expect_error(category_vector(matrix(c(1, 2), ncol = 2)))
-  expect_error(category_vector(matrix(c(1, -1), ncol = 2)))
-  expect_error(category_vector(matrix(c("a", "b"), ncol = 2)))
+  expect_tidy_error(category_vector(data.frame(integer(0), integer(0))))
+  expect_tidy_error(category_vector(data.frame(a = 1, b = 2)))
+  expect_tidy_error(category_vector(data.frame(a = 1, b = -1)))
+  expect_tidy_error(category_vector(data.frame(a = 1, b = "a")))
+  expect_tidy_error(category_vector(matrix(c(1, 2), ncol = 2)))
+  expect_tidy_error(category_vector(matrix(c(1, -1), ncol = 2)))
+  expect_tidy_error(category_vector(matrix(c("a", "b"), ncol = 2)))
 })

@@ -2,18 +2,20 @@
 % Please edit documentation in R/add_boundary_penalties.R
 \name{add_boundary_penalties}
 \alias{add_boundary_penalties}
+\alias{add_boundary_penalties,ConservationProblem,ANY,ANY,ANY,array-method}
+\alias{add_boundary_penalties,ConservationProblem,ANY,ANY,ANY,matrix-method}
+\alias{add_boundary_penalties,ConservationProblem,ANY,ANY,ANY,data.frame-method}
+\alias{add_boundary_penalties,ConservationProblem,ANY,ANY,ANY,ANY-method}
 \title{Add boundary penalties}
 \usage{
-add_boundary_penalties(
-  x,
-  penalty,
-  edge_factor = rep(0.5, number_of_zones(x)),
-  zones = diag(number_of_zones(x)),
-  data = NULL
-)
+\S4method{add_boundary_penalties}{ConservationProblem,ANY,ANY,ANY,data.frame}(x, penalty, edge_factor, zones, data)
+
+\S4method{add_boundary_penalties}{ConservationProblem,ANY,ANY,ANY,matrix}(x, penalty, edge_factor, zones, data)
+
+\S4method{add_boundary_penalties}{ConservationProblem,ANY,ANY,ANY,ANY}(x, penalty, edge_factor, zones, data)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} object.}
 
 \item{penalty}{\code{numeric} penalty that is used to scale the importance
 of selecting planning units that are spatially clumped together compared
@@ -58,13 +60,12 @@ planning units (i.e., planning units that are adjacent to each other).
 See the Data format section for more information.}
 }
 \value{
-Object (i.e., \code{\linkS4class{ConservationProblem}}) with the penalties
-added to it.
+An updated \code{\link[=problem]{problem()}} object with the penalties added to it.
 }
 \description{
-Add penalties to a conservation planning \code{\link[=problem]{problem()}} to favor solutions
+Add penalties to a conservation planning problem to favor solutions
 that spatially clump planning units together based on the overall
-boundary length (perimeter).
+boundary length (i.e., total perimeter).
 }
 \details{
 This function adds penalties to a conservation planning problem
@@ -96,16 +97,17 @@ in the argument to \code{x} do not explicitly contain spatial information
 \item{\code{data} as a \code{matrix}/\code{Matrix} object}{where rows and columns represent
 different planning units and the value of each cell represents the
 amount of shared boundary length between two different planning units.
-Cells that occur along the matrix diagonal represent the amount of
-exposed boundary associated with each planning unit that has
-no neighbor (e.g., these value might pertain to boundaries along a
-coastline).}
+Cells that occur along the matrix diagonal denote the total
+boundary length associated with each planning unit.}
 
 \item{\code{data} as a \code{data.frame} object}{with the columns \code{"id1"},
 \code{"id2"}, and \code{"boundary"}. The \code{"id1"} and \code{"id2"} columns contain
 identifiers (indices) for a pair of planning units, and the \code{"boundary"}
 column contains the amount of shared boundary length between these
 two planning units.
+Additionally, if the values in the \code{"id1"} and \code{"id2"} columns
+contain the same values, then the value denotes the
+amount of exposed boundary length (not total boundary).
 This format follows the the standard \emph{Marxan} format for boundary
 data (i.e., per the "bound.dat" file).}
 
@@ -127,11 +129,11 @@ to \code{data} (e.g., generated using \code{\link[=boundary_matrix]{boundary_mat
 \eqn{W_{zz}}{Wzz} represent the matrix argument to \code{zones}.
 
 \deqn{
-\sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z} (\mathit{ifelse}(i == j, E_z, 1)
-\times p \times W_{zz} B_{ij}) + \sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z}
+\sum_{i}^{I} \sum_{z}^{Z} (p \times W_{zz} B_{ii}) +
+\sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z}
 \sum_{y}^{Z} (-2 \times p \times X_{iz} \times X_{jy} \times W_{zy} \times
 B_{ij})}{
-sum_i^I sum_j^I sum_z^Z (ifelse(i == j, Ez, 1) * p * Wzz * Bij) + sum_i^I
+sum_i^I sum_z^Z (p * Wzz * Bii) + sum_i^I
 sum_j^I sum_z^Z sum_y^Z (-2 * p * Xiz * Xjy * Wzy * Bij)
 }
 
@@ -146,14 +148,18 @@ replaced with \eqn{-p}.
 set.seed(500)
 
 # load data
-data(sim_pu_raster, sim_features, sim_pu_zones_stack, sim_features_zones)
+sim_pu_raster <- get_sim_pu_raster()
+sim_features <- get_sim_features()
+sim_zones_pu_raster <- get_sim_zones_pu_raster()
+sim_zones_features <- get_sim_zones_features()
 
 # create minimal problem
-p1 <- problem(sim_pu_raster, sim_features) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(0.2) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(verbose = FALSE)
+p1 <-
+  problem(sim_pu_raster, sim_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.2) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
 
 # create problem with low boundary penalties
 p2 <- p1 \%>\% add_boundary_penalties(50, 1)
@@ -167,19 +173,22 @@ bmat <- boundary_matrix(sim_pu_raster)
 p4 <- p1 \%>\% add_boundary_penalties(50, 1, data = bmat)
 
 # solve problems
-s <- stack(solve(p1), solve(p2), solve(p3), solve(p4))
+s1 <- c(solve(p1), solve(p2), solve(p3), solve(p4))
+names(s1) <- c("basic solution", "small penalties", "high penalties",
+  "precomputed data"
+)
 
 # plot solutions
-plot(s, main = c("basic solution", "small penalties", "high penalties",
-                 "precomputed data"), axes = FALSE, box = FALSE)
+plot(s1, axes = FALSE)
 
 # create minimal problem with multiple zones and limit the run-time for
 # solver to 10 seconds so this example doesn't take too long
-p5 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(matrix(0.2, nrow = 5, ncol = 3)) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(time_limit = 10, verbose = FALSE)
+p5 <-
+  problem(sim_zones_pu_raster, sim_zones_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(matrix(0.2, nrow = 5, ncol = 3)) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(time_limit = 10, verbose = FALSE)
 
 # create zone matrix which favors clumping planning units that are
 # allocated to the same zone together - note that this is the default
@@ -224,16 +233,20 @@ print(zm10)
 p10 <- p5 \%>\% add_boundary_penalties(500, zone = zm10)
 
 # solve problems
-s2 <- stack(category_layer(solve(p5)), category_layer(solve(p6)),
-            category_layer(solve(p7)), category_layer(solve(p8)),
-            category_layer(solve(p9)), category_layer(solve(p10)))
+s2 <- list(solve(p5), solve(p6), solve(p7), solve(p8), solve(p9), solve(p10))
+
+#convert to category layers for visualization
+s2 <- terra::rast(lapply(s2, category_layer))
+names(s2) <- c(
+  "basic solution", "within zone clumping (low)",
+  "within zone clumping (high)", "between zone clumping",
+  "within + between clumping", "negative clumping"
+)
 
 # plot solutions
-plot(s2, main = c("basic solution", "within zone clumping (low)",
-                  "within zone clumping (high)", "between zone clumping",
-                  "within + between clumping", "negative clumping"),
-     axes = FALSE, box = FALSE)
+plot(s2, axes = FALSE)
 }
+
 }
 \references{
 Ball IR, Possingham HP, and Watts M (2009) \emph{Marxan and relatives:

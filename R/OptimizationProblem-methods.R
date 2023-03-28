@@ -1,12 +1,11 @@
-#' @include internal.R OptimizationProblem-proto.R
+#' @include internal.R OptimizationProblem-class.R reexports.R
 NULL
 
 #' Optimization problem methods
 #'
-#' These functions are used to access data from an
-#' [`OptimizationProblem-class`] object.
+#' These functions are used to access data from a [optimization_problem()].
 #'
-#' @param x [`OptimizationProblem-class`] object.
+#' @param x [optimization_problem()] object.
 #'
 #' @details The functions return the following data:
 #'
@@ -49,24 +48,13 @@ NULL
 #'
 #' }
 #'
-#' @return [`dgCMatrix-class`], `numeric` vector,
+#' @return A [`dgCMatrix-class`], `numeric` vector,
 #'   `numeric` vector, or scalar `integer` depending on the method
 #'   used.
 #'
 #' @name OptimizationProblem-methods
 #'
-#' @aliases nrow ncol ncell modelsense vtype obj A rhs sense lb ub col_ids row_ids compressed_formulation ncell,OptimizationProblem-method A,OptimizationProblem-method col_ids,OptimizationProblem-method lb,OptimizationProblem-method modelsense,OptimizationProblem-method ncol,OptimizationProblem-method nrow,OptimizationProblem-method  obj,OptimizationProblem-method rhs,OptimizationProblem-method row_ids,OptimizationProblem-method sense,OptimizationProblem-method ub,OptimizationProblem-method vtype,OptimizationProblem-method  compressed_formulation,OptimizationProblem-method
-NULL
-
-#' @name OptimizationProblem-methods
-#'
-#' @rdname OptimizationProblem-methods
-#'
-#' @importFrom raster nrow
-#'
-#' @exportMethod nrow
-#'
-#' @usage nrow(x)
+#' @aliases modelsense vtype obj A rhs sense lb ub col_ids row_ids compressed_formulation ncell,OptimizationProblem-method A,OptimizationProblem-method col_ids,OptimizationProblem-method lb,OptimizationProblem-method modelsense,OptimizationProblem-method ncol,OptimizationProblem-method nrow,OptimizationProblem-method  obj,OptimizationProblem-method rhs,OptimizationProblem-method row_ids,OptimizationProblem-method sense,OptimizationProblem-method ub,OptimizationProblem-method vtype,OptimizationProblem-method  compressed_formulation,OptimizationProblem-method
 NULL
 
 #' @name OptimizationProblem-methods
@@ -80,30 +68,8 @@ methods::setMethod("nrow", "OptimizationProblem", function(x) x$nrow())
 #'
 #' @rdname OptimizationProblem-methods
 #'
-#' @importFrom raster ncol
-#'
-#' @exportMethod ncol
-#'
-#' @usage ncol(x)
-NULL
-
-#' @name OptimizationProblem-methods
-#'
-#' @rdname OptimizationProblem-methods
-#'
 #' @usage \S4method{ncol}{OptimizationProblem}(x)
 methods::setMethod("ncol", "OptimizationProblem", function(x) x$ncol())
-
-#' @name OptimizationProblem-methods
-#'
-#' @rdname OptimizationProblem-methods
-#'
-#' @importFrom raster ncell
-#'
-#' @exportMethod ncell
-#'
-#' @usage ncell(x)
-NULL
 
 #' @name OptimizationProblem-methods
 #'
@@ -126,8 +92,11 @@ methods::setGeneric("modelsense", function(x) standardGeneric("modelsense"))
 #' @rdname OptimizationProblem-methods
 #'
 #' @usage \S4method{modelsense}{OptimizationProblem}(x)
-methods::setMethod("modelsense", "OptimizationProblem",
-  function(x) x$modelsense())
+methods::setMethod(
+  "modelsense",
+  "OptimizationProblem",
+  function(x) x$modelsense()
+)
 
 #' @name OptimizationProblem-methods
 #'
@@ -256,8 +225,11 @@ methods::setGeneric("col_ids", function(x) standardGeneric("col_ids"))
 #' @rdname OptimizationProblem-methods
 #'
 #' @usage \S4method{col_ids}{OptimizationProblem}(x)
-methods::setMethod("col_ids", "OptimizationProblem",
-  function(x) x$col_ids())
+methods::setMethod(
+  "col_ids",
+  "OptimizationProblem",
+  function(x) x$col_ids()
+)
 
 #' @name OptimizationProblem-methods
 #'
@@ -282,30 +254,18 @@ methods::setMethod("row_ids", "OptimizationProblem", function(x) x$row_ids())
 #' @exportMethod compressed_formulation
 #'
 #' @usage compressed_formulation(x)
-methods::setGeneric("compressed_formulation",
-                    function(x) standardGeneric("compressed_formulation"))
+methods::setGeneric(
+  "compressed_formulation",
+  function(x) standardGeneric("compressed_formulation")
+)
 
 #' @name OptimizationProblem-methods
 #'
 #' @rdname OptimizationProblem-methods
 #'
 #' @usage \S4method{compressed_formulation}{OptimizationProblem}(x)
-methods::setMethod("compressed_formulation", "OptimizationProblem",
-                   function(x) x$compressed_formulation())
-
-#' Convert `OptimizationProblem` to list
-#'
-#' @param x [`OptimizationProblem-class`] object.
-#'
-#' @param ... not used.
-#'
-#' @return `list()` object.
-#'
-#' @method as.list OptimizationProblem
-#'
-#' @rdname as.list
-#'
-#' @export
-as.list.OptimizationProblem <- function(x, ...) {
-  rcpp_optimization_problem_as_list(x$ptr)
-}
+methods::setMethod(
+  "compressed_formulation",
+  "OptimizationProblem",
+  function(x) x$compressed_formulation()
+)

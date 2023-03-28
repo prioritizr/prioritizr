@@ -3,6 +3,7 @@
 \name{adjacency_matrix}
 \alias{adjacency_matrix}
 \alias{adjacency_matrix.Raster}
+\alias{adjacency_matrix.SpatRaster}
 \alias{adjacency_matrix.SpatialPolygons}
 \alias{adjacency_matrix.SpatialLines}
 \alias{adjacency_matrix.SpatialPoints}
@@ -12,7 +13,9 @@
 \usage{
 adjacency_matrix(x, ...)
 
-\method{adjacency_matrix}{Raster}(x, directions = 4L, ...)
+\method{adjacency_matrix}{Raster}(x, directions = 4, ...)
+
+\method{adjacency_matrix}{SpatRaster}(x, directions = 4, ...)
 
 \method{adjacency_matrix}{SpatialPolygons}(x, ...)
 
@@ -25,41 +28,36 @@ adjacency_matrix(x, ...)
 \method{adjacency_matrix}{default}(x, ...)
 }
 \arguments{
-\item{x}{\code{\linkS4class{Raster}},
-\code{\linkS4class{SpatialPolygons}},
-\code{\linkS4class{SpatialLines}},
-or \code{\link[sf:sf]{sf::sf()}} object
-representing planning units.}
+\item{x}{\code{\link[terra:rast]{terra::rast()}} or \code{\link[sf:sf]{sf::sf()}} object representing planning units.}
 
 \item{...}{not used.}
 
 \item{directions}{\code{integer} If \code{x} is a
-\code{\linkS4class{Raster}} object, the number of directions
+\code{\link[terra:rast]{terra::rast()}} object, the number of directions
 in which cells should be considered adjacent: 4 (rook's case), 8 (queen's
 case), 16 (knight and one-cell queen moves), or "bishop" to for cells
 with one-cell diagonal moves.}
 }
 \value{
-\code{\linkS4class{dsCMatrix}} sparse symmetric matrix.
+A \code{\linkS4class{dsCMatrix}} sparse symmetric matrix.
 Each row and column represents a planning unit.
 Cells values indicate if different planning units are
 adjacent to each other or not (using ones and zeros).
 To reduce computational burden, cells among the matrix diagonal are
 set to zero. Furthermore, if the argument to \code{x} is a
-\code{\linkS4class{Raster}} object, then cells with \code{NA}
-values are set to zero too.
+\code{\link[terra:rast]{terra::rast()}} object, then cells with \code{NA} values are set to
+zero too.
 }
 \description{
 Create a matrix showing which planning units are spatially adjacent to
-each other. Note that this also include planning units that overlap
-with each other too.
+each other.
 }
 \details{
 Spatial processing is completed using
-\code{\link[sf:geos_binary_pred]{sf::st_intersects()}} for \code{\linkS4class{Spatial}} and
-\code{\link[sf:sf]{sf::sf()}} objects,
-and \code{\link[raster:adjacent]{raster::adjacent()}} for \code{\linkS4class{Raster}}
-objects.
+\code{\link[sf:geos_binary_pred]{sf::st_intersects()}} for \code{\link[sf:sf]{sf::sf()}} objects,
+and \code{\link[terra:adjacent]{terra::adjacent()}} for \code{\link[terra:rast]{terra::rast()}} objects.
+Note that spatially overlapping planning units are considered
+adjacent.
 }
 \section{Notes}{
 
@@ -71,45 +69,32 @@ with other spatial association matrix functions.
 \examples{
 \dontrun{
 # load data
-data(sim_pu_raster, sim_pu_sf, sim_pu_lines)
+sim_pu_raster <- get_sim_pu_raster()
+sim_pu_polygons <- get_sim_pu_polygons()
 
 # create adjacency matrix using raster data
 ## crop raster to 9 cells
-r <- crop(sim_pu_raster, c(0, 0.3, 0, 0.3))
+r <- terra::crop(sim_pu_raster, terra::ext(c(0, 0.3, 0, 0.3)))
 
 ## make adjacency matrix
 am_raster <- adjacency_matrix(r)
 
-# create adjacency matrix using polygons (sf) data
+# create adjacency matrix using polygon data
 ## subset 9 polygons
-ply <- sim_pu_sf[c(1:2, 10:12, 20:22), ]
+ply <- sim_pu_polygons[c(1:3, 11:13, 20:22), ]
 
 ## make adjacency matrix
 am_ply <- adjacency_matrix(ply)
 
-# create adjacency matrix using lines (Spatial) data
-## subset 9 lines
-lns <- sim_pu_lines[c(1:2, 10:12, 20:22), ]
-
-## make adjacency matrix
-am_lns <- adjacency_matrix(lns)
-
 # plot data and the adjacency matrices
-par(mfrow = c(4,2))
 
 ## plot raster and adjacency matrix
-plot(r, main = "raster", axes = FALSE, box = FALSE)
-plot(raster(as.matrix(am_raster)), main = "adjacency matrix", axes = FALSE,
-     box = FALSE)
+plot(r, main = "raster", axes = FALSE)
+Matrix::image(am_raster, main = "adjacency matrix")
 
-## plot polygons (sf) and adjacency matrix
-plot(r, main = "polygons (sf)", axes = FALSE, box = FALSE)
-plot(raster(as.matrix(am_ply)), main = "adjacency matrix", axes = FALSE,
-    box = FALSE)
+## plot polygons and adjacency matrix
+plot(ply[, 1], main = "polygons")
+Matrix::image(am_ply, main = "adjacency matrix")
 
-## plot lines (Spatial) and adjacency matrix
-plot(r, main = "lines (Spatial)", axes = FALSE, box = FALSE)
-plot(raster(as.matrix(am_lns)), main = "adjacency matrix", axes = FALSE,
-     box = FALSE)
 }
 }

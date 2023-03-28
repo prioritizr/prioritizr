@@ -9,8 +9,6 @@
 \alias{add_feature_contiguity_constraints,ConservationProblem,ANY,ANY-method}
 \title{Add feature contiguity constraints}
 \usage{
-\S4method{add_feature_contiguity_constraints}{ConservationProblem,ANY,Matrix}(x, zones, data)
-
 \S4method{add_feature_contiguity_constraints}{ConservationProblem,ANY,data.frame}(x, zones, data)
 
 \S4method{add_feature_contiguity_constraints}{ConservationProblem,ANY,matrix}(x, zones, data)
@@ -18,7 +16,7 @@
 \S4method{add_feature_contiguity_constraints}{ConservationProblem,ANY,ANY}(x, zones, data)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} object.}
 
 \item{zones}{\code{matrix}, \code{Matrix} or \code{list} object describing
 the connection scheme for different zones. For \code{matrix} or
@@ -55,18 +53,17 @@ all adjacent planning units are treated as being connected for all
 features. See the Data format section for more information.}
 }
 \value{
-Object (i.e., \code{\linkS4class{ConservationProblem}}) with the constraints
-added to it.
+An updated \code{\link[=problem]{problem()}} object with the constraints added to it.
 }
 \description{
-Add constraints to a \code{\link[=problem]{problem()}} to ensure that each feature is
+Add constraints to a problem to ensure that each feature is
 represented in a contiguous unit of dispersible habitat. These constraints
 are a more advanced version of those implemented in the
 \code{\link[=add_contiguity_constraints]{add_contiguity_constraints()}} function, because they ensure that
 each feature is represented in a contiguous unit and not that the entire
 solution should form a contiguous unit. Additionally, this function
 can use data showing the distribution of dispersible habitat for each
-feature to ensure that all features can disperse through out the areas
+feature to ensure that all features can disperse throughout the areas
 designated for their conservation.
 }
 \details{
@@ -107,12 +104,12 @@ planning unit cannot be a connected with itself. Note that pairs
 of connected planning units are treated as being potentially dispersible
 for all features.}
 
-\item{\code{data} as a \code{data.frame} object}{containing the fields (columns)
+\item{\code{data} as a \code{data.frame} object}{containing columns that are named
 \code{"id1"}, \code{"id2"}, and \code{"boundary"}. Here, each row
 denotes the connectivity between two planning units following the
-\emph{Marxan} format. The field \code{boundary} should contain
+\emph{Marxan} format. The \code{"boundary"} column should contain
 binary \code{numeric} values that indicate if the two planning units
-specified in the fields \code{"id1"} and \code{"id2"} are connected
+specified in the \code{"id1"} and \code{"id2"} columns are connected
 or not. This data can be used to describe symmetric or
 asymmetric relationships between planning units. By default,
 input data is assumed to be symmetric unless asymmetric data is
@@ -141,14 +138,18 @@ In early versions, it was named as the \code{add_corridor_constraints} function.
 \examples{
 \dontrun{
 # load data
-data(sim_pu_raster, sim_pu_zones_stack, sim_features, sim_features_zones)
+sim_pu_raster <- get_sim_pu_raster()
+sim_features <- get_sim_features()
+sim_zones_pu_raster <- get_sim_zones_pu_raster()
+sim_zones_features <- get_sim_zones_features()
 
 # create minimal problem
-p1 <- problem(sim_pu_raster, sim_features) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(0.3) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(verbose = FALSE)
+p1 <-
+  problem(sim_pu_raster, sim_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.3) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
 
 # create problem with contiguity constraints
 p2 <- p1 \%>\% add_contiguity_constraints()
@@ -159,12 +160,12 @@ p3 <- p1 \%>\% add_feature_contiguity_constraints()
 
 # create problem with constraints to represent features in contiguous
 # units that contain highly suitable habitat values
-# (specifically in the top 1.5th percentile)
-cm4 <- lapply(seq_len(nlayers(sim_features)), function(i) {
+# (specifically in the top 5th percentile)
+cm4 <- lapply(seq_len(terra::nlyr(sim_features)), function(i) {
   # create connectivity matrix using the i'th feature's habitat data
   m <- connectivity_matrix(sim_pu_raster, sim_features[[i]])
-  # convert matrix to 0/1 values denoting values in top 20th percentile
-  m <- round(m > quantile(as.vector(m), 1 - 0.015, names = FALSE))
+  # convert matrix to 0/1 values denoting values in top 5th percentile
+  m <- round(m > quantile(as.vector(m), 1 - 0.05, names = FALSE))
   # remove 0s from the sparse matrix
   m <- Matrix::drop0(m)
   # return matrix
@@ -173,21 +174,23 @@ cm4 <- lapply(seq_len(nlayers(sim_features)), function(i) {
 p4 <- p1 \%>\% add_feature_contiguity_constraints(data = cm4)
 
 # solve problems
-s1 <- stack(solve(p1), solve(p2), solve(p3), solve(p4))
-
+s1 <- c(solve(p1), solve(p2), solve(p3), solve(p4))
+names(s1) <- c(
+  "basic solution", "contiguity constraints",
+  "feature contiguity constraints",
+  "feature contiguity constraints with data"
+)
 # plot solutions
-plot(s1,  axes = FALSE, box = FALSE,
-     main = c("basic solution", "contiguity constraints",
-              "feature contiguity constraints",
-              "feature contiguity constraints with data"))
+plot(s1, axes = FALSE)
 
 # create minimal problem with multiple zones, and limit the solver to
 # 30 seconds to obtain solutions in a feasible period of time
-p5 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(time_limit = 30, verbose = FALSE)
+p5 <-
+  problem(sim_zones_pu_raster, sim_zones_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(time_limit = 30, verbose = FALSE)
 
 # create problem with contiguity constraints that specify that the
 # planning units used to conserve each feature in different management
@@ -208,17 +211,19 @@ p7 <- p5 \%>\% add_feature_contiguity_constraints(zm7)
 # the planning units in all three of the zones must conserve first feature
 # in a single contiguous unit but the planning units used to conserve the
 # remaining features do not need to be contiguous in any way
-zm8 <- lapply(seq_len(number_of_features(sim_features_zones)), function(i)
-  matrix(ifelse(i == 1, 1, 0), ncol = 3, nrow = 3))
+zm8 <- lapply(
+  seq_len(number_of_features(sim_zones_features)),
+  function(i) matrix(ifelse(i == 1, 1, 0), ncol = 3, nrow = 3)
+)
 print(zm8)
 p8 <- p5 \%>\% add_feature_contiguity_constraints(zm8)
 
 # solve problems
 s2 <- lapply(list(p5, p6, p7, p8), solve)
-s2 <- stack(lapply(s2, category_layer))
-
+s2 <- terra::rast(lapply(s2, category_layer))
+names(s2) <- c("p5", "p6", "p7", "p8")
 # plot solutions
-plot(s2, main = c("p5", "p6", "p7", "p8"), axes = FALSE, box = FALSE)
+plot(s2, axes = FALSE)
 }
 }
 \references{
@@ -241,7 +246,7 @@ Other constraints:
 \code{\link{add_linear_constraints}()},
 \code{\link{add_locked_in_constraints}()},
 \code{\link{add_locked_out_constraints}()},
-\code{\link{add_mandatory_allocation_constraints,ConservationProblem-method}},
+\code{\link{add_mandatory_allocation_constraints}()},
 \code{\link{add_manual_bounded_constraints}()},
 \code{\link{add_manual_locked_constraints}()},
 \code{\link{add_neighbor_constraints}()}

@@ -1,8 +1,4 @@
-#' @include internal.R
-NULL
-
-#' @export
-#' @importClassesFrom tibble tbl_df
+#' @include internal.R reexports.R
 NULL
 
 # Dear reader,
@@ -21,9 +17,9 @@ NULL
 #'   [tibble::tibble()] objects.
 #'
 #'   \describe{
-#'   \item{nrow}{extract `integer` number of rows.}
+#'   \item{nrow}{`integer` number of rows.}
 #'
-#'   \item{ncol}{extract `integer` number of columns.}
+#'   \item{ncol}{`integer` number of columns.}
 #'
 #'   \item{as.list}{convert to a `list`.}
 #'

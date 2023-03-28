@@ -1,4 +1,4 @@
-#' @include internal.R ConservationProblem-proto.R
+#' @include internal.R ConservationProblem-class.R
 NULL
 
 #' Feature abundances
@@ -6,7 +6,7 @@ NULL
 #' Calculate the total abundance of each feature found in the planning units
 #' of a conservation planning problem.
 #'
-#' @param x [problem()] (i.e., [`ConservationProblem-class`]) object.
+#' @param x [problem()] object.
 #'
 #' @param na.rm `logical` should planning units with `NA` cost
 #'   data be excluded from the abundance calculations? The default argument
@@ -25,7 +25,7 @@ NULL
 #'   each feature---then the `na.rm` argument should be set to
 #'   `TRUE`.
 #'
-#' @return [tibble::tibble()] object containing the total amount
+#' @return A [tibble::tibble()] object containing the total amount
 #'   (`"absolute_abundance"`) and proportion (`"relative_abundance"`)
 #'   of the distribution of each feature in the planning units. Here, each
 #'   row contains data that pertain to a specific feature in a specific
@@ -56,13 +56,19 @@ NULL
 #' @seealso [problem()], [eval_feature_representation_summary()].
 #'
 #' @examples
+#' \dontrun{
 #' # load data
-#' data(sim_pu_raster, sim_features)
+#' sim_pu_raster <- get_sim_pu_raster()
+#' sim_features <- get_sim_features()
 #'
 #' # create a simple conservation planning dataset so we can see exactly
 #' # how the feature abundances are calculated
-#' pu <- data.frame(id = seq_len(10), cost = c(0.2, NA, runif(8)),
-#'                  spp1 = runif(10), spp2 = c(rpois(9, 4), NA))
+#' pu <- data.frame(
+#'   id = seq_len(10),
+#'   cost = c(0.2, NA, runif(8)),
+#'   spp1 = runif(10),
+#'   spp2 = c(rpois(9, 4), NA)
+#' )
 #'
 #' # create problem
 #' p1 <- problem(pu, c("spp1", "spp2"), cost_column = "cost")
@@ -76,21 +82,33 @@ NULL
 #' print(a2)
 #'
 #' # verify correctness of feature abundance calculations
-#' all.equal(a1$absolute_abundance,
-#'           c(sum(pu$spp1), sum(pu$spp2, na.rm = TRUE)))
+#' all.equal(
+#'   a1$absolute_abundance,
+#'   c(sum(pu$spp1), sum(pu$spp2, na.rm = TRUE))
+#' )
 #'
-#' all.equal(a1$relative_abundance,
-#'           c(sum(pu$spp1) / sum(pu$spp1),
-#'             sum(pu$spp2, na.rm = TRUE) / sum(pu$spp2, na.rm = TRUE)))
+#' all.equal(
+#'   a1$relative_abundance,
+#'   c(sum(pu$spp1) / sum(pu$spp1),
+#'   sum(pu$spp2, na.rm = TRUE) / sum(pu$spp2, na.rm = TRUE))
+#' )
 #'
-#' all.equal(a2$absolute_abundance,
-#'           c(sum(pu$spp1[!is.na(pu$cost)]),
-#'             sum(pu$spp2[!is.na(pu$cost)], na.rm = TRUE)))
+#' all.equal(
+#'   a2$absolute_abundance,
+#'   c(
+#'     sum(pu$spp1[!is.na(pu$cost)]),
+#'     sum(pu$spp2[!is.na(pu$cost)], na.rm = TRUE)
+#'   )
+#' )
 #'
-#' all.equal(a2$relative_abundance,
-#'           c(sum(pu$spp1[!is.na(pu$cost)]) / sum(pu$spp1, na.rm = TRUE),
-#'             sum(pu$spp2[!is.na(pu$cost)], na.rm = TRUE) / sum(pu$spp2,
-#'                                                               na.rm = TRUE)))
+#' all.equal(
+#'   a2$relative_abundance,
+#'   c(
+#'     sum(pu$spp1[!is.na(pu$cost)]) / sum(pu$spp1, na.rm = TRUE),
+#'     sum(pu$spp2[!is.na(pu$cost)], na.rm = TRUE) /
+#'       sum(pu$spp2, na.rm = TRUE)
+#'   )
+#' )
 #'
 #' # initialize conservation problem with raster data
 #' p3 <- problem(sim_pu_raster, sim_features)
@@ -101,30 +119,31 @@ NULL
 #'
 #' # create problem using total amounts of features in all the planning units
 #' # (including units with NA cost data)
-#' p4 <- p3 %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(a3$relative_abundance) %>%
-#'       add_binary_decisions() %>%
-#'       add_default_solver(verbose = FALSE)
+#' p4 <-
+#'   p3 %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(a3$relative_abundance) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
 #'
 #' # attempt to solve the problem, but we will see that this problem is
 #' # infeasible because the targets cannot be met using only the planning units
 #' # with finite cost data
-#' \dontrun{
 #' s4 <- try(solve(p4))
-#' }
+#'
 #' # calculate feature abundances; excluding planning units with NA costs
 #' a5 <- feature_abundances(p3, na.rm = TRUE)
 #' print(a5)
 #'
 #' # create problem using total amounts of features in the planning units with
 #' # finite cost data
-#' p5 <- p3 %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(a5$relative_abundance) %>%
-#'       add_binary_decisions() %>%
-#'       add_default_solver(verbose = FALSE)
-#' \dontrun{
+#' p5 <-
+#'   p3 %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(a5$relative_abundance) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
+#'
 #' # solve the problem
 #' s5 <- solve(p5)
 #'
@@ -134,7 +153,10 @@ NULL
 #' plot(s5)
 #' }
 #' @export
-feature_abundances <- function(x, na.rm) UseMethod("feature_abundances")
+feature_abundances <- function(x, na.rm) {
+  assert_required(x)
+  UseMethod("feature_abundances")
+}
 
 #' @rdname feature_abundances
 #'
@@ -143,8 +165,12 @@ feature_abundances <- function(x, na.rm) UseMethod("feature_abundances")
 #' @export
 feature_abundances.ConservationProblem <- function(x, na.rm = FALSE) {
   # assert that arguments are valid
-  assertthat::assert_that(inherits(x, "ConservationProblem"),
-                          assertthat::is.flag(na.rm))
+  assert_required(na.rm)
+  assert(
+    is_conservation_problem(x),
+    assertthat::is.flag(na.rm),
+    assertthat::noNA(na.rm)
+  )
   # calculate feature abundances
   total <- x$feature_abundances_in_total_units()
   if (na.rm) {
@@ -153,10 +179,12 @@ feature_abundances.ConservationProblem <- function(x, na.rm = FALSE) {
     out <- total
   }
   # format output
-  out <- tibble::tibble(feature = rep(feature_names(x), number_of_zones(x)),
-                        zone = rep(zone_names(x), each = number_of_features(x)),
-                        absolute_abundance = c(out),
-                        relative_abundance = c(out) / c(total))
+  out <- tibble::tibble(
+    feature = rep(feature_names(x), number_of_zones(x)),
+    zone = rep(zone_names(x), each = number_of_features(x)),
+    absolute_abundance = c(out),
+    relative_abundance = c(out) / c(total)
+  )
   if (number_of_zones(x) == 1)
     out <- out[, -2, drop = FALSE]
   # return output

@@ -2,31 +2,21 @@
 % Please edit documentation in R/eval_boundary_summary.R
 \name{eval_boundary_summary}
 \alias{eval_boundary_summary}
-\alias{eval_boundary_summary.default}
-\alias{eval_boundary_summary.ConservationProblem}
-\title{Evaluate solution boundary length}
+\title{Evaluate boundary length of solution}
 \usage{
-eval_boundary_summary(x, ...)
-
-\method{eval_boundary_summary}{default}(x, ...)
-
-\method{eval_boundary_summary}{ConservationProblem}(
+eval_boundary_summary(
   x,
   solution,
   edge_factor = rep(0.5, number_of_zones(x)),
   zones = diag(number_of_zones(x)),
-  data = NULL,
-  ...
+  data = NULL
 )
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
-
-\item{...}{not used.}
+\item{x}{\code{\link[=problem]{problem()}} object.}
 
 \item{solution}{\code{numeric}, \code{matrix}, \code{data.frame},
-\code{\linkS4class{Raster}}, \code{\linkS4class{Spatial}},
-or \code{\link[sf:sf]{sf::sf()}} object.
+\code{\link[terra:rast]{terra::rast()}}, or \code{\link[sf:sf]{sf::sf()}} object.
 The argument should be in the same format as the planning unit cost
 data in the argument to \code{x}.
 See the Solution format section for more information.}
@@ -63,7 +53,7 @@ planning units (i.e., planning units that are adjacent to each other).
 See the Data format section for more information.}
 }
 \value{
-\code{\link[tibble:tibble]{tibble::tibble()}} object containing the boundary length of the
+A \code{\link[tibble:tibble]{tibble::tibble()}} object containing the boundary length of the
 solution.
 It contains the following columns:
 
@@ -86,8 +76,8 @@ with smaller values.}
 }
 }
 \description{
-Calculate the exposed boundary length (perimeter) associated with a
-solution to a conservation planning \code{\link[=problem]{problem()}}.
+Calculate the exposed boundary length (i.e., perimeter) associated with a
+solution to a conservation planning problem.
 This summary statistic is useful for evaluating the spatial fragmentation of
 planning units selected within a solution.
 }
@@ -119,16 +109,17 @@ in the argument to \code{x} do not explicitly contain spatial information
 \item{\code{data} as a \code{matrix}/\code{Matrix} object}{where rows and columns represent
 different planning units and the value of each cell represents the
 amount of shared boundary length between two different planning units.
-Cells that occur along the matrix diagonal represent the amount of
-exposed boundary associated with each planning unit that has
-no neighbor (e.g., these value might pertain to boundaries along a
-coastline).}
+Cells that occur along the matrix diagonal denote the total
+boundary length associated with each planning unit.}
 
 \item{\code{data} as a \code{data.frame} object}{with the columns \code{"id1"},
 \code{"id2"}, and \code{"boundary"}. The \code{"id1"} and \code{"id2"} columns contain
 identifiers (indices) for a pair of planning units, and the \code{"boundary"}
 column contains the amount of shared boundary length between these
 two planning units.
+Additionally, if the values in the \code{"id1"} and \code{"id2"} columns
+contain the same values, then the value denotes the
+amount of exposed boundary length (not total boundary).
 This format follows the the standard \emph{Marxan} format for boundary
 data (i.e., per the "bound.dat" file).}
 
@@ -161,8 +152,8 @@ missing cost (\code{NA}) values for a particular zone should also have a
 missing (\code{NA}) values in the argument to \code{solution}.
 }
 
-\item{\code{x} has \code{\linkS4class{Raster}} planning units}{The argument to \code{solution}
-be a \code{\linkS4class{Raster}} object where different grid cells (pixels) correspond
+\item{\code{x} has \code{\link[terra:rast]{terra::rast()}} planning units}{The argument to \code{solution}
+be a \code{\link[terra:rast]{terra::rast()}} object where different grid cells (pixels) correspond
 to different planning units and layers correspond to
 a different management zones. It should have the same dimensionality
 (rows, columns, layers), resolution, extent, and coordinate reference
@@ -179,20 +170,6 @@ object containing the solution also contains additional columns, then
 these columns will need to be subsetted prior to using this function
 (see below for example with \code{\link[sf:sf]{sf::sf()}} data).
 Additionally, any planning units missing cost
-(\code{NA}) values for a particular zone should also have missing (\code{NA})
-values in the argument to \code{solution}.
-}
-
-\item{\code{x} has \code{\linkS4class{Spatial}} planning units}{The argument to \code{solution}
-must be a \code{\linkS4class{Spatial}} object with each column corresponding to a
-different zone, each row corresponding to a different planning unit, and
-cell values corresponding to the solution value. This means that if the
-\code{\linkS4class{Spatial}} object containing the solution also contains additional
-columns, then these columns will need to be subsetted prior to using this
-function (see below for example with \code{\link[sf:sf]{sf::sf()}} data).
-Additionally, the argument to \code{solution} must also have the same
-coordinate reference system as the planning unit data.
-Furthermore, any planning units missing cost
 (\code{NA}) values for a particular zone should also have missing (\code{NA})
 values in the argument to \code{solution}.
 }
@@ -219,15 +196,19 @@ values in the argument to \code{solution}.
 set.seed(500)
 
 # load data
-data(sim_pu_raster, sim_pu_sf, sim_features,
-     sim_pu_zones_sf, sim_features_zones)
+sim_pu_raster <- get_sim_pu_raster()
+sim_pu_polygons <- get_sim_pu_polygons()
+sim_features <- get_sim_features()
+sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
+sim_zones_features <- get_sim_zones_features()
 
 # build minimal conservation problem with raster data
-p1 <- problem(sim_pu_raster, sim_features) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(0.1) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(verbose = FALSE)
+p1 <-
+  problem(sim_pu_raster, sim_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.1) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
 
 # solve the problem
 s1 <- solve(p1)
@@ -236,24 +217,25 @@ s1 <- solve(p1)
 print(s1)
 
 # plot solution
-plot(s1, main = "solution", axes = FALSE, box = FALSE)
+plot(s1, main = "solution", axes = FALSE)
 
 # calculate boundary associated with the solution
 r1 <- eval_boundary_summary(p1, s1)
 print(r1)
 
-# build minimal conservation problem with polygon (sf) data
-p2 <- problem(sim_pu_sf, sim_features, cost_column = "cost") \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(0.1) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(verbose = FALSE)
+# build minimal conservation problem with polygon data
+p2 <-
+  problem(sim_pu_polygons, sim_features, cost_column = "cost") \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.1) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
 
 # solve the problem
 s2 <- solve(p2)
 
-# print first six rows of the attribute table
-print(head(s2))
+# print solution
+print(s2)
 
 # plot solution
 plot(s2[, "solution_1"])
@@ -262,25 +244,28 @@ plot(s2[, "solution_1"])
 r2 <- eval_boundary_summary(p2, s2[, "solution_1"])
 print(r2)
 
-# build multi-zone conservation problem with polygon (sf) data
-p3 <- problem(sim_pu_zones_sf, sim_features_zones,
-              cost_column = c("cost_1", "cost_2", "cost_3")) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
-                                  ncol = 3)) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(verbose = FALSE)
+# build multi-zone conservation problem with polygon data
+p3 <-
+  problem(
+    sim_zones_pu_polygons, sim_zones_features,
+    cost_column = c("cost_1", "cost_2", "cost_3")
+  ) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5, ncol = 3)) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
 
 # solve the problem
 s3 <- solve(p3)
 
-# print first six rows of the attribute table
-print(head(s3))
+# print solution
+print(s3)
 
 # create new column representing the zone id that each planning unit
 # was allocated to in the solution
 s3$solution <- category_vector(
-  s3[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")])
+  s3[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")]
+)
 s3$solution <- factor(s3$solution)
 
 # plot solution
@@ -291,7 +276,8 @@ plot(s3[, "solution"])
 # zone as completely separate, meaning that the "overall"
 # boundary is just the sum of the boundaries for each zone
 r3 <- eval_boundary_summary(
-  p3, s3[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")])
+  p3, s3[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")]
+)
 print(r3)
 
 # let's calculate the overall exposed boundary across the entire
@@ -304,7 +290,8 @@ print(r3)
 # together (regardless of which zone they are allocated to in the solution)
 r3_combined <- eval_boundary_summary(
   p3, zones = matrix(1, ncol = 3, nrow = 3),
-  s3[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")])
+  s3[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")]
+)
 print(r3_combined)
 
 # we can see that the "overall" boundary is now less than the

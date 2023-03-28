@@ -1,23 +1,24 @@
-#' @include internal.R Constraint-proto.R
+#' @include internal.R Constraint-class.R
 NULL
 
 #' Add mandatory allocation constraints
 #'
-#' Add constraints to ensure that every planning unit is allocated to a
+#' Add constraints to a conservation planning problem to ensure that every
+#' planning unit is allocated to a
 #' management zone in the solution. Note that this function can only be used
 #' with problems that contain multiple zones.
 #'
-#' @param x [problem()] (i.e., [`ConservationProblem-class`]) object.
+#' @param x [problem()] object.
 #'
 #' @details For a conservation planning [problem()] with multiple
 #'   management zones, it may sometimes be desirable to obtain a solution that
-#'   assigns each and every single planning unit to a zone. For example, when
-#'   developing land-use plans, some decision makers may require that each and
-#'   every single parcel of land has been allocated a specific land-use type.
+#'   assigns each and every planning unit to a zone. For example, when
+#'   developing land-use plans, some decision makers may require that
+#'   every parcel of land is allocated a specific land-use type.
 #'   In other words are no "left over" areas. Although it might seem tempting
 #'   to simply solve the problem and manually assign "left over" planning units
 #'   to a default zone afterwards (e.g., an "other", "urban", or "grazing"
-#'   land-use), this could result in highly sub-optimal solutions if there
+#'   land-use), this could result in highly sub-optimal solutions if there are
 #'   penalties for siting the default land-use adjacent to other zones.
 #'   Instead, this function can be used to specify that all planning units in a
 #'   problem with multiple zones must be allocated to a management zone (i.e.,
@@ -31,27 +32,30 @@ NULL
 #' @family constraints
 #'
 #' @examples
+#' \dontrun{
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
 #' # load data
-#' data(sim_pu_zones_stack, sim_features_zones)
+#' sim_zones_pu_raster <- get_sim_zones_pu_raster()
+#' sim_zones_features <- get_sim_zones_features()
 #'
 #' # create multi-zone problem with minimum set objective
 #' targets_matrix <- matrix(rpois(15, 1), nrow = 5, ncol = 3)
 #'
 #' # create minimal problem with minimum set objective
-#' p1 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
-#'       add_min_set_objective() %>%
-#'       add_absolute_targets(targets_matrix) %>%
-#'       add_binary_decisions() %>%
-#'       add_default_solver(verbose = FALSE)
+#' p1 <-
+#'   problem(sim_zones_pu_raster, sim_zones_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_absolute_targets(targets_matrix) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
 #'
 #' # create another problem that is the same as p1, but has constraints
 #' # to mandate that every planning unit in the solution is assigned to
 #' # zone
 #' p2 <- p1 %>% add_mandatory_allocation_constraints()
-#' \dontrun{
+#'
 #' # solve problems
 #' s1 <- solve(p1)
 #' s2 <- solve(p2)
@@ -62,44 +66,38 @@ NULL
 #' c2 <- category_layer(s2)
 #'
 #' # plot solution category layers
-#' plot(stack(c1, c2), main = c("default", "mandatory allocation"),
-#'      axes = FALSE, box = FALSE)
+#' plot(c(c1, c2), main = c("default", "mandatory allocation"), axes = FALSE)
 #' }
 #' @name add_mandatory_allocation_constraints
 #'
-#' @exportMethod add_mandatory_allocation_constraints
-#'
-#' @aliases add_mandatory_allocation_constraints,ConservationProblem-method NULL
-NULL
-
-methods::setGeneric("add_mandatory_allocation_constraints",
-  signature = methods::signature("x"),
-  function(x)
-  standardGeneric("add_mandatory_allocation_constraints"))
-
-#' @name add_mandatory_allocation_constraints
-#' @usage \S4method{add_mandatory_allocation_constraints}{ConservationProblem}(x)
-#' @rdname add_mandatory_allocation_constraints
-methods::setMethod("add_mandatory_allocation_constraints",
-  methods::signature("ConservationProblem"),
-  function(x) {
-    # assert valid arguments
-    assertthat::assert_that(inherits(x, "ConservationProblem"),
-                            number_of_zones(x) >= 2)
-    # add constraints
-    x$add_constraint(pproto(
+#' @export
+add_mandatory_allocation_constraints <- function(x) {
+  # assert valid arguments
+  assert_required(x)
+  assert(
+    is_conservation_problem(x),
+    number_of_zones(x) >= 2
+  )
+  # add constraints
+  x$add_constraint(
+    R6::R6Class(
       "MandatoryAllocationConstraint",
-      Constraint,
-      name = "Mandatory allocation constraints",
-      parameters = parameters(
-        binary_parameter("apply constraints?", 1L)),
-      apply = function(self, x, y) {
-        assertthat::assert_that(inherits(x, "OptimizationProblem"),
-                                inherits(y, "ConservationProblem"))
-        # the apply method for this function doesn't actually do anything,
-        # the prioritizr::compile function will detect the presence of this
-        # constraint and act accordingly. The rcpp_add_zones_constraints
-        # function is "really" where this constraint is applied
-        invisible(TRUE)
-      }))
-})
+      inherit = Constraint,
+      public = list(
+        name = "mandatory allocation constraints",
+        apply = function(x, y) {
+          assert(
+            inherits(x, "OptimizationProblem"),
+            inherits(y, "ConservationProblem"),
+            .internal = TRUE
+          )
+          # the apply method for this function doesn't actually do anything,
+          # the prioritizr::compile function will detect the presence of this
+          # constraint and act accordingly. The rcpp_add_zones_constraints
+          # function is "really" where this constraint is applied
+          invisible(TRUE)
+        }
+      )
+    )$new()
+  )
+}

@@ -6,28 +6,42 @@ NULL
 #' Generate a matrix showing the amount of each feature in each planning
 #' unit (also known as an *rij* matrix).
 #'
-#' @param x [`Raster-class`],
-#'   [`Spatial-class`], or [sf::sf()] object
-#'   representing the planning units.
+#' @param x [terra::rast()] or [sf::sf()] object representing planning units.
 #'
-#' @param y [`Raster-class`] object representing the
-#'   features.
+#' @param y [terra::rast()]  object.
 #'
 #' @param fun `character` for summarizing values inside each planning unit.
 #'   This parameter is only used when the argument to `x` is a
-#'   [`Spatial-class`] or [sf::sf()] object.
+#'   [sf::sf()] object.
 #'   Defaults to `"sum"`.
+#'
+#' @param memory `logical` should calculations be performed using a method
+#'   that prioritizes reduced memory consumption over speed?
+#'   If `TRUE`, then calculations are performed using a method that
+#'   reduces memory consumption, but can take a long time to complete.
+#'   If `FALSE`, then calculations are performed using a method that
+#'   reduces run time, but will fail when insufficient memory is available.
+#'   Defaults to `NA`, such that calculations are automatically performed
+#'   using the best method given available memory and dataset sizes.
+#'   Note that this parameter can only be used when the arguments to `x`
+#'   and `y` are both [terra::rast()] objects.
 #'
 #' @param ... not used.
 #'
 #' @details
-#'   Generally, processing vector (i.e., [`Spatial-class`] or
-#'   [sf::sf()]) data takes much
-#'   longer to process then [`Raster-class`] data,
-#'   so it is recommended to use [`Raster-class`] data
-#'   for planning units where possible.
+#' Generally, processing [sf::st_sf()] data takes much longer to process than
+#' [terra::rast()] data.
+#' As such, it is recommended to use [terra::rast()] data for planning units
+#' where possible.
+#' The performance of this function for large [terra::rast()] datasets
+#' can be improved by increasing the GDAL cache size.
+#' The default cache size is 25 MB.
+#' For example, the following code can be used to set the cache size to 4 GB.
+#' ```
+#' terra::gdalCache(size = 4000)
+#' ```
 #'
-#' @return [`dgCMatrix-class`] sparse matrix object.
+#' @return A [`dgCMatrix-class`] sparse matrix object.
 #'   The sparse matrix represents the spatial intersection between the
 #'   planning units and the features. Rows correspond to features,
 #'   and columns correspond to planning units. Values correspond to the amount
@@ -39,33 +53,42 @@ NULL
 #'
 #' @exportMethod rij_matrix
 #'
-#' @aliases rij_matrix,Raster,Raster-method rij_matrix,Spatial,Raster-method rij_matrix,sf,Raster-method
+#' @aliases rij_matrix,Raster,Raster-method rij_matrix,Spatial,Raster-method rij_matrix,sf,Raster-method rij_matrix,SpatRaster,SpatRaster-method rij_matrix,sf,SpatRaster-method
 #'
 #' @examples
 #' \dontrun{
 #' # load data
-#' data(sim_pu_raster, sim_pu_polygons, sim_pu_sf, sim_pu_zones_stack)
+#' sim_pu_raster <- get_sim_pu_raster()
+#' sim_pu_polygons <- get_sim_pu_polygons()
+#' sim_zones_pu_raster <- get_sim_zones_pu_raster()
+#' sim_features <- get_sim_features()
 #'
 #' # create rij matrix using raster layer planning units
 #' rij_raster <- rij_matrix(sim_pu_raster, sim_features)
 #' print(rij_raster)
 #'
-#' # create rij matrix using polygon (Spatial) planning units
+#' # create rij matrix using polygon planning units
 #' rij_polygons <- rij_matrix(sim_pu_polygons, sim_features)
 #' print(rij_polygons)
 #'
-#' # create rij matrix using polygon (sf) planning units
-#' rij_sf <- rij_matrix(sim_pu_sf, sim_features)
-#' print(rij_sf)
-#'
-#' # create rij matrix using raster stack planning units
-#' rij_zones_raster <- rij_matrix(sim_pu_zones_stack, sim_features)
+#' # create rij matrix using raster planning units with multiple zones
+#' rij_zones_raster <- rij_matrix(sim_zones_pu_raster, sim_features)
 #' print(rij_zones_raster)
 #' }
 #' @export
-methods::setGeneric("rij_matrix",
-                    signature = methods::signature("x", "y"),
-                    function(x, y, ...) standardGeneric("rij_matrix"))
+methods::setGeneric(
+  "rij_matrix",
+  signature = methods::signature("x", "y"),
+  function(x, y, ...) {
+    assert_required(x)
+    assert_required(y)
+    assert(
+      is_inherits(x, c("sf", "SpatRaster", "Spatial", "Raster")),
+      is_inherits(y, c("sf", "SpatRaster", "Spatial", "Raster"))
+    )
+    standardGeneric("rij_matrix")
+  }
+)
 
 #' @name rij_matrix
 #' @usage \S4method{rij_matrix}{Raster,Raster}(x, y, ...)
@@ -74,44 +97,66 @@ methods::setMethod(
   "rij_matrix",
   signature(x = "Raster", y = "Raster"),
   function(x, y, ...) {
+    cli_warning(raster_pkg_deprecation_notice)
+    rij_matrix(terra::rast(x), terra::rast(y), ...)
+})
+
+#' @name rij_matrix
+#' @usage \S4method{rij_matrix}{SpatRaster,SpatRaster}(x, y, memory, ...)
+#' @rdname rij_matrix
+methods::setMethod(
+  "rij_matrix",
+  signature(x = "SpatRaster", y = "SpatRaster"),
+  function(x, y, memory = NA, ...) {
     # assert that arguments are valid
-    assertthat::assert_that(inherits(x, "Raster"), inherits(y, "Raster"),
-      raster::nlayers(x) > 0, raster::nlayers(y) > 0,
+    assert(
+      inherits(x, "SpatRaster"),
+      inherits(y, "SpatRaster"),
+      terra::nlyr(x) > 0,
+      terra::nlyr(y) > 0,
       is_comparable_raster(x, y),
-      no_extra_arguments(...))
-    # set included cells
-    if (raster::nlayers(x) == 1) {
-      included <- raster::Which(!is.na(x), cells = TRUE)
-    } else {
-      included <- raster::Which(max(!is.na(x)) > 0, cells = TRUE)
+      assertthat::is.flag(memory)
+    )
+    assert_dots_empty()
+    # identify included cells
+    idx <- terra::cells(terra::allNA(x), 0)[[1]]
+    # if memory is NA, then set it automatically..
+    if (is.na(memory)) {
+      mem_needed_kb <-
+        ((40 * length(idx)) + (terra::nlyr(y) * length(idx) * 8)) * 0.001
+      memory <- isTRUE(mem_needed_kb > terra::free_RAM())
     }
-    # data processing
-    if (raster::canProcessInMemory(x, n = raster::nlayers(y) *
-                                          raster::nlayers(x) + 1)) {
-      # if the all the features can be fit into memory then processes
-      # them all in memory
-      m <- y[]
-      if (!is.matrix(m)) {
-        m <- matrix(m[included], nrow = 1)
-        m[is.na(m)] <- 0
-        m <- methods::as(m, "dgCMatrix")
-      } else {
-        m <- m[included, , drop = FALSE]
-        m[is.na(m)] <- 0
-        m <- Matrix::t(methods::as(m, "dgCMatrix"))
+    # run processing
+    if (!isTRUE(memory)) {
+      # generate matrix
+      m <- as.matrix(y[idx])
+      m[is.na(m)] <- 0
+      m <- Matrix::t(Matrix::drop0(methods::as(m, "dgCMatrix")))
+    } else {
+      # initialize matrix
+      m <- Matrix::sparseMatrix(
+        i = 1, j = 1, x = 0, repr = "C",
+        dims = c(terra::nlyr(y), length(idx))
+      )
+      # determine number of layers to process at once
+      n_layers <-
+        ((40 * length(idx)) + (rep(1, terra::nlyr(y)) * length(idx) * 8))
+      n_layers <- max(which(cumsum(n_layers) < (terra::free_RAM() * 0.45)))
+      layer_ind <- parallel::splitIndices(
+        terra::nlyr(y), ceiling(terra::nlyr(y) / n_layers)
+      )
+      # import data and add to matrix
+      for (i in seq_along(layer_ind)) {
+        v <- t(as.matrix(y[[layer_ind[[i]]]][idx]))
+        v[is.na(v)] <- 0
+        m[layer_ind[[i]], ] <- v
+        m <- Matrix::drop0(m)
       }
-    } else {
-      # othewise, process each feature separately
-        m <- lapply(seq_len(raster::nlayers(y)), function(i) {
-            m <- matrix(y[[i]][][included], nrow = 1)
-            m[is.na(m)] <- 0
-            m <- methods::as(m, "dgCMatrix")
-          })
-      m <- Reduce(rbind, m[-1], m[[1]])
-      rownames(m) <- names(y)
     }
+    # add row names
+    rownames(m) <- names(y)
     # return result
-    return(m)
+    m
 })
 
 #' @name rij_matrix
@@ -121,6 +166,7 @@ methods::setMethod(
   "rij_matrix",
   signature(x = "Spatial", y = "Raster"),
   function(x, y, fun = "sum", ...) {
+    cli_warning(sp_pkg_deprecation_notice)
     rij_matrix(sf::st_as_sf(x), y, fun = fun, ...)
 })
 
@@ -131,9 +177,21 @@ methods::setMethod(
   "rij_matrix",
   signature(x = "sf", y = "Raster"),
   function(x, y, fun = "sum", ...) {
+    cli_warning(raster_pkg_deprecation_notice)
+    rij_matrix(x, terra::rast(y), fun = fun, ...)
+})
+
+#' @name rij_matrix
+#' @usage \S4method{rij_matrix}{sf,SpatRaster}(x, y, fun, ...)
+#' @rdname rij_matrix
+methods::setMethod(
+  "rij_matrix",
+  signature(x = "sf", y = "SpatRaster"),
+  function(x, y, fun = "sum", ...) {
+    assert_dots_empty()
     m <- fast_extract(x = y, y = x, fun = fun)
     m[is.na(m[])] <- 0
-    m <- methods::as(m, "dgCMatrix")
+    m <- Matrix::drop0(methods::as(m, "dgCMatrix"))
     colnames(m) <- names(y)
-    return(Matrix::t(m))
+    Matrix::t(m)
 })

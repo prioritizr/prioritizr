@@ -2,88 +2,92 @@
 % Please edit documentation in R/intersecting_units.R
 \name{intersecting_units}
 \alias{intersecting_units}
-\alias{intersecting_units,Raster,Raster-method}
-\alias{intersecting_units,Raster,Spatial-method}
-\alias{intersecting_units,Spatial,Raster-method}
-\alias{intersecting_units,Spatial,Spatial-method}
-\alias{intersecting_units,sf,Spatial-method}
-\alias{intersecting_units,Spatial,sf-method}
+\alias{intersecting_units,Raster,ANY-method}
+\alias{intersecting_units,ANY,Raster-method}
+\alias{intersecting_units,Spatial,ANY-method}
+\alias{intersecting_units,ANY,Spatial-method}
 \alias{intersecting_units,sf,sf-method}
-\alias{intersecting_units,Raster,sf-method}
-\alias{intersecting_units,sf,Raster-method}
+\alias{intersecting_units,SpatRaster,sf-method}
+\alias{intersecting_units,SpatRaster,SpatRaster-method}
+\alias{intersecting_units,sf,SpatRaster-method}
 \alias{intersecting_units,data.frame,ANY-method}
 \title{Find intersecting units}
 \usage{
 intersecting_units(x, y)
 
-\S4method{intersecting_units}{Raster,Raster}(x, y)
+\S4method{intersecting_units}{Raster,ANY}(x, y)
 
-\S4method{intersecting_units}{Spatial,Spatial}(x, y)
+\S4method{intersecting_units}{ANY,Raster}(x, y)
 
-\S4method{intersecting_units}{sf,Spatial}(x, y)
+\S4method{intersecting_units}{Spatial,ANY}(x, y)
 
-\S4method{intersecting_units}{Spatial,Raster}(x, y)
+\S4method{intersecting_units}{ANY,Spatial}(x, y)
 
-\S4method{intersecting_units}{Spatial,sf}(x, y)
-
-\S4method{intersecting_units}{Raster,Spatial}(x, y)
+\S4method{intersecting_units}{SpatRaster,SpatRaster}(x, y)
 
 \S4method{intersecting_units}{sf,sf}(x, y)
 
-\S4method{intersecting_units}{Raster,sf}(x, y)
+\S4method{intersecting_units}{SpatRaster,sf}(x, y)
 
-\S4method{intersecting_units}{sf,Raster}(x, y)
-
-\S4method{intersecting_units}{data.frame,ANY}(x, y)
+\S4method{intersecting_units}{sf,SpatRaster}(x, y)
 }
 \arguments{
-\item{x}{\code{\linkS4class{Spatial}} or \code{\linkS4class{Raster}} object.}
+\item{x}{\code{\link[sf:sf]{sf::st_sf()}} or \code{\link[terra:rast]{terra::rast()}} object.}
 
-\item{y}{\code{\linkS4class{Spatial}} or \code{\linkS4class{Raster}} object.}
+\item{y}{\code{\link[sf:sf]{sf::st_sf()}} or \code{\link[terra:rast]{terra::rast()}} object.}
 }
 \value{
-\code{integer} indices of the units in \code{x} that intersect with
-\code{y}.
+An \code{integer} vector of indices of the units in \code{x} that intersect
+with \code{y}.
 }
 \description{
 Find which of the units in a spatial data object intersect
 with the units in another spatial data object.
 }
+\details{
+The performance of this function for large \code{\link[terra:rast]{terra::rast()}} objects
+can be improved by increasing the GDAL cache size.
+The default cache size is 25 MB.
+For example, the following code can be used to set the cache size to 4 GB.
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{terra::gdalCache(size = 4000)
+}\if{html}{\out{</div>}}
+}
 \examples{
 \dontrun{
 # create data
-r <- raster(matrix(1:9, byrow = TRUE, ncol = 3))
+r <- terra::rast(matrix(1:9, byrow = TRUE, ncol = 3))
 r_with_holes <- r
 r_with_holes[c(1, 5, 9)] <- NA
-ply <- rasterToPolygons(r)
-ply_with_holes <- sf::st_as_sf(rasterToPolygons(r_with_holes))
+ply <- sf::st_as_sf(terra::as.polygons(r))
+ply_with_holes <- sf::st_as_sf(terra::as.polygons(r_with_holes))
 
 # intersect raster with raster
 par(mfrow = c(1, 2))
-plot(r, main = "x=Raster")
-plot(r_with_holes, main = "y=Raster")
+plot(r, main = "x = SpatRaster", axes = FALSE)
+plot(r_with_holes, main = "y = SpatRaster", axes = FALSE)
 print(intersecting_units(r, r_with_holes))
 
-# intersect raster with polygons (sf)
+# intersect raster with sf
 par(mfrow = c(1, 2))
-plot(r, main = "x=Raster")
-plot(ply_with_holes, main = "y=sf", key.pos = NULL, reset = FALSE)
+plot(r, main = "x = SpatRaster", axes = FALSE)
+plot(ply_with_holes, main = "y = sf", key.pos = NULL, reset = FALSE)
 print(intersecting_units(r, ply_with_holes))
 
-# intersect polygons (Spatial) with raster
+# intersect sf with raster
 par(mfrow = c(1, 2))
-plot(ply, main = "x=Spatial")
-plot(r_with_holes, main = "y=Raster")
+plot(ply, main = "x = sf", key.pos = NULL, reset = FALSE)
+plot(r_with_holes, main = "y = SpatRaster")
 print(intersecting_units(ply, r_with_holes))
 
-# intersect polygons (Spatial) with polygons (sf)
+# intersect sf with sf
 par(mfrow = c(1, 2))
-plot(ply, main = "x=Spatial")
-plot(ply_with_holes, main = "y=sf", key.pos = NULL, reset = FALSE)
+plot(ply, main = "x = sf", key.pos = NULL, reset = FALSE)
+plot(ply_with_holes, main = "y = sf", key.pos = NULL, reset = FALSE)
 print(intersecting_units(ply, ply_with_holes))
 }
 
 }
 \seealso{
-\code{\link[=fast_extract]{fast_extract()}}.
+See \code{\link[=fast_extract]{fast_extract()}} for extracting data from spatial datasets.
 }

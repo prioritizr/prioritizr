@@ -7,15 +7,14 @@
 add_extra_portfolio(x)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} object.}
 }
 \value{
-Object (i.e., \code{\linkS4class{ConservationProblem}}) with the portfolio
-added to it.
+An updated \code{\link[=problem]{problem()}} object with the portfolio added to it.
 }
 \description{
 Generate a portfolio of solutions for a conservation planning
-\code{\link[=problem]{problem()}} by storing feasible solutions
+problem by storing feasible solutions
 discovered during the optimization process.
 This method is useful for quickly obtaining multiple solutions,
 but does not provide any guarantees on the number of solutions, or
@@ -33,41 +32,50 @@ of the \pkg{gurobi} package must be installed.
 set.seed(600)
 
 # load data
-data(sim_pu_raster, sim_features)
+sim_pu_raster <- get_sim_pu_raster()
+sim_features <- get_sim_features()
+sim_zones_pu_raster <- get_sim_zones_pu_raster()
+sim_zones_features <- get_sim_zones_features()
 
 # create minimal problem with a portfolio for extra solutions
-p1 <- problem(sim_pu_raster, sim_features) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(0.05) \%>\%
-      add_extra_portfolio() \%>\%
-      add_default_solver(gap = 0, verbose = FALSE)
+p1 <-
+  problem(sim_pu_raster, sim_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.05) \%>\%
+  add_extra_portfolio() \%>\%
+  add_default_solver(gap = 0, verbose = FALSE)
 
 # solve problem and generate portfolio
 s1 <- solve(p1)
 
+# convert portfolio into a multi-layer raster object
+s1 <- terra::rast(s1)
+
 # print number of solutions found
-print(length(s1))
+print(terra::nlyr(s1))
 
 # plot solutions
-plot(stack(s1), axes = FALSE, box = FALSE)
+plot(s1, axes = FALSE)
 
 # create multi-zone problem with a portfolio for extra solutions
-p2 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
-                                  ncol = 3)) \%>\%
-      add_extra_portfolio() \%>\%
-      add_default_solver(gap = 0, verbose = FALSE)
+p2 <-
+  problem(sim_zones_pu_raster, sim_zones_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5, ncol = 3)) \%>\%
+  add_extra_portfolio() \%>\%
+  add_default_solver(gap = 0, verbose = FALSE)
 
 # solve problem and generate portfolio
 s2 <- solve(p2)
 
+# convert each solution in the portfolio into a single category layer
+s2 <- terra::rast(lapply(s2, category_layer))
+
 # print number of solutions found
-print(length(s2))
+print(terra::nlyr(s2))
 
 # plot solutions in portfolio
-plot(stack(lapply(s2, category_layer)),
-     main = "solution", axes = FALSE, box = FALSE)
+plot(s2, axes = FALSE)
 }
 }
 \seealso{

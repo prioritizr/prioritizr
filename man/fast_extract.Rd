@@ -2,30 +2,30 @@
 % Please edit documentation in R/fast_extract.R
 \name{fast_extract}
 \alias{fast_extract}
-\alias{fast_extract,Raster,SpatialLines-method}
-\alias{fast_extract,Raster,SpatialPoints-method}
-\alias{fast_extract,Raster,SpatialPolygons-method}
+\alias{fast_extract,Raster,Spatial-method}
 \alias{fast_extract,Raster,sf-method}
 \alias{fast_extract,Raster,sfc-method}
+\alias{fast_extract,SpatRaster,Spatial-method}
+\alias{fast_extract,SpatRaster,sf-method}
+\alias{fast_extract,SpatRaster,sfc-method}
 \title{Fast extract}
 \usage{
 fast_extract(x, y, ...)
 
-\S4method{fast_extract}{Raster,SpatialPolygons}(x, y, fun = "mean", ...)
-
-\S4method{fast_extract}{Raster,SpatialPoints}(x, y, fun = "mean", ...)
-
-\S4method{fast_extract}{Raster,SpatialLines}(x, y, fun = "mean", ...)
+\S4method{fast_extract}{Raster,Spatial}(x, y, fun = "mean", ...)
 
 \S4method{fast_extract}{Raster,sfc}(x, y, fun = "mean", ...)
 
+\S4method{fast_extract}{SpatRaster,sfc}(x, y, fun = "mean", ...)
+
 \S4method{fast_extract}{Raster,sf}(x, y, fun = "mean", ...)
+
+\S4method{fast_extract}{SpatRaster,sf}(x, y, fun = "mean", ...)
 }
 \arguments{
-\item{x}{\code{\linkS4class{Raster}} object.}
+\item{x}{\code{\link[terra:rast]{terra::rast()}} object.}
 
-\item{y}{\code{\linkS4class{Spatial}} or
-\code{\link[sf:sf]{sf::sf()}} object.}
+\item{y}{\code{\link[sf:sf]{sf::sf()}} object.}
 
 \item{...}{not used.}
 
@@ -34,36 +34,39 @@ to \code{"mean"}. Available options include \code{"sum"} or \code{"mean"}.
 Defaults to \code{"mean"}.}
 }
 \value{
-\code{matrix} containing the summary amount of each feature
+A \code{matrix} containing the summary amount of each feature
 within each planning unit. Rows correspond to different spatial features
 in the argument to \code{y} and columns correspond to different raster
 layers in the argument to \code{x}.
 }
 \description{
-Extract data from a \code{\linkS4class{Raster}} object.
+Extract data from a \code{\link[terra:rast]{terra::rast()}} object.
 }
 \details{
+The performance of this function for large \code{\link[terra:rast]{terra::rast()}} objects
+can be improved by increasing the GDAL cache size.
+The default cache size is 25 MB.
+For example, the following code can be used to set the cache size to 4 GB.
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{terra::gdalCache(size = 4000)
+}\if{html}{\out{</div>}}
+
 This function is simply a wrapper that uses
-\code{\link[raster:extract]{raster::extract()}} to extract data for
-\code{\linkS4class{SpatialPoints}} and
-\code{\linkS4class{SpatialLines}} and
-non-polygonal \code{\link[sf:sf]{sf::sf()}} data, and
-\code{\link[exactextractr:exact_extract]{exactextractr::exact_extract()}} for
-\code{\linkS4class{SpatialPolygons}} and
-polygonal \code{\link[sf:sf]{sf::sf()}} data.
+\code{\link[exactextractr:exact_extract]{exactextractr::exact_extract()}} for polygon geometries, and
+\code{\link[terra:extract]{terra::extract()}} for other geometry types.
 }
 \examples{
 # load data
-data(sim_pu_sf, sim_features)
+sim_pu_polygons <- get_sim_pu_polygons()
+sim_features <- get_sim_features()
 
 # extract data
-result <- fast_extract(sim_features, sim_pu_sf)
+result <- fast_extract(sim_features, sim_pu_polygons)
 
 # show result
 print(head(result))
 
 }
 \seealso{
-\code{\link[raster:extract]{raster::extract()}},
-\code{\link[exactextractr:exact_extract]{exactextractr::exact_extract()}}.
+\code{\link[terra:extract]{terra::extract()}}, \code{\link[exactextractr:exact_extract]{exactextractr::exact_extract()}}.
 }

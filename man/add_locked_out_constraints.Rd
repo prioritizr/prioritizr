@@ -7,6 +7,7 @@
 \alias{add_locked_out_constraints,ConservationProblem,matrix-method}
 \alias{add_locked_out_constraints,ConservationProblem,character-method}
 \alias{add_locked_out_constraints,ConservationProblem,Raster-method}
+\alias{add_locked_out_constraints,ConservationProblem,SpatRaster-method}
 \alias{add_locked_out_constraints,ConservationProblem,Spatial-method}
 \alias{add_locked_out_constraints,ConservationProblem,sf-method}
 \title{Add locked out constraints}
@@ -26,24 +27,25 @@ add_locked_out_constraints(x, locked_out)
 \S4method{add_locked_out_constraints}{ConservationProblem,sf}(x, locked_out)
 
 \S4method{add_locked_out_constraints}{ConservationProblem,Raster}(x, locked_out)
+
+\S4method{add_locked_out_constraints}{ConservationProblem,SpatRaster}(x, locked_out)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} object.}
 
 \item{locked_out}{Object that determines which planning units that should be
 locked out. See the Data format section for more information.}
 }
 \value{
-Object (i.e., \code{\linkS4class{ConservationProblem}}) with the constraints
-added to it.
+An updated \code{\link[=problem]{problem()}} object with the constraints added to it.
 }
 \description{
-Add constraints to a conservation planning \code{\link[=problem]{problem()}} to ensure
+Add constraints to a conservation planning problem to ensure
 that specific planning units are not selected
 (or allocated to a specific zone) in the solution. For example, it may be
 useful to lock out planning units that have been degraded and are not
 suitable for conserving species. If specific planning units should be locked
-in to the solution, use \code{\link[=add_locked_out_constraints]{add_locked_out_constraints()}}. For
+in to the solution, use \code{\link[=add_locked_in_constraints]{add_locked_in_constraints()}}. For
 problems with non-binary planning unit allocations (e.g., proportions), the
 \code{\link[=add_manual_locked_constraints]{add_manual_locked_constraints()}} function can be used to lock
 planning unit allocations to a specific value.
@@ -54,9 +56,9 @@ planning unit allocations to a specific value.
 The locked planning units can be specified using the following formats.
 Generally, the locked data should correspond to the planning units
 in the argument to \code{x.} To help make working with
-\code{\linkS4class{Raster}} planning unit data easier,
+\code{\link[terra:rast]{terra::rast()}} planning unit data easier,
 the locked data should correspond to cell indices in the
-\code{\linkS4class{Raster}} data. For example, \code{integer} arguments
+\code{\link[terra:rast]{terra::rast()}} data. For example, \code{integer} arguments
 should correspond to cell indices and \code{logical} arguments should have
 a value for each cell---regardless of which planning unit cells contain
 \code{NA} values.
@@ -80,35 +82,35 @@ each cell indicates if the planning unit should be locked to a given
 zone. Thus each row should only contain at most a single \code{TRUE}
 value.}
 
-\item{\code{data} as a \code{character} vector}{containing field (column) name(s)
-that indicate if planning units should be locked for the solution.
+\item{\code{data} as a \code{character} vector}{containing column name(s)
+that indicates if planning units should be locked for the solution.
 This format is only
 compatible if the planning units in the argument to \code{x} are a
-\code{\linkS4class{Spatial}}, \code{\link[sf:sf]{sf::sf()}}, or
-\code{data.frame} object. The fields
-(columns) must have \code{logical} (i.e., \code{TRUE} or \code{FALSE})
+\code{\link[sf:sf]{sf::sf()}} or \code{data.frame} object. The columns
+must have \code{logical} (i.e., \code{TRUE} or \code{FALSE})
 values indicating if the planning unit is to be locked for the solution.
 For problems that contain a single zone, the argument to \code{data} must
-contain a single field name. Otherwise, for problems that
+contain a single column name. Otherwise, for problems that
 contain multiple zones, the argument to \code{data} must
-contain a field name for each zone.}
+contain a column name for each zone.}
 
-\item{\code{data} as a \code{\linkS4class{Spatial}} or \code{\link[sf:sf]{sf::sf()}} object}{
+\item{\code{data} as a \code{\link[sf:sf]{sf::sf()}} object}{
 containing geometries that will be used to lock planning units for
 the solution. Specifically, planning units in \code{x} that spatially
 intersect with \code{y} will be locked (per \code{\link[=intersecting_units]{intersecting_units()}}).
 Note that this option is only available
 for problems that contain a single management zone.}
 
-\item{\code{data} as a \code{\linkS4class{Raster}} object}{containing cells used to lock
-planning units for the solution. Specifically, planning units in \code{x}
+\item{\code{data} as a \code{\link[terra:rast]{terra::rast()}} object}{
+containing cells used to lock planning units for the solution.
+Specifically, planning units in \code{x}
 that intersect with cells that have non-zero and non-\code{NA} values are
 locked.
 For problems that contain multiple zones, the
-\code{\linkS4class{Raster}} object must contain a layer
+\code{data} object must contain a layer
 for each zone. Note that for multi-band arguments, each pixel must
 only contain a non-zero value in a single band. Additionally, if the
-cost data in \code{x} is a \code{\linkS4class{Raster}} object, we
+cost data in \code{x} is a \code{\link[terra:rast]{terra::rast()}} object, we
 recommend standardizing \code{NA} values in this dataset with the cost
 data. In other words, the pixels in \code{x} that have \code{NA} values
 should also have \code{NA} values in the locked data.}
@@ -121,19 +123,25 @@ should also have \code{NA} values in the locked data.}
 set.seed(500)
 
 # load data
-data(sim_pu_polygons, sim_features, sim_locked_out_raster)
+sim_pu_polygons <- get_sim_pu_polygons()
+sim_features <- get_sim_features()
+sim_locked_out_raster <- get_sim_locked_out_raster()
+sim_zones_pu_raster <- get_sim_zones_pu_raster()
+sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
+sim_zones_features <- get_sim_zones_features()
 
 # create minimal problem
-p1 <- problem(sim_pu_polygons, sim_features, "cost") \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(0.2) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(verbose = FALSE)
+p1 <-
+  problem(sim_pu_polygons, sim_features, "cost") \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.2) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
 
 # create problem with added locked out constraints using integers
 p2 <- p1 \%>\% add_locked_out_constraints(which(sim_pu_polygons$locked_out))
 
-# create problem with added locked out constraints using a field name
+# create problem with added locked out constraints using a column name
 p3 <- p1 \%>\% add_locked_out_constraints("locked_out")
 
 # create problem with added locked out constraints using raster data
@@ -150,99 +158,109 @@ s3 <- solve(p3)
 s4 <- solve(p4)
 s5 <- solve(p5)
 
+# create single object with all solutions
+s6 <- sf::st_sf(
+  tibble::tibble(
+    s1 = s1$solution_1,
+    s2 = s2$solution_1,
+    s3 = s3$solution_1,
+    s4 = s4$solution_1,
+    s5 = s5$solution_1
+  ),
+  geometry = sf::st_geometry(s1)
+)
+
 # plot solutions
-par(mfrow = c(3,2), mar = c(0, 0, 4.1, 0))
-plot(s1, main = "none locked out")
-plot(s1[s1$solution_1 == 1, ], col = "darkgreen", add = TRUE)
-
-plot(s2, main = "locked out (integer input)")
-plot(s2[s2$solution_1 == 1, ], col = "darkgreen", add = TRUE)
-
-plot(s3, main = "locked out (character input)")
-plot(s3[s3$solution_1 == 1, ], col = "darkgreen", add = TRUE)
-
-plot(s4, main = "locked out (raster input)")
-plot(s4[s4$solution_1 == 1, ], col = "darkgreen", add = TRUE)
-
-plot(s5, main = "locked out (polygon input)")
-plot(s5[s5$solution_1 == 1, ], col = "darkgreen", add = TRUE)
+plot(
+  s6,
+  main = c(
+    "none locked out", "locked out (integer input)",
+    "locked out (character input)", "locked out (raster input)",
+    "locked out (polygon input)"
+  )
+)
 
 # reset plot
 par(mfrow = c(1, 1))
 
 # create minimal multi-zone problem with spatial data
-p6 <- problem(sim_pu_zones_polygons, sim_features_zones,
-              cost_column = c("cost_1", "cost_2", "cost_3")) \%>\%
-      add_min_set_objective() \%>\%
-      add_absolute_targets(matrix(rpois(15, 1), nrow = 5, ncol = 3)) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(verbose = FALSE)
+p7 <-
+  problem(
+    sim_zones_pu_polygons, sim_zones_features,
+    cost_column = c("cost_1", "cost_2", "cost_3")
+  ) \%>\%
+  add_min_set_objective() \%>\%
+  add_absolute_targets(matrix(rpois(15, 1), nrow = 5, ncol = 3)) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
 
 # create multi-zone problem with locked out constraints using matrix data
-locked_matrix <- sim_pu_zones_polygons@data[, c("locked_1", "locked_2",
-                                                "locked_3")]
-locked_matrix <- as.matrix(locked_matrix)
+locked_matrix <- as.matrix(sf::st_drop_geometry(
+  sim_zones_pu_polygons[, c("locked_1", "locked_2", "locked_3")]
+))
 
-p7 <- p6 \%>\% add_locked_out_constraints(locked_matrix)
-
-# solve problem
-s6 <- solve(p6)
-
-# create new column representing the zone id that each planning unit
-# was allocated to in the solution
-s6$solution <- category_vector(s6@data[, c("solution_1_zone_1",
-                                           "solution_1_zone_2",
-                                           "solution_1_zone_3")])
-s6$solution <- factor(s6$solution)
-
-# plot solution
-spplot(s6, zcol = "solution", main = "solution", axes = FALSE, box = FALSE)
-
-# create multi-zone problem with locked out constraints using field names
-p8 <- p6 \%>\% add_locked_out_constraints(c("locked_1", "locked_2",
-                                          "locked_3"))
+p8 <- p7 \%>\% add_locked_out_constraints(locked_matrix)
 
 # solve problem
 s8 <- solve(p8)
 
-# create new column in s8 representing the zone id that each planning unit
+# create new column representing the zone id that each planning unit
 # was allocated to in the solution
-s8$solution <- category_vector(s8@data[, c("solution_1_zone_1",
-                                           "solution_1_zone_2",
-                                           "solution_1_zone_3")])
-s8$solution[s8$solution == 1 & s8$solution_1_zone_1 == 0] <- 0
+s8$solution <- category_vector(sf::st_drop_geometry(
+  s8[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")]
+))
 s8$solution <- factor(s8$solution)
 
 # plot solution
-spplot(s8, zcol = "solution", main = "solution", axes = FALSE, box = FALSE)
+plot(s8[, "solution"], main = "solution", axes = FALSE)
 
-# create multi-zone problem with raster planning units
-p9 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
-      add_min_set_objective() \%>\%
-      add_absolute_targets(matrix(rpois(15, 1), nrow = 5, ncol = 3)) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(verbose = FALSE)
-
-# create raster stack with locked out units
-locked_out_stack <- sim_pu_zones_stack[[1]]
-locked_out_stack[!is.na(locked_out_stack)] <- 0
-locked_out_stack <- locked_out_stack[[c(1, 1, 1)]]
-locked_out_stack[[1]][1] <- 1
-locked_out_stack[[2]][2] <- 1
-locked_out_stack[[3]][3] <- 1
-
-# plot locked out stack
-
-plot(locked_out_stack)
-
-# add locked out raster units to problem
-p9 <- p9 \%>\% add_locked_out_constraints(locked_out_stack)
+# create multi-zone problem with locked out constraints using column names
+p9 <-
+  p7 \%>\%
+  add_locked_out_constraints(c("locked_1", "locked_2", "locked_3"))
 
 # solve problem
 s9 <- solve(p9)
 
+# create new column in s8 representing the zone id that each planning unit
+# was allocated to in the solution
+s9$solution <- category_vector(sf::st_drop_geometry(
+  s9[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")]
+))
+s9$solution[s9$solution == 1 & s9$solution_1_zone_1 == 0] <- 0
+s9$solution <- factor(s9$solution)
+
 # plot solution
-plot(category_layer(s9), main = "solution", axes = FALSE, box = FALSE)
+plot(s9[, "solution"], main = "solution", axes = FALSE)
+
+# create multi-zone problem with raster planning units
+p10 <-
+  problem(sim_zones_pu_raster, sim_zones_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_absolute_targets(matrix(rpois(15, 1), nrow = 5, ncol = 3)) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
+
+# create multi-layer raster with locked out units
+locked_out_raster <- sim_zones_pu_raster[[1]]
+locked_out_raster[!is.na(locked_out_raster)] <- 0
+locked_out_raster <- locked_out_raster[[c(1, 1, 1)]]
+names(locked_out_raster) <- c("zones_1", "zones_2", "zones_3")
+locked_out_raster[[1]][1] <- 1
+locked_out_raster[[2]][2] <- 1
+locked_out_raster[[3]][3] <- 1
+
+# plot locked out raster
+plot(locked_out_raster)
+
+# add locked out raster units to problem
+p10 <- p10 \%>\% add_locked_out_constraints(locked_out_raster)
+
+# solve problem
+s10 <- solve(p10)
+
+# plot solution
+plot(category_layer(s10), main = "solution", axes = FALSE)
 }
 }
 \seealso{
@@ -253,7 +271,7 @@ Other constraints:
 \code{\link{add_feature_contiguity_constraints}()},
 \code{\link{add_linear_constraints}()},
 \code{\link{add_locked_in_constraints}()},
-\code{\link{add_mandatory_allocation_constraints,ConservationProblem-method}},
+\code{\link{add_mandatory_allocation_constraints}()},
 \code{\link{add_manual_bounded_constraints}()},
 \code{\link{add_manual_locked_constraints}()},
 \code{\link{add_neighbor_constraints}()}

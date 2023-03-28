@@ -7,10 +7,11 @@
 \description{
 Importance scores (also known as irreplaceability scores) can be used to
 assess the relative importance of planning units selected in a solution to a
-conservation planning \code{\link[=problem]{problem()}}.
+conservation planning problem.
 }
 \details{
-The following methods are available for calculating importance scores:
+The following methods are available for calculating importance scores
+for a solution to a conservation planning \code{\link[=problem]{problem()}}:
 
 \describe{
 
@@ -29,9 +30,9 @@ values).}
 Calculate importance scores following Ferrier \emph{et al.} (2000).
 These scores measure importance based on how critical
 planning units are for meeting targets. They can only be applied to
-conservation problems with a minimum set objective and a single zone (i.e.,
-the classic \emph{Marxan}-type problem). Furthermore---unlike the
-replacement cost scores---these scores provide a
+conservation problems that use targets and a single zone
+(e.g., the classic \emph{Marxan}-type problem). Furthermore -- unlike the
+replacement cost scores -- these scores provide a
 score for each feature within each planning unit, providing insight into
 why certain planning units are more important than other planning units.}
 
@@ -65,20 +66,22 @@ when neither of the other two methods can be used.
 \examples{
 \dontrun{
 # load data
-data(sim_pu_raster, sim_pu_polygons, sim_features)
+sim_pu_raster <- get_sim_pu_raster()
+sim_features <- get_sim_features()
 
 # build minimal conservation problem with raster data
-p1 <- problem(sim_pu_raster, sim_features) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(0.1) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(gap = 0, verbose = FALSE)
+p1 <-
+  problem(sim_pu_raster, sim_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.1) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(gap = 0, verbose = FALSE)
 
 # solve the problem
 s1 <- solve(p1)
 
 # plot solution
-plot(s1, main = "solution", axes = FALSE, box = FALSE)
+plot(s1, main = "solution", axes = FALSE)
 
 # calculate importance scores using replacement cost scores
 ir1 <- eval_replacement_importance(p1, s1)
@@ -90,10 +93,14 @@ ir2 <- eval_ferrier_importance(p1, s1)[["total"]]
 # calculate importance scores using rarity weighted richness scores
 ir3 <- eval_rare_richness_importance(p1, s1)
 
+# create multi-band raster with different importance scores
+ir <- c(ir1, ir2, ir3)
+names(ir) <- c(
+  "replacement cost", "Ferrier score", "rarity weighted richness"
+)
+
 # plot importance scores
-plot(stack(ir1, ir2, ir3), axes = FALSE, box = FALSE,
-     main = c("replacement cost", "Ferrier score",
-              "rarity weighted richness"))
+plot(ir, axes = FALSE)
 }
 }
 \references{

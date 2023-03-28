@@ -2,9 +2,22 @@
 % Please edit documentation in R/simulate.R
 \name{simulate_data}
 \alias{simulate_data}
+\alias{simulate_data.Raster}
+\alias{simulate_data.SpatRaster}
 \title{Simulate data}
 \usage{
-simulate_data(
+simulate_data(x, n, scale, intensity, sd, transform)
+
+\method{simulate_data}{Raster}(
+  x,
+  n = 1,
+  scale = 0.5,
+  intensity = 0,
+  sd = 1,
+  transform = identity
+)
+
+\method{simulate_data}{SpatRaster}(
   x,
   n = 1,
   scale = 0.5,
@@ -14,13 +27,13 @@ simulate_data(
 )
 }
 \arguments{
-\item{x}{\code{\link[raster:raster]{raster::raster()}} raster object to use as a template.}
+\item{x}{\code{\link[terra:rast]{terra::rast()}} object to use as a template.}
 
 \item{n}{\code{integer} number of layers to simulate.
 Defaults to 1.}
 
 \item{scale}{\code{numeric} parameter to control level of spatial
-auto-correlation.
+auto-correlation in the simulated data.
 Defaults to 0.5.}
 
 \item{intensity}{\code{numeric} average value of simulated data.
@@ -34,7 +47,7 @@ Defaults to the \code{\link[=identity]{identity()}} function such that values re
 following transformation.}
 }
 \value{
-\code{\link[raster:stack]{raster::stack()}} object.
+A \code{\link[terra:rast]{terra::rast()}} object.
 }
 \description{
 Simulate spatially auto-correlated data using Gaussian random fields.
@@ -42,13 +55,20 @@ Simulate spatially auto-correlated data using Gaussian random fields.
 \examples{
 \dontrun{
 # create raster
-r <- raster(ncol = 10, nrow = 10, xmn = 0, xmx = 1, ymn = 0, ymx = 1)
-values(r) <- 1
+r <- terra::rast(
+  ncols = 10, nrows = 10, xmin = 0, xmax = 1, ymin = 0, ymax = 1, vals = 1
+)
 
 # simulate data using a Gaussian field
 x <- simulate_data(r, n = 1, scale = 0.2)
 
 # plot simulated data
-plot(x, main = "simulated data")
+plot(x, main = "simulated data", axes = FALSE)
 }
 }
+\seealso{
+Other simulations: 
+\code{\link{simulate_cost}()},
+\code{\link{simulate_species}()}
+}
+\concept{simulations}

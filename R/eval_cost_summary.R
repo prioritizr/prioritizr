@@ -1,19 +1,18 @@
-#' @include internal.R ConservationProblem-proto.R
+#' @include internal.R ConservationProblem-class.R
 NULL
 
-#' Evaluate solution cost
+#' Evaluate cost of solution
 #'
 #' Calculate the total cost of a solution to a conservation planning
-#' [problem()].
+#' problem.
 #' For example, if the planning unit cost data describe land acquisition costs
 #' (USD), then the total cost would be net cost (USD) needed to acquire
 #' all planning units selected within the solution.
 #'
-#' @param x [problem()] (i.e., [`ConservationProblem-class`]) object.
+#' @param x [problem()] object.
 #'
 #' @param solution `numeric`, `matrix`, `data.frame`,
-#'   [`Raster-class`], [`Spatial-class`],
-#'   or [sf::sf()] object.
+#'  [terra::rast()], or [sf::sf()] object.
 #'  The argument should be in the same format as the planning unit cost
 #'  data in the argument to `x`.
 #'  See the Solution format section for more information.
@@ -34,7 +33,7 @@ NULL
 #' `r solution_format_documentation("solution")`
 #'
 #' @return
-#'   [tibble::tibble()] object containing the solution cost.
+#'   A [tibble::tibble()] object containing the solution cost.
 #'   It contains the following columns:
 #'
 #'   \describe{
@@ -76,15 +75,19 @@ NULL
 #' set.seed(500)
 #'
 #' # load data
-#' data(sim_pu_raster, sim_pu_sf, sim_features,
-#'      sim_pu_zones_sf, sim_features_zones)
+#' sim_pu_raster <- get_sim_pu_raster()
+#' sim_pu_polygons <- get_sim_pu_polygons()
+#' sim_features <- get_sim_features()
+#' sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
+#' sim_zones_features <- get_sim_zones_features()
 #'
 #' # build minimal conservation problem with raster data
-#' p1 <- problem(sim_pu_raster, sim_features) %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(0.1) %>%
-#'       add_binary_decisions() %>%
-#'       add_default_solver(verbose = FALSE)
+#' p1 <-
+#'   problem(sim_pu_raster, sim_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(0.1) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
 #'
 #' # solve the problem
 #' s1 <- solve(p1)
@@ -93,18 +96,19 @@ NULL
 #' print(s1)
 #'
 #' # plot solution
-#' plot(s1, main = "solution", axes = FALSE, box = FALSE)
+#' plot(s1, main = "solution", axes = FALSE)
 #'
 #' # calculate cost of the solution
 #' r1 <- eval_cost_summary(p1, s1)
 #' print(r1)
 #'
-#' # build minimal conservation problem with polygon (sf) data
-#' p2 <- problem(sim_pu_sf, sim_features, cost_column = "cost") %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(0.1) %>%
-#'       add_binary_decisions() %>%
-#'       add_default_solver(verbose = FALSE)
+#' # build minimal conservation problem with polygon data
+#' p2 <-
+#'   problem(sim_pu_polygons, sim_features, cost_column = "cost") %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(0.1) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
 #'
 #' # solve the problem
 #' s2 <- solve(p2)
@@ -112,36 +116,39 @@ NULL
 #' # plot solution
 #' plot(s2[, "solution_1"])
 #'
-#' # print first six rows of the attribute table
-#' print(head(s2))
+#' # print solution
+#' print(s2)
 #'
 #' # calculate cost of the solution
 #' r2 <- eval_cost_summary(p2, s2[, "solution_1"])
 #' print(r2)
 #'
 #' # manually calculate cost of the solution
-#' r2_manual <- sum(s2$solution * sim_pu_sf$cost, na.rm = TRUE)
+#' r2_manual <- sum(s2$solution_1 * sim_pu_polygons$cost, na.rm = TRUE)
 #' print(r2_manual)
 #'
-#' # build multi-zone conservation problem with polygon (sf) data
-#' p3 <- problem(sim_pu_zones_sf, sim_features_zones,
-#'               cost_column = c("cost_1", "cost_2", "cost_3")) %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
-#'                                   ncol = 3)) %>%
-#'       add_binary_decisions() %>%
-#'       add_default_solver(verbose = FALSE)
+#' # build multi-zone conservation problem with polygon data
+#' p3 <-
+#'   problem(
+#'     sim_zones_pu_polygons, sim_zones_features,
+#'     cost_column = c("cost_1", "cost_2", "cost_3")
+#'   ) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5, ncol = 3)) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
 #'
 #' # solve the problem
 #' s3 <- solve(p3)
 #'
-#' # print first six rows of the attribute table
-#' print(head(s3))
+#' # print solution
+#' print(s3)
 #'
 #' # create new column representing the zone id that each planning unit
 #' # was allocated to in the solution
 #' s3$solution <- category_vector(
-#'   s3[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")])
+#'   s3[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")]
+#' )
 #' s3$solution <- factor(s3$solution)
 #'
 #' # plot solution
@@ -149,25 +156,16 @@ NULL
 #'
 #' # calculate cost of the solution
 #' r3 <- eval_cost_summary(
-#'   p3, s3[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")])
+#'   p3, s3[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")]
+#' )
 #' print(r3)
 #' }
 #' @export
-eval_cost_summary <- function(x, solution) UseMethod("eval_cost_summary")
-
-#' @rdname eval_cost_summary
-#' @method eval_cost_summary default
-#' @export
-eval_cost_summary.default <- function(x, solution) {
-  stop("argument to x must be a ConservationProblem object")
-}
-
-#' @rdname eval_cost_summary
-#' @method eval_cost_summary ConservationProblem
-#' @export
-eval_cost_summary.ConservationProblem <- function(x, solution) {
+eval_cost_summary <- function(x, solution) {
   # assert arguments are valid
-  assertthat::assert_that(inherits(x, "ConservationProblem"))
+  assert_required(x)
+  assert_required(solution)
+  assert(is_conservation_problem(x))
   # convert solution to status matrix format
   solution <- planning_unit_solution_status(x, solution)
   # calculate overall cost of each planning unit
@@ -178,7 +176,8 @@ eval_cost_summary.ConservationProblem <- function(x, solution) {
   if (x$number_of_zones() > 1) {
     out <- tibble::tibble(
       summary = c("overall", zone_names(x)),
-      cost = c(total_cost, costs))
+      cost = c(total_cost, costs)
+    )
   } else {
     out <- tibble::tibble(summary = "overall", cost = total_cost)
   }

@@ -3,8 +3,11 @@
 #include "optimization_problem.h"
 
 // [[Rcpp::export]]
-bool rcpp_add_rij_data(SEXP x, Rcpp::List rij_list, Rcpp::List targets_list,
-   bool compressed_formulation) {
+bool rcpp_add_rij_data(
+  SEXP x,
+  const Rcpp::List rij_list,
+  const Rcpp::List targets_list,
+  bool compressed_formulation) {
   // initialization
   Rcpp::XPtr<OPTIMIZATIONPROBLEM> ptr = Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x);
   // declare variables

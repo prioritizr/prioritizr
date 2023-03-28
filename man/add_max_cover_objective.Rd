@@ -7,7 +7,7 @@
 add_max_cover_objective(x, budget)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} object.}
 
 \item{budget}{\code{numeric} value specifying the maximum expenditure of
 the prioritization. For problems with multiple zones, the argument
@@ -16,11 +16,10 @@ for the entire solution or a \code{numeric} vector to specify
 a budget for each each management zone.}
 }
 \value{
-Object (i.e., \code{\linkS4class{ConservationProblem}}) with the objective
-added to it.
+An updated \code{problem()} object with the objective added to it.
 }
 \description{
-Set the objective of a conservation planning \code{\link[=problem]{problem()}} to
+Set the objective of a conservation planning problem to
 represent at least one instance of as many features as possible within a
 given budget. This objective does not use targets, and feature
 weights should be used instead to increase the representation of certain
@@ -84,64 +83,75 @@ Church \emph{et al.} (1996). The old formulation is now provided by the
 \examples{
 \dontrun{
 # load data
-data(sim_pu_raster, sim_pu_zones_stack, sim_features, sim_features_zones)
+sim_pu_raster <- get_sim_pu_raster()
+sim_zones_pu_raster <- get_sim_zones_pu_raster()
+sim_features <- get_sim_features()
+sim_zones_features <- get_sim_zones_features()
 
 # threshold the feature data to generate binary biodiversity data
 sim_binary_features <- sim_features
-thresholds <- raster::quantile(sim_features, probs = 0.5, names = FALSE,
-                               na.rm = TRUE)
-for (i in seq_len(raster::nlayers(sim_features)))
-  sim_binary_features[[i]] <- as.numeric(raster::values(sim_features[[i]]) >
-                                         thresholds[[i]])
+thresholds <- terra::global(
+  sim_features, fun = quantile, probs = 0.5, na.rm = TRUE
+)
+for (i in seq_len(terra::nlyr(sim_features))) {
+  sim_binary_features[[i]] <- terra::as.int(
+    sim_features[[i]] > thresholds[[1]][[i]]
+  )
+}
 
-# create problem with maximum utility objective
-p1 <- problem(sim_pu_raster, sim_binary_features) \%>\%
-      add_max_cover_objective(500) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(verbose = FALSE)
+# create problem with maximum cover objective
+p1 <-
+  problem(sim_pu_raster, sim_binary_features) \%>\%
+  add_max_cover_objective(500) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
 
 # solve problem
 s1 <- solve(p1)
 
 # plot solution
-plot(s1, main = "solution", axes = FALSE, box = FALSE)
+plot(s1, main = "solution", axes = FALSE)
 
 # threshold the multi-zone feature data to generate binary biodiversity data
-sim_binary_features_zones <- sim_features_zones
-for (z in number_of_zones(sim_features_zones)) {
-  thresholds <- raster::quantile(sim_features_zones[[z]], probs = 0.5,
-                                 names = FALSE, na.rm = TRUE)
-  for (i in seq_len(number_of_features(sim_features_zones))) {
-    sim_binary_features_zones[[z]][[i]] <- as.numeric(
-      raster::values(sim_features_zones[[z]][[i]]) > thresholds[[i]])
+sim_binary_features_zones <- sim_zones_features
+for (z in seq_len(number_of_zones(sim_zones_features))) {
+  thresholds <- terra::global(
+    sim_zones_features[[z]], fun = quantile, probs = 0.5, na.rm = TRUE
+  )
+  for (i in seq_len(number_of_features(sim_zones_features))) {
+    sim_binary_features_zones[[z]][[i]] <- terra::as.int(
+      sim_zones_features[[z]][[i]] > thresholds[[1]][[i]]
+    )
   }
 }
 
-# create multi-zone problem with maximum utility objective that
+# create multi-zone problem with maximum cover objective that
 # has a single budget for all zones
-p2 <- problem(sim_pu_zones_stack, sim_binary_features_zones) \%>\%
-      add_max_cover_objective(800) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(verbose = FALSE)
+p2 <-
+  problem(sim_zones_pu_raster, sim_binary_features_zones) \%>\%
+  add_max_cover_objective(800) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
 
 # solve problem
 s2 <- solve(p2)
 
 # plot solution
-plot(category_layer(s2), main = "solution", axes = FALSE, box = FALSE)
+plot(category_layer(s2), main = "solution", axes = FALSE)
 
-# create multi-zone problem with maximum utility objective that
+# create multi-zone problem with maximum cover objective that
 # has separate budgets for each zone
-p3 <- problem(sim_pu_zones_stack, sim_binary_features_zones) \%>\%
-      add_max_cover_objective(c(400, 400, 400)) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(verbose = FALSE)
+p3 <-
+  problem(sim_zones_pu_raster, sim_binary_features_zones) \%>\%
+  add_max_cover_objective(c(400, 400, 400)) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
 
 # solve problem
 s3 <- solve(p3)
 
 # plot solution
-plot(category_layer(s3), main = "solution", axes = FALSE, box = FALSE)
+plot(category_layer(s3), main = "solution", axes = FALSE)
 }
 }
 \references{

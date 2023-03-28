@@ -1,6 +1,4 @@
-context("marxan_connectivity_data_to_matrix")
-
-test_that("single zone (x=NULL, symmetric=TRUE)", {
+test_that("single zone (x = NULL, symmetric = TRUE)", {
   # create data
   d <- expand.grid(id1 = seq_len(4), id2 = c(1, 4))
   d$boundary <- 1
@@ -16,11 +14,11 @@ test_that("single zone (x=NULL, symmetric=TRUE)", {
   x2[1, 1] <- 0.5
   x2[4, 4] <- 0.5
   # tests
-  expect_is(x, "dsCMatrix")
+  expect_inherits(x, "dsCMatrix")
   expect_equal(x, as_Matrix(x2, "dsCMatrix"))
 })
 
-test_that("multiple zones (x = NULL, symmetric=TRUE)", {
+test_that("multiple zones (x = NULL, symmetric = TRUE)", {
   # create data
   d <- data.frame(
     id1 = c(1, 2, 3, 4, 1, 2),
@@ -39,11 +37,11 @@ test_that("multiple zones (x = NULL, symmetric=TRUE)", {
     x2[d$id1[i], d$id2[i], curr_z1, curr_z2] <- d$boundary[i]
   }
   # tests
-  expect_is(x, "array")
+  expect_inherits(x, "array")
   expect_equal(x, x2)
 })
 
-test_that("single zone (x=ConservationProblem, symmetric=TRUE)", {
+test_that("single zone (x = ConservationProblem, symmetric = TRUE)", {
   # create data
   d <- expand.grid(id1 = seq_len(4), id2 = c(1, 4))
   d$boundary <- 1
@@ -51,7 +49,7 @@ test_that("single zone (x=ConservationProblem, symmetric=TRUE)", {
   p <- problem(
     x = runif(5),
     features = data.frame(id = seq_len(2), name = letters[seq_len(2)]),
-    rij_matrix = matrix(0, ncol = 5, nrow = 2)
+    rij_matrix = matrix(1, ncol = 5, nrow = 2)
   )
   # create object
   x <- marxan_connectivity_data_to_matrix(p, d, symmetric = TRUE)
@@ -64,11 +62,11 @@ test_that("single zone (x=ConservationProblem, symmetric=TRUE)", {
   x2[1, 1] <- 0.5
   x2[4, 4] <- 0.5
   # tests
-  expect_is(x, "dsCMatrix")
+  expect_inherits(x, "dsCMatrix")
   expect_equal(x, as_Matrix(x2, "dsCMatrix"))
 })
 
-test_that("multiple zones (x=ConservationProblem, symmetric=TRUE)", {
+test_that("multiple zones (x = ConservationProblem, symmetric = TRUE)", {
   # create data
   d <- data.frame(
     id1 = c(1, 2, 3, 4, 2),
@@ -81,8 +79,8 @@ test_that("multiple zones (x=ConservationProblem, symmetric=TRUE)", {
     x = matrix(1, nrow = 5, ncol = 2),
     features = data.frame(id = seq_len(2), name = letters[seq_len(2)]),
     rij_matrix = list(
-      "a" = matrix(0, ncol = 5, nrow = 2),
-      "b" = matrix(0, ncol = 5, nrow = 2)
+      "a" = matrix(1, ncol = 5, nrow = 2),
+      "b" = matrix(1, ncol = 5, nrow = 2)
     )
   )
   # create object
@@ -95,11 +93,11 @@ test_that("multiple zones (x=ConservationProblem, symmetric=TRUE)", {
     x2[d$id1[i], d$id2[i], curr_z1, curr_z2] <- d$boundary[i]
   }
   # tests
-  expect_is(x, "array")
+  expect_inherits(x, "array")
   expect_equal(x, x2)
 })
 
-test_that("single zone (x=NULL, symmetric=FALSE)", {
+test_that("single zone (x = NULL, symmetric = FALSE)", {
   # create data
   d <- data.frame(id1 = c(1, 2, 2), id2 = c(1, 1, 3), boundary = c(4, 5, 6))
   # create object
@@ -110,11 +108,11 @@ test_that("single zone (x=NULL, symmetric=FALSE)", {
   x2[2, 1] <- 5
   x2[2, 3] <- 6
   # tests
-  expect_is(x, "dgCMatrix")
+  expect_inherits(x, "dgCMatrix")
   expect_equal(x, as_Matrix(x2, "dgCMatrix"))
 })
 
-test_that("multiple zones (x=NULL, symmetric=FALSE)", {
+test_that("multiple zones (x = NULL, symmetric = FALSE)", {
   # create data
   d <- data.frame(
     id1 = c(1, 2, 3, 4, 1, 2),
@@ -133,17 +131,17 @@ test_that("multiple zones (x=NULL, symmetric=FALSE)", {
     x2[d$id1[i], d$id2[i], curr_z1, curr_z2] <- d$boundary[i]
   }
   # tests
-  expect_is(x, "array")
+  expect_inherits(x, "array")
   expect_equal(x, x2)
 })
 
-test_that("single zone (x=ConservationProblem, symmetric=FALSE)", {
+test_that("single zone (x = ConservationProblem, symmetric = FALSE)", {
   # create data
   d <- data.frame(id1 = c(1, 2, 2), id2 = c(1, 1, 3), boundary = c(4, 5, 6))
   p <- problem(
     x = runif(5),
     features = data.frame(id = seq_len(2), name = letters[seq_len(2)]),
-    rij_matrix = matrix(0, ncol = 5, nrow = 2)
+    rij_matrix = matrix(1, ncol = 5, nrow = 2)
   )
   # create object
   x <- marxan_connectivity_data_to_matrix(p, d, symmetric = FALSE)
@@ -153,11 +151,11 @@ test_that("single zone (x=ConservationProblem, symmetric=FALSE)", {
   x2[2, 1] <- 5
   x2[2, 3] <- 6
   # tests
-  expect_is(x, "dgCMatrix")
+  expect_inherits(x, "dgCMatrix")
   expect_equal(x, as_Matrix(x2, "dgCMatrix"))
 })
 
-test_that("multiple zones (x=ConservationProblem, symmetric=FALSE)", {
+test_that("multiple zones (x = ConservationProblem, symmetric = FALSE)", {
   # create data
   d <- data.frame(
     id1 = c(1, 2, 3, 4, 1, 2),
@@ -170,8 +168,8 @@ test_that("multiple zones (x=ConservationProblem, symmetric=FALSE)", {
     x = matrix(1, nrow = 5, ncol = 2),
     features = data.frame(id = seq_len(2), name = letters[seq_len(2)]),
     rij_matrix = list(
-      "a" = matrix(0, ncol = 5, nrow = 2),
-      "b" = matrix(0, ncol = 5, nrow = 2)
+      "a" = matrix(1, ncol = 5, nrow = 2),
+      "b" = matrix(1, ncol = 5, nrow = 2)
     )
   )
   # create object
@@ -184,6 +182,6 @@ test_that("multiple zones (x=ConservationProblem, symmetric=FALSE)", {
     x2[d$id1[i], d$id2[i], curr_z1, curr_z2] <- d$boundary[i]
   }
   # tests
-  expect_is(x, "array")
+  expect_inherits(x, "array")
   expect_equal(x, x2)
 })

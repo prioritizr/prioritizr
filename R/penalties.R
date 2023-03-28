@@ -1,9 +1,9 @@
-#' @include internal.R Collection-proto.R
+#' @include internal.R
 NULL
 
 #' Add a penalty
 #'
-#' A penalty can be applied to a conservation planning [problem()] to
+#' A penalty can be applied to a conservation planning problem to
 #' penalize solutions according to a specific metric. They
 #' directly trade-off with the primary objective of a problem
 #' (e.g., the primary objective when using [add_min_set_objective()] is
@@ -41,21 +41,24 @@ NULL
 #' @family overviews
 #'
 #' @examples
+#' \dontrun{
 #' # load data
-#' data(sim_pu_raster, sim_features)
+#' sim_pu_raster <- get_sim_pu_raster()
+#' sim_features <- get_sim_features()
 #'
 #' # create basic problem
-#' p1 <- problem(sim_pu_raster, sim_features) %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(0.2) %>%
-#'       add_default_solver(verbose = FALSE)
+#' p1 <-
+#'   problem(sim_pu_raster, sim_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(0.2) %>%
+#'   add_default_solver(verbose = FALSE)
 #'
 #' # create problem with boundary penalties
 #' p2 <- p1 %>% add_boundary_penalties(5, 1)
 #'
 #' # create connectivity matrix based on spatial proximity
-#'  scm <- as.data.frame(sim_pu_raster, xy = TRUE, na.rm = FALSE)
-#'  scm <- 1 / (as.matrix(dist(scm)) + 1)
+#'  scm <- terra::as.data.frame(sim_pu_raster, xy = TRUE, na.rm = FALSE)
+#'  scm <- 1 / (as.matrix(dist(as.matrix(scm))) + 1)
 #'
 #' # remove weak and moderate connections between planning units to reduce
 #' # run time
@@ -73,24 +76,25 @@ NULL
 #'
 #' # create problem with linear penalties,
 #' # here the penalties will be based on random numbers to keep it simple
-#' \dontrun{
+#'
 #' # simulate penalty data
 #' sim_penalty_raster <- simulate_cost(sim_pu_raster)
 #'
 #' # plot penalty data
-#' plot(sim_penalty_raster, main = "penalty data", axes = FALSE, box = FALSE)
+#' plot(sim_penalty_raster, main = "penalty data", axes = FALSE)
 #'
 #' # create problem with linear penalties, with a penalty scaling factor of 100
 #' p5 <- p1 %>% add_linear_penalties(100, data = sim_penalty_raster)
 #'
 #' # solve problems
-#' s <- stack(solve(p1), solve(p2), solve(p3), solve(p4), solve(p5))
+#' s <- c(solve(p1), solve(p2), solve(p3), solve(p4), solve(p5))
+#' names(s) <- c(
+#'   "basic solution", "boundary penalties", "connectivity penalties",
+#'   "asymmetric penalties", "linear penalties"
+#' )
 #'
 #' # plot solutions
-#' plot(s, axes = FALSE, box = FALSE,
-#'      main = c("basic solution", "boundary penalties",
-#'               "connectivity penalties", "asymmetric penalties",
-#'               "linear penalties"))
-#'  }
+#' plot(s, axes = FALSE)
+#' }
 #' @name penalties
 NULL

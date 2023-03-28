@@ -2,8 +2,8 @@
 #include "optimization_problem.h"
 
 // [[Rcpp::export]]
-bool rcpp_apply_linear_constraints(SEXP x, double threshold, std::string sense,
-                                   arma::sp_mat data) {
+bool rcpp_apply_linear_constraints(
+  SEXP x, double threshold, std::string sense, const arma::sp_mat data) {
   // initialization
   Rcpp::XPtr<OPTIMIZATIONPROBLEM> ptr = Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x);
   std::size_t i = ptr->_rhs.size();

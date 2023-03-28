@@ -6,6 +6,7 @@
 \alias{eval_ferrier_importance,ConservationProblem,matrix-method}
 \alias{eval_ferrier_importance,ConservationProblem,data.frame-method}
 \alias{eval_ferrier_importance,ConservationProblem,Spatial-method}
+\alias{eval_ferrier_importance,ConservationProblem,SpatRaster-method}
 \alias{eval_ferrier_importance,ConservationProblem,sf-method}
 \alias{eval_ferrier_importance,ConservationProblem,Raster-method}
 \title{Evaluate solution importance using Ferrier scores}
@@ -23,21 +24,21 @@ eval_ferrier_importance(x, solution)
 \S4method{eval_ferrier_importance}{ConservationProblem,sf}(x, solution)
 
 \S4method{eval_ferrier_importance}{ConservationProblem,Raster}(x, solution)
+
+\S4method{eval_ferrier_importance}{ConservationProblem,SpatRaster}(x, solution)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} object.}
 
 \item{solution}{\code{numeric}, \code{matrix}, \code{data.frame},
-\code{\linkS4class{Raster}}, \code{\linkS4class{Spatial}},
-or \code{\link[sf:sf]{sf::sf()}} object.
+\code{\link[terra:rast]{terra::rast()}}, or \code{\link[sf:sf]{sf::sf()}} object.
 The argument should be in the same format as the planning unit cost
 data in the argument to \code{x}.
 See the Solution format section for more information.}
 }
 \value{
 A \code{matrix}, \code{\link[tibble:tibble]{tibble::tibble()}},
-\code{\linkS4class{RasterLayer}}, or
-\code{\linkS4class{Spatial}} object containing the scores for each
+\code{\link[terra:rast]{terra::rast()}}, or \code{\link[sf:sf]{sf::st_sf()}} object containing the scores for each
 planning unit selected in the solution.
 Specifically, the returned object is in the
 same format (except if the planning units are a \code{numeric} vector) as the
@@ -51,9 +52,9 @@ a solution following Ferrier \emph{et al.} (2000).
 Importance scores are reported separately for each feature within
 each planning unit. Additionally, a total importance score is also
 calculated as the sum of the scores for each feature.
-Note that this function only works for problems with
-a minimum set objective and a single zone.
-It will throw an error for problems that do not meet this criteria.
+Note that this function only works for problems
+that use targets and a single zone.
+It will throw an error for problems that do not meet these criteria.
 }
 \section{Notes}{
 
@@ -90,8 +91,8 @@ missing cost (\code{NA}) values for a particular zone should also have a
 missing (\code{NA}) values in the argument to \code{solution}.
 }
 
-\item{\code{x} has \code{\linkS4class{Raster}} planning units}{The argument to \code{solution}
-be a \code{\linkS4class{Raster}} object where different grid cells (pixels) correspond
+\item{\code{x} has \code{\link[terra:rast]{terra::rast()}} planning units}{The argument to \code{solution}
+be a \code{\link[terra:rast]{terra::rast()}} object where different grid cells (pixels) correspond
 to different planning units and layers correspond to
 a different management zones. It should have the same dimensionality
 (rows, columns, layers), resolution, extent, and coordinate reference
@@ -108,20 +109,6 @@ object containing the solution also contains additional columns, then
 these columns will need to be subsetted prior to using this function
 (see below for example with \code{\link[sf:sf]{sf::sf()}} data).
 Additionally, any planning units missing cost
-(\code{NA}) values for a particular zone should also have missing (\code{NA})
-values in the argument to \code{solution}.
-}
-
-\item{\code{x} has \code{\linkS4class{Spatial}} planning units}{The argument to \code{solution}
-must be a \code{\linkS4class{Spatial}} object with each column corresponding to a
-different zone, each row corresponding to a different planning unit, and
-cell values corresponding to the solution value. This means that if the
-\code{\linkS4class{Spatial}} object containing the solution also contains additional
-columns, then these columns will need to be subsetted prior to using this
-function (see below for example with \code{\link[sf:sf]{sf::sf()}} data).
-Additionally, the argument to \code{solution} must also have the same
-coordinate reference system as the planning unit data.
-Furthermore, any planning units missing cost
 (\code{NA}) values for a particular zone should also have missing (\code{NA})
 values in the argument to \code{solution}.
 }
@@ -143,19 +130,23 @@ values in the argument to \code{solution}.
 }
 
 \examples{
+\dontrun{
 # seed seed for reproducibility
 set.seed(600)
 
 # load data
-data(sim_pu_raster, sim_features)
+sim_pu_raster <- get_sim_pu_raster()
+sim_pu_polygons <- get_sim_pu_polygons()
+sim_features <- get_sim_features()
 
 # create minimal problem with binary decisions
-p1 <- problem(sim_pu_raster, sim_features) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(0.1) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(gap = 0, verbose = FALSE)
-\dontrun{
+p1 <-
+  problem(sim_pu_raster, sim_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.1) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(gap = 0, verbose = FALSE)
+
 # solve problem
 s1 <- solve(p1)
 
@@ -163,7 +154,7 @@ s1 <- solve(p1)
 print(s1)
 
 # plot solution
-plot(s1, main = "solution", axes = FALSE, box = FALSE)
+plot(s1, main = "solution", axes = FALSE)
 
 # calculate importance scores using Ferrier et al. 2000 method
 fs1 <- eval_ferrier_importance(p1, s1)
@@ -175,14 +166,15 @@ fs1 <- eval_ferrier_importance(p1, s1)
 print(fs1)
 
 # plot total importance scores
-plot(fs1, main = "Ferrier scores", axes = FALSE, box = FALSE)
+plot(fs1, main = names(fs1), axes = FALSE)
 
-# create minimal problem with polygon (sf) planning units
-p2 <- problem(sim_pu_sf, sim_features, cost_column = "cost") \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(0.05) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(gap = 0, verbose = FALSE)
+# create minimal problem with polygon planning units
+p2 <-
+  problem(sim_pu_polygons, sim_features, cost_column = "cost") \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.05) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(gap = 0, verbose = FALSE)
 
 # solve problem
 s2 <- solve(p2)
@@ -197,7 +189,7 @@ plot(s2[, "solution_1"], main = "solution")
 fs2 <- eval_ferrier_importance(p2, s2[, "solution_1"])
 
 # plot importance scores
-plot(fs2, main = "Ferrier scores")
+plot(fs2)
 
 }
 

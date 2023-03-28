@@ -1,13 +1,13 @@
-#' @include internal.R Penalty-proto.R marxan_boundary_data_to_matrix.R
+#' @include internal.R Penalty-class.R marxan_boundary_data_to_matrix.R
 NULL
 
 #' Add boundary penalties
 #'
-#' Add penalties to a conservation planning [problem()] to favor solutions
+#' Add penalties to a conservation planning problem to favor solutions
 #' that spatially clump planning units together based on the overall
-#' boundary length (perimeter).
+#' boundary length (i.e., total perimeter).
 #'
-#' @param x [problem()] (i.e., [`ConservationProblem-class`]) object.
+#' @param x [problem()] object.
 #'
 #' @param penalty `numeric` penalty that is used to scale the importance
 #'   of selecting planning units that are spatially clumped together compared
@@ -80,16 +80,17 @@ NULL
 #' \item{`data` as a `matrix`/`Matrix` object}{where rows and columns represent
 #'   different planning units and the value of each cell represents the
 #'   amount of shared boundary length between two different planning units.
-#'   Cells that occur along the matrix diagonal represent the amount of
-#'   exposed boundary associated with each planning unit that has
-#'   no neighbor (e.g., these value might pertain to boundaries along a
-#'   coastline).}
+#'   Cells that occur along the matrix diagonal denote the total
+#'   boundary length associated with each planning unit.}
 #'
 #' \item{`data` as a `data.frame` object}{with the columns `"id1"`,
 #'   `"id2"`, and `"boundary"`. The `"id1"` and `"id2"` columns contain
 #'   identifiers (indices) for a pair of planning units, and the `"boundary"`
 #'   column contains the amount of shared boundary length between these
 #'   two planning units.
+#'   Additionally, if the values in the `"id1"` and `"id2"` columns
+#'   contain the same values, then the value denotes the
+#'   amount of exposed boundary length (not total boundary).
 #'   This format follows the the standard *Marxan* format for boundary
 #'   data (i.e., per the "bound.dat" file).}
 #'
@@ -109,11 +110,11 @@ NULL
 #' \eqn{W_{zz}}{Wzz} represent the matrix argument to `zones`.
 #'
 #' \deqn{
-#' \sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z} (\mathit{ifelse}(i == j, E_z, 1)
-#' \times p \times W_{zz} B_{ij}) + \sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z}
+#' \sum_{i}^{I} \sum_{z}^{Z} (p \times W_{zz} B_{ii}) +
+#' \sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z}
 #' \sum_{y}^{Z} (-2 \times p \times X_{iz} \times X_{jy} \times W_{zy} \times
 #' B_{ij})}{
-#' sum_i^I sum_j^I sum_z^Z (ifelse(i == j, Ez, 1) * p * Wzz * Bij) + sum_i^I
+#' sum_i^I sum_z^Z (p * Wzz * Bii) + sum_i^I
 #' sum_j^I sum_z^Z sum_y^Z (-2 * p * Xiz * Xjy * Wzy * Bij)
 #' }
 #'
@@ -121,8 +122,7 @@ NULL
 #' benefit and not minimize some measure of cost, the term \eqn{p} is
 #' replaced with \eqn{-p}.
 #'
-#' @return Object (i.e., [`ConservationProblem-class`]) with the penalties
-#'  added to it.
+#' @return An updated [problem()] object with the penalties added to it.
 #'
 #' @seealso
 #' See [penalties] for an overview of all functions for adding penalties.
@@ -145,14 +145,18 @@ NULL
 #' set.seed(500)
 #'
 #' # load data
-#' data(sim_pu_raster, sim_features, sim_pu_zones_stack, sim_features_zones)
+#' sim_pu_raster <- get_sim_pu_raster()
+#' sim_features <- get_sim_features()
+#' sim_zones_pu_raster <- get_sim_zones_pu_raster()
+#' sim_zones_features <- get_sim_zones_features()
 #'
 #' # create minimal problem
-#' p1 <- problem(sim_pu_raster, sim_features) %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(0.2) %>%
-#'       add_binary_decisions() %>%
-#'       add_default_solver(verbose = FALSE)
+#' p1 <-
+#'   problem(sim_pu_raster, sim_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(0.2) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
 #'
 #' # create problem with low boundary penalties
 #' p2 <- p1 %>% add_boundary_penalties(50, 1)
@@ -166,19 +170,22 @@ NULL
 #' p4 <- p1 %>% add_boundary_penalties(50, 1, data = bmat)
 #'
 #' # solve problems
-#' s <- stack(solve(p1), solve(p2), solve(p3), solve(p4))
+#' s1 <- c(solve(p1), solve(p2), solve(p3), solve(p4))
+#' names(s1) <- c("basic solution", "small penalties", "high penalties",
+#'   "precomputed data"
+#' )
 #'
 #' # plot solutions
-#' plot(s, main = c("basic solution", "small penalties", "high penalties",
-#'                  "precomputed data"), axes = FALSE, box = FALSE)
+#' plot(s1, axes = FALSE)
 #'
 #' # create minimal problem with multiple zones and limit the run-time for
 #' # solver to 10 seconds so this example doesn't take too long
-#' p5 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(matrix(0.2, nrow = 5, ncol = 3)) %>%
-#'       add_binary_decisions() %>%
-#'       add_default_solver(time_limit = 10, verbose = FALSE)
+#' p5 <-
+#'   problem(sim_zones_pu_raster, sim_zones_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(matrix(0.2, nrow = 5, ncol = 3)) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(time_limit = 10, verbose = FALSE)
 #'
 #' # create zone matrix which favors clumping planning units that are
 #' # allocated to the same zone together - note that this is the default
@@ -223,122 +230,219 @@ NULL
 #' p10 <- p5 %>% add_boundary_penalties(500, zone = zm10)
 #'
 #' # solve problems
-#' s2 <- stack(category_layer(solve(p5)), category_layer(solve(p6)),
-#'             category_layer(solve(p7)), category_layer(solve(p8)),
-#'             category_layer(solve(p9)), category_layer(solve(p10)))
+#' s2 <- list(solve(p5), solve(p6), solve(p7), solve(p8), solve(p9), solve(p10))
+#'
+#' #convert to category layers for visualization
+#' s2 <- terra::rast(lapply(s2, category_layer))
+#' names(s2) <- c(
+#'   "basic solution", "within zone clumping (low)",
+#'   "within zone clumping (high)", "between zone clumping",
+#'   "within + between clumping", "negative clumping"
+#' )
 #'
 #' # plot solutions
-#' plot(s2, main = c("basic solution", "within zone clumping (low)",
-#'                   "within zone clumping (high)", "between zone clumping",
-#'                   "within + between clumping", "negative clumping"),
-#'      axes = FALSE, box = FALSE)
+#' plot(s2, axes = FALSE)
 #' }
+#'
+#' @name add_boundary_penalties
+#'
+#' @aliases add_boundary_penalties,ConservationProblem,ANY,ANY,ANY,array-method add_boundary_penalties,ConservationProblem,ANY,ANY,ANY,matrix-method add_boundary_penalties,ConservationProblem,ANY,ANY,ANY,data.frame-method add_boundary_penalties,ConservationProblem,ANY,ANY,ANY,ANY-method
+NULL
+
 #' @export
-add_boundary_penalties <- function(
-  x, penalty, edge_factor = rep(0.5, number_of_zones(x)),
-  zones = diag(number_of_zones(x)), data = NULL) {
-  # assert that arguments are valid
-  assertthat::assert_that(
-    inherits(x, "ConservationProblem"),
-    assertthat::is.scalar(penalty), is.finite(penalty),
-    is.numeric(edge_factor), all(is.finite(edge_factor)),
-    all(edge_factor >= 0), all(edge_factor <= 1),
-    length(edge_factor) == number_of_zones(x),
-    inherits(zones, c("matrix", "Matrix")), all(is.finite(zones)))
-  # convert zones to matrix
-  zones <- as.matrix(zones)
-  assertthat::assert_that(
-    isSymmetric(zones), ncol(zones) == number_of_zones(x),
-    min(zones) >= -1, max(zones) <= 1)
-  colnames(zones) <- x$zone_names()
-  rownames(zones) <- colnames(zones)
-  # prepare boundary matrix data
-  bm <- internal_prepare_planning_unit_boundary_data(x, data)
-  # create new constraint object
-  x$add_penalty(pproto(
-    "BoundaryPenalty",
-    Penalty,
-    name = "Boundary penalties",
-    data = list(boundary_matrix = bm),
-    parameters = parameters(
-      numeric_parameter("penalty", penalty),
-      proportion_parameter_array("edge factor", edge_factor, x$zone_names()),
-      numeric_matrix_parameter("zones", zones, lower_limit = -1,
-                               upper_limit = 1, symmetric = TRUE)),
-    calculate = function(self, x) {
-        assertthat::assert_that(inherits(x, "ConservationProblem"))
-        m <- self$get_data("boundary_matrix")
-        if (is.Waiver(m)) {
-          m <- internal_prepare_planning_unit_boundary_data(
-            x, boundary_matrix(x$get_data("cost")))
-        }
-        class(m) <- "dgCMatrix"
-        self$set_data("boundary_matrix", m)
-        invisible()
-    },
-    apply = function(self, x, y) {
-      assertthat::assert_that(inherits(x, "OptimizationProblem"),
-                              inherits(y, "ConservationProblem"))
-      p <- self$parameters$get("penalty")
-      if (abs(p) > 1e-50) {
-        # apply penalties
-        rcpp_apply_boundary_penalties(x$ptr, p,
-          self$parameters$get("edge factor")[[1]],
-          self$parameters$get("zones"),
-          self$get_data("boundary_matrix"))
-      }
-      invisible(TRUE)
-  }))
-}
-
-internal_prepare_planning_unit_boundary_data <- function(x, data)  {
-  if (!is.null(data)) {
-    # if boundary data is in data.frame format then coerce to sparse matrix
-    if (inherits(data, "data.frame")) {
-      assertthat::assert_that(
-        !assertthat::has_name(data, "zone1"),
-        !assertthat::has_name(data, "zone2"))
-      data <- marxan_boundary_data_to_matrix(x, data)
-    }
-    # if/when data is matrix run further checks to ensure that
-    # it is compatible with planning unit data
-    if (inherits(data, c("matrix", "Matrix"))) {
-      # if it is matrix coerce to sparse matrix
-      bm <- data
-      if (!inherits(data, c("dsCMatrix", "dgCMatrix"))) {
-        bm <- as_Matrix(data, "dgCMatrix")
-      }
-      # check that matrix properties are correct
-      assertthat::assert_that(
-        ncol(bm) == nrow(bm),
-        all(is.finite(bm@x)),
-        msg = paste("argument to data is not a valid symmetric matrix",
-                    "with finite (non-NA) values"))
-      assertthat::assert_that(
-        isTRUE(x$number_of_total_units() == ncol(bm)),
-        msg = paste("argument to data has a different number of rows/columns",
-                    "than the number of planning units in x"))
-      # return result
-      return(filter_planning_units_in_boundary_matrix(
-        x$planning_unit_indices(), bm))
-    } else {
-     # throw error because object class not recognized
-      stop("argument to data is of a class that is not supported")
-    }
-  } else {
-    assertthat::assert_that(inherits(x$data$cost, c("Spatial", "Raster", "sf")),
-        msg = paste("argument to data must be supplied because planning unit",
-                    "data are not in a spatially referenced format"))
-    return(new_waiver())
+methods::setGeneric("add_boundary_penalties",
+  signature = methods::signature(
+    "x", "penalty", "edge_factor", "zones", "data"
+  ),
+  function(
+    x, penalty, edge_factor = rep(0.5, number_of_zones(x)),
+    zones = diag(number_of_zones(x)), data = NULL
+  ) {
+    assert_required(x)
+    assert_required(penalty)
+    assert_required(edge_factor)
+    assert_required(zones)
+    assert_required(data)
+    assert(
+      is_conservation_problem(x),
+      is_inherits(data, c("NULL", "matrix", "Matrix", "data.frame"))
+    )
+    standardGeneric("add_boundary_penalties")
   }
-}
+)
 
-filter_planning_units_in_boundary_matrix <- function(idx, bm) {
-  # add boundaries for non-planning units to diagonal of planning units
-  extra_boundaries <- Matrix::colSums(bm[-1 * idx, idx, drop = FALSE])
-  bm <- bm[idx, idx]
-  Matrix::diag(bm) <- Matrix::diag(bm) + extra_boundaries
-  # force symmetry
-  bm <- Matrix::forceSymmetric(bm, uplo = "L")
-  bm
-}
+#' @name add_boundary_penalties
+#' @usage \S4method{add_boundary_penalties}{ConservationProblem,ANY,ANY,ANY,data.frame}(x, penalty, edge_factor, zones, data)
+#' @rdname add_boundary_penalties
+methods::setMethod("add_boundary_penalties",
+  methods::signature("ConservationProblem", "ANY", "ANY", "ANY", "data.frame"),
+  function(x, penalty, edge_factor, zones, data) {
+    # add constraints
+    add_boundary_penalties(
+      x, penalty, edge_factor, zones,
+      internal_marxan_boundary_data_to_matrix(x, data)
+    )
+  }
+)
+
+#' @name add_boundary_penalties
+#' @usage \S4method{add_boundary_penalties}{ConservationProblem,ANY,ANY,ANY,matrix}(x, penalty, edge_factor, zones, data)
+#' @rdname add_boundary_penalties
+methods::setMethod("add_boundary_penalties",
+  methods::signature("ConservationProblem", "ANY", "ANY", "ANY", "matrix"),
+  function(x, penalty, edge_factor, zones, data) {
+    # add constraints
+    add_boundary_penalties(
+      x, penalty, edge_factor, zones, as_Matrix(data, "dgCMatrix")
+    )
+  }
+)
+
+#' @name add_boundary_penalties
+#' @usage \S4method{add_boundary_penalties}{ConservationProblem,ANY,ANY,ANY,ANY}(x, penalty, edge_factor, zones, data)
+#' @rdname add_boundary_penalties
+methods::setMethod("add_boundary_penalties",
+  methods::signature("ConservationProblem", "ANY", "ANY", "ANY", "ANY"),
+  function(x, penalty, edge_factor, zones, data) {
+    # assert valid arguments
+    assert(
+      is_conservation_problem(x),
+      is_inherits(data, c("NULL", "Matrix")),
+      assertthat::is.number(penalty),
+      all_finite(penalty),
+      is.numeric(edge_factor),
+      all_finite(edge_factor),
+      all_proportion(edge_factor),
+      length(edge_factor) == number_of_zones(x),
+      is_matrix_ish(zones),
+      all_finite(zones)
+    )
+    if (!is.null(data)) {
+      # round data to avoid numerical precision issues
+      data <- round(data, 6)
+      # check argument to data if not NULL
+      assert(
+        ncol(data) == nrow(data),
+        number_of_total_units(x) == ncol(data),
+        is_numeric_values(data),
+        all_finite(data),
+        Matrix::isSymmetric(data)
+      )
+      # verify diagonal is >= edge lengths
+      verify(
+        all(
+          round(
+            Matrix::diag(data) - (Matrix::rowSums(data) - Matrix::diag(data)),
+            6
+          ) >= -1e-5
+        ),
+        msg = c(
+          "{.arg data} has unexpected values.",
+          "x" = paste(
+            "If {.arg data} is from an older version of",
+            "{.pkg prioritizr}, then use",
+            "{.fn boundary_matrix} to recreate it."
+          ),
+          "i" = paste(
+            "{.arg x} might have spatially overlapping planning units."
+          )
+        )
+      )
+    } else {
+      # check that planning unit data is spatially referenced
+      assert(
+        is_pu_spatially_explicit(x),
+        msg = c(
+          paste(
+            "{.arg data} must be manually specified (e.g., as a {.cls Matrix})."
+          ),
+          "i" = paste(
+            "This is because {.arg x} has planning unit data that are not",
+            "spatially explicit",
+            "(e.g., {.cls sf}, or {.cls SpatRaster} objects)."
+          )
+        )
+      )
+    }
+    # convert zones to matrix
+    zones <- as.matrix(zones)
+    assert(
+      isSymmetric(zones),
+      ncol(zones) == number_of_zones(x),
+      min(zones) >= -1,
+      max(zones) <= 1
+    )
+    colnames(zones) <- x$zone_names()
+    rownames(zones) <- colnames(zones)
+    # create new constraint object
+    x$add_penalty(
+      R6::R6Class(
+        "BoundaryPenalty",
+        inherit = Penalty,
+        public = list(
+          name = "boundary penalties",
+          data = list(
+            penalty = penalty,
+            edge_factor = edge_factor,
+            data = data,
+            zones = zones
+          ),
+          calculate = function(x) {
+            # assert valid argument
+            assert(is_conservation_problem(x), .internal = TRUE)
+            # if needed, calculate boundary matrix
+            if (
+              is.null(self$get_data("data")) &&
+              is.Waiver(x$get_data("boundary"))
+            ) {
+              x$set_data("boundary", boundary_matrix(x$get_data("cost")))
+            }
+            # return invisible success
+            invisible()
+          },
+          apply = function(x, y) {
+            # assert valid arguments
+            assert(
+              inherits(x, "OptimizationProblem"),
+              inherits(y, "ConservationProblem"),
+              .internal = TRUE
+            )
+            # extract data
+            p <- self$get_data("penalty")
+            bm <- self$get_data("data")
+            if (is.null(bm)) {
+              bm <- y$get_data("boundary")
+            }
+            # convert to dgCMatrix
+            bm <- as_Matrix(bm, "dgCMatrix")
+            # subset data to planning units
+            ind <- y$planning_unit_indices()
+            bm <- bm[ind, ind]
+            # compute additional boundary information
+            total_boundary <- Matrix::diag(bm)
+            exposed_boundary <-
+              Matrix::diag(bm) - (Matrix::rowSums(bm) - Matrix::diag(bm))
+            # prepare boundary data
+            Matrix::diag(bm) <- 0
+            bm <- as_Matrix(Matrix::tril(Matrix::drop0(bm)), "dgCMatrix")
+            # apply constraint
+            if (abs(p) > 1e-50) {
+              # apply penalties
+              rcpp_apply_boundary_penalties(
+                x$ptr,
+                p,
+                self$get_data("edge_factor"),
+                self$get_data("zones"),
+                bm,
+                exposed_boundary,
+                total_boundary
+              )
+            }
+            # return success
+            invisible(TRUE)
+          }
+        )
+      )$new()
+    )
+  }
+)

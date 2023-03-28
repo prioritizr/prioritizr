@@ -10,14 +10,14 @@ feature_abundances(x, na.rm)
 \method{feature_abundances}{ConservationProblem}(x, na.rm = FALSE)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} object.}
 
 \item{na.rm}{\code{logical} should planning units with \code{NA} cost
 data be excluded from the abundance calculations? The default argument
 is \code{FALSE}.}
 }
 \value{
-\code{\link[tibble:tibble]{tibble::tibble()}} object containing the total amount
+A \code{\link[tibble:tibble]{tibble::tibble()}} object containing the total amount
 (\code{"absolute_abundance"}) and proportion (\code{"relative_abundance"})
 of the distribution of each feature in the planning units. Here, each
 row contains data that pertain to a specific feature in a specific
@@ -64,13 +64,19 @@ each feature---then the \code{na.rm} argument should be set to
 \code{TRUE}.
 }
 \examples{
+\dontrun{
 # load data
-data(sim_pu_raster, sim_features)
+sim_pu_raster <- get_sim_pu_raster()
+sim_features <- get_sim_features()
 
 # create a simple conservation planning dataset so we can see exactly
 # how the feature abundances are calculated
-pu <- data.frame(id = seq_len(10), cost = c(0.2, NA, runif(8)),
-                 spp1 = runif(10), spp2 = c(rpois(9, 4), NA))
+pu <- data.frame(
+  id = seq_len(10),
+  cost = c(0.2, NA, runif(8)),
+  spp1 = runif(10),
+  spp2 = c(rpois(9, 4), NA)
+)
 
 # create problem
 p1 <- problem(pu, c("spp1", "spp2"), cost_column = "cost")
@@ -84,21 +90,33 @@ a2 <- feature_abundances(p1, na.rm = TRUE)
 print(a2)
 
 # verify correctness of feature abundance calculations
-all.equal(a1$absolute_abundance,
-          c(sum(pu$spp1), sum(pu$spp2, na.rm = TRUE)))
+all.equal(
+  a1$absolute_abundance,
+  c(sum(pu$spp1), sum(pu$spp2, na.rm = TRUE))
+)
 
-all.equal(a1$relative_abundance,
-          c(sum(pu$spp1) / sum(pu$spp1),
-            sum(pu$spp2, na.rm = TRUE) / sum(pu$spp2, na.rm = TRUE)))
+all.equal(
+  a1$relative_abundance,
+  c(sum(pu$spp1) / sum(pu$spp1),
+  sum(pu$spp2, na.rm = TRUE) / sum(pu$spp2, na.rm = TRUE))
+)
 
-all.equal(a2$absolute_abundance,
-          c(sum(pu$spp1[!is.na(pu$cost)]),
-            sum(pu$spp2[!is.na(pu$cost)], na.rm = TRUE)))
+all.equal(
+  a2$absolute_abundance,
+  c(
+    sum(pu$spp1[!is.na(pu$cost)]),
+    sum(pu$spp2[!is.na(pu$cost)], na.rm = TRUE)
+  )
+)
 
-all.equal(a2$relative_abundance,
-          c(sum(pu$spp1[!is.na(pu$cost)]) / sum(pu$spp1, na.rm = TRUE),
-            sum(pu$spp2[!is.na(pu$cost)], na.rm = TRUE) / sum(pu$spp2,
-                                                              na.rm = TRUE)))
+all.equal(
+  a2$relative_abundance,
+  c(
+    sum(pu$spp1[!is.na(pu$cost)]) / sum(pu$spp1, na.rm = TRUE),
+    sum(pu$spp2[!is.na(pu$cost)], na.rm = TRUE) /
+      sum(pu$spp2, na.rm = TRUE)
+  )
+)
 
 # initialize conservation problem with raster data
 p3 <- problem(sim_pu_raster, sim_features)
@@ -109,30 +127,31 @@ print(a3)
 
 # create problem using total amounts of features in all the planning units
 # (including units with NA cost data)
-p4 <- p3 \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(a3$relative_abundance) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(verbose = FALSE)
+p4 <-
+  p3 \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(a3$relative_abundance) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
 
 # attempt to solve the problem, but we will see that this problem is
 # infeasible because the targets cannot be met using only the planning units
 # with finite cost data
-\dontrun{
 s4 <- try(solve(p4))
-}
+
 # calculate feature abundances; excluding planning units with NA costs
 a5 <- feature_abundances(p3, na.rm = TRUE)
 print(a5)
 
 # create problem using total amounts of features in the planning units with
 # finite cost data
-p5 <- p3 \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(a5$relative_abundance) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(verbose = FALSE)
-\dontrun{
+p5 <-
+  p3 \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(a5$relative_abundance) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
+
 # solve the problem
 s5 <- solve(p5)
 

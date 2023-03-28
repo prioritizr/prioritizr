@@ -3,7 +3,7 @@
 
 // [[Rcpp::export]]
 double rcpp_asym_connectivity(
-  Rcpp::List data, Rcpp::NumericMatrix solution) {
+  const Rcpp::List data, const Rcpp::NumericMatrix solution) {
 
   // initialization
   std::size_t n_z = solution.ncol();

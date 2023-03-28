@@ -14,7 +14,7 @@ add_cplex_solver(
 )
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} object.}
 
 \item{gap}{\code{numeric} gap to optimality. This gap is relative
 and expresses the acceptable deviance from the optimal objective.
@@ -40,13 +40,12 @@ optimization algorithm. The default value is 1.}
 optimization problems? Defaults to \code{TRUE}.}
 }
 \value{
-Object (i.e., \code{\linkS4class{ConservationProblem}}) with the solver
-added to it.
+An updated \code{\link[=problem]{problem()}} object with the solver added to it.
 }
 \description{
 Specify that the
 \href{https://www.ibm.com/products/ilog-cplex-optimization-studio/cplex-optimizer}{\emph{IBM CPLEX}} software
-(IBM 2017) should be used to solve a conservation planning \code{\link[=problem]{problem()}}.
+should be used to solve a conservation planning problem (IBM 2017) .
 This function can also be used to customize the behavior of the solver.
 It requires the \pkg{cplexAPI} package to be installed
 (see below for installation instructions).
@@ -96,20 +95,22 @@ For further details on installing this package, please consult the
 \examples{
 \dontrun{
 # load data
-data(sim_pu_raster, sim_features)
+sim_pu_raster <- get_sim_pu_raster()
+sim_features <- get_sim_features()
 
 # create problem
-p <- problem(sim_pu_raster, sim_features) \%>\%
-     add_min_set_objective() \%>\%
-     add_relative_targets(0.1) \%>\%
-     add_binary_decisions() \%>\%
-     add_cplex_solver(gap = 0.1, time_limit = 5, verbose = FALSE)
+p <-
+  problem(sim_pu_raster, sim_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.1) \%>\%
+  add_binary_decisions() \%>\%
+  add_cplex_solver(gap = 0.1, time_limit = 5, verbose = FALSE)
 
 # generate solution
 s <- solve(p)
 
 # plot solution
-plot(s, main = "solution", axes = FALSE, box = FALSE)
+plot(s, main = "solution", axes = FALSE)
 }
 }
 \references{

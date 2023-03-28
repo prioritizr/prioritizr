@@ -13,7 +13,7 @@
 [![R-CMD-check-macOS](https://img.shields.io/github/actions/workflow/status/prioritizr/prioritizr/R-CMD-check-macos.yaml?branch=master&label=macOS)](https://github.com/prioritizr/prioritizr/actions)
 [![Documentation](https://img.shields.io/github/actions/workflow/status/prioritizr/prioritizr/documentation.yaml?branch=master&label=Documentation)](https://github.com/prioritizr/prioritizr/actions)
 [![Coverage
-Status](https://img.shields.io/codecov/c/github/prioritizr/prioritizr?label=Coverage)](https://codecov.io/github/prioritizr/prioritizr?branch=master)
+Status](https://img.shields.io/codecov/c/github/prioritizr/prioritizr?label=Coverage)](https://app.codecov.io/gh/prioritizr/prioritizr/branch/master)
 [![CRAN-Status-Badge](http://www.r-pkg.org/badges/version/prioritizr)](https://CRAN.R-project.org/package=prioritizr)
 <!-- badges: end -->
 
@@ -62,15 +62,15 @@ Please cite the *prioritizr R* package when using it in publications. To
 cite the latest official version, please use:
 
 > Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Edwards BPM, Watts
-> ME, Arcese P, Bennett J, Possingham HP (2022). prioritizr: Systematic
-> Conservation Prioritization in R. R package version 7.2.2. Available
+> ME, Arcese P, Bennett J, Possingham HP (2023). prioritizr: Systematic
+> Conservation Prioritization in R. R package version 8.0.0. Available
 > at <https://CRAN.R-project.org/package=prioritizr>.
 
 Alternatively, to cite the latest development version, please use:
 
 > Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Edwards BPM, Watts
-> ME, Arcese P, Bennett J, Possingham HP (2022). prioritizr: Systematic
-> Conservation Prioritization in R. R package version 7.2.2.7. Available
+> ME, Arcese P, Bennett J, Possingham HP (2023). prioritizr: Systematic
+> Conservation Prioritization in R. R package version 8.0.0. Available
 > at <https://github.com/prioritizr/prioritizr>.
 
 Additionally, we keep a [record of
@@ -82,199 +82,167 @@ add it to the record.
 
 ## Usage
 
-Here we will provide a short example showing how the *prioritizr R*
-package can be used to build and solve conservation problems. For
-brevity, we will use one of the built-in simulated datasets that is
-distributed with the package. First, we will load the *prioritizr R*
-package.
+Here we provide a short example showing how the *prioritizr R* package
+can be used to build and solve conservation problems. Specifically, we
+will use an example dataset available through the *prioritizrdata R*
+package. Additionally, we will use the *terra R* package to perform
+raster calculations. To begin with, we will load the packages.
 
 ``` r
-# load package
+# load packages
 library(prioritizr)
+library(prioritizrdata)
+library(terra)
 ```
 
-We will use the `sim_pu_polygons` object to represent our planning
-units. Although the *prioritizr R* can support many different types of
-planning unit data, here our planning units are represented as polygons
-in a spatial vector format (i.e. `SpatialPolygonsDataFrame`). Each
-polygon represents a different planning unit and we have 90 planning
-units in total. The attribute table associated with this dataset
-contains information describing the acquisition cost of each planning
-(“cost” column), and a value indicating if the unit is already located
-in protected area (“locked\_in” column). Let’s explore the planning unit
-data.
+We will use the Washington dataset in this example. To import the
+planning unit data, we will use the `get_wa_pu()` function. Although the
+*prioritizr R* package can support many different types of planning unit
+data, here our planning units are represented as a single-layer raster
+(i.e., `terra::rast()` object). Each cell represents a different
+planning unit, and cell values denote land acquisition costs.
+Specifically, there are 10757 planning units in total (i.e., cells with
+non-missing values).
 
 ``` r
-# load planning unit data
-data(sim_pu_polygons)
+# import planning unit data
+wa_pu <- get_wa_pu()
 
-# show the first 6 rows in the attribute table
-head(sim_pu_polygons@data)
+# preview data
+print(wa_pu)
 ```
 
-    ##       cost locked_in locked_out
-    ## 1 215.8638     FALSE      FALSE
-    ## 2 212.7823     FALSE      FALSE
-    ## 3 207.4962     FALSE      FALSE
-    ## 4 208.9322     FALSE       TRUE
-    ## 5 214.0419     FALSE      FALSE
-    ## 6 213.7636     FALSE      FALSE
+    ## class       : SpatRaster 
+    ## dimensions  : 109, 147, 1  (nrow, ncol, nlyr)
+    ## resolution  : 4000, 4000  (x, y)
+    ## extent      : -1816382, -1228382, 247483.5, 683483.5  (xmin, xmax, ymin, ymax)
+    ## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs 
+    ## source      : wa_pu.tif 
+    ## name        :         cost 
+    ## min value   :    0.2986647 
+    ## max value   : 1804.1838379
 
 ``` r
-# plot the planning units and color them according to acquisition cost
-spplot(sim_pu_polygons, "cost", main = "Planning unit cost",
-       xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1))
+# plot data
+plot(wa_pu, main = "Costs", axes = FALSE)
 ```
 
-<img src="man/figures/README-unnamed-chunk-9-1.png" width="400" style="display: block; margin: auto;" />
+<img src="man/figures/README-planning_units-1.png" width="500" style="display: block; margin: auto;" />
+
+Next, we will use the `get_wa_features()` function to import the
+conservation feature data. Although the *prioritizr R* package can
+support many different types of feature data, here our feature data are
+represented as a multi-layer raster (i.e., `terra::rast()` object). Each
+layer describes the spatial distribution of a feature. Here, our feature
+data correspond to different bird species. To account for migratory
+patterns, the breeding and non-breeding distributions of species are
+represented as different features. Specifically, the cell values denote
+the relative abundance of individuals, with higher values indicating
+greater abundance.
 
 ``` r
-# plot the planning units and show which planning units are inside protected
-# areas (colored in yellow)
-spplot(sim_pu_polygons, "locked_in", main = "Planning units in protected areas",
-       xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1))
+# import feature data
+wa_features <- get_wa_features()
+
+# preview data
+print(wa_features)
 ```
 
-<img src="man/figures/README-unnamed-chunk-10-1.png" width="400" style="display: block; margin: auto;" />
-
-Conservation features are represented using a stack of raster data
-(i.e. `RasterStack` objects). A `RasterStack` represents a collection of
-`RasterLayers` with the same spatial properties (i.e. spatial extent,
-coordinate system, dimensionality, and resolution). Each `RasterLayer`
-in the stack describes the distribution of a conservation feature.
-
-In our example, the `sim_features` object is a `RasterStack` object that
-contains 5 layers. Each `RasterLayer` describes the distribution of a
-species. Specifically, the pixel values denote the proportion of
-suitable habitat across different areas inside the study area. For a
-given layer, pixels with a value of one are comprised entirely of
-suitable habitat for the feature, and pixels with a value of zero
-contain no suitable habitat.
+    ## class       : SpatRaster 
+    ## dimensions  : 109, 147, 396  (nrow, ncol, nlyr)
+    ## resolution  : 4000, 4000  (x, y)
+    ## extent      : -1816382, -1228382, 247483.5, 683483.5  (xmin, xmax, ymin, ymax)
+    ## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs 
+    ## source      : wa_features.tif 
+    ## names       : Recur~ding), Botau~ding), Botau~ding), Corvu~ding), Corvu~ding), Cincl~full), ... 
+    ## min values  :       0.000,       0.000,       0.000,       0.000,       0.000,        0.00, ... 
+    ## max values  :       0.514,       0.812,       3.129,       0.115,       0.296,        0.06, ...
 
 ``` r
-# load feature data
-data(sim_features)
-
-# plot the distribution of suitable habitat for each feature
-plot(sim_features, main = paste("Feature", seq_len(nlayers(sim_features))),
-     nr = 2)
+# plot the first nine features
+plot(wa_features[[1:9]], nr = 3, axes = FALSE)
 ```
 
-<img src="man/figures/README-unnamed-chunk-11-1.png" width="800" style="display: block; margin: auto;" />
+<img src="man/figures/README-features-1.png" width="800" style="display: block; margin: auto;" />
 
-Let’s say that we want to develop a reserve network that will secure 15%
-of the distribution for each feature in the study area for minimal cost.
-In this planning scenario, we can either purchase all of the land inside
-a given planning unit, or none of the land inside a given planning unit.
-Thus we will create a new
-[`problem`](https://prioritizr.net/reference/problem.html) that will use
-a minimum set objective
-([`add_min_set_objective`](https://prioritizr.net/reference/add_min_set_objective.html)),
-with relative targets of 15%
-([`add_relative_targets`](https://prioritizr.net/reference/add_relative_targets.html)),
-binary decisions
-([`add_binary_decisions`](https://prioritizr.net/reference/add_binary_decisions.html)),
-and specify that we want to want optimal solutions from the best solver
-installed on our system
-([`add_default_solver`](https://prioritizr.net/reference/add_default_solver.html)).
+Let’s make sure that you have a solver installed on your computer. This
+is important so that you can use optimization algorithms to generate
+spatial prioritizations. If this is your first time using the
+*prioritizr R* package, please install the HiGHS solver using the
+following *R* code. Although the HiGHS solver is relatively fast and
+easy to install, please note that you’ll need to install the [Gurobi
+software suite and the *gurobi* *R* package](https://www.gurobi.com/)
+for best performance (see the [Gurobi Installation
+Guide](https://prioritizr.net/articles/gurobi_installation_guide.html)
+for details).
 
 ``` r
+# if needed, install HiGHS solver
+install.packages("highs", repos = "https://cran.rstudio.com/")
+```
+
+Now, let’s generate a spatial prioritization. To ensure feasibility, we
+will set a budget. Specifically, the total cost of the prioritization
+will represent a 5% of the total land value in the study area. Given
+this budget, we want the prioritization to increase feature
+representation, as much as possible, so that each feature would,
+ideally, have 20% of its distribution covered by the prioritization. In
+this scenario, we can either purchase all of the land inside a given
+planning unit, or none of the land inside a given planning unit. Thus we
+will create a new `problem()` that will use a minimum shortfall
+objective (via `add_min_shortfall_objective()`), with relative targets
+of 20% (via `add_relative_targets()`), binary decisions (via
+`add_binary_decisions()`), and specify that we want near-optimal
+solutions (i.e., 10% from optimality) using the best solver installed on
+our computer (via `add_default_solver()`).
+
+``` r
+# calculate budget
+budget <- terra::global(wa_pu, "sum", na.rm = TRUE)[[1]] * 0.05
+
 # create problem
-p1 <- problem(sim_pu_polygons, features = sim_features,
-              cost_column = "cost") %>%
-      add_min_set_objective() %>%
-      add_relative_targets(0.15) %>%
-      add_binary_decisions() %>%
-      add_default_solver(gap = 0)
+p1 <-
+  problem(wa_pu, features = wa_features) %>%
+  add_min_shortfall_objective(budget) %>%
+  add_relative_targets(0.2) %>%
+  add_binary_decisions() %>%
+  add_default_solver(gap = 0.1, verbose = FALSE)
+
+# print problem
+print(p1)
 ```
 
-After we have built a
-[`problem`](https://prioritizr.net/reference/problem.html), we can solve
-it to obtain a solution. Since we have not specified the method used to
-solve the problem, *prioritizr* will automatically use the best solver
-currently installed. **It is strongly encouraged to install the [Gurobi
-software suite and the *gurobi* *R* package to solve problems
-quickly](https://www.gurobi.com/), for more information on this please
-refer to the [Gurobi Installation
-Guide](https://prioritizr.net/articles/gurobi_installation_guide.html)**
+    ## A conservation problem (<ConservationProblem>)
+    ## ├•data
+    ## │├•features:    "Recurvirostra americana (breeding)" , … (396 total)
+    ## │└•planning units:
+    ## │ ├•data:       <SpatRaster> (10757 total)
+    ## │ ├•costs:      continuous values (between 0.2987 and 1804.1838)
+    ## │ ├•extent:     -1816381.6182, 247483.5211, -1228381.6182, 683483.5211 (xmin, ymin, xmax, ymax)
+    ## │ └•CRS:        +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs
+    ## ├•formulation
+    ## │├•objective:   minimum shortfall objective (`budget` = 8748.4908)
+    ## │├•penalties:   none specified
+    ## │├•targets:     relative targets (between 0.2 and 0.2)
+    ## │├•constraints: none specified
+    ## │└•decisions:   binary decision
+    ## └•optimization
+    ##  ├•portfolio:   shuffle portfolio (`number_solutions` = 1, …)
+    ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, `first_feasible` = FALSE, …)
+    ## # ℹ Use `summary(...)` to see complete formulation.
+
+After we have built a `problem()`, we can solve it to obtain a solution.
 
 ``` r
 # solve the problem
 s1 <- solve(p1)
-```
 
-    ## Gurobi Optimizer version 10.0.0 build v10.0.0rc2 (linux64)
-    ## 
-    ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
-    ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
-    ## 
-    ## Optimize a model with 5 rows, 90 columns and 450 nonzeros
-    ## Model fingerprint: 0x53cdb40f
-    ## Variable types: 0 continuous, 90 integer (90 binary)
-    ## Coefficient statistics:
-    ##   Matrix range     [2e-01, 9e-01]
-    ##   Objective range  [2e+02, 2e+02]
-    ##   Bounds range     [1e+00, 1e+00]
-    ##   RHS range        [4e+00, 1e+01]
-    ## Found heuristic solution: objective 3139.8880309
-    ## Presolve time: 0.01s
-    ## Presolved: 5 rows, 90 columns, 450 nonzeros
-    ## Variable types: 0 continuous, 90 integer (90 binary)
-    ## Found heuristic solution: objective 2929.4929229
-    ## Root relaxation presolved: 5 rows, 90 columns, 450 nonzeros
-    ## 
-    ## 
-    ## Root relaxation: objective 2.611170e+03, 13 iterations, 0.00 seconds (0.00 work units)
-    ## 
-    ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
-    ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-    ## 
-    ##      0     0 2611.17006    0    4 2929.49292 2611.17006  10.9%     -    0s
-    ## H    0     0                    2780.0314635 2611.17006  6.07%     -    0s
-    ## H    0     0                    2761.3302091 2611.17006  5.44%     -    0s
-    ## H    0     0                    2747.3774616 2611.17006  4.96%     -    0s
-    ##      0     0 2611.74321    0    5 2747.37746 2611.74321  4.94%     -    0s
-    ##      0     0 2611.77869    0    6 2747.37746 2611.77869  4.94%     -    0s
-    ##      0     0 2611.89458    0    7 2747.37746 2611.89458  4.93%     -    0s
-    ##      0     0 2611.92840    0    8 2747.37746 2611.92840  4.93%     -    0s
-    ##      0     0 2611.95890    0    8 2747.37746 2611.95890  4.93%     -    0s
-    ##      0     0 2611.99567    0    8 2747.37746 2611.99567  4.93%     -    0s
-    ##      0     0 2612.19459    0    8 2747.37746 2612.19459  4.92%     -    0s
-    ##      0     0 2612.26426    0    9 2747.37746 2612.26426  4.92%     -    0s
-    ##      0     0 2612.28612    0   10 2747.37746 2612.28612  4.92%     -    0s
-    ##      0     0 2612.30057    0   10 2747.37746 2612.30057  4.92%     -    0s
-    ##      0     0 2612.32679    0   10 2747.37746 2612.32679  4.92%     -    0s
-    ##      0     0 2612.33532    0   10 2747.37746 2612.33532  4.92%     -    0s
-    ##      0     0 2612.39836    0    9 2747.37746 2612.39836  4.91%     -    0s
-    ##      0     0 2612.42417    0   10 2747.37746 2612.42417  4.91%     -    0s
-    ##      0     0 2612.43417    0   11 2747.37746 2612.43417  4.91%     -    0s
-    ##      0     0 2612.49918    0   10 2747.37746 2612.49918  4.91%     -    0s
-    ##      0     0 2612.50875    0   10 2747.37746 2612.50875  4.91%     -    0s
-    ##      0     2 2612.81540    0   10 2747.37746 2612.81540  4.90%     -    0s
-    ##  25548 11962 2620.68692   31    4 2747.37746 2619.83519  4.64%   1.7    5s
-    ## H40203  2618                    2627.6389306 2620.84421  0.26%   1.6    5s
-    ## 
-    ## Cutting planes:
-    ##   Gomory: 1
-    ##   MIR: 4
-    ##   StrongCG: 5
-    ##   Flow cover: 2
-    ## 
-    ## Explored 53410 nodes (93962 simplex iterations) in 7.57 seconds (2.12 work units)
-    ## Thread count was 1 (of 8 available processors)
-    ## 
-    ## Solution count 6: 2627.64 2747.38 2761.33 ... 3139.89
-    ## 
-    ## Optimal solution found (tolerance 0.00e+00)
-    ## Best objective 2.627638930618e+03, best bound 2.627638930618e+03, gap 0.0000%
-
-``` r
 # extract the objective
 print(attr(s1, "objective"))
 ```
 
     ## solution_1 
-    ##   2627.639
+    ##    4.40521
 
 ``` r
 # extract time spent solving the problem
@@ -282,7 +250,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##      7.629
+    ##      3.553
 
 ``` r
 # extract state message from the solver
@@ -294,343 +262,235 @@ print(attr(s1, "status"))
 
 ``` r
 # plot the solution
-spplot(s1, "solution_1", main = "Solution", at = c(0, 0.5, 1.1),
-       col.regions = c("grey90", "darkgreen"), xlim = c(-0.1, 1.1),
-       ylim = c(-0.1, 1.1))
+plot(s1, main = "Solution", axes = FALSE)
 ```
 
-<img src="man/figures/README-minimal_solution-1.png" width="400" style="display: block; margin: auto;" />
+<img src="man/figures/README-minimal_solution-1.png" width="500" style="display: block; margin: auto;" />
 
-To evaluate the performance of the solution, we can calculate summary
-statistics.
+After generating a solution, it is important to evaluate it. Here, we
+will calculate the number of planning units selected by the solution,
+and the total cost of the solution. We can also check how many
+representation targets are met by the solution.
 
 ``` r
-# calculate solution cost
-print(eval_cost_summary(p1, s1[, "solution_1"]), width = Inf)
+# calculate number of selected planning units by solution
+eval_n_summary(p1, s1)
+```
+
+    ## # A tibble: 1 × 2
+    ##   summary     n
+    ##   <chr>   <dbl>
+    ## 1 overall  2319
+
+``` r
+# calculate total cost of solution
+eval_cost_summary(p1, s1)
 ```
 
     ## # A tibble: 1 × 2
     ##   summary  cost
     ##   <chr>   <dbl>
-    ## 1 overall 2628.
+    ## 1 overall 8748.
 
 ``` r
-# calculate information describing how well the targets are met by the solution
-print(eval_target_coverage_summary(p1, s1[, "solution_1"]), width = Inf)
+# calculate target coverage for the solution
+p1_target_coverage <- eval_target_coverage_summary(p1, s1)
+print(p1_target_coverage)
 ```
 
-    ## # A tibble: 5 × 9
-    ##   feature met   total_amount absolute_target absolute_held absolute_shortfall
-    ##   <chr>   <lgl>        <dbl>           <dbl>         <dbl>              <dbl>
-    ## 1 layer.1 TRUE          74.5           11.2          11.5                   0
-    ## 2 layer.2 TRUE          28.1            4.21          4.22                  0
-    ## 3 layer.3 TRUE          64.9            9.73          9.75                  0
-    ## 4 layer.4 TRUE          38.2            5.73          5.76                  0
-    ## 5 layer.5 TRUE          50.7            7.60          7.60                  0
-    ##   relative_target relative_held relative_shortfall
-    ##             <dbl>         <dbl>              <dbl>
-    ## 1            0.15         0.155                  0
-    ## 2            0.15         0.150                  0
-    ## 3            0.15         0.150                  0
-    ## 4            0.15         0.151                  0
-    ## 5            0.15         0.150                  0
+    ## # A tibble: 396 × 9
+    ##    feature         met   total…¹ absol…² absol…³ absol…⁴ relat…⁵ relat…⁶ relat…⁷
+    ##    <chr>           <lgl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
+    ##  1 Recurvirostra … TRUE    100.     20.0    23.4    0        0.2   0.233  0     
+    ##  2 Botaurus lenti… TRUE     99.9    20.0    29.2    0        0.2   0.293  0     
+    ##  3 Botaurus lenti… TRUE    100.     20.0    34.0    0        0.2   0.340  0     
+    ##  4 Corvus brachyr… TRUE     99.9    20.0    20.2    0        0.2   0.202  0     
+    ##  5 Corvus brachyr… FALSE    99.9    20.0    18.7    1.29     0.2   0.187  0.0129
+    ##  6 Cinclus mexica… TRUE    100.     20.0    20.4    0        0.2   0.204  0     
+    ##  7 Spinus tristis… TRUE     99.9    20.0    22.4    0        0.2   0.224  0     
+    ##  8 Spinus tristis… TRUE     99.9    20.0    23.0    0        0.2   0.230  0     
+    ##  9 Falco sparveri… TRUE     99.9    20.0    24.5    0        0.2   0.245  0     
+    ## 10 Falco sparveri… TRUE    100.     20.0    24.4    0        0.2   0.244  0     
+    ## # … with 386 more rows, and abbreviated variable names ¹​total_amount,
+    ## #   ²​absolute_target, ³​absolute_held, ⁴​absolute_shortfall, ⁵​relative_target,
+    ## #   ⁶​relative_held, ⁷​relative_shortfall
 
-Although this solution adequately conserves each feature, it is
-inefficient because it does not consider the fact some of the planning
-units are already inside protected areas. Since our planning unit data
-contains information on which planning units are already inside
-protected areas (in the `"locked_in"` column of the attribute table), we
-can add constraints to ensure they are prioritized in the solution
-([`add_locked_in_constraints`](https://prioritizr.net/reference/add_locked_in_constraints.html)).
+``` r
+# check percentage of the features that have their target met given the solution
+print(mean(p1_target_coverage$met) * 100)
+```
+
+    ## [1] 96.46465
+
+Although this solution helps meet the representation targets, it does
+not account for existing protected areas inside the study area. As such,
+it does not account for the possibility that some features could be
+partially – or even fully – represented by existing protected areas and,
+in turn, might fail to identify meaningful priorities for new protected
+areas. To address this issue, we will use the `get_wa_locked_in()`
+function to import spatial data for protected areas in the study area.
+We will then add constraints to the `problem()` to ensure they are
+selected by the solution (via `add_locked_in_constraints()`).
+
+``` r
+# import locked in data
+wa_locked_in <- get_wa_locked_in()
+
+# print data
+print(wa_locked_in)
+```
+
+    ## class       : SpatRaster 
+    ## dimensions  : 109, 147, 1  (nrow, ncol, nlyr)
+    ## resolution  : 4000, 4000  (x, y)
+    ## extent      : -1816382, -1228382, 247483.5, 683483.5  (xmin, xmax, ymin, ymax)
+    ## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs 
+    ## source      : wa_locked_in.tif 
+    ## name        : protected areas 
+    ## min value   :               0 
+    ## max value   :               1
+
+``` r
+# plot data
+plot(wa_locked_in, main = "Existing protected areas", axes = FALSE)
+```
+
+<img src="man/figures/README-locked_in_constraints-1.png" width="500" style="display: block; margin: auto;" />
 
 ``` r
 # create new problem with locked in constraints added to it
-p2 <- p1 %>%
-      add_locked_in_constraints("locked_in")
+p2 <-
+  p1 %>%
+  add_locked_in_constraints(wa_locked_in)
 
 # solve the problem
 s2 <- solve(p2)
-```
 
-    ## Gurobi Optimizer version 10.0.0 build v10.0.0rc2 (linux64)
-    ## 
-    ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
-    ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
-    ## 
-    ## Optimize a model with 5 rows, 90 columns and 450 nonzeros
-    ## Model fingerprint: 0x7d308c9f
-    ## Variable types: 0 continuous, 90 integer (90 binary)
-    ## Coefficient statistics:
-    ##   Matrix range     [2e-01, 9e-01]
-    ##   Objective range  [2e+02, 2e+02]
-    ##   Bounds range     [1e+00, 1e+00]
-    ##   RHS range        [4e+00, 1e+01]
-    ## Found heuristic solution: objective 3027.6970854
-    ## Presolve removed 0 rows and 10 columns
-    ## Presolve time: 0.00s
-    ## Presolved: 5 rows, 80 columns, 400 nonzeros
-    ## Variable types: 0 continuous, 80 integer (80 binary)
-    ## Found heuristic solution: objective 3021.2805888
-    ## Root relaxation presolved: 5 rows, 80 columns, 400 nonzeros
-    ## 
-    ## 
-    ## Root relaxation: objective 2.754438e+03, 12 iterations, 0.00 seconds (0.00 work units)
-    ## 
-    ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
-    ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-    ## 
-    ##      0     0 2754.43795    0    4 3021.28059 2754.43795  8.83%     -    0s
-    ## H    0     0                    2839.1208991 2754.43795  2.98%     -    0s
-    ##      0     0 2754.44157    0    5 2839.12090 2754.44157  2.98%     -    0s
-    ##      0     0 2758.48548    0    5 2839.12090 2758.48548  2.84%     -    0s
-    ##      0     0 2758.91527    0    6 2839.12090 2758.91527  2.83%     -    0s
-    ##      0     0 2759.22179    0    7 2839.12090 2759.22179  2.81%     -    0s
-    ##      0     0 2761.07832    0    6 2839.12090 2761.07832  2.75%     -    0s
-    ##      0     0 2761.43633    0    7 2839.12090 2761.43633  2.74%     -    0s
-    ##      0     0 2761.45454    0    8 2839.12090 2761.45454  2.74%     -    0s
-    ##      0     0 2761.46314    0    9 2839.12090 2761.46314  2.74%     -    0s
-    ##      0     0 2761.49423    0   10 2839.12090 2761.49423  2.73%     -    0s
-    ##      0     0 2761.65657    0   10 2839.12090 2761.65657  2.73%     -    0s
-    ##      0     0 2762.39851    0   10 2839.12090 2762.39851  2.70%     -    0s
-    ##      0     0 2762.63943    0    9 2839.12090 2762.63943  2.69%     -    0s
-    ##      0     0 2763.80043    0    7 2839.12090 2763.80043  2.65%     -    0s
-    ##      0     0 2763.80469    0    8 2839.12090 2763.80469  2.65%     -    0s
-    ##      0     0 2763.83234    0    8 2839.12090 2763.83234  2.65%     -    0s
-    ##      0     0 2763.88681    0    8 2839.12090 2763.88681  2.65%     -    0s
-    ##      0     0 2763.89889    0    9 2839.12090 2763.89889  2.65%     -    0s
-    ##      0     0 2764.42236    0    9 2839.12090 2764.42236  2.63%     -    0s
-    ##      0     0 2764.50511    0   10 2839.12090 2764.50511  2.63%     -    0s
-    ##      0     0 2764.71972    0   11 2839.12090 2764.71972  2.62%     -    0s
-    ##      0     0 2764.92447    0   11 2839.12090 2764.92447  2.61%     -    0s
-    ##      0     0 2765.35561    0   11 2839.12090 2765.35561  2.60%     -    0s
-    ##      0     0 2765.37938    0   12 2839.12090 2765.37938  2.60%     -    0s
-    ##      0     0 2765.56448    0   12 2839.12090 2765.56448  2.59%     -    0s
-    ##      0     0 2765.66439    0   13 2839.12090 2765.66439  2.59%     -    0s
-    ##      0     0 2765.95837    0   13 2839.12090 2765.95837  2.58%     -    0s
-    ##      0     0 2766.11567    0   13 2839.12090 2766.11567  2.57%     -    0s
-    ##      0     0 2766.24843    0   11 2839.12090 2766.24843  2.57%     -    0s
-    ##      0     0 2766.27073    0   12 2839.12090 2766.27073  2.57%     -    0s
-    ##      0     0 2766.27073    0   13 2839.12090 2766.27073  2.57%     -    0s
-    ##      0     0 2766.27073    0   13 2839.12090 2766.27073  2.57%     -    0s
-    ##      0     2 2766.27077    0   13 2839.12090 2766.27077  2.57%     -    0s
-    ## *16724  2418              52    2838.2640999 2822.61800  0.55%   2.2    2s
-    ## 
-    ## Cutting planes:
-    ##   Gomory: 1
-    ##   Cover: 108
-    ##   MIR: 6
-    ##   StrongCG: 8
-    ## 
-    ## Explored 21135 nodes (44133 simplex iterations) in 3.07 seconds (1.27 work units)
-    ## Thread count was 1 (of 8 available processors)
-    ## 
-    ## Solution count 4: 2838.26 2839.12 3021.28 3027.7 
-    ## 
-    ## Optimal solution found (tolerance 0.00e+00)
-    ## Best objective 2.838264099909e+03, best bound 2.838264099909e+03, gap 0.0000%
-
-``` r
 # plot the solution
-spplot(s2, "solution_1", main = "Solution", at = c(0, 0.5, 1.1),
-       col.regions = c("grey90", "darkgreen"), xlim = c(-0.1, 1.1),
-       ylim = c(-0.1, 1.1))
+plot(s2, main = "Solution", axes = FALSE)
 ```
 
-<img src="man/figures/README-locked_in_constraints-1.png" width="400" style="display: block; margin: auto;" />
+<img src="man/figures/README-locked_in_constraints-2.png" width="500" style="display: block; margin: auto;" />
 
-This solution is an improvement over the previous solution. However, it
-is also highly fragmented. As a consequence, this solution may be
-associated with increased management costs and the species in this
-scenario may not benefit substantially from this solution due to edge
-effects. We can further modify the problem by adding penalties that
-punish overly fragmented solutions
-([`add_boundary_penalties`](https://prioritizr.net/reference/add_boundary_penalties.html)).
-Here we will use a penalty factor of 300 (i.e. boundary length modifier;
-BLM), and an edge factor of 50% so that planning units that occur outer
-edge of the study area are not overly penalized.
+This solution is an improvement over the previous solution. However,
+there are some places in the study area that are not available for
+protected area establishment (e.g., due to land tenure). As a
+consequence, the solution might not be practical for implementation,
+because it might select some places that are not available for
+protection. To address this issue, we will use the `get_wa_locked_out()`
+function to import spatial data describing which planning units are not
+available for protection. We will then add constraints to the
+`problem()` to ensure they are not selected by the solution (via
+`add_locked_out_constraints()`).
 
 ``` r
-# create new problem with boundary penalties added to it
-p3 <- p2 %>%
-      add_boundary_penalties(penalty = 300, edge_factor = 0.5)
+# import locked out data
+wa_locked_out <- get_wa_locked_out()
+
+# print data
+print(wa_locked_out)
+```
+
+    ## class       : SpatRaster 
+    ## dimensions  : 109, 147, 1  (nrow, ncol, nlyr)
+    ## resolution  : 4000, 4000  (x, y)
+    ## extent      : -1816382, -1228382, 247483.5, 683483.5  (xmin, xmax, ymin, ymax)
+    ## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs 
+    ## source      : wa_locked_out.tif 
+    ## name        : urban areas 
+    ## min value   :           0 
+    ## max value   :           1
+
+``` r
+# plot data
+plot(wa_locked_out, main = "Areas not available for protection", axes = FALSE)
+```
+
+<img src="man/figures/README-locked_out_constraints-1.png" width="500" style="display: block; margin: auto;" />
+
+``` r
+# create new problem with locked out constraints added to it
+p3 <-
+  p2 %>%
+  add_locked_out_constraints(wa_locked_out)
 
 # solve the problem
 s3 <- solve(p3)
-```
 
-    ## Gurobi Optimizer version 10.0.0 build v10.0.0rc2 (linux64)
-    ## 
-    ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
-    ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
-    ## 
-    ## Optimize a model with 293 rows, 234 columns and 1026 nonzeros
-    ## Model fingerprint: 0xf2e8dbb5
-    ## Variable types: 0 continuous, 234 integer (234 binary)
-    ## Coefficient statistics:
-    ##   Matrix range     [2e-01, 1e+00]
-    ##   Objective range  [6e+01, 3e+02]
-    ##   Bounds range     [1e+00, 1e+00]
-    ##   RHS range        [4e+00, 1e+01]
-    ## Found heuristic solution: objective 19567.196992
-    ## Found heuristic solution: objective 4347.6970854
-    ## Presolve removed 72 rows and 46 columns
-    ## Presolve time: 0.01s
-    ## Presolved: 221 rows, 188 columns, 832 nonzeros
-    ## Variable types: 0 continuous, 188 integer (188 binary)
-    ## Found heuristic solution: objective 4118.0739655
-    ## Root relaxation presolved: 221 rows, 188 columns, 832 nonzeros
-    ## 
-    ## 
-    ## Root relaxation: objective 3.862929e+03, 120 iterations, 0.01 seconds (0.00 work units)
-    ## 
-    ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
-    ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-    ## 
-    ##      0     0 3862.92935    0   65 4118.07397 3862.92935  6.20%     -    0s
-    ## H    0     0                    4045.3056552 3862.92935  4.51%     -    0s
-    ## H    0     0                    3951.7528370 3862.92935  2.25%     -    0s
-    ##      0     0 3889.41282    0   41 3951.75284 3889.41282  1.58%     -    0s
-    ## H    0     0                    3939.6015361 3889.41282  1.27%     -    0s
-    ##      0     0 3892.64818    0   63 3939.60154 3892.64818  1.19%     -    0s
-    ##      0     0 3896.53163    0   85 3939.60154 3896.53163  1.09%     -    0s
-    ##      0     0 3896.53163    0   16 3939.60154 3896.53163  1.09%     -    0s
-    ##      0     0 3896.53163    0   25 3939.60154 3896.53163  1.09%     -    0s
-    ##      0     0 3904.33385    0   13 3939.60154 3904.33385  0.90%     -    0s
-    ##      0     0 3904.60839    0   10 3939.60154 3904.60839  0.89%     -    0s
-    ##      0     0 3906.78581    0   20 3939.60154 3906.78581  0.83%     -    0s
-    ##      0     0 3908.52813    0   20 3939.60154 3908.52813  0.79%     -    0s
-    ##      0     0 3909.57429    0   20 3939.60154 3909.57429  0.76%     -    0s
-    ##      0     0 3911.03980    0   21 3939.60154 3911.03980  0.72%     -    0s
-    ##      0     0 3912.68849    0   26 3939.60154 3912.68849  0.68%     -    0s
-    ##      0     0 3913.56233    0   20 3939.60154 3913.56233  0.66%     -    0s
-    ##      0     0 3913.56233    0    6 3939.60154 3913.56233  0.66%     -    0s
-    ##      0     0 3922.19400    0    8 3939.60154 3922.19400  0.44%     -    0s
-    ##      0     0 3928.18118    0    7 3939.60154 3928.18118  0.29%     -    0s
-    ##      0     0 3935.67341    0    5 3939.60154 3935.67341  0.10%     -    0s
-    ##      0     0 3938.87023    0    2 3939.60154 3938.87023  0.02%     -    0s
-    ## 
-    ## Cutting planes:
-    ##   MIR: 2
-    ##   GUB cover: 3
-    ## 
-    ## Explored 1 nodes (268 simplex iterations) in 0.14 seconds (0.03 work units)
-    ## Thread count was 1 (of 8 available processors)
-    ## 
-    ## Solution count 6: 3939.6 3951.75 4045.31 ... 19567.2
-    ## 
-    ## Optimal solution found (tolerance 0.00e+00)
-    ## Best objective 3.939601536145e+03, best bound 3.939601536145e+03, gap 0.0000%
-
-``` r
 # plot the solution
-spplot(s3, "solution_1", main = "Solution", at = c(0, 0.5, 1.1),
-       col.regions = c("grey90", "darkgreen"), xlim = c(-0.1, 1.1),
-       ylim = c(-0.1, 1.1))
+plot(s3, main = "Solution", axes = FALSE)
 ```
 
-<img src="man/figures/README-boundary_penalties-1.png" width="400" style="display: block; margin: auto;" />
+<img src="man/figures/README-locked_out_constraints-2.png" width="500" style="display: block; margin: auto;" />
 
 This solution is even better then the previous solution. However, we are
-not finished yet. This solution does not maintain connectivity between
-reserves, and so species may have limited capacity to disperse
-throughout the solution. To avoid this, we can add contiguity
-constraints
-([`add_contiguity_constraints`](https://prioritizr.net/reference/add_contiguity_constraints.html)).
+not finished yet. The planning units selected by the solution are fairly
+fragmented. This can cause issues because fragmentation increases
+management costs and reduces conservation benefits through edge effects.
+To address this issue, we can further modify the problem by adding
+penalties that punish overly fragmented solutions (via
+`add_boundary_penalties()`). Here we will use a penalty factor (i.e.,
+boundary length modifier) of 0.003, and an edge factor of 50% so that
+planning units that occur on the outer edge of the study area are not
+overly penalized.
 
 ``` r
-# create new problem with contiguity constraints
-p4 <- p3 %>%
-      add_contiguity_constraints()
+# create new problem with boundary penalties added to it
+p4 <-
+  p3 %>%
+  add_boundary_penalties(penalty = 0.003, edge_factor = 0.5)
 
 # solve the problem
 s4 <- solve(p4)
-```
 
-    ## Gurobi Optimizer version 10.0.0 build v10.0.0rc2 (linux64)
-    ## 
-    ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
-    ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
-    ## 
-    ## Optimize a model with 654 rows, 506 columns and 2292 nonzeros
-    ## Model fingerprint: 0xa7ea9b38
-    ## Variable types: 0 continuous, 506 integer (506 binary)
-    ## Coefficient statistics:
-    ##   Matrix range     [2e-01, 1e+00]
-    ##   Objective range  [6e+01, 3e+02]
-    ##   Bounds range     [1e+00, 1e+00]
-    ##   RHS range        [1e+00, 1e+01]
-    ## Presolve removed 352 rows and 261 columns
-    ## Presolve time: 0.03s
-    ## Presolved: 302 rows, 245 columns, 678 nonzeros
-    ## Variable types: 0 continuous, 245 integer (245 binary)
-    ## Found heuristic solution: objective 7330.4055047
-    ## Found heuristic solution: objective 6070.2074533
-    ## Root relaxation presolved: 302 rows, 245 columns, 678 nonzeros
-    ## 
-    ## 
-    ## Root relaxation: objective 5.489159e+03, 68 iterations, 0.00 seconds (0.00 work units)
-    ## 
-    ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
-    ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-    ## 
-    ##      0     0 5489.15943    0   59 6070.20745 5489.15943  9.57%     -    0s
-    ## H    0     0                    5858.4184908 5489.15943  6.30%     -    0s
-    ##      0     0 5800.03715    0   62 5858.41849 5800.03715  1.00%     -    0s
-    ##      0     0 5814.59442    0   23 5858.41849 5814.59442  0.75%     -    0s
-    ##      0     0 infeasible    0      5858.41849 5858.41849  0.00%     -    0s
-    ## 
-    ## Explored 1 nodes (183 simplex iterations) in 0.05 seconds (0.02 work units)
-    ## Thread count was 1 (of 8 available processors)
-    ## 
-    ## Solution count 3: 5858.42 6070.21 7330.41 
-    ## 
-    ## Optimal solution found (tolerance 0.00e+00)
-    ## Best objective 5.858418490821e+03, best bound 5.858418490821e+03, gap 0.0000%
-
-``` r
 # plot the solution
-spplot(s4, "solution_1", main = "Solution", at = c(0, 0.5, 1.1),
-       col.regions = c("grey90", "darkgreen"), xlim = c(-0.1, 1.1),
-       ylim = c(-0.1, 1.1))
+plot(s4, main = "Solution", axes = FALSE)
 ```
 
-<img src="man/figures/README-contiguity_constraints-1.png" width="400" style="display: block; margin: auto;" />
+<img src="man/figures/README-boundary_penalties-1.png" width="500" style="display: block; margin: auto;" />
 
-Now let’s explore which planning units selected in the prioritization
-are most important for meeting our targets as cost-effectively as
-possible. To achieve this, we will calculate importance
-(irreplaceability) scores using a version of the replacement cost
-method. Under this method, planning units with higher scores are more
-important for meeting the objective of our conservation planning problem
-than those with lower scores. Furthermore, planning units with infinite
-scores are irreplaceable—it is impossible to meet our targets without
-protecting these planning units. Note that we override the solver
-behavior in the code below to prevent lots of unnecessary text from
-being output.
+Now, let’s explore which planning units selected by the solution are
+most important for cost-effectively meeting the targets. To achieve
+this, we will calculate importance (irreplaceability) scores using the
+Ferrier method. Although this method produces scores for each feature
+separately, we will examine the total scores that summarize overall
+importance across all features.
 
 ``` r
-# solve the problem
-rc <- p4 %>%
-      add_default_solver(gap = 0, verbose = FALSE) %>%
-      eval_replacement_importance(s4[, "solution_1"])
+# calculate importance scores
+rc <-
+  p4 %>%
+  eval_ferrier_importance(s4)
+
+# print scores
+print(rc)
 ```
 
-    ## Warning in res(x, ...): overwriting previously defined solver
+    ## class       : SpatRaster 
+    ## dimensions  : 109, 147, 397  (nrow, ncol, nlyr)
+    ## resolution  : 4000, 4000  (x, y)
+    ## extent      : -1816382, -1228382, 247483.5, 683483.5  (xmin, xmax, ymin, ymax)
+    ## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs 
+    ## source(s)   : memory
+    ## varnames    : wa_pu 
+    ##               wa_pu 
+    ##               wa_pu 
+    ##               ...
+    ## names       :  Recur~ding),  Botau~ding),  Botau~ding),  Corvu~ding),  Corvu~ding),  Cincl~full), ... 
+    ## min values  : 0.0000000000, 0.0000000000, 0.0000000000, 0.000000e+00, 0.000000e+00, 0.000000e+00, ... 
+    ## max values  : 0.0003227724, 0.0002213034, 0.0006622152, 7.771815e-05, 8.974447e-05, 8.483296e-05, ...
 
 ``` r
-# set infinite values as 1.09 so we can plot them
-rc$rc[rc$rc > 100] <- 1.09
-
-# plot the importance scores
-# planning units that are truly irreplaceable are shown in red
-spplot(rc, "rc", main = "Irreplaceability", xlim = c(-0.1, 1.1),
-       ylim = c(-0.1, 1.1), at = c(seq(0, 0.9, 0.1), 1.01, 1.1),
-       col.regions = c("#440154", "#482878", "#3E4A89", "#31688E", "#26828E",
-                       "#1F9E89", "#35B779", "#6DCD59", "#B4DE2C", "#FDE725",
-                       "#FF0000"))
+# plot the total importance scores
+## note that gray cells are not selected by the prioritization
+plot(
+  rc[["total"]], main = "Importance scores", axes = FALSE,
+  breaks = c(0, 1e-10, 0.005, 0.01, 0.025),
+  col = c("#e5e5e5", "#fff7ec", "#fc8d59", "#7f0000")
+)
 ```
 
-<img src="man/figures/README-replacement_cost-1.png" width="400" style="display: block; margin: auto;" />
+<img src="man/figures/README-importance-1.png" width="500" style="display: block; margin: auto;" />
 
 This short example demonstrates how the *prioritizr R* package can be
 used to build and customize conservation problems, and then solve them

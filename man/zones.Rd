@@ -5,13 +5,14 @@
 \alias{Zones-class}
 \alias{ZonesCharacter}
 \alias{ZonesRaster}
+\alias{ZonesSpatRaster}
 \alias{Zones}
 \title{Management zones}
 \usage{
 zones(..., zone_names = NULL, feature_names = NULL)
 }
 \arguments{
-\item{...}{\code{\link[raster:raster]{raster::raster()}} or \code{character} objects that
+\item{...}{\code{\link[terra:rast]{terra::rast()}} or \code{character} objects that
 pertain to the biodiversity data. See Details for more information.}
 
 \item{zone_names}{\code{character} names of the management zones. Defaults
@@ -21,7 +22,8 @@ to \code{NULL} which results in sequential integers.}
 to \code{NULL} which results in sequential integers.}
 }
 \value{
-\code{\linkS4class{Zones}} object.
+A \code{\linkS4class{Zones}} object containing data for each zone, and
+the feature and zone names.
 }
 \description{
 Organize data for multiple features for multiple management zones.
@@ -41,20 +43,24 @@ The correct arguments depends on the type of planning unit data
 used when building the conservation planning \code{\link[=problem]{problem()}}.
 
 \describe{
-\item{planning unit data are a \code{\linkS4class{Raster}} or \code{\linkS4class{Spatial}} object}{
-\code{\linkS4class{Raster}} object can be supplied to specify the expected amount of
+
+\item{\code{\link[=problem]{problem()}} will have \code{\link[terra:rast]{terra::rast()}} or \code{\link[sf:sf]{sf::st_sf()}} planning units}{
+\code{\link[terra:rast]{terra::rast()}} object can be supplied to specify the expected amount of
 each feature within each planning unit under each management zone.
 Data for each zone should be specified as separate
 arguments, and the data for each feature in a given zone are specified
-in separate layers in a \code{\link[raster:stack]{raster::stack()}} object.
-Note that all layers for a given zone must have \code{NA} values in exactly the
-same cells.}
-\item{planning unit data are a \code{\linkS4class{Spatial}} or \code{data.frame}
-object}{\code{character} vector containing column names can
+in separate layers in a \code{\link[terra:rast]{terra::rast()}} object.
+Note that all layers for a given zone must have missing (\code{NA}) values in
+exactly the same cells.}
+
+\item{\code{\link[=problem]{problem()}} will have \code{\link[sf:sf]{sf::st_sf()}} or \code{data.frame} planning units}{
+\code{character} vector containing column names can
 be supplied to specify the expected amount of each feature under each
-zone. Note that these columns must not contain any \code{NA} values.}
-\item{planning unit data are a \code{\linkS4class{Spatial}}, \code{data.frame}, or
-\code{matrix} object}{\code{data.frame} object can be supplied to specify the
+zone. Note that these columns must not contain any missing (\code{NA}) values.}
+
+\item{\code{\link[=problem]{problem()}} will have \code{\link[sf:sf]{sf::st_sf()}}, \code{data.frame}, or
+\code{matrix} planning units}{
+\code{data.frame} object can be supplied to specify the
 expected amount of each feature under each zone.
 Following conventions used in \emph{Marxan}, the
 \code{data.frame} object should contain the following columns.
@@ -64,48 +70,65 @@ Following conventions used in \emph{Marxan}, the
 \item{amount}{\code{numeric} amount of the feature in the
 planning unit for a given zone.}
 }
+
 Note that data for each zone are specified in a separate argument, and
 the data contained in a single \code{data.frame} object should correspond to
 a single zone. Also, note that data are not required for all
 combinations of planning units, features, and zones. The expected amount of
 features in planning units under management zones that are
 missing from the table are assumed to be zero.}
+
 }
 }
 \examples{
 \dontrun{
 # load planning unit data
-data(sim_pu_raster)
+sim_pu_raster <- get_sim_pu_raster()
 
 zone_1 <- simulate_species(sim_pu_raster, 3)
 zone_2 <- simulate_species(sim_pu_raster, 3)
 
-# create zones using two raster stack objects
+# create zones using two SpatRaster objects
 # each object corresponds to a different zone and each layer corresponds to
 # a different species
-z <- zones(zone_1, zone_2, zone_names = c("zone_1", "zone_2"),
-           feature_names = c("feature_1", "feature_2", "feature_3"))
+z <- zones(
+  zone_1, zone_2,
+  zone_names = c("zone_1", "zone_2"),
+  feature_names = c("feature_1", "feature_2", "feature_3")
+)
 print(z)
+
+# plot the rasters for the first zone in the Zones object
+plot(
+ z[[1]],
+ main = c("Zone 1 feature 1", "Zone 1 feature 2", "Zone 1 feature 3")
+)
 
 # note that the do.call function can also be used to create a Zones object
 # this method for creating a Zones object can be helpful when there are many
 # management zones
-l <- list(zone_1, zone_2, zone_names = c("zone_1", "zone_2"),
-          feature_names = c("feature_1", "feature_2", "feature_3"))
+l <- list(
+  zone_1, zone_2,
+  zone_names = c("zone_1", "zone_2"),
+  feature_names = c("feature_1", "feature_2", "feature_3")
+)
 z <- do.call(zones, l)
 print(z)
 
-# create zones using character vectors that represent the names of
-# fields (columns) in a data.frame or Spatial object that contain the amount
+# create zones using character vectors corresponding to column names
+# of a data.frame or Spatial object that contain the amount
 # of each species expected different management zones
-z <- zones(c("spp1_zone1", "spp2_zone1"),
-           c("spp1_zone2", "spp2_zone2"),
-           c("spp1_zone3", "spp2_zone3"),
-           zone_names = c("zone1", "zone2", "zone3"),
-           feature_names = c("spp1", "spp2"))
+z <- zones(
+  c("spp1_zone1", "spp2_zone1"),
+  c("spp1_zone2", "spp2_zone2"),
+  c("spp1_zone3", "spp2_zone3"),
+  zone_names = c("zone1", "zone2", "zone3"),
+  feature_names = c("spp1", "spp2")
+)
 print(z)
 }
 }
 \seealso{
-\code{\link[=problem]{problem()}}.
+See \code{\link[=problem]{problem()}} for information on using this function to generate
+a prioritization with multiple management zones.
 }

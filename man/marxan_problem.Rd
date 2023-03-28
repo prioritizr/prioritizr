@@ -110,7 +110,7 @@ this parameter should be set to \code{FALSE}.
 Defaults to \code{TRUE}.}
 }
 \value{
-\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.
+A \code{\link[=problem]{problem()}} object.
 }
 \description{
 Create a conservation planning \code{\link[=problem]{problem()}} following the
@@ -135,9 +135,10 @@ data.
 # create Marxan problem using Marxan input file
 # (note this example requires the data.table package to be installed)
 \dontrun{
-input_file <- system.file("extdata/input.dat", package = "prioritizr")
-p1 <- marxan_problem(input_file) \%>\%
-      add_default_solver(verbose = FALSE)
+input_file <- system.file("extdata/marxan/input.dat", package = "prioritizr")
+p1 <-
+  marxan_problem(input_file) \%>\%
+  add_default_solver(verbose = FALSE)
 
 # solve problem
 s1 <- solve(p1)
@@ -148,29 +149,35 @@ head(s1)
 # create Marxan problem using data.frames that have been loaded into R
 # (note this example also requires the data.table package to be installed)
 ## load in planning unit data
-pu_path <- system.file("extdata/input/pu.dat", package = "prioritizr")
+pu_path <- system.file("extdata/marxan/input/pu.dat", package = "prioritizr")
 pu_dat <- data.table::fread(pu_path, data.table = FALSE)
 head(pu_dat)
 
 ## load in feature data
-spec_path <- system.file("extdata/input/spec.dat", package = "prioritizr")
+spec_path <- system.file(
+  "extdata/marxan/input/spec.dat", package = "prioritizr"
+)
 spec_dat <- data.table::fread(spec_path, data.table = FALSE)
 head(spec_dat)
 
 ## load in planning unit vs feature data
-puvspr_path <- system.file("extdata/input/puvspr.dat",
-                           package = "prioritizr")
+puvspr_path <- system.file(
+  "extdata/marxan/input/puvspr.dat", package = "prioritizr"
+)
 puvspr_dat <- data.table::fread(puvspr_path, data.table = FALSE)
 head(puvspr_dat)
 
 ## load in the boundary data
-bound_path <- system.file("extdata/input/bound.dat", package = "prioritizr")
+bound_path <- system.file(
+  "extdata/marxan/input/bound.dat", package = "prioritizr"
+)
 bound_dat <- data.table::fread(bound_path, data.table = FALSE)
 head(bound_dat)
 
 # create problem without the boundary data
-p2 <- marxan_problem(pu_dat, spec_dat, puvspr_dat) \%>\%
-      add_default_solver(verbose = FALSE)
+p2 <-
+  marxan_problem(pu_dat, spec_dat, puvspr_dat) \%>\%
+  add_default_solver(verbose = FALSE)
 
 # solve problem
 s2 <- solve(p2)
@@ -180,8 +187,9 @@ head(s2)
 
 # create problem with the boundary data and a boundary length modifier
 # set to 5
-p3 <- marxan_problem(pu_dat, spec_dat, puvspr_dat, bound_dat, 5) \%>\%
-      add_default_solver(verbose = FALSE)
+p3 <-
+  marxan_problem(pu_dat, spec_dat, puvspr_dat, bound_dat, blm = 5) \%>\%
+  add_default_solver(verbose = FALSE)
 
 # solve problem
 s3 <- solve(p3)

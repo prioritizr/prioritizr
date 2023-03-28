@@ -1,0 +1,9 @@
+---
+title: "Print problem"
+output: rmarkdown::html_vignette
+---
+
+```{r, echo = FALSE, collapse = TRUE}
+# print the problem
+x$print()
+```

@@ -2,36 +2,49 @@
 % Please edit documentation in R/number_of_planning_units.R
 \name{number_of_planning_units}
 \alias{number_of_planning_units}
-\alias{number_of_planning_units,ConservationProblem-method}
-\alias{number_of_planning_units,OptimizationProblem-method}
+\alias{number_of_planning_units.ConservationProblem}
+\alias{number_of_planning_units.OptimizationProblem}
 \title{Number of planning units}
 \usage{
-number_of_planning_units(x)
+number_of_planning_units(x, ...)
 
-\S4method{number_of_planning_units}{ConservationProblem}(x)
+\method{number_of_planning_units}{ConservationProblem}(x, ...)
 
-\S4method{number_of_planning_units}{OptimizationProblem}(x)
+\method{number_of_planning_units}{OptimizationProblem}(x, ...)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}),
-\code{\linkS4class{OptimizationProblem}}, or \code{\link[=Zones]{Zones()}} object.}
+\item{x}{\code{\link[=problem]{problem()}} or \code{\link[=optimization_problem]{optimization_problem()}} object.}
+
+\item{...}{not used.}
 }
 \value{
-\code{integer} number of planning units.
+An \code{integer} number of planning units.
 }
 \description{
 Extract the number of planning units in an object.
 }
+\details{
+The planning units for an object corresponds to the number
+of entries (e.g., rows, cells) for the planning unit data that
+do not have missing (\code{NA}) values for every zone.
+For example, a single-layer raster dataset might have 90 cells
+and only two of these cells contain non-missing (\code{NA}) values.
+As such, this dataset would have two planning units.
+}
 \examples{
+\dontrun{
 # load data
-data(sim_pu_raster, sim_features)
+sim_pu_raster <- get_sim_pu_raster()
+sim_features <- get_sim_features()
 
 # create problem
-p <- problem(sim_pu_raster, sim_features) \%>\%
-     add_min_set_objective() \%>\%
-     add_relative_targets(0.2) \%>\%
-     add_binary_decisions()
+p <-
+  problem(sim_pu_raster, sim_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.2) \%>\%
+  add_binary_decisions()
 
 # print number of planning units
 print(number_of_planning_units(p))
+}
 }

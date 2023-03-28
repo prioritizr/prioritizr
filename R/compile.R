@@ -1,12 +1,12 @@
-#' @include internal.R ConservationProblem-proto.R OptimizationProblem-proto.R
+#' @include internal.R ConservationProblem-class.R OptimizationProblem-class.R
 NULL
 
 #' Compile a problem
 #'
-#' Compile a conservation planning [problem()] into an
-#' (potentially mixed) integer linear programming problem.
+#' Compile a conservation planning problem into an
+#' mixed integer linear programming problem.
 #'
-#' @param x [problem()] (i.e., [`ConservationProblem-class`]) object.
+#' @param x [problem()] object.
 #'
 #' @param compressed_formulation `logical` should the conservation problem
 #'   compiled into a compressed version of a planning problem?
@@ -24,18 +24,25 @@ NULL
 #'   be solved, then the [solve()] function should just be used.
 #'
 #'   **Please note that in nearly all cases, the default argument to
-#'   `formulation` should be used**. The only situation where manually
+#'   `compressed_formulation` should be used**. The only situation where
+#'    manually
 #'   setting the argument to `formulation` is desirable is during testing.
 #'   Manually setting the argument to `formulation` will at best
 #'   have no effect on the problem. At worst, it may result in
 #'   an error, a misspecified problem, or unnecessarily long
 #'   solve times.
 #'
-#' @return [`OptimizationProblem-class`] object.
+#' @return A [optimization_problem()] object.
 #'
 #' @examples
+#' \dontrun{
+#' # load data
+#' sim_pu_raster <- get_sim_pu_raster()
+#' sim_features <- get_sim_features()
+#'
 #' # build minimal conservation problem
-#' p <- problem(sim_pu_raster, sim_features) %>%
+#' p <-
+#'   problem(sim_pu_raster, sim_features) %>%
 #'   add_min_set_objective() %>%
 #'   add_relative_targets(0.1)
 #'
@@ -44,7 +51,7 @@ NULL
 #'
 #' # print the optimization problem
 #' print(o)
-#'
+#' }
 #' @export
 compile <- function(x, ...) UseMethod("compile")
 
@@ -52,50 +59,95 @@ compile <- function(x, ...) UseMethod("compile")
 #' @export
 compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
   # assert arguments are valid
-  assertthat::assert_that(inherits(x, "ConservationProblem"),
-    no_extra_arguments(...),
-    is.na(compressed_formulation) ||
-          assertthat::is.flag(compressed_formulation))
+  assert_required(x)
+  assert_required(compressed_formulation)
+  assert(
+    is_conservation_problem(x),
+    assertthat::is.flag(compressed_formulation)
+  )
+  assert_dots_empty()
   # sanity checks
-  targets_not_supported <-
-    c("MaximumUtilityObjective", "MaximumCoverageObjective")
-  if (inherits(x$objective, targets_not_supported) &&
-      !is.Waiver(x$targets))
-    warning(paste("ignoring targets since the specified objective",
-                  "function doesn't use targets"))
+  targets_not_supported <- c(
+    "MaximumUtilityObjective",
+    "MaximumCoverageObjective"
+  )
+  if (
+    inherits(x$objective, targets_not_supported) &&
+    !is.Waiver(x$targets)
+  ) {
+    cli_warning(
+      c(
+        "Targets specified for the problem will be ignored.",
+        "i" = "If the targets are important, use a different objective."
+      )
+    )
+  }
   # replace waivers with defaults
-  if (is.Waiver(x$objective))
-    x <- add_default_objective(x)
-  if (is.Waiver(x$targets) &
-      !inherits(x$objective,
-           c("MaximumUtilityObjective", "MaximumCoverageObjective")))
-    x <- add_default_targets(x)
+  if (is.Waiver(x$objective)) {
+    cli::cli_abort(
+      "{.fn problem} must have an objective.",
+      "i" = paste(
+        "see {.topic prioritizr::objectives} for guidance on selecting",
+        "an objective."
+      )
+    )
+  }
+  if (
+    is.Waiver(x$targets) &&
+    !inherits(
+      x$objective,
+      c("MaximumUtilityObjective", "MaximumCoverageObjective"))
+  ) {
+    cli::cli_abort(
+      "{.fn problem} must have targets.",
+      "i" =
+        "see {.topic prioritizr::targets} for guidance on selecting targets."
+    )
+  }
+  # add defaults if needed
+  ## this shouldn't really be needed because the
+  # default functions are now applied when the problem() is created
+  # nocov start
   if (is.Waiver(x$decisions))
-    x <- add_default_decisions(x)
+    x <- suppressWarnings(add_binary_decisions(x))
   if (is.Waiver(x$solver))
-    x <- add_default_solver(x)
-  op <- new_optimization_problem()
+    x <- suppressWarnings(add_default_solver(x))
+  if (is.Waiver(x$portfolio))
+    x <- suppressWarnings(add_shuffle_portfolio(x, 1))
+  # nocov end
+  # initialize optimization problems
+  op <- optimization_problem()
   # determine if expanded formulation is required
-  if (is.na(compressed_formulation))
-    compressed_formulation <- all(vapply(x$constraints$ids(),
-      function(i) x$constraints[[i]]$compressed_formulation, logical(1)))
+  if (is.na(compressed_formulation)) {
+    compressed_formulation <- all(
+      vapply(
+        x$constraints,
+        FUN.VALUE = logical(1),
+        function(i) i$compressed_formulation
+      )
+    )
+  }
   # generate targets
   if (is.Waiver(x$targets)) {
     # if objective doesn't actually use targets, create a "fake" targets tibble
     # to initialize rij matrix
-    targets <- tibble::as_tibble(expand.grid(
-      feature = seq_along(x$feature_names()),
-      zone = seq_along(x$zone_names()),
-      sense = "?",
-      value = 0))
+    targets <- tibble::as_tibble(
+      expand.grid(
+        feature = seq_along(x$feature_names()),
+        zone = seq_along(x$zone_names()),
+        sense = "?",
+        value = 0
+      )
+    )
     targets$zone <- as.list(targets$zone)
   } else {
     # generate "real" targets
     targets <- x$feature_targets()
   }
   # add rij data to optimization problem
-  rcpp_add_rij_data(op$ptr, x$get_data("rij_matrix"), as.list(targets),
-                    compressed_formulation)
+  rcpp_add_rij_data(
+    op$ptr, x$get_data("rij_matrix"), as.list(targets), compressed_formulation
+  )
   # add decision types to optimization problem
   x$decisions$calculate(x)
   x$decisions$apply(op)
@@ -103,27 +155,38 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
   x$objective$calculate(x)
   x$objective$apply(op, x)
   # add constraints for zones
-  if (x$number_of_zones() > 1) {
-    # detect if allocation constraints are mandatory
-    r <- try(x$constraints$find("Mandatory allocation constraints"),
-             silent = TRUE)
+  if ((x$number_of_zones() > 1)) {
+    # detect if mandatory allocation constraints should be applied
+    if (length(x$constraints) == 0) {
+      apply_mandatory <- FALSE
+    } else {
+      apply_mandatory <- any(
+        vapply(
+          x$constraints, inherits, logical(1), "MandatoryAllocationConstraint"
+        )
+      )
+    }
     # set constraint type
-    ct <- ifelse(
-      !inherits(r, "try-error") &&
-      isTRUE(x$constraints[[r]]$get_parameter("apply constraints?") == 1L),
-      "=", "<=")
+    ct <- ifelse(apply_mandatory, "=", "<=")
     # apply constraints
     rcpp_add_zones_constraints(op$ptr, ct)
   }
   # add penalties to optimization problem
-  for (i in x$penalties$ids()) {
+  for (i in seq_along(x$penalties)) {
     ## run sanity check
-    weights_not_supported <-
-      c("MinimumSetObjective", "MinimumLargestShortfallObjective" )
-    if (inherits(x$penalties[[i]], "FeatureWeights") &&
-        inherits(x$objective, weights_not_supported)) {
-      warning(paste("ignoring weights since the specified objective",
-                    "function doesn't use weights"))
+    if (
+      inherits(x$penalties[[i]], "FeatureWeights") &&
+      inherits(
+        x$objective,
+        c("MinimumSetObjective", "MinimumLargestShortfallObjective")
+      )
+    ) {
+      cli_warning(
+        c(
+          "Weights specified for the problem will be ignored.",
+          "i" = "If the weights are important, use a different objective."
+        )
+      )
       next()
     }
     ## apply penalty if it makes sense to do so
@@ -131,7 +194,7 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
     x$penalties[[i]]$apply(op, x)
   }
   # add constraints to optimization problem
-  for (i in x$constraints$ids()) {
+  for (i in seq_along(x$constraints)) {
     x$constraints[[i]]$calculate(x)
     x$constraints[[i]]$apply(op, x)
   }

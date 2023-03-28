@@ -1,19 +1,21 @@
-#' @include internal.R ConservationProblem-proto.R OptimizationProblem-proto.R compile.R
+#' @include internal.R ConservationProblem-class.R OptimizationProblem-class.R compile.R
 NULL
 
 #' Presolve check
 #'
-#' Check a conservation planning [problem()] for potential issues
+#' Check a conservation planning problem for potential issues
 #' before trying to solve it. Specifically, problems are checked for (i) values
 #' that are likely to result in "strange" solutions and (ii) values that are
 #' likely to cause numerical instability issues and lead to unreasonably long
 #' run times when solving it. Although these checks are provided to help
 #' diagnose potential issues, please be aware that some detected issues may be
 #' false positives. Please note that these checks will not be able to
-#' verify if  a problem has a feasible solution or not.
+#' verify if a problem has a feasible solution or not.
 #'
-#' @param x [problem()] (i.e., [`ConservationProblem-class`]) or
-#'   [`OptimizationProblem-class`] object.
+#' @param x [problem()] or [optimization_problem()] object.
+#'
+#' @param warn `logical` should a warning be thrown if the presolve checks fail?
+#'  Defaults to `TRUE`.
 #'
 #' @details This function checks for issues that are likely to result in
 #'   "strange" solutions. Specifically, it checks if (i) all planning units are
@@ -101,8 +103,7 @@ NULL
 #'   are already taking an unreasonable time to solve, then this will not help
 #'   at all.
 #'
-#' @return `logical` value indicating if all checks are passed
-#'   successfully.
+#' @return A `logical` value indicating if all checks passed successfully.
 #'
 #' @seealso [problem()], [solve()], <https://www.gurobi.com/documentation/9.5/refman/numerics_gurobi_guidelines.html>.
 #'
@@ -112,13 +113,15 @@ NULL
 #' set.seed(500)
 #'
 #' # load data
-#' data(sim_pu_raster, sim_features)
+#' sim_pu_raster <- get_sim_pu_raster()
+#' sim_features <- get_sim_features()
 #'
 #' # create minimal problem with no issues
-#' p1 <- problem(sim_pu_raster, sim_features) %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(0.1) %>%
-#'       add_binary_decisions()
+#' p1 <-
+#'   problem(sim_pu_raster, sim_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(0.1) %>%
+#'   add_binary_decisions()
 #'
 #' # run presolve checks
 #' # note that no warning is thrown which suggests that we should not
@@ -130,10 +133,11 @@ NULL
 #' # to solve it
 #' sim_pu_raster2 <- sim_pu_raster
 #' sim_pu_raster2[1] <- 1e+15
-#' p2 <- problem(sim_pu_raster2, sim_features) %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(0.1) %>%
-#'       add_binary_decisions()
+#' p2 <-
+#'   problem(sim_pu_raster2, sim_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(0.1) %>%
+#'   add_binary_decisions()
 #'
 #' # run presolve checks
 #' # note that a warning is thrown which suggests that we might encounter
@@ -145,11 +149,12 @@ NULL
 #' # a really high penalty value that is likely to cause numerical instability
 #' # issues when trying to solve the it
 #' cm <- adjacency_matrix(sim_pu_raster)
-#' p3 <- problem(sim_pu_raster, sim_features) %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(0.1) %>%
-#'       add_connectivity_penalties(1e+15, data = cm) %>%
-#'       add_binary_decisions()
+#' p3 <-
+#'   problem(sim_pu_raster, sim_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(0.1) %>%
+#'   add_connectivity_penalties(1e+15, data = cm) %>%
+#'   add_binary_decisions()
 #'
 #' # run presolve checks
 #' # note that a warning is thrown which suggests that we might encounter
@@ -158,59 +163,133 @@ NULL
 #'
 #' # let's forcibly solve the problem using Gurobi and tell it to
 #' # be extra careful about numerical instability problems
-#' s3 <- p3 %>%
-#'       add_gurobi_solver(numeric_focus = TRUE) %>%
-#'       solve(force = TRUE)
+#' s3 <-
+#'    p3 %>%
+#'    add_gurobi_solver(numeric_focus = TRUE) %>%
+#'    solve(force = TRUE)
 #'
 #' # plot solution
 #' # we can see that all planning units were selected because the connectivity
 #' # penalty is so high that cost becomes irrelevant, so we should try using
 #' # a much lower penalty value
-#' plot(s3, main = "solution", axes = FALSE, box = FALSE)
+#' plot(s3, main = "solution", axes = FALSE)
 #' }
 #' @export
-presolve_check <- function(x) UseMethod("presolve_check")
+presolve_check <- function(x, warn = TRUE) {
+  assert_required(x)
+  assert_required(warn)
+  UseMethod("presolve_check")
+}
 
 #' @rdname presolve_check
 #' @method presolve_check ConservationProblem
 #' @export
-presolve_check.ConservationProblem <- function(x) {
-  assertthat::assert_that(inherits(x, "ConservationProblem"))
-  presolve_check(compile(x))
+presolve_check.ConservationProblem <- function(x, warn = TRUE) {
+  assert(is_conservation_problem(x))
+  presolve_check(compile(x), warn = warn)
 }
 
 #' @rdname presolve_check
 #' @method presolve_check OptimizationProblem
 #' @export
-presolve_check.OptimizationProblem <- function(x) {
+presolve_check.OptimizationProblem <- function(x, warn = TRUE) {
+  result <- internal_presolve_check(x)
+  if (!isTRUE(result$pass) && isTRUE(warn)) {
+    cli_warning(result$msg)
+  }
+  result$pass
+}
+
+internal_presolve_check <- function(x) {
   # assert argument is valid
-  assertthat::assert_that(inherits(x, "OptimizationProblem"))
+  assert_required(x)
+  assert(inherits(x, "OptimizationProblem"), .internal = TRUE)
 
   # set thresholds
   upper_value <- 1e+6
   lower_value <- 1e-6
 
-  # initialize output value
-  out <- TRUE
+  # initialize output values
+  pass <- TRUE
+  msg1 <- c()
+  msg2 <- c()
 
   # presolve checks
   ## check for non-standard input data
   ### check if all planning units locked out
   n_pu_vars <- x$number_of_planning_units() * x$number_of_zones()
   if (all(x$ub()[seq_len(n_pu_vars)] < 1e-5)) {
-    out <- FALSE
-    warning(
-      "all planning units locked out, ",
-      "try again solve(a, force = TRUE) if this correct",
-      immediate. = TRUE)
+    pass <- FALSE
+    msg2 <- c(
+      msg2,
+      c(
+        "All planning units must not be locked out.",
+        paste(
+          "v" = "Maybe you made a mistake when using",
+          "{.fn add_locked_out_constraints}?"
+        ),
+        ""
+      )
+    )
   }
   ### check if all planning units locked in
   if (all(x$lb()[seq_len(n_pu_vars)] > 0.9999)) {
-    out <- FALSE
-    warning(
-      "all planning units locked in, ",
-      "try again solve(a, force = TRUE) if this correct",
-      immediate. = TRUE)
+    pass <- FALSE
+    msg2 <- c(
+      msg2,
+      c(
+        "x" = "All planning units must not be locked in.",
+        ">" = paste(
+          "Maybe you made a mistake when using",
+          "{.fn add_locked_in_constraints}?"
+        ),
+        ""
+      )
+    )
+  }
+
+  ## check if budget exceeds total of planning unit costs
+  r1 <- which(x$row_ids() == "budget")
+  if (length(r1) > 0) {
+    result <- vapply(r1, FUN.VALUE = logical(1), function(i) {
+      sum(x$A()[i, ]) <= x$rhs()[i]
+    })
+    if (any(result)) {
+      pass <- FALSE
+      if (length(r1) == 1) {
+        msg2 <- c(
+          msg2,
+          c(
+            "x" = paste(
+              "Budget is greater than the total cost of selecting",
+              "all planning units."
+            ),
+            ">" = paste(
+              "Maybe you made a mistake when setting the {.arg budget}",
+              "in the objective function?"
+            ),
+            ""
+          )
+        )
+      } else {
+        msg2 <- c(
+          msg2,
+          c(
+            "x" = paste(
+              "One or more of the budget values is greater than the total cost",
+              "of all planning units in a zone."
+            ),
+            ">" = cli::format_inline(
+              paste(
+                "Maybe you made a mistake when setting the {.arg budget}",
+                "in the objective function?"
+              )
+            ),
+            ""
+          )
+        )
+      }
+    }
   }
 
   ## check objective function
@@ -219,51 +298,110 @@ presolve_check.OptimizationProblem <- function(x) {
   r2 <- which(abs(x$obj()) > upper_value)
   if ((length(r1) > 0) || (length(r2) > 0)) {
     ### find names of decision variables in the problem which exceed thresholds
-    out <- FALSE
+    pass <- FALSE
     n1 <- x$col_ids()[r1]
     n2 <- x$col_ids()[r2]
     ### throw warnings
     if (("pu" %in% n1) && (!"ac" %in% n2) && (!"b" %in% n2) && (!"c" %in% n2))
-      warning(
-        "planning units with very high costs (> ", upper_value, "), ",
-        "please consider re-scaling the values to avoid numerical issues ",
-        "(e.g., convert units from USD to millions of USD)",
-        immediate. = TRUE
+      msg1 <- c(
+        msg1,
+        c(
+          "x" = paste(
+            "Planning units must not have cost values that are too high",
+            "(> 1e6)."
+          ),
+          ">" = paste(
+            "Try re-scaling cost values",
+            "(e.g., convert units from USD to millions of USD)."
+          ),
+          ""
+        )
       )
     if ("spp_met" %in% n1)
-      warning(
-        "feature(s) with very high target weight(s) (> ", upper_value, "), ",
-        "try using lower values in add_feature_weights()",
-        immediate. = TRUE)
+      msg1 <- c(
+        msg1,
+        c(
+          "x" = paste(
+            "Features must not have target weight values that are too high",
+            "(> 1e6)."
+          ),
+          ">" = "Try using lower values in {.fn add_feature_weights}.",
+          ""
+        )
+      )
     if ("amount" %in% n1)
-      warning(
-        "feature(s) with very high weight(s) (> ", upper_value, "), ",
-        "try using lower values in add_feature_weights()",
-        immediate. = TRUE)
+      msg1 <- c(
+        msg1,
+        c(
+          "x" = paste(
+            "Features must not have weight values that are too high",
+            "(> 1e6)."
+          ),
+          ">" = "Try using lower values in {.fn add_feature_weights}."
+        )
+      )
     if ("branch_met" %in% n1)
-      warning(
-        "feature(s) with very large branch lengths (> ", upper_value, "), ",
-        "try rescaling the phylogenetic tree data ",
-        "(e.g., convert units from years to millions of years)",
-        immediate. = TRUE)
+      msg1 <- c(
+        msg1,
+        c(
+          "x" = paste(
+            "Features must not have branch lengths that are too high",
+            "(> 1e6)."
+          ),
+          ">" = paste(
+            "Try rescaling the phylogenetic tree data",
+            "(e.g., convert units from years to millions of years)."
+          ),
+          ""
+        )
+      )
     if ("b" %in% n2)
-      warning(
-        "penalty multiplied boundary lengths are very high (> ",
-        upper_value, "), ",
-        "try using a smaller penalty value in add_boundary_penalties()",
-              immediate. = TRUE)
+      msg1 <- c(
+        msg1,
+        c(
+          "x" = paste(
+            "Multiplying the boundary length data by {.arg penalty}",
+            "must not produce values that are too high",
+            "(> 1e6)."
+          ),
+          ">" = paste(
+            "Try using a smaller {.arg penalty} in",
+            "{.fn add_boundary_penalties}."
+          ),
+          ""
+        )
+      )
     if ("c" %in% n2)
-      warning(
-        "penalty multiplied connectivity values are very high (> ",
-        upper_value, "), ",
-        "try using a smaller penalty value in add_connectivity_penalties()",
-              immediate. = TRUE)
+      msg1 <- c(
+        msg1,
+        c(
+          "x" = paste(
+            "Multiplying the connectivity data by {.arg penalty}",
+            "must not produce values that are too high",
+            "(> 1e6)."
+          ),
+          ">" = paste(
+            "Try using a smaller {.arg penalty} in",
+            "{.fn add_connectivity_penalties}."
+          ),
+          ""
+        )
+      )
     if ("ac" %in% n2)
-      warning(
-        "penalty multiplied asymmetric connectivity values are very ",
-        "high (> ", upper_value, "), try using a smaller penalty value in ",
-        "add_asym_connectivity_penalties()",
-        immediate. = TRUE
+      msg1 <- c(
+        msg1,
+        c(
+          "x" = paste(
+            "Multiplying the asymmetric connectivity data by {.arg penalty}",
+            "must not produce values that are too high",
+            "(> 1e6)."
+          ),
+          ">" = paste(
+            "Try using a smaller {.arg penalty} in",
+            "{.fn add_asym_connectivity_penalties}."
+          ),
+          ""
+        )
       )
   }
 
@@ -272,40 +410,69 @@ presolve_check.OptimizationProblem <- function(x) {
   r <- which(x$rhs() > upper_value)
   if (length(r) > 0) {
     #### find names of constraints in the problem which exceed thresholds
-    out <- FALSE
+    pass <- FALSE
     n <- x$row_ids()[r]
     #### throw warnings
     if ("budget" %in% n)
-      warning(
-        "budget is very high (> ", upper_value, "), ",
-        "try re-scaling cost data so the same budget can be specified ",
-        "by using a smaller value with different units ",
-        "(e.g., convert units from USD to millions of USD)",
-        immediate. = TRUE)
+      msg1 <- c(
+        msg1,
+        c(
+          "x" = "{.arg budget} must not be too high (> 1e6).",
+          ">" = paste0(
+            "Try re-scaling cost values",
+            "(e.g., convert cost units from USD to millions of USD)."
+          ),
+          ""
+        )
+      )
     if ("spp_target" %in% n)
-      warning(
-        "feature(s) with very high target(s) (> ", upper_value, "), ",
-        "try re-scaling the feature data to avoid numerical issues ",
-        "(e.g., convert units from m^2 to km^2)",
-        immediate. = TRUE)
+      msg1 <- c(
+        msg1,
+        c(
+          "x" = paste(
+            "Features must not have target values that are too high",
+            "(> 1e6)."
+          ),
+          ">" = paste(
+            "Try re-scaling the feature data",
+            "(e.g., convert units from m{cli::symbol$sup_2} to",
+            "km{cli::symbol$sup_2})."
+          ),
+          ""
+        )
+      )
   }
   ### check lower threshold
   r <- which((x$rhs() < lower_value) & (x$rhs() > 1e-300))
   if (length(r) > 0) {
     #### find names of constraints in the problem which exceed thresholds
-    out <- FALSE
+    pass <- FALSE
     n <- x$row_ids()[r]
     ### throw warnings
     if ("budget" %in% n)
-      warning(
-        "budget(s) is very low (< ", lower_value, "), ",
-        "so the budget will be rounded to zero",
-        immediate. = TRUE)
+      msg2 <- c(
+        msg2,
+        c(
+          "x" = "{.arg budget} is effectively {.val {0}} (due to rounding).",
+          ">" = "This might prevent any planning units from being selected.",
+          ""
+        )
+      )
     if ("spp_target" %in% n)
-      warning(
-        "feature(s) with very low target(s) (< ", lower_value, "), ",
-        "so the target(s) will be rounded to zero",
-        immediate. = TRUE)
+      msg2 <- c(
+        msg2,
+        c(
+          "x" = paste(
+            "Some features have targets that are effectively {.val {0}}",
+            "(due to rounding)."
+          ),
+          ">" = paste(
+            "This might cause the features to be",
+            "under-represented by solutions."
+          ),
+          ""
+        )
+      )
   }
 
   ## check constraint matrix
@@ -317,21 +484,39 @@ presolve_check.OptimizationProblem <- function(x) {
   r2 <- which(abs(y@x) > upper_value)
   if ((length(r1) > 0) || ((length(r2) > 0))) {
     #### find names of constraints in the problem which exceed thresholds
-    out <- FALSE
+    pass <- FALSE
     rn1 <- rownames(y)[y@i + 1][r1]
     rn2 <- rownames(y)[y@i + 1][r2]
     #### throw warnings
     if ("budget" %in% rn1)
-      warning(
-        "planning units with very high costs (> ", upper_value, "), ",
-        "try re-scaling cost data to different units ",
-        "to avoid numerical issues ",
-        "(e.g., convert units from USD to millions of USD)",
-        immediate. = TRUE)
+      msg1 <- c(
+        msg1,
+        c(
+          "x" = paste(
+            "Planning units must not have cost values that are too high",
+            "(> 1e6)."
+          ),
+          ">" = paste(
+            "Try re-scaling cost data to different units",
+            "(e.g., convert units from USD to millions of USD)"
+          ),
+          ""
+        )
+      )
     if ("n" %in% rn2)
-      warning(
-        "number of neighbors required is very high (> ", upper_value, ")",
-        immediate. = TRUE)
+      msg1 <- c(
+        msg1,
+        c(
+          "x" = paste(
+            "{.arg neighbors} must not be too high",
+            "(> 1e6)."
+          ),
+          ">" = c(
+            "Try setting a smaller number in {.fn add_neighbor_constraints}."
+          ),
+          ""
+        )
+      )
   }
 
   ## check feature data
@@ -343,25 +528,76 @@ presolve_check.OptimizationProblem <- function(x) {
     drop = FALSE]
   ### check upper threshold
   if (any(rij@x > upper_value)) {
-    #### throw warnings
-    out <- FALSE
-    warning(
-      "feature or rij data have very high values (> ", upper_value, "), ",
-      "try re-scaling them to avoid numerical issues ",
-      "(e.g., convert units from m^2 to km^2)",
-      immediate. = TRUE)
+    pass <- FALSE
+    msg1 <- c(
+      msg1,
+      c(
+        "x" = paste(
+          "Feature data in {.arg x} (specified via",
+          "({.arg feature}, {.arg rij}, or {.arg rij_matrix}) must not",
+          "be too high (> 1e6)."
+        ),
+        ">" = paste(
+          "Try re-scaling them",
+          "(e.g., convert units from m{cli::symbol$sup_2} to",
+          "km{cli::symbol$sup_2})."
+        ),
+        ""
+      )
+    )
   }
   ### check lower threshold
   if (mean(Matrix::colSums(rij) <= lower_value) >= 0.5) {
-    #### throw warnings
-    out <- FALSE
-    warning(
-      "most planning units do not have any features inside them, ",
-      "try obtaining data for more features to ensure that solutions ",
-      "are biologically meaningful",
-      immediate. = TRUE)
+    pass <- FALSE
+    msg2 <- c(
+      msg2,
+      c(
+        "x" = paste(
+          "Most of the planning units do not have a single",
+          "feature inside them."
+        ),
+        ">" = paste(
+          "This indicates that more features are needed."
+        ),
+        ""
+      )
+    )
   }
 
-  # return check
-  out
+  # prepare output message
+  if (isTRUE(pass)) {
+    msg <- c("v" = "Problem passed presolve checks.")
+  } else {
+    # construct message
+    msg <- c("Problem failed presolve checks.", "")
+    if (length(msg2) > 0) {
+      msg <- c(
+        msg,
+        paste(
+          "These checks indicate that solutions",
+          "might not identify meaningful priority areas:"
+        ),
+        ""
+      )
+      msg <- c(msg, msg2)
+    }
+    if (length(msg1) > 0) {
+      msg <- c(
+        msg,
+        paste(
+          "These failures indicate that numerical",
+          "issues could stall optimizer or produce incorrect results:"
+        ),
+        ""
+      )
+      msg <- c(msg, msg1)
+    }
+    msg = c(
+      msg,
+      "i" = "For more information, see {.fun presolve_check}."
+    )
+  }
+
+  # return results
+  list(pass = pass, msg = msg)
 }

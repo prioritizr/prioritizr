@@ -3,7 +3,9 @@
 
 // [[Rcpp::export]]
 Rcpp::NumericVector rcpp_absolute_amount_held_by_solution(
-  Rcpp::List rij_list, Rcpp::List targets_list, Rcpp::NumericMatrix solution) {
+  const Rcpp::List rij_list,
+  const Rcpp::List targets_list,
+  const Rcpp::NumericMatrix solution) {
   // declare variables
   Rcpp::IntegerVector targets_feature = targets_list["feature"];
   Rcpp::NumericVector targets_value = targets_list["value"];

@@ -1,9 +1,9 @@
-#' @include internal.R Penalty-proto.R marxan_boundary_data_to_matrix.R
+#' @include internal.R Penalty-class.R marxan_connectivity_data_to_matrix.R
 NULL
 
 #' Add asymmetric connectivity penalties
 #'
-#' Add penalties to a conservation planning [problem()] to account for
+#' Add penalties to a conservation planning problem to account for
 #' asymmetric connectivity between planning units.
 #' Asymmetric connectivity data describe connectivity information that is
 #' directional.
@@ -91,7 +91,10 @@ NULL
 #' set.seed(600)
 #'
 #' # load data
-#' data(sim_pu_sf, sim_pu_zones_stack, sim_features, sim_features_zones)
+#' sim_pu_polygons <- get_sim_pu_polygons()
+#' sim_features <- get_sim_features()
+#' sim_zones_pu_raster <- get_sim_zones_pu_raster()
+#' sim_zones_features <- get_sim_zones_features()
 #'
 #' # define function to rescale values between zero and one so that we
 #' # can compare solutions from different connectivity matrices
@@ -100,21 +103,24 @@ NULL
 #' }
 #'
 #' # create basic problem
-#' p1 <- problem(sim_pu_sf, sim_features, "cost") %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(0.2) %>%
-#'       add_default_solver(verbose = FALSE)
+#' p1 <-
+#'   problem(sim_pu_polygons, sim_features, "cost") %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(0.2) %>%
+#'   add_default_solver(verbose = FALSE)
 #'
 #' # create an asymmetric connectivity matrix. Here, connectivity occurs between
 #' # adjacent planning units and, due to rivers flowing southwards
 #' # through the study area, connectivity from northern planning units to
 #' # southern planning units is ten times stronger than the reverse.
-#' acm1 <- matrix(0, nrow(sim_pu_sf), nrow(sim_pu_sf))
+#' acm1 <- matrix(0, nrow(sim_pu_polygons), nrow(sim_pu_polygons))
 #' acm1 <- as(acm1, "Matrix")
-#' centroids <- sf::st_coordinates(suppressWarnings(sf::st_centroid(sim_pu_sf)))
-#' adjacent_units <- sf::st_intersects(sim_pu_sf, sparse = FALSE)
-#' for (i in seq_len(nrow(sim_pu_sf))) {
-#'   for (j in seq_len(nrow(sim_pu_sf))) {
+#' centroids <- sf::st_coordinates(
+#'   suppressWarnings(sf::st_centroid(sim_pu_polygons))
+#' )
+#' adjacent_units <- sf::st_intersects(sim_pu_polygons, sparse = FALSE)
+#' for (i in seq_len(nrow(sim_pu_polygons))) {
+#'   for (j in seq_len(nrow(sim_pu_polygons))) {
 #'     # find if planning units are adjacent
 #'     if (adjacent_units[i, j]) {
 #'       # find if planning units lay north and south of each other
@@ -145,49 +151,57 @@ NULL
 #' p2 <- list(
 #'   p1,
 #'   p1 %>% add_asym_connectivity_penalties(penalties[1], data = acm1),
-#'   p1 %>% add_asym_connectivity_penalties(penalties[2], data = acm1))
-#'
-#' # assign names to the problems
-#' names(p2) <- c("basic problem", paste0("acm1 (", penalties,")"))
+#'   p1 %>% add_asym_connectivity_penalties(penalties[2], data = acm1)
+#' )
 #'
 #' # solve problems
 #' s2 <- lapply(p2, solve)
 #'
-#' # plot solutions
-#' par(mfrow = c(1, 3))
-#' for (i in seq_along(s2)) {
-#'   plot(s2[[i]], main = names(p2)[i], cex = 1.5, col = "white")
-#'   plot(s2[[i]][s2[[i]]$solution_1 == 1, ], col = "darkgreen", add = TRUE)
-#' }
+#' # create object with all solutions
+#' s2 <- sf::st_sf(
+#'   tibble::tibble(
+#'     p2_1 = s2[[1]]$solution_1,
+#'     p2_2 = s2[[2]]$solution_1,
+#'     p2_3 = s2[[3]]$solution_1
+#'  ),
+#'  geometry = sf::st_geometry(s2[[1]])
+#' )
+#'
+#' names(s2)[1:3] <- c("basic problem", paste0("acm1 (", penalties,")"))
+#'
+#' # plot solutions based on different penalty values
+#' plot(s2, cex = 1.5)
 #'
 #' # create minimal multi-zone problem and limit solver to one minute
 #' # to obtain solutions in a short period of time
-#' p3 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(matrix(0.15, nrow = 5, ncol = 3)) %>%
-#'       add_binary_decisions() %>%
-#'       add_default_solver(time_limit = 60, verbose = FALSE)
+#' p3 <-
+#'   problem(sim_zones_pu_raster, sim_zones_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(matrix(0.15, nrow = 5, ncol = 3)) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(time_limit = 60, verbose = FALSE)
 #'
 #' # crate asymmetric connectivity data by randomly simulating values
-#' acm2 <- matrix(runif(ncell(sim_pu_zones_stack) ^ 2),
-#'                nrow = ncell(sim_pu_zones_stack))
+#' acm2 <- matrix(
+#'   runif(ncell(sim_zones_pu_raster) ^ 2),
+#'   nrow = ncell(sim_zones_pu_raster)
+#' )
 #'
 #' # create multi-zone problems using the penalties
 #' p4 <- list(
 #'   p3,
 #'   p3 %>% add_asym_connectivity_penalties(penalties[1], data = acm2),
-#'   p3 %>% add_asym_connectivity_penalties(penalties[2], data = acm2))
-#'
-#' # assign names to the problems
-#' names(p4) <- c("basic problem", paste0("acm2 (", penalties,")"))
+#'   p3 %>% add_asym_connectivity_penalties(penalties[2], data = acm2)
+#' )
 #'
 #' # solve problems
 #' s4 <- lapply(p4, solve)
 #' s4 <- lapply(s4, category_layer)
-#' s4 <- stack(s4)
+#' s4 <- terra::rast(s4)
+#' names(s4) <- c("basic problem", paste0("acm2 (", penalties,")"))
 #'
 #' # plot solutions
-#' plot(s4, main = names(p4), axes = FALSE, box = FALSE)
+#' plot(s4, axes = FALSE)
 #' }
 #'
 #' @name add_asym_connectivity_penalties
@@ -200,8 +214,21 @@ NULL
 #' @export
 methods::setGeneric("add_asym_connectivity_penalties",
   signature = methods::signature("x", "penalty", "zones", "data"),
-  function(x, penalty, zones = diag(number_of_zones(x)), data)
-    standardGeneric("add_asym_connectivity_penalties"))
+  function(x, penalty, zones = diag(number_of_zones(x)), data) {
+    assert_required(x)
+    assert_required(penalty)
+    assert_required(zones)
+    assert_required(data)
+    assert(
+      is_conservation_problem(x),
+      is_inherits(
+        data,
+        c("dgCMatrix", "data.frame", "matrix", "Matrix", "array")
+      )
+    )
+    standardGeneric("add_asym_connectivity_penalties")
+  }
+)
 
 #' @name add_asym_connectivity_penalties
 #' @usage \S4method{add_asym_connectivity_penalties}{ConservationProblem,ANY,ANY,matrix}(x, penalty, zones, data)
@@ -209,9 +236,11 @@ methods::setGeneric("add_asym_connectivity_penalties",
 methods::setMethod("add_asym_connectivity_penalties",
   methods::signature("ConservationProblem", "ANY", "ANY", "matrix"),
   function(x, penalty, zones, data) {
-     add_asym_connectivity_penalties(x, penalty, zones,
-      as_Matrix(data, "dgCMatrix"))
-})
+    add_asym_connectivity_penalties(
+      x, penalty, zones, as_Matrix(data, "dgCMatrix")
+    )
+  }
+)
 
 #' @name add_asym_connectivity_penalties
 #' @usage \S4method{add_asym_connectivity_penalties}{ConservationProblem,ANY,ANY,Matrix}(x, penalty, zones, data)
@@ -219,9 +248,11 @@ methods::setMethod("add_asym_connectivity_penalties",
 methods::setMethod("add_asym_connectivity_penalties",
   methods::signature("ConservationProblem", "ANY", "ANY", "Matrix"),
   function(x, penalty, zones, data) {
-     add_asym_connectivity_penalties(x, penalty, zones,
-      as_Matrix(data, "dgCMatrix"))
-})
+    add_asym_connectivity_penalties(
+      x, penalty, zones, as_Matrix(data, "dgCMatrix")
+    )
+  }
+)
 
 #' @name add_asym_connectivity_penalties
 #' @usage \S4method{add_asym_connectivity_penalties}{ConservationProblem,ANY,ANY,data.frame}(x, penalty, zones, data)
@@ -230,14 +261,19 @@ methods::setMethod("add_asym_connectivity_penalties",
   methods::signature("ConservationProblem", "ANY", "ANY", "data.frame"),
   function(x, penalty, zones, data) {
     # assert valid arguments
-    assertthat::assert_that(
-      inherits(x, "ConservationProblem"), assertthat::is.scalar(penalty),
-      is.finite(penalty), is.data.frame(data))
-  # add penalties to problem
-  add_asym_connectivity_penalties(
-    x, penalty, zones,
-    marxan_connectivity_data_to_matrix(x, data, symmetric = FALSE))
-})
+    assert(
+      is_conservation_problem(x),
+      assertthat::is.scalar(penalty),
+      all_finite(penalty),
+      is.data.frame(data)
+    )
+    # add penalties to problem
+    add_asym_connectivity_penalties(
+      x, penalty, zones,
+      marxan_connectivity_data_to_matrix(x, data, symmetric = FALSE)
+    )
+  }
+)
 
 #' @name add_asym_connectivity_penalties
 #' @usage \S4method{add_asym_connectivity_penalties}{ConservationProblem,ANY,ANY,dgCMatrix}(x, penalty, zones, data)
@@ -246,26 +282,30 @@ methods::setMethod("add_asym_connectivity_penalties",
   methods::signature("ConservationProblem", "ANY", "ANY", "dgCMatrix"),
   function(x, penalty, zones, data) {
     # assert valid arguments
-    assertthat::assert_that(
-      inherits(x, "ConservationProblem"), assertthat::is.scalar(penalty),
-      isTRUE(all(is.finite(penalty))), inherits(zones, c("matrix", "Matrix")),
-      nrow(zones) == ncol(zones), is.numeric(as.vector(zones)),
-      all(is.finite(as.vector(zones))),
-      is.numeric(data@x), ncol(data) == nrow(data),
-      max(zones) <= 1, min(zones) >= -1,
+    assert(
+      is_conservation_problem(x),
+      assertthat::is.number(penalty),
+      all_finite(penalty),
+      is_inherits(zones, c("matrix", "Matrix")),
+      nrow(zones) == ncol(zones),
+      is_numeric_values(zones),
+      all_finite(zones),
+      is_numeric_values(data),
+      all_finite(data),
+      ncol(data) == nrow(data),
+      max(zones) <= 1,
+      min(zones) >= -1,
       number_of_total_units(x) == ncol(data),
-      number_of_zones(x) == ncol(zones),
-      all(is.finite(data@x)))
+      number_of_zones(x) == ncol(zones)
+    )
     # check for symmetry
-    if (Matrix::isSymmetric(data)) {
-      warning(
-        paste0(
-          "argument to data contains symmetric connectivity values, ",
-          "it it recommended to use add_connectivity_penalties()"
-        ),
-        call. = FALSE, immediate. = TRUE
+    verify(
+      !Matrix::isSymmetric(data),
+      msg =  paste0(
+        "{.arg data} does not contain symmetric connectivity values, ",
+        "use {.fn add_connectivity_penalties} instead."
       )
-    }
+    )
     # coerce zones to matrix
     zones <- as.matrix(zones)
     indices <- x$planning_unit_indices()
@@ -280,7 +320,8 @@ methods::setMethod("add_asym_connectivity_penalties",
     }
     # add penalties
     internal_add_asym_connectivity_penalties(x, penalty, m)
-})
+  }
+)
 
 #' @name add_asym_connectivity_penalties
 #' @usage \S4method{add_asym_connectivity_penalties}{ConservationProblem,ANY,ANY,array}(x, penalty, zones, data)
@@ -289,14 +330,19 @@ methods::setMethod("add_asym_connectivity_penalties",
   methods::signature("ConservationProblem", "ANY", "ANY", "array"),
   function(x, penalty, zones, data) {
     # assert valid arguments
-    assertthat::assert_that(inherits(x, "ConservationProblem"),
-      assertthat::is.scalar(penalty), is.finite(penalty), is.null(zones),
-      is.array(data), length(dim(data)) == 4,
+    assert(
+      is_conservation_problem(x),
+      assertthat::is.number(penalty),
+      all_finite(penalty),
+      is.null(zones),
+      is.array(data),
+      length(dim(data)) == 4,
       dim(data)[1] == number_of_total_units(x),
       dim(data)[2] == number_of_total_units(x),
       dim(data)[3] == number_of_zones(x),
       dim(data)[4] == number_of_zones(x),
-      all(is.finite(data)))
+      all_finite(data)
+    )
     # generate indices for units that are planning units
     indices <- x$planning_unit_indices()
     # convert array to list of list of sparseMatrix objects
@@ -309,26 +355,38 @@ methods::setMethod("add_asym_connectivity_penalties",
     }
     # add penalties
     internal_add_asym_connectivity_penalties(x, penalty, m)
-})
+  }
+)
 
 internal_add_asym_connectivity_penalties <- function(x, penalty, data) {
   # assert valid arguments
-  assertthat::assert_that(
-    inherits(x, "ConservationProblem"),
-    assertthat::is.scalar(penalty), is.finite(penalty),
-    is.list(data))
-    # create new penalty object
-    x$add_penalty(pproto(
+  assert(
+    is_conservation_problem(x),
+    assertthat::is.number(penalty),
+    all_finite(penalty),
+    is.list(data),
+    .internal = TRUE
+  )
+  # create new penalty object
+  x$add_penalty(
+    R6::R6Class(
       "AsymConnectivityPenalty",
-      Penalty,
-      name = "Asymmetric connectivity penalties",
-      data = list(data = data),
-      parameters = parameters(numeric_parameter("penalty", penalty)),
-      apply = function(self, x, y) {
-        assertthat::assert_that(inherits(x, "OptimizationProblem"),
-                                inherits(y, "ConservationProblem"))
-        rcpp_apply_asym_connectivity_penalties(
-          x$ptr, self$parameters$get("penalty"), self$get_data("data"))
-        invisible(TRUE)
-    }))
+      inherit = Penalty,
+      public = list(
+        name = "asymmetric connectivity penalties",
+        data = list(penalty = penalty, data = data),
+        apply = function(x, y) {
+          assert(
+            inherits(x, "OptimizationProblem"),
+            inherits(y, "ConservationProblem"),
+            .internal = TRUE
+          )
+          rcpp_apply_asym_connectivity_penalties(
+            x$ptr, self$get_data("penalty"), self$get_data("data")
+          )
+          invisible(TRUE)
+        }
+      )
+    )$new()
+  )
 }

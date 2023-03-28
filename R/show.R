@@ -13,7 +13,7 @@ NULL
 #'
 #' @name show
 #'
-#' @aliases show,ConservationProblem-method show,ConservationModifier-method show,OptimizationProblem-method show,Id-method show,Parameter-method show,Solver-method
+#' @aliases show,ConservationProblem-method show,ConservationModifier-method show,OptimizationProblem-method show,Id-method show,Solver-method
 NULL
 
 #' @name show
@@ -38,27 +38,9 @@ methods::setMethod("show", "ConservationProblem",
 #'
 #' @rdname show
 #'
-#' @usage \S4method{show}{Id}(x)
-#'
-methods::setMethod("show", "Id",
-                   function(object) print.Id(object))
-
-#' @name show
-#'
-#' @rdname show
-#'
 #' @usage \S4method{show}{OptimizationProblem}(x)
 #'
 methods::setMethod("show", "OptimizationProblem",
-                   function(object) object$show())
-
-#' @name show
-#'
-#' @rdname show
-#'
-#' @usage \S4method{show}{Parameter}(x)
-#'
-methods::setMethod("show", "Parameter",
                    function(object) object$show())
 
 #' @name show

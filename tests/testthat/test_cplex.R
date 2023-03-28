@@ -1,5 +1,3 @@
-context("cplexAPI interface")
-
 test_that("LP", {
   skip_on_cran()
   skip_if_not_installed("cplexAPI")
@@ -20,20 +18,28 @@ test_that("LP", {
   s1 <- Rsymphony::Rsymphony_solve_LP(
     obj = obj, mat = A, dir = ifelse(sense == "G", ">=", "<="),
     rhs = rhs, max = ifelse(modelsense == "max", TRUE, FALSE), types = vtype,
-    bounds = list(lower = list(ind = seq_along(lb), val = lb),
-                  upper = list(ind = seq_along(ub), val = ub)))
+    bounds = list(
+      lower = list(ind = seq_along(lb), val = lb),
+      upper = list(ind = seq_along(ub), val = ub)
+    )
+  )
   s2 <- cplex(
-    list(modelsense = modelsense,
-         obj = obj,
-         A = as_Matrix(A, "dgCMatrix"),
-         A2 = cplex_matrix(as_Matrix(A, "dgCMatrix")),
-         vtype = vtype, rhs = rhs, sense = sense, lb = lb, ub = ub),
-    list(threads = 1, presolve = 1, gap = 0, time_limit = 1e+10, verbose = 0))
-  # compare solutions
+    list(
+      modelsense = modelsense,
+      obj = obj,
+      A = as_Matrix(A, "dgCMatrix"),
+      A2 = cplex_matrix(as_Matrix(A, "dgCMatrix")),
+      vtype = vtype, rhs = rhs, sense = sense, lb = lb, ub = ub
+    ),
+    list(threads = 1, presolve = 1, gap = 0, time_limit = 1e+10, verbose = 0)
+  )
+  # tests
   expect_lte(max(abs(s1$objval - s2$objval)), 1e-5)
   expect_lte(max(abs(s1$solution - s2$x)), 1e-5)
-  expect_true(names(s1$status) %in%
-              c("TM_OPTIMAL_SOLUTION_FOUND", "PREP_OPTIMAL_SOLUTION_FOUND"))
+  expect_true(
+    names(s1$status) %in%
+    c("TM_OPTIMAL_SOLUTION_FOUND", "PREP_OPTIMAL_SOLUTION_FOUND")
+  )
   expect_equal(s2$status, "optimal")
 })
 
@@ -64,20 +70,28 @@ test_that("ILP", {
   s1 <- Rsymphony::Rsymphony_solve_LP(
     obj = obj, mat = A, dir = ifelse(sense == "G", ">=", "<="),
     rhs = rhs, max = ifelse(modelsense == "max", TRUE, FALSE), types = vtype,
-    bounds = list(lower = list(ind = seq_along(lb), val = lb),
-                  upper = list(ind = seq_along(ub), val = ub)))
+    bounds = list(
+      lower = list(ind = seq_along(lb), val = lb),
+      upper = list(ind = seq_along(ub), val = ub)
+    )
+  )
   s2 <- cplex(
-    list(modelsense = modelsense,
-         obj = obj,
-         A = as_Matrix(A, "dgCMatrix"),
-         A2 = cplex_matrix(as_Matrix(A, "dgCMatrix")),
-         vtype = vtype, rhs = rhs, sense = sense, lb = lb, ub = ub),
-    list(threads = 1, presolve = 1, gap = 0, time_limit = 1e+10, verbose = 0))
+    list(
+      modelsense = modelsense,
+      obj = obj,
+      A = as_Matrix(A, "dgCMatrix"),
+      A2 = cplex_matrix(as_Matrix(A, "dgCMatrix")),
+      vtype = vtype, rhs = rhs, sense = sense, lb = lb, ub = ub
+    ),
+    list(threads = 1, presolve = 1, gap = 0, time_limit = 1e+10, verbose = 0)
+  )
   # compare solutions
   expect_lte(max(abs(s1$objval - s2$objval)), 1e-5)
   expect_lte(max(abs(s1$solution - s2$x)), 1e-5)
-  expect_true(names(s1$status) %in%
-              c("TM_OPTIMAL_SOLUTION_FOUND", "PREP_OPTIMAL_SOLUTION_FOUND"))
+  expect_true(
+    names(s1$status) %in%
+    c("TM_OPTIMAL_SOLUTION_FOUND", "PREP_OPTIMAL_SOLUTION_FOUND")
+  )
   expect_equal(s2$status, "integer optimal solution")
 })
 
@@ -110,19 +124,26 @@ test_that("MILP", {
   s1 <- Rsymphony::Rsymphony_solve_LP(
     obj = obj, mat = A, dir = ifelse(sense == "G", ">=", "<="),
     rhs = rhs, max = ifelse(modelsense == "max", TRUE, FALSE), types = vtype,
-    bounds = list(lower = list(ind = seq_along(lb), val = lb),
-                  upper = list(ind = seq_along(ub), val = ub)))
+    bounds = list(
+      lower = list(ind = seq_along(lb), val = lb),
+      upper = list(ind = seq_along(ub), val = ub)
+    )
+  )
   s2 <- cplex(
-    list(modelsense = modelsense,
-         obj = obj,
-         A = as_Matrix(A, "dgCMatrix"),
-         A2 = cplex_matrix(as_Matrix(A, "dgCMatrix")),
-         vtype = vtype, rhs = rhs, sense = sense, lb = lb, ub = ub),
-    list(threads = 1, presolve = 1, gap = 0, time_limit = 1e+10, verbose = 1))
-  # compare solutions
+    list(
+      modelsense = modelsense,
+      obj = obj,
+      A = as_Matrix(A, "dgCMatrix"),
+      A2 = cplex_matrix(as_Matrix(A, "dgCMatrix")),
+      vtype = vtype, rhs = rhs, sense = sense, lb = lb, ub = ub),
+    list(threads = 1, presolve = 1, gap = 0, time_limit = 1e+10, verbose = 1)
+  )
+  # tests
   expect_lte(max(abs(s1$objval - s2$objval)), 1e-5)
   expect_lte(max(abs(s1$solution - s2$x)), 1e-5)
-  expect_true(names(s1$status) %in%
-              c("TM_OPTIMAL_SOLUTION_FOUND", "PREP_OPTIMAL_SOLUTION_FOUND"))
+  expect_true(
+    names(s1$status) %in%
+    c("TM_OPTIMAL_SOLUTION_FOUND", "PREP_OPTIMAL_SOLUTION_FOUND")
+  )
   expect_equal(s2$status, "integer optimal solution")
 })

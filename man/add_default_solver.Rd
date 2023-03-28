@@ -2,32 +2,29 @@
 % Please edit documentation in R/add_default_solver.R
 \name{add_default_solver}
 \alias{add_default_solver}
-\title{Add a default solver}
+\title{Add default solver}
 \usage{
 add_default_solver(x, ...)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} object.}
 
 \item{...}{arguments passed to the solver.}
 }
 \value{
-Object (i.e., \code{\linkS4class{ConservationProblem}}) with the solver
-added to it.
+An updated \code{\link[=problem]{problem()}} object with the solver added to it.
 }
 \description{
-Identify the best solver currently installed on the system and specify that
-it should be used to solve a conservation planning \code{\link[=problem]{problem()}}.
-For information on the performance of different solvers,
-please see Schuster \emph{et al.} (2020) for benchmarks comparing the
-run time and solution quality of some of the available solvers when applied
-to different sized datasets.
+Specify that the best solver currently available should be
+used to solve a conservation planning problem.
 }
 \details{
 Ranked from best to worst, the available solvers that can be used are:
 \code{\link[=add_gurobi_solver]{add_gurobi_solver()}}, \code{\link[=add_cplex_solver]{add_cplex_solver()}}, \code{\link[=add_cbc_solver]{add_cbc_solver()}},
 \code{\link[=add_highs_solver]{add_highs_solver()}}, \code{\link[=add_lpsymphony_solver]{add_lpsymphony_solver()}}, and finally
 \code{\link[=add_rsymphony_solver]{add_rsymphony_solver()}}.
+For information on the performance of different solvers,
+please see Schuster \emph{et al.} (2020).
 }
 \references{
 Schuster R, Hanson JO, Strimas-Mackey M, and Bennett JR (2020). Exact

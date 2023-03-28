@@ -4,7 +4,7 @@
 \alias{constraints}
 \title{Conservation problem constraints}
 \description{
-A constraint can be added to a conservation planning \code{\link[=problem]{problem()}}
+A constraint can be added to a conservation planning problem
 to ensure that solutions exhibit a specific characteristic.
 }
 \details{
@@ -70,15 +70,18 @@ with problems that contain multiple zones.}}
 \examples{
 \dontrun{
 # load data
-data(sim_pu_raster, sim_features, sim_locked_in_raster,
-     sim_locked_out_raster)
+sim_pu_raster <- get_sim_pu_raster()
+sim_features <- get_sim_features()
+sim_locked_in_raster <- get_sim_locked_in_raster()
+sim_locked_out_raster <- get_sim_locked_in_raster()
 
 # create minimal problem with only targets and no additional constraints
-p1 <- problem(sim_pu_raster, sim_features) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(0.2) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(verbose = FALSE)
+p1 <-
+  problem(sim_pu_raster, sim_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.2) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
 
 # create problem with locked in constraints
 p2 <- p1 \%>\% add_locked_in_constraints(sim_locked_in_raster)
@@ -96,12 +99,14 @@ p5 <- p1 \%>\% add_contiguity_constraints()
 p6 <- p1 \%>\% add_feature_contiguity_constraints()
 
 # solve problems
-s <- stack(lapply(list(p1, p2, p3, p4, p5, p6), solve))
+s <- terra::rast(lapply(list(p1, p2, p3, p4, p5, p6), solve))
+names(s) <- c(
+  "minimal problem", "locked in", "locked out",
+  "neighbor", "contiguity", "feature contiguity"
+)
 
 # plot solutions
-plot(s, box = FALSE, axes = FALSE, nr = 2,
-     main = c("minimal problem", "locked in", "locked out",
-              "neighbor", "contiguity", "feature contiguity"))
+plot(s, axes = FALSE, nr = 2)
 }
 }
 \seealso{

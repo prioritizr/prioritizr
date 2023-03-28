@@ -1,204 +1,285 @@
-context("rij_matrix")
-
-test_that("x=RasterLayer, y=RasterLayer", {
-  # create data
-  data(sim_pu_raster, sim_features)
-  m <- rij_matrix(sim_pu_raster, sim_features[[1]])
+test_that("x = SpatRaster (single layer), y = SpatRaster (single layer)", {
+  # import data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  # create matrix
+  x <- rij_matrix(sim_pu_raster, sim_features[[1]], memory = FALSE)
+  # calculate correct matrix
+  included <- terra::cells(is.na(sim_pu_raster), 0)[[1]]
+  y <- as.matrix(sim_features[[1]][included], ncol = 1)
+  y <- Matrix::t(as_Matrix(y, "dgCMatrix"))
   # run tests
-  expect_true(inherits(m, "dgCMatrix"))
-  expect_equal(m, {
-    included <- raster::Which(!is.na(sim_pu_raster), cells = TRUE)
-    m <- as_Matrix(matrix(sim_features[[1]][included], nrow = 1), "dgCMatrix")
-    m
-  })
+  expect_true(inherits(x, "dgCMatrix"))
+  expect_equal(rownames(x), names(sim_features[[1]]))
+  expect_equal(x, y)
 })
 
-test_that("x=RasterLayer, y=RasterStack", {
-  # create data
-  data(sim_pu_raster, sim_features)
-  m <- rij_matrix(sim_pu_raster, sim_features)
+test_that("x = SpatRaster (single layer), y = SpatRaster (multiple layers)", {
+  # import data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  # create matrix
+  x <- rij_matrix(sim_pu_raster, sim_features, memory = FALSE)
+  # calculate correct matrix
+  included <- terra::cells(is.na(sim_pu_raster), 0)[[1]]
+  y <- as.matrix(sim_features[included])
+  y[is.na(y)] <- 0
+  y <- Matrix::t(as_Matrix(y, "dgCMatrix"))
   # run tests
-  expect_true(inherits(m, "dgCMatrix"))
-  expect_equal(m, {
-    included <- raster::Which(!is.na(sim_pu_raster), cells = TRUE)
-    m <- sim_features[included]
-    m[is.na(m)] <- 0
-    m <- Matrix::t(as_Matrix(m, "dgCMatrix"))
-    m
-  })
+  expect_true(inherits(x, "dgCMatrix"))
+  expect_equal(rownames(x), names(sim_features))
+  expect_equal(x, y)
 })
 
-test_that("x=RasterLayer, y=RasterStack (data size > raster maxmemory)", {
-  # create data
-  raster::rasterOptions(todisk = TRUE)
-  data(sim_pu_raster, sim_features)
-  m <- rij_matrix(sim_pu_raster, sim_features)
+test_that(
+  paste(
+    "x = SpatRaster (single layer),",
+    "y = SpatRaster (multiple layers, memory = TRUE)"
+  ), {
+  # import data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  # create matrix
+  x <- rij_matrix(sim_pu_raster, sim_features, memory = TRUE)
+  # calculate correct matrix
+  included <- terra::cells(is.na(sim_pu_raster), 0)[[1]]
+  y <- as.matrix(sim_features[included])
+  y[is.na(y)] <- 0
+  y <- Matrix::t(as_Matrix(y, "dgCMatrix"))
   # run tests
-  expect_true(inherits(m, "dgCMatrix"))
-  expect_false(raster::canProcessInMemory(sim_features))
-  expect_equal(m, {
-    included <- raster::Which(!is.na(sim_pu_raster), cells = TRUE)
-    m <- sim_features[included]
-    m[is.na(m)] <- 0
-    m <- Matrix::t(as_Matrix(m, "dgCMatrix"))
-    m
-  })
-  raster::rasterOptions(default = TRUE)
+  expect_true(inherits(x, "dgCMatrix"))
+  expect_equal(rownames(x), names(sim_features))
+  expect_equal(x, y)
 })
 
-
-test_that("x=RasterStack, y=RasterStack", {
+test_that(
+  "x = SpatRaster (multiple layers), y = SpatRaster (multiple layers)", {
   # create data
-  costs <- raster::stack(
-    raster::raster(matrix(c(1,  2,  NA, 3, 100, 100, NA), ncol = 7)),
-    raster::raster(matrix(c(10, 10, 10, 10,  4,   1, NA), ncol = 7)))
-  spp <- raster::stack(
-    raster::raster(matrix(c(1,  2, 0, 0, 0, 0,  0), ncol = 7)),
-    raster::raster(matrix(c(NA, 0, 1, 1, 0, 0,  0), ncol = 7)),
-    raster::raster(matrix(c(1,  0, 0, 0, 1, 0,  0), ncol = 7)),
-    raster::raster(matrix(c(0,  0, 0, 0, 0, 10, 0), ncol = 7)))
-  m <- rij_matrix(costs, spp)
+  costs <- c(
+    terra::rast(matrix(c(1,  2,  NA, 3, 100, 100, NA), ncol = 7)),
+    terra::rast(matrix(c(10, 10, 10, 10,  4,   1, NA), ncol = 7))
+  )
+  spp <- c(
+    terra::rast(matrix(c(1,  2, 0, 0, 0, 0,  0), ncol = 7)),
+    terra::rast(matrix(c(NA, 0, 1, 1, 0, 0,  0), ncol = 7)),
+    terra::rast(matrix(c(1,  0, 0, 0, 1, 0,  0), ncol = 7)),
+    terra::rast(matrix(c(0,  0, 0, 0, 0, 10, 0), ncol = 7))
+  )
+  names(spp) <- make.unique(names(spp))
+  # calculate matrix
+  x <- rij_matrix(costs, spp)
+  # calculate correct matrix
+  included <- terra::cells(min(is.na(costs)), 0)[[1]]
+  y <- as.matrix(spp[included])
+  y[is.na(y)] <- 0
+  y <- Matrix::t(as_Matrix(y, "dgCMatrix"))
   # run tests
-  expect_true(inherits(m, "dgCMatrix"))
-  expect_equal(m, {
-    included <- raster::Which(max(!is.na(costs)) > 0, cells = TRUE)
-    m <- spp[included]
-    m[is.na(m)] <- 0
-    m <- Matrix::t(as_Matrix(m, "dgCMatrix"))
-    m
-  })
+  expect_true(inherits(x, "dgCMatrix"))
+  expect_equal(rownames(x), names(spp))
+  expect_equal(x, y)
 })
 
-test_that("x=SpatialPolygons, y=RasterStack", {
-  # create data
-  data(sim_pu_polygons, sim_features)
-  m <- rij_matrix(sim_pu_polygons, sim_features, fun = "mean")
+test_that("x = sf (polygons), y = SpatRaster (multiple layers)", {
+  # import data
+  sim_pu_polygons <- get_sim_pu_polygons()
+  sim_features <- get_sim_features()
+  # calculate matrix
+  x <- rij_matrix(sim_pu_polygons, sim_features, fun = "mean")
   # calculate correct result
-  m2 <- raster::extract(sim_features, sim_pu_polygons, fun = mean,
-                        na.rm = TRUE, sp = FALSE)
-  m2 <- as_Matrix(m2, "dgCMatrix")
-  m2 <- Matrix::t(m2)
+  y <- terra::extract(
+    sim_features, sim_pu_polygons, fun = mean, ID = FALSE, na.rm = TRUE
+  )
+  y <- Matrix::t(as_Matrix(as.matrix(y), "dgCMatrix"))
   # run tests
-  expect_true(inherits(m, "dgCMatrix"))
-  expect_lte(max(abs(m - m2)), 1e-6) # note that fast extract does area
-                                     # weighted mean unlike raster
+  expect_true(inherits(x, "dgCMatrix"))
+  expect_equal(rownames(x), names(sim_features))
+  expect_equal(x, y, tolerance = 1e-6)
 })
 
-test_that("x=SpatialLines, y=RasterStack", {
-  # create data
-  data(sim_pu_lines, sim_features)
-  m <- rij_matrix(sim_pu_lines, sim_features, fun = "mean")
+test_that("x = sf (lines), y = SpatRaster (multiple layers)", {
+  # import data
+  sim_pu_lines <- get_sim_pu_lines()
+  sim_features <- get_sim_features()
+  # calculate matrix
+  x <- rij_matrix(sim_pu_lines, sim_features, fun = "mean")
+  # calculate correct results
+  y <- terra::extract(
+    sim_features, terra::vect(sim_pu_lines), fun = mean, ID = FALSE,
+    na.rm = TRUE
+  )
+  y <- Matrix::t(as_Matrix(as.matrix(y), "dgCMatrix"))
   # run tests
-  expect_true(inherits(m, "dgCMatrix"))
-  expect_equal(m, {
-    m <- raster::extract(sim_features, sim_pu_lines, fun = mean, na.rm = TRUE,
-                         sp = FALSE)
-    m <- as_Matrix(m, "dgCMatrix")
-    Matrix::t(m)
-  })
+  expect_true(inherits(x, "dgCMatrix"))
+  expect_equal(rownames(x), names(sim_features))
+  expect_equal(x, y, tolerance = 1e-6)
 })
 
-test_that("x=SpatialPoints, y=RasterStack", {
-  # create data
-  data(sim_pu_points, sim_features)
-  m <- rij_matrix(sim_pu_points, sim_features)
+test_that("x = sf (points), y = SpatRaster (multiple layers)", {
+  # import data
+  sim_pu_points <- get_sim_pu_points()
+  sim_features <- get_sim_features()
+  # calculate matrix
+  x <- rij_matrix(sim_pu_points, sim_features)
+  # calculate correct results
+  y <- terra::extract(
+    sim_features, terra::vect(sim_pu_points), fun = mean, na.rm = TRUE,
+    ID = FALSE
+  )
+  y <- Matrix::t(as_Matrix(as.matrix(y), "dgCMatrix"))
   # run tests
-  expect_true(inherits(m, "dgCMatrix"))
-  expect_equal(m, {
-    m <- raster::extract(sim_features, sim_pu_points, na.rm = TRUE, sp = FALSE)
-    m <- as_Matrix(m, "dgCMatrix")
-    Matrix::t(m)
-  })
+  expect_true(inherits(x, "dgCMatrix"))
+  expect_equal(rownames(x), names(sim_features))
+  expect_equal(x, y, tolerance = 1e-6)
 })
 
-test_that("x=sf, y=RasterStack (mean)", {
-  # create data
-  data(sim_pu_sf, sim_features)
-  m <- rij_matrix(sim_pu_sf, sim_features, fun = "mean")
+test_that("x = sf, y = SpatRaster (multiple layers, fun = mean)", {
+  # import data
+  sim_pu_polygons <- get_sim_pu_polygons()
+  sim_features <- get_sim_features()
+  # calculate matrix
+  x <- rij_matrix(sim_pu_polygons, sim_features, fun = "mean")
   # calculate correct result
   suppressWarnings({
-    m2 <- exactextractr::exact_extract(sim_features, sim_pu_sf, fun = "mean",
-                                       progress = FALSE)
+    y <- exactextractr::exact_extract(
+      sim_features, sim_pu_polygons, fun = "mean", progress = FALSE
+    )
   })
-  m2 <- as_Matrix(as.matrix(m2), "dgCMatrix")
-  m2 <- Matrix::t(m2)
+  y <- Matrix::t(as_Matrix(as.matrix(y), "dgCMatrix"))
+  rownames(y) <- names(sim_features)
   # run tests
-  expect_true(inherits(m, "dgCMatrix"))
-  expect_lte(max(abs(m - m2)), 1e-6)
+  expect_true(inherits(x, "dgCMatrix"))
+  expect_equal(rownames(x), names(sim_features))
+  expect_equal(x, y, tolerance = 1e-6)
 })
 
-test_that("x=sf, y=RasterStack (sum)", {
+test_that("x = sf, y = SpatRaster (multiple layers, fun = sum)", {
   # create data
-  data(sim_pu_sf, sim_features)
-  m <- rij_matrix(sim_pu_sf, sim_features)
+  sim_pu_polygons <- get_sim_pu_polygons()
+  sim_features <- get_sim_features()
+  # calculate matrix
+  x <- rij_matrix(sim_pu_polygons, sim_features)
   # calculate correct result
   suppressWarnings({
-    m2 <- exactextractr::exact_extract(sim_features, sim_pu_sf, fun = "sum",
-                                       progress = FALSE)
+    y <- exactextractr::exact_extract(
+      sim_features, sim_pu_polygons, fun = "sum", progress = FALSE
+    )
   })
-  m2 <- as_Matrix(as.matrix(m2), "dgCMatrix")
-  m2 <- Matrix::t(m2)
+  y <- Matrix::t(as_Matrix(as.matrix(y), "dgCMatrix"))
+  rownames(y) <- names(sim_features)
   # run tests
-  expect_true(inherits(m, "dgCMatrix"))
-  expect_lte(max(abs(m - m2)), 1e-6)
+  expect_true(inherits(x, "dgCMatrix"))
+  expect_equal(rownames(x), names(sim_features))
+  expect_equal(x, y, tolerance = 1e-6)
 })
 
-test_that("x=sf, y=RasterStack (complex example, mean)", {
+test_that("x = sf (complex polygons), y = SpatRaster (fun = mean)", {
   skip_on_cran()
-  skip_if_not_installed("prioritizrdata")
-  # load data
-  data(tas_pu, package = "prioritizrdata")
-  data(tas_features, package = "prioritizrdata")
-  tas_features <- tas_features[[c(1, 21, 52)]]
-  tas_pu <- sf::st_as_sf(tas_pu)
+  skip_if_not_installed("prioritizrdata", minimum_version = "0.3.0")
+  # import data
+  tas_pu <- prioritizrdata::get_tas_pu()
+  tas_features <- prioritizrdata::get_tas_features()
+  # subset data
+  tas_features <- tas_features[[c(4, 6, 10)]]
   # run calculations
-  m <- rij_matrix(tas_pu, tas_features, fun = "mean")
+  x <- rij_matrix(tas_pu, tas_features, fun = "mean")
   # calculate correct result
   suppressWarnings({
-    m2 <- exactextractr::exact_extract(tas_features, tas_pu, fun = "mean",
-                                       progress = FALSE)
+    y <- exactextractr::exact_extract(
+      tas_features, tas_pu, fun = "mean", progress = FALSE
+    )
   })
-  m2 <- as_Matrix(as.matrix(m2), "dgCMatrix")
-  m2 <- Matrix::t(m2)
+  y <- Matrix::t(as_Matrix(as.matrix(y), "dgCMatrix"))
+  y[!is.finite(y)] <- 0
+  rownames(y) <- names(tas_features)
   # run tests
   # note that exactextractr uses floats and not doubles, so it has reduced
   # precision than our summary Rcpp and R summary functions which uses doubles
-  expect_true(inherits(m, "dgCMatrix"))
-  expect_lte(max(abs(m - m2)), 1e-6)
+  expect_true(inherits(x, "dgCMatrix"))
+  expect_equal(rownames(x), names(tas_features))
+  expect_equal(x, y, tolerance = 1e-6)
 })
 
-test_that("x=sf, y=RasterStack (complex example, sum)", {
+test_that("x = sf (complex polygons), y = SpatRaster (fun = sum)", {
   skip_on_cran()
-  skip_if_not_installed("prioritizrdata")
-  # load data
-  data(tas_pu, package = "prioritizrdata")
-  data(tas_features, package = "prioritizrdata")
-  tas_features <- tas_features[[c(1, 21, 52)]]
-  tas_pu <- sf::st_as_sf(tas_pu)
+  skip_if_not_installed("prioritizrdata", minimum_version = "0.3.0")
+  # import data
+  tas_pu <- prioritizrdata::get_tas_pu()
+  tas_features <- prioritizrdata::get_tas_features()
+  # subset data
+  tas_features <- tas_features[[c(4, 6, 10)]]
   # run calculations
-  m <- rij_matrix(tas_pu, tas_features, fun = "sum")
+  x <- rij_matrix(tas_pu, tas_features, fun = "sum")
   # calculate correct result using exact exactextractr
   suppressWarnings({
-    m2 <- exactextractr::exact_extract(tas_features, tas_pu, fun = "sum",
-                                       progress = FALSE)
+    y <- exactextractr::exact_extract(
+      tas_features, tas_pu, fun = "sum", progress = FALSE
+    )
   })
-  m2 <- as_Matrix(as.matrix(m2), "dgCMatrix")
-  m2 <- Matrix::t(m2)
+  y <- Matrix::t(as_Matrix(as.matrix(y), "dgCMatrix"))
+  y[!is.finite(y)] <- 0
+  rownames(y) <- names(tas_features)
   # calculate correct result using R
   suppressWarnings({
-    m3 <- exactextractr::exact_extract(tas_features, tas_pu, fun = NULL,
-                                       progress = FALSE)
+    z <- exactextractr::exact_extract(
+      tas_features, tas_pu, fun = NULL, progress = FALSE
+    )
   })
-  m3 <- sapply(m3, function(x) {
+  z <- sapply(z, function(x) {
     v <- x[, seq_len(ncol(x) - 1), drop = FALSE]
     p <- x[, ncol(x), drop = TRUE]
     colSums(sweep(v, 1, p, "*"), na.rm = TRUE)
   })
-  m3 <- as_Matrix(as.matrix(m3), "dgCMatrix")
+  z <- as_Matrix(as.matrix(z), "dgCMatrix")
+  z[!is.finite(y)] <- 0
+  rownames(z) <- names(tas_features)
   # run tests
   # note that exactextractr uses floats and not doubles, so it has reduced
   # precision than our summary Rcpp and R summary functions which uses doubles
-  expect_true(inherits(m, "dgCMatrix"))
-  expect_lte(max(abs(m - m2)), 1e-6)
-  expect_lte(max(abs(m - m3)), 1e-10)
+  expect_true(inherits(x, "dgCMatrix"))
+  expect_equal(rownames(x), names(tas_features))
+  expect_equal(x, y, tolerance = 1e-6)
+  expect_equal(x, z, tolerance = 1e-6)
+})
+
+test_that("x = RasterLayer, y = RasterStack", {
+  # import data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  # create matrix
+  x <- rij_matrix(sim_pu_raster, sim_features)
+  # calculate correct matrix
+  expect_warning(
+    y <- rij_matrix(
+      raster::raster(sim_pu_raster),
+      raster::stack(sim_features)
+    ),
+    "deprecated"
+  )
+  # run tests
+  expect_true(inherits(x, "dgCMatrix"))
+  expect_equal(rownames(x), names(sim_features))
+  expect_equal(x, y)
+})
+
+test_that("x = Spatial, y = RasterStack", {
+  # import data
+  sim_pu_polygons <- get_sim_pu_polygons()
+  sim_features <- get_sim_features()
+  # create matrix
+  x <- rij_matrix(sim_pu_polygons, sim_features)
+  # calculate correct matrix
+  expect_warning(
+    expect_warning(
+      y <- rij_matrix(
+        sf::as_Spatial(sim_pu_polygons),
+        raster::stack(sim_features)
+      ),
+      "deprecated"
+    ),
+    "deprecated"
+  )
+  # run tests
+  expect_true(inherits(x, "dgCMatrix"))
+  expect_equal(rownames(x), names(sim_features))
+  expect_equal(x, y)
 })

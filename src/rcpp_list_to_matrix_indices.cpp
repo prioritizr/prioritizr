@@ -2,8 +2,8 @@
 #include "functions.h"
 
 // [[Rcpp::export]]
-Rcpp::List rcpp_list_to_matrix_indices(Rcpp::List x,
-                                       std::size_t n_preallocate = 10000) {
+Rcpp::List rcpp_list_to_matrix_indices(
+  Rcpp::List x, std::size_t n_preallocate = 10000) {
   // initialization
   std::vector<std::size_t> I;
   I.reserve(n_preallocate);

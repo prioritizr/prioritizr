@@ -38,6 +38,10 @@ purl_vigns:
 	R --slave -e "lapply(dir('vignettes', '^.*\\\\.Rmd$$'), function(x) knitr::purl(file.path('vignettes', x), gsub('.Rmd', '.R', x, fixed = TRUE)))"
 	rm -f Rplots.pdf
 
+purl_readme:
+	R --slave -e "knitr::purl('README.Rmd', 'README.R')"
+	rm -f Rplots.pdf
+
 check_vigns:
 	R --slave -e "f <- sapply(dir('vignettes', '^.*\\\\.Rmd$$'), function(x) {p <- file.path(tempdir(), gsub('.Rmd', '.R', x, fixed = TRUE)); knitr::purl(file.path('vignettes', x), p); p}); for (i in f) {message('\n########################################\nstarting ', basename(i), '\n########################################\n'); source(i)}"
 	rm -f Rplots.pdf
@@ -81,6 +85,12 @@ check:
 	cp -R doc inst/
 	touch inst/doc/.gitkeep
 
+gpcheck:
+	echo "\n===== GOOD PRACTICE =====\n" > gp.log 2>&1
+	R --slave -e "goodpractice::gp('.')" >> gp.log 2>&1
+	cp -R doc inst/
+	touch inst/doc/.gitkeep
+
 checkascran:
 	echo "\n===== R CMD CHECK =====\n" > check.log 2>&1
 	R --slave -e "devtools::check(remote = TRUE, build_args = '--no-build-vignettes', args = '--no-build-vignettes', vignettes = FALSE)" >> check.log 2>&1
@@ -113,10 +123,14 @@ build:
 	touch inst/doc/.gitkeep
 
 install:
-	R --slave -e "devtools::install_local('../prioritizr')"
+	R --slave -e "devtools::install_local(force = TRUE)"
 
 examples:
 	R --slave -e "devtools::run_examples(run_donttest = TRUE, run_dontrun = TRUE);warnings()" > examples.log 2>&1
+	rm -f Rplots.pdf
+
+examples_cran:
+	R --slave -e "devtools::run_examples();warnings()" > examples.log 2>&1
 	rm -f Rplots.pdf
 
 .PHONY: initc clean data docs readme contrib site test check checkwb build install man spellcheck examples purl_vigns check_vigns urlcheck

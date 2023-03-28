@@ -74,6 +74,7 @@ jobs:
           options("install.packages.compile.from.source" = "never")
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("rcmdcheck")
+          remotes::install_cran("exactextractr", type = "source")
         shell: Rscript {0}
 
       - name: Session information

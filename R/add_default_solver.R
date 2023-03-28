@@ -1,16 +1,12 @@
-#' @include Solver-proto.R
+#' @include Solver-class.R
 NULL
 
-#' Add a default solver
+#' Add default solver
 #'
-#' Identify the best solver currently installed on the system and specify that
-#' it should be used to solve a conservation planning [problem()].
-#' For information on the performance of different solvers,
-#' please see Schuster _et al._ (2020) for benchmarks comparing the
-#' run time and solution quality of some of the available solvers when applied
-#' to different sized datasets.
+#' Specify that the best solver currently available should be
+#' used to solve a conservation planning problem.
 #'
-#' @param x [problem()] (i.e., [`ConservationProblem-class`]) object.
+#' @param x [problem()] object.
 #'
 #' @param ... arguments passed to the solver.
 #'
@@ -19,6 +15,8 @@ NULL
 #' [add_gurobi_solver()], [add_cplex_solver()], [add_cbc_solver()],
 #' [add_highs_solver()], [add_lpsymphony_solver()], and finally
 #' [add_rsymphony_solver()].
+#' For information on the performance of different solvers,
+#' please see Schuster _et al._ (2020).
 #'
 #' @inherit add_gurobi_solver return
 #'
@@ -34,7 +32,12 @@ NULL
 #'
 #' @export
 add_default_solver <- function(x, ...) {
+  # assert valid arguments
+  assert_required(x)
+  assert(is_conservation_problem(x), call = NULL)
+  # find solver
   ds <- default_solver_name()
+  # return solver
   if (identical(ds, "gurobi")) {
     return(add_gurobi_solver(x, ...))
   } else if (identical(ds, "cplexAPI")) {
@@ -47,15 +50,23 @@ add_default_solver <- function(x, ...) {
     return(add_lpsymphony_solver(x, ...))
   } else if (identical(ds, "Rsymphony")) {
     return(add_rsymphony_solver(x, ...))
+  } else if (
+      identical(Sys.getenv("PRIORITIZR_ENABLE_COMPILE_SOLVER"), "TRUE")
+    )
+  {
+    return(add_compile_solver(x, ...))
   } else {
-    assertthat::assert_that(inherits(x, "ConservationProblem"))
-    return(x$add_solver(pproto(
-      "MissingSolver",
-      Solver,
-      name = "MissingSolver",
-      solve = function(self, x) {
-        stop("no optimization problem solvers found on system")
-      })))
+    # throw error if solver not installed
+    if (is.null(ds)) {
+      cli::cli_abort(
+        c(
+          "No optimization solvers are installed.",
+          "x" = "You must install a solver to generate prioritizations.",
+          "i" = "See {.topic solvers} for options."
+        ),
+        call = NULL
+      )
+    }
   }
 }
 
@@ -87,4 +98,18 @@ default_solver_name <- function() {
   } else {
     return(NULL)
   }
+}
+
+#' Any solvers installed?
+#'
+#' Test if any solvers are installed.
+#'
+#' @details This function tests if any of the following packages are installed:
+#'   \pkg{Rsymphony}, \pkg{lpsymphony}, \pkg{gurobi}.
+#'
+#' @return `logical` value indicating if any solvers are installed.
+#'
+#' @noRd
+any_solvers_installed <- function() {
+  !is.null(default_solver_name())
 }

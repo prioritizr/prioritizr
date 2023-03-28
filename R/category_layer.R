@@ -3,51 +3,67 @@ NULL
 
 #' Category layer
 #'
-#' Convert a [`RasterStack-class`]
-#' object where each layer corresponds to a different identifier and values
-#' indicate the presence/absence of that category into a
-#' [`RasterLayer-class`] object containing categorical
+#' Convert a [terra::rast()] object where each layer corresponds to a different
+#' identifier and values indicate the presence/absence of that category into a
+#' [terra::rast()] object containing categorical
 #' identifiers.
 #'
-#' @param x [`Raster-class`] object containing a multiple
+#' @param x [terra::rast()] object containing multiple
 #'   layers. Note that pixels must be 0, 1 or `NA` values.
 #'
 #' @details This function is provided to help manage data that encompass
 #'   multiple management zones. For instance, this function may be helpful
 #'   for interpreting solutions for problems associated with multiple zones that
 #'   have binary decisions.
+#'   It is essentially a wrapper for [terra::which.lyr()].
 #'
-#' @return [`RasterLayer-class`] object.
+#' @return A [terra::rast()] object.
 #'
 #' @seealso [binary_stack()].
 #'
 #' @examples
 #' # create a binary raster stack
-#' x <- stack(raster(matrix(c(1, 0, 0, 1, NA, 0), nrow = 3)),
-#'            raster(matrix(c(0, 1, 0, 0, NA, 0), nrow = 3)),
-#'            raster(matrix(c(0, 0, 1, 0, NA, 1), nrow = 3)))
+#' x <- terra::rast(list(
+#'  terra::rast(matrix(c(1, 0, 0, 1, NA, 0), nrow = 3)),
+#'  terra::rast(matrix(c(0, 1, 0, 0, NA, 0), nrow = 3)),
+#'  terra::rast(matrix(c(0, 0, 1, 0, NA, 1), nrow = 3))
+#' ))
 #'
-#' # convert to binary stack
+#' # plot data
+#' plot(x)
+#'
+#' # convert to category layer
 #' y <- category_layer(x)
 #'
-#' # plot categorical raster and binary stack representation
+#' # plot result
 #' \dontrun{
-#' plot(stack(x, y), main = c("x[[1]]", "x[[2]]", "x[[3]]", "y"),
-#'      nr = 1)
+#' plot(y)
 #' }
 #' @export
 category_layer <- function(x) {
-  # validate argument
-  assertthat::assert_that(inherits(x, "Raster"), raster::nlayers(x) > 1,
-                          all(raster::cellStats(!is.na(x), "sum") > 0),
-                          all(raster::cellStats(x, "max") >= 0),
-                          raster::cellStats(sum(x, na.rm = TRUE), "max") == 1)
-  # initialize raster layer
-  out <- raster::setValues(x[[1]], 0)
-  out[raster::Which(is.na(x[[1]]))] <- NA_real_
-  # populate raster layer
-  for (i in seq_len(raster::nlayers(x)))
-    out[raster::Which(x[[i]] == 1)] <- i
+  assert_required(x)
+  UseMethod("category_layer")
+}
+
+#' @rdname category_layer
+#' @method category_layer Raster
+#' @export
+category_layer.Raster <- function(x) {
+  assert(inherits(x, "Raster"))
+  cli_warning(raster_pkg_deprecation_notice)
+  raster::raster(category_layer.default(terra::rast(x)))
+}
+
+#' @rdname category_layer
+#' @method category_layer default
+#' @export
+category_layer.default <- function(x) {
+  # assert valid arguments
+  assert(inherits(x, "SpatRaster"))
+  # create layer
+  r <- terra::which.lyr(x)
+  # ensure that category layer has zeros in correct places
+  r[all(x == 0)] <- 0
   # return result
-  out
+  r
 }

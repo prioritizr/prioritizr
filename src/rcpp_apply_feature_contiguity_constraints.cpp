@@ -2,9 +2,8 @@
 #include "optimization_problem.h"
 
 // [[Rcpp::export]]
-bool rcpp_apply_feature_contiguity_constraints(SEXP x, Rcpp::List data,
-                                               Rcpp::List clusters_list) {
-
+bool rcpp_apply_feature_contiguity_constraints(
+  SEXP x, const Rcpp::List data, const Rcpp::List clusters_list) {
 
   /* The following code makes the following critical assumptions
   *

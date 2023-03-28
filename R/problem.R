@@ -1,4 +1,4 @@
-#' @include internal.R ConservationProblem-proto.R zones.R
+#' @include internal.R ConservationProblem-class.R zones.R is_spatial_extents_overlap.R assertions.R cli.R
 NULL
 
 #' Conservation planning problem
@@ -7,52 +7,45 @@ NULL
 #' specify the basic data used in a spatial prioritization problem: the
 #' spatial distribution of the planning units and their costs, as well as
 #' the features (e.g., species, ecosystems) that need to be conserved. After
-#' constructing this `ConservationProblem-class` object, it can be
+#' constructing this object, it can be
 #' customized to meet specific goals using [objectives],
 #' [targets], [constraints], and
 #' [penalties]. After building the problem, the
 #' [solve()] function can be used to identify solutions.
-#' **Note that problems require an objective, and failing to specify an
-#' an objective will throw an error when attempting to solve it.**
 #'
-#' @param x [`Raster-class`],
-#'   [sf::st_sf()],
-#'   [`SpatialPolygonsDataFrame-class`],
-#'   [`SpatialLinesDataFrame-class`],
-#'   [`SpatialPointsDataFrame-class`],
-#'   [data.frame()] object,
-#'   [numeric()] vector, or
-#'   [matrix()] specifying the planning units to use in the reserve
+#' @param x [terra::rast()], [sf::st_sf()], `data.frame`, `matrix`, or
+#'   `numeric` vector specifying the planning units to use in the reserve
 #'   design exercise and their corresponding cost. It may be desirable to
 #'   exclude some planning units from the analysis, for example those outside
 #'   the study area. To exclude planning units, set the cost for those raster
-#'   cells to `NA`, or use the `add_locked_out_constraint` function.
+#'   cells to `NA`, or use the [add_locked_out_constraints()] function.
 #'
 #' @param features The feature data can be specified in a variety of ways.
 #'   The specific formats that can be used depend on the cost data format (i.e.,
 #'   argument to `x`) and whether the problem should have a single zone or
 #'   multiple zones. If the problem should have a single zone, then the feature
 #'   data can be specified following:
-#'   * [`x = RasterLayer-class`][raster::RasterLayer-class], or
-#'     [`x = Spatial-class`][sp::Spatial-class], or
-#'     [`x = sf::st_sf()`][sf::st_sf()]:
-#'     [`y = Raster-class`][raster::Raster-class]
+#'
+#'   \describe{
+#'
+#'   \item{**`x` has [terra::rast()] or [sf::st_sf()] planning units**}{
+#'     The argument to `features` can be a [terra::rast()]
 #'     object showing the distribution of conservation features. Missing
 #'     values (i.e., `NA` values) can be used to indicate the absence of
 #'     a feature in a particular cell instead of explicitly setting these
 #'     cells to zero. Note that this argument type for `features` can
-#'     only be used to specify data for problems involving a single zone.
-#'   * [`x = Spatial-class`][sp::Spatial-class], or
-#'     [`x = sf::st_sf()`][sf::st_sf()], or
-#'     `x = data.frame`:
-#'     `y = character` vector
-#'     with column names that correspond to the abundance or occurrence of
-#'     different features in each planning unit. Note that this argument
-#'     type can only be used to create problems involving a single zone.
-#'   * `x = data.frame`, or
-#'     `x = numeric` vector, or
-#'     `x = matrix`:
-#'     `y = data.frame` object
+#'     only be used to specify data for problems involving a single zone.}
+#'
+#'   \item{**`x` has [sf::st_sf()] or `data.frame` planning units**}{
+#'     The argument to `features` can be a `character` vector
+#'     with column names (from `x`) that correspond to the abundance or
+#'     occurrence of different features in each planning unit. Note that
+#'     this argument type can only be used to create problems involving a
+#'     single zone.}
+#'
+#'   \item{**`x` has `data.frame`, `matrix`, or `numeric` vector planning
+#'      units**}{
+#'     The argument to `features` can be a `data.frame` object
 #'     containing the names of the features. Note that if this
 #'     type of argument is supplied to `features` then the argument
 #'     `rij` or `rij_matrix` must also be supplied. This type of
@@ -68,29 +61,33 @@ NULL
 #'     \item{amount}{`numeric` absolute target for each
 #'       feature (optional).}
 #'     }
+#'   }
+#'
+#' }
 #'
 #'   If the problem should have multiple zones, then the feature
 #'   data can be specified following:
-#'   * [`x = RasterStack-class`][raster::RasterStack-class], or
-#'     [`x = RasterBrick-class`][raster::RasterBrick-class], or
-#'     [`x = Spatial-class`][sp::Spatial-class], or
-#'     [`x = sf::st_sf()`][sf::st_sf()]:
-#'     [`y = ZonesRaster`][zones()]:
-#'     object showing the distribution of conservation features in multiple
-#'     zones. As above, missing values (i.e., `NA` values) can be used to
-#'     indicate the absence of a feature in a particular cell instead of
-#'     explicitly setting these cells to zero.
-#'   * [`x = Spatial-class`][sp::Spatial-class], or
-#'     [`x = sf::st_sf()`][sf::st_sf()], or
-#'     or `x = data.frame`:
-#'     [`y = ZonesCharacter`][zones()]
-#'     object with column names that correspond to the abundance or
-#'     occurrence of different features in each planning unit in different
-#'     zones.
+#'
+#'   \describe{
+#'
+#'   \item{**`x` has [terra::rast()] or [sf::st_sf()] planning units**}{
+#'   The argument to `features` can be a [`ZonesRaster`][zones()]
+#'   object showing the distribution of conservation features in multiple
+#'   zones. As above, missing values (i.e., `NA` values) can be used to
+#'   indicate the absence of a feature in a particular cell instead of
+#'    explicitly setting these cells to zero.}
+#'
+#'   \item{**`x` has [sf::st_sf()] or `data.frame` planning units**}{
+#'    The argument to `features` can be a [`ZonesCharacter`][zones()]
+#'    object with column names (from `x`) that correspond to the abundance or
+#'    occurrence of different features in each planning unit in different
+#'    zones.}
+#'
+#' }
 #'
 #' @param cost_column `character` name or `integer` indicating the
 #'   column(s) with the cost data. This argument must be supplied when the
-#'   argument to `x` is a [`Spatial-class`] or
+#'   argument to `x` is a [sf::st_sf()] or
 #'   `data.frame` object. This argument should contain the name of each
 #'   column containing cost data for each management zone when creating
 #'   problems with multiple zones. To create a problem with a single zone, then
@@ -110,11 +107,9 @@ NULL
 #'      problems involving a single zone).}
 #'    \item{amount}{`numeric` amount of the feature in the
 #'      planning unit.}
-
 #'    }
 #'
-#' @param rij_matrix `list` of `matrix` or
-#'    [`dgCMatrix-class`]
+#' @param rij_matrix `list` of `matrix` or [`dgCMatrix-class`]
 #'    objects specifying the amount of each feature (rows) within each planning
 #'    unit (columns) for each zone. The `list` elements denote
 #'    different zones, matrix rows denote features, and matrix columns denote
@@ -125,7 +120,7 @@ NULL
 #'    to `x` is a `numeric` or `matrix` object.
 #'
 #' @param zones `data.frame` containing information on the zones. This
-#'   argument is only used when argument to `x` and `y` are
+#'   argument is only used when argument to `x` and `features` are
 #'   both `data.frame` objects and the problem being built contains
 #'   multiple zones. Following conventions used in `MarZone`, this
 #'   argument should contain the following columns:
@@ -138,8 +133,8 @@ NULL
 #' @param run_checks `logical` flag indicating whether checks should be
 #'   run to ensure the integrity of the input data. These checks are run by
 #'   default; however, for large datasets they may increase run time. If it is
-#'   taking a prohibitively long time to create the prioritization problem, it
-#'   is suggested to try setting `run_checks` to `FALSE`.
+#'   taking a prohibitively long time to create the prioritization problem,
+#'   try setting `run_checks` to `FALSE`.
 #'
 #' @param ... not used.
 #'
@@ -161,7 +156,7 @@ NULL
 #' First, you will need to create a set of planning units
 #' (i.e., discrete spatial areas) to inform decision making.
 #' Planning units are often created by subdividing a study region
-#' into a set square or hexagonal cells. They can also be created using
+#' into a set of square or hexagonal cells. They can also be created using
 #' administrative boundaries (e.g., provinces), land management boundaries
 #' (e.g., property boundaries derived from cadastral data), or
 #' ecological boundaries (e.g., based on ecosystem classification data).
@@ -169,10 +164,10 @@ NULL
 #' based on a compromise between the scale needed to inform decision making, the
 #' spatial accuracy (resolution) of available datasets, and
 #' the computational resources available for generating prioritizations
-#' (e.g., RAM and number of CPUs on your computer).
+#' (e.g., RAM and number of CPU cores on your computer).
 #'
 #' Second, you will need data to quantify the cost of implementing
-#' implementing each management action within each planning unit.
+#' each management action within each planning unit.
 #' Critically, the cost data should reflect the management action(s)
 #' considered in the exercise.
 #' For example, costs are often specified using data that reflect economic
@@ -181,14 +176,14 @@ NULL
 #' opportunity costs of foregone commercial activities
 #' (e.g., logging or agriculture), or
 #' opportunity costs of foregone recreational activities
-#' (e.g., recreational fishing) activities,
+#' (e.g., recreational fishing).
 #' In some cases -- depending on the management action(s) considered --
 #' it can make sense to use a constant cost value
 #' (e.g., all planning units are assigned a cost value equal to one)
 #' or use a cost value based on spatial extent
 #' (e.g., each planning unit is assigned a cost value based on its total area).
 #' Also, in most cases, you want to avoid negative cost values.
-#' This because a negative value means that a place is *desirable*
+#' This is because a negative value means that a place is *desirable*
 #' for implementing a management action, and such places will almost
 #' always be selected for prioritization even if they provide no benefit.
 #'
@@ -204,7 +199,7 @@ NULL
 #' presence or absence), area of occurrence within each planning unit
 #' (e.g., based on species' geographic range data), or
 #' a measure of habitat suitability (e.g., estimated using a statistical model).
-#' After compiling these data, you have the minimal data need to generate
+#' After compiling these data, you have the minimal data needed to generate
 #' a prioritization.
 #'
 #' A systematic conservation planning exercise involves prioritizing a set of
@@ -260,12 +255,11 @@ NULL
 #'
 #' Please note that this function internally computes the amount of each
 #' feature in each planning unit when this data is not supplied (using the
-#' [rij_matrix] function). As a consequence, it can take a while to
+#' [rij_matrix()] function). As a consequence, it can take a while to
 #' initialize large-scale conservation planning problems that involve
 #' millions of planning units.
 #'
-#' @return [`ConservationProblem-class`] object containing
-#'   data for a prioritization.
+#' @return A new `problem()` ([`ConservationProblem-class`]) object.
 #'
 #' @seealso
 #' See [solve()] for details on solving a problem to generate solutions.
@@ -274,52 +268,55 @@ NULL
 #' Additionally, see [summaries] and [importance] for information on
 #' evaluating solutions.
 #'
-#' @aliases problem,Raster,Raster-method problem,Spatial,Raster-method problem,data.frame,data.frame-method problem,numeric,data.frame-method problem,data.frame,character-method problem,Spatial,character-method problem,Raster,ZonesRaster-method problem,Spatial,ZonesRaster-method problem,Spatial,ZonesCharacter-method problem,data.frame,ZonesCharacter-method problem,matrix,data.frame-method problem,sf,Raster-method problem,sf,ZonesCharacter-method problem,sf,character-method problem,sf,ZonesRaster-method
+#' @aliases problem,Raster,Raster-method problem,SpatRaster,SpatRaster-method problem,Spatial,Raster-method problem,data.frame,data.frame-method problem,numeric,data.frame-method problem,data.frame,character-method problem,Spatial,character-method problem,Raster,ZonesRaster-method problem,SpatRaster,ZonesRaster-method problem,Spatial,ZonesRaster-method problem,Spatial,ZonesCharacter-method problem,data.frame,ZonesCharacter-method problem,matrix,data.frame-method problem,sf,Raster-method problem,sf,SpatRaster-method problem,SpatRaster,ZonesSpatRaster-method problem,sf,ZonesCharacter-method problem,sf,character-method problem,sf,ZonesRaster-method problem,sf,ZonesSpatRaster-method
 #'
 #' @exportMethod problem
 #'
 #' @name problem
 #'
 #' @examples
+#' \dontrun{
 #' # load data
-#' data(sim_pu_raster, sim_pu_polygons, sim_pu_lines, sim_pu_points,
-#'      sim_pu_sf, sim_features)
+#' sim_pu_raster <- get_sim_pu_raster()
+#' sim_pu_polygons <- get_sim_pu_polygons()
+#' sim_pu_points <- get_sim_pu_points()
+#' sim_pu_lines <- get_sim_pu_lines()
+#' sim_features <- get_sim_features()
+#' sim_zones_pu_raster <- get_sim_zones_pu_raster()
+#' sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
+#' sim_zones_features <- get_sim_zones_features()
 #'
 #' # create problem using raster planning unit data
-#' p1 <- problem(sim_pu_raster, sim_features) %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(0.2) %>%
-#'       add_binary_decisions() %>%
-#'       add_default_solver(verbose = FALSE)
+#' p1 <-
+#'   problem(sim_pu_raster, sim_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(0.2) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
 #'
-#' \dontrun{
-#' # create problem using polygon (Spatial) planning unit data
-#' p2 <- problem(sim_pu_polygons, sim_features, "cost") %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(0.2) %>%
-#'       add_binary_decisions() %>%
-#'       add_default_solver(verbose = FALSE)
+#' # create problem using polygon planning unit data
+#' p2 <-
+#'   problem(sim_pu_polygons, sim_features, "cost") %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(0.2) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
 #'
-#' # create problem using line (Spatial) planning unit data
-#' p3 <- problem(sim_pu_lines, sim_features, "cost") %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(0.2) %>%
-#'       add_binary_decisions() %>%
-#'       add_default_solver(verbose = FALSE)
+#' # create problem using line planning unit data
+#' p3 <-
+#'   problem(sim_pu_lines, sim_features, "cost") %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(0.2) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
 #'
-#' # create problem using point (Spatial) planning unit data
-#' p4 <- problem(sim_pu_points, sim_features, "cost") %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(0.2) %>%
-#'       add_binary_decisions() %>%
-#'       add_default_solver(verbose = FALSE)
-#'
-#' # create problem using polygon (sf) planning unit data
-#' p5 <- problem(sim_pu_sf, sim_features, "cost") %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(0.2) %>%
-#'       add_binary_decisions() %>%
-#'       add_default_solver(verbose = FALSE)
+#' # create problem using point planning unit data
+#' p4 <-
+#'   problem(sim_pu_points, sim_features, "cost") %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(0.2) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
 #'
 #' # since geo-processing can be slow for large spatial vector datasets
 #' # (e.g., polygons, lines, points), it can be worthwhile to pre-process the
@@ -328,49 +325,38 @@ NULL
 #' # (i.e., each column corresponds to a different feature)
 #'
 #' # calculate the amount of each species within each planning unit
-#' # (i.e., SpatialPolygonsDataFrame object)
 #' pre_proc_data <- rij_matrix(sim_pu_polygons, sim_features)
 #'
-#' # add extra columns to the polygon (Spatial) planning unit data
+#' # add extra columns to the polygon planning unit data
 #' # to indicate the amount of each species within each planning unit
 #' pre_proc_data <- as.data.frame(t(as.matrix(pre_proc_data)))
 #' names(pre_proc_data) <- names(sim_features)
-#' sim_pu_polygons@data <- cbind(sim_pu_polygons@data, pre_proc_data)
+#' sim_pu_polygons <- cbind(sim_pu_polygons, pre_proc_data)
 #'
-#' # create problem using the polygon (Spatial) planning unit data
+#' # create problem using the polygon planning unit data
 #' # with the pre-processed columns
-#' p6 <- problem(sim_pu_polygons, features = names(pre_proc_data), "cost") %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(0.2) %>%
-#'       add_binary_decisions() %>%
-#'       add_default_solver(verbose = FALSE)
-#'
-#' # this strategy of pre-processing columns can be used for sf objects too
-#' pre_proc_data2 <- rij_matrix(sim_pu_sf, sim_features)
-#' pre_proc_data2 <- as.data.frame(t(as.matrix(pre_proc_data2)))
-#' names(pre_proc_data2) <- names(sim_features)
-#' sim_pu_sf <- cbind(sim_pu_sf, pre_proc_data2)
-#'
-#' # create problem using the polygon (sf) planning unit data
-#' # with pre-processed columns
-#' p7 <- problem(sim_pu_sf, features = names(pre_proc_data2), "cost") %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(0.2) %>%
-#'       add_binary_decisions() %>%
-#'       add_default_solver(verbose = FALSE)
+#' p5 <-
+#'   problem(sim_pu_polygons, features = names(pre_proc_data), "cost") %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(0.2) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
 #'
 #' # in addition to spatially explicit data, pre-processed aspatial data
 #' # can also be used to create a problem
 #' # (e.g., data created using external spreadsheet software)
 #' costs <- sim_pu_polygons$cost
-#' features <- data.frame(id = seq_len(nlayers(sim_features)),
-#'                        name = names(sim_features))
+#' features <- data.frame(
+#'   id = seq_len(terra::nlyr(sim_features)),
+#'   name = names(sim_features)
+#' )
 #' rij_mat <- rij_matrix(sim_pu_polygons, sim_features)
-#' p8 <- problem(costs, features, rij_matrix = rij_mat) %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(0.2) %>%
-#'       add_binary_decisions() %>%
-#'       add_default_solver(verbose = FALSE)
+#' p6 <-
+#'   problem(costs, features, rij_matrix = rij_mat) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(0.2) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
 #'
 #' # solve problems
 #' s1 <- solve(p1)
@@ -379,33 +365,17 @@ NULL
 #' s4 <- solve(p4)
 #' s5 <- solve(p5)
 #' s6 <- solve(p6)
-#' s7 <- solve(p7)
-#' s8 <- solve(p8)
 #'
 #' # plot solutions for problems associated with spatial data
-#' par(mfrow = c(3, 2), mar = c(0, 0, 4.1, 0))
-#' plot(s1, main = "raster data", axes = FALSE, box = FALSE, legend = FALSE)
-#'
-#' plot(s2, main = "polygon data")
-#' plot(s2[s2$solution_1 > 0.5, ], col = "darkgreen", add = TRUE)
-#'
-#' plot(s3, main = "line data")
-#' lines(s3[s3$solution_1 > 0.5, ], col = "darkgreen", lwd = 2)
-#'
-#' plot(s4, main = "point data", pch = 19)
-#' points(s4[s4$solution_1 > 0.5, ], col = "darkgreen", cex = 2, pch = 19)
-#'
-#' # note that as_Spatial() is for convenience to plot all solutions together
-#' plot(sf::as_Spatial(s5), main = "sf (polygon) data", pch = 19)
-#' plot(sf::as_Spatial(s5[s5$solution_1 > 0.5, ]),
-#'      col = "darkgreen", add = TRUE)
-#'
-#' plot(s6, main = "preprocessed data (polygon data)", pch = 19)
-#' plot(s6[s6$solution_1 > 0.5, ], col = "darkgreen", add = TRUE)
+#' plot(s1, main = "raster data", axes = FALSE)
+#' plot(s2[, "solution_1"], main = "polygon data")
+#' plot(s3[, "solution_1"], main = "line data")
+#' plot(s4[, "solution_1"], main = "point data")
+#' plot(s5[, "solution_1"], main = "preprocessed data (polygon data)")
 #'
 #' # show solutions for problems associated with aspatial data
-#' str(s8)
-#' }
+#' str(s6)
+#'
 #' # create some problems with multiple zones
 #'
 #' # first, create a matrix containing the targets for multi-zone problems
@@ -413,308 +383,213 @@ NULL
 #' # column corresponds to a different zone, and values correspond
 #' # to the total (absolute) amount of a given feature that needs to be secured
 #' # in a given zone
-#' targets <- matrix(rpois(15, 1),
-#'                   nrow = number_of_features(sim_features_zones),
-#'                   ncol = number_of_zones(sim_features_zones),
-#'                   dimnames = list(feature_names(sim_features_zones),
-#'                                   zone_names(sim_features_zones)))
+#' targets <- matrix(
+#'   rpois(15, 1),
+#'   nrow = number_of_features(sim_zones_features),
+#'   ncol = number_of_zones(sim_zones_features),
+#'   dimnames = list(
+#'     feature_names(sim_zones_features), zone_names(sim_zones_features)
+#'   )
+#' )
 #'
 #' # print targets
 #' print(targets)
 #'
 #' # create a multi-zone problem with raster data
-#' p8 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
-#'       add_min_set_objective() %>%
-#'       add_absolute_targets(targets) %>%
-#'       add_binary_decisions() %>%
-#'       add_default_solver(verbose = FALSE)
-#' \dontrun{
+#' p7 <-
+#'   problem(sim_zones_pu_raster, sim_zones_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_absolute_targets(targets) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
+#'
 #' # solve problem
-#' s8 <- solve(p8)
+#' s7 <- solve(p7)
 #'
 #' # plot solution
 #' # here, each layer/panel corresponds to a different zone and pixel values
 #' # indicate if a given planning unit has been allocated to a given zone
 #' par(mfrow = c(1, 1))
-#' plot(s8, main = c("zone 1", "zone 2", "zone 3"), axes = FALSE, box = FALSE)
+#' plot(s7, main = c("zone 1", "zone 2", "zone 3"), axes = FALSE)
 #'
 #' # alternatively, the category_layer function can be used to create
 #' # a new raster object containing the zone ids for each planning unit
 #' # in the solution (note this only works for problems with binary decisions)
 #' par(mfrow = c(1, 1))
-#' plot(category_layer(s8), axes = FALSE, box = FALSE)
+#' plot(category_layer(s7), axes = FALSE)
 #'
 #' # create a multi-zone problem with polygon data
-#' p9 <- problem(sim_pu_zones_polygons, sim_features_zones,
-#'               cost_column = c("cost_1", "cost_2", "cost_3")) %>%
-#'       add_min_set_objective() %>%
-#'       add_absolute_targets(targets) %>%
-#'       add_binary_decisions() %>%
-#'       add_default_solver(verbose = FALSE)
+#' p8 <-
+#'   problem(
+#'     sim_zones_pu_polygons, sim_zones_features,
+#'     cost_column = c("cost_1", "cost_2", "cost_3")
+#'   ) %>%
+#'   add_min_set_objective() %>%
+#'   add_absolute_targets(targets) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
+#'
+#' # solve problem
+#' s8 <- solve(p8)
+#'
+#' # create column containing the zone id for which each planning unit was
+#' # allocated to in the solution
+#' s8$solution <- category_vector(sf::st_drop_geometry(
+#'  s8[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")]
+#' ))
+#' s8$solution <- factor(s8$solution)
+#'
+#' # plot solution
+#' plot(s8[, "solution"], axes = FALSE)
+#'
+#' # create a multi-zone problem with polygon planning unit data
+#' # and where columns correspond to feature abundances
+#'
+#' # to begin with, we will add columns to the planning unit data
+#' # that indicate the amount of each feature in each zone
+#' sim_zones_pu_polygons$spp1_z1 <- rpois(nrow(sim_zones_pu_polygons), 1)
+#' sim_zones_pu_polygons$spp2_z1 <- rpois(nrow(sim_zones_pu_polygons), 1)
+#' sim_zones_pu_polygons$spp3_z1 <- rpois(nrow(sim_zones_pu_polygons), 1)
+#' sim_zones_pu_polygons$spp1_z2 <- rpois(nrow(sim_zones_pu_polygons), 1)
+#' sim_zones_pu_polygons$spp2_z2 <- rpois(nrow(sim_zones_pu_polygons), 1)
+#' sim_zones_pu_polygons$spp3_z2 <- rpois(nrow(sim_zones_pu_polygons), 1)
+#'
+#' # create problem with polygon planning unit data and use column names
+#' # to indicate feature data
+#' # additionally, to make this example slightly more interesting,
+#' # the problem will have proportion-type decisions such that
+#' # a proportion of each planning unit can be allocated to each of the
+#' # two management zones
+#' p9 <-
+#'   problem(
+#'     sim_zones_pu_polygons,
+#'     zones(
+#'       c("spp1_z1", "spp2_z1", "spp3_z1"),
+#'       c("spp1_z2", "spp2_z2", "spp3_z2"),
+#        feature_names = c("spp1", "spp2", "spp3"),
+#'       zone_names = c("z1", "z2")
+#'     ),
+#'     cost_column = c("cost_1", "cost_2")
+#'   ) %>%
+#'   add_min_set_objective() %>%
+#'   add_absolute_targets(targets[1:3, 1:2]) %>%
+#'   add_proportion_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
 #'
 #' # solve problem
 #' s9 <- solve(p9)
 #'
-#' # create column containing the zone id for which each planning unit was
-#' # allocated to in the solution
-#' s9$solution <- category_vector(s9@data[, c("solution_1_zone_1",
-#'                                            "solution_1_zone_2",
-#'                                            "solution_1_zone_3")])
-#' s9$solution <- factor(s9$solution)
-#'
 #' # plot solution
-#' spplot(s9, zcol = "solution", main = "solution", axes = FALSE, box = FALSE)
-#'
-#' # create a multi-zone problem with polygon planning unit data
-#' # and where fields (columns) in the attribute table correspond
-#' # to feature abundances
-#'
-#' # first fields need to be added to the planning unit data
-#' # which indicate the amount of each feature in each zone
-#' # to do this, the fields will be populated with random counts
-#' sim_pu_zones_polygons$spp1_z1 <- rpois(nrow(sim_pu_zones_polygons), 1)
-#' sim_pu_zones_polygons$spp2_z1 <- rpois(nrow(sim_pu_zones_polygons), 1)
-#' sim_pu_zones_polygons$spp3_z1 <- rpois(nrow(sim_pu_zones_polygons), 1)
-#' sim_pu_zones_polygons$spp1_z2 <- rpois(nrow(sim_pu_zones_polygons), 1)
-#' sim_pu_zones_polygons$spp2_z2 <- rpois(nrow(sim_pu_zones_polygons), 1)
-#' sim_pu_zones_polygons$spp3_z2 <- rpois(nrow(sim_pu_zones_polygons), 1)
-#'
-#' # create problem with polygon planning unit data and use field names
-#' # to indicate feature data
-#' # additionally, to make this example slightly more interesting,
-#' # the problem will have prfoportion-type decisions such that
-#' # a proportion of each planning unit can be allocated to each of the
-#' # two management zones
-#' p10 <- problem(sim_pu_zones_polygons,
-#'                zones(c("spp1_z1", "spp2_z1", "spp3_z1"),
-#'                      c("spp1_z2", "spp2_z2", "spp3_z2"),
-#                       feature_names = c("spp1", "spp2", "spp3"),
-#'                      zone_names = c("z1", "z2")),
-#'                cost_column = c("cost_1", "cost_2")) %>%
-#'        add_min_set_objective() %>%
-#'        add_absolute_targets(targets[1:3, 1:2]) %>%
-#'        add_proportion_decisions() %>%
-#'       add_default_solver(verbose = FALSE)
-#'
-#' # solve problem
-#' s10 <- solve(p10)
-#'
-#' # plot solution
-#' spplot(s10, zcol = c("solution_1_z1", "solution_1_z2"), main = "solution",
-#'        axes = FALSE, box = FALSE)
+#' plot(s9[, c("solution_1_z1", "solution_1_z2")], axes = FALSE)
 #' }
 #' @export
-methods::setGeneric("problem",
-                    signature = methods::signature("x", "features"),
-                    function(x, features, ...) standardGeneric("problem"))
+methods::setGeneric(
+  "problem",
+  signature = methods::signature("x", "features"),
+  function(x, features, ...) {
+    assert_required(x)
+    assert_required(features)
+    assert(
+      is_inherits(
+        x,
+        c(
+          "sf", "SpatRaster", "data.frame", "numeric", "matrix", "Raster",
+          "Spatial"
+        )
+      ),
+      is_inherits(
+        features,
+        c(
+          "character", "data.frame", "SpatRaster", "ZonesCharacter",
+          "ZonesSpatRaster", "Raster", "ZonesRaster"
+        )
+      )
+    )
+    standardGeneric("problem")
+  }
+)
 
 #' @name problem
-#' @usage \S4method{problem}{Raster,Raster}(x, features, run_checks, ...)
+#' @usage \S4method{problem}{SpatRaster,SpatRaster}(x, features, run_checks, ...)
 #' @rdname problem
 methods::setMethod(
   "problem",
-  methods::signature(x = "Raster", features = "Raster"),
+  methods::signature(x = "SpatRaster", features = "SpatRaster"),
   function(x, features, run_checks = TRUE, ...) {
-    assertthat::assert_that(inherits(x, "Raster"), raster::nlayers(x) == 1,
-                            no_extra_arguments(...))
-    problem(x, zones(features, zone_names = names(x),
-                     feature_names = names(features)),
-            run_checks = run_checks, ...)
+    assert(
+      inherits(x, "SpatRaster"),
+      terra::nlyr(x) == 1,
+      no_duplicates(names(features))
+    )
+    assert_dots_empty()
+    problem(
+      x,
+      zones(
+        features, zone_names = names(x), feature_names = names(features)
+      ),
+      run_checks = run_checks,
+      ...
+    )
 })
 
 #' @name problem
-#' @usage \S4method{problem}{Raster,ZonesRaster}(x, features, run_checks, ...)
+#' @usage \S4method{problem}{SpatRaster,ZonesSpatRaster}(x, features, run_checks, ...)
 #' @rdname problem
 methods::setMethod(
   "problem",
-  methods::signature(x = "Raster", features = "ZonesRaster"),
+  methods::signature(x = "SpatRaster", features = "ZonesSpatRaster"),
   function(x, features, run_checks = TRUE, ...) {
     # assert that arguments are valid
-    assertthat::assert_that(
-      inherits(x, "Raster"),
-      inherits(features, "ZonesRaster"),
+    assert(
+      inherits(x, "SpatRaster"),
+      inherits(features, "ZonesSpatRaster"),
       assertthat::is.flag(run_checks),
-      no_extra_arguments(...),
-      raster::nlayers(x) > 0,
       number_of_features(features) > 0,
-      raster::nlayers(x) == number_of_zones(features),
-      is_comparable_raster(x, features[[1]]))
+      terra::nlyr(x) == number_of_zones(features),
+      is_comparable_raster(x, features)
+    )
+    assert_dots_empty()
     if (run_checks) {
-      assertthat::assert_that(
-        all(raster::cellStats(!is.na(x), "sum") > 0))
-      verify_that(all(raster::cellStats(x, "min") >= 0))
-      verify_that(all(raster::cellStats(raster::stack(as.list(features)),
-                                        "min") >= 0))
+      assert(any_nonNA(x))
+      verify(
+        all_positive(x),
+        any_nonzero(x),
+        all_positive(features),
+        any_nonzero(features)
+      )
     }
-    # convert x to RasterLayer if has only one layer
-    if (inherits(x, c("RasterStack", "RasterBrick")) &&
-        raster::nlayers(x) == 1)
-      x <- x[[1]]
     # create rij matrix
-    rij <- lapply(as.list(features), function(f) rij_matrix(x, f))
+    rij <- lapply(
+      terra::as.list(features),
+      function(f) `rownames<-`(rij_matrix(x, f), feature_names(features))
+    )
     names(rij) <- zone_names(features)
     # calculate feature abundances in total units
-    fatu <- vapply(features, raster::cellStats,
-                   numeric(number_of_features(features)), "sum")
-    if (!is.matrix(fatu))
-      fatu <- matrix(fatu, ncol = number_of_zones(features),
-                     nrow = number_of_features(features))
+    fatu <- vapply(
+      features,
+      function(x) terra::global(x, "sum", na.rm = TRUE)[[1]],
+      numeric(number_of_features(features))
+    )
+    if (!is.matrix(fatu)) {
+      fatu <- matrix(
+        fatu,
+        ncol = number_of_zones(features),
+        nrow = number_of_features(features)
+      )
+    }
     colnames(fatu) <- zone_names(features)
     rownames(fatu) <- feature_names(features)
     # create ConservationProblem object
-    pproto(NULL, ConservationProblem,
-           constraints = pproto(NULL, Collection),
-           penalties = pproto(NULL, Collection),
-           data = list(cost = x, features = features, rij_matrix = rij,
-                       feature_abundances_in_total_units = fatu))
-})
-
-#' @name problem
-#' @usage \S4method{problem}{Spatial,Raster}(x, features, cost_column, run_checks, ...)
-#' @rdname problem
-methods::setMethod(
-  "problem",
-  methods::signature(x = "Spatial", features = "Raster"),
-  function(x, features, cost_column, run_checks = TRUE, ...) {
-    assertthat::assert_that(assertthat::is.string(cost_column))
-    problem(x, zones(features, zone_names = cost_column,
-                     feature_names = names(features)),
-            cost_column = cost_column, run_checks = run_checks, ...)
-})
-
-#' @name problem
-#' @usage \S4method{problem}{Spatial,ZonesRaster}(x, features, cost_column, run_checks, ...)
-#' @rdname problem
-methods::setMethod(
-  "problem",
-  methods::signature(x = "Spatial", features = "ZonesRaster"),
-  function(x, features, cost_column, run_checks = TRUE, ...) {
-    # assert that arguments are valid
-    assertthat::assert_that(
-      inherits(x, c("SpatialPolygonsDataFrame", "SpatialLinesDataFrame",
-                    "SpatialPointsDataFrame")),
-      no_extra_arguments(...),
-      length(x) > 0, is.character(cost_column), !anyNA(cost_column),
-      all(cost_column %in% names(x)),
-      length(cost_column) == number_of_zones(features),
-      all(vapply(x@data[, cost_column, drop = FALSE], is.numeric, logical(1))),
-      assertthat::is.flag(run_checks))
-    # further validation checks
-    assertthat::assert_that(
-      length(x) > 0,
-      all(colSums(!is.na(as.matrix(x@data[, cost_column, drop = FALSE])),
-                  na.rm = TRUE) > 0),
-      sf::st_crs(x@proj4string) == sf::st_crs(features[[1]]@crs),
-      intersecting_extents(x, features[[1]]))
-      verify_that(
-        all(colSums(as.matrix(x@data[, cost_column, drop = FALSE]) < 0,
-                    na.rm = TRUE) == 0),
-        msg = "argument to x has negative cost values")
-    if (run_checks) {
-      verify_that(
-        all(raster::cellStats(raster::stack(as.list(features)), "min") >= 0))
-    }
-    # compute rij matrix including non-planning unit cells
-    rij <- rij_matrix(x, raster::stack(as.list(features)))
-    rij <- lapply(seq_len(number_of_zones(features)), function(i) {
-      m <- rij[((i - 1) * number_of_features(features)) +
-               seq_len(number_of_features(features)), ,
-          drop = FALSE]
-      rownames(m) <- feature_names(features)
-      return(m)
-    })
-    # calculate feature abundances in total units
-    fatu <- vapply(rij, rowSums, numeric(number_of_features(features)),
-                   na.rm = TRUE)
-    if (!is.matrix(fatu))
-      fatu <- matrix(fatu, nrow = number_of_features(features),
-                     ncol = number_of_zones(features))
-    rownames(fatu) <- feature_names(features)
-    colnames(fatu) <- zone_names(features)
-    # create rij matrix
-    pos <- which(rowSums(!is.na(as.matrix(
-             x@data[, cost_column, drop = FALSE]))) > 0)
-    rij <- lapply(rij, function(x) x[, pos, drop = FALSE])
-    names(rij) <- zone_names(features)
-    # create ConservationProblem object
-    pproto(NULL, ConservationProblem,
-      constraints = pproto(NULL, Collection),
-      penalties = pproto(NULL, Collection),
-      data = list(cost = x, features = features, cost_column = cost_column,
-                  rij_matrix = rij, feature_abundances_in_total_units = fatu))
-})
-
-#' @name problem
-#' @usage \S4method{problem}{Spatial,character}(x, features, cost_column, ...)
-#' @rdname problem
-methods::setMethod(
-  "problem",
-  methods::signature(x = "Spatial", features = "character"),
-  function(x, features, cost_column, ...) {
-    assertthat::assert_that(assertthat::is.string(cost_column))
-    problem(x, zones(features, feature_names = features,
-                     zone_names = cost_column),
-           cost_column = cost_column, ...)
-})
-
-#' @name problem
-#' @usage \S4method{problem}{Spatial,ZonesCharacter}(x, features, cost_column, ...)
-#' @rdname problem
-methods::setMethod(
-  "problem",
-  methods::signature(x = "Spatial", features = "ZonesCharacter"),
-  function(x, features, cost_column, ...) {
-    # assert that arguments are valid
-    assertthat::assert_that(
-      inherits(x, c("SpatialPolygonsDataFrame", "SpatialLinesDataFrame",
-                    "SpatialPointsDataFrame")),
-      inherits(features, "ZonesCharacter"),
-      no_extra_arguments(...),
-      length(x) > 0, is.character(cost_column), !anyNA(cost_column),
-      all(cost_column %in% names(x)),
-      number_of_zones(features) == length(cost_column))
-    assertthat::assert_that(
-      all(unlist(as.list(features), recursive = TRUE, use.names = FALSE) %in%
-                 names(x)),
-      msg = paste("argument to features contains column names that are",
-                  "not present in the argument to x"))
-    assertthat::assert_that(
-      all(vapply(x@data[, cost_column, drop = FALSE], is.numeric, logical(1))),
-      msg = "argument to x has non-numeric cost data")
-    assertthat::assert_that(
-      all(colSums(!is.na(as.matrix(x@data[, cost_column, drop = FALSE])),
-        na.rm = TRUE) > 0),
-      msg = "argument to x has missing (NA) cost values")
-    verify_that(all(as.matrix(x@data[, cost_column, drop = FALSE]) >= 0,
-                            na.rm = TRUE),
-                msg = "argument to x has negative cost values")
-    verify_that(all(as.matrix(x@data[, unlist(features), drop = FALSE]) >= 0,
-                    na.rm = TRUE),
-                msg = "argument to features correspond to negative values")
-    # create rij matrix
-    pos <- which(rowSums(!is.na(as.matrix(
-             x@data[, cost_column, drop = FALSE]))) > 0)
-    rij <- lapply(features, function(z) {
-      r <- t(as.matrix(x@data[pos, z, drop = FALSE]))
-      r[is.na(r)] <- 0
-      rownames(r) <- feature_names(features)
-      methods::as(r, "sparseMatrix")
-    })
-    names(rij) <- zone_names(features)
-    # calculate feature abundances in total units
-    fatu <- colSums(x@data[, unlist(as.list(features)), drop = FALSE],
-                    na.rm = TRUE)
-    fatu <- matrix(fatu, ncol = number_of_zones(features),
-                   nrow = number_of_features(features),
-                   dimnames = list(feature_names(features),
-                                   zone_names(features)))
-    # create ConservationProblem object
-    pproto(NULL, ConservationProblem,
-      constraints = pproto(NULL, Collection),
-      penalties = pproto(NULL, Collection),
-      data = list(cost = x, features = features, cost_column = cost_column,
-                  rij_matrix = rij, feature_abundances_in_total_units = fatu))
-})
+    conservation_problem(
+      data = list(
+        cost = x,
+        features = features,
+        rij_matrix = rij,
+        feature_abundances_in_total_units = fatu
+      )
+    )
+  }
+)
 
 #' @name problem
 #' @usage \S4method{problem}{data.frame,character}(x, features, cost_column, ...)
@@ -723,10 +598,14 @@ methods::setMethod(
   "problem",
   methods::signature(x = "data.frame", features = "character"),
   function(x, features, cost_column, ...) {
-    assertthat::assert_that(assertthat::is.string(cost_column))
-    problem(x, zones(features, zone_names = cost_column,
-                     feature_names = features),
-            cost_column = cost_column, ...)
+    assert_required(cost_column)
+    assert(assertthat::is.string(cost_column))
+    problem(
+      x,
+      zones(features, zone_names = cost_column, feature_names = features),
+      cost_column = cost_column,
+      ...
+    )
 })
 
 #' @name problem
@@ -737,54 +616,70 @@ methods::setMethod(
   methods::signature(x = "data.frame", features = "ZonesCharacter"),
   function(x, features, cost_column, ...) {
     # assert that arguments are valid
-    assertthat::assert_that(
-      inherits(x, "data.frame"),
+    assert(
+      is.data.frame(x),
       inherits(features, "ZonesCharacter"),
-      no_extra_arguments(...),
-      nrow(x) > 0, is.character(cost_column), !anyNA(cost_column),
-      all(cost_column %in% names(x)),
-      number_of_zones(features) == length(cost_column))
-    assertthat::assert_that(
-      all(unlist(as.list(features), recursive = TRUE, use.names = FALSE) %in%
-                 names(x)),
-      msg = paste("argument to features contains column names that are",
-                  "not present in the argument to x"))
-    assertthat::assert_that(
-      all(vapply(x[, cost_column, drop = FALSE], is.numeric, logical(1))),
-      msg = "argument to x has non-numeric cost data")
-    assertthat::assert_that(
-      all(colSums(!is.na(as.matrix(x[, cost_column, drop = FALSE])),
-        na.rm = TRUE) > 0),
-      msg = "argument to x has missing (NA) cost values")
-    verify_that(all(as.matrix(x[, cost_column, drop = FALSE]) >= 0,
-                    na.rm = TRUE),
-                msg = "argument to x has negative cost values")
-    verify_that(all(as.matrix(x[, unlist(features), drop = FALSE]) >= 0,
-                    na.rm = TRUE),
-                msg = "argument to features correspond to negative values")
+      nrow(x) > 0,
+      is.character(cost_column),
+      assertthat::noNA(cost_column),
+      all_match_of(cost_column, names(x)),
+      number_of_zones(features) == length(cost_column),
+      all_columns_inherit(x[, cost_column, drop = FALSE], "numeric"),
+      all_columns_any_finite(x[, cost_column, drop = FALSE])
+    )
+    assert_dots_empty()
+    assert(
+      all_match_of(unlist(as.list(features)), names(x)),
+      msg = c(
+        paste(
+          "{.arg features} must contain character values that are column names",
+          "for {.arg x}."
+        ),
+        "x" = paste(
+          "The following values are not columns names of {.arg x}:",
+          "{.val {setdiff(unlist(as.list(features)), names(x))}}."
+        )
+      )
+    )
+    verify(
+      all_positive(x[, cost_column, drop = FALSE]),
+      any_nonzero(x[, cost_column, drop = FALSE]),
+      all_positive(x[, unlist(features), drop = FALSE]),
+      any_nonzero(x[, unlist(features), drop = FALSE])
+    )
     # create rij matrix
     pos <- which(rowSums(!is.na(as.matrix(x[, cost_column, drop = FALSE]))) > 0)
     rij <- lapply(as.list(features), function(z) {
       r <- t(as.matrix(x[pos, z, drop = FALSE]))
       r[is.na(r)] <- 0
       rownames(r) <- feature_names(features)
+      colnames(r) <- NULL
       methods::as(r, "sparseMatrix")
     })
     names(rij) <- zone_names(features)
     # calculate feature abundances in total units
-    fatu <- colSums(x[, unlist(as.list(features)), drop = FALSE],
-                    na.rm = TRUE)
-    fatu <- matrix(fatu, ncol = number_of_zones(features),
-                   nrow = number_of_features(features),
-                   dimnames = list(feature_names(features),
-                                   zone_names(features)))
+    fatu <- colSums(
+      x[, unlist(as.list(features)), drop = FALSE],
+      na.rm = TRUE
+    )
+    fatu <- matrix(
+      fatu,
+      ncol = number_of_zones(features),
+      nrow = number_of_features(features),
+      dimnames = list(feature_names(features), zone_names(features))
+    )
     # create ConservationProblem object
-    pproto(NULL, ConservationProblem,
-      constraints = pproto(NULL, Collection),
-      penalties = pproto(NULL, Collection),
-      data = list(cost = x, features = features, cost_column = cost_column,
-                  rij_matrix = rij, feature_abundances_in_total_units = fatu))
-})
+    conservation_problem(
+      data = list(
+        cost = x,
+        features = features,
+        cost_column = cost_column,
+        rij_matrix = rij,
+        feature_abundances_in_total_units = fatu
+      )
+    )
+  }
+)
 
 #' @name problem
 #' @usage \S4method{problem}{data.frame,data.frame}(x, features, rij, cost_column, zones, ...)
@@ -794,63 +689,92 @@ methods::setMethod(
   methods::signature(x = "data.frame", features = "data.frame"),
   function(x, features, rij, cost_column, zones = NULL, ...) {
     # assert that arguments are valid
-    assertthat::assert_that(
-      inherits(x, "data.frame"), inherits(features, "data.frame"),
-      is.character(cost_column), !anyNA(cost_column),
-      inherits(rij, "data.frame"),
-      nrow(x) > 0, nrow(features) > 0, nrow(rij) > 0,
-      no_extra_arguments(...),
+    assert_required(rij)
+    assert_required(cost_column)
+    assert(
+      is.data.frame(x),
+      is.data.frame(features),
+      is.character(cost_column),
+      assertthat::noNA(cost_column),
+      is.data.frame(rij),
+      nrow(x) > 0,
+      nrow(features) > 0,
+      nrow(rij) > 0,
       # x
-      assertthat::has_name(x, "id"), is.numeric(x$id), all(is.finite(x$id)),
-      anyDuplicated(x$id) == 0, all(cost_column %in% names(x)),
-      all(vapply(x[, cost_column, drop = FALSE], is.numeric, logical(1))),
-      all(colSums(!is.na(as.matrix(x[, cost_column, drop = FALSE])),
-                  na.rm = TRUE) > 0),
+      assertthat::has_name(x, "id"),
+      is.numeric(x$id),
+      is_count_vector(x$id),
+      all_finite(x$id),
+      no_duplicates(x$id),
+      all_match_of(cost_column, names(x)),
+      all_columns_inherit(x[, cost_column, drop = FALSE], "numeric"),
+      all_columns_any_finite(x[, cost_column, drop = FALSE]),
       # features
       assertthat::has_name(features, "id"),
       assertthat::has_name(features, "name"),
-      anyDuplicated(features$id) == 0,
-      anyDuplicated(features$name) == 0,
-      !anyNA(features$id), !anyNA(features$name),
       is.numeric(features$id),
-      is.character(features$name) || is.factor(features$name),
+      is_count_vector(features$id),
+      no_duplicates(features$id),
+      no_duplicates(features$name),
+      all_finite(features$id),
+      is_inherits(features$name, c("character", "factor")),
+      assertthat::noNA(features$name),
       # rij
       assertthat::has_name(rij, "pu"),
       assertthat::has_name(rij, "species"),
       assertthat::has_name(rij, "amount"),
-      !anyNA(rij$pu), !anyNA(rij$species), !anyNA(rij$amount),
-      is.numeric(rij$pu), is.numeric(rij$species), is.numeric(rij$amount),
-      all(rij$pu %in% x$id),
-      all(rij$species %in% features$id))
+      is.numeric(rij$pu),
+      is_count_vector(rij$pu),
+      assertthat::noNA(rij$pu),
+      is.numeric(rij$species),
+      is_count_vector(rij$species),
+      assertthat::noNA(rij$species),
+      is.numeric(rij$amount),
+      assertthat::noNA(rij$amount),
+      all_match_of(rij$pu, x$id),
+      all_match_of(rij$species, features$id)
+    )
+    assert_dots_empty()
     # verifications
-    verify_that(all(rij$amount >= 0))
-    verify_that(all(as.matrix(x[, cost_column, drop = FALSE]) >= 0,
-                    na.rm = TRUE),
-                msg = "argument to x has negative cost values")
+    verify(
+      all_positive(x[, cost_column]),
+      any_nonzero(x[, cost_column]),
+      all_positive(rij$amount),
+      any_nonzero(rij$amount)
+    )
     # validate zone data
     if (!"zone" %in% names(rij))
       rij$zone <- 1
-    if (length(unique(rij$zone)) > 1 && is.null(zones))
-      stop("argument to zone must be specified for problems with multiple ",
-           "zones")
+    assert(
+      !(length(unique(rij$zone)) > 1 && is.null(zones)),
+      msg = "{.arg zone} must be specified when using multiple zones."
+    )
     if (is.null(zones))
       zones <- data.frame(id = 1, name = cost_column)
-    assertthat::assert_that(
+    assert(
       is.numeric(rij$zone),
-      is.numeric(zones$id), is.character(zones$name) || is.factor(zones$name),
-      !anyNA(rij$zone), !anyNA(zones$id), !anyNA(zones$name),
-      anyDuplicated(zones$id) == 0, anyDuplicated(zones$name) == 0,
-      nrow(zones) > 0, all(rij$zone %in% zones$id),
-      nrow(zones) == length(cost_column))
+      is_count_vector(rij$zone),
+      assertthat::noNA(rij$zone),
+      is.numeric(zones$id),
+      no_duplicates(zones$id),
+      is_inherits(zones$name, c("character", "factor")),
+      no_duplicates(zones$name),
+      nrow(zones) > 0,
+      all_match_of(rij$zone, zones$id),
+      nrow(zones) == length(cost_column)
+    )
     # standardize zone and feature ids
     rij$species <- match(rij$species, features$id)
     rij$zone <- match(rij$zone, zones$id)
     # calculate feature abundances in total units
-    fatu <- Matrix::sparseMatrix(x = rij$amount, i = rij$species, j = rij$zone,
-                                 use.last.ij = FALSE,
-                                 dims = c(nrow(features), nrow(zones)),
-                                 dimnames = list(as.character(features$name),
-                                                 as.character(zones$name)))
+    fatu <- Matrix::sparseMatrix(
+      x = rij$amount,
+      i = rij$species,
+      j = rij$zone,
+      use.last.ij = FALSE,
+      dims = c(nrow(features), nrow(zones)),
+      dimnames = list(as.character(features$name), as.character(zones$name))
+    )
     fatu <- as.matrix(fatu)
     # standardize planning unit ids
     pos <- which(rowSums(!is.na(as.matrix(x[, cost_column, drop = FALSE]))) > 0)
@@ -859,20 +783,29 @@ methods::setMethod(
     # create rij matrix
     rij <- lapply(seq_along(zones$id), function(z) {
       r <- rij[rij$zone == z, ]
-      Matrix::sparseMatrix(i = r$species, j = r$pu,
-                           x = r$amount,
-                           index1 = TRUE, use.last.ij = FALSE,
-                           dims = c(nrow(features), length(pos)),
-                           dimnames = list(features$name, NULL))
+      Matrix::sparseMatrix(
+        i = r$species,
+        j = r$pu,
+        x = r$amount,
+        index1 = TRUE,
+        use.last.ij = FALSE,
+        dims = c(nrow(features), length(pos)),
+        dimnames = list(features$name, NULL)
+      )
     })
     names(rij) <- as.character(zones$name)
     # create ConservationProblem object
-    pproto(NULL, ConservationProblem,
-      constraints = pproto(NULL, Collection),
-      penalties = pproto(NULL, Collection),
-      data = list(cost = x, features = features, cost_column = cost_column,
-                  rij_matrix = rij, feature_abundances_in_total_units = fatu))
-})
+    conservation_problem(
+      data = list(
+        cost = x,
+        features = features,
+        cost_column = cost_column,
+        rij_matrix = rij,
+        feature_abundances_in_total_units = fatu
+      )
+    )
+  }
+)
 
 #' @name problem
 #' @usage \S4method{problem}{numeric,data.frame}(x, features, rij_matrix, ...)
@@ -881,10 +814,12 @@ methods::setMethod(
   "problem",
   methods::signature(x = "numeric", features = "data.frame"),
   function(x, features, rij_matrix, ...) {
+    assert_required(rij_matrix)
     if (!is.list(rij_matrix))
       rij_matrix <- list("1" = rij_matrix)
-    problem(matrix(x, ncol = 1), features, rij_matrix = rij_matrix)
-})
+    problem(matrix(x, ncol = 1), features, rij_matrix = rij_matrix, ...)
+  }
+)
 
 #' @name problem
 #' @usage \S4method{problem}{matrix,data.frame}(x, features, rij_matrix, ...)
@@ -894,47 +829,94 @@ methods::setMethod(
   methods::signature(x = "matrix", features = "data.frame"),
   function(x, features, rij_matrix, ...) {
     # assert that arguments are valid
+    assert_required(rij_matrix)
     if (!inherits(rij_matrix, "list"))
       rij_matrix <- list(rij_matrix)
-    assertthat::assert_that(
-      inherits(x, "matrix"), inherits(features, "data.frame"),
-      inherits(rij_matrix, "list"),
-      nrow(x) > 0, ncol(x) > 0, nrow(features) > 0, length(rij_matrix) > 0,
-      no_extra_arguments(...),
+    assert(
+      is.matrix(x),
+      is.data.frame(features),
+      is.list(rij_matrix),
+      nrow(x) > 0,
+      ncol(x) > 0,
+      nrow(features) > 0,
+      length(rij_matrix) > 0,
       # x
-      all(colSums(is.finite(x)) > 0),
-      all(colSums(!is.na(x)) > 0),
+      is.numeric(x),
+      all_columns_any_finite(x),
       # features
       assertthat::has_name(features, "id"),
-      assertthat::has_name(features, "name"),
-      anyDuplicated(features$id) == 0,
-      anyDuplicated(features$name) == 0,
-      !anyNA(features$id), !anyNA(features$name),
+      is_count_vector(features$id),
       is.numeric(features$id),
-      is.character(features$name) || is.factor(features$name),
+      all_finite(features$id),
+      no_duplicates(features$id),
+      assertthat::has_name(features, "name"),
+      is_inherits(features$name, c("character", "factor")),
+      no_duplicates(features$name),
+      assertthat::noNA(features$name),
       # rij_matrix
-      all(vapply(rij_matrix, inherits, logical(1), c("matrix", "dgCMatrix"))),
+      all_elements_inherit(rij_matrix, c("matrix", "dgCMatrix")),
       # multiple arguments
-      ncol(x) == length(rij_matrix),
-      all(vapply(rij_matrix, ncol, numeric(1)) == nrow(x)),
-      all(vapply(rij_matrix, nrow, numeric(1)) == nrow(features)))
+      ncol(x) == length(rij_matrix)
+    )
+    assert_dots_empty()
+    rij_matrix_ncol <- vapply(rij_matrix, ncol, numeric(1))
+    assert(
+      all(rij_matrix_ncol == nrow(x)),
+      msg = c(
+        paste0(
+          "{.arg rij_matrix} must contain matrices that have",
+          "the same number of columns as the number of rows in {.arg x}."
+        ),
+        "x" = "{.arg rij_matrix} has {.val {rij_matrix_ncol}} columns.",
+        "x" = "{.arg x} has {.val {nrow(x)}} rows."
+      )
+    )
+    rij_matrix_nrow <- vapply(rij_matrix, nrow, numeric(1))
+    assert(
+      all(vapply(rij_matrix, nrow, numeric(1)) == nrow(features)),
+      msg = c(
+        paste0(
+          "{.arg rij_matrix} must contain matrices that have",
+          "the same number of rows as {.arg features}."
+        ),
+        "x" = "{.arg rij_matrix} has {.val {rij_matrix_nrow}} rows.",
+        "x" = "{.arg x} has {.val {nrow(features)}} rows."
+      )
+    )
+    assert(
+      all(
+        vapply(rij_matrix, FUN.VALUE = logical(1), function(x) {
+          any(is.finite(x))
+        })
+      ),
+      msg = paste(
+        "{.arg rij_matrix} must not contain only missing or",
+        "non-finite values (e.g., {.val {NaN}}, {.val {NA}}, {.val {Inf})."
+      )
+    )
     # verifications
-    verify_that(all(vapply(rij_matrix, min, numeric(1), na.rm = TRUE) >= 0),
-                msg = "argument to rij_matrix has negative feature data")
-    verify_that(all(x > 0, na.rm = TRUE))
-    assertthat::assert_that(
-      all(vapply(rij_matrix, FUN.VALUE = logical(1), function(x) {
-        all(is.finite(c(min(x, na.rm = TRUE), max(x, na.rm = TRUE))))
-      })),
-      msg = "argument to x contains missing (NA) or non-finite (Inf) values")
+    verify(
+      all_positive(x),
+      any_nonzero(x)
+    )
+    verify(
+      all(vapply(rij_matrix, all_positive, logical(1))),
+      msg = "{.arg rij_matrix} has negative values."
+    )
+    verify(
+      all(vapply(rij_matrix, any_nonzero, logical(1))),
+      msg = "{.arg rij_matrix} has only zero values."
+    )
     # add names to rij_matrix if missing
     if (is.null(names(rij_matrix)))
       names(rij_matrix) <- as.character(seq_along(rij_matrix))
     # calculate feature abundances in total units
-    fatu <- vapply(rij_matrix, Matrix::rowSums, numeric(nrow(rij_matrix[[1]])),
-                   na.rm = TRUE)
-    if (!is.matrix(fatu))
+    fatu <- vapply(
+      rij_matrix, Matrix::rowSums, numeric(nrow(rij_matrix[[1]])), na.rm = TRUE
+    )
+    if (!is.matrix(fatu)) {
       fatu <- matrix(fatu, nrow = nrow(features), ncol = length(rij_matrix))
+    }
     rownames(fatu) <- as.character(features$name)
     colnames(fatu) <- names(rij_matrix)
     # convert rij matrices to sparse format if needed
@@ -950,89 +932,124 @@ methods::setMethod(
     })
     names(rij) <- names(rij_matrix)
     # create new problem object
-    pproto(NULL, ConservationProblem,
-           constraints = pproto(NULL, Collection),
-           penalties = pproto(NULL, Collection),
-           data = list(cost = x, features = features, rij_matrix = rij,
-                       feature_abundances_in_total_units = fatu))
-})
+    conservation_problem(
+      data = list(
+        cost = x,
+        features = features,
+        rij_matrix = rij,
+        feature_abundances_in_total_units = fatu
+      )
+    )
+  }
+)
 
 #' @name problem
-#' @usage \S4method{problem}{sf,Raster}(x, features, cost_column, run_checks, ...)
+#' @usage \S4method{problem}{sf,SpatRaster}(x, features, cost_column, run_checks, ...)
 #' @rdname problem
 methods::setMethod(
   "problem",
-  methods::signature(x = "sf", features = "Raster"),
+  methods::signature(x = "sf", features = "SpatRaster"),
   function(x, features, cost_column, run_checks = TRUE, ...) {
-    assertthat::assert_that(assertthat::is.string(cost_column))
-    problem(x, zones(features, zone_names = cost_column,
-                     feature_names = names(features)),
-            cost_column = cost_column, run_checks = run_checks, ...)
+    assert_required(cost_column)
+    assert(assertthat::is.string(cost_column))
+    problem(
+      x,
+      zones(
+        features,
+        zone_names = cost_column,
+        feature_names = names(features)
+      ),
+      cost_column = cost_column,
+      run_checks = run_checks,
+      ...
+    )
 })
 
 #' @name problem
-#' @usage \S4method{problem}{sf,ZonesRaster}(x, features, cost_column, run_checks, ...)
+#' @usage \S4method{problem}{sf,ZonesSpatRaster}(x, features, cost_column, run_checks, ...)
 #' @rdname problem
 methods::setMethod(
   "problem",
-  methods::signature(x = "sf", features = "ZonesRaster"),
+  methods::signature(x = "sf", features = "ZonesSpatRaster"),
   function(x, features, cost_column, run_checks = TRUE, ...) {
     # assert that arguments are valid
-    assertthat::assert_that(
+    assert_required(cost_column)
+    assert(
       inherits(x, "sf"),
-      no_extra_arguments(...),
-      nrow(x) > 0, is.character(cost_column), !anyNA(cost_column),
-      all(cost_column %in% names(x)),
+      nrow(x) > 0,
+      all_match_of(cost_column, names(x)),
+      all_columns_inherit(x[, cost_column], "numeric"),
+      all_columns_any_finite(x[, cost_column]),
+      is_same_crs(x, features),
+      is_spatial_extents_overlap(x, features),
+      is.character(cost_column),
+      assertthat::noNA(cost_column),
+      all_match_of(cost_column, names(x)),
       length(cost_column) == number_of_zones(features),
-      assertthat::is.flag(run_checks))
-    assertthat::assert_that(all(!geometry_classes(x) %in%
-                                c("GEOMETRYCOLLECTION", "MULTIPOINT")))
+      assertthat::is.flag(run_checks),
+      assertthat::noNA(run_checks)
+    )
+    assert_dots_empty()
+    assert(
+      all(!st_geometry_classes(x) %in% c("GEOMETRYCOLLECTION", "MULTIPOINT")),
+      msg = paste(
+        "{.arg x} must not contain {.cls GEOMETRYCOLLECTION} or",
+        "{.cls MULTIPOINT} geometries."
+      )
+    )
     # further validation checks
-    x2 <- sf::st_drop_geometry(x)
-    assertthat::assert_that(
-      all(vapply(x2[, cost_column, drop = FALSE], is.numeric, logical(1))),
-      all(colSums(!is.na(as.matrix(x2[, cost_column, drop = FALSE])),
-                  na.rm = TRUE) > 0),
-      sf::st_crs(x) == sf::st_crs(features[[1]]@crs),
-      intersecting_extents(x, features[[1]]))
-      verify_that(
-        all(colSums(as.matrix(x2[, cost_column, drop = FALSE]) < 0,
-                    na.rm = TRUE) == 0),
-        msg = "argument to x has negative cost values")
+    verify(
+      all_positive(x[, cost_column]),
+      any_nonzero(x[, cost_column])
+    )
     if (run_checks) {
-      verify_that(
-        all(raster::cellStats(raster::stack(as.list(features)), "min") >= 0))
+      verify(
+        all_positive(features),
+        any_nonzero(features)
+      )
     }
     # compute rij matrix including non-planning unit cells
-    rij <- rij_matrix(x, raster::stack(as.list(features)))
+    rij <- rij_matrix(x, terra::rast(as.list(features)))
     rij <- lapply(seq_len(number_of_zones(features)), function(i) {
-      m <- rij[((i - 1) * number_of_features(features)) +
-               seq_len(number_of_features(features)), ,
-          drop = FALSE]
+      idx <- ((i - 1) * number_of_features(features)) +
+        seq_len(number_of_features(features))
+      m <- rij[idx, , drop = FALSE]
       rownames(m) <- feature_names(features)
-      return(m)
+      m
     })
     # calculate feature abundances in total units
-    fatu <- vapply(rij, Matrix::rowSums, numeric(number_of_features(features)),
-                   na.rm = TRUE)
-    if (!is.matrix(fatu))
-      fatu <- matrix(fatu, nrow = number_of_features(features),
-                     ncol = number_of_zones(features))
+    fatu <- vapply(
+      rij, Matrix::rowSums, numeric(number_of_features(features)), na.rm = TRUE
+    )
+    if (!is.matrix(fatu)) {
+      fatu <- matrix(
+        fatu,
+        nrow = number_of_features(features),
+        ncol = number_of_zones(features)
+      )
+    }
     rownames(fatu) <- feature_names(features)
     colnames(fatu) <- zone_names(features)
     # create rij matrix
     pos <- which(
-      rowSums(!is.na(as.matrix(x2[, cost_column, drop = FALSE]))) > 0
+      rowSums(
+        !is.na(as.matrix(sf::st_drop_geometry(x)[, cost_column, drop = FALSE]))
+      ) > 0
     )
     rij <- lapply(rij, function(x) x[, pos, drop = FALSE])
     names(rij) <- zone_names(features)
     # create ConservationProblem object
-    pproto(NULL, ConservationProblem,
-      constraints = pproto(NULL, Collection),
-      penalties = pproto(NULL, Collection),
-      data = list(cost = x, features = features, cost_column = cost_column,
-                  rij_matrix = rij, feature_abundances_in_total_units = fatu))
-})
+    conservation_problem(
+      data = list(
+        cost = x,
+        features = features,
+        cost_column = cost_column,
+        rij_matrix = rij,
+        feature_abundances_in_total_units = fatu
+      )
+    )
+  }
+)
 
 #' @name problem
 #' @usage \S4method{problem}{sf,character}(x, features, cost_column, ...)
@@ -1041,10 +1058,14 @@ methods::setMethod(
   "problem",
   methods::signature(x = "sf", features = "character"),
   function(x, features, cost_column, ...) {
-    assertthat::assert_that(assertthat::is.string(cost_column))
-    problem(x, zones(features, feature_names = features,
-                     zone_names = cost_column),
-            cost_column = cost_column, ...)
+    assert_required(cost_column)
+    assert(assertthat::is.string(cost_column))
+    problem(
+      x,
+      zones(features, feature_names = features, zone_names = cost_column),
+      cost_column = cost_column,
+      ...
+    )
 })
 
 #' @name problem
@@ -1055,61 +1076,82 @@ methods::setMethod(
   methods::signature(x = "sf", features = "ZonesCharacter"),
   function(x, features, cost_column, ...) {
     # assert that arguments are valid
-    assertthat::assert_that(
+    assert_required(cost_column)
+    assert(
       inherits(x, "sf"),
       inherits(features, "ZonesCharacter"),
-      no_extra_arguments(...),
-      nrow(x) > 0, is.character(cost_column), !anyNA(cost_column),
-      all(cost_column %in% names(x)),
-      number_of_zones(features) == length(cost_column))
-    assertthat::assert_that(
-      all(!geometry_classes(x) %in% c("GEOMETRYCOLLECTION", "MULTIPOINT")),
-      msg = paste("argument to x contains invalid geometry types",
-                  "(i.e., GEOMETRYCOLLECTION or MULTIPOINT)"))
-    x2 <- sf::st_drop_geometry(x)
-    assertthat::assert_that(
-      all(unlist(as.list(features), recursive = TRUE, use.names = FALSE) %in%
-                 names(x2)),
-      msg = paste("argument to features contains column names that are",
-                  "not present in the argument to x"))
-    assertthat::assert_that(
-      all(vapply(x2[, cost_column, drop = FALSE], is.numeric, logical(1))),
-      msg = "argument to x has non-numeric cost data")
-    assertthat::assert_that(
-      all(colSums(!is.na(as.matrix(x2[, cost_column, drop = FALSE])),
-        na.rm = TRUE) > 0),
-      msg = "argument to x has missing (NA) cost values")
-    assertthat::assert_that(
-      all(vapply(x2[, cost_column, drop = FALSE], is.numeric, logical(1))),
-      all(colSums(!is.na(as.matrix(x2[, cost_column, drop = FALSE])),
-                  na.rm = TRUE) > 0))
-    verify_that(all(as.matrix(x2[, cost_column, drop = FALSE]) >= 0,
-                            na.rm = TRUE),
-                msg = "argument to x has negative cost values")
-    verify_that(all(as.matrix(x2[, unlist(features), drop = FALSE]) >= 0,
-                    na.rm = TRUE),
-                msg = "argument to features correspond to negative values")
+      nrow(x) > 0,
+      is.character(cost_column),
+      assertthat::noNA(cost_column),
+      all_match_of(cost_column, names(x)),
+      all_columns_inherit(x[, cost_column], "numeric"),
+      all_columns_any_finite(x[, cost_column]),
+      number_of_zones(features) == length(cost_column)
+    )
+    assert_dots_empty()
+    assert(
+      all(!st_geometry_classes(x) %in% c("GEOMETRYCOLLECTION", "MULTIPOINT")),
+      msg = paste(
+        "{.arg x} must not contain {.cls GEOMETRYCOLLECTION} or",
+        "{.cls MULTIPOINT} geometries."
+      )
+    )
+    assert(
+      all_match_of(unlist(as.list(features)), names(x)),
+      msg = c(
+        paste(
+          "{.arg features} must contain character values that are column names",
+          "of {.arg x}."
+        ),
+        "x" = paste(
+          "The following values are not columns names of {.arg x}:",
+          "{.val {setdiff(unlist(as.list(features)), names(x))}}."
+        )
+      )
+    )
+    verify(
+      all_positive(x[, cost_column]),
+      any_nonzero(x[, cost_column]),
+      all_positive(sf::st_drop_geometry(x)[, unlist(features)]),
+      any_nonzero(sf::st_drop_geometry(x)[, unlist(features)])
+    )
     # create rij matrix
-    pos <- which(rowSums(!is.na(as.matrix(
-            x2[, cost_column, drop = FALSE]))) > 0)
+    pos <- which(
+      rowSums(
+        !is.na(
+          as.matrix(
+            sf::st_drop_geometry(x)[, cost_column, drop = FALSE]
+          )
+        )
+      ) > 0
+    )
     rij <- lapply(features, function(z) {
-      r <- t(as.matrix(x2[pos, z, drop = FALSE]))
+      r <- t(as.matrix(sf::st_drop_geometry(x)[pos, z, drop = FALSE]))
       r[is.na(r)] <- 0
       rownames(r) <- feature_names(features)
       methods::as(r, "sparseMatrix")
     })
     names(rij) <- zone_names(features)
     # calculate feature abundances in total units
-    fatu <- colSums(x2[, unlist(as.list(features)), drop = FALSE],
-                    na.rm = TRUE)
-    fatu <- matrix(fatu, ncol = number_of_zones(features),
-                   nrow = number_of_features(features),
-                   dimnames = list(feature_names(features),
-                                   zone_names(features)))
+    fatu <- colSums(
+      sf::st_drop_geometry(x)[, unlist(as.list(features)), drop = FALSE],
+      na.rm = TRUE
+    )
+    fatu <- matrix(
+      fatu,
+      ncol = number_of_zones(features),
+      nrow = number_of_features(features),
+      dimnames = list(feature_names(features), zone_names(features))
+    )
     # create ConservationProblem object
-    pproto(NULL, ConservationProblem,
-      constraints = pproto(NULL, Collection),
-      penalties = pproto(NULL, Collection),
-      data = list(cost = x, features = features, cost_column = cost_column,
-                  rij_matrix = rij, feature_abundances_in_total_units = fatu))
-})
+    conservation_problem(
+      data = list(
+        cost = x,
+        features = features,
+        cost_column = cost_column,
+        rij_matrix = rij,
+        feature_abundances_in_total_units = fatu
+      )
+    )
+  }
+)

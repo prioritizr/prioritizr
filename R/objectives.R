@@ -1,10 +1,10 @@
-#' @include internal.R pproto.R Objective-proto.R
+#' @include internal.R Objective-class.R
 NULL
 
 #' Add an objective
 #'
 #' An objective is used to specify the overall goal of a conservation planning
-#' [problem()]. All conservation planning problems involve minimizing
+#' problem. All conservation planning problems involve minimizing
 #' or maximizing some kind of objective. For instance, the planner may require
 #' a solution that conserves enough habitat for each species while minimizing
 #' the overall cost of the reserve network. Alternatively, the planner may
@@ -13,8 +13,8 @@ NULL
 #'
 #' **Please note that all conservation
 #' planning problems formulated using the \pkg{prioritizr} package require an
-#' objective function---failing to do so will return an error
-#' message when attempting to solve problem.**
+#' objective function, and attempting to solve a problem without an objective
+#' will result in an error.**
 #'
 #' @details The following objectives can be added to a conservation planning
 #'   [problem()]:
@@ -58,13 +58,16 @@ NULL
 #' @examples
 #' \dontrun{
 #' # load data
-#' data(sim_pu_raster, sim_features, sim_phylogeny)
+#' sim_pu_raster <- get_sim_pu_raster()
+#' sim_features <- get_sim_features()
+#' sim_phylogeny <- get_sim_phylogeny()
 #'
 #' # create base problem
-#' p <- problem(sim_pu_raster, sim_features) %>%
-#'      add_relative_targets(0.1) %>%
-#'      add_binary_decisions() %>%
-#'      add_default_solver(verbose = FALSE)
+#' p <-
+#'   problem(sim_pu_raster, sim_features) %>%
+#'   add_relative_targets(0.1) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
 #'
 #'  # create problem with added minimum set objective
 #' p1 <- p %>% add_min_set_objective()
@@ -93,15 +96,18 @@ NULL
 #' p8 <- p %>% add_max_utility_objective(1900)
 #'
 #' # solve problems
-#' s <- stack(solve(p1), solve(p2), solve(p3), solve(p4), solve(p5),
-#'            solve(p6), solve(p7), solve(p8))
-#'
+#' s <- c(
+#'   solve(p1), solve(p2), solve(p3), solve(p4), solve(p5), solve(p6),
+#'   solve(p7), solve(p8)
+#' )
+#' names(s) <- c(
+#'   "min set", "max coverage", "max features", "min shortfall",
+#'   "min largest shortfall", "max phylogenetic diversity",
+#'   "max phylogenetic endemism", "max utility"
+#' )
+#"
 #' # plot solutions
-#' plot(s, axes = FALSE, box = FALSE,
-#'      main = c("min set", "max coverage", "max features",
-#'               "min shortfall", "min largest shortfall",
-#'               "max phylogenetic diversity",
-#'               "max phylogenetic endemism", "max utility"))
+#' plot(s, axes = FALSE)
 #' }
 #' @name objectives
 NULL

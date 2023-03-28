@@ -4,42 +4,38 @@ NULL
 #' Adjacency matrix
 #'
 #' Create a matrix showing which planning units are spatially adjacent to
-#' each other. Note that this also include planning units that overlap
-#' with each other too.
+#' each other.
 #'
-#' @param x [`Raster-class`],
-#'   [`SpatialPolygons-class`],
-#'   [`SpatialLines-class`],
-#'   or [sf::sf()] object
-#'   representing planning units.
+#' @param x [terra::rast()] or [sf::sf()] object representing planning units.
 #'
 #' @param directions `integer` If `x` is a
-#'   [`Raster-class`] object, the number of directions
+#'   [terra::rast()] object, the number of directions
 #'   in which cells should be considered adjacent: 4 (rook's case), 8 (queen's
 #'   case), 16 (knight and one-cell queen moves), or "bishop" to for cells
 #'   with one-cell diagonal moves.
 #'
 #' @param ... not used.
 #'
-#' @details Spatial processing is completed using
-#'   [sf::st_intersects()] for [`Spatial-class`] and
-#'   [sf::sf()] objects,
-#'   and [raster::adjacent()] for [`Raster-class`]
-#'   objects.
+#' @details
+#' Spatial processing is completed using
+#' [sf::st_intersects()] for [sf::sf()] objects,
+#' and [terra::adjacent()] for [terra::rast()] objects.
+#' Note that spatially overlapping planning units are considered
+#' adjacent.
 #'
 #' @section Notes:
 #'   In earlier versions (< 5.0.0), this function was named as the
 #'   `connected_matrix` function. It has been renamed to be consistent
 #'   with other spatial association matrix functions.
 #'
-#' @return [`dsCMatrix-class`] sparse symmetric matrix.
+#' @return A [`dsCMatrix-class`] sparse symmetric matrix.
 #'   Each row and column represents a planning unit.
 #'   Cells values indicate if different planning units are
 #'   adjacent to each other or not (using ones and zeros).
 #'   To reduce computational burden, cells among the matrix diagonal are
 #'   set to zero. Furthermore, if the argument to `x` is a
-#'   [`Raster-class`] object, then cells with `NA`
-#'   values are set to zero too.
+#'   [terra::rast()] object, then cells with `NA` values are set to
+#'   zero too.
 #'
 #' @name adjacency_matrix
 #'
@@ -48,46 +44,33 @@ NULL
 #' @examples
 #' \dontrun{
 #' # load data
-#' data(sim_pu_raster, sim_pu_sf, sim_pu_lines)
+#' sim_pu_raster <- get_sim_pu_raster()
+#' sim_pu_polygons <- get_sim_pu_polygons()
 #'
 #' # create adjacency matrix using raster data
 #' ## crop raster to 9 cells
-#' r <- crop(sim_pu_raster, c(0, 0.3, 0, 0.3))
+#' r <- terra::crop(sim_pu_raster, terra::ext(c(0, 0.3, 0, 0.3)))
 #'
 #' ## make adjacency matrix
 #' am_raster <- adjacency_matrix(r)
 #'
-#' # create adjacency matrix using polygons (sf) data
+#' # create adjacency matrix using polygon data
 #' ## subset 9 polygons
-#' ply <- sim_pu_sf[c(1:2, 10:12, 20:22), ]
+#' ply <- sim_pu_polygons[c(1:3, 11:13, 20:22), ]
 #'
 #' ## make adjacency matrix
 #' am_ply <- adjacency_matrix(ply)
 #'
-#' # create adjacency matrix using lines (Spatial) data
-#' ## subset 9 lines
-#' lns <- sim_pu_lines[c(1:2, 10:12, 20:22), ]
-#'
-#' ## make adjacency matrix
-#' am_lns <- adjacency_matrix(lns)
-#'
 #' # plot data and the adjacency matrices
-#' par(mfrow = c(4,2))
 #'
 #' ## plot raster and adjacency matrix
-#' plot(r, main = "raster", axes = FALSE, box = FALSE)
-#' plot(raster(as.matrix(am_raster)), main = "adjacency matrix", axes = FALSE,
-#'      box = FALSE)
+#' plot(r, main = "raster", axes = FALSE)
+#' Matrix::image(am_raster, main = "adjacency matrix")
 #'
-#' ## plot polygons (sf) and adjacency matrix
-#' plot(r, main = "polygons (sf)", axes = FALSE, box = FALSE)
-#' plot(raster(as.matrix(am_ply)), main = "adjacency matrix", axes = FALSE,
-#'     box = FALSE)
+#' ## plot polygons and adjacency matrix
+#' plot(ply[, 1], main = "polygons")
+#' Matrix::image(am_ply, main = "adjacency matrix")
 #'
-#' ## plot lines (Spatial) and adjacency matrix
-#' plot(r, main = "lines (Spatial)", axes = FALSE, box = FALSE)
-#' plot(raster(as.matrix(am_lns)), main = "adjacency matrix", axes = FALSE,
-#'      box = FALSE)
 #' }
 #' @export
 adjacency_matrix <- function(x, ...) UseMethod("adjacency_matrix")
@@ -95,28 +78,46 @@ adjacency_matrix <- function(x, ...) UseMethod("adjacency_matrix")
 #' @rdname adjacency_matrix
 #' @method adjacency_matrix Raster
 #' @export
-adjacency_matrix.Raster <- function(x, directions = 4L, ...) {
-  assertthat::assert_that(inherits(x, "Raster"),
-                          no_extra_arguments(...),
-                          assertthat::is.count(directions),
-                          raster::nlayers(x) >= 1)
-  if (raster::nlayers(x) == 1) {
+adjacency_matrix.Raster <- function(x, directions = 4, ...) {
+  assert_required(x)
+  assert_required(directions)
+  assert_dots_empty()
+  assert(inherits(x, "Raster"))
+  cli_warning(raster_pkg_deprecation_notice)
+  adjacency_matrix.SpatRaster(terra::rast(x), directions = directions, ...)
+}
+
+#' @rdname adjacency_matrix
+#' @method adjacency_matrix SpatRaster
+#' @export
+adjacency_matrix.SpatRaster <- function(x, directions = 4, ...) {
+  assert_required(x)
+  assert_required(directions)
+  assert_dots_empty()
+  assert(
+    inherits(x, "SpatRaster"),
+    terra::nlyr(x) >= 1,
+    assertthat::is.count(directions)
+  )
+  if (terra::nlyr(x) == 1) {
     # indices of cells with finite values
-    include <- raster::Which(is.finite(x), cells = TRUE)
+    include <- terra::cells(is.finite(x), 1)[[1]]
   } else {
     # indices of cells with finite values
-    include <- raster::Which(sum(is.finite(x)) > 0, cells = TRUE)
-    suppressWarnings(x <- raster::setValues(x[[1]], NA_real_))
+    include <- terra::cells(min(is.finite(x)), 1)[[1]]
     # set x to a single raster layer with only values in pixels that are not
     # NA in all layers
+    suppressWarnings(x <- terra::setValues(x[[1]], NA_real_))
     x[include] <- 1
   }
   # find the neighboring indices of these cells
-  m <- raster::adjacent(x, include, pairs = TRUE, directions = directions)
-  m <- m[(m[, 1] %in% include) & (m[, 2] %in% include), ]
+  m <- terra::adjacent(x, include, pairs = TRUE, directions = directions)
+  m <- m[(m[, 1] %in% include) & (m[, 2] %in% include), , drop = FALSE]
   # coerce to sparse matrix object
-  m <- Matrix::sparseMatrix(i = m[, 1], j = m[, 2], x = rep(1, nrow(m)),
-                            dims = rep(raster::ncell(x), 2))
+  m <- Matrix::sparseMatrix(
+    i = m[, 1], j = m[, 2], x = rep(1, nrow(m)),
+    dims = rep(terra::ncell(x), 2)
+  )
   # return result
   Matrix::drop0(Matrix::forceSymmetric(m))
 }
@@ -125,6 +126,9 @@ adjacency_matrix.Raster <- function(x, directions = 4L, ...) {
 #' @method adjacency_matrix SpatialPolygons
 #' @export
 adjacency_matrix.SpatialPolygons <- function(x, ...) {
+  assert_required(x)
+  assert_dots_empty()
+  cli_warning(sp_pkg_deprecation_notice)
   adjacency_matrix(sf::st_as_sf(x), ...)
 }
 
@@ -132,6 +136,9 @@ adjacency_matrix.SpatialPolygons <- function(x, ...) {
 #' @method adjacency_matrix SpatialLines
 #' @export
 adjacency_matrix.SpatialLines <- function(x,  ...) {
+  assert_required(x)
+  assert_dots_empty()
+  cli_warning(sp_pkg_deprecation_notice)
   adjacency_matrix(sf::st_as_sf(x), ...)
 }
 
@@ -139,6 +146,9 @@ adjacency_matrix.SpatialLines <- function(x,  ...) {
 #' @method adjacency_matrix SpatialPoints
 #' @export
 adjacency_matrix.SpatialPoints <- function(x, ...) {
+  assert_required(x)
+  assert_dots_empty()
+  cli_warning(sp_pkg_deprecation_notice)
   adjacency_matrix(sf::st_as_sf(x), ...)
 }
 
@@ -147,20 +157,25 @@ adjacency_matrix.SpatialPoints <- function(x, ...) {
 #' @export
 adjacency_matrix.sf <- function(x, ...) {
   # assert valid arguments
-  assertthat::assert_that(inherits(x, "sf"), no_extra_arguments(...))
+  assert_required(x)
+  assert_dots_empty()
+  assert(inherits(x, "sf"), is_valid_geometries(x))
   # verify that geometry types are supported
-  geomc <- geometry_classes(x)
-  if (any(grepl("POINT", geomc, fixed = TRUE)))
-    stop("data represented by points are no longer supported - ",
-      "see ?proximity_matrix instead")
-  if (any(grepl("GEOMETRYCOLLECTION", geomc, fixed = TRUE)))
-    stop("geometry collection data are not supported")
+  geomc <- st_geometry_classes(x)
+  assert(
+    !any(grepl("POINT", geomc, fixed = TRUE)),
+    msg = paste(
+      "This function no longer supports point data,",
+      "use {.fn proximity_matrix} for point data."
+    )
+  )
   # return sparse intersection matrix
   int <- sf::st_intersects(x, sparse = TRUE)
   names(int) <- as.character(seq_len(nrow(x)))
   int <- rcpp_list_to_matrix_indices(int)
-  int <- Matrix::sparseMatrix(i = int$i, j = int$j, x = 1,
-                              dims = rep(nrow(x), 2))
+  int <- Matrix::sparseMatrix(
+    i = int$i, j = int$j, x = 1, dims = rep(nrow(x), 2)
+  )
   Matrix::diag(int) <- 0
   Matrix::drop0(Matrix::forceSymmetric(int))
 }
@@ -169,5 +184,10 @@ adjacency_matrix.sf <- function(x, ...) {
 #' @method adjacency_matrix default
 #' @export
 adjacency_matrix.default <- function(x, ...) {
-  stop("data are not stored in a spatial format")
+  cli::cli_abort(
+    c(
+      "{.arg x} must be a {.cls sf} or {.cls SpatRaster}.",
+      "x" = "{.arg x} is a {.cls {class(x)}}."
+    )
+  )
 }

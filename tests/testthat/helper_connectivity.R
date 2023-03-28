@@ -1,5 +1,6 @@
-r_connectivity_given_matrix <- function(
-  solution, zones, connectivity_matrix) {
+r_connectivity_given_matrix <- function(solution, zones, connectivity_matrix) {
+  # convert sf solution to Spatial
+  if (inherits(solution, "sf")) solution <- sf::as_Spatial(solution)
   # convert Spatial solution to matrix
   if (inherits(solution, "Spatial")) solution <- as.matrix(solution@data)
   # convert data.frame solution to matrix
@@ -11,7 +12,8 @@ r_connectivity_given_matrix <- function(
     ncol(solution) == ncol(zones),
     ncol(solution) == nrow(zones),
     nrow(solution) == ncol(connectivity_matrix),
-    nrow(solution) == nrow(connectivity_matrix))
+    nrow(solution) == nrow(connectivity_matrix)
+  )
   # initialization
   out <- 0
   # adjust inputs according to planning units

@@ -2,44 +2,52 @@
 % Please edit documentation in R/number_of_zones.R
 \name{number_of_zones}
 \alias{number_of_zones}
-\alias{number_of_zones,ConservationProblem-method}
-\alias{number_of_zones,OptimizationProblem-method}
-\alias{number_of_zones,ZonesRaster-method}
-\alias{number_of_zones,ZonesCharacter-method}
+\alias{number_of_zones.ConservationProblem}
+\alias{number_of_zones.OptimizationProblem}
+\alias{number_of_zones.ZonesRaster}
+\alias{number_of_zones.ZonesSpatRaster}
+\alias{number_of_zones.ZonesCharacter}
 \title{Number of zones}
 \usage{
-number_of_zones(x)
+number_of_zones(x, ...)
 
-\S4method{number_of_zones}{ConservationProblem}(x)
+\method{number_of_zones}{ConservationProblem}(x, ...)
 
-\S4method{number_of_zones}{OptimizationProblem}(x)
+\method{number_of_zones}{OptimizationProblem}(x, ...)
 
-\S4method{number_of_zones}{ZonesRaster}(x)
+\method{number_of_zones}{ZonesRaster}(x, ...)
 
-\S4method{number_of_zones}{ZonesCharacter}(x)
+\method{number_of_zones}{ZonesSpatRaster}(x, ...)
+
+\method{number_of_zones}{ZonesCharacter}(x, ...)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}),
-\code{\linkS4class{OptimizationProblem}}, or \code{\link[=Zones]{Zones()}} object.}
+\item{x}{\code{\link[=problem]{problem()}}, \code{\link[=optimization_problem]{optimization_problem()}}, or \code{\link[=zones]{zones()}} object.}
+
+\item{...}{not used.}
 }
 \value{
-\code{integer} number of zones.
+An \code{integer} number of zones.
 }
 \description{
 Extract the number of zones in an object.
 }
 \examples{
+\dontrun{
 # load data
-data(sim_pu_zones_stack, sim_features_zones)
+sim_zones_pu_raster <- get_sim_zones_pu_raster()
+sim_zones_features <- get_sim_zones_features()
 
 # print number of zones in a Zones object
-print(number_of_zones(sim_features_zones))
+print(number_of_zones(sim_zones_features))
 # create problem with multiple zones
-p <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
-     add_min_set_objective() \%>\%
-     add_relative_targets(matrix(0.2, ncol = 3, nrow = 5)) \%>\%
-     add_binary_decisions()
+p <-
+  problem(sim_zones_pu_raster, sim_zones_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(matrix(0.2, ncol = 3, nrow = 5)) \%>\%
+  add_binary_decisions()
 
 # print number of zones in the problem
 print(number_of_zones(p))
+}
 }

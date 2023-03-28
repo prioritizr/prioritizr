@@ -1,16 +1,16 @@
-#' @include Portfolio-proto.R
+#' @include Portfolio-class.R
 NULL
 
 #' Add an extra portfolio
 #'
 #' Generate a portfolio of solutions for a conservation planning
-#' [problem()] by storing feasible solutions
+#' problem by storing feasible solutions
 #' discovered during the optimization process.
 #' This method is useful for quickly obtaining multiple solutions,
 #' but does not provide any guarantees on the number of solutions, or
 #' the quality of solutions.
 #'
-#' @param x [problem()] (i.e., [`ConservationProblem-class`]) object.
+#' @param x [problem()] object.
 #'
 #' @details This strategy for generating a portfolio requires problems to
 #'   be solved using the *Gurobi* software suite (i.e., using
@@ -30,41 +30,50 @@ NULL
 #' set.seed(600)
 #'
 #' # load data
-#' data(sim_pu_raster, sim_features)
+#' sim_pu_raster <- get_sim_pu_raster()
+#' sim_features <- get_sim_features()
+#' sim_zones_pu_raster <- get_sim_zones_pu_raster()
+#' sim_zones_features <- get_sim_zones_features()
 #'
 #' # create minimal problem with a portfolio for extra solutions
-#' p1 <- problem(sim_pu_raster, sim_features) %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(0.05) %>%
-#'       add_extra_portfolio() %>%
-#'       add_default_solver(gap = 0, verbose = FALSE)
+#' p1 <-
+#'   problem(sim_pu_raster, sim_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(0.05) %>%
+#'   add_extra_portfolio() %>%
+#'   add_default_solver(gap = 0, verbose = FALSE)
 #'
 #' # solve problem and generate portfolio
 #' s1 <- solve(p1)
 #'
+#' # convert portfolio into a multi-layer raster object
+#' s1 <- terra::rast(s1)
+#'
 #' # print number of solutions found
-#' print(length(s1))
+#' print(terra::nlyr(s1))
 #'
 #' # plot solutions
-#' plot(stack(s1), axes = FALSE, box = FALSE)
+#' plot(s1, axes = FALSE)
 #'
 #' # create multi-zone problem with a portfolio for extra solutions
-#' p2 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
-#'                                   ncol = 3)) %>%
-#'       add_extra_portfolio() %>%
-#'       add_default_solver(gap = 0, verbose = FALSE)
+#' p2 <-
+#'   problem(sim_zones_pu_raster, sim_zones_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5, ncol = 3)) %>%
+#'   add_extra_portfolio() %>%
+#'   add_default_solver(gap = 0, verbose = FALSE)
 #'
 #' # solve problem and generate portfolio
 #' s2 <- solve(p2)
 #'
+#' # convert each solution in the portfolio into a single category layer
+#' s2 <- terra::rast(lapply(s2, category_layer))
+#'
 #' # print number of solutions found
-#' print(length(s2))
+#' print(terra::nlyr(s2))
 #'
 #' # plot solutions in portfolio
-#' plot(stack(lapply(s2, category_layer)),
-#'      main = "solution", axes = FALSE, box = FALSE)
+#' plot(s2, axes = FALSE)
 #' }
 #' @name add_extra_portfolio
 NULL
@@ -73,37 +82,54 @@ NULL
 #' @export
 add_extra_portfolio <- function(x) {
   # assert that arguments are valid
-  assertthat::assert_that(inherits(x, "ConservationProblem"))
-  # check that version 8.0.0 or greater of gurobi is installed
-  if (!requireNamespace("gurobi", quietly = TRUE))
-    stop(paste("the \"gurobi\" package is required to generate solutions ",
-               "using this portfolio method"))
-  if (utils::packageVersion("gurobi") < as.package_version("8.0.0"))
-    stop(paste("version 8.0.0 (or greater) of the Gurobi software is required ",
-               "to generate solution using this portfolio method"))
+  assert_required(x)
+  assert(is_conservation_problem(x))
+  # assert dependencies available
+  assert(is_installed("gurobi"))
+  assert(
+    utils::packageVersion("gurobi") >= as.package_version("8.0.0"),
+    msg = paste(
+      "This portfolio requires version 8.0.0 (or greater) of the",
+      "Gurobi software."
+    )
+  )
   # add portfolio
-  x$add_portfolio(pproto(
-    "ExtraPortfolio",
-    Portfolio,
-    name = "Extra portfolio",
-    run = function(self, x, solver) {
-      ## check that problems has gurobi solver
-      if (!inherits(solver, "GurobiSolver"))
-        stop(paste("add_gurobi_solver must be used to solve problems",
-                   "with portfolio method"))
-      ## solve problem
-      sol <- solver$solve(x, PoolSearchMode = 1)
-      ## compile results
-      if (!is.null(sol$pool)) {
-        sol <- append(list(sol[-5]),
-                      lapply(sol$pool,
-                             function(z) list(x = z$xn, objective = z$objval,
-                                              status = z$status,
-                                              runtime = sol$runtime)))
-      } else {
-       sol <- list(sol)
-      }
-      ## return solution
-      return(sol)
-    }
-))}
+  x$add_portfolio(
+    R6::R6Class(
+      "ExtraPortfolio",
+      inherit = Portfolio,
+      public = list(
+        name = "extra portfolio",
+        run = function(x, solver) {
+          ## check that problem has gurobi solver
+          assert(
+            inherits(solver, "GurobiSolver"),
+            call = rlang::expr(add_gap_portfolio()),
+            msg = "The solver must be specified using {.fn add_gurobi_solver}."
+          )
+          ## solve problem
+          sol <- solver$solve(x, PoolSearchMode = 1)
+          ## compile results
+          if (!is.null(sol$pool)) {
+            sol <- append(
+              list(sol[-5]),
+              lapply(
+                sol$pool,
+                function(z) list(
+                  x = z$xn,
+                  objective = z$objval,
+                  status = z$status,
+                  runtime = sol$runtime
+                )
+              )
+            )
+          } else {
+           sol <- list(sol)
+          }
+          ## return solution
+          return(sol)
+        }
+      )
+    )$new()
+  )
+}

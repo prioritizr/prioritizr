@@ -13,6 +13,9 @@
 \alias{replacement_cost}
 \alias{rarity_weighted_richness}
 \alias{ferrier_score}
+\alias{distribute_load}
+\alias{new_optimization_problem}
+\alias{predefined_optimization_problem}
 \title{Deprecation notice}
 \usage{
 add_connected_constraints(...)
@@ -36,6 +39,12 @@ replacement_cost(...)
 rarity_weighted_richness(...)
 
 ferrier_score(...)
+
+distribute_load(...)
+
+new_optimization_problem(...)
+
+predefined_optimization_problem(...)
 }
 \arguments{
 \item{...}{not used.}
@@ -64,14 +73,14 @@ as the \code{\link[=add_contiguity_constraints]{add_contiguity_constraints()}} f
 \item{\code{add_corridor_constraints()}}{replaced by the
 \code{\link[=add_feature_contiguity_constraints]{add_feature_contiguity_constraints()}} function.}
 
-\item{\code{set_number_of_threads()}}{no longer needed used with the
-implementation of superior data extraction.}
+\item{\code{set_number_of_threads()}}{
+no longer needed due to improved data extraction methods.}
 
-\item{\code{get_number_of_threads()}}{no longer needed used with the
-implementation of superior data extraction.}
+\item{\code{get_number_of_threads()}}{
+no longer needed due to improved data extraction methods.}
 
-\item{\code{is.parallel()}}{no longer needed used with the
-implementation of superior data extraction.}
+\item{\code{is.parallel()}}{
+no longer needed due to improved data extraction methods.}
 
 \item{\code{add_pool_portfolio()}}{replaced by the
 \code{\link[=add_extra_portfolio]{add_extra_portfolio()}} and \code{\link[=add_top_portfolio]{add_top_portfolio()}}.}
@@ -94,6 +103,15 @@ other functions for evaluating solutions.}
 \item{\code{ferrier_score()}}{renamed as
 the \code{\link[=eval_ferrier_importance]{eval_ferrier_importance()}} function for consistency with
 other functions for evaluating solutions.}
+
+\item{\code{distribute_load()}}{has been removed because it is no longer used.
+See \code{parallel::splitIndices()} for equivalent functionality.}
+
+\item{\code{new_optimization_problem()}}{
+replaced by \code{\link[=optimization_problem]{optimization_problem()}}.}
+
+\item{\code{predefined_optimization_problem()}}{
+replaced by \code{\link[=optimization_problem]{optimization_problem()}}.}
 
 }
 }

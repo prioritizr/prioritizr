@@ -15,10 +15,16 @@ This vignette contains a list of publications that have cited or used the _prior
 
 ## Research articles
 
+### 2023
+
+* Buenafe KCV, Dunn DC, Everett JD, Brito-Morales I, Schoeman DS, Hanson JO, Dabalà A, Neubert S, Cannicci S, Kaschner K, and Richardson AJ (2023) A metric-based framework for climate-smart conservation planning. _Ecological Applications_, **In press**: DOI&#58;10.1002/eap.2852.
+* Chowdhury S, Zalucki MP, Hanson JO, Tiatragul S, Green D, Watson JEM, and Fuller RA (2023) Three quarters of insects are insufficiently covered by protected areas. _One Earth_, **6**: 1--8.
+* von Takach B, Sargent H, Penton CE, Rick K, Murphy BP, Neave G, Davies HF, Hill BM, and Banks SC (2023) Population genomics and conservation management of the threatened black-footed tree-rat (_Mesembriomys gouldii_) in northern Australia. _Heredity_, **In press**: DOI&#58;10.1038/s41437-023-00601-0.
+
 ### 2022
 
 * Algador D (2022) Effective conservation planning of Iberian amphibians based on a regionalization of climate driven range shifts. _Conservation Biology_, **In press**: e14026.
-* André LV, Van Wynsberge S, Chinain M, Gatti CMI, Liao V, Andréfouët S (2022) Spatial solutions and their impacts when reshuffling coastal management priorities in small islands with limited diversification opportunities. _Sustainability_, **14**: 3871.
+* André LV, Van Wynsberge S, Chinain M, Gatti CMI, Liao V, and Andréfouët S (2022) Spatial solutions and their impacts when reshuffling coastal management priorities in small islands with limited diversification opportunities. _Sustainability_, **14**: 3871.
 * de Assis Barros L, Venter M, Elkin C, and Venter O (2022) Managing forests for old-growth attributes better promotes the provision of ecosystem services than current age-based old-growth management. _Forest Ecology and Management_, **511**: 120130.
 * Benez-Secanho FJ, Dwivedi P, Ferreira S, Hepinstall-Cymerman J, and Wenger S (2022) Trade-offs between the value of ecosystem services and connectivity among protected areas in the Upper Chattahoochee watershed. _Environmental Management_, **69**: 937--951.
 * Brito-Morales I, Schoeman DS, Everett JD, Klein CJ, Dunn DC, García Molinos J., Burrows MT, Buenafe KCV, Dominguez RM, Possingham HP, and Richardson AJ (2022) Towards climate-smart, three-dimensional protected areas for biodiversity conservation in the high seas. _Nature Climate Change_, **12**: 402--407.

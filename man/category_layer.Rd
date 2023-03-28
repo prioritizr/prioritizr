@@ -2,22 +2,27 @@
 % Please edit documentation in R/category_layer.R
 \name{category_layer}
 \alias{category_layer}
+\alias{category_layer.Raster}
+\alias{category_layer.default}
 \title{Category layer}
 \usage{
 category_layer(x)
+
+\method{category_layer}{Raster}(x)
+
+\method{category_layer}{default}(x)
 }
 \arguments{
-\item{x}{\code{\linkS4class{Raster}} object containing a multiple
+\item{x}{\code{\link[terra:rast]{terra::rast()}} object containing multiple
 layers. Note that pixels must be 0, 1 or \code{NA} values.}
 }
 \value{
-\code{\linkS4class{RasterLayer}} object.
+A \code{\link[terra:rast]{terra::rast()}} object.
 }
 \description{
-Convert a \code{\linkS4class{RasterStack}}
-object where each layer corresponds to a different identifier and values
-indicate the presence/absence of that category into a
-\code{\linkS4class{RasterLayer}} object containing categorical
+Convert a \code{\link[terra:rast]{terra::rast()}} object where each layer corresponds to a different
+identifier and values indicate the presence/absence of that category into a
+\code{\link[terra:rast]{terra::rast()}} object containing categorical
 identifiers.
 }
 \details{
@@ -25,20 +30,25 @@ This function is provided to help manage data that encompass
 multiple management zones. For instance, this function may be helpful
 for interpreting solutions for problems associated with multiple zones that
 have binary decisions.
+It is essentially a wrapper for \code{\link[terra:which]{terra::which.lyr()}}.
 }
 \examples{
 # create a binary raster stack
-x <- stack(raster(matrix(c(1, 0, 0, 1, NA, 0), nrow = 3)),
-           raster(matrix(c(0, 1, 0, 0, NA, 0), nrow = 3)),
-           raster(matrix(c(0, 0, 1, 0, NA, 1), nrow = 3)))
+x <- terra::rast(list(
+ terra::rast(matrix(c(1, 0, 0, 1, NA, 0), nrow = 3)),
+ terra::rast(matrix(c(0, 1, 0, 0, NA, 0), nrow = 3)),
+ terra::rast(matrix(c(0, 0, 1, 0, NA, 1), nrow = 3))
+))
 
-# convert to binary stack
+# plot data
+plot(x)
+
+# convert to category layer
 y <- category_layer(x)
 
-# plot categorical raster and binary stack representation
+# plot result
 \dontrun{
-plot(stack(x, y), main = c("x[[1]]", "x[[2]]", "x[[3]]", "y"),
-     nr = 1)
+plot(y)
 }
 }
 \seealso{

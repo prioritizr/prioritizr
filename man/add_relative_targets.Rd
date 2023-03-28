@@ -18,21 +18,20 @@ add_relative_targets(x, targets)
 \S4method{add_relative_targets}{ConservationProblem,character}(x, targets)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} object.}
 
 \item{targets}{Object that specifies the targets for each feature.
 See the Targets format section for more information.}
 }
 \value{
-Object (i.e., \code{\linkS4class{ConservationProblem}}) with the targets added
-to it.
+An updated \code{\link[=problem]{problem()}} object with the targets added to it.
 }
 \description{
 Set targets as a proportion (between 0 and 1) of the maximum level of
 representation of features in the study area. Please note that proportions
 are scaled according to the features' total abundances in the study area
 (including any locked out planning units, or planning units with \code{NA}
-cost data) using the \code{\link[=feature_abundances]{feature_abundances()}} function.
+cost values) using the \code{\link[=feature_abundances]{feature_abundances()}} function.
 }
 \details{
 Targets are used to specify the minimum amount or proportion of a
@@ -43,9 +42,10 @@ planning problems require targets with the exception of the maximum cover
 problems with objectives that require targets without specifying targets
 will throw an error.
 
-For problems associated with multiple management zones, this function can
+For problems associated with multiple management zones,
+\code{\link[=add_absolute_targets]{add_absolute_targets()}} can
 be used to set targets that each pertain to a single feature and a single
-zone. To set targets which can be met through allocating different
+zone. To set targets that can be met through allocating different
 planning units to multiple zones, see the \code{\link[=add_manual_targets]{add_manual_targets()}}
 function. An example of a target that could be met through allocations
 to multiple zones might be where each management zone is expected to
@@ -77,11 +77,14 @@ Here, each row corresponds to a different feature in argument to
 \code{x}, and each cell contains the target value for a given feature
 that the solution needs to secure in a given zone.}
 
-\item{\code{targets} as a \code{character} vector}{containing the names of fields
-(columns) in the feature data associated with the argument to \code{x} that
+\item{\code{targets} as a \code{character} vector}{containing the column name(s) in the
+feature data associated with the argument to \code{x} that
 contain targets. This format can only be used when the
-feature data associated with \code{x} is a \code{data.frame}.
-This argument must contain a field (column) name for each zone.}
+feature data associated with \code{x} is a \code{\link[sf:sf]{sf::st_sf()}} or \code{data.frame}.
+For problems that contain a single zone, the argument to \code{targets} must
+contain a single column name. Otherwise, for problems that
+contain multiple zones, the argument to \code{targets} must
+contain a column name for each zone.}
 
 }
 }
@@ -90,15 +93,17 @@ This argument must contain a field (column) name for each zone.}
 \dontrun{
 # set seed for reproducibility
 set.seed(500)
-
-# load data
-data(sim_pu_raster, sim_features)
+sim_pu_raster <- get_sim_pu_raster()
+sim_features <- get_sim_features()
+sim_zones_pu_raster <- get_sim_zones_pu_raster()
+sim_zones_features <- get_sim_zones_features()
 
 # create base problem
-p <- problem(sim_pu_raster, sim_features) \%>\%
-     add_min_set_objective() \%>\%
-     add_binary_decisions() \%>\%
-     add_default_solver(verbose = FALSE)
+p <-
+  problem(sim_pu_raster, sim_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
 
 # create problem with 10\% targets
 p1 <- p \%>\% add_relative_targets(0.1)
@@ -108,47 +113,52 @@ targets <- c(0.1, 0.2, 0.3, 0.4, 0.5)
 p2 <- p \%>\% add_relative_targets(targets)
 
 # solve problem
-s <- stack(solve(p1), solve(p2))
+s3 <- c(solve(p1), solve(p2))
+names(s3) <- c("10\% targets", "varying targets")
 
 # plot solution
-plot(s, main = c("10\% targets", "varying targets"), axes = FALSE,
-     box = FALSE)
+plot(s3, main = , axes = FALSE)
 
 # create a problem with multiple management zones
-p3 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
-      add_min_set_objective() \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(verbose = FALSE)
+p4 <-
+  problem(sim_zones_pu_raster, sim_zones_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
 
 # create a problem with targets that specify an equal amount of each feature
 # to be represented in each zone
-p4_targets <- matrix(0.1, nrow = 5, ncol = 3,
-                     dimnames = list(feature_names(sim_features_zones),
-                                     zone_names(sim_features_zones)))
+p4_targets <- matrix(
+  0.1, nrow = 5, ncol = 3, dimnames = list(
+    feature_names(sim_zones_features), zone_names(sim_zones_features)
+  )
+)
 print(p4_targets)
 
-p4 <- p3 \%>\% add_relative_targets(p4_targets)
-
-# solve problem
-s4 <- solve(p4)
-
-# plot solution (pixel values correspond to zone identifiers)
-plot(category_layer(s4), main = c("equal targets"))
-
-# create a problem with targets that require a varying amount of each
-# feature to be represented in each zone
-p5_targets <- matrix(runif(15, 0.01, 0.2), nrow = 5, ncol = 3,
-                     dimnames = list(feature_names(sim_features_zones),
-                                     zone_names(sim_features_zones)))
-print(p5_targets)
-
-p5 <- p3 \%>\% add_relative_targets(p4_targets)
+p5 <- p4 \%>\% add_relative_targets(p4_targets)
 
 # solve problem
 s5 <- solve(p5)
 
 # plot solution (pixel values correspond to zone identifiers)
-plot(category_layer(s5), main = c("varying targets"))
+plot(category_layer(s5), main = "equal targets")
+
+# create a problem with targets that require a varying amount of each
+# feature to be represented in each zone
+p6_targets <- matrix(
+  runif(15, 0.01, 0.2), nrow = 5, ncol = 3, dimnames = list(
+    feature_names(sim_zones_features), zone_names(sim_zones_features)
+  )
+)
+print(p6_targets)
+
+p6 <- p4 \%>\% add_relative_targets(p6_targets)
+
+# solve problem
+s6 <- solve(p6)
+
+# plot solution (pixel values correspond to zone identifiers)
+plot(category_layer(s6), main = "varying targets")
 }
 
 }

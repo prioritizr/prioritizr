@@ -25,7 +25,7 @@ values.}
 \item{coordinate_two_y}{\code{numeric} value for upper \emph{y}-coordinate.}
 }
 \value{
-\code{numeric} values.
+A \code{numeric} vector.
 }
 \description{
 Log-linearly interpolate values between two thresholds.
@@ -60,30 +60,37 @@ spp_range_size_km2 <- seq(0.01, 15000000, by = 100)
 # we can now use this function to calculate representation targets
 # (expressed as a percentage of the species' range sizes) using
 # the thresholds and cap sizes reported by Rodrigues et al. 2014
-spp_target_percentage_rodrigues <-
-  loglinear_interpolation(
+spp_target_percentage_rodrigues <- loglinear_interpolation(
     x = spp_range_size_km2,
     coordinate_one_x = 1000,
     coordinate_one_y = 1,
     coordinate_two_x = 250000,
-    coordinate_two_y = 0.1) * 100
+    coordinate_two_y = 0.1
+) * 100
 
 # it is also common to apply a cap to the representation targets,
 # so let's apply the cap these targets following Butchart et al. (2015)
 spp_target_percentage_butchart <- ifelse(
   spp_range_size_km2 >= 10000000,
   (1000000 / spp_range_size_km2) * 100,
-  spp_target_percentage_rodrigues)
+  spp_target_percentage_rodrigues
+)
 
 # plot species range sizes and representation targets
-plot(spp_target_percentage_butchart ~ spp_range_size_km2,
-  xlab = "Range size km^2" , ylab = "Representation target (\%)", type = "l")
+plot(
+  spp_target_percentage_butchart ~ spp_range_size_km2,
+  xlab = "Range size km^2" , ylab = "Representation target (\%)", type = "l"
+)
 
 # plot species range sizes and representation targets on a log10 scale
-plot(spp_target_percentage_butchart ~ log10(spp_range_size_km2),
+plot(
+  spp_target_percentage_butchart ~ log10(spp_range_size_km2),
   xlab = "Range size km^2" , ylab = "Representation target (\%)",
-  type = "l", xaxt = "n")
-axis(1, pretty(log10(spp_range_size_km2)),
-     10^pretty(log10(spp_range_size_km2)))
+  type = "l", xaxt = "n"
+)
+axis(
+  1, pretty(log10(spp_range_size_km2)),
+  10^pretty(log10(spp_range_size_km2))
+)
 }
 }

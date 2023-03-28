@@ -5,33 +5,47 @@
 \alias{rij_matrix,Raster,Raster-method}
 \alias{rij_matrix,Spatial,Raster-method}
 \alias{rij_matrix,sf,Raster-method}
+\alias{rij_matrix,SpatRaster,SpatRaster-method}
+\alias{rij_matrix,sf,SpatRaster-method}
 \title{Feature by planning unit matrix}
 \usage{
 rij_matrix(x, y, ...)
 
 \S4method{rij_matrix}{Raster,Raster}(x, y, ...)
 
+\S4method{rij_matrix}{SpatRaster,SpatRaster}(x, y, memory, ...)
+
 \S4method{rij_matrix}{Spatial,Raster}(x, y, fun, ...)
 
 \S4method{rij_matrix}{sf,Raster}(x, y, fun, ...)
+
+\S4method{rij_matrix}{sf,SpatRaster}(x, y, fun, ...)
 }
 \arguments{
-\item{x}{\code{\linkS4class{Raster}},
-\code{\linkS4class{Spatial}}, or \code{\link[sf:sf]{sf::sf()}} object
-representing the planning units.}
+\item{x}{\code{\link[terra:rast]{terra::rast()}} or \code{\link[sf:sf]{sf::sf()}} object representing planning units.}
 
-\item{y}{\code{\linkS4class{Raster}} object representing the
-features.}
+\item{y}{\code{\link[terra:rast]{terra::rast()}}  object.}
 
 \item{...}{not used.}
 
+\item{memory}{\code{logical} should calculations be performed using a method
+that prioritizes reduced memory consumption over speed?
+If \code{TRUE}, then calculations are performed using a method that
+reduces memory consumption, but can take a long time to complete.
+If \code{FALSE}, then calculations are performed using a method that
+reduces run time, but will fail when insufficient memory is available.
+Defaults to \code{NA}, such that calculations are automatically performed
+using the best method given available memory and dataset sizes.
+Note that this parameter can only be used when the arguments to \code{x}
+and \code{y} are both \code{\link[terra:rast]{terra::rast()}} objects.}
+
 \item{fun}{\code{character} for summarizing values inside each planning unit.
 This parameter is only used when the argument to \code{x} is a
-\code{\linkS4class{Spatial}} or \code{\link[sf:sf]{sf::sf()}} object.
+\code{\link[sf:sf]{sf::sf()}} object.
 Defaults to \code{"sum"}.}
 }
 \value{
-\code{\linkS4class{dgCMatrix}} sparse matrix object.
+A \code{\linkS4class{dgCMatrix}} sparse matrix object.
 The sparse matrix represents the spatial intersection between the
 planning units and the features. Rows correspond to features,
 and columns correspond to planning units. Values correspond to the amount
@@ -44,31 +58,36 @@ Generate a matrix showing the amount of each feature in each planning
 unit (also known as an \emph{rij} matrix).
 }
 \details{
-Generally, processing vector (i.e., \code{\linkS4class{Spatial}} or
-\code{\link[sf:sf]{sf::sf()}}) data takes much
-longer to process then \code{\linkS4class{Raster}} data,
-so it is recommended to use \code{\linkS4class{Raster}} data
-for planning units where possible.
+Generally, processing \code{\link[sf:sf]{sf::st_sf()}} data takes much longer to process than
+\code{\link[terra:rast]{terra::rast()}} data.
+As such, it is recommended to use \code{\link[terra:rast]{terra::rast()}} data for planning units
+where possible.
+The performance of this function for large \code{\link[terra:rast]{terra::rast()}} datasets
+can be improved by increasing the GDAL cache size.
+The default cache size is 25 MB.
+For example, the following code can be used to set the cache size to 4 GB.
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{terra::gdalCache(size = 4000)
+}\if{html}{\out{</div>}}
 }
 \examples{
 \dontrun{
 # load data
-data(sim_pu_raster, sim_pu_polygons, sim_pu_sf, sim_pu_zones_stack)
+sim_pu_raster <- get_sim_pu_raster()
+sim_pu_polygons <- get_sim_pu_polygons()
+sim_zones_pu_raster <- get_sim_zones_pu_raster()
+sim_features <- get_sim_features()
 
 # create rij matrix using raster layer planning units
 rij_raster <- rij_matrix(sim_pu_raster, sim_features)
 print(rij_raster)
 
-# create rij matrix using polygon (Spatial) planning units
+# create rij matrix using polygon planning units
 rij_polygons <- rij_matrix(sim_pu_polygons, sim_features)
 print(rij_polygons)
 
-# create rij matrix using polygon (sf) planning units
-rij_sf <- rij_matrix(sim_pu_sf, sim_features)
-print(rij_sf)
-
-# create rij matrix using raster stack planning units
-rij_zones_raster <- rij_matrix(sim_pu_zones_stack, sim_features)
+# create rij matrix using raster planning units with multiple zones
+rij_zones_raster <- rij_matrix(sim_zones_pu_raster, sim_features)
 print(rij_zones_raster)
 }
 }

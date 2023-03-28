@@ -43,12 +43,6 @@
     <loc>https://prioritizr.net/news/index.html</loc>
   </url>
   <url>
-    <loc>https://prioritizr.net/reference/ArrayParameter-class.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/Collection-class.html</loc>
-  </url>
-  <url>
     <loc>https://prioritizr.net/reference/ConservationModifier-class.html</loc>
   </url>
   <url>
@@ -61,9 +55,6 @@
     <loc>https://prioritizr.net/reference/Decision-class.html</loc>
   </url>
   <url>
-    <loc>https://prioritizr.net/reference/MiscParameter-class.html</loc>
-  </url>
-  <url>
     <loc>https://prioritizr.net/reference/Objective-class.html</loc>
   </url>
   <url>
@@ -73,19 +64,10 @@
     <loc>https://prioritizr.net/reference/OptimizationProblem-methods.html</loc>
   </url>
   <url>
-    <loc>https://prioritizr.net/reference/Parameter-class.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/Parameters-class.html</loc>
-  </url>
-  <url>
     <loc>https://prioritizr.net/reference/Penalty-class.html</loc>
   </url>
   <url>
     <loc>https://prioritizr.net/reference/Portfolio-class.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/ScalarParameter-class.html</loc>
   </url>
   <url>
     <loc>https://prioritizr.net/reference/Solver-class.html</loc>
@@ -119,9 +101,6 @@
   </url>
   <url>
     <loc>https://prioritizr.net/reference/add_cuts_portfolio.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/add_default_decisions.html</loc>
   </url>
   <url>
     <loc>https://prioritizr.net/reference/add_default_solver.html</loc>
@@ -223,15 +202,6 @@
     <loc>https://prioritizr.net/reference/adjacency_matrix.html</loc>
   </url>
   <url>
-    <loc>https://prioritizr.net/reference/array_parameters.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/as.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/as.list.html</loc>
-  </url>
-  <url>
     <loc>https://prioritizr.net/reference/binary_stack.html</loc>
   </url>
   <url>
@@ -257,9 +227,6 @@
   </url>
   <url>
     <loc>https://prioritizr.net/reference/decisions.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/distribute_load.html</loc>
   </url>
   <url>
     <loc>https://prioritizr.net/reference/eval_asym_connectivity_summary.html</loc>
@@ -310,7 +277,7 @@
     <loc>https://prioritizr.net/reference/intersecting_units.html</loc>
   </url>
   <url>
-    <loc>https://prioritizr.net/reference/is.html</loc>
+    <loc>https://prioritizr.net/reference/knit_print.html</loc>
   </url>
   <url>
     <loc>https://prioritizr.net/reference/loglinear_interpolation.html</loc>
@@ -323,18 +290,6 @@
   </url>
   <url>
     <loc>https://prioritizr.net/reference/marxan_problem.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/matrix_parameters.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/misc_parameter.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/new_id.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/new_optimization_problem.html</loc>
   </url>
   <url>
     <loc>https://prioritizr.net/reference/new_waiver.html</loc>
@@ -355,28 +310,16 @@
     <loc>https://prioritizr.net/reference/objectives.html</loc>
   </url>
   <url>
-    <loc>https://prioritizr.net/reference/parameters.html</loc>
+    <loc>https://prioritizr.net/reference/optimization_problem.html</loc>
   </url>
   <url>
     <loc>https://prioritizr.net/reference/penalties.html</loc>
   </url>
   <url>
-    <loc>https://prioritizr.net/reference/pipe.html</loc>
-  </url>
-  <url>
     <loc>https://prioritizr.net/reference/portfolios.html</loc>
   </url>
   <url>
-    <loc>https://prioritizr.net/reference/pproto.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/predefined_optimization_problem.html</loc>
-  </url>
-  <url>
     <loc>https://prioritizr.net/reference/presolve_check.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/print.html</loc>
   </url>
   <url>
     <loc>https://prioritizr.net/reference/prioritizr-deprecated.html</loc>
@@ -391,13 +334,13 @@
     <loc>https://prioritizr.net/reference/proximity_matrix.html</loc>
   </url>
   <url>
+    <loc>https://prioritizr.net/reference/reexports.html</loc>
+  </url>
+  <url>
     <loc>https://prioritizr.net/reference/rij_matrix.html</loc>
   </url>
   <url>
     <loc>https://prioritizr.net/reference/run_calculations.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/scalar_parameters.html</loc>
   </url>
   <url>
     <loc>https://prioritizr.net/reference/show.html</loc>
@@ -425,9 +368,6 @@
   </url>
   <url>
     <loc>https://prioritizr.net/reference/targets.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/tee.html</loc>
   </url>
   <url>
     <loc>https://prioritizr.net/reference/tibble-methods.html</loc>

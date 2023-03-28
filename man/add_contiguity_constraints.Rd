@@ -15,7 +15,7 @@
 \S4method{add_contiguity_constraints}{ConservationProblem,ANY,matrix}(x, zones, data)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} object.}
 
 \item{zones}{\code{matrix} or \code{Matrix} object describing the
 connection scheme for different zones. Each row and column corresponds
@@ -41,11 +41,10 @@ connection data is calculated automatically using the
 See the Data format section for more information.}
 }
 \value{
-Object (i.e., \code{\linkS4class{ConservationProblem}}) with the constraints
-added to it.
+An updated \code{\link[=problem]{problem()}} object with the constraints added to it.
 }
 \description{
-Add constraints to a conservation planning \code{\link[=problem]{problem()}} to ensure
+Add constraints to a conservation planning problem to ensure
 that all selected planning units are spatially connected with each other
 and form a single contiguous unit.
 }
@@ -76,12 +75,12 @@ two planning units are connected or not. Cell values should be binary
 matrix diagonal have no effect on the solution at all because each
 planning unit cannot be a connected with itself.}
 
-\item{\code{data} as a \code{data.frame} object}{containing the fields (columns)
+\item{\code{data} as a \code{data.frame} object}{containing columns that are named
 \code{"id1"}, \code{"id2"}, and \code{"boundary"}. Here, each row
 denotes the connectivity between two planning units following the
-\emph{Marxan} format. The field \code{boundary} should contain
+\emph{Marxan} format. The \code{"boundary"} column should contain
 binary \code{numeric} values that indicate if the two planning units
-specified in the fields \code{"id1"} and \code{"id2"} are connected
+specified in the \code{"id1"} and \code{"id2"} columns are connected
 or not. This data can be used to describe symmetric or
 asymmetric relationships between planning units. By default,
 input data is assumed to be symmetric unless asymmetric data is
@@ -101,32 +100,37 @@ In early versions, this function was named as the
 \examples{
 \dontrun{
 # load data
-data(sim_pu_raster, sim_features, sim_pu_zones_stack, sim_features_zones)
+sim_pu_raster <- get_sim_pu_raster()
+sim_features <- get_sim_features()
+sim_zones_pu_raster <- get_sim_zones_pu_raster()
+sim_zones_features <- get_sim_zones_features()
 
 # create minimal problem
-p1 <- problem(sim_pu_raster, sim_features) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(0.2) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(verbose = FALSE)
+p1 <-
+  problem(sim_pu_raster, sim_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.2) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
 
 # create problem with added connected constraints
 p2 <- p1 \%>\% add_contiguity_constraints()
 
 # solve problems
-s <- stack(solve(p1), solve(p2))
+s1 <- c(solve(p1), solve(p2))
+names(s1) <- c("basic solution", "connected solution")
 
 # plot solutions
-plot(s, main = c("basic solution", "connected solution"), axes = FALSE,
-     box = FALSE)
+plot(s1, axes = FALSE)
 
 # create minimal problem with multiple zones, and limit the solver to
 # 30 seconds to obtain solutions in a feasible period of time
-p3 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(matrix(0.2, ncol = 3, nrow = 5)) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(time_limit = 30, verbose = FALSE)
+p3 <-
+  problem(sim_zones_pu_raster, sim_zones_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(matrix(0.2, ncol = 3, nrow = 5)) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(time_limit = 30, verbose = FALSE)
 
 # create problem with added constraints to ensure that the planning units
 # allocated to each zone form a separate contiguous unit
@@ -136,7 +140,7 @@ p4 <- p3 \%>\% add_contiguity_constraints(z4)
 
 # create problem with added constraints to ensure that the planning
 # units allocated to each zone form a separate contiguous unit,
-# except for planning units allocated to zone 2 which do not need
+# except for planning units allocated to zone 3 which do not need
 # form a single contiguous unit
 z5 <- diag(3)
 z5[3, 3] <- 0
@@ -154,41 +158,45 @@ p6 <- p3 \%>\% add_contiguity_constraints(z6)
 # solve problems
 s2 <- lapply(list(p3, p4, p5, p6), solve)
 s2 <- lapply(s2, category_layer)
-s2 <- stack(s2)
+s2 <- terra::rast(s2)
+names(s2) <- c("basic solution", "p4", "p5", "p6")
 
 # plot solutions
-plot(s2, axes = FALSE, box = FALSE,
-     main = c("basic solution", "p4", "p5", "p6"))
+plot(s2, axes = FALSE)
 
 # create a problem that has a main "reserve zone" and a secondary
 # "corridor zone" to connect up import areas. Here, each feature has a
-# target of 30\% of its distribution. If a planning unit is allocated to the
+# target of 50\% of its distribution. If a planning unit is allocated to the
 # "reserve zone", then the prioritization accrues 100\% of the amount of
 # each feature in the planning unit. If a planning unit is allocated to the
 # "corridor zone" then the prioritization accrues 40\% of the amount of each
 # feature in the planning unit. Also, the cost of managing a planning unit
-# in the "corridor zone" is 45\% of that when it is managed as the
+# in the "corridor zone" is 30\% of that when it is managed as the
 # "reserve zone". Finally, the problem has constraints which
 # ensure that all of the selected planning units form a single contiguous
 # unit, so that the planning units allocated to the "corridor zone" can
 # link up the planning units allocated to the "reserve zone"
 
 # create planning unit data
-pus <- sim_pu_zones_stack[[c(1, 1)]]
-pus[[2]] <- pus[[2]] * 0.45
+pus <- sim_zones_pu_raster[[c(1, 1)]]
+pus[[2]] <- pus[[2]] * 0.3
 print(pus)
 
 # create biodiversity data
-fts <- zones(sim_features, sim_features * 0.4,
-             feature_names = names(sim_features),
-             zone_names = c("reserve zone", "corridor zone"))
+fts <- zones(
+  sim_features, sim_features * 0.4,
+  feature_names = names(sim_features),
+  zone_names = c("reserve zone", "corridor zone")
+)
 print(fts)
 
 # create targets
-targets <- tibble::tibble(feature = names(sim_features),
-                          zone = list(zone_names(fts))[rep(1, 5)],
-                          target = cellStats(sim_features, "sum") * 0.2,
-                          type = rep("absolute", 5))
+targets <- tibble::tibble(
+  feature = names(sim_features),
+  zone = list(zone_names(fts))[rep(1, 5)],
+  target = terra::global(sim_features, "sum", na.rm = TRUE)[[1]] * 0.5,
+  type = rep("absolute", 5)
+)
 print(targets)
 
 # create zones matrix
@@ -196,18 +204,19 @@ z7 <- matrix(1, ncol = 2, nrow = 2)
 print(z7)
 
 # create problem
-p7 <- problem(pus, fts) \%>\%
-      add_min_set_objective() \%>\%
-      add_manual_targets(targets) \%>\%
-      add_contiguity_constraints(z7) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(verbose = FALSE)
+p7 <-
+  problem(pus, fts) \%>\%
+  add_min_set_objective() \%>\%
+  add_manual_targets(targets) \%>\%
+  add_contiguity_constraints(z7) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
 
 # solve problems
 s7 <- category_layer(solve(p7))
 
 # plot solutions
-plot(s7, "solution", axes = FALSE, box = FALSE)
+plot(s7, main = "solution", axes = FALSE)
 }
 }
 \references{
@@ -222,7 +231,7 @@ Other constraints:
 \code{\link{add_linear_constraints}()},
 \code{\link{add_locked_in_constraints}()},
 \code{\link{add_locked_out_constraints}()},
-\code{\link{add_mandatory_allocation_constraints,ConservationProblem-method}},
+\code{\link{add_mandatory_allocation_constraints}()},
 \code{\link{add_manual_bounded_constraints}()},
 \code{\link{add_manual_locked_constraints}()},
 \code{\link{add_neighbor_constraints}()}

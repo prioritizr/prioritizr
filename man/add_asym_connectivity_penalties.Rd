@@ -20,7 +20,7 @@
 \S4method{add_asym_connectivity_penalties}{ConservationProblem,ANY,ANY,array}(x, penalty, zones, data)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} object.}
 
 \item{penalty}{\code{numeric} penalty that is used to scale the importance
 of selecting planning units with strong connectivity between them compared
@@ -58,11 +58,10 @@ that are associated with higher values are more favorable in the solution.
 See the Data format section for more information.}
 }
 \value{
-Object (i.e., \code{\linkS4class{ConservationProblem}}) with the penalties
-added to it.
+An updated \code{\link[=problem]{problem()}} object with the penalties added to it.
 }
 \description{
-Add penalties to a conservation planning \code{\link[=problem]{problem()}} to account for
+Add penalties to a conservation planning problem to account for
 asymmetric connectivity between planning units.
 Asymmetric connectivity data describe connectivity information that is
 directional.
@@ -143,16 +142,16 @@ the strength of connectivity between planning units in different zones.
 The default argument for \code{zones} is to treat planning units
 allocated to different zones as having zero connectivity.}
 
-\item{\code{data} as a \code{data.frame} object}{containing the fields (columns)
+\item{\code{data} as a \code{data.frame} object}{containing columns that are named
 \code{"id1"}, \code{"id2"}, and \code{"boundary"}. Here, each row
 denotes the connectivity between a pair of planning units
 (per values in the \code{"id1"} and \code{"id2"} columns) following the
 \emph{Marxan} format.
-If the argument to \code{x} contains multiple zones, then the columns
-\code{"zone1"} and \code{"zone2"} can optionally be provided to manually
+If the argument to \code{x} contains multiple zones, then the
+\code{"zone1"} and \code{"zone2"} columns can optionally be provided to manually
 specify the connectivity values between planning units when they are
-allocated to specific zones. If the columns \code{"zone1"} and
-\code{"zone2"} are present, then the argument to \code{zones} must be
+allocated to specific zones. If the \code{"zone1"} and
+\code{"zone2"} columns are present, then the argument to \code{zones} must be
 \code{NULL}.}
 
 \item{\code{data} as an \code{array} object}{
@@ -178,7 +177,10 @@ library(Matrix)
 set.seed(600)
 
 # load data
-data(sim_pu_sf, sim_pu_zones_stack, sim_features, sim_features_zones)
+sim_pu_polygons <- get_sim_pu_polygons()
+sim_features <- get_sim_features()
+sim_zones_pu_raster <- get_sim_zones_pu_raster()
+sim_zones_features <- get_sim_zones_features()
 
 # define function to rescale values between zero and one so that we
 # can compare solutions from different connectivity matrices
@@ -187,21 +189,24 @@ rescale <- function(x, to = c(0, 1), from = range(x, na.rm = TRUE)) {
 }
 
 # create basic problem
-p1 <- problem(sim_pu_sf, sim_features, "cost") \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(0.2) \%>\%
-      add_default_solver(verbose = FALSE)
+p1 <-
+  problem(sim_pu_polygons, sim_features, "cost") \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.2) \%>\%
+  add_default_solver(verbose = FALSE)
 
 # create an asymmetric connectivity matrix. Here, connectivity occurs between
 # adjacent planning units and, due to rivers flowing southwards
 # through the study area, connectivity from northern planning units to
 # southern planning units is ten times stronger than the reverse.
-acm1 <- matrix(0, nrow(sim_pu_sf), nrow(sim_pu_sf))
+acm1 <- matrix(0, nrow(sim_pu_polygons), nrow(sim_pu_polygons))
 acm1 <- as(acm1, "Matrix")
-centroids <- sf::st_coordinates(suppressWarnings(sf::st_centroid(sim_pu_sf)))
-adjacent_units <- sf::st_intersects(sim_pu_sf, sparse = FALSE)
-for (i in seq_len(nrow(sim_pu_sf))) {
-  for (j in seq_len(nrow(sim_pu_sf))) {
+centroids <- sf::st_coordinates(
+  suppressWarnings(sf::st_centroid(sim_pu_polygons))
+)
+adjacent_units <- sf::st_intersects(sim_pu_polygons, sparse = FALSE)
+for (i in seq_len(nrow(sim_pu_polygons))) {
+  for (j in seq_len(nrow(sim_pu_polygons))) {
     # find if planning units are adjacent
     if (adjacent_units[i, j]) {
       # find if planning units lay north and south of each other
@@ -232,49 +237,57 @@ penalties <- c(1, 50)
 p2 <- list(
   p1,
   p1 \%>\% add_asym_connectivity_penalties(penalties[1], data = acm1),
-  p1 \%>\% add_asym_connectivity_penalties(penalties[2], data = acm1))
-
-# assign names to the problems
-names(p2) <- c("basic problem", paste0("acm1 (", penalties,")"))
+  p1 \%>\% add_asym_connectivity_penalties(penalties[2], data = acm1)
+)
 
 # solve problems
 s2 <- lapply(p2, solve)
 
-# plot solutions
-par(mfrow = c(1, 3))
-for (i in seq_along(s2)) {
-  plot(s2[[i]], main = names(p2)[i], cex = 1.5, col = "white")
-  plot(s2[[i]][s2[[i]]$solution_1 == 1, ], col = "darkgreen", add = TRUE)
-}
+# create object with all solutions
+s2 <- sf::st_sf(
+  tibble::tibble(
+    p2_1 = s2[[1]]$solution_1,
+    p2_2 = s2[[2]]$solution_1,
+    p2_3 = s2[[3]]$solution_1
+ ),
+ geometry = sf::st_geometry(s2[[1]])
+)
+
+names(s2)[1:3] <- c("basic problem", paste0("acm1 (", penalties,")"))
+
+# plot solutions based on different penalty values
+plot(s2, cex = 1.5)
 
 # create minimal multi-zone problem and limit solver to one minute
 # to obtain solutions in a short period of time
-p3 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(matrix(0.15, nrow = 5, ncol = 3)) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(time_limit = 60, verbose = FALSE)
+p3 <-
+  problem(sim_zones_pu_raster, sim_zones_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(matrix(0.15, nrow = 5, ncol = 3)) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(time_limit = 60, verbose = FALSE)
 
 # crate asymmetric connectivity data by randomly simulating values
-acm2 <- matrix(runif(ncell(sim_pu_zones_stack) ^ 2),
-               nrow = ncell(sim_pu_zones_stack))
+acm2 <- matrix(
+  runif(ncell(sim_zones_pu_raster) ^ 2),
+  nrow = ncell(sim_zones_pu_raster)
+)
 
 # create multi-zone problems using the penalties
 p4 <- list(
   p3,
   p3 \%>\% add_asym_connectivity_penalties(penalties[1], data = acm2),
-  p3 \%>\% add_asym_connectivity_penalties(penalties[2], data = acm2))
-
-# assign names to the problems
-names(p4) <- c("basic problem", paste0("acm2 (", penalties,")"))
+  p3 \%>\% add_asym_connectivity_penalties(penalties[2], data = acm2)
+)
 
 # solve problems
 s4 <- lapply(p4, solve)
 s4 <- lapply(s4, category_layer)
-s4 <- stack(s4)
+s4 <- terra::rast(s4)
+names(s4) <- c("basic problem", paste0("acm2 (", penalties,")"))
 
 # plot solutions
-plot(s4, main = names(p4), axes = FALSE, box = FALSE)
+plot(s4, axes = FALSE)
 }
 
 }

@@ -17,7 +17,7 @@
 \S4method{add_neighbor_constraints}{ConservationProblem,ANY,ANY,array}(x, k, zones, data)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} object.}
 
 \item{k}{\code{integer} minimum number of neighbors for selected
 planning units in the solution. For problems with multiple zones,
@@ -44,16 +44,15 @@ neighborhood data is calculated automatically using the
 See the Data format section for more information.}
 }
 \value{
-Object (i.e., \code{\linkS4class{ConservationProblem}}) with the constraints
-added to it.
+An updated \code{\link[=problem]{problem()}} object with the constraints added to it.
 }
 \description{
-Add constraints to a conservation planning \code{\link[=problem]{problem()}} to ensure
+Add constraints to a conservation planning problem to ensure
 that all selected planning units in the solution have at least a certain
 number of neighbors that are also selected in the solution.
 }
 \details{
-This function uses neighborhood data identify solutions that
+This function uses neighborhood data to identify solutions that
 surround planning units with a minimum number of neighbors. It
 was inspired by the mathematical formulations detailed in
 Billionnet (2013) and Beyer \emph{et al.} (2016).
@@ -79,22 +78,22 @@ two planning units are neighbors or not. Cell values should be binary
 matrix diagonal have no effect on the solution at all because each
 planning unit cannot be a neighbor with itself.}
 
-\item{\code{data} as a \code{data.frame} object}{containing the fields (columns)
+\item{\code{data} as a \code{data.frame} object}{containing columns that are named
 \code{"id1"}, \code{"id2"}, and \code{"boundary"}. Here, each row
 denotes the connectivity between two planning units following the
-\emph{Marxan} format. The field \code{boundary} should contain
+\emph{Marxan} format. The \code{"boundary"} column should contain
 binary \code{numeric} values that indicate if the two planning units
-specified in the fields \code{"id1"} and \code{"id2"} are neighbors
+specified in the \code{"id1"} and \code{"id2"} columns are neighbors
 or not. This data can be used to describe symmetric or
 asymmetric relationships between planning units. By default,
 input data is assumed to be symmetric unless asymmetric data is
 also included (e.g., if data is present for planning units 2 and 3, then
 the same amount of connectivity is expected for planning units 3 and 2,
 unless connectivity data is also provided for planning units 3 and 2).
-If the argument to \code{x} contains multiple zones, then the columns
-\code{"zone1"} and \code{"zone2"} can optionally be provided to manually
-specify if the neighborhood data pertain to specific zones. The fields
-\code{"zone1"} and \code{"zone2"} should contain the \code{character}
+If the argument to \code{x} contains multiple zones, then the
+\code{"zone1"} and \code{"zone2"} columns can optionally be provided to manually
+specify if the neighborhood data pertain to specific zones. The
+\code{"zone1"} and \code{"zone2"} columns should contain the \code{character}
 names of the zones. If the columns \code{"zone1"} and \code{"zone2"}
 are present, then the argument to \code{zones} must be \code{NULL}.}
 
@@ -115,13 +114,17 @@ allocated to zones 3 and 4 respectively.}
 \examples{
 \dontrun{
 # load data
-data(sim_pu_raster, sim_features, sim_pu_zones_stack, sim_features_zones)
+sim_pu_raster <- get_sim_pu_raster()
+sim_features <- get_sim_features()
+sim_zones_pu_raster <- get_sim_zones_pu_raster()
+sim_zones_features <- get_sim_zones_features()
 
 # create minimal problem
-p1 <- problem(sim_pu_raster, sim_features) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(0.1) \%>\%
-      add_default_solver(verbose = FALSE)
+p1 <-
+  problem(sim_pu_raster, sim_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.1) \%>\%
+  add_default_solver(verbose = FALSE)
 
 # create problem with constraints that require 1 neighbor
 # and neighbors are defined using a rook-style neighborhood
@@ -133,21 +136,25 @@ p3 <- p1 \%>\% add_neighbor_constraints(2)
 
 # create problem with constraints that require 3 neighbor
 # and neighbors are defined using a queen-style neighborhood
-p4 <- p1 \%>\% add_neighbor_constraints(3,
-               data = adjacency_matrix(sim_pu_raster, directions = 8))
+p4 <-
+  p1 \%>\%
+  add_neighbor_constraints(
+    3, data = adjacency_matrix(sim_pu_raster, directions = 8)
+  )
 
 # solve problems
-s1 <- stack(list(solve(p1), solve(p2), solve(p3), solve(p4)))
+s1 <- terra::rast(list(solve(p1), solve(p2), solve(p3), solve(p4)))
+names(s1) <- c("basic solution", "1 neighbor", "2 neighbors", "3 neighbors")
 
 # plot solutions
-plot(s1, box = FALSE, axes = FALSE,
-     main = c("basic solution", "1 neighbor", "2 neighbors", "3 neighbors"))
+plot(s1, axes = FALSE)
 
 # create minimal problem with multiple zones
-p5 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) \%>\%
-      add_default_solver(verbose = FALSE)
+p5 <-
+  problem(sim_zones_pu_raster, sim_zones_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) \%>\%
+  add_default_solver(verbose = FALSE)
 
 # create problem where selected planning units require at least 2 neighbors
 # for each zone and planning units are only considered neighbors if they
@@ -177,11 +184,11 @@ p8 <- p5 \%>\% add_neighbor_constraints(c(0, 1, 2), z8)
 s2 <- list(p5, p6, p7, p8)
 s2 <- lapply(s2, solve)
 s2 <- lapply(s2, category_layer)
-s2 <- stack(s2)
+s2 <- terra::rast(s2)
 names(s2) <- c("basic problem", "p6", "p7", "p8")
 
 # plot solutions
-plot(s2, main = names(s2), box = FALSE, axes = FALSE)
+plot(s2, main = names(s2), axes = FALSE)
 }
 }
 \references{
@@ -200,7 +207,7 @@ Other constraints:
 \code{\link{add_linear_constraints}()},
 \code{\link{add_locked_in_constraints}()},
 \code{\link{add_locked_out_constraints}()},
-\code{\link{add_mandatory_allocation_constraints,ConservationProblem-method}},
+\code{\link{add_mandatory_allocation_constraints}()},
 \code{\link{add_manual_bounded_constraints}()},
 \code{\link{add_manual_locked_constraints}()}
 }

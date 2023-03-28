@@ -2,8 +2,8 @@
 #include "optimization_problem.h"
 
 // [[Rcpp::export]]
-bool rcpp_apply_decisions(SEXP x, std::string vtype, double default_lower,
-                          double default_upper) {
+bool rcpp_apply_decisions(
+  SEXP x, std::string vtype, double default_lower, double default_upper) {
   Rcpp::XPtr<OPTIMIZATIONPROBLEM> ptr = Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x);
   // determine how many variables to assign decisions to based on formulation
   std::size_t n = ptr->_number_of_planning_units * ptr->_number_of_zones;

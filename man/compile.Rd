@@ -10,7 +10,7 @@ compile(x, ...)
 \method{compile}{ConservationProblem}(x, compressed_formulation = NA, ...)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} object.}
 
 \item{...}{not used.}
 
@@ -23,11 +23,11 @@ of the constraints requires the expanded formulation. This argument
 defaults to \code{NA}.}
 }
 \value{
-\code{\linkS4class{OptimizationProblem}} object.
+A \code{\link[=optimization_problem]{optimization_problem()}} object.
 }
 \description{
-Compile a conservation planning \code{\link[=problem]{problem()}} into an
-(potentially mixed) integer linear programming problem.
+Compile a conservation planning problem into an
+mixed integer linear programming problem.
 }
 \details{
 This function might be useful for those interested in understanding
@@ -36,7 +36,8 @@ as a mathematical problem. However, if the problem just needs to
 be solved, then the \code{\link[=solve]{solve()}} function should just be used.
 
 \strong{Please note that in nearly all cases, the default argument to
-\code{formulation} should be used}. The only situation where manually
+\code{compressed_formulation} should be used}. The only situation where
+manually
 setting the argument to \code{formulation} is desirable is during testing.
 Manually setting the argument to \code{formulation} will at best
 have no effect on the problem. At worst, it may result in
@@ -44,8 +45,14 @@ an error, a misspecified problem, or unnecessarily long
 solve times.
 }
 \examples{
+\dontrun{
+# load data
+sim_pu_raster <- get_sim_pu_raster()
+sim_features <- get_sim_features()
+
 # build minimal conservation problem
-p <- problem(sim_pu_raster, sim_features) \%>\%
+p <-
+  problem(sim_pu_raster, sim_features) \%>\%
   add_min_set_objective() \%>\%
   add_relative_targets(0.1)
 
@@ -54,5 +61,5 @@ o <- compile(p)
 
 # print the optimization problem
 print(o)
-
+}
 }

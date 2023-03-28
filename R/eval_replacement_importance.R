@@ -1,4 +1,4 @@
-#' @include internal.R pproto.R  ConservationProblem-proto.R OptimizationProblem-proto.R compile.R problem.R solve.R presolve_check.R
+#' @include internal.R ConservationProblem-class.R OptimizationProblem-class.R compile.R problem.R solve.R presolve_check.R
 NULL
 
 #' Evaluate solution importance using replacement cost scores
@@ -9,7 +9,7 @@ NULL
 #' @inheritParams eval_cost_summary
 #'
 #' @param rescale `logical` flag indicating if replacement cost
-#'  values---excepting infinite (`Inf`) and zero values---should be
+#'  values -- excepting infinite (`Inf`) and zero values -- should be
 #'  rescaled to range between 0.01 and 1. Defaults to `TRUE`.
 #'
 #' @param run_checks `logical` flag indicating whether presolve checks
@@ -17,7 +17,7 @@ NULL
 #'   the [presolve_check()] function. Defaults to `TRUE`.
 #'   Skipping these checks may reduce run time for large problems.
 #'
-#' @param force `logical` flag indicating if an attempt to should be
+#' @param force `logical` flag indicating if an attempt should be
 #'   made to solve the problem even if potential issues were detected during
 #'   the presolve checks. Defaults to `FALSE`.
 #'
@@ -49,13 +49,13 @@ NULL
 #' solution exists when planning units are locked out---they are
 #' absolutely essential for obtaining a solution (e.g., they contain rare
 #' species that are not found in any other planning units or were locked in).
-#' Zeros values mean that planning units can swapped with other planning units
-#' and this will have no effect on the performance of the solution at all
+#' Zeros values mean that planning units can be swapped with other planning
+#' units and this will have no effect on the performance of the solution at all
 #' (e.g., because they were only selected due to spatial fragmentation
 #' penalties).
 #'
 #' These calculations can take a long time to complete for large
-#' or complex conservation planning problems. As such, we using this
+#' or complex conservation planning problems. As such, we recommend using this
 #' method for small or moderate-sized conservation planning problems
 #' (e.g., < 30,000 planning units). To reduce run time, we
 #' recommend calculating these scores without additional penalties (e.g.,
@@ -66,9 +66,9 @@ NULL
 #'
 #' @inheritSection eval_cost_summary Solution format
 #'
-#' @return A `numeric`, `matrix`, `data.frame`
-#'   [`RasterLayer-class`], [`Spatial-class`],
-#'   or [sf::sf()] object containing the importance scores for each planning
+#' @return A `numeric`, `matrix`, `data.frame`,
+#'   [terra::rast()], or [sf::sf()] object
+#'   containing the importance scores for each planning
 #'   unit in the solution. Specifically, the returned object is in the
 #'   same format as the planning unit data in the argument to `x`.
 #'
@@ -84,14 +84,20 @@ NULL
 #' set.seed(600)
 #'
 #' # load data
-#' data(sim_pu_raster, sim_features, sim_pu_zones_stack, sim_features_zones)
+#' sim_pu_raster <- get_sim_pu_raster()
+#' sim_pu_polygons <- get_sim_pu_polygons()
+#' sim_features <- get_sim_features()
+#' sim_zones_pu_raster <- get_sim_zones_pu_raster()
+#' sim_zones_features <- get_sim_zones_features()
 #'
 #' # create minimal problem with binary decisions
-#' p1 <- problem(sim_pu_raster, sim_features) %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(0.1) %>%
-#'       add_binary_decisions() %>%
-#'       add_default_solver(gap = 0, verbose = FALSE)
+#' p1 <-
+#'   problem(sim_pu_raster, sim_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(0.1) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(gap = 0, verbose = FALSE)
+#'
 #' # solve problem
 #' s1 <- solve(p1)
 #'
@@ -99,7 +105,7 @@ NULL
 #' print(s1)
 #'
 #' # plot solution
-#' plot(s1, main = "solution", axes = FALSE, box = FALSE)
+#' plot(s1, main = "solution", axes = FALSE)
 #'
 #' # calculate importance scores
 #' rc1 <- eval_replacement_importance(p1, s1)
@@ -108,18 +114,19 @@ NULL
 #' print(rc1)
 #'
 #' # plot importance scores
-#' plot(rc1, main = "replacement cost", axes = FALSE, box = FALSE)
+#' plot(rc1, main = "replacement cost", axes = FALSE)
 #'
 #' # since replacement cost scores can take a long time to calculate with
 #' # binary decisions, we can calculate them using proportion-type
 #' # decision variables. Note we are still calculating the scores for our
 #' # previous solution (s1), we are just using a different optimization
 #' # problem when calculating the scores.
-#' p2 <- problem(sim_pu_raster, sim_features) %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(0.1) %>%
-#'       add_proportion_decisions() %>%
-#'       add_default_solver(gap = 0, verbose = FALSE)
+#' p2 <-
+#'   problem(sim_pu_raster, sim_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(0.1) %>%
+#'   add_proportion_decisions() %>%
+#'   add_default_solver(gap = 0, verbose = FALSE)
 #'
 #' # calculate importance scores using proportion type decisions
 #' rc2 <- eval_replacement_importance(p2, s1)
@@ -131,14 +138,15 @@ NULL
 #' # we can see that the importance values in rc1 and rc2 are similar,
 #' # and this confirms that the proportion type decisions are a good
 #' # approximation
-#' plot(rc2, main = "replacement cost", axes = FALSE, box = FALSE)
+#' plot(rc2, main = "replacement cost", axes = FALSE)
 #'
-#' # create minimal problem with polygon (sf) planning units
-#' p3 <- problem(sim_pu_sf, sim_features, cost_column = "cost") %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(0.05) %>%
-#'       add_binary_decisions() %>%
-#'       add_default_solver(gap = 0, verbose = FALSE)
+#' # create minimal problem with polygon planning units
+#' p3 <-
+#'   problem(sim_pu_polygons, sim_features, cost_column = "cost") %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(0.05) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(gap = 0, verbose = FALSE)
 #'
 #' # solve problem
 #' s3 <- solve(p3)
@@ -156,15 +164,16 @@ NULL
 #' plot(rc3, main = "replacement cost")
 #'
 #' # build multi-zone conservation problem with raster data
-#' p4 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
-#'                                   ncol = 3)) %>%
-#'       add_binary_decisions() %>%
-#'       add_default_solver(gap = 0, verbose = FALSE)
+#' p4 <-
+#'   problem(sim_zones_pu_raster, sim_zones_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5, ncol = 3)) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(gap = 0, verbose = FALSE)
 #'
 #' # solve the problem
 #' s4 <- solve(p4)
+#' names(s4) <- paste0("zone ", seq_len(terra::nlyr(s4)))
 #'
 #' # print solution
 #' print(s4)
@@ -172,17 +181,16 @@ NULL
 #' # plot solution
 #' # each panel corresponds to a different zone, and data show the
 #' # status of each planning unit in a given zone
-#' plot(s4, main = paste0("zone ", seq_len(nlayers(s4))), axes = FALSE,
-#'      box = FALSE)
+#' plot(s4, axes = FALSE)
 #'
 #' # calculate importance scores
 #' rc4 <- eval_replacement_importance(p4, s4)
+#' names(rc4) <- paste0("zone ", seq_len(terra::nlyr(s4)))
 #'
 #' # plot importance
 #' # each panel corresponds to a different zone, and data show the
 #' # importance of each planning unit in a given zone
-#' plot(rc4, main = paste0("zone ", seq_len(nlayers(s4))), axes = FALSE,
-#'      box = FALSE)
+#' plot(rc4, axes = FALSE)
 #' }
 #'
 #' @references
@@ -190,7 +198,7 @@ NULL
 #' value for cost-effective reserve planning. *Biological Conservation*,
 #' 132: 336--342.
 #'
-#' @aliases eval_replacement_importance,ConservationProblem,numeric-method eval_replacement_importance,ConservationProblem,matrix-method eval_replacement_importance,ConservationProblem,data.frame-method eval_replacement_importance,ConservationProblem,Spatial-method eval_replacement_importance,ConservationProblem,sf-method eval_replacement_importance,ConservationProblem,Raster-method
+#' @aliases eval_replacement_importance,ConservationProblem,numeric-method eval_replacement_importance,ConservationProblem,matrix-method eval_replacement_importance,ConservationProblem,data.frame-method eval_replacement_importance,ConservationProblem,Spatial-method eval_replacement_importance,ConservationProblem,sf-method eval_replacement_importance,ConservationProblem,Raster-method eval_replacement_importance,ConservationProblem,SpatRaster-method
 #'
 #' @name eval_replacement_importance
 #'
@@ -199,8 +207,21 @@ NULL
 #' @exportMethod eval_replacement_importance
 methods::setGeneric("eval_replacement_importance",
   function(x, solution, ...) {
-  standardGeneric("eval_replacement_importance")
-})
+    assert_required(x)
+    assert_required(solution)
+    assert(
+      is_conservation_problem(x),
+      is_inherits(
+        solution,
+        c(
+          "numeric", "data.frame", "matrix", "sf", "SpatRaster",
+          "Spatial", "Raster"
+        )
+      )
+    )
+    standardGeneric("eval_replacement_importance")
+  }
+)
 
 #' @name eval_replacement_importance
 #' @usage \S4method{eval_replacement_importance}{ConservationProblem,numeric}(x, solution, rescale, run_checks, force, threads, ...)
@@ -210,9 +231,8 @@ methods::setMethod("eval_replacement_importance",
   function(x, solution, rescale = TRUE, run_checks = TRUE, force = FALSE,
            threads = 1L, ...) {
     # assert valid arguments
-    assertthat::assert_that(
-      is.numeric(solution),
-      no_extra_arguments(...))
+    assert(is.numeric(solution))
+    assert_dots_empty()
     # extract planning unit solution status
     status <- planning_unit_solution_status(x, solution)
     # subset planning units with finite cost values
@@ -220,13 +240,15 @@ methods::setMethod("eval_replacement_importance",
     pos <- which(status > 1e-10)
     # calculate replacement costs
     v <- internal_eval_replacement_importance(
-      x, pos, rescale, run_checks, force, threads)
+      x, pos, rescale, run_checks, force, threads
+    )
     # return replacement costs
     out <- rep(NA_real_, x$number_of_total_units())
     out[idx] <- 0
     out[idx[pos]] <- c(v)
     out
-})
+  }
+)
 
 #' @name eval_replacement_importance
 #' @usage \S4method{eval_replacement_importance}{ConservationProblem,matrix}(x, solution, rescale, run_checks, force, threads, ...)
@@ -236,21 +258,30 @@ methods::setMethod("eval_replacement_importance",
   function(x, solution, rescale = TRUE, run_checks = TRUE, force = FALSE,
            threads = 1L, ...) {
     # assert valid arguments
-    assertthat::assert_that(
-      is.matrix(solution), is.numeric(solution),
-      no_extra_arguments(...))
+    assert(
+      is.matrix(solution),
+      is.numeric(solution)
+    )
+    assert_dots_empty()
     # extract data
     status <- planning_unit_solution_status(x, solution)
     # extract planning units in solution
     pos <- which(status > 1e-10)
     # calculate replacement costs
     v <- internal_eval_replacement_importance(
-      x, pos, rescale, run_checks, force, threads)
+      x, pos, rescale, run_checks, force, threads
+    )
     # initialize matrix
-    m_total <- matrix(NA_real_, nrow = x$number_of_total_units(),
-                      ncol = x$number_of_zones())
-    m_pu <- matrix(0, nrow = x$number_of_planning_units(),
-                   ncol = x$number_of_zones())
+    m_total <- matrix(
+      NA_real_,
+      nrow = x$number_of_total_units(),
+      ncol = x$number_of_zones()
+    )
+    m_pu <- matrix(
+      0,
+      nrow = x$number_of_planning_units(),
+      ncol = x$number_of_zones()
+    )
     m_pu[pos] <- c(v)
     m_pu[is.na(x$planning_unit_costs())] <- NA_real_
     m_total[x$planning_unit_indices(), ] <- m_pu
@@ -262,7 +293,8 @@ methods::setMethod("eval_replacement_importance",
     }
     # return result
     m_total
-})
+  }
+)
 
 #' @name eval_replacement_importance
 #' @usage \S4method{eval_replacement_importance}{ConservationProblem,data.frame}(x, solution, rescale, run_checks, force, threads, ...)
@@ -272,21 +304,27 @@ methods::setMethod("eval_replacement_importance",
   function(x, solution, rescale = TRUE, run_checks = TRUE, force = FALSE,
            threads = 1L, ...) {
     # assert valid arguments
-    assertthat::assert_that(
-      is.data.frame(solution),
-      no_extra_arguments(...))
+    assert(is.data.frame(solution))
+    assert_dots_empty()
     # extract data
     status <- planning_unit_solution_status(x, solution)
     # extract planning units in solution
     pos <- which(status > 1e-10)
     # calculate replacement costs
     v <- internal_eval_replacement_importance(
-      x, pos, rescale, run_checks, force, threads)
+      x, pos, rescale, run_checks, force, threads
+    )
     # initialize matrix
-    m_total <- matrix(NA_real_, nrow = x$number_of_total_units(),
-                      ncol = x$number_of_zones())
-    m_pu <- matrix(0, nrow = x$number_of_planning_units(),
-                   ncol = x$number_of_zones())
+    m_total <- matrix(
+      NA_real_,
+      nrow = x$number_of_total_units(),
+      ncol = x$number_of_zones()
+    )
+    m_pu <- matrix(
+      0,
+      nrow = x$number_of_planning_units(),
+      ncol = x$number_of_zones()
+    )
     m_pu[pos] <- c(v)
     m_pu[is.na(x$planning_unit_costs())] <- NA_real_
     m_total[x$planning_unit_indices(), ] <- m_pu
@@ -298,7 +336,8 @@ methods::setMethod("eval_replacement_importance",
     }
     # return result
     tibble::as_tibble(m_total)
-})
+  }
+)
 
 #' @name eval_replacement_importance
 #' @usage \S4method{eval_replacement_importance}{ConservationProblem,Spatial}(x, solution, rescale, run_checks, force, threads, ...)
@@ -308,22 +347,35 @@ methods::setMethod("eval_replacement_importance",
   function(x, solution, rescale = TRUE, run_checks = TRUE, force = FALSE,
            threads = 1L, ...) {
     # assert valid arguments
-    assertthat::assert_that(
-      inherits(solution, c("SpatialPointsDataFrame", "SpatialLinesDataFrame",
-                           "SpatialPolygonsDataFrame")),
-      no_extra_arguments(...))
+    assert(
+      is_inherits(
+        solution,
+        c(
+          "SpatialPointsDataFrame", "SpatialLinesDataFrame",
+          "SpatialPolygonsDataFrame"
+        )
+      )
+    )
+    assert_dots_empty()
     # extract data
     status <- planning_unit_solution_status(x, solution)
     # extract planning units in solution
     pos <- which(status > 1e-10)
     # calculate replacement costs
     v <- internal_eval_replacement_importance(
-      x, pos, rescale, run_checks, force, threads)
+      x, pos, rescale, run_checks, force, threads
+    )
     # initialize matrix
-    m_total <- matrix(NA_real_, nrow = x$number_of_total_units(),
-                      ncol = x$number_of_zones())
-    m_pu <- matrix(0, nrow = x$number_of_planning_units(),
-                   ncol = x$number_of_zones())
+    m_total <- matrix(
+      NA_real_,
+      nrow = x$number_of_total_units(),
+      ncol = x$number_of_zones()
+    )
+    m_pu <- matrix(
+      0,
+      nrow = x$number_of_planning_units(),
+      ncol = x$number_of_zones()
+    )
     m_pu[pos] <- c(v)
     m_pu[is.na(x$planning_unit_costs())] <- NA_real_
     m_total[x$planning_unit_indices(), ] <- m_pu
@@ -338,7 +390,8 @@ methods::setMethod("eval_replacement_importance",
     rownames(out) <- rownames(solution@data)
     solution@data <- out
     solution
-})
+  }
+)
 
 #' @name eval_replacement_importance
 #' @usage \S4method{eval_replacement_importance}{ConservationProblem,sf}(x, solution, rescale, run_checks, force, threads, ...)
@@ -348,21 +401,27 @@ methods::setMethod("eval_replacement_importance",
   function(x, solution, rescale = TRUE, run_checks = TRUE, force = FALSE,
            threads = 1L, ...) {
     # assert valid arguments
-    assertthat::assert_that(
-      inherits(solution, "sf"),
-      no_extra_arguments(...))
+    assert(inherits(solution, "sf"))
+    assert_dots_empty()
     # extract data
     status <- planning_unit_solution_status(x, solution)
     # extract planning units in solution
     pos <- which(status > 1e-10)
     # calculate replacement costs
     v <- internal_eval_replacement_importance(
-      x, pos, rescale, run_checks, force, threads)
+      x, pos, rescale, run_checks, force, threads
+    )
     # initialize matrix
-    m_total <- matrix(NA_real_, nrow = x$number_of_total_units(),
-                      ncol = x$number_of_zones())
-    m_pu <- matrix(0, nrow = x$number_of_planning_units(),
-                   ncol = x$number_of_zones())
+    m_total <- matrix(
+      NA_real_,
+      nrow = x$number_of_total_units(),
+      ncol = x$number_of_zones()
+    )
+    m_pu <- matrix(
+      0,
+      nrow = x$number_of_planning_units(),
+      ncol = x$number_of_zones()
+    )
     m_pu[pos] <- c(v)
     m_pu[is.na(x$planning_unit_costs())] <- NA_real_
     m_total[x$planning_unit_indices(), ] <- m_pu
@@ -374,10 +433,10 @@ methods::setMethod("eval_replacement_importance",
     }
     # return result
     out <- tibble::as_tibble(as.data.frame(m_total))
-    sf::st_as_sf(
-      out, geometry = sf::st_geometry(x$data$cost),
-      crs = sf::st_crs(x$data$cost))
-})
+    out$geometry <- sf::st_geometry(x$data$cost)
+    sf::st_sf(out, crs = sf::st_crs(x$data$cost))
+  }
+)
 
 #' @name eval_replacement_importance
 #' @usage \S4method{eval_replacement_importance}{ConservationProblem,Raster}(x, solution, rescale, run_checks, force, threads, ...)
@@ -386,19 +445,22 @@ methods::setMethod("eval_replacement_importance",
   methods::signature("ConservationProblem", "Raster"),
   function(x, solution, rescale = TRUE, run_checks = TRUE, force = FALSE,
            threads = 1L, ...) {
-    assertthat::assert_that(
-      inherits(solution, "Raster"),
-      no_extra_arguments(...))
+    assert(inherits(solution, "Raster"))
+    assert_dots_empty()
     # extract data
     status <- planning_unit_solution_status(x, solution)
     # extract planning units in solution
     pos <- which(status > 1e-10)
     # calculate replacement costs
     v <- internal_eval_replacement_importance(
-      x, pos, rescale, run_checks, force, threads)
+      x, pos, rescale, run_checks, force, threads
+    )
     # initialize matrix
-    m_pu <- matrix(0, nrow = x$number_of_planning_units(),
-                   ncol = x$number_of_zones())
+    m_pu <- matrix(
+      0,
+      nrow = x$number_of_planning_units(),
+      ncol = x$number_of_zones()
+    )
     m_pu[pos] <- c(v)
     m_pu[is.na(x$planning_unit_costs())] <- NA_real_
     # add column names to matrix
@@ -420,32 +482,99 @@ methods::setMethod("eval_replacement_importance",
     }
     names(out) <- colnames(m_pu)
     out
-})
+  }
+)
 
-internal_eval_replacement_importance <- function(
-  x, indices, rescale, run_checks, force, threads = 1L) {
-  assertthat::assert_that(
-    inherits(x, "ConservationProblem"),
-    is.integer(indices), length(indices) > 0,
+#' @name eval_replacement_importance
+#' @usage \S4method{eval_replacement_importance}{ConservationProblem,SpatRaster}(x, solution, rescale, run_checks, force, threads, ...)
+#' @rdname eval_replacement_importance
+methods::setMethod("eval_replacement_importance",
+  methods::signature("ConservationProblem", "SpatRaster"),
+  function(x, solution, rescale = TRUE, run_checks = TRUE, force = FALSE,
+           threads = 1L, ...) {
+    assert(inherits(solution, "SpatRaster"))
+    assert_dots_empty()
+    # extract data
+    status <- planning_unit_solution_status(x, solution)
+    # extract planning units in solution
+    pos <- which(status > 1e-10)
+    # calculate replacement costs
+    v <- internal_eval_replacement_importance(
+      x, pos, rescale, run_checks, force, threads
+    )
+    # initialize matrix
+    m_pu <- matrix(
+      0,
+      nrow = x$number_of_planning_units(),
+      ncol = x$number_of_zones()
+    )
+    m_pu[pos] <- c(v)
+    m_pu[is.na(x$planning_unit_costs())] <- NA_real_
+    # add column names to matrix
+    if (x$number_of_zones() > 1) {
+      colnames(m_pu) <- paste0("rc_", x$zone_names())
+    } else {
+      colnames(m_pu) <- "rc"
+    }
+    # return result
+    out <- terra::as.list(solution)
+    for (i in seq_along(out)) {
+      out[[i]][x$planning_unit_indices()] <- m_pu[, i]
+      out[[i]][is.na(solution[[i]])] <- NA_real_
+    }
+    out <- terra::rast(out)
+    names(out) <- colnames(m_pu)
+    out
+  }
+)
+
+internal_eval_replacement_importance <- function(x, indices, rescale,
+                                                 run_checks, force,
+                                                 threads = 1,
+                                                 call = fn_caller_env()) {
+  # assert valid arguments
+  assert(
+    is_conservation_problem(x),
+    is.integer(indices),
+    length(indices) > 0,
     assertthat::is.flag(rescale),
     assertthat::is.flag(run_checks),
     assertthat::is.flag(force),
-    isTRUE(all(is.finite(threads))),
-    assertthat::is.count(threads),
-    isTRUE(threads <= parallel::detectCores(TRUE)))
-  # assign default solver and portfolio
+    is_thread_count(threads),
+    call = call
+  )
+  # assign default solver
   if (inherits(x$solver, "Waiver"))
     x <- add_default_solver(x)
-  x <- add_default_portfolio(x)
+  # overwrite portfolio
+  x <- add_shuffle_portfolio(x, 1)
+  # compile problem
+  opt <- compile.ConservationProblem(x)
   # run presolve check to try to identify potential problems
   if (run_checks) {
-    ch <- presolve_check(x)
-    if (!isTRUE(force) && !isTRUE(ch))
-      stop(paste("problem failed presolve checks. For more information see",
-                 "?presolve_check"))
+    ## run checks
+    presolve_res <- internal_presolve_check(opt)
+    ## prepare message
+    msg <- presolve_res$msg
+    if (!isTRUE(force)) {
+      msg <- c(
+        msg,
+        "i" = paste(
+          "To ignore checks and attempt optimization anyway,",
+          "use {.code solve(force = TRUE)}."
+        )
+      )
+    }
+    ## determine if error or warning should be thrown
+    if (!isTRUE(force)) {
+      f <- assert
+    } else {
+      f <- verify
+    }
+    ## throw error or warning if checks failed
+    f(isTRUE(presolve_res$pass), call = parent.frame(), msg = msg)
   }
-  # construct problem
-  opt <- compile.ConservationProblem(x)
+  # solve problem
   x$solver$calculate(opt)
   modelsense <- opt$modelsense()
   rm(opt)
@@ -455,47 +584,65 @@ internal_eval_replacement_importance <- function(
   # generate objective value for solution if unknown
   solution_obj <- x$solver$run()
   if (is.null(solution_obj) || is.null(solution_obj$x))
-    stop("argument to solution is infeasible for this problem")
+    cli::cli_abort(
+      "{.arg solution} is not feasible solution for the problem {.arg x}",
+      call = call
+    )
   solution_obj <- solution_obj[[2]]
-  # prepare cluster for parallel processing
-  if (isTRUE(threads > 1L)) {
-    # initialize cluster
-    cl <- parallel::makeCluster(threads, "PSOCK")
-    # move data to workers
-    parallel::clusterExport(cl, c("indices", "x"), envir = environment())
-    # set default cluster
-    doParallel::registerDoParallel(cl)
+  # define function for processing
+  calculate_alt_solution_obj <- function(y) {
+    vapply(
+      indices[y],
+      FUN.VALUE = numeric(1),
+      function(i) {
+        # lock out i'th selected planning unit in solution
+        x$solver$set_variable_lb(i, 0)
+        x$solver$set_variable_ub(i, 0)
+        # solve problem
+        sol <- x$solver$run()
+        # check that solution is valid
+        if (is.null(sol) || is.null(sol$x)) {
+          out <- Inf
+        } else {
+          out <- sol[[2]]
+        }
+        # reset upper bound
+        x$solver$set_variable_lb(i, 1)
+        x$solver$set_variable_ub(i, 1)
+        # return result
+        out
+      }
+    )
   }
   # iterate over decision variables in solution and store new objective values
-  alt_solution_obj <- plyr::llply(distribute_load(length(indices), threads),
-                                  .parallel = isTRUE(threads > 1),
-                                  .fun = function(y) {
-    vapply(indices[y], FUN.VALUE = numeric(1), function(i) {
-      # lock out i'th selected planning unit in solution
-      x$solver$set_variable_lb(i, 0)
-      x$solver$set_variable_ub(i, 0)
-      # solve problem
-      sol <- x$solver$run()
-      # check that solution is valid
-      if (is.null(sol) || is.null(sol$x)) {
-        out <- Inf
-      } else {
-        out <- sol[[2]]
-      }
-      # reset upper bound
-      x$solver$set_variable_lb(i, 1)
-      x$solver$set_variable_ub(i, 1)
-      # return result
-      out
-    })
-  })
-  alt_solution_obj <- unlist(alt_solution_obj, recursive = TRUE,
-                             use.names = FALSE)
-  # kill works if needed
   if (isTRUE(threads > 1L)) {
-    doParallel::stopImplicitCluster()
-    cl <- parallel::stopCluster(cl)
+    ## initialize cluster
+    cl <- parallel::makeCluster(threads, "PSOCK")
+    ## prepare cluster clean up
+    on.exit(try(cl <- parallel::stopCluster(cl), silent = TRUE))
+    ## move data to workers
+    parallel::clusterExport(
+      cl,
+      c("indices", "x", "calculate_alt_solution_obj"),
+      envir = environment()
+    )
+    ## main processing
+    alt_solution_obj <- parallel::parLapply(
+      cl,
+      parallel::splitIndices(length(indices), threads),
+      calculate_alt_solution_obj
+    )
+  } else {
+    ## main processing
+    alt_solution_obj <- lapply(
+      parallel::splitIndices(length(indices), threads),
+      calculate_alt_solution_obj
+    )
   }
+  # reformat output
+  alt_solution_obj <- unlist(
+    alt_solution_obj, recursive = TRUE, use.names = FALSE
+  )
   # calculate replacement costs
   out <- alt_solution_obj - solution_obj
   if (identical(modelsense, "max")) # rescale values if maximization problem

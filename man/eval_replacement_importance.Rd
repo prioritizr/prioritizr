@@ -8,6 +8,7 @@
 \alias{eval_replacement_importance,ConservationProblem,Spatial-method}
 \alias{eval_replacement_importance,ConservationProblem,sf-method}
 \alias{eval_replacement_importance,ConservationProblem,Raster-method}
+\alias{eval_replacement_importance,ConservationProblem,SpatRaster-method}
 \title{Evaluate solution importance using replacement cost scores}
 \usage{
 eval_replacement_importance(x, solution, ...)
@@ -23,13 +24,14 @@ eval_replacement_importance(x, solution, ...)
 \S4method{eval_replacement_importance}{ConservationProblem,sf}(x, solution, rescale, run_checks, force, threads, ...)
 
 \S4method{eval_replacement_importance}{ConservationProblem,Raster}(x, solution, rescale, run_checks, force, threads, ...)
+
+\S4method{eval_replacement_importance}{ConservationProblem,SpatRaster}(x, solution, rescale, run_checks, force, threads, ...)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) object.}
+\item{x}{\code{\link[=problem]{problem()}} object.}
 
 \item{solution}{\code{numeric}, \code{matrix}, \code{data.frame},
-\code{\linkS4class{Raster}}, \code{\linkS4class{Spatial}},
-or \code{\link[sf:sf]{sf::sf()}} object.
+\code{\link[terra:rast]{terra::rast()}}, or \code{\link[sf:sf]{sf::sf()}} object.
 The argument should be in the same format as the planning unit cost
 data in the argument to \code{x}.
 See the Solution format section for more information.}
@@ -37,7 +39,7 @@ See the Solution format section for more information.}
 \item{...}{not used.}
 
 \item{rescale}{\code{logical} flag indicating if replacement cost
-values---excepting infinite (\code{Inf}) and zero values---should be
+values -- excepting infinite (\code{Inf}) and zero values -- should be
 rescaled to range between 0.01 and 1. Defaults to \code{TRUE}.}
 
 \item{run_checks}{\code{logical} flag indicating whether presolve checks
@@ -45,7 +47,7 @@ should be run prior solving the problem. These checks are performed using
 the \code{\link[=presolve_check]{presolve_check()}} function. Defaults to \code{TRUE}.
 Skipping these checks may reduce run time for large problems.}
 
-\item{force}{\code{logical} flag indicating if an attempt to should be
+\item{force}{\code{logical} flag indicating if an attempt should be
 made to solve the problem even if potential issues were detected during
 the presolve checks. Defaults to \code{FALSE}.}
 
@@ -54,9 +56,9 @@ optimization algorithm. Defaults to 1 such that only a single
 thread is used.}
 }
 \value{
-A \code{numeric}, \code{matrix}, \code{data.frame}
-\code{\linkS4class{RasterLayer}}, \code{\linkS4class{Spatial}},
-or \code{\link[sf:sf]{sf::sf()}} object containing the importance scores for each planning
+A \code{numeric}, \code{matrix}, \code{data.frame},
+\code{\link[terra:rast]{terra::rast()}}, or \code{\link[sf:sf]{sf::sf()}} object
+containing the importance scores for each planning
 unit in the solution. Specifically, the returned object is in the
 same format as the planning unit data in the argument to \code{x}.
 }
@@ -86,13 +88,13 @@ each planning unit is locked out. Infinite values mean that no feasible
 solution exists when planning units are locked out---they are
 absolutely essential for obtaining a solution (e.g., they contain rare
 species that are not found in any other planning units or were locked in).
-Zeros values mean that planning units can swapped with other planning units
-and this will have no effect on the performance of the solution at all
+Zeros values mean that planning units can be swapped with other planning
+units and this will have no effect on the performance of the solution at all
 (e.g., because they were only selected due to spatial fragmentation
 penalties).
 
 These calculations can take a long time to complete for large
-or complex conservation planning problems. As such, we using this
+or complex conservation planning problems. As such, we recommend using this
 method for small or moderate-sized conservation planning problems
 (e.g., < 30,000 planning units). To reduce run time, we
 recommend calculating these scores without additional penalties (e.g.,
@@ -127,8 +129,8 @@ missing cost (\code{NA}) values for a particular zone should also have a
 missing (\code{NA}) values in the argument to \code{solution}.
 }
 
-\item{\code{x} has \code{\linkS4class{Raster}} planning units}{The argument to \code{solution}
-be a \code{\linkS4class{Raster}} object where different grid cells (pixels) correspond
+\item{\code{x} has \code{\link[terra:rast]{terra::rast()}} planning units}{The argument to \code{solution}
+be a \code{\link[terra:rast]{terra::rast()}} object where different grid cells (pixels) correspond
 to different planning units and layers correspond to
 a different management zones. It should have the same dimensionality
 (rows, columns, layers), resolution, extent, and coordinate reference
@@ -145,20 +147,6 @@ object containing the solution also contains additional columns, then
 these columns will need to be subsetted prior to using this function
 (see below for example with \code{\link[sf:sf]{sf::sf()}} data).
 Additionally, any planning units missing cost
-(\code{NA}) values for a particular zone should also have missing (\code{NA})
-values in the argument to \code{solution}.
-}
-
-\item{\code{x} has \code{\linkS4class{Spatial}} planning units}{The argument to \code{solution}
-must be a \code{\linkS4class{Spatial}} object with each column corresponding to a
-different zone, each row corresponding to a different planning unit, and
-cell values corresponding to the solution value. This means that if the
-\code{\linkS4class{Spatial}} object containing the solution also contains additional
-columns, then these columns will need to be subsetted prior to using this
-function (see below for example with \code{\link[sf:sf]{sf::sf()}} data).
-Additionally, the argument to \code{solution} must also have the same
-coordinate reference system as the planning unit data.
-Furthermore, any planning units missing cost
 (\code{NA}) values for a particular zone should also have missing (\code{NA})
 values in the argument to \code{solution}.
 }
@@ -185,14 +173,20 @@ values in the argument to \code{solution}.
 set.seed(600)
 
 # load data
-data(sim_pu_raster, sim_features, sim_pu_zones_stack, sim_features_zones)
+sim_pu_raster <- get_sim_pu_raster()
+sim_pu_polygons <- get_sim_pu_polygons()
+sim_features <- get_sim_features()
+sim_zones_pu_raster <- get_sim_zones_pu_raster()
+sim_zones_features <- get_sim_zones_features()
 
 # create minimal problem with binary decisions
-p1 <- problem(sim_pu_raster, sim_features) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(0.1) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(gap = 0, verbose = FALSE)
+p1 <-
+  problem(sim_pu_raster, sim_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.1) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(gap = 0, verbose = FALSE)
+
 # solve problem
 s1 <- solve(p1)
 
@@ -200,7 +194,7 @@ s1 <- solve(p1)
 print(s1)
 
 # plot solution
-plot(s1, main = "solution", axes = FALSE, box = FALSE)
+plot(s1, main = "solution", axes = FALSE)
 
 # calculate importance scores
 rc1 <- eval_replacement_importance(p1, s1)
@@ -209,18 +203,19 @@ rc1 <- eval_replacement_importance(p1, s1)
 print(rc1)
 
 # plot importance scores
-plot(rc1, main = "replacement cost", axes = FALSE, box = FALSE)
+plot(rc1, main = "replacement cost", axes = FALSE)
 
 # since replacement cost scores can take a long time to calculate with
 # binary decisions, we can calculate them using proportion-type
 # decision variables. Note we are still calculating the scores for our
 # previous solution (s1), we are just using a different optimization
 # problem when calculating the scores.
-p2 <- problem(sim_pu_raster, sim_features) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(0.1) \%>\%
-      add_proportion_decisions() \%>\%
-      add_default_solver(gap = 0, verbose = FALSE)
+p2 <-
+  problem(sim_pu_raster, sim_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.1) \%>\%
+  add_proportion_decisions() \%>\%
+  add_default_solver(gap = 0, verbose = FALSE)
 
 # calculate importance scores using proportion type decisions
 rc2 <- eval_replacement_importance(p2, s1)
@@ -232,14 +227,15 @@ print(rc2)
 # we can see that the importance values in rc1 and rc2 are similar,
 # and this confirms that the proportion type decisions are a good
 # approximation
-plot(rc2, main = "replacement cost", axes = FALSE, box = FALSE)
+plot(rc2, main = "replacement cost", axes = FALSE)
 
-# create minimal problem with polygon (sf) planning units
-p3 <- problem(sim_pu_sf, sim_features, cost_column = "cost") \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(0.05) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(gap = 0, verbose = FALSE)
+# create minimal problem with polygon planning units
+p3 <-
+  problem(sim_pu_polygons, sim_features, cost_column = "cost") \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.05) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(gap = 0, verbose = FALSE)
 
 # solve problem
 s3 <- solve(p3)
@@ -257,15 +253,16 @@ rc3 <- eval_rare_richness_importance(p3, s3[, "solution_1"])
 plot(rc3, main = "replacement cost")
 
 # build multi-zone conservation problem with raster data
-p4 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
-                                  ncol = 3)) \%>\%
-      add_binary_decisions() \%>\%
-      add_default_solver(gap = 0, verbose = FALSE)
+p4 <-
+  problem(sim_zones_pu_raster, sim_zones_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5, ncol = 3)) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(gap = 0, verbose = FALSE)
 
 # solve the problem
 s4 <- solve(p4)
+names(s4) <- paste0("zone ", seq_len(terra::nlyr(s4)))
 
 # print solution
 print(s4)
@@ -273,17 +270,16 @@ print(s4)
 # plot solution
 # each panel corresponds to a different zone, and data show the
 # status of each planning unit in a given zone
-plot(s4, main = paste0("zone ", seq_len(nlayers(s4))), axes = FALSE,
-     box = FALSE)
+plot(s4, axes = FALSE)
 
 # calculate importance scores
 rc4 <- eval_replacement_importance(p4, s4)
+names(rc4) <- paste0("zone ", seq_len(terra::nlyr(s4)))
 
 # plot importance
 # each panel corresponds to a different zone, and data show the
 # importance of each planning unit in a given zone
-plot(rc4, main = paste0("zone ", seq_len(nlayers(s4))), axes = FALSE,
-     box = FALSE)
+plot(rc4, axes = FALSE)
 }
 
 }

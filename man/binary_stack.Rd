@@ -2,40 +2,50 @@
 % Please edit documentation in R/binary_stack.R
 \name{binary_stack}
 \alias{binary_stack}
+\alias{binary_stack.Raster}
+\alias{binary_stack.SpatRaster}
 \title{Binary stack}
 \usage{
 binary_stack(x)
+
+\method{binary_stack}{Raster}(x)
+
+\method{binary_stack}{SpatRaster}(x)
 }
 \arguments{
-\item{x}{\code{\linkS4class{Raster}} object containing a single layer.}
+\item{x}{\code{\link[terra:rast]{terra::rast()}} object with a single layer.}
 }
 \value{
-\code{\linkS4class{RasterStack}} object.
+A \code{\link[terra:rast]{terra::rast()}} object.
 }
 \description{
-Convert a \code{\linkS4class{RasterLayer}} object containing
-categorical identifiers into a \code{\linkS4class{RasterStack}}
-object where each layer corresponds to a different identifier and values
-indicate the presence/absence of that category in the input object.
+Convert a \code{\link[terra:rast]{terra::rast()}} object containing
+integer/categorical values into a raster
+object where each layer corresponds to a different integer/categorical
+value and pixel values denote the presence/absence of the given
+integer/categorical values.
 }
 \details{
 This function is provided to help manage data that encompass
 multiple management zones. For instance, this function may be helpful
 for preparing raster data for \code{\link[=add_locked_in_constraints]{add_locked_in_constraints()}} and
 \code{\link[=add_locked_out_constraints]{add_locked_out_constraints()}} since they require binary
-\code{\linkS4class{RasterStack}} objects as input arguments.
+rasters as input arguments.
+It is essentially a wrapper for \code{\link[terra:segregate]{terra::segregate()}}.
 }
 \examples{
-# create raster with categorical identifers
-x <- raster(matrix(c(1, 2, 3, 1, NA, 1), nrow = 3))
+# create raster with categorical values
+x <- terra::rast(matrix(c(1, 2, 3, 1, NA, 1), nrow = 3))
+
+# plot the raster
+plot(x, main = "x")
 
 # convert to binary stack
 y <- binary_stack(x)
 
-# plot categorical raster and binary stack representation
+# plot result
 \dontrun{
-plot(stack(x, y), main = c("x", "y[[1]]", "y[[2]]", "y[[3]]"),
-     nr = 1)
+plot(y)
 }
 }
 \seealso{

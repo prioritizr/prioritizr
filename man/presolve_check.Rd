@@ -6,29 +6,30 @@
 \alias{presolve_check.OptimizationProblem}
 \title{Presolve check}
 \usage{
-presolve_check(x)
+presolve_check(x, warn = TRUE)
 
-\method{presolve_check}{ConservationProblem}(x)
+\method{presolve_check}{ConservationProblem}(x, warn = TRUE)
 
-\method{presolve_check}{OptimizationProblem}(x)
+\method{presolve_check}{OptimizationProblem}(x, warn = TRUE)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} (i.e., \code{\linkS4class{ConservationProblem}}) or
-\code{\linkS4class{OptimizationProblem}} object.}
+\item{x}{\code{\link[=problem]{problem()}} or \code{\link[=optimization_problem]{optimization_problem()}} object.}
+
+\item{warn}{\code{logical} should a warning be thrown if the presolve checks fail?
+Defaults to \code{TRUE}.}
 }
 \value{
-\code{logical} value indicating if all checks are passed
-successfully.
+A \code{logical} value indicating if all checks passed successfully.
 }
 \description{
-Check a conservation planning \code{\link[=problem]{problem()}} for potential issues
+Check a conservation planning problem for potential issues
 before trying to solve it. Specifically, problems are checked for (i) values
 that are likely to result in "strange" solutions and (ii) values that are
 likely to cause numerical instability issues and lead to unreasonably long
 run times when solving it. Although these checks are provided to help
 diagnose potential issues, please be aware that some detected issues may be
 false positives. Please note that these checks will not be able to
-verify if  a problem has a feasible solution or not.
+verify if a problem has a feasible solution or not.
 }
 \details{
 This function checks for issues that are likely to result in
@@ -123,13 +124,15 @@ at all.
 set.seed(500)
 
 # load data
-data(sim_pu_raster, sim_features)
+sim_pu_raster <- get_sim_pu_raster()
+sim_features <- get_sim_features()
 
 # create minimal problem with no issues
-p1 <- problem(sim_pu_raster, sim_features) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(0.1) \%>\%
-      add_binary_decisions()
+p1 <-
+  problem(sim_pu_raster, sim_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.1) \%>\%
+  add_binary_decisions()
 
 # run presolve checks
 # note that no warning is thrown which suggests that we should not
@@ -141,10 +144,11 @@ print(presolve_check(p1))
 # to solve it
 sim_pu_raster2 <- sim_pu_raster
 sim_pu_raster2[1] <- 1e+15
-p2 <- problem(sim_pu_raster2, sim_features) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(0.1) \%>\%
-      add_binary_decisions()
+p2 <-
+  problem(sim_pu_raster2, sim_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.1) \%>\%
+  add_binary_decisions()
 
 # run presolve checks
 # note that a warning is thrown which suggests that we might encounter
@@ -156,11 +160,12 @@ print(presolve_check(p2))
 # a really high penalty value that is likely to cause numerical instability
 # issues when trying to solve the it
 cm <- adjacency_matrix(sim_pu_raster)
-p3 <- problem(sim_pu_raster, sim_features) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(0.1) \%>\%
-      add_connectivity_penalties(1e+15, data = cm) \%>\%
-      add_binary_decisions()
+p3 <-
+  problem(sim_pu_raster, sim_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.1) \%>\%
+  add_connectivity_penalties(1e+15, data = cm) \%>\%
+  add_binary_decisions()
 
 # run presolve checks
 # note that a warning is thrown which suggests that we might encounter
@@ -169,15 +174,16 @@ print(presolve_check(p3))
 
 # let's forcibly solve the problem using Gurobi and tell it to
 # be extra careful about numerical instability problems
-s3 <- p3 \%>\%
-      add_gurobi_solver(numeric_focus = TRUE) \%>\%
-      solve(force = TRUE)
+s3 <-
+   p3 \%>\%
+   add_gurobi_solver(numeric_focus = TRUE) \%>\%
+   solve(force = TRUE)
 
 # plot solution
 # we can see that all planning units were selected because the connectivity
 # penalty is so high that cost becomes irrelevant, so we should try using
 # a much lower penalty value
-plot(s3, main = "solution", axes = FALSE, box = FALSE)
+plot(s3, main = "solution", axes = FALSE)
 }
 }
 \seealso{

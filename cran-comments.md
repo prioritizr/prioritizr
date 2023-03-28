@@ -1,6 +1,6 @@
-Dear CRAN maintainers,
+Dear CRAN volunteers,
 
-Thank you for reviewing this submission. This submission provides substantial improvements to the package documentation; compatibility with updates to the _sf_, _gurobi_, _Matrix_ packages; reduces the number of hard dependencies; replaces the archived optional dependency _RandomFields_ with another dependency that is available on CRAN; adds new functions (such as `add_asym_connectivity_penalties()`); and includes assorted minor bug fixes (see NEWS.md for full list). It also address the compiler warnings and _exactextractr_ NOTE raised by CRAN's package checks.
+Thank you for reviewing this submission. This submission provides substantial improvements to the package documentation, error messages, and performance (please see NEWS.md for full list). It has been updated to address the C++ specification note detected by CRAN's package checks.
 
 Cheers,
 

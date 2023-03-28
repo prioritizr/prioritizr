@@ -1,4 +1,4 @@
-#' @include internal.R Parameters-proto.R Decision-proto.R
+#' @include internal.R Decision-class.R
 NULL
 
 #' Add decision types
@@ -8,7 +8,7 @@ NULL
 #' turning an entire planning unit into a protected area, turning part
 #' of a planning unit into a protected area, or allocating a planning
 #' unit to a specific management zone. If no decision is explicitly added to a
-#' [problem()], then binary decisions will be used by default.
+#' problem, then binary decisions will be used by default.
 #'
 #' @details Only a single type of decision can be added to a conservation
 #'   planning [problem()]. Note that if multiple decisions are added
@@ -48,14 +48,17 @@ NULL
 #' @family overviews
 #'
 #' @examples
+#' \dontrun{
 #' # load data
-#' data(sim_pu_raster, sim_features)
+#' sim_pu_raster <- get_sim_pu_raster()
+#' sim_features <- get_sim_features()
 #'
 #' # create basic problem and using the default decision types (binary)
-#' p1 <- problem(sim_pu_raster, sim_features) %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(0.1) %>%
-#'       add_default_solver(verbose = FALSE)
+#' p1 <-
+#'   problem(sim_pu_raster, sim_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(0.1) %>%
+#'   add_default_solver(verbose = FALSE)
 #'
 #' # create problem with manually specified binary decisions
 #' p2 <- p1 %>% add_binary_decisions()
@@ -66,13 +69,14 @@ NULL
 #' # create problem with semicontinuous decisions
 #' p4 <- p1 %>% add_semicontinuous_decisions(upper_limit = 0.5)
 #'
-#' \dontrun{
 #' # solve problem
-#' s <- stack(solve(p1), solve(p2), solve(p3), solve(p4))
-#'
+#' s <- c(solve(p1), solve(p2), solve(p3), solve(p4))
+#' names(s) <- c(
+#'   "default (binary)", "binary", "proportion", "semicontinuous (upper = 0.5)"
+#' )
+#"
 #' # plot solutions
-#' plot(s, main = c("default (binary)", "binary", "proportion",
-#'                  "semicontinuous (upper = 0.5)"))
+#' plot(s)
 #' }
 #'
 #' @name decisions

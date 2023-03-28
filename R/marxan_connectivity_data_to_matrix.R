@@ -59,9 +59,11 @@ NULL
 #'
 #' # create marxan connectivity with three planning units and two zones,
 #' # and symmetric connectivity values
-#' bldf3 <- expand.grid(id1 = seq_len(3), id2 = seq_len(3),
-#'                      zone1 = c("z1", "z2"),
-#'                      zone2 = c("z1", "z2"))
+#' bldf3 <- expand.grid(
+#'   id1 = seq_len(3), id2 = seq_len(3),
+#'   zone1 = c("z1", "z2"),
+#'   zone2 = c("z1", "z2")
+#' )
 #' bldf3$boundary <- 1
 #' bldf3$boundary[bldf2$id1 == bldf2$id2 & bldf2$zone1 == bldf2$zone2] <- 0.5
 #' bldf3$boundary[bldf2$id1 == bldf2$id2 & bldf2$zone1 != bldf2$zone2] <- 0
@@ -77,61 +79,86 @@ NULL
 #' }
 #' @export
 marxan_connectivity_data_to_matrix <- function(x, data, symmetric = TRUE) {
+  assert_required(x)
+  assert_required(data)
+  assert_required(symmetric)
+  internal_marxan_connectivity_data_to_matrix(x, data, symmetric)
+}
+
+internal_marxan_connectivity_data_to_matrix <- function(
+  x, data, symmetric, call = fn_caller_env()) {
   # assert that argument to data is valid
-  assertthat::assert_that(
-    inherits(data, "data.frame"),
-    assertthat::is.flag(symmetric),
-    assertthat::noNA(symmetric),
+  assert(
+    is_inherits(x, c("NULL", "ConservationProblem")),
+    is.data.frame(data),
     assertthat::has_name(data, "id1"),
     assertthat::has_name(data, "id2"),
     assertthat::has_name(data, "boundary"),
-    is.numeric(data$id1),
-    all(data$id1 == round(data$id1)),
-    assertthat::noNA(data$id1),
-    is.numeric(data$id2),
-    all(data$id2 == round(data$id2)),
-    assertthat::noNA(data$id2),
+    is_count_vector(data$id1),
+    all_finite(data$id1),
+    is_count_vector(data$id2),
+    all_finite(data$id2),
     is.numeric(data$boundary),
-    assertthat::noNA(data$boundary),
-    inherits(x, c("NULL", "ConservationProblem")))
-  if (assertthat::has_name(data, "zone1") ||
-      assertthat::has_name(data, "zone2")) {
-    assertthat::assert_that(
+    all_finite(data$boundary),
+    assertthat::is.flag(symmetric),
+    assertthat::noNA(symmetric),
+    call = call
+  )
+  if (
+    assertthat::has_name(data, "zone1") ||
+    assertthat::has_name(data, "zone2")
+  ) {
+    assert(
       assertthat::has_name(data, "zone1"),
       assertthat::has_name(data, "zone2"),
-      assertthat::noNA(data$zone1),
+      is_inherits(data$zone1, c("character", "factor")),
+      is_inherits(data$zone2, c("character", "factor")),
       assertthat::noNA(data$zone2),
-      is.character(data$zone1) || is.factor(data$zone1),
-      is.character(data$zone2) || is.factor(data$zone2))
+      assertthat::noNA(data$zone1),
+      call = call
+    )
   }
   # if problem is not NULL, then assert that argument to data is valid
   if (!is.null(x)) {
     # assert that planning unit ids are valid
-    if (is.data.frame(x$data$cost)) {
+    if (
+      is.data.frame(x$data$cost) &&
+      !inherits(x$data$cost, c("Spatial", "sf"))
+    ) {
       # validate that ids in data are correct
-      assertthat::assert_that(
+      assert(
         all(data$id1 %in% x$data$cost$id),
         all(data$id2 %in% x$data$cost$id),
-        msg = paste("argument to data contains ids for planning",
-                    "units that are not present in x"))
+        msg = paste(
+          "{.arg data} must not contain values in the {.col id} column",
+          "that do not refer to planning units in {.arg x}."
+        ),
+        call = call
+      )
       # match the ids with their order in the cost data
       data$id1 <- match(data$id1, x$data$cost$id)
       data$id2 <- match(data$id2, x$data$cost$id)
     } else {
       n_pu <- x$number_of_total_units()
-      assertthat::assert_that(
+      assert(
         max(data$id1) <= n_pu,
         max(data$id2) <= n_pu,
         min(data$id1) >= 1,
         min(data$id2) >= 1,
-        msg = paste("argument to data contains ids for planning",
-                    "units that are not present in x"))
+        msg = paste(
+          "{.arg data} must not contain values in the {.code id} column",
+          "that do not refer to planning units in {.arg x}."
+        ),
+        call = call
+      )
     }
     # assert that zone names is valid
     if (number_of_zones(x) > 1 || assertthat::has_name(x, "zone1")) {
-      assertthat::assert_that(
-        all(as.character(data$zone1) %in% zone_names(x)),
-        all(as.character(data$zone2) %in% zone_names(x)))
+      assert(
+        all_match_of(as.character(data$zone1), zone_names(x)),
+        all_match_of(as.character(data$zone2), zone_names(x)),
+        call = call
+      )
     }
   }
   # convert data
@@ -143,11 +170,15 @@ marxan_connectivity_data_to_matrix <- function(x, data, symmetric = TRUE) {
       data$zone2 <- as.character(data$zone2)
     # set dimensions
     if (is.null(x)) {
-     dims <- c(rep(max(c(data$id1, data$id2)), 2),
-               rep(length(unique(c(data$zone1, data$zone2))), 2))
+      dims <- c(
+        rep(max(c(data$id1, data$id2)), 2),
+        rep(length(unique(c(data$zone1, data$zone2))), 2)
+      )
     } else {
-     dims <- c(rep(x$number_of_total_units(), 2),
-               rep(x$number_of_zones(), 2))
+      dims <- c(
+        rep(x$number_of_total_units(), 2),
+        rep(x$number_of_zones(), 2)
+      )
     }
     # convert zone names to indices
     if (!is.null(x)) {
@@ -179,8 +210,9 @@ marxan_connectivity_data_to_matrix <- function(x, data, symmetric = TRUE) {
       dims <- rep(x$number_of_total_units(), 2)
     }
     # create sparse matrix
-    out <- triplet_dataframe_to_matrix(data, forceSymmetric = symmetric,
-                                       dims = dims)
+    out <- triplet_dataframe_to_matrix(
+      data, forceSymmetric = symmetric, dims = dims
+    )
   }
   out
 }

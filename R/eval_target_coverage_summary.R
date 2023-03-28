@@ -1,10 +1,10 @@
-#' @include internal.R ConservationProblem-proto.R
+#' @include internal.R ConservationProblem-class.R
 NULL
 
-#' Evaluate target coverage
+#' Evaluate target coverage by solution
 #'
 #' Calculate how well feature representation [targets] are met by a solution to
-#' a conservation planning [problem()].
+#' a conservation planning problem.
 #' It is useful for understanding if features are adequately represented by
 #' a solution.
 #' Note that this function can only be used with problems that contain
@@ -20,7 +20,7 @@ NULL
 #'
 #' @inheritSection eval_cost_summary Solution format
 #'
-#' @return [tibble::tibble()] object.
+#' @return A [tibble::tibble()] object.
 #'   Here, each row describes information for a different target.
 #'   It contains the following columns:
 #'
@@ -118,7 +118,7 @@ NULL
 #'
 #' @name eval_target_coverage_summary
 #'
-#' @aliases eval_target_coverage_summary,ConservationProblem,numeric-method eval_target_coverage_summary,ConservationProblem,matrix-method eval_target_coverage_summary,ConservationProblem,data.frame-method eval_target_coverage_summary,ConservationProblem,Spatial-method eval_target_coverage_summary,ConservationProblem,sf-method eval_target_coverage_summary,ConservationProblem,Raster-method
+#' @aliases eval_target_coverage_summary,ConservationProblem,numeric-method eval_target_coverage_summary,ConservationProblem,matrix-method eval_target_coverage_summary,ConservationProblem,data.frame-method eval_target_coverage_summary,ConservationProblem,Spatial-method eval_target_coverage_summary,ConservationProblem,sf-method eval_target_coverage_summary,ConservationProblem,Raster-method eval_target_coverage_summary,ConservationProblem,SpatRaster-method
 #'
 #' @seealso
 #' See [summaries] for an overview of all functions for summarizing solutions.
@@ -131,15 +131,19 @@ NULL
 #' set.seed(500)
 #'
 #' # load data
-#' data(sim_pu_raster, sim_pu_sf, sim_features,
-#'      sim_pu_zones_sf, sim_features_zones)
+#' sim_pu_raster <- get_sim_pu_raster()
+#' sim_pu_polygons <- get_sim_pu_polygons()
+#' sim_features <- get_sim_features()
+#' sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
+#' sim_zones_features <- get_sim_zones_features()
 #'
 #' # build minimal conservation problem with raster data
-#' p1 <- problem(sim_pu_raster, sim_features) %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(0.1) %>%
-#'       add_binary_decisions() %>%
-#'       add_default_solver(verbose = FALSE)
+#' p1 <-
+#'   problem(sim_pu_raster, sim_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(0.1) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
 #'
 #' # solve the problem
 #' s1 <- solve(p1)
@@ -148,18 +152,19 @@ NULL
 #' print(s1)
 #'
 #' # plot solution
-#' plot(s1, main = "solution", axes = FALSE, box = FALSE)
+#' plot(s1, main = "solution", axes = FALSE)
 #'
 #' # calculate target coverage by the solution
 #' r1 <- eval_target_coverage_summary(p1, s1)
 #' print(r1, width = Inf) # note: `width = Inf` tells R to print all columns
 #'
-#' # build minimal conservation problem with polygon (sf) data
-#' p2 <- problem(sim_pu_sf, sim_features, cost_column = "cost") %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(0.1) %>%
-#'       add_binary_decisions() %>%
-#'       add_default_solver(verbose = FALSE)
+#' # build minimal conservation problem with polygon data
+#' p2 <-
+#'   problem(sim_pu_polygons, sim_features, cost_column = "cost") %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(0.1) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
 #'
 #' # solve the problem
 #' s2 <- solve(p2)
@@ -174,25 +179,28 @@ NULL
 #' r2 <- eval_target_coverage_summary(p2, s2[, "solution_1"])
 #' print(r2, width = Inf)
 #'
-#' # build multi-zone conservation problem with polygon (sf) data
-#' p3 <- problem(sim_pu_zones_sf, sim_features_zones,
-#'               cost_column = c("cost_1", "cost_2", "cost_3")) %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
-#'                                   ncol = 3)) %>%
-#'       add_binary_decisions() %>%
-#'       add_default_solver(verbose = FALSE)
+#' # build multi-zone conservation problem with polygon data
+#' p3 <-
+#'   problem(
+#'     sim_zones_pu_polygons, sim_zones_features,
+#'     cost_column = c("cost_1", "cost_2", "cost_3")
+#'   ) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5, ncol = 3)) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
 #'
 #' # solve the problem
 #' s3 <- solve(p3)
 #'
-#' # print first six rows of the attribute table
-#' print(head(s3))
+#' # print solution
+#' print(s3)
 #'
 #' # create new column representing the zone id that each planning unit
 #' # was allocated to in the solution
 #' s3$solution <- category_vector(
-#'   s3[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")])
+#'   s3[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")]
+#' )
 #' s3$solution <- factor(s3$solution)
 #'
 #' # plot solution
@@ -200,7 +208,8 @@ NULL
 #'
 #' # calculate target coverage by the solution
 #' r3 <- eval_target_coverage_summary(
-#'   p3, s3[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")])
+#'   p3, s3[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")]
+#' )
 #' print(r3, width = Inf)
 #'
 #' # create a new column with character values containing the zone names,
@@ -212,34 +221,33 @@ NULL
 #' print(r3, width = Inf)
 #' }
 #' @export
-eval_target_coverage_summary <- function(x, solution, include_zone, include_sense)
-  UseMethod("eval_target_coverage_summary")
-
-#' @rdname eval_target_coverage_summary
-#' @method eval_target_coverage_summary default
-#' @export
-eval_target_coverage_summary.default <- function(
-  x, solution, include_zone, include_sense) {
-  stop("argument to x must be a ConservationProblem object")
-}
-
-#' @rdname eval_target_coverage_summary
-#' @method eval_target_coverage_summary ConservationProblem
-#' @export
-eval_target_coverage_summary.ConservationProblem <- function(
-  x, solution,
-  include_zone = number_of_zones(x) > 1,
-  include_sense = number_of_zones(x) > 1) {
+eval_target_coverage_summary <- function(x,
+                                         solution,
+                                         include_zone =
+                                          number_of_zones(x) > 1,
+                                         include_sense =
+                                          number_of_zones(x) > 1) {
   # assert arguments are valid
-  assertthat::assert_that(
-    inherits(x, "ConservationProblem"),
-    assertthat::is.flag(include_zone), assertthat::noNA(include_zone),
-    assertthat::is.flag(include_sense), assertthat::noNA(include_sense))
+  assert_required(x)
+  assert_required(solution)
+  assert_required(include_zone)
+  assert_required(include_sense)
+  assert(
+    is_conservation_problem(x),
+    assertthat::is.flag(include_zone),
+    assertthat::noNA(include_zone),
+    assertthat::is.flag(include_sense),
+    assertthat::noNA(include_sense)
+  )
   # extract targets
-  if (is.Waiver(x$targets))
-    stop("argument to x does not have targets, ",
-         "please use the eval_feature_representation() function to evaluate ",
-         "problems without targets.")
+  assert(
+    !is.Waiver(x$targets),
+    msg = c(
+      "{.arg x} does not have targets.",
+      "i" = "Use {.fn eval_feature_representation} for",
+      "problems without targets"
+    )
+  )
   targets <- x$feature_targets()
   # extract feature abundances
   abundances <- x$feature_abundances_in_total_units()
@@ -259,7 +267,8 @@ eval_target_coverage_summary.ConservationProblem <- function(
   })
   # add absolute amount held column
   d$absolute_held <- rcpp_absolute_amount_held_by_solution(
-    x$get_data("rij_matrix"), as.list(targets), solution)
+    x$get_data("rij_matrix"), as.list(targets), solution
+  )
   # update feature column with names
   d$feature <- x$feature_names()[d$feature]
   # update zone column with names
@@ -276,19 +285,22 @@ eval_target_coverage_summary.ConservationProblem <- function(
     (targets$sense == ">=") &
       (d$absolute_held >= d$absolute_target),
     rep(0, nrow(d)),
-    d$absolute_shortfall)
+    d$absolute_shortfall
+  )
   ## manually set shortfalls to zero if sense is = and this is met
   d$absolute_shortfall <- ifelse(
     (targets$sense == "=") &
       ((d$absolute_held - d$absolute_target) < 1e-10),
     rep(0, nrow(d)),
-    d$absolute_shortfall)
+    d$absolute_shortfall
+  )
   ## manually set shortfalls to zero if sense is <= and this is met
   d$absolute_shortfall <- ifelse(
     (targets$sense == "<=") &
       (d$absolute_held <= d$absolute_target),
     rep(0, nrow(d)),
-    d$absolute_shortfall)
+    d$absolute_shortfall
+  )
   # add relative columns
   d$relative_target <- d$absolute_target / d$total_amount
   d$relative_held <- d$absolute_held / d$total_amount
@@ -303,7 +315,8 @@ eval_target_coverage_summary.ConservationProblem <- function(
   cn <- c(
     "feature", "zone", "sense", "met", "total_amount",
     "absolute_target", "absolute_held", "absolute_shortfall",
-    "relative_target", "relative_held", "relative_shortfall")
+    "relative_target", "relative_held", "relative_shortfall"
+  )
   if (!isTRUE(include_zone)) cn <- setdiff(cn, "zone")
   if (!isTRUE(include_sense)) cn <- setdiff(cn, "sense")
   # return result
