@@ -2,20 +2,17 @@
   background: #FFFFFF;
 }
 
-.template-home .contents .section.level1 .page-header {
-  padding-top: 60px;
+.page-header {
+  border-bottom: none !important;
   padding-bottom: 0px !important;
-  margin-bottom: 15px !important;
+  min-height: 0px !important;
 }
 
-[id='prioritizr-'] {
-  margin-bottom: 0px !important;
-  padding-bottom: 0px !important;
+#systematic-conservation-prioritization-in-r {
+  margin-bottom: 30px;
+  font-style: italic;
 }
 
-[id='systematic-conservation-prioritization-in-r'] {
-  margin-top: 0px !important;
-  padding-top: 0px !important;
-  font-size: 35px;
-  padding-bottom: 10px;
+.template-home img.logo {
+  width: 140px;
 }

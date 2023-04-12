@@ -155,11 +155,7 @@ methods::setMethod(
       out[point_idx, ] <- as.matrix(
         terra::extract(
           x = x,
-          y = terra::vect(y[point_idx, ]),
-          ID = FALSE,
-          fun = fun2,
-          na.rm = FALSE
-        )
+          y = sf::st_coordinates(y[point_idx, , drop = FALSE])        )
       )
     }
     # process line geometries
@@ -168,7 +164,7 @@ methods::setMethod(
       out[line_idx, ] <- as.matrix(
         terra::extract(
           x = x,
-          y = terra::vect(y[line_idx, ]),
+          y = terra::vect(y[line_idx, , drop = FALSE]),
           ID = FALSE,
           touches = TRUE,
           fun = fun2,
@@ -182,7 +178,7 @@ methods::setMethod(
       out[poly_idx, ] <- as.matrix(
         exactextractr::exact_extract(
           x,
-          y[poly_idx, ],
+          y[poly_idx, , drop = FALSE],
           fun = fun,
           progress = FALSE
         )
