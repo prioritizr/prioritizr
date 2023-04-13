@@ -250,7 +250,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##      3.759
+    ##      3.292
 
 ``` r
 # extract state message from the solver
@@ -544,10 +544,8 @@ Additional resources can also be found in [online repositories under the
 *prioritizr* organization](https://github.com/prioritizr). These
 resources include [slides for talks and seminars about the
 package](https://github.com/prioritizr/teaching). Additionally, workshop
-materials are available too (e.g., the [Massey University 2021
-workshop](https://prioritizr.github.io/massey-workshop/) and the
-[PacMara 2019
-workshop](https://prioritizr.github.io/PacMara_workshop/)).
+materials are available too (e.g., the [Carleton 2023
+workshop](https://prioritizr.github.io/workshop/)).
 
 ## Getting help
 

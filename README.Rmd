@@ -333,7 +333,7 @@ The [package website](https://prioritizr.net/index.html) contains information on
 * [**Solver benchmarks**](https://prioritizr.net/articles/solver_benchmarks.html): Performance comparison of optimization solvers for generating prioritizations.
 * [**Publication record**](https://prioritizr.net/articles/publication_record.html): List of publications that have cited the package.
 
-Additional resources can also be found in [online repositories under the _prioritizr_ organization](https://github.com/prioritizr). These resources include [slides for talks and seminars about the package](https://github.com/prioritizr/teaching). Additionally, workshop materials are available too (e.g., the [Massey University 2021 workshop](https://prioritizr.github.io/massey-workshop/) and the [PacMara 2019 workshop](https://prioritizr.github.io/PacMara_workshop/)).
+Additional resources can also be found in [online repositories under the _prioritizr_ organization](https://github.com/prioritizr). These resources include [slides for talks and seminars about the package](https://github.com/prioritizr/teaching). Additionally, workshop materials are available too (e.g., the [Carleton 2023 workshop](https://prioritizr.github.io/workshop/)).
 
 ## Getting help
 
