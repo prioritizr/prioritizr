@@ -1,6 +1,6 @@
 Dear CRAN volunteers,
 
-Thank you for reviewing this submission. This submission provides substantial improvements to the package documentation, error messages, and performance (please see NEWS.md for full list). It has been updated to address the C++ specification note detected by CRAN's package checks.
+I'm very sorry for this submission. Although I submitted an update for the prioritizr package to CRAN last week, I now realize that I accidentally submitted the wrong branch/version of the code to CRAN. As such, I fear that the latest version of the prioritizr package on CRAN will yield incorrect calculations. Although I would normally wait at least a month or two before submitting updates to CRAN, I feel that it is important to rectify this issue sooner rather than later. I have also updated the package to fix the WARNING and ERROR associated with CRAN's checks on the previous version. I strongly believe that the CRAN volunteers' time is the most precious resource, and I am sorry for not taking greater care with my previous submission. To help avoid this issue in the future, I have implemented better naming conventions for code branches/versions. I hope you can forgive my mistake, and thank you for considering this submission.
 
 Cheers,
 

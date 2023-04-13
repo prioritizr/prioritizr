@@ -52,10 +52,7 @@ test_that("x = SpatRaster, y = sf (points)", {
   y <- as.matrix(
     terra::extract(
       x = sim_features,
-      y = terra::vect(sim_pu_points),
-      ID = FALSE,
-      fun = sum,
-      na.rm = FALSE
+      y = sf::st_coordinates(sim_pu_points)
     )
   )
   # tests
@@ -66,6 +63,7 @@ test_that("x = SpatRaster, y = sf (points)", {
 
 test_that("x = SpatRaster, y = sfc", {
   # import
+  set.seed(500)
   sim_pu_points <- get_sim_pu_points()
   sim_pu_lines <- get_sim_pu_lines()
   sim_pu_polygons <- get_sim_pu_polygons()

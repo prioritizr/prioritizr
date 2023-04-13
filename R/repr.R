@@ -136,8 +136,10 @@ repr.crs <- function(x) {
     out <- ""
   } else if (isTRUE(startsWith(x$wkt[[1]], "PROJCRS[\"unknown\""))) {
     # if the CRS is not recognized, then use the terra package to prepare output
+    r <- terra::rast(matrix(1), crs = x$wkt)
+    ptr_slot <- methods::slotNames(r)[[1]]
     out <- try(
-      terra::rast(matrix(1), crs = x$wkt)@ptr$get_crs("proj4"),
+      methods::slot(r, ptr_slot)$get_crs("proj4"),
       silent = TRUE
     )
     if (inherits(out, "try-error")) {
@@ -145,23 +147,24 @@ repr.crs <- function(x) {
     }
   } else {
     # if the CRS is recognized, then use the sf package to prepare output
-
     ## sf does not export its nice sf:::format.crs method for pretty crs
     ## so, we have to use its nice methods
-    x <- suppressMessages(suppressWarnings(
+    m <- suppressMessages(suppressWarnings(
       utils::capture.output(print(sf::st_sfc(sf::st_point(c(1,1)), crs = x)))
     ))[[5]]
-
     ## format output
-    out <- trimws(strsplit(x, ":", fixed = TRUE)[[1]][[2]])
+    out <- trimws(strsplit(m, ":", fixed = TRUE)[[1]][[2]])
+  }
 
-    ## add information on if projected/geodetic
-    if (grepl("geodetic", x, ignore.case = TRUE)) {
+  # add information on if projected/geodetic
+  if (!is.null(x$ud_unit) && inherits(x$ud_unit, "units")) {
+    if (identical(base::units(x$ud_unit)$numerator, "m")) {
+      out <- paste(out, "(projected)")
+    } else {
       out <- paste(out, "(geodetic)")
     }
-    if (identical(out, "NA")) {
-      out <- paste(out, "(unknown)")
-    }
+  } else {
+    out <- paste(out, "(unknown)")
   }
 
   # return result

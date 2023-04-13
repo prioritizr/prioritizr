@@ -1,4 +1,4 @@
-# prioritizr 8.0.0
+# prioritizr 8.0.1
 
 ## Notice
 
@@ -81,6 +81,13 @@
   the `add_shuffle_portfolio()` and `eval_replacement_importance()` functions.
 - Assorted tweaks to improve writing in the vignettes and documentation.
   Many thanks to Marc Edwards (@edwardsmarc)!
+
+# prioritizr 8.0.0
+
+- This version contains an incorrect version of the code, due to a mistake
+  when preparing for CRAN release. We strongly recommend upgrading to
+  version 8.0.1 to ensure correct results. We apologize any inconvenience this
+  might have caused.
 
 # prioritizr 7.2.2.7
 

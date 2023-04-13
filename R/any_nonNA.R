@@ -88,7 +88,7 @@ any_nonNA.Raster <- function(x) {
 .S3method("any_nonNA", "Raster", any_nonNA.Raster)
 
 any_nonNA.SpatRaster <- function(x) {
-  all(terra::global(x, "notNA")[[1]] > 0)
+  all(terra::global(x, "notNA", na.rm = TRUE)[[1]] > 0)
 }
 
 .S3method("any_nonNA", "SpatRaster", any_nonNA.SpatRaster)

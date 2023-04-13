@@ -59,7 +59,7 @@ test_that("x = crs", {
   )
   expect_equal(
     repr(get_crs(get_sim_pu_polygons())),
-    "Undefined Cartesian SRS"
+    "Undefined Cartesian SRS (projected)"
   )
   skip_if_not_installed("prioritizrdata", minimum_version = "0.3.0")
   expect_match(

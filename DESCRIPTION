@@ -1,6 +1,6 @@
 Package: prioritizr
 Type: Package
-Version: 8.0.0
+Version: 8.0.1
 Title: Systematic Conservation Prioritization in R
 Description:
     Systematic conservation prioritization using mixed integer linear
@@ -61,7 +61,7 @@ Imports:
     assertthat (>= 0.2.0),
     slam (>= 0.1-48),
     igraph (>= 1.2.9),
-    ape (>= 5.5),
+    ape (>= 5.6-1),
     magrittr (>= 2.0.1),
     exactextractr (>= 0.8.2),
     tibble (>= 2.0.0),
@@ -244,4 +244,4 @@ Config/testthat/edition: 3
 Remotes:
   dirkschumacher/rcbc,
   cran/cplexAPI,
-  bioc::release/lpsymphony
+  bioc::lpsymphony

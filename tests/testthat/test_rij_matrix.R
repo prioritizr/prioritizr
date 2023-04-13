@@ -121,10 +121,7 @@ test_that("x = sf (points), y = SpatRaster (multiple layers)", {
   # calculate matrix
   x <- rij_matrix(sim_pu_points, sim_features)
   # calculate correct results
-  y <- terra::extract(
-    sim_features, terra::vect(sim_pu_points), fun = mean, na.rm = TRUE,
-    ID = FALSE
-  )
+  y <- terra::extract(sim_features, sf::st_coordinates(sim_pu_points))
   y <- Matrix::t(as_Matrix(as.matrix(y), "dgCMatrix"))
   # run tests
   expect_true(inherits(x, "dgCMatrix"))

@@ -1,19 +1,19 @@
 
 <!--- README.md is generated from README.Rmd. Please edit that file -->
 
-# prioritizr: <img src="man/figures/logo.png" align="right" style="height:90px!important;" />
+# prioritizr <img src="man/figures/logo.png" align="right" style="width:140px"/>
 
-# Systematic Conservation Prioritization in R
+## Systematic Conservation Prioritization in R
 
 <!-- badges: start -->
 
 [![lifecycle](https://img.shields.io/badge/Lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html)
-[![R-CMD-check-Ubuntu](https://img.shields.io/github/actions/workflow/status/prioritizr/prioritizr/R-CMD-check-ubuntu.yaml?branch=master&label=Ubuntu)](https://github.com/prioritizr/prioritizr/actions)
-[![R-CMD-check-Windows](https://img.shields.io/github/actions/workflow/status/prioritizr/prioritizr/R-CMD-check-windows.yaml?branch=master&label=Windows)](https://github.com/prioritizr/prioritizr/actions)
-[![R-CMD-check-macOS](https://img.shields.io/github/actions/workflow/status/prioritizr/prioritizr/R-CMD-check-macos.yaml?branch=master&label=macOS)](https://github.com/prioritizr/prioritizr/actions)
-[![Documentation](https://img.shields.io/github/actions/workflow/status/prioritizr/prioritizr/documentation.yaml?branch=master&label=Documentation)](https://github.com/prioritizr/prioritizr/actions)
+[![R-CMD-check-Ubuntu](https://img.shields.io/github/actions/workflow/status/prioritizr/prioritizr/R-CMD-check-ubuntu.yaml?branch=main&label=Ubuntu)](https://github.com/prioritizr/prioritizr/actions)
+[![R-CMD-check-Windows](https://img.shields.io/github/actions/workflow/status/prioritizr/prioritizr/R-CMD-check-windows.yaml?branch=main&label=Windows)](https://github.com/prioritizr/prioritizr/actions)
+[![R-CMD-check-macOS](https://img.shields.io/github/actions/workflow/status/prioritizr/prioritizr/R-CMD-check-macos.yaml?branch=main&label=macOS)](https://github.com/prioritizr/prioritizr/actions)
+[![Documentation](https://img.shields.io/github/actions/workflow/status/prioritizr/prioritizr/documentation.yaml?branch=main&label=Documentation)](https://github.com/prioritizr/prioritizr/actions)
 [![Coverage
-Status](https://img.shields.io/codecov/c/github/prioritizr/prioritizr?label=Coverage)](https://app.codecov.io/gh/prioritizr/prioritizr/branch/master)
+Status](https://img.shields.io/codecov/c/github/prioritizr/prioritizr?label=Coverage)](https://app.codecov.io/gh/prioritizr/prioritizr/branch/main)
 [![CRAN-Status-Badge](http://www.r-pkg.org/badges/version/prioritizr)](https://CRAN.R-project.org/package=prioritizr)
 <!-- badges: end -->
 
@@ -63,14 +63,14 @@ cite the latest official version, please use:
 
 > Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Edwards BPM, Watts
 > ME, Arcese P, Bennett J, Possingham HP (2023). prioritizr: Systematic
-> Conservation Prioritization in R. R package version 8.0.0. Available
+> Conservation Prioritization in R. R package version 8.0.1. Available
 > at <https://CRAN.R-project.org/package=prioritizr>.
 
 Alternatively, to cite the latest development version, please use:
 
 > Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Edwards BPM, Watts
 > ME, Arcese P, Bennett J, Possingham HP (2023). prioritizr: Systematic
-> Conservation Prioritization in R. R package version 8.0.0. Available
+> Conservation Prioritization in R. R package version 8.0.1. Available
 > at <https://github.com/prioritizr/prioritizr>.
 
 Additionally, we keep a [record of
@@ -219,7 +219,7 @@ print(p1)
     ## │ ├•data:       <SpatRaster> (10757 total)
     ## │ ├•costs:      continuous values (between 0.2987 and 1804.1838)
     ## │ ├•extent:     -1816381.6182, 247483.5211, -1228381.6182, 683483.5211 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs
+    ## │ └•CRS:        +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs (projected)
     ## ├•formulation
     ## │├•objective:   minimum shortfall objective (`budget` = 8748.4908)
     ## │├•penalties:   none specified
@@ -250,7 +250,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##      3.553
+    ##      3.759
 
 ``` r
 # extract state message from the solver
@@ -299,21 +299,21 @@ print(p1_target_coverage)
 ```
 
     ## # A tibble: 396 × 9
-    ##    feature         met   total…¹ absol…² absol…³ absol…⁴ relat…⁵ relat…⁶ relat…⁷
-    ##    <chr>           <lgl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
-    ##  1 Recurvirostra … TRUE    100.     20.0    23.4    0        0.2   0.233  0     
-    ##  2 Botaurus lenti… TRUE     99.9    20.0    29.2    0        0.2   0.293  0     
-    ##  3 Botaurus lenti… TRUE    100.     20.0    34.0    0        0.2   0.340  0     
-    ##  4 Corvus brachyr… TRUE     99.9    20.0    20.2    0        0.2   0.202  0     
-    ##  5 Corvus brachyr… FALSE    99.9    20.0    18.7    1.29     0.2   0.187  0.0129
-    ##  6 Cinclus mexica… TRUE    100.     20.0    20.4    0        0.2   0.204  0     
-    ##  7 Spinus tristis… TRUE     99.9    20.0    22.4    0        0.2   0.224  0     
-    ##  8 Spinus tristis… TRUE     99.9    20.0    23.0    0        0.2   0.230  0     
-    ##  9 Falco sparveri… TRUE     99.9    20.0    24.5    0        0.2   0.245  0     
-    ## 10 Falco sparveri… TRUE    100.     20.0    24.4    0        0.2   0.244  0     
-    ## # … with 386 more rows, and abbreviated variable names ¹​total_amount,
-    ## #   ²​absolute_target, ³​absolute_held, ⁴​absolute_shortfall, ⁵​relative_target,
-    ## #   ⁶​relative_held, ⁷​relative_shortfall
+    ##    feature   met   total_amount absolute_target absolute_held absolute_shortfall
+    ##    <chr>     <lgl>        <dbl>           <dbl>         <dbl>              <dbl>
+    ##  1 Recurvir… TRUE         100.             20.0          23.4               0   
+    ##  2 Botaurus… TRUE          99.9            20.0          29.2               0   
+    ##  3 Botaurus… TRUE         100.             20.0          34.0               0   
+    ##  4 Corvus b… TRUE          99.9            20.0          20.2               0   
+    ##  5 Corvus b… FALSE         99.9            20.0          18.7               1.29
+    ##  6 Cinclus … TRUE         100.             20.0          20.4               0   
+    ##  7 Spinus t… TRUE          99.9            20.0          22.4               0   
+    ##  8 Spinus t… TRUE          99.9            20.0          23.0               0   
+    ##  9 Falco sp… TRUE          99.9            20.0          24.5               0   
+    ## 10 Falco sp… TRUE         100.             20.0          24.4               0   
+    ## # ℹ 386 more rows
+    ## # ℹ 3 more variables: relative_target <dbl>, relative_held <dbl>,
+    ## #   relative_shortfall <dbl>
 
 ``` r
 # check percentage of the features that have their target met given the solution
