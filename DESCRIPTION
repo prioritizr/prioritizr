@@ -54,7 +54,7 @@ Imports:
     R6 (>= 2.5.1),
     rlang (>= 1.0.6),
     cli (>= 3.6.0),
-    sf (>= 1.0.12),
+    sf (>= 1.0-12),
     terra (>= 1.6-53),
     raster (>= 3.6.11),
     Matrix (>= 1.3-0),
@@ -63,7 +63,7 @@ Imports:
     igraph (>= 1.2.9),
     ape (>= 5.6-1),
     magrittr (>= 2.0.1),
-    exactextractr (>= 0.8.2),
+    exactextractr (>= 0.8.1),
     tibble (>= 2.0.0),
     withr (>= 2.3.0)
 Suggests:
