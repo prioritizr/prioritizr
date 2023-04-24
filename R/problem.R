@@ -641,6 +641,14 @@ methods::setMethod(
         )
       )
     )
+    assert(
+      all_columns_inherit(
+        x[, unlist(as.list(features)), drop = FALSE], c("integer", "numeric")
+      ),
+      msg = c(
+        "{.arg features} must refer to {.cls numeric} columns of {.arg x}."
+      )
+    )
     verify(
       all_positive(x[, cost_column, drop = FALSE]),
       any_nonzero(x[, cost_column, drop = FALSE]),
@@ -1107,6 +1115,14 @@ methods::setMethod(
           "The following values are not columns names of {.arg x}:",
           "{.val {setdiff(unlist(as.list(features)), names(x))}}."
         )
+      )
+    )
+    assert(
+      all_columns_inherit(
+        x[, unlist(as.list(features)), drop = FALSE], c("integer", "numeric")
+      ),
+      msg = c(
+        "{.arg features} must refer to {.cls numeric} columns of {.arg x}."
       )
     )
     verify(

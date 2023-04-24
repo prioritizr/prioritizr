@@ -247,8 +247,16 @@ methods::setMethod(
     assert(
       all_match_of(unlist(as.list(features)), names(x)),
       msg = paste(
-        "argument to features contains column names that are",
-        "not present in the argument to x"
+        "{.arg features} contains column names that are",
+        "not present in {.arg x}"
+      )
+    )
+    assert(
+      all_columns_inherit(
+        x[, unlist(as.list(features)), drop = FALSE], c("integer", "numeric")
+      ),
+      msg = c(
+        "{.arg features} must refer to {.cls numeric} columns of {.arg x}."
       )
     )
     verify(
