@@ -16,7 +16,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,12 +71,12 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="8.0.1" id="prioritizr-801">prioritizr 8.0.1<a class="anchor" aria-label="anchor" href="#prioritizr-801"></a></h2>
+<h2 class="pkg-version" data-toc-text="8.0.2" id="prioritizr-802">prioritizr 8.0.2<a class="anchor" aria-label="anchor" href="#prioritizr-802"></a></h2>
 <div class="section level3">
-<h3 id="notice-8-0-1">Notice<a class="anchor" aria-label="anchor" href="#notice-8-0-1"></a></h3>
+<h3 id="notice-8-0-2">Notice<a class="anchor" aria-label="anchor" href="#notice-8-0-2"></a></h3>
 <ul><li>The package has been updated to focus on using the <em>sf</em> and <em>terra</em> package for spatial vector and raster datasets. This is because the <em>sf</em> package is the successor to the <em>sp</em> package, and the <em>terra</em> package is the successor to the <em>raster</em> package. By leveraging these newer packages, the <em>prioritizr</em> package can provide better performance. Although <em>sp</em> and <em>raster</em> package classes (e.g., <code><a href="https://rdrr.io/pkg/raster/man/stack.html" class="external-link">raster::stack()</a></code> and <code>sp::SpatialPolyonsDataFrame()</code>) are still supported, the <em>prioritizr</em> package will now throw deprecation warnings. Since support for the <em>sp</em> and <em>raster</em> package classes will be fully deprecated and removed in a later version this year, we recommend updating code to use the <em>sf</em> and <em>terra</em> packages.</li></ul></div>
 <div class="section level3">
-<h3 id="breaking-changes-8-0-1">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-8-0-1"></a></h3>
+<h3 id="breaking-changes-8-0-2">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-8-0-2"></a></h3>
 <ul><li>All <em>proto</em> classes have been migrated to <em>R6</em> classes. This update reduces memory usage (<a href="https://github.com/prioritizr/prioritizr/issues/238" class="external-link">#238</a>), so <code><a href="../reference/problem.html">problem()</a></code> objects can now contain many more constraints and penalties. Note that any <code><a href="../reference/problem.html">problem()</a></code> objects that were produced using earlier versions of the package are no longer compatible.</li>
 <li>The <em>proto</em>, <em>raster</em>, <em>sf</em>, <em>sp</em> packages are no longer automatically loaded alongside <em>prioritizr</em>. As such, users will need to load them manually (e.g., using <code><a href="https://r-spatial.github.io/sf/" class="external-link">library(sf)</a></code>).</li>
 <li>The built-in datasets have been removed and replaced with functions to import them as needed (i.e., <code><a href="../reference/sim_data.html">get_sim_pu_raster()</a></code>, <code><a href="../reference/sim_data.html">get_sim_pu_polygons()</a></code>, <code><a href="../reference/sim_data.html">get_sim_pu_lines()</a></code>, <code><a href="../reference/sim_data.html">get_sim_pu_points()</a></code>,, <code><a href="../reference/sim_data.html">get_sim_locked_in_raster()</a></code>, <code><a href="../reference/sim_data.html">get_sim_locked_out_raster()</a></code>, <code><a href="../reference/sim_data.html">get_sim_zones_pu_raster()</a></code>, <code><a href="../reference/sim_data.html">get_sim_zones_pu_polygons()</a></code>, <code><a href="../reference/sim_data.html">get_sim_phylogeny()</a></code>, <code><a href="../reference/sim_data.html">get_sim_features()</a></code>, <code><a href="../reference/sim_data.html">get_sim_zones_features()</a></code>). These functions now return <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::st_sf()</a></code>, <code><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">terra::rast()</a></code>, <code><a href="https://rdrr.io/pkg/ape/man/read.tree.html" class="external-link">ape::read.tree()</a></code> and <code><a href="../reference/zones.html">zones()</a></code> objects. Note that these functions are provided because <code>data(...)</code> cannot be used with <code><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">terra::rast()</a></code> objects. See <code><a href="https://rdrr.io/r/utils/data.html" class="external-link">?data</a></code> for more information.</li>
@@ -88,13 +88,13 @@
 <li>To simplify package documentation and functionality, the following functions are no longer exported: <code>is.Waiver()</code>, <code>add_default_decisions()</code> <code>new_id()</code>, <code>is.Id()</code>, <code>print.Id()</code>, <code>pproto()</code>.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="new-features-8-0-1">New features<a class="anchor" aria-label="anchor" href="#new-features-8-0-1"></a></h3>
+<h3 id="new-features-8-0-2">New features<a class="anchor" aria-label="anchor" href="#new-features-8-0-2"></a></h3>
 <ul><li>The <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> function for <code><a href="../reference/problem.html">problem()</a></code>, <code><a href="../reference/optimization_problem.html">optimization_problem()</a></code>, and <code><a href="../reference/zones.html">zones()</a></code> objects has been updated to provide more information.</li>
 <li>New <code><a href="https://rdrr.io/pkg/terra/man/summary.html" class="external-link">summary()</a></code> function to provide extensive detail on <code><a href="../reference/problem.html">problem()</a></code> objects.</li>
 <li>Updates to improve the error messages and error message handling. Hopefully, users should no longer see <code>"bad error message"</code>!</li>
 </ul></div>
 <div class="section level3">
-<h3 id="minor-improvements-and-bug-fixes-8-0-1">Minor improvements and bug fixes<a class="anchor" aria-label="anchor" href="#minor-improvements-and-bug-fixes-8-0-1"></a></h3>
+<h3 id="minor-improvements-and-bug-fixes-8-0-2">Minor improvements and bug fixes<a class="anchor" aria-label="anchor" href="#minor-improvements-and-bug-fixes-8-0-2"></a></h3>
 <ul><li>Fix bug for <code><a href="../reference/add_feature_weights.html">add_feature_weights()</a></code> when applied to problems with an <code><a href="../reference/add_max_phylo_div_objective.html">add_max_phylo_div_objective()</a></code> or <code>add_max_phylo_end_objectve()</code>. Specifically, the bug meant that weights weren’t being applied to problems with these particular objectives.</li>
 <li>Fix instructions in <code><a href="../reference/add_gurobi_solver.html">add_gurobi_solver()</a></code> documentation for opening vignette.</li>
 <li>Update solver functions to provide instructions for installing dependencies in error messages when their dependencies are not available.</li>
@@ -108,6 +108,9 @@
 <li>Assorted tweaks to improve writing in the vignettes and documentation. Many thanks to Marc Edwards (<a href="https://github.com/edwardsmarc" class="external-link">@edwardsmarc</a>)!</li>
 </ul></div>
 </div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="8.0.1" id="prioritizr-801">prioritizr 8.0.1<a class="anchor" aria-label="anchor" href="#prioritizr-801"></a></h2>
+<ul><li>Assorted bug fixes.</li></ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="8.0.0" id="prioritizr-800">prioritizr 8.0.0<a class="anchor" aria-label="anchor" href="#prioritizr-800"></a></h2><p class="text-muted">CRAN release: 2023-03-29</p>
 <ul><li>This version contains an incorrect version of the code, due to a mistake when preparing for CRAN release. We strongly recommend upgrading to version 8.0.1 to ensure correct results. We apologize any inconvenience this might have caused.</li></ul></div>

@@ -21,7 +21,7 @@ assertthat::on_failure(any_nonNA) <- function(call, env) {
   )
 }
 
-any_nonNA.default <- function(x, what) {
+any_nonNA.default <- function(x) {
   cli::cli_abort("{.arg x} is not a recognized class.")
 }
 

@@ -40,7 +40,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -215,7 +215,7 @@
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s0</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p0</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Gurobi Optimizer version 10.0.0 build v10.0.0rc2 (linux64)</span></span>
+<pre><code><span><span class="co">## Gurobi Optimizer version 10.0.1 build v10.0.1rc0 (linux64)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
@@ -230,12 +230,12 @@
 <span><span class="co">##   RHS range        [2e-01, 2e+03]</span></span>
 <span><span class="co">## Found heuristic solution: objective 10337.581214</span></span>
 <span><span class="co">## Presolve removed 19 rows and 354 columns</span></span>
-<span><span class="co">## Presolve time: 0.00s</span></span>
+<span><span class="co">## Presolve time: 0.02s</span></span>
 <span><span class="co">## Presolved: 14 rows, 776 columns, 2296 nonzeros</span></span>
 <span><span class="co">## Variable types: 0 continuous, 776 integer (776 binary)</span></span>
 <span><span class="co">## Found heuristic solution: objective 9018.7830067</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 0 nodes (0 simplex iterations) in 0.01 seconds (0.01 work units)</span></span>
+<span><span class="co">## Explored 0 nodes (0 simplex iterations) in 0.02 seconds (0.01 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Solution count 2: 9018.78 10337.6 </span></span>
@@ -537,7 +537,7 @@
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 9 × 3</span></span></span>
 <span><span class="co">##   total_cost total_boundary_length threshold</span></span>
 <span><span class="co">##        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span>       355.              2<span style="text-decoration: underline;">889</span>449.       355</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span>       355.              2<span style="text-decoration: underline;">843</span>602.       355</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">2</span>       521.              2<span style="text-decoration: underline;">290</span>218.       532</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">3</span>       701.              2<span style="text-decoration: underline;">128</span>840.       709</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">4</span>       880.              2<span style="text-decoration: underline;">048</span>851.       886</span></span>
@@ -572,7 +572,7 @@
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 9 × 6</span></span></span>
 <span><span class="co">##   total_cost total_boundary_length value name           label            method</span></span>
 <span><span class="co">##        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span>       355.              2<span style="text-decoration: underline;">889</span>449.   355 threshold_355  Threshold = 355  none  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span>       355.              2<span style="text-decoration: underline;">843</span>602.   355 threshold_355  Threshold = 355  none  </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">2</span>       521.              2<span style="text-decoration: underline;">290</span>218.   532 threshold_532  Threshold = 532  none  </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">3</span>       701.              2<span style="text-decoration: underline;">128</span>840.   709 threshold_709  Threshold = 709  none  </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">4</span>       880.              2<span style="text-decoration: underline;">048</span>851.   886 threshold_886  Threshold = 886  none  </span></span>
@@ -631,15 +631,15 @@
 <span><span class="co"># print results</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">topsis_results</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   alt.row     score rank</span></span>
-<span><span class="co">## 1       1 0.6747678    3</span></span>
-<span><span class="co">## 2       2 0.7690763    1</span></span>
-<span><span class="co">## 3       3 0.7261837    2</span></span>
-<span><span class="co">## 4       4 0.6390543    4</span></span>
-<span><span class="co">## 5       5 0.5450384    5</span></span>
-<span><span class="co">## 6       6 0.4623809    6</span></span>
-<span><span class="co">## 7       7 0.3906564    7</span></span>
-<span><span class="co">## 8       8 0.3417825    8</span></span>
-<span><span class="co">## 9       9 0.3252322    9</span></span></code></pre>
+<span><span class="co">## 1       1 0.6822575    3</span></span>
+<span><span class="co">## 2       2 0.7678013    1</span></span>
+<span><span class="co">## 3       3 0.7245360    2</span></span>
+<span><span class="co">## 4       4 0.6365306    4</span></span>
+<span><span class="co">## 5       5 0.5411920    5</span></span>
+<span><span class="co">## 6       6 0.4569407    6</span></span>
+<span><span class="co">## 7       7 0.3836706    7</span></span>
+<span><span class="co">## 8       8 0.3338848    8</span></span>
+<span><span class="co">## 9       9 0.3177425    9</span></span></code></pre>
 <p>The candidate prioritization with the greatest TOPSIS score is considered to represent the best trade-off between total cost and total boundary length. So, based on this method, we would select the prioritization generated using a <code>threshold</code> value of 532. Let’s update the <code>result_data</code> with this information.</p>
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># add column indicating prioritization selected by TOPSIS method</span></span>
