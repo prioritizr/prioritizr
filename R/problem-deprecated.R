@@ -49,7 +49,8 @@ methods::setMethod(
         all_positive(x),
         any_nonzero(x),
         all_positive(features),
-        any_nonzero(features)
+        any_nonzero(features),
+        any_nonNA(features)
       )
     }
     # convert x to RasterLayer if has only one layer
@@ -155,7 +156,8 @@ methods::setMethod(
     if (run_checks) {
       verify(
         all_positive(features),
-        any_nonzero(features)
+        any_nonzero(features),
+        any_nonNA(features)
       )
     }
     # compute rij matrix including non-planning unit cells
@@ -263,7 +265,8 @@ methods::setMethod(
       all_positive(x[, cost_column]),
       any_nonzero(x[, cost_column]),
       all_positive(x[, unlist(features)]),
-      any_nonzero(x[, unlist(features)])
+      any_nonzero(x[, unlist(features)]),
+      all_columns_any_finite(x[, unlist(features)])
     )
     # create rij matrix
     pos <- which(
@@ -360,7 +363,8 @@ methods::setMethod(
     if (run_checks) {
       verify(
         all_positive(features),
-        any_nonzero(features)
+        any_nonzero(features),
+        any_nonNA(features)
       )
     }
     # compute rij matrix including non-planning unit cells

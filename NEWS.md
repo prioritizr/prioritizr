@@ -1,3 +1,10 @@
+# prioritizr 8.0.2.1
+
+- Update `problem()` so that an error will be thrown if `features` contains
+  only missing (`NA`) values (e.g., an _sf_ object is supplied that
+  has `NA` values in all rows for a feature's column).
+- Update publication record.
+
 # prioritizr 8.0.2
 
 ## Notice

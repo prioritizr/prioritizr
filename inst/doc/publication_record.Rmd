@@ -22,6 +22,7 @@ This vignette contains a list of publications that have cited or used the _prior
 * Buenafe KCV, Dunn DC, Everett JD, Brito-Morales I, Schoeman DS, Hanson JO, Dabalà A, Neubert S, Cannicci S, Kaschner K, and Richardson AJ (2023) A metric-based framework for climate-smart conservation planning. _Ecological Applications_, **In press**: DOI&#58;10.1002/eap.2852.
 * Chowdhury S, Zalucki MP, Hanson JO, Tiatragul S, Green D, Watson JEM, and Fuller RA (2023) Three quarters of insects are insufficiently covered by protected areas. _One Earth_, **6**: 1--8.
 * Engert J and Laurance SG (2023) Economics and optics influence funding for ecological restoration in a nation-wide program. _Environmental Research Letters_, **In press**: DOI&#58;10.1088/1748-9326/accdf2.
+* Shen X, Liu M, Hanson JO, Wang J, Locke H, Watson JEM, Ellis EC, Li S, and Ma K (2023) Countries' differentiated responsibilities to fulfill area-based conservation targets of the Kunming-Montreal Global Biodiversity Framework. _One Earth_, **In press**: DOI&#58;10.1016/j.oneear.2023.04.007.
 * von Takach B, Sargent H, Penton CE, Rick K, Murphy BP, Neave G, Davies HF, Hill BM, and Banks SC (2023) Population genomics and conservation management of the threatened black-footed tree-rat (_Mesembriomys gouldii_) in northern Australia. _Heredity_, **In press**: DOI&#58;10.1038/s41437-023-00601-0.
 * Vyas A, and Dwivedi R (2023) Global Regions, Biological Diversity, and Urban Land to Significance. _Applied Science and Engineering Journal for Advanced Research_, **2**: 1--7.
 
