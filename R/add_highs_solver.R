@@ -142,7 +142,7 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
           model$types[model$types == "S"] <- "SC"
           # create parameters
           p <- list(
-            log_to_console = as.integer(self$get_data("verbose")),
+            log_to_console = self$get_data("verbose"),
             presolve = ifelse(self$get_data("presolve") > 0.5, "on", "off"),
             mip_rel_gap = self$get_data("gap"),
             time_limit = as.numeric(self$get_data("time_limit")),
@@ -170,7 +170,7 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
           rt <- system.time({
             x <- do.call(
               highs::highs_solve,
-              append(model, list(control = p))
+              append(model, list(control = do.call(highs::highs_control, p)))
             )
           })
           # manually return NULL to indicate error if no solution

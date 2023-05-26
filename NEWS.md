@@ -1,3 +1,8 @@
+# prioritizr 8.0.2.2
+
+- Update publication record.
+- Fix compatibility with _highs_ package (version 0.1-10) (#281).
+
 # prioritizr 8.0.2.1
 
 - Update `problem()` so that an error will be thrown if argument to `features`
