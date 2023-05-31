@@ -217,6 +217,7 @@ NULL
 
 #' @rdname solve
 #' @method solve ConservationProblem
+#' @export solve.ConservationProblem
 #' @export
 solve.ConservationProblem <- function(a, b, ...,
                                       run_checks = TRUE, force = FALSE) {
