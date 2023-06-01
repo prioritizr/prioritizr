@@ -1,6 +1,7 @@
 # prioritizr 8.0.2.3
 
 - Export `solve.ConservationProblem()` so that it can be called directly (#283).
+- Update publication record.
 
 # prioritizr 8.0.2.2
 
