@@ -141,7 +141,9 @@ methods::setMethod(
       # determine number of layers to process at once
       n_layers <-
         ((40 * length(idx)) + (rep(1, terra::nlyr(y)) * length(idx) * 8))
-      n_layers <- max(which(cumsum(n_layers) < (terra::free_RAM() * 0.45)))
+      n_layers <- max(
+        c(1, which(cumsum(n_layers) < (terra::free_RAM() * 0.45)))
+      )
       layer_ind <- parallel::splitIndices(
         terra::nlyr(y), ceiling(terra::nlyr(y) / n_layers)
       )

@@ -49,6 +49,33 @@ test_that("compile (raster, single zone)", {
   expect_true(all(o$ub()[other_pos] == 1))
 })
 
+test_that("data.frame (data.frame pu data, compile, single zone)", {
+  # import data
+  sim_pu_data <- get_sim_pu_polygons()
+  sim_pu_data <- sf::st_drop_geometry(sim_pu_data)[1:5, , drop = FALSE]
+  sim_pu_data$cost <- c(1, NA, 3, 4, 8)
+  sim_pu_data$spp_1 <- runif(5)
+  sim_pu_data$spp_2 <- runif(5)
+  sim_pu_data$spp_3 <- runif(5)
+  # create problem
+  p <-
+    problem(sim_pu_data, c("spp_1", "spp_2", "spp_3"), cost_column = "cost") %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.1) %>%
+    add_proportion_decisions() %>%
+    add_manual_bounded_constraints(
+      data.frame(
+        pu = c(1, 3, 5),
+        lower = c(0.1, 0.2, 0.3),
+        upper = c(0.5, 0.6, 0.7)
+      )
+    )
+  o <- compile(p)
+  # tests
+  expect_equal(o$lb(), c(0.1, 0.2, 0, 0.3))
+  expect_equal(o$ub(), c(0.5, 0.6, 1, 0.7))
+})
+
 test_that("solve (single zone)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()

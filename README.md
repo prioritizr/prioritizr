@@ -37,6 +37,8 @@ time than *Marxan*.
 
 ## Installation
 
+#### Official version
+
 The latest official version of the *prioritizr R* package can be
 installed from the [Comprehensive R Archive Network
 (CRAN)](https://cran.r-project.org/) using the following *R* code.
@@ -45,16 +47,46 @@ installed from the [Comprehensive R Archive Network
 install.packages("prioritizr", repos = "https://cran.rstudio.com/")
 ```
 
-Alternatively, the latest development version can be installed from
-[GitHub](https://github.com/prioritizr/prioritizr) using the following
-code. Please note that while developmental versions may contain
-additional features not present in the official version, they may also
-contain coding errors.
+#### Developmental version
 
-``` r
-if (!require(remotes)) install.packages("remotes")
-remotes::install_github("prioritizr/prioritizr")
-```
+The latest development version can be installed to gain access to new
+functionality that is not yet present in the latest official version.
+Please note that the developmental version is more likely to contain
+coding errors than the official version. To install the developmental
+version, you can install it directly from the [GitHub online code
+repository](https://github.com/prioritizr/prioritizr) or from the [R
+Universe](https://prioritizr.r-universe.dev/prioritizr). In general, we
+recommend installing the developmental version from the [R
+Universe](https://prioritizr.r-universe.dev/prioritizr). This is because
+installation via [R
+Universe](https://prioritizr.r-universe.dev/prioritizr) does not require
+any additional software (e.g.,
+[RTools](https://cran.r-project.org/bin/windows/Rtools/) for Windows
+systems, or [Xcode and gfortran](https://mac.r-project.org/tools/) for
+macOS systems).
+
+-   To install the latest development version from [R
+    Universe](https://prioritizr.r-universe.dev/prioritizr), use the
+    following *R* code.
+
+    ``` r
+    install.packages(
+      "prioritizr",
+      repos = c(
+        "https://prioritizr.r-universe.dev",
+        "https://cloud.r-project.org"
+      )
+    )
+    ```
+
+-   To install the latest development version from
+    [GitHub](https://github.com/prioritizr/prioritizr), use the
+    following *R* code.
+
+    ``` r
+    if (!require(remotes)) install.packages("remotes")
+    remotes::install_github("prioritizr/prioritizr")
+    ```
 
 ## Citation
 
@@ -62,15 +94,15 @@ Please cite the *prioritizr R* package when using it in publications. To
 cite the latest official version, please use:
 
 > Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Edwards BPM, Watts
-> ME, Arcese P, Bennett J, Possingham HP (2022). prioritizr: Systematic
-> Conservation Prioritization in R. R package version 7.2.2. Available
+> ME, Arcese P, Bennett J, Possingham HP (2023). prioritizr: Systematic
+> Conservation Prioritization in R. R package version 8.0.2. Available
 > at <https://CRAN.R-project.org/package=prioritizr>.
 
 Alternatively, to cite the latest development version, please use:
 
 > Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Edwards BPM, Watts
 > ME, Arcese P, Bennett J, Possingham HP (2023). prioritizr: Systematic
-> Conservation Prioritization in R. R package version 8.0.2.3. Available
+> Conservation Prioritization in R. R package version 8.0.2.4. Available
 > at <https://github.com/prioritizr/prioritizr>.
 
 Additionally, we keep a [record of
@@ -250,7 +282,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##      8.985
+    ##      3.224
 
 ``` r
 # extract state message from the solver

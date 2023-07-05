@@ -16,8 +16,10 @@ vignette: >
 ```{r, include = FALSE}
 h = 3.2
 w = 5.0
-is_check <- ("CheckExEnv" %in% search()) || any(c("_R_CHECK_TIMINGS_",
-             "_R_CHECK_LICENSE_") %in% names(Sys.getenv()))
+is_check <-
+  ("CheckExEnv" %in% search()) ||
+  any(c("_R_CHECK_TIMINGS_", "_R_CHECK_LICENSE_") %in% names(Sys.getenv())) ||
+  !identical(Sys.getenv("MY_UNIVERSE"), "")
 knitr::opts_chunk$set(
   fig.height = h,
   fig.width = w,

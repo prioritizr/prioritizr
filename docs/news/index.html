@@ -16,7 +16,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.2.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.2.4</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -70,6 +70,14 @@
       <small>Source: <a href="https://github.com/prioritizr/prioritizr/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="8.0.2.4" id="prioritizr-8024">prioritizr 8.0.2.4<a class="anchor" aria-label="anchor" href="#prioritizr-8024"></a></h2>
+<ul><li>Fix compatibility with updates to <em>terra</em> package.</li>
+<li>Fix <code><a href="../reference/rij_matrix.html">rij_matrix()</a></code> so that it works when none of the raster layers being processed fit into memory (<a href="https://github.com/prioritizr/prioritizr/issues/290" class="external-link">#290</a>).</li>
+<li>Fix spatial extent of built-in raster datasets so that extents are between 0 and 1 (i.e., <code><a href="../reference/sim_data.html">get_sim_pu_raster()</a></code>, <code><a href="../reference/sim_data.html">get_sim_locked_in_raster()</a></code>, <code><a href="../reference/sim_data.html">get_sim_locked_out_raster()</a></code>, <code><a href="../reference/sim_data.html">get_sim_zones_pu_raster()</a></code>, <code><a href="../reference/sim_data.html">get_sim_features()</a></code>, <code><a href="../reference/sim_data.html">get_sim_zones_features()</a></code>).</li>
+<li>Update <code><a href="../reference/add_manual_locked_constraints.html">add_manual_locked_constraints()</a></code> and <code><a href="../reference/add_manual_bounded_constraints.html">add_manual_bounded_constraints()</a></code> so that the indices in the specified in the argument <code>data$pu</code> should consistently refer to the total units. In other words, the indices in <code>data$pu</code> should refer to the row numbers (for planning units in <code>sf</code> or <code>data.frame</code> format) or cell numbers (for planning units in <code>Raster</code> or <code>SpatRaster</code> format) of the planning units that should be locked.</li>
+<li>Update publication record.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="8.0.2.3" id="prioritizr-8023">prioritizr 8.0.2.3<a class="anchor" aria-label="anchor" href="#prioritizr-8023"></a></h2>
 <ul><li>Export <code><a href="../reference/solve.html">solve.ConservationProblem()</a></code> so that it can be called directly (<a href="https://github.com/prioritizr/prioritizr/issues/283" class="external-link">#283</a>).</li>

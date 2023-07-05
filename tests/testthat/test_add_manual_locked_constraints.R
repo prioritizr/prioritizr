@@ -135,6 +135,34 @@ test_that("data.frame (compile, multiple zones (character))", {
   expect_true(all(o$ub()[other_pos] == 1))
 })
 
+test_that("data.frame (data.frame pu data, compile, single zone)", {
+  # import data
+  sim_pu_data <- get_sim_pu_polygons()
+  sim_pu_data <- sf::st_drop_geometry(sim_pu_data)[1:5, , drop = FALSE]
+  sim_pu_data$cost <- c(1, NA, 3, 4, 8)
+  sim_pu_data$spp_1 <- runif(5)
+  sim_pu_data$spp_2 <- runif(5)
+  sim_pu_data$spp_3 <- runif(5)
+  # create problem
+  p <-
+    problem(sim_pu_data, c("spp_1", "spp_2", "spp_3"), cost_column = "cost") %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.1) %>%
+    add_proportion_decisions() %>%
+    add_manual_locked_constraints(
+      data.frame(pu = c(1, 3, 5), status = rep(0.3, 3))
+    )
+  o <- compile(p)
+  # calculations for tests
+  locked_pos <- c(1, 2, 4)
+  other_pos <- c(3)
+  # tests
+  expect_true(all(o$lb()[locked_pos] == 0.3))
+  expect_true(all(o$ub()[locked_pos] == 0.3))
+  expect_true(all(o$lb()[other_pos] == 0))
+  expect_true(all(o$ub()[other_pos] == 1))
+})
+
 test_that("data.frame (solve, multiple zones)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()

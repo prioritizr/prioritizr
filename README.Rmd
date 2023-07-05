@@ -56,18 +56,36 @@ The _prioritizr R_ package uses mixed integer linear programming (MILP) techniqu
 
 ## Installation
 
+#### Official version
+
 The latest official version of the _prioritizr R_ package can be installed from the [Comprehensive R Archive Network (CRAN)](https://cran.r-project.org/) using the following _R_ code.
 
 ```{r, eval = FALSE}
 install.packages("prioritizr", repos = "https://cran.rstudio.com/")
 ```
 
-Alternatively, the latest development version can be installed from [GitHub](https://github.com/prioritizr/prioritizr) using the following code. Please note that while developmental versions may contain additional features not present in the official version, they may also contain coding errors.
+#### Developmental version
 
-```{r, eval = FALSE}
-if (!require(remotes)) install.packages("remotes")
-remotes::install_github("prioritizr/prioritizr")
-```
+The latest development version can be installed to gain access to new functionality that is not yet present in the latest official version. Please note that the developmental version is more likely to contain coding errors than the official version. To install the developmental version, you can install it directly from the [GitHub online code repository](https://github.com/prioritizr/prioritizr) or from the [R Universe](https://prioritizr.r-universe.dev/prioritizr). In general, we recommend installing the developmental version from the [R Universe](https://prioritizr.r-universe.dev/prioritizr). This is because installation via [R Universe](https://prioritizr.r-universe.dev/prioritizr) does not require any additional software (e.g., [RTools](https://cran.r-project.org/bin/windows/Rtools/) for Windows systems, or [Xcode and gfortran](https://mac.r-project.org/tools/) for macOS systems).
+
+* To install the latest development version from [R Universe](https://prioritizr.r-universe.dev/prioritizr), use the following _R_ code.
+
+    ```{r, eval = FALSE}
+    install.packages(
+      "prioritizr",
+      repos = c(
+        "https://prioritizr.r-universe.dev",
+        "https://cloud.r-project.org"
+      )
+    )
+    ```
+
+* To install the latest development version from [GitHub](https://github.com/prioritizr/prioritizr), use the following _R_ code.
+
+    ```{r, eval = FALSE}
+    if (!require(remotes)) install.packages("remotes")
+    remotes::install_github("prioritizr/prioritizr")
+    ```
 
 ## Citation
 
@@ -89,9 +107,12 @@ package_version_year <- function(x) {
 
 live_package_version_year <- function(x) {
   # fetch data
-  d <- versions::available.versions(x)[[1]]
-  d <- d[which(d$version == max(d$version)), , drop = FALSE]
-  c(as.character(d$version), as.character(format(as.POSIXct(d$date), "%Y")))
+  d <- paste0("http://cran.r-project.org/web/packages/", x, "/DESCRIPTION")
+  d <- read.dcf(url(d))
+  c(
+    as.character(d[, "Version"]),
+    as.character(format(as.POSIXct(d[, "Date/Publication"]), "%Y"))
+  )
 }
 
 archive_package_version_year <- function(x) {

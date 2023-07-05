@@ -241,6 +241,7 @@ get_sim_pu_raster <- function() {
     system.file("extdata", "sim_pu_raster.tif", package = "prioritizr")
   )
   terra::crs(x) <- na_crs
+  terra::ext(x) <- c(0, 1, 0, 1)
   x
 }
 
@@ -251,6 +252,7 @@ get_sim_locked_in_raster <- function() {
     system.file("extdata", "sim_locked_in_raster.tif", package = "prioritizr")
   )
   terra::crs(x) <- na_crs
+  terra::ext(x) <- c(0, 1, 0, 1)
   x
 }
 
@@ -261,6 +263,7 @@ get_sim_locked_out_raster <- function() {
     system.file("extdata", "sim_locked_out_raster.tif", package = "prioritizr")
   )
   terra::crs(x) <- na_crs
+  terra::ext(x) <- c(0, 1, 0, 1)
   x
 }
 
@@ -271,6 +274,7 @@ get_sim_zones_pu_raster <- function() {
     system.file("extdata", "sim_zones_pu_raster.tif", package = "prioritizr")
   )
   terra::crs(x) <- na_crs
+  terra::ext(x) <- c(0, 1, 0, 1)
   names(x) <- paste0("zone_", seq_len(terra::nlyr(x)))
   x
 }
@@ -282,6 +286,7 @@ get_sim_features <- function() {
    system.file("extdata", "sim_features.tif", package = "prioritizr")
   )
   terra::crs(x) <- na_crs
+  terra::ext(x) <- c(0, 1, 0, 1)
   names(x) <- paste0("feature_", seq_len(terra::nlyr(x)))
   x
 }
@@ -311,6 +316,7 @@ get_sim_zones_features <- function() {
     )
   )
   for (i in seq_along(x)) terra::crs(x[[i]]) <- na_crs
+  for (i in seq_along(x)) terra::ext(x[[i]]) <- c(0, 1, 0, 1)
   x
 }
 
