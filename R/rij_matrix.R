@@ -152,7 +152,9 @@ methods::setMethod(
         v <- t(as.matrix(y[[layer_ind[[i]]]][idx]))
         v[is.na(v)] <- 0
         m[layer_ind[[i]], ] <- v
+        rm(v)
         m <- Matrix::drop0(m)
+        invisible(gc())
       }
     }
     # add row names
