@@ -14,6 +14,7 @@
   numbers (for planning units in `sf` or `data.frame` format) or cell numbers
   (for planning units in `Raster` or `SpatRaster` format) of the planning units
   that should be locked.
+- Fix warnings thrown due to package version comparisons.
 - Update publication record.
 
 # prioritizr 8.0.2.3

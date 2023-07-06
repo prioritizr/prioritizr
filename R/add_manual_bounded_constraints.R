@@ -222,7 +222,7 @@ methods::setMethod("add_manual_bounded_constraints",
         public = list(
           name = "manual bounded constraints",
           data = list(data = data),
-          repr = function() {
+          repr = function(compact = TRUE) {
             paste0(
               self$name, " (", nrow(self$get_data("data")),
               " planning units)"
