@@ -1,3 +1,22 @@
+# prioritizr 8.0.2.4
+
+- Fix compatibility with updates to _terra_ package.
+- Fix `rij_matrix()` so that it works when none of the raster layers being
+  processed fit into memory (#290).
+- Fix spatial extent of built-in raster datasets so that extents are between
+  0 and 1 (i.e., `get_sim_pu_raster()`, `get_sim_locked_in_raster()`,
+  `get_sim_locked_out_raster()`, `get_sim_zones_pu_raster()`,
+  `get_sim_features()`, `get_sim_zones_features()`).
+- Update `add_manual_locked_constraints()` and
+  `add_manual_bounded_constraints()` so that the indices in the
+  specified in the argument `data$pu` should consistently refer to the total
+  units. In other words, the indices in `data$pu` should refer to the row
+  numbers (for planning units in `sf` or `data.frame` format) or cell numbers
+  (for planning units in `Raster` or `SpatRaster` format) of the planning units
+  that should be locked.
+- Fix warnings thrown due to package version comparisons.
+- Update publication record.
+
 # prioritizr 8.0.2.3
 
 - Export `solve.ConservationProblem()` so that it can be called directly (#283).

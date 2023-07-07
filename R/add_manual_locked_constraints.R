@@ -250,14 +250,10 @@ methods::setMethod("add_manual_locked_constraints",
             if (!assertthat::has_name(d, "zone"))
               d$zone <- y$zone_names()[1]
             d$zone <- match(as.character(d$zone), y$zone_names())
-            # remove rows for raster cells that aren't really planning units
-            # i.e., contain NA values in all zones
-            pu <- y$get_data("cost")
-            if (inherits(pu, c("SpatRaster", "Raster"))) {
-              units <- y$planning_unit_indices()
-              d$pu <- match(d$pu, units)
-              d <- d[!is.na(d$pu), , drop = FALSE]
-            }
+            # convert from total units to planning units
+            units <- y$planning_unit_indices()
+            d$pu <- match(d$pu, units)
+            d <- d[!is.na(d$pu), , drop = FALSE]
             # apply constraints
             invisible(
               rcpp_apply_locked_constraints(

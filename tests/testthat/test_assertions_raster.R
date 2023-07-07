@@ -19,7 +19,9 @@ test_that("is_comparable_raster", {
     {
       sim_pu_raster <- get_sim_pu_raster()
       sim_features <- get_sim_features()
-      sim_pu_raster <- terra::crop(sim_pu_raster, terra::ext(1, 5, 1, 5))
+      sim_pu_raster <- terra::crop(
+        sim_pu_raster, terra::ext(0.1, 0.5, 0.1, 0.5)
+      )
       assert(is_comparable_raster(sim_pu_raster, sim_features))
     },
     "comparable"
@@ -37,7 +39,9 @@ test_that("is_comparable_raster", {
     {
       sim_pu_raster <- get_sim_pu_raster()
       sim_features <- get_sim_features()
-      sim_pu_raster <- terra::crop(sim_pu_raster, terra::ext(1, 5, 1, 5))
+      sim_pu_raster <- terra::crop(
+        sim_pu_raster, terra::ext(0.1, 0.5, 0.1, 0.5)
+      )
       assert(is_comparable_raster(sim_features, sim_pu_raster))
     },
     "comparable"
@@ -63,7 +67,9 @@ test_that("is_pu_comparable_raster", {
   expect_error(
     {
       sim_pu_raster <- get_sim_pu_raster()
-      sim_pu_raster <- terra::crop(sim_pu_raster, terra::ext(1, 5, 1, 5))
+      sim_pu_raster <- terra::crop(
+        sim_pu_raster, terra::ext(0.1, 0.5, 0.1, 0.5)
+      )
       assert(is_pu_comparable_raster(p, sim_pu_raster))
     },
     "comparable"

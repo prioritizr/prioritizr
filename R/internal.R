@@ -73,7 +73,7 @@ triplet_dataframe_to_matrix <- function(x, forceSymmetric = FALSE, ...) {
 #' @noRd
 triplet_sparse_matrix <- function(...) {
   # prepare arguments for creating matrix
-  if (utils::packageVersion("Matrix") >= 1.3) {
+  if (utils::packageVersion("Matrix") >= as.package_version("1.3")) {
     args <- list(..., repr = "T")
   } else {
     args <- list(..., giveCsparse = FALSE) #nocov
