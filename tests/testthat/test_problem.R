@@ -1138,11 +1138,20 @@ test_that("x = matrix, features = data.frame, rij_matrix = dgCMatrix", {
 test_that("invalid problem inputs (invalid input class)", {
   # import data
   sim_pu_polygons <- get_sim_pu_polygons()
+  sim_pu_polygons$spp_1 <- runif(nrow(sim_pu_polygons))
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
   # tests
   expect_tidy_error(problem("a", sim_features))
   expect_tidy_error(problem(c(sim_pu_raster, sim_pu_raster), sim_features))
+  expect_tidy_error(
+    problem(
+      sim_pu_polygons,
+      c("spp_1", attr(sim_pu_polygons, "sf_column")),
+      "cost"
+    ),
+    "geometry data"
+  )
 })
 
 test_that("invalid problem inputs (all planning units have NA costs)", {
