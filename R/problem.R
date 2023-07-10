@@ -1108,6 +1108,19 @@ methods::setMethod(
       )
     )
     assert(
+      !any(unlist(as.list(features)) == attr(x, "sf_column")),
+      msg = c(
+        paste(
+          "{.arg features} must not contain the column with geometry data",
+          "for {.arg x}."
+        ),
+        "x" = paste(
+          "The following column has the geometry data:",
+          "{.val {attr(x, 'sf_column')}}."
+        )
+      )
+    )
+    assert(
       all_match_of(unlist(as.list(features)), names(x)),
       msg = c(
         paste(

@@ -1,3 +1,9 @@
+# prioritizr 8.0.2.5
+
+- Update `problem()` so that it will throw a meaningful error message if the
+  user accidentally specifies the geometry column for `sf` planning unit data
+  as a feature.
+
 # prioritizr 8.0.2.4
 
 - Fix compatibility with updates to _terra_ package.
