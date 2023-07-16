@@ -18,7 +18,7 @@ of a conservation planning problem."><meta property="og:image" content="https://
     
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.2.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -195,20 +195,20 @@ each feature---then the <code>na.rm</code> argument should be set to
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> spp2                 28                 0.903</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># verify correctness of feature abundance calculations</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/all.equal.html" class="external-link">all.equal</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/Matrix/man/all.equal-methods.html" class="external-link">all.equal</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">a1</span><span class="op">$</span><span class="va">absolute_abundance</span>,</span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">pu</span><span class="op">$</span><span class="va">spp1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">pu</span><span class="op">$</span><span class="va">spp2</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/all.equal.html" class="external-link">all.equal</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/Matrix/man/all.equal-methods.html" class="external-link">all.equal</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">a1</span><span class="op">$</span><span class="va">relative_abundance</span>,</span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">pu</span><span class="op">$</span><span class="va">spp1</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">pu</span><span class="op">$</span><span class="va">spp1</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">pu</span><span class="op">$</span><span class="va">spp2</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">pu</span><span class="op">$</span><span class="va">spp2</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/all.equal.html" class="external-link">all.equal</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/Matrix/man/all.equal-methods.html" class="external-link">all.equal</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">a2</span><span class="op">$</span><span class="va">absolute_abundance</span>,</span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">pu</span><span class="op">$</span><span class="va">spp1</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">pu</span><span class="op">$</span><span class="va">cost</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>,</span></span>
@@ -217,7 +217,7 @@ each feature---then the <code>na.rm</code> argument should be set to
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/all.equal.html" class="external-link">all.equal</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/Matrix/man/all.equal-methods.html" class="external-link">all.equal</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">a2</span><span class="op">$</span><span class="va">relative_abundance</span>,</span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">pu</span><span class="op">$</span><span class="va">spp1</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">pu</span><span class="op">$</span><span class="va">cost</span><span class="op">)</span><span class="op">]</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">pu</span><span class="op">$</span><span class="va">spp1</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span></span>

@@ -1,3 +1,7 @@
+# prioritizr 8.0.3
+
+- Update publication record.
+
 # prioritizr 8.0.2.5
 
 - Update `problem()` so that it will throw a meaningful error message if the
