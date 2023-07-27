@@ -10,6 +10,7 @@
   its 2 neighbors were also selected.
 - Fix issue with `problem()` that prevents `features` being supplied as
   a `data.frame` that contains feature names stored as a `factor` (#295).
+- Fix broken URLs in documentation.
 
 # prioritizr 8.0.2.5
 
