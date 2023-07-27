@@ -25,11 +25,11 @@ the argument to \code{k} must have an element for each zone.}
 
 \item{clamp}{\code{logical} should the minimum number of neighbors
 for selected planning units in the solution be clamped to feasibility?
-For example, if a planning unit has 2 neighbors,
+For example, if a planning unit has two neighbors,
 \code{k = 3}, and \code{clamp = FALSE}, then the planning unit could not
 ever be selected in the solution. However, if \code{clamp = TRUE},
 then the planning unit could potentially be selected in the solution if
-both of its 2 neighbors were also selected.
+both of its two neighbors were also selected.
 Defaults to \code{TRUE}.}
 
 \item{zones}{\code{matrix} or \code{Matrix} object describing the
@@ -170,14 +170,14 @@ p5 <-
 # are allocated to the same zone
 z6 <- diag(3)
 print(z6)
-p6 <- p5 \%>\% add_neighbor_constraints(rep(2, 3), z6)
+p6 <- p5 \%>\% add_neighbor_constraints(rep(2, 3), zones = z6)
 
 # create problem where the planning units in zone 1 don't explicitly require
 # any neighbors, planning units in zone 2 require at least 1 neighbors, and
 # planning units in zone 3 require at least 2 neighbors. As before, planning
 # units are still only considered neighbors if they are allocated to the
 # same zone
-p7 <- p5 \%>\% add_neighbor_constraints(c(0, 1, 2), z6)
+p7 <- p5 \%>\% add_neighbor_constraints(c(0, 1, 2), zones = z6)
 
 # create problem given the same constraints as outlined above, except
 # that when determining which selected planning units are neighbors,
@@ -187,7 +187,7 @@ z8 <- diag(3)
 z8[1, 2] <- 1
 z8[2, 1] <- 1
 print(z8)
-p8 <- p5 \%>\% add_neighbor_constraints(c(0, 1, 2), z8)
+p8 <- p5 \%>\% add_neighbor_constraints(c(0, 1, 2), zones = z8)
 
 # solve problems
 s2 <- list(p5, p6, p7, p8)

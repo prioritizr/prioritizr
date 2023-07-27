@@ -111,11 +111,11 @@ the argument to <code>k</code> must have an element for each zone.</p></dd>
 <dt>clamp</dt>
 <dd><p><code>logical</code> should the minimum number of neighbors
 for selected planning units in the solution be clamped to feasibility?
-For example, if a planning unit has 2 neighbors,
+For example, if a planning unit has two neighbors,
 <code>k = 3</code>, and <code>clamp = FALSE</code>, then the planning unit could not
 ever be selected in the solution. However, if <code>clamp = TRUE</code>,
 then the planning unit could potentially be selected in the solution if
-both of its 2 neighbors were also selected.
+both of its two neighbors were also selected.
 Defaults to <code>TRUE</code>.</p></dd>
 
 
@@ -294,16 +294,14 @@ conservation. <em>European Journal of Operational Research</em>, 231:
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    1    0    0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    0    1    0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,]    0    0    1</span>
-<span class="r-in"><span><span class="va">p6</span> <span class="op">&lt;-</span> <span class="va">p5</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">add_neighbor_constraints</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>, <span class="va">z6</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in add_neighbor_constraints(., rep(2, 3), z6):</span> `clamp` is not a flag (a length one logical vector).</span>
+<span class="r-in"><span><span class="va">p6</span> <span class="op">&lt;-</span> <span class="va">p5</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">add_neighbor_constraints</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>, zones <span class="op">=</span> <span class="va">z6</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create problem where the planning units in zone 1 don't explicitly require</span></span></span>
 <span class="r-in"><span><span class="co"># any neighbors, planning units in zone 2 require at least 1 neighbors, and</span></span></span>
 <span class="r-in"><span><span class="co"># planning units in zone 3 require at least 2 neighbors. As before, planning</span></span></span>
 <span class="r-in"><span><span class="co"># units are still only considered neighbors if they are allocated to the</span></span></span>
 <span class="r-in"><span><span class="co"># same zone</span></span></span>
-<span class="r-in"><span><span class="va">p7</span> <span class="op">&lt;-</span> <span class="va">p5</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">add_neighbor_constraints</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, <span class="va">z6</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in add_neighbor_constraints(., c(0, 1, 2), z6):</span> `clamp` is not a flag (a length one logical vector).</span>
+<span class="r-in"><span><span class="va">p7</span> <span class="op">&lt;-</span> <span class="va">p5</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">add_neighbor_constraints</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, zones <span class="op">=</span> <span class="va">z6</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create problem given the same constraints as outlined above, except</span></span></span>
 <span class="r-in"><span><span class="co"># that when determining which selected planning units are neighbors,</span></span></span>
@@ -317,24 +315,18 @@ conservation. <em>European Journal of Operational Research</em>, 231:
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    1    1    0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    1    1    0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,]    0    0    1</span>
-<span class="r-in"><span><span class="va">p8</span> <span class="op">&lt;-</span> <span class="va">p5</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">add_neighbor_constraints</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, <span class="va">z8</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in add_neighbor_constraints(., c(0, 1, 2), z8):</span> `clamp` is not a flag (a length one logical vector).</span>
+<span class="r-in"><span><span class="va">p8</span> <span class="op">&lt;-</span> <span class="va">p5</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">add_neighbor_constraints</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, zones <span class="op">=</span> <span class="va">z8</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># solve problems</span></span></span>
 <span class="r-in"><span><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">p5</span>, <span class="va">p6</span>, <span class="va">p7</span>, <span class="va">p8</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'p6' not found</span>
 <span class="r-in"><span><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">s2</span>, <span class="va">solve</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 's2' not found</span>
 <span class="r-in"><span><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">s2</span>, <span class="va">category_layer</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 's2' not found</span>
 <span class="r-in"><span><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">s2</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'x' in selecting a method for function 'rast': object 's2' not found</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">s2</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"basic problem"</span>, <span class="st">"p6"</span>, <span class="st">"p7"</span>, <span class="st">"p8"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 's2' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot solutions</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s2</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">s2</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'x' in selecting a method for function 'plot': object 's2' not found</span>
+<span class="r-plt img"><img src="add_neighbor_constraints-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
