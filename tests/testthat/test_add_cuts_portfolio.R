@@ -94,7 +94,7 @@ test_that("solve (number_solutions within limit, multiple zones)", {
     lapply(s, category_layer) %>%
       lapply(terra::values) %>%
       lapply(c) %>%
-      lapply(paste, collapse = ",") %>%
+      sapply(paste, collapse = ",") %>%
       no_duplicates()
   )
 })

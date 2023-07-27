@@ -262,7 +262,7 @@ test_that("instability due to number of neighboring planning units", {
     problem(sim_pu_raster, sim_features) %>%
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%
-    add_neighbor_constraints(k = 1e+9) %>%
+    add_neighbor_constraints(k = 1e+9, clamp = FALSE) %>%
     add_binary_decisions()
   # tests
   expect_warning(expect_false(presolve_check(p)), "neighbors")

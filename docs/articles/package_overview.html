@@ -40,7 +40,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.2.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.2.6</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -875,7 +875,7 @@
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints:</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          neighbor constraints (`k` = <span style="color: #0000BB;">1</span>, …)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          neighbor constraints (`k` = <span style="color: #0000BB;">1</span>, `clamp` = <span style="color: #0000BB;">TRUE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
@@ -1863,7 +1863,7 @@
 <code class="sourceCode R"><span><span class="co"># extract time spent solving solution</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s42</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## solution_1 </span></span>
-<span><span class="co">##      0.128</span></span></code></pre>
+<span><span class="co">##      0.127</span></span></code></pre>
 <div class="sourceCode" id="cb114"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract state message from the solver that describes why this specific</span></span>
 <span><span class="co"># solution was returned</span></span>
@@ -1976,7 +1976,7 @@
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 1 × 2</span></span></span>
 <span><span class="co">##   summary asym_connectivity</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> overall              53.4</span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> overall              51.9</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="evaluating-relative-importance">Evaluating relative importance<a class="anchor" aria-label="anchor" href="#evaluating-relative-importance"></a>

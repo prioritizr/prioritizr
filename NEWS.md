@@ -1,3 +1,17 @@
+# prioritizr 8.0.2.6
+
+- Update `add_neighbors_constraints()` so that it has an additional
+  `clamp` argument so the minimum number of neighbors permitted for
+  each planning unit in the solution is clamped to the number of neighbors that
+  each planning unit has. For example, if a planning unit has 2 neighbors,
+  `k = 3`, and `clamp = FALSE`, then the planning unit could not
+  ever be selected in the solution. However, if `clamp = TRUE`, then
+  the planning unit could potentially be selected in the solution if both of
+  its 2 neighbors were also selected.
+- Fix issue with `problem()` that prevents `features` being supplied as
+  a `data.frame` that contains feature names stored as a `factor` (#295).
+- Fix broken URLs in documentation.
+
 # prioritizr 8.0.2.5
 
 - Update `problem()` so that it will throw a meaningful error message if the

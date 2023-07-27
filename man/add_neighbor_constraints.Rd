@@ -2,19 +2,19 @@
 % Please edit documentation in R/add_neighbor_constraints.R
 \name{add_neighbor_constraints}
 \alias{add_neighbor_constraints}
-\alias{add_neighbor_constraints,ConservationProblem,ANY,ANY,array-method}
-\alias{add_neighbor_constraints,ConservationProblem,ANY,ANY,matrix-method}
-\alias{add_neighbor_constraints,ConservationProblem,ANY,ANY,data.frame-method}
-\alias{add_neighbor_constraints,ConservationProblem,ANY,ANY,ANY-method}
+\alias{add_neighbor_constraints,ConservationProblem,ANY,ANY,ANY,array-method}
+\alias{add_neighbor_constraints,ConservationProblem,ANY,ANY,ANY,matrix-method}
+\alias{add_neighbor_constraints,ConservationProblem,ANY,ANY,ANY,data.frame-method}
+\alias{add_neighbor_constraints,ConservationProblem,ANY,ANY,ANY,ANY-method}
 \title{Add neighbor constraints}
 \usage{
-\S4method{add_neighbor_constraints}{ConservationProblem,ANY,ANY,ANY}(x, k, zones, data)
+\S4method{add_neighbor_constraints}{ConservationProblem,ANY,ANY,ANY,ANY}(x, k, clamp, zones, data)
 
-\S4method{add_neighbor_constraints}{ConservationProblem,ANY,ANY,data.frame}(x, k, zones, data)
+\S4method{add_neighbor_constraints}{ConservationProblem,ANY,ANY,ANY,data.frame}(x, k, clamp, zones, data)
 
-\S4method{add_neighbor_constraints}{ConservationProblem,ANY,ANY,matrix}(x, k, zones, data)
+\S4method{add_neighbor_constraints}{ConservationProblem,ANY,ANY,ANY,matrix}(x, k, clamp, zones, data)
 
-\S4method{add_neighbor_constraints}{ConservationProblem,ANY,ANY,array}(x, k, zones, data)
+\S4method{add_neighbor_constraints}{ConservationProblem,ANY,ANY,ANY,array}(x, k, clamp, zones, data)
 }
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} object.}
@@ -22,6 +22,15 @@
 \item{k}{\code{integer} minimum number of neighbors for selected
 planning units in the solution. For problems with multiple zones,
 the argument to \code{k} must have an element for each zone.}
+
+\item{clamp}{\code{logical} should the minimum number of neighbors
+for selected planning units in the solution be clamped to feasibility?
+For example, if a planning unit has two neighbors,
+\code{k = 3}, and \code{clamp = FALSE}, then the planning unit could not
+ever be selected in the solution. However, if \code{clamp = TRUE},
+then the planning unit could potentially be selected in the solution if
+both of its two neighbors were also selected.
+Defaults to \code{TRUE}.}
 
 \item{zones}{\code{matrix} or \code{Matrix} object describing the
 neighborhood scheme for different zones. Each row and column corresponds
@@ -161,14 +170,14 @@ p5 <-
 # are allocated to the same zone
 z6 <- diag(3)
 print(z6)
-p6 <- p5 \%>\% add_neighbor_constraints(rep(2, 3), z6)
+p6 <- p5 \%>\% add_neighbor_constraints(rep(2, 3), zones = z6)
 
 # create problem where the planning units in zone 1 don't explicitly require
 # any neighbors, planning units in zone 2 require at least 1 neighbors, and
 # planning units in zone 3 require at least 2 neighbors. As before, planning
 # units are still only considered neighbors if they are allocated to the
 # same zone
-p7 <- p5 \%>\% add_neighbor_constraints(c(0, 1, 2), z6)
+p7 <- p5 \%>\% add_neighbor_constraints(c(0, 1, 2), zones = z6)
 
 # create problem given the same constraints as outlined above, except
 # that when determining which selected planning units are neighbors,
@@ -178,7 +187,7 @@ z8 <- diag(3)
 z8[1, 2] <- 1
 z8[2, 1] <- 1
 print(z8)
-p8 <- p5 \%>\% add_neighbor_constraints(c(0, 1, 2), z8)
+p8 <- p5 \%>\% add_neighbor_constraints(c(0, 1, 2), zones = z8)
 
 # solve problems
 s2 <- list(p5, p6, p7, p8)

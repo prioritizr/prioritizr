@@ -105,7 +105,7 @@ NULL
 #'
 #' @return A `logical` value indicating if all checks passed successfully.
 #'
-#' @seealso [problem()], [solve()], <https://www.gurobi.com/documentation/9.5/refman/numerics_gurobi_guidelines.html>.
+#' @seealso [problem()], [solve()], <http://www.gurobi.cn/download/GuNum.pdf>.
 #'
 #' @examples
 #' \dontrun{

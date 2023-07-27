@@ -533,14 +533,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_apply_neighbor_constraints
-bool rcpp_apply_neighbor_constraints(SEXP x, const Rcpp::List connected_data, const Rcpp::IntegerVector k);
+bool rcpp_apply_neighbor_constraints(SEXP x, const Rcpp::List connected_data, const Rcpp::NumericMatrix k);
 RcppExport SEXP _prioritizr_rcpp_apply_neighbor_constraints(SEXP xSEXP, SEXP connected_dataSEXP, SEXP kSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
     Rcpp::traits::input_parameter< const Rcpp::List >::type connected_data(connected_dataSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::IntegerVector >::type k(kSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix >::type k(kSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_apply_neighbor_constraints(x, connected_data, k));
     return rcpp_result_gen;
 END_RCPP
