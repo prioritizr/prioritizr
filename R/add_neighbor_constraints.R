@@ -13,6 +13,15 @@ NULL
 #'   planning units in the solution. For problems with multiple zones,
 #'   the argument to `k` must have an element for each zone.
 #'
+#' @param clamp `logical` should the minimum number of neighbors
+#'   for selected planning units in the solution be clamped to feasibility?
+#'   For example, if a planning unit has 2 neighbors,
+#'   `k = 3`, and `clamp = FALSE`, then the planning unit could not
+#'   ever be selected in the solution. However, if `clamp = TRUE`,
+#'   then the planning unit could potentially be selected in the solution if
+#'   both of its 2 neighbors were also selected.
+#'   Defaults to `TRUE`.
+#'
 #' @param zones `matrix` or `Matrix` object describing the
 #'   neighborhood scheme for different zones. Each row and column corresponds
 #'   to a different zone in the argument to `x`, and cell values must
@@ -186,15 +195,16 @@ NULL
 #'
 #' @exportMethod add_neighbor_constraints
 #'
-#' @aliases add_neighbor_constraints,ConservationProblem,ANY,ANY,array-method add_neighbor_constraints,ConservationProblem,ANY,ANY,matrix-method add_neighbor_constraints,ConservationProblem,ANY,ANY,data.frame-method add_neighbor_constraints,ConservationProblem,ANY,ANY,ANY-method
+#' @aliases add_neighbor_constraints,ConservationProblem,ANY,ANY,ANY,array-method add_neighbor_constraints,ConservationProblem,ANY,ANY,ANY,matrix-method add_neighbor_constraints,ConservationProblem,ANY,ANY,ANY,data.frame-method add_neighbor_constraints,ConservationProblem,ANY,ANY,ANY,ANY-method
 NULL
 
 #' @export
 methods::setGeneric("add_neighbor_constraints",
-  signature = methods::signature("x", "k", "zones", "data"),
-  function(x, k, zones = diag(number_of_zones(x)), data = NULL) {
+  signature = methods::signature("x", "k", "clamp", "zones", "data"),
+  function(x, k, clamp = TRUE, zones = diag(number_of_zones(x)), data = NULL) {
     assert_required(x)
     assert_required(k)
+    assert_required(clamp)
     assert_required(zones)
     assert_required(data)
     assert(
@@ -206,11 +216,11 @@ methods::setGeneric("add_neighbor_constraints",
 )
 
 #' @name add_neighbor_constraints
-#' @usage \S4method{add_neighbor_constraints}{ConservationProblem,ANY,ANY,ANY}(x, k, zones, data)
+#' @usage \S4method{add_neighbor_constraints}{ConservationProblem,ANY,ANY,ANY,ANY}(x, k, clamp, zones, data)
 #' @rdname add_neighbor_constraints
 methods::setMethod("add_neighbor_constraints",
-  methods::signature("ConservationProblem", "ANY", "ANY", "ANY"),
-  function(x, k, zones, data) {
+  methods::signature("ConservationProblem", "ANY", "ANY", "ANY", "ANY"),
+  function(x, k, clamp, zones, data) {
     # assert valid arguments
     assert(
       is_conservation_problem(x),
@@ -220,6 +230,8 @@ methods::setMethod("add_neighbor_constraints",
       all_positive(k),
       all(k >= 0),
       length(k) == number_of_zones(x),
+      assertthat::is.flag(clamp),
+      all_finite(clamp),
       is_inherits(zones, c("matrix", "Matrix")),
       is_inherits(data, c("NULL", "Matrix"))
     )
@@ -247,16 +259,16 @@ methods::setMethod("add_neighbor_constraints",
       )
     }
     # add constraints
-    internal_add_neighbor_constraints(x, k, zones, data)
+    internal_add_neighbor_constraints(x, k, clamp, zones, data)
   }
 )
 
 #' @name add_neighbor_constraints
-#' @usage \S4method{add_neighbor_constraints}{ConservationProblem,ANY,ANY,data.frame}(x, k, zones, data)
+#' @usage \S4method{add_neighbor_constraints}{ConservationProblem,ANY,ANY,ANY,data.frame}(x, k, clamp, zones, data)
 #' @rdname add_neighbor_constraints
 methods::setMethod("add_neighbor_constraints",
-  methods::signature("ConservationProblem", "ANY", "ANY", "data.frame"),
-  function(x, k, zones, data) {
+  methods::signature("ConservationProblem", "ANY", "ANY", "ANY", "data.frame"),
+  function(x, k, clamp, zones, data) {
     # assert valid arguments
     assert(
       is.data.frame(data),
@@ -278,28 +290,28 @@ methods::setMethod("add_neighbor_constraints",
     }
     # add constraints
     add_neighbor_constraints(
-      x, k, zones, marxan_connectivity_data_to_matrix(x, data, TRUE)
+      x, k, clamp, zones, marxan_connectivity_data_to_matrix(x, data, TRUE)
     )
   }
 )
 
 #' @name add_neighbor_constraints
-#' @usage \S4method{add_neighbor_constraints}{ConservationProblem,ANY,ANY,matrix}(x, k, zones, data)
+#' @usage \S4method{add_neighbor_constraints}{ConservationProblem,ANY,ANY,ANY,matrix}(x, k, clamp, zones, data)
 #' @rdname add_neighbor_constraints
 methods::setMethod("add_neighbor_constraints",
-  methods::signature("ConservationProblem", "ANY", "ANY", "matrix"),
-  function(x, k, zones, data) {
+  methods::signature("ConservationProblem", "ANY", "ANY", "ANY", "matrix"),
+  function(x, k, clamp, zones, data) {
     # add constraints
-    add_neighbor_constraints(x, k, zones, as_Matrix(data, "dgCMatrix"))
+    add_neighbor_constraints(x, k, clamp, zones, as_Matrix(data, "dgCMatrix"))
   }
 )
 
 #' @name add_neighbor_constraints
-#' @usage \S4method{add_neighbor_constraints}{ConservationProblem,ANY,ANY,array}(x, k, zones, data)
+#' @usage \S4method{add_neighbor_constraints}{ConservationProblem,ANY,ANY,ANY,array}(x, k, clamp, zones, data)
 #' @rdname add_neighbor_constraints
 methods::setMethod("add_neighbor_constraints",
-  methods::signature("ConservationProblem", "ANY", "ANY", "array"),
-  function(x, k, zones, data) {
+  methods::signature("ConservationProblem", "ANY", "ANY", "ANY", "array"),
+  function(x, k, clamp, zones, data) {
     # assert arguments are valid
     assert(
       is_conservation_problem(x),
@@ -311,6 +323,8 @@ methods::setMethod("add_neighbor_constraints",
       all_positive(k),
       all(k >= 0),
       length(k) == number_of_zones(x),
+      length(k) == number_of_zones(x),
+      assertthat::is.flag(clamp),
       length(dim(data)) == 4,
       dim(data)[1] == x$number_of_total_units(),
       dim(data)[2] == x$number_of_total_units(),
@@ -320,15 +334,16 @@ methods::setMethod("add_neighbor_constraints",
       all_binary(data)
     )
     # add constraints
-    internal_add_neighbor_constraints(x, k, zones, data)
+    internal_add_neighbor_constraints(x, k, clamp, zones, data)
   }
 )
 
-internal_add_neighbor_constraints <- function(x, k, zones, data) {
+internal_add_neighbor_constraints <- function(x, k, clamp, zones, data) {
   # assert arguments valid
   assert(
     is_conservation_problem(x),
     is.numeric(k),
+    assertthat::is.flag(clamp),
     is_inherits(data, c("NULL", "Matrix", "array")),
     .internal = TRUE
   )
@@ -353,7 +368,7 @@ internal_add_neighbor_constraints <- function(x, k, zones, data) {
       inherit = Constraint,
       public = list(
         name = "neighbor constraints",
-        data = list(k = k, zones = zones, data = data),
+        data = list(k = k, clamp = clamp, zones = zones, data = data),
         calculate = function(x) {
           assert(is_conservation_problem(x))
           # if needed, generate adjacency matrix if null
@@ -381,6 +396,7 @@ internal_add_neighbor_constraints <- function(x, k, zones, data) {
           # prepare data
           m <- list()
           ind <- y$planning_unit_indices()
+          nz <- y$number_of_zones()
           if (inherits(d, "Matrix"))  {
             # if data is an array...
             d <- d[ind, ind]
@@ -408,9 +424,19 @@ internal_add_neighbor_constraints <- function(x, k, zones, data) {
             )
             # nocov end
           }
+          # prepare k
+          max_k <- self$get_data("k")
+          k <- matrix(max_k, nrow = length(ind), ncol = nz, byrow = TRUE)
+          if (isTRUE(clamp)) {
+            for (z1 in seq_len(nz)) {
+              k[, z1] <- pmin(
+                rep(max_k[[z1]], length(ind)),
+                Matrix::rowSums(do.call(pmax, m[[z1]]))
+              )
+            }
+          }
           # apply constraints
-          k <- self$get_data("k")
-          if (any(k > 0)) {
+          if (max(k) > 0) {
             rcpp_apply_neighbor_constraints(x$ptr, m, k)
           }
           # return success

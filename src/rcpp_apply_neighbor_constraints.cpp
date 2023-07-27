@@ -4,7 +4,7 @@
 
 // [[Rcpp::export]]
 bool rcpp_apply_neighbor_constraints(
-  SEXP x, const Rcpp::List connected_data, const Rcpp::IntegerVector k) {
+  SEXP x, const Rcpp::List connected_data, const Rcpp::NumericMatrix k) {
 
   /* The following code makes the following critical assumptions
    *
@@ -14,7 +14,10 @@ bool rcpp_apply_neighbor_constraints(
    *    structure of the object is
    *    connected_data[[1:ptr->_number_of_zones]][[1:ptr->_number_of_zones]]
    *
-   * 2. the number of elements in k is equal to ptr->_number_of_zones
+   * 2. k is a matrix containing a row for each different planning unit,
+   *    and a column for each zone. Cell values indicate the number of
+   *    neighbors that a planning unit must have when allocated to a particular
+   *    zone.
    *
    */
 
@@ -59,13 +62,12 @@ bool rcpp_apply_neighbor_constraints(
 
   // add constraints to specify that each planning unit should have
   // k number of neighbors
-  Rcpp::IntegerVector k2 = k * -1;
   for (std::size_t z = 0; z < (ptr->_number_of_zones); ++z) {
     for (std::size_t i = 0; i < (ptr->_number_of_planning_units); ++i) {
       ptr->_A_i.push_back(A_original_nrow +
                           (z * ptr->_number_of_planning_units) + i);
       ptr->_A_j.push_back((z * ptr->_number_of_planning_units) + i);
-      ptr->_A_x.push_back(k2[z]);
+      ptr->_A_x.push_back(k(i, z) * -1.0);
       ptr->_sense.push_back(">=");
       ptr->_rhs.push_back(0);
       ptr->_row_ids.push_back("n");

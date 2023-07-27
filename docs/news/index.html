@@ -16,7 +16,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.2.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.2.6</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -70,6 +70,11 @@
       <small>Source: <a href="https://github.com/prioritizr/prioritizr/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="8.0.2.6" id="prioritizr-8026">prioritizr 8.0.2.6<a class="anchor" aria-label="anchor" href="#prioritizr-8026"></a></h2>
+<ul><li>Update <code>add_neighbors_constraints()</code> so that it has an additional <code>clamp</code> argument so the minimum number of neighbors permitted for each planning unit in the solution is clamped to the number of neighbors that each planning unit has. For example, if a planning unit has 2 neighbors, <code>k = 3</code>, and <code>clamp = FALSE</code>, then the planning unit could not ever be selected in the solution. However, if <code>clamp = TRUE</code>, then the planning unit could potentially be selected in the solution if both of its 2 neighbors were also selected.</li>
+<li>Fix issue with <code><a href="../reference/problem.html">problem()</a></code> that prevents <code>features</code> being supplied as a <code>data.frame</code> that contains feature names stored as a <code>factor</code> (<a href="https://github.com/prioritizr/prioritizr/issues/295" class="external-link">#295</a>).</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="8.0.2.5" id="prioritizr-8025">prioritizr 8.0.2.5<a class="anchor" aria-label="anchor" href="#prioritizr-8025"></a></h2>
 <ul><li>Update <code><a href="../reference/problem.html">problem()</a></code> so that it will throw a meaningful error message if the user accidentally specifies the geometry column for <code>sf</code> planning unit data as a feature.</li></ul></div>
