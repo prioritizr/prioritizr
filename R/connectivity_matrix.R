@@ -82,7 +82,7 @@ NULL
 #' Matrix::image(cm_ply, main = "connectivity matrix")
 #'
 #' # create connectivity matrix using habitat suitability data for each feature,
-#' # this could be useful if prioritisations should spatially clump
+#' # this could be useful if prioritizations should spatially clump
 #' # together adjacent planning units that have suitable habitat
 #' # for the same species (e.g., to maintain functional connectivity)
 #'
@@ -121,19 +121,11 @@ NULL
 #' ## data -- to first normalize the conductance values before applying the
 #' ## weights and summing the data for feature together
 #'
-#' ## one approach would be to linearly rescale the values between 0.01 and 1
-#' ## note that we wouldn't want to rescale them between 0 and 1 since
-#' ## a value of zero means that there is no connectivity at all (and
-#' ## and not a relatively small amount of connectivity)
-#' ### define helper function
-#' library(scales) # load scales library for rescale
-#' rescale_matrix <- function(x) {x@x <- rescale(x@x, c(0.01, 1)); x}
-#'
 #' ### calculate functional connectivity matrix using the weighted sum of
 #' ### connectivity values that have been normalized by linearly re-scaling
 #' ### values
 #' cm_lwsum <- lapply(as.list(cd), connectivity_matrix, x = r) # make matrices
-#' cm_lwsum <- lapply(cm_lwsum, rescale_matrix) # rescale matrices to [0.01, 1]
+#' cm_lwsum <- lapply(cm_lwsum, rescale_matrix, max = 1) # rescale matrices
 #' cm_lwsum <- Map("*", cm_lwsum, weights) # multiply by weights
 #' cm_lwsum <- Reduce("+", cm_lwsum) # sum matrices together
 #'

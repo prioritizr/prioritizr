@@ -16,7 +16,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.2.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.2.7</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,10 +71,25 @@
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="8.0.2.7" id="prioritizr-8027">prioritizr 8.0.2.7<a class="anchor" aria-label="anchor" href="#prioritizr-8027"></a></h2>
+<div class="section level3">
+<h3 id="notice-8-0-2-7">Notice<a class="anchor" aria-label="anchor" href="#notice-8-0-2-7"></a></h3>
+<ul><li>We have developed a better approach for rescaling boundary data to avoid numerical issues during optimization (<a href="https://github.com/prioritizr/prioritizr/issues/297" class="external-link">#297</a>). Earlier versions of the package recommended the use of the <code><a href="https://scales.r-lib.org/reference/rescale.html" class="external-link">scales::rescale()</a></code> to rescale such data. However, we now realize that this approach can produce inconsistencies for boundary length data (e.g., the total perimeter of a planning unit might not necessarily equal the sum of the edge lengths). In some cases, these inconsistencies can cause solutions generated with high boundary penalties (i.e., using <code><a href="../reference/add_boundary_penalties.html">add_boundary_penalties()</a></code> with a high <code>penalty</code> value) to contain a large reserve (i.e., a spatial cluster of selected of planning units) with a single unselected planning unit in the middle of the reserve. In the the worst case, these inconsistencies produce a situation where increasing boundary penalties (i.e., generating multiple solutions with <code><a href="../reference/add_boundary_penalties.html">add_boundary_penalties()</a></code> and increasing <code>penalty</code> values) does not alter the spatial configuration of solutions. Although use of <code><a href="https://scales.r-lib.org/reference/rescale.html" class="external-link">scales::rescale()</a></code> did not produce such behavior prior to version 8.0.0, changes to the output format for <code><a href="../reference/boundary_matrix.html">boundary_matrix()</a></code> in subsequent versions now mean that <code><a href="https://scales.r-lib.org/reference/rescale.html" class="external-link">scales::rescale()</a></code> can cause these issues. We now recommend using the new <code><a href="../reference/rescale_matrix.html">rescale_matrix()</a></code> function to rescale boundary length data to avoid numerical issues, whilst also avoid such inconsistencies.</li></ul></div>
+<div class="section level3">
+<h3 id="new-features-8-0-2-7">New features<a class="anchor" aria-label="anchor" href="#new-features-8-0-2-7"></a></h3>
+<ul><li>New <code><a href="../reference/rescale_matrix.html">rescale_matrix()</a></code> function to help with rescaling boundary length (e.g., generated using <code><a href="../reference/boundary_matrix.html">boundary_matrix()</a></code>) and connectivity (e.g., generated using <code><a href="../reference/connectivity_matrix.html">connectivity_matrix()</a></code>) data so avoid numerical issues during optimization (<a href="https://github.com/prioritizr/prioritizr/issues/297" class="external-link">#297</a>).</li></ul></div>
+<div class="section level3">
+<h3 id="minor-improvements-and-bug-fixes-8-0-2-7">Minor improvements and bug fixes<a class="anchor" aria-label="anchor" href="#minor-improvements-and-bug-fixes-8-0-2-7"></a></h3>
+<ul><li>Update examples and vignettes to use the <code><a href="../reference/rescale_matrix.html">rescale_matrix()</a></code> function instead of the <code><a href="https://scales.r-lib.org/reference/rescale.html" class="external-link">scales::rescale()</a></code> function for rescaling boundary length and connectivity data (<a href="https://github.com/prioritizr/prioritizr/issues/297" class="external-link">#297</a>).</li>
+<li>Update the <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> and <code><a href="https://rdrr.io/pkg/terra/man/summary.html" class="external-link">summary()</a></code> methods for <code><a href="../reference/problem.html">problem()</a></code> objects so that they will now better describe situations when the planning cost data all contain a constant value (e.g., all costs equal to 1).</li>
+<li>Update publication record.</li>
+</ul></div>
+</div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="8.0.2.6" id="prioritizr-8026">prioritizr 8.0.2.6<a class="anchor" aria-label="anchor" href="#prioritizr-8026"></a></h2>
 <ul><li>Update <code>add_neighbors_constraints()</code> so that it has an additional <code>clamp</code> argument so the minimum number of neighbors permitted for each planning unit in the solution is clamped to the number of neighbors that each planning unit has. For example, if a planning unit has 2 neighbors, <code>k = 3</code>, and <code>clamp = FALSE</code>, then the planning unit could not ever be selected in the solution. However, if <code>clamp = TRUE</code>, then the planning unit could potentially be selected in the solution if both of its 2 neighbors were also selected.</li>
 <li>Fix issue with <code><a href="../reference/problem.html">problem()</a></code> that prevents <code>features</code> being supplied as a <code>data.frame</code> that contains feature names stored as a <code>factor</code> (<a href="https://github.com/prioritizr/prioritizr/issues/295" class="external-link">#295</a>).</li>
-<li>Update out of date URLs in documentation.</li>
+<li>Fix broken URLs in documentation.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="8.0.2.5" id="prioritizr-8025">prioritizr 8.0.2.5<a class="anchor" aria-label="anchor" href="#prioritizr-8025"></a></h2>

@@ -81,3 +81,21 @@ test_that("x = ConservationModifier", {
 test_that("x = ConservationProblem", {
   expect_inherits(repr(ConservationProblem$new(list())), "character")
 })
+
+test_that("repr_cost", {
+  # constant
+  x <- repr_cost(c(4, 4, 4, 4))
+  expect_inherits(x, "character")
+  expect_match(x, "constant")
+  expect_match(x, "4")
+  # binary
+  x <- repr_cost(c(0, 1, 0, 1))
+  expect_inherits(x, "character")
+  expect_match(x, "binary")
+  # continuous
+  x <- repr_cost(c(-6, 5, 1, 4))
+  expect_inherits(x, "character")
+  expect_match(x, "continuous")
+  expect_match(x, "-6")
+  expect_match(x, "5")
+})

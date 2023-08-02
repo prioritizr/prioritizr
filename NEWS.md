@@ -1,3 +1,44 @@
+# prioritizr 8.0.2.7
+
+## Notice
+
+- We have developed a better approach for rescaling boundary data to
+  avoid numerical issues during optimization (#297). Earlier versions of the
+  package recommended the use of the `scales::rescale()` to rescale such data.
+  However, we now realize that this approach can produce inconsistencies for
+  boundary length data (e.g., the total perimeter of a planning unit might not
+  necessarily equal the sum of the edge lengths). In some cases, these
+  inconsistencies can cause solutions generated with high boundary
+  penalties (i.e., using `add_boundary_penalties()` with a high `penalty`
+  value) to contain a large reserve (i.e., a spatial cluster of selected of
+  planning units) with a single unselected planning unit in the middle of the
+  reserve. In the the worst case, these inconsistencies produce a situation
+  where increasing boundary penalties (i.e., generating multiple solutions with
+  `add_boundary_penalties()` and increasing `penalty` values)
+  does not alter the spatial configuration of solutions. Although use of
+  `scales::rescale()` did not produce such behavior prior to version 8.0.0,
+  changes to the output format for `boundary_matrix()` in subsequent versions
+  now mean that `scales::rescale()` can cause these issues. We now recommend
+  using the new `rescale_matrix()` function to rescale boundary length data to
+  avoid numerical issues, whilst also avoid such inconsistencies.
+
+## New features
+
+- New `rescale_matrix()` function to help with rescaling boundary length
+  (e.g., generated using `boundary_matrix()`) and connectivity
+  (e.g., generated using `connectivity_matrix()`) data so avoid
+  numerical issues during optimization (#297).
+
+## Minor improvements and bug fixes
+
+- Update examples and vignettes to use the `rescale_matrix()` function
+  instead of the `scales::rescale()` function for rescaling boundary
+  length and connectivity data (#297).
+- Update the `print()` and `summary()` methods for `problem()` objects
+  so that they will now better describe situations when the planning cost
+  data all contain a constant value (e.g., all costs equal to 1).
+- Update publication record.
+
 # prioritizr 8.0.2.6
 
 - Update `add_neighbors_constraints()` so that it has an additional

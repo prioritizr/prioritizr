@@ -229,3 +229,17 @@ repr_data_list <- function(name, data, compact = TRUE) {
   # return result
   out
 }
+
+repr_cost <- function(x) {
+  rng <- range(x, na.rm = TRUE)
+  if (isTRUE(rng[1] == rng[2])) {
+    out <- "constant values (all equal to {.val {rng[1]}})"
+  } else {
+    if (all_binary(x)) {
+      out <- "binary values ({.val 0} and {.val 1})"
+    } else {
+      out <- "continuous values (between {.val {rng}})"
+    }
+  }
+  cli::format_inline(out)
+}
