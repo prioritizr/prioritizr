@@ -182,3 +182,7 @@ Matrix::image(cm_zwsum, main = "connectivity matrix")
 }
 
 }
+\seealso{
+Connectivity matrix data might need rescaling to improve optimization
+performance, see \code{\link[=rescale_matrix]{rescale_matrix()}} to perform these calculations.
+}

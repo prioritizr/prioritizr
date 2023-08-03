@@ -105,3 +105,7 @@ plot(pts[, 1], main = "points", axes = FALSE)
 Matrix::image(cm_pts, main = "proximity matrix")
 }
 }
+\seealso{
+Proximity matrix data might need rescaling to improve optimization
+performance, see \code{\link[=rescale_matrix]{rescale_matrix()}} to perform these calculations.
+}

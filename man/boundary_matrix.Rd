@@ -99,3 +99,7 @@ plot(ply[, 1], main = "polygons", axes = FALSE)
 Matrix::image(bm_ply, main = "boundary matrix")
 }
 }
+\seealso{
+Boundary matrix data might need rescaling to improve optimization
+performance, see \code{\link[=rescale_matrix]{rescale_matrix()}} to perform these calculations.
+}

@@ -43,6 +43,10 @@ NULL
 #'
 #' @rdname connectivity_matrix
 #'
+#' @seealso
+#' Connectivity matrix data might need rescaling to improve optimization
+#' performance, see [rescale_matrix()] to perform these calculations.
+#'
 #' @examples
 #' \dontrun{
 #' # load data

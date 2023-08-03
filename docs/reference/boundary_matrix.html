@@ -121,7 +121,7 @@ for each planning unit.</p>
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>A <code><a href="https://rdrr.io/pkg/Matrix/man/dsCMatrix-class.html" class="external-link">dsCMatrix</a></code> symmetric sparse matrix object.
+<p>A <code>dsCMatrix</code> symmetric sparse matrix object.
 Each row and column represents a planning unit.
 Cell values indicate the shared boundary length between different pairs
 of planning units. Values along the matrix diagonal indicate the
@@ -157,6 +157,11 @@ diagonal indicated the perimeter associated with planning units
 that did not contain any neighbors. This has now changed such
 that values along the diagonal now correspond to the total
 perimeter associated with each planning unit.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
+    <div class="dont-index"><p>Boundary matrix data might need rescaling to improve optimization
+performance, see <code><a href="rescale_matrix.html">rescale_matrix()</a></code> to perform these calculations.</p></div>
     </div>
 
     <div class="section level2">

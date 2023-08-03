@@ -142,7 +142,7 @@ These arguments are only used if argument to <code>x</code> is a
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>A <code><a href="https://rdrr.io/pkg/Matrix/man/dsCMatrix-class.html" class="external-link">dsCMatrix</a></code> symmetric sparse matrix object.
+<p>A <code>dsCMatrix</code> symmetric sparse matrix object.
 Each row and column represents a planning unit.
 Cells values indicate the connectivity between different pairs of planning
 units.
@@ -155,6 +155,11 @@ values are set to zero too.</p>
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>Shared boundary calculations are performed using
 <code><a href="boundary_matrix.html">boundary_matrix()</a></code>.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
+    <div class="dont-index"><p>Connectivity matrix data might need rescaling to improve optimization
+performance, see <code><a href="rescale_matrix.html">rescale_matrix()</a></code> to perform these calculations.</p></div>
     </div>
 
     <div class="section level2">
