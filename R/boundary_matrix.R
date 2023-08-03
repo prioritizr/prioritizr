@@ -49,6 +49,10 @@ NULL
 #'
 #' @rdname boundary_matrix
 #'
+#' @seealso
+#' Boundary matrix data might need rescaling to improve optimization
+#' performance, see [rescale_matrix()] to perform these calculations.
+#'
 #' @examples
 #' \dontrun{
 #' # load data

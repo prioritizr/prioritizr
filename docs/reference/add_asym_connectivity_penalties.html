@@ -34,7 +34,7 @@ unit."><meta property="og:image" content="https://prioritizr.net/logo.png"><!-- 
     
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.2.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.2.7</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -290,12 +290,6 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 <span class="r-in"><span><span class="va">sim_zones_pu_raster</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_zones_pu_raster</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">sim_zones_features</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_zones_features</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># define function to rescale values between zero and one so that we</span></span></span>
-<span class="r-in"><span><span class="co"># can compare solutions from different connectivity matrices</span></span></span>
-<span class="r-in"><span><span class="va">rescale</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">to</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, <span class="va">from</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span>  <span class="op">(</span><span class="va">x</span> <span class="op">-</span> <span class="va">from</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/diff.html" class="external-link">diff</a></span><span class="op">(</span><span class="va">from</span><span class="op">)</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/diff.html" class="external-link">diff</a></span><span class="op">(</span><span class="va">to</span><span class="op">)</span> <span class="op">+</span> <span class="va">to</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create basic problem</span></span></span>
 <span class="r-in"><span><span class="va">p1</span> <span class="op">&lt;-</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_polygons</span>, <span class="va">sim_features</span>, <span class="st">"cost"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
@@ -332,8 +326,8 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 <span class="r-in"><span>  <span class="op">}</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># linearly re-scale matrix values to range between zero and one</span></span></span>
-<span class="r-in"><span><span class="va">acm1</span><span class="op">[</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/rescale.html" class="external-link">rescale</a></span><span class="op">(</span><span class="va">acm1</span><span class="op">[</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># rescale matrix values to have a maximum value of 1</span></span></span>
+<span class="r-in"><span><span class="va">acm1</span> <span class="op">&lt;-</span> <span class="fu"><a href="rescale_matrix.html">rescale_matrix</a></span><span class="op">(</span><span class="va">acm1</span>, max <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># visualize asymmetric connectivity matrix</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image</a></span><span class="op">(</span><span class="va">acm1</span><span class="op">)</span></span></span>

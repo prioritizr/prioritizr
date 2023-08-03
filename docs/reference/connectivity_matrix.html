@@ -24,7 +24,7 @@ boundary are associated with greater connectivity."><meta property="og:image" co
     
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.2.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.2.7</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -142,7 +142,7 @@ These arguments are only used if argument to <code>x</code> is a
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>A <code><a href="https://rdrr.io/pkg/Matrix/man/dsCMatrix-class.html" class="external-link">dsCMatrix</a></code> symmetric sparse matrix object.
+<p>A <code>dsCMatrix</code> symmetric sparse matrix object.
 Each row and column represents a planning unit.
 Cells values indicate the connectivity between different pairs of planning
 units.
@@ -155,6 +155,11 @@ values are set to zero too.</p>
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>Shared boundary calculations are performed using
 <code><a href="boundary_matrix.html">boundary_matrix()</a></code>.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
+    <div class="dont-index"><p>Connectivity matrix data might need rescaling to improve optimization
+performance, see <code><a href="rescale_matrix.html">rescale_matrix()</a></code> to perform these calculations.</p></div>
     </div>
 
     <div class="section level2">
@@ -203,7 +208,7 @@ values are set to zero too.</p>
 <span class="r-plt img"><img src="connectivity_matrix-6.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create connectivity matrix using habitat suitability data for each feature,</span></span></span>
-<span class="r-in"><span><span class="co"># this could be useful if prioritisations should spatially clump</span></span></span>
+<span class="r-in"><span><span class="co"># this could be useful if prioritizations should spatially clump</span></span></span>
 <span class="r-in"><span><span class="co"># together adjacent planning units that have suitable habitat</span></span></span>
 <span class="r-in"><span><span class="co"># for the same species (e.g., to maintain functional connectivity)</span></span></span>
 <span class="r-in"><span></span></span>
@@ -246,19 +251,11 @@ values are set to zero too.</p>
 <span class="r-in"><span><span class="co">## data -- to first normalize the conductance values before applying the</span></span></span>
 <span class="r-in"><span><span class="co">## weights and summing the data for feature together</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">## one approach would be to linearly rescale the values between 0.01 and 1</span></span></span>
-<span class="r-in"><span><span class="co">## note that we wouldn't want to rescale them between 0 and 1 since</span></span></span>
-<span class="r-in"><span><span class="co">## a value of zero means that there is no connectivity at all (and</span></span></span>
-<span class="r-in"><span><span class="co">## and not a relatively small amount of connectivity)</span></span></span>
-<span class="r-in"><span><span class="co">### define helper function</span></span></span>
-<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://scales.r-lib.org" class="external-link">scales</a></span><span class="op">)</span> <span class="co"># load scales library for rescale</span></span></span>
-<span class="r-in"><span><span class="va">rescale_matrix</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span><span class="va">x</span><span class="op">@</span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://scales.r-lib.org/reference/rescale.html" class="external-link">rescale</a></span><span class="op">(</span><span class="va">x</span><span class="op">@</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.01</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>; <span class="va">x</span><span class="op">}</span></span></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">### calculate functional connectivity matrix using the weighted sum of</span></span></span>
 <span class="r-in"><span><span class="co">### connectivity values that have been normalized by linearly re-scaling</span></span></span>
 <span class="r-in"><span><span class="co">### values</span></span></span>
 <span class="r-in"><span><span class="va">cm_lwsum</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/as.list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="va">cd</span><span class="op">)</span>, <span class="va">connectivity_matrix</span>, x <span class="op">=</span> <span class="va">r</span><span class="op">)</span> <span class="co"># make matrices</span></span></span>
-<span class="r-in"><span><span class="va">cm_lwsum</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">cm_lwsum</span>, <span class="va">rescale_matrix</span><span class="op">)</span> <span class="co"># rescale matrices to [0.01, 1]</span></span></span>
+<span class="r-in"><span><span class="va">cm_lwsum</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">cm_lwsum</span>, <span class="va">rescale_matrix</span>, max <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="co"># rescale matrices</span></span></span>
 <span class="r-in"><span><span class="va">cm_lwsum</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/funprog.html" class="external-link">Map</a></span><span class="op">(</span><span class="st">"*"</span>, <span class="va">cm_lwsum</span>, <span class="va">weights</span><span class="op">)</span> <span class="co"># multiply by weights</span></span></span>
 <span class="r-in"><span><span class="va">cm_lwsum</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/funprog.html" class="external-link">Reduce</a></span><span class="op">(</span><span class="st">"+"</span>, <span class="va">cm_lwsum</span><span class="op">)</span> <span class="co"># sum matrices together</span></span></span>
 <span class="r-in"><span></span></span>

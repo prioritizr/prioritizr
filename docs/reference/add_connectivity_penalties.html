@@ -28,7 +28,7 @@ proximity_matrix())."><meta property="og:image" content="https://prioritizr.net/
     
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.2.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.2.7</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -294,12 +294,6 @@ asymmetric connectivity between planning units.</p>
 <span class="r-in"><span><span class="va">sim_zones_pu_raster</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_zones_pu_raster</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">sim_zones_features</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_zones_features</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># define function to rescale values between zero and one so that we</span></span></span>
-<span class="r-in"><span><span class="co"># can compare solutions from different connectivity matrices</span></span></span>
-<span class="r-in"><span><span class="va">rescale</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">to</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, <span class="va">from</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span>  <span class="op">(</span><span class="va">x</span> <span class="op">-</span> <span class="va">from</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/diff.html" class="external-link">diff</a></span><span class="op">(</span><span class="va">from</span><span class="op">)</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/diff.html" class="external-link">diff</a></span><span class="op">(</span><span class="va">to</span><span class="op">)</span> <span class="op">+</span> <span class="va">to</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create basic problem</span></span></span>
 <span class="r-in"><span><span class="va">p1</span> <span class="op">&lt;-</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_polygons</span>, <span class="va">sim_features</span>, <span class="st">"cost"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
@@ -311,8 +305,8 @@ asymmetric connectivity between planning units.</p>
 <span class="r-in"><span><span class="co"># two planning units corresponds to their shared boundary length</span></span></span>
 <span class="r-in"><span><span class="va">b_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="boundary_matrix.html">boundary_matrix</a></span><span class="op">(</span><span class="va">sim_pu_polygons</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># standardize matrix values to lay between zero and one</span></span></span>
-<span class="r-in"><span><span class="va">b_matrix</span><span class="op">[</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/rescale.html" class="external-link">rescale</a></span><span class="op">(</span><span class="va">b_matrix</span><span class="op">[</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># rescale matrix values to have a maximum value of 1</span></span></span>
+<span class="r-in"><span><span class="va">b_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="rescale_matrix.html">rescale_matrix</a></span><span class="op">(</span><span class="va">b_matrix</span>, max <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># visualize connectivity matrix</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image</a></span><span class="op">(</span><span class="va">b_matrix</span><span class="op">)</span></span></span>
@@ -326,12 +320,12 @@ asymmetric connectivity between planning units.</p>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">d_matrix</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fl">1</span> <span class="op">/</span> <span class="op">(</span><span class="fu">Matrix</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Matrix/man/Matrix.html" class="external-link">Matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/coerce.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></span><span class="op">(</span><span class="va">centroids</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># standardize matrix values to lay between zero and one</span></span></span>
-<span class="r-in"><span><span class="va">d_matrix</span><span class="op">[</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/rescale.html" class="external-link">rescale</a></span><span class="op">(</span><span class="va">d_matrix</span><span class="op">[</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># rescale matrix values to have a maximum value of 1</span></span></span>
+<span class="r-in"><span><span class="va">d_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="rescale_matrix.html">rescale_matrix</a></span><span class="op">(</span><span class="va">d_matrix</span>, max <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># remove connections between planning units without connectivity to</span></span></span>
+<span class="r-in"><span><span class="co"># remove connections between planning units with values below a threshold to</span></span></span>
 <span class="r-in"><span><span class="co"># reduce run-time</span></span></span>
-<span class="r-in"><span><span class="va">d_matrix</span><span class="op">[</span><span class="va">d_matrix</span> <span class="op">&lt;</span> <span class="fl">0.7</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">0</span></span></span>
+<span class="r-in"><span><span class="va">d_matrix</span><span class="op">[</span><span class="va">d_matrix</span> <span class="op">&lt;</span> <span class="fl">0.8</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">0</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># visualize connectivity matrix</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image</a></span><span class="op">(</span><span class="va">d_matrix</span><span class="op">)</span></span></span>
@@ -340,14 +334,16 @@ asymmetric connectivity between planning units.</p>
 <span class="r-in"><span><span class="co"># create a symmetric connectivity matrix where the connectivity</span></span></span>
 <span class="r-in"><span><span class="co"># between adjacent two planning units corresponds to their combined</span></span></span>
 <span class="r-in"><span><span class="co"># value in a column of the planning unit data</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># for example, this column could describe the extent of native vegetation in</span></span></span>
 <span class="r-in"><span><span class="co"># each planning unit and we could use connectivity penalties to identify</span></span></span>
 <span class="r-in"><span><span class="co"># solutions that cluster planning units together that both contain large</span></span></span>
 <span class="r-in"><span><span class="co"># amounts of native vegetation</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">c_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="connectivity_matrix.html">connectivity_matrix</a></span><span class="op">(</span><span class="va">sim_pu_polygons</span>, <span class="st">"cost"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># standardize matrix values to lay between zero and one</span></span></span>
-<span class="r-in"><span><span class="va">c_matrix</span><span class="op">[</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/rescale.html" class="external-link">rescale</a></span><span class="op">(</span><span class="va">c_matrix</span><span class="op">[</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># rescale matrix values to have a maximum value of 1</span></span></span>
+<span class="r-in"><span><span class="va">c_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="rescale_matrix.html">rescale_matrix</a></span><span class="op">(</span><span class="va">c_matrix</span>, max <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># visualize connectivity matrix</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image</a></span><span class="op">(</span><span class="va">c_matrix</span><span class="op">)</span></span></span>
@@ -521,6 +517,7 @@ asymmetric connectivity between planning units.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create an array to manually specify the connectivities between</span></span></span>
 <span class="r-in"><span><span class="co"># each planning unit when they are allocated to each different zone</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># for real-world problems, these connectivities would be generated using</span></span></span>
 <span class="r-in"><span><span class="co"># data - but here these connectivity values are assigned as random</span></span></span>
 <span class="r-in"><span><span class="co"># ones or zeros</span></span></span>

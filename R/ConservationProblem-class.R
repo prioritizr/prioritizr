@@ -97,15 +97,7 @@ ConservationProblem <- R6::R6Class(
         extent_text <- "{.gray NA}"
       }
       cost_range <- range(self$planning_unit_costs() , na.rm = TRUE)
-      cost_text <- ifelse(
-        all_binary(self$planning_unit_costs()),
-        paste(
-          "binary values ({.val 0} and {.val 1})"
-        ),
-        paste(
-          "continuous values (between {.val {cost_range}})"
-        )
-      )
+      cost_text <- repr_cost(self$planning_unit_costs())
 
       # print data section
       cli::cli_text("{ch$j}{ch$b}{.h data}")
@@ -313,15 +305,7 @@ ConservationProblem <- R6::R6Class(
         extent_text <- "{.gray NA}"
       }
       cost_range <- range(self$planning_unit_costs() , na.rm = TRUE)
-      cost_text <- ifelse(
-        all_binary(self$planning_unit_costs()),
-        paste(
-          "binary values ({.val 0} and {.val 1})"
-        ),
-        paste(
-          "continuous values (between {.val {cost_range}})"
-        )
-      )
+      cost_text <- repr_cost(self$planning_unit_costs())
 
       # print data section
       cli::cli_text("{ch$j}{ch$b}{.h data}")

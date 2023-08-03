@@ -289,7 +289,7 @@ div.csl-indent {
 <p>We can now solve the problem formulation (<code>p1</code>) to generate a prioritization (using the <code>solve()</code> function). The <em>prioritizr</em> R package supports a range of different exact algorithm solvers, including <em>Gurobi</em>, <em>IBM CPLEX</em>, <em>CBC</em>, <em>HiGHS</em>, <em>Rsymphony</em>, and <em>lpsymphony</em>. Although there are benefits and limitations associated with each of these different solvers, they should return similar results. Note that you will need at least one solver installed on your system to generate prioritizations. Since we did not specify a solver when building the problem, the <em>prioritizr R</em> package will automatically select the best available solver installed. We recommend using the <em>Gurobi</em> solver if possible, and have used it for this tutorial (see the <em>Gurobi Installation Guide</em> vignette for installation instructions). After solving the problem, the prioritization will be stored in the <code>solution_1</code> column of the <code>s1</code> object.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># solve problem</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>s1 <span class="ot">&lt;-</span> <span class="fu">solve</span>(p1)</span></code></pre></div>
-<pre><code>## Gurobi Optimizer version 10.0.1 build v10.0.1rc0 (linux64)
+<pre><code>## Gurobi Optimizer version 10.0.2 build v10.0.2rc0 (linux64)
 ## 
 ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
 ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
@@ -332,7 +332,7 @@ div.csl-indent {
 ##   GUB cover: 1
 ##   RLT: 1
 ## 
-## Explored 1 nodes (1377 simplex iterations) in 0.45 seconds (0.78 work units)
+## Explored 1 nodes (1377 simplex iterations) in 0.44 seconds (0.78 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 9: 19444.2 20161.7 21076.2 ... 36789.5
@@ -495,7 +495,7 @@ div.csl-indent {
 ## # ℹ Use `summary(...)` to see complete formulation.</code></pre>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># generate prioritizations</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>prt <span class="ot">&lt;-</span> <span class="fu">solve</span>(p2)</span></code></pre></div>
-<pre><code>## Gurobi Optimizer version 10.0.1 build v10.0.1rc0 (linux64)
+<pre><code>## Gurobi Optimizer version 10.0.2 build v10.0.2rc0 (linux64)
 ## 
 ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
 ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
@@ -540,7 +540,7 @@ div.csl-indent {
 ## H  577   564                    18595.762444 18121.7633  2.55%  14.8    2s
 ## H  578   565                    18545.045971 18121.9629  2.28%  15.0    2s
 ## H  593     3                    18395.725721 18129.8915  1.45%  14.6    4s
-##    614    22 18428.4108   24  666 18395.7257 18168.8755  1.23%  22.5    5s
+##    661    69 18907.6761   67  240 18395.7257 18168.8755  1.23%  23.3    5s
 ## 
 ## Cutting planes:
 ##   MIR: 2
@@ -549,7 +549,7 @@ div.csl-indent {
 ##   Zero half: 4
 ##   RLT: 5
 ## 
-## Explored 2090 nodes (43754 simplex iterations) in 7.19 seconds (10.88 work units)
+## Explored 2090 nodes (43754 simplex iterations) in 7.02 seconds (10.88 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 1000: 18395.7 18403.7 18409.4 ... 20315.8
@@ -709,7 +709,7 @@ div.csl-indent {
 ## # ℹ Use `summary(...)` to see complete formulation.</code></pre>
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># solve problem</span></span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>s3 <span class="ot">&lt;-</span> <span class="fu">solve</span>(p3)</span></code></pre></div>
-<pre><code>## Gurobi Optimizer version 10.0.1 build v10.0.1rc0 (linux64)
+<pre><code>## Gurobi Optimizer version 10.0.2 build v10.0.2rc0 (linux64)
 ## 
 ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
 ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads

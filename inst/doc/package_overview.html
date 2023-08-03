@@ -1782,7 +1782,7 @@ div.csl-indent {
 ## # ℹ Use `summary(...)` to see complete formulation.</code></pre>
 <div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="co"># solve the problem (using the default solver)</span></span>
 <span id="cb107-2"><a href="#cb107-2" aria-hidden="true" tabindex="-1"></a>s42 <span class="ot">&lt;-</span> <span class="fu">solve</span>(p42)</span></code></pre></div>
-<pre><code>## Gurobi Optimizer version 10.0.1 build v10.0.1rc0 (linux64)
+<pre><code>## Gurobi Optimizer version 10.0.2 build v10.0.2rc0 (linux64)
 ## 
 ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
 ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
@@ -1822,7 +1822,7 @@ div.csl-indent {
 ## Cutting planes:
 ##   Gomory: 3
 ## 
-## Explored 82 nodes (1685 simplex iterations) in 0.12 seconds (0.12 work units)
+## Explored 82 nodes (1685 simplex iterations) in 0.10 seconds (0.12 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 6: 2604.74 2668.5 2814.48 ... 20287.2
@@ -1844,7 +1844,7 @@ div.csl-indent {
 <div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extract time spent solving solution</span></span>
 <span id="cb112-2"><a href="#cb112-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">attr</span>(s42, <span class="st">&quot;runtime&quot;</span>))</span></code></pre></div>
 <pre><code>## solution_1 
-##      0.123</code></pre>
+##      0.122</code></pre>
 <div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extract state message from the solver that describes why this specific</span></span>
 <span id="cb114-2"><a href="#cb114-2" aria-hidden="true" tabindex="-1"></a><span class="co"># solution was returned</span></span>
 <span id="cb114-3"><a href="#cb114-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">attr</span>(s42, <span class="st">&quot;status&quot;</span>))</span></code></pre></div>
@@ -1940,7 +1940,7 @@ div.csl-indent {
 <pre><code>## # A tibble: 1 × 2
 ##   summary asym_connectivity
 ##   &lt;chr&gt;               &lt;dbl&gt;
-## 1 overall              50.5</code></pre>
+## 1 overall              49.2</code></pre>
 </div>
 <div id="evaluating-relative-importance" class="section level3">
 <h3>Evaluating relative importance</h3>
@@ -1955,7 +1955,7 @@ div.csl-indent {
 <span id="cb130-7"><a href="#cb130-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb130-8"><a href="#cb130-8" aria-hidden="true" tabindex="-1"></a><span class="co"># solve the problem</span></span>
 <span id="cb130-9"><a href="#cb130-9" aria-hidden="true" tabindex="-1"></a>s43 <span class="ot">&lt;-</span> <span class="fu">solve</span>(p43)</span></code></pre></div>
-<pre><code>## Gurobi Optimizer version 10.0.1 build v10.0.1rc0 (linux64)
+<pre><code>## Gurobi Optimizer version 10.0.2 build v10.0.2rc0 (linux64)
 ## 
 ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
 ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
@@ -2069,7 +2069,7 @@ div.csl-indent {
 ## # ℹ Use `summary(...)` to see complete formulation.</code></pre>
 <div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="co"># solve the problem</span></span>
 <span id="cb138-2"><a href="#cb138-2" aria-hidden="true" tabindex="-1"></a>ms <span class="ot">&lt;-</span> <span class="fu">solve</span>(mp)</span></code></pre></div>
-<pre><code>## Gurobi Optimizer version 10.0.1 build v10.0.1rc0 (linux64)
+<pre><code>## Gurobi Optimizer version 10.0.2 build v10.0.2rc0 (linux64)
 ## 
 ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
 ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads

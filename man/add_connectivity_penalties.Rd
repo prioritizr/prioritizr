@@ -181,12 +181,6 @@ sim_features <- get_sim_features()
 sim_zones_pu_raster <- get_sim_zones_pu_raster()
 sim_zones_features <- get_sim_zones_features()
 
-# define function to rescale values between zero and one so that we
-# can compare solutions from different connectivity matrices
-rescale <- function(x, to = c(0, 1), from = range(x, na.rm = TRUE)) {
-  (x - from[1]) / diff(from) * diff(to) + to[1]
-}
-
 # create basic problem
 p1 <-
   problem(sim_pu_polygons, sim_features, "cost") \%>\%
@@ -198,8 +192,8 @@ p1 <-
 # two planning units corresponds to their shared boundary length
 b_matrix <- boundary_matrix(sim_pu_polygons)
 
-# standardize matrix values to lay between zero and one
-b_matrix[] <- rescale(b_matrix[])
+# rescale matrix values to have a maximum value of 1
+b_matrix <- rescale_matrix(b_matrix, max = 1)
 
 # visualize connectivity matrix
 image(b_matrix)
@@ -212,12 +206,12 @@ centroids <- sf::st_coordinates(
 )
 d_matrix <- (1 / (Matrix::Matrix(as.matrix(dist(centroids))) + 1))
 
-# standardize matrix values to lay between zero and one
-d_matrix[] <- rescale(d_matrix[])
+# rescale matrix values to have a maximum value of 1
+d_matrix <- rescale_matrix(d_matrix, max = 1)
 
-# remove connections between planning units without connectivity to
+# remove connections between planning units with values below a threshold to
 # reduce run-time
-d_matrix[d_matrix < 0.7] <- 0
+d_matrix[d_matrix < 0.8] <- 0
 
 # visualize connectivity matrix
 image(d_matrix)
@@ -225,14 +219,16 @@ image(d_matrix)
 # create a symmetric connectivity matrix where the connectivity
 # between adjacent two planning units corresponds to their combined
 # value in a column of the planning unit data
+
 # for example, this column could describe the extent of native vegetation in
 # each planning unit and we could use connectivity penalties to identify
 # solutions that cluster planning units together that both contain large
 # amounts of native vegetation
+
 c_matrix <- connectivity_matrix(sim_pu_polygons, "cost")
 
-# standardize matrix values to lay between zero and one
-c_matrix[] <- rescale(c_matrix[])
+# rescale matrix values to have a maximum value of 1
+c_matrix <- rescale_matrix(c_matrix, max = 1)
 
 # visualize connectivity matrix
 image(c_matrix)
@@ -378,6 +374,7 @@ plot(s4, axes = FALSE)
 
 # create an array to manually specify the connectivities between
 # each planning unit when they are allocated to each different zone
+
 # for real-world problems, these connectivities would be generated using
 # data - but here these connectivity values are assigned as random
 # ones or zeros

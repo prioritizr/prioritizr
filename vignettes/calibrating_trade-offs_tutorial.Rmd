@@ -69,7 +69,6 @@ library(sf)
 library(terra)
 library(dplyr)
 library(tibble)
-library(scales)
 library(ggplot2)
 library(topsis)
 library(withr)
@@ -159,7 +158,7 @@ The second procedure involves pre-computing the boundary length data and manuall
 tas_bd <- boundary_matrix(tas_pu)
 
 # manually re-scale the boundary length values
-tas_bd@x <- rescale(tas_bd@x, to = c(0.01, 100))
+tas_bd <- rescale_matrix(tas_bd)
 ```
 
 After applying these procedures, our data is ready for subsequent analysis.
@@ -180,8 +179,8 @@ We can find a suitable range of `penalty` values by generating a set of prelimin
 ```{r}
 # define a range of different penalty values
 ## note that we use a power scale to avoid focusing on very high penalty values
-prelim_lower <- -5   # change this for your own data
-prelim_upper <- 2.8  # change this for your own data
+prelim_lower <- -5  # change this for your own data
+prelim_upper <- 1.75 # change this for your own data
 prelim_penalty <- round(10^seq(prelim_lower, prelim_upper, length.out = 9), 5)
 
 # print penalty values
@@ -240,12 +239,40 @@ plot(
 )
 ```
 
+```{r "verify-correct-best-guess", echo = FALSE}
+# this code is used to ensure consistency between the results and the
+# text in the vignette. Specifically, the text is written assuming that
+# the 7th solution in the preliminary set of prioritizations is the
+# prioritization that (1) was generated with the lowest penalty value and
+# (2) has all planning units selected
+
+# preliminary calculations
+result_nms <- names(prelim_blended_results)
+result_nms <- result_nms[startsWith(result_nms, "penalty_")]
+result_mtx <- sf::st_drop_geometry(prelim_blended_results)[, result_nms]
+result_n_selected <- apply(result_mtx, 2, sum, na.rm = TRUE)
+
+# compute best guess
+best_guess_idx <- min(which(result_n_selected == max(result_n_selected)))
+
+# run checks
+invisible(
+    assertthat::assert_that(
+    best_guess_idx == 8,
+    msg = paste(
+      "inconsistency between results and text,",
+      "index of best guess index should be",
+      best_guess_idx
+    )
+  )
+)
+```
+
 We can see that as the `penalty` value used to generate the prioritizations increases, the spatial fragmentation of the prioritizations decreases. In particular, we can see that a `penalty` value of `r prelim_penalty[8]` results in a single reserve -- meaning this is our best guess of the upper limit. Using this `penalty` value as an upper limit, we will now generate a second series of prioritizations that will be the candidate prioritizations. Critically, these candidate prioritizations will not be generated using with time limit and be generated using a more suitable gap (i.e., default gap of 10%).
 
-```{r, fig.width = 7, fig.height = 5.0, results = "hide"}
+```{r, fig.width = 7, fig.height = 7.5, results = "hide"}
 # define a new set of penalty values
-## note that we use a linear scale to explore both low and high penalty values
-penalty <- round(seq(1e-5, prelim_penalty[8], length.out = 9), 5)
+penalty <- round(10^seq(-5, log10(prelim_penalty[8]), length.out = 9), 5)
 
 # generate prioritizations based on each penalty
 blended_results <- lapply(penalty, function(x) {
@@ -654,7 +681,7 @@ result_plot <-
 print(result_plot)
 ```
 
-We can see that the different method selected different prioritizations. To further compare the results from the different methods, let's create some maps showing the selected prioritizations.
+We can see that the different methods selected different prioritizations. To further compare the results from the different methods, let's create some maps showing the selected prioritizations.
 
 ```{r, fig.width = 7.0, fig.height = h}
 # extract column names for creating the prioritizations

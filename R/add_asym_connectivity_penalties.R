@@ -96,12 +96,6 @@ NULL
 #' sim_zones_pu_raster <- get_sim_zones_pu_raster()
 #' sim_zones_features <- get_sim_zones_features()
 #'
-#' # define function to rescale values between zero and one so that we
-#' # can compare solutions from different connectivity matrices
-#' rescale <- function(x, to = c(0, 1), from = range(x, na.rm = TRUE)) {
-#'   (x - from[1]) / diff(from) * diff(to) + to[1]
-#' }
-#'
 #' # create basic problem
 #' p1 <-
 #'   problem(sim_pu_polygons, sim_features, "cost") %>%
@@ -138,8 +132,8 @@ NULL
 #'   }
 #' }
 #'
-#' # linearly re-scale matrix values to range between zero and one
-#' acm1[] <- rescale(acm1[])
+#' # rescale matrix values to have a maximum value of 1
+#' acm1 <- rescale_matrix(acm1, max = 1)
 #'
 #' # visualize asymmetric connectivity matrix
 #' image(acm1)

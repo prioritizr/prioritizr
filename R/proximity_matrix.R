@@ -27,6 +27,10 @@ NULL
 #'
 #' @name proximity_matrix
 #'
+#' @seealso
+#' Proximity matrix data might need rescaling to improve optimization
+#' performance, see [rescale_matrix()] to perform these calculations.
+#'
 #' @rdname proximity_matrix
 #'
 #' @examples

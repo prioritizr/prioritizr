@@ -64,7 +64,6 @@ library(prioritizr)
 library(prioritizrdata)
 library(sf)
 library(terra)
-library(scales)
 
 # load planning unit data
 salt_pu <- get_salt_pu()
@@ -174,7 +173,7 @@ Let's explore approaches for promoting connectivity in prioritizations by adding
 
 ### Neighbor constraints
 
-Neighbor constraints can be added to ensure that each selected planning unit has a certain number of neighbors surrounding it (using the `add_neighbor_constraints()` function) [based on @r16]. The `k` parameter can be used to specify the required number of neighbors for each selected planning unit. Let's generate a prioritization by specifying that each planning unit requires at least two neighbors.
+Neighbor constraints can be added to ensure that each selected planning unit has a certain number of neighbors surrounding it (using the `add_neighbor_constraints()` function) [based on @r16]. The `k` parameter can be used to specify the required number of neighbors for each selected planning unit. Let's generate a prioritization by specifying that each planning unit requires at least three neighbors.
 
 ```{r, include = FALSE}
 par(mar = c(1.1, 4.1, 4.1, 2.1))
@@ -184,7 +183,7 @@ par(mar = c(1.1, 4.1, 4.1, 2.1))
 # create problem with added neighbor constraints and solve it
 s1 <-
   p0 %>%
-  add_neighbor_constraints(k = 2) %>%
+  add_neighbor_constraints(k = 3) %>%
   solve()
 
 # plot solutions
@@ -391,7 +390,7 @@ Boundary penalties can be used to reduce the spatial fragmentation of prioritiza
 salt_boundary_data <- boundary_matrix(salt_pu)
 
 # rescale boundary data
-salt_boundary_data@x <- rescale(salt_boundary_data@x, to = c(0.01, 100))
+salt_boundary_data <- rescale_matrix(salt_boundary_data)
 ```
 
 Next, let's generate a prioritization using boundary penalties. To specify the relative importance of reducing spatial fragmentation -- compared with the primary objective of a problem (e.g. minimizing cost) -- we need to set a value for the `penalty` parameter. Setting a higher value for `penalty` indicates that it is more important to avoid highly fragmented solutions. Let's generate a prioritization with a `penalty` value of 0.001.
@@ -460,7 +459,7 @@ Let's compute connectivity scores by treating the `salt_con` object as conductan
 salt_con_scores <- connectivity_matrix(salt_pu, salt_con)
 
 # rescale scores
-salt_con_scores@x <- rescale(salt_con_scores@x, to = c(0.01, 100))
+salt_con_scores <- rescale_matrix(salt_con_scores)
 ```
 
 After computing the connectivity scores, we can use them to generate prioritizations using connectivity penalties. Similar to the boundary penalties, we use the `penalty` parameter to specify the relative importance of promoting connectivity relative to the primary objective of a problem (i.e., minimizing overall cost). Let's generate a prioritization with a `penalty` value of 0.001.
@@ -473,7 +472,7 @@ par(mar = c(1.1, 4.1, 4.1, 2.1))
 # create problem with added connectivity penalties
 s9 <-
   p0 %>%
-  add_connectivity_penalties(penalty = 0.001, data = salt_con_scores) %>%
+  add_connectivity_penalties(penalty = 0.0001, data = salt_con_scores) %>%
   solve()
 
 # plot solutions
@@ -493,7 +492,7 @@ par(mar = c(1.1, 4.1, 4.1, 2.1))
 # create problem with increased connectivity penalties
 s10 <-
   p0 %>%
-  add_connectivity_penalties(penalty = 0.002, data = salt_con_scores) %>%
+  add_connectivity_penalties(penalty = 0.0002, data = salt_con_scores) %>%
   solve()
 
 # plot solutions

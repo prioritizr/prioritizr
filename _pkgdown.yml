@@ -155,6 +155,7 @@ reference:
       - connectivity_matrix
       - proximity_matrix
       - rij_matrix
+      - rescale_matrix
 
   - title: Processing multi-zone data
     desc: Functions for manipulating data that pertain to multiple zones.
