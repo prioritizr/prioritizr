@@ -1,3 +1,7 @@
+# prioritizr 8.0.3
+
+- CRAN release.
+
 # prioritizr 8.0.2.7
 
 ## Notice

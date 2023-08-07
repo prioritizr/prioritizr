@@ -95,14 +95,14 @@ cite the latest official version, please use:
 
 > Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Edwards BPM, Watts
 > ME, Arcese P, Bennett J, Possingham HP (2023). prioritizr: Systematic
-> Conservation Prioritization in R. R package version 8.0.2. Available
+> Conservation Prioritization in R. R package version 8.0.3. Available
 > at <https://CRAN.R-project.org/package=prioritizr>.
 
 Alternatively, to cite the latest development version, please use:
 
 > Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Edwards BPM, Watts
 > ME, Arcese P, Bennett J, Possingham HP (2023). prioritizr: Systematic
-> Conservation Prioritization in R. R package version 8.0.2.7. Available
+> Conservation Prioritization in R. R package version 8.0.3. Available
 > at <https://github.com/prioritizr/prioritizr>.
 
 Additionally, we keep a [record of
@@ -282,7 +282,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##      2.962
+    ##      4.036
 
 ``` r
 # extract state message from the solver
