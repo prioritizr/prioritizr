@@ -1,6 +1,6 @@
 Dear CRAN volunteers,
 
-Thank you for reviewing this submission. This submission contains an update to the prioritizr R package. Specifically, the update contains assorted bug fixes and improvements to the package documentation. It also addresses the failing CRAN check on the macOS old-release platform (i.e., r-oldrel-macos-x86_64).
+Thank you for reviewing this submission. This submission contains an update to the prioritizr R package. Specifically, the update contains assorted bug fixes, improvements to the package documentation, and some quality of life improvements.
 
 Cheers,
 
