@@ -1,3 +1,8 @@
+# prioritizr 8.0.3.1
+
+- Update publication record.
+- Fix aliasing for package manual entry (#301).
+
 # prioritizr 8.0.3
 
 - CRAN release.
