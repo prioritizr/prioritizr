@@ -715,7 +715,7 @@ p34 <-
 # print problem
 print(p34)
 ```
-* __*lpsymphony* solver__: [_SYMPHONY_](https://github.com/coin-or/SYMPHONY) is an open-source integer programming solver that is also part of the COIN-OR project. This solver uses the _lpsymphony R_ package (available on [Bioconductor](http://bioconductor.org/packages/release/bioc/html/lpsymphony.html)) to interface with the _SYMPHONY_ software.
+* __*lpsymphony* solver__: [_SYMPHONY_](https://github.com/coin-or/SYMPHONY) is an open-source integer programming solver that is also part of the COIN-OR project. This solver uses the _lpsymphony R_ package (available on [Bioconductor](https://bioconductor.org/packages/release/bioc/html/lpsymphony.html)) to interface with the _SYMPHONY_ software.
 ```{r}
 # create a problem and specify that lpsymphony should be used to solve the
 # problem and specify an optimality gap of zero to obtain the optimal solution
