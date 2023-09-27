@@ -3,6 +3,7 @@
 \docType{package}
 \name{prioritizr}
 \alias{prioritizr}
+\alias{prioritizr-package}
 \title{prioritizr: Systematic Conservation Prioritization in R}
 \description{
 The \pkg{prioritizr R} package uses mixed integer linear programming (MILP)
