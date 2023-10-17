@@ -1,6 +1,14 @@
-# prioritizr 8.0.3.2
+# prioritizr 8.0.3.3
 
 - Update publication record.
+- Fix `add_locked_in_constraints()` and `add_locked_in_constraints()` error
+  messages when supplying `locked_in` and `locked_out` objects
+  that do not spatially intersect with the planning units.
+- Update error message for checking if objects spatially overlap to improve
+  clarity.
+
+# prioritizr 8.0.3.2
+
 - Update URLs.
 
 # prioritizr 8.0.3.1
