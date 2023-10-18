@@ -413,6 +413,20 @@ methods::setMethod("add_locked_in_constraints",
       inherits(locked_in, "sf"),
       x$number_of_zones() == 1
     )
+    assert(
+      is_same_crs(x$data$cost, locked_in),
+      msg = paste(
+        "{.arg locked_in} and planning units for {.arg x}",
+        "must have the same coordinate reference system"
+      )
+    )
+    assert(
+      is_spatial_extents_overlap(x$data$cost, locked_in),
+      msg = paste(
+        "{.arg locked_in} and planning units for {.arg x}",
+        "must have overlapping spatial extents"
+      )
+    )
     # add constraints
     add_locked_in_constraints(x, intersecting_units(x$data$cost, locked_in))
   }
@@ -441,6 +455,20 @@ methods::setMethod("add_locked_in_constraints",
       is_conservation_problem(x),
       inherits(locked_in, "SpatRaster"),
       x$number_of_zones() == terra::nlyr(locked_in)
+    )
+    assert(
+      is_same_crs(x$data$cost, locked_in),
+      msg = paste(
+        "{.arg locked_in} and planning units for {.arg x}",
+        "must have the same coordinate reference system"
+      )
+    )
+    assert(
+      is_spatial_extents_overlap(x$data$cost, locked_in),
+      msg = paste(
+        "{.arg locked_in} and planning units for {.arg x}",
+        "must have overlapping spatial extents"
+      )
     )
     # create matrix with statuses
     if (
@@ -475,7 +503,7 @@ methods::setMethod("add_locked_in_constraints",
     assert(
       all(rowSums(status) <= 1),
       msg = paste(
-        "{.arg locked_in} must not specify that contain a",
+        "{.arg locked_in} must not specify that a",
         "single planning unit should be locked to multiple zones."
       )
     )

@@ -57,6 +57,6 @@ assertthat::on_failure(is_spatial_extents_overlap) <- function(call, env) {
     deparse(call$x),
     "and",
     deparse(call$y),
-    "do not have spatially overlapping extents"
+    "must have overlapping spatial extents"
   )
 }

@@ -35,21 +35,21 @@ test_that("non-overlapping objects", {
     assert(
       is_spatial_extents_overlap(sim_pu_polygons[1, ], sim_pu_polygons[7, ])
     ),
-    "overlapping extents",
+    "overlapping spatial extents",
     name = NULL
   )
   expect_tidy_error(
     assert(
       is_spatial_extents_overlap(sim_pu_polygons[1, ], sim_pu_polygons[7, ])
     ),
-    "overlapping extents",
+    "overlapping spatial extents",
     name = NULL
   )
   expect_tidy_error(
     assert(
       is_spatial_extents_overlap(sim_pu_polygons[1, ], sim_pu_polygons[7, ])
     ),
-    "overlapping extents",
+    "overlapping spatial extents",
     name = NULL
   )
   expect_tidy_error(
@@ -62,7 +62,7 @@ test_that("non-overlapping objects", {
         )
       )
     ),
-    "overlapping extents",
+    "overlapping spatial extents",
     name = NULL
   )
   expect_tidy_error(
@@ -75,7 +75,7 @@ test_that("non-overlapping objects", {
         )
       )
     ),
-    "overlapping extents",
+    "overlapping spatial extents",
     name = NULL
   )
   expect_tidy_error(
@@ -91,7 +91,7 @@ test_that("non-overlapping objects", {
         )
       )
     ),
-    "overlapping extents",
+    "must have overlapping spatial extents",
     name = NULL
   )
 })
@@ -113,7 +113,7 @@ test_that("Spatial", {
         sf::as_Spatial(sim_pu_polygons[7, ])
       )
     ),
-    "overlapping extents",
+    "must have overlapping spatial extents",
     name = NULL
   )
 })
@@ -150,7 +150,7 @@ test_that("Raster", {
         )
       )
     ),
-    "overlapping extents",
+    "must have overlapping spatial extents",
     name = NULL
   )
 })
