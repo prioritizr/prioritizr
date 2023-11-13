@@ -1,3 +1,9 @@
+# prioritizr 8.0.3.4
+
+- Update publication record.
+- New `add_scip_solver()` function to generate prioritizations using SCIP
+  (https://www.scipopt.org/).
+
 # prioritizr 8.0.3.3
 
 - Update publication record.
