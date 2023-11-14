@@ -1025,7 +1025,7 @@ test_that("x = numeric, features = data.frame, rij_matrix = matrix", {
   # create data
   pu <- data.frame(
     id = seq_len(10), cost = c(0.2, NA, runif(8)),
-    spp1 = runif(10), spp2 = c(rpois(9, 4), NA)
+    spp1 = runif(10), spp2 = c(rpois(9, 4), 0)
   )
   # create problem
   x <- problem(
@@ -1097,7 +1097,7 @@ test_that("x = matrix, features = data.frame, rij_matrix = matrix", {
   pu <- data.frame(
     id = seq_len(10),
     cost_1 = c(NA, NA, runif(8)), cost_2 = c(0.3, NA, runif(8)),
-    spp1_1 = runif(10), spp2_1 = c(rpois(9, 4), NA),
+    spp1_1 = runif(10), spp2_1 = c(rpois(9, 4), 0),
     spp1_2 = runif(10), spp2_2 = runif(10)
   )
   # create problem
@@ -1192,7 +1192,7 @@ test_that("x = matrix, features = data.frame, rij_matrix = dgCMatrix", {
   pu <- data.frame(
     id = seq_len(10),
     cost_1 = c(NA, NA, runif(8)), cost_2 = c(0.3, NA, runif(8)),
-    spp1_1 = runif(10), spp2_1 = c(rpois(9, 4), NA),
+    spp1_1 = runif(10), spp2_1 = c(rpois(9, 4), 0),
     spp1_2 = runif(10), spp2_2 = runif(10)
   )
   rij <- list(as.matrix(t(pu[, 4:5])), as.matrix(t(pu[, 6:7])))
