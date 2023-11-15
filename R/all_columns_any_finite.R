@@ -16,8 +16,8 @@ all_columns_any_finite <- function(x)
 assertthat::on_failure(all_columns_any_finite) <- function(call, env) {
   paste0(
     "{.arg ", deparse(call$x),
-      "} must have columns that do not only contain missing or non-finite",
-      " values (e.g., {.val {NaN}}, {.val {NA}}, {.val {Inf}})."
+    "} must have columns that do not only contain missing or non-finite",
+    " values (e.g., {.val {NaN}}, {.val {NA}}, {.val {Inf}})."
   )
 }
 

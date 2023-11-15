@@ -42,7 +42,7 @@ is_same_crs <- function(x, y) {
 
 assertthat::on_failure(is_same_crs) <- function(call, env) {
   paste(
-    deparse(call$x), "and", deparse(call$y),
-    "must have the same coordinate reference system."
+    "{.arg ", deparse(call$x), "} and {.arg ", deparse(call$y),
+    "} must have the same coordinate reference system."
   )
 }

@@ -40,7 +40,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.3.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.3.4</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -136,7 +136,7 @@
 <div class="section level2">
 <h2 id="software-installation">Software installation<a class="anchor" aria-label="anchor" href="#software-installation"></a>
 </h2>
-<p>The process for installing the <em>Gurobi</em> software depends on the operating system on your computer. Fortunately, <em>Gurobi</em> provide platform-specific <a href="https://www.gurobi.com/documentation/" class="external-link">“Quick Start Guides”</a> for <a href="https://www.gurobi.com/documentation/9.0/quickstart_windows/software_installation_guid.html#section:Installation" class="external-link">Windows</a>, <a href="https://www.gurobi.com/documentation/9.0/quickstart_mac/software_installation_guid.html" class="external-link">MacOS</a>, and <a href="https://www.gurobi.com/documentation/9.0/quickstart_linux/software_installation_guid.html" class="external-link">Linux</a> systems that should help with this. Briefly, on Windows systems, you just need to double-click on the <em>Gurobi</em> installer, follow the prompts, and the installer will automatically handle everything for you. On Linux and MacOS systems, you will need to manually extract the downloaded file’s contents to a folder, move the extracted contents to a suitable location (typically <em>/opt/gurobi</em>), and update your system’s variables so that it knows where to find <em>Gurobi</em> (i.e., the <code>PATH</code> variable).</p>
+<p>The process for installing the <em>Gurobi</em> software depends on the operating system on your computer. Fortunately, <em>Gurobi</em> provides detailed <a href="https://support.gurobi.com/hc/en-us/articles/4534161999889" class="external-link">platform-specific instructions</a> for Windows, MacOS, and Linux systems that should help with this. Briefly, on Windows systems, you just need to double-click on the <em>Gurobi</em> installer, follow the prompts, and the installer will automatically handle everything for you. On Linux and MacOS systems, you will need to manually extract the downloaded file’s contents to a folder, move the extracted contents to a suitable location (typically <em>/opt/gurobi</em>), and update your system’s variables so that it knows where to find <em>Gurobi</em> (i.e., the <code>PATH</code> variable).</p>
 <p>Additionally, if you are using <a href="https://posit.co/products/open-source/rstudio/" class="external-link"><em>RStudio</em></a> on a Linux system, you might need to add the following text to a Rstudio configuration file (located at <code>/etc/rstudio/rserver.conf</code>).</p>
 <pre><code>rsession-ld-library-path=/opt/gurobi650/linux64/lib</code></pre>
 <p>After installing the <em>Gurobi</em> software suite on your computer, you will need to activate your license.</p>
@@ -240,17 +240,9 @@
 <p>Finally, to check that everything has been installed correctly, we will use the <em>Gurobi</em> software suite to solve a reserve selection problem created using the <em>prioritzr</em> <em>R</em> package.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># load package</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://prioritizr.net">prioritizr</a></span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## The legacy packages maptools, rgdal, and rgeos, underpinning the sp package,</span></span>
-<span><span class="co">## which was just loaded, will retire in October 2023.</span></span>
-<span><span class="co">## Please refer to R-spatial evolution reports for details, especially</span></span>
-<span><span class="co">## https://r-spatial.org/r/2023/05/15/evolution4.html.</span></span>
-<span><span class="co">## It may be desirable to make the sf package available;</span></span>
-<span><span class="co">## package maintainers should consider adding sf to Suggests:.</span></span>
-<span><span class="co">## The sp package is now running under evolution status 2</span></span>
-<span><span class="co">##      (status 2 uses the sf package in place of rgdal)</span></span></code></pre>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># load data</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://prioritizr.net">prioritizr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># load data</span></span>
 <span><span class="va">sim_pu_raster</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_data.html">get_sim_pu_raster</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">sim_features</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_data.html">get_sim_features</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
@@ -293,14 +285,14 @@
 <span><span class="co">##      0     0 1931.58191    0    4 2332.10040 1931.58191  17.2%     -    0s</span></span>
 <span><span class="co">## H    0     0                    1987.3985291 1931.58191  2.81%     -    0s</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 1 nodes (12 simplex iterations) in 0.01 seconds (0.00 work units)</span></span>
+<span><span class="co">## Explored 1 nodes (12 simplex iterations) in 0.00 seconds (0.00 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Solution count 3: 1987.4 2332.1 2337.96 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
 <span><span class="co">## Best objective 1.987398529053e+03, best bound 1.931581907658e+03, gap 2.8085%</span></span></code></pre>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot solution</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
 <span>  <span class="va">s</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey90"</span>, <span class="st">"darkgreen"</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Solution"</span>,</span>

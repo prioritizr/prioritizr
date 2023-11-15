@@ -650,14 +650,17 @@ test_that("x = data.frame, features = character", {
   # tests for rij_matrix field
   expect_equal(
     x$data$rij_matrix[[1]],
-    Matrix::sparseMatrix(
-      i = c(rep(1, 9), rep(2, 8)),
-      j = c(1:9, 1:8),
-      x = c(pu$spp1[-2], pu$spp2[c(-2, -10)]),
-      dims = c(2, 9),
-      dimnames = list(x$feature_names(), NULL)
+    Matrix::drop0(
+      Matrix::sparseMatrix(
+        i = c(rep(1, 9), rep(2, 8)),
+        j = c(1:9, 1:8),
+        x = c(pu$spp1[-2], pu$spp2[c(-2, -10)]),
+        dims = c(2, 9),
+        dimnames = list(x$feature_names(), NULL)
+      )
     ),
-    ignore_attr = TRUE
+    ignore_attr = TRUE,
+    tolerance = 1e-6
   )
   expect_equal(names(x$data$rij_matrix), "cost")
   expect_equal(rownames(x$data$rij_matrix[[1]]), c("spp1", "spp2"))
@@ -1025,7 +1028,7 @@ test_that("x = numeric, features = data.frame, rij_matrix = matrix", {
   # create data
   pu <- data.frame(
     id = seq_len(10), cost = c(0.2, NA, runif(8)),
-    spp1 = runif(10), spp2 = c(rpois(9, 4), 0)
+    spp1 = runif(10), spp2 = c(rpois(9, 4), NA)
   )
   # create problem
   x <- problem(
@@ -1097,7 +1100,7 @@ test_that("x = matrix, features = data.frame, rij_matrix = matrix", {
   pu <- data.frame(
     id = seq_len(10),
     cost_1 = c(NA, NA, runif(8)), cost_2 = c(0.3, NA, runif(8)),
-    spp1_1 = runif(10), spp2_1 = c(rpois(9, 4), 0),
+    spp1_1 = runif(10), spp2_1 = c(rpois(9, 4), NA),
     spp1_2 = runif(10), spp2_2 = runif(10)
   )
   # create problem
@@ -1192,7 +1195,7 @@ test_that("x = matrix, features = data.frame, rij_matrix = dgCMatrix", {
   pu <- data.frame(
     id = seq_len(10),
     cost_1 = c(NA, NA, runif(8)), cost_2 = c(0.3, NA, runif(8)),
-    spp1_1 = runif(10), spp2_1 = c(rpois(9, 4), 0),
+    spp1_1 = runif(10), spp2_1 = c(rpois(9, 4), NA),
     spp1_2 = runif(10), spp2_2 = runif(10)
   )
   rij <- list(as.matrix(t(pu[, 4:5])), as.matrix(t(pu[, 6:7])))

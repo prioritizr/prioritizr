@@ -172,12 +172,14 @@ assert_required <- function(x,
     ## then this means that assert_required() is being called in pipe-chain
     ## where the error is happening
     if (inherits(attr(res, "condition"), "simpleError")) {
-      cond_call <- deparse(attr(res, "condition")$call)
-      cond_msg <- trimws(attr(res, "condition")$message)
+      cond_call <- deparse(attr(res, "condition")$call)[[1]]
+      cond_msg <- trimws(attr(res, "condition")$message)[[1]]
       err_msg <- c(
         "i" = "In argument to {.arg {arg}}.",
         ifelse(
-          startsWith(cond_msg, "object ") && endsWith(cond_msg, "not found"),
+          identical(cond_call, "NULL") || (
+            startsWith(cond_msg, "object ") && endsWith(cond_msg, "not found")
+          ),
           "{.strong Caused by error:}",
           paste0("{.strong Caused by {.code ", cond_call, "}:}")
         ),

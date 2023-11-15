@@ -894,7 +894,7 @@ methods::setMethod(
       )
     )
     assert(
-      all(vapply(rij_matrix, FUN.VALUE = logical(1), all_finite)),
+      all(vapply(rij_matrix, FUN.VALUE = logical(1), any_nonNA)),
       msg = paste(
         "{.arg rij_matrix} must not contain only missing or",
         "non-finite values (e.g., {.val {NaN}}, {.val {NA}}, {.val {Inf}})."
