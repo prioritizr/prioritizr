@@ -24,7 +24,7 @@ means that the same calculations will not be run multiple times."><meta property
     
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.3.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.3.4</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -167,10 +167,10 @@ anything. To use this function with <code><a href="https://rdrr.io/r/base/connec
 <span class="r-in"><span><span class="co"># now lets compare the times</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">s1</span><span class="op">)</span> <span class="co"># time spent without running preliminary calculations</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    user  system elapsed </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   2.128   0.000   2.171 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1.146   0.004   1.188 </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">s2</span><span class="op">)</span> <span class="co"># time spent after running preliminary calculations</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    user  system elapsed </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   2.277   0.004   2.300 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1.141   0.000   1.178 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># As we can see, we can save time by running the preliminary</span></span></span>
 <span class="r-in"><span><span class="co"># calculations before making copies of the problem with slightly</span></span></span>

@@ -1,3 +1,14 @@
+# prioritizr 8.0.3.4
+
+- Update publication record.
+- Update `problem()` to be more memory efficient when using a sparse matrix
+  (`dgCMatrix`) argument for the `rij_matrix` parameter.
+- Update error messages for checking that objects have the same coordinate
+  reference system and overlapping spatial extents to format argument names
+  correctly.
+- Update error messages for nested expressions to refer to expressions using
+  `Caused by error` instead of `Caused by NULL`.
+
 # prioritizr 8.0.3.3
 
 - Update publication record.

@@ -650,14 +650,17 @@ test_that("x = data.frame, features = character", {
   # tests for rij_matrix field
   expect_equal(
     x$data$rij_matrix[[1]],
-    Matrix::sparseMatrix(
-      i = c(rep(1, 9), rep(2, 8)),
-      j = c(1:9, 1:8),
-      x = c(pu$spp1[-2], pu$spp2[c(-2, -10)]),
-      dims = c(2, 9),
-      dimnames = list(x$feature_names(), NULL)
+    Matrix::drop0(
+      Matrix::sparseMatrix(
+        i = c(rep(1, 9), rep(2, 8)),
+        j = c(1:9, 1:8),
+        x = c(pu$spp1[-2], pu$spp2[c(-2, -10)]),
+        dims = c(2, 9),
+        dimnames = list(x$feature_names(), NULL)
+      )
     ),
-    ignore_attr = TRUE
+    ignore_attr = TRUE,
+    tolerance = 1e-6
   )
   expect_equal(names(x$data$rij_matrix), "cost")
   expect_equal(rownames(x$data$rij_matrix[[1]]), c("spp1", "spp2"))
