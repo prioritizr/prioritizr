@@ -1,3 +1,9 @@
+# prioritizr 8.0.3.5
+
+- Update publication record
+- Update `presolve_check()` to throw warning if a problem has a single feature 
+  (#309).
+
 # prioritizr 8.0.3.4
 
 - Update publication record.

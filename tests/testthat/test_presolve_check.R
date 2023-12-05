@@ -319,3 +319,21 @@ test_that("sparse feature data", {
     "do not have a single feature"
   )
 })
+
+test_that("single feature", {
+  # import data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()[[1]]
+  # create problem
+  p <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.1) %>%
+    add_binary_decisions()
+  # tests
+  expect_warning(
+    expect_false(presolve_check(p)),
+    "contains a single feature"
+  )
+})
+

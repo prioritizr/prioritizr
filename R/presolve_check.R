@@ -223,9 +223,9 @@ internal_presolve_check <- function(x) {
     msg2 <- c(
       msg2,
       c(
-        "All planning units must not be locked out.",
-        paste(
-          "v" = "Maybe you made a mistake when using",
+        "x" = "All planning units must not be locked out.",
+        ">" = paste(
+          "Maybe you made a mistake when using",
           "{.fn add_locked_out_constraints}?"
         ),
         ""
@@ -247,8 +247,22 @@ internal_presolve_check <- function(x) {
       )
     )
   }
-
-  ## check if budget exceeds total of planning unit costs
+  ### check if only a single feature
+  if (x$number_of_features() == 1) {
+    pass <- FALSE
+    msg2 <- c(
+      msg2,
+      c(
+        "x" = "The problem only contains a single feature.",
+        ">" = paste(
+          "This software works best when using multiple features.",
+          "It is recommended to use more features."
+        ),
+        ""
+      )
+    )
+  }
+  ### check if budget exceeds total of planning unit costs
   r1 <- which(x$row_ids() == "budget")
   if (length(r1) > 0) {
     result <- vapply(r1, FUN.VALUE = logical(1), function(i) {
