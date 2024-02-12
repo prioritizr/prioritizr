@@ -19,44 +19,37 @@ assertthat::on_failure(all_proportion) <- function(call, env) {
   )
 }
 
+#' @export
 all_proportion.default <- function(x) {
   cli::cli_abort("{.arg x} is not a recognized class.")
 }
 
-.S3method("all_proportion", "default", all_proportion.default)
-
+#' @export
 all_proportion.numeric <- function(x) {
   suppressWarnings(all(x >= 0 & x <= 1, na.rm = TRUE))
 }
 
-.S3method("all_proportion", "numeric", all_proportion.numeric)
-
+#' @export
 all_proportion.Matrix <- function(x) {
   all_proportion.numeric(x@x)
 }
 
-.S3method("all_proportion", "Matrix", all_proportion.Matrix)
-
+#' @export
 all_proportion.matrix <- function(x) {
   all_proportion.numeric(c(x))
 }
 
-.S3method("all_proportion", "matrix", all_proportion.matrix)
-
+#' @export
 all_proportion.data.frame <- function(x) {
   all(vapply(x, all_proportion, logical(1)))
 }
 
-.S3method("all_proportion", "data.frame", all_proportion.data.frame)
-
+#' @export
 all_proportion.Spatial <- function(x) {
   all(vapply(x@data, all_proportion, logical(1)))
 }
 
-.S3method("all_proportion", "Spatial", all_proportion.Spatial)
-
+#' @export
 all_proportion.sf <- function(x) {
   all(vapply(sf::st_drop_geometry(x), all_proportion, logical(1)))
 }
-
-.S3method("all_proportion", "sf", all_proportion.sf)

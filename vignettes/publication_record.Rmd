@@ -15,6 +15,12 @@ This vignette contains a list of publications that have cited or used the _prior
 
 ## Research articles
 
+### 2024
+
+* Fourchault L, Dahdouh-Guebas F, Dunn DC, Everett JD, Hanson JO, Buenafe KCV, Neubert S, Dabalà A, Yapa KKAS, Cannicci S, and Richardson AJ (2024) Generating affordable protection of high seas biodiversity through cross-sectoral spatial planning. _One Earth_, **In press**: DOI&#58;10.1016/j.oneear.2023.12.006.
+* Neugarten RA, Chaplin-Kramer R, Sharp RP, Schuster R, Strimas-Mackey M, Roehrdanz PR, Mulligan M, van Soesbergen A, Hole D, Kennedy CM, Oakleaf JR, Johnson JA, Kiesecker J, Polasky S, Hanson JO, and Rodewald AD (2024) Mapping the planet's critical areas for biodiversity and nature's contributions to people. _Nature Communications_, **15**: 261.
+* von Takach B, Cameron SF, Cremona T, Eldridge MDB, Fisher DO, Hohnen R, Jolly CJ, Kelly E, Phillips BL, Radford IJ, Rick K, Spencer PBS, Trewella GJ, Umbrello LS, and Banks SC (2024) Conservation prioritisation of genomic diversity to inform management of a declining mammal species. _Biological Conservation_ **291**: 110467.
+
 ### 2023
 
 * Aschi F, Dekker SC, van Vuuren DP, Bogaart PW, Rijsdijk KF, and van Loon EE (2023) Costs and benefits of protecting linear landscape elements: Applying systematic conservation planning on a case study in the Netherlands. _Journal of Environmental Management_, **348**: 119262.
@@ -124,10 +130,12 @@ This vignette contains a list of publications that have cited or used the _prior
 * Queffelec B, Bonnin M, Ferreira B, Bertrand S, Teles Da Silva S, Diouf F,  Trouillet B, Cudennec A, Brunel A, Billant O, and Toonen H (2021) Marine spatial planning and the risk of ocean grabbing in the tropical Atlantic. _ICES Journal of Marine Science_, **78**: 1196--1208.
 
 ### 2020
+
 * Pollock LJ, O'Connor LM, Mokany K, Rosauer DF, Talluto MV, and Thuiller W (2020) Protecting Biodiversity (in all its complexity): New models and methods. _Trends in Ecology & Evolution_, **35**: 1119--1128.
 * Velazco SJE, Ribeiro BR, Laureto LMO, and J&uacute;nior PDM (2020) Overprediction of species distribution models in conservation planning: A still neglected issue with strong effects. _Biological Conservation_, **252**, 108822.
 
 ### 2019
+
 * Balbar AC, and Metaxas A (2019) The current application of ecological connectivity in the design of marine protected areas. _Global Ecology and Conservation_, **17**: e00569.
 
 ## Book chapters

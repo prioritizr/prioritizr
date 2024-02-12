@@ -21,86 +21,72 @@ assertthat::on_failure(any_nonNA) <- function(call, env) {
   )
 }
 
+#' @export
 any_nonNA.default <- function(x) {
   cli::cli_abort("{.arg x} is not a recognized class.")
 }
 
-.S3method("any_nonNA", "default", any_nonNA.default)
-
+#' @export
 any_nonNA.numeric <- function(x) {
   any(!is.na(x))
 }
 
-.S3method("any_nonNA", "numeric", any_nonNA.numeric)
-
+#' @export
 any_nonNA.logical <- function(x) {
   any(!is.na(x))
 }
 
-.S3method("any_nonNA", "logical", any_nonNA.logical)
-
+#' @export
 any_nonNA.character <- function(x) {
   any(!is.na(x))
 }
 
-.S3method("any_nonNA", "character", any_nonNA.character)
-
+#' @export
 any_nonNA.factor <- function(x) {
   any(!is.na(x))
 }
 
-.S3method("any_nonNA", "factor", any_nonNA.factor)
-
+#' @export
 any_nonNA.Matrix <- function(x) {
   any(!is.na(x@x))
 }
 
-.S3method("any_nonNA", "Matrix", any_nonNA.Matrix)
-
+#' @export
 any_nonNA.matrix <- function(x) {
   any(!is.na(c(x)))
 }
 
-.S3method("any_nonNA", "matrix", any_nonNA.matrix)
-
+#' @export
 any_nonNA.data.frame <- function(x) {
   all(vapply(x, any_nonNA, logical(1)))
 }
 
-.S3method("any_nonNA", "data.frame", any_nonNA.data.frame)
-
+#' @export
 any_nonNA.Spatial <- function(x) {
   all(vapply(x@data, any_nonNA, logical(1)))
 }
 
-.S3method("any_nonNA", "Spatial", any_nonNA.Spatial)
-
+#' @export
 any_nonNA.sf <- function(x) {
   all(vapply(sf::st_drop_geometry(x), any_nonNA, logical(1)))
 }
 
-.S3method("any_nonNA", "sf", any_nonNA.sf)
-
+#' @export
 any_nonNA.Raster <- function(x) {
   any_nonNA(terra::rast(x))
 }
 
-.S3method("any_nonNA", "Raster", any_nonNA.Raster)
-
+#' @export
 any_nonNA.SpatRaster <- function(x) {
   all(terra::global(x, "notNA", na.rm = TRUE)[[1]] > 0)
 }
 
-.S3method("any_nonNA", "SpatRaster", any_nonNA.SpatRaster)
-
+#' @export
 any_nonNA.ZonesRaster <- function(x) {
   any_nonNA(terra::rast(raster::stack(raster::as.list(x))))
 }
 
-.S3method("any_nonNA", "ZonesRaster", any_nonNA.ZonesRaster)
-
+#' @export
 any_nonNA.ZonesSpatRaster <- function(x) {
   any_nonNA(terra::rast(terra::as.list(x)))
 }
-
-.S3method("any_nonNA", "ZonesSpatRaster", any_nonNA.ZonesSpatRaster)

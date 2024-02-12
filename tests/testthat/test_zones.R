@@ -66,6 +66,15 @@ test_that("zones (Raster)", {
   l <- as.list(x)
   expect_inherits(l, "list")
   expect_length(l, 3)
+  # categorical rasters
+  r <- terra::rast(nrows = 10, ncols = 10)
+  terra::values(r) <- sample(3, terra::ncell(r), replace = TRUE)
+  cls <- data.frame(id = 1:3, cover = c("forest", "water", "urban"))
+  levels(r) <- cls
+  expect_error(
+    zones(r, r),
+    "categorical"
+  )
 })
 
 test_that("zones (character)", {

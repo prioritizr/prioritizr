@@ -12,18 +12,17 @@ NULL
 #' @noRd
 repr <- function(x) UseMethod("repr")
 
+#' @export
 repr.numeric <- function(x) {
   cli::format_inline("{.val {x}}")
 }
 
-.S3method("repr", "numeric", repr.numeric)
-
+#' @export
 repr.logical <- function(x) {
   cli::format_inline("{.val {x}}")
 }
 
-.S3method("repr", "logical", repr.logical)
-
+#' @export
 repr.character <- function(x) {
   # get console width
   w <- ceiling(cli::console_width() * 0.9)
@@ -57,20 +56,17 @@ repr.character <- function(x) {
   }
 }
 
-.S3method("repr", "character", repr.character)
-
+#' @export
 repr.matrix <- function(x) {
   repr.dgCMatrix(as_Matrix(x, "dgCMatrix"))
 }
 
-.S3method("repr", "matrix", repr.matrix)
-
+#' @export
 repr.Matrix <- function(x) {
   repr.dgCMatrix(as_Matrix(x, "dgCMatrix"))
 }
 
-.S3method("repr", "Matrix", repr.Matrix)
-
+#' @export
 repr.dgCMatrix <- function(x) {
   # extract data
   v <- range(x@x[x@x != 0])
@@ -95,21 +91,18 @@ repr.dgCMatrix <- function(x) {
   cli::format_inline(out)
 }
 
-.S3method("repr", "dgCMatrix", repr.dgCMatrix)
-
+#' @export
 repr.list <- function(x) {
   cl <- unlist(lapply(x, class), recursive = TRUE, use.names = FALSE)
   cli::format_inline("{.cls list} containing {.cls {cl}} objects.")
 }
 
-.S3method("repr", "list", repr.list)
-
+#' @export
 repr.NULL <- function(x) {
   cli::col_blue("NULL")
 }
 
-.S3method("repr", "NULL", repr.NULL)
-
+#' @export
 repr.bbox <- function(x) {
   x <- c(x$xmin, x$ymin, x$xmax, x$ymax)
   x <- round(x, 5)
@@ -121,15 +114,13 @@ repr.bbox <- function(x) {
   )
 }
 
-.S3method("repr", "bbox", repr.bbox)
-
+#' @export
 repr.phylo <- function(x) {
   vrng <- range(x$edge.length)
   cli::format_inline("phylogenetic tree (branch lengths between {.val {vrng}})")
 }
 
-.S3method("repr", "phylo", repr.phylo)
-
+#' @export
 repr.crs <- function(x) {
   if (identical(x$wkt, "")) {
     # if the CRS is an empty character value, then just return that
@@ -171,19 +162,15 @@ repr.crs <- function(x) {
   out
 }
 
-.S3method("repr", "crs", repr.crs)
-
+#' @export
 repr.ConservationModifier <- function(x) {
   x$repr()
 }
 
-.S3method("repr", "ConservationModifier", repr.ConservationModifier)
-
+#' @export
 repr.ConservationProblem <- function(x) {
   x$repr()
 }
-
-.S3method("repr", "ConservationProblem", repr.ConservationProblem)
 
 repr_data_list <- function(name, data, compact = TRUE) {
   # define names to suppress if compact  = TRUE

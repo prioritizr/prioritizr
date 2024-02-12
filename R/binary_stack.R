@@ -55,7 +55,10 @@ binary_stack.Raster <- function(x) {
 #' @method binary_stack SpatRaster
 #' @export
 binary_stack.SpatRaster <- function(x) {
-  assert(inherits(x, "SpatRaster"))
+  assert(
+    inherits(x, "SpatRaster"),
+    is_numeric_values(x)
+  )
   # create segregated raster
   r <- terra::segregate(
     x, classes = NULL, keep = FALSE, other = 0, round = FALSE

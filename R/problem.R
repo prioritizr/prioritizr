@@ -519,6 +519,8 @@ methods::setMethod(
     assert(
       inherits(x, "SpatRaster"),
       terra::nlyr(x) == 1,
+      is_numeric_values(x),
+      is_numeric_values(features),
       no_duplicates(names(features))
     )
     assert_dots_empty()
@@ -542,6 +544,7 @@ methods::setMethod(
     # assert that arguments are valid
     assert(
       inherits(x, "SpatRaster"),
+      is_numeric_values(x),
       inherits(features, "ZonesSpatRaster"),
       assertthat::is.flag(run_checks),
       number_of_features(features) > 0,
@@ -957,7 +960,10 @@ methods::setMethod(
   methods::signature(x = "sf", features = "SpatRaster"),
   function(x, features, cost_column, run_checks = TRUE, ...) {
     assert_required(cost_column)
-    assert(assertthat::is.string(cost_column))
+    assert(
+      assertthat::is.string(cost_column),
+      is_numeric_values(features)
+    )
     problem(
       x,
       zones(

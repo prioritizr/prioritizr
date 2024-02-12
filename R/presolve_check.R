@@ -255,8 +255,9 @@ internal_presolve_check <- function(x) {
       c(
         "x" = "The problem only contains a single feature.",
         ">" = paste(
-          "This software works best when using multiple features.",
-          "It is recommended to use more features."
+          "Conservation planning generally requires multiple features",
+          "(e.g., species, ecosystem types) to identify meaningful",
+          "priority areas."
         ),
         ""
       )

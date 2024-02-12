@@ -349,6 +349,7 @@ methods::setMethod("add_linear_penalties",
     assert(
       is_conservation_problem(x),
       inherits(data, "SpatRaster"),
+      is_numeric_values(data),
       is.numeric(penalty),
       all_finite(penalty),
       number_of_zones(x) == terra::nlyr(data),

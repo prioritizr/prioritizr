@@ -16,7 +16,7 @@ NULL
 #' system where Euclidean distances accurately describe the proximity
 #' between two points on the earth. Thus spatial data in a
 #' longitude/latitude coordinate system (i.e.,
-#' [WGS84](https://spatialreference.org/ref/epsg/wgs-84/))
+#' [WGS84](https://spatialreference.org/ref/epsg/4326/))
 #' should be reprojected to another coordinate system before using this
 #' function. Note that for [terra::rast()] objects
 #' boundaries are missing for cells that have  missing (`NA`) values in all

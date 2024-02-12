@@ -96,6 +96,7 @@ adjacency_matrix.SpatRaster <- function(x, directions = 4, ...) {
   assert_dots_empty()
   assert(
     inherits(x, "SpatRaster"),
+    is_numeric_values(x),
     terra::nlyr(x) >= 1,
     assertthat::is.count(directions)
   )

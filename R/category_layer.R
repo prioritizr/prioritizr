@@ -59,7 +59,10 @@ category_layer.Raster <- function(x) {
 #' @export
 category_layer.default <- function(x) {
   # assert valid arguments
-  assert(inherits(x, "SpatRaster"))
+  assert(
+    inherits(x, "SpatRaster"),
+    is_numeric_values(x)
+  )
   # create layer
   r <- terra::which.lyr(x)
   # ensure that category layer has zeros in correct places

@@ -454,6 +454,7 @@ methods::setMethod("add_locked_in_constraints",
     assert(
       is_conservation_problem(x),
       inherits(locked_in, "SpatRaster"),
+      is_numeric_values(locked_in),
       x$number_of_zones() == terra::nlyr(locked_in)
     )
     assert(

@@ -63,6 +63,24 @@ NULL
 #'
 #'   }
 #'
+#' @author
+#'  Authors:
+#' * Jeffrey O Hanson \email{jeffrey.hanson@uqconnect.edu.au} ([ORCID](https://orcid.org/0000-0002-4716-6134))
+#' * Richard Schuster \email{richard.schuster@glel.carleton.ca} ([ORCID](https://orcid.org/0000-0003-3191-7869), maintainer)
+#' * Nina Morrell \email{nina.morrell@ubc.ca}
+#' * Matthew Strimas-Mackey \email{mstrimas@gmail.com} ([ORCID](https://orcid.org/0000-0001-8929-7776))
+#' * Brandon P M Edwards \email{brandonedwards3@cmail.carleton.ca} ([ORCID](https://orcid.org/0000-0003-0865-3076))
+#' * Matthew E Watts \email{m.watts@uq.edu.au}
+#' * Peter Arcese \email{peter.arcese@ubc.ca} ([ORCID](https://orcid.org/0000-0002-8097-482X))
+#' * Joseph Bennett \email{joseph.bennett@carleton.ca} ([ORCID](https://orcid.org/0000-0002-3901-9513))
+#' * Hugh P Possingham \email{hugh.possingham@tnc.org} ([ORCID](https://orcid.org/0000-0001-7755-996X))
+#'
+#' @seealso
+#' Useful links:
+#' * Package website (<https://prioritizr.net>)
+#' * Source code repository (<https://github.com/prioritizr/prioritizr>)
+#' * Report bugs at (<https://github.com/prioritizr/prioritizr/issues>)
+#'
 #' @references
 #' Ball IR, Possingham HP, and Watts M (2009) *Marxan and relatives:
 #' Software for spatial conservation prioritisation* in Spatial conservation
@@ -84,7 +102,7 @@ NULL
 #' @name prioritizr
 #' @docType package
 #' @aliases prioritizr-package
-NULL
+"_PACKAGE"
 
 # avoid false positive NOTES
 #' @importFrom exactextractr exact_extract

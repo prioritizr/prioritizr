@@ -20,69 +20,57 @@ assertthat::on_failure(all_finite) <- function(call, env) {
   )
 }
 
+#' @export
 all_finite.default <- function(x) {
   cli::cli_abort("{.arg x} is not a recognized class.")
 }
 
-.S3method("all_finite", "default", all_finite.default)
-
+#' @export
 all_finite.numeric <- function(x) {
   all(is.finite(x))
 }
 
-.S3method("all_finite", "numeric", all_finite.numeric)
-
+#' @export
 all_finite.logical <- function(x) {
   all(is.finite(x))
 }
 
-.S3method("all_finite", "logical", all_finite.logical)
-
+#' @export
 all_finite.character <- function(x) {
   all(!is.na(x))
 }
 
-.S3method("all_finite", "character", all_finite.character)
-
+#' @export
 all_finite.factor <- function(x) {
   all(is.finite(x))
 }
 
-.S3method("all_finite", "factor", all_finite.factor)
-
+#' @export
 all_finite.matrix <- function(x) {
   all(is.finite(c(x)))
 }
 
-.S3method("all_finite", "matrix", all_finite.matrix)
-
+#' @export
 all_finite.array <- function(x) {
   all(is.finite(c(x)))
 }
 
-.S3method("all_finite", "array", all_finite.array)
-
+#' @export
 all_finite.Matrix <- function(x) {
   all(is.finite(x@x))
 }
 
-.S3method("all_finite", "Matrix", all_finite.Matrix)
-
+#' @export
 all_finite.data.frame <- function(x) {
   all(vapply(x, all_finite, logical(1)))
 }
 
-.S3method("all_finite", "data.frame", all_finite.data.frame)
-
+#' @export
 all_finite.Spatial <- function(x) {
   all(vapply(x@data, all_finite, logical(1)))
 }
 
-.S3method("all_finite", "Spatial", all_finite.Spatial)
-
+#' @export
 all_finite.sf <- function(x) {
   all(vapply(sf::st_drop_geometry(x), all_finite, logical(1)))
 }
-
-
-.S3method("all_finite", "sf", all_finite.sf)
