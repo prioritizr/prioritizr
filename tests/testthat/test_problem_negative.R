@@ -1001,17 +1001,17 @@ test_that("x = numeric, features = data.frame", {
     spp1 = runif(10, -1, 1), spp2 = c(rpois(9, 4), NA)
   )
   # create problem
-  expect_warning(
-    expect_warning(
-      x <- problem(
-        pu$cost,
-        data.frame(id = seq_len(2), name = c("spp1", "spp2")),
-        as.matrix(t(pu[, 3:4]))
-      ),
-      "negative"
-    ),
-    "negative"
+  w <- capture_warnings(
+    x <- problem(
+      pu$cost,
+      data.frame(id = seq_len(2), name = c("spp1", "spp2")),
+      as.matrix(t(pu[, 3:4]))
+    )
   )
+  # check warnings
+  expect_match(w[[1]], "negative")
+  expect_match(w[[2]], "negative")
+  expect_length(w, 2)
   # verify that object can be printed
   suppressMessages(print(x))
   suppressMessages(x)
