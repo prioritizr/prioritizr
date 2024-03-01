@@ -554,13 +554,11 @@ methods::setMethod(
     assert_dots_empty()
     if (run_checks) {
       assert(any_nonNA(x))
-      verify(
-        all_positive(x),
-        any_nonzero(x),
-        any_nonNA(features),
-        all_positive(features),
-        any_nonzero(features)
-      )
+      verify(all_positive(x))
+      verify(any_nonzero(x))
+      verify(any_nonNA(features))
+      verify(all_positive(features))
+      verify(any_nonzero(features))
     }
     # create rij matrix
     rij <- lapply(
@@ -653,13 +651,11 @@ methods::setMethod(
         "{.arg features} must refer to {.cls numeric} columns of {.arg x}."
       )
     )
-    verify(
-      all_positive(x[, cost_column, drop = FALSE]),
-      any_nonzero(x[, cost_column, drop = FALSE]),
-      all_positive(x[, unlist(features), drop = FALSE]),
-      all_columns_any_finite(x[, unlist(features), drop = FALSE]),
-      any_nonzero(x[, unlist(features), drop = FALSE])
-    )
+    verify(all_positive(x[, cost_column, drop = FALSE]))
+    verify(any_nonzero(x[, cost_column, drop = FALSE]))
+    verify(all_positive(x[, unlist(features), drop = FALSE]))
+    verify(all_columns_any_finite(x[, unlist(features), drop = FALSE]))
+    verify(any_nonzero(x[, unlist(features), drop = FALSE]))
     # create rij matrix
     pos <- which(rowSums(!is.na(as.matrix(x[, cost_column, drop = FALSE]))) > 0)
     rij <- lapply(as.list(features), function(z) {
@@ -749,12 +745,10 @@ methods::setMethod(
     )
     assert_dots_empty()
     # verifications
-    verify(
-      all_positive(x[, cost_column]),
-      any_nonzero(x[, cost_column]),
-      all_positive(rij$amount),
-      any_nonzero(rij$amount)
-    )
+    verify(all_positive(x[, cost_column]))
+    verify(any_nonzero(x[, cost_column]))
+    verify(all_positive(rij$amount))
+    verify(any_nonzero(rij$amount))
     # validate zone data
     if (!"zone" %in% names(rij))
       rij$zone <- 1
@@ -904,10 +898,8 @@ methods::setMethod(
       )
     )
     # verifications
-    verify(
-      all_positive(x),
-      any_nonzero(x)
-    )
+    verify(all_positive(x))
+    verify(any_nonzero(x))
     verify(
       all(vapply(rij_matrix, all_positive, logical(1))),
       msg = "{.arg rij_matrix} has negative values."
@@ -1010,16 +1002,12 @@ methods::setMethod(
       )
     )
     # further validation checks
-    verify(
-      all_positive(x[, cost_column]),
-      any_nonzero(x[, cost_column])
-    )
+    verify(all_positive(x[, cost_column]))
+    verify(any_nonzero(x[, cost_column]))
     if (run_checks) {
-      verify(
-        all_positive(features),
-        any_nonzero(features),
-        any_nonNA(features)
-      )
+      verify(all_positive(features))
+      verify(any_nonzero(features))
+      verify(any_nonNA(features))
     }
     # compute rij matrix including non-planning unit cells
     rij <- rij_matrix(x, terra::rast(as.list(features)))
@@ -1143,13 +1131,11 @@ methods::setMethod(
         "{.arg features} must refer to {.cls numeric} columns of {.arg x}."
       )
     )
-    verify(
-      all_positive(x[, cost_column]),
-      any_nonzero(x[, cost_column]),
-      all_positive(x[, unlist(features)]),
-      any_nonzero(x[, unlist(features)]),
-      all_columns_any_finite(x[, unlist(features)])
-    )
+    verify(all_positive(x[, cost_column]))
+    verify(any_nonzero(x[, cost_column]))
+    verify(all_positive(x[, unlist(features)]))
+    verify(any_nonzero(x[, unlist(features)]))
+    verify(all_columns_any_finite(x[, unlist(features)]))
     # create rij matrix
     pos <- which(
       rowSums(

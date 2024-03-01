@@ -39,21 +39,30 @@ test_that("compile (compressed formulation, negative data)", {
   # calculate targets
   targ <- floor(terra::global(sim_features, "sum", na.rm = TRUE)[[1]] * 0.25)
   # create problem
-  expect_warning(
+  w <- capture_warnings(
     p <- problem(sim_pu_raster, sim_features),
-    "negative"
+    ignore_deprecation = TRUE
   )
+  # check warnings
+  expect_length(w, 2)
+  expect_match(w[[1]], "x")
+  expect_match(w[[1]], "negative")
+  expect_match(w[[2]], "features")
+  expect_match(w[[2]], "negative")
   # update problem
-  suppressWarnings(
-    expect_warning(
-      p <-
-        p %>%
-        add_min_set_objective() %>%
-        add_absolute_targets(targ) %>%
-        add_binary_decisions(),
-      "negative"
-    )
+  w <- capture_warnings(
+    p <-
+      p %>%
+      add_min_set_objective() %>%
+      add_absolute_targets(targ) %>%
+      add_binary_decisions(),
+    ignore_deprecation = TRUE
   )
+  # check warnings
+  expect_length(w, 1)
+  expect_match(w[[1]], "targets")
+  expect_match(w[[1]], "negative")
+  # compile problem
   o <- compile(p)
   # calculations for tests
   n_pu <- nrow(sim_pu_raster[[1]][!is.na(sim_pu_raster)])
@@ -136,17 +145,22 @@ test_that("compile (expanded formulation, negative data)", {
   # calculate targets
   targ <- floor(terra::global(sim_features, "sum", na.rm = TRUE)[[1]] * 0.25)
   # create problem
-  expect_warning(
-    expect_warning(
-      p <-
-        problem(sim_pu_raster, sim_features) %>%
-        add_min_set_objective() %>%
-        add_absolute_targets(targ) %>%
-        add_binary_decisions(),
-      "negative"
-    ),
-    "negative"
+  w <- capture_warnings(
+    p <-
+      problem(sim_pu_raster, sim_features) %>%
+      add_min_set_objective() %>%
+      add_absolute_targets(targ) %>%
+      add_binary_decisions(),
+    ignore_deprecation = TRUE
   )
+  # check warnings
+  expect_length(w, 3)
+  expect_match(w[[1]], "x")
+  expect_match(w[[1]], "negative")
+  expect_match(w[[2]], "features")
+  expect_match(w[[2]], "negative")
+  expect_match(w[[3]], "targets")
+  expect_match(w[[3]], "negative")
   # tests
   expect_error(compile(p, FALSE))
 })

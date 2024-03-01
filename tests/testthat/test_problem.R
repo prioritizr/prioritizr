@@ -2,14 +2,24 @@ test_that("x = SpatRaster, features = SpatRaster", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
-  # create problem
+  # prepare data
   sim_pu_raster <- terra::setValues(
     sim_pu_raster, runif(terra::ncell(sim_pu_raster), -1, 1)
   )
   sim_features[[1]] <-  terra::setValues(
     sim_features[[1]], runif(terra::ncell(sim_features[[1]]), -1, 1)
   )
-  expect_warning(x <- problem(sim_pu_raster, sim_features), "negative")
+  # create problem
+  w <- capture_warnings(
+    x <- problem(sim_pu_raster, sim_features),
+    ignore_deprecation = TRUE
+  )
+  # check warnings
+  expect_length(w, 2)
+  expect_match(w[[1]], "x")
+  expect_match(w[[1]], "negative")
+  expect_match(w[[2]], "features")
+  expect_match(w[[2]], "negative")
   # verify that object can be printed
   suppressMessages(print(x))
   suppressMessages(summary(x))
