@@ -10,10 +10,16 @@ test_that("x = SpatRaster, features = SpatRaster", {
     sim_features[[1]], runif(terra::ncell(sim_features[[1]]), -1, 1)
   )
   # create problem
-  expect_warning(
+  w <- capture_warnings(
     x <- problem(sim_pu_raster, sim_features),
-    "negative"
+    ignore_deprecation = TRUE
   )
+  # check warnings
+  expect_length(w, 2)
+  expect_match(w[[1]], "x")
+  expect_match(w[[1]], "negative")
+  expect_match(w[[2]], "features")
+  expect_match(w[[2]], "negative")
   # verify that object can be printed
   suppressMessages(print(x))
   suppressMessages(x)
@@ -98,10 +104,16 @@ test_that("x = SpatRaster, features = ZonesSpatRaster", {
       runif(terra::ncell(sim_zones_features[[1]]), -1, 1)
   )
   # create problem
-  expect_warning(
+  w <- capture_warnings(
     x <- problem(sim_zones_pu_raster, sim_zones_features),
-    "negative"
+    ignore_deprecation = TRUE
   )
+  # check warnings
+  expect_length(w, 2)
+  expect_match(w[[1]], "x")
+  expect_match(w[[1]], "negative")
+  expect_match(w[[2]], "features")
+  expect_match(w[[2]], "negative")
   # verify that object can be printed
   suppressMessages(print(x))
   suppressMessages(x)
@@ -206,13 +218,16 @@ test_that("x = sf, features = SpatRaster", {
     sim_features[[1]], runif(terra::ncell(sim_features[[1]]), -1, 1)
   )
   # create problem
-  expect_warning(
-    expect_warning(
-      x <- problem(sim_pu_polygons, sim_features, "cost"),
-      "negative"
-    ),
-    "negative"
+  w <- capture_warnings(
+    x <- problem(sim_pu_polygons, sim_features, "cost"),
+    ignore_deprecation = TRUE
   )
+  # check warnings
+  expect_length(w, 2)
+  expect_match(w[[1]], "x")
+  expect_match(w[[1]], "negative")
+  expect_match(w[[2]], "features")
+  expect_match(w[[2]], "negative")
   # verify that object can be printed
   suppressMessages(print(x))
   suppressMessages(x)
@@ -296,15 +311,18 @@ test_that("x = sf, features = ZonesSpatRaster", {
     runif(terra::ncell(sim_zones_features[[1]][[1]]), -1, 1)
   )
   # create problem
-  expect_warning(
-    expect_warning(
-      x <- problem(
-        sim_zones_pu_polygons, sim_zones_features, paste0("cost_", 1:3)
-      ),
-      "negative"
+  w <- capture_warnings(
+    x <- problem(
+      sim_zones_pu_polygons, sim_zones_features, paste0("cost_", 1:3)
     ),
-    "negative"
+    ignore_deprecation = TRUE
   )
+  # check warnings
+  expect_length(w, 2)
+  expect_match(w[[1]], "x")
+  expect_match(w[[1]], "negative")
+  expect_match(w[[2]], "features")
+  expect_match(w[[2]], "negative")
   # verify that object can be printed
   suppressMessages(print(x))
   suppressMessages(x)
@@ -410,10 +428,16 @@ test_that("x = sf, features = character", {
   sim_pu_polygons$spp1 <- runif(nrow(sim_pu_polygons), -1, 1)
   sim_pu_polygons$spp2 <- c(NA, rpois(nrow(sim_pu_polygons) - 1, 5) - 1)
   # create problem
-  expect_warning(
+  w <- capture_warnings(
     x <- problem(sim_pu_polygons, c("spp1", "spp2"), "cost"),
-    "negative"
+    ignore_deprecation = TRUE
   )
+  # check warnings
+  expect_length(w, 2)
+  expect_match(w[[1]], "x")
+  expect_match(w[[1]], "negative")
+  expect_match(w[[2]], "features")
+  expect_match(w[[2]], "negative")
   # verify that object can be printed
   suppressMessages(print(x))
   suppressMessages(x)
@@ -507,7 +531,7 @@ test_that("x = sf, features = ZonesCharacter", {
   sim_zones_pu_polygons$spp2_2 <- runif(nrow(sim_zones_pu_polygons), -1, 1)
   sim_zones_pu_polygons <- sim_zones_pu_polygons[1:5, ]
   # create problem
-  expect_warning(
+  w <- capture_warnings(
     x <- problem(
       sim_zones_pu_polygons,
       zones(
@@ -517,8 +541,14 @@ test_that("x = sf, features = ZonesCharacter", {
       ),
       c("cost_1", "cost_2")
     ),
-    "negative"
+    ignore_deprecation = TRUE
   )
+  # check warnings
+  expect_length(w, 2)
+  expect_match(w[[1]], "x")
+  expect_match(w[[1]], "negative")
+  expect_match(w[[2]], "features")
+  expect_match(w[[2]], "negative")
   # verify that object can be printed
   suppressMessages(print(x))
   suppressMessages(x)
@@ -656,10 +686,16 @@ test_that("x=data.frame, features=character", {
     spp1 = runif(10, -1, 1), spp2 = c(rpois(9, 4), NA)
   )
   # create problem
-  expect_warning(
+  w <- capture_warnings(
     x <- problem(pu, c("spp1", "spp2"), "cost"),
-    "negative"
+    ignore_deprecation = TRUE
   )
+  # check warnings
+  expect_length(w, 2)
+  expect_match(w[[1]], "x")
+  expect_match(w[[1]], "negative")
+  expect_match(w[[2]], "features")
+  expect_match(w[[2]], "negative")
   # verify that object can be printed
   suppressMessages(print(x))
   suppressMessages(x)
@@ -728,19 +764,25 @@ test_that("x = data.frame, features = ZonesCharacter", {
   # create data
   pu <- data.frame(
     id = seq_len(10),
-    cost_1 = c(NA, NA, runif(8)), cost_2 = c(0.3, NA, runif(8)),
+    cost_1 = c(NA, NA, c(-8, runif(7))), cost_2 = c(0.3, NA, runif(8)),
     spp1_1 = runif(10, -1, 1), spp2_1 = c(rpois(9, 4), NA),
     spp1_2 = runif(10, -1, 1), spp2_2 = runif(10, -1, 1)
   )
   # create problem
-  expect_warning(
+  w <- capture_warnings(
     x <- problem(
       pu,
       zones(c("spp1_1", "spp2_1"), c("spp1_2", "spp2_2")),
       c("cost_1", "cost_2")
     ),
-    "negative"
+    ignore_deprecation = TRUE
   )
+  # check warnings
+  expect_length(w, 2)
+  expect_match(w[[1]], "x")
+  expect_match(w[[1]], "negative")
+  expect_match(w[[2]], "features")
+  expect_match(w[[2]], "negative")
   # verify that object can be printed
   suppressMessages(print(x))
   suppressMessages(x)
@@ -834,10 +876,16 @@ test_that("x = data.frame, features = data.frame (single zone)", {
   rij <- expand.grid(pu = seq_len(9), species = seq_len(5))
   rij$amount <- runif(nrow(rij), -1, 1)
   # create problem
-  expect_warning(
+  w <- capture_warnings(
     x <- problem(pu, species, rij, "cost"),
-    "negative"
+    ignore_deprecation = TRUE
   )
+  # check warnings
+  expect_length(w, 2)
+  expect_match(w[[1]], "x")
+  expect_match(w[[1]], "negative")
+  expect_match(w[[2]], "rij")
+  expect_match(w[[2]], "negative")
   # verify that object can be printed
   suppressMessages(print(x))
   suppressMessages(x)
@@ -908,10 +956,16 @@ test_that("x = data.frame, features = data.frame (multiple zones)", {
   rij$amount <- runif(nrow(rij), -1, 1)
   z <- data.frame(id = 1:2, name = c("z1", "z2"))
   # create problem
-  expect_warning(
+  w <- capture_warnings(
     x <- problem(pu, species, rij, c("cost_1", "cost_2"), z),
-    "negative"
+    ignore_deprecation = TRUE
   )
+  # check warnings
+  expect_length(w, 2)
+  expect_match(w[[1]], "x")
+  expect_match(w[[1]], "negative")
+  expect_match(w[[2]], "rij")
+  expect_match(w[[2]], "negative")
   # verify that object can be printed
   suppressMessages(print(x))
   suppressMessages(x)
@@ -1001,17 +1055,19 @@ test_that("x = numeric, features = data.frame", {
     spp1 = runif(10, -1, 1), spp2 = c(rpois(9, 4), NA)
   )
   # create problem
-  expect_warning(
-    expect_warning(
-      x <- problem(
-        pu$cost,
-        data.frame(id = seq_len(2), name = c("spp1", "spp2")),
-        as.matrix(t(pu[, 3:4]))
-      ),
-      "negative"
-    ),
-    "negative"
+  w <- capture_warnings(
+    x <- problem(
+      pu$cost,
+      data.frame(id = seq_len(2), name = c("spp1", "spp2")),
+      as.matrix(t(pu[, 3:4]))
+    )
   )
+  # check warnings
+  expect_length(w, 2)
+  expect_match(w[[1]], "x")
+  expect_match(w[[1]], "negative")
+  expect_match(w[[2]], "rij_matrix")
+  expect_match(w[[2]], "negative")
   # verify that object can be printed
   suppressMessages(print(x))
   suppressMessages(x)
@@ -1079,17 +1135,20 @@ test_that("x = matrix, features = data.frame", {
     spp1_2 = runif(10, -1, 1), spp2_2 = runif(10, -1, 1)
   )
   # create problem
-  expect_warning(
-    expect_warning(
-      x <- problem(
-        as.matrix(pu[, 2:3]),
-        data.frame(id = seq_len(2), name = c("spp1", "spp2")),
-        list(as.matrix(t(pu[, 4:5])), as.matrix(t(pu[, 6:7])))
-      ),
-      "negative"
+  w <- capture_warnings(
+    x <- problem(
+      as.matrix(pu[, 2:3]),
+      data.frame(id = seq_len(2), name = c("spp1", "spp2")),
+      list(as.matrix(t(pu[, 4:5])), as.matrix(t(pu[, 6:7])))
     ),
-    "negative"
+    ignore_deprecation = TRUE
   )
+  # check warnings
+  expect_length(w, 2)
+  expect_match(w[[1]], "x")
+  expect_match(w[[1]], "negative")
+  expect_match(w[[2]], "rij_matrix")
+  expect_match(w[[2]], "negative")
   # verify that object can be printed
   suppressMessages(print(x))
   suppressMessages(x)

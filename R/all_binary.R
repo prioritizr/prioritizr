@@ -19,56 +19,47 @@ assertthat::on_failure(all_binary) <- function(call, env) {
   )
 }
 
+#' @export
 all_binary.default <- function(x) {
   cli::cli_abort("{.arg x} is not a recognized class.")
 }
 
-.S3method("all_binary", "default", all_binary.default)
-
+#' @export
 all_binary.numeric <- function(x) {
   all(x[!is.na(x)] %in% c(0, 1))
 }
 
-.S3method("all_binary", "numeric", all_binary.numeric)
-
+#' @export
 all_binary.Matrix <- function(x) {
   all_binary(x@x)
 }
 
-.S3method("all_binary", "Matrix", all_binary.Matrix)
-
+#' @export
 all_binary.matrix <- function(x) {
   all_binary(c(x))
 }
 
-.S3method("all_binary", "matrix", all_binary.matrix)
-
+#' @export
 all_binary.data.frame <- function(x) {
   all(vapply(x, all_binary, logical(1)))
 }
 
-.S3method("all_binary", "data.frame", all_binary.data.frame)
-
+#' @export
 all_binary.Spatial <- function(x) {
   all(vapply(x@data, all_binary, logical(1)))
 }
 
-.S3method("all_binary", "Spatial", all_binary.Spatial)
-
+#' @export
 all_binary.sf <- function(x) {
   all(vapply(sf::st_drop_geometry(x), all_binary, logical(1)))
 }
 
-.S3method("all_binary", "sf", all_binary.sf)
-
+#' @export
 all_binary.SpatRaster <- function(x) {
   all(c(terra::values(x)) %in% c(0, 1, NA))
 }
 
-.S3method("all_binary", "SpatRaster", all_binary.SpatRaster)
-
+#' @export
 all_binary.Raster <- function(x) {
   all_binary.SpatRaster(terra::rast(x))
 }
-
-.S3method("all_binary", "Raster", all_binary.Raster)

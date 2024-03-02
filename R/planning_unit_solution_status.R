@@ -399,6 +399,7 @@ methods::setMethod(
     ## data types
     assert(
       inherits(solution, "SpatRaster"),
+      is_numeric_values(solution),
       inherits(x$data$cost, "SpatRaster"),
       call = call,
       msg = c(

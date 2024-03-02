@@ -107,6 +107,7 @@ proximity_matrix.SpatRaster <- function(x, distance) {
   # assert arguments are valid
   assert(
     inherits(x, "SpatRaster"),
+    is_numeric_values(x),
     terra::nlyr(x) >= 1,
     assertthat::is.number(distance),
     assertthat::noNA(distance)

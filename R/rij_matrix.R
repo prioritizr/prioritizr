@@ -111,7 +111,9 @@ methods::setMethod(
     # assert that arguments are valid
     assert(
       inherits(x, "SpatRaster"),
+      is_numeric_values(x),
       inherits(y, "SpatRaster"),
+      is_numeric_values(y),
       terra::nlyr(x) > 0,
       terra::nlyr(y) > 0,
       is_comparable_raster(x, y),
@@ -192,6 +194,7 @@ methods::setMethod(
   "rij_matrix",
   signature(x = "sf", y = "SpatRaster"),
   function(x, y, fun = "sum", ...) {
+    assert(is_numeric_values(y))
     assert_dots_empty()
     m <- fast_extract(x = y, y = x, fun = fun)
     m[is.na(m[])] <- 0

@@ -105,7 +105,8 @@ write_problem <- function(x, path) {
     length(dir(d)) == 1,
     msg = "failed to save problem formulation"
   )
-  file.rename(dir(d, full.names = TRUE)[1], path)
+  raw_path <- dir(d, full.names = TRUE)[1]
+  file.copy(raw_path, path)
 
   # return success
   invisible(TRUE)

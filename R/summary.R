@@ -4,4 +4,6 @@ NULL
 #' @method summary ConservationProblem
 #'
 #' @export
-summary.ConservationProblem <- function(object, ...) object$summary()
+summary.ConservationProblem <- function(object, ...) {
+  cli::cli({object$summary()})
+}

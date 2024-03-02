@@ -82,3 +82,25 @@ Rodrigues AS, Cerdeira OJ, and Gaston KJ (2000) Flexibility,
 efficiency, and accountability: adapting reserve selection algorithms to
 more complex conservation problems. \emph{Ecography}, 23: 565--574.
 }
+\seealso{
+Useful links:
+\itemize{
+\item Package website (\url{https://prioritizr.net})
+\item Source code repository (\url{https://github.com/prioritizr/prioritizr})
+\item Report bugs at (\url{https://github.com/prioritizr/prioritizr/issues})
+}
+}
+\author{
+Authors:
+\itemize{
+\item Jeffrey O Hanson \email{jeffrey.hanson@uqconnect.edu.au} (\href{https://orcid.org/0000-0002-4716-6134}{ORCID})
+\item Richard Schuster \email{richard.schuster@glel.carleton.ca} (\href{https://orcid.org/0000-0003-3191-7869}{ORCID}, maintainer)
+\item Nina Morrell \email{nina.morrell@ubc.ca}
+\item Matthew Strimas-Mackey \email{mstrimas@gmail.com} (\href{https://orcid.org/0000-0001-8929-7776}{ORCID})
+\item Brandon P M Edwards \email{brandonedwards3@cmail.carleton.ca} (\href{https://orcid.org/0000-0003-0865-3076}{ORCID})
+\item Matthew E Watts \email{m.watts@uq.edu.au}
+\item Peter Arcese \email{peter.arcese@ubc.ca} (\href{https://orcid.org/0000-0002-8097-482X}{ORCID})
+\item Joseph Bennett \email{joseph.bennett@carleton.ca} (\href{https://orcid.org/0000-0002-3901-9513}{ORCID})
+\item Hugh P Possingham \email{hugh.possingham@tnc.org} (\href{https://orcid.org/0000-0001-7755-996X}{ORCID})
+}
+}

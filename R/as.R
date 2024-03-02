@@ -2,7 +2,6 @@
 NULL
 
 #' @method as.list Zones
-#'
 #' @export
 as.list.Zones <- function(x, ...) {
   attributes(x) <- NULL
@@ -11,7 +10,6 @@ as.list.Zones <- function(x, ...) {
 }
 
 #' @method as.list OptimizationProblem
-#'
 #' @export
 as.list.OptimizationProblem <- function(x, ...) {
   rcpp_optimization_problem_as_list(x$ptr)
@@ -19,6 +17,8 @@ as.list.OptimizationProblem <- function(x, ...) {
 
 as.ZonesSpatRaster <- function(x) UseMethod("as.ZonesSpatRaster")
 
+#' @method as.ZonesSpatRaster ZonesRaster
+#' @export
 as.ZonesSpatRaster.ZonesRaster <- function(x) {
   for (i in seq_along(x)) {
     x[[i]] <- terra::rast(x[[i]])
@@ -27,10 +27,10 @@ as.ZonesSpatRaster.ZonesRaster <- function(x) {
   x
 }
 
-.S3method("as.ZonesSpatRaster", "ZonesRaster", as.ZonesSpatRaster.ZonesRaster)
-
 as.ZonesRaster <- function(x) UseMethod("as.ZonesRaster")
 
+#' @method as.ZonesSpatRaster ZonesRaster
+#' @export
 as.ZonesRaster.ZonesSpatRaster <- function(x) {
   for (i in seq_along(x)) {
     x[[i]] <- raster::stack(x[[i]])
@@ -38,5 +38,3 @@ as.ZonesRaster.ZonesSpatRaster <- function(x) {
   class(x) <- c("ZonesRaster", "Zones")
   x
 }
-
-.S3method("as.ZonesRaster", "ZonesSpatRaster", as.ZonesRaster.ZonesSpatRaster)

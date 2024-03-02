@@ -23,12 +23,12 @@ assertthat::on_failure(all_columns_inherit) <- function(call, env) {
   )
 }
 
+#' @export
 all_columns_inherit.default <- function(x, what) {
   cli::cli_abort("{.arg x} is not a recognized class.")
 }
 
-.S3method("all_columns_inherit", "default", all_columns_inherit.default)
-
+#' @export
 all_columns_inherit.data.frame <- function(x, what) {
   # assert valid arguments
   assert(
@@ -46,16 +46,12 @@ all_columns_inherit.data.frame <- function(x, what) {
   all(vapply(x, inherits, logical(1), what = w))
 }
 
-.S3method("all_columns_inherit", "data.frame", all_columns_inherit.data.frame)
-
+#' @export
 all_columns_inherit.Spatial <- function(x, what) {
   all_columns_inherit(x@data, what)
 }
 
-.S3method("all_columns_inherit", "Spatial", all_columns_inherit.Spatial)
-
+#' @export
 all_columns_inherit.sf <- function(x, what) {
   all_columns_inherit(sf::st_drop_geometry(x), what)
 }
-
-.S3method("all_columns_inherit", "sf", all_columns_inherit.sf)

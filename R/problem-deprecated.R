@@ -45,13 +45,11 @@ methods::setMethod(
     assert_dots_empty()
     if (run_checks) {
       assert(any_nonNA(x))
-      verify(
-        all_positive(x),
-        any_nonzero(x),
-        all_positive(features),
-        any_nonzero(features),
-        any_nonNA(features)
-      )
+      verify(all_positive(x))
+      verify(any_nonzero(x))
+      verify(all_positive(features))
+      verify(any_nonzero(features))
+      verify(any_nonNA(features))
     }
     # convert x to RasterLayer if has only one layer
     if (
@@ -149,16 +147,12 @@ methods::setMethod(
       is_same_crs(x, features),
       is_spatial_extents_overlap(x, features)
     )
-    verify(
-      all_positive(x[, cost_column]),
-      any_nonzero(x[, cost_column])
-    )
+    verify(all_positive(x[, cost_column]))
+    verify(any_nonzero(x[, cost_column]))
     if (run_checks) {
-      verify(
-        all_positive(features),
-        any_nonzero(features),
-        any_nonNA(features)
-      )
+      verify(all_positive(features))
+      verify(any_nonzero(features))
+      verify(any_nonNA(features))
     }
     # compute rij matrix including non-planning unit cells
     rij <- suppressWarnings(rij_matrix(x, raster::stack(as.list(features))))
@@ -261,13 +255,11 @@ methods::setMethod(
         "{.arg features} must refer to {.cls numeric} columns of {.arg x}."
       )
     )
-    verify(
-      all_positive(x[, cost_column]),
-      any_nonzero(x[, cost_column]),
-      all_positive(x[, unlist(features)]),
-      any_nonzero(x[, unlist(features)]),
-      all_columns_any_finite(x[, unlist(features)])
-    )
+    verify(all_positive(x[, cost_column]))
+    verify(any_nonzero(x[, cost_column]))
+    verify(all_positive(x[, unlist(features)]))
+    verify(any_nonzero(x[, unlist(features)]))
+    verify(all_columns_any_finite(x[, unlist(features)]))
     # create rij matrix
     pos <- which(
       rowSums(!is.na(as.matrix(x@data[, cost_column, drop = FALSE]))) > 0
@@ -356,16 +348,12 @@ methods::setMethod(
       all(!st_geometry_classes(x) %in% c("GEOMETRYCOLLECTION", "MULTIPOINT"))
     )
     # further validation checks
-    verify(
-      all_positive(x[, cost_column]),
-      any_nonzero(x[, cost_column])
-    )
+    verify(all_positive(x[, cost_column]))
+    verify(any_nonzero(x[, cost_column]))
     if (run_checks) {
-      verify(
-        all_positive(features),
-        any_nonzero(features),
-        any_nonNA(features)
-      )
+      verify(all_positive(features))
+      verify(any_nonzero(features))
+      verify(any_nonNA(features))
     }
     # compute rij matrix including non-planning unit cells
     rij <- suppressWarnings(rij_matrix(x, raster::stack(as.list(features))))

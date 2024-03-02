@@ -73,6 +73,7 @@ simulate_data.SpatRaster <- function(x, n = 1, scale = 0.5, intensity = 0,
   # assert valid arguments
   assert(
     inherits(x, "SpatRaster"),
+    is_numeric_values(x),
     assertthat::is.count(n),
     terra::global(x, "notNA")[[1]][[1]] > 0,
     assertthat::is.number(scale),

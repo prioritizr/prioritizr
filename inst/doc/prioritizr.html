@@ -305,7 +305,7 @@ div.csl-indent {
 ## Found heuristic solution: objective 36789.525254
 ## Found heuristic solution: objective 26818.653495
 ## Presolve removed 1909 rows and 1249 columns
-## Presolve time: 0.06s
+## Presolve time: 0.04s
 ## Presolved: 4420 rows, 3029 columns, 11081 nonzeros
 ## Found heuristic solution: objective 24077.930942
 ## Variable types: 0 continuous, 3029 integer (3029 binary)
@@ -332,7 +332,7 @@ div.csl-indent {
 ##   GUB cover: 1
 ##   RLT: 1
 ## 
-## Explored 1 nodes (1377 simplex iterations) in 0.53 seconds (0.78 work units)
+## Explored 1 nodes (1377 simplex iterations) in 0.47 seconds (0.78 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 9: 19444.2 20161.7 21076.2 ... 36789.5
@@ -518,7 +518,7 @@ div.csl-indent {
 ## Root relaxation presolved: 4895 rows, 4020 columns, 12064 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.799626e+04, 1497 iterations, 0.06 seconds (0.10 work units)
+## Root relaxation: objective 1.799626e+04, 1497 iterations, 0.05 seconds (0.10 work units)
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -528,8 +528,8 @@ div.csl-indent {
 ## H    0     0                    20449.688378 17996.2587  12.0%     -    0s
 ##      0     0 18090.6275    0 1238 20449.6884 18090.6275  11.5%     -    0s
 ## H    0     0                    19499.543014 18090.6275  7.23%     -    0s
-##      0     0 18106.4253    0 1203 19499.5430 18106.4253  7.14%     -    1s
-##      0     0 18106.5097    0 1128 19499.5430 18106.5097  7.14%     -    1s
+##      0     0 18106.4253    0 1203 19499.5430 18106.4253  7.14%     -    0s
+##      0     0 18106.5097    0 1128 19499.5430 18106.5097  7.14%     -    0s
 ##      0     0 18108.9518    0 1121 19499.5430 18108.9518  7.13%     -    1s
 ##      0     0 18108.9518    0 1121 19499.5430 18108.9518  7.13%     -    1s
 ##      0     2 18109.0152    0 1121 19499.5430 18109.0152  7.13%     -    1s
@@ -539,7 +539,8 @@ div.csl-indent {
 ## H  429   429                    19028.529805 18121.7633  4.77%  19.5    2s
 ## H  577   564                    18595.762444 18121.7633  2.55%  14.8    2s
 ## H  578   565                    18545.045971 18121.9629  2.28%  15.0    3s
-## H  593     3                    18395.725721 18129.8915  1.45%  14.6    5s
+## H  593     3                    18395.725721 18129.8915  1.45%  14.6    4s
+##    595     7 18168.3205   15 1059 18395.7257 18129.9214  1.44%  18.3    5s
 ## 
 ## Cutting planes:
 ##   MIR: 2
@@ -548,7 +549,7 @@ div.csl-indent {
 ##   Zero half: 4
 ##   RLT: 5
 ## 
-## Explored 2090 nodes (43754 simplex iterations) in 8.35 seconds (10.88 work units)
+## Explored 2090 nodes (43754 simplex iterations) in 7.88 seconds (10.88 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 1000: 18395.7 18403.7 18409.4 ... 20315.8

@@ -263,6 +263,7 @@ methods::setMethod(
     assert(
       inherits(x, "sf"),
       inherits(y, "SpatRaster"),
+      is_numeric_values(y),
       terra::nlyr(y) == 1,
       is_same_crs(x, y),
       is_spatial_extents_overlap(x, y),
@@ -308,7 +309,9 @@ methods::setMethod(
     # validate that arguments are valid
     assert(
       inherits(x, "SpatRaster"),
+      is_numeric_values(x),
       inherits(y, "SpatRaster"),
+      is_numeric_values(y),
       terra::nlyr(x) == 1,
       terra::nlyr(y) == 1,
       is_comparable_raster(x, y)

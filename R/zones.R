@@ -203,6 +203,10 @@ zones <- function(..., zone_names = NULL, feature_names = NULL) {
       msg = "All {.code ...} arguments must have the same number of layers."
     )
     assert(
+      all(vapply(args, is_numeric_values, logical(1))),
+      msg = "All {.code ...} must not contain categorical values."
+    )
+    assert(
       all(vapply(args, n_fun, numeric(1)) >= 1),
       msg = "All {.code ...} arguments must have at least one layer."
     )

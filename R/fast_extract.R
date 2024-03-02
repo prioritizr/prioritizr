@@ -122,6 +122,7 @@ methods::setMethod(
     # assert arguments are valid
     assert(
       inherits(x, "SpatRaster"),
+      is_numeric_values(x),
       inherits(y, "sf"),
       assertthat::is.string(fun),
       is_match_of(fun, c("mean", "sum")),
