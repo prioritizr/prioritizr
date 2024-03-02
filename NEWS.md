@@ -17,6 +17,10 @@
   provided as an argument (#313). This is because categorical rasters are not
   supported. Thanks to Martin Jung (\@Martin-Jung) for bug report.
 - Fix NAMESPACE issues related to registration of internal S3 methods.
+- Fix bug with `problem()` not throwing multiple warnings with unusual data
+  (e.g., given cost and feature data with negative values, previously
+  only a single warning about negative costs would be thrown).
+  Thanks to Sandra Neubert (\@sandra-neubert) for bug report.
 
 ## Documentation updates
 
