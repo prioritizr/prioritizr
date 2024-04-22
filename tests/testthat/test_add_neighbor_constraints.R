@@ -114,8 +114,8 @@ test_that("solve (sf, single zone)", {
     add_neighbor_constraints(3, clamp = FALSE) %>%
     add_default_solver(time_limit = 5, verbose = FALSE)
   # solve problem
-  s1 <- solve(p)
-  s2 <- solve(p)
+  s1 <- withr::with_seed(500, solve(p))
+  s2 <- withr::with_seed(500, solve(p))
   # calculations for tests
   n_neighbors <- vapply(
     sf::st_intersects(s1[s1$solution_1 == 1, ]), length, integer(1)

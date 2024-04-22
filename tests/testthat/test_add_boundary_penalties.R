@@ -157,8 +157,8 @@ test_that("minimum set and shortfall objective (solve, single zone)", {
     add_binary_decisions() %>%
     add_boundary_penalties(10000, 0.5) %>%
     add_default_solver(time_limit = 5, verbose = FALSE)
-  s1_1 <- solve(p1)
-  s1_2 <- solve(p1)
+  s1_1 <- withr::with_seed(500, solve(p1))
+  s1_2 <- withr::with_seed(500, solve(p1))
   p2 <-
     problem(sim_pu_raster, sim_features) %>%
     add_min_shortfall_objective(budget = b) %>%
@@ -166,8 +166,8 @@ test_that("minimum set and shortfall objective (solve, single zone)", {
     add_binary_decisions() %>%
     add_boundary_penalties(-10000000, 0.5) %>%
     add_default_solver(time_limit = 5, verbose = FALSE)
-  expect_warning(s2_1 <- solve(p2, force = TRUE))
-  expect_warning(s2_2 <- solve(p2, force = TRUE))
+  expect_warning(s2_1 <- withr::with_seed(500, solve(p2, force = TRUE)))
+  expect_warning(s2_2 <- withr::with_seed(500, solve(p2, force = TRUE)))
   # tests
   expect_inherits(s1_1, "SpatRaster")
   expect_inherits(s1_2, "SpatRaster")

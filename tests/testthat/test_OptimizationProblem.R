@@ -114,7 +114,8 @@ test_that("shuffle_columns method", {
   )
   x <- optimization_problem(l)
   # shuffle columns
-  key <- x$shuffle_columns()
+  shuffle_key <- c(3, 1, 2)
+  reorder_key <- x$shuffle_columns(shuffle_key)
   # tests
   ## certain elements that should stay the same after shuffling
   expect_equal(nrow(x), 2)
@@ -129,11 +130,44 @@ test_that("shuffle_columns method", {
   expect_equal(row_ids(x), l$row_ids)
   expect_equal(compressed_formulation(x), l$compressed_formulation)
   ## certain elements that should change after shuffling
-  expect_equal(obj(x)[key], l$obj)
-  expect_equal(col_ids(x)[key], l$col_ids)
-  expect_equal(vtype(x)[key], l$vtype)
+  expect_equal(obj(x)[reorder_key], l$obj)
+  expect_equal(ub(x)[reorder_key], l$ub)
+  expect_equal(lb(x)[reorder_key], l$lb)
+  expect_equal(col_ids(x)[reorder_key], l$col_ids)
+  expect_equal(vtype(x)[reorder_key], l$vtype)
   original_matrix <- Matrix::sparseMatrix(
     i = l$A_i, j = l$A_j, x = l$A_x, index1 = FALSE
   )
-  expect_equal(A(x)[, key], original_matrix)
+  expect_equal(A(x)[, reorder_key], original_matrix)
+})
+
+test_that("copy method", {
+  # data
+  l <- list(
+    modelsense = "min",
+    A_i = c(0L, 1L, 1L),
+    A_j = c(0L, 1L, 2L),
+    A_x = c(7, 8, 9),
+    obj = c(9, 10, 11),
+    lb = c(12, 13, 14),
+    ub = c(15, 16, 17),
+    rhs = c(18, 19),
+    number_of_features = 2,
+    number_of_planning_units = 3,
+    number_of_zones = 1,
+    sense = c("=", "="),
+    vtype = c("B", "S", "C"),
+    row_ids = c("a", "b"),
+    col_ids = c("d", "e", "f"),
+    compressed_formulation = FALSE)
+  x <- optimization_problem(l)
+  # copy problem
+  y <- x$copy()
+  # tests
+  ## verify y contians same data as x
+  expect_equal(as.list(x), as.list(y))
+  ## verify that changing y does not alter x
+  x_list <- as.list(x)
+  y$shuffle_columns(c(3, 2, 1))
+  expect_equal(as.list(x), x_list)
 })

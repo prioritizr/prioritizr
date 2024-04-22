@@ -65,7 +65,8 @@ test_that("solve (multiple zones)", {
     add_min_set_objective() %>%
     add_absolute_targets(
       matrix(
-        2, nrow = number_of_features(sim_zones_features),
+        2,
+        nrow = number_of_features(sim_zones_features),
         ncol = number_of_zones(sim_zones_features)
       )
     ) %>%

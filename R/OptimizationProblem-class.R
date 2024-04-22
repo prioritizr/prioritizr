@@ -195,10 +195,18 @@ OptimizationProblem <- R6::R6Class(
     },
 
     #' @description
-    #' Shuffle the order of the columns in the conservation problem.
-    #' @return `integer` vector with indices to un-shuffle the problem.
-    shuffle_columns = function() {
-      rcpp_set_optimization_problem_shuffled(self$ptr)
+    #' Shuffle the order of the columns in the optimization problem.
+    #' @param order `integer` vector with new order.
+    #' @return An `integer` vector with indices to un-shuffle the problem.
+    shuffle_columns = function(order) {
+      rcpp_set_optimization_problem_shuffled(self$ptr, order)
+    },
+
+    #' @description
+    #' Create a copy of the optimization problem.
+    #' @return A new `OptimizationProblem` object .
+    copy = function() {
+      OptimizationProblem$new(ptr = rcpp_copy_optimization_problem(self$ptr))
     }
   )
 )

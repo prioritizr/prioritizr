@@ -17,8 +17,8 @@ test_that("binary decisions", {
     add_relative_targets(0.1) %>%
     add_binary_decisions() %>%
     add_cplex_solver(time_limit = 5, verbose = FALSE)
-  s1 <- solve(p1)
-  s2 <- solve(p2)
+  s1 <- withr::with_seed(500, solve(p1))
+  s2 <- withr::with_seed(500, solve(p2))
   # tests
   expect_inherits(s1, "SpatRaster")
   expect_equal(terra::nlyr(s1), 1)

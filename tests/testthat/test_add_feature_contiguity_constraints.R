@@ -224,7 +224,7 @@ test_that("compile (multiple zones)", {
     g <- igraph::graph_from_adjacency_matrix(
       x, diag = FALSE, mode = "undirected", weighted = NULL
     )
-    igraph::clusters(g)$membership * diag(x)
+    igraph::components(g)$membership * diag(x)
   })
   n_clusters_per_feature <- vapply(zcl, max, numeric(1))
   n_clusters <- sum(n_clusters_per_feature)

@@ -5,9 +5,38 @@ SEXP rcpp_new_optimization_problem(std::size_t nrow =  1000000,
                                    std::size_t ncol =  1000000,
                                    std::size_t ncell = 1000000) {
   OPTIMIZATIONPROBLEM* x = new OPTIMIZATIONPROBLEM(nrow, ncol, ncell);
-  Rcpp::XPtr<OPTIMIZATIONPROBLEM> ptr = Rcpp::XPtr<OPTIMIZATIONPROBLEM>(x,
-                                                                        true);
+  Rcpp::XPtr<OPTIMIZATIONPROBLEM> ptr =
+    Rcpp::XPtr<OPTIMIZATIONPROBLEM>(x, true);
   return(ptr);
+}
+
+// [[Rcpp::export]]
+SEXP rcpp_copy_optimization_problem(SEXP x) {
+  // initialization
+  Rcpp::XPtr<OPTIMIZATIONPROBLEM> x_ptr =
+    Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x);
+  // create new problem
+  OPTIMIZATIONPROBLEM* y = new OPTIMIZATIONPROBLEM(
+    x_ptr->_modelsense,
+    x_ptr->_number_of_features,
+    x_ptr->_number_of_planning_units,
+    x_ptr->_number_of_zones,
+    x_ptr->_A_i,
+    x_ptr->_A_j,
+    x_ptr->_A_x,
+    x_ptr->_obj,
+    x_ptr->_lb,
+    x_ptr->_ub,
+    x_ptr->_rhs,
+    x_ptr->_sense,
+    x_ptr->_vtype,
+    x_ptr->_row_ids,
+    x_ptr->_col_ids,
+    x_ptr->_compressed_formulation
+  );
+  Rcpp::XPtr<OPTIMIZATIONPROBLEM> y_ptr =
+    Rcpp::XPtr<OPTIMIZATIONPROBLEM>(y, true);
+  return(y_ptr);
 }
 
 // [[Rcpp::export]]
@@ -35,12 +64,13 @@ SEXP rcpp_predefined_optimization_problem(Rcpp::List l) {
     Rcpp::as<std::vector<std::string>>(l["row_ids"]);
   std::vector<std::string> col_ids =
     Rcpp::as<std::vector<std::string>>(l["col_ids"]);
-  OPTIMIZATIONPROBLEM* x = new OPTIMIZATIONPROBLEM(modelsense,
-   number_of_features, number_of_planning_units, number_of_zones,
-   A_i, A_j, A_x, obj, lb, ub, rhs, sense, vtype, row_ids, col_ids,
-   compressed_formulation);
-  Rcpp::XPtr<OPTIMIZATIONPROBLEM> ptr = Rcpp::XPtr<OPTIMIZATIONPROBLEM>(x,
-                                                                        true);
+  OPTIMIZATIONPROBLEM* x = new OPTIMIZATIONPROBLEM(
+    modelsense, number_of_features, number_of_planning_units, number_of_zones,
+    A_i, A_j, A_x, obj, lb, ub, rhs, sense, vtype, row_ids, col_ids,
+    compressed_formulation
+  );
+  Rcpp::XPtr<OPTIMIZATIONPROBLEM> ptr =
+    Rcpp::XPtr<OPTIMIZATIONPROBLEM>(x, true);
   return(ptr);
 }
 
@@ -55,10 +85,10 @@ Rcpp::List rcpp_optimization_problem_as_list(SEXP x) {
     Rcpp::Named("number_of_features") = ptr->_number_of_features,
     Rcpp::Named("number_of_planning_units") = ptr->_number_of_planning_units,
     Rcpp::Named("number_of_zones") = ptr->_number_of_zones,
-    Rcpp::Named("A_i") = Rcpp::IntegerVector(ptr->_A_i.begin(),
-                                             ptr->_A_i.end()),
-    Rcpp::Named("A_j") = Rcpp::IntegerVector(ptr->_A_j.begin(),
-                                             ptr->_A_j.end()),
+    Rcpp::Named("A_i") =
+      Rcpp::IntegerVector(ptr->_A_i.begin(), ptr->_A_i.end()),
+    Rcpp::Named("A_j") =
+      Rcpp::IntegerVector(ptr->_A_j.begin(), ptr->_A_j.end()),
     Rcpp::Named("A_x") = ptr->_A_x,
     Rcpp::Named("obj") = ptr->_obj,
     Rcpp::Named("lb") = ptr->_lb,
@@ -169,37 +199,59 @@ T1 extract_elements(T1 x, T2 &indices) {
 }
 
 // [[Rcpp::export]]
-Rcpp::IntegerVector rcpp_set_optimization_problem_shuffled(SEXP x) {
+Rcpp::IntegerVector rcpp_set_optimization_problem_shuffled(
+  SEXP x,
+  std::vector<std::size_t> shuffle_key
+) {
+  // NOTICE //
+  // here we assume that shuffle_key contains values from 1 to the
+  // columns (decision variables) in the problem. E.g., a valid shuffle_key
+  // might be [2, 1, 4, 5, 3] for a problem with 5 columns.
+  // If this assumption is not met, then the code will produce invalid
+  // output.
+
   // initialization
   Rcpp::XPtr<OPTIMIZATIONPROBLEM> ptr =
     Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x);
-  // extract planning unit indices
-  std::vector<std::size_t> old_order(ptr->ncol());
-  std::iota(old_order.begin(), old_order.end(), 0);
-  // shuffle planning units
-  std::vector<std::size_t> new_order = old_order;
-  r_random_shuffle(new_order);
-  // update data in optimization problem
-  ptr->_obj = extract_elements<std::vector<double>,
-                               std::vector<std::size_t>>(ptr->_obj, new_order);
-  ptr->_col_ids = extract_elements<std::vector<std::string>,
-                                   std::vector<std::size_t>>(ptr->_col_ids,
-                                                             new_order);
-  ptr->_vtype  = extract_elements<std::vector<std::string>,
-                                  std::vector<std::size_t>>(ptr->_vtype,
-                                                            new_order);
-  ptr->_lb = extract_elements<std::vector<double>,
-                              std::vector<std::size_t>>(ptr->_lb, new_order);
-  ptr->_ub = extract_elements<std::vector<double>,
-                              std::vector<std::size_t>>(ptr->_ub, new_order);
+  // convert key from base-1 indexing to base-0 indexing
+  for (auto& i : shuffle_key) i -= 1;
+  // re-order columns in optimization problem according to shuffle key
+  ptr->_obj =
+    extract_elements<std::vector<double>, std::vector<std::size_t>>(
+      ptr->_obj, shuffle_key
+    );
+  ptr->_col_ids =
+    extract_elements<std::vector<std::string>, std::vector<std::size_t>>(
+      ptr->_col_ids, shuffle_key
+    );
+  ptr->_vtype =
+    extract_elements<std::vector<std::string>, std::vector<std::size_t>>(
+      ptr->_vtype, shuffle_key
+    );
+  ptr->_lb =
+    extract_elements<std::vector<double>, std::vector<std::size_t>>(
+      ptr->_lb, shuffle_key
+    );
+  ptr->_ub =
+    extract_elements<std::vector<double>, std::vector<std::size_t>>(
+      ptr->_ub, shuffle_key
+    );
+  /// note that we use -1 below, because Rcpp::match outputs values under
+  /// base-1 indexing for compatibolity with R::match() and we use base-0
+  /// indexing for column indices in the constraint matrix (i.e., ptr->_A_j)
   Rcpp::IntegerVector new_j = Rcpp::match(
     Rcpp::IntegerVector(ptr->_A_j.begin(), ptr->_A_j.end()),
-    Rcpp::IntegerVector(new_order.begin(), new_order.end())) - 1;
+    Rcpp::IntegerVector(shuffle_key.begin(), shuffle_key.end())
+  ) - 1;
   ptr->_A_j = std::vector<std::size_t>(new_j.begin(), new_j.end());
-  // generate key to reorder the variables back to the original order
+  // generate key so that we can later reorder the variables to the original
+  // order (i.e., unshuffle the problem)
+  std::vector<std::size_t> old_order(ptr->ncol());
+  std::iota(old_order.begin(), old_order.end(), 0);
   Rcpp::IntegerVector reorder_key = Rcpp::match(
     Rcpp::IntegerVector(old_order.begin(), old_order.end()),
-    Rcpp::IntegerVector(new_order.begin(), new_order.end()));
+    Rcpp::IntegerVector(shuffle_key.begin(), shuffle_key.end())
+  );
   // return key
   return reorder_key;
 }

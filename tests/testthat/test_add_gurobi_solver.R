@@ -18,8 +18,8 @@ test_that("binary decisions", {
     add_binary_decisions() %>%
     add_gurobi_solver(time_limit = 5, numeric_focus = TRUE, verbose = FALSE)
   # solve problems
-  s1 <- solve(p1)
-  s2 <- solve(p2)
+  s1 <- withr::with_seed(500, solve(p1))
+  s2 <- withr::with_seed(500, solve(p2))
   # tests
   expect_inherits(s1, "SpatRaster")
   expect_equal(terra::nlyr(s1), 1)

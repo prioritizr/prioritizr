@@ -40,7 +40,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.3.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.3.6</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -125,7 +125,7 @@
 <code class="sourceCode R"><span><span class="co"># load packages</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://prioritizr.net">prioritizr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/" class="external-link">terra</a></span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## terra 1.7.65</span></span></code></pre>
+<pre><code><span><span class="co">## terra 1.7.71</span></span></code></pre>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tibble.tidyverse.org/" class="external-link">tibble</a></span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
@@ -166,24 +166,30 @@
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Gurobi Optimizer version 10.0.2 build v10.0.2rc0 (linux64)</span></span>
+<pre><code><span><span class="co">## Set parameter Username</span></span>
+<span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
+<span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
+<span><span class="co">## Set parameter Presolve to value 2</span></span>
+<span><span class="co">## Set parameter Threads to value 1</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2025-04-21</span></span>
+<span><span class="co">## Gurobi Optimizer version 11.0.1 build v11.0.1rc0 (linux64 - "Ubuntu 22.04.4 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimize a model with 5 rows, 90 columns and 450 nonzeros</span></span>
-<span><span class="co">## Model fingerprint: 0x4bb5d283</span></span>
+<span><span class="co">## Model fingerprint: 0x3a1340e2</span></span>
 <span><span class="co">## Variable types: 0 continuous, 90 integer (90 binary)</span></span>
 <span><span class="co">## Coefficient statistics:</span></span>
 <span><span class="co">##   Matrix range     [2e-01, 9e-01]</span></span>
 <span><span class="co">##   Objective range  [2e+02, 2e+02]</span></span>
 <span><span class="co">##   Bounds range     [1e+00, 1e+00]</span></span>
 <span><span class="co">##   RHS range        [3e+00, 8e+00]</span></span>
-<span><span class="co">## Found heuristic solution: objective 2337.9617767</span></span>
+<span><span class="co">## Found heuristic solution: objective 2248.0562744</span></span>
 <span><span class="co">## Presolve time: 0.00s</span></span>
 <span><span class="co">## Presolved: 5 rows, 90 columns, 450 nonzeros</span></span>
 <span><span class="co">## Variable types: 0 continuous, 90 integer (90 binary)</span></span>
-<span><span class="co">## Found heuristic solution: objective 2332.1004028</span></span>
+<span><span class="co">## Found heuristic solution: objective 2207.3454742</span></span>
 <span><span class="co">## Root relaxation presolved: 5 rows, 90 columns, 450 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
@@ -192,16 +198,16 @@
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">##      0     0 1931.58191    0    4 2332.10040 1931.58191  17.2%     -    0s</span></span>
-<span><span class="co">## H    0     0                    1987.3985291 1931.58191  2.81%     -    0s</span></span>
+<span><span class="co">##      0     0 1931.58191    0    4 2207.34547 1931.58191  12.5%     -    0s</span></span>
+<span><span class="co">## H    0     0                    1984.9061584 1931.58191  2.69%     -    0s</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Explored 1 nodes (12 simplex iterations) in 0.00 seconds (0.00 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Solution count 3: 1987.4 2332.1 2337.96 </span></span>
+<span><span class="co">## Solution count 3: 1984.91 2207.35 2248.06 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
-<span><span class="co">## Best objective 1.987398529053e+03, best bound 1.931581907658e+03, gap 2.8085%</span></span></code></pre>
+<span><span class="co">## Best objective 1.984906158447e+03, best bound 1.931581907658e+03, gap 2.6865%</span></span></code></pre>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate feature representation</span></span>
 <span><span class="va">r1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p1</span>, <span class="va">s1</span><span class="op">)</span></span>
@@ -209,14 +215,14 @@
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 5 × 5</span></span></span>
 <span><span class="co">##   summary feature   total_amount absolute_held relative_held</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> overall feature_1         83.3          8.91         0.107</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> overall feature_1         83.3          8.88         0.107</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">2</span> overall feature_2         31.2          3.13         0.100</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span> overall feature_3         72.0          7.34         0.102</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span> overall feature_4         42.7          4.35         0.102</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">5</span> overall feature_5         56.7          6.01         0.106</span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> overall feature_3         72.0          7.41         0.103</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> overall feature_4         42.7          4.30         0.101</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span> overall feature_5         56.7          5.95         0.105</span></span></code></pre>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot solution</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
 <span>  <span class="va">s1</span>, main <span class="op">=</span> <span class="st">"solution"</span>,</span>
 <span>  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -252,10 +258,10 @@
 <span></span>
 <span><span class="co"># print zones</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">z2</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## A zones object <span style="color: #0000BB;">&lt;ZonesSpatRaster/Zones&gt;</span></span></span></code></pre>
-<pre><code><span><span class="co">## <span style="color: #00BBBB;">•</span> zones:    <span style="color: #0000BB;">"zone 1"</span> and <span style="color: #0000BB;">"zone 2"</span> (2 total)</span></span></code></pre>
-<pre><code><span><span class="co">## <span style="color: #00BBBB;">•</span> features: <span style="color: #0000BB;">"1"</span>, <span style="color: #0000BB;">"2"</span>, <span style="color: #0000BB;">"3"</span>, <span style="color: #0000BB;">"4"</span>, and <span style="color: #0000BB;">"5"</span> (5 total)</span></span></code></pre>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<pre><code><span><span class="co">## A zones object <span style="color: #0000BB;">&lt;ZonesSpatRaster/Zones&gt;</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">•</span> zones:    <span style="color: #0000BB;">"zone 1"</span> and <span style="color: #0000BB;">"zone 2"</span> (2 total)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">•</span> features: <span style="color: #0000BB;">"1"</span>, <span style="color: #0000BB;">"2"</span>, <span style="color: #0000BB;">"3"</span>, <span style="color: #0000BB;">"4"</span>, and <span style="color: #0000BB;">"5"</span> (5 total)</span></span></code></pre>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create a multi-layer raster with the planning unit data</span></span>
 <span><span class="co">## since our planning unit costs are the same for each zone,</span></span>
 <span><span class="co">## we will create a raster with two replicates of the cost data</span></span>
@@ -273,7 +279,7 @@
 <span><span class="co">## names       :    layer,    layer </span></span>
 <span><span class="co">## min values  : 190.1328, 190.1328 </span></span>
 <span><span class="co">## max values  : 215.8638, 215.8638</span></span></code></pre>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># build two-zone problem</span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">pu2</span>, <span class="va">z2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -302,75 +308,80 @@
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Gurobi Optimizer version 10.0.2 build v10.0.2rc0 (linux64)</span></span>
+<pre><code><span><span class="co">## Set parameter Username</span></span>
+<span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
+<span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
+<span><span class="co">## Set parameter Presolve to value 2</span></span>
+<span><span class="co">## Set parameter Threads to value 1</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2025-04-21</span></span>
+<span><span class="co">## Gurobi Optimizer version 11.0.1 build v11.0.1rc0 (linux64 - "Ubuntu 22.04.4 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimize a model with 100 rows, 180 columns and 1080 nonzeros</span></span>
-<span><span class="co">## Model fingerprint: 0x5c140ae3</span></span>
+<span><span class="co">## Model fingerprint: 0x08f23985</span></span>
 <span><span class="co">## Variable types: 0 continuous, 180 integer (180 binary)</span></span>
 <span><span class="co">## Coefficient statistics:</span></span>
 <span><span class="co">##   Matrix range     [2e-01, 1e+00]</span></span>
 <span><span class="co">##   Objective range  [2e+02, 2e+02]</span></span>
 <span><span class="co">##   Bounds range     [1e+00, 1e+00]</span></span>
 <span><span class="co">##   RHS range        [1e+00, 8e+00]</span></span>
-<span><span class="co">## Found heuristic solution: objective 3568.4931335</span></span>
+<span><span class="co">## Found heuristic solution: objective 3262.5476074</span></span>
 <span><span class="co">## Presolve time: 0.00s</span></span>
 <span><span class="co">## Presolved: 100 rows, 180 columns, 1080 nonzeros</span></span>
 <span><span class="co">## Variable types: 0 continuous, 180 integer (180 binary)</span></span>
-<span><span class="co">## Found heuristic solution: objective 3440.6550903</span></span>
+<span><span class="co">## Found heuristic solution: objective 3197.4783173</span></span>
 <span><span class="co">## Root relaxation presolved: 100 rows, 180 columns, 1080 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Root relaxation: objective 2.911333e+03, 75 iterations, 0.00 seconds (0.00 work units)</span></span>
+<span><span class="co">## Root relaxation: interrupted, 46 iterations, 0.00 seconds (0.00 work units)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">##      0     0 2911.33336    0   10 3440.65509 2911.33336  15.4%     -    0s</span></span>
-<span><span class="co">## H    0     0                    2996.1175232 2911.33336  2.83%     -    0s</span></span>
+<span><span class="co">##      0     0          -    0      3197.47832 2877.78289  10.0%     -    0s</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 1 nodes (79 simplex iterations) in 0.00 seconds (0.00 work units)</span></span>
+<span><span class="co">## Explored 1 nodes (46 simplex iterations) in 0.00 seconds (0.00 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Solution count 3: 2996.12 3440.66 3568.49 </span></span>
+<span><span class="co">## Solution count 2: 3197.48 3262.55 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
-<span><span class="co">## Best objective 2.996117523193e+03, best bound 2.911333356299e+03, gap 2.8298%</span></span></code></pre>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<span><span class="co">## Best objective 3.197478317261e+03, best bound 2.877782890768e+03, gap 9.9984%</span></span></code></pre>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate feature representation</span></span>
 <span><span class="va">r2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p2</span>, <span class="va">s2</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">r2</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 15 × 5</span></span></span>
 <span><span class="co">##    summary feature total_amount absolute_held relative_held</span></span>
 <span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> overall 1              167.          13.4         0.080<span style="text-decoration: underline;">3</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> overall 2               62.4          4.77        0.076<span style="text-decoration: underline;">5</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> overall 3              144.          10.9         0.075<span style="text-decoration: underline;">8</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> overall 4               85.3          6.41        0.075<span style="text-decoration: underline;">1</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> overall 5              113.           9.06        0.079<span style="text-decoration: underline;">9</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> zone 1  1               83.3          8.87        0.106 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> zone 1  2               31.2          3.21        0.103 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> zone 1  3               72.0          7.21        0.100 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> zone 1  4               42.7          4.27        0.100 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">10</span> zone 1  5               56.7          6.03        0.106 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">11</span> zone 2  1               83.3          4.50        0.054<span style="text-decoration: underline;">1</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">12</span> zone 2  2               31.2          1.56        0.050<span style="text-decoration: underline;">0</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">13</span> zone 2  3               72.0          3.70        0.051<span style="text-decoration: underline;">5</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">14</span> zone 2  4               42.7          2.14        0.050<span style="text-decoration: underline;">1</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">15</span> zone 2  5               56.7          3.03        0.053<span style="text-decoration: underline;">3</span></span></span></code></pre>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> overall 1              167.          13.6         0.081<span style="text-decoration: underline;">7</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> overall 2               62.4          5.04        0.080<span style="text-decoration: underline;">7</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> overall 3              144.          10.9         0.076<span style="text-decoration: underline;">0</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> overall 4               85.3          6.83        0.080<span style="text-decoration: underline;">0</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> overall 5              113.           9.54        0.084<span style="text-decoration: underline;">1</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> zone 1  1               83.3          9.18        0.110 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> zone 1  2               31.2          3.47        0.111 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> zone 1  3               72.0          7.31        0.102 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> zone 1  4               42.7          4.67        0.109 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> zone 1  5               56.7          6.57        0.116 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">11</span> zone 2  1               83.3          4.43        0.053<span style="text-decoration: underline;">1</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">12</span> zone 2  2               31.2          1.57        0.050<span style="text-decoration: underline;">2</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">13</span> zone 2  3               72.0          3.63        0.050<span style="text-decoration: underline;">4</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">14</span> zone 2  4               42.7          2.16        0.050<span style="text-decoration: underline;">7</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">15</span> zone 2  5               56.7          2.97        0.052<span style="text-decoration: underline;">5</span></span></span></code></pre>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot solution</span></span>
 <span><span class="co"># here we use the category layer function to generate raster showing the zone</span></span>
 <span><span class="co"># that each planning unit was allocated. Specifically, pixels with the</span></span>
 <span><span class="co"># value 1 (yellow) are allocated to "zone 1" and pixels with the value 2 (green)</span></span>
 <span><span class="co"># are allocated to "zone 2". Units depicted in gray are not allocated</span></span>
 <span><span class="co"># to any zone.</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s2</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>,</span>
 <span>  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -380,17 +391,17 @@
 <h3 id="multiple-zones-with-varying-costs">Multiple zones with varying costs<a class="anchor" aria-label="anchor" href="#multiple-zones-with-varying-costs"></a>
 </h3>
 <p>Real-world problems often have different costs for managing planning units under different zones. These problems also tend to have different expected amounts of each feature when planning units are managed differently. So let us consider a slightly more complex example. Similar to before we will have two management zones. But this time, the cost of managing each planning unit is different depending on which management zone it is assigned to in the solution. Furthermore, when we assign a planning unit to the second zone, we only expect to end up with half of the habitat we would get if we managed the unit in the first zone (e.g., because the second zone is a partial-take zone and the first zone is a no-take zone). We will use the same target data as in the previous example.</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create new planning unit and cost data</span></span>
 <span><span class="va">pu3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_data.html">get_sim_zones_pu_raster</a></span><span class="op">(</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span>
 <span></span>
 <span><span class="co"># plot cost data</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
 <span>  <span class="va">pu3</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"zone 1"</span>, <span class="st">"zone 2"</span><span class="op">)</span>,</span>
 <span>  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="management_zones_tutorial_files/figure-html/unnamed-chunk-6-1.png" width="576" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create problem</span></span>
 <span><span class="va">p3</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">pu3</span>, <span class="fu"><a href="../reference/zones.html">zones</a></span><span class="op">(</span><span class="va">sim_features</span>, <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -419,27 +430,33 @@
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Gurobi Optimizer version 10.0.2 build v10.0.2rc0 (linux64)</span></span>
+<pre><code><span><span class="co">## Set parameter Username</span></span>
+<span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
+<span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
+<span><span class="co">## Set parameter Presolve to value 2</span></span>
+<span><span class="co">## Set parameter Threads to value 1</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2025-04-21</span></span>
+<span><span class="co">## Gurobi Optimizer version 11.0.1 build v11.0.1rc0 (linux64 - "Ubuntu 22.04.4 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimize a model with 100 rows, 180 columns and 1080 nonzeros</span></span>
-<span><span class="co">## Model fingerprint: 0xdfa75166</span></span>
+<span><span class="co">## Model fingerprint: 0x54e157cf</span></span>
 <span><span class="co">## Variable types: 0 continuous, 180 integer (180 binary)</span></span>
 <span><span class="co">## Coefficient statistics:</span></span>
 <span><span class="co">##   Matrix range     [1e-01, 1e+00]</span></span>
 <span><span class="co">##   Objective range  [2e+02, 2e+02]</span></span>
 <span><span class="co">##   Bounds range     [1e+00, 1e+00]</span></span>
 <span><span class="co">##   RHS range        [8e-01, 8e+00]</span></span>
-<span><span class="co">## Found heuristic solution: objective 3667.7708740</span></span>
+<span><span class="co">## Found heuristic solution: objective 3458.5251617</span></span>
 <span><span class="co">## Presolve time: 0.00s</span></span>
 <span><span class="co">## Presolved: 100 rows, 180 columns, 1080 nonzeros</span></span>
 <span><span class="co">## Variable types: 0 continuous, 180 integer (180 binary)</span></span>
-<span><span class="co">## Found heuristic solution: objective 3388.0249329</span></span>
+<span><span class="co">## Found heuristic solution: objective 3388.5991669</span></span>
 <span><span class="co">## Root relaxation presolved: 100 rows, 180 columns, 1080 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
@@ -448,41 +465,41 @@
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">##      0     0 2884.87201    0    8 3388.02493 2884.87201  14.9%     -    0s</span></span>
-<span><span class="co">## H    0     0                    2958.1201477 2884.87201  2.48%     -    0s</span></span>
+<span><span class="co">##      0     0 2884.87201    0    8 3388.59917 2884.87201  14.9%     -    0s</span></span>
+<span><span class="co">## H    0     0                    2959.3694000 2884.87201  2.52%     -    0s</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Explored 1 nodes (38 simplex iterations) in 0.00 seconds (0.00 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Solution count 3: 2958.12 3388.02 3667.77 </span></span>
+<span><span class="co">## Solution count 3: 2959.37 3388.6 3458.53 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
-<span><span class="co">## Best objective 2.958120147705e+03, best bound 2.884872007846e+03, gap 2.4762%</span></span></code></pre>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<span><span class="co">## Best objective 2.959369400024e+03, best bound 2.884872007846e+03, gap 2.5173%</span></span></code></pre>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate feature representation</span></span>
 <span><span class="va">r3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p3</span>, <span class="va">s3</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">r3</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 15 × 5</span></span></span>
 <span><span class="co">##    summary feature total_amount absolute_held relative_held</span></span>
 <span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> overall 1              125.         11.1          0.089<span style="text-decoration: underline;">1</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> overall 2               46.8         3.92         0.083<span style="text-decoration: underline;">8</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> overall 3              108.          9.28         0.086<span style="text-decoration: underline;">0</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> overall 4               64.0         5.37         0.083<span style="text-decoration: underline;">9</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> overall 5               85.1         7.46         0.087<span style="text-decoration: underline;">7</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> 1       1               83.3         8.94         0.107 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> overall 1              125.         11.1          0.088<span style="text-decoration: underline;">9</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> overall 2               46.8         3.93         0.084<span style="text-decoration: underline;">0</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> overall 3              108.          9.34         0.086<span style="text-decoration: underline;">5</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> overall 4               64.0         5.35         0.083<span style="text-decoration: underline;">6</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> overall 5               85.1         7.42         0.087<span style="text-decoration: underline;">2</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> 1       1               83.3         8.93         0.107 </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 7</span> 1       2               31.2         3.13         0.100 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 1       3               72.0         7.42         0.103 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 1       4               42.7         4.29         0.101 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">10</span> 1       5               56.7         6.01         0.106 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">11</span> 2       1               41.6         2.19         0.052<span style="text-decoration: underline;">7</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">12</span> 2       2               15.6         0.794        0.050<span style="text-decoration: underline;">9</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">13</span> 2       3               36.0         1.87         0.051<span style="text-decoration: underline;">9</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">14</span> 2       4               21.3         1.08         0.050<span style="text-decoration: underline;">5</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">15</span> 2       5               28.4         1.44         0.050<span style="text-decoration: underline;">9</span></span></span></code></pre>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 1       3               72.0         7.49         0.104 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 1       4               42.7         4.28         0.100 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> 1       5               56.7         5.98         0.105 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">11</span> 2       1               41.6         2.18         0.052<span style="text-decoration: underline;">3</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">12</span> 2       2               15.6         0.804        0.051<span style="text-decoration: underline;">5</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">13</span> 2       3               36.0         1.86         0.051<span style="text-decoration: underline;">6</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">14</span> 2       4               21.3         1.07         0.050<span style="text-decoration: underline;">2</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">15</span> 2       5               28.4         1.44         0.050<span style="text-decoration: underline;">8</span></span></span></code></pre>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot solution</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s3</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>,</span>
 <span>  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -492,26 +509,26 @@
 <h3 id="multiple-zones-with-complex-targets">Multiple zones with complex targets<a class="anchor" aria-label="anchor" href="#multiple-zones-with-complex-targets"></a>
 </h3>
 <p>So far, we have dealt with problems where each feature has a target that pertains to a single zone. But sometimes we have targets that pertain to multiple zones. For example, what if we were in charge of managing pest control in a set of areas and we had three different pest control methods we could implement in any given planning unit. We could (i) set up a few traps in a given planning unit and make 10 % of the habitat in the unit pest-free, (ii) set up a lot of traps and make 50 % of the habitat in the unit pest-free, or (iii) drop baits over a given planning unit and make 80 % of the planning unit pest-free. Each of these different actions has a different cost, with a few low intensity trapping costing $100 per planning unit, a high intensity trapping costing $300, and baiting costing $200 (please note these costs aren’t meant to be realistic). After defining our management actions and costs, we require a solution that will yield 8 units of pest free habitat per feature. It’s important to note that unlike the previous examples, here we don’t have targets for each feature in each zone, but rather our targets are for each feature and across multiple zones. In other words, we don’t really care which management actions we implement, we just want the set of actions that will meet our targets for minimum expenditure. We can formulate and solve this problem using the following code.</p>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create planning unit data with costs</span></span>
 <span><span class="va">pu4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/terra/man/is.bool.html" class="external-link">as.int</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">sim_pu_raster</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/terra/man/is.bool.html" class="external-link">as.int</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">sim_pu_raster</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="fl">300</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/terra/man/is.bool.html" class="external-link">as.int</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">sim_pu_raster</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="fl">200</span></span>
+<span>  <span class="fu"><a href="https://rspatial.github.io/terra/reference/is.bool.html" class="external-link">as.int</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">sim_pu_raster</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span>,</span>
+<span>  <span class="fu"><a href="https://rspatial.github.io/terra/reference/is.bool.html" class="external-link">as.int</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">sim_pu_raster</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="fl">300</span>,</span>
+<span>  <span class="fu"><a href="https://rspatial.github.io/terra/reference/is.bool.html" class="external-link">as.int</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">sim_pu_raster</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="fl">200</span></span>
 <span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">pu4</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"few traps"</span>, <span class="st">"many traps"</span>, <span class="st">"baiting"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">pu4</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"few traps"</span>, <span class="st">"many traps"</span>, <span class="st">"baiting"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># plot planning unit data</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
 <span>  <span class="va">pu4</span>, nr <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="management_zones_tutorial_files/figure-html/unnamed-chunk-8-1.png" width="624" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create targets</span></span>
 <span><span class="va">t4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
-<span>  feature <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">sim_features</span><span class="op">)</span>,</span>
-<span>  zone <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">pu4</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>  feature <span class="op">=</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">sim_features</span><span class="op">)</span>,</span>
+<span>  zone <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">pu4</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span><span class="op">]</span>,</span>
 <span>  target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">8</span>, <span class="fl">5</span><span class="op">)</span>,</span>
 <span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"absolute"</span>, <span class="fl">5</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
@@ -526,7 +543,7 @@
 <span><span class="co">## <span style="color: #BCBCBC;">3</span> feature_3 <span style="color: #949494;">&lt;chr [3]&gt;</span>      8 absolute</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">4</span> feature_4 <span style="color: #949494;">&lt;chr [3]&gt;</span>      8 absolute</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">5</span> feature_5 <span style="color: #949494;">&lt;chr [3]&gt;</span>      8 absolute</span></span></code></pre>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create problem</span></span>
 <span><span class="va">p4</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span></span>
@@ -535,8 +552,8 @@
 <span>      <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.1</span>,</span>
 <span>      <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.5</span>,</span>
 <span>      <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.8</span>,</span>
-<span>      zone_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">pu4</span><span class="op">)</span>,</span>
-<span>      feature_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">sim_features</span><span class="op">)</span></span>
+<span>      zone_names <span class="op">=</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">pu4</span><span class="op">)</span>,</span>
+<span>      feature_names <span class="op">=</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">sim_features</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -564,27 +581,33 @@
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p4</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Gurobi Optimizer version 10.0.2 build v10.0.2rc0 (linux64)</span></span>
+<pre><code><span><span class="co">## Set parameter Username</span></span>
+<span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
+<span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
+<span><span class="co">## Set parameter Presolve to value 2</span></span>
+<span><span class="co">## Set parameter Threads to value 1</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2025-04-21</span></span>
+<span><span class="co">## Gurobi Optimizer version 11.0.1 build v11.0.1rc0 (linux64 - "Ubuntu 22.04.4 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimize a model with 105 rows, 300 columns and 1800 nonzeros</span></span>
-<span><span class="co">## Model fingerprint: 0xba527df5</span></span>
+<span><span class="co">## Model fingerprint: 0x329509a0</span></span>
 <span><span class="co">## Variable types: 0 continuous, 300 integer (300 binary)</span></span>
 <span><span class="co">## Coefficient statistics:</span></span>
 <span><span class="co">##   Matrix range     [2e-02, 1e+00]</span></span>
 <span><span class="co">##   Objective range  [1e+02, 3e+02]</span></span>
 <span><span class="co">##   Bounds range     [1e+00, 1e+00]</span></span>
 <span><span class="co">##   RHS range        [1e+00, 8e+00]</span></span>
-<span><span class="co">## Found heuristic solution: objective 9400.0000000</span></span>
+<span><span class="co">## Found heuristic solution: objective 10700.000000</span></span>
 <span><span class="co">## Presolve removed 14 rows and 120 columns</span></span>
 <span><span class="co">## Presolve time: 0.00s</span></span>
 <span><span class="co">## Presolved: 91 rows, 180 columns, 360 nonzeros</span></span>
-<span><span class="co">## Found heuristic solution: objective 4700.0000000</span></span>
+<span><span class="co">## Found heuristic solution: objective 5400.0000000</span></span>
 <span><span class="co">## Variable types: 0 continuous, 180 integer (180 binary)</span></span>
 <span><span class="co">## Root relaxation presolved: 91 rows, 180 columns, 360 nonzeros</span></span>
 <span><span class="co">## </span></span>
@@ -594,17 +617,17 @@
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">##      0     0 3663.23656    0    1 4700.00000 3663.23656  22.1%     -    0s</span></span>
+<span><span class="co">##      0     0 3663.23656    0    1 5400.00000 3663.23656  32.2%     -    0s</span></span>
 <span><span class="co">## H    0     0                    3800.0000000 3663.23656  3.60%     -    0s</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Explored 1 nodes (1 simplex iterations) in 0.00 seconds (0.00 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Solution count 3: 3800 4700 9400 </span></span>
+<span><span class="co">## Solution count 3: 3800 5400 10700 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
 <span><span class="co">## Best objective 3.800000000000e+03, best bound 3.700000000000e+03, gap 2.6316%</span></span></code></pre>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate feature representation</span></span>
 <span><span class="va">r4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p4</span>, <span class="va">s4</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">r4</span><span class="op">)</span></span></code></pre></div>
@@ -631,21 +654,21 @@
 <span><span class="co">## <span style="color: #BCBCBC;">18</span> baiting    feature_3        57.6          15.2          0.264</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">19</span> baiting    feature_4        34.1          11.6          0.340</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">20</span> baiting    feature_5        45.4          12.7          0.281</span></span></code></pre>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot solution</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s4</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s4</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="management_zones_tutorial_files/figure-html/unnamed-chunk-9-1.png" width="480" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="multiple-zones-with-extra-constraints">Multiple zones with extra constraints<a class="anchor" aria-label="anchor" href="#multiple-zones-with-extra-constraints"></a>
 </h3>
 <p>So it looks like baiting is the way to go! Except that we might recall that we can’t use baits in most of the planning units because they contain native species that are susceptible to baits. So now we need to specify which of our planning units cannot be assigned to the third zone (baiting) to obtain a more useful solution.</p>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create data.frame to specify that we cannot bait in the first 80 units</span></span>
 <span><span class="va">l5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>pu <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">80</span><span class="op">)</span>, zone <span class="op">=</span> <span class="st">"baiting"</span>, status <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># preview locked data</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">l5</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">l5</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 6 × 3</span></span></span>
 <span><span class="co">##      pu zone    status</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
@@ -655,7 +678,7 @@
 <span><span class="co">## <span style="color: #BCBCBC;">4</span>     4 baiting      0</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">5</span>     5 baiting      0</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">6</span>     6 baiting      0</span></span></code></pre>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create problem</span></span>
 <span><span class="va">p5</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span></span>
@@ -664,8 +687,8 @@
 <span>      <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.1</span>,</span>
 <span>      <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.5</span>,</span>
 <span>      <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.8</span>,</span>
-<span>      zone_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">pu4</span><span class="op">)</span>,</span>
-<span>      feature_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">sim_features</span><span class="op">)</span></span>
+<span>      zone_names <span class="op">=</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">pu4</span><span class="op">)</span>,</span>
+<span>      feature_names <span class="op">=</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">sim_features</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -695,27 +718,33 @@
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s5</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p5</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Gurobi Optimizer version 10.0.2 build v10.0.2rc0 (linux64)</span></span>
+<pre><code><span><span class="co">## Set parameter Username</span></span>
+<span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
+<span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
+<span><span class="co">## Set parameter Presolve to value 2</span></span>
+<span><span class="co">## Set parameter Threads to value 1</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2025-04-21</span></span>
+<span><span class="co">## Gurobi Optimizer version 11.0.1 build v11.0.1rc0 (linux64 - "Ubuntu 22.04.4 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimize a model with 105 rows, 300 columns and 1800 nonzeros</span></span>
-<span><span class="co">## Model fingerprint: 0x0d87ce25</span></span>
+<span><span class="co">## Model fingerprint: 0x67be09eb</span></span>
 <span><span class="co">## Variable types: 0 continuous, 300 integer (300 binary)</span></span>
 <span><span class="co">## Coefficient statistics:</span></span>
 <span><span class="co">##   Matrix range     [2e-02, 1e+00]</span></span>
 <span><span class="co">##   Objective range  [1e+02, 3e+02]</span></span>
 <span><span class="co">##   Bounds range     [1e+00, 1e+00]</span></span>
 <span><span class="co">##   RHS range        [1e+00, 8e+00]</span></span>
-<span><span class="co">## Found heuristic solution: objective 13600.000000</span></span>
+<span><span class="co">## Found heuristic solution: objective 13900.000000</span></span>
 <span><span class="co">## Presolve removed 14 rows and 120 columns</span></span>
 <span><span class="co">## Presolve time: 0.00s</span></span>
 <span><span class="co">## Presolved: 91 rows, 180 columns, 360 nonzeros</span></span>
-<span><span class="co">## Found heuristic solution: objective 9600.0000000</span></span>
+<span><span class="co">## Found heuristic solution: objective 9800.0000000</span></span>
 <span><span class="co">## Variable types: 0 continuous, 180 integer (180 binary)</span></span>
 <span><span class="co">## Root relaxation presolved: 91 rows, 180 columns, 360 nonzeros</span></span>
 <span><span class="co">## </span></span>
@@ -725,18 +754,18 @@
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">##      0     0 6938.06815    0    1 9600.00000 6938.06815  27.7%     -    0s</span></span>
+<span><span class="co">##      0     0 6938.06815    0    1 9800.00000 6938.06815  29.2%     -    0s</span></span>
 <span><span class="co">## H    0     0                    7000.0000000 6938.06815  0.88%     -    0s</span></span>
 <span><span class="co">##      0     0 6938.06815    0    1 7000.00000 6938.06815  0.88%     -    0s</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Explored 1 nodes (1 simplex iterations) in 0.00 seconds (0.00 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Solution count 3: 7000 9600 13600 </span></span>
+<span><span class="co">## Solution count 3: 7000 9800 13900 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
 <span><span class="co">## Best objective 7.000000000000e+03, best bound 7.000000000000e+03, gap 0.0000%</span></span></code></pre>
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate feature representation</span></span>
 <span><span class="va">r5</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p5</span>, <span class="va">s5</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">r5</span><span class="op">)</span></span></code></pre></div>
@@ -763,16 +792,16 @@
 <span><span class="co">## <span style="color: #BCBCBC;">18</span> baiting    feature_3        57.6          11.7          0.203</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">19</span> baiting    feature_4        34.1           6.05         0.177</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">20</span> baiting    feature_5        45.4           9.98         0.220</span></span></code></pre>
-<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot solution</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s5</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s5</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="management_zones_tutorial_files/figure-html/unnamed-chunk-10-1.png" width="480" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="multiple-zones-with-fragmentation-penalties">Multiple zones with fragmentation penalties<a class="anchor" aria-label="anchor" href="#multiple-zones-with-fragmentation-penalties"></a>
 </h3>
 <p>So now the best strategy seems to be a combination of high intensity trapping and baiting. But we can also see that this solution is fairly fragmented, so we can add penalties to cluster managed planning units together. Here we will add penalties that will cluster the planning units allocated to the two trapping zones together, and penalties that will cluster the planning units allocated to the baiting zone together. We will also set an overall penalty factor to 640 to strongly penalize fragmented solutions.</p>
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create matrix that describes boundary penalties between planning units</span></span>
 <span><span class="co"># allocated to different zones</span></span>
 <span><span class="va">z6</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
@@ -787,7 +816,7 @@
 <span><span class="co">## few traps          1          1       0</span></span>
 <span><span class="co">## many traps         1          1       0</span></span>
 <span><span class="co">## baiting            0          0       1</span></span></code></pre>
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create problem</span></span>
 <span><span class="va">p6</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span></span>
@@ -796,8 +825,8 @@
 <span>      <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.1</span>,</span>
 <span>      <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.5</span>,</span>
 <span>      <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.8</span>,</span>
-<span>      zone_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">pu4</span><span class="op">)</span>,</span>
-<span>      feature_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">sim_features</span><span class="op">)</span></span>
+<span>      zone_names <span class="op">=</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">pu4</span><span class="op">)</span>,</span>
+<span>      feature_names <span class="op">=</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">sim_features</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -829,77 +858,82 @@
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
-<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s6</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p6</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Gurobi Optimizer version 10.0.2 build v10.0.2rc0 (linux64)</span></span>
+<pre><code><span><span class="co">## Set parameter Username</span></span>
+<span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
+<span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
+<span><span class="co">## Set parameter Presolve to value 2</span></span>
+<span><span class="co">## Set parameter Threads to value 1</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2025-04-21</span></span>
+<span><span class="co">## Gurobi Optimizer version 11.0.1 build v11.0.1rc0 (linux64 - "Ubuntu 22.04.4 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimize a model with 1905 rows, 1200 columns and 5400 nonzeros</span></span>
-<span><span class="co">## Model fingerprint: 0xcf2ec927</span></span>
+<span><span class="co">## Model fingerprint: 0x31a4011d</span></span>
 <span><span class="co">## Variable types: 0 continuous, 1200 integer (1200 binary)</span></span>
 <span><span class="co">## Coefficient statistics:</span></span>
 <span><span class="co">##   Matrix range     [2e-02, 1e+00]</span></span>
 <span><span class="co">##   Objective range  [1e+02, 6e+02]</span></span>
 <span><span class="co">##   Bounds range     [1e+00, 1e+00]</span></span>
 <span><span class="co">##   RHS range        [1e+00, 8e+00]</span></span>
-<span><span class="co">## Found heuristic solution: objective 20096.000000</span></span>
+<span><span class="co">## Found heuristic solution: objective 20944.000000</span></span>
 <span><span class="co">## Presolve removed 1028 rows and 232 columns</span></span>
-<span><span class="co">## Presolve time: 0.01s</span></span>
+<span><span class="co">## Presolve time: 0.02s</span></span>
 <span><span class="co">## Presolved: 877 rows, 968 columns, 2712 nonzeros</span></span>
 <span><span class="co">## Variable types: 0 continuous, 968 integer (968 binary)</span></span>
-<span><span class="co">## Found heuristic solution: objective 19632.000000</span></span>
+<span><span class="co">## Found heuristic solution: objective 20088.000000</span></span>
 <span><span class="co">## Root relaxation presolved: 877 rows, 968 columns, 2712 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Root relaxation: objective 1.005410e+04, 568 iterations, 0.01 seconds (0.01 work units)</span></span>
+<span><span class="co">## Root relaxation: objective 1.005410e+04, 449 iterations, 0.00 seconds (0.01 work units)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">##      0     0 10054.0986    0   57 19632.0000 10054.0986  48.8%     -    0s</span></span>
-<span><span class="co">## H    0     0                    11300.000000 10054.0986  11.0%     -    0s</span></span>
-<span><span class="co">## H    0     0                    11140.000000 10054.0986  9.75%     -    0s</span></span>
+<span><span class="co">##      0     0 10054.0986    0   57 20088.0000 10054.0986  49.9%     -    0s</span></span>
+<span><span class="co">## H    0     0                    10596.000000 10054.0986  5.11%     -    0s</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 1 nodes (823 simplex iterations) in 0.03 seconds (0.04 work units)</span></span>
+<span><span class="co">## Explored 1 nodes (684 simplex iterations) in 0.03 seconds (0.03 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Solution count 4: 11140 11300 19632 20096 </span></span>
+<span><span class="co">## Solution count 3: 10596 20088 20944 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
-<span><span class="co">## Best objective 1.114000000000e+04, best bound 1.005600000000e+04, gap 9.7307%</span></span></code></pre>
-<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<span><span class="co">## Best objective 1.059600000000e+04, best bound 1.005600000000e+04, gap 5.0963%</span></span></code></pre>
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate feature representation</span></span>
 <span><span class="va">r6</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p6</span>, <span class="va">s6</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">r6</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 20 × 5</span></span></span>
 <span><span class="co">##    summary    feature   total_amount absolute_held relative_held</span></span>
 <span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> overall    feature_1       117.           22.5          0.193</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> overall    feature_2        43.7           8.11         0.186</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> overall    feature_3       101.           18.0          0.178</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> overall    feature_4        59.7          11.3          0.190</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> overall    feature_5        79.4          15.7          0.198</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> overall    feature_1       117.           21.9          0.188</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> overall    feature_2        43.7           8.01         0.183</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> overall    feature_3       101.           17.5          0.174</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> overall    feature_4        59.7          11.1          0.186</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> overall    feature_5        79.4          15.4          0.193</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 6</span> few traps  feature_1         8.33          0            0    </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 7</span> few traps  feature_2         3.12          0            0    </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 8</span> few traps  feature_3         7.20          0            0    </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span> few traps  feature_4         4.27          0            0    </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> few traps  feature_5         5.67          0            0    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">11</span> many traps feature_1        41.6           8.00         0.192</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">12</span> many traps feature_2        15.6           3.49         0.224</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">13</span> many traps feature_3        36.0           6.24         0.174</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">14</span> many traps feature_4        21.3           5.28         0.247</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">15</span> many traps feature_5        28.4           5.72         0.202</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">11</span> many traps feature_1        41.6           7.46         0.179</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">12</span> many traps feature_2        15.6           3.39         0.217</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">13</span> many traps feature_3        36.0           5.82         0.162</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">14</span> many traps feature_4        21.3           5.08         0.238</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">15</span> many traps feature_5        28.4           5.37         0.189</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">16</span> baiting    feature_1        66.6          14.4          0.217</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">17</span> baiting    feature_2        25.0           4.62         0.185</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">18</span> baiting    feature_3        57.6          11.7          0.203</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">19</span> baiting    feature_4        34.1           6.05         0.177</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">20</span> baiting    feature_5        45.4           9.98         0.220</span></span></code></pre>
-<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot solution</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s6</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s6</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="management_zones_tutorial_files/figure-html/unnamed-chunk-11-1.png" width="480" style="display: block; margin: auto;"></p>
 <p>Finally, it appears we might have a viable solution for this made-up conservation problem.</p>
 </div>
@@ -907,7 +941,7 @@
 <h3 id="multiple-zones-with-fragmentation-penalties-and-mandatory-allocations">Multiple zones with fragmentation penalties and mandatory allocations<a class="anchor" aria-label="anchor" href="#multiple-zones-with-fragmentation-penalties-and-mandatory-allocations"></a>
 </h3>
 <p>Finally, we might be interested in conservation planning scenarios where every single planning unit must be allocated to a management zone. This is often the case when developing land-use plans where every single planning unit needs to be allocated to a specific management zone. Though it makes less sense here, let’s see what happens to the solution if we needed to do at least one form of control in every single planning unit.</p>
-<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create matrix that describe boundary penalties between planning units</span></span>
 <span><span class="co"># allocated to different zones</span></span>
 <span><span class="va">p7</span> <span class="op">&lt;-</span></span>
@@ -917,8 +951,8 @@
 <span>      <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.1</span>,</span>
 <span>      <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.5</span>,</span>
 <span>      <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.8</span>,</span>
-<span>      zone_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">pu4</span><span class="op">)</span>,</span>
-<span>      feature_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">sim_features</span><span class="op">)</span></span>
+<span>      zone_names <span class="op">=</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">pu4</span><span class="op">)</span>,</span>
+<span>      feature_names <span class="op">=</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">sim_features</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -952,47 +986,53 @@
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
-<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s7</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p7</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Gurobi Optimizer version 10.0.2 build v10.0.2rc0 (linux64)</span></span>
+<pre><code><span><span class="co">## Set parameter Username</span></span>
+<span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
+<span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
+<span><span class="co">## Set parameter Presolve to value 2</span></span>
+<span><span class="co">## Set parameter Threads to value 1</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2025-04-21</span></span>
+<span><span class="co">## Gurobi Optimizer version 11.0.1 build v11.0.1rc0 (linux64 - "Ubuntu 22.04.4 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimize a model with 1905 rows, 1200 columns and 5400 nonzeros</span></span>
-<span><span class="co">## Model fingerprint: 0x3bb74472</span></span>
+<span><span class="co">## Model fingerprint: 0x52f3a309</span></span>
 <span><span class="co">## Variable types: 0 continuous, 1200 integer (1200 binary)</span></span>
 <span><span class="co">## Coefficient statistics:</span></span>
 <span><span class="co">##   Matrix range     [2e-02, 1e+00]</span></span>
 <span><span class="co">##   Objective range  [1e+02, 6e+02]</span></span>
 <span><span class="co">##   Bounds range     [1e+00, 1e+00]</span></span>
 <span><span class="co">##   RHS range        [1e+00, 8e+00]</span></span>
-<span><span class="co">## Found heuristic solution: objective 19600.000000</span></span>
+<span><span class="co">## Found heuristic solution: objective 20240.000000</span></span>
 <span><span class="co">## Presolve removed 1120 rows and 324 columns</span></span>
-<span><span class="co">## Presolve time: 0.01s</span></span>
+<span><span class="co">## Presolve time: 0.02s</span></span>
 <span><span class="co">## Presolved: 785 rows, 876 columns, 2448 nonzeros</span></span>
 <span><span class="co">## Variable types: 0 continuous, 876 integer (876 binary)</span></span>
-<span><span class="co">## Found heuristic solution: objective 18988.000000</span></span>
+<span><span class="co">## Found heuristic solution: objective 19656.000000</span></span>
 <span><span class="co">## Root relaxation presolved: 785 rows, 876 columns, 2448 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Root relaxation: objective 1.323093e+04, 265 iterations, 0.00 seconds (0.00 work units)</span></span>
+<span><span class="co">## Root relaxation: objective 1.323093e+04, 287 iterations, 0.00 seconds (0.00 work units)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">##      0     0 13230.9255    0   95 18988.0000 13230.9255  30.3%     -    0s</span></span>
+<span><span class="co">##      0     0 13230.9255    0   95 19656.0000 13230.9255  32.7%     -    0s</span></span>
 <span><span class="co">## H    0     0                    13260.000000 13230.9255  0.22%     -    0s</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 1 nodes (426 simplex iterations) in 0.02 seconds (0.03 work units)</span></span>
+<span><span class="co">## Explored 1 nodes (532 simplex iterations) in 0.02 seconds (0.03 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Solution count 3: 13260 18988 19600 </span></span>
+<span><span class="co">## Solution count 3: 13260 19656 20240 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
 <span><span class="co">## Best objective 1.326000000000e+04, best bound 1.323200000000e+04, gap 0.2112%</span></span></code></pre>
-<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate feature representation</span></span>
 <span><span class="va">r7</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p7</span>, <span class="va">s7</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">r7</span><span class="op">)</span></span></code></pre></div>
@@ -1019,9 +1059,9 @@
 <span><span class="co">## <span style="color: #BCBCBC;">18</span> baiting    feature_3        57.6          11.7         0.203 </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">19</span> baiting    feature_4        34.1           6.05        0.177 </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">20</span> baiting    feature_5        45.4           9.98        0.220</span></span></code></pre>
-<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot solution</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s7</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s7</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="management_zones_tutorial_files/figure-html/unnamed-chunk-12-1.png" width="480" style="display: block; margin: auto;"></p>
 </div>
 </div>

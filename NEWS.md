@@ -1,3 +1,19 @@
+# prioritizr 8.0.3.6
+
+## Minor improvements and bug fixes
+
+- Fix bug in `add_shuffle_portfolio()` so that optimization problems are
+  randomly shuffled when a single solution is requested. This update should
+  help prevent "strange" solutions that contain long horizontal lines/bands of
+  planning units (#205, #268).
+- Update `add_contiguity_constraints()` and
+  `add_feature_contiguity_constraints()` to be compatible with updates to
+  the _igraph_ package.
+
+## Documentation updates
+
+- Update publication record.
+
 # prioritizr 8.0.3.5
 
 ## Minor improvements and bug fixes

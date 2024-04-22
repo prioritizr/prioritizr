@@ -74,8 +74,8 @@ test_that("solve (single zone)", {
     add_contiguity_constraints() %>%
     add_default_solver(verbose = FALSE)
   # solve problem
-  s1 <- solve(p)
-  s2 <- solve(p)
+  s1 <- withr::with_seed(500, solve(p))
+  s2 <- withr::with_seed(500, solve(p))
   # check that all selected planning units form a contiguous unit
   expect_true(is_single_patch_sf(s1[s1$solution_1 == 1, ]))
   expect_equal(s1$solution_1, s2$solution_1)

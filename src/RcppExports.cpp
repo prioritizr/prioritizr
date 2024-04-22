@@ -24,6 +24,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rcpp_copy_optimization_problem
+SEXP rcpp_copy_optimization_problem(SEXP x);
+RcppExport SEXP _prioritizr_rcpp_copy_optimization_problem(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_copy_optimization_problem(x));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rcpp_predefined_optimization_problem
 SEXP rcpp_predefined_optimization_problem(Rcpp::List l);
 RcppExport SEXP _prioritizr_rcpp_predefined_optimization_problem(SEXP lSEXP) {
@@ -234,13 +245,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_set_optimization_problem_shuffled
-Rcpp::IntegerVector rcpp_set_optimization_problem_shuffled(SEXP x);
-RcppExport SEXP _prioritizr_rcpp_set_optimization_problem_shuffled(SEXP xSEXP) {
+Rcpp::IntegerVector rcpp_set_optimization_problem_shuffled(SEXP x, std::vector<std::size_t> shuffle_key);
+RcppExport SEXP _prioritizr_rcpp_set_optimization_problem_shuffled(SEXP xSEXP, SEXP shuffle_keySEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_set_optimization_problem_shuffled(x));
+    Rcpp::traits::input_parameter< std::vector<std::size_t> >::type shuffle_key(shuffle_keySEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_set_optimization_problem_shuffled(x, shuffle_key));
     return rcpp_result_gen;
 END_RCPP
 }
