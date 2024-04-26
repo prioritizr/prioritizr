@@ -158,7 +158,7 @@ test_that("solve (compressed formulation, multiple zones)", {
     add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
     add_binary_decisions() %>%
     add_default_solver(gap = 0, verbose = FALSE) %>%
-    solve()
+    solve_fixed_seed()
   # tests
   expect_inherits(s, "SpatRaster")
   expect_equal(terra::nlyr(s), 2)
@@ -188,7 +188,7 @@ test_that("solve (expanded formulation, multiple zones)", {
     add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
     add_binary_decisions() %>%
     add_default_solver(gap = 0, verbose = FALSE) %>%
-    solve(compressed_formulation = FALSE)
+    solve_fixed_seed(compressed_formulation = FALSE)
   # tests
   expect_inherits(s, "SpatRaster")
   expect_equal(terra::nlyr(s), 2)

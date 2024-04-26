@@ -114,8 +114,8 @@ test_that("solve (sf, single zone)", {
     add_neighbor_constraints(3, clamp = FALSE) %>%
     add_default_solver(time_limit = 5, verbose = FALSE)
   # solve problem
-  s1 <- withr::with_seed(500, solve(p))
-  s2 <- withr::with_seed(500, solve(p))
+  s1 <- solve_fixed_seed(p)
+  s2 <- solve_fixed_seed(p)
   # calculations for tests
   n_neighbors <- vapply(
     sf::st_intersects(s1[s1$solution_1 == 1, ]), length, integer(1)
@@ -350,7 +350,7 @@ test_that("solve (sf, clamp = FALSE, multiple zones)", {
     add_relative_targets(matrix(0.2, ncol = 3, nrow = 5)) %>%
     add_neighbor_constraints(k, clamp = FALSE, z) %>%
     add_default_solver(verbose = FALSE) %>%
-    solve()
+    solve_fixed_seed()
   # tests
   for (z in seq_along(k)) {
     curr_column <- paste0("solution_1_zone_", z)

@@ -105,8 +105,8 @@ test_that("solution (compressed formulation, single zone)", {
     add_locked_out_constraints(locked_out) %>%
     add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
-  s1 <- solve(p)
-  s2 <- solve(p)
+  s1 <- solve_fixed_seed(p)
+  s2 <- solve_fixed_seed(p)
   # tests
   expect_equal(c(terra::values(s1)), c(0, 0, NA, 1))
   expect_equal(terra::values(s1), terra::values(s2))
@@ -235,7 +235,7 @@ test_that("solution (expanded formulation, single zone)", {
     add_locked_out_constraints(locked_out) %>%
     add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
-  s <- solve(p, compressed_formulation = FALSE)
+  s <- solve_fixed_seed(p, compressed_formulation = FALSE)
   # tests
   expect_equal(c(terra::values(s)), c(0, 0, NA, 1))
 })
@@ -418,7 +418,7 @@ test_that("solve (compressed formulation, multiple zones, scalar budget)", {
     add_manual_targets(targs) %>%
     add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
-  s <- solve(p)
+  s <- solve_fixed_seed(p)
   # tests
   expect_equal(c(terra::values(s[[1]])), c(1, 0, 0, 0, NA, NA))
   expect_equal(c(terra::values(s[[2]])), c(0, 0, 0, 0, NA, 1))
@@ -571,7 +571,7 @@ test_that("solve (compressed formulation, multiple zones, vector budget)", {
     add_manual_targets(targs) %>%
     add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
-  s <- solve(p)
+  s <- solve_fixed_seed(p)
   # test for correct solution
   expect_equal(c(terra::values(s[[1]])), c(1, 0, 0, 0, NA, NA))
   expect_equal(c(terra::values(s[[2]])), c(0, 0, 0, 0, NA, 1))
@@ -755,7 +755,7 @@ test_that("solve (expanded formulation, multiple zones, scalar budget)", {
     add_manual_targets(targs) %>%
     add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
-  s <- solve(p, compressed_formulation = FALSE)
+  s <- solve_fixed_seed(p, compressed_formulation = FALSE)
   # tests
   expect_equal(c(terra::values(s[[1]])), c(1, 0, 0, 0, NA, NA))
   expect_equal(c(terra::values(s[[2]])), c(0, 0, 0, 0, NA, 1))
@@ -949,7 +949,7 @@ test_that("solve (expanded formulation, multiple zones, vector budget)", {
     add_manual_targets(targs) %>%
     add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
-  s <- solve(p, compressed_formulation = FALSE)
+  s <- solve_fixed_seed(p, compressed_formulation = FALSE)
   # tests
   expect_equal(c(terra::values(s[[1]])), c(1, 0, 0, 0, NA, NA))
   expect_equal(c(terra::values(s[[2]])), c(0, 0, 0, 0, NA, 1))

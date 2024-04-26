@@ -59,6 +59,9 @@ In the _prioritizr R_ package, all conservation planning problems -- including t
 library(prioritizr)
 library(terra)
 library(tibble)
+
+# set seed for reproducibility
+set.seed(500)
 ```
 
 ```{r}

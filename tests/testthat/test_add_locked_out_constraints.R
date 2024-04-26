@@ -48,7 +48,7 @@ test_that("logical (solve, single zone)", {
     add_binary_decisions() %>%
     add_locked_out_constraints(locked_out) %>%
     add_default_solver(time_limit = 5, verbose = FALSE) %>%
-    solve()
+    solve_fixed_seed()
   # calculations for tests
   locked_out_cells <- which(locked_out)
   locked_out_units <- locked_out_cells[
@@ -103,8 +103,8 @@ test_that("integer (solve, single zone)", {
     add_locked_out_constraints(1:20) %>%
     add_default_solver(gap = 0.01, verbose = FALSE)
   # solve problem
-  s1 <- solve(p)
-  s2 <- solve(p)
+  s1 <- solve_fixed_seed(p)
+  s2 <- solve_fixed_seed(p)
   # calculations for tests
   locked_out_cells <- seq_len(20)
   locked_out_units <- locked_out_cells[
@@ -177,7 +177,7 @@ test_that("integer (solve, multiple zones)", {
     add_binary_decisions() %>%
     add_locked_out_constraints(status) %>%
     add_default_solver(time_limit = 5, verbose = FALSE) %>%
-    solve()
+    solve_fixed_seed()
   # tests
   expect_true(all(as.matrix(s[[1]][locked_out_ind]) == 0))
 })
@@ -242,7 +242,7 @@ test_that("character (solve, single zone)", {
     add_binary_decisions() %>%
     add_locked_out_constraints("locked_out") %>%
     add_default_solver(time_limit = 5, verbose = FALSE) %>%
-    solve()
+    solve_fixed_seed()
   # tests
   expect_true(all(s$solution_1[which(sim_pu_polygons$locked_out)] == 0))
 })
@@ -261,7 +261,7 @@ test_that("character (solve, proportion decisions, single zone", {
     add_proportion_decisions() %>%
     add_locked_out_constraints("locked_out") %>%
     add_default_solver(time_limit = 5, verbose = FALSE) %>%
-    solve()
+    solve_fixed_seed()
   # tests
   expect_true(all(s$solution_1[which(sim_pu_polygons$locked_out)] == 0))
 })
@@ -345,7 +345,7 @@ test_that("character (solve, multiple zones)", {
     add_binary_decisions() %>%
     add_locked_out_constraints(c("locked_1", "locked_2", "locked_3")) %>%
     add_default_solver(time_limit = 5, verbose = FALSE) %>%
-    solve()
+    solve_fixed_seed()
   # tests
   expect_true(all(s$solution_1_zone_1[sim_zones_pu_polygons$locked_1] == 0))
 })
@@ -376,7 +376,7 @@ test_that("character (solve, proportion decisions, multiple zones)", {
     add_proportion_decisions() %>%
     add_locked_out_constraints(c("locked_1", "locked_2", "locked_3")) %>%
     add_default_solver(verbose = FALSE) %>%
-    solve()
+    solve_fixed_seed()
   # tests
   expect_true(all(s$solution_1_zone_1[sim_zones_pu_polygons$locked_1] == 0))
 })
@@ -447,7 +447,7 @@ test_that("raster (solve, single zone)", {
     add_binary_decisions() %>%
     add_locked_out_constraints(sim_locked_out_raster) %>%
     add_default_solver(time_limit = 5, verbose = FALSE) %>%
-    solve()
+    solve_fixed_seed()
   # calculations for tests
   locked_out_cells <- terra::cells(
     sim_locked_out_raster & !is.na(sim_pu_raster), 1
@@ -515,7 +515,7 @@ test_that("raster (solve, multiple zones)", {
     add_binary_decisions() %>%
     add_locked_out_constraints(status) %>%
     add_default_solver(time_limit = 5, verbose = FALSE) %>%
-    solve()
+    solve_fixed_seed()
   # calculations for tests
   locked_out_cells <- terra::cells(status[[1]] == 1, 1)[[1]]
   # tests
@@ -592,7 +592,7 @@ test_that("spatial (solve, single zone)", {
     add_binary_decisions() %>%
     add_locked_out_constraints(locked_ply) %>%
     add_default_solver(time_limit = 5, verbose = FALSE) %>%
-    solve()
+    solve_fixed_seed()
   # calculations for tests
   locked_out_units <- which(sim_pu_polygons$locked_out)
   # tests
@@ -620,6 +620,6 @@ test_that("spatial (compile, multiple zones, expect error)", {
     add_binary_decisions() %>%
     add_locked_out_constraints(sim_zones_pu_polygons[seq_len(20), ]) %>%
     add_default_solver(verbose = FALSE) %>%
-    solve()
+    solve_fixed_seed()
   })
 })

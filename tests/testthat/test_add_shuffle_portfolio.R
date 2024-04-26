@@ -39,7 +39,7 @@ test_that("solve (single zone)", {
     add_shuffle_portfolio(3, remove_duplicates = FALSE) %>%
     add_default_solver(gap = 0.2, verbose = FALSE)
   # solve problem
-  s <- solve(p)
+  s <- solve_fixed_seed(p)
   # tests
   expect_inherits(s, "list")
   expect_equal(length(s), 3)
@@ -74,7 +74,7 @@ test_that("solve (multiple zones)", {
     add_binary_decisions() %>%
     add_default_solver(gap = 0.2, verbose = FALSE)
   # solve problem
-  s <- solve(p)
+  s <- solve_fixed_seed(p)
   # tests
   expect_inherits(s, "list")
   expect_length(s, 3)
@@ -111,7 +111,7 @@ test_that("solve (no duplicates)", {
     add_default_solver(gap = 0.8, verbose = FALSE)
   # solve problem
   expect_warning(
-    s <- solve(p),
+    s <- solve_fixed_seed(p),
     "Portfolio could only"
   )
   # tests
@@ -153,7 +153,7 @@ test_that("solve (parallel processing)", {
     add_shuffle_portfolio(10, threads = 2, remove_duplicates = FALSE) %>%
     add_default_solver(gap = 0.2, verbose = FALSE)
   # solve problem
-  suppressWarnings(s <- solve(p))
+  suppressWarnings(s <- solve_fixed_seed(p))
   # tests
   expect_inherits(s, "list")
   expect_length(s, 10)

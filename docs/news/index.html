@@ -76,6 +76,7 @@
 <h3 id="minor-improvements-and-bug-fixes-8-0-3-6">Minor improvements and bug fixes<a class="anchor" aria-label="anchor" href="#minor-improvements-and-bug-fixes-8-0-3-6"></a></h3>
 <ul><li>Fix bug in <code><a href="../reference/add_shuffle_portfolio.html">add_shuffle_portfolio()</a></code> so that optimization problems are randomly shuffled when a single solution is requested. This update should help prevent “strange” solutions that contain long horizontal lines/bands of planning units (<a href="https://github.com/prioritizr/prioritizr/issues/205" class="external-link">#205</a>, <a href="https://github.com/prioritizr/prioritizr/issues/268" class="external-link">#268</a>).</li>
 <li>Update <code><a href="../reference/add_contiguity_constraints.html">add_contiguity_constraints()</a></code> and <code><a href="../reference/add_feature_contiguity_constraints.html">add_feature_contiguity_constraints()</a></code> to be compatible with updates to the <em>igraph</em> package.</li>
+<li>Update <code><a href="../reference/write_problem.html">write_problem()</a></code> so that it can use the <em>gurobi</em> package to write problems (if desired). This substantially reduces speed, because writing problems using the <em>Rsymphony</em> packages also requires solving them.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="documentation-updates-8-0-3-6">Documentation updates<a class="anchor" aria-label="anchor" href="#documentation-updates-8-0-3-6"></a></h3>

@@ -9,6 +9,9 @@
 - Update `add_contiguity_constraints()` and
   `add_feature_contiguity_constraints()` to be compatible with updates to
   the _igraph_ package.
+- Update `write_problem()` so that it can use the _gurobi_ package to write
+  problems (if desired). This substantially reduces speed, because writing
+  problems using the _Rsymphony_ packages also requires solving them.
 
 ## Documentation updates
 

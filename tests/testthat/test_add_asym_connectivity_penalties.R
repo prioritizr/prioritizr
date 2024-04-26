@@ -203,8 +203,8 @@ test_that("minimum set objective (solve, single zone)", {
     add_asym_connectivity_penalties(1000, data = cmatrix) %>%
     add_binary_decisions() %>%
     add_default_solver(gap = 0.0, verbose = FALSE)
-  s1_1 <- solve(p1)
-  s1_2 <- solve(p1)
+  s1_1 <- solve_fixed_seed(p1)
+  s1_2 <- solve_fixed_seed(p1)
   p2 <-
     problem(pu, feats) %>%
     add_min_set_objective() %>%
@@ -213,8 +213,8 @@ test_that("minimum set objective (solve, single zone)", {
     add_locked_in_constraints(locked_in) %>%
     add_binary_decisions() %>%
     add_default_solver(gap = 0.0, verbose = FALSE)
-  s2_1 <- solve(p2)
-  s2_2 <- solve(p2)
+  s2_1 <- solve_fixed_seed(p2)
+  s2_2 <- solve_fixed_seed(p2)
   # tests
   expect_inherits(s1_1, "SpatRaster")
   expect_inherits(s1_2, "SpatRaster")
@@ -456,8 +456,8 @@ test_that("minimum set objective (solve, multiple zones)", {
     add_asym_connectivity_penalties(1000, zm, data = cmatrix) %>%
     add_binary_decisions() %>%
     add_default_solver(gap = 0.0, verbose = FALSE)
-  s1_1 <- solve(p1)
-  s1_2 <- solve(p1)
+  s1_1 <- solve_fixed_seed(p1)
+  s1_2 <- solve_fixed_seed(p1)
   p2 <-
     problem(pu, feats) %>%
     add_min_set_objective() %>%
@@ -466,8 +466,8 @@ test_that("minimum set objective (solve, multiple zones)", {
     add_locked_in_constraints(locked_in1) %>%
     add_binary_decisions() %>%
     add_default_solver(gap = 0.0, verbose = FALSE)
-  s2_1 <- solve(p2)
-  s2_2 <- solve(p2)
+  s2_1 <- solve_fixed_seed(p2)
+  s2_2 <- solve_fixed_seed(p2)
   p3 <-
     problem(pu, feats) %>%
     add_min_set_objective() %>%
@@ -476,8 +476,8 @@ test_that("minimum set objective (solve, multiple zones)", {
     add_locked_in_constraints(locked_in2) %>%
     add_binary_decisions() %>%
     add_default_solver(gap = 0.0, verbose = FALSE)
-  s3_1 <- solve(p3)
-  s3_2 <- solve(p3)
+  s3_1 <- solve_fixed_seed(p3)
+  s3_2 <- solve_fixed_seed(p3)
   # tests
   expect_inherits(s1_1, "SpatRaster")
   expect_inherits(s1_2, "SpatRaster")

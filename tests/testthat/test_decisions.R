@@ -31,8 +31,8 @@ test_that("add_binary_decisions (solve, single zone)", {
     add_binary_decisions() %>%
     add_default_solver(gap = 0.01, verbose = FALSE)
   # solve problem
-  s1 <- solve(p)
-  s2 <- solve(p)
+  s1 <- solve_fixed_seed(p)
+  s2 <- solve_fixed_seed(p)
   # tests
   expect_true(all_binary(s1))
   expect_equal(terra::values(s1), terra::values(s2))
@@ -81,7 +81,7 @@ test_that("add_binary_decisions (solve, multiple zones)", {
     ) %>%
     add_binary_decisions() %>%
     add_default_solver(time_limit = 5, verbose = FALSE) %>%
-    solve()
+    solve_fixed_seed()
   # tests
   expect_true(all_binary(s))
 })
@@ -119,8 +119,8 @@ test_that("add_proportion_decisions (solve, single zone)", {
     add_proportion_decisions()  %>%
     add_default_solver(time_limit = 5, verbose = FALSE)
   # solve problem
-  s1 <- solve(p)
-  s2 <- solve(p)
+  s1 <- solve_fixed_seed(p)
+  s2 <- solve_fixed_seed(p)
   #tests
   expect_true(all(na.omit(terra::values(s1)) <= 1))
   expect_true(all(na.omit(terra::values(s1)) >= 0))
@@ -169,7 +169,7 @@ test_that("add_proportion_decisions (solve, multiple zones)", {
     ) %>%
     add_proportion_decisions() %>%
     add_default_solver(time_limit = 5, verbose = FALSE) %>%
-    solve()
+    solve_fixed_seed()
   # tests
   expect_true(all(round(na.omit(terra::values(s)), 5) <= 1))
   expect_true(all(round(na.omit(terra::values(s)), 5) >= 0))
@@ -213,8 +213,8 @@ test_that("add_semicontinuous_decisions (solve, single zone)", {
     add_semicontinuous_decisions(0.3) %>%
     add_default_solver(time_limit = 5, verbose = FALSE)
   # solve problem
-  s1 <- solve(p)
-  s2 <- solve(p)
+  s1 <- solve_fixed_seed(p)
+  s2 <- solve_fixed_seed(p)
   # tests
   expect_true(all(round(na.omit(terra::values(s1)), 5) <= 0.3))
   expect_true(all(na.omit(terra::values(s1)) >= 0))
@@ -264,7 +264,7 @@ test_that("add_semicontinuous_decisions (solve, multiple zones)", {
     ) %>%
     add_semicontinuous_decisions(0.3) %>%
     add_default_solver(time_limit = 5, verbose = FALSE) %>%
-    solve()
+    solve_fixed_seed()
   # tests
   expect_true(all(round(na.omit(terra::values(s)), 5) <= 0.3))
   expect_true(all(round(na.omit(terra::values(s)), 5) >= 0))

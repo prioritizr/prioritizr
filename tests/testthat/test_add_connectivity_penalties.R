@@ -75,8 +75,8 @@ test_that("minimum set objective (solve, single zone)", {
     add_connectivity_penalties(1000, data = adjacency_matrix(sim_pu_raster)) %>%
     add_binary_decisions() %>%
     add_default_solver(gap = 0.01, verbose = FALSE)
-  s1_1 <- solve(p1)
-  s1_2 <- solve(p1)
+  s1_1 <- solve_fixed_seed(p1)
+  s1_2 <- solve_fixed_seed(p1)
   p2 <-
     problem(sim_pu_raster, sim_features) %>%
     add_min_set_objective() %>%
@@ -86,8 +86,8 @@ test_that("minimum set objective (solve, single zone)", {
     ) %>%
     add_binary_decisions() %>%
     add_default_solver(gap = 0.01, verbose = FALSE)
-  s2_1 <- solve(p2)
-  s2_2 <- solve(p2)
+  s2_1 <- solve_fixed_seed(p2)
+  s2_2 <- solve_fixed_seed(p2)
   # tests
   expect_inherits(s1_1, "SpatRaster")
   expect_inherits(s1_2, "SpatRaster")
@@ -270,7 +270,7 @@ test_that("minimum set objective (solve, multiple zones)", {
     add_connectivity_penalties(10000, zm, cm) %>%
     add_binary_decisions() %>%
     add_default_solver(gap = 0, verbose = FALSE) %>%
-    solve()
+    solve_fixed_seed()
   sc <- category_layer(s)
   # tests
   expect_inherits(s, "SpatRaster")
