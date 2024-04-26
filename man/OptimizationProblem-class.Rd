@@ -58,6 +58,7 @@ Create a new optimization problem object.}
 \item \href{#method-OptimizationProblem-row_ids}{\code{OptimizationProblem$row_ids()}}
 \item \href{#method-OptimizationProblem-compressed_formulation}{\code{OptimizationProblem$compressed_formulation()}}
 \item \href{#method-OptimizationProblem-shuffle_columns}{\code{OptimizationProblem$shuffle_columns()}}
+\item \href{#method-OptimizationProblem-copy}{\code{OptimizationProblem$copy()}}
 \item \href{#method-OptimizationProblem-clone}{\code{OptimizationProblem$clone()}}
 }
 }
@@ -331,13 +332,33 @@ A \code{logical} value.
 \if{html}{\out{<a id="method-OptimizationProblem-shuffle_columns"></a>}}
 \if{latex}{\out{\hypertarget{method-OptimizationProblem-shuffle_columns}{}}}
 \subsection{Method \code{shuffle_columns()}}{
-Shuffle the order of the columns in the conservation problem.
+Shuffle the order of the columns in the optimization problem.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{OptimizationProblem$shuffle_columns()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{OptimizationProblem$shuffle_columns(order)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{order}}{\code{integer} vector with new order.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+An \code{integer} vector with indices to un-shuffle the problem.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OptimizationProblem-copy"></a>}}
+\if{latex}{\out{\hypertarget{method-OptimizationProblem-copy}{}}}
+\subsection{Method \code{copy()}}{
+Create a copy of the optimization problem.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OptimizationProblem$copy()}\if{html}{\out{</div>}}
 }
 
 \subsection{Returns}{
-\code{integer} vector with indices to un-shuffle the problem.
+A new \code{OptimizationProblem} object .
 }
 }
 \if{html}{\out{<hr>}}

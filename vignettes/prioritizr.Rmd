@@ -64,6 +64,9 @@ library(terra)
 library(vegan)
 library(cluster)
 
+# set seed for reproducibility
+set.seed(500)
+
 # load planning unit data
 tas_pu <- get_tas_pu()
 

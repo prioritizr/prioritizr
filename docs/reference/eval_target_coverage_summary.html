@@ -26,7 +26,7 @@ targets."><meta property="og:image" content="https://prioritizr.net/logo.png"><!
     
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.3.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.3.6</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -108,7 +108,7 @@ Note that this function can only be used with problems that contain
 
 <dt>solution</dt>
 <dd><p><code>numeric</code>, <code>matrix</code>, <code>data.frame</code>,
-<code><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">terra::rast()</a></code>, or <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::sf()</a></code> object.
+<code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code>, or <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::sf()</a></code> object.
 The argument should be in the same format as the planning unit cost
 data in the argument to <code>x</code>.
 See the Solution format section for more information.</p></dd>
@@ -272,9 +272,9 @@ missing cost (<code>NA</code>) values for a particular zone should also have a
 missing (<code>NA</code>) values in the argument to <code>solution</code>.</p></dd>
 
 
-<dt><code>x</code> has <code><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">terra::rast()</a></code> planning units</dt>
+<dt><code>x</code> has <code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> planning units</dt>
 <dd><p>The argument to <code>solution</code>
-be a <code><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">terra::rast()</a></code> object where different grid cells (pixels) correspond
+be a <code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> object where different grid cells (pixels) correspond
 to different planning units and layers correspond to
 a different management zones. It should have the same dimensionality
 (rows, columns, layers), resolution, extent, and coordinate reference
@@ -362,7 +362,7 @@ values in the argument to <code>solution</code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> max value   :     1 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot solution</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s1</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s1</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="eval_target_coverage_summary-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># calculate target coverage by the solution</span></span></span>
@@ -371,17 +371,17 @@ values in the argument to <code>solution</code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 5 × 9</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   feature   met   total_amount absolute_target absolute_held absolute_shortfall</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> feature_1 TRUE          83.3            8.33          8.91                  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> feature_1 TRUE          83.3            8.33          8.96                  0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> feature_2 TRUE          31.2            3.12          3.13                  0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> feature_3 TRUE          72.0            7.20          7.34                  0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> feature_4 TRUE          42.7            4.27          4.35                  0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> feature_5 TRUE          56.7            5.67          6.01                  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> feature_3 TRUE          72.0            7.20          7.41                  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> feature_4 TRUE          42.7            4.27          4.32                  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> feature_5 TRUE          56.7            5.67          6.00                  0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   relative_target relative_held relative_shortfall</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>             0.1         0.107                  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>             0.1         0.108                  0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>             0.1         0.100                  0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>             0.1         0.102                  0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>             0.1         0.102                  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>             0.1         0.103                  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>             0.1         0.101                  0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>             0.1         0.106                  0</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># build minimal conservation problem with polygon data</span></span></span>
@@ -396,7 +396,7 @@ values in the argument to <code>solution</code>.</p></dd>
 <span class="r-in"><span><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># print first six rows of the attribute table</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">s2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">s2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Simple feature collection with 6 features and 4 fields</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Geometry type: POLYGON</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Dimension:     XY</span>
@@ -413,7 +413,7 @@ values in the argument to <code>solution</code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>  214. FALSE     FALSE               0 ((0.5 1, 0.6 1, 0.6 0.9, 0.5 0.9, 0.5 1…</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot solution</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s2</span><span class="op">[</span>, <span class="st">"solution_1"</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s2</span><span class="op">[</span>, <span class="st">"solution_1"</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="eval_target_coverage_summary-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># calculate target coverage by the solution</span></span></span>
@@ -422,17 +422,17 @@ values in the argument to <code>solution</code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 5 × 9</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   feature   met   total_amount absolute_target absolute_held absolute_shortfall</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> feature_1 TRUE          74.5            7.45          8.05                  0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> feature_2 TRUE          28.1            2.81          2.83                  0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> feature_3 TRUE          64.9            6.49          6.65                  0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> feature_4 TRUE          38.2            3.82          3.87                  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> feature_1 TRUE          74.5            7.45          7.98                  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> feature_2 TRUE          28.1            2.81          2.90                  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> feature_3 TRUE          64.9            6.49          6.58                  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> feature_4 TRUE          38.2            3.82          3.83                  0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> feature_5 TRUE          50.7            5.07          5.41                  0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   relative_target relative_held relative_shortfall</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>             0.1         0.108                  0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>             0.1         0.101                  0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>             0.1         0.103                  0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>             0.1         0.101                  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>             0.1         0.107                  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>             0.1         0.103                  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>             0.1         0.101                  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>             0.1         0.100                  0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>             0.1         0.107                  0</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># build multi-zone conservation problem with polygon data</span></span></span>
@@ -467,7 +467,7 @@ values in the argument to <code>solution</code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>   214.   203.   225. FALSE    FALSE    FALSE                    0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>   211.   209.   223. FALSE    FALSE    FALSE                    0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>   210.   212.   222. TRUE     FALSE    FALSE                    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>   204.   218.   214. FALSE    FALSE    FALSE                    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>   204.   218.   214. FALSE    FALSE    FALSE                    1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>   213.   183.   206. FALSE    FALSE    FALSE                    0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 80 more rows</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 3 more variables: solution_1_zone_2 &lt;dbl&gt;, solution_1_zone_3 &lt;dbl&gt;,</span></span>
@@ -481,7 +481,7 @@ values in the argument to <code>solution</code>.</p></dd>
 <span class="r-in"><span><span class="va">s3</span><span class="op">$</span><span class="va">solution</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">s3</span><span class="op">$</span><span class="va">solution</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot solution</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s3</span><span class="op">[</span>, <span class="st">"solution"</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s3</span><span class="op">[</span>, <span class="st">"solution"</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="eval_target_coverage_summary-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># calculate target coverage by the solution</span></span></span>
@@ -492,38 +492,38 @@ values in the argument to <code>solution</code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 15 × 11</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    feature   zone      sense met   total_amount absolute_target absolute_held</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> feature_1 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          75.1           13.8          14.9 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> feature_2 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          28.0            4.82          5.14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> feature_3 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          65.0           12.8          12.8 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> feature_4 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          38.0            5.58          6.64</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> feature_5 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          51.2            9.27          9.96</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> feature_1 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          75.1            9.06         15.0 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> feature_2 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          28.0            4.23          5.58</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> feature_3 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          65.0           12.5          13.6 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> feature_4 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          38.0            6.96          7.14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> feature_5 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          51.2            8.76          9.96</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> feature_1 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          75.1            9.63         13.3 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> feature_2 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          28.0            5.29          5.65</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> feature_3 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          65.0           11.5          11.8 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> feature_4 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          38.0            4.43          7.71</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> feature_5 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          51.2            8.86          9.04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> feature_1 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          75.1           11.3          15.7 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> feature_2 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          28.0            4.69          5.45</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> feature_3 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          65.0           12.3          13.0 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> feature_4 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          38.0            7.16          7.16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> feature_5 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          51.2            9.21         10.9 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> feature_1 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          75.1           11.9          12.9 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> feature_2 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          28.0            2.91          5.17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> feature_3 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          65.0            7.45         11.9 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> feature_4 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          38.0            6.52          6.81</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> feature_5 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          51.2            5.69          8.43</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> feature_1 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          75.1           13.1          13.6 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> feature_2 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          28.0            4.21          4.51</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> feature_3 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          65.0            6.91         10.6 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> feature_4 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          38.0            7.54          7.58</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> feature_5 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          51.2            9.32          9.89</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    absolute_shortfall relative_target relative_held relative_shortfall</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>                  0           0.183         0.198                  0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>                  0           0.173         0.184                  0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>                  0           0.198         0.198                  0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>                  0           0.147         0.175                  0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>                  0           0.181         0.195                  0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>                  0           0.121         0.200                  0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>                  0           0.151         0.200                  0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>                  0           0.193         0.210                  0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>                  0           0.183         0.188                  0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>                  0           0.171         0.195                  0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span>                  0           0.128         0.177                  0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span>                  0           0.189         0.202                  0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span>                  0           0.176         0.181                  0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span>                  0           0.116         0.203                  0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span>                  0           0.173         0.177                  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>                  0           0.151         0.209                  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>                  0           0.168         0.195                  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>                  0           0.190         0.200                  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>                  0           0.188         0.188                  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>                  0           0.180         0.213                  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>                  0           0.158         0.172                  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>                  0           0.104         0.185                  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>                  0           0.115         0.184                  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>                  0           0.171         0.179                  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>                  0           0.111         0.165                  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span>                  0           0.174         0.181                  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span>                  0           0.150         0.161                  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span>                  0           0.106         0.163                  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span>                  0           0.198         0.199                  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span>                  0           0.182         0.193                  0</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create a new column with character values containing the zone names,</span></span></span>
 <span class="r-in"><span><span class="co"># by extracting these data out of the zone column</span></span></span>
@@ -535,38 +535,38 @@ values in the argument to <code>solution</code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 15 × 12</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    feature   zone      sense met   total_amount absolute_target absolute_held</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> feature_1 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          75.1           13.8          14.9 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> feature_2 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          28.0            4.82          5.14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> feature_3 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          65.0           12.8          12.8 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> feature_4 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          38.0            5.58          6.64</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> feature_5 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          51.2            9.27          9.96</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> feature_1 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          75.1            9.06         15.0 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> feature_2 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          28.0            4.23          5.58</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> feature_3 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          65.0           12.5          13.6 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> feature_4 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          38.0            6.96          7.14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> feature_5 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          51.2            8.76          9.96</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> feature_1 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          75.1            9.63         13.3 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> feature_2 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          28.0            5.29          5.65</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> feature_3 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          65.0           11.5          11.8 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> feature_4 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          38.0            4.43          7.71</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> feature_5 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          51.2            8.86          9.04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> feature_1 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          75.1           11.3          15.7 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> feature_2 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          28.0            4.69          5.45</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> feature_3 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          65.0           12.3          13.0 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> feature_4 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          38.0            7.16          7.16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> feature_5 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          51.2            9.21         10.9 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> feature_1 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          75.1           11.9          12.9 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> feature_2 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          28.0            2.91          5.17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> feature_3 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          65.0            7.45         11.9 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> feature_4 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          38.0            6.52          6.81</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> feature_5 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          51.2            5.69          8.43</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> feature_1 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          75.1           13.1          13.6 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> feature_2 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          28.0            4.21          4.51</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> feature_3 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          65.0            6.91         10.6 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> feature_4 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          38.0            7.54          7.58</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> feature_5 <span style="color: #949494;">&lt;chr [1]&gt;</span> &gt;=    TRUE          51.2            9.32          9.89</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    absolute_shortfall relative_target relative_held relative_shortfall zone2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>                  0           0.183         0.198                  0 zone_1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>                  0           0.173         0.184                  0 zone_1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>                  0           0.198         0.198                  0 zone_1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>                  0           0.147         0.175                  0 zone_1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>                  0           0.181         0.195                  0 zone_1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>                  0           0.121         0.200                  0 zone_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>                  0           0.151         0.200                  0 zone_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>                  0           0.193         0.210                  0 zone_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>                  0           0.183         0.188                  0 zone_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>                  0           0.171         0.195                  0 zone_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span>                  0           0.128         0.177                  0 zone_3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span>                  0           0.189         0.202                  0 zone_3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span>                  0           0.176         0.181                  0 zone_3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span>                  0           0.116         0.203                  0 zone_3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span>                  0           0.173         0.177                  0 zone_3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>                  0           0.151         0.209                  0 zone_1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>                  0           0.168         0.195                  0 zone_1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>                  0           0.190         0.200                  0 zone_1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>                  0           0.188         0.188                  0 zone_1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>                  0           0.180         0.213                  0 zone_1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>                  0           0.158         0.172                  0 zone_2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>                  0           0.104         0.185                  0 zone_2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>                  0           0.115         0.184                  0 zone_2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>                  0           0.171         0.179                  0 zone_2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>                  0           0.111         0.165                  0 zone_2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span>                  0           0.174         0.181                  0 zone_3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span>                  0           0.150         0.161                  0 zone_3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span>                  0           0.106         0.163                  0 zone_3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span>                  0           0.198         0.199                  0 zone_3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span>                  0           0.182         0.193                  0 zone_3</span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>

@@ -28,7 +28,7 @@ is allocated to a different zone."><meta property="og:image" content="https://pr
     
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.3.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.3.6</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -101,7 +101,7 @@ is allocated to a different zone.</p>
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>...</dt>
-<dd><p><code><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">terra::rast()</a></code> or <code>character</code> objects that
+<dd><p><code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> or <code>character</code> objects that
 pertain to the biodiversity data. See Details for more information.</p></dd>
 
 
@@ -130,12 +130,12 @@ zones.
 In all cases, the data for each zone is input as a separate argument.
 The correct arguments depends on the type of planning unit data
 used when building the conservation planning <code><a href="problem.html">problem()</a></code>.</p>
-<dl><dt><code><a href="problem.html">problem()</a></code> will have <code><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">terra::rast()</a></code> or <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::st_sf()</a></code> planning units</dt>
-<dd><p><code><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">terra::rast()</a></code> object can be supplied to specify the expected amount of
+<dl><dt><code><a href="problem.html">problem()</a></code> will have <code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> or <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::st_sf()</a></code> planning units</dt>
+<dd><p><code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> object can be supplied to specify the expected amount of
 each feature within each planning unit under each management zone.
 Data for each zone should be specified as separate
 arguments, and the data for each feature in a given zone are specified
-in separate layers in a <code><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">terra::rast()</a></code> object.
+in separate layers in a <code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> object.
 Note that all layers for a given zone must have missing (<code>NA</code>) values in
 exactly the same cells.</p></dd>
 
@@ -201,7 +201,7 @@ a prioritization with multiple management zones.</p></div>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> features: <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, and <span style="color: #0000BB;">"feature_3"</span> (3 total)</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot the rasters for the first zone in the Zones object</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span> <span class="va">z</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>,</span></span>
 <span class="r-in"><span> main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Zone 1 feature 1"</span>, <span class="st">"Zone 1 feature 2"</span>, <span class="st">"Zone 1 feature 3"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>

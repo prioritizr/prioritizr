@@ -102,7 +102,7 @@ Alternatively, to cite the latest development version, please use:
 
 > Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Edwards BPM, Watts
 > ME, Arcese P, Bennett J, Possingham HP (2024). prioritizr: Systematic
-> Conservation Prioritization in R. R package version 8.0.3.5. Available
+> Conservation Prioritization in R. R package version 8.0.3.6. Available
 > at <https://github.com/prioritizr/prioritizr>.
 
 Additionally, we keep a [record of
@@ -274,7 +274,7 @@ print(attr(s1, "objective"))
 ```
 
     ## solution_1 
-    ##    4.40521
+    ##   4.478615
 
 ``` r
 # extract time spent solving the problem
@@ -282,7 +282,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##      3.394
+    ##      3.396
 
 ``` r
 # extract state message from the solver
@@ -312,7 +312,7 @@ eval_n_summary(p1, s1)
     ## # A tibble: 1 × 2
     ##   summary     n
     ##   <chr>   <dbl>
-    ## 1 overall  2319
+    ## 1 overall  2321
 
 ``` r
 # calculate total cost of solution
@@ -322,7 +322,7 @@ eval_cost_summary(p1, s1)
     ## # A tibble: 1 × 2
     ##   summary  cost
     ##   <chr>   <dbl>
-    ## 1 overall 8748.
+    ## 1 overall 8743.
 
 ``` r
 # calculate target coverage for the solution
@@ -336,13 +336,13 @@ print(p1_target_coverage)
     ##  1 Recurvir… TRUE         100.             20.0          23.4               0   
     ##  2 Botaurus… TRUE          99.9            20.0          29.2               0   
     ##  3 Botaurus… TRUE         100.             20.0          34.0               0   
-    ##  4 Corvus b… TRUE          99.9            20.0          20.2               0   
-    ##  5 Corvus b… FALSE         99.9            20.0          18.7               1.29
+    ##  4 Corvus b… TRUE          99.9            20.0          20.1               0   
+    ##  5 Corvus b… FALSE         99.9            20.0          18.4               1.59
     ##  6 Cinclus … TRUE         100.             20.0          20.4               0   
-    ##  7 Spinus t… TRUE          99.9            20.0          22.4               0   
+    ##  7 Spinus t… TRUE          99.9            20.0          22.3               0   
     ##  8 Spinus t… TRUE          99.9            20.0          23.0               0   
     ##  9 Falco sp… TRUE          99.9            20.0          24.5               0   
-    ## 10 Falco sp… TRUE         100.             20.0          24.4               0   
+    ## 10 Falco sp… TRUE         100.             20.0          24.3               0   
     ## # ℹ 386 more rows
     ## # ℹ 3 more variables: relative_target <dbl>, relative_held <dbl>,
     ## #   relative_shortfall <dbl>

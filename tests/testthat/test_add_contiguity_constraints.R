@@ -74,8 +74,8 @@ test_that("solve (single zone)", {
     add_contiguity_constraints() %>%
     add_default_solver(verbose = FALSE)
   # solve problem
-  s1 <- solve(p)
-  s2 <- solve(p)
+  s1 <- solve_fixed_seed(p)
+  s2 <- solve_fixed_seed(p)
   # check that all selected planning units form a contiguous unit
   expect_true(is_single_patch_sf(s1[s1$solution_1 == 1, ]))
   expect_equal(s1$solution_1, s2$solution_1)
@@ -213,7 +213,7 @@ test_that("solve (multiple zones)", {
     add_relative_targets(matrix(0.2, nrow = 5, ncol = 3)) %>%
     add_contiguity_constraints(z) %>%
     add_default_solver(verbose = FALSE) %>%
-    solve()
+    solve_fixed_seed()
   # tests
   expect_true(
     is_single_patch_sf(s[s$solution_1_zone_1 == 1 | s$solution_1_zone_2 == 1, ])

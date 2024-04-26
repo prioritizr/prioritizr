@@ -17,8 +17,8 @@ test_that("binary decisions", {
     add_relative_targets(0.1) %>%
     add_binary_decisions() %>%
     add_cbc_solver(time_limit = 5, verbose = FALSE)
-  s1 <- solve(p1)
-  s2 <- solve(p2)
+  s1 <- solve_fixed_seed(p1)
+  s2 <- solve_fixed_seed(p2)
   # check that solution has correct properties
   expect_inherits(s1, "SpatRaster")
   expect_equal(terra::nlyr(s1), 1)
@@ -39,7 +39,7 @@ test_that("proportion decisions", {
     add_relative_targets(0.1) %>%
     add_proportion_decisions() %>%
     add_cbc_solver(gap = 0, verbose = FALSE)
-  s <- solve(p)
+  s <- solve_fixed_seed(p)
   # check that solution has correct properties
   expect_inherits(s, "SpatRaster")
   expect_equal(terra::nlyr(s), 1)
@@ -69,7 +69,7 @@ test_that("proportion decisions (floating point)", {
     add_relative_targets(1) %>%
     add_proportion_decisions() %>%
     add_cbc_solver(gap = 0, verbose = FALSE)
-  s <- solve(p)
+  s <- solve_fixed_seed(p)
   # check that solution has correct properties
   expect_true(inherits(s, "sf"))
   expect_true("solution_1" %in% names(s))
@@ -119,7 +119,7 @@ test_that("mix of binary and continuous variables", {
     add_max_utility_objective(b) %>%
     add_binary_decisions() %>%
     add_cbc_solver(verbose = FALSE)
-  s <- solve(p)
+  s <- solve_fixed_seed(p)
   # check that solution has correct properties
   expect_true(inherits(s, "SpatRaster"))
   expect_equal(terra::nlyr(s), 1)
@@ -140,7 +140,7 @@ test_that("first_feasible", {
     add_relative_targets(0.1) %>%
     add_binary_decisions() %>%
     add_cbc_solver(first_feasible = TRUE, verbose = FALSE)
-  s <- solve(p)
+  s <- solve_fixed_seed(p)
   # check that solution has correct properties
   expect_inherits(s, "SpatRaster")
   expect_equal(terra::nlyr(s), 1)
@@ -169,8 +169,8 @@ test_that("correct solution (simple)", {
     add_locked_out_constraints(locked_out) %>%
     add_cbc_solver(gap = 0, verbose = FALSE)
   # solve problems
-  s1 <- solve(p)
-  s2 <- solve(p)
+  s1 <- solve_fixed_seed(p)
+  s2 <- solve_fixed_seed(p)
   # test for correct solution
   expect_equal(c(terra::values(s1)), c(0, 1, 1, NA))
   expect_equal(terra::values(s1), terra::values(s2))
@@ -200,8 +200,8 @@ test_that("correct solution (complex)", {
       ) %>%
    add_cbc_solver(gap = 0, verbose = FALSE)
   # solve problems
-  s1 <- solve(p)
-  s2 <- solve(p)
+  s1 <- solve_fixed_seed(p)
+  s2 <- solve_fixed_seed(p)
   # test for correct solution
   expect_equal(c(terra::values(s1)), c(1, 0, 1, 0, NA))
   expect_equal(terra::values(s1), terra::values(s2))
@@ -241,15 +241,15 @@ test_that("start_solution", {
   s1 <-
     p %>%
     add_cbc_solver(gap = 0, verbose = FALSE) %>%
-    solve()
+    solve_fixed_seed()
   s2 <-
     p %>%
     add_cbc_solver(gap = 0, verbose = FALSE, start_solution = start_valid) %>%
-    solve()
+    solve_fixed_seed()
   s3 <-
     p %>%
     add_cbc_solver(gap = 0, verbose = FALSE, start_solution = start_invalid) %>%
-    solve()
+    solve_fixed_seed()
   # test for correct solution
   expect_equal(c(terra::values(s1)), c(1, 0, 1, 0, NA))
   expect_equal(terra::values(s1), terra::values(s2))
@@ -280,8 +280,8 @@ test_that("correct solution (last rij value = 0)", {
     ) %>%
     add_cbc_solver(gap = 0, verbose = FALSE)
   # solve problem
-  s1 <- solve(p)
-  s2 <- solve(p)
+  s1 <- solve_fixed_seed(p)
+  s2 <- solve_fixed_seed(p)
   # test for correct solution
   expect_equal(c(terra::values(s1)), c(1, 0, 1, 0, 0))
   expect_equal(terra::values(s1), terra::values(s2))

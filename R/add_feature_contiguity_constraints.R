@@ -429,7 +429,7 @@ methods::setMethod("add_feature_contiguity_constraints",
             d <- lapply(d, `[`, ind, ind, drop = FALSE)
             # extract clusters from z
             z_cl <- lapply(seq_along(zn), function(i) {
-              igraph::clusters(
+              igraph::components(
                 igraph::graph_from_adjacency_matrix(
                   zn[[i]], diag = FALSE, mode = "undirected", weighted = NULL
                 )

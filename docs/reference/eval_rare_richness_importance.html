@@ -34,7 +34,7 @@ limitations."><meta property="og:image" content="https://prioritizr.net/logo.png
     
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.3.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.3.6</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -136,7 +136,7 @@ limitations.</p>
 
 <dt>solution</dt>
 <dd><p><code>numeric</code>, <code>matrix</code>, <code>data.frame</code>,
-<code><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">terra::rast()</a></code>, or <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::sf()</a></code> object.
+<code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code>, or <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::sf()</a></code> object.
 The argument should be in the same format as the planning unit cost
 data in the argument to <code>x</code>.
 See the Solution format section for more information.</p></dd>
@@ -157,7 +157,7 @@ rescaled to range between 0.01 and 1. Defaults to <code>TRUE</code>.</p></dd>
     
 
 <p>A <code>numeric</code>, <code>matrix</code>, <code>data.frame</code>,
-<code><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">terra::rast()</a></code>, or <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::sf()</a></code> object
+<code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code>, or <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::sf()</a></code> object
 containing the importance scores for each planning
 unit in the solution. Specifically, the returned object is in the
 same format as the planning unit data in the argument to <code>x</code>.</p>
@@ -204,9 +204,9 @@ missing cost (<code>NA</code>) values for a particular zone should also have a
 missing (<code>NA</code>) values in the argument to <code>solution</code>.</p></dd>
 
 
-<dt><code>x</code> has <code><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">terra::rast()</a></code> planning units</dt>
+<dt><code>x</code> has <code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> planning units</dt>
 <dd><p>The argument to <code>solution</code>
-be a <code><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">terra::rast()</a></code> object where different grid cells (pixels) correspond
+be a <code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> object where different grid cells (pixels) correspond
 to different planning units and layers correspond to
 a different management zones. It should have the same dimensionality
 (rows, columns, layers), resolution, extent, and coordinate reference
@@ -296,7 +296,7 @@ the importance of planning units selected in a solution.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> max value   :     1 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot solution</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s1</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s1</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="eval_rare_richness_importance-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># calculate importance scores</span></span></span>
@@ -316,7 +316,7 @@ the importance of planning units selected in a solution.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> max value   :   1 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot importance scores</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">rwr1</span>, main <span class="op">=</span> <span class="st">"rarity weighted richness"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">rwr1</span>, main <span class="op">=</span> <span class="st">"rarity weighted richness"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="eval_rare_richness_importance-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create minimal problem with polygon planning units</span></span></span>
@@ -353,14 +353,14 @@ the importance of planning units selected in a solution.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 80 more rows</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot solution</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s2</span><span class="op">[</span>, <span class="st">"solution_1"</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"solution"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s2</span><span class="op">[</span>, <span class="st">"solution_1"</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"solution"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="eval_rare_richness_importance-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># calculate importance scores</span></span></span>
 <span class="r-in"><span><span class="va">rwr2</span> <span class="op">&lt;-</span> <span class="fu">eval_rare_richness_importance</span><span class="op">(</span><span class="va">p2</span>, <span class="va">s2</span><span class="op">[</span>, <span class="st">"solution_1"</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot importance scores</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">rwr2</span>, main <span class="op">=</span> <span class="st">"rarity weighted richness"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">rwr2</span>, main <span class="op">=</span> <span class="st">"rarity weighted richness"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="eval_rare_richness_importance-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>

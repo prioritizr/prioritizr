@@ -24,7 +24,7 @@ than 10."><meta property="og:image" content="https://prioritizr.net/logo.png"><!
     
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.3.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.3.6</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -215,10 +215,10 @@ contain a column name for each zone.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># solve problem</span></span></span>
 <span class="r-in"><span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">s1</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"equal targets"</span>, <span class="st">"varying targets"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">s1</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"equal targets"</span>, <span class="st">"varying targets"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot solution</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s1</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s1</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_absolute_targets-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create a problem with multiple management zones</span></span></span>
@@ -252,7 +252,7 @@ contain a column name for each zone.</p></dd>
 <span class="r-in"><span><span class="va">s4</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p4</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot solution (pixel values correspond to zone identifiers)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s4</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"equal targets"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s4</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"equal targets"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_absolute_targets-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create a problem with targets that require a varying amount of each</span></span></span>
@@ -268,11 +268,11 @@ contain a column name for each zone.</p></dd>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p5_targets</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           zone_1 zone_2 zone_3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> feature_1      2      0      0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> feature_2      1      1      2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> feature_3      3      3      2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> feature_4      1      2      0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> feature_5      2      1      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> feature_1      1      0      2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> feature_2      2      2      3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> feature_3      1      0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> feature_4      0      0      2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> feature_5      0      2      0</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">p5</span> <span class="op">&lt;-</span> <span class="va">p3</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">add_absolute_targets</span><span class="op">(</span><span class="va">p5_targets</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
@@ -280,7 +280,7 @@ contain a column name for each zone.</p></dd>
 <span class="r-in"><span><span class="va">s5</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p5</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot solution (pixel values correspond to zone identifiers)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s5</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"varying targets"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s5</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"varying targets"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_absolute_targets-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>

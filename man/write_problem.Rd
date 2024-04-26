@@ -4,7 +4,7 @@
 \alias{write_problem}
 \title{Write problem}
 \usage{
-write_problem(x, path)
+write_problem(x, path, solver = NULL)
 }
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} object.}
@@ -15,6 +15,12 @@ to specify whether the problem formulation will be saved in the
 \href{https://www.gurobi.com/documentation/9.5/refman/lp_format.html}{LP} or
 \href{https://www.gurobi.com/documentation/9.5/refman/mps_format.html}{MPS}
 format (respectively).}
+
+\item{solver}{\code{character} name of optimization solver to write the problem
+to disk. Available options include: \code{"rsymphony" }, \code{"gurobi"}, or \code{NULL}.
+Note that using the Gurobi solver is much faster, because the Rsymphony
+solver requires attempting to solve the problem before it can be written.
+Defaults to \code{NULL}, such that the best available solver is used.}
 }
 \value{
 An invisible \code{TRUE} indicating success.
@@ -22,7 +28,7 @@ An invisible \code{TRUE} indicating success.
 \description{
 Save the mathematical formulation for a conservation planning problem
 to a file for mixed integer programming solvers. Note that this function
-requires the \pkg{Rsymphony} package to be installed.
+requires either the \pkg{Rsymphony} or \pkg{gurobi} package to be installed.
 }
 \examples{
 \dontrun{
@@ -48,7 +54,7 @@ path <- file.path(tempdir(), "model.lp")
 print(path)
 
 # save problem to file
-## note that the Rsymphony package needs to be installed
+## note that either the gurobi or Rsymphony package needs to be installed
 write_problem(p, path)
 
 # print model file

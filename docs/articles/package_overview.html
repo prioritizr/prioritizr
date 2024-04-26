@@ -40,7 +40,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.3.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.3.6</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -169,7 +169,7 @@
 <h3 id="data">Data<a class="anchor" aria-label="anchor" href="#data"></a>
 </h3>
 <p>Now we will load some built-in data sets that are distributed with the <em>prioritizr R</em> package. This package contains several different planning unit data sets. To provide a comprehensive overview of the different ways that we can initialize a conservation planning problem, we will load each of them.</p>
-<p>First, we will load the raster planning unit data (<code>sim_pu_raster</code>). Here, the planning units are represented as a single-layer raster object (i.e., a <code><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">terra::rast()</a></code> object) and each pixel corresponds to the spatial extent of each panning unit. The pixel values correspond to the acquisition costs of each planning unit.</p>
+<p>First, we will load the raster planning unit data (<code>sim_pu_raster</code>). Here, the planning units are represented as a single-layer raster object (i.e., a <code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> object) and each pixel corresponds to the spatial extent of each panning unit. The pixel values correspond to the acquisition costs of each planning unit.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># load raster planning unit data</span></span>
 <span><span class="va">sim_pu_raster</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_data.html">get_sim_pu_raster</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -187,7 +187,7 @@
 <span><span class="co">## max value   : 215.8638</span></span></code></pre>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot data</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
 <span>  <span class="va">sim_pu_raster</span>, main <span class="op">=</span> <span class="st">"Planning unit costs"</span>,</span>
 <span>  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -220,7 +220,7 @@
 <span><span class="co">## <span style="color: #949494;"># ℹ 80 more rows</span></span></span></code></pre>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot the planning units, and color them according to cost values</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">sim_pu_polygons</span><span class="op">[</span>, <span class="st">"cost"</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">sim_pu_polygons</span><span class="op">[</span>, <span class="st">"cost"</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <p><img src="package_overview_files/figure-html/unnamed-chunk-5-1.png" width="480" style="display: block; margin: auto;"></p>
 <p>Thirdly, we will load some planning unit data stored in tabular format (i.e., <code>data.frame</code> format). For those familiar with <em>Marxan</em> or dealing with very large conservation planning problems (&gt; 10 million planning units), it may be useful to work with data in this format because it does not contain any spatial information which will reduce computational burden. When using tabular data to initialize conservation planning problems, the data must follow the conventions used by <em>Marxan</em>. Specifically, each row in the planning unit table must correspond to a different planning unit. The table must also have an “id” column to provide a unique integer identifier for each planning unit, and it must also have a column that indicates the cost of each planning unit. For more information, please see the <a href="https://marxansolutions.org/" class="external-link">official <em>Marxan</em> documentation</a>.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
@@ -235,7 +235,7 @@
 <span><span class="co"># preview first six rows of the tabular planning unit data</span></span>
 <span><span class="co"># note that it has some extra columns other than id and cost as per the</span></span>
 <span><span class="co"># Marxan format</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">pu_dat</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">pu_dat</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   id       cost status    xloc     yloc</span></span>
 <span><span class="co">## 1  3      0.000      0 1116623 -4493479</span></span>
 <span><span class="co">## 2 30   7527.275      3 1110623 -4496943</span></span>
@@ -243,13 +243,13 @@
 <span><span class="co">## 4 58  16959.021      0 1116623 -4500408</span></span>
 <span><span class="co">## 5 84  34220.256      0 1098623 -4503872</span></span>
 <span><span class="co">## 6 85 178907.584      0 1110623 -4503872</span></span></code></pre>
-<p>Finally, we will load data showing the spatial distribution of the conservation features. Our conservation features (<code>sim_features</code>) are represented as a multi-layer raster object (i.e., a <code><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">terra::rast()</a></code> object), where each layer corresponds to a different feature. The pixel values in each layer correspond to the amount of suitable habitat available in a given planning unit. Note that our planning unit and our feature data have exactly the same spatial properties (i.e., resolution, extent, coordinate reference system) so their pixels line up perfectly.</p>
+<p>Finally, we will load data showing the spatial distribution of the conservation features. Our conservation features (<code>sim_features</code>) are represented as a multi-layer raster object (i.e., a <code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> object), where each layer corresponds to a different feature. The pixel values in each layer correspond to the amount of suitable habitat available in a given planning unit. Note that our planning unit and our feature data have exactly the same spatial properties (i.e., resolution, extent, coordinate reference system) so their pixels line up perfectly.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># load feature data</span></span>
 <span><span class="va">sim_features</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_data.html">get_sim_features</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># plot the distribution of suitable habitat for each feature</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
 <span>  <span class="va">sim_features</span>, nr <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  axes <span class="op">=</span> <span class="cn">FALSE</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -330,7 +330,7 @@
 <span></span>
 <span><span class="co"># print first six rows of the data</span></span>
 <span><span class="co"># note that it contains extra columns</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">spec_dat</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">spec_dat</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   id prop spf   name</span></span>
 <span><span class="co">## 1 10  0.3   1  bird1</span></span>
 <span><span class="co">## 2 11  0.3   1  nvis2</span></span>
@@ -348,7 +348,7 @@
 <span><span class="va">puvspr_dat</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/fread.html" class="external-link">fread</a></span><span class="op">(</span><span class="va">puvspr_path</span>, data.table <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># print first six rows of the data</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">puvspr_dat</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">puvspr_dat</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   species  pu     amount</span></span>
 <span><span class="co">## 1      26  56 120.344884</span></span>
 <span><span class="co">## 2      26  58  45.167010</span></span>
@@ -995,7 +995,7 @@
 <span><span class="va">sim_locked_out_raster</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_data.html">get_sim_locked_out_raster</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># plot the locked data</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">sim_locked_in_raster</span>, <span class="va">sim_locked_out_raster</span><span class="op">)</span>,</span>
 <span>  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>,</span>
 <span>  axes <span class="op">=</span> <span class="cn">FALSE</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Locked in"</span>, <span class="st">"Locked out"</span><span class="op">)</span></span>
@@ -1201,9 +1201,9 @@
 <div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create a matrix containing asymmetric connectivity data,</span></span>
 <span><span class="va">asym_con_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/dimensions.html" class="external-link">ncell</a></span><span class="op">(</span><span class="va">sim_pu_raster</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span>,</span>
-<span>  nrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/dimensions.html" class="external-link">ncell</a></span><span class="op">(</span><span class="va">sim_pu_raster</span><span class="op">)</span>,</span>
-<span>  ncol <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/dimensions.html" class="external-link">ncell</a></span><span class="op">(</span><span class="va">sim_pu_raster</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/dimensions.html" class="external-link">ncell</a></span><span class="op">(</span><span class="va">sim_pu_raster</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span>,</span>
+<span>  nrow <span class="op">=</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/dimensions.html" class="external-link">ncell</a></span><span class="op">(</span><span class="va">sim_pu_raster</span><span class="op">)</span>,</span>
+<span>  ncol <span class="op">=</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/dimensions.html" class="external-link">ncell</a></span><span class="op">(</span><span class="va">sim_pu_raster</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># create problem with penalties for asymmetric connectivity</span></span>
@@ -1798,13 +1798,19 @@
 <div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># solve the problem (using the default solver)</span></span>
 <span><span class="va">s42</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p42</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Gurobi Optimizer version 10.0.2 build v10.0.2rc0 (linux64)</span></span>
+<pre><code><span><span class="co">## Set parameter Username</span></span>
+<span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
+<span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
+<span><span class="co">## Set parameter Presolve to value 2</span></span>
+<span><span class="co">## Set parameter Threads to value 1</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2025-04-21</span></span>
+<span><span class="co">## Gurobi Optimizer version 11.0.1 build v11.0.1rc0 (linux64 - "Ubuntu 22.04.4 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimize a model with 293 rows, 234 columns and 1026 nonzeros</span></span>
-<span><span class="co">## Model fingerprint: 0xb4b90756</span></span>
+<span><span class="co">## Model fingerprint: 0x4199482a</span></span>
 <span><span class="co">## Variable types: 0 continuous, 234 integer (234 binary)</span></span>
 <span><span class="co">## Coefficient statistics:</span></span>
 <span><span class="co">##   Matrix range     [2e-01, 1e+00]</span></span>
@@ -1812,10 +1818,11 @@
 <span><span class="co">##   Bounds range     [1e+00, 1e+00]</span></span>
 <span><span class="co">##   RHS range        [3e+00, 8e+00]</span></span>
 <span><span class="co">## Found heuristic solution: objective 20287.197006</span></span>
-<span><span class="co">## Found heuristic solution: objective 3087.9617767</span></span>
+<span><span class="co">## Found heuristic solution: objective 18286.097107</span></span>
 <span><span class="co">## Presolve time: 0.00s</span></span>
 <span><span class="co">## Presolved: 293 rows, 234 columns, 1026 nonzeros</span></span>
 <span><span class="co">## Variable types: 0 continuous, 234 integer (234 binary)</span></span>
+<span><span class="co">## Found heuristic solution: objective 3932.8636169</span></span>
 <span><span class="co">## Root relaxation presolved: 293 rows, 234 columns, 1026 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
@@ -1824,30 +1831,35 @@
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">##      0     0 2265.86242    0  234 3087.96178 2265.86242  26.6%     -    0s</span></span>
-<span><span class="co">##      0     0 2328.27423    0  232 3087.96178 2328.27423  24.6%     -    0s</span></span>
-<span><span class="co">##      0     0 2357.91894    0  229 3087.96178 2357.91894  23.6%     -    0s</span></span>
-<span><span class="co">##      0     0 2379.43275    0  197 3087.96178 2379.43275  22.9%     -    0s</span></span>
-<span><span class="co">##      0     0 2379.43275    0  197 3087.96178 2379.43275  22.9%     -    0s</span></span>
-<span><span class="co">## H    0     0                    2846.1551056 2379.43275  16.4%     -    0s</span></span>
-<span><span class="co">## H    0     0                    2814.4777374 2379.43275  15.5%     -    0s</span></span>
-<span><span class="co">##      0     2 2379.78730    0  197 2814.47774 2379.78730  15.4%     -    0s</span></span>
-<span><span class="co">## H   59    37                    2668.5003204 2385.59825  10.6%  14.7    0s</span></span>
-<span><span class="co">## H   81    42                    2604.7425995 2386.83630  8.37%  15.8    0s</span></span>
+<span><span class="co">##      0     0 2265.86242    0  234 3932.86362 2265.86242  42.4%     -    0s</span></span>
+<span><span class="co">## H    0     0                    3780.9754333 2265.86242  40.1%     -    0s</span></span>
+<span><span class="co">## H    0     0                    3340.4817047 2265.86242  32.2%     -    0s</span></span>
+<span><span class="co">## H    0     0                    3237.1036377 2265.86242  30.0%     -    0s</span></span>
+<span><span class="co">## H    0     0                    3207.3298492 2265.86242  29.4%     -    0s</span></span>
+<span><span class="co">##      0     0 2328.27423    0  232 3207.32985 2328.27423  27.4%     -    0s</span></span>
+<span><span class="co">## H    0     0                    3156.0120544 2328.27423  26.2%     -    0s</span></span>
+<span><span class="co">##      0     0 2357.91894    0  229 3156.01205 2357.91894  25.3%     -    0s</span></span>
+<span><span class="co">##      0     0 2379.43275    0  197 3156.01205 2379.43275  24.6%     -    0s</span></span>
+<span><span class="co">##      0     0 2379.43275    0  197 3156.01205 2379.43275  24.6%     -    0s</span></span>
+<span><span class="co">## H    0     0                    2812.1510468 2379.43275  15.4%     -    0s</span></span>
+<span><span class="co">## H    0     0                    2792.5685120 2379.43275  14.8%     -    0s</span></span>
+<span><span class="co">##      0     2 2379.63673    0  197 2792.56851 2379.63673  14.8%     -    0s</span></span>
+<span><span class="co">## H   27    27                    2790.8668823 2386.56585  14.5%  18.7    0s</span></span>
+<span><span class="co">## H   67    38                    2668.5003204 2408.68086  9.74%  20.6    0s</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Cutting planes:</span></span>
 <span><span class="co">##   Gomory: 3</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 82 nodes (1685 simplex iterations) in 0.10 seconds (0.12 work units)</span></span>
+<span><span class="co">## Explored 68 nodes (1835 simplex iterations) in 0.10 seconds (0.14 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Solution count 6: 2604.74 2668.5 2814.48 ... 20287.2</span></span>
+<span><span class="co">## Solution count 10: 2668.5 2790.87 2792.57 ... 3932.86</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
-<span><span class="co">## Best objective 2.604742599487e+03, best bound 2.386836298527e+03, gap 8.3658%</span></span></code></pre>
+<span><span class="co">## Best objective 2.668500320435e+03, best bound 2.408680855798e+03, gap 9.7365%</span></span></code></pre>
 <div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot solution</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
 <span>  <span class="va">s42</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey90"</span>, <span class="st">"darkgreen"</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Solution"</span>,</span>
 <span>  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -1858,12 +1870,12 @@
 <code class="sourceCode R"><span><span class="co"># extract the objective (numerical value being minimized or maximized)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s42</span>, <span class="st">"objective"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## solution_1 </span></span>
-<span><span class="co">##   2604.743</span></span></code></pre>
+<span><span class="co">##     2668.5</span></span></code></pre>
 <div class="sourceCode" id="cb112"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract time spent solving solution</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s42</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## solution_1 </span></span>
-<span><span class="co">##       0.11</span></span></code></pre>
+<span><span class="co">##      0.126</span></span></code></pre>
 <div class="sourceCode" id="cb114"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract state message from the solver that describes why this specific</span></span>
 <span><span class="co"># solution was returned</span></span>
@@ -1902,7 +1914,7 @@
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 1 × 2</span></span></span>
 <span><span class="co">##   summary  cost</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> overall <span style="text-decoration: underline;">2</span>005.</span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> overall <span style="text-decoration: underline;">2</span>019.</span></span></code></pre>
 <ul>
 <li>
 <strong>Feature representation summary</strong>: Calculate how well features are represented by a solution. This function can be used for any type of problem.</li>
@@ -1913,11 +1925,11 @@
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 5 × 5</span></span></span>
 <span><span class="co">##   summary feature   total_amount absolute_held relative_held</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> overall feature_1         83.3          8.95         0.107</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> overall feature_2         31.2          3.22         0.103</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span> overall feature_3         72.0          7.59         0.106</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span> overall feature_4         42.7          4.34         0.102</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">5</span> overall feature_5         56.7          5.89         0.104</span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> overall feature_1         83.3          8.94         0.107</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> overall feature_2         31.2          3.19         0.102</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> overall feature_3         72.0          7.68         0.107</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> overall feature_4         42.7          4.32         0.101</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span> overall feature_5         56.7          5.88         0.104</span></span></code></pre>
 <ul>
 <li>
 <strong>Target coverage summary</strong>: Calculate how well representation targets are met by a solution. This function can only be used with problems contain targets.</li>
@@ -1928,11 +1940,11 @@
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 5 × 9</span></span></span>
 <span><span class="co">##   feature   met   total_amount absolute_target absolute_held absolute_shortfall</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> feature_1 TRUE          83.3            8.33          8.95                  0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> feature_2 TRUE          31.2            3.12          3.22                  0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span> feature_3 TRUE          72.0            7.20          7.59                  0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span> feature_4 TRUE          42.7            4.27          4.34                  0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">5</span> feature_5 TRUE          56.7            5.67          5.89                  0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> feature_1 TRUE          83.3            8.33          8.94                  0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> feature_2 TRUE          31.2            3.12          3.19                  0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> feature_3 TRUE          72.0            7.20          7.68                  0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> feature_4 TRUE          42.7            4.27          4.32                  0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span> feature_5 TRUE          56.7            5.67          5.88                  0</span></span>
 <span><span class="co">## <span style="color: #949494;"># ℹ 3 more variables: relative_target &lt;dbl&gt;, relative_held &lt;dbl&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   relative_shortfall &lt;dbl&gt;</span></span></span></code></pre>
 <ul>
@@ -1945,7 +1957,7 @@
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 1 × 2</span></span></span>
 <span><span class="co">##   summary boundary</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> overall      1.2</span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> overall     1.30</span></span></code></pre>
 <ul>
 <li>
 <strong>Connectivity summary</strong>: Calculate the connectivity of a solution using symmetric connectivity data.</li>
@@ -1969,14 +1981,14 @@
 <div class="sourceCode" id="cb128"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create asymmetric connectivity data</span></span>
 <span><span class="co"># here we parametrize connectivity by randomly simulating values</span></span>
-<span><span class="va">acm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/dimensions.html" class="external-link">ncell</a></span><span class="op">(</span><span class="va">sim_pu_raster</span><span class="op">)</span> <span class="op">^</span> <span class="fl">2</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/dimensions.html" class="external-link">ncell</a></span><span class="op">(</span><span class="va">sim_pu_raster</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">acm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/dimensions.html" class="external-link">ncell</a></span><span class="op">(</span><span class="va">sim_pu_raster</span><span class="op">)</span> <span class="op">^</span> <span class="fl">2</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/dimensions.html" class="external-link">ncell</a></span><span class="op">(</span><span class="va">sim_pu_raster</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># calculate statistic</span></span>
 <span><span class="fu"><a href="../reference/eval_asym_connectivity_summary.html">eval_asym_connectivity_summary</a></span><span class="op">(</span><span class="va">p42</span>, <span class="va">s42</span>, data <span class="op">=</span> <span class="va">acm</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 1 × 2</span></span></span>
 <span><span class="co">##   summary asym_connectivity</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> overall              46.7</span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> overall              53.1</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="evaluating-relative-importance">Evaluating relative importance<a class="anchor" aria-label="anchor" href="#evaluating-relative-importance"></a>
@@ -1993,24 +2005,30 @@
 <span></span>
 <span><span class="co"># solve the problem</span></span>
 <span><span class="va">s43</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p43</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Gurobi Optimizer version 10.0.2 build v10.0.2rc0 (linux64)</span></span>
+<pre><code><span><span class="co">## Set parameter Username</span></span>
+<span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
+<span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
+<span><span class="co">## Set parameter Presolve to value 2</span></span>
+<span><span class="co">## Set parameter Threads to value 1</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2025-04-21</span></span>
+<span><span class="co">## Gurobi Optimizer version 11.0.1 build v11.0.1rc0 (linux64 - "Ubuntu 22.04.4 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimize a model with 5 rows, 90 columns and 450 nonzeros</span></span>
-<span><span class="co">## Model fingerprint: 0x4bb5d283</span></span>
+<span><span class="co">## Model fingerprint: 0xe712746b</span></span>
 <span><span class="co">## Variable types: 0 continuous, 90 integer (90 binary)</span></span>
 <span><span class="co">## Coefficient statistics:</span></span>
 <span><span class="co">##   Matrix range     [2e-01, 9e-01]</span></span>
 <span><span class="co">##   Objective range  [2e+02, 2e+02]</span></span>
 <span><span class="co">##   Bounds range     [1e+00, 1e+00]</span></span>
 <span><span class="co">##   RHS range        [3e+00, 8e+00]</span></span>
-<span><span class="co">## Found heuristic solution: objective 2337.9617767</span></span>
+<span><span class="co">## Found heuristic solution: objective 2306.8044891</span></span>
 <span><span class="co">## Presolve time: 0.00s</span></span>
 <span><span class="co">## Presolved: 5 rows, 90 columns, 450 nonzeros</span></span>
 <span><span class="co">## Variable types: 0 continuous, 90 integer (90 binary)</span></span>
-<span><span class="co">## Found heuristic solution: objective 2332.1004028</span></span>
+<span><span class="co">## Found heuristic solution: objective 2242.8574066</span></span>
 <span><span class="co">## Root relaxation presolved: 5 rows, 90 columns, 450 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
@@ -2019,19 +2037,19 @@
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">##      0     0 1931.58191    0    4 2332.10040 1931.58191  17.2%     -    0s</span></span>
-<span><span class="co">## H    0     0                    1987.3985291 1931.58191  2.81%     -    0s</span></span>
+<span><span class="co">##      0     0 1931.58191    0    4 2242.85741 1931.58191  13.9%     -    0s</span></span>
+<span><span class="co">## H    0     0                    1991.3882751 1931.58191  3.00%     -    0s</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Explored 1 nodes (12 simplex iterations) in 0.00 seconds (0.00 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Solution count 3: 1987.4 2332.1 2337.96 </span></span>
+<span><span class="co">## Solution count 3: 1991.39 2242.86 2306.8 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
-<span><span class="co">## Best objective 1.987398529053e+03, best bound 1.931581907658e+03, gap 2.8085%</span></span></code></pre>
+<span><span class="co">## Best objective 1.991388275146e+03, best bound 1.931581907658e+03, gap 3.0032%</span></span></code></pre>
 <div class="sourceCode" id="cb132"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot solution</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
 <span>  <span class="va">s43</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey90"</span>, <span class="st">"darkgreen"</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Solution"</span>,</span>
 <span>  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -2049,7 +2067,7 @@
 <span>  <span class="fu"><a href="../reference/eval_replacement_importance.html">eval_replacement_importance</a></span><span class="op">(</span><span class="va">s43</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># plot replacement cost scores</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
 <span>  <span class="va">rc43</span>, main <span class="op">=</span> <span class="st">"Replacement cost scores"</span>,</span>
 <span>  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -2059,7 +2077,7 @@
 <span><span class="va">fs43</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_ferrier_importance.html">eval_ferrier_importance</a></span><span class="op">(</span><span class="va">p43</span>, <span class="va">s43</span><span class="op">)</span><span class="op">[[</span><span class="st">"total"</span><span class="op">]</span><span class="op">]</span></span>
 <span></span>
 <span><span class="co"># plot Ferrier scores</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
 <span>  <span class="va">fs43</span>, main <span class="op">=</span> <span class="st">"Ferrier scores"</span>,</span>
 <span>  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -2069,7 +2087,7 @@
 <span><span class="va">rwr43</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_rare_richness_importance.html">eval_rare_richness_importance</a></span><span class="op">(</span><span class="va">p43</span>, <span class="va">s43</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># plot rarity weighted richness scores</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
 <span>  <span class="va">rwr43</span>, main <span class="op">=</span> <span class="st">"Rarity weighted richness scores"</span>,</span>
 <span>  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -2116,47 +2134,54 @@
 <div class="sourceCode" id="cb138"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># solve the problem</span></span>
 <span><span class="va">ms</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">mp</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Gurobi Optimizer version 10.0.2 build v10.0.2rc0 (linux64)</span></span>
+<pre><code><span><span class="co">## Set parameter Username</span></span>
+<span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
+<span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
+<span><span class="co">## Set parameter Presolve to value 2</span></span>
+<span><span class="co">## Set parameter Threads to value 1</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2025-04-21</span></span>
+<span><span class="co">## Gurobi Optimizer version 11.0.1 build v11.0.1rc0 (linux64 - "Ubuntu 22.04.4 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimize a model with 10075 rows, 6780 columns and 24778 nonzeros</span></span>
-<span><span class="co">## Model fingerprint: 0x8a2a8131</span></span>
+<span><span class="co">## Model fingerprint: 0xb4d28109</span></span>
 <span><span class="co">## Variable types: 0 continuous, 6780 integer (6780 binary)</span></span>
 <span><span class="co">## Coefficient statistics:</span></span>
 <span><span class="co">##   Matrix range     [5e-05, 4e+03]</span></span>
 <span><span class="co">##   Objective range  [8e+03, 4e+05]</span></span>
 <span><span class="co">##   Bounds range     [1e+00, 1e+00]</span></span>
 <span><span class="co">##   RHS range        [5e+03, 3e+05]</span></span>
-<span><span class="co">## Found heuristic solution: objective 1.255825e+08</span></span>
+<span><span class="co">## Found heuristic solution: objective 2.922253e+08</span></span>
 <span><span class="co">## Presolve removed 4707 rows and 3103 columns</span></span>
-<span><span class="co">## Presolve time: 0.05s</span></span>
+<span><span class="co">## Presolve time: 0.06s</span></span>
 <span><span class="co">## Presolved: 5368 rows, 3677 columns, 12704 nonzeros</span></span>
+<span><span class="co">## Found heuristic solution: objective 1.059050e+08</span></span>
 <span><span class="co">## Variable types: 0 continuous, 3677 integer (3677 binary)</span></span>
-<span><span class="co">## Found heuristic solution: objective 1.065946e+08</span></span>
+<span><span class="co">## Found heuristic solution: objective 1.035178e+08</span></span>
 <span><span class="co">## Root relaxation presolved: 5368 rows, 3677 columns, 12704 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Root relaxation: objective 9.975843e+07, 652 iterations, 0.01 seconds (0.01 work units)</span></span>
+<span><span class="co">## Root relaxation: interrupted, 4 iterations, 0.01 seconds (0.01 work units)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">##      0     0 9.9758e+07    0   43 1.0659e+08 9.9758e+07  6.41%     -    0s</span></span>
+<span><span class="co">##      0     0          -    0      1.0352e+08 9.3406e+07  9.77%     -    0s</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 1 nodes (652 simplex iterations) in 0.07 seconds (0.10 work units)</span></span>
+<span><span class="co">## Explored 1 nodes (4 simplex iterations) in 0.07 seconds (0.09 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Solution count 2: 1.06595e+08 1.25582e+08 </span></span>
+<span><span class="co">## Solution count 3: 1.03518e+08 1.05905e+08 2.92225e+08 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
-<span><span class="co">## Best objective 1.065946314895e+08, best bound 9.975842517354e+07, gap 6.4133%</span></span></code></pre>
+<span><span class="co">## Best objective 1.035178165083e+08, best bound 9.340648601750e+07, gap 9.7677%</span></span></code></pre>
 <div class="sourceCode" id="cb140"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># since the Marxan data was in a tabular format, the solution is also returned</span></span>
 <span><span class="co"># in a tabular format, so we will print the first six rows of the table</span></span>
 <span><span class="co"># containing the solution</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ms</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ms</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   id       cost status    xloc     yloc locked_in locked_out solution_1</span></span>
 <span><span class="co">## 1  3      0.000      0 1116623 -4493479     FALSE      FALSE          0</span></span>
 <span><span class="co">## 2 30   7527.275      3 1110623 -4496943     FALSE       TRUE          0</span></span>

@@ -16,7 +16,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.3.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.3.6</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -72,7 +72,7 @@
     </div>
 
     <div class="ref-description section level2">
-    <p>Extract data from a <code><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">terra::rast()</a></code> object.</p>
+    <p>Extract data from a <code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> object.</p>
     </div>
 
     <div class="section level2">
@@ -98,7 +98,7 @@
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>x</dt>
-<dd><p><code><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">terra::rast()</a></code> object.</p></dd>
+<dd><p><code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> object.</p></dd>
 
 
 <dt>y</dt>
@@ -126,18 +126,18 @@ layers in the argument to <code>x</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The performance of this function for large <code><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">terra::rast()</a></code> objects
+    <p>The performance of this function for large <code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> objects
 can be improved by increasing the GDAL cache size.
 The default cache size is 25 MB.
 For example, the following code can be used to set the cache size to 4 GB.</p>
 <p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>terra<span class="sc">::</span><span class="fu">gdalCache</span>(<span class="at">size =</span> <span class="dv">4000</span>)</span></code></pre><p></p></div>
 <p>This function is simply a wrapper that uses
 <code><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html" class="external-link">exactextractr::exact_extract()</a></code> for polygon geometries, and
-<code><a href="https://rdrr.io/pkg/terra/man/extract.html" class="external-link">terra::extract()</a></code> for other geometry types.</p>
+<code><a href="https://rspatial.github.io/terra/reference/extract.html" class="external-link">terra::extract()</a></code> for other geometry types.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="https://rdrr.io/pkg/terra/man/extract.html" class="external-link">terra::extract()</a></code>, <code><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html" class="external-link">exactextractr::exact_extract()</a></code>.</p></div>
+    <div class="dont-index"><p><code><a href="https://rspatial.github.io/terra/reference/extract.html" class="external-link">terra::extract()</a></code>, <code><a href="https://isciences.gitlab.io/exactextractr/reference/exact_extract.html" class="external-link">exactextractr::exact_extract()</a></code>.</p></div>
     </div>
 
     <div class="section level2">
@@ -150,7 +150,7 @@ For example, the following code can be used to set the cache size to 4 GB.</p>
 <span class="r-in"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu">fast_extract</span><span class="op">(</span><span class="va">sim_features</span>, <span class="va">sim_pu_polygons</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># show result</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">result</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">result</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           [,1]      [,2]      [,3]      [,4]      [,5]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.7150548 0.2900901 0.8178213 0.2199663 0.4533809</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.6990429 0.3052216 0.8064534 0.2713800 0.4413639</span>

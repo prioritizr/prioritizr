@@ -49,7 +49,7 @@ test_that("character (solve)", {
     marxan_problem(path) %>%
     add_default_solver(time_limit = 5, verbose = FALSE)
   # solve problem
-  s <- solve(p)
+  s <- solve_fixed_seed(p)
   # tests
   expect_inherits(s, "data.frame")
   expect_true("solution_1" %in% names(s))
@@ -153,7 +153,7 @@ test_that("character (solve, absolute INPUTDIR path)", {
     marxan_problem(path) %>%
     add_default_solver(time_limit = 5, verbose = FALSE)
   # solve problem
-  s <- solve(p)
+  s <- solve_fixed_seed(p)
   # tests
   expect_inherits(s, "data.frame")
   expect_true("solution_1" %in% names(s))
@@ -193,7 +193,7 @@ test_that("character (solve, absolute file paths)", {
     marxan_problem(path) %>%
     add_default_solver(time_limit = 5, verbose = FALSE)
   # check that problem can be solved
-  s <- solve(p)
+  s <- solve_fixed_seed(p)
   # tests
   expect_inherits(s, "data.frame")
   expect_true("solution_1" %in% names(s))
@@ -296,7 +296,7 @@ test_that("data.frame (solve, boundary penalties)", {
     marxan_problem(pu_data, spec_data, puvspr_data, bound_data, blm = 1) %>%
     add_default_solver(time_limit = 5, verbose = FALSE)
   # check that problem can be solved
-  s <- solve(p)
+  s <- solve_fixed_seed(p)
   # tests
   expect_inherits(s, "data.frame")
   expect_true("solution_1" %in% names(s))
@@ -322,7 +322,7 @@ test_that("data.frame (solve, no boundary penalties)", {
     marxan_problem(pu_data, spec_data, puvspr_data) %>%
     add_default_solver(time_limit = 5, verbose = FALSE)
   # solve problem
-  s <- solve(p)
+  s <- solve_fixed_seed(p)
   # tests
   expect_inherits(s, "data.frame")
   expect_true("solution_1" %in% names(s))
@@ -393,7 +393,7 @@ test_that("data.frame (solve, asymmetric connectivity data)", {
     ) %>%
     add_default_solver(time_limit = 5, verbose = FALSE)
   # solve problem
-  s <- solve(p)
+  s <- solve_fixed_seed(p)
   # tests
   expect_inherits(s, "data.frame")
   expect_true("solution_1" %in% names(s))

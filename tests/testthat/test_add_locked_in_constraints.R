@@ -36,8 +36,8 @@ test_that("integer (solve, single zone)", {
       add_binary_decisions() %>%
       add_locked_in_constraints(seq_len(terra::ncell(sim_pu_raster))) %>%
       add_default_solver(time_limit = 5, verbose = FALSE)
-    expect_warning(s1 <- solve(p, force = TRUE))
-    expect_warning(s2 <- solve(p, force = TRUE))
+    expect_warning(s1 <- solve_fixed_seed(p, force = TRUE))
+    expect_warning(s2 <- solve_fixed_seed(p, force = TRUE))
   })
   # check that the solution obeys constraints as expected
   expect_equal(
@@ -90,7 +90,7 @@ test_that("logical (solve, single zone)", {
       add_binary_decisions() %>%
       add_locked_in_constraints(rep(TRUE, terra::ncell(sim_pu_raster))) %>%
       add_default_solver(time_limit = 5, verbose = FALSE) %>%
-      solve(force = TRUE)
+      solve_fixed_seed(force = TRUE)
   })
   # check that the solution obeys constraints as expected
   expect_equal(
@@ -170,7 +170,7 @@ test_that("matrix (solve, multiple zones)", {
     add_binary_decisions() %>%
     add_locked_in_constraints(status) %>%
     add_default_solver(time_limit = 5, verbose = FALSE) %>%
-    solve()
+    solve_fixed_seed()
   # check that the solution obeys constraints as expected
   for (i in seq_len(terra::nlyr(sim_zones_pu_raster)))
     expect_equal(
@@ -241,7 +241,7 @@ test_that("character (solve, sf, single zone)", {
     add_binary_decisions() %>%
     add_locked_in_constraints("locked_in") %>%
     add_default_solver(time_limit = 5, verbose = FALSE) %>%
-    solve()
+    solve_fixed_seed()
   # check that the solution obeys constraints as expected
   expect_true(all(s$solution_1[which(sim_pu_polygons$locked_in)] == 1))
 })
@@ -338,7 +338,7 @@ test_that("character (solve, sf, multiple zones)", {
     add_binary_decisions() %>%
     add_locked_in_constraints(c("locked_1", "locked_2", "locked_3")) %>%
     add_default_solver(time_limit = 5, verbose = FALSE) %>%
-    solve()
+    solve_fixed_seed()
   # check that the solution obeys constraints as expected
   expect_true(all(s$solution_1_zone_1 == 1))
   expect_true(all(s$solution_1_zone_2 == 0))
@@ -358,7 +358,7 @@ test_that("character (solve, single zone, proportion decisions)", {
     add_proportion_decisions() %>%
     add_locked_in_constraints("locked_in") %>%
     add_default_solver(time_limit = 5, verbose = FALSE) %>%
-    solve()
+    solve_fixed_seed()
   # check that the solution obeys constraints as expected
   expect_true(all(s$solution_1[which(sim_pu_polygons$locked_in)] == 1))
 })
@@ -385,7 +385,7 @@ test_that("character (solve, multiple zones, proportion decisions)", {
     add_proportion_decisions() %>%
     add_locked_in_constraints(c("locked_1", "locked_2", "locked_3")) %>%
     add_default_solver(time_limit = 5, verbose = FALSE) %>%
-    solve()
+    solve_fixed_seed()
   # check that the solution obeys constraints as expected
   expect_true(all(s$solution_1_zone_1 == 1))
   expect_true(all(s$solution_1_zone_2 == 0))
@@ -465,7 +465,7 @@ test_that("raster (solve, single zone)", {
     add_binary_decisions() %>%
     add_locked_in_constraints(sim_locked_in_raster) %>%
     add_default_solver(time_limit = 5, verbose = FALSE) %>%
-    solve()
+    solve_fixed_seed()
   # check that the solution obeys constraints
   locked_in_cells <-
     terra::cells(sim_locked_in_raster & !is.na(sim_pu_raster), 1)[[1]]
@@ -540,7 +540,7 @@ test_that("raster (solve, multiple zones)", {
     add_binary_decisions() %>%
     add_locked_in_constraints(status) %>%
     add_default_solver(time_limit = 5, verbose = FALSE) %>%
-    solve()
+    solve_fixed_seed()
   # check that the solution obeys constraints as expected
   for (i in seq_len(terra::nlyr(sim_zones_pu_raster)))
     expect_equal(
@@ -614,7 +614,7 @@ test_that("sf (solve, single zone)", {
       sim_pu_polygons[sim_pu_polygons$locked_in, ]
     ) %>%
     add_default_solver(time_limit = 5, verbose = FALSE) %>%
-    solve()
+    solve_fixed_seed()
   locked_in_units <- which(sim_pu_polygons$locked_in)
   expect_true(all(s$solution_1[locked_in_units] == 1))
 })
@@ -636,7 +636,7 @@ test_that("sf (compile, multiple zones)", {
       add_binary_decisions() %>%
       add_locked_in_constraints(sim_pu_polygons[1:5, ]) %>%
       add_default_solver(time_limit = 5, verbose = FALSE) %>%
-      solve()
+      solve_fixed_seed()
   })
 })
 

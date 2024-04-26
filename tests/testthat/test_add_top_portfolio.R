@@ -41,7 +41,7 @@ test_that("solve (single zone)", {
     add_gurobi_solver(gap = 1, verbose = FALSE)
   # solve problem
   expect_warning(
-    s <- solve(p),
+    s <- solve_fixed_seed(p),
     "Portfolio could only"
   )  # tests
   expect_inherits(s, "list")
@@ -76,7 +76,7 @@ test_that("solve (multiple zones)", {
     add_binary_decisions() %>%
     add_gurobi_solver(gap = 0, verbose = FALSE)
   # solve problem
-  s <- solve(p)
+  s <- solve_fixed_seed(p)
   # tests
   expect_inherits(s, "list")
   expect_length(s, 5)

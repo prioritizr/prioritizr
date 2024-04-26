@@ -10,7 +10,7 @@ test_that("works", {
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%
     add_proportion_decisions()
-  s <- solve(p)
+  s <- solve_fixed_seed(p)
   # tests
   expect_true(inherits(s, "SpatRaster"))
   expect_equal(terra::nlyr(s), 1)

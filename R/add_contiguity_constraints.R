@@ -329,7 +329,7 @@ methods::setMethod("add_contiguity_constraints",
             z_cl <- igraph::graph_from_adjacency_matrix(
               z, diag = FALSE, mode = "undirected", weighted = NULL
             )
-            z_cl <- igraph::clusters(z_cl)$membership
+            z_cl <- igraph::components(z_cl)$membership
             # set cluster memberships to zero if constraints not needed
             z_cl <- z_cl * diag(z)
             # convert d to lower triangle sparse matrix

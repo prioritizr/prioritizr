@@ -36,18 +36,3 @@ void import_connectivity_matrix_list(
 bool approx_equal(double x, double y) {
   return (std::abs(x - y) < 1.0e-15);
 }
-
-// shuffle a std::vector using R's RNG so that set.seed() works
-// based on: https://gallery.rcpp.org/articles/stl-random-shuffle/
-void r_random_shuffle(std::vector<std::size_t> &a) {
-  // inialize variables
-  int n = a.size();
-  int j;
-
-  // Fisher-Yates Shuffle Algorithm
-  for (int i = 0; i < n - 1; i++) {
-    j = i + rand_wrapper(n - i);
-    std::swap(a[i], a[j]);
-  }
-  return;
-}

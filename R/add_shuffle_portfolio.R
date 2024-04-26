@@ -5,9 +5,10 @@ NULL
 #'
 #' Generate a portfolio of solutions for a conservation planning
 #' problem by randomly reordering the data prior to
-#' solving the problem. This is recommended as a replacement for
-#' [add_top_portfolio()] when the *Gurobi* software is not
-#' available.
+#' solving the problem. Although this function can be useful for generating
+#' multiple different solutions for a given problem,
+#' it is recommended to use [add_pool_portfolio] if the *Gurobi*
+#' software is available.
 #'
 #' @param x [problem()] object.
 #'
@@ -119,69 +120,84 @@ add_shuffle_portfolio <- function(x, number_solutions = 10, threads = 1,
           remove_duplicates = remove_duplicates
         ),
         run = function(x, solver) {
-          ## attempt initial solution for problem
-          initial_sol <- solver$solve(x)
-          # if solving the problem failed then return NULL
-          if (is.null(initial_sol)) return(initial_sol) # nocov
-          if (self$get_data("number_solutions") == 1)
-            return(list(initial_sol))
-          ## generate additional solutions
-          # convert OptimizationProblem to list
-          x_list <- as.list(x)
-          # define function to generate solution
-          generate_solution <- function(i) {
-            # create and shuffle problem
-            z <- prioritizr::optimization_problem(x_list)
-            reorder_key <- z$shuffle_columns()
-            # solve problem
-            s <- solver$solve(z)
-            # reorder variables
+          # determine behavior based on number of solutions
+          if (self$get_data("number_solutions") == 1) {
+            ## if only one solution is needed,
+            ## then simply shuffle the problem and return the solution
+            reorder_key <- x$shuffle_columns(sample(seq_len(x$ncol())))
+            s <- solver$solve(x)
             s$x <- s$x[reorder_key]
-            # return result
-            s
+            return(list(s))
           }
-          # generate solutions
+          ## if multiple solutions are needed,
+          ## then we need to be more complex
           if (self$get_data("threads") > 1L) {
-            ## initialize cluster
+            ### if using paralell processing, then...
+            ### convert problem to list so we can copy between workers
+            x_list <- as.list(x)
+            ### initialize cluster
             cl <- parallel::makeCluster(self$get_data("threads"), "PSOCK")
-            ## prepare cluster clean up
+            ### prepare cluster clean up
             on.exit(try(cl <- parallel::stopCluster(cl), silent = TRUE))
-            ## create RNG seeds
+            ### create RNG seeds
             pids <- parallel::clusterEvalQ(cl, Sys.getpid())
             seeds <- sample.int(n = 1e+5, size = self$get_data("threads"))
             names(seeds) <- as.character(unlist(pids))
-            ## copy data to cluster
+            ### copy data to cluster
             parallel::clusterExport(
               cl,
-              c("solver", "x_list", "seeds", "generate_solution"),
+              c("solver", "x_list", "seeds"),
               envir = environment()
             )
-            ## initialize RNG on cluster
+            ### set up workers
             parallel::clusterEvalQ(cl, {
+              ### initialize RNG on worker
               set.seed(seeds[as.character(Sys.getpid())])
+              ### create OptimizationProblem object from list
+              z <- prioritizr::optimization_problem(x_list)
               NULL
             })
-            ## main processing
+            ### main processing
             sol <- parallel::parLapply(
               cl = cl,
-              seq_len(self$get_data("number_solutions") - 1),
-              generate_solution
+              seq_len(self$get_data("number_solutions")),
+              function(i) {
+                x2 <- z$copy()
+                reorder_key <- x2$shuffle_columns(sample(seq_len(z$ncol())))
+                s <- solver$solve(x2)
+                s$x <- s$x[reorder_key]
+                rm(x2)
+                s
+              }
             )
           } else {
-            ## main processing
+            ### if NOT using paralell processing, then...
+            ### main processing
             sol <- lapply(
-              seq_len(self$get_data("number_solutions") - 1),
-              generate_solution
+              seq_len(self$get_data("number_solutions")),
+              function(i) {
+                x2 <- x$copy()
+                reorder_key <- x2$shuffle_columns(sample(seq_len(x$ncol())))
+                s <- solver$solve(x2)
+                s$x <- s$x[reorder_key]
+                rm(x2)
+                s
+              }
             )
           }
-          ## compile results
-          sol <- append(list(initial_sol), sol)
-          if (self$get_data("remove_duplicates")) {
+          ## if needed, remove duplicated solutions
+          if (isTRUE(self$get_data("remove_duplicates"))) {
             unique_pos <- !duplicated(
-              vapply(lapply(sol, `[[`, 1), paste, character(1), collapse = " ")
+              vapply(
+                lapply(sol, `[[`, 1),
+                paste,
+                character(1),
+                collapse = " "
+              )
             )
             sol <- sol[unique_pos]
           }
+          ## return result
           return(sol)
         }
       )

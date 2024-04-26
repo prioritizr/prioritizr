@@ -40,7 +40,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.3.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.3.6</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -123,13 +123,16 @@
 <img src="figures/map.jpg" alt=""><p class="caption">Extent of Coastal Douglas-fir Conservation Partnership Tool area and location of Salt Spring Island</p>
 </div>
 </center>
-<p>Let’s begin by loading the packages and data for this tutorial. Since this tutorial requires the <em>prioritizrdata R</em> package, please ensure that it is installed. Specifically, two objects underpin the data for this tutorial. The <code>salt_pu</code> object specifies the planning unit data as a single-layer raster (i.e., <code><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">terra::rast()</a></code> object), and the <code>salt_features</code> object contains biodiversity data represented as a multi-layer raster (i.e., <code><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">terra::rast()</a></code> object).</p>
+<p>Let’s begin by loading the packages and data for this tutorial. Since this tutorial requires the <em>prioritizrdata R</em> package, please ensure that it is installed. Specifically, two objects underpin the data for this tutorial. The <code>salt_pu</code> object specifies the planning unit data as a single-layer raster (i.e., <code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> object), and the <code>salt_features</code> object contains biodiversity data represented as a multi-layer raster (i.e., <code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> object).</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># load packages</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://prioritizr.net">prioritizr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://prioritizr.github.io/prioritizrdata/" class="external-link">prioritizrdata</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/" class="external-link">sf</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/" class="external-link">terra</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># set seed for reproducibility</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">500</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># load planning unit data</span></span>
 <span><span class="va">salt_pu</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://prioritizr.github.io/prioritizrdata/reference/salt_data.html" class="external-link">get_salt_pu</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -142,9 +145,9 @@
 <p>Now we will conduct some preliminary processing. Specifically, we will aggregate from the 100 m resolution to the 300 m resolution. This is to reduce the time needed to generate prioritizations in this tutorial. In practice, we generally recommend considering other criteria too – such as the spatial scale that is relevant for decision making and the resolution of available datasets – when deciding on an appropriate scale for planning units.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># aggregate data to coarser resolution</span></span>
-<span><span class="va">salt_pu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/aggregate.html" class="external-link">aggregate</a></span><span class="op">(</span><span class="va">salt_pu</span>, fact <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
-<span><span class="va">salt_features</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/aggregate.html" class="external-link">aggregate</a></span><span class="op">(</span><span class="va">salt_features</span>, fact <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
-<span><span class="va">salt_con</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/aggregate.html" class="external-link">aggregate</a></span><span class="op">(</span><span class="va">salt_con</span>, fact <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">salt_pu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/aggregate.html" class="external-link">aggregate</a></span><span class="op">(</span><span class="va">salt_pu</span>, fact <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="va">salt_features</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/aggregate.html" class="external-link">aggregate</a></span><span class="op">(</span><span class="va">salt_features</span>, fact <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="va">salt_con</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/aggregate.html" class="external-link">aggregate</a></span><span class="op">(</span><span class="va">salt_con</span>, fact <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <p>Next, let’s have a look at the <code>salt_pu</code> object. Here each grid cell represents a planning unit, and the grid cell values denote acquisition costs <span class="citation">(BC Assessment 2015)</span>. To aid with visualization, we will log-transform the values when plotting them on a map.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># print planning unit data</span></span>
@@ -160,7 +163,7 @@
 <span><span class="co">## max value   : 8290.38317</span></span></code></pre>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot map showing the planning units costs on a log-scale</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">salt_pu</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Planning unit costs (log)"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">salt_pu</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Planning unit costs (log)"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-6-1.png" width="384" style="display: block; margin: auto;"></p>
 <p>Next, let’s look at the <code>salt_features</code> object. It has multiple layers. Each layer corresponds to different ecological communities (i.e., <em>Old Forest</em>, <em>Savannah</em>, <em>Wetland</em>, and <em>Shrub</em> communities), and their cell values indicate the probability of encountering a bird species associated a given community.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -177,7 +180,7 @@
 <span><span class="co">## max values  :  0.8951858, 0.6440319, 0.5441603, 0.8065580</span></span></code></pre>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot map showing the feature data</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">salt_features</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">salt_features</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-8-1.png" width="384" style="display: block; margin: auto;"></p>
 <p>Let’s look at the <code>salt_con</code> object. It describes the inverse probability of occurrence of human commensal species. Here we will assume that human modified areas impede connectivity for native species, and so cells with higher values will have greater connectivity.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
@@ -194,7 +197,7 @@
 <span><span class="co">## max value   :     0.8969550</span></span></code></pre>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot map showing the connectivity data</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">salt_con</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">salt_con</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-10-1.png" width="384" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
@@ -248,7 +251,7 @@
 <span><span class="co">## max value   :    1</span></span></code></pre>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot solution</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
 <span>  <span class="va">s0</span>, main <span class="op">=</span> <span class="st">"Baseline prioritization"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  type <span class="op">=</span> <span class="st">"classes"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey70"</span>, <span class="st">"darkgreen"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -271,7 +274,7 @@
 <span>  <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># plot solutions</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">s0</span>, <span class="va">s1</span><span class="op">)</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"baseline"</span>, <span class="st">"neighbors constraints"</span><span class="op">)</span>,</span>
 <span>  axes <span class="op">=</span> <span class="cn">FALSE</span>, type <span class="op">=</span> <span class="st">"classes"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey70"</span>, <span class="st">"darkgreen"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -291,7 +294,7 @@
 <pre><code><span><span class="co">## Warning: Overwriting previously defined solver.</span></span></code></pre>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot solutions</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">s0</span>, <span class="va">s2</span><span class="op">)</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"baseline"</span>, <span class="st">"contiguity constraints"</span><span class="op">)</span>,</span>
 <span>  axes <span class="op">=</span> <span class="cn">FALSE</span>, type <span class="op">=</span> <span class="st">"classes"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey70"</span>, <span class="st">"darkgreen"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -305,7 +308,7 @@
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># compute threshold for constraints</span></span>
 <span><span class="co">## here we use a threshold of 30% of the total connectivity values</span></span>
-<span><span class="va">threshold</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/global.html" class="external-link">global</a></span><span class="op">(</span><span class="va">salt_con</span>, <span class="st">"sum"</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">*</span> <span class="fl">0.3</span></span>
+<span><span class="va">threshold</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/global.html" class="external-link">global</a></span><span class="op">(</span><span class="va">salt_con</span>, <span class="st">"sum"</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">*</span> <span class="fl">0.3</span></span>
 <span></span>
 <span><span class="co"># print threshold</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">threshold</span><span class="op">)</span></span></code></pre></div>
@@ -320,7 +323,7 @@
 <span>  <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># plot solutions</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">s0</span>, <span class="va">s3</span><span class="op">)</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"baseline"</span>, <span class="st">"linear constraints"</span><span class="op">)</span>,</span>
 <span>   axes <span class="op">=</span> <span class="cn">FALSE</span>, type <span class="op">=</span> <span class="st">"classes"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey70"</span>, <span class="st">"darkgreen"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -329,15 +332,15 @@
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate threshold limit</span></span>
 <span><span class="co">## here we set a threshold limit based on the median</span></span>
-<span><span class="va">threshold_limit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/global.html" class="external-link">global</a></span><span class="op">(</span></span>
+<span><span class="va">threshold_limit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/global.html" class="external-link">global</a></span><span class="op">(</span></span>
 <span>  <span class="va">salt_con</span>, fun <span class="op">=</span> <span class="va">quantile</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span>, probs <span class="op">=</span> <span class="fl">0.5</span></span>
 <span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span></span>
 <span><span class="co"># convert continuous values to binary values</span></span>
-<span><span class="va">salt_con_binary</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/math-generics.html" class="external-link">round</a></span><span class="op">(</span><span class="va">salt_con</span> <span class="op">&gt;=</span> <span class="va">threshold_limit</span><span class="op">)</span></span>
+<span><span class="va">salt_con_binary</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/math-generics.html" class="external-link">round</a></span><span class="op">(</span><span class="va">salt_con</span> <span class="op">&gt;=</span> <span class="va">threshold_limit</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># plot binary values</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">salt_con_binary</span>, main <span class="op">=</span> <span class="st">"salt_con_binary"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">salt_con_binary</span>, main <span class="op">=</span> <span class="st">"salt_con_binary"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-23-1.png" width="384" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create problem with added linear constraints and solve it</span></span>
@@ -352,7 +355,7 @@
 <span>  <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># plot solutions</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">s0</span>, <span class="va">s4</span><span class="op">)</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"baseline"</span>, <span class="st">"linear constraints (binary)"</span><span class="op">)</span>,</span>
 <span>  axes <span class="op">=</span> <span class="cn">FALSE</span>, type <span class="op">=</span> <span class="st">"classes"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey70"</span>, <span class="st">"darkgreen"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -364,7 +367,7 @@
 <span><span class="va">salt_con_clamp</span><span class="op">[</span><span class="va">salt_con</span> <span class="op">&lt;=</span> <span class="va">threshold_limit</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
 <span></span>
 <span><span class="co"># plot clamped values</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">salt_con_clamp</span>, main <span class="op">=</span> <span class="st">"salt_con_clamp"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">salt_con_clamp</span>, main <span class="op">=</span> <span class="st">"salt_con_clamp"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-27-1.png" width="384" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create problem with added linear constraints and solve it</span></span>
@@ -379,7 +382,7 @@
 <span>  <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># plot solutions</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">s0</span>, <span class="va">s5</span><span class="op">)</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"baseline"</span>, <span class="st">"linear constraints (clamped)"</span><span class="op">)</span>,</span>
 <span>  axes <span class="op">=</span> <span class="cn">FALSE</span>, type <span class="op">=</span> <span class="st">"classes"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey70"</span>, <span class="st">"darkgreen"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -387,7 +390,7 @@
 <p>If we were concerned that the prioritization did not facilitate a high enough level of connectivity, we could increase the <code>threshold</code> value or the <code>threshold_limit</code> value. For example, let’s increase the <code>threshold_limit</code> value used to clamp the continuous connectivity values.</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># compute threshold limit</span></span>
-<span><span class="va">threshold_limit2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/terra/man/global.html" class="external-link">global</a></span><span class="op">(</span></span>
+<span><span class="va">threshold_limit2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/global.html" class="external-link">global</a></span><span class="op">(</span></span>
 <span>  <span class="va">salt_con</span>, fun <span class="op">=</span> <span class="va">quantile</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span>, probs <span class="op">=</span> <span class="fl">0.7</span></span>
 <span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span></span>
@@ -396,7 +399,7 @@
 <span><span class="va">salt_con_clamp2</span><span class="op">[</span><span class="va">salt_con</span> <span class="op">&lt;=</span> <span class="va">threshold_limit2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
 <span></span>
 <span><span class="co"># plot clamped values</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">salt_con_clamp2</span>, main <span class="op">=</span> <span class="st">"salt_con_clamp"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">salt_con_clamp2</span>, main <span class="op">=</span> <span class="st">"salt_con_clamp"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-31-1.png" width="384" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create problem with added linear constraints and solve it</span></span>
@@ -411,7 +414,7 @@
 <span>  <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># plot solutions</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">s0</span>, <span class="va">s6</span><span class="op">)</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"baseline"</span>, <span class="st">"linear constraints (clamped 2)"</span><span class="op">)</span>,</span>
 <span>  axes <span class="op">=</span> <span class="cn">FALSE</span>, type <span class="op">=</span> <span class="st">"classes"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey70"</span>, <span class="st">"darkgreen"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -442,7 +445,7 @@
 <span>  <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># plot solutions</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">s0</span>, <span class="va">s7</span><span class="op">)</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"baseline"</span>, <span class="st">"boundary penalties (0.001)"</span><span class="op">)</span>,</span>
 <span>  axes <span class="op">=</span> <span class="cn">FALSE</span>, type <span class="op">=</span> <span class="st">"classes"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey70"</span>, <span class="st">"darkgreen"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -456,7 +459,7 @@
 <span>  <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># plot solutions</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">s0</span>, <span class="va">s8</span><span class="op">)</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"baseline"</span>, <span class="st">"boundary penalties (10)"</span><span class="op">)</span>,</span>
 <span>  axes <span class="op">=</span> <span class="cn">FALSE</span>, type <span class="op">=</span> <span class="st">"classes"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey70"</span>, <span class="st">"darkgreen"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -475,7 +478,7 @@
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 1 × 2</span></span></span>
 <span><span class="co">##   summary  cost</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> overall  46.2</span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> overall  46.6</span></span></code></pre>
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate cost of prioritization high low boundary penalties (i.e., 0.1)</span></span>
 <span><span class="fu"><a href="../reference/eval_cost_summary.html">eval_cost_summary</a></span><span class="op">(</span><span class="va">p0</span>, <span class="va">s8</span><span class="op">)</span></span></code></pre></div>
@@ -505,7 +508,7 @@
 <span>  <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># plot solutions</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">s0</span>, <span class="va">s9</span><span class="op">)</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"baseline"</span>, <span class="st">"connectivity penalties (0.001)"</span><span class="op">)</span>,</span>
 <span>  axes <span class="op">=</span> <span class="cn">FALSE</span>, type <span class="op">=</span> <span class="st">"classes"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey70"</span>, <span class="st">"darkgreen"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -519,7 +522,7 @@
 <span>  <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># plot solutions</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">s0</span>, <span class="va">s10</span><span class="op">)</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"baseline"</span>, <span class="st">"connectivity penalties (0.002)"</span><span class="op">)</span>,</span>
 <span>  axes <span class="op">=</span> <span class="cn">FALSE</span>, type <span class="op">=</span> <span class="st">"classes"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey70"</span>, <span class="st">"darkgreen"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>

@@ -5,6 +5,10 @@ rcpp_new_optimization_problem <- function(nrow = 1000000L, ncol = 1000000L, ncel
     .Call(`_prioritizr_rcpp_new_optimization_problem`, nrow, ncol, ncell)
 }
 
+rcpp_copy_optimization_problem <- function(x) {
+    .Call(`_prioritizr_rcpp_copy_optimization_problem`, x)
+}
+
 rcpp_predefined_optimization_problem <- function(l) {
     .Call(`_prioritizr_rcpp_predefined_optimization_problem`, l)
 }
@@ -81,8 +85,8 @@ rcpp_get_optimization_problem_compressed_formulation <- function(x) {
     .Call(`_prioritizr_rcpp_get_optimization_problem_compressed_formulation`, x)
 }
 
-rcpp_set_optimization_problem_shuffled <- function(x) {
-    .Call(`_prioritizr_rcpp_set_optimization_problem_shuffled`, x)
+rcpp_set_optimization_problem_shuffled <- function(x, shuffle_key) {
+    .Call(`_prioritizr_rcpp_set_optimization_problem_shuffled`, x, shuffle_key)
 }
 
 rcpp_absolute_amount_held_by_solution <- function(rij_list, targets_list, solution) {
