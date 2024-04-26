@@ -62,9 +62,6 @@ jobs:
       - name: Install system dependencies
         run: |
           brew install pkg-config
-          brew tap coin-or-tools/coinor
-          brew install coin-or-tools/coinor/symphony
-          brew install coin-or-tools/coinor/cbc
           brew install proj
           brew install geos
           brew install gdal
