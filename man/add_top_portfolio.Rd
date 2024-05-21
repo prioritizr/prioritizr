@@ -86,6 +86,7 @@ See \link{portfolios} for an overview of all functions for adding a portfolio.
 
 Other portfolios: 
 \code{\link{add_cuts_portfolio}()},
+\code{\link{add_default_portfolio}()},
 \code{\link{add_extra_portfolio}()},
 \code{\link{add_gap_portfolio}()},
 \code{\link{add_shuffle_portfolio}()}

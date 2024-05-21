@@ -1,3 +1,50 @@
+# prioritizr 8.0.3.7
+
+## Notice
+
+- New default portfolio method for `problem()` objects. This
+  new default portfolio -- which can be manually specified using
+  `add_default_portfolio()` -- involves simply generating a single solution.
+  Although the previous default portfolio method was intended to shuffle the
+  mathematical optimization problem prior to solving it (based on
+  `add_shuffle_portfolio()`), there was a bug that meant that
+  the optimization problem was not actually shuffled prior to optimization.
+  Thus this new default portfolio method does not actually result in any changes
+  to the default optimization process. The reason why this new default portfolio
+  method was chosen was because planning problems that contain insufficient data
+  (e.g., feature and cost data) to identify meaningful priorities can sometimes
+  result in solutions containing strange spatial artifacts (e.g., lines or
+  bands of selected planning units, see #205 and #268). Since shuffling the
+  optimization problem can suppress these spatial artifacts and the presence of
+  these spatial artifacts can indicate under-specified problems, we have
+  decided to update the default portfolio so that it does not shuffle problems.
+  If users wish to prevent spatial artifacts from appearing in solutions, then
+  spatial penalties (e.g., `add_boundary_penalties()`), spatial constraints
+  (e.g., `add_neighbor_constraints()`), or shuffle portfolios
+  (e.g., `add_shuffle_portfolio(number_solutions = 1)`) can be used.
+
+## Minor improvements and bug fixes
+
+- New `add_default_portfolio()` function for specifying the default
+  behavior for generating a solution (see Notice above for further details).
+- Update `solve()` so that it provides information on the optimality of
+  solutions (#323). For example, you might specify a 10% optimality gap
+  for the optimization process (e.g., using `add_highs_solver(gap = 0.1)`), and
+  this might produce a solution that is at least 7% from optimality. The
+  resulting output from `solve()` will now provide this information about
+  the solution (i.e., the 7% from optimality), and can be accessed
+  using the `gap` attribute (e.g., `attr(x, "gap")`, where `x` is the output
+  from `solve()`). Note that this information is currently only available when
+  using the Gurobi or HiGHS solvers.
+- Fix bug in `add_linear_constraints()` and `add_linear_penalties()` that
+  resulted in an incorrect error message being shown (#324).
+- Fix bug in `add_shuffle_portfolio()` that prevented solvers from using a
+  pre-specified starting solution (per the `start` parameter) correctly.
+  Please note that this bug did not result in incorrect solutions, it only
+  meant that any pre-specified starting solutions were not used properly.
+- Fix bug in `add_cplex_solver()` that caused solutions to not provide
+  runtime information for the optimization process.
+
 # prioritizr 8.0.3.6
 
 ## Minor improvements and bug fixes

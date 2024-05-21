@@ -15,7 +15,7 @@ test_that("x = SpatRaster, y = SpatRaster (single zone)", {
     add_absolute_targets(c(1, 1)) %>%
     add_binary_decisions() %>%
     add_default_solver(gap = 0, verbose = FALSE) %>%
-    solve_fixed_seed()
+    solve()
   # tests
   expect_inherits(s, "SpatRaster")
   expect_equal(c(terra::values(s)), c(1, 0, NA, 1))
@@ -44,7 +44,7 @@ test_that("x = SpatRaster, y = ZonesSpatRaster (multiple zones)", {
     add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
     add_binary_decisions() %>%
     add_default_solver(gap = 0, verbose = FALSE) %>%
-    solve_fixed_seed()
+    solve()
   # tests
   expect_inherits(s, "SpatRaster")
   expect_equal(c(terra::values(s[[1]])), c(1, 0, NA, 1, 0, 0, NA))
@@ -70,7 +70,7 @@ test_that("x = sf, y = SpatRaster (single zone)", {
     add_absolute_targets(c(1, 1)) %>%
     add_binary_decisions() %>%
     add_default_solver(gap = 0, verbose = FALSE) %>%
-    solve_fixed_seed()
+    solve()
   # tests
   expect_inherits(s, "sf")
   expect_equal(s$solution_1, c(1, 0, NA, 1))
@@ -100,7 +100,7 @@ test_that("x = sf, y = ZonesSpatRaster (multiple zones)", {
     add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
     add_binary_decisions() %>%
     add_default_solver(gap = 0, verbose = FALSE) %>%
-    solve_fixed_seed()
+    solve()
   # tests
   expect_inherits(s, "sf")
   expect_equal(s$solution_1_1, c(1, 0, NA, 1, 0, 0, NA))
@@ -123,7 +123,7 @@ test_that("x = sf, y = character (single zone)", {
     add_absolute_targets(c(1, 1)) %>%
     add_binary_decisions() %>%
     add_default_solver(gap = 0, verbose = FALSE) %>%
-    solve_fixed_seed()
+    solve()
   # tests
   expect_inherits(s, "sf")
   expect_equal(s$solution_1, c(1, 0, NA, 1))
@@ -152,7 +152,7 @@ test_that("x = sf, y = ZonesCharacter (multiple zones)", {
     add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
     add_binary_decisions() %>%
     add_default_solver(gap = 0, verbose = FALSE) %>%
-    solve_fixed_seed()
+    solve()
   # tests
   expect_inherits(s, "sf")
   expect_equal(s$solution_1_1, c(1, 0, NA, 1, 0, 0, NA))
@@ -178,7 +178,7 @@ test_that("x = sf, y = RasterStack (single zone)", {
       add_absolute_targets(c(1, 1)) %>%
       add_binary_decisions() %>%
       add_default_solver(gap = 0, verbose = FALSE) %>%
-      solve_fixed_seed(),
+      solve(),
     "deprecated"
   )
   # tests
@@ -213,7 +213,7 @@ test_that("x = sf, y = ZonesRaster (multiple zones)", {
         add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
         add_binary_decisions() %>%
         add_default_solver(gap = 0, verbose = FALSE) %>%
-        solve_fixed_seed(),
+        solve(),
       "deprecated"
     ),
     "deprecated"
@@ -242,7 +242,7 @@ test_that("x = data.frame, y = data.frame (single zone)", {
     add_absolute_targets(c(1, 1)) %>%
     add_binary_decisions() %>%
     add_default_solver(gap = 0, verbose = FALSE) %>%
-    solve_fixed_seed()
+    solve()
   # run tests
   expect_inherits(s, "data.frame")
   expect_equal(s$solution_1, c(1, 0, NA, 1))
@@ -283,7 +283,7 @@ test_that("x = data.frame, y = data.frame (multiple zones)", {
     add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
     add_binary_decisions() %>%
     add_default_solver(gap = 0, verbose = FALSE) %>%
-    solve_fixed_seed()
+    solve()
   # tests
   expect_inherits(s, "data.frame")
   expect_equal(s$solution_1_z1, c(1, 0, NA, 1, 0, 0, NA))
@@ -304,7 +304,7 @@ test_that("x = numeric, y = data.frame (single zone)", {
     add_absolute_targets(c(1, 1)) %>%
     add_binary_decisions() %>%
     add_default_solver(gap = 0, verbose = FALSE) %>%
-    solve_fixed_seed()
+    solve()
   # run tests
   expect_inherits(s, "numeric")
   expect_equal(c(s), c(1, NA, 0, 1))
@@ -338,7 +338,7 @@ test_that("x = matrix, y = data.frame (multiple zones)", {
     add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
     add_binary_decisions() %>%
     add_default_solver(gap = 0, verbose = FALSE) %>%
-    solve_fixed_seed()
+    solve()
   # tests
   expect_inherits(s, "matrix")
   expect_equal(s[, "z1"], c(1, 0, NA, 1, 0, 0, NA))
@@ -360,7 +360,7 @@ test_that("numerical instability (error when force = FALSE)", {
     add_default_solver(verbose = FALSE)
   # tests
   expect_tidy_error(
-    expect_warning(solve_fixed_seed(p), "numerical issues"),
+    expect_warning(solve(p), "numerical issues"),
     "failed presolve checks"
   )
 })
@@ -378,7 +378,7 @@ test_that("infeasibility (error when force = FALSE)", {
     add_binary_decisions() %>%
     add_default_solver(verbose = FALSE)
   # tests
-  expect_tidy_error(solve_fixed_seed(p))
+  expect_tidy_error(solve(p))
 })
 
 test_that("numerical instability (solution when force = TRUE)", {
@@ -398,7 +398,7 @@ test_that("numerical instability (solution when force = TRUE)", {
     add_default_solver(first_feasible = TRUE, verbose = FALSE)
   # solve problem
   expect_warning(
-    s <- solve_fixed_seed(p, force = TRUE),
+    s <- solve(p, force = TRUE),
     "numerical issues"
   )
   # tests
@@ -423,7 +423,7 @@ test_that("x = RasterLayer, y = RasterStack (single zone)", {
       add_absolute_targets(c(1, 1)) %>%
       add_binary_decisions() %>%
       add_default_solver(gap = 0, verbose = FALSE) %>%
-      solve_fixed_seed(),
+      solve(),
     "deprecated"
   )
   # tests
@@ -459,7 +459,7 @@ test_that("x = RasterStack, y = ZonesRaster (multiple zones)", {
         add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
         add_binary_decisions() %>%
         add_default_solver(gap = 0, verbose = FALSE) %>%
-        solve_fixed_seed(),
+        solve(),
       "deprecated"
     ),
     "deprecated"
@@ -489,7 +489,7 @@ test_that("x = Spatial, y = character (single zone)", {
       add_absolute_targets(c(1, 1)) %>%
       add_binary_decisions() %>%
       add_default_solver(gap = 0, verbose = FALSE) %>%
-      solve_fixed_seed(),
+      solve(),
     "deprecated"
   )
   # tests
@@ -521,7 +521,7 @@ test_that("x = Spatial, y = ZonesCharacter (multiple zones)", {
       add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
       add_binary_decisions() %>%
       add_default_solver(gap = 0, verbose = FALSE) %>%
-      solve_fixed_seed(),
+      solve(),
     "deprecated"
   )
   # tests
@@ -552,7 +552,7 @@ test_that("x = Spatial, y = RasterStack (single zone)", {
         add_absolute_targets(c(1, 1)) %>%
         add_binary_decisions() %>%
         add_default_solver(gap = 0, verbose = FALSE) %>%
-        solve_fixed_seed(),
+        solve(),
       "deprecated"
     ),
     "deprecated"
@@ -590,7 +590,7 @@ test_that("x = Spatial, y = ZonesRaster (multiple zones)", {
           add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
           add_binary_decisions() %>%
           add_default_solver(gap = 0, verbose = FALSE) %>%
-          solve_fixed_seed(),
+          solve(),
         "deprecated"
       ),
       "deprecated"

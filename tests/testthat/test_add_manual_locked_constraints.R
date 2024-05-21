@@ -40,8 +40,8 @@ test_that("data.frame (solve, single zone)", {
       data.frame(pu = seq_len(5), status = rep(0.3, 10))
     ) %>%
     add_default_solver(verbose = FALSE)
-  s1 <- solve_fixed_seed(p)
-  s2 <- solve_fixed_seed(p)
+  s1 <- solve(p)
+  s2 <- solve(p)
   # tests
   expect_true(all(s1$solution_1[seq_len(5)] == 0.3))
   expect_equal(s1$solution_1, s2$solution_1)
@@ -192,7 +192,7 @@ test_that("data.frame (solve, multiple zones)", {
         status = 0.3)
       ) %>%
     add_default_solver(verbose = FALSE) %>%
-    solve_fixed_seed()
+    solve()
   # tests
   expect_true(all(s$solution_1_zone_1[seq_len(5)] == 0.3))
   expect_true(all(s$solution_1_zone_2[20] == 0.3))

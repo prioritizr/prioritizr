@@ -19,6 +19,35 @@ test_that("compile", {
   expect_inherits(o, "OptimizationProblem")
 })
 
+test_that("solve (single solution)", {
+  skip_on_cran()
+  skip_if_no_fast_solvers_installed()
+  # create data
+  cost <- terra::rast(matrix(c(1, 2, 2, NA), ncol = 4))
+  features <- c(
+    terra::rast(matrix(c(2, 1, 1, 0), ncol = 4)),
+    terra::rast(matrix(c(10, 10, 10, 10), ncol = 4))
+  )
+  names(features) <- make.unique(names(features))
+  locked_in <- 2
+  # create problem
+  p <-
+    problem(cost, features) %>%
+    add_min_set_objective() %>%
+    add_absolute_targets(c(2, 10)) %>%
+    add_locked_in_constraints(locked_in) %>%
+    add_shuffle_portfolio(1) %>%
+    add_default_solver(gap = 0.2, verbose = FALSE)
+  # solve problem
+  s <- solve_fixed_seed(p)
+  # tests
+  expect_inherits(s, "SpatRaster")
+  expect_equal(terra::nlyr(s), 1)
+  expect_true(
+    all(terra::global(s * features, "sum", na.rm = TRUE)[[1]] >= c(2, 10))
+  )
+})
+
 test_that("solve (single zone)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()

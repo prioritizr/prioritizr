@@ -11,7 +11,7 @@ test_that("binary decisions", {
     add_relative_targets(0.1) %>%
     add_binary_decisions() %>%
     add_rsymphony_solver(first_feasible = TRUE, verbose = FALSE) %>%
-    solve_fixed_seed()
+    solve()
   # tests
   expect_true(inherits(s, "SpatRaster"))
   expect_equal(terra::nlyr(s), 1)
@@ -32,7 +32,7 @@ test_that("proportion decisions", {
     add_relative_targets(0.1) %>%
     add_proportion_decisions() %>%
     add_rsymphony_solver(gap = 0, verbose = FALSE) %>%
-    solve_fixed_seed()
+    solve()
   # tests
   expect_true(inherits(s, "SpatRaster"))
   expect_equal(terra::nlyr(s), 1)
@@ -59,7 +59,7 @@ test_that("proportion decisions (floating point)", {
     add_relative_targets(1) %>%
     add_proportion_decisions() %>%
     add_rsymphony_solver(gap = 0, verbose = FALSE) %>%
-    solve_fixed_seed()
+    solve()
   # tests
   expect_true(inherits(s, "sf"))
   expect_true("solution_1" %in% names(s))
@@ -110,7 +110,7 @@ test_that("mix of binary and continuous variables", {
     add_max_utility_objective(b) %>%
     add_binary_decisions() %>%
     add_rsymphony_solver(verbose = FALSE) %>%
-    solve_fixed_seed()
+    solve()
   # tests
   expect_true(inherits(s, "SpatRaster"))
   expect_equal(terra::nlyr(s), 1)
@@ -131,7 +131,7 @@ test_that("first_feasible", {
     add_relative_targets(0.1) %>%
     add_binary_decisions() %>%
     add_rsymphony_solver(first_feasible = TRUE, verbose = FALSE) %>%
-    solve_fixed_seed()
+    solve()
   # check that solution has correct properties
   expect_inherits(s, "SpatRaster")
   expect_equal(terra::nlyr(s), 1)
@@ -160,8 +160,8 @@ test_that("correct solution (simple)", {
     add_locked_out_constraints(locked_out) %>%
     add_rsymphony_solver(gap = 0, verbose = FALSE)
   # solve problem
-  s1 <- solve_fixed_seed(p)
-  s2 <- solve_fixed_seed(p)
+  s1 <- solve(p)
+  s2 <- solve(p)
   # test for correct solution
   expect_equal(c(terra::values(s1)), c(0, 1, 1, NA))
   expect_equal(terra::values(s1), terra::values(s2))
@@ -192,9 +192,62 @@ test_that("correct solution (complex)", {
     ) %>%
     add_rsymphony_solver(gap = 0, verbose = FALSE)
   # solve problem
-  s1 <- solve_fixed_seed(p)
-  s2 <- solve_fixed_seed(p)
+  s1 <- solve(p)
+  s2 <- solve(p)
   # test for correct solution
   expect_equal(c(terra::values(s1)), c(1, 0, 1, 0, NA))
   expect_equal(terra::values(s1), terra::values(s2))
+})
+
+test_that("solver information (single solution)", {
+  skip_on_cran()
+  skip_if_not_installed("Rsymphony")
+  # load data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  # create problem
+  p <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.1) %>%
+    add_binary_decisions() %>%
+    add_rsymphony_solver(time_limit = 5, verbose = FALSE)
+  # solve problem
+  s <- solve(p)
+  # tests
+  expect_true(is.numeric(attr(s, "objective")))
+  expect_length(attr(s, "objective"), 1)
+  expect_true(is.numeric(attr(s, "runtime")))
+  expect_length(attr(s, "runtime"), 1)
+  expect_true(is.character(attr(s, "status")))
+  expect_length(attr(s, "status"), 1)
+  expect_true(is.numeric(attr(s, "gap")))
+  expect_length(attr(s, "gap"), 1)
+})
+
+test_that("solver information (multiple solutions)", {
+  skip_on_cran()
+  skip_if_not_installed("Rsymphony")
+  # load data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  # create problem
+  p <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.1) %>%
+    add_binary_decisions() %>%
+    add_shuffle_portfolio(3, remove_duplicates = FALSE) %>%
+    add_rsymphony_solver(time_limit = 5, verbose = FALSE)
+  # solve problem
+  s <- solve(p)
+  # tests
+  expect_true(is.numeric(attr(s, "objective")))
+  expect_length(attr(s, "objective"), 3)
+  expect_true(is.numeric(attr(s, "runtime")))
+  expect_length(attr(s, "runtime"), 3)
+  expect_true(is.character(attr(s, "status")))
+  expect_length(attr(s, "status"), 3)
+  expect_true(is.numeric(attr(s, "gap")))
+  expect_length(attr(s, "gap"), 3)
 })

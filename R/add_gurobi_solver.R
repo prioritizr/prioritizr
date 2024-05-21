@@ -303,12 +303,19 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
             x$x <- pmax(x$x, model$lb)
             x$x <- pmin(x$x, model$ub)
           }
+          # set default mip gap to NA if missing
+          ## this is needed for earlier versions of Gurobi that don't
+          ## return the mip gpa for a solution
+          if (is.null(x$mipgap)) {
+            x$mipgap <- NA_real_
+          }
           # extract solutions
           out <- list(
             x = x$x,
             objective = x$objval,
             status = x$status,
-            runtime = rt[[3]]
+            runtime = rt[[3]],
+            gap = x$mipgap
           )
           # add pool if required
           if (!is.null(p$PoolSearchMode) &&
@@ -316,13 +323,40 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
               isTRUE(length(x$pool) > 1)
           ) {
             out$pool <- x$pool[-1]
+            # get bound for objective value for optimal solution
+            if (identical(model$modelsense, "min")) {
+              optimal_obj <- x$objval / (1 + x$mipgap)
+            } else {
+              optimal_obj <- x$objval * (1 + x$mipgap)
+            }
             for (i in seq_len(length(out$pool))) {
+              # fix binary variables for i'th solution in pool
               out$pool[[i]]$xn[b] <- round(out$pool[[i]]$xn[b])
-              out$pool[[i]]$status <- ifelse(
-                abs(out$pool[[i]]$objval - x$objval) < 1e-5,
-                "OPTIMAL",
-                "SUBOPTIMAL"
+              # calculate gap for i'th solution in pool
+              i_gap <- ifelse(
+                identical(model$modelsense, "min"),
+                (out$pool[[i]]$objval - optimal_obj) / optimal_obj,
+                (optimal_obj - out$pool[[i]]$objval) / optimal_obj
               )
+              # if the solver has OPTIMAL status this means that main
+              # solution is within optimality gap,
+              # so now we need to set a separate status for each solution
+              # in the solution pool
+              if (identical(x$status, "OPTIMAL")) {
+                out$pool[[i]]$status <- ifelse(
+                  isTRUE(i_gap <= self$get_data("gap")),
+                  "OPTIMAL",
+                  "SUBOPTIMAL"
+                )
+              } else {
+                # if solver has a status other than OPTIMAL,
+                # then we just assign this status to each solution in
+                # the solution  pool
+                out$pool[[i]]$status <- x$status
+              }
+              # set remaining values for i'th solution
+              out$pool[[i]]$objective <- out$pool[[i]]$objval
+              out$pool[[i]]$gap <- i_gap
             }
           }
           out

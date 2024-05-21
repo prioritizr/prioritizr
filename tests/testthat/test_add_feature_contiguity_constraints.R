@@ -166,8 +166,8 @@ test_that("solve (single zone)", {
     add_feature_contiguity_constraints(diag(1), data = cl) %>%
     add_default_solver(verbose = FALSE)
   # solve problem
-  s1 <- solve_fixed_seed(p)
-  s2 <- solve_fixed_seed(p)
+  s1 <- solve(p)
+  s2 <- solve(p)
   # check that solution is correct
   expect_equal(c(terra::values(s1)), c(1, 1, 1, 0, 0, 0, 1, 1, 1))
   expect_equal(terra::values(s1), terra::values(s2))
@@ -440,7 +440,7 @@ test_that("solve (multiple zones)", {
     add_absolute_targets(targets) %>%
     add_feature_contiguity_constraints(zm) %>%
     add_default_solver(verbose = FALSE)
-  s <- solve_fixed_seed(p)
+  s <- solve(p)
   # run tests
   expect_inherits(s, "SpatRaster")
   expect_equal(

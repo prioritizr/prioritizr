@@ -158,13 +158,14 @@ add_gap_portfolio <- function(x, number_solutions = 10, pool_gap = 0.1) {
           ## compile results
           if (!is.null(sol$pool)) {
             sol <- append(
-              list(sol[-5]),
+              list(sol[-which(names(sol) == "pool")]),
               lapply(sol$pool, function(z) {
                 list(
                   x = z$xn,
-                  objective = z$objval,
+                  objective = z$objective,
                   status = z$status,
-                  runtime = sol$runtime
+                  runtime = sol$runtime,
+                  gap = z$gap
                 )
               })
             )

@@ -195,12 +195,19 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
             sol <- pmax(sol, model$lower)
             sol <- pmin(sol, model$upper)
           }
+          # extract optimality gap
+          if (!is.null(x$info) && !is.null(x$info$mip_gap)) {
+            x_gap <- x$info$mip_gap
+          } else {
+            x_gap <- NA_real_
+          }
           # return solution
           list(
             x = sol,
             objective = x$objective_value,
             status = x$status_message,
-            runtime = rt[[3]]
+            runtime = rt[[3]],
+            gap = x_gap
           )
         }
       )

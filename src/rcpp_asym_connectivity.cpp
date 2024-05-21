@@ -20,7 +20,7 @@ double rcpp_asym_connectivity(
       // extract connectivity matrix
       curr_matrix = matrices[z1][z2];
       // add sum of connectivity values between pairs of planning
-      // units where one unit is selected and the other one isn't
+      // units where both planning units are selected
       for (arma::sp_mat::const_iterator it = curr_matrix.begin();
            it != curr_matrix.end(); ++it) {
         if ((it.row() == it.col()) && (z1 == z2)) {

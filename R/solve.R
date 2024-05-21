@@ -86,11 +86,44 @@ NULL
 #' @return
 #' A `numeric`, `matrix`, `data.frame`, [sf::st_sf()], or
 #' [terra::rast()] object containing the solution to the problem.
-#' Additionally, the returned object will have the following additional
-#' attributes: `"objective"` containing the solution's objective,
-#' `"runtime"` denoting the number of seconds that elapsed while solving
-#' the problem, and `"status"` describing the status of the solution
-#' (e.g., `"OPTIMAL"` indicates that the optimal solution was found).
+#' Additionally, the returned object has attributes that describe
+#' optimization process or solution (see below  for examples on accessing
+#' these attributes). These attributes provide the following information.
+#' \describe{
+#' \item{\code{objective}}{
+#' \code{numeric} mathematical objective value for the solution used
+#' to evaluate the prioritization during optimization.
+#' }
+#' \item{\code{runtime}}{
+#' \code{numeric} total amount of time elapsed while during the optimization
+#' process (reported in seconds). Note that this measure of time does not
+#' include any data pre-processing or post-processing steps.
+#' }
+#' \item{\code{status}}{
+#' \code{character} status of the optimization process.
+#' This status typically describes
+#' the reason why the optimization process terminated. For example,
+#' it might indicate that the optimization process terminated because
+#' an optimal solution was found, or because a pre-specified time limit
+#' was reached. These status values are (mostly) obtained directly from
+#' the solver software, and so we recommend consulting the solver's
+#' documentation for further information on what particular status values mean.
+#' }
+#' \item{\code{gap}}{
+#' \code{numeric} optimality of the solution. This gap value provides an upper
+#' bound of how far the solution is from optimality.
+#' For example, you might specify a
+#' 10% optimality gap for the optimization process (e.g., using
+#' `add_highs_solver(gap = 0.1)`), and this might produce a solution that is
+#' actually 5% from optimality. As such, the solution might have a gap value
+#' of 0.05 (corresponding to 5%). Because this value represents an upper bound,
+#' it is also possible that the solution in this example
+#' -- even though it is actually 5% from optimality -- might have a gap value
+#' of 7% (i.e., 0.07). Note that only some solvers are able to
+#' provide this information (i.e., the *Gurobi* and *HiGHS* solvers),
+#' and the gap value for other solvers will contain missing (`NA`) values.
+#' }
+#' }
 #'
 #' @seealso
 #' See [problem()] to create conservation planning problems, and
@@ -129,6 +162,7 @@ NULL
 #' print(attr(s1, "objective"))
 #' print(attr(s1, "runtime"))
 #' print(attr(s1, "status"))
+#' print(attr(s1, "gap"))
 #'
 #' # calculate feature representation in the solution
 #' r1 <- eval_feature_representation_summary(p1, s1)
@@ -413,6 +447,9 @@ solve.ConservationProblem <- function(a, b, ...,
   )
   attr(ret, "runtime") <- stats::setNames(
     vapply(sol, `[[`, numeric(1), 4), paste0("solution_", seq_along(sol))
+  )
+  attr(ret, "gap") <- stats::setNames(
+    vapply(sol, `[[`, numeric(1), 5), paste0("solution_", seq_along(sol))
   )
   # return object
   ret

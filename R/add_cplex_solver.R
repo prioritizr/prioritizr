@@ -181,7 +181,8 @@ add_cplex_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
             x = sol,
             objective = x$objval,
             status = x$status,
-            runtime = rt[[3]]
+            runtime = rt[[3]],
+            gap = x$gap
           )
         },
         set_variable_ub = function(index, value) {
@@ -300,22 +301,43 @@ cplex <- function(model, control) {
   }
   # solve problem
   if (all(model$vtype == "C")) {
-    result <- cplexAPI::lpoptCPLEX(env, p)
+    rt <- system.time({
+      result <- cplexAPI::lpoptCPLEX(env, p)
+    })
   } else {
     cplexAPI::copyColTypeCPLEX(env, p, model$vtype)
-    result <- cplexAPI::mipoptCPLEX(env, p)
+    rt <- system.time({
+      result <- cplexAPI::mipoptCPLEX(env, p)
+    })
   }
   # extract solution
   stat <- cplexAPI::getStatStrCPLEX(env, cplexAPI::getStatCPLEX(env, p))
   if (identical(result, 0) || identical(result, 0L)) {
     sol <- cplexAPI::solutionCPLEX(env, p)
     if (!inherits(sol, "cplexError")) {
-      out <- list(x = sol$x, objval = sol$objval, status = stat)
+      out <- list(
+        x = sol$x,
+        objval = sol$objval,
+        status = stat,
+        runtime = rt[[3]],
+        gap = NA_real_
+      )
     } else {
-      out <- list(x = NULL, objval = NULL, status = stat)
+      out <- list(
+        x = NULL,
+        objval = NULL,
+        status = stat,
+        runtime = NULL,
+        gap = NULL
+      )
     }
   } else {
-    out <- list(x = NULL, objval = NULL, status = stat)
+    out <- list(
+      x = NULL,
+      objval = NULL,
+      status = stat,
+      gap = NULL
+    )
   }
   # clean up
   cplex_error_wrap(cplexAPI::delProbCPLEX(env, p), env)

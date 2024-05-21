@@ -159,7 +159,7 @@ add_cbc_solver <- function(x,
           presolve = presolve,
           threads = threads,
           first_feasible = first_feasible,
-          start = start_solution,
+          start_solution = start_solution,
           verbose = verbose
         ),
         calculate = function(x, ...) {
@@ -214,8 +214,8 @@ add_cbc_solver <- function(x,
             model$row_lb <- c(model$row_lb, -Inf)
             model$row_ub <- c(model$row_ub, Inf)
           }
-          # add starting solution if specified
-          start <- self$get_data("start")
+          # add startubg solution if specified
+          start <- self$get_data("start_solution")
           if (!is.null(start) && !is.Waiver(start)) {
             n_extra <- length(model$obj) - length(start)
             model$initial_solution <- c(c(start), rep(NA_real_, n_extra))
@@ -275,7 +275,8 @@ add_cbc_solver <- function(x,
             x = x$column_solution,
             objective = x$objective_value,
             status = as.character(rcbc::solution_status(x)),
-            runtime = rt[[3]]
+            runtime = rt[[3]],
+            gap = NA_real_
           )
         }
       )
