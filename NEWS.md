@@ -5,18 +5,13 @@
 - New default portfolio method for `problem()` objects. This
   new default portfolio -- which can be manually specified using
   `add_default_portfolio()` -- involves simply generating a single solution.
-  Although the previous default portfolio method was intended to shuffle the
-  mathematical optimization problem prior to solving it (based on
-  `add_shuffle_portfolio()`), there was a bug that meant that
-  the optimization problem was not actually shuffled prior to optimization.
-  Thus this new default portfolio method does not actually result in any changes
-  to the default optimization process. The reason why this new default portfolio
-  method was chosen was because planning problems that contain insufficient data
-  (e.g., feature and cost data) to identify meaningful priorities can sometimes
-  result in solutions containing strange spatial artifacts (e.g., lines or
-  bands of selected planning units, see #205 and #268). Since shuffling the
-  optimization problem can suppress these spatial artifacts and the presence of
-  these spatial artifacts can indicate under-specified problems, we have
+  The reason why this new default portfolio method was chosen was because
+  planning problems that contain insufficient data (e.g., feature and cost
+  data) to identify meaningful priorities can sometimes result in solutions
+  containing strange spatial artifacts (e.g., lines or bands of selected
+  planning units, see #205 and #268). Since the presence of these spatial
+  artifacts can indicate an under-specified problem and shuffling
+  optimization problems can suppress them, we have
   decided to update the default portfolio so that it does not shuffle problems.
   If users wish to prevent spatial artifacts from appearing in solutions, then
   spatial penalties (e.g., `add_boundary_penalties()`), spatial constraints

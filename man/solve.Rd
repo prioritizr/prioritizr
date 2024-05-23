@@ -48,6 +48,10 @@ an optimal solution was found, or because a pre-specified time limit
 was reached. These status values are (mostly) obtained directly from
 the solver software, and so we recommend consulting the solver's
 documentation for further information on what particular status values mean.
+Note that some solvers (e.g., Gurobi and HiGHS) will return
+an \code{"OPTIMAL"} status when the solver has found a solution within the
+pre-specified optimality gap (e.g., it has found a solution within 10\% of
+optimality), even though the solution itself may not be strictly optimal.
 }
 \item{\code{gap}}{
 \code{numeric} optimality of the solution. This gap value provides an upper
