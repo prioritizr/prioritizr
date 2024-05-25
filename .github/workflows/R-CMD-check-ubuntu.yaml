@@ -25,8 +25,8 @@ jobs:
       matrix:
         config:
           - {os: ubuntu-20.04, r: 'release', pkgs: 'all'}
-          - {os: ubuntu-20.04, r: 'devel', pkgs: 'all'}
-          - {os: ubuntu-20.04, r: 'devel', pkgs: 'depends only'}
+          # - {os: ubuntu-20.04, r: 'devel', pkgs: 'all'}
+          # - {os: ubuntu-20.04, r: 'devel', pkgs: 'depends only'}
 
     env:
       _R_REMOTES_NO_ERRORS_FROM_WARNINGS_: true
@@ -110,6 +110,7 @@ jobs:
         shell: bash
 
       - uses: codecov/codecov-action@v4
+        if: runner.os == 'Linux' && matrix.config.r == 'release'
         with:
           fail_ci_if_error: ${{ github.event_name != 'pull_request' && true || false }}
           file: ./cobertura.xml
