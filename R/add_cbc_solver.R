@@ -214,7 +214,7 @@ add_cbc_solver <- function(x,
             model$row_lb <- c(model$row_lb, -Inf)
             model$row_ub <- c(model$row_ub, Inf)
           }
-          # add startubg solution if specified
+          # add starting solution if specified
           start <- self$get_data("start_solution")
           if (!is.null(start) && !is.Waiver(start)) {
             n_extra <- length(model$obj) - length(start)
