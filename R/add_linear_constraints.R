@@ -89,7 +89,7 @@ NULL
 #' # adding additional criteria using linear constraints
 #'
 #' # first, let's create a modified version of p0 that contains
-#' # an additional budget of 1600 based on a secondary cost dataset
+#' # an additional budget for a secondary cost dataset
 #'
 #' # create a secondary cost dataset by simulating values
 #' sim_pu_raster2 <- simulate_cost(sim_pu_raster)
@@ -118,8 +118,10 @@ NULL
 #' plot(c(s0, s1), main = c("s0", "s1"), axes = FALSE)
 #'
 #' # second, let's create a modified version of p0 that contains
-#' # additional constraints to ensure that each feature has
+#' # additional constraints to ensure that each feature definitely has
 #' # at least 8% of its overall distribution represented by the solution
+#' # (in addition to the 20% targets which specify how much we would
+#' # ideally want to conserve for each feature) 
 #'
 #' # to achieve this, we need to calculate the total amount of each feature
 #' # within the planning units so we can, in turn, set the constraint thresholds
@@ -297,7 +299,7 @@ methods::setMethod("add_linear_constraints",
       assertthat::noNA(d),
       msg = paste(
         "{.arg data} must not refer to columns",
-        "of the planning unit data for {.arg} with missing",
+        "of the planning unit data with missing",
         "({.val {NA}) values."
       )
     )

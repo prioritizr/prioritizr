@@ -22,6 +22,10 @@ are within the specified optimality gap.
 
 \describe{
 
+\item{\code{\link[=add_default_portfolio]{add_default_portfolio()}}}{Generate a portfolio containing a single
+solution. This portfolio method is added to \code{\link[=problem]{problem()}} objects by
+default.}
+
 \item{\code{\link[=add_extra_portfolio]{add_extra_portfolio()}}}{Generate a portfolio of solutions
 by storing feasible solutions found during the optimization
 process. This method is useful for quickly obtaining multiple solutions,
@@ -70,38 +74,44 @@ p <-
   add_binary_decisions() \%>\%
   add_default_solver(gap = 0.02, verbose = FALSE)
 
+# create problem with default portfolio
+p1 <- p \%>\% add_default_portfolio()
+
 # create problem with cuts portfolio with 4 solutions
-p1 <- p \%>\% add_cuts_portfolio(4)
+p2 <- p \%>\% add_cuts_portfolio(4)
 
 # create problem with shuffle portfolio with 4 solutions
-p2 <- p \%>\% add_shuffle_portfolio(4)
+p3 <- p \%>\% add_shuffle_portfolio(4)
 
 # create problem with extra portfolio
-p3 <- p \%>\% add_extra_portfolio()
+p4 <- p \%>\% add_extra_portfolio()
 
 # create problem with top portfolio with 4 solutions
-p4 <- p \%>\% add_top_portfolio(4)
+p5 <- p \%>\% add_top_portfolio(4)
 
 # create problem with gap portfolio with 4 solutions within 50\% of optimality
-p5 <- p \%>\% add_gap_portfolio(4, 0.5)
+p6 <- p \%>\% add_gap_portfolio(4, 0.5)
 
-# solve problems and create solution portfolios
-s <- list(solve(p1), solve(p2), solve(p3), solve(p4), solve(p5))
+# solve problems to obtain solution portfolios
+s <- list(solve(p1), solve(p2), solve(p3), solve(p4), solve(p5), solve(p6))
 
-# plot solutions from cuts portfolio
+# plot solution from default portfolio
 plot(terra::rast(s[[1]]), axes = FALSE)
 
-# plot solutions from shuffle portfolio
+# plot solutions from cuts portfolio
 plot(terra::rast(s[[2]]), axes = FALSE)
 
-# plot solutions from extra portfolio
+# plot solutions from shuffle portfolio
 plot(terra::rast(s[[3]]), axes = FALSE)
 
-# plot solutions from top portfolio
+# plot solutions from extra portfolio
 plot(terra::rast(s[[4]]), axes = FALSE)
 
-# plot solutions from gap portfolio
+# plot solutions from top portfolio
 plot(terra::rast(s[[5]]), axes = FALSE)
+
+# plot solutions from gap portfolio
+plot(terra::rast(s[[6]]), axes = FALSE)
 }
 
 }

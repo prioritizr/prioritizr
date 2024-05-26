@@ -95,8 +95,8 @@ test_that("solve (single zone)", {
     ) %>%
     add_default_solver(verbose = FALSE)
   # solve problem
-  s1 <- solve_fixed_seed(p)
-  s2 <- solve_fixed_seed(p)
+  s1 <- solve(p)
+  s2 <- solve(p)
   # tests
   expect_true(all(s1$solution_1[seq_len(5)] >= 0.3))
   expect_true(all(s1$solution_1[seq_len(5)] <= 0.35))
@@ -177,7 +177,7 @@ test_that("solve (multiple zones)", {
       )
     ) %>%
     add_default_solver(verbose = FALSE) %>%
-    solve_fixed_seed()
+    solve()
   # check that the solution obeys constraints as expected
   expect_true(all(s$solution_1_zone_1[seq_len(5)] >= 0.3))
   expect_true(all(s$solution_1_zone_1[seq_len(5)] <= 0.35))

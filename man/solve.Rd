@@ -26,11 +26,48 @@ the presolve checks. Defaults to \code{FALSE}.}
 \value{
 A \code{numeric}, \code{matrix}, \code{data.frame}, \code{\link[sf:sf]{sf::st_sf()}}, or
 \code{\link[terra:rast]{terra::rast()}} object containing the solution to the problem.
-Additionally, the returned object will have the following additional
-attributes: \code{"objective"} containing the solution's objective,
-\code{"runtime"} denoting the number of seconds that elapsed while solving
-the problem, and \code{"status"} describing the status of the solution
-(e.g., \code{"OPTIMAL"} indicates that the optimal solution was found).
+Additionally, the returned object has attributes that describe
+optimization process or solution (see below  for examples on accessing
+these attributes). These attributes provide the following information.
+\describe{
+\item{\code{objective}}{
+\code{numeric} mathematical objective value for the solution used
+to evaluate the prioritization during optimization.
+}
+\item{\code{runtime}}{
+\code{numeric} total amount of time elapsed while during the optimization
+process (reported in seconds). Note that this measure of time does not
+include any data pre-processing or post-processing steps.
+}
+\item{\code{status}}{
+\code{character} status of the optimization process.
+This status typically describes
+the reason why the optimization process terminated. For example,
+it might indicate that the optimization process terminated because
+an optimal solution was found, or because a pre-specified time limit
+was reached. These status values are (mostly) obtained directly from
+the solver software, and so we recommend consulting the solver's
+documentation for further information on what particular status values mean.
+Note that some solvers (e.g., Gurobi and HiGHS) will return
+an \code{"OPTIMAL"} status when the solver has found a solution within the
+pre-specified optimality gap (e.g., it has found a solution within 10\% of
+optimality), even though the solution itself may not be strictly optimal.
+}
+\item{\code{gap}}{
+\code{numeric} optimality of the solution. This gap value provides an upper
+bound of how far the solution is from optimality.
+For example, you might specify a
+10\% optimality gap for the optimization process (e.g., using
+\code{add_highs_solver(gap = 0.1)}), and this might produce a solution that is
+actually 5\% from optimality. As such, the solution might have a gap value
+of 0.05 (corresponding to 5\%). Because this value represents an upper bound,
+it is also possible that the solution in this example
+-- even though it is actually 5\% from optimality -- might have a gap value
+of 7\% (i.e., 0.07). Note that only some solvers are able to
+provide this information (i.e., the \emph{Gurobi} and \emph{HiGHS} solvers),
+and the gap value for other solvers will contain missing (\code{NA}) values.
+}
+}
 }
 \description{
 Solve a conservation planning problem.
@@ -131,6 +168,7 @@ print(s1)
 print(attr(s1, "objective"))
 print(attr(s1, "runtime"))
 print(attr(s1, "status"))
+print(attr(s1, "gap"))
 
 # calculate feature representation in the solution
 r1 <- eval_feature_representation_summary(p1, s1)

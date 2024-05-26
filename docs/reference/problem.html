@@ -32,7 +32,7 @@ solve() function can be used to identify solutions."><meta property="og:image" c
     
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.3.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.3.7</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -558,12 +558,14 @@ evaluating solutions.</p></div>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># show solutions for problems associated with aspatial data</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">s6</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  num [1:90] 0 0 0 0 0 0 0 1 1 1 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "objective")= Named num 3851</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  num [1:90] 0 0 0 0 0 0 0 0 0 1 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "objective")= Named num 3586</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "names")= chr "solution_1"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "status")= Named chr "OPTIMAL"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "names")= chr "solution_1"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "runtime")= Named num 0.022</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "runtime")= Named num 0.003</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "names")= chr "solution_1"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "gap")= Named num 0.0251</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "names")= chr "solution_1"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create some problems with multiple zones</span></span></span>
@@ -585,11 +587,11 @@ evaluating solutions.</p></div>
 <span class="r-in"><span><span class="co"># print targets</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">targets</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           zone_1 zone_2 zone_3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> feature_1      0      1      1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> feature_2      2      1      0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> feature_3      0      0      1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> feature_4      1      2      1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> feature_5      1      0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> feature_1      2      0      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> feature_2      1      1      2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> feature_3      3      3      2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> feature_4      1      2      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> feature_5      2      1      1</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create a multi-zone problem with raster data</span></span></span>
 <span class="r-in"><span><span class="va">p7</span> <span class="op">&lt;-</span></span></span>

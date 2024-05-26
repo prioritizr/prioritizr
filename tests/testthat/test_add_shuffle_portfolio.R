@@ -19,6 +19,35 @@ test_that("compile", {
   expect_inherits(o, "OptimizationProblem")
 })
 
+test_that("solve (single solution)", {
+  skip_on_cran()
+  skip_if_no_fast_solvers_installed()
+  # create data
+  cost <- terra::rast(matrix(c(1, 2, 2, NA), ncol = 4))
+  features <- c(
+    terra::rast(matrix(c(2, 1, 1, 0), ncol = 4)),
+    terra::rast(matrix(c(10, 10, 10, 10), ncol = 4))
+  )
+  names(features) <- make.unique(names(features))
+  locked_in <- 2
+  # create problem
+  p <-
+    problem(cost, features) %>%
+    add_min_set_objective() %>%
+    add_absolute_targets(c(2, 10)) %>%
+    add_locked_in_constraints(locked_in) %>%
+    add_shuffle_portfolio(1) %>%
+    add_default_solver(gap = 0.2, verbose = FALSE)
+  # solve problem
+  s <- solve_fixed_seed(p)
+  # tests
+  expect_inherits(s, "SpatRaster")
+  expect_equal(terra::nlyr(s), 1)
+  expect_true(
+    all(terra::global(s * features, "sum", na.rm = TRUE)[[1]] >= c(2, 10))
+  )
+})
+
 test_that("solve (single zone)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
@@ -165,4 +194,71 @@ test_that("solve (parallel processing)", {
         terra::global(s[[i]] * features, "sum", na.rm = TRUE)[[1]] >= c(2, 10)
       )
     )
+})
+
+test_that("start_solution (single solution)", {
+  skip_on_cran()
+  skip_if_not_installed("rcbc")
+  # create data
+  cost <- terra::rast(matrix(c(1000, 100, 200, 300, NA), nrow = 1))
+  features <- c(
+    terra::rast(matrix(c(5,  5,   0,  0,  NA), nrow = 1)),
+    terra::rast(matrix(c(2,  0,   8,  10, NA), nrow = 1)),
+    terra::rast(matrix(c(10, 100, 10, 10, NA), nrow = 1))
+  )
+  names(features) <- make.unique(names(features))
+  start_valid <- terra::rast(matrix(c(1, 0, 1, 0, NA), nrow = 1))
+  # create problem
+  p <-
+    problem(cost, features) %>%
+    add_min_set_objective() %>%
+    add_manual_targets(
+      tibble::tibble(
+        feature = names(features),
+        type = "absolute",
+        sense = c("=", ">=", "<="),
+        target = c(5, 10, 20)
+      )
+    ) %>%
+    add_cbc_solver(gap = 0, start = start_valid, verbose = FALSE) %>%
+    add_shuffle_portfolio(number_solutions = 1)
+  # create solution
+  s <- solve(p)
+  # test for correct solution
+  expect_equal(c(terra::values(s)), c(1, 0, 1, 0, NA))
+})
+
+test_that("start_solution (multiple solution)", {
+  skip_on_cran()
+  skip_if_not_installed("rcbc")
+  # create data
+  cost <- terra::rast(matrix(c(1000, 100, 200, 300, NA), nrow = 1))
+  features <- c(
+    terra::rast(matrix(c(5,  5,   0,  0,  NA), nrow = 1)),
+    terra::rast(matrix(c(2,  0,   8,  10, NA), nrow = 1)),
+    terra::rast(matrix(c(10, 100, 10, 10, NA), nrow = 1))
+  )
+  names(features) <- make.unique(names(features))
+  start_valid <- terra::rast(matrix(c(1, 0, 1, 0, NA), nrow = 1))
+  # create problem
+  p <-
+    problem(cost, features) %>%
+    add_min_set_objective() %>%
+    add_manual_targets(
+      tibble::tibble(
+        feature = names(features),
+        type = "absolute",
+        sense = c("=", ">=", "<="),
+        target = c(5, 10, 20)
+      )
+    ) %>%
+    add_cbc_solver(gap = 0, start = start_valid, verbose = FALSE) %>%
+    add_shuffle_portfolio(number_solutions = 3, remove_duplicates = FALSE)
+  # create solution
+  s <- solve(p)
+  # test for correct solution
+  expect_length(s, 3)
+  expect_equal(c(terra::values(s[[1]])), c(1, 0, 1, 0, NA))
+  expect_equal(c(terra::values(s[[2]])), c(1, 0, 1, 0, NA))
+  expect_equal(c(terra::values(s[[3]])), c(1, 0, 1, 0, NA))
 })

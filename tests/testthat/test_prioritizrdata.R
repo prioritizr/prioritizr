@@ -11,7 +11,7 @@ test_that("salt_data", {
     add_min_set_objective() %>%
     add_relative_targets(0.2) %>%
     add_default_solver(gap = 0.3, verbose = FALSE)
-  s <- solve_fixed_seed(p)
+  s <- solve(p)
   # tests
   suppressMessages(print(p))
   expect_inherits(s, "SpatRaster")
@@ -34,7 +34,7 @@ test_that("tas_data", {
     add_locked_in_constraints("locked_in") %>%
     add_locked_out_constraints("locked_out") %>%
     add_default_solver(gap = 0.3, verbose = FALSE)
-  s <- solve_fixed_seed(p)
+  s <- solve(p)
   # tests
   suppressMessages(print(p))
   expect_inherits(s, "sf")
@@ -60,7 +60,7 @@ test_that("wa_data", {
     add_locked_in_constraints(wa_locked_in) %>%
     add_locked_in_constraints(wa_locked_out) %>%
     add_default_solver(gap = 0.3, verbose = FALSE)
-  s <- solve_fixed_seed(p)
+  s <- solve(p)
   # tests
   suppressMessages(print(p))
   expect_inherits(s, "SpatRaster")

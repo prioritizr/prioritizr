@@ -566,7 +566,7 @@ test_that("parallel processing", {
     add_binary_decisions() %>%
     add_default_solver(gap = 0.1, verbose = FALSE)
   # find solution
-  s <- solve_fixed_seed(p)
+  s <- solve(p)
   # calculate replacement costs without parallel processing
   r1 <- withr::with_seed(500, eval_replacement_importance(p, s))
   # calculate replacement costs with parallel processing

@@ -39,7 +39,7 @@ test_that("solve (number_solutions within limit, single zone)", {
     add_cuts_portfolio(2) %>%
     add_default_solver(gap = 0.2, verbose = FALSE)
   # solve problem
-  s <- solve_fixed_seed(p)
+  s <- solve(p)
   # tests
   expect_inherits(s, "list")
   expect_length(s, 2)
@@ -75,7 +75,7 @@ test_that("solve (number_solutions within limit, multiple zones)", {
     add_binary_decisions() %>%
     add_default_solver(gap = 0.2, verbose = FALSE)
   # solve problem
-  s <- solve_fixed_seed(p)
+  s <- solve(p)
   # tests
   expect_inherits(s, "list")
   expect_length(s, 2)
@@ -122,7 +122,7 @@ test_that("solve (number_solutions outside limit)", {
     add_default_solver(gap = 0.2, verbose = FALSE)
   # solve problem
   expect_warning(
-    s <- solve_fixed_seed(p),
+    s <- solve(p),
     "Portfolio could only"
   )
   # output checks

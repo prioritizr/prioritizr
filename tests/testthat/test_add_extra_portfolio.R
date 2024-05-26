@@ -40,7 +40,7 @@ test_that("solve (single zone)", {
     add_extra_portfolio() %>%
     add_default_solver(gap = 1, verbose = FALSE)
   # solve problem
-  s <- solve_fixed_seed(p)
+  s <- solve(p)
   # output checks
   expect_inherits(s, "list")
   expect_true(length(s) > 1)
@@ -74,7 +74,7 @@ test_that("solve (multiple zones)", {
     add_binary_decisions() %>%
     add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
-  s <- solve_fixed_seed(p)
+  s <- solve(p)
   # output checks
   expect_inherits(s, "list")
   expect_true(length(s) > 1)
@@ -89,4 +89,31 @@ test_that("solve (multiple zones)", {
           ) >= 2
         )
       )
+})
+
+test_that("solver information", {
+  skip_on_cran()
+  skip_if_not_installed("gurobi")
+  # load data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  # create problem
+  p <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.1) %>%
+    add_binary_decisions() %>%
+    add_extra_portfolio() %>%
+    add_gurobi_solver(gap = 0, verbose = FALSE)
+  # solve problem
+  s <- solve(p)
+  # tests
+  expect_true(is.numeric(attr(s, "objective")))
+  expect_length(attr(s, "objective"), length(s))
+  expect_true(is.numeric(attr(s, "runtime")))
+  expect_length(attr(s, "runtime"), length(s))
+  expect_true(is.character(attr(s, "status")))
+  expect_length(attr(s, "status"), length(s))
+  expect_true(is.numeric(attr(s, "gap")))
+  expect_length(attr(s, "gap"), length(s))
 })

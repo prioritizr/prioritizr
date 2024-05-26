@@ -970,7 +970,7 @@ conservation_problem <- function(data = list()) {
   p <- ConservationProblem$new(data = data)
 
   # add defaults
-  p <- suppressWarnings(add_shuffle_portfolio(p, number_solutions = 1))
+  p <- suppressWarnings(add_default_portfolio(p))
   p <- suppressWarnings(add_binary_decisions(p))
   p <- suppressWarnings(add_default_solver(p))
 

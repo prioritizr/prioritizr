@@ -124,10 +124,63 @@ add_shuffle_portfolio <- function(x, number_solutions = 10, threads = 1,
           if (self$get_data("number_solutions") == 1) {
             ## if only one solution is needed,
             ## then simply shuffle the problem and return the solution
-            reorder_key <- x$shuffle_columns(sample(seq_len(x$ncol())))
+            shuffle_key <- sample(seq_len(x$ncol()))
+            reorder_key <- x$shuffle_columns(shuffle_key)
+            if (!is.null(solver$data$start_solution)) {
+              ## convert start solution to numeric vector
+              ## and add extra NA values to represent decision variables
+              ## that do not correspond to planning units
+              n_extra <- x$ncol() - length(solver$data$start_solution)
+              solver$data$start_solution <-
+                c(c(solver$data$start_solution), rep(NA_real_, n_extra))
+              ## shuffle the start solution
+              solver$data$start_solution <-
+                solver$data$start_solution[shuffle_key]
+            }
             s <- solver$solve(x)
             s$x <- s$x[reorder_key]
+            if (!is.null(solver$data$start_solution)) {
+              solver$data$start_solution <-
+                solver$data$start_solution[reorder_key]
+            }
             return(list(s))
+          }
+          ## define worker function generating solutions
+          generate_single_solution <- function(i) {
+            ## copy optimization problem
+            if (exists("x_list")) {
+              x2 <- prioritizr::optimization_problem(x_list)
+            } else {
+              x2 <- x$copy()
+            }
+            ## shuffle problem
+            shuffle_key <- sample(seq_len(x2$ncol()))
+            reorder_key <- x2$shuffle_columns(shuffle_key)
+            ## prepare stating solution
+            if (!is.null(solver$data$start_solution)) {
+              ### convert start solution to numeric vector
+              ### and add extra NA values to represent decision variables
+              ### that do not correspond to planning units
+              n_extra <- x2$ncol() - length(solver$data$start_solution)
+              solver$data$start_solution <-
+                c(c(solver$data$start_solution), rep(NA_real_, n_extra))
+              ### shuffle the start solution
+              solver$data$start_solution <-
+                solver$data$start_solution[shuffle_key]
+            }
+            ### solve problem
+            s <- solver$solve(x2)
+            ### prepare solution and re-order it
+            s$x <- s$x[reorder_key]
+            ## restore start solution to original order for next run
+            if (!is.null(solver$data$start_solution)) {
+              solver$data$start_solution <-
+                solver$data$start_solution[reorder_key]
+            }
+            ### clean up
+            rm(x2)
+            ### return solution
+            s
           }
           ## if multiple solutions are needed,
           ## then we need to be more complex
@@ -152,37 +205,20 @@ add_shuffle_portfolio <- function(x, number_solutions = 10, threads = 1,
             ### set up workers
             parallel::clusterEvalQ(cl, {
               ### initialize RNG on worker
-              set.seed(seeds[as.character(Sys.getpid())])
-              ### create OptimizationProblem object from list
-              z <- prioritizr::optimization_problem(x_list)
+              set.seed(seeds[as.character(Sys.getpid())]);
               NULL
             })
             ### main processing
             sol <- parallel::parLapply(
               cl = cl,
               seq_len(self$get_data("number_solutions")),
-              function(i) {
-                x2 <- z$copy()
-                reorder_key <- x2$shuffle_columns(sample(seq_len(z$ncol())))
-                s <- solver$solve(x2)
-                s$x <- s$x[reorder_key]
-                rm(x2)
-                s
-              }
+              generate_single_solution
             )
           } else {
             ### if NOT using paralell processing, then...
-            ### main processing
             sol <- lapply(
               seq_len(self$get_data("number_solutions")),
-              function(i) {
-                x2 <- x$copy()
-                reorder_key <- x2$shuffle_columns(sample(seq_len(x$ncol())))
-                s <- solver$solve(x2)
-                s$x <- s$x[reorder_key]
-                rm(x2)
-                s
-              }
+              generate_single_solution
             )
           }
           ## if needed, remove duplicated solutions
@@ -198,7 +234,7 @@ add_shuffle_portfolio <- function(x, number_solutions = 10, threads = 1,
             sol <- sol[unique_pos]
           }
           ## return result
-          return(sol)
+          sol
         }
       )
     )$new()

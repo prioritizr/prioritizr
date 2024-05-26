@@ -16,7 +16,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.3.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.3.7</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -70,6 +70,20 @@
       <small>Source: <a href="https://github.com/prioritizr/prioritizr/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="8.0.3.7" id="prioritizr-8037">prioritizr 8.0.3.7<a class="anchor" aria-label="anchor" href="#prioritizr-8037"></a></h2>
+<div class="section level3">
+<h3 id="notice-8-0-3-7">Notice<a class="anchor" aria-label="anchor" href="#notice-8-0-3-7"></a></h3>
+<ul><li>New default portfolio method for <code><a href="../reference/problem.html">problem()</a></code> objects. This new default portfolio – which can be manually specified using <code><a href="../reference/add_default_portfolio.html">add_default_portfolio()</a></code> – involves simply generating a single solution. The reason why this new default portfolio method was chosen was because planning problems that contain insufficient data (e.g., feature and cost data) to identify meaningful priorities can sometimes result in solutions containing strange spatial artifacts (e.g., lines or bands of selected planning units, see <a href="https://github.com/prioritizr/prioritizr/issues/205" class="external-link">#205</a> and <a href="https://github.com/prioritizr/prioritizr/issues/268" class="external-link">#268</a>). Since the presence of these spatial artifacts can indicate an under-specified problem and shuffling optimization problems can suppress them, we have decided to update the default portfolio so that it does not shuffle problems. If users wish to prevent spatial artifacts from appearing in solutions, then spatial penalties (e.g., <code><a href="../reference/add_boundary_penalties.html">add_boundary_penalties()</a></code>), spatial constraints (e.g., <code><a href="../reference/add_neighbor_constraints.html">add_neighbor_constraints()</a></code>), or shuffle portfolios (e.g., <code>add_shuffle_portfolio(number_solutions = 1)</code>) can be used.</li></ul></div>
+<div class="section level3">
+<h3 id="minor-improvements-and-bug-fixes-8-0-3-7">Minor improvements and bug fixes<a class="anchor" aria-label="anchor" href="#minor-improvements-and-bug-fixes-8-0-3-7"></a></h3>
+<ul><li>New <code><a href="../reference/add_default_portfolio.html">add_default_portfolio()</a></code> function for specifying the default behavior for generating a solution (see Notice above for further details).</li>
+<li>Update <code><a href="../reference/solve.html">solve()</a></code> so that it provides information on the optimality of solutions (<a href="https://github.com/prioritizr/prioritizr/issues/323" class="external-link">#323</a>). For example, you might specify a 10% optimality gap for the optimization process (e.g., using <code>add_highs_solver(gap = 0.1)</code>), and this might produce a solution that is at least 7% from optimality. The resulting output from <code><a href="../reference/solve.html">solve()</a></code> will now provide this information about the solution (i.e., the 7% from optimality), and can be accessed using the <code>gap</code> attribute (e.g., <code>attr(x, "gap")</code>, where <code>x</code> is the output from <code><a href="../reference/solve.html">solve()</a></code>). Note that this information is currently only available when using the Gurobi or HiGHS solvers.</li>
+<li>Fix bug in <code><a href="../reference/add_linear_constraints.html">add_linear_constraints()</a></code> and <code><a href="../reference/add_linear_penalties.html">add_linear_penalties()</a></code> that resulted in an incorrect error message being shown (<a href="https://github.com/prioritizr/prioritizr/issues/324" class="external-link">#324</a>).</li>
+<li>Fix bug in <code><a href="../reference/add_shuffle_portfolio.html">add_shuffle_portfolio()</a></code> that prevented solvers from using a pre-specified starting solution (per the <code>start</code> parameter) correctly. Please note that this bug did not result in incorrect solutions, it only meant that any pre-specified starting solutions were not used properly.</li>
+<li>Fix bug in <code><a href="../reference/add_cplex_solver.html">add_cplex_solver()</a></code> that caused solutions to not provide runtime information for the optimization process.</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="8.0.3.6" id="prioritizr-8036">prioritizr 8.0.3.6<a class="anchor" aria-label="anchor" href="#prioritizr-8036"></a></h2>
 <div class="section level3">

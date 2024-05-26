@@ -40,7 +40,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.3.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.3.7</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -216,7 +216,7 @@
 <span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          locked in constraints (257 planning units)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
+<span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   default portfolio</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
 </div>
@@ -233,13 +233,13 @@
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
 <span><span class="co">## Academic license - for non-commercial use only - expires 2025-04-21</span></span>
-<span><span class="co">## Gurobi Optimizer version 11.0.1 build v11.0.1rc0 (linux64 - "Ubuntu 22.04.4 LTS")</span></span>
+<span><span class="co">## Gurobi Optimizer version 11.0.2 build v11.0.2rc0 (linux64 - "Ubuntu 22.04.4 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimize a model with 6329 rows, 4278 columns and 20749 nonzeros</span></span>
-<span><span class="co">## Model fingerprint: 0x7da0a619</span></span>
+<span><span class="co">## Model fingerprint: 0xf830e2c0</span></span>
 <span><span class="co">## Variable types: 0 continuous, 4278 integer (4278 binary)</span></span>
 <span><span class="co">## Coefficient statistics:</span></span>
 <span><span class="co">##   Matrix range     [2e-06, 6e+01]</span></span>
@@ -247,32 +247,34 @@
 <span><span class="co">##   Bounds range     [1e+00, 1e+00]</span></span>
 <span><span class="co">##   RHS range        [2e-01, 2e+03]</span></span>
 <span><span class="co">## Found heuristic solution: objective 36789.525254</span></span>
+<span><span class="co">## Found heuristic solution: objective 26818.653495</span></span>
 <span><span class="co">## Presolve removed 1909 rows and 1249 columns</span></span>
-<span><span class="co">## Presolve time: 0.05s</span></span>
+<span><span class="co">## Presolve time: 0.04s</span></span>
 <span><span class="co">## Presolved: 4420 rows, 3029 columns, 11081 nonzeros</span></span>
-<span><span class="co">## Found heuristic solution: objective 33423.794759</span></span>
+<span><span class="co">## Found heuristic solution: objective 24077.930942</span></span>
 <span><span class="co">## Variable types: 0 continuous, 3029 integer (3029 binary)</span></span>
-<span><span class="co">## Found heuristic solution: objective 31781.614843</span></span>
+<span><span class="co">## Found heuristic solution: objective 22854.296392</span></span>
 <span><span class="co">## Root relaxation presolve removed 8 rows and 6 columns</span></span>
 <span><span class="co">## Root relaxation presolved: 4412 rows, 3023 columns, 11060 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Root relaxation: objective 1.797191e+04, 1283 iterations, 0.05 seconds (0.09 work units)</span></span>
+<span><span class="co">## Root relaxation: objective 1.799626e+04, 1296 iterations, 0.05 seconds (0.09 work units)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">##      0     0 17971.9139    0 1116 31781.6148 17971.9139  43.5%     -    0s</span></span>
-<span><span class="co">## H    0     0                    21258.646266 17971.9139  15.5%     -    0s</span></span>
-<span><span class="co">## H    0     0                    19942.655351 17971.9139  9.88%     -    0s</span></span>
+<span><span class="co">##      0     0 17996.2587    0 1115 22854.2964 17996.2587  21.3%     -    0s</span></span>
+<span><span class="co">## H    0     0                    21408.703461 17996.2587  15.9%     -    0s</span></span>
+<span><span class="co">## H    0     0                    20673.221523 17996.2587  12.9%     -    0s</span></span>
+<span><span class="co">## H    0     0                    19891.369195 17996.2587  9.53%     -    0s</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 1 nodes (1283 simplex iterations) in 0.21 seconds (0.25 work units)</span></span>
+<span><span class="co">## Explored 1 nodes (1296 simplex iterations) in 0.11 seconds (0.18 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Solution count 5: 19942.7 21258.6 31781.6 ... 36789.5</span></span>
+<span><span class="co">## Solution count 7: 19891.4 20673.2 21408.7 ... 36789.5</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
-<span><span class="co">## Best objective 1.994265535139e+04, best bound 1.797191394571e+04, gap 9.8820%</span></span></code></pre>
+<span><span class="co">## Best objective 1.989136919462e+04, best bound 1.799625865394e+04, gap 9.5273%</span></span></code></pre>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot map of prioritization</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
@@ -316,15 +318,15 @@
 <span><span class="co">##    feature   met   total_amount absolute_target absolute_held absolute_shortfall</span></span>
 <span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 1</span> Banksia … TRUE          2.00           0.340         0.367                  0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> Boulders… TRUE        140.            23.9          76.1                    0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> Boulders… TRUE        140.            23.9          71.8                    0</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 3</span> Callitri… TRUE          6.00           1.02          1.49                   0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> Cool tem… TRUE       <span style="text-decoration: underline;">7</span>257.          <span style="text-decoration: underline;">1</span>234.         <span style="text-decoration: underline;">3</span>339.                     0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> Eucalypt… TRUE       <span style="text-decoration: underline;">5</span>699.           969.         <span style="text-decoration: underline;">1</span>781.                     0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> Eucalypt… TRUE       <span style="text-decoration: underline;">9</span>180.          <span style="text-decoration: underline;">1</span>561.         <span style="text-decoration: underline;">1</span>854.                     0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> Eucalypt… TRUE         38.0            6.46         15.1                    0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> Eucalypt… TRUE       <span style="text-decoration: underline;">1</span>908.           324.          326.                     0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> Eucalypt… TRUE        388.            65.9          99.1                    0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">10</span> Eucalypt… TRUE       <span style="text-decoration: underline;">6</span>145.          <span style="text-decoration: underline;">1</span>045.         <span style="text-decoration: underline;">2</span>144.                     0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> Cool tem… TRUE       <span style="text-decoration: underline;">7</span>257.          <span style="text-decoration: underline;">1</span>234.         <span style="text-decoration: underline;">3</span>300.                     0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> Eucalypt… TRUE       <span style="text-decoration: underline;">5</span>699.           969.         <span style="text-decoration: underline;">1</span>786.                     0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> Eucalypt… TRUE       <span style="text-decoration: underline;">9</span>180.          <span style="text-decoration: underline;">1</span>561.         <span style="text-decoration: underline;">1</span>775.                     0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> Eucalypt… TRUE         38.0            6.46         18.0                    0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> Eucalypt… TRUE       <span style="text-decoration: underline;">1</span>908.           324.          325.                     0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> Eucalypt… TRUE        388.            65.9          89.9                    0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> Eucalypt… TRUE       <span style="text-decoration: underline;">6</span>145.          <span style="text-decoration: underline;">1</span>045.         <span style="text-decoration: underline;">2</span>081.                     0</span></span>
 <span><span class="co">## <span style="color: #949494;"># ℹ 23 more rows</span></span></span>
 <span><span class="co">## <span style="color: #949494;"># ℹ 3 more variables: relative_target &lt;dbl&gt;, relative_held &lt;dbl&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   relative_shortfall &lt;dbl&gt;</span></span></span></code></pre>
@@ -351,7 +353,7 @@
 <span><span class="co">## summarize representation (values show percent coverage)</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">tc_s1</span><span class="op">$</span><span class="va">relative_held</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
-<span><span class="co">##   17.03   18.36   30.43   37.07   47.67  100.00</span></span></code></pre>
+<span><span class="co">##   17.01   18.80   30.43   37.82   49.43  100.00</span></span></code></pre>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## calculate number of features adequately represented by the prioritization</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">tc_s1</span><span class="op">$</span><span class="va">met</span><span class="op">)</span></span></code></pre></div>
@@ -454,7 +456,7 @@
 <span><span class="co">## Set parameter PoolSearchMode to value 2</span></span>
 <span><span class="co">## Set parameter PoolGap to value 0.2</span></span>
 <span><span class="co">## Academic license - for non-commercial use only - expires 2025-04-21</span></span>
-<span><span class="co">## Gurobi Optimizer version 11.0.1 build v11.0.1rc0 (linux64 - "Ubuntu 22.04.4 LTS")</span></span>
+<span><span class="co">## Gurobi Optimizer version 11.0.2 build v11.0.2rc0 (linux64 - "Ubuntu 22.04.4 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
@@ -490,15 +492,15 @@
 <span><span class="co">##      0     0 18106.4253    0 1203 19408.2111 18106.4253  6.71%     -    0s</span></span>
 <span><span class="co">##      0     0 18106.5097    0 1128 19408.2111 18106.5097  6.71%     -    0s</span></span>
 <span><span class="co">##      0     0 18108.9518    0 1121 19408.2111 18108.9518  6.69%     -    0s</span></span>
-<span><span class="co">##      0     0 18108.9518    0 1121 19408.2111 18108.9518  6.69%     -    1s</span></span>
+<span><span class="co">##      0     0 18108.9518    0 1121 19408.2111 18108.9518  6.69%     -    0s</span></span>
 <span><span class="co">##      0     2 18109.9351    0 1121 19408.2111 18109.9351  6.69%     -    1s</span></span>
 <span><span class="co">## H   27    27                    19182.229771 18109.9351  5.59%   115    1s</span></span>
 <span><span class="co">## H  187   187                    19131.891551 18109.9351  5.34%  42.8    1s</span></span>
-<span><span class="co">## H  472   455                    18712.916589 18109.9351  3.22%  21.4    2s</span></span>
+<span><span class="co">## H  472   455                    18712.916589 18109.9351  3.22%  21.4    1s</span></span>
 <span><span class="co">## H  494   474                    18560.845115 18121.8415  2.37%  24.8    2s</span></span>
 <span><span class="co">## H  512   493                    18558.685470 18121.8415  2.35%  25.8    2s</span></span>
 <span><span class="co">## H  519     3                    18395.725721 18121.8415  1.49%  25.5    3s</span></span>
-<span><span class="co">##    961   441 19094.7370  151    1 18395.7257 18176.0305  1.19%  27.7    5s</span></span>
+<span><span class="co">##   1360   838 18509.8130   23 1244 18395.7257 18185.4605  1.14%  22.4    5s</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Cutting planes:</span></span>
 <span><span class="co">##   Cover: 1</span></span>
@@ -506,7 +508,7 @@
 <span><span class="co">##   GUB cover: 1</span></span>
 <span><span class="co">##   RLT: 7</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 2914 nodes (53672 simplex iterations) in 7.70 seconds (12.35 work units)</span></span>
+<span><span class="co">## Explored 2914 nodes (53672 simplex iterations) in 7.06 seconds (12.35 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Solution count 1000: 18395.7 18443.6 18450.4 ... 20239.8</span></span>
@@ -673,7 +675,7 @@
 <span><span class="co">## <span style="color: #00BBBB;">││└•</span>2:          locked out constraints (1 planning units)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   shuffle portfolio (`number_solutions` = <span style="color: #0000BB;">1</span>, …)</span></span>
+<span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   default portfolio</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
 <div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
@@ -685,38 +687,42 @@
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
 <span><span class="co">## Academic license - for non-commercial use only - expires 2025-04-21</span></span>
-<span><span class="co">## Gurobi Optimizer version 11.0.1 build v11.0.1rc0 (linux64 - "Ubuntu 22.04.4 LTS")</span></span>
+<span><span class="co">## Gurobi Optimizer version 11.0.2 build v11.0.2rc0 (linux64 - "Ubuntu 22.04.4 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimize a model with 10075 rows, 6780 columns and 24778 nonzeros</span></span>
-<span><span class="co">## Model fingerprint: 0x6ff2d6bc</span></span>
+<span><span class="co">## Model fingerprint: 0x37d7a0a1</span></span>
 <span><span class="co">## Variable types: 0 continuous, 6780 integer (6780 binary)</span></span>
 <span><span class="co">## Coefficient statistics:</span></span>
 <span><span class="co">##   Matrix range     [5e-05, 4e+03]</span></span>
 <span><span class="co">##   Objective range  [4e+00, 4e+05]</span></span>
 <span><span class="co">##   Bounds range     [1e+00, 1e+00]</span></span>
 <span><span class="co">##   RHS range        [5e+03, 3e+05]</span></span>
-<span><span class="co">## Found heuristic solution: objective 2.882069e+08</span></span>
+<span><span class="co">## Found heuristic solution: objective 1.221202e+08</span></span>
 <span><span class="co">## Presolve removed 4707 rows and 3103 columns</span></span>
-<span><span class="co">## Presolve time: 0.05s</span></span>
+<span><span class="co">## Presolve time: 0.04s</span></span>
 <span><span class="co">## Presolved: 5368 rows, 3677 columns, 12704 nonzeros</span></span>
-<span><span class="co">## Found heuristic solution: objective 9.942497e+07</span></span>
 <span><span class="co">## Variable types: 0 continuous, 3677 integer (3677 binary)</span></span>
-<span><span class="co">## Found heuristic solution: objective 9.831400e+07</span></span>
+<span><span class="co">## Found heuristic solution: objective 1.009944e+08</span></span>
 <span><span class="co">## Root relaxation presolved: 5368 rows, 3677 columns, 12704 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Root relaxation: interrupted, 0 iterations, 0.01 seconds (0.01 work units)</span></span>
+<span><span class="co">## Root relaxation: interrupted, 2 iterations, 0.01 seconds (0.01 work units)</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 1 nodes (0 simplex iterations) in 0.07 seconds (0.09 work units)</span></span>
+<span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
+<span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##      0     0          -    0      1.0099e+08 9.1033e+07  9.86%     -    0s</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Explored 1 nodes (2 simplex iterations) in 0.05 seconds (0.09 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Solution count 3: 9.8314e+07 9.9425e+07 2.88207e+08 </span></span>
+<span><span class="co">## Solution count 2: 1.00994e+08 1.2212e+08 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
-<span><span class="co">## Best objective 9.831400499735e+07, best bound 8.990222298213e+07, gap 8.5560%</span></span></code></pre>
+<span><span class="co">## Best objective 1.009944489031e+08, best bound 9.103307331724e+07, gap 9.8633%</span></span></code></pre>
 <div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># print first six rows of solution object</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">s3</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>

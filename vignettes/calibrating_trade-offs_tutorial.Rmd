@@ -261,7 +261,7 @@ best_guess_idx <- min(which(result_n_selected == max(result_n_selected)))
 # run checks
 invisible(
     assertthat::assert_that(
-    best_guess_idx == 9,
+    best_guess_idx == 8,
     msg = paste(
       "inconsistency between results and text,",
       "index of best guess index should be",

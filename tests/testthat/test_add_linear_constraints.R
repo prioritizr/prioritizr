@@ -261,7 +261,7 @@ test_that("minimum set objective (solve, single zone)", {
     add_linear_constraints(3, "<=", constraint) %>%
     add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
-  s <- solve_fixed_seed(p)
+  s <- solve(p)
   # test for correct solution
   expect_equal(c(terra::values(s)), c(0, 1, 1, NA))
 })
@@ -575,7 +575,7 @@ test_that("minimum set objective (solve, SpatRaster, multiple zones)", {
     add_binary_decisions() %>%
     add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
-  s <- solve_fixed_seed(p)
+  s <- solve(p)
   # tests
   expect_inherits(s, "SpatRaster")
   expect_equal(c(terra::values(s[[1]])), c(0, 1, NA, 1, 0, 0, NA))

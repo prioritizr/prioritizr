@@ -214,7 +214,8 @@ add_lpsymphony_solver <- function(x, gap = 0.1,
             x = x$solution,
             objective = x$objval,
             status = as.character(x$status),
-            runtime = rt[[3]]
+            runtime = rt[[3]],
+            gap = NA_real_
           )
         },
         set_variable_ub = function(index, value) {
