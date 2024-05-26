@@ -195,3 +195,70 @@ test_that("solve (parallel processing)", {
       )
     )
 })
+
+test_that("start_solution (single solution)", {
+  skip_on_cran()
+  skip_if_not_installed("rcbc")
+  # create data
+  cost <- terra::rast(matrix(c(1000, 100, 200, 300, NA), nrow = 1))
+  features <- c(
+    terra::rast(matrix(c(5,  5,   0,  0,  NA), nrow = 1)),
+    terra::rast(matrix(c(2,  0,   8,  10, NA), nrow = 1)),
+    terra::rast(matrix(c(10, 100, 10, 10, NA), nrow = 1))
+  )
+  names(features) <- make.unique(names(features))
+  start_valid <- terra::rast(matrix(c(1, 0, 1, 0, NA), nrow = 1))
+  # create problem
+  p <-
+    problem(cost, features) %>%
+    add_min_set_objective() %>%
+    add_manual_targets(
+      tibble::tibble(
+        feature = names(features),
+        type = "absolute",
+        sense = c("=", ">=", "<="),
+        target = c(5, 10, 20)
+      )
+    ) %>%
+    add_cbc_solver(gap = 0, start = start_valid, verbose = FALSE) %>%
+    add_shuffle_portfolio(number_solutions = 1)
+  # create solution
+  s <- solve(p)
+  # test for correct solution
+  expect_equal(c(terra::values(s)), c(1, 0, 1, 0, NA))
+})
+
+test_that("start_solution (multiple solution)", {
+  skip_on_cran()
+  skip_if_not_installed("rcbc")
+  # create data
+  cost <- terra::rast(matrix(c(1000, 100, 200, 300, NA), nrow = 1))
+  features <- c(
+    terra::rast(matrix(c(5,  5,   0,  0,  NA), nrow = 1)),
+    terra::rast(matrix(c(2,  0,   8,  10, NA), nrow = 1)),
+    terra::rast(matrix(c(10, 100, 10, 10, NA), nrow = 1))
+  )
+  names(features) <- make.unique(names(features))
+  start_valid <- terra::rast(matrix(c(1, 0, 1, 0, NA), nrow = 1))
+  # create problem
+  p <-
+    problem(cost, features) %>%
+    add_min_set_objective() %>%
+    add_manual_targets(
+      tibble::tibble(
+        feature = names(features),
+        type = "absolute",
+        sense = c("=", ">=", "<="),
+        target = c(5, 10, 20)
+      )
+    ) %>%
+    add_cbc_solver(gap = 0, start = start_valid, verbose = FALSE) %>%
+    add_shuffle_portfolio(number_solutions = 3, remove_duplicates = FALSE)
+  # create solution
+  s <- solve(p)
+  # test for correct solution
+  expect_length(s, 3)
+  expect_equal(c(terra::values(s[[1]])), c(1, 0, 1, 0, NA))
+  expect_equal(c(terra::values(s[[2]])), c(1, 0, 1, 0, NA))
+  expect_equal(c(terra::values(s[[3]])), c(1, 0, 1, 0, NA))
+})

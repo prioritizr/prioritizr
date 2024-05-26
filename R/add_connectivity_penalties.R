@@ -577,10 +577,12 @@ internal_add_connectivity_penalties <- function(x, penalty, zones, data) {
             }
           } else {
             ## throw error if not recognized
+            # nocov start
             cli::cli_abort(
               "Failed calculations for {.fn add_connectivity_penalties}.",
               .internal = TRUE
             )
+            # nocov end
           }
           # coerce to symmetric connectivity data
           m <- lapply(m, function(x) {

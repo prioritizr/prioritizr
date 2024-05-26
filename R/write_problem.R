@@ -101,7 +101,7 @@ write_problem <- function(x, path, solver = NULL) {
   if (identical(solver, "rsymphony")) {
     x <- suppressWarnings(add_rsymphony_solver(x))
   } else {
-    x <- suppressWarnings(add_gurobi_solver(x))
+    x <- suppressWarnings(add_gurobi_solver(x)) # nocov
   }
 
   # compile problem
@@ -140,7 +140,7 @@ write_problem <- function(x, path, solver = NULL) {
     file.copy(raw_path, path)
   } else {
     ## if using gurobi solver ...
-    gurobi::gurobi_write(model = model, filename = path)
+    gurobi::gurobi_write(model = model, filename = path) # nocov
   }
 
   # return success

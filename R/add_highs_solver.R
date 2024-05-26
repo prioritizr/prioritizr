@@ -199,7 +199,7 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
           if (!is.null(x$info) && !is.null(x$info$mip_gap)) {
             x_gap <- x$info$mip_gap
           } else {
-            x_gap <- NA_real_
+            x_gap <- NA_real_ # nocov
           }
           # return solution
           list(
