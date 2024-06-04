@@ -22,10 +22,13 @@ Richard Schuster
 
   **We also wish to justify our inclusion of the archived _cplexAPI_ R package as an optional dependency. The _prioritizr_ R package aims to provide users with the ability to solve optimization problems using a variety of different software, and the _cplexAPI_ R package provides an interface to the IBM CPLEX software. Although compiler warnings resulted in the archival of the _cplexAPI_ R package, we have confirmed that it still works correctly and the source code remains publicly available (https://github.com/cran/cplexAPI). Thus we are confident that users will be able to use the _cplexAPI_ R package. Although the _Rcplex_ R package -- which is available on CRAN -- aims to provide a similar interface to the IBM CPLEX software, it is not a suitable replacement. This is because the _cplexAPI_ R package is not compatible with the latest version of the IBM CPLEX software. Despite attempts to contact the maintainer of the _Rcplex_ R package, we have not been successful and so the _Rcplex_ package remains unusable.**
 
-* Possibly misspelled words in DESCRIPTION:
-  CPLEX (19:9)
+* Found the following (possibly) invalid URLs:
+  URL: https://support.gurobi.com/hc/en-us/articles/4534161999889-How-do-I-install-Gurobi-Optimizer
+    From: inst/doc/gurobi_installation_guide.html
+    Status: 403
+    Message: Forbidden
 
-  **These words are spelled correctly.**
+  **I have checked this URL and confirm that it is correct.**
 
 ## Previous notes from CRAN maintainers
 
