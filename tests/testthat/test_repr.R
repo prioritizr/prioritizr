@@ -6,23 +6,47 @@ test_that("x = logical", {
   expect_inherits(repr(c(TRUE, FALSE)), "character")
 })
 
-test_that("x = character", {
-  expect_inherits(repr(c("a", "b", "c")), "character")
+test_that("x = character (single value)", {
+  expect_inherits(repr("a"), "character")
+  expect_false(grepl("total", repr("a"), fixed = TRUE))
 })
 
-test_that("x = matrix", {
+test_that("x = character (multiple values)", {
+  expect_inherits(repr(c("a", "b", "c")), "character")
+  expect_match(repr(c("a", "b", "c")), "total")
+})
+
+test_that("x = matrix (nrow == ncol", {
   expect_inherits(repr(matrix(c(1, 2, 3))), "character")
-  expect_error(
-    stop(repr(matrix(3, ncol = 3, nrow = 3))),
+  # relationship matrices
+  expect_match(
+    repr(matrix(3, ncol = 3, nrow = 3)),
     "symmetric continuous values"
   )
-  expect_error(
-    stop(repr(matrix(c(1, 2, 3)))),
+  expect_match(
+    repr(matrix(c(1, 2, 3), ncol = 3, nrow = 3)),
     "asymmetric continuous values"
   )
-  expect_error(
-    stop(repr(diag(3))),
+  expect_match(
+    repr(diag(3)),
     "diagonal matrix"
+  )
+})
+
+test_that("x = matrix (nrow != ncol", {
+  expect_match(
+    repr(matrix(c(1, 2, 3), ncol = 1, nrow = 3)),
+    "continuous values"
+  )
+  expect_false(
+    grepl("symmetric", repr(matrix(c(1, 2, 3), ncol = 1, nrow = 3)))
+  )
+  expect_match(
+    repr(matrix(c(1, 0, 1), ncol = 1, nrow = 3)),
+    "binary values"
+  )
+  expect_false(
+    grepl("symmetric", repr(matrix(c(1, 0, 1), ncol = 1, nrow = 3)))
   )
 })
 
