@@ -51,7 +51,7 @@ repr.character <- function(x) {
     nc <- nc[cumsum(nc) < w]
     nc <- nc[(cumsum(nc) + 10 + nchar(length(x))) < w]
     y <- x[seq_along(nc)]
-    if (length(x) > 1) {
+    if (length(y) > 1) {
       out <- cli::format_inline(
         paste(
           paste0("{.val ", y, "}", collapse = ", "),
@@ -60,9 +60,10 @@ repr.character <- function(x) {
       )
     } else {
       out <- cli::format_inline(
-        paste(
-          paste0("{.val ", y, "}", collapse = ", "),
-          ", {cli::symbol$ellipsis}"
+        paste0(
+          "{.val ", substr(x[[1]], 1, max(1, w - 10)),
+          "{cli::symbol$ellipsis}}",
+          ", {cli::symbol$ellipsis} ({length(x)} total)"
         )
       )
     }
@@ -86,7 +87,7 @@ repr.dgCMatrix <- function(x) {
   # extract data
   v <- range(x@x[x@x != 0])
   # check if matrix has equal number of rows and columns
-  if (nrow(x) == ncol(x)) {
+  if (identical(nrow(x), ncol(x))) {
     ## if matrix has same number of rows and columns, then we will
     ## assume that it is a matrix used to encode relationship
     ## values between different planning units

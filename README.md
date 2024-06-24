@@ -102,7 +102,7 @@ Alternatively, to cite the latest development version, please use:
 
 > Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Edwards BPM, Watts
 > ME, Arcese P, Bennett J, Possingham HP (2024). prioritizr: Systematic
-> Conservation Prioritization in R. R package version 8.0.4. Available
+> Conservation Prioritization in R. R package version 8.0.4.1. Available
 > at <https://github.com/prioritizr/prioritizr>.
 
 Additionally, we keep a [record of
@@ -246,7 +246,7 @@ print(p1)
 
     ## A conservation problem (<ConservationProblem>)
     ## ├•data
-    ## │├•features:    "Recurvirostra americana (breeding)" , … (396 total)
+    ## │├•features:    "Recurvirostra americana (breeding)…", … (396 total)
     ## │└•planning units:
     ## │ ├•data:       <SpatRaster> (10757 total)
     ## │ ├•costs:      continuous values (between 0.2987 and 1804.1838)
@@ -282,7 +282,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##      4.176
+    ##      3.408
 
 ``` r
 # extract state message from the solver

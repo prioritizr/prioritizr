@@ -14,6 +14,10 @@ test_that("x = character (single value)", {
 test_that("x = character (multiple values)", {
   expect_inherits(repr(c("a", "b", "c")), "character")
   expect_match(repr(c("a", "b", "c")), "total")
+  expect_match(
+    repr(c(paste(rep("a", 1000), collapse = ""), "b", "c")),
+    "total"
+  )
 })
 
 test_that("x = matrix (nrow == ncol", {
@@ -28,8 +32,20 @@ test_that("x = matrix (nrow == ncol", {
     "asymmetric continuous values"
   )
   expect_match(
+    repr(matrix(c(1, 0, 1), ncol = 3, nrow = 3)),
+    "asymmetric binary values"
+  )
+  expect_match(
+    repr(matrix(1, ncol = 3, nrow = 3)),
+    "symmetric binary values"
+  )
+  expect_match(
     repr(diag(3)),
     "diagonal matrix"
+  )
+  expect_match(
+    repr(diag(3) * runif(3)),
+    "diagonal matrix \\(non-zero values"
   )
 })
 
