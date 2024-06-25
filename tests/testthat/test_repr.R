@@ -14,6 +14,7 @@ test_that("x = character (single value)", {
 test_that("x = character (multiple values)", {
   expect_inherits(repr(c("a", "b", "c")), "character")
   expect_match(repr(c("a", "b", "c")), "total")
+  expect_match(repr(rep("a", 1000)), "total")
   expect_match(
     repr(c(paste(rep("a", 1000), collapse = ""), "b", "c")),
     "total"

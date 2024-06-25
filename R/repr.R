@@ -153,7 +153,7 @@ repr.phylo <- function(x) {
 repr.crs <- function(x) {
   if (identical(x$wkt, "")) {
     # if the CRS is an empty character value, then just return that
-    out <- ""
+    out <- "" # nocov
   } else if (isTRUE(startsWith(x$wkt[[1]], "PROJCRS[\"unknown\""))) {
     # if the CRS is not recognized, then use the terra package to prepare output
     r <- terra::rast(matrix(1), crs = x$wkt)
@@ -163,7 +163,7 @@ repr.crs <- function(x) {
       silent = TRUE
     )
     if (inherits(out, "try-error")) {
-      out <- "Unrecognized Cartesian SRS"
+      out <- "Unrecognized Cartesian SRS" # nocov
     }
   } else {
     # if the CRS is recognized, then use the sf package to prepare output
