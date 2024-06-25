@@ -282,7 +282,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##      3.746
+    ##      3.283
 
 ``` r
 # extract state message from the solver
@@ -577,7 +577,8 @@ Additional resources can also be found in [online repositories under the
 resources include [slides for talks and seminars about the
 package](https://github.com/prioritizr/teaching). Additionally, workshop
 materials are available too (e.g., the [Carleton 2023
-workshop](https://prioritizr.github.io/workshop/)).
+workshop](https://prioritizr.github.io/workshop/) and [ECCB 2024
+workshop](https://iiasa.github.io/eccb2024/)).
 
 ## Getting help
 
