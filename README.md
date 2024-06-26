@@ -246,7 +246,7 @@ print(p1)
 
     ## A conservation problem (<ConservationProblem>)
     ## ├•data
-    ## │├•features:    "Recurvirostra americana (breeding)…", … (396 total)
+    ## │├•features:    "Recurvirostra americana (breeding)", … (396 total)
     ## │└•planning units:
     ## │ ├•data:       <SpatRaster> (10757 total)
     ## │ ├•costs:      continuous values (between 0.2987 and 1804.1838)
@@ -282,7 +282,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##      3.283
+    ##      3.503
 
 ``` r
 # extract state message from the solver

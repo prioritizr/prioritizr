@@ -51,9 +51,9 @@ repr.character <- function(x) {
     nc <- nc[cumsum(nc) < w]
     nc <- nc[(cumsum(nc) + 10 + nchar(length(x))) < w]
     y <- x[seq_along(nc)]
-    if (length(y) > 1) {
+    if (length(y) > 0) {
       out <- cli::format_inline(
-        paste(
+        paste0(
           paste0("{.val ", y, "}", collapse = ", "),
           ", {cli::symbol$ellipsis} ({length(x)} total)"
         )

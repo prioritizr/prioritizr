@@ -268,7 +268,7 @@ div.csl-indent {
 <span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p1)</span></code></pre></div>
 <pre><code>## A conservation problem (&lt;ConservationProblem&gt;)
 ## ├•data
-## │├•features:    &quot;Banksia woodlands…&quot;, … (33 total)
+## │├•features:    &quot;Banksia woodlands&quot;, … (33 total)
 ## │└•planning units:
 ## │ ├•data:       &lt;sftbl_dftbldata.frame&gt; (1130 total)
 ## │ ├•costs:      continuous values (between 0.1925 and 61.9273)
@@ -314,7 +314,7 @@ div.csl-indent {
 ## Found heuristic solution: objective 36789.525254
 ## Found heuristic solution: objective 26818.653495
 ## Presolve removed 1909 rows and 1249 columns
-## Presolve time: 0.04s
+## Presolve time: 0.06s
 ## Presolved: 4420 rows, 3029 columns, 11081 nonzeros
 ## Found heuristic solution: objective 24077.930942
 ## Variable types: 0 continuous, 3029 integer (3029 binary)
@@ -323,7 +323,7 @@ div.csl-indent {
 ## Root relaxation presolved: 4412 rows, 3023 columns, 11060 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.799626e+04, 1296 iterations, 0.05 seconds (0.09 work units)
+## Root relaxation: objective 1.799626e+04, 1296 iterations, 0.07 seconds (0.09 work units)
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -333,7 +333,7 @@ div.csl-indent {
 ## H    0     0                    20673.221523 17996.2587  12.9%     -    0s
 ## H    0     0                    19891.369195 17996.2587  9.53%     -    0s
 ## 
-## Explored 1 nodes (1296 simplex iterations) in 0.12 seconds (0.18 work units)
+## Explored 1 nodes (1296 simplex iterations) in 0.16 seconds (0.18 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 7: 19891.4 20673.2 21408.7 ... 36789.5
@@ -476,7 +476,7 @@ div.csl-indent {
 <span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p2)</span></code></pre></div>
 <pre><code>## A conservation problem (&lt;ConservationProblem&gt;)
 ## ├•data
-## │├•features:    &quot;Banksia woodlands…&quot;, … (33 total)
+## │├•features:    &quot;Banksia woodlands&quot;, … (33 total)
 ## │└•planning units:
 ## │ ├•data:       &lt;sftbl_dftbldata.frame&gt; (1130 total)
 ## │ ├•costs:      continuous values (between 0.1925 and 61.9273)
@@ -528,7 +528,7 @@ div.csl-indent {
 ## Root relaxation presolved: 4895 rows, 4020 columns, 12064 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.799626e+04, 1440 iterations, 0.05 seconds (0.10 work units)
+## Root relaxation: objective 1.799626e+04, 1440 iterations, 0.08 seconds (0.10 work units)
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -538,18 +538,18 @@ div.csl-indent {
 ## H    0     0                    20460.109776 17996.2587  12.0%     -    0s
 ##      0     0 18090.6275    0 1238 20460.1098 18090.6275  11.6%     -    0s
 ## H    0     0                    19408.211150 18090.6275  6.79%     -    0s
-##      0     0 18106.4253    0 1203 19408.2111 18106.4253  6.71%     -    0s
-##      0     0 18106.5097    0 1128 19408.2111 18106.5097  6.71%     -    0s
-##      0     0 18108.9518    0 1121 19408.2111 18108.9518  6.69%     -    0s
+##      0     0 18106.4253    0 1203 19408.2111 18106.4253  6.71%     -    1s
+##      0     0 18106.5097    0 1128 19408.2111 18106.5097  6.71%     -    1s
+##      0     0 18108.9518    0 1121 19408.2111 18108.9518  6.69%     -    1s
 ##      0     0 18108.9518    0 1121 19408.2111 18108.9518  6.69%     -    1s
 ##      0     2 18109.9351    0 1121 19408.2111 18109.9351  6.69%     -    1s
-## H   27    27                    19182.229771 18109.9351  5.59%   115    1s
+## H   27    27                    19182.229771 18109.9351  5.59%   115    2s
 ## H  187   187                    19131.891551 18109.9351  5.34%  42.8    2s
 ## H  472   455                    18712.916589 18109.9351  3.22%  21.4    2s
-## H  494   474                    18560.845115 18121.8415  2.37%  24.8    2s
-## H  512   493                    18558.685470 18121.8415  2.35%  25.8    2s
-## H  519     3                    18395.725721 18121.8415  1.49%  25.5    4s
-##    853   333          -   43      18395.7257 18176.0305  1.19%  29.0    5s
+## H  494   474                    18560.845115 18121.8415  2.37%  24.8    3s
+## H  512   493                    18558.685470 18121.8415  2.35%  25.8    3s
+## H  519     3                    18395.725721 18121.8415  1.49%  25.5    5s
+##   2576  1599 18328.2764   19 1142 18395.7257 18189.7082  1.12%  18.8   10s
 ## 
 ## Cutting planes:
 ##   Cover: 1
@@ -557,7 +557,7 @@ div.csl-indent {
 ##   GUB cover: 1
 ##   RLT: 7
 ## 
-## Explored 2914 nodes (53672 simplex iterations) in 7.97 seconds (12.35 work units)
+## Explored 2914 nodes (53672 simplex iterations) in 10.49 seconds (12.35 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 1000: 18395.7 18443.6 18450.4 ... 20239.8
@@ -697,7 +697,7 @@ div.csl-indent {
 <span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p3)</span></code></pre></div>
 <pre><code>## A conservation problem (&lt;ConservationProblem&gt;)
 ## ├•data
-## │├•features:    &quot;bird1&quot;, &quot;nvis2&quot;, &quot;nvis8&quot;, &quot;nvis9&quot;, &quot;nvis14&quot;, &quot;nvis20&quot; , … (17 total)
+## │├•features:    &quot;bird1&quot;, &quot;nvis2&quot;, &quot;nvis8&quot;, &quot;nvis9&quot;, &quot;nvis14&quot;, &quot;nvis20&quot;, … (17 total)
 ## │└•planning units:
 ## │ ├•data:       &lt;data.frame&gt; (1751 total)
 ## │ ├•costs:      continuous values (between 0 and 415692.1938)
@@ -739,7 +739,7 @@ div.csl-indent {
 ##   RHS range        [5e+03, 3e+05]
 ## Found heuristic solution: objective 1.221202e+08
 ## Presolve removed 4707 rows and 3103 columns
-## Presolve time: 0.05s
+## Presolve time: 0.06s
 ## Presolved: 5368 rows, 3677 columns, 12704 nonzeros
 ## Variable types: 0 continuous, 3677 integer (3677 binary)
 ## Found heuristic solution: objective 1.009944e+08
@@ -753,7 +753,7 @@ div.csl-indent {
 ## 
 ##      0     0          -    0      1.0099e+08 9.1033e+07  9.86%     -    0s
 ## 
-## Explored 1 nodes (2 simplex iterations) in 0.06 seconds (0.09 work units)
+## Explored 1 nodes (2 simplex iterations) in 0.08 seconds (0.09 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 2: 1.00994e+08 1.2212e+08 
