@@ -1,3 +1,10 @@
+# prioritizr 8.0.4.1
+
+## Minor improvements and bug fixes
+
+- Fix issue with `print()` and `summarize()` not displaying correct text for
+  linear constraints (#330).
+
 # prioritizr 8.0.4
 
 ## Notice

@@ -39,7 +39,11 @@ repr.character <- function(x) {
     ## add in the " and (X total)"
     15 + nchar(length(x))
   if (print_all_length < w) {
-    out <- cli::format_inline("{.val {x}} ({length(x)} total)")
+    if (length(x) > 1) {
+      out <- cli::format_inline("{.val {x}} ({length(x)} total)")
+    } else {
+      out <- cli::format_inline("{.val {x}}")
+    }
   } else {
     # determine which characters to show
     nc <- nchar(x) + 2
@@ -47,13 +51,25 @@ repr.character <- function(x) {
     nc <- nc[cumsum(nc) < w]
     nc <- nc[(cumsum(nc) + 10 + nchar(length(x))) < w]
     y <- x[seq_along(nc)]
-    out <- cli::format_inline(
-      paste(
-        paste0("{.val ", y, "}", collapse = ", "),
-        ", {cli::symbol$ellipsis} ({length(x)} total)"
+    if (length(y) > 0) {
+      out <- cli::format_inline(
+        paste0(
+          paste0("{.val ", y, "}", collapse = ", "),
+          ", {cli::symbol$ellipsis} ({length(x)} total)"
+        )
       )
-    )
+    } else {
+      out <- cli::format_inline(
+        paste0(
+          "{.val ", substr(x[[1]], 1, max(1, w - 10)),
+          "{cli::symbol$ellipsis}}",
+          ", {cli::symbol$ellipsis} ({length(x)} total)"
+        )
+      )
+    }
   }
+  # return result
+  cli::format_inline(out)
 }
 
 #' @export
@@ -70,22 +86,35 @@ repr.Matrix <- function(x) {
 repr.dgCMatrix <- function(x) {
   # extract data
   v <- range(x@x[x@x != 0])
-  # compute output
-  if (Matrix::isDiagonal(x) && all_binary(x)) {
-    out <- "diagonal matrix ({.val {c(0, 1)}} values)"
-  } else if (Matrix::isDiagonal(x)) {
-    out <- "diagonal matrix (non-zero values between {.val {v}})"
-  } else if (all_binary(x)) {
-    out <- paste(
-      ifelse(Matrix::isSymmetric(x), "symmetric", "asymmetric"),
-      "binary values ({.val {c(0, 1)}})"
-    )
+  # check if matrix has equal number of rows and columns
+  if (identical(nrow(x), ncol(x))) {
+    ## if matrix has same number of rows and columns, then we will
+    ## assume that it is a matrix used to encode relationship
+    ## values between different planning units
+    if (Matrix::isDiagonal(x) && all_binary(x)) {
+      out <- "diagonal matrix ({.val {c(0, 1)}} values)"
+    } else if (Matrix::isDiagonal(x)) {
+      out <- "diagonal matrix (non-zero values between {.val {v}})"
+    } else if (all_binary(x)) {
+      out <- paste(
+        ifelse(Matrix::isSymmetric(x), "symmetric", "asymmetric"),
+        "binary values ({.val {c(0, 1)}})"
+      )
+    } else {
+      out <-
+      paste(
+        ifelse(Matrix::isSymmetric(x), "symmetric", "asymmetric"),
+        "continuous values (non-zero values between {.val {v}})"
+      )
+    }
   } else {
-    out <-
-    paste(
-      ifelse(Matrix::isSymmetric(x), "symmetric", "asymmetric"),
-      "continuous values (non-zero values between {.val {v}})"
-    )
+    ## otherwise, we will assume that it is a matrix used to
+    ## store information for individual planning units or features
+    if (all_binary(x)) {
+      out <- "binary values ({.val {c(0, 1)}})"
+    } else {
+      out <- "continuous values (non-zero values between {.val {v}})"
+    }
   }
   # format output
   cli::format_inline(out)
@@ -124,7 +153,7 @@ repr.phylo <- function(x) {
 repr.crs <- function(x) {
   if (identical(x$wkt, "")) {
     # if the CRS is an empty character value, then just return that
-    out <- ""
+    out <- "" # nocov
   } else if (isTRUE(startsWith(x$wkt[[1]], "PROJCRS[\"unknown\""))) {
     # if the CRS is not recognized, then use the terra package to prepare output
     r <- terra::rast(matrix(1), crs = x$wkt)
@@ -134,7 +163,7 @@ repr.crs <- function(x) {
       silent = TRUE
     )
     if (inherits(out, "try-error")) {
-      out <- "Unrecognized Cartesian SRS"
+      out <- "Unrecognized Cartesian SRS" # nocov
     }
   } else {
     # if the CRS is recognized, then use the sf package to prepare output

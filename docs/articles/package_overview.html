@@ -40,7 +40,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.4.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -364,7 +364,7 @@
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## A conservation problem (<span style="color: #0000BB;">&lt;ConservationProblem&gt;</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•data</span></span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"bird1"</span>, <span style="color: #0000BB;">"nvis2"</span>, <span style="color: #0000BB;">"nvis8"</span>, <span style="color: #0000BB;">"nvis9"</span>, <span style="color: #0000BB;">"nvis14"</span>, <span style="color: #0000BB;">"nvis20"</span> , … (17 total)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"bird1"</span>, <span style="color: #0000BB;">"nvis2"</span>, <span style="color: #0000BB;">"nvis8"</span>, <span style="color: #0000BB;">"nvis9"</span>, <span style="color: #0000BB;">"nvis14"</span>, <span style="color: #0000BB;">"nvis20"</span>, … (17 total)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>planning units:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>data:       <span style="color: #0000BB;">&lt;data.frame&gt;</span> (1751 total)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">0</span> and <span style="color: #0000BB;">415692.1938</span>)</span></span>
@@ -978,7 +978,7 @@
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints:</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          linear constraints (`threshold` = <span style="color: #0000BB;">190</span>, `sense` = <span style="color: #0000BB;">"&lt;="</span> (1 total), …)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          linear constraints (`threshold` = <span style="color: #0000BB;">190</span>, `sense` = <span style="color: #0000BB;">"&lt;="</span>, …)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   default portfolio</span></span>
@@ -1844,7 +1844,7 @@
 <span><span class="co">## Cutting planes:</span></span>
 <span><span class="co">##   Gomory: 3</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 34 nodes (1117 simplex iterations) in 0.09 seconds (0.12 work units)</span></span>
+<span><span class="co">## Explored 34 nodes (1117 simplex iterations) in 0.10 seconds (0.12 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Solution count 6: 2648.26 2814.48 2890.88 ... 20287.2</span></span>
@@ -1869,7 +1869,7 @@
 <code class="sourceCode R"><span><span class="co"># extract time spent solving solution</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s42</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## solution_1 </span></span>
-<span><span class="co">##      0.119</span></span></code></pre>
+<span><span class="co">##      0.129</span></span></code></pre>
 <div class="sourceCode" id="cb114"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract state message from the solver that describes why this specific</span></span>
 <span><span class="co"># solution was returned</span></span>
@@ -1982,7 +1982,7 @@
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 1 × 2</span></span></span>
 <span><span class="co">##   summary asym_connectivity</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> overall              46.0</span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> overall              50.5</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="evaluating-relative-importance">Evaluating relative importance<a class="anchor" aria-label="anchor" href="#evaluating-relative-importance"></a>
@@ -2106,7 +2106,7 @@
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">mp</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## A conservation problem (<span style="color: #0000BB;">&lt;ConservationProblem&gt;</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•data</span></span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"bird1"</span>, <span style="color: #0000BB;">"nvis2"</span>, <span style="color: #0000BB;">"nvis8"</span>, <span style="color: #0000BB;">"nvis9"</span>, <span style="color: #0000BB;">"nvis14"</span>, <span style="color: #0000BB;">"nvis20"</span> , … (17 total)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"bird1"</span>, <span style="color: #0000BB;">"nvis2"</span>, <span style="color: #0000BB;">"nvis8"</span>, <span style="color: #0000BB;">"nvis9"</span>, <span style="color: #0000BB;">"nvis14"</span>, <span style="color: #0000BB;">"nvis20"</span>, … (17 total)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>planning units:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>data:       <span style="color: #0000BB;">&lt;data.frame&gt;</span> (1751 total)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">0</span> and <span style="color: #0000BB;">415692.1938</span>)</span></span>
@@ -2207,7 +2207,7 @@
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">mp2</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## A conservation problem (<span style="color: #0000BB;">&lt;ConservationProblem&gt;</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•data</span></span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"bird1"</span>, <span style="color: #0000BB;">"nvis2"</span>, <span style="color: #0000BB;">"nvis8"</span>, <span style="color: #0000BB;">"nvis9"</span>, <span style="color: #0000BB;">"nvis14"</span>, <span style="color: #0000BB;">"nvis20"</span> , … (17 total)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"bird1"</span>, <span style="color: #0000BB;">"nvis2"</span>, <span style="color: #0000BB;">"nvis8"</span>, <span style="color: #0000BB;">"nvis9"</span>, <span style="color: #0000BB;">"nvis14"</span>, <span style="color: #0000BB;">"nvis20"</span>, … (17 total)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>planning units:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>data:       <span style="color: #0000BB;">&lt;data.frame&gt;</span> (1751 total)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">0</span> and <span style="color: #0000BB;">415692.1938</span>)</span></span>
