@@ -1,3 +1,22 @@
+# prioritizr 8.0.4.2
+
+## Minor improvements and bug fixes
+
+- Fix bug in `add_max_utility_objective()` that caused the optimization
+  process to throw an error about problem infeasibility when using
+  feature data that contain negative values (#334).
+- Fix bug in `presolve_check()` that would cause it to erroneously suggest that
+  many planning units don't have any feature data associated with them. This
+  bug was caused when the feature data contained relatively large, negative values.
+- Fix bug in `binary_stack()` that caused it to throw an error when working
+  with raster data containing zeros (#333).
+- Update `compile()` so that it throws an error when using the expanded
+  version of a problem formulation with negative feature values. This
+  is because the expanded version of the problem formulations are not
+  compatible with negative feature values. Currently, the expanded
+  version of the problem formulation is only required when using
+  `add_feature_contiguity_constraints()`.
+
 # prioritizr 8.0.4.1
 
 ## Minor improvements and bug fixes

@@ -54,11 +54,11 @@ bool rcpp_apply_max_utility_objective(
   // add in upper bounds representing the maximum abundances for each feature
   for (std::size_t z = 0; z < (ptr->_number_of_zones); ++z)
     for (std::size_t i = 0; i < (ptr->_number_of_features); ++i)
-      ptr->_ub.push_back(abundances(i, z));
+      ptr->_ub.push_back(std::max(abundances(i, z), 0.0));
   // add in lower bounds as zero
   for (std::size_t i = 0;
        i < (ptr->_number_of_zones) * (ptr->_number_of_features); ++i)
-    ptr->_lb.push_back(0.0);
+    ptr->_lb.push_back(-std::numeric_limits<double>::infinity());
   // add continuous variables representing how much of each species is
   // conserved in each zone
   for (std::size_t i = 0;

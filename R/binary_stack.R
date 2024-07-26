@@ -9,14 +9,17 @@ NULL
 #' value and pixel values denote the presence/absence of the given
 #' integer/categorical values.
 #'
-#' @param x [terra::rast()] object with a single layer.
+#' @param x [terra::rast()] object with a single layer that contains integer
+#'   values.
 #'
-#' @details This function is provided to help manage data that encompass
-#'   multiple management zones. For instance, this function may be helpful
-#'   for preparing raster data for [add_locked_in_constraints()] and
-#'   [add_locked_out_constraints()] since they require binary
-#'   rasters as input arguments.
-#'   It is essentially a wrapper for [terra::segregate()].
+#' @details
+#' This function is provided to help manage data that encompass
+#' multiple management zones. For instance, this function may be helpful
+#' for preparing raster data for [add_locked_in_constraints()] and
+#' [add_locked_out_constraints()] since they require binary
+#' rasters as input arguments.
+#' It is essentially a wrapper for [terra::segregate()].
+#' Note that this function assumes `x` contains integer values.
 #'
 #' @return A [terra::rast()] object.
 #'
@@ -24,7 +27,7 @@ NULL
 #'
 #' @examples
 #' # create raster with categorical values
-#' x <- terra::rast(matrix(c(1, 2, 3, 1, NA, 1), nrow = 3))
+#' x <- terra::rast(matrix(c(1, 2, 4, 0, NA, 1), nrow = 3))
 #'
 #' # plot the raster
 #' plot(x, main = "x")
@@ -61,7 +64,10 @@ binary_stack.SpatRaster <- function(x) {
   )
   # create segregated raster
   r <- terra::segregate(
-    x, classes = NULL, keep = FALSE, other = 0, round = FALSE
+    x,
+    classes = seq_len(round(terra::global(x, "max", na.rm = TRUE)[[1]])),
+    keep = FALSE,
+    round = TRUE
   )
   # check if additional blank rasters are needed
   if (!identical(names(r), as.character(seq_len(terra::nlyr(r))))) {
