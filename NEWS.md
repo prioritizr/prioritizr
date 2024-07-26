@@ -4,7 +4,8 @@
 
 - Fix bug in `add_max_utility_objective()` that caused the optimization
   process to throw an error about problem infeasibility when using
-  feature data that contain negative values (#334).
+  feature data that contain negative values (#334). Thanks to \@hannahmp
+  for bug report.
 - Fix bug in `presolve_check()` that would cause it to erroneously suggest that
   many planning units don't have any feature data associated with them. This
   bug was caused when the feature data contained relatively large, negative values.
