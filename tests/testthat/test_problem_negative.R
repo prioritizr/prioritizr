@@ -548,6 +548,7 @@ test_that("x = sf, features = ZonesCharacter", {
     ),
     ignore_deprecation = TRUE
   )
+  if (length(w) == 1) expect_equal("a", w)
   # check warnings
   expect_length(w, 2)
   expect_match(w[[1]], "x")
