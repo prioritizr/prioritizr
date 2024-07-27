@@ -26,8 +26,11 @@ bool rcpp_apply_feature_contiguity_constraints(
   std::size_t A_original_nrow = ptr->_rhs.size();
 
   // check that expanded formulation of the base conservation problem is used
-  if (ptr->_compressed_formulation)
+  if (ptr->_compressed_formulation) {
+    // # nocov start
     Rcpp::stop("this constraint requires the expanded formulation.");
+    // # nocov end
+  }
 
   // import cluster data
   std::vector<Rcpp::IntegerVector> clusters(ptr->_number_of_features);
