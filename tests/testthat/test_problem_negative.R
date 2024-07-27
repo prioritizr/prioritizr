@@ -523,18 +523,15 @@ test_that("x = sf, features = ZonesCharacter", {
   # import data
   sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
   # update data
+  sim_zones_pu_polygons <- sim_zones_pu_polygons[1:5, ]
+  sim_zones_pu_polygons$cost_1[1] <- -1
   sim_zones_pu_polygons$cost_1[2] <- NA
   sim_zones_pu_polygons$cost_1[3] <- NA
   sim_zones_pu_polygons$cost_2[3] <- NA
-  sim_zones_pu_polygons$cost_1 <-
-    sim_zones_pu_polygons$cost_1 * runif(nrow(sim_zones_pu_polygons), -1, 1)
-  sim_zones_pu_polygons$spp1_1 <- runif(nrow(sim_zones_pu_polygons), -1, 1)
-  sim_zones_pu_polygons$spp2_1 <- c(
-    NA, rpois(nrow(sim_zones_pu_polygons) - 1, 5)
-  )
-  sim_zones_pu_polygons$spp1_2 <- runif(nrow(sim_zones_pu_polygons), -1, 1)
-  sim_zones_pu_polygons$spp2_2 <- runif(nrow(sim_zones_pu_polygons), -1, 1)
-  sim_zones_pu_polygons <- sim_zones_pu_polygons[1:5, ]
+  sim_zones_pu_polygons$spp1_1 <- c(1, 2, 3, 5, 1)
+  sim_zones_pu_polygons$spp2_1 <- c(NA, 2, 3, 9, 7)
+  sim_zones_pu_polygons$spp1_2 <- c(-0.5, 4, 5, 2, 4)
+  sim_zones_pu_polygons$spp2_2 <- c(0.5, 4, 5, 5, 1)
   # create problem
   w <- capture_warnings(
     x <- problem(
@@ -548,7 +545,6 @@ test_that("x = sf, features = ZonesCharacter", {
     ),
     ignore_deprecation = TRUE
   )
-  if (length(w) == 1) expect_equal("a", w)
   # check warnings
   expect_length(w, 2)
   expect_match(w[[1]], "x")
