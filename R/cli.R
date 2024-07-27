@@ -129,23 +129,24 @@ cli_tree_component <- function(x,
 #'
 #' @param message `character` value with warning to display.
 #'
-#' @param immediate `logical` value indicating if warning should be
-#'   displayed immediately. Defaults to `TRUE`.
-#'
-#' @param call `logical` value indicating if the warning should contain
-#'   the function call. Defaults to `FALSE`.
+#' @param call `environment` for call. Defaults to `fn_caller_env()`.
 #'
 #' @return None.
+#'
+#' @details
+#' This function is a wrapper for [rlang::warn()] that will automatically
+#' format warning messages using a particular frame.
 #'
 #' @examples
 #' cli_warning("{.strong Danger! Danger!} My hooks are flailing wildly!")
 #'
 #' @noRd
-cli_warning <- function(message, immediate = TRUE, call = FALSE,
-                        .envir = parent.frame()) {
-  warning(
+cli_warning <- function(message,
+                        .envir = parent.frame(),
+                        call = fn_caller_env()) {
+  rlang::warn(
     cli::format_warning(message, .envir = .envir),
-    immediate. = immediate, call. = call
+    call = call
   )
 }
 

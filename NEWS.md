@@ -24,8 +24,12 @@
   convert a `SpatRaster` zones object (i.e., a `zones` object with _terra R_
   package data) into `Raster` zones object (i.e., a `zones` object with
   _raster R_ package data).
-- Fix bug in `write_problem()` erroneously printing messages about Gurobi not
-  being installed if it is not available and `solver = NULL`.
+- Fix bug in `write_problem()` needlessly printing messages about the
+  _gurobi R_ package not being installed when the function is trying to
+  automatically determine which solver to use (i.e., when using
+  `solver = NULL`) and the package is not is available.
+- Update warning messages so that they now indicate which function threw
+  the warning message (using `rlang::warn()`).
 - Additional tests to improve test coverage.
 
 # prioritizr 8.0.4.1
