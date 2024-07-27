@@ -378,7 +378,7 @@ methods::setMethod("add_feature_contiguity_constraints",
         )
       )
     } else {
-      cli::cli_abort("{.arg data} is not a recognized class.")
+      cli::cli_abort("{.arg data} is not a recognized class.") # nocov
     }
     # add constraint
     x$add_constraint(
