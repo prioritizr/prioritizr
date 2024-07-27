@@ -1,3 +1,34 @@
+test_that("maximum utility objective (numeric, compile, single zone)", {
+  # import data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  # create problems
+  p1 <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_max_utility_objective(budget = 5) %>%
+    add_binary_decisions()
+  p2 <-
+    p1 %>%
+    add_linear_penalties(3, c(terra::values(sim_features[[1]])) * 8)
+  # solve problems
+  o1 <- compile(p1)
+  o2 <- compile(p2)
+  # calculations for tests
+  pu_idx <- p1$planning_unit_indices()
+  pen <- c(
+    3 * sim_features[[1]][pu_idx][[1]] * 8,
+    rep(0, terra::nlyr(sim_features))
+  )
+  # tests
+  expect_equal(o2$obj(), o1$obj() - pen)
+  expect_equal(o2$A(), o1$A())
+  expect_equal(o2$ub(), o1$ub())
+  expect_equal(o2$lb(), o1$lb())
+  expect_equal(o2$rhs(), o1$rhs())
+  expect_equal(o2$sense(), o1$sense())
+  expect_equal(o2$modelsense(), o1$modelsense())
+})
+
 test_that("minimum set objective (numeric, compile, single zone)", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()

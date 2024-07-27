@@ -3,12 +3,17 @@
 
 // [[Rcpp::export]]
 bool rcpp_apply_max_utility_objective(
-  SEXP x, const Rcpp::NumericMatrix abundances,
-  const Rcpp::NumericMatrix costs, const Rcpp::NumericVector budget) {
+  SEXP x,
+  const Rcpp::NumericMatrix abundances,
+  bool has_negative_feature_values,
+  const Rcpp::NumericMatrix costs,
+  const Rcpp::NumericVector budget
+) {
   // initialize
   Rcpp::XPtr<OPTIMIZATIONPROBLEM> ptr = Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x);
   std::size_t A_extra_ncol;
   std::size_t A_extra_nrow;
+  double feature_var_lb = 0.0;
   if (ptr->_compressed_formulation) {
     A_extra_ncol = 0;
     A_extra_nrow = 0;
@@ -56,9 +61,11 @@ bool rcpp_apply_max_utility_objective(
     for (std::size_t i = 0; i < (ptr->_number_of_features); ++i)
       ptr->_ub.push_back(std::max(abundances(i, z), 0.0));
   // add in lower bounds as zero
+  if (has_negative_feature_values)
+    feature_var_lb = -std::numeric_limits<double>::infinity();
   for (std::size_t i = 0;
        i < (ptr->_number_of_zones) * (ptr->_number_of_features); ++i)
-    ptr->_lb.push_back(-std::numeric_limits<double>::infinity());
+    ptr->_lb.push_back(feature_var_lb);
   // add continuous variables representing how much of each species is
   // conserved in each zone
   for (std::size_t i = 0;

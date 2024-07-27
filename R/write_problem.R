@@ -78,7 +78,7 @@ write_problem <- function(x, path, solver = NULL) {
   if (is.null(solver)) {
     solver <- "rsymphony"
     if (requireNamespace("gurobi")) {
-      solver <- "gurobi"
+      solver <- "gurobi" # nocov
     } else {
       assert(
         requireNamespace("Rsymphony"),
@@ -94,7 +94,7 @@ write_problem <- function(x, path, solver = NULL) {
     assert(is_installed("Rsymphony"))
   }
   if (identical(solver, "gurobi")) {
-    assert(is_installed("gurobi"))
+    assert(is_installed("gurobi")) # nocov
   }
 
   # add solver

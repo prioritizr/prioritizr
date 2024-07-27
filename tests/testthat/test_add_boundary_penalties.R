@@ -13,7 +13,7 @@ test_that("minimum set objective (compile, single zone)", {
   # print
   suppressMessages(print(p))
   suppressMessages(summary(p))
-  # create variables for debugging
+  # calculations for tests
   ## number of planning units
   n_pu <- p$number_of_planning_units()
   ## number of features
@@ -70,6 +70,80 @@ test_that("minimum set objective (compile, single zone)", {
   }
 })
 
+test_that("maximum utility (compile, single zone)", {
+  # import data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  # create problem
+  p <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_max_utility_objective(budget = 5) %>%
+    add_binary_decisions() %>%
+    add_boundary_penalties(3, 0.5)
+  o <- compile(p)
+  # print
+  suppressMessages(print(p))
+  suppressMessages(summary(p))
+  # calculations for tests
+  ## number of planning units
+  n_pu <- p$number_of_planning_units()
+  ## number of features
+  n_f <- p$number_of_features()
+  ## prepare boundary calculations
+  b_data <- boundary_matrix(p$data$cost)
+  b_data <- b_data[p$planning_unit_indices(), p$planning_unit_indices()]
+  b_exposed <- c(
+    Matrix::diag(b_data) - (Matrix::rowSums(b_data) - Matrix::diag(b_data))
+  )
+  b_total <- Matrix::diag(b_data)
+  ## calculate scaled costs with total boundaries
+  b_sc_costs <- 3 * ((b_total - b_exposed) + (b_exposed * 0.5))
+  ## calculate scaled costs
+  scaled_costs <- c(p$planning_unit_costs())
+  scaled_costs <- scaled_costs * (-0.01 / sum(scaled_costs, na.rm = TRUE))
+  ## prepare scaled shared lengths
+  Matrix::diag(b_data) <- 0
+  b_data <- Matrix::tril(Matrix::drop0(b_data))
+  b_data <- as_Matrix(b_data * 3, "dgTMatrix")
+  ## objectives for boundary decision variables
+  b_obj <- o$obj()[n_pu + n_f + seq_len(length(b_data@i))]
+  ## lower bound for boundary decision variables
+  b_lb <- o$lb()[n_pu + n_f + seq_len(length(b_data@i))]
+  ## upper bound for boundary decision variables
+  b_ub <- o$ub()[n_pu + n_f + seq_len(length(b_data@i))]
+  ## vtype bound for boundary decision variables
+  b_vtype <- o$vtype()[n_pu + n_f + seq_len(length(b_data@i))]
+  ## pu costs including total boundary
+  pu_costs <- o$obj()[seq_len(n_pu)]
+  ## matrix labels
+  b_col_labels <- o$col_ids()[n_pu + n_f + seq_len(length(b_data@i))]
+  b_row_labels <- o$row_ids()[n_f + 1 + seq_len(length(b_data@i) * 2)]
+  ## sense for boundary decision constraints
+  b_sense <- o$sense()[n_f + 1 + seq_len(length(b_data@i) * 2)]
+  ## rhs for boundary decision constraints
+  b_rhs <- o$rhs()[n_f + 1 + seq_len(length(b_data@i) * 2)]
+  # tests
+  expect_true(all(b_col_labels == "b"))
+  expect_equal(pu_costs, scaled_costs - b_sc_costs)
+  expect_equal(b_obj, 2 * b_data@x)
+  expect_true(all(b_lb == 0))
+  expect_true(all(b_ub == 1))
+  expect_true(all(b_vtype == "B"))
+  expect_equal(b_row_labels, rep(c("b1", "b2"), length(b_data@i)))
+  expect_equal(b_sense, rep(c("<=", "<="), length(b_data@i)))
+  expect_equal(b_rhs, rep(c(0, 0), length(b_data@i)))
+  counter <- n_f + 1
+  oA <- o$A()
+  for (i in seq_along(b_data@i)) {
+    counter <- counter + 1
+    expect_true(oA[counter, n_pu + n_f + i] == 1)
+    expect_true(oA[counter, b_data@i[i] + 1] == -1)
+    counter <- counter + 1
+    expect_true(oA[counter, n_pu + n_f + i] == 1)
+    expect_true(oA[counter, b_data@j[i] + 1] == -1)
+  }
+})
+
 test_that("alternative data formats (single zone)", {
   # load data
   sim_pu_raster <- get_sim_pu_raster()
@@ -98,21 +172,25 @@ test_that("alternative data formats (single zone)", {
   p2 <- p %>% add_boundary_penalties(2, 0.5, data = bm)
   p3 <- p %>% add_boundary_penalties(2, 0.5, data = bdf)
   p4 <- p %>% add_boundary_penalties(2, 0.5, data = bdf2)
+  p5 <- p %>% add_boundary_penalties(2, 0.5, data = as.matrix(bm))
   # compile problems
   o1 <- compile(p1)
   o2 <- compile(p2)
   o3 <- compile(p3)
   o4 <- compile(p4)
+  o5 <- compile(p5)
   # tests
   expect_equal(o1$obj(), o2$obj())
   expect_equal(o1$obj(), o3$obj())
   expect_equal(o1$obj(), o4$obj())
+  expect_equal(o1$obj(), o5$obj())
   expect_true(all(o1$A() == o2$A()))
   expect_true(all(o1$A() == o3$A()))
   expect_true(all(o1$A() == o4$A()))
+  expect_true(all(o1$A() == o5$A()))
 })
 
-test_that("minimum set and shortfall objective (obj fun, single zone)", {
+test_that("minimum set objective (obj fun, single zone)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # import data

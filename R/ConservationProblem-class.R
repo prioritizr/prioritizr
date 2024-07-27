@@ -808,11 +808,26 @@ ConservationProblem <- R6::R6Class(
 
     #' @description
     #' Obtain the representation targets for the features.
-    #' @return [tibble::tibble()] data frame.
+    #' @return A [tibble::tibble()] data frame.
     feature_targets = function() {
       if (is.Waiver(self$targets))
         cli::cli_abort("Targets have not been specified.", call = NULL)
       self$targets$output()
+    },
+
+    #' @description
+    #' See if the feature data contain any negative values.
+    #' @return A `logical` value.
+    has_negative_feature_data = function() {
+      isTRUE(
+        min(
+          vapply(
+            self$data$rij_matrix,
+            FUN.VALUE = numeric(1),
+            function(x) min(x@x, na.rm = TRUE)
+          )
+        ) < 0
+      )
     },
 
     #' @description

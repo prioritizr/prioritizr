@@ -267,7 +267,8 @@ test_that("add_absolute_targets (matrix, multiple zones, negative data)", {
   expect_warning(
     p <-
       problem(sim_zones_pu_raster, sim_zones_features) %>%
-      add_absolute_targets(m)
+      add_absolute_targets(m),
+    "negative values"
   )
   # calculate absolute targets
   targets <- p$targets$output()

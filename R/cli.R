@@ -30,6 +30,7 @@ cli_pkg_theme <- function() {
 #' @noRd
 cli_box_chars <- function() {
   if (cli::is_utf8_output()) {
+    # nocov start
     list(
       "h" = cli::col_cyan("\u2500"),                   # horizontal
       "v" = cli::col_cyan("\u2502"),                   # vertical
@@ -37,6 +38,7 @@ cli_box_chars <- function() {
       "j" = cli::col_cyan("\u251C"),                   # junction
       "b" = cli::col_cyan("\u2022")                    # bullet
     )
+    # nocov end
   } else {
     list(
       "h" = cli::col_cyan("-"),                        # horizontal

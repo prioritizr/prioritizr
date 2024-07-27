@@ -63,24 +63,10 @@ binary_stack.SpatRaster <- function(x) {
     is_numeric_values(x)
   )
   # create segregated raster
-  r <- terra::segregate(
+  terra::segregate(
     x,
     classes = seq_len(round(terra::global(x, "max", na.rm = TRUE)[[1]])),
     keep = FALSE,
     round = TRUE
   )
-  # check if additional blank rasters are needed
-  if (!identical(names(r), as.character(seq_len(terra::nlyr(r))))) {
-    # create a zero layer
-    z <- r[[1]] * 0
-    # insert additional layers as needed
-    for (i in setdiff(as.character(seq_len(terra::nlyr(r))), names(r))) {
-      names(z) <- i
-      r <- c(r, z)
-    }
-    # re-order layers
-    r <- r[[as.character(seq_len(terra::nlyr(r)))]]
-  }
-  # return result
-  r
 }

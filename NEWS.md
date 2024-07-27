@@ -17,6 +17,14 @@
   compatible with negative feature values. Currently, the expanded
   version of the problem formulation is only required when using
   `add_feature_contiguity_constraints()`.
+- Fix bug in `add_absolute_targets()` where it would not throw a warning to
+  the user know that a problem already had targets defined, and so adding
+  the new targets would override the existing targets defined for the problem.
+- Fix bug in `as.ZonesRaster` that resulted in an error when trying to
+  convert a `SpatRaster` zones object (i.e., a `zones` object with _terra R_
+  package data) into `Raster` zones object (i.e., a `zones` object with
+  _raster R_ package data).
+- Additional tests to improve test coverage.
 
 # prioritizr 8.0.4.1
 

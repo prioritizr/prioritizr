@@ -129,18 +129,11 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
   }
   # if expanded formulation required, then check for negative feature values
   if (!isTRUE(compressed_formulation)) {
-    ## check if there are negative feature values
-    any_negative_values <- any(
-      min(
-        vapply(
-          x$data$rij_matrix,
-          FUN.VALUE = numeric(1),
-          function(m) min(m@x)
-        )
-      ) < 0
-    )
     ## if negative values present, then throw errors
-    if (isTRUE(any_negative_values) && is.na(user_compressed_formulation)) {
+    if (
+        x$has_negative_feature_data() &&
+        is.na(user_compressed_formulation)
+      ) {
       ## find names of problem components that require expanded formulation
       expanded_components <- vapply(
         x$constraints[!compressed_possible],
@@ -164,7 +157,7 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
           )
         )
       )
-    } else if (isTRUE(any_negative_values)) {
+    } else if (x$has_negative_feature_data()) {
       #### throw more specific error message if user is manually trying the
       #### expanded formulation for some reason
       cli::cli_abort(
