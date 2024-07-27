@@ -21,13 +21,15 @@
   the user know that a problem already had targets defined, and so adding
   the new targets would override the existing targets defined for the problem.
 - Fix bug in `as.ZonesRaster` that resulted in an error when trying to
-  convert a `SpatRaster` zones object (i.e., a `zones` object with _terra R_
+  convert a `SpatRaster` zones object (i.e., a `zones` object with _terra_
   package data) into `Raster` zones object (i.e., a `zones` object with
-  _raster R_ package data).
+  _raster_ package data).
 - Fix bug in `write_problem()` needlessly printing messages about the
-  _gurobi R_ package not being installed when the function is trying to
+  _gurobi_ package not being installed when the function is trying to
   automatically determine which solver to use (i.e., when using
   `solver = NULL`) and the package is not is available.
+- Fix bug in `branch_matrix()` where it would not automatically convert
+  object to the `phylo` class in the _ape_ package.
 - Update warning messages so that they now indicate which function threw
   the warning message (using `rlang::warn()`).
 - Additional tests to improve test coverage.

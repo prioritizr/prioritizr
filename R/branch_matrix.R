@@ -43,7 +43,7 @@ branch_matrix <- function(x) {
 #' @method branch_matrix default
 #' @export
 branch_matrix.default <- function(x)
-  rcpp_branch_matrix(methods::as(x, "phylo"))
+  rcpp_branch_matrix(ape::as.phylo(x, "phylo"))
 
 #' @rdname branch_matrix
 #' @method branch_matrix phylo

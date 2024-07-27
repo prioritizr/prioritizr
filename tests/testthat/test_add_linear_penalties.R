@@ -76,10 +76,14 @@ test_that("minimum set objective (matrix, compile, single zone)", {
   p3 <-
     p1 %>%
     add_linear_penalties(3, as_Matrix(pd, "dgCMatrix"))
+  p4 <-
+    p1 %>%
+    add_linear_penalties(3, as_Matrix(pd, "dgTMatrix"))
   # solve problems
   o1 <- compile(p1)
   o2 <- compile(p2)
   o3 <- compile(p3)
+  o4 <- compile(p4)
   # calculations for tests
   pu_idx <- p1$planning_unit_indices()
   # tests
@@ -91,6 +95,7 @@ test_that("minimum set objective (matrix, compile, single zone)", {
   expect_equal(o2$sense(), o1$sense())
   expect_equal(o2$modelsense(), o1$modelsense())
   expect_equal(as.list(o2), as.list(o3))
+  expect_equal(as.list(o2), as.list(o4))
 })
 
 test_that("minimum set objective (raster, compile, single zone)", {
