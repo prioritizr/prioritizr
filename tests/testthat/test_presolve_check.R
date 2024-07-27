@@ -336,4 +336,3 @@ test_that("single feature", {
     "contains a single feature"
   )
 })
-
