@@ -562,7 +562,7 @@ internal_presolve_check <- function(x) {
     )
   }
   ### check lower threshold
-  if (mean(Matrix::colSums(rij) <= lower_value) >= 0.5) {
+  if (mean(Matrix::colSums(abs(rij)) <= lower_value) >= 0.5) {
     pass <- FALSE
     msg2 <- c(
       msg2,

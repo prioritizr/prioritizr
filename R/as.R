@@ -29,7 +29,7 @@ as.ZonesSpatRaster.ZonesRaster <- function(x) {
 
 as.ZonesRaster <- function(x) UseMethod("as.ZonesRaster")
 
-#' @method as.ZonesSpatRaster ZonesRaster
+#' @method as.ZonesRaster ZonesSpatRaster
 #' @export
 as.ZonesRaster.ZonesSpatRaster <- function(x) {
   for (i in seq_along(x)) {

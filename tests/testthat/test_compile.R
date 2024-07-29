@@ -164,3 +164,51 @@ test_that("compile (expanded formulation, negative data)", {
   # tests
   expect_error(compile(p, FALSE))
 })
+
+test_that("compile (error with negative values and expanded formulation)", {
+  # create data
+  spp1_habitat <- terra::rast(matrix(c(
+    5, 0, 5,
+    0, 0, 0,
+    0, 0, 0), byrow = TRUE, ncol = 3), ext = terra::ext(0, 1, 0, 1))
+  spp2_habitat <- terra::rast(matrix(c(
+    2, 2, 0,
+    0, 0, 0,
+    20, 0, 20), byrow = TRUE, ncol = 3), ext = terra::ext(0, 1, 0, 1))
+  spp1_conductance <- terra::rast(matrix(c(
+    1, 1, 1,
+    0, 0, 0,
+    0, 0, 0), byrow = TRUE, ncol = 3), ext = terra::ext(0, 1, 0, 1))
+  spp2_conductance <- terra::rast(matrix(c(
+    1, 1, 0,
+    0, 0, 0,
+    1, 1, 1), byrow = TRUE, ncol = 3), ext = terra::ext(0, 1, 0, 1))
+  cost <- terra::setValues(spp1_conductance, 1)
+  features <- c(spp1_habitat, spp2_habitat * -1)
+  names(features) <- make.unique(names(features))
+  cl <- list(
+    as_Matrix(connectivity_matrix(cost, spp1_conductance) > 0.3, "dgCMatrix"),
+    as_Matrix(connectivity_matrix(cost, spp2_conductance) > 0.3, "dgCMatrix")
+  )
+  cl <- lapply(cl, Matrix::drop0)
+  # create problem
+  suppressWarnings(
+    p <-
+      problem(cost, features) %>%
+      add_min_set_objective() %>%
+      add_absolute_targets(c(6, 30)) %>%
+      add_feature_contiguity_constraints(diag(1), data = cl) %>%
+      add_default_solver(verbose = FALSE)
+  )
+  # tests
+  ### test default behavior
+  expect_error(
+    compile(p),
+    "contains negative feature values"
+  )
+  ### test manually specified behavior
+  expect_error(
+    compile(p, compressed = FALSE),
+    "compressed_formulation"
+  )
+})

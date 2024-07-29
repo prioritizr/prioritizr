@@ -149,7 +149,8 @@ add_max_utility_objective <- function(x, budget) {
           invisible(
             rcpp_apply_max_utility_objective(
               x$ptr,
-              unname(y$feature_abundances_in_planning_units()),
+              unname(y$feature_positive_abundances_in_planning_units()),
+              y$has_negative_feature_data(),
               y$planning_unit_costs(),
               self$get_data("budget")
             )

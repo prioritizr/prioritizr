@@ -157,8 +157,8 @@ rcpp_apply_max_phylo_objective <- function(x, targets_list, costs, budget, branc
     .Call(`_prioritizr_rcpp_apply_max_phylo_objective`, x, targets_list, costs, budget, branch_matrix, branch_lengths)
 }
 
-rcpp_apply_max_utility_objective <- function(x, abundances, costs, budget) {
-    .Call(`_prioritizr_rcpp_apply_max_utility_objective`, x, abundances, costs, budget)
+rcpp_apply_max_utility_objective <- function(x, abundances, has_negative_feature_values, costs, budget) {
+    .Call(`_prioritizr_rcpp_apply_max_utility_objective`, x, abundances, has_negative_feature_values, costs, budget)
 }
 
 rcpp_apply_min_largest_shortfall_objective <- function(x, targets_list, costs, budget) {

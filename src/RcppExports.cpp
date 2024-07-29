@@ -490,16 +490,17 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_apply_max_utility_objective
-bool rcpp_apply_max_utility_objective(SEXP x, const Rcpp::NumericMatrix abundances, const Rcpp::NumericMatrix costs, const Rcpp::NumericVector budget);
-RcppExport SEXP _prioritizr_rcpp_apply_max_utility_objective(SEXP xSEXP, SEXP abundancesSEXP, SEXP costsSEXP, SEXP budgetSEXP) {
+bool rcpp_apply_max_utility_objective(SEXP x, const Rcpp::NumericMatrix abundances, bool has_negative_feature_values, const Rcpp::NumericMatrix costs, const Rcpp::NumericVector budget);
+RcppExport SEXP _prioritizr_rcpp_apply_max_utility_objective(SEXP xSEXP, SEXP abundancesSEXP, SEXP has_negative_feature_valuesSEXP, SEXP costsSEXP, SEXP budgetSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
     Rcpp::traits::input_parameter< const Rcpp::NumericMatrix >::type abundances(abundancesSEXP);
+    Rcpp::traits::input_parameter< bool >::type has_negative_feature_values(has_negative_feature_valuesSEXP);
     Rcpp::traits::input_parameter< const Rcpp::NumericMatrix >::type costs(costsSEXP);
     Rcpp::traits::input_parameter< const Rcpp::NumericVector >::type budget(budgetSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_apply_max_utility_objective(x, abundances, costs, budget));
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_max_utility_objective(x, abundances, has_negative_feature_values, costs, budget));
     return rcpp_result_gen;
 END_RCPP
 }

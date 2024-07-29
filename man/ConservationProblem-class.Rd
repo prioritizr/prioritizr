@@ -83,6 +83,7 @@ generating solutions.}
 \item \href{#method-ConservationProblem-set_feature_positive_abundances_in_planning_units}{\code{ConservationProblem$set_feature_positive_abundances_in_planning_units()}}
 \item \href{#method-ConservationProblem-feature_abundances_in_total_units}{\code{ConservationProblem$feature_abundances_in_total_units()}}
 \item \href{#method-ConservationProblem-feature_targets}{\code{ConservationProblem$feature_targets()}}
+\item \href{#method-ConservationProblem-has_negative_feature_data}{\code{ConservationProblem$has_negative_feature_data()}}
 \item \href{#method-ConservationProblem-number_of_zones}{\code{ConservationProblem$number_of_zones()}}
 \item \href{#method-ConservationProblem-zone_names}{\code{ConservationProblem$zone_names()}}
 \item \href{#method-ConservationProblem-add_portfolio}{\code{ConservationProblem$add_portfolio()}}
@@ -434,7 +435,20 @@ Obtain the representation targets for the features.
 }
 
 \subsection{Returns}{
-\code{\link[tibble:tibble]{tibble::tibble()}} data frame.
+A \code{\link[tibble:tibble]{tibble::tibble()}} data frame.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ConservationProblem-has_negative_feature_data"></a>}}
+\if{latex}{\out{\hypertarget{method-ConservationProblem-has_negative_feature_data}{}}}
+\subsection{Method \code{has_negative_feature_data()}}{
+See if the feature data contain any negative values.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$has_negative_feature_data()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+A \code{logical} value.
 }
 }
 \if{html}{\out{<hr>}}

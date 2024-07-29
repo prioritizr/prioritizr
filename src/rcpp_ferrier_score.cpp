@@ -31,10 +31,10 @@ arma::sp_mat rcpp_ferrier_score(
   for (auto itr = out.begin(); itr != out.end(); ++itr) {
     j = itr.col();
     i = itr.row();
-    out(i, j) =
-      calculate_feat_unit_irrep_value(
-        n_pu, portfolio_size, mult, wt_include, wt_exclude, rij(i, j),
-        targets[i], sum_feat_amount[i], sum_sq_feat_amount[i]);
+    out(i, j) = calculate_feat_unit_irrep_value(
+      n_pu, portfolio_size, mult, wt_include, wt_exclude, rij(i, j),
+      targets[i], sum_feat_amount[i], sum_sq_feat_amount[i]
+    );
   }
 
   // return result

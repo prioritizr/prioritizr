@@ -77,11 +77,11 @@ write_problem <- function(x, path, solver = NULL) {
   )
   if (is.null(solver)) {
     solver <- "rsymphony"
-    if (requireNamespace("gurobi")) {
-      solver <- "gurobi"
+    if (requireNamespace("gurobi", quietly = TRUE)) {
+      solver <- "gurobi" # nocov
     } else {
       assert(
-        requireNamespace("Rsymphony"),
+        requireNamespace("Rsymphony", quietly = TRUE),
         msg = "The {.pkg Rsymphony} or {.pkg gurobi} package must be installed."
       )
     }
@@ -94,7 +94,7 @@ write_problem <- function(x, path, solver = NULL) {
     assert(is_installed("Rsymphony"))
   }
   if (identical(solver, "gurobi")) {
-    assert(is_installed("gurobi"))
+    assert(is_installed("gurobi")) # nocov
   }
 
   # add solver

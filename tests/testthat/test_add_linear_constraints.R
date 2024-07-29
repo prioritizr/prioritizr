@@ -56,10 +56,26 @@ test_that("minimum set objective (matrix, compile, single zone)", {
       "<=",
       as_Matrix(matrix(terra::values(sim_data), ncol = 1), "dgCMatrix")
     )
+  p4 <-
+    p1 %>%
+    add_linear_constraints(
+      3.124,
+      "<=",
+      as_Matrix(matrix(terra::values(sim_data), ncol = 1), "dgTMatrix")
+    )
+  p5 <-
+    p1 %>%
+    add_linear_constraints(
+      3.124,
+      "<=",
+      c(terra::values(sim_data))
+    )
   # compile problems
   o1 <- compile(p1)
   o2 <- compile(p2)
   o3 <- compile(p3)
+  o4 <- compile(p4)
+  o5 <- compile(p5)
   # calculations
   pu_idx <- p1$planning_unit_indices()
   # tests
@@ -71,6 +87,8 @@ test_that("minimum set objective (matrix, compile, single zone)", {
   expect_equal(o2$sense(), c(o1$sense(), "<="))
   expect_equal(o2$modelsense(), o1$modelsense())
   expect_equal(as.list(o2), as.list(o3))
+  expect_equal(as.list(o2), as.list(o4))
+  expect_equal(as.list(o2), as.list(o5))
 })
 
 test_that("minimum set objective (SpatRaster, compile, single zone)", {

@@ -118,14 +118,65 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
   # initialize optimization problems
   op <- optimization_problem()
   # determine if expanded formulation is required
+  user_compressed_formulation <- compressed_formulation
   if (is.na(compressed_formulation)) {
-    compressed_formulation <- all(
-      vapply(
-        x$constraints,
-        FUN.VALUE = logical(1),
-        function(i) i$compressed_formulation
-      )
+    compressed_possible <- vapply(
+      x$constraints,
+      FUN.VALUE = logical(1),
+      function(i) i$compressed_formulation
     )
+    compressed_formulation <- all(compressed_possible)
+  }
+  # if expanded formulation required, then check for negative feature values
+  if (!isTRUE(compressed_formulation)) {
+    ## if negative values present, then throw errors
+    if (
+        x$has_negative_feature_data() &&
+        is.na(user_compressed_formulation)
+      ) {
+      ## find names of problem components that require expanded formulation
+      expanded_components <- vapply(
+        x$constraints[!compressed_possible],
+        FUN.VALUE = character(1),
+        function(i) i$name
+      )
+      #### throw generic error message if user is relying on default
+      #### behavior for prioritizr to determine if expanded formulation
+      #### should be used or not
+      cli::cli_abort(
+        c(
+          "{.fn problem} contains negative feature values.",
+          "i" = paste0(
+            "The following constraints are not ",
+            "compatible with such values: ",
+            "\"", paste(expanded_components, collapse = "\", \""), "\"."
+          ),
+          "i" = paste(
+            "Either remove/update features with negative",
+            "values, or remove these components."
+          )
+        )
+      )
+    } else if (x$has_negative_feature_data()) {
+      #### throw more specific error message if user is manually trying the
+      #### expanded formulation for some reason
+      cli::cli_abort(
+        c(
+          paste(
+            "{.fn problem} contains negative feature values and",
+            "{.arg compressed_formulation = FALSE}"
+          ),
+          "i" = paste(
+            "The compressed formulation must be used with negative",
+            "feature values."
+          ),
+          "i" = paste(
+            "Either remove/replace features with negative",
+            "values or use {.arg compressed_formulation = TRUE}."
+          )
+        )
+      )
+    }
   }
   # generate targets
   if (is.Waiver(x$targets)) {

@@ -2,24 +2,8 @@ test_that("x = SpatRaster, features = SpatRaster", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
-  # prepare data
-  sim_pu_raster <- terra::setValues(
-    sim_pu_raster, runif(terra::ncell(sim_pu_raster), -1, 1)
-  )
-  sim_features[[1]] <-  terra::setValues(
-    sim_features[[1]], runif(terra::ncell(sim_features[[1]]), -1, 1)
-  )
   # create problem
-  w <- capture_warnings(
-    x <- problem(sim_pu_raster, sim_features),
-    ignore_deprecation = TRUE
-  )
-  # check warnings
-  expect_length(w, 2)
-  expect_match(w[[1]], "x")
-  expect_match(w[[1]], "negative")
-  expect_match(w[[2]], "features")
-  expect_match(w[[2]], "negative")
+  x <- problem(sim_pu_raster, sim_features)
   # verify that object can be printed
   suppressMessages(print(x))
   suppressMessages(summary(x))
@@ -87,6 +71,7 @@ test_that("x = SpatRaster, features = SpatRaster", {
   )
   expect_equal(names(x$data$rij_matrix), x$zone_names())
   expect_equal(rownames(x$data$rij_matrix[[1]]), x$feature_names())
+  expect_false(x$has_negative_feature_data())
   # test that calling targets before they have been initialized throws error
   expect_error(x$feature_targets())
 })
@@ -186,6 +171,7 @@ test_that("x = SpatRaster, features = ZonesSpatRaster", {
     ),
     ignore_attr = TRUE
   )
+  expect_false(x$has_negative_feature_data())
   # test that calling targets before they have been initialized throws error
   expect_error(x$feature_targets())
 })
@@ -262,6 +248,7 @@ test_that("x = sf, features = SpatRaster", {
   )
   expect_equal(names(x$data$rij_matrix), "cost")
   expect_equal(rownames(x$data$rij_matrix[[1]]), names(sim_features))
+  expect_false(x$has_negative_feature_data())
   # test that calling targets before they have been initialized throws error
   expect_error(x$feature_targets())
 })
@@ -366,6 +353,7 @@ test_that("x = sf, features = ZonesSpatRaster", {
     ),
     ignore_attr = TRUE
   )
+  expect_false(x$has_negative_feature_data())
   # test that calling targets before they have been initialized throws error
   expect_error(x$feature_targets())
 })
@@ -458,6 +446,7 @@ test_that("x = sf, features = character", {
   expect_true(all(x$data$rij_matrix[[1]] == rij[[1]]))
   expect_equal(names(x$data$rij_matrix), "cost")
   expect_equal(rownames(x$data$rij_matrix[[1]]),  c("spp1", "spp2"))
+  expect_false(x$has_negative_feature_data())
   # test that calling targets before they have been initialized throws error
   expect_error(x$feature_targets())
 })
@@ -598,6 +587,7 @@ test_that("x = sf, features = ZonesCharacter", {
   expect_equal(names(x$data$rij_matrix), c("z1", "z2"))
   expect_true(all(x$data$rij_matrix[[1]] == rij[[1]]))
   expect_true(all(x$data$rij_matrix[[2]] == rij[[2]]))
+  expect_false(x$has_negative_feature_data())
   # test that calling targets before they have been initialized throws error
   expect_error(x$feature_targets())
 })
@@ -772,6 +762,7 @@ test_that("x=data.frame, features=ZonesCharacter", {
   expect_equal(names(x$data$rij_matrix), c("1", "2"))
   expect_equal(rownames(x$data$rij_matrix[[1]]), c("1", "2"))
   expect_equal(rownames(x$data$rij_matrix[[2]]), c("1", "2"))
+  expect_false(x$has_negative_feature_data())
   # test that calling targets before they have been initialized throws error
   expect_error(x$feature_targets())
 })
@@ -851,6 +842,7 @@ test_that("x = data.frame, features = data.frame (single zone)", {
   )
   expect_equal(names(x$data$rij_matrix), "cost")
   expect_equal(rownames(x$data$rij_matrix[[1]]), letters[1:5])
+  expect_false(x$has_negative_feature_data())
   # test that calling targets before they have been initialized throws error
   expect_error(x$feature_targets())
 })
@@ -932,6 +924,7 @@ test_that("x = data.frame, features = data.frame (factor, single zone)", {
   )
   expect_equal(names(x$data$rij_matrix), "cost")
   expect_equal(rownames(x$data$rij_matrix[[1]]), letters[1:5])
+  expect_false(x$has_negative_feature_data())
   # test that calling targets before they have been initialized throws error
   expect_error(x$feature_targets())
 })
@@ -1030,6 +1023,7 @@ test_that("x=data.frame, features=data.frame (multiple zones)", {
   )
   expect_equal(rownames(x$data$rij_matrix[[1]]), letters[1:5])
   expect_equal(rownames(x$data$rij_matrix[[2]]), letters[1:5])
+  expect_false(x$has_negative_feature_data())
   # test that calling targets before they have been initialized throws error
   expect_error(x$feature_targets())
 })
@@ -1101,6 +1095,7 @@ test_that("x = numeric, features = data.frame, rij_matrix = matrix", {
     }
   )
   expect_equal(rownames(x$data$rij_matrix[[1]]), c("spp1", "spp2"))
+  expect_false(x$has_negative_feature_data())
   # test that calling targets before they have been initialized throws error
   expect_error(x$feature_targets())
 })
@@ -1196,6 +1191,7 @@ test_that("x = matrix, features = data.frame, rij_matrix = matrix", {
   )
   expect_equal(rownames(x$data$rij_matrix[[1]]), c("spp1", "spp2"))
   expect_equal(rownames(x$data$rij_matrix[[2]]), c("spp1", "spp2"))
+  expect_false(x$has_negative_feature_data())
   # test that calling targets before they have been initialized throws error
   expect_error(x$feature_targets())
 })
@@ -1399,6 +1395,7 @@ test_that("warnings on overriding components", {
     add_min_set_objective() %>%
     add_binary_decisions() %>%
     add_default_solver() %>%
+    add_absolute_targets(1) %>%
     add_shuffle_portfolio()
   # tests
   expect_warning(
@@ -1412,6 +1409,18 @@ test_that("warnings on overriding components", {
   expect_warning(
     add_default_solver(p),
     "solver"
+  )
+  expect_warning(
+    add_absolute_targets(p, 3),
+    "targets"
+  )
+  expect_warning(
+    add_relative_targets(p, 0.1),
+    "targets"
+  )
+  expect_warning(
+    add_loglinear_targets(p, 10, 1, 35, 0.1),
+    "targets"
   )
   expect_warning(
     add_shuffle_portfolio(p),

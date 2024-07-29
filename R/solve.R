@@ -268,7 +268,7 @@ solve.ConservationProblem <- function(a, b, ...,
     assertthat::noNA(force)
   )
   if (!rlang::is_missing(b)) {
-    cli::cli_abort("{.arg b} must not be specified.")
+    cli::cli_abort("{.arg b} must not be specified.") # nocov
   }
   # compile optimization problem
   opt <- compile.ConservationProblem(a, ...)

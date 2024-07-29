@@ -8,57 +8,57 @@
 */
 
 /* .Call calls */
-extern SEXP _prioritizr_rcpp_absolute_amount_held_by_solution(void *, void *, void *);
-extern SEXP _prioritizr_rcpp_add_rij_data(void *, void *, void *, void *);
-extern SEXP _prioritizr_rcpp_add_zones_constraints(void *, void *);
-extern SEXP _prioritizr_rcpp_apply_asym_connectivity_penalties(void *, void *, void *);
-extern SEXP _prioritizr_rcpp_apply_boundary_penalties(void *, void *, void *, void *, void *, void *, void *);
-extern SEXP _prioritizr_rcpp_apply_bounded_constraints(void *, void *, void *, void *, void *);
-extern SEXP _prioritizr_rcpp_apply_connectivity_penalties(void *, void *, void *);
-extern SEXP _prioritizr_rcpp_apply_contiguity_constraints(void *, void *, void *);
-extern SEXP _prioritizr_rcpp_apply_decisions(void *, void *, void *, void *);
-extern SEXP _prioritizr_rcpp_apply_feature_contiguity_constraints(void *, void *, void *);
-extern SEXP _prioritizr_rcpp_apply_feature_weights(void *, void *);
-extern SEXP _prioritizr_rcpp_apply_linear_constraints(void *, void *, void *, void *);
-extern SEXP _prioritizr_rcpp_apply_linear_penalties(void *, void *, void *);
-extern SEXP _prioritizr_rcpp_apply_locked_constraints(void *, void *, void *, void *);
-extern SEXP _prioritizr_rcpp_apply_max_cover_objective(void *, void *, void *);
-extern SEXP _prioritizr_rcpp_apply_max_features_objective(void *, void *, void *, void *);
-extern SEXP _prioritizr_rcpp_apply_max_phylo_objective(void *, void *, void *, void *, void *, void *);
-extern SEXP _prioritizr_rcpp_apply_max_utility_objective(void *, void *, void *, void *);
-extern SEXP _prioritizr_rcpp_apply_min_largest_shortfall_objective(void *, void *, void *, void *);
-extern SEXP _prioritizr_rcpp_apply_min_set_objective(void *, void *, void *);
-extern SEXP _prioritizr_rcpp_apply_min_shortfall_objective(void *, void *, void *, void *);
-extern SEXP _prioritizr_rcpp_apply_neighbor_constraints(void *, void *, void *);
-extern SEXP _prioritizr_rcpp_asym_connectivity(void *, void *);
-extern SEXP _prioritizr_rcpp_boundary(void *, void *, void *, void *, void *, void *);
-extern SEXP _prioritizr_rcpp_branch_matrix(void *);
-extern SEXP _prioritizr_rcpp_connectivity(void *, void *);
-extern SEXP _prioritizr_rcpp_copy_optimization_problem(void *);
-extern SEXP _prioritizr_rcpp_ferrier_score(void *, void *, void *, void *);
-extern SEXP _prioritizr_rcpp_forbid_solution(void *, void *);
-extern SEXP _prioritizr_rcpp_get_optimization_problem_A(void *);
-extern SEXP _prioritizr_rcpp_get_optimization_problem_col_ids(void *);
-extern SEXP _prioritizr_rcpp_get_optimization_problem_compressed_formulation(void *);
-extern SEXP _prioritizr_rcpp_get_optimization_problem_lb(void *);
-extern SEXP _prioritizr_rcpp_get_optimization_problem_modelsense(void *);
-extern SEXP _prioritizr_rcpp_get_optimization_problem_ncell(void *);
-extern SEXP _prioritizr_rcpp_get_optimization_problem_ncol(void *);
-extern SEXP _prioritizr_rcpp_get_optimization_problem_nrow(void *);
-extern SEXP _prioritizr_rcpp_get_optimization_problem_number_of_features(void *);
-extern SEXP _prioritizr_rcpp_get_optimization_problem_number_of_planning_units(void *);
-extern SEXP _prioritizr_rcpp_get_optimization_problem_number_of_zones(void *);
-extern SEXP _prioritizr_rcpp_get_optimization_problem_obj(void *);
-extern SEXP _prioritizr_rcpp_get_optimization_problem_rhs(void *);
-extern SEXP _prioritizr_rcpp_get_optimization_problem_row_ids(void *);
-extern SEXP _prioritizr_rcpp_get_optimization_problem_sense(void *);
-extern SEXP _prioritizr_rcpp_get_optimization_problem_ub(void *);
-extern SEXP _prioritizr_rcpp_get_optimization_problem_vtype(void *);
-extern SEXP _prioritizr_rcpp_list_to_matrix_indices(void *, void *);
-extern SEXP _prioritizr_rcpp_new_optimization_problem(void *, void *, void *);
-extern SEXP _prioritizr_rcpp_optimization_problem_as_list(void *);
-extern SEXP _prioritizr_rcpp_predefined_optimization_problem(void *);
-extern SEXP _prioritizr_rcpp_set_optimization_problem_shuffled(void *, void *);
+extern SEXP _prioritizr_rcpp_absolute_amount_held_by_solution(SEXP, SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_add_rij_data(SEXP, SEXP, SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_add_zones_constraints(SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_apply_asym_connectivity_penalties(SEXP, SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_apply_boundary_penalties(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_apply_bounded_constraints(SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_apply_connectivity_penalties(SEXP, SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_apply_contiguity_constraints(SEXP, SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_apply_decisions(SEXP, SEXP, SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_apply_feature_contiguity_constraints(SEXP, SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_apply_feature_weights(SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_apply_linear_constraints(SEXP, SEXP, SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_apply_linear_penalties(SEXP, SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_apply_locked_constraints(SEXP, SEXP, SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_apply_max_cover_objective(SEXP, SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_apply_max_features_objective(SEXP, SEXP, SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_apply_max_phylo_objective(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_apply_max_utility_objective(SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_apply_min_largest_shortfall_objective(SEXP, SEXP, SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_apply_min_set_objective(SEXP, SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_apply_min_shortfall_objective(SEXP, SEXP, SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_apply_neighbor_constraints(SEXP, SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_asym_connectivity(SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_boundary(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_branch_matrix(SEXP);
+extern SEXP _prioritizr_rcpp_connectivity(SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_copy_optimization_problem(SEXP);
+extern SEXP _prioritizr_rcpp_ferrier_score(SEXP, SEXP, SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_forbid_solution(SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_get_optimization_problem_A(SEXP);
+extern SEXP _prioritizr_rcpp_get_optimization_problem_col_ids(SEXP);
+extern SEXP _prioritizr_rcpp_get_optimization_problem_compressed_formulation(SEXP);
+extern SEXP _prioritizr_rcpp_get_optimization_problem_lb(SEXP);
+extern SEXP _prioritizr_rcpp_get_optimization_problem_modelsense(SEXP);
+extern SEXP _prioritizr_rcpp_get_optimization_problem_ncell(SEXP);
+extern SEXP _prioritizr_rcpp_get_optimization_problem_ncol(SEXP);
+extern SEXP _prioritizr_rcpp_get_optimization_problem_nrow(SEXP);
+extern SEXP _prioritizr_rcpp_get_optimization_problem_number_of_features(SEXP);
+extern SEXP _prioritizr_rcpp_get_optimization_problem_number_of_planning_units(SEXP);
+extern SEXP _prioritizr_rcpp_get_optimization_problem_number_of_zones(SEXP);
+extern SEXP _prioritizr_rcpp_get_optimization_problem_obj(SEXP);
+extern SEXP _prioritizr_rcpp_get_optimization_problem_rhs(SEXP);
+extern SEXP _prioritizr_rcpp_get_optimization_problem_row_ids(SEXP);
+extern SEXP _prioritizr_rcpp_get_optimization_problem_sense(SEXP);
+extern SEXP _prioritizr_rcpp_get_optimization_problem_ub(SEXP);
+extern SEXP _prioritizr_rcpp_get_optimization_problem_vtype(SEXP);
+extern SEXP _prioritizr_rcpp_list_to_matrix_indices(SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_new_optimization_problem(SEXP, SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_optimization_problem_as_list(SEXP);
+extern SEXP _prioritizr_rcpp_predefined_optimization_problem(SEXP);
+extern SEXP _prioritizr_rcpp_set_optimization_problem_shuffled(SEXP, SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
     {"_prioritizr_rcpp_absolute_amount_held_by_solution",                  (DL_FUNC) &_prioritizr_rcpp_absolute_amount_held_by_solution,                  3},
@@ -78,7 +78,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_prioritizr_rcpp_apply_max_cover_objective",                         (DL_FUNC) &_prioritizr_rcpp_apply_max_cover_objective,                         3},
     {"_prioritizr_rcpp_apply_max_features_objective",                      (DL_FUNC) &_prioritizr_rcpp_apply_max_features_objective,                      4},
     {"_prioritizr_rcpp_apply_max_phylo_objective",                         (DL_FUNC) &_prioritizr_rcpp_apply_max_phylo_objective,                         6},
-    {"_prioritizr_rcpp_apply_max_utility_objective",                       (DL_FUNC) &_prioritizr_rcpp_apply_max_utility_objective,                       4},
+    {"_prioritizr_rcpp_apply_max_utility_objective",                       (DL_FUNC) &_prioritizr_rcpp_apply_max_utility_objective,                       5},
     {"_prioritizr_rcpp_apply_min_largest_shortfall_objective",             (DL_FUNC) &_prioritizr_rcpp_apply_min_largest_shortfall_objective,             4},
     {"_prioritizr_rcpp_apply_min_set_objective",                           (DL_FUNC) &_prioritizr_rcpp_apply_min_set_objective,                           3},
     {"_prioritizr_rcpp_apply_min_shortfall_objective",                     (DL_FUNC) &_prioritizr_rcpp_apply_min_shortfall_objective,                     4},

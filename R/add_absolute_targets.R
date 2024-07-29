@@ -254,7 +254,7 @@ methods::setMethod(
     }
     target_data$target <- as.numeric(targets)
     # add targets to problem
-    suppressWarnings(add_manual_targets(x, target_data))
+    add_manual_targets(x, target_data)
   }
 )
 
@@ -314,10 +314,8 @@ methods::setMethod(
       )
     )
     # add targets to problem
-    suppressWarnings(
-      add_absolute_targets(
-        x, as.matrix(x$data$features[, targets, drop = FALSE]
-        )
+    add_absolute_targets(
+      x, as.matrix(x$data$features[, targets, drop = FALSE]
       )
     )
   }

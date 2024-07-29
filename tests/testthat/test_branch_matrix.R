@@ -33,6 +33,14 @@ test_that("phylo input", {
   expect_true(all(m == s))
 })
 
+test_that("object that is coercible to phylo", {
+  data(bird.orders, package = "ape")
+  expect_equal(
+    branch_matrix(bird.orders),
+    branch_matrix(as.hclust(bird.orders))
+  )
+})
+
 test_that("invalid input", {
   tr <- ape::rtree(3)
   tr$edge[1] <- 0

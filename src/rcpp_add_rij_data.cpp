@@ -80,8 +80,11 @@ bool rcpp_add_rij_data(
       for (std::size_t z = 0; z < static_cast<std::size_t>(curr_z.size());
            ++z) {
         // check that minimum value is greater than or equal to zero
-        if (rij[curr_z[z]].min() < 0)
+        if (rij[curr_z[z]].min() < 0) {
+          // # nocov start
           Rcpp::stop("expanded formulation requires non-negative feature data");
+          // # nocov end
+        }
         // add rij data
         for (auto it = rij[curr_z[z]].begin_col(targets_feature[i]);
              it != rij[curr_z[z]].end_col(targets_feature[i]); ++it) {

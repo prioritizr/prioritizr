@@ -304,7 +304,24 @@ methods::setMethod(
         all_match_of(targets$sense, c(">=", "<=", "="))
       )
     }
-    verify(all_positive(targets$target))
+    # only check for negative values if this function is not being called
+    # by add_absolute_targets(). this is because add_absolute_targets()
+    # has its own checks for negative values
+    if (
+      !any(
+        isTRUE(
+          "add_absolute_targets" %in% as.character(rlang::caller_call(n = 1))
+        ),
+        isTRUE(
+          "add_absolute_targets" %in% as.character(rlang::caller_call(n = 2))
+        ),
+        isTRUE(
+          "add_absolute_targets" %in% as.character(rlang::caller_call(n = 3))
+        )
+      )
+    ) {
+      verify(all_positive(targets$target))
+    }
     # add targets to problem
     x$add_targets(
       R6::R6Class(

@@ -13,7 +13,8 @@ binary_stack(x)
 \method{binary_stack}{SpatRaster}(x)
 }
 \arguments{
-\item{x}{\code{\link[terra:rast]{terra::rast()}} object with a single layer.}
+\item{x}{\code{\link[terra:rast]{terra::rast()}} object with a single layer that contains integer
+values.}
 }
 \value{
 A \code{\link[terra:rast]{terra::rast()}} object.
@@ -32,10 +33,11 @@ for preparing raster data for \code{\link[=add_locked_in_constraints]{add_locked
 \code{\link[=add_locked_out_constraints]{add_locked_out_constraints()}} since they require binary
 rasters as input arguments.
 It is essentially a wrapper for \code{\link[terra:segregate]{terra::segregate()}}.
+Note that this function assumes \code{x} contains integer values.
 }
 \examples{
 # create raster with categorical values
-x <- terra::rast(matrix(c(1, 2, 3, 1, NA, 1), nrow = 3))
+x <- terra::rast(matrix(c(1, 2, 4, 0, NA, 1), nrow = 3))
 
 # plot the raster
 plot(x, main = "x")
