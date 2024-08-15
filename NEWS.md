@@ -34,6 +34,10 @@
   the warning message (using `rlang::warn()`).
 - Additional tests to improve test coverage.
 
+## Documentation updates
+
+- Update publication record.
+
 # prioritizr 8.0.4.1
 
 ## Minor improvements and bug fixes
