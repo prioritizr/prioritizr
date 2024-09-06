@@ -11,12 +11,6 @@
   bug was caused when the feature data contained relatively large, negative values.
 - Fix bug in `binary_stack()` that caused it to throw an error when working
   with raster data containing zeros (#333).
-- Update `compile()` so that it throws an error when using the expanded
-  version of a problem formulation with negative feature values. This
-  is because the expanded version of the problem formulations are not
-  compatible with negative feature values. Currently, the expanded
-  version of the problem formulation is only required when using
-  `add_feature_contiguity_constraints()`.
 - Fix bug in `add_absolute_targets()` where it would not throw a warning to
   the user know that a problem already had targets defined, and so adding
   the new targets would override the existing targets defined for the problem.
@@ -30,8 +24,18 @@
   `solver = NULL`) and the package is not is available.
 - Fix bug in `branch_matrix()` where it would not automatically convert
   object to the `phylo` class in the _ape_ package.
+- Update warning message for `add_asym_connectivity_penalties()` so that
+  it now specifies that asymmetric connectivity values are required when
+  symmetric values are incorrectly supplied (#339). Thanks to \@DanWismer for
+  bug report.
 - Update warning messages so that they now indicate which function threw
   the warning message (using `rlang::warn()`).
+- Update `compile()` so that it throws an error when using the expanded
+  version of a problem formulation with negative feature values. This
+  is because the expanded version of the problem formulations are not
+  compatible with negative feature values. Currently, the expanded
+  version of the problem formulation is only required when using
+  `add_feature_contiguity_constraints()`.
 - Additional tests to improve test coverage.
 
 ## Documentation updates

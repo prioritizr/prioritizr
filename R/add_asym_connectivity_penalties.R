@@ -296,7 +296,7 @@ methods::setMethod("add_asym_connectivity_penalties",
     verify(
       !Matrix::isSymmetric(data),
       msg =  paste0(
-        "{.arg data} does not contain symmetric connectivity values, ",
+        "{.arg data} does not contain asymmetric connectivity values, ",
         "use {.fn add_connectivity_penalties} instead."
       )
     )

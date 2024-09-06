@@ -253,7 +253,10 @@ test_that("invalid inputs (single zone)", {
     add_asym_connectivity_penalties(p, 5, data = c_matrix[-1, ])
   )
   c_matrix2 <- boundary_matrix(sim_pu_raster)
-  expect_warning(add_asym_connectivity_penalties(p, 5, data = c_matrix2))
+  expect_warning(
+    add_asym_connectivity_penalties(p, 5, data = c_matrix2),
+    "asymmetric"
+  )
 })
 
 test_that("minimum set objective (compile, multiple zones)", {
