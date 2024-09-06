@@ -6,25 +6,30 @@
 \alias{binary_stack.SpatRaster}
 \title{Binary stack}
 \usage{
-binary_stack(x)
+binary_stack(x, keep_all = TRUE)
 
-\method{binary_stack}{Raster}(x)
+\method{binary_stack}{Raster}(x, keep_all = TRUE)
 
-\method{binary_stack}{SpatRaster}(x)
+\method{binary_stack}{SpatRaster}(x, keep_all = TRUE)
 }
 \arguments{
 \item{x}{\code{\link[terra:rast]{terra::rast()}} object with a single layer that contains integer
 values.}
+
+\item{keep_all}{\code{logical} value indicating if all integers should be kept
+in the output. If \code{TRUE}, the output will contain a layer for each
+sequential integer between 1 and the maximum value in \code{x}. If \code{FALSE},
+the output will only contain layers for integer values present in \code{x}.
+Defaults to \code{TRUE.}}
 }
 \value{
 A \code{\link[terra:rast]{terra::rast()}} object.
 }
 \description{
-Convert a \code{\link[terra:rast]{terra::rast()}} object containing
-integer/categorical values into a raster
-object where each layer corresponds to a different integer/categorical
-value and pixel values denote the presence/absence of the given
-integer/categorical values.
+Convert a single-layer \code{\link[terra:rast]{terra::rast()}} object that contains integer values
+into a multi-layer \code{\link[terra:rast]{terra::rast()}} object with pixel values denote the
+presence/absence of a given integer value. This is methodology is also known
+as "one-hot encoding".
 }
 \details{
 This function is provided to help manage data that encompass
@@ -40,7 +45,9 @@ Note that this function assumes \code{x} contains integer values.
 x <- terra::rast(matrix(c(1, 2, 4, 0, NA, 1), nrow = 3))
 
 # plot the raster
+\dontrun{
 plot(x, main = "x")
+}
 
 # convert to binary stack
 y <- binary_stack(x)
@@ -51,5 +58,5 @@ plot(y)
 }
 }
 \seealso{
-\code{\link[=category_layer]{category_layer()}}.
+\code{\link[=category_layer]{category_layer()}}, \code{\link[terra:segregate]{terra::segregate()}}.
 }
