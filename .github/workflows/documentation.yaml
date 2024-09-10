@@ -93,8 +93,8 @@ jobs:
       - name: Check URLs
         if: runner.os == 'Linux' && matrix.config.r == 'release'
         run: |
+          d <- suppressWarnings(readLines("inst/URLLIST"))
           result <- urlchecker::url_check()
-          d <- readLines(system.file("URLLIST", package="prioritizr"))
           result <- result[!result$URL %in% d, , drop = FALSE]
           if (nrow(result) > 0) {
             print(result)
