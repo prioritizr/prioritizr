@@ -94,7 +94,8 @@ jobs:
         if: runner.os == 'Linux' && matrix.config.r == 'release'
         run: |
           result <- urlchecker::url_check()
-          result <- result[!startsWith(result$URL, "https://support.gurobi.com/hc/en-us/articles/4534161999889"), , drop = FALSE]
+          d <- readLines(system.file("URLLIST", package="prioritizr"))
+          result <- result[!result$URL %in% d, , drop = FALSE]
           if (nrow(result) > 0) {
             print(result)
             stop("Invalid URLs detected")
