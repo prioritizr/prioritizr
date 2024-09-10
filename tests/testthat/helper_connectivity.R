@@ -27,7 +27,7 @@ r_connectivity_given_matrix <- function(solution, zones, connectivity_matrix) {
       m <- connectivity_matrix * zones[z1, z2]
       for (i in seq_len(nrow(solution))) {
         for (j in seq_len(nrow(solution))) {
-          out <- out + (m[i, j] * solution[i, z1] * solution[j, z2])
+          out <- out + unname(m[i, j] * solution[i, z1] * solution[j, z2])
         }
       }
     }
