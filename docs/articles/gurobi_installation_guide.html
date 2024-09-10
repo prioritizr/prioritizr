@@ -5,7 +5,6 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="prioritizr">
 <title>Gurobi installation guide • prioritizr</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
@@ -15,16 +14,11 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Gurobi installation guide">
-<meta property="og:description" content="prioritizr">
-<meta property="og:image" content="https://prioritizr.net/logo.png">
-<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-70466840-4"></script><script>
+<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-70466840-4"></script><script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
@@ -34,63 +28,51 @@
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
-    
 
-    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary"><div class="container">
-    
+
+    <nav class="navbar navbar-expand-lg fixed-top bg-primary" data-bs-theme="dark" aria-label="Site navigation"><div class="container">
+
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.4.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.4.2</small>
 
-    
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item">
-  <a class="nav-link" href="../articles/prioritizr.html">Get started</a>
-</li>
-<li class="nav-item">
-  <a class="nav-link" href="../reference/index.html">Reference</a>
-</li>
+<li class="nav-item"><a class="nav-link" href="../articles/prioritizr.html">Get started</a></li>
+<li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="active nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/package_overview.html">Package overview</a>
-    <a class="dropdown-item" href="../articles/gurobi_installation_guide.html">Gurobi installation guide</a>
-    <a class="dropdown-item" href="../articles/solver_benchmarks.html">Solver benchmarks</a>
-    <a class="dropdown-item" href="../articles/publication_record.html">Publication record</a>
-  </div>
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><a class="dropdown-item" href="../articles/package_overview.html">Package overview</a></li>
+    <li><a class="dropdown-item" href="../articles/gurobi_installation_guide.html">Gurobi installation guide</a></li>
+    <li><a class="dropdown-item" href="../articles/solver_benchmarks.html">Solver benchmarks</a></li>
+    <li><a class="dropdown-item" href="../articles/publication_record.html">Publication record</a></li>
+  </ul>
 </li>
 <li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-tutorials">Tutorials</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-tutorials">
-    <a class="dropdown-item" href="../articles/connectivity_tutorial.html">Connectivity</a>
-    <a class="dropdown-item" href="../articles/calibrating_trade-offs_tutorial.html">Calibrating trade-offs</a>
-    <a class="dropdown-item" href="../articles/management_zones_tutorial.html">Management zones</a>
-  </div>
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-tutorials" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Tutorials</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-tutorials">
+<li><a class="dropdown-item" href="../articles/connectivity_tutorial.html">Connectivity</a></li>
+    <li><a class="dropdown-item" href="../articles/calibrating_trade-offs_tutorial.html">Calibrating trade-offs</a></li>
+    <li><a class="dropdown-item" href="../articles/management_zones_tutorial.html">Management zones</a></li>
+  </ul>
 </li>
-<li class="nav-item">
-  <a class="nav-link" href="../news/index.html">Changelog</a>
-</li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul>
-<form class="form-inline my-2 my-lg-0" role="search">
-        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
-</form>
-
-      <ul class="navbar-nav">
-<li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/prioritizr/prioritizr/" aria-label="github">
-    <span class="fab fa fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
+<ul class="navbar-nav">
+<li class="nav-item"><form class="form-inline" role="search">
+ <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
+</form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/prioritizr/prioritizr/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
-    
+
   </div>
 </nav><div class="container template-article">
 
@@ -111,12 +93,29 @@
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p><em>Gurobi</em> is the most powerful and fastest solver that the <em>prioritizr R</em> package can use to solve conservation planning problems (see the <a href="solver_benchmarks.html"><em>Solver benchmarks</em></a> vignette for further details). This guide will walk you through the process of setting up <em>Gurobi</em> on your computer so that it can be used to solve conservation planning problems. If you encounter any problems while following the instructions below, please refer to the <a href="https://www.gurobi.com/documentation/" class="external-link">official <em>Gurobi</em> documentation</a>.</p>
+<p><em>Gurobi</em> is the most powerful and fastest solver that the
+<em>prioritizr R</em> package can use to solve conservation planning
+problems (see the <a href="solver_benchmarks.html"><em>Solver
+benchmarks</em></a> vignette for further details). This guide will walk
+you through the process of setting up <em>Gurobi</em> on your computer
+so that it can be used to solve conservation planning problems. If you
+encounter any problems while following the instructions below, please
+refer to the <a href="https://www.gurobi.com/documentation/" class="external-link">official
+<em>Gurobi</em> documentation</a>.</p>
 </div>
 <div class="section level2">
 <h2 id="obtaining-a-license">Obtaining a license<a class="anchor" aria-label="anchor" href="#obtaining-a-license"></a>
 </h2>
-<p><em>Gurobi</em> is a commercial computer program. <a href="https://www.gurobi.com/downloads/" class="external-link">This means that users will need to obtain a license for <em>Gurobi</em> before they can use it</a>. Although academics can obtain a special license at no cost, individuals that are not affiliated with a recognized educational institution may need to purchase a license. If you are an academic that is affiliated with a recognized educational institution, you can take advantage of the <a href="https://www.gurobi.com/features/academic-named-user-license/" class="external-link">special academic license</a> to use <em>Gurobi</em> for no cost. Once you have signed up for a free account you can request a <a href="https://www.gurobi.com/features/academic-named-user-license/" class="external-link">free academic license</a>.</p>
+<p><em>Gurobi</em> is a commercial computer program. <a href="https://www.gurobi.com/downloads/" class="external-link">This means that users will need
+to obtain a license for <em>Gurobi</em> before they can use it</a>.
+Although academics can obtain a special license at no cost, individuals
+that are not affiliated with a recognized educational institution may
+need to purchase a license. If you are an academic that is affiliated
+with a recognized educational institution, you can take advantage of the
+<a href="https://www.gurobi.com/features/academic-named-user-license/" class="external-link">special
+academic license</a> to use <em>Gurobi</em> for no cost. Once you have
+signed up for a free account you can request a <a href="https://www.gurobi.com/features/academic-named-user-license/" class="external-link">free
+academic license</a>.</p>
 <br><center>
 <img src="figures/free-academic-license-page.png" style="width:75.0%">
 </center>
@@ -126,50 +125,105 @@
 <img src="figures/actual-license.png" style="width:75.0%">
 </center>
 <p><br></p>
-<p>Now, copy and save the <code>grbgetkey XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX</code> command for later use.</p>
+<p>Now, copy and save the
+<code>grbgetkey XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX</code> command for
+later use.</p>
 </div>
 <div class="section level2">
 <h2 id="downloading-the-software">Downloading the software<a class="anchor" aria-label="anchor" href="#downloading-the-software"></a>
 </h2>
-<p>After obtaining a license, you will need to download the <em>Gurobi</em> installer to your computer. To achieve this, visit the <a href="https://www.gurobi.com/products/gurobi-optimizer/" class="external-link"><em>Gurobi</em> downloads web page</a> and download the correct version of the installer for your operating system.</p>
+<p>After obtaining a license, you will need to download the
+<em>Gurobi</em> installer to your computer. To achieve this, visit the
+<a href="https://www.gurobi.com/products/gurobi-optimizer/" class="external-link"><em>Gurobi</em>
+downloads web page</a> and download the correct version of the installer
+for your operating system.</p>
 </div>
 <div class="section level2">
 <h2 id="software-installation">Software installation<a class="anchor" aria-label="anchor" href="#software-installation"></a>
 </h2>
-<p>The process for installing the <em>Gurobi</em> software depends on the operating system on your computer. Fortunately, <em>Gurobi</em> provides detailed <a href="https://support.gurobi.com/hc/en-us/articles/4534161999889-How-do-I-install-Gurobi-Optimizer" class="external-link">platform-specific instructions</a> for Windows, MacOS, and Linux systems that should help with this. Briefly, on Windows systems, you just need to double-click on the <em>Gurobi</em> installer, follow the prompts, and the installer will automatically handle everything for you. On Linux and MacOS systems, you will need to manually extract the downloaded file’s contents to a folder, move the extracted contents to a suitable location (typically <em>/opt/gurobi</em>), and update your system’s variables so that it knows where to find <em>Gurobi</em> (i.e., the <code>PATH</code> variable).</p>
-<p>Additionally, if you are using <a href="https://posit.co/products/open-source/rstudio/" class="external-link"><em>RStudio</em></a> on a Linux system, you might need to add the following text to a Rstudio configuration file (located at <code>/etc/rstudio/rserver.conf</code>).</p>
+<p>The process for installing the <em>Gurobi</em> software depends on
+the operating system on your computer. Fortunately, <em>Gurobi</em>
+provides detailed <a href="https://support.gurobi.com/hc/en-us/articles/4534161999889-How-do-I-install-Gurobi-Optimizer" class="external-link">platform-specific
+instructions</a> for Windows, MacOS, and Linux systems that should help
+with this. Briefly, on Windows systems, you just need to double-click on
+the <em>Gurobi</em> installer, follow the prompts, and the installer
+will automatically handle everything for you. On Linux and MacOS
+systems, you will need to manually extract the downloaded file’s
+contents to a folder, move the extracted contents to a suitable location
+(typically <em>/opt/gurobi</em>), and update your system’s variables so
+that it knows where to find <em>Gurobi</em> (i.e., the <code>PATH</code>
+variable).</p>
+<p>Additionally, if you are using <a href="https://posit.co/products/open-source/rstudio/" class="external-link"><em>RStudio</em></a>
+on a Linux system, you might need to add the following text to a Rstudio
+configuration file (located at
+<code>/etc/rstudio/rserver.conf</code>).</p>
 <pre><code>rsession-ld-library-path=/opt/gurobi650/linux64/lib</code></pre>
-<p>After installing the <em>Gurobi</em> software suite on your computer, you will need to activate your license.</p>
+<p>After installing the <em>Gurobi</em> software suite on your computer,
+you will need to activate your license.</p>
 </div>
 <div class="section level2">
 <h2 id="license-activation">License activation<a class="anchor" aria-label="anchor" href="#license-activation"></a>
 </h2>
-<p>Now we will activate the <em>Gurobi</em> software using the license you obtained earlier. Please note that the correct set of instructions depends on your system and license. To activate the license, simply copy and paste the <code>grbgetkey</code> command into your computer’s command prompt or terminal (note that Windows users can open the command prompt by typing <code>cmd</code> in the search box and pressing the <code>enter</code> key). After running the <code>grbgetkey</code> command with the correct license code, you should see output that resembles the following screen shot.</p>
+<p>Now we will activate the <em>Gurobi</em> software using the license
+you obtained earlier. Please note that the correct set of instructions
+depends on your system and license. To activate the license, simply copy
+and paste the <code>grbgetkey</code> command into your computer’s
+command prompt or terminal (note that Windows users can open the command
+prompt by typing <code>cmd</code> in the search box and pressing the
+<code>enter</code> key). After running the <code>grbgetkey</code>
+command with the correct license code, you should see output that
+resembles the following screen shot.</p>
 <br><center>
 <img src="figures/cmd-windows-success.png" style="width:75.0%">
 </center>
 <p><br></p>
-<p>Next, we will now check that the license has been successfully activated. To achieve this, we will try running <em>Gurobi</em> directly from the command line. Note that the following commands assume you are using version 8.0.0 of <em>Gurobi</em>, and so you will need to modify the command if you are using a more recent version (e.g., if using version 9.1.2, then use <code>gurobi912</code> instead of <code>gurobi800</code> below).</p>
-<p>On Windows systems, users can type in the following system command to check their license activation.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gurobi_cl</span> c:<span class="dt">\g</span>urobi800<span class="dt">\w</span>in64<span class="dt">\e</span>xamples<span class="dt">\d</span>ata<span class="dt">\c</span>oins.lp</span></code></pre></div>
-<p>On Linux and MacOS systems, users can type in the following system command.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gurobi_cl</span> /opt/gurobi800/linux64/examples/data/coins.lp</span></code></pre></div>
-<p>If the license was successfully activated, you should see output that resembles the screen shot below.</p>
+<p>Next, we will now check that the license has been successfully
+activated. To achieve this, we will try running <em>Gurobi</em> directly
+from the command line. Note that the following commands assume you are
+using version 8.0.0 of <em>Gurobi</em>, and so you will need to modify
+the command if you are using a more recent version (e.g., if using
+version 9.1.2, then use <code>gurobi912</code> instead of
+<code>gurobi800</code> below).</p>
+<p>On Windows systems, users can type in the following system command to
+check their license activation.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="ex">gurobi_cl</span> c:<span class="dt">\g</span>urobi800<span class="dt">\w</span>in64<span class="dt">\e</span>xamples<span class="dt">\d</span>ata<span class="dt">\c</span>oins.lp</span></code></pre></div>
+<p>On Linux and MacOS systems, users can type in the following system
+command.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">gurobi_cl</span> /opt/gurobi800/linux64/examples/data/coins.lp</span></code></pre></div>
+<p>If the license was successfully activated, you should see output that
+resembles the screen shot below.</p>
 <br><center>
 <img src="figures/model-test.png" style="width:75.0%">
 </center>
 <p><br></p>
-<p>After activating the license, you now need to install the <em>gurobi R</em> package. This is so that you can access the <em>Gurobi</em> software from within the R statistical computing environment, and enable the <em>prioritizr</em> package to interface with the <em>Gurobi</em> software.</p>
+<p>After activating the license, you now need to install the <em>gurobi
+R</em> package. This is so that you can access the <em>Gurobi</em>
+software from within the R statistical computing environment, and enable
+the <em>prioritizr</em> package to interface with the <em>Gurobi</em>
+software.</p>
 </div>
 <div class="section level2">
 <h2 id="r-package-installation">
 <em>R</em> package installation<a class="anchor" aria-label="anchor" href="#r-package-installation"></a>
 </h2>
-<p>Now we will install the <em>gurobi R</em> package. This package is not available on the Comprehensive R Archive Network and is instead distributed with the <em>Gurobi</em> software suite. Specifically, the <em>gurobi</em> <em>R</em> package should be located within the folder where you installed the <em>Gurobi</em> software suite. We will install the <em>gurobi</em> <em>R</em> package by running the following <em>R</em> code within your <em>R</em> session. Note that the following code assumes that you are using version 8.0.0 of <em>Gurobi</em>, and so you will need to modify the code if you are using a more recent version (e.g., if using version 9.1.2, then use <code>gurobi912</code> instead of <code>gurobi800</code> below).</p>
-<p>Assuming you installed <em>Gurobi</em> in the default location, Windows users can install <em>gurobi</em> <em>R</em> package using the following code.</p>
+<p>Now we will install the <em>gurobi R</em> package. This package is
+not available on the Comprehensive R Archive Network and is instead
+distributed with the <em>Gurobi</em> software suite. Specifically, the
+<em>gurobi</em> <em>R</em> package should be located within the folder
+where you installed the <em>Gurobi</em> software suite. We will install
+the <em>gurobi</em> <em>R</em> package by running the following
+<em>R</em> code within your <em>R</em> session. Note that the following
+code assumes that you are using version 8.0.0 of <em>Gurobi</em>, and so
+you will need to modify the code if you are using a more recent version
+(e.g., if using version 9.1.2, then use <code>gurobi912</code> instead
+of <code>gurobi800</code> below).</p>
+<p>Assuming you installed <em>Gurobi</em> in the default location,
+Windows users can install <em>gurobi</em> <em>R</em> package using the
+following code.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"c:/gurobi800/win64/R/gurobi_8.0-0.zip"</span>, repos <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
-<p>Similarly, Linux and MacOS users can install the <em>gurobi</em> <em>R</em> package using the following code.</p>
+<p>Similarly, Linux and MacOS users can install the <em>gurobi</em>
+<em>R</em> package using the following code.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span></span>
@@ -178,10 +232,16 @@
 <span>  <span class="op">)</span>,</span>
 <span>  repos <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>Next, you will need to install the <em>slam R</em> package because the <em>gurobi</em> <em>R</em> package needs this package to work. Users of all platforms (i.e., Windows, Linux, and MacOS) can install the package using the following <em>R</em> code.</p>
+<p>Next, you will need to install the <em>slam R</em> package because
+the <em>gurobi</em> <em>R</em> package needs this package to work. Users
+of all platforms (i.e., Windows, Linux, and MacOS) can install the
+package using the following <em>R</em> code.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"slam"</span>, repos <span class="op">=</span> <span class="st">"https://cloud.r-project.org"</span><span class="op">)</span></span></code></pre></div>
-<p>Let’s check that the <em>gurobi</em> <em>R</em> package has been successfully installed. To do this, we can try using the <em>gurobi R</em> package to solve an optimization problem. Copy and paste the <em>R</em> code below into <em>R</em>.</p>
+<p>Let’s check that the <em>gurobi</em> <em>R</em> package has been
+successfully installed. To do this, we can try using the <em>gurobi
+R</em> package to solve an optimization problem. Copy and paste the
+<em>R</em> code below into <em>R</em>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># load gurobi package</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://www.gurobi.com" class="external-link">gurobi</a></span><span class="op">)</span></span></code></pre></div>
@@ -234,13 +294,32 @@
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">result</span><span class="op">$</span><span class="va">x</span><span class="op">)</span>      <span class="co"># decision variables</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 1 0 1</span></span></code></pre>
-<p>If you see the outputs for <code>result$objval</code> and <code>result$x</code> and you don’t see any error messages, then you have (1) successfully installed the <em>Gurobi</em> software suite, (2) activated a valid license, and (3) successfully installed the <em>gurobi R</em> package. If do see an error message, then you might have missed a previous step or something might have gone wrong while installing <em>Gurobi</em> or activating the license. In such cases, try going back through this vignette and repeating the previous steps to see if that fixes the issue.</p>
+<p>If you see the outputs for <code>result$objval</code> and
+<code>result$x</code> and you don’t see any error messages, then you
+have (1) successfully installed the <em>Gurobi</em> software suite, (2)
+activated a valid license, and (3) successfully installed the <em>gurobi
+R</em> package. If do see an error message, then you might have missed a
+previous step or something might have gone wrong while installing
+<em>Gurobi</em> or activating the license. In such cases, try going back
+through this vignette and repeating the previous steps to see if that
+fixes the issue.</p>
 </div>
 <div class="section level2">
 <h2 id="solving-a-prioritzr-problem-with-gurobi">Solving a <em>prioritzr</em> problem with <em>Gurobi</em><a class="anchor" aria-label="anchor" href="#solving-a-prioritzr-problem-with-gurobi"></a>
 </h2>
-<p>If you successfully installed the <em>Gurobi</em> software suite and the <em>gurobi</em> <em>R</em> package, you can now try solving conservation planning problems using the <em>prioritzr</em> <em>R</em> package. Although the <em>prioritizr</em> <em>R</em> package should automatically detect that <em>Gurobi</em> has been installed, you can use the function <code><a href="../reference/add_gurobi_solver.html">add_gurobi_solver()</a></code> to manually specify that <em>Gurobi</em> should be used to solve problems. This function is also useful because you can use it to customize the optimization process (e.g., specify the desired optimality gap or set a limit on how much time should be spent searching for a solution).</p>
-<p>Finally, to check that everything has been installed correctly, we will use the <em>Gurobi</em> software suite to solve a reserve selection problem created using the <em>prioritzr</em> <em>R</em> package.</p>
+<p>If you successfully installed the <em>Gurobi</em> software suite and
+the <em>gurobi</em> <em>R</em> package, you can now try solving
+conservation planning problems using the <em>prioritzr</em> <em>R</em>
+package. Although the <em>prioritizr</em> <em>R</em> package should
+automatically detect that <em>Gurobi</em> has been installed, you can
+use the function <code><a href="../reference/add_gurobi_solver.html">add_gurobi_solver()</a></code> to manually specify
+that <em>Gurobi</em> should be used to solve problems. This function is
+also useful because you can use it to customize the optimization process
+(e.g., specify the desired optimality gap or set a limit on how much
+time should be spent searching for a solution).</p>
+<p>Finally, to check that everything has been installed correctly, we
+will use the <em>Gurobi</em> software suite to solve a reserve selection
+problem created using the <em>prioritzr</em> <em>R</em> package.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># load package</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://prioritizr.net">prioritizr</a></span><span class="op">)</span></span>
@@ -308,30 +387,33 @@
 <span>  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="gurobi_installation_guide_files/figure-html/unnamed-chunk-9-1.png" width="336" style="display: block; margin: auto;"></p>
-<p>After running this code, hopefully, you should some information printed on-screen about the optimization process and <em>R</em> should produce a map displaying a solution. If this code does not produce any errors, then you have successfully installed everything and can begin using <em>Gurobi</em> and the <em>prioritizr R</em> package to solve your very own conservation planning problems.</p>
+<p>After running this code, hopefully, you should some information
+printed on-screen about the optimization process and <em>R</em> should
+produce a map displaying a solution. If this code does not produce any
+errors, then you have successfully installed everything and can begin
+using <em>Gurobi</em> and the <em>prioritizr R</em> package to solve
+your very own conservation planning problems.</p>
 </div>
-  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>
 
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p>
-<p>Developed by <a href="https://jeffrey-hanson.com" class="external-link">Jeffrey O Hanson</a>, <a href="http://www.richard-schuster.com" class="external-link">Richard Schuster</a>, Nina Morrell, <a href="http://strimas.com" class="external-link">Matthew Strimas-Mackey</a>, Brandon P M Edwards, Matthew E Watts, <a href="https://arcese.forestry.ubc.ca" class="external-link">Peter Arcese</a>, Joseph R Bennett, <a href="http://www.possinghamlab.org" class="external-link">Hugh P Possingham</a>.</p>
+  <p>Developed by <a href="https://jeffrey-hanson.com" class="external-link">Jeffrey O Hanson</a>, <a href="http://www.richard-schuster.com" class="external-link">Richard Schuster</a>, Nina Morrell, <a href="http://strimas.com" class="external-link">Matthew Strimas-Mackey</a>, Brandon P M Edwards, Matthew E Watts, <a href="https://arcese.forestry.ubc.ca" class="external-link">Peter Arcese</a>, Joseph R Bennett, <a href="http://www.possinghamlab.org" class="external-link">Hugh P Possingham</a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
 </div>
 
     </footer>
 </div>
 
-  
 
-  
+
+
 
   </body>
 </html>

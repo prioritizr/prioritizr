@@ -14,30 +14,42 @@
 
 <title>Management zones tutorial</title>
 
-<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
 
 <style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-    </style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
 
 
 
 <style type="text/css">
-  code {
-    white-space: pre;
-  }
-  .sourceCode {
-    overflow: visible;
-  }
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
 </style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -48,58 +60,57 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
-  { counter-reset: source-line 0; }
+{ counter-reset: source-line 0; }
 pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
+{ position: relative; left: -4em; counter-increment: source-line; }
 pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
 div.sourceCode
-  {   }
+{ }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
 </style>
 <script>
 // apply pandoc div.sourceCode style to pre.sourceCode instead
@@ -133,29 +144,209 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 <style type="text/css">
-/* for pandoc --citeproc since 2.11 */
+
 div.csl-bib-body { }
 div.csl-entry {
-  clear: both;
+clear: both;
 }
 .hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
+margin-left:2em;
+text-indent:-2em;
 }
 div.csl-left-margin {
-  min-width:2em;
-  float:left;
+min-width:2em;
+float:left;
 }
 div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
+margin-left:2em;
+padding-left:1em;
 }
 div.csl-indent {
-  margin-left: 2em;
+margin-left: 2em;
 }
 </style>
 
-<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
 
 
 
@@ -172,55 +363,98 @@ div.csl-indent {
 
 <div id="TOC">
 <ul>
-<li><a href="#introduction">Introduction</a></li>
-<li><a href="#usage">Usage</a>
+<li><a href="#introduction" id="toc-introduction">Introduction</a></li>
+<li><a href="#usage" id="toc-usage">Usage</a>
 <ul>
-<li><a href="#simple-minimum-set-problem">Simple minimum set problem</a></li>
-<li><a href="#adding-management-zones">Adding management zones</a></li>
-<li><a href="#multiple-zones-with-varying-costs">Multiple zones with varying costs</a></li>
-<li><a href="#multiple-zones-with-complex-targets">Multiple zones with complex targets</a></li>
-<li><a href="#multiple-zones-with-extra-constraints">Multiple zones with extra constraints</a></li>
-<li><a href="#multiple-zones-with-fragmentation-penalties">Multiple zones with fragmentation penalties</a></li>
-<li><a href="#multiple-zones-with-fragmentation-penalties-and-mandatory-allocations">Multiple zones with fragmentation penalties and mandatory allocations</a></li>
+<li><a href="#simple-minimum-set-problem" id="toc-simple-minimum-set-problem">Simple minimum set problem</a></li>
+<li><a href="#adding-management-zones" id="toc-adding-management-zones">Adding management zones</a></li>
+<li><a href="#multiple-zones-with-varying-costs" id="toc-multiple-zones-with-varying-costs">Multiple zones with varying
+costs</a></li>
+<li><a href="#multiple-zones-with-complex-targets" id="toc-multiple-zones-with-complex-targets">Multiple zones with complex
+targets</a></li>
+<li><a href="#multiple-zones-with-extra-constraints" id="toc-multiple-zones-with-extra-constraints">Multiple zones with extra
+constraints</a></li>
+<li><a href="#multiple-zones-with-fragmentation-penalties" id="toc-multiple-zones-with-fragmentation-penalties">Multiple zones with
+fragmentation penalties</a></li>
+<li><a href="#multiple-zones-with-fragmentation-penalties-and-mandatory-allocations" id="toc-multiple-zones-with-fragmentation-penalties-and-mandatory-allocations">Multiple
+zones with fragmentation penalties and mandatory allocations</a></li>
 </ul></li>
-<li><a href="#conclusion">Conclusion</a></li>
-<li><a href="#references">References</a></li>
+<li><a href="#conclusion" id="toc-conclusion">Conclusion</a></li>
+<li><a href="#references" id="toc-references">References</a></li>
 </ul>
 </div>
 
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
-<p>One of the main aims in conservation planning is to identify the most cost-effective set of areas to manage biodiversity <span class="citation">(Margules &amp; Pressey 2000)</span>. To achieve this, prioritizations are generally created to identify areas for expanding protected area systems. However, many real-world conservation problems do not simply involve deciding if an area should be protected or not <span class="citation">(e.g., Klein <em>et al.</em> 2009; Stigner <em>et al.</em> 2016)</span>. Instead, many problems involve a range of different management categories and the goal is to determine which areas should be allocated to which management category. For example, a manager might have a range of different methods (e.g., baiting or trapping at various intensities) for controlling invasive pests in a set of different areas <span class="citation">(e.g., Cattarino <em>et al.</em> 2018)</span>. They would need a prioritization that shows which control methods should be implemented in which areas. In this particular case, a binary prioritization showing which areas contain the most biodiversity is simply not helpful. Furthermore, many real-world problems require decisions that meet multiple, and sometimes conflicting, objectives from different stakeholders. For example, a manager might need to implement a set of no-take and partial-take areas to prevent overfishing, but also ensure that there still remain plenty of areas for fishing activities <span class="citation">(e.g., Wilson <em>et al.</em> 2010; Klein <em>et al.</em> 2013)</span>. Popularized by the <em>Marxan with Zones</em> decision support tool <span class="citation">(Watts <em>et al.</em> 2009)</span>, this concept has become known as “zones” and is becoming increasingly important in conservation planning.</p>
-<p>The aim of this tutorial is to showcase the zones functionality of the <em>prioritizr R</em> package. It will assume a certain level of familiarity with conservation planning terminology and the package. If you don’t have much experience in either of these topics, we recommend first reading the <a href="package_overview.html"><em>Package overview</em></a> vignette.</p>
+<p>One of the main aims in conservation planning is to identify the most
+cost-effective set of areas to manage biodiversity <span class="citation">(Margules &amp; Pressey 2000)</span>. To achieve this,
+prioritizations are generally created to identify areas for expanding
+protected area systems. However, many real-world conservation problems
+do not simply involve deciding if an area should be protected or not
+<span class="citation">(e.g., Klein <em>et al.</em> 2009; Stigner <em>et
+al.</em> 2016)</span>. Instead, many problems involve a range of
+different management categories and the goal is to determine which areas
+should be allocated to which management category. For example, a manager
+might have a range of different methods (e.g., baiting or trapping at
+various intensities) for controlling invasive pests in a set of
+different areas <span class="citation">(e.g., Cattarino <em>et al.</em>
+2018)</span>. They would need a prioritization that shows which control
+methods should be implemented in which areas. In this particular case, a
+binary prioritization showing which areas contain the most biodiversity
+is simply not helpful. Furthermore, many real-world problems require
+decisions that meet multiple, and sometimes conflicting, objectives from
+different stakeholders. For example, a manager might need to implement a
+set of no-take and partial-take areas to prevent overfishing, but also
+ensure that there still remain plenty of areas for fishing activities
+<span class="citation">(e.g., Wilson <em>et al.</em> 2010; Klein <em>et
+al.</em> 2013)</span>. Popularized by the <em>Marxan with Zones</em>
+decision support tool <span class="citation">(Watts <em>et al.</em>
+2009)</span>, this concept has become known as “zones” and is becoming
+increasingly important in conservation planning.</p>
+<p>The aim of this tutorial is to showcase the zones functionality of
+the <em>prioritizr R</em> package. It will assume a certain level of
+familiarity with conservation planning terminology and the package. If
+you don’t have much experience in either of these topics, we recommend
+first reading the <a href="package_overview.html"><em>Package
+overview</em></a> vignette.</p>
 </div>
 <div id="usage" class="section level2">
 <h2>Usage</h2>
 <div id="simple-minimum-set-problem" class="section level3">
 <h3>Simple minimum set problem</h3>
-<p>In the <em>prioritizr R</em> package, all conservation planning problems – including those which contain multiple management zones or actions – are initialized using the <code>problem</code> function. To refresh our memory on how we can construct problems, let us quickly construct a simple conservation planning problem. This problem will use the simulated built-in planning unit and feature data distributed with the package. It will have a minimum set objective, targets which require that solutions secure to 10% of the habitat in the study area for each feature, and binary decision variables indicating that planning units are selected or not selected for protection.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load packages</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(prioritizr)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(terra)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># set seed for reproducibility</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">500</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load data</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>sim_pu_raster <span class="ot">&lt;-</span> <span class="fu">get_sim_pu_raster</span>()</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>sim_features <span class="ot">&lt;-</span> <span class="fu">get_sim_features</span>()</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># create targets for each of the five features</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>t1 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fl">0.1</span>, <span class="dv">5</span>)</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># build single-zone problem</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">problem</span>(sim_pu_raster, sim_features) <span class="sc">%&gt;%</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_min_set_objective</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_relative_targets</span>(t1) <span class="sc">%&gt;%</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_binary_decisions</span>()</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co"># print problem</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p1)</span></code></pre></div>
+<p>In the <em>prioritizr R</em> package, all conservation planning
+problems – including those which contain multiple management zones or
+actions – are initialized using the <code>problem</code> function. To
+refresh our memory on how we can construct problems, let us quickly
+construct a simple conservation planning problem. This problem will use
+the simulated built-in planning unit and feature data distributed with
+the package. It will have a minimum set objective, targets which require
+that solutions secure to 10% of the habitat in the study area for each
+feature, and binary decision variables indicating that planning units
+are selected or not selected for protection.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># load packages</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(prioritizr)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(terra)</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="co"># set seed for reproducibility</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">500</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># load data</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>sim_pu_raster <span class="ot">&lt;-</span> <span class="fu">get_sim_pu_raster</span>()</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>sim_features <span class="ot">&lt;-</span> <span class="fu">get_sim_features</span>()</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="co"># create targets for each of the five features</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>t1 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fl">0.1</span>, <span class="dv">5</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="co"># build single-zone problem</span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>p1 <span class="ot">&lt;-</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>  <span class="fu">problem</span>(sim_pu_raster, sim_features) <span class="sc">%&gt;%</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>  <span class="fu">add_min_set_objective</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>  <span class="fu">add_relative_targets</span>(t1) <span class="sc">%&gt;%</span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>  <span class="fu">add_binary_decisions</span>()</span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="co"># print problem</span></span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a><span class="fu">print</span>(p1)</span></code></pre></div>
 <pre><code>## A conservation problem (&lt;ConservationProblem&gt;)
 ## ├•data
 ## │├•features:    &quot;feature_1&quot;, &quot;feature_2&quot;, &quot;feature_3&quot;, &quot;feature_4&quot;, and &quot;feature_5&quot; (5 total)
@@ -239,8 +473,8 @@ div.csl-indent {
 ##  ├•portfolio:   default portfolio
 ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, `first_feasible` = FALSE, …)
 ## # ℹ Use `summary(...)` to see complete formulation.</code></pre>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># solve problem</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>s1 <span class="ot">&lt;-</span> <span class="fu">solve</span>(p1)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># solve problem</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>s1 <span class="ot">&lt;-</span> <span class="fu">solve</span>(p1)</span></code></pre></div>
 <pre><code>## Set parameter Username
 ## Set parameter TimeLimit to value 2147483647
 ## Set parameter MIPGap to value 0.1
@@ -283,9 +517,9 @@ div.csl-indent {
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
 ## Best objective 1.987398529053e+03, best bound 1.931581907658e+03, gap 2.8085%</code></pre>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate feature representation</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>r1 <span class="ot">&lt;-</span> <span class="fu">eval_feature_representation_summary</span>(p1, s1)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(r1)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="co"># calculate feature representation</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>r1 <span class="ot">&lt;-</span> <span class="fu">eval_feature_representation_summary</span>(p1, s1)</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="fu">print</span>(r1)</span></code></pre></div>
 <pre><code>## # A tibble: 5 × 5
 ##   summary feature   total_amount absolute_held relative_held
 ##   &lt;chr&gt;   &lt;chr&gt;            &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
@@ -294,50 +528,59 @@ div.csl-indent {
 ## 3 overall feature_3         72.0          7.34         0.102
 ## 4 overall feature_4         42.7          4.35         0.102
 ## 5 overall feature_5         56.7          6.01         0.106</code></pre>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot solution</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  s1, <span class="at">main =</span> <span class="st">&quot;solution&quot;</span>,</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="at">axes =</span> <span class="cn">FALSE</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="co"># plot solution</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="fu">plot</span>(</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>  s1, <span class="at">main =</span> <span class="st">&quot;solution&quot;</span>,</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>  <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="at">axes =</span> <span class="cn">FALSE</span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>)</span></code></pre></div>
+<p><img role="img" src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
 </div>
 <div id="adding-management-zones" class="section level3">
 <h3>Adding management zones</h3>
-<p>Now let us imagine that instead of having a single management zone (e.g., protected area), we have two management zones. Similar to the example above, we require a solution that secures 10 % of the habitat in the study area for each feature in the first management zone. But we also require a solution that secures 5 % of the habitat in the study area for each feature in the second management zone. Each planning unit must be allocated to either zone or not selected for management at all. In this example, each planning unit costs the same when it is allocated to either of the two zones. We can formulate and solve this problem using the following code.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a matrix with the targets</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># here each column corresponds to a different zone,</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># each row corresponds to a different feature, and</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># each cell value corresponds to the target</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>t2 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="cn">NA</span>, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">nrow =</span> <span class="dv">5</span>)</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>t2[, <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fl">0.1</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>t2[, <span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co"># print targets</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(t2)</span></code></pre></div>
+<p>Now let us imagine that instead of having a single management zone
+(e.g., protected area), we have two management zones. Similar to the
+example above, we require a solution that secures 10 % of the habitat in
+the study area for each feature in the first management zone. But we
+also require a solution that secures 5 % of the habitat in the study
+area for each feature in the second management zone. Each planning unit
+must be allocated to either zone or not selected for management at all.
+In this example, each planning unit costs the same when it is allocated
+to either of the two zones. We can formulate and solve this problem
+using the following code.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co"># create a matrix with the targets</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="co"># here each column corresponds to a different zone,</span></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="co"># each row corresponds to a different feature, and</span></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="co"># each cell value corresponds to the target</span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>t2 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="cn">NA</span>, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">nrow =</span> <span class="dv">5</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>t2[, <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fl">0.1</span></span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a>t2[, <span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a><span class="co"># print targets</span></span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a><span class="fu">print</span>(t2)</span></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]  0.1 0.05
 ## [2,]  0.1 0.05
 ## [3,]  0.1 0.05
 ## [4,]  0.1 0.05
 ## [5,]  0.1 0.05</code></pre>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a zones object that contains the amount of each feature</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># in each planning unit when it is allocated to each zone</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># since our zones pertain to the same habitat data, we will</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># specify the same habitat data for each zone</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>z2 <span class="ot">&lt;-</span> <span class="fu">zones</span>(<span class="st">&quot;zone 1&quot;</span> <span class="ot">=</span> sim_features, <span class="st">&quot;zone 2&quot;</span> <span class="ot">=</span> sim_features)</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># print zones</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(z2)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="co"># create a zones object that contains the amount of each feature</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="co"># in each planning unit when it is allocated to each zone</span></span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="co"># since our zones pertain to the same habitat data, we will</span></span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="co"># specify the same habitat data for each zone</span></span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a>z2 <span class="ot">&lt;-</span> <span class="fu">zones</span>(<span class="st">&quot;zone 1&quot;</span> <span class="ot">=</span> sim_features, <span class="st">&quot;zone 2&quot;</span> <span class="ot">=</span> sim_features)</span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a><span class="co"># print zones</span></span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a><span class="fu">print</span>(z2)</span></code></pre></div>
 <pre><code>## A zones object &lt;ZonesSpatRaster/Zones&gt;
 ## • zones:    &quot;zone 1&quot; and &quot;zone 2&quot; (2 total)
 ## • features: &quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, and &quot;5&quot; (5 total)</code></pre>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a multi-layer raster with the planning unit data</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="do">## since our planning unit costs are the same for each zone,</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="do">## we will create a raster with two replicates of the cost data</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>pu2 <span class="ot">&lt;-</span> <span class="fu">c</span>(sim_pu_raster, sim_pu_raster)</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co"># print planning units</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(pu2)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="co"># create a multi-layer raster with the planning unit data</span></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="do">## since our planning unit costs are the same for each zone,</span></span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a><span class="do">## we will create a raster with two replicates of the cost data</span></span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>pu2 <span class="ot">&lt;-</span> <span class="fu">c</span>(sim_pu_raster, sim_pu_raster)</span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a><span class="co"># print planning units</span></span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a><span class="fu">print</span>(pu2)</span></code></pre></div>
 <pre><code>## class       : SpatRaster 
 ## dimensions  : 10, 10, 2  (nrow, ncol, nlyr)
 ## resolution  : 0.1, 0.1  (x, y)
@@ -348,15 +591,15 @@ div.csl-indent {
 ## names       :    layer,    layer 
 ## min values  : 190.1328, 190.1328 
 ## max values  : 215.8638, 215.8638</code></pre>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># build two-zone problem</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">problem</span>(pu2, z2) <span class="sc">%&gt;%</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_min_set_objective</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_relative_targets</span>(t2) <span class="sc">%&gt;%</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_binary_decisions</span>()</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co"># print problem</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p2)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="co"># build two-zone problem</span></span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>p2 <span class="ot">&lt;-</span></span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a>  <span class="fu">problem</span>(pu2, z2) <span class="sc">%&gt;%</span></span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a>  <span class="fu">add_min_set_objective</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a>  <span class="fu">add_relative_targets</span>(t2) <span class="sc">%&gt;%</span></span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a>  <span class="fu">add_binary_decisions</span>()</span>
+<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a><span class="co"># print problem</span></span>
+<span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a><span class="fu">print</span>(p2)</span></code></pre></div>
 <pre><code>## A conservation problem (&lt;ConservationProblem&gt;)
 ## ├•data
 ## │├•zones:       &quot;zone 1&quot; and &quot;zone 2&quot; (2 total)
@@ -376,8 +619,8 @@ div.csl-indent {
 ##  ├•portfolio:   default portfolio
 ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, `first_feasible` = FALSE, …)
 ## # ℹ Use `summary(...)` to see complete formulation.</code></pre>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># solve problem</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>s2 <span class="ot">&lt;-</span> <span class="fu">solve</span>(p2)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="co"># solve problem</span></span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a>s2 <span class="ot">&lt;-</span> <span class="fu">solve</span>(p2)</span></code></pre></div>
 <pre><code>## Set parameter Username
 ## Set parameter TimeLimit to value 2147483647
 ## Set parameter MIPGap to value 0.1
@@ -420,9 +663,9 @@ div.csl-indent {
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
 ## Best objective 2.996117523193e+03, best bound 2.911333356299e+03, gap 2.8298%</code></pre>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate feature representation</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>r2 <span class="ot">&lt;-</span> <span class="fu">eval_feature_representation_summary</span>(p2, s2)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(r2)</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="co"># calculate feature representation</span></span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>r2 <span class="ot">&lt;-</span> <span class="fu">eval_feature_representation_summary</span>(p2, s2)</span>
+<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a><span class="fu">print</span>(r2)</span></code></pre></div>
 <pre><code>## # A tibble: 15 × 5
 ##    summary feature total_amount absolute_held relative_held
 ##    &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
@@ -441,39 +684,50 @@ div.csl-indent {
 ## 13 zone 2  3               72.0          3.70        0.0515
 ## 14 zone 2  4               42.7          2.14        0.0501
 ## 15 zone 2  5               56.7          3.03        0.0533</code></pre>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot solution</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co"># here we use the category layer function to generate raster showing the zone</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># that each planning unit was allocated. Specifically, pixels with the</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># value 1 (yellow) are allocated to &quot;zone 1&quot; and pixels with the value 2 (green)</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co"># are allocated to &quot;zone 2&quot;. Units depicted in gray are not allocated</span></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co"># to any zone.</span></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">category_layer</span>(s2), <span class="at">main =</span> <span class="st">&quot;solution&quot;</span>,</span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="at">axes =</span> <span class="cn">FALSE</span></span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="co"># plot solution</span></span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a><span class="co"># here we use the category layer function to generate raster showing the zone</span></span>
+<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a><span class="co"># that each planning unit was allocated. Specifically, pixels with the</span></span>
+<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a><span class="co"># value 1 (yellow) are allocated to &quot;zone 1&quot; and pixels with the value 2 (green)</span></span>
+<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a><span class="co"># are allocated to &quot;zone 2&quot;. Units depicted in gray are not allocated</span></span>
+<span id="cb21-6"><a href="#cb21-6" tabindex="-1"></a><span class="co"># to any zone.</span></span>
+<span id="cb21-7"><a href="#cb21-7" tabindex="-1"></a><span class="fu">plot</span>(</span>
+<span id="cb21-8"><a href="#cb21-8" tabindex="-1"></a>  <span class="fu">category_layer</span>(s2), <span class="at">main =</span> <span class="st">&quot;solution&quot;</span>,</span>
+<span id="cb21-9"><a href="#cb21-9" tabindex="-1"></a>  <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="at">axes =</span> <span class="cn">FALSE</span></span>
+<span id="cb21-10"><a href="#cb21-10" tabindex="-1"></a>)</span></code></pre></div>
+<p><img role="img" src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
 </div>
 <div id="multiple-zones-with-varying-costs" class="section level3">
 <h3>Multiple zones with varying costs</h3>
-<p>Real-world problems often have different costs for managing planning units under different zones. These problems also tend to have different expected amounts of each feature when planning units are managed differently. So let us consider a slightly more complex example. Similar to before we will have two management zones. But this time, the cost of managing each planning unit is different depending on which management zone it is assigned to in the solution. Furthermore, when we assign a planning unit to the second zone, we only expect to end up with half of the habitat we would get if we managed the unit in the first zone (e.g., because the second zone is a partial-take zone and the first zone is a no-take zone). We will use the same target data as in the previous example.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create new planning unit and cost data</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>pu3 <span class="ot">&lt;-</span> <span class="fu">get_sim_zones_pu_raster</span>()[[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]]</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># plot cost data</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  pu3, <span class="at">main =</span> <span class="fu">c</span>(<span class="st">&quot;zone 1&quot;</span>, <span class="st">&quot;zone 2&quot;</span>),</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="at">axes =</span> <span class="cn">FALSE</span></span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create problem</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">problem</span>(pu3, <span class="fu">zones</span>(sim_features, sim_features <span class="sc">*</span> <span class="fl">0.5</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_min_set_objective</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_relative_targets</span>(t2) <span class="sc">%&gt;%</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_binary_decisions</span>()</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="co"># print problem</span></span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p3)</span></code></pre></div>
+<p>Real-world problems often have different costs for managing planning
+units under different zones. These problems also tend to have different
+expected amounts of each feature when planning units are managed
+differently. So let us consider a slightly more complex example. Similar
+to before we will have two management zones. But this time, the cost of
+managing each planning unit is different depending on which management
+zone it is assigned to in the solution. Furthermore, when we assign a
+planning unit to the second zone, we only expect to end up with half of
+the habitat we would get if we managed the unit in the first zone (e.g.,
+because the second zone is a partial-take zone and the first zone is a
+no-take zone). We will use the same target data as in the previous
+example.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="co"># create new planning unit and cost data</span></span>
+<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a>pu3 <span class="ot">&lt;-</span> <span class="fu">get_sim_zones_pu_raster</span>()[[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]]</span>
+<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a><span class="co"># plot cost data</span></span>
+<span id="cb22-5"><a href="#cb22-5" tabindex="-1"></a><span class="fu">plot</span>(</span>
+<span id="cb22-6"><a href="#cb22-6" tabindex="-1"></a>  pu3, <span class="at">main =</span> <span class="fu">c</span>(<span class="st">&quot;zone 1&quot;</span>, <span class="st">&quot;zone 2&quot;</span>),</span>
+<span id="cb22-7"><a href="#cb22-7" tabindex="-1"></a>  <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="at">axes =</span> <span class="cn">FALSE</span></span>
+<span id="cb22-8"><a href="#cb22-8" tabindex="-1"></a>)</span></code></pre></div>
+<p><img role="img" src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="co"># create problem</span></span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a>p3 <span class="ot">&lt;-</span></span>
+<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a>  <span class="fu">problem</span>(pu3, <span class="fu">zones</span>(sim_features, sim_features <span class="sc">*</span> <span class="fl">0.5</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb23-4"><a href="#cb23-4" tabindex="-1"></a>  <span class="fu">add_min_set_objective</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb23-5"><a href="#cb23-5" tabindex="-1"></a>  <span class="fu">add_relative_targets</span>(t2) <span class="sc">%&gt;%</span></span>
+<span id="cb23-6"><a href="#cb23-6" tabindex="-1"></a>  <span class="fu">add_binary_decisions</span>()</span>
+<span id="cb23-7"><a href="#cb23-7" tabindex="-1"></a></span>
+<span id="cb23-8"><a href="#cb23-8" tabindex="-1"></a><span class="co"># print problem</span></span>
+<span id="cb23-9"><a href="#cb23-9" tabindex="-1"></a><span class="fu">print</span>(p3)</span></code></pre></div>
 <pre><code>## A conservation problem (&lt;ConservationProblem&gt;)
 ## ├•data
 ## │├•zones:       &quot;1&quot; and &quot;2&quot; (2 total)
@@ -493,8 +747,8 @@ div.csl-indent {
 ##  ├•portfolio:   default portfolio
 ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, `first_feasible` = FALSE, …)
 ## # ℹ Use `summary(...)` to see complete formulation.</code></pre>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># solve problem</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>s3 <span class="ot">&lt;-</span> <span class="fu">solve</span>(p3)</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="co"># solve problem</span></span>
+<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a>s3 <span class="ot">&lt;-</span> <span class="fu">solve</span>(p3)</span></code></pre></div>
 <pre><code>## Set parameter Username
 ## Set parameter TimeLimit to value 2147483647
 ## Set parameter MIPGap to value 0.1
@@ -537,9 +791,9 @@ div.csl-indent {
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
 ## Best objective 2.958120147705e+03, best bound 2.884872007846e+03, gap 2.4762%</code></pre>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate feature representation</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>r3 <span class="ot">&lt;-</span> <span class="fu">eval_feature_representation_summary</span>(p3, s3)</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(r3)</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="co"># calculate feature representation</span></span>
+<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a>r3 <span class="ot">&lt;-</span> <span class="fu">eval_feature_representation_summary</span>(p3, s3)</span>
+<span id="cb27-3"><a href="#cb27-3" tabindex="-1"></a><span class="fu">print</span>(r3)</span></code></pre></div>
 <pre><code>## # A tibble: 15 × 5
 ##    summary feature total_amount absolute_held relative_held
 ##    &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
@@ -558,40 +812,59 @@ div.csl-indent {
 ## 13 2       3               36.0         1.87         0.0519
 ## 14 2       4               21.3         1.08         0.0505
 ## 15 2       5               28.4         1.44         0.0509</code></pre>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot solution</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">category_layer</span>(s3), <span class="at">main =</span> <span class="st">&quot;solution&quot;</span>,</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="at">axes =</span> <span class="cn">FALSE</span></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="co"># plot solution</span></span>
+<span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a><span class="fu">plot</span>(</span>
+<span id="cb29-3"><a href="#cb29-3" tabindex="-1"></a>  <span class="fu">category_layer</span>(s3), <span class="at">main =</span> <span class="st">&quot;solution&quot;</span>,</span>
+<span id="cb29-4"><a href="#cb29-4" tabindex="-1"></a>  <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="at">axes =</span> <span class="cn">FALSE</span></span>
+<span id="cb29-5"><a href="#cb29-5" tabindex="-1"></a>)</span></code></pre></div>
+<p><img role="img" src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
 </div>
 <div id="multiple-zones-with-complex-targets" class="section level3">
 <h3>Multiple zones with complex targets</h3>
-<p>So far, we have dealt with problems where each feature has a target that pertains to a single zone. But sometimes we have targets that pertain to multiple zones. For example, what if we were in charge of managing pest control in a set of areas and we had three different pest control methods we could implement in any given planning unit. We could (i) set up a few traps in a given planning unit and make 10 % of the habitat in the unit pest-free, (ii) set up a lot of traps and make 50 % of the habitat in the unit pest-free, or (iii) drop baits over a given planning unit and make 80 % of the planning unit pest-free. Each of these different actions has a different cost, with a few low intensity trapping costing $100 per planning unit, a high intensity trapping costing $300, and baiting costing $200 (please note these costs aren’t meant to be realistic). After defining our management actions and costs, we require a solution that will yield 8 units of pest free habitat per feature. It’s important to note that unlike the previous examples, here we don’t have targets for each feature in each zone, but rather our targets are for each feature and across multiple zones. In other words, we don’t really care which management actions we implement, we just want the set of actions that will meet our targets for minimum expenditure. We can formulate and solve this problem using the following code.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create planning unit data with costs</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>pu4 <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.int</span>(<span class="sc">!</span><span class="fu">is.na</span>(sim_pu_raster)) <span class="sc">*</span> <span class="dv">100</span>,</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.int</span>(<span class="sc">!</span><span class="fu">is.na</span>(sim_pu_raster)) <span class="sc">*</span> <span class="dv">300</span>,</span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.int</span>(<span class="sc">!</span><span class="fu">is.na</span>(sim_pu_raster)) <span class="sc">*</span> <span class="dv">200</span></span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(pu4) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;few traps&quot;</span>, <span class="st">&quot;many traps&quot;</span>, <span class="st">&quot;baiting&quot;</span>)</span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="co"># plot planning unit data</span></span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
-<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>  pu4, <span class="at">nr =</span> <span class="dv">1</span>,</span>
-<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="at">axes =</span> <span class="cn">FALSE</span></span>
-<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create targets</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>t4 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">feature =</span> <span class="fu">names</span>(sim_features),</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">zone =</span> <span class="fu">list</span>(<span class="fu">names</span>(pu4))[<span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">5</span>)],</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">target =</span> <span class="fu">rep</span>(<span class="dv">8</span>, <span class="dv">5</span>),</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="fu">rep</span>(<span class="st">&quot;absolute&quot;</span>, <span class="dv">5</span>)</span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="co"># print targets</span></span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(t4)</span></code></pre></div>
+<p>So far, we have dealt with problems where each feature has a target
+that pertains to a single zone. But sometimes we have targets that
+pertain to multiple zones. For example, what if we were in charge of
+managing pest control in a set of areas and we had three different pest
+control methods we could implement in any given planning unit. We could
+(i) set up a few traps in a given planning unit and make 10 % of the
+habitat in the unit pest-free, (ii) set up a lot of traps and make 50 %
+of the habitat in the unit pest-free, or (iii) drop baits over a given
+planning unit and make 80 % of the planning unit pest-free. Each of
+these different actions has a different cost, with a few low intensity
+trapping costing $100 per planning unit, a high intensity trapping
+costing $300, and baiting costing $200 (please note these costs aren’t
+meant to be realistic). After defining our management actions and costs,
+we require a solution that will yield 8 units of pest free habitat per
+feature. It’s important to note that unlike the previous examples, here
+we don’t have targets for each feature in each zone, but rather our
+targets are for each feature and across multiple zones. In other words,
+we don’t really care which management actions we implement, we just want
+the set of actions that will meet our targets for minimum expenditure.
+We can formulate and solve this problem using the following code.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a><span class="co"># create planning unit data with costs</span></span>
+<span id="cb30-2"><a href="#cb30-2" tabindex="-1"></a>pu4 <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb30-3"><a href="#cb30-3" tabindex="-1"></a>  <span class="fu">as.int</span>(<span class="sc">!</span><span class="fu">is.na</span>(sim_pu_raster)) <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb30-4"><a href="#cb30-4" tabindex="-1"></a>  <span class="fu">as.int</span>(<span class="sc">!</span><span class="fu">is.na</span>(sim_pu_raster)) <span class="sc">*</span> <span class="dv">300</span>,</span>
+<span id="cb30-5"><a href="#cb30-5" tabindex="-1"></a>  <span class="fu">as.int</span>(<span class="sc">!</span><span class="fu">is.na</span>(sim_pu_raster)) <span class="sc">*</span> <span class="dv">200</span></span>
+<span id="cb30-6"><a href="#cb30-6" tabindex="-1"></a>)</span>
+<span id="cb30-7"><a href="#cb30-7" tabindex="-1"></a><span class="fu">names</span>(pu4) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;few traps&quot;</span>, <span class="st">&quot;many traps&quot;</span>, <span class="st">&quot;baiting&quot;</span>)</span>
+<span id="cb30-8"><a href="#cb30-8" tabindex="-1"></a></span>
+<span id="cb30-9"><a href="#cb30-9" tabindex="-1"></a><span class="co"># plot planning unit data</span></span>
+<span id="cb30-10"><a href="#cb30-10" tabindex="-1"></a><span class="fu">plot</span>(</span>
+<span id="cb30-11"><a href="#cb30-11" tabindex="-1"></a>  pu4, <span class="at">nr =</span> <span class="dv">1</span>,</span>
+<span id="cb30-12"><a href="#cb30-12" tabindex="-1"></a>  <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="at">axes =</span> <span class="cn">FALSE</span></span>
+<span id="cb30-13"><a href="#cb30-13" tabindex="-1"></a>)</span></code></pre></div>
+<p><img role="img" src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a><span class="co"># create targets</span></span>
+<span id="cb31-2"><a href="#cb31-2" tabindex="-1"></a>t4 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb31-3"><a href="#cb31-3" tabindex="-1"></a>  <span class="at">feature =</span> <span class="fu">names</span>(sim_features),</span>
+<span id="cb31-4"><a href="#cb31-4" tabindex="-1"></a>  <span class="at">zone =</span> <span class="fu">list</span>(<span class="fu">names</span>(pu4))[<span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">5</span>)],</span>
+<span id="cb31-5"><a href="#cb31-5" tabindex="-1"></a>  <span class="at">target =</span> <span class="fu">rep</span>(<span class="dv">8</span>, <span class="dv">5</span>),</span>
+<span id="cb31-6"><a href="#cb31-6" tabindex="-1"></a>  <span class="at">type =</span> <span class="fu">rep</span>(<span class="st">&quot;absolute&quot;</span>, <span class="dv">5</span>)</span>
+<span id="cb31-7"><a href="#cb31-7" tabindex="-1"></a>)</span>
+<span id="cb31-8"><a href="#cb31-8" tabindex="-1"></a></span>
+<span id="cb31-9"><a href="#cb31-9" tabindex="-1"></a><span class="co"># print targets</span></span>
+<span id="cb31-10"><a href="#cb31-10" tabindex="-1"></a><span class="fu">print</span>(t4)</span></code></pre></div>
 <pre><code>## # A tibble: 5 × 4
 ##   feature   zone      target type    
 ##   &lt;chr&gt;     &lt;list&gt;     &lt;dbl&gt; &lt;chr&gt;   
@@ -600,24 +873,24 @@ div.csl-indent {
 ## 3 feature_3 &lt;chr [3]&gt;      8 absolute
 ## 4 feature_4 &lt;chr [3]&gt;      8 absolute
 ## 5 feature_5 &lt;chr [3]&gt;      8 absolute</code></pre>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create problem</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>p4 <span class="ot">&lt;-</span></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">problem</span>(</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    pu4,</span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">zones</span>(</span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>      sim_features <span class="sc">*</span> <span class="fl">0.1</span>,</span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>      sim_features <span class="sc">*</span> <span class="fl">0.5</span>,</span>
-<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>      sim_features <span class="sc">*</span> <span class="fl">0.8</span>,</span>
-<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">zone_names =</span> <span class="fu">names</span>(pu4),</span>
-<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">feature_names =</span> <span class="fu">names</span>(sim_features)</span>
-<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_min_set_objective</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_manual_targets</span>(t4) <span class="sc">%&gt;%</span></span>
-<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_binary_decisions</span>()</span>
-<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a><span class="co"># print problem</span></span>
-<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p4)</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a><span class="co"># create problem</span></span>
+<span id="cb33-2"><a href="#cb33-2" tabindex="-1"></a>p4 <span class="ot">&lt;-</span></span>
+<span id="cb33-3"><a href="#cb33-3" tabindex="-1"></a>  <span class="fu">problem</span>(</span>
+<span id="cb33-4"><a href="#cb33-4" tabindex="-1"></a>    pu4,</span>
+<span id="cb33-5"><a href="#cb33-5" tabindex="-1"></a>    <span class="fu">zones</span>(</span>
+<span id="cb33-6"><a href="#cb33-6" tabindex="-1"></a>      sim_features <span class="sc">*</span> <span class="fl">0.1</span>,</span>
+<span id="cb33-7"><a href="#cb33-7" tabindex="-1"></a>      sim_features <span class="sc">*</span> <span class="fl">0.5</span>,</span>
+<span id="cb33-8"><a href="#cb33-8" tabindex="-1"></a>      sim_features <span class="sc">*</span> <span class="fl">0.8</span>,</span>
+<span id="cb33-9"><a href="#cb33-9" tabindex="-1"></a>      <span class="at">zone_names =</span> <span class="fu">names</span>(pu4),</span>
+<span id="cb33-10"><a href="#cb33-10" tabindex="-1"></a>      <span class="at">feature_names =</span> <span class="fu">names</span>(sim_features)</span>
+<span id="cb33-11"><a href="#cb33-11" tabindex="-1"></a>    )</span>
+<span id="cb33-12"><a href="#cb33-12" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb33-13"><a href="#cb33-13" tabindex="-1"></a>  <span class="fu">add_min_set_objective</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb33-14"><a href="#cb33-14" tabindex="-1"></a>  <span class="fu">add_manual_targets</span>(t4) <span class="sc">%&gt;%</span></span>
+<span id="cb33-15"><a href="#cb33-15" tabindex="-1"></a>  <span class="fu">add_binary_decisions</span>()</span>
+<span id="cb33-16"><a href="#cb33-16" tabindex="-1"></a></span>
+<span id="cb33-17"><a href="#cb33-17" tabindex="-1"></a><span class="co"># print problem</span></span>
+<span id="cb33-18"><a href="#cb33-18" tabindex="-1"></a><span class="fu">print</span>(p4)</span></code></pre></div>
 <pre><code>## A conservation problem (&lt;ConservationProblem&gt;)
 ## ├•data
 ## │├•zones:       &quot;few traps&quot;, &quot;many traps&quot;, and &quot;baiting&quot; (3 total)
@@ -637,8 +910,8 @@ div.csl-indent {
 ##  ├•portfolio:   default portfolio
 ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, `first_feasible` = FALSE, …)
 ## # ℹ Use `summary(...)` to see complete formulation.</code></pre>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># solve problem</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>s4 <span class="ot">&lt;-</span> <span class="fu">solve</span>(p4)</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a><span class="co"># solve problem</span></span>
+<span id="cb35-2"><a href="#cb35-2" tabindex="-1"></a>s4 <span class="ot">&lt;-</span> <span class="fu">solve</span>(p4)</span></code></pre></div>
 <pre><code>## Set parameter Username
 ## Set parameter TimeLimit to value 2147483647
 ## Set parameter MIPGap to value 0.1
@@ -682,9 +955,9 @@ div.csl-indent {
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
 ## Best objective 3.800000000000e+03, best bound 3.700000000000e+03, gap 2.6316%</code></pre>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate feature representation</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>r4 <span class="ot">&lt;-</span> <span class="fu">eval_feature_representation_summary</span>(p4, s4)</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(r4)</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a><span class="co"># calculate feature representation</span></span>
+<span id="cb37-2"><a href="#cb37-2" tabindex="-1"></a>r4 <span class="ot">&lt;-</span> <span class="fu">eval_feature_representation_summary</span>(p4, s4)</span>
+<span id="cb37-3"><a href="#cb37-3" tabindex="-1"></a><span class="fu">print</span>(r4)</span></code></pre></div>
 <pre><code>## # A tibble: 20 × 5
 ##    summary    feature   total_amount absolute_held relative_held
 ##    &lt;chr&gt;      &lt;chr&gt;            &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
@@ -708,18 +981,22 @@ div.csl-indent {
 ## 18 baiting    feature_3        57.6          15.2          0.264
 ## 19 baiting    feature_4        34.1          11.6          0.340
 ## 20 baiting    feature_5        45.4          12.7          0.281</code></pre>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot solution</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">category_layer</span>(s4), <span class="at">main =</span> <span class="st">&quot;solution&quot;</span>, <span class="at">axes =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a><span class="co"># plot solution</span></span>
+<span id="cb39-2"><a href="#cb39-2" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">category_layer</span>(s4), <span class="at">main =</span> <span class="st">&quot;solution&quot;</span>, <span class="at">axes =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p><img role="img" src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
 </div>
 <div id="multiple-zones-with-extra-constraints" class="section level3">
 <h3>Multiple zones with extra constraints</h3>
-<p>So it looks like baiting is the way to go! Except that we might recall that we can’t use baits in most of the planning units because they contain native species that are susceptible to baits. So now we need to specify which of our planning units cannot be assigned to the third zone (baiting) to obtain a more useful solution.</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create data.frame to specify that we cannot bait in the first 80 units</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>l5 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">pu =</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">80</span>), <span class="at">zone =</span> <span class="st">&quot;baiting&quot;</span>, <span class="at">status =</span> <span class="dv">0</span>)</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="co"># preview locked data</span></span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(l5)</span></code></pre></div>
+<p>So it looks like baiting is the way to go! Except that we might
+recall that we can’t use baits in most of the planning units because
+they contain native species that are susceptible to baits. So now we
+need to specify which of our planning units cannot be assigned to the
+third zone (baiting) to obtain a more useful solution.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a><span class="co"># create data.frame to specify that we cannot bait in the first 80 units</span></span>
+<span id="cb40-2"><a href="#cb40-2" tabindex="-1"></a>l5 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">pu =</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">80</span>), <span class="at">zone =</span> <span class="st">&quot;baiting&quot;</span>, <span class="at">status =</span> <span class="dv">0</span>)</span>
+<span id="cb40-3"><a href="#cb40-3" tabindex="-1"></a></span>
+<span id="cb40-4"><a href="#cb40-4" tabindex="-1"></a><span class="co"># preview locked data</span></span>
+<span id="cb40-5"><a href="#cb40-5" tabindex="-1"></a><span class="fu">head</span>(l5)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 3
 ##      pu zone    status
 ##   &lt;int&gt; &lt;chr&gt;    &lt;dbl&gt;
@@ -729,25 +1006,25 @@ div.csl-indent {
 ## 4     4 baiting      0
 ## 5     5 baiting      0
 ## 6     6 baiting      0</code></pre>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create problem</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>p5 <span class="ot">&lt;-</span></span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">problem</span>(</span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>    pu4,</span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">zones</span>(</span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>      sim_features <span class="sc">*</span> <span class="fl">0.1</span>,</span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>      sim_features <span class="sc">*</span> <span class="fl">0.5</span>,</span>
-<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>      sim_features <span class="sc">*</span> <span class="fl">0.8</span>,</span>
-<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">zone_names =</span> <span class="fu">names</span>(pu4),</span>
-<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">feature_names =</span> <span class="fu">names</span>(sim_features)</span>
-<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_min_set_objective</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_manual_targets</span>(t4) <span class="sc">%&gt;%</span></span>
-<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_manual_locked_constraints</span>(l5) <span class="sc">%&gt;%</span></span>
-<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_binary_decisions</span>()</span>
-<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a><span class="co"># print problem</span></span>
-<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p5)</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a><span class="co"># create problem</span></span>
+<span id="cb42-2"><a href="#cb42-2" tabindex="-1"></a>p5 <span class="ot">&lt;-</span></span>
+<span id="cb42-3"><a href="#cb42-3" tabindex="-1"></a>  <span class="fu">problem</span>(</span>
+<span id="cb42-4"><a href="#cb42-4" tabindex="-1"></a>    pu4,</span>
+<span id="cb42-5"><a href="#cb42-5" tabindex="-1"></a>    <span class="fu">zones</span>(</span>
+<span id="cb42-6"><a href="#cb42-6" tabindex="-1"></a>      sim_features <span class="sc">*</span> <span class="fl">0.1</span>,</span>
+<span id="cb42-7"><a href="#cb42-7" tabindex="-1"></a>      sim_features <span class="sc">*</span> <span class="fl">0.5</span>,</span>
+<span id="cb42-8"><a href="#cb42-8" tabindex="-1"></a>      sim_features <span class="sc">*</span> <span class="fl">0.8</span>,</span>
+<span id="cb42-9"><a href="#cb42-9" tabindex="-1"></a>      <span class="at">zone_names =</span> <span class="fu">names</span>(pu4),</span>
+<span id="cb42-10"><a href="#cb42-10" tabindex="-1"></a>      <span class="at">feature_names =</span> <span class="fu">names</span>(sim_features)</span>
+<span id="cb42-11"><a href="#cb42-11" tabindex="-1"></a>    )</span>
+<span id="cb42-12"><a href="#cb42-12" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb42-13"><a href="#cb42-13" tabindex="-1"></a>  <span class="fu">add_min_set_objective</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb42-14"><a href="#cb42-14" tabindex="-1"></a>  <span class="fu">add_manual_targets</span>(t4) <span class="sc">%&gt;%</span></span>
+<span id="cb42-15"><a href="#cb42-15" tabindex="-1"></a>  <span class="fu">add_manual_locked_constraints</span>(l5) <span class="sc">%&gt;%</span></span>
+<span id="cb42-16"><a href="#cb42-16" tabindex="-1"></a>  <span class="fu">add_binary_decisions</span>()</span>
+<span id="cb42-17"><a href="#cb42-17" tabindex="-1"></a></span>
+<span id="cb42-18"><a href="#cb42-18" tabindex="-1"></a><span class="co"># print problem</span></span>
+<span id="cb42-19"><a href="#cb42-19" tabindex="-1"></a><span class="fu">print</span>(p5)</span></code></pre></div>
 <pre><code>## A conservation problem (&lt;ConservationProblem&gt;)
 ## ├•data
 ## │├•zones:       &quot;few traps&quot;, &quot;many traps&quot;, and &quot;baiting&quot; (3 total)
@@ -768,8 +1045,8 @@ div.csl-indent {
 ##  ├•portfolio:   default portfolio
 ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, `first_feasible` = FALSE, …)
 ## # ℹ Use `summary(...)` to see complete formulation.</code></pre>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># solve problem</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>s5 <span class="ot">&lt;-</span> <span class="fu">solve</span>(p5)</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" tabindex="-1"></a><span class="co"># solve problem</span></span>
+<span id="cb44-2"><a href="#cb44-2" tabindex="-1"></a>s5 <span class="ot">&lt;-</span> <span class="fu">solve</span>(p5)</span></code></pre></div>
 <pre><code>## Set parameter Username
 ## Set parameter TimeLimit to value 2147483647
 ## Set parameter MIPGap to value 0.1
@@ -814,9 +1091,9 @@ div.csl-indent {
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
 ## Best objective 7.000000000000e+03, best bound 7.000000000000e+03, gap 0.0000%</code></pre>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate feature representation</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>r5 <span class="ot">&lt;-</span> <span class="fu">eval_feature_representation_summary</span>(p5, s5)</span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(r5)</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" tabindex="-1"></a><span class="co"># calculate feature representation</span></span>
+<span id="cb46-2"><a href="#cb46-2" tabindex="-1"></a>r5 <span class="ot">&lt;-</span> <span class="fu">eval_feature_representation_summary</span>(p5, s5)</span>
+<span id="cb46-3"><a href="#cb46-3" tabindex="-1"></a><span class="fu">print</span>(r5)</span></code></pre></div>
 <pre><code>## # A tibble: 20 × 5
 ##    summary    feature   total_amount absolute_held relative_held
 ##    &lt;chr&gt;      &lt;chr&gt;            &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
@@ -840,47 +1117,54 @@ div.csl-indent {
 ## 18 baiting    feature_3        57.6          11.7          0.203
 ## 19 baiting    feature_4        34.1           6.05         0.177
 ## 20 baiting    feature_5        45.4           9.98         0.220</code></pre>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot solution</span></span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">category_layer</span>(s5), <span class="at">main =</span> <span class="st">&quot;solution&quot;</span>, <span class="at">axes =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAeAAAAEzCAMAAADeoCAmAAAACXBIWXMAAA7DAAAOwwHHb6hkAAADAFBMVEVEAVSOZpgAAAA3mpj+8XxWGmV5u7ohj4395yX////96Trd3d3s7Oz9//+ySV3//u2y+P+eSQcBEF0AAAQAAAcJAAuLNwUCAAAQAQApATJmZmYzMzOIiIjMzMwiIiIPQ0IHHRzbyCDKuR7//NoFAAYDCgpInewHAAD4s14TEQIFN4oJAAwFFBMnBADa/P8zhNVjuPny/v82idkELn/2vmv/+8n7yXcjIAXnmEUDInEAAhQAAQ3B+f9sv/YrQV/E+v89JhZxIgPj/f////z+79D/+sSXQwn//ufv8e8aAgBoKAj6wW4ABCLo6OghAwDO+/////MMBwb0//+CrNajeVd1JANLCQD+65/onEkxHhD29vYJPZFdOiBxcHDv/v/S+/+uWxfU088DHm19t9//+Nb/+L0SXLEHDhncsnNVqe8KEh0LCQ+PjpHh/OzxzJxBkuDDqn4gUIYYJUGR0vb+8LoZDQf957IEIV+ueUL//d/k5OT6+vo4ODgpKSkdGgSg0/QiG2UaJ2/Hkl9qIRj7//+A0PsCBQf/9sYeM1M2ECp1KxYVKnj106bVk0fSlVFtQCI9fLumUQ2vw8hrns8lV4uqvcO6o3tIGwSYmJhJLx7/9ejcjDkydb17LA1HGgQcUZ249/8zeL90dHrv9vv///eti2yv2vegprTZ+/8uf9E4Yqa+5PwBDDIVJTZVcJEMJlOhwdb+/u2HwsH+8oobNF300JnH+P8PDBANTKHz+/PPfS3j7eRIkdI9kOAYERZoHR7BhEEgGUoPHjTbrl5Vgrfysl+07/6Oyeio7P5BfsT3+vL+66nqwYj82IorSG8dFFXysWorXp05Eze54uhXMxyNQBpXFx6OQBKTwefe5fBrST5YEC7/9q0lLCahajni7+/Zy78hMnwzTGvR8P5SlMXH9v/93qUyY4/Vqn2afVO5fkt5TzAoEwhoGgJntey8165QIwennH98mKXwqVW0zNne3tgINXTx3sREFgKrgnkCE2Gs5v1+p9QSAwDYtpuOAJiuIvlIAAAGFUlEQVR42u3cZ3AUZQCAYVwLrMCgJgr2AhhEQRSwUUSCFOnYACGIgLQICKJIEYEIUqSIjSZIL4KiYu+99957772Pd+FC1oHBYQbwsnneXzebzU3mnux95TYpESrWlfASABZgARZgARZgAQYswAIswAIswCouwOV2DnbZ6V9H+nWev3gDhwHHBfiorGNqAI478MK/r1rSEHCRqs2nnQZXXrlqRfJxo5MatO1T/8TDUsDHHxdUrR6GVSpkHrh6SIfyGSuXn7XWvfC8irsFR3/zxeCeT48EnJ5lX/JXkOy8P8Lw3BPyH9a5Jmc94CaNk185bS1w5LwE8LUd8r//YcBpWY+vgvOu7zqkWcayvHKnl888+/Irrg5a1FsPuGxkDI6elwAOrvv+u2+DOr0Bp2WnnhL8vDiv4m/z/8xLPKzZOgxrtQrObLcx4Oh5ySt4UBj+UCHj8DzA6VjtOUGQOXDV9Tlh2LxZvlLtk4OaXTYGHD0vAXxG3TA8olrGoYDTszWdspJj6HWD8iETB85Pmm0MOHpecpJ1LOD0nmb9sqhTYqJVtXqtwiuz9caAo+cBTvcm5eauyJ8//z4vObZ2iY7BCcLE+2/2rKz1x+AuhWMw4LSuSrOMs3/8acCvQdWlydnxZZcOuHLdLPr8xkGdT5Z8Vi1IArfPyuy/YHXBLLrgPMDpXvdXyucvalt8XXbd+nZ2ah2c3T65Rs58K/8Kbt5qvXXw7BzARUB40YzBlfq8/2peaierZ+FOVlhudIO29z/4QP4Y3OTzL8fOjexk9Vy3kwVYgAVYgAVYgAUYsAAL8IbbZgu2Q7p0QzEGLrEFK5kubQsYMGDAgAEDBgwYMGDAgAEDBgwYcFEDHtZ5j1SdOwKOIXCZjN1TVSodeRkmTbm7/kjAcQCuVPDTHRwBrj1n6h33TrwZcFyBm184L+xxTz3AcQVuf1rDsEnj/mUBxxM4e9atOWGbaVvvz84Bu4IBb/YxeEwNY3DRB24a7Jqq/NDCo+Mm3Hnb5FF1AcdgJ6tl6VRDoy/Dmk633DTIOthWJWDAgAEDBgwYMOANAnfdO1VXwPFcB++XKiP6ceGTL/YdOL0d4BjsZFUuOHhIBPiJlz98p9d4nybFFrjKxNZhm2nLfNgQV+CZr+WF4yb09mFDXIET9Zsyd6m36NgCN3p74PQcs+jYAnd/6bkPLJPiATx231SVI8APjXqhZcuWCwAXfeCyuXulyh227mD27cn/kpvhlh1blYABAwYMGDBgwIABF0PgjiP2STWiTOHRhb1m3HJxtzzAMdjoOGj/VBdENjqeer5b08nPPAo4DsClUh0ZAX52ecPwzTcuAhxX4DCc+e6Q9z4C/D/8OmyOp97+v4E/fr3D1IaA4wschueM6Q04psDZkx/LC5s0vssdHXEAPiBVdBZd675HHu813iQrBsAdh++ZanhkHVxudIe+1sGxALaTBRgwYMCAAQMGDBgwYMCAAQMGDBgwYMCAAQMGDBgwYMCAAQMGnBYBBgwYMGDAgAEDBgwYMGDAgAEDBgwYMGDAgAEDBgwYMGDAgAEDBgwYMGDAgAEDBrzV2yw3QG/SkwAGDBgwYMCAAQMGDBgwYMCAAQMGDBgwYMCAAQMGDBgwYMCAAQMGDBgwYMCAAQMGDBhwUQ8wYMCAAQMGDBgwYMCAAQMGDBgwYMCAAQMGDBgwYMCAAQMGDBgwYMCAAQMGDBgw4C3XZrkBGjBgwIABAwYMGDBgwIABAwYMGDBgwIABAwYMGDBgwIABAwYMGDBgwIABAwYMGDDgLQb8P9iU3KQAAwYMGDBgwIABAwYMGDBgwIABAwYMGDBgwIABAwYMGDBgwIABAwYMGDBgwIABA96EShWHdgQMGDBgwIABAwYMGDBgwIABAwYMGDBgwIABAwYMGDBgwIABAwYMGDBgwIABAwYMGDBgwIABAwYMGDBgwIABAwYMGDBgwIABAwYMGDBgwIABAwYMGDBgwIABAwYMGHC4XXHoxmIMLMACLMACDFiABViABViABRiwAAuwAAuwAAuwAAMWYAEWYAEWYAEGLMACLMACLMACDFiABViAtZX7B2QbSnNX18HpAAAAAElFTkSuQmCC" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" tabindex="-1"></a><span class="co"># plot solution</span></span>
+<span id="cb48-2"><a href="#cb48-2" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">category_layer</span>(s5), <span class="at">main =</span> <span class="st">&quot;solution&quot;</span>, <span class="at">axes =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p><img role="img" src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
 </div>
 <div id="multiple-zones-with-fragmentation-penalties" class="section level3">
 <h3>Multiple zones with fragmentation penalties</h3>
-<p>So now the best strategy seems to be a combination of high intensity trapping and baiting. But we can also see that this solution is fairly fragmented, so we can add penalties to cluster managed planning units together. Here we will add penalties that will cluster the planning units allocated to the two trapping zones together, and penalties that will cluster the planning units allocated to the baiting zone together. We will also set an overall penalty factor to 640 to strongly penalize fragmented solutions.</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create matrix that describes boundary penalties between planning units</span></span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="co"># allocated to different zones</span></span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>z6 <span class="ot">&lt;-</span> <span class="fu">diag</span>(<span class="dv">3</span>)</span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>z6[<span class="dv">1</span>, <span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>z6[<span class="dv">2</span>, <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(z6) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;few traps&quot;</span>, <span class="st">&quot;many traps&quot;</span>, <span class="st">&quot;baiting&quot;</span>)</span>
-<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(z6) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(z6)</span>
-<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a><span class="co"># print matrix</span></span>
-<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(z6)</span></code></pre></div>
+<p>So now the best strategy seems to be a combination of high intensity
+trapping and baiting. But we can also see that this solution is fairly
+fragmented, so we can add penalties to cluster managed planning units
+together. Here we will add penalties that will cluster the planning
+units allocated to the two trapping zones together, and penalties that
+will cluster the planning units allocated to the baiting zone together.
+We will also set an overall penalty factor to 640 to strongly penalize
+fragmented solutions.</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" tabindex="-1"></a><span class="co"># create matrix that describes boundary penalties between planning units</span></span>
+<span id="cb49-2"><a href="#cb49-2" tabindex="-1"></a><span class="co"># allocated to different zones</span></span>
+<span id="cb49-3"><a href="#cb49-3" tabindex="-1"></a>z6 <span class="ot">&lt;-</span> <span class="fu">diag</span>(<span class="dv">3</span>)</span>
+<span id="cb49-4"><a href="#cb49-4" tabindex="-1"></a>z6[<span class="dv">1</span>, <span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb49-5"><a href="#cb49-5" tabindex="-1"></a>z6[<span class="dv">2</span>, <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb49-6"><a href="#cb49-6" tabindex="-1"></a><span class="fu">colnames</span>(z6) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;few traps&quot;</span>, <span class="st">&quot;many traps&quot;</span>, <span class="st">&quot;baiting&quot;</span>)</span>
+<span id="cb49-7"><a href="#cb49-7" tabindex="-1"></a><span class="fu">rownames</span>(z6) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(z6)</span>
+<span id="cb49-8"><a href="#cb49-8" tabindex="-1"></a></span>
+<span id="cb49-9"><a href="#cb49-9" tabindex="-1"></a><span class="co"># print matrix</span></span>
+<span id="cb49-10"><a href="#cb49-10" tabindex="-1"></a><span class="fu">print</span>(z6)</span></code></pre></div>
 <pre><code>##            few traps many traps baiting
 ## few traps          1          1       0
 ## many traps         1          1       0
 ## baiting            0          0       1</code></pre>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create problem</span></span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>p6 <span class="ot">&lt;-</span></span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">problem</span>(</span>
-<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>    pu4,</span>
-<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">zones</span>(</span>
-<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>      sim_features <span class="sc">*</span> <span class="fl">0.1</span>,</span>
-<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>      sim_features <span class="sc">*</span> <span class="fl">0.5</span>,</span>
-<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>      sim_features <span class="sc">*</span> <span class="fl">0.8</span>,</span>
-<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">zone_names =</span> <span class="fu">names</span>(pu4),</span>
-<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">feature_names =</span> <span class="fu">names</span>(sim_features)</span>
-<span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb51-12"><a href="#cb51-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb51-13"><a href="#cb51-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_min_set_objective</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb51-14"><a href="#cb51-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_manual_targets</span>(t4) <span class="sc">%&gt;%</span></span>
-<span id="cb51-15"><a href="#cb51-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_manual_locked_constraints</span>(l5) <span class="sc">%&gt;%</span></span>
-<span id="cb51-16"><a href="#cb51-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_boundary_penalties</span>(<span class="at">penalty =</span> <span class="dv">640</span>, <span class="at">zones =</span> z6) <span class="sc">%&gt;%</span></span>
-<span id="cb51-17"><a href="#cb51-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_binary_decisions</span>()</span>
-<span id="cb51-18"><a href="#cb51-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-19"><a href="#cb51-19" aria-hidden="true" tabindex="-1"></a><span class="co"># print problem</span></span>
-<span id="cb51-20"><a href="#cb51-20" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p6)</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" tabindex="-1"></a><span class="co"># create problem</span></span>
+<span id="cb51-2"><a href="#cb51-2" tabindex="-1"></a>p6 <span class="ot">&lt;-</span></span>
+<span id="cb51-3"><a href="#cb51-3" tabindex="-1"></a>  <span class="fu">problem</span>(</span>
+<span id="cb51-4"><a href="#cb51-4" tabindex="-1"></a>    pu4,</span>
+<span id="cb51-5"><a href="#cb51-5" tabindex="-1"></a>    <span class="fu">zones</span>(</span>
+<span id="cb51-6"><a href="#cb51-6" tabindex="-1"></a>      sim_features <span class="sc">*</span> <span class="fl">0.1</span>,</span>
+<span id="cb51-7"><a href="#cb51-7" tabindex="-1"></a>      sim_features <span class="sc">*</span> <span class="fl">0.5</span>,</span>
+<span id="cb51-8"><a href="#cb51-8" tabindex="-1"></a>      sim_features <span class="sc">*</span> <span class="fl">0.8</span>,</span>
+<span id="cb51-9"><a href="#cb51-9" tabindex="-1"></a>      <span class="at">zone_names =</span> <span class="fu">names</span>(pu4),</span>
+<span id="cb51-10"><a href="#cb51-10" tabindex="-1"></a>      <span class="at">feature_names =</span> <span class="fu">names</span>(sim_features)</span>
+<span id="cb51-11"><a href="#cb51-11" tabindex="-1"></a>    )</span>
+<span id="cb51-12"><a href="#cb51-12" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb51-13"><a href="#cb51-13" tabindex="-1"></a>  <span class="fu">add_min_set_objective</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb51-14"><a href="#cb51-14" tabindex="-1"></a>  <span class="fu">add_manual_targets</span>(t4) <span class="sc">%&gt;%</span></span>
+<span id="cb51-15"><a href="#cb51-15" tabindex="-1"></a>  <span class="fu">add_manual_locked_constraints</span>(l5) <span class="sc">%&gt;%</span></span>
+<span id="cb51-16"><a href="#cb51-16" tabindex="-1"></a>  <span class="fu">add_boundary_penalties</span>(<span class="at">penalty =</span> <span class="dv">640</span>, <span class="at">zones =</span> z6) <span class="sc">%&gt;%</span></span>
+<span id="cb51-17"><a href="#cb51-17" tabindex="-1"></a>  <span class="fu">add_binary_decisions</span>()</span>
+<span id="cb51-18"><a href="#cb51-18" tabindex="-1"></a></span>
+<span id="cb51-19"><a href="#cb51-19" tabindex="-1"></a><span class="co"># print problem</span></span>
+<span id="cb51-20"><a href="#cb51-20" tabindex="-1"></a><span class="fu">print</span>(p6)</span></code></pre></div>
 <pre><code>## A conservation problem (&lt;ConservationProblem&gt;)
 ## ├•data
 ## │├•zones:       &quot;few traps&quot;, &quot;many traps&quot;, and &quot;baiting&quot; (3 total)
@@ -902,8 +1186,8 @@ div.csl-indent {
 ##  ├•portfolio:   default portfolio
 ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, `first_feasible` = FALSE, …)
 ## # ℹ Use `summary(...)` to see complete formulation.</code></pre>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># solve problem</span></span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>s6 <span class="ot">&lt;-</span> <span class="fu">solve</span>(p6)</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" tabindex="-1"></a><span class="co"># solve problem</span></span>
+<span id="cb53-2"><a href="#cb53-2" tabindex="-1"></a>s6 <span class="ot">&lt;-</span> <span class="fu">solve</span>(p6)</span></code></pre></div>
 <pre><code>## Set parameter Username
 ## Set parameter TimeLimit to value 2147483647
 ## Set parameter MIPGap to value 0.1
@@ -925,7 +1209,7 @@ div.csl-indent {
 ##   RHS range        [1e+00, 8e+00]
 ## Found heuristic solution: objective 20096.000000
 ## Presolve removed 1028 rows and 232 columns
-## Presolve time: 0.01s
+## Presolve time: 0.02s
 ## Presolved: 877 rows, 968 columns, 2712 nonzeros
 ## Variable types: 0 continuous, 968 integer (968 binary)
 ## Found heuristic solution: objective 19632.000000
@@ -948,9 +1232,9 @@ div.csl-indent {
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
 ## Best objective 1.117200000000e+04, best bound 1.005600000000e+04, gap 9.9893%</code></pre>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate feature representation</span></span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>r6 <span class="ot">&lt;-</span> <span class="fu">eval_feature_representation_summary</span>(p6, s6)</span>
-<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(r6)</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" tabindex="-1"></a><span class="co"># calculate feature representation</span></span>
+<span id="cb55-2"><a href="#cb55-2" tabindex="-1"></a>r6 <span class="ot">&lt;-</span> <span class="fu">eval_feature_representation_summary</span>(p6, s6)</span>
+<span id="cb55-3"><a href="#cb55-3" tabindex="-1"></a><span class="fu">print</span>(r6)</span></code></pre></div>
 <pre><code>## # A tibble: 20 × 5
 ##    summary    feature   total_amount absolute_held relative_held
 ##    &lt;chr&gt;      &lt;chr&gt;            &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
@@ -974,36 +1258,44 @@ div.csl-indent {
 ## 18 baiting    feature_3        57.6          11.7          0.203
 ## 19 baiting    feature_4        34.1           6.05         0.177
 ## 20 baiting    feature_5        45.4           9.98         0.220</code></pre>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot solution</span></span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">category_layer</span>(s6), <span class="at">main =</span> <span class="st">&quot;solution&quot;</span>, <span class="at">axes =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
-<p>Finally, it appears we might have a viable solution for this made-up conservation problem.</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" tabindex="-1"></a><span class="co"># plot solution</span></span>
+<span id="cb57-2"><a href="#cb57-2" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">category_layer</span>(s6), <span class="at">main =</span> <span class="st">&quot;solution&quot;</span>, <span class="at">axes =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p><img role="img" src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+<p>Finally, it appears we might have a viable solution for this made-up
+conservation problem.</p>
 </div>
 <div id="multiple-zones-with-fragmentation-penalties-and-mandatory-allocations" class="section level3">
-<h3>Multiple zones with fragmentation penalties and mandatory allocations</h3>
-<p>Finally, we might be interested in conservation planning scenarios where every single planning unit must be allocated to a management zone. This is often the case when developing land-use plans where every single planning unit needs to be allocated to a specific management zone. Though it makes less sense here, let’s see what happens to the solution if we needed to do at least one form of control in every single planning unit.</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create matrix that describe boundary penalties between planning units</span></span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="co"># allocated to different zones</span></span>
-<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>p7 <span class="ot">&lt;-</span></span>
-<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">problem</span>(</span>
-<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>    pu4,</span>
-<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">zones</span>(</span>
-<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>      sim_features <span class="sc">*</span> <span class="fl">0.1</span>,</span>
-<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a>      sim_features <span class="sc">*</span> <span class="fl">0.5</span>,</span>
-<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a>      sim_features <span class="sc">*</span> <span class="fl">0.8</span>,</span>
-<span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">zone_names =</span> <span class="fu">names</span>(pu4),</span>
-<span id="cb58-11"><a href="#cb58-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">feature_names =</span> <span class="fu">names</span>(sim_features)</span>
-<span id="cb58-12"><a href="#cb58-12" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb58-13"><a href="#cb58-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb58-14"><a href="#cb58-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_min_set_objective</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb58-15"><a href="#cb58-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_manual_targets</span>(t4) <span class="sc">%&gt;%</span></span>
-<span id="cb58-16"><a href="#cb58-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_mandatory_allocation_constraints</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb58-17"><a href="#cb58-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_manual_locked_constraints</span>(l5) <span class="sc">%&gt;%</span></span>
-<span id="cb58-18"><a href="#cb58-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_boundary_penalties</span>(<span class="at">penalty =</span> <span class="dv">640</span>, <span class="at">zones =</span> z6) <span class="sc">%&gt;%</span></span>
-<span id="cb58-19"><a href="#cb58-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_binary_decisions</span>()</span>
-<span id="cb58-20"><a href="#cb58-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-21"><a href="#cb58-21" aria-hidden="true" tabindex="-1"></a><span class="co"># print problem</span></span>
-<span id="cb58-22"><a href="#cb58-22" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p7)</span></code></pre></div>
+<h3>Multiple zones with fragmentation penalties and mandatory
+allocations</h3>
+<p>Finally, we might be interested in conservation planning scenarios
+where every single planning unit must be allocated to a management zone.
+This is often the case when developing land-use plans where every single
+planning unit needs to be allocated to a specific management zone.
+Though it makes less sense here, let’s see what happens to the solution
+if we needed to do at least one form of control in every single planning
+unit.</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" tabindex="-1"></a><span class="co"># create matrix that describe boundary penalties between planning units</span></span>
+<span id="cb58-2"><a href="#cb58-2" tabindex="-1"></a><span class="co"># allocated to different zones</span></span>
+<span id="cb58-3"><a href="#cb58-3" tabindex="-1"></a>p7 <span class="ot">&lt;-</span></span>
+<span id="cb58-4"><a href="#cb58-4" tabindex="-1"></a>  <span class="fu">problem</span>(</span>
+<span id="cb58-5"><a href="#cb58-5" tabindex="-1"></a>    pu4,</span>
+<span id="cb58-6"><a href="#cb58-6" tabindex="-1"></a>    <span class="fu">zones</span>(</span>
+<span id="cb58-7"><a href="#cb58-7" tabindex="-1"></a>      sim_features <span class="sc">*</span> <span class="fl">0.1</span>,</span>
+<span id="cb58-8"><a href="#cb58-8" tabindex="-1"></a>      sim_features <span class="sc">*</span> <span class="fl">0.5</span>,</span>
+<span id="cb58-9"><a href="#cb58-9" tabindex="-1"></a>      sim_features <span class="sc">*</span> <span class="fl">0.8</span>,</span>
+<span id="cb58-10"><a href="#cb58-10" tabindex="-1"></a>      <span class="at">zone_names =</span> <span class="fu">names</span>(pu4),</span>
+<span id="cb58-11"><a href="#cb58-11" tabindex="-1"></a>      <span class="at">feature_names =</span> <span class="fu">names</span>(sim_features)</span>
+<span id="cb58-12"><a href="#cb58-12" tabindex="-1"></a>    )</span>
+<span id="cb58-13"><a href="#cb58-13" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb58-14"><a href="#cb58-14" tabindex="-1"></a>  <span class="fu">add_min_set_objective</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb58-15"><a href="#cb58-15" tabindex="-1"></a>  <span class="fu">add_manual_targets</span>(t4) <span class="sc">%&gt;%</span></span>
+<span id="cb58-16"><a href="#cb58-16" tabindex="-1"></a>  <span class="fu">add_mandatory_allocation_constraints</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb58-17"><a href="#cb58-17" tabindex="-1"></a>  <span class="fu">add_manual_locked_constraints</span>(l5) <span class="sc">%&gt;%</span></span>
+<span id="cb58-18"><a href="#cb58-18" tabindex="-1"></a>  <span class="fu">add_boundary_penalties</span>(<span class="at">penalty =</span> <span class="dv">640</span>, <span class="at">zones =</span> z6) <span class="sc">%&gt;%</span></span>
+<span id="cb58-19"><a href="#cb58-19" tabindex="-1"></a>  <span class="fu">add_binary_decisions</span>()</span>
+<span id="cb58-20"><a href="#cb58-20" tabindex="-1"></a></span>
+<span id="cb58-21"><a href="#cb58-21" tabindex="-1"></a><span class="co"># print problem</span></span>
+<span id="cb58-22"><a href="#cb58-22" tabindex="-1"></a><span class="fu">print</span>(p7)</span></code></pre></div>
 <pre><code>## A conservation problem (&lt;ConservationProblem&gt;)
 ## ├•data
 ## │├•zones:       &quot;few traps&quot;, &quot;many traps&quot;, and &quot;baiting&quot; (3 total)
@@ -1026,8 +1318,8 @@ div.csl-indent {
 ##  ├•portfolio:   default portfolio
 ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, `first_feasible` = FALSE, …)
 ## # ℹ Use `summary(...)` to see complete formulation.</code></pre>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># solve problem</span></span>
-<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>s7 <span class="ot">&lt;-</span> <span class="fu">solve</span>(p7)</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" tabindex="-1"></a><span class="co"># solve problem</span></span>
+<span id="cb60-2"><a href="#cb60-2" tabindex="-1"></a>s7 <span class="ot">&lt;-</span> <span class="fu">solve</span>(p7)</span></code></pre></div>
 <pre><code>## Set parameter Username
 ## Set parameter TimeLimit to value 2147483647
 ## Set parameter MIPGap to value 0.1
@@ -1071,9 +1363,9 @@ div.csl-indent {
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
 ## Best objective 1.326000000000e+04, best bound 1.323200000000e+04, gap 0.2112%</code></pre>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate feature representation</span></span>
-<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>r7 <span class="ot">&lt;-</span> <span class="fu">eval_feature_representation_summary</span>(p7, s7)</span>
-<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(r7)</span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" tabindex="-1"></a><span class="co"># calculate feature representation</span></span>
+<span id="cb62-2"><a href="#cb62-2" tabindex="-1"></a>r7 <span class="ot">&lt;-</span> <span class="fu">eval_feature_representation_summary</span>(p7, s7)</span>
+<span id="cb62-3"><a href="#cb62-3" tabindex="-1"></a><span class="fu">print</span>(r7)</span></code></pre></div>
 <pre><code>## # A tibble: 20 × 5
 ##    summary    feature   total_amount absolute_held relative_held
 ##    &lt;chr&gt;      &lt;chr&gt;            &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
@@ -1097,38 +1389,67 @@ div.csl-indent {
 ## 18 baiting    feature_3        57.6          11.7         0.203 
 ## 19 baiting    feature_4        34.1           6.05        0.177 
 ## 20 baiting    feature_5        45.4           9.98        0.220</code></pre>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot solution</span></span>
-<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">category_layer</span>(s7), <span class="at">main =</span> <span class="st">&quot;solution&quot;</span>, <span class="at">axes =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" tabindex="-1"></a><span class="co"># plot solution</span></span>
+<span id="cb64-2"><a href="#cb64-2" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">category_layer</span>(s7), <span class="at">main =</span> <span class="st">&quot;solution&quot;</span>, <span class="at">axes =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p><img role="img" src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="conclusion" class="section level2">
 <h2>Conclusion</h2>
-<p>Hopefully, this vignette has provided an informative introduction to building and solving problems with multiple zones. Although we have examined only a few different functions here, almost every single function for modifying conservation planning problems is compatible with problems that contain zones. It’s worth noting that working with multiple zones is a lot trickier than working with a single zone, so we would recommend playing around with the code in the <em>Examples</em> sections of the package documentation to help understand how functions work when applied to multiple zones.</p>
+<p>Hopefully, this vignette has provided an informative introduction to
+building and solving problems with multiple zones. Although we have
+examined only a few different functions here, almost every single
+function for modifying conservation planning problems is compatible with
+problems that contain zones. It’s worth noting that working with
+multiple zones is a lot trickier than working with a single zone, so we
+would recommend playing around with the code in the <em>Examples</em>
+sections of the package documentation to help understand how functions
+work when applied to multiple zones.</p>
 </div>
 <div id="references" class="section level2 unnumbered">
 <h2 class="unnumbered">References</h2>
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-r25" class="csl-entry">
-Cattarino, L., Hermoso, V., Carwardine, J., Adams, V.M., Kennard, M.J. &amp; Linke, S. (2018). Information uncertainty influences conservation outcomes when prioritizing multi-action management efforts. <em>Journal of Applied Ecology</em>, Available at: https://doi.org/10.1111/1365–2664.13147.
+Cattarino, L., Hermoso, V., Carwardine, J., Adams, V.M., Kennard, M.J.
+&amp; Linke, S. (2018). Information uncertainty influences conservation
+outcomes when prioritizing multi-action management efforts. <em>Journal
+of Applied Ecology</em>, Available at:
+https://doi.org/10.1111/1365–2664.13147.
 </div>
 <div id="ref-r27" class="csl-entry">
-Klein, C.J., Tulloch, V.J., Halpern, B.S., Selkoe, K.A., Watts, M.E., Steinback, C., Scholz, A. &amp; Possingham, H.P. (2013). Tradeoffs in marine reserve design: Habitat condition, representation, and socioeconomic costs. <em>Conservation Letters</em>, <em>6</em>, 324–332.
+Klein, C.J., Tulloch, V.J., Halpern, B.S., Selkoe, K.A., Watts, M.E.,
+Steinback, C., Scholz, A. &amp; Possingham, H.P. (2013). Tradeoffs in
+marine reserve design: Habitat condition, representation, and
+socioeconomic costs. <em>Conservation Letters</em>, <em>6</em>, 324–332.
 </div>
 <div id="ref-r5" class="csl-entry">
-Klein, C., Wilson, K., Watts, M., Stein, J., Berry, S., Carwardine, J., Smith, M.S., Mackey, B. &amp; Possingham, H. (2009). Incorporating ecological and evolutionary processes into continental-scale conservation planning. <em>Ecological Applications</em>, <em>19</em>, 206–217.
+Klein, C., Wilson, K., Watts, M., Stein, J., Berry, S., Carwardine, J.,
+Smith, M.S., Mackey, B. &amp; Possingham, H. (2009). Incorporating
+ecological and evolutionary processes into continental-scale
+conservation planning. <em>Ecological Applications</em>, <em>19</em>,
+206–217.
 </div>
 <div id="ref-r4" class="csl-entry">
-Margules, C.R. &amp; Pressey, R.L. (2000). Systematic conservation planning. <em>Nature</em>, <em>405</em>, 243–253.
+Margules, C.R. &amp; Pressey, R.L. (2000). Systematic conservation
+planning. <em>Nature</em>, <em>405</em>, 243–253.
 </div>
 <div id="ref-r18" class="csl-entry">
-Stigner, M.G., Beyer, H.L., Klein, C.J. &amp; Fuller, R.A. (2016). Reconciling recreational use and conservation values in a coastal protected area. <em>Journal of Applied Ecology</em>, <em>53</em>, 1206–1214.
+Stigner, M.G., Beyer, H.L., Klein, C.J. &amp; Fuller, R.A. (2016). <a href="https://doi.org/10.1111/1365-2664.12662">Reconciling recreational
+use and conservation values in a coastal protected area</a>. <em>Journal
+of Applied Ecology</em>, <em>53</em>, 1206–1214.
 </div>
 <div id="ref-r2" class="csl-entry">
-Watts, M.E., Ball, I.R., Stewart, R.S., Klein, C.J., Wilson, K., Steinback, C., Lourival, R., Kircher, L. &amp; Possingham, H.P. (2009). <span class="nocase">Marxan with Zones: Software for optimal conservation based land- and sea-use zoning</span>. <em>Environmental Modelling &amp; Software</em>, <em>24</em>, 1513–1521.
+Watts, M.E., Ball, I.R., Stewart, R.S., Klein, C.J., Wilson, K.,
+Steinback, C., Lourival, R., Kircher, L. &amp; Possingham, H.P. (2009).
+<span class="nocase">Marxan with Zones: Software for optimal
+conservation based land- and sea-use zoning</span>. <em>Environmental
+Modelling &amp; Software</em>, <em>24</em>, 1513–1521.
 </div>
 <div id="ref-r26" class="csl-entry">
-Wilson, K.A., Meijaard, E., Drummond, S., Grantham, H.S., Boitani, L., Catullo, G., Christie, L., Dennis, R., Dutton, I., Falcucci, A. &amp; others. (2010). Conserving biodiversity in production landscapes. <em>Ecological Applications</em>, <em>20</em>, 1721–1732.
+Wilson, K.A., Meijaard, E., Drummond, S., Grantham, H.S., Boitani, L.,
+Catullo, G., Christie, L., Dennis, R., Dutton, I., Falcucci, A. &amp;
+others. (2010). Conserving biodiversity in production landscapes.
+<em>Ecological Applications</em>, <em>20</em>, 1721–1732.
 </div>
 </div>
 </div>
