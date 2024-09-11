@@ -29,9 +29,9 @@ r_asym_connectivity_given_matrix <- function(solution, zones,
       for (i in seq_len(nrow(solution))) {
         for (j in seq_len(nrow(solution))) {
           if ((i == j) && (z1 == z2)) {
-            out <- out + (m[i, j] * solution[i, z1])
+            out <- out + unname(m[i, j] * solution[i, z1])
           } else if (i != j) {
-            out <- out + (m[i, j] * solution[i, z1] * (solution[j, z2]))
+            out <- out + unname(m[i, j] * solution[i, z1] * (solution[j, z2]))
           }
         }
       }

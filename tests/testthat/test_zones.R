@@ -96,3 +96,35 @@ test_that("zones (character)", {
   expect_tidy_error(zones(c("a1"), zone_names = c("z1", "z2")))
   expect_tidy_error(zones(c("a1"), feature_names = c("a", "b")))
 })
+
+test_that("class coercion (as.ZonesSpatRaster <-> as.ZonesRaster", {
+  # import data
+  sim_features <- get_sim_features()
+  # create zones data
+  x <- zones(
+    sim_features, sim_features, sim_features,
+    zone_names = c("z1", "z2", "z3"),
+    feature_names = names(sim_features)
+  )
+  # convert to ZonesRaster
+  y <- as.ZonesRaster(x)
+  x2 <- as.ZonesSpatRaster(y)
+  # tests
+  expect_inherits(x, "Zones")
+  expect_inherits(x, "ZonesSpatRaster")
+  expect_inherits(y, "Zones")
+  expect_inherits(y, "ZonesRaster")
+  expect_inherits(x2, "Zones")
+  expect_inherits(x2, "ZonesSpatRaster")
+  expect_equal(attr(x, "zone_names"), attr(y, "zone_names"))
+  expect_equal(attr(x, "zone_names"), attr(x2, "zone_names"))
+  expect_equal(attr(x, "feature_names"), attr(y, "feature_names"))
+  expect_equal(attr(x, "feature_names"), attr(x2, "feature_names"))
+  expect_equal(length(x), length(y))
+  expect_equal(length(x), length(x2))
+  for (i in number_of_zones(x)) {
+    expect_equal(
+      terra::as.data.frame(x[[1]]), terra::as.data.frame(x2[[1]])
+    )
+  }
+})

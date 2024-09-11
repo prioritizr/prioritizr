@@ -39,7 +39,7 @@ case), 16 (knight and one-cell queen moves), or "bishop" to for cells
 with one-cell diagonal moves.}
 }
 \value{
-A \code{\linkS4class{dsCMatrix}} sparse symmetric matrix.
+A \code{\link[Matrix:dsCMatrix-class]{Matrix::dsCMatrix}} sparse symmetric matrix.
 Each row and column represents a planning unit.
 Cells values indicate if different planning units are
 adjacent to each other or not (using ones and zeros).

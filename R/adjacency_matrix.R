@@ -28,7 +28,7 @@ NULL
 #'   `connected_matrix` function. It has been renamed to be consistent
 #'   with other spatial association matrix functions.
 #'
-#' @return A [`dsCMatrix-class`] sparse symmetric matrix.
+#' @return A [`Matrix::dsCMatrix-class`] sparse symmetric matrix.
 #'   Each row and column represents a planning unit.
 #'   Cells values indicate if different planning units are
 #'   adjacent to each other or not (using ones and zeros).

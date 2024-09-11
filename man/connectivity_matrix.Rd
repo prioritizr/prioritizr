@@ -46,7 +46,7 @@ These arguments are only used if argument to \code{x} is a
 \code{\link[sf:sf]{sf::sf()}} object and argument to \code{y} is a \code{\link[terra:rast]{terra::rast()}} object.}
 }
 \value{
-A \code{\linkS4class{dsCMatrix}} symmetric sparse matrix object.
+A \code{\link[Matrix:dsCMatrix-class]{Matrix::dsCMatrix}} symmetric sparse matrix object.
 Each row and column represents a planning unit.
 Cells values indicate the connectivity between different pairs of planning
 units.

@@ -93,7 +93,9 @@ jobs:
       - name: Check URLs
         if: runner.os == 'Linux' && matrix.config.r == 'release'
         run: |
+          d <- suppressWarnings(readLines("inst/URLLIST"))
           result <- urlchecker::url_check()
+          result <- result[!result$URL %in% d, , drop = FALSE]
           if (nrow(result) > 0) {
             print(result)
             stop("Invalid URLs detected")

@@ -180,13 +180,13 @@ columns:
 \item{name}{\code{character} zone name.}
 }}
 
-\item{rij_matrix}{\code{list} of \code{matrix} or \code{\linkS4class{dgCMatrix}}
+\item{rij_matrix}{\code{list} of \code{matrix} or \code{\link[Matrix:dgCMatrix-class]{Matrix::dgCMatrix}}
 objects specifying the amount of each feature (rows) within each planning
 unit (columns) for each zone. The \code{list} elements denote
 different zones, matrix rows denote features, and matrix columns denote
 planning units. For convenience, the argument to
 \code{rij_matrix} can be a single \code{matrix} or
-\code{\linkS4class{dgCMatrix}} when specifying a problem with a
+\code{\link[Matrix:dgCMatrix-class]{Matrix::dgCMatrix}} when specifying a problem with a
 single management zone. This argument is only used when the argument
 to \code{x} is a \code{numeric} or \code{matrix} object.}
 }

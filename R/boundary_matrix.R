@@ -39,7 +39,7 @@ NULL
 #' that values along the diagonal now correspond to the total
 #' perimeter associated with each planning unit.
 #'
-#' @return A [`dsCMatrix-class`] symmetric sparse matrix object.
+#' @return A [`Matrix::dsCMatrix-class`] symmetric sparse matrix object.
 #'   Each row and column represents a planning unit.
 #'   Cell values indicate the shared boundary length between different pairs
 #'   of planning units. Values along the matrix diagonal indicate the

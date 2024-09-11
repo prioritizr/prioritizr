@@ -16,7 +16,7 @@ NULL
 #'   [sf::st_is_within_distance()].
 #'
 #' @return
-#' A [`dsCMatrix-class`] symmetric sparse matrix object.
+#' A [`Matrix::dsCMatrix-class`] symmetric sparse matrix object.
 #' Each row and column represents a planning unit.
 #' Cells values indicate if the pair-wise distances between different
 #' planning units are within the distance threshold or not (using ones and

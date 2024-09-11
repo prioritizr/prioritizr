@@ -65,28 +65,28 @@ any additional software (e.g.,
 systems, or [Xcode and gfortran](https://mac.r-project.org/tools/) for
 macOS systems).
 
--   To install the latest development version from [R
-    Universe](https://prioritizr.r-universe.dev/prioritizr), use the
-    following *R* code.
+- To install the latest development version from [R
+  Universe](https://prioritizr.r-universe.dev/prioritizr), use the
+  following *R* code.
 
-    ``` r
-    install.packages(
-      "prioritizr",
-      repos = c(
-        "https://prioritizr.r-universe.dev",
-        "https://cloud.r-project.org"
-      )
+  ``` r
+  install.packages(
+    "prioritizr",
+    repos = c(
+      "https://prioritizr.r-universe.dev",
+      "https://cloud.r-project.org"
     )
-    ```
+  )
+  ```
 
--   To install the latest development version from
-    [GitHub](https://github.com/prioritizr/prioritizr), use the
-    following *R* code.
+- To install the latest development version from
+  [GitHub](https://github.com/prioritizr/prioritizr), use the following
+  *R* code.
 
-    ``` r
-    if (!require(remotes)) install.packages("remotes")
-    remotes::install_github("prioritizr/prioritizr")
-    ```
+  ``` r
+  if (!require(remotes)) install.packages("remotes")
+  remotes::install_github("prioritizr/prioritizr")
+  ```
 
 ## Citation
 
@@ -102,7 +102,7 @@ Alternatively, to cite the latest development version, please use:
 
 > Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Edwards BPM, Watts
 > ME, Arcese P, Bennett J, Possingham HP (2024). prioritizr: Systematic
-> Conservation Prioritization in R. R package version 8.0.4.1. Available
+> Conservation Prioritization in R. R package version 8.0.4.2. Available
 > at <https://github.com/prioritizr/prioritizr>.
 
 Additionally, we keep a [record of
@@ -282,7 +282,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##      3.503
+    ##      3.536
 
 ``` r
 # extract state message from the solver
@@ -542,35 +542,34 @@ describing the updates in each package
 version](https://prioritizr.net/news/index.html). It also contains the
 following articles and tutorials.
 
--   [**Getting
-    started**](https://prioritizr.net/articles/prioritizr.html): Short
-    tutorial on using the package.
--   [**Package
-    overview**](https://prioritizr.net/articles/package_overview.html):
-    Introduction to systematic conservation planning and a comprehensive
-    overview of the package.
--   [**Connectivity
-    tutorial**](https://prioritizr.net/articles/connectivity_tutorial.html):
-    Tutorial on incorporating connectivity into prioritizations.
--   [**Calibrating trade-offs
-    tutorial**](https://prioritizr.net/articles/calibrating_trade-offs_tutorial.html):
-    Tutorial on running calibration analyses to satisfy multiple
-    criteria.
--   [**Management zones
-    tutorial**](https://prioritizr.net/articles/management_zones_tutorial.html):
-    Tutorial on incorporating multiple management zones and actions into
-    prioritizations.
--   [**Gurobi installation
-    guide**](https://prioritizr.net/articles/gurobi_installation_guide.html):
-    Instructions for installing the *Gurobi* optimization suite for
-    generating prioritizations.
--   [**Solver
-    benchmarks**](https://prioritizr.net/articles/solver_benchmarks.html):
-    Performance comparison of optimization solvers for generating
-    prioritizations.
--   [**Publication
-    record**](https://prioritizr.net/articles/publication_record.html):
-    List of publications that have cited the package.
+- [**Getting
+  started**](https://prioritizr.net/articles/prioritizr.html): Short
+  tutorial on using the package.
+- [**Package
+  overview**](https://prioritizr.net/articles/package_overview.html):
+  Introduction to systematic conservation planning and a comprehensive
+  overview of the package.
+- [**Connectivity
+  tutorial**](https://prioritizr.net/articles/connectivity_tutorial.html):
+  Tutorial on incorporating connectivity into prioritizations.
+- [**Calibrating trade-offs
+  tutorial**](https://prioritizr.net/articles/calibrating_trade-offs_tutorial.html):
+  Tutorial on running calibration analyses to satisfy multiple criteria.
+- [**Management zones
+  tutorial**](https://prioritizr.net/articles/management_zones_tutorial.html):
+  Tutorial on incorporating multiple management zones and actions into
+  prioritizations.
+- [**Gurobi installation
+  guide**](https://prioritizr.net/articles/gurobi_installation_guide.html):
+  Instructions for installing the *Gurobi* optimization suite for
+  generating prioritizations.
+- [**Solver
+  benchmarks**](https://prioritizr.net/articles/solver_benchmarks.html):
+  Performance comparison of optimization solvers for generating
+  prioritizations.
+- [**Publication
+  record**](https://prioritizr.net/articles/publication_record.html):
+  List of publications that have cited the package.
 
 Additional resources can also be found in [online repositories under the
 *prioritizr* organization](https://github.com/prioritizr). These

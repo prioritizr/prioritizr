@@ -16,7 +16,7 @@ branch_matrix(x)
 \item{x}{\code{\link[ape:read.tree]{ape::phylo()}} tree object.}
 }
 \value{
-A \code{\linkS4class{dgCMatrix}} sparse matrix object. Each row
+A \code{\link[Matrix:dgCMatrix-class]{Matrix::dgCMatrix}} sparse matrix object. Each row
 corresponds to a different species. Each column corresponds to a different
 branch. Species that inherit from a given branch are denoted with a one.
 }

@@ -41,7 +41,7 @@ NULL
 #' terra::gdalCache(size = 4000)
 #' ```
 #'
-#' @return A [`dgCMatrix-class`] sparse matrix object.
+#' @return A [`Matrix::dgCMatrix-class`] sparse matrix object.
 #'   The sparse matrix represents the spatial intersection between the
 #'   planning units and the features. Rows correspond to features,
 #'   and columns correspond to planning units. Values correspond to the amount

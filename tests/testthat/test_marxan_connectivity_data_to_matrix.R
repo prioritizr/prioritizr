@@ -41,6 +41,29 @@ test_that("multiple zones (x = NULL, symmetric = TRUE)", {
   expect_equal(x, x2)
 })
 
+test_that("multiple zones (x = NULL, symmetric = TRUE, zone = factor)", {
+  # create data
+  d <- data.frame(
+    id1 = c(1, 2, 3, 4, 1, 2),
+    id2 = c(1, 1, 1, 2, 2, 2),
+    zone1 = factor(c("a", "a", "b", "a", "a", "b")),
+    zone2 = factor(c("a", "b", "b", "a", "b", "b")),
+    boundary = seq_len(6)
+  )
+  # create object
+  x <- marxan_connectivity_data_to_matrix(NULL, d, symmetric = TRUE)
+  # create correct result
+  x2 <- array(0, dim = c(4, 4, 2, 2))
+  for (i in seq_len(nrow(d))) {
+    curr_z1 <- match(d$zone1[i], c("a", "b"))
+    curr_z2 <- match(d$zone2[i], c("a", "b"))
+    x2[d$id1[i], d$id2[i], curr_z1, curr_z2] <- d$boundary[i]
+  }
+  # tests
+  expect_inherits(x, "array")
+  expect_equal(x, x2)
+})
+
 test_that("single zone (x = ConservationProblem, symmetric = TRUE)", {
   # create data
   d <- expand.grid(id1 = seq_len(4), id2 = c(1, 4))

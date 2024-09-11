@@ -1,3 +1,48 @@
+# prioritizr 8.0.4.2
+
+## Minor improvements and bug fixes
+
+- Fix bug in `add_max_utility_objective()` that caused the optimization
+  process to throw an error about problem infeasibility when using
+  feature data that contain negative values (#334). Thanks to \@hannahmp
+  for bug report.
+- Fix bug in `presolve_check()` that would cause it to erroneously suggest that
+  many planning units don't have any feature data associated with them. This
+  bug was caused when the feature data contained relatively large, negative values.
+- Fix bug in `binary_stack()` that caused it to throw an error when working
+  with raster data containing zeros (#333).
+- Fix bug in `add_absolute_targets()` where it would not throw a warning to
+  the user know that a problem already had targets defined, and so adding
+  the new targets would override the existing targets defined for the problem.
+- Fix bug in `as.ZonesRaster` that resulted in an error when trying to
+  convert a `SpatRaster` zones object (i.e., a `zones` object with _terra_
+  package data) into `Raster` zones object (i.e., a `zones` object with
+  _raster_ package data).
+- Fix bug in `write_problem()` needlessly printing messages about the
+  _gurobi_ package not being installed when the function is trying to
+  automatically determine which solver to use (i.e., when using
+  `solver = NULL`) and the package is not is available.
+- Fix bug in `branch_matrix()` where it would not automatically convert
+  object to the `phylo` class in the _ape_ package.
+- Update warning message for `add_asym_connectivity_penalties()` so that
+  it now specifies that asymmetric connectivity values are required when
+  symmetric values are incorrectly supplied (#339). Thanks to \@DanWismer for
+  bug report.
+- Update warning messages so that they now indicate which function threw
+  the warning message (using `rlang::warn()`).
+- Update `compile()` so that it throws an error when using the expanded
+  version of a problem formulation with negative feature values. This
+  is because the expanded version of the problem formulations are not
+  compatible with negative feature values. Currently, the expanded
+  version of the problem formulation is only required when using
+  `add_feature_contiguity_constraints()`.
+- Additional tests to improve test coverage.
+
+## Documentation updates
+
+- Update publication record.
+- Fix cross-reference linking issues to classes in other packages (#340).
+
 # prioritizr 8.0.4.1
 
 ## Minor improvements and bug fixes

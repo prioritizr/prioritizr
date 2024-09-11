@@ -28,7 +28,7 @@ matrix_to_triplet_dataframe <- function(x) {
 #
 #' @param forceSymmetric `logical` should matrix be coerced to symmetric?
 #'
-#' @return A [`dgCMatrix-class`] object.
+#' @return A [`Matrix::dgCMatrix-class`] object.
 #'
 #' @noRd
 triplet_dataframe_to_matrix <- function(x, forceSymmetric = FALSE, ...) {

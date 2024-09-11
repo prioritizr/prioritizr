@@ -13,7 +13,7 @@ NULL
 #'
 #' @param x [ape::phylo()] tree object.
 #'
-#' @return A [`dgCMatrix-class`] sparse matrix object. Each row
+#' @return A [`Matrix::dgCMatrix-class`] sparse matrix object. Each row
 #'   corresponds to a different species. Each column corresponds to a different
 #'   branch. Species that inherit from a given branch are denoted with a one.
 #'
@@ -43,7 +43,7 @@ branch_matrix <- function(x) {
 #' @method branch_matrix default
 #' @export
 branch_matrix.default <- function(x)
-  rcpp_branch_matrix(methods::as(x, "phylo"))
+  rcpp_branch_matrix(ape::as.phylo(x, "phylo"))
 
 #' @rdname branch_matrix
 #' @method branch_matrix phylo

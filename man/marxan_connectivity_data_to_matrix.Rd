@@ -22,7 +22,7 @@ this parameter should be set to \code{FALSE}.
 Defaults to \code{TRUE}.}
 }
 \value{
-A \code{\linkS4class{dgCMatrix}} sparse matrix object.
+A \code{\link[Matrix:dgCMatrix-class]{Matrix::dgCMatrix}} sparse matrix object.
 }
 \description{
 Convert a \code{data.frame} object containing \emph{Marxan} connectivity data

@@ -1,390 +1,132 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://prioritizr.net/404.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/CONTRIBUTING.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/articles/calibrating_trade-offs_tutorial.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/articles/connectivity_tutorial.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/articles/gurobi_installation_guide.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/articles/management_zones_tutorial.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/articles/package_overview.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/articles/prioritizr.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/articles/publication_record.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/articles/solver_benchmarks.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/index.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/ConservationModifier-class.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/ConservationProblem-class.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/Constraint-class.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/Decision-class.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/Objective-class.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/OptimizationProblem-class.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/OptimizationProblem-methods.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/Penalty-class.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/Portfolio-class.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/Solver-class.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/Target-class.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/add_absolute_targets.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/add_asym_connectivity_penalties.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/add_binary_decisions.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/add_boundary_penalties.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/add_cbc_solver.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/add_connectivity_penalties.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/add_contiguity_constraints.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/add_cplex_solver.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/add_cuts_portfolio.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/add_default_portfolio.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/add_default_solver.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/add_extra_portfolio.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/add_feature_contiguity_constraints.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/add_feature_weights.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/add_gap_portfolio.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/add_gurobi_solver.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/add_highs_solver.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/add_linear_constraints.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/add_linear_penalties.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/add_locked_in_constraints.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/add_locked_out_constraints.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/add_loglinear_targets.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/add_lsymphony_solver.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/add_mandatory_allocation_constraints.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/add_manual_bounded_constraints.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/add_manual_locked_constraints.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/add_manual_targets.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/add_max_cover_objective.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/add_max_features_objective.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/add_max_phylo_div_objective.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/add_max_phylo_end_objective.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/add_max_utility_objective.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/add_min_largest_shortfall_objective.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/add_min_set_objective.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/add_min_shortfall_objective.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/add_neighbor_constraints.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/add_proportion_decisions.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/add_relative_targets.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/add_rsymphony_solver.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/add_semicontinuous_decisions.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/add_shuffle_portfolio.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/add_top_portfolio.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/adjacency_matrix.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/binary_stack.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/boundary_matrix.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/branch_matrix.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/category_layer.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/category_vector.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/compile.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/connectivity_matrix.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/constraints.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/decisions.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/eval_asym_connectivity_summary.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/eval_boundary_summary.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/eval_connectivity_summary.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/eval_cost_summary.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/eval_feature_representation_summary.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/eval_ferrier_importance.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/eval_n_summary.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/eval_rare_richness_importance.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/eval_replacement_importance.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/eval_target_coverage_summary.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/fast_extract.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/feature_abundances.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/feature_names.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/importance.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/intersecting_units.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/knit_print.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/loglinear_interpolation.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/marxan_boundary_data_to_matrix.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/marxan_connectivity_data_to_matrix.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/marxan_problem.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/new_waiver.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/number_of_features.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/number_of_planning_units.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/number_of_total_units.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/number_of_zones.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/objectives.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/optimization_problem.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/penalties.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/portfolios.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/presolve_check.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/prioritizr-deprecated.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/prioritizr.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/problem.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/proximity_matrix.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/reexports.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/rescale_matrix.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/rij_matrix.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/run_calculations.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/show.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/sim_data.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/simulate_cost.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/simulate_data.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/simulate_species.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/solve.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/solvers.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/summaries.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/targets.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/tibble-methods.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/write_problem.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/zone_names.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/zones.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://prioritizr.net/404.html</loc></url>
+<url><loc>https://prioritizr.net/CONTRIBUTING.html</loc></url>
+<url><loc>https://prioritizr.net/articles/calibrating_trade-offs_tutorial.html</loc></url>
+<url><loc>https://prioritizr.net/articles/connectivity_tutorial.html</loc></url>
+<url><loc>https://prioritizr.net/articles/gurobi_installation_guide.html</loc></url>
+<url><loc>https://prioritizr.net/articles/index.html</loc></url>
+<url><loc>https://prioritizr.net/articles/management_zones_tutorial.html</loc></url>
+<url><loc>https://prioritizr.net/articles/package_overview.html</loc></url>
+<url><loc>https://prioritizr.net/articles/prioritizr.html</loc></url>
+<url><loc>https://prioritizr.net/articles/publication_record.html</loc></url>
+<url><loc>https://prioritizr.net/articles/solver_benchmarks.html</loc></url>
+<url><loc>https://prioritizr.net/authors.html</loc></url>
+<url><loc>https://prioritizr.net/index.html</loc></url>
+<url><loc>https://prioritizr.net/news/index.html</loc></url>
+<url><loc>https://prioritizr.net/reference/ConservationModifier-class.html</loc></url>
+<url><loc>https://prioritizr.net/reference/ConservationProblem-class.html</loc></url>
+<url><loc>https://prioritizr.net/reference/Constraint-class.html</loc></url>
+<url><loc>https://prioritizr.net/reference/Decision-class.html</loc></url>
+<url><loc>https://prioritizr.net/reference/Objective-class.html</loc></url>
+<url><loc>https://prioritizr.net/reference/OptimizationProblem-class.html</loc></url>
+<url><loc>https://prioritizr.net/reference/OptimizationProblem-methods.html</loc></url>
+<url><loc>https://prioritizr.net/reference/Penalty-class.html</loc></url>
+<url><loc>https://prioritizr.net/reference/Portfolio-class.html</loc></url>
+<url><loc>https://prioritizr.net/reference/Solver-class.html</loc></url>
+<url><loc>https://prioritizr.net/reference/Target-class.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_absolute_targets.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_asym_connectivity_penalties.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_binary_decisions.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_boundary_penalties.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_cbc_solver.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_connectivity_penalties.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_contiguity_constraints.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_cplex_solver.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_cuts_portfolio.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_default_portfolio.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_default_solver.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_extra_portfolio.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_feature_contiguity_constraints.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_feature_weights.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_gap_portfolio.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_gurobi_solver.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_highs_solver.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_linear_constraints.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_linear_penalties.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_locked_in_constraints.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_locked_out_constraints.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_loglinear_targets.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_lsymphony_solver.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_mandatory_allocation_constraints.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_manual_bounded_constraints.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_manual_locked_constraints.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_manual_targets.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_max_cover_objective.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_max_features_objective.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_max_phylo_div_objective.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_max_phylo_end_objective.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_max_utility_objective.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_min_largest_shortfall_objective.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_min_set_objective.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_min_shortfall_objective.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_neighbor_constraints.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_proportion_decisions.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_relative_targets.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_rsymphony_solver.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_semicontinuous_decisions.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_shuffle_portfolio.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_top_portfolio.html</loc></url>
+<url><loc>https://prioritizr.net/reference/adjacency_matrix.html</loc></url>
+<url><loc>https://prioritizr.net/reference/binary_stack.html</loc></url>
+<url><loc>https://prioritizr.net/reference/boundary_matrix.html</loc></url>
+<url><loc>https://prioritizr.net/reference/branch_matrix.html</loc></url>
+<url><loc>https://prioritizr.net/reference/category_layer.html</loc></url>
+<url><loc>https://prioritizr.net/reference/category_vector.html</loc></url>
+<url><loc>https://prioritizr.net/reference/compile.html</loc></url>
+<url><loc>https://prioritizr.net/reference/connectivity_matrix.html</loc></url>
+<url><loc>https://prioritizr.net/reference/constraints.html</loc></url>
+<url><loc>https://prioritizr.net/reference/decisions.html</loc></url>
+<url><loc>https://prioritizr.net/reference/eval_asym_connectivity_summary.html</loc></url>
+<url><loc>https://prioritizr.net/reference/eval_boundary_summary.html</loc></url>
+<url><loc>https://prioritizr.net/reference/eval_connectivity_summary.html</loc></url>
+<url><loc>https://prioritizr.net/reference/eval_cost_summary.html</loc></url>
+<url><loc>https://prioritizr.net/reference/eval_feature_representation_summary.html</loc></url>
+<url><loc>https://prioritizr.net/reference/eval_ferrier_importance.html</loc></url>
+<url><loc>https://prioritizr.net/reference/eval_n_summary.html</loc></url>
+<url><loc>https://prioritizr.net/reference/eval_rare_richness_importance.html</loc></url>
+<url><loc>https://prioritizr.net/reference/eval_replacement_importance.html</loc></url>
+<url><loc>https://prioritizr.net/reference/eval_target_coverage_summary.html</loc></url>
+<url><loc>https://prioritizr.net/reference/fast_extract.html</loc></url>
+<url><loc>https://prioritizr.net/reference/feature_abundances.html</loc></url>
+<url><loc>https://prioritizr.net/reference/feature_names.html</loc></url>
+<url><loc>https://prioritizr.net/reference/importance.html</loc></url>
+<url><loc>https://prioritizr.net/reference/index.html</loc></url>
+<url><loc>https://prioritizr.net/reference/intersecting_units.html</loc></url>
+<url><loc>https://prioritizr.net/reference/knit_print.html</loc></url>
+<url><loc>https://prioritizr.net/reference/loglinear_interpolation.html</loc></url>
+<url><loc>https://prioritizr.net/reference/marxan_boundary_data_to_matrix.html</loc></url>
+<url><loc>https://prioritizr.net/reference/marxan_connectivity_data_to_matrix.html</loc></url>
+<url><loc>https://prioritizr.net/reference/marxan_problem.html</loc></url>
+<url><loc>https://prioritizr.net/reference/new_waiver.html</loc></url>
+<url><loc>https://prioritizr.net/reference/number_of_features.html</loc></url>
+<url><loc>https://prioritizr.net/reference/number_of_planning_units.html</loc></url>
+<url><loc>https://prioritizr.net/reference/number_of_total_units.html</loc></url>
+<url><loc>https://prioritizr.net/reference/number_of_zones.html</loc></url>
+<url><loc>https://prioritizr.net/reference/objectives.html</loc></url>
+<url><loc>https://prioritizr.net/reference/optimization_problem.html</loc></url>
+<url><loc>https://prioritizr.net/reference/penalties.html</loc></url>
+<url><loc>https://prioritizr.net/reference/portfolios.html</loc></url>
+<url><loc>https://prioritizr.net/reference/presolve_check.html</loc></url>
+<url><loc>https://prioritizr.net/reference/prioritizr-deprecated.html</loc></url>
+<url><loc>https://prioritizr.net/reference/prioritizr.html</loc></url>
+<url><loc>https://prioritizr.net/reference/problem.html</loc></url>
+<url><loc>https://prioritizr.net/reference/proximity_matrix.html</loc></url>
+<url><loc>https://prioritizr.net/reference/reexports.html</loc></url>
+<url><loc>https://prioritizr.net/reference/rescale_matrix.html</loc></url>
+<url><loc>https://prioritizr.net/reference/rij_matrix.html</loc></url>
+<url><loc>https://prioritizr.net/reference/run_calculations.html</loc></url>
+<url><loc>https://prioritizr.net/reference/show.html</loc></url>
+<url><loc>https://prioritizr.net/reference/sim_data.html</loc></url>
+<url><loc>https://prioritizr.net/reference/simulate_cost.html</loc></url>
+<url><loc>https://prioritizr.net/reference/simulate_data.html</loc></url>
+<url><loc>https://prioritizr.net/reference/simulate_species.html</loc></url>
+<url><loc>https://prioritizr.net/reference/solve.html</loc></url>
+<url><loc>https://prioritizr.net/reference/solvers.html</loc></url>
+<url><loc>https://prioritizr.net/reference/summaries.html</loc></url>
+<url><loc>https://prioritizr.net/reference/targets.html</loc></url>
+<url><loc>https://prioritizr.net/reference/tibble-methods.html</loc></url>
+<url><loc>https://prioritizr.net/reference/write_problem.html</loc></url>
+<url><loc>https://prioritizr.net/reference/zone_names.html</loc></url>
+<url><loc>https://prioritizr.net/reference/zones.html</loc></url>
 </urlset>
+

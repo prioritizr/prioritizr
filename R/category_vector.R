@@ -16,7 +16,7 @@ NULL
 #'
 #' @return An `integer` vector.
 #'
-#' @seealso [base::max.col()]
+#' @seealso [base::max.col()].
 #'
 #' @examples
 #' # create matrix with logical columns

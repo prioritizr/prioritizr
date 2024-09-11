@@ -36,14 +36,70 @@ test_that("compile (compressed formulation, single zone)", {
       )
     )
   )
-  expect_equal(o$lb(), rep(0, n_f + n_pu))
+  expect_equal(
+    o$lb(),
+    c(rep(0, n_pu), rep(0, n_f))
+  )
   expect_equal(
     o$ub(),
     c(rep(1, n_pu), unname(p$feature_abundances_in_planning_units()))
   )
 })
 
-test_that("solve (compressed formulation, single zone)", {
+test_that("compile (compressed formulation, single zone, negative values)", {
+  # import data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  # add negative values
+  sim_features[[1]][1] <- -1000
+  # calculate budget
+  b <- floor(terra::global(sim_pu_raster, "sum", na.rm = TRUE)[[1]] * 0.25)
+  # create problem
+  expect_warning(
+    p <-
+      problem(sim_pu_raster, sim_features) %>%
+      add_max_utility_objective(budget = b),
+    "negative values"
+  )
+  o <- compile(p)
+  # calculations for tests
+  n_pu <- length(sim_pu_raster[[1]][!is.na(sim_pu_raster)])
+  n_f <- terra::nlyr(sim_features)
+  scaled_costs <- c(p$planning_unit_costs())
+  scaled_costs <- scaled_costs * (-0.01 / sum(scaled_costs, na.rm = TRUE))
+  # tests
+  expect_equal(o$modelsense(), "max")
+  expect_equal(o$obj(), c(scaled_costs, rep(1, n_f)))
+  expect_equal(o$sense(), c(rep("=", n_f), "<="))
+  expect_equal(o$rhs(), c(rep(0, n_f), b))
+  expect_equal(o$col_ids(), c(rep("pu", n_pu), rep("amount", n_f)))
+  expect_equal(o$row_ids(), c(rep("spp_amount", n_f), "budget"))
+  expect_true(
+    all(o$A()[seq_len(n_f), seq_len(n_pu)] == p$data$rij_matrix[[1]])
+  )
+  expect_equal(
+    o$A()[n_f + 1, ],
+    c(p$planning_unit_costs(), rep(0, n_f))
+  )
+  expect_true(
+    all(
+      o$A()[seq_len(n_f), n_pu + seq_len(n_f)] ==
+      triplet_sparse_matrix(
+        i = seq_len(n_f), j = seq_len(n_f), x = rep(-1, n_f)
+      )
+    )
+  )
+  expect_equal(
+    o$lb(),
+    c(rep(0, n_pu), rep(-Inf, n_f))
+  )
+  expect_equal(
+    o$ub(),
+    c(rep(1, n_pu), unname(p$feature_positive_abundances_in_planning_units()))
+  )
+})
+
+test_that("compile (compressed formulation, single zone, negative values)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # create data
@@ -52,17 +108,51 @@ test_that("solve (compressed formulation, single zone)", {
   locked_in <- 2
   locked_out <- 1
   features <- c(
-    terra::rast(matrix(c(2, 1, 1, 0), ncol = 4)),
-    terra::rast(matrix(c(10, 10, 10, 10), ncol = 4))
+    terra::rast(matrix(c(2, -1, 500, 0), ncol = 4)),
+    terra::rast(matrix(c(-10, -10, -10, -10), ncol = 4))
   )
   names(features) <- make.unique(names(features))
   # create problem
-  p <-
-    problem(cost, features) %>%
-    add_max_utility_objective(budget = budget) %>%
-    add_locked_in_constraints(locked_in) %>%
-    add_locked_out_constraints(locked_out) %>%
-    add_default_solver(gap = 0, verbose = FALSE)
+  expect_warning(
+    p <-
+      problem(cost, features) %>%
+      add_max_utility_objective(budget = budget) %>%
+      add_locked_in_constraints(locked_in) %>%
+      add_locked_out_constraints(locked_out) %>%
+      add_default_solver(gap = 0, verbose = FALSE),
+    "negative values"
+  )
+  # solve problem
+  s1 <- solve(p)
+  s2 <- solve(p)
+  # test that solution is correct
+  expect_equal(c(terra::values(s1)), c(0, 1, 1, NA))
+  expect_equal(terra::values(s1), terra::values(s2))
+})
+
+test_that("solve (compressed formulation, single zone, negative values)", {
+  skip_on_cran()
+  skip_if_no_fast_solvers_installed()
+  # create data
+  budget <- 4.23
+  cost <- terra::rast(matrix(c(1, 2, 2, NA), ncol = 4))
+  locked_in <- 2
+  locked_out <- 1
+  features <- c(
+    terra::rast(matrix(c(2, -1, 500, 0), ncol = 4)),
+    terra::rast(matrix(c(-10, -10, -10, -10), ncol = 4))
+  )
+  names(features) <- make.unique(names(features))
+  # create problem
+  expect_warning(
+    p <-
+      problem(cost, features) %>%
+      add_max_utility_objective(budget = budget) %>%
+      add_locked_in_constraints(locked_in) %>%
+      add_locked_out_constraints(locked_out) %>%
+      add_default_solver(gap = 0, verbose = FALSE),
+    "negative values"
+  )
   # solve problem
   s1 <- solve(p)
   s2 <- solve(p)
@@ -101,7 +191,10 @@ test_that("compile (expanded formulation, single zone)", {
     o$row_ids(),
     c(rep("pu_ijz", n_f * n_pu), rep("spp_amount", n_f), "budget")
   )
-  expect_equal(o$lb(), rep(0, n_pu + (n_f * n_pu) + n_f))
+  expect_equal(
+    o$lb(),
+    c(rep(0, n_pu), rep(0, n_pu * n_f), rep(0, n_f))
+  )
   expect_equal(
     o$ub(),
     c(
@@ -219,7 +312,10 @@ test_that("compile (compressed formulation, multiple zones, scalar budget)", {
     o$row_ids(),
     c(rep("spp_amount", n_f * n_z), "budget", rep("pu_zone", n_pu))
   )
-  expect_equal(o$lb(), rep(0, (n_pu * n_z) + (n_f * n_z)))
+  expect_equal(
+    o$lb(),
+    c(rep(0, n_pu * n_z), rep(0, n_f * n_z))
+  )
   expect_equal(
     o$ub(),
     c(rep(1, (n_pu * n_z)), c(p$feature_abundances_in_planning_units()))
@@ -328,7 +424,10 @@ test_that("compile (expanded formulation, multiple zones, scalar budget)", {
       "budget", rep("pu_zone", n_pu)
     )
   )
-  expect_equal(o$lb(), rep(0, (n_pu * n_z) + (n_pu * n_z * n_f) + (n_f * n_z)))
+  expect_equal(
+    o$lb(),
+    c(rep(0, (n_pu * n_z) + (n_pu * n_z * n_f)), rep(0, n_f * n_z))
+  )
   expect_equal(
     o$ub(),
     c(
@@ -438,7 +537,10 @@ test_that("compile (compressed formulation, multiple zones, vector budget)", {
     o$row_ids(),
     c(rep("spp_amount", n_f * n_z), rep("budget", 3), rep("pu_zone", n_pu))
   )
-  expect_equal(o$lb(), rep(0, (n_pu * n_z) + (n_f * n_z)))
+  expect_equal(
+    o$lb(),
+    c(rep(0, n_pu * n_z), rep(0, n_f * n_z))
+  )
   expect_equal(
     o$ub(),
     c(rep(1, (n_pu * n_z)), c(p$feature_abundances_in_planning_units()))
@@ -557,7 +659,10 @@ test_that("compile (expanded formulation, multiple zones, vector budget)", {
       rep("pu_zone", n_pu)
     )
   )
-  expect_equal(o$lb(), rep(0, (n_pu * n_z) + (n_pu * n_z * n_f) + (n_f * n_z)))
+  expect_equal(
+    o$lb(),
+    c(rep(0, (n_pu * n_z) + (n_pu * n_z * n_f)), rep(0, n_f * n_z))
+  )
   expect_equal(
     o$ub(),
     c(

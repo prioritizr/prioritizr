@@ -35,7 +35,7 @@ that are further apart from each other than this threshold are
 not treated as being within proximity of each other.}
 }
 \value{
-A \code{\linkS4class{dsCMatrix}} symmetric sparse matrix object.
+A \code{\link[Matrix:dsCMatrix-class]{Matrix::dsCMatrix}} symmetric sparse matrix object.
 Each row and column represents a planning unit.
 Cells values indicate if the pair-wise distances between different
 planning units are within the distance threshold or not (using ones and

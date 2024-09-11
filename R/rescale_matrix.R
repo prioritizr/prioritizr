@@ -4,7 +4,7 @@
 #' are rescaled so that the maximum value in the matrix is equal to
 #' a new user-specified maximum value.
 #'
-#' @param x [`matrix`], [`array`], [`Matrix-class`] object.
+#' @param x [`matrix`], [`array`], [`Matrix::Matrix-class`] object.
 #'
 #' @param max `numeric` new maximum value in matrix. Defaults to 1000.
 #'
@@ -23,8 +23,8 @@
 #' during optimization.
 #'
 #' @return
-#' A [`matrix`], [`array`], [`Matrix-class`] object. The returned object is the
-#' is the same class as the argument to `x`.
+#' A [`matrix`], [`array`], or [`Matrix::Matrix-class`] object.
+#' The returned object is the is the same class as the argument to `x`.
 #'
 #' @examples
 #' # TODO

@@ -30,7 +30,7 @@ NULL
 #'   [boundary_matrix()].
 #'
 #' @return
-#' A [`dsCMatrix-class`] symmetric sparse matrix object.
+#' A [`Matrix::dsCMatrix-class`] symmetric sparse matrix object.
 #' Each row and column represents a planning unit.
 #' Cells values indicate the connectivity between different pairs of planning
 #' units.
