@@ -41,6 +41,7 @@
 ## Documentation updates
 
 - Update publication record.
+- Fix cross-reference linking issues to classes in other packages (#340).
 
 # prioritizr 8.0.4.1
 

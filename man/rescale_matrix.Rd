@@ -7,13 +7,13 @@
 rescale_matrix(x, max = 1000)
 }
 \arguments{
-\item{x}{\code{\link{matrix}}, \code{\link{array}}, \code{\linkS4class{Matrix}} object.}
+\item{x}{\code{\link{matrix}}, \code{\link{array}}, \code{\link[Matrix:Matrix-class]{Matrix::Matrix}} object.}
 
 \item{max}{\code{numeric} new maximum value in matrix. Defaults to 1000.}
 }
 \value{
-A \code{\link{matrix}}, \code{\link{array}}, \code{\linkS4class{Matrix}} object. The returned object is the
-is the same class as the argument to \code{x}.
+A \code{\link{matrix}}, \code{\link{array}}, or \code{\link[Matrix:Matrix-class]{Matrix::Matrix}} object.
+The returned object is the is the same class as the argument to \code{x}.
 }
 \description{
 Linearly rescale a matrix. Specifically, the values in the matrix

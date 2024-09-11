@@ -33,7 +33,7 @@ boundary_matrix(x, ...)
 \item{...}{not used.}
 }
 \value{
-A \code{\linkS4class{dsCMatrix}} symmetric sparse matrix object.
+A \code{\link[Matrix:dsCMatrix-class]{Matrix::dsCMatrix}} symmetric sparse matrix object.
 Each row and column represents a planning unit.
 Cell values indicate the shared boundary length between different pairs
 of planning units. Values along the matrix diagonal indicate the

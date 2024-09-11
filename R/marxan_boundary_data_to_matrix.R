@@ -18,7 +18,7 @@ NULL
 #'   `"id2"`, and `"boundary"`.
 #'
 #' @return
-#' A [`dgCMatrix-class`] sparse matrix object.
+#' A [`Matrix::dgCMatrix-class`] sparse matrix object.
 #'
 #' @section Notes:
 #' In earlier versions, the function could convert boundary data

@@ -99,7 +99,7 @@ Defaults to <code>TRUE</code>.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A <code><a href="https://rdrr.io/pkg/Matrix/man/dgCMatrix-class.html" class="external-link">dgCMatrix</a></code> sparse matrix object.</p>
+    <p>A <code><a href="https://rdrr.io/pkg/Matrix/man/dgCMatrix-class.html" class="external-link">Matrix::dgCMatrix</a></code> sparse matrix object.</p>
     </div>
 
     <div class="section level2">
@@ -144,8 +144,8 @@ Defaults to <code>TRUE</code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,] 1.0 1.0 1.0 0.5</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># visualize matrix</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="marxan_connectivity_data_to_matrix-1.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/image.html" class="external-link">image</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in image.default(m1):</span> 'z' must be a matrix</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create marxan connectivity data with four planning units and one zone,</span></span></span>
 <span class="r-in"><span><span class="co"># and asymmetric connectivity values</span></span></span>
@@ -155,23 +155,23 @@ Defaults to <code>TRUE</code>.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># print data</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">bldf2</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id1 id2   boundary</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    1   1 0.50000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2    2   1 0.48469318</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3    3   1 0.85434472</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4    4   1 0.58924564</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5    1   2 0.57586891</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6    2   2 0.50000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7    3   2 0.23870311</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8    4   2 0.23721283</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9    1   3 0.23125087</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10   2   3 0.98898790</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11   3   3 0.50000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12   4   3 0.06918062</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13   1   4 0.19277122</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14   2   4 0.65083831</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15   3   4 0.07945488</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16   4   4 0.50000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    id1 id2    boundary</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    1   1 0.500000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    2   1 0.834333037</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    3   1 0.600760886</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4    4   1 0.157208442</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5    1   2 0.007399441</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6    2   2 0.500000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7    3   2 0.497777389</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8    4   2 0.289767245</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9    1   3 0.732881987</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10   2   3 0.772521511</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11   3   3 0.500000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12   4   3 0.174940627</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13   1   4 0.034241333</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14   2   4 0.320385731</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15   3   4 0.402328238</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16   4   4 0.500000000</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># convert to matrix</span></span></span>
 <span class="r-in"><span><span class="va">m2</span> <span class="op">&lt;-</span> <span class="fu">marxan_connectivity_data_to_matrix</span><span class="op">(</span><span class="cn">NULL</span>, <span class="va">bldf2</span>, symmetric <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
@@ -179,15 +179,15 @@ Defaults to <code>TRUE</code>.</p></dd>
 <span class="r-in"><span><span class="co"># print matrix</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">m2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 x 4 sparse Matrix of class "dgCMatrix"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.5000000 0.5758689 0.23125087 0.19277122</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.4846932 0.5000000 0.98898790 0.65083831</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.8543447 0.2387031 0.50000000 0.07945488</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] 0.5892456 0.2372128 0.06918062 0.50000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.5000000 0.007399441 0.7328820 0.03424133</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.8343330 0.500000000 0.7725215 0.32038573</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.6007609 0.497777389 0.5000000 0.40232824</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] 0.1572084 0.289767245 0.1749406 0.50000000</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># visualize matrix</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image</a></span><span class="op">(</span><span class="va">m2</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="marxan_connectivity_data_to_matrix-2.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/image.html" class="external-link">image</a></span><span class="op">(</span><span class="va">m2</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in image.default(m2):</span> 'z' must be a matrix</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create marxan connectivity with three planning units and two zones,</span></span></span>
 <span class="r-in"><span><span class="co"># and symmetric connectivity values</span></span></span>

@@ -83,7 +83,7 @@ compressed_formulation(x)
 \item{x}{\code{\link[=optimization_problem]{optimization_problem()}} object.}
 }
 \value{
-A \code{\linkS4class{dgCMatrix}}, \code{numeric} vector,
+A \code{\link[Matrix:dgCMatrix-class]{Matrix::dgCMatrix}}, \code{numeric} vector,
 \code{numeric} vector, or scalar \code{integer} depending on the method
 used.
 }
@@ -110,7 +110,7 @@ binary (\code{"B"}), semi-continuous (\code{"S"}), or continuous
 
 \item{obj}{\code{numeric} vector specifying the objective function.}
 
-\item{A}{\code{\linkS4class{dgCMatrix}} matrix object defining the
+\item{A}{\code{\link[Matrix:dgCMatrix-class]{Matrix::dgCMatrix}} matrix object defining the
 problem matrix.}
 
 \item{rhs}{\code{numeric} vector with right-hand-side linear constraints}

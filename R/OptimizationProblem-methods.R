@@ -26,7 +26,7 @@ NULL
 #'
 #' \item{obj}{`numeric` vector specifying the objective function.}
 #'
-#' \item{A}{[`dgCMatrix-class`] matrix object defining the
+#' \item{A}{[`Matrix::dgCMatrix-class`] matrix object defining the
 #'   problem matrix.}
 #'
 #' \item{rhs}{`numeric` vector with right-hand-side linear constraints}
@@ -48,7 +48,7 @@ NULL
 #'
 #' }
 #'
-#' @return A [`dgCMatrix-class`], `numeric` vector,
+#' @return A [`Matrix::dgCMatrix-class`], `numeric` vector,
 #'   `numeric` vector, or scalar `integer` depending on the method
 #'   used.
 #'

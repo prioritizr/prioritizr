@@ -109,13 +109,13 @@ NULL
 #'      planning unit.}
 #'    }
 #'
-#' @param rij_matrix `list` of `matrix` or [`dgCMatrix-class`]
+#' @param rij_matrix `list` of `matrix` or [`Matrix::dgCMatrix-class`]
 #'    objects specifying the amount of each feature (rows) within each planning
 #'    unit (columns) for each zone. The `list` elements denote
 #'    different zones, matrix rows denote features, and matrix columns denote
 #'    planning units. For convenience, the argument to
 #'    `rij_matrix` can be a single `matrix` or
-#'    [`dgCMatrix-class`] when specifying a problem with a
+#'    [`Matrix::dgCMatrix-class`] when specifying a problem with a
 #'    single management zone. This argument is only used when the argument
 #'    to `x` is a `numeric` or `matrix` object.
 #'
