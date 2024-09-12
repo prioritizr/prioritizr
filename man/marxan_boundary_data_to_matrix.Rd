@@ -43,6 +43,6 @@ m1 <- marxan_boundary_data_to_matrix(NULL, bldf1)
 
 # visualize matrix
 \dontrun{
-image(m1)
+Matrix::image(m1)
 }
 }

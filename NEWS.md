@@ -1,3 +1,12 @@
+# prioritizr 8.0.4.3
+
+## Documentation updates
+
+- Fix `marxan_boundary_data_to_matrix()` and
+  `marxan_connectivity_data_to_matrix()` documentation so that examples are
+  compatibile with latest version of the _Matrix_ package.
+- Fix citation in package overview vignette.
+
 # prioritizr 8.0.4.2
 
 ## Minor improvements and bug fixes

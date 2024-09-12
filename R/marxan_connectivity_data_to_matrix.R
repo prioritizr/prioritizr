@@ -55,7 +55,7 @@ NULL
 #' print(m2)
 #'
 #' # visualize matrix
-#' image(m2)
+#' Matrix::image(m2)
 #'
 #' # create marxan connectivity with three planning units and two zones,
 #' # and symmetric connectivity values

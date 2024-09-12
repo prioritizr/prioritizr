@@ -2584,7 +2584,7 @@ progress when searching for a suitable solution.</p>
 ## Cutting planes:
 ##   Gomory: 3
 ## 
-## Explored 34 nodes (1117 simplex iterations) in 0.13 seconds (0.12 work units)
+## Explored 34 nodes (1117 simplex iterations) in 0.16 seconds (0.12 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 6: 2648.26 2814.48 2890.88 ... 20287.2
@@ -2614,7 +2614,7 @@ quality of the solution and the optimization process.</p>
 <div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" tabindex="-1"></a><span class="co"># extract time spent solving solution</span></span>
 <span id="cb112-2"><a href="#cb112-2" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">attr</span>(s42, <span class="st">&quot;runtime&quot;</span>))</span></code></pre></div>
 <pre><code>## solution_1 
-##      0.156</code></pre>
+##      0.181</code></pre>
 <div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" tabindex="-1"></a><span class="co"># extract state message from the solver that describes why this specific</span></span>
 <span id="cb114-2"><a href="#cb114-2" tabindex="-1"></a><span class="co"># solution was returned</span></span>
 <span id="cb114-3"><a href="#cb114-3" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">attr</span>(s42, <span class="st">&quot;status&quot;</span>))</span></code></pre></div>
@@ -2830,14 +2830,13 @@ amount of time to complete for large and complex problems.</li>
 <span id="cb133-11"><a href="#cb133-11" tabindex="-1"></a>)</span></code></pre></div>
 <p><img role="img" src="data:image/png;base64,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" style="display: block; margin: auto;" />
 * <strong>Ferrier method</strong>: Evaluate importance by computing
-irreplaceability scores following Ferrier <em>et al.</em> <span class="citation">(<strong>r-34?</strong>)</span>. The advantages of this
-method are that it (i) can be computed relatively quickly for moderate
-and large-sized problems, and (ii) calculates a score for each feature
-within each planning unit to provide insight into why certain planning
-units are more important than others. The disadvantage with this method
-is that it can only be applied to conservation problems that use targets
-and have a single zone (i.e., similar to <em>Marxan</em>-type
-problems).</p>
+irreplaceability scores following Ferrier <em>et al.</em> <span class="citation">(2000)</span>. The advantages of this method are that
+it (i) can be computed relatively quickly for moderate and large-sized
+problems, and (ii) calculates a score for each feature within each
+planning unit to provide insight into why certain planning units are
+more important than others. The disadvantage with this method is that it
+can only be applied to conservation problems that use targets and have a
+single zone (i.e., similar to <em>Marxan</em>-type problems).</p>
 <div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="#cb134-1" tabindex="-1"></a><span class="co"># calculate Ferrier scores and extract total score</span></span>
 <span id="cb134-2"><a href="#cb134-2" tabindex="-1"></a>fs43 <span class="ot">&lt;-</span> <span class="fu">eval_ferrier_importance</span>(p43, s43)[[<span class="st">&quot;total&quot;</span>]]</span>
 <span id="cb134-3"><a href="#cb134-3" tabindex="-1"></a></span>
@@ -2948,7 +2947,7 @@ function can be used to read <em>Marxan</em> input files and the
 ##   RHS range        [5e+03, 3e+05]
 ## Found heuristic solution: objective 1.255825e+08
 ## Presolve removed 4707 rows and 3103 columns
-## Presolve time: 0.07s
+## Presolve time: 0.06s
 ## Presolved: 5368 rows, 3677 columns, 12704 nonzeros
 ## Variable types: 0 continuous, 3677 integer (3677 binary)
 ## Found heuristic solution: objective 1.065946e+08
@@ -2962,7 +2961,7 @@ function can be used to read <em>Marxan</em> input files and the
 ## 
 ##      0     0          -    0      1.0659e+08 9.5941e+07  10.0%     -    0s
 ## 
-## Explored 1 nodes (11 simplex iterations) in 0.08 seconds (0.09 work units)
+## Explored 1 nodes (11 simplex iterations) in 0.07 seconds (0.09 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 2: 1.06595e+08 1.25582e+08 
@@ -3113,6 +3112,12 @@ a maximal covering location problem. <em>Biological conservation</em>,
 <div id="ref-r13" class="csl-entry">
 Faith, D.P. (1992). Conservation evaluation and phylogenetic diversity.
 <em>Biological Conservation</em>, <em>61</em>, 1–10.
+</div>
+<div id="ref-r34" class="csl-entry">
+Ferrier, S., Pressey, R.L. &amp; Barrett, T.W. (2000). A new predictor
+of the irreplaceability of areas for achieving a conservation goal, its
+application to real-world planning, and a research agenda for further
+refinement. <em>Biological Conservation</em>, <em>93</em>, 303–325.
 </div>
 <div id="ref-r19" class="csl-entry">
 Fuller, R.A., McDonald-Madden, E., Wilson, K.A., Carwardine, J.,

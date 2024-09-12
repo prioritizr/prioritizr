@@ -36,7 +36,7 @@ NULL
 #'
 #' # visualize matrix
 #' \dontrun{
-#' image(m1)
+#' Matrix::image(m1)
 #' }
 #' @export
 marxan_boundary_data_to_matrix <- function(x, data) {
