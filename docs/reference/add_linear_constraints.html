@@ -15,7 +15,7 @@ that all selected planning units meet certain criteria."><meta property="og:imag
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.4.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.4.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -348,7 +348,7 @@ contain a layer for each zone.</p></dd>
 <span class="r-in"><span><span class="co"># accounting for the total area of each planning unit (because all</span></span></span>
 <span class="r-in"><span><span class="co"># planning units have the same area in raster formats) -- but if we were</span></span></span>
 <span class="r-in"><span><span class="co"># using vector data then we would need to account for the area of each unit</span></span></span>
-<span class="r-in"><span><span class="va">admin_total</span> <span class="op">&lt;-</span> <span class="fu">Matrix</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Matrix/man/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="fu"><a href="rij_matrix.html">rij_matrix</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_admin2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">admin_total</span> <span class="op">&lt;-</span> <span class="fu">Matrix</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Matrix/man/colSums-methods.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="fu"><a href="rij_matrix.html">rij_matrix</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_admin2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create a modified version of p0 with additional constraints for each</span></span></span>
 <span class="r-in"><span><span class="co"># administrative area to specify that the planning units in the solution must</span></span></span>

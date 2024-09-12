@@ -34,7 +34,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.4.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.4.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -2404,7 +2404,7 @@ progress when searching for a suitable solution.</p>
 <span><span class="co">## Cutting planes:</span></span>
 <span><span class="co">##   Gomory: 3</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 34 nodes (1117 simplex iterations) in 0.10 seconds (0.12 work units)</span></span>
+<span><span class="co">## Explored 34 nodes (1117 simplex iterations) in 0.11 seconds (0.12 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Solution count 6: 2648.26 2814.48 2890.88 ... 20287.2</span></span>
@@ -2437,7 +2437,7 @@ quality of the solution and the optimization process.</p>
 <code class="sourceCode R"><span><span class="co"># extract time spent solving solution</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s42</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## solution_1 </span></span>
-<span><span class="co">##      0.105</span></span></code></pre>
+<span><span class="co">##       0.16</span></span></code></pre>
 <div class="sourceCode" id="cb114"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract state message from the solver that describes why this specific</span></span>
 <span><span class="co"># solution was returned</span></span>
@@ -2675,14 +2675,13 @@ amount of time to complete for large and complex problems.</li>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="package_overview_files/figure-html/unnamed-chunk-60-1.png" width="480" style="display: block; margin: auto;">
 * <strong>Ferrier method</strong>: Evaluate importance by computing
-irreplaceability scores following Ferrier <em>et al.</em> <span class="citation">(<strong>r-34?</strong>)</span>. The advantages of this
-method are that it (i) can be computed relatively quickly for moderate
-and large-sized problems, and (ii) calculates a score for each feature
-within each planning unit to provide insight into why certain planning
-units are more important than others. The disadvantage with this method
-is that it can only be applied to conservation problems that use targets
-and have a single zone (i.e., similar to <em>Marxan</em>-type
-problems).</p>
+irreplaceability scores following Ferrier <em>et al.</em> <span class="citation">(2000)</span>. The advantages of this method are that
+it (i) can be computed relatively quickly for moderate and large-sized
+problems, and (ii) calculates a score for each feature within each
+planning unit to provide insight into why certain planning units are
+more important than others. The disadvantage with this method is that it
+can only be applied to conservation problems that use targets and have a
+single zone (i.e., similar to <em>Marxan</em>-type problems).</p>
 <div class="sourceCode" id="cb134"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate Ferrier scores and extract total score</span></span>
 <span><span class="va">fs43</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_ferrier_importance.html">eval_ferrier_importance</a></span><span class="op">(</span><span class="va">p43</span>, <span class="va">s43</span><span class="op">)</span><span class="op">[[</span><span class="st">"total"</span><span class="op">]</span><span class="op">]</span></span>
@@ -2968,6 +2967,12 @@ a maximal covering location problem. <em>Biological conservation</em>,
 <div id="ref-r13" class="csl-entry">
 Faith, D.P. (1992). Conservation evaluation and phylogenetic diversity.
 <em>Biological Conservation</em>, <em>61</em>, 1–10.
+</div>
+<div id="ref-r34" class="csl-entry">
+Ferrier, S., Pressey, R.L. &amp; Barrett, T.W. (2000). A new predictor
+of the irreplaceability of areas for achieving a conservation goal, its
+application to real-world planning, and a research agenda for further
+refinement. <em>Biological Conservation</em>, <em>93</em>, 303–325.
 </div>
 <div id="ref-r19" class="csl-entry">
 Fuller, R.A., McDonald-Madden, E., Wilson, K.A., Carwardine, J.,

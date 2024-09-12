@@ -67,7 +67,7 @@ m2 <- marxan_connectivity_data_to_matrix(NULL, bldf2, symmetric = FALSE)
 print(m2)
 
 # visualize matrix
-image(m2)
+Matrix::image(m2)
 
 # create marxan connectivity with three planning units and two zones,
 # and symmetric connectivity values
