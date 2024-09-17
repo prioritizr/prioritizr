@@ -21,7 +21,7 @@ symmetric or asymmetric connectivity relationships between planning units."><met
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.4.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.4.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -105,6 +105,9 @@ Defaults to <code>TRUE</code>.</p></dd>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span><span class="co"># set seed for reproducibility</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">500</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create marxan connectivity data with four planning units and one zone,</span></span></span>
 <span class="r-in"><span><span class="co"># and symmetric connectivity values</span></span></span>
 <span class="r-in"><span><span class="va">bldf1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span>id1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span>, id2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></span>
@@ -144,7 +147,7 @@ Defaults to <code>TRUE</code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,] 1.0 1.0 1.0 0.5</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># visualize matrix</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">Matrix</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="marxan_connectivity_data_to_matrix-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create marxan connectivity data with four planning units and one zone,</span></span></span>
@@ -155,23 +158,23 @@ Defaults to <code>TRUE</code>.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># print data</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">bldf2</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id1 id2   boundary</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    1   1 0.50000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2    2   1 0.48469318</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3    3   1 0.85434472</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4    4   1 0.58924564</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5    1   2 0.57586891</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6    2   2 0.50000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7    3   2 0.23870311</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8    4   2 0.23721283</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9    1   3 0.23125087</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10   2   3 0.98898790</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11   3   3 0.50000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12   4   3 0.06918062</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13   1   4 0.19277122</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14   2   4 0.65083831</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15   3   4 0.07945488</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16   4   4 0.50000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    id1 id2  boundary</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    1   1 0.5000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    2   1 0.7250118</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    3   1 0.9753142</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4    4   1 0.4676038</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5    1   2 0.8122781</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6    2   2 0.5000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7    3   2 0.5121819</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8    4   2 0.9254660</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9    1   3 0.8288314</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10   2   3 0.7115770</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11   3   3 0.5000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12   4   3 0.8928427</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13   1   4 0.7647062</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14   2   4 0.1643470</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15   3   4 0.7320744</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16   4   4 0.5000000</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># convert to matrix</span></span></span>
 <span class="r-in"><span><span class="va">m2</span> <span class="op">&lt;-</span> <span class="fu">marxan_connectivity_data_to_matrix</span><span class="op">(</span><span class="cn">NULL</span>, <span class="va">bldf2</span>, symmetric <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
@@ -179,99 +182,98 @@ Defaults to <code>TRUE</code>.</p></dd>
 <span class="r-in"><span><span class="co"># print matrix</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">m2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 x 4 sparse Matrix of class "dgCMatrix"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.5000000 0.5758689 0.23125087 0.19277122</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.4846932 0.5000000 0.98898790 0.65083831</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.8543447 0.2387031 0.50000000 0.07945488</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] 0.5892456 0.2372128 0.06918062 0.50000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.5000000 0.8122781 0.8288314 0.7647062</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.7250118 0.5000000 0.7115770 0.1643470</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.9753142 0.5121819 0.5000000 0.7320744</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] 0.4676038 0.9254660 0.8928427 0.5000000</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># visualize matrix</span></span></span>
 <span class="r-in"><span><span class="fu">Matrix</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image</a></span><span class="op">(</span><span class="va">m2</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="marxan_connectivity_data_to_matrix-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create marxan connectivity with three planning units and two zones,</span></span></span>
-<span class="r-in"><span><span class="co"># and symmetric connectivity values</span></span></span>
+<span class="r-in"><span><span class="co"># and asymmetric connectivity values</span></span></span>
 <span class="r-in"><span><span class="va">bldf3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  id1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>, id2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  zone1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"z1"</span>, <span class="st">"z2"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  zone2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"z1"</span>, <span class="st">"z2"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">bldf3</span><span class="op">$</span><span class="va">boundary</span> <span class="op">&lt;-</span> <span class="fl">1</span></span></span>
-<span class="r-in"><span><span class="va">bldf3</span><span class="op">$</span><span class="va">boundary</span><span class="op">[</span><span class="va">bldf2</span><span class="op">$</span><span class="va">id1</span> <span class="op">==</span> <span class="va">bldf2</span><span class="op">$</span><span class="va">id2</span> <span class="op">&amp;</span> <span class="va">bldf2</span><span class="op">$</span><span class="va">zone1</span> <span class="op">==</span> <span class="va">bldf2</span><span class="op">$</span><span class="va">zone2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">0.5</span></span></span>
-<span class="r-in"><span><span class="va">bldf3</span><span class="op">$</span><span class="va">boundary</span><span class="op">[</span><span class="va">bldf2</span><span class="op">$</span><span class="va">id1</span> <span class="op">==</span> <span class="va">bldf2</span><span class="op">$</span><span class="va">id2</span> <span class="op">&amp;</span> <span class="va">bldf2</span><span class="op">$</span><span class="va">zone1</span> <span class="op">!=</span> <span class="va">bldf2</span><span class="op">$</span><span class="va">zone2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">0</span></span></span>
+<span class="r-in"><span><span class="va">bldf3</span><span class="op">$</span><span class="va">boundary</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/dimensions.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">bldf3</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">bldf3</span><span class="op">$</span><span class="va">boundary</span><span class="op">[</span><span class="va">bldf3</span><span class="op">$</span><span class="va">id1</span> <span class="op">==</span> <span class="va">bldf3</span><span class="op">$</span><span class="va">id2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">0</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># print data</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">bldf3</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id1 id2 zone1 zone2 boundary</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    1   1    z1    z1        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2    2   1    z1    z1        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3    3   1    z1    z1        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4    1   2    z1    z1        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5    2   2    z1    z1        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6    3   2    z1    z1        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7    1   3    z1    z1        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8    2   3    z1    z1        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9    3   3    z1    z1        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10   1   1    z2    z1        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11   2   1    z2    z1        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12   3   1    z2    z1        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13   1   2    z2    z1        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14   2   2    z2    z1        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15   3   2    z2    z1        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16   1   3    z2    z1        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17   2   3    z2    z1        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18   3   3    z2    z1        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19   1   1    z1    z2        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20   2   1    z1    z2        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21   3   1    z1    z2        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22   1   2    z1    z2        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23   2   2    z1    z2        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24   3   2    z1    z2        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25   1   3    z1    z2        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26   2   3    z1    z2        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27   3   3    z1    z2        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28   1   1    z2    z2        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29   2   1    z2    z2        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30   3   1    z2    z2        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31   1   2    z2    z2        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32   2   2    z2    z2        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33   3   2    z2    z2        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34   1   3    z2    z2        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35   2   3    z2    z2        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36   3   3    z2    z2        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    id1 id2 zone1 zone2   boundary</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    1   1    z1    z1 0.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    2   1    z1    z1 0.61781378</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    3   1    z1    z1 0.60828433</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4    1   2    z1    z1 0.25341769</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5    2   2    z1    z1 0.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6    3   2    z1    z1 0.80931806</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7    1   3    z1    z1 0.03743085</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8    2   3    z1    z1 0.53987623</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9    3   3    z1    z1 0.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10   1   1    z2    z1 0.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11   2   1    z2    z1 0.69446482</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12   3   1    z2    z1 0.89460806</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13   1   2    z2    z1 0.03980585</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14   2   2    z2    z1 0.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15   3   2    z2    z1 0.06746978</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16   1   3    z2    z1 0.03857482</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17   2   3    z2    z1 0.61759676</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18   3   3    z2    z1 0.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19   1   1    z1    z2 0.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20   2   1    z1    z2 0.84278088</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21   3   1    z1    z2 0.82539628</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22   1   2    z1    z2 0.04088770</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23   2   2    z1    z2 0.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24   3   2    z1    z2 0.04601484</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25   1   3    z1    z2 0.19467348</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26   2   3    z1    z2 0.42153320</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27   3   3    z1    z2 0.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28   1   1    z2    z2 0.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29   2   1    z2    z2 0.85434472</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30   3   1    z2    z2 0.58924564</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31   1   2    z2    z2 0.57586891</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32   2   2    z2    z2 0.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33   3   2    z2    z2 0.23870311</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34   1   3    z2    z2 0.23721283</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35   2   3    z2    z2 0.23125087</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36   3   3    z2    z2 0.00000000</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># convert to array</span></span></span>
-<span class="r-in"><span><span class="va">m3</span> <span class="op">&lt;-</span> <span class="fu">marxan_connectivity_data_to_matrix</span><span class="op">(</span><span class="cn">NULL</span>, <span class="va">bldf3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">m3</span> <span class="op">&lt;-</span> <span class="fu">marxan_connectivity_data_to_matrix</span><span class="op">(</span><span class="cn">NULL</span>, <span class="va">bldf3</span>, symmetric <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># print array</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">m3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> , , 1, 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    1    1    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    1    1    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]    1    1    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           [,1]      [,2]       [,3]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.0000000 0.2534177 0.03743085</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.6178138 0.0000000 0.53987623</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.6082843 0.8093181 0.00000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> , , 2, 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    1    1    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    1    1    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]    1    1    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           [,1]       [,2]       [,3]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.0000000 0.03980585 0.03857482</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.6944648 0.00000000 0.61759676</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.8946081 0.06746978 0.00000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> , , 1, 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    1    1    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    1    1    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]    1    1    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           [,1]       [,2]      [,3]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.0000000 0.04088770 0.1946735</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.8427809 0.00000000 0.4215332</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.8253963 0.04601484 0.0000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> , , 2, 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    1    1    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    1    1    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]    1    1    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           [,1]      [,2]      [,3]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.0000000 0.5758689 0.2372128</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.8543447 0.0000000 0.2312509</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.5892456 0.2387031 0.0000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>

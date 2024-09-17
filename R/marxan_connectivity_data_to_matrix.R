@@ -21,6 +21,9 @@ NULL
 #'
 #' @examples
 #' \dontrun{
+#' # set seed for reproducibility
+#' set.seed(500)
+#'
 #' # create marxan connectivity data with four planning units and one zone,
 #' # and symmetric connectivity values
 #' bldf1 <- expand.grid(id1 = seq_len(4), id2 = seq_len(4))
@@ -37,7 +40,7 @@ NULL
 #' print(m1)
 #'
 #' # visualize matrix
-#' image(m1)
+#' Matrix::image(m1)
 #'
 #' # create marxan connectivity data with four planning units and one zone,
 #' # and asymmetric connectivity values
@@ -58,21 +61,20 @@ NULL
 #' Matrix::image(m2)
 #'
 #' # create marxan connectivity with three planning units and two zones,
-#' # and symmetric connectivity values
+#' # and asymmetric connectivity values
 #' bldf3 <- expand.grid(
 #'   id1 = seq_len(3), id2 = seq_len(3),
 #'   zone1 = c("z1", "z2"),
 #'   zone2 = c("z1", "z2")
 #' )
-#' bldf3$boundary <- 1
-#' bldf3$boundary[bldf2$id1 == bldf2$id2 & bldf2$zone1 == bldf2$zone2] <- 0.5
-#' bldf3$boundary[bldf2$id1 == bldf2$id2 & bldf2$zone1 != bldf2$zone2] <- 0
+#' bldf3$boundary <- runif(nrow(bldf3))
+#' bldf3$boundary[bldf3$id1 == bldf3$id2] <- 0
 #'
 #' # print data
 #' print(bldf3)
 #'
 #' # convert to array
-#' m3 <- marxan_connectivity_data_to_matrix(NULL, bldf3)
+#' m3 <- marxan_connectivity_data_to_matrix(NULL, bldf3, symmetric = FALSE)
 #'
 #' # print array
 #' print(m3)

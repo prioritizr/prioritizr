@@ -161,9 +161,6 @@ NULL
 #'
 #' @examples
 #' \dontrun{
-#' # load package
-#' library(Matrix)
-#'
 #' # set seed for reproducibility
 #' set.seed(600)
 #'
@@ -188,7 +185,7 @@ NULL
 #' b_matrix <- rescale_matrix(b_matrix, max = 1)
 #'
 #' # visualize connectivity matrix
-#' image(b_matrix)
+#' Matrix::image(b_matrix)
 #'
 #' # create a symmetric connectivity matrix where the connectivity between
 #' # two planning units corresponds to their spatial proximity
@@ -206,7 +203,7 @@ NULL
 #' d_matrix[d_matrix < 0.8] <- 0
 #'
 #' # visualize connectivity matrix
-#' image(d_matrix)
+#' Matrix::image(d_matrix)
 #'
 #' # create a symmetric connectivity matrix where the connectivity
 #' # between adjacent two planning units corresponds to their combined
@@ -223,7 +220,7 @@ NULL
 #' c_matrix <- rescale_matrix(c_matrix, max = 1)
 #'
 #' # visualize connectivity matrix
-#' image(c_matrix)
+#' Matrix::image(c_matrix)
 #'
 #' # create penalties
 #' penalties <- c(10, 25)
@@ -279,7 +276,7 @@ NULL
 #' a_matrix <- adjacency_matrix(sim_zones_pu_raster)
 #'
 #' # visualize matrix
-#' image(a_matrix)
+#' Matrix::image(a_matrix)
 #'
 #' # create a zone matrix where connectivities are only present between
 #' # planning units that are allocated to the same zone

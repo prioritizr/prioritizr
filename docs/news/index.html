@@ -13,7 +13,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.4.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.4.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,11 +52,20 @@
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="8.0.4.4" id="prioritizr-8044">prioritizr 8.0.4.4<a class="anchor" aria-label="anchor" href="#prioritizr-8044"></a></h2>
+<div class="section level3">
+<h3 id="documentation-updates-8-0-4-4">Documentation updates<a class="anchor" aria-label="anchor" href="#documentation-updates-8-0-4-4"></a></h3>
+<ul><li>Update package citation.</li>
+<li>Update package manual entry.</li>
+<li>Update <code><a href="../reference/add_asym_connectivity_penalties.html">add_asym_connectivity_penalties()</a></code>, <code><a href="../reference/add_connectivity_penalties.html">add_connectivity_penalties()</a></code> <code><a href="../reference/marxan_connectivity_data_to_matrix.html">marxan_connectivity_data_to_matrix()</a></code> documentation so that examples are standalone and do not affect the session by loading packages.</li>
+<li>Update <code><a href="../reference/marxan_boundary_data_to_matrix.html">marxan_boundary_data_to_matrix()</a></code> and <code><a href="../reference/marxan_connectivity_data_to_matrix.html">marxan_connectivity_data_to_matrix()</a></code> documentation so that examples provides more information on how the functions work.</li>
+</ul></div>
+</div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="8.0.4.3" id="prioritizr-8043">prioritizr 8.0.4.3<a class="anchor" aria-label="anchor" href="#prioritizr-8043"></a></h2>
 <div class="section level3">
 <h3 id="documentation-updates-8-0-4-3">Documentation updates<a class="anchor" aria-label="anchor" href="#documentation-updates-8-0-4-3"></a></h3>
-<ul><li>Fix <code><a href="../reference/marxan_boundary_data_to_matrix.html">marxan_boundary_data_to_matrix()</a></code> and <code><a href="../reference/marxan_connectivity_data_to_matrix.html">marxan_connectivity_data_to_matrix()</a></code> documentation so that examples are compatibile with latest version of the <em>Matrix</em> package.</li>
-<li>Fix citation in package overview vignette.</li>
+<ul><li>Update <code><a href="../reference/marxan_boundary_data_to_matrix.html">marxan_boundary_data_to_matrix()</a></code> and <code><a href="../reference/marxan_connectivity_data_to_matrix.html">marxan_connectivity_data_to_matrix()</a></code> documentation so that examples are standalone and do not affect the session by loading packages.</li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -85,7 +94,7 @@
 <h2 class="pkg-version" data-toc-text="8.0.4.1" id="prioritizr-8041">prioritizr 8.0.4.1<a class="anchor" aria-label="anchor" href="#prioritizr-8041"></a></h2>
 <div class="section level3">
 <h3 id="minor-improvements-and-bug-fixes-8-0-4-1">Minor improvements and bug fixes<a class="anchor" aria-label="anchor" href="#minor-improvements-and-bug-fixes-8-0-4-1"></a></h3>
-<ul><li>Fix issue with <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize()</a></code> not displaying correct text for linear constraints (<a href="https://github.com/prioritizr/prioritizr/issues/330" class="external-link">#330</a>).</li>
+<ul><li>Fix issue with <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> and <code>summarize()</code> not displaying correct text for linear constraints (<a href="https://github.com/prioritizr/prioritizr/issues/330" class="external-link">#330</a>).</li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -316,6 +325,7 @@
 <li>The <code><a href="../reference/eval_ferrier_importance.html">eval_ferrier_importance()</a></code> function can now be used with any objective function that uses targets and a single zone.</li>
 <li>Fix CRAN note regarding C++ standards (<a href="https://github.com/prioritizr/prioritizr/issues/263" class="external-link">#263</a>).</li>
 <li>Remove <em>doParallel</em> and <em>plyr</em> packages as dependencies by simplifying the <code><a href="../reference/add_shuffle_portfolio.html">add_shuffle_portfolio()</a></code> and <code><a href="../reference/eval_replacement_importance.html">eval_replacement_importance()</a></code> functions.</li>
+<li>Fix <code><a href="../reference/add_linear_penalties.html">add_linear_penalties()</a></code> function so that the penalty parameter is applied correctly (<a href="https://github.com/prioritizr/prioritizr/issues/342" class="external-link">#342</a>). In previous versions, this bug meant that solving a problem with <code>penalty = 1</code> would produce solution based on <code>penalty = -1</code> (and vice versa). Additionally, this bug also meant that compiling/solving a problem multiple times would cause the formulation to alternate between using <code>penalty = 1</code> and <code>penalty = -1</code>. Thanks to Carina Firkowski (<a href="https://github.com/Carina-Firkowski" class="external-link">@Carina-Firkowski</a>) for bug report.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="documentation-updates-8-0-2">Documentation updates<a class="anchor" aria-label="anchor" href="#documentation-updates-8-0-2"></a></h3>

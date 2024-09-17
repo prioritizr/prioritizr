@@ -1,6 +1,6 @@
 Package: prioritizr
 Type: Package
-Version: 8.0.4.3
+Version: 8.0.4.4
 Title: Systematic Conservation Prioritization in R
 Description:
     Systematic conservation prioritization using mixed integer linear
@@ -20,7 +20,7 @@ Description:
     the 'cplexAPI' R package (available at <https://github.com/cran/cplexAPI>).
     Additionally, the 'rcbc' R package (available at
     <https://github.com/dirkschumacher/rcbc>) can be used to generate solutions
-    using the CBC optimization software (<https://github.com/coin-or/Cbc>).
+    using the CBC optimization software (<https://github.com/coin-or/Cbc>). For further details, see Hanson et al. (2024) <doi:10.1111/cobi.14376>.
 Authors@R:
     c(person(c('Jeffrey', 'O'), 'Hanson',
         email='jeffrey.hanson@uqconnect.edu.au', role = c('aut'),
