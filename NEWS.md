@@ -1,11 +1,25 @@
+# prioritizr 8.0.4.4
+
+## Documentation updates
+
+- Update package citation.
+- Update documentation for package manual entry.
+- Update `add_asym_connectivity_penalties()`, `add_connectivity_penalties()`
+  `marxan_connectivity_data_to_matrix()` documentation so that examples
+  are standalone and do not affect the session by loading packages.
+- Update `marxan_boundary_data_to_matrix()` and
+  `marxan_connectivity_data_to_matrix()` documentation so that examples
+  provides more information on how the functions work.
+- Fix equation rendering in online documentation (#344). Thanks to Jason
+  Everett (\@jaseeverett) and Anthony Richardson (\@ric325) for bug report.
+
 # prioritizr 8.0.4.3
 
 ## Documentation updates
 
-- Fix `marxan_boundary_data_to_matrix()` and
-  `marxan_connectivity_data_to_matrix()` documentation so that examples are
-  compatibile with latest version of the _Matrix_ package.
-- Fix citation in package overview vignette.
+- Update `marxan_boundary_data_to_matrix()` and
+  `marxan_connectivity_data_to_matrix()` documentation so that examples
+  are standalone and do not affect the session by loading packages.
 
 # prioritizr 8.0.4.2
 
@@ -46,6 +60,8 @@
   version of the problem formulation is only required when using
   `add_feature_contiguity_constraints()`.
 - Additional tests to improve test coverage.
+- Small improvements to code style, maintainability, and logic thanks to code
+  review by Sandra Neubert (\@sandra-neubert).
 
 ## Documentation updates
 
@@ -422,6 +438,13 @@
 - Fix CRAN note regarding C++ standards (#263).
 - Remove _doParallel_ and _plyr_ packages as dependencies by simplifying
   the `add_shuffle_portfolio()` and `eval_replacement_importance()` functions.
+- Fix `add_linear_penalties()` function so that the penalty parameter is applied
+  correctly (#342). In previous versions, this bug meant that solving a problem
+  with `penalty = 1` would produce solution based on `penalty = -1` (and vice
+  versa). Additionally, this bug also meant that compiling/solving a problem
+  multiple times would cause the formulation to alternate between using
+  `penalty = 1` and `penalty = -1`. Thanks to Carina Firkowski
+  (\@Carina-Firkowski) for bug report.
 
 ## Documentation updates
 

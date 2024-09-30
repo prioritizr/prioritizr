@@ -12,9 +12,8 @@
 [![R-CMD-check-Windows](https://img.shields.io/github/actions/workflow/status/prioritizr/prioritizr/R-CMD-check-windows.yaml?branch=main&label=Windows)](https://github.com/prioritizr/prioritizr/actions)
 [![R-CMD-check-macOS](https://img.shields.io/github/actions/workflow/status/prioritizr/prioritizr/R-CMD-check-macos.yaml?branch=main&label=macOS)](https://github.com/prioritizr/prioritizr/actions)
 [![Documentation](https://img.shields.io/github/actions/workflow/status/prioritizr/prioritizr/documentation.yaml?branch=main&label=Documentation)](https://github.com/prioritizr/prioritizr/actions)
-[![Coverage
-Status](https://img.shields.io/codecov/c/github/prioritizr/prioritizr?label=Coverage)](https://app.codecov.io/gh/prioritizr/prioritizr/branch/main)
-[![CRAN-Status-Badge](http://www.r-pkg.org/badges/version/prioritizr)](https://CRAN.R-project.org/package=prioritizr)
+[![Coverage-Status](https://img.shields.io/codecov/c/github/prioritizr/prioritizr?label=Coverage)](https://app.codecov.io/gh/prioritizr/prioritizr/branch/main)
+[![CRAN-Status-Badge](https://www.r-pkg.org/badges/version/prioritizr)](https://CRAN.R-project.org/package=prioritizr)
 <!-- badges: end -->
 
 The *prioritizr R* package uses mixed integer linear programming (MILP)
@@ -91,19 +90,13 @@ macOS systems).
 ## Citation
 
 Please cite the *prioritizr R* package when using it in publications. To
-cite the latest official version, please use:
+cite the package, please use:
 
-> Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Edwards BPM, Watts
-> ME, Arcese P, Bennett J, Possingham HP (2024). prioritizr: Systematic
-> Conservation Prioritization in R. R package version 8.0.4. Available
-> at <https://CRAN.R-project.org/package=prioritizr>.
-
-Alternatively, to cite the latest development version, please use:
-
-> Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Edwards BPM, Watts
-> ME, Arcese P, Bennett J, Possingham HP (2024). prioritizr: Systematic
-> Conservation Prioritization in R. R package version 8.0.4.3. Available
-> at <https://github.com/prioritizr/prioritizr>.
+> Hanson JO, Schuster R, Strimas‐Mackey M, Morrell N, Edwards BPM,
+> Arcese P, Bennett JR, and Possingham HP (2024) Systematic conservation
+> prioritization with the prioritizr R package. *Conservation Biology*,
+> In press:
+> [DOI:10.1111/cobi.14376](https://doi.org/10.1111/cobi.14376).
 
 Additionally, we keep a [record of
 publications](https://prioritizr.net/articles/publication_record.html)
@@ -282,7 +275,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##     10.424
+    ##      3.529
 
 ``` r
 # extract state message from the solver

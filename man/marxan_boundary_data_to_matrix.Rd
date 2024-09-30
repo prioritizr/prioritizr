@@ -33,16 +33,45 @@ updates to streamline the package.
 }
 
 \examples{
-# create marxan boundary with four planning units and one zone
-bldf1 <- expand.grid(id1 = seq_len(4), id2 = seq_len(4))
-bldf1$boundary <- 1
-bldf1$boundary[bldf1$id1 == bldf1$id2] <- 0.5
+# create example planning unit layer
+pu_data <-
+  matrix(1:3, nrow = 1) \%>\%
+  terra::rast() \%>\%
+  setNames("id") \%>\%
+  terra::as.polygons() \%>\%
+  sf::st_as_sf()
 
-# convert to matrix
-m1 <- marxan_boundary_data_to_matrix(NULL, bldf1)
+# plot planning units
+plot(pu_data)
 
-# visualize matrix
-\dontrun{
-Matrix::image(m1)
-}
+# manually create Marxan boundary data for these planning units following
+# the Marxan boundary data format specification
+bldf <- data.frame(
+  id1 = c(1, 2, 3, 1, 2),
+  id2 =c(1, 2, 3, 2, 3),
+  boundary = c(3, 2, 3, 1, 1)
+)
+
+# print data
+print(bldf)
+
+# convert to boundary matrix format for use in prioritizr
+m1 <- marxan_boundary_data_to_matrix(NULL, bldf)
+
+# print converted matrix
+## we can see that the values in bldf and m1 are different,
+## this is because Marxan and prioritizr use different formats
+## for storing boundary information
+print(m1)
+
+# automatically create boundary data for use in prioritizr,
+# by using the boundary_matrix() function
+m2 <- boundary_matrix(pu_data)
+
+# print matrix
+## we can see that the values in m1 and m2 are exactly the same,
+## this is because marxan_boundary_data_to_matrix() automatically
+## converts Marxan data to the same format as boundary_matrix()
+print(m2)
+
 }

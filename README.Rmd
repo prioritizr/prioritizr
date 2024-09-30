@@ -16,8 +16,8 @@ output:
 [![R-CMD-check-Windows](https://img.shields.io/github/actions/workflow/status/prioritizr/prioritizr/R-CMD-check-windows.yaml?branch=main&label=Windows)](https://github.com/prioritizr/prioritizr/actions)
 [![R-CMD-check-macOS](https://img.shields.io/github/actions/workflow/status/prioritizr/prioritizr/R-CMD-check-macos.yaml?branch=main&label=macOS)](https://github.com/prioritizr/prioritizr/actions)
 [![Documentation](https://img.shields.io/github/actions/workflow/status/prioritizr/prioritizr/documentation.yaml?branch=main&label=Documentation)](https://github.com/prioritizr/prioritizr/actions)
-[![Coverage Status](https://img.shields.io/codecov/c/github/prioritizr/prioritizr?label=Coverage)](https://app.codecov.io/gh/prioritizr/prioritizr/branch/main)
-[![CRAN-Status-Badge](http://www.r-pkg.org/badges/version/prioritizr)](https://CRAN.R-project.org/package=prioritizr)
+[![Coverage-Status](https://img.shields.io/codecov/c/github/prioritizr/prioritizr?label=Coverage)](https://app.codecov.io/gh/prioritizr/prioritizr/branch/main)
+[![CRAN-Status-Badge](https://www.r-pkg.org/badges/version/prioritizr)](https://CRAN.R-project.org/package=prioritizr)
 <!-- badges: end -->
 
 ```{r, include = FALSE}
@@ -89,72 +89,9 @@ The latest development version can be installed to gain access to new functional
 
 ## Citation
 
-Please cite the _prioritizr R_ package when using it in publications. To cite the latest official version, please use:
+Please cite the _prioritizr R_ package when using it in publications. To cite the package, please use:
 
-```{r, include = FALSE}
-# define helpers
-is_rel_version <- function(x) {
-  length(strsplit(as.character(x), ".", fixed = TRUE)[[1]]) == 3
-}
-
-package_version_year <- function(x) {
-  if (x %in% rownames(available.packages())) {
-    return(live_package_version_year(x))
-  } else {
-    return(archive_package_version_year(x))
-  }
-}
-
-live_package_version_year <- function(x) {
-  # fetch data
-  d <- paste0("http://cran.r-project.org/web/packages/", x, "/DESCRIPTION")
-  d <- read.dcf(url(d))
-  c(
-    as.character(d[, "Version"]),
-    as.character(format(as.POSIXct(d[, "Date/Publication"]), "%Y"))
-  )
-}
-
-archive_package_version_year <- function(x) {
-  # fetch data (copied from remotes R package)
-  tf <- tempfile(fileext = ".gz")
-  on.exit(unlink(tf), add = TRUE)
-  download.file(tf, url = sprintf("%s/src/contrib/Meta/archive.rds", repo))
-  con <- gzfile(tf, "rb")
-  on.exit(close(con), add = TRUE)
-  d <- readRDS(con)[[x]]
-  # extract version
-  rel_version <- basename(rownames(d))
-  rel_version <- sapply(strsplit(rel_version, "_", fixed = TRUE), `[[`, 2)
-  rel_version <- sapply(strsplit(rel_version, ".tar", fixed = TRUE), `[[`, 1)
-  rel_version <- max(rel_version)
-  # extract year
-  rel_year <- as.character(max(format(d[, "mtime"], "%Y")))
-  # return year version
-  c(rel_version, rel_year)
-}
-
-# get version numbers and years
-dev_version_year <- c(
-  as.character(packageDescription("prioritizr")$Version),
-  format(Sys.time(), "%Y")
-)
-if (is_rel_version(dev_version_year[[1]])) {
-  rel_version_year <- dev_version_year
-} else {
-  rel_version_year <- package_version_year("prioritizr")
-}
-```
-
-```{r, echo = FALSE, results = "asis", comment = ""}
-cat(paste0("> Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Edwards BPM, Watts ME, Arcese P, Bennett J, Possingham HP (",rel_version_year[2],"). prioritizr: Systematic Conservation Prioritization in R. R package version ", rel_version_year[1],". Available at https://CRAN.R-project.org/package=prioritizr.\n"))
-```
-
-Alternatively, to cite the latest development version, please use:
-
-```{r, echo = FALSE, results = "asis", comment = ""}
-cat(paste0("> Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Edwards BPM, Watts ME, Arcese P, Bennett J, Possingham HP (", dev_version_year[2],"). prioritizr: Systematic Conservation Prioritization in R. R package version ", dev_version_year[1], ". Available at https://github.com/prioritizr/prioritizr.\n"))
-```
+> Hanson JO, Schuster R, Strimas‐Mackey M, Morrell N, Edwards BPM, Arcese P, Bennett JR, and Possingham HP (2024) Systematic conservation prioritization with the prioritizr R package. _Conservation Biology_, In press: [DOI:10.1111/cobi.14376](https://doi.org/10.1111/cobi.14376).
 
 Additionally, we keep a [record of publications](https://prioritizr.net/articles/publication_record.html) that use the _prioritizr R_ package. If you use this package in any reports or publications, please [file an issue on GitHub](https://github.com/prioritizr/prioritizr/issues/new) so we can add it to the record.
 
