@@ -10,6 +10,8 @@
 - Update `marxan_boundary_data_to_matrix()` and
   `marxan_connectivity_data_to_matrix()` documentation so that examples
   provides more information on how the functions work.
+- Fix equation rendering in online documentation (#344) Thanks to Jason
+  Everrett (\@jaseeverett) and Anthony Richardson (\@ric325) for bug report.
 
 # prioritizr 8.0.4.3
 
@@ -58,6 +60,8 @@
   version of the problem formulation is only required when using
   `add_feature_contiguity_constraints()`.
 - Additional tests to improve test coverage.
+- Small improvements to code style, maintainability, and logic thanks to code
+  review by Sandra Neubert (\@sandra-neubert).
 
 ## Documentation updates
 
