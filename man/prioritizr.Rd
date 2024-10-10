@@ -75,7 +75,7 @@ cite the package, please use:
 Hanson JO, Schuster R, Strimas‐Mackey M, Morrell N, Edwards BPM, Arcese P,
 Bennett JR, and Possingham HP (2024) Systematic conservation prioritization
 with the prioritizr R package. \emph{Conservation Biology},
-In press: \href{https://doi.org/10.1111/cobi.14376}{DOI:10.1111/cobi.14376}.
+In press: \doi{10.1111/cobi.14376}.
 }
 
 \references{
@@ -95,7 +95,7 @@ conservation. \emph{European Journal of Operational Research}, 231:
 Hanson JO, Schuster R, Strimas‐Mackey M, Morrell N, Edwards BPM, Arcese P,
 Bennett JR, and Possingham HP (2024) Systematic conservation prioritization
 with the prioritizr R package. \emph{Conservation Biology},
-In press: DOI:10.1111/cobi.14376.
+In press: \doi{10.1111/cobi.14376}.
 
 Rodrigues AS, Cerdeira OJ, and Gaston KJ (2000) Flexibility,
 efficiency, and accountability: adapting reserve selection algorithms to
@@ -110,8 +110,7 @@ Useful links:
 \itemize{
 \item Package website (\url{https://prioritizr.net})
 \item Source code repository (\url{https://github.com/prioritizr/prioritizr})
-\item Report bugs at (\url{https://github.com/prioritizr/prioritizr/issues})
-\item Publication (\url{https://doi.org/10.1111/cobi.14376})
+\item Report bugs (\url{https://github.com/prioritizr/prioritizr/issues})
 }
 }
 \author{

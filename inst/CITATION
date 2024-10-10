@@ -16,7 +16,7 @@ bibentry(
   year = "2024",
   journal = "Conservation Biology",
   volume = "In press",
-  doi = "10.1111/1365-2664.14309"
+  doi = "10.1111/cobi.14376"
 )
 
 citFooter("For package version, use \"packageVersion('surveyvoi')\"\n\n")
