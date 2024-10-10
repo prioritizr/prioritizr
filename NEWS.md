@@ -1,3 +1,12 @@
+# prioritizr 8.0.5
+
+## Notice
+
+- CRAN release.
+- Fix DOI for citation.
+- Fix citations in package overview vignette and package manual entry to
+  pass package checks.
+
 # prioritizr 8.0.4.4
 
 ## Documentation updates
