@@ -82,20 +82,20 @@ unit (also known as an <em>rij</em> matrix).</p>
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">rij_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># S4 method for Raster,Raster</span></span>
-<span><span class="fu">rij_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">...</span><span class="op">)</span></span>
-<span></span>
 <span><span class="co"># S4 method for SpatRaster,SpatRaster</span></span>
 <span><span class="fu">rij_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">memory</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># S4 method for Spatial,Raster</span></span>
-<span><span class="fu">rij_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">fun</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S4 method for sf,SpatRaster</span></span>
+<span><span class="fu">rij_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">fun</span>, <span class="va">memory</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for Raster,Raster</span></span>
+<span><span class="fu">rij_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">memory</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for sf,Raster</span></span>
-<span><span class="fu">rij_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">fun</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">rij_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">fun</span>, <span class="va">memory</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># S4 method for sf,SpatRaster</span></span>
-<span><span class="fu">rij_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">fun</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="co"># S4 method for Spatial,Raster</span></span>
+<span><span class="fu">rij_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">fun</span>, <span class="va">memory</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -115,14 +115,14 @@ unit (also known as an <em>rij</em> matrix).</p>
 <dt>memory</dt>
 <dd><p><code>logical</code> should calculations be performed using a method
 that prioritizes reduced memory consumption over speed?
-If <code>TRUE</code>, then calculations are performed using a method that
-reduces memory consumption, but can take a long time to complete.
-If <code>FALSE</code>, then calculations are performed using a method that
-reduces run time, but will fail when insufficient memory is available.
+This is useful when processing particularly large raster datasets.
+If <code>TRUE</code>, then calculations are performed by processing each raster layer
+in <code>y</code> in a sequential manner.
+If <code>FALSE</code>, then calculations are performed by processing all raster layers
+in <code>y</code> together.
 Defaults to <code>NA</code>, such that calculations are automatically performed
-using the best method given available memory and dataset sizes.
-Note that this parameter can only be used when the arguments to <code>x</code>
-and <code>y</code> are both <code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> objects.</p></dd>
+using the best method given data requirements and the amount of available
+memory.</p></dd>
 
 
 <dt>fun</dt>

@@ -3,6 +3,21 @@
 ## Notice
 
 - CRAN release.
+
+# prioritizr 8.0.4.5
+
+## Minor improvements and bug fixes
+
+- Update `rij_matrix()` to improve memory efficiency when processing
+  large-scale vector (e.g., `sf::st_sf()`) planning unit data. Thanks to
+  Sahebeh Karimi for bug report.
+- Update `rij_matrix()` so that the `memory = TRUE` parameter can be used to
+  reduce memory requirements by processing each feature layer separately. This
+  parameter can now be used when processing both vector or raster planning
+  unit data (previously it could only be used with raster planning unit data).
+
+## Documentation updates
+
 - Fix DOI for citation.
 - Fix citations in package overview vignette and package manual entry to
   pass package checks.

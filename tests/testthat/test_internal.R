@@ -21,3 +21,16 @@ test_that("matrix_to_triplet_dataframe", {
     data.frame(i = 1:3, j = c(1, 1, 2), x = 4:6)
   )
 })
+
+test_that("terra_can_process_in_memory", {
+  skip_on_cran()
+  # import data
+  sim_features <- get_sim_features()
+  # tests
+  expect_true(
+    terra_can_process_in_memory(sim_features, n = 1)
+  )
+  expect_false(
+    terra_can_process_in_memory(sim_features, n = 1e100)
+  )
+})
