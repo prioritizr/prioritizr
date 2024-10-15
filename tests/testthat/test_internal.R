@@ -31,6 +31,6 @@ test_that("terra_can_process_in_memory", {
     terra_can_process_in_memory(sim_features, n = 1)
   )
   expect_false(
-    terra_can_process_in_memory(sim_features, n = 1e+300)
+    terra_can_process_in_memory(sim_features, n = Inf)
   )
 })
