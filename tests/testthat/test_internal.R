@@ -23,7 +23,6 @@ test_that("matrix_to_triplet_dataframe", {
 })
 
 test_that("terra_can_process_in_memory", {
-  skip_on_cran()
   # import data
   sim_features <- get_sim_features()
   # tests
