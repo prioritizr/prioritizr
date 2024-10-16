@@ -29,6 +29,10 @@ test_that("terra_can_process_in_memory", {
   expect_true(
     terra_can_process_in_memory(sim_features, n = 1)
   )
+  expect_equal(
+    1:6,
+    terra::mem_info(x = sim_features, n = Inf)
+  )
   expect_false(
     terra_can_process_in_memory(sim_features, n = Inf)
   )
