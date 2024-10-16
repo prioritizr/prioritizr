@@ -111,12 +111,12 @@ rescale <- function(x, from = range(x), to = c(0, 1)) {
 #'
 #' @param x [terra::rast()] object.
 #'
-#' @param n `integer` number of copies.
+#' @param n `integer` number of copies. Defaults to 1.
 #'
 #' @return A `logical` indicating if the object can be processed in memory.
 #'
 #' @noRd
-terra_can_process_in_memory <- function(x, n) {
+terra_can_process_in_memory <- function(x, n = 1) {
   assert(
     is_inherits(x, "SpatRaster"),
     assertthat::is.count(n),
