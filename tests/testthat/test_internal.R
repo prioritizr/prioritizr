@@ -27,6 +27,11 @@ test_that("terra_can_process_in_memory", {
   sim_features <- get_sim_features()
   # tests
   expect_true(
+    is.logical(terra_can_process_in_memory(sim_features))
+  )
+  # additional tests
+  skip_on_cran()
+  expect_true(
     terra_can_process_in_memory(sim_features)
   )
   expect_true(
