@@ -2,17 +2,17 @@ name: Reverse dependency check
 
 on:
   workflow_dispatch:
-    inputs:
-      which:
-        type: choice
-        description: Which dependents to check
-        options:
-          - strong
-          - most
-
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
 jobs:
   revdep_check:
     name: Reverse check ${{ inputs.which }} dependents
     uses: r-devel/recheck/.github/workflows/recheck.yml@v1
     with:
-      which: ${{ inputs.which }}
+      which: most
