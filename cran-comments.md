@@ -46,4 +46,4 @@ Richard Schuster
 
 ## Downstream dependencies
 
-There are no existing packages that depend on this package.
+The package has two reverse dependencies on CRAN (i.e., prior3D, priorCON). I have checked that this submission is compatible with the latest versions of these packages.

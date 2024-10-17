@@ -20,6 +20,7 @@ spell.log
 examples.log
 README.Rmd
 inst/WORDLIST
+inst/URLLIST
 ^_pkgdown\.yml$
 ^CONTRIBUTING\.md$
 ^CONTRIBUTING\.Rmd$
