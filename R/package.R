@@ -73,14 +73,13 @@ NULL
 #' Hanson JO, Schuster R, Strimas‐Mackey M, Morrell N, Edwards BPM, Arcese P,
 #' Bennett JR, and Possingham HP (2024) Systematic conservation prioritization
 #' with the prioritizr R package. *Conservation Biology*,
-#' In press: [DOI:10.1111/cobi.14376](https://doi.org/10.1111/cobi.14376).
+#' In press: \doi{10.1111/cobi.14376}.
 #'
 #' @seealso
 #' Useful links:
 #' * Package website (<https://prioritizr.net>)
 #' * Source code repository (<https://github.com/prioritizr/prioritizr>)
-#' * Report bugs at (<https://github.com/prioritizr/prioritizr/issues>)
-#' * Publication (<https://doi.org/10.1111/cobi.14376>)
+#' * Report bugs (<https://github.com/prioritizr/prioritizr/issues>)
 #'
 #' @author
 #'  Authors:
@@ -111,7 +110,7 @@ NULL
 #' Hanson JO, Schuster R, Strimas‐Mackey M, Morrell N, Edwards BPM, Arcese P,
 #' Bennett JR, and Possingham HP (2024) Systematic conservation prioritization
 #' with the prioritizr R package. *Conservation Biology*,
-#' In press: DOI:10.1111/cobi.14376.
+#' In press: \doi{10.1111/cobi.14376}.
 #'
 #' Rodrigues AS, Cerdeira OJ, and Gaston KJ (2000) Flexibility,
 #' efficiency, and accountability: adapting reserve selection algorithms to

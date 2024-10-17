@@ -104,3 +104,27 @@ rescale <- function(x, from = range(x), to = c(0, 1)) {
     return(mean(to))
   (x - from[1]) / diff(from) * diff(to) + to[1]
 }
+
+#' Can process in memory?
+#'
+#' Check if a [terra::rast()] can be processed in memory?
+#'
+#' @param x [terra::rast()] object.
+#'
+#' @param n `integer` number of copies. Defaults to 1.
+#'
+#' @return A `logical` indicating if the object can be processed in memory.
+#'
+#' @noRd
+terra_can_process_in_memory <- function(x, n = 1) {
+  assert(
+    is_inherits(x, "SpatRaster"),
+    assertthat::is.count(n),
+    assertthat::noNA(n)
+  )
+  msg <- utils::capture.output(
+    y <- terra::mem_info(x = x, n = n)
+  )
+  # from https://github.com/rspatial/terra/blob/a72eb63cf178c637f76859476487cd8345b529bc/R/messages.R#L59
+  isTRUE(round(y[[5]]) != 0)
+}
