@@ -2558,13 +2558,13 @@ progress when searching for a suitable solution.</p>
 ##   RHS range        [3e+00, 8e+00]
 ## Found heuristic solution: objective 20287.197006
 ## Found heuristic solution: objective 3087.9617767
-## Presolve time: 0.00s
+## Presolve time: 0.01s
 ## Presolved: 293 rows, 234 columns, 1026 nonzeros
 ## Variable types: 0 continuous, 234 integer (234 binary)
 ## Root relaxation presolved: 293 rows, 234 columns, 1026 nonzeros
 ## 
 ## 
-## Root relaxation: objective 2.265862e+03, 228 iterations, 0.00 seconds (0.00 work units)
+## Root relaxation: objective 2.265862e+03, 228 iterations, 0.01 seconds (0.00 work units)
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -2583,7 +2583,7 @@ progress when searching for a suitable solution.</p>
 ## Cutting planes:
 ##   Gomory: 3
 ## 
-## Explored 34 nodes (1117 simplex iterations) in 0.09 seconds (0.12 work units)
+## Explored 34 nodes (1117 simplex iterations) in 0.10 seconds (0.12 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 6: 2648.26 2814.48 2890.88 ... 20287.2
@@ -2613,7 +2613,7 @@ quality of the solution and the optimization process.</p>
 <div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" tabindex="-1"></a><span class="co"># extract time spent solving solution</span></span>
 <span id="cb113-2"><a href="#cb113-2" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">attr</span>(s42, <span class="st">&quot;runtime&quot;</span>))</span></code></pre></div>
 <pre><code>## solution_1 
-##      0.105</code></pre>
+##      0.135</code></pre>
 <div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" tabindex="-1"></a><span class="co"># extract state message from the solver that describes why this specific</span></span>
 <span id="cb115-2"><a href="#cb115-2" tabindex="-1"></a><span class="co"># solution was returned</span></span>
 <span id="cb115-3"><a href="#cb115-3" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">attr</span>(s42, <span class="st">&quot;status&quot;</span>))</span></code></pre></div>
@@ -2946,21 +2946,21 @@ function can be used to read <em>Marxan</em> input files and the
 ##   RHS range        [5e+03, 3e+05]
 ## Found heuristic solution: objective 1.255825e+08
 ## Presolve removed 4707 rows and 3103 columns
-## Presolve time: 0.04s
+## Presolve time: 0.05s
 ## Presolved: 5368 rows, 3677 columns, 12704 nonzeros
 ## Variable types: 0 continuous, 3677 integer (3677 binary)
 ## Found heuristic solution: objective 1.065946e+08
 ## Root relaxation presolved: 5368 rows, 3677 columns, 12704 nonzeros
 ## 
 ## 
-## Root relaxation: interrupted, 11 iterations, 0.00 seconds (0.01 work units)
+## Root relaxation: interrupted, 11 iterations, 0.01 seconds (0.01 work units)
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
 ##      0     0          -    0      1.0659e+08 9.5941e+07  10.0%     -    0s
 ## 
-## Explored 1 nodes (11 simplex iterations) in 0.05 seconds (0.09 work units)
+## Explored 1 nodes (11 simplex iterations) in 0.06 seconds (0.09 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 2: 1.06595e+08 1.25582e+08 

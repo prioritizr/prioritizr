@@ -13,7 +13,7 @@ name: Reverse dependency
 
 jobs:
   revdep_check:
-    name: check
+    name: Revdep check
     uses: r-devel/recheck/.github/workflows/recheck.yml@v1
     with:
       which: most
