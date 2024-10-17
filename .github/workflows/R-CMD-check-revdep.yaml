@@ -17,7 +17,6 @@ jobs:
       _R_CHECK_FORCE_SUGGESTS_: false
       _R_CHECK_CRAN_INCOMING_REMOTE_: false
       _R_CHECK_LICENSE_: true
-    name: Reverse check dependents
     uses: r-devel/recheck/.github/workflows/recheck.yml@v1
     with:
       which: most
