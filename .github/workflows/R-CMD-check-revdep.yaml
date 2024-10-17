@@ -1,5 +1,3 @@
-name: Reverse dependency check
-
 on:
   workflow_dispatch:
   push:
@@ -10,6 +8,14 @@ on:
     branches:
       - main
       - master
+
+name: Reverse dependency check
+
+    env:
+      _R_CHECK_FORCE_SUGGESTS_: false
+      _R_CHECK_CRAN_INCOMING_REMOTE_: false
+      _R_CHECK_LICENSE_: true
+
 jobs:
   revdep_check:
     name: Reverse check ${{ inputs.which }} dependents
