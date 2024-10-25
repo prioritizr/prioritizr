@@ -242,7 +242,14 @@ cplex <- function(model, control) {
   # create environment
   env <- cplexAPI::openEnvCPLEX()
   if (inherits(env, "cplexError")) {
-    stop(cplexAPI::errmsg(env))
+    cli::cli_abort(
+      c(
+        "Failed to initialize CPLEX environment.",
+        "x" = paste(cplexAPI::errmsg(env), collapse = "\n"),
+        "i" = "See {.fn cplexAPI::openEnvCPLEX()} for more information."
+      ),
+      call = NULL
+    )
   }
   # set solving parameters
   ## verbose (parameter: CPX_PARAM_SCRIND)

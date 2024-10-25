@@ -27,6 +27,9 @@
   throw error messages with standardized grammar.
 - Update internal functions for processing `sf::st_sf()` object to improve
   processing speed.
+- Update `add_cplex_solver()` error message for failing to initialize CPLEX
+  environment.
+- Update error message for internal matrix conversion function.
 
 ## Documentation updates
 

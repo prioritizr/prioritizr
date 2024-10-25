@@ -54,7 +54,7 @@ as_Matrix <- function(object, class) {
       c2 <- "generalMatrix"
       c3 <- "CsparseMatrix"
     } else {
-      stop("argument to \"class\" not recognized")
+      cli::cli_abort("{.arg class} not recognized.", call = NULL)
     }
     out <- methods::as(methods::as(methods::as(object, c1), c2), c3)
   } else {
