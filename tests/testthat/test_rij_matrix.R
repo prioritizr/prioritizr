@@ -91,6 +91,35 @@ test_that("x = sf (polygons), y = SpatRaster (multiple layers)", {
   expect_equal(x1, x3)
 })
 
+test_that("x = sf (polygons), y = SpatRaster (indices)", {
+  # import data
+  sim_pu_polygons <- get_sim_pu_polygons()
+  sim_features <- get_sim_features()
+  # calculate matrix
+  idx <- c(1, 3, 4, 5)
+  x1 <- rij_matrix(
+    sim_pu_polygons, sim_features, fun = "mean", memory = FALSE, idx = idx
+  )
+  x2 <- rij_matrix(
+    sim_pu_polygons, sim_features, fun = "mean", memory = TRUE, idx = idx
+  )
+  x3 <- rij_matrix(
+    sim_pu_polygons, sim_features, fun = "mean", memory = NA, , idx = idx
+  )
+  # calculate correct result
+  y <- terra::extract(
+    sim_features, sim_pu_polygons[idx, , drop = FALSE],
+    fun = mean, ID = FALSE, na.rm = TRUE
+  )
+  y <- Matrix::t(as_Matrix(as.matrix(y), "dgCMatrix"))
+  # run tests
+  expect_true(inherits(x1, "dgCMatrix"))
+  expect_equal(rownames(x1), names(sim_features))
+  expect_equal(x1, y, tolerance = 1e-6)
+  expect_equal(x1, x2)
+  expect_equal(x1, x3)
+})
+
 test_that("x = sf (lines), y = SpatRaster (multiple layers)", {
   # import data
   sim_pu_lines <- get_sim_pu_lines()
