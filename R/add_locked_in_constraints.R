@@ -417,14 +417,14 @@ methods::setMethod("add_locked_in_constraints",
       is_same_crs(x$data$cost, locked_in),
       msg = paste(
         "{.arg locked_in} and planning units for {.arg x}",
-        "must have the same coordinate reference system"
+        "must have the same coordinate reference system."
       )
     )
     assert(
       is_spatial_extents_overlap(x$data$cost, locked_in),
       msg = paste(
         "{.arg locked_in} and planning units for {.arg x}",
-        "must have overlapping spatial extents"
+        "must have overlapping spatial extents."
       )
     )
     # add constraints
@@ -461,14 +461,14 @@ methods::setMethod("add_locked_in_constraints",
       is_same_crs(x$data$cost, locked_in),
       msg = paste(
         "{.arg locked_in} and planning units for {.arg x}",
-        "must have the same coordinate reference system"
+        "must have the same coordinate reference system."
       )
     )
     assert(
       is_spatial_extents_overlap(x$data$cost, locked_in),
       msg = paste(
         "{.arg locked_in} and planning units for {.arg x}",
-        "must have overlapping spatial extents"
+        "must have overlapping spatial extents."
       )
     )
     # create matrix with statuses

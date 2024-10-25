@@ -83,19 +83,19 @@ unit (also known as an <em>rij</em> matrix).</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">rij_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for SpatRaster,SpatRaster</span></span>
-<span><span class="fu">rij_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">memory</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">rij_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">memory</span>, <span class="va">idx</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for sf,SpatRaster</span></span>
-<span><span class="fu">rij_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">fun</span>, <span class="va">memory</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">rij_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">fun</span>, <span class="va">memory</span>, <span class="va">idx</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for Raster,Raster</span></span>
-<span><span class="fu">rij_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">memory</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">rij_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">memory</span>, <span class="va">idx</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for sf,Raster</span></span>
-<span><span class="fu">rij_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">fun</span>, <span class="va">memory</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">rij_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">fun</span>, <span class="va">memory</span>, <span class="va">idx</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for Spatial,Raster</span></span>
-<span><span class="fu">rij_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">fun</span>, <span class="va">memory</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">rij_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">fun</span>, <span class="va">memory</span>, <span class="va">idx</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -120,9 +120,16 @@ If <code>TRUE</code>, then calculations are performed by processing each raster 
 in <code>y</code> in a sequential manner.
 If <code>FALSE</code>, then calculations are performed by processing all raster layers
 in <code>y</code> together.
-Defaults to <code>NA</code>, such that calculations are automatically performed
-using the best method given data requirements and the amount of available
-memory.</p></dd>
+If <code>NA</code>, then the memory requirements will be estimated and, if required,
+processing will be performed using the method that reduces memory
+consumption.
+Defaults to <code>NA</code>.</p></dd>
+
+
+<dt>idx</dt>
+<dd><p><code>integer</code> vector containing planning unit
+indices. Defaults to <code>NULL</code> such that the indices are computed
+automatically based on <code>x</code>.</p></dd>
 
 
 <dt>fun</dt>

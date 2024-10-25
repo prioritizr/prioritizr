@@ -172,10 +172,11 @@ adjacency_matrix.sf <- function(x, ...) {
   )
   # return sparse intersection matrix
   int <- sf::st_intersects(x, sparse = TRUE)
-  names(int) <- as.character(seq_len(nrow(x)))
-  int <- rcpp_list_to_matrix_indices(int)
   int <- Matrix::sparseMatrix(
-    i = int$i, j = int$j, x = 1, dims = rep(nrow(x), 2)
+    i = unlist(int, recursive = TRUE, use.names = FALSE),
+    j = rep(seq_along(int), lengths(int)),
+    x = 1,
+    dims = rep(nrow(x), 2)
   )
   Matrix::diag(int) <- 0
   Matrix::drop0(Matrix::forceSymmetric(int))

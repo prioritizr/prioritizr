@@ -59,10 +59,13 @@ methods::setMethod(
       x <- x[[1]]
     }
     # create rij matrix
+    idx <- planning_unit_indices(x)
     rij <- suppressWarnings(
       lapply(
         as.list(features),
-        function(f) rij_matrix(x, `names<-`(f, feature_names(features)))
+        function(f) {
+          rij_matrix(x, `names<-`(f, feature_names(features)), idx = idx)
+        }
       )
     )
     names(rij) <- zone_names(features)
@@ -84,7 +87,8 @@ methods::setMethod(
         cost = x,
         features = features,
         rij_matrix = rij,
-        feature_abundances_in_total_units = fatu
+        feature_abundances_in_total_units = fatu,
+        planning_unit_indices = idx
       )
     )
   }
@@ -177,10 +181,8 @@ methods::setMethod(
     rownames(fatu) <- feature_names(features)
     colnames(fatu) <- zone_names(features)
     # create rij matrix
-    pos <- which(
-      rowSums(!is.na(as.matrix(x@data[, cost_column, drop = FALSE]))) > 0
-    )
-    rij <- lapply(rij, function(x) x[, pos, drop = FALSE])
+    idx <- planning_unit_indices(x, cost_column)
+    rij <- lapply(rij, function(x) x[, idx, drop = FALSE])
     names(rij) <- zone_names(features)
     # create ConservationProblem object
     conservation_problem(
@@ -189,7 +191,8 @@ methods::setMethod(
         features = features,
         cost_column = cost_column,
         rij_matrix = rij,
-        feature_abundances_in_total_units = fatu
+        feature_abundances_in_total_units = fatu,
+        planning_unit_indices = idx
       )
     )
   }
@@ -261,11 +264,9 @@ methods::setMethod(
     verify(any_nonzero(x[, unlist(features)]))
     verify(all_columns_any_finite(x[, unlist(features)]))
     # create rij matrix
-    pos <- which(
-      rowSums(!is.na(as.matrix(x@data[, cost_column, drop = FALSE]))) > 0
-    )
+    idx <- planning_unit_indices(x, cost_column)
     rij <- lapply(features, function(z) {
-      r <- t(as.matrix(x@data[pos, z, drop = FALSE]))
+      r <- t(as.matrix(x@data[idx, z, drop = FALSE]))
       r[is.na(r)] <- 0
       rownames(r) <- feature_names(features)
       methods::as(r, "sparseMatrix")
@@ -289,7 +290,8 @@ methods::setMethod(
         features = features,
         cost_column = cost_column,
         rij_matrix = rij,
-        feature_abundances_in_total_units = fatu
+        feature_abundances_in_total_units = fatu,
+        planning_unit_indices = idx
       )
     )
   }
@@ -378,12 +380,8 @@ methods::setMethod(
     rownames(fatu) <- feature_names(features)
     colnames(fatu) <- zone_names(features)
     # create rij matrix
-    pos <- which(
-      rowSums(!is.na(as.matrix(
-        sf::st_drop_geometry(x)[, cost_column, drop = FALSE]
-      ))) > 0
-    )
-    rij <- lapply(rij, function(x) x[, pos, drop = FALSE])
+    idx <- planning_unit_indices(x, cost_column)
+    rij <- lapply(rij, function(x) x[, idx, drop = FALSE])
     names(rij) <- zone_names(features)
     # create ConservationProblem object
     conservation_problem(
@@ -392,7 +390,8 @@ methods::setMethod(
         features = features,
         cost_column = cost_column,
         rij_matrix = rij,
-        feature_abundances_in_total_units = fatu
+        feature_abundances_in_total_units = fatu,
+        planning_unit_indices = idx
       )
     )
   }

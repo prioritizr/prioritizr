@@ -214,6 +214,11 @@ internal_presolve_check <- function(x) {
   msg1 <- c()
   msg2 <- c()
 
+  # import constraint matrix
+  y <- as_Matrix(x$A(), "dgTMatrix")
+  rownames(y) <- x$row_ids()
+  colnames(y) <- x$col_ids()
+
   # presolve checks
   ## check for non-standard input data
   ### check if all planning units locked out
@@ -266,9 +271,7 @@ internal_presolve_check <- function(x) {
   ### check if budget exceeds total of planning unit costs
   r1 <- which(x$row_ids() == "budget")
   if (length(r1) > 0) {
-    result <- vapply(r1, FUN.VALUE = logical(1), function(i) {
-      sum(x$A()[i, ]) <= x$rhs()[i]
-    })
+    result <- Matrix::rowSums(y[r1, , drop = FALSE]) <= x$rhs()[r1]
     if (any(result)) {
       pass <- FALSE
       if (length(r1) == 1) {
@@ -491,9 +494,6 @@ internal_presolve_check <- function(x) {
   }
 
   ## check constraint matrix
-  y <- as_Matrix(x$A(), "dgTMatrix")
-  rownames(y) <- x$row_ids()
-  colnames(y) <- x$col_ids()
   ### check upper threshold
   r1 <- which(y@x > upper_value)
   r2 <- which(abs(y@x) > upper_value)

@@ -108,6 +108,7 @@ Other objectives:
 \code{\link{add_max_phylo_end_objective}()},
 \code{\link{add_max_utility_objective}()},
 \code{\link{add_min_largest_shortfall_objective}()},
+\code{\link{add_min_penalties_objective}()},
 \code{\link{add_min_shortfall_objective}()}
 }
 \concept{objectives}

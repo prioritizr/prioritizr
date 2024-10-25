@@ -11,15 +11,15 @@
 \usage{
 rij_matrix(x, y, ...)
 
-\S4method{rij_matrix}{SpatRaster,SpatRaster}(x, y, memory, ...)
+\S4method{rij_matrix}{SpatRaster,SpatRaster}(x, y, memory, idx, ...)
 
-\S4method{rij_matrix}{sf,SpatRaster}(x, y, fun, memory, ...)
+\S4method{rij_matrix}{sf,SpatRaster}(x, y, fun, memory, idx, ...)
 
-\S4method{rij_matrix}{Raster,Raster}(x, y, memory, ...)
+\S4method{rij_matrix}{Raster,Raster}(x, y, memory, idx, ...)
 
-\S4method{rij_matrix}{sf,Raster}(x, y, fun, memory, ...)
+\S4method{rij_matrix}{sf,Raster}(x, y, fun, memory, idx, ...)
 
-\S4method{rij_matrix}{Spatial,Raster}(x, y, fun, memory, ...)
+\S4method{rij_matrix}{Spatial,Raster}(x, y, fun, memory, idx, ...)
 }
 \arguments{
 \item{x}{\code{\link[terra:rast]{terra::rast()}} or \code{\link[sf:sf]{sf::sf()}} object representing planning units.}
@@ -35,9 +35,14 @@ If \code{TRUE}, then calculations are performed by processing each raster layer
 in \code{y} in a sequential manner.
 If \code{FALSE}, then calculations are performed by processing all raster layers
 in \code{y} together.
-Defaults to \code{NA}, such that calculations are automatically performed
-using the best method given data requirements and the amount of available
-memory.}
+If \code{NA}, then the memory requirements will be estimated and, if required,
+processing will be performed using the method that reduces memory
+consumption.
+Defaults to \code{NA}.}
+
+\item{idx}{\code{integer} vector containing planning unit
+indices. Defaults to \code{NULL} such that the indices are computed
+automatically based on \code{x}.}
 
 \item{fun}{\code{character} for summarizing values inside each planning unit.
 This parameter is only used when the argument to \code{x} is a

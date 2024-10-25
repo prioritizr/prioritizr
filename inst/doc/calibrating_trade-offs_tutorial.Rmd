@@ -40,9 +40,9 @@ knitr::opts_chunk$set(
 ```{r, include = FALSE}
 # set up print method
 print <- function(x, ...) {
-  if (inherits(x, "ConservationProblem")) {
+  if (!interactive() && inherits(x, "ConservationProblem")) {
     prioritizr::knit_print.ConservationProblem(x)
-  } else if (inherits(x, "OptimizationProblem")) {
+  } else if (!interactive() && inherits(x, "OptimizationProblem")) {
     prioritizr::knit_print.OptimizationProblem(x)
   } else {
     base::print(x)
@@ -366,20 +366,15 @@ threshold <- ceiling(threshold)
 print(threshold)
 ```
 
-After generating the cost thresholds, we can use them to generate prioritizations. Specifically, we will generate prioritizations that aim to minimize total boundary length as much as possible -- ignoring the total cost of the prioritizations -- whilst ensuring that the total cost of the prioritization does not exceed a given cost threshold and the other considerations (e.g., locked in constraints). To achieve this, we create a new column in the `tas_pu` object that contains only zero values (called `zeros`) and use this new column to specify the cost data for the prioritizations.
-**Although we normally recommend against cost data that contain zero values -- because planning units with zero costs are often selected in prioritizations even if they are not needed -- here we use zero cost values so that the prioritization will focus exclusively on spatial fragmentation.** Additionally, when it comes to generating the prioritization, we will add linear constraints to ensure that the total cost of the prioritization does not exceed a given cost threshold (using the `add_linear_constraints()` function).
+After generating the cost thresholds, we can use them to generate prioritizations. Specifically, we will generate prioritizations that aim to minimize total boundary length -- as much as possible -- whilst ensuring that (i) the total cost of the prioritization does not exceed a given cost threshold, (ii) the representation targets for the features are met, and (iii) other considerations are met (e.g., locked in constraints). To achieve this, we will use the minimum penalties objective (i.e., `add_min_penalties_objective()`). This objective is specifically designed to enable the optimization process to evaluate competing solutions based only the penalties. As such, we can use it to perform hierachical multi-objective optimization.
 
 ```{r, fig.width = 7, fig.height = 5.0, results = "hide"}
-# add a column with zeros
-tas_pu$zeros <- 0
-
-# define a problem with zero cost values and boundary penalties
-## note that because all the costs are all zero, it doesn't actually
-## matter what penalty value is used (as long as the value is > 0)
-## and so we just use a value of 1
+# define a problem with the boundary penalties
+## note that it doesn't actually matter what penalty value is used with the
+## boundary penalties (as long as the value is > 0) and so we just use
+## a penalty value of 1
 p2 <-
-  problem(tas_pu, tas_features, cost_column = "zeros") %>%
-  add_min_set_objective() %>%
+  problem(tas_pu, tas_features, cost_column = "cost") %>%
   add_boundary_penalties(penalty = 1, data = tas_bd) %>%
   add_relative_targets(0.17) %>%
   add_locked_in_constraints("locked_in") %>%
@@ -389,11 +384,11 @@ p2 <-
 ## note that the prioritizations are solved to within 10% of optimality
 ## (the default gap) because the gap is not specified
 hierarchical_results <- lapply(threshold, function(x) {
-  ## generate solution by adding a constraint based on the threshold and
-  ## using the "real" cost values (i.e., not zeros)
+  ## generate solution by adding the minimum penalties objective with
+  ## the budget specified based on the threshold values
   s <-
     p2 %>%
-    add_linear_constraints(threshold = x, sense = "<=", data = "cost") %>%
+    add_min_penalties_objective(budget = x) %>%
     solve()
   ## return data frame with solution
   s <- data.frame(s = s$solution_1)
@@ -428,14 +423,12 @@ Here we will calculate performance metrics to compare the prioritizations. Since
 
 ```{r}
 # calculate metrics for prioritizations
-## note that we use p0 and not p1 so that cost calculations are based
-## on the cost values and not zeros
 hierarchical_metrics <- lapply(
   grep("threshold_", names(hierarchical_results)), function(x) {
     x <- hierarchical_results[, x]
     data.frame(
-      total_cost = eval_cost_summary(p0, x)$cost,
-      total_boundary_length = eval_boundary_summary(p0, x)$boundary
+      total_cost = eval_cost_summary(p2, x)$cost,
+      total_boundary_length = eval_boundary_summary(p2, x)$boundary
     )
   }
 )
@@ -557,11 +550,14 @@ p3 <-
 s3 <- solve(p3)
 
 # generate ideal prioritization based on spatial fragmentation criteria
-## note that any non-zero penalty value would here,
-## so we just use a penalty  of 1
+## note that any non-zero penalty value would here
+## so we just use a penalty  of 1,
+## also note that we set the budget as 1e6 because this is an arbitrarily
+## high budget (i.e., greater than cost of selecting all planning units)
+## so the budget has no effect on the optimization
 p4 <-
-  problem(tas_pu, tas_features, cost_column = "zeros") %>%
-  add_min_set_objective() %>%
+  problem(tas_pu, tas_features, cost_column = "cost") %>%
+  add_min_penalties_objective(budget = 1e6) %>%
   add_boundary_penalties(penalty = 1, data = tas_bd) %>%
   add_relative_targets(0.17) %>%
   add_locked_in_constraints("locked_in") %>%
@@ -569,7 +565,7 @@ p4 <-
   add_default_solver(gap = 0)
 
 # solve problem
-s4 <- solve(p4)
+s4 <- solve(p4, force = TRUE, run_checks = FALSE)
 ```
 
 Next, let's calculate the performance metrics for these prioritizations.

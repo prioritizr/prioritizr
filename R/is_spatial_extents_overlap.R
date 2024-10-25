@@ -33,16 +33,24 @@ is_spatial_extents_overlap <- function(x, y) {
   if (inherits(y, "Spatial")) y <- terra::vect(sf::st_as_sf(y))
   # if sf object, then check for empty geometries
   if (inherits(x, "sf")) {
-    assert(
-      !all(sf::st_is_empty(sf::st_geometry(x))),
-      msg = "{.arg x} must contain at least one non-empty geometry."
-    )
+    ## note that we try to avoid calling sf::st_is_empty on all geometries,
+    ## because it can be computationally expensive
+    if (isTRUE(sf::st_is_empty(sf::st_geometry(x)[1]))) {
+      assert(
+        !all(sf::st_is_empty(sf::st_geometry(x))),
+        msg = "{.arg x} must contain at least one non-empty geometry."
+      )
+    }
   }
   if (inherits(y, "sf")) {
-    assert(
-      !all(sf::st_is_empty(sf::st_geometry(y))),
-      msg = "{.arg y} must contain at least one non-empty geometry."
-    )
+    ## note that we try to avoid calling sf::st_is_empty on all geometries,
+    ## because it can be computationally expensive
+    if (isTRUE(sf::st_is_empty(sf::st_geometry(y)[1]))) {
+      assert(
+        !all(sf::st_is_empty(sf::st_geometry(y))),
+        msg = "{.arg y} must contain at least one non-empty geometry."
+      )
+    }
   }
   # find overlaping indices
   x <- sf::st_as_sf(terra::as.polygons(terra::ext(x)))

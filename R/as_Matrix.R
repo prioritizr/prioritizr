@@ -22,6 +22,10 @@ as_Matrix <- function(object, class) {
     assertthat::is.string(class),
     assertthat::noNA(class)
   )
+  # if object is already of the same class then just return it
+  if (identical(base::class(object)[[1]], class)) {
+    return(object)
+  }
   # if we just want to convert to generic Matrix class then do that...
   if (identical(class, "Matrix")) {
     return(methods::as(object, class))

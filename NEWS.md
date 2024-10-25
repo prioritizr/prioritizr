@@ -4,6 +4,37 @@
 
 - CRAN release.
 
+# prioritizr 8.0.4.6
+
+## New features
+
+- New `add_min_penalties_objective()` function to generate solutions that
+  focus on minimizing the penalties -- as much as possible -- whilst ensuring
+  that (i) the cost of the solution does not exceed a budget and (ii) all
+  feature representation targets are met. This function is designed to aid with
+  hierarchical multi-objective optimization. It can be now used instead of
+  specifying a minimum set objective with zero costs and
+  a linear constraint to specify the budget.
+
+## Minor improvements and bug fixes
+
+- Update `adjacency_matrix()`, `intersecting_units()`, `rij_matrix()`,
+  `eval_target_coverage_summary()`, and `problem()` to improve processing speed.
+- Update `intersecting_units()` to accommodate very large `sf::st_sf()` objects.
+- Update `rij_matrix()` so that it has an optional `idx` parameter which
+  can be used to specify planning unit indices if they have been pre-computed.
+- Update `add_locked_in_constraints()` and `add_locked_out_constraints()` to
+  throw error messages with standardized grammar.
+- Update internal functions for processing `sf::st_sf()` object to improve
+  processing speed.
+
+## Documentation updates
+
+- Update Package overview and Calibrating trade-offs vignettes with information
+  on the `add_min_penalties_objective()` function.
+- Update `add_max_utility_objective()` documentation to make it clear that
+  the function is simply maximizing a weighted sum of the features.
+
 # prioritizr 8.0.4.5
 
 ## Minor improvements and bug fixes

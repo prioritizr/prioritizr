@@ -4,13 +4,14 @@ NULL
 #' Add maximum utility objective
 #'
 #' Set the objective of a conservation planning problem to
-#' secure as much of the features as possible without exceeding a budget.
+#' maximize the weighted sum of the features represented by the solution
+#' as much as possible without exceeding a budget.
 #' This objective does not use targets, and feature
-#' weights should be used instead to increase the representation of certain
+#' weights should be used instead to increase the representation of particular
 #' features by a solution.
-#' Note that this objective does not aim to maximize as much of each feature as
-#' possible, and so often results in solutions that are heavily biased towards
-#' just a few features.
+#' Note that this objective does not aim to maximize as much of each feature
+#' individually, and so often results in solutions that are heavily biased
+#' towards just a few features.
 #'
 #' @param x [problem()] object.
 #'
@@ -25,7 +26,7 @@ NULL
 #' representation across a suite of conservation features, while keeping cost
 #' within a fixed budget.
 #' Additionally, weights can be used to favor the
-#' representation of certain features over other features (see
+#' representation of particular features over other features (see
 #' [add_feature_weights()]). It is essentially calculated as a weighted
 #' sum of the feature data inside the selected planning units.
 #'
