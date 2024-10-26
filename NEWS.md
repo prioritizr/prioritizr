@@ -37,6 +37,7 @@
   on the `add_min_penalties_objective()` function.
 - Update `add_max_utility_objective()` documentation to make it clear that
   the function is simply maximizing a weighted sum of the features.
+- Update publication record.
 
 # prioritizr 8.0.4.5
 
