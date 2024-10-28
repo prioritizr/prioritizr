@@ -40,7 +40,12 @@ NULL
 #' specifying whether planning unit \eqn{i}{i} has been selected (1) or not
 #' (0)), \eqn{c_i}{ci} is the cost of planning unit \eqn{i}{i},
 #' \eqn{r_{ij}}{rij} is the amount of feature \eqn{j}{j} in planning unit
-#' \eqn{i}{i}, and \eqn{T_j}{Tj} is the target for feature \eqn{j}{j}.
+#' \eqn{i}{i}, and \eqn{T_j}{Tj} is the target for feature \eqn{j}{j}. Since
+#' the objective is to minimize zero, this function does not actually provide
+#' any criteria to compare competing solutions. As such, when used in
+#' conjunction with a penalty function (see [penalties]), only the penalty
+#' (e.g., [add_boundary_length_penalties()]) will be used to compare competing
+#' solutions.
 #'
 #' @family objectives
 #'

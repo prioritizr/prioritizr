@@ -140,7 +140,12 @@ mathematically for a set of planning units (\(I\) indexed by
 specifying whether planning unit \(i\) has been selected (1) or not
 (0)), \(c_i\) is the cost of planning unit \(i\),
 \(r_{ij}\) is the amount of feature \(j\) in planning unit
-\(i\), and \(T_j\) is the target for feature \(j\).</p>
+\(i\), and \(T_j\) is the target for feature \(j\). Since
+the objective is to minimize zero, this function does not actually provide
+any criteria to compare competing solutions. As such, when used in
+conjunction with a penalty function (see <a href="penalties.html">penalties</a>), only the penalty
+(e.g., <code>add_boundary_length_penalties()</code>) will be used to compare competing
+solutions.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
