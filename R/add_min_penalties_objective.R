@@ -44,7 +44,7 @@ NULL
 #' the objective is to minimize zero, this function does not actually provide
 #' any criteria to compare competing solutions. As such, when used in
 #' conjunction with a penalty function (see [penalties]), only the penalty
-#' (e.g., [add_boundary_length_penalties()]) will be used to compare competing
+#' (e.g., [add_boundary_penalties()]) will be used to compare competing
 #' solutions.
 #'
 #' @family objectives

@@ -59,7 +59,7 @@ specifying whether planning unit \eqn{i}{i} has been selected (1) or not
 the objective is to minimize zero, this function does not actually provide
 any criteria to compare competing solutions. As such, when used in
 conjunction with a penalty function (see \link{penalties}), only the penalty
-(e.g., \code{\link[=add_boundary_length_penalties]{add_boundary_length_penalties()}}) will be used to compare competing
+(e.g., \code{\link[=add_boundary_penalties]{add_boundary_penalties()}}) will be used to compare competing
 solutions.
 }
 
