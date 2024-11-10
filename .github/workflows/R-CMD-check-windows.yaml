@@ -36,30 +36,37 @@ jobs:
       NOT_CRAN: true
 
     steps:
+      # configure git to prevent it from automatically converting line-endings
+      # this is important to avoid WARNINGS during CRAN checks
+      # that are false-positives, see:
+      # https://msmith.de/2020/03/12/r-cmd-check-github-actions.html
+      - name: Configure git
+        run: git config --global core.autocrlf false
+
       - uses: actions/checkout@v2
+
+      - uses: r-lib/actions/setup-pandoc@v2
 
       - uses: r-lib/actions/setup-r@v2
         with:
           r-version: ${{ matrix.config.r }}
+          use-public-rspm: true
 
-      - uses: r-lib/actions/setup-pandoc@v1
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          cache-version: 1
+          extra-packages: |
+            any::rcmdcheck
+            any::remotes
+            gurobi=?ignore
+          needs: |
+            check
 
-      - name: Query dependencies
+      - name: Install spatial R packages
         run: |
-          install.packages('remotes')
-          saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
-          writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
-        shell: Rscript {0}
-
-      - name: Install dependencies
-        run: |
-          options("install.packages.compile.from.source" = "never", pkgType = "binary")
-          remotes::install_deps(dependencies = TRUE)
-          remotes::install_cran("rcmdcheck")
-          remotes::install_cran("covr")
-          options("install.packages.compile.from.source" = NULL)
-          install.packages("uuid", type = "source")
-          install.packages("raster", type = "source")
+          options(repos = "https://cloud.r-project.org/")
+          install.packages("sf")
+          install.packages("terra")
         shell: Rscript {0}
 
       - name: Session information
@@ -69,19 +76,11 @@ jobs:
           sessioninfo::session_info(pkgs, include_base = TRUE)
         shell: Rscript {0}
 
-      - name: Check
-        run: |
-          rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran", "--no-build-vignettes"), error_on = "warning", check_dir = "check")
-        shell: Rscript {0}
+      - uses: r-lib/actions/check-r-package@v2
+        with:
+          upload-snapshots: true
 
       - name: Show testthat output
         if: always()
         run: find check -name 'testthat.Rout*' -exec cat '{}' \; || true
         shell: bash
-
-      - name: Upload check results
-        if: failure()
-        uses: actions/upload-artifact@main
-        with:
-          name: ${{ runner.os }}-r${{ matrix.config.r }}-results
-          path: check
