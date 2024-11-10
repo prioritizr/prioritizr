@@ -38,17 +38,25 @@ test_that("numeric", {
   expect_equal(r2, r3, ignore_attr = TRUE)
   ## attributes
   expect_equal(
-    attributes(r1)[c("budgets", "status", "objective", "gap")],
-    attributes(r3)[c("budgets", "status", "objective", "gap")]
+    attributes(r1)[c("budgets", "objective")],
+    attributes(r3)[c("budgets", "objective")]
   )
   expect_equal(
-    attributes(r1)[c("budgets", "status", "objective", "gap")],
-    attributes(r2)[c("budgets", "status", "objective", "gap")]
+    attributes(r1)[c("budgets", "objective")],
+    attributes(r2)[c("budgets", "objective")]
   )
   expect_inherits(attr(r1, "runtime"), "numeric")
-  expect_inherits(attr(r1, "runtime"), "numeric")
+  expect_inherits(attr(r2, "runtime"), "numeric")
+  expect_inherits(attr(r1, "gap"), "numeric")
+  expect_inherits(attr(r2, "gap"), "numeric")
+  expect_inherits(attr(r1, "status"), "character")
+  expect_inherits(attr(r2, "status"), "character")
   expect_length(attr(r1, "runtime"), 2)
   expect_length(attr(r2, "runtime"), 2)
+  expect_length(attr(r1, "gap"), 2)
+  expect_length(attr(r2, "gap"), 2)
+  expect_length(attr(r1, "status"), 2)
+  expect_length(attr(r2, "status"), 2)
 })
 
 test_that("matrix (single zone)", {
@@ -91,17 +99,25 @@ test_that("matrix (single zone)", {
   expect_equal(r2, r3, ignore_attr = TRUE)
   ## attributes
   expect_equal(
-    attributes(r1)[c("budgets", "status", "objective", "gap")],
-    attributes(r3)[c("budgets", "status", "objective", "gap")]
+    attributes(r1)[c("budgets", "objective")],
+    attributes(r3)[c("budgets", "objective")]
   )
   expect_equal(
-    attributes(r1)[c("budgets", "status", "objective", "gap")],
-    attributes(r2)[c("budgets", "status", "objective", "gap")]
+    attributes(r1)[c("budgets", "objective")],
+    attributes(r2)[c("budgets", "objective")]
   )
   expect_inherits(attr(r1, "runtime"), "numeric")
-  expect_inherits(attr(r1, "runtime"), "numeric")
+  expect_inherits(attr(r2, "runtime"), "numeric")
+  expect_inherits(attr(r1, "gap"), "numeric")
+  expect_inherits(attr(r2, "gap"), "numeric")
+  expect_inherits(attr(r1, "status"), "character")
+  expect_inherits(attr(r2, "status"), "character")
   expect_length(attr(r1, "runtime"), 2)
   expect_length(attr(r2, "runtime"), 2)
+  expect_length(attr(r1, "gap"), 2)
+  expect_length(attr(r2, "gap"), 2)
+  expect_length(attr(r1, "status"), 2)
+  expect_length(attr(r2, "status"), 2)
 })
 
 test_that("matrix (multiple zones, by_zone = FALSE)", {
@@ -150,17 +166,25 @@ test_that("matrix (multiple zones, by_zone = FALSE)", {
   expect_equal(r2, r3, ignore_attr = TRUE)
   ## attributes
   expect_equal(
-    attributes(r1)[c("budgets", "status", "objective", "gap")],
-    attributes(r3)[c("budgets", "status", "objective", "gap")]
+    attributes(r1)[c("budgets", "objective")],
+    attributes(r3)[c("budgets", "objective")]
   )
   expect_equal(
-    attributes(r1)[c("budgets", "status", "objective", "gap")],
-    attributes(r2)[c("budgets", "status", "objective", "gap")]
+    attributes(r1)[c("budgets", "objective")],
+    attributes(r2)[c("budgets", "objective")]
   )
   expect_inherits(attr(r1, "runtime"), "numeric")
-  expect_inherits(attr(r1, "runtime"), "numeric")
+  expect_inherits(attr(r2, "runtime"), "numeric")
+  expect_inherits(attr(r1, "gap"), "numeric")
+  expect_inherits(attr(r2, "gap"), "numeric")
+  expect_inherits(attr(r1, "status"), "character")
+  expect_inherits(attr(r2, "status"), "character")
   expect_length(attr(r1, "runtime"), 2)
   expect_length(attr(r2, "runtime"), 2)
+  expect_length(attr(r1, "gap"), 2)
+  expect_length(attr(r2, "gap"), 2)
+  expect_length(attr(r1, "status"), 2)
+  expect_length(attr(r2, "status"), 2)
 })
 
 test_that("matrix (multiple zones, by_zone = TRUE)", {
@@ -209,17 +233,25 @@ test_that("matrix (multiple zones, by_zone = TRUE)", {
   expect_equal(r2, r3, ignore_attr = TRUE)
   ## attributes
   expect_equal(
-    attributes(r1)[c("budgets", "status", "objective", "gap")],
-    attributes(r3)[c("budgets", "status", "objective", "gap")]
+    attributes(r1)[c("budgets", "objective")],
+    attributes(r3)[c("budgets", "objective")]
   )
   expect_equal(
-    attributes(r1)[c("budgets", "status", "objective", "gap")],
-    attributes(r2)[c("budgets", "status", "objective", "gap")]
+    attributes(r1)[c("budgets", "objective")],
+    attributes(r2)[c("budgets", "objective")]
   )
   expect_inherits(attr(r1, "runtime"), "numeric")
-  expect_inherits(attr(r1, "runtime"), "numeric")
+  expect_inherits(attr(r2, "runtime"), "numeric")
+  expect_inherits(attr(r1, "gap"), "numeric")
+  expect_inherits(attr(r2, "gap"), "numeric")
+  expect_inherits(attr(r1, "status"), "character")
+  expect_inherits(attr(r2, "status"), "character")
   expect_length(attr(r1, "runtime"), 2)
   expect_length(attr(r2, "runtime"), 2)
+  expect_length(attr(r1, "gap"), 2)
+  expect_length(attr(r2, "gap"), 2)
+  expect_length(attr(r1, "status"), 2)
+  expect_length(attr(r2, "status"), 2)
 })
 
 test_that("data.frame (single zone)", {
@@ -258,17 +290,25 @@ test_that("data.frame (single zone)", {
   expect_equal(r2, r3, ignore_attr = TRUE)
   ## attributes
   expect_equal(
-    attributes(r1)[c("budgets", "status", "objective", "gap")],
-    attributes(r3)[c("budgets", "status", "objective", "gap")]
+    attributes(r1)[c("budgets", "objective")],
+    attributes(r3)[c("budgets", "objective")]
   )
   expect_equal(
-    attributes(r1)[c("budgets", "status", "objective", "gap")],
-    attributes(r2)[c("budgets", "status", "objective", "gap")]
+    attributes(r1)[c("budgets", "objective")],
+    attributes(r2)[c("budgets", "objective")]
   )
   expect_inherits(attr(r1, "runtime"), "numeric")
-  expect_inherits(attr(r1, "runtime"), "numeric")
+  expect_inherits(attr(r2, "runtime"), "numeric")
+  expect_inherits(attr(r1, "gap"), "numeric")
+  expect_inherits(attr(r2, "gap"), "numeric")
+  expect_inherits(attr(r1, "status"), "character")
+  expect_inherits(attr(r2, "status"), "character")
   expect_length(attr(r1, "runtime"), 2)
   expect_length(attr(r2, "runtime"), 2)
+  expect_length(attr(r1, "gap"), 2)
+  expect_length(attr(r2, "gap"), 2)
+  expect_length(attr(r1, "status"), 2)
+  expect_length(attr(r2, "status"), 2)
 })
 
 test_that("data.frame (multiple zones, by_zone = FALSE)", {
@@ -323,17 +363,25 @@ test_that("data.frame (multiple zones, by_zone = FALSE)", {
   expect_equal(r2, r3, ignore_attr = TRUE)
   ## attributes
   expect_equal(
-    attributes(r1)[c("budgets", "status", "objective", "gap")],
-    attributes(r3)[c("budgets", "status", "objective", "gap")]
+    attributes(r1)[c("budgets", "objective")],
+    attributes(r3)[c("budgets", "objective")]
   )
   expect_equal(
-    attributes(r1)[c("budgets", "status", "objective", "gap")],
-    attributes(r2)[c("budgets", "status", "objective", "gap")]
+    attributes(r1)[c("budgets", "objective")],
+    attributes(r2)[c("budgets", "objective")]
   )
   expect_inherits(attr(r1, "runtime"), "numeric")
-  expect_inherits(attr(r1, "runtime"), "numeric")
+  expect_inherits(attr(r2, "runtime"), "numeric")
+  expect_inherits(attr(r1, "gap"), "numeric")
+  expect_inherits(attr(r2, "gap"), "numeric")
+  expect_inherits(attr(r1, "status"), "character")
+  expect_inherits(attr(r2, "status"), "character")
   expect_length(attr(r1, "runtime"), 2)
   expect_length(attr(r2, "runtime"), 2)
+  expect_length(attr(r1, "gap"), 2)
+  expect_length(attr(r2, "gap"), 2)
+  expect_length(attr(r1, "status"), 2)
+  expect_length(attr(r2, "status"), 2)
 })
 
 test_that("data.frame (multiple zones, by_zone = TRUE)", {
@@ -387,17 +435,25 @@ test_that("data.frame (multiple zones, by_zone = TRUE)", {
   expect_equal(r2, r3, ignore_attr = TRUE)
   ## attributes
   expect_equal(
-    attributes(r1)[c("budgets", "status", "objective", "gap")],
-    attributes(r3)[c("budgets", "status", "objective", "gap")]
+    attributes(r1)[c("budgets", "objective")],
+    attributes(r3)[c("budgets", "objective")]
   )
   expect_equal(
-    attributes(r1)[c("budgets", "status", "objective", "gap")],
-    attributes(r2)[c("budgets", "status", "objective", "gap")]
+    attributes(r1)[c("budgets", "objective")],
+    attributes(r2)[c("budgets", "objective")]
   )
   expect_inherits(attr(r1, "runtime"), "numeric")
-  expect_inherits(attr(r1, "runtime"), "numeric")
+  expect_inherits(attr(r2, "runtime"), "numeric")
+  expect_inherits(attr(r1, "gap"), "numeric")
+  expect_inherits(attr(r2, "gap"), "numeric")
+  expect_inherits(attr(r1, "status"), "character")
+  expect_inherits(attr(r2, "status"), "character")
   expect_length(attr(r1, "runtime"), 2)
   expect_length(attr(r2, "runtime"), 2)
+  expect_length(attr(r1, "gap"), 2)
+  expect_length(attr(r2, "gap"), 2)
+  expect_length(attr(r1, "status"), 2)
+  expect_length(attr(r2, "status"), 2)
 })
 
 test_that("sf (single zone)", {
@@ -441,17 +497,25 @@ test_that("sf (single zone)", {
   expect_equal(r2, r3, ignore_attr = TRUE)
   ## attributes
   expect_equal(
-    attributes(r1)[c("budgets", "status", "objective", "gap")],
-    attributes(r3)[c("budgets", "status", "objective", "gap")]
+    attributes(r1)[c("budgets", "objective")],
+    attributes(r3)[c("budgets", "objective")]
   )
   expect_equal(
-    attributes(r1)[c("budgets", "status", "objective", "gap")],
-    attributes(r2)[c("budgets", "status", "objective", "gap")]
+    attributes(r1)[c("budgets", "objective")],
+    attributes(r2)[c("budgets", "objective")]
   )
   expect_inherits(attr(r1, "runtime"), "numeric")
-  expect_inherits(attr(r1, "runtime"), "numeric")
+  expect_inherits(attr(r2, "runtime"), "numeric")
+  expect_inherits(attr(r1, "gap"), "numeric")
+  expect_inherits(attr(r2, "gap"), "numeric")
+  expect_inherits(attr(r1, "status"), "character")
+  expect_inherits(attr(r2, "status"), "character")
   expect_length(attr(r1, "runtime"), 2)
   expect_length(attr(r2, "runtime"), 2)
+  expect_length(attr(r1, "gap"), 2)
+  expect_length(attr(r2, "gap"), 2)
+  expect_length(attr(r1, "status"), 2)
+  expect_length(attr(r2, "status"), 2)
 })
 
 test_that("sf (multiple zones, by_zone = FALSE)", {
@@ -509,17 +573,25 @@ test_that("sf (multiple zones, by_zone = FALSE)", {
   expect_equal(r2, r3, ignore_attr = TRUE)
   ## attributes
   expect_equal(
-    attributes(r1)[c("budgets", "status", "objective", "gap")],
-    attributes(r3)[c("budgets", "status", "objective", "gap")]
+    attributes(r1)[c("budgets", "objective")],
+    attributes(r3)[c("budgets", "objective")]
   )
   expect_equal(
-    attributes(r1)[c("budgets", "status", "objective", "gap")],
-    attributes(r2)[c("budgets", "status", "objective", "gap")]
+    attributes(r1)[c("budgets", "objective")],
+    attributes(r2)[c("budgets", "objective")]
   )
   expect_inherits(attr(r1, "runtime"), "numeric")
-  expect_inherits(attr(r1, "runtime"), "numeric")
+  expect_inherits(attr(r2, "runtime"), "numeric")
+  expect_inherits(attr(r1, "gap"), "numeric")
+  expect_inherits(attr(r2, "gap"), "numeric")
+  expect_inherits(attr(r1, "status"), "character")
+  expect_inherits(attr(r2, "status"), "character")
   expect_length(attr(r1, "runtime"), 2)
   expect_length(attr(r2, "runtime"), 2)
+  expect_length(attr(r1, "gap"), 2)
+  expect_length(attr(r2, "gap"), 2)
+  expect_length(attr(r1, "status"), 2)
+  expect_length(attr(r2, "status"), 2)
 })
 
 test_that("sf (multiple zones, by_zone = TRUE)", {
@@ -577,17 +649,25 @@ test_that("sf (multiple zones, by_zone = TRUE)", {
   expect_equal(r2, r3, ignore_attr = TRUE)
   ## attributes
   expect_equal(
-    attributes(r1)[c("budgets", "status", "objective", "gap")],
-    attributes(r3)[c("budgets", "status", "objective", "gap")]
+    attributes(r1)[c("budgets", "objective")],
+    attributes(r3)[c("budgets", "objective")]
   )
   expect_equal(
-    attributes(r1)[c("budgets", "status", "objective", "gap")],
-    attributes(r2)[c("budgets", "status", "objective", "gap")]
+    attributes(r1)[c("budgets", "objective")],
+    attributes(r2)[c("budgets", "objective")]
   )
   expect_inherits(attr(r1, "runtime"), "numeric")
-  expect_inherits(attr(r1, "runtime"), "numeric")
+  expect_inherits(attr(r2, "runtime"), "numeric")
+  expect_inherits(attr(r1, "gap"), "numeric")
+  expect_inherits(attr(r2, "gap"), "numeric")
+  expect_inherits(attr(r1, "status"), "character")
+  expect_inherits(attr(r2, "status"), "character")
   expect_length(attr(r1, "runtime"), 2)
   expect_length(attr(r2, "runtime"), 2)
+  expect_length(attr(r1, "gap"), 2)
+  expect_length(attr(r2, "gap"), 2)
+  expect_length(attr(r1, "status"), 2)
+  expect_length(attr(r2, "status"), 2)
 })
 
 test_that("SpatRaster (single zone)", {
@@ -629,17 +709,25 @@ test_that("SpatRaster (single zone)", {
   expect_equal(terra::values(r2), terra::values(r3), ignore_attr = TRUE)
   ## attributes
   expect_equal(
-    attributes(r1)[c("budgets", "status", "objective", "gap")],
-    attributes(r3)[c("budgets", "status", "objective", "gap")]
+    attributes(r1)[c("budgets", "objective")],
+    attributes(r3)[c("budgets", "objective")]
   )
   expect_equal(
-    attributes(r1)[c("budgets", "status", "objective", "gap")],
-    attributes(r2)[c("budgets", "status", "objective", "gap")]
+    attributes(r1)[c("budgets", "objective")],
+    attributes(r2)[c("budgets", "objective")]
   )
   expect_inherits(attr(r1, "runtime"), "numeric")
-  expect_inherits(attr(r1, "runtime"), "numeric")
+  expect_inherits(attr(r2, "runtime"), "numeric")
+  expect_inherits(attr(r1, "gap"), "numeric")
+  expect_inherits(attr(r2, "gap"), "numeric")
+  expect_inherits(attr(r1, "status"), "character")
+  expect_inherits(attr(r2, "status"), "character")
   expect_length(attr(r1, "runtime"), 2)
   expect_length(attr(r2, "runtime"), 2)
+  expect_length(attr(r1, "gap"), 2)
+  expect_length(attr(r2, "gap"), 2)
+  expect_length(attr(r1, "status"), 2)
+  expect_length(attr(r2, "status"), 2)
 })
 
 test_that("SpatRaster (multiple zones, by_zone = FALSE)", {
@@ -692,17 +780,25 @@ test_that("SpatRaster (multiple zones, by_zone = FALSE)", {
   expect_equal(terra::values(r2), terra::values(r3), ignore_attr = TRUE)
   ## attributes
   expect_equal(
-    attributes(r1)[c("budgets", "status", "objective", "gap")],
-    attributes(r3)[c("budgets", "status", "objective", "gap")]
+    attributes(r1)[c("budgets", "objective")],
+    attributes(r3)[c("budgets", "objective")]
   )
   expect_equal(
-    attributes(r1)[c("budgets", "status", "objective", "gap")],
-    attributes(r2)[c("budgets", "status", "objective", "gap")]
+    attributes(r1)[c("budgets", "objective")],
+    attributes(r2)[c("budgets", "objective")]
   )
   expect_inherits(attr(r1, "runtime"), "numeric")
-  expect_inherits(attr(r1, "runtime"), "numeric")
+  expect_inherits(attr(r2, "runtime"), "numeric")
+  expect_inherits(attr(r1, "gap"), "numeric")
+  expect_inherits(attr(r2, "gap"), "numeric")
+  expect_inherits(attr(r1, "status"), "character")
+  expect_inherits(attr(r2, "status"), "character")
   expect_length(attr(r1, "runtime"), 2)
   expect_length(attr(r2, "runtime"), 2)
+  expect_length(attr(r1, "gap"), 2)
+  expect_length(attr(r2, "gap"), 2)
+  expect_length(attr(r1, "status"), 2)
+  expect_length(attr(r2, "status"), 2)
 })
 
 test_that("SpatRaster (multiple zones, by_zone = TRUE)", {
@@ -755,17 +851,25 @@ test_that("SpatRaster (multiple zones, by_zone = TRUE)", {
   expect_equal(terra::values(r2), terra::values(r3), ignore_attr = TRUE)
   ## attributes
   expect_equal(
-    attributes(r1)[c("budgets", "status", "objective", "gap")],
-    attributes(r3)[c("budgets", "status", "objective", "gap")]
+    attributes(r1)[c("budgets", "objective")],
+    attributes(r3)[c("budgets", "objective")]
   )
   expect_equal(
-    attributes(r1)[c("budgets", "status", "objective", "gap")],
-    attributes(r2)[c("budgets", "status", "objective", "gap")]
+    attributes(r1)[c("budgets", "objective")],
+    attributes(r2)[c("budgets", "objective")]
   )
   expect_inherits(attr(r1, "runtime"), "numeric")
-  expect_inherits(attr(r1, "runtime"), "numeric")
+  expect_inherits(attr(r2, "runtime"), "numeric")
+  expect_inherits(attr(r1, "gap"), "numeric")
+  expect_inherits(attr(r2, "gap"), "numeric")
+  expect_inherits(attr(r1, "status"), "character")
+  expect_inherits(attr(r2, "status"), "character")
   expect_length(attr(r1, "runtime"), 2)
   expect_length(attr(r2, "runtime"), 2)
+  expect_length(attr(r1, "gap"), 2)
+  expect_length(attr(r2, "gap"), 2)
+  expect_length(attr(r1, "status"), 2)
+  expect_length(attr(r2, "status"), 2)
 })
 
 test_that("Spatial (single zone)", {
@@ -821,17 +925,25 @@ test_that("Spatial (single zone)", {
   expect_equal(sf::st_as_sf(r2), r3, ignore_attr = TRUE)
   ## attributes
   expect_equal(
-    attributes(r1)[c("budgets", "status", "objective", "gap")],
-    attributes(r3)[c("budgets", "status", "objective", "gap")]
+    attributes(r1)[c("budgets", "objective")],
+    attributes(r3)[c("budgets", "objective")]
   )
   expect_equal(
-    attributes(r1)[c("budgets", "status", "objective", "gap")],
-    attributes(r2)[c("budgets", "status", "objective", "gap")]
+    attributes(r1)[c("budgets", "objective")],
+    attributes(r2)[c("budgets", "objective")]
   )
   expect_inherits(attr(r1, "runtime"), "numeric")
-  expect_inherits(attr(r1, "runtime"), "numeric")
+  expect_inherits(attr(r2, "runtime"), "numeric")
+  expect_inherits(attr(r1, "gap"), "numeric")
+  expect_inherits(attr(r2, "gap"), "numeric")
+  expect_inherits(attr(r1, "status"), "character")
+  expect_inherits(attr(r2, "status"), "character")
   expect_length(attr(r1, "runtime"), 2)
   expect_length(attr(r2, "runtime"), 2)
+  expect_length(attr(r1, "gap"), 2)
+  expect_length(attr(r2, "gap"), 2)
+  expect_length(attr(r1, "status"), 2)
+  expect_length(attr(r2, "status"), 2)
 })
 
 test_that("Spatial (multiple zones)", {
@@ -904,18 +1016,27 @@ test_that("Spatial (multiple zones)", {
   expect_equal(sf::st_as_sf(r1), r3, ignore_attr = TRUE)
   expect_equal(sf::st_as_sf(r2), r3, ignore_attr = TRUE)
   ## attributes
+  ## attributes
   expect_equal(
-    attributes(r1)[c("budgets", "status", "objective", "gap")],
-    attributes(r3)[c("budgets", "status", "objective", "gap")]
+    attributes(r1)[c("budgets", "objective")],
+    attributes(r3)[c("budgets", "objective")]
   )
   expect_equal(
-    attributes(r1)[c("budgets", "status", "objective", "gap")],
-    attributes(r2)[c("budgets", "status", "objective", "gap")]
+    attributes(r1)[c("budgets", "objective")],
+    attributes(r2)[c("budgets", "objective")]
   )
   expect_inherits(attr(r1, "runtime"), "numeric")
-  expect_inherits(attr(r1, "runtime"), "numeric")
+  expect_inherits(attr(r2, "runtime"), "numeric")
+  expect_inherits(attr(r1, "gap"), "numeric")
+  expect_inherits(attr(r2, "gap"), "numeric")
+  expect_inherits(attr(r1, "status"), "character")
+  expect_inherits(attr(r2, "status"), "character")
   expect_length(attr(r1, "runtime"), 2)
   expect_length(attr(r2, "runtime"), 2)
+  expect_length(attr(r1, "gap"), 2)
+  expect_length(attr(r2, "gap"), 2)
+  expect_length(attr(r1, "status"), 2)
+  expect_length(attr(r2, "status"), 2)
 })
 
 test_that("raster (single zone)", {
@@ -978,17 +1099,25 @@ test_that("raster (single zone)", {
   )
   ## attributes
   expect_equal(
-    attributes(r1)[c("budgets", "status", "objective", "gap")],
-    attributes(r3)[c("budgets", "status", "objective", "gap")]
+    attributes(r1)[c("budgets", "objective")],
+    attributes(r3)[c("budgets", "objective")]
   )
   expect_equal(
-    attributes(r1)[c("budgets", "status", "objective", "gap")],
-    attributes(r2)[c("budgets", "status", "objective", "gap")]
+    attributes(r1)[c("budgets", "objective")],
+    attributes(r2)[c("budgets", "objective")]
   )
   expect_inherits(attr(r1, "runtime"), "numeric")
-  expect_inherits(attr(r1, "runtime"), "numeric")
+  expect_inherits(attr(r2, "runtime"), "numeric")
+  expect_inherits(attr(r1, "gap"), "numeric")
+  expect_inherits(attr(r2, "gap"), "numeric")
+  expect_inherits(attr(r1, "status"), "character")
+  expect_inherits(attr(r2, "status"), "character")
   expect_length(attr(r1, "runtime"), 2)
   expect_length(attr(r2, "runtime"), 2)
+  expect_length(attr(r1, "gap"), 2)
+  expect_length(attr(r2, "gap"), 2)
+  expect_length(attr(r1, "status"), 2)
+  expect_length(attr(r2, "status"), 2)
 })
 
 test_that("Raster (multiple zones)", {
@@ -1066,17 +1195,25 @@ test_that("Raster (multiple zones)", {
   )
   ## attributes
   expect_equal(
-    attributes(r1)[c("budgets", "status", "objective", "gap")],
-    attributes(r3)[c("budgets", "status", "objective", "gap")]
+    attributes(r1)[c("budgets", "objective")],
+    attributes(r3)[c("budgets", "objective")]
   )
   expect_equal(
-    attributes(r1)[c("budgets", "status", "objective", "gap")],
-    attributes(r2)[c("budgets", "status", "objective", "gap")]
+    attributes(r1)[c("budgets", "objective")],
+    attributes(r2)[c("budgets", "objective")]
   )
   expect_inherits(attr(r1, "runtime"), "numeric")
-  expect_inherits(attr(r1, "runtime"), "numeric")
+  expect_inherits(attr(r2, "runtime"), "numeric")
+  expect_inherits(attr(r1, "gap"), "numeric")
+  expect_inherits(attr(r2, "gap"), "numeric")
+  expect_inherits(attr(r1, "status"), "character")
+  expect_inherits(attr(r2, "status"), "character")
   expect_length(attr(r1, "runtime"), 2)
   expect_length(attr(r2, "runtime"), 2)
+  expect_length(attr(r1, "gap"), 2)
+  expect_length(attr(r2, "gap"), 2)
+  expect_length(attr(r1, "status"), 2)
+  expect_length(attr(r2, "status"), 2)
 })
 
 test_that("rescale = TRUE", {
@@ -1123,17 +1260,25 @@ test_that("rescale = TRUE", {
   expect_equal(r2, r3, ignore_attr = TRUE)
   ## attributes
   expect_equal(
-    attributes(r1)[c("budgets", "status", "objective", "gap")],
-    attributes(r3)[c("budgets", "status", "objective", "gap")]
+    attributes(r1)[c("budgets", "objective")],
+    attributes(r3)[c("budgets", "objective")]
   )
   expect_equal(
-    attributes(r1)[c("budgets", "status", "objective", "gap")],
-    attributes(r2)[c("budgets", "status", "objective", "gap")]
+    attributes(r1)[c("budgets", "objective")],
+    attributes(r2)[c("budgets", "objective")]
   )
   expect_inherits(attr(r1, "runtime"), "numeric")
-  expect_inherits(attr(r1, "runtime"), "numeric")
+  expect_inherits(attr(r2, "runtime"), "numeric")
+  expect_inherits(attr(r1, "gap"), "numeric")
+  expect_inherits(attr(r2, "gap"), "numeric")
+  expect_inherits(attr(r1, "status"), "character")
+  expect_inherits(attr(r2, "status"), "character")
   expect_length(attr(r1, "runtime"), 2)
   expect_length(attr(r2, "runtime"), 2)
+  expect_length(attr(r1, "gap"), 2)
+  expect_length(attr(r2, "gap"), 2)
+  expect_length(attr(r1, "status"), 2)
+  expect_length(attr(r2, "status"), 2)
 })
 
 test_that("custom objective", {
@@ -1219,17 +1364,25 @@ test_that("default budget-limited objective", {
   expect_equal(terra::values(r2), terra::values(r3), ignore_attr = TRUE)
   ## attributes
   expect_equal(
-    attributes(r1)[c("budgets", "status", "objective", "gap")],
-    attributes(r3)[c("budgets", "status", "objective", "gap")]
+    attributes(r1)[c("budgets", "objective")],
+    attributes(r3)[c("budgets", "objective")]
   )
   expect_equal(
-    attributes(r1)[c("budgets", "status", "objective", "gap")],
-    attributes(r2)[c("budgets", "status", "objective", "gap")]
+    attributes(r1)[c("budgets", "objective")],
+    attributes(r2)[c("budgets", "objective")]
   )
   expect_inherits(attr(r1, "runtime"), "numeric")
-  expect_inherits(attr(r1, "runtime"), "numeric")
+  expect_inherits(attr(r2, "runtime"), "numeric")
+  expect_inherits(attr(r1, "gap"), "numeric")
+  expect_inherits(attr(r2, "gap"), "numeric")
+  expect_inherits(attr(r1, "status"), "character")
+  expect_inherits(attr(r2, "status"), "character")
   expect_length(attr(r1, "runtime"), 2)
   expect_length(attr(r2, "runtime"), 2)
+  expect_length(attr(r1, "gap"), 2)
+  expect_length(attr(r2, "gap"), 2)
+  expect_length(attr(r1, "status"), 2)
+  expect_length(attr(r2, "status"), 2)
 })
 
 test_that("default budget-limited and explicit objectives give same result", {
@@ -1376,12 +1529,11 @@ test_that("invalid inputs", {
     eval_rank_importance(p, s, budgets = matrix(c(2, 4, 2, 4), ncol = 2)),
     "budgets"
   )
-  # specifying compelx constraints throws error
+  # specifying complex constraints throws error
   expect_tidy_error(
     p %>%
       add_linear_constraints(100, "<=", pu) %>%
       eval_rank_importance(s, n = 2),
     "complex constraints"
   )
-
 })

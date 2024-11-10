@@ -1,10 +1,8 @@
-# prioritizr 8.0.5
+# prioritizr 8.0.6
 
 ## Notice
 
 - CRAN release.
-
-# prioritizr 8.0.4.6
 
 ## New features
 
@@ -16,7 +14,7 @@
   specifying a minimum set objective with zero costs and
   a linear constraint to specify the budget.
 - New `add_rank_importance()` function to evaluate the relative importance of
-  planning units selected in a solution (#337). Briefly, this approach involves generating incremental prioritizations with increasing budgets, wherein planning units selected in a previous increment are locked in to the following solution. Additionally, locked out constraints are used to ensure that only planning units selected in the original solution are available for selection. The advantages of this approach are that it can (i) be computed relatively quickly for relatively large problems, (ii) account for the cost of different planning units, (iii) account for multiple management zones, and (iv) apply to solutions generated using any objective function. 
+  planning units selected in a solution (#337). Briefly, this approach involves generating incremental prioritizations with increasing budgets, wherein planning units selected in a previous increment are locked in to the following solution. Additionally, locked out constraints are used to ensure that only planning units selected in the original solution are available for selection. The advantages of this approach are that it can (i) be computed relatively quickly for relatively large problems, (ii) account for the cost of different planning units, (iii) account for multiple management zones, and (iv) apply to solutions generated using any objective function.
 
 ## Minor improvements and bug fixes
 
@@ -25,16 +23,17 @@
 - Update `intersecting_units()` to accommodate very large `sf::st_sf()` objects.
 - Update `rij_matrix()` so that it has an optional `idx` parameter which
   can be used to specify planning unit indices if they have been pre-computed.
+  This new parameter can be used to help speed up calculations.
 - Update `add_locked_in_constraints()` and `add_locked_out_constraints()` to
   throw error messages with standardized grammar.
-- Update internal functions for processing `sf::st_sf()` object to improve
+- Update internal functions for processing `sf::st_sf()` objects to improve
   processing speed.
-- Update `add_cplex_solver()` error message for failing to initialize CPLEX
-  environment.
+- Update `add_cplex_solver()` error message for failing to initialize CPLEX.
 - Update error message for internal matrix conversion function.
 - Fix typo in error for importance and evaluation functions that
   is thrown when attempting to use a `solution` that is a different
   class than the planning units in `x`.
+- Fix typo in citation information.
 
 ## Documentation updates
 
@@ -43,6 +42,13 @@
 - Update `add_max_utility_objective()` documentation to make it clear that
   the function is simply maximizing a weighted sum of the features.
 - Update publication record.
+
+# prioritizr 8.0.5
+
+## Notice
+
+- Abandoned candidate for CRAN release. Although this version was originally
+  a candidate for CRAN release, we decided to add more functionality.
 
 # prioritizr 8.0.4.5
 
