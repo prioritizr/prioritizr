@@ -256,24 +256,19 @@ s4 <- solve(p4)
 plot(s4, main = "Solution", axes = FALSE)
 ```
 
-Now, let's explore which planning units selected by the solution are most important for cost-effectively meeting the targets. To achieve this, we will calculate importance (irreplaceability) scores using the Ferrier method. Although this method produces scores for each feature separately, we will examine the total scores that summarize overall importance across all features.
+Now, let's explore which planning units selected by the solution are most important for cost-effectively meeting the targets. To achieve this, we will calculate importance (irreplaceability) scores using an incremental rank approach. Briefly, the optimization problem is solved multiple times in an incremental process with increasing budgets, and planning units are assigned ranks based on which increment they are selected in. Planning units selected earlier on in the process are considered more important.
 
-```{r "importance"}
+```{r "importance"}cd
 # calculate importance scores
 rc <-
   p4 %>%
-  eval_ferrier_importance(s4)
+  eval_rank_importance(s4, n = 5)
 
 # print scores
 print(rc)
 
 # plot the total importance scores
-## note that gray cells are not selected by the prioritization
-plot(
-  rc[["total"]], main = "Importance scores", axes = FALSE,
-  breaks = c(0, 1e-10, 0.005, 0.01, 0.025),
-  col = c("#e5e5e5", "#fff7ec", "#fc8d59", "#7f0000")
-)
+plot(rc, main = "Importance scores", axes = FALSE)
 ```
 
 This short example demonstrates how the _prioritizr R_ package can be used to build and customize conservation problems, and then solve them to generate solutions. Although we explored just a few different functions for modifying a conservation problem, the package provides many functions for specifying objectives, constraints, penalties, and decision variables, so that you can build and custom-tailor conservation planning problems to suit your planning scenario.

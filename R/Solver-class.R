@@ -45,6 +45,10 @@ Solver <- R6::R6Class(
     #' @param index `integer` value indicating the index of the decision
     #' variable.
     #' @param value `numeric` new bound value.
+    #' @details Note that this method should only be run after `$calculate()`.
+    #' It can be used to overwrite values after ingesting an
+    #' [optimization_problem()] object.
+    #' It is designed to be used in [portfolios] and [importance] functions.
     #' @return Invisible `TRUE`.
     set_variable_ub = function(index, value) {
       # nocov start
@@ -57,10 +61,44 @@ Solver <- R6::R6Class(
     #' @param index `integer` value indicating the index of the decision
     #' variable.
     #' @param value `numeric` new bound value.
+    #' @details Note that this method should only be run after `$calculate()`.
+    #' It can be used to overwrite values after ingesting an
+    #' [optimization_problem()] object.
+    #' It is designed to be used in [portfolios] and [importance] functions.
     #' @return Invisible `TRUE`.
     set_variable_lb = function(index, value) {
       # nocov start
       cli::cli_abort("No defined $set_variable_lb method.", .internal = TRUE)
+      # nocov end
+    },
+
+    #' @description
+    #' Set the right-hand-side coefficient bound for a constraint.
+    #' @param index `integer` value indicating the index of the decision
+    #' variable.
+    #' @param value `numeric` new value.
+    #' @details Note that this method should only be run after `$calculate()`.
+    #' It can be used to overwrite values after ingesting an
+    #' [optimization_problem()] object.
+    #' It is designed to be used in [portfolios] and [importance] functions.
+    #' @return Invisible `TRUE`.
+    set_constraint_rhs = function(index, value) {
+      # nocov start
+      cli::cli_abort("No defined $set_constraint_rhs method.", .internal = TRUE)
+      # nocov end
+    },
+
+    #' @description
+    #' Set the starting solution.
+    #' @param value `numeric` new value.
+    #' @details Note that this method should only be run after `$calculate()`.
+    #' It can be used to overwrite values after ingesting an
+    #' [optimization_problem()] object.
+    #' It is designed to be used in [portfolios] and [importance] functions.
+    #' @return Invisible `TRUE`.
+    set_start_solution = function(value) {
+      # nocov start
+      cli::cli_abort("No defined $set_start_solution method.", .internal = TRUE)
       # nocov end
     },
 

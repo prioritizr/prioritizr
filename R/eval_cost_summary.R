@@ -166,12 +166,15 @@ eval_cost_summary <- function(x, solution) {
   assert_required(x)
   assert_required(solution)
   assert(is_conservation_problem(x))
-  # convert solution to status matrix format
-  solution <- planning_unit_solution_status(x, solution)
+  # calculate costs
+  internal_eval_cost_summary(x, planning_unit_solution_status(x, solution))
+}
+
+internal_eval_cost_summary <- function(x, status) {
   # calculate overall cost of each planning unit
   cost_data <- x$planning_unit_costs()
   # output costs
-  costs <- unname(c(colSums(cost_data * solution, na.rm = TRUE)))
+  costs <- unname(c(colSums(cost_data * status, na.rm = TRUE)))
   total_cost <- sum(costs)
   if (x$number_of_zones() > 1) {
     out <- tibble::tibble(

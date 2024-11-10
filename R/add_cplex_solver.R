@@ -192,6 +192,10 @@ add_cplex_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
         set_variable_lb = function(index, value) {
           self$internal$model$lb[index] <- value
           invisible(TRUE)
+        },
+        set_constraint_rhs = function(index, value) {
+          self$internal$model$rhs[index] <- value
+          invisible(TRUE)
         }
       )
     )$new()

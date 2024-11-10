@@ -294,6 +294,7 @@ the importance of planning units selected in a solution.
 
 Other importances: 
 \code{\link{eval_ferrier_importance}()},
+\code{\link{eval_rank_importance}()},
 \code{\link{eval_rare_richness_importance}()}
 }
 \concept{importances}

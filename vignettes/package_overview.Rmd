@@ -932,7 +932,7 @@ acm <- matrix(runif(ncell(sim_pu_raster) ^ 2), ncol = ncell(sim_pu_raster))
 eval_asym_connectivity_summary(p43, s43, data = acm)
 ```
 
-### Evaluating relative importance
+### Evaluating importance
 
 Conservation plans can take a long time to implement. Since funding availability and habitat quality can decline over time, it is critical that the most important places in a prioritization are scheduled for management as early as possible. For instance, some planning units in a solution might contain many rare species which do not occur in any other planning units. Alternatively, some planning units might offer an especially high return on investment that reduces costs considerably. As a consequence, conservation planners often need information on which planning units selected in a prioritization are most important to the overall success of the prioritization. To achieve this, conservation planners can use importance scores for each planning unit selected by a solution.
 
@@ -972,7 +972,21 @@ plot(
   xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1), axes = FALSE
 )
 ```
-* __Ferrier method__: Evaluate importance by computing irreplaceability scores following Ferrier *et al.* [-@r34]. The advantages of this method are that it (i) can be computed relatively quickly for moderate and large-sized problems, and (ii) calculates a score for each feature within each planning unit to provide insight into why certain planning units are more important than others. The disadvantage with this method is that it can only be applied to conservation problems that use targets and have a single zone (i.e., similar to _Marxan_-type problems).
+* __Incremental ranks__: Evaluate importance scores by calculating ranks via an incremental optimization process [@r66]. Briefly, this approach involves generating incremental prioritizations with increasing budgets, wherein planning units selected in a previous increment are locked in to the following solution. Additionally, locked out constraints are used to ensure that only planning units selected in the original solution are available for selection. The advantages of this approach are that it can (i) be computed relatively quickly for relatively large problems, (ii) account for the cost of different planning units, (iii) account for multiple management zones, and (iv) apply to solutions generated using any objective function.
+```{r, fig.height = h, fig.width = w}
+# calculate rank scores and make the solver quiet
+rs44 <-
+  p44 %>%
+  add_default_solver(gap = 0, verbose = FALSE) %>%
+  eval_rank_importance(s43, n = 10)
+
+# plot replacement cost scores
+plot(
+  rs44, main = "Rank scores",
+  xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1), axes = FALSE
+)
+```
+* __Ferrier method__: Evaluate importance by computing irreplaceability scores following Ferrier *et al.* [-@r34]. The advantages of this method are that it (i) can be computed relatively quickly for moderate problems, and (ii) calculates a score for each feature within each planning unit to provide insight into why certain planning units are more important than others. The disadvantage with this method is that it can only be applied to conservation problems that use targets and have a single zone (i.e., similar to _Marxan_-type problems).
 ```{r, fig.height = h, fig.width = w}
 # calculate Ferrier scores and extract total score
 fs44 <- eval_ferrier_importance(p44, s44)[["total"]]

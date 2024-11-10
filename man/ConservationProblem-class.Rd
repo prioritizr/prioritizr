@@ -37,7 +37,7 @@ Other classes:
 \item{\code{objective}}{\code{\linkS4class{Objective}} object specifying the objective
 function for the problem formulation.}
 
-\item{\code{decisions}}{s\code{\linkS4class{Decision}} object specifying the decision types
+\item{\code{decisions}}{\code{\linkS4class{Decision}} object specifying the decision types
 for the problem formulation.}
 
 \item{\code{targets}}{\code{\linkS4class{Target}} object specifying the representation

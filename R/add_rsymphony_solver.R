@@ -145,6 +145,10 @@ add_rsymphony_solver <- function(x, gap = 0.1,
           self$internal$model$bounds$lower$val[index] <- value
           invisible(TRUE)
         },
+        set_constraint_rhs = function(index, value) {
+          self$internal$model$rhs[index] <- value
+          invisible(TRUE)
+        },
         run = function() {
           # access input data and parameters
           model <- self$get_internal("model")

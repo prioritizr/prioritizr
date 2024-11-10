@@ -41,7 +41,7 @@ ConservationProblem <- R6::R6Class(
     #' function for the problem formulation.
     objective = new_waiver(),
 
-    #' @field decisions s[`Decision-class`] object specifying the decision types
+    #' @field decisions [`Decision-class`] object specifying the decision types
     #' for the problem formulation.
     decisions = new_waiver(),
 

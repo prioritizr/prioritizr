@@ -247,6 +247,19 @@ add_cbc_solver <- function(x,
           self$internal$model$col_lb[index] <- value
           invisible(TRUE)
         },
+        set_constraint_rhs = function(index, value) {
+          lb_idx <- is.finite(self$internal$model$row_lb[index])
+          ub_idx <- is.finite(self$internal$model$row_ub[index])
+          self$internal$model$row_lb[index[lb_idx]] <- value[lb_idx]
+          self$internal$model$row_ub[index[ub_idx]] <- value[ub_idx]
+          invisible(TRUE)
+        },
+        set_start_solution = function(value) {
+          n_extra <- length(self$internal$model$obj) - length(value)
+          value <- c(c(value), rep(NA_real_, n_extra))
+          self$internal$model$initial_solution <- value
+          invisible(TRUE)
+        },
         run = function() {
           # access input data and parameters
           model <- self$get_internal("model")

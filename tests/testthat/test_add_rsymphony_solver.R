@@ -251,3 +251,158 @@ test_that("solver information (multiple solutions)", {
   expect_true(is.numeric(attr(s, "gap")))
   expect_length(attr(s, "gap"), 3)
 })
+
+test_that("set_start_solution", {
+  skip_on_cran()
+  skip_if_not_installed("Rsymphony")
+  # create data
+  cost <- terra::rast(matrix(c(1000, 100, 200, 300, NA), nrow = 1))
+  features <- c(
+    terra::rast(matrix(c(5,  5,   0,  0,  NA), nrow = 1)),
+    terra::rast(matrix(c(2,  0,   8,  10, NA), nrow = 1)),
+    terra::rast(matrix(c(10, 100, 10, 10, NA), nrow = 1))
+  )
+  terra::set.names(features, make.unique(names(features)))
+  start_valid <- terra::rast(matrix(c(1, 0, 1, 0, NA), nrow = 1))
+  # create problem
+  p <-
+    problem(cost, features) %>%
+    add_min_set_objective() %>%
+    add_manual_targets(
+    tibble::tibble(
+      feature = names(features),
+      type = "absolute",
+      sense = c("=", ">=", "<="),
+      target = c(5, 10, 20))
+    ) %>%
+    add_binary_decisions() %>%
+    add_rsymphony_solver(verbose = FALSE)
+  # force calculations
+  p$solver$calculate(compile(p))
+  # tests
+  expect_error(
+    p$solver$set_start_solution(c(1, 2, 3)),
+    "No defined"
+  )
+})
+
+test_that("set_constraint_rhs", {
+  skip_on_cran()
+  skip_if_not_installed("Rsymphony")
+  # create data
+  cost <- terra::rast(matrix(c(1000, 100, 200, 300, NA), nrow = 1))
+  features <- c(
+    terra::rast(matrix(c(5,  5,   0,  0,  NA), nrow = 1)),
+    terra::rast(matrix(c(2,  0,   8,  10, NA), nrow = 1)),
+    terra::rast(matrix(c(10, 100, 10, 10, NA), nrow = 1))
+  )
+  terra::set.names(features, make.unique(names(features)))
+  # create problem
+  p <-
+    problem(cost, features) %>%
+    add_min_set_objective() %>%
+    add_manual_targets(
+    tibble::tibble(
+      feature = names(features),
+      type = "absolute",
+      sense = c("=", ">=", "<="),
+      target = c(5, 10, 20))
+    ) %>%
+    add_binary_decisions() %>%
+    add_rsymphony_solver(verbose = FALSE)
+  # force calculations
+  p$solver$calculate(compile(p))
+  # overwrite problem
+  p$solver$set_constraint_rhs(c(1, 3), c(100, 200))
+  # tests
+  expect_equal(
+    p$solver$internal$model$rhs,
+    c(100, 10, 200)
+  )
+})
+
+test_that("set_variable_lb", {
+  skip_on_cran()
+  skip_if_not_installed("Rsymphony")
+  # create data
+  cost <- terra::rast(matrix(c(1000, 100, 200, 300, NA), nrow = 1))
+  features <- c(
+    terra::rast(matrix(c(5,  5,   0,  0,  NA), nrow = 1)),
+    terra::rast(matrix(c(2,  0,   8,  10, NA), nrow = 1)),
+    terra::rast(matrix(c(10, 100, 10, 10, NA), nrow = 1))
+  )
+  terra::set.names(features, make.unique(names(features)))
+  locked_in <- terra::rast(matrix(c(1, 0, 0, 0, NA), nrow = 1))
+  locked_out <- terra::rast(matrix(c(0, 1, 0, 0, NA), nrow = 1))
+  # create problem
+  p <-
+    problem(cost, features) %>%
+    add_min_set_objective() %>%
+    add_manual_targets(
+    tibble::tibble(
+      feature = names(features),
+      type = "absolute",
+      sense = c("=", ">=", "<="),
+      target = c(5, 10, 20))
+    ) %>%
+    add_binary_decisions() %>%
+    add_locked_in_constraints(locked_in) %>%
+    add_locked_out_constraints(locked_out) %>%
+    add_rsymphony_solver(verbose = FALSE)
+  # force calculations
+  p$solver$calculate(compile(p))
+  # overwrite problem
+  p$solver$set_variable_lb(c(3, 4), c(1, 0))
+  # tests
+  expect_equal(
+    p$solver$internal$model$bounds$lower$val,
+    c(1, 0, 1, 0)
+  )
+  expect_equal(
+    p$solver$internal$model$bounds$upper$val,
+    c(1, 0, 1, 1)
+  )
+})
+
+test_that("set_variable_ub", {
+  skip_on_cran()
+  skip_if_not_installed("Rsymphony")
+  # create data
+  cost <- terra::rast(matrix(c(1000, 100, 200, 300, NA), nrow = 1))
+  features <- c(
+    terra::rast(matrix(c(5,  5,   0,  0,  NA), nrow = 1)),
+    terra::rast(matrix(c(2,  0,   8,  10, NA), nrow = 1)),
+    terra::rast(matrix(c(10, 100, 10, 10, NA), nrow = 1))
+  )
+  terra::set.names(features, make.unique(names(features)))
+  locked_in <- terra::rast(matrix(c(1, 0, 0, 0, NA), nrow = 1))
+  locked_out <- terra::rast(matrix(c(0, 1, 0, 0, NA), nrow = 1))
+  # create problem
+  p <-
+    problem(cost, features) %>%
+    add_min_set_objective() %>%
+    add_manual_targets(
+    tibble::tibble(
+      feature = names(features),
+      type = "absolute",
+      sense = c("=", ">=", "<="),
+      target = c(5, 10, 20))
+    ) %>%
+    add_binary_decisions() %>%
+    add_locked_in_constraints(locked_in) %>%
+    add_locked_out_constraints(locked_out) %>%
+    add_rsymphony_solver(verbose = FALSE)
+  # force calculations
+  p$solver$calculate(compile(p))
+  # overwrite problem
+  p$solver$set_variable_ub(c(3, 4), c(1, 0))
+  # tests
+  expect_equal(
+    p$solver$internal$model$bounds$lower$val,
+    c(1, 0, 0, 0)
+  )
+  expect_equal(
+    p$solver$internal$model$bounds$upper$val,
+    c(1, 0, 1, 0)
+  )
+})

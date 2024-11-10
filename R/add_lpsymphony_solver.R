@@ -225,6 +225,10 @@ add_lpsymphony_solver <- function(x, gap = 0.1,
         set_variable_lb = function(index, value) {
           self$internal$model$bounds$lower$val[index] <- value
           invisible(TRUE)
+        },
+        set_constraint_rhs = function(index, value) {
+          self$internal$model$rhs[index] <- value
+          invisible(TRUE)
         }
       )
     )$new()

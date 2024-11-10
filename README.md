@@ -275,7 +275,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##       3.47
+    ##      3.166
 
 ``` r
 # extract state message from the solver
@@ -476,46 +476,23 @@ plot(s4, main = "Solution", axes = FALSE)
 
 Now, let’s explore which planning units selected by the solution are
 most important for cost-effectively meeting the targets. To achieve
-this, we will calculate importance (irreplaceability) scores using the
-Ferrier method. Although this method produces scores for each feature
-separately, we will examine the total scores that summarize overall
-importance across all features.
+this, we will calculate importance (irreplaceability) scores using an
+incremental rank approach. Briefly, the optimization problem is solved
+multiple times in an incremental process with increasing budgets, and
+planning units are assigned ranks based on which increment they are
+selected in. Planning units selected earlier on in the process are
+considered more important.
 
-``` r
-# calculate importance scores
-rc <-
-  p4 %>%
-  eval_ferrier_importance(s4)
+\`\`\`{r “importance”}cd \# calculate importance scores rc \<- p4 %\>%
+eval_rank_importance(s4, n = 5)
 
 # print scores
+
 print(rc)
-```
 
-    ## class       : SpatRaster 
-    ## dimensions  : 109, 147, 397  (nrow, ncol, nlyr)
-    ## resolution  : 4000, 4000  (x, y)
-    ## extent      : -1816382, -1228382, 247483.5, 683483.5  (xmin, xmax, ymin, ymax)
-    ## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs 
-    ## source(s)   : memory
-    ## varnames    : wa_pu 
-    ##               wa_pu 
-    ##               wa_pu 
-    ##               ...
-    ## names       :  Recur~ding),  Botau~ding),  Botau~ding),  Corvu~ding),  Corvu~ding),  Cincl~full), ... 
-    ## min values  : 0.0000000000, 0.0000000000, 0.0000000000, 0.000000e+00, 0.000000e+00, 0.000000e+00, ... 
-    ## max values  : 0.0003227724, 0.0002213034, 0.0006622152, 7.771815e-05, 8.974447e-05, 8.483296e-05, ...
-
-``` r
 # plot the total importance scores
-## note that gray cells are not selected by the prioritization
-plot(
-  rc[["total"]], main = "Importance scores", axes = FALSE,
-  breaks = c(0, 1e-10, 0.005, 0.01, 0.025),
-  col = c("#e5e5e5", "#fff7ec", "#fc8d59", "#7f0000")
-)
-```
 
-<img src="man/figures/README-importance-1.png" width="500" style="display: block; margin: auto;" />
+plot(rc, main = “Importance scores”, axes = FALSE) \`\`\`
 
 This short example demonstrates how the *prioritizr R* package can be
 used to build and customize conservation problems, and then solve them

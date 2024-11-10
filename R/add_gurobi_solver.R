@@ -279,6 +279,16 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
           self$internal$model$lb[index] <- value
           invisible(TRUE)
         },
+        set_constraint_rhs = function(index, value) {
+          self$internal$model$rhs[index] <- value
+          invisible(TRUE)
+        },
+        set_start_solution = function(value) {
+          n_extra <- length(self$internal$model$obj) - length(value)
+          value <- c(c(value), rep(NA_real_, n_extra))
+          self$internal$model$start <- value
+          invisible(TRUE)
+        },
         run = function() {
           # access internal model and parameters
           model <- self$get_internal("model")

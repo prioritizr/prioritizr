@@ -15,6 +15,8 @@
   hierarchical multi-objective optimization. It can be now used instead of
   specifying a minimum set objective with zero costs and
   a linear constraint to specify the budget.
+- New `add_rank_importance()` function to evaluate the relative importance of
+  planning units selected in a solution (#337). Briefly, this approach involves generating incremental prioritizations with increasing budgets, wherein planning units selected in a previous increment are locked in to the following solution. Additionally, locked out constraints are used to ensure that only planning units selected in the original solution are available for selection. The advantages of this approach are that it can (i) be computed relatively quickly for relatively large problems, (ii) account for the cost of different planning units, (iii) account for multiple management zones, and (iv) apply to solutions generated using any objective function. 
 
 ## Minor improvements and bug fixes
 
@@ -30,6 +32,9 @@
 - Update `add_cplex_solver()` error message for failing to initialize CPLEX
   environment.
 - Update error message for internal matrix conversion function.
+- Fix typo in error for importance and evaluation functions that
+  is thrown when attempting to use a `solution` that is a different
+  class than the planning units in `x`.
 
 ## Documentation updates
 
