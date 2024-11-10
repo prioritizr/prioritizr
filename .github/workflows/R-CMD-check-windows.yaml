@@ -59,6 +59,7 @@ jobs:
             any::rcmdcheck
             any::remotes
             gurobi=?ignore
+            cplexAPI=?ignore
           needs: |
             check
 
