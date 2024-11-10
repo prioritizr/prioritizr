@@ -249,7 +249,7 @@
 <code class="sourceCode R"><span><span class="co"># extract time spent solving the problem</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb17"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="do">## solution_1 </span></span>
-<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="do">##       3.47</span></span></code></pre></div>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="do">##      3.166</span></span></code></pre></div>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract state message from the solver</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"status"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -375,39 +375,20 @@
 <span><span class="co"># plot the solution</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s4</span>, main <span class="op">=</span> <span class="st">"Solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-boundary_penalties-1.png" width="500" style="display: block; margin: auto;"></p>
-<p>Now, let’s explore which planning units selected by the solution are most important for cost-effectively meeting the targets. To achieve this, we will calculate importance (irreplaceability) scores using the Ferrier method. Although this method produces scores for each feature separately, we will examine the total scores that summarize overall importance across all features.</p>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># calculate importance scores</span></span>
-<span><span class="va">rc</span> <span class="op">&lt;-</span></span>
-<span>  <span class="va">p4</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="reference/eval_ferrier_importance.html">eval_ferrier_importance</a></span><span class="op">(</span><span class="va">s4</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># print scores</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">rc</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb39"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a><span class="do">## class       : SpatRaster </span></span>
-<span id="cb39-2"><a href="#cb39-2" tabindex="-1"></a><span class="do">## dimensions  : 109, 147, 397  (nrow, ncol, nlyr)</span></span>
-<span id="cb39-3"><a href="#cb39-3" tabindex="-1"></a><span class="do">## resolution  : 4000, 4000  (x, y)</span></span>
-<span id="cb39-4"><a href="#cb39-4" tabindex="-1"></a><span class="do">## extent      : -1816382, -1228382, 247483.5, 683483.5  (xmin, xmax, ymin, ymax)</span></span>
-<span id="cb39-5"><a href="#cb39-5" tabindex="-1"></a><span class="do">## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs </span></span>
-<span id="cb39-6"><a href="#cb39-6" tabindex="-1"></a><span class="do">## source(s)   : memory</span></span>
-<span id="cb39-7"><a href="#cb39-7" tabindex="-1"></a><span class="do">## varnames    : wa_pu </span></span>
-<span id="cb39-8"><a href="#cb39-8" tabindex="-1"></a><span class="do">##               wa_pu </span></span>
-<span id="cb39-9"><a href="#cb39-9" tabindex="-1"></a><span class="do">##               wa_pu </span></span>
-<span id="cb39-10"><a href="#cb39-10" tabindex="-1"></a><span class="do">##               ...</span></span>
-<span id="cb39-11"><a href="#cb39-11" tabindex="-1"></a><span class="do">## names       :  Recur~ding),  Botau~ding),  Botau~ding),  Corvu~ding),  Corvu~ding),  Cincl~full), ... </span></span>
-<span id="cb39-12"><a href="#cb39-12" tabindex="-1"></a><span class="do">## min values  : 0.0000000000, 0.0000000000, 0.0000000000, 0.000000e+00, 0.000000e+00, 0.000000e+00, ... </span></span>
-<span id="cb39-13"><a href="#cb39-13" tabindex="-1"></a><span class="do">## max values  : 0.0003227724, 0.0002213034, 0.0006622152, 7.771815e-05, 8.974447e-05, 8.483296e-05, ...</span></span></code></pre></div>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># plot the total importance scores</span></span>
-<span><span class="co">## note that gray cells are not selected by the prioritization</span></span>
-<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
-<span>  <span class="va">rc</span><span class="op">[[</span><span class="st">"total"</span><span class="op">]</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"Importance scores"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1e-10</span>, <span class="fl">0.005</span>, <span class="fl">0.01</span>, <span class="fl">0.025</span><span class="op">)</span>,</span>
-<span>  col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#e5e5e5"</span>, <span class="st">"#fff7ec"</span>, <span class="st">"#fc8d59"</span>, <span class="st">"#7f0000"</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-importance-1.png" width="500" style="display: block; margin: auto;"></p>
-<p>This short example demonstrates how the <em>prioritizr R</em> package can be used to build and customize conservation problems, and then solve them to generate solutions. Although we explored just a few different functions for modifying a conservation problem, the package provides many functions for specifying objectives, constraints, penalties, and decision variables, so that you can build and custom-tailor conservation planning problems to suit your planning scenario.</p>
+<p>Now, let’s explore which planning units selected by the solution are most important for cost-effectively meeting the targets. To achieve this, we will calculate importance (irreplaceability) scores using an incremental rank approach. Briefly, the optimization problem is solved multiple times in an incremental process with increasing budgets, and planning units are assigned ranks based on which increment they are selected in. Planning units selected earlier on in the process are considered more important.</p>
+<p>```{r “importance”}cd # calculate importance scores rc &lt;- p4 %&gt;% eval_rank_importance(s4, n = 5)</p>
 </div>
+</div>
+<div class="section level1">
+<h1 id="print-scores">print scores<a class="anchor" aria-label="anchor" href="#print-scores"></a>
+</h1>
+<p>print(rc)</p>
+</div>
+<div class="section level1">
+<h1 id="plot-the-total-importance-scores">plot the total importance scores<a class="anchor" aria-label="anchor" href="#plot-the-total-importance-scores"></a>
+</h1>
+<p>plot(rc, main = “Importance scores”, axes = FALSE) ```</p>
+<p>This short example demonstrates how the <em>prioritizr R</em> package can be used to build and customize conservation problems, and then solve them to generate solutions. Although we explored just a few different functions for modifying a conservation problem, the package provides many functions for specifying objectives, constraints, penalties, and decision variables, so that you can build and custom-tailor conservation planning problems to suit your planning scenario.</p>
 <div class="section level2">
 <h2 id="learning-resources">Learning resources<a class="anchor" aria-label="anchor" href="#learning-resources"></a>
 </h2>
@@ -438,6 +419,7 @@
 <p>If you have any questions about the <em>prioritizr R</em> package or suggestions for improving it, please <a href="https://github.com/prioritizr/prioritizr/issues/new" class="external-link">post an issue on the code repository</a>.</p>
 </div>
 </div>
+
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">

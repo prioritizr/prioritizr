@@ -82,6 +82,7 @@
 <div class="section level3">
 <h3 id="new-features-8-0-4-6">New features<a class="anchor" aria-label="anchor" href="#new-features-8-0-4-6"></a></h3>
 <ul><li>New <code><a href="../reference/add_min_penalties_objective.html">add_min_penalties_objective()</a></code> function to generate solutions that focus on minimizing the penalties – as much as possible – whilst ensuring that (i) the cost of the solution does not exceed a budget and (ii) all feature representation targets are met. This function is designed to aid with hierarchical multi-objective optimization. It can be now used instead of specifying a minimum set objective with zero costs and a linear constraint to specify the budget.</li>
+<li>New <code>add_rank_importance()</code> function to evaluate the relative importance of planning units selected in a solution (<a href="https://github.com/prioritizr/prioritizr/issues/337" class="external-link">#337</a>). Briefly, this approach involves generating incremental prioritizations with increasing budgets, wherein planning units selected in a previous increment are locked in to the following solution. Additionally, locked out constraints are used to ensure that only planning units selected in the original solution are available for selection. The advantages of this approach are that it can (i) be computed relatively quickly for relatively large problems, (ii) account for the cost of different planning units, (iii) account for multiple management zones, and (iv) apply to solutions generated using any objective function.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="minor-improvements-and-bug-fixes-8-0-4-6">Minor improvements and bug fixes<a class="anchor" aria-label="anchor" href="#minor-improvements-and-bug-fixes-8-0-4-6"></a></h3>
@@ -92,6 +93,7 @@
 <li>Update internal functions for processing <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::st_sf()</a></code> object to improve processing speed.</li>
 <li>Update <code><a href="../reference/add_cplex_solver.html">add_cplex_solver()</a></code> error message for failing to initialize CPLEX environment.</li>
 <li>Update error message for internal matrix conversion function.</li>
+<li>Fix typo in error for importance and evaluation functions that is thrown when attempting to use a <code>solution</code> that is a different class than the planning units in <code>x</code>.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="documentation-updates-8-0-4-6">Documentation updates<a class="anchor" aria-label="anchor" href="#documentation-updates-8-0-4-6"></a></h3>
@@ -158,7 +160,7 @@
 <h2 class="pkg-version" data-toc-text="8.0.4.1" id="prioritizr-8041">prioritizr 8.0.4.1<a class="anchor" aria-label="anchor" href="#prioritizr-8041"></a></h2>
 <div class="section level3">
 <h3 id="minor-improvements-and-bug-fixes-8-0-4-1">Minor improvements and bug fixes<a class="anchor" aria-label="anchor" href="#minor-improvements-and-bug-fixes-8-0-4-1"></a></h3>
-<ul><li>Fix issue with <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> and <code>summarize()</code> not displaying correct text for linear constraints (<a href="https://github.com/prioritizr/prioritizr/issues/330" class="external-link">#330</a>).</li>
+<ul><li>Fix issue with <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize()</a></code> not displaying correct text for linear constraints (<a href="https://github.com/prioritizr/prioritizr/issues/330" class="external-link">#330</a>).</li>
 </ul></div>
 </div>
     <div class="section level2">

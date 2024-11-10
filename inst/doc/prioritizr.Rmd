@@ -75,11 +75,14 @@ tas_pu <- get_tas_pu()
 tas_features <- get_tas_features()
 ```
 
-Let's have a look at the planning unit data. The `tas_pu` object contains planning units represented as spatial polygons (i.e., a `sf::st_sf()` object). This object has three columns that denote the following information for each planning unit: a unique identifier (`id`), unimproved land value (`cost`), and current conservation status (`locked_in`). Planning units that have at least half of their area overlapping with existing protected areas are denoted with a locked in `TRUE` value, otherwise they are denoted with a value of `FALSE`.
+Let's have a look at the planning unit data. The `tas_pu` object contains planning units represented as spatial polygons (i.e., a `sf::st_sf()` object). This object has three columns that denote the following information for each planning unit: a unique identifier (`id`), unimproved land value (`cost`), and current conservation status (`locked_in`). Planning units that have at least half of their area overlapping with existing protected areas are denoted with a locked in `TRUE` value, otherwise they are denoted with a value of `FALSE`. We will also set the costs for existing protected areas to zero, so that existing protected areas aren't included in the the cost of the prioritization.
 
 ```{r, fig.width = w, fig.height = h}
 # print planning unit data
 print(tas_pu)
+
+# set costs for existing protected areas to zero
+tas_pu$cost <- tas_pu$cost * !tas_pu$locked_in
 
 # plot map of planning unit costs
 plot(st_as_sf(tas_pu[, "cost"]), main = "Planning unit costs")
@@ -180,22 +183,23 @@ hist(
 
 We can see that representation of the vegetation communities by existing protected areas is remarkably poor. For example, many of the vegetation communities have nearly zero coverage by existing protected areas. In other words, are almost entirely absent from  existing protected areas. We can also see that all vegetation communities have at least 17% coverage by the prioritization -- meaning that it meets the representation targets for all of the features.
 
-## Irreplaceability
+## Evaluating importance
 
-After generating the prioritization, we can examine the relative importance of planning units selected by the prioritization. This can be useful to identify critically important planning units for conservation -- in other words, places that contain biodiversity features which cannot be represented anywhere else -- and schedule implementation of the prioritization. To achieve this, we will use the Ferrier metric [@r34].
+After generating the prioritization, we can examine the relative importance of planning units selected by the prioritization. This can be useful to identify critically important planning units for conservation -- in other words, places that contain biodiversity features which cannot be represented anywhere else -- and schedule implementation of the prioritization. To achieve this, we will use an incremental rank approach [@r66]. Briefly, this approach involves generating incremental prioritizations with increasing budgets, wherein planning units selected in a previous increment are locked in to the following solution. Additionally, locked out constraints are used to ensure that only planning units selected in the original solution are available for selection. If you're interested, other approaches for examining importance are also available (see [`?importance`](https://prioritizr.net/reference/importance.html)).
 
-```{r, fig.width = w, fig.height = h}
-# calculate irreplaceability
-irrep_s1 <- eval_ferrier_importance(p1, s1["solution_1"])
+```{r, message = FALSE, results = "hide"}
+# calculate relative importance
+irrep_s1 <- eval_rank_importance(p1, s1["solution_1"], n = 10)
 print(irrep_s1)
 
-# manually coerce values for planning units not selected in prioritization
-# to NA, so that they are shown in white
-irrep_s1$plot_total <- irrep_s1$total
-irrep_s1$plot_total[s1$solution_1 < 0.5] <- NA_real_
+# manually set locked in planning units to -1 to help with visualization,
+# this way we can easily see the importance scores for the priority areas
+irrep_s1$rs[irrep_s1$locked_in] <- -1
+```
 
-# plot map of overall importance scores
-plot(st_as_sf(irrep_s1[, "plot_total"]), main = "Overall importance")
+```{r, fig.width = w, fig.height = h}
+# plot map of importance scores
+plot(st_as_sf(irrep_s1[, "rs"]), main = "Overall importance")
 ```
 
 ## Portfolios

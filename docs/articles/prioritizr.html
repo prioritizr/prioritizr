@@ -149,7 +149,10 @@ identifier (<code>id</code>), unimproved land value (<code>cost</code>),
 and current conservation status (<code>locked_in</code>). Planning units
 that have at least half of their area overlapping with existing
 protected areas are denoted with a locked in <code>TRUE</code> value,
-otherwise they are denoted with a value of <code>FALSE</code>.</p>
+otherwise they are denoted with a value of <code>FALSE</code>. We will
+also set the costs for existing protected areas to zero, so that
+existing protected areas aren’t included in the the cost of the
+prioritization.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># print planning unit data</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">tas_pu</span><span class="op">)</span></span></code></pre></div>
@@ -173,7 +176,10 @@ otherwise they are denoted with a value of <code>FALSE</code>.</p>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span>    10  1.83 FALSE     FALSE      (((356377.1 5487952, 353903.1 5487635, 3538…</span></span>
 <span><span class="co">## <span style="color: #949494;"># ℹ 1,120 more rows</span></span></span></code></pre>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># plot map of planning unit costs</span></span>
+<code class="sourceCode R"><span><span class="co"># set costs for existing protected areas to zero</span></span>
+<span><span class="va">tas_pu</span><span class="op">$</span><span class="va">cost</span> <span class="op">&lt;-</span> <span class="va">tas_pu</span><span class="op">$</span><span class="va">cost</span> <span class="op">*</span> <span class="op">!</span><span class="va">tas_pu</span><span class="op">$</span><span class="va">locked_in</span></span>
+<span></span>
+<span><span class="co"># plot map of planning unit costs</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">st_as_sf</a></span><span class="op">(</span><span class="va">tas_pu</span><span class="op">[</span>, <span class="st">"cost"</span><span class="op">]</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Planning unit costs"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="prioritizr_files/figure-html/unnamed-chunk-5-1.png" width="336" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -245,7 +251,7 @@ select – or not select – planning units for prioritization (using the
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"Banksia woodlands"</span>, … (33 total)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>planning units:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>data:       <span style="color: #0000BB;">&lt;sftbl_dftbldata.frame&gt;</span> (1130 total)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">0.1925</span> and <span style="color: #0000BB;">61.9273</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">0</span> and <span style="color: #0000BB;">61.9273</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">298809.5764</span>, <span style="color: #0000BB;">5167774.5993</span>, <span style="color: #0000BB;">613818.7743</span>, <span style="color: #0000BB;">5502543.7119</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        WGS 84 / UTM zone 55S (projected)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
@@ -295,42 +301,55 @@ the <code>s1</code> object.</p>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimize a model with 6329 rows, 4278 columns and 20749 nonzeros</span></span>
-<span><span class="co">## Model fingerprint: 0xf830e2c0</span></span>
+<span><span class="co">## Model fingerprint: 0x9918e836</span></span>
 <span><span class="co">## Variable types: 0 continuous, 4278 integer (4278 binary)</span></span>
 <span><span class="co">## Coefficient statistics:</span></span>
 <span><span class="co">##   Matrix range     [2e-06, 6e+01]</span></span>
 <span><span class="co">##   Objective range  [5e-01, 2e+02]</span></span>
 <span><span class="co">##   Bounds range     [1e+00, 1e+00]</span></span>
 <span><span class="co">##   RHS range        [2e-01, 2e+03]</span></span>
-<span><span class="co">## Found heuristic solution: objective 36789.525254</span></span>
-<span><span class="co">## Found heuristic solution: objective 26818.653495</span></span>
+<span><span class="co">## Found heuristic solution: objective 28313.965155</span></span>
+<span><span class="co">## Found heuristic solution: objective 18343.093396</span></span>
 <span><span class="co">## Presolve removed 1909 rows and 1249 columns</span></span>
 <span><span class="co">## Presolve time: 0.04s</span></span>
 <span><span class="co">## Presolved: 4420 rows, 3029 columns, 11081 nonzeros</span></span>
-<span><span class="co">## Found heuristic solution: objective 24077.930942</span></span>
+<span><span class="co">## Found heuristic solution: objective 15602.370843</span></span>
 <span><span class="co">## Variable types: 0 continuous, 3029 integer (3029 binary)</span></span>
-<span><span class="co">## Found heuristic solution: objective 22854.296392</span></span>
+<span><span class="co">## Found heuristic solution: objective 14378.736293</span></span>
 <span><span class="co">## Root relaxation presolve removed 8 rows and 6 columns</span></span>
 <span><span class="co">## Root relaxation presolved: 4412 rows, 3023 columns, 11060 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Root relaxation: objective 1.799626e+04, 1296 iterations, 0.04 seconds (0.09 work units)</span></span>
+<span><span class="co">## Root relaxation: objective 9.520699e+03, 1296 iterations, 0.04 seconds (0.09 work units)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">##      0     0 17996.2587    0 1115 22854.2964 17996.2587  21.3%     -    0s</span></span>
-<span><span class="co">## H    0     0                    21408.703461 17996.2587  15.9%     -    0s</span></span>
-<span><span class="co">## H    0     0                    20673.221523 17996.2587  12.9%     -    0s</span></span>
-<span><span class="co">## H    0     0                    19891.369195 17996.2587  9.53%     -    0s</span></span>
+<span><span class="co">##      0     0 9520.69856    0 1115 14378.7363 9520.69856  33.8%     -    0s</span></span>
+<span><span class="co">## H    0     0                    12933.143362 9520.69856  26.4%     -    0s</span></span>
+<span><span class="co">## H    0     0                    12197.661425 9520.69856  21.9%     -    0s</span></span>
+<span><span class="co">## H    0     0                    11415.809096 9520.69856  16.6%     -    0s</span></span>
+<span><span class="co">## H    0     0                    11179.561369 9520.69856  14.8%     -    0s</span></span>
+<span><span class="co">##      0     0 9615.33215    0 1144 11179.5614 9615.33215  14.0%     -    0s</span></span>
+<span><span class="co">## H    0     0                    10708.874738 9615.33215  10.2%     -    0s</span></span>
+<span><span class="co">##      0     0 9630.86518    0 1113 10708.8747 9630.86518  10.1%     -    0s</span></span>
+<span><span class="co">##      0     0 9630.94955    0 1057 10708.8747 9630.94955  10.1%     -    0s</span></span>
+<span><span class="co">##      0     0 9633.39167    0 1052 10708.8747 9633.39167  10.0%     -    0s</span></span>
+<span><span class="co">##      0     0 9633.39167    0 1052 10708.8747 9633.39167  10.0%     -    0s</span></span>
+<span><span class="co">##      0     2 9633.57606    0 1052 10708.8747 9633.57606  10.0%     -    0s</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 1 nodes (1296 simplex iterations) in 0.10 seconds (0.18 work units)</span></span>
+<span><span class="co">## Cutting planes:</span></span>
+<span><span class="co">##   MIR: 2</span></span>
+<span><span class="co">##   GUB cover: 1</span></span>
+<span><span class="co">##   RLT: 5</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Explored 3 nodes (1811 simplex iterations) in 0.71 seconds (2.04 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Solution count 7: 19891.4 20673.2 21408.7 ... 36789.5</span></span>
+<span><span class="co">## Solution count 9: 10708.9 11179.6 11415.8 ... 28314</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
-<span><span class="co">## Best objective 1.989136919462e+04, best bound 1.799625865394e+04, gap 9.5273%</span></span></code></pre>
+<span><span class="co">## Best objective 1.070887473841e+04, best bound 9.657420841310e+03, gap 9.8185%</span></span></code></pre>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot map of prioritization</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
@@ -375,15 +394,15 @@ existing protected areas and the prioritization.</p>
 <span><span class="co">##    feature   met   total_amount absolute_target absolute_held absolute_shortfall</span></span>
 <span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 1</span> Banksia … TRUE          2.00           0.340         0.367                  0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> Boulders… TRUE        140.            23.9          71.8                    0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> Boulders… TRUE        140.            23.9          70.8                    0</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 3</span> Callitri… TRUE          6.00           1.02          1.49                   0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> Cool tem… TRUE       <span style="text-decoration: underline;">7</span>257.          <span style="text-decoration: underline;">1</span>234.         <span style="text-decoration: underline;">3</span>300.                     0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> Eucalypt… TRUE       <span style="text-decoration: underline;">5</span>699.           969.         <span style="text-decoration: underline;">1</span>786.                     0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> Eucalypt… TRUE       <span style="text-decoration: underline;">9</span>180.          <span style="text-decoration: underline;">1</span>561.         <span style="text-decoration: underline;">1</span>775.                     0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> Eucalypt… TRUE         38.0            6.46         18.0                    0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> Cool tem… TRUE       <span style="text-decoration: underline;">7</span>257.          <span style="text-decoration: underline;">1</span>234.         <span style="text-decoration: underline;">3</span>289.                     0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> Eucalypt… TRUE       <span style="text-decoration: underline;">5</span>699.           969.         <span style="text-decoration: underline;">1</span>759.                     0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> Eucalypt… TRUE       <span style="text-decoration: underline;">9</span>180.          <span style="text-decoration: underline;">1</span>561.         <span style="text-decoration: underline;">1</span>738.                     0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> Eucalypt… TRUE         38.0            6.46         19.0                    0</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 8</span> Eucalypt… TRUE       <span style="text-decoration: underline;">1</span>908.           324.          325.                     0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> Eucalypt… TRUE        388.            65.9          89.9                    0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">10</span> Eucalypt… TRUE       <span style="text-decoration: underline;">6</span>145.          <span style="text-decoration: underline;">1</span>045.         <span style="text-decoration: underline;">2</span>081.                     0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> Eucalypt… TRUE        388.            65.9          72.8                    0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> Eucalypt… TRUE       <span style="text-decoration: underline;">6</span>145.          <span style="text-decoration: underline;">1</span>045.         <span style="text-decoration: underline;">2</span>088.                     0</span></span>
 <span><span class="co">## <span style="color: #949494;"># ℹ 23 more rows</span></span></span>
 <span><span class="co">## <span style="color: #949494;"># ℹ 3 more variables: relative_target &lt;dbl&gt;, relative_held &lt;dbl&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   relative_shortfall &lt;dbl&gt;</span></span></span></code></pre>
@@ -410,7 +429,7 @@ existing protected areas and the prioritization.</p>
 <span><span class="co">## summarize representation (values show percent coverage)</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">tc_s1</span><span class="op">$</span><span class="va">relative_held</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
-<span><span class="co">##   17.01   18.80   30.43   37.82   49.43  100.00</span></span></code></pre>
+<span><span class="co">##   17.01   18.80   30.43   37.25   50.03  100.00</span></span></code></pre>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## calculate number of features adequately represented by the prioritization</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">tc_s1</span><span class="op">$</span><span class="va">met</span><span class="op">)</span></span></code></pre></div>
@@ -433,52 +452,37 @@ least 17% coverage by the prioritization – meaning that it meets the
 representation targets for all of the features.</p>
 </div>
 <div class="section level2">
-<h2 id="irreplaceability">Irreplaceability<a class="anchor" aria-label="anchor" href="#irreplaceability"></a>
+<h2 id="evaluating-importance">Evaluating importance<a class="anchor" aria-label="anchor" href="#evaluating-importance"></a>
 </h2>
 <p>After generating the prioritization, we can examine the relative
 importance of planning units selected by the prioritization. This can be
 useful to identify critically important planning units for conservation
 – in other words, places that contain biodiversity features which cannot
 be represented anywhere else – and schedule implementation of the
-prioritization. To achieve this, we will use the Ferrier metric <span class="citation">(Ferrier <em>et al.</em> 2000)</span>.</p>
+prioritization. To achieve this, we will use an incremental rank
+approach <span class="citation">(Jung <em>et al.</em> 2021)</span>.
+Briefly, this approach involves generating incremental prioritizations
+with increasing budgets, wherein planning units selected in a previous
+increment are locked in to the following solution. Additionally, locked
+out constraints are used to ensure that only planning units selected in
+the original solution are available for selection. If you’re interested,
+other approaches for examining importance are also available (see <a href="https://prioritizr.net/reference/importance.html"><code>?importance</code></a>).</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># calculate irreplaceability</span></span>
-<span><span class="va">irrep_s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_ferrier_importance.html">eval_ferrier_importance</a></span><span class="op">(</span><span class="va">p1</span>, <span class="va">s1</span><span class="op">[</span><span class="st">"solution_1"</span><span class="op">]</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">irrep_s1</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Simple feature collection with 1130 features and 34 fields</span></span>
-<span><span class="co">## Geometry type: MULTIPOLYGON</span></span>
-<span><span class="co">## Dimension:     XY</span></span>
-<span><span class="co">## Bounding box:  xmin: 298809.6 ymin: 5167775 xmax: 613818.8 ymax: 5502544</span></span>
-<span><span class="co">## Projected CRS: WGS 84 / UTM zone 55S</span></span>
-<span><span class="co">## <span style="color: #949494;"># A tibble: 1,130 × 35</span></span></span>
-<span><span class="co">##    `Banksia woodlands` Boulders/rock with algae, lichen…¹ Callitris forests an…²</span></span>
-<span><span class="co">##  <span style="color: #BCBCBC;">*</span>               <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 1</span>                   0                                  0                      0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 2</span>                   0                                  0                      0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 3</span>                   0                                  0                      0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 4</span>                   0                                  0                      0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 5</span>                   0                                  0                      0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 6</span>                   0                                  0                      0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 7</span>                   0                                  0                      0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 8</span>                   0                                  0                      0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 9</span>                   0                                  0                      0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">10</span>                   0                                  0                      0</span></span>
-<span><span class="co">## <span style="color: #949494;"># ℹ 1,120 more rows</span></span></span>
-<span><span class="co">## <span style="color: #949494;"># ℹ abbreviated names:</span></span></span>
-<span><span class="co">## <span style="color: #949494;">#   ¹​`Boulders/rock with algae, lichen or scattered plants, or alpine fjaeldmarks`,</span></span></span>
-<span><span class="co">## <span style="color: #949494;">#   ²​`Callitris forests and woodlands`</span></span></span>
-<span><span class="co">## <span style="color: #949494;"># ℹ 32 more variables: `Cool temperate rainforest` &lt;dbl&gt;,</span></span></span>
-<span><span class="co">## <span style="color: #949494;">#   `Eucalyptus (+/- tall) open forest with a dense broad-leaved and/or tree-fern understorey (wet sclerophyll)` &lt;dbl&gt;,</span></span></span>
-<span><span class="co">## <span style="color: #949494;">#   `Eucalyptus open forests with a shrubby understorey` &lt;dbl&gt;, …</span></span></span></code></pre>
+<code class="sourceCode R"><span><span class="co"># calculate relative importance</span></span>
+<span><span class="va">irrep_s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_rank_importance.html">eval_rank_importance</a></span><span class="op">(</span><span class="va">p1</span>, <span class="va">s1</span><span class="op">[</span><span class="st">"solution_1"</span><span class="op">]</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning in matrix(compile(x)$lb(), ncol = n_z, nrow = n_pu): data length [4278]</span></span>
+<span><span class="co">## is not a sub-multiple or multiple of the number of rows [1130]</span></span></code></pre>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># manually coerce values for planning units not selected in prioritization</span></span>
-<span><span class="co"># to NA, so that they are shown in white</span></span>
-<span><span class="va">irrep_s1</span><span class="op">$</span><span class="va">plot_total</span> <span class="op">&lt;-</span> <span class="va">irrep_s1</span><span class="op">$</span><span class="va">total</span></span>
-<span><span class="va">irrep_s1</span><span class="op">$</span><span class="va">plot_total</span><span class="op">[</span><span class="va">s1</span><span class="op">$</span><span class="va">solution_1</span> <span class="op">&lt;</span> <span class="fl">0.5</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA_real_</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">irrep_s1</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># plot map of overall importance scores</span></span>
-<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">st_as_sf</a></span><span class="op">(</span><span class="va">irrep_s1</span><span class="op">[</span>, <span class="st">"plot_total"</span><span class="op">]</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Overall importance"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="prioritizr_files/figure-html/unnamed-chunk-10-1.png" width="336" style="display: block; margin: auto;"></p>
+<span><span class="co"># manually set locked in planning units to -1 to help with visualization,</span></span>
+<span><span class="co"># this way we can easily see the importance scores for the priority areas</span></span>
+<span><span class="va">irrep_s1</span><span class="op">$</span><span class="va">rs</span><span class="op">[</span><span class="va">irrep_s1</span><span class="op">$</span><span class="va">locked_in</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">1</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning: Unknown or uninitialised column: `locked_in`.</span></span></code></pre>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># plot map of importance scores</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">st_as_sf</a></span><span class="op">(</span><span class="va">irrep_s1</span><span class="op">[</span>, <span class="st">"rs"</span><span class="op">]</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Overall importance"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="prioritizr_files/figure-html/unnamed-chunk-11-1.png" width="336" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
 <h2 id="portfolios">Portfolios<a class="anchor" aria-label="anchor" href="#portfolios"></a>
@@ -494,7 +498,7 @@ we will use the gap portfolio to generate 1000 solutions that are within
 don’t have access to <em>Gurobi</em>, you could try using the shuffle
 portfolio instead (using the <code><a href="../reference/add_shuffle_portfolio.html">add_shuffle_portfolio()</a></code>
 function).</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create new problem with a portfolio added to it</span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">p1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -507,7 +511,7 @@ function).</p>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"Banksia woodlands"</span>, … (33 total)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>planning units:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>data:       <span style="color: #0000BB;">&lt;sftbl_dftbldata.frame&gt;</span> (1130 total)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">0.1925</span> and <span style="color: #0000BB;">61.9273</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">0</span> and <span style="color: #0000BB;">61.9273</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">298809.5764</span>, <span style="color: #0000BB;">5167774.5993</span>, <span style="color: #0000BB;">613818.7743</span>, <span style="color: #0000BB;">5502543.7119</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        WGS 84 / UTM zone 55S (projected)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
@@ -522,7 +526,7 @@ function).</p>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   gap portfolio (`number_solutions` = <span style="color: #0000BB;">1000</span>, `pool_gap` = <span style="color: #0000BB;">0.2</span>)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># generate prioritizations</span></span>
 <span><span class="va">prt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
@@ -540,61 +544,65 @@ function).</p>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimize a model with 6329 rows, 4278 columns and 20749 nonzeros</span></span>
-<span><span class="co">## Model fingerprint: 0xf830e2c0</span></span>
+<span><span class="co">## Model fingerprint: 0x9918e836</span></span>
 <span><span class="co">## Variable types: 0 continuous, 4278 integer (4278 binary)</span></span>
 <span><span class="co">## Coefficient statistics:</span></span>
 <span><span class="co">##   Matrix range     [2e-06, 6e+01]</span></span>
 <span><span class="co">##   Objective range  [5e-01, 2e+02]</span></span>
 <span><span class="co">##   Bounds range     [1e+00, 1e+00]</span></span>
 <span><span class="co">##   RHS range        [2e-01, 2e+03]</span></span>
-<span><span class="co">## Found heuristic solution: objective 36789.525254</span></span>
-<span><span class="co">## Found heuristic solution: objective 26818.653495</span></span>
+<span><span class="co">## Found heuristic solution: objective 28313.965155</span></span>
+<span><span class="co">## Found heuristic solution: objective 18343.093396</span></span>
 <span><span class="co">## Presolve removed 1434 rows and 258 columns</span></span>
 <span><span class="co">## Presolve time: 0.02s</span></span>
 <span><span class="co">## Presolved: 4895 rows, 4020 columns, 12064 nonzeros</span></span>
 <span><span class="co">## Variable types: 0 continuous, 4020 integer (4020 binary)</span></span>
-<span><span class="co">## Found heuristic solution: objective 25741.299203</span></span>
+<span><span class="co">## Found heuristic solution: objective 17265.739104</span></span>
 <span><span class="co">## Root relaxation presolved: 4895 rows, 4020 columns, 12064 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Root relaxation: objective 1.799626e+04, 1440 iterations, 0.05 seconds (0.10 work units)</span></span>
+<span><span class="co">## Root relaxation: objective 9.520699e+03, 1440 iterations, 0.05 seconds (0.10 work units)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">##      0     0 17996.2587    0 1216 25741.2992 17996.2587  30.1%     -    0s</span></span>
-<span><span class="co">## H    0     0                    22020.805500 17996.2587  18.3%     -    0s</span></span>
-<span><span class="co">## H    0     0                    20460.109776 17996.2587  12.0%     -    0s</span></span>
-<span><span class="co">##      0     0 18090.6275    0 1238 20460.1098 18090.6275  11.6%     -    0s</span></span>
-<span><span class="co">## H    0     0                    19408.211150 18090.6275  6.79%     -    0s</span></span>
-<span><span class="co">##      0     0 18106.4253    0 1203 19408.2111 18106.4253  6.71%     -    0s</span></span>
-<span><span class="co">##      0     0 18106.5097    0 1128 19408.2111 18106.5097  6.71%     -    0s</span></span>
-<span><span class="co">##      0     0 18108.9518    0 1121 19408.2111 18108.9518  6.69%     -    0s</span></span>
-<span><span class="co">##      0     0 18108.9518    0 1121 19408.2111 18108.9518  6.69%     -    0s</span></span>
-<span><span class="co">##      0     2 18109.9351    0 1121 19408.2111 18109.9351  6.69%     -    0s</span></span>
-<span><span class="co">## H   27    27                    19182.229771 18109.9351  5.59%   115    1s</span></span>
-<span><span class="co">## H  187   187                    19131.891551 18109.9351  5.34%  42.8    1s</span></span>
-<span><span class="co">## H  472   455                    18712.916589 18109.9351  3.22%  21.4    1s</span></span>
-<span><span class="co">## H  494   474                    18560.845115 18121.8415  2.37%  24.8    2s</span></span>
-<span><span class="co">## H  512   493                    18558.685470 18121.8415  2.35%  25.8    2s</span></span>
-<span><span class="co">## H  519     3                    18395.725721 18121.8415  1.49%  25.5    3s</span></span>
-<span><span class="co">##   1363   841 18644.3682   26 1229 18395.7257 18185.4605  1.14%  22.7    5s</span></span>
+<span><span class="co">##      0     0 9520.69856    0 1216 17265.7391 9520.69856  44.9%     -    0s</span></span>
+<span><span class="co">## H    0     0                    13545.245401 9520.69856  29.7%     -    0s</span></span>
+<span><span class="co">## H    0     0                    11984.549677 9520.69856  20.6%     -    0s</span></span>
+<span><span class="co">##      0     0 9615.06739    0 1238 11984.5497 9615.06739  19.8%     -    0s</span></span>
+<span><span class="co">## H    0     0                    11241.247649 9615.06739  14.5%     -    0s</span></span>
+<span><span class="co">##      0     0 9630.86518    0 1203 11241.2476 9630.86518  14.3%     -    0s</span></span>
+<span><span class="co">##      0     0 9630.94955    0 1128 11241.2476 9630.94955  14.3%     -    0s</span></span>
+<span><span class="co">##      0     0 9633.39167    0 1121 11241.2476 9633.39167  14.3%     -    0s</span></span>
+<span><span class="co">##      0     0 9633.39167    0 1121 11241.2476 9633.39167  14.3%     -    0s</span></span>
+<span><span class="co">##      0     2 9634.37501    0 1121 11241.2476 9634.37501  14.3%     -    0s</span></span>
+<span><span class="co">## H   27    27                    10636.935702 9634.37501  9.43%   115    1s</span></span>
+<span><span class="co">## H  104   104                    10586.589018 9634.37501  8.99%  77.3    1s</span></span>
+<span><span class="co">## H  130   130                    10537.625198 9634.37501  8.57%  72.8    1s</span></span>
+<span><span class="co">## H  392   392                    10533.661238 9634.37501  8.54%  29.2    1s</span></span>
+<span><span class="co">## H  459   391                    10237.356490 9634.37501  5.89%  25.3    1s</span></span>
+<span><span class="co">## H  466   396                    10118.051471 9646.28141  4.66%  26.5    1s</span></span>
+<span><span class="co">## H  512   443                    10085.285016 9646.28141  4.35%  31.8    2s</span></span>
+<span><span class="co">## H  514     1                    10083.125371 9646.28141  4.33%  31.7    2s</span></span>
+<span><span class="co">## H  519     3                    9920.1656226 9646.28141  2.76%  31.4    3s</span></span>
+<span><span class="co">##   1155   633 10908.2989  169    2 9920.16562 9709.90039  2.12%  32.8    5s</span></span>
+<span><span class="co">##   3576  2379 10182.7404   92   15 9920.16562 9799.22290  1.22%  28.6   10s</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Cutting planes:</span></span>
 <span><span class="co">##   Cover: 1</span></span>
 <span><span class="co">##   MIR: 2</span></span>
 <span><span class="co">##   GUB cover: 1</span></span>
-<span><span class="co">##   RLT: 7</span></span>
+<span><span class="co">##   RLT: 8</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 2914 nodes (53672 simplex iterations) in 7.10 seconds (12.35 work units)</span></span>
+<span><span class="co">## Explored 3730 nodes (106446 simplex iterations) in 10.16 seconds (19.25 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Solution count 1000: 18395.7 18443.6 18450.4 ... 20239.8</span></span>
-<span><span class="co">## No other solutions better than 20239.8</span></span>
+<span><span class="co">## Solution count 1000: 9920.17 9944.84 9974.12 ... 10886.7</span></span>
+<span><span class="co">## No other solutions better than 10886.7</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
-<span><span class="co">## Best objective 1.839572572128e+04, best bound 1.823236110920e+04, gap 0.8881%</span></span></code></pre>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<span><span class="co">## Best objective 9.920165622579e+03, best bound 9.799222899385e+03, gap 1.2192%</span></span></code></pre>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">prt</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Simple feature collection with 1130 features and 1004 fields</span></span>
 <span><span class="co">## Geometry type: MULTIPOLYGON</span></span>
@@ -628,7 +636,7 @@ us. We can visualize the differences between these different
 prioritizations – based on which planning units they selected – using a
 hierarchical cluster analysis <span class="citation">(Harris <em>et
 al.</em> 2014)</span>.</p>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract solutions</span></span>
 <span><span class="va">prt_results</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html" class="external-link">st_drop_geometry</a></span><span class="op">(</span><span class="va">prt</span><span class="op">)</span></span>
 <span><span class="va">prt_results</span> <span class="op">&lt;-</span> <span class="va">prt_results</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/startsWith.html" class="external-link">startsWith</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">prt_results</span><span class="op">)</span>, <span class="st">"solution_"</span><span class="op">)</span><span class="op">]</span></span>
@@ -647,23 +655,23 @@ al.</em> 2014)</span>.</p>
 <span>  main <span class="op">=</span> <span class="st">"Different prioritizations in portfolio"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/warning.html" class="external-link">suppressWarnings</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">opar</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="prioritizr_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="prioritizr_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>We can see that there are approximately six main groups of
 prioritizations in the portfolio. To explore these different groups,
 let’s conduct another cluster analysis (i.e., a <em>k</em>-medoids
 analysis) to extract the most representative prioritization from each of
 these groups. In other words, we will run another statistical analysis
 to find the most central prioritization within each group.</p>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># run k-medoids analysis</span></span>
 <span><span class="va">prt_med</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/cluster/man/pam.html" class="external-link">pam</a></span><span class="op">(</span><span class="va">prt_dists</span>, k <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># extract names of prioritizations that are most central for each group.</span></span>
 <span><span class="va">prt_med_names</span> <span class="op">&lt;-</span> <span class="va">prt_med</span><span class="op">$</span><span class="va">medoids</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">prt_med_names</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "solution_443" "solution_48"  "solution_368" "solution_663" "solution_738"</span></span>
-<span><span class="co">## [6] "solution_813"</span></span></code></pre>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<pre><code><span><span class="co">## [1] "solution_126" "solution_279" "solution_441" "solution_87"  "solution_586"</span></span>
+<span><span class="co">## [6] "solution_870"</span></span></code></pre>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create a copy of prt and set values for locked in planning units to -1</span></span>
 <span><span class="co"># so we can easily visualize differences between prioritizations</span></span>
 <span><span class="va">prt2</span> <span class="op">&lt;-</span> <span class="va">prt</span><span class="op">[</span>, <span class="va">prt_med_names</span><span class="op">]</span></span>
@@ -674,7 +682,7 @@ to find the most central prioritization within each group.</p>
 <span><span class="co"># grey: planning units not selected</span></span>
 <span><span class="co"># green: selected planning units</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">st_as_sf</a></span><span class="op">(</span><span class="va">prt2</span><span class="op">)</span>, pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey60"</span>, <span class="st">"grey90"</span>, <span class="st">"darkgreen"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="prioritizr_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="prioritizr_files/figure-html/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
 <h2 id="marxan-compatibility">
@@ -702,7 +710,7 @@ prioritizations that are near optimal.</p>
 <p>Here we will show the <em>prioritizr R</em> package can import
 <em>Marxan</em> data and generate a prioritization. To begin with, let’s
 import a conservation planning data prepared for <em>Marxan</em>.</p>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># import data</span></span>
 <span><span class="co">## planning unit data</span></span>
 <span><span class="va">pu_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/marxan/input/pu.dat"</span>, package <span class="op">=</span> <span class="st">"prioritizr"</span><span class="op">)</span></span>
@@ -715,7 +723,7 @@ import a conservation planning data prepared for <em>Marxan</em>.</p>
 <span><span class="co">## 4 58  16959.021      0 1116623 -4500408</span></span>
 <span><span class="co">## 5 84  34220.256      0 1098623 -4503872</span></span>
 <span><span class="co">## 6 85 178907.584      0 1110623 -4503872</span></span></code></pre>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## feature data</span></span>
 <span><span class="va">spec_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
 <span>  <span class="st">"extdata/marxan/input/spec.dat"</span>, package <span class="op">=</span> <span class="st">"prioritizr"</span></span>
@@ -729,7 +737,7 @@ import a conservation planning data prepared for <em>Marxan</em>.</p>
 <span><span class="co">## 4 13  0.3   1  nvis9</span></span>
 <span><span class="co">## 5 14  0.3   1 nvis14</span></span>
 <span><span class="co">## 6 15  0.3   1 nvis20</span></span></code></pre>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## amount of each feature within each planning unit data</span></span>
 <span><span class="va">puvspr_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
 <span>  <span class="st">"extdata/marxan/input/puvspr.dat"</span>, package <span class="op">=</span> <span class="st">"prioritizr"</span></span>
@@ -743,7 +751,7 @@ import a conservation planning data prepared for <em>Marxan</em>.</p>
 <span><span class="co">## 4      26  85   9.735624</span></span>
 <span><span class="co">## 5      26  86   7.803476</span></span>
 <span><span class="co">## 6      26 111 478.327417</span></span></code></pre>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## boundary data</span></span>
 <span><span class="va">bound_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
 <span>  <span class="st">"extdata/marxan/input/bound.dat"</span>, package <span class="op">=</span> <span class="st">"prioritizr"</span></span>
@@ -765,7 +773,7 @@ function does not generate prioritizations using
 optimization problem formulation similar to <em>Marxan</em> – using hard
 constraints instead of soft constraints – and uses an exact algorithm
 solver to generate a prioritization.</p>
-<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create problem</span></span>
 <span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/marxan_problem.html">marxan_problem</a></span><span class="op">(</span></span>
 <span>  <span class="va">pu_data</span>, <span class="va">spec_data</span>, <span class="va">puvspr_data</span>, <span class="va">bound_data</span>, blm <span class="op">=</span> <span class="fl">0.0005</span></span>
@@ -794,7 +802,7 @@ solver to generate a prioritization.</p>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   default portfolio</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
@@ -825,7 +833,7 @@ solver to generate a prioritization.</p>
 <span><span class="co">## Root relaxation presolved: 5368 rows, 3677 columns, 12704 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Root relaxation: interrupted, 2 iterations, 0.00 seconds (0.01 work units)</span></span>
+<span><span class="co">## Root relaxation: interrupted, 2 iterations, 0.01 seconds (0.01 work units)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
@@ -839,7 +847,7 @@ solver to generate a prioritization.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
 <span><span class="co">## Best objective 1.009944489031e+08, best bound 9.103307331724e+07, gap 9.8633%</span></span></code></pre>
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># print first six rows of solution object</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">s3</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   id       cost status    xloc     yloc locked_in locked_out solution_1</span></span>
@@ -886,17 +894,26 @@ Beyer, H.L., Dujardin, Y., Watts, M.E. &amp; Possingham, H.P. (2016).
 Solving conservation planning problems with integer linear programming.
 <em>Ecological Modelling</em>, <em>328</em>, 14–22.
 </div>
-<div id="ref-r34" class="csl-entry">
-Ferrier, S., Pressey, R.L. &amp; Barrett, T.W. (2000). A new predictor
-of the irreplaceability of areas for achieving a conservation goal, its
-application to real-world planning, and a research agenda for further
-refinement. <em>Biological Conservation</em>, <em>93</em>, 303–325.
-</div>
 <div id="ref-r35" class="csl-entry">
 Harris, L.R., Watts, M.E., Nel, R., Schoeman, D.S. &amp; Possingham,
 H.P. (2014). Using multivariate statistics to explore trade-offs among
 spatial planning scenarios (P. Armsworth, Ed.). <em>Journal of Applied
 Ecology</em>, <em>51</em>, 1504–1514.
+</div>
+<div id="ref-r66" class="csl-entry">
+Jung, M., Arnell, A., Lamo, X. de, García-Rangel, S., Lewis, M., Mark,
+J., Merow, C., Miles, L., Ondo, I., Pironon, S., Ravilious, C., Rivers,
+M., Schepaschenko, D., Tallowin, O., Soesbergen, A. van, Govaerts, R.,
+Boyle, B.L., Enquist, B.J., Feng, X., Gallagher, R., Maitner, B., Meiri,
+S., Mulligan, M., Ofer, G., Roll, U., Hanson, J.O., Jetz, W., Di Marco,
+M., McGowan, J., Rinnan, D.S., Sachs, J.D., Lesiv, M., Adams, V.M.,
+Andrew, S.C., Burger, J.R., Hannah, L., Marquet, P.A., McCarthy, J.K.,
+Morueta-Holme, N., Newman, E.A., Park, D.S., Roehrdanz, P.R., Svenning,
+J.-C., Violle, C., Wieringa, J.J., Wynne, G., Fritz, S., Strassburg,
+B.B.N., Obersteiner, M., Kapos, V., Burgess, N., Schmidt-Traub, G. &amp;
+Visconti, P. (2021). Areas of global importance for conserving
+terrestrial biodiversity, carbon and water. <em>Nature Ecology &amp;amp;
+Evolution</em>, <em>5</em>, 1499–1509.
 </div>
 </div>
 </div>
