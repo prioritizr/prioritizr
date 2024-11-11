@@ -58,6 +58,7 @@ jobs:
           extra-packages: |
             any::rcmdcheck
             any::remotes
+            any::maps
             gurobi=?ignore
             cplexAPI=?ignore
           needs: |

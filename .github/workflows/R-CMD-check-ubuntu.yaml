@@ -71,6 +71,7 @@ jobs:
             any::remotes
             any::covr
             any::urlchecker
+            any::maps
             gurobi=?ignore
             cplexAPI=?ignore
           needs: |
