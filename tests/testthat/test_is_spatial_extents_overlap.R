@@ -122,34 +122,26 @@ test_that("Raster", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_pu_polygons <- get_sim_pu_polygons()
-  # tests
-  expect_true(
-    is_spatial_extents_overlap(
-      raster::raster(
-        terra::crop(
-          sim_pu_raster, terra::ext(sf::st_bbox(sim_pu_polygons[1, ]))
-        )
-      ),
-      raster::raster(sim_pu_raster)
+  # prepare data
+  r1 <- raster::raster(
+    terra::crop(
+      sim_pu_raster, terra::ext(sf::st_bbox(sim_pu_polygons[1, ]))
     )
   )
+  r2 <- raster::raster(sim_pu_raster)
+  r3 <- raster::raster(
+    terra::crop(
+      sim_pu_raster,
+      terra::ext(sf::st_bbox(sim_pu_polygons[7, ]))
+    )
+  )
+  expect_warning(z1 <- zones(r1, r1), "deprecated")
+  expect_warning(z2 <- zones(r2, r2), "deprecated")
+  # tests
+  expect_true(is_spatial_extents_overlap(r1, r2))
+  expect_true(is_spatial_extents_overlap(z1, z2))
   expect_tidy_error(
-    assert(
-      is_spatial_extents_overlap(
-        raster::raster(
-          terra::crop(
-            sim_pu_raster,
-            terra::ext(sf::st_bbox(sim_pu_polygons[1, ]))
-          )
-        ),
-        raster::raster(
-          terra::crop(
-            sim_pu_raster,
-            terra::ext(sf::st_bbox(sim_pu_polygons[7, ]))
-          )
-        )
-      )
-    ),
+    assert(is_spatial_extents_overlap(r1, r3)),
     "must have overlapping spatial extents",
     name = NULL
   )
