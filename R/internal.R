@@ -104,27 +104,3 @@ rescale <- function(x, from = range(x), to = c(0, 1)) {
     return(mean(to))
   (x - from[1]) / diff(from) * diff(to) + to[1]
 }
-
-#' Convert class to function name
-#'
-#' Convert a class name to the name of the function used to generate it.
-#'
-#' @param x `character` class name.
-#'
-#' @details
-#' Note this only works for functions in \pkg{prioritizr} because it
-#' uses a consistent naming scheme.
-#'
-#' @return `character` value.
-#'
-#' @noRd
-convert_class_to_function_name <- function(x) {
-  x <- paste0(
-    "add_",
-    gsub(" ", "_", tolower(gsub("(.)([A-Z])", "\\1 \\2", x)))
-  )
-  x <- gsub("minimum", "min", x, fixed = TRUE)
-  x <- gsub("maximum", "max", x, fixed = TRUE)
-  x <- gsub("penalty", "penalties", x, fixed = TRUE)
-  x
-}

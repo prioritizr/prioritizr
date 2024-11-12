@@ -1247,11 +1247,6 @@ test_that("rescale = TRUE", {
   )
   # create correct total scores
   r3 <- c(0, 1, NA_real_, 0.01)
-  attr(r3, "budgets") <- budgets
-  attr(r3, "status") <- c("OPTIMAL", "OPTIMAL")
-  attr(r3, "objective") <- c(1.5, 0.5)
-  attr(r3, "runtime") <- c(1, 1)
-  attr(r3, "gap") <- c(0, 0)
   # run tests
   ## objects
   expect_inherits(r1, "numeric")
@@ -1259,26 +1254,8 @@ test_that("rescale = TRUE", {
   expect_equal(r1, r3, ignore_attr = TRUE)
   expect_equal(r2, r3, ignore_attr = TRUE)
   ## attributes
-  expect_equal(
-    attributes(r1)[c("budgets", "objective")],
-    attributes(r3)[c("budgets", "objective")]
-  )
-  expect_equal(
-    attributes(r1)[c("budgets", "objective")],
-    attributes(r2)[c("budgets", "objective")]
-  )
-  expect_inherits(attr(r1, "runtime"), "numeric")
-  expect_inherits(attr(r2, "runtime"), "numeric")
-  expect_inherits(attr(r1, "gap"), "numeric")
-  expect_inherits(attr(r2, "gap"), "numeric")
-  expect_inherits(attr(r1, "status"), "character")
-  expect_inherits(attr(r2, "status"), "character")
-  expect_length(attr(r1, "runtime"), 2)
-  expect_length(attr(r2, "runtime"), 2)
-  expect_length(attr(r1, "gap"), 2)
-  expect_length(attr(r2, "gap"), 2)
-  expect_length(attr(r1, "status"), 2)
-  expect_length(attr(r2, "status"), 2)
+  expect_equal(attr(r1, "budgets"), budgets)
+  expect_equal(attr(r2, "budgets"), budgets)
 })
 
 test_that("custom objective", {
@@ -1313,16 +1290,6 @@ test_that("custom objective", {
   expect_true(terra::global(r1 == 0, "sum", na.rm = TRUE)[[1]] > 0)
   expect_true(terra::global(r1 == 1, "sum", na.rm = TRUE)[[1]] > 0)
   expect_true(terra::global(r1 == 2, "sum", na.rm = TRUE)[[1]] > 0)
-  expect_inherits(attr(r1, "gap"), "numeric")
-  expect_inherits(attr(r1, "budgets"), "numeric")
-  expect_inherits(attr(r1, "runtime"), "numeric")
-  expect_inherits(attr(r1, "objective"), "numeric")
-  expect_inherits(attr(r1, "status"), "character")
-  expect_length(attr(r1, "gap"), 2)
-  expect_length(attr(r1, "budgets"), 2)
-  expect_length(attr(r1, "runtime"), 2)
-  expect_length(attr(r1, "objective"), 2)
-  expect_length(attr(r1, "status"), 2)
 })
 
 test_that("default budget-limited objective", {
@@ -1350,12 +1317,6 @@ test_that("default budget-limited objective", {
   r2 <- eval_rank_importance(p, s, budgets = budgets, rescale = FALSE)
   # create correct result
   r3 <- terra::rast(matrix(c(0, 2, NA, 1), nrow = 1))
-  names(r3) <- "rs"
-  attr(r3, "budgets") <- budgets
-  attr(r3, "status") <- c("OPTIMAL", "OPTIMAL")
-  attr(r3, "objective") <- c(1.5, 0.5)
-  attr(r3, "runtime") <- c(1, 1)
-  attr(r3, "gap") <- c(0, 0)
   # run tests
   ## objects
   expect_inherits(r1, "SpatRaster")
@@ -1363,26 +1324,8 @@ test_that("default budget-limited objective", {
   expect_equal(terra::values(r1), terra::values(r3), ignore_attr = TRUE)
   expect_equal(terra::values(r2), terra::values(r3), ignore_attr = TRUE)
   ## attributes
-  expect_equal(
-    attributes(r1)[c("budgets", "objective")],
-    attributes(r3)[c("budgets", "objective")]
-  )
-  expect_equal(
-    attributes(r1)[c("budgets", "objective")],
-    attributes(r2)[c("budgets", "objective")]
-  )
-  expect_inherits(attr(r1, "runtime"), "numeric")
-  expect_inherits(attr(r2, "runtime"), "numeric")
-  expect_inherits(attr(r1, "gap"), "numeric")
-  expect_inherits(attr(r2, "gap"), "numeric")
-  expect_inherits(attr(r1, "status"), "character")
-  expect_inherits(attr(r2, "status"), "character")
-  expect_length(attr(r1, "runtime"), 2)
-  expect_length(attr(r2, "runtime"), 2)
-  expect_length(attr(r1, "gap"), 2)
-  expect_length(attr(r2, "gap"), 2)
-  expect_length(attr(r1, "status"), 2)
-  expect_length(attr(r2, "status"), 2)
+  expect_equal(attr(r1, "budgets"), budgets)
+  expect_equal(attr(r2, "budgets"), budgets)
 })
 
 test_that("default budget-limited and explicit objectives give same result", {
@@ -1418,12 +1361,6 @@ test_that("default budget-limited and explicit objectives give same result", {
   )
   # create correct result
   r5 <- terra::rast(matrix(c(0, 2, NA, 1), nrow = 1))
-  names(r3) <- "rs"
-  attr(r5, "budgets") <- budgets
-  attr(r5, "status") <- c("OPTIMAL", "OPTIMAL")
-  attr(r5, "objective") <- c(1.5, 0.5)
-  attr(r5, "runtime") <- c(1, 1)
-  attr(r5, "gap") <- c(0, 0)
   # run tests
   ## objects
   expect_inherits(r1, "SpatRaster")
@@ -1434,6 +1371,90 @@ test_that("default budget-limited and explicit objectives give same result", {
   expect_equal(terra::values(r2), terra::values(r5), ignore_attr = TRUE)
   expect_equal(terra::values(r3), terra::values(r5), ignore_attr = TRUE)
   expect_equal(terra::values(r4), terra::values(r5), ignore_attr = TRUE)
+  ## attributes
+  expect_equal(attr(r1, "budgets"), budgets)
+  expect_equal(attr(r2, "budgets"), budgets)
+  expect_equal(attr(r3, "budgets"), budgets)
+  expect_equal(attr(r4, "budgets"), budgets)
+})
+
+test_that("locked in constraints", {
+  skip_on_cran()
+  skip_if_no_fast_solvers_installed()
+  # create data
+  pu <- terra::rast(matrix(c(10, 2, NA, 3, 1), nrow = 1))
+  locked <- terra::rast(matrix(c(0, 0, NA, 0, 1), nrow = 1))
+  features <- c(
+    terra::rast(matrix(c(1, 0, 0, 1, 0), nrow = 1)),
+    terra::rast(matrix(c(10, 5, 10, 6, 0), nrow = 1))
+  )
+  names(features) <- make.unique(names(features))
+  budgets <- c(3.5, 6)
+  # create problem
+  p <-
+    problem(pu, features) %>%
+    add_min_set_objective() %>%
+    add_absolute_targets(c(2, 10)) %>%
+    add_locked_in_constraints(locked) %>%
+    add_binary_decisions() %>%
+    add_default_solver(gap = 0, verbose = FALSE)
+  # create a solution
+  s <- terra::rast(matrix(c(0, 1, NA, 1, 1), nrow = 1))
+  # calculate ranks
+  r1 <- eval_rank_importance(p, s, n = 2, rescale = FALSE)
+  r2 <- eval_rank_importance(p, s, budgets = budgets, rescale = FALSE)
+  # create correct result
+  r3 <- terra::rast(matrix(c(0, 2, NA, 1, 2), nrow = 1))
+  names(r3) <- "rs"
+  # run tests
+  ## objects
+  expect_inherits(r1, "SpatRaster")
+  expect_inherits(r2, "SpatRaster")
+  expect_inherits(r3, "SpatRaster")
+  expect_equal(terra::values(r1), terra::values(r3), ignore_attr = TRUE)
+  expect_equal(terra::values(r2), terra::values(r3), ignore_attr = TRUE)
+  ## attributes
+  expect_equal(attr(r1, "budgets"), budgets)
+  expect_equal(attr(r2, "budgets"), budgets)
+})
+
+test_that("locked out constraints", {
+  skip_on_cran()
+  skip_if_no_fast_solvers_installed()
+  # create data
+  pu <- terra::rast(matrix(c(10, 2, NA, 3, 1), nrow = 1))
+  locked <- terra::rast(matrix(c(0, 0, NA, 0, 1), nrow = 1))
+  features <- c(
+    terra::rast(matrix(c(1, 0, 0, 1, 100), nrow = 1)),
+    terra::rast(matrix(c(10, 5, 10, 6, 100), nrow = 1))
+  )
+  names(features) <- make.unique(names(features))
+  budgets <- c(2.5, 5)
+  # create problem
+  p <-
+    problem(pu, features) %>%
+    add_min_set_objective() %>%
+    add_absolute_targets(c(2, 10)) %>%
+    add_locked_out_constraints(locked) %>%
+    add_binary_decisions() %>%
+    add_default_solver(gap = 0, verbose = FALSE)
+  # create a solution
+  s <- terra::rast(matrix(c(0, 1, NA, 1, 0), nrow = 1))
+  # calculate ranks
+  r1 <- eval_rank_importance(p, s, n = 2, rescale = FALSE)
+  r2 <- eval_rank_importance(p, s, budgets = budgets, rescale = FALSE)
+  # create correct result
+  r3 <- terra::rast(matrix(c(0, 2, NA, 1, 0), nrow = 1))
+  # run tests
+  ## objects
+  expect_inherits(r1, "SpatRaster")
+  expect_inherits(r2, "SpatRaster")
+  expect_inherits(r3, "SpatRaster")
+  expect_equal(terra::values(r1), terra::values(r3), ignore_attr = TRUE)
+  expect_equal(terra::values(r2), terra::values(r3), ignore_attr = TRUE)
+  ## attributes
+  expect_equal(attr(r1, "budgets"), budgets)
+  expect_equal(attr(r2, "budgets"), budgets)
 })
 
 test_that("invalid inputs", {

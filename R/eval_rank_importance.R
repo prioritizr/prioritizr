@@ -772,7 +772,7 @@ internal_eval_rank_importance <- function(x,
   )
   # assign default solver
   if (inherits(x$solver, "Waiver"))
-    x <- add_default_solver(x)
+    x <- add_default_solver(x) # nocov
   # overwrite portfolio
   x <- add_default_portfolio(x)
   # if needed, generate budgets
@@ -898,6 +898,7 @@ internal_eval_rank_importance <- function(x,
     curr_sol <- x$solver$run()
     ## check for issues
     if (is.null(curr_sol) || is.null(curr_sol$x)) {
+      # nocov start
       cli::cli_abort(
         c(
           "Can't find a solution!",
@@ -908,6 +909,7 @@ internal_eval_rank_importance <- function(x,
         ),
         call = call
       )
+      # nocov end
     }
     ## store results
     obj_vals[i] <- curr_sol$objective
@@ -983,8 +985,8 @@ create_budget_thresholds <- function(x, status, n, by_zone,
   n_pu <- number_of_planning_units(x)
   if (
     (length(x$constraints)) == 0 ||
-    all(
-      !vapply(
+    !any(
+      vapply(
         x$constraints, inherits, logical(1),
         c("LockedInConstraint", "LockedOutConstraint", "LockedManualConstraint")
       )
