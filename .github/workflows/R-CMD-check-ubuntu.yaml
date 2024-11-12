@@ -74,6 +74,7 @@ jobs:
             any::maps
             gurobi=?ignore
             cplexAPI=?ignore
+            dirkschumacher/rcbc@fix-c-api
           needs: |
             check
 
