@@ -249,7 +249,7 @@
 <code class="sourceCode R"><span><span class="co"># extract time spent solving the problem</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb17"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="do">## solution_1 </span></span>
-<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="do">##      3.166</span></span></code></pre></div>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="do">##      9.342</span></span></code></pre></div>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract state message from the solver</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"status"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -376,19 +376,40 @@
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s4</span>, main <span class="op">=</span> <span class="st">"Solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-boundary_penalties-1.png" width="500" style="display: block; margin: auto;"></p>
 <p>Now, let’s explore which planning units selected by the solution are most important for cost-effectively meeting the targets. To achieve this, we will calculate importance (irreplaceability) scores using an incremental rank approach. Briefly, the optimization problem is solved multiple times in an incremental process with increasing budgets, and planning units are assigned ranks based on which increment they are selected in. Planning units selected earlier on in the process are considered more important.</p>
-<p>```{r “importance”}cd # calculate importance scores rc &lt;- p4 %&gt;% eval_rank_importance(s4, n = 5)</p>
-</div>
-</div>
-<div class="section level1">
-<h1 id="print-scores">print scores<a class="anchor" aria-label="anchor" href="#print-scores"></a>
-</h1>
-<p>print(rc)</p>
-</div>
-<div class="section level1">
-<h1 id="plot-the-total-importance-scores">plot the total importance scores<a class="anchor" aria-label="anchor" href="#plot-the-total-importance-scores"></a>
-</h1>
-<p>plot(rc, main = “Importance scores”, axes = FALSE) ```</p>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># calculate importance scores</span></span>
+<span><span class="va">imp</span> <span class="op">&lt;-</span></span>
+<span>  <span class="va">p4</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="reference/eval_rank_importance.html">eval_rank_importance</a></span><span class="op">(</span><span class="va">s4</span>, n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a><span class="do">## Warning in matrix(compile(x)$lb(), ncol = n_z, nrow = n_pu): data length</span></span>
+<span id="cb39-2"><a href="#cb39-2" tabindex="-1"></a><span class="do">## [32239] is not a sub-multiple or multiple of the number of rows [10757]</span></span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># print scores</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">imp</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a><span class="do">## class       : SpatRaster </span></span>
+<span id="cb41-2"><a href="#cb41-2" tabindex="-1"></a><span class="do">## dimensions  : 109, 147, 1  (nrow, ncol, nlyr)</span></span>
+<span id="cb41-3"><a href="#cb41-3" tabindex="-1"></a><span class="do">## resolution  : 4000, 4000  (x, y)</span></span>
+<span id="cb41-4"><a href="#cb41-4" tabindex="-1"></a><span class="do">## extent      : -1816382, -1228382, 247483.5, 683483.5  (xmin, xmax, ymin, ymax)</span></span>
+<span id="cb41-5"><a href="#cb41-5" tabindex="-1"></a><span class="do">## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs </span></span>
+<span id="cb41-6"><a href="#cb41-6" tabindex="-1"></a><span class="do">## source(s)   : memory</span></span>
+<span id="cb41-7"><a href="#cb41-7" tabindex="-1"></a><span class="do">## varname     : wa_pu </span></span>
+<span id="cb41-8"><a href="#cb41-8" tabindex="-1"></a><span class="do">## name        : rs </span></span>
+<span id="cb41-9"><a href="#cb41-9" tabindex="-1"></a><span class="do">## min value   :  0 </span></span>
+<span id="cb41-10"><a href="#cb41-10" tabindex="-1"></a><span class="do">## max value   :  1</span></span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># set planning units that are locked in to -1 so we can easily</span></span>
+<span><span class="co"># see importance scores for priority areas</span></span>
+<span><span class="va">imp</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/mask.html" class="external-link">mask</a></span><span class="op">(</span><span class="va">imp</span>, <span class="va">s4</span>, maskvalues <span class="op">=</span> <span class="fl">0</span>, updatevalue <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># plot the total importance scores</span></span>
+<span><span class="co">## planning units shown in purple were not selected in solution s4</span></span>
+<span><span class="co">## planning units shown in blue are less important</span></span>
+<span><span class="co">## planning units shown in yellow are highly important</span></span>
+<span><span class="co">## note that locked in planning units are also shown in yellow</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">imp</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>,  main <span class="op">=</span> <span class="st">"Importance scores"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-importance-1.png" width="500" style="display: block; margin: auto;"></p>
 <p>This short example demonstrates how the <em>prioritizr R</em> package can be used to build and customize conservation problems, and then solve them to generate solutions. Although we explored just a few different functions for modifying a conservation problem, the package provides many functions for specifying objectives, constraints, penalties, and decision variables, so that you can build and custom-tailor conservation planning problems to suit your planning scenario.</p>
+</div>
 <div class="section level2">
 <h2 id="learning-resources">Learning resources<a class="anchor" aria-label="anchor" href="#learning-resources"></a>
 </h2>
@@ -419,7 +440,6 @@
 <p>If you have any questions about the <em>prioritizr R</em> package or suggestions for improving it, please <a href="https://github.com/prioritizr/prioritizr/issues/new" class="external-link">post an issue on the code repository</a>.</p>
 </div>
 </div>
-
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">

@@ -275,7 +275,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##      3.166
+    ##      9.342
 
 ``` r
 # extract state message from the solver
@@ -483,16 +483,46 @@ planning units are assigned ranks based on which increment they are
 selected in. Planning units selected earlier on in the process are
 considered more important.
 
-\`\`\`{r “importance”}cd \# calculate importance scores rc \<- p4 %\>%
-eval_rank_importance(s4, n = 5)
+``` r
+# calculate importance scores
+imp <-
+  p4 %>%
+  eval_rank_importance(s4, n = 5)
+```
 
+    ## Warning in matrix(compile(x)$lb(), ncol = n_z, nrow = n_pu): data length
+    ## [32239] is not a sub-multiple or multiple of the number of rows [10757]
+
+``` r
 # print scores
+print(imp)
+```
 
-print(rc)
+    ## class       : SpatRaster 
+    ## dimensions  : 109, 147, 1  (nrow, ncol, nlyr)
+    ## resolution  : 4000, 4000  (x, y)
+    ## extent      : -1816382, -1228382, 247483.5, 683483.5  (xmin, xmax, ymin, ymax)
+    ## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs 
+    ## source(s)   : memory
+    ## varname     : wa_pu 
+    ## name        : rs 
+    ## min value   :  0 
+    ## max value   :  1
+
+``` r
+# set planning units that are locked in to -1 so we can easily
+# see importance scores for priority areas
+imp <- terra::mask(imp, s4, maskvalues = 0, updatevalue = -1)
 
 # plot the total importance scores
+## planning units shown in purple were not selected in solution s4
+## planning units shown in blue are less important
+## planning units shown in yellow are highly important
+## note that locked in planning units are also shown in yellow
+plot(imp, axes = FALSE,  main = "Importance scores")
+```
 
-plot(rc, main = “Importance scores”, axes = FALSE) \`\`\`
+<img src="man/figures/README-importance-1.png" width="500" style="display: block; margin: auto;" />
 
 This short example demonstrates how the *prioritizr R* package can be
 used to build and customize conservation problems, and then solve them

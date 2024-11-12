@@ -258,17 +258,25 @@ plot(s4, main = "Solution", axes = FALSE)
 
 Now, let's explore which planning units selected by the solution are most important for cost-effectively meeting the targets. To achieve this, we will calculate importance (irreplaceability) scores using an incremental rank approach. Briefly, the optimization problem is solved multiple times in an incremental process with increasing budgets, and planning units are assigned ranks based on which increment they are selected in. Planning units selected earlier on in the process are considered more important.
 
-```{r "importance"}cd
+```{r "importance"}
 # calculate importance scores
-rc <-
+imp <-
   p4 %>%
   eval_rank_importance(s4, n = 5)
 
 # print scores
-print(rc)
+print(imp)
+
+# set planning units that are locked in to -1 so we can easily
+# see importance scores for priority areas
+imp <- terra::mask(imp, s4, maskvalues = 0, updatevalue = -1)
 
 # plot the total importance scores
-plot(rc, main = "Importance scores", axes = FALSE)
+## planning units shown in purple were not selected in solution s4
+## planning units shown in blue are less important
+## planning units shown in yellow are highly important
+## note that locked in planning units are also shown in yellow
+plot(imp, axes = FALSE,  main = "Importance scores")
 ```
 
 This short example demonstrates how the _prioritizr R_ package can be used to build and customize conservation problems, and then solve them to generate solutions. Although we explored just a few different functions for modifying a conservation problem, the package provides many functions for specifying objectives, constraints, penalties, and decision variables, so that you can build and custom-tailor conservation planning problems to suit your planning scenario.

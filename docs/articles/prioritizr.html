@@ -311,7 +311,7 @@ the <code>s1</code> object.</p>
 <span><span class="co">## Found heuristic solution: objective 28313.965155</span></span>
 <span><span class="co">## Found heuristic solution: objective 18343.093396</span></span>
 <span><span class="co">## Presolve removed 1909 rows and 1249 columns</span></span>
-<span><span class="co">## Presolve time: 0.04s</span></span>
+<span><span class="co">## Presolve time: 0.12s</span></span>
 <span><span class="co">## Presolved: 4420 rows, 3029 columns, 11081 nonzeros</span></span>
 <span><span class="co">## Found heuristic solution: objective 15602.370843</span></span>
 <span><span class="co">## Variable types: 0 continuous, 3029 integer (3029 binary)</span></span>
@@ -320,7 +320,7 @@ the <code>s1</code> object.</p>
 <span><span class="co">## Root relaxation presolved: 4412 rows, 3023 columns, 11060 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Root relaxation: objective 9.520699e+03, 1296 iterations, 0.04 seconds (0.09 work units)</span></span>
+<span><span class="co">## Root relaxation: objective 9.520699e+03, 1296 iterations, 0.13 seconds (0.09 work units)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
@@ -332,18 +332,18 @@ the <code>s1</code> object.</p>
 <span><span class="co">## H    0     0                    11179.561369 9520.69856  14.8%     -    0s</span></span>
 <span><span class="co">##      0     0 9615.33215    0 1144 11179.5614 9615.33215  14.0%     -    0s</span></span>
 <span><span class="co">## H    0     0                    10708.874738 9615.33215  10.2%     -    0s</span></span>
-<span><span class="co">##      0     0 9630.86518    0 1113 10708.8747 9630.86518  10.1%     -    0s</span></span>
-<span><span class="co">##      0     0 9630.94955    0 1057 10708.8747 9630.94955  10.1%     -    0s</span></span>
-<span><span class="co">##      0     0 9633.39167    0 1052 10708.8747 9633.39167  10.0%     -    0s</span></span>
-<span><span class="co">##      0     0 9633.39167    0 1052 10708.8747 9633.39167  10.0%     -    0s</span></span>
-<span><span class="co">##      0     2 9633.57606    0 1052 10708.8747 9633.57606  10.0%     -    0s</span></span>
+<span><span class="co">##      0     0 9630.86518    0 1113 10708.8747 9630.86518  10.1%     -    1s</span></span>
+<span><span class="co">##      0     0 9630.94955    0 1057 10708.8747 9630.94955  10.1%     -    1s</span></span>
+<span><span class="co">##      0     0 9633.39167    0 1052 10708.8747 9633.39167  10.0%     -    1s</span></span>
+<span><span class="co">##      0     0 9633.39167    0 1052 10708.8747 9633.39167  10.0%     -    1s</span></span>
+<span><span class="co">##      0     2 9633.57606    0 1052 10708.8747 9633.57606  10.0%     -    2s</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Cutting planes:</span></span>
 <span><span class="co">##   MIR: 2</span></span>
 <span><span class="co">##   GUB cover: 1</span></span>
 <span><span class="co">##   RLT: 5</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 3 nodes (1811 simplex iterations) in 0.71 seconds (2.04 work units)</span></span>
+<span><span class="co">## Explored 3 nodes (1811 simplex iterations) in 2.05 seconds (2.04 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Solution count 9: 10708.9 11179.6 11415.8 ... 28314</span></span>
@@ -469,19 +469,18 @@ the original solution are available for selection. If you’re interested,
 other approaches for examining importance are also available (see <a href="https://prioritizr.net/reference/importance.html"><code>?importance</code></a>).</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate relative importance</span></span>
-<span><span class="va">irrep_s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_rank_importance.html">eval_rank_importance</a></span><span class="op">(</span><span class="va">p1</span>, <span class="va">s1</span><span class="op">[</span><span class="st">"solution_1"</span><span class="op">]</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">imp_s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_rank_importance.html">eval_rank_importance</a></span><span class="op">(</span><span class="va">p1</span>, <span class="va">s1</span><span class="op">[</span><span class="st">"solution_1"</span><span class="op">]</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Warning in matrix(compile(x)$lb(), ncol = n_z, nrow = n_pu): data length [4278]</span></span>
 <span><span class="co">## is not a sub-multiple or multiple of the number of rows [1130]</span></span></code></pre>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">irrep_s1</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">imp_s1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># manually set locked in planning units to -1 to help with visualization,</span></span>
 <span><span class="co"># this way we can easily see the importance scores for the priority areas</span></span>
-<span><span class="va">irrep_s1</span><span class="op">$</span><span class="va">rs</span><span class="op">[</span><span class="va">irrep_s1</span><span class="op">$</span><span class="va">locked_in</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">1</span></span></code></pre></div>
-<pre><code><span><span class="co">## Warning: Unknown or uninitialised column: `locked_in`.</span></span></code></pre>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<span><span class="va">imp_s1</span><span class="op">$</span><span class="va">rs</span><span class="op">[</span><span class="va">tas_pu</span><span class="op">$</span><span class="va">locked_in</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">1</span></span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot map of importance scores</span></span>
-<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">st_as_sf</a></span><span class="op">(</span><span class="va">irrep_s1</span><span class="op">[</span>, <span class="st">"rs"</span><span class="op">]</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Overall importance"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">st_as_sf</a></span><span class="op">(</span><span class="va">imp_s1</span><span class="op">[</span>, <span class="st">"rs"</span><span class="op">]</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Overall importance"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="prioritizr_files/figure-html/unnamed-chunk-11-1.png" width="336" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
@@ -498,7 +497,7 @@ we will use the gap portfolio to generate 1000 solutions that are within
 don’t have access to <em>Gurobi</em>, you could try using the shuffle
 portfolio instead (using the <code><a href="../reference/add_shuffle_portfolio.html">add_shuffle_portfolio()</a></code>
 function).</p>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create new problem with a portfolio added to it</span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">p1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -526,7 +525,7 @@ function).</p>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   gap portfolio (`number_solutions` = <span style="color: #0000BB;">1000</span>, `pool_gap` = <span style="color: #0000BB;">0.2</span>)</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># generate prioritizations</span></span>
 <span><span class="va">prt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
@@ -554,14 +553,14 @@ function).</p>
 <span><span class="co">## Found heuristic solution: objective 28313.965155</span></span>
 <span><span class="co">## Found heuristic solution: objective 18343.093396</span></span>
 <span><span class="co">## Presolve removed 1434 rows and 258 columns</span></span>
-<span><span class="co">## Presolve time: 0.02s</span></span>
+<span><span class="co">## Presolve time: 0.05s</span></span>
 <span><span class="co">## Presolved: 4895 rows, 4020 columns, 12064 nonzeros</span></span>
 <span><span class="co">## Variable types: 0 continuous, 4020 integer (4020 binary)</span></span>
 <span><span class="co">## Found heuristic solution: objective 17265.739104</span></span>
 <span><span class="co">## Root relaxation presolved: 4895 rows, 4020 columns, 12064 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Root relaxation: objective 9.520699e+03, 1440 iterations, 0.05 seconds (0.10 work units)</span></span>
+<span><span class="co">## Root relaxation: objective 9.520699e+03, 1440 iterations, 0.14 seconds (0.10 work units)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
@@ -570,23 +569,25 @@ function).</p>
 <span><span class="co">## H    0     0                    13545.245401 9520.69856  29.7%     -    0s</span></span>
 <span><span class="co">## H    0     0                    11984.549677 9520.69856  20.6%     -    0s</span></span>
 <span><span class="co">##      0     0 9615.06739    0 1238 11984.5497 9615.06739  19.8%     -    0s</span></span>
-<span><span class="co">## H    0     0                    11241.247649 9615.06739  14.5%     -    0s</span></span>
-<span><span class="co">##      0     0 9630.86518    0 1203 11241.2476 9630.86518  14.3%     -    0s</span></span>
-<span><span class="co">##      0     0 9630.94955    0 1128 11241.2476 9630.94955  14.3%     -    0s</span></span>
-<span><span class="co">##      0     0 9633.39167    0 1121 11241.2476 9633.39167  14.3%     -    0s</span></span>
-<span><span class="co">##      0     0 9633.39167    0 1121 11241.2476 9633.39167  14.3%     -    0s</span></span>
-<span><span class="co">##      0     2 9634.37501    0 1121 11241.2476 9634.37501  14.3%     -    0s</span></span>
-<span><span class="co">## H   27    27                    10636.935702 9634.37501  9.43%   115    1s</span></span>
-<span><span class="co">## H  104   104                    10586.589018 9634.37501  8.99%  77.3    1s</span></span>
-<span><span class="co">## H  130   130                    10537.625198 9634.37501  8.57%  72.8    1s</span></span>
-<span><span class="co">## H  392   392                    10533.661238 9634.37501  8.54%  29.2    1s</span></span>
-<span><span class="co">## H  459   391                    10237.356490 9634.37501  5.89%  25.3    1s</span></span>
-<span><span class="co">## H  466   396                    10118.051471 9646.28141  4.66%  26.5    1s</span></span>
-<span><span class="co">## H  512   443                    10085.285016 9646.28141  4.35%  31.8    2s</span></span>
-<span><span class="co">## H  514     1                    10083.125371 9646.28141  4.33%  31.7    2s</span></span>
-<span><span class="co">## H  519     3                    9920.1656226 9646.28141  2.76%  31.4    3s</span></span>
-<span><span class="co">##   1155   633 10908.2989  169    2 9920.16562 9709.90039  2.12%  32.8    5s</span></span>
-<span><span class="co">##   3576  2379 10182.7404   92   15 9920.16562 9799.22290  1.22%  28.6   10s</span></span>
+<span><span class="co">## H    0     0                    11241.247649 9615.06739  14.5%     -    1s</span></span>
+<span><span class="co">##      0     0 9630.86518    0 1203 11241.2476 9630.86518  14.3%     -    2s</span></span>
+<span><span class="co">##      0     0 9630.94955    0 1128 11241.2476 9630.94955  14.3%     -    2s</span></span>
+<span><span class="co">##      0     0 9633.39167    0 1121 11241.2476 9633.39167  14.3%     -    2s</span></span>
+<span><span class="co">##      0     0 9633.39167    0 1121 11241.2476 9633.39167  14.3%     -    2s</span></span>
+<span><span class="co">##      0     2 9634.37501    0 1121 11241.2476 9634.37501  14.3%     -    2s</span></span>
+<span><span class="co">## H   27    27                    10636.935702 9634.37501  9.43%   115    4s</span></span>
+<span><span class="co">## H  104   104                    10586.589018 9634.37501  8.99%  77.3    4s</span></span>
+<span><span class="co">## H  130   130                    10537.625198 9634.37501  8.57%  72.8    4s</span></span>
+<span><span class="co">##    147   149 11164.1302  136   72 10537.6252 9634.37501  8.57%  67.8    5s</span></span>
+<span><span class="co">## H  392   392                    10533.661238 9634.37501  8.54%  29.2    5s</span></span>
+<span><span class="co">## H  459   391                    10237.356490 9634.37501  5.89%  25.3    5s</span></span>
+<span><span class="co">## H  466   396                    10118.051471 9646.28141  4.66%  26.5    5s</span></span>
+<span><span class="co">## H  512   443                    10085.285016 9646.28141  4.35%  31.8    6s</span></span>
+<span><span class="co">## H  514     1                    10083.125371 9646.28141  4.33%  31.7    7s</span></span>
+<span><span class="co">## H  519     3                    9920.1656226 9646.28141  2.76%  31.4   10s</span></span>
+<span><span class="co">##   1293   769 10009.1033   24  547 9920.16562 9710.21122  2.12%  31.5   15s</span></span>
+<span><span class="co">##   2074  1418 11022.4394  205   73 9920.16562 9714.14805  2.08%  29.7   20s</span></span>
+<span><span class="co">##   2850  1971 9892.13811   18  743 9920.16562 9789.67213  1.32%  30.8   25s</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Cutting planes:</span></span>
 <span><span class="co">##   Cover: 1</span></span>
@@ -594,7 +595,7 @@ function).</p>
 <span><span class="co">##   GUB cover: 1</span></span>
 <span><span class="co">##   RLT: 8</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 3730 nodes (106446 simplex iterations) in 10.16 seconds (19.25 work units)</span></span>
+<span><span class="co">## Explored 3730 nodes (106446 simplex iterations) in 29.04 seconds (19.25 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Solution count 1000: 9920.17 9944.84 9974.12 ... 10886.7</span></span>
@@ -602,7 +603,7 @@ function).</p>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
 <span><span class="co">## Best objective 9.920165622579e+03, best bound 9.799222899385e+03, gap 1.2192%</span></span></code></pre>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">prt</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Simple feature collection with 1130 features and 1004 fields</span></span>
 <span><span class="co">## Geometry type: MULTIPOLYGON</span></span>
@@ -636,7 +637,7 @@ us. We can visualize the differences between these different
 prioritizations – based on which planning units they selected – using a
 hierarchical cluster analysis <span class="citation">(Harris <em>et
 al.</em> 2014)</span>.</p>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract solutions</span></span>
 <span><span class="va">prt_results</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html" class="external-link">st_drop_geometry</a></span><span class="op">(</span><span class="va">prt</span><span class="op">)</span></span>
 <span><span class="va">prt_results</span> <span class="op">&lt;-</span> <span class="va">prt_results</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/startsWith.html" class="external-link">startsWith</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">prt_results</span><span class="op">)</span>, <span class="st">"solution_"</span><span class="op">)</span><span class="op">]</span></span>
@@ -662,7 +663,7 @@ let’s conduct another cluster analysis (i.e., a <em>k</em>-medoids
 analysis) to extract the most representative prioritization from each of
 these groups. In other words, we will run another statistical analysis
 to find the most central prioritization within each group.</p>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># run k-medoids analysis</span></span>
 <span><span class="va">prt_med</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/cluster/man/pam.html" class="external-link">pam</a></span><span class="op">(</span><span class="va">prt_dists</span>, k <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span>
 <span></span>
@@ -671,7 +672,7 @@ to find the most central prioritization within each group.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">prt_med_names</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "solution_126" "solution_279" "solution_441" "solution_87"  "solution_586"</span></span>
 <span><span class="co">## [6] "solution_870"</span></span></code></pre>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create a copy of prt and set values for locked in planning units to -1</span></span>
 <span><span class="co"># so we can easily visualize differences between prioritizations</span></span>
 <span><span class="va">prt2</span> <span class="op">&lt;-</span> <span class="va">prt</span><span class="op">[</span>, <span class="va">prt_med_names</span><span class="op">]</span></span>
@@ -710,7 +711,7 @@ prioritizations that are near optimal.</p>
 <p>Here we will show the <em>prioritizr R</em> package can import
 <em>Marxan</em> data and generate a prioritization. To begin with, let’s
 import a conservation planning data prepared for <em>Marxan</em>.</p>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># import data</span></span>
 <span><span class="co">## planning unit data</span></span>
 <span><span class="va">pu_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/marxan/input/pu.dat"</span>, package <span class="op">=</span> <span class="st">"prioritizr"</span><span class="op">)</span></span>
@@ -723,7 +724,7 @@ import a conservation planning data prepared for <em>Marxan</em>.</p>
 <span><span class="co">## 4 58  16959.021      0 1116623 -4500408</span></span>
 <span><span class="co">## 5 84  34220.256      0 1098623 -4503872</span></span>
 <span><span class="co">## 6 85 178907.584      0 1110623 -4503872</span></span></code></pre>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## feature data</span></span>
 <span><span class="va">spec_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
 <span>  <span class="st">"extdata/marxan/input/spec.dat"</span>, package <span class="op">=</span> <span class="st">"prioritizr"</span></span>
@@ -737,7 +738,7 @@ import a conservation planning data prepared for <em>Marxan</em>.</p>
 <span><span class="co">## 4 13  0.3   1  nvis9</span></span>
 <span><span class="co">## 5 14  0.3   1 nvis14</span></span>
 <span><span class="co">## 6 15  0.3   1 nvis20</span></span></code></pre>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## amount of each feature within each planning unit data</span></span>
 <span><span class="va">puvspr_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
 <span>  <span class="st">"extdata/marxan/input/puvspr.dat"</span>, package <span class="op">=</span> <span class="st">"prioritizr"</span></span>
@@ -751,7 +752,7 @@ import a conservation planning data prepared for <em>Marxan</em>.</p>
 <span><span class="co">## 4      26  85   9.735624</span></span>
 <span><span class="co">## 5      26  86   7.803476</span></span>
 <span><span class="co">## 6      26 111 478.327417</span></span></code></pre>
-<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## boundary data</span></span>
 <span><span class="va">bound_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
 <span>  <span class="st">"extdata/marxan/input/bound.dat"</span>, package <span class="op">=</span> <span class="st">"prioritizr"</span></span>
@@ -773,7 +774,7 @@ function does not generate prioritizations using
 optimization problem formulation similar to <em>Marxan</em> – using hard
 constraints instead of soft constraints – and uses an exact algorithm
 solver to generate a prioritization.</p>
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create problem</span></span>
 <span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/marxan_problem.html">marxan_problem</a></span><span class="op">(</span></span>
 <span>  <span class="va">pu_data</span>, <span class="va">spec_data</span>, <span class="va">puvspr_data</span>, <span class="va">bound_data</span>, blm <span class="op">=</span> <span class="fl">0.0005</span></span>
@@ -802,7 +803,7 @@ solver to generate a prioritization.</p>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   default portfolio</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
@@ -826,28 +827,28 @@ solver to generate a prioritization.</p>
 <span><span class="co">##   RHS range        [5e+03, 3e+05]</span></span>
 <span><span class="co">## Found heuristic solution: objective 1.221202e+08</span></span>
 <span><span class="co">## Presolve removed 4707 rows and 3103 columns</span></span>
-<span><span class="co">## Presolve time: 0.04s</span></span>
+<span><span class="co">## Presolve time: 0.13s</span></span>
 <span><span class="co">## Presolved: 5368 rows, 3677 columns, 12704 nonzeros</span></span>
 <span><span class="co">## Variable types: 0 continuous, 3677 integer (3677 binary)</span></span>
 <span><span class="co">## Found heuristic solution: objective 1.009944e+08</span></span>
 <span><span class="co">## Root relaxation presolved: 5368 rows, 3677 columns, 12704 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Root relaxation: interrupted, 2 iterations, 0.01 seconds (0.01 work units)</span></span>
+<span><span class="co">## Root relaxation: interrupted, 2 iterations, 0.02 seconds (0.01 work units)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##      0     0          -    0      1.0099e+08 9.1033e+07  9.86%     -    0s</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 1 nodes (2 simplex iterations) in 0.05 seconds (0.09 work units)</span></span>
+<span><span class="co">## Explored 1 nodes (2 simplex iterations) in 0.16 seconds (0.09 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Solution count 2: 1.00994e+08 1.2212e+08 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
 <span><span class="co">## Best objective 1.009944489031e+08, best bound 9.103307331724e+07, gap 9.8633%</span></span></code></pre>
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># print first six rows of solution object</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">s3</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   id       cost status    xloc     yloc locked_in locked_out solution_1</span></span>

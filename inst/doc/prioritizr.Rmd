@@ -189,17 +189,17 @@ After generating the prioritization, we can examine the relative importance of p
 
 ```{r, message = FALSE, results = "hide"}
 # calculate relative importance
-irrep_s1 <- eval_rank_importance(p1, s1["solution_1"], n = 10)
-print(irrep_s1)
+imp_s1 <- eval_rank_importance(p1, s1["solution_1"], n = 10)
+print(imp_s1)
 
 # manually set locked in planning units to -1 to help with visualization,
 # this way we can easily see the importance scores for the priority areas
-irrep_s1$rs[irrep_s1$locked_in] <- -1
+imp_s1$rs[tas_pu$locked_in] <- -1
 ```
 
 ```{r, fig.width = w, fig.height = h}
 # plot map of importance scores
-plot(st_as_sf(irrep_s1[, "rs"]), main = "Overall importance")
+plot(st_as_sf(imp_s1[, "rs"]), main = "Overall importance")
 ```
 
 ## Portfolios
