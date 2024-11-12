@@ -1555,6 +1555,6 @@ test_that("invalid inputs", {
     p %>%
       add_linear_constraints(100, "<=", pu) %>%
       eval_rank_importance(s, n = 2),
-    "complex constraints"
+    "pre-computed"
   )
 })

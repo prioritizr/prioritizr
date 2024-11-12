@@ -142,13 +142,14 @@ See \code{\link[=solve]{solve()}} for further details.
 \description{
 Calculate importance scores for planning units selected in a solution
 by calculating ranks via an incremental optimization process
-(based on Jung \emph{et al.} 2021). \strong{Note that if the problem contains locked in
-constraints, then it is strongly recommended to set the costs for
-locked in planning units to zero to avoid problem feasibility issues.}
+(based on Jung \emph{et al.} 2021).
 }
 \details{
 Importance scores are calculated using an incremental optimization
-process. This optimization process involves the following steps.
+process. Note that if a problem has complex constraints (i.e.,
+constraints that do not involve locking in or locking out planning
+units), then the \code{budgets} parameter must be specified.
+This optimization process involves the following steps.
 \enumerate{
 \item A set of budgets are defined.
 then the budgets are defined using the \code{budgets}.

@@ -5,9 +5,7 @@ NULL
 #'
 #' Calculate importance scores for planning units selected in a solution
 #' by calculating ranks via an incremental optimization process
-#' (based on Jung *et al.* 2021). **Note that if the problem contains locked in
-#' constraints, then it is strongly recommended to set the costs for
-#' locked in planning units to zero to avoid problem feasibility issues.**
+#' (based on Jung *et al.* 2021).
 #'
 #' @inheritParams eval_replacement_importance
 #'
@@ -46,7 +44,10 @@ NULL
 #'
 #' @details
 #' Importance scores are calculated using an incremental optimization
-#' process. This optimization process involves the following steps.
+#' process. Note that if a problem has complex constraints (i.e.,
+#' constraints that do not involve locking in or locking out planning
+#' units), then the `budgets` parameter must be specified.
+#' This optimization process involves the following steps.
 #' 1. A set of budgets are defined.
 #  If an argument to the `budgets` parameter is supplied,
 #' then the budgets are defined using the `budgets`.
@@ -967,13 +968,13 @@ create_budget_thresholds <- function(x, status, n, by_zone,
     call = call,
     msg = c(
       paste(
-        "{.arg n} cannot be specified because {.arg x} has complex constraints."
+        "{.arg n} cannot be specified for this {.arg x}."
       ),
       "i" = paste(
-        "Instead, {.arg budgets} must be manually specified."
+        "Instead, {.arg budgets} must be specified."
       ),
       "i" = paste(
-        "Complex constraints are constraints that do not lock planning units."
+        "This is because the budgets cannot be pre-computed from {.arg n}."
       )
     )
   )
