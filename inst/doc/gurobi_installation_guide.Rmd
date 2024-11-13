@@ -40,7 +40,7 @@ print <- function(x, ...) {
 
 ## Introduction
 
-_Gurobi_ is the most powerful and fastest solver that the _prioritizr R_ package can use to solve conservation planning problems (see the [_Solver benchmarks_](solver_benchmarks.html) vignette for further details). This guide will walk you through the process of setting up _Gurobi_ on your computer so that it can be used to solve conservation planning problems. If you encounter any problems while following the instructions below, please refer to the [official _Gurobi_ documentation](https://www.gurobi.com/documentation/).
+_Gurobi_ is the most powerful and fastest solver that the _prioritizr R_ package can use to solve conservation planning problems (see the [_Solver benchmarks_](solver_benchmarks.html) vignette for further details). This guide will walk you through the process of setting up _Gurobi_ on your computer so that it can be used to solve conservation planning problems. If you encounter any problems while following the instructions below, please refer to the [official _Gurobi_ documentation](https://docs.gurobi.com/).
 
 ## Obtaining a license
 
