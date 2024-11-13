@@ -74,7 +74,6 @@ jobs:
             any::maps
             gurobi=?ignore
             cplexAPI=?ignore
-            rcbc=?ignore
           needs: |
             check
 
@@ -83,7 +82,6 @@ jobs:
           options(repos = "https://cloud.r-project.org/")
           install.packages("sf")
           install.packages("terra")
-          pak::pkg_install("dirkschumacher/rcbc@fix-c-api")
         shell: Rscript {0}
 
       - name: Session information
