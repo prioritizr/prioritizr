@@ -95,7 +95,7 @@ NULL
 #' the rank is equal to the total number of budget increments minus the
 #' number of completed increments.
 #' Note that if previous increments have been completed, then only planning
-#' units in the newly generated solution that have not been previous selected
+#' units in the newly generated solution that have not been previously selected
 #' are assigned this rank.
 #' For example, if no previous increments have been completed and there
 #' are 5 budget increments (e.g. `n = 5`), then the planning units
