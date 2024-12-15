@@ -27,18 +27,18 @@ NULL
 #' minimum shortfall objective is used.
 #'
 #' @param extra_args `list` value with additional arguments for the
-#' objective function (excluding the `budget` parameter). For example, this
+#' objective function (excluding the `budgets` parameter). For example, this
 #' parameter can be used to supply phylogenetic data for
 #' the phylogenetic diversity objective function (i.e., when using
 #' `objective = "add_max_phylo_div_objective"`).
 #' Defaults to `NULL` such that no additional arguments are supplied.
 #'
 #' @param n `integer` number of ranks to evaluate.
-#'  Note that either `n` or `budget` (not both) must be specified.
+#'  Note that either `n` or `budgets` (not both) must be specified.
 #'
 #' @param budgets `numeric` vector with the budget thresholds for generating
 #'  solutions at different steps in an iterative procedure.
-#'  Note that either `n` or `budget` (not both) must be specified.
+#'  Note that either `n` or `budgets` (not both) must be specified.
 #'
 #' @param ... not used.
 #'
