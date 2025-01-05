@@ -286,15 +286,23 @@ establishment).</p>
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s0</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p0</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
+<span><span class="co">## Set parameter LicenseID to value 2599748</span></span>
 <span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
 <span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
-<span><span class="co">## Academic license - for non-commercial use only - expires 2025-04-21</span></span>
-<span><span class="co">## Gurobi Optimizer version 11.0.3 build v11.0.3rc0 (linux64 - "Ubuntu 22.04.4 LTS")</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2025-12-16</span></span>
+<span><span class="co">## Gurobi Optimizer version 12.0.0 build v12.0.0rc1 (linux64 - "Ubuntu 22.04.5 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Non-default parameters:</span></span>
+<span><span class="co">## TimeLimit  2147483647</span></span>
+<span><span class="co">## MIPGap  0.1</span></span>
+<span><span class="co">## LogToConsole  0</span></span>
+<span><span class="co">## Presolve  2</span></span>
+<span><span class="co">## Threads  1</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimize a model with 33 rows, 1130 columns and 8157 nonzeros</span></span>
 <span><span class="co">## Model fingerprint: 0xd205b612</span></span>
@@ -309,15 +317,24 @@ establishment).</p>
 <span><span class="co">## Presolve time: 0.01s</span></span>
 <span><span class="co">## Presolved: 14 rows, 776 columns, 2296 nonzeros</span></span>
 <span><span class="co">## Variable types: 0 continuous, 776 integer (776 binary)</span></span>
-<span><span class="co">## Found heuristic solution: objective 9018.7830067</span></span>
+<span><span class="co">## Root relaxation presolved: 14 rows, 776 columns, 2296 nonzeros</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 0 nodes (0 simplex iterations) in 0.01 seconds (0.01 work units)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Root relaxation: objective 8.818115e+03, 20 iterations, 0.00 seconds (0.00 work units)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
+<span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##      0     0 8818.11463    0   11 10337.5812 8818.11463  14.7%     -    0s</span></span>
+<span><span class="co">## H    0     0                    9023.1107262 8818.11463  2.27%     -    0s</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Explored 1 nodes (20 simplex iterations) in 0.01 seconds (0.01 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Solution count 2: 9018.78 10337.6 </span></span>
+<span><span class="co">## Solution count 2: 9023.11 10337.6 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
-<span><span class="co">## Best objective 9.018783006750e+03, best bound 8.496084047117e+03, gap 5.7957%</span></span></code></pre>
+<span><span class="co">## Best objective 9.023110726172e+03, best bound 8.818114631416e+03, gap 2.2719%</span></span></code></pre>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># print result</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">s0</span><span class="op">)</span></span></code></pre></div>
@@ -761,15 +778,15 @@ generated using the blended approach.</strong></p>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 9 × 3</span></span></span>
 <span><span class="co">##   total_cost total_boundary_length threshold</span></span>
 <span><span class="co">##        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span>       355.              2<span style="text-decoration: underline;">896</span>141.       355</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span>       530.              2<span style="text-decoration: underline;">297</span>835.       532</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span>       699.              2<span style="text-decoration: underline;">130</span>901.       709</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span>       879.              2<span style="text-decoration: underline;">052</span>927.       886</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">5</span>      <span style="text-decoration: underline;">1</span>041.              1<span style="text-decoration: underline;">954</span>833.      <span style="text-decoration: underline;">1</span>063</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">6</span>      <span style="text-decoration: underline;">1</span>236.              1<span style="text-decoration: underline;">887</span>286.      <span style="text-decoration: underline;">1</span>241</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">7</span>      <span style="text-decoration: underline;">1</span>418.              1<span style="text-decoration: underline;">807</span>081.      <span style="text-decoration: underline;">1</span>418</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">8</span>      <span style="text-decoration: underline;">1</span>594.              1<span style="text-decoration: underline;">780</span>550.      <span style="text-decoration: underline;">1</span>595</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">9</span>      <span style="text-decoration: underline;">1</span>764.              1<span style="text-decoration: underline;">656</span>469.      <span style="text-decoration: underline;">1</span>772</span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span>       355.              2<span style="text-decoration: underline;">889</span>449.       355</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span>       522.              2<span style="text-decoration: underline;">280</span>881.       532</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span>       704.              2<span style="text-decoration: underline;">135</span>498.       709</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span>       884.              2<span style="text-decoration: underline;">030</span>790.       886</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span>      <span style="text-decoration: underline;">1</span>062.              1<span style="text-decoration: underline;">959</span>350.      <span style="text-decoration: underline;">1</span>063</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">6</span>      <span style="text-decoration: underline;">1</span>241.              1<span style="text-decoration: underline;">896</span>302.      <span style="text-decoration: underline;">1</span>241</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">7</span>      <span style="text-decoration: underline;">1</span>417.              1<span style="text-decoration: underline;">836</span>154.      <span style="text-decoration: underline;">1</span>418</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">8</span>      <span style="text-decoration: underline;">1</span>589.              1<span style="text-decoration: underline;">772</span>605.      <span style="text-decoration: underline;">1</span>595</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">9</span>      <span style="text-decoration: underline;">1</span>763.              1<span style="text-decoration: underline;">716</span>207.      <span style="text-decoration: underline;">1</span>772</span></span></code></pre>
 <p>After calculating the metrics, let’s we can use them to help select a
 prioritization.</p>
 </div>
@@ -804,15 +821,15 @@ prioritizations selected by different methods, let’s create a
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 9 × 6</span></span></span>
 <span><span class="co">##   total_cost total_boundary_length value name           label            method</span></span>
 <span><span class="co">##        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span>       355.              2<span style="text-decoration: underline;">896</span>141.   355 threshold_355  Threshold = 355  none  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span>       530.              2<span style="text-decoration: underline;">297</span>835.   532 threshold_532  Threshold = 532  none  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span>       699.              2<span style="text-decoration: underline;">130</span>901.   709 threshold_709  Threshold = 709  none  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span>       879.              2<span style="text-decoration: underline;">052</span>927.   886 threshold_886  Threshold = 886  none  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">5</span>      <span style="text-decoration: underline;">1</span>041.              1<span style="text-decoration: underline;">954</span>833.  <span style="text-decoration: underline;">1</span>063 threshold_1063 Threshold = 1063 none  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">6</span>      <span style="text-decoration: underline;">1</span>236.              1<span style="text-decoration: underline;">887</span>286.  <span style="text-decoration: underline;">1</span>241 threshold_1241 Threshold = 1241 none  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">7</span>      <span style="text-decoration: underline;">1</span>418.              1<span style="text-decoration: underline;">807</span>081.  <span style="text-decoration: underline;">1</span>418 threshold_1418 Threshold = 1418 none  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">8</span>      <span style="text-decoration: underline;">1</span>594.              1<span style="text-decoration: underline;">780</span>550.  <span style="text-decoration: underline;">1</span>595 threshold_1595 Threshold = 1595 none  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">9</span>      <span style="text-decoration: underline;">1</span>764.              1<span style="text-decoration: underline;">656</span>469.  <span style="text-decoration: underline;">1</span>772 threshold_1772 Threshold = 1772 none</span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span>       355.              2<span style="text-decoration: underline;">889</span>449.   355 threshold_355  Threshold = 355  none  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span>       522.              2<span style="text-decoration: underline;">280</span>881.   532 threshold_532  Threshold = 532  none  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span>       704.              2<span style="text-decoration: underline;">135</span>498.   709 threshold_709  Threshold = 709  none  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span>       884.              2<span style="text-decoration: underline;">030</span>790.   886 threshold_886  Threshold = 886  none  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span>      <span style="text-decoration: underline;">1</span>062.              1<span style="text-decoration: underline;">959</span>350.  <span style="text-decoration: underline;">1</span>063 threshold_1063 Threshold = 1063 none  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">6</span>      <span style="text-decoration: underline;">1</span>241.              1<span style="text-decoration: underline;">896</span>302.  <span style="text-decoration: underline;">1</span>241 threshold_1241 Threshold = 1241 none  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">7</span>      <span style="text-decoration: underline;">1</span>417.              1<span style="text-decoration: underline;">836</span>154.  <span style="text-decoration: underline;">1</span>418 threshold_1418 Threshold = 1418 none  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">8</span>      <span style="text-decoration: underline;">1</span>589.              1<span style="text-decoration: underline;">772</span>605.  <span style="text-decoration: underline;">1</span>595 threshold_1595 Threshold = 1595 none  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">9</span>      <span style="text-decoration: underline;">1</span>763.              1<span style="text-decoration: underline;">716</span>207.  <span style="text-decoration: underline;">1</span>772 threshold_1772 Threshold = 1772 none</span></span></code></pre>
 <p>Next, let’s examine some different methods for selecting
 prioritizations.</p>
 <div class="section level3">
@@ -835,9 +852,6 @@ plot to select a prioritization.</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span>hjust <span class="op">=</span> <span class="op">-</span><span class="fl">0.15</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_color_manual</a></span><span class="op">(</span></span>
-<span>    values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"visual"</span> <span class="op">=</span> <span class="st">"blue"</span>, <span class="st">"not selected"</span> <span class="op">=</span><span class="st">"black"</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="st">"Total boundary length of prioritization"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">"Total cost of prioritization"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_x_continuous</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/expansion.html" class="external-link">expansion</a></span><span class="op">(</span>mult <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.05</span>, <span class="fl">0.4</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -845,8 +859,6 @@ plot to select a prioritization.</p>
 <span></span>
 <span><span class="co"># render plot</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">result_plot</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Warning: No shared levels found between `names(values)` of the manual scale and the</span></span>
-<span><span class="co">## data's <span style="color: #00BB00;">colour</span> values.</span></span></code></pre>
 <p><img src="calibrating_trade-offs_tutorial_files/figure-html/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>We can see that there is a clear relationship between total cost and
 total boundary length. It would seem that in order to achieve a lower
@@ -860,7 +872,7 @@ plot. So, let’s select the prioritization generated using a
 <code>threshold</code> value of 709. To keep track of the
 prioritizations selected based on different methods, let’s create a
 <code>method</code> column in the <code>result_data</code> table.</p>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># specify prioritization selected by visual method</span></span>
 <span><span class="va">result_data</span><span class="op">$</span><span class="va">method</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"visual"</span></span></code></pre></div>
 <p>Next, let’s consider a quantitative approach.</p>
@@ -879,7 +891,7 @@ the different criteria, (ii) weights to encode the relative importance
 of each criteria, and (iii) details on whether each criteria should
 ideally be minimized or maximized. Let’s run the analysis, assuming that
 we want equal weighting for total cost and total boundary length.</p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate TOPSIS scores</span></span>
 <span><span class="va">topsis_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/topsis/man/topsis.html" class="external-link">topsis</a></span><span class="op">(</span></span>
 <span>  decision <span class="op">=</span></span>
@@ -893,21 +905,21 @@ we want equal weighting for total cost and total boundary length.</p>
 <span><span class="co"># print results</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">topsis_results</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   alt.row     score rank</span></span>
-<span><span class="co">## 1       1 0.6725497    3</span></span>
-<span><span class="co">## 2       2 0.7635909    1</span></span>
-<span><span class="co">## 3       3 0.7259177    2</span></span>
-<span><span class="co">## 4       4 0.6379197    4</span></span>
-<span><span class="co">## 5       5 0.5581469    5</span></span>
-<span><span class="co">## 6       6 0.4631746    6</span></span>
-<span><span class="co">## 7       7 0.3946473    7</span></span>
-<span><span class="co">## 8       8 0.3404370    8</span></span>
-<span><span class="co">## 9       9 0.3274503    9</span></span></code></pre>
+<span><span class="co">## 1       1 0.6844968    3</span></span>
+<span><span class="co">## 2       2 0.7840256    1</span></span>
+<span><span class="co">## 3       3 0.7308374    2</span></span>
+<span><span class="co">## 4       4 0.6423012    4</span></span>
+<span><span class="co">## 5       5 0.5470319    5</span></span>
+<span><span class="co">## 6       6 0.4597670    6</span></span>
+<span><span class="co">## 7       7 0.3891764    7</span></span>
+<span><span class="co">## 8       8 0.3420874    8</span></span>
+<span><span class="co">## 9       9 0.3155032    9</span></span></code></pre>
 <p>The candidate prioritization with the greatest TOPSIS score is
 considered to represent the best trade-off between total cost and total
 boundary length. So, based on this method, we would select the
 prioritization generated using a <code>threshold</code> value of 532.
 Let’s update the <code>result_data</code> with this information.</p>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># add column indicating prioritization selected by TOPSIS method</span></span>
 <span><span class="va">result_data</span><span class="op">$</span><span class="va">method</span><span class="op">[</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/summarize-generics.html" class="external-link">which.max</a></span><span class="op">(</span><span class="va">topsis_results</span><span class="op">$</span><span class="va">score</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"TOPSIS"</span></span></code></pre></div>
 <p>Next, let’s consider another quantitative method.</p>
@@ -931,7 +943,7 @@ criteria in a much shorter period of time than the other
 methods.</strong> To implement this method, we first need to generate
 the ideal prioritizations (note that we specify an gap of 0% to ensure
 optimality).</p>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># generate ideal prioritization based on cost criteria</span></span>
 <span><span class="co">## note that this is simply the same as the s1 prioritization we generated</span></span>
 <span><span class="co">## for the hierarchical approach</span></span>
@@ -965,7 +977,7 @@ optimality).</p>
 <span><span class="va">s4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p4</span>, force <span class="op">=</span> <span class="cn">TRUE</span>, run_checks <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p>Next, let’s calculate the performance metrics for these
 prioritizations.</p>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># generate problem formulation with costs and boundary penalties for</span></span>
 <span><span class="co"># calculating performance metrics</span></span>
 <span><span class="va">p5</span> <span class="op">&lt;-</span></span>
@@ -991,7 +1003,7 @@ prioritizations.</p>
 <span><span class="op">)</span></span></code></pre></div>
 <p>After calculating these performance metrics, we can use them to
 automatically calculate a <code>penalty</code> value.</p>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate penalty value based on Cohon et al. 1979</span></span>
 <span><span class="va">cohon_penalty</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span></span>
 <span>  <span class="op">(</span><span class="va">s3_metrics</span><span class="op">$</span><span class="va">total_cost</span> <span class="op">-</span> <span class="va">s4_metrics</span><span class="op">$</span><span class="va">total_cost</span><span class="op">)</span> <span class="op">/</span></span>
@@ -1006,7 +1018,7 @@ automatically calculate a <code>penalty</code> value.</p>
 <pre><code><span><span class="co">## [1] 0.00902</span></span></code></pre>
 <p>Now that we have calculated a <code>penalty</code> value using this
 method, we can use it to generate a prioritization.</p>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># generate prioritization using penalty value calculated using Cohon et al. 1979</span></span>
 <span><span class="va">p6</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">tas_pu</span>, <span class="va">tas_features</span>, cost_column <span class="op">=</span> <span class="st">"cost"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -1020,7 +1032,7 @@ method, we can use it to generate a prioritization.</p>
 <span><span class="va">s6</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p6</span><span class="op">)</span></span></code></pre></div>
 <p>Let’s update the <code>results_data</code> table with results about
 the prioritization.</p>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># add new row with data for prioritization generated following Cohon et al. 1979</span></span>
 <span><span class="va">result_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html" class="external-link">bind_rows</a></span><span class="op">(</span></span>
 <span>  <span class="va">result_data</span>,</span>
@@ -1042,7 +1054,7 @@ methods.</p>
 </h3>
 <p>Let’s create a plot to visualize the results from the different
 methods.</p>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create plot to visualize trade-offs and show selected candidate prioritization</span></span>
 <span><span class="va">result_plot</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span></span>
@@ -1074,7 +1086,7 @@ methods.</p>
 prioritizations. To further compare the results from the different
 methods, let’s create some maps showing the selected
 prioritizations.</p>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract column names for creating the prioritizations</span></span>
 <span><span class="va">visual_name</span> <span class="op">&lt;-</span> <span class="va">result_data</span><span class="op">$</span><span class="va">name</span><span class="op">[[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">result_data</span><span class="op">$</span><span class="va">method</span> <span class="op">==</span> <span class="st">"visual"</span><span class="op">)</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="va">topsis_name</span> <span class="op">&lt;-</span> <span class="va">result_data</span><span class="op">$</span><span class="va">name</span><span class="op">[[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">result_data</span><span class="op">$</span><span class="va">method</span> <span class="op">==</span> <span class="st">"TOPSIS"</span><span class="op">)</span><span class="op">]</span><span class="op">]</span></span>

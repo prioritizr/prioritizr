@@ -208,15 +208,23 @@ are selected or not selected for protection.</p>
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
+<span><span class="co">## Set parameter LicenseID to value 2599748</span></span>
 <span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
 <span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
-<span><span class="co">## Academic license - for non-commercial use only - expires 2025-04-21</span></span>
-<span><span class="co">## Gurobi Optimizer version 11.0.3 build v11.0.3rc0 (linux64 - "Ubuntu 22.04.4 LTS")</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2025-12-16</span></span>
+<span><span class="co">## Gurobi Optimizer version 12.0.0 build v12.0.0rc1 (linux64 - "Ubuntu 22.04.5 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Non-default parameters:</span></span>
+<span><span class="co">## TimeLimit  2147483647</span></span>
+<span><span class="co">## MIPGap  0.1</span></span>
+<span><span class="co">## LogToConsole  0</span></span>
+<span><span class="co">## Presolve  2</span></span>
+<span><span class="co">## Threads  1</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimize a model with 5 rows, 90 columns and 450 nonzeros</span></span>
 <span><span class="co">## Model fingerprint: 0x4bb5d283</span></span>
@@ -230,7 +238,6 @@ are selected or not selected for protection.</p>
 <span><span class="co">## Presolve time: 0.00s</span></span>
 <span><span class="co">## Presolved: 5 rows, 90 columns, 450 nonzeros</span></span>
 <span><span class="co">## Variable types: 0 continuous, 90 integer (90 binary)</span></span>
-<span><span class="co">## Found heuristic solution: objective 2332.1004028</span></span>
 <span><span class="co">## Root relaxation presolved: 5 rows, 90 columns, 450 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
@@ -239,13 +246,14 @@ are selected or not selected for protection.</p>
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">##      0     0 1931.58191    0    4 2332.10040 1931.58191  17.2%     -    0s</span></span>
+<span><span class="co">##      0     0 1931.58191    0    4 2337.96178 1931.58191  17.4%     -    0s</span></span>
+<span><span class="co">## H    0     0                    2207.8530121 1931.58191  12.5%     -    0s</span></span>
 <span><span class="co">## H    0     0                    1987.3985291 1931.58191  2.81%     -    0s</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Explored 1 nodes (12 simplex iterations) in 0.00 seconds (0.00 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Solution count 3: 1987.4 2332.1 2337.96 </span></span>
+<span><span class="co">## Solution count 3: 1987.4 2207.85 2337.96 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
 <span><span class="co">## Best objective 1.987398529053e+03, best bound 1.931581907658e+03, gap 2.8085%</span></span></code></pre>
@@ -362,15 +370,23 @@ using the following code.</p>
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
+<span><span class="co">## Set parameter LicenseID to value 2599748</span></span>
 <span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
 <span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
-<span><span class="co">## Academic license - for non-commercial use only - expires 2025-04-21</span></span>
-<span><span class="co">## Gurobi Optimizer version 11.0.3 build v11.0.3rc0 (linux64 - "Ubuntu 22.04.4 LTS")</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2025-12-16</span></span>
+<span><span class="co">## Gurobi Optimizer version 12.0.0 build v12.0.0rc1 (linux64 - "Ubuntu 22.04.5 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Non-default parameters:</span></span>
+<span><span class="co">## TimeLimit  2147483647</span></span>
+<span><span class="co">## MIPGap  0.1</span></span>
+<span><span class="co">## LogToConsole  0</span></span>
+<span><span class="co">## Presolve  2</span></span>
+<span><span class="co">## Threads  1</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimize a model with 100 rows, 180 columns and 1080 nonzeros</span></span>
 <span><span class="co">## Model fingerprint: 0x5c140ae3</span></span>
@@ -384,7 +400,6 @@ using the following code.</p>
 <span><span class="co">## Presolve time: 0.00s</span></span>
 <span><span class="co">## Presolved: 100 rows, 180 columns, 1080 nonzeros</span></span>
 <span><span class="co">## Variable types: 0 continuous, 180 integer (180 binary)</span></span>
-<span><span class="co">## Found heuristic solution: objective 3440.6550903</span></span>
 <span><span class="co">## Root relaxation presolved: 100 rows, 180 columns, 1080 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
@@ -393,16 +408,16 @@ using the following code.</p>
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">##      0     0 2911.33336    0   10 3440.65509 2911.33336  15.4%     -    0s</span></span>
-<span><span class="co">## H    0     0                    2996.1175232 2911.33336  2.83%     -    0s</span></span>
+<span><span class="co">##      0     0 2911.33336    0   10 3568.49313 2911.33336  18.4%     -    0s</span></span>
+<span><span class="co">## H    0     0                    3222.4640198 2911.33336  9.66%     -    0s</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Explored 1 nodes (79 simplex iterations) in 0.00 seconds (0.00 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Solution count 3: 2996.12 3440.66 3568.49 </span></span>
+<span><span class="co">## Solution count 2: 3222.46 3568.49 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
-<span><span class="co">## Best objective 2.996117523193e+03, best bound 2.911333356299e+03, gap 2.8298%</span></span></code></pre>
+<span><span class="co">## Best objective 3.222464019775e+03, best bound 2.911333356299e+03, gap 9.6551%</span></span></code></pre>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate feature representation</span></span>
 <span><span class="va">r2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p2</span>, <span class="va">s2</span><span class="op">)</span></span>
@@ -410,21 +425,21 @@ using the following code.</p>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 15 × 5</span></span></span>
 <span><span class="co">##    summary feature total_amount absolute_held relative_held</span></span>
 <span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> overall 1              167.          13.4         0.080<span style="text-decoration: underline;">3</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> overall 2               62.4          4.77        0.076<span style="text-decoration: underline;">5</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> overall 3              144.          10.9         0.075<span style="text-decoration: underline;">8</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> overall 4               85.3          6.41        0.075<span style="text-decoration: underline;">1</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> overall 5              113.           9.06        0.079<span style="text-decoration: underline;">9</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> zone 1  1               83.3          8.87        0.106 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> zone 1  2               31.2          3.21        0.103 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> zone 1  3               72.0          7.21        0.100 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> zone 1  4               42.7          4.27        0.100 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">10</span> zone 1  5               56.7          6.03        0.106 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">11</span> zone 2  1               83.3          4.50        0.054<span style="text-decoration: underline;">1</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">12</span> zone 2  2               31.2          1.56        0.050<span style="text-decoration: underline;">0</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">13</span> zone 2  3               72.0          3.70        0.051<span style="text-decoration: underline;">5</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">14</span> zone 2  4               42.7          2.14        0.050<span style="text-decoration: underline;">1</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">15</span> zone 2  5               56.7          3.03        0.053<span style="text-decoration: underline;">3</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> overall 1              167.          13.9         0.083<span style="text-decoration: underline;">5</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> overall 2               62.4          5.31        0.085<span style="text-decoration: underline;">0</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> overall 3              144.          11.5         0.080<span style="text-decoration: underline;">0</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> overall 4               85.3          7.20        0.084<span style="text-decoration: underline;">4</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> overall 5              113.           9.38        0.082<span style="text-decoration: underline;">7</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> zone 1  1               83.3          8.68        0.104 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> zone 1  2               31.2          3.29        0.105 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> zone 1  3               72.0          7.30        0.101 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> zone 1  4               42.7          4.47        0.105 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> zone 1  5               56.7          5.80        0.102 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">11</span> zone 2  1               83.3          5.23        0.062<span style="text-decoration: underline;">8</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">12</span> zone 2  2               31.2          2.02        0.064<span style="text-decoration: underline;">6</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">13</span> zone 2  3               72.0          4.21        0.058<span style="text-decoration: underline;">6</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">14</span> zone 2  4               42.7          2.73        0.064<span style="text-decoration: underline;">0</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">15</span> zone 2  5               56.7          3.58        0.063<span style="text-decoration: underline;">1</span></span></span></code></pre>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot solution</span></span>
 <span><span class="co"># here we use the category layer function to generate raster showing the zone</span></span>
@@ -496,15 +511,23 @@ example.</p>
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
+<span><span class="co">## Set parameter LicenseID to value 2599748</span></span>
 <span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
 <span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
-<span><span class="co">## Academic license - for non-commercial use only - expires 2025-04-21</span></span>
-<span><span class="co">## Gurobi Optimizer version 11.0.3 build v11.0.3rc0 (linux64 - "Ubuntu 22.04.4 LTS")</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2025-12-16</span></span>
+<span><span class="co">## Gurobi Optimizer version 12.0.0 build v12.0.0rc1 (linux64 - "Ubuntu 22.04.5 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Non-default parameters:</span></span>
+<span><span class="co">## TimeLimit  2147483647</span></span>
+<span><span class="co">## MIPGap  0.1</span></span>
+<span><span class="co">## LogToConsole  0</span></span>
+<span><span class="co">## Presolve  2</span></span>
+<span><span class="co">## Threads  1</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimize a model with 100 rows, 180 columns and 1080 nonzeros</span></span>
 <span><span class="co">## Model fingerprint: 0xdfa75166</span></span>
@@ -518,7 +541,6 @@ example.</p>
 <span><span class="co">## Presolve time: 0.00s</span></span>
 <span><span class="co">## Presolved: 100 rows, 180 columns, 1080 nonzeros</span></span>
 <span><span class="co">## Variable types: 0 continuous, 180 integer (180 binary)</span></span>
-<span><span class="co">## Found heuristic solution: objective 3388.0249329</span></span>
 <span><span class="co">## Root relaxation presolved: 100 rows, 180 columns, 1080 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
@@ -527,16 +549,16 @@ example.</p>
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">##      0     0 2884.87201    0    8 3388.02493 2884.87201  14.9%     -    0s</span></span>
-<span><span class="co">## H    0     0                    2958.1201477 2884.87201  2.48%     -    0s</span></span>
+<span><span class="co">##      0     0 2884.87201    0    8 3667.77087 2884.87201  21.3%     -    0s</span></span>
+<span><span class="co">## H    0     0                    3199.6670685 2884.87201  9.84%     -    0s</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Explored 1 nodes (38 simplex iterations) in 0.00 seconds (0.00 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Solution count 3: 2958.12 3388.02 3667.77 </span></span>
+<span><span class="co">## Solution count 2: 3199.67 3667.77 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
-<span><span class="co">## Best objective 2.958120147705e+03, best bound 2.884872007846e+03, gap 2.4762%</span></span></code></pre>
+<span><span class="co">## Best objective 3.199667068481e+03, best bound 2.884872007846e+03, gap 9.8384%</span></span></code></pre>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate feature representation</span></span>
 <span><span class="va">r3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p3</span>, <span class="va">s3</span><span class="op">)</span></span>
@@ -544,21 +566,21 @@ example.</p>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 15 × 5</span></span></span>
 <span><span class="co">##    summary feature total_amount absolute_held relative_held</span></span>
 <span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> overall 1              125.         11.1          0.089<span style="text-decoration: underline;">1</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> overall 2               46.8         3.92         0.083<span style="text-decoration: underline;">8</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> overall 3              108.          9.28         0.086<span style="text-decoration: underline;">0</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> overall 4               64.0         5.37         0.083<span style="text-decoration: underline;">9</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> overall 5               85.1         7.46         0.087<span style="text-decoration: underline;">7</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> 1       1               83.3         8.94         0.107 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> 1       2               31.2         3.13         0.100 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 1       3               72.0         7.42         0.103 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 1       4               42.7         4.29         0.101 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">10</span> 1       5               56.7         6.01         0.106 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">11</span> 2       1               41.6         2.19         0.052<span style="text-decoration: underline;">7</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">12</span> 2       2               15.6         0.794        0.050<span style="text-decoration: underline;">9</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">13</span> 2       3               36.0         1.87         0.051<span style="text-decoration: underline;">9</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">14</span> 2       4               21.3         1.08         0.050<span style="text-decoration: underline;">5</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">15</span> 2       5               28.4         1.44         0.050<span style="text-decoration: underline;">9</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> overall 1              125.         11.3          0.090<span style="text-decoration: underline;">2</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> overall 2               46.8         4.30         0.091<span style="text-decoration: underline;">7</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> overall 3              108.          9.46         0.087<span style="text-decoration: underline;">7</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> overall 4               64.0         5.90         0.092<span style="text-decoration: underline;">2</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> overall 5               85.1         7.56         0.088<span style="text-decoration: underline;">9</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> 1       1               83.3         8.69         0.104 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> 1       2               31.2         3.31         0.106 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 1       3               72.0         7.30         0.102 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 1       4               42.7         4.53         0.106 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> 1       5               56.7         5.82         0.103 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">11</span> 2       1               41.6         2.59         0.062<span style="text-decoration: underline;">1</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">12</span> 2       2               15.6         0.990        0.063<span style="text-decoration: underline;">4</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">13</span> 2       3               36.0         2.16         0.060<span style="text-decoration: underline;">0</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">14</span> 2       4               21.3         1.37         0.064<span style="text-decoration: underline;">2</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">15</span> 2       5               28.4         1.74         0.061<span style="text-decoration: underline;">3</span></span></span></code></pre>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot solution</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
@@ -666,15 +688,23 @@ We can formulate and solve this problem using the following code.</p>
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p4</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
+<span><span class="co">## Set parameter LicenseID to value 2599748</span></span>
 <span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
 <span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
-<span><span class="co">## Academic license - for non-commercial use only - expires 2025-04-21</span></span>
-<span><span class="co">## Gurobi Optimizer version 11.0.3 build v11.0.3rc0 (linux64 - "Ubuntu 22.04.4 LTS")</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2025-12-16</span></span>
+<span><span class="co">## Gurobi Optimizer version 12.0.0 build v12.0.0rc1 (linux64 - "Ubuntu 22.04.5 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Non-default parameters:</span></span>
+<span><span class="co">## TimeLimit  2147483647</span></span>
+<span><span class="co">## MIPGap  0.1</span></span>
+<span><span class="co">## LogToConsole  0</span></span>
+<span><span class="co">## Presolve  2</span></span>
+<span><span class="co">## Threads  1</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimize a model with 105 rows, 300 columns and 1800 nonzeros</span></span>
 <span><span class="co">## Model fingerprint: 0xba527df5</span></span>
@@ -688,8 +718,9 @@ We can formulate and solve this problem using the following code.</p>
 <span><span class="co">## Presolve removed 14 rows and 120 columns</span></span>
 <span><span class="co">## Presolve time: 0.00s</span></span>
 <span><span class="co">## Presolved: 91 rows, 180 columns, 360 nonzeros</span></span>
-<span><span class="co">## Found heuristic solution: objective 4700.0000000</span></span>
+<span><span class="co">## Found heuristic solution: objective 4800.0000000</span></span>
 <span><span class="co">## Variable types: 0 continuous, 180 integer (180 binary)</span></span>
+<span><span class="co">## Found heuristic solution: objective 4700.0000000</span></span>
 <span><span class="co">## Root relaxation presolved: 91 rows, 180 columns, 360 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
@@ -704,7 +735,7 @@ We can formulate and solve this problem using the following code.</p>
 <span><span class="co">## Explored 1 nodes (1 simplex iterations) in 0.00 seconds (0.00 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Solution count 3: 3800 4700 9400 </span></span>
+<span><span class="co">## Solution count 4: 3800 4700 4800 9400 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
 <span><span class="co">## Best objective 3.800000000000e+03, best bound 3.700000000000e+03, gap 2.6316%</span></span></code></pre>
@@ -807,15 +838,23 @@ third zone (baiting) to obtain a more useful solution.</p>
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s5</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p5</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
+<span><span class="co">## Set parameter LicenseID to value 2599748</span></span>
 <span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
 <span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
-<span><span class="co">## Academic license - for non-commercial use only - expires 2025-04-21</span></span>
-<span><span class="co">## Gurobi Optimizer version 11.0.3 build v11.0.3rc0 (linux64 - "Ubuntu 22.04.4 LTS")</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2025-12-16</span></span>
+<span><span class="co">## Gurobi Optimizer version 12.0.0 build v12.0.0rc1 (linux64 - "Ubuntu 22.04.5 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Non-default parameters:</span></span>
+<span><span class="co">## TimeLimit  2147483647</span></span>
+<span><span class="co">## MIPGap  0.1</span></span>
+<span><span class="co">## LogToConsole  0</span></span>
+<span><span class="co">## Presolve  2</span></span>
+<span><span class="co">## Threads  1</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimize a model with 105 rows, 300 columns and 1800 nonzeros</span></span>
 <span><span class="co">## Model fingerprint: 0x0d87ce25</span></span>
@@ -829,8 +868,9 @@ third zone (baiting) to obtain a more useful solution.</p>
 <span><span class="co">## Presolve removed 14 rows and 120 columns</span></span>
 <span><span class="co">## Presolve time: 0.00s</span></span>
 <span><span class="co">## Presolved: 91 rows, 180 columns, 360 nonzeros</span></span>
-<span><span class="co">## Found heuristic solution: objective 9600.0000000</span></span>
+<span><span class="co">## Found heuristic solution: objective 12100.000000</span></span>
 <span><span class="co">## Variable types: 0 continuous, 180 integer (180 binary)</span></span>
+<span><span class="co">## Found heuristic solution: objective 10700.000000</span></span>
 <span><span class="co">## Root relaxation presolved: 91 rows, 180 columns, 360 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
@@ -839,14 +879,14 @@ third zone (baiting) to obtain a more useful solution.</p>
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">##      0     0 6938.06815    0    1 9600.00000 6938.06815  27.7%     -    0s</span></span>
+<span><span class="co">##      0     0 6938.06815    0    1 10700.0000 6938.06815  35.2%     -    0s</span></span>
 <span><span class="co">## H    0     0                    7000.0000000 6938.06815  0.88%     -    0s</span></span>
 <span><span class="co">##      0     0 6938.06815    0    1 7000.00000 6938.06815  0.88%     -    0s</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Explored 1 nodes (1 simplex iterations) in 0.00 seconds (0.00 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Solution count 3: 7000 9600 13600 </span></span>
+<span><span class="co">## Solution count 4: 7000 10700 12100 13600 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
 <span><span class="co">## Best objective 7.000000000000e+03, best bound 7.000000000000e+03, gap 0.0000%</span></span></code></pre>
@@ -954,15 +994,23 @@ fragmented solutions.</p>
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s6</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p6</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
+<span><span class="co">## Set parameter LicenseID to value 2599748</span></span>
 <span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
 <span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
-<span><span class="co">## Academic license - for non-commercial use only - expires 2025-04-21</span></span>
-<span><span class="co">## Gurobi Optimizer version 11.0.3 build v11.0.3rc0 (linux64 - "Ubuntu 22.04.4 LTS")</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2025-12-16</span></span>
+<span><span class="co">## Gurobi Optimizer version 12.0.0 build v12.0.0rc1 (linux64 - "Ubuntu 22.04.5 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Non-default parameters:</span></span>
+<span><span class="co">## TimeLimit  2147483647</span></span>
+<span><span class="co">## MIPGap  0.1</span></span>
+<span><span class="co">## LogToConsole  0</span></span>
+<span><span class="co">## Presolve  2</span></span>
+<span><span class="co">## Threads  1</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimize a model with 1905 rows, 1200 columns and 5400 nonzeros</span></span>
 <span><span class="co">## Model fingerprint: 0xcf2ec927</span></span>
@@ -977,26 +1025,26 @@ fragmented solutions.</p>
 <span><span class="co">## Presolve time: 0.02s</span></span>
 <span><span class="co">## Presolved: 877 rows, 968 columns, 2712 nonzeros</span></span>
 <span><span class="co">## Variable types: 0 continuous, 968 integer (968 binary)</span></span>
-<span><span class="co">## Found heuristic solution: objective 19632.000000</span></span>
 <span><span class="co">## Root relaxation presolved: 877 rows, 968 columns, 2712 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Root relaxation: objective 1.005410e+04, 568 iterations, 0.01 seconds (0.01 work units)</span></span>
+<span><span class="co">## Root relaxation: objective 1.005410e+04, 543 iterations, 0.01 seconds (0.01 work units)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">##      0     0 10054.0986    0   57 19632.0000 10054.0986  48.8%     -    0s</span></span>
+<span><span class="co">##      0     0 10054.0986    0   57 20096.0000 10054.0986  50.0%     -    0s</span></span>
+<span><span class="co">## H    0     0                    11408.000000 10054.0986  11.9%     -    0s</span></span>
 <span><span class="co">## H    0     0                    11300.000000 10054.0986  11.0%     -    0s</span></span>
-<span><span class="co">## H    0     0                    11172.000000 10054.0986  10.0%     -    0s</span></span>
+<span><span class="co">## H    0     0                    11132.000000 10054.0986  9.68%     -    0s</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 1 nodes (840 simplex iterations) in 0.04 seconds (0.04 work units)</span></span>
+<span><span class="co">## Explored 1 nodes (802 simplex iterations) in 0.04 seconds (0.04 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Solution count 4: 11172 11300 19632 20096 </span></span>
+<span><span class="co">## Solution count 4: 11132 11300 11408 20096 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
-<span><span class="co">## Best objective 1.117200000000e+04, best bound 1.005600000000e+04, gap 9.9893%</span></span></code></pre>
+<span><span class="co">## Best objective 1.113200000000e+04, best bound 1.005600000000e+04, gap 9.6658%</span></span></code></pre>
 <div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate feature representation</span></span>
 <span><span class="va">r6</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p6</span>, <span class="va">s6</span><span class="op">)</span></span>
@@ -1004,21 +1052,21 @@ fragmented solutions.</p>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 20 × 5</span></span></span>
 <span><span class="co">##    summary    feature   total_amount absolute_held relative_held</span></span>
 <span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> overall    feature_1       117.           22.5          0.193</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> overall    feature_2        43.7           8.00         0.183</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> overall    feature_3       101.           18.0          0.179</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> overall    feature_4        59.7          11.3          0.190</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> overall    feature_5        79.4          15.8          0.198</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> overall    feature_1       117.           23.4          0.201</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> overall    feature_2        43.7           8.33         0.191</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> overall    feature_3       101.           18.9          0.188</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> overall    feature_4        59.7          11.8          0.198</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> overall    feature_5        79.4          16.2          0.204</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 6</span> few traps  feature_1         8.33          0            0    </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 7</span> few traps  feature_2         3.12          0            0    </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 8</span> few traps  feature_3         7.20          0            0    </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span> few traps  feature_4         4.27          0            0    </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> few traps  feature_5         5.67          0            0    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">11</span> many traps feature_1        41.6           8.08         0.194</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">12</span> many traps feature_2        15.6           3.39         0.217</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">13</span> many traps feature_3        36.0           6.32         0.176</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">14</span> many traps feature_4        21.3           5.27         0.247</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">15</span> many traps feature_5        28.4           5.77         0.204</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">11</span> many traps feature_1        41.6           8.97         0.215</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">12</span> many traps feature_2        15.6           3.71         0.238</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">13</span> many traps feature_3        36.0           7.23         0.201</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">14</span> many traps feature_4        21.3           5.79         0.271</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">15</span> many traps feature_5        28.4           6.22         0.219</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">16</span> baiting    feature_1        66.6          14.4          0.217</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">17</span> baiting    feature_2        25.0           4.62         0.185</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">18</span> baiting    feature_3        57.6          11.7          0.203</span></span>
@@ -1091,15 +1139,23 @@ unit.</p>
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s7</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p7</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
+<span><span class="co">## Set parameter LicenseID to value 2599748</span></span>
 <span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
 <span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
-<span><span class="co">## Academic license - for non-commercial use only - expires 2025-04-21</span></span>
-<span><span class="co">## Gurobi Optimizer version 11.0.3 build v11.0.3rc0 (linux64 - "Ubuntu 22.04.4 LTS")</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2025-12-16</span></span>
+<span><span class="co">## Gurobi Optimizer version 12.0.0 build v12.0.0rc1 (linux64 - "Ubuntu 22.04.5 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Non-default parameters:</span></span>
+<span><span class="co">## TimeLimit  2147483647</span></span>
+<span><span class="co">## MIPGap  0.1</span></span>
+<span><span class="co">## LogToConsole  0</span></span>
+<span><span class="co">## Presolve  2</span></span>
+<span><span class="co">## Threads  1</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimize a model with 1905 rows, 1200 columns and 5400 nonzeros</span></span>
 <span><span class="co">## Model fingerprint: 0x3bb74472</span></span>
@@ -1114,22 +1170,21 @@ unit.</p>
 <span><span class="co">## Presolve time: 0.02s</span></span>
 <span><span class="co">## Presolved: 785 rows, 876 columns, 2448 nonzeros</span></span>
 <span><span class="co">## Variable types: 0 continuous, 876 integer (876 binary)</span></span>
-<span><span class="co">## Found heuristic solution: objective 18988.000000</span></span>
 <span><span class="co">## Root relaxation presolved: 785 rows, 876 columns, 2448 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Root relaxation: objective 1.323093e+04, 265 iterations, 0.00 seconds (0.00 work units)</span></span>
+<span><span class="co">## Root relaxation: objective 1.323093e+04, 295 iterations, 0.00 seconds (0.00 work units)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">##      0     0 13230.9255    0   95 18988.0000 13230.9255  30.3%     -    0s</span></span>
+<span><span class="co">##      0     0 13230.9255    0   95 19600.0000 13230.9255  32.5%     -    0s</span></span>
 <span><span class="co">## H    0     0                    13260.000000 13230.9255  0.22%     -    0s</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 1 nodes (410 simplex iterations) in 0.02 seconds (0.03 work units)</span></span>
+<span><span class="co">## Explored 1 nodes (451 simplex iterations) in 0.03 seconds (0.03 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Solution count 3: 13260 18988 19600 </span></span>
+<span><span class="co">## Solution count 2: 13260 19600 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
 <span><span class="co">## Best objective 1.326000000000e+04, best bound 1.323200000000e+04, gap 0.2112%</span></span></code></pre>

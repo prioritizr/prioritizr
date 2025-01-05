@@ -262,7 +262,7 @@ best_guess_idx <- min(which(result_n_selected == max(result_n_selected)))
 # run checks
 invisible(
     assertthat::assert_that(
-    best_guess_idx == 8,
+    best_guess_idx == 9,
     msg = paste(
       "inconsistency between results and text,",
       "index of best guess index should be",
@@ -481,9 +481,6 @@ result_plot <-
   geom_line() +
   geom_point(size = 3) +
   geom_text(hjust = -0.15) +
-  scale_color_manual(
-    values = c("visual" = "blue", "not selected" ="black")
-  ) +
   xlab("Total boundary length of prioritization") +
   ylab("Total cost of prioritization") +
   scale_x_continuous(expand = expansion(mult = c(0.05, 0.4))) +

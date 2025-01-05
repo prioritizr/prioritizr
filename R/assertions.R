@@ -56,8 +56,13 @@ verify <- function(..., env = parent.frame(), call = fn_caller_env()) {
   # because verify() is used to indicate valid -- but likely mistaken -- inputs
   res <- gsub("must not have", "has", res, fixed = TRUE)
   res <- gsub("must have", "does not have", res, fixed = TRUE)
+  # if first warning message does not have a symbol,
+  # then give it one by default
+  if (is.null(names(res)) || !nzchar(names(res)[[1]])) {
+    names(res)[[1]] <- ">"
+  }
   # throw warning
-  cli_warning(res, .envir = call, call = fn_caller_env())
+  cli_warning(res, .envir = call, call = call)
   # return result
   invisible(FALSE)
 }

@@ -33,6 +33,8 @@
 - Fix typo in error for importance and evaluation functions that
   is thrown when attempting to use a `solution` that is a different
   class than the planning units in `x`.
+- Fix bug with warnings displaying the name of internal functions instead
+  of user facing functions.
 - Fix typo in citation information.
 
 ## Documentation updates
@@ -42,6 +44,7 @@
 - Update `add_max_utility_objective()` documentation to make it clear that
   the function is simply maximizing a weighted sum of the features.
 - Update publication record.
+- Small documentation improvements. Thanks to Sandra Neubert (\@sandra-neubert).
 
 # prioritizr 8.0.5
 

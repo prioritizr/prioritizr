@@ -267,7 +267,7 @@ print(attr(s1, "objective"))
 ```
 
     ## solution_1 
-    ##   4.463003
+    ##    4.46285
 
 ``` r
 # extract time spent solving the problem
@@ -275,7 +275,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##      4.096
+    ##      3.683
 
 ``` r
 # extract state message from the solver
@@ -305,7 +305,7 @@ eval_n_summary(p1, s1)
     ## # A tibble: 1 × 2
     ##   summary     n
     ##   <chr>   <dbl>
-    ## 1 overall  2308
+    ## 1 overall  2348
 
 ``` r
 # calculate total cost of solution
@@ -326,16 +326,16 @@ print(p1_target_coverage)
     ## # A tibble: 396 × 9
     ##    feature   met   total_amount absolute_target absolute_held absolute_shortfall
     ##    <chr>     <lgl>        <dbl>           <dbl>         <dbl>              <dbl>
-    ##  1 Recurvir… TRUE         100.             20.0          23.3               0   
-    ##  2 Botaurus… TRUE          99.9            20.0          29.1               0   
+    ##  1 Recurvir… TRUE         100.             20.0          23.4               0   
+    ##  2 Botaurus… TRUE          99.9            20.0          29.2               0   
     ##  3 Botaurus… TRUE         100.             20.0          34.0               0   
-    ##  4 Corvus b… TRUE          99.9            20.0          20.2               0   
-    ##  5 Corvus b… FALSE         99.9            20.0          18.5               1.53
+    ##  4 Corvus b… TRUE          99.9            20.0          20.4               0   
+    ##  5 Corvus b… FALSE         99.9            20.0          18.5               1.46
     ##  6 Cinclus … TRUE         100.             20.0          20.5               0   
-    ##  7 Spinus t… TRUE          99.9            20.0          22.2               0   
-    ##  8 Spinus t… TRUE          99.9            20.0          22.6               0   
-    ##  9 Falco sp… TRUE          99.9            20.0          24.3               0   
-    ## 10 Falco sp… TRUE         100.             20.0          24.2               0   
+    ##  7 Spinus t… TRUE          99.9            20.0          22.6               0   
+    ##  8 Spinus t… TRUE          99.9            20.0          23.1               0   
+    ##  9 Falco sp… TRUE          99.9            20.0          24.9               0   
+    ## 10 Falco sp… TRUE         100.             20.0          24.5               0   
     ## # ℹ 386 more rows
     ## # ℹ 3 more variables: relative_target <dbl>, relative_held <dbl>,
     ## #   relative_shortfall <dbl>

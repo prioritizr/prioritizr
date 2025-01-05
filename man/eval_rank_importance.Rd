@@ -69,6 +69,8 @@ If \code{TRUE}, then the optimization process will
 increment budgets for each zone separately.
 If \code{FALSE}, then the optimization process will
 increment a single budget that is applied to all zones.
+Note that this parameter is only considered if \code{n} is specified,
+and does not affect processing if \code{budgets} is specified.
 Defaults to \code{TRUE}.}
 
 \item{objective}{\code{character} value with the name of the objective function
@@ -82,18 +84,20 @@ Defaults to \code{NULL} such that the same objective is used as specified in
 minimum shortfall objective is used.}
 
 \item{extra_args}{\code{list} value with additional arguments for the
-objective function (excluding the \code{budget} parameter). For example, this
+objective function (excluding the \code{budgets} parameter). For example, this
 parameter can be used to supply phylogenetic data for
 the phylogenetic diversity objective function (i.e., when using
 \code{objective = "add_max_phylo_div_objective"}).
 Defaults to \code{NULL} such that no additional arguments are supplied.}
 
 \item{n}{\code{integer} number of ranks to evaluate.
-Note that either \code{n} or \code{budget} (not both) must be specified.}
+Note that either \code{n} or \code{budgets} (not both) must be specified.
+If \code{n} is specified, then \code{by_zone} is considered during
+processing for problems with multiple zones.}
 
 \item{budgets}{\code{numeric} vector with the budget thresholds for generating
 solutions at different steps in an iterative procedure.
-Note that either \code{n} or \code{budget} (not both) must be specified.}
+Note that either \code{n} or \code{budgets} (not both) must be specified.}
 }
 \value{
 A \code{numeric}, \code{matrix}, \code{data.frame},
@@ -196,7 +200,7 @@ Otherwise, if previous increments have been completed, then
 the rank is equal to the total number of budget increments minus the
 number of completed increments.
 Note that if previous increments have been completed, then only planning
-units in the newly generated solution that have not been previous selected
+units in the newly generated solution that have not been previously selected
 are assigned this rank.
 For example, if no previous increments have been completed and there
 are 5 budget increments (e.g. \code{n = 5}), then the planning units

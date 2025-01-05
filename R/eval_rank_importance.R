@@ -14,6 +14,8 @@ NULL
 #'  increment budgets for each zone separately.
 #'  If `FALSE`, then the optimization process will
 #'  increment a single budget that is applied to all zones.
+#'  Note that this parameter is only considered if `n` is specified,
+#'  and does not affect processing if `budgets` is specified.
 #'  Defaults to `TRUE`.
 #'
 #' @param objective `character` value with the name of the objective function
@@ -35,6 +37,8 @@ NULL
 #'
 #' @param n `integer` number of ranks to evaluate.
 #'  Note that either `n` or `budgets` (not both) must be specified.
+#'  If `n` is specified, then `by_zone` is considered during
+#'  processing for problems with multiple zones.
 #'
 #' @param budgets `numeric` vector with the budget thresholds for generating
 #'  solutions at different steps in an iterative procedure.
@@ -352,7 +356,9 @@ methods::setMethod("eval_rank_importance",
     in_idx <- which(status > 1e-10)
     out_idx <- which(status < 1e-10)
     # additional tests
-    check_n_budgets(x = x, status = status, n = n, budgets = budgets, ...)
+    check_n_budgets(
+      x = x, status = status, n = n, budgets = budgets, by_zone = by_zone, ...
+    )
     assert_dots_empty()
     # calculate rank scores
     v <- internal_eval_rank_importance(
@@ -397,7 +403,9 @@ methods::setMethod("eval_rank_importance",
     in_idx <- which(status > 1e-10)
     out_idx <- which(status < 1e-10)
     # additional tests
-    check_n_budgets(x = x, status = status, n = n, budgets = budgets, ...)
+    check_n_budgets(
+      x = x, status = status, n = n, budgets = budgets, by_zone = by_zone, ...
+    )
     assert_dots_empty()
     # calculate rank scores
     v <- internal_eval_rank_importance(
@@ -455,7 +463,9 @@ methods::setMethod("eval_rank_importance",
     in_idx <- which(status > 1e-10)
     out_idx <- which(status < 1e-10)
     # additional tests
-    check_n_budgets(x = x, status = status, n = n, budgets = budgets, ...)
+    check_n_budgets(
+      x = x, status = status, n = n, budgets = budgets, by_zone = by_zone, ...
+    )
     assert_dots_empty()
     # calculate rank scores
     v <- internal_eval_rank_importance(
@@ -522,7 +532,9 @@ methods::setMethod("eval_rank_importance",
     in_idx <- which(status > 1e-10)
     out_idx <- which(status < 1e-10)
     # additional tests
-    check_n_budgets(x = x, status = status, n = n, budgets = budgets, ...)
+    check_n_budgets(
+      x = x, status = status, n = n, budgets = budgets, by_zone = by_zone, ...
+    )
     assert_dots_empty()
     # calculate rank scores
     v <- internal_eval_rank_importance(
@@ -583,7 +595,9 @@ methods::setMethod("eval_rank_importance",
     in_idx <- which(status > 1e-10)
     out_idx <- which(status < 1e-10)
     # additional tests
-    check_n_budgets(x = x, status = status, n = n, budgets = budgets, ...)
+    check_n_budgets(
+      x = x, status = status, n = n, budgets = budgets, by_zone = by_zone, ...
+    )
     assert_dots_empty()
     # calculate rank scores
     v <- internal_eval_rank_importance(
@@ -644,7 +658,9 @@ methods::setMethod("eval_rank_importance",
     in_idx <- which(status > 1e-10)
     out_idx <- which(status < 1e-10)
     # additional tests
-    check_n_budgets(x = x, status = status, n = n, budgets = budgets, ...)
+    check_n_budgets(
+      x = x, status = status, n = n, budgets = budgets, by_zone = by_zone, ...
+    )
     assert_dots_empty()
     # calculate rank scores
     v <- internal_eval_rank_importance(
@@ -707,7 +723,9 @@ methods::setMethod("eval_rank_importance",
     in_idx <- which(status > 1e-10)
     out_idx <- which(status < 1e-10)
     # additional tests
-    check_n_budgets(x = x, status = status, n = n, budgets = budgets, ...)
+    check_n_budgets(
+      x = x, status = status, n = n, budgets = budgets, by_zone = by_zone, ...
+    )
     assert_dots_empty()
     # calculate rank scores
     v <- internal_eval_rank_importance(
@@ -1033,12 +1051,14 @@ create_budget_thresholds <- function(x, status, n, by_zone,
   budgets
 }
 
-check_n_budgets <- function(x, status, n, budgets, ...,
+check_n_budgets <- function(x, status, n, budgets, by_zone, ...,
                             call = fn_caller_env()) {
   dots <- rlang::enquos(...)
   if (
-    rlang::is_missing(n) && rlang::is_missing(budgets) &&
-    identical(length(dots), 1L) && all(!nzchar(rlang::names2(dots)[[1L]]))
+    rlang::is_missing(n) &&
+    rlang::is_missing(budgets) &&
+    identical(length(dots), 1L) &&
+    all(!nzchar(rlang::names2(dots)[[1L]]))
   ) {
     cli::cli_abort(
       c(
@@ -1055,7 +1075,8 @@ check_n_budgets <- function(x, status, n, budgets, ...,
     rlang::is_missing(n) || rlang::is_missing(budgets),
     !(rlang::is_missing(n) && rlang::is_missing(budgets)),
     call = call,
-    msg = "One of {.arg n} or {.arg budgets} must be specified (not both)."
+    msg =
+      "Exactly one of {.arg n} or {.arg budgets} must be specified (not both)."
   )
   if (!rlang::is_missing(n)) {
     assert(
@@ -1093,6 +1114,17 @@ check_n_budgets <- function(x, status, n, budgets, ...,
       is.numeric(budgets),
       nrow(budgets) > 1,
       assertthat::noNA(budgets),
+      call = call
+    )
+    verify(
+      isTRUE(by_zone),
+      msg = c(
+        "{.arg by_zone} does not have the default parameter value.",
+        "i" = paste(
+          "Note that {.arg by_zone} has no effect if {.arg budgets}",
+          "is specified."
+        )
+      ),
       call = call
     )
     assert(

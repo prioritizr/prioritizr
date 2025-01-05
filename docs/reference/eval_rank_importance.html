@@ -163,6 +163,8 @@ If <code>TRUE</code>, then the optimization process will
 increment budgets for each zone separately.
 If <code>FALSE</code>, then the optimization process will
 increment a single budget that is applied to all zones.
+Note that this parameter is only considered if <code>n</code> is specified,
+and does not affect processing if <code>budgets</code> is specified.
 Defaults to <code>TRUE</code>.</p></dd>
 
 
@@ -180,7 +182,7 @@ minimum shortfall objective is used.</p></dd>
 
 <dt>extra_args</dt>
 <dd><p><code>list</code> value with additional arguments for the
-objective function (excluding the <code>budget</code> parameter). For example, this
+objective function (excluding the <code>budgets</code> parameter). For example, this
 parameter can be used to supply phylogenetic data for
 the phylogenetic diversity objective function (i.e., when using
 <code>objective = "add_max_phylo_div_objective"</code>).
@@ -189,13 +191,15 @@ Defaults to <code>NULL</code> such that no additional arguments are supplied.</p
 
 <dt>n</dt>
 <dd><p><code>integer</code> number of ranks to evaluate.
-Note that either <code>n</code> or <code>budget</code> (not both) must be specified.</p></dd>
+Note that either <code>n</code> or <code>budgets</code> (not both) must be specified.
+If <code>n</code> is specified, then <code>by_zone</code> is considered during
+processing for problems with multiple zones.</p></dd>
 
 
 <dt>budgets</dt>
 <dd><p><code>numeric</code> vector with the budget thresholds for generating
 solutions at different steps in an iterative procedure.
-Note that either <code>n</code> or <code>budget</code> (not both) must be specified.</p></dd>
+Note that either <code>n</code> or <code>budgets</code> (not both) must be specified.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -294,7 +298,7 @@ Otherwise, if previous increments have been completed, then
 the rank is equal to the total number of budget increments minus the
 number of completed increments.
 Note that if previous increments have been completed, then only planning
-units in the newly generated solution that have not been previous selected
+units in the newly generated solution that have not been previously selected
 are assigned this rank.
 For example, if no previous increments have been completed and there
 are 5 budget increments (e.g. <code>n = 5</code>), then the planning units
@@ -487,7 +491,7 @@ terrestrial biodiversity, carbon and water. <em>Nature Ecology and Evolution</em
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 0 0 0 0 0 0 0 0 0 0</span>
 <span class="r-in"><span><span class="co">## run time</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">rs1</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 0.021 0.002 0.002 0.002 0.002 0.021 0.002 0.002 0.001 0.022</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 0.046 0.021 0.002 0.003 0.019 0.002 0.002 0.002 0.021 0.002</span>
 <span class="r-in"><span><span class="co">## objective value</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">rs1</span>, <span class="st">"objective"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 4.4831422 3.9636924 3.4483566 2.9239906 2.4229403 1.8946389 1.3955220</span>

@@ -244,12 +244,12 @@
 <span><span class="co"># extract the objective</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"objective"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb15"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="do">## solution_1 </span></span>
-<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="do">##   4.463003</span></span></code></pre></div>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="do">##    4.46285</span></span></code></pre></div>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract time spent solving the problem</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb17"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="do">## solution_1 </span></span>
-<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="do">##      4.096</span></span></code></pre></div>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="do">##      3.683</span></span></code></pre></div>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract state message from the solver</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"status"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -266,7 +266,7 @@
 <div class="sourceCode" id="cb22"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="do">## # A tibble: 1 × 2</span></span>
 <span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a><span class="do">##   summary     n</span></span>
 <span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a><span class="do">##   &lt;chr&gt;   &lt;dbl&gt;</span></span>
-<span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a><span class="do">## 1 overall  2308</span></span></code></pre></div>
+<span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a><span class="do">## 1 overall  2348</span></span></code></pre></div>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate total cost of solution</span></span>
 <span><span class="fu"><a href="reference/eval_cost_summary.html">eval_cost_summary</a></span><span class="op">(</span><span class="va">p1</span>, <span class="va">s1</span><span class="op">)</span></span></code></pre></div>
@@ -281,16 +281,16 @@
 <div class="sourceCode" id="cb26"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="do">## # A tibble: 396 × 9</span></span>
 <span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a><span class="do">##    feature   met   total_amount absolute_target absolute_held absolute_shortfall</span></span>
 <span id="cb26-3"><a href="#cb26-3" tabindex="-1"></a><span class="do">##    &lt;chr&gt;     &lt;lgl&gt;        &lt;dbl&gt;           &lt;dbl&gt;         &lt;dbl&gt;              &lt;dbl&gt;</span></span>
-<span id="cb26-4"><a href="#cb26-4" tabindex="-1"></a><span class="do">##  1 Recurvir… TRUE         100.             20.0          23.3               0   </span></span>
-<span id="cb26-5"><a href="#cb26-5" tabindex="-1"></a><span class="do">##  2 Botaurus… TRUE          99.9            20.0          29.1               0   </span></span>
+<span id="cb26-4"><a href="#cb26-4" tabindex="-1"></a><span class="do">##  1 Recurvir… TRUE         100.             20.0          23.4               0   </span></span>
+<span id="cb26-5"><a href="#cb26-5" tabindex="-1"></a><span class="do">##  2 Botaurus… TRUE          99.9            20.0          29.2               0   </span></span>
 <span id="cb26-6"><a href="#cb26-6" tabindex="-1"></a><span class="do">##  3 Botaurus… TRUE         100.             20.0          34.0               0   </span></span>
-<span id="cb26-7"><a href="#cb26-7" tabindex="-1"></a><span class="do">##  4 Corvus b… TRUE          99.9            20.0          20.2               0   </span></span>
-<span id="cb26-8"><a href="#cb26-8" tabindex="-1"></a><span class="do">##  5 Corvus b… FALSE         99.9            20.0          18.5               1.53</span></span>
+<span id="cb26-7"><a href="#cb26-7" tabindex="-1"></a><span class="do">##  4 Corvus b… TRUE          99.9            20.0          20.4               0   </span></span>
+<span id="cb26-8"><a href="#cb26-8" tabindex="-1"></a><span class="do">##  5 Corvus b… FALSE         99.9            20.0          18.5               1.46</span></span>
 <span id="cb26-9"><a href="#cb26-9" tabindex="-1"></a><span class="do">##  6 Cinclus … TRUE         100.             20.0          20.5               0   </span></span>
-<span id="cb26-10"><a href="#cb26-10" tabindex="-1"></a><span class="do">##  7 Spinus t… TRUE          99.9            20.0          22.2               0   </span></span>
-<span id="cb26-11"><a href="#cb26-11" tabindex="-1"></a><span class="do">##  8 Spinus t… TRUE          99.9            20.0          22.6               0   </span></span>
-<span id="cb26-12"><a href="#cb26-12" tabindex="-1"></a><span class="do">##  9 Falco sp… TRUE          99.9            20.0          24.3               0   </span></span>
-<span id="cb26-13"><a href="#cb26-13" tabindex="-1"></a><span class="do">## 10 Falco sp… TRUE         100.             20.0          24.2               0   </span></span>
+<span id="cb26-10"><a href="#cb26-10" tabindex="-1"></a><span class="do">##  7 Spinus t… TRUE          99.9            20.0          22.6               0   </span></span>
+<span id="cb26-11"><a href="#cb26-11" tabindex="-1"></a><span class="do">##  8 Spinus t… TRUE          99.9            20.0          23.1               0   </span></span>
+<span id="cb26-12"><a href="#cb26-12" tabindex="-1"></a><span class="do">##  9 Falco sp… TRUE          99.9            20.0          24.9               0   </span></span>
+<span id="cb26-13"><a href="#cb26-13" tabindex="-1"></a><span class="do">## 10 Falco sp… TRUE         100.             20.0          24.5               0   </span></span>
 <span id="cb26-14"><a href="#cb26-14" tabindex="-1"></a><span class="do">## # ℹ 386 more rows</span></span>
 <span id="cb26-15"><a href="#cb26-15" tabindex="-1"></a><span class="do">## # ℹ 3 more variables: relative_target &lt;dbl&gt;, relative_held &lt;dbl&gt;,</span></span>
 <span id="cb26-16"><a href="#cb26-16" tabindex="-1"></a><span class="do">## #   relative_shortfall &lt;dbl&gt;</span></span></code></pre></div>
