@@ -243,40 +243,28 @@ plot(
 )
 ```
 
-```{r "verify-correct-best-guess", echo = FALSE}
-# this code is used to ensure consistency between the results and the
-# text in the vignette. Specifically, the text is written assuming that
-# the 7th solution in the preliminary set of prioritizations is the
-# prioritization that (1) was generated with the lowest penalty value and
-# (2) has all planning units selected
+```{r, include = FALSE}
+# set best guess of upper bound for penalty
+upper_penalty_limit <- prelim_penalty[7]
+```
 
-# preliminary calculations
-result_nms <- names(prelim_blended_results)
-result_nms <- result_nms[startsWith(result_nms, "penalty_")]
-result_mtx <- sf::st_drop_geometry(prelim_blended_results)[, result_nms]
-result_n_selected <- apply(result_mtx, 2, sum, na.rm = TRUE)
+We can see that as the `penalty` value used to generate the prioritizations increases, the spatial fragmentation of the prioritizations decreases. In particular, we can see that a `penalty` value of `r upper_penalty_limit` results in a single reserve -- meaning this is our best guess of the upper limit. Using this `penalty` value as an upper limit, we will now generate a second series of prioritizations that will be the candidate prioritizations. Critically, these candidate prioritizations will not be generated using with time limit and be generated using a more suitable gap (i.e., default gap of 10%).
 
-# compute best guess
-best_guess_idx <- min(which(result_n_selected == max(result_n_selected)))
-
-# run checks
-invisible(
-    assertthat::assert_that(
-    best_guess_idx == 9,
-    msg = paste(
-      "inconsistency between results and text,",
-      "index of best guess index should be",
-      best_guess_idx
-    )
+```{r, results = "asis", echo = FALSE}
+cat(
+  paste0(
+    "``` r\n",
+    "# define best guesss for upper penalty limit\n",
+    "upper_penalty_limit <- ",
+    upper_penalty_limit,
+    "\n```"
   )
 )
 ```
 
-We can see that as the `penalty` value used to generate the prioritizations increases, the spatial fragmentation of the prioritizations decreases. In particular, we can see that a `penalty` value of `r prelim_penalty[9]` results in a single reserve -- meaning this is our best guess of the upper limit. Using this `penalty` value as an upper limit, we will now generate a second series of prioritizations that will be the candidate prioritizations. Critically, these candidate prioritizations will not be generated using with time limit and be generated using a more suitable gap (i.e., default gap of 10%).
-
 ```{r, fig.width = 7, fig.height = 7.5, results = "hide"}
 # define a new set of penalty values
-penalty <- round(10^seq(-5, log10(prelim_penalty[9]), length.out = 9), 5)
+penalty <- round(10^seq(-5, log10(upper_penalty_limit), length.out = 9), 5)
 
 # generate prioritizations based on each penalty
 blended_results <- lapply(penalty, function(x) {

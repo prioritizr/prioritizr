@@ -44,6 +44,8 @@
 - Update `add_max_utility_objective()` documentation to make it clear that
   the function is simply maximizing a weighted sum of the features.
 - Update publication record.
+- Update Calibrating trade-offs vignette to improve internal logic for
+  determining the best guess penalty value for preliminary prioritizations.
 - Small documentation improvements. Thanks to Sandra Neubert (\@sandra-neubert).
 
 # prioritizr 8.0.5
