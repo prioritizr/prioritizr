@@ -50,8 +50,7 @@ jobs:
           brew install proj
           brew install geos
           brew install gdal
-          brew tap coin-or-tools/coinor
-          brew install coin-or-tools/coinor/cbc
+          brew install cbc
           brew link cbc --force
           brew link coinutils --force
           brew link osi --force
