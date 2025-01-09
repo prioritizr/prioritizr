@@ -60,7 +60,7 @@ the objective is to minimize zero, this function does not actually provide
 any criteria to compare competing solutions. As such, when used in
 conjunction with a penalty function (see \link{penalties}), only the penalty
 (e.g., \code{\link[=add_boundary_penalties]{add_boundary_penalties()}}) will be used to compare competing
-solutions.
+solutions during optimization.
 }
 
 \examples{
@@ -85,11 +85,11 @@ p1 <-
 # solve initial problem
 s1 <- solve(p1)
 
-# plot initial  solution
+# plot initial solution
 plot(s1, main = "initial solution", axes = FALSE)
 
 # calculate total cost of initial solution
-c1 <- eval_cost_summary(s1)
+c1 <- eval_cost_summary(p1, s1)
 
 # since the solution is spatially fragmented, we will now use
 # a hierarchical multi-objective optimization approach to reduce
@@ -102,18 +102,22 @@ b <- c1$cost[[1]] * 1.1
 
 # create problem with minimum penalty objective using the budget and
 # boundary penalties to reduce spatial fragmentation
+#
+# note that although we use a penalty value of 0.01 as a placeholder,
+# any penalty value would give the same result since the optimization
+# process is focused entirely on the boundary penalties
 p2 <-
   problem(sim_pu_raster, sim_features) \%>\%
   add_min_penalties_objective(budget = b) \%>\%
-  add_boundary_penalties() \%>\%
+  add_boundary_penalties(penalty = 0.001) \%>\%
   add_relative_targets(0.1) \%>\%
   add_binary_decisions() \%>\%
   add_default_solver(verbose = FALSE)
 
-# solve initial problem
-ss <- solve(p2)
+# solve problem with minimum penalty objective
+s2 <- solve(p2)
 
-# plot initial  solution
+# plot solution with minimum penalty objective
 plot(s2, main = "solution", axes = FALSE)
 }
 }
