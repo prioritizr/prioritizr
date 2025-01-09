@@ -145,7 +145,7 @@ the objective is to minimize zero, this function does not actually provide
 any criteria to compare competing solutions. As such, when used in
 conjunction with a penalty function (see <a href="penalties.html">penalties</a>), only the penalty
 (e.g., <code><a href="add_boundary_penalties.html">add_boundary_penalties()</a></code>) will be used to compare competing
-solutions.</p>
+solutions during optimization.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -187,13 +187,12 @@ penalties.</p>
 <span class="r-in"><span><span class="co"># solve initial problem</span></span></span>
 <span class="r-in"><span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># plot initial  solution</span></span></span>
+<span class="r-in"><span><span class="co"># plot initial solution</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s1</span>, main <span class="op">=</span> <span class="st">"initial solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_min_penalties_objective-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># calculate total cost of initial solution</span></span></span>
-<span class="r-in"><span><span class="va">c1</span> <span class="op">&lt;-</span> <span class="fu"><a href="eval_cost_summary.html">eval_cost_summary</a></span><span class="op">(</span><span class="va">s1</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval_cost_summary(s1):</span> `solution` is absent but must be supplied.</span>
+<span class="r-in"><span><span class="va">c1</span> <span class="op">&lt;-</span> <span class="fu"><a href="eval_cost_summary.html">eval_cost_summary</a></span><span class="op">(</span><span class="va">p1</span>, <span class="va">s1</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># since the solution is spatially fragmented, we will now use</span></span></span>
 <span class="r-in"><span><span class="co"># a hierarchical multi-objective optimization approach to reduce</span></span></span>
@@ -203,28 +202,27 @@ penalties.</p>
 <span class="r-in"><span><span class="co"># this budget will specify that we are willing to accept a 10%</span></span></span>
 <span class="r-in"><span><span class="co"># increase in the total cost of the solution to minimize fragmentation</span></span></span>
 <span class="r-in"><span><span class="va">b</span> <span class="op">&lt;-</span> <span class="va">c1</span><span class="op">$</span><span class="va">cost</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">*</span> <span class="fl">1.1</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'c1' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create problem with minimum penalty objective using the budget and</span></span></span>
 <span class="r-in"><span><span class="co"># boundary penalties to reduce spatial fragmentation</span></span></span>
+<span class="r-in"><span><span class="co">#</span></span></span>
+<span class="r-in"><span><span class="co"># note that although we use a penalty value of 0.01 as a placeholder,</span></span></span>
+<span class="r-in"><span><span class="co"># any penalty value would give the same result since the optimization</span></span></span>
+<span class="r-in"><span><span class="co"># process is focused entirely on the boundary penalties</span></span></span>
 <span class="r-in"><span><span class="va">p2</span> <span class="op">&lt;-</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu">add_min_penalties_objective</span><span class="op">(</span>budget <span class="op">=</span> <span class="va">b</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="add_boundary_penalties.html">add_boundary_penalties</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_boundary_penalties.html">add_boundary_penalties</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">0.001</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in add_min_penalties_objective(., budget = b):</span> <span style="color: #00BBBB;">ℹ</span> In argument to `budget`.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error:</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> object 'b' not found</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># solve initial problem</span></span></span>
-<span class="r-in"><span><span class="va">ss</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'p2' not found</span>
+<span class="r-in"><span><span class="co"># solve problem with minimum penalty objective</span></span></span>
+<span class="r-in"><span><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># plot initial  solution</span></span></span>
+<span class="r-in"><span><span class="co"># plot solution with minimum penalty objective</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s2</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'x' in selecting a method for function 'plot': object 's2' not found</span>
+<span class="r-plt img"><img src="add_min_penalties_objective-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
