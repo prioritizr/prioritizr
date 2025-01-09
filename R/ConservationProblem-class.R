@@ -41,7 +41,7 @@ ConservationProblem <- R6::R6Class(
     #' function for the problem formulation.
     objective = new_waiver(),
 
-    #' @field decisions s[`Decision-class`] object specifying the decision types
+    #' @field decisions [`Decision-class`] object specifying the decision types
     #' for the problem formulation.
     decisions = new_waiver(),
 
@@ -537,41 +537,7 @@ ConservationProblem <- R6::R6Class(
     #' Obtain the planning unit indices.
     #' @return An `integer` vector.
     planning_unit_indices = function() {
-      i <- self$get_data("planning_unit_indices")
-      if (!is.Waiver(i)) return(i)
-      self$set_planning_unit_indices()
       self$get_data("planning_unit_indices")
-    },
-
-    #' @description
-    #' Perform calculations to cache the planning unit indices.
-    #' @return Invisible `TRUE`.
-    set_planning_unit_indices = function() {
-      if (inherits(self$data$cost, "Raster")) {
-        if (raster::nlayers(self$data$cost) == 1) {
-          x <- raster::Which(!is.na(self$data$cost), cells = TRUE)
-        } else {
-          x <- raster::Which(max(!is.na(self$data$cost)) > 0, cells = TRUE)
-        }
-      } else if (inherits(self$data$cost, "SpatRaster")) {
-        x <- terra::cells(terra::allNA(self$data$cost), 0)[[1]]
-      } else if (inherits(self$data$cost, "sf")) {
-        x <- sf::st_drop_geometry(self$data$cost)
-        x <- x[, self$data$cost_column, drop = FALSE]
-        x <- unname(which(rowSums(!is.na(as.matrix(x))) > 0))
-      } else if (inherits(self$data$cost, c("data.frame", "Spatial"))) {
-        x <- as.data.frame(self$data$cost)
-        x <- x[, self$data$cost_column, drop = FALSE]
-        x <- unname(which(rowSums(!is.na(as.matrix(x))) > 0))
-      } else if (is.matrix(self$data$cost)) {
-        x <- unname(which(rowSums(!is.na(self$data$cost)) > 0))
-      } else {
-        # nocov start
-        cli::cli_abort("$data$cost is not a recognized class", .internal = TRUE)
-        # nocov end
-      }
-      self$set_data("planning_unit_indices", x)
-      invisible(TRUE)
     },
 
     #' @description

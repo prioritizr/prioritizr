@@ -31,6 +31,8 @@ Other classes:
 \item \href{#method-Solver-calculate}{\code{Solver$calculate()}}
 \item \href{#method-Solver-set_variable_ub}{\code{Solver$set_variable_ub()}}
 \item \href{#method-Solver-set_variable_lb}{\code{Solver$set_variable_lb()}}
+\item \href{#method-Solver-set_constraint_rhs}{\code{Solver$set_constraint_rhs()}}
+\item \href{#method-Solver-set_start_solution}{\code{Solver$set_start_solution()}}
 \item \href{#method-Solver-solve}{\code{Solver$solve()}}
 \item \href{#method-Solver-clone}{\code{Solver$clone()}}
 }
@@ -103,6 +105,13 @@ variable.}
 }
 \if{html}{\out{</div>}}
 }
+\subsection{Details}{
+Note that this method should only be run after \verb{$calculate()}.
+It can be used to overwrite values after ingesting an
+\code{\link[=optimization_problem]{optimization_problem()}} object.
+It is designed to be used in \link{portfolios} and \link{importance} functions.
+}
+
 \subsection{Returns}{
 Invisible \code{TRUE}.
 }
@@ -126,6 +135,70 @@ variable.}
 }
 \if{html}{\out{</div>}}
 }
+\subsection{Details}{
+Note that this method should only be run after \verb{$calculate()}.
+It can be used to overwrite values after ingesting an
+\code{\link[=optimization_problem]{optimization_problem()}} object.
+It is designed to be used in \link{portfolios} and \link{importance} functions.
+}
+
+\subsection{Returns}{
+Invisible \code{TRUE}.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Solver-set_constraint_rhs"></a>}}
+\if{latex}{\out{\hypertarget{method-Solver-set_constraint_rhs}{}}}
+\subsection{Method \code{set_constraint_rhs()}}{
+Set the right-hand-side coefficient bound for a constraint.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Solver$set_constraint_rhs(index, value)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{index}}{\code{integer} value indicating the index of the decision
+variable.}
+
+\item{\code{value}}{\code{numeric} new value.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Note that this method should only be run after \verb{$calculate()}.
+It can be used to overwrite values after ingesting an
+\code{\link[=optimization_problem]{optimization_problem()}} object.
+It is designed to be used in \link{portfolios} and \link{importance} functions.
+}
+
+\subsection{Returns}{
+Invisible \code{TRUE}.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Solver-set_start_solution"></a>}}
+\if{latex}{\out{\hypertarget{method-Solver-set_start_solution}{}}}
+\subsection{Method \code{set_start_solution()}}{
+Set the starting solution.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Solver$set_start_solution(value)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{value}}{\code{numeric} new value.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Note that this method should only be run after \verb{$calculate()}.
+It can be used to overwrite values after ingesting an
+\code{\link[=optimization_problem]{optimization_problem()}} object.
+It is designed to be used in \link{portfolios} and \link{importance} functions.
+}
+
 \subsection{Returns}{
 Invisible \code{TRUE}.
 }

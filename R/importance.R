@@ -24,6 +24,15 @@ NULL
 #'   (iv) identify truly irreplaceable planning units (denoted with infinite
 #'   values).}
 #'
+#' \item{[eval_rank_importance()]}{
+#'   Calculate importance scores using ranks (based
+#'   on Jung *et al.* 2021).
+#'   These scores measure importance using an incremental optimization
+#'   approach.
+#'   They can (i) account for the cost of different planning units,
+#'   (ii) account for multiple management zones, and (iii) apply to solutions
+#'   generated with any objective function.}
+#'
 #' \item{[eval_ferrier_importance()]}{
 #'  Calculate importance scores following Ferrier *et al.* (2000).
 #'  These scores measure importance based on how critical
@@ -55,9 +64,13 @@ NULL
 #' moderate sized problems (e.g., less than 30,000 planning units), they may not
 #' be feasible for particularly large problems (e.g., more than 100,000 planning
 #' units). In such cases, we recommend calculating importance scores using the
-#' Ferrier method. This is because the Ferrier method can be
-#' calculated relatively quickly for large-sized problems and it
-#' explicitly accounts for representation targets.
+#' rank method. This is because it can be calculated relatively quickly for
+#' large-sized problems and can explicitly account for costs and representation
+#' targets (depending on the objective function used). If using the
+#' the rank method with a solution generated using the minimum set objective
+#' (i.e., [add_min_set_objective()]), we recommend using the minimum shortfall
+#' objective. The Ferrier method can also
+#' be useful to highly identify irreplaceable planning units.
 #' We only recommend using the rarity weighted richness metric
 #' when neither of the other two methods can be used.
 #'
@@ -70,6 +83,18 @@ NULL
 #' irreplaceability of areas for achieving a conservation goal, its application
 #' to real-world planning, and a research agenda for further refinement.
 #' *Biological Conservation*, 93: 303--325.
+#'
+#' Jung M, Arnell A, de Lamo X, García-Rangel S, Lewis M, Mark J, Merow C,
+#' Miles L, Ondo I, Pironon S, Ravilious C, Rivers M, Schepaschenko D,
+#' Tallowin O, van Soesbergen A, Govaerts R, Boyle BL, Enquist BJ, Feng X,
+#' Gallagher R, Maitner B, Meiri S, Mulligan M, Ofer G, Roll U, Hanson JO,
+#' Jetz W, Di Marco M, McGowan J, Rinnan DS, Sachs JD, Lesiv M, Adams VM,
+#' Andrew SC, Burger JR, Hannah L, Marquet PA, McCarthy JK, Morueta-Holme N,
+#' Newman EA, Park DS, Roehrdanz PR, Svenning J-C, Violle C, Wieringa JJ,
+#' Wynne G, Fritz S, Strassburg BBN, Obersteiner M, Kapos V, Burgess N, Schmidt-
+#' Traub G, Visconti P (2021) Areas of global importance for conserving
+#' terrestrial biodiversity, carbon and water. *Nature Ecology and Evolution*,
+#' 5: 1499--1509.
 #'
 #' Williams P, Gibbons D, Margules C, Rebelo A, Humphries C, and Pressey RL
 #' (1996) A comparison of richness hotspots, rarity hotspots and complementary

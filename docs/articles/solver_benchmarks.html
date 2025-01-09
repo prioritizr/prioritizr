@@ -40,7 +40,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.6</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -167,8 +167,11 @@ parameters used to conduct it.</p>
 <p>To start off, we will the load packages used in this vignette.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># load packages</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://prioritizr.net">prioritizr</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/piggyback" class="external-link">piggyback</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://prioritizr.net">prioritizr</a></span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Error in get(paste0(generic, ".", class), envir = get_method_env()) : </span></span>
+<span><span class="co">##   object 'type_sum.accel' not found</span></span></code></pre>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/piggyback" class="external-link">piggyback</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-quantities.github.io/units/" class="external-link">units</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></code></pre></div>
@@ -183,7 +186,7 @@ depending on your internet connection. If you are unable to download the
 results onto your computer, you can view the graphs shown in this
 vignette. You only need to run the code in this vignette if you wish to
 explore certain aspects of the results yourself.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># download data to temporary folder</span></span>
 <span><span class="fu"><a href="https://docs.ropensci.org/piggyback/reference/pb_download.html" class="external-link">pb_download</a></span><span class="op">(</span></span>
 <span>  file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"solutions.zip"</span>, <span class="st">"results.rda"</span><span class="op">)</span>,</span>
@@ -200,29 +203,29 @@ explore certain aspects of the results yourself.</p>
 <p>After downloading the benchmark results, let’s have a look at the
 parameters that were used to conduct it. Note that all benchmark
 scenarios have 72 features.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># numbers of planning units examined the benchmark analysis</span></span>
 <span><span class="va">n_planning_units</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">benchmark_results</span><span class="op">$</span><span class="va">number_of_planning_units</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">n_planning_units</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1]   1478  12902 102242 606180</span></span></code></pre>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># number of features (e.g., number of different species examined)</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">benchmark_results</span><span class="op">$</span><span class="va">number_features</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 72</span></span></code></pre>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># representation targets,</span></span>
 <span><span class="co"># units are proportion of the total amount of each feature (e.g., 0.1 = 10%)</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">benchmark_results</span><span class="op">$</span><span class="va">relative_target</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 0.10 0.15 0.20 0.30</span></span></code></pre>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># number of planning units</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">benchmark_results</span><span class="op">$</span><span class="va">number_of_planning_units</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1]   1478  12902 102242 606180</span></span></code></pre>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># objective functions</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">benchmark_results</span><span class="op">$</span><span class="va">objective</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "add_min_set_objective"       "add_min_shortfall_objective"</span></span></code></pre>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract boundary penalty values,</span></span>
 <span><span class="co"># note that different values were examined for different objective functions</span></span>
 <span><span class="va">boundary_penalty_values</span> <span class="op">&lt;-</span></span>
@@ -232,11 +235,11 @@ scenarios have 72 features.</p>
 <span><span class="co">## boundary penalty values for min set objective function</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_set_objective</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 0e+00 1e-05 1e-03</span></span></code></pre>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## boundary penalty values for min shortfall objective function</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_shortfall_objective</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 0e+00 1e-14 1e-13</span></span></code></pre>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># budgets examined for budget-limited objectives (e.g., 0.1 = 10% of total cost)</span></span>
 <span><span class="co">## note that the min set objective function does not use a budget,</span></span>
 <span><span class="co">## and thus it has a NA value</span></span>
@@ -256,7 +259,7 @@ scenarios have 72 features.</p>
 <p>Now we will define a helper function to quickly plot the results from
 the benchmark analysis. This will be helpful for interpreting the
 results of the benchmark analysis in the following section.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># define helper function to create plots</span></span>
 <span><span class="va">plot_benchmark</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span></span>
 <span>  <span class="va">objective</span>, <span class="va">n_pu</span>, <span class="va">boundary_penalty</span>, <span class="va">solver</span> <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span><span class="op">{</span></span>
@@ -371,7 +374,7 @@ for each benchmark run. Note that the benchmarks were run using a time
 limit (i.e., 6 hours), meaning that some solvers were not able to
 generate a prioritization in certain runs (indicated by the
 <code>exceeded_run_time</code> column).</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract columns from table with relevant data</span></span>
 <span><span class="va">benchmark_results</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">benchmark_results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -451,7 +454,7 @@ solvers. We can also see that the <em>lpsymphony</em> and
 <em>Rsymphony</em> solvers – which both use the open source
 <em>SYMPHONY</em> software – can take much longer to generate
 prioritizations than the other solvers.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot overall summary of solver performance</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span></span>
@@ -486,7 +489,7 @@ earlier – all of these prioritizations were generated with 72 features.
 When looking at the results, we can see that all solvers solve the
 problem in a comparable amount of time across all targets
 investigated.</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_set_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
@@ -497,7 +500,7 @@ investigated.</p>
 involving 12,902 planning units and see how the timing of the different
 solvers used compares. Note that all other factors (e.g., absence of
 boundary length penalties) are the same as for the previous graph.</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_set_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
@@ -508,7 +511,7 @@ boundary length penalties) are the same as for the previous graph.</p>
 units. Now we really start to see the difference between the
 <em>Rsymphony</em> and <em>lpsymphony</em> solvers – which use the
 <em>SYMPHONY</em> software – and the other solvers.</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_set_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>,</span>
@@ -519,7 +522,7 @@ units. Now we really start to see the difference between the
 606,180 planning units. We can see that both the <em>Rsymphony</em> and
 <em>lpsymphony</em> solvers are really taking a much longer time to
 generate prioritizations now.</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_set_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>,</span>
@@ -532,7 +535,7 @@ large problem, let’s take a closer look at these three solvers.
 Interestingly, we can see that the solver based on the open source
 <em>CBC</em> software is slightly faster – by a few minutes – than the
 other solvers.</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_set_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>,</span>
@@ -550,7 +553,7 @@ with, we will look at scenarios with a low <code>boundary_penalty</code>
 value (i.e., <span class="math inline">\(10^{-5}\)</span>). Let’s start
 again with the smallest problem size we’ve benchmarked. This problem has
 only 1,478 planning units.</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_set_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
@@ -560,7 +563,7 @@ only 1,478 planning units.</p>
 <p>Next, let’s look at the results for a more realistic problem with
 12,902 planning units and see how the timing of the different solvers
 used compares.</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_set_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
@@ -571,7 +574,7 @@ used compares.</p>
 units. Now we really start to see the difference between
 <em>lpsymphony</em> and <em>Rsymphony</em> solvers and the other
 solvers.</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_set_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>,</span>
@@ -582,7 +585,7 @@ solvers.</p>
 606,180 planning units. As with the scenario without boundary penalties,
 <em>lpsymphony</em> and <em>Rsymphony</em> solvers take a lot longer to
 generate prioritizations than the other three solvers.</p>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_set_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>,</span>
@@ -595,7 +598,7 @@ generate prioritizations than the other three solvers.</p>
 prioritizations in under half an hour in all cases. This result shows
 that the commercial solvers can massively outperform the open source
 solvers for large-scale problems with boundary length penalties.</p>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_set_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>,</span>
@@ -614,7 +617,7 @@ with the smallest problem size we’ve benchmarked. This problem has only
 1,478 planning units. Although there are some differences between the
 solvers, they all have very similar run times (i.e., all less than one
 second).</p>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_set_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
@@ -624,7 +627,7 @@ second).</p>
 <p>Next, let’s look at the results for a more realistic problem with
 12,902 planning units and see how the timing of the different solvers
 used compares.</p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_set_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
@@ -634,7 +637,7 @@ used compares.</p>
 <p>Next, we will look at a medium sized problem with 102,242 planning
 units. We again see the difference between <em>Rsymphony</em> and
 <em>lpsymphony</em> solvers and the other solvers.</p>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_set_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>,</span>
@@ -645,7 +648,7 @@ units. We again see the difference between <em>Rsymphony</em> and
 606,180 planning units. As with the previous scenarios,
 <em>Rsymphony</em> and <em>lpsymphony</em> solvers take a lot longer to
 generate prioritizations than the other solvers.</p>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_set_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>,</span>
@@ -657,7 +660,7 @@ generate prioritizations than the other solvers.</p>
 <em>Gurobi</em> has the best performance. This result further emphasizes
 the potential speed gains of commercial solvers for large-scale
 conservation planning problems with boundary penalties.</p>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_set_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>,</span>
@@ -674,7 +677,7 @@ objective function. Let’s start with the smallest problem size examined.
 All benchmark scenarios have 72 features. This problem has only 1,478
 planning units. We can see that all solvers solve the problem in a
 comparable amount of time across all targets investigated.</p>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_shortfall_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
@@ -685,7 +688,7 @@ comparable amount of time across all targets investigated.</p>
 12,902 planning units and see how the timing of the different solvers
 used compares. Here, the <em>CBC</em> solver takes slightly longer than
 the other solvers.</p>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_shortfall_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
@@ -696,7 +699,7 @@ the other solvers.</p>
 units. Now we see a larger difference between the <em>CBC</em> solver
 and the other solvers, with the <em>CBC</em> solver taking several
 minutes longer to complete.</p>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_shortfall_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>,</span>
@@ -708,7 +711,7 @@ minutes longer to complete.</p>
 (i.e., <em>CBC</em>, <em>Rsymphony</em> and <em>lpsymphony</em>) take a
 lot longer than the commercial solvers (i.e., <em>IBM CPLEX</em> and
 <em>Guorbi</em>).</p>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_shortfall_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>,</span>
@@ -724,7 +727,7 @@ lot longer than the commercial solvers (i.e., <em>IBM CPLEX</em> and
 (i.e., <span class="math inline">\(0\)</span>). Let’s start again with
 the smallest problem size examined. This problem has only 1,478 planning
 units.</p>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_shortfall_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
@@ -735,7 +738,7 @@ units.</p>
 12,902 planning units and see how the timing of the different solvers
 compare. Similar to before, we can see the <em>CBC</em> solver takes
 slightly longer than the other solvers.</p>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_shortfall_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
@@ -747,7 +750,7 @@ units. Now we really start to see the difference between the
 <em>CBC</em> solver and the other solvers. Additionally, the
 <em>Rsymphony</em> and <em>lpsymphony</em> solvers also take
 considerably longer than the commercial solvers too.</p>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_shortfall_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>,</span>
@@ -758,7 +761,7 @@ considerably longer than the commercial solvers too.</p>
 606,180 planning units. The <em>CBC</em> solver now performs better than
 the <em>Rsymphony</em> and <em>lpsymphony</em> solvers, which can take
 over a whole day to complete.</p>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_shortfall_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>,</span>
@@ -773,7 +776,7 @@ CPLEX</em> and <em>Gurobi</em> solvers. This result suggests that
 <em>IBM CPLEX</em> and <em>Gurobi</em> could be really beneficial for
 large-scale conservation planning problems with boundary length
 penalties and the minimum shortfall objective function.</p>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_shortfall_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>,</span>
@@ -790,7 +793,7 @@ penalties and the minimum shortfall objective function.</p>
 (<span class="math inline">\(10^{-14}\)</span>). Let’s start again with
 the smallest problem size examined. This problem has only 1,478 planning
 units.</p>
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_shortfall_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
@@ -802,7 +805,7 @@ units (i.e., 12,902 planning units) and see how the timings compare. All
 the solvers have a similar run time now. Interestingly, the
 <em>Gurobi</em> solver is the slowest – but only by a couple of minutes
 – for these benchmark parameters.</p>
-<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_shortfall_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
@@ -813,7 +816,7 @@ the solvers have a similar run time now. Interestingly, the
 units. Similar to some of the previous results for the minimum shortfall
 objective, the <em>CBC</em> solver is the slowest and the <em>IBM
 CPLEX</em> and <em>Gurobi</em> commercial solvers are fastest.</p>
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_shortfall_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>,</span>
@@ -829,7 +832,7 @@ prioritization, it now outperforms the <em>Rsymphony</em> and
 <em>lpsymphony</em> solvers. Finally, the <em>IBM CPLEX</em> and
 <em>Gurobi</em> solvers perform much, much better than all the other
 solvers.</p>
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot_benchmark</span><span class="op">(</span></span>
 <span>  objective <span class="op">=</span> <span class="st">"add_min_shortfall_objective"</span>,</span>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>,</span>

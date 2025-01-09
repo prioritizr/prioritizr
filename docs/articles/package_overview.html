@@ -40,7 +40,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.6</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -482,7 +482,7 @@ documentation</a>.</p>
 <span><span class="co"># load in the tabular planning unit data</span></span>
 <span><span class="co"># note that we use the data.table::fread function, as opposed to the read.csv</span></span>
 <span><span class="co"># function, because it is much faster</span></span>
-<span><span class="va">pu_dat</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/fread.html" class="external-link">fread</a></span><span class="op">(</span><span class="va">pu_path</span>, data.table <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">pu_dat</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/data.table/man/fread.html" class="external-link">fread</a></span><span class="op">(</span><span class="va">pu_path</span>, data.table <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># preview first six rows of the tabular planning unit data</span></span>
 <span><span class="co"># note that it has some extra columns other than id and cost as per the</span></span>
@@ -620,7 +620,7 @@ planning unit.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># load in feature data</span></span>
-<span><span class="va">spec_dat</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/fread.html" class="external-link">fread</a></span><span class="op">(</span><span class="va">spec_path</span>, data.table <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">spec_dat</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/data.table/man/fread.html" class="external-link">fread</a></span><span class="op">(</span><span class="va">spec_path</span>, data.table <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># print first six rows of the data</span></span>
 <span><span class="co"># note that it contains extra columns</span></span>
@@ -639,7 +639,7 @@ planning unit.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># load in planning unit vs feature data</span></span>
-<span><span class="va">puvspr_dat</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/fread.html" class="external-link">fread</a></span><span class="op">(</span><span class="va">puvspr_path</span>, data.table <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">puvspr_dat</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/data.table/man/fread.html" class="external-link">fread</a></span><span class="op">(</span><span class="va">puvspr_path</span>, data.table <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># print first six rows of the data</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">puvspr_dat</span><span class="op">)</span></span></code></pre></div>
@@ -962,14 +962,15 @@ diverse range of evolutionary histories.</li>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
 <ul>
 <li>
-<strong>Maximum utility objective</strong>: Secure as much of the
-features as possible without exceeding a budget. This objective is
-functionally equivalent to selecting the planning units with the
-greatest amounts of each feature (e.g., species richness). Generally, we
-don’t encourage the use of this objective because it will only rarely
-identify complementary solutions–solutions which adequately conserve a
-range of different features—except perhaps to explore trade-offs or
-provide a baseline solution with which to compare other solutions.</li>
+<strong>Maximum utility objective</strong>: Maximize the weighted
+sum of the features represented by the solution as much as possible
+without exceeding a budget. This objective is functionally equivalent to
+selecting the planning units with the greatest amounts of each feature
+(e.g., weighted species richness). Generally, we don’t encourage the use
+of this objective because it will only rarely identify complementary
+solutions – solutions which adequately conserve a range of different
+features – except perhaps to explore trade-offs or provide a baseline
+solution with which to compare other solutions.</li>
 </ul>
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create a new problem that has the maximum utility objective and a budget</span></span>
@@ -998,13 +999,48 @@ provide a baseline solution with which to compare other solutions.</li>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   default portfolio</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
+<ul>
+<li>
+<strong>Minimum penalties objective</strong>: Minimize only the
+penalties added to the problem, whilst ensuring that al targets are met
+and the cost of the solution does not exceed a budget. This objective is
+useful when using a hierarchical approach for multi-objective
+optimization.</li>
+</ul>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># create a new problem that has the minimum penalties objective and a budget</span></span>
+<span><span class="co"># of 5000</span></span>
+<span><span class="va">p11</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/add_min_penalties_objective.html">add_min_penalties_objective</a></span><span class="op">(</span>budget <span class="op">=</span> <span class="fl">5000</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># print problem</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p11</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## A conservation problem (<span style="color: #0000BB;">&lt;ConservationProblem&gt;</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•data</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, <span style="color: #0000BB;">"feature_3"</span>, <span style="color: #0000BB;">"feature_4"</span>, and <span style="color: #0000BB;">"feature_5"</span> (5 total)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>planning units:</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>data:       <span style="color: #0000BB;">&lt;SpatRaster&gt;</span> (90 total)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS (projected)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum penalties objective (`budget` = <span style="color: #0000BB;">5000</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
+<span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   default portfolio</span></span>
+<span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
+<span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="add-targets">Add targets<a class="anchor" aria-label="anchor" href="#add-targets"></a>
 </h3>
 <p>Most conservation planning problems require targets. Targets are used
 to specify the minimum amount or proportion of a feature’s distribution
-that needs to be protected in the solution. For example, we may want to
+that needs to be protected by the solution. For example, we may want to
 develop a reserve network that will secure 20% of the distribution for
 each feature for minimal cost. The following methods are available for
 specifying targets.</p>
@@ -1017,16 +1053,16 @@ presence of suitable habitat across the study area, we could set an
 absolute target of 5 to mean that we require 5 planning units with
 suitable habitat in the solution.</li>
 </ul>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create a problem with targets which specify that the solution must conserve</span></span>
 <span><span class="co"># a sum total of 3 units of suitable habitat for each feature</span></span>
-<span><span class="va">p11</span> <span class="op">&lt;-</span></span>
+<span><span class="va">p12</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_absolute_targets.html">add_absolute_targets</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># print problem</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p11</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p12</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## A conservation problem (<span style="color: #0000BB;">&lt;ConservationProblem&gt;</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•data</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, <span style="color: #0000BB;">"feature_3"</span>, <span style="color: #0000BB;">"feature_4"</span>, and <span style="color: #0000BB;">"feature_5"</span> (5 total)</span></span>
@@ -1056,16 +1092,16 @@ planning units for the feature. We could alternatively specify an
 absolute target of 10 to achieve the same result, but sometimes
 proportions are easier to work with.</li>
 </ul>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create a problem with the minimum set objective and relative targets of 10 %</span></span>
 <span><span class="co"># for each feature</span></span>
-<span><span class="va">p12</span> <span class="op">&lt;-</span></span>
+<span><span class="va">p13</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># print problem</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p12</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p13</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## A conservation problem (<span style="color: #0000BB;">&lt;ConservationProblem&gt;</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•data</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, <span style="color: #0000BB;">"feature_3"</span>, <span style="color: #0000BB;">"feature_4"</span>, and <span style="color: #0000BB;">"feature_5"</span> (5 total)</span></span>
@@ -1084,18 +1120,18 @@ proportions are easier to work with.</li>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   default portfolio</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create a problem with targets which specify that we need 10 % of the habitat</span></span>
 <span><span class="co"># for the first feature, 15 % for the second feature, 20 % for the third feature</span></span>
 <span><span class="co"># 25 % for the fourth feature and 30 % of the habitat for the fifth feature</span></span>
 <span><span class="va">targets</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.15</span>, <span class="fl">0.2</span>, <span class="fl">0.25</span>, <span class="fl">0.3</span><span class="op">)</span></span>
-<span><span class="va">p13</span> <span class="op">&lt;-</span></span>
+<span><span class="va">p14</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="va">targets</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># print problem</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p13</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p14</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## A conservation problem (<span style="color: #0000BB;">&lt;ConservationProblem&gt;</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•data</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, <span style="color: #0000BB;">"feature_3"</span>, <span style="color: #0000BB;">"feature_4"</span>, and <span style="color: #0000BB;">"feature_5"</span> (5 total)</span></span>
@@ -1120,15 +1156,15 @@ proportions are easier to work with.</li>
 scaling factors and log-linear interpolation. This method for specifying
 targets is commonly used for global prioritization analyses <span class="citation">(Rodrigues <em>et al.</em> 2004)</span>.</li>
 </ul>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create problem with added log-linear targets</span></span>
-<span><span class="va">p14</span> <span class="op">&lt;-</span></span>
+<span><span class="va">p15</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_loglinear_targets.html">add_loglinear_targets</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">0.9</span>, <span class="fl">100</span>, <span class="fl">0.2</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># print problem</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p14</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p15</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## A conservation problem (<span style="color: #0000BB;">&lt;ConservationProblem&gt;</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•data</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, <span style="color: #0000BB;">"feature_3"</span>, <span style="color: #0000BB;">"feature_4"</span>, and <span style="color: #0000BB;">"feature_5"</span> (5 total)</span></span>
@@ -1174,17 +1210,17 @@ example, it may be desirable to lock in planning units that are inside
 existing protected areas so that the solution fills in the gaps in the
 existing reserve network.</li>
 </ul>
-<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create problem with constraints which specify that the first planning unit</span></span>
 <span><span class="co"># must be selected in the solution</span></span>
-<span><span class="va">p15</span> <span class="op">&lt;-</span></span>
+<span><span class="va">p16</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_locked_in_constraints.html">add_locked_in_constraints</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># print problem</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p15</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p16</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## A conservation problem (<span style="color: #0000BB;">&lt;ConservationProblem&gt;</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•data</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, <span style="color: #0000BB;">"feature_3"</span>, <span style="color: #0000BB;">"feature_4"</span>, and <span style="color: #0000BB;">"feature_5"</span> (5 total)</span></span>
@@ -1211,17 +1247,17 @@ that certain planning units are not prioritized in the solution. For
 example, it may be useful to lock out planning units that have been
 degraded and are not suitable for conserving species.</li>
 </ul>
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create problem with constraints which specify that the second planning unit</span></span>
 <span><span class="co"># must not be selected in the solution</span></span>
-<span><span class="va">p16</span> <span class="op">&lt;-</span></span>
+<span><span class="va">p17</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_locked_out_constraints.html">add_locked_out_constraints</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># print problem</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p16</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p17</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## A conservation problem (<span style="color: #0000BB;">&lt;ConservationProblem&gt;</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•data</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, <span style="color: #0000BB;">"feature_3"</span>, <span style="color: #0000BB;">"feature_4"</span>, and <span style="color: #0000BB;">"feature_5"</span> (5 total)</span></span>
@@ -1247,17 +1283,17 @@ degraded and are not suitable for conserving species.</li>
 conservation problem to ensure that all selected planning units have at
 least a certain number of neighbors.</li>
 </ul>
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create problem with constraints which specify that all selected planning units</span></span>
 <span><span class="co"># in the solution must have at least 1 neighbor</span></span>
-<span><span class="va">p17</span> <span class="op">&lt;-</span></span>
+<span><span class="va">p18</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_neighbor_constraints.html">add_neighbor_constraints</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># print problem</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p17</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p18</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## A conservation problem (<span style="color: #0000BB;">&lt;ConservationProblem&gt;</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•data</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, <span style="color: #0000BB;">"feature_3"</span>, <span style="color: #0000BB;">"feature_4"</span>, and <span style="color: #0000BB;">"feature_5"</span> (5 total)</span></span>
@@ -1284,17 +1320,17 @@ conservation problem to ensure that all selected planning units are
 spatially connected to each other and form spatially contiguous
 unit.</li>
 </ul>
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create problem with constraints which specify that all selected planning units</span></span>
 <span><span class="co"># in the solution must form a single contiguous unit</span></span>
-<span><span class="va">p18</span> <span class="op">&lt;-</span></span>
+<span><span class="va">p19</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_contiguity_constraints.html">add_contiguity_constraints</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># print problem</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p18</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p19</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## A conservation problem (<span style="color: #0000BB;">&lt;ConservationProblem&gt;</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•data</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, <span style="color: #0000BB;">"feature_3"</span>, <span style="color: #0000BB;">"feature_4"</span>, and <span style="color: #0000BB;">"feature_5"</span> (5 total)</span></span>
@@ -1324,17 +1360,17 @@ function, because they ensure that each feature is represented in a
 contiguous unit and not that the entire solution should form a
 contiguous unit.</li>
 </ul>
-<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create problem with constraints which specify that the planning units used</span></span>
 <span><span class="co"># to conserve each feature must form a contiguous unit</span></span>
-<span><span class="va">p19</span> <span class="op">&lt;-</span></span>
+<span><span class="va">p20</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_feature_contiguity_constraints.html">add_feature_contiguity_constraints</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># print problem</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p19</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p20</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## A conservation problem (<span style="color: #0000BB;">&lt;ConservationProblem&gt;</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•data</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, <span style="color: #0000BB;">"feature_3"</span>, <span style="color: #0000BB;">"feature_4"</span>, and <span style="color: #0000BB;">"feature_5"</span> (5 total)</span></span>
@@ -1362,18 +1398,18 @@ be used to add multiple budgets, or limit the number of planning units
 selected in different administrative areas within a study region (e.g.,
 different countries).</li>
 </ul>
-<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create problem with constraints which specify that the sum of</span></span>
 <span><span class="co"># values in sim_features[[1]] among selected planning units must not exceed a</span></span>
 <span><span class="co"># threshold value of 190.</span></span>
-<span><span class="va">p20</span> <span class="op">&lt;-</span></span>
+<span><span class="va">p21</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_min_shortfall_objective.html">add_min_shortfall_objective</a></span><span class="op">(</span>budget <span class="op">=</span> <span class="fl">1800</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_linear_constraints.html">add_linear_constraints</a></span><span class="op">(</span><span class="fl">190</span>, <span class="st">"&lt;="</span>, <span class="va">sim_features</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># print problem</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p20</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p21</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## A conservation problem (<span style="color: #0000BB;">&lt;ConservationProblem&gt;</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•data</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, <span style="color: #0000BB;">"feature_3"</span>, <span style="color: #0000BB;">"feature_4"</span>, and <span style="color: #0000BB;">"feature_5"</span> (5 total)</span></span>
@@ -1409,7 +1445,7 @@ out that there are several ways we can specify which planning units
 should be locked in or out of the solutions. If we use raster planning
 unit data, we can also use raster data to specify which planning units
 should be locked in or locked out.</p>
-<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># load data to lock in or lock out planning units</span></span>
 <span><span class="va">sim_locked_in_raster</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_data.html">get_sim_locked_in_raster</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">sim_locked_out_raster</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_data.html">get_sim_locked_out_raster</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -1420,11 +1456,11 @@ should be locked in or locked out.</p>
 <span>  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>,</span>
 <span>  axes <span class="op">=</span> <span class="cn">FALSE</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Locked in"</span>, <span class="st">"Locked out"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="package_overview_files/figure-html/unnamed-chunk-29-1.png" width="624" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+<p><img src="package_overview_files/figure-html/unnamed-chunk-30-1.png" width="624" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create a problem using raster planning unit data and use the locked raster</span></span>
 <span><span class="co"># data to lock in some planning units and lock out some other planning units</span></span>
-<span><span class="va">p21</span> <span class="op">&lt;-</span></span>
+<span><span class="va">p22</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -1432,7 +1468,7 @@ should be locked in or locked out.</p>
 <span>  <span class="fu"><a href="../reference/add_locked_out_constraints.html">add_locked_out_constraints</a></span><span class="op">(</span><span class="va">sim_locked_out_raster</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># print problem</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p21</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p22</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## A conservation problem (<span style="color: #0000BB;">&lt;ConservationProblem&gt;</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•data</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, <span style="color: #0000BB;">"feature_3"</span>, <span style="color: #0000BB;">"feature_4"</span>, and <span style="color: #0000BB;">"feature_5"</span> (5 total)</span></span>
@@ -1463,7 +1499,7 @@ planning units should be selected in the solution. We could use the data
 in this field to specify that those planning units with
 <code>TRUE</code> values should be locked in using the following
 methods.</p>
-<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># preview sim_pu_polygons object</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">sim_pu_polygons</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Simple feature collection with 90 features and 3 fields</span></span>
@@ -1485,16 +1521,16 @@ methods.</p>
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span>  210. FALSE     FALSE      ((0.8 1, 0.9 1, 0.9 0.9, 0.8 0.9, 0.8 1))</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span>  204. FALSE     FALSE          ((0.9 1, 1 1, 1 0.9, 0.9 0.9, 0.9 1))</span></span>
 <span><span class="co">## <span style="color: #949494;"># ℹ 80 more rows</span></span></span></code></pre>
-<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># specify locked in data using the field name</span></span>
-<span><span class="va">p22</span> <span class="op">&lt;-</span></span>
+<span><span class="va">p23</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_polygons</span>, <span class="va">sim_features</span>, cost_column <span class="op">=</span> <span class="st">"cost"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_locked_in_constraints.html">add_locked_in_constraints</a></span><span class="op">(</span><span class="st">"locked_in"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># print problem</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p22</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p23</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## A conservation problem (<span style="color: #0000BB;">&lt;ConservationProblem&gt;</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•data</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, <span style="color: #0000BB;">"feature_3"</span>, <span style="color: #0000BB;">"feature_4"</span>, and <span style="color: #0000BB;">"feature_5"</span> (5 total)</span></span>
@@ -1514,16 +1550,16 @@ methods.</p>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   default portfolio</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
-<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># specify locked in data using the values in the field</span></span>
-<span><span class="va">p23</span> <span class="op">&lt;-</span></span>
+<span><span class="va">p24</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_polygons</span>, <span class="va">sim_features</span>, cost_column <span class="op">=</span> <span class="st">"cost"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_locked_in_constraints.html">add_locked_in_constraints</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">sim_pu_polygons</span><span class="op">$</span><span class="va">locked_in</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># print problem</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p23</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p24</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## A conservation problem (<span style="color: #0000BB;">&lt;ConservationProblem&gt;</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•data</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, <span style="color: #0000BB;">"feature_3"</span>, <span style="color: #0000BB;">"feature_4"</span>, and <span style="color: #0000BB;">"feature_5"</span> (5 total)</span></span>
@@ -1569,17 +1605,17 @@ solutions that are excessively fragmented. These penalties are similar
 to those used in <em>Marxan</em> <span class="citation">(Ball <em>et
 al.</em> 2009; Beyer <em>et al.</em> 2016)</span>.</li>
 </ul>
-<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create problem with penalties that penalize fragmented solutions with a</span></span>
 <span><span class="co"># penalty factor of 0.01</span></span>
-<span><span class="va">p24</span> <span class="op">&lt;-</span></span>
+<span><span class="va">p25</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_boundary_penalties.html">add_boundary_penalties</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># print problem</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p24</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p25</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## A conservation problem (<span style="color: #0000BB;">&lt;ConservationProblem&gt;</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•data</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, <span style="color: #0000BB;">"feature_3"</span>, <span style="color: #0000BB;">"feature_4"</span>, and <span style="color: #0000BB;">"feature_5"</span> (5 total)</span></span>
@@ -1607,14 +1643,14 @@ connectivity between them. This function is used for symmetric
 connectivities among planning units <span class="citation">(based on
 Önal &amp; Briers 2002)</span>.</li>
 </ul>
-<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create problem with penalties for symmetric connectivity,</span></span>
 <span><span class="co"># here we will use only the first four layers in</span></span>
 <span><span class="co"># sim_features for the features and we will use the fifth layer in sim_features</span></span>
 <span><span class="co"># to represent the connectivity data, where the connectivity_matrix function</span></span>
 <span><span class="co"># will create a matrix showing the average strength of connectivity between</span></span>
 <span><span class="co"># adjacent planning units using the data in the fifth layer of sim_features</span></span>
-<span><span class="va">p25</span> <span class="op">&lt;-</span></span>
+<span><span class="va">p26</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">[[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -1624,7 +1660,7 @@ connectivities among planning units <span class="citation">(based on
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="co"># print problem</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p25</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p26</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## A conservation problem (<span style="color: #0000BB;">&lt;ConservationProblem&gt;</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•data</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, <span style="color: #0000BB;">"feature_3"</span>, and <span style="color: #0000BB;">"feature_4"</span> (4 total)</span></span>
@@ -1653,7 +1689,7 @@ the solution. This function is used for asymmetric connectivities among
 planning units <span class="citation">(based on Beger <em>et al.</em>
 2010)</span>.</li>
 </ul>
-<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create a matrix containing asymmetric connectivity data,</span></span>
 <span><span class="va">asym_con_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/dimensions.html" class="external-link">ncell</a></span><span class="op">(</span><span class="va">sim_pu_raster</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span>,</span>
@@ -1662,14 +1698,14 @@ planning units <span class="citation">(based on Beger <em>et al.</em>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># create problem with penalties for asymmetric connectivity</span></span>
-<span><span class="va">p26</span> <span class="op">&lt;-</span></span>
+<span><span class="va">p27</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">[[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_asym_connectivity_penalties.html">add_asym_connectivity_penalties</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">5</span>, data <span class="op">=</span> <span class="va">asym_con_matrix</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># print problem</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p26</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p27</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## A conservation problem (<span style="color: #0000BB;">&lt;ConservationProblem&gt;</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•data</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, <span style="color: #0000BB;">"feature_3"</span>, and <span style="color: #0000BB;">"feature_4"</span> (4 total)</span></span>
@@ -1695,7 +1731,7 @@ planning units <span class="citation">(based on Beger <em>et al.</em>
 solutions that select planning units according to a certain variable
 (e.g., anthropogenic pressure).</li>
 </ul>
-<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create data for penalizing planning units</span></span>
 <span><span class="va">pen_raster</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simulate_cost.html">simulate_cost</a></span><span class="op">(</span><span class="va">sim_pu_raster</span><span class="op">)</span></span>
 <span></span>
@@ -1704,14 +1740,14 @@ solutions that select planning units according to a certain variable
 <span><span class="co"># here we will use a penalty value of 5 to indicate the trade-off (scaling)</span></span>
 <span><span class="co"># between the penalty values (in the sim_pu_raster) and the main objective</span></span>
 <span><span class="co"># (i.e., the cost of the solution)</span></span>
-<span><span class="va">p27</span> <span class="op">&lt;-</span></span>
+<span><span class="va">p28</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_linear_penalties.html">add_linear_penalties</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">5</span>, data <span class="op">=</span> <span class="va">pen_raster</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># print problem</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p27</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p28</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## A conservation problem (<span style="color: #0000BB;">&lt;ConservationProblem&gt;</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•data</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, <span style="color: #0000BB;">"feature_3"</span>, <span style="color: #0000BB;">"feature_4"</span>, and <span style="color: #0000BB;">"feature_5"</span> (5 total)</span></span>
@@ -1752,16 +1788,16 @@ decision has the assumed action of buying the planning unit to include
 in a protected area network. If no decision is added to a problem
 object, then this decision class will be used by default.</li>
 </ul>
-<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># add binary decisions to a problem</span></span>
-<span><span class="va">p28</span> <span class="op">&lt;-</span></span>
+<span><span class="va">p29</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># print problem</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p28</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p29</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## A conservation problem (<span style="color: #0000BB;">&lt;ConservationProblem&gt;</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•data</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, <span style="color: #0000BB;">"feature_3"</span>, <span style="color: #0000BB;">"feature_4"</span>, and <span style="color: #0000BB;">"feature_5"</span> (5 total)</span></span>
@@ -1791,16 +1827,16 @@ Generally, problems can be solved much faster with proportion-type
 decisions than binary-type decisions, so they can be very useful when
 commercial solvers are not available.</li>
 </ul>
-<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># add proportion decisions to a problem</span></span>
-<span><span class="va">p29</span> <span class="op">&lt;-</span></span>
+<span><span class="va">p30</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_proportion_decisions.html">add_proportion_decisions</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># print problem</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p29</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p30</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## A conservation problem (<span style="color: #0000BB;">&lt;ConservationProblem&gt;</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•data</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, <span style="color: #0000BB;">"feature_3"</span>, <span style="color: #0000BB;">"feature_4"</span>, and <span style="color: #0000BB;">"feature_5"</span> (5 total)</span></span>
@@ -1830,17 +1866,17 @@ fraction (e.g., 80%) of a planning unit can be purchased. This type of
 decision may be useful when it is not practical to conserve the entire
 area indicated by a planning unit.</li>
 </ul>
-<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># add semi-continuous decisions to a problem, where we can only manage at most</span></span>
 <span><span class="co"># 50 % of the area encompassed by a planning unit</span></span>
-<span><span class="va">p30</span> <span class="op">&lt;-</span></span>
+<span><span class="va">p31</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_semicontinuous_decisions.html">add_semicontinuous_decisions</a></span><span class="op">(</span><span class="fl">0.5</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># print problem</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p30</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p31</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## A conservation problem (<span style="color: #0000BB;">&lt;ConservationProblem&gt;</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•data</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, <span style="color: #0000BB;">"feature_3"</span>, <span style="color: #0000BB;">"feature_4"</span>, and <span style="color: #0000BB;">"feature_5"</span> (5 total)</span></span>
@@ -1880,10 +1916,10 @@ solvers that can be used to solve conservation problems. However, it is
 not freely available. That said, special licenses are available to
 academics at no cost.</li>
 </ul>
-<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create a problem and specify that Gurobi should be used to solve the problem</span></span>
 <span><span class="co"># and specify an optimality gap of zero to obtain the optimal solution</span></span>
-<span><span class="va">p31</span> <span class="op">&lt;-</span></span>
+<span><span class="va">p32</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -1891,7 +1927,7 @@ academics at no cost.</li>
 <span>  <span class="fu"><a href="../reference/add_gurobi_solver.html">add_gurobi_solver</a></span><span class="op">(</span>gap <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># print problem</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p31</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p32</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## A conservation problem (<span style="color: #0000BB;">&lt;ConservationProblem&gt;</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•data</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, <span style="color: #0000BB;">"feature_3"</span>, <span style="color: #0000BB;">"feature_4"</span>, and <span style="color: #0000BB;">"feature_5"</span> (5 total)</span></span>
@@ -1919,10 +1955,10 @@ below), however, it is not freely available. Similar to the
 <em>Gurobi</em> software, special licenses are available to academics at
 no cost.</li>
 </ul>
-<div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create a problem and specify that IBM CPLEX should be used to solve the</span></span>
 <span><span class="co"># problem and specify an optimality gap of zero to obtain the optimal solution</span></span>
-<span><span class="va">p32</span> <span class="op">&lt;-</span></span>
+<span><span class="va">p33</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -1930,7 +1966,7 @@ no cost.</li>
 <span>  <span class="fu"><a href="../reference/add_cplex_solver.html">add_cplex_solver</a></span><span class="op">(</span>gap <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># print problem</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p32</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p33</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## A conservation problem (<span style="color: #0000BB;">&lt;ConservationProblem&gt;</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•data</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, <span style="color: #0000BB;">"feature_3"</span>, <span style="color: #0000BB;">"feature_4"</span>, and <span style="color: #0000BB;">"feature_5"</span> (5 total)</span></span>
@@ -1962,10 +1998,10 @@ the <em>Gurobi</em> and <em>IBM CPLEX</em> solvers are not available.
 This solver requires the <em>rcbc R</em> package, which is currently
 only available on <a href="https://github.com/dirkschumacher/rcbc" class="external-link">GitHub</a>.</li>
 </ul>
-<div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb90"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create a problem and specify that CBC should be used to solve the</span></span>
 <span><span class="co"># problem and specify an optimality gap of zero to obtain the optimal solution</span></span>
-<span><span class="va">p33</span> <span class="op">&lt;-</span></span>
+<span><span class="va">p34</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -1973,7 +2009,7 @@ only available on <a href="https://github.com/dirkschumacher/rcbc" class="extern
 <span>  <span class="fu"><a href="../reference/add_cbc_solver.html">add_cbc_solver</a></span><span class="op">(</span>gap <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># print problem</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p33</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p34</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## A conservation problem (<span style="color: #0000BB;">&lt;ConservationProblem&gt;</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•data</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, <span style="color: #0000BB;">"feature_3"</span>, <span style="color: #0000BB;">"feature_4"</span>, and <span style="color: #0000BB;">"feature_5"</span> (5 total)</span></span>
@@ -2006,10 +2042,10 @@ recommended if the <code><a href="../reference/add_gurobi_solver.html">add_gurob
 <code><a href="../reference/add_cplex_solver.html">add_cplex_solver()</a></code>, <code><a href="../reference/add_cbc_solver.html">add_cbc_solver()</a></code> cannot be
 used.</li>
 </ul>
-<div class="sourceCode" id="cb90"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create a problem and specify that HiGHS should be used to solve the</span></span>
 <span><span class="co"># problem and specify an optimality gap of zero to obtain the optimal solution</span></span>
-<span><span class="va">p34</span> <span class="op">&lt;-</span></span>
+<span><span class="va">p35</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -2017,7 +2053,7 @@ used.</li>
 <span>  <span class="fu"><a href="../reference/add_highs_solver.html">add_highs_solver</a></span><span class="op">(</span>gap <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># print problem</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p34</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p35</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## A conservation problem (<span style="color: #0000BB;">&lt;ConservationProblem&gt;</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•data</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, <span style="color: #0000BB;">"feature_3"</span>, <span style="color: #0000BB;">"feature_4"</span>, and <span style="color: #0000BB;">"feature_5"</span> (5 total)</span></span>
@@ -2044,10 +2080,10 @@ project. This solver uses the <em>lpsymphony R</em> package (available
 on <a href="https://bioconductor.org/packages/release/bioc/html/lpsymphony.html" class="external-link">Bioconductor</a>)
 to interface with the <em>SYMPHONY</em> software.</li>
 </ul>
-<div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create a problem and specify that lpsymphony should be used to solve the</span></span>
 <span><span class="co"># problem and specify an optimality gap of zero to obtain the optimal solution</span></span>
-<span><span class="va">p35</span> <span class="op">&lt;-</span></span>
+<span><span class="va">p36</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -2055,7 +2091,7 @@ to interface with the <em>SYMPHONY</em> software.</li>
 <span>  <span class="fu"><a href="../reference/add_lsymphony_solver.html">add_lpsymphony_solver</a></span><span class="op">(</span>gap <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># print problem</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p35</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p36</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## A conservation problem (<span style="color: #0000BB;">&lt;ConservationProblem&gt;</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•data</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, <span style="color: #0000BB;">"feature_3"</span>, <span style="color: #0000BB;">"feature_4"</span>, and <span style="color: #0000BB;">"feature_5"</span> (5 total)</span></span>
@@ -2083,10 +2119,10 @@ The Comprehensive R Archive Network (CRAN). This solver is generally
 slower than the other solvers, because it cannot use parallel
 processing.</li>
 </ul>
-<div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create a problem and specify that Rsymphony should be used to solve the</span></span>
 <span><span class="co"># problem and specify an optimality gap of zero to obtain the optimal solution</span></span>
-<span><span class="va">p36</span> <span class="op">&lt;-</span></span>
+<span><span class="va">p37</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -2094,7 +2130,7 @@ processing.</li>
 <span>  <span class="fu"><a href="../reference/add_rsymphony_solver.html">add_rsymphony_solver</a></span><span class="op">(</span>gap <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># print problem</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p36</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p37</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## A conservation problem (<span style="color: #0000BB;">&lt;ConservationProblem&gt;</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•data</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, <span style="color: #0000BB;">"feature_3"</span>, <span style="color: #0000BB;">"feature_4"</span>, and <span style="color: #0000BB;">"feature_5"</span> (5 total)</span></span>
@@ -2133,10 +2169,10 @@ frequencies (similar to <em>Marxan</em>). Note that this method requires
 that the <em>Gurobi</em> optimization software is used to generate
 solutions.</li>
 </ul>
-<div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb98"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create a problem and specify that a portfolio should be created by</span></span>
 <span><span class="co"># finding five solutions within 10% of optimality</span></span>
-<span><span class="va">p37</span> <span class="op">&lt;-</span></span>
+<span><span class="va">p38</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -2144,7 +2180,7 @@ solutions.</li>
 <span>  <span class="fu"><a href="../reference/add_gap_portfolio.html">add_gap_portfolio</a></span><span class="op">(</span>number_solutions <span class="op">=</span> <span class="fl">5</span>, pool_gap <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># print problem</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p37</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p38</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## A conservation problem (<span style="color: #0000BB;">&lt;ConservationProblem&gt;</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•data</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, <span style="color: #0000BB;">"feature_3"</span>, <span style="color: #0000BB;">"feature_4"</span>, and <span style="color: #0000BB;">"feature_5"</span> (5 total)</span></span>
@@ -2171,10 +2207,10 @@ optimality (i.e the top solutions). Note that this method requires that
 the <em>Gurobi</em> optimization software is used to generate
 solutions.</li>
 </ul>
-<div class="sourceCode" id="cb98"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb100"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create a problem and specify that a portfolio should be created using</span></span>
 <span><span class="co"># the top five solutions</span></span>
-<span><span class="va">p38</span> <span class="op">&lt;-</span></span>
+<span><span class="va">p39</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -2182,7 +2218,7 @@ solutions.</li>
 <span>  <span class="fu"><a href="../reference/add_top_portfolio.html">add_top_portfolio</a></span><span class="op">(</span>number_solutions <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># print problem</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p38</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p39</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## A conservation problem (<span style="color: #0000BB;">&lt;ConservationProblem&gt;</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•data</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, <span style="color: #0000BB;">"feature_3"</span>, <span style="color: #0000BB;">"feature_4"</span>, and <span style="color: #0000BB;">"feature_5"</span> (5 total)</span></span>
@@ -2208,10 +2244,10 @@ by storing feasible solutions found during the optimization process.
 Note that this method requires that the <em>Gurobi</em> optimization
 software is used to generate solutions.</li>
 </ul>
-<div class="sourceCode" id="cb100"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create a problem and specify that a portfolio should be created using</span></span>
 <span><span class="co"># extra solutions found while solving the problem</span></span>
-<span><span class="va">p39</span> <span class="op">&lt;-</span></span>
+<span><span class="va">p40</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -2219,7 +2255,7 @@ software is used to generate solutions.</li>
 <span>  <span class="fu"><a href="../reference/add_extra_portfolio.html">add_extra_portfolio</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># print problem</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p39</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p40</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## A conservation problem (<span style="color: #0000BB;">&lt;ConservationProblem&gt;</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•data</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, <span style="color: #0000BB;">"feature_3"</span>, <span style="color: #0000BB;">"feature_4"</span>, and <span style="color: #0000BB;">"feature_5"</span> (5 total)</span></span>
@@ -2245,10 +2281,10 @@ solutions within a pre-specified optimality gap. This method is only
 recommended if the <em>Gurobi</em> optimization solver is not
 available.</li>
 </ul>
-<div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create a problem and specify that a portfolio containing 10 solutions</span></span>
 <span><span class="co"># should be created using using Bender's cuts</span></span>
-<span><span class="va">p40</span> <span class="op">&lt;-</span></span>
+<span><span class="va">p41</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -2256,7 +2292,7 @@ available.</li>
 <span>  <span class="fu"><a href="../reference/add_cuts_portfolio.html">add_cuts_portfolio</a></span><span class="op">(</span>number_solutions <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># print problem</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p40</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p41</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## A conservation problem (<span style="color: #0000BB;">&lt;ConservationProblem&gt;</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•data</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, <span style="color: #0000BB;">"feature_3"</span>, <span style="color: #0000BB;">"feature_4"</span>, and <span style="color: #0000BB;">"feature_5"</span> (5 total)</span></span>
@@ -2283,10 +2319,10 @@ the problem. If the <em>Gurobi</em> optimization solver is not
 available, this method is the fastest method for generating a set number
 of solutions within a specified distance from optimality.</li>
 </ul>
-<div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb106"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create a problem and specify a portfolio should be created that contains</span></span>
 <span><span class="co"># 10 solutions and that any duplicate solutions should not be removed</span></span>
-<span><span class="va">p41</span> <span class="op">&lt;-</span></span>
+<span><span class="va">p42</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -2294,7 +2330,7 @@ of solutions within a specified distance from optimality.</li>
 <span>  <span class="fu"><a href="../reference/add_shuffle_portfolio.html">add_shuffle_portfolio</a></span><span class="op">(</span>number_solutions <span class="op">=</span> <span class="fl">10</span>, remove_duplicates <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># print problem</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p41</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p42</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## A conservation problem (<span style="color: #0000BB;">&lt;ConservationProblem&gt;</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•data</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, <span style="color: #0000BB;">"feature_3"</span>, <span style="color: #0000BB;">"feature_4"</span>, and <span style="color: #0000BB;">"feature_5"</span> (5 total)</span></span>
@@ -2322,9 +2358,9 @@ how the problem should be solved, we can use the <code><a href="../reference/sol
 function to obtain a solution. Note that the solver will typically print
 out some information describing the size of the problem and report its
 progress when searching for a suitable solution.</p>
-<div class="sourceCode" id="cb106"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb108"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># formulate the problem</span></span>
-<span><span class="va">p42</span> <span class="op">&lt;-</span></span>
+<span><span class="va">p43</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -2332,7 +2368,7 @@ progress when searching for a suitable solution.</p>
 <span>  <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># print problem</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p42</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p43</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## A conservation problem (<span style="color: #0000BB;">&lt;ConservationProblem&gt;</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•data</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, <span style="color: #0000BB;">"feature_3"</span>, <span style="color: #0000BB;">"feature_4"</span>, and <span style="color: #0000BB;">"feature_5"</span> (5 total)</span></span>
@@ -2352,19 +2388,27 @@ progress when searching for a suitable solution.</p>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   default portfolio</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
-<div class="sourceCode" id="cb108"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb110"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># solve the problem (using the default solver)</span></span>
-<span><span class="va">s42</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p42</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">s43</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p43</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
+<span><span class="co">## Set parameter LicenseID to value 2599748</span></span>
 <span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
 <span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
-<span><span class="co">## Academic license - for non-commercial use only - expires 2025-04-21</span></span>
-<span><span class="co">## Gurobi Optimizer version 11.0.3 build v11.0.3rc0 (linux64 - "Ubuntu 22.04.4 LTS")</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2025-12-16</span></span>
+<span><span class="co">## Gurobi Optimizer version 12.0.0 build v12.0.0rc1 (linux64 - "Ubuntu 24.04.1 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Non-default parameters:</span></span>
+<span><span class="co">## TimeLimit  2147483647</span></span>
+<span><span class="co">## MIPGap  0.1</span></span>
+<span><span class="co">## LogToConsole  0</span></span>
+<span><span class="co">## Presolve  2</span></span>
+<span><span class="co">## Threads  1</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimize a model with 293 rows, 234 columns and 1026 nonzeros</span></span>
 <span><span class="co">## Model fingerprint: 0xb4b90756</span></span>
@@ -2388,33 +2432,42 @@ progress when searching for a suitable solution.</p>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##      0     0 2265.86242    0  234 3087.96178 2265.86242  26.6%     -    0s</span></span>
-<span><span class="co">##      0     0 2328.27423    0  232 3087.96178 2328.27423  24.6%     -    0s</span></span>
-<span><span class="co">##      0     0 2357.91894    0  229 3087.96178 2357.91894  23.6%     -    0s</span></span>
-<span><span class="co">## H    0     0                    3034.0204010 2357.91894  22.3%     -    0s</span></span>
-<span><span class="co">##      0     0 2379.43275    0  197 3034.02040 2379.43275  21.6%     -    0s</span></span>
-<span><span class="co">##      0     0 2379.43275    0  197 3034.02040 2379.43275  21.6%     -    0s</span></span>
-<span><span class="co">## H    0     0                    2890.8754120 2379.43275  17.7%     -    0s</span></span>
-<span><span class="co">## H    0     0                    2814.4777374 2379.43275  15.5%     -    0s</span></span>
-<span><span class="co">##      0     2 2379.78730    0  197 2814.47774 2379.78730  15.4%     -    0s</span></span>
-<span><span class="co">## H   20    20                    2648.2596588 2382.48313  10.0%  23.4    0s</span></span>
+<span><span class="co">## H    0     0                    3058.9371490 2265.86242  25.9%     -    0s</span></span>
+<span><span class="co">## H    0     0                    3009.2433014 2265.86242  24.7%     -    0s</span></span>
+<span><span class="co">##      0     0 2328.27423    0  232 3009.24330 2328.27423  22.6%     -    0s</span></span>
+<span><span class="co">##      0     0 2357.91894    0  229 3009.24330 2357.91894  21.6%     -    0s</span></span>
+<span><span class="co">##      0     0 2379.43275    0  197 3009.24330 2379.43275  20.9%     -    0s</span></span>
+<span><span class="co">##      0     0 2379.43275    0  197 3009.24330 2379.43275  20.9%     -    0s</span></span>
+<span><span class="co">## H    0     0                    2869.1061249 2379.43275  17.1%     -    0s</span></span>
+<span><span class="co">## H    0     0                    2846.1551056 2379.43275  16.4%     -    0s</span></span>
+<span><span class="co">## H    0     0                    2813.5474548 2379.43275  15.4%     -    0s</span></span>
+<span><span class="co">## H    0     0                    2793.5406494 2379.43275  14.8%     -    0s</span></span>
+<span><span class="co">## H    0     0                    2735.9537048 2379.43275  13.0%     -    0s</span></span>
+<span><span class="co">## H    0     0                    2715.9353333 2379.43275  12.4%     -    0s</span></span>
+<span><span class="co">## H    0     0                    2668.5003204 2379.43275  10.8%     -    0s</span></span>
+<span><span class="co">## H    0     0                    2667.3308105 2379.43275  10.8%     -    0s</span></span>
+<span><span class="co">## H    0     0                    2666.1707611 2379.43275  10.8%     -    0s</span></span>
+<span><span class="co">##      0     2 2379.78730    0  197 2666.17076 2379.78730  10.7%     -    0s</span></span>
+<span><span class="co">## H   27    26                    2664.0213318 2382.48313  10.6%  19.5    0s</span></span>
+<span><span class="co">## H   27    25                    2640.7490387 2382.48313  9.78%  19.5    0s</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Cutting planes:</span></span>
 <span><span class="co">##   Gomory: 3</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 34 nodes (1117 simplex iterations) in 0.09 seconds (0.12 work units)</span></span>
+<span><span class="co">## Explored 28 nodes (937 simplex iterations) in 0.09 seconds (0.12 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Solution count 6: 2648.26 2814.48 2890.88 ... 20287.2</span></span>
+<span><span class="co">## Solution count 10: 2640.75 2664.02 2666.17 ... 2846.16</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
-<span><span class="co">## Best objective 2.648259658813e+03, best bound 2.391338223393e+03, gap 9.7015%</span></span></code></pre>
-<div class="sourceCode" id="cb110"><pre class="downlit sourceCode r">
+<span><span class="co">## Best objective 2.640749038696e+03, best bound 2.382483134863e+03, gap 9.7800%</span></span></code></pre>
+<div class="sourceCode" id="cb112"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot solution</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
-<span>  <span class="va">s42</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey90"</span>, <span class="st">"darkgreen"</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Solution"</span>,</span>
+<span>  <span class="va">s43</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey90"</span>, <span class="st">"darkgreen"</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Solution"</span>,</span>
 <span>  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="package_overview_files/figure-html/unnamed-chunk-50-1.png" width="480" style="display: block; margin: auto;"></p>
+<p><img src="package_overview_files/figure-html/unnamed-chunk-51-1.png" width="480" style="display: block; margin: auto;"></p>
 <p>We can plot this solution because the planning unit input data are
 spatially referenced in a raster format. The output format will always
 match the planning unit data used to initialize the problem. For
@@ -2425,20 +2478,20 @@ Similarly, if the planning units were in a tabular format (i.e.,
 tabular format.</p>
 <p>We can also extract attributes from the solution that describe the
 quality of the solution and the optimization process.</p>
-<div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># extract the objective (numerical value being minimized or maximized)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s42</span>, <span class="st">"objective"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## solution_1 </span></span>
-<span><span class="co">##    2648.26</span></span></code></pre>
 <div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># extract time spent solving solution</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s42</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># extract the objective (numerical value being minimized or maximized)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s43</span>, <span class="st">"objective"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## solution_1 </span></span>
-<span><span class="co">##      0.111</span></span></code></pre>
+<span><span class="co">##   2640.749</span></span></code></pre>
 <div class="sourceCode" id="cb115"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># extract time spent solving solution</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s43</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## solution_1 </span></span>
+<span><span class="co">##      0.092</span></span></code></pre>
+<div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract state message from the solver that describes why this specific</span></span>
 <span><span class="co"># solution was returned</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s42</span>, <span class="st">"status"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s43</span>, <span class="st">"status"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## solution_1 </span></span>
 <span><span class="co">##  "OPTIMAL"</span></span></code></pre>
 </div>
@@ -2464,9 +2517,9 @@ summaries can be computed.</p>
 <strong>Number summary</strong>: Calculate the number of planning
 units selected by a solution.</li>
 </ul>
-<div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb119"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate statistic</span></span>
-<span><span class="fu"><a href="../reference/eval_n_summary.html">eval_n_summary</a></span><span class="op">(</span><span class="va">p42</span>, <span class="va">s42</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/eval_n_summary.html">eval_n_summary</a></span><span class="op">(</span><span class="va">p43</span>, <span class="va">s43</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 1 × 2</span></span></span>
 <span><span class="co">##   summary     n</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
@@ -2476,47 +2529,47 @@ units selected by a solution.</li>
 <strong>Cost summary</strong>: Calculate the total cost of a
 solution.</li>
 </ul>
-<div class="sourceCode" id="cb119"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb121"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate statistic</span></span>
-<span><span class="fu"><a href="../reference/eval_cost_summary.html">eval_cost_summary</a></span><span class="op">(</span><span class="va">p42</span>, <span class="va">s42</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/eval_cost_summary.html">eval_cost_summary</a></span><span class="op">(</span><span class="va">p43</span>, <span class="va">s43</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 1 × 2</span></span></span>
 <span><span class="co">##   summary  cost</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> overall <span style="text-decoration: underline;">2</span>048.</span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> overall <span style="text-decoration: underline;">2</span>041.</span></span></code></pre>
 <ul>
 <li>
 <strong>Feature representation summary</strong>: Calculate how well
 features are represented by a solution. This function can be used for
 any type of problem.</li>
 </ul>
-<div class="sourceCode" id="cb121"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb123"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate statistics</span></span>
-<span><span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p42</span>, <span class="va">s42</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p43</span>, <span class="va">s43</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 5 × 5</span></span></span>
 <span><span class="co">##   summary feature   total_amount absolute_held relative_held</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> overall feature_1         83.3          8.57         0.103</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> overall feature_2         31.2          3.18         0.102</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span> overall feature_3         72.0          7.28         0.101</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span> overall feature_4         42.7          5.01         0.118</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">5</span> overall feature_5         56.7          5.71         0.101</span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> overall feature_1         83.3          8.63         0.104</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> overall feature_2         31.2          3.16         0.101</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> overall feature_3         72.0          7.26         0.101</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> overall feature_4         42.7          4.99         0.117</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span> overall feature_5         56.7          5.80         0.102</span></span></code></pre>
 <ul>
 <li>
 <strong>Target coverage summary</strong>: Calculate how well
 representation targets are met by a solution. This function can only be
 used with problems contain targets.</li>
 </ul>
-<div class="sourceCode" id="cb123"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb125"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate statistics</span></span>
-<span><span class="fu"><a href="../reference/eval_target_coverage_summary.html">eval_target_coverage_summary</a></span><span class="op">(</span><span class="va">p42</span>, <span class="va">s42</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/eval_target_coverage_summary.html">eval_target_coverage_summary</a></span><span class="op">(</span><span class="va">p43</span>, <span class="va">s43</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 5 × 9</span></span></span>
 <span><span class="co">##   feature   met   total_amount absolute_target absolute_held absolute_shortfall</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> feature_1 TRUE          83.3            8.33          8.57                  0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> feature_2 TRUE          31.2            3.12          3.18                  0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span> feature_3 TRUE          72.0            7.20          7.28                  0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span> feature_4 TRUE          42.7            4.27          5.01                  0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">5</span> feature_5 TRUE          56.7            5.67          5.71                  0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> feature_1 TRUE          83.3            8.33          8.63                  0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> feature_2 TRUE          31.2            3.12          3.16                  0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> feature_3 TRUE          72.0            7.20          7.26                  0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> feature_4 TRUE          42.7            4.27          4.99                  0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span> feature_5 TRUE          56.7            5.67          5.80                  0</span></span>
 <span><span class="co">## <span style="color: #949494;"># ℹ 3 more variables: relative_target &lt;dbl&gt;, relative_held &lt;dbl&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   relative_shortfall &lt;dbl&gt;</span></span></span></code></pre>
 <ul>
@@ -2524,9 +2577,9 @@ used with problems contain targets.</li>
 <strong>Boundary summary</strong>: Calculate the total exposed
 boundary length (perimeter) associated with a solution.</li>
 </ul>
-<div class="sourceCode" id="cb125"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb127"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate statistic</span></span>
-<span><span class="fu"><a href="../reference/eval_boundary_summary.html">eval_boundary_summary</a></span><span class="op">(</span><span class="va">p42</span>, <span class="va">s42</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/eval_boundary_summary.html">eval_boundary_summary</a></span><span class="op">(</span><span class="va">p43</span>, <span class="va">s43</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 1 × 2</span></span></span>
 <span><span class="co">##   summary boundary</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
@@ -2536,14 +2589,14 @@ boundary length (perimeter) associated with a solution.</li>
 <strong>Connectivity summary</strong>: Calculate the connectivity of
 a solution using symmetric connectivity data.</li>
 </ul>
-<div class="sourceCode" id="cb127"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb129"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create symmetric connectivity data</span></span>
 <span><span class="co"># here we parametrize connectivity based on which planning units are</span></span>
 <span><span class="co"># adjacent to each other</span></span>
 <span><span class="va">cm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/adjacency_matrix.html">adjacency_matrix</a></span><span class="op">(</span><span class="va">sim_pu_raster</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># calculate statistic</span></span>
-<span><span class="fu"><a href="../reference/eval_connectivity_summary.html">eval_connectivity_summary</a></span><span class="op">(</span><span class="va">p42</span>, <span class="va">s42</span>, data <span class="op">=</span> <span class="va">cm</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/eval_connectivity_summary.html">eval_connectivity_summary</a></span><span class="op">(</span><span class="va">p43</span>, <span class="va">s43</span>, data <span class="op">=</span> <span class="va">cm</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 1 × 2</span></span></span>
 <span><span class="co">##   summary connectivity</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
@@ -2553,20 +2606,20 @@ a solution using symmetric connectivity data.</li>
 <strong>Asymmetric connectivity summary</strong>: Calculate the
 connectivity of a solution using asymmetric connectivity data.</li>
 </ul>
-<div class="sourceCode" id="cb129"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb131"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create asymmetric connectivity data</span></span>
 <span><span class="co"># here we parametrize connectivity by randomly simulating values</span></span>
 <span><span class="va">acm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/dimensions.html" class="external-link">ncell</a></span><span class="op">(</span><span class="va">sim_pu_raster</span><span class="op">)</span> <span class="op">^</span> <span class="fl">2</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/dimensions.html" class="external-link">ncell</a></span><span class="op">(</span><span class="va">sim_pu_raster</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># calculate statistic</span></span>
-<span><span class="fu"><a href="../reference/eval_asym_connectivity_summary.html">eval_asym_connectivity_summary</a></span><span class="op">(</span><span class="va">p42</span>, <span class="va">s42</span>, data <span class="op">=</span> <span class="va">acm</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/eval_asym_connectivity_summary.html">eval_asym_connectivity_summary</a></span><span class="op">(</span><span class="va">p43</span>, <span class="va">s43</span>, data <span class="op">=</span> <span class="va">acm</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 1 × 2</span></span></span>
 <span><span class="co">##   summary asym_connectivity</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> overall              50.1</span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> overall              52.6</span></span></code></pre>
 </div>
 <div class="section level3">
-<h3 id="evaluating-relative-importance">Evaluating relative importance<a class="anchor" aria-label="anchor" href="#evaluating-relative-importance"></a>
+<h3 id="evaluating-importance">Evaluating importance<a class="anchor" aria-label="anchor" href="#evaluating-importance"></a>
 </h3>
 <p>Conservation plans can take a long time to implement. Since funding
 availability and habitat quality can decline over time, it is critical
@@ -2582,26 +2635,34 @@ planners can use importance scores for each planning unit selected by a
 solution.</p>
 <p>Let’s generate a prioritization so that can compare the different
 importance methods.</p>
-<div class="sourceCode" id="cb131"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb133"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># formulate the problem</span></span>
-<span><span class="va">p43</span> <span class="op">&lt;-</span></span>
+<span><span class="va">p44</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># solve the problem</span></span>
-<span><span class="va">s43</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p43</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">s44</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p44</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
+<span><span class="co">## Set parameter LicenseID to value 2599748</span></span>
 <span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
 <span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
-<span><span class="co">## Academic license - for non-commercial use only - expires 2025-04-21</span></span>
-<span><span class="co">## Gurobi Optimizer version 11.0.3 build v11.0.3rc0 (linux64 - "Ubuntu 22.04.4 LTS")</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2025-12-16</span></span>
+<span><span class="co">## Gurobi Optimizer version 12.0.0 build v12.0.0rc1 (linux64 - "Ubuntu 24.04.1 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Non-default parameters:</span></span>
+<span><span class="co">## TimeLimit  2147483647</span></span>
+<span><span class="co">## MIPGap  0.1</span></span>
+<span><span class="co">## LogToConsole  0</span></span>
+<span><span class="co">## Presolve  2</span></span>
+<span><span class="co">## Threads  1</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimize a model with 5 rows, 90 columns and 450 nonzeros</span></span>
 <span><span class="co">## Model fingerprint: 0x4bb5d283</span></span>
@@ -2615,7 +2676,6 @@ importance methods.</p>
 <span><span class="co">## Presolve time: 0.00s</span></span>
 <span><span class="co">## Presolved: 5 rows, 90 columns, 450 nonzeros</span></span>
 <span><span class="co">## Variable types: 0 continuous, 90 integer (90 binary)</span></span>
-<span><span class="co">## Found heuristic solution: objective 2332.1004028</span></span>
 <span><span class="co">## Root relaxation presolved: 5 rows, 90 columns, 450 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
@@ -2624,23 +2684,24 @@ importance methods.</p>
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">##      0     0 1931.58191    0    4 2332.10040 1931.58191  17.2%     -    0s</span></span>
+<span><span class="co">##      0     0 1931.58191    0    4 2337.96178 1931.58191  17.4%     -    0s</span></span>
+<span><span class="co">## H    0     0                    2207.8530121 1931.58191  12.5%     -    0s</span></span>
 <span><span class="co">## H    0     0                    1987.3985291 1931.58191  2.81%     -    0s</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Explored 1 nodes (12 simplex iterations) in 0.00 seconds (0.00 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Solution count 3: 1987.4 2332.1 2337.96 </span></span>
+<span><span class="co">## Solution count 3: 1987.4 2207.85 2337.96 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
 <span><span class="co">## Best objective 1.987398529053e+03, best bound 1.931581907658e+03, gap 2.8085%</span></span></code></pre>
-<div class="sourceCode" id="cb133"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb135"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot solution</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
-<span>  <span class="va">s43</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey90"</span>, <span class="st">"darkgreen"</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Solution"</span>,</span>
+<span>  <span class="va">s44</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey90"</span>, <span class="st">"darkgreen"</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Solution"</span>,</span>
 <span>  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="package_overview_files/figure-html/unnamed-chunk-59-1.png" width="480" style="display: block; margin: auto;"></p>
+<p><img src="package_overview_files/figure-html/unnamed-chunk-60-1.png" width="480" style="display: block; margin: auto;"></p>
 <p>The following methods are available for computing importance
 scores.</p>
 <ul>
@@ -2658,37 +2719,61 @@ irreplaceable planning units (denoted with infinite values). However,
 the key disadvantage of this method, is that can take an infeasible
 amount of time to complete for large and complex problems.</li>
 </ul>
-<div class="sourceCode" id="cb134"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb136"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate replacement cost scores and make the solver quiet</span></span>
-<span><span class="va">rc43</span> <span class="op">&lt;-</span></span>
-<span>  <span class="va">p43</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="va">rc44</span> <span class="op">&lt;-</span></span>
+<span>  <span class="va">p44</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_default_solver.html">add_default_solver</a></span><span class="op">(</span>gap <span class="op">=</span> <span class="fl">0</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/eval_replacement_importance.html">eval_replacement_importance</a></span><span class="op">(</span><span class="va">s43</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># plot replacement cost scores</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
-<span>  <span class="va">rc43</span>, main <span class="op">=</span> <span class="st">"Replacement cost scores"</span>,</span>
-<span>  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<p><img src="package_overview_files/figure-html/unnamed-chunk-60-1.png" width="480" style="display: block; margin: auto;">
-* <strong>Ferrier method</strong>: Evaluate importance by computing
-irreplaceability scores following Ferrier <em>et al.</em> <span class="citation">(2000)</span>. The advantages of this method are that
-it (i) can be computed relatively quickly for moderate and large-sized
-problems, and (ii) calculates a score for each feature within each
-planning unit to provide insight into why certain planning units are
-more important than others. The disadvantage with this method is that it
-can only be applied to conservation problems that use targets and have a
-single zone (i.e., similar to <em>Marxan</em>-type problems).</p>
-<div class="sourceCode" id="cb135"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># calculate Ferrier scores and extract total score</span></span>
-<span><span class="va">fs43</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_ferrier_importance.html">eval_ferrier_importance</a></span><span class="op">(</span><span class="va">p43</span>, <span class="va">s43</span><span class="op">)</span><span class="op">[[</span><span class="st">"total"</span><span class="op">]</span><span class="op">]</span></span>
-<span></span>
-<span><span class="co"># plot Ferrier scores</span></span>
-<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
-<span>  <span class="va">fs43</span>, main <span class="op">=</span> <span class="st">"Ferrier scores"</span>,</span>
+<span>  <span class="va">rc44</span>, main <span class="op">=</span> <span class="st">"Replacement cost scores"</span>,</span>
 <span>  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="package_overview_files/figure-html/unnamed-chunk-61-1.png" width="480" style="display: block; margin: auto;">
+* <strong>Incremental ranks</strong>: Evaluate importance scores by
+calculating ranks via an incremental optimization process <span class="citation">(Jung <em>et al.</em> 2021)</span>. Briefly, this
+approach involves generating incremental prioritizations with increasing
+budgets, wherein planning units selected in a previous increment are
+locked in to the following solution. Additionally, locked out
+constraints are used to ensure that only planning units selected in the
+original solution are available for selection. The advantages of this
+approach are that it can (i) be computed relatively quickly for
+relatively large problems, (ii) account for the cost of different
+planning units, (iii) account for multiple management zones, and (iv)
+apply to solutions generated using any objective function.</p>
+<div class="sourceCode" id="cb137"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># calculate rank scores and make the solver quiet</span></span>
+<span><span class="va">rs44</span> <span class="op">&lt;-</span></span>
+<span>  <span class="va">p44</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/add_default_solver.html">add_default_solver</a></span><span class="op">(</span>gap <span class="op">=</span> <span class="fl">0</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/eval_rank_importance.html">eval_rank_importance</a></span><span class="op">(</span><span class="va">s43</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># plot replacement cost scores</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span>  <span class="va">rs44</span>, main <span class="op">=</span> <span class="st">"Rank scores"</span>,</span>
+<span>  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p><img src="package_overview_files/figure-html/unnamed-chunk-62-1.png" width="480" style="display: block; margin: auto;">
+* <strong>Ferrier method</strong>: Evaluate importance by computing
+irreplaceability scores following Ferrier <em>et al.</em> <span class="citation">(2000)</span>. The advantages of this method are that
+it (i) can be computed relatively quickly for moderate problems, and
+(ii) calculates a score for each feature within each planning unit to
+provide insight into why certain planning units are more important than
+others. The disadvantage with this method is that it can only be applied
+to conservation problems that use targets and have a single zone (i.e.,
+similar to <em>Marxan</em>-type problems).</p>
+<div class="sourceCode" id="cb138"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># calculate Ferrier scores and extract total score</span></span>
+<span><span class="va">fs44</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_ferrier_importance.html">eval_ferrier_importance</a></span><span class="op">(</span><span class="va">p44</span>, <span class="va">s44</span><span class="op">)</span><span class="op">[[</span><span class="st">"total"</span><span class="op">]</span><span class="op">]</span></span>
+<span></span>
+<span><span class="co"># plot Ferrier scores</span></span>
+<span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span>  <span class="va">fs44</span>, main <span class="op">=</span> <span class="st">"Ferrier scores"</span>,</span>
+<span>  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p><img src="package_overview_files/figure-html/unnamed-chunk-63-1.png" width="480" style="display: block; margin: auto;">
 * <strong>Rarity weighted richness</strong>: Evaluate importance by
 computing rarity weighted richness scores <span class="citation">(Williams <em>et al.</em> 1996)</span>. The only
 advantage with this method is that it can be computed very quickly for
@@ -2697,16 +2782,16 @@ merely describes the spatial patterns of biodiversity, and does not
 consider any of the goals that underpin conservation planning exercise.
 For instance, it does not account for planning costs, management zones,
 objective functions, or feature representation targets.</p>
-<div class="sourceCode" id="cb136"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate rarity weighted richness scores</span></span>
-<span><span class="va">rwr43</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_rare_richness_importance.html">eval_rare_richness_importance</a></span><span class="op">(</span><span class="va">p43</span>, <span class="va">s43</span><span class="op">)</span></span>
+<span><span class="va">rwr44</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_rare_richness_importance.html">eval_rare_richness_importance</a></span><span class="op">(</span><span class="va">p44</span>, <span class="va">s44</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># plot rarity weighted richness scores</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
-<span>  <span class="va">rwr43</span>, main <span class="op">=</span> <span class="st">"Rarity weighted richness scores"</span>,</span>
+<span>  <span class="va">rwr44</span>, main <span class="op">=</span> <span class="st">"Rarity weighted richness scores"</span>,</span>
 <span>  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="package_overview_files/figure-html/unnamed-chunk-62-1.png" width="480" style="display: block; margin: auto;"></p>
+<p><img src="package_overview_files/figure-html/unnamed-chunk-64-1.png" width="480" style="display: block; margin: auto;"></p>
 <p>In general, we recommend using replacement cost scores for small and
 moderate sized problems (e.g., less than 30,000 planning units) when it
 is feasible to do so. It can take a very long time to compute
@@ -2741,7 +2826,7 @@ solver packages.</strong></p>
 <p>Here is a short example showing how the <code><a href="../reference/marxan_problem.html">marxan_problem()</a></code>
 function can be used to read <em>Marxan</em> input files and the
 <code>solve</code> function can be used to solve the problem.</p>
-<div class="sourceCode" id="cb137"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb140"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># set file path for Marxan input file</span></span>
 <span><span class="va">minput</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/marxan/input.dat"</span>, package <span class="op">=</span> <span class="st">"prioritizr"</span><span class="op">)</span></span>
 <span></span>
@@ -2771,19 +2856,27 @@ function can be used to read <em>Marxan</em> input files and the
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   default portfolio</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
-<div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb142"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># solve the problem</span></span>
 <span><span class="va">ms</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">mp</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
+<span><span class="co">## Set parameter LicenseID to value 2599748</span></span>
 <span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
 <span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
-<span><span class="co">## Academic license - for non-commercial use only - expires 2025-04-21</span></span>
-<span><span class="co">## Gurobi Optimizer version 11.0.3 build v11.0.3rc0 (linux64 - "Ubuntu 22.04.4 LTS")</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2025-12-16</span></span>
+<span><span class="co">## Gurobi Optimizer version 12.0.0 build v12.0.0rc1 (linux64 - "Ubuntu 24.04.1 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Non-default parameters:</span></span>
+<span><span class="co">## TimeLimit  2147483647</span></span>
+<span><span class="co">## MIPGap  0.1</span></span>
+<span><span class="co">## LogToConsole  0</span></span>
+<span><span class="co">## Presolve  2</span></span>
+<span><span class="co">## Threads  1</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimize a model with 10075 rows, 6780 columns and 24778 nonzeros</span></span>
 <span><span class="co">## Model fingerprint: 0x7cea1a5d</span></span>
@@ -2795,28 +2888,28 @@ function can be used to read <em>Marxan</em> input files and the
 <span><span class="co">##   RHS range        [5e+03, 3e+05]</span></span>
 <span><span class="co">## Found heuristic solution: objective 1.255825e+08</span></span>
 <span><span class="co">## Presolve removed 4707 rows and 3103 columns</span></span>
-<span><span class="co">## Presolve time: 0.05s</span></span>
+<span><span class="co">## Presolve time: 0.04s</span></span>
 <span><span class="co">## Presolved: 5368 rows, 3677 columns, 12704 nonzeros</span></span>
 <span><span class="co">## Variable types: 0 continuous, 3677 integer (3677 binary)</span></span>
-<span><span class="co">## Found heuristic solution: objective 1.065946e+08</span></span>
 <span><span class="co">## Root relaxation presolved: 5368 rows, 3677 columns, 12704 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Root relaxation: interrupted, 11 iterations, 0.01 seconds (0.01 work units)</span></span>
+<span><span class="co">## Root relaxation: objective 9.975843e+07, 652 iterations, 0.01 seconds (0.02 work units)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">##      0     0          -    0      1.0659e+08 9.5941e+07  10.0%     -    0s</span></span>
+<span><span class="co">##      0     0 9.9758e+07    0   43 1.2558e+08 9.9758e+07  20.6%     -    0s</span></span>
+<span><span class="co">## H    0     0                    1.021771e+08 9.9758e+07  2.37%     -    0s</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 1 nodes (11 simplex iterations) in 0.06 seconds (0.09 work units)</span></span>
+<span><span class="co">## Explored 1 nodes (652 simplex iterations) in 0.06 seconds (0.11 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Solution count 2: 1.06595e+08 1.25582e+08 </span></span>
+<span><span class="co">## Solution count 2: 1.02177e+08 1.25582e+08 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
-<span><span class="co">## Best objective 1.065946314895e+08, best bound 9.594065554616e+07, gap 9.9949%</span></span></code></pre>
-<div class="sourceCode" id="cb141"><pre class="downlit sourceCode r">
+<span><span class="co">## Best objective 1.021771480564e+08, best bound 9.975842517354e+07, gap 2.3672%</span></span></code></pre>
+<div class="sourceCode" id="cb144"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># since the Marxan data was in a tabular format, the solution is also returned</span></span>
 <span><span class="co"># in a tabular format, so we will print the first six rows of the table</span></span>
 <span><span class="co"># containing the solution</span></span>
@@ -2831,7 +2924,7 @@ function can be used to read <em>Marxan</em> input files and the
 <p>Alternatively, rather then using a <em>Marxan</em> input file to
 construct the problem, we can manually read in the <em>Marxan</em> data
 files and input these to the <code><a href="../reference/marxan_problem.html">marxan_problem()</a></code> function.</p>
-<div class="sourceCode" id="cb143"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb146"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># load data</span></span>
 <span><span class="va">pu</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/marxan/input/pu.dat"</span>, package <span class="op">=</span> <span class="st">"prioritizr"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -2976,6 +3069,21 @@ Fuller, R.A., McDonald-Madden, E., Wilson, K.A., Carwardine, J.,
 Grantham, H.S., Watson, J.E., Klein, C.J., Green, D.C. &amp; Possingham,
 H.P. (2010). Replacing underperforming protected areas achieves better
 conservation outcomes. <em>Nature</em>, <em>466</em>, 365.
+</div>
+<div id="ref-r66" class="csl-entry">
+Jung, M., Arnell, A., Lamo, X. de, García-Rangel, S., Lewis, M., Mark,
+J., Merow, C., Miles, L., Ondo, I., Pironon, S., Ravilious, C., Rivers,
+M., Schepaschenko, D., Tallowin, O., Soesbergen, A. van, Govaerts, R.,
+Boyle, B.L., Enquist, B.J., Feng, X., Gallagher, R., Maitner, B., Meiri,
+S., Mulligan, M., Ofer, G., Roll, U., Hanson, J.O., Jetz, W., Di Marco,
+M., McGowan, J., Rinnan, D.S., Sachs, J.D., Lesiv, M., Adams, V.M.,
+Andrew, S.C., Burger, J.R., Hannah, L., Marquet, P.A., McCarthy, J.K.,
+Morueta-Holme, N., Newman, E.A., Park, D.S., Roehrdanz, P.R., Svenning,
+J.-C., Violle, C., Wieringa, J.J., Wynne, G., Fritz, S., Strassburg,
+B.B.N., Obersteiner, M., Kapos, V., Burgess, N., Schmidt-Traub, G. &amp;
+Visconti, P. (2021). Areas of global importance for conserving
+terrestrial biodiversity, carbon and water. <em>Nature Ecology &amp;amp;
+Evolution</em>, <em>5</em>, 1499–1509.
 </div>
 <div id="ref-r17" class="csl-entry">
 Kirkpatrick, J.B. (1983). <span class="nocase">An iterative method for

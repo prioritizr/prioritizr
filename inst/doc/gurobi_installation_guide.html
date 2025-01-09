@@ -362,8 +362,8 @@ benchmarks</em></a> vignette for further details). This guide will walk
 you through the process of setting up <em>Gurobi</em> on your computer
 so that it can be used to solve conservation planning problems. If you
 encounter any problems while following the instructions below, please
-refer to the <a href="https://www.gurobi.com/documentation/">official
-<em>Gurobi</em> documentation</a>.</p>
+refer to the <a href="https://docs.gurobi.com/">official <em>Gurobi</em>
+documentation</a>.</p>
 </div>
 <div id="obtaining-a-license" class="section level2">
 <h2>Obtaining a license</h2>
@@ -515,11 +515,15 @@ R</em> package to solve an optimization problem. Copy and paste the
 <span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a><span class="co"># solve the optimization problem using Gurobi</span></span>
 <span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">gurobi</span>(model, <span class="fu">list</span>())</span></code></pre></div>
 <pre><code>## Set parameter Username
-## Academic license - for non-commercial use only - expires 2025-04-21
-## Gurobi Optimizer version 11.0.3 build v11.0.3rc0 (linux64 - &quot;Ubuntu 22.04.4 LTS&quot;)
+## Set parameter LicenseID to value 2599748
+## Academic license - for non-commercial use only - expires 2025-12-16
+## Gurobi Optimizer version 12.0.0 build v12.0.0rc1 (linux64 - &quot;Ubuntu 24.04.1 LTS&quot;)
 ## 
 ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
 ## Thread count: 4 physical cores, 8 logical processors, using up to 8 threads
+## 
+## Non-default parameters:
+## LogToConsole  0
 ## 
 ## Optimize a model with 2 rows, 3 columns and 5 nonzeros
 ## Model fingerprint: 0xba2d0add
@@ -589,15 +593,23 @@ problem created using the <em>prioritzr</em> <em>R</em> package.</p>
 <span id="cb15-16"><a href="#cb15-16" tabindex="-1"></a><span class="co"># solve the problem</span></span>
 <span id="cb15-17"><a href="#cb15-17" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">solve</span>(p)</span></code></pre></div>
 <pre><code>## Set parameter Username
+## Set parameter LicenseID to value 2599748
 ## Set parameter TimeLimit to value 2147483647
 ## Set parameter MIPGap to value 0.1
 ## Set parameter Presolve to value 2
 ## Set parameter Threads to value 1
-## Academic license - for non-commercial use only - expires 2025-04-21
-## Gurobi Optimizer version 11.0.3 build v11.0.3rc0 (linux64 - &quot;Ubuntu 22.04.4 LTS&quot;)
+## Academic license - for non-commercial use only - expires 2025-12-16
+## Gurobi Optimizer version 12.0.0 build v12.0.0rc1 (linux64 - &quot;Ubuntu 24.04.1 LTS&quot;)
 ## 
 ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
 ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
+## 
+## Non-default parameters:
+## TimeLimit  2147483647
+## MIPGap  0.1
+## LogToConsole  0
+## Presolve  2
+## Threads  1
 ## 
 ## Optimize a model with 5 rows, 90 columns and 450 nonzeros
 ## Model fingerprint: 0x4bb5d283
@@ -611,7 +623,6 @@ problem created using the <em>prioritzr</em> <em>R</em> package.</p>
 ## Presolve time: 0.00s
 ## Presolved: 5 rows, 90 columns, 450 nonzeros
 ## Variable types: 0 continuous, 90 integer (90 binary)
-## Found heuristic solution: objective 2332.1004028
 ## Root relaxation presolved: 5 rows, 90 columns, 450 nonzeros
 ## 
 ## 
@@ -620,13 +631,14 @@ problem created using the <em>prioritzr</em> <em>R</em> package.</p>
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
-##      0     0 1931.58191    0    4 2332.10040 1931.58191  17.2%     -    0s
+##      0     0 1931.58191    0    4 2337.96178 1931.58191  17.4%     -    0s
+## H    0     0                    2207.8530121 1931.58191  12.5%     -    0s
 ## H    0     0                    1987.3985291 1931.58191  2.81%     -    0s
 ## 
 ## Explored 1 nodes (12 simplex iterations) in 0.00 seconds (0.00 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
-## Solution count 3: 1987.4 2332.1 2337.96 
+## Solution count 3: 1987.4 2207.85 2337.96 
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
 ## Best objective 1.987398529053e+03, best bound 1.931581907658e+03, gap 2.8085%</code></pre>
@@ -635,7 +647,7 @@ problem created using the <em>prioritzr</em> <em>R</em> package.</p>
 <span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a>  s, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;grey90&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>), <span class="at">main =</span> <span class="st">&quot;Solution&quot;</span>,</span>
 <span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a>  <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>)</span>
 <span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a>)</span></code></pre></div>
-<p><img role="img" src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+<p><img role="img" src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
 <p>After running this code, hopefully, you should some information
 printed on-screen about the optimization process and <em>R</em> should
 produce a map displaying a solution. If this code does not produce any

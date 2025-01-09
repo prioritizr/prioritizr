@@ -267,7 +267,7 @@ print(attr(s1, "objective"))
 ```
 
     ## solution_1 
-    ##   4.463003
+    ##    4.46285
 
 ``` r
 # extract time spent solving the problem
@@ -275,7 +275,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##      3.393
+    ##      5.242
 
 ``` r
 # extract state message from the solver
@@ -305,7 +305,7 @@ eval_n_summary(p1, s1)
     ## # A tibble: 1 × 2
     ##   summary     n
     ##   <chr>   <dbl>
-    ## 1 overall  2308
+    ## 1 overall  2348
 
 ``` r
 # calculate total cost of solution
@@ -326,16 +326,16 @@ print(p1_target_coverage)
     ## # A tibble: 396 × 9
     ##    feature   met   total_amount absolute_target absolute_held absolute_shortfall
     ##    <chr>     <lgl>        <dbl>           <dbl>         <dbl>              <dbl>
-    ##  1 Recurvir… TRUE         100.             20.0          23.3               0   
-    ##  2 Botaurus… TRUE          99.9            20.0          29.1               0   
+    ##  1 Recurvir… TRUE         100.             20.0          23.4               0   
+    ##  2 Botaurus… TRUE          99.9            20.0          29.2               0   
     ##  3 Botaurus… TRUE         100.             20.0          34.0               0   
-    ##  4 Corvus b… TRUE          99.9            20.0          20.2               0   
-    ##  5 Corvus b… FALSE         99.9            20.0          18.5               1.53
+    ##  4 Corvus b… TRUE          99.9            20.0          20.4               0   
+    ##  5 Corvus b… FALSE         99.9            20.0          18.5               1.46
     ##  6 Cinclus … TRUE         100.             20.0          20.5               0   
-    ##  7 Spinus t… TRUE          99.9            20.0          22.2               0   
-    ##  8 Spinus t… TRUE          99.9            20.0          22.6               0   
-    ##  9 Falco sp… TRUE          99.9            20.0          24.3               0   
-    ## 10 Falco sp… TRUE         100.             20.0          24.2               0   
+    ##  7 Spinus t… TRUE          99.9            20.0          22.6               0   
+    ##  8 Spinus t… TRUE          99.9            20.0          23.1               0   
+    ##  9 Falco sp… TRUE          99.9            20.0          24.9               0   
+    ## 10 Falco sp… TRUE         100.             20.0          24.5               0   
     ## # ℹ 386 more rows
     ## # ℹ 3 more variables: relative_target <dbl>, relative_held <dbl>,
     ## #   relative_shortfall <dbl>
@@ -476,43 +476,50 @@ plot(s4, main = "Solution", axes = FALSE)
 
 Now, let’s explore which planning units selected by the solution are
 most important for cost-effectively meeting the targets. To achieve
-this, we will calculate importance (irreplaceability) scores using the
-Ferrier method. Although this method produces scores for each feature
-separately, we will examine the total scores that summarize overall
-importance across all features.
+this, we will calculate importance (irreplaceability) scores using an
+incremental rank approach. Briefly, the optimization problem is solved
+multiple times in an incremental process with increasing budgets, and
+planning units are assigned ranks based on which increment they are
+selected in. Planning units selected earlier on in the process are
+considered more important.
 
 ``` r
 # calculate importance scores
-rc <-
+imp <-
   p4 %>%
-  eval_ferrier_importance(s4)
+  eval_rank_importance(s4, n = 5)
+```
 
+    ## Warning in matrix(compile(x)$lb(), ncol = n_z, nrow = n_pu): data length
+    ## [32239] is not a sub-multiple or multiple of the number of rows [10757]
+
+``` r
 # print scores
-print(rc)
+print(imp)
 ```
 
     ## class       : SpatRaster 
-    ## dimensions  : 109, 147, 397  (nrow, ncol, nlyr)
+    ## dimensions  : 109, 147, 1  (nrow, ncol, nlyr)
     ## resolution  : 4000, 4000  (x, y)
     ## extent      : -1816382, -1228382, 247483.5, 683483.5  (xmin, xmax, ymin, ymax)
     ## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs 
     ## source(s)   : memory
-    ## varnames    : wa_pu 
-    ##               wa_pu 
-    ##               wa_pu 
-    ##               ...
-    ## names       :  Recur~ding),  Botau~ding),  Botau~ding),  Corvu~ding),  Corvu~ding),  Cincl~full), ... 
-    ## min values  : 0.0000000000, 0.0000000000, 0.0000000000, 0.000000e+00, 0.000000e+00, 0.000000e+00, ... 
-    ## max values  : 0.0003227724, 0.0002213034, 0.0006622152, 7.771815e-05, 8.974447e-05, 8.483296e-05, ...
+    ## varname     : wa_pu 
+    ## name        : rs 
+    ## min value   :  0 
+    ## max value   :  1
 
 ``` r
+# set planning units that are locked in to -1 so we can easily
+# see importance scores for priority areas
+imp <- terra::mask(imp, s4, maskvalues = 0, updatevalue = -1)
+
 # plot the total importance scores
-## note that gray cells are not selected by the prioritization
-plot(
-  rc[["total"]], main = "Importance scores", axes = FALSE,
-  breaks = c(0, 1e-10, 0.005, 0.01, 0.025),
-  col = c("#e5e5e5", "#fff7ec", "#fc8d59", "#7f0000")
-)
+## planning units shown in purple were not selected in solution s4
+## planning units shown in blue are less important
+## planning units shown in yellow are highly important
+## note that locked in planning units are also shown in yellow
+plot(imp, axes = FALSE,  main = "Importance scores")
 ```
 
 <img src="man/figures/README-importance-1.png" width="500" style="display: block; margin: auto;" />

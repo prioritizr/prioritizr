@@ -22,6 +22,10 @@ as_Matrix <- function(object, class) {
     assertthat::is.string(class),
     assertthat::noNA(class)
   )
+  # if object is already of the same class then just return it
+  if (identical(base::class(object)[[1]], class)) {
+    return(object)
+  }
   # if we just want to convert to generic Matrix class then do that...
   if (identical(class, "Matrix")) {
     return(methods::as(object, class))
@@ -50,7 +54,7 @@ as_Matrix <- function(object, class) {
       c2 <- "generalMatrix"
       c3 <- "CsparseMatrix"
     } else {
-      stop("argument to \"class\" not recognized")
+      cli::cli_abort("{.arg class} not recognized.", call = NULL)
     }
     out <- methods::as(methods::as(methods::as(object, c1), c2), c3)
   } else {

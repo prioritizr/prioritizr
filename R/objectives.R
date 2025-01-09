@@ -48,8 +48,13 @@ NULL
 #'     endemism of the features represented in the solution subject to a
 #'     budget.}
 #'
-#'   \item{[add_max_utility_objective()]}{Secure as much of the
-#'     features as possible without exceeding a budget.}
+#'   \item{[add_max_utility_objective()]}{Maximize the weighted sum of the
+#'     features represented by the solution subject to a budget.}
+
+#'   \item{[add_min_penalties_objective()]}{Minimize the penalties
+#'     associated with a problem as much as possible subject to a budget.
+#'     This is mainly used when performing hierarchical multi-objective
+#'     optimization.}
 #'
 #'   }
 #'

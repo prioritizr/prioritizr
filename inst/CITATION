@@ -19,4 +19,4 @@ bibentry(
   doi = "10.1111/cobi.14376"
 )
 
-citFooter("For package version, use \"packageVersion('surveyvoi')\"\n\n")
+citFooter("For package version, use \"packageVersion('prioritizr')\"\n\n")

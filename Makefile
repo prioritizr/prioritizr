@@ -100,10 +100,12 @@ checkascran:
 wbcheck:
 	R --slave -e "devtools::check_win_devel()"
 	cp -R doc inst/
+	touch inst/doc/.gitkeep
 
 jhwbcheck:
 	R --slave -e "devtools::check_win_devel(email = 'jeffrey.hanson@uqconnect.edu.au')"
 	cp -R doc inst/
+	touch inst/doc/.gitkeep
 
 solarischeck:
 	R --slave -e "rhub::check(platform = 'solaris-x86-patched', email = 'jeffrey.hanson@uqconnect.edu.au', show_status = FALSE)"

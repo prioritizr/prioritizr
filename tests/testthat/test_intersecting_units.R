@@ -11,7 +11,7 @@ test_that("x = SpatRaster, y = SpatRaster", {
   expect_tidy_error(intersecting_units(x, terra::disagg(y, fact = 2)))
 })
 
-test_that("x = sf, y = sf", {
+test_that("x = sf, y = sf (polygons)", {
   # create data
   x <- get_sim_pu_polygons()[1:10, ]
   y <- get_sim_pu_polygons()[5:15, ]
@@ -23,6 +23,50 @@ test_that("x = sf, y = sf", {
   expect_tidy_error(intersecting_units(x, y_crs))
   expect_tidy_error(intersecting_units(x[1:2, ], x[9:10, ]))
   expect_tidy_error(intersecting_units(x[1:2, ], x[100:110, ]))
+})
+
+test_that("x = sf, y = sf (points)", {
+  # create data
+  x <- get_sim_pu_points()[1:10, ]
+  y <- get_sim_pu_points()[5:15, ]
+  # run tests
+  expect_equal(intersecting_units(x, y), 5:10)
+  # check that invalid arguments result in errors
+  y_crs <- y
+  suppressWarnings(sf::st_crs(y_crs) <- sf::st_crs(4326))
+  expect_tidy_error(intersecting_units(x, y_crs))
+  expect_tidy_error(intersecting_units(x[1:2, ], x[9:10, ]))
+  expect_tidy_error(intersecting_units(x[1:2, ], x[100:110, ]))
+})
+
+test_that("x = sf, y = sf (lines)", {
+  # create data
+  x <- get_sim_pu_lines()[1:10, ]
+  y <- get_sim_pu_lines()[5:15, ]
+  # run tests
+  expect_equal(intersecting_units(x, y), 5:10)
+  # check that invalid arguments result in errors
+  y_crs <- y
+  suppressWarnings(sf::st_crs(y_crs) <- sf::st_crs(4326))
+  expect_tidy_error(intersecting_units(x, y_crs))
+  expect_tidy_error(intersecting_units(x[1:2, ], x[9:10, ]))
+  expect_tidy_error(intersecting_units(x[1:2, ], x[100:110, ]))
+})
+
+test_that("x = sf, y = sf (combination of geometries)", {
+  for (g1 in c("polygons", "lines", "points")) {
+    for (g2 in c("polygons", "lines", "points")) {
+      # create data
+      if (identical(g1, "polygons")) x <- get_sim_pu_polygons()[1:10, ]
+      if (identical(g1, "lines")) x <- get_sim_pu_lines()[1:10, ]
+      if (identical(g1, "points")) x <- get_sim_pu_points()[1:10, ]
+      if (identical(g2, "polygons")) y <- get_sim_pu_polygons()[5:15, ]
+      if (identical(g2, "lines")) y <- get_sim_pu_lines()[5:15, ]
+      if (identical(g2, "points")) y <- get_sim_pu_points()[5:15, ]
+      # run tests
+      expect_equal(intersecting_units(x, y), 5:10)
+    }
+  }
 })
 
 test_that("x = SpatRaster, y = sf", {

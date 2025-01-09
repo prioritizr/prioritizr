@@ -1,6 +1,6 @@
 Package: prioritizr
 Type: Package
-Version: 8.0.5
+Version: 8.0.6
 Title: Systematic Conservation Prioritization in R
 Description:
     Systematic conservation prioritization using mixed integer linear
@@ -169,6 +169,7 @@ Collate:
     'add_max_phylo_end_objective.R'
     'add_max_utility_objective.R'
     'add_min_largest_shortfall_objective.R'
+    'add_min_penalties_objective.R'
     'add_min_set_objective.R'
     'add_min_shortfall_objective.R'
     'add_neighbor_constraints.R'
@@ -196,11 +197,12 @@ Collate:
     'eval_feature_representation_summary.R'
     'eval_ferrier_importance.R'
     'eval_n_summary.R'
-    'is_spatial_extents_overlap.R'
-    'problem.R'
-    'eval_rare_richness_importance.R'
     'presolve_check.R'
     'solve.R'
+    'is_spatial_extents_overlap.R'
+    'problem.R'
+    'eval_rank_importance.R'
+    'eval_rare_richness_importance.R'
     'eval_replacement_importance.R'
     'eval_target_coverage_summary.R'
     'fast_extract.R'
@@ -213,6 +215,7 @@ Collate:
     'knit_print.R'
     'list_text.R'
     'marxan_problem.R'
+    'memory.R'
     'number_of_features.R'
     'number_of_planning_units.R'
     'number_of_total_units.R'
@@ -221,6 +224,7 @@ Collate:
     'optimization_problem.R'
     'package.R'
     'penalties.R'
+    'planning_unit_indices.R'
     'planning_unit_solution_status.R'
     'portfolios.R'
     'print.R'

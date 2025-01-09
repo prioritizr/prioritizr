@@ -8,7 +8,9 @@ A penalty can be applied to a conservation planning problem to
 penalize solutions according to a specific metric. They
 directly trade-off with the primary objective of a problem
 (e.g., the primary objective when using \code{\link[=add_min_set_objective]{add_min_set_objective()}} is
-to minimize solution cost).
+to minimize solution cost). If you want to generate a prioritization that
+only focusses on minimizing a particular penalty, then the minimum
+penalties objective should be used (i.e., \code{\link[=add_min_penalties_objective]{add_min_penalties_objective()}}).
 }
 \details{
 Both penalties and constraints can be used to modify a problem and

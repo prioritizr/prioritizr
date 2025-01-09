@@ -115,24 +115,6 @@ test_that("sf (adjacent polygons are proximal)", {
   expect_equal(s, m)
 })
 
-test_that("sf (all polygons are proximal)", {
-  # create data
-  x <- terra::rast(
-    matrix(0:8, byrow = TRUE, ncol = 3),
-    extent = terra::ext(0, 3, 0, 3)
-  )
-  x <- sf::st_as_sf(terra::as.polygons(x))
-  # create matrix
-  m <- proximity_matrix(x, distance = 100)
-  # create correct result
-  s <- matrix(1, ncol = 9, nrow = 9)
-  diag(s) <- 0
-  s <- as(as_Matrix(s, "dgCMatrix"), "symmetricMatrix")
-  # tests
-  expect_true(inherits(m, "dsCMatrix"))
-  expect_equal(s, m)
-})
-
 test_that("sf (no polygons are proximal)", {
   # import data
   sim_pu_polygons <- get_sim_pu_polygons()
@@ -158,24 +140,6 @@ test_that("sf (adjacent polygons are proximal)", {
   m <- proximity_matrix(x, distance = 0.1)
   # calculate correct results
   s <- adjacency_matrix(x)
-  # tests
-  expect_true(inherits(m, "dsCMatrix"))
-  expect_equal(s, m)
-})
-
-test_that("sf (all polygons are proximal)", {
-  # create data
-  x <- terra::rast(
-    matrix(0:8, byrow = TRUE, ncol = 3),
-    extent = terra::ext(0, 3, 0, 3)
-  )
-  x <- sf::st_as_sf(terra::as.polygons(x))
-  # create matrix
-  m <- proximity_matrix(x, distance = 100)
-  # create correct result
-  s <- matrix(1, ncol = 9, nrow = 9)
-  diag(s) <- 0
-  s <- as(as_Matrix(s, "dgCMatrix"), "symmetricMatrix")
   # tests
   expect_true(inherits(m, "dsCMatrix"))
   expect_equal(s, m)

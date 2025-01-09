@@ -339,3 +339,171 @@ test_that("solver information (multiple solutions)", {
   expect_true(is.numeric(attr(s, "gap")))
   expect_length(attr(s, "gap"), 3)
 })
+
+test_that("set_start_solution", {
+  skip_on_cran()
+  skip_if_not_installed("rcbc")
+  skip_if_not(
+    any(grepl(
+      "initial_solution", deparse1(args(rcbc::cbc_solve)), fixed = TRUE)),
+    message = "newer version of rcbc R package required"
+  )
+  # create data
+  cost <- terra::rast(matrix(c(1000, 100, 200, 300, NA), nrow = 1))
+  features <- c(
+    terra::rast(matrix(c(5,  5,   0,  0,  NA), nrow = 1)),
+    terra::rast(matrix(c(2,  0,   8,  10, NA), nrow = 1)),
+    terra::rast(matrix(c(10, 100, 10, 10, NA), nrow = 1))
+  )
+  terra::set.names(features, make.unique(names(features)))
+  start_valid <- terra::rast(matrix(c(1, 0, 1, 0, NA), nrow = 1))
+  # create problem
+  p <-
+    problem(cost, features) %>%
+    add_min_set_objective() %>%
+    add_manual_targets(
+    tibble::tibble(
+      feature = names(features),
+      type = "absolute",
+      sense = c("=", ">=", "<="),
+      target = c(5, 10, 20))
+    ) %>%
+    add_binary_decisions() %>%
+    add_cbc_solver(verbose = FALSE)
+  # force calculations
+  p$solver$calculate(compile(p))
+  # overwrite start solution
+  p$solver$set_start_solution(c(1, 2, 3))
+  # tests
+  expect_equal(
+    p$solver$internal$model$initial_solution,
+    c(1, 2, 3, NA)
+    )
+})
+
+test_that("set_constraint_rhs", {
+  skip_on_cran()
+  skip_if_not_installed("rcbc")
+  # create data
+  cost <- terra::rast(matrix(c(1000, 100, 200, 300, NA), nrow = 1))
+  features <- c(
+    terra::rast(matrix(c(5,  5,   0,  0,  NA), nrow = 1)),
+    terra::rast(matrix(c(2,  0,   8,  10, NA), nrow = 1)),
+    terra::rast(matrix(c(10, 100, 10, 10, NA), nrow = 1)),
+    terra::rast(matrix(c(10, 100, 10, 10, NA), nrow = 1))
+  )
+  terra::set.names(features, make.unique(names(features)))
+  # create problem
+  p <-
+    problem(cost, features) %>%
+    add_min_set_objective() %>%
+    add_manual_targets(
+      tibble::tibble(
+        feature = names(features),
+        type = "absolute",
+        sense = c("=", ">=", "<=", ">="),
+        target = c(5, 10, 20, 18)
+      )
+    ) %>%
+    add_binary_decisions() %>%
+    add_cbc_solver(verbose = FALSE)
+  # force calculations
+  p$solver$calculate(compile(p))
+  # overwrite problem
+  p$solver$set_constraint_rhs(c(1, 3, 4), c(100, 200, 800))
+  # tests
+  expect_equal(
+    p$solver$internal$model$row_lb,
+    c(100, 10, -Inf, 800)
+  )
+  expect_equal(
+    p$solver$internal$model$row_ub,
+    c(100, Inf, 200, Inf)
+  )
+})
+
+test_that("set_variable_lb", {
+  skip_on_cran()
+  skip_if_not_installed("rcbc")
+  # create data
+  cost <- terra::rast(matrix(c(1000, 100, 200, 300, NA), nrow = 1))
+  features <- c(
+    terra::rast(matrix(c(5,  5,   0,  0,  NA), nrow = 1)),
+    terra::rast(matrix(c(2,  0,   8,  10, NA), nrow = 1)),
+    terra::rast(matrix(c(10, 100, 10, 10, NA), nrow = 1))
+  )
+  terra::set.names(features, make.unique(names(features)))
+  locked_in <- terra::rast(matrix(c(1, 0, 0, 0, NA), nrow = 1))
+  locked_out <- terra::rast(matrix(c(0, 1, 0, 0, NA), nrow = 1))
+  # create problem
+  p <-
+    problem(cost, features) %>%
+    add_min_set_objective() %>%
+    add_manual_targets(
+    tibble::tibble(
+      feature = names(features),
+      type = "absolute",
+      sense = c("=", ">=", "<="),
+      target = c(5, 10, 20))
+    ) %>%
+    add_binary_decisions() %>%
+    add_locked_in_constraints(locked_in) %>%
+    add_locked_out_constraints(locked_out) %>%
+    add_cbc_solver(verbose = FALSE)
+  # force calculations
+  p$solver$calculate(compile(p))
+  # overwrite problem
+  p$solver$set_variable_lb(c(3, 4), c(1, 0))
+  # tests
+  expect_equal(
+    p$solver$internal$model$col_lb,
+    c(1, 0, 1, 0)
+  )
+  expect_equal(
+    p$solver$internal$model$col_ub,
+    c(1, 0, 1, 1)
+  )
+})
+
+test_that("set_variable_ub", {
+  skip_on_cran()
+  skip_if_not_installed("rcbc")
+  # create data
+  cost <- terra::rast(matrix(c(1000, 100, 200, 300, NA), nrow = 1))
+  features <- c(
+    terra::rast(matrix(c(5,  5,   0,  0,  NA), nrow = 1)),
+    terra::rast(matrix(c(2,  0,   8,  10, NA), nrow = 1)),
+    terra::rast(matrix(c(10, 100, 10, 10, NA), nrow = 1))
+  )
+  terra::set.names(features, make.unique(names(features)))
+  locked_in <- terra::rast(matrix(c(1, 0, 0, 0, NA), nrow = 1))
+  locked_out <- terra::rast(matrix(c(0, 1, 0, 0, NA), nrow = 1))
+  # create problem
+  p <-
+    problem(cost, features) %>%
+    add_min_set_objective() %>%
+    add_manual_targets(
+    tibble::tibble(
+      feature = names(features),
+      type = "absolute",
+      sense = c("=", ">=", "<="),
+      target = c(5, 10, 20))
+    ) %>%
+    add_binary_decisions() %>%
+    add_locked_in_constraints(locked_in) %>%
+    add_locked_out_constraints(locked_out) %>%
+    add_cbc_solver(verbose = FALSE)
+  # force calculations
+  p$solver$calculate(compile(p))
+  # overwrite problem
+  p$solver$set_variable_ub(c(3, 4), c(1, 0))
+  # tests
+  expect_equal(
+    p$solver$internal$model$col_lb,
+    c(1, 0, 0, 0)
+  )
+  expect_equal(
+    p$solver$internal$model$col_ub,
+    c(1, 0, 1, 0)
+  )
+})

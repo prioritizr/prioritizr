@@ -169,26 +169,11 @@ methods::setMethod(
       is_same_crs(x, y),
       is_spatial_extents_overlap(x, y)
     )
-    # find out which units in x intersect with any units in y
-    int1 <- sf::st_intersects(x, y, sparse = TRUE)
-    int2 <- sf::st_touches(x, y, sparse = TRUE)
-    # convert dense list to sparse matrix
-    names(int1) <- as.character(seq_len(nrow(x)))
-    names(int2) <- as.character(seq_len(nrow(x)))
-    int1 <- rcpp_list_to_matrix_indices(int1)
-    int2 <- rcpp_list_to_matrix_indices(int2)
-    int1 <- Matrix::sparseMatrix(
-      i = int1$i, j = int1$j, x = 1,
-      dims = c(nrow(y), nrow(x))
-    )
-    int2 <- Matrix::sparseMatrix(
-      i = int2$i, j = int2$j, x = 1,
-      dims = c(nrow(y), nrow(x))
-    )
-    # exclude units from being intersecting if they only touch
-    int1[int2 > 0.5] <- 0
-    int1 <- as_Matrix(Matrix::drop0(int1), "dgTMatrix")
-    int1@j + 1
+    ## find out which units in x have an interior that intersects with
+    ## the interior of any units in y
+    int <- sf::st_relate(x, y, pattern = "T********", sparse = TRUE)
+    ## return indices
+    which(lengths(int) > 0)
   }
 )
 
@@ -233,11 +218,9 @@ methods::setMethod("intersecting_units",
       is_same_crs(x, y),
       is_spatial_extents_overlap(x, y)
     )
-    # prepare raster data
-    y <- y[[1]]
     # find out which units in y contain at least one element of x
     ## precision is 1e-7
-    which(c(fast_extract(y > 0, x, fun = "mean")) > 1e-7)
+    which(c(fast_extract(y[[1]] > 0, x, fun = "mean")) > 1e-7)
   }
 )
 

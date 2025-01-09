@@ -30,7 +30,7 @@ verify if a problem has a feasible solution or not.'><meta property="og:image" c
     
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.6</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -297,7 +297,7 @@ at all.</p>
 <span class="r-in"><span>   <span class="va">p3</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>   <span class="fu"><a href="add_gurobi_solver.html">add_gurobi_solver</a></span><span class="op">(</span>numeric_focus <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>   <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span>force <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Problem failed presolve checks.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>→ Problem failed presolve checks.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> These failures indicate that numerical issues could stall optimizer or produce</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> incorrect results:</span>
@@ -308,16 +308,25 @@ at all.</p>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> For more information, see `presolve_check()`.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Set parameter Username</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Set parameter LicenseID to value 2599748</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Set parameter TimeLimit to value 2147483647</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Set parameter MIPGap to value 0.1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Set parameter NumericFocus to value 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Set parameter Presolve to value 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Set parameter Threads to value 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Academic license - for non-commercial use only - expires 2025-04-21</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Gurobi Optimizer version 11.0.3 build v11.0.3rc0 (linux64 - "Ubuntu 22.04.4 LTS")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Academic license - for non-commercial use only - expires 2025-12-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gurobi Optimizer version 12.0.0 build v12.0.0rc1 (linux64 - "Ubuntu 24.04.1 LTS")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Non-default parameters:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TimeLimit  2147483647</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> MIPGap  0.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> LogToConsole  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NumericFocus  2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Presolve  2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Threads  1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Optimize a model with 293 rows, 234 columns and 1026 nonzeros</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model fingerprint: 0x91dcff5b</span>

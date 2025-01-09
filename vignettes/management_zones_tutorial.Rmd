@@ -33,9 +33,9 @@ knitr::opts_chunk$set(
 ```{r, include = FALSE}
 # set up print method
 print <- function(x, ...) {
-  if (inherits(x, "ConservationProblem")) {
+  if (!interactive() && inherits(x, "ConservationProblem")) {
     prioritizr::knit_print.ConservationProblem(x)
-  } else if (inherits(x, "OptimizationProblem")) {
+  } else if (!interactive() && inherits(x, "OptimizationProblem")) {
     prioritizr::knit_print.OptimizationProblem(x)
   } else {
     base::print(x)

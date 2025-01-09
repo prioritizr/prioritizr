@@ -34,9 +34,9 @@ knitr::opts_chunk$set(
 ```{r, include = FALSE}
 # set up print method
 print <- function(x, ...) {
-  if (inherits(x, "ConservationProblem")) {
+  if (!interactive() && inherits(x, "ConservationProblem")) {
     prioritizr::knit_print.ConservationProblem(x)
-  } else if (inherits(x, "OptimizationProblem")) {
+  } else if (!interactive() && inherits(x, "OptimizationProblem")) {
     prioritizr::knit_print.OptimizationProblem(x)
   } else {
     base::print(x)
@@ -325,7 +325,7 @@ p9 <-
 # print problem
 print(p9)
 ```
-* __Maximum utility objective__: Secure as much of the features as possible without exceeding a budget. This objective is functionally equivalent to selecting the planning units with the greatest amounts of each feature (e.g., species richness). Generally, we don't encourage the use of this objective because it will only rarely identify complementary solutions--solutions which adequately conserve a range of different features---except perhaps to explore trade-offs or provide a baseline solution with which to compare other solutions.
+* __Maximum utility objective__: Maximize the weighted sum of the features represented by the solution as much as possible without exceeding a budget. This objective is functionally equivalent to selecting the planning units with the greatest amounts of each feature (e.g., weighted species richness). Generally, we don't encourage the use of this objective because it will only rarely identify complementary solutions -- solutions which adequately conserve a range of different features -- except perhaps to explore trade-offs or provide a baseline solution with which to compare other solutions.
 ```{r}
 # create a new problem that has the maximum utility objective and a budget
 # of 5000
@@ -336,58 +336,69 @@ p10 <-
 # print problem
 print(p10)
 ```
+* __Minimum penalties objective__: Minimize only the penalties added to the problem, whilst ensuring that al targets are met and the cost of the solution does not exceed a budget. This objective is useful when using a hierarchical approach for multi-objective optimization.
+```{r}
+# create a new problem that has the minimum penalties objective and a budget
+# of 5000
+p11 <-
+  problem(sim_pu_raster, sim_features) %>%
+  add_min_penalties_objective(budget = 5000)
+
+# print problem
+print(p11)
+```
 
 ### Add targets
 
-Most conservation planning problems require targets. Targets are used to specify the minimum amount or proportion of a feature's distribution that needs to be protected in the solution. For example, we may want to develop a reserve network that will secure 20% of the distribution for each feature for minimal cost. The following methods are available for specifying targets.
+Most conservation planning problems require targets. Targets are used to specify the minimum amount or proportion of a feature's distribution that needs to be protected by the solution. For example, we may want to develop a reserve network that will secure 20% of the distribution for each feature for minimal cost. The following methods are available for specifying targets.
 
 * __Absolute targets__: Targets are expressed as the total amount of each feature in the study area that need to be secured. For example, if we had binary feature data that showed the absence or presence of suitable habitat across the study area, we could set an absolute target of 5 to mean that we require 5 planning units with suitable habitat in the solution.
 ```{r}
 # create a problem with targets which specify that the solution must conserve
 # a sum total of 3 units of suitable habitat for each feature
-p11 <-
+p12 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_absolute_targets(3)
 
 # print problem
-print(p11)
+print(p12)
 ```
 * __Relative targets__: Targets are set as a proportion (between 0 and 1) of the total amount of each feature in the study area. For example, if we had binary feature data and the feature occupied a total of 20 planning units in the study area, we could set a relative target of 0.5 (i.e., 50%) to specify that the solution must secure 10 planning units for the feature. We could alternatively specify an absolute target of 10 to achieve the same result, but sometimes proportions are easier to work with.
 ```{r}
 # create a problem with the minimum set objective and relative targets of 10 %
 # for each feature
-p12 <-
+p13 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1)
 
 # print problem
-print(p12)
+print(p13)
 ```
 ```{r}
 # create a problem with targets which specify that we need 10 % of the habitat
 # for the first feature, 15 % for the second feature, 20 % for the third feature
 # 25 % for the fourth feature and 30 % of the habitat for the fifth feature
 targets <- c(0.1, 0.15, 0.2, 0.25, 0.3)
-p13 <-
+p14 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(targets)
 
 # print problem
-print(p13)
+print(p14)
 ```
 * __Log-linear targets__: Targets are expressed using scaling factors and log-linear interpolation. This method for specifying targets is commonly used for global prioritization analyses [@r15].
 ```{r}
 # create problem with added log-linear targets
-p14 <-
+p15 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_loglinear_targets(10, 0.9, 100, 0.2)
 
 # print problem
-print(p14)
+print(p15)
 ```
 * __Manual targets__: Targets are manually specified. This is only really recommended for advanced users or problems that involve multiple management zones. See the [_Management zones tutorial_](management_zones_tutorial.html) for more information on these targets.
 
@@ -401,66 +412,66 @@ A constraint can be added to a conservation planning problem to ensure that all 
 ```{r}
 # create problem with constraints which specify that the first planning unit
 # must be selected in the solution
-p15 <-
+p16 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
   add_locked_in_constraints(1)
 
 # print problem
-print(p15)
+print(p16)
 ```
 * __Locked out constraints__: Add constraints to ensure that certain planning units are not prioritized in the solution. For example, it may be useful to lock out planning units that have been degraded and are not suitable for conserving species.
 ```{r}
 # create problem with constraints which specify that the second planning unit
 # must not be selected in the solution
-p16 <-
+p17 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
   add_locked_out_constraints(2)
 
 # print problem
-print(p16)
+print(p17)
 ```
 * __Neighbor constraints__: Add constraints to a conservation problem to ensure that all selected planning units have at least a certain number of neighbors.
 ```{r}
 # create problem with constraints which specify that all selected planning units
 # in the solution must have at least 1 neighbor
-p17 <-
+p18 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
   add_neighbor_constraints(1)
 
 # print problem
-print(p17)
+print(p18)
 ```
 * __Contiguity constraints__: Add constraints to a conservation problem to ensure that all selected planning units are spatially connected to each other and form spatially contiguous unit.
 ```{r}
 # create problem with constraints which specify that all selected planning units
 # in the solution must form a single contiguous unit
-p18 <-
+p19 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
   add_contiguity_constraints()
 
 # print problem
-print(p18)
+print(p19)
 ```
 * __Feature contiguity constraints__: Add constraints to ensure that each feature is represented in a contiguous unit of dispersible habitat. These constraints are a more advanced version of those implemented in the `add_contiguity_constraints` function, because they ensure that each feature is represented in a contiguous unit and not that the entire solution should form a contiguous unit.
 ```{r}
 # create problem with constraints which specify that the planning units used
 # to conserve each feature must form a contiguous unit
-p19 <-
+p20 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
   add_feature_contiguity_constraints()
 
 # print problem
-print(p19)
+print(p20)
 ```
 
 * __Linear constraints__: Add constraints to ensure that all selected planning units meet certain criteria. For example, they can be used to add multiple budgets, or limit the number of planning units selected in different administrative areas within a study region (e.g., different countries).
@@ -469,14 +480,14 @@ print(p19)
 # create problem with constraints which specify that the sum of
 # values in sim_features[[1]] among selected planning units must not exceed a
 # threshold value of 190.
-p20 <-
+p21 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_shortfall_objective(budget = 1800) %>%
   add_relative_targets(0.1) %>%
   add_linear_constraints(190, "<=", sim_features[[1]])
 
 # print problem
-print(p20)
+print(p21)
 ```
 
 * __Mandatory allocation constraints__: Add constraints to ensure that every planning unit is allocated to a management zone in the solution. Please note that this function can only be used with problems that contain multiple zones. For more information on problems with multiple zones and an example using this function, see the [_Management zones tutorial_](management_zones_tutorial.html).
@@ -497,7 +508,7 @@ plot(
 
 # create a problem using raster planning unit data and use the locked raster
 # data to lock in some planning units and lock out some other planning units
-p21 <-
+p22 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
@@ -505,7 +516,7 @@ p21 <-
   add_locked_out_constraints(sim_locked_out_raster)
 
 # print problem
-print(p21)
+print(p22)
 ```
 
 If our planning unit data are in a spatial vector format (similar to the `sim_pu_polygons` data) or a tabular format (similar to `pu_dat`), we can use the field names in the data to refer to which planning units should be locked in and / or out. For example, the `sim_pu_polygons` object has `TRUE` / `FALSE` values in the "locked_in" field which indicate which planning units should be selected in the solution. We could use the data in this field to specify that those planning units with `TRUE` values should be locked in using the following methods.
@@ -515,25 +526,25 @@ If our planning unit data are in a spatial vector format (similar to the `sim_pu
 print(sim_pu_polygons)
 
 # specify locked in data using the field name
-p22 <-
+p23 <-
   problem(sim_pu_polygons, sim_features, cost_column = "cost") %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
   add_locked_in_constraints("locked_in")
 
 # print problem
-print(p22)
+print(p23)
 ```
 ```{r}
 # specify locked in data using the values in the field
-p23 <-
+p24 <-
   problem(sim_pu_polygons, sim_features, cost_column = "cost") %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
   add_locked_in_constraints(which(sim_pu_polygons$locked_in))
 
 # print problem
-print(p23)
+print(p24)
 ```
 
 ### Add penalties
@@ -544,14 +555,14 @@ We can also add penalties to a problem to favor or penalize solutions according 
 ```{r}
 # create problem with penalties that penalize fragmented solutions with a
 # penalty factor of 0.01
-p24 <-
+p25 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
   add_boundary_penalties(penalty = 0.01)
 
 # print problem
-print(p24)
+print(p25)
 ```
 * __Connectivity penalties__: Add penalties to favor solutions that select combinations of planning units with high connectivity between them. This function is used for symmetric connectivities among planning units [based on @r65].
 ```{r}
@@ -561,7 +572,7 @@ print(p24)
 # to represent the connectivity data, where the connectivity_matrix function
 # will create a matrix showing the average strength of connectivity between
 # adjacent planning units using the data in the fifth layer of sim_features
-p25 <-
+p26 <-
   problem(sim_pu_raster, sim_features[[1:4]]) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
@@ -571,7 +582,7 @@ p25 <-
   )
 
 # print problem
-print(p25)
+print(p26)
 ```
 * __Asymmetric connectivity penalties__: Add penalties to penalize solutions
 that select planning units that share high connectivity values with other planning units that are not selected by the solution. This function is used for asymmetric connectivities among planning units [based on @r38].
@@ -584,14 +595,14 @@ asym_con_matrix <- matrix(
 )
 
 # create problem with penalties for asymmetric connectivity
-p26 <-
+p27 <-
   problem(sim_pu_raster, sim_features[[1:4]]) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
   add_asym_connectivity_penalties(penalty = 5, data = asym_con_matrix)
 
 # print problem
-print(p26)
+print(p27)
 ```
 * __Linear penalties__: Add penalties to penalize solutions that select planning units according to a certain variable (e.g., anthropogenic pressure).
 ```{r}
@@ -603,14 +614,14 @@ pen_raster <- simulate_cost(sim_pu_raster)
 # here we will use a penalty value of 5 to indicate the trade-off (scaling)
 # between the penalty values (in the sim_pu_raster) and the main objective
 # (i.e., the cost of the solution)
-p27 <-
+p28 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
   add_linear_penalties(penalty = 5, data = pen_raster)
 
 # print problem
-print(p27)
+print(p28)
 ```
 
 ### Add the decision types
@@ -620,39 +631,39 @@ Conservation planning problems involve making decisions on how planning units wi
 * __Binary decisions__: Add a binary decision to a conservation planning problem. This is the classic decision of either prioritizing or not prioritizing a planning unit. Typically, this decision has the assumed action of buying the planning unit to include in a protected area network. If no decision is added to a problem object, then this decision class will be used by default.
 ```{r}
 # add binary decisions to a problem
-p28 <-
+p29 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
   add_binary_decisions()
 
 # print problem
-print(p28)
+print(p29)
 ```
 * __Proportion decisions__: Add a proportion decision to a problem. This is a relaxed decision where a part of a planning unit can be prioritized, as opposed to the default of the entire planning unit. Typically, this decision has the assumed action of buying a fraction of a planning unit to include in a protected area network. Generally, problems can be solved much faster with proportion-type decisions than binary-type decisions, so they can be very useful when commercial solvers are not available.
 ```{r}
 # add proportion decisions to a problem
-p29 <-
+p30 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
   add_proportion_decisions()
 
 # print problem
-print(p29)
+print(p30)
 ```
 * __Semi-continuous decisions__: Add a semi-continuous decision to a problem. This decision is similar to proportion decisions except that it has an upper bound parameter. By default, the decision can range from prioritizing none (0%) to all (100%) of a planning unit. However, a upper bound can be specified to ensure that at most only a fraction (e.g., 80%) of a planning unit can be purchased. This type of decision may be useful when it is not practical to conserve the entire area indicated by a planning unit.
 ```{r}
 # add semi-continuous decisions to a problem, where we can only manage at most
 # 50 % of the area encompassed by a planning unit
-p30 <-
+p31 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
   add_semicontinuous_decisions(0.5)
 
 # print problem
-print(p30)
+print(p31)
 ```
 
 ### Add a solver
@@ -663,7 +674,7 @@ Next, after specifying the mathematical formulation that underpins your conserva
 ```{r}
 # create a problem and specify that Gurobi should be used to solve the problem
 # and specify an optimality gap of zero to obtain the optimal solution
-p31 <-
+p32 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
@@ -671,13 +682,13 @@ p31 <-
   add_gurobi_solver(gap = 0)
 
 # print problem
-print(p31)
+print(p32)
 ```
 * __*IBM CPLEX* solver__: [_IBM CPLEX_](  https://www.ibm.com/products/ilog-cplex-optimization-studio/cplex-optimizer) is a commercial optimization software. It is faster than the open source solvers available for generating prioritizations (see below), however, it is not freely available. Similar to the _Gurobi_ software, special licenses are available to academics at no cost.
 ```{r}
 # create a problem and specify that IBM CPLEX should be used to solve the
 # problem and specify an optimality gap of zero to obtain the optimal solution
-p32 <-
+p33 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
@@ -685,14 +696,14 @@ p32 <-
   add_cplex_solver(gap = 0)
 
 # print problem
-print(p32)
+print(p33)
 ```
 * __*CBC* solver__: [*CBC*](https://github.com/coin-or/Cbc) is an
 open-source mixed integer programming solver that is part of the Computational Infrastructure for Operations Research (COIN-OR) project. This solver seems to have much better performance than the other open-source solvers (i.e., `add_rsymphony_solver()`, `add_lpsymphony_solver()`) (see the [_Solver benchmarks vignette_](solver_benchmarks.html) for details). As such, it is strongly recommended to use this solver if the *Gurobi* and *IBM CPLEX* solvers are not available. This solver requires the _rcbc R_ package, which is currently only available on [GitHub](https://github.com/dirkschumacher/rcbc).
 ```{r}
 # create a problem and specify that CBC should be used to solve the
 # problem and specify an optimality gap of zero to obtain the optimal solution
-p33 <-
+p34 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
@@ -700,13 +711,13 @@ p33 <-
   add_cbc_solver(gap = 0)
 
 # print problem
-print(p33)
+print(p34)
 ```
 * __*HiGHS* solver__: [*HiGHS*](https://highs.dev/) is an open source optimization software. Although this solver can have comparable performance to the *CBC* solver (i.e., `add_cbc_solver()`) for particular problems and is generally faster than the *SYMPHONY* based solvers (i.e., `add_rsymphony_solver()`, `add_lpsymphony_solver()`), it can sometimes take much longer than the *CBC* solver for particular problems. This solver is recommended if the `add_gurobi_solver()`, `add_cplex_solver()`, `add_cbc_solver()` cannot be used.
 ```{r}
 # create a problem and specify that HiGHS should be used to solve the
 # problem and specify an optimality gap of zero to obtain the optimal solution
-p34 <-
+p35 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
@@ -714,13 +725,13 @@ p34 <-
   add_highs_solver(gap = 0)
 
 # print problem
-print(p34)
+print(p35)
 ```
 * __*lpsymphony* solver__: [_SYMPHONY_](https://github.com/coin-or/SYMPHONY) is an open-source integer programming solver that is also part of the COIN-OR project. This solver uses the _lpsymphony R_ package (available on [Bioconductor](https://bioconductor.org/packages/release/bioc/html/lpsymphony.html)) to interface with the _SYMPHONY_ software.
 ```{r}
 # create a problem and specify that lpsymphony should be used to solve the
 # problem and specify an optimality gap of zero to obtain the optimal solution
-p35 <-
+p36 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
@@ -728,13 +739,13 @@ p35 <-
   add_lpsymphony_solver(gap = 0)
 
 # print problem
-print(p35)
+print(p36)
 ```
 * __*Rsymphony* solver__: This solver provides a different interface to the [_SYMPHONY_](https://github.com/coin-or/SYMPHONY) software. It uses the _Rsymphony R_ package which is available on The Comprehensive R Archive Network (CRAN). This solver is generally slower than the other solvers, because it cannot use parallel processing.
 ```{r}
 # create a problem and specify that Rsymphony should be used to solve the
 # problem and specify an optimality gap of zero to obtain the optimal solution
-p36 <-
+p37 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
@@ -742,7 +753,7 @@ p36 <-
   add_rsymphony_solver(gap = 0)
 
 # print problem
-print(p36)
+print(p37)
 ```
 
 ### Add a portfolio
@@ -753,7 +764,7 @@ Many conservation planning exercises require a portfolio of solutions. For examp
 ```{r}
 # create a problem and specify that a portfolio should be created by
 # finding five solutions within 10% of optimality
-p37 <-
+p38 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
@@ -761,14 +772,14 @@ p37 <-
   add_gap_portfolio(number_solutions = 5, pool_gap = 0.2)
 
 # print problem
-print(p37)
+print(p38)
 ```
 
 * __Top portfolio__: Generate a portfolio of solutions by finding a pre-specified number of solutions that are closest to optimality (i.e the top solutions). Note that this method requires that the _Gurobi_ optimization software is used to generate solutions.
 ```{r}
 # create a problem and specify that a portfolio should be created using
 # the top five solutions
-p38 <-
+p39 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
@@ -776,14 +787,14 @@ p38 <-
   add_top_portfolio(number_solutions = 5)
 
 # print problem
-print(p38)
+print(p39)
 ```
 
 * __Extra portfolio__: Generate a portfolio of solutions by storing feasible solutions found during the optimization process. Note that this method requires that the _Gurobi_ optimization software is used to generate solutions.
 ```{r}
 # create a problem and specify that a portfolio should be created using
 # extra solutions found while solving the problem
-p39 <-
+p40 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
@@ -791,14 +802,14 @@ p39 <-
   add_extra_portfolio()
 
 # print problem
-print(p39)
+print(p40)
 ```
 
 * __Cuts portfolio__: Generate a portfolio of distinct solutions within a pre-specified optimality gap. This method is only recommended if the _Gurobi_ optimization solver is not available.
 ```{r}
 # create a problem and specify that a portfolio containing 10 solutions
 # should be created using using Bender's cuts
-p40 <-
+p41 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
@@ -806,14 +817,14 @@ p40 <-
   add_cuts_portfolio(number_solutions = 10)
 
 # print problem
-print(p40)
+print(p41)
 ```
 
 * __Shuffle portfolio__: Generate a portfolio of solutions by randomly reordering the data prior to attempting to solve the problem. If the _Gurobi_ optimization solver is not available, this method is the fastest method for generating a set number of solutions within a specified distance from optimality.
 ```{r}
 # create a problem and specify a portfolio should be created that contains
 # 10 solutions and that any duplicate solutions should not be removed
-p41 <-
+p42 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
@@ -821,7 +832,7 @@ p41 <-
   add_shuffle_portfolio(number_solutions = 10, remove_duplicates = FALSE)
 
 # print problem
-print(p41)
+print(p42)
 ```
 
 ### Solve the problem
@@ -830,7 +841,7 @@ After formulating our conservation planning problem and specifying how the probl
 
 ```{r}
 # formulate the problem
-p42 <-
+p43 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
@@ -838,14 +849,14 @@ p42 <-
   add_binary_decisions()
 
 # print problem
-print(p42)
+print(p43)
 
 # solve the problem (using the default solver)
-s42 <- solve(p42)
+s43 <- solve(p43)
 
 # plot solution
 plot(
-  s42, col = c("grey90", "darkgreen"), main = "Solution",
+  s43, col = c("grey90", "darkgreen"), main = "Solution",
   xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1), axes = FALSE
 )
 ```
@@ -856,14 +867,14 @@ We can also extract attributes from the solution that describe the quality of th
 
 ```{r}
 # extract the objective (numerical value being minimized or maximized)
-print(attr(s42, "objective"))
+print(attr(s43, "objective"))
 
 # extract time spent solving solution
-print(attr(s42, "runtime"))
+print(attr(s43, "runtime"))
 
 # extract state message from the solver that describes why this specific
 # solution was returned
-print(attr(s42, "status"))
+print(attr(s43, "status"))
 ```
 
 ## Evaluate the solution
@@ -879,27 +890,27 @@ The following functions are available to summarize a solution:
 * __Number summary__: Calculate the number of planning units selected by a solution.
 ```{r}
 # calculate statistic
-eval_n_summary(p42, s42)
+eval_n_summary(p43, s43)
 ```
 * __Cost summary__: Calculate the total cost of a solution.
 ```{r}
 # calculate statistic
-eval_cost_summary(p42, s42)
+eval_cost_summary(p43, s43)
 ```
 * __Feature representation summary__: Calculate how well features are represented by a solution. This function can be used for any type of problem.
 ```{r}
 # calculate statistics
-eval_feature_representation_summary(p42, s42)
+eval_feature_representation_summary(p43, s43)
 ```
 * __Target coverage summary__: Calculate how well representation targets are met by a solution. This function can only be used with problems contain targets.
 ```{r}
 # calculate statistics
-eval_target_coverage_summary(p42, s42)
+eval_target_coverage_summary(p43, s43)
 ```
 * __Boundary summary__: Calculate the total exposed boundary length (perimeter) associated with a solution.
 ```{r}
 # calculate statistic
-eval_boundary_summary(p42, s42)
+eval_boundary_summary(p43, s43)
 ```
 * __Connectivity summary__: Calculate the connectivity of a solution using symmetric connectivity data.
 ```{r}
@@ -909,7 +920,7 @@ eval_boundary_summary(p42, s42)
 cm <- adjacency_matrix(sim_pu_raster)
 
 # calculate statistic
-eval_connectivity_summary(p42, s42, data = cm)
+eval_connectivity_summary(p43, s43, data = cm)
 ```
 * __Asymmetric connectivity summary__: Calculate the connectivity of a solution using asymmetric connectivity data.
 ```{r}
@@ -918,10 +929,10 @@ eval_connectivity_summary(p42, s42, data = cm)
 acm <- matrix(runif(ncell(sim_pu_raster) ^ 2), ncol = ncell(sim_pu_raster))
 
 # calculate statistic
-eval_asym_connectivity_summary(p42, s42, data = acm)
+eval_asym_connectivity_summary(p43, s43, data = acm)
 ```
 
-### Evaluating relative importance
+### Evaluating importance
 
 Conservation plans can take a long time to implement. Since funding availability and habitat quality can decline over time, it is critical that the most important places in a prioritization are scheduled for management as early as possible. For instance, some planning units in a solution might contain many rare species which do not occur in any other planning units. Alternatively, some planning units might offer an especially high return on investment that reduces costs considerably. As a consequence, conservation planners often need information on which planning units selected in a prioritization are most important to the overall success of the prioritization. To achieve this, conservation planners can use importance scores for each planning unit selected by a solution.
 
@@ -929,18 +940,18 @@ Let's generate a prioritization so that can compare the different importance met
 
 ```{r, fig.height = h, fig.width = w}
 # formulate the problem
-p43 <-
+p44 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
   add_binary_decisions()
 
 # solve the problem
-s43 <- solve(p43)
+s44 <- solve(p44)
 
 # plot solution
 plot(
-  s43, col = c("grey90", "darkgreen"), main = "Solution",
+  s44, col = c("grey90", "darkgreen"), main = "Solution",
   xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1), axes = FALSE
 )
 ```
@@ -950,36 +961,50 @@ plot(
 * __Replacement cost__: Evaluate importance using the replacement cost method [@r31]. This method quantifies the importance of a given planning unit as the decrease in the performance of the solution (based on the objective function) if the planning unit cannot be acquired (e.g., in terms of the additional costs required to meet feature targets). The advantages of this method are that it (i) accounts for the costs of the planning units, (ii) can be applied to multiple management zones, (iii) can be applied to any objective function, and (iv) can identify truly irreplaceable planning units (denoted with infinite values). However, the key disadvantage  of this method, is that can take an infeasible amount of time to complete for large and complex problems.
 ```{r, fig.height = h, fig.width = w}
 # calculate replacement cost scores and make the solver quiet
-rc43 <-
-  p43 %>%
+rc44 <-
+  p44 %>%
   add_default_solver(gap = 0, verbose = FALSE) %>%
   eval_replacement_importance(s43)
 
 # plot replacement cost scores
 plot(
-  rc43, main = "Replacement cost scores",
+  rc44, main = "Replacement cost scores",
   xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1), axes = FALSE
 )
 ```
-* __Ferrier method__: Evaluate importance by computing irreplaceability scores following Ferrier *et al.* [-@r34]. The advantages of this method are that it (i) can be computed relatively quickly for moderate and large-sized problems, and (ii) calculates a score for each feature within each planning unit to provide insight into why certain planning units are more important than others. The disadvantage with this method is that it can only be applied to conservation problems that use targets and have a single zone (i.e., similar to _Marxan_-type problems).
+* __Incremental ranks__: Evaluate importance scores by calculating ranks via an incremental optimization process [@r66]. Briefly, this approach involves generating incremental prioritizations with increasing budgets, wherein planning units selected in a previous increment are locked in to the following solution. Additionally, locked out constraints are used to ensure that only planning units selected in the original solution are available for selection. The advantages of this approach are that it can (i) be computed relatively quickly for relatively large problems, (ii) account for the cost of different planning units, (iii) account for multiple management zones, and (iv) apply to solutions generated using any objective function.
+```{r, fig.height = h, fig.width = w}
+# calculate rank scores and make the solver quiet
+rs44 <-
+  p44 %>%
+  add_default_solver(gap = 0, verbose = FALSE) %>%
+  eval_rank_importance(s43, n = 10)
+
+# plot replacement cost scores
+plot(
+  rs44, main = "Rank scores",
+  xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1), axes = FALSE
+)
+```
+* __Ferrier method__: Evaluate importance by computing irreplaceability scores following Ferrier *et al.* [-@r34]. The advantages of this method are that it (i) can be computed relatively quickly for moderate problems, and (ii) calculates a score for each feature within each planning unit to provide insight into why certain planning units are more important than others. The disadvantage with this method is that it can only be applied to conservation problems that use targets and have a single zone (i.e., similar to _Marxan_-type problems).
 ```{r, fig.height = h, fig.width = w}
 # calculate Ferrier scores and extract total score
-fs43 <- eval_ferrier_importance(p43, s43)[["total"]]
+fs44 <- eval_ferrier_importance(p44, s44)[["total"]]
 
 # plot Ferrier scores
 plot(
-  fs43, main = "Ferrier scores",
+  fs44, main = "Ferrier scores",
   xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1), axes = FALSE
 )
 ```
 * __Rarity weighted richness__: Evaluate importance by computing rarity weighted richness scores [@r33]. The only advantage with this method is that it can be computed very quickly for very large problems. The key disadvantage with this approach is that it merely describes the spatial patterns of biodiversity, and does not consider any of the goals that underpin conservation planning exercise. For instance, it does not account for planning costs, management zones, objective functions, or feature representation targets.
 ```{r, fig.height = h, fig.width = w}
 # calculate rarity weighted richness scores
-rwr43 <- eval_rare_richness_importance(p43, s43)
+rwr44 <- eval_rare_richness_importance(p44, s44)
 
 # plot rarity weighted richness scores
 plot(
-  rwr43, main = "Rarity weighted richness scores",
+  rwr44, main = "Rarity weighted richness scores",
   xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1), axes = FALSE
 )
 ```

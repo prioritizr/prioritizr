@@ -87,7 +87,7 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
     cli::cli_abort(
       "{.fn problem} must have an objective.",
       "i" = paste(
-        "see {.topic prioritizr::objectives} for guidance on selecting",
+        "See {.topic prioritizr::objectives} for guidance on selecting",
         "an objective."
       )
     )
@@ -101,7 +101,22 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
     cli::cli_abort(
       "{.fn problem} must have targets.",
       "i" =
-        "see {.topic prioritizr::targets} for guidance on selecting targets."
+        "See {.topic prioritizr::targets} for guidance on selecting targets."
+    )
+  }
+  if (inherits(x$objective, "MinimumPenaltiesObjective")) {
+    verify(
+      length(x$penalties) >= 1,
+      msg = c(
+        "{.arg problem} does not have any penalties.",
+        "i" = paste(
+          "Using {.fn add_min_penalties_objective} without any penalties",
+          "will likely result in poorly optimized solutions."
+        ),
+        "i" = paste(
+          "See {.topic prioritizr::penalties} for available penalties."
+        )
+      )
     )
   }
   # add defaults if needed

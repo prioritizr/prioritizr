@@ -129,7 +129,7 @@ test_that("x = Spatial, y = character", {
   expect_equal(cm1, cm2)
 })
 
-test_that("x = Spatial, y = Raster", {
+test_that("x = Spatial, y = Raster (compatibility)", {
   # import data
   sim_pu_polygons <- get_sim_pu_polygons()
   sim_features <- get_sim_features()
@@ -148,7 +148,7 @@ test_that("x = Spatial, y = Raster", {
   expect_equal(cm1, cm2)
 })
 
-test_that("x = Raster, y = Raster", {
+test_that("x = Raster, y = Raster (compatibility)", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
@@ -164,7 +164,7 @@ test_that("x = Raster, y = Raster", {
   expect_equal(cm1, cm2)
 })
 
-test_that("x = sf, y = Raster", {
+test_that("x = sf, y = Raster (compatibility)", {
   # import data
   sim_pu_polygons <- get_sim_pu_polygons()
   sim_features <- get_sim_features()

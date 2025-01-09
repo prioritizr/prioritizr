@@ -7,7 +7,9 @@ NULL
 #' penalize solutions according to a specific metric. They
 #' directly trade-off with the primary objective of a problem
 #' (e.g., the primary objective when using [add_min_set_objective()] is
-#' to minimize solution cost).
+#' to minimize solution cost). If you want to generate a prioritization that
+#' only focusses on minimizing a particular penalty, then the minimum
+#' penalties objective should be used (i.e., [add_min_penalties_objective()]).
 #'
 #' @details Both penalties and constraints can be used to modify a problem and
 #'   identify solutions that exhibit specific characteristics. Constraints work

@@ -122,7 +122,7 @@ test_that("add_manual_targets (default, multiple zones)", {
   expect_equal(targets$sense, rep(">=", 4))
 })
 
-test_that("add_manual_targets (explicit, multiple zones)", {
+test_that("add_manual_targets (explicit, multiple zones, negative)", {
   # import data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_zones_features <- get_sim_zones_features()

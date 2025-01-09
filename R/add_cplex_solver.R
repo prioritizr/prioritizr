@@ -192,6 +192,10 @@ add_cplex_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
         set_variable_lb = function(index, value) {
           self$internal$model$lb[index] <- value
           invisible(TRUE)
+        },
+        set_constraint_rhs = function(index, value) {
+          self$internal$model$rhs[index] <- value
+          invisible(TRUE)
         }
       )
     )$new()
@@ -242,7 +246,14 @@ cplex <- function(model, control) {
   # create environment
   env <- cplexAPI::openEnvCPLEX()
   if (inherits(env, "cplexError")) {
-    stop(cplexAPI::errmsg(env))
+    cli::cli_abort(
+      c(
+        "Failed to initialize CPLEX environment.",
+        "x" = paste(cplexAPI::errmsg(env), collapse = "\n"),
+        "i" = "See {.fn cplexAPI::openEnvCPLEX()} for more information."
+      ),
+      call = NULL
+    )
   }
   # set solving parameters
   ## verbose (parameter: CPX_PARAM_SCRIND)

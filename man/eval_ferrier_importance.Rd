@@ -205,6 +205,7 @@ See \link{importance} for an overview of all functions for evaluating
 the importance of planning units selected in a solution.
 
 Other importances: 
+\code{\link{eval_rank_importance}()},
 \code{\link{eval_rare_richness_importance}()},
 \code{\link{eval_replacement_importance}()}
 }

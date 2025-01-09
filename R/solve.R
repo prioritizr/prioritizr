@@ -352,7 +352,7 @@ solve.ConservationProblem <- function(a, b, ...,
     # SpatRaster or Raster planning units
     pos <- a$planning_unit_indices()
     pu <- terra::rast(pu)
-    pu <- suppressWarnings(terra::setValues(pu[[1]], NA))
+    pu <- suppressWarnings(terra::setValues(pu[[1]], NA_real_))
     ret <- lapply(sol_status, function(s) {
       ret <- lapply(seq_len(ncol(s)), function(z) {
         pu[pos] <- s[, z]

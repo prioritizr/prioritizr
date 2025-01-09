@@ -28,9 +28,9 @@ knitr::opts_chunk$set(
 ```{r, include = FALSE}
 # set up print method
 print <- function(x, ...) {
-  if (inherits(x, "ConservationProblem")) {
+  if (!interactive() && inherits(x, "ConservationProblem")) {
     prioritizr::knit_print.ConservationProblem(x)
-  } else if (inherits(x, "OptimizationProblem")) {
+  } else if (!interactive() && inherits(x, "OptimizationProblem")) {
     prioritizr::knit_print.OptimizationProblem(x)
   } else {
     base::print(x)
@@ -40,7 +40,7 @@ print <- function(x, ...) {
 
 ## Introduction
 
-_Gurobi_ is the most powerful and fastest solver that the _prioritizr R_ package can use to solve conservation planning problems (see the [_Solver benchmarks_](solver_benchmarks.html) vignette for further details). This guide will walk you through the process of setting up _Gurobi_ on your computer so that it can be used to solve conservation planning problems. If you encounter any problems while following the instructions below, please refer to the [official _Gurobi_ documentation](https://www.gurobi.com/documentation/).
+_Gurobi_ is the most powerful and fastest solver that the _prioritizr R_ package can use to solve conservation planning problems (see the [_Solver benchmarks_](solver_benchmarks.html) vignette for further details). This guide will walk you through the process of setting up _Gurobi_ on your computer so that it can be used to solve conservation planning problems. If you encounter any problems while following the instructions below, please refer to the [official _Gurobi_ documentation](https://docs.gurobi.com/).
 
 ## Obtaining a license
 

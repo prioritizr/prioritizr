@@ -1,7 +1,7 @@
 Dear CRAN volunteers,
 
 Thank you for reviewing this submission. It contains an update to
-the prioritizr R package. Specifically, the update contains assorted minor improvements, bug fixes, and updates to the package documentation.
+the prioritizr R package. Specifically, the update contains assorted minor improvements, bug fixes, and updates to the package documentation. It also addresses the NOTEs currently produced during CRAN package checks related to missing documentation links.
 
 Cheers,
 

@@ -98,7 +98,7 @@ methods::setMethod(
           "the same type of planning unit data."
         ),
         "x" = "{.arg x} has {.cls {class(x$data$cost)}} planning units.",
-        "x" = "{.arg solution} is a {.cls {class(x)}}."
+        "x" = "{.arg solution} is a {.cls {class(solution)}}."
       )
     )
     ## number of columns
@@ -360,14 +360,14 @@ methods::setMethod(
         "{.arg solution} must contain values between {.val {0}} and {.val {1}}."
       )
     # subset planning units with finite cost values
-    pos <- x$planning_unit_indices()
+    pos <- unname(x$planning_unit_indices())
     if (raster::nlayers(solution) > 1) {
-      pos2 <- raster::Which(max(!is.na(solution)) == 1, cells = TRUE)
+      pos2 <- unname(raster::Which(max(!is.na(solution)) == 1, cells = TRUE))
     } else {
-      pos2 <- raster::Which(!is.na(solution), cells = TRUE)
+      pos2 <- unname(raster::Which(!is.na(solution), cells = TRUE))
     }
     assert(
-      setequal(pos, pos2),
+      identical(pos, pos2),
       call = call,
       msg = paste(
         "{.arg solution} must have missing ({.val {NA}})",
@@ -437,10 +437,10 @@ methods::setMethod(
       )
     )
     # subset planning units with finite cost values
-    pos <- x$planning_unit_indices()
-    pos2 <- terra::cells(terra::allNA(solution), 0)[[1]]
+    pos <- unname(x$planning_unit_indices())
+    pos2 <- unname(terra::cells(terra::allNA(solution), 0)[[1]])
     assert(
-      setequal(pos, pos2),
+      identical(pos, pos2),
       call = call,
       msg = paste(
         "{.arg solution} must have missing ({.val {NA}})",
@@ -484,10 +484,10 @@ internal_planning_unit_solution_status <- function(x, solution,
     msg = "Failed to extract solution status data."
   )
   # subset planning units from total units
-  pos <- x$planning_unit_indices()
-  pos2 <- which(rowSums(is.na(solution)) != ncol(solution))
+  pos <- unname(x$planning_unit_indices())
+  pos2 <- unname(which(rowSums(is.na(solution)) != ncol(solution)))
   assert(
-    setequal(pos, pos2),
+    identical(pos, pos2),
     call = call,
     msg = paste(
       "{.arg solution} must have missing ({.val {NA}})",

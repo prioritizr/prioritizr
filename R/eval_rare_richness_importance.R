@@ -5,14 +5,6 @@ NULL
 #'
 #' Calculate importance scores for planning units selected in a solution
 #' using rarity weighted richness scores (based on Williams *et al.* 1996).
-#' This method is only recommended for large-scaled conservation
-#' planning exercises (i.e., more than 100,000 planning units) where
-#' importance scores cannot be calculated using other methods in a feasible
-#' period of time. This is because rarity weighted richness scores cannot (i)
-#' account for the cost of different planning units, (ii) account for multiple
-#' management zones, and (iii) identify truly irreplaceable planning units ---
-#' unlike the replacement cost metric which does not suffer any of these
-#' limitations.
 #'
 #' @inheritParams eval_replacement_importance
 #'
@@ -35,6 +27,16 @@ NULL
 #' @inheritSection eval_cost_summary Solution format
 #'
 #' @inherit eval_replacement_importance return
+#'
+#' @details
+#' This method is only recommended for large-scaled conservation
+#' planning exercises (i.e., more than 100,000 planning units) where
+#' importance scores cannot be calculated using other methods in a feasible
+#' period of time. This is because rarity weighted richness scores cannot (i)
+#' account for the cost of different planning units, (ii) account for multiple
+#' management zones, and (iii) identify truly irreplaceable planning units ---
+#' unlike the replacement cost metric which does not suffer any of these
+#' limitations.
 #'
 #' @seealso
 #' See [importance] for an overview of all functions for evaluating

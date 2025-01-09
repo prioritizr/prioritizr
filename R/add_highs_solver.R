@@ -162,6 +162,13 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
           self$internal$model$lower[index] <- value
           invisible(TRUE)
         },
+        set_constraint_rhs = function(index, value) {
+          lb_idx <- is.finite(self$internal$model$lhs[index])
+          ub_idx <- is.finite(self$internal$model$rhs[index])
+          self$internal$model$lhs[index[lb_idx]] <- value[lb_idx]
+          self$internal$model$rhs[index[ub_idx]] <- value[ub_idx]
+          invisible(TRUE)
+        },
         run = function() {
           # access internal data and parameters
           model <- self$get_internal("model")

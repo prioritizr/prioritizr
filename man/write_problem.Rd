@@ -12,8 +12,8 @@ write_problem(x, path, solver = NULL)
 \item{path}{\code{character} file path to save the problem formulation.
 The argument should contain a \code{".lp"} or \verb{.mps"} file extension
 to specify whether the problem formulation will be saved in the
-\href{https://www.gurobi.com/documentation/9.5/refman/lp_format.html}{LP} or
-\href{https://www.gurobi.com/documentation/9.5/refman/mps_format.html}{MPS}
+\href{https://docs.gurobi.com/current/#refman/lp_format.html}{LP} or
+\href{https://docs.gurobi.com/current/#refman/mps_format.html}{MPS}
 format (respectively).}
 
 \item{solver}{\code{character} name of optimization solver to write the problem
