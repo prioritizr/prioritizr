@@ -1,6 +1,6 @@
 Package: prioritizr
 Type: Package
-Version: 8.0.6
+Version: 8.0.6.1
 Title: Systematic Conservation Prioritization in R
 Description:
     Systematic conservation prioritization using mixed integer linear

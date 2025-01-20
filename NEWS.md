@@ -1,3 +1,13 @@
+# prioritizr 8.0.6.1
+
+## Minor improvements and bug fixes
+
+- Fix bug in `boundary_matrix()` calculations for raster data.
+
+## Documentation updates
+
+- Update publication record.
+
 # prioritizr 8.0.6
 
 ## Notice

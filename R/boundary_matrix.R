@@ -109,14 +109,14 @@ boundary_matrix.SpatRaster <- function(x, ...) {
   x[include] <- 1
   # find the neighboring indices of these cells
   ud <- matrix(c(0, 0, 0, 1, 0, 1, 0, 0, 0), 3, 3)
-  lf <- matrix(c(0, 1, 0, 0, 0, 0, 0, 1, 0), 3, 3)
+  lr <- matrix(c(0, 1, 0, 0, 0, 0, 0, 1, 0), 3, 3)
   b <- rbind(
     data.frame(
-      terra::adjacent(x, include, pairs = TRUE, directions = ud),
+      terra::adjacent(x, include, pairs = TRUE, directions = lr),
       boundary = terra::xres(x)
     ),
     data.frame(
-      terra::adjacent(x, include, pairs = TRUE, directions = lf),
+      terra::adjacent(x, include, pairs = TRUE, directions = ud),
       boundary = terra::yres(x)
     )
   )

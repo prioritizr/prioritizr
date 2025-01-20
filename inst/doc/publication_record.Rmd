@@ -16,7 +16,8 @@ This vignette contains a list of publications that have cited or used the _prior
 ## Research articles
 
 ### 2025
-
+* Binley AD, Hanson JO, Robinson OJ, Golet GH, and Bennett JR (2025) Quantifying the value of participatory science data for conservation decision‐making. _Journal of Applied Ecology_, **In press**: DOI&#58;10.1111/1365-2664.14863.
+* Frisk CA and Hanslin HM (2025) Optimizing plant species composition of green roofs for ecological functionality and biodiversity conservation. _Urban Ecosystems_, **28**: 12.
 * Matus-Olivares C, Carrasco J, Weintraub A, and Lisón F (2025) From virtue to sin: Is the installation of bat boxes an effective conservation measure or a potential pitfall for vulnerable bat species? _Journal for Nature Conservation_, **83**: 126775.
 
 ### 2024
@@ -29,7 +30,7 @@ This vignette contains a list of publications that have cited or used the _prior
 * Finucci B, Pacoureau N, Rigby CL, Matsushiba JH, Faure-Beaulieu N, Sherman CS, VanderWright WJ, Jabado RW, Charvet P, Mejía-Falla PA, Navia AF, Derrick DH, Kyne PM, Pollom RA, Walls RHL, Herman KB, Kinattumkara B, Cotton CF, Cuevas J-M, Daley RK, Dharmadi, Ebert DA, Fernando D, Fernando SMC, Francis MP, Huveneers C, Ishihara H, Kulka DW, Leslie RW, Neat F, Orlov AM, Rincon G, Sant GJ, Volvenko IV, Walker TI, Simpfendorfer CA, and Dulvy NK (2024) Fishing for oil and meat drives irreversible defaunation of deepwater sharks and rays. _Science_, **383**: 1135--1141.
 * Fourchault L, Dahdouh-Guebas F, Dunn DC, Everett JD, Hanson JO, Buenafe KCV, Neubert S, Dabalà A, Yapa KKAS, Cannicci S, and Richardson AJ (2024) Generating affordable protection of high seas biodiversity through cross-sectoral spatial planning. _One Earth_, **7**: 253--264.
 * Gopalakrishna T, Visconti P, Lomax G, Boere E, Malhi Y, Roy PS, Joshi PK, Fedele G, and Yowargana P (2024) Optimizing restoration: A holistic spatial approach to deliver Nature's Contributions to People with minimal tradeoffs and maximal equity. _Proceedings of the National Academy of Sciences_, **121**: e2402970121.
-* Hanson JO, Schuster R, Strimas-Mackey M, Morrell N, Edwards BPM, Arcese P, Bennett JR, and Possingham HP (2024). Systematic conservation prioritization with the prioritizr R package. _Conservation Biology_, *In press*. DOI&#58;10.1111/cobi.14376.
+* Hanson JO, Schuster R, Strimas-Mackey M, Morrell N, Edwards BPM, Arcese P, Bennett JR, and Possingham HP (2024). Systematic conservation prioritization with the prioritizr R package. _Conservation Biology_, **In press**. DOI&#58;10.1111/cobi.14376.
 * Kim J, Shin W, Kim S, Choe H, Tanaka T, and Song Y (2024) Use of ecosystem services and land ownership to prioritize conservation areas on Jeju Island, Republic of Korea. _Ecosystem Services_, **66**: 101605.
 * Mannocci L, Derville S, Seguin R, and Mouillot D (2024) Aerial video surveys and spatial prioritization reveal conservation opportunities for endangered dugongs in New Caledonia. _Aquatic Conservation: Marine and Freshwater Ecosystems_, **34**: e4237.
 * Nagkoulis N, Papazekou M, Katsanevakis S, and Mazaris A (2024) Spatial conservation planning: Proposing clustering methods to improve connectivity protection. *Methods in Ecology and Evolution*, **In press**: DOI&#58;10.1111/2041-210X.14459.
