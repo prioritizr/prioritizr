@@ -2,7 +2,9 @@
 
 ## Minor improvements and bug fixes
 
-- Fix bug in `boundary_matrix()` calculations for raster data.
+- Update `boundary_matrix()` calculations to maintain compatibility with
+  updates to the _terra_ package. Thanks to Sandra Neubert (\@sandra-neubert)
+  for code review.
 
 ## Documentation updates
 

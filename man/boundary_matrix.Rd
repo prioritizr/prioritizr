@@ -90,12 +90,18 @@ bm_raster <- boundary_matrix(r)
 # create boundary matrix using polygon data
 bm_ply <- boundary_matrix(ply)
 
-# plot raster and boundary matrix
+# plot raster data
 plot(r, main = "raster", axes = FALSE)
+
+# plot boundary matrix
+# here each row and column corresponds to a different planning unit
 Matrix::image(bm_raster, main = "boundary matrix")
 
-# plot polygons and boundary matrices
+# plot polygon data
 plot(ply[, 1], main = "polygons", axes = FALSE)
+
+# plot boundary matrix
+# here each row and column corresponds to a different planning unit
 Matrix::image(bm_ply, main = "boundary matrix")
 }
 }
