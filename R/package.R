@@ -8,7 +8,7 @@ NULL
 #'
 #' The \pkg{prioritizr R} package uses mixed integer linear programming (MILP)
 #' techniques to provide a flexible interface for building and solving
-#' conservation planning problems (Hanson *et al.* 2024).
+#' conservation planning problems (Hanson *et al.* 2025).
 #' It supports a broad range of objectives, constraints, and penalties
 #' that can be used to custom-tailor conservation planning problems to the
 #' specific needs of a conservation planning exercise
@@ -25,7 +25,7 @@ NULL
 #' has the functionality to read input data formatted for the *Marxan*
 #' conservation planning program (Ball *et al.* 2009), and find much
 #' cheaper solutions in a much shorter period of time than *Marxan* (Beyer
-#' *et al.* 2016). See the Hanson *et al.* (2024) and the
+#' *et al.* 2016). See the Hanson *et al.* (2025) and the
 #' [online code repository](https://github.com/prioritizr/prioritizr)
 #' for more information.
 #'
@@ -71,9 +71,8 @@ NULL
 #' cite the package, please use:
 #'
 #' Hanson JO, Schuster R, Strimas‐Mackey M, Morrell N, Edwards BPM, Arcese P,
-#' Bennett JR, and Possingham HP (2024) Systematic conservation prioritization
-#' with the prioritizr R package. *Conservation Biology*,
-#' In press: \doi{10.1111/cobi.14376}.
+#' Bennett JR, and Possingham HP (2025) Systematic conservation prioritization
+#' with the prioritizr R package. *Conservation Biology*, 39: e14376.
 #'
 #' @seealso
 #' Useful links:
@@ -108,9 +107,8 @@ NULL
 #' 514--534.
 #'
 #' Hanson JO, Schuster R, Strimas‐Mackey M, Morrell N, Edwards BPM, Arcese P,
-#' Bennett JR, and Possingham HP (2024) Systematic conservation prioritization
-#' with the prioritizr R package. *Conservation Biology*,
-#' In press: \doi{10.1111/cobi.14376}.
+#' Bennett JR, and Possingham HP (2025) Systematic conservation prioritization
+#' with the prioritizr R package. *Conservation Biology*, 39: e14376.
 #'
 #' Rodrigues AS, Cerdeira OJ, and Gaston KJ (2000) Flexibility,
 #' efficiency, and accountability: adapting reserve selection algorithms to

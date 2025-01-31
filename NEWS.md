@@ -9,6 +9,7 @@
 ## Documentation updates
 
 - Update publication record.
+- Update package citation.
 
 # prioritizr 8.0.6
 

@@ -8,7 +8,7 @@
 \description{
 The \pkg{prioritizr R} package uses mixed integer linear programming (MILP)
 techniques to provide a flexible interface for building and solving
-conservation planning problems (Hanson \emph{et al.} 2024).
+conservation planning problems (Hanson \emph{et al.} 2025).
 It supports a broad range of objectives, constraints, and penalties
 that can be used to custom-tailor conservation planning problems to the
 specific needs of a conservation planning exercise
@@ -25,7 +25,7 @@ identify solutions that benefit multiple stakeholders. Finally, this package
 has the functionality to read input data formatted for the \emph{Marxan}
 conservation planning program (Ball \emph{et al.} 2009), and find much
 cheaper solutions in a much shorter period of time than \emph{Marxan} (Beyer
-\emph{et al.} 2016). See the Hanson \emph{et al.} (2024) and the
+\emph{et al.} 2016). See the Hanson \emph{et al.} (2025) and the
 \href{https://github.com/prioritizr/prioritizr}{online code repository}
 for more information.
 }
@@ -73,9 +73,8 @@ Please cite the \emph{prioritizr R} package when using it in publications. To
 cite the package, please use:
 
 Hanson JO, Schuster R, Strimas‐Mackey M, Morrell N, Edwards BPM, Arcese P,
-Bennett JR, and Possingham HP (2024) Systematic conservation prioritization
-with the prioritizr R package. \emph{Conservation Biology},
-In press: \doi{10.1111/cobi.14376}.
+Bennett JR, and Possingham HP (2025) Systematic conservation prioritization
+with the prioritizr R package. \emph{Conservation Biology}, 39: e14376.
 }
 
 \references{
@@ -93,9 +92,8 @@ conservation. \emph{European Journal of Operational Research}, 231:
 514--534.
 
 Hanson JO, Schuster R, Strimas‐Mackey M, Morrell N, Edwards BPM, Arcese P,
-Bennett JR, and Possingham HP (2024) Systematic conservation prioritization
-with the prioritizr R package. \emph{Conservation Biology},
-In press: \doi{10.1111/cobi.14376}.
+Bennett JR, and Possingham HP (2025) Systematic conservation prioritization
+with the prioritizr R package. \emph{Conservation Biology}, 39: e14376.
 
 Rodrigues AS, Cerdeira OJ, and Gaston KJ (2000) Flexibility,
 efficiency, and accountability: adapting reserve selection algorithms to
