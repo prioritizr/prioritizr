@@ -93,10 +93,9 @@ Please cite the *prioritizr R* package when using it in publications. To
 cite the package, please use:
 
 > Hanson JO, Schuster R, Strimas‐Mackey M, Morrell N, Edwards BPM,
-> Arcese P, Bennett JR, and Possingham HP (2024) Systematic conservation
+> Arcese P, Bennett JR, and Possingham HP (2025) Systematic conservation
 > prioritization with the prioritizr R package. *Conservation Biology*,
-> In press:
-> [DOI:10.1111/cobi.14376](https://doi.org/10.1111/cobi.14376).
+> **39**: e14376.
 
 Additionally, we keep a [record of
 publications](https://prioritizr.net/articles/publication_record.html)
@@ -275,7 +274,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##      5.242
+    ##      3.342
 
 ``` r
 # extract state message from the solver

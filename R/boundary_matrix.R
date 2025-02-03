@@ -69,12 +69,18 @@ NULL
 #' # create boundary matrix using polygon data
 #' bm_ply <- boundary_matrix(ply)
 #'
-#' # plot raster and boundary matrix
+#' # plot raster data
 #' plot(r, main = "raster", axes = FALSE)
+#'
+#' # plot boundary matrix
+#' # here each row and column corresponds to a different planning unit
 #' Matrix::image(bm_raster, main = "boundary matrix")
 #'
-#' # plot polygons and boundary matrices
+#' # plot polygon data
 #' plot(ply[, 1], main = "polygons", axes = FALSE)
+#'
+#' # plot boundary matrix
+#' # here each row and column corresponds to a different planning unit
 #' Matrix::image(bm_ply, main = "boundary matrix")
 #' }
 #' @export
@@ -109,15 +115,24 @@ boundary_matrix.SpatRaster <- function(x, ...) {
   x[include] <- 1
   # find the neighboring indices of these cells
   ud <- matrix(c(0, 0, 0, 1, 0, 1, 0, 0, 0), 3, 3)
-  lf <- matrix(c(0, 1, 0, 0, 0, 0, 0, 1, 0), 3, 3)
+  lr <- matrix(c(0, 1, 0, 0, 0, 0, 0, 1, 0), 3, 3)
+  # determine correct resolution values
+  ## note that this depends on the version of terra that is installed
+  if (utils::packageVersion("terra") >= package_version("1.8-10")) {
+    lr_res <- terra::xres(x)
+    ud_res <- terra::yres(x)
+  } else { # nocov
+    lr_res <- terra::yres(x) # nocov
+    ud_res <- terra::xres(x) # nocov
+  }
   b <- rbind(
     data.frame(
-      terra::adjacent(x, include, pairs = TRUE, directions = ud),
-      boundary = terra::xres(x)
+      terra::adjacent(x, include, pairs = TRUE, directions = lr),
+      boundary = lr_res
     ),
     data.frame(
-      terra::adjacent(x, include, pairs = TRUE, directions = lf),
-      boundary = terra::yres(x)
+      terra::adjacent(x, include, pairs = TRUE, directions = ud),
+      boundary = ud_res
     )
   )
   names(b) <- c("id1", "id2", "boundary")

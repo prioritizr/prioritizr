@@ -1,3 +1,16 @@
+# prioritizr 8.0.6.1
+
+## Minor improvements and bug fixes
+
+- Update `boundary_matrix()` calculations to maintain compatibility with
+  updates to the _terra_ package. Thanks to Sandra Neubert (\@sandra-neubert)
+  for code review.
+
+## Documentation updates
+
+- Update publication record.
+- Update package citation.
+
 # prioritizr 8.0.6
 
 ## Notice
