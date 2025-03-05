@@ -24,7 +24,7 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: ubuntu-20.04, r: 'release', pkgs: 'all'}
+          - {os: ubuntu-22.04, r: 'release', pkgs: 'all'}
 
     env:
       _R_REMOTES_NO_ERRORS_FROM_WARNINGS_: true
