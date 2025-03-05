@@ -36,46 +36,51 @@ jobs:
       NOT_CRAN: true
 
     steps:
+      # configure git to prevent it from automatically converting line-endings
+      # this is important to avoid WARNINGS during CRAN checks
+      # that are false-positives, see:
+      # https://msmith.de/2020/03/12/r-cmd-check-github-actions.html
+      - name: Configure git
+        run: git config --global core.autocrlf false
+
       - uses: actions/checkout@v2
+
+      - uses: r-lib/actions/setup-pandoc@v2
 
       - uses: r-lib/actions/setup-r@v2
         with:
           r-version: ${{ matrix.config.r }}
-
-      - uses: r-lib/actions/setup-pandoc@v1
-
-      - name: Query dependencies
-        run: |
-          install.packages('remotes')
-          saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
-          writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
-        shell: Rscript {0}
-
-      - name: Cache R packages
-        if: runner.os != 'Windows'
-        uses: actions/cache@v2
-        with:
-          path: ${{ env.R_LIBS_USER }}
-          key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
-          restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
+          use-public-rspm: true
 
       - name: Install system dependencies
         run: |
           sudo apt-get -y install \
-            libcurl4-openssl-dev coinor-libsymphony-dev coinor-libcbc-dev coinor-libclp-dev \
-            libudunits2-dev libgdal-dev libgeos-dev libproj-dev libglpk-dev
-          while read -r cmd
-          do
-            eval sudo $cmd
-          done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "20.04"))')
+            libcurl4-openssl-dev \
+            coinor-libsymphony-dev \
+            libglpk-dev \
+            coinor-libcbc-dev coinor-libclp-dev \
+            libudunits2-dev libgdal-dev libgeos-dev libproj-dev
 
-      - name: Install dependencies
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          cache-version: 1
+          extra-packages: |
+            any::rcmdcheck
+            any::remotes
+            any::covr
+            any::urlchecker
+            any::maps
+            gurobi=?ignore
+            cplexAPI=?ignore
+          needs: |
+            check
+
+      - name: Install R packages
         run: |
-          remotes::install_deps(dependencies = TRUE)
-          remotes::install_cran("rcmdcheck")
-          remotes::install_cran("covr")
-          remotes::install_bioc("lpsymphony")
-          remotes::install_cran("urlchecker")
+          options(repos = "https://cloud.r-project.org/")
+          install.packages("sf")
+          install.packages("terra")
+          install.packages("urlchecker")
         shell: Rscript {0}
 
       - name: Session information
@@ -84,11 +89,6 @@ jobs:
           pkgs <- installed.packages()[, "Package"]
           sessioninfo::session_info(pkgs, include_base = TRUE)
         shell: Rscript {0}
-
-      - name: Set environmental variables for package checks
-        if: matrix.config.pkgs == 'depends only'
-        run: |
-          echo "_R_CHECK_DEPENDS_ONLY_=true" >> $GITHUB_ENV
 
       - name: Check URLs
         if: runner.os == 'Linux' && matrix.config.r == 'release'
