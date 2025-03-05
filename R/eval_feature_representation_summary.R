@@ -20,11 +20,18 @@ NULL
 #'   \describe{
 #'
 #'   \item{summary}{`character` description of the summary statistic.
-#'     The statistic associated with the `"overall"` value
-#'     in this column is calculated using the entire solution
-#'     (including all management zones if there are multiple zones).
-#'     If multiple management zones are present, then summary statistics
-#'     are also provided for each zone separately
+#'     The statistics associated with the `"overall"` value
+#'     in this column are calculated using all planning unit values.
+#'     For problems with multiple management zones, this means
+#'     that all calculations are completed by summing together
+#'     all planning unit values across all zones. For example, if there are
+#'     two zones, a single planning unit, and a feature has a value of one
+#'     in the single planning unit for both zones, then `total_amount` will
+#'     contain a value of two (even though it would not be possible to
+#'     to achieve a value of two because the planning unit could not
+#'     simultaneously be allocated to both zones).
+#'     Additionally, if multiple management zones are present,
+#'     then summary statistics are also provided for each zone separately
 #'     (indicated using zone names).}
 #'
 #'   \item{feature}{`character` name of the feature.}
