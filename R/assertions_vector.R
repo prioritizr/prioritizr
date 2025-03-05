@@ -17,7 +17,7 @@ NULL
 is_match_of <- function(x, choices) {
   assert(
     assertthat::is.scalar(x),
-    is.vector(choices),
+    is.atomic(choices),
     .internal = TRUE
   )
   isTRUE(x %in% choices)
@@ -51,8 +51,8 @@ assertthat::on_failure(is_match_of) <- function(call, env) {
 #' @noRd
 all_match_of <- function(x, choices) {
   assert(
-    is.vector(x) || is.factor(x),
-    is.vector(choices),
+    is.atomic(x) || is.factor(x),
+    is.atomic(choices),
     .internal = TRUE
   )
   all(x %in% choices)
