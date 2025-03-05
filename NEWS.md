@@ -1,3 +1,18 @@
+# prioritizr 8.0.6.2
+
+## Minor improvements and bug fixes
+
+- Update internal functions (i.e., `all_match_of`, and `is_match_of()`) for
+  validating arguments to be compatible with `character` vectors produced
+  using the _glue_ package (#360). Thanks to Dan Wismer (\@DanWismer) for bug
+  report.
+
+## Documentation updates
+
+- Update `eval_feature_representation_summary()` documentation to improve
+  description of the output data frame (#355). Thanks to Sam Bradshaw
+  (\@sam-bradshaw-wcmc) for bug report.
+
 # prioritizr 8.0.6.1
 
 ## Minor improvements and bug fixes

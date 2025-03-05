@@ -18,7 +18,7 @@ NULL
 #' @noRd
 list_text <- function(x, last_sep = "and", quote = FALSE) {
   assert(
-    is.vector(x),
+    is.atomic(x),
     assertthat::is.string(last_sep),
     assertthat::is.flag(quote)
   )

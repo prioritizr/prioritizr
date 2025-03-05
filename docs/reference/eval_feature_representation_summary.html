@@ -22,7 +22,7 @@ and each and every zone, within a conservation planning problem."><meta property
     
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.6.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.6.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -115,11 +115,18 @@ It contains the following columns:</p>
 
 <dl><dt>summary</dt>
 <dd><p><code>character</code> description of the summary statistic.
-The statistic associated with the <code>"overall"</code> value
-in this column is calculated using the entire solution
-(including all management zones if there are multiple zones).
-If multiple management zones are present, then summary statistics
-are also provided for each zone separately
+The statistics associated with the <code>"overall"</code> value
+in this column are calculated using all planning unit values.
+For problems with multiple management zones, this means
+that all calculations are completed by summing together
+all planning unit values across all zones. For example, if there are
+two zones, a single planning unit, and a feature has a value of one
+in the single planning unit for both zones, then <code>total_amount</code> will
+contain a value of two (even though it would not be possible to
+to achieve a value of two because the planning unit could not
+simultaneously be allocated to both zones).
+Additionally, if multiple management zones are present,
+then summary statistics are also provided for each zone separately
 (indicated using zone names).</p></dd>
 
 
