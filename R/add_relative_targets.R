@@ -213,8 +213,8 @@ methods::setMethod(
         c("numeric", "integer")
       ),
       msg = paste(
-        "{.arg targets} must refer to {.cls numeric} columns of the feature data",
-        "for {.arg x}."
+        "{.arg targets} must refer to {.cls numeric} columns of the",
+        "feature data for {.arg x}."
       )
     )
     assert(

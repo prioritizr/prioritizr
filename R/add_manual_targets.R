@@ -294,9 +294,24 @@ methods::setMethod(
       assert(
         assertthat::has_name(targets, "zone"),
         is_inherits(targets$zone, c("character", "factor", "list")),
-        is_inherits(unlist(targets$zone), c("character", "factor")),
         all_match_of(unlist(targets$zone), zone_names(x))
       )
+      if (is.list(targets$zone)) {
+        assert(
+          all_elements_inherit(targets$zone, c("character", "factor")),
+          msg = c(
+            "!" = paste0(
+              "{.arg targets$zone} must contain elements are that a ",
+              "{.cls character} or {.cls factor} value."
+            ),
+            "i" = paste0(
+              "If {.arg targets$zone} is a {.cls list} column, ",
+              "then each element of this {.cls list} column must contain a ",
+              "{.cls character} or {.cls factor} value or vector."
+            )
+          )
+        )
+      }
     }
     if (assertthat::has_name(targets, "sense")) {
       assert(

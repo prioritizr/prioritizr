@@ -285,4 +285,16 @@ test_that("add_manual_targets (invalid input)", {
       )
     )
   )
+  expect_tidy_error(
+    add_manual_targets(
+      p,
+      tibble::tibble(
+        feature = feature_names(sim_zones_features)[[1]],
+        zone = list(list(zone_names(sim_zones_features))),
+        sense = ">=",
+        type = "absolute",
+        target = 1
+      )
+    )
+  )
 })
