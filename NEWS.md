@@ -1,3 +1,14 @@
+# prioritizr 8.0.6.3
+
+## Minor improvements and bug fixes
+
+- Fix bug in `add_manual_targets()` that caused segmentation faults when
+  invalid `data` were specified (#363).
+
+## Documentation updates
+
+- Update publication record.
+
 # prioritizr 8.0.6.2
 
 ## Minor improvements and bug fixes

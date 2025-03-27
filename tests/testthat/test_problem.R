@@ -929,7 +929,7 @@ test_that("x = data.frame, features = data.frame (factor, single zone)", {
   expect_error(x$feature_targets())
 })
 
-test_that("x=data.frame, features=data.frame (multiple zones)", {
+test_that("x = data.frame, features = data.frame (multiple zones)", {
   # create data
   pu <- data.frame(
     id = seq_len(10),
