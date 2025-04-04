@@ -88,7 +88,8 @@ methods::setMethod(
         features = features,
         rij_matrix = rij,
         feature_abundances_in_total_units = fatu,
-        planning_unit_indices = idx
+        planning_unit_indices = idx,
+        is_ids_equivalent_to_indices = TRUE
       )
     )
   }
@@ -192,7 +193,8 @@ methods::setMethod(
         cost_column = cost_column,
         rij_matrix = rij,
         feature_abundances_in_total_units = fatu,
-        planning_unit_indices = idx
+        planning_unit_indices = idx,
+        is_ids_equivalent_to_indices = TRUE
       )
     )
   }
@@ -291,7 +293,8 @@ methods::setMethod(
         cost_column = cost_column,
         rij_matrix = rij,
         feature_abundances_in_total_units = fatu,
-        planning_unit_indices = idx
+        planning_unit_indices = idx,
+        is_ids_equivalent_to_indices = TRUE
       )
     )
   }
@@ -391,7 +394,8 @@ methods::setMethod(
         cost_column = cost_column,
         rij_matrix = rij,
         feature_abundances_in_total_units = fatu,
-        planning_unit_indices = idx
+        planning_unit_indices = idx,
+        is_ids_equivalent_to_indices = TRUE
       )
     )
   }

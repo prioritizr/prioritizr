@@ -1,3 +1,86 @@
+test_that("integer (data.frame, compile, single zone)", {
+  # import data
+  sim_pu_data <- get_sim_pu_polygons()
+  sim_pu_data <- sf::st_drop_geometry(sim_pu_data)[1:5, , drop = FALSE]
+  sim_pu_data$id <- c(1, 3, 90, 5, 2)
+  sim_pu_data$cost <- c(1, NA, 3, 4, 8)
+  sim_pu_data$spp_1 <- runif(5)
+  sim_pu_data$spp_2 <- runif(5)
+  sim_pu_data$spp_3 <- runif(5)
+  # create problem
+  p <-
+    problem(sim_pu_data, c("spp_1", "spp_2", "spp_3"), cost_column = "cost") %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.1) %>%
+    add_proportion_decisions() %>%
+    add_locked_out_constraints(c(1, 3, 90, 2))
+  suppressWarnings(o <- compile(p))
+  # calculations for tests
+  locked_pos <- c(1, 2, 4)
+  other_pos <- c(3)
+  # tests
+  expect_true(all(o$lb()[locked_pos] == 0))
+  expect_true(all(o$ub()[locked_pos] == 0))
+  expect_true(all(o$lb()[other_pos] == 0))
+  expect_true(all(o$ub()[other_pos] == 1))
+})
+
+test_that("integer (sf, compile, single zone)", {
+  # import data
+  sim_pu_polygons <- get_sim_pu_polygons()
+  sim_features <- get_sim_features()
+  # set locked cells
+  sim_pu_polygons$cost[2] <- NA_real_
+  locked_out <- c(1, 3)
+  # create problem
+  p <-
+    problem(sim_pu_polygons, sim_features, cost_column = "cost") %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.1) %>%
+    add_binary_decisions() %>%
+    add_locked_out_constraints(locked_out)
+  suppressWarnings(o <- compile(p))
+  # check that constraints added correctly
+  expect_equal(
+    o$ub(),
+    c(0, 0, rep(1, sum(!is.na(sim_pu_polygons$cost)) - 2))
+  )
+  # invalid inputs
+  p <-
+    problem(sim_pu_polygons, sim_features, cost_column = "cost") %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.1) %>%
+    add_binary_decisions()
+  expect_tidy_error(add_locked_out_constraints(p, -1))
+  expect_tidy_error(add_locked_out_constraints(p, 9.6))
+  expect_tidy_error(add_locked_out_constraints(p, 1e6))
+})
+
+test_that("integer (solve, single zone)", {
+  skip_on_cran()
+  skip_if_no_fast_solvers_installed()
+  # create problem
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  suppressWarnings({
+    p <-
+      problem(sim_pu_raster, sim_features) %>%
+      add_max_utility_objective(budget = 1e6) %>%
+      add_binary_decisions() %>%
+      add_locked_out_constraints(seq_len(terra::ncell(sim_pu_raster))) %>%
+      add_default_solver(time_limit = 5, verbose = FALSE)
+    expect_warning(s1 <- solve(p, force = TRUE))
+    expect_warning(s2 <- solve(p, force = TRUE))
+  })
+  # check that the solution obeys constraints as expected
+  expect_equal(
+    terra::cells(is.na(s1), 0)[[1]],
+    terra::cells(is.na(sim_pu_raster), 0)[[1]]
+  )
+  expect_true(isTRUE(all(s1[!is.na(s1)][, 1] == 0)))
+  expect_equal(terra::values(s1), terra::values(s2))
+})
+
 test_that("logical (compile, single zone)", {
   # import problem
   sim_pu_raster <- get_sim_pu_raster()
@@ -58,63 +141,6 @@ test_that("logical (solve, single zone)", {
   expect_true(all(s[locked_out_units] == 0))
 })
 
-test_that("integer (compile, single zone)", {
-  # import data
-  sim_pu_raster <- get_sim_pu_raster()
-  sim_features <- get_sim_features()
-  # create problem
-  p <-
-    problem(sim_pu_raster, sim_features) %>%
-    add_min_set_objective() %>%
-    add_relative_targets(0.1) %>%
-    add_binary_decisions() %>%
-    add_locked_out_constraints(1:20)
-  o <- compile(p)
-  # calculations for tests
-  locked_out_cells <- seq_len(20)
-  locked_out_indices <- match(
-    locked_out_cells,
-    terra::cells(is.na(sim_pu_raster), 0)[[1]]
-  )
-  locked_out_indices <- locked_out_indices[!is.na(locked_out_indices)]
-  # tests
-  expect_true(all(o$ub()[locked_out_indices] == 0))
-  expect_true(all(o$ub()[-locked_out_indices] == 1))
-  expect_tidy_error(p %>% add_locked_out_constraints(-1))
-  expect_tidy_error(p %>% add_locked_out_constraints(9.6))
-  # tests for invalid inputs
-  expect_tidy_error(
-    p %>% add_locked_out_constraints(terra::ncell(sim_pu_raster) + 1)
-  )
-})
-
-test_that("integer (solve, single zone)", {
-  skip_on_cran()
-  skip_if_no_fast_solvers_installed()
-  # import data
-  sim_pu_raster <- get_sim_pu_raster()
-  sim_features <- get_sim_features()
-  # create problem
-  p <-
-    problem(sim_pu_raster, sim_features) %>%
-    add_min_set_objective() %>%
-    add_relative_targets(0.05) %>%
-    add_binary_decisions() %>%
-    add_locked_out_constraints(1:20) %>%
-    add_default_solver(gap = 0.01, verbose = FALSE)
-  # solve problem
-  s1 <- solve(p)
-  s2 <- solve(p)
-  # calculations for tests
-  locked_out_cells <- seq_len(20)
-  locked_out_units <- locked_out_cells[
-    locked_out_cells %in% terra::cells(is.na(s1), 0)[[1]]
-  ]
-  # tests
-  expect_true(all(as.matrix(s1[locked_out_units]) == 0))
-  expect_equal(terra::values(s1), terra::values(s2))
-})
-
 test_that("integer (compile, multiple zones)", {
   # load data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
@@ -146,7 +172,7 @@ test_that("integer (compile, multiple zones)", {
   expect_true(all(o$ub()[1:20] == 0))
   expect_true(all(o$ub()[other_ind] == 1))
   expect_tidy_error({
-    p %>% add_locked_in_constraints({s <- status; s[1, 1] <- 2; s})
+    p %>% add_locked_out_constraints({s <- status; s[1, 1] <- 2; s})
   })
 })
 
@@ -313,7 +339,7 @@ test_that("character (compile, multiple zones)", {
     add_min_set_objective() %>%
     add_relative_targets(targets) %>%
     add_binary_decisions() %>%
-    add_locked_in_constraints(c("locked_1", "locked_2", "locked_3"))
+    add_locked_out_constraints(c("locked_1", "locked_2", "locked_3"))
   })
 })
 
@@ -522,19 +548,19 @@ test_that("raster (solve, multiple zones)", {
   expect_true(all(s[[1]][locked_out_cells] == 0))
 })
 
-test_that("spatial (compile, single zone)", {
+test_that("deprecated spatial (compile, single zone)", {
   # import data
-  sim_pu_polygons <- sf::as_Spatial(get_sim_pu_polygons())
-  sim_features <- raster::stack(get_sim_features())
+  sim_pu_polygons <- get_sim_pu_polygons()
+  sim_features <- get_sim_features()
   # create problem
   expect_warning(
     p <-
-      suppressWarnings(problem(sim_pu_polygons, sim_features, "cost")) %>%
+      problem(sim_pu_polygons, sim_features, "cost") %>%
       add_min_set_objective() %>%
       add_relative_targets(0.1) %>%
       add_binary_decisions() %>%
       add_locked_out_constraints(
-        sim_pu_polygons[sim_pu_polygons$locked_out, ]
+        sf::as_Spatial(sim_pu_polygons[sim_pu_polygons$locked_out, ])
       ),
     "deprecated"
   )

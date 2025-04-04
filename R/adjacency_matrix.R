@@ -106,7 +106,7 @@ adjacency_matrix.SpatRaster <- function(x, directions = 4, ...) {
   } else {
     # indices of cells with finite values
     include <- terra::cells(min(is.finite(x)), 1)[[1]]
-    # set x to a single raster layer with only values in pixels that are not
+    # set x to a single raster layer with only values in cells that are not
     # NA in all layers
     suppressWarnings(x <- terra::setValues(x[[1]], NA_real_))
     x[include] <- 1

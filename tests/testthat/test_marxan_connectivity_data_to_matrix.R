@@ -70,7 +70,7 @@ test_that("single zone (x = ConservationProblem, symmetric = TRUE)", {
   d$boundary <- 1
   d$boundary[d$id1 == d$id2] <- 0.5
   p <- problem(
-    x = runif(5),
+    x = matrix(runif(5), ncol = 1),
     features = data.frame(id = seq_len(2), name = letters[seq_len(2)]),
     rij_matrix = matrix(1, ncol = 5, nrow = 2)
   )
@@ -162,7 +162,7 @@ test_that("single zone (x = ConservationProblem, symmetric = FALSE)", {
   # create data
   d <- data.frame(id1 = c(1, 2, 2), id2 = c(1, 1, 3), boundary = c(4, 5, 6))
   p <- problem(
-    x = runif(5),
+    x = matrix(runif(5), ncol = 1),
     features = data.frame(id = seq_len(2), name = letters[seq_len(2)]),
     rij_matrix = matrix(1, ncol = 5, nrow = 2)
   )

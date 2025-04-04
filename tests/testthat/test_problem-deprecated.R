@@ -10,9 +10,13 @@ test_that("x = RasterLayer, features = RasterStack", {
   # verify that object can be printed
   suppressMessages(print(x))
   suppressMessages(x)
-  # tests for integer fields
+  # test for logical fields
+  expect_true(x$is_ids_equivalent_to_indices())
+  # tests for character fields
+  expect_equal(x$planning_unit_class(), "RasterLayer")
   expect_equal(x$feature_names(), names(sim_features))
   expect_equal(x$zone_names(), names(sim_pu_raster))
+  # tests for integer fields
   expect_equal(x$number_of_features(), terra::nlyr(sim_features))
   expect_equal(
     x$number_of_planning_units(),
@@ -25,6 +29,7 @@ test_that("x = RasterLayer, features = RasterStack", {
     terra::cells(is.na(sim_pu_raster), 0)[[1]]
   )
   expect_equal(problem(sim_pu_raster, sim_pu_raster)$number_of_features(), 1L)
+  expect_error(x$total_unit_ids())
   # tests for planning_unit_costs field
   expect_equal(
     x$planning_unit_costs(),
@@ -72,6 +77,11 @@ test_that("x = RasterLayer, features = RasterStack", {
   )
   expect_equal(names(x$data$rij_matrix), x$zone_names())
   expect_equal(rownames(x$data$rij_matrix[[1]]), x$feature_names())
+  # test for converting total unit ids to indices
+  expect_equal(
+    x$convert_total_unit_ids_to_indices(c(seq_len(3), 1e5, 4)),
+    c(seq_len(3), 1e5, 4)
+  )
   # test that calling targets before they have been initialized throws error
   expect_error(x$feature_targets())
 })
@@ -91,9 +101,13 @@ test_that("x = RasterStack, features = ZonesRaster", {
   # verify that object can be printed
   suppressMessages(print(x))
   suppressMessages(x)
-  # tests for integer fields
+  # test for logical fields
+  expect_true(x$is_ids_equivalent_to_indices())
+  # tests for character fields
+  expect_equal(x$planning_unit_class(), "RasterStack")
   expect_equal(x$feature_names(), feature_names(sim_zones_features))
   expect_equal(x$zone_names(), zone_names(sim_zones_features))
+  # tests for integer fields
   expect_equal(x$number_of_features(), number_of_features(sim_zones_features))
   expect_equal(x$number_of_zones(), number_of_zones(sim_zones_features))
   expect_equal(
@@ -115,6 +129,7 @@ test_that("x = RasterStack, features = ZonesRaster", {
     colnames(x$planning_unit_costs()),
     zone_names(sim_zones_features)
   )
+  expect_error(x$total_unit_ids())
   # tests for feature_abundances_in_planning_units field
   expect_equal(
     x$feature_abundances_in_planning_units(),
@@ -175,6 +190,11 @@ test_that("x = RasterStack, features = ZonesRaster", {
     ),
     ignore_attr = TRUE
   )
+  # test for converting total unit ids to indices
+  expect_equal(
+    x$convert_total_unit_ids_to_indices(c(seq_len(3), 1e5, 4)),
+    c(seq_len(3), 1e5, 4)
+  )
   # test that calling targets before they have been initialized throws error
   expect_error(x$feature_targets())
 })
@@ -197,9 +217,13 @@ test_that("x = Spatial, features = RasterStack", {
   # verify that object can be printed
   suppressMessages(print(x))
   suppressMessages(x)
-  # tests for integer fields
-  expect_equal(x$feature_names(), names(sim_features))
+  # test for logical fields
+  expect_true(x$is_ids_equivalent_to_indices())
+  # tests for character fields
+  expect_equal(x$planning_unit_class(), "SpatialPolygonsDataFrame")
   expect_equal(x$zone_names(), "cost")
+  expect_equal(x$feature_names(), names(sim_features))
+  # tests for integer fields
   expect_equal(x$number_of_features(), terra::nlyr(sim_features))
   expect_equal(x$number_of_planning_units(), sum(!is.na(sim_pu_polygons$cost)))
   expect_equal(x$planning_unit_indices(), which(!is.na(sim_pu_polygons$cost)))
@@ -225,6 +249,7 @@ test_that("x = Spatial, features = RasterStack", {
     rownames(x$feature_abundances_in_planning_units()),
     names(sim_features)
   )
+  expect_error(x$total_unit_ids())
   # tests for feature_abundances_in_total_units field
   expect_equal(
     x$feature_abundances_in_total_units(),
@@ -260,6 +285,11 @@ test_that("x = Spatial, features = RasterStack", {
   )
   expect_equal(names(x$data$rij_matrix), "cost")
   expect_equal(rownames(x$data$rij_matrix[[1]]), names(sim_features))
+  # test for converting total unit ids to indices
+  expect_equal(
+    x$convert_total_unit_ids_to_indices(c(seq_len(3), 1e5, 4)),
+    c(seq_len(3), 1e5, 4)
+  )
   # test that calling targets before they have been initialized throws error
   expect_error(x$feature_targets())
 })
@@ -285,9 +315,13 @@ test_that("x = Spatial, features = ZonesRaster", {
   # verify that object can be printed
   suppressMessages(print(x))
   suppressMessages(x)
-  # tests for integer fields
+  # test for logical fields
+  expect_true(x$is_ids_equivalent_to_indices())
+  # tests for character fields
+  expect_equal(x$planning_unit_class(), "SpatialPolygonsDataFrame")
   expect_equal(x$feature_names(), feature_names(sim_zones_features))
   expect_equal(x$zone_names(), zone_names(sim_zones_features))
+  # tests for integer fields
   expect_equal(x$number_of_features(), terra::nlyr(sim_zones_features[[1]]))
   expect_equal(x$number_of_planning_units(), nrow(sim_zones_pu_polygons) - 1)
   expect_equal(
@@ -307,6 +341,7 @@ test_that("x = Spatial, features = ZonesRaster", {
     colnames(x$planning_unit_costs()),
     zone_names(sim_zones_features)
   )
+  expect_error(x$total_unit_ids())
   # tests for feature_abundances_in_planning_units field
   expect_equal(
     x$feature_abundances_in_planning_units(),
@@ -367,6 +402,11 @@ test_that("x = Spatial, features = ZonesRaster", {
     ),
     ignore_attr = TRUE
   )
+  # test for converting total unit ids to indices
+  expect_equal(
+    x$convert_total_unit_ids_to_indices(c(seq_len(3), 1e5, 4)),
+    c(seq_len(3), 1e5, 4)
+  )
   # test that calling targets before they have been initialized throws error
   expect_error(x$feature_targets())
 })
@@ -386,14 +426,19 @@ test_that("x = Spatial, features = character", {
   # verify that object can be printed
   suppressMessages(print(x))
   suppressMessages(x)
-  # tests for integer fields
+  # test for logical fields
+  expect_true(x$is_ids_equivalent_to_indices())
+  # tests for character fields
+  expect_equal(x$planning_unit_class(), "SpatialPolygonsDataFrame")
   expect_equal(x$feature_names(), c("spp1", "spp2"))
   expect_equal(x$zone_names(), "cost")
+  # tests for integer fields
   expect_equal(x$number_of_features(), 2)
   expect_equal(x$number_of_zones(), 1)
   expect_equal(x$number_of_planning_units(), nrow(sim_pu_polygons) - 1)
   expect_equal(x$planning_unit_indices(), c(1, seq(3, nrow(sim_pu_polygons))))
   expect_equal(x$number_of_total_units(), nrow(sim_pu_polygons))
+  expect_error(x$total_unit_ids())
   # tests for planning_unit_costs field
   expect_equal(
     x$planning_unit_costs(),
@@ -461,6 +506,11 @@ test_that("x = Spatial, features = character", {
   expect_true(all(x$data$rij_matrix[[1]] == rij[[1]]))
   expect_equal(names(x$data$rij_matrix), "cost")
   expect_equal(rownames(x$data$rij_matrix[[1]]),  c("spp1", "spp2"))
+  # test for converting total unit ids to indices
+  expect_equal(
+    x$convert_total_unit_ids_to_indices(c(seq_len(3), 1e5, 4)),
+    c(seq_len(3), 1e5, 4)
+  )
   # test that calling targets before they have been initialized throws error
   expect_error(x$feature_targets())
 })
@@ -493,9 +543,13 @@ test_that("x = Spatial, features = ZonesCharacter", {
   # verify that object can be printed
   suppressMessages(print(x))
   suppressMessages(x)
-  # tests for integer fields
+  # test for logical fields
+  expect_true(x$is_ids_equivalent_to_indices())
+  # tests for character fields
+  expect_equal(x$planning_unit_class(), "SpatialPolygonsDataFrame")
   expect_equal(x$feature_names(), c("spp1", "spp2"))
   expect_equal(x$zone_names(), c("z1", "z2"))
+  # tests for integer fields
   expect_equal(x$number_of_features(), 2)
   expect_equal(x$number_of_zones(), 2)
   expect_equal(x$number_of_planning_units(), nrow(sim_zones_pu_polygons) - 1)
@@ -504,6 +558,7 @@ test_that("x = Spatial, features = ZonesCharacter", {
     c(c(1, 2), seq(4, nrow(sim_zones_pu_polygons)))
   )
   expect_equal(x$number_of_total_units(), nrow(sim_zones_pu_polygons))
+  expect_error(x$total_unit_ids())
   # tests for planning_unit_costs field
   expect_equal(
     x$planning_unit_costs(),
@@ -603,6 +658,11 @@ test_that("x = Spatial, features = ZonesCharacter", {
   expect_equal(names(x$data$rij_matrix), c("z1", "z2"))
   expect_true(all(x$data$rij_matrix[[1]] == rij[[1]]))
   expect_true(all(x$data$rij_matrix[[2]] == rij[[2]]))
+  # test for converting total unit ids to indices
+  expect_equal(
+    x$convert_total_unit_ids_to_indices(c(seq_len(3), 1e5, 4)),
+    c(seq_len(3), 1e5, 4)
+  )
   # test that calling targets before they have been initialized throws error
   expect_error(x$feature_targets())
 })
@@ -621,13 +681,18 @@ test_that("x = sf, features = RasterStack", {
   # verify that object can be printed
   suppressMessages(print(x))
   suppressMessages(x)
-  # tests for integer fields
+  # test for logical fields
+  expect_true(x$is_ids_equivalent_to_indices())
+  # tests for character fields
+  expect_equal(x$planning_unit_class(), "sf")
   expect_equal(x$feature_names(), names(sim_features))
   expect_equal(x$zone_names(), "cost")
+  # tests for integer fields
   expect_equal(x$number_of_features(), terra::nlyr(sim_features))
   expect_equal(x$number_of_planning_units(), sum(!is.na(sim_pu_polygons$cost)))
   expect_equal(x$planning_unit_indices(), which(!is.na(sim_pu_polygons$cost)))
   expect_equal(x$number_of_total_units(), nrow(sim_pu_polygons))
+  expect_error(x$total_unit_ids())
   # tests for planning_unit_costs field
   expect_equal(
     x$planning_unit_costs(),
@@ -682,6 +747,11 @@ test_that("x = sf, features = RasterStack", {
   )
   expect_equal(names(x$data$rij_matrix), "cost")
   expect_equal(rownames(x$data$rij_matrix[[1]]), names(sim_features))
+  # test for converting total unit ids to indices
+  expect_equal(
+    x$convert_total_unit_ids_to_indices(c(seq_len(3), 1e5, 4)),
+    c(seq_len(3), 1e5, 4)
+  )
   # test that calling targets before they have been initialized throws error
   expect_error(x$feature_targets())
 })
@@ -703,9 +773,13 @@ test_that("x = sf, features = ZonesRaster", {
   # verify that object can be printed
   suppressMessages(print(x))
   suppressMessages(x)
-  # tests for integer fields
+  # test for logical fields
+  expect_true(x$is_ids_equivalent_to_indices())
+  # tests for character fields
+  expect_equal(x$planning_unit_class(), "sf")
   expect_equal(x$feature_names(), feature_names(sim_zones_features))
   expect_equal(x$zone_names(), zone_names(sim_zones_features))
+  # tests for integer fields
   expect_equal(x$number_of_features(), terra::nlyr(sim_zones_features[[1]]))
   expect_equal(x$number_of_planning_units(), nrow(sim_zones_pu_polygons) - 1)
   expect_equal(
@@ -713,6 +787,7 @@ test_that("x = sf, features = ZonesRaster", {
     c(seq_len(4), seq(6, nrow(sim_zones_pu_polygons)))
   )
   expect_equal(x$number_of_total_units(), nrow(sim_zones_pu_polygons))
+  expect_error(x$total_unit_ids())
   # tests for planning_unit_costs field
   expect_equal(
     x$planning_unit_costs(),
@@ -790,6 +865,11 @@ test_that("x = sf, features = ZonesRaster", {
       nrow = number_of_features(sim_zones_features)
     ),
     ignore_attr = TRUE
+  )
+  # test for converting total unit ids to indices
+  expect_equal(
+    x$convert_total_unit_ids_to_indices(c(seq_len(3), 1e5, 4)),
+    c(seq_len(3), 1e5, 4)
   )
   # test that calling targets before they have been initialized throws error
   expect_error(x$feature_targets())

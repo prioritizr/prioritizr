@@ -9,7 +9,7 @@ NULL
 #' identifiers.
 #'
 #' @param x [terra::rast()] object containing multiple
-#'   layers. Note that pixels must be 0, 1 or `NA` values.
+#'   layers. Note that cell values must be 0, 1 or `NA` values.
 #'
 #' @details This function is provided to help manage data that encompass
 #'   multiple management zones. For instance, this function may be helpful

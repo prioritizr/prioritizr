@@ -24,7 +24,7 @@ add_locked_out_constraints() functions."><meta property="og:image" content="http
     
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.6.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.6.4</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -119,9 +119,20 @@ See the Data format section for more information.</p></dd>
     <h2 id="data-format">Data format<a class="anchor" aria-label="anchor" href="#data-format"></a></h2>
     
 
+
 <p>The argument to <code>data</code> should be a <code>data.frame</code> with the following columns:</p>
 <dl><dt>pu</dt>
-<dd><p><code>integer</code> planning unit identifier.</p></dd>
+<dd><p><code>integer</code> planning unit identifiers.
+If <code>x</code> has <code>data.frame</code> planning units,
+then these values must refer to values in the <code>id</code> column of the planning
+unit data.
+Alternatively, if <code>x</code> has <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::st_sf()</a></code> or <code>matrix</code> planning units,
+then these values must refer to the row numbers of the planning unit data.
+Additionally, if <code>x</code> has <code>numeric</code> vector planning units,
+then these values must refer to the element indices of the planning unit
+data.
+Finally, if <code>x</code> has <code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> planning units,
+then these values must refer to cell indices.</p></dd>
 
 
 <dt>zone</dt>
@@ -131,7 +142,7 @@ zone.</p></dd>
 
 
 <dt>status</dt>
-<dd><p><code>numeric</code> values indicating how much
+<dd><p><code>numeric</code> status values. These values indicate how much
 of each planning unit should be allocated to each zone in the solution.
 For example, the <code>numeric</code> values could be binary values (i.e., zero
 or one) for problems containing binary-type decision variables

@@ -72,7 +72,7 @@ missing (\code{NA}) values in the argument to \code{solution}.
 }
 
 \item{\code{x} has \code{\link[terra:rast]{terra::rast()}} planning units}{The argument to \code{solution}
-be a \code{\link[terra:rast]{terra::rast()}} object where different grid cells (pixels) correspond
+be a \code{\link[terra:rast]{terra::rast()}} object where different cells correspond
 to different planning units and layers correspond to
 a different management zones. It should have the same dimensionality
 (rows, columns, layers), resolution, extent, and coordinate reference

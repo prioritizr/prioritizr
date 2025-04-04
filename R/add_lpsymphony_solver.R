@@ -92,7 +92,8 @@ add_lpsymphony_solver <- function(x, gap = 0.1,
     assertthat::noNA(verbose),
     assertthat::is.flag(first_feasible),
     assertthat::noNA(first_feasible),
-    is_installed("lpsymphony")
+    is_installed("lpsymphony"),
+    is_installed("slam")
   )
   # throw error about bug in early version of lpsymphony
   assert(

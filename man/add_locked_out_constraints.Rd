@@ -53,66 +53,72 @@ planning unit allocations to a specific value.
 \section{Data format}{
 
 
-The locked planning units can be specified using the following formats.
-Generally, the locked data should correspond to the planning units
-in the argument to \code{x.} To help make working with
-\code{\link[terra:rast]{terra::rast()}} planning unit data easier,
-the locked data should correspond to cell indices in the
-\code{\link[terra:rast]{terra::rast()}} data. For example, \code{integer} arguments
-should correspond to cell indices and \code{logical} arguments should have
-a value for each cell---regardless of which planning unit cells contain
-\code{NA} values.
+The following formats can be used to lock in planning units.
 
 \describe{
 
-\item{\code{data} as an \code{integer} vector}{containing indices that indicate which
-planning units should be locked for the solution. This argument is only
-compatible with problems that contain a single zone.}
+\item{\code{locked_out} as a \code{numeric} vector}{
+containing \code{numeric} values that indicate which
+planning units should be locked for the solution.
+If \code{x} has \code{data.frame} planning units,
+then these values must refer to values in the \code{id} column of the planning
+unit data.
+Alternatively, if \code{x} has \code{\link[sf:sf]{sf::st_sf()}} or \code{matrix} planning units,
+then these values must refer to the row numbers of the planning unit data.
+Additionally, if \code{x} has \code{numeric} vector planning units,
+then these values must refer to the element indices of the planning unit
+data.
+Finally, if \code{x} has \code{\link[terra:rast]{terra::rast()}} planning units,
+then these values must refer to cell indices.
+Note that this format is available for problems that contain a single
+zone.}
 
-\item{\code{data} as a \code{logical} vector}{containing \code{TRUE} and/or
-\code{FALSE} values that indicate which planning units should be locked
-in the solution. This argument is only compatible with problems that
+\item{\code{locked_out} as a \code{logical} vector}{containing \code{TRUE} and/or
+\code{FALSE} values that indicate each if planning units should be locked
+in the solution. Note that the vector should have a \code{TRUE} or \code{FALSE}
+value for each and every planning unit in the argument to \code{x}.
+This argument is only compatible with problems that
 contain a single zone.}
 
-\item{\code{data} as a \code{matrix} object}{containing \code{logical} \code{TRUE} and/or
-\code{FALSE} values which indicate if certain planning units are
+\item{\code{locked_out} as a \code{matrix} object}{containing \code{logical} (i.e.,
+\code{TRUE} or \code{FALSE}) values that indicate if certain planning units
 should be locked to a specific zone in the solution. Each row
 corresponds to a planning unit, each column corresponds to a zone, and
 each cell indicates if the planning unit should be locked to a given
-zone. Thus each row should only contain at most a single \code{TRUE}
-value.}
+zone.}
 
-\item{\code{data} as a \code{character} vector}{containing column name(s)
-that indicates if planning units should be locked for the solution.
+\item{\code{locked_out} as a \code{character} vector}{containing column name(s)
+for the planning unit data in \code{x} that indicate if planning units should
+be locked for the solution.
 This format is only
-compatible if the planning units in the argument to \code{x} are a
-\code{\link[sf:sf]{sf::sf()}} or \code{data.frame} object. The columns
-must have \code{logical} (i.e., \code{TRUE} or \code{FALSE})
-values indicating if the planning unit is to be locked for the solution.
+compatible if the argument to \code{x} has \code{\link[sf:sf]{sf::st_sf()}} or \code{data.frame}
+planning units.
+The columns must have \code{logical} (i.e., \code{TRUE} or \code{FALSE})
+values indicating if planning units should be locked for the solution.
 For problems that contain a single zone, the argument to \code{data} must
 contain a single column name. Otherwise, for problems that
 contain multiple zones, the argument to \code{data} must
 contain a column name for each zone.}
 
-\item{\code{data} as a \code{\link[sf:sf]{sf::sf()}} object}{
+\item{\code{locked_out} as a \code{\link[sf:sf]{sf::sf()}} object}{
 containing geometries that will be used to lock planning units for
 the solution. Specifically, planning units in \code{x} that spatially
 intersect with \code{y} will be locked (per \code{\link[=intersecting_units]{intersecting_units()}}).
 Note that this option is only available
 for problems that contain a single management zone.}
 
-\item{\code{data} as a \code{\link[terra:rast]{terra::rast()}} object}{
+\item{\code{locked_out} as a \code{\link[terra:rast]{terra::rast()}} object}{
 containing cells used to lock planning units for the solution.
 Specifically, planning units in \code{x}
 that intersect with cells that have non-zero and non-\code{NA} values are
 locked.
 For problems that contain multiple zones, the
 \code{data} object must contain a layer
-for each zone. Note that for multi-band arguments, each pixel must
+for each zone. Note that for multi-band arguments, each cell must
 only contain a non-zero value in a single band. Additionally, if the
 cost data in \code{x} is a \code{\link[terra:rast]{terra::rast()}} object, we
 recommend standardizing \code{NA} values in this dataset with the cost
-data. In other words, the pixels in \code{x} that have \code{NA} values
+data. In other words, the cells in \code{x} that have \code{NA} values
 should also have \code{NA} values in the locked data.}
 }
 }

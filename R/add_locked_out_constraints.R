@@ -22,7 +22,12 @@ NULL
 #'
 #' @inherit add_contiguity_constraints return
 #' @inherit add_locked_in_constraints details
-#' @inheritSection add_locked_in_constraints Data format
+#'
+#' @section Data format:
+#'
+#' The following formats can be used to lock in planning units.
+#'
+#' `r locked_documentation("locked_out")`
 #'
 #' @seealso
 #' See [constraints] for an overview of all functions for adding constraints.
@@ -215,14 +220,21 @@ methods::setMethod("add_locked_out_constraints",
       x$number_of_zones() == 1,
       all_finite(locked_out),
       is_count_vector(locked_out),
-      max(locked_out) <= number_of_total_units(x),
-      min(locked_out) >= 1
+      all_is_valid_total_unit_ids(x, locked_out)
     )
-    # create matrix with locked out constraints
-    m <- matrix(FALSE, ncol = 1, nrow = x$number_of_total_units())
-    m[locked_out, 1] <- TRUE
-    # add constraints
-    add_locked_out_constraints(x, m)
+    assert(
+      length(locked_out) > 0,
+      msg = "{.arg locked_out} must lock out at least one planning unit."
+    )
+    # add constraints using identifiers
+    add_manual_locked_constraints(
+      x,
+      tibble::tibble(
+        pu = locked_out,
+        zone = x$zone_names(),
+        status = 0
+      )
+    )
   }
 )
 
@@ -239,6 +251,10 @@ methods::setMethod("add_locked_out_constraints",
       all_finite(locked_out),
       x$number_of_zones() == 1,
       x$number_of_total_units() == length(locked_out)
+    )
+    assert(
+      sum(locked_out, na.rm = TRUE) > 0,
+      msg = "{.arg locked_out} must lock out at least one planning unit."
     )
     # add constraints
     add_locked_out_constraints(x, matrix(locked_out, ncol = 1))
@@ -265,16 +281,17 @@ methods::setMethod("add_locked_out_constraints",
       sum(locked_out, na.rm = TRUE) > 0,
       msg = "{.arg locked_out} must lock out at least one planning unit."
     )
-    # create data.frame with statuses
+    # determine which planning units should be locked
     ind <- which(locked_out, arr.ind = TRUE)
-    y <- data.frame(
-      pu = ind[, 1],
-      zone = x$zone_names()[ind[, 2]],
-      status = 0,
-      stringsAsFactors = FALSE
+    # add constraints using indices
+    internal_add_manual_locked_constraints(
+      x,
+      tibble::tibble(
+        idx = ind[, 1],
+        zone = x$zone_names()[ind[, 2]],
+        status = 0
+      )
     )
-    # add constraints
-    add_manual_locked_constraints(x, y)
   }
 )
 
@@ -334,9 +351,7 @@ methods::setMethod("add_locked_out_constraints",
     cli_warning(sp_pkg_deprecation_notice)
     add_locked_out_constraints(
       x,
-      suppressWarnings(
-        intersecting_units(x$data$cost, sf::st_as_sf(locked_out))
-      )
+      suppressWarnings(sf::st_as_sf(locked_out))
     )
   }
 )
@@ -367,8 +382,15 @@ methods::setMethod("add_locked_out_constraints",
         "must have overlapping spatial extents."
       )
     )
-    # add constraints
-    add_locked_out_constraints(x, intersecting_units(x$data$cost, locked_out))
+    # add constraints using indices
+    internal_add_manual_locked_constraints(
+      x,
+      tibble::tibble(
+        idx = intersecting_units(x$data$cost, locked_out),
+        zone = x$zone_names(),
+        status = 0
+      )
+    )
   }
 )
 

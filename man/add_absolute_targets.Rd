@@ -144,7 +144,7 @@ p4 <- p3 \%>\% add_absolute_targets(p4_targets)
 # solve problem
 s4 <- solve(p4)
 
-# plot solution (pixel values correspond to zone identifiers)
+# plot solution (cell values correspond to zone identifiers)
 plot(category_layer(s4), main = "equal targets", axes = FALSE)
 
 # create a problem with targets that require a varying amount of each
@@ -165,7 +165,7 @@ p5 <- p3 \%>\% add_absolute_targets(p5_targets)
 # solve problem
 s5 <- solve(p5)
 
-# plot solution (pixel values correspond to zone identifiers)
+# plot solution (cell values correspond to zone identifiers)
 plot(category_layer(s5), main = "varying targets", axes = FALSE)
 }
 

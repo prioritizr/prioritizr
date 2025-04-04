@@ -407,7 +407,7 @@ NULL
 #' s7 <- solve(p7)
 #'
 #' # plot solution
-#' # here, each layer/panel corresponds to a different zone and pixel values
+#' # here, each layer/panel corresponds to a different zone and cell values
 #' # indicate if a given planning unit has been allocated to a given zone
 #' par(mfrow = c(1, 1))
 #' plot(s7, main = c("zone 1", "zone 2", "zone 3"), axes = FALSE)
@@ -592,7 +592,8 @@ methods::setMethod(
         features = features,
         rij_matrix = rij,
         feature_abundances_in_total_units = fatu,
-        planning_unit_indices = idx
+        planning_unit_indices = idx,
+        is_ids_equivalent_to_indices = TRUE
       )
     )
   }
@@ -625,6 +626,10 @@ methods::setMethod(
     # assert that arguments are valid
     assert(
       is.data.frame(x),
+      assertthat::has_name(x, "id"),
+      is_count_vector(x$id),
+      all_finite(x$id),
+      no_duplicates(x$id),
       inherits(features, "ZonesCharacter"),
       nrow(x) > 0,
       is.character(cost_column),
@@ -690,7 +695,9 @@ methods::setMethod(
         cost_column = cost_column,
         rij_matrix = rij,
         feature_abundances_in_total_units = fatu,
-        planning_unit_indices = idx
+        planning_unit_indices = idx,
+        total_unit_ids = x$id,
+        is_ids_equivalent_to_indices = FALSE
       )
     )
   }
@@ -815,7 +822,9 @@ methods::setMethod(
         cost_column = cost_column,
         rij_matrix = rij,
         feature_abundances_in_total_units = fatu,
-        planning_unit_indices = idx
+        planning_unit_indices = idx,
+        total_unit_ids = x$id,
+        is_ids_equivalent_to_indices = FALSE
       )
     )
   }
@@ -829,6 +838,9 @@ methods::setMethod(
   methods::signature(x = "numeric", features = "data.frame"),
   function(x, features, rij_matrix, ...) {
     assert_required(rij_matrix)
+    cli::cli_alert_info(
+      "{.arg x} will be internally converted to {.cls matrix} format."
+    )
     if (!is.list(rij_matrix))
       rij_matrix <- list("1" = rij_matrix)
     problem(matrix(x, ncol = 1), features, rij_matrix = rij_matrix, ...)
@@ -927,26 +939,35 @@ methods::setMethod(
     }
     rownames(fatu) <- as.character(features$name)
     colnames(fatu) <- names(rij_matrix)
-    # convert rij matrices to sparse format if needed
+    # check if the rij matrix data need to be processed
+    # if we don't need to process the data, then we want to avoid doing this
+    # to reduce memory consumption
     idx <- planning_unit_indices(x)
-    rij <- lapply(rij_matrix, function(z) {
-      if (inherits(z, "dgCMatrix")) {
-        z@x[which(is.na(z@x))] <- 0
-      } else {
-        z[which(is.na(z))] <- 0
-      }
-      rownames(z) <- as.character(features$name)
-      Matrix::drop0(methods::as(z[, idx, drop = FALSE], "dgCMatrix"))
-    })
-    names(rij) <- names(rij_matrix)
+    is_rij_matrix_need_processing <-
+      !all_elements_inherit(rij_matrix, "dgCMatrix") ||
+      !identical(idx, seq_along(idx)) ||
+      any(vapply(rij_matrix, FUN.VALUE = logical(1), function(z) anyNA(z@x)))
+    # if rij data need to be processed, then do so
+    if (isTRUE(is_rij_matrix_need_processing)) {
+      rij_matrix <- lapply(rij_matrix, function(z) {
+        if (inherits(z, "dgCMatrix")) {
+          z@x[which(is.na(z@x))] <- 0
+        } else {
+          z[which(is.na(z))] <- 0
+        }
+        rownames(z) <- as.character(features$name)
+        Matrix::drop0(methods::as(z[, idx, drop = FALSE], "dgCMatrix"))
+      })
+    }
     # create new problem object
     conservation_problem(
       data = list(
         cost = x,
         features = features,
-        rij_matrix = rij,
+        rij_matrix = rij_matrix,
         feature_abundances_in_total_units = fatu,
-        planning_unit_indices = idx
+        planning_unit_indices = idx,
+        is_ids_equivalent_to_indices = TRUE
       )
     )
   }
@@ -1051,7 +1072,8 @@ methods::setMethod(
         cost_column = cost_column,
         rij_matrix = rij,
         feature_abundances_in_total_units = fatu,
-        planning_unit_indices = idx
+        planning_unit_indices = idx,
+        is_ids_equivalent_to_indices = TRUE
       )
     )
   }
@@ -1169,7 +1191,8 @@ methods::setMethod(
         cost_column = cost_column,
         rij_matrix = rij,
         feature_abundances_in_total_units = fatu,
-        planning_unit_indices = idx
+        planning_unit_indices = idx,
+        is_ids_equivalent_to_indices = TRUE
       )
     )
   }

@@ -26,7 +26,7 @@ or semi-continuous decisions."><meta property="og:image" content="https://priori
     
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.6.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.6.4</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -124,7 +124,17 @@ See the Data format section for more information.</p></dd>
 
 <p>The argument to <code>data</code> should be a <code>data.frame</code> with the following columns:</p>
 <dl><dt>pu</dt>
-<dd><p><code>integer</code> planning unit identifier.</p></dd>
+<dd><p><code>integer</code> planning unit identifiers.
+If <code>x</code> has <code>data.frame</code> planning units,
+then these values must refer to values in the <code>id</code> column of the planning
+unit data.
+Alternatively, if <code>x</code> has <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::st_sf()</a></code> or <code>matrix</code> planning units,
+then these values must refer to the row numbers of the planning unit data.
+Additionally, if <code>x</code> has <code>numeric</code> vector planning units,
+then these values must refer to the element indices of the planning unit
+data.
+Finally, if <code>x</code> has <code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> planning units,
+then these values must refer to cell indices.</p></dd>
 
 
 <dt>zone</dt>
@@ -134,13 +144,13 @@ zone.</p></dd>
 
 
 <dt>lower</dt>
-<dd><p><code>numeric</code> values indicating the minimum
+<dd><p><code>numeric</code> lower values. These values indicate the minimum
 value that each planning unit can be allocated to in each zone
 in the solution.</p></dd>
 
 
 <dt>upper</dt>
-<dd><p><code>numeric</code> values indicating the maximum
+<dd><p><code>numeric</code> upper values. These values indicate the maximum
 value that each planning unit can be allocated to in each zone
 in the solution.</p></dd>
 

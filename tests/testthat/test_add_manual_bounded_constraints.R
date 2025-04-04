@@ -1,4 +1,4 @@
-test_that("compile (sf, single zone)", {
+test_that("sf (compile, single zone)", {
   # import problem
   sim_pu_polygons <- get_sim_pu_polygons()
   sim_features <- get_sim_features()
@@ -24,7 +24,7 @@ test_that("compile (sf, single zone)", {
   expect_true(all(o$ub()[other_pos] == 1))
 })
 
-test_that("compile (raster, single zone)", {
+test_that("raster (solve, single zone)", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
@@ -51,34 +51,7 @@ test_that("compile (raster, single zone)", {
   expect_true(all(o$ub()[other_pos] == 1))
 })
 
-test_that("data.frame (data.frame pu data, compile, single zone)", {
-  # import data
-  sim_pu_data <- get_sim_pu_polygons()
-  sim_pu_data <- sf::st_drop_geometry(sim_pu_data)[1:5, , drop = FALSE]
-  sim_pu_data$cost <- c(1, NA, 3, 4, 8)
-  sim_pu_data$spp_1 <- runif(5)
-  sim_pu_data$spp_2 <- runif(5)
-  sim_pu_data$spp_3 <- runif(5)
-  # create problem
-  p <-
-    problem(sim_pu_data, c("spp_1", "spp_2", "spp_3"), cost_column = "cost") %>%
-    add_min_set_objective() %>%
-    add_relative_targets(0.1) %>%
-    add_proportion_decisions() %>%
-    add_manual_bounded_constraints(
-      data.frame(
-        pu = c(1, 3, 5),
-        lower = c(0.1, 0.2, 0.3),
-        upper = c(0.5, 0.6, 0.7)
-      )
-    )
-  o <- compile(p)
-  # tests
-  expect_equal(o$lb(), c(0.1, 0.2, 0, 0.3))
-  expect_equal(o$ub(), c(0.5, 0.6, 1, 0.7))
-})
-
-test_that("solve (single zone)", {
+test_that("sf (solve, single zone)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # import data
@@ -103,35 +76,82 @@ test_that("solve (single zone)", {
   expect_equal(s1$solution_1, s2$solution_1)
 })
 
-test_that("compile (multiple zones)", {
+test_that("data.frame (compile, single zone)", {
+  # import data
+  sim_pu_data <- get_sim_pu_polygons()
+  sim_pu_data <- sf::st_drop_geometry(sim_pu_data)[1:5, , drop = FALSE]
+  sim_pu_data$id <- c(1, 3, 90, 5, 2)
+  sim_pu_data$cost <- c(1, NA, 3, 4, 8)
+  sim_pu_data$spp_1 <- runif(5)
+  sim_pu_data$spp_2 <- runif(5)
+  sim_pu_data$spp_3 <- runif(5)
+  # create problem
+  p <-
+    problem(sim_pu_data, c("spp_1", "spp_2", "spp_3"), cost_column = "cost") %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.1) %>%
+    add_proportion_decisions() %>%
+    add_manual_bounded_constraints(
+      data.frame(
+        pu = c(1, 3, 2),
+        lower = c(0.1, 0.2, 0.3),
+        upper = c(0.5, 0.6, 0.7)
+      )
+    )
+  o <- compile(p)
+  # tests
+  expect_equal(o$lb(), c(0.1, 0, 0, 0.3))
+  expect_equal(o$ub(), c(0.5, 1, 1, 0.7))
+})
+
+test_that("data.frame (solve, single zone)", {
+  skip_on_cran()
+  skip_if_no_fast_solvers_installed()
+  # import data
+  sim_pu_data <- get_sim_pu_polygons()
+  sim_pu_data <- sf::st_drop_geometry(sim_pu_data)[1:5, , drop = FALSE]
+  sim_pu_data$id <- c(1, 3, 90, 5, 2)
+  sim_pu_data$cost <- c(1, NA, 3, 4, 8)
+  sim_pu_data$spp_1 <- runif(5)
+  sim_pu_data$spp_2 <- runif(5)
+  sim_pu_data$spp_3 <- runif(5)
+  # create problem
+  s <-
+    problem(sim_pu_data, c("spp_1", "spp_2", "spp_3"), cost_column = "cost") %>%
+    add_max_utility_objective(budget = 1e5) %>%
+    add_proportion_decisions() %>%
+    add_manual_bounded_constraints(
+      data.frame(
+        pu = c(1, 3, 5, 2),
+        lower = c(0.1, 0.2, 0.3, 0.4),
+        upper = c(0.15, 0.25, 0.35, 0.45)
+      )
+    ) %>%
+    add_default_solver(verbose = FALSE) %>%
+    solve(run_checks = FALSE)
+  # tests
+  expect_equal(s$solution_1, c(0.15, NA, 1, 0.35, 0.45), tolerance = 1e-6)
+})
+
+test_that("sf (compile, multiple zones)", {
   # import data
   sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
   sim_zones_features <- get_sim_zones_features()
-  # create targets data
-  targets <- matrix(
-    0, nrow = number_of_features(sim_zones_features),
-    ncol = number_of_zones(sim_zones_features)
-  )
-  targets[, 1] <- 1
-  # create locked data
-  sim_zones_pu_polygons$locked_1 <- TRUE
-  sim_zones_pu_polygons$locked_2 <- FALSE
-  sim_zones_pu_polygons$locked_3 <- FALSE
   # create problem
   p <-
     problem(
       sim_zones_pu_polygons, sim_zones_features,
       c("cost_1", "cost_2", "cost_3")
     ) %>%
-    add_min_set_objective() %>%
-    add_absolute_targets(targets) %>%
+    add_max_utility_objective(budget = 1e5) %>%
     add_proportion_decisions() %>%
     add_manual_bounded_constraints(
       data.frame(
         pu = c(seq_len(5), 20),
         zone = c(rep("zone_1", 5), "zone_2"),
-        lower = 0.3,
-        upper = 0.35
+        lower = c(rep(0.3, 5), 0.7),
+        upper = c(rep(0.4, 5), 0.8),
+        stringsAsFactors = TRUE
       )
     )
   o <- compile(p)
@@ -141,47 +161,143 @@ test_that("compile (multiple zones)", {
     seq_len(p$number_of_planning_units() * p$number_of_zones()), locked_pos
   )
   # tests
-  expect_true(all(o$lb()[locked_pos] == 0.3))
-  expect_true(all(o$ub()[locked_pos] == 0.35))
+  expect_equal(o$lb()[locked_pos], c(rep(0.3, 5), 0.7))
+  expect_equal(o$ub()[locked_pos], c(rep(0.4, 5), 0.8))
   expect_true(all(o$lb()[other_pos] == 0))
   expect_true(all(o$ub()[other_pos] == 1))
 })
 
-test_that("solve (multiple zones)", {
+test_that("sf (solve, multiple zones)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # import data
   sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
   sim_zones_features <- get_sim_zones_features()
-  # create targets data
-  targets <- matrix(
-    0, nrow = number_of_features(sim_zones_features),
-    ncol = number_of_zones(sim_zones_features)
-  )
-  targets[, 1] <- 1
   # create and solve problem
   s <-
     problem(
       sim_zones_pu_polygons, sim_zones_features,
       c("cost_1", "cost_2", "cost_3")
     ) %>%
-    add_min_set_objective() %>%
-    add_absolute_targets(targets) %>%
+    add_max_utility_objective(budget = 1e5) %>%
     add_proportion_decisions() %>%
     add_manual_bounded_constraints(
       data.frame(
         pu = c(seq_len(5), 20),
         zone = c(rep("zone_1", 5), "zone_2"),
-        lower = 0.3,
-        upper = 0.35
+        lower = c(rep(0.3, 5), 0.7),
+        upper = c(rep(0.35, 5), 0.75),
+        stringsAsFactors = TRUE
       )
     ) %>%
     add_default_solver(verbose = FALSE) %>%
-    solve()
-  # check that the solution obeys constraints as expected
+    solve(run_checks = FALSE)
+  # tests
   expect_true(all(s$solution_1_zone_1[seq_len(5)] >= 0.3))
   expect_true(all(s$solution_1_zone_1[seq_len(5)] <= 0.35))
-  expect_true(all(s$solution_1_zone_2[20] == 0.3))
+  expect_true(all(s$solution_1_zone_2[20] >= 0.7))
+  expect_true(all(s$solution_1_zone_2[20] <= 0.75))
+})
+
+test_that("data.frame (compile, multiple zones)", {
+  # import data
+  sim_zones_pu_data <- get_sim_zones_pu_polygons()
+  sim_zones_pu_data <- sf::st_drop_geometry(sim_zones_pu_data[1:5, ])
+  sim_zones_pu_data$id <- c(2, 4, 90, 1, 10)
+  sim_zones_pu_data$cost_1[4] <- NA_real_
+  sim_zones_pu_data$cost_1[2] <- NA_real_
+  sim_zones_pu_data$cost_2[2] <- NA_real_
+  sim_zones_pu_data$cost_3[2] <- NA_real_
+  sim_zones_pu_data$spp_1_zone_1 <- 1
+  sim_zones_pu_data$spp_1_zone_2 <- 2
+  sim_zones_pu_data$spp_1_zone_3 <- 3
+  sim_zones_features <- get_sim_zones_features()
+  # create problem
+  p <-
+    problem(
+      sim_zones_pu_data,
+      cost_column = c("cost_1", "cost_2", "cost_3"),
+      zones(
+        zone_1 = "spp_1_zone_1",
+        zone_2 = "spp_1_zone_2",
+        zone_3 = "spp_1_zone_3"
+      )
+    ) %>%
+    add_min_set_objective() %>%
+    add_absolute_targets(matrix(1, ncol = 3)) %>%
+    add_proportion_decisions() %>%
+    add_manual_bounded_constraints(
+      data.frame(
+        pu = c(10, 4, 1),
+        zone = c("zone_1", "zone_2", "zone_3"),
+        lower = c(0.1, 0.2, 0.3),
+        upper = c(0.15, 0.25, 0.35),
+        stringsAsFactors = TRUE
+      )
+    )
+  o <- compile(p)
+  # tests
+  expect_equal(
+    o$lb(),
+    c(
+      0, 0, 0, 0.1, # zone 1
+      0, 0, 0, 0,   # zone 2
+      0, 0, 0.3, 0  # zone 3
+    )
+  )
+  expect_equal(
+    o$ub(),
+    c(
+      1, 1, 0, 0.15, # zone 1
+      1, 1, 1, 1,   # zone 2
+      1, 1, 0.35, 1  # zone 3
+    )
+  )
+})
+
+test_that("data.frame (solve, multiple zones)", {
+  skip_on_cran()
+  skip_if_no_fast_solvers_installed()
+  # import data
+  sim_zones_pu_data <- get_sim_zones_pu_polygons()
+  sim_zones_pu_data <- sf::st_drop_geometry(sim_zones_pu_data[1:5, ])
+  sim_zones_pu_data$id <- c(2, 4, 90, 1, 10)
+  sim_zones_pu_data$cost_1[4] <- NA_real_
+  sim_zones_pu_data$cost_1[2] <- NA_real_
+  sim_zones_pu_data$cost_2[2] <- NA_real_
+  sim_zones_pu_data$cost_3[2] <- NA_real_
+  sim_zones_pu_data$spp_1_zone_1 <- 1
+  sim_zones_pu_data$spp_1_zone_2 <- 2
+  sim_zones_pu_data$spp_1_zone_3 <- 3
+  sim_zones_features <- get_sim_zones_features()
+  # create and solve problem
+  s <-
+    problem(
+      sim_zones_pu_data,
+      cost_column = c("cost_1", "cost_2", "cost_3"),
+      zones(
+        zone_1 = "spp_1_zone_1",
+        zone_2 = "spp_1_zone_2",
+        zone_3 = "spp_1_zone_3"
+      )
+    ) %>%
+    add_max_utility_objective(budget = 1e5) %>%
+    add_proportion_decisions() %>%
+    add_manual_bounded_constraints(
+      data.frame(
+        pu = c(10, 4, 1),
+        zone = c("zone_1", "zone_2", "zone_3"),
+        lower = c(0.1, 0.2, 0.3),
+        upper = c(0.15, 0.25, 0.35),
+        stringsAsFactors = TRUE
+      )
+    ) %>%
+    add_default_solver(gap = 0, verbose = FALSE) %>%
+    solve(run_checks = FALSE)
+  # tests
+  expect_equal(s$solution_1_zone_1, c(0, NA, 0, NA, 0.1), tolerance = 1e-5)
+  expect_equal(s$solution_1_zone_2, c(0, NA, 0, 0.65, 0), tolerance = 1e-5)
+  expect_equal(s$solution_1_zone_3, c(1, NA, 1, 0.35, 0.9), tolerance = 1e-5)
 })
 
 test_that("invalid inputs (single zone)", {

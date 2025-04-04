@@ -4,7 +4,7 @@ NULL
 #' Binary stack
 #'
 #' Convert a single-layer [terra::rast()] object that contains integer values
-#' into a multi-layer [terra::rast()] object with pixel values denote the
+#' into a multi-layer [terra::rast()] object with cell values denote the
 #' presence/absence of a given integer value. This is methodology is also known
 #' as "one-hot encoding".
 #'
