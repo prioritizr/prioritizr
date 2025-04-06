@@ -207,7 +207,7 @@ test_that("solve (data.frame, no boundary penalties)", {
   expect_true(is.numeric(s$solution_1))
 })
 
-test_that("compile (data.frame (data.frame, asymmetric connectivity data)", {
+test_that("compile (data.frame, asymmetric connectivity data)", {
   skip_if_not_installed("vroom")
   # import data
   wd <- system.file("extdata/marxan/input", package = "prioritizr")
