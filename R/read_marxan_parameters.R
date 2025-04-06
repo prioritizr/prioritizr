@@ -87,7 +87,6 @@ read_marxan_parameters <- function(x, data, call = fn_caller_env()) {
       ## if needed, then sanitize paths
       if (!is.na(v) && identical(type, "directory")) {
         v <- gsub("\\", "/", v, fixed = TRUE)
-        v <- normalizePath(v, winslash = "/", mustWork = FALSE)
       }
       ## return result
       v
@@ -118,7 +117,6 @@ read_marxan_parameters <- function(x, data, call = fn_caller_env()) {
       ## if needed, then sanitize paths
       if (!is.na(v) && identical(type, "file")) {
         v <- gsub("\\", "/", v, fixed = TRUE)
-        v <- normalizePath(v, winslash = "/", mustWork = FALSE)
         if (!any(startsWith(v, c(paste0(LETTERS, ":"), "/")))) {
           v <- paste0(input_dir, "/", v)
         }
@@ -185,6 +183,9 @@ read_marxan_parameters <- function(x, data, call = fn_caller_env()) {
             data$field[[i]],
             "} in {.arg x} refers to a path that does not exist."
           ),
+          "i" = paste0(
+            "{.arg x} is in the directory {.path ", x_dir, "}."
+          ),
           "i" = ifelse(is.na(raw_input_dir),
             paste0(
               "{.field INPUTDIR} is missing."
@@ -215,6 +216,9 @@ read_marxan_parameters <- function(x, data, call = fn_caller_env()) {
           "x" = paste0(
             "{.field ", data$field[[i]],
             "} in {.arg x} refers to a directory that does not exist."
+          ),
+          "i" = paste0(
+            "{.arg x} is in the directory {.path ", x_dir, "}."
           ),
           "i" = paste0(
             "{.field ", data$field[[i]], "} refers to {.val ",
