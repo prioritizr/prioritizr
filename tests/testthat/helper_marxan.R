@@ -31,11 +31,23 @@ write_marxan_data <- function(pu, spec, puvspr, bound, blm, asymmetric, dir) {
   # create output directory
   dir.create(dir, showWarnings = FALSE, recursive = TRUE)
   # save data files
-  write.table(pu, paste0(dir, "/pu.dat"), sep = ",", row.names = FALSE)
-  write.table(spec, paste0(dir, "/spec.dat"), sep = ",", row.names = FALSE)
-  write.table(puvspr, paste0(dir, "/puvspr.dat"), sep = ",", row.names = FALSE)
+  write.table(
+    pu, file.path(dir, "pu.dat"),
+    sep = ",", row.names = FALSE, append = FALSE
+  )
+  write.table(
+    spec, file.path(dir, "spec.dat"),
+    sep = ",", row.names = FALSE, append = FALSE
+  )
+  write.table(
+    puvspr, file.path(dir, "puvspr.dat"),
+    sep = ",", row.names = FALSE, append = FALSE
+  )
   if (!is.null(bound)) {
-    write.table(bound, paste0(dir, "/bound.dat"), sep = ",", row.names = FALSE)
+    write.table(
+      bound, file.path(dir, "bound.dat"),
+      sep = ",", row.names = FALSE, append = FALSE
+    )
   }
   # save parameter file
   param_text <- paste0("
@@ -96,7 +108,7 @@ VERBOSITY 3
 SAVESOLUTIONSMATRIX 3
 
 ")
-  writeLines(param_text, paste0(dir, "/input.dat"))
+  writeLines(param_text, file.path(dir, "input.dat"))
   # return success
   invisible(TRUE)
 }

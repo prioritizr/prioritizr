@@ -467,140 +467,140 @@ test_that("invalid inputs (character)", {
   # run tests for missing mandatory fields
   ## write data
   write_marxan_data(p, s, pv, b, 1, FALSE, tempdir())
-  input_params <- readLines(paste0(tempdir(), "/input.dat"))
+  input_params <- readLines(file.path(tempdir(), "input.dat"))
   ## PUNAME
   writeLines(
     input_params[!startsWith(input_params, "PUNAME")],
-    paste0(tempdir(), "/input.dat")
+    file.path(tempdir(), "input.dat")
   )
   expect_tidy_error(
-    marxan_problem(paste0(tempdir(), "/input.dat")),
+    marxan_problem(file.path(tempdir(), "input.dat")),
     "^.*x.*missing.*PUNAME.*$"
   )
   ## SPECNAME
   writeLines(
     input_params[!startsWith(input_params, "SPECNAME")],
-    paste0(tempdir(), "/input.dat")
+    file.path(tempdir(), "input.dat")
   )
   expect_tidy_error(
-    marxan_problem(paste0(tempdir(), "/input.dat")),
+    marxan_problem(file.path(tempdir(), "input.dat")),
     "^.*x.*missing.*SPECNAME.*$"
   )
   ## PUVSPRNAME
   writeLines(
     input_params[!startsWith(input_params, "PUVSPRNAME")],
-    paste0(tempdir(), "/input.dat")
+    file.path(tempdir(), "input.dat")
   )
   expect_tidy_error(
-    marxan_problem(paste0(tempdir(), "/input.dat")),
+    marxan_problem(file.path(tempdir(), "input.dat")),
     "^.*x.*missing.*PUVSPRNAME.*$"
   )
 
   # run tests for invalid parameter values
   ## PUNAME
   write_marxan_data(p, s, pv, b, 1, FALSE, tempdir())
-  unlink(paste0(tempdir(), "/pu.dat"))
+  unlink(file.path(tempdir(), "pu.dat"))
   expect_tidy_error(
-    marxan_problem(paste0(tempdir(), "/input.dat")),
+    marxan_problem(file.path(tempdir(), "input.dat")),
     "^.*PUNAME.*exist.*$"
   )
   ## SPECNAME
   write_marxan_data(p, s, pv, b, 1, FALSE, tempdir())
-  unlink(paste0(tempdir(), "/spec.dat"))
+  unlink(file.path(tempdir(), "spec.dat"))
   expect_tidy_error(
-    marxan_problem(paste0(tempdir(), "/input.dat")),
+    marxan_problem(file.path(tempdir(), "input.dat")),
     "^.*SPECNAME.*exist.*$"
   )
   ## PUVSPRNAME
   write_marxan_data(p, s, pv, b, 1, FALSE, tempdir())
-  unlink(paste0(tempdir(), "/puvspr.dat"))
+  unlink(file.path(tempdir(), "puvspr.dat"))
   expect_tidy_error(
-    marxan_problem(paste0(tempdir(), "/input.dat")),
+    marxan_problem(file.path(tempdir(), "input.dat")),
     "^.*PUVSPRNAME.*exist.*$"
   )
   ## BOUNDNAME
   write_marxan_data(p, s, pv, b, 1, FALSE, tempdir())
-  unlink(paste0(tempdir(), "/bound.dat"))
+  unlink(file.path(tempdir(), "bound.dat"))
   expect_tidy_error(
-    marxan_problem(paste0(tempdir(), "/input.dat")),
+    marxan_problem(file.path(tempdir(), "input.dat")),
     "^.*BOUNDNAME.*exist.*$"
   )
   ## BLM
   write_marxan_data(p, s, pv, b, "a", FALSE, tempdir())
   expect_tidy_error(
-    marxan_problem(paste0(tempdir(), "/input.dat")),
+    marxan_problem(file.path(tempdir(), "input.dat")),
     "^.*BLM.*number.*$"
   )
   ## ASSYMETRICCONNECTIVITY
   write_marxan_data(p, s, pv, b, 1, "a", tempdir())
   expect_tidy_error(
-    marxan_problem(paste0(tempdir(), "/input.dat")),
+    marxan_problem(file.path(tempdir(), "input.dat")),
     "^.*ASYMMETRICCONNECTIVITY.*number.*$"
   )
 
   # run tests for invalid data
   write_marxan_data(p[, -1], s, pv, b, 1, 0, tempdir())
   expect_tidy_error(
-    marxan_problem(paste0(tempdir(), "/input.dat")),
+    marxan_problem(file.path(tempdir(), "input.dat")),
     "^.*PUNAME.*pu.*name.*id.*$"
   )
   write_marxan_data(p[-1, ], s, pv, b, 5, 0, tempdir())
   expect_tidy_error(
-    marxan_problem(paste0(tempdir(), "/input.dat")),
+    marxan_problem(file.path(tempdir(), "input.dat")),
     "^.*BOUNDNAME.*PUNAME.*bound.*id1.*pu.*id.*$"
   )
   write_marxan_data(`[<-`(p, 1, 1, NA), s, pv, b, 5, 0, tempdir())
   expect_tidy_error(
-    marxan_problem(paste0(tempdir(), "/input.dat")),
+    marxan_problem(file.path(tempdir(), "input.dat")),
     "^.*PUNAME.*x.*missing.*$"
   )
   write_marxan_data(p, s[-1, ], pv, b, 5, 0, tempdir())
   expect_tidy_error(
-    marxan_problem(paste0(tempdir(), "/input.dat")),
+    marxan_problem(file.path(tempdir(), "input.dat")),
     "^.*PUVSPRNAME.*SPECNAME.*puvspr.*species.*spec.*id.*$"
   )
   write_marxan_data(p, s[, -1], pv, b, 5, 0, tempdir())
   expect_tidy_error(
-    marxan_problem(paste0(tempdir(), "/input.dat")),
+    marxan_problem(file.path(tempdir(), "input.dat")),
     "^.*SPECNAME.*x.*name.*id.*$"
   )
   write_marxan_data(p, `[<-`(s, 1, 1, NA), pv, b, 5, 0, tempdir())
   expect_tidy_error(
-    marxan_problem(paste0(tempdir(), "/input.dat")),
+    marxan_problem(file.path(tempdir(), "input.dat")),
     "^.*SPECNAME.*spec.*id.*missing.*$"
   )
   write_marxan_data(p, s, pv[, -1], b, 5, 0, tempdir())
   expect_tidy_error(
-    marxan_problem(paste0(tempdir(), "/input.dat")),
+    marxan_problem(file.path(tempdir(), "input.dat")),
     "^.*PUVSPRNAME.*puvspr.*name.*species.*$"
   )
   write_marxan_data(p, s, `[<-`(pv, 1, 1, NA), b, 5, 0, tempdir())
   expect_tidy_error(
-    marxan_problem(paste0(tempdir(), "/input.dat")),
+    marxan_problem(file.path(tempdir(), "input.dat")),
     "^.*PUVSPRNAME.*puvspr.*species.*missing.*$"
   )
   write_marxan_data(p, s, pv, b[, -1], 5, 0, tempdir())
   expect_tidy_error(
-    marxan_problem(paste0(tempdir(), "/input.dat")),
+    marxan_problem(file.path(tempdir(), "input.dat")),
     "^.*BOUNDNAME.*bound.*name.*id1.*$"
   )
   write_marxan_data(p, s, pv, `[<-`(b, 1, 1, NA), 5, 0, tempdir())
   expect_tidy_error(
-    marxan_problem(paste0(tempdir(), "/input.dat")),
+    marxan_problem(file.path(tempdir(), "input.dat")),
     "^.*BOUNDNAME.*bound.*id1.*missing.*$"
   )
 
   # run tests for warnings
   write_marxan_data(p, s, pv, NULL, 1, 0, tempdir())
-  unlink(paste0(tempdir(), "/bound.dat"))
+  unlink(file.path(tempdir(), "bound.dat"))
   expect_warning(
-    marxan_problem(paste0(tempdir(), "/input.dat")),
+    marxan_problem(file.path(tempdir(), "input.dat")),
     "^.*x.*missing.*BOUNDNAME.*BLM.*$"
   )
   write_marxan_data(p, s, pv, NULL, 0, 1, tempdir())
-  unlink(paste0(tempdir(), "/bound.dat"))
+  unlink(file.path(tempdir(), "bound.dat"))
   expect_warning(
-    marxan_problem(paste0(tempdir(), "/input.dat")),
+    marxan_problem(file.path(tempdir(), "input.dat")),
     "^.*x.*missing.*BOUNDNAME.*ASYMMETRICCONNECTIVITY.*$"
   )
 })
