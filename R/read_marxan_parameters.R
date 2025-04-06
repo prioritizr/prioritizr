@@ -100,9 +100,9 @@ read_marxan_parameters <- function(x, data, call = fn_caller_env()) {
 
   # if input_dir is a relative file path, then normalize it to the
   # directory where it is located
+  x_dir <- dirname(normalizePath(x, winslash = "/", mustWork = FALSE))
   if (!is.na(input_dir)) {
     if (!any(startsWith(input_dir, c(paste0(LETTERS, ":"), "/")))) {
-      x_dir <- dirname(normalizePath(x, winslash = "/", mustWork = FALSE))
       input_dir <- paste0(x_dir, "/", input_dir)
       data$value[[input_idx]] <- input_dir
     }
