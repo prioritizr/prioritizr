@@ -137,7 +137,7 @@ read_marxan_parameters <- function(x, data, call = fn_caller_env()) {
     ) {
       cli::cli_abort(
         c(
-          "x" = paste0(
+          "!" = paste0(
             "{.arg x} is missing the {.field ",
             data$field[[i]],
             "} field."
@@ -203,8 +203,6 @@ read_marxan_parameters <- function(x, data, call = fn_caller_env()) {
         ),
         call = call
       )
-      # return success
-      TRUE
     }
     ## if is INPUTDIR parameter, then verify directory exists
     if (
@@ -252,7 +250,7 @@ marxan_parse_field <- function(field, lines) {
   x <- grep(paste0(field, " "), lines, value = TRUE, fixed = TRUE)
   if (length(x) == 0) return(NA_character_)
   x <- x[startsWith(x, field)]
-  if (length(x) == 0) return(NA_character_)
+  if (length(x) == 0) return(NA_character_) # nocov
   x <- sub(paste0(field, " "), "", x)
   x[[1]]
 }
