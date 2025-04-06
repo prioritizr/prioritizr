@@ -463,6 +463,39 @@ test_that("invalid inputs (character)", {
   b <- read.table(
     file.path(wd, "bound.dat"), header = TRUE, sep = "\t"
   )
+
+  # run tests for missing mandatory fields
+  ## write data
+  write_marxan_data(p, s, pv, b, 1, FALSE, tempdir())
+  input_params <- readLines(paste0(tempdir(), "/input.dat"))
+  ## PUNAME
+  writeLines(
+    input_params[!startsWith(input_params, "PUNAME")],
+    paste0(tempdir(), "/input.dat")
+  )
+  expect_tidy_error(
+    marxan_problem(paste0(tempdir(), "/input.dat")),
+    "^.*x.*missing.*PUNAME.*$"
+  )
+  ## SPECNAME
+  writeLines(
+    input_params[!startsWith(input_params, "SPECNAME")],
+    paste0(tempdir(), "/input.dat")
+  )
+  expect_tidy_error(
+    marxan_problem(paste0(tempdir(), "/input.dat")),
+    "^.*x.*missing.*SPECNAME.*$"
+  )
+  ## PUVSPRNAME
+  writeLines(
+    input_params[!startsWith(input_params, "PUVSPRNAME")],
+    paste0(tempdir(), "/input.dat")
+  )
+  expect_tidy_error(
+    marxan_problem(paste0(tempdir(), "/input.dat")),
+    "^.*x.*missing.*PUVSPRNAME.*$"
+  )
+
   # run tests for invalid parameter values
   ## PUNAME
   write_marxan_data(p, s, pv, b, 1, FALSE, tempdir())
