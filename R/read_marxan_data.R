@@ -28,7 +28,6 @@ read_marxan_pu_data <- function(x, call = fn_caller_env()) {
     vroom::vroom(
       x,
       delim = marxan_data_delimiter(x),
-      altrep = !identical(.Platform$OS.type, "windows"),
       col_types = vroom::cols(
         id = vroom::col_double(),
         cost = vroom::col_double(),
@@ -66,7 +65,6 @@ read_marxan_puvspr_data <- function(x, call = fn_caller_env()) {
     vroom::vroom(
       x,
       delim = marxan_data_delimiter(x),
-      altrep = !identical(.Platform$OS.type, "windows"),
       col_types = vroom::cols(
         species = vroom::col_double(),
         pu = vroom::col_double(),
@@ -101,7 +99,6 @@ read_marxan_spec_data <- function(x, call = fn_caller_env()) {
     vroom::vroom(
       x,
       delim = marxan_data_delimiter(x),
-      altrep = !identical(.Platform$OS.type, "windows"),
       col_types = vroom::cols(
         id = vroom::col_double(),
         name = vroom::col_character(),
@@ -138,7 +135,6 @@ read_marxan_bound_data <- function(x, call = fn_caller_env()) {
     vroom::vroom(
       x,
       delim = marxan_data_delimiter(x),
-      altrep = !identical(.Platform$OS.type, "windows"),
       col_types = vroom::cols(
         id1 = vroom::col_double(),
         id2 = vroom::col_double(),

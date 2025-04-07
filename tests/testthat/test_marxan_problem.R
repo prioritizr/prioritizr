@@ -539,68 +539,88 @@ test_that("invalid inputs (character)", {
   )
 
   # run tests for invalid data
-  write_marxan_data(p[, -1], s, pv, b, 1, 0, tempdir())
+  ## Note that we save the Marxan data to a different directory for each
+  ## of these tests. This is necessary for compatibility with Windows,
+  ## because vroom will leave file connections open and this prevents
+  ## over-writing files in subsequent tests
+  wd <- tempfile()
+  write_marxan_data(p[, -1], s, pv, b, 1, 0, wd)
   expect_tidy_error(
-    marxan_problem(file.path(tempdir(), "input.dat")),
+    marxan_problem(file.path(wd, "input.dat")),
     "^.*PUNAME.*pu.*name.*id.*$"
   )
-  write_marxan_data(p[-1, ], s, pv, b, 5, 0, tempdir())
+  wd <- tempfile()
+  write_marxan_data(p[-1, ], s, pv, b, 5, 0, wd)
   expect_tidy_error(
-    marxan_problem(file.path(tempdir(), "input.dat")),
+    marxan_problem(file.path(wd, "input.dat")),
     "^.*BOUNDNAME.*PUNAME.*bound.*id1.*pu.*id.*$"
   )
-  write_marxan_data(`[<-`(p, 1, 1, NA), s, pv, b, 5, 0, tempdir())
+  wd <- tempfile()
+  write_marxan_data(`[<-`(p, 1, 1, NA), s, pv, b, 5, 0, wd)
   expect_tidy_error(
-    marxan_problem(file.path(tempdir(), "input.dat")),
+    marxan_problem(file.path(wd, "input.dat")),
     "^.*PUNAME.*x.*missing.*$"
   )
-  write_marxan_data(p, s[-1, ], pv, b, 5, 0, tempdir())
+  wd <- tempfile()
+  write_marxan_data(p, s[-1, ], pv, b, 5, 0, wd)
   expect_tidy_error(
-    marxan_problem(file.path(tempdir(), "input.dat")),
+    marxan_problem(file.path(wd, "input.dat")),
     "^.*PUVSPRNAME.*SPECNAME.*puvspr.*species.*spec.*id.*$"
   )
-  write_marxan_data(p, s[, -1], pv, b, 5, 0, tempdir())
+  wd <- tempfile()
+  write_marxan_data(p, s[, -1], pv, b, 5, 0, wd)
   expect_tidy_error(
-    marxan_problem(file.path(tempdir(), "input.dat")),
+    marxan_problem(file.path(wd, "input.dat")),
     "^.*SPECNAME.*x.*name.*id.*$"
   )
-  write_marxan_data(p, `[<-`(s, 1, 1, NA), pv, b, 5, 0, tempdir())
+  wd <- tempfile()
+  write_marxan_data(p, `[<-`(s, 1, 1, NA), pv, b, 5, 0, wd)
   expect_tidy_error(
-    marxan_problem(file.path(tempdir(), "input.dat")),
+    marxan_problem(file.path(wd, "input.dat")),
     "^.*SPECNAME.*spec.*id.*missing.*$"
   )
-  write_marxan_data(p, s, pv[, -1], b, 5, 0, tempdir())
+  wd <- tempfile()
+  write_marxan_data(p, s, pv[, -1], b, 5, 0, wd)
   expect_tidy_error(
-    marxan_problem(file.path(tempdir(), "input.dat")),
+    marxan_problem(file.path(wd, "input.dat")),
     "^.*PUVSPRNAME.*puvspr.*name.*species.*$"
   )
-  write_marxan_data(p, s, `[<-`(pv, 1, 1, NA), b, 5, 0, tempdir())
+  wd <- tempfile()
+  write_marxan_data(p, s, `[<-`(pv, 1, 1, NA), b, 5, 0, wd)
   expect_tidy_error(
-    marxan_problem(file.path(tempdir(), "input.dat")),
+    marxan_problem(file.path(wd, "input.dat")),
     "^.*PUVSPRNAME.*puvspr.*species.*missing.*$"
   )
-  write_marxan_data(p, s, pv, b[, -1], 5, 0, tempdir())
+  wd <- tempfile()
+  write_marxan_data(p, s, pv, b[, -1], 5, 0, wd)
   expect_tidy_error(
-    marxan_problem(file.path(tempdir(), "input.dat")),
+    marxan_problem(file.path(wd, "input.dat")),
     "^.*BOUNDNAME.*bound.*name.*id1.*$"
   )
-  write_marxan_data(p, s, pv, `[<-`(b, 1, 1, NA), 5, 0, tempdir())
+  wd <- tempfile()
+  write_marxan_data(p, s, pv, `[<-`(b, 1, 1, NA), 5, 0, wd)
   expect_tidy_error(
-    marxan_problem(file.path(tempdir(), "input.dat")),
+    marxan_problem(file.path(wd, "input.dat")),
     "^.*BOUNDNAME.*bound.*id1.*missing.*$"
   )
 
   # run tests for warnings
-  write_marxan_data(p, s, pv, NULL, 1, 0, tempdir())
-  unlink(file.path(tempdir(), "bound.dat"))
+  ## Note that we save the Marxan data to a different directory for each
+  ## of these tests. This is necessary for compatibility with Windows,
+  ## because vroom will leave file connections open and this prevents
+  ## over-writing files in subsequent tests
+  wd <- tempfile()
+  write_marxan_data(p, s, pv, NULL, 1, 0, wd)
+  unlink(file.path(wd, "bound.dat"))
   expect_warning(
-    marxan_problem(file.path(tempdir(), "input.dat")),
+    marxan_problem(file.path(wd, "input.dat")),
     "^.*x.*missing.*BOUNDNAME.*BLM.*$"
   )
-  write_marxan_data(p, s, pv, NULL, 0, 1, tempdir())
-  unlink(file.path(tempdir(), "bound.dat"))
+  wd <- tempfile()
+  write_marxan_data(p, s, pv, NULL, 0, 1, wd)
+  unlink(file.path(wd, "bound.dat"))
   expect_warning(
-    marxan_problem(file.path(tempdir(), "input.dat")),
+    marxan_problem(file.path(wd, "input.dat")),
     "^.*x.*missing.*BOUNDNAME.*ASYMMETRICCONNECTIVITY.*$"
   )
 })
