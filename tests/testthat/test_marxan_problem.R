@@ -450,7 +450,6 @@ test_that("invalid inputs (data.frame)", {
   )
 })
 
-
 test_that("invalid inputs (character)", {
   skip_on_cran()
   skip_if_not_installed("vroom")
