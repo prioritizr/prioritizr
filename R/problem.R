@@ -838,9 +838,6 @@ methods::setMethod(
   methods::signature(x = "numeric", features = "data.frame"),
   function(x, features, rij_matrix, ...) {
     assert_required(rij_matrix)
-    cli::cli_alert_info(
-      "{.arg x} will be internally converted to {.cls matrix} format."
-    )
     if (!is.list(rij_matrix))
       rij_matrix <- list("1" = rij_matrix)
     problem(matrix(x, ncol = 1), features, rij_matrix = rij_matrix, ...)

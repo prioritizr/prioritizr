@@ -1062,15 +1062,12 @@ test_that("x = numeric, features = data.frame", {
     spp1 = runif(10, -1, 1), spp2 = c(rpois(9, 4), NA)
   )
   # create problem
-  expect_message(
-    w <- capture_warnings(
-      x <- problem(
-        pu$cost,
-        data.frame(id = seq_len(2), name = c("spp1", "spp2")),
-        as.matrix(t(pu[, 3:4]))
-      )
-    ),
-    "matrix"
+  w <- capture_warnings(
+    x <- problem(
+      pu$cost,
+      data.frame(id = seq_len(2), name = c("spp1", "spp2")),
+      as.matrix(t(pu[, 3:4]))
+    )
   )
   # check warnings
   expect_length(w, 2)

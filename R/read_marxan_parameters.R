@@ -209,11 +209,11 @@ read_marxan_parameters <- function(x, data, call = fn_caller_env()) {
     if (
       identical(data$name[[i]], "input_dir") &&
       !is.na(data$raw_value[[i]]) &&
-      !assertthat::is.dir(data$value[[i]])
+      !dir.exists(data$value[[i]])
     ) {
       cli::cli_abort(
         c(
-          "x" = paste0(
+          "!" = paste0(
             "{.field ", data$field[[i]],
             "} in {.arg x} refers to a directory that does not exist."
           ),

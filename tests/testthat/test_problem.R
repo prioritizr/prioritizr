@@ -1139,12 +1139,9 @@ test_that("x = numeric, features = data.frame, rij_matrix = matrix", {
     spp1 = runif(10), spp2 = c(rpois(9, 4), NA)
   )
   # create problem
-  expect_message(
-    x <- problem(
-      pu$cost, data.frame(id = seq_len(2), name = c("spp1", "spp2")),
-      as.matrix(t(pu[, 3:4]))
-    ),
-    "matrix"
+  x <- problem(
+    pu$cost, data.frame(id = seq_len(2), name = c("spp1", "spp2")),
+    as.matrix(t(pu[, 3:4]))
   )
   # verify that object can be printed
   suppressMessages(print(x))

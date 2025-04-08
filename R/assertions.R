@@ -233,9 +233,12 @@ error_prefix_handler <- function(expr, prefix, call = fn_caller_env()) {
   # add in bullet point formatting to error message
   if (is.null(names(x))) {
     names(x) <- rep("x", length(x))
-  } else if (anyNA(names(x))) {
-    names(x)[is.na(x)] <- "x" # nocov
   }
+  # nocov start
+  if (anyNA(names(x))) {
+    names(x)[is.na(x)] <- "x"
+  }
+  # nocov end
   # throw error message
   cli::cli_abort(c(prefix, x), call = call)
 }

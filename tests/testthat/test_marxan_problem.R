@@ -497,6 +497,21 @@ test_that("invalid inputs (character)", {
   )
 
   # run tests for invalid parameter values
+  ## INPUTDIR
+  write_marxan_data(p, s, pv, b, 1, FALSE, tempdir())
+  input_params <- readLines(file.path(tempdir(), "input.dat"))
+  writeLines(
+    replace(
+      input_params,
+      which(startsWith(input_params, "INPUTDIR")),
+      "INPUTDIR missingfolder"
+    ),
+    file.path(tempdir(), "input.dat")
+  )
+  expect_tidy_error(
+    marxan_problem(file.path(tempdir(), "input.dat")),
+    "^.*INPUTDIR.*directory.*exist.*$"
+  )
   ## PUNAME
   write_marxan_data(p, s, pv, b, 1, FALSE, tempdir())
   unlink(file.path(tempdir(), "pu.dat"))

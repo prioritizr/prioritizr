@@ -17,11 +17,6 @@
   units will now be shown as `tbl_df` instead of `tbldfdata.frame`.
 - Update internal `all_finite()` function to perform faster for `character`
   vector arguments.
-- Update `problem()` to display message about `numeric` planning unit cost data
-  being automatically converted to `matrix` data internally. The idea behind
-  this update is to help users understand why the `print()` function for
-  a `problem()` object built using `numeric` planning unit data shows that
-  the `problem()` contains `matrix` data.
 - Update dependencies so that the _slam_ package is now an optional dependency.
   This is because the _slam_ package is only required when using
   `add_lpsymphony_solver()` and `add_gurobi_solver()`.
@@ -36,9 +31,8 @@
   documentation to provide more detail on specifying which planning units
   should be constrained (#359). Thanks to Martin Jung (\@Martin-Jung) for bug
   report.
-- Standardize terminology for referring to cells in raster data.
-  Previously, some parts of the documentation referred to them as pixels,
-  and other parts as cells.
+- Standardize terminology for referring to "cells" in raster data. Previously,
+  some parts of the documentation referred to them as pixels.
 - Update publication record.
 
 # prioritizr 8.0.6.3
