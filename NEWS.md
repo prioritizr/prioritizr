@@ -23,6 +23,7 @@
 - Update `marxan_problem()` to provide better validation of input data
   and more informative error messages. This update also involves replacing the
   _data.table_ package with the _vroom_ package.
+- Thanks to Sandra Neubert (\@sandra-neubert) for code review.
 
 ## Documentation updates
 
@@ -66,8 +67,8 @@
 ## Minor improvements and bug fixes
 
 - Update `boundary_matrix()` calculations to maintain compatibility with
-  updates to the _terra_ package. Thanks to Sandra Neubert (\@sandra-neubert)
-  for code review.
+  updates to the _terra_ package.
+- Thanks to Sandra Neubert (\@sandra-neubert) for code review.
 
 ## Documentation updates
 
