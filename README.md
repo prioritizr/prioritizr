@@ -3,9 +3,9 @@
 
 # prioritizr
 
-<figure id="readme-figure" align="right">
+<figure id="readme-figure" align="right" wid>
 
-<img id="readme-img" src="man/figures/logo.png"/>
+<img id="readme-img" src="man/figures/logo.png"  style="width:140px"/>
 <figcaption>
 
 <a id="readme-a" href="https://www.theodorosploumis.com/">Logo by
@@ -147,14 +147,14 @@ wa_pu <- get_wa_pu()
 print(wa_pu)
 ```
 
-    ## class       : SpatRaster 
+    ## class       : SpatRaster
     ## dimensions  : 109, 147, 1  (nrow, ncol, nlyr)
     ## resolution  : 4000, 4000  (x, y)
     ## extent      : -1816382, -1228382, 247483.5, 683483.5  (xmin, xmax, ymin, ymax)
-    ## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs 
-    ## source      : wa_pu.tif 
-    ## name        :         cost 
-    ## min value   :    0.2986647 
+    ## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs
+    ## source      : wa_pu.tif
+    ## name        :         cost
+    ## min value   :    0.2986647
     ## max value   : 1804.1838379
 
 ``` r
@@ -183,14 +183,14 @@ wa_features <- get_wa_features()
 print(wa_features)
 ```
 
-    ## class       : SpatRaster 
+    ## class       : SpatRaster
     ## dimensions  : 109, 147, 396  (nrow, ncol, nlyr)
     ## resolution  : 4000, 4000  (x, y)
     ## extent      : -1816382, -1228382, 247483.5, 683483.5  (xmin, xmax, ymin, ymax)
-    ## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs 
-    ## source      : wa_features.tif 
-    ## names       : Recur~ding), Botau~ding), Botau~ding), Corvu~ding), Corvu~ding), Cincl~full), ... 
-    ## min values  :       0.000,       0.000,       0.000,       0.000,       0.000,        0.00, ... 
+    ## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs
+    ## source      : wa_features.tif
+    ## names       : Recur~ding), Botau~ding), Botau~ding), Corvu~ding), Corvu~ding), Cincl~full), ...
+    ## min values  :       0.000,       0.000,       0.000,       0.000,       0.000,        0.00, ...
     ## max values  :       0.514,       0.812,       3.129,       0.115,       0.296,        0.06, ...
 
 ``` r
@@ -276,7 +276,7 @@ s1 <- solve(p1)
 print(attr(s1, "objective"))
 ```
 
-    ## solution_1 
+    ## solution_1
     ##    4.46285
 
 ``` r
@@ -284,7 +284,7 @@ print(attr(s1, "objective"))
 print(attr(s1, "runtime"))
 ```
 
-    ## solution_1 
+    ## solution_1
     ##      3.359
 
 ``` r
@@ -292,7 +292,7 @@ print(attr(s1, "runtime"))
 print(attr(s1, "status"))
 ```
 
-    ## solution_1 
+    ## solution_1
     ##  "OPTIMAL"
 
 ``` r
@@ -336,16 +336,16 @@ print(p1_target_coverage)
     ## # A tibble: 396 × 9
     ##    feature   met   total_amount absolute_target absolute_held absolute_shortfall
     ##    <chr>     <lgl>        <dbl>           <dbl>         <dbl>              <dbl>
-    ##  1 Recurvir… TRUE         100.             20.0          23.4               0   
-    ##  2 Botaurus… TRUE          99.9            20.0          29.2               0   
-    ##  3 Botaurus… TRUE         100.             20.0          34.0               0   
-    ##  4 Corvus b… TRUE          99.9            20.0          20.4               0   
+    ##  1 Recurvir… TRUE         100.             20.0          23.4               0
+    ##  2 Botaurus… TRUE          99.9            20.0          29.2               0
+    ##  3 Botaurus… TRUE         100.             20.0          34.0               0
+    ##  4 Corvus b… TRUE          99.9            20.0          20.4               0
     ##  5 Corvus b… FALSE         99.9            20.0          18.5               1.46
-    ##  6 Cinclus … TRUE         100.             20.0          20.5               0   
-    ##  7 Spinus t… TRUE          99.9            20.0          22.6               0   
-    ##  8 Spinus t… TRUE          99.9            20.0          23.1               0   
-    ##  9 Falco sp… TRUE          99.9            20.0          24.9               0   
-    ## 10 Falco sp… TRUE         100.             20.0          24.5               0   
+    ##  6 Cinclus … TRUE         100.             20.0          20.5               0
+    ##  7 Spinus t… TRUE          99.9            20.0          22.6               0
+    ##  8 Spinus t… TRUE          99.9            20.0          23.1               0
+    ##  9 Falco sp… TRUE          99.9            20.0          24.9               0
+    ## 10 Falco sp… TRUE         100.             20.0          24.5               0
     ## # ℹ 386 more rows
     ## # ℹ 3 more variables: relative_target <dbl>, relative_held <dbl>,
     ## #   relative_shortfall <dbl>
@@ -375,14 +375,14 @@ wa_locked_in <- get_wa_locked_in()
 print(wa_locked_in)
 ```
 
-    ## class       : SpatRaster 
+    ## class       : SpatRaster
     ## dimensions  : 109, 147, 1  (nrow, ncol, nlyr)
     ## resolution  : 4000, 4000  (x, y)
     ## extent      : -1816382, -1228382, 247483.5, 683483.5  (xmin, xmax, ymin, ymax)
-    ## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs 
-    ## source      : wa_locked_in.tif 
-    ## name        : protected areas 
-    ## min value   :               0 
+    ## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs
+    ## source      : wa_locked_in.tif
+    ## name        : protected areas
+    ## min value   :               0
     ## max value   :               1
 
 ``` r
@@ -426,14 +426,14 @@ wa_locked_out <- get_wa_locked_out()
 print(wa_locked_out)
 ```
 
-    ## class       : SpatRaster 
+    ## class       : SpatRaster
     ## dimensions  : 109, 147, 1  (nrow, ncol, nlyr)
     ## resolution  : 4000, 4000  (x, y)
     ## extent      : -1816382, -1228382, 247483.5, 683483.5  (xmin, xmax, ymin, ymax)
-    ## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs 
-    ## source      : wa_locked_out.tif 
-    ## name        : urban areas 
-    ## min value   :           0 
+    ## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs
+    ## source      : wa_locked_out.tif
+    ## name        : urban areas
+    ## min value   :           0
     ## max value   :           1
 
 ``` r
@@ -508,15 +508,15 @@ imp <-
 print(imp)
 ```
 
-    ## class       : SpatRaster 
+    ## class       : SpatRaster
     ## dimensions  : 109, 147, 1  (nrow, ncol, nlyr)
     ## resolution  : 4000, 4000  (x, y)
     ## extent      : -1816382, -1228382, 247483.5, 683483.5  (xmin, xmax, ymin, ymax)
-    ## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs 
+    ## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs
     ## source(s)   : memory
-    ## varname     : wa_pu 
-    ## name        : rs 
-    ## min value   :  0 
+    ## varname     : wa_pu
+    ## name        : rs
+    ## min value   :  0
     ## max value   :  1
 
 ``` r
