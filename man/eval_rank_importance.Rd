@@ -14,30 +14,30 @@
 eval_rank_importance(x, solution, ...)
 
 \S4method{eval_rank_importance}{ConservationProblem,numeric}(x,
-solution, ..., rescale, run_checks, force, by_zone, objective, extra_args,
+solution, ..., run_checks, force, by_zone, objective, extra_args,
 n, budgets)
 
 \S4method{eval_rank_importance}{ConservationProblem,matrix}(x,
-solution, ..., rescale, run_checks, force, by_zone, objective, extra_args,
+solution, ..., run_checks, force, by_zone, objective, extra_args,
 n, budgets)
 
 \S4method{eval_rank_importance}{ConservationProblem,data.frame}(x,
-solution, ..., rescale, run_checks, force, by_zone, objective, extra_args,
+solution, ..., run_checks, force, by_zone, objective, extra_args,
 n, budgets)
 
 \S4method{eval_rank_importance}{ConservationProblem,Spatial}(x,
-solution, ..., rescale, run_checks, force, by_zone, objective, extra_args,
+solution, ..., run_checks, force, by_zone, objective, extra_args,
 n, budgets)
 
 \S4method{eval_rank_importance}{ConservationProblem,sf}(x, solution,
-..., rescale, run_checks, force, by_zone, objective, extra_args, n, budgets)
+..., run_checks, force, by_zone, objective, extra_args, n, budgets)
 
 \S4method{eval_rank_importance}{ConservationProblem,Raster}(x,
-solution, ..., rescale, run_checks, force, by_zone, objective, extra_args,
+solution, ..., run_checks, force, by_zone, objective, extra_args,
 n, budgets)
 
 \S4method{eval_rank_importance}{ConservationProblem,SpatRaster}(x,
-solution, ..., rescale, run_checks, force, by_zone, objective, extra_args,
+solution, ..., run_checks, force, by_zone, objective, extra_args,
 n, budgets)
 }
 \arguments{
@@ -51,10 +51,6 @@ See the Solution format section for more information.}
 
 \item{...}{not used.}
 
-\item{rescale}{\code{logical} flag indicating if replacement cost
-values -- excepting infinite (\code{Inf}) and zero values -- should be
-rescaled to range between 0.01 and 1. Defaults to \code{TRUE}.}
-
 \item{run_checks}{\code{logical} flag indicating whether presolve checks
 should be run prior solving the problem. These checks are performed using
 the \code{\link[=presolve_check]{presolve_check()}} function. Defaults to \code{TRUE}.
@@ -64,170 +60,177 @@ Skipping these checks may reduce run time for large problems.}
 made to solve the problem even if potential issues were detected during
 the presolve checks. Defaults to \code{FALSE}.}
 
-\item{by_zone}{\code{logical} indicating value.
-If \code{TRUE}, then the optimization process will
+\item{by_zone}{\code{logical} value indicating how budgets should be calculated
+when \code{x} has multiple zones.
+If \code{TRUE}, then the incremental rank procedure will
 increment budgets for each zone separately.
-If \code{FALSE}, then the optimization process will
+If \code{FALSE}, then the incremental rank procedure will
 increment a single budget that is applied to all zones.
 Note that this parameter is only considered if \code{n} is specified,
 and does not affect processing if \code{budgets} is specified.
 Defaults to \code{TRUE}.}
 
 \item{objective}{\code{character} value with the name of the objective function
-that should be used for the incremental optimization process.
+that should be used for the incremental rank procedure.
 This function must be budget limited (e.g., cannot be
 \code{\link[=add_min_set_objective]{add_min_set_objective()}}).
-For example, "add_min_shortfall_objective" can be used to specify the
-minimum shortfall objective (per \code{\link[=add_min_shortfall_objective]{add_min_shortfall_objective()}})..
-Defaults to \code{NULL} such that the same objective is used as specified in
-\code{x}. If using this default and \code{x} has the minimum set objective, then the
-minimum shortfall objective is used.}
+For example, \code{"add_min_shortfall_objective"} can be used to specify the
+minimum shortfall objective (per \code{\link[=add_min_shortfall_objective]{add_min_shortfall_objective()}}).
+Defaults to \code{NULL} such that the incremental rank procedure will use
+the objective specified by \code{x}. If using this default and \code{x} has the minimum
+set objective, then the minimum shortfall objective is used
+(per \code{\link[=add_min_shortfall_objective]{add_min_shortfall_objective()}}).}
 
-\item{extra_args}{\code{list} value with additional arguments for the
-objective function (excluding the \code{budgets} parameter). For example, this
+\item{extra_args}{\code{list} with additional arguments for the
+objective function (excluding the \code{budget} parameter). For example, this
 parameter can be used to supply phylogenetic data for
 the phylogenetic diversity objective function (i.e., when using
 \code{objective = "add_max_phylo_div_objective"}).
 Defaults to \code{NULL} such that no additional arguments are supplied.}
 
-\item{n}{\code{integer} number of ranks to evaluate.
+\item{n}{\code{integer} number of increments for the incremental rank procedure.
 Note that either \code{n} or \code{budgets} (not both) must be specified.
 If \code{n} is specified, then \code{by_zone} is considered during
 processing for problems with multiple zones.}
 
-\item{budgets}{\code{numeric} vector with the budget thresholds for generating
-solutions at different steps in an iterative procedure.
+\item{budgets}{\code{numeric} vector with budget thresholds for each
+increment in the incremental rank procedure.
 Note that either \code{n} or \code{budgets} (not both) must be specified.}
 }
 \value{
 A \code{numeric}, \code{matrix}, \code{data.frame},
 \code{\link[terra:rast]{terra::rast()}}, or \code{\link[sf:sf]{sf::sf()}} object
-containing the importance scores for each planning
-unit in the solution. Specifically, the returned object is in the
+containing importance scores for the planning units in the solution.
+Specifically, the returned object is in the
 same format as the planning unit data in the argument to \code{x}.
 The object also has the following attributes that provide information
-on the incremental optimization process.
+on the incremental rank procedure.
 \describe{
 \item{\code{budgets}}{
-\code{numeric} or \code{matrix} containing the budgets used for
-each increment in the incremental optimization process.
+\code{numeric} vector or \code{matrix} containing the budgets used for
+each increment in the incremental rank procedure.
 If the problem (per \code{x}) has a single zone, then the budgets
 are a \code{numeric} vector, wherein values correspond to the
 budgets for each increment.
 Otherwise, if the problem (per \code{x}) has multiple zones, then
 the budgets are a \code{matrix} and their format depends on the
 \code{by_zone} parameter.
-If \code{by_zone = FALSE}, then the budgets are are \code{matrix}
+If \code{by_zone = FALSE}, then the budgets are a \code{matrix}
 with a column for each zone and a row for each budget increment.
 Alternatively, if \code{by_zone = TRUE}, then the \code{matrix} has
 a single column and a row for each budget increment.
 }
 \item{\code{objective}}{
 \code{numeric} mathematical objective values for each solution
-generated during the incremental optimization process.
+generated by the incremental rank procedure.
 }
 \item{\code{runtime}}{
-\code{numeric} total amount of time elapsed during the optimization
-(reported in seconds) of each solution
-generated throughout the incremental optimization process.
+\code{numeric} total amount of time elapsed (reported in seconds)
+during the optimization process for each solution generated
+by the incremental rank procedure.
 }
 \item{\code{status}}{
 \code{character} status of the optimization process for each
-solution generated during the incremental optimization process.
-See \code{\link[=solve]{solve()}} for further details.
+solution generated by the incremental rank procedure.
+See \code{\link[=solve]{solve()}} for details on interpreting these values.
 }
 \item{\code{gap}}{
-\code{numeric} optimality of each solution
-generated during the incremental optimization process.
-See \code{\link[=solve]{solve()}} for further details.
+\code{numeric} values describing the optimality gap for each solution
+generated by the incremental rank procedure.
+See \code{\link[=solve]{solve()}} for details on interpreting these values.
 }
 }
 }
 \description{
-Calculate importance scores for planning units selected in a solution
-by calculating ranks via an incremental optimization process
-(based on Jung \emph{et al.} 2021).
+Calculate importance scores for the planning units selected in a solution
+using an incremental rank procedure (based on Jung \emph{et al.} 2021).
 }
 \details{
-Importance scores are calculated using an incremental optimization
-process. Note that if a problem has complex constraints (i.e.,
+Importance scores are calculated using an incremental rank procedure.
+Note that if a problem (per \code{x}) has complex constraints (i.e.,
 constraints that do not involve locking in or locking out planning
 units), then the \code{budgets} parameter must be specified.
-This optimization process involves the following steps.
+The incremental rank procedure involves the following steps.
 \enumerate{
 \item A set of budgets are defined.
+If an argument to the \code{budgets} parameter is supplied,
 then the budgets are defined using the \code{budgets}.
 Otherwise, if an argument to the \code{n} parameter is supplied,
-then the budgets are defined as a set of \code{n} values with equal
-increments between them that sum to the total cost of \code{solution}.
-For example, if
-considering a problem with a single zone, a solution with a total
-cost of 400, and \code{n = 4}: then the budgets will be 100, 200, 300, and 400.
+then the budgets are automatically calculated as a set of values --
+with equal increments between successive values -- that range to a maximum
+value that is equal to the total cost of \code{solution}.
+For example, if considering a problem (per \code{x}) with a single zone, a
+solution with a total cost of 400, and \code{n = 4}: then the budgets will be
+automatically calculated as 100, 200, 300, and 400.
 If considering a multiple zone problem and \code{by_zone = FALSE}, then the
 budgets will based calculated based on the total cost of the \code{solution}
 across all zones.
 Otherwise if \code{by_zone = TRUE}, then the budgets are calculated and set
 based on the total cost of planning units allocated to each zone (separately)
 in the \code{solution}. Note that after running this function, you can
-see what budgets were used to calculate the ranks by accessing
+see what budgets were defined by accessing
 attributes from the result (see below for examples).
 \item The problem (per \code{x}) is checked for potential issues.
 This step is performed to avoid issues during subsequent optimization steps.
 Note that this step can be skipped using \code{run_checks = FALSE}.
 Also, if issues are detected and you wish to proceed anyway,
 then use\code{force = TRUE} ignore any detected issues.
-\item The problem is modified for subsequent optimization. In particular, any
-planning units not selected in \code{solution} are locked out. This is important
-to ensure that all subsequent optimization procedures produce solutions
-that only contain planning units selected in the \code{solution}.
+\item The problem is modified for subsequent optimization. In particular,
+the upper bounds for the planning units in the problem are specified
+based on the \code{solution}. For problems (per \code{x}) that have binary decision
+types, this step is equivalent to locking out any planning units that are
+not selected in the \code{solution}. Note that this step is important
+to ensure that all subsequent optimization processes produce solutions
+that are nested within the \code{solution}.
 \item The problem is further modified for subsequent optimization.
 Specifically, its objective is overwritten using the objective defined for
-the rank calculations (per \code{objective}) with the smallest
-budget defined in the first step. Additionally, if an argument to the
-\code{extra_args} parameter is specified, this argument is also used when
-overwriting the objective.
+the incremental rank procedure (per \code{objective}) with the budget
+defined for the first increment. When this step is
+repeated during subsequent increments, the objective will be overwritten with
+with the budget defined for the next increment.
+Additionally, if an argument to the \code{extra_args} parameter is specified,
+this argument is used when overwriting the objective.
 \item The modified problem is solved to generate a solution.
-Depending on the budget and objective specified when modifying the problem,
-the newly generated solution will contain a
-subset of the planning units selected in the original \code{solution}.
-are assigned a rank. In particular, all selected planning units in the
-newly generated solution are assigned the same rank.
-This rank is based on the number of increments that have been previously
-completed. If no previous increments
-have been completed, then the rank is equal to the total number of budget
-increments.
-Otherwise, if previous increments have been completed, then
-the rank is equal to the total number of budget increments minus the
-number of completed increments.
-Note that if previous increments have been completed, then only planning
-units in the newly generated solution that have not been previously selected
-are assigned this rank.
-For example, if no previous increments have been completed and there
-are 5 budget increments (e.g. \code{n = 5}), then the planning units
-selected in the newly generated solution are assigned a rank of 5.
-Alternatively, if 3 previous increments have been
-completed, then the planning units would be assigned a rank of 2.
+Due to the steps used to modify the problem (i.e., steps 3 and 4), the newly
+generated solution will contain a subset of the selected planning units in
+the original \code{solution}.
+\item The status of the planning units in the newly generated solution are
+recorded for later use
+(e.g., binary values indicating if planning units were selected or not,
+or the proportion of each planning unit selected) .
 \item The problem is further modified for subsequent optimization.
-Specifically, the planning units selected in the newly generated solution
-are locked in. This is to ensure that all subsequent solutions will
-select these planning units and, in turn, build on this solution.
+Specifically, the status of the planning units in the newly generated
+solution are used to set the lower bounds for the planning units in the
+problem. For problems with binary type decision variables, this step
+is equivalent to modifying the problem to lock in planning units that
+were selected by the newly generated solution.
 Additionally, the newly generated solution is used to specify the starting
-solution for the subsequent optimization procedure to reduce processing time
-(note this is only done when using the \emph{CBC} and \emph{Gurobi} solvers).
+solution for the subsequent optimization process to reduce processing time
+(note this is only done when using the \emph{CBC} or \emph{Gurobi} solvers).
 \item Steps 4--7 are repeated for each of the remaining budget increments.
-As the increasingly greater budgets are used at higher increments,
-the modified problem will generate new solutions that become increasingly
-similar to the original \code{solution}. Planning units that are selected at
-lower budget increments are assigned greater ranks and considered more
-important, and those selected at higher budget increments are assigned
-lower ranks and considered less important. This is because
-if a planning unit is highly cost-effective for meeting the objective
-(per \code{objective}), then it is more likely to be selected
-earlier in the incremental optimization process.
-\item The incremental optimization process has completed. If \code{rescale = TRUE},
-then the ranks are linearly rescaled to range between 0.01 and 1.
-Otherwise, the ranks remain unchanged.
-\item The rank values are output in the same format as the planning units
+As increasingly greater budgets are used at higher increments,
+the modified problem will begin to generate solutions that become
+increasingly more similar to the original \code{solution}.
+Note that the status of the planning units in each of these new solutions are
+recorded for later use.
+\item The incremental optimization rank procedure has now completed.
+The planning unit solution statuses that were previously recorded in each
+iteration are used to compute relative importance scores.
+These relative importance scores range between 0 and 1, with higher scores
+indicating that a given planning unit was selected in earlier increments and
+is more cost-effective for meeting the objective (per \code{objective}).
+In particular, for a given planning unit, the importance score is calculated
+based on the arithmetic mean of the status values.
+For example, if we performed an incremental rank procedure with five
+increments
+and binary decision variables, then a planning unit might have been selected
+in the second increment. In this example, the planning unit would have the
+following solution statuses across the five increments: (1st increment) 0,
+(2nd increment) 1, (3rd increment) 1, (4th increment) 1, and
+(5th increment) 1. The mean of these values is 0.8, and so the planning unit
+would have an importance score of 0.8. A score of 0.8 is relatively high,
+and suggests that this planning unit is highly cost-effective.
+\item The importance scores are output in the same format as the planning units
 in the problem (per \code{x}) (see the Solution Format section for details).
 }
 }
@@ -324,10 +327,10 @@ print(s1)
 # plot solution
 plot(s1, main = "solution", axes = FALSE)
 
-# calculate importance scores using ranks based on 10 budgets
-# N.B. since the objective for calculating ranks is not explicitly
-# defined and the problem has a minimum set objective, the
-# ranks are calculated using the minimum shortfall objective by default
+# calculate importance scores using 10 budget increments
+# N.B. since the objective for the incremental rank procedure is not
+# explicitly defined and the problem has a minimum set objective, the
+# the minimum shortfall objective is used by default
 rs1 <- eval_rank_importance(p1, s1, n = 10)
 
 # print importance scores
@@ -346,12 +349,12 @@ print(attr(rs1, "runtime"))
 ## objective value
 print(attr(rs1, "objective"))
 
-# plot relationship between objective values and rank
+# plot relationship between objective values and budget increment
 plot(
   y = attr(rs1, "objective"),
   x = seq_along(attr(rs1, "objective")),
-  ylab = "objective value", xlab = "rank",
-  main = "relationship between objective values and rank"
+  ylab = "objective value", xlab = "budget increment",
+  main = "Relationship between objective values and budget increment"
 )
 
 # calculate importance scores using the maximum utility objective and
@@ -366,17 +369,15 @@ print(rs2)
 # plot importance scores
 plot(rs2, main = "rank importance (10, max utility obj)", axes = FALSE)
 
-# calculate importance scores using ranks based on 5 manually specified
-# budgets
+# calculate importance scores based on 5 manually specified budgets
 
 # calculate 5 ranks using equal intervals
 # N.B. we use length.out = 6 because we want 5 budgets > 0
 budgets <- seq(0, eval_cost_summary(p1, s1)$cost[[1]], length.out = 6)[-1]
 
 # calculate importance using manually specified budgets
-# N.B. since the objective for calculating ranks is not explicitly
-# defined and the problem has a minimum set objective, the
-# ranks are calculated using the minimum shortfall objective by default
+# N.B. since the objective is not explicitly defined and the problem has a
+# minimum set objective, the minimum shortfall objective is used by default
 rs3 <- eval_rank_importance(p1, s1, budgets = budgets)
 
 # print importance scores

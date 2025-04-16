@@ -9,6 +9,9 @@
   functions have also been updated to provide more informative error messages
   when invalid data are specified. Thanks to Martin Jung (\@Martin-Jung) for
   bug report.
+- Fix `eval_rank_importance()` to better account for proportion-type and
+  semi-continuous decision types (#367). Thanks to Martin Jung (\@Martin-Jung)
+  for bug report.
 - Fix bug in `print()` and `summary()` functions for `problem()` objects that
   caused the functions to incorrectly show the classes of the planning unit
   data that inherit from multiple classes. For example, this means that
@@ -32,6 +35,8 @@
   documentation to provide more detail on specifying which planning units
   should be constrained (#359). Thanks to Martin Jung (\@Martin-Jung) for bug
   report.
+- Update README to thank Theodoros Ploumis (\@theodorosploumis) for the logo.
+- Update documentation for `eval_rank_importance()`.
 - Standardize terminology for referring to "cells" in raster data. Previously,
   some parts of the documentation referred to them as pixels.
 - Update publication record.

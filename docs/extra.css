@@ -13,6 +13,26 @@
   font-style: italic;
 }
 
-.template-home img.logo {
-  width: 140px;
+#prioritizr {
+  margin-top: 10px;
+}
+
+#readme-figure {
+  position: relative;
+  top: -60px;
+  margin-bottom: -40px;
+  width: 180px;
+  float: right;
+}
+
+#readme-img {
+  width: 120px;
+}
+
+#readme-a {
+  font-size: 11px;
+}
+
+div[class="section level1"] img[class="logo"] {
+  display: none;
 }

@@ -1,7 +1,18 @@
 
 <!--- README.md is generated from README.Rmd. Please edit that file -->
 
-# prioritizr <img src="man/figures/logo.png" align="right" style="width:140px"/>
+# prioritizr
+
+<figure id="readme-figure" align="right">
+
+<img id="readme-img" src="man/figures/logo.png"/>
+<figcaption>
+
+<a id="readme-a" href="https://www.theodorosploumis.com/">Logo by
+Theodoros Ploumis</a>
+</figcaption>
+
+</figure>
 
 ## Systematic Conservation Prioritization in R
 
@@ -274,7 +285,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##      3.298
+    ##      3.359
 
 ``` r
 # extract state message from the solver
