@@ -3,7 +3,7 @@
 
 # prioritizr
 
-<figure id="readme-figure" align="right" wid>
+<figure id="readme-figure" align="right">
 
 <img id="readme-img" src="man/figures/logo.png"  style="width:140px"/>
 <figcaption>
