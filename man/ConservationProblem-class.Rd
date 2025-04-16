@@ -68,11 +68,15 @@ generating solutions.}
 \item \href{#method-ConservationProblem-get_data}{\code{ConservationProblem$get_data()}}
 \item \href{#method-ConservationProblem-set_data}{\code{ConservationProblem$set_data()}}
 \item \href{#method-ConservationProblem-number_of_planning_units}{\code{ConservationProblem$number_of_planning_units()}}
+\item \href{#method-ConservationProblem-is_ids_equivalent_to_indices}{\code{ConservationProblem$is_ids_equivalent_to_indices()}}
 \item \href{#method-ConservationProblem-planning_unit_indices}{\code{ConservationProblem$planning_unit_indices()}}
+\item \href{#method-ConservationProblem-total_unit_ids}{\code{ConservationProblem$total_unit_ids()}}
+\item \href{#method-ConservationProblem-convert_total_unit_ids_to_indices}{\code{ConservationProblem$convert_total_unit_ids_to_indices()}}
 \item \href{#method-ConservationProblem-planning_unit_indices_with_finite_costs}{\code{ConservationProblem$planning_unit_indices_with_finite_costs()}}
 \item \href{#method-ConservationProblem-set_planning_unit_indices_with_finite_costs}{\code{ConservationProblem$set_planning_unit_indices_with_finite_costs()}}
 \item \href{#method-ConservationProblem-number_of_total_units}{\code{ConservationProblem$number_of_total_units()}}
 \item \href{#method-ConservationProblem-planning_unit_costs}{\code{ConservationProblem$planning_unit_costs()}}
+\item \href{#method-ConservationProblem-planning_unit_class}{\code{ConservationProblem$planning_unit_class()}}
 \item \href{#method-ConservationProblem-set_planning_unit_costs}{\code{ConservationProblem$set_planning_unit_costs()}}
 \item \href{#method-ConservationProblem-number_of_features}{\code{ConservationProblem$number_of_features()}}
 \item \href{#method-ConservationProblem-feature_names}{\code{ConservationProblem$feature_names()}}
@@ -218,7 +222,7 @@ Invisible \code{TRUE}.
 \subsection{Method \code{number_of_planning_units()}}{
 Obtain the number of planning units. The planning units correspond to
 elements in the cost data
-(e.g., indices, rows, geometries, pixels) that have finite
+(e.g., indices, rows, geometries, cells) that have finite
 values in at least one zone. In other words, planning unit are
 elements in the cost data that do not have missing (\code{NA}) values in
 every zone.
@@ -231,6 +235,21 @@ An \code{integer} value.
 }
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ConservationProblem-is_ids_equivalent_to_indices"></a>}}
+\if{latex}{\out{\hypertarget{method-ConservationProblem-is_ids_equivalent_to_indices}{}}}
+\subsection{Method \code{is_ids_equivalent_to_indices()}}{
+Check if planning unit identifiers are equivalent to the planning
+unit indices? Only \code{FALSE} if the planning units are
+\code{data.frame} format.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$is_ids_equivalent_to_indices()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+A \code{logical} value.
+}
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationProblem-planning_unit_indices"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-planning_unit_indices}{}}}
 \subsection{Method \code{planning_unit_indices()}}{
@@ -239,6 +258,39 @@ Obtain the planning unit indices.
 \if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$planning_unit_indices()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+An \code{integer} vector.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ConservationProblem-total_unit_ids"></a>}}
+\if{latex}{\out{\hypertarget{method-ConservationProblem-total_unit_ids}{}}}
+\subsection{Method \code{total_unit_ids()}}{
+Obtain the total unit identifiers.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$total_unit_ids()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+An \code{integer} vector.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ConservationProblem-convert_total_unit_ids_to_indices"></a>}}
+\if{latex}{\out{\hypertarget{method-ConservationProblem-convert_total_unit_ids_to_indices}{}}}
+\subsection{Method \code{convert_total_unit_ids_to_indices()}}{
+Convert total unit identifiers to indices.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$convert_total_unit_ids_to_indices(ids)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{ids}}{\code{integer} vector with planning unit identifiers.}
+}
+\if{html}{\out{</div>}}
+}
 \subsection{Returns}{
 An \code{integer} vector.
 }
@@ -278,7 +330,7 @@ Invisible \code{TRUE}.
 \subsection{Method \code{number_of_total_units()}}{
 Obtain the number of total units. The total units include all elements
 in the cost data
-(e.g., indices, rows, geometries, pixels), including those with
+(e.g., indices, rows, geometries, cells), including those with
 missing (\code{NA}) values.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$number_of_total_units()}\if{html}{\out{</div>}}
@@ -299,6 +351,19 @@ Obtain the planning unit costs.
 
 \subsection{Returns}{
 A \code{numeric} matrix.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ConservationProblem-planning_unit_class"></a>}}
+\if{latex}{\out{\hypertarget{method-ConservationProblem-planning_unit_class}{}}}
+\subsection{Method \code{planning_unit_class()}}{
+Get planning unit class.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$planning_unit_class()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+A \code{character} value.
 }
 }
 \if{html}{\out{<hr>}}

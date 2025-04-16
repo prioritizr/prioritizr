@@ -35,17 +35,27 @@ The argument to \code{data} should be a \code{data.frame} with the following col
 
 \describe{
 
-\item{pu}{\code{integer} planning unit identifier.}
+\item{pu}{\code{integer} planning unit identifiers.
+If \code{x} has \code{data.frame} planning units,
+then these values must refer to values in the \code{id} column of the planning
+unit data.
+Alternatively, if \code{x} has \code{\link[sf:sf]{sf::st_sf()}} or \code{matrix} planning units,
+then these values must refer to the row numbers of the planning unit data.
+Additionally, if \code{x} has \code{numeric} vector planning units,
+then these values must refer to the element indices of the planning unit
+data.
+Finally, if \code{x} has \code{\link[terra:rast]{terra::rast()}} planning units,
+then these values must refer to cell indices.}
 
 \item{zone}{\code{character} names of zones. Note that this
 argument is optional for arguments to \code{x} that contain a single
 zone.}
 
-\item{lower}{\code{numeric} values indicating the minimum
+\item{lower}{\code{numeric} lower values. These values indicate the minimum
 value that each planning unit can be allocated to in each zone
 in the solution.}
 
-\item{upper}{\code{numeric} values indicating the maximum
+\item{upper}{\code{numeric} upper values. These values indicate the maximum
 value that each planning unit can be allocated to in each zone
 in the solution.}
 

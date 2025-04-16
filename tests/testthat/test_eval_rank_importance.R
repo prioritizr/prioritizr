@@ -21,10 +21,10 @@ test_that("numeric", {
   # create a solution
   s <- c(0, 1, NA, 1)
   # calculate scores
-  r1 <- eval_rank_importance(p, s, budgets = budgets, rescale = FALSE)
-  r2 <- eval_rank_importance(p, s, n = 2, rescale = FALSE)
+  r1 <- eval_rank_importance(p, s, budgets = budgets)
+  r2 <- eval_rank_importance(p, s, n = 2)
   # create correct total scores
-  r3 <- c(0, 2, NA_real_, 1)
+  r3 <- c(0, 1, NA_real_, 0.5)
   attr(r3, "budgets") <- budgets
   attr(r3, "status") <- c("OPTIMAL", "OPTIMAL")
   attr(r3, "objective") <- c(1.5, 0.5)
@@ -82,10 +82,10 @@ test_that("matrix (single zone)", {
   # create a solution
   s <- c(0, 1, NA, 1)
   # calculate scores
-  r1 <- eval_rank_importance(p, s, budgets = budgets, rescale = FALSE)
-  r2 <- eval_rank_importance(p, s, n = 2, rescale = FALSE)
+  r1 <- eval_rank_importance(p, s, budgets = budgets)
+  r2 <- eval_rank_importance(p, s, n = 2)
   # create correct total scores
-  r3 <- matrix(c(0, 2, NA_real_, 1), ncol = 1)
+  r3 <- matrix(c(0, 1, NA_real_, 0.5), ncol = 1)
   attr(r3, "budgets") <- budgets
   attr(r3, "status") <- c("OPTIMAL", "OPTIMAL")
   attr(r3, "objective") <- c(1.5, 0.5)
@@ -149,10 +149,10 @@ test_that("matrix (multiple zones, by_zone = FALSE)", {
   # create a solution
   s <- matrix(c(1, 0, NA, 1, 0, 0, NA, 0, 0, 0, 0, 0, 1, 0, NA, 0), ncol = 2)
   # calculate scores
-  r1 <- eval_rank_importance(p, s, budgets = budgets, rescale = FALSE)
-  r2 <- eval_rank_importance(p, s, n = 2, rescale = FALSE, by_zone = FALSE)
+  r1 <- eval_rank_importance(p, s, budgets = budgets)
+  r2 <- eval_rank_importance(p, s, n = 2, by_zone = FALSE)
   # create correct total scores
-  r3 <- matrix(c(2, 0, NA, 2, 0, 0, NA, 0, 0, 0, 0, 0, 1, 0, NA, 0), ncol = 2)
+  r3 <- matrix(c(1, 0, NA, 1, 0, 0, NA, 0, 0, 0, 0, 0, 0.5, 0, NA, 0), ncol = 2)
   attr(r3, "budgets") <- budgets
   attr(r3, "status") <- c("OPTIMAL", "OPTIMAL")
   attr(r3, "objective") <- c(1.0, 0)
@@ -216,10 +216,13 @@ test_that("matrix (multiple zones, by_zone = TRUE)", {
   # create a solution
   s <- matrix(c(1, 0, NA, 1, 0, 0, NA, 0, 0, 0, 0, 0, 1, 0, NA, 0), ncol = 2)
   # calculate scores
-  r1 <- eval_rank_importance(p, s, budgets = budgets, rescale = FALSE)
-  r2 <- eval_rank_importance(p, s, n = 2, rescale = FALSE, by_zone = TRUE)
+  r1 <- eval_rank_importance(p, s, budgets = budgets)
+  r2 <- eval_rank_importance(p, s, n = 2, by_zone = TRUE)
   # create correct total scores
-  r3 <- matrix(c(2, 0, NA, 1, 0, 0, NA, 0, 0, 0, 0, 0, 1, 0, NA, 0), ncol = 2)
+  r3 <- matrix(
+    c(1, 0, NA, 0.5, 0, 0, NA, 0, 0, 0, 0, 0, 0.5, 0, NA, 0),
+    ncol = 2
+  )
   attr(r3, "budgets") <- budgets
   attr(r3, "status") <- c("OPTIMAL", "OPTIMAL")
   attr(r3, "objective") <- c(2, 0)
@@ -273,10 +276,10 @@ test_that("data.frame (single zone)", {
   # create a solution
   s <- tibble::tibble(solution = c(0, 1, NA, 1))
   # calculate scores
-  r1 <- eval_rank_importance(p, s, budgets = budgets, rescale = FALSE)
-  r2 <- eval_rank_importance(p, s, n = 2, rescale = FALSE)
+  r1 <- eval_rank_importance(p, s, budgets = budgets)
+  r2 <- eval_rank_importance(p, s, n = 2)
   # create correct total scores
-  r3 <- tibble::tibble(rs = c(0, 2, NA_real_, 1))
+  r3 <- tibble::tibble(rs = c(0, 1, NA_real_, 0.5))
   attr(r3, "budgets") <- budgets
   attr(r3, "status") <- c("OPTIMAL", "OPTIMAL")
   attr(r3, "objective") <- c(1.5, 0.5)
@@ -343,12 +346,12 @@ test_that("data.frame (multiple zones, by_zone = FALSE)", {
     cost_2 = c(0, 0, 0, 0, 1, 0, NA, 0)
   )
   # calculate scores
-  r1 <- eval_rank_importance(p, s, budgets = budgets, rescale = FALSE)
-  r2 <- eval_rank_importance(p, s, n = 2, rescale = FALSE, by_zone = FALSE)
+  r1 <- eval_rank_importance(p, s, budgets = budgets)
+  r2 <- eval_rank_importance(p, s, n = 2, by_zone = FALSE)
   # create correct total scores
   r3 <- tibble::tibble(
-    rc_1 = c(2, 0, NA, 2, 0, 0, NA, 0),
-    rc_2 = c(0, 0, 0, 0, 1, 0, NA, 0)
+    rc_1 = c(1, 0, NA, 1, 0, 0, NA, 0),
+    rc_2 = c(0, 0, 0, 0, 0.5, 0, NA, 0)
   )
   attr(r3, "budgets") <- budgets
   attr(r3, "status") <- c("OPTIMAL", "OPTIMAL")
@@ -415,12 +418,12 @@ test_that("data.frame (multiple zones, by_zone = TRUE)", {
     cost_1 = c(1, 0, NA, 1, 0, 0, NA, 0),
     cost_2 = c(0, 0, 0, 0, 1, 0, NA, 0)
   )  # calculate scores
-  r1 <- eval_rank_importance(p, s, budgets = budgets, rescale = FALSE)
-  r2 <- eval_rank_importance(p, s, n = 2, rescale = FALSE, by_zone = TRUE)
+  r1 <- eval_rank_importance(p, s, budgets = budgets)
+  r2 <- eval_rank_importance(p, s, n = 2, by_zone = TRUE)
   # create correct total scores
   r3 <- tibble::tibble(
-    rc_1 = c(2, 0, NA, 1, 0, 0, NA, 0),
-    rc_2 = c(0, 0, 0, 0, 1, 0, NA, 0)
+    rc_1 = c(1, 0, NA, 0.5, 0, 0, NA, 0),
+    rc_2 = c(0, 0, 0, 0, 0.5, 0, NA, 0)
   )
   attr(r3, "budgets") <- budgets
   attr(r3, "status") <- c("OPTIMAL", "OPTIMAL")
@@ -477,12 +480,12 @@ test_that("sf (single zone)", {
     add_binary_decisions() %>%
     add_default_solver(gap = 0, verbose = FALSE)
   # calculate ranks
-  r1 <- eval_rank_importance(p, pu[, "solution"], n = 2, rescale = FALSE)
+  r1 <- eval_rank_importance(p, pu[, "solution"], n = 2)
   r2 <- eval_rank_importance(
-    p, pu[, "solution"], budgets = budgets, rescale = FALSE
+    p, pu[, "solution"], budgets = budgets
   )
   # create correct result
-  pu$rs <- c(0, 2, NA_real_, 1)
+  pu$rs <- c(0, 1, NA_real_, 0.5)
   r3 <- pu[, "rs"]
   attr(r3, "budgets") <- budgets
   attr(r3, "status") <- c("OPTIMAL", "OPTIMAL")
@@ -552,12 +555,12 @@ test_that("sf (multiple zones, by_zone = FALSE)", {
     geometry = sf::st_geometry(pu)
   ))
   # calculate scores
-  r1 <- eval_rank_importance(p, s, budgets = budgets, rescale = FALSE)
-  r2 <- eval_rank_importance(p, s, n = 2, rescale = FALSE, by_zone = FALSE)
+  r1 <- eval_rank_importance(p, s, budgets = budgets)
+  r2 <- eval_rank_importance(p, s, n = 2, by_zone = FALSE)
   # create correct total scores
   r3 <-  sf::st_as_sf(tibble::tibble(
-    rc_1 = c(2, 0, NA, 2, 0, 0, NA, 0),
-    rc_2 = c(0, 0, 0, 0, 1, 0, NA, 0),
+    rc_1 = c(1, 0, NA, 1, 0, 0, NA, 0),
+    rc_2 = c(0, 0, 0, 0, 0.5, 0, NA, 0),
     geometry = sf::st_geometry(pu)
   ))
   attr(r3, "budgets") <- budgets
@@ -628,12 +631,12 @@ test_that("sf (multiple zones, by_zone = TRUE)", {
     geometry = sf::st_geometry(pu)
   ))
   # calculate scores
-  r1 <- eval_rank_importance(p, s, budgets = budgets, rescale = FALSE)
-  r2 <- eval_rank_importance(p, s, n = 2, rescale = FALSE, by_zone = TRUE)
+  r1 <- eval_rank_importance(p, s, budgets = budgets)
+  r2 <- eval_rank_importance(p, s, n = 2, by_zone = TRUE)
   # create correct total scores
   r3 <- sf::st_as_sf(tibble::tibble(
-    rs_1 = c(2, 0, NA, 1, 0, 0, NA, 0),
-    rs_2 = c(0, 0, 0, 0, 1, 0, NA, 0),
+    rs_1 = c(1, 0, NA, 0.5, 0, 0, NA, 0),
+    rs_2 = c(0, 0, 0, 0, 0.5, 0, NA, 0),
     geometry = sf::st_geometry(pu)
   ))
   attr(r3, "budgets") <- budgets
@@ -691,10 +694,10 @@ test_that("SpatRaster (single zone)", {
   # create a solution
   s <- terra::rast(matrix(c(0, 1, NA, 1), nrow = 1))
   # calculate ranks
-  r1 <- eval_rank_importance(p, s, n = 2, rescale = FALSE)
-  r2 <- eval_rank_importance(p, s, budgets = budgets, rescale = FALSE)
+  r1 <- eval_rank_importance(p, s, n = 2)
+  r2 <- eval_rank_importance(p, s, budgets = budgets)
   # create correct result
-  r3 <- terra::rast(matrix(c(0, 2, NA, 1), nrow = 1))
+  r3 <- terra::rast(matrix(c(0, 1, NA, 0.5), nrow = 1))
   names(r3) <- "rs"
   attr(r3, "budgets") <- budgets
   attr(r3, "status") <- c("OPTIMAL", "OPTIMAL")
@@ -760,12 +763,12 @@ test_that("SpatRaster (multiple zones, by_zone = FALSE)", {
     terra::rast(matrix(c(0, 0, 0, 0, 1, 0, NA, 0), nrow = 1))
   )
   # calculate ranks
-  r1 <- eval_rank_importance(p, s, budgets = budgets, rescale = FALSE)
-  r2 <- eval_rank_importance(p, s, n = 2, rescale = FALSE, by_zone = FALSE)
+  r1 <- eval_rank_importance(p, s, budgets = budgets)
+  r2 <- eval_rank_importance(p, s, n = 2, by_zone = FALSE)
   # create correct result
   r3 <- c(
-    terra::rast(matrix(c(2, 0, NA, 2, 0, 0, NA, 0), nrow = 1)),
-    terra::rast(matrix(c(0, 0, 0,  0, 1, 0, NA, 0), nrow = 1))
+    terra::rast(matrix(c(1, 0, NA, 1, 0, 0, NA, 0), nrow = 1)),
+    terra::rast(matrix(c(0, 0, 0,  0, 0.5, 0, NA, 0), nrow = 1))
   )
   attr(r3, "budgets") <- budgets
   attr(r3, "status") <- c("OPTIMAL", "OPTIMAL")
@@ -831,12 +834,12 @@ test_that("SpatRaster (multiple zones, by_zone = TRUE)", {
     terra::rast(matrix(c(0, 0, 0, 0, 1, 0, NA, 0), nrow = 1))
   )
   # calculate ranks
-  r1 <- eval_rank_importance(p, s, budgets = budgets, rescale = FALSE)
-  r2 <- eval_rank_importance(p, s, n = 2, rescale = FALSE, by_zone = TRUE)
+  r1 <- eval_rank_importance(p, s, budgets = budgets)
+  r2 <- eval_rank_importance(p, s, n = 2, by_zone = TRUE)
   # create correct result
   r3 <- c(
-    terra::rast(matrix(c(2, 0, NA, 1, 0, 0, NA, 0), nrow = 1)),
-    terra::rast(matrix(c(0, 0, 0,  0, 1, 0, NA, 0), nrow = 1))
+    terra::rast(matrix(c(1, 0, NA, 0.5, 0, 0, NA, 0), nrow = 1)),
+    terra::rast(matrix(c(0, 0, 0,  0, 0.5, 0, NA, 0), nrow = 1))
   )
   attr(r3, "budgets") <- budgets
   attr(r3, "status") <- c("OPTIMAL", "OPTIMAL")
@@ -904,19 +907,19 @@ test_that("Spatial (single zone)", {
   # calculate ranks
   expect_warning(
     r1 <- eval_rank_importance(
-      p1, sf::as_Spatial(pu[, "solution"]), n = 2, rescale = FALSE
+      p1, sf::as_Spatial(pu[, "solution"]), n = 2
     ),
     "deprecated"
   )
   expect_warning(
     r2 <- eval_rank_importance(
-      p1, sf::as_Spatial(pu[, "solution"]), budgets = budgets, rescale = FALSE
+      p1, sf::as_Spatial(pu[, "solution"]), budgets = budgets
     ),
     "deprecated"
   )
   # correct result
   r3 <- eval_rank_importance(
-    p2, pu[, "solution"], budgets = budgets, rescale = FALSE
+    p2, pu[, "solution"], budgets = budgets
   )
   # tests
   expect_inherits(r1, "Spatial")
@@ -995,20 +998,20 @@ test_that("Spatial (multiple zones)", {
   # calculate correct result
   expect_warning(
     r1 <- eval_rank_importance(
-      p1, sf::as_Spatial(s), n = 2, rescale = FALSE,
+      p1, sf::as_Spatial(s), n = 2,
       by_zone = FALSE
     ),
     "deprecated"
   )
   expect_warning(
     r2 <- eval_rank_importance(
-      p1, sf::as_Spatial(s), budgets = budgets, rescale = FALSE
+      p1, sf::as_Spatial(s), budgets = budgets
     ),
     "deprecated"
   )
   # correct result
   r3 <- eval_rank_importance(
-    p2, s, budgets = budgets, rescale = FALSE
+    p2, s, budgets = budgets
   )
   # tests
   expect_inherits(r1, "Spatial")
@@ -1071,18 +1074,18 @@ test_that("raster (single zone)", {
   # calculate ranks
   expect_warning(
     r1 <- eval_rank_importance(
-      p1, raster::raster(s), n = 2, rescale = FALSE
+      p1, raster::raster(s), n = 2
     ),
     "deprecated"
   )
   expect_warning(
     r2 <- eval_rank_importance(
-      p1, raster::raster(s), budgets = budgets, rescale = FALSE
+      p1, raster::raster(s), budgets = budgets
     ),
     "deprecated"
   )
   # create correct result
-  r3 <- eval_rank_importance(p2, s, budgets = budgets, rescale = FALSE)
+  r3 <- eval_rank_importance(p2, s, budgets = budgets)
   # run tests
   ## objects
   expect_inherits(r1, "Raster")
@@ -1167,18 +1170,18 @@ test_that("Raster (multiple zones)", {
   # calculate ranks
   expect_warning(
     r1 <- eval_rank_importance(
-      p1, raster::stack(s), budgets = budgets, rescale = FALSE
+      p1, raster::stack(s), budgets = budgets
     ),
     "deprecated"
   )
   expect_warning(
     r2 <- eval_rank_importance(
-      p1, raster::stack(s), n = 2, rescale = FALSE, by_zone = FALSE
+      p1, raster::stack(s), n = 2, by_zone = FALSE
     ),
     "deprecated"
   )
   # create correct result
-  r3 <- eval_rank_importance(p2, s, budgets = budgets, rescale = FALSE)
+  r3 <- eval_rank_importance(p2, s, budgets = budgets)
   # run tests
   ## objects
   expect_inherits(r1, "Raster")
@@ -1216,48 +1219,6 @@ test_that("Raster (multiple zones)", {
   expect_length(attr(r2, "status"), 2)
 })
 
-test_that("rescale = TRUE", {
-  skip_on_cran()
-  skip_if_no_fast_solvers_installed()
-  # create data
-  pu <- data.frame(
-    id = seq_len(4), cost = c(10, 2, NA, 3),
-    spp1 = c(1, 0, 0, 1), spp2 = c(10, 5, 10, 6)
-  )
-  budgets <- c(2.5, 5)
-  # create problem
-  p <-
-    problem(
-      pu$cost,
-      data.frame(id = seq_len(2), name = c("spp1", "spp2")),
-      as.matrix(t(pu[, 3:4]))
-    ) %>%
-    add_min_set_objective() %>%
-    add_absolute_targets(c(2, 10)) %>%
-    add_binary_decisions() %>%
-    add_default_solver(gap = 0, verbose = FALSE)
-  # create a solution
-  s <- c(0, 1, NA, 1)
-  # calculate scores
-  r1 <- eval_rank_importance(
-    p, s, budgets = budgets, rescale = TRUE, run_checks = FALSE
-  )
-  r2 <- eval_rank_importance(
-    p, s, n = 2, rescale = TRUE, force = TRUE
-  )
-  # create correct total scores
-  r3 <- c(0, 1, NA_real_, 0.01)
-  # run tests
-  ## objects
-  expect_inherits(r1, "numeric")
-  expect_inherits(r2, "numeric")
-  expect_equal(r1, r3, ignore_attr = TRUE)
-  expect_equal(r2, r3, ignore_attr = TRUE)
-  ## attributes
-  expect_equal(attr(r1, "budgets"), budgets)
-  expect_equal(attr(r2, "budgets"), budgets)
-})
-
 test_that("custom objective", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
@@ -1281,15 +1242,15 @@ test_that("custom objective", {
   s <- solve(p)
   # calculate ranks
   r1 <- eval_rank_importance(
-    p, s, n = 2, rescale = FALSE,
+    p, s, n = 2,
     objective = "add_max_phylo_div_objective",
     extra_args = list(tree = sim_phylogeny)
   )
   # tests
   expect_inherits(r1, "SpatRaster")
   expect_true(terra::global(r1 == 0, "sum", na.rm = TRUE)[[1]] > 0)
+  expect_true(terra::global(r1 == 0.5, "sum", na.rm = TRUE)[[1]] > 0)
   expect_true(terra::global(r1 == 1, "sum", na.rm = TRUE)[[1]] > 0)
-  expect_true(terra::global(r1 == 2, "sum", na.rm = TRUE)[[1]] > 0)
 })
 
 test_that("default budget-limited objective", {
@@ -1313,10 +1274,10 @@ test_that("default budget-limited objective", {
   # create a solution
   s <- terra::rast(matrix(c(0, 1, NA, 1), nrow = 1))
   # calculate ranks
-  r1 <- eval_rank_importance(p, s, n = 2, rescale = FALSE)
-  r2 <- eval_rank_importance(p, s, budgets = budgets, rescale = FALSE)
+  r1 <- eval_rank_importance(p, s, n = 2)
+  r2 <- eval_rank_importance(p, s, budgets = budgets)
   # create correct result
-  r3 <- terra::rast(matrix(c(0, 2, NA, 1), nrow = 1))
+  r3 <- terra::rast(matrix(c(0, 1, NA, 0.5), nrow = 1))
   # run tests
   ## objects
   expect_inherits(r1, "SpatRaster")
@@ -1349,18 +1310,18 @@ test_that("default budget-limited and explicit objectives give same result", {
   # create a solution
   s <- terra::rast(matrix(c(0, 1, NA, 1), nrow = 1))
   # calculate ranks
-  r1 <- eval_rank_importance(p, s, n = 2, rescale = FALSE)
-  r2 <- eval_rank_importance(p, s, budgets = budgets, rescale = FALSE)
+  r1 <- eval_rank_importance(p, s, n = 2)
+  r2 <- eval_rank_importance(p, s, budgets = budgets)
   r3 <- eval_rank_importance(
-    p, s, budgets = budgets, rescale = FALSE,
+    p, s, budgets = budgets,
     objective = "add_min_shortfall_objective"
   )
   r4 <- eval_rank_importance(
-    p, s, n = 2, rescale = FALSE,
+    p, s, n = 2,
     objective = "add_min_shortfall_objective"
   )
   # create correct result
-  r5 <- terra::rast(matrix(c(0, 2, NA, 1), nrow = 1))
+  r5 <- terra::rast(matrix(c(0, 1, NA, 0.5), nrow = 1))
   # run tests
   ## objects
   expect_inherits(r1, "SpatRaster")
@@ -1401,10 +1362,10 @@ test_that("locked in constraints", {
   # create a solution
   s <- terra::rast(matrix(c(0, 1, NA, 1, 1), nrow = 1))
   # calculate ranks
-  r1 <- eval_rank_importance(p, s, n = 2, rescale = FALSE)
-  r2 <- eval_rank_importance(p, s, budgets = budgets, rescale = FALSE)
+  r1 <- eval_rank_importance(p, s, n = 2)
+  r2 <- eval_rank_importance(p, s, budgets = budgets)
   # create correct result
-  r3 <- terra::rast(matrix(c(0, 2, NA, 1, 2), nrow = 1))
+  r3 <- terra::rast(matrix(c(0, 1, NA, 0.5, 1), nrow = 1))
   names(r3) <- "rs"
   # run tests
   ## objects
@@ -1441,10 +1402,10 @@ test_that("locked out constraints", {
   # create a solution
   s <- terra::rast(matrix(c(0, 1, NA, 1, 0), nrow = 1))
   # calculate ranks
-  r1 <- eval_rank_importance(p, s, n = 2, rescale = FALSE)
-  r2 <- eval_rank_importance(p, s, budgets = budgets, rescale = FALSE)
+  r1 <- eval_rank_importance(p, s, n = 2)
+  r2 <- eval_rank_importance(p, s, budgets = budgets)
   # create correct result
-  r3 <- terra::rast(matrix(c(0, 2, NA, 1, 0), nrow = 1))
+  r3 <- terra::rast(matrix(c(0, 1, NA, 0.5, 0), nrow = 1))
   # run tests
   ## objects
   expect_inherits(r1, "SpatRaster")

@@ -14,7 +14,7 @@ category_layer(x)
 }
 \arguments{
 \item{x}{\code{\link[terra:rast]{terra::rast()}} object containing multiple
-layers. Note that pixels must be 0, 1 or \code{NA} values.}
+layers. Note that cell values must be 0, 1 or \code{NA} values.}
 }
 \value{
 A \code{\link[terra:rast]{terra::rast()}} object.

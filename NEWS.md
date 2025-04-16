@@ -1,9 +1,52 @@
+# prioritizr 8.0.6.4
+
+## Minor improvements and bug fixes
+
+- Update `add_locked_in_constraints()`, `add_locked_out_constraints()`,
+  `add_manual_locked_constraints()`, and `add_manual_bounded_constraints()`
+  functions so that planning units can be locked based on their planning unit
+  identifier values when specifying `data.frame` planning units (#359). These
+  functions have also been updated to provide more informative error messages
+  when invalid data are specified. Thanks to Martin Jung (\@Martin-Jung) for
+  bug report.
+- Fix `eval_rank_importance()` to better account for proportion-type and
+  semi-continuous decision types (#367). Thanks to Martin Jung (\@Martin-Jung)
+  for bug report.
+- Fix bug in `print()` and `summary()` functions for `problem()` objects that
+  caused the functions to incorrectly show the classes of the planning unit
+  data that inherit from multiple classes. For example, this means that
+  `sf::st_sf()` planning units will now be shown as having `"sf"` data, rather
+  than `"sftbl_dftbldata.frame"` data. Similarly, `tibble::tibble()` planning
+  units will now be shown as `tbl_df` instead of `tbldfdata.frame`.
+- Update internal `all_finite()` function to perform faster for `character`
+  vector arguments.
+- Update dependencies so that the _slam_ package is now an optional dependency.
+  This is because the _slam_ package is only required when using
+  `add_lpsymphony_solver()` and `add_gurobi_solver()`.
+- Update `marxan_problem()` to provide better validation of input data
+  and more informative error messages. This update also involves replacing the
+  _data.table_ package with the _vroom_ package.
+- Thanks to Sandra Neubert (\@sandra-neubert) for code review.
+
+## Documentation updates
+
+- Update `add_locked_in_constraints()`, `add_locked_out_constraints()`,
+  `add_manual_locked_constraints()`, and `add_manual_bounded_constraints()`
+  documentation to provide more detail on specifying which planning units
+  should be constrained (#359). Thanks to Martin Jung (\@Martin-Jung) for bug
+  report.
+- Update README to thank Theodoros Ploumis (\@theodorosploumis) for the logo.
+- Update documentation for `eval_rank_importance()`.
+- Standardize terminology for referring to "cells" in raster data. Previously,
+  some parts of the documentation referred to them as pixels.
+- Update publication record.
+
 # prioritizr 8.0.6.3
 
 ## Minor improvements and bug fixes
 
 - Fix bug in `add_manual_targets()` that caused segmentation faults when
-  invalid `data` were specified (#363).
+  invalid arguments to `data` were specified (#363).
 
 ## Documentation updates
 
@@ -29,8 +72,8 @@
 ## Minor improvements and bug fixes
 
 - Update `boundary_matrix()` calculations to maintain compatibility with
-  updates to the _terra_ package. Thanks to Sandra Neubert (\@sandra-neubert)
-  for code review.
+  updates to the _terra_ package.
+- Thanks to Sandra Neubert (\@sandra-neubert) for code review.
 
 ## Documentation updates
 

@@ -117,12 +117,15 @@ Create a conservation planning \code{\link[=problem]{problem()}} following the
 mathematical formulations used in \emph{Marxan} (detailed in Beyer
 \emph{et al.} 2016). Note that these problems are solved using
 exact algorithms and not simulated annealing (i.e., the \emph{Marxan} software).
+Please note that the \pkg{vroom} package is required to import \emph{Marxan} data
+files.
 }
 \details{
-This function is provided as a convenient wrapper for solving
-\emph{Marxan} problems using the \pkg{prioritizr} package.
-Please note that it requires installation of the \pkg{data.table} package
-to import \emph{Marxan} data files.
+This function is provided as a convenient interface for solving
+\emph{Marxan} problems using the \pkg{prioritizr} package. Note that this
+function does not support all of the functionality provided by the
+\emph{Marxan} software. In particular, only the following parameters
+supported: \code{"INPUTDIR"}, \verb{"SPECNAME}", \code{"PUNAME"}, \verb{"PUVSPRNAME", }"BOUNDNAME"\verb{, }"BLM"\verb{, and }"ASYMMETRICCONNECTIVITY"\verb{. Additionally, for the species data (i.e., argument to }spec\verb{), only the }"id"\verb{, }"name"\verb{, }"prop"\verb{, and }"amount"` columns are considered.
 }
 \section{Notes}{
 
@@ -133,7 +136,7 @@ data.
 
 \examples{
 # create Marxan problem using Marxan input file
-# (note this example requires the data.table package to be installed)
+# (note this example requires the vroom package to be installed)
 \dontrun{
 input_file <- system.file("extdata/marxan/input.dat", package = "prioritizr")
 p1 <-
@@ -147,31 +150,31 @@ s1 <- solve(p1)
 head(s1)
 
 # create Marxan problem using data.frames that have been loaded into R
-# (note this example also requires the data.table package to be installed)
+# (note this example also requires the vroom package to be installed)
 ## load in planning unit data
 pu_path <- system.file("extdata/marxan/input/pu.dat", package = "prioritizr")
-pu_dat <- data.table::fread(pu_path, data.table = FALSE)
+pu_dat <- vroom::vroom(pu_path)
 head(pu_dat)
 
 ## load in feature data
 spec_path <- system.file(
   "extdata/marxan/input/spec.dat", package = "prioritizr"
 )
-spec_dat <- data.table::fread(spec_path, data.table = FALSE)
+spec_dat <- vroom::vroom(spec_path)
 head(spec_dat)
 
 ## load in planning unit vs feature data
 puvspr_path <- system.file(
   "extdata/marxan/input/puvspr.dat", package = "prioritizr"
 )
-puvspr_dat <- data.table::fread(puvspr_path, data.table = FALSE)
+puvspr_dat <- vroom::vroom(puvspr_path)
 head(puvspr_dat)
 
 ## load in the boundary data
 bound_path <- system.file(
   "extdata/marxan/input/bound.dat", package = "prioritizr"
 )
-bound_dat <- data.table::fread(bound_path, data.table = FALSE)
+bound_dat <- vroom::vroom(bound_path)
 head(bound_dat)
 
 # create problem without the boundary data
@@ -207,10 +210,15 @@ A, Wilson KA, and Possingham HP. Oxford University Press, Oxford, UK.
 Beyer HL, Dujardin Y, Watts ME, and Possingham HP (2016) Solving
 conservation planning problems with integer linear programming.
 \emph{Ecological Modelling}, 228: 14--22.
+
+Serra N, Kockel A, Game ET, Grantham H, Possingham HP, and McGowan J (2020)
+Marxan User Manual: For Marxan version 2.43 and above. The Nature Conservancy
+(TNC), Arlington, Virginia, United States and Pacific Marine Analysis and
+Research Association (PacMARA), Victoria, British Columbia, Canada.
 }
 \seealso{
 For more information on the correct format for
 for \emph{Marxan} input data, see the
-\href{https://marxansolutions.org}{official \emph{Marxan} website} and Ball
-\emph{et al.} (2009).
+\href{https://marxansolutions.org}{official \emph{Marxan} website}, Ball
+\emph{et al.} (2009), Serra \emph{et al.} (2020).
 }

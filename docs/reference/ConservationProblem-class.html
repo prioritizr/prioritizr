@@ -30,7 +30,7 @@ Only experts should use the fields and methods for this class directly."><meta p
     
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.6.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.6.4</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -171,11 +171,15 @@ generating solutions.</p></dd>
 <li><p><a href="#method-ConservationProblem-get_data"><code>ConservationProblem$get_data()</code></a></p></li>
 <li><p><a href="#method-ConservationProblem-set_data"><code>ConservationProblem$set_data()</code></a></p></li>
 <li><p><a href="#method-ConservationProblem-number_of_planning_units"><code>ConservationProblem$number_of_planning_units()</code></a></p></li>
+<li><p><a href="#method-ConservationProblem-is_ids_equivalent_to_indices"><code>ConservationProblem$is_ids_equivalent_to_indices()</code></a></p></li>
 <li><p><a href="#method-ConservationProblem-planning_unit_indices"><code>ConservationProblem$planning_unit_indices()</code></a></p></li>
+<li><p><a href="#method-ConservationProblem-total_unit_ids"><code>ConservationProblem$total_unit_ids()</code></a></p></li>
+<li><p><a href="#method-ConservationProblem-convert_total_unit_ids_to_indices"><code>ConservationProblem$convert_total_unit_ids_to_indices()</code></a></p></li>
 <li><p><a href="#method-ConservationProblem-planning_unit_indices_with_finite_costs"><code>ConservationProblem$planning_unit_indices_with_finite_costs()</code></a></p></li>
 <li><p><a href="#method-ConservationProblem-set_planning_unit_indices_with_finite_costs"><code>ConservationProblem$set_planning_unit_indices_with_finite_costs()</code></a></p></li>
 <li><p><a href="#method-ConservationProblem-number_of_total_units"><code>ConservationProblem$number_of_total_units()</code></a></p></li>
 <li><p><a href="#method-ConservationProblem-planning_unit_costs"><code>ConservationProblem$planning_unit_costs()</code></a></p></li>
+<li><p><a href="#method-ConservationProblem-planning_unit_class"><code>ConservationProblem$planning_unit_class()</code></a></p></li>
 <li><p><a href="#method-ConservationProblem-set_planning_unit_costs"><code>ConservationProblem$set_planning_unit_costs()</code></a></p></li>
 <li><p><a href="#method-ConservationProblem-number_of_features"><code>ConservationProblem$number_of_features()</code></a></p></li>
 <li><p><a href="#method-ConservationProblem-feature_names"><code>ConservationProblem$feature_names()</code></a></p></li>
@@ -315,7 +319,7 @@ overwrite existing data.</p><div class="section">
 <h3 id="method-number-of-planning-units-">Method <code><a href="number_of_planning_units.html">number_of_planning_units()</a></code><a class="anchor" aria-label="anchor" href="#method-number-of-planning-units-"></a></h3>
 <p>Obtain the number of planning units. The planning units correspond to
 elements in the cost data
-(e.g., indices, rows, geometries, pixels) that have finite
+(e.g., indices, rows, geometries, cells) that have finite
 values in at least one zone. In other words, planning unit are
 elements in the cost data that do not have missing (<code>NA</code>) values in
 every zone.</p><div class="section">
@@ -328,15 +332,61 @@ every zone.</p><div class="section">
 <p>An <code>integer</code> value.</p>
 </div>
 
-</div><p></p><hr><a id="method-ConservationProblem-planning_unit_indices"></a><div class="section">
-<h3 id="method-planning-unit-indices-">Method <code>planning_unit_indices()</code><a class="anchor" aria-label="anchor" href="#method-planning-unit-indices-"></a></h3>
-<p>Obtain the planning unit indices.</p><div class="section">
+</div><p></p><hr><a id="method-ConservationProblem-is_ids_equivalent_to_indices"></a><div class="section">
+<h3 id="method-is-ids-equivalent-to-indices-">Method <code>is_ids_equivalent_to_indices()</code><a class="anchor" aria-label="anchor" href="#method-is-ids-equivalent-to-indices-"></a></h3>
+<p>Check if planning unit identifiers are equivalent to the planning
+unit indices? Only <code>FALSE</code> if the planning units are
+<code>data.frame</code> format.</p><div class="section">
 <h4 id="usage-8">Usage<a class="anchor" aria-label="anchor" href="#usage-8"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">planning_unit_indices</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">is_ids_equivalent_to_indices</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
 <h4 id="returns-8">Returns<a class="anchor" aria-label="anchor" href="#returns-8"></a></h4>
+<p>A <code>logical</code> value.</p>
+</div>
+
+</div><p></p><hr><a id="method-ConservationProblem-planning_unit_indices"></a><div class="section">
+<h3 id="method-planning-unit-indices-">Method <code>planning_unit_indices()</code><a class="anchor" aria-label="anchor" href="#method-planning-unit-indices-"></a></h3>
+<p>Obtain the planning unit indices.</p><div class="section">
+<h4 id="usage-9">Usage<a class="anchor" aria-label="anchor" href="#usage-9"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">planning_unit_indices</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="returns-9">Returns<a class="anchor" aria-label="anchor" href="#returns-9"></a></h4>
+<p>An <code>integer</code> vector.</p>
+</div>
+
+</div><p></p><hr><a id="method-ConservationProblem-total_unit_ids"></a><div class="section">
+<h3 id="method-total-unit-ids-">Method <code>total_unit_ids()</code><a class="anchor" aria-label="anchor" href="#method-total-unit-ids-"></a></h3>
+<p>Obtain the total unit identifiers.</p><div class="section">
+<h4 id="usage-10">Usage<a class="anchor" aria-label="anchor" href="#usage-10"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">total_unit_ids</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="returns-10">Returns<a class="anchor" aria-label="anchor" href="#returns-10"></a></h4>
+<p>An <code>integer</code> vector.</p>
+</div>
+
+</div><p></p><hr><a id="method-ConservationProblem-convert_total_unit_ids_to_indices"></a><div class="section">
+<h3 id="method-convert-total-unit-ids-to-indices-">Method <code>convert_total_unit_ids_to_indices()</code><a class="anchor" aria-label="anchor" href="#method-convert-total-unit-ids-to-indices-"></a></h3>
+<p>Convert total unit identifiers to indices.</p><div class="section">
+<h4 id="usage-11">Usage<a class="anchor" aria-label="anchor" href="#usage-11"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">convert_total_unit_ids_to_indices</span><span class="op">(</span><span class="va">ids</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="arguments-3">Arguments<a class="anchor" aria-label="anchor" href="#arguments-3"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>ids</code></dt>
+<dd><p><code>integer</code> vector with planning unit identifiers.</p></dd>
+
+
+</dl><p></p></div>
+</div>
+<div class="section">
+<h4 id="returns-11">Returns<a class="anchor" aria-label="anchor" href="#returns-11"></a></h4>
 <p>An <code>integer</code> vector.</p>
 </div>
 
@@ -344,12 +394,12 @@ every zone.</p><div class="section">
 <h3 id="method-planning-unit-indices-with-finite-costs-">Method <code>planning_unit_indices_with_finite_costs()</code><a class="anchor" aria-label="anchor" href="#method-planning-unit-indices-with-finite-costs-"></a></h3>
 <p>Obtain the planning unit indices that are associated with
 finite cost values.</p><div class="section">
-<h4 id="usage-9">Usage<a class="anchor" aria-label="anchor" href="#usage-9"></a></h4>
+<h4 id="usage-12">Usage<a class="anchor" aria-label="anchor" href="#usage-12"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">planning_unit_indices_with_finite_costs</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="returns-9">Returns<a class="anchor" aria-label="anchor" href="#returns-9"></a></h4>
+<h4 id="returns-12">Returns<a class="anchor" aria-label="anchor" href="#returns-12"></a></h4>
 <p>A <code>list</code> of <code>integer</code> vectors. Each <code>list</code> element corresponds to
 a different zone.</p>
 </div>
@@ -358,47 +408,8 @@ a different zone.</p>
 <h3 id="method-set-planning-unit-indices-with-finite-costs-">Method <code>set_planning_unit_indices_with_finite_costs()</code><a class="anchor" aria-label="anchor" href="#method-set-planning-unit-indices-with-finite-costs-"></a></h3>
 <p>Perform calculations to cache the planning unit indices that are
 associated with finite cost values.</p><div class="section">
-<h4 id="usage-10">Usage<a class="anchor" aria-label="anchor" href="#usage-10"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">set_planning_unit_indices_with_finite_costs</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="returns-10">Returns<a class="anchor" aria-label="anchor" href="#returns-10"></a></h4>
-<p>Invisible <code>TRUE</code>.</p>
-</div>
-
-</div><p></p><hr><a id="method-ConservationProblem-number_of_total_units"></a><div class="section">
-<h3 id="method-number-of-total-units-">Method <code><a href="number_of_total_units.html">number_of_total_units()</a></code><a class="anchor" aria-label="anchor" href="#method-number-of-total-units-"></a></h3>
-<p>Obtain the number of total units. The total units include all elements
-in the cost data
-(e.g., indices, rows, geometries, pixels), including those with
-missing (<code>NA</code>) values.</p><div class="section">
-<h4 id="usage-11">Usage<a class="anchor" aria-label="anchor" href="#usage-11"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">number_of_total_units</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="returns-11">Returns<a class="anchor" aria-label="anchor" href="#returns-11"></a></h4>
-<p>An <code>integer</code> value.</p>
-</div>
-
-</div><p></p><hr><a id="method-ConservationProblem-planning_unit_costs"></a><div class="section">
-<h3 id="method-planning-unit-costs-">Method <code>planning_unit_costs()</code><a class="anchor" aria-label="anchor" href="#method-planning-unit-costs-"></a></h3>
-<p>Obtain the planning unit costs.</p><div class="section">
-<h4 id="usage-12">Usage<a class="anchor" aria-label="anchor" href="#usage-12"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">planning_unit_costs</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="returns-12">Returns<a class="anchor" aria-label="anchor" href="#returns-12"></a></h4>
-<p>A <code>numeric</code> matrix.</p>
-</div>
-
-</div><p></p><hr><a id="method-ConservationProblem-set_planning_unit_costs"></a><div class="section">
-<h3 id="method-set-planning-unit-costs-">Method <code>set_planning_unit_costs()</code><a class="anchor" aria-label="anchor" href="#method-set-planning-unit-costs-"></a></h3>
-<p>Perform calculations to cache the planning unit costs.</p><div class="section">
 <h4 id="usage-13">Usage<a class="anchor" aria-label="anchor" href="#usage-13"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">set_planning_unit_costs</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">set_planning_unit_indices_with_finite_costs</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
@@ -406,11 +417,14 @@ missing (<code>NA</code>) values.</p><div class="section">
 <p>Invisible <code>TRUE</code>.</p>
 </div>
 
-</div><p></p><hr><a id="method-ConservationProblem-number_of_features"></a><div class="section">
-<h3 id="method-number-of-features-">Method <code><a href="number_of_features.html">number_of_features()</a></code><a class="anchor" aria-label="anchor" href="#method-number-of-features-"></a></h3>
-<p>Obtain the number of features.</p><div class="section">
+</div><p></p><hr><a id="method-ConservationProblem-number_of_total_units"></a><div class="section">
+<h3 id="method-number-of-total-units-">Method <code><a href="number_of_total_units.html">number_of_total_units()</a></code><a class="anchor" aria-label="anchor" href="#method-number-of-total-units-"></a></h3>
+<p>Obtain the number of total units. The total units include all elements
+in the cost data
+(e.g., indices, rows, geometries, cells), including those with
+missing (<code>NA</code>) values.</p><div class="section">
 <h4 id="usage-14">Usage<a class="anchor" aria-label="anchor" href="#usage-14"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">number_of_features</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">number_of_total_units</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
@@ -418,37 +432,35 @@ missing (<code>NA</code>) values.</p><div class="section">
 <p>An <code>integer</code> value.</p>
 </div>
 
-</div><p></p><hr><a id="method-ConservationProblem-feature_names"></a><div class="section">
-<h3 id="method-feature-names-">Method <code><a href="feature_names.html">feature_names()</a></code><a class="anchor" aria-label="anchor" href="#method-feature-names-"></a></h3>
-<p>Obtain the names of the features.</p><div class="section">
+</div><p></p><hr><a id="method-ConservationProblem-planning_unit_costs"></a><div class="section">
+<h3 id="method-planning-unit-costs-">Method <code>planning_unit_costs()</code><a class="anchor" aria-label="anchor" href="#method-planning-unit-costs-"></a></h3>
+<p>Obtain the planning unit costs.</p><div class="section">
 <h4 id="usage-15">Usage<a class="anchor" aria-label="anchor" href="#usage-15"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">feature_names</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">planning_unit_costs</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
 <h4 id="returns-15">Returns<a class="anchor" aria-label="anchor" href="#returns-15"></a></h4>
-<p>A <code>character</code> vector.</p>
+<p>A <code>numeric</code> matrix.</p>
 </div>
 
-</div><p></p><hr><a id="method-ConservationProblem-feature_abundances_in_planning_units"></a><div class="section">
-<h3 id="method-feature-abundances-in-planning-units-">Method <code>feature_abundances_in_planning_units()</code><a class="anchor" aria-label="anchor" href="#method-feature-abundances-in-planning-units-"></a></h3>
-<p>Obtain the abundance of the features in the planning units.</p><div class="section">
+</div><p></p><hr><a id="method-ConservationProblem-planning_unit_class"></a><div class="section">
+<h3 id="method-planning-unit-class-">Method <code>planning_unit_class()</code><a class="anchor" aria-label="anchor" href="#method-planning-unit-class-"></a></h3>
+<p>Get planning unit class.</p><div class="section">
 <h4 id="usage-16">Usage<a class="anchor" aria-label="anchor" href="#usage-16"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">feature_abundances_in_planning_units</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">planning_unit_class</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
 <h4 id="returns-16">Returns<a class="anchor" aria-label="anchor" href="#returns-16"></a></h4>
-<p>A <code>numeric</code> matrix. Each column corresponds to a different zone
-and each row corresponds to a different feature.</p>
+<p>A <code>character</code> value.</p>
 </div>
 
-</div><p></p><hr><a id="method-ConservationProblem-set_feature_abundances_in_planning_units"></a><div class="section">
-<h3 id="method-set-feature-abundances-in-planning-units-">Method <code>set_feature_abundances_in_planning_units()</code><a class="anchor" aria-label="anchor" href="#method-set-feature-abundances-in-planning-units-"></a></h3>
-<p>Perform calculations to cache the abundance of the features in the
-planning units.</p><div class="section">
+</div><p></p><hr><a id="method-ConservationProblem-set_planning_unit_costs"></a><div class="section">
+<h3 id="method-set-planning-unit-costs-">Method <code>set_planning_unit_costs()</code><a class="anchor" aria-label="anchor" href="#method-set-planning-unit-costs-"></a></h3>
+<p>Perform calculations to cache the planning unit costs.</p><div class="section">
 <h4 id="usage-17">Usage<a class="anchor" aria-label="anchor" href="#usage-17"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">set_feature_abundances_in_planning_units</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">set_planning_unit_costs</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
@@ -456,38 +468,35 @@ planning units.</p><div class="section">
 <p>Invisible <code>TRUE</code>.</p>
 </div>
 
-</div><p></p><hr><a id="method-ConservationProblem-feature_positive_abundances_in_planning_units"></a><div class="section">
-<h3 id="method-feature-positive-abundances-in-planning-units-">Method <code>feature_positive_abundances_in_planning_units()</code><a class="anchor" aria-label="anchor" href="#method-feature-positive-abundances-in-planning-units-"></a></h3>
-<p>Obtain the positive abundance of the features in the planning units.
-Note that this method, unlike <code>feature_abundances_in_planning_units</code>,</p><div class="section">
+</div><p></p><hr><a id="method-ConservationProblem-number_of_features"></a><div class="section">
+<h3 id="method-number-of-features-">Method <code><a href="number_of_features.html">number_of_features()</a></code><a class="anchor" aria-label="anchor" href="#method-number-of-features-"></a></h3>
+<p>Obtain the number of features.</p><div class="section">
 <h4 id="usage-18">Usage<a class="anchor" aria-label="anchor" href="#usage-18"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">feature_positive_abundances_in_planning_units</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">number_of_features</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
 <h4 id="returns-18">Returns<a class="anchor" aria-label="anchor" href="#returns-18"></a></h4>
-<p>A <code>numeric</code> matrix. Each column corresponds to a different zone
-and each row corresponds to a different feature.</p>
+<p>An <code>integer</code> value.</p>
 </div>
 
-</div><p></p><hr><a id="method-ConservationProblem-set_feature_positive_abundances_in_planning_units"></a><div class="section">
-<h3 id="method-set-feature-positive-abundances-in-planning-units-">Method <code>set_feature_positive_abundances_in_planning_units()</code><a class="anchor" aria-label="anchor" href="#method-set-feature-positive-abundances-in-planning-units-"></a></h3>
-<p>Perform calculations to cache the positive abundance of the features in
-the planning units.</p><div class="section">
+</div><p></p><hr><a id="method-ConservationProblem-feature_names"></a><div class="section">
+<h3 id="method-feature-names-">Method <code><a href="feature_names.html">feature_names()</a></code><a class="anchor" aria-label="anchor" href="#method-feature-names-"></a></h3>
+<p>Obtain the names of the features.</p><div class="section">
 <h4 id="usage-19">Usage<a class="anchor" aria-label="anchor" href="#usage-19"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">set_feature_positive_abundances_in_planning_units</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">feature_names</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
 <h4 id="returns-19">Returns<a class="anchor" aria-label="anchor" href="#returns-19"></a></h4>
-<p>Invisible <code>TRUE</code>.</p>
+<p>A <code>character</code> vector.</p>
 </div>
 
-</div><p></p><hr><a id="method-ConservationProblem-feature_abundances_in_total_units"></a><div class="section">
-<h3 id="method-feature-abundances-in-total-units-">Method <code>feature_abundances_in_total_units()</code><a class="anchor" aria-label="anchor" href="#method-feature-abundances-in-total-units-"></a></h3>
-<p>Obtain the abundance of the features in the total units.</p><div class="section">
+</div><p></p><hr><a id="method-ConservationProblem-feature_abundances_in_planning_units"></a><div class="section">
+<h3 id="method-feature-abundances-in-planning-units-">Method <code>feature_abundances_in_planning_units()</code><a class="anchor" aria-label="anchor" href="#method-feature-abundances-in-planning-units-"></a></h3>
+<p>Obtain the abundance of the features in the planning units.</p><div class="section">
 <h4 id="usage-20">Usage<a class="anchor" aria-label="anchor" href="#usage-20"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">feature_abundances_in_total_units</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">feature_abundances_in_planning_units</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
@@ -496,145 +505,118 @@ the planning units.</p><div class="section">
 and each row corresponds to a different feature.</p>
 </div>
 
-</div><p></p><hr><a id="method-ConservationProblem-feature_targets"></a><div class="section">
-<h3 id="method-feature-targets-">Method <code>feature_targets()</code><a class="anchor" aria-label="anchor" href="#method-feature-targets-"></a></h3>
-<p>Obtain the representation targets for the features.</p><div class="section">
+</div><p></p><hr><a id="method-ConservationProblem-set_feature_abundances_in_planning_units"></a><div class="section">
+<h3 id="method-set-feature-abundances-in-planning-units-">Method <code>set_feature_abundances_in_planning_units()</code><a class="anchor" aria-label="anchor" href="#method-set-feature-abundances-in-planning-units-"></a></h3>
+<p>Perform calculations to cache the abundance of the features in the
+planning units.</p><div class="section">
 <h4 id="usage-21">Usage<a class="anchor" aria-label="anchor" href="#usage-21"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">feature_targets</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">set_feature_abundances_in_planning_units</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
 <h4 id="returns-21">Returns<a class="anchor" aria-label="anchor" href="#returns-21"></a></h4>
+<p>Invisible <code>TRUE</code>.</p>
+</div>
+
+</div><p></p><hr><a id="method-ConservationProblem-feature_positive_abundances_in_planning_units"></a><div class="section">
+<h3 id="method-feature-positive-abundances-in-planning-units-">Method <code>feature_positive_abundances_in_planning_units()</code><a class="anchor" aria-label="anchor" href="#method-feature-positive-abundances-in-planning-units-"></a></h3>
+<p>Obtain the positive abundance of the features in the planning units.
+Note that this method, unlike <code>feature_abundances_in_planning_units</code>,</p><div class="section">
+<h4 id="usage-22">Usage<a class="anchor" aria-label="anchor" href="#usage-22"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">feature_positive_abundances_in_planning_units</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="returns-22">Returns<a class="anchor" aria-label="anchor" href="#returns-22"></a></h4>
+<p>A <code>numeric</code> matrix. Each column corresponds to a different zone
+and each row corresponds to a different feature.</p>
+</div>
+
+</div><p></p><hr><a id="method-ConservationProblem-set_feature_positive_abundances_in_planning_units"></a><div class="section">
+<h3 id="method-set-feature-positive-abundances-in-planning-units-">Method <code>set_feature_positive_abundances_in_planning_units()</code><a class="anchor" aria-label="anchor" href="#method-set-feature-positive-abundances-in-planning-units-"></a></h3>
+<p>Perform calculations to cache the positive abundance of the features in
+the planning units.</p><div class="section">
+<h4 id="usage-23">Usage<a class="anchor" aria-label="anchor" href="#usage-23"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">set_feature_positive_abundances_in_planning_units</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="returns-23">Returns<a class="anchor" aria-label="anchor" href="#returns-23"></a></h4>
+<p>Invisible <code>TRUE</code>.</p>
+</div>
+
+</div><p></p><hr><a id="method-ConservationProblem-feature_abundances_in_total_units"></a><div class="section">
+<h3 id="method-feature-abundances-in-total-units-">Method <code>feature_abundances_in_total_units()</code><a class="anchor" aria-label="anchor" href="#method-feature-abundances-in-total-units-"></a></h3>
+<p>Obtain the abundance of the features in the total units.</p><div class="section">
+<h4 id="usage-24">Usage<a class="anchor" aria-label="anchor" href="#usage-24"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">feature_abundances_in_total_units</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="returns-24">Returns<a class="anchor" aria-label="anchor" href="#returns-24"></a></h4>
+<p>A <code>numeric</code> matrix. Each column corresponds to a different zone
+and each row corresponds to a different feature.</p>
+</div>
+
+</div><p></p><hr><a id="method-ConservationProblem-feature_targets"></a><div class="section">
+<h3 id="method-feature-targets-">Method <code>feature_targets()</code><a class="anchor" aria-label="anchor" href="#method-feature-targets-"></a></h3>
+<p>Obtain the representation targets for the features.</p><div class="section">
+<h4 id="usage-25">Usage<a class="anchor" aria-label="anchor" href="#usage-25"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">feature_targets</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="returns-25">Returns<a class="anchor" aria-label="anchor" href="#returns-25"></a></h4>
 <p>A <code><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble::tibble()</a></code> data frame.</p>
 </div>
 
 </div><p></p><hr><a id="method-ConservationProblem-has_negative_feature_data"></a><div class="section">
 <h3 id="method-has-negative-feature-data-">Method <code>has_negative_feature_data()</code><a class="anchor" aria-label="anchor" href="#method-has-negative-feature-data-"></a></h3>
 <p>See if the feature data contain any negative values.</p><div class="section">
-<h4 id="usage-22">Usage<a class="anchor" aria-label="anchor" href="#usage-22"></a></h4>
+<h4 id="usage-26">Usage<a class="anchor" aria-label="anchor" href="#usage-26"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">has_negative_feature_data</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="returns-22">Returns<a class="anchor" aria-label="anchor" href="#returns-22"></a></h4>
+<h4 id="returns-26">Returns<a class="anchor" aria-label="anchor" href="#returns-26"></a></h4>
 <p>A <code>logical</code> value.</p>
 </div>
 
 </div><p></p><hr><a id="method-ConservationProblem-number_of_zones"></a><div class="section">
 <h3 id="method-number-of-zones-">Method <code><a href="number_of_zones.html">number_of_zones()</a></code><a class="anchor" aria-label="anchor" href="#method-number-of-zones-"></a></h3>
 <p>Obtain the number of zones.</p><div class="section">
-<h4 id="usage-23">Usage<a class="anchor" aria-label="anchor" href="#usage-23"></a></h4>
+<h4 id="usage-27">Usage<a class="anchor" aria-label="anchor" href="#usage-27"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">number_of_zones</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="returns-23">Returns<a class="anchor" aria-label="anchor" href="#returns-23"></a></h4>
+<h4 id="returns-27">Returns<a class="anchor" aria-label="anchor" href="#returns-27"></a></h4>
 <p>An <code>integer</code> value.</p>
 </div>
 
 </div><p></p><hr><a id="method-ConservationProblem-zone_names"></a><div class="section">
 <h3 id="method-zone-names-">Method <code><a href="zone_names.html">zone_names()</a></code><a class="anchor" aria-label="anchor" href="#method-zone-names-"></a></h3>
 <p>Obtain the zone names.</p><div class="section">
-<h4 id="usage-24">Usage<a class="anchor" aria-label="anchor" href="#usage-24"></a></h4>
+<h4 id="usage-28">Usage<a class="anchor" aria-label="anchor" href="#usage-28"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">zone_names</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="returns-24">Returns<a class="anchor" aria-label="anchor" href="#returns-24"></a></h4>
+<h4 id="returns-28">Returns<a class="anchor" aria-label="anchor" href="#returns-28"></a></h4>
 <p>A <code>character</code> vector.</p>
 </div>
 
 </div><p></p><hr><a id="method-ConservationProblem-add_portfolio"></a><div class="section">
 <h3 id="method-add-portfolio-">Method <code>add_portfolio()</code><a class="anchor" aria-label="anchor" href="#method-add-portfolio-"></a></h3>
 <p>Create a new object with a portfolio added to the problem formulation.</p><div class="section">
-<h4 id="usage-25">Usage<a class="anchor" aria-label="anchor" href="#usage-25"></a></h4>
+<h4 id="usage-29">Usage<a class="anchor" aria-label="anchor" href="#usage-29"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">add_portfolio</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-3">Arguments<a class="anchor" aria-label="anchor" href="#arguments-3"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>x</code></dt>
-<dd><p><a href="Portfolio-class.html">Portfolio</a> object.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-<div class="section">
-<h4 id="returns-25">Returns<a class="anchor" aria-label="anchor" href="#returns-25"></a></h4>
-<p>An updated <code>ConservationProblem</code> object.</p>
-</div>
-
-</div><p></p><hr><a id="method-ConservationProblem-add_solver"></a><div class="section">
-<h3 id="method-add-solver-">Method <code>add_solver()</code><a class="anchor" aria-label="anchor" href="#method-add-solver-"></a></h3>
-<p>Create a new object with a solver added to the problem formulation.</p><div class="section">
-<h4 id="usage-26">Usage<a class="anchor" aria-label="anchor" href="#usage-26"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">add_solver</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
 <h4 id="arguments-4">Arguments<a class="anchor" aria-label="anchor" href="#arguments-4"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>x</code></dt>
-<dd><p><a href="Solver-class.html">Solver</a> object.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-<div class="section">
-<h4 id="returns-26">Returns<a class="anchor" aria-label="anchor" href="#returns-26"></a></h4>
-<p>An updated <code>ConservationProblem</code> object.</p>
-</div>
-
-</div><p></p><hr><a id="method-ConservationProblem-add_targets"></a><div class="section">
-<h3 id="method-add-targets-">Method <code>add_targets()</code><a class="anchor" aria-label="anchor" href="#method-add-targets-"></a></h3>
-<p>Create a new object with targets added to the problem formulation.</p><div class="section">
-<h4 id="usage-27">Usage<a class="anchor" aria-label="anchor" href="#usage-27"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">add_targets</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-5">Arguments<a class="anchor" aria-label="anchor" href="#arguments-5"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>x</code></dt>
-<dd><p><a href="Target-class.html">Target</a> object.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-<div class="section">
-<h4 id="returns-27">Returns<a class="anchor" aria-label="anchor" href="#returns-27"></a></h4>
-<p>An updated <code>ConservationProblem</code> object.</p>
-</div>
-
-</div><p></p><hr><a id="method-ConservationProblem-add_objective"></a><div class="section">
-<h3 id="method-add-objective-">Method <code>add_objective()</code><a class="anchor" aria-label="anchor" href="#method-add-objective-"></a></h3>
-<p>Create a new object with an objective added to the problem formulation.</p><div class="section">
-<h4 id="usage-28">Usage<a class="anchor" aria-label="anchor" href="#usage-28"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">add_objective</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-6">Arguments<a class="anchor" aria-label="anchor" href="#arguments-6"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>x</code></dt>
-<dd><p><a href="Objective-class.html">Objective</a> object.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-<div class="section">
-<h4 id="returns-28">Returns<a class="anchor" aria-label="anchor" href="#returns-28"></a></h4>
-<p>An updated <code>ConservationProblem</code> object.</p>
-</div>
-
-</div><p></p><hr><a id="method-ConservationProblem-add_decisions"></a><div class="section">
-<h3 id="method-add-decisions-">Method <code>add_decisions()</code><a class="anchor" aria-label="anchor" href="#method-add-decisions-"></a></h3>
-<p>Create a new object with decisions added to the problem formulation.</p><div class="section">
-<h4 id="usage-29">Usage<a class="anchor" aria-label="anchor" href="#usage-29"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">add_decisions</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-7">Arguments<a class="anchor" aria-label="anchor" href="#arguments-7"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>x</code></dt>
-<dd><p><a href="Decision-class.html">Decision</a> object.</p></dd>
+<dd><p><a href="Portfolio-class.html">Portfolio</a> object.</p></dd>
 
 
 </dl><p></p></div>
@@ -644,17 +626,17 @@ and each row corresponds to a different feature.</p>
 <p>An updated <code>ConservationProblem</code> object.</p>
 </div>
 
-</div><p></p><hr><a id="method-ConservationProblem-add_constraint"></a><div class="section">
-<h3 id="method-add-constraint-">Method <code>add_constraint()</code><a class="anchor" aria-label="anchor" href="#method-add-constraint-"></a></h3>
-<p>Create a new object with a constraint added to the problem formulation.</p><div class="section">
+</div><p></p><hr><a id="method-ConservationProblem-add_solver"></a><div class="section">
+<h3 id="method-add-solver-">Method <code>add_solver()</code><a class="anchor" aria-label="anchor" href="#method-add-solver-"></a></h3>
+<p>Create a new object with a solver added to the problem formulation.</p><div class="section">
 <h4 id="usage-30">Usage<a class="anchor" aria-label="anchor" href="#usage-30"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">add_constraint</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">add_solver</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-8">Arguments<a class="anchor" aria-label="anchor" href="#arguments-8"></a></h4>
+<h4 id="arguments-5">Arguments<a class="anchor" aria-label="anchor" href="#arguments-5"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>x</code></dt>
-<dd><p><a href="Constraint-class.html">Constraint</a> object.</p></dd>
+<dd><p><a href="Solver-class.html">Solver</a> object.</p></dd>
 
 
 </dl><p></p></div>
@@ -664,17 +646,17 @@ and each row corresponds to a different feature.</p>
 <p>An updated <code>ConservationProblem</code> object.</p>
 </div>
 
-</div><p></p><hr><a id="method-ConservationProblem-add_penalty"></a><div class="section">
-<h3 id="method-add-penalty-">Method <code>add_penalty()</code><a class="anchor" aria-label="anchor" href="#method-add-penalty-"></a></h3>
-<p>Create a new object with a penalty added to the problem formulation.</p><div class="section">
+</div><p></p><hr><a id="method-ConservationProblem-add_targets"></a><div class="section">
+<h3 id="method-add-targets-">Method <code>add_targets()</code><a class="anchor" aria-label="anchor" href="#method-add-targets-"></a></h3>
+<p>Create a new object with targets added to the problem formulation.</p><div class="section">
 <h4 id="usage-31">Usage<a class="anchor" aria-label="anchor" href="#usage-31"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">add_penalty</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">add_targets</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-9">Arguments<a class="anchor" aria-label="anchor" href="#arguments-9"></a></h4>
+<h4 id="arguments-6">Arguments<a class="anchor" aria-label="anchor" href="#arguments-6"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>x</code></dt>
-<dd><p><a href="Penalty-class.html">Penalty</a> object.</p></dd>
+<dd><p><a href="Target-class.html">Target</a> object.</p></dd>
 
 
 </dl><p></p></div>
@@ -684,15 +666,95 @@ and each row corresponds to a different feature.</p>
 <p>An updated <code>ConservationProblem</code> object.</p>
 </div>
 
-</div><p></p><hr><a id="method-ConservationProblem-clone"></a><div class="section">
-<h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
-<p>The objects of this class are cloneable with this method.</p><div class="section">
+</div><p></p><hr><a id="method-ConservationProblem-add_objective"></a><div class="section">
+<h3 id="method-add-objective-">Method <code>add_objective()</code><a class="anchor" aria-label="anchor" href="#method-add-objective-"></a></h3>
+<p>Create a new object with an objective added to the problem formulation.</p><div class="section">
 <h4 id="usage-32">Usage<a class="anchor" aria-label="anchor" href="#usage-32"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">add_objective</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="arguments-7">Arguments<a class="anchor" aria-label="anchor" href="#arguments-7"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>x</code></dt>
+<dd><p><a href="Objective-class.html">Objective</a> object.</p></dd>
+
+
+</dl><p></p></div>
+</div>
+<div class="section">
+<h4 id="returns-32">Returns<a class="anchor" aria-label="anchor" href="#returns-32"></a></h4>
+<p>An updated <code>ConservationProblem</code> object.</p>
+</div>
+
+</div><p></p><hr><a id="method-ConservationProblem-add_decisions"></a><div class="section">
+<h3 id="method-add-decisions-">Method <code>add_decisions()</code><a class="anchor" aria-label="anchor" href="#method-add-decisions-"></a></h3>
+<p>Create a new object with decisions added to the problem formulation.</p><div class="section">
+<h4 id="usage-33">Usage<a class="anchor" aria-label="anchor" href="#usage-33"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">add_decisions</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="arguments-8">Arguments<a class="anchor" aria-label="anchor" href="#arguments-8"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>x</code></dt>
+<dd><p><a href="Decision-class.html">Decision</a> object.</p></dd>
+
+
+</dl><p></p></div>
+</div>
+<div class="section">
+<h4 id="returns-33">Returns<a class="anchor" aria-label="anchor" href="#returns-33"></a></h4>
+<p>An updated <code>ConservationProblem</code> object.</p>
+</div>
+
+</div><p></p><hr><a id="method-ConservationProblem-add_constraint"></a><div class="section">
+<h3 id="method-add-constraint-">Method <code>add_constraint()</code><a class="anchor" aria-label="anchor" href="#method-add-constraint-"></a></h3>
+<p>Create a new object with a constraint added to the problem formulation.</p><div class="section">
+<h4 id="usage-34">Usage<a class="anchor" aria-label="anchor" href="#usage-34"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">add_constraint</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="arguments-9">Arguments<a class="anchor" aria-label="anchor" href="#arguments-9"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>x</code></dt>
+<dd><p><a href="Constraint-class.html">Constraint</a> object.</p></dd>
+
+
+</dl><p></p></div>
+</div>
+<div class="section">
+<h4 id="returns-34">Returns<a class="anchor" aria-label="anchor" href="#returns-34"></a></h4>
+<p>An updated <code>ConservationProblem</code> object.</p>
+</div>
+
+</div><p></p><hr><a id="method-ConservationProblem-add_penalty"></a><div class="section">
+<h3 id="method-add-penalty-">Method <code>add_penalty()</code><a class="anchor" aria-label="anchor" href="#method-add-penalty-"></a></h3>
+<p>Create a new object with a penalty added to the problem formulation.</p><div class="section">
+<h4 id="usage-35">Usage<a class="anchor" aria-label="anchor" href="#usage-35"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">add_penalty</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
 <h4 id="arguments-10">Arguments<a class="anchor" aria-label="anchor" href="#arguments-10"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>x</code></dt>
+<dd><p><a href="Penalty-class.html">Penalty</a> object.</p></dd>
+
+
+</dl><p></p></div>
+</div>
+<div class="section">
+<h4 id="returns-35">Returns<a class="anchor" aria-label="anchor" href="#returns-35"></a></h4>
+<p>An updated <code>ConservationProblem</code> object.</p>
+</div>
+
+</div><p></p><hr><a id="method-ConservationProblem-clone"></a><div class="section">
+<h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
+<p>The objects of this class are cloneable with this method.</p><div class="section">
+<h4 id="usage-36">Usage<a class="anchor" aria-label="anchor" href="#usage-36"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="arguments-11">Arguments<a class="anchor" aria-label="anchor" href="#arguments-11"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>deep</code></dt>
 <dd><p>Whether to make a deep clone.</p></dd>
 

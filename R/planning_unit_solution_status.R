@@ -539,7 +539,7 @@ solution_format_documentation <- function(x) {
 }
 
 \\item{`x` has [terra::rast()] planning units}{The argument to `", x , "`
-  be a [terra::rast()] object where different grid cells (pixels) correspond
+  be a [terra::rast()] object where different cells correspond
   to different planning units and layers correspond to
   a different management zones. It should have the same dimensionality
   (rows, columns, layers), resolution, extent, and coordinate reference

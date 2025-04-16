@@ -858,7 +858,7 @@ Examples section for <code>problem()</code> for details).</p>
 ## ├•data
 ## │├•features:    &quot;feature_1&quot;, &quot;feature_2&quot;, &quot;feature_3&quot;, &quot;feature_4&quot;, and &quot;feature_5&quot; (5 total)
 ## │└•planning units:
-## │ ├•data:       &lt;sftbl_dftbldata.frame&gt; (90 total)
+## │ ├•data:       &lt;sf&gt; (90 total)
 ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
 ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
 ## │ └•CRS:        Undefined Cartesian SRS (projected)
@@ -1758,7 +1758,7 @@ methods.</p>
 ## ├•data
 ## │├•features:    &quot;feature_1&quot;, &quot;feature_2&quot;, &quot;feature_3&quot;, &quot;feature_4&quot;, and &quot;feature_5&quot; (5 total)
 ## │└•planning units:
-## │ ├•data:       &lt;sftbl_dftbldata.frame&gt; (90 total)
+## │ ├•data:       &lt;sf&gt; (90 total)
 ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
 ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
 ## │ └•CRS:        Undefined Cartesian SRS (projected)
@@ -1786,7 +1786,7 @@ methods.</p>
 ## ├•data
 ## │├•features:    &quot;feature_1&quot;, &quot;feature_2&quot;, &quot;feature_3&quot;, &quot;feature_4&quot;, and &quot;feature_5&quot; (5 total)
 ## │└•planning units:
-## │ ├•data:       &lt;sftbl_dftbldata.frame&gt; (90 total)
+## │ ├•data:       &lt;sf&gt; (90 total)
 ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
 ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
 ## │ └•CRS:        Undefined Cartesian SRS (projected)
@@ -2633,7 +2633,7 @@ progress when searching for a suitable solution.</p>
 ## Cutting planes:
 ##   Gomory: 3
 ## 
-## Explored 28 nodes (937 simplex iterations) in 0.10 seconds (0.12 work units)
+## Explored 28 nodes (937 simplex iterations) in 0.09 seconds (0.12 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 10: 2640.75 2664.02 2666.17 ... 2846.16
@@ -2663,7 +2663,7 @@ quality of the solution and the optimization process.</p>
 <div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" tabindex="-1"></a><span class="co"># extract time spent solving solution</span></span>
 <span id="cb115-2"><a href="#cb115-2" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">attr</span>(s43, <span class="st">&quot;runtime&quot;</span>))</span></code></pre></div>
 <pre><code>## solution_1 
-##      0.103</code></pre>
+##        0.1</code></pre>
 <div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="#cb117-1" tabindex="-1"></a><span class="co"># extract state message from the solver that describes why this specific</span></span>
 <span id="cb117-2"><a href="#cb117-2" tabindex="-1"></a><span class="co"># solution was returned</span></span>
 <span id="cb117-3"><a href="#cb117-3" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">attr</span>(s43, <span class="st">&quot;status&quot;</span>))</span></code></pre></div>
@@ -2908,7 +2908,7 @@ apply to solutions generated using any objective function.</p>
 <span id="cb137-9"><a href="#cb137-9" tabindex="-1"></a>  rs44, <span class="at">main =</span> <span class="st">&quot;Rank scores&quot;</span>,</span>
 <span id="cb137-10"><a href="#cb137-10" tabindex="-1"></a>  <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="at">axes =</span> <span class="cn">FALSE</span></span>
 <span id="cb137-11"><a href="#cb137-11" tabindex="-1"></a>)</span></code></pre></div>
-<p><img role="img" src="data:image/png;base64,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" style="display: block; margin: auto;" />
+<p><img role="img" src="data:image/png;base64,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" style="display: block; margin: auto;" />
 * <strong>Ferrier method</strong>: Evaluate importance by computing
 irreplaceability scores following Ferrier <em>et al.</em> <span class="citation">(2000)</span>. The advantages of this method are that
 it (i) can be computed relatively quickly for moderate problems, and
@@ -2987,7 +2987,7 @@ function can be used to read <em>Marxan</em> input files and the
 ## ├•data
 ## │├•features:    &quot;bird1&quot;, &quot;nvis2&quot;, &quot;nvis8&quot;, &quot;nvis9&quot;, &quot;nvis14&quot;, &quot;nvis20&quot;, … (17 total)
 ## │└•planning units:
-## │ ├•data:       &lt;data.frame&gt; (1751 total)
+## │ ├•data:       &lt;spec_tbl_df&gt; (1751 total)
 ## │ ├•costs:      continuous values (between 0 and 415692.1938)
 ## │ ├•extent:     NA
 ## │ └•CRS:        NA
@@ -3035,7 +3035,7 @@ function can be used to read <em>Marxan</em> input files and the
 ##   RHS range        [5e+03, 3e+05]
 ## Found heuristic solution: objective 1.255825e+08
 ## Presolve removed 4707 rows and 3103 columns
-## Presolve time: 0.06s
+## Presolve time: 0.05s
 ## Presolved: 5368 rows, 3677 columns, 12704 nonzeros
 ## Variable types: 0 continuous, 3677 integer (3677 binary)
 ## Root relaxation presolved: 5368 rows, 3677 columns, 12704 nonzeros
@@ -3049,7 +3049,7 @@ function can be used to read <em>Marxan</em> input files and the
 ##      0     0 9.9758e+07    0   43 1.2558e+08 9.9758e+07  20.6%     -    0s
 ## H    0     0                    1.021771e+08 9.9758e+07  2.37%     -    0s
 ## 
-## Explored 1 nodes (652 simplex iterations) in 0.08 seconds (0.11 work units)
+## Explored 1 nodes (652 simplex iterations) in 0.07 seconds (0.11 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 2: 1.02177e+08 1.25582e+08 

@@ -14,6 +14,9 @@
 [![Documentation](https://img.shields.io/github/actions/workflow/status/prioritizr/prioritizr/documentation.yaml?branch=main&label=Documentation)](https://github.com/prioritizr/prioritizr/actions)
 [![Coverage-Status](https://img.shields.io/codecov/c/github/prioritizr/prioritizr?label=Coverage)](https://app.codecov.io/gh/prioritizr/prioritizr/branch/main)
 [![CRAN-Status-Badge](https://www.r-pkg.org/badges/version/prioritizr)](https://CRAN.R-project.org/package=prioritizr)
+[![logo](https://img.shields.io/badge/Logo%20by-Theodoros%20Ploumis-blue.svg)](https://www.theodorosploumis.com/en)
+[![publication](https://img.shields.io/badge/Publication-10.1111/cobi.14376-blue.svg)](https://doi.org/10.1111/cobi.14376)
+
 <!-- badges: end -->
 
 The *prioritizr R* package uses mixed integer linear programming (MILP)
@@ -274,7 +277,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##      3.674
+    ##      3.351
 
 ``` r
 # extract state message from the solver

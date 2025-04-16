@@ -22,17 +22,27 @@ NULL
 #'
 #' \describe{
 #'
-#' \item{pu}{`integer` planning unit identifier.}
+#' \item{pu}{`integer` planning unit identifiers.
+#'   If `x` has `data.frame` planning units,
+#'   then these values must refer to values in the `id` column of the planning
+#'   unit data.
+#'   Alternatively, if `x` has [sf::st_sf()] or `matrix` planning units,
+#'   then these values must refer to the row numbers of the planning unit data.
+#'   Additionally, if `x` has `numeric` vector planning units,
+#'   then these values must refer to the element indices of the planning unit
+#'   data.
+#'   Finally, if `x` has [terra::rast()] planning units,
+#'   then these values must refer to cell indices.}
 #'
 #' \item{zone}{`character` names of zones. Note that this
 #'   argument is optional for arguments to `x` that contain a single
 #'   zone.}
 #'
-#' \item{lower}{`numeric` values indicating the minimum
+#' \item{lower}{`numeric` lower values. These values indicate the minimum
 #'   value that each planning unit can be allocated to in each zone
 #'   in the solution.}
 #'
-#' \item{upper}{`numeric` values indicating the maximum
+#' \item{upper}{`numeric` upper values. These values indicate the maximum
 #'   value that each planning unit can be allocated to in each zone
 #'   in the solution.}
 #'
@@ -188,25 +198,31 @@ methods::setMethod("add_manual_bounded_constraints",
 methods::setMethod("add_manual_bounded_constraints",
   methods::signature("ConservationProblem", "tbl_df"),
   function(x, data) {
+    # assert validat arguments
     assert(
+      ## x
       is_conservation_problem(x),
+      ## data
       is.data.frame(data),
       inherits(data, "tbl_df"),
       nrow(data) > 0,
+      ## data$pu
       assertthat::has_name(data, "pu"),
       is.numeric(data$pu),
       all_finite(data$pu),
       is_count_vector(data$pu),
-      max(data$pu) <= number_of_total_units(x),
-      min(data$pu) >= 0,
+      all_is_valid_total_unit_ids(x, data$pu),
+      ## data$lower
       assertthat::has_name(data, "lower"),
       is.numeric(data$lower),
       all_finite(data$lower),
+      ## data$upper
       assertthat::has_name(data, "upper"),
       is.numeric(data$upper),
       all_finite(data$upper),
       all(data$upper >= data$lower)
     )
+    ## data$zone
     if (assertthat::has_name(data, "zone") || x$number_of_zones() > 1) {
       assert(
         assertthat::has_name(data, "zone"),
@@ -236,18 +252,27 @@ methods::setMethod("add_manual_bounded_constraints",
             )
             # extract data
             d <- self$get_data("data")
+            # if locked data is missing a zone column,
+            # then this is because the problem has only one zone and the
+            # user did not specify this information.
+            # thus add in a column with the name of this single zone
+            if (!assertthat::has_name(d, "zone")) d$zone <- y$zone_names()[[1]]
             # convert zone names to indices
-            if (!assertthat::has_name(d, "zone"))
-              d$zone <- y$zone_names()[1]
             d$zone <- match(as.character(d$zone), y$zone_names())
-            # convert from total units to planning units
-            units <- y$planning_unit_indices()
-            d$pu <- match(d$pu, units)
-            d <- d[!is.na(d$pu), , drop = FALSE]
+            # convert total unit identifiers to indices
+            d$idx <- y$convert_total_unit_ids_to_indices(data$pu)
+            d <- d[!is.na(d$idx), , drop = FALSE]
+            # convert total unit indices to indices that describe their
+            # relative position in the MILP formulation
+            i <- match(d$idx, y$planning_unit_indices())
+            # note that any total units which are not planning units --
+            # because they have NA cost values -- will have NA values in i.
+            # thus we need to exclude these values when applying the constraints
+            keep <- !is.na(i)
             # apply constraints
             invisible(
               rcpp_apply_bounded_constraints(
-                x$ptr, c(d$pu), c(d$zone), d$lower, d$upper
+                x$ptr, i[keep], d$zone[keep], d$lower[keep], d$upper[keep]
               )
             )
           }

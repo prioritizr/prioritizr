@@ -27,7 +27,7 @@ A \code{\link[terra:rast]{terra::rast()}} object.
 }
 \description{
 Convert a single-layer \code{\link[terra:rast]{terra::rast()}} object that contains integer values
-into a multi-layer \code{\link[terra:rast]{terra::rast()}} object with pixel values denote the
+into a multi-layer \code{\link[terra:rast]{terra::rast()}} object with cell values denote the
 presence/absence of a given integer value. This is methodology is also known
 as "one-hot encoding".
 }

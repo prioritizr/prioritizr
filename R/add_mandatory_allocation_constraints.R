@@ -60,7 +60,7 @@ NULL
 #' s1 <- solve(p1)
 #' s2 <- solve(p2)
 #'
-#' # convert solutions into category layers, where each pixel is assigned
+#' # convert solutions into category layers, where each cell is assigned
 #'  # value indicating which zone it was assigned to in the zone
 #' c1 <- category_layer(s1)
 #' c2 <- category_layer(s2)

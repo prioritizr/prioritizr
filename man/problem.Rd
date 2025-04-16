@@ -460,7 +460,7 @@ p7 <-
 s7 <- solve(p7)
 
 # plot solution
-# here, each layer/panel corresponds to a different zone and pixel values
+# here, each layer/panel corresponds to a different zone and cell values
 # indicate if a given planning unit has been allocated to a given zone
 par(mfrow = c(1, 1))
 plot(s7, main = c("zone 1", "zone 2", "zone 3"), axes = FALSE)

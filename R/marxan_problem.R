@@ -1,4 +1,4 @@
-#' @include internal.R
+#' @include internal.R read_marxan_parameters.R read_marxan_data.R
 NULL
 
 #' *Marxan* conservation problem
@@ -7,6 +7,8 @@ NULL
 #' mathematical formulations used in *Marxan* (detailed in Beyer
 #' *et al.* 2016). Note that these problems are solved using
 #' exact algorithms and not simulated annealing (i.e., the *Marxan* software).
+#' Please note that the \pkg{vroom} package is required to import *Marxan* data
+#' files.
 #'
 #' @param x `character` file path for a *Marxan* input file (typically
 #'   called `"input.dat"`), or `data.frame` containing planning unit
@@ -102,10 +104,14 @@ NULL
 #' @param ... not used.
 #'
 #' @details
-#' This function is provided as a convenient wrapper for solving
-#' *Marxan* problems using the \pkg{prioritizr} package.
-#' Please note that it requires installation of the \pkg{data.table} package
-#' to import *Marxan* data files.
+#' This function is provided as a convenient interface for solving
+#' *Marxan* problems using the \pkg{prioritizr} package. Note that this
+#' function does not support all of the functionality provided by the
+#' *Marxan* software. In particular, only the following parameters
+#' supported: `"INPUTDIR"`, `"SPECNAME`", `"PUNAME"`, `"PUVSPRNAME",
+#' `"BOUNDNAME"`, `"BLM"`, and `"ASYMMETRICCONNECTIVITY"`.
+#' Additionally, for the species data (i.e., argument to `spec`),
+#' only the `"id"`, `"name"`, `"prop"`, and `"amount"` columns are considered.
 #'
 #' @section Notes:
 #' In previous versions, this function could not accommodate asymmetric
@@ -114,8 +120,8 @@ NULL
 #'
 #' @seealso For more information on the correct format for
 #'   for *Marxan* input data, see the
-#'   [official *Marxan* website](https://marxansolutions.org) and Ball
-#'   *et al.* (2009).
+#'   [official *Marxan* website](https://marxansolutions.org), Ball
+#'   *et al.* (2009), Serra *et al.* (2020).
 #'
 #' @return A [problem()] object.
 #'
@@ -129,9 +135,14 @@ NULL
 #' conservation planning problems with integer linear programming.
 #' *Ecological Modelling*, 228: 14--22.
 #'
+#' Serra N, Kockel A, Game ET, Grantham H, Possingham HP, and McGowan J (2020)
+#' Marxan User Manual: For Marxan version 2.43 and above. The Nature Conservancy
+#' (TNC), Arlington, Virginia, United States and Pacific Marine Analysis and
+#' Research Association (PacMARA), Victoria, British Columbia, Canada.
+#'
 #' @examples
 #' # create Marxan problem using Marxan input file
-#' # (note this example requires the data.table package to be installed)
+#' # (note this example requires the vroom package to be installed)
 #' \dontrun{
 #' input_file <- system.file("extdata/marxan/input.dat", package = "prioritizr")
 #' p1 <-
@@ -145,31 +156,31 @@ NULL
 #' head(s1)
 #'
 #' # create Marxan problem using data.frames that have been loaded into R
-#' # (note this example also requires the data.table package to be installed)
+#' # (note this example also requires the vroom package to be installed)
 #' ## load in planning unit data
 #' pu_path <- system.file("extdata/marxan/input/pu.dat", package = "prioritizr")
-#' pu_dat <- data.table::fread(pu_path, data.table = FALSE)
+#' pu_dat <- vroom::vroom(pu_path)
 #' head(pu_dat)
 #'
 #' ## load in feature data
 #' spec_path <- system.file(
 #'   "extdata/marxan/input/spec.dat", package = "prioritizr"
 #' )
-#' spec_dat <- data.table::fread(spec_path, data.table = FALSE)
+#' spec_dat <- vroom::vroom(spec_path)
 #' head(spec_dat)
 #'
 #' ## load in planning unit vs feature data
 #' puvspr_path <- system.file(
 #'   "extdata/marxan/input/puvspr.dat", package = "prioritizr"
 #' )
-#' puvspr_dat <- data.table::fread(puvspr_path, data.table = FALSE)
+#' puvspr_dat <- vroom::vroom(puvspr_path)
 #' head(puvspr_dat)
 #'
 #' ## load in the boundary data
 #' bound_path <- system.file(
 #'   "extdata/marxan/input/bound.dat", package = "prioritizr"
 #' )
-#' bound_dat <- data.table::fread(bound_path, data.table = FALSE)
+#' bound_dat <- vroom::vroom(bound_path)
 #' head(bound_dat)
 #'
 #' # create problem without the boundary data
@@ -221,146 +232,52 @@ marxan_problem.data.frame <- function(x, spec, puvspr, bound = NULL,
   assert_required(blm)
   assert_required(symmetric)
   assert_dots_empty()
-  ## x
   assert(
+    ## data frames
     is.data.frame(x),
-    assertthat::has_name(x, "id"),
-    assertthat::has_name(x, "cost"),
-    is_count_vector(x$id),
-    no_duplicates(x$id),
-    assertthat::noNA(x$id),
-    assertthat::has_name(x, "cost"),
-    is.numeric(x$cost),
-    assertthat::noNA(x$cost)
-  )
-  if (assertthat::has_name(x, "status")) {
-    assert(
-      is.numeric(x$status),
-      assertthat::noNA(x$status),
-      all_match_of(x$status, seq(0, 3))
-    )
-  }
-  ## spec
-  assert(
     is.data.frame(spec),
-    assertthat::has_name(spec, "id"),
-    is_count_vector(spec$id),
-    no_duplicates(spec$id),
-    assertthat::noNA(spec$id)
-  )
-  if (assertthat::has_name(spec, "name")) {
-    assert(
-      is_inherits(spec$name, c("character", "factor")),
-      no_duplicates(as.character(spec$name)),
-      assertthat::noNA(spec$name)
-    )
-  } else {
-   spec$name <- paste0("feature.", seq_len(nrow(spec)))
-  }
-  assert(
-    do.call(xor, as.list(c("prop", "amount") %in% names(spec))),
-    msg = paste(
-      "{.arg spec} must have either column {.col prop} or {.col amount},",
-      "not both."
-    )
-  )
-  if (assertthat::has_name(spec, "prop")) {
-    assert(
-      is.numeric(spec$prop),
-      all_finite(spec$prop),
-      all_proportion(spec$prop)
-    )
-  }
-  if (assertthat::has_name(spec, "amount")) {
-    assert(
-      is.numeric(spec$amount),
-      all_finite(spec$amount)
-    )
-  }
-  ## puvspr
-  assert(
     is.data.frame(puvspr),
-    assertthat::has_name(puvspr, "pu"),
-    assertthat::has_name(puvspr, "species"),
-    assertthat::has_name(puvspr, "amount"),
-    is_count_vector(puvspr$pu),
-    is_count_vector(puvspr$species),
-    is.numeric(puvspr$amount),
-    all_finite(puvspr$pu),
-    all_finite(puvspr$species),
-    all_finite(puvspr$amount),
-    all_match_of(puvspr$pu, x$id),
-    all_match_of(puvspr$species, spec$id)
-  )
-  ## bound
-  assert(is_inherits(bound, c("NULL", "data.frame")))
-  if (is.data.frame(bound)) {
-    assert(
-      assertthat::has_name(bound, "id1"),
-      assertthat::has_name(bound, "id2"),
-      assertthat::has_name(bound, "boundary"),
-      is_count_vector(bound$id1),
-      is_count_vector(bound$id2),
-      is.numeric(bound$boundary),
-      assertthat::noNA(bound$id1),
-      assertthat::noNA(bound$id2),
-      assertthat::noNA(bound$boundary),
-      all(bound$id1 %in% x$id),
-      all(bound$id2 %in% x$id)
-    )
-  }
-  ## blm
-  assert(
+    ## blm
     assertthat::is.number(blm),
-    all_finite(blm)
-  )
-  if (abs(blm) > 1e-15 && is.null(bound)) {
-    cli_warning(
-      "No boundary data supplied, so setting {.arg blm} has no effect."
-    )
-  }
-  ## symmetric
-  assert(
+    assertthat::noNA(blm),
+    ## symmetric
     assertthat::is.flag(symmetric),
     assertthat::noNA(symmetric)
   )
-  if (!isTRUE(symmetric) && is.null(bound)) {
+
+  # validate data
+  validate_marxan_pu_data(x)
+  validate_marxan_spec_data(spec)
+  validate_marxan_puvspr_data(puvspr)
+  validate_marxan_puvspr_pu_data(puvspr, x)
+  validate_marxan_puvspr_spec_data(puvspr, spec)
+  if (!is.null(bound)) {
+    assert(is.data.frame(bound))
+    validate_marxan_bound_data(bound)
+    validate_marxan_bound_pu_data(bound, x)
+  }
+
+  # if needed, display warnings
+  if (abs(blm) > 1e-15 && is.null(bound)) {
     cli_warning(
-      "No boundary data supplied, so setting {.arg symmetric} has no effect."
+      "{.arg bound} is missing, so {.arg blm} has no effect on formulation."
     )
   }
-  # create locked in data
-  if (assertthat::has_name(x, "status")) {
-    x$locked_in <- x$status == 2
-    x$locked_out <- x$status == 3
-  } else {
-    x$locked_in <- FALSE
-    x$locked_out <- FALSE
+  ## symmetric
+  if (!isTRUE(symmetric) && is.null(bound)) {
+    cli_warning(
+      paste(
+        "{.arg bound} is missing, so {.arg symmetric} has no effect on",
+        "formulation."
+      )
+    )
   }
-  # create problem
-  p <- problem(x = x, features = spec, rij = puvspr, cost_column = "cost")
-  # add objective
-  p <- add_min_set_objective(p)
-  # add locked in constraints
-  if (any(x$locked_in))
-    p <- add_locked_in_constraints(p, "locked_in")
-  # add locked in constraints
-  if (any(x$locked_out))
-    p <- add_locked_out_constraints(p, "locked_out")
-  # add targets
-  if ("prop" %in% names(spec)) {
-    p <- add_relative_targets(p, "prop")
-  } else {
-    p <- add_absolute_targets(p, "amount")
-  }
-  # add boundary data
-  if (!is.null(bound) && isTRUE(symmetric)) {
-    p <- add_boundary_penalties(p, penalty = blm, edge_factor = 1, data = bound)
-  } else if (!is.null(bound) && !isTRUE(symmetric)) {
-    p <- add_asym_connectivity_penalties(p, penalty = blm, data = bound)
-  }
+
   # return problem
-  p
+  internal_marxan_problem(
+    x = x, spec = spec, puvspr = puvspr, bound = bound,
+    blm = blm, symmetric = symmetric
+  )
 }
 
 #' @rdname marxan_problem
@@ -368,86 +285,237 @@ marxan_problem.data.frame <- function(x, spec, puvspr, bound = NULL,
 #' @export
 marxan_problem.character <- function(x, ...) {
   # assert that arguments are valid
-  assert(
-    assertthat::is.string(x),
-    assertthat::is.readable(x),
-    is_installed("data.table")
+  assert(is_installed("vroom"))
+
+  # define parameter metadata
+  param_metadata <- tibble::tribble(
+    ~name, ~field, ~class, ~default, ~type, ~mandatory,
+    "input_dir", "INPUTDIR", "character", getwd(), "directory", FALSE,
+    "pu_name", "PUNAME", "character", NA, "file", TRUE,
+    "spec_name", "SPECNAME", "character", NA, "file", TRUE,
+    "puvspr_name", "PUVSPRNAME", "character", NA, "file", TRUE,
+    "bound_name", "BOUNDNAME", "character", NA, "file", FALSE,
+    "blm", "BLM", "double", "0", "number", FALSE,
+    "asym_conn", "ASYMMETRICCONNECTIVITY", "double", "0", "number", FALSE
   )
-  assert_dots_empty()
-  # declare local functions
-  parse_field <- function(field, lines) {
-    x <- grep(field, lines, value = TRUE)
-    if (length(x) == 0)
-      return(NA)
-    x <- sub(paste0(field, " "), "", x)
-    x
-  }
-  load_file <- function(
-    field, lines, input_dir, force = TRUE,  call = fn_caller_env()
-  ) {
-    x <- parse_field(field, lines)
-    if (is.na(x)) {
-      # nocov start
-      if (force) {
-        cli::cli_abort(
-          paste0("{.arg x} must contain a {.field ", field, "} field."),
-          call = call
-        )
-      }
-      return(NULL)
-      # nocov end
-    }
-    if (file.exists(x)) {
-      return(data.table::fread(x, data.table = FALSE))
-    } else if (file.exists(file.path(input_dir, x))) {
-      return(data.table::fread(file.path(input_dir, x), data.table = FALSE))
-    } else if (force) {
-      # nocov start
-      cli::cli_abort(
-        paste0(
-          "The {.field ", field, "} field in {.arg x} must specify a",
-          "file path that exists."
-        ),
-        call = call
+
+  # import parameters
+  param_data <- read_marxan_parameters(x, param_metadata)
+
+  # import data
+  error_prefix_handler(
+    pu <- read_marxan_pu_data(param_data$pu_name),
+    prefix = c(
+      "!" = paste(
+        "{.field PUNAME} field in {.arg x} must refer",
+        "to a valid CSV or TSV file."
+      ),
+      "i" = paste0(
+        "Attempting to read file at {.field PUNAME}",
+        cli::symbol$ellipsis
       )
-      # nocov end
-    } else {
-      return(NULL) # nocov
-    }
-  }
-  # read marxan file
-  input_dir <- dirname(x)
-  x <- readLines(x)
-  # parse working directory
-  base_input_dir <- parse_field("INPUTDIR", x)
-  if (!is.na(base_input_dir)) {
-    if (
-      (substr(base_input_dir, 1, 1) == "/")  || # absolute path on unix
-      (substr(base_input_dir, 2, 2) == ":")     # absolute path on Windows
-    ) {
-      input_dir <- base_input_dir
-    } else {
-      input_dir <- file.path(input_dir, base_input_dir)
-    }
-  }
-  # parse data
-  pu_data <- load_file("PUNAME", x, input_dir)
-  spec_data <- load_file("SPECNAME", x, input_dir)
-  puvspr_data <- load_file("PUVSPRNAME", x, input_dir)
-  bound_data <- load_file("BOUNDNAME", x, input_dir, force = FALSE)
-  blm <- as.numeric(parse_field("BLM", x))
-  # check if connectivity data should be asymmetric
-  sym <- !isTRUE(as.logical(parse_field("ASYMMETRICCONNECTIVITY", x)))
-  if (is.null(bound_data)) {
-    sym <- TRUE # nocov
-  }
-  # return problem
-  marxan_problem(
-    x = pu_data,
-    spec = spec_data,
-    puvspr = puvspr_data,
-    bound = bound_data,
-    blm = ifelse(is.na(blm), 0, blm),
-    symmetric = sym
+    )
   )
+  error_prefix_handler(
+    spec <- read_marxan_spec_data(param_data$spec_name),
+    prefix = c(
+      "!" = paste(
+        "{.field SPECNAME} field in {.arg x} must refer",
+        "to a valid CSV or TSV file."
+      ),
+      "i" = paste0(
+        "Attempting to read {.field SPECNAME}",
+        cli::symbol$ellipsis
+      )
+    )
+  )
+  error_prefix_handler(
+    puvspr <- read_marxan_puvspr_data(param_data$puvspr_name),
+    prefix = c(
+      "!" = paste(
+        "{.field PUVSPRNAME} field in {.arg x} must refer",
+        "to a valid CSV or TSV file."
+      ),
+      "i" = paste0(
+        "Attempting to read {.field PUVSPRNAME}",
+        cli::symbol$ellipsis
+      )
+    )
+  )
+  if (!is.na(param_data$bound_name[[1]])) {
+    error_prefix_handler(
+      bound <- read_marxan_bound_data(param_data$bound_name),
+    prefix = c(
+      "!" = paste(
+        "{.field BOUNDNAME} field in {.arg x} must refer",
+        "to a valid CSV or TSV file."
+      ),
+      "i" = paste0(
+        "Attemping to read {.field BOUNDNAME}",
+        cli::symbol$ellipsis
+      )
+    )
+  )
+  } else {
+    bound <- NULL
+  }
+
+  # validate data
+  error_prefix_handler(
+    validate_marxan_pu_data(pu),
+    prefix = c(
+      "!" = "{.field PUNAME} field in {.arg x} must refer to valid data.",
+      "i" = paste0(
+        "Importing {.field PUNAME} as {.arg pu}",
+        cli::symbol$ellipsis
+      )
+    )
+  )
+  error_prefix_handler(
+    validate_marxan_spec_data(spec),
+    prefix = c(
+      "!" = "{.field SPECNAME} field in {.arg x} must refer to valid data.",
+      "i" = paste0(
+        "Importing {.field SPECNAME} as {.arg spec}",
+        cli::symbol$ellipsis
+      )
+    )
+  )
+  error_prefix_handler(
+    validate_marxan_puvspr_data(puvspr),
+    prefix = c(
+      "!" = "{.field PUVSPRNAME} field in {.arg x} must refer to valid data.",
+      "i" = paste0(
+        "Importing {.field PUVSPR} as {.arg puvspr}",
+        cli::symbol$ellipsis
+      )
+    )
+  )
+  error_prefix_handler(
+    validate_marxan_puvspr_pu_data(puvspr, pu),
+    prefix = c(
+      "!" = "{.field PUVSPRNAME} field in {.arg x} must refer to valid data.",
+      "i" = paste0(
+        "Importing {.field PUVSPRNAME} as {.arg puvspr}",
+        cli::symbol$ellipsis
+      ),
+      "i" = paste0(
+        "Importing {.field PUNAME} as {.arg pu}",
+        cli::symbol$ellipsis
+      )
+    )
+  )
+  error_prefix_handler(
+    validate_marxan_puvspr_spec_data(puvspr, spec),
+    prefix = c(
+      "!" = "{.field PUVSPRNAME} field in {.arg x} must refer to valid data.",
+      "i" = paste0(
+        "Importing {.field PUVSPRNAME} as {.arg puvspr}",
+        cli::symbol$ellipsis
+      ),
+      "i" = paste0(
+        "Importing {.field SPECNAME} as {.arg spec}",
+        cli::symbol$ellipsis
+      )
+    )
+  )
+  if (!is.null(bound)) {
+    error_prefix_handler(
+      validate_marxan_bound_data(bound),
+      prefix = c(
+        "!" = "{.field BOUNDNAME} field in {.arg x} must refer to valid data.",
+        "i" = paste0(
+          "Importing {.field BOUNDNAME} as {.arg bound}",
+          cli::symbol$ellipsis
+        )
+      )
+    )
+    error_prefix_handler(
+      validate_marxan_bound_pu_data(bound, pu),
+      prefix = c(
+        "!" = "{.field BOUNDNAME} field in {.arg x} must refer to valid data.",
+        "i" = paste0(
+          "Importing {.field BOUNDNAME} as {.arg bound}",
+          cli::symbol$ellipsis
+        ),
+        "i" = paste0(
+          "Importing {.field PUNAME} as {.arg pu}",
+          cli::symbol$ellipsis
+        )
+      )
+    )
+  }
+
+  # if needed, display warnings
+  ## blm
+  if (abs(param_data$blm) > 1e-15 && is.null(bound)) {
+    cli_warning(
+      paste(
+        "{.arg x} is missing {.field BOUNDNAME},",
+        "so {.field BLM} has no effect on formulation."
+      )
+    )
+  }
+  ## asym_conn
+  if ((param_data$asym_conn != 0) && is.null(bound)) {
+    cli_warning(
+      paste(
+        "{.arg x} is missing {.field BOUNDNAME},",
+        "so the {.field ASYMMETRICCONNECTIVITY} has no effect on formulation."
+      )
+    )
+  }
+
+  # return problem
+  internal_marxan_problem(
+    x = pu,
+    spec = spec,
+    puvspr = puvspr,
+    bound = bound,
+    blm = param_data$blm,
+    symmetric = isTRUE(param_data$asym_conn == 0)
+  )
+}
+
+internal_marxan_problem <- function(x, spec, puvspr, bound, blm, symmetric) {
+  # prepare data
+  ## create locked in columns
+  if (assertthat::has_name(x, "status")) {
+    x$locked_in <- x$status == 2
+    x$locked_out <- x$status == 3
+  } else {
+    x$locked_in <- FALSE
+    x$locked_out <- FALSE
+  }
+  ## if required, add in feature names
+  if (!assertthat::has_name(spec, "name")) {
+    spec$name <- paste0("feature.", seq_len(nrow(spec)))
+  }
+
+  # create problem
+  ## initialize problem
+  p <- problem(x = x, features = spec, rij = puvspr, cost_column = "cost")
+  ## add objective
+  p <- add_min_set_objective(p)
+  ## add locked in constraints
+  if (any(x$locked_in))
+    p <- add_locked_in_constraints(p, "locked_in")
+  # add locked in constraints
+  if (any(x$locked_out))
+    p <- add_locked_out_constraints(p, "locked_out")
+  ## add targets
+  if ("prop" %in% names(spec)) {
+    p <- add_relative_targets(p, "prop")
+  } else {
+    p <- add_absolute_targets(p, "amount")
+  }
+  ## if boundary data specified, then add boundary penalties
+  if (!is.null(bound) && isTRUE(symmetric)) {
+    p <- add_boundary_penalties(p, penalty = blm, edge_factor = 1, data = bound)
+  } else if (!is.null(bound) && !isTRUE(symmetric)) {
+    p <- add_asym_connectivity_penalties(p, penalty = blm, data = bound)
+  }
+
+  # return result
+  p
 }

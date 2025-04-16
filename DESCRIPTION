@@ -1,6 +1,6 @@
 Package: prioritizr
 Type: Package
-Version: 8.0.6.3
+Version: 8.0.6.4
 Title: Systematic Conservation Prioritization in R
 Description:
     Systematic conservation prioritization using mixed integer linear
@@ -59,7 +59,6 @@ Imports:
     raster (>= 3.6.11),
     Matrix (>= 1.3-0),
     assertthat (>= 0.2.0),
-    slam (>= 0.1-48),
     igraph (>= 2.0.3),
     ape (>= 5.6-1),
     magrittr (>= 2.0.1),
@@ -74,12 +73,13 @@ Suggests:
     rcbc (>= 0.1.0.9001),
     cplexAPI (>= 1.4.0),
     lpsymphony (>= 1.17.0),
+    slam (>= 0.1-48),
     Rsymphony (>= 0.1-31),
     highs (>= 0.1-10),
     rmarkdown (>= 2.11),
     prioritizrdata (>= 0.2.4),
-    data.table (>= 1.14.2),
-    fields (>= 14.0)
+    fields (>= 14.0),
+    vroom (>= 1.6.5)
 Depends:
     R (>= 4.1.0)
 LinkingTo:
@@ -214,6 +214,8 @@ Collate:
     'is_same_crs.R'
     'knit_print.R'
     'list_text.R'
+    'read_marxan_data.R'
+    'read_marxan_parameters.R'
     'marxan_problem.R'
     'memory.R'
     'number_of_features.R'
@@ -242,6 +244,7 @@ Collate:
     'summary.R'
     'targets.R'
     'test-helpers.R'
+    'validate_marxan_data.R'
     'write_problem.R'
     'zone_names.R'
     'zzz.R'

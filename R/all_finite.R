@@ -37,7 +37,7 @@ all_finite.logical <- function(x) {
 
 #' @export
 all_finite.character <- function(x) {
-  all(!is.na(x))
+  !anyNA(x)
 }
 
 #' @export

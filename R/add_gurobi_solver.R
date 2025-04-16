@@ -198,6 +198,7 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
     assertthat::noNA(node_file_start),
     node_file_start >= 0,
     assertthat::is.flag(verbose),
+    is_installed("slam"),
     is_installed("gurobi")
   )
   # extract start solution

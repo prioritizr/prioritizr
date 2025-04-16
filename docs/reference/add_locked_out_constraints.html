@@ -32,7 +32,7 @@ planning unit allocations to a specific value."><meta property="og:image" conten
     
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.6.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.6.4</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -150,53 +150,58 @@ locked out. See the Data format section for more information.</p></dd>
     
 
 
-<p>The locked planning units can be specified using the following formats.
-Generally, the locked data should correspond to the planning units
-in the argument to <code>x.</code> To help make working with
-<code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> planning unit data easier,
-the locked data should correspond to cell indices in the
-<code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> data. For example, <code>integer</code> arguments
-should correspond to cell indices and <code>logical</code> arguments should have
-a value for each cell---regardless of which planning unit cells contain
-<code>NA</code> values.</p>
-<dl><dt><code>data</code> as an <code>integer</code> vector</dt>
-<dd><p>containing indices that indicate which
-planning units should be locked for the solution. This argument is only
-compatible with problems that contain a single zone.</p></dd>
+<p>The following formats can be used to lock in planning units.</p>
+<dl><dt><code>locked_out</code> as a <code>numeric</code> vector</dt>
+<dd><p>containing <code>numeric</code> values that indicate which
+planning units should be locked for the solution.
+If <code>x</code> has <code>data.frame</code> planning units,
+then these values must refer to values in the <code>id</code> column of the planning
+unit data.
+Alternatively, if <code>x</code> has <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::st_sf()</a></code> or <code>matrix</code> planning units,
+then these values must refer to the row numbers of the planning unit data.
+Additionally, if <code>x</code> has <code>numeric</code> vector planning units,
+then these values must refer to the element indices of the planning unit
+data.
+Finally, if <code>x</code> has <code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> planning units,
+then these values must refer to cell indices.
+Note that this format is available for problems that contain a single
+zone.</p></dd>
 
 
-<dt><code>data</code> as a <code>logical</code> vector</dt>
+<dt><code>locked_out</code> as a <code>logical</code> vector</dt>
 <dd><p>containing <code>TRUE</code> and/or
-<code>FALSE</code> values that indicate which planning units should be locked
-in the solution. This argument is only compatible with problems that
+<code>FALSE</code> values that indicate each if planning units should be locked
+in the solution. Note that the vector should have a <code>TRUE</code> or <code>FALSE</code>
+value for each and every planning unit in the argument to <code>x</code>.
+This argument is only compatible with problems that
 contain a single zone.</p></dd>
 
 
-<dt><code>data</code> as a <code>matrix</code> object</dt>
-<dd><p>containing <code>logical</code> <code>TRUE</code> and/or
-<code>FALSE</code> values which indicate if certain planning units are
+<dt><code>locked_out</code> as a <code>matrix</code> object</dt>
+<dd><p>containing <code>logical</code> (i.e.,
+<code>TRUE</code> or <code>FALSE</code>) values that indicate if certain planning units
 should be locked to a specific zone in the solution. Each row
 corresponds to a planning unit, each column corresponds to a zone, and
 each cell indicates if the planning unit should be locked to a given
-zone. Thus each row should only contain at most a single <code>TRUE</code>
-value.</p></dd>
+zone.</p></dd>
 
 
-<dt><code>data</code> as a <code>character</code> vector</dt>
+<dt><code>locked_out</code> as a <code>character</code> vector</dt>
 <dd><p>containing column name(s)
-that indicates if planning units should be locked for the solution.
+for the planning unit data in <code>x</code> that indicate if planning units should
+be locked for the solution.
 This format is only
-compatible if the planning units in the argument to <code>x</code> are a
-<code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::sf()</a></code> or <code>data.frame</code> object. The columns
-must have <code>logical</code> (i.e., <code>TRUE</code> or <code>FALSE</code>)
-values indicating if the planning unit is to be locked for the solution.
+compatible if the argument to <code>x</code> has <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::st_sf()</a></code> or <code>data.frame</code>
+planning units.
+The columns must have <code>logical</code> (i.e., <code>TRUE</code> or <code>FALSE</code>)
+values indicating if planning units should be locked for the solution.
 For problems that contain a single zone, the argument to <code>data</code> must
 contain a single column name. Otherwise, for problems that
 contain multiple zones, the argument to <code>data</code> must
 contain a column name for each zone.</p></dd>
 
 
-<dt><code>data</code> as a <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::sf()</a></code> object</dt>
+<dt><code>locked_out</code> as a <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::sf()</a></code> object</dt>
 <dd><p>containing geometries that will be used to lock planning units for
 the solution. Specifically, planning units in <code>x</code> that spatially
 intersect with <code>y</code> will be locked (per <code><a href="intersecting_units.html">intersecting_units()</a></code>).
@@ -204,18 +209,18 @@ Note that this option is only available
 for problems that contain a single management zone.</p></dd>
 
 
-<dt><code>data</code> as a <code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> object</dt>
+<dt><code>locked_out</code> as a <code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> object</dt>
 <dd><p>containing cells used to lock planning units for the solution.
 Specifically, planning units in <code>x</code>
 that intersect with cells that have non-zero and non-<code>NA</code> values are
 locked.
 For problems that contain multiple zones, the
 <code>data</code> object must contain a layer
-for each zone. Note that for multi-band arguments, each pixel must
+for each zone. Note that for multi-band arguments, each cell must
 only contain a non-zero value in a single band. Additionally, if the
 cost data in <code>x</code> is a <code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> object, we
 recommend standardizing <code>NA</code> values in this dataset with the cost
-data. In other words, the pixels in <code>x</code> that have <code>NA</code> values
+data. In other words, the cells in <code>x</code> that have <code>NA</code> values
 should also have <code>NA</code> values in the locked data.</p></dd>
 
 

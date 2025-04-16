@@ -115,7 +115,7 @@ ConservationProblem <- R6::R6Class(
       cli_vtext(
         "{ch$v} {ch$j}{ch$b}data:        ",
         "{.cls ",
-        class(self$data$cost), "} (",
+        self$planning_unit_class(), "} (",
         self$number_of_planning_units(),
         " total)"
       )
@@ -323,7 +323,7 @@ ConservationProblem <- R6::R6Class(
       cli_vtext(
         "{ch$v} {ch$j}{ch$b}data:       ",
         "{.cls ",
-        class(self$data$cost), "} (",
+        self$planning_unit_class(), "} (",
         self$number_of_planning_units(),
         " total)"
       )
@@ -524,7 +524,7 @@ ConservationProblem <- R6::R6Class(
     #' @description
     #' Obtain the number of planning units. The planning units correspond to
     #' elements in the cost data
-    #' (e.g., indices, rows, geometries, pixels) that have finite
+    #' (e.g., indices, rows, geometries, cells) that have finite
     #' values in at least one zone. In other words, planning unit are
     #' elements in the cost data that do not have missing (`NA`) values in
     #' every zone.
@@ -534,10 +534,50 @@ ConservationProblem <- R6::R6Class(
     },
 
     #' @description
+    #' Check if planning unit identifiers are equivalent to the planning
+    #' unit indices? Only `FALSE` if the planning units are
+    #' `data.frame` format.
+    #' @return A `logical` value.
+    is_ids_equivalent_to_indices = function() {
+      self$get_data("is_ids_equivalent_to_indices")
+    },
+
+    #' @description
     #' Obtain the planning unit indices.
     #' @return An `integer` vector.
     planning_unit_indices = function() {
       self$get_data("planning_unit_indices")
+    },
+
+    #' @description
+    #' Obtain the total unit identifiers.
+    #' @return An `integer` vector.
+    total_unit_ids = function() {
+      v <- self$get_data("total_unit_ids")
+      assert(
+        is.numeric(v),
+        msg = "no total unit identifiers defined.",
+        .internal = TRUE
+      )
+      v
+    },
+
+    #' @description
+    #' Convert total unit identifiers to indices.
+    #' @param ids `integer` vector with planning unit identifiers.
+    #' @return An `integer` vector.
+    convert_total_unit_ids_to_indices = function(ids) {
+      # if planning unit identifiers are sequential integers,
+      # then just return the ids because they are equivalent to indices
+      if (self$is_ids_equivalent_to_indices()) {
+        return(ids)
+      }
+      # extract the identifiers
+      total_ids <- self$get_data("total_unit_ids")
+      # convert identifiers to indices
+      out <- match(ids, total_ids)
+      # return result
+      out
     },
 
     #' @description
@@ -591,7 +631,7 @@ ConservationProblem <- R6::R6Class(
     #' @description
     #' Obtain the number of total units. The total units include all elements
     #' in the cost data
-    #' (e.g., indices, rows, geometries, pixels), including those with
+    #' (e.g., indices, rows, geometries, cells), including those with
     #' missing (`NA`) values.
     #' @return An `integer` value.
     number_of_total_units = function() {
@@ -618,6 +658,13 @@ ConservationProblem <- R6::R6Class(
       if (!is.Waiver(i)) return(i)
       self$set_planning_unit_costs()
       self$get_data("planning_unit_costs")
+    },
+
+    #' @description
+    #' Get planning unit class.
+    #' @return A `character` value.
+    planning_unit_class = function() {
+      class(self$data$cost)[[1]]
     },
 
     #' @description

@@ -73,7 +73,7 @@ NULL
 #' # solve problem
 #' s5 <- solve(p5)
 #'
-#' # plot solution (pixel values correspond to zone identifiers)
+#' # plot solution (cell values correspond to zone identifiers)
 #' plot(category_layer(s5), main = "equal targets")
 #'
 #' # create a problem with targets that require a varying amount of each
@@ -90,7 +90,7 @@ NULL
 #' # solve problem
 #' s6 <- solve(p6)
 #'
-#' # plot solution (pixel values correspond to zone identifiers)
+#' # plot solution (cell values correspond to zone identifiers)
 #' plot(category_layer(s6), main = "varying targets")
 #' }
 #'

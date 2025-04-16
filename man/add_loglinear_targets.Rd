@@ -75,7 +75,7 @@ that should be used when calculating the targets.
 
 The target calculations do not account for the
 size of each planning unit. Therefore, the feature data should account for
-the size of each planning unit if this is important (e.g., pixel values in
+the size of each planning unit if this is important (e.g., cell values in
 the argument to \code{features} in the function \code{\link[=problem]{problem()}} could
 correspond to amount of land occupied by the feature in \eqn{km^2} units).
 Additionally, the function can only be applied to

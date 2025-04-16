@@ -1,25 +1,59 @@
-test_that("integer (compile, single zone)", {
+test_that("integer (data.frame, compile, single zone)", {
+  # import data
+  sim_pu_data <- get_sim_pu_polygons()
+  sim_pu_data <- sf::st_drop_geometry(sim_pu_data)[1:5, , drop = FALSE]
+  sim_pu_data$id <- c(1, 3, 90, 5, 2)
+  sim_pu_data$cost <- c(1, NA, 3, 4, 8)
+  sim_pu_data$spp_1 <- runif(5)
+  sim_pu_data$spp_2 <- runif(5)
+  sim_pu_data$spp_3 <- runif(5)
   # create problem
-  sim_pu_raster <- get_sim_pu_raster()
-  sim_features <- get_sim_features()
   p <-
-    problem(sim_pu_raster, sim_features) %>%
+    problem(sim_pu_data, c("spp_1", "spp_2", "spp_3"), cost_column = "cost") %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.1) %>%
+    add_proportion_decisions() %>%
+    add_locked_in_constraints(c(1, 3, 90, 2))
+  suppressWarnings(o <- compile(p))
+  # calculations for tests
+  locked_pos <- c(1, 2, 4)
+  other_pos <- c(3)
+  # tests
+  expect_true(all(o$lb()[locked_pos] == 1))
+  expect_true(all(o$ub()[locked_pos] == 1))
+  expect_true(all(o$lb()[other_pos] == 0))
+  expect_true(all(o$ub()[other_pos] == 1))
+})
+
+test_that("integer (sf, compile, single zone)", {
+  # import data
+  sim_pu_polygons <- get_sim_pu_polygons()
+  sim_features <- get_sim_features()
+  # set locked cells
+  sim_pu_polygons$cost[2] <- NA_real_
+  locked_in <- c(1, 3)
+  # create problem
+  p <-
+    problem(sim_pu_polygons, sim_features, cost_column = "cost") %>%
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%
     add_binary_decisions() %>%
-    add_locked_in_constraints(seq_len(terra::ncell(sim_pu_raster)))
+    add_locked_in_constraints(locked_in)
   suppressWarnings(o <- compile(p))
   # check that constraints added correctly
-  expect_true(isTRUE(all(o$lb()[seq_len(p$number_of_planning_units())] == 1)))
+  expect_equal(
+    o$lb(),
+    c(1, 1, rep(0, sum(!is.na(sim_pu_polygons$cost)) - 2))
+  )
   # invalid inputs
   p <-
-    problem(sim_pu_raster, sim_features) %>%
+    problem(sim_pu_polygons, sim_features, cost_column = "cost") %>%
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%
     add_binary_decisions()
   expect_tidy_error(add_locked_in_constraints(p, -1))
   expect_tidy_error(add_locked_in_constraints(p, 9.6))
-  expect_tidy_error(add_locked_in_constraints(terra::ncell(sim_pu_raster) + 1))
+  expect_tidy_error(add_locked_in_constraints(p, 1e6))
 })
 
 test_that("integer (solve, single zone)", {

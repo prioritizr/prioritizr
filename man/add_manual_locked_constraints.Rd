@@ -30,17 +30,28 @@ than the \code{\link[=add_locked_in_constraints]{add_locked_in_constraints()}} a
 }
 \section{Data format}{
 
+
 The argument to \code{data} should be a \code{data.frame} with the following columns:
 
 \describe{
 
-\item{pu}{\code{integer} planning unit identifier.}
+\item{pu}{\code{integer} planning unit identifiers.
+If \code{x} has \code{data.frame} planning units,
+then these values must refer to values in the \code{id} column of the planning
+unit data.
+Alternatively, if \code{x} has \code{\link[sf:sf]{sf::st_sf()}} or \code{matrix} planning units,
+then these values must refer to the row numbers of the planning unit data.
+Additionally, if \code{x} has \code{numeric} vector planning units,
+then these values must refer to the element indices of the planning unit
+data.
+Finally, if \code{x} has \code{\link[terra:rast]{terra::rast()}} planning units,
+then these values must refer to cell indices.}
 
 \item{zone}{\code{character} names of zones. Note that this
 argument is optional for arguments to \code{x} that contain a single
 zone.}
 
-\item{status}{\code{numeric} values indicating how much
+\item{status}{\code{numeric} status values. These values indicate how much
 of each planning unit should be allocated to each zone in the solution.
 For example, the \code{numeric} values could be binary values (i.e., zero
 or one) for problems containing binary-type decision variables

@@ -209,3 +209,36 @@ assert_required <- function(x,
   }
   invisible(TRUE)
 }
+
+#' Error prefix handler
+#'
+#' Wrap an error message.
+#'
+#' @param expr Expression.
+#'
+#' @param prefix `character` vector with error prefix.
+#'
+#' @inheritParams assert
+#'
+#' @return An invisible `logical` value.
+#'
+#' @noRd
+error_prefix_handler <- function(expr, prefix, call = fn_caller_env()) {
+  # try to evaluate expression
+  x <- rlang::try_fetch(expr, error = function(cnd) cnd)
+  # if success, then return result
+  if (!inherits(x, "error")) return(x)
+  # otherwise, extract the error message
+  x <- x$message
+  # add in bullet point formatting to error message
+  if (is.null(names(x))) {
+    names(x) <- rep("x", length(x))
+  }
+  # nocov start
+  if (anyNA(names(x))) {
+    names(x)[is.na(x)] <- "x"
+  }
+  # nocov end
+  # throw error message
+  cli::cli_abort(c(prefix, x), call = call)
+}

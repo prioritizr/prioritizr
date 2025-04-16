@@ -11,9 +11,13 @@ test_that("x = SpatRaster, features = SpatRaster", {
   suppressMessages(x$print())
   suppressMessages(x$show())
   suppressMessages(x$repr())
-  # tests for integer fields
+  # test for logical fields
+  expect_true(x$is_ids_equivalent_to_indices())
+  # tests for character fields
+  expect_equal(x$planning_unit_class(), "SpatRaster")
   expect_equal(x$feature_names(), names(sim_features))
   expect_equal(x$zone_names(), names(sim_pu_raster))
+  # tests for integer fields
   expect_equal(x$number_of_features(), terra::nlyr(sim_features))
   expect_equal(
     x$number_of_planning_units(),
@@ -24,6 +28,7 @@ test_that("x = SpatRaster, features = SpatRaster", {
     x$planning_unit_indices(),
     terra::cells(is.na(sim_pu_raster), 0)[[1]]
   )
+  expect_error(x$total_unit_ids())
   # tests for planning_unit_costs field
   expect_equal(
     x$planning_unit_costs(),
@@ -72,6 +77,11 @@ test_that("x = SpatRaster, features = SpatRaster", {
   expect_equal(names(x$data$rij_matrix), x$zone_names())
   expect_equal(rownames(x$data$rij_matrix[[1]]), x$feature_names())
   expect_false(x$has_negative_feature_data())
+  # test for converting total unit ids to indices
+  expect_equal(
+    x$convert_total_unit_ids_to_indices(c(seq_len(3), 1e5, 4)),
+    c(seq_len(3), 1e5, 4)
+  )
   # test that calling targets before they have been initialized throws error
   expect_error(x$feature_targets())
 })
@@ -87,9 +97,13 @@ test_that("x = SpatRaster, features = ZonesSpatRaster", {
   suppressMessages(print(x))
   suppressMessages(summary(x))
   suppressMessages(x)
-  # tests for integer fields
+  # test for logical fields
+  expect_true(x$is_ids_equivalent_to_indices())
+  # tests for character fields
+  expect_equal(x$planning_unit_class(), "SpatRaster")
   expect_equal(x$feature_names(), feature_names(sim_zones_features))
   expect_equal(x$zone_names(), zone_names(sim_zones_features))
+  # tests for integer fields
   expect_equal(x$number_of_features(), number_of_features(sim_zones_features))
   expect_equal(x$number_of_zones(), number_of_zones(sim_zones_features))
   expect_equal(
@@ -101,6 +115,7 @@ test_that("x = SpatRaster, features = ZonesSpatRaster", {
     terra::cells(min(is.na(sim_zones_pu_raster)), 0)[[1]]
   )
   expect_equal(x$number_of_total_units(), terra::ncell(sim_zones_pu_raster))
+  expect_error(x$total_unit_ids())
   # tests for planning_unit_costs field
   expect_equal(
     x$planning_unit_costs(),
@@ -172,6 +187,11 @@ test_that("x = SpatRaster, features = ZonesSpatRaster", {
     ignore_attr = TRUE
   )
   expect_false(x$has_negative_feature_data())
+  # test for converting total unit ids to indices
+  expect_equal(
+    x$convert_total_unit_ids_to_indices(c(seq_len(3), 1e5, 4)),
+    c(seq_len(3), 1e5, 4)
+  )
   # test that calling targets before they have been initialized throws error
   expect_error(x$feature_targets())
 })
@@ -186,13 +206,18 @@ test_that("x = sf, features = SpatRaster", {
   suppressMessages(print(x))
   suppressMessages(summary(x))
   suppressMessages(x)
-  # tests for integer fields
+  # test for logical fields
+  expect_true(x$is_ids_equivalent_to_indices())
+  # tests for character fields
+  expect_equal(x$planning_unit_class(), "sf")
   expect_equal(x$feature_names(), names(sim_features))
   expect_equal(x$zone_names(), "cost")
+  # tests for integer fields
   expect_equal(x$number_of_features(), terra::nlyr(sim_features))
   expect_equal(x$number_of_planning_units(), sum(!is.na(sim_pu_polygons$cost)))
   expect_equal(x$planning_unit_indices(), which(!is.na(sim_pu_polygons$cost)))
   expect_equal(x$number_of_total_units(), nrow(sim_pu_polygons))
+  expect_error(x$total_unit_ids())
   # tests for planning_unit_costs field
   expect_equal(
     x$planning_unit_costs(),
@@ -249,6 +274,11 @@ test_that("x = sf, features = SpatRaster", {
   expect_equal(names(x$data$rij_matrix), "cost")
   expect_equal(rownames(x$data$rij_matrix[[1]]), names(sim_features))
   expect_false(x$has_negative_feature_data())
+  # test for converting total unit ids to indices
+  expect_equal(
+    x$convert_total_unit_ids_to_indices(c(seq_len(3), 1e5, 4)),
+    c(seq_len(3), 1e5, 4)
+  )
   # test that calling targets before they have been initialized throws error
   expect_error(x$feature_targets())
 })
@@ -265,9 +295,13 @@ test_that("x = sf, features = ZonesSpatRaster", {
   suppressMessages(print(x))
   suppressMessages(summary(x))
   suppressMessages(x)
-  # tests for integer fields
+  # test for logical fields
+  expect_true(x$is_ids_equivalent_to_indices())
+  # tests for character fields
+  expect_equal(x$planning_unit_class(), "sf")
   expect_equal(x$feature_names(), feature_names(sim_zones_features))
   expect_equal(x$zone_names(), zone_names(sim_zones_features))
+  # tests for integer fields
   expect_equal(x$number_of_features(), terra::nlyr(sim_zones_features[[1]]))
   expect_equal(x$number_of_planning_units(), nrow(sim_zones_pu_polygons) - 1)
   expect_equal(
@@ -275,6 +309,7 @@ test_that("x = sf, features = ZonesSpatRaster", {
     c(seq_len(4), seq(6, nrow(sim_zones_pu_polygons)))
   )
   expect_equal(x$number_of_total_units(), nrow(sim_zones_pu_polygons))
+  expect_error(x$total_unit_ids())
   # tests for planning_unit_costs field
   expect_equal(
     x$planning_unit_costs(),
@@ -354,6 +389,11 @@ test_that("x = sf, features = ZonesSpatRaster", {
     ignore_attr = TRUE
   )
   expect_false(x$has_negative_feature_data())
+  # test for converting total unit ids to indices
+  expect_equal(
+    x$convert_total_unit_ids_to_indices(c(seq_len(3), 1e5, 4)),
+    c(seq_len(3), 1e5, 4)
+  )
   # test that calling targets before they have been initialized throws error
   expect_error(x$feature_targets())
 })
@@ -371,14 +411,19 @@ test_that("x = sf, features = character", {
   suppressMessages(print(x))
   suppressMessages(summary(x))
   suppressMessages(x)
-  # tests for integer fields
+  # test for logical fields
+  expect_true(x$is_ids_equivalent_to_indices())
+  # tests for character fields
+  expect_equal(x$planning_unit_class(), "sf")
   expect_equal(x$feature_names(), c("spp1", "spp2"))
   expect_equal(x$zone_names(), "cost")
+  # tests for integer fields
   expect_equal(x$number_of_features(), 2)
   expect_equal(x$number_of_zones(), 1)
   expect_equal(x$number_of_planning_units(), nrow(sim_pu_polygons) - 1)
   expect_equal(x$planning_unit_indices(), c(1, seq(3, nrow(sim_pu_polygons))))
   expect_equal(x$number_of_total_units(), nrow(sim_pu_polygons))
+  expect_error(x$total_unit_ids())
   # tests for planning_unit_costs field
   expect_equal(
     x$planning_unit_costs(),
@@ -447,6 +492,11 @@ test_that("x = sf, features = character", {
   expect_equal(names(x$data$rij_matrix), "cost")
   expect_equal(rownames(x$data$rij_matrix[[1]]),  c("spp1", "spp2"))
   expect_false(x$has_negative_feature_data())
+  # test for converting total unit ids to indices
+  expect_equal(
+    x$convert_total_unit_ids_to_indices(c(seq_len(3), 1e5, 4)),
+    c(seq_len(3), 1e5, 4)
+  )
   # test that calling targets before they have been initialized throws error
   expect_error(x$feature_targets())
 })
@@ -476,9 +526,13 @@ test_that("x = sf, features = ZonesCharacter", {
   suppressMessages(print(x))
   suppressMessages(summary(x))
   suppressMessages(x)
-  # tests for integer fields
+  # test for logical fields
+  expect_true(x$is_ids_equivalent_to_indices())
+  # tests for character fields
+  expect_equal(x$planning_unit_class(), "sf")
   expect_equal(x$feature_names(), c("spp1", "spp2"))
   expect_equal(x$zone_names(), c("z1", "z2"))
+  # tests for integer fields
   expect_equal(x$number_of_features(), 2)
   expect_equal(x$number_of_zones(), 2)
   expect_equal(x$number_of_planning_units(), nrow(sim_zones_pu_polygons) - 1)
@@ -487,6 +541,7 @@ test_that("x = sf, features = ZonesCharacter", {
     c(c(1, 2), seq(4, nrow(sim_zones_pu_polygons)))
   )
   expect_equal(x$number_of_total_units(), nrow(sim_zones_pu_polygons))
+  expect_error(x$total_unit_ids())
   # tests for planning_unit_costs field
   expect_equal(
     x$planning_unit_costs(),
@@ -588,6 +643,11 @@ test_that("x = sf, features = ZonesCharacter", {
   expect_true(all(x$data$rij_matrix[[1]] == rij[[1]]))
   expect_true(all(x$data$rij_matrix[[2]] == rij[[2]]))
   expect_false(x$has_negative_feature_data())
+  # test for converting total unit ids to indices
+  expect_equal(
+    x$convert_total_unit_ids_to_indices(c(seq_len(3), 1e5, 4)),
+    c(seq_len(3), 1e5, 4)
+  )
   # test that calling targets before they have been initialized throws error
   expect_error(x$feature_targets())
 })
@@ -604,14 +664,19 @@ test_that("x = data.frame, features = character", {
   suppressMessages(print(x))
   suppressMessages(summary(x))
   suppressMessages(x)
-  # tests for integer fields
+  # test for logical fields
+  expect_false(x$is_ids_equivalent_to_indices())
+  # tests for character fields
+  expect_equal(x$planning_unit_class(), "data.frame")
   expect_equal(x$feature_names(), c("spp1", "spp2"))
   expect_equal(x$zone_names(), "cost")
+  # tests for integer fields
   expect_equal(x$number_of_features(), 2)
   expect_equal(x$number_of_zones(), 1)
   expect_equal(x$number_of_planning_units(), 9)
   expect_equal(x$planning_unit_indices(), which(!is.na(pu$cost)))
   expect_equal(x$number_of_total_units(), 10)
+  expect_equal(x$total_unit_ids(), pu$id)
   # tests for planning_unit_costs field
   expect_equal(
     x$planning_unit_costs(),
@@ -664,11 +729,16 @@ test_that("x = data.frame, features = character", {
   )
   expect_equal(names(x$data$rij_matrix), "cost")
   expect_equal(rownames(x$data$rij_matrix[[1]]), c("spp1", "spp2"))
+  # test for converting total unit ids to indices
+  expect_equal(
+    x$convert_total_unit_ids_to_indices(c(seq_len(3), 1e5, 4)),
+    c(seq_len(3), NA, 4)
+  )
   # test that calling targets before they have been initialized throws error
   expect_error(x$feature_targets())
 })
 
-test_that("x=data.frame, features=ZonesCharacter", {
+test_that("x = data.frame, features = ZonesCharacter", {
   # create data
   pu <- data.frame(
     id = seq_len(10),
@@ -685,14 +755,19 @@ test_that("x=data.frame, features=ZonesCharacter", {
   suppressMessages(print(x))
   suppressMessages(summary(x))
   suppressMessages(x)
-  # tests for integer fields
+  # test for logical fields
+  expect_false(x$is_ids_equivalent_to_indices())
+  # tests for character fields
+  expect_equal(x$planning_unit_class(), "data.frame")
   expect_equal(x$feature_names(), c("1", "2"))
   expect_equal(x$zone_names(), c("1", "2"))
+  # tests for integer fields
   expect_equal(x$number_of_features(), 2)
   expect_equal(x$number_of_zones(), 2)
   expect_equal(x$number_of_planning_units(), 9)
   expect_equal(x$planning_unit_indices(), c(1, seq(3, nrow(pu))))
   expect_equal(x$number_of_total_units(), 10)
+  expect_equal(x$total_unit_ids(), pu$id)
   # tests for planning_unit_costs field
   expect_equal(
     x$planning_unit_costs(),
@@ -763,6 +838,11 @@ test_that("x=data.frame, features=ZonesCharacter", {
   expect_equal(rownames(x$data$rij_matrix[[1]]), c("1", "2"))
   expect_equal(rownames(x$data$rij_matrix[[2]]), c("1", "2"))
   expect_false(x$has_negative_feature_data())
+  # test for converting total unit ids to indices
+  expect_equal(
+    x$convert_total_unit_ids_to_indices(c(seq_len(3), 1e5, 4)),
+    c(seq_len(3), NA, 4)
+  )
   # test that calling targets before they have been initialized throws error
   expect_error(x$feature_targets())
 })
@@ -779,14 +859,17 @@ test_that("x = data.frame, features = data.frame (single zone)", {
   suppressMessages(print(x))
   suppressMessages(summary(x))
   suppressMessages(x)
-  # tests for integer fields
-  expect_equal(x$feature_names(), letters[1:5])
+  # tests for character fields
+  expect_equal(x$planning_unit_class(), "data.frame")
   expect_equal(x$zone_names(), "cost")
+  expect_equal(x$feature_names(), letters[1:5])
+  # tests for integer fields
   expect_equal(x$number_of_features(), 5)
   expect_equal(x$number_of_zones(), 1)
   expect_equal(x$number_of_planning_units(), 9)
   expect_equal(x$planning_unit_indices(), which(!is.na(pu$cost)))
   expect_equal(x$number_of_total_units(), 10)
+  expect_equal(x$total_unit_ids(), pu$id)
   # tests for planning_unit_costs field
   expect_equal(
     x$planning_unit_costs(),
@@ -843,6 +926,11 @@ test_that("x = data.frame, features = data.frame (single zone)", {
   expect_equal(names(x$data$rij_matrix), "cost")
   expect_equal(rownames(x$data$rij_matrix[[1]]), letters[1:5])
   expect_false(x$has_negative_feature_data())
+  # test for converting total unit ids to indices
+  expect_equal(
+    x$convert_total_unit_ids_to_indices(c(seq_len(3), 1e5, 4)),
+    c(seq_len(3), NA, 4)
+  )
   # test that calling targets before they have been initialized throws error
   expect_error(x$feature_targets())
 })
@@ -861,14 +949,17 @@ test_that("x = data.frame, features = data.frame (factor, single zone)", {
   suppressMessages(print(x))
   suppressMessages(summary(x))
   suppressMessages(x)
-  # tests for integer fields
-  expect_equal(x$feature_names(), letters[1:5])
+  # tests for character fields
+  expect_equal(x$planning_unit_class(), "data.frame")
   expect_equal(x$zone_names(), "cost")
+  expect_equal(x$feature_names(), letters[1:5])
+  # tests for integer fields
   expect_equal(x$number_of_features(), 5)
   expect_equal(x$number_of_zones(), 1)
   expect_equal(x$number_of_planning_units(), 9)
   expect_equal(x$planning_unit_indices(), which(!is.na(pu$cost)))
   expect_equal(x$number_of_total_units(), 10)
+  expect_equal(x$total_unit_ids(), pu$id)
   # tests for planning_unit_costs field
   expect_equal(
     x$planning_unit_costs(),
@@ -925,6 +1016,11 @@ test_that("x = data.frame, features = data.frame (factor, single zone)", {
   expect_equal(names(x$data$rij_matrix), "cost")
   expect_equal(rownames(x$data$rij_matrix[[1]]), letters[1:5])
   expect_false(x$has_negative_feature_data())
+  # test for converting total unit ids to indices
+  expect_equal(
+    x$convert_total_unit_ids_to_indices(c(seq_len(3), 1e5, 4)),
+    c(seq_len(3), NA, 4)
+  )
   # test that calling targets before they have been initialized throws error
   expect_error(x$feature_targets())
 })
@@ -945,14 +1041,17 @@ test_that("x = data.frame, features = data.frame (multiple zones)", {
   suppressMessages(print(x))
   suppressMessages(summary(x))
   suppressMessages(x)
-  # tests for integer fields
+  # tests for character fields
+  expect_equal(x$planning_unit_class(), "data.frame")
   expect_equal(x$feature_names(), letters[1:5])
   expect_equal(x$zone_names(), c("z1", "z2"))
+  # tests for integer fields
   expect_equal(x$number_of_features(), 5)
   expect_equal(x$number_of_zones(), 2)
   expect_equal(x$number_of_planning_units(), 9)
   expect_equal(x$planning_unit_indices(), c(1, seq(3, nrow(pu))))
   expect_equal(x$number_of_total_units(), 10)
+  expect_equal(x$total_unit_ids(), pu$id)
   # tests for planning_unit_costs field
   expect_equal(
     x$planning_unit_costs(),
@@ -1024,6 +1123,11 @@ test_that("x = data.frame, features = data.frame (multiple zones)", {
   expect_equal(rownames(x$data$rij_matrix[[1]]), letters[1:5])
   expect_equal(rownames(x$data$rij_matrix[[2]]), letters[1:5])
   expect_false(x$has_negative_feature_data())
+  # test for converting total unit ids to indices
+  expect_equal(
+    x$convert_total_unit_ids_to_indices(c(seq_len(3), 1e5, 4)),
+    c(seq_len(3), NA, 4)
+  )
   # test that calling targets before they have been initialized throws error
   expect_error(x$feature_targets())
 })
@@ -1043,14 +1147,19 @@ test_that("x = numeric, features = data.frame, rij_matrix = matrix", {
   suppressMessages(print(x))
   suppressMessages(summary(x))
   suppressMessages(x)
-  # tests for integer fields
+  # test for logical fields
+  expect_true(x$is_ids_equivalent_to_indices())
+  # tests for character fields
+  expect_equal(x$planning_unit_class(), "matrix")
   expect_equal(x$feature_names(), c("spp1", "spp2"))
   expect_equal(x$zone_names(), "1")
+  # tests for integer fields
   expect_equal(x$number_of_features(), 2)
   expect_equal(x$number_of_zones(), 1)
   expect_equal(x$number_of_planning_units(), 9)
   expect_equal(x$planning_unit_indices(), which(!is.na(pu$cost)))
   expect_equal(x$number_of_total_units(), 10)
+  expect_error(x$total_unit_ids())
   # tests for planning_unit_costs field
   expect_equal(
     x$planning_unit_costs(),
@@ -1096,6 +1205,11 @@ test_that("x = numeric, features = data.frame, rij_matrix = matrix", {
   )
   expect_equal(rownames(x$data$rij_matrix[[1]]), c("spp1", "spp2"))
   expect_false(x$has_negative_feature_data())
+  # test for converting total unit ids to indices
+  expect_equal(
+    x$convert_total_unit_ids_to_indices(c(seq_len(3), 1e5, 4)),
+    c(seq_len(3), 1e5, 4)
+  )
   # test that calling targets before they have been initialized throws error
   expect_error(x$feature_targets())
 })
@@ -1118,14 +1232,19 @@ test_that("x = matrix, features = data.frame, rij_matrix = matrix", {
   suppressMessages(print(x))
   suppressMessages(summary(x))
   suppressMessages(x)
-  # tests for integer fields
+  # test for logical fields
+  expect_true(x$is_ids_equivalent_to_indices())
+  # tests for character fields
+  expect_equal(x$planning_unit_class(), "matrix")
   expect_equal(x$feature_names(), c("spp1", "spp2"))
   expect_equal(x$zone_names(), c("1", "2"))
+  # tests for integer fields
   expect_equal(x$number_of_features(), 2)
   expect_equal(x$number_of_zones(), 2)
   expect_equal(x$number_of_planning_units(), 9)
   expect_equal(x$planning_unit_indices(), c(1, seq(3, nrow(pu))))
   expect_equal(x$number_of_total_units(), 10)
+  expect_error(x$total_unit_ids())
   # tests for planning_unit_costs field
   expect_equal(
     x$planning_unit_costs(),
@@ -1192,6 +1311,11 @@ test_that("x = matrix, features = data.frame, rij_matrix = matrix", {
   expect_equal(rownames(x$data$rij_matrix[[1]]), c("spp1", "spp2"))
   expect_equal(rownames(x$data$rij_matrix[[2]]), c("spp1", "spp2"))
   expect_false(x$has_negative_feature_data())
+  # test for converting total unit ids to indices
+  expect_equal(
+    x$convert_total_unit_ids_to_indices(c(seq_len(3), 1e5, 4)),
+    c(seq_len(3), 1e5, 4)
+  )
   # test that calling targets before they have been initialized throws error
   expect_error(x$feature_targets())
 })
@@ -1250,8 +1374,9 @@ test_that("invalid problem inputs (all planning units have NA costs)", {
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
   # update data
-  sim_pu_polygons$cost <- NA_real_
   sim_pu_raster <- raster::setValues(sim_pu_raster, NA_real_)
+  sim_pu_polygons$id <- seq_len(nrow(sim_pu_polygons))
+  sim_pu_polygons$cost <- NA_real_
   sim_pu_polygons$spp_1 <- runif(nrow(sim_pu_polygons))
   sim_pu_polygons$spp_2 <- runif(nrow(sim_pu_polygons))
   # tests
@@ -1278,8 +1403,9 @@ test_that("problematic problem inputs (planning units with negative values)", {
   sim_pu_polygons <- get_sim_pu_polygons()
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
-  # update feature data
+  # update data
   sim_pu_raster <- sim_pu_raster * -1
+  sim_pu_polygons$id <- seq_len(nrow(sim_pu_polygons))
   sim_pu_polygons$cost <- runif(nrow(sim_pu_polygons)) * -1
   sim_pu_polygons$spp_1 <- runif(nrow(sim_pu_polygons))
   sim_pu_polygons$spp_2 <- runif(nrow(sim_pu_polygons))
@@ -1313,6 +1439,7 @@ test_that("problematic problem inputs (feature contains negative values)", {
   sim_features <- get_sim_features()
   # update feature data
   sim_features <- sim_features * -1
+  sim_pu_polygons$id <- seq_len(nrow(sim_pu_polygons))
   sim_pu_polygons$cost <- runif(nrow(sim_pu_polygons))
   sim_pu_polygons$spp_1 <- runif(nrow(sim_pu_polygons)) * -1
   sim_pu_polygons$spp_2 <- runif(nrow(sim_pu_polygons))
@@ -1346,6 +1473,7 @@ test_that("problematic problem inputs (feature contains only zero values)", {
   sim_features <- get_sim_features()
   # update feature data
   sim_features[[1]] <- sim_features[[1]] * 0
+  sim_pu_polygons$id <- seq_len(nrow(sim_pu_polygons))
   sim_pu_polygons$cost <- runif(nrow(sim_pu_polygons))
   sim_pu_polygons$spp_1 <- 0
   sim_pu_polygons$spp_2 <- runif(nrow(sim_pu_polygons))

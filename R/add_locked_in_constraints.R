@@ -23,68 +23,9 @@ NULL
 #'
 #' @section Data format:
 #'
-#' The locked planning units can be specified using the following formats.
-#' Generally, the locked data should correspond to the planning units
-#' in the argument to `x.` To help make working with
-#' [terra::rast()] planning unit data easier,
-#' the locked data should correspond to cell indices in the
-#' [terra::rast()] data. For example, `integer` arguments
-#' should correspond to cell indices and `logical` arguments should have
-#' a value for each cell---regardless of which planning unit cells contain
-#' `NA` values.
+#' The following formats can be used to lock in planning units.
 #'
-#' \describe{
-#'
-#' \item{`data` as an `integer` vector}{containing indices that indicate which
-#'   planning units should be locked for the solution. This argument is only
-#'   compatible with problems that contain a single zone.}
-#'
-#' \item{`data` as a `logical` vector}{containing `TRUE` and/or
-#'   `FALSE` values that indicate which planning units should be locked
-#'   in the solution. This argument is only compatible with problems that
-#'   contain a single zone.}
-#'
-#' \item{`data` as a `matrix` object}{containing `logical` `TRUE` and/or
-#'   `FALSE` values which indicate if certain planning units are
-#'   should be locked to a specific zone in the solution. Each row
-#'   corresponds to a planning unit, each column corresponds to a zone, and
-#'   each cell indicates if the planning unit should be locked to a given
-#'   zone. Thus each row should only contain at most a single `TRUE`
-#'   value.}
-#'
-#' \item{`data` as a `character` vector}{containing column name(s)
-#'   that indicates if planning units should be locked for the solution.
-#'   This format is only
-#'   compatible if the planning units in the argument to `x` are a
-#'   [sf::sf()] or `data.frame` object. The columns
-#'   must have `logical` (i.e., `TRUE` or `FALSE`)
-#'   values indicating if the planning unit is to be locked for the solution.
-#'   For problems that contain a single zone, the argument to `data` must
-#'   contain a single column name. Otherwise, for problems that
-#'   contain multiple zones, the argument to `data` must
-#'   contain a column name for each zone.}
-#'
-#' \item{`data` as a [sf::sf()] object}{
-#'   containing geometries that will be used to lock planning units for
-#'   the solution. Specifically, planning units in `x` that spatially
-#'   intersect with `y` will be locked (per [intersecting_units()]).
-#'   Note that this option is only available
-#'   for problems that contain a single management zone.}
-#'
-#' \item{`data` as a [terra::rast()] object}{
-#'   containing cells used to lock planning units for the solution.
-#'   Specifically, planning units in `x`
-#'   that intersect with cells that have non-zero and non-`NA` values are
-#'   locked.
-#'   For problems that contain multiple zones, the
-#'   `data` object must contain a layer
-#'   for each zone. Note that for multi-band arguments, each pixel must
-#'   only contain a non-zero value in a single band. Additionally, if the
-#'   cost data in `x` is a [terra::rast()] object, we
-#'   recommend standardizing `NA` values in this dataset with the cost
-#'   data. In other words, the pixels in `x` that have `NA` values
-#'   should also have `NA` values in the locked data.}
-#' }
+#' `r locked_documentation("locked_in")`
 #'
 #' @inherit add_contiguity_constraints return
 #'
@@ -273,16 +214,23 @@ methods::setMethod("add_locked_in_constraints",
       is_conservation_problem(x),
       x$number_of_zones() == 1,
       is.numeric(locked_in),
-      all_finite(locked_in),
       is_count_vector(locked_in),
-      max(locked_in) <= number_of_total_units(x),
-      min(locked_in) >= 1
+      all_finite(locked_in),
+      all_is_valid_total_unit_ids(x, locked_in)
     )
-    # create matrix with locked in constraints
-    m <- matrix(FALSE, ncol = 1, nrow = x$number_of_total_units())
-    m[locked_in, 1] <- TRUE
-    # add constraints
-    add_locked_in_constraints(x, m)
+    assert(
+      length(locked_in) > 0,
+      msg = "{.arg locked_in} must lock in at least one planning unit."
+    )
+    # add constraints using identifiers
+    add_manual_locked_constraints(
+      x,
+      tibble::tibble(
+        pu = locked_in,
+        zone = x$zone_names(),
+        status = 1
+      )
+    )
   }
 )
 
@@ -299,6 +247,10 @@ methods::setMethod("add_locked_in_constraints",
       all_finite(locked_in),
       x$number_of_zones() == 1,
       x$number_of_total_units() == length(locked_in)
+    )
+    assert(
+      sum(locked_in, na.rm = TRUE) > 0,
+      msg = "{.arg locked_in} must lock in at least one planning unit."
     )
     # add constraints
     add_locked_in_constraints(x, matrix(locked_in, ncol = 1))
@@ -325,16 +277,17 @@ methods::setMethod("add_locked_in_constraints",
       sum(locked_in, na.rm = TRUE) > 0,
       msg = "{.arg locked_in} must lock in at least one planning unit."
     )
-    # create data.frame with statuses
+    # determine which planning units should be locked
     ind <- which(locked_in, arr.ind = TRUE)
-    y <- data.frame(
-      pu = ind[, 1],
-      zone = x$zone_names()[ind[, 2]],
-      status = 1,
-      stringsAsFactors = FALSE
+    # add constraints using indices
+    internal_add_manual_locked_constraints(
+      x,
+      tibble::tibble(
+        idx = ind[, 1],
+        zone = x$zone_names()[ind[, 2]],
+        status = 1
+      )
     )
-    # add constraints
-    add_manual_locked_constraints(x, y)
   }
 )
 
@@ -394,9 +347,7 @@ methods::setMethod("add_locked_in_constraints",
     cli_warning(sp_pkg_deprecation_notice)
     add_locked_in_constraints(
       x,
-      suppressWarnings(
-        intersecting_units(x$data$cost, sf::st_as_sf(locked_in))
-      )
+      suppressWarnings(sf::st_as_sf(locked_in))
     )
   }
 )
@@ -427,8 +378,15 @@ methods::setMethod("add_locked_in_constraints",
         "must have overlapping spatial extents."
       )
     )
-    # add constraints
-    add_locked_in_constraints(x, intersecting_units(x$data$cost, locked_in))
+    # add constraints using indices
+    internal_add_manual_locked_constraints(
+      x,
+      tibble::tibble(
+        idx = intersecting_units(x$data$cost, locked_in),
+        zone = x$zone_names(),
+        status = 1
+      )
+    )
   }
 )
 
@@ -516,3 +474,80 @@ methods::setMethod("add_locked_in_constraints",
     add_locked_in_constraints(x, status)
   }
 )
+
+#' Locked documentation
+#'
+#' @param x `character` name of argument.
+#'
+#' @noRd
+locked_documentation <- function(x) {
+  assert(assertthat::is.string(x))
+  paste0("
+\\describe{
+
+\\item{`", x, "` as a `numeric` vector}{
+  containing `numeric` values that indicate which
+  planning units should be locked for the solution.
+  If `x` has `data.frame` planning units,
+  then these values must refer to values in the `id` column of the planning
+  unit data.
+  Alternatively, if `x` has [sf::st_sf()] or `matrix` planning units,
+  then these values must refer to the row numbers of the planning unit data.
+  Additionally, if `x` has `numeric` vector planning units,
+  then these values must refer to the element indices of the planning unit
+  data.
+  Finally, if `x` has [terra::rast()] planning units,
+  then these values must refer to cell indices.
+  Note that this format is available for problems that contain a single
+  zone.}
+
+\\item{`", x, "` as a `logical` vector}{containing `TRUE` and/or
+  `FALSE` values that indicate each if planning units should be locked
+  in the solution. Note that the vector should have a `TRUE` or `FALSE`
+  value for each and every planning unit in the argument to `x`.
+  This argument is only compatible with problems that
+  contain a single zone.}
+
+\\item{`", x, "` as a `matrix` object}{containing `logical` (i.e.,
+  `TRUE` or `FALSE`) values that indicate if certain planning units
+  should be locked to a specific zone in the solution. Each row
+  corresponds to a planning unit, each column corresponds to a zone, and
+  each cell indicates if the planning unit should be locked to a given
+  zone.}
+
+\\item{`", x, "` as a `character` vector}{containing column name(s)
+  for the planning unit data in `x` that indicate if planning units should
+  be locked for the solution.
+  This format is only
+  compatible if the argument to `x` has [sf::st_sf()] or `data.frame`
+  planning units.
+  The columns must have `logical` (i.e., `TRUE` or `FALSE`)
+  values indicating if planning units should be locked for the solution.
+  For problems that contain a single zone, the argument to `data` must
+  contain a single column name. Otherwise, for problems that
+  contain multiple zones, the argument to `data` must
+  contain a column name for each zone.}
+
+\\item{`", x, "` as a [sf::sf()] object}{
+  containing geometries that will be used to lock planning units for
+  the solution. Specifically, planning units in `x` that spatially
+  intersect with `y` will be locked (per [intersecting_units()]).
+  Note that this option is only available
+  for problems that contain a single management zone.}
+
+\\item{`", x, "` as a [terra::rast()] object}{
+  containing cells used to lock planning units for the solution.
+  Specifically, planning units in `x`
+  that intersect with cells that have non-zero and non-`NA` values are
+  locked.
+  For problems that contain multiple zones, the
+  `data` object must contain a layer
+  for each zone. Note that for multi-band arguments, each cell must
+  only contain a non-zero value in a single band. Additionally, if the
+  cost data in `x` is a [terra::rast()] object, we
+  recommend standardizing `NA` values in this dataset with the cost
+  data. In other words, the cells in `x` that have `NA` values
+  should also have `NA` values in the locked data.}
+}
+  ")
+}

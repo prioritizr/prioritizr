@@ -40,7 +40,7 @@
     
     <a class="navbar-brand me-2" href="index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.6.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.6.4</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -104,6 +104,7 @@
 </h2>
 <!-- badges: start -->
 
+<!-- badges: end -->
 <p>The <em>prioritizr R</em> package uses mixed integer linear programming (MILP) techniques to provide a flexible interface for building and solving conservation planning problems. It supports a broad range of objectives, constraints, and penalties that can be used to custom-tailor conservation planning problems to the specific needs of a conservation planning exercise. Once built, conservation planning problems can be solved using a variety of commercial and open-source exact algorithm solvers. In contrast to the algorithms conventionally used to solve conservation problems, such as heuristics or simulated annealing, the exact algorithms used here are guaranteed to find optimal solutions. Furthermore, conservation problems can be constructed to optimize the spatial allocation of different management actions or zones, meaning that conservation practitioners can identify solutions that benefit multiple stakeholders. Finally, this package has the functionality to read input data formatted for the <em>Marxan</em> conservation planning program, and find much cheaper solutions in a much shorter period of time than <em>Marxan</em>.</p>
 </div>
 <div class="section level2">
@@ -249,7 +250,7 @@
 <code class="sourceCode R"><span><span class="co"># extract time spent solving the problem</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb17"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="do">## solution_1 </span></span>
-<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="do">##      3.674</span></span></code></pre></div>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="do">##      3.351</span></span></code></pre></div>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract state message from the solver</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"status"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -494,6 +495,8 @@
 <li><a href="https://github.com/prioritizr/prioritizr/actions" class="external-link"><img src="https://img.shields.io/github/actions/workflow/status/prioritizr/prioritizr/documentation.yaml?branch=main&amp;label=Documentation" alt="Documentation"></a></li>
 <li><a href="https://app.codecov.io/gh/prioritizr/prioritizr/branch/main" class="external-link"><img src="https://img.shields.io/codecov/c/github/prioritizr/prioritizr?label=Coverage" alt="Coverage-Status"></a></li>
 <li><a href="https://CRAN.R-project.org/package=prioritizr" class="external-link"><img src="https://www.r-pkg.org/badges/version/prioritizr" alt="CRAN-Status-Badge"></a></li>
+<li><a href="https://www.theodorosploumis.com/en" class="external-link"><img src="https://img.shields.io/badge/Logo%20by-Theodoros%20Ploumis-blue.svg" alt="logo"></a></li>
+<li><a href="https://doi.org/10.1111/cobi.14376" class="external-link"><img src="https://img.shields.io/badge/Publication-10.1111/cobi.14376-blue.svg" alt="publication"></a></li>
 </ul>
 </div>
 

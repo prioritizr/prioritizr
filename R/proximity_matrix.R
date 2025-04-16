@@ -114,7 +114,7 @@ proximity_matrix.SpatRaster <- function(x, distance) {
   )
   # indices of cells with finite values
   include <- terra::cells(terra::allNA(x), 0)[[1]]
-  # set x to a single raster layer with only values in pixels that are not
+  # set x to a single raster layer with only values in cells that are not
   # NA in all layers
   x <- terra::setValues(x[[1]], NA_real_)
   x[include] <- 1

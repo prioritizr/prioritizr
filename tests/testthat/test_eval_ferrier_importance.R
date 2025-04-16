@@ -285,6 +285,7 @@ test_that("data.frame (complex dataset)", {
   pu <- as.data.frame(as.matrix(Matrix::t(rij)))
   names(pu) <- targ$Name
   pu$cost <- 1
+  pu$id <- seq_len(nrow(pu))
   # create problem
   p <-
     problem(pu, targ$Name, "cost") %>%
