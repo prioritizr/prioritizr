@@ -3,11 +3,9 @@
 
 # prioritizr
 
-<figure id="readme-figure" align="right">
 
 <img id="readme-img" src="man/figures/logo.png"  style="width:140px" align="right"/>
 
-</figure>
 
 ## Systematic Conservation Prioritization in R
 
