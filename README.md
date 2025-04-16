@@ -1,10 +1,7 @@
 
 <!--- README.md is generated from README.Rmd. Please edit that file -->
 
-# prioritizr
-
-
-<img id="readme-img" src="man/figures/logo.png"  style="width:140px" align="right"/>
+# prioritizr <img id="readme-img" src="man/figures/logo.png"  style="width:140px" align="right"/>
 
 
 ## Systematic Conservation Prioritization in R
