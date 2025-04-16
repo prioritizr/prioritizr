@@ -8,7 +8,7 @@
 <img id="readme-img" src="man/figures/logo.png"  style="width:140px" align="right"/>
 <figcaption>
 
-<a id="readme-a" href="https://www.theodorosploumis.com/"  align="right">Logo by
+<a id="readme-a" href="https://www.theodorosploumis.com/">Logo by
 Theodoros Ploumis</a>
 </figcaption>
 
