@@ -277,7 +277,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##      3.351
+    ##      3.245
 
 ``` r
 # extract state message from the solver
@@ -490,12 +490,7 @@ considered more important.
 imp <-
   p4 %>%
   eval_rank_importance(s4, n = 5)
-```
 
-    ## Warning in matrix(compile(x)$lb(), ncol = n_z, nrow = n_pu): data length
-    ## [32239] is not a sub-multiple or multiple of the number of rows [10757]
-
-``` r
 # print scores
 print(imp)
 ```

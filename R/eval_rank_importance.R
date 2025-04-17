@@ -1013,7 +1013,10 @@ create_budget_thresholds <- function(x, status, n, by_zone,
   ) {
     locked_in <- matrix(0, ncol = n_z, nrow = n_pu)
   } else {
-    locked_in <- matrix(compile(x)$lb(), ncol = n_z, nrow = n_pu)
+    locked_in <- matrix(
+      compile(x)$lb()[seq_len(n_z * n_pu)],
+      ncol = n_z, nrow = n_pu
+    )
   }
   locked_in <- locked_in * ((x$planning_unit_costs() * 0) + 1)
   ## calculate cost of cheapest feasible solution based on

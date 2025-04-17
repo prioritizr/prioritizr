@@ -1253,7 +1253,7 @@ test_that("custom objective", {
   expect_true(terra::global(r1 == 1, "sum", na.rm = TRUE)[[1]] > 0)
 })
 
-test_that("default budget-limited objective", {
+test_that("default budget-limited objective (single zone)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # create data
@@ -1262,6 +1262,7 @@ test_that("default budget-limited objective", {
     terra::rast(matrix(c(1, 0, 0, 1), nrow = 1)),
     terra::rast(matrix(c(10, 5, 10, 6), nrow = 1))
   )
+  locked_out <- terra::rast(matrix(c(1, 0, NA, 0), nrow = 1))
   names(features) <- make.unique(names(features))
   budgets <- c(2.5, 5)
   # create problem
@@ -1269,6 +1270,7 @@ test_that("default budget-limited objective", {
     problem(pu, features) %>%
     add_min_shortfall_objective(budget = max(budgets)) %>%
     add_absolute_targets(c(2, 10)) %>%
+    add_locked_out_constraints(locked_out) %>%
     add_binary_decisions() %>%
     add_default_solver(gap = 0, verbose = FALSE)
   # create a solution
@@ -1278,6 +1280,70 @@ test_that("default budget-limited objective", {
   r2 <- eval_rank_importance(p, s, budgets = budgets)
   # create correct result
   r3 <- terra::rast(matrix(c(0, 1, NA, 0.5), nrow = 1))
+  # run tests
+  ## objects
+  expect_inherits(r1, "SpatRaster")
+  expect_inherits(r2, "SpatRaster")
+  expect_equal(terra::values(r1), terra::values(r3), ignore_attr = TRUE)
+  expect_equal(terra::values(r2), terra::values(r3), ignore_attr = TRUE)
+  ## attributes
+  expect_equal(attr(r1, "budgets"), budgets)
+  expect_equal(attr(r2, "budgets"), budgets)
+})
+
+test_that("default budget-limited objective (single zone)", {
+  skip_on_cran()
+  skip_if_no_fast_solvers_installed()
+  # create data
+  pu <- c(
+    terra::rast(matrix(c(10, 2, NA, 3), nrow = 1)),
+    terra::rast(matrix(c(200, 0.5, NA, 2), nrow = 1))
+  )
+  names(pu) <- c("1", "2")
+  features <- zones(
+    c(
+      terra::rast(matrix(c(1, 0, 0, 1), nrow = 1)),
+      terra::rast(matrix(c(10, 5, 10, 6), nrow = 1))
+    ),
+    c(
+      terra::rast(matrix(c(100, 90, 80, 112), nrow = 1)),
+      terra::rast(matrix(c(180, 125, 341, 46), nrow = 1))
+    )
+  )
+  locked_out <- c(
+    terra::rast(matrix(c(0, 0, NA, 0), nrow = 1)),
+    terra::rast(matrix(c(0, 1, NA, 1), nrow = 1))
+  )
+  budgets <- matrix(c(2.5, 5, 0, 0), ncol = 2)
+  # create problem
+  p <-
+    problem(pu, features) %>%
+    add_min_shortfall_objective(budget = max(budgets)) %>%
+    add_manual_targets(
+      tibble::tibble(
+        feature = c("1", "2"),
+        zone = list(c("1", "2"), c("1", "2")),
+        sense = c(">=", ">="),
+        type = c("absolute", "absolute"),
+        target = c(2, 10)
+      )
+    ) %>%
+    add_locked_out_constraints(locked_out) %>%
+    add_binary_decisions() %>%
+    add_default_solver(gap = 0, verbose = FALSE)
+  # create a solution
+  s <- c(
+    terra::rast(matrix(c(0, 1, NA, 1), nrow = 1)),
+    terra::rast(matrix(c(0, 0, NA, 0), nrow = 1))
+  )
+  # calculate ranks
+  r1 <- eval_rank_importance(p, s, n = 2)
+  r2 <- eval_rank_importance(p, s, budgets = budgets)
+  # create correct result
+  r3 <- c(
+    terra::rast(matrix(c(0, 1, NA, 0.5), nrow = 1)),
+    terra::rast(matrix(c(0, 0, NA, 0), nrow = 1))
+  )
   # run tests
   ## objects
   expect_inherits(r1, "SpatRaster")

@@ -1,3 +1,11 @@
+# prioritizr 8.0.6.5
+
+## Minor improvements and bug fixes
+
+- Fix bug in `eval_rank_importance()` that caused a superfluous warning to
+  be thrown when locked constraints (i.e, `add_locked_in_constraints()`,
+  `add_locked_out_constraints()`, or `add_manual_locked_constraints()`).
+
 # prioritizr 8.0.6.4
 
 ## Minor improvements and bug fixes
