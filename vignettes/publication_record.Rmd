@@ -18,16 +18,18 @@ This vignette contains a list of publications that have cited or used the _prior
 ### 2025
 
 * Binley AD, Hanson JO, Robinson OJ, Golet GH, and Bennett JR (2025) Quantifying the value of participatory science data for conservation decision‐making. _Journal of Applied Ecology_, **62**: 1024--1036.
+* Chapman M, Jung M, Leclère D, Boettiger C, Augustynczik ALD, Gusti M, Ringwald L, and Visconti P (2025) Meeting European Union biodiversity targets under future land-use demands. _Nature Ecology and Evolution_, **9**: 810--821.
 * Carroll KA, Pidgeon AM, Elsen P, Farwell L, and Radeloff VC (2025) Biodiversity metric selection and their applications for spatial conservation planning. _Diversity and Distributions_, **31**: e13952.
 * Frisk CA and Hanslin HM (2025) Optimizing plant species composition of green roofs for ecological functionality and biodiversity conservation. _Urban Ecosystems_, **28**: 12.
 * Matus-Olivares C, Carrasco J, Weintraub A, and Lisón F (2025) From virtue to sin: Is the installation of bat boxes an effective conservation measure or a potential pitfall for vulnerable bat species? _Journal for Nature Conservation_, **83**: 126775.
 * Li L, Tang Y, Dong H, Zhao L, and Liu C (2025). Planning conservation priority areas for marine mammals accounting for human impact, climate change and multidimensionality of biodiversity. _Journal of Environmental Management_, **381**: 125193.
-* Parsch C, Denelle P, Bless E, and Kreft H (2025) Diverging conservation priorities across New Guinea: Conflicts and opportunities. _Global Ecology and Conservation_, **In press**: e03549.
+* Parsch C, Denelle P, Bless E, and Kreft H (2025) Diverging conservation priorities across New Guinea: Conflicts and opportunities. _Global Ecology and Conservation_, **60**: e03549.
+* Wegscheider B, Rideout NK, Monk WA, Gray MA, Steeves R, and Baird DJ (2025) Modeling nature‐based restoration potential across aquatic-terrestrial boundaries. _Conservation Biology_, **In press**: e70046.
 
 ### 2024
 
 * Andrello M and Manel S (2024) Evaluating different approaches to integrate genome-wide genetic diversity in spatial conservation prioritization. _Biological Conservation_, **292**: 110533.
-* Berio Fortini L, Leopold CR, Amidon F, Leopold DR, Fretz JS, Jacobi JD, Mehrhoff L, Price JP, Duvall F, Keir M, Oppenheimer H, Weisenberger L, and Sutter R (2024) Advancing at‐risk species recovery planning in an era of rapid ecological change with a transparent, flexible, and expert‐engaged approach. _Conservation Biology_, **In press**: e14421.
+* Berio Fortini L, Leopold CR, Amidon F, Leopold DR, Fretz JS, Jacobi JD, Mehrhoff L, Price JP, Duvall F, Keir M, Oppenheimer H, Weisenberger L, and Sutter R (2024) Advancing at‐risk species recovery planning in an era of rapid ecological change with a transparent, flexible, and expert‐engaged approach. _Conservation Biology_, **39**: e14421.
 * d'Albertas F, Sparovek G, Pinto L-FG, Hohlenwerger C, and Metzger J-P (2024) Yield increases mediated by pollination and carbon payments can offset restoration costs in coffee landscapes. _One Earth_, **7**: 110--122.
 * Doxa A, Adam C, Nagkoulis N, Mazaris AD, Katsanevakis S (2025) prior3D: An R package for three-dimensional conservation prioritization. _Ecological Modelling_, **499**: 110919.
 * Du Z, Li L, Liang J, Kang B, Meng W, and Li H (2024) National scale biodiversity conservation priorities based on integrated multiple vulnerability features in China. _Ecological Indicators_, **160**: 111914.
