@@ -1405,6 +1405,40 @@ test_that("default budget-limited and explicit objectives give same result", {
   expect_equal(attr(r4, "budgets"), budgets)
 })
 
+test_that("proportion decisions", {
+  skip_on_cran()
+  skip_if_no_fast_solvers_installed()
+  # create data
+  pu <- terra::rast(matrix(c(10, 2, NA, 3, 1), nrow = 1))
+  features <- c(
+    terra::rast(matrix(c(1, 0, 0, 1, 0), nrow = 1)),
+    terra::rast(matrix(c(10, 5, 10, 6, 0), nrow = 1))
+  )
+  names(features) <- make.unique(names(features))
+  budgets <- c(3, 4)
+  # create problem
+  p <-
+    problem(pu, features) %>%
+    add_min_set_objective() %>%
+    add_absolute_targets(c(2, 10)) %>%
+    add_proportion_decisions() %>%
+    add_default_solver(gap = 0, verbose = FALSE)
+  # create a solution
+  s <- terra::rast(matrix(c(0, 0.05, NA, 1, 0), nrow = 1))
+  # calculate ranks
+  r1 <- eval_rank_importance(p, s, budgets = budgets)
+  # create correct result
+  r2 <- terra::rast(matrix(c(0, 0.025, NA, 1.0, 0), nrow = 1))
+  names(r2) <- "rs"
+  # run tests
+  ## objects
+  expect_inherits(r1, "SpatRaster")
+  expect_inherits(r2, "SpatRaster")
+  expect_equal(terra::values(r1), terra::values(r2, ignore_attr = TRUE))
+  ## attributes
+  expect_equal(attr(r1, "budgets"), budgets)
+})
+
 test_that("locked in constraints", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
