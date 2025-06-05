@@ -24,6 +24,7 @@ This vignette contains a list of publications that have cited or used the _prior
 * Matus-Olivares C, Carrasco J, Weintraub A, and Lisón F (2025) From virtue to sin: Is the installation of bat boxes an effective conservation measure or a potential pitfall for vulnerable bat species? _Journal for Nature Conservation_, **83**: 126775.
 * Li L, Tang Y, Dong H, Zhao L, and Liu C (2025). Planning conservation priority areas for marine mammals accounting for human impact, climate change and multidimensionality of biodiversity. _Journal of Environmental Management_, **381**: 125193.
 * Parsch C, Denelle P, Bless E, and Kreft H (2025) Diverging conservation priorities across New Guinea: Conflicts and opportunities. _Global Ecology and Conservation_, **60**: e03549.
+* Sacre E, Bergström U, and Berkström C (2025) Identifying priority areas for conservation to promote connectivity and mitigate the impacts of anthropogenic disturbance. _Conservation Biology_, **In press**: e70083.
 * Wegscheider B, Rideout NK, Monk WA, Gray MA, Steeves R, and Baird DJ (2025) Modeling nature‐based restoration potential across aquatic-terrestrial boundaries. _Conservation Biology_, **In press**: e70046.
 
 ### 2024
