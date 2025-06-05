@@ -7,7 +7,7 @@ initc:
 	R --slave -e "Rcpp::compileAttributes()"
 	R --slave -e "tools::package_native_routine_registration_skeleton('.', 'src/init.c', character_only = FALSE)"
 
-docs: man readme vigns site
+docs: man readme site vigns
 
 data:
 	Rscript --slave inst/scripts/builtin-data.R

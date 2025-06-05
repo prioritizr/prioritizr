@@ -881,18 +881,19 @@ internal_eval_rank_importance <- function(x,
   assert(identical(length(budget_idx), ncol(budgets)), .internal = TRUE)
   # calculate number of decision variables for planning units
   n_vars <- opt$number_of_planning_units() * opt$number_of_zones()
-  # extract planning unit indices
-  idx <- x$planning_unit_indices()
-  in_idx <- which(status > 1e-10)
-  out_idx <- which(status < 1e-10)
   # remove optimization problem, since information is now stored in x$solver
   rm(opt)
-  # lock out planning units not in the solution
+  # set bounds for planning units not selected by the solution
   if (length(out_idx) > 0) {
     x$solver$set_variable_lb(out_idx, rep.int(0, length(out_idx)))
     x$solver$set_variable_ub(out_idx, rep.int(0, length(out_idx)))
   }
-  rm(out_idx)
+  # set bounds for planning units selected by the solution
+  ## note we only set upper bounds to ensure that any locked in constraints
+  ## are still accounted for during optimization
+  if (length(in_idx) > 0) {
+    x$solver$set_variable_ub(in_idx, status[in_idx])
+  }
   # initialize objects for storing results
   sol_status <- matrix(NA_real_, nrow = nrow(budgets), ncol = length(in_idx))
   prev_sol <- c()
@@ -902,7 +903,6 @@ internal_eval_rank_importance <- function(x,
   status <- character(nrow(budgets))
   gap <- numeric(nrow(budgets))
   runtime <- numeric(nrow(budgets))
-  # debug
   # run incremental optimization procedure
   for (i in seq_len(nrow(budgets))) {
     ## update budgets

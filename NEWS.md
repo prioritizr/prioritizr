@@ -1,3 +1,10 @@
+# prioritizr 8.0.6.6
+
+- Fix bug in `eval_rank_importance()` that could lead to incorrect importance
+  values when considering proportion or semi-continous decision types
+  (i.e., `add_proportion_decisions()` or `add_semicontinuous_decisions()`).
+- Update publication record.
+
 # prioritizr 8.0.6.5
 
 ## Minor improvements and bug fixes
