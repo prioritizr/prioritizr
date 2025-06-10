@@ -98,7 +98,10 @@ The argument should contain a <code>".lp"</code> or <code>.mps"</code> file exte
 to specify whether the problem formulation will be saved in the
 <a href="https://docs.gurobi.com/current/#refman/lp_format.html" class="external-link">LP</a> or
 <a href="https://docs.gurobi.com/current/#refman/mps_format.html" class="external-link">MPS</a>
-format (respectively).</p></dd>
+format (respectively). If using the Gurobi solver
+(i.e., <code>solver = "gurobi"</code>), the problem can
+be saved in a compressed file format (e.g., <code>".mps.gx"</code>) to reduce
+file size (see <code>?gurobi::gurobi_write()</code> for details).</p></dd>
 
 
 <dt>solver</dt>
@@ -139,7 +142,7 @@ Defaults to <code>NULL</code>, such that the best available solver is used.</p><
 <span class="r-in"><span><span class="co"># specify file path to save problem formulation</span></span></span>
 <span class="r-in"><span><span class="va">path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"model.lp"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/RtmpFbDVTi/model.lp"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/RtmpdaxjHV/model.lp"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># save problem to file</span></span></span>
 <span class="r-in"><span><span class="co">## note that either the gurobi or Rsymphony package needs to be installed</span></span></span>

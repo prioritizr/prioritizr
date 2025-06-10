@@ -1,17 +1,42 @@
+# prioritizr 8.0.6.7
+
+- New `add_surrounded_penalties()` function that penalizes solutions that
+  contain many planning units that are not fully surrounded by selected
+  planning units. This penalty is designed to help promote spatial clustering
+  in solutions when working with large problems (#369).
+- New `add_boundary_constraints()` function that ensure a minimum level
+  of spatial clustering based on a threshold factor. This penalty is designed
+  to help promote spatial clustering in solutions when working with large
+  problems (#369).
+- Update `add_gurobi_solver()` function to support new `extra_args` parameter
+  that can be used to manually specify additional parameters for customizing the
+  optimization process (#354).
+- Update `write_problem()` function to support all the file formats supported by
+  the Gurobi solver (per `gurobi::gurobi_write`). Of particular note,
+  this means that problems can now be saved in compressed file file format
+  (e.g., `.mps.gz`).
+- Fix mistake in `add_gurobi_solver()` function documentation for the
+  `numeric_focus` parameter.
+- Fix bug in internal `repr.list()` function that displayed duplicate class
+  names.
+
 # prioritizr 8.0.6.6
 
-- Fix bug in `eval_rank_importance()` that could lead to incorrect importance
-  values when considering proportion or semi-continous decision types
-  (i.e., `add_proportion_decisions()` or `add_semicontinuous_decisions()`).
+
+- Fix bug in `eval_rank_importance()` function that could lead to incorrect
+  importance values when considering proportion or semi-continuous decision
+  types (i.e., problems with `add_proportion_decisions()` or
+  `add_semicontinuous_decisions()`).
 - Update publication record.
 
 # prioritizr 8.0.6.5
 
 ## Minor improvements and bug fixes
 
-- Fix bug in `eval_rank_importance()` that caused a superfluous warning to
-  be thrown when locked constraints (i.e, `add_locked_in_constraints()`,
-  `add_locked_out_constraints()`, or `add_manual_locked_constraints()`).
+- Fix bug in `eval_rank_importance()` function that caused a superfluous
+  warning to be thrown when locked constraints (i.e,
+  `add_locked_in_constraints()`, `add_locked_out_constraints()`, or
+  `add_manual_locked_constraints()`).
 
 # prioritizr 8.0.6.4
 

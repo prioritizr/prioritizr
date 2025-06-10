@@ -244,6 +244,7 @@ Other penalties:
 \code{\link{add_asym_connectivity_penalties}()},
 \code{\link{add_boundary_penalties}()},
 \code{\link{add_connectivity_penalties}()},
-\code{\link{add_feature_weights}()}
+\code{\link{add_feature_weights}()},
+\code{\link{add_surrounded_penalties}()}
 }
 \concept{penalties}

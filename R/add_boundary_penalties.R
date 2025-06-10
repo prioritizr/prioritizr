@@ -232,7 +232,7 @@ NULL
 #' # solve problems
 #' s2 <- list(solve(p5), solve(p6), solve(p7), solve(p8), solve(p9), solve(p10))
 #'
-#' #convert to category layers for visualization
+#' # convert to category layers for visualization
 #' s2 <- terra::rast(lapply(s2, category_layer))
 #' names(s2) <- c(
 #'   "basic solution", "within zone clumping (low)",

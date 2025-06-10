@@ -14,7 +14,8 @@ add_gurobi_solver(
   numeric_focus = FALSE,
   node_file_start = Inf,
   start_solution = NULL,
-  verbose = TRUE
+  verbose = TRUE,
+  extra_params = list()
 )
 }
 \arguments{
@@ -54,10 +55,11 @@ Defaults to \code{FALSE}.}
 
 \item{numeric_focus}{\code{logical} should extra attention be paid
 to verifying the accuracy of numerical calculations? This may be
-useful when dealing with problems that may suffer from numerical instability
-issues. Beware that it will likely substantially increase run time
+useful when dealing with problems that may suffer from numerical
+instability issues.
+Beware that it will likely substantially increase run time
 (sets the \emph{Gurobi} \code{NumericFocus} parameter
-to 3). Defaults to \code{FALSE}.}
+to 2). Defaults to \code{FALSE}.}
 
 \item{node_file_start}{\code{numeric} threshold amount of memory (in GB).
 Once the amount of memory (RAM) used to store information for solving
@@ -85,6 +87,13 @@ See the Start solution format section for more information.}
 
 \item{verbose}{\code{logical} should information be printed while solving
 optimization problems? Defaults to \code{TRUE}.}
+
+\item{extra_params}{\code{list} with additional parameters for tuning
+the optimization process.
+For example, \code{extra_params = list(Method = 2)} could be used to
+set Gurobi's Method parameter.
+See \href{https://docs.gurobi.com/projects/optimizer/en/current/reference/parameters.html}{Gurobi's online parameter reference documentation}
+for information on the parameters.}
 }
 \value{
 An updated \code{\link[=problem]{problem()}} object with the solver added to it.

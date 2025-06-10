@@ -102,7 +102,8 @@ It requires the <span class="pkg">gurobi</span> package to be installed
 <span>  numeric_focus <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  node_file_start <span class="op">=</span> <span class="cn">Inf</span>,</span>
 <span>  start_solution <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  extra_params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -157,10 +158,11 @@ Defaults to <code>FALSE</code>.</p></dd>
 <dt>numeric_focus</dt>
 <dd><p><code>logical</code> should extra attention be paid
 to verifying the accuracy of numerical calculations? This may be
-useful when dealing with problems that may suffer from numerical instability
-issues. Beware that it will likely substantially increase run time
+useful when dealing with problems that may suffer from numerical
+instability issues.
+Beware that it will likely substantially increase run time
 (sets the <em>Gurobi</em> <code>NumericFocus</code> parameter
-to 3). Defaults to <code>FALSE</code>.</p></dd>
+to 2). Defaults to <code>FALSE</code>.</p></dd>
 
 
 <dt>node_file_start</dt>
@@ -194,6 +196,15 @@ See the Start solution format section for more information.</p></dd>
 <dt>verbose</dt>
 <dd><p><code>logical</code> should information be printed while solving
 optimization problems? Defaults to <code>TRUE</code>.</p></dd>
+
+
+<dt>extra_params</dt>
+<dd><p><code>list</code> with additional parameters for tuning
+the optimization process.
+For example, <code>extra_params = list(Method = 2)</code> could be used to
+set Gurobi's Method parameter.
+See <a href="https://docs.gurobi.com/projects/optimizer/en/current/reference/parameters.html" class="external-link">Gurobi's online parameter reference documentation</a>
+for information on the parameters.</p></dd>
 
 </dl></div>
     <div class="section level2">

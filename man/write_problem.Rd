@@ -14,7 +14,10 @@ The argument should contain a \code{".lp"} or \verb{.mps"} file extension
 to specify whether the problem formulation will be saved in the
 \href{https://docs.gurobi.com/current/#refman/lp_format.html}{LP} or
 \href{https://docs.gurobi.com/current/#refman/mps_format.html}{MPS}
-format (respectively).}
+format (respectively). If using the Gurobi solver
+(i.e., \code{solver = "gurobi"}), the problem can
+be saved in a compressed file format (e.g., \code{".mps.gx"}) to reduce
+file size (see \code{?gurobi::gurobi_write()} for details).}
 
 \item{solver}{\code{character} name of optimization solver to write the problem
 to disk. Available options include: \code{"rsymphony" }, \code{"gurobi"}, or \code{NULL}.

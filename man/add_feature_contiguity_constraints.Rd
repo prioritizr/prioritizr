@@ -242,6 +242,7 @@ connectivity in conservation planning do not always maintain gene flow.
 See \link{constraints} for an overview of all functions for adding constraints.
 
 Other constraints: 
+\code{\link{add_boundary_constraints}()},
 \code{\link{add_contiguity_constraints}()},
 \code{\link{add_linear_constraints}()},
 \code{\link{add_locked_in_constraints}()},

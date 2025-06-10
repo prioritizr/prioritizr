@@ -46,10 +46,11 @@ NULL
 #'
 #' @param numeric_focus `logical` should extra attention be paid
 #'   to verifying the accuracy of numerical calculations? This may be
-#'   useful when dealing with problems that may suffer from numerical instability
-#'   issues. Beware that it will likely substantially increase run time
+#'   useful when dealing with problems that may suffer from numerical
+#'   instability issues.
+#'   Beware that it will likely substantially increase run time
 #'   (sets the *Gurobi* `NumericFocus` parameter
-#'   to 3). Defaults to `FALSE`.
+#'   to 2). Defaults to `FALSE`.
 #'
 #' @param node_file_start `numeric` threshold amount of memory (in GB).
 #'   Once the amount of memory (RAM) used to store information for solving
@@ -78,6 +79,13 @@ NULL
 #' @param verbose `logical` should information be printed while solving
 #'  optimization problems? Defaults to `TRUE`.
 #'
+#' @param extra_params `list` with additional parameters for tuning
+#'  the optimization process.
+#'  For example, `extra_params = list(Method = 2)` could be used to
+#'  set Gurobi's Method parameter.
+#'  See [Gurobi's online parameter reference documentation](https://docs.gurobi.com/projects/optimizer/en/current/reference/parameters.html)
+#'  for information on the parameters.
+#"
 #' @details
 #' [*Gurobi*](https://www.gurobi.com/) is a
 #' state-of-the-art commercial optimization software with an R package
@@ -167,7 +175,8 @@ NULL
 add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
                               presolve = 2, threads = 1, first_feasible = FALSE,
                               numeric_focus = FALSE, node_file_start = Inf,
-                              start_solution = NULL, verbose = TRUE) {
+                              start_solution = NULL, verbose = TRUE,
+                              extra_params = list()) {
   # assert that arguments are valid (except start_solution)
   assert_required(x)
   assert_required(gap)
@@ -179,6 +188,7 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
   assert_required(node_file_start)
   assert_required(start_solution)
   assert_required(verbose)
+  assert_required(extra_params)
   assert(
     is_conservation_problem(x),
     assertthat::is.number(gap),
@@ -198,9 +208,18 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
     assertthat::noNA(node_file_start),
     node_file_start >= 0,
     assertthat::is.flag(verbose),
+    is.list(extra_params),
     is_installed("slam"),
     is_installed("gurobi")
   )
+  # additional checks for extra_params
+  if (length(extra_params) > 0) {
+    assert(
+      !is.null(names(extra_params)),
+      all(nzchar(names(extra_params))),
+      msg = "all elements in {.arg extra_params} must have a name."
+    )
+  }
   # extract start solution
   if (!is.null(start_solution)) {
     start_solution <- planning_unit_solution_status(x, start_solution)
@@ -225,7 +244,8 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
           numeric_focus = numeric_focus,
           node_file_start = node_file_start,
           start_solution = start_solution,
-          verbose = verbose
+          verbose = verbose,
+          extra_params = extra_params
         ),
         calculate = function(x, ...) {
           # create problem
@@ -255,6 +275,11 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
             p$SolutionLimit <- NULL
           if (p$NodeFileStart < 0) {
             p$NodeFileStart <- NULL
+          }
+          # specify custom parameters
+          extra_params <- self$get_data("extra_params")
+          if (length(extra_params) > 0) {
+            p[names(extra_params)] <- extra_params
           }
           # add starting solution if specified
           start <- self$get_data("start_solution")

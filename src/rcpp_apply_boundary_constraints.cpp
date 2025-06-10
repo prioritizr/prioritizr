@@ -2,12 +2,12 @@
 #include "optimization_problem.h"
 
 // [[Rcpp::export]]
-bool rcpp_apply_boundary_penalties(SEXP x, double penalty,
-                                   const Rcpp::NumericVector edge_factor,
-                                   const Rcpp::NumericMatrix zones_matrix,
-                                   const arma::sp_mat boundary_matrix,
-                                   const Rcpp::NumericVector exposed_boundary,
-                                   const Rcpp::NumericVector total_boundary) {
+bool rcpp_apply_boundary_constraints(SEXP x, double threshold,
+                                     const Rcpp::NumericVector edge_factor,
+                                     const Rcpp::NumericMatrix zones_matrix,
+                                     const arma::sp_mat boundary_matrix,
+                                     const Rcpp::NumericVector exposed_boundary,
+                                     const Rcpp::NumericVector total_boundary) {
 
   /* The following code makes the following critical assumptions
    *
@@ -37,8 +37,9 @@ bool rcpp_apply_boundary_penalties(SEXP x, double penalty,
   Rcpp::XPtr<OPTIMIZATIONPROBLEM> ptr = Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x);
   std::size_t A_original_ncol = ptr->_obj.size();
   std::size_t A_original_nrow = ptr->_rhs.size();
+  std::size_t n_dv = ptr->_number_of_planning_units * ptr->_number_of_zones;
 
-  // penalty values that are added to the planning unit/zone allocation costs
+  // threshold values that are added to the planning unit/zone allocation costs
   std::vector<double> pu_zone_penalties(ptr->_number_of_planning_units *
                                         ptr->_number_of_zones, 0.0);
 
@@ -47,31 +48,14 @@ bool rcpp_apply_boundary_penalties(SEXP x, double penalty,
                                  ptr->_number_of_zones *
                                  ptr->_number_of_zones;
 
-  // rescale penalty, thus
-  // if the objective is to maximize benefit:
-  //   the total amount of boundary per planning unit/zone allocation is
-  //   substracted from the benefits and the shared boundaries between planning
-  //   unit/zone allocations have postive contributions to the objective
-  // otherwise, if the objective is to minimize costs:
-  //   the total amount of boundary per planning unit/zone allocation is
-  //   added to the costs and the shared boundaries between planning
-  //   unit/zone allocations have negative contributions to the objective
-  if (ptr->_modelsense == "max") {
-    penalty *= -1.0;
-  }
-
-  // declare and initialize values for penalty data
-  std::vector<std::size_t> pu_i;
-  pu_i.reserve(n_non_zero);
-  std::vector<std::size_t> pu_j;
-  pu_j.reserve(n_non_zero);
-  std::vector<double> pu_b;
-  pu_b.reserve(n_non_zero);
+  // declare and initialize values for data
   std::size_t curr_i, curr_j, curr_col1, curr_col2;
   double curr_value;
   arma::sp_mat curr_matrix;
+  boost::unordered_multimap<std::size_t, std::pair<std::size_t, double>> pu_boundary;
+  pu_boundary.reserve(n_non_zero * 2);
 
-  // extract penalty data from matrices
+  // extract data from matrices
   for (std::size_t z1 = 0; z1 < ptr->_number_of_zones; ++z1) {
     for (std::size_t z2 = z1; z2 < ptr->_number_of_zones; ++z2) {
 
@@ -79,7 +63,7 @@ bool rcpp_apply_boundary_penalties(SEXP x, double penalty,
       if (z1 == z2) {
         for (std::size_t i = 0; i < ptr->_number_of_planning_units; ++i) {
           curr_col1 = (z1 * ptr->_number_of_planning_units) + i;
-          pu_zone_penalties[curr_col1] += penalty * zones_matrix(z1, z2) * (
+          pu_zone_penalties[curr_col1] += zones_matrix(z1, z2) * (
             (total_boundary[i] - exposed_boundary[i]) +
             (exposed_boundary[i] * edge_factor[z1])
           );
@@ -90,7 +74,6 @@ bool rcpp_apply_boundary_penalties(SEXP x, double penalty,
       // in the zone matrix
       curr_matrix = boundary_matrix;
       curr_matrix *= zones_matrix(z1, z2);
-      curr_matrix *= penalty;
 
       // extract elements
       for (arma::sp_mat::const_iterator it = curr_matrix.begin();
@@ -111,9 +94,15 @@ bool rcpp_apply_boundary_penalties(SEXP x, double penalty,
             /// add pj_z1 boundary
             curr_col2 = (z1 * ptr->_number_of_planning_units) + curr_j;
             /// store variable representing pi_z1_pj_z1
-            pu_i.push_back(curr_col1);
-            pu_j.push_back(curr_col2);
-            pu_b.push_back(curr_value * -2.0);
+            pu_boundary.insert({
+              curr_col1,
+              std::pair<std::size_t, double>(curr_col2, curr_value)
+            });
+            /// store variable representing pj_z1_pi_z1
+            pu_boundary.insert({
+              curr_col2,
+              std::pair<std::size_t, double>(curr_col1, curr_value)
+            });
           } else {
             // amount of shared boundary between two different planning units
             // in two different zones
@@ -122,96 +111,123 @@ bool rcpp_apply_boundary_penalties(SEXP x, double penalty,
             /// pj_z2 boundary
             curr_col2 = (z2 * ptr->_number_of_planning_units) + curr_j;
             // store variable representing pi_z1_pj_z2
-            pu_i.push_back(curr_col1);
-            pu_j.push_back(curr_col2);
-            pu_b.push_back(curr_value * -2.0);
+            pu_boundary.insert({
+              curr_col1,
+              std::pair<std::size_t, double>(curr_col2, curr_value)
+            });
             // pi_z2 boundary
             curr_col1 = (z2 * ptr->_number_of_planning_units) + curr_i;
             // pj_z1 boundary
             curr_col2 = (z1 * ptr->_number_of_planning_units) + curr_j;
             // store variable representing pi_z2_pj_z1
-            pu_i.push_back(curr_col1);
-            pu_j.push_back(curr_col2);
-            pu_b.push_back(curr_value * -2.0);
+            pu_boundary.insert({
+              curr_col1,
+              std::pair<std::size_t, double>(curr_col2, curr_value)
+            });
           }
         }
       }
     }
   }
 
-  // add (or substract depending on previous scaling) the penalties for each
-  // planning unit/zone allocation to the costs
-  for (std::size_t i = 0;
-       i < (ptr->_number_of_zones * ptr->_number_of_planning_units); ++i)
-    ptr->_obj[i] += pu_zone_penalties[i];
+  // calculate rescaling factor
+  double max_threshold_boundary = *std::max_element(
+    pu_zone_penalties.begin(), pu_zone_penalties.end()
+  );
 
-  // add shared boundaries between planning unit/zone allocations to the
-  // objective function
-  for (auto i = pu_b.cbegin(); i != pu_b.cend(); ++i)
-    ptr->_obj.push_back(*i);
+  // rescale penalties
+  if (max_threshold_boundary > 10000.0) {
+    for (std::size_t i = 0; i < n_dv; ++i)
+      pu_zone_penalties[i] =
+        10000.0 * (pu_zone_penalties[i] / max_threshold_boundary);
+    for (auto itr = pu_boundary.begin(); itr != pu_boundary.end(); ++itr) {
+      itr->second.second =
+        10000.0 * (itr->second.second / max_threshold_boundary);
+    }
+  }
+
+  // add obj for new decision variables
+  for (std::size_t i = 0; i < n_dv; ++i)
+    ptr->_obj.push_back(0.0);
 
   // add lb for new decision variables
-  for (auto i = pu_i.cbegin(); i != pu_i.cend(); ++i)
+  for (std::size_t i = 0; i < n_dv; ++i)
     ptr->_lb.push_back(0.0);
 
   // add ub for new decision variables
-  for (auto i = pu_i.cbegin(); i != pu_i.cend(); ++i)
+  for (std::size_t i = 0; i < n_dv; ++i)
     ptr->_ub.push_back(1.0);
 
   // add vtype for new decision variables
-  for (auto i = pu_i.cbegin(); i != pu_i.cend(); ++i)
-    ptr->_vtype.push_back(ptr->_vtype[0]);
+  for (std::size_t i = 0; i < n_dv; ++i)
+    ptr->_vtype.push_back("C");
 
   // add col ids for new decision variables
-  for (auto i = pu_i.cbegin(); i != pu_i.cend(); ++i)
-    ptr->_col_ids.push_back("b");
+  for (std::size_t i = 0; i < n_dv; ++i)
+    ptr->_col_ids.push_back("bc");
 
-  // add AND constraints for boundary penalty variables
+  // add constraints for alternative boundary threshold variables
   std::size_t A_row = (A_original_nrow - 1);
-  for (std::size_t i = 0; i < (pu_i.size()); ++i) {
-    // increment row
+  auto it = pu_boundary.equal_range(0);
+  for (std::size_t i = 0; i < n_dv; ++i) {
+
+    // increment counter
     ++A_row;
-    // pu_i_zone_a_pu_j_zone_b <= pu_i_zone_a
+
+    // add constraint to ensure that boundary variable for pu_i_zone_a
+    // is <= pu_i_zone_a
     ptr->_A_i.push_back(A_row);
     ptr->_A_i.push_back(A_row);
+    ptr->_A_j.push_back(i);
     ptr->_A_j.push_back(A_original_ncol + i);
-    ptr->_A_j.push_back(pu_i[i]);
-    ptr->_A_x.push_back(1.0);
     ptr->_A_x.push_back(-1.0);
+    ptr->_A_x.push_back(1.0);
     ptr->_sense.push_back("<=");
     ptr->_rhs.push_back(0.0);
-    ptr->_row_ids.push_back("b1");
+    ptr->_row_ids.push_back("bc1");
 
-    // pu_i_zone_a_pu_j_zone_b <= pu_j_zone_b
+    // increment counter
     ++A_row;
-    ptr->_A_i.push_back(A_row);
+
+    // add constraint to ensure that the boundary variable for
+    // pu_i_zone_a is <= the proportion of the edges that have a neighbor
+    // initalize constraint
     ptr->_A_i.push_back(A_row);
     ptr->_A_j.push_back(A_original_ncol + i);
-    ptr->_A_j.push_back(pu_j[i]);
-    ptr->_A_x.push_back(1.0);
-    ptr->_A_x.push_back(-1.0);
-    ptr->_sense.push_back("<=");
-    ptr->_rhs.push_back(0.0);
-    ptr->_row_ids.push_back("b2");
+    ptr->_A_x.push_back(pu_zone_penalties[i]);
 
-    // pu_i_zone_a_pu_j_zone_b - pu_i_zone_a - pu_j_zone_b >= -1
-    if ((pu_b[i] > 0 && (ptr->_modelsense == "min")) ||
-        (pu_b[i] < 0 && (ptr->_modelsense == "max"))) {
-      ++A_row;
+    // find all edges for pu_i_zone_a
+    it = pu_boundary.equal_range(i);
+    for (auto itr2 = it.first; itr2 != it.second; ++itr2) {
       ptr->_A_i.push_back(A_row);
-      ptr->_A_i.push_back(A_row);
-      ptr->_A_i.push_back(A_row);
-      ptr->_A_j.push_back(A_original_ncol + i);
-      ptr->_A_j.push_back(pu_i[i]);
-      ptr->_A_j.push_back(pu_j[i]);
-      ptr->_A_x.push_back(1.0);
-      ptr->_A_x.push_back(-1.0);
-      ptr->_A_x.push_back(-1.0);
-      ptr->_sense.push_back(">=");
-      ptr->_rhs.push_back(-1.0);
-      ptr->_row_ids.push_back("b3");
+      ptr->_A_j.push_back(itr2->second.first);
+      ptr->_A_x.push_back(-itr2->second.second);
     }
+
+    // add remaining constraint information
+    ptr->_sense.push_back("<=");
+    ptr->_rhs.push_back(0.0);
+    ptr->_row_ids.push_back("bc2");
+
   }
+
+  // add constraint to ensure that the sum of the boundary variables
+  // minus is less than the particular threshold
+
+  // increment counter
+  ++A_row;
+
+  for (std::size_t i = 0; i < n_dv; ++i) {
+    ptr->_A_i.push_back(A_row);
+    ptr->_A_i.push_back(A_row);
+    ptr->_A_j.push_back(i);
+    ptr->_A_j.push_back(A_original_ncol + i);
+    ptr->_A_x.push_back(-threshold * pu_zone_penalties[i]);
+    ptr->_A_x.push_back(pu_zone_penalties[i]);
+  }
+  ptr->_sense.push_back(">=");
+  ptr->_rhs.push_back(0.0);
+  ptr->_row_ids.push_back("bc3");
 
   // return success
   return true;
