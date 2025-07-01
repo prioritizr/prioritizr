@@ -211,7 +211,6 @@ conservation. \emph{European Journal of Operational Research}, 231:
 }
 \seealso{
 Other constraints: 
-\code{\link{add_boundary_constraints}()},
 \code{\link{add_contiguity_constraints}()},
 \code{\link{add_feature_contiguity_constraints}()},
 \code{\link{add_linear_constraints}()},

@@ -109,11 +109,13 @@ conservation problem to favor solutions that have
 planning units clumped together into contiguous areas.</p></dd>
 
 
-<dt><code><a href="add_surrounded_penalties.html">add_surrounded_penalties()</a></code></dt>
+<dt><code><a href="add_neighbor_penalties.html">add_neighbor_penalties()</a></code></dt>
 <dd><p>Add penalties to a
 conservation problem to favor solutions that have
-a large number of planning units that are fully enclosed by
-other planning units.</p></dd>
+a large number of planning units sited next to each other.
+This constraints may be especially useful for
+reducing spatial fragmentation in large-scale planning problems or
+when using open source solvers.</p></dd>
 
 
 <dt><code><a href="add_asym_connectivity_penalties.html">add_asym_connectivity_penalties()</a></code></dt>
@@ -166,8 +168,8 @@ planning units based on a certain variable
 <span class="r-in"><span><span class="co"># create problem with boundary penalties</span></span></span>
 <span class="r-in"><span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">p1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="add_boundary_penalties.html">add_boundary_penalties</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># create problem with surrounded penalties</span></span></span>
-<span class="r-in"><span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="va">p1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="add_surrounded_penalties.html">add_surrounded_penalties</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># create problem with neighbor penalties</span></span></span>
+<span class="r-in"><span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="va">p1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="add_neighbor_penalties.html">add_neighbor_penalties</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create connectivity matrix based on spatial proximity</span></span></span>
 <span class="r-in"><span><span class="va">scm</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, xy <span class="op">=</span> <span class="cn">TRUE</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
@@ -201,9 +203,11 @@ planning units based on a certain variable
 <span class="r-in"><span><span class="va">p6</span> <span class="op">&lt;-</span> <span class="va">p1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="add_linear_penalties.html">add_linear_penalties</a></span><span class="op">(</span><span class="fl">100</span>, data <span class="op">=</span> <span class="va">sim_penalty_raster</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># solve problems</span></span></span>
-<span class="r-in"><span><span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p4</span><span class="op">)</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p5</span><span class="op">)</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p6</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p4</span><span class="op">)</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p5</span><span class="op">)</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p6</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">s</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="st">"basic solution"</span>, <span class="st">"boundary penalties"</span>, <span class="st">"surrounded penalties"</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"basic solution"</span>, <span class="st">"boundary penalties"</span>, <span class="st">"neighbor penalties"</span>,</span></span>
 <span class="r-in"><span>  <span class="st">"connectivity penalties"</span>, <span class="st">"asymmetric penalties"</span>, <span class="st">"linear penalties"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>

@@ -72,18 +72,37 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="8.0.6.7" id="prioritizr-8067">prioritizr 8.0.6.7<a class="anchor" aria-label="anchor" href="#prioritizr-8067"></a></h2>
-<ul><li>New <code><a href="../reference/add_surrounded_penalties.html">add_surrounded_penalties()</a></code> function that penalizes solutions that contain many planning units that are not fully surrounded by selected planning units. This penalty is designed to help promote spatial clustering in solutions when working with large problems (<a href="https://github.com/prioritizr/prioritizr/issues/369" class="external-link">#369</a>).</li>
-<li>New <code><a href="../reference/add_boundary_constraints.html">add_boundary_constraints()</a></code> function that ensure a minimum level of spatial clustering based on a threshold factor. This penalty is designed to help promote spatial clustering in solutions when working with large problems (<a href="https://github.com/prioritizr/prioritizr/issues/369" class="external-link">#369</a>).</li>
-<li>Update <code><a href="../reference/add_gurobi_solver.html">add_gurobi_solver()</a></code> function to support new <code>extra_args</code> parameter that can be used to manually specify additional parameters for customizing the optimization process (<a href="https://github.com/prioritizr/prioritizr/issues/354" class="external-link">#354</a>).</li>
-<li>Update <code><a href="../reference/write_problem.html">write_problem()</a></code> function to support all the file formats supported by the Gurobi solver (per <code><a href="https://rdrr.io/pkg/gurobi/man/gurobi_write.html" class="external-link">gurobi::gurobi_write</a></code>). Of particular note, this means that problems can now be saved in compressed file file format (e.g., <code>.mps.gz</code>).</li>
-<li>Fix mistake in <code><a href="../reference/add_gurobi_solver.html">add_gurobi_solver()</a></code> function documentation for the <code>numeric_focus</code> parameter.</li>
-<li>Fix bug in internal <code>repr.list()</code> function that displayed duplicate class names.</li>
+<div class="section level3">
+<h3 id="new-features-8-0-6-7">New features<a class="anchor" aria-label="anchor" href="#new-features-8-0-6-7"></a></h3>
+<ul><li>New <code><a href="../reference/add_neighbor_penalties.html">add_neighbor_penalties()</a></code> function to reduce spatial fragmentation. This function is especially useful when working with large-scale problems or open source solvers.</li>
+<li>Update <code><a href="../reference/add_cbc_solver.html">add_cbc_solver()</a></code>, <code><a href="../reference/add_gurobi_solver.html">add_gurobi_solver()</a></code>, and <code><a href="../reference/add_highs_solver.html">add_highs_solver()</a></code>, functions with a new <code>control</code> parameter that can be used to manually specify additional parameters for customizing the optimization process (<a href="https://github.com/prioritizr/prioritizr/issues/354" class="external-link">#354</a>).</li>
 </ul></div>
+<div class="section level3">
+<h3 id="minor-improvements-and-bug-fixes-8-0-6-7">Minor improvements and bug fixes<a class="anchor" aria-label="anchor" href="#minor-improvements-and-bug-fixes-8-0-6-7"></a></h3>
+<ul><li>Update problem formulation for <code><a href="../reference/add_connectivity_penalties.html">add_connectivity_penalties()</a></code>, <code><a href="../reference/add_asym_connectivity_penalties.html">add_asym_connectivity_penalties()</a></code>, and <code><a href="../reference/add_boundary_penalties.html">add_boundary_penalties()</a></code> to slightly improve solve times. In particular, instead of using binary variables to model the product of the planning unit decision variables, continuous variables are now used. The documentation for these functions has also been updated to mention this information. Thanks to Bistra Dilkina for the suggestion.</li>
+<li>Update <code><a href="../reference/add_neighbor_constraints.html">add_neighbor_constraints()</a></code> function so that setting <code>clamp = TRUE</code> is more likely to resolve infeasibility issues. In particular, setting <code>clamp = TRUE</code> will (i) limit the minimum number of neighbors for a given planning unit based on the locked out constraints of neighboring planning units and (ii) not apply this constraint to any locked in or locked out planning units.</li>
+<li>Update <code><a href="../reference/write_problem.html">write_problem()</a></code> function to support all the file formats supported by the Gurobi solver (per <code><a href="https://rdrr.io/pkg/gurobi/man/gurobi_write.html" class="external-link">gurobi::gurobi_write()</a></code>). Of particular note, this means that problems can now be saved in compressed file file format (e.g., <code>.mps.gz</code>).</li>
+<li>Update the <code><a href="../reference/add_cbc_solver.html">add_cbc_solver()</a></code> function so that the <code>presolve</code> parameter can be used to specify the intensity of the presolve process. Similar to <code><a href="../reference/add_gurobi_solver.html">add_gurobi_solver()</a></code>, the <code>presolve</code> parameter is now specified as an integer value. The default value is now 2, which specifies the most intensive level of presolve. For backwards compatibility, a value of <code>TRUE</code> is treated as a value of 1.</li>
+<li>Fix bug in internal <code>repr.list()</code> function that displayed duplicate class names.</li>
+<li>Fix bug in <code><a href="../reference/adjacency_matrix.html">adjacency_matrix()</a></code>, <code><a href="../reference/compile.html">compile()</a></code>, and <code><a href="../reference/zone_names.html">zone_names()</a></code> functions that caused an unhelpful error message when calling the function without any arguments.</li>
+<li>Update unit tests for <code><a href="../reference/add_boundary_penalties.html">add_boundary_penalties()</a></code>, <code><a href="../reference/add_connectivity_penalties.html">add_connectivity_penalties()</a></code>, and <code><a href="../reference/add_asym_connectivity_penalties.html">add_asym_connectivity_penalties()</a></code> to reduce run time.</li>
+<li>Fix bug in unit tests for <code><a href="../reference/add_asym_connectivity_penalties.html">add_asym_connectivity_penalties()</a></code>.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="documentation-updates-8-0-6-7">Documentation updates<a class="anchor" aria-label="anchor" href="#documentation-updates-8-0-6-7"></a></h3>
+<ul><li>Fix mistake in <code><a href="../reference/add_gurobi_solver.html">add_gurobi_solver()</a></code> function documentation for the <code>numeric_focus</code> parameter.</li>
+<li>Fix typo in equation for <code><a href="../reference/add_max_utility_objective.html">add_max_utility_objective()</a></code> (<a href="https://github.com/prioritizr/prioritizr/issues/373" class="external-link">#373</a>). Thanks to Anthony Richardson (<a href="https://github.com/ric325" class="external-link">@ric325</a>) for bug report.</li>
+<li>Update publication record.</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="8.0.6.6" id="prioritizr-8066">prioritizr 8.0.6.6<a class="anchor" aria-label="anchor" href="#prioritizr-8066"></a></h2>
+<div class="section level3">
+<h3 id="minor-improvements-and-bug-fixes-8-0-6-6">Minor improvements and bug fixes<a class="anchor" aria-label="anchor" href="#minor-improvements-and-bug-fixes-8-0-6-6"></a></h3>
 <ul><li>Fix bug in <code><a href="../reference/eval_rank_importance.html">eval_rank_importance()</a></code> function that could lead to incorrect importance values when considering proportion or semi-continuous decision types (i.e., problems with <code><a href="../reference/add_proportion_decisions.html">add_proportion_decisions()</a></code> or <code><a href="../reference/add_semicontinuous_decisions.html">add_semicontinuous_decisions()</a></code>).</li>
 <li>Update publication record.</li>
 </ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="8.0.6.5" id="prioritizr-8065">prioritizr 8.0.6.5<a class="anchor" aria-label="anchor" href="#prioritizr-8065"></a></h2>
 <div class="section level3">
@@ -247,7 +266,7 @@
 <h2 class="pkg-version" data-toc-text="8.0.4.1" id="prioritizr-8041">prioritizr 8.0.4.1<a class="anchor" aria-label="anchor" href="#prioritizr-8041"></a></h2>
 <div class="section level3">
 <h3 id="minor-improvements-and-bug-fixes-8-0-4-1">Minor improvements and bug fixes<a class="anchor" aria-label="anchor" href="#minor-improvements-and-bug-fixes-8-0-4-1"></a></h3>
-<ul><li>Fix issue with <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> and <code>summarize()</code> not displaying correct text for linear constraints (<a href="https://github.com/prioritizr/prioritizr/issues/330" class="external-link">#330</a>).</li>
+<ul><li>Fix issue with <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize()</a></code> not displaying correct text for linear constraints (<a href="https://github.com/prioritizr/prioritizr/issues/330" class="external-link">#330</a>).</li>
 </ul></div>
 </div>
     <div class="section level2">

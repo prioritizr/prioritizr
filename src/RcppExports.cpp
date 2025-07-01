@@ -322,23 +322,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// rcpp_apply_boundary_constraints
-bool rcpp_apply_boundary_constraints(SEXP x, double threshold, const Rcpp::NumericVector edge_factor, const Rcpp::NumericMatrix zones_matrix, const arma::sp_mat boundary_matrix, const Rcpp::NumericVector exposed_boundary, const Rcpp::NumericVector total_boundary);
-RcppExport SEXP _prioritizr_rcpp_apply_boundary_constraints(SEXP xSEXP, SEXP thresholdSEXP, SEXP edge_factorSEXP, SEXP zones_matrixSEXP, SEXP boundary_matrixSEXP, SEXP exposed_boundarySEXP, SEXP total_boundarySEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    Rcpp::traits::input_parameter< double >::type threshold(thresholdSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::NumericVector >::type edge_factor(edge_factorSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix >::type zones_matrix(zones_matrixSEXP);
-    Rcpp::traits::input_parameter< const arma::sp_mat >::type boundary_matrix(boundary_matrixSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::NumericVector >::type exposed_boundary(exposed_boundarySEXP);
-    Rcpp::traits::input_parameter< const Rcpp::NumericVector >::type total_boundary(total_boundarySEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_apply_boundary_constraints(x, threshold, edge_factor, zones_matrix, boundary_matrix, exposed_boundary, total_boundary));
-    return rcpp_result_gen;
-END_RCPP
-}
 // rcpp_apply_boundary_penalties
 bool rcpp_apply_boundary_penalties(SEXP x, double penalty, const Rcpp::NumericVector edge_factor, const Rcpp::NumericMatrix zones_matrix, const arma::sp_mat boundary_matrix, const Rcpp::NumericVector exposed_boundary, const Rcpp::NumericVector total_boundary);
 RcppExport SEXP _prioritizr_rcpp_apply_boundary_penalties(SEXP xSEXP, SEXP penaltySEXP, SEXP edge_factorSEXP, SEXP zones_matrixSEXP, SEXP boundary_matrixSEXP, SEXP exposed_boundarySEXP, SEXP total_boundarySEXP) {
@@ -577,29 +560,17 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_apply_neighbor_constraints
-bool rcpp_apply_neighbor_constraints(SEXP x, const Rcpp::List connected_data, const Rcpp::NumericMatrix k);
-RcppExport SEXP _prioritizr_rcpp_apply_neighbor_constraints(SEXP xSEXP, SEXP connected_dataSEXP, SEXP kSEXP) {
+bool rcpp_apply_neighbor_constraints(SEXP x, const Rcpp::List connected_data, bool clamp, std::vector<std::size_t> k, std::size_t max_n);
+RcppExport SEXP _prioritizr_rcpp_apply_neighbor_constraints(SEXP xSEXP, SEXP connected_dataSEXP, SEXP clampSEXP, SEXP kSEXP, SEXP max_nSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
     Rcpp::traits::input_parameter< const Rcpp::List >::type connected_data(connected_dataSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix >::type k(kSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_apply_neighbor_constraints(x, connected_data, k));
-    return rcpp_result_gen;
-END_RCPP
-}
-// rcpp_apply_surrounded_penalties
-bool rcpp_apply_surrounded_penalties(SEXP x, double penalty, const Rcpp::NumericMatrix zones_matrix, const arma::sp_mat data);
-RcppExport SEXP _prioritizr_rcpp_apply_surrounded_penalties(SEXP xSEXP, SEXP penaltySEXP, SEXP zones_matrixSEXP, SEXP dataSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    Rcpp::traits::input_parameter< double >::type penalty(penaltySEXP);
-    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix >::type zones_matrix(zones_matrixSEXP);
-    Rcpp::traits::input_parameter< const arma::sp_mat >::type data(dataSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_apply_surrounded_penalties(x, penalty, zones_matrix, data));
+    Rcpp::traits::input_parameter< bool >::type clamp(clampSEXP);
+    Rcpp::traits::input_parameter< std::vector<std::size_t> >::type k(kSEXP);
+    Rcpp::traits::input_parameter< std::size_t >::type max_n(max_nSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_neighbor_constraints(x, connected_data, clamp, k, max_n));
     return rcpp_result_gen;
 END_RCPP
 }

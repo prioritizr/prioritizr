@@ -31,13 +31,15 @@ NULL
 #' print(zone_names(p))
 #' }
 #' @export
-zone_names <- function(x, ...) UseMethod("zone_names")
+zone_names <- function(x, ...) {
+  assert_required(x)
+  UseMethod("zone_names")
+}
 
 #' @rdname zone_names
 #'
 #' @export
 zone_names.ConservationProblem <- function(x, ...) {
-  assert_required(x)
   rlang::check_dots_empty()
   x$zone_names()
 }

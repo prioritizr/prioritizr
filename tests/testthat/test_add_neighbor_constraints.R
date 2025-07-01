@@ -125,6 +125,29 @@ test_that("solve (sf, single zone)", {
   expect_equal(s1$solution_1, s2$solution_1)
 })
 
+test_that("clamp yields feasible results (single zone)", {
+  skip_on_cran()
+  # import data
+  pu_data <- terra::rast(matrix(c(1, 1, 1, 1, 1, 1), nrow = 2))
+  locked_out <- terra::rast(matrix(c(1, 0, 1, 0, 1, 0), nrow = 2))
+  ft_data <- terra::rast(matrix(c(0, 1, 0, 0, 0, 1), nrow = 2))
+  # create problem
+  p0 <-
+    problem(pu_data, ft_data) %>%
+    add_min_set_objective() %>%
+    add_absolute_targets(2) %>%
+    add_locked_out_constraints(locked_out) %>%
+    add_binary_decisions() %>%
+    add_default_solver(verbose = FALSE)
+  p1 <- add_neighbor_constraints(p0, 2, clamp = TRUE)
+  p2 <- add_neighbor_constraints(p0, 2, clamp = FALSE)
+  # solve problem
+  s <- solve(p1, force = TRUE, run_checks = FALSE)
+  # tests
+  expect_equal(c(as.matrix(s)), c(0, 0, 0, 1, 1, 1))
+  expect_error(solve(p2, force = TRUE, run_checks = FALSE), "impossible")
+})
+
 test_that("invalid input (single zone)", {
   # import data
   sim_pu_polygons <- get_sim_pu_polygons()
@@ -253,7 +276,7 @@ test_that("compile (SpatRaster, clamp = TRUE, multiple zones)", {
   expect_true(all(o$A()[neighbor_rows, ] == correct_matrix))
 })
 
-test_that("compile (manually specified data, clamp = FALSE, multiple zones)", {
+test_that("clamp with locked out constraints is feasible (single zone)", {
   # import data
   sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
   sim_zones_features <- get_sim_zones_features()
@@ -359,6 +382,60 @@ test_that("solve (sf, clamp = FALSE, multiple zones)", {
     )
     expect_true(all(n_neighbors >= k[z]))
   }
+})
+
+test_that("clamp with locked out constraints is feasible (multiple zone)", {
+  skip_on_cran()
+  # import data
+  pu_data <- c(
+    terra::rast(matrix(c(1, 1, 1, 1, 1, 1), nrow = 2)),
+    terra::rast(matrix(c(1, 1, 1, 1, 1, 2), nrow = 2))
+  )
+  names(pu_data) <- c("zone1", "zone2")
+  locked_out <- c(
+    terra::rast(matrix(c(1, 0, 1, 1, 1, 0), nrow = 2)),
+    terra::rast(matrix(c(1, 1, 1, 0, 1, 0), nrow = 2))
+  )
+  ft_data <- zones(
+    zone1 = terra::rast(matrix(c(0, 1, 0, 0, 0, 1), nrow = 2)),
+    zone2 = terra::rast(matrix(c(0, 1, 0, 0, 0, 1), nrow = 2)),
+    feature_names = "f1",
+    zone_names = c("zone1", "zone2")
+  )
+  z1 <- matrix(1, nrow = 2, ncol = 2)
+  z2 <- diag(2)
+  # create problem
+  p0 <-
+    problem(pu_data, ft_data) %>%
+    add_min_set_objective() %>%
+    add_manual_targets(
+      tibble::tibble(
+        feature = "f1",
+        zone = list(c("zone1", "zone2")),
+        type = "absolute",
+        target = 2,
+        sense = ">="
+      )
+    ) %>%
+    add_locked_out_constraints(locked_out) %>%
+    add_binary_decisions() %>%
+    add_default_solver(gap = 0, verbose = FALSE)
+  p1 <- add_neighbor_constraints(p0, c(2, 2), clamp = TRUE, zones = z1)
+  p2 <- add_neighbor_constraints(p0, c(2, 2), clamp = TRUE, zones = z2)
+  p3 <- add_neighbor_constraints(p0, c(2, 2), clamp = FALSE, zones = z1)
+  # solve problem
+  s1 <- solve(p1, force = TRUE, run_checks = FALSE)
+  s2 <- solve(p2, force = TRUE, run_checks = FALSE)
+  # tests
+  expect_equal(
+    c(as.matrix(s1)),
+    c(0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0)
+  )
+  expect_equal(
+    c(as.matrix(s2)),
+    c(0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0)
+  )
+  expect_error(solve(p3, force = TRUE, run_checks = FALSE), "impossible")
 })
 
 test_that("invalid input (multiple zones)", {

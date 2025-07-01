@@ -497,7 +497,7 @@ test_that("set_variable_ub", {
   )
 })
 
-test_that("extra_params", {
+test_that("control", {
   skip_on_cran()
   skip_if_not_installed("gurobi")
   # load data
@@ -511,7 +511,7 @@ test_that("extra_params", {
     add_binary_decisions() %>%
     add_gurobi_solver(
       time_limit = 5, verbose = FALSE,
-      extra_params = list(Method = 2, Cuts = 0)
+      control = list(Method = 2, Cuts = 0)
   )
   # solve problems
   s1 <- solve(p1)

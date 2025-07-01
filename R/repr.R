@@ -209,7 +209,7 @@ repr_data_list <- function(name, data, compact = TRUE) {
     "data", "zones",
     ## solver
     "presolve", "threads", "numeric_focus", "node_file_start",
-    "start_solution", "verbose", "extra_params",
+    "start_solution", "verbose", "control",
     ## portfolio
     "remove_duplicates", "threads"
   )

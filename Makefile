@@ -135,4 +135,7 @@ examples_cran:
 	R --slave -e "devtools::run_examples();warnings()" > examples.log 2>&1
 	rm -f Rplots.pdf
 
-.PHONY: initc clean data docs readme contrib site test check checkwb build install man spellcheck examples purl_vigns check_vigns urlcheck
+search_errors:
+	@grep "Error:" --exclude-dir=".git" --exclude-dir="docs" --exclude-dir="src" --exclude-dir="*snaps" --exclude-dir="R" -RnF
+
+.PHONY: initc clean data docs readme contrib site test check checkwb build install man spellcheck examples purl_vigns check_vigns urlcheck search_errors

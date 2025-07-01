@@ -212,7 +212,10 @@ calculated as:</p>
 (p \times X_{iz} \times X_{jy} \times D_{ijzy})$$</p>
 <p>Note that when the problem objective is to maximize some measure of
 benefit and not minimize some measure of cost, the term \(p\) is
-replaced with \(-p\).</p>
+replaced with \(-p\). Additionally, to linearize the problem,
+the expression \(X_{iz} \times X_{jy}\) is modeled using
+a set of continuous variables (bounded between 0 and 1) based on
+Beyer <em>et al.</em> (2016).</p>
     </div>
     <div class="section level2">
     <h2 id="data-format">Data format<a class="anchor" aria-label="anchor" href="#data-format"></a></h2>
@@ -264,6 +267,9 @@ unit 1 is assigned to zone 3 and planning unit 2 is assigned to zone 4.</p></dd>
     <p>Beger M, Linke S, Watts M, Game E, Treml E, Ball I, and Possingham, HP (2010)
 Incorporating asymmetric connectivity into spatial decision making for
 conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
+<p>Beyer HL, Dujardin Y, Watts ME, and Possingham HP (2016) Solving
+conservation planning problems with integer linear programming.
+<em>Ecological Modelling</em>, 228: 14--22.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -273,7 +279,7 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 <code><a href="add_connectivity_penalties.html">add_connectivity_penalties</a>()</code>,
 <code><a href="add_feature_weights.html">add_feature_weights</a>()</code>,
 <code><a href="add_linear_penalties.html">add_linear_penalties</a>()</code>,
-<code><a href="add_surrounded_penalties.html">add_surrounded_penalties</a>()</code></p></div>
+<code><a href="add_neighbor_penalties.html">add_neighbor_penalties</a>()</code></p></div>
     </div>
 
     <div class="section level2">

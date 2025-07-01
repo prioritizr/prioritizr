@@ -53,7 +53,10 @@ NULL
 #' print(o)
 #' }
 #' @export
-compile <- function(x, ...) UseMethod("compile")
+compile <- function(x, ...) {
+  assert_required(x)
+  UseMethod("compile")
+}
 
 #' @rdname compile
 #' @export
@@ -237,6 +240,21 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
     # apply constraints
     rcpp_add_zones_constraints(op$ptr, ct)
   }
+  # run calculations for constraints
+  for (i in seq_along(x$constraints)) {
+    x$constraints[[i]]$calculate(x)
+  }
+  # add locked constraints to optimization problem,
+  # this the penalties and other constraints can leverage locked values
+  # if required
+  for (i in seq_along(x$constraints)) {
+    if (inherits(
+      x$constraints[[i]],
+      c("LockedInConstraint", "LockedOutConstraint", "LockedManualConstraint")
+    )) {
+      x$constraints[[i]]$apply(op, x)
+    }
+  }
   # add penalties to optimization problem
   for (i in seq_along(x$penalties)) {
     ## run sanity check
@@ -259,10 +277,14 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
     x$penalties[[i]]$calculate(x)
     x$penalties[[i]]$apply(op, x)
   }
-  # add constraints to optimization problem
+  # add remaining constraints
   for (i in seq_along(x$constraints)) {
-    x$constraints[[i]]$calculate(x)
-    x$constraints[[i]]$apply(op, x)
+    if (!inherits(
+      x$constraints[[i]],
+      c("LockedInConstraint", "LockedOutConstraint", "LockedManualConstraint")
+    )) {
+      x$constraints[[i]]$apply(op, x)
+    }
   }
   # return problem object
   op

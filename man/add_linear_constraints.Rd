@@ -285,7 +285,6 @@ plot(c(s0, s3), main = c("s0", "s3"), axes = FALSE)
 See \link{constraints} for an overview of all functions for adding constraints.
 
 Other constraints: 
-\code{\link{add_boundary_constraints}()},
 \code{\link{add_contiguity_constraints}()},
 \code{\link{add_feature_contiguity_constraints}()},
 \code{\link{add_locked_in_constraints}()},

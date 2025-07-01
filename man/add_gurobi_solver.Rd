@@ -15,7 +15,7 @@ add_gurobi_solver(
   node_file_start = Inf,
   start_solution = NULL,
   verbose = TRUE,
-  extra_params = list()
+  control = list()
 )
 }
 \arguments{
@@ -88,11 +88,11 @@ See the Start solution format section for more information.}
 \item{verbose}{\code{logical} should information be printed while solving
 optimization problems? Defaults to \code{TRUE}.}
 
-\item{extra_params}{\code{list} with additional parameters for tuning
+\item{control}{\code{list} with additional parameters for tuning
 the optimization process.
-For example, \code{extra_params = list(Method = 2)} could be used to
-set Gurobi's Method parameter.
-See \href{https://docs.gurobi.com/projects/optimizer/en/current/reference/parameters.html}{Gurobi's online parameter reference documentation}
+For example, \code{control = list(Method = 2)} could be used to
+set the \code{Method} parameter.
+See the \href{https://docs.gurobi.com/projects/optimizer/en/current/reference/parameters.html}{online parameter reference documentation}
 for information on the parameters.}
 }
 \value{

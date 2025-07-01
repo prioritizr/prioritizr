@@ -1,27 +1,60 @@
 # prioritizr 8.0.6.7
 
-- New `add_surrounded_penalties()` function that penalizes solutions that
-  contain many planning units that are not fully surrounded by selected
-  planning units. This penalty is designed to help promote spatial clustering
-  in solutions when working with large problems (#369).
-- New `add_boundary_constraints()` function that ensure a minimum level
-  of spatial clustering based on a threshold factor. This penalty is designed
-  to help promote spatial clustering in solutions when working with large
-  problems (#369).
-- Update `add_gurobi_solver()` function to support new `extra_args` parameter
-  that can be used to manually specify additional parameters for customizing the
-  optimization process (#354).
+## New features
+
+- New `add_neighbor_penalties()` function to reduce spatial fragmentation.
+  This function is especially useful when working with large-scale problems or
+  open source solvers.
+- Update `add_cbc_solver()`, `add_gurobi_solver()`, and `add_highs_solver()`,
+  functions with a new `control` parameter that can be used to manually
+  specify additional parameters for customizing the optimization process (#354).
+
+## Minor improvements and bug fixes
+
+- Update problem formulation for `add_connectivity_penalties()`,
+  `add_asym_connectivity_penalties()`, and `add_boundary_penalties()` to
+  slightly improve solve times. In particular, instead of using binary
+  variables to model the product of the planning unit decision variables,
+  continuous variables are now used. The documentation for these functions
+  has also been updated to mention this information. Thanks to Bistra Dilkina
+  for the suggestion.
+- Update `add_neighbor_constraints()` function so that setting `clamp = TRUE`
+  is more likely to resolve infeasibility issues. In particular, setting
+  `clamp = TRUE` will (i) limit the minimum number of neighbors for a given
+  planning unit based on the locked out constraints of neighboring planning
+  units and (ii) not apply this constraint to any locked in or locked out
+  planning units.
 - Update `write_problem()` function to support all the file formats supported by
-  the Gurobi solver (per `gurobi::gurobi_write`). Of particular note,
+  the Gurobi solver (per `gurobi::gurobi_write()`). Of particular note,
   this means that problems can now be saved in compressed file file format
   (e.g., `.mps.gz`).
-- Fix mistake in `add_gurobi_solver()` function documentation for the
-  `numeric_focus` parameter.
+- Update the `add_cbc_solver()` function so that the `presolve` parameter
+  can be used to specify the intensity of the presolve process. Similar to
+  `add_gurobi_solver()`, the `presolve` parameter is now specified as an integer
+  value. The default value is now 2, which specifies the most intensive
+  level of presolve. For backwards compatibility, a value of `TRUE`
+  is treated as a value of 1.
 - Fix bug in internal `repr.list()` function that displayed duplicate class
   names.
+- Fix bug in `adjacency_matrix()`, `compile()`, and `zone_names()` functions
+  that caused an unhelpful error message when calling the function without
+  any arguments.
+- Update unit tests for `add_boundary_penalties()`,
+  `add_connectivity_penalties()`, and `add_asym_connectivity_penalties()` to
+  reduce run time.
+- Fix bug in unit tests for `add_asym_connectivity_penalties()`.
+
+## Documentation updates
+
+- Fix mistake in `add_gurobi_solver()` function documentation for the
+  `numeric_focus` parameter.
+- Fix typo in equation for `add_max_utility_objective()` (#373). Thanks to
+  Anthony Richardson (\@ric325) for bug report.
+- Update publication record.
 
 # prioritizr 8.0.6.6
 
+## Minor improvements and bug fixes
 
 - Fix bug in `eval_rank_importance()` function that could lead to incorrect
   importance values when considering proportion or semi-continuous decision

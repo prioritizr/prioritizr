@@ -55,21 +55,31 @@ test_that("minimum set objective (compile, single zone)", {
   expect_equal(c_obj, c_data@x)
   expect_equal(c_lb, rep(0, length(c_data@i)))
   expect_equal(c_ub, rep(1, length(c_data@i)))
-  expect_equal(c_vtype, rep("B", length(c_data@i)))
+  expect_equal(c_vtype, rep("C", length(c_data@i)))
   expect_equal(c_col_labels, rep("ac", length(c_data@i)))
   expect_equal(c_row_labels, rep(c("ac1", "ac2"), length(c_data@i)))
   expect_equal(c_sense, rep(c("<=", "<="), length(c_data@i)))
   expect_equal(c_rhs, rep(c(0, 0), length(c_data@i)))
-  counter <- n_f
-  oA <- o$A()
-  for (i in seq_along(c_data@i)) {
-    counter <- counter + 1
-    expect_equal(oA[counter, n_pu + i], 1)
-    expect_equal(oA[counter, c_data@i[i] + 1], -1)
-    counter <- counter + 1
-    expect_equal(oA[counter, n_pu + i], 1)
-    expect_equal(oA[counter, c_data@j[i] + 1], -1)
-  }
+  c_A <- o$A()[seq(n_f + 1, n_f + (length(c_data@i) * 2)), , drop = FALSE]
+  correct_c_A <- Matrix::sparseMatrix(i = 1, j = 1, x = 0, dims = dim(c_A))
+  correct_c_A[matrix(
+    c(seq(1, nrow(correct_c_A), 2), n_pu + seq_along(c_data@i)),
+    ncol = 2
+  )] <- 1
+  correct_c_A[
+    matrix(
+      c(seq(1, nrow(correct_c_A), 2), c_data@i + 1),
+      ncol = 2
+  )] <- -1
+  correct_c_A[matrix(
+    c(seq(2, nrow(correct_c_A), 2), n_pu + seq_along(c_data@i)),
+    ncol = 2
+  )] <- 1
+  correct_c_A[matrix(
+    c(seq(2, nrow(correct_c_A), 2), c_data@j + 1),
+    ncol = 2
+  )] <- -1
+  expect_equal(c_A, Matrix::drop0(correct_c_A))
 })
 
 test_that("maximum features objective (compile, single zone)", {
@@ -132,7 +142,7 @@ test_that("maximum features objective (compile, single zone)", {
   expect_equal(c_obj, -c_data@x)
   expect_equal(c_lb, rep(0, length(c_data@i)))
   expect_equal(c_ub, rep(1, length(c_data@i)))
-  expect_equal(c_vtype, rep("B", length(c_data@i)))
+  expect_equal(c_vtype, rep("C", length(c_data@i)))
   expect_equal(c_col_labels, rep("ac", length(c_data@i)))
   expect_equal(
     c_row_labels,
@@ -155,22 +165,24 @@ test_that("maximum features objective (compile, single zone)", {
       c("<=", "<=")
     }))
   )
-  counter <- n_f + 1
-  oA <- o$A()
+  c_A <- o$A()[seq(n_f + 2, n_f + 1 + length(c_rhs)), , drop = FALSE]
+  correct_c_A <- Matrix::sparseMatrix(i = 1, j = 1, x = 0, dims = dim(c_A))
+  counter <- 0
   for (i in seq_along(c_data@i)) {
     counter <- counter + 1
-    expect_equal(oA[counter, n_pu + n_f + i], 1)
-    expect_equal(oA[counter, c_data@i[i] + 1], -1)
+    correct_c_A[counter, n_pu + n_f + i] <- 1
+    correct_c_A[counter, c_data@i[i] + 1] <- -1
     counter <- counter + 1
-    expect_equal(oA[counter, n_pu + n_f + i], 1)
-    expect_equal(oA[counter, c_data@j[i] + 1], -1)
+    correct_c_A[counter, n_pu + n_f + i] <- 1
+    correct_c_A[counter, c_data@j[i] + 1] <- -1
     if (c_data@x[i] > 0) {
       counter <- counter + 1
-      expect_equal(oA[counter, n_pu + n_f + i], 1)
-      expect_equal(oA[counter, c_data@i[i] + 1], -1)
-      expect_equal(oA[counter, c_data@j[i] + 1], -1)
+      correct_c_A[counter, n_pu + n_f + i] <- 1
+      correct_c_A[counter, c_data@i[i] + 1] <- -1
+      correct_c_A[counter, c_data@j[i] + 1] <- -1
     }
   }
+  expect_equal(c_A, Matrix::drop0(correct_c_A))
 })
 
 test_that("minimum set objective (solve, single zone)", {
@@ -328,12 +340,13 @@ test_that("minimum set objective (compile, multiple zones)", {
   c_col_labels <-
     o$col_ids()[(n_pu * n_z) + seq_len(length(c_data@i)  * n_z * n_z)]
   c_row_labels <-
-    o$row_ids()[(n_f * n_z) + n_pu + seq_len(length(c_data@i) * 2)]
+    o$row_ids()[(n_f * n_z) + n_pu + seq_len(length(c_data@i) * 2 * n_z * n_z)]
   # sense for connectivity decision constraints
   c_sense <-
-    o$sense()[(n_f * n_z) + n_pu + seq_len(length(c_data@i) * 2)]
+    o$sense()[(n_f * n_z) + n_pu + seq_len(length(c_data@i) * 2 * n_z * n_z)]
   # rhs for connectivity decision constraints
-  c_rhs <- o$rhs()[(n_f * n_z) + n_pu + seq_len(length(c_data@i) * 2)]
+  c_rhs <-
+    o$rhs()[(n_f * n_z) + n_pu + seq_len(length(c_data@i) * 2 * n_z * n_z)]
   # run tests
   expect_equal(
     pu_costs,
@@ -342,27 +355,34 @@ test_that("minimum set objective (compile, multiple zones)", {
   expect_equal(c_obj, c_penalties)
   expect_equal(c_lb, rep(0, length(c_data@i) * n_z * n_z))
   expect_equal(c_ub, rep(1, length(c_data@i) * n_z * n_z))
-  expect_equal(c_vtype, rep("B", length(c_data@i) * n_z * n_z))
+  expect_equal(c_vtype, rep("C", length(c_data@i) * n_z * n_z))
   expect_equal(c_col_labels, rep("ac", length(c_data@i) * n_z * n_z))
-  expect_equal(c_row_labels, rep(c("ac1", "ac2"), length(c_data@i)))
-  expect_equal(c_sense, rep(c("<=", "<="), length(c_data@i)))
-  expect_equal(c_rhs, rep(c(0, 0), length(c_data@i)))
-  counter <- (n_f * n_z) + n_pu
+  expect_equal(c_row_labels, rep(c("ac1", "ac2"), length(c_data@i) * n_z * n_z))
+  expect_equal(c_sense, rep(c("<=", "<="), length(c_data@i) * n_z * n_z))
+  expect_equal(c_rhs, rep(c(0, 0), length(c_data@i) * n_z * n_z))
+  c_A <- o$A()[
+    seq(
+      (n_f * n_z) + n_pu + 1,
+      (n_f * n_z) + n_pu + (length(c_data@i) * 2 * n_z * n_z)
+    ), , drop = FALSE
+  ]
+  correct_c_A <- Matrix::sparseMatrix(i = 1, j = 1, x = 0, dims = dim(c_A))
+  counter <- 0
   counter2 <- 0
-  oA <- o$A()
   for (i in seq_len(n_z)) {
     for (j in seq_len(n_z)) {
       for (k in seq_along(c_data@i)) {
         counter <- counter + 1
         counter2 <- counter2 + 1
-        expect_equal(oA[counter, (n_pu * n_z) + counter2], 1)
-        expect_equal(oA[counter, ((i - 1) * n_pu) + c_data@i[k] + 1], -1)
+        correct_c_A[counter, (n_pu * n_z) + counter2] <- 1
+        correct_c_A[counter, ((i - 1) * n_pu) + c_data@i[k] + 1] <- -1
         counter <- counter + 1
-        expect_equal(oA[counter, (n_pu * n_z) + counter2], 1)
-        expect_equal(oA[counter, ((j - 1) * n_pu) + c_data@j[k] + 1], -1)
+        correct_c_A[counter, (n_pu * n_z) + counter2] <- 1
+        correct_c_A[counter, ((j - 1) * n_pu) + c_data@j[k] + 1] <- -1
       }
     }
   }
+  expect_equal(c_A, Matrix::drop0(correct_c_A))
 })
 
 test_that("minimum set objective (compile, array data, multiple zones)", {
@@ -509,7 +529,7 @@ test_that("minimum set objective (solve, multiple zones)", {
   )
   expect_equal(terra::values(s3_1), terra::values(s3_2))
 })
-
+#
 test_that("invalid inputs (multiple zones)", {
   # load data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()

@@ -166,7 +166,6 @@ plot(s5[, c("solution", "solution_locked")], axes = FALSE)
 See \link{constraints} for an overview of all functions for adding constraints.
 
 Other constraints: 
-\code{\link{add_boundary_constraints}()},
 \code{\link{add_contiguity_constraints}()},
 \code{\link{add_feature_contiguity_constraints}()},
 \code{\link{add_linear_constraints}()},

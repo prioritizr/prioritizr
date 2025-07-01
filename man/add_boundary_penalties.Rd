@@ -139,7 +139,10 @@ sum_j^I sum_z^Z sum_y^Z (-2 * p * Xiz * Xjy * Wzy * Bij)
 
 Note that when the problem objective is to maximize some measure of
 benefit and not minimize some measure of cost, the term \eqn{p} is
-replaced with \eqn{-p}.
+replaced with \eqn{-p}. Additionally, to linearize the problem,
+the expression \eqn{X_{iz} \times X_{jy}}{Xiz * Xjy} is modeled using
+a set of continuous variables (bounded between 0 and 1) based on
+Beyer \emph{et al.} (2016).
 }
 
 \examples{
@@ -235,7 +238,7 @@ p10 <- p5 \%>\% add_boundary_penalties(500, zone = zm10)
 # solve problems
 s2 <- list(solve(p5), solve(p6), solve(p7), solve(p8), solve(p9), solve(p10))
 
-# convert to category layers for visualization
+#convert to category layers for visualization
 s2 <- terra::rast(lapply(s2, category_layer))
 names(s2) <- c(
   "basic solution", "within zone clumping (low)",
@@ -260,12 +263,14 @@ conservation planning problems with integer linear programming.
 }
 \seealso{
 See \link{penalties} for an overview of all functions for adding penalties.
+Additionally, see \code{\link[=add_neighbor_penalties]{add_neighbor_penalties()}} for a penalty that
+can reduce spatial fragmentation and has faster solver run times.
 
 Other penalties: 
 \code{\link{add_asym_connectivity_penalties}()},
 \code{\link{add_connectivity_penalties}()},
 \code{\link{add_feature_weights}()},
 \code{\link{add_linear_penalties}()},
-\code{\link{add_surrounded_penalties}()}
+\code{\link{add_neighbor_penalties}()}
 }
 \concept{penalties}

@@ -35,11 +35,9 @@ NULL
 #'   \item{[add_neighbor_constraints()]}{
 #'     Add constraints to
 #'     ensure that all selected planning units have at least a certain number
-#'     of neighbors.}
-#'
-#'   \item{[add_boundary_constraints()]}{
-#'     Add constraints to a
-#'     ensure that selected planning units are not overly spatially fragmented.}
+#'     of neighbors. These constraints may be especially useful for
+#'     reducing spatial fragmentation in large-scale planning problems
+#'     or when using open source solvers.}
 #'
 #'   \item{[add_contiguity_constraints()]}{
 #'     Add constraints to a
@@ -96,20 +94,17 @@ NULL
 #' # create problem with neighbor constraints
 #' p4 <- p1 %>% add_neighbor_constraints(2)
 #'
-#' # create problem with boundary constraints
-#' p5 <- p1 %>% add_boundary_constraints(0.5)
-#'
 #' # create problem with contiguity constraints
-#' p6 <- p1 %>% add_contiguity_constraints()
+#' p5 <- p1 %>% add_contiguity_constraints()
 #'
 #' # create problem with feature contiguity constraints
-#' p7 <- p1 %>% add_feature_contiguity_constraints()
+#' p6 <- p1 %>% add_feature_contiguity_constraints()
 #'
 #' # solve problems
-#' s <- terra::rast(lapply(list(p1, p2, p3, p4, p5, p6, p7), solve))
+#' s <- terra::rast(lapply(list(p1, p2, p3, p4, p5, p6), solve))
 #' names(s) <- c(
 #'   "minimal problem", "locked in", "locked out",
-#'   "neighbor", "boundary", "contiguity", "feature contiguity"
+#'   "neighbor", "contiguity", "feature contiguity"
 #' )
 #'
 #' # plot solutions

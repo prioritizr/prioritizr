@@ -160,7 +160,7 @@ bool rcpp_apply_boundary_penalties(SEXP x, double penalty,
 
   // add vtype for new decision variables
   for (auto i = pu_i.cbegin(); i != pu_i.cend(); ++i)
-    ptr->_vtype.push_back(ptr->_vtype[0]);
+    ptr->_vtype.push_back("C");
 
   // add col ids for new decision variables
   for (auto i = pu_i.cbegin(); i != pu_i.cend(); ++i)

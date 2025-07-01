@@ -210,7 +210,7 @@ briefly describe this dataset below, please refer
 <span><span class="va">tas_features</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://prioritizr.github.io/prioritizrdata/reference/tas_data.html" class="external-link">get_tas_features</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">tas_features</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## class       : SpatRaster </span></span>
-<span><span class="co">## dimensions  : 398, 359, 33  (nrow, ncol, nlyr)</span></span>
+<span><span class="co">## size        : 398, 359, 33  (nrow, ncol, nlyr)</span></span>
 <span><span class="co">## resolution  : 1000, 1000  (x, y)</span></span>
 <span><span class="co">## extent      : 288801.7, 647801.7, 5142976, 5540976  (xmin, xmax, ymin, ymax)</span></span>
 <span><span class="co">## coord. ref. : WGS 84 / UTM zone 55S (EPSG:32755) </span></span>
@@ -314,7 +314,7 @@ establishment).</p>
 <span><span class="co">##   RHS range        [2e-01, 2e+03]</span></span>
 <span><span class="co">## Found heuristic solution: objective 10337.581214</span></span>
 <span><span class="co">## Presolve removed 19 rows and 354 columns</span></span>
-<span><span class="co">## Presolve time: 0.00s</span></span>
+<span><span class="co">## Presolve time: 0.01s</span></span>
 <span><span class="co">## Presolved: 14 rows, 776 columns, 2296 nonzeros</span></span>
 <span><span class="co">## Variable types: 0 continuous, 776 integer (776 binary)</span></span>
 <span><span class="co">## Root relaxation presolved: 14 rows, 776 columns, 2296 nonzeros</span></span>
@@ -787,9 +787,9 @@ generated using the blended approach.</strong></p>
 <span><span class="co">## <span style="color: #BCBCBC;">4</span>       884.              2<span style="text-decoration: underline;">030</span>790.       886</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">5</span>      <span style="text-decoration: underline;">1</span>061.              1<span style="text-decoration: underline;">959</span>503.      <span style="text-decoration: underline;">1</span>063</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">6</span>      <span style="text-decoration: underline;">1</span>241.              1<span style="text-decoration: underline;">896</span>302.      <span style="text-decoration: underline;">1</span>241</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">7</span>      <span style="text-decoration: underline;">1</span>418.              1<span style="text-decoration: underline;">842</span>963.      <span style="text-decoration: underline;">1</span>418</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">8</span>      <span style="text-decoration: underline;">1</span>581.              1<span style="text-decoration: underline;">786</span>214.      <span style="text-decoration: underline;">1</span>595</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">9</span>      <span style="text-decoration: underline;">1</span>763.              1<span style="text-decoration: underline;">716</span>207.      <span style="text-decoration: underline;">1</span>772</span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;">7</span>      <span style="text-decoration: underline;">1</span>416.              1<span style="text-decoration: underline;">848</span>058.      <span style="text-decoration: underline;">1</span>418</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">8</span>      <span style="text-decoration: underline;">1</span>590.              1<span style="text-decoration: underline;">794</span>642.      <span style="text-decoration: underline;">1</span>595</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">9</span>      <span style="text-decoration: underline;">1</span>772.              1<span style="text-decoration: underline;">695</span>679.      <span style="text-decoration: underline;">1</span>772</span></span></code></pre>
 <p>After calculating the metrics, let’s we can use them to help select a
 prioritization.</p>
 </div>
@@ -830,9 +830,9 @@ prioritizations selected by different methods, let’s create a
 <span><span class="co">## <span style="color: #BCBCBC;">4</span>       884.              2<span style="text-decoration: underline;">030</span>790.   886 threshold_886  Threshold = 886  none  </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">5</span>      <span style="text-decoration: underline;">1</span>061.              1<span style="text-decoration: underline;">959</span>503.  <span style="text-decoration: underline;">1</span>063 threshold_1063 Threshold = 1063 none  </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">6</span>      <span style="text-decoration: underline;">1</span>241.              1<span style="text-decoration: underline;">896</span>302.  <span style="text-decoration: underline;">1</span>241 threshold_1241 Threshold = 1241 none  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">7</span>      <span style="text-decoration: underline;">1</span>418.              1<span style="text-decoration: underline;">842</span>963.  <span style="text-decoration: underline;">1</span>418 threshold_1418 Threshold = 1418 none  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">8</span>      <span style="text-decoration: underline;">1</span>581.              1<span style="text-decoration: underline;">786</span>214.  <span style="text-decoration: underline;">1</span>595 threshold_1595 Threshold = 1595 none  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">9</span>      <span style="text-decoration: underline;">1</span>763.              1<span style="text-decoration: underline;">716</span>207.  <span style="text-decoration: underline;">1</span>772 threshold_1772 Threshold = 1772 none</span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;">7</span>      <span style="text-decoration: underline;">1</span>416.              1<span style="text-decoration: underline;">848</span>058.  <span style="text-decoration: underline;">1</span>418 threshold_1418 Threshold = 1418 none  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">8</span>      <span style="text-decoration: underline;">1</span>590.              1<span style="text-decoration: underline;">794</span>642.  <span style="text-decoration: underline;">1</span>595 threshold_1595 Threshold = 1595 none  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">9</span>      <span style="text-decoration: underline;">1</span>772.              1<span style="text-decoration: underline;">695</span>679.  <span style="text-decoration: underline;">1</span>772 threshold_1772 Threshold = 1772 none</span></span></code></pre>
 <p>Next, let’s examine some different methods for selecting
 prioritizations.</p>
 <div class="section level3">
@@ -908,15 +908,15 @@ we want equal weighting for total cost and total boundary length.</p>
 <span><span class="co"># print results</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">topsis_results</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   alt.row     score rank</span></span>
-<span><span class="co">## 1       1 0.6849299    3</span></span>
-<span><span class="co">## 2       2 0.7842663    1</span></span>
-<span><span class="co">## 3       3 0.7309052    2</span></span>
-<span><span class="co">## 4       4 0.6422422    4</span></span>
-<span><span class="co">## 5       5 0.5473310    5</span></span>
-<span><span class="co">## 6       6 0.4595118    6</span></span>
-<span><span class="co">## 7       7 0.3873565    7</span></span>
-<span><span class="co">## 8       8 0.3413557    8</span></span>
-<span><span class="co">## 9       9 0.3150701    9</span></span></code></pre>
+<span><span class="co">## 1       1 0.6818979    3</span></span>
+<span><span class="co">## 2       2 0.7802452    1</span></span>
+<span><span class="co">## 3       3 0.7291563    2</span></span>
+<span><span class="co">## 4       4 0.6424656    4</span></span>
+<span><span class="co">## 5       5 0.5486430    5</span></span>
+<span><span class="co">## 6       6 0.4613062    6</span></span>
+<span><span class="co">## 7       7 0.3886903    7</span></span>
+<span><span class="co">## 8       8 0.3385608    8</span></span>
+<span><span class="co">## 9       9 0.3181021    9</span></span></code></pre>
 <p>The candidate prioritization with the greatest TOPSIS score is
 considered to represent the best trade-off between total cost and total
 boundary length. So, based on this method, we would select the

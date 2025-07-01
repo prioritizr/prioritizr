@@ -85,9 +85,6 @@
     <loc>https://prioritizr.net/reference/add_binary_decisions.html</loc>
   </url>
   <url>
-    <loc>https://prioritizr.net/reference/add_boundary_constraints.html</loc>
-  </url>
-  <url>
     <loc>https://prioritizr.net/reference/add_boundary_penalties.html</loc>
   </url>
   <url>
@@ -190,6 +187,9 @@
     <loc>https://prioritizr.net/reference/add_neighbor_constraints.html</loc>
   </url>
   <url>
+    <loc>https://prioritizr.net/reference/add_neighbor_penalties.html</loc>
+  </url>
+  <url>
     <loc>https://prioritizr.net/reference/add_proportion_decisions.html</loc>
   </url>
   <url>
@@ -203,9 +203,6 @@
   </url>
   <url>
     <loc>https://prioritizr.net/reference/add_shuffle_portfolio.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/add_surrounded_penalties.html</loc>
   </url>
   <url>
     <loc>https://prioritizr.net/reference/add_top_portfolio.html</loc>

@@ -103,7 +103,7 @@ It requires the <span class="pkg">gurobi</span> package to be installed
 <span>  node_file_start <span class="op">=</span> <span class="cn">Inf</span>,</span>
 <span>  start_solution <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  extra_params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  control <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -198,12 +198,12 @@ See the Start solution format section for more information.</p></dd>
 optimization problems? Defaults to <code>TRUE</code>.</p></dd>
 
 
-<dt>extra_params</dt>
+<dt>control</dt>
 <dd><p><code>list</code> with additional parameters for tuning
 the optimization process.
-For example, <code>extra_params = list(Method = 2)</code> could be used to
-set Gurobi's Method parameter.
-See <a href="https://docs.gurobi.com/projects/optimizer/en/current/reference/parameters.html" class="external-link">Gurobi's online parameter reference documentation</a>
+For example, <code>control = list(Method = 2)</code> could be used to
+set the <code>Method</code> parameter.
+See the <a href="https://docs.gurobi.com/projects/optimizer/en/current/reference/parameters.html" class="external-link">online parameter reference documentation</a>
 for information on the parameters.</p></dd>
 
 </dl></div>

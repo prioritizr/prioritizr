@@ -152,7 +152,10 @@ sum_i^I sum_j^I sum_z^Z sum_y^Z (-p * Xiz * Xjy * Dijzy)
 
 Note that when the problem objective is to maximize some measure of
 benefit and not minimize some measure of cost, the term \eqn{-p} is
-replaced with \eqn{p}.
+replaced with \eqn{p}. Additionally, to linearize the problem,
+the expression \eqn{X_{iz} \times X_{jy}}{Xiz * Xjy} is modeled using
+a set of continuous variables (bounded between 0 and 1) based on
+Beyer \emph{et al.} (2016).
 }
 
 \section{Notes}{
@@ -405,6 +408,10 @@ Beger M, Linke S, Watts M, Game E, Treml E, Ball I, and Possingham, HP (2010)
 Incorporating asymmetric connectivity into spatial decision making for
 conservation, \emph{Conservation Letters}, 3: 359--368.
 
+Beyer HL, Dujardin Y, Watts ME, and Possingham HP (2016) Solving
+conservation planning problems with integer linear programming.
+\emph{Ecological Modelling}, 228: 14--22.
+
 Önal H, and Briers RA (2002) Incorporating spatial criteria in optimum
 reserve network selection. \emph{Proceedings of the Royal Society of London.}
 \emph{Series B: Biological Sciences}, 269: 2437--2441.
@@ -419,6 +426,6 @@ Other penalties:
 \code{\link{add_boundary_penalties}()},
 \code{\link{add_feature_weights}()},
 \code{\link{add_linear_penalties}()},
-\code{\link{add_surrounded_penalties}()}
+\code{\link{add_neighbor_penalties}()}
 }
 \concept{penalties}

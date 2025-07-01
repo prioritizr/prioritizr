@@ -95,7 +95,8 @@ It requires the <span class="pkg">highs</span> package to be installed.</p>
 <span>  time_limit <span class="op">=</span> <span class="va">.Machine</span><span class="op">$</span><span class="va">integer.max</span>,</span>
 <span>  presolve <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  threads <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  control <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -136,6 +137,15 @@ optimization algorithm. The default value is 1.</p></dd>
 <dt>verbose</dt>
 <dd><p><code>logical</code> should information be printed while solving
 optimization problems? Defaults to <code>TRUE</code>.</p></dd>
+
+
+<dt>control</dt>
+<dd><p><code>list</code> with additional parameters for tuning
+the optimization process.
+For example, <code>control = list(simplex_strategy = 1)</code> could be used to
+set the <code>simplex_strategy</code> parameter.
+See the <a href="https://ergo-code.github.io/HiGHS/dev/options/definitions/" class="external-link">online parameter reference documentation</a>
+for information on the parameters.</p></dd>
 
 </dl></div>
     <div class="section level2">

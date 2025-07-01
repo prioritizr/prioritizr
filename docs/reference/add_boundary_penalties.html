@@ -229,7 +229,10 @@ to <code>data</code> (e.g., generated using <code><a href="boundary_matrix.html"
 B_{ij})$$</p>
 <p>Note that when the problem objective is to maximize some measure of
 benefit and not minimize some measure of cost, the term \(p\) is
-replaced with \(-p\).</p>
+replaced with \(-p\). Additionally, to linearize the problem,
+the expression \(X_{iz} \times X_{jy}\) is modeled using
+a set of continuous variables (bounded between 0 and 1) based on
+Beyer <em>et al.</em> (2016).</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -243,13 +246,15 @@ conservation planning problems with integer linear programming.
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p>See <a href="penalties.html">penalties</a> for an overview of all functions for adding penalties.</p>
+    <div class="dont-index"><p>See <a href="penalties.html">penalties</a> for an overview of all functions for adding penalties.
+Additionally, see <code><a href="add_neighbor_penalties.html">add_neighbor_penalties()</a></code> for a penalty that
+can reduce spatial fragmentation and has faster solver run times.</p>
 <p>Other penalties: 
 <code><a href="add_asym_connectivity_penalties.html">add_asym_connectivity_penalties</a>()</code>,
 <code><a href="add_connectivity_penalties.html">add_connectivity_penalties</a>()</code>,
 <code><a href="add_feature_weights.html">add_feature_weights</a>()</code>,
 <code><a href="add_linear_penalties.html">add_linear_penalties</a>()</code>,
-<code><a href="add_surrounded_penalties.html">add_surrounded_penalties</a>()</code></p></div>
+<code><a href="add_neighbor_penalties.html">add_neighbor_penalties</a>()</code></p></div>
     </div>
 
     <div class="section level2">
@@ -363,7 +368,7 @@ conservation planning problems with integer linear programming.
 <span class="r-in"><span><span class="co"># solve problems</span></span></span>
 <span class="r-in"><span><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p5</span><span class="op">)</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p6</span><span class="op">)</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p7</span><span class="op">)</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p8</span><span class="op">)</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p9</span><span class="op">)</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p10</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># convert to category layers for visualization</span></span></span>
+<span class="r-in"><span><span class="co">#convert to category layers for visualization</span></span></span>
 <span class="r-in"><span><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">s2</span>, <span class="va">category_layer</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">s2</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="st">"basic solution"</span>, <span class="st">"within zone clumping (low)"</span>,</span></span>

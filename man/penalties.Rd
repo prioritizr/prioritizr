@@ -28,10 +28,12 @@ The following penalties can be added to a conservation planning
 conservation problem to favor solutions that have
 planning units clumped together into contiguous areas.}
 
-\item{\code{\link[=add_surrounded_penalties]{add_surrounded_penalties()}}}{Add penalties to a
+\item{\code{\link[=add_neighbor_penalties]{add_neighbor_penalties()}}}{Add penalties to a
 conservation problem to favor solutions that have
-a large number of planning units that are fully enclosed by
-other planning units.}
+a large number of planning units sited next to each other.
+This constraints may be especially useful for
+reducing spatial fragmentation in large-scale planning problems or
+when using open source solvers.}
 
 \item{\code{\link[=add_asym_connectivity_penalties]{add_asym_connectivity_penalties()}}}{Add penalties to a
 conservation problem to account for asymmetric connectivity.}
@@ -63,8 +65,8 @@ p1 <-
 # create problem with boundary penalties
 p2 <- p1 \%>\% add_boundary_penalties(5, 1)
 
-# create problem with surrounded penalties
-p3 <- p1 \%>\% add_surrounded_penalties(10)
+# create problem with neighbor penalties
+p3 <- p1 \%>\% add_neighbor_penalties(4)
 
 # create connectivity matrix based on spatial proximity
 scm <- terra::as.data.frame(sim_pu_raster, xy = TRUE, na.rm = FALSE)
@@ -97,9 +99,11 @@ plot(sim_penalty_raster, main = "penalty data", axes = FALSE)
 p6 <- p1 \%>\% add_linear_penalties(100, data = sim_penalty_raster)
 
 # solve problems
-s <- c(solve(p1), solve(p2), solve(p3), solve(p4), solve(p5), solve(p6))
+s <- c(
+  solve(p1), solve(p2), solve(p3), solve(p4), solve(p5), solve(p6)
+)
 names(s) <- c(
-  "basic solution", "boundary penalties", "surrounded penalties",
+  "basic solution", "boundary penalties", "neighbor penalties",
   "connectivity penalties", "asymmetric penalties", "linear penalties"
 )
 

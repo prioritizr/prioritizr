@@ -79,11 +79,11 @@ NULL
 #' @param verbose `logical` should information be printed while solving
 #'  optimization problems? Defaults to `TRUE`.
 #'
-#' @param extra_params `list` with additional parameters for tuning
+#' @param control `list` with additional parameters for tuning
 #'  the optimization process.
-#'  For example, `extra_params = list(Method = 2)` could be used to
-#'  set Gurobi's Method parameter.
-#'  See [Gurobi's online parameter reference documentation](https://docs.gurobi.com/projects/optimizer/en/current/reference/parameters.html)
+#'  For example, `control = list(Method = 2)` could be used to
+#'  set the `Method` parameter.
+#'  See the [online parameter reference documentation](https://docs.gurobi.com/projects/optimizer/en/current/reference/parameters.html)
 #'  for information on the parameters.
 #"
 #' @details
@@ -176,7 +176,7 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
                               presolve = 2, threads = 1, first_feasible = FALSE,
                               numeric_focus = FALSE, node_file_start = Inf,
                               start_solution = NULL, verbose = TRUE,
-                              extra_params = list()) {
+                              control = list()) {
   # assert that arguments are valid (except start_solution)
   assert_required(x)
   assert_required(gap)
@@ -188,7 +188,7 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
   assert_required(node_file_start)
   assert_required(start_solution)
   assert_required(verbose)
-  assert_required(extra_params)
+  assert_required(control)
   assert(
     is_conservation_problem(x),
     assertthat::is.number(gap),
@@ -208,16 +208,16 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
     assertthat::noNA(node_file_start),
     node_file_start >= 0,
     assertthat::is.flag(verbose),
-    is.list(extra_params),
+    is.list(control),
     is_installed("slam"),
     is_installed("gurobi")
   )
-  # additional checks for extra_params
-  if (length(extra_params) > 0) {
+  # additional checks for control
+  if (length(control) > 0) {
     assert(
-      !is.null(names(extra_params)),
-      all(nzchar(names(extra_params))),
-      msg = "all elements in {.arg extra_params} must have a name."
+      !is.null(names(control)),
+      all(nzchar(names(control))),
+      msg = "all elements in {.arg control} must have a name."
     )
   }
   # extract start solution
@@ -245,7 +245,7 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
           node_file_start = node_file_start,
           start_solution = start_solution,
           verbose = verbose,
-          extra_params = extra_params
+          control = control
         ),
         calculate = function(x, ...) {
           # create problem
@@ -277,9 +277,9 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
             p$NodeFileStart <- NULL
           }
           # specify custom parameters
-          extra_params <- self$get_data("extra_params")
-          if (length(extra_params) > 0) {
-            p[names(extra_params)] <- extra_params
+          control <- self$get_data("control")
+          if (length(control) > 0) {
+            p[names(control)] <- control
           }
           # add starting solution if specified
           start <- self$get_data("start_solution")

@@ -8,14 +8,14 @@ test_that("minimum set objective (compile, single zone)", {
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%
     add_binary_decisions() %>%
-    add_connectivity_penalties(5, data = boundary_matrix(sim_pu_raster))
+    add_neighbor_penalties(5, data = adjacency_matrix(sim_pu_raster))
   # compile problem
   o <- compile(p)
   # create variables for testing
   n_pu <- p$number_of_planning_units()
   n_f <- p$number_of_features()
   pu_indices <- p$planning_unit_indices()
-  c_data <- boundary_matrix(p$data$cost)[pu_indices, pu_indices]
+  c_data <- adjacency_matrix(p$data$cost)[pu_indices, pu_indices]
   c_data <- c_data * -5
   # connectivity weights for each planning unit
   c_weights <- Matrix::diag(c_data)
@@ -83,7 +83,7 @@ test_that("minimum set objective (solve, single zone)", {
     problem(sim_pu_raster, sim_features) %>%
     add_min_set_objective() %>%
     add_relative_targets(0.45) %>%
-    add_connectivity_penalties(1000, data = adjacency_matrix(sim_pu_raster)) %>%
+    add_neighbor_penalties(1000, data = adjacency_matrix(sim_pu_raster)) %>%
     add_binary_decisions() %>%
     add_default_solver(gap = 0.01, verbose = FALSE)
   s1_1 <- solve(p1)
@@ -92,7 +92,7 @@ test_that("minimum set objective (solve, single zone)", {
     problem(sim_pu_raster, sim_features) %>%
     add_min_set_objective() %>%
     add_relative_targets(0.45) %>%
-    add_connectivity_penalties(
+    add_neighbor_penalties(
       -1000, data = adjacency_matrix(sim_pu_raster)
     ) %>%
     add_binary_decisions() %>%
@@ -116,7 +116,7 @@ test_that("invalid inputs (single zone)", {
   # load data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
-  c_matrix <- boundary_matrix(sim_pu_raster)
+  c_matrix <- adjacency_matrix(sim_pu_raster)
   # create problem
   p <-
     problem(sim_pu_raster, sim_features) %>%
@@ -124,15 +124,15 @@ test_that("invalid inputs (single zone)", {
     add_relative_targets(0.1) %>%
     add_binary_decisions()
   # tests
-  expect_tidy_error(add_connectivity_penalties(p, NA_real_, data = c_matrix))
-  expect_tidy_error(add_connectivity_penalties(p, 1, 0, data = c_matrix))
-  expect_tidy_error(add_connectivity_penalties(p, 5, data = c_matrix[, -1]))
-  expect_tidy_error(add_connectivity_penalties(p, 5, data = c_matrix[-1, ]))
+  expect_tidy_error(add_neighbor_penalties(p, NA_real_, data = c_matrix))
+  expect_tidy_error(add_neighbor_penalties(p, 1, 0, data = c_matrix))
+  expect_tidy_error(add_neighbor_penalties(p, 5, data = c_matrix[, -1]))
+  expect_tidy_error(add_neighbor_penalties(p, 5, data = c_matrix[-1, ]))
   ac_data <- matrix(
     runif(terra::ncell(sim_pu_raster) ^ 2),
     ncol = terra::ncell(sim_pu_raster)
   )
-  expect_tidy_error(add_connectivity_penalties(p, 5, data = ac_data))
+  expect_tidy_error(add_neighbor_penalties(p, 5, data = ac_data))
 })
 
 test_that("minimum set objective (compile, multiple zones)", {
@@ -141,8 +141,9 @@ test_that("minimum set objective (compile, multiple zones)", {
   sim_zones_features <- get_sim_zones_features()
   sim_zones_pu_polygons <- sim_zones_pu_polygons[seq_len(20), ]
   # prepare data for problem
-  cm <- boundary_matrix(sim_zones_pu_polygons)
+  cm <- adjacency_matrix(sim_zones_pu_polygons)
   zm <- matrix(seq_len(9) * 0.1, ncol = 3)
+  zm[lower.tri(zm)] <- zm[upper.tri(zm)]
   # create and compile problem
   p <-
     problem(
@@ -151,7 +152,7 @@ test_that("minimum set objective (compile, multiple zones)", {
     ) %>%
     add_min_set_objective() %>%
     add_relative_targets(matrix(0.1, nrow = 5, ncol = 3)) %>%
-    add_connectivity_penalties(100, zm, cm) %>%
+    add_neighbor_penalties(100, zm, cm) %>%
     add_binary_decisions()
   o <- compile(p)
   # prepare data for tests
@@ -233,8 +234,10 @@ test_that("minimum set objective (compile, array data, multiple zones)", {
   sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
   sim_zones_features <- get_sim_zones_features()
   # prepare data for problem
-  cm <- boundary_matrix(sim_zones_pu_polygons)
-  zm <- matrix(seq_len(9) * 0.1, ncol = 3)
+  cm <- adjacency_matrix(sim_zones_pu_polygons)
+  zm <- diag(3)
+  zm[1, 2] <- 1
+  zm[2, 1] <- 1
   ca <- array(0, dim = c(dim(cm), 3, 3))
   for (i in seq_len(3))
     for (j in seq_len(3))
@@ -247,7 +250,7 @@ test_that("minimum set objective (compile, array data, multiple zones)", {
     ) %>%
     add_min_set_objective() %>%
     add_relative_targets(matrix(0.1, nrow = 5, ncol = 3)) %>%
-    add_connectivity_penalties(100, zm, cm) %>%
+    add_neighbor_penalties(100, zm, cm) %>%
     add_binary_decisions()
   p2 <-
     problem(
@@ -256,7 +259,7 @@ test_that("minimum set objective (compile, array data, multiple zones)", {
     ) %>%
     add_min_set_objective() %>%
     add_relative_targets(matrix(0.1, nrow = 5, ncol = 3)) %>%
-    add_connectivity_penalties(100, NULL, ca) %>%
+    add_neighbor_penalties(100, NULL, ca) %>%
     add_binary_decisions()
   o1 <- compile(p1)
   o2 <- compile(p2)
@@ -320,46 +323,20 @@ test_that("invalid inputs (multiple zones)", {
     add_relative_targets(matrix(0.1, nrow = 5, ncol = 3)) %>%
     add_binary_decisions()
   # tests
-  expect_tidy_error(add_connectivity_penalties(p, NA_real_, zm, cm))
-  expect_tidy_error(add_connectivity_penalties(p, Inf, zm,cm))
-  expect_tidy_error(add_connectivity_penalties(p, 1, zm[-1, ], cm))
-  expect_tidy_error(add_connectivity_penalties(p, 1, zm[, -1], cm))
-  expect_tidy_error(add_connectivity_penalties(p, 1, `[<-`(zm, 1, -2), cm))
-  expect_tidy_error(add_connectivity_penalties(p, 1, `[<-`(zm, 1, 3), cm))
-  expect_tidy_error(add_connectivity_penalties(p, 1, `[<-`(zm, 1, NA), cm))
-  expect_tidy_error(add_connectivity_penalties(p, 1, zm, cm[-1, ]))
-  expect_tidy_error(add_connectivity_penalties(p, 1, zm, cm[, -1]))
-  expect_tidy_error(add_connectivity_penalties(p, 1, zm, cm[, -1]))
-  expect_tidy_error(add_connectivity_penalties(p, 1, zm, ca))
-  expect_tidy_error(add_connectivity_penalties(p, 1, data = ca))
-  expect_tidy_error(add_connectivity_penalties(p, 1, NULL, ca[-1, , , ]))
-  expect_tidy_error(add_connectivity_penalties(p, 1, NULL, ca[, -1, , ]))
-  expect_tidy_error(add_connectivity_penalties(p, 1, NULL, ca[, , -1, ]))
-  expect_tidy_error(add_connectivity_penalties(p, 1, NULL, ca[, , , -1]))
-})
-
-test_that("alternative data formats", {
-  # load data
-  sim_pu_raster <- get_sim_pu_raster()
-  sim_features <- get_sim_features()
-  # create connectivity matrices
-  m <- adjacency_matrix(sim_pu_raster)
-  m2 <- as_Matrix(m, "dgTMatrix")
-  m2 <- data.frame(id1 = m2@i + 1, id2 = m2@j + 1, boundary = m2@x)
-  # create problem
-  p0 <-
-    problem(sim_pu_raster, sim_features) %>%
-    add_min_set_objective() %>%
-    add_relative_targets(0.45) %>%
-    add_binary_decisions()
-  p1 <- add_connectivity_penalties(p0, 1000, data = m)
-  p2 <- add_connectivity_penalties(p0, 1000, data = as.matrix(m))
-  p3 <- add_connectivity_penalties(p0, 1000, data = m2)
-  # create objects
-  o1 <- as.list(compile(p1))
-  o2 <- as.list(compile(p2))
-  o3 <- as.list(compile(p3))
-  # tests
-  expect_equal(o1, o2)
-  expect_equal(o1, o3)
+  expect_tidy_error(add_neighbor_penalties(p, NA_real_, zm, cm))
+  expect_tidy_error(add_neighbor_penalties(p, Inf, zm,cm))
+  expect_tidy_error(add_neighbor_penalties(p, 1, zm[-1, ], cm))
+  expect_tidy_error(add_neighbor_penalties(p, 1, zm[, -1], cm))
+  expect_tidy_error(add_neighbor_penalties(p, 1, `[<-`(zm, 1, -2), cm))
+  expect_tidy_error(add_neighbor_penalties(p, 1, `[<-`(zm, 1, 3), cm))
+  expect_tidy_error(add_neighbor_penalties(p, 1, `[<-`(zm, 1, NA), cm))
+  expect_tidy_error(add_neighbor_penalties(p, 1, zm, cm[-1, ]))
+  expect_tidy_error(add_neighbor_penalties(p, 1, zm, cm[, -1]))
+  expect_tidy_error(add_neighbor_penalties(p, 1, zm, cm[, -1]))
+  expect_tidy_error(add_neighbor_penalties(p, 1, zm, ca))
+  expect_tidy_error(add_neighbor_penalties(p, 1, data = ca))
+  expect_tidy_error(add_neighbor_penalties(p, 1, NULL, ca[-1, , , ]))
+  expect_tidy_error(add_neighbor_penalties(p, 1, NULL, ca[, -1, , ]))
+  expect_tidy_error(add_neighbor_penalties(p, 1, NULL, ca[, , -1, ]))
+  expect_tidy_error(add_neighbor_penalties(p, 1, NULL, ca[, , , -1]))
 })
