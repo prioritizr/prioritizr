@@ -26,15 +26,11 @@ bool rcpp_apply_min_largest_shortfall_objective(
   // model rhs
   for (std::size_t i = 0; i < n_targets; ++i)
     ptr->_rhs.push_back(targets_value[i]);
-  for (std::size_t i = 0; i < n_targets; ++i)
-    ptr->_rhs.push_back(0.0);
   for (std::size_t z = 0; z < static_cast<std::size_t>(budget.size()); ++z)
     ptr->_rhs.push_back(budget[z]);
   // model sense variables
   for (std::size_t i = 0; i < n_targets; ++i)
     ptr->_sense.push_back(Rcpp::as<std::string>(targets_sense[i]));
-  for (std::size_t i = 0; i < n_targets; ++i)
-    ptr->_sense.push_back(">=");
   for (std::size_t z = 0; z < static_cast<std::size_t>(budget.size()); ++z)
     ptr->_sense.push_back("<=");
   // model obj
@@ -52,55 +48,29 @@ bool rcpp_apply_min_largest_shortfall_objective(
   if (!ptr->_compressed_formulation)
     for (std::size_t i = 0; i < A_extra_ncol; ++i)
        ptr->_obj.push_back(0.0);
-  for (std::size_t i = 0; i < n_targets; ++i)
-    ptr->_obj.push_back(0.0);
   ptr->_obj.push_back(1.0);
-  // upper and lower variable bounds for shortfall variables
-  for (std::size_t i = 0; i < n_targets; ++i)
-    ptr->_ub.push_back(std::numeric_limits<double>::infinity());
-  ptr->_ub.push_back(std::numeric_limits<double>::infinity());
-  for (std::size_t i = 0; i < n_targets; ++i)
-    ptr->_lb.push_back(0.0);
+  // upper and lower variable bounds for shortfall variable
+  ptr->_ub.push_back(1.0);
   ptr->_lb.push_back(0.0);
-  // add in variable types for shortfall variables
-  for (std::size_t i = 0; i < n_targets; ++i)
-    ptr->_vtype.push_back("C");
+  // add in variable types for shortfall variable
   ptr->_vtype.push_back("C");
-  // add in model matrix values for shortfall calculations
+  // add in model matrix values for largest shortfall calculations
   for (std::size_t i = 0; i < n_targets; ++i)
     ptr->_A_i.push_back(A_extra_nrow + i);
   for (std::size_t i = 0; i < n_targets; ++i)
     ptr->_A_j.push_back((ptr->_number_of_zones *
-                        ptr->_number_of_planning_units) + A_extra_ncol + i);
+                        ptr->_number_of_planning_units) + A_extra_ncol);
   for (std::size_t i = 0; i < n_targets; ++i)
-    ptr->_A_x.push_back(1.0);
-  // add in model matrix values for largest shortfall calculations
-  for (std::size_t i = 0; i < n_targets; ++i)
-    ptr->_A_i.push_back(A_extra_nrow + n_targets + i);
-  for (std::size_t i = 0; i < n_targets; ++i)
-    ptr->_A_i.push_back(A_extra_nrow + n_targets + i);
-  for (std::size_t i = 0; i < n_targets; ++i)
-    ptr->_A_j.push_back(
-      (ptr->_number_of_zones * ptr->_number_of_planning_units) +
-      A_extra_ncol + i);
-  for (std::size_t i = 0; i < n_targets; ++i)
-    ptr->_A_j.push_back(
-      (ptr->_number_of_zones * ptr->_number_of_planning_units) +
-      A_extra_ncol + n_targets);
-  for (std::size_t i = 0; i < n_targets; ++i)
-    ptr->_A_x.push_back(
-      targets_value[i] > 1.0e-5 ? -1.0 / targets_value[i] : 0);
-  for (std::size_t i = 0; i < n_targets; ++i)
-    ptr->_A_x.push_back(1.0);
+    ptr->_A_x.push_back(targets_value[i]);
   // add in budget constraints
   if (budget.size() == 1) {
     for (std::size_t i = 0;
          i < (ptr->_number_of_zones) * (ptr->_number_of_planning_units); ++i)
-        ptr->_A_i.push_back(A_extra_nrow + n_targets + n_targets);
+        ptr->_A_i.push_back(A_extra_nrow + n_targets);
   } else {
     for (std::size_t z = 0; z < (ptr->_number_of_zones); ++z)
       for (std::size_t j = 0; j < (ptr->_number_of_planning_units); ++j)
-        ptr->_A_i.push_back(A_extra_nrow + n_targets + n_targets + z);
+        ptr->_A_i.push_back(A_extra_nrow + n_targets + z);
   }
   for (std::size_t i = 0;
        i < (ptr->_number_of_zones) * (ptr->_number_of_planning_units); ++i)
@@ -113,13 +83,9 @@ bool rcpp_apply_min_largest_shortfall_objective(
     }
   }
   // add in row and col ids
-  for (std::size_t i = 0; i < n_targets; ++i)
-    ptr->_col_ids.push_back("spp_met");
   ptr->_col_ids.push_back("max_shortfall");
   for (std::size_t i = 0; i < n_targets; ++i)
     ptr->_row_ids.push_back("spp_target");
-  for (std::size_t i = 0; i < n_targets; ++i)
-    ptr->_row_ids.push_back("max_shortfall");
   for (std::size_t i = 0; i < static_cast<std::size_t>(budget.size()); ++i)
     ptr->_row_ids.push_back("budget");
   // set model sense

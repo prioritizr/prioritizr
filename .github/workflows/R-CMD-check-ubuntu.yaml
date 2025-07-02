@@ -18,14 +18,14 @@ jobs:
   R-CMD-check:
     runs-on: ${{ matrix.config.os }}
 
-    name: ${{ matrix.config.os }} (${{ matrix.config.r }})
+    name: ${{ matrix.config.os }} (${{ matrix.config.r }}, !{{  matrix.config.pkgs }})
 
     strategy:
       fail-fast: false
       matrix:
         config:
-          - {os: ubuntu-22.04, r: 'release'}
-          - {os: ubuntu-22.04, r: 'devel'}
+          - {os: ubuntu-22.04, r: 'release', pkgs: 'all'}
+          - {os: ubuntu-22.04, r: 'devel', pkgs: 'all'}
           - {os: ubuntu-22.04, r: 'devel', pkgs: 'depends only'}
 
     env:

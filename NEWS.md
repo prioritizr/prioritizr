@@ -27,11 +27,16 @@
   planning unit based on the locked out constraints of neighboring planning
   units and (ii) not apply this constraint to any locked in or locked out
   planning units.
+- Update `add_min_shortfall_objective()` and
+  `add_min_largest_shortfall_objective()` functions to employ a slightly
+  different problem formulation that -- despite being functionally identical to
+  the previous formulation -- has better performance for large-scale
+  problems (#357). Thanks to Aboozar Mohammadi (\@AboozarM) for the suggestion.
 - Update `write_problem()` function to support all the file formats supported by
   the Gurobi solver (per `gurobi::gurobi_write()`). Of particular note,
   this means that problems can now be saved in compressed file file format
   (e.g., `.mps.gz`).
-- Update the `add_cbc_solver()` function so that the `presolve` parameter
+- Update `add_cbc_solver()` function so that the `presolve` parameter
   can be used to specify the intensity of the presolve process. Similar to
   `add_gurobi_solver()`, the `presolve` parameter is now specified as an integer
   value. The default value is now 2, which specifies the most intensive
@@ -45,7 +50,9 @@
 - Update unit tests for `add_boundary_penalties()`,
   `add_connectivity_penalties()`, and `add_asym_connectivity_penalties()` to
   reduce run time.
-- Fix bug in unit tests for `add_asym_connectivity_penalties()`.
+- Fix bug in unit tests for `add_asym_connectivity_penalties()`, and
+  `eval_rank_importance()` functions. Note that these bugs do not affect
+  the correctness of the functions as implemented in the package.
 
 ## Documentation updates
 

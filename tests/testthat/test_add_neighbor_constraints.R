@@ -127,6 +127,7 @@ test_that("solve (sf, single zone)", {
 
 test_that("clamp yields feasible results (single zone)", {
   skip_on_cran()
+  skip_if_no_solvers_installed()
   # import data
   pu_data <- terra::rast(matrix(c(1, 1, 1, 1, 1, 1), nrow = 2))
   locked_out <- terra::rast(matrix(c(1, 0, 1, 0, 1, 0), nrow = 2))
@@ -386,6 +387,7 @@ test_that("solve (sf, clamp = FALSE, multiple zones)", {
 
 test_that("clamp with locked out constraints is feasible (multiple zone)", {
   skip_on_cran()
+  skip_if_no_solvers_installed()
   # import data
   pu_data <- c(
     terra::rast(matrix(c(1, 1, 1, 1, 1, 1), nrow = 2)),
