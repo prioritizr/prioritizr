@@ -93,11 +93,17 @@ write_problem <- function(x, path, solver = NULL) {
   }
   # assert valid file extensions
   valid_ext <- c(".lp", ".mps")
-  valid_ext_msg <- paste(
-    "{.arg path} must have a",
-    "{.val \".lp\"} or {.val \".mps\"} file extension for the Rsymphony",
-    "solver."
+  valid_ext_msg <- c(
+    "!" = paste(
+      "{.arg path} must have a file extension supported by the",
+      "Rsymphony solver."
+    ),
+    "i" = paste(
+      "Supported file extensions include {.val .lp}",
+      "and {.val .mps}."
+    )
   )
+  # nocov start
   if (identical(solver, "gurobi")) {
     valid_ext <- c(
       ".mps", ".rew", ".lp", ".rlp", ".dua", ".dlp", ".ilp",
@@ -110,12 +116,17 @@ write_problem <- function(x, path, solver = NULL) {
     )
     valid_ext_msg <- c(
       "!" = paste(
-        "{.arg path} must have a valid file extension",
-        "for the Gurobi solver."
+        "{.arg path} must have a file extension supported by the",
+        "Gurobi solver."
       ),
-      "i" = "See {.fn gurobi::gurobi_write} for valid file extensions."
+      "i" = paste0(
+        "Supported file extensions include {.val .lp},",
+        "{.val .mps}, {.val .lp.gz}, {.val .mps.gz}, and others."
+      ),
+      "i" = "See {.fn gurobi::gurobi_write} for all supported file extensions."
     )
   }
+  # nocov end
   assert(
     isTRUE(any(vapply(valid_ext, endsWith, logical(1), x = path))),
     msg = valid_ext_msg

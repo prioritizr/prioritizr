@@ -38,7 +38,7 @@ test_that("proportion decisions", {
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%
     add_proportion_decisions() %>%
-    add_cbc_solver(gap = 0, verbose = FALSE)
+    add_cbc_solver(gap = 0, verbose = FALSE, presolve = FALSE)
   s <- solve(p)
   # check that solution has correct properties
   expect_inherits(s, "SpatRaster")

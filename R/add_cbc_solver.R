@@ -130,6 +130,9 @@ add_cbc_solver <- function(x,
   if (isTRUE(presolve)) {
     presolve <- 1
   }
+  if (identical(presolve, FALSE)) {
+    presolve <- 0
+  }
   # assert valid arguments
   assert(
     is_conservation_problem(x),

@@ -306,6 +306,38 @@ test_that("minimum set objective (solve, multiple zones)", {
   expect_true(is_distinct_zones_raster(category_layer(s)))
 })
 
+test_that("various input formats yield equivalent results", {
+  # import data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  # prepare adjacency data
+  a1 <- adjacency_matrix(sim_pu_raster)
+  a2 <- as_Matrix(a1, "dgTMatrix")
+  a2 <- data.frame(id1 = a2@i + 1, id2 = a2@j + 1, boundary = a2@x)
+  # create problem
+  p0 <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.1) %>%
+    add_binary_decisions()
+  p1 <-
+    p0 %>%
+    add_neighbor_penalties(5)
+  p2 <-
+    p0 %>%
+    add_neighbor_penalties(5, data = a1)
+  p3 <-
+    p0 %>%
+    add_neighbor_penalties(5, data = a2)
+  # compile problems
+  o1 <- compile(p1)
+  o2 <- compile(p2)
+  o3 <- compile(p3)
+  # tests
+  expect_equal(as.list(o1), as.list(o2))
+  expect_equal(as.list(o1), as.list(o3))
+})
+
 test_that("invalid inputs (multiple zones)", {
   # load data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
