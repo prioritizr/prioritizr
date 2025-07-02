@@ -125,21 +125,21 @@ to favor the representation of certain features over other features (see
 <p>This objective can be expressed mathematically for a set of planning units
 (\(I\) indexed by \(i\)) and a set of features (\(J\) indexed
 by \(j\)) as:</p>
-<p>$$\mathit{Minimize} \space  \sum_{j = 1}^{J} w_j \frac{y_j}{t_j} \\
+<p>$$\mathit{Minimize} \space  \sum_{j = 1}^{J} w_j \times y_j \\
 \mathit{subject \space to} \\
-\sum_{i = 1}^{I} x_i r_{ij} + y_j \geq t_j \forall j \in J \\
+\sum_{i = 1}^{I} x_i r_{ij} + t_j y_j \geq t_j \forall j \in J \\
 \sum_{i = 1}^{I} x_i c_i \leq B$$</p>
 <p>Here, \(x_i\) is the <a href="decisions.html">decisions</a> variable (e.g.,
 specifying whether planning unit \(i\) has been selected (1) or not
 (0)), \(r_{ij}\) is the amount of feature \(j\) in planning
 unit \(i\), \(t_j\) is the representation target for feature
-\(j\), \(y_j\) denotes the representation shortfall for
+\(j\), \(y_j\) denotes the relative representation shortfall for
 the target \(t_j\) for feature \(j\), and \(w_j\) is the
 weight for feature \(j\) (defaults to 1 for all features; see
 <code><a href="add_feature_weights.html">add_feature_weights()</a></code> to specify weights). Additionally,
 \(B\) is the budget allocated for the solution, \(c_i\) is the
 cost of planning unit \(i\). Note that \(y_j\) is a continuous
-variable bounded between zero and infinity, and denotes the shortfall
+variable bounded between zero and one, and denotes the relative shortfall
 for target \(j\).</p>
     </div>
     <div class="section level2">

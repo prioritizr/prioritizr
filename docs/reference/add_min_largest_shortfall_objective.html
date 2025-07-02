@@ -141,21 +141,18 @@ Note that this objective function is not compatible with feature weights
 indexed by \(j\)) as:</p>
 <p>$$\mathit{Minimize} \space l \\
 \mathit{subject \space to} \\
-\sum_{i = 1}^{I} x_i r_{ij} + y_j \geq t_j \forall j \in J \\
-l \geq \frac{y_j}{t_j} \forall j \in J \\
+\sum_{i = 1}^{I} x_i \times r_{ij} + l t_j \geq t_j \forall j \in J \\
 \sum_{i = 1}^{I} x_i c_i \leq B$$</p>
 <p>Here, \(x_i\) is the <a href="decisions.html">decisions</a> variable (e.g.,
 specifying whether planning unit \(i\) has been selected (1) or not
 (0)), \(r_{ij}\) is the amount of feature \(j\) in planning
 unit \(i\), and \(t_j\) is the representation target for feature
 \(j\).
-Additionally, \(y_j\) denotes the target shortfall for
-the target \(t_j\) for feature \(j\), and
-\(l\) denotes the largest target shortfall.
+Additionally, \(l\) denotes the largest relative target shortfall
+among all the species.
 Furthermore, \(B\) is the budget allocated for the solution,
 \(c_i\) is the cost of planning unit \(i\). Note that
-\(y_j\) and \(s\) are continuous variables bounded between zero
-and infinity.</p>
+continuous variable \(l\) is bounded between zero and one.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
