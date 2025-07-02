@@ -14,6 +14,8 @@ NULL
 #' @name Solver-class
 #'
 #' @family classes
+#'
+#' @export
 Solver <- R6::R6Class(
   "Solver",
   inherit = ConservationModifier,

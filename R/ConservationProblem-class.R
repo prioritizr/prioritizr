@@ -20,6 +20,8 @@ NULL
 #' @name ConservationProblem-class
 #'
 #' @family classes
+#'
+#' @export
 ConservationProblem <- R6::R6Class(
   "ConservationProblem",
   public = list(

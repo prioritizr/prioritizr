@@ -8,6 +8,9 @@
 - Update `add_cbc_solver()`, `add_gurobi_solver()`, and `add_highs_solver()`,
   functions with a new `control` parameter that can be used to manually
   specify additional parameters for customizing the optimization process (#354).
+- Classes are now exported to make it easier for other packages to extend
+  the *prioritizr* fuctionality by adding their own objectives, constraints,
+  penalties, targets, and solvers.
 
 ## Minor improvements and bug fixes
 

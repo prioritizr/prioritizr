@@ -19,6 +19,8 @@ NULL
 #' @name OptimizationProblem-class
 #'
 #' @family classes
+#'
+#' @export
 OptimizationProblem <- R6::R6Class(
   "OptimizationProblem",
   public = list(

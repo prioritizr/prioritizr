@@ -14,6 +14,8 @@ NULL
 #' @name Constraint-class
 #'
 #' @family classes
+#'
+#' @export
 Constraint <- R6::R6Class(
   "Constraint",
   inherit = ConservationModifier,
