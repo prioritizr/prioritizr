@@ -64,7 +64,7 @@ test_that("compile (min shortfall, compressed formulation, single zone)", {
   n_features <- terra::nlyr(sim_features)
   # tests
   expect_equal(o$modelsense(), "min")
-  expect_equal(o$obj(), c(rep(0, n_pu), replace(1 / targ, 2, 0) * w))
+  expect_equal(o$obj(), c(rep(0, n_pu), w))
   expect_equal(o$sense(), c(rep(">=", n_features), "<="))
   expect_equal(o$rhs(), c(targ, b))
   expect_equal(o$col_ids(), c(rep("pu", n_pu), rep("spp_met", n_features)))
@@ -80,12 +80,12 @@ test_that("compile (min shortfall, compressed formulation, single zone)", {
     all(
       o$A()[seq_len(n_features), n_pu + seq_len(n_features)] ==
       triplet_sparse_matrix(
-        i = seq_len(n_features), j = seq_len(n_features), x = 1
+        i = seq_len(n_features), j = seq_len(n_features), x = targ
       )
     )
   )
   expect_true(all(o$lb() == 0))
-  expect_equal(o$ub(), c(rep(1, n_pu), rep(Inf, n_features)))
+  expect_true(all(o$ub() == 1))
 })
 
 test_that("solve (max utility, compressed formulation, single zone)", {
