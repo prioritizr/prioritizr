@@ -521,9 +521,9 @@ test_that("control and backwards-compatibility presolve", {
     add_relative_targets(0.1) %>%
     add_binary_decisions() %>%
     add_cbc_solver(
-      time_limit = 5, verbose = FALSE,
+      time_limit = 5, verbose = TRUE,
       presolve = TRUE,
-      control = list(strategy = 2)
+      control = list(combineSolutions = "on")
   )
   # solve problems
   s1 <- solve(p1)
