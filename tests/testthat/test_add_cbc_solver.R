@@ -523,7 +523,7 @@ test_that("control and backwards-compatibility presolve", {
     add_cbc_solver(
       time_limit = 5, verbose = FALSE,
       presolve = TRUE,
-      control = list(strategy = 2, gamma = "on")
+      control = list(strategy = 2)
   )
   # solve problems
   s1 <- solve(p1)
