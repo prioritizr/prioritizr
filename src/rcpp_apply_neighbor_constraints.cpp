@@ -103,9 +103,8 @@ bool rcpp_apply_neighbor_constraints(
       ptr->_A_i.push_back(A_original_nrow + curr_i);
       ptr->_A_j.push_back(curr_i);
       ptr->_A_x.push_back(
-        -1.0 *
         // if clamp, then use min(...), otherwise use k[z]
-        (
+        -1.0 * (
           (clamp2 * std::min(k[z], pu_neighbor_set[curr_i].size())) +
           ((1.0 - clamp2) * k[z])
         )

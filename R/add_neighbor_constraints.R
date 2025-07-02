@@ -427,10 +427,10 @@ internal_add_neighbor_constraints <- function(x, k, clamp, zones, data) {
           # compute maximum number of neighbors for each planing unit
           max_n <- 0
           for (z1 in seq_along(m)) {
-            if (length(m[[z1]]) > 0) {
+            if (length(m[[z1]]) > 1) {
               curr_m <- Reduce(`+`, m[[z1]])
             } else {
-              curr_m <- m[[z1]]
+              curr_m <- m[[z1]][[1]]
             }
             max_n <- max(max_n, Matrix::colSums(curr_m > 1e-5))
           }

@@ -108,7 +108,8 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
           time_limit = time_limit,
           presolve = presolve,
           threads = threads,
-          verbose = verbose
+          verbose = verbose,
+          control = control
         ),
         calculate = function(x, ...) {
           # prepare constraints
