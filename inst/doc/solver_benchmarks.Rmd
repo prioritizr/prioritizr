@@ -58,6 +58,7 @@ library(piggyback)
 library(ggplot2)
 library(units)
 library(dplyr)
+library(scales)
 ```
 
 ### Download benchmark results
@@ -74,7 +75,6 @@ pb_download(
 
 # load benchmark results
 load(file.path(tempdir(), "results.rda"))
-
 ```
 
 ### Benchmark parameters
@@ -103,7 +103,8 @@ sort(unique(benchmark_results$objective))
 # note that different values were examined for different objective functions
 boundary_penalty_values <-
   benchmark_results %>%
-  plyr::dlply("objective", function(x) unique(x$boundary_penalty))
+  split(.$objective) %>%
+  lapply(function(x) unique(x$boundary_penalty))
 
 ## boundary penalty values for min set objective function
 sort(boundary_penalty_values$add_min_set_objective)

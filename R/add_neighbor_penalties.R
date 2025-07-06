@@ -56,7 +56,7 @@ NULL
 #' benefit and not minimize some measure of cost, the term \eqn{-p} is
 #' replaced with \eqn{p}.
 #'
-#' @inherit add_boundary_penalties return seealso
+#' @inherit add_linear_penalties return seealso
 #'
 #' @family penalties
 #'

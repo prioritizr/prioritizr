@@ -1,6 +1,6 @@
 Package: prioritizr
 Type: Package
-Version: 8.0.6.6
+Version: 8.0.6.7
 Title: Systematic Conservation Prioritization in R
 Description:
     Systematic conservation prioritization using mixed integer linear
@@ -68,7 +68,6 @@ Imports:
 Suggests:
     testthat (>= 3.1.0),
     knitr (>= 1.36),
-    scales (>= 1.1.1),
     gurobi (>= 8.0-1),
     rcbc (>= 0.1.0.9001),
     cplexAPI (>= 1.4.0),
@@ -185,6 +184,7 @@ Collate:
     'as_Matrix.R'
     'boundary_matrix.R'
     'branch_matrix.R'
+    'calibrate_cohon_method.R'
     'compile.R'
     'connectivity_matrix.R'
     'constraints.R'
@@ -251,6 +251,15 @@ Collate:
     'zzz.R'
 Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3
+Config/Needs/website:
+    topsis,
+    vegan,
+    cluster,
+    units,
+    scales,
+    dplyr,
+    piggyback,
+    pkgdown
 Remotes:
   dirkschumacher/rcbc,
   cran/cplexAPI,

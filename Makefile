@@ -127,6 +127,10 @@ build:
 install:
 	R --slave -e "devtools::install_local(force = TRUE)"
 
+install_deps:
+	R --slave -e "remotes::install_deps(dep = TRUE)"
+	R --slave -e "remotes::install_deps(dep = 'Config/Needs/website')"
+
 examples:
 	R --slave -e "devtools::run_examples(run_donttest = TRUE, run_dontrun = TRUE);warnings()" > examples.log 2>&1
 	rm -f Rplots.pdf

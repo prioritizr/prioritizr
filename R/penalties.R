@@ -49,6 +49,11 @@ NULL
 #'
 #' @family overviews
 #'
+#' @seealso
+#' For information on calibrating the penalties, see the Calibrating Trade-offs
+#' vignette. Additionally, Cohons's method ([calibrate_cohon_method()])
+#' can be used to identify suitable penalty values.
+#'
 #' @examples
 #' \dontrun{
 #' # load data

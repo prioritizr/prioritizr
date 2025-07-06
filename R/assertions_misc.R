@@ -89,3 +89,30 @@ assertthat::on_failure(is_installed) <- function(call, env) {
     "i" = paste0("Install it using", code)
   )
 }
+
+#' Is valid raw solution?
+#'
+#' Check if an object contains a valid raw solution.
+#'
+#' @param x object.
+#'
+#' @param call Caller environment.
+#'
+#' @return A `logical` value.
+#'
+#' @return A `logical` value.
+#'
+#' @noRd
+is_valid_raw_solution <- function(x) {
+  !is.null(x) && !is.null(x[[1]]$x)
+}
+
+assertthat::on_failure(is_valid_raw_solution) <- function(call, env) {
+  c(
+    "Can't find a solution!",
+    "i" = paste(
+      "This is because it is impossible to meet the",
+      "targets, budgets, or constraints."
+    )
+  )
+}

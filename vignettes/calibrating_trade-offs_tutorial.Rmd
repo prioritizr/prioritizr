@@ -518,48 +518,12 @@ Next, let's consider another quantitative method.
 
 ### Cohon *et al.* (1979) method
 
-This method is based on an algorithm that was originally developed by Cohon *et al.* [@r49], and was later adapted for use in systematic conservation planning [@r50]. Specifically, it involves generating two ideal prioritizations -- with each prioritization representing the ideal prioritization for each criteria -- and then using the performance metrics calculated for these prioritizations to automatically derive a trade-off `penalty` value [@r45; @r49]. Thus, unlike the two other methods, this method does not require a set of candidate prioritizations. **As such, this method can be used to find a prioritization that meets multiple criteria in a much shorter period of time than the other methods.** To implement this method, we first need to generate the ideal prioritizations (note that we specify an gap of 0% to ensure optimality).
+This method is based on an algorithm that was originally developed by Cohon *et al.* [-@r49], and was later adapted for use in systematic conservation planning [@r50]. Specifically, it involves generating two optimal prioritizations -- with each prioritization representing the optimal prioritization according to each criteria (e.g., total cost versus total boundary length) -- and then using performance metrics for these prioritizations to automatically derive a `penalty` value [@r45; @r49]. Thus, unlike the two other methods, this method does not require a set of candidate prioritizations. As such, this method can be used to find a prioritization that represents a suitable compromise in a much shorter period of time than the other methods.
 
 ```{r, results = "hide"}
-# generate ideal prioritization based on cost criteria
-## note that this is simply the same as the s1 prioritization we generated
-## for the hierarchical approach
+# create problem with boundary penalties
+## note that penalty = 1 is used as a place-holder
 p3 <-
-  problem(tas_pu, tas_features, cost_column = "cost") %>%
-  add_min_set_objective() %>%
-  add_relative_targets(0.17) %>%
-  add_locked_in_constraints("locked_in") %>%
-  add_binary_decisions() %>%
-  add_default_solver(gap = 0)
-
-# solve problem
-s3 <- solve(p3)
-
-# generate ideal prioritization based on spatial fragmentation criteria
-## note that any non-zero penalty value would here
-## so we just use a penalty  of 1,
-## also note that we set the budget as 1e6 because this is an arbitrarily
-## high budget (i.e., greater than cost of selecting all planning units)
-## so the budget has no effect on the optimization
-p4 <-
-  problem(tas_pu, tas_features, cost_column = "cost") %>%
-  add_min_penalties_objective(budget = 1e6) %>%
-  add_boundary_penalties(penalty = 1, data = tas_bd) %>%
-  add_relative_targets(0.17) %>%
-  add_locked_in_constraints("locked_in") %>%
-  add_binary_decisions() %>%
-  add_default_solver(gap = 0)
-
-# solve problem
-s4 <- solve(p4, force = TRUE, run_checks = FALSE)
-```
-
-Next, let's calculate the performance metrics for these prioritizations.
-
-```{r}
-# generate problem formulation with costs and boundary penalties for
-# calculating performance metrics
-p5 <-
   problem(tas_pu, tas_features, cost_column = "cost") %>%
   add_min_set_objective() %>%
   add_boundary_penalties(penalty = 1, data = tas_bd) %>%
@@ -567,42 +531,18 @@ p5 <-
   add_locked_in_constraints("locked_in") %>%
   add_binary_decisions()
 
-# calculate performance metrics for ideal cost prioritization
-s3_metrics <- tibble(
-  total_cost = eval_cost_summary(p5, s3[, "solution_1"])$cost,
-  total_boundary_length =
-    eval_boundary_summary(p5, s3[, "solution_1"])$boundary
-)
-
-# calculate performance metrics for ideal boundary length prioritization
-s4_metrics <- tibble(
-  total_cost = eval_cost_summary(p5, s4[, "solution_1"])$cost,
-  total_boundary_length =
-    eval_boundary_summary(p5, s4[, "solution_1"])$boundary
-)
-```
-
-After calculating these performance metrics, we can use them to automatically calculate a `penalty` value.
-
-```{r}
-# calculate penalty value based on Cohon et al. 1979
-cohon_penalty <- abs(
-  (s3_metrics$total_cost - s4_metrics$total_cost) /
-  (s3_metrics$total_boundary_length - s4_metrics$total_boundary_length)
-)
-
-# round to 5 decimal places to avoid numerical issues during optimization
-cohon_penalty <- round(cohon_penalty, 5)
+# find calibrated boundary penalty using Cohon's method
+cohon_penalty <- calibrate_cohon_method(p3, verbose = FALSE)
 
 # print penalty value
-print(cohon_penalty)
+print(cohon_penalty[[1]])
 ```
 
 Now that we have calculated a `penalty` value using this method, we can use it to generate a prioritization.
 
 ```{r, results = "hide"}
-# generate prioritization using penalty value calculated using Cohon et al. 1979
-p6 <-
+# generate prioritization using penalty value calculated using Cohon's method
+p4 <-
   problem(tas_pu, tas_features, cost_column = "cost") %>%
   add_min_set_objective() %>%
   add_boundary_penalties(penalty = cohon_penalty, data = tas_bd) %>%
@@ -611,19 +551,19 @@ p6 <-
   add_binary_decisions()
 
 # solve problem
-s6 <- solve(p6)
+s4 <- solve(p4)
 ```
 
 Let's update the `results_data` table with results about the prioritization.
 
 ```{r}
-# add new row with data for prioritization generated following Cohon et al. 1979
+# add new row with data for prioritization
 result_data <- bind_rows(
   result_data,
   tibble(
-    total_cost = eval_cost_summary(p6, s6[, "solution_1"])$cost,
+    total_cost = eval_cost_summary(p4, s4[, "solution_1"])$cost,
     total_boundary_length =
-      eval_boundary_summary(p6, s6[, "solution_1"])$boundary,
+      eval_boundary_summary(p4, s4[, "solution_1"])$boundary,
     value = cohon_penalty,
     name = paste0("penalty_", cohon_penalty),
     label = paste0("Penalty = ",  cohon_penalty),
@@ -632,14 +572,14 @@ result_data <- bind_rows(
 )
 ```
 
-Next, let's compare the prioritizations selected by different methods.
+After completing this, let's compare the prioritizations selected by different methods.
 
 ### Method comparison
 
 Let's create a plot to visualize the results from the different methods.
 
 ```{r, fig.width = 7, fig.height = 5.0}
-# create plot to visualize trade-offs and show selected candidate prioritization
+# create plot to visualize trade-offs and show selected prioritizations
 result_plot <-
   ggplot(
     data =
@@ -677,11 +617,15 @@ topsis_name <- result_data$name[[which(result_data$method == "TOPSIS")]]
 # create object with selected prioritizations
 solutions  <- bind_cols(
   tas_pu,
+  s0 %>%
+    st_drop_geometry() %>%
+    dplyr::select(solution_1) %>%
+    setNames("No penalties"),
   hierarchical_results %>%
     st_drop_geometry() %>%
     dplyr::select(all_of(c(visual_name, topsis_name))) %>%
     setNames(c("Visual", "TOPSIS")),
-  s6 %>%
+  s4 %>%
     st_drop_geometry() %>%
     dplyr::select(solution_1) %>%
     rename(Cohon = "solution_1")
@@ -691,7 +635,7 @@ solutions  <- bind_cols(
 plot(
   x =
     solutions %>%
-    dplyr::select(Visual, TOPSIS, Cohon) %>%
+    dplyr::select(`No penalties`, Visual, TOPSIS, Cohon) %>%
     mutate_if(is.numeric, function(x) {
       case_when(
         hierarchical_results$locked_in > 0.5 ~ "locked in",

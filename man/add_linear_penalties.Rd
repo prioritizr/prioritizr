@@ -239,6 +239,8 @@ plot(category_layer(s4), main = "multi-zone solution", axes = FALSE)
 }
 \seealso{
 See \link{penalties} for an overview of all functions for adding penalties.
+Also, see \code{\link[=calibrate_cohon_method]{calibrate_cohon_method()}} for assistance with selecting
+an appropriate \code{penalty} value.
 
 Other penalties: 
 \code{\link{add_asym_connectivity_penalties}()},

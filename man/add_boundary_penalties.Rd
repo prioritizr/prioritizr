@@ -263,8 +263,10 @@ conservation planning problems with integer linear programming.
 }
 \seealso{
 See \link{penalties} for an overview of all functions for adding penalties.
-Additionally, see \code{\link[=add_neighbor_penalties]{add_neighbor_penalties()}} for a penalty that
+Also see \code{\link[=add_neighbor_penalties]{add_neighbor_penalties()}} for a penalty that
 can reduce spatial fragmentation and has faster solver run times.
+Additionally, see \code{\link[=calibrate_cohon_method]{calibrate_cohon_method()}} for assistance with selecting
+an appropriate \code{penalty} value.
 
 Other penalties: 
 \code{\link{add_asym_connectivity_penalties}()},

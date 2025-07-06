@@ -2,15 +2,16 @@
 
 ## New features
 
+- New `calibate_cohon_method()` function for automatically identifying
+  a suitable penalty value for the penalties functions (#175). It is designed
+  to work with any objective function and any of the penalty functions
+  available in the package.
 - New `add_neighbor_penalties()` function to reduce spatial fragmentation.
   This function is especially useful when working with large-scale problems or
   open source solvers.
 - Update `add_cbc_solver()`, `add_gurobi_solver()`, and `add_highs_solver()`,
   functions with a new `control` parameter that can be used to manually
   specify additional parameters for customizing the optimization process (#354).
-- Classes are now exported to make it easier for other packages to extend
-  the *prioritizr* functionality by adding their own objectives, constraints,
-  penalties, targets, and solvers.
 
 ## Minor improvements and bug fixes
 
@@ -42,6 +43,10 @@
   value. The default value is now 2, which specifies the most intensive
   level of presolve. For backwards compatibility, a value of `TRUE`
   is treated as a value of 1.
+- Update `eval_target_coverage_amount()` so that the relative shortfall
+  for each target is now calculated by dividing the absolute shortfall
+  by the absolute target. This change is to ensure consistency with the minimum
+  shortfall objective.
 - Fix bug in internal `repr.list()` function that displayed duplicate class
   names.
 - Fix bug in `adjacency_matrix()`, `compile()`, and `zone_names()` functions
@@ -53,6 +58,9 @@
 - Fix bug in unit tests for `add_asym_connectivity_penalties()`, and
   `eval_rank_importance()` functions. Note that these bugs do not affect
   the correctness of the functions as implemented in the package.
+- Classes are now exported to make it easier for other packages to extend
+  the *prioritizr* functionality by adding their own objectives, constraints,
+  penalties, targets, and solvers.
 
 ## Documentation updates
 
@@ -60,6 +68,8 @@
   `numeric_focus` parameter.
 - Fix typo in equation for `add_max_utility_objective()` (#373). Thanks to
   Anthony Richardson (\@ric325) for bug report.
+- Update Calibrating trade-offs vignette with new `calibrate_cohon_method()`
+  function.
 - Update publication record.
 
 # prioritizr 8.0.6.6

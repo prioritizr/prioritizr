@@ -35,7 +35,7 @@ test_that("binary values (single zone)", {
     ),
     relative_target = c(0.3, 0.8),
     relative_held = absolute_held / total_amount,
-    relative_shortfall = absolute_shortfall / total_amount,
+    relative_shortfall = absolute_shortfall / absolute_target,
     met = absolute_shortfall < 1e-10
   )
   r2 <- r2[, c(
@@ -85,7 +85,7 @@ test_that("proportion values (single zone)", {
     ),
     relative_target = c(0.3, 0.8),
     relative_held = absolute_held / total_amount,
-    relative_shortfall = absolute_shortfall / total_amount,
+    relative_shortfall = absolute_shortfall / absolute_target,
     met = absolute_shortfall < 1e-10
   )
   r2 <- r2[, c(
@@ -149,7 +149,7 @@ test_that("binary values (multiple zones)", {
     ),
     relative_target = absolute_target / total_amount,
     relative_held = absolute_held / total_amount,
-    relative_shortfall = absolute_shortfall / total_amount,
+    relative_shortfall = absolute_shortfall / absolute_target,
     met = absolute_shortfall < 1e-10
   )
   r2 <- r2[, c(
@@ -213,7 +213,7 @@ test_that("proportion values (multiple zones)", {
     ),
     relative_target = absolute_target / total_amount,
     relative_held = absolute_held / total_amount,
-    relative_shortfall = absolute_shortfall / total_amount,
+    relative_shortfall = absolute_shortfall / absolute_target,
     met = absolute_shortfall < 1e-10
   )
   r2 <- r2[, c(
@@ -268,7 +268,7 @@ test_that("binary values (single zone, variable target sense, none met)", {
     ),
     relative_target = targets$target,
     relative_held = absolute_held / total_amount,
-    relative_shortfall = absolute_shortfall / total_amount,
+    relative_shortfall = absolute_shortfall / absolute_target,
     met = absolute_shortfall < 1e-10
   )
   r2 <- r2[, c(
@@ -320,7 +320,7 @@ test_that("binary values (single zone, variable target sense, all met)", {
     absolute_shortfall = rep(0, 3),
     relative_target = absolute_target / total_amount,
     relative_held = absolute_held / total_amount,
-    relative_shortfall = absolute_shortfall / total_amount,
+    relative_shortfall = absolute_shortfall / absolute_target,
     met = TRUE
   )
   r2 <- r2[, c(

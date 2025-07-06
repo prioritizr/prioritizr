@@ -151,9 +151,7 @@ Thirdly, we will load some planning unit data stored in tabular format (i.e., `d
 pu_path <- system.file("extdata/marxan/input/pu.dat", package = "prioritizr")
 
 # load in the tabular planning unit data
-# note that we use the data.table::fread function, as opposed to the read.csv
-# function, because it is much faster
-pu_dat <- data.table::fread(pu_path, data.table = FALSE)
+pu_dat <- vroom::vroom(pu_path)
 
 # preview first six rows of the tabular planning unit data
 # note that it has some extra columns other than id and cost as per the
@@ -213,7 +211,7 @@ spec_path <- system.file(
 )
 
 # load in feature data
-spec_dat <- data.table::fread(spec_path, data.table = FALSE)
+spec_dat <- vroom::vroom(spec_path)
 
 # print first six rows of the data
 # note that it contains extra columns
@@ -225,7 +223,7 @@ puvspr_path <- system.file(
 )
 
 # load in planning unit vs feature data
-puvspr_dat <- data.table::fread(puvspr_path, data.table = FALSE)
+puvspr_dat <- vroom::vroom(puvspr_path)
 
 # print first six rows of the data
 head(puvspr_dat)

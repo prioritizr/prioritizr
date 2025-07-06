@@ -501,20 +501,19 @@ R</em> package to solve an optimization problem. Copy and paste the
 <em>R</em> code below into <em>R</em>.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># load gurobi package</span></span>
 <span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="fu">library</span>(gurobi)</span></code></pre></div>
-<pre><code>## Warning: package &#39;gurobi&#39; was built under R version 4.5.0</code></pre>
 <pre><code>## Loading required package: slam</code></pre>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="co"># create optimization problem</span></span>
-<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>model<span class="sc">$</span>obj        <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>)</span>
-<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>model<span class="sc">$</span>modelsense <span class="ot">&lt;-</span> <span class="st">&quot;max&quot;</span></span>
-<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>model<span class="sc">$</span>rhs        <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">1</span>)</span>
-<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>model<span class="sc">$</span>sense      <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;&lt;&quot;</span>, <span class="st">&quot;&gt;&quot;</span>)</span>
-<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a>model<span class="sc">$</span>vtype      <span class="ot">&lt;-</span> <span class="st">&quot;B&quot;</span></span>
-<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a>model<span class="sc">$</span>A          <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>), <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">3</span>,</span>
-<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a>                           <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a></span>
-<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a><span class="co"># solve the optimization problem using Gurobi</span></span>
-<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">gurobi</span>(model, <span class="fu">list</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co"># create optimization problem</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>model<span class="sc">$</span>obj        <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>model<span class="sc">$</span>modelsense <span class="ot">&lt;-</span> <span class="st">&quot;max&quot;</span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>model<span class="sc">$</span>rhs        <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">1</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>model<span class="sc">$</span>sense      <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;&lt;&quot;</span>, <span class="st">&quot;&gt;&quot;</span>)</span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a>model<span class="sc">$</span>vtype      <span class="ot">&lt;-</span> <span class="st">&quot;B&quot;</span></span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a>model<span class="sc">$</span>A          <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>), <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">3</span>,</span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a>                           <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a><span class="co"># solve the optimization problem using Gurobi</span></span>
+<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">gurobi</span>(model, <span class="fu">list</span>())</span></code></pre></div>
 <pre><code>## Set parameter Username
 ## Set parameter LicenseID to value 2599748
 ## Academic license - for non-commercial use only - expires 2025-12-16
@@ -546,10 +545,10 @@ R</em> package to solve an optimization problem. Copy and paste the
 ## 
 ## Optimal solution found (tolerance 1.00e-04)
 ## Best objective 3.000000000000e+00, best bound 3.000000000000e+00, gap 0.0000%</code></pre>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="co"># print the solution</span></span>
-<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a><span class="fu">print</span>(result<span class="sc">$</span>objval) <span class="co"># objective</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="co"># print the solution</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="fu">print</span>(result<span class="sc">$</span>objval) <span class="co"># objective</span></span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="fu">print</span>(result<span class="sc">$</span>x)      <span class="co"># decision variables</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">print</span>(result<span class="sc">$</span>x)      <span class="co"># decision variables</span></span></code></pre></div>
 <pre><code>## [1] 1 0 1</code></pre>
 <p>If you see the outputs for <code>result$objval</code> and
 <code>result$x</code> and you don’t see any error messages, then you
@@ -576,23 +575,23 @@ time should be spent searching for a solution).</p>
 <p>Finally, to check that everything has been installed correctly, we
 will use the <em>Gurobi</em> software suite to solve a reserve selection
 problem created using the <em>prioritzr</em> <em>R</em> package.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="co"># load package</span></span>
-<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a><span class="fu">library</span>(prioritizr)</span>
-<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a></span>
-<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a><span class="co"># load data</span></span>
-<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a>sim_pu_raster <span class="ot">&lt;-</span> <span class="fu">get_sim_pu_raster</span>()</span>
-<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a>sim_features <span class="ot">&lt;-</span> <span class="fu">get_sim_features</span>()</span>
-<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a></span>
-<span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a><span class="co"># formulate the problem</span></span>
-<span id="cb16-9"><a href="#cb16-9" tabindex="-1"></a>p <span class="ot">&lt;-</span></span>
-<span id="cb16-10"><a href="#cb16-10" tabindex="-1"></a>  <span class="fu">problem</span>(sim_pu_raster, sim_features) <span class="sc">%&gt;%</span></span>
-<span id="cb16-11"><a href="#cb16-11" tabindex="-1"></a>  <span class="fu">add_min_set_objective</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb16-12"><a href="#cb16-12" tabindex="-1"></a>  <span class="fu">add_relative_targets</span>(<span class="fl">0.1</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb16-13"><a href="#cb16-13" tabindex="-1"></a>  <span class="fu">add_binary_decisions</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb16-14"><a href="#cb16-14" tabindex="-1"></a>  <span class="fu">add_gurobi_solver</span>()</span>
-<span id="cb16-15"><a href="#cb16-15" tabindex="-1"></a></span>
-<span id="cb16-16"><a href="#cb16-16" tabindex="-1"></a><span class="co"># solve the problem</span></span>
-<span id="cb16-17"><a href="#cb16-17" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">solve</span>(p)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="co"># load package</span></span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="fu">library</span>(prioritizr)</span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a><span class="co"># load data</span></span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a>sim_pu_raster <span class="ot">&lt;-</span> <span class="fu">get_sim_pu_raster</span>()</span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a>sim_features <span class="ot">&lt;-</span> <span class="fu">get_sim_features</span>()</span>
+<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a><span class="co"># formulate the problem</span></span>
+<span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a>p <span class="ot">&lt;-</span></span>
+<span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a>  <span class="fu">problem</span>(sim_pu_raster, sim_features) <span class="sc">%&gt;%</span></span>
+<span id="cb15-11"><a href="#cb15-11" tabindex="-1"></a>  <span class="fu">add_min_set_objective</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb15-12"><a href="#cb15-12" tabindex="-1"></a>  <span class="fu">add_relative_targets</span>(<span class="fl">0.1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-13"><a href="#cb15-13" tabindex="-1"></a>  <span class="fu">add_binary_decisions</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb15-14"><a href="#cb15-14" tabindex="-1"></a>  <span class="fu">add_gurobi_solver</span>()</span>
+<span id="cb15-15"><a href="#cb15-15" tabindex="-1"></a></span>
+<span id="cb15-16"><a href="#cb15-16" tabindex="-1"></a><span class="co"># solve the problem</span></span>
+<span id="cb15-17"><a href="#cb15-17" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">solve</span>(p)</span></code></pre></div>
 <pre><code>## Set parameter Username
 ## Set parameter LicenseID to value 2599748
 ## Set parameter TimeLimit to value 2147483647
@@ -643,11 +642,11 @@ problem created using the <em>prioritzr</em> <em>R</em> package.</p>
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
 ## Best objective 1.987398529053e+03, best bound 1.931581907658e+03, gap 2.8085%</code></pre>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="co"># plot solution</span></span>
-<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a><span class="fu">plot</span>(</span>
-<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a>  s, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;grey90&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>), <span class="at">main =</span> <span class="st">&quot;Solution&quot;</span>,</span>
-<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a>  <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>)</span>
-<span id="cb18-5"><a href="#cb18-5" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="co"># plot solution</span></span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="fu">plot</span>(</span>
+<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a>  s, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;grey90&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>), <span class="at">main =</span> <span class="st">&quot;Solution&quot;</span>,</span>
+<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a>  <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>)</span>
+<span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a>)</span></code></pre></div>
 <p><img role="img" src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
 <p>After running this code, hopefully, you should some information
 printed on-screen about the optimization process and <em>R</em> should

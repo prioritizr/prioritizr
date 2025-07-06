@@ -277,7 +277,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##      3.429
+    ##      3.492
 
 ``` r
 # extract state message from the solver
@@ -337,7 +337,7 @@ print(p1_target_coverage)
     ##  7 Spinus t… TRUE          99.9            20.0          22.6               0   
     ##  8 Spinus t… TRUE          99.9            20.0          23.1               0   
     ##  9 Falco sp… TRUE          99.9            20.0          24.9               0   
-    ## 10 Falco sp… TRUE         100.             20.0          24.5               0   
+    ## 10 Falco sp… TRUE         100.0            20.0          24.5               0   
     ## # ℹ 386 more rows
     ## # ℹ 3 more variables: relative_target <dbl>, relative_held <dbl>,
     ## #   relative_shortfall <dbl>

@@ -112,6 +112,10 @@ plot(s, axes = FALSE)
 }
 }
 \seealso{
+For information on calibrating the penalties, see the Calibrating Trade-offs
+vignette. Additionally, Cohons's method (\code{\link[=calibrate_cohon_method]{calibrate_cohon_method()}})
+can be used to identify suitable penalty values.
+
 Other overviews: 
 \code{\link{constraints}},
 \code{\link{decisions}},
