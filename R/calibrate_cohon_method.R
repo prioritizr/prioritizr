@@ -181,7 +181,8 @@ calibrate_cohon_method <- function(x, approx = TRUE, verbose = TRUE) {
     assertthat::is.flag(approx),
     assertthat::noNA(approx),
     assertthat::is.flag(verbose),
-    assertthat::noNA(verbose)
+    assertthat::noNA(verbose),
+    any_solvers_installed()
   )
 
   # preliminary calculations for indices

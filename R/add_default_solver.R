@@ -35,6 +35,12 @@ add_default_solver <- function(x, ...) {
   # assert valid arguments
   assert_required(x)
   assert(is_conservation_problem(x), call = NULL)
+  if (!identical(Sys.getenv("PRIORITIZR_ENABLE_COMPILE_SOLVER"), "TRUE")) {
+    assert(
+      any_solvers_installed(),
+      call = NULL
+    )
+  }
   # find solver
   ds <- default_solver_name()
   # return solver
@@ -56,17 +62,11 @@ add_default_solver <- function(x, ...) {
   {
     return(add_compile_solver(x, ...))
   } else {
-    # throw error if solver not installed
-    if (is.null(ds)) {
-      cli::cli_abort(
-        c(
-          "No optimization solvers are installed.",
-          "x" = "You must install a solver to generate prioritizations.",
-          "i" = "See {.topic solvers} for options."
-        ),
-        call = NULL
-      )
-    }
+    cli::cli_abort(
+      "Solver not recognized.",
+      call = NULL,
+      .internal = TRUE
+    )
   }
 }
 
@@ -98,18 +98,4 @@ default_solver_name <- function() {
   } else {
     return(NULL)
   }
-}
-
-#' Any solvers installed?
-#'
-#' Test if any solvers are installed.
-#'
-#' @details This function tests if any of the following packages are installed:
-#'   \pkg{Rsymphony}, \pkg{lpsymphony}, \pkg{gurobi}.
-#'
-#' @return `logical` value indicating if any solvers are installed.
-#'
-#' @noRd
-any_solvers_installed <- function() {
-  !is.null(default_solver_name())
 }

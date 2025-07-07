@@ -29,9 +29,10 @@ given that a solution must be optimal according to the penalties.
 \description{
 Identify a penalty value that represents a suitable compromise between the
 primary objective and a penalty for a conservation planning problem.
-To achieve this, the function provides an automated routine following Cohon
-\emph{et al.} (1979) that was adapted for systematic conservation planning by
-Ardron \emph{et al.} (2010).
+This is accomplished following the multi-objective algorithm developed by
+Cohon \emph{et al.} (1979) that was later adapted for
+systematic conservation planning
+(Ardron \emph{et al.} 2010; Fischer and Church RL 2005).
 }
 \details{
 This function provides a routine for implementing Cohon's method
@@ -172,7 +173,10 @@ Victoria, BC, Canada.
 
 Cohon JL, Church RL, and Sheer DP (1979) Generating multiobjective
 trade-offs: An algorithm for bicriterion problems.
-\emph{Water Resources Research}, 15, 1001--1010.
+\emph{Water Resources Research}, 15: 1001--1010.
+
+Fischer DT and Church RL (2005) The SITES reserve selection system: A
+critical review. \emph{Environmental Modeling and Assessment}, 10: 215--228.
 }
 \seealso{
 See \link{penalties} for an overview of all functions for adding penalties.

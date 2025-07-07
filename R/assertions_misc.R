@@ -116,3 +116,25 @@ assertthat::on_failure(is_valid_raw_solution) <- function(call, env) {
     )
   )
 }
+
+#' Any solvers installed?
+#'
+#' Test if any solvers are installed.
+#'
+#' @details This function tests if any of the following packages are installed:
+#'   \pkg{Rsymphony}, \pkg{lpsymphony}, \pkg{gurobi}.
+#'
+#' @return `logical` value indicating if any solvers are installed.
+#'
+#' @noRd
+any_solvers_installed <- function() {
+  !is.null(default_solver_name())
+}
+
+assertthat::on_failure(any_solvers_installed) <- function(call, env) {
+  c(
+    "No optimization solvers are installed.",
+    "x" = "You must install a solver to generate prioritizations.",
+    "i" = "See {.topic solvers} for options."
+  )
+}

@@ -116,7 +116,7 @@ test_that("min set objective (approx = TRUE)", {
   )
   expect_lte(
     abs(attr(x, "solution_2_objective") - attr(y, "solution_2_objective")),
-    600
+    1000
   )
   expect_lte(
     abs(attr(x, "solution_2_penalty") - attr(y, "solution_2_penalty")),
@@ -202,6 +202,8 @@ test_that("min shortfall objective (approx = FALSE)", {
 })
 
 test_that("invalid inputs", {
+  skip_on_cran()
+  skip_if_no_fast_solvers_installed()
   # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()

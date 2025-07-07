@@ -52,7 +52,7 @@ Imports:
     methods,
     parallel,
     R6 (>= 2.5.1),
-    rlang (>= 1.0.6),
+    rlang (>= 1.1.0),
     cli (>= 3.6.0),
     sf (>= 1.0-12),
     terra (>= 1.6-53),
