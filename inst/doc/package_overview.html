@@ -2690,7 +2690,7 @@ progress when searching for a suitable solution.</p>
 ## Cutting planes:
 ##   Gomory: 3
 ## 
-## Explored 28 nodes (937 simplex iterations) in 0.10 seconds (0.12 work units)
+## Explored 28 nodes (937 simplex iterations) in 0.09 seconds (0.12 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 10: 2640.75 2664.02 2666.17 ... 2846.16
@@ -2720,7 +2720,7 @@ quality of the solution and the optimization process.</p>
 <div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="#cb123-1" tabindex="-1"></a><span class="co"># extract time spent solving solution</span></span>
 <span id="cb123-2"><a href="#cb123-2" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">attr</span>(s44, <span class="st">&quot;runtime&quot;</span>))</span></code></pre></div>
 <pre><code>## solution_1 
-##      0.101</code></pre>
+##      0.096</code></pre>
 <div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="#cb125-1" tabindex="-1"></a><span class="co"># extract state message from the solver that describes why this specific</span></span>
 <span id="cb125-2"><a href="#cb125-2" tabindex="-1"></a><span class="co"># solution was returned</span></span>
 <span id="cb125-3"><a href="#cb125-3" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">attr</span>(s44, <span class="st">&quot;status&quot;</span>))</span></code></pre></div>
