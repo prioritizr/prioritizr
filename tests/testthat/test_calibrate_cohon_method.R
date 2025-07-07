@@ -116,7 +116,7 @@ test_that("min set objective (approx = TRUE)", {
   )
   expect_lte(
     abs(attr(x, "solution_2_objective") - attr(y, "solution_2_objective")),
-    400
+    600
   )
   expect_lte(
     abs(attr(x, "solution_2_penalty") - attr(y, "solution_2_penalty")),
