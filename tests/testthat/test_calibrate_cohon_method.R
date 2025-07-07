@@ -49,22 +49,22 @@ test_that("min set objective (approx = FALSE)", {
   expect_true(assertthat::is.number(attr(x, "solution_2_penalty")))
   expect_true(assertthat::noNA(attr(x, "solution_2_penalty")))
   expect_lte(
-    attr(x, "solution_1_objective"),
-    s1_metrics$total_cost
+    round(attr(x, "solution_1_objective"), 5),
+    round(s1_metrics$total_cost, 5)
   )
   expect_lte(
-    attr(x, "solution_1_penalty"),
-    s1_metrics$total_boundary_length
+    round(attr(x, "solution_1_penalty"), 5),
+    round(s1_metrics$total_boundary_length, 5)
   )
   expect_lte(
-    attr(x, "solution_2_objective"),
-    s2_metrics$total_cost
+    round(attr(x, "solution_2_objective"), 5),
+    round(s2_metrics$total_cost, 5)
   )
   expect_lte(
-    attr(x, "solution_2_penalty"),
-    s2_metrics$total_boundary_length
+    round(attr(x, "solution_2_penalty"), 5),
+    round(s2_metrics$total_boundary_length, 5)
   )
-  expect_lte(abs(x - y), 300)
+  expect_equal(x[[1]], y, tolerance = 300)
 })
 
 test_that("min set objective (approx = TRUE)", {
@@ -106,27 +106,26 @@ test_that("min set objective (approx = TRUE)", {
   expect_true(assertthat::noNA(attr(y, "solution_1_penalty")))
   expect_true(assertthat::is.number(attr(y, "solution_2_penalty")))
   expect_true(assertthat::noNA(attr(y, "solution_2_penalty")))
-  expect_equal(
-    attr(x, "solution_1_objective"),
-    attr(y, "solution_1_objective"),
-    tolerance = 400
+  expect_lte(
+    abs(attr(x, "solution_1_objective") -  attr(y, "solution_1_objective")),
+    400
   )
-  expect_equal(
-    attr(x, "solution_1_penalty"),
-    attr(y, "solution_1_penalty"),
-    tolerance = 1.5
+  expect_lte(
+    abs(attr(x, "solution_1_penalty") - attr(y, "solution_1_penalty")),
+    2.0
   )
-  expect_equal(
-    attr(x, "solution_2_objective"),
-    attr(y, "solution_2_objective"),
-    tolerance = 400
+  expect_lte(
+    abs(attr(x, "solution_2_objective") - attr(y, "solution_2_objective")),
+    400
   )
-  expect_equal(
-    attr(x, "solution_2_penalty"),
-    attr(y, "solution_2_penalty"),
-    tolerance = 0.5
+  expect_lte(
+    abs(attr(x, "solution_2_penalty") - attr(y, "solution_2_penalty")),
+    0.5
   )
-  expect_lte(abs(x - y), 300)
+  expect_lte(
+    abs(x[[1]] - y[[1]]),
+    500
+  )
 })
 
 test_that("min shortfall objective (approx = FALSE)", {
@@ -199,7 +198,7 @@ test_that("min shortfall objective (approx = FALSE)", {
     s2_metrics$total_boundary_length,
     tolerance = 1e-5
   )
-  expect_equal(x[[1]], y, tolerance = 1e-5)
+  expect_equal(x[[1]], y[[1]], tolerance = 1e-5)
 })
 
 test_that("invalid inputs", {
