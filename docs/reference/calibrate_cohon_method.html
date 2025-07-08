@@ -229,9 +229,7 @@ critical review. <em>Environmental Modeling and Assessment</em>, 10: 215–228.<
 <span class="r-in"><span><span class="va">sim_features</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_features</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create problem with boundary penalties</span></span></span>
-<span class="r-in"><span><span class="co">## note that we (i) use penalty = 1 as a place-holder and</span></span></span>
-<span class="r-in"><span><span class="co">## (ii) specify gap = 0.5 to obtain a decent estimate of the</span></span></span>
-<span class="r-in"><span><span class="co">## calibrated penalty value</span></span></span>
+<span class="r-in"><span><span class="co">## note that we use penalty = 1 as a place-holder</span></span></span>
 <span class="r-in"><span><span class="va">p1</span> <span class="op">&lt;-</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>

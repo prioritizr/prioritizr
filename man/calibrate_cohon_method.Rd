@@ -136,9 +136,7 @@ sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
 
 # create problem with boundary penalties
-## note that we (i) use penalty = 1 as a place-holder and
-## (ii) specify gap = 0.5 to obtain a decent estimate of the
-## calibrated penalty value
+## note that we use penalty = 1 as a place-holder
 p1 <-
   problem(sim_pu_raster, sim_features) \%>\%
   add_min_set_objective() \%>\%
