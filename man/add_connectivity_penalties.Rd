@@ -420,7 +420,7 @@ reserve network selection. \emph{Proceedings of the Royal Society of London.}
 See \link{penalties} for an overview of all functions for adding penalties.
 Also see \code{\link[=add_asym_connectivity_penalties]{add_asym_connectivity_penalties()}} to account for
 asymmetric connectivity between planning units.
-Additionally, see \code{\link[=calibrate_cohon_method]{calibrate_cohon_method()}} for assistance with selecting
+Additionally, see \code{\link[=calibrate_cohon_penalty]{calibrate_cohon_penalty()}} for assistance with selecting
 an appropriate \code{penalty} value.
 
 Other penalties: 

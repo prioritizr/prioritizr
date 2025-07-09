@@ -59,6 +59,11 @@ Create a new optimization problem object.}
 \item \href{#method-OptimizationProblem-compressed_formulation}{\code{OptimizationProblem$compressed_formulation()}}
 \item \href{#method-OptimizationProblem-shuffle_columns}{\code{OptimizationProblem$shuffle_columns()}}
 \item \href{#method-OptimizationProblem-copy}{\code{OptimizationProblem$copy()}}
+\item \href{#method-OptimizationProblem-set_obj}{\code{OptimizationProblem$set_obj()}}
+\item \href{#method-OptimizationProblem-set_lb}{\code{OptimizationProblem$set_lb()}}
+\item \href{#method-OptimizationProblem-set_ub}{\code{OptimizationProblem$set_ub()}}
+\item \href{#method-OptimizationProblem-remove_last_linear_constraint}{\code{OptimizationProblem$remove_last_linear_constraint()}}
+\item \href{#method-OptimizationProblem-append_linear_constraints}{\code{OptimizationProblem$append_linear_constraints()}}
 \item \href{#method-OptimizationProblem-clone}{\code{OptimizationProblem$clone()}}
 }
 }
@@ -359,6 +364,107 @@ Create a copy of the optimization problem.
 
 \subsection{Returns}{
 A new \code{OptimizationProblem} object .
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OptimizationProblem-set_obj"></a>}}
+\if{latex}{\out{\hypertarget{method-OptimizationProblem-set_obj}{}}}
+\subsection{Method \code{set_obj()}}{
+Set objective coefficients for the decision variables in the
+optimization problem.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OptimizationProblem$set_obj(obj)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{obj}}{\code{numeric} vector.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+An invisible \code{TRUE} indicating success.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OptimizationProblem-set_lb"></a>}}
+\if{latex}{\out{\hypertarget{method-OptimizationProblem-set_lb}{}}}
+\subsection{Method \code{set_lb()}}{
+Set lower bounds for the decision variables in the optimization problem.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OptimizationProblem$set_lb(lb)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{lb}}{\code{numeric} vector.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+An invisible \code{TRUE} indicating success.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OptimizationProblem-set_ub"></a>}}
+\if{latex}{\out{\hypertarget{method-OptimizationProblem-set_ub}{}}}
+\subsection{Method \code{set_ub()}}{
+Set upper bounds for the decision variables in the optimization problem.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OptimizationProblem$set_ub(ub)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{ub}}{\code{numeric} vector.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+An invisible \code{TRUE} indicating success.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OptimizationProblem-remove_last_linear_constraint"></a>}}
+\if{latex}{\out{\hypertarget{method-OptimizationProblem-remove_last_linear_constraint}{}}}
+\subsection{Method \code{remove_last_linear_constraint()}}{
+Remove last linear constraint added to a problem.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OptimizationProblem$remove_last_linear_constraint()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+An invisible \code{TRUE} indicating success.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OptimizationProblem-append_linear_constraints"></a>}}
+\if{latex}{\out{\hypertarget{method-OptimizationProblem-append_linear_constraints}{}}}
+\subsection{Method \code{append_linear_constraints()}}{
+Append linear constraints to the optimization problem.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OptimizationProblem$append_linear_constraints(rhs, sense, A, row_ids)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{rhs}}{\code{numeric} vector with right-hand-side values.}
+
+\item{\code{sense}}{\code{character} vector with constraint sense values
+(i.e., \code{"<="}, \code{">="}, or \code{"="}).}
+
+\item{\code{A}}{\code{\link[Matrix:sparseMatrix]{Matrix::sparseMatrix()}} with constraint coefficients.}
+
+\item{\code{row_ids}}{\code{character} vector with identifier for constraints.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+An invisible \code{TRUE} indicating success.
 }
 }
 \if{html}{\out{<hr>}}

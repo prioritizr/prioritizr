@@ -51,7 +51,7 @@ NULL
 #'
 #' @seealso
 #' For information on calibrating the penalties, see the Calibrating Trade-offs
-#' vignette. Additionally, Cohons's method ([calibrate_cohon_method()])
+#' vignette. Additionally, Cohons's method ([calibrate_cohon_penalty()])
 #' can be used to identify suitable penalty values.
 #'
 #' @examples

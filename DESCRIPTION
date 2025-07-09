@@ -184,7 +184,7 @@ Collate:
     'as_Matrix.R'
     'boundary_matrix.R'
     'branch_matrix.R'
-    'calibrate_cohon_method.R'
+    'calibrate_cohon_penalty.R'
     'compile.R'
     'connectivity_matrix.R'
     'constraints.R'

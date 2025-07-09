@@ -532,7 +532,7 @@ p3 <-
   add_binary_decisions()
 
 # find calibrated boundary penalty using Cohon's method
-cohon_penalty <- calibrate_cohon_method(p3, verbose = FALSE)
+cohon_penalty <- calibrate_cohon_penalty(p3, verbose = FALSE)
 
 # print penalty value
 print(cohon_penalty[[1]])

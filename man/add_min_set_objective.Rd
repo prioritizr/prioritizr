@@ -10,7 +10,7 @@ add_min_set_objective(x)
 \item{x}{\code{\link[=problem]{problem()}} object.}
 }
 \value{
-An updated \code{problem()} object with the objective added to it.
+An updated \code{\link[=problem]{problem()}} object with the objective added to it.
 }
 \description{
 Set the objective of a conservation planning problem to

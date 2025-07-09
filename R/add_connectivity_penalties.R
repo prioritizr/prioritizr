@@ -148,7 +148,7 @@ NULL
 #' See [penalties] for an overview of all functions for adding penalties.
 #' Also see [add_asym_connectivity_penalties()] to account for
 #' asymmetric connectivity between planning units.
-#' Additionally, see [calibrate_cohon_method()] for assistance with selecting
+#' Additionally, see [calibrate_cohon_penalty()] for assistance with selecting
 #' an appropriate `penalty` value.
 #'
 #' @family penalties

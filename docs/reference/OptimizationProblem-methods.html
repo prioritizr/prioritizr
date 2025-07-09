@@ -5,7 +5,7 @@
       fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
     }
   };
-</script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet"><meta property="og:title" content="Optimization problem methods — OptimizationProblem-methods"><meta name="description" content="These functions are used to access data from a optimization_problem()."><meta property="og:description" content="These functions are used to access data from a optimization_problem()."><meta property="og:image" content="https://prioritizr.net/logo.png"><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-70466840-4"></script><script>
+</script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet"><meta property="og:title" content="Optimization problem methods — OptimizationProblem-methods"><meta name="description" content="These functions are used to query and update a optimization_problem()."><meta property="og:description" content="These functions are used to query and update a optimization_problem()."><meta property="og:image" content="https://prioritizr.net/logo.png"><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-70466840-4"></script><script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
@@ -59,7 +59,7 @@
     </div>
 
     <div class="ref-description section level2">
-    <p>These functions are used to access data from a <code><a href="optimization_problem.html">optimization_problem()</a></code>.</p>
+    <p>These functions are used to query and update a <code><a href="optimization_problem.html">optimization_problem()</a></code>.</p>
     </div>
 
     <div class="section level2">
@@ -126,7 +126,32 @@
 <span><span class="fu">compressed_formulation</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for class 'OptimizationProblem'</span></span>
-<span><span class="fu">compressed_formulation</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">compressed_formulation</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">set_obj</span><span class="op">(</span><span class="va">x</span>, <span class="va">obj</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for class 'OptimizationProblem,ANY'</span></span>
+<span><span class="fu">set_obj</span><span class="op">(</span><span class="va">x</span>, <span class="va">obj</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">set_lb</span><span class="op">(</span><span class="va">x</span>, <span class="va">lb</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for class 'OptimizationProblem,ANY'</span></span>
+<span><span class="fu">set_lb</span><span class="op">(</span><span class="va">x</span>, <span class="va">lb</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">set_ub</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for class 'OptimizationProblem,ANY'</span></span>
+<span><span class="fu">set_ub</span><span class="op">(</span><span class="va">x</span>, <span class="va">ub</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">append_linear_constraints</span><span class="op">(</span><span class="va">x</span>, <span class="va">rhs</span>, <span class="va">sense</span>, <span class="va">A</span>, <span class="va">row_ids</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for class 'OptimizationProblem,ANY,ANY,ANY,ANY'</span></span>
+<span><span class="fu">append_linear_constraints</span><span class="op">(</span><span class="va">x</span>, <span class="va">rhs</span>, <span class="va">sense</span>, <span class="va">A</span>, <span class="va">row_ids</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">remove_last_linear_constraint</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for class 'OptimizationProblem'</span></span>
+<span><span class="fu">remove_last_linear_constraint</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -135,6 +160,40 @@
 
 <dl><dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
 <dd><p><code><a href="optimization_problem.html">optimization_problem()</a></code> object.</p></dd>
+
+
+<dt id="arg-obj">obj<a class="anchor" aria-label="anchor" href="#arg-obj"></a></dt>
+<dd><p><code>numeric</code> vector containing a new linear coefficient for
+each decision variable in the problem.</p></dd>
+
+
+<dt id="arg-lb">lb<a class="anchor" aria-label="anchor" href="#arg-lb"></a></dt>
+<dd><p><code>numeric</code> vector containing a new lower bound for each
+decision variable in the problem.</p></dd>
+
+
+<dt id="arg-ub">ub<a class="anchor" aria-label="anchor" href="#arg-ub"></a></dt>
+<dd><p><code>numeric</code> vector containing a new upper bound for each
+decision variable in the problem.</p></dd>
+
+
+<dt id="arg-rhs">rhs<a class="anchor" aria-label="anchor" href="#arg-rhs"></a></dt>
+<dd><p><code>numeric</code> vector with the right-hand-side values for new
+constraints.</p></dd>
+
+
+<dt id="arg-sense">sense<a class="anchor" aria-label="anchor" href="#arg-sense"></a></dt>
+<dd><p><code>character</code> vector with senses for new constraints
+(i.e., <code>"&gt;="</code>, <code>"&lt;="</code>, or "<code>=</code>" values).</p></dd>
+
+
+<dt id="arg-a">A<a class="anchor" aria-label="anchor" href="#arg-a"></a></dt>
+<dd><p><code><a href="https://rdrr.io/pkg/Matrix/man/sparseMatrix.html" class="external-link">Matrix::sparseMatrix()</a></code> matrix with coefficients for new
+constraints.</p></dd>
+
+
+<dt id="arg-row-ids">row_ids<a class="anchor" aria-label="anchor" href="#arg-row-ids"></a></dt>
+<dd><p><code>character</code> vector with identifiers for new constraints.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -145,66 +204,99 @@ used.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The functions return the following data:</p>
-<dl><dt>nrow</dt>
+    <p>The following functions are used to query data.</p>
+<dl><dt><code>nrow(x)</code></dt>
 <dd><p><code>integer</code> number of rows (constraints).</p></dd>
 
 
-<dt>ncol</dt>
+<dt><code>ncol(x)</code></dt>
 <dd><p><code>integer</code> number of columns (decision variables).</p></dd>
 
 
-<dt>ncell</dt>
+<dt><code>ncell(x)</code></dt>
 <dd><p><code>integer</code> number of cells.</p></dd>
 
 
-<dt>modelsense</dt>
+<dt><code>modelsense(x)</code></dt>
 <dd><p><code>character</code> describing if the problem is to be
 maximized (<code>"max"</code>) or minimized (<code>"min"</code>).</p></dd>
 
 
-<dt>vtype</dt>
+<dt><code>vtype(x)</code></dt>
 <dd><p><code>character</code> describing the type of each decision variable:
 binary (<code>"B"</code>), semi-continuous (<code>"S"</code>), or continuous
 (<code>"C"</code>)</p></dd>
 
 
-<dt>obj</dt>
+<dt><code>obj(x)</code></dt>
 <dd><p><code>numeric</code> vector specifying the objective function.</p></dd>
 
 
-<dt>A</dt>
+<dt><code>A(x)</code></dt>
 <dd><p><code><a href="https://rdrr.io/pkg/Matrix/man/dgCMatrix-class.html" class="external-link">Matrix::dgCMatrix</a></code> matrix object defining the
 problem matrix.</p></dd>
 
 
-<dt>rhs</dt>
+<dt><code>rhs(x)</code></dt>
 <dd><p><code>numeric</code> vector with right-hand-side linear constraints</p></dd>
 
 
-<dt>sense</dt>
+<dt><code>sense(x)</code></dt>
 <dd><p><code>character</code> vector with the senses of the linear
 constraints (<code>"&lt;="</code>, <code>"&gt;="</code>, <code>"="</code>).</p></dd>
 
 
-<dt>lb</dt>
+<dt><code>lb(x)</code></dt>
 <dd><p><code>numeric</code> lower bound for each decision variable. Missing data
 values (<code>NA</code>) indicate no lower bound for a given variable.</p></dd>
 
 
-<dt>ub</dt>
+<dt><code>ub(x)</code></dt>
 <dd><p><code>numeric</code> upper bounds for each decision variable. Missing
 data values (<code>NA</code>) indicate no upper bound for a given variable.</p></dd>
 
 
-<dt>number_of_planning_units</dt>
+<dt><code>number_of_planning_units(x)</code></dt>
 <dd><p><code>integer</code> number of planning units in
 the problem.</p></dd>
 
 
-<dt>number_of_features</dt>
+<dt><code>number_of_features(x)</code></dt>
 <dd><p><code>integer</code> number of features
 the problem.</p></dd>
+
+
+</dl><p>The following functions are used to update data. Note that these
+functions return an invisible <code>TRUE</code> indicating success.</p>
+<dl><dt><code>set_obj(x, obj)</code></dt>
+<dd><p>override the objective in the problem.
+Here, <code>obj</code> is a <code>numeric</code> vector containing a new linear coefficient for
+each decision variable in the problem.</p></dd>
+
+
+<dt><code>set_lb(x, lb)</code></dt>
+<dd><p>override the variable lower bounds in the problem.
+Here, <code>lb</code> is a <code>numeric</code> vector containing a new lower bound.for each
+decision variable in the problem.</p></dd>
+
+
+<dt><code>set_ub(x, ub)</code></dt>
+<dd><p>override the variable upper bounds in the problem.
+Here, <code>ub</code> is a <code>numeric</code> vector containing a new upper bound.for each
+decision variable in the problem.</p></dd>
+
+
+<dt><code>remove_last_linear_constraint()</code></dt>
+<dd><p>remove the last linear constraint
+added to a problem.</p></dd>
+
+
+<dt><code>append_linear_constraints(x, A, sense, rhs, row_ids)</code></dt>
+<dd><p>add an additional linear constraints to a problem. Here,
+<code>A</code> is a <code><a href="https://rdrr.io/pkg/Matrix/man/sparseMatrix.html" class="external-link">Matrix::sparseMatrix()</a></code> matrix, <code>sense</code> is a
+<code>character</code> vector with constraint senses (i.e., <code>"&gt;="</code>, <code>"&lt;="</code>, or "<code>=</code>"
+values), <code>rhs</code> is a <code>numeric</code> vector with the right-hand-side values,
+and <code>row_ids</code> is a <code>character</code> vector with identifiers.</p></dd>
 
 
 

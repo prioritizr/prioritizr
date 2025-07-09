@@ -1,7 +1,7 @@
 #' @include internal.R
 NULL
 
-#' Calibration with Cohon's method.
+#' Calibrate penalties with Cohon's method
 #'
 #' Identify a penalty value that represents a suitable compromise between the
 #' primary objective and a penalty for a conservation planning problem.
@@ -151,7 +151,7 @@ NULL
 #'   add_default_solver(verbose = FALSE)
 #'
 #' # find calibrated boundary penalty using Cohon's method
-#' cohon_penalty <- calibrate_cohon_method(p1, verbose = FALSE)
+#' cohon_penalty <- calibrate_cohon_penalty(p1, verbose = FALSE)
 #'
 #' # create a new problem with the calibrated boundary penalty
 #' p2 <-
@@ -169,7 +169,7 @@ NULL
 #' plot(s2, main = "solution", axes = FALSE)
 #' }
 #' @export
-calibrate_cohon_method <- function(x, approx = TRUE, verbose = TRUE) {
+calibrate_cohon_penalty <- function(x, approx = TRUE, verbose = TRUE) {
   # assert valid argument
   assert_required(x)
   assert_required(approx)
@@ -232,7 +232,7 @@ calibrate_cohon_method <- function(x, approx = TRUE, verbose = TRUE) {
   if (inherits(o1, "try-error")) {
     call <- attr(o1, "condition")$call
     if (is.null(call)) {
-      call <- "error:"
+      call <- "error:" # nocov
     } else {
       call <- paste0("{.code ", deparse(substitute(call)), "}:")
     }
@@ -246,18 +246,23 @@ calibrate_cohon_method <- function(x, approx = TRUE, verbose = TRUE) {
   }
 
   # preliminary calculations
-  o1 <- as.list(o1)
   o2 <- compile(x$remove_all_penalties(retain = "FeatureWeights"))
-  n_extra_dv <- length(o1$obj) - length(o2$obj())
+  n_extra_dv <- o1$ncol() - o2$ncol()
   main_obj <- c(o2$obj(), rep(0, n_extra_dv))
-  penalties_obj <- o1$obj - c(o2$obj(), rep(0, n_extra_dv))
+  penalties_obj <- o1$obj() - c(o2$obj(), rep(0, n_extra_dv))
   penalties_obj[abs(penalties_obj) < 1e-10] <- 0
+  o1_original_lb <- o1$lb()
+  o1_original_ub <- o1$ub()
 
   # find the optimal value for the primary objective
-  ## this involves solving the problem without the penalties
+  ## solve the problem without the penalties (i.e., o2)
   if (verbose) cli::cli_h1("Optimizing main objective")
   s1 <- x$portfolio$run(o2, x$solver)
   assert(is_valid_raw_solution(s1))
+
+  # clean up
+  rm(o2)
+  invisible(gc())
 
   # if possible, update the starting solution for the solver to reduce run time
   if (
@@ -266,10 +271,6 @@ calibrate_cohon_method <- function(x, approx = TRUE, verbose = TRUE) {
   ) {
     x$solver$data$start_solution <- s1[[1]]$x
   }
-
-  # clean up
-  rm(o2)
-  invisible(gc())
 
   # find the optimal value for penalties, when constrained
   # to be optimal according to the primary objective
@@ -281,31 +282,49 @@ calibrate_cohon_method <- function(x, approx = TRUE, verbose = TRUE) {
     ## is constrained based on the previous solution - we will use this later to
     ## calculate the penalty values (e.g., if using boundary penalties, then
     ## this would be used to calculate the total boundary length of s1)
-    o <- o1
-    o$obj <- penalties_obj
-    o$ub[seq_along(s1[[1]]$x)] <- s1[[1]]$x
-    o$lb[seq_along(s1[[1]]$x)] <- s1[[1]]$x
-    o <- optimization_problem(o)
+    o1$set_obj(penalties_obj)
+    o1$set_ub(
+      replace(
+        o1_original_ub,
+        seq_along(s1[[1]]$x),
+        s1[[1]]$x
+      )
+    )
+    o1$set_lb(
+      replace(
+        o1_original_lb,
+        seq_along(s1[[1]]$x),
+        s1[[1]]$x
+      )
+    )
 
-    # solve the constrained problem with penalties
+    ## solve the constrained problem with penalties
     if (verbose) {
       cli::cli_h1("Approximating penalty values")
     }
-    s2 <- x$portfolio$run(o, x$solver)
+    s2 <- x$portfolio$run(o1, x$solver)
     assert(is_valid_raw_solution(s2))
+
+    ## reset problem
+    o1$set_lb(o1_original_lb)
+    o1$set_ub(o1_original_ub)
   } else {
     ## if NOT using approximation method...
     ## create new problem with additional constraint based on the objective
-    o <- o1
-    n_const <- length(o1$rhs)
-    o$obj <- penalties_obj
-    o$A_i <- c(o$A_i, rep(n_const, length(main_obj)))
-    o$A_j <- c(o$A_j, seq(0, length(penalties_obj) - 1))
-    o$A_x <- c(o$A_x, main_obj)
-    o$rhs <- c(o$rhs, sum(main_obj * c(s1[[1]]$x, rep(0, n_extra_dv))))
-    o$sense <- c(o$sense, ifelse(o$modelsense == "min", "<=", ">="))
-    o$row_ids <- c(o$row_ids, "cohon")
-    o <- optimization_problem(o)
+    o1$set_obj(penalties_obj)
+    o1$append_linear_constraints(
+      rhs = sum(main_obj * c(s1[[1]]$x, rep(0, n_extra_dv))),
+      sense = ifelse(o1$modelsense() == "min", "<=", ">="),
+      A = Matrix::drop0(
+        Matrix::sparseMatrix(
+          i = rep(1, length(main_obj)),
+          j = seq_along(penalties_obj),
+          x = main_obj,
+          dims = c(1, length(main_obj))
+        )
+      ),
+      row_ids = "cohon"
+    )
 
     ## if possible, update the starting solution for the solver
     if (
@@ -319,14 +338,16 @@ calibrate_cohon_method <- function(x, approx = TRUE, verbose = TRUE) {
     if (verbose) {
       cli::cli_h1("Optimizing penalties, constrained by objective")
     }
-    s2 <- x$portfolio$run(o, x$solver)
+    s2 <- x$portfolio$run(o1, x$solver)
     assert(is_valid_raw_solution(s2))
+
+    ## reset problem
+    o1$remove_last_linear_constraint()
   }
 
   # find the optimal value for the penalties
-  o <- o1
-  o$obj <- penalties_obj
-  o <- optimization_problem(o)
+  ## note that we have previously set the objective to be based on the
+  ## penalties objective so we don't need to modify the problem
 
   # if required, clear the starting solution from the solver
   if (
@@ -340,7 +361,7 @@ calibrate_cohon_method <- function(x, approx = TRUE, verbose = TRUE) {
   if (verbose) {
     cli::cli_h1("Optimizing penalties")
   }
-  s3 <- x$portfolio$run(o, x$solver)
+  s3 <- x$portfolio$run(o1, x$solver)
   assert(is_valid_raw_solution(s3))
 
   # find the optimal value for main objective, when constrained
@@ -349,16 +370,20 @@ calibrate_cohon_method <- function(x, approx = TRUE, verbose = TRUE) {
     ## if NOT using approximation method...
     ## we will create new problem with additional constraint based on the
     ## penalties
-    o <- o1
-    n_const <- length(o1$rhs)
-    o$obj <- main_obj
-    o$A_i <- c(o$A_i, rep(n_const, length(penalties_obj)))
-    o$A_j <- c(o$A_j, seq(0, length(penalties_obj) - 1))
-    o$A_x <- c(o$A_x, penalties_obj)
-    o$rhs <- c(o$rhs, sum(penalties_obj * s3[[1]]$x))
-    o$sense <- c(o$sense, ifelse(o$modelsense == "min", "<=", ">="))
-    o$row_ids <- c(o$row_ids, "cohon")
-    o <- optimization_problem(o)
+    o1$set_obj(main_obj)
+    o1$append_linear_constraints(
+      rhs = sum(penalties_obj * s3[[1]]$x),
+      sense = ifelse(o1$modelsense() == "min", "<=", ">="),
+      A = Matrix::drop0(
+        Matrix::sparseMatrix(
+          i = rep(1, length(penalties_obj)),
+          j = seq_along(penalties_obj),
+          x = penalties_obj,
+          dims = c(1, length(penalties_obj))
+        )
+      ),
+      row_ids = "cohon"
+    )
 
     ## if possible, update the starting solution for the solver
     if (
@@ -372,7 +397,7 @@ calibrate_cohon_method <- function(x, approx = TRUE, verbose = TRUE) {
     if (verbose) {
       cli::cli_h1("Optimizing main objective, constrained by penalties")
     }
-    s3 <- x$portfolio$run(o, x$solver)
+    s3 <- x$portfolio$run(o1, x$solver)
     assert(is_valid_raw_solution(s3))
   }
 

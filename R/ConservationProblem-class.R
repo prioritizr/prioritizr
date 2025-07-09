@@ -990,8 +990,8 @@ ConservationProblem <- R6::R6Class(
       p <- self$clone(deep = TRUE)
       if (!is.null(retain)) {
         assert(is.character(retain))
-        idx <- which(!vapply(p$penalties, inherits, logical(1), retain))
-        p$penalties <- p$penalties[-idx]
+        idx <- which(vapply(p$penalties, inherits, logical(1), retain))
+        p$penalties <- p$penalties[idx]
       } else {
         p$penalties <- list()
       }

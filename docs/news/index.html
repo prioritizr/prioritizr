@@ -61,7 +61,7 @@
 <h2 class="pkg-version" data-toc-text="8.0.6.7" id="prioritizr-8067">prioritizr 8.0.6.7<a class="anchor" aria-label="anchor" href="#prioritizr-8067"></a></h2>
 <div class="section level3">
 <h3 id="new-features-8-0-6-7">New features<a class="anchor" aria-label="anchor" href="#new-features-8-0-6-7"></a></h3>
-<ul><li>New <code>calibate_cohon_method()</code> function for automatically identifying a suitable penalty value for the penalties functions (<a href="https://github.com/prioritizr/prioritizr/issues/175" class="external-link">#175</a>). It is designed to work with any objective function and any of the penalty functions available in the package.</li>
+<ul><li>New <code><a href="../reference/calibrate_cohon_penalty.html">calibrate_cohon_penalty()</a></code> function for automatically identifying a suitable penalty value for the penalties functions (<a href="https://github.com/prioritizr/prioritizr/issues/175" class="external-link">#175</a>). It is designed to work with any objective function and any of the penalty functions available in the package.</li>
 <li>New <code><a href="../reference/add_neighbor_penalties.html">add_neighbor_penalties()</a></code> function to reduce spatial fragmentation. This function is especially useful when working with large-scale problems or open source solvers.</li>
 <li>Update <code><a href="../reference/add_cbc_solver.html">add_cbc_solver()</a></code>, <code><a href="../reference/add_gurobi_solver.html">add_gurobi_solver()</a></code>, and <code><a href="../reference/add_highs_solver.html">add_highs_solver()</a></code>, functions with a new <code>control</code> parameter that can be used to manually specify additional parameters for customizing the optimization process (<a href="https://github.com/prioritizr/prioritizr/issues/354" class="external-link">#354</a>).</li>
 </ul></div>
@@ -83,7 +83,7 @@
 <h3 id="documentation-updates-8-0-6-7">Documentation updates<a class="anchor" aria-label="anchor" href="#documentation-updates-8-0-6-7"></a></h3>
 <ul><li>Fix mistake in <code><a href="../reference/add_gurobi_solver.html">add_gurobi_solver()</a></code> function documentation for the <code>numeric_focus</code> parameter.</li>
 <li>Fix typo in equation for <code><a href="../reference/add_max_utility_objective.html">add_max_utility_objective()</a></code> (<a href="https://github.com/prioritizr/prioritizr/issues/373" class="external-link">#373</a>). Thanks to Anthony Richardson (<a href="https://github.com/ric325" class="external-link">@ric325</a>) for bug report.</li>
-<li>Update Calibrating trade-offs vignette with new <code><a href="../reference/calibrate_cohon_method.html">calibrate_cohon_method()</a></code> function.</li>
+<li>Update Calibrating trade-offs vignette with new <code><a href="../reference/calibrate_cohon_penalty.html">calibrate_cohon_penalty()</a></code> function.</li>
 <li>Update publication record.</li>
 </ul></div>
 </div>
@@ -258,7 +258,7 @@
 <h2 class="pkg-version" data-toc-text="8.0.4.1" id="prioritizr-8041">prioritizr 8.0.4.1<a class="anchor" aria-label="anchor" href="#prioritizr-8041"></a></h2>
 <div class="section level3">
 <h3 id="minor-improvements-and-bug-fixes-8-0-4-1">Minor improvements and bug fixes<a class="anchor" aria-label="anchor" href="#minor-improvements-and-bug-fixes-8-0-4-1"></a></h3>
-<ul><li>Fix issue with <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> and <code>summarize()</code> not displaying correct text for linear constraints (<a href="https://github.com/prioritizr/prioritizr/issues/330" class="external-link">#330</a>).</li>
+<ul><li>Fix issue with <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize()</a></code> not displaying correct text for linear constraints (<a href="https://github.com/prioritizr/prioritizr/issues/330" class="external-link">#330</a>).</li>
 </ul></div>
 </div>
     <div class="section level2">

@@ -96,7 +96,7 @@ reference:
       - penalties
       - has_concept("penalties")
       - add_feature_weights
-      - calibrate_cohon_method
+      - calibrate_cohon_penalty
 
   - title: Decisions
     desc: Functions for specifying the type of decisions in a problem.

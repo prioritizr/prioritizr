@@ -20,7 +20,7 @@ a separate budget for each management zone.}
 for the conservation features.}
 }
 \value{
-An updated \code{problem()} object with the objective added to it.
+An updated \code{\link[=problem]{problem()}} object with the objective added to it.
 }
 \description{
 Set the objective of a conservation planning problem to

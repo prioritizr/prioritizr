@@ -107,7 +107,7 @@ NULL
 #'
 #' @seealso
 #' See [penalties] for an overview of all functions for adding penalties.
-#' Also, see [calibrate_cohon_method()] for assistance with selecting
+#' Also, see [calibrate_cohon_penalty()] for assistance with selecting
 #' an appropriate `penalty` value.
 #'
 #' @family penalties

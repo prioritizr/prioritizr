@@ -85,6 +85,26 @@ rcpp_get_optimization_problem_compressed_formulation <- function(x) {
     .Call(`_prioritizr_rcpp_get_optimization_problem_compressed_formulation`, x)
 }
 
+rcpp_set_optimization_problem_obj <- function(x, obj) {
+    .Call(`_prioritizr_rcpp_set_optimization_problem_obj`, x, obj)
+}
+
+rcpp_set_optimization_problem_lb <- function(x, lb) {
+    .Call(`_prioritizr_rcpp_set_optimization_problem_lb`, x, lb)
+}
+
+rcpp_set_optimization_problem_ub <- function(x, ub) {
+    .Call(`_prioritizr_rcpp_set_optimization_problem_ub`, x, ub)
+}
+
+rcpp_remove_optimization_problem_last_linear_constraint <- function(x) {
+    .Call(`_prioritizr_rcpp_remove_optimization_problem_last_linear_constraint`, x)
+}
+
+rcpp_append_optimization_problem_linear_constraints <- function(x, rhs, sense, A, row_ids) {
+    .Call(`_prioritizr_rcpp_append_optimization_problem_linear_constraints`, x, rhs, sense, A, row_ids)
+}
+
 rcpp_set_optimization_problem_shuffled <- function(x, shuffle_key) {
     .Call(`_prioritizr_rcpp_set_optimization_problem_shuffled`, x, shuffle_key)
 }

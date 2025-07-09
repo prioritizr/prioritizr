@@ -244,6 +244,68 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rcpp_set_optimization_problem_obj
+bool rcpp_set_optimization_problem_obj(SEXP x, const Rcpp::NumericVector obj);
+RcppExport SEXP _prioritizr_rcpp_set_optimization_problem_obj(SEXP xSEXP, SEXP objSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector >::type obj(objSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_set_optimization_problem_obj(x, obj));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_set_optimization_problem_lb
+bool rcpp_set_optimization_problem_lb(SEXP x, const Rcpp::NumericVector lb);
+RcppExport SEXP _prioritizr_rcpp_set_optimization_problem_lb(SEXP xSEXP, SEXP lbSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector >::type lb(lbSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_set_optimization_problem_lb(x, lb));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_set_optimization_problem_ub
+bool rcpp_set_optimization_problem_ub(SEXP x, const Rcpp::NumericVector ub);
+RcppExport SEXP _prioritizr_rcpp_set_optimization_problem_ub(SEXP xSEXP, SEXP ubSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector >::type ub(ubSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_set_optimization_problem_ub(x, ub));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_remove_optimization_problem_last_linear_constraint
+bool rcpp_remove_optimization_problem_last_linear_constraint(SEXP x);
+RcppExport SEXP _prioritizr_rcpp_remove_optimization_problem_last_linear_constraint(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_remove_optimization_problem_last_linear_constraint(x));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_append_optimization_problem_linear_constraints
+bool rcpp_append_optimization_problem_linear_constraints(SEXP x, const Rcpp::NumericVector rhs, const Rcpp::CharacterVector sense, const arma::sp_mat A, const Rcpp::CharacterVector row_ids);
+RcppExport SEXP _prioritizr_rcpp_append_optimization_problem_linear_constraints(SEXP xSEXP, SEXP rhsSEXP, SEXP senseSEXP, SEXP ASEXP, SEXP row_idsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector >::type rhs(rhsSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::CharacterVector >::type sense(senseSEXP);
+    Rcpp::traits::input_parameter< const arma::sp_mat >::type A(ASEXP);
+    Rcpp::traits::input_parameter< const Rcpp::CharacterVector >::type row_ids(row_idsSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_append_optimization_problem_linear_constraints(x, rhs, sense, A, row_ids));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rcpp_set_optimization_problem_shuffled
 Rcpp::IntegerVector rcpp_set_optimization_problem_shuffled(SEXP x, std::vector<std::size_t> shuffle_key);
 RcppExport SEXP _prioritizr_rcpp_set_optimization_problem_shuffled(SEXP xSEXP, SEXP shuffle_keySEXP) {

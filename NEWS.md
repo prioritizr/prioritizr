@@ -2,7 +2,7 @@
 
 ## New features
 
-- New `calibate_cohon_method()` function for automatically identifying
+- New `calibrate_cohon_penalty()` function for automatically identifying
   a suitable penalty value for the penalties functions (#175). It is designed
   to work with any objective function and any of the penalty functions
   available in the package.
@@ -68,7 +68,7 @@
   `numeric_focus` parameter.
 - Fix typo in equation for `add_max_utility_objective()` (#373). Thanks to
   Anthony Richardson (\@ric325) for bug report.
-- Update Calibrating trade-offs vignette with new `calibrate_cohon_method()`
+- Update Calibrating trade-offs vignette with new `calibrate_cohon_penalty()`
   function.
 - Update publication record.
 

@@ -131,7 +131,7 @@ NULL
 #' See [penalties] for an overview of all functions for adding penalties.
 #' Also see [add_neighbor_penalties()] for a penalty that
 #' can reduce spatial fragmentation and has faster solver run times.
-#' Additionally, see [calibrate_cohon_method()] for assistance with selecting
+#' Additionally, see [calibrate_cohon_penalty()] for assistance with selecting
 #' an appropriate `penalty` value.
 #'
 #' @family penalties
