@@ -32,7 +32,7 @@ primary objective and a penalty for a conservation planning problem.
 This is accomplished following the multi-objective algorithm developed by
 Cohon \emph{et al.} (1979) that was later adapted for
 systematic conservation planning
-(Ardron \emph{et al.} 2010; Fischer and Church RL 2005).
+(Ardron \emph{et al.} 2010; Fischer and Church 2005).
 }
 \details{
 This function provides a routine for implementing Cohon's method

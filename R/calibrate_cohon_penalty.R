@@ -8,7 +8,7 @@ NULL
 #' This is accomplished following the multi-objective algorithm developed by
 #' Cohon *et al.* (1979) that was later adapted for
 #' systematic conservation planning
-#' (Ardron *et al.* 2010; Fischer and Church RL 2005).
+#' (Ardron *et al.* 2010; Fischer and Church 2005).
 #'
 #' @param x [problem()] object with a penalty.
 #'

@@ -941,9 +941,10 @@ period of time than the other methods.</p>
 <span></span>
 <span><span class="co"># print penalty value</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">cohon_penalty</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.5513913</span></span></code></pre>
 <p>Now that we have calculated a <code>penalty</code> value using this
 method, we can use it to generate a prioritization.</p>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># generate prioritization using penalty value calculated using Cohon's method</span></span>
 <span><span class="va">p4</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">tas_pu</span>, <span class="va">tas_features</span>, cost_column <span class="op">=</span> <span class="st">"cost"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -957,7 +958,7 @@ method, we can use it to generate a prioritization.</p>
 <span><span class="va">s4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p4</span><span class="op">)</span></span></code></pre></div>
 <p>Let’s update the <code>results_data</code> table with results about
 the prioritization.</p>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># add new row with data for prioritization</span></span>
 <span><span class="va">result_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html" class="external-link">bind_rows</a></span><span class="op">(</span></span>
 <span>  <span class="va">result_data</span>,</span>
@@ -979,7 +980,7 @@ different methods.</p>
 </h3>
 <p>Let’s create a plot to visualize the results from the different
 methods.</p>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create plot to visualize trade-offs and show selected prioritizations</span></span>
 <span><span class="va">result_plot</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span></span>
@@ -1011,7 +1012,7 @@ methods.</p>
 prioritizations. To further compare the results from the different
 methods, let’s create some maps showing the selected
 prioritizations.</p>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract column names for creating the prioritizations</span></span>
 <span><span class="va">visual_name</span> <span class="op">&lt;-</span> <span class="va">result_data</span><span class="op">$</span><span class="va">name</span><span class="op">[[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">result_data</span><span class="op">$</span><span class="va">method</span> <span class="op">==</span> <span class="st">"visual"</span><span class="op">)</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="va">topsis_name</span> <span class="op">&lt;-</span> <span class="va">result_data</span><span class="op">$</span><span class="va">name</span><span class="op">[[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">result_data</span><span class="op">$</span><span class="va">method</span> <span class="op">==</span> <span class="st">"TOPSIS"</span><span class="op">)</span><span class="op">]</span><span class="op">]</span></span>
